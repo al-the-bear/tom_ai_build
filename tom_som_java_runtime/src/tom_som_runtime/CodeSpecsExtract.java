@@ -1,5 +1,6 @@
 package tom_som_runtime;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +19,11 @@ public final class CodeSpecsExtract {
    * <p>3: entries carry {@code instanceId} — the nearest enclosing list-item
    * instance's <b>stored</b> section id (the {@code <!--[…]-->} id the document
    * serializes), copy-only; null when no enclosing instance stores one.
+   *
+   * <p>Entries may carry {@code units} — the nearest stored generation units
+   * (SOM §11.2) at the entry's path or above it. The key is written only when
+   * non-empty and reads as empty when absent, so it is additive and the version
+   * stays 3.
    */
   public static final int FORMAT_VERSION = 3;
 
@@ -121,6 +127,9 @@ public final class CodeSpecsExtract {
       line(b, "      routedBy: " + yamlString(e.routedBy));
       line(b, "      routedAt: " + yamlString(e.routedAt));
       line(b, "      routingNote: " + yamlNullableString(e.routingNote));
+      if (!e.units.isEmpty()) {
+        line(b, "      units: " + yamlStringList(e.units));
+      }
       line(b, "      value: " + yamlString(e.value));
     }
     return b.toString();
@@ -178,6 +187,13 @@ public final class CodeSpecsExtract {
       }
       line(b, "- path: `" + e.path + "`");
       line(b, "- routed by: `" + e.routedBy + "` declared on `" + e.routedAt + "`");
+      if (!e.units.isEmpty()) {
+        List<String> quoted = new ArrayList<>();
+        for (String u : e.units) {
+          quoted.add("`" + u + "`");
+        }
+        line(b, "- units: " + String.join(", ", quoted));
+      }
       if (e.routingNote != null) {
         line(b, "- routing note: " + mdCell(e.routingNote));
       }

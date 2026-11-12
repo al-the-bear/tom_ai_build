@@ -550,6 +550,7 @@ class YamlEncoder {
   std::vector<std::string> listPaths;            // remaining unconsumed
   std::map<std::string, std::string> headlines;  // consumed as the walk places
   std::map<std::string, std::string> codeSpecs;  // consumed as the walk places
+  std::map<std::string, std::string> units;      // consumed as the walk places
 
   void init(const SpecDocument* d) {
     doc = d;
@@ -564,6 +565,9 @@ class YamlEncoder {
     }
     for (const std::string& path : d->codeSpecPaths()) {
       codeSpecs[path] = d->codeSpec(path);
+    }
+    for (const std::string& path : d->unitsPaths()) {
+      units[path] = d->units(path);
     }
   }
 
@@ -600,6 +604,17 @@ class YamlEncoder {
     return true;
   }
 
+  /* Consumes the units snapshot entry at `path`; true when present. */
+  bool takeUnits(const std::string& path, std::string* out) {
+    auto it = units.find(path);
+    if (it == units.end()) {
+      return false;
+    }
+    *out = it->second;
+    units.erase(it);
+    return true;
+  }
+
   void writeText(std::string& b, std::size_t indent, const std::string& key,
                  const std::string& value) {
     std::string repr = scalarRepr(value);  // text as stored (SOM §12.4)
@@ -620,15 +635,17 @@ class YamlEncoder {
   }
 
   /* Emits a scalar-valued node (content/scalar/enum leaf or scalar list item)
-   * that carries a stored headline and/or a codeSpec mapping as a `{headline?:
-   * …, codeSpec?: …, content?: …}` mapping (YRD3 + codespecs_mapping.md §9.2).
-   * At least one of headline/codeSpec is present at every call site. The
+   * that carries a stored headline, a codeSpec mapping and/or units as a
+   * `{headline?: …, codeSpec?: …, units?: …, content?: …}` mapping (YRD3 +
+   * codespecs_mapping.md §9.2 + SOM §12.3 rule 6). At least one of
+   * headline/codeSpec/units is present at every call site. The
    * content entry is
    * omitted when hasValue is false. */
   void writeScalarWithMeta(std::string& b, std::size_t indent,
                            const std::string& key, bool hasHeadline,
                            const std::string& headline, bool hasCodeSpec,
-                           const std::string& codeSpec, const std::string& value,
+                           const std::string& codeSpec, bool hasUnits,
+                           const std::string& unitIds, const std::string& value,
                            bool hasValue, bool text) {
     b.append(indent, ' ');
     b += specYamlPlainKey(key);
@@ -638,6 +655,9 @@ class YamlEncoder {
     }
     if (hasCodeSpec) {
       writeText(b, indent + 2, "codeSpec", codeSpec);
+    }
+    if (hasUnits) {
+      writeText(b, indent + 2, "units", unitIds);
     }
     if (hasValue) {
       if (text) {
@@ -657,13 +677,15 @@ class YamlEncoder {
     bool hasHeadline = takeHeadline(path, &headline);
     std::string codeSpec;
     bool hasCodeSpec = takeCodeSpec(path, &codeSpec);
+    std::string unitIds;
+    bool hasUnits = takeUnits(path, &unitIds);
     /* The form's preamble — the free text before its first field (SOM §11.4
      * rule 7, the DocSpecs `${text[]}` region) — rides in the same mapping
      * under the literal `content` key, exactly as a section's body does. */
     std::string content;
     bool hasContent = takeContent(path, &content);
     if ((!present || names.empty()) && !hasHeadline && !hasCodeSpec &&
-        !hasContent) {
+        !hasUnits && !hasContent) {
       return true;
     }
     for (const std::string& name : names) {
@@ -689,6 +711,13 @@ class YamlEncoder {
                       "`codeSpec`");
       return false;
     }
+    if (hasUnits && node.form.has_value() &&
+        node.form->fieldNamed("units") != nullptr) {
+      setErr(err, "cannot emit the stored units at `" + path +
+                      "`: the form declares a field literally named "
+                      "`units`");
+      return false;
+    }
     if (hasContent && node.form.has_value() &&
         node.form->fieldNamed("content") != nullptr) {
       setErr(err, "cannot emit the preamble content at `" + path +
@@ -704,6 +733,9 @@ class YamlEncoder {
     }
     if (hasCodeSpec) {
       writeText(b, indent + 2, "codeSpec", codeSpec);
+    }
+    if (hasUnits) {
+      writeText(b, indent + 2, "units", unitIds);
     }
     if (hasContent) {
       writeText(b, indent + 2, "content", content);
@@ -732,8 +764,11 @@ class YamlEncoder {
     bool hasHeadline = takeHeadline(path, &headline);
     std::string codeSpec;
     bool hasCodeSpec = takeCodeSpec(path, &codeSpec);
+    std::string unitIds;
+    bool hasUnits = takeUnits(path, &unitIds);
     const std::vector<std::string>* items = doc->listItemsPtr(path);
-    if ((items == nullptr || items->empty()) && !hasHeadline && !hasCodeSpec) {
+    if ((items == nullptr || items->empty()) && !hasHeadline && !hasCodeSpec &&
+        !hasUnits) {
       return true;
     }
     b.append(indent, ' ');
@@ -745,9 +780,13 @@ class YamlEncoder {
     if (hasCodeSpec) {
       writeText(b, indent + 2, "codeSpec", codeSpec);
     }
+    if (hasUnits) {
+      writeText(b, indent + 2, "units", unitIds);
+    }
     std::vector<std::string> used;
     used.push_back("headline");
     used.push_back("codeSpec");
+    used.push_back("units");
     long long pos = 0;
     static const std::vector<std::string> kNoItems;
     for (const std::string& itemPath : (items != nullptr ? *items : kNoItems)) {
@@ -773,9 +812,9 @@ class YamlEncoder {
       }
       if (!node.elementNode) {
         // Scalar list: the item is a direct value — unless it carries a stored
-        // headline and/or codeSpec, in which case it becomes a `{headline?: …,
-        // codeSpec?: …, content: …}` mapping (YRD3 + codespecs_mapping.md
-        // §9.2).
+        // headline, codeSpec and/or units, in which case it becomes a
+        // `{headline?: …, codeSpec?: …, units?: …, content: …}` mapping (YRD3 +
+        // codespecs_mapping.md §9.2 + SOM §12.3 rule 6).
         std::string v;
         bool hasV = takeContent(itemPath, &v);
         if (!hasV) {
@@ -785,9 +824,11 @@ class YamlEncoder {
         bool hasIh = takeHeadline(itemPath, &ih);
         std::string ics;
         bool hasIcs = takeCodeSpec(itemPath, &ics);
-        if (hasIh || hasIcs) {
-          writeScalarWithMeta(b, indent + 2, itemKey, hasIh, ih, hasIcs, ics, v,
-                              hasV, false);
+        std::string iu;
+        bool hasIu = takeUnits(itemPath, &iu);
+        if (hasIh || hasIcs || hasIu) {
+          writeScalarWithMeta(b, indent + 2, itemKey, hasIh, ih, hasIcs, ics,
+                              hasIu, iu, v, hasV, false);
         } else {
           writeValue(b, indent + 2, itemKey, v);
         }
@@ -847,6 +888,21 @@ class YamlEncoder {
       writeText(b, indent, "codeSpec", ownCodeSpec);
     }
 
+    // The node's own generation units — the literal `units` key, right after
+    // `codeSpec` (SOM §12.3 rule 6).
+    std::string ownUnits;
+    if (takeUnits(path, &ownUnits)) {
+      for (const auto& child : node.children) {
+        if (specYamlNodeKey(*child) == "units") {
+          setErr(err, "cannot emit the stored units at `" + path +
+                          "`: a child of " + node.debugName() +
+                          " also serializes as key `units`");
+          return false;
+        }
+      }
+      writeText(b, indent, "units", ownUnits);
+    }
+
     // The node's own body text — the literal `content` key (SOM §12.2).
     std::string own;
     if (takeContent(path, &own)) {
@@ -874,8 +930,11 @@ class YamlEncoder {
         bool hasH = takeHeadline(childPath, &h);
         std::string cs;
         bool hasCs = takeCodeSpec(childPath, &cs);
-        if (hasH || hasCs) {
-          writeScalarWithMeta(b, indent, key, hasH, h, hasCs, cs, v, hasV, true);
+        std::string u;
+        bool hasU = takeUnits(childPath, &u);
+        if (hasH || hasCs || hasU) {
+          writeScalarWithMeta(b, indent, key, hasH, h, hasCs, cs, hasU, u, v,
+                              hasV, true);
         } else if (hasV) {
           writeText(b, indent, key, v);
         }
@@ -886,8 +945,11 @@ class YamlEncoder {
         bool hasH = takeHeadline(childPath, &h);
         std::string cs;
         bool hasCs = takeCodeSpec(childPath, &cs);
-        if (hasH || hasCs) {
-          writeScalarWithMeta(b, indent, key, hasH, h, hasCs, cs, v, hasV, false);
+        std::string u;
+        bool hasU = takeUnits(childPath, &u);
+        if (hasH || hasCs || hasU) {
+          writeScalarWithMeta(b, indent, key, hasH, h, hasCs, cs, hasU, u, v,
+                              hasV, false);
         } else if (hasV) {
           writeValue(b, indent, key, v);
         }
@@ -929,6 +991,9 @@ class YamlEncoder {
     }
     for (const auto& kv : codeSpecs) {
       leftovers.push_back("codeSpec at `" + kv.first + "`");
+    }
+    for (const auto& kv : units) {
+      leftovers.push_back("units at `" + kv.first + "`");
     }
     if (leftovers.empty()) {
       return true;
@@ -1468,12 +1533,13 @@ class YamlDecoder {
     if (!joined.empty()) {
       joined += ", ";
     }
-    joined += "`content`, `headline`, `codeSpec`";
+    joined += "`content`, `headline`, `codeSpec`, `units`";
     return joined;
   }
 
-  /* Loads a headline-/codeSpec-extended scalar node (YRD3 + codespecs_mapping.md §9.2): a mapping
-   * holding only the literal keys `headline`, `codeSpec`, and `content`. */
+  /* Loads a headline-/codeSpec-/units-extended scalar node (YRD3 +
+   * codespecs_mapping.md §9.2 + SOM §12.3 rule 6): a mapping holding only the
+   * literal keys `headline`, `codeSpec`, `units` and `content`. */
   bool loadScalarWithMeta(const std::string& path, const std::string& key,
                           const YamlRef& value, std::string* err) {
     for (const auto& kv : value->map) {
@@ -1491,6 +1557,12 @@ class YamlDecoder {
           return false;
         }
         doc->setCodeSpec(path, s);
+      } else if (name == "units") {
+        std::string s;
+        if (!decoderScalarOf(v, path + " (units)", &s, err)) {
+          return false;
+        }
+        doc->setUnits(path, s);
       } else if (name == "content") {
         std::string s;
         if (!decoderScalarOf(v, path + "/content", &s, err)) {
@@ -1499,7 +1571,8 @@ class YamlDecoder {
         doc->setContent(path, s);
       } else {
         setErr(err, "scalar node `" + key + "` at `" + path +
-                        "` may only hold `headline`/`codeSpec`/`content` keys "
+                        "` may only hold `headline`/`codeSpec`/`units`/`content` "
+                        "keys "
                         "when written as a mapping, found `" + name + "`");
         return false;
       }
@@ -1530,6 +1603,15 @@ class YamlDecoder {
           return false;
         }
         doc->setCodeSpec(path, v);
+        continue;
+      }
+      if (key == "units") {
+        // The list container's own generation units (SOM §11.2), not an item.
+        std::string v;
+        if (!decoderScalarOf(value, path + " (units)", &v, err)) {
+          return false;
+        }
+        doc->setUnits(path, v);
         continue;
       }
       // anonymous: ^<memberName>-[0-9]+$
@@ -1637,6 +1719,16 @@ class YamlDecoder {
             doc->setCodeSpec(path, v);
             continue;
           }
+          if (name == "units") {
+            std::string v;
+            if (!decoderScalarOf(
+                    std::const_pointer_cast<const YamlValue>(fv.second),
+                    path + " (units)", &v, err)) {
+              return false;
+            }
+            doc->setUnits(path, v);
+            continue;
+          }
           if (name == "content") {
             /* The form's preamble (SOM §11.4 rule 7 / §12.2). */
             std::string v;
@@ -1717,6 +1809,14 @@ class YamlDecoder {
           return false;
         }
         doc->setCodeSpec(path, v);
+        continue;
+      }
+      if (key == "units") {
+        std::string v;
+        if (!decoderScalarOf(value, path + " (units)", &v, err)) {
+          return false;
+        }
+        doc->setUnits(path, v);
         continue;
       }
       setErr(err, "key `" + key + "` under `" + path + "` matches no member of " +

@@ -23,7 +23,8 @@ from .spec_model import (
     SpecFieldKind,
     SpecModel,
 )
-from .spec_reflection import SpecNodeKind, SpecReflection
+from .spec_paths import spec_path_join
+from .spec_reflection import SpecNodeKind, SpecReflection, SpecResolution
 from .spec_section_id import K_SECTION_ID_SLOT, effective_list_item_section_id
 from .spec_typed_values import som_scalar_base, som_typed_text_readable
 
@@ -91,6 +92,22 @@ class SpecValidationCode(Enum):
     #: A comment id or a question id is used twice in one document
     #: (SOM §11.9.5).
     DUPLICATE_ANNOTATION_ID = "duplicateAnnotationId"
+    #: A section's ``units`` (SOM §11.2) names an id no generation-unit entry
+    #: of the document declares.
+    UNKNOWN_UNIT = "unknownUnit"
+    #: A section carries ``units``, but neither its class nor any class
+    #: reachable beneath it routes anything to CodeSpecs (``@CodeSpecKind``),
+    #: so the units would place nothing.
+    UNITS_UNROUTED = "unitsUnrouted"
+    #: Two generation-unit entries declare one ``unitId``; reported at the
+    #: second.
+    DUPLICATE_UNIT_ID = "duplicateUnitId"
+    #: A generation-unit entry names neither a ``deploymentTarget`` nor a
+    #: ``component``, so it builds nothing.
+    UNIT_BUILDS_NOTHING = "unitBuildsNothing"
+    #: A generation-unit mapping's ``area`` is not an area code (``CE-``
+    #: followed by capital letters).
+    UNIT_AREA_MALFORMED = "unitAreaMalformed"
 
 
 @dataclass(frozen=True)
@@ -320,7 +337,12 @@ def validate_document(model: SpecModel, doc: SpecDocument) -> list[SpecValidatio
     # field must rank the instances of its form by their score.
     errors.extend(_validate_derived_values(refl, doc))
 
-    # 8. Review annotations (SOM §11.9.5): malformed, misplaced or duplicated
+    # 8. Generation units (SOM §11.2 `units`, instance-tier phase 8): the ids
+    # a section names must be declared, a section carrying units must route
+    # something, and the register itself must be well-formed.
+    errors.extend(_validate_generation_units(refl, doc))
+
+    # Last: review annotations (SOM §11.9.5): malformed, misplaced or duplicated
     # comment blocks, question blocks and inline marks. Findings, never parse
     # rejections — the rest of the document still validates.
     # Lazy import: spec_review_annotations imports this module.
@@ -910,6 +932,188 @@ def _validate_derived_values(
     # Like every phase's group, the findings are ordered by path; the sort is
     # stable, so a path's own findings keep the order they were found in.
     return sorted(errors, key=lambda e: e.path)
+
+
+def _validate_generation_units(
+    refl: SpecReflection, doc: SpecDocument
+) -> list[SpecValidationError]:
+    """Instance-tier generation-unit check (SOM §11.2, phase 8).
+
+    A **generation-unit entry** is a list item whose class carries
+    ``@NoArtifact(generation)`` and declares a form field ``unitId``; a
+    **mapping** is a list item whose class carries ``@NoArtifact(generation)``
+    and declares a form field ``area``. Both are recognised by these two facts,
+    never by class name. Entries and mappings are visited in sorted list-path
+    order, each list's items in their stored order — that order decides which
+    of two entries declaring one ``unitId`` is "the second". An entry or
+    mapping whose form holds no value at all is absence (an item just added),
+    not a finding.
+
+    Findings, all at the list item's path for the register and at the
+    section's path for ``units``: ``duplicateUnitId``, ``unitBuildsNothing``,
+    ``unitAreaMalformed``, then per section carrying ``units`` one
+    ``unknownUnit`` per undeclared id (in the order written) and
+    ``unitsUnrouted``. The group is sorted by path, stably, like every
+    phase's."""
+    errors: list[SpecValidationError] = []
+    declared: set[str] = set()
+    for list_path in sorted(doc.list_paths):
+        for item in doc.list_items(list_path):
+            res = refl.resolve(item)
+            cls = res.target_class if res is not None else None
+            if cls is None:
+                continue
+            no_artifact = cls.no_artifact
+            if no_artifact is None or no_artifact.reason != "generation":
+                continue
+
+            unit_form = _form_declaring(cls, "unitId")
+            if unit_form is not None:
+                form_path = spec_path_join(item, refl.field_segment(unit_form))
+
+                def value(f: str, form_path: str = form_path) -> str:
+                    return (doc.form_field(form_path, f) or "").strip()
+
+                if list(doc.form_field_names(form_path)):
+                    id = value("unitId")
+                    if id:
+                        if id in declared:
+                            errors.append(
+                                SpecValidationError(
+                                    path=item,
+                                    code=SpecValidationCode.DUPLICATE_UNIT_ID,
+                                    message=(
+                                        f'generation unit "{id}" is declared '
+                                        "twice"
+                                    ),
+                                )
+                            )
+                        declared.add(id)
+                    if not value("deploymentTarget") and not value("component"):
+                        errors.append(
+                            SpecValidationError(
+                                path=item,
+                                code=SpecValidationCode.UNIT_BUILDS_NOTHING,
+                                message=(
+                                    f'generation unit "{id}" builds neither a '
+                                    "deploymentTarget nor a component"
+                                ),
+                            )
+                        )
+
+            area_form = _form_declaring(cls, "area")
+            if area_form is not None:
+                form_path = spec_path_join(item, refl.field_segment(area_form))
+                area = (doc.form_field(form_path, "area") or "").strip()
+                if area and _UNIT_AREA_CODE.fullmatch(area) is None:
+                    errors.append(
+                        SpecValidationError(
+                            path=item,
+                            code=SpecValidationCode.UNIT_AREA_MALFORMED,
+                            message=(
+                                f'mapping area "{area}" is not an area code '
+                                "(CE-…)"
+                            ),
+                        )
+                    )
+
+    for path in sorted(doc.units_paths):
+        for id in _split_units(doc.units(path)):
+            if id not in declared:
+                errors.append(
+                    SpecValidationError(
+                        path=path,
+                        code=SpecValidationCode.UNKNOWN_UNIT,
+                        message=(
+                            f'units names "{id}", which no generation unit '
+                            "declares"
+                        ),
+                    )
+                )
+        res = refl.resolve(path)
+        if res is not None and not _routes_to_code_specs(refl, res):
+            errors.append(
+                SpecValidationError(
+                    path=path,
+                    code=SpecValidationCode.UNITS_UNROUTED,
+                    message=(
+                        "units is set on a section that routes nothing to "
+                        "CodeSpecs"
+                    ),
+                )
+            )
+
+    return sorted(errors, key=lambda e: e.path)
+
+
+def _split_units(units: Optional[str]) -> list[str]:
+    """A stored comma-joined ``units`` value (SOM §11.2) as its unit ids: split
+    at the commas, each trimmed, empty pieces dropped; ``None`` reads as
+    none."""
+    if units is None:
+        return []
+    return [u.strip() for u in units.split(",") if u.strip()]
+
+
+#: ``CE-`` followed by one or more capital letters — the area-code shape.
+_UNIT_AREA_CODE = re.compile(r"CE-[A-Z]+")
+
+
+def _form_declaring(cls: SpecClass, name: str) -> Optional[SpecField]:
+    """The form field of *cls* that declares a form field named *name*, or
+    ``None``."""
+    for f in cls.fields:
+        if f.kind is SpecFieldKind.FORM and any(
+            ff.name == name for ff in f.form_fields
+        ):
+            return f
+    return None
+
+
+def _routes_to_code_specs(refl: SpecReflection, res: SpecResolution) -> bool:
+    """Whether the section *res* resolves to routes anything to CodeSpecs —
+    the ``unitsUnrouted`` test.
+
+    A class *routes* when it carries ``@CodeSpecKind`` or declares a field that
+    carries one (a field-level override routes that field's values). A class
+    node (root, section, complex, complex list item) routes when any class
+    reachable from its class (:meth:`SpecReflection.reachable_class_names`,
+    itself included) routes. Any other node (a content, scalar or enum leaf, a
+    form, a list, a scalar list item) routes when its field carries
+    ``@CodeSpecKind``, when the class declaring it — the class at the parent
+    path — carries one, or when it is a list of complex items some class
+    reachable from whose element class routes."""
+
+    def routes(name: str) -> bool:
+        cls = refl.class_named(name)
+        return cls is not None and (
+            cls.code_spec_kind is not None
+            or any(f.code_spec_kind is not None for f in cls.fields)
+        )
+
+    def reach_routes(type_name: str) -> bool:
+        return any(routes(n) for n in refl.reachable_class_names(type_name))
+
+    target = res.target_class
+    if target is not None:
+        return reach_routes(target.name)
+    field = res.field
+    if field is None:
+        return False
+    if field.code_spec_kind is not None:
+        return True
+    slash = res.path.rfind("/")
+    owner_res = refl.resolve(res.path[:slash]) if slash > 0 else None
+    owner = owner_res.target_class if owner_res is not None else None
+    if owner is not None and owner.code_spec_kind is not None:
+        return True
+    element = field.element_type
+    return (
+        field.kind is SpecFieldKind.LIST
+        and field.element_is_complex
+        and element is not None
+        and reach_routes(element)
+    )
 
 
 #: A stated or operand number, as the reference's ``^-?[0-9]+(\.[0-9]+)?$``.

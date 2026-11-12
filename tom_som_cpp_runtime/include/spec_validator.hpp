@@ -90,6 +90,25 @@ inline constexpr const char* kSpecValidationCodeAnnotationMalformed =
  * (SOM §11.9.5). */
 inline constexpr const char* kSpecValidationCodeDuplicateAnnotationId =
     "duplicateAnnotationId";
+/* A section's `units` (SOM §11.2) names an id no generation-unit entry of the
+ * document declares. */
+inline constexpr const char* kSpecValidationCodeUnknownUnit = "unknownUnit";
+/* A section carries `units`, but neither its class nor any class reachable
+ * beneath it routes anything to CodeSpecs (`@CodeSpecKind`), so the units would
+ * place nothing. */
+inline constexpr const char* kSpecValidationCodeUnitsUnrouted =
+    "unitsUnrouted";
+/* Two generation-unit entries declare one `unitId`; reported at the second. */
+inline constexpr const char* kSpecValidationCodeDuplicateUnitId =
+    "duplicateUnitId";
+/* A generation-unit entry names neither a `deploymentTarget` nor a
+ * `component`, so it builds nothing. */
+inline constexpr const char* kSpecValidationCodeUnitBuildsNothing =
+    "unitBuildsNothing";
+/* A generation-unit mapping's `area` is not an area code (`CE-` followed by
+ * capital letters). */
+inline constexpr const char* kSpecValidationCodeUnitAreaMalformed =
+    "unitAreaMalformed";
 
 struct SpecValidationError {
   std::string path;
@@ -100,7 +119,8 @@ struct SpecValidationError {
 /* Validates `doc` against `model`, returning problems in stable order: content
  * paths, then forms, then lists, then `@OneOf` case instances, then `refersTo`
  * references, then `countOf` stated counts, then `productOf` / `rankOf`
- * derived values (one group), then the review annotations (SOM §11.9.5,
+ * derived values (one group), then the generation units (SOM §11.2 `units`,
+ * phase 8), then the review annotations (SOM §11.9.5,
  * `validateReviewAnnotations`); each group sorted by path. An empty list means
  * the document is valid. */
 std::vector<SpecValidationError> validateDocument(const SpecModel& model,

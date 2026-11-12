@@ -71,7 +71,11 @@ namespace som {
  *
  * 3: entries carry `instanceId` — the nearest enclosing list-item instance's
  * **stored** section id (the `<!--[…]-->` id the document serializes),
- * copy-only; null when no enclosing instance stores one. */
+ * copy-only; null when no enclosing instance stores one.
+ *
+ * Entries may carry `units` — the nearest stored generation units (SOM §11.2)
+ * at the entry's path or above it. The key is written only when non-empty and
+ * reads as empty when absent, so it is additive and the version stays 3. */
 inline constexpr long long kCodeSpecsExtractFormat = 3;
 
 /* The annotation names of the three routing verdicts (`codespecs_mapping.md`
@@ -167,6 +171,12 @@ struct CodeSpecsExtractEntry {
   std::string routedAt;
   /* The `@CodeSpecKind` `note`, verbatim; unset when it carries none. */
   std::optional<std::string> routingNote;
+  /* The generation units the entry goes to (SOM §11.2, `codespecs_mapping.md`
+   * §1.1.1): the nearest stored `units` at the entry's path or any ancestor
+   * path, split at its commas. Empty when no section on the way stores one —
+   * the default, every unit with a mapping for the entry's area. Copy-only
+   * like instanceId. */
+  std::vector<std::string> units;
   /* The stored value, **verbatim**. Never assembled, reformatted or trimmed. */
   std::string value;
 
@@ -549,7 +559,8 @@ class CodeSpecsExtractor {
             const std::set<std::string>& ancestorTypes,
             std::vector<CodeSpecsRouting>* routings,
             std::vector<CodeSpecsExtractEntry>* entries, bool strict,
-            const std::optional<std::string>& enclosingInstanceId) const;
+            const std::optional<std::string>& enclosingInstanceId,
+            const std::optional<std::string>& enclosingUnits) const;
 
   /* Appends one entry **per area the routing names** — never deduplicated,
    * because each area's prompt must be self-sufficient (§1.1.1). */
@@ -559,6 +570,7 @@ class CodeSpecsExtractor {
                  const std::optional<std::string>& formField,
                  const std::optional<std::string>& headline,
                  const std::optional<std::string>& instanceId,
+                 const std::optional<std::string>& units,
                  const std::string& value) const;
 
   // --- verdict resolution --------------------------------------------------

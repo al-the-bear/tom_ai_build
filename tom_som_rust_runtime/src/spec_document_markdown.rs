@@ -131,6 +131,10 @@ pub struct SpecMarkdownResult {
     /// locations, populated whenever present (codeSpec has no effective
     /// default).
     pub code_specs: BTreeMap<String, String>,
+    /// Stored generation units (SOM §11.2): path → the comma-joined list of
+    /// generation-unit ids parsed from the `units="…"` key in the heading
+    /// comment. Staged whenever present (absent means the default).
+    pub units: BTreeMap<String, String>,
 }
 
 impl SpecMarkdownResult {
@@ -153,6 +157,7 @@ impl SpecMarkdownResult {
             lists: self.lists.clone(),
             headlines: self.headlines.clone(),
             code_specs: self.code_specs.clone(),
+            units: self.units.clone(),
         }
     }
 }
@@ -328,33 +333,60 @@ pub(crate) fn md_code_spec_of(region: &str) -> String {
     let mut search = region;
     while let Some(pos) = search.find("codeSpec=") {
         let after = &search[pos + "codeSpec=".len()..];
-        let b = after.as_bytes();
-        if b.first() == Some(&b'"') {
-            if let Some(end) = after[1..].find('"') {
-                return after[1..1 + end].trim().to_string();
-            }
-        } else if b.first() == Some(&b'\'') {
-            if let Some(end) = after[1..].find('\'') {
-                return after[1..1 + end].trim().to_string();
-            }
-        } else {
-            // Bare: `[^,\s>]+` — one or more chars that are not comma,
-            // whitespace, or `>`.
-            let mut i = 0;
-            let ab = after.as_bytes();
-            while i < ab.len() {
-                let c = ab[i] as char;
-                if c == ',' || c == '>' || is_go_space(c) {
-                    break;
+        for quote in ['"', '\''] {
+            if let Some(body) = after.strip_prefix(quote) {
+                if let Some(end) = body.find(quote) {
+                    return body[..end].trim().to_string();
                 }
-                i += 1;
             }
-            if i > 0 {
-                return after[..i].trim().to_string();
-            }
+        }
+        // Bare: `[^,\s>]+` — one or more chars that are not comma,
+        // whitespace, or `>`. An unclosed quote is read as a bare value too,
+        // as the pattern's third alternative reads it.
+        let end = after
+            .find(|c: char| c == ',' || c == '>' || is_go_space(c))
+            .unwrap_or(after.len());
+        if end > 0 {
+            return after[..end].trim().to_string();
         }
         // No value matched at this occurrence; advance past it.
         search = after;
+    }
+    String::new()
+}
+
+/// Extracts the `units="…"` value from a heading-comment key=value region
+/// (SOM §11.2; `(?:^|\s)units=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))`): the same
+/// quoting rules as [`md_code_spec_of`] — double-quoted, single-quoted or bare
+/// — the first matching group trimmed. The key must start the region or
+/// follow whitespace, so a `units=` inside a quoted codeSpec value is not read
+/// as the key. The empty string when the region carries no `units` key.
+pub(crate) fn md_units_of(region: &str) -> String {
+    const KEY: &str = "units=";
+    let mut from = 0;
+    while let Some(rel) = region[from..].find(KEY) {
+        let pos = from + rel;
+        from = pos + 1;
+        let at_boundary = pos == 0 || region[..pos].chars().next_back().is_some_and(is_go_space);
+        if !at_boundary {
+            continue;
+        }
+        let after = &region[pos + KEY.len()..];
+        for quote in ['"', '\''] {
+            if let Some(body) = after.strip_prefix(quote) {
+                if let Some(end) = body.find(quote) {
+                    return body[..end].trim().to_string();
+                }
+            }
+        }
+        // Bare: `[^,\s>]+` — one or more chars that are not comma,
+        // whitespace, or `>` (an unclosed quote is read as a bare value too).
+        let end = after
+            .find(|c: char| c == ',' || c == '>' || is_go_space(c))
+            .unwrap_or(after.len());
+        if end > 0 {
+            return after[..end].trim().to_string();
+        }
     }
     String::new()
 }
@@ -769,6 +801,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
             &root_title,
             &root_seg,
             &self.document.code_spec_or(&root_seg),
+            &self.document.units_or(&root_seg),
         );
         self.write_section_body(&mut b, &node, &root_seg)?;
         self.write_children(&mut b, &node, &root_seg, 2)?;
@@ -914,6 +947,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
                         &self.heading_title(&path, child),
                         &path,
                         &self.document.code_spec_or(&path),
+                        &self.document.units_or(&path),
                     );
                     self.write_body(b, &value, &path)?;
                 }
@@ -928,6 +962,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
                         &self.heading_title(&path, child),
                         &path,
                         &self.document.code_spec_or(&path),
+                        &self.document.units_or(&path),
                     );
                     self.write_form(b, child, &path)?;
                 }
@@ -939,6 +974,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
                         &self.heading_title(&path, child),
                         &path,
                         &self.document.code_spec_or(&path),
+                        &self.document.units_or(&path),
                     );
                     self.write_section_body(b, child, &path)?;
                     self.write_children(b, child, &path, depth + 1)?;
@@ -954,6 +990,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
 
     /// Writes a heading ([`md_write_heading`]) and records `path`, the document
     /// path it renders, for [`export_root_with_map`](Self::export_root_with_map).
+    #[allow(clippy::too_many_arguments)]
     fn write_heading(
         &self,
         b: &mut MdBuffer,
@@ -962,9 +999,10 @@ impl<'a> SpecDocumentMarkdown<'a> {
         title: &str,
         path: &str,
         code_spec: &str,
+        units: &str,
     ) {
         self.heading_paths.borrow_mut().push(path.to_string());
-        md_write_heading(b, depth, id, title, code_spec);
+        md_write_heading(b, depth, id, title, code_spec, units);
     }
 
     /// Resolves the heading title for a node at `path`: the document's STORED
@@ -1003,6 +1041,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
             &self.heading_title(list_path, node),
             list_path,
             &self.document.code_spec_or(list_path),
+            &self.document.units_or(list_path),
         );
         // Item heading stem. Complex lists derive it from the element class
         // name (SOM §11.5, `Entry` dropped). A scalar list (shape 6) has no
@@ -1048,6 +1087,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
                 &item_title,
                 item_path,
                 &self.document.code_spec_or(item_path),
+                &self.document.units_or(item_path),
             );
             match element {
                 None => {
@@ -1257,6 +1297,7 @@ it cannot be represented in the DocSpecs markdown format",
             lists: md_lists_json(&p.list_order, &p.lists),
             headlines: p.headlines,
             code_specs: p.code_specs,
+            units: p.units,
             rejections: p.rejections,
             root_prefixes: p.root_prefixes,
         }
@@ -1268,15 +1309,26 @@ it cannot be represented in the DocSpecs markdown format",
 /// past markdown's native 6 levels) keep their structure; the parse grammar
 /// accepts `#{7,}` accordingly. Capping would silently flatten distinct
 /// nesting positions into siblings and break schema validation.
-fn md_write_heading(b: &mut MdBuffer, depth: usize, id: &str, title: &str, code_spec: &str) {
+fn md_write_heading(
+    b: &mut MdBuffer,
+    depth: usize,
+    id: &str,
+    title: &str,
+    code_spec: &str,
+    units: &str,
+) {
     // codespecs_mapping.md §9.2: when a codeSpec mapping is present it rides
     // inside the same headline comment as a `codeSpec="…"` key: `## <!--[ID]
-    // codeSpec="A,B"--> Title`. Byte-identical to the id-only form when empty.
-    let code = if code_spec.is_empty() {
-        String::new()
-    } else {
-        format!(" codeSpec=\"{}\"", code_spec)
-    };
+    // codeSpec="A,B"--> Title`. Non-empty `units` follow as a second key,
+    // `units="…"`, after `codeSpec` (SOM §11.2). Byte-identical to the id-only
+    // form when both are empty.
+    let mut code = String::new();
+    if !code_spec.is_empty() {
+        code.push_str(&format!(" codeSpec=\"{}\"", code_spec));
+    }
+    if !units.is_empty() {
+        code.push_str(&format!(" units=\"{}\"", units));
+    }
     b.writeln(&format!(
         "{} <!--[{}]{}--> {}",
         "#".repeat(depth),
@@ -1285,6 +1337,13 @@ fn md_write_heading(b: &mut MdBuffer, depth: usize, id: &str, title: &str, code_
         title.replace('\n', "<br>")
     ));
     b.writeln("");
+}
+
+/// The key=value pairs a heading comment carries: `codeSpec`
+/// (codespecs_mapping.md §9.2) and `units` (SOM §11.2), each `""` when absent.
+struct MdHeadingKeys {
+    code_spec: String,
+    units: String,
 }
 
 /// Whether `line` is a heading as [`md_write_heading`] writes it — `^#+ <!--\[`.
@@ -1480,6 +1539,9 @@ struct MdParser<'c, 'a> {
     /// key (codespecs_mapping.md §9.2) — path → comma-joined code locations,
     /// staged whenever present.
     code_specs: BTreeMap<String, String>,
+    /// Stored generation units staged from the `units="…"` heading-comment key
+    /// (SOM §11.2) — staged exactly like `code_specs`.
+    units: BTreeMap<String, String>,
     rejections: Vec<SpecMarkdownRejection>,
     root_prefixes: BTreeSet<String>,
     stack: Vec<MdFrame>,
@@ -1496,6 +1558,7 @@ impl<'c, 'a> MdParser<'c, 'a> {
             list_order: Vec::new(),
             headlines: BTreeMap::new(),
             code_specs: BTreeMap::new(),
+            units: BTreeMap::new(),
             rejections: Vec::new(),
             root_prefixes: BTreeSet::new(),
             stack: Vec::new(),
@@ -1545,10 +1608,15 @@ impl<'c, 'a> MdParser<'c, 'a> {
     }
 
     fn open_heading(&mut self, level: usize, rest: &str, line_no: usize) {
-        let (id, code_spec, title) = match md_headline_comment(rest.trim()) {
-            Some((id, region, title)) => {
-                (id.to_string(), md_code_spec_of(region), title.replace("<br>", "\n"))
-            }
+        let (id, keys, title) = match md_headline_comment(rest.trim()) {
+            Some((id, region, title)) => (
+                id.to_string(),
+                MdHeadingKeys {
+                    code_spec: md_code_spec_of(region),
+                    units: md_units_of(region),
+                },
+                title.replace("<br>", "\n"),
+            ),
             None => {
                 self.rejections.push(SpecMarkdownRejection {
                     line: line_no,
@@ -1563,7 +1631,7 @@ impl<'c, 'a> MdParser<'c, 'a> {
         };
 
         if self.stack.is_empty() {
-            self.open_root(level, &id, &title, &code_spec, line_no);
+            self.open_root(level, &id, &title, &keys, line_no);
             return;
         }
 
@@ -1599,7 +1667,7 @@ impl<'c, 'a> MdParser<'c, 'a> {
         //    one of that list's items — resolved positionally, not by the
         //    schema tree.
         if p_node.kind == SOM_META_KIND_LIST {
-            self.open_item_heading(level, &parent_path, p_node, &id, &title, &code_spec, line_no);
+            self.open_item_heading(level, &parent_path, p_node, &id, &title, &keys, line_no);
             return;
         }
 
@@ -1618,10 +1686,8 @@ impl<'c, 'a> MdParser<'c, 'a> {
                     self.headlines.insert(path.clone(), title);
                 }
                 // codespecs_mapping.md §9.2: stage the codeSpec mapping
-                // whenever present (no default).
-                if !code_spec.is_empty() {
-                    self.code_specs.insert(path.clone(), code_spec.clone());
-                }
+                // whenever present (no default); SOM §11.2 `units` likewise.
+                self.stage_keys(&path, &keys);
                 self.stack.push(MdFrame {
                     level,
                     node: Some(entry.node.clone()),
@@ -1647,7 +1713,19 @@ position (under \"{}\")",
         self.stack.push(MdFrame::ignored(level, line_no));
     }
 
-    fn open_root(&mut self, level: usize, id: &str, title: &str, code_spec: &str, line_no: usize) {
+    /// Stages a heading's `codeSpec` (codespecs_mapping.md §9.2) and `units`
+    /// (SOM §11.2) keys at `path`, each whenever present (neither has a
+    /// default).
+    fn stage_keys(&mut self, path: &str, keys: &MdHeadingKeys) {
+        if !keys.code_spec.is_empty() {
+            self.code_specs.insert(path.to_string(), keys.code_spec.clone());
+        }
+        if !keys.units.is_empty() {
+            self.units.insert(path.to_string(), keys.units.clone());
+        }
+    }
+
+    fn open_root(&mut self, level: usize, id: &str, title: &str, keys: &MdHeadingKeys, line_no: usize) {
         for root in &self.codec.model.roots {
             let seg = if root.section_id.is_empty() {
                 root.type_.as_str()
@@ -1671,10 +1749,8 @@ position (under \"{}\")",
                     self.headlines.insert(seg.to_string(), title.to_string());
                 }
                 // codespecs_mapping.md §9.2: stage the root codeSpec mapping
-                // whenever present.
-                if !code_spec.is_empty() {
-                    self.code_specs.insert(seg.to_string(), code_spec.to_string());
-                }
+                // whenever present; SOM §11.2 `units` likewise.
+                self.stage_keys(seg, keys);
                 self.root_prefixes.insert(seg.to_string());
                 self.stack.push(MdFrame {
                     level,
@@ -1726,7 +1802,7 @@ position (under \"{}\")",
         list_node: Rc<SomMetaNode>,
         id: &str,
         title: &str,
-        code_spec: &str,
+        keys: &MdHeadingKeys,
         line_no: usize,
     ) {
         let member = if list_node.member_name.is_empty() {
@@ -1735,7 +1811,7 @@ position (under \"{}\")",
             list_node.member_name.clone()
         };
         if let Some(n) = md_anon_item_number(&member, id) {
-            self.open_item(level, list_path, list_node, n, "", true, title, code_spec, line_no);
+            self.open_item(level, list_path, list_node, n, "", true, title, keys, line_no);
             return;
         }
         let mut pattern = list_node.section_id_pattern.clone();
@@ -1752,18 +1828,18 @@ position (under \"{}\")",
             let parts: Vec<&str> = pattern.split("xxx").collect();
             if parts.len() == 2 {
                 if let Some(n) = md_pattern_numbered(parts[0], parts[1], id) {
-                    self.open_item(level, list_path, list_node, n, id, true, title, code_spec, line_no);
+                    self.open_item(level, list_path, list_node, n, id, true, title, keys, line_no);
                     return;
                 }
             }
             if md_pattern_matches(&pattern, id) {
-                self.open_item(level, list_path, list_node, 0, id, false, title, code_spec, line_no);
+                self.open_item(level, list_path, list_node, 0, id, false, title, keys, line_no);
                 return;
             }
         }
         // Any other id under the container is a stored-id item: the id is kept
         // as the item's stored `@SectionId` and round-trips through md (YRD3).
-        self.open_item(level, list_path, list_node, 0, id, false, title, code_spec, line_no);
+        self.open_item(level, list_path, list_node, 0, id, false, title, keys, line_no);
     }
 
     /// Opens a list-item frame. `n` (with `has_n = true`) is the anonymous
@@ -1779,7 +1855,7 @@ position (under \"{}\")",
         stored_id: &str,
         has_n: bool,
         title: &str,
-        code_spec: &str,
+        keys: &MdHeadingKeys,
         line_no: usize,
     ) {
         if !self.lists.contains_key(list_path) {
@@ -1806,10 +1882,8 @@ position (under \"{}\")",
             self.headlines.insert(item_path.clone(), title.to_string());
         }
         // codespecs_mapping.md §9.2: stage the item codeSpec mapping whenever
-        // present (no default).
-        if !code_spec.is_empty() {
-            self.code_specs.insert(item_path.clone(), code_spec.to_string());
-        }
+        // present (no default); SOM §11.2 `units` likewise.
+        self.stage_keys(&item_path, keys);
         self.stack.push(MdFrame {
             level,
             node: list_node.element_node.clone(),
@@ -2255,4 +2329,21 @@ fn md_lists_json(
         );
     }
     out
+}
+
+#[cfg(test)]
+mod heading_key_tests {
+    use super::{md_code_spec_of, md_units_of};
+
+    // Both keys follow the pattern `"…"|'…'|[^,\s>]+`: an unclosed quote is
+    // not a quoted value, so the third alternative reads it as a bare one.
+    #[test]
+    fn code_spec_and_units_read_quoted_bare_and_unclosed_alike() {
+        assert_eq!(md_code_spec_of(r#" codeSpec="A,B""#), "A,B");
+        assert_eq!(md_code_spec_of(" codeSpec='A'"), "A");
+        assert_eq!(md_code_spec_of(" codeSpec=A,B"), "A");
+        assert_eq!(md_code_spec_of(r#" codeSpec="A"#), r#""A"#);
+        assert_eq!(md_units_of(r#" units="A"#), r#""A"#);
+        assert_eq!(md_code_spec_of(" other=1"), "");
+    }
 }

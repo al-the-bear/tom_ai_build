@@ -59,6 +59,11 @@ class SpecDocument:
         #of CodeSpecs code locations : that section maps to. Sparse like
         #:attr:`_headline`: unset means : "no code mapping".
         self._code_spec: dict[str, str] = {}
+        #: The generation units a section goes to (SOM §11.2 ``units``): any
+        #: section path → the comma-joined list of generation-unit ids that take
+        #: the section and its subtree. Sparse like :attr:`_code_spec`: unset
+        #: means the default (every unit with a mapping for the section's area).
+        self._units: dict[str, str] = {}
         #: The authoring object-model version (``major.minor``) this document was
         #: loaded from, or ``None`` for a brand-new / unstamped document. Retained
         #: here by :meth:`from_yaml` so a consumer need not thread
@@ -143,8 +148,8 @@ class SpecDocument:
         """Merges *fragments* — name → document, in order (a mapping or an
         ordered iterable of ``(name, document)`` pairs) — into one document.
 
-        Refusing: a content path, form field, list, headline or code-spec
-        location two fragments both write is an overlap, and an assembly with
+        Refusing: a content path, form field, list, headline, code-spec
+        location or units list two fragments both write is an overlap, and an assembly with
         any overlap carries no document. See
         :func:`assemble_spec_documents`."""
         # Lazy import: spec_document_assembly imports SpecDocument at load.
@@ -179,8 +184,8 @@ class SpecDocument:
         """Applies a parsed Markdown import as a **full overwrite** of the roots
         it covers (SOM §11.7): every value under each of
         :attr:`SpecMarkdownResult.root_prefixes` is removed, then the parsed
-        content, forms, lists, headlines and codeSpecs are written. Other roots
-        are left as they are.
+        content, forms, lists, headlines, codeSpecs and units are written.
+        Other roots are left as they are.
 
         A result with rejections is refused with a :class:`RuntimeError` (and
         the document is left unchanged) unless *allow_rejections* is true: the
@@ -228,6 +233,7 @@ class SpecDocument:
             "lists": lists,
             "headlines": {**store("headlines"), **result.headlines},
             "codeSpecs": {**store("codeSpecs"), **result.code_specs},
+            "units": {**store("units"), **result.units},
         })
 
     def _single_populated_root(self, model: "SpecModel") -> "SpecRoot":
@@ -326,6 +332,31 @@ class SpecDocument:
         """All section paths currently carrying a stored codeSpec mapping
         (unordered snapshot)."""
         return self._code_spec.keys()
+
+    # --- units (SOM §11.2)
+    # ----------------------------------------------------
+
+    def units(self, path: str) -> Optional[str]:
+        """The stored generation units at *path* as the comma-joined list of
+        generation-unit ids, or ``None`` when the section carries none (SOM
+        §11.2 — ``units`` is sparse like codeSpec; absent means the default)."""
+        return self._units.get(path)
+
+    def set_units(self, path: str, value: str) -> None:
+        """Sets the stored generation units at *path* (the comma-joined list of
+        generation-unit ids). An empty value clears it, returning the section
+        to the default (SOM §11.2)."""
+        self._drop_value_index()
+        if value == "":
+            self._units.pop(path, None)
+        else:
+            self._units[path] = value
+
+    @property
+    def units_paths(self) -> Iterable[str]:
+        """All section paths currently carrying stored generation units
+        (unordered snapshot)."""
+        return self._units.keys()
 
     # --- forms --------------------------------------------------------------
 
@@ -434,7 +465,7 @@ class SpecDocument:
         **A path is a position, the section id is the identity.** Every
         affected list is renumbered to ``<list>-1 … <list>-n`` in its new
         order, and every value under each item — content, forms, nested lists,
-        headline, code-spec, stored id — travels with it. An anonymous item
+        headline, code-spec, units, stored id — travels with it. An anonymous item
         whose positional id would change has its old id stored, so its
         identity survives the renumbering. The result maps every old item path
         to its new one; a caller holding anything else keyed by path (the
@@ -547,6 +578,7 @@ class SpecDocument:
         form = rekey(self._form)
         headline = rekey(self._headline)
         code_spec = rekey(self._code_spec)
+        units = rekey(self._units)
         ids = rekey(self._item_section_id)
         for old, id in pinned.items():
             ids[remap(old)] = id
@@ -566,6 +598,7 @@ class SpecDocument:
             (self._form, form),
             (self._headline, headline),
             (self._code_spec, code_spec),
+            (self._units, units),
             (self._item_section_id, ids),
             (self._list_seq, seq),
             (self._list_items, lists),
@@ -614,6 +647,7 @@ class SpecDocument:
             self._item_section_id,
             self._headline,
             self._code_spec,
+            self._units,
         ):
             for key in [k for k in store if is_under(k)]:
                 store.pop(key, None)
@@ -640,6 +674,7 @@ class SpecDocument:
             and not self._list_items
             and not self._headline
             and not self._code_spec
+            and not self._units
         )
 
     def has_values_under(self, prefix: str) -> bool:
@@ -664,6 +699,7 @@ class SpecDocument:
             self._list_items,
             self._headline,
             self._code_spec,
+            self._units,
         ):
             for key in store:
                 index.add(key)
@@ -733,6 +769,8 @@ class SpecDocument:
             out["codeSpecs"] = {
                 k: self._code_spec[k] for k in sorted(self._code_spec)
             }
+        if self._units:
+            out["units"] = {k: self._units[k] for k in sorted(self._units)}
         return out
 
     def load_json(self, json: dict[str, Any]) -> None:
@@ -746,6 +784,7 @@ class SpecDocument:
         self._item_section_id.clear()
         self._headline.clear()
         self._code_spec.clear()
+        self._units.clear()
 
         content = json.get("content")
         if isinstance(content, dict):
@@ -793,6 +832,12 @@ class SpecDocument:
             for k, v in code_specs.items():
                 if v is not None and str(v) != "":
                     self._code_spec[str(k)] = str(v)
+
+        units = json.get("units")
+        if isinstance(units, dict):
+            for k, v in units.items():
+                if v is not None and str(v) != "":
+                    self._units[str(k)] = str(v)
 
 
 @dataclass(frozen=True)

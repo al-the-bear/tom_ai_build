@@ -10,7 +10,7 @@ import java.util.List;
  * {@code spec_document_assembly.dart}.
  */
 public final class SpecAssemblyOverlap {
-  /** The store: {@code content}, {@code forms}, {@code lists}, {@code headlines} or {@code codeSpecs}. */
+  /** The store: {@code content}, {@code forms}, {@code lists}, {@code headlines}, {@code codeSpecs} or {@code units}. */
   public final String store;
 
   /** The document path. */

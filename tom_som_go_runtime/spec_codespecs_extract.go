@@ -73,6 +73,10 @@ import (
 // 3: entries carry `instanceId` — the nearest enclosing list-item instance's
 // **stored** section id (the `<!--[…]-->` id the document serializes),
 // copy-only; null when no enclosing instance stores one.
+//
+// Entries may carry `units` — the nearest stored generation units (SOM §11.2)
+// at the entry's path or above it. The key is written only when non-empty and
+// reads as empty when absent, so it is additive and the version stays 3.
 const CodeSpecsExtractFormatVersion = 3
 
 // The annotation names of the three routing verdicts (`codespecs_mapping.md`
@@ -199,6 +203,12 @@ type CodeSpecsExtractEntry struct {
 	// RoutingNote is the `@CodeSpecKind` `note`, verbatim; "" when it carries
 	// none.
 	RoutingNote string
+	// Units are the generation units the entry goes to (SOM §11.2,
+	// `codespecs_mapping.md` §1.1.1): the nearest stored `units` at the entry's
+	// path or any ancestor path, split at its commas. Empty when no section on
+	// the way stores one — the default, every unit with a mapping for the
+	// entry's area. Copy-only like InstanceID.
+	Units []string
 	// Value is the stored value, **verbatim**. Never assembled, reformatted or
 	// trimmed.
 	Value string
@@ -664,6 +674,9 @@ func (x *CodeSpecsExtract) ToYaml() string {
 		b.WriteString("      routedBy: " + cseYamlString(e.RoutedBy) + "\n")
 		b.WriteString("      routedAt: " + cseYamlString(e.RoutedAt) + "\n")
 		b.WriteString("      routingNote: " + cseYamlNullableString(e.RoutingNote) + "\n")
+		if len(e.Units) > 0 {
+			b.WriteString("      units: " + cseYamlStringList(e.Units) + "\n")
+		}
 		b.WriteString("      value: " + cseYamlString(e.Value) + "\n")
 	}
 	return b.String()
@@ -722,6 +735,13 @@ func (x *CodeSpecsExtract) ToMarkdown() string {
 		}
 		b.WriteString("- path: `" + e.Path + "`\n")
 		b.WriteString("- routed by: `" + e.RoutedBy + "` declared on `" + e.RoutedAt + "`\n")
+		if len(e.Units) > 0 {
+			quoted := make([]string, len(e.Units))
+			for i, u := range e.Units {
+				quoted[i] = "`" + u + "`"
+			}
+			b.WriteString("- units: " + strings.Join(quoted, ", ") + "\n")
+		}
 		if e.RoutingNote != "" {
 			b.WriteString("- routing note: " + cseMdCell(e.RoutingNote) + "\n")
 		}
@@ -1002,6 +1022,7 @@ func (x *CodeSpecsExtractor) walkAll(
 		entries,
 		strict,
 		"",
+		"",
 	)
 }
 
@@ -1013,6 +1034,7 @@ func (x *CodeSpecsExtractor) walk(
 	entries *[]CodeSpecsExtractEntry,
 	strict bool,
 	enclosingInstanceID string,
+	enclosingUnits string,
 ) *CodeSpecsExtractError {
 	if cls == nil {
 		return nil
@@ -1059,21 +1081,34 @@ func (x *CodeSpecsExtractor) walk(
 		instanceID = enclosingInstanceID
 	}
 
+	// The nearest stored generation units (SOM §11.2): this node's own, else
+	// whatever the walk inherited. The walk passes every ancestor path of an
+	// entry — class node, field, list container, list item — so "nearest on
+	// the walk" is "nearest at the entry's path or an ancestor path".
+	classUnits := x.Document.UnitsOr(path)
+	if classUnits == "" {
+		classUnits = enclosingUnits
+	}
+
 	for _, field := range cls.Fields {
 		fieldPath := SpecPathJoin(path, x.reflection.FieldSegment(field))
 		fieldRouting := x.fieldRouting(cls, field)
 		if fieldRouting == nil {
 			fieldRouting = classRouting
 		}
+		fieldUnits := x.Document.UnitsOr(fieldPath)
+		if fieldUnits == "" {
+			fieldUnits = classUnits
+		}
 
 		switch field.Kind {
 		case SpecFieldKindContent, SpecFieldKindEnum, SpecFieldKindScalar:
 			x.emitValue(entries, fieldRouting, cls, field, fieldPath, "", headline,
-				instanceID, x.Document.ContentOr(fieldPath))
+				instanceID, fieldUnits, x.Document.ContentOr(fieldPath))
 		case SpecFieldKindForm:
 			for _, ff := range field.FormFields {
 				x.emitValue(entries, fieldRouting, cls, field, fieldPath, ff.Name,
-					headline, instanceID, x.Document.FormFieldOr(fieldPath, ff.Name))
+					headline, instanceID, fieldUnits, x.Document.FormFieldOr(fieldPath, ff.Name))
 			}
 		case SpecFieldKindList:
 			for _, itemPath := range x.Document.ListItems(fieldPath) {
@@ -1087,6 +1122,7 @@ func (x *CodeSpecsExtractor) walk(
 						entries,
 						strict,
 						instanceID,
+						fieldUnits,
 					)
 					if bad != nil {
 						return bad
@@ -1099,8 +1135,12 @@ func (x *CodeSpecsExtractor) walk(
 					if itemInstance == "" {
 						itemInstance = instanceID
 					}
+					itemUnits := x.Document.UnitsOr(itemPath)
+					if itemUnits == "" {
+						itemUnits = fieldUnits
+					}
 					x.emitValue(entries, fieldRouting, cls, field, itemPath, "",
-						headline, itemInstance, x.Document.ContentOr(itemPath))
+						headline, itemInstance, itemUnits, x.Document.ContentOr(itemPath))
 				}
 			}
 		case SpecFieldKindComplex, SpecFieldKindSection:
@@ -1113,6 +1153,7 @@ func (x *CodeSpecsExtractor) walk(
 					entries,
 					strict,
 					instanceID,
+					fieldUnits,
 				)
 				if bad != nil {
 					return bad
@@ -1134,6 +1175,7 @@ func (x *CodeSpecsExtractor) emitValue(
 	formField string,
 	headline string,
 	instanceID string,
+	units string,
 	value string,
 ) {
 	if entries == nil || routing == nil {
@@ -1142,6 +1184,7 @@ func (x *CodeSpecsExtractor) emitValue(
 	if value == "" {
 		return
 	}
+	unitIDs := cseSplitUnits(units)
 	for _, kind := range routing.Values {
 		area := x.Catalog.ByPart(kind)
 		if area == nil || !area.Active {
@@ -1159,6 +1202,7 @@ func (x *CodeSpecsExtractor) emitValue(
 			RoutedBy:    area.KindValue(),
 			RoutedAt:    routing.DeclaredAt,
 			RoutingNote: routing.Note,
+			Units:       unitIDs,
 			Value:       value,
 		})
 	}
@@ -1289,6 +1333,22 @@ func cseYamlNullableString(value string) string {
 		return "null"
 	}
 	return cseYamlString(value)
+}
+
+// cseSplitUnits reads a stored comma-joined `units` value as its unit ids:
+// split at the commas, each trimmed, empty pieces dropped; "" reads as the
+// empty list.
+func cseSplitUnits(units string) []string {
+	out := []string{}
+	if units == "" {
+		return out
+	}
+	for _, u := range strings.Split(units, ",") {
+		if t := strings.TrimSpace(u); t != "" {
+			out = append(out, t)
+		}
+	}
+	return out
 }
 
 func cseYamlStringList(values []string) string {

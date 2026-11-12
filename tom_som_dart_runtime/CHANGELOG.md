@@ -2,9 +2,23 @@
 
 ## 1.9.0
 
-- No change of its own: the chain moves with `tom_specs_model` 1.9.0 (the
-  generation-unit register and `RevisionEntry.changeId`); model, facades and
-  runtimes carry one version.
+- Moves with `tom_specs_model` 1.9.0 (the generation-unit register and
+  `RevisionEntry.changeId`).
+- The `units` member of every section (SOM §11.2), beside `codeSpec`: the
+  generation units that take the section where that differs from its area's
+  default. `units(path)`, `setUnits(path, value)` (empty clears),
+  `unitsPaths`; the facade's `$units`. The heading comment carries it after
+  `codeSpec` (`units="a,b"`), the YAML node a `units:` key after `codeSpec:`,
+  the snapshot a `units` key after `codeSpecs`; Markdown apply, list moves,
+  prefix purge, assembly and review merge carry it as they carry `codeSpec`.
+- Validation phase 8 (generation units): `unknownUnit`, `unitsUnrouted`,
+  `duplicateUnitId`, `unitBuildsNothing`, `unitAreaMalformed`. The register is
+  recognised by `@NoArtifact(generation)` with the form field `unitId` (a
+  mapping by `area`), never by class name.
+- CodeSpecs extract entries carry `units`, the nearest stored units at the
+  entry's section or above: `units: [..]` after `routingNote` in the YAML, a
+  `- units:` line after the routed-by line in the Markdown, each only when
+  set; the reader reads it back. `formatVersion` stays 3.
 
 ## 1.8.1
 

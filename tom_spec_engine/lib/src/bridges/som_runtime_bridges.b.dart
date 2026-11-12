@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 28 files
-// Generated: 2026-11-12T22:28:22.435524 by tom_d4rt_generator 1.63.0
+// Generated: 2026-11-13T00:36:04.879025 by tom_d4rt_generator 1.63.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -8259,6 +8259,9 @@ BridgedClass _createCodeSpecsExtractEntryBridge() {
           named,
           'routingNote',
         );
+        final units = named.containsKey('units') && named['units'] != null
+            ? D4.coerceList<String>(named['units'], 'units')
+            : const <String>[];
         return $tom_som_dart_runtime_5.CodeSpecsExtractEntry(
           areaCode: areaCode,
           sectionId: sectionId,
@@ -8272,6 +8275,7 @@ BridgedClass _createCodeSpecsExtractEntryBridge() {
           instanceId: instanceId,
           formField: formField,
           routingNote: routingNote,
+          units: units,
         );
       },
     },
@@ -8342,6 +8346,12 @@ BridgedClass _createCodeSpecsExtractEntryBridge() {
             'CodeSpecsExtractEntry',
           )
           .routingNote,
+      'units': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_5.CodeSpecsExtractEntry>(
+            target,
+            'CodeSpecsExtractEntry',
+          )
+          .units,
       'value': (visitor, target) => D4
           .validateTarget<$tom_som_dart_runtime_5.CodeSpecsExtractEntry>(
             target,
@@ -8360,7 +8370,7 @@ BridgedClass _createCodeSpecsExtractEntryBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const CodeSpecsExtractEntry({required String areaCode, required String sectionId, required String path, required String className, required String fieldName, required String routedBy, required String routedAt, required String value, String? headline, String? instanceId, String? formField, String? routingNote})',
+      '': 'const CodeSpecsExtractEntry({required String areaCode, required String sectionId, required String path, required String className, required String fieldName, required String routedBy, required String routedAt, required String value, String? headline, String? instanceId, String? formField, String? routingNote, List<String> units = const []})',
     },
     methodSignatures: {'toString': 'String toString()'},
     getterSignatures: {
@@ -8375,6 +8385,7 @@ BridgedClass _createCodeSpecsExtractEntryBridge() {
       'routedBy': 'String get routedBy',
       'routedAt': 'String get routedAt',
       'routingNote': 'String? get routingNote',
+      'units': 'List<String> get units',
       'value': 'String get value',
     },
   );
@@ -10598,6 +10609,9 @@ BridgedClass _createSomNodeBridge() {
       '\$codeSpec': (visitor, target) => D4
           .validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode')
           .$codeSpec,
+      '\$units': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode')
+          .$units,
     },
     setters: {
       '\$sectionId': (visitor, target, value) =>
@@ -10630,6 +10644,16 @@ BridgedClass _createSomNodeBridge() {
             value,
             '\$codeSpec',
           ),
+      '\$units': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_runtime_2.SomNode>(
+                target,
+                'SomNode',
+              )
+              .$units = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$units',
+          ),
     },
     getterSignatures: {
       'doc': 'SpecDocument get doc',
@@ -10639,11 +10663,13 @@ BridgedClass _createSomNodeBridge() {
       '\$sectionId': 'String? get \$sectionId',
       '\$headline': 'String? get \$headline',
       '\$codeSpec': 'String? get \$codeSpec',
+      '\$units': 'String? get \$units',
     },
     setterSignatures: {
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
+      '\$units': 'set \$units(String? value)',
     },
   );
 }
@@ -10719,6 +10745,12 @@ BridgedClass _createSomScalarBridge() {
             'SomScalar',
           )
           .$codeSpec,
+      '\$units': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomScalar>(
+            target,
+            'SomScalar',
+          )
+          .$units,
       'value': (visitor, target) => D4
           .validateTarget<$tom_som_dart_runtime_2.SomScalar>(
             target,
@@ -10757,6 +10789,16 @@ BridgedClass _createSomScalarBridge() {
             value,
             '\$codeSpec',
           ),
+      '\$units': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_runtime_2.SomScalar>(
+                target,
+                'SomScalar',
+              )
+              .$units = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$units',
+          ),
       'value': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_runtime_2.SomScalar>(
@@ -10777,12 +10819,14 @@ BridgedClass _createSomScalarBridge() {
       '\$sectionId': 'String? get \$sectionId',
       '\$headline': 'String? get \$headline',
       '\$codeSpec': 'String? get \$codeSpec',
+      '\$units': 'String? get \$units',
       'value': 'String get value',
     },
     setterSignatures: {
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
+      '\$units': 'set \$units(String? value)',
       'value': 'set value(String value)',
     },
   );
@@ -11013,6 +11057,12 @@ BridgedClass _createSpecDocumentBridge() {
             'SpecDocument',
           )
           .codeSpecPaths,
+      'unitsPaths': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_8.SpecDocument>(
+            target,
+            'SpecDocument',
+          )
+          .unitsPaths,
       'isEmpty': (visitor, target) => D4
           .validateTarget<$tom_som_dart_runtime_8.SpecDocument>(
             target,
@@ -11240,6 +11290,36 @@ BridgedClass _createSpecDocumentBridge() {
           'setCodeSpec',
         );
         t.setCodeSpec(path, value);
+        return null;
+      },
+      'units': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
+        D4.requireMinArgs(positional, 1, 'units');
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'units');
+        return t.units(path);
+      },
+      'setUnits': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
+        D4.requireMinArgs(positional, 2, 'setUnits');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'setUnits',
+        );
+        final value = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'value',
+          'setUnits',
+        );
+        t.setUnits(path, value);
         return null;
       },
       'formField': (visitor, target, positional, named, typeArgs) {
@@ -11586,6 +11666,8 @@ BridgedClass _createSpecDocumentBridge() {
       'setHeadline': 'void setHeadline(String path, String value)',
       'codeSpec': 'String? codeSpec(String path)',
       'setCodeSpec': 'void setCodeSpec(String path, String value)',
+      'units': 'String? units(String path)',
+      'setUnits': 'void setUnits(String path, String value)',
       'formField': 'String? formField(String path, String field)',
       'setFormField':
           'void setFormField(String path, String field, String value)',
@@ -11611,6 +11693,7 @@ BridgedClass _createSpecDocumentBridge() {
       'pathNormalizer': 'String Function(String path)? get pathNormalizer',
       'headlinePaths': 'Iterable<String> get headlinePaths',
       'codeSpecPaths': 'Iterable<String> get codeSpecPaths',
+      'unitsPaths': 'Iterable<String> get unitsPaths',
       'isEmpty': 'bool get isEmpty',
       'contentPaths': 'Iterable<String> get contentPaths',
       'formPaths': 'Iterable<String> get formPaths',
@@ -12055,6 +12138,9 @@ BridgedClass _createSpecMarkdownResultBridge() {
             named.containsKey('codeSpecs') && named['codeSpecs'] != null
             ? D4.coerceMap<String, String>(named['codeSpecs'], 'codeSpecs')
             : const <String, String>{};
+        final units = named.containsKey('units') && named['units'] != null
+            ? D4.coerceMap<String, String>(named['units'], 'units')
+            : const <String, String>{};
         return $tom_som_dart_runtime_10.SpecMarkdownResult(
           content: content,
           forms: forms,
@@ -12063,6 +12149,7 @@ BridgedClass _createSpecMarkdownResultBridge() {
           rootPrefixes: rootPrefixes,
           headlines: headlines,
           codeSpecs: codeSpecs,
+          units: units,
         );
       },
     },
@@ -12097,6 +12184,12 @@ BridgedClass _createSpecMarkdownResultBridge() {
             'SpecMarkdownResult',
           )
           .codeSpecs,
+      'units': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_10.SpecMarkdownResult>(
+            target,
+            'SpecMarkdownResult',
+          )
+          .units,
       'rejections': (visitor, target) => D4
           .validateTarget<$tom_som_dart_runtime_10.SpecMarkdownResult>(
             target,
@@ -12123,7 +12216,7 @@ BridgedClass _createSpecMarkdownResultBridge() {
           .appliedCount,
     },
     constructorSignatures: {
-      '': 'SpecMarkdownResult({required Map<String, String> content, required Map<String, Map<String, String>> forms, required Map<String, Map<String, Object?>> lists, required List<SpecMarkdownRejection> rejections, required Set<String> rootPrefixes, Map<String, String> headlines = const {}, Map<String, String> codeSpecs = const {}})',
+      '': 'SpecMarkdownResult({required Map<String, String> content, required Map<String, Map<String, String>> forms, required Map<String, Map<String, Object?>> lists, required List<SpecMarkdownRejection> rejections, required Set<String> rootPrefixes, Map<String, String> headlines = const {}, Map<String, String> codeSpecs = const {}, Map<String, String> units = const {}})',
     },
     getterSignatures: {
       'content': 'Map<String, String> get content',
@@ -12131,6 +12224,7 @@ BridgedClass _createSpecMarkdownResultBridge() {
       'lists': 'Map<String, Map<String, Object?>> get lists',
       'headlines': 'Map<String, String> get headlines',
       'codeSpecs': 'Map<String, String> get codeSpecs',
+      'units': 'Map<String, String> get units',
       'rejections': 'List<SpecMarkdownRejection> get rejections',
       'rootPrefixes': 'Set<String> get rootPrefixes',
       'isClean': 'bool get isClean',
@@ -12346,6 +12440,16 @@ BridgedClass _createSpecDocumentMarkdownBridge() {
         );
         return $tom_som_dart_runtime_10.SpecDocumentMarkdown.codeSpecOf(region);
       },
+      'unitsOf': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'unitsOf');
+        final region = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'region',
+          'unitsOf',
+        );
+        return $tom_som_dart_runtime_10.SpecDocumentMarkdown.unitsOf(region);
+      },
     },
     constructorSignatures: {
       '': 'SpecDocumentMarkdown(SpecModel model, SpecDocument document)',
@@ -12366,6 +12470,7 @@ BridgedClass _createSpecDocumentMarkdownBridge() {
       'itemTitleStem': 'String itemTitleStem(String elementClassName)',
       'formLabel': 'String formLabel(String fieldName)',
       'codeSpecOf': 'String codeSpecOf(String region)',
+      'unitsOf': 'String unitsOf(String region)',
     },
     staticGetterSignatures: {
       'headingLine': 'RegExp get headingLine',

@@ -10,8 +10,8 @@
 //
 // The merge is over the plain-data stores (SpecDocument.ToJSON), and it is
 // **refusing**: a value two fragments both write — a content path, a form
-// field, a list, a headline, a code-spec location — is an overlap, and an
-// assembly with any overlap yields no document. Choosing a winner would make
+// field, a list, a headline, a code-spec location, a units list — is an overlap,
+// and an assembly with any overlap yields no document. Choosing a winner would make
 // the result depend on fragment order, and two parts writing one place is an
 // authoring conflict the parts' authors have to settle.
 
@@ -31,7 +31,8 @@ type SpecAssemblyFragment struct {
 
 // SpecAssemblyOverlap is one place two or more fragments both write.
 type SpecAssemblyOverlap struct {
-	// Store is `content`, `forms`, `lists`, `headlines` or `codeSpecs`.
+	// Store is `content`, `forms`, `lists`, `headlines`, `codeSpecs` or
+	// `units`.
 	Store string
 	// Path is the document path.
 	Path string
@@ -68,7 +69,7 @@ type SpecDocumentAssembly struct {
 func (a *SpecDocumentAssembly) Ok() bool { return len(a.Overlaps) == 0 }
 
 // assemblyStoreOrder is the fixed order overlaps are reported in.
-var assemblyStoreOrder = []string{"content", "forms", "lists", "headlines", "codeSpecs"}
+var assemblyStoreOrder = []string{"content", "forms", "lists", "headlines", "codeSpecs", "units"}
 
 // SpecDocumentAssemble is the Go spelling of the reference's static
 // `SpecDocument.assemble`; it is AssembleSpecDocuments.
@@ -92,6 +93,7 @@ func AssembleSpecDocuments(fragments []SpecAssemblyFragment) *SpecDocumentAssemb
 		Lists:     map[string]ListJson{},
 		Headlines: map[string]string{},
 		CodeSpecs: map[string]string{},
+		Units:     map[string]string{},
 	}
 	putPath := func(store string, src, dst map[string]string, name string) {
 		for path, value := range src {
@@ -110,6 +112,7 @@ func AssembleSpecDocuments(fragments []SpecAssemblyFragment) *SpecDocumentAssemb
 		putPath("content", j.Content, merged.Content, f.Name)
 		putPath("headlines", j.Headlines, merged.Headlines, f.Name)
 		putPath("codeSpecs", j.CodeSpecs, merged.CodeSpecs, f.Name)
+		putPath("units", j.Units, merged.Units, f.Name)
 		for path, fields := range j.Forms {
 			target, has := merged.Forms[path]
 			if !has {

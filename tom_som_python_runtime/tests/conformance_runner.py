@@ -268,6 +268,25 @@ def _build_document() -> SpecDocument:
     )
     d.set_content("DEMO/MIX/tail", "Tail text.")
     d.set_form_field("DEMO/MIX/alt", "lead", "Bob")
+    # SOM §11.2 `units`: a section carrying codeSpec AND units (`TTL`, both
+    # keys in one heading comment, the scalar-promotion mapping in yaml) and a
+    # section carrying units alone (`notes`), which the extract hands down to
+    # every entry beneath it. Both ids are declared by the register.
+    d.set_code_spec("DEMO/TTL", "DemoTitle")
+    d.set_units("DEMO/TTL", "demo_server")
+    d.set_units("DEMO/notes", "demo_client,demo_server")
+    # Pattern-list items store their positional ids, as `REF-2` does above.
+    u1 = d.add_list_item("DEMO/DLV-LST", section_id="DLV-1")
+    d.set_form_field(f"{u1}/content", "unitId", "demo_client")
+    d.set_form_field(f"{u1}/content", "kind", "client")
+    d.set_form_field(f"{u1}/content", "component", "ARCM-COMP-UI")
+    u2 = d.add_list_item("DEMO/DLV-LST", section_id="DLV-2")
+    d.set_form_field(f"{u2}/content", "unitId", "demo_server")
+    d.set_form_field(f"{u2}/content", "kind", "server")
+    d.set_form_field(f"{u2}/content", "deploymentTarget", "DEPTAR-DEPL-API")
+    r1 = d.add_list_item(f"{u2}/DLR-LST", section_id="DLR-1")
+    d.set_form_field(f"{r1}/content", "area", "CE-DB")
+    d.set_form_field(f"{r1}/content", "mapping", "dart-tom")
     return d
 
 
@@ -288,14 +307,14 @@ def test_model_meta(model: SpecModel) -> None:
     root = model.roots[0]
     _check("model.root.sectionId", root.section_id == "DEMO", str(root.section_id))
     _check("model.root.type", root.type == "Demo", root.type)
-    _check("model.classCount", len(model.classes) == 15, str(len(model.classes)))
+    _check("model.classCount", len(model.classes) == 17, str(len(model.classes)))
     demo = model.class_named("Demo")
     _check("model.Demo.found", demo is not None)
     if demo is not None:
         names = [f.name for f in demo.fields]
         _check(
             "model.Demo.fields",
-            names == ["title", "summary", "priority", "count", "ratio", "score", "details", "items", "refs", "cards", "meta", "control", "notes", "mixed", "registry"],
+            names == ["title", "summary", "priority", "count", "ratio", "score", "details", "items", "refs", "cards", "meta", "control", "notes", "mixed", "registry", "deliverables"],
             str(names),
         )
 
@@ -377,6 +396,8 @@ def test_markdown_round_trip(model: SpecModel) -> None:
         "forms": parsed.forms,
         "lists": parsed.lists,
         "headlines": parsed.headlines,
+        "codeSpecs": parsed.code_specs,
+        "units": parsed.units,
     })
     _check("md.parse.storedId",
            re_doc.item_section_id("DEMO/REF-LST-1") == "REF-SPEC",

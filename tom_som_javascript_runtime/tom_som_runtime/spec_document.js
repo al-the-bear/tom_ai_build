@@ -57,6 +57,14 @@ class SpecDocument {
      */
     this._codeSpec = new Map();
     /**
+     * The generation units a section goes to (SOM §11.2 `units`): any section
+     * path → the comma-joined list of generation-unit ids that take the
+     * section and its subtree. Sparse like {@link _codeSpec}: unset means the
+     * default (every unit with a mapping for the section's area).
+     * @type {Map<string, string>}
+     */
+    this._units = new Map();
+    /**
      * The lazily built prefix index behind {@link hasValuesUnder}, or `null`
      * until the first question after a mutation.
      * @type {Set<string>|null}
@@ -199,7 +207,8 @@ class SpecDocument {
    * Applies a parsed Markdown import as a **full overwrite** of the roots it
    * covers (SOM §11.7): every value under each of the result's
    * `rootPrefixes` is removed, then the parsed content, forms, lists,
-   * headlines and codeSpecs are written. Other roots are left as they are.
+   * headlines, codeSpecs and units are written. Other roots are left as they
+   * are.
    *
    * A result with rejections is refused with an {@link Error} — and the
    * document left unchanged — unless `allowRejections` is true: the blocks it
@@ -251,6 +260,7 @@ class SpecDocument {
       lists,
       headlines: { ...store('headlines'), ...result.headlines },
       codeSpecs: { ...store('codeSpecs'), ...result.codeSpecs },
+      units: { ...store('units'), ...(result.units || {}) },
     });
   }
 
@@ -395,6 +405,36 @@ class SpecDocument {
   /** @returns {Iterable<string>} */
   get codeSpecPaths() {
     return this._codeSpec.keys();
+  }
+
+  /**
+   * The stored generation units at `path` as the comma-joined list of
+   * generation-unit ids, or `null` when the section carries none (SOM §11.2
+   * — `units` is sparse like codeSpec; absent means the default).
+   *
+   * @returns {string|null}
+   */
+  units(path) {
+    return this._units.has(path) ? this._units.get(path) : null;
+  }
+
+  /**
+   * Sets the stored generation units at `path` (the comma-joined list of
+   * generation-unit ids). An empty value clears it, returning the section to
+   * the default (SOM §11.2).
+   */
+  setUnits(path, value) {
+    this._dropValueIndex();
+    if (value === '') {
+      this._units.delete(path);
+    } else {
+      this._units.set(path, value);
+    }
+  }
+
+  /** @returns {Iterable<string>} all section paths carrying stored units. */
+  get unitsPaths() {
+    return this._units.keys();
   }
 
   // --- lists --------------------------------------------------------------
@@ -664,6 +704,7 @@ class SpecDocument {
     const form = rekey(this._form);
     const headline = rekey(this._headline);
     const codeSpec = rekey(this._codeSpec);
+    const units = rekey(this._units);
     const ids = rekey(this._itemSectionId);
     for (const [old, id] of pinned) ids.set(remap(old), id);
     const seq = rekey(this._listSeq);
@@ -685,6 +726,7 @@ class SpecDocument {
     _replaceWith(this._form, form);
     _replaceWith(this._headline, headline);
     _replaceWith(this._codeSpec, codeSpec);
+    _replaceWith(this._units, units);
     _replaceWith(this._itemSectionId, ids);
     _replaceWith(this._listSeq, seq);
     _replaceWith(this._listItems, lists);
@@ -737,6 +779,7 @@ class SpecDocument {
       this._itemSectionId,
       this._headline,
       this._codeSpec,
+      this._units,
     ]) {
       for (const key of Array.from(store.keys())) {
         if (isUnder(key)) {
@@ -770,7 +813,8 @@ class SpecDocument {
       this._form.size === 0 &&
       this._listItems.size === 0 &&
       this._headline.size === 0 &&
-      this._codeSpec.size === 0
+      this._codeSpec.size === 0 &&
+      this._units.size === 0
     );
   }
 
@@ -787,7 +831,7 @@ class SpecDocument {
   }
 
   /**
-   * Every stored key of the five value stores plus every prefix of one that
+   * Every stored key of the six value stores plus every prefix of one that
    * ends right before a `/` or a `-` — exactly the paths for which "a key
    * equals it, or continues it after `/` or `-`" holds, so
    * {@link hasValuesUnder} is one set lookup.
@@ -807,6 +851,7 @@ class SpecDocument {
       this._listItems,
       this._headline,
       this._codeSpec,
+      this._units,
     ]) {
       for (const key of store.keys()) {
         index.add(key);
@@ -918,6 +963,13 @@ class SpecDocument {
       }
       out.codeSpecs = codeSpecs;
     }
+    if (this._units.size > 0) {
+      const units = {};
+      for (const k of Array.from(this._units.keys()).sort()) {
+        units[k] = this._units.get(k);
+      }
+      out.units = units;
+    }
     return out;
   }
 
@@ -934,6 +986,7 @@ class SpecDocument {
     this._itemSectionId.clear();
     this._headline.clear();
     this._codeSpec.clear();
+    this._units.clear();
 
     const content = json ? json.content : null;
     if (content && typeof content === 'object') {
@@ -1004,6 +1057,15 @@ class SpecDocument {
       for (const [k, v] of Object.entries(codeSpecs)) {
         if (v !== null && v !== undefined && String(v) !== '') {
           this._codeSpec.set(String(k), String(v));
+        }
+      }
+    }
+
+    const units = json ? json.units : null;
+    if (units && typeof units === 'object') {
+      for (const [k, v] of Object.entries(units)) {
+        if (v !== null && v !== undefined && String(v) !== '') {
+          this._units.set(String(k), String(v));
         }
       }
     }

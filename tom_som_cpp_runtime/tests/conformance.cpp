@@ -170,7 +170,7 @@ static void test_model_meta(Checker& c, const som::SpecModel& model) {
   const som::SpecRoot& root = model.roots[0];
   c.check("model.root.sectionId", root.sectionId == "DEMO", root.sectionId);
   c.check("model.root.type", root.type == "Demo", root.type);
-  c.check("model.classCount", model.classesSize() == 15,
+  c.check("model.classCount", model.classesSize() == 17,
           std::to_string(model.classesSize()));
   const som::SpecClass* demo = model.classNamed("Demo");
   c.check("model.Demo.found", demo != nullptr, "");
@@ -178,13 +178,13 @@ static void test_model_meta(Checker& c, const som::SpecModel& model) {
     const char* want[] = {"title", "summary",  "priority", "count",
                           "ratio", "score",    "details",  "items",
                           "refs",  "cards",    "meta",     "control",
-                          "notes", "mixed",    "registry"};
-    bool ok = demo->fields.size() == 15;
+                          "notes", "mixed",    "registry", "deliverables"};
+    bool ok = demo->fields.size() == 16;
     std::string names;
     for (std::size_t i = 0; i < demo->fields.size(); i++) {
       if (i > 0) names.push_back(',');
       names += demo->fields[i].name;
-      if (ok && i < 15 && demo->fields[i].name != want[i]) ok = false;
+      if (ok && i < 16 && demo->fields[i].name != want[i]) ok = false;
     }
     c.check("model.Demo.fields", ok, names);
   }

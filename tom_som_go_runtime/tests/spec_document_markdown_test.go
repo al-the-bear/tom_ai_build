@@ -81,6 +81,7 @@ func mdReload(t *testing.T, md string) (*som.SpecDocument, *som.SpecMarkdownResu
 		Lists:     report.Lists,
 		Headlines: report.Headlines,
 		CodeSpecs: report.CodeSpecs,
+		Units:     report.Units,
 	})
 	return target, report
 }

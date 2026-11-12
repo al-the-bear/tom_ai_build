@@ -13,10 +13,11 @@
  *
  * The merge is over the plain-data stores (`SpecDocument.toJson()`), and it is
  * **refusing**: a value two fragments both write — a content path, a form
- * field, a list, a headline, a code-spec location — is an overlap, and an
- * assembly with any overlap yields no document. Choosing a winner would make
- * the result depend on fragment order, and two parts writing one place is an
- * authoring conflict the parts' authors have to settle.
+ * field, a list, a headline, a code-spec location, a units list — is an
+ * overlap, and an assembly with any overlap yields no document. Choosing a
+ * winner would make the result depend on fragment order, and two parts
+ * writing one place is an authoring conflict the parts' authors have to
+ * settle.
  *
  * `SpecDocument` is required lazily: `spec_document.js` requires this module
  * for its `assemble` static.
@@ -28,7 +29,10 @@ class SpecAssemblyOverlap {
    * @param {{store: string, path: string, fragments: string[], field?: string|null}} init
    */
   constructor({ store, path, fragments, field = null }) {
-    /** The store: `content`, `forms`, `lists`, `headlines` or `codeSpecs`. */
+    /**
+     * The store: `content`, `forms`, `lists`, `headlines`, `codeSpecs` or
+     * `units`.
+     */
     this.store = store;
     /** The document path. */
     this.path = path;
@@ -73,10 +77,17 @@ class SpecDocumentAssembly {
 }
 
 /** The stores whose entries are a single value at a path. */
-const _PATH_STORES = ['content', 'headlines', 'codeSpecs'];
+const _PATH_STORES = ['content', 'headlines', 'codeSpecs', 'units'];
 
 /** The fixed order overlaps are reported in. */
-const _STORE_ORDER = ['content', 'forms', 'lists', 'headlines', 'codeSpecs'];
+const _STORE_ORDER = [
+  'content',
+  'forms',
+  'lists',
+  'headlines',
+  'codeSpecs',
+  'units',
+];
 
 /** Code-unit order, as Dart's `String.compareTo`. */
 function _compareCodeUnits(a, b) {

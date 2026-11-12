@@ -248,7 +248,7 @@ func testModelMeta(c *checker, model *som.SpecModel) {
 	root := model.Roots[0]
 	c.check("model.root.sectionId", root.SectionID == "DEMO", root.SectionID)
 	c.check("model.root.type", root.Type == "Demo", root.Type)
-	c.check("model.classCount", len(model.Classes) == 15, itoa(len(model.Classes)))
+	c.check("model.classCount", len(model.Classes) == 17, itoa(len(model.Classes)))
 	demo := model.ClassNamed("Demo")
 	c.check("model.Demo.found", demo != nil, "")
 	if demo != nil {
@@ -256,7 +256,7 @@ func testModelMeta(c *checker, model *som.SpecModel) {
 		for _, f := range demo.Fields {
 			names = append(names, f.Name)
 		}
-		want := []string{"title", "summary", "priority", "count", "ratio", "score", "details", "items", "refs", "cards", "meta", "control", "notes", "mixed", "registry"}
+		want := []string{"title", "summary", "priority", "count", "ratio", "score", "details", "items", "refs", "cards", "meta", "control", "notes", "mixed", "registry", "deliverables"}
 		c.check("model.Demo.fields", sliceEq(names, want), join(names))
 	}
 }
@@ -576,6 +576,8 @@ func testMarkdownRoundTrip(c *checker, t *testing.T, model *som.SpecModel) {
 		Forms:     parsed.Forms,
 		Lists:     parsed.Lists,
 		Headlines: parsed.Headlines,
+		CodeSpecs: parsed.CodeSpecs,
+		Units:     parsed.Units,
 	})
 	// YRD3: the stored item id and stored headline round-trip through md.
 	c.check("md.parse.storedId",

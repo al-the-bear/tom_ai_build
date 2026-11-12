@@ -115,6 +115,10 @@ class SpecMarkdownResult:
     #``codeSpec="…"`` key in the : heading comment. Staged whenever present
     #(codeSpec has no effective : default).
     code_specs: dict[str, str] = dataclass_field(default_factory=dict)
+    #: Stored generation units (SOM §11.2): path → the comma-joined list of
+    #: generation-unit ids parsed from the ``units="…"`` key in the heading
+    #: comment. Staged whenever present (absent means the default).
+    units: dict[str, str] = dataclass_field(default_factory=dict)
     #: Every rejected block, in source order.
     rejections: list[SpecMarkdownRejection] = dataclass_field(
         default_factory=list
@@ -227,6 +231,12 @@ class SpecDocumentMarkdown:
     _code_spec_pattern = re.compile(
         r"""codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))"""
     )
+    #: Extracts the ``units="…"`` value from a heading-comment key=value region
+    #: (SOM §11.2). The key must start the region or follow whitespace, so a
+    #: ``units=`` inside a quoted codeSpec value is not read as the key.
+    _units_pattern = re.compile(
+        r"""(?:^|\s)units=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))"""
+    )
 
     # A line the emitter must escape: an optional run of backslashes followed
     # by `#` at column 0 (the escape itself must survive the round-trip).
@@ -304,6 +314,19 @@ class SpecDocumentMarkdown:
         region (codespecs_mapping.md §9.2). Returns the empty string when the region carries no
         ``codeSpec`` key."""
         m = SpecDocumentMarkdown._code_spec_pattern.search(region)
+        if m is None:
+            return ""
+        return (m.group(1) or m.group(2) or m.group(3) or "").strip()
+
+    @staticmethod
+    def units_of(region: str) -> str:
+        """Extracts the ``units="…"`` value from a heading-comment key=value
+        region (SOM §11.2): the same quoting rules as :meth:`code_spec_of` —
+        double-quoted, single-quoted or bare. The key must start the region or
+        follow whitespace, so a ``units=`` inside a quoted codeSpec value is not
+        read as the key. Returns the empty string when the region carries no
+        ``units`` key."""
+        m = SpecDocumentMarkdown._units_pattern.search(region)
         if m is None:
             return ""
         return (m.group(1) or m.group(2) or m.group(3) or "").strip()
@@ -474,6 +497,7 @@ class SpecDocumentMarkdown:
             self.document.headline(root_seg) or node.headline or root.title,
             path=root_seg,
             code_spec=self.document.code_spec(root_seg),
+            units=self.document.units(root_seg),
         )
         self._write_section_body(b, node, root_seg)
         self._write_children(b, node, root_seg, 2)
@@ -592,6 +616,7 @@ class SpecDocumentMarkdown:
                     self.document.headline(path) or self._title_of(child),
                     path=path,
                     code_spec=self.document.code_spec(path),
+                    units=self.document.units(path),
                 )
                 self._write_body(b, value, path)
             elif kind == SomMetaKind.FORM:
@@ -604,6 +629,7 @@ class SpecDocumentMarkdown:
                     self.document.headline(path) or self._title_of(child),
                     path=path,
                     code_spec=self.document.code_spec(path),
+                    units=self.document.units(path),
                 )
                 self._write_form(b, child, path)
             elif kind in (SomMetaKind.SECTION, SomMetaKind.COMPLEX):
@@ -614,6 +640,7 @@ class SpecDocumentMarkdown:
                     self.document.headline(path) or self._title_of(child),
                     path=path,
                     code_spec=self.document.code_spec(path),
+                    units=self.document.units(path),
                 )
                 self._write_section_body(b, child, path)
                 self._write_children(b, child, path, depth + 1)
@@ -642,6 +669,7 @@ class SpecDocumentMarkdown:
             self.document.headline(list_path) or self._title_of(node),
             path=list_path,
             code_spec=self.document.code_spec(list_path),
+            units=self.document.units(list_path),
         )
         # Item heading stem. Complex lists derive it from the element class name
         # (SOM §11.5, `Entry` dropped). A scalar list (shape 6) has no element
@@ -678,6 +706,7 @@ class SpecDocumentMarkdown:
                 self.document.headline(item_path) or f"{stem} {pos}",
                 path=item_path,
                 code_spec=self.document.code_spec(item_path),
+                units=self.document.units(item_path),
             )
             if element is None:
                 # Scalar list: the item's value is its body.
@@ -802,6 +831,7 @@ class SpecDocumentMarkdown:
         *,
         path: str,
         code_spec: Optional[str] = None,
+        units: Optional[str] = None,
     ) -> None:
         """``## <!--[ID]--> Title`` at *depth*. SOM §11.2 is normative —
         heading level = 1 + section depth, **uncapped**: deep models (the
@@ -812,9 +842,13 @@ class SpecDocumentMarkdown:
 
         When *code_spec* is non-empty it is emitted as a ``codeSpec="…"`` key
         inside the same headline comment (codespecs_mapping.md §9.2):
-        ``## <!--[ID] codeSpec="A,B"--> Title``."""
+        ``## <!--[ID] codeSpec="A,B"--> Title``. When *units* is non-empty it
+        follows as a second key, ``units="…"``, after ``codeSpec`` (SOM
+        §11.2)."""
         self._heading_paths.append(path)
         code = f' codeSpec="{code_spec}"' if code_spec else ""
+        if units:
+            code += f' units="{units}"'
         # A heading is one line: a stored headline's line breaks travel as
         # ``<br>``.
         b.writeln(
@@ -917,6 +951,7 @@ class SpecDocumentMarkdown:
             lists=p.lists_json(),
             headlines=p.headlines,
             code_specs=p.code_specs,
+            units=p.units,
             rejections=p.rejections,
             root_prefixes=p.root_prefixes,
         )
@@ -970,6 +1005,7 @@ class _Parser:
         self.lists: dict[str, _ListState] = {}
         self.headlines: dict[str, str] = {}
         self.code_specs: dict[str, str] = {}
+        self.units: dict[str, str] = {}
         self.rejections: list[SpecMarkdownRejection] = []
         self.root_prefixes: set[str] = set()
         self._stack: list[_Frame] = []
@@ -1036,10 +1072,11 @@ class _Parser:
             return
         id = m.group(1)
         code_spec = SpecDocumentMarkdown.code_spec_of(m.group(2))
+        unit_ids = SpecDocumentMarkdown.units_of(m.group(2))
         title = m.group(3).strip().replace("<br>", "\n")
 
         if not self._stack:
-            self._open_root(level, id, title, code_spec, line_no)
+            self._open_root(level, id, title, code_spec, unit_ids, line_no)
             return
 
         parent = self._stack[-1]
@@ -1078,7 +1115,7 @@ class _Parser:
         #    schema tree.
         if p_node.kind == SomMetaKind.LIST:
             self._open_item_heading(
-                level, parent, p_node, id, title, code_spec, line_no
+                level, parent, p_node, id, title, code_spec, unit_ids, line_no
             )
             return
 
@@ -1101,6 +1138,9 @@ class _Parser:
                 # present (no default).
                 if code_spec:
                     self.code_specs[path] = code_spec
+                # SOM §11.2: ``units`` is staged exactly like codeSpec.
+                if unit_ids:
+                    self.units[path] = unit_ids
                 self._stack.append(
                     _Frame(level=level, node=c, path=path, line=line_no)
                 )
@@ -1129,6 +1169,7 @@ class _Parser:
         id: str,
         title: str,
         code_spec: str,
+        unit_ids: str,
         line_no: int,
     ) -> None:
         """Opens a list-item frame under a ``-LST`` container frame (SOM §11.2).
@@ -1153,6 +1194,7 @@ class _Parser:
                 None,
                 title,
                 code_spec,
+                unit_ids,
                 line_no,
             )
             return
@@ -1180,6 +1222,7 @@ class _Parser:
                     id,
                     title,
                     code_spec,
+                    unit_ids,
                     line_no,
                 )
                 return
@@ -1192,6 +1235,7 @@ class _Parser:
                     id,
                     title,
                     code_spec,
+                    unit_ids,
                     line_no,
                 )
                 return
@@ -1199,11 +1243,18 @@ class _Parser:
         # the stored id (YRD3: stored ids round-trip through md as well as
         # yaml).
         self._open_item(
-            level, list_path, list_node, None, id, title, code_spec, line_no
+            level, list_path, list_node, None, id, title, code_spec, unit_ids,
+            line_no,
         )
 
     def _open_root(
-        self, level: int, id: str, title: str, code_spec: str, line_no: int
+        self,
+        level: int,
+        id: str,
+        title: str,
+        code_spec: str,
+        unit_ids: str,
+        line_no: int,
     ) -> None:
         for root in self.codec.model.roots:
             seg = root.section_id or root.type
@@ -1219,6 +1270,9 @@ class _Parser:
                 # whenever present.
                 if code_spec:
                     self.code_specs[seg] = code_spec
+                # SOM §11.2: ``units`` is staged exactly like codeSpec.
+                if unit_ids:
+                    self.units[seg] = unit_ids
                 self._stack.append(
                     _Frame(level=level, node=tree.root, path=seg, line=line_no)
                 )
@@ -1249,6 +1303,7 @@ class _Parser:
         stored_id: Optional[str],
         title: str,
         code_spec: str,
+        unit_ids: str,
         line_no: int,
     ) -> None:
         """Opens a list-item frame. *n* is the anonymous heading number (also
@@ -1273,6 +1328,9 @@ class _Parser:
         # present.
         if code_spec:
             self.code_specs[item_path] = code_spec
+        # SOM §11.2: ``units`` is staged exactly like codeSpec.
+        if unit_ids:
+            self.units[item_path] = unit_ids
         self._stack.append(
             _Frame(
                 level=level,

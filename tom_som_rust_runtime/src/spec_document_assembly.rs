@@ -10,8 +10,8 @@
 //!
 //! The merge is over the plain-data stores ([`SpecDocument::to_json`]), and it
 //! is **refusing**: a value two fragments both write — a content path, a form
-//! field, a list, a headline, a code-spec location — is an overlap, and an
-//! assembly with any overlap yields no document. Choosing a winner would make
+//! field, a list, a headline, a code-spec location, a units list — is an
+//! overlap, and an assembly with any overlap yields no document. Choosing a winner would make
 //! the result depend on fragment order, and two parts writing one place is an
 //! authoring conflict the parts' authors have to settle.
 
@@ -21,12 +21,20 @@ use std::fmt;
 use crate::spec_document::{DocumentJson, SpecDocument};
 
 /// The fixed order overlaps are reported in, by the stores' plain-data names.
-const STORE_ORDER: [&str; 5] = ["content", "forms", "lists", "headlines", "codeSpecs"];
+const STORE_ORDER: [&str; 6] = [
+    "content",
+    "forms",
+    "lists",
+    "headlines",
+    "codeSpecs",
+    "units",
+];
 
 /// One place two or more fragments both write.
 #[derive(Debug, Clone, PartialEq)]
 pub struct SpecAssemblyOverlap {
-    /// The store: `content`, `forms`, `lists`, `headlines` or `codeSpecs`.
+    /// The store: `content`, `forms`, `lists`, `headlines`, `codeSpecs` or
+    /// `units`.
     pub store: String,
     /// The document path.
     pub path: String,
@@ -127,6 +135,10 @@ pub fn assemble_spec_documents(fragments: &[(&str, &SpecDocument)]) -> SpecDocum
             note(&mut writers[4], path.clone(), name);
             merged.code_specs.entry(path).or_insert(value);
         }
+        for (path, value) in json.units {
+            note(&mut writers[5], path.clone(), name);
+            merged.units.entry(path).or_insert(value);
+        }
     }
 
     let mut overlaps = Vec::new();
@@ -167,7 +179,7 @@ pub fn assemble_spec_documents(fragments: &[(&str, &SpecDocument)]) -> SpecDocum
 impl SpecDocument {
     /// Assembles one document from fragments — `(name, document)` pairs, in
     /// order — written in parallel. The merge is refusing: a content path,
-    /// form field, list, headline or code-spec location two fragments both
+    /// form field, list, headline, code-spec location or units list two fragments both
     /// write is a [`SpecAssemblyOverlap`], and an assembly with any overlap has
     /// no document. See [`assemble_spec_documents`].
     pub fn assemble(fragments: &[(&str, &SpecDocument)]) -> SpecDocumentAssembly {

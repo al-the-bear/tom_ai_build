@@ -1254,6 +1254,7 @@ public final class SpecReviewMerge {
     paths.addAll(doc.formPaths());
     paths.addAll(doc.headlinePaths());
     paths.addAll(doc.codeSpecPaths());
+    paths.addAll(doc.unitsPaths());
     for (String list : doc.listPaths()) {
       paths.add(list);
       paths.addAll(doc.listItems(list));
@@ -1504,6 +1505,9 @@ public final class SpecReviewMerge {
     }
     for (String p : pathsUnder(src.codeSpecPaths(), from)) {
       dst.setCodeSpec(remap(moved, p), src.codeSpec(p));
+    }
+    for (String p : pathsUnder(src.unitsPaths(), from)) {
+      dst.setUnits(remap(moved, p), src.units(p));
     }
   }
 

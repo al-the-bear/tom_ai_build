@@ -78,6 +78,15 @@ char *som_node_code_spec(const SomNode *n);
 /* Sets the stored CodeSpecs forward link; an empty value clears it, returning
  * the section to "no code mapping" (codespecs_mapping.md §9.2). */
 void som_node_set_code_spec(const SomNode *n, const char *value);
+/* Returns this section's generation units (owned; "" when the section carries
+ * none — the default: every unit with a mapping for the section's area) — the
+ * comma-joined list of generation-unit ids, sparse exactly like the codeSpec
+ * (SOM §11.2). A plain runtime function: the generated typed facade reserves
+ * no accessor name for it. */
+char *som_node_units(const SomNode *n);
+/* Sets the stored generation units; an empty value clears it, returning the
+ * section to the default (SOM §11.2). */
+void som_node_set_units(const SomNode *n, const char *value);
 
 /* ---- SomScalar — a bare string list item -------------------------------- */
 

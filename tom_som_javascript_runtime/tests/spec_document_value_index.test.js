@@ -26,7 +26,7 @@ const _CORPUS = path.join(__dirname, '..', '..', 'tom_som_conformance', 'corpus'
  */
 function scan(doc, query) {
   const json = doc.toJson();
-  for (const store of ['content', 'forms', 'lists', 'headlines', 'codeSpecs']) {
+  for (const store of ['content', 'forms', 'lists', 'headlines', 'codeSpecs', 'units']) {
     for (const k of Object.keys(json[store] || {})) {
       if (k === query || k.startsWith(`${query}/`) || k.startsWith(`${query}-`)) {
         return true;
@@ -58,7 +58,7 @@ const PROBES = [
 function probesFor(doc) {
   const out = new Set(PROBES);
   const json = doc.toJson();
-  for (const store of ['content', 'forms', 'lists', 'headlines', 'codeSpecs']) {
+  for (const store of ['content', 'forms', 'lists', 'headlines', 'codeSpecs', 'units']) {
     for (const k of Object.keys(json[store] || {})) {
       for (let i = 0; i <= k.length; i++) out.add(k.substring(0, i));
       out.add(`${k}/x`);
@@ -83,6 +83,8 @@ test('VI-1: the index agrees with a full scan after every mutator', () => {
   expectAgrees(d, 'setHeadline');
   d.setCodeSpec('DEMO/DET', 'a.b');
   expectAgrees(d, 'setCodeSpec');
+  d.setUnits('DEMO/notes', 'u_a');
+  expectAgrees(d, 'setUnits');
   d.setFormField('DEMO/CARD-LST-1/content', 'note', 'x');
   expectAgrees(d, 'setFormField');
   const item = d.addListItem('DEMO/items');
@@ -97,6 +99,8 @@ test('VI-1: the index agrees with a full scan after every mutator', () => {
   expectAgrees(d, 'setHeadline to empty');
   d.setCodeSpec('DEMO/DET', '');
   expectAgrees(d, 'setCodeSpec to empty');
+  d.setUnits('DEMO/notes', '');
+  expectAgrees(d, 'setUnits to empty');
   d.setFormField('DEMO/CARD-LST-1/content', 'note', '');
   expectAgrees(d, 'setFormField to empty');
   d.removeListItem(item);

@@ -10,21 +10,22 @@
  *
  * The merge is over the plain-data stores (SpecDocument::toJson), and it is
  * **refusing**: a value two fragments both write — a content path, a form
- * field, a list, a headline, a code-spec location — is an overlap, and an
- * assembly with any overlap yields no document. Choosing a winner would make
- * the result depend on fragment order, and two parts writing one place is an
- * authoring conflict the parts' authors have to settle.
+ * field, a list, a headline, a code-spec location, a units list — is an
+ * overlap, and an assembly with any overlap yields no document. Choosing a
+ * winner would make the result depend on fragment order, and two parts
+ * writing one place is an authoring conflict the parts' authors have to
+ * settle.
  *
- *   - content / headlines / codeSpecs: one value per path; a path written by
- *     two or more fragments is an overlap.
+ *   - content / headlines / codeSpecs / units: one value per path; a path
+ *     written by two or more fragments is an overlap.
  *   - forms: merged field by field — two fragments may fill different fields
  *     of one form; a (path, field) written by two or more is an overlap.
  *   - lists: a list path held by two or more fragments is an overlap (the
  *     whole list — seq, items, ids — comes from one fragment).
  *
  * Overlaps are reported in store order content, forms, lists, headlines,
- * codeSpecs, then by path (and field) byte-sorted, each naming its fragments
- * in the order they were given.
+ * codeSpecs, units, then by path (and field) byte-sorted, each naming its
+ * fragments in the order they were given.
  */
 #ifndef SPEC_DOCUMENT_ASSEMBLY_HPP
 #define SPEC_DOCUMENT_ASSEMBLY_HPP
@@ -40,7 +41,8 @@ namespace som {
 
 /* One place two or more fragments both write. */
 struct SpecAssemblyOverlap {
-  /* The store: `content`, `forms`, `lists`, `headlines` or `codeSpecs`. */
+  /* The store: `content`, `forms`, `lists`, `headlines`, `codeSpecs` or
+   * `units`. */
   std::string store;
   /* The document path. */
   std::string path;

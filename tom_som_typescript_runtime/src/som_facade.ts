@@ -133,6 +133,24 @@ export class SomNode {
       value !== null && value !== undefined ? value : '',
     );
   }
+
+  /**
+   * This section's **generation units** (SOM §11.2) as the comma-joined list
+   * of generation-unit ids, or `null` when the section carries none (the
+   * default: every unit with a mapping for the section's area). Sparse exactly
+   * like {@link $codeSpec}, available on every node, `$`-prefixed likewise.
+   */
+  get $units(): string | null {
+    return this.doc.units(this.path);
+  }
+
+  /** Sets the generation units; `''`/`null` clears them (the default). */
+  set $units(value: string | null) {
+    this.doc.setUnits(
+      this.path,
+      value !== null && value !== undefined ? value : '',
+    );
+  }
 }
 
 /**

@@ -136,6 +136,7 @@ def parse_code_specs_extract_yaml(text: str, source: str = "") -> CodeSpecsExtra
                 routed_by=req("routedBy"),
                 routed_at=req("routedAt"),
                 routing_note=opt("routingNote"),
+                units=_str_list(raw.get("units"), name, "entries[].units"),
                 value=req("value"),
             )
         )

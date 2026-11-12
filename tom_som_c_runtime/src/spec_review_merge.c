@@ -1855,6 +1855,8 @@ static int check_structure(const SpecDocument *doc, const char *what,
     som_strlist_push_copy(&paths, json.headlines.entries[i].key);
   for (size_t i = 0; i < json.code_specs.len; i++)
     som_strlist_push_copy(&paths, json.code_specs.entries[i].key);
+  for (size_t i = 0; i < json.units.len; i++)
+    som_strlist_push_copy(&paths, json.units.entries[i].key);
   for (size_t i = 0; i < json.lists_len; i++) {
     som_strlist_push_copy(&paths, json.lists[i].key);
     for (size_t k = 0; k < json.lists[i].items.len; k++) {
@@ -2220,6 +2222,15 @@ static void copy_item(const SpecDocument *src, const char *from,
     char *target = remap_path(&moved, paths.items[i]);
     spec_document_set_code_spec(dst, target,
                                 spec_document_code_spec(src, paths.items[i]));
+    free(target);
+  }
+  som_strlist_free(&paths);
+  spec_document_units_paths(src, &paths);
+  for (size_t i = 0; i < paths.len; i++) {
+    if (!under(paths.items[i], from)) continue;
+    char *target = remap_path(&moved, paths.items[i]);
+    spec_document_set_units(dst, target,
+                            spec_document_units(src, paths.items[i]));
     free(target);
   }
   som_strlist_free(&paths);

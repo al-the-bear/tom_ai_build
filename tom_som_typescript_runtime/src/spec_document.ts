@@ -64,6 +64,7 @@ export interface DocumentJson {
   lists?: Record<string, ListJson>;
   headlines?: Record<string, string>;
   codeSpecs?: Record<string, string>;
+  units?: Record<string, string>;
 }
 
 export class SpecDocument {
@@ -81,6 +82,14 @@ export class SpecDocument {
    * unset means "no code mapping".
    */
   private _codeSpec: Map<string, string> = new Map();
+
+  /**
+   * The generation units a section goes to (SOM §11.2 `units`): any section
+   * path → the comma-joined list of generation-unit ids that take the section
+   * and its subtree. Sparse like `_codeSpec`: unset means the default (every
+   * unit with a mapping for the section's area).
+   */
+  private _units: Map<string, string> = new Map();
 
   /**
    * The authoring object-model version (`major.minor`) this document was loaded
@@ -205,8 +214,8 @@ export class SpecDocument {
    * Applies a parsed Markdown import as a **full overwrite** of the roots it
    * covers (SOM §11.7): every value under each of
    * {@link SpecMarkdownResult.rootPrefixes} is removed, then the parsed
-   * content, forms, lists, headlines and codeSpecs are written. Other roots are
-   * left as they are.
+   * content, forms, lists, headlines, codeSpecs and units are written. Other
+   * roots are left as they are.
    *
    * A result with rejections is refused with an {@link Error} — and the
    * document left unchanged — unless `allowRejections` is true: the blocks it
@@ -261,6 +270,7 @@ export class SpecDocument {
       lists,
       headlines: { ...(held.headlines || {}), ...result.headlines },
       codeSpecs: { ...(held.codeSpecs || {}), ...result.codeSpecs },
+      units: { ...(held.units || {}), ...result.units },
     });
   }
 
@@ -382,6 +392,36 @@ export class SpecDocument {
   /** Every path with a stored codeSpec mapping. */
   get codeSpecPaths(): Iterable<string> {
     return this._codeSpec.keys();
+  }
+
+  // --- units (SOM §11.2) --------------------------------------------------
+
+  /**
+   * The stored generation units at `path` as the comma-joined list of
+   * generation-unit ids, or `null` when the section carries none (SOM §11.2 —
+   * `units` is sparse like codeSpec; absent means the default).
+   */
+  units(path: string): string | null {
+    return this._units.has(path) ? (this._units.get(path) as string) : null;
+  }
+
+  /**
+   * Sets the stored generation units at `path` (the comma-joined list of
+   * generation-unit ids). An empty value clears it, returning the section to
+   * the default (SOM §11.2).
+   */
+  setUnits(path: string, value: string): void {
+    this._dropValueIndex();
+    if (value === '') {
+      this._units.delete(path);
+    } else {
+      this._units.set(path, value);
+    }
+  }
+
+  /** Every path carrying stored generation units. */
+  get unitsPaths(): Iterable<string> {
+    return this._units.keys();
   }
 
   // --- lists --------------------------------------------------------------
@@ -633,6 +673,7 @@ export class SpecDocument {
     const form = rekey(this._form);
     const headline = rekey(this._headline);
     const codeSpec = rekey(this._codeSpec);
+    const units = rekey(this._units);
     const ids = rekey(this._itemSectionId);
     for (const [old, id] of pinned) ids.set(remap(old), id);
     const seq = rekey(this._listSeq);
@@ -654,6 +695,7 @@ export class SpecDocument {
     _replaceWith(this._form, form);
     _replaceWith(this._headline, headline);
     _replaceWith(this._codeSpec, codeSpec);
+    _replaceWith(this._units, units);
     _replaceWith(this._itemSectionId, ids);
     _replaceWith(this._listSeq, seq);
     _replaceWith(this._listItems, lists);
@@ -704,6 +746,7 @@ export class SpecDocument {
       this._itemSectionId,
       this._headline,
       this._codeSpec,
+      this._units,
     ];
     for (const store of stores) {
       for (const key of Array.from(store.keys())) {
@@ -736,7 +779,8 @@ export class SpecDocument {
       this._form.size === 0 &&
       this._listItems.size === 0 &&
       this._headline.size === 0 &&
-      this._codeSpec.size === 0
+      this._codeSpec.size === 0 &&
+      this._units.size === 0
     );
   }
 
@@ -772,6 +816,7 @@ export class SpecDocument {
       this._listItems,
       this._headline,
       this._codeSpec,
+      this._units,
     ];
     for (const store of stores) {
       for (const key of store.keys()) {
@@ -879,6 +924,13 @@ export class SpecDocument {
       }
       out.codeSpecs = codeSpecs;
     }
+    if (this._units.size > 0) {
+      const units: Record<string, string> = {};
+      for (const k of Array.from(this._units.keys()).sort()) {
+        units[k] = this._units.get(k) as string;
+      }
+      out.units = units;
+    }
     return out;
   }
 
@@ -895,6 +947,7 @@ export class SpecDocument {
     this._itemSectionId.clear();
     this._headline.clear();
     this._codeSpec.clear();
+    this._units.clear();
 
     const content = json ? json.content : null;
     if (content && typeof content === 'object') {
@@ -969,6 +1022,15 @@ export class SpecDocument {
       for (const [k, v] of Object.entries(codeSpecs)) {
         if (v !== null && v !== undefined && String(v) !== '') {
           this._codeSpec.set(String(k), String(v));
+        }
+      }
+    }
+
+    const units = json ? json.units : null;
+    if (units && typeof units === 'object') {
+      for (const [k, v] of Object.entries(units)) {
+        if (v !== null && v !== undefined && String(v) !== '') {
+          this._units.set(String(k), String(v));
         }
       }
     }

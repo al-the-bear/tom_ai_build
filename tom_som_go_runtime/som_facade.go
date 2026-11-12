@@ -91,6 +91,17 @@ func (n SomNode) CodeSpec() string { return n.doc.CodeSpecOr(n.path) }
 // to "no code mapping".
 func (n SomNode) SetCodeSpec(value string) { n.doc.SetCodeSpec(n.path, value) }
 
+// Units returns this section's generation units (SOM §11.2) as the
+// comma-joined list of generation-unit ids, or "" when the section carries
+// none (the default: every unit with a mapping for the section's area). Sparse
+// exactly like CodeSpec, available on every node, named Units / SetUnits for
+// the same collision-proofing.
+func (n SomNode) Units() string { return n.doc.UnitsOr(n.path) }
+
+// SetUnits sets or clears this section's generation units (SOM §11.2). An
+// empty value clears the store, returning the section to the default.
+func (n SomNode) SetUnits(value string) { n.doc.SetUnits(n.path, value) }
+
 // IsEmpty reports whether this section holds no value at its path or nested
 // beneath it (delegates to HasValuesUnder). Promoted to every generated section
 // facade via the embedded SomNode. (SOM §21.)

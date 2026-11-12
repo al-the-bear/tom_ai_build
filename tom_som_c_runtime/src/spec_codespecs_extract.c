@@ -2,6 +2,7 @@
  * faithful port of the Dart `spec_codespecs_extract.dart`. */
 #include "spec_codespecs_extract.h"
 
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -267,6 +268,7 @@ void spec_codespecs_extract_entry_free(CodeSpecsExtractEntry *e) {
   free(e->routed_by);
   free(e->routed_at);
   free(e->routing_note);
+  som_strlist_free(&e->units);
   free(e->value);
   memset(e, 0, sizeof(*e));
 }
@@ -297,6 +299,7 @@ static CodeSpecsExtractEntry entry_copy(const CodeSpecsExtractEntry *e) {
   out.routed_by = som_strdup(e->routed_by);
   out.routed_at = som_strdup(e->routed_at);
   out.routing_note = dup_opt(e->routing_note);
+  som_strlist_copy(&out.units, &e->units);
   out.value = som_strdup(e->value);
   return out;
 }
@@ -1103,6 +1106,10 @@ char *spec_codespecs_extract_to_yaml(const CodeSpecsExtract *x) {
     yaml_string(&b, e->routed_at);
     som_buf_puts(&b, "\n      routingNote: ");
     yaml_nullable_string(&b, e->routing_note);
+    if (e->units.len > 0) {
+      som_buf_puts(&b, "\n      units: ");
+      yaml_string_list(&b, &e->units);
+    }
     som_buf_puts(&b, "\n      value: ");
     yaml_string(&b, e->value);
     som_buf_putc(&b, '\n');
@@ -1203,6 +1210,18 @@ char *spec_codespecs_extract_to_markdown(const CodeSpecsExtract *x) {
     som_buf_puts(&b, "` declared on `");
     som_buf_puts(&b, e->routed_at);
     som_buf_puts(&b, "`\n");
+    if (e->units.len > 0) {
+      som_buf_puts(&b, "- units: ");
+      for (size_t u = 0; u < e->units.len; u++) {
+        if (u > 0) {
+          som_buf_puts(&b, ", ");
+        }
+        som_buf_putc(&b, '`');
+        som_buf_puts(&b, e->units.items[u]);
+        som_buf_putc(&b, '`');
+      }
+      som_buf_putc(&b, '\n');
+    }
     if (e->routing_note != NULL) {
       som_buf_puts(&b, "- routing note: ");
       md_cell(&b, e->routing_note);
@@ -1526,19 +1545,54 @@ static int field_routing(const SpecClass *cls, const SpecField *field,
   return 1;
 }
 
+/* A stored comma-joined `units` value as its unit ids, written into `out`
+ * (initialised by the callee): split at the commas, each trimmed, empty pieces
+ * dropped; NULL reads as the empty list. */
+static void split_units(const char *units, SomStrList *out) {
+  som_strlist_init(out);
+  if (units == NULL) {
+    return;
+  }
+  const char *p = units;
+  for (;;) {
+    const char *comma = strchr(p, ',');
+    const char *end = comma != NULL ? comma : p + strlen(p);
+    const char *s = p;
+    while (s < end && isspace((unsigned char)*s)) {
+      s++;
+    }
+    const char *t = end;
+    while (t > s && isspace((unsigned char)t[-1])) {
+      t--;
+    }
+    if (t > s) {
+      som_strlist_push(out, som_strdup_n(s, (size_t)(t - s)));
+    }
+    if (comma == NULL) {
+      break;
+    }
+    p = comma + 1;
+  }
+}
+
 /* Appends one entry **per area the routing names** — never deduplicated, because
- * each area's prompt must be self-sufficient (§1.1.1). */
+ * each area's prompt must be self-sufficient (§1.1.1). `units` is the nearest
+ * stored generation units (SOM §11.2) at the entry's path or above, NULL when
+ * none. */
 static void emit_value(const CodeSpecsExtractor *e, EntryBuf *entries,
                        const CodeSpecsRouting *routing, const SpecClass *cls,
                        const SpecField *field, const char *path,
                        const char *form_field, const char *headline,
-                       const char *instance_id, const char *value) {
+                       const char *instance_id, const char *units,
+                       const char *value) {
   if (entries == NULL || routing == NULL) {
     return;
   }
   if (value == NULL || value[0] == '\0') {
     return;
   }
+  SomStrList unit_ids;
+  split_units(units, &unit_ids);
   for (size_t i = 0; i < routing->values.len; i++) {
     const CodeSpecsArea *area =
         spec_codespecs_catalog_by_part(e->catalog, routing->values.items[i]);
@@ -1557,9 +1611,11 @@ static void emit_value(const CodeSpecsExtractor *e, EntryBuf *entries,
     entry.routed_by = spec_codespecs_area_kind_value(area);
     entry.routed_at = som_strdup(routing->declared_at);
     entry.routing_note = dup_opt(routing->note);
+    som_strlist_copy(&entry.units, &unit_ids);
     entry.value = som_strdup(value);
     entry_buf_push(entries, &entry);
   }
+  som_strlist_free(&unit_ids);
 }
 
 /* Records the `ROUTE-TOTAL` violation `cls` at `path` is, when `err` is
@@ -1584,7 +1640,8 @@ static int walk(const CodeSpecsExtractor *e, const char *path,
                 const SpecClass *cls, const SomStrList *ancestor_types,
                 CodeSpecsRoutingList *routings, EntryBuf *entries, int strict,
                 CodeSpecsExtractError *err,
-                const char *enclosing_instance_id) {
+                const char *enclosing_instance_id,
+                const char *enclosing_units) {
   if (cls == NULL) {
     return 1;
   }
@@ -1627,6 +1684,13 @@ static int walk(const CodeSpecsExtractor *e, const char *path,
   const char *instance_id =
       stored_id != NULL ? stored_id : enclosing_instance_id;
 
+  /* The nearest stored generation units (SOM §11.2): this node's own, else
+   * whatever the walk inherited. The walk passes every ancestor path of an
+   * entry — class node, field, list container, list item — so "nearest on the
+   * walk" is "nearest at the entry's path or an ancestor path". */
+  const char *own_units = spec_document_units(e->document, path);
+  const char *class_units = own_units != NULL ? own_units : enclosing_units;
+
   int ok = 1;
   for (size_t i = 0; ok && i < cls->fields_len; i++) {
     const SpecField *field = &cls->fields[i];
@@ -1636,17 +1700,22 @@ static int walk(const CodeSpecsExtractor *e, const char *path,
     int has_field_routing = field_routing(cls, field, &own_field_routing);
     const CodeSpecsRouting *routed =
         has_field_routing ? &own_field_routing : class_routing;
+    const char *stored_field_units =
+        spec_document_units(e->document, field_path);
+    const char *field_units =
+        stored_field_units != NULL ? stored_field_units : class_units;
 
     if (strcmp(field->kind, SPEC_FIELD_KIND_CONTENT) == 0 ||
         strcmp(field->kind, SPEC_FIELD_KIND_ENUM) == 0 ||
         strcmp(field->kind, SPEC_FIELD_KIND_SCALAR) == 0) {
       emit_value(e, entries, routed, cls, field, field_path, NULL, headline,
-                 instance_id, spec_document_content(e->document, field_path));
+                 instance_id, field_units,
+                 spec_document_content(e->document, field_path));
     } else if (strcmp(field->kind, SPEC_FIELD_KIND_FORM) == 0) {
       for (size_t f = 0; f < field->form_fields_len; f++) {
         const char *name = field->form_fields[f].name;
         emit_value(e, entries, routed, cls, field, field_path, name, headline,
-                   instance_id,
+                   instance_id, field_units,
                    spec_document_form_field(e->document, field_path, name));
       }
     } else if (strcmp(field->kind, SPEC_FIELD_KIND_LIST) == 0) {
@@ -1663,7 +1732,8 @@ static int walk(const CodeSpecsExtractor *e, const char *path,
           som_strlist_push_copy(&nested, field->element_type);
           ok = walk(e, item_path,
                     spec_model_class_named(e->model, field->element_type),
-                    &nested, routings, entries, strict, err, instance_id);
+                    &nested, routings, entries, strict, err, instance_id,
+                    field_units);
           som_strlist_free(&nested);
         } else {
           /* A scalar item is itself an instance of the list: its own stored
@@ -1671,8 +1741,10 @@ static int walk(const CodeSpecsExtractor *e, const char *path,
            * carry. */
           const char *item_stored =
               spec_document_item_section_id(e->document, item_path);
+          const char *item_units = spec_document_units(e->document, item_path);
           emit_value(e, entries, routed, cls, field, item_path, NULL, headline,
                      item_stored != NULL ? item_stored : instance_id,
+                     item_units != NULL ? item_units : field_units,
                      spec_document_content(e->document, item_path));
         }
         free(item_path);
@@ -1685,7 +1757,8 @@ static int walk(const CodeSpecsExtractor *e, const char *path,
         som_strlist_copy(&nested, ancestor_types);
         som_strlist_push_copy(&nested, field->type);
         ok = walk(e, field_path, spec_model_class_named(e->model, field->type),
-                  &nested, routings, entries, strict, err, instance_id);
+                  &nested, routings, entries, strict, err, instance_id,
+                  field_units);
         som_strlist_free(&nested);
       }
     }
@@ -1713,7 +1786,7 @@ static int walk_all(const CodeSpecsExtractor *e, CodeSpecsRoutingList *routings,
   som_strlist_push_copy(&ancestors, e->root->type);
   int ok = walk(e, spec_reflection_root_segment(e->root),
                 spec_model_class_named(e->model, e->root->type), &ancestors,
-                routings, entries, strict, err, NULL);
+                routings, entries, strict, err, NULL, NULL);
   som_strlist_free(&ancestors);
   return ok;
 }

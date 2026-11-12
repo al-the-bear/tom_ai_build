@@ -74,7 +74,30 @@ public enum SpecValidationCode {
    * A comment id or a question id is used twice in one document
    * (SOM §11.9.5).
    */
-  DUPLICATE_ANNOTATION_ID("duplicateAnnotationId");
+  DUPLICATE_ANNOTATION_ID("duplicateAnnotationId"),
+  /**
+   * A section's {@code units} (SOM §11.2) names an id no generation-unit entry
+   * of the document declares.
+   */
+  UNKNOWN_UNIT("unknownUnit"),
+  /**
+   * A section carries {@code units}, but neither its class nor any class
+   * reachable beneath it routes anything to CodeSpecs ({@code @CodeSpecKind}),
+   * so the units would place nothing.
+   */
+  UNITS_UNROUTED("unitsUnrouted"),
+  /** Two generation-unit entries declare one {@code unitId}; reported at the second. */
+  DUPLICATE_UNIT_ID("duplicateUnitId"),
+  /**
+   * A generation-unit entry names neither a {@code deploymentTarget} nor a
+   * {@code component}, so it builds nothing.
+   */
+  UNIT_BUILDS_NOTHING("unitBuildsNothing"),
+  /**
+   * A generation-unit mapping's {@code area} is not an area code ({@code CE-}
+   * followed by capital letters).
+   */
+  UNIT_AREA_MALFORMED("unitAreaMalformed");
 
   public final String value;
 

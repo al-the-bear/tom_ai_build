@@ -81,12 +81,20 @@ static void writers_free(WriterTable *t) {
 /* ---- stores ------------------------------------------------------------- */
 
 /* The fixed order overlaps are reported in. */
-enum { S_CONTENT, S_FORMS, S_LISTS, S_HEADLINES, S_CODE_SPECS, S_COUNT };
+enum {
+  S_CONTENT,
+  S_FORMS,
+  S_LISTS,
+  S_HEADLINES,
+  S_CODE_SPECS,
+  S_UNITS,
+  S_COUNT
+};
 
 static const char *const k_store_names[S_COUNT] = {
-    "content", "forms", "lists", "headlines", "codeSpecs"};
+    "content", "forms", "lists", "headlines", "codeSpecs", "units"};
 
-/* Merges one path store (content / headlines / codeSpecs): the first writer's
+/* Merges one path store (content / headlines / codeSpecs / units): the first writer's
  * value is kept, every writer is recorded. */
 static void merge_path_store(WriterTable *t, SomMap *merged, const SomMap *src,
                              const char *name) {
@@ -165,6 +173,7 @@ void spec_document_assemble(const SpecAssemblyFragment *fragments,
                      name);
     merge_path_store(&writers[S_CODE_SPECS], &merged.code_specs,
                      &json.code_specs, name);
+    merge_path_store(&writers[S_UNITS], &merged.units, &json.units, name);
 
     for (size_t i = 0; i < json.forms_len; i++) {
       const DocFormEntry *form = &json.forms[i];

@@ -9,13 +9,15 @@
  * sections nest their children, list items appear under their container keyed
  * by their stored section id (or an anonymous positional `<member>-<n>` key), a
  * node's own body text uses the literal key `content`, a node's **stored
- * headline** (YRD3) uses the literal key `headline`, and form fields use
- * their bare field names. A `@Form` node's mapping carries its own preamble
+ * headline** (YRD3) uses the literal key `headline`, a node's **stored
+ * codeSpec** uses the literal key `codeSpec`, a node's **stored units** (SOM
+ * §11.2, the comma-joined generation-unit ids) uses the literal key `units`
+ * right after `codeSpec`, and form fields use their bare field names. A `@Form` node's mapping carries its own preamble
  * text — the free text before the first field (SOM §11.4 rule 7) — under the
  * same literal `content` key, so a form section stores its body exactly as
  * every other section does. A scalar-valued node (content/scalar/enum leaf or
- * scalar list item) that carries a stored headline is emitted as a
- * `{headline: …, content: …}` mapping. The former flat two-level path-map format
+ * scalar list item) that carries a stored headline, codeSpec and/or units is
+ * emitted as a `{headline: …, codeSpec: …, units: …, content: …}` mapping. The former flat two-level path-map format
  * (`document: {content: {"A/b": …}}`) is **retired**; readers reject
  * `version: 1` files with a clear error (no compatibility path).
  *
@@ -694,6 +696,7 @@ class _Encoder {
   private _lists: Set<string>;
   private _headlines: Map<string, string> = new Map();
   private _codeSpecs: Map<string, string> = new Map();
+  private _units: Map<string, string> = new Map();
 
   constructor(doc: SpecDocument, tree: SomMetaTree) {
     this.doc = doc;
@@ -718,6 +721,10 @@ class _Encoder {
     for (const p of doc.codeSpecPaths) {
       const cs = doc.codeSpec(p);
       this._codeSpecs.set(p, cs !== null ? cs : '');
+    }
+    for (const p of doc.unitsPaths) {
+      const u = doc.units(p);
+      this._units.set(p, u !== null ? u : '');
     }
   }
 
@@ -772,6 +779,20 @@ class _Encoder {
       this._writeText(b, indent, 'codeSpec', ownCodeSpec);
     }
 
+    // The node's own generation units — the literal `units` key, right after
+    // `codeSpec` (SOM §12.3 rule 6).
+    if (this._units.has(path)) {
+      const ownUnits = this._units.get(path) as string;
+      this._units.delete(path);
+      if (node.children.some((c) => nodeKey(c) === 'units')) {
+        throw new SpecYamlFormatException(
+          `cannot emit the stored units at \`${path}\`: a child of ` +
+            `${node.debugName} also serializes as key \`units\``,
+        );
+      }
+      this._writeText(b, indent, 'units', ownUnits);
+    }
+
     // The node's own body text — the literal `content` key (SOM §12.2).
     if (this._content.has(path)) {
       const own = this._content.get(path) as string;
@@ -798,8 +819,11 @@ class _Encoder {
         const hasCs = this._codeSpecs.has(childPath);
         const cs = hasCs ? (this._codeSpecs.get(childPath) as string) : null;
         this._codeSpecs.delete(childPath);
-        if (hasH || hasCs) {
-          this._writeScalarWithMeta(b, indent, key, h, cs, v, true);
+        const hasU = this._units.has(childPath);
+        const u = hasU ? (this._units.get(childPath) as string) : null;
+        this._units.delete(childPath);
+        if (hasH || hasCs || hasU) {
+          this._writeScalarWithMeta(b, indent, key, h, cs, u, v, true);
         } else if (hasV) {
           this._writeText(b, indent, key, v as string);
         }
@@ -816,8 +840,11 @@ class _Encoder {
         const hasCs = this._codeSpecs.has(childPath);
         const cs = hasCs ? (this._codeSpecs.get(childPath) as string) : null;
         this._codeSpecs.delete(childPath);
-        if (hasH || hasCs) {
-          this._writeScalarWithMeta(b, indent, key, h, cs, v, false);
+        const hasU = this._units.has(childPath);
+        const u = hasU ? (this._units.get(childPath) as string) : null;
+        this._units.delete(childPath);
+        if (hasH || hasCs || hasU) {
+          this._writeScalarWithMeta(b, indent, key, h, cs, u, v, false);
         } else if (hasV) {
           this._writeValue(b, indent, key, v as string);
         }
@@ -841,9 +868,10 @@ class _Encoder {
 
   /**
    * Emits a scalar-valued node (content/scalar/enum leaf or scalar list item)
-   * that carries a stored headline and/or a codeSpec mapping as a `{headline?:
-   * …, codeSpec?: …, content?: …}` mapping (YRD3 + codespecs_mapping.md §9.2).
-   * At least one of `headline`/`codeSpec` is non-null at every call site.
+   * that carries a stored headline, a codeSpec mapping and/or units as a
+   * `{headline?: …, codeSpec?: …, units?: …, content?: …}` mapping (YRD3 +
+   * codespecs_mapping.md §9.2 + SOM §12.3 rule 6). At least one of
+   * `headline`/`codeSpec`/`units` is non-null at every call site.
    */
   private _writeScalarWithMeta(
     b: _Buffer,
@@ -851,6 +879,7 @@ class _Encoder {
     key: string,
     headline: string | null,
     codeSpec: string | null,
+    units: string | null,
     value: string | null,
     text: boolean,
   ): void {
@@ -860,6 +889,9 @@ class _Encoder {
     }
     if (codeSpec !== null && codeSpec !== undefined) {
       this._writeText(b, indent + 2, 'codeSpec', codeSpec);
+    }
+    if (units !== null && units !== undefined) {
+      this._writeText(b, indent + 2, 'units', units);
     }
     if (value !== null && value !== undefined) {
       if (text) {
@@ -885,13 +917,22 @@ class _Encoder {
     const hasCodeSpec = this._codeSpecs.has(path);
     const codeSpec = hasCodeSpec ? (this._codeSpecs.get(path) as string) : null;
     this._codeSpecs.delete(path);
+    const hasUnits = this._units.has(path);
+    const units = hasUnits ? (this._units.get(path) as string) : null;
+    this._units.delete(path);
     // The form's preamble — the free text before its first field (SOM §11.4
     // rule 7, the DocSpecs `${text[]}` region) — rides in the same mapping
     // under the literal `content` key, exactly as a section's body does.
     const hasContent = this._content.has(path);
     const content = hasContent ? (this._content.get(path) as string) : null;
     this._content.delete(path);
-    if (fields.size === 0 && !hasHeadline && !hasCodeSpec && !hasContent) {
+    if (
+      fields.size === 0 &&
+      !hasHeadline &&
+      !hasCodeSpec &&
+      !hasUnits &&
+      !hasContent
+    ) {
       return;
     }
     const meta = node.form !== null && node.form !== undefined
@@ -917,6 +958,12 @@ class _Encoder {
           'field literally named `codeSpec`',
       );
     }
+    if (hasUnits && meta.fieldNamed('units') !== null) {
+      throw new SpecYamlFormatException(
+        `cannot emit the stored units at \`${path}\`: the form declares a ` +
+          'field literally named `units`',
+      );
+    }
     if (hasContent && meta.fieldNamed('content') !== null) {
       throw new SpecYamlFormatException(
         `cannot emit the preamble content at \`${path}\`: the form declares a ` +
@@ -929,6 +976,9 @@ class _Encoder {
     }
     if (hasCodeSpec) {
       this._writeText(b, indent + 2, 'codeSpec', codeSpec as string);
+    }
+    if (hasUnits) {
+      this._writeText(b, indent + 2, 'units', units as string);
     }
     if (hasContent) {
       this._writeText(b, indent + 2, 'content', content as string);
@@ -960,8 +1010,11 @@ class _Encoder {
     const hasCodeSpec = this._codeSpecs.has(path);
     const codeSpec = hasCodeSpec ? (this._codeSpecs.get(path) as string) : null;
     this._codeSpecs.delete(path);
+    const hasUnits = this._units.has(path);
+    const units = hasUnits ? (this._units.get(path) as string) : null;
+    this._units.delete(path);
     const items = this.doc.listItems(path);
-    if (items.length === 0 && !hasHeadline && !hasCodeSpec) {
+    if (items.length === 0 && !hasHeadline && !hasCodeSpec && !hasUnits) {
       return;
     }
     b.writeln(`${' '.repeat(indent)}${plainKey(key)}:`);
@@ -971,7 +1024,10 @@ class _Encoder {
     if (hasCodeSpec) {
       this._writeText(b, indent + 2, 'codeSpec', codeSpec as string);
     }
-    const used = new Set<string>(['headline', 'codeSpec']);
+    if (hasUnits) {
+      this._writeText(b, indent + 2, 'units', units as string);
+    }
+    const used = new Set<string>(['headline', 'codeSpec', 'units']);
     let pos = 0;
     for (const itemPath of items) {
       pos += 1;
@@ -995,9 +1051,9 @@ class _Encoder {
       const element = node.elementNode;
       if (element === null || element === undefined) {
         // Scalar list: the item is a direct value — unless it carries a stored
-        // headline and/or codeSpec, in which case it becomes a `{headline?: …,
-        // codeSpec?: …, content: …}` mapping (YRD3 + codespecs_mapping.md
-        // §9.2).
+        // headline, codeSpec and/or units, in which case it becomes a
+        // `{headline?: …, codeSpec?: …, units?: …, content: …}` mapping (YRD3 +
+        // codespecs_mapping.md §9.2 + SOM §12.3 rule 6).
         const hasV = this._content.has(itemPath);
         const v = hasV ? (this._content.get(itemPath) as string) : null;
         this._content.delete(itemPath);
@@ -1007,9 +1063,12 @@ class _Encoder {
         const hasIcs = this._codeSpecs.has(itemPath);
         const ics = hasIcs ? (this._codeSpecs.get(itemPath) as string) : null;
         this._codeSpecs.delete(itemPath);
-        if (hasIh || hasIcs) {
+        const hasIu = this._units.has(itemPath);
+        const iu = hasIu ? (this._units.get(itemPath) as string) : null;
+        this._units.delete(itemPath);
+        if (hasIh || hasIcs || hasIu) {
           this._writeScalarWithMeta(
-            b, indent + 2, itemKey, ih, ics, v, false,
+            b, indent + 2, itemKey, ih, ics, iu, v, false,
           );
         } else {
           this._writeValue(b, indent + 2, itemKey, hasV ? (v as string) : '');
@@ -1051,6 +1110,7 @@ class _Encoder {
       ...Array.from(this._lists).map((p) => `list items at \`${p}\``),
       ...Array.from(this._headlines.keys()).map((p) => `headline at \`${p}\``),
       ...Array.from(this._codeSpecs.keys()).map((p) => `codeSpec at \`${p}\``),
+      ...Array.from(this._units.keys()).map((p) => `units at \`${p}\``),
     ].sort();
     if (leftovers.length > 0) {
       throw new SpecYamlFormatException(
@@ -1187,6 +1247,10 @@ class _Decoder {
         );
         continue;
       }
+      if (key === 'units') {
+        this.doc.setUnits(path, _Decoder._scalarOf(value, `${path} (units)`));
+        continue;
+      }
       const expected = _Decoder._expectedKeys(node).join(', ');
       throw new SpecYamlFormatException(
         `key \`${key}\` under \`${path}\` matches no member of ` +
@@ -1202,7 +1266,7 @@ class _Decoder {
   private static _expectedKeys(node: SomMetaNode): string[] {
     return node.children
       .map((c) => `\`${nodeKey(c)}\``)
-      .concat(['`content`', '`headline`', '`codeSpec`']);
+      .concat(['`content`', '`headline`', '`codeSpec`', '`units`']);
   }
 
   private _loadChild(
@@ -1250,6 +1314,10 @@ class _Decoder {
               path,
               _Decoder._scalarOf(v, `${path} (codeSpec)`),
             );
+            continue;
+          }
+          if (name === 'units') {
+            this.doc.setUnits(path, _Decoder._scalarOf(v, `${path} (units)`));
             continue;
           }
           if (name === 'content') {
@@ -1315,6 +1383,11 @@ class _Decoder {
         );
         continue;
       }
+      if (key === 'units') {
+        // The list container's own generation units (SOM §11.2), not an item.
+        this.doc.setUnits(path, _Decoder._scalarOf(value, `${path} (units)`));
+        continue;
+      }
       const itemPath = this.doc.addListItem(
         path,
         anonymous.test(key) ? null : key,
@@ -1355,9 +1428,9 @@ class _Decoder {
   }
 
   /**
-   * Loads a headline-/codeSpec-extended scalar node (YRD3 +
-   * codespecs_mapping.md §9.2): a mapping holding only the literal keys
-   * `headline`, `codeSpec` and `content`.
+   * Loads a headline-/codeSpec-/units-extended scalar node (YRD3 +
+   * codespecs_mapping.md §9.2 + SOM §12.3 rule 6): a mapping holding only the
+   * literal keys `headline`, `codeSpec`, `units` and `content`.
    */
   private _loadScalarWithMeta(path: string, key: string, value: any): void {
     for (const [k, v] of Object.entries(value)) {
@@ -1372,12 +1445,14 @@ class _Decoder {
           path,
           _Decoder._scalarOf(v, `${path} (codeSpec)`),
         );
+      } else if (name === 'units') {
+        this.doc.setUnits(path, _Decoder._scalarOf(v, `${path} (units)`));
       } else if (name === 'content') {
         this.doc.setContent(path, _Decoder._scalarOf(v, `${path}/content`));
       } else {
         throw new SpecYamlFormatException(
           `scalar node \`${key}\` at \`${path}\` may only hold ` +
-            `\`headline\`/\`codeSpec\`/\`content\` keys when written as a ` +
+            `\`headline\`/\`codeSpec\`/\`units\`/\`content\` keys when written as a ` +
             `mapping, found \`${name}\``,
         );
       }

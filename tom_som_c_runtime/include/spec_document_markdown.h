@@ -220,7 +220,7 @@ void spec_markdown_parse(const SpecModel *model, const char *text,
 /* Applies a parsed Markdown import to `doc` as a **full overwrite** of the
  * roots it covers (SOM §11.7): every value under each of
  * `result->root_prefixes` is removed, then the parsed content, forms, lists
- * (seq, items and stored item ids exactly as staged), headlines and codeSpecs
+ * (seq, items and stored item ids exactly as staged), headlines, codeSpecs and units
  * are written. Other roots are left as they are. Keys are written as-is (this
  * port has no path normalizer).
  *

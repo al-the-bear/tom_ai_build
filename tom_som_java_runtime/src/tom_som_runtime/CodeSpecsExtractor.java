@@ -295,6 +295,7 @@ public final class CodeSpecsExtractor {
         routings,
         entries,
         strict,
+        null,
         null);
   }
 
@@ -305,7 +306,8 @@ public final class CodeSpecsExtractor {
       List<CodeSpecsRouting> routings,
       List<CodeSpecsExtractEntry> entries,
       boolean strict,
-      String enclosingInstanceId) {
+      String enclosingInstanceId,
+      String enclosingUnits) {
     if (cls == null) {
       return;
     }
@@ -351,10 +353,19 @@ public final class CodeSpecsExtractor {
     String storedId = document.itemSectionId(path);
     String instanceId = storedId != null ? storedId : enclosingInstanceId;
 
+    // The nearest stored generation units (SOM §11.2): this node's own, else
+    // whatever the walk inherited. The walk passes every ancestor path of an
+    // entry — class node, field, list container, list item — so "nearest on
+    // the walk" is "nearest at the entry's path or an ancestor path".
+    String ownUnits = document.units(path);
+    String classUnits = ownUnits != null ? ownUnits : enclosingUnits;
+
     for (SpecField field : cls.fields) {
       String fieldPath = SpecPaths.join(path, reflection.fieldSegment(field));
       CodeSpecsRouting declared = fieldRouting(cls, field);
       CodeSpecsRouting fieldRouting = declared == null ? classRouting : declared;
+      String storedFieldUnits = document.units(fieldPath);
+      String fieldUnits = storedFieldUnits != null ? storedFieldUnits : classUnits;
 
       switch (field.kind) {
         case CONTENT:
@@ -369,6 +380,7 @@ public final class CodeSpecsExtractor {
               null,
               headline,
               instanceId,
+              fieldUnits,
               document.content(fieldPath));
           break;
         case FORM:
@@ -382,6 +394,7 @@ public final class CodeSpecsExtractor {
                 ff.name,
                 headline,
                 instanceId,
+                fieldUnits,
                 document.formField(fieldPath, ff.name));
           }
           break;
@@ -399,12 +412,14 @@ public final class CodeSpecsExtractor {
                   routings,
                   entries,
                   strict,
-                  instanceId);
+                  instanceId,
+                  fieldUnits);
             } else {
               // A scalar item is itself an instance of the list: its own
               // stored id is the most precise enclosing-instance id its
               // entry can carry.
               String itemStored = document.itemSectionId(itemPath);
+              String itemUnits = document.units(itemPath);
               emitValue(
                   entries,
                   fieldRouting,
@@ -414,6 +429,7 @@ public final class CodeSpecsExtractor {
                   null,
                   headline,
                   itemStored != null ? itemStored : instanceId,
+                  itemUnits != null ? itemUnits : fieldUnits,
                   document.content(itemPath));
             }
           }
@@ -430,7 +446,8 @@ public final class CodeSpecsExtractor {
                 routings,
                 entries,
                 strict,
-                instanceId);
+                instanceId,
+                fieldUnits);
           }
           break;
         default:
@@ -452,6 +469,7 @@ public final class CodeSpecsExtractor {
       String formField,
       String headline,
       String instanceId,
+      String units,
       String value) {
     if (entries == null || routing == null) {
       return;
@@ -459,6 +477,7 @@ public final class CodeSpecsExtractor {
     if (value == null || value.isEmpty()) {
       return;
     }
+    List<String> unitIds = SpecValidator.splitUnits(units);
     for (String kind : routing.values) {
       CodeSpecsArea area = catalog.byPart(kind);
       if (area == null || !area.active) {
@@ -477,6 +496,7 @@ public final class CodeSpecsExtractor {
               area.kindValue(),
               routing.declaredAt,
               routing.note,
+              unitIds,
               value));
     }
   }

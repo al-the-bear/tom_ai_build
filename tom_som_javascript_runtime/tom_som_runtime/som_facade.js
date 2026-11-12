@@ -107,6 +107,30 @@ class SomNode {
   }
 
   /**
+   * This section's **generation units** (SOM §11.2) as the comma-joined list
+   * of generation-unit ids, or `null` when the section carries none (the
+   * default: every unit with a mapping for the section's area). Sparse
+   * exactly like {@link SomNode#$codeSpec}, available on every node,
+   * `$`-prefixed likewise.
+   *
+   * @returns {string|null}
+   */
+  get $units() {
+    return this.doc.units(this.path);
+  }
+
+  /**
+   * Sets or clears this section's generation units (SOM §11.2).
+   * Assigning `null`/`undefined`/`''` clears the store, returning the section
+   * to the default.
+   *
+   * @param {string|null} value
+   */
+  set $units(value) {
+    this.doc.setUnits(this.path, value || '');
+  }
+
+  /**
    * Whether this section holds no value at its {@link path} or nested beneath
    * it — the typed-facade view of "is this section filled?", kept in agreement
    * with the generic API by delegating to {@link SpecDocument#hasValuesUnder}

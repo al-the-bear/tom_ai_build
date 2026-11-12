@@ -200,14 +200,14 @@ function testModelMeta(model) {
   const root = model.roots[0];
   _check('model.root.sectionId', root.sectionId === 'DEMO', String(root.sectionId));
   _check('model.root.type', root.type === 'Demo', root.type);
-  _check('model.classCount', model.classes.size === 15, String(model.classes.size));
+  _check('model.classCount', model.classes.size === 17, String(model.classes.size));
   const demo = model.classNamed('Demo');
   _check('model.Demo.found', demo !== null);
   if (demo !== null) {
     const names = demo.fields.map((f) => f.name);
     _check(
       'model.Demo.fields',
-      _deepEqual(names, ['title', 'summary', 'priority', 'count', 'ratio', 'score', 'details', 'items', 'refs', 'cards', 'meta', 'control', 'notes', 'mixed', 'registry']),
+      _deepEqual(names, ['title', 'summary', 'priority', 'count', 'ratio', 'score', 'details', 'items', 'refs', 'cards', 'meta', 'control', 'notes', 'mixed', 'registry', 'deliverables']),
       String(names),
     );
   }
@@ -386,6 +386,8 @@ function testMarkdownRoundTrip(model) {
     forms: parsed.forms,
     lists: parsed.lists,
     headlines: parsed.headlines,
+    codeSpecs: parsed.codeSpecs,
+    units: parsed.units,
   });
   _check(
     'md.parse.storedId',
@@ -1467,6 +1469,25 @@ function _buildFixtureDocument() {
   );
   d.setContent('DEMO/MIX/tail', 'Tail text.');
   d.setFormField('DEMO/MIX/alt', 'lead', 'Bob');
+  // SOM §11.2 `units`: a section carrying codeSpec AND units (`TTL`, both keys
+  // in one heading comment, the scalar-promotion mapping in yaml) and a
+  // section carrying units alone (`notes`), which the extract hands down to
+  // every entry beneath it. Both ids are declared by the register.
+  d.setCodeSpec('DEMO/TTL', 'DemoTitle');
+  d.setUnits('DEMO/TTL', 'demo_server');
+  d.setUnits('DEMO/notes', 'demo_client,demo_server');
+  // Pattern-list items store their positional ids, as `REF-2` does above.
+  const u1 = d.addListItem('DEMO/DLV-LST', 'DLV-1');
+  d.setFormField(`${u1}/content`, 'unitId', 'demo_client');
+  d.setFormField(`${u1}/content`, 'kind', 'client');
+  d.setFormField(`${u1}/content`, 'component', 'ARCM-COMP-UI');
+  const u2 = d.addListItem('DEMO/DLV-LST', 'DLV-2');
+  d.setFormField(`${u2}/content`, 'unitId', 'demo_server');
+  d.setFormField(`${u2}/content`, 'kind', 'server');
+  d.setFormField(`${u2}/content`, 'deploymentTarget', 'DEPTAR-DEPL-API');
+  const r1 = d.addListItem(`${u2}/DLR-LST`, 'DLR-1');
+  d.setFormField(`${r1}/content`, 'area', 'CE-DB');
+  d.setFormField(`${r1}/content`, 'mapping', 'dart-tom');
   return d;
 }
 

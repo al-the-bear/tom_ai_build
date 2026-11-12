@@ -8,9 +8,12 @@
 //! (mandatory-but-absent nodes) is a separate concern and is not reported here.
 
 use crate::spec_document::SpecDocument;
-use crate::spec_model::{FormFieldSpec, SpecClass, SpecField, SpecModel, SPEC_FIELD_KIND_FORM};
+use crate::spec_model::{
+    FormFieldSpec, SpecClass, SpecField, SpecModel, SPEC_FIELD_KIND_FORM, SPEC_FIELD_KIND_LIST,
+};
+use crate::spec_paths::spec_path_join;
 use crate::spec_reflection::{
-    SpecReflection, SPEC_NODE_KIND_FORM, SPEC_NODE_KIND_LIST, SPEC_NODE_KIND_SCALAR,
+    SpecReflection, SpecResolution, SPEC_NODE_KIND_FORM, SPEC_NODE_KIND_LIST, SPEC_NODE_KIND_SCALAR,
     SPEC_NODE_KIND_SECTION,
 };
 use crate::spec_section_id::{effective_list_item_section_id, K_SECTION_ID_SLOT};
@@ -71,6 +74,21 @@ pub const SPEC_VALIDATION_CODE_ANNOTATION_MISPLACED: &str = "annotationMisplaced
 pub const SPEC_VALIDATION_CODE_ANNOTATION_MALFORMED: &str = "annotationMalformed";
 /// A comment id or a question id is used twice in one document (SOM §11.9.5).
 pub const SPEC_VALIDATION_CODE_DUPLICATE_ANNOTATION_ID: &str = "duplicateAnnotationId";
+/// A section's `units` (SOM §11.2) names an id no generation-unit entry of the
+/// document declares.
+pub const SPEC_VALIDATION_CODE_UNKNOWN_UNIT: &str = "unknownUnit";
+/// A section carries `units`, but neither its class nor any class reachable
+/// beneath it routes anything to CodeSpecs (`@CodeSpecKind`), so the units
+/// would place nothing.
+pub const SPEC_VALIDATION_CODE_UNITS_UNROUTED: &str = "unitsUnrouted";
+/// Two generation-unit entries declare one `unitId`; reported at the second.
+pub const SPEC_VALIDATION_CODE_DUPLICATE_UNIT_ID: &str = "duplicateUnitId";
+/// A generation-unit entry names neither a `deploymentTarget` nor a
+/// `component`, so it builds nothing.
+pub const SPEC_VALIDATION_CODE_UNIT_BUILDS_NOTHING: &str = "unitBuildsNothing";
+/// A generation-unit mapping's `area` is not an area code (`CE-` followed by
+/// capital letters).
+pub const SPEC_VALIDATION_CODE_UNIT_AREA_MALFORMED: &str = "unitAreaMalformed";
 
 /// One problem found while validating a document.
 #[derive(Debug, Clone, PartialEq)]
@@ -314,9 +332,15 @@ pub fn validate_document(model: &SpecModel, doc: &SpecDocument) -> Vec<SpecValid
     // A form field declaring `countOf` states how many entries the document
     // holds; only the instance tier can count them.
     errors.extend(validate_count_instances(&refl, doc));
+    // 7. Derived values (instance tier, uamtc10).
     errors.extend(validate_derived_values(&refl, doc));
 
-    // 7. Review annotations (SOM §11.9.5): malformed, misplaced or duplicated
+    // 8. Generation units (SOM §11.2 `units`, instance-tier phase 8): the ids a
+    // section names must be declared, a section carrying units must route
+    // something, and the register itself must be well-formed.
+    errors.extend(validate_generation_units(&refl, doc));
+
+    // Last: review annotations (SOM §11.9.5): malformed, misplaced or duplicated
     // comment blocks, question blocks and inline marks. Findings, never parse
     // rejections — the rest of the document still validates.
     errors.extend(crate::spec_review_annotations::validate_review_annotations(doc));
@@ -956,6 +980,181 @@ fn validate_derived_values(refl: &SpecReflection, doc: &SpecDocument) -> Vec<Spe
     // stable, so a path's own findings keep the order they were found in.
     errors.sort_by(|a, b| a.path.cmp(&b.path));
     errors
+}
+
+/// Instance-tier generation-unit check (SOM §11.2, phase 8).
+///
+/// A **generation-unit entry** is a list item whose class carries
+/// `@NoArtifact(generation)` and declares a form field `unitId`; a **mapping**
+/// is a list item whose class carries `@NoArtifact(generation)` and declares a
+/// form field `area`. Both are recognised by these two facts, never by class
+/// name. Entries and mappings are visited in sorted list-path order, each
+/// list's items in their stored order — that order decides which of two
+/// entries declaring one `unitId` is "the second". An entry or mapping whose
+/// form holds no value at all is absence (an item just added), not a finding.
+///
+/// Findings, all at the list item's path for the register and at the section's
+/// path for `units`: `duplicateUnitId`, `unitBuildsNothing`,
+/// `unitAreaMalformed`, then per section carrying `units` one `unknownUnit`
+/// per undeclared id (in the order written) and `unitsUnrouted`. The group is
+/// sorted by path, stably, like every phase's.
+fn validate_generation_units(refl: &SpecReflection, doc: &SpecDocument) -> Vec<SpecValidationError> {
+    let mut errors: Vec<SpecValidationError> = Vec::new();
+    let mut declared: BTreeSet<String> = BTreeSet::new();
+    for list_path in doc.list_paths() {
+        for item in doc.list_items(&list_path) {
+            let cls = match refl.resolve(&item).and_then(|r| r.target_class) {
+                Some(c) => c,
+                None => continue,
+            };
+            if cls.no_artifact().map(|n| n.reason) != Some("generation".to_string()) {
+                continue;
+            }
+
+            if let Some(unit_form) = form_declaring(&cls, "unitId") {
+                let form_path = spec_path_join(&item, &refl.field_segment(unit_form));
+                let value = |f: &str| {
+                    doc.form_field(&form_path, f)
+                        .map(|v| v.trim().to_string())
+                        .unwrap_or_default()
+                };
+                if !doc.form_field_names(&form_path).is_empty() {
+                    let id = value("unitId");
+                    if !id.is_empty() && !declared.insert(id.clone()) {
+                        errors.push(SpecValidationError {
+                            path: item.clone(),
+                            code: SPEC_VALIDATION_CODE_DUPLICATE_UNIT_ID.to_string(),
+                            message: format!("generation unit \"{}\" is declared twice", id),
+                        });
+                    }
+                    if value("deploymentTarget").is_empty() && value("component").is_empty() {
+                        errors.push(SpecValidationError {
+                            path: item.clone(),
+                            code: SPEC_VALIDATION_CODE_UNIT_BUILDS_NOTHING.to_string(),
+                            message: format!(
+                                "generation unit \"{}\" builds neither a deploymentTarget nor a component",
+                                id
+                            ),
+                        });
+                    }
+                }
+            }
+
+            if let Some(area_form) = form_declaring(&cls, "area") {
+                let form_path = spec_path_join(&item, &refl.field_segment(area_form));
+                let area = doc
+                    .form_field(&form_path, "area")
+                    .map(|v| v.trim().to_string())
+                    .unwrap_or_default();
+                if !area.is_empty() && !is_unit_area_code(&area) {
+                    errors.push(SpecValidationError {
+                        path: item.clone(),
+                        code: SPEC_VALIDATION_CODE_UNIT_AREA_MALFORMED.to_string(),
+                        message: format!("mapping area \"{}\" is not an area code (CE-…)", area),
+                    });
+                }
+            }
+        }
+    }
+
+    for path in doc.units_paths() {
+        for id in split_units(doc.units(&path).map(|s| s.as_str())) {
+            if !declared.contains(&id) {
+                errors.push(SpecValidationError {
+                    path: path.clone(),
+                    code: SPEC_VALIDATION_CODE_UNKNOWN_UNIT.to_string(),
+                    message: format!("units names \"{}\", which no generation unit declares", id),
+                });
+            }
+        }
+        if let Some(res) = refl.resolve(&path) {
+            if !routes_to_code_specs(refl, &res) {
+                errors.push(SpecValidationError {
+                    path: path.clone(),
+                    code: SPEC_VALIDATION_CODE_UNITS_UNROUTED.to_string(),
+                    message: "units is set on a section that routes nothing to CodeSpecs".to_string(),
+                });
+            }
+        }
+    }
+
+    // Like every phase's group, the findings are ordered by path; the sort is
+    // stable, so a path's own findings keep the order they were found in.
+    errors.sort_by(|a, b| a.path.cmp(&b.path));
+    errors
+}
+
+/// A stored comma-joined `units` value (SOM §11.2) as its unit ids: split at
+/// the commas, each trimmed, empty pieces dropped; `None` reads as none.
+pub(crate) fn split_units(units: Option<&str>) -> Vec<String> {
+    match units {
+        None => Vec::new(),
+        Some(u) => u
+            .split(',')
+            .map(str::trim)
+            .filter(|p| !p.is_empty())
+            .map(str::to_string)
+            .collect(),
+    }
+}
+
+/// `^CE-[A-Z]+$` — `CE-` followed by one or more capital letters, the
+/// area-code shape.
+fn is_unit_area_code(s: &str) -> bool {
+    match s.strip_prefix("CE-") {
+        Some(rest) => !rest.is_empty() && rest.bytes().all(|b| b.is_ascii_uppercase()),
+        None => false,
+    }
+}
+
+/// The form field of `cls` that declares a form field named `name`, or `None`.
+fn form_declaring<'c>(cls: &'c SpecClass, name: &str) -> Option<&'c SpecField> {
+    cls.fields
+        .iter()
+        .find(|f| f.kind == SPEC_FIELD_KIND_FORM && f.form_fields.iter().any(|ff| ff.name == name))
+}
+
+/// Whether the section `res` resolves to routes anything to CodeSpecs — the
+/// `unitsUnrouted` test.
+///
+/// A class *routes* when it carries `@CodeSpecKind` or declares a field that
+/// carries one (a field-level override routes that field's values). A class
+/// node (root, section, complex, complex list item) routes when any class
+/// reachable from its class ([`SpecReflection::reachable_class_names`], itself
+/// included) routes. Any other node (a content, scalar or enum leaf, a form, a
+/// list, a scalar list item) routes when its field carries `@CodeSpecKind`,
+/// when the class declaring it — the class at the parent path — carries one,
+/// or when it is a list of complex items some class reachable from whose
+/// element class routes.
+fn routes_to_code_specs(refl: &SpecReflection, res: &SpecResolution) -> bool {
+    let routes = |name: &str| {
+        refl.class_named(name).is_some_and(|cls| {
+            cls.code_spec_kind().is_some() || cls.fields.iter().any(|f| f.code_spec_kind().is_some())
+        })
+    };
+    let reach_routes = |type_name: &str| refl.reachable_class_names(type_name).iter().any(|n| routes(n));
+
+    if let Some(target) = &res.target_class {
+        return reach_routes(&target.name);
+    }
+    let field = match &res.field {
+        Some(f) => f,
+        None => return false,
+    };
+    if field.code_spec_kind().is_some() {
+        return true;
+    }
+    let owner = match res.path.rfind('/') {
+        Some(slash) if slash > 0 => refl.resolve(&res.path[..slash]).and_then(|r| r.target_class),
+        _ => None,
+    };
+    if owner.is_some_and(|o| o.code_spec_kind().is_some()) {
+        return true;
+    }
+    field.kind == SPEC_FIELD_KIND_LIST
+        && field.element_is_complex
+        && !field.element_type.is_empty()
+        && reach_routes(&field.element_type)
 }
 
 /// Whether `s` matches the reference's `^-?[0-9]+(\.[0-9]+)?$`.

@@ -14,11 +14,19 @@ namespace {
 using Place = std::pair<std::string, std::optional<std::string>>;
 using Writers = std::map<Place, std::vector<std::string>>;
 
-enum Store { kContent, kForms, kLists, kHeadlines, kCodeSpecs, kStoreCount };
+enum Store {
+  kContent,
+  kForms,
+  kLists,
+  kHeadlines,
+  kCodeSpecs,
+  kUnits,
+  kStoreCount
+};
 
 /* The fixed order overlaps are reported in. */
 const std::array<const char*, kStoreCount> kStoreNames = {
-    "content", "forms", "lists", "headlines", "codeSpecs"};
+    "content", "forms", "lists", "headlines", "codeSpecs", "units"};
 
 /* Records `name` as a writer of `place`; true when it is the first. */
 bool addWriter(Writers& writers, Place place, const std::string& name) {
@@ -27,8 +35,8 @@ bool addWriter(Writers& writers, Place place, const std::string& name) {
   return who.size() == 1;
 }
 
-/* Merges one path store (content / headlines / codeSpecs): the first writer's
- * value is kept, every writer is recorded. */
+/* Merges one path store (content / headlines / codeSpecs / units): the first
+ * writer's value is kept, every writer is recorded. */
 void mergePathStore(Writers& writers, std::map<std::string, std::string>& merged,
                     const std::map<std::string, std::string>& src,
                     const std::string& name) {
@@ -63,6 +71,7 @@ SpecDocumentAssembly assembleSpecDocuments(const SpecAssemblyFragments& fragment
     mergePathStore(writers[kContent], merged.content, json.content, name);
     mergePathStore(writers[kHeadlines], merged.headlines, json.headlines, name);
     mergePathStore(writers[kCodeSpecs], merged.codeSpecs, json.codeSpecs, name);
+    mergePathStore(writers[kUnits], merged.units, json.units, name);
     for (const auto& [path, fields] : json.forms) {
       auto& target = merged.forms[path];
       for (const auto& [field, value] : fields) {

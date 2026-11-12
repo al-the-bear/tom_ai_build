@@ -38,6 +38,9 @@ func viScan(d *som.SpecDocument, query string) bool {
 	for k := range j.CodeSpecs {
 		keys = append(keys, k)
 	}
+	for k := range j.Units {
+		keys = append(keys, k)
+	}
 	for _, k := range keys {
 		if k == query || strings.HasPrefix(k, query+"/") || strings.HasPrefix(k, query+"-") {
 			return true
@@ -93,6 +96,9 @@ func viDocProbes(d *som.SpecDocument) []string {
 	for k := range j.CodeSpecs {
 		add(k)
 	}
+	for k := range j.Units {
+		add(k)
+	}
 	return out
 }
 
@@ -114,6 +120,8 @@ func TestVI1IndexAgreesWithScanAfterEveryMutator(t *testing.T) {
 	viExpectAgrees(t, d, "SetHeadline")
 	d.SetCodeSpec("DEMO/DET", "a.b")
 	viExpectAgrees(t, d, "SetCodeSpec")
+	d.SetUnits("DEMO/REF-LST", "u_a")
+	viExpectAgrees(t, d, "SetUnits")
 	d.SetFormField("DEMO/CARD-LST-1/content", "note", "x")
 	viExpectAgrees(t, d, "SetFormField")
 	item := d.AddListItem("DEMO/items")

@@ -45,6 +45,7 @@ type DocumentJson struct {
 	Lists     map[string]ListJson          `json:"lists,omitempty"`
 	Headlines map[string]string            `json:"headlines,omitempty"`
 	CodeSpecs map[string]string            `json:"codeSpecs,omitempty"`
+	Units     map[string]string            `json:"units,omitempty"`
 }
 
 // SpecDocument is the sparse in-memory document.
@@ -68,9 +69,14 @@ type SpecDocument struct {
 	// CodeSpecs code locations that section maps to. Sparse like headline: unset
 	// means "no code mapping".
 	codeSpec map[string]string
+	// units are the generation units a section goes to (SOM §11.2 `units`):
+	// any section path → the comma-joined list of generation-unit ids that take
+	// the section and its subtree. Sparse like codeSpec: unset means the default
+	// (every unit with a mapping for the section's area).
+	units map[string]string
 
-	// valueIndex holds every stored key of content, form, listItems, headline
-	// and codeSpec plus every prefix of one that ends right before a '/' or a
+	// valueIndex holds every stored key of content, form, listItems, headline,
+	// codeSpec and units plus every prefix of one that ends right before a '/' or a
 	// '-' — exactly the paths for which "a key equals it, or continues it after
 	// '/' or '-'" holds, so HasValuesUnder is one map lookup. The markdown
 	// emitter, the validator and the query engine ask HasValuesUnder once per
@@ -100,6 +106,7 @@ func NewSpecDocument() *SpecDocument {
 		itemSectionID: map[string]string{},
 		headline:      map[string]string{},
 		codeSpec:      map[string]string{},
+		units:         map[string]string{},
 	}
 }
 
@@ -148,6 +155,9 @@ func (d *SpecDocument) ensure() {
 	}
 	if d.codeSpec == nil {
 		d.codeSpec = map[string]string{}
+	}
+	if d.units == nil {
+		d.units = map[string]string{}
 	}
 }
 
@@ -298,6 +308,44 @@ func (d *SpecDocument) CodeSpecPaths() []string {
 	return out
 }
 
+// --- units (SOM §11.2) -------------------------------------------------------
+
+// Units returns the stored generation units at path as the comma-joined list
+// of generation-unit ids, and ok=false when the section carries none (SOM
+// §11.2 — `units` is sparse like codeSpec; absent means the default).
+func (d *SpecDocument) Units(path string) (string, bool) {
+	v, ok := d.units[path]
+	return v, ok
+}
+
+// UnitsOr returns the stored generation units at path, or "" when none.
+func (d *SpecDocument) UnitsOr(path string) string {
+	return d.units[path]
+}
+
+// SetUnits sets the stored generation units at path (the comma-joined list of
+// generation-unit ids). An empty value clears it, returning the section to the
+// default (SOM §11.2).
+func (d *SpecDocument) SetUnits(path, value string) {
+	d.dropValueIndex()
+	d.ensure()
+	if value == "" {
+		delete(d.units, path)
+	} else {
+		d.units[path] = value
+	}
+}
+
+// UnitsPaths returns the set of paths carrying stored generation units
+// (unordered).
+func (d *SpecDocument) UnitsPaths() []string {
+	out := make([]string, 0, len(d.units))
+	for k := range d.units {
+		out = append(out, k)
+	}
+	return out
+}
+
 // --- lists -----------------------------------------------------------------
 
 // ListItems returns a copy of the item paths of the list at listPath.
@@ -418,7 +466,7 @@ func (d *SpecDocument) assertSectionIDFree(listPath, id, exceptItemPath string) 
 //
 // A path is a position, the section id is the identity. Every affected list is
 // renumbered to `<list>-1 … <list>-n` in its new order, and every value under
-// each item — content, forms, nested lists, headline, code-spec, stored id —
+// each item — content, forms, nested lists, headline, code-spec, units, stored id —
 // travels with it. An anonymous item whose positional id would change has its
 // old id stored, so its identity survives the renumbering. The result maps
 // every old item path to its new one; a caller holding anything else keyed by
@@ -586,6 +634,7 @@ func (d *SpecDocument) MoveListItem(
 	content := rekeyStrings(d.content)
 	headline := rekeyStrings(d.headline)
 	codeSpec := rekeyStrings(d.codeSpec)
+	units := rekeyStrings(d.units)
 	ids := rekeyStrings(d.itemSectionID)
 	for _, p := range pinned {
 		ids[remap(p.old)] = p.now
@@ -625,6 +674,7 @@ func (d *SpecDocument) MoveListItem(
 	d.form = form
 	d.headline = headline
 	d.codeSpec = codeSpec
+	d.units = units
 	d.itemSectionID = ids
 	d.listSeq = seq
 	d.listItems = lists
@@ -806,6 +856,11 @@ func (d *SpecDocument) purgeUnder(prefix string) {
 			delete(d.codeSpec, k)
 		}
 	}
+	for k := range d.units {
+		if isUnder(k, prefix) {
+			delete(d.units, k)
+		}
+	}
 }
 
 // RemoveValuesUnder drops every value at prefix or nested beneath it — content,
@@ -851,7 +906,7 @@ func SpecDocumentFromMarkdown(text string, model *SpecModel) (*SpecMarkdownImpor
 // ApplyMarkdownResult applies a parsed Markdown import as a **full overwrite**
 // of the roots it covers (SOM §11.7): every value under each of
 // result.RootPrefixes is removed, then the parsed content, forms, lists,
-// headlines and codeSpecs are written. Other roots are left as they are.
+// headlines, codeSpecs and units are written. Other roots are left as they are.
 //
 // A result with rejections is refused with an error — and the document left
 // unchanged — unless allowRejections is true: the blocks it rejected would
@@ -884,6 +939,7 @@ func (d *SpecDocument) ApplyMarkdownResult(result *SpecMarkdownResult, allowReje
 		Lists:     map[string]ListJson{},
 		Headlines: map[string]string{},
 		CodeSpecs: map[string]string{},
+		Units:     map[string]string{},
 	}
 	for k, v := range held.Content {
 		merged.Content[k] = v
@@ -924,6 +980,12 @@ func (d *SpecDocument) ApplyMarkdownResult(result *SpecMarkdownResult, allowReje
 	}
 	for k, v := range result.CodeSpecs {
 		merged.CodeSpecs[k] = v
+	}
+	for k, v := range held.Units {
+		merged.Units[k] = v
+	}
+	for k, v := range result.Units {
+		merged.Units[k] = v
 	}
 	d.LoadJSON(merged)
 	return nil
@@ -1014,7 +1076,7 @@ func (e *ambiguousRootError) Error() string {
 // IsEmpty reports whether the document holds no values at all.
 func (d *SpecDocument) IsEmpty() bool {
 	return len(d.content) == 0 && len(d.form) == 0 && len(d.listItems) == 0 &&
-		len(d.headline) == 0 && len(d.codeSpec) == 0
+		len(d.headline) == 0 && len(d.codeSpec) == 0 && len(d.units) == 0
 }
 
 // HasValuesUnder reports whether any value exists at prefix or nested beneath it
@@ -1028,7 +1090,7 @@ func (d *SpecDocument) HasValuesUnder(prefix string) bool {
 	return ok
 }
 
-// buildValueIndex collects every stored key of the five value stores plus every
+// buildValueIndex collects every stored key of the six value stores plus every
 // prefix of a key that ends right before a '/' or a '-' byte (see valueIndex).
 func (d *SpecDocument) buildValueIndex() map[string]struct{} {
 	index := map[string]struct{}{}
@@ -1053,6 +1115,9 @@ func (d *SpecDocument) buildValueIndex() map[string]struct{} {
 		add(k)
 	}
 	for k := range d.codeSpec {
+		add(k)
+	}
+	for k := range d.units {
 		add(k)
 	}
 	return index
@@ -1166,6 +1231,13 @@ func (d *SpecDocument) ToJSON() *DocumentJson {
 		}
 		out.CodeSpecs = codeSpecs
 	}
+	if len(d.units) > 0 {
+		units := map[string]string{}
+		for k, v := range d.units {
+			units[k] = v
+		}
+		out.Units = units
+	}
 	return out
 }
 
@@ -1187,6 +1259,7 @@ func (d *SpecDocument) LoadJSON(j *DocumentJson) {
 	d.itemSectionID = map[string]string{}
 	d.headline = map[string]string{}
 	d.codeSpec = map[string]string{}
+	d.units = map[string]string{}
 	if j == nil {
 		return
 	}
@@ -1226,6 +1299,11 @@ func (d *SpecDocument) LoadJSON(j *DocumentJson) {
 	for k, v := range j.CodeSpecs {
 		if v != "" {
 			d.codeSpec[k] = v
+		}
+	}
+	for k, v := range j.Units {
+		if v != "" {
+			d.units[k] = v
 		}
 	}
 }

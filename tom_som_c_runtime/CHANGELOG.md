@@ -1,5 +1,30 @@
 # Changelog
 
+## 1.9.0
+
+- Moves with `tom_specs_model` 1.9.0 (the generation-unit register and
+  `RevisionEntry.changeId`).
+- The `units` member of every section (SOM §11.2), beside `codeSpec`: the
+  generation units that take the section where that differs from its area's
+  default. `spec_document_units`, `spec_document_set_units` (empty clears),
+  `spec_document_units_paths`; `som_node_units` / `som_node_set_units`. The
+  heading comment carries it after `codeSpec` (`units="a,b"`), the YAML node a
+  `units:` key after `codeSpec:`, the snapshot a `units` key after
+  `codeSpecs`; Markdown apply, list moves, prefix purge, assembly and review
+  merge carry it as they carry `codeSpec`.
+- Validation phase 8 (generation units): `unknownUnit`, `unitsUnrouted`,
+  `duplicateUnitId`, `unitBuildsNothing`, `unitAreaMalformed`. The register is
+  recognised by `@NoArtifact(generation)` with the form field `unitId` (a
+  mapping by `area`), never by class name.
+- CodeSpecs extract entries carry `units`, the nearest stored units at the
+  entry's section or above: `units: [..]` after `routingNote` in the YAML, a
+  `- units:` line after the routed-by line in the Markdown, each only when
+  set; the reader reads it back. `formatVersion` stays 3.
+- The `codeSpec` heading key is read as its pattern reads it: a quote that is
+  never closed is a bare value, and an occurrence with no value is passed over
+  (both used to give no value).
+- The snapshot JSON writes the comma after `codeSpecs` when a key follows it.
+
 ## 1.8.1
 
 - No change of structure: the chain moves with `tom_som_dart_runtime` 1.8.1

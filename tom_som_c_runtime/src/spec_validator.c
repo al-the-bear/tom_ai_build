@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "spec_paths.h"
 #include "spec_reflection.h"
 #include "spec_review_annotations.h"
 #include "spec_section_id.h"
@@ -1358,6 +1359,294 @@ static void validate_derived_values(const SpecReflection *refl,
   }
 }
 
+/* ---- phase 8: generation units (SOM §11.2 `units`) ----------------------- */
+
+/* A stored comma-joined `units` value (SOM §11.2) as its unit ids, written into
+ * `out` (initialised by the callee): split at the commas, each trimmed, empty
+ * pieces dropped; NULL reads as none. */
+static void split_units(const char *units, SomStrList *out) {
+  som_strlist_init(out);
+  if (units == NULL) {
+    return;
+  }
+  const char *p = units;
+  for (;;) {
+    const char *comma = strchr(p, ',');
+    size_t n = comma != NULL ? (size_t)(comma - p) : strlen(p);
+    char *piece = som_strdup_n(p, n);
+    char *id = trim_dup(piece);
+    free(piece);
+    if (id[0] != '\0') {
+      som_strlist_push(out, id);
+    } else {
+      free(id);
+    }
+    if (comma == NULL) {
+      break;
+    }
+    p = comma + 1;
+  }
+}
+
+/* `CE-` followed by one or more capital letters — the area-code shape
+ * (`^CE-[A-Z]+$`). */
+static int is_unit_area_code(const char *s) {
+  if (strncmp(s, "CE-", 3) != 0 || s[3] == '\0') {
+    return 0;
+  }
+  for (const char *q = s + 3; *q != '\0'; q++) {
+    if (*q < 'A' || *q > 'Z') {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+/* The form field of `cls` that declares a form field named `name`, or NULL. */
+static const SpecField *form_declaring(const SpecClass *cls, const char *name) {
+  for (size_t i = 0; i < cls->fields_len; i++) {
+    const SpecField *f = &cls->fields[i];
+    if (strcmp(f->kind, SPEC_FIELD_KIND_FORM) != 0) {
+      continue;
+    }
+    for (size_t k = 0; k < f->form_fields_len; k++) {
+      if (strcmp(f->form_fields[k].name, name) == 0) {
+        return f;
+      }
+    }
+  }
+  return NULL;
+}
+
+/* Whether `cls` carries `@NoArtifact(generation)`. */
+static int is_generation_register(const SpecClass *cls) {
+  SpecNoArtifactLink link;
+  if (!spec_annotations_no_artifact(&cls->annotations, &link)) {
+    return 0;
+  }
+  int hit = strcmp(link.reason, "generation") == 0;
+  spec_no_artifact_link_free(&link);
+  return hit;
+}
+
+/* A class *routes* when it carries `@CodeSpecKind` or declares a field that
+ * carries one. */
+static int class_routes(const SpecReflection *refl, const char *name) {
+  const SpecClass *cls = spec_model_class_named(refl->model, name);
+  if (cls == NULL) {
+    return 0;
+  }
+  if (spec_annotations_have(&cls->annotations, "CodeSpecKind")) {
+    return 1;
+  }
+  for (size_t i = 0; i < cls->fields_len; i++) {
+    if (spec_annotations_have(&cls->fields[i].annotations, "CodeSpecKind")) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
+/* Whether any class reachable from `type` (itself included) routes. */
+static int reach_routes(const SpecReflection *refl, const char *type) {
+  SomStrList names;
+  spec_reflection_reachable_class_names(refl, type, &names);
+  int hit = 0;
+  for (size_t i = 0; !hit && i < names.len; i++) {
+    hit = class_routes(refl, names.items[i]);
+  }
+  som_strlist_free(&names);
+  return hit;
+}
+
+/* Whether the section `res` resolves to routes anything to CodeSpecs — the
+ * `unitsUnrouted` test. A class node (root, section, complex, complex list
+ * item) routes when any class reachable from its class routes. Any other node
+ * (a content, scalar or enum leaf, a form, a list, a scalar list item) routes
+ * when its field carries `@CodeSpecKind`, when the class declaring it — the
+ * class at the parent path — carries one, or when it is a list of complex items
+ * some class reachable from whose element class routes. */
+static int routes_to_code_specs(const SpecReflection *refl,
+                                const SpecResolution *res) {
+  if (res->target_class != NULL) {
+    return reach_routes(refl, res->target_class->name);
+  }
+  const SpecField *field = res->field;
+  if (field == NULL) {
+    return 0;
+  }
+  if (spec_annotations_have(&field->annotations, "CodeSpecKind")) {
+    return 1;
+  }
+  const char *slash = strrchr(res->path, '/');
+  if (slash != NULL && slash > res->path) {
+    char *parent = som_strdup_n(res->path, (size_t)(slash - res->path));
+    SpecResolution owner;
+    int owner_routes = 0;
+    if (spec_reflection_resolve(refl, parent, &owner)) {
+      owner_routes =
+          owner.target_class != NULL &&
+          spec_annotations_have(&owner.target_class->annotations,
+                                "CodeSpecKind");
+      spec_resolution_free(&owner);
+    }
+    free(parent);
+    if (owner_routes) {
+      return 1;
+    }
+  }
+  return strcmp(field->kind, SPEC_FIELD_KIND_LIST) == 0 &&
+         field->element_is_complex && field->element_type[0] != '\0' &&
+         reach_routes(refl, field->element_type);
+}
+
+static char *quoted_message(const char *before, const char *value,
+                            const char *after) {
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_puts(&b, before);
+  som_buf_puts(&b, value);
+  som_buf_puts(&b, after);
+  return som_buf_take(&b);
+}
+
+/* Instance-tier generation-unit check (SOM §11.2, phase 8).
+
+   A **generation-unit entry** is a list item whose class carries
+   `@NoArtifact(generation)` and declares a form field `unitId`; a **mapping**
+   is a list item whose class carries `@NoArtifact(generation)` and declares a
+   form field `area`. Both are recognised by these two facts, never by class
+   name. Entries and mappings are visited in sorted list-path order, each
+   list's items in their stored order — that order decides which of two
+   entries declaring one `unitId` is "the second". An entry or mapping whose
+   form holds no value at all is absence (an item just added), not a finding.
+
+   Findings, at the list item's path for the register and at the section's
+   path for `units`: `duplicateUnitId`, `unitBuildsNothing`,
+   `unitAreaMalformed`, then per section carrying `units` one `unknownUnit`
+   per undeclared id (in the order written) and `unitsUnrouted`. The group is
+   sorted by path, stably, like every phase's. */
+static void validate_generation_units(const SpecReflection *refl,
+                                      const SpecDocument *doc,
+                                      SpecValidationErrors *out) {
+  size_t first = out->len;
+  SomStrList declared;
+  som_strlist_init(&declared);
+  SomStrList list_paths;
+  spec_document_list_paths(doc, &list_paths);
+  strlist_sort(&list_paths);
+  for (size_t li = 0; li < list_paths.len; li++) {
+    const SomStrList *items =
+        spec_document_list_items(doc, list_paths.items[li]);
+    for (size_t ii = 0; items != NULL && ii < items->len; ii++) {
+      const char *item = items->items[ii];
+      SpecResolution res;
+      if (!spec_reflection_resolve(refl, item, &res)) {
+        continue;
+      }
+      const SpecClass *cls = res.target_class;
+      spec_resolution_free(&res);
+      if (cls == NULL || !is_generation_register(cls)) {
+        continue;
+      }
+
+      const SpecField *unit_form = form_declaring(cls, "unitId");
+      if (unit_form != NULL) {
+        char *form_path =
+            spec_path_join(item, spec_reflection_field_segment(unit_form));
+        SomStrList names;
+        spec_document_form_field_names(doc, form_path, &names);
+        if (names.len > 0) {
+          const char *raw_id = spec_document_form_field(doc, form_path, "unitId");
+          char *id = trim_dup(raw_id != NULL ? raw_id : "");
+          if (id[0] != '\0') {
+            if (som_strlist_contains(&declared, id)) {
+              errors_push(out, item, SPEC_VALIDATION_CODE_DUPLICATE_UNIT_ID,
+                          quoted_message("generation unit \"", id,
+                                         "\" is declared twice"));
+            } else {
+              som_strlist_push_copy(&declared, id);
+            }
+          }
+          const char *raw_target =
+              spec_document_form_field(doc, form_path, "deploymentTarget");
+          const char *raw_component =
+              spec_document_form_field(doc, form_path, "component");
+          char *target = trim_dup(raw_target != NULL ? raw_target : "");
+          char *component = trim_dup(raw_component != NULL ? raw_component : "");
+          if (target[0] == '\0' && component[0] == '\0') {
+            errors_push(out, item, SPEC_VALIDATION_CODE_UNIT_BUILDS_NOTHING,
+                        quoted_message("generation unit \"", id,
+                                       "\" builds neither a deploymentTarget "
+                                       "nor a component"));
+          }
+          free(target);
+          free(component);
+          free(id);
+        }
+        som_strlist_free(&names);
+        free(form_path);
+      }
+
+      const SpecField *area_form = form_declaring(cls, "area");
+      if (area_form != NULL) {
+        char *form_path =
+            spec_path_join(item, spec_reflection_field_segment(area_form));
+        const char *raw_area = spec_document_form_field(doc, form_path, "area");
+        char *area = trim_dup(raw_area != NULL ? raw_area : "");
+        if (area[0] != '\0' && !is_unit_area_code(area)) {
+          errors_push(out, item, SPEC_VALIDATION_CODE_UNIT_AREA_MALFORMED,
+                      quoted_message("mapping area \"", area,
+                                     "\" is not an area code (CE-\xe2\x80\xa6)"));
+        }
+        free(area);
+        free(form_path);
+      }
+    }
+  }
+  som_strlist_free(&list_paths);
+
+  SomStrList unit_paths;
+  spec_document_units_paths(doc, &unit_paths);
+  strlist_sort(&unit_paths);
+  for (size_t i = 0; i < unit_paths.len; i++) {
+    const char *path = unit_paths.items[i];
+    SomStrList ids;
+    split_units(spec_document_units(doc, path), &ids);
+    for (size_t k = 0; k < ids.len; k++) {
+      if (!som_strlist_contains(&declared, ids.items[k])) {
+        errors_push(out, path, SPEC_VALIDATION_CODE_UNKNOWN_UNIT,
+                    quoted_message("units names \"", ids.items[k],
+                                   "\", which no generation unit declares"));
+      }
+    }
+    som_strlist_free(&ids);
+    SpecResolution res;
+    if (spec_reflection_resolve(refl, path, &res)) {
+      if (!routes_to_code_specs(refl, &res)) {
+        errors_push(out, path, SPEC_VALIDATION_CODE_UNITS_UNROUTED,
+                    som_strdup("units is set on a section that routes nothing "
+                               "to CodeSpecs"));
+      }
+      spec_resolution_free(&res);
+    }
+  }
+  som_strlist_free(&unit_paths);
+  som_strlist_free(&declared);
+
+  /* The group is ordered by path; the sort is stable (insertion), so a path's
+     own findings keep the order they were found in. */
+  for (size_t i = first + 1; i < out->len; i++) {
+    SpecValidationError moving = out->items[i];
+    size_t j = i;
+    while (j > first && strcmp(out->items[j - 1].path, moving.path) > 0) {
+      out->items[j] = out->items[j - 1];
+      j--;
+    }
+    out->items[j] = moving;
+  }
+}
+
 void validate_document(const SpecModel *model, const SpecDocument *doc,
                        SpecValidationErrors *out) {
   out->items = NULL;
@@ -1612,7 +1901,12 @@ void validate_document(const SpecModel *model, const SpecDocument *doc,
      a `rankOf` field ranks the instances of its form by their score. */
   validate_derived_values(&refl, doc, out);
 
-  /* 8. Review annotations (SOM §11.9.5): malformed, misplaced or duplicated
+  /* 8. Generation units (SOM §11.2 `units`, instance-tier phase 8): the ids a
+     section names must be declared, a section carrying units must route
+     something, and the register itself must be well-formed. */
+  validate_generation_units(&refl, doc, out);
+
+  /* Last: review annotations (SOM §11.9.5): malformed, misplaced or duplicated
      comment blocks, question blocks and inline marks. Findings, never parse
      rejections — the rest of the document still validates. The annotation
      reader writes nothing, so the const document is safe to wrap. */

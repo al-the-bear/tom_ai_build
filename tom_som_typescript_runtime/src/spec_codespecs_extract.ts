@@ -68,6 +68,10 @@ import * as yaml from './yaml';
  * copy-only; null when no enclosing instance stores one. The render-time
  * positional default (`CARD-2`) is derived, never stored, so it is never
  * carried — that would be the composition C1 forbids.
+ *
+ * Entries may carry `units` — the nearest stored generation units (SOM §11.2)
+ * at the entry's path or above it. The key is written only when non-empty and
+ * reads as empty when absent, so it is additive and the version stays 3.
  */
 export const K_CODE_SPECS_EXTRACT_FORMAT = 3;
 
@@ -231,6 +235,15 @@ export class CodeSpecsExtractEntry {
   /** The `@CodeSpecKind` `note`, verbatim; `null` when it carries none. */
   routingNote: string | null;
 
+  /**
+   * The generation units the entry goes to (SOM §11.2,
+   * `codespecs_mapping.md` §1.1.1): the nearest stored `units` at the entry's
+   * path or any ancestor path, split at its commas. Empty when no section on
+   * the way stores one — the default, every unit with a mapping for the
+   * entry's area. Copy-only like {@link instanceId}.
+   */
+  units: string[];
+
   /** The stored value, **verbatim**. Never assembled, reformatted or trimmed. */
   value: string;
 
@@ -247,6 +260,7 @@ export class CodeSpecsExtractEntry {
     instanceId?: string | null;
     formField?: string | null;
     routingNote?: string | null;
+    units?: string[];
   }) {
     this.areaCode = props.areaCode;
     this.sectionId = props.sectionId;
@@ -260,6 +274,7 @@ export class CodeSpecsExtractEntry {
     this.value = props.value;
     this.formField = props.formField != null ? props.formField : null;
     this.routingNote = props.routingNote != null ? props.routingNote : null;
+    this.units = props.units != null ? props.units : [];
   }
 
   toString(): string {
@@ -963,6 +978,9 @@ export class CodeSpecsExtract {
       b.writeln(`      routedBy: ${yamlString(e.routedBy)}`);
       b.writeln(`      routedAt: ${yamlString(e.routedAt)}`);
       b.writeln(`      routingNote: ${yamlNullableString(e.routingNote)}`);
+      if (e.units.length > 0) {
+        b.writeln(`      units: ${yamlStringList(e.units)}`);
+      }
       b.writeln(`      value: ${yamlString(e.value)}`);
     }
     return b.toString();
@@ -1026,6 +1044,9 @@ export class CodeSpecsExtract {
       }
       b.writeln(`- path: \`${e.path}\``);
       b.writeln(`- routed by: \`${e.routedBy}\` declared on \`${e.routedAt}\``);
+      if (e.units.length > 0) {
+        b.writeln(`- units: ${e.units.map((u) => `\`${u}\``).join(', ')}`);
+      }
       if (e.routingNote !== null) {
         b.writeln(`- routing note: ${mdCell(e.routingNote)}`);
       }
@@ -1298,6 +1319,7 @@ export class CodeSpecsExtractor {
       entries,
       strict,
       null,
+      null,
     );
   }
 
@@ -1309,6 +1331,7 @@ export class CodeSpecsExtractor {
     entries: CodeSpecsExtractEntry[] | null,
     strict: boolean,
     enclosingInstanceId: string | null,
+    enclosingUnits: string | null,
   ): void {
     if (cls === null) {
       return;
@@ -1347,12 +1370,22 @@ export class CodeSpecsExtractor {
     const storedId = this.document.itemSectionId(path);
     const instanceId = storedId !== null ? storedId : enclosingInstanceId;
 
+    // The nearest stored generation units (SOM §11.2): this node's own, else
+    // whatever the walk inherited. The walk passes every ancestor path of an
+    // entry — class node, field, list container, list item — so "nearest on
+    // the walk" is "nearest at the entry's path or an ancestor path".
+    const ownUnits = this.document.units(path);
+    const classUnits = ownUnits !== null ? ownUnits : enclosingUnits;
+
     for (const field of cls.fields) {
       const fieldPath = specPathJoin(
         path,
         this._reflection.fieldSegment(field),
       );
       const fieldRouting = this._fieldRouting(cls, field) || classRouting;
+      const storedFieldUnits = this.document.units(fieldPath);
+      const fieldUnits =
+        storedFieldUnits !== null ? storedFieldUnits : classUnits;
 
       switch (field.kind) {
         case SpecFieldKind.CONTENT:
@@ -1367,6 +1400,7 @@ export class CodeSpecsExtractor {
             null,
             headline,
             instanceId,
+            fieldUnits,
             this.document.content(fieldPath),
           );
           break;
@@ -1381,6 +1415,7 @@ export class CodeSpecsExtractor {
               ff.name,
               headline,
               instanceId,
+              fieldUnits,
               this.document.formField(fieldPath, ff.name),
             );
           }
@@ -1400,12 +1435,14 @@ export class CodeSpecsExtractor {
                 entries,
                 strict,
                 instanceId,
+                fieldUnits,
               );
             } else {
               // A scalar item is itself an instance of the list: its own
               // stored id is the most precise enclosing-instance id its
               // entry can carry.
               const itemStored = this.document.itemSectionId(itemPath);
+              const itemUnits = this.document.units(itemPath);
               this._emitValue(
                 entries,
                 fieldRouting,
@@ -1415,6 +1452,7 @@ export class CodeSpecsExtractor {
                 null,
                 headline,
                 itemStored !== null ? itemStored : instanceId,
+                itemUnits !== null ? itemUnits : fieldUnits,
                 this.document.content(itemPath),
               );
             }
@@ -1431,6 +1469,7 @@ export class CodeSpecsExtractor {
               entries,
               strict,
               instanceId,
+              fieldUnits,
             );
           }
           break;
@@ -1451,6 +1490,7 @@ export class CodeSpecsExtractor {
     formField: string | null,
     headline: string | null,
     instanceId: string | null,
+    units: string | null,
     value: string | null,
   ): void {
     if (entries === null || routing === null) {
@@ -1459,6 +1499,7 @@ export class CodeSpecsExtractor {
     if (value === null || value === '') {
       return;
     }
+    const unitIds = _splitUnits(units);
     for (const kind of routing.values) {
       const area = this.catalog.byPart(kind);
       if (area === null || !area.active) {
@@ -1477,6 +1518,7 @@ export class CodeSpecsExtractor {
           routedBy: area.kindValue,
           routedAt: routing.declaredAt,
           routingNote: routing.note,
+          units: unitIds,
           value,
         }),
       );
@@ -1686,6 +1728,7 @@ export function parseCodeSpecsExtractYaml(
         routedBy: req('routedBy'),
         routedAt: req('routedAt'),
         routingNote: opt('routingNote'),
+        units: _strList(raw.units, name, 'entries[].units'),
         value: req('value'),
       }),
     );
@@ -2668,6 +2711,20 @@ function yamlString(value: string): string {
 
 function yamlNullableString(value: string | null): string {
   return value === null ? 'null' : yamlString(value);
+}
+
+/**
+ * A stored comma-joined `units` value as its unit ids: split at the commas,
+ * each trimmed, empty pieces dropped; `null` reads as the empty list.
+ */
+function _splitUnits(units: string | null): string[] {
+  if (units === null || units === undefined) {
+    return [];
+  }
+  return units
+    .split(',')
+    .map((u) => u.trim())
+    .filter((u) => u !== '');
 }
 
 function yamlStringList(values: string[]): string {

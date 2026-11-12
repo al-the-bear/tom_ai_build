@@ -100,6 +100,21 @@ impl SomNode {
         self.doc.borrow_mut().set_code_spec(&self.path, value);
     }
 
+    /// Returns this section's **generation units** (SOM §11.2) as the
+    /// comma-joined list of generation-unit ids, or `""` when the section
+    /// carries none (the default: every unit with a mapping for the section's
+    /// area). Sparse exactly like [`SomNode::code_spec`], available on every
+    /// node.
+    pub fn units(&self) -> String {
+        self.doc.borrow().units_or(&self.path)
+    }
+
+    /// Sets or clears this section's generation units (SOM §11.2). An empty
+    /// value clears them, returning the section to the default.
+    pub fn set_units(&self, value: &str) {
+        self.doc.borrow_mut().set_units(&self.path, value);
+    }
+
     /// Returns `true` iff this section holds no value at its path or nested
     /// beneath it — delegates to [`SpecDocument::has_values_under`] (SOM
     /// SOM §21).

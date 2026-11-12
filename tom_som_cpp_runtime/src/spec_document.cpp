@@ -94,6 +94,9 @@ void SpecDocument::applyMarkdownResult(const SpecMarkdownResult& result,
   for (const auto& kv : parsed.codeSpecs) {
     merged.codeSpecs[kv.first] = kv.second;
   }
+  for (const auto& kv : parsed.units) {
+    merged.units[kv.first] = kv.second;
+  }
   loadJson(merged);
 }
 
@@ -215,6 +218,16 @@ DocumentJson documentJsonFromJson(const JsonRef& v) {
       const std::string* s = jsonAsStr(m.second);
       if (s != nullptr) {
         out.codeSpecs[m.first] = *s;
+      }
+    }
+  }
+
+  JsonRef units = jsonGet(v, "units");
+  if (units != nullptr && units->type == JsonType::Object) {
+    for (const auto& m : units->object) {
+      const std::string* s = jsonAsStr(m.second);
+      if (s != nullptr) {
+        out.units[m.first] = *s;
       }
     }
   }
@@ -343,6 +356,25 @@ std::string documentJsonToCanonicalJson(const DocumentJson& d) {
     b += "\"codeSpecs\":{";
     bool inner = true;
     for (const auto& kv : d.codeSpecs) {
+      if (!inner) {
+        b.push_back(',');
+      }
+      inner = false;
+      b += jsonEncodeStr(kv.first);
+      b.push_back(':');
+      b += jsonEncodeStr(kv.second);
+    }
+    b.push_back('}');
+  }
+
+  if (!d.units.empty()) {
+    if (!first) {
+      b.push_back(',');
+    }
+    first = false;
+    b += "\"units\":{";
+    bool inner = true;
+    for (const auto& kv : d.units) {
       if (!inner) {
         b.push_back(',');
       }
@@ -595,6 +627,35 @@ std::vector<std::string> SpecDocument::codeSpecPaths() const {
   return out;
 }
 
+/* --- stored generation units (SOM §11.2 `units`) — mirror of codeSpec --- */
+
+const std::string* SpecDocument::unitsOpt(const std::string& path) const {
+  auto it = units_.find(path);
+  return it != units_.end() ? &it->second : nullptr;
+}
+
+std::string SpecDocument::units(const std::string& path) const {
+  const std::string* v = unitsOpt(path);
+  return v != nullptr ? *v : std::string();
+}
+
+void SpecDocument::setUnits(const std::string& path, const std::string& value) {
+  dropValueIndex();
+  if (value.empty()) {
+    units_.erase(path);
+  } else {
+    units_[path] = value;
+  }
+}
+
+std::vector<std::string> SpecDocument::unitsPaths() const {
+  std::vector<std::string> out;
+  for (const auto& kv : units_) {
+    out.push_back(kv.first);
+  }
+  return out;
+}
+
 void SpecDocument::removeValuesUnder(const std::string& prefix) {
   dropValueIndex();
   purgeUnder(prefix);
@@ -651,6 +712,13 @@ void SpecDocument::purgeUnder(const std::string& prefix) {
       ++it;
     }
   }
+  for (auto it = units_.begin(); it != units_.end();) {
+    if (isUnder(it->first, prefix)) {
+      it = units_.erase(it);
+    } else {
+      ++it;
+    }
+  }
 }
 
 bool SpecDocument::removeListItem(const std::string& itemPath) {
@@ -690,7 +758,7 @@ bool SpecDocument::removeListItem(const std::string& itemPath) {
 
 bool SpecDocument::isEmpty() const {
   return content_.empty() && forms_.empty() && listItems_.empty() &&
-         headline_.empty() && codeSpec_.empty();
+         headline_.empty() && codeSpec_.empty() && units_.empty();
 }
 
 bool SpecDocument::hasValuesUnder(const std::string& prefix) const {
@@ -719,6 +787,7 @@ const std::unordered_set<std::string>& SpecDocument::valueIndex() const {
     for (const auto& kv : listItems_) addKey(kv.first);
     for (const auto& kv : headline_) addKey(kv.first);
     for (const auto& kv : codeSpec_) addKey(kv.first);
+    for (const auto& kv : units_) addKey(kv.first);
     valueIndex_.keys = std::move(index);
   }
   return *valueIndex_.keys;
@@ -960,6 +1029,7 @@ SpecListItemMove SpecDocument::moveListItem(
   auto forms = rekeyStore(forms_, renamed);
   auto headline = rekeyStore(headline_, renamed);
   auto codeSpec = rekeyStore(codeSpec_, renamed);
+  auto units = rekeyStore(units_, renamed);
   auto ids = rekeyStore(itemSectionId_, renamed);
   for (const auto& [old, id] : result.pinnedIds) {
     ids[remap(old)] = id;
@@ -991,6 +1061,7 @@ SpecListItemMove SpecDocument::moveListItem(
   forms_ = std::move(forms);
   headline_ = std::move(headline);
   codeSpec_ = std::move(codeSpec);
+  units_ = std::move(units);
   itemSectionId_ = std::move(ids);
   listSeq_ = std::move(seq);
   listItems_ = std::move(lists);
@@ -1025,6 +1096,7 @@ DocumentJson SpecDocument::toJson() const {
   }
   out.headlines = headline_;
   out.codeSpecs = codeSpec_;
+  out.units = units_;
   return out;
 }
 
@@ -1037,6 +1109,7 @@ void SpecDocument::loadJson(const DocumentJson& j) {
   itemSectionId_.clear();
   headline_.clear();
   codeSpec_.clear();
+  units_.clear();
 
   content_ = j.content;
   for (const auto& kv : j.forms) {
@@ -1069,6 +1142,12 @@ void SpecDocument::loadJson(const DocumentJson& j) {
       continue;
     }
     codeSpec_[kv.first] = kv.second;
+  }
+  for (const auto& kv : j.units) {
+    if (kv.second.empty()) {
+      continue;
+    }
+    units_[kv.first] = kv.second;
   }
 }
 

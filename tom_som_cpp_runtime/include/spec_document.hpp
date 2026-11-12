@@ -58,10 +58,14 @@ struct DocumentJson {
    * locations. Byte-for-byte structural mirror of `headlines`: emitted in
    * canonical JSON only when non-empty, after `headlines`. */
   std::map<std::string, std::string> codeSpecs;
+  /* path -> stored generation units (SOM §11.2 `units`), the comma-joined list
+   * of generation-unit ids. Emitted in canonical JSON only when non-empty,
+   * after `codeSpecs`. */
+  std::map<std::string, std::string> units;
 
   bool empty() const {
     return content.empty() && forms.empty() && lists.empty() &&
-           headlines.empty() && codeSpecs.empty();
+           headlines.empty() && codeSpecs.empty() && units.empty();
   }
 };
 
@@ -156,8 +160,8 @@ class SpecDocument {
 
   /* Applies a parsed Markdown import as a **full overwrite** of the roots it
    * covers (SOM §11.7): every value under each of result.rootPrefixes is
-   * removed, then the parsed content, forms, lists, headlines and codeSpecs
-   * are written. Other roots are left as they are.
+   * removed, then the parsed content, forms, lists, headlines, codeSpecs and
+   * units are written. Other roots are left as they are.
    *
    * A result with rejections is refused with std::runtime_error (naming the
    * rejection count and the first rejection's line and message) unless
@@ -271,12 +275,23 @@ class SpecDocument {
   /* All paths carrying a stored codeSpec mapping, byte-sorted. */
   std::vector<std::string> codeSpecPaths() const;
 
+  // stored generation units (SOM §11.2 `units`) — sparse exactly like codeSpec;
+  // absent means the default (every unit with a mapping for the section's area)
+  /* The stored units at `path` (comma-joined unit ids), or "" when unset. */
+  std::string units(const std::string& path) const;
+  /* NULL-aware companion: nullptr when no units are stored at `path`. */
+  const std::string* unitsOpt(const std::string& path) const;
+  /* Stores the units at `path`; an empty value clears them. */
+  void setUnits(const std::string& path, const std::string& value);
+  /* All paths carrying stored units, byte-sorted. */
+  std::vector<std::string> unitsPaths() const;
+
   bool isEmpty() const;
   /* True iff a stored key of any store (content, forms, list containers,
-   * headlines, codeSpecs) is `prefix` itself or continues it after a `/` or a
-   * `-`. Answered from a lazily built prefix index (one set lookup), not a scan:
-   * the markdown emitter, the validator and the query engine ask it once per
-   * model node. Building the index on the first query mutates a cache, so
+   * headlines, codeSpecs, units) is `prefix` itself or continues it after a `/`
+   * or a `-`. Answered from a lazily built prefix index (one set lookup), not
+   * a scan: the markdown emitter, the validator and the query engine ask it
+   * once per model node. Building the index on the first query mutates a cache, so
    * concurrent const calls on one document need external synchronisation. */
   bool hasValuesUnder(const std::string& prefix) const;
 
@@ -310,8 +325,9 @@ class SpecDocument {
   std::map<std::string, std::string> itemSectionId_;  // item path -> section id
   std::map<std::string, std::string> headline_;       // path -> stored headline
   std::map<std::string, std::string> codeSpec_;       // path -> stored codeSpec
+  std::map<std::string, std::string> units_;          // path -> stored units
 
-  /* The hasValuesUnder index: every stored key of the five stores plus every
+  /* The hasValuesUnder index: every stored key of every store plus every
    * prefix of one that ends right before a `/` or a `-`. Built on the first
    * query, dropped (dropValueIndex) by every method that changes a store's key
    * set. Copying or moving a document never carries an index along — the

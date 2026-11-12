@@ -60,14 +60,11 @@ public class SomNode {
   }
 
   /**
-   * Sets this section's stored headline (YRD3). An empty value clears it,
-   * returning the section to its default title. A {@code null} value is
-   * ignored.
+   * Sets or clears this section's stored headline (YRD3). {@code null} or an
+   * empty value clears it, returning the section to its default title.
    */
   public void $headline(String value) {
-    if (value != null) {
-      doc.setHeadline(path, value);
-    }
+    doc.setHeadline(path, value == null ? "" : value);
   }
 
   /**
@@ -82,14 +79,31 @@ public class SomNode {
   }
 
   /**
-   * Sets this section's CodeSpecs forward link (codespecs_mapping.md §9.2). An
-   * empty value clears it, returning the section to "no code mapping". A {@code
-   * null} value is ignored.
+   * Sets or clears this section's CodeSpecs forward link (codespecs_mapping.md
+   * §9.2). {@code null} or an empty value clears it, returning the section to
+   * "no code mapping".
    */
   public void $codeSpec(String value) {
-    if (value != null) {
-      doc.setCodeSpec(path, value);
-    }
+    doc.setCodeSpec(path, value == null ? "" : value);
+  }
+
+  /**
+   * This section's <b>generation units</b> (SOM §11.2) as the comma-joined
+   * list of generation-unit ids, or {@code null} when the section carries none
+   * (the default: every unit with a mapping for the section's area). Sparse
+   * exactly like {@link #$codeSpec()}, available on every node,
+   * {@code $}-prefixed likewise.
+   */
+  public String $units() {
+    return doc.units(path);
+  }
+
+  /**
+   * Sets or clears this section's generation units (SOM §11.2). {@code null}
+   * or an empty string clears the store, returning the section to the default.
+   */
+  public void $units(String value) {
+    doc.setUnits(path, value == null ? "" : value);
   }
 
   /**

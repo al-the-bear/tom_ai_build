@@ -100,6 +100,16 @@ class SomNode {
     doc_.setCodeSpec(path_, value);
   }
 
+  /* This section's generation units (SOM §11.2) as the comma-joined list of
+   * generation-unit ids, or "" when the section carries none (the default:
+   * every unit with a mapping for the section's area). Sparse exactly like
+   * codeSpec, available on every node. */
+  std::string units() const { return doc_.units(path_); }
+
+  /* Sets or clears this section's generation units (SOM §11.2); an empty
+   * value clears them, returning the section to the default. */
+  void setUnits(const std::string& value) { doc_.setUnits(path_, value); }
+
  private:
   SpecDocument& doc_;  // borrowed; the document this node edits
   std::string path_;   // owned; the node's globally-unique section path

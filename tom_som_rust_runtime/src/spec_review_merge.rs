@@ -1631,6 +1631,7 @@ fn document_paths(doc: &SpecDocument) -> Vec<String> {
     paths.extend(json.forms.keys().cloned());
     paths.extend(json.headlines.keys().cloned());
     paths.extend(json.code_specs.keys().cloned());
+    paths.extend(json.units.keys().cloned());
     for (list, l) in &json.lists {
         paths.push(list.clone());
         paths.extend(l.items.iter().cloned());
@@ -1908,6 +1909,9 @@ fn copy_item(
         .filter(|x| is_under(x, from))
     {
         dst.set_code_spec(&remap(&moved, &p), &src.code_spec_or(&p));
+    }
+    for p in src.units_paths().into_iter().filter(|x| is_under(x, from)) {
+        dst.set_units(&remap(&moved, &p), &src.units_or(&p));
     }
     Ok(())
 }

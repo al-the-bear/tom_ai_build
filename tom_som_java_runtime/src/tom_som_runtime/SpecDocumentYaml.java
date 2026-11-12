@@ -695,6 +695,7 @@ public final class SpecDocumentYaml {
     private final Set<String> lists = new HashSet<>();
     private final Map<String, String> headlines = new LinkedHashMap<>();
     private final Map<String, String> codeSpecs = new LinkedHashMap<>();
+    private final Map<String, String> units = new LinkedHashMap<>();
 
     YamlEncoder(SpecDocument doc) {
       this.doc = doc;
@@ -708,6 +709,10 @@ public final class SpecDocumentYaml {
       for (String p : doc.codeSpecPaths()) {
         String cs = doc.codeSpec(p);
         codeSpecs.put(p, cs != null ? cs : "");
+      }
+      for (String p : doc.unitsPaths()) {
+        String u = doc.units(p);
+        units.put(p, u != null ? u : "");
       }
       for (String p : doc.formPaths()) {
         Map<String, String> fields = new LinkedHashMap<>();
@@ -772,6 +777,20 @@ public final class SpecDocumentYaml {
         writeText(b, indent, "codeSpec", ownCodeSpec);
       }
 
+      // The node's own generation units — the literal `units` key, right after
+      // `codeSpec` (SOM §12.3 rule 6).
+      if (units.containsKey(path)) {
+        String ownUnits = units.remove(path);
+        for (SomMetaNode c : node.children) {
+          if (nodeKey(c).equals("units")) {
+            throw new SpecYamlFormatException(
+                "cannot emit the stored units at `" + path + "`: a child of "
+                    + node.debugName() + " also serializes as key `units`");
+          }
+        }
+        writeText(b, indent, "units", ownUnits);
+      }
+
       // The node's own body text — the literal `content` key (SOM §12.2).
       if (content.containsKey(path)) {
         String own = content.remove(path);
@@ -796,8 +815,10 @@ public final class SpecDocumentYaml {
             String h = hasH ? headlines.remove(childPath) : null;
             boolean hasCs = codeSpecs.containsKey(childPath);
             String cs = hasCs ? codeSpecs.remove(childPath) : null;
-            if (hasH || hasCs) {
-              writeScalarWithMeta(b, indent, key, h, cs, v, true);
+            boolean hasU = units.containsKey(childPath);
+            String u = hasU ? units.remove(childPath) : null;
+            if (hasH || hasCs || hasU) {
+              writeScalarWithMeta(b, indent, key, h, cs, u, v, true);
             } else if (hasV) {
               writeText(b, indent, key, v);
             }
@@ -811,8 +832,10 @@ public final class SpecDocumentYaml {
             String h = hasH ? headlines.remove(childPath) : null;
             boolean hasCs = codeSpecs.containsKey(childPath);
             String cs = hasCs ? codeSpecs.remove(childPath) : null;
-            if (hasH || hasCs) {
-              writeScalarWithMeta(b, indent, key, h, cs, v, false);
+            boolean hasU = units.containsKey(childPath);
+            String u = hasU ? units.remove(childPath) : null;
+            if (hasH || hasCs || hasU) {
+              writeScalarWithMeta(b, indent, key, h, cs, u, v, false);
             } else if (hasV) {
               writeValue(b, indent, key, v);
             }
@@ -841,20 +864,24 @@ public final class SpecDocumentYaml {
 
     /**
      * Emits a scalar-valued node (content/scalar/enum leaf or scalar list item)
-     * that carries a stored headline and/or a codeSpec mapping as a {@code
-     * {headline?: …, codeSpec?: …, content?: …}} mapping (YRD3 +
-     * codespecs_mapping.md §9.2). At least one of {@code headline}/{@code
-     * codeSpec} is non-null at every call site; {@code null} means "absent".
+     * that carries a stored headline, a codeSpec mapping and/or units as a
+     * {@code {headline?: …, codeSpec?: …, units?: …, content?: …}} mapping
+     * (YRD3 + codespecs_mapping.md §9.2 + SOM §12.3 rule 6). At least one of
+     * {@code headline}/{@code codeSpec}/{@code units} is non-null at every call
+     * site; {@code null} means "absent".
      * {@code value == null} means "no content".
      */
     private void writeScalarWithMeta(StringBuilder b, int indent, String key,
-        String headline, String codeSpec, String value, boolean text) {
+        String headline, String codeSpec, String units, String value, boolean text) {
       b.append(pad(indent)).append(plainKey(key)).append(":\n");
       if (headline != null) {
         writeText(b, indent + 2, "headline", headline);
       }
       if (codeSpec != null) {
         writeText(b, indent + 2, "codeSpec", codeSpec);
+      }
+      if (units != null) {
+        writeText(b, indent + 2, "units", units);
       }
       if (value != null) {
         if (text) {
@@ -872,6 +899,8 @@ public final class SpecDocumentYaml {
       String headline = hasHeadline ? headlines.remove(path) : null;
       boolean hasCodeSpec = codeSpecs.containsKey(path);
       String codeSpec = hasCodeSpec ? codeSpecs.remove(path) : null;
+      boolean hasUnits = units.containsKey(path);
+      String formUnits = hasUnits ? units.remove(path) : null;
       // The form's preamble — the free text before its first field (SOM §11.4
       // rule 7, the DocSpecs `${text[]}` region) — rides in the same mapping
       // under the literal `content` key, exactly as a section's body does.
@@ -880,6 +909,7 @@ public final class SpecDocumentYaml {
       if ((fields == null || fields.isEmpty())
           && !hasHeadline
           && !hasCodeSpec
+          && !hasUnits
           && !hasContent) {
         return;
       }
@@ -904,6 +934,11 @@ public final class SpecDocumentYaml {
             "cannot emit the stored codeSpec at `" + path + "`: the form declares a "
                 + "field literally named `codeSpec`");
       }
+      if (hasUnits && meta.fieldNamed("units") != null) {
+        throw new SpecYamlFormatException(
+            "cannot emit the stored units at `" + path + "`: the form declares a "
+                + "field literally named `units`");
+      }
       if (hasContent && meta.fieldNamed("content") != null) {
         throw new SpecYamlFormatException(
             "cannot emit the preamble content at `" + path + "`: the form declares a "
@@ -915,6 +950,9 @@ public final class SpecDocumentYaml {
       }
       if (hasCodeSpec) {
         writeText(b, indent + 2, "codeSpec", codeSpec);
+      }
+      if (hasUnits) {
+        writeText(b, indent + 2, "units", formUnits);
       }
       if (hasContent) {
         writeText(b, indent + 2, "content", ownContent);
@@ -939,8 +977,10 @@ public final class SpecDocumentYaml {
       String headline = hasHeadline ? headlines.remove(path) : null;
       boolean hasCodeSpec = codeSpecs.containsKey(path);
       String codeSpec = hasCodeSpec ? codeSpecs.remove(path) : null;
+      boolean hasUnits = units.containsKey(path);
+      String listUnits = hasUnits ? units.remove(path) : null;
       List<String> items = doc.listItems(path);
-      if (items.isEmpty() && !hasHeadline && !hasCodeSpec) {
+      if (items.isEmpty() && !hasHeadline && !hasCodeSpec && !hasUnits) {
         return;
       }
       b.append(pad(indent)).append(plainKey(key)).append(":\n");
@@ -950,9 +990,13 @@ public final class SpecDocumentYaml {
       if (hasCodeSpec) {
         writeText(b, indent + 2, "codeSpec", codeSpec);
       }
+      if (hasUnits) {
+        writeText(b, indent + 2, "units", listUnits);
+      }
       Set<String> used = new HashSet<>();
       used.add("headline");
       used.add("codeSpec");
+      used.add("units");
       int pos = 0;
       for (String itemPath : items) {
         pos++;
@@ -976,16 +1020,19 @@ public final class SpecDocumentYaml {
         SomMetaNode element = node.elementNode;
         if (element == null) {
           // Scalar list: the item is a direct value — unless it carries a
-          // stored headline, in which case it becomes a
-          // `{headline: …, content: …}` mapping (YRD3).
+          // stored headline, codeSpec and/or units, in which case it becomes a
+          // `{headline?: …, codeSpec?: …, units?: …, content: …}` mapping
+          // (YRD3 + codespecs_mapping.md §9.2 + SOM §12.3 rule 6).
           boolean hasV = content.containsKey(itemPath);
           String v = hasV ? content.remove(itemPath) : null;
           boolean hasIh = headlines.containsKey(itemPath);
           String ih = hasIh ? headlines.remove(itemPath) : null;
           boolean hasIcs = codeSpecs.containsKey(itemPath);
           String ics = hasIcs ? codeSpecs.remove(itemPath) : null;
-          if (hasIh || hasIcs) {
-            writeScalarWithMeta(b, indent + 2, itemKey, ih, ics, v, false);
+          boolean hasIu = units.containsKey(itemPath);
+          String iu = hasIu ? units.remove(itemPath) : null;
+          if (hasIh || hasIcs || hasIu) {
+            writeScalarWithMeta(b, indent + 2, itemKey, ih, ics, iu, v, false);
           } else {
             writeValue(b, indent + 2, itemKey, hasV ? v : "");
           }
@@ -1035,6 +1082,9 @@ public final class SpecDocumentYaml {
       }
       for (String p : codeSpecs.keySet()) {
         leftovers.add("codeSpec at `" + p + "`");
+      }
+      for (String p : units.keySet()) {
+        leftovers.add("units at `" + p + "`");
       }
       if (leftovers.isEmpty()) {
         return;
@@ -1183,6 +1233,10 @@ public final class SpecDocumentYaml {
           doc.setCodeSpec(path, scalarOf(value, path + " (codeSpec)"));
           continue;
         }
+        if (key.equals("units")) {
+          doc.setUnits(path, scalarOf(value, path + " (units)"));
+          continue;
+        }
         throw new SpecYamlFormatException(
             "key `" + key + "` under `" + path + "` matches no member of "
                 + node.debugName() + " (expected one of: "
@@ -1200,13 +1254,14 @@ public final class SpecDocumentYaml {
     }
 
     private static List<String> expectedKeys(SomMetaNode node) {
-      List<String> out = new ArrayList<>(node.children.size() + 1);
+      List<String> out = new ArrayList<>(node.children.size() + 4);
       for (SomMetaNode c : node.children) {
         out.add("`" + nodeKey(c) + "`");
       }
       out.add("`content`");
       out.add("`headline`");
       out.add("`codeSpec`");
+      out.add("`units`");
       return out;
     }
 
@@ -1247,6 +1302,12 @@ public final class SpecDocumentYaml {
                 // only reachable when the model declares no field literally
                 // named `codeSpec`.
                 doc.setCodeSpec(path, scalarOf(fe.getValue(), path + " (codeSpec)"));
+                continue;
+              }
+              if (name.equals("units")) {
+                // The form's own generation units (SOM §11.2) — only reachable
+                // when the model declares no field literally named `units`.
+                doc.setUnits(path, scalarOf(fe.getValue(), path + " (units)"));
                 continue;
               }
               if (name.equals("content")) {
@@ -1307,6 +1368,11 @@ public final class SpecDocumentYaml {
           doc.setCodeSpec(path, scalarOf(value, path + " (codeSpec)"));
           continue;
         }
+        if (key.equals("units")) {
+          // The list container's own generation units (SOM §11.2), not an item.
+          doc.setUnits(path, scalarOf(value, path + " (units)"));
+          continue;
+        }
         String itemPath =
             anonymous.matcher(key).matches()
                 ? doc.addListItem(path)
@@ -1350,8 +1416,8 @@ public final class SpecDocumentYaml {
 
     /**
      * Loads a scalar-valued node written as the YRD3 + codespecs_mapping.md
-     * §9.2 {@code {headline?: …, codeSpec?: …, content?: …}} mapping — only
-     * those three keys are legal.
+     * §9.2 + SOM §12.3 rule 6 {@code {headline?: …, codeSpec?: …, units?: …,
+     * content?: …}} mapping — only those four keys are legal.
      */
     private void loadScalarWithMeta(String path, String key, Map<String, Object> value) {
       for (Map.Entry<String, Object> entry : value.entrySet()) {
@@ -1365,13 +1431,18 @@ public final class SpecDocumentYaml {
           doc.setCodeSpec(path, scalarOf(v, path + " (codeSpec)"));
           continue;
         }
+        if (name.equals("units")) {
+          doc.setUnits(path, scalarOf(v, path + " (units)"));
+          continue;
+        }
         if (name.equals("content")) {
           doc.setContent(path, scalarOf(v, path + "/content"));
           continue;
         }
         throw new SpecYamlFormatException(
             "scalar node `" + key + "` at `" + path + "` may only hold "
-                + "`headline`/`codeSpec`/`content` keys when written as a mapping, found `"
+                + "`headline`/`codeSpec`/`units`/`content` keys when written as a mapping, "
+                + "found `"
                 + name + "`");
       }
     }

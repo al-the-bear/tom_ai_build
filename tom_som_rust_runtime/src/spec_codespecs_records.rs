@@ -151,6 +151,7 @@ pub fn parse_code_specs_extract_yaml(text: &str, source: &str) -> RecordResult<C
             routed_by: req("routedBy")?,
             routed_at: req("routedAt")?,
             routing_note: opt("routingNote")?,
+            units: str_list(map_get(e, "units"), name, "entries[].units")?,
             value: req("value")?,
         });
     }

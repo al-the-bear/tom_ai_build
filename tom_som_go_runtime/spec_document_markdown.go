@@ -117,6 +117,10 @@ type SpecMarkdownResult struct {
 	// `codeSpec="…"` key in the heading comment. Staged whenever present (codeSpec
 	// has no effective default).
 	CodeSpecs map[string]string
+	// Units holds stored generation units (SOM §11.2): path → the comma-joined
+	// list of generation-unit ids parsed from the `units="…"` key in the
+	// heading comment. Staged whenever present (absent means the default).
+	Units map[string]string
 }
 
 // SpecMarkdownImport is a Markdown document loaded by SpecDocumentFromMarkdown:
@@ -220,6 +224,11 @@ var (
 	// (codespecs_mapping.md §9.2), mirroring the tom_doc_scanner key=value
 	// grammar.
 	mdCodeSpecRE = regexp.MustCompile(`codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))`)
+	// Extracts the `units="…"` value from a heading-comment key=value region
+	// (SOM §11.2): the same quoting rules as mdCodeSpecRE. The key must start
+	// the region or follow whitespace, so a `units=` inside a quoted codeSpec
+	// value is not read as the key.
+	mdUnitsRE = regexp.MustCompile(`(?:^|\s)units=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))`)
 )
 
 var (
@@ -347,6 +356,23 @@ func SpecMarkdownItemTitleStem(elementClassName string) string {
 // the region carries no `codeSpec` key (first non-empty submatch, trimmed).
 func mdCodeSpecOf(region string) string {
 	m := mdCodeSpecRE.FindStringSubmatch(region)
+	if m == nil {
+		return ""
+	}
+	for _, g := range m[1:] {
+		if g != "" {
+			return strings.TrimSpace(g)
+		}
+	}
+	return ""
+}
+
+// mdUnitsOf extracts the `units="…"` value from a heading-comment key=value
+// region (SOM §11.2): the same quoting rules as the codeSpec key —
+// double-quoted, single-quoted or bare. Returns the empty string when the
+// region carries no `units` key (first non-empty submatch, trimmed).
+func mdUnitsOf(region string) string {
+	m := mdUnitsRE.FindStringSubmatch(region)
 	if m == nil {
 		return ""
 	}
@@ -588,7 +614,7 @@ func (c *SpecDocumentMarkdown) exportRoot(root *SpecRoot) (string, error) {
 	if rootTitle == "" {
 		rootTitle = root.Title
 	}
-	c.writeHeading(b, 1, rootSeg, rootTitle, rootSeg, c.Document.CodeSpecOr(rootSeg))
+	c.writeHeading(b, 1, rootSeg, rootTitle, rootSeg, c.Document.CodeSpecOr(rootSeg), c.Document.UnitsOr(rootSeg))
 	if err := c.writeSectionBody(b, node, rootSeg); err != nil {
 		return "", err
 	}
@@ -754,7 +780,7 @@ func (c *SpecDocumentMarkdown) writeChildren(
 			if !ok {
 				continue
 			}
-			c.writeHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), path, c.Document.CodeSpecOr(path))
+			c.writeHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), path, c.Document.CodeSpecOr(path), c.Document.UnitsOr(path))
 			if err := c.writeBody(b, value, path); err != nil {
 				return err
 			}
@@ -762,12 +788,12 @@ func (c *SpecDocumentMarkdown) writeChildren(
 			if !c.formHasValues(child, path) {
 				continue
 			}
-			c.writeHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), path, c.Document.CodeSpecOr(path))
+			c.writeHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), path, c.Document.CodeSpecOr(path), c.Document.UnitsOr(path))
 			if err := c.writeForm(b, child, path); err != nil {
 				return err
 			}
 		case SomMetaKindSection, SomMetaKindComplex:
-			c.writeHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), path, c.Document.CodeSpecOr(path))
+			c.writeHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), path, c.Document.CodeSpecOr(path), c.Document.UnitsOr(path))
 			if err := c.writeSectionBody(b, child, path); err != nil {
 				return err
 			}
@@ -797,7 +823,7 @@ func (c *SpecDocumentMarkdown) writeListItems(
 	}
 	// The container heading: its id is the list's `-LST` `@SectionId` (else the
 	// member segment for a pattern-less list); its title is the member name.
-	c.writeHeading(b, depth, c.headingIdOf(node), c.headingTitle(listPath, node), listPath, c.Document.CodeSpecOr(listPath))
+	c.writeHeading(b, depth, c.headingIdOf(node), c.headingTitle(listPath, node), listPath, c.Document.CodeSpecOr(listPath), c.Document.UnitsOr(listPath))
 	// Item heading stem. Complex lists derive it from the element class name
 	// (SOM §11.5, `Entry` dropped). A scalar list (`[]string`, shape 6) has no
 	// element class — its element type name is literally `String`, which would
@@ -829,7 +855,7 @@ func (c *SpecDocumentMarkdown) writeListItems(
 		if itemTitle == "" {
 			itemTitle = stem + " " + itoa(pos)
 		}
-		c.writeHeading(b, depth+1, itemID, itemTitle, itemPath, c.Document.CodeSpecOr(itemPath))
+		c.writeHeading(b, depth+1, itemID, itemTitle, itemPath, c.Document.CodeSpecOr(itemPath), c.Document.UnitsOr(itemPath))
 		if element == nil {
 			// Scalar list: the item's value is its body.
 			value, _ := c.Document.Content(itemPath)
@@ -999,12 +1025,17 @@ func (c *SpecDocumentMarkdown) writeForm(b *mdBuffer, node *SomMetaNode, path st
 //
 // When codeSpec is non-empty it is emitted as a `codeSpec="…"` key inside the
 // same headline comment (codespecs_mapping.md §9.2): `## <!--[ID]
-// codeSpec="A,B"--> Title`. Byte-identical to before when empty.
-func (c *SpecDocumentMarkdown) writeHeading(b *mdBuffer, depth int, id, title, path, codeSpec string) {
+// codeSpec="A,B"--> Title`. When units is non-empty it follows as a second
+// key, `units="…"`, after `codeSpec` (SOM §11.2). Byte-identical to before
+// when both are empty.
+func (c *SpecDocumentMarkdown) writeHeading(b *mdBuffer, depth int, id, title, path, codeSpec, units string) {
 	c.headingPaths = append(c.headingPaths, path)
 	code := ""
 	if codeSpec != "" {
 		code = ` codeSpec="` + codeSpec + `"`
+	}
+	if units != "" {
+		code += ` units="` + units + `"`
 	}
 	// A heading is one line: a stored headline's line breaks travel as `<br>`.
 	b.writeln(strings.Repeat("#", depth) + " <!--[" + id + "]" + code + "--> " +
@@ -1181,6 +1212,7 @@ func (c *SpecDocumentMarkdown) Parse(text string) *SpecMarkdownResult {
 		RootPrefixes: p.rootPrefixes,
 		Headlines:    p.headlines,
 		CodeSpecs:    p.codeSpecs,
+		Units:        p.units,
 	}
 }
 
@@ -1217,7 +1249,9 @@ type mdParser struct {
 	// codeSpecs stages stored codeSpec mappings (codespecs_mapping.md §9.2): a
 	// heading's `codeSpec="…"` key is staged whenever present (no effective
 	// default).
-	codeSpecs    map[string]string
+	codeSpecs map[string]string
+	// units stages stored generation units (SOM §11.2), exactly like codeSpecs.
+	units        map[string]string
 	listOrder    []string
 	rejections   []*SpecMarkdownRejection
 	rootPrefixes map[string]bool
@@ -1238,6 +1272,7 @@ func newMdParser(codec *SpecDocumentMarkdown) *mdParser {
 		lists:        map[string]*mdListState{},
 		headlines:    map[string]string{},
 		codeSpecs:    map[string]string{},
+		units:        map[string]string{},
 		rootPrefixes: map[string]bool{},
 		fence:        &MarkdownFenceTracker{},
 	}
@@ -1303,10 +1338,11 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 	}
 	id := m[1]
 	codeSpec := mdCodeSpecOf(m[2])
+	unitIDs := mdUnitsOf(m[2])
 	title := strings.ReplaceAll(strings.TrimSpace(m[3]), "<br>", "\n")
 
 	if len(p.stack) == 0 {
-		p.openRoot(level, id, title, codeSpec, lineNo)
+		p.openRoot(level, id, title, codeSpec, unitIDs, lineNo)
 		return
 	}
 
@@ -1336,7 +1372,7 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 	// 1. Under a `-LST` container frame (SOM §11.2), every child heading is one
 	//    of that list's items — resolved positionally, not by the schema tree.
 	if pNode.Kind == SomMetaKindList {
-		p.openItemHeading(level, parent, pNode, id, title, codeSpec, lineNo)
+		p.openItemHeading(level, parent, pNode, id, title, codeSpec, unitIDs, lineNo)
 		return
 	}
 
@@ -1358,6 +1394,10 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 			// default).
 			if codeSpec != "" {
 				p.codeSpecs[path] = codeSpec
+			}
+			// SOM §11.2: `units` is staged exactly like codeSpec.
+			if unitIDs != "" {
+				p.units[path] = unitIDs
 			}
 			p.stack = append(p.stack, &mdFrame{
 				level: level,
@@ -1386,7 +1426,7 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 // item `<n>` carrying that id), a pattern-shaped stored id, or — for any
 // other id — an anonymous next item carrying the stored id.
 func (p *mdParser) openItemHeading(
-	level int, container *mdFrame, listNode *SomMetaNode, id, title, codeSpec string, lineNo int,
+	level int, container *mdFrame, listNode *SomMetaNode, id, title, codeSpec, unitIDs string, lineNo int,
 ) {
 	listPath := container.path
 	member := listNode.MemberName
@@ -1396,7 +1436,7 @@ func (p *mdParser) openItemHeading(
 	anonRE, err := regexp.Compile("^" + regexp.QuoteMeta(member) + "-([0-9]+)$")
 	if err == nil {
 		if anon := anonRE.FindStringSubmatch(id); anon != nil {
-			p.openItem(level, listPath, listNode, atoi(anon[1]), "", true, title, codeSpec, lineNo)
+			p.openItem(level, listPath, listNode, atoi(anon[1]), "", true, title, codeSpec, unitIDs, lineNo)
 			return
 		}
 	}
@@ -1416,22 +1456,22 @@ func (p *mdParser) openItemHeading(
 				"([0-9]+)" + regexp.QuoteMeta(parts[1]) + "$")
 			if err == nil {
 				if numbered := numberedRE.FindStringSubmatch(id); numbered != nil {
-					p.openItem(level, listPath, listNode, atoi(numbered[1]), id, true, title, codeSpec, lineNo)
+					p.openItem(level, listPath, listNode, atoi(numbered[1]), id, true, title, codeSpec, unitIDs, lineNo)
 					return
 				}
 			}
 		}
 		if mdPatternMatches(pattern, id) {
-			p.openItem(level, listPath, listNode, 0, id, false, title, codeSpec, lineNo)
+			p.openItem(level, listPath, listNode, 0, id, false, title, codeSpec, unitIDs, lineNo)
 			return
 		}
 	}
 	// Any other id under the container is an anonymous next item carrying the
 	// stored id — stored ids round-trip through Markdown too (YRD3).
-	p.openItem(level, listPath, listNode, 0, id, false, title, codeSpec, lineNo)
+	p.openItem(level, listPath, listNode, 0, id, false, title, codeSpec, unitIDs, lineNo)
 }
 
-func (p *mdParser) openRoot(level int, id, title, codeSpec string, lineNo int) {
+func (p *mdParser) openRoot(level int, id, title, codeSpec, unitIDs string, lineNo int) {
 	for _, root := range p.codec.Model.Roots {
 		seg := root.SectionID
 		if seg == "" {
@@ -1456,6 +1496,10 @@ func (p *mdParser) openRoot(level int, id, title, codeSpec string, lineNo int) {
 			// present.
 			if codeSpec != "" {
 				p.codeSpecs[seg] = codeSpec
+			}
+			// SOM §11.2: `units` is staged exactly like codeSpec.
+			if unitIDs != "" {
+				p.units[seg] = unitIDs
 			}
 			p.rootPrefixes[seg] = true
 			p.stack = append(p.stack, &mdFrame{
@@ -1490,7 +1534,7 @@ func (p *mdParser) openRoot(level int, id, title, codeSpec string, lineNo int) {
 // number instead.
 func (p *mdParser) openItem(
 	level int, listPath string, listNode *SomMetaNode,
-	n int, storedID string, hasN bool, title, codeSpec string, lineNo int,
+	n int, storedID string, hasN bool, title, codeSpec, unitIDs string, lineNo int,
 ) {
 	state, ok := p.lists[listPath]
 	if !ok {
@@ -1521,6 +1565,10 @@ func (p *mdParser) openItem(
 	// codespecs_mapping.md §9.2: stage the item codeSpec mapping whenever present.
 	if codeSpec != "" {
 		p.codeSpecs[itemPath] = codeSpec
+	}
+	// SOM §11.2: `units` is staged exactly like codeSpec.
+	if unitIDs != "" {
+		p.units[itemPath] = unitIDs
 	}
 	p.stack = append(p.stack, &mdFrame{
 		level: level,

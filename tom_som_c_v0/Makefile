@@ -40,6 +40,9 @@ OBJ    := $(BUILD)/tom_som_c_v0.o $(BUILD)/tom_som_c_v0_meta.o
 PICOBJ := $(BUILD)/tom_som_c_v0.pic.o $(BUILD)/tom_som_c_v0_meta.pic.o
 RUNTIME_LIB := $(RUNTIME_DIR)/build/libtom_som_c_runtime.a
 HEADER := include/tom_som_c_v0.h include/tom_som_c_v0_meta.h
+# The facade sources include the runtime headers: an object compiled
+# against an older runtime layout must be rebuilt, not linked as is.
+RUNTIME_HEADER := $(wildcard $(RUNTIME_DIR)/include/*.h)
 
 .PHONY: all clean runtime install dist FORCE
 all: $(STATIC) $(SHARED) $(PC)
@@ -52,10 +55,10 @@ runtime:
 
 $(RUNTIME_LIB): runtime
 
-$(BUILD)/%.o: src/%.c $(HEADER) | $(BUILD)
+$(BUILD)/%.o: src/%.c $(HEADER) $(RUNTIME_HEADER) | $(BUILD)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
-$(BUILD)/%.pic.o: src/%.c $(HEADER) | $(BUILD)
+$(BUILD)/%.pic.o: src/%.c $(HEADER) $(RUNTIME_HEADER) | $(BUILD)
 	$(CC) $(CFLAGS) $(PICFLAGS) $(CPPFLAGS) -c $< -o $@
 
 $(STATIC): $(OBJ)

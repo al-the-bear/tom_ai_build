@@ -23,18 +23,19 @@ import java.util.TreeMap;
  *
  * <p>The merge is over the plain-data stores ({@link SpecDocument#toJson}), and
  * it is <b>refusing</b>: a value two fragments both write — a content path, a
- * form field, a list, a headline, a code-spec location — is an overlap, and an
- * assembly with any overlap yields no document. Choosing a winner would make the
- * result depend on fragment order, and two parts writing one place is an
- * authoring conflict the parts' authors have to settle.
+ * form field, a list, a headline, a code-spec location, a units list — is an
+ * overlap, and an assembly with any overlap yields no document. Choosing a
+ * winner would make the result depend on fragment order, and two parts writing
+ * one place is an authoring conflict the parts' authors have to settle.
  */
 public final class SpecDocumentAssembly {
   /** The stores whose entries are a single value at a path. */
-  private static final List<String> PATH_STORES = Arrays.asList("content", "headlines", "codeSpecs");
+  private static final List<String> PATH_STORES =
+      Arrays.asList("content", "headlines", "codeSpecs", "units");
 
   /** The fixed order overlaps are reported in. */
   private static final List<String> STORE_ORDER =
-      Arrays.asList("content", "forms", "lists", "headlines", "codeSpecs");
+      Arrays.asList("content", "forms", "lists", "headlines", "codeSpecs", "units");
 
   /** The assembled document; {@code null} when there is any overlap. */
   public final SpecDocument document;

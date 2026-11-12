@@ -152,6 +152,9 @@ static SpecValueIndex *build_value_index(const SpecDocument *d) {
   for (size_t i = 0; i < d->code_spec.len; i++) {
     vi_add_key(ix, d->code_spec.entries[i].key);
   }
+  for (size_t i = 0; i < d->units.len; i++) {
+    vi_add_key(ix, d->units.entries[i].key);
+  }
   return ix;
 }
 
@@ -333,6 +336,7 @@ void document_json_init(DocumentJson *d) {
   d->lists_cap = 0;
   som_map_init(&d->headlines);
   som_map_init(&d->code_specs);
+  som_map_init(&d->units);
 }
 
 void document_json_free(DocumentJson *d) {
@@ -350,6 +354,7 @@ void document_json_free(DocumentJson *d) {
   free(d->lists);
   som_map_free(&d->headlines);
   som_map_free(&d->code_specs);
+  som_map_free(&d->units);
   document_json_init(d);
 }
 
@@ -434,6 +439,17 @@ void document_json_from_json(const SomJson *v, DocumentJson *out) {
       const char *s = som_json_as_str(m->value);
       if (s != NULL) {
         som_map_set(&out->code_specs, m->key, s);
+      }
+    }
+  }
+
+  const SomJson *units = som_json_get(v, "units");
+  if (units != NULL && units->type == SOM_JSON_OBJECT) {
+    for (size_t i = 0; i < units->as.object.len; i++) {
+      const SomJsonMember *m = &units->as.object.members[i];
+      const char *s = som_json_as_str(m->value);
+      if (s != NULL) {
+        som_map_set(&out->units, m->key, s);
       }
     }
   }
@@ -578,6 +594,7 @@ char *document_json_to_canonical_json(const DocumentJson *d) {
     if (!first) {
       som_buf_putc(&b, ',');
     }
+    first = 0;
     som_buf_puts(&b, "\"codeSpecs\":{");
     for (size_t i = 0; i < d->code_specs.len; i++) {
       if (i > 0) {
@@ -585,6 +602,26 @@ char *document_json_to_canonical_json(const DocumentJson *d) {
       }
       char *k = som_json_encode_str(d->code_specs.entries[i].key);
       char *val = som_json_encode_str(d->code_specs.entries[i].val);
+      som_buf_puts(&b, k);
+      som_buf_putc(&b, ':');
+      som_buf_puts(&b, val);
+      free(k);
+      free(val);
+    }
+    som_buf_putc(&b, '}');
+  }
+
+  if (d->units.len > 0) {
+    if (!first) {
+      som_buf_putc(&b, ',');
+    }
+    som_buf_puts(&b, "\"units\":{");
+    for (size_t i = 0; i < d->units.len; i++) {
+      if (i > 0) {
+        som_buf_putc(&b, ',');
+      }
+      char *k = som_json_encode_str(d->units.entries[i].key);
+      char *val = som_json_encode_str(d->units.entries[i].val);
       som_buf_puts(&b, k);
       som_buf_putc(&b, ':');
       som_buf_puts(&b, val);
@@ -614,6 +651,7 @@ void spec_document_init(SpecDocument *d) {
   som_map_init(&d->item_section_id);
   som_map_init(&d->headline);
   som_map_init(&d->code_spec);
+  som_map_init(&d->units);
   d->model_version = NULL;
   d->value_index = NULL;
 }
@@ -635,6 +673,7 @@ void spec_document_free(SpecDocument *d) {
   som_map_free(&d->item_section_id);
   som_map_free(&d->headline);
   som_map_free(&d->code_spec);
+  som_map_free(&d->units);
   free(d->model_version);
   spec_document_init(d);
 }
@@ -896,6 +935,17 @@ static void purge_under(SpecDocument *d, const char *prefix) {
       i++;
     }
   }
+  for (size_t i = 0; i < d->units.len;) {
+    if (is_under(d->units.entries[i].key, prefix)) {
+      free(d->units.entries[i].key);
+      free(d->units.entries[i].val);
+      memmove(&d->units.entries[i], &d->units.entries[i + 1],
+              (d->units.len - i - 1) * sizeof(SomMapEntry));
+      d->units.len--;
+    } else {
+      i++;
+    }
+  }
 }
 
 void spec_document_remove_values_under(SpecDocument *d, const char *prefix) {
@@ -974,11 +1024,35 @@ void spec_document_code_spec_paths(const SpecDocument *d, SomStrList *out) {
   }
 }
 
+/* --- units (SOM §11.2) --- */
+
+const char *spec_document_units(const SpecDocument *d, const char *path) {
+  return som_map_get(&d->units, path);
+}
+
+void spec_document_set_units(SpecDocument *d, const char *path,
+                             const char *value) {
+  drop_value_index(d);
+  if (value == NULL || value[0] == '\0') {
+    som_map_remove(&d->units, path);
+  } else {
+    som_map_set(&d->units, path, value);
+  }
+}
+
+void spec_document_units_paths(const SpecDocument *d, SomStrList *out) {
+  som_strlist_init(out);
+  for (size_t i = 0; i < d->units.len; i++) {
+    som_strlist_push_copy(out, d->units.entries[i].key);
+  }
+}
+
 /* --- queries --- */
 
 int spec_document_is_empty(const SpecDocument *d) {
   return d->content.len == 0 && d->forms_len == 0 && d->list_items_len == 0 &&
-         d->headline.len == 0 && d->code_spec.len == 0;
+         d->headline.len == 0 && d->code_spec.len == 0 &&
+         d->units.len == 0;
 }
 
 int spec_document_has_values_under(const SpecDocument *d, const char *prefix) {
@@ -1075,6 +1149,10 @@ void spec_document_to_json(const SpecDocument *d, DocumentJson *out) {
     som_map_set(&out->code_specs, d->code_spec.entries[i].key,
                 d->code_spec.entries[i].val);
   }
+  for (size_t i = 0; i < d->units.len; i++) {
+    som_map_set(&out->units, d->units.entries[i].key,
+                d->units.entries[i].val);
+  }
 }
 
 void spec_document_load_json(SpecDocument *d, const DocumentJson *j) {
@@ -1095,6 +1173,7 @@ void spec_document_load_json(SpecDocument *d, const DocumentJson *j) {
   som_map_clear(&d->item_section_id);
   som_map_clear(&d->headline);
   som_map_clear(&d->code_spec);
+  som_map_clear(&d->units);
 
   for (size_t i = 0; i < j->content.len; i++) {
     som_map_set(&d->content, j->content.entries[i].key,
@@ -1142,6 +1221,12 @@ void spec_document_load_json(SpecDocument *d, const DocumentJson *j) {
     }
     som_map_set(&d->code_spec, j->code_specs.entries[i].key,
                 j->code_specs.entries[i].val);
+  }
+  for (size_t i = 0; i < j->units.len; i++) {
+    if (j->units.entries[i].val[0] == '\0') {
+      continue; /* skip empty values (SOM §11.2) */
+    }
+    som_map_set(&d->units, j->units.entries[i].key, j->units.entries[i].val);
   }
 }
 
@@ -1463,6 +1548,7 @@ int spec_document_move_list_item(SpecDocument *d, const SpecModel *model,
   rekey_map(&d->content, rf, rt);
   rekey_map(&d->headline, rf, rt);
   rekey_map(&d->code_spec, rf, rt);
+  rekey_map(&d->units, rf, rt);
   rekey_map(&d->item_section_id, rf, rt);
   for (size_t i = 0; i < out->pinned_paths.len; i++) {
     char *k = spec_rekey_path(out->pinned_paths.items[i], rf, rt);

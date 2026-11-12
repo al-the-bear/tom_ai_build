@@ -72,7 +72,11 @@
  *
  * 3: entries carry `instanceId` — the nearest enclosing list-item instance's
  * **stored** section id (the `<!--[…]-->` id the document serializes),
- * copy-only; null when no enclosing instance stores one. */
+ * copy-only; null when no enclosing instance stores one.
+ *
+ * Entries may carry `units` — the nearest stored generation units (SOM §11.2)
+ * at the entry's path or above it. The key is written only when non-empty and
+ * reads as empty when absent, so it is additive and the version stays 3. */
 #define SPEC_CODESPECS_EXTRACT_FORMAT 3
 
 /* The annotation names of the three routing verdicts (`codespecs_mapping.md`
@@ -189,6 +193,13 @@ typedef struct {
   char *routed_at;
   /* The `@CodeSpecKind` `note`, verbatim; NULL when it carries none. */
   char *routing_note;
+  /* The generation units the entry goes to (SOM §11.2, `codespecs_mapping.md`
+   * §1.1.1): the nearest stored `units` at the entry's path or any ancestor
+   * path, split at its commas (each trimmed, empty pieces dropped). Empty when
+   * no section on the way stores one — the default, every unit with a mapping
+   * for the entry's area. Copy-only like `instance_id`. A zeroed list is
+   * empty. */
+  SomStrList units;
   /* The stored value, **verbatim**. Never assembled, reformatted or trimmed. */
   char *value;
 } CodeSpecsExtractEntry;

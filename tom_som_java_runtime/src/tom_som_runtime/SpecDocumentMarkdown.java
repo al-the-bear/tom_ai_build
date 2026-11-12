@@ -78,6 +78,29 @@ public final class SpecDocumentMarkdown {
    * quoted/bare group trimmed, or the empty string when the region carries no
    * {@code codeSpec} key.
    */
+  // The `units="…"` key (SOM §11.2): the same quoting rules as `codeSpec`, but
+  // the key must start the region or follow whitespace, so a `units=` inside a
+  // quoted codeSpec value is not read as the key.
+  static final Pattern UNITS_PATTERN =
+      Pattern.compile("(?:^|\\s)units=(?:\"([^\"]*)\"|'([^']*)'|([^,\\s>]+))");
+
+  /**
+   * Extracts the {@code units="…"} value from a heading-comment key=value region
+   * (SOM §11.2): double-quoted, single-quoted or bare, trimmed. Returns the
+   * empty string when the region carries no {@code units} key.
+   */
+  static String unitsOf(String region) {
+    Matcher m = UNITS_PATTERN.matcher(region);
+    if (m.find()) {
+      for (int g = 1; g <= 3; g++) {
+        if (m.group(g) != null) {
+          return m.group(g).trim();
+        }
+      }
+    }
+    return "";
+  }
+
   static String codeSpecOf(String region) {
     Matcher m = CODE_SPEC_PATTERN.matcher(region);
     if (m.find()) {
@@ -803,6 +826,12 @@ public final class SpecDocumentMarkdown {
     String cs = (codeSpec != null && !codeSpec.isEmpty())
         ? " codeSpec=\"" + codeSpec + "\""
         : "";
+    // SOM §11.2: the section's generation units follow as a second key,
+    // ` units="…"`, after `codeSpec`; absent when the section carries none.
+    String units = document.units(path);
+    if (units != null && !units.isEmpty()) {
+      cs += " units=\"" + units + "\"";
+    }
     // A heading is one line: a stored headline's line breaks travel as `<br>`.
     writeln(b, "#".repeat(depth) + " <!--[" + id + "]" + cs + "--> "
         + title.replace("\n", "<br>"));
@@ -984,6 +1013,7 @@ public final class SpecDocumentMarkdown {
     result.lists.putAll(p.listsJson());
     result.headlines.putAll(p.headlines);
     result.codeSpecs.putAll(p.codeSpecs);
+    result.units.putAll(p.units);
     result.rejections.addAll(p.rejections);
     result.rootPrefixes.addAll(p.rootPrefixes);
     return result;
@@ -1033,6 +1063,8 @@ public final class SpecDocumentMarkdown {
     // comments (codespecs_mapping.md §9.2) — staged whenever present (no
     // effective default).
     final Map<String, String> codeSpecs = new LinkedHashMap<>();
+    // Stored generation units staged from the `units="…"` key (SOM §11.2).
+    final Map<String, String> units = new LinkedHashMap<>();
     final Map<String, MdListState> lists = new LinkedHashMap<>();
     final List<String> listOrder = new ArrayList<>();
     final List<SpecMarkdownRejection> rejections = new ArrayList<>();
@@ -1107,10 +1139,11 @@ public final class SpecDocumentMarkdown {
       }
       String id = m.group(1);
       String codeSpec = codeSpecOf(m.group(2));
+      String unitIds = unitsOf(m.group(2));
       String title = m.group(3).trim().replace("<br>", "\n");
 
       if (stack.isEmpty()) {
-        openRoot(level, id, title, codeSpec, lineNo);
+        openRoot(level, id, title, codeSpec, unitIds, lineNo);
         return;
       }
 
@@ -1138,7 +1171,7 @@ public final class SpecDocumentMarkdown {
       // 1. Under a `-LST` container frame (SOM §11.2), every child heading is one
       //    of that list's items — resolved positionally, not by the schema tree.
       if (SomMetaKind.LIST.equals(pNode.kind)) {
-        openItemHeading(level, parent, pNode, id, title, codeSpec, lineNo);
+        openItemHeading(level, parent, pNode, id, title, codeSpec, unitIds, lineNo);
         return;
       }
 
@@ -1160,6 +1193,10 @@ public final class SpecDocumentMarkdown {
           // present (no default).
           if (!codeSpec.isEmpty()) {
             codeSpecs.put(childPath, codeSpec);
+          }
+          // SOM §11.2: `units` is staged exactly like codeSpec.
+          if (!unitIds.isEmpty()) {
+            units.put(childPath, unitIds);
           }
           stack.add(new MdFrame(
               level, entry.node, childPath, lineNo, false));
@@ -1186,7 +1223,7 @@ public final class SpecDocumentMarkdown {
      * item carrying the stored id.
      */
     void openItemHeading(int level, MdFrame container, SomMetaNode listNode,
-        String id, String title, String codeSpec, int lineNo) {
+        String id, String title, String codeSpec, String unitIds, int lineNo) {
       String listPath = container.path;
       String member = listNode.memberName;
       if (member == null || member.isEmpty()) {
@@ -1197,7 +1234,7 @@ public final class SpecDocumentMarkdown {
           .matcher(id);
       if (anon.matches()) {
         openItem(level, listPath, listNode, Integer.parseInt(anon.group(1)),
-            null, true, title, codeSpec, lineNo);
+            null, true, title, codeSpec, unitIds, lineNo);
         return;
       }
       SomMetaNode element = listNode.elementNode;
@@ -1218,21 +1255,22 @@ public final class SpecDocumentMarkdown {
               .matcher(id);
           if (numbered.matches()) {
             openItem(level, listPath, listNode, Integer.parseInt(numbered.group(1)),
-                id, true, title, codeSpec, lineNo);
+                id, true, title, codeSpec, unitIds, lineNo);
             return;
           }
         }
         if (patternMatches(pattern, id)) {
-          openItem(level, listPath, listNode, 0, id, false, title, codeSpec, lineNo);
+          openItem(level, listPath, listNode, 0, id, false, title, codeSpec, unitIds, lineNo);
           return;
         }
       }
       // Any other id under the container is a stored-id item (YRD3 — the
       // stored id round-trips through md as the heading id).
-      openItem(level, listPath, listNode, 0, id, false, title, codeSpec, lineNo);
+      openItem(level, listPath, listNode, 0, id, false, title, codeSpec, unitIds, lineNo);
     }
 
-    void openRoot(int level, String id, String title, String codeSpec, int lineNo) {
+    void openRoot(int level, String id, String title, String codeSpec, String unitIds,
+        int lineNo) {
       for (SpecRoot root : codec.model.roots) {
         String seg = root.sectionId;
         if (seg == null || seg.isEmpty()) {
@@ -1259,6 +1297,10 @@ public final class SpecDocumentMarkdown {
           // present.
           if (!codeSpec.isEmpty()) {
             codeSpecs.put(seg, codeSpec);
+          }
+          // SOM §11.2: `units` is staged exactly like codeSpec.
+          if (!unitIds.isEmpty()) {
+            units.put(seg, unitIds);
           }
           stack.add(new MdFrame(level, tree.root, seg, lineNo, false));
           return;
@@ -1288,7 +1330,7 @@ public final class SpecDocumentMarkdown {
      */
     void openItem(int level, String listPath, SomMetaNode listNode,
         int n, String storedId, boolean hasN, String title, String codeSpec,
-        int lineNo) {
+        String unitIds, int lineNo) {
       MdListState state = lists.get(listPath);
       if (state == null) {
         state = new MdListState();
@@ -1314,6 +1356,10 @@ public final class SpecDocumentMarkdown {
       // present.
       if (!codeSpec.isEmpty()) {
         codeSpecs.put(itemPath, codeSpec);
+      }
+      // SOM §11.2: `units` is staged exactly like codeSpec.
+      if (!unitIds.isEmpty()) {
+        units.put(itemPath, unitIds);
       }
       stack.add(new MdFrame(level, listNode.elementNode, itemPath, lineNo, false));
     }

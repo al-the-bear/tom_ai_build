@@ -18,6 +18,9 @@ NODE="${NODE:-node}"
 if [ ! -d node_modules ]; then
   npm install || exit 1
 fi
+# Compiled tests of deleted sources would otherwise linger in dist/ (it is
+# gitignored) and keep running: the loop below runs whatever is there.
+rm -rf dist/tests
 ./node_modules/.bin/tsc || exit 1
 
 rc=0

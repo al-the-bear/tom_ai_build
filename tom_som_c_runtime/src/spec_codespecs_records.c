@@ -385,6 +385,8 @@ static int read_entry(const YamlValue *raw, const char *name, const char *code,
                   &e->routed_at, err) &&
          read_opt_str(yaml_get(raw, "routingNote"), name,
                       "entries[].routingNote", &e->routing_note, err) &&
+         read_str_list(yaml_get(raw, "units"), name, "entries[].units",
+                       &e->units, err) &&
          read_str(yaml_get(raw, "value"), name, "entries[].value", &e->value,
                   err);
 }

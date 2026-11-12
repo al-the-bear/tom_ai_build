@@ -220,7 +220,12 @@ public final class SpecValidator {
     // field must rank the instances of its form by their score.
     errors.addAll(validateDerivedValues(refl, doc));
 
-    // 8. Review annotations (SOM §11.9.5): malformed, misplaced or duplicated
+    // 8. Generation units (SOM §11.2 `units`, instance-tier phase 8): the ids a
+    // section names must be declared, a section carrying units must route
+    // something, and the register itself must be well-formed.
+    errors.addAll(validateGenerationUnits(refl, doc));
+
+    // Last: review annotations (SOM §11.9.5): malformed, misplaced or duplicated
     // comment blocks, question blocks and inline marks. Findings, never parse
     // rejections — the rest of the document still validates.
     errors.addAll(new SpecReviewAnnotations(doc).validate());
@@ -1035,5 +1040,211 @@ public final class SpecValidator {
       }
     }
     return ids;
+  }
+
+  // --- generation units (SOM §11.2, phase 8) ---------------------------------
+
+  /** {@code CE-} followed by one or more capital letters — the area-code shape. */
+  private static final java.util.regex.Pattern UNIT_AREA_CODE =
+      java.util.regex.Pattern.compile("^CE-[A-Z]+$");
+
+  /**
+   * Instance-tier generation-unit check (SOM §11.2, phase 8).
+   *
+   * <p>A <b>generation-unit entry</b> is a list item whose class carries
+   * {@code @NoArtifact(generation)} and declares a form field {@code unitId}; a
+   * <b>mapping</b> is a list item whose class carries
+   * {@code @NoArtifact(generation)} and declares a form field {@code area}. Both
+   * are recognised by these two facts, never by class name. Entries and
+   * mappings are visited in sorted list-path order, each list's items in their
+   * stored order — that order decides which of two entries declaring one
+   * {@code unitId} is "the second". An entry or mapping whose form holds no
+   * value at all is absence (an item just added), not a finding.
+   *
+   * <p>Findings, all at the list item's path for the register and at the
+   * section's path for {@code units}: {@code duplicateUnitId},
+   * {@code unitBuildsNothing}, {@code unitAreaMalformed}, then per section
+   * carrying {@code units} one {@code unknownUnit} per undeclared id (in the
+   * order written) and {@code unitsUnrouted}. The group is sorted by path,
+   * stably, like every phase's.
+   */
+  private static List<SpecValidationError> validateGenerationUnits(
+      SpecReflection refl, SpecDocument doc) {
+    List<SpecValidationError> errors = new ArrayList<>();
+    Set<String> declared = new HashSet<>();
+    List<String> listPaths = new ArrayList<>(doc.listPaths());
+    Collections.sort(listPaths);
+    for (String listPath : listPaths) {
+      for (String item : doc.listItems(listPath)) {
+        SpecResolution itemRes = refl.resolve(item);
+        SpecClass cls = itemRes == null ? null : itemRes.targetClass;
+        if (cls == null) {
+          continue;
+        }
+        NoArtifactLink noArtifact = cls.noArtifact();
+        if (noArtifact == null || !"generation".equals(noArtifact.reason)) {
+          continue;
+        }
+
+        SpecField unitForm = formDeclaring(cls, "unitId");
+        if (unitForm != null) {
+          String formPath = SpecPaths.join(item, refl.fieldSegment(unitForm));
+          if (!doc.formFieldNames(formPath).isEmpty()) {
+            String id = trimmedFormValue(doc, formPath, "unitId");
+            if (!id.isEmpty() && !declared.add(id)) {
+              errors.add(new SpecValidationError(
+                  item,
+                  SpecValidationCode.DUPLICATE_UNIT_ID,
+                  "generation unit \"" + id + "\" is declared twice"));
+            }
+            if (trimmedFormValue(doc, formPath, "deploymentTarget").isEmpty()
+                && trimmedFormValue(doc, formPath, "component").isEmpty()) {
+              errors.add(new SpecValidationError(
+                  item,
+                  SpecValidationCode.UNIT_BUILDS_NOTHING,
+                  "generation unit \"" + id + "\" builds neither a deploymentTarget "
+                      + "nor a component"));
+            }
+          }
+        }
+
+        SpecField areaForm = formDeclaring(cls, "area");
+        if (areaForm != null) {
+          String formPath = SpecPaths.join(item, refl.fieldSegment(areaForm));
+          String area = trimmedFormValue(doc, formPath, "area");
+          if (!area.isEmpty() && !UNIT_AREA_CODE.matcher(area).matches()) {
+            errors.add(new SpecValidationError(
+                item,
+                SpecValidationCode.UNIT_AREA_MALFORMED,
+                "mapping area \"" + area + "\" is not an area code (CE-…)"));
+          }
+        }
+      }
+    }
+
+    List<String> unitsPaths = new ArrayList<>(doc.unitsPaths());
+    Collections.sort(unitsPaths);
+    for (String path : unitsPaths) {
+      for (String id : splitUnits(doc.units(path))) {
+        if (!declared.contains(id)) {
+          errors.add(new SpecValidationError(
+              path,
+              SpecValidationCode.UNKNOWN_UNIT,
+              "units names \"" + id + "\", which no generation unit declares"));
+        }
+      }
+      SpecResolution res = refl.resolve(path);
+      if (res != null && !routesToCodeSpecs(refl, res)) {
+        errors.add(new SpecValidationError(
+            path,
+            SpecValidationCode.UNITS_UNROUTED,
+            "units is set on a section that routes nothing to CodeSpecs"));
+      }
+    }
+
+    // A stable sort by path keeps the visit order within one path.
+    List<SpecValidationError> ordered = new ArrayList<>(errors);
+    ordered.sort((a, b) -> a.path.compareTo(b.path));
+    return ordered;
+  }
+
+  /** The trimmed value of form field {@code field} at {@code formPath}, or "". */
+  private static String trimmedFormValue(SpecDocument doc, String formPath, String field) {
+    String v = doc.formField(formPath, field);
+    return v == null ? "" : v.trim();
+  }
+
+  /**
+   * A stored comma-joined {@code units} value (SOM §11.2) as its unit ids:
+   * split at the commas, each trimmed, empty pieces dropped; {@code null} reads
+   * as none.
+   */
+  static List<String> splitUnits(String units) {
+    List<String> out = new ArrayList<>();
+    if (units == null) {
+      return out;
+    }
+    for (String u : units.split(",", -1)) {
+      String t = u.trim();
+      if (!t.isEmpty()) {
+        out.add(t);
+      }
+    }
+    return out;
+  }
+
+  /** The form field of {@code cls} that declares a form field named {@code name}, or null. */
+  private static SpecField formDeclaring(SpecClass cls, String name) {
+    for (SpecField f : cls.fields) {
+      if (f.kind != SpecFieldKind.FORM) {
+        continue;
+      }
+      for (FormFieldSpec ff : f.formFields) {
+        if (ff.name.equals(name)) {
+          return f;
+        }
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Whether the section {@code res} resolves to routes anything to CodeSpecs —
+   * the {@code unitsUnrouted} test.
+   *
+   * <p>A class <i>routes</i> when it carries {@code @CodeSpecKind} or declares a
+   * field that carries one (a field-level override routes that field's
+   * values). A class node (root, section, complex, complex list item) routes
+   * when any class reachable from its class
+   * ({@link SpecReflection#reachableClassNames}, itself included) routes. Any
+   * other node (a content, scalar or enum leaf, a form, a list, a scalar list
+   * item) routes when its field carries {@code @CodeSpecKind}, when the class
+   * declaring it — the class at the parent path — carries one, or when it is a
+   * list of complex items some class reachable from whose element class
+   * routes.
+   */
+  private static boolean routesToCodeSpecs(SpecReflection refl, SpecResolution res) {
+    SpecClass target = res.targetClass;
+    if (target != null) {
+      return reachRoutes(refl, target.name);
+    }
+    SpecField field = res.field;
+    if (field == null) {
+      return false;
+    }
+    if (field.codeSpecKind() != null) {
+      return true;
+    }
+    int slash = res.path.lastIndexOf('/');
+    if (slash > 0) {
+      SpecResolution ownerRes = refl.resolve(res.path.substring(0, slash));
+      SpecClass owner = ownerRes == null ? null : ownerRes.targetClass;
+      if (owner != null && owner.codeSpecKind() != null) {
+        return true;
+      }
+    }
+    String element = field.elementType;
+    return field.kind == SpecFieldKind.LIST
+        && field.elementIsComplex
+        && element != null
+        && reachRoutes(refl, element);
+  }
+
+  private static boolean reachRoutes(SpecReflection refl, String type) {
+    for (String name : refl.reachableClassNames(type)) {
+      SpecClass cls = refl.classNamed(name);
+      if (cls == null) {
+        continue;
+      }
+      if (cls.codeSpecKind() != null) {
+        return true;
+      }
+      for (SpecField f : cls.fields) {
+        if (f.codeSpecKind() != null) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 }

@@ -75,6 +75,21 @@
 /* A comment id or a question id is used twice in one document
  * (SOM §11.9.5). */
 #define SPEC_VALIDATION_CODE_DUPLICATE_ANNOTATION_ID "duplicateAnnotationId"
+/* A section's `units` (SOM §11.2) names an id no generation-unit entry of the
+ * document declares. */
+#define SPEC_VALIDATION_CODE_UNKNOWN_UNIT "unknownUnit"
+/* A section carries `units`, but neither its class nor any class reachable
+ * beneath it routes anything to CodeSpecs (`@CodeSpecKind`), so the units
+ * would place nothing. */
+#define SPEC_VALIDATION_CODE_UNITS_UNROUTED "unitsUnrouted"
+/* Two generation-unit entries declare one `unitId`; reported at the second. */
+#define SPEC_VALIDATION_CODE_DUPLICATE_UNIT_ID "duplicateUnitId"
+/* A generation-unit entry names neither a `deploymentTarget` nor a
+ * `component`, so it builds nothing. */
+#define SPEC_VALIDATION_CODE_UNIT_BUILDS_NOTHING "unitBuildsNothing"
+/* A generation-unit mapping's `area` is not an area code (`CE-` followed by
+ * capital letters). */
+#define SPEC_VALIDATION_CODE_UNIT_AREA_MALFORMED "unitAreaMalformed"
 
 typedef struct {
   char *path;    /* owned */
@@ -92,7 +107,8 @@ typedef struct {
  * the callee) in stable order: content paths, then forms, then lists, then
  * `@OneOf` case instances, then `refersTo` references, then `countOf` stated
  * counts, then `productOf` / `rankOf` derived values (one group), then the
- * review annotations (SOM §11.9.5, `spec_review_annotations_validate`); each
+ * generation units (SOM §11.2 `units`, phase 8: the register and every
+ * section's `units`, one group), then the review annotations (SOM §11.9.5, `spec_review_annotations_validate`); each
  * group sorted by path. An empty list means the document is valid. */
 void validate_document(const SpecModel *model, const SpecDocument *doc,
                        SpecValidationErrors *out);

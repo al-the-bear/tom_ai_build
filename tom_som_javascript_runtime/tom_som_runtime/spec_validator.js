@@ -12,6 +12,7 @@
  */
 
 const { SpecFieldKind } = require('./spec_model');
+const { specPathJoin } = require('./spec_paths');
 const { SpecNodeKind, SpecReflection } = require('./spec_reflection');
 const { K_SECTION_ID_SLOT, effectiveListItemSectionId } = require('./spec_section_id');
 const { somScalarBase, somTypedTextReadable } = require('./spec_typed_values');
@@ -95,6 +96,29 @@ const SpecValidationCode = Object.freeze({
   ANNOTATION_MALFORMED: 'annotationMalformed',
   /** A comment or question id is used more than once in one document. */
   DUPLICATE_ANNOTATION_ID: 'duplicateAnnotationId',
+  /**
+   * A section's `units` (SOM §11.2) names an id no generation-unit entry of
+   * the document declares.
+   */
+  UNKNOWN_UNIT: 'unknownUnit',
+  /**
+   * A section carries `units`, but neither its class nor any class reachable
+   * beneath it routes anything to CodeSpecs (`@CodeSpecKind`), so the units
+   * would place nothing.
+   */
+  UNITS_UNROUTED: 'unitsUnrouted',
+  /** Two generation-unit entries declare one `unitId`; reported at the second. */
+  DUPLICATE_UNIT_ID: 'duplicateUnitId',
+  /**
+   * A generation-unit entry names neither a `deploymentTarget` nor a
+   * `component`, so it builds nothing.
+   */
+  UNIT_BUILDS_NOTHING: 'unitBuildsNothing',
+  /**
+   * A generation-unit mapping's `area` is not an area code (`CE-` followed by
+   * capital letters).
+   */
+  UNIT_AREA_MALFORMED: 'unitAreaMalformed',
 });
 
 /** One problem found while validating a document. */
@@ -328,7 +352,12 @@ function validateDocument(model, doc) {
   // field must rank its form's instances by their score.
   errors.push(..._validateDerivedValues(refl, doc));
 
-  // 8. Review annotations (SOM §11.9.5): malformed, misplaced or duplicated
+  // 8. Generation units (SOM §11.2 `units`, instance-tier phase 8): the ids a
+  // section names must be declared, a section carrying units must route
+  // something, and the register itself must be well-formed.
+  errors.push(..._validateGenerationUnits(refl, doc));
+
+  // Last: review annotations (SOM §11.9.5): malformed, misplaced or duplicated
   // comment blocks, question blocks and inline marks. Findings, never parse
   // rejections — the rest of the document still validates. Required here, not
   // at the top: the annotations module reads this one's codes.
@@ -1029,6 +1058,200 @@ function _validateDerivedValues(refl, doc) {
   // order they were found in.
   return errors.sort((a, b) =>
     a.path < b.path ? -1 : a.path > b.path ? 1 : 0,
+  );
+}
+
+/**
+ * Instance-tier generation-unit check (SOM §11.2, phase 8).
+ *
+ * A **generation-unit entry** is a list item whose class carries
+ * `@NoArtifact(generation)` and declares a form field `unitId`; a **mapping**
+ * is a list item whose class carries `@NoArtifact(generation)` and declares a
+ * form field `area`. Both are recognised by these two facts, never by class
+ * name. Entries and mappings are visited in sorted list-path order, each
+ * list's items in their stored order — that order decides which of two
+ * entries declaring one `unitId` is "the second". An entry or mapping whose
+ * form holds no value at all is absence (an item just added), not a finding.
+ *
+ * Findings, all at the list item's path for the register and at the section's
+ * path for `units`: `duplicateUnitId`, `unitBuildsNothing`,
+ * `unitAreaMalformed`, then per section carrying `units` one `unknownUnit`
+ * per undeclared id (in the order written) and `unitsUnrouted`. The group is
+ * sorted by path, stably, like every phase's.
+ *
+ * @returns {SpecValidationError[]}
+ */
+function _validateGenerationUnits(refl, doc) {
+  const errors = [];
+  const declared = new Set();
+  for (const listPath of _sorted(doc.listPaths)) {
+    for (const item of doc.listItems(listPath)) {
+      const res = refl.resolve(item);
+      const cls = res === null || res === undefined ? null : res.targetClass;
+      if (cls === null || cls === undefined) continue;
+      const noArtifact = cls.noArtifact;
+      if (noArtifact === null || noArtifact.reason !== 'generation') continue;
+
+      const unitForm = _formDeclaring(cls, 'unitId');
+      if (unitForm !== null) {
+        const formPath = specPathJoin(item, refl.fieldSegment(unitForm));
+        const value = (f) => {
+          const v = doc.formField(formPath, f);
+          return v === null || v === undefined ? '' : v.trim();
+        };
+        if (Array.from(doc.formFieldNames(formPath)).length > 0) {
+          const id = value('unitId');
+          if (id !== '') {
+            if (declared.has(id)) {
+              errors.push(
+                new SpecValidationError(
+                  item,
+                  SpecValidationCode.DUPLICATE_UNIT_ID,
+                  `generation unit "${id}" is declared twice`,
+                ),
+              );
+            } else {
+              declared.add(id);
+            }
+          }
+          if (value('deploymentTarget') === '' && value('component') === '') {
+            errors.push(
+              new SpecValidationError(
+                item,
+                SpecValidationCode.UNIT_BUILDS_NOTHING,
+                `generation unit "${id}" builds neither a deploymentTarget ` +
+                  'nor a component',
+              ),
+            );
+          }
+        }
+      }
+
+      const areaForm = _formDeclaring(cls, 'area');
+      if (areaForm !== null) {
+        const formPath = specPathJoin(item, refl.fieldSegment(areaForm));
+        const raw = doc.formField(formPath, 'area');
+        const area = raw === null || raw === undefined ? '' : raw.trim();
+        if (area !== '' && !_UNIT_AREA_CODE.test(area)) {
+          errors.push(
+            new SpecValidationError(
+              item,
+              SpecValidationCode.UNIT_AREA_MALFORMED,
+              `mapping area "${area}" is not an area code (CE-…)`,
+            ),
+          );
+        }
+      }
+    }
+  }
+
+  for (const path of _sorted(doc.unitsPaths)) {
+    for (const id of _splitUnits(doc.units(path))) {
+      if (!declared.has(id)) {
+        errors.push(
+          new SpecValidationError(
+            path,
+            SpecValidationCode.UNKNOWN_UNIT,
+            `units names "${id}", which no generation unit declares`,
+          ),
+        );
+      }
+    }
+    const res = refl.resolve(path);
+    if (res !== null && res !== undefined && !_routesToCodeSpecs(refl, res)) {
+      errors.push(
+        new SpecValidationError(
+          path,
+          SpecValidationCode.UNITS_UNROUTED,
+          'units is set on a section that routes nothing to CodeSpecs',
+        ),
+      );
+    }
+  }
+
+  // Ordered by path (code-unit order); Array.prototype.sort is stable, so a
+  // path's own findings keep the order they were found in.
+  return errors.sort((a, b) =>
+    a.path < b.path ? -1 : a.path > b.path ? 1 : 0,
+  );
+}
+
+/**
+ * A stored comma-joined `units` value (SOM §11.2) as its unit ids: split at
+ * the commas, each trimmed, empty pieces dropped; `null` reads as none.
+ *
+ * @param {?string} units
+ * @returns {string[]}
+ */
+function _splitUnits(units) {
+  if (units === null || units === undefined) return [];
+  return units
+    .split(',')
+    .map((u) => u.trim())
+    .filter((u) => u !== '');
+}
+
+/** `CE-` followed by one or more capital letters — the area-code shape. */
+const _UNIT_AREA_CODE = /^CE-[A-Z]+$/;
+
+/** The form field of `cls` that declares a form field named `name`, or `null`. */
+function _formDeclaring(cls, name) {
+  for (const f of cls.fields) {
+    if (
+      f.kind === SpecFieldKind.FORM &&
+      (f.formFields || []).some((ff) => ff.name === name)
+    ) {
+      return f;
+    }
+  }
+  return null;
+}
+
+/**
+ * Whether the section `res` resolves to routes anything to CodeSpecs — the
+ * `unitsUnrouted` test.
+ *
+ * A class *routes* when it carries `@CodeSpecKind` or declares a field that
+ * carries one (a field-level override routes that field's values). A class
+ * node (root, section, complex, complex list item) routes when any class
+ * reachable from its class ({@link SpecReflection#reachableClassNames}, itself
+ * included) routes. Any other node (a content, scalar or enum leaf, a form, a
+ * list, a scalar list item) routes when its field carries `@CodeSpecKind`,
+ * when the class declaring it — the class at the parent path — carries one,
+ * or when it is a list of complex items some class reachable from whose
+ * element class routes.
+ */
+function _routesToCodeSpecs(refl, res) {
+  const routes = (name) => {
+    const cls = refl.classNamed(name);
+    return (
+      cls !== null &&
+      cls !== undefined &&
+      (cls.codeSpecKind !== null || cls.fields.some((f) => f.codeSpecKind !== null))
+    );
+  };
+  const reachRoutes = (type) =>
+    Array.from(refl.reachableClassNames(type)).some(routes);
+
+  const target = res.targetClass;
+  if (target !== null && target !== undefined) return reachRoutes(target.name);
+  const field = res.field;
+  if (field === null || field === undefined) return false;
+  if (field.codeSpecKind !== null) return true;
+  const slash = res.path.lastIndexOf('/');
+  const ownerRes = slash > 0 ? refl.resolve(res.path.substring(0, slash)) : null;
+  const owner =
+    ownerRes === null || ownerRes === undefined ? null : ownerRes.targetClass;
+  if (owner !== null && owner !== undefined && owner.codeSpecKind !== null) {
+    return true;
+  }
+  const element = field.elementType;
+  return (
+    field.kind === SpecFieldKind.LIST &&
+    field.elementIsComplex &&
+    element !== null &&
+    element !== undefined &&
+    reachRoutes(element)
   );
 }
 

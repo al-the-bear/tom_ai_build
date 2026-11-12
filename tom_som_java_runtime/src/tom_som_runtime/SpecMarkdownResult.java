@@ -28,6 +28,13 @@ public final class SpecMarkdownResult {
    * locations. Staged whenever present (codeSpec has no effective default).
    */
   public final Map<String, String> codeSpecs = new LinkedHashMap<>();
+
+  /**
+   * Stored generation units (SOM §11.2) staged from the {@code units="…"} key
+   * in heading comments — path → comma-joined generation-unit ids. Staged
+   * whenever present (absent means the default).
+   */
+  public final Map<String, String> units = new LinkedHashMap<>();
   public final List<SpecMarkdownRejection> rejections = new ArrayList<>();
   public final Set<String> rootPrefixes = new LinkedHashSet<>();
 
@@ -51,6 +58,7 @@ public final class SpecMarkdownResult {
     out.put("lists", lists);
     out.put("headlines", headlines);
     out.put("codeSpecs", codeSpecs);
+    out.put("units", units);
     return out;
   }
 }

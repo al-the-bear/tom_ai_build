@@ -67,6 +67,15 @@ void som_node_set_code_spec(const SomNode *n, const char *value) {
   spec_document_set_code_spec(n->doc, n->path, value);
 }
 
+char *som_node_units(const SomNode *n) {
+  const char *u = spec_document_units(n->doc, n->path);
+  return som_strdup(u != NULL ? u : "");
+}
+
+void som_node_set_units(const SomNode *n, const char *value) {
+  spec_document_set_units(n->doc, n->path, value);
+}
+
 /* ---- SomScalar ---------------------------------------------------------- */
 
 void som_scalar_init(SomScalar *s, SpecDocument *doc, const char *path) {

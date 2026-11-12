@@ -67,6 +67,10 @@ use crate::spec_reflection::SpecReflection;
 /// 3: entries carry `instanceId` — the nearest enclosing list-item instance's
 /// **stored** section id (the `<!--[…]-->` id the document serializes),
 /// copy-only; null when no enclosing instance stores one.
+///
+/// Entries may carry `units` — the nearest stored generation units (SOM §11.2)
+/// at the entry's path or above it. The key is written only when non-empty and
+/// reads as empty when absent, so it is additive and the version stays 3.
 pub const CODE_SPECS_EXTRACT_FORMAT: i64 = 3;
 
 /// The annotation names of the three routing verdicts (`codespecs_mapping.md`
@@ -213,6 +217,13 @@ pub struct CodeSpecsExtractEntry {
 
     /// The `@CodeSpecKind` `note`, verbatim; `None` when it carries none.
     pub routing_note: Option<String>,
+
+    /// The generation units the entry goes to (SOM §11.2,
+    /// `codespecs_mapping.md` §1.1.1): the nearest stored `units` at the
+    /// entry's path or any ancestor path, split at its commas. Empty when no
+    /// section on the way stores one — the default, every unit with a mapping
+    /// for the entry's area. Copy-only like `instance_id`.
+    pub units: Vec<String>,
 
     /// The stored value, **verbatim**. Never assembled, reformatted or trimmed.
     pub value: String,
@@ -963,6 +974,12 @@ impl CodeSpecsExtract {
                     yaml_nullable_string(e.routing_note.as_deref())
                 ),
             );
+            if !e.units.is_empty() {
+                writeln_to(
+                    &mut b,
+                    &format!("      units: {}", yaml_string_list(&e.units)),
+                );
+            }
             writeln_to(&mut b, &format!("      value: {}", yaml_string(&e.value)));
         }
         b
@@ -1091,6 +1108,10 @@ impl CodeSpecsExtract {
                     e.routed_by, e.routed_at
                 ),
             );
+            if !e.units.is_empty() {
+                let units: Vec<String> = e.units.iter().map(|u| format!("`{}`", u)).collect();
+                writeln_to(&mut b, &format!("- units: {}", units.join(", ")));
+            }
             if let Some(note) = &e.routing_note {
                 writeln_to(&mut b, &format!("- routing note: {}", md_cell(note)));
             }
@@ -1415,6 +1436,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
             self.model().class_named(&self.root.type_),
             &ancestor_types,
             None,
+            None,
         )
     }
 
@@ -1425,6 +1447,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
         cls: Option<&SpecClass>,
         ancestor_types: &HashSet<String>,
         enclosing_instance_id: Option<&str>,
+        enclosing_units: Option<&str>,
     ) -> Result<(), CodeSpecsExtractError> {
         let cls = match cls {
             Some(c) => c,
@@ -1480,8 +1503,24 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
             None => enclosing_instance_id.map(|s| s.to_string()),
         };
 
+        // The nearest stored generation units (SOM §11.2): this node's own,
+        // else whatever the walk inherited. The walk passes every ancestor
+        // path of an entry — class node, field, list container, list item — so
+        // "nearest on the walk" is "nearest at the entry's path or an ancestor
+        // path".
+        let class_units: Option<&str> = self
+            .document
+            .units(path)
+            .map(|s| s.as_str())
+            .or(enclosing_units);
+
         for field in &cls.fields {
             let field_path = spec_path_join(path, &self.reflection.field_segment(field));
+            let field_units: Option<&str> = self
+                .document
+                .units(&field_path)
+                .map(|s| s.as_str())
+                .or(class_units);
             let own = self.field_routing(cls, field);
             let field_routing = own.as_ref().or(class_routing.as_ref());
 
@@ -1496,6 +1535,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
                         None,
                         headline.as_deref(),
                         instance_id.as_deref(),
+                        field_units,
                         self.document.content(&field_path),
                     );
                 }
@@ -1510,6 +1550,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
                             Some(&ff.name),
                             headline.as_deref(),
                             instance_id.as_deref(),
+                            field_units,
                             self.document.form_field(&field_path, &ff.name),
                         );
                     }
@@ -1528,6 +1569,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
                                 self.model().class_named(&field.element_type),
                                 &next,
                                 instance_id.as_deref(),
+                                field_units,
                             )?;
                         } else {
                             // A scalar item is itself an instance of the list:
@@ -1547,6 +1589,10 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
                                 None,
                                 headline.as_deref(),
                                 item_instance,
+                                self.document
+                                    .units(&item_path)
+                                    .map(|s| s.as_str())
+                                    .or(field_units),
                                 self.document.content(&item_path),
                             );
                         }
@@ -1566,6 +1612,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
                         self.model().class_named(&field.type_),
                         &next,
                         instance_id.as_deref(),
+                        field_units,
                     )?;
                 }
                 _ => {}
@@ -1587,6 +1634,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
         form_field: Option<&str>,
         headline: Option<&str>,
         instance_id: Option<&str>,
+        units: Option<&str>,
         value: Option<&String>,
     ) {
         let (entries, routing) = match (sink.entries.as_mut(), routing) {
@@ -1597,6 +1645,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
             Some(v) if !v.is_empty() => v,
             _ => return,
         };
+        let unit_ids = crate::spec_validator::split_units(units);
         for kind in &routing.values {
             let area = match self.catalog.by_part(kind) {
                 Some(a) if a.active => a,
@@ -1614,6 +1663,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
                 routed_by: area.kind_value(),
                 routed_at: routing.declared_at.clone(),
                 routing_note: routing.note.clone(),
+                units: unit_ids.clone(),
                 value: value.clone(),
             });
         }

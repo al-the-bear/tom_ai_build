@@ -9,6 +9,7 @@
 #include <set>
 
 #include "som_util.hpp"
+#include "spec_paths.hpp"
 #include "spec_reflection.hpp"
 #include "spec_review_annotations.hpp"
 #include "spec_section_id.hpp"
@@ -811,6 +812,178 @@ std::vector<SpecValidationError> validateDerivedValues(
   return errors;
 }
 
+/* A stored comma-joined `units` value (SOM §11.2) as its unit ids: split at
+   the commas, each trimmed, empty pieces dropped. */
+std::vector<std::string> splitUnits(const std::string& units) {
+  std::vector<std::string> out;
+  std::size_t start = 0;
+  while (start <= units.size()) {
+    std::size_t comma = units.find(',', start);
+    if (comma == std::string::npos) comma = units.size();
+    const std::string id = trimmed(units.substr(start, comma - start));
+    if (!id.empty()) out.push_back(id);
+    start = comma + 1;
+  }
+  return out;
+}
+
+/* `CE-` followed by one or more capital letters — the area-code shape. */
+bool isUnitAreaCode(const std::string& area) {
+  if (area.size() < 4 || area.compare(0, 3, "CE-") != 0) return false;
+  for (std::size_t i = 3; i < area.size(); i++) {
+    if (area[i] < 'A' || area[i] > 'Z') return false;
+  }
+  return true;
+}
+
+/* The form field of `cls` that declares a form field named `name`, or null. */
+const SpecField* formDeclaring(const SpecClass& cls, const std::string& name) {
+  for (const SpecField& f : cls.fields) {
+    if (f.kind != kSpecFieldKindForm) continue;
+    for (const FormFieldSpec& ff : f.formFields) {
+      if (ff.name == name) return &f;
+    }
+  }
+  return nullptr;
+}
+
+/* Whether the section `res` resolves to routes anything to CodeSpecs — the
+   `unitsUnrouted` test.
+
+   A class *routes* when it carries `@CodeSpecKind` or declares a field that
+   carries one (a field-level override routes that field's values). A class
+   node (root, section, complex, complex list item) routes when any class
+   reachable from its class (SpecReflection::reachableClassNames, itself
+   included) routes. Any other node (a content, scalar or enum leaf, a form, a
+   list, a scalar list item) routes when its field carries `@CodeSpecKind`,
+   when the class declaring it — the class at the parent path — carries one,
+   or when it is a list of complex items some class reachable from whose
+   element class routes. */
+bool routesToCodeSpecs(const SpecReflection& refl, const SpecResolution& res) {
+  const SpecModel& model = refl.model();
+  auto routes = [&](const std::string& name) {
+    const SpecClass* cls = model.classNamed(name);
+    if (cls == nullptr) return false;
+    if (specCodeSpecKind(cls->annotations).has_value()) return true;
+    for (const SpecField& f : cls->fields) {
+      if (specCodeSpecKind(f.annotations).has_value()) return true;
+    }
+    return false;
+  };
+  auto reachRoutes = [&](const std::string& type) {
+    for (const std::string& name : refl.reachableClassNames(type)) {
+      if (routes(name)) return true;
+    }
+    return false;
+  };
+
+  if (res.targetClass != nullptr) return reachRoutes(res.targetClass->name);
+  const SpecField* field = res.field;
+  if (field == nullptr) return false;
+  if (specCodeSpecKind(field->annotations).has_value()) return true;
+  const std::size_t slash = res.path.rfind('/');
+  if (slash != std::string::npos && slash > 0) {
+    std::optional<SpecResolution> parent =
+        refl.resolve(res.path.substr(0, slash));
+    if (parent.has_value() && parent->targetClass != nullptr &&
+        specCodeSpecKind(parent->targetClass->annotations).has_value()) {
+      return true;
+    }
+  }
+  return field->kind == kSpecFieldKindList && field->elementIsComplex &&
+         !field->elementType.empty() && reachRoutes(field->elementType);
+}
+
+/* Instance-tier generation-unit check (SOM §11.2, phase 8).
+
+   A **generation-unit entry** is a list item whose class carries
+   `@NoArtifact(generation)` and declares a form field `unitId`; a **mapping**
+   is a list item whose class carries `@NoArtifact(generation)` and declares a
+   form field `area`. Both are recognised by these two facts, never by class
+   name. Entries and mappings are visited in sorted list-path order, each
+   list's items in their stored order — that order decides which of two
+   entries declaring one `unitId` is "the second". An entry or mapping whose
+   form holds no value at all is absence (an item just added), not a finding.
+
+   Findings, all at the list item's path for the register and at the section's
+   path for `units`: `duplicateUnitId`, `unitBuildsNothing`,
+   `unitAreaMalformed`, then per section carrying `units` one `unknownUnit`
+   per undeclared id (in the order written) and `unitsUnrouted`. The group is
+   sorted by path, stably, like every phase's. */
+std::vector<SpecValidationError> validateGenerationUnits(
+    const SpecReflection& refl, const SpecDocument& doc) {
+  std::vector<SpecValidationError> errors;
+  std::set<std::string> declared;
+  for (const std::string& listPath : doc.listPaths()) {
+    for (const std::string& item : doc.listItems(listPath)) {
+      std::optional<SpecResolution> res = refl.resolve(item);
+      const SpecClass* cls = res.has_value() ? res->targetClass : nullptr;
+      if (cls == nullptr) continue;
+      std::optional<NoArtifactLink> noArtifact =
+          specNoArtifact(cls->annotations);
+      if (!noArtifact.has_value() || noArtifact->reason != "generation") {
+        continue;
+      }
+
+      if (const SpecField* unitForm = formDeclaring(*cls, "unitId")) {
+        const std::string formPath =
+            specPathJoin(item, SpecReflection::fieldSegment(*unitForm));
+        auto value = [&](const std::string& f) {
+          return trimmed(doc.formField(formPath, f));
+        };
+        if (!doc.formFieldNames(formPath).empty()) {
+          const std::string id = value("unitId");
+          if (!id.empty() && !declared.insert(id).second) {
+            errors.push_back({item, kSpecValidationCodeDuplicateUnitId,
+                              "generation unit \"" + id +
+                                  "\" is declared twice"});
+          }
+          if (value("deploymentTarget").empty() &&
+              value("component").empty()) {
+            errors.push_back({item, kSpecValidationCodeUnitBuildsNothing,
+                              "generation unit \"" + id +
+                                  "\" builds neither a deploymentTarget "
+                                  "nor a component"});
+          }
+        }
+      }
+
+      if (const SpecField* areaForm = formDeclaring(*cls, "area")) {
+        const std::string formPath =
+            specPathJoin(item, SpecReflection::fieldSegment(*areaForm));
+        const std::string area = trimmed(doc.formField(formPath, "area"));
+        if (!area.empty() && !isUnitAreaCode(area)) {
+          errors.push_back({item, kSpecValidationCodeUnitAreaMalformed,
+                            "mapping area \"" + area +
+                                "\" is not an area code (CE-\xe2\x80\xa6)"});
+        }
+      }
+    }
+  }
+
+  for (const std::string& path : doc.unitsPaths()) {
+    for (const std::string& id : splitUnits(doc.units(path))) {
+      if (declared.count(id) == 0) {
+        errors.push_back({path, kSpecValidationCodeUnknownUnit,
+                          "units names \"" + id +
+                              "\", which no generation unit declares"});
+      }
+    }
+    std::optional<SpecResolution> res = refl.resolve(path);
+    if (res.has_value() && !routesToCodeSpecs(refl, *res)) {
+      errors.push_back(
+          {path, kSpecValidationCodeUnitsUnrouted,
+           "units is set on a section that routes nothing to CodeSpecs"});
+    }
+  }
+
+  std::stable_sort(errors.begin(), errors.end(),
+                   [](const SpecValidationError& a, const SpecValidationError& b) {
+                     return a.path < b.path;
+                   });
+  return errors;
+}
+
 }  // namespace
 
 std::vector<SpecValidationError> validateDocument(const SpecModel& model,
@@ -995,7 +1168,14 @@ std::vector<SpecValidationError> validateDocument(const SpecModel& model,
     out.push_back(std::move(e));
   }
 
-  // 8. Review annotations (SOM §11.9.5): malformed, misplaced or duplicated
+  // 8. Generation units (SOM §11.2 `units`, instance-tier phase 8): the ids a
+  // section names must be declared, a section carrying units must route
+  // something, and the register itself must be well-formed.
+  for (SpecValidationError& e : validateGenerationUnits(refl, doc)) {
+    out.push_back(std::move(e));
+  }
+
+  // Last: review annotations (SOM §11.9.5): malformed, misplaced or duplicated
   // comment blocks, question blocks and inline marks. Findings, never parse
   // rejections — the rest of the document still validates.
   for (SpecValidationError& e : validateReviewAnnotations(doc)) {

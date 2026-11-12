@@ -43,6 +43,11 @@ public final class SpecDocument {
   // CodeSpecs code locations that section maps to. Sparse like `headline`:
   // absent means "no code mapping".
   private final Map<String, String> codeSpec = new LinkedHashMap<>();
+  // The generation units a section goes to (SOM §11.2 `units`): any section
+  // path → the comma-joined list of generation-unit ids that take the section
+  // and its subtree. Sparse like `codeSpec`: absent means the default (every
+  // unit with a mapping for the section's area).
+  private final Map<String, String> units = new LinkedHashMap<>();
 
   // The authoring object-model version (`major.minor`) this document was loaded
   // from, or null for a brand-new / unstamped document. Retained here by
@@ -203,8 +208,8 @@ public final class SpecDocument {
    * Applies a parsed Markdown import as a <b>full overwrite</b> of the roots it
    * covers (SOM §11.7): every value under each of
    * {@link SpecMarkdownResult#rootPrefixes} is removed, then the parsed content,
-   * forms, lists, headlines and codeSpecs are written. Other roots are left as
-   * they are.
+   * forms, lists, headlines, codeSpecs and units are written. Other roots are
+   * left as they are.
    *
    * <p>A result with rejections is refused with an
    * {@link IllegalStateException} — and nothing is changed — unless
@@ -240,6 +245,8 @@ public final class SpecDocument {
     headlinesStore.putAll(result.headlines);
     Map<String, Object> codeSpecsStore = heldStore(held, "codeSpecs");
     codeSpecsStore.putAll(result.codeSpecs);
+    Map<String, Object> unitsStore = heldStore(held, "units");
+    unitsStore.putAll(result.units);
 
     Map<String, Object> listsStore = heldStore(held, "lists");
     for (Map.Entry<String, Object> entry : result.lists.entrySet()) {
@@ -271,6 +278,7 @@ public final class SpecDocument {
     merged.put("lists", listsStore);
     merged.put("headlines", headlinesStore);
     merged.put("codeSpecs", codeSpecsStore);
+    merged.put("units", unitsStore);
     loadJson(merged);
   }
 
@@ -399,6 +407,36 @@ public final class SpecDocument {
   /** All section paths currently carrying a stored codeSpec mapping. */
   public Set<String> codeSpecPaths() {
     return codeSpec.keySet();
+  }
+
+  // --- units (SOM §11.2) ----------------------------------------------------
+
+  /**
+   * The stored generation units at {@code path} as the comma-joined list of
+   * generation-unit ids, or {@code null} when the section carries none (SOM
+   * §11.2 — {@code units} is sparse like codeSpec; absent means the default).
+   */
+  public String units(String path) {
+    return units.get(path);
+  }
+
+  /**
+   * Sets the stored generation units at {@code path} (the comma-joined list of
+   * generation-unit ids). An empty value clears it, returning the section to
+   * the default (SOM §11.2).
+   */
+  public void setUnits(String path, String value) {
+    dropValueIndex();
+    if (value.isEmpty()) {
+      units.remove(path);
+    } else {
+      units.put(path, value);
+    }
+  }
+
+  /** All section paths currently carrying stored generation units. */
+  public Set<String> unitsPaths() {
+    return units.keySet();
   }
 
   // --- forms --------------------------------------------------------------
@@ -639,6 +677,7 @@ public final class SpecDocument {
     Map<String, Map<String, String>> newForm = rekeyStore(form, renamed);
     Map<String, String> newHeadline = rekeyStore(headline, renamed);
     Map<String, String> newCodeSpec = rekeyStore(codeSpec, renamed);
+    Map<String, String> newUnits = rekeyStore(units, renamed);
     Map<String, String> ids = rekeyStore(itemSectionId, renamed);
     for (Map.Entry<String, String> e : pinned.entrySet()) {
       ids.put(remapPath(e.getKey(), renamed), e.getValue());
@@ -664,6 +703,8 @@ public final class SpecDocument {
     headline.putAll(newHeadline);
     codeSpec.clear();
     codeSpec.putAll(newCodeSpec);
+    units.clear();
+    units.putAll(newUnits);
     itemSectionId.clear();
     itemSectionId.putAll(ids);
     listSeq.clear();
@@ -805,6 +846,7 @@ public final class SpecDocument {
     itemSectionId.keySet().removeIf(k -> isUnder(k, prefix));
     headline.keySet().removeIf(k -> isUnder(k, prefix));
     codeSpec.keySet().removeIf(k -> isUnder(k, prefix));
+    units.keySet().removeIf(k -> isUnder(k, prefix));
   }
 
   /**
@@ -825,7 +867,7 @@ public final class SpecDocument {
 
   public boolean isEmpty() {
     return content.isEmpty() && form.isEmpty() && listItems.isEmpty()
-        && headline.isEmpty() && codeSpec.isEmpty();
+        && headline.isEmpty() && codeSpec.isEmpty() && units.isEmpty();
   }
 
   /**
@@ -857,7 +899,7 @@ public final class SpecDocument {
     Set<String> index = new HashSet<>();
     List<Set<String>> stores = List.of(
         content.keySet(), form.keySet(), listItems.keySet(),
-        headline.keySet(), codeSpec.keySet());
+        headline.keySet(), codeSpec.keySet(), units.keySet());
     for (Set<String> keys : stores) {
       for (String key : keys) {
         index.add(key);
@@ -945,6 +987,9 @@ public final class SpecDocument {
     if (!codeSpec.isEmpty()) {
       out.put("codeSpecs", new TreeMap<>(codeSpec));
     }
+    if (!units.isEmpty()) {
+      out.put("units", new TreeMap<>(units));
+    }
     return out;
   }
 
@@ -962,6 +1007,7 @@ public final class SpecDocument {
     itemSectionId.clear();
     headline.clear();
     codeSpec.clear();
+    units.clear();
 
     Object rawContent = json.get("content");
     if (rawContent instanceof Map) {
@@ -1039,6 +1085,15 @@ public final class SpecDocument {
       for (Map.Entry<String, Object> e : ((Map<String, Object>) rawCodeSpecs).entrySet()) {
         if (e.getValue() != null && !e.getValue().toString().isEmpty()) {
           codeSpec.put(e.getKey(), e.getValue().toString());
+        }
+      }
+    }
+
+    Object rawUnits = json.get("units");
+    if (rawUnits instanceof Map) {
+      for (Map.Entry<String, Object> e : ((Map<String, Object>) rawUnits).entrySet()) {
+        if (e.getValue() != null && !e.getValue().toString().isEmpty()) {
+          units.put(e.getKey(), e.getValue().toString());
         }
       }
     }

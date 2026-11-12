@@ -1070,6 +1070,7 @@ function _checkStructure(doc: SpecDocument, what: string, refl: SpecReflection):
     ...Object.keys(json.forms ?? {}),
     ...Object.keys(json.headlines ?? {}),
     ...Object.keys(json.codeSpecs ?? {}),
+    ...Object.keys(json.units ?? {}),
     ...Object.entries(json.lists ?? {}).flatMap(([list, l]) => [list, ...l.items]),
   ];
   for (const p of paths) {
@@ -1255,6 +1256,9 @@ function _copyItem(
   }
   for (const p of Array.from(src.codeSpecPaths).filter((x) => _under(x, from))) {
     dst.setCodeSpec(remap(p), src.codeSpec(p) as string);
+  }
+  for (const p of Array.from(src.unitsPaths).filter((x) => _under(x, from))) {
+    dst.setUnits(remap(p), src.units(p) as string);
   }
 }
 

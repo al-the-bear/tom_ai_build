@@ -63,6 +63,11 @@ from .spec_reflection import SpecReflection
 #: copy-only; ``None`` when no enclosing instance stores one. The render-time
 #: positional default (``CARD-2``) is derived, never stored, so it is never
 #: carried — that would be the composition C1 forbids.
+#:
+#: Entries may carry ``units`` — the nearest stored generation units (SOM
+#: §11.2) at the entry's path or above it. The key is written only when
+#: non-empty and reads as empty when absent, so it is additive and the version
+#: stays 3.
 K_CODE_SPECS_EXTRACT_FORMAT = 3
 
 #: The annotation names of the three routing verdicts (`codespecs_mapping.md`
@@ -166,6 +171,12 @@ class CodeSpecsExtractEntry:
     #: :attr:`headline`. Auxiliary trace data: a ``DocRef`` back-link still
     #: names the extract token, not this id (`codespecs_mapping.md` §9.3).
     instance_id: Optional[str] = None
+    #: The generation units the entry goes to (SOM §11.2,
+    #: `codespecs_mapping.md` §1.1.1): the nearest stored ``units`` at the
+    #: entry's path or any ancestor path, split at its commas. Empty when no
+    #: section on the way stores one — the default, every unit with a mapping
+    #: for the entry's area. Copy-only like :attr:`instance_id`.
+    units: list[str] = dataclass_field(default_factory=list)
 
 
 @dataclass(frozen=True)
@@ -642,6 +653,8 @@ class CodeSpecsExtract:
             b.writeln(
                 f"      routingNote: {_yaml_nullable_string(e.routing_note)}"
             )
+            if e.units:
+                b.writeln(f"      units: {_yaml_string_list(e.units)}")
             b.writeln(f"      value: {_yaml_string(e.value)}")
         return str(b)
 
@@ -705,6 +718,10 @@ class CodeSpecsExtract:
                 b.writeln(f"- instanceId: `{e.instance_id}`")
             b.writeln(f"- path: `{e.path}`")
             b.writeln(f"- routed by: `{e.routed_by}` declared on `{e.routed_at}`")
+            if e.units:
+                b.writeln(
+                    "- units: " + ", ".join(f"`{u}`" for u in e.units)
+                )
             if e.routing_note is not None:
                 b.writeln(f"- routing note: {_md_cell(e.routing_note)}")
             b.writeln()
@@ -915,6 +932,7 @@ class CodeSpecsExtractor:
             entries=entries,
             strict=strict,
             enclosing_instance_id=None,
+            enclosing_units=None,
         )
 
     def _walk(
@@ -926,6 +944,7 @@ class CodeSpecsExtractor:
         entries: Optional[list[CodeSpecsExtractEntry]],
         strict: bool,
         enclosing_instance_id: Optional[str],
+        enclosing_units: Optional[str],
     ) -> None:
         if cls is None:
             return
@@ -969,9 +988,21 @@ class CodeSpecsExtractor:
             stored_id if stored_id is not None else enclosing_instance_id
         )
 
+        # The nearest stored generation units (SOM §11.2): this node's own,
+        # else whatever the walk inherited. The walk passes every ancestor path
+        # of an entry — class node, field, list container, list item — so
+        # "nearest on the walk" is "nearest at the entry's path or an ancestor
+        # path".
+        own_units = self.document.units(path)
+        class_units = own_units if own_units is not None else enclosing_units
+
         for f in cls.fields:
             field_path = spec_path_join(path, self._reflection.field_segment(f))
             field_routing = self._field_routing(cls, f) or class_routing
+            stored_units = self.document.units(field_path)
+            field_units = (
+                stored_units if stored_units is not None else class_units
+            )
 
             if f.kind in (
                 SpecFieldKind.CONTENT,
@@ -987,6 +1018,7 @@ class CodeSpecsExtractor:
                     form_field=None,
                     headline=headline,
                     instance_id=instance_id,
+                    units=field_units,
                     value=self.document.content(field_path),
                 )
             elif f.kind is SpecFieldKind.FORM:
@@ -1000,6 +1032,7 @@ class CodeSpecsExtractor:
                         form_field=ff.name,
                         headline=headline,
                         instance_id=instance_id,
+                        units=field_units,
                         value=self.document.form_field(field_path, ff.name),
                     )
             elif f.kind is SpecFieldKind.LIST:
@@ -1017,12 +1050,14 @@ class CodeSpecsExtractor:
                             entries=entries,
                             strict=strict,
                             enclosing_instance_id=instance_id,
+                            enclosing_units=field_units,
                         )
                     else:
                         # A scalar item is itself an instance of the list: its
                         # own stored id is the most precise enclosing-instance
                         # id its entry can carry.
                         item_stored = self.document.item_section_id(item_path)
+                        item_units = self.document.units(item_path)
                         self._emit_value(
                             entries=entries,
                             routing=field_routing,
@@ -1034,6 +1069,9 @@ class CodeSpecsExtractor:
                             instance_id=item_stored
                             if item_stored is not None
                             else instance_id,
+                            units=item_units
+                            if item_units is not None
+                            else field_units,
                             value=self.document.content(item_path),
                         )
             elif f.kind in (SpecFieldKind.COMPLEX, SpecFieldKind.SECTION):
@@ -1046,6 +1084,7 @@ class CodeSpecsExtractor:
                         entries=entries,
                         strict=strict,
                         enclosing_instance_id=instance_id,
+                        enclosing_units=field_units,
                     )
 
     def _emit_value(
@@ -1058,6 +1097,7 @@ class CodeSpecsExtractor:
         form_field: Optional[str],
         headline: Optional[str],
         instance_id: Optional[str],
+        units: Optional[str],
         value: Optional[str],
     ) -> None:
         """Appends one entry **per area the routing names** — never
@@ -1067,6 +1107,7 @@ class CodeSpecsExtractor:
             return
         if not value:
             return
+        unit_ids = _split_units(units)
         for kind in routing.values:
             area = self.catalog.by_part(kind)
             if area is None or not area.active:
@@ -1084,6 +1125,7 @@ class CodeSpecsExtractor:
                     routed_by=area.kind_value,
                     routed_at=routing.declared_at,
                     routing_note=routing.note,
+                    units=unit_ids,
                     value=value,
                 )
             )
@@ -1280,6 +1322,15 @@ def _yaml_string(value: str) -> str:
 
 def _yaml_nullable_string(value: Optional[str]) -> str:
     return "null" if value is None else _yaml_string(value)
+
+
+def _split_units(units: Optional[str]) -> list[str]:
+    """A stored comma-joined ``units`` value as its unit ids: split at the
+    commas, each trimmed, empty pieces dropped; ``None`` reads as the empty
+    list."""
+    if units is None:
+        return []
+    return [u.strip() for u in units.split(",") if u.strip()]
 
 
 def _yaml_string_list(values: list[str]) -> str:

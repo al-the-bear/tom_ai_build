@@ -56,6 +56,10 @@ pub struct DocumentJson {
     /// mapping; omitted (empty) otherwise so byte-stable output stays identical
     /// for codeSpec-less documents.
     pub code_specs: BTreeMap<String, String>,
+    /// Stored generation units (SOM §11.2 `units`): path → comma-joined
+    /// generation-unit ids. Present only for sections that carry units;
+    /// omitted (empty) otherwise, exactly like `code_specs`.
+    pub units: BTreeMap<String, String>,
 }
 
 impl DocumentJson {
@@ -115,6 +119,13 @@ impl DocumentJson {
             for (k, val) in code_specs {
                 if let Some(s) = val.as_str() {
                     out.code_specs.insert(k.clone(), s.to_string());
+                }
+            }
+        }
+        if let Some(units) = v.get("units").and_then(|j| j.as_object()) {
+            for (k, val) in units {
+                if let Some(s) = val.as_str() {
+                    out.units.insert(k.clone(), s.to_string());
                 }
             }
         }
@@ -233,6 +244,7 @@ impl DocumentJson {
             if !first {
                 out.push(',');
             }
+            first = false;
             out.push_str("\"codeSpecs\":{");
             let mut code_spec_first = true;
             for (k, v) in &self.code_specs {
@@ -240,6 +252,23 @@ impl DocumentJson {
                     out.push(',');
                 }
                 code_spec_first = false;
+                out.push_str(&encode_str(k));
+                out.push(':');
+                out.push_str(&encode_str(v));
+            }
+            out.push('}');
+        }
+        if !self.units.is_empty() {
+            if !first {
+                out.push(',');
+            }
+            out.push_str("\"units\":{");
+            let mut units_first = true;
+            for (k, v) in &self.units {
+                if !units_first {
+                    out.push(',');
+                }
+                units_first = false;
                 out.push_str(&encode_str(k));
                 out.push(':');
                 out.push_str(&encode_str(v));
@@ -270,6 +299,11 @@ pub struct SpecDocument {
     item_section_id: BTreeMap<String, String>,
     headline: BTreeMap<String, String>,
     code_spec: BTreeMap<String, String>,
+    /// The generation units a section goes to (SOM §11.2 `units`): any section
+    /// path → the comma-joined list of generation-unit ids that take the
+    /// section and its subtree. Sparse like `code_spec`: unset means the
+    /// default (every unit with a mapping for the section's area).
+    units: BTreeMap<String, String>,
     /// The authoring object-model version (`major.minor`) this document was
     /// loaded from, or `""` for a brand-new / unstamped document. Retained here
     /// by [`SpecDocument::from_yaml`] so a consumer need not thread
@@ -278,8 +312,8 @@ pub struct SpecDocument {
     /// functions apply it automatically. Empty means "none", matching how
     /// [`decode_yaml`](crate::decode_yaml) reports the stamp.
     pub model_version: String,
-    /// Every stored key of the five value stores (content, form, list
-    /// containers, headline, code spec) plus every prefix of one that ends
+    /// Every stored key of the six value stores (content, form, list
+    /// containers, headline, code spec, units) plus every prefix of one that ends
     /// right before a `/` or a `-` — exactly the paths for which "a key equals
     /// it, or continues it after `/` or `-`" holds, so
     /// [`has_values_under`](SpecDocument::has_values_under) is one set lookup.
@@ -382,7 +416,7 @@ impl SpecDocument {
     /// Applies a parsed Markdown import as a **full overwrite** of the roots it
     /// covers (SOM §11.7): every value under each of
     /// [`SpecMarkdownResult::root_prefixes`] is removed, then the parsed
-    /// content, forms, lists, headlines and codeSpecs are written. Other roots
+    /// content, forms, lists, headlines, codeSpecs and units are written. Other roots
     /// are left as they are.
     ///
     /// A result with rejections is refused with `Err` — naming the rejection
@@ -422,6 +456,7 @@ impl SpecDocument {
         merged.lists.extend(result.lists.clone());
         merged.headlines.extend(result.headlines.clone());
         merged.code_specs.extend(result.code_specs.clone());
+        merged.units.extend(result.units.clone());
         self.load_json(&merged);
         Ok(())
     }
@@ -817,6 +852,7 @@ impl SpecDocument {
         let form = rekey(&self.form, &remap);
         let headline = rekey(&self.headline, &remap);
         let code_spec = rekey(&self.code_spec, &remap);
+        let units = rekey(&self.units, &remap);
         let mut ids = rekey(&self.item_section_id, &remap);
         for (old, id) in &pinned {
             ids.insert(remap(old), id.clone());
@@ -842,6 +878,7 @@ impl SpecDocument {
         self.form = form;
         self.headline = headline;
         self.code_spec = code_spec;
+        self.units = units;
         self.item_section_id = ids;
         self.list_seq = seq;
         self.list_items = lists;
@@ -876,6 +913,7 @@ impl SpecDocument {
         self.item_section_id.retain(|k, _| !is_under(k, prefix));
         self.headline.retain(|k, _| !is_under(k, prefix));
         self.code_spec.retain(|k, _| !is_under(k, prefix));
+        self.units.retain(|k, _| !is_under(k, prefix));
     }
 
     // --- headlines (YRD3) ---------------------------------------------------
@@ -940,6 +978,38 @@ impl SpecDocument {
         self.code_spec.keys().cloned().collect()
     }
 
+    // --- units (SOM §11.2)
+    // ----------------------------------------------------
+
+    /// Returns the stored generation units of the section at `path` (the
+    /// comma-joined list of generation-unit ids), or `None` when the section
+    /// carries none (SOM §11.2 — `units` is sparse like codeSpec; absent means
+    /// the default: every unit with a mapping for the section's area).
+    pub fn units(&self, path: &str) -> Option<&String> {
+        self.units.get(path)
+    }
+
+    /// Returns the stored generation units at `path`, or `""` when none.
+    pub fn units_or(&self, path: &str) -> String {
+        self.units.get(path).cloned().unwrap_or_default()
+    }
+
+    /// Stores the generation units of the section at `path` (SOM §11.2). An
+    /// empty value clears them, returning the section to the default.
+    pub fn set_units(&mut self, path: &str, value: &str) {
+        self.drop_value_index();
+        if value.is_empty() {
+            self.units.remove(path);
+        } else {
+            self.units.insert(path.to_string(), value.to_string());
+        }
+    }
+
+    /// Returns the paths that carry stored generation units (sorted).
+    pub fn units_paths(&self) -> Vec<String> {
+        self.units.keys().cloned().collect()
+    }
+
     // --- queries -----------------------------------------------------------
 
     /// Reports whether the document holds no values at all.
@@ -949,6 +1019,7 @@ impl SpecDocument {
             && self.list_items.is_empty()
             && self.headline.is_empty()
             && self.code_spec.is_empty()
+            && self.units.is_empty()
     }
 
     /// Reports whether any value exists at `prefix` or nested beneath it — the
@@ -968,7 +1039,8 @@ impl SpecDocument {
             .chain(self.form.keys())
             .chain(self.list_items.keys())
             .chain(self.headline.keys())
-            .chain(self.code_spec.keys());
+            .chain(self.code_spec.keys())
+            .chain(self.units.keys());
         for key in keys {
             for (i, b) in key.bytes().enumerate() {
                 if b == b'/' || b == b'-' {
@@ -1057,6 +1129,9 @@ impl SpecDocument {
         for (k, v) in &self.code_spec {
             out.code_specs.insert(k.clone(), v.clone());
         }
+        for (k, v) in &self.units {
+            out.units.insert(k.clone(), v.clone());
+        }
         out
     }
 
@@ -1071,6 +1146,7 @@ impl SpecDocument {
         self.item_section_id.clear();
         self.headline.clear();
         self.code_spec.clear();
+        self.units.clear();
         for (k, v) in &j.content {
             self.content.insert(k.clone(), v.clone());
         }
@@ -1105,6 +1181,12 @@ impl SpecDocument {
                 continue;
             }
             self.code_spec.insert(k.clone(), v.clone());
+        }
+        for (k, v) in &j.units {
+            if v.is_empty() {
+                continue;
+            }
+            self.units.insert(k.clone(), v.clone());
         }
     }
 }

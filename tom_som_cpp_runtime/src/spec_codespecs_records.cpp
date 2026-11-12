@@ -324,6 +324,7 @@ CodeSpecsExtract parseCodeSpecsExtractYaml(const std::string& text,
       e.routedBy = req("routedBy");
       e.routedAt = req("routedAt");
       e.routingNote = opt("routingNote");
+      e.units = readStrList(yamlGet(raw, "units"), name, "entries[].units");
       e.value = req("value");
       x.entries.push_back(std::move(e));
     }

@@ -590,6 +590,7 @@ typedef struct {
   SomStrList list_paths;  /* remaining unconsumed list paths */
   SomMap headlines;       /* snapshot of stored headlines (YRD3), consumed */
   SomMap code_specs;      /* snapshot of stored codeSpecs (codespecs_mapping.md §9.2), consumed */
+  SomMap units;           /* snapshot of stored units (SOM §11.2), consumed */
 } YamlEncoder;
 
 static void encoder_init(YamlEncoder *e, const SpecDocument *doc) {
@@ -625,6 +626,15 @@ static void encoder_init(YamlEncoder *e, const SpecDocument *doc) {
     som_map_set(&e->code_specs, cspaths.items[i], c != NULL ? c : "");
   }
   som_strlist_free(&cspaths);
+  som_map_init(&e->units);
+  SomStrList upaths;
+  som_strlist_init(&upaths);
+  spec_document_units_paths(doc, &upaths);
+  for (size_t i = 0; i < upaths.len; i++) {
+    const char *u = spec_document_units(doc, upaths.items[i]);
+    som_map_set(&e->units, upaths.items[i], u != NULL ? u : "");
+  }
+  som_strlist_free(&upaths);
 }
 
 static void encoder_free(YamlEncoder *e) {
@@ -633,6 +643,7 @@ static void encoder_free(YamlEncoder *e) {
   som_strlist_free(&e->list_paths);
   som_map_free(&e->headlines);
   som_map_free(&e->code_specs);
+  som_map_free(&e->units);
 }
 
 /* Consumes the content snapshot entry at `path`; 1 when present (writing the
@@ -672,6 +683,18 @@ static int encoder_take_code_spec(YamlEncoder *e, const char *path,
   return 1;
 }
 
+/* Consumes the units snapshot entry at `path`; 1 when present (writing the
+ * owned value to `*out`) (SOM §11.2). */
+static int encoder_take_units(YamlEncoder *e, const char *path, char **out) {
+  const char *v = som_map_get(&e->units, path);
+  if (v == NULL) {
+    return 0;
+  }
+  *out = som_strdup(v);
+  som_map_remove(&e->units, path);
+  return 1;
+}
+
 /* writeText: the text value as stored — a self-verified block scalar (or the
  * JSON-quoted fallback). Runs of empty lines are kept (SOM §12.4). */
 static void encoder_write_text(SomBuf *b, size_t indent, const char *key,
@@ -707,10 +730,11 @@ static int encoder_mapping_body(YamlEncoder *e, const SomMetaNode *node,
                                 char **err);
 
 /* writeScalarWithMeta: emits a scalar-valued node (content/scalar/enum leaf or
- * scalar list item) that carries a stored headline and/or codeSpec as a
- * `{headline?: …, codeSpec?: …, content?: …}` mapping (YRD3 +
- * codespecs_mapping.md §9.2). The headline/codeSpec entries are emitted only
- * when the matching has_* flag is set (at least one is at every call site); the
+ * scalar list item) that carries a stored headline, codeSpec and/or units as a
+ * `{headline?: …, codeSpec?: …, units?: …, content?: …}` mapping (YRD3 +
+ * codespecs_mapping.md §9.2 + SOM §12.3 rule 6). The headline/codeSpec/units
+ * entries are emitted only when the matching has_* flag is set (at least one
+ * is at every call site); the
  * content entry is omitted when
  * has_value is 0; `text` selects the text vs value path for content. */
 static void encoder_write_scalar_with_meta(SomBuf *b, size_t indent,
@@ -718,8 +742,10 @@ static void encoder_write_scalar_with_meta(SomBuf *b, size_t indent,
                                            const char *headline,
                                            int has_headline,
                                            const char *code_spec,
-                                           int has_code_spec, const char *value,
-                                           int has_value, int text) {
+                                           int has_code_spec,
+                                           const char *units, int has_units,
+                                           const char *value, int has_value,
+                                           int text) {
   char *pk = spec_yaml_plain_key(key);
   put_pad(b, indent);
   som_buf_puts(b, pk);
@@ -730,6 +756,9 @@ static void encoder_write_scalar_with_meta(SomBuf *b, size_t indent,
   }
   if (has_code_spec) {
     encoder_write_text(b, indent + 2, "codeSpec", code_spec);
+  }
+  if (has_units) {
+    encoder_write_text(b, indent + 2, "units", units);
   }
   if (has_value) {
     if (text) {
@@ -751,16 +780,19 @@ static int encoder_write_form(YamlEncoder *e, SomBuf *b, size_t indent,
   int has_headline = encoder_take_headline(e, path, &headline);
   char *code_spec = NULL;
   int has_code_spec = encoder_take_code_spec(e, path, &code_spec);
+  char *units = NULL;
+  int has_units = encoder_take_units(e, path, &units);
   /* The form's preamble — the free text before its first field (SOM §11.4
    * rule 7, the DocSpecs `${text[]}` region) — rides in the same mapping under
    * the literal `content` key, exactly as a section's body does. */
   char *content = NULL;
   int has_content = encoder_take_content(e, path, &content);
   if ((!present || names.len == 0) && !has_headline && !has_code_spec &&
-      !has_content) {
+      !has_units && !has_content) {
     som_strlist_free(&names);
     free(headline);
     free(code_spec);
+    free(units);
     free(content);
     return 1;
   }
@@ -773,6 +805,7 @@ static int encoder_write_form(YamlEncoder *e, SomBuf *b, size_t indent,
       som_strlist_free(&names);
       free(headline);
       free(code_spec);
+    free(units);
       free(content);
       return 0;
     }
@@ -786,6 +819,7 @@ static int encoder_write_form(YamlEncoder *e, SomBuf *b, size_t indent,
                       NULL));
     free(headline);
     free(code_spec);
+    free(units);
     free(content);
     return 0;
   }
@@ -797,6 +831,18 @@ static int encoder_write_form(YamlEncoder *e, SomBuf *b, size_t indent,
                       NULL));
     free(headline);
     free(code_spec);
+    free(units);
+    free(content);
+    return 0;
+  }
+  if (has_units && som_form_meta_field_named(node->form, "units") != NULL) {
+    set_err(err, vcat("cannot emit the stored units at `", path,
+                      "`: the form declares a field literally named "
+                      "`units`",
+                      NULL));
+    free(headline);
+    free(code_spec);
+    free(units);
     free(content);
     return 0;
   }
@@ -807,6 +853,7 @@ static int encoder_write_form(YamlEncoder *e, SomBuf *b, size_t indent,
                       NULL));
     free(headline);
     free(code_spec);
+    free(units);
     free(content);
     return 0;
   }
@@ -823,6 +870,10 @@ static int encoder_write_form(YamlEncoder *e, SomBuf *b, size_t indent,
     encoder_write_text(b, indent + 2, "codeSpec", code_spec);
   }
   free(code_spec);
+  if (has_units) {
+    encoder_write_text(b, indent + 2, "units", units);
+  }
+  free(units);
   if (has_content) {
     encoder_write_text(b, indent + 2, "content", content);
   }
@@ -852,10 +903,14 @@ static int encoder_write_list(YamlEncoder *e, SomBuf *b, size_t indent,
   int has_headline = encoder_take_headline(e, path, &headline);
   char *code_spec = NULL;
   int has_code_spec = encoder_take_code_spec(e, path, &code_spec);
+  char *units = NULL;
+  int has_units = encoder_take_units(e, path, &units);
   const SomStrList *items = spec_document_list_items(e->doc, path);
-  if ((items == NULL || items->len == 0) && !has_headline && !has_code_spec) {
+  if ((items == NULL || items->len == 0) && !has_headline && !has_code_spec &&
+      !has_units) {
     free(headline);
     free(code_spec);
+    free(units);
     return 1;
   }
   char *pk = spec_yaml_plain_key(key);
@@ -871,10 +926,15 @@ static int encoder_write_list(YamlEncoder *e, SomBuf *b, size_t indent,
     encoder_write_text(b, indent + 2, "codeSpec", code_spec);
   }
   free(code_spec);
+  if (has_units) {
+    encoder_write_text(b, indent + 2, "units", units);
+  }
+  free(units);
   SomStrList used;
   som_strlist_init(&used);
   som_strlist_push_copy(&used, "headline");
   som_strlist_push_copy(&used, "codeSpec");
+  som_strlist_push_copy(&used, "units");
   long long pos = 0;
   for (size_t i = 0; items != NULL && i < items->len; i++) {
     const char *item_path = items->items[i];
@@ -907,22 +967,27 @@ static int encoder_write_list(YamlEncoder *e, SomBuf *b, size_t indent,
     }
     if (node->element_node == NULL) {
       /* Scalar list: the item is a direct value — unless it carries a stored
-       * headline and/or codeSpec, in which case it becomes a
-       * `{headline?: …, codeSpec?: …, content: …}` mapping (YRD3 + codespecs_mapping.md §9.2). */
+       * headline, codeSpec and/or units, in which case it becomes a
+       * `{headline?: …, codeSpec?: …, units?: …, content: …}` mapping (YRD3 +
+       * codespecs_mapping.md §9.2 + SOM §12.3 rule 6). */
       char *v = NULL;
       int has_v = encoder_take_content(e, item_path, &v);
       char *ih = NULL;
       int has_ih = encoder_take_headline(e, item_path, &ih);
       char *ics = NULL;
       int has_ics = encoder_take_code_spec(e, item_path, &ics);
-      if (has_ih || has_ics) {
+      char *iu = NULL;
+      int has_iu = encoder_take_units(e, item_path, &iu);
+      if (has_ih || has_ics || has_iu) {
         encoder_write_scalar_with_meta(b, indent + 2, item_key, ih, has_ih, ics,
-                                       has_ics, has_v ? v : "", has_v, 0);
+                                       has_ics, iu, has_iu, has_v ? v : "",
+                                       has_v, 0);
       } else {
         encoder_write_value(b, indent + 2, item_key, has_v ? v : "");
       }
       free(ih);
       free(ics);
+      free(iu);
       free(v);
     } else {
       char *sub = NULL;
@@ -1006,6 +1071,29 @@ static int encoder_mapping_body(YamlEncoder *e, const SomMetaNode *node,
     free(own_code_spec);
   }
 
+  /* The node's own generation units — the literal `units` key, right after
+   * `codeSpec` (SOM §12.3 rule 6). */
+  char *own_units = NULL;
+  if (encoder_take_units(e, path, &own_units)) {
+    for (size_t i = 0; i < node->children_len; i++) {
+      char *ck = spec_yaml_node_key(node->children[i]);
+      int clash = strcmp(ck, "units") == 0;
+      free(ck);
+      if (clash) {
+        char *name = som_meta_node_debug_name(node);
+        set_err(err, vcat("cannot emit the stored units at `", path,
+                          "`: a child of ", name,
+                          " also serializes as key `units`", NULL));
+        free(name);
+        free(own_units);
+        som_buf_free(&b);
+        return 0;
+      }
+    }
+    encoder_write_text(&b, indent, "units", own_units);
+    free(own_units);
+  }
+
   /* The node's own body text — the literal `content` key (SOM §12.2). */
   char *own = NULL;
   if (encoder_take_content(e, path, &own)) {
@@ -1040,14 +1128,17 @@ static int encoder_mapping_body(YamlEncoder *e, const SomMetaNode *node,
       int has_h = encoder_take_headline(e, child_path, &h);
       char *cs = NULL;
       int has_cs = encoder_take_code_spec(e, child_path, &cs);
-      if (has_h || has_cs) {
+      char *u = NULL;
+      int has_u = encoder_take_units(e, child_path, &u);
+      if (has_h || has_cs || has_u) {
         encoder_write_scalar_with_meta(&b, indent, key, h, has_h, cs, has_cs,
-                                       has_v ? v : "", has_v, 1);
+                                       u, has_u, has_v ? v : "", has_v, 1);
       } else if (has_v) {
         encoder_write_text(&b, indent, key, v);
       }
       free(h);
       free(cs);
+      free(u);
       free(v);
     } else if (strcmp(child->kind, SOM_META_KIND_SCALAR) == 0 ||
                strcmp(child->kind, SOM_META_KIND_ENUM_VALUE) == 0) {
@@ -1057,14 +1148,17 @@ static int encoder_mapping_body(YamlEncoder *e, const SomMetaNode *node,
       int has_h = encoder_take_headline(e, child_path, &h);
       char *cs = NULL;
       int has_cs = encoder_take_code_spec(e, child_path, &cs);
-      if (has_h || has_cs) {
+      char *u = NULL;
+      int has_u = encoder_take_units(e, child_path, &u);
+      if (has_h || has_cs || has_u) {
         encoder_write_scalar_with_meta(&b, indent, key, h, has_h, cs, has_cs,
-                                       has_v ? v : "", has_v, 0);
+                                       u, has_u, has_v ? v : "", has_v, 0);
       } else if (has_v) {
         encoder_write_value(&b, indent, key, v);
       }
       free(h);
       free(cs);
+      free(u);
       free(v);
     } else if (strcmp(child->kind, SOM_META_KIND_FORM) == 0) {
       ok = encoder_write_form(e, &b, indent, key, child, child_path, err);
@@ -1117,6 +1211,10 @@ static int encoder_assert_nothing_left(YamlEncoder *e, char **err) {
   for (size_t i = 0; i < e->code_specs.len; i++) {
     som_strlist_push(&leftovers, vcat("codeSpec at `",
                                       e->code_specs.entries[i].key, "`", NULL));
+  }
+  for (size_t i = 0; i < e->units.len; i++) {
+    som_strlist_push(&leftovers,
+                     vcat("units at `", e->units.entries[i].key, "`", NULL));
   }
   if (leftovers.len == 0) {
     som_strlist_free(&leftovers);
@@ -1497,6 +1595,7 @@ static char *decoder_expected_keys(const SomMetaNode *node) {
   som_strlist_push_copy(&out, "`content`");
   som_strlist_push_copy(&out, "`headline`");
   som_strlist_push_copy(&out, "`codeSpec`");
+  som_strlist_push_copy(&out, "`units`");
   char *joined = som_strlist_join(&out, ", ");
   som_strlist_free(&out);
   return joined;
@@ -1506,10 +1605,9 @@ static int decoder_load_mapping(YamlDecoder *d, const SomMetaNode *node,
                                 const char *path, const YamlValue *body,
                                 char **err);
 
-/* loadScalarWithMeta: loads a headline-/codeSpec-extended scalar node
- * (YRD3 + codespecs_mapping.md §9.2): a mapping holding only the literal keys
- * `headline`,
- * `codeSpec` and `content`. */
+/* loadScalarWithMeta: loads a headline-/codeSpec-/units-extended scalar node
+ * (YRD3 + codespecs_mapping.md §9.2 + SOM §12.3 rule 6): a mapping holding only
+ * the literal keys `headline`, `codeSpec`, `units` and `content`. */
 static int decoder_load_scalar_with_meta(YamlDecoder *d, const char *path,
                                          const char *key,
                                          const YamlValue *value, char **err) {
@@ -1536,6 +1634,16 @@ static int decoder_load_scalar_with_meta(YamlDecoder *d, const char *path,
       }
       spec_document_set_code_spec(d->doc, path, s);
       free(s);
+    } else if (strcmp(name, "units") == 0) {
+      char *where = vcat(path, " (units)", NULL);
+      char *s = NULL;
+      int ok = decoder_scalar_of(v, where, &s, err);
+      free(where);
+      if (!ok) {
+        return 0;
+      }
+      spec_document_set_units(d->doc, path, s);
+      free(s);
     } else if (strcmp(name, "content") == 0) {
       char *where = vcat(path, "/content", NULL);
       char *s = NULL;
@@ -1548,7 +1656,7 @@ static int decoder_load_scalar_with_meta(YamlDecoder *d, const char *path,
       free(s);
     } else {
       set_err(err, vcat("scalar node `", key, "` at `", path,
-                        "` may only hold `headline`/`codeSpec`/`content` keys "
+                        "` may only hold `headline`/`codeSpec`/`units`/`content` keys "
                         "when written as a mapping, found `",
                         name, "`", NULL));
       return 0;
@@ -1587,6 +1695,19 @@ static int decoder_load_list(YamlDecoder *d, const SomMetaNode *node,
         return 0;
       }
       spec_document_set_code_spec(d->doc, path, v);
+      free(v);
+      continue;
+    }
+    if (strcmp(key, "units") == 0) {
+      /* The own stored generation units (SOM §11.2). */
+      char *where = vcat(path, " (units)", NULL);
+      char *v = NULL;
+      int ok = decoder_scalar_of(value, where, &v, err);
+      free(where);
+      if (!ok) {
+        return 0;
+      }
+      spec_document_set_units(d->doc, path, v);
       free(v);
       continue;
     }
@@ -1717,6 +1838,20 @@ static int decoder_load_child(YamlDecoder *d, const SomMetaNode *child,
           free(cv);
           continue;
         }
+        if (strcmp(name, "units") == 0) {
+          /* The own stored generation units (SOM §11.2). */
+          char *where = vcat(path, " (units)", NULL);
+          char *cv = NULL;
+          int ok = decoder_scalar_of(value->as.map.entries[i].value, where,
+                                     &cv, err);
+          free(where);
+          if (!ok) {
+            return 0;
+          }
+          spec_document_set_units(d->doc, path, cv);
+          free(cv);
+          continue;
+        }
         if (strcmp(name, "content") == 0) {
           /* The form section's preamble (SOM §11.4 rule 7 / §12.2). A declared
            * field literally named `content` wins — it is resolved above. */
@@ -1817,6 +1952,18 @@ static int decoder_load_mapping(YamlDecoder *d, const SomMetaNode *node,
         return 0;
       }
       spec_document_set_code_spec(d->doc, path, v);
+      free(v);
+      continue;
+    }
+    if (strcmp(key, "units") == 0) {
+      char *where = vcat(path, " (units)", NULL);
+      char *v = NULL;
+      int ok = decoder_scalar_of(value, where, &v, err);
+      free(where);
+      if (!ok) {
+        return 0;
+      }
+      spec_document_set_units(d->doc, path, v);
       free(v);
       continue;
     }

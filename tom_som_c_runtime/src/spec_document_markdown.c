@@ -11,6 +11,7 @@
 #include "spec_document_markdown.h"
 
 #include <ctype.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -252,49 +253,68 @@ static int match_headline_comment(const char *s, char **id, char **region,
   return 1;
 }
 
-/* mdCodeSpecRE = `codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))` — extracts the
- * `codeSpec="…"` (or `'…'`, or bare) value from a heading-comment key=value
- * region (codespecs_mapping.md §9.2), mirroring the tom_doc_scanner key=value
- * grammar. Returns an owned trimmed value, or an owned "" when the region
- * carries no `codeSpec`
- * key. */
+/* The value of `key` in a heading-comment key=value region, read as the
+ * pattern `key(?:"([^"]*)"|'([^']*)'|([^,\s>]+))` reads it: a double-quoted,
+ * single-quoted or bare value, trimmed. A quote that is never closed is no
+ * quoted value, so the bare form reads it; an occurrence whose value matches
+ * none of the three forms is passed over and the search goes on, as a regular
+ * expression's first match would. With `at_boundary` the key must start the
+ * region or follow whitespace. Returns an owned value, or an owned "" when no
+ * occurrence matches. */
+static char *md_key_value_of(const char *region, const char *key,
+                             bool at_boundary) {
+  size_t key_len = strlen(key);
+  for (const char *p = strstr(region, key); p != NULL;
+       p = strstr(p + 1, key)) {
+    if (at_boundary && p != region && !is_ws(p[-1])) {
+      continue;
+    }
+    const char *v = p + key_len;
+    const char *start = NULL;
+    const char *end = NULL;
+    if (*v == '"' && strchr(v + 1, '"') != NULL) {
+      start = v + 1;
+      end = strchr(start, '"');
+    } else if (*v == '\'' && strchr(v + 1, '\'') != NULL) {
+      start = v + 1;
+      end = strchr(start, '\'');
+    } else {
+      /* bare: [^,\s>]+ (at least one character) */
+      start = v;
+      end = v;
+      while (*end != '\0' && *end != ',' && !is_ws(*end) && *end != '>') {
+        end++;
+      }
+      if (end == start) {
+        continue;
+      }
+    }
+    while (start < end && is_ws(*start)) {
+      start++;
+    }
+    size_t len = (size_t)(end - start);
+    while (len > 0 && is_ws(start[len - 1])) {
+      len--;
+    }
+    return som_strdup_n(start, len);
+  }
+  return som_strdup("");
+}
+
+/* mdCodeSpecRE = `codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))` — the
+ * `codeSpec` value of a heading-comment key=value region
+ * (codespecs_mapping.md §9.2), mirroring the tom_doc_scanner key=value
+ * grammar. */
 static char *md_code_spec_of(const char *region) {
-  const char *p = strstr(region, "codeSpec=");
-  if (p == NULL) {
-    return som_strdup("");
-  }
-  p += 9; /* past "codeSpec=" */
-  const char *start;
-  const char *end;
-  if (*p == '"') {
-    start = p + 1;
-    end = strchr(start, '"');
-    if (end == NULL) {
-      return som_strdup("");
-    }
-  } else if (*p == '\'') {
-    start = p + 1;
-    end = strchr(start, '\'');
-    if (end == NULL) {
-      return som_strdup("");
-    }
-  } else {
-    /* bare: [^,\s>]+ */
-    start = p;
-    end = p;
-    while (*end != '\0' && *end != ',' && !is_ws(*end) && *end != '>') {
-      end++;
-    }
-  }
-  /* trim */
-  while (start < end && is_ws(*start)) {
-    start++;
-  }
-  size_t len = (size_t)(end - start);
-  while (len > 0 && is_ws(start[len - 1])) {
-    len--;
-  }
-  return som_strdup_n(start, len);
+  return md_key_value_of(region, "codeSpec=", false);
+}
+
+/* mdUnitsRE = `(?:^|\s)units=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))` — the
+ * `units` value of a heading-comment key=value region (SOM §11.2). The key
+ * must start the region or follow whitespace, so a `units=` inside a quoted
+ * codeSpec value is not read as the key. */
+static char *md_units_of(const char *region) {
+  return md_key_value_of(region, "units=", true);
 }
 
 /* mdFenceOpenRE = "^ {0,3}(`{3,}|~{3,})" — writes the run char and length. */
@@ -820,13 +840,14 @@ static char *heading_title(MdCodec *c, const char *path,
   return md_title_of(node);
 }
 
-/* Emits `#{depth} <!--[id]{ codeSpec="…"}--> title`, recording `path` (the
+/* Emits `#{depth} <!--[id]{ codeSpec="…"}{ units="…"}--> title`, recording `path` (the
  * document path the heading renders) when the codec keeps a heading map. When `code_spec` is
  * non-NULL and non-empty it is written as a ` codeSpec="…"` key inside the
- * headline comment (codespecs_mapping.md §9.2); byte-identical to before when empty/NULL. */
+ * headline comment (codespecs_mapping.md §9.2); byte-identical to before when empty/NULL.
+ * A non-empty `units` follows as a second key, ` units="…"` (SOM §11.2). */
 static void md_write_heading(MdCodec *c, SomBuf *b, int depth, const char *id,
                              const char *title, const char *path,
-                             const char *code_spec) {
+                             const char *code_spec, const char *units) {
   if (c->heading_paths != NULL) {
     som_strlist_push_copy(c->heading_paths, path);
   }
@@ -839,6 +860,11 @@ static void md_write_heading(MdCodec *c, SomBuf *b, int depth, const char *id,
   if (code_spec != NULL && code_spec[0] != '\0') {
     som_buf_puts(b, " codeSpec=\"");
     som_buf_puts(b, code_spec);
+    som_buf_putc(b, '"');
+  }
+  if (units != NULL && units[0] != '\0') {
+    som_buf_puts(b, " units=\"");
+    som_buf_puts(b, units);
     som_buf_putc(b, '"');
   }
   som_buf_puts(b, "--> ");
@@ -1331,7 +1357,8 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
     char *chid = heading_id_of(c, node);
     char *ctitle = heading_title(c, list_path, node);
     md_write_heading(c, b, depth, chid, ctitle, list_path,
-                     spec_document_code_spec(c->document, list_path));
+                     spec_document_code_spec(c->document, list_path),
+                     spec_document_units(c->document, list_path));
     free(chid);
     free(ctitle);
   }
@@ -1375,7 +1402,8 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
     }
     /* Items sit one level below the container heading. */
     md_write_heading(c, b, depth + 1, item_id, title, item_path,
-                     spec_document_code_spec(c->document, item_path));
+                     spec_document_code_spec(c->document, item_path),
+                     spec_document_units(c->document, item_path));
     free(title);
     free(item_id);
     if (element == NULL) {
@@ -1426,7 +1454,8 @@ static int write_children(MdCodec *c, SomBuf *b, const SomMetaNode *node,
       char *hid = heading_id_of(c, child);
       char *title = heading_title(c, path, child);
       md_write_heading(c, b, depth, hid, title, path,
-                       spec_document_code_spec(c->document, path));
+                       spec_document_code_spec(c->document, path),
+                     spec_document_units(c->document, path));
       free(hid);
       free(title);
       ok = write_body(c, b, value, path, err);
@@ -1438,7 +1467,8 @@ static int write_children(MdCodec *c, SomBuf *b, const SomMetaNode *node,
       char *hid = heading_id_of(c, child);
       char *title = heading_title(c, path, child);
       md_write_heading(c, b, depth, hid, title, path,
-                       spec_document_code_spec(c->document, path));
+                       spec_document_code_spec(c->document, path),
+                     spec_document_units(c->document, path));
       free(hid);
       free(title);
       ok = write_form(c, b, child, path, err);
@@ -1447,7 +1477,8 @@ static int write_children(MdCodec *c, SomBuf *b, const SomMetaNode *node,
       char *hid = heading_id_of(c, child);
       char *title = heading_title(c, path, child);
       md_write_heading(c, b, depth, hid, title, path,
-                       spec_document_code_spec(c->document, path));
+                       spec_document_code_spec(c->document, path),
+                     spec_document_units(c->document, path));
       free(hid);
       free(title);
       ok = write_section_body(c, b, child, path, err);
@@ -1491,7 +1522,8 @@ static char *export_root_impl(MdCodec *c, const SpecRoot *root, char **err) {
                        ? root_headline
                        : (node->headline[0] != '\0' ? node->headline
                                                     : root->title),
-                   root_seg, spec_document_code_spec(c->document, root_seg));
+                   root_seg, spec_document_code_spec(c->document, root_seg),
+                   spec_document_units(c->document, root_seg));
   if (!write_section_body(c, &b, node, root_seg, err)) {
     som_buf_free(&b);
     return NULL;
@@ -1690,6 +1722,10 @@ typedef struct {
 
   SpecMarkdownFenceTracker fence;
   int current_form_idx;
+  /* The `units` value (SOM §11.2) of the heading being opened, borrowed from
+   * `parser_open_heading` for the duration of that call; NULL otherwise. It is
+   * staged wherever that heading's codeSpec is staged. */
+  const char *heading_units;
 } MdParser;
 
 static void parser_push_rejection(MdParser *p, size_t line, const char *reason,
@@ -2283,6 +2319,10 @@ static void parser_open_item(MdParser *p, int level, const char *list_path,
   if (code_spec != NULL && code_spec[0] != '\0') {
     som_map_set(&p->staged.code_specs, item_path, code_spec);
   }
+  /* SOM §11.2: `units` is staged exactly like codeSpec. */
+  if (p->heading_units != NULL && p->heading_units[0] != '\0') {
+    som_map_set(&p->staged.units, item_path, p->heading_units);
+  }
   free(num);
   parser_push_frame(p, level, list_node->element_node, item_path, line, 0);
 }
@@ -2488,13 +2528,18 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
   }
   /* codespecs_mapping.md §9.2: the optional key=value region (group 2) carries the codeSpec. */
   char *code_spec = md_code_spec_of(region);
+  /* SOM §11.2: the same region may carry the section's `units`. */
+  char *units = md_units_of(region);
   free(region);
+  p->heading_units = units;
 
   if (p->stack_len == 0) {
     parser_open_root(p, level, id, title, code_spec, line);
     free(id);
     free(title);
     free(code_spec);
+    p->heading_units = NULL;
+    free(units);
     return;
   }
 
@@ -2506,6 +2551,8 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
     free(id);
     free(title);
     free(code_spec);
+    p->heading_units = NULL;
+    free(units);
     return;
   }
   const SomMetaNode *p_node = parent->node;
@@ -2517,6 +2564,8 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
     free(id);
     free(title);
     free(code_spec);
+    p->heading_units = NULL;
+    free(units);
     return;
   }
 
@@ -2531,6 +2580,8 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
     free(id);
     free(title);
     free(code_spec);
+    p->heading_units = NULL;
+    free(units);
     return;
   }
 
@@ -2560,6 +2611,10 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
       if (code_spec[0] != '\0') {
         som_map_set(&p->staged.code_specs, path, code_spec);
       }
+      /* SOM §11.2: `units` is staged exactly like codeSpec. */
+      if (p->heading_units != NULL && p->heading_units[0] != '\0') {
+        som_map_set(&p->staged.units, path, p->heading_units);
+      }
       parser_push_frame(p, level, en, path, line, 0);
       handled = 1;
       break;
@@ -2571,6 +2626,8 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
     free(id);
     free(title);
     free(code_spec);
+    p->heading_units = NULL;
+    free(units);
     return;
   }
 
@@ -2588,6 +2645,8 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
   free(id);
   free(title);
   free(code_spec);
+  p->heading_units = NULL;
+  free(units);
 }
 
 static void parser_open_root(MdParser *p, int level, const char *id,
@@ -2619,6 +2678,10 @@ static void parser_open_root(MdParser *p, int level, const char *id,
       /* codespecs_mapping.md §9.2: stage the root codeSpec mapping whenever present. */
       if (code_spec != NULL && code_spec[0] != '\0') {
         som_map_set(&p->staged.code_specs, seg, code_spec);
+      }
+      /* SOM §11.2: `units` is staged exactly like codeSpec. */
+      if (p->heading_units != NULL && p->heading_units[0] != '\0') {
+        som_map_set(&p->staged.units, seg, p->heading_units);
       }
       parser_push_frame(p, level, tree->root, som_strdup(seg), line, 0);
       return;
@@ -2688,6 +2751,7 @@ void spec_markdown_parse(const SpecModel *model, const char *text,
   p.stack_cap = 0;
   spec_markdown_fence_init(&p.fence);
   p.current_form_idx = 0;
+  p.heading_units = NULL;
 
   LineVec lines;
   split_lines(text, &lines);
@@ -2895,6 +2959,7 @@ int spec_document_apply_markdown_result(SpecDocument *doc,
   }
   map_merge(&held.headlines, &staged->headlines);
   map_merge(&held.code_specs, &staged->code_specs);
+  map_merge(&held.units, &staged->units);
   spec_document_load_json(doc, &held);
   document_json_free(&held);
   return 0;

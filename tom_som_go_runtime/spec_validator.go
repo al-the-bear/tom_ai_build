@@ -12,6 +12,7 @@ package somruntime
 
 import (
 	"math"
+	"regexp"
 	"sort"
 	"strconv"
 	"strings"
@@ -73,6 +74,21 @@ const (
 	// A comment id or a question id is used twice in one document
 	// (SOM §11.9.5).
 	SpecValidationCodeDuplicateAnnotationID = "duplicateAnnotationId"
+	// A section's `units` (SOM §11.2) names an id no generation-unit entry of
+	// the document declares.
+	SpecValidationCodeUnknownUnit = "unknownUnit"
+	// A section carries `units`, but neither its class nor any class reachable
+	// beneath it routes anything to CodeSpecs (`@CodeSpecKind`), so the units
+	// would place nothing.
+	SpecValidationCodeUnitsUnrouted = "unitsUnrouted"
+	// Two generation-unit entries declare one `unitId`; reported at the second.
+	SpecValidationCodeDuplicateUnitID = "duplicateUnitId"
+	// A generation-unit entry names neither a `deploymentTarget` nor a
+	// `component`, so it builds nothing.
+	SpecValidationCodeUnitBuildsNothing = "unitBuildsNothing"
+	// A generation-unit mapping's `area` is not an area code (`CE-` followed by
+	// capital letters).
+	SpecValidationCodeUnitAreaMalformed = "unitAreaMalformed"
 )
 
 // SpecValidationError is one problem found while validating a document.
@@ -281,9 +297,15 @@ func ValidateDocument(model *SpecModel, doc *SpecDocument) []SpecValidationError
 	// A form field declaring `countOf` states how many entries the document
 	// holds; only the instance tier can count them.
 	errors = append(errors, validateCountInstances(refl, doc)...)
+	// 7. Derived values (instance tier, uamtc10).
 	errors = append(errors, validateDerivedValues(refl, doc)...)
 
-	// 7. Review annotations (SOM §11.9.5): malformed, misplaced or duplicated
+	// 8. Generation units (SOM §11.2 `units`, instance-tier phase 8): the ids a
+	// section names must be declared, a section carrying units must route
+	// something, and the register itself must be well-formed.
+	errors = append(errors, validateGenerationUnits(refl, doc)...)
+
+	// Last: review annotations (SOM §11.9.5): malformed, misplaced or duplicated
 	// comment blocks, question blocks and inline marks. Findings, never parse
 	// rejections — the rest of the document still validates.
 	errors = append(errors, NewSpecReviewAnnotations(doc, "").Validate()...)
@@ -974,6 +996,178 @@ func validateDerivedValues(refl *SpecReflection, doc *SpecDocument) []SpecValida
 	// stable, so a path's own findings keep the order they were found in.
 	sort.SliceStable(errors, func(i, j int) bool { return errors[i].Path < errors[j].Path })
 	return errors
+}
+
+// validateGenerationUnits is the instance-tier generation-unit check (SOM
+// §11.2, phase 8).
+//
+// A **generation-unit entry** is a list item whose class carries
+// `@NoArtifact(generation)` and declares a form field `unitId`; a **mapping**
+// is a list item whose class carries `@NoArtifact(generation)` and declares a
+// form field `area`. Both are recognised by these two facts, never by class
+// name. Entries and mappings are visited in sorted list-path order, each list's
+// items in their stored order — that order decides which of two entries
+// declaring one `unitId` is "the second". An entry or mapping whose form holds
+// no value at all is absence (an item just added), not a finding.
+//
+// Findings, all at the list item's path for the register and at the section's
+// path for `units`: `duplicateUnitId`, `unitBuildsNothing`,
+// `unitAreaMalformed`, then per section carrying `units` one `unknownUnit` per
+// undeclared id (in the order written) and `unitsUnrouted`. The group is
+// sorted by path, stably, like every phase's.
+func validateGenerationUnits(refl *SpecReflection, doc *SpecDocument) []SpecValidationError {
+	var errors []SpecValidationError
+	declared := map[string]bool{}
+	for _, listPath := range sortedCopy(doc.ListPaths()) {
+		for _, item := range doc.ListItems(listPath) {
+			res := refl.Resolve(item)
+			if res == nil || res.TargetClass == nil {
+				continue
+			}
+			cls := res.TargetClass
+			if na := cls.NoArtifact(); na == nil || na.Reason != "generation" {
+				continue
+			}
+
+			if unitForm := formDeclaring(cls, "unitId"); unitForm != nil {
+				formPath := SpecPathJoin(item, refl.FieldSegment(unitForm))
+				value := func(f string) string {
+					return strings.TrimSpace(doc.FormFieldOr(formPath, f))
+				}
+				if len(doc.FormFieldNames(formPath)) > 0 {
+					id := value("unitId")
+					if id != "" {
+						if declared[id] {
+							errors = append(errors, SpecValidationError{
+								Path:    item,
+								Code:    SpecValidationCodeDuplicateUnitID,
+								Message: "generation unit \"" + id + "\" is declared twice",
+							})
+						}
+						declared[id] = true
+					}
+					if value("deploymentTarget") == "" && value("component") == "" {
+						errors = append(errors, SpecValidationError{
+							Path: item,
+							Code: SpecValidationCodeUnitBuildsNothing,
+							Message: "generation unit \"" + id + "\" builds neither a " +
+								"deploymentTarget nor a component",
+						})
+					}
+				}
+			}
+
+			if areaForm := formDeclaring(cls, "area"); areaForm != nil {
+				formPath := SpecPathJoin(item, refl.FieldSegment(areaForm))
+				area := strings.TrimSpace(doc.FormFieldOr(formPath, "area"))
+				if area != "" && !unitAreaCodeRE.MatchString(area) {
+					errors = append(errors, SpecValidationError{
+						Path:    item,
+						Code:    SpecValidationCodeUnitAreaMalformed,
+						Message: "mapping area \"" + area + "\" is not an area code (CE-…)",
+					})
+				}
+			}
+		}
+	}
+
+	for _, path := range sortedCopy(doc.UnitsPaths()) {
+		for _, id := range cseSplitUnits(doc.UnitsOr(path)) {
+			if !declared[id] {
+				errors = append(errors, SpecValidationError{
+					Path:    path,
+					Code:    SpecValidationCodeUnknownUnit,
+					Message: "units names \"" + id + "\", which no generation unit declares",
+				})
+			}
+		}
+		if res := refl.Resolve(path); res != nil && !routesToCodeSpecs(refl, res) {
+			errors = append(errors, SpecValidationError{
+				Path:    path,
+				Code:    SpecValidationCodeUnitsUnrouted,
+				Message: "units is set on a section that routes nothing to CodeSpecs",
+			})
+		}
+	}
+
+	sort.SliceStable(errors, func(i, j int) bool { return errors[i].Path < errors[j].Path })
+	return errors
+}
+
+// unitAreaCodeRE is `CE-` followed by one or more capital letters — the
+// area-code shape.
+var unitAreaCodeRE = regexp.MustCompile(`^CE-[A-Z]+$`)
+
+// formDeclaring returns the form field of cls that declares a form field named
+// name, or nil.
+func formDeclaring(cls *SpecClass, name string) *SpecField {
+	for _, f := range cls.Fields {
+		if f.Kind != SpecFieldKindForm {
+			continue
+		}
+		for _, ff := range f.FormFields {
+			if ff.Name == name {
+				return f
+			}
+		}
+	}
+	return nil
+}
+
+// routesToCodeSpecs reports whether the section res resolves to routes
+// anything to CodeSpecs — the `unitsUnrouted` test.
+//
+// A class *routes* when it carries `@CodeSpecKind` or declares a field that
+// carries one (a field-level override routes that field's values). A class node
+// (root, section, complex, complex list item) routes when any class reachable
+// from its class (SpecReflection.ReachableClassNames, itself included) routes.
+// Any other node (a content, scalar or enum leaf, a form, a list, a scalar list
+// item) routes when its field carries `@CodeSpecKind`, when the class declaring
+// it — the class at the parent path — carries one, or when it is a list of
+// complex items some class reachable from whose element class routes.
+func routesToCodeSpecs(refl *SpecReflection, res *SpecResolution) bool {
+	routes := func(name string) bool {
+		cls := refl.ClassNamed(name)
+		if cls == nil {
+			return false
+		}
+		if cls.CodeSpecKind() != nil {
+			return true
+		}
+		for _, f := range cls.Fields {
+			if f.CodeSpecKind() != nil {
+				return true
+			}
+		}
+		return false
+	}
+	reachRoutes := func(typeName string) bool {
+		for name := range refl.ReachableClassNames(typeName) {
+			if routes(name) {
+				return true
+			}
+		}
+		return false
+	}
+
+	if res.TargetClass != nil {
+		return reachRoutes(res.TargetClass.Name)
+	}
+	field := res.Field
+	if field == nil {
+		return false
+	}
+	if field.CodeSpecKind() != nil {
+		return true
+	}
+	if slash := strings.LastIndex(res.Path, "/"); slash > 0 {
+		if owner := refl.Resolve(res.Path[:slash]); owner != nil &&
+			owner.TargetClass != nil && owner.TargetClass.CodeSpecKind() != nil {
+			return true
+		}
+	}
+	return field.Kind == SpecFieldKindList && field.ElementIsComplex &&
+		field.ElementType != "" && reachRoutes(field.ElementType)
 }
 
 // isDecimalNumber reports whether s matches the reference's

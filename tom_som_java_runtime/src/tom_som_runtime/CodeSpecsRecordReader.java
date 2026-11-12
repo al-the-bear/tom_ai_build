@@ -85,6 +85,7 @@ final class CodeSpecsRecordReader {
                 str(e.get("routedBy"), name, "entries[].routedBy"),
                 str(e.get("routedAt"), name, "entries[].routedAt"),
                 optStr(e.get("routingNote"), name, "entries[].routingNote"),
+                strList(e.get("units"), name, "entries[].units"),
                 str(e.get("value"), name, "entries[].value")));
       }
     }

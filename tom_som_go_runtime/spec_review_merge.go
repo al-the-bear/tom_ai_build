@@ -1428,6 +1428,9 @@ func mergeCheckStructure(doc *SpecDocument, what string, refl *SpecReflection) e
 	for p := range j.CodeSpecs {
 		paths = append(paths, p)
 	}
+	for p := range j.Units {
+		paths = append(paths, p)
+	}
 	for list, l := range j.Lists {
 		paths = append(paths, list)
 		paths = append(paths, l.Items...)
@@ -1675,6 +1678,11 @@ func mergeCopyItem(src *SpecDocument, from string, dst *SpecDocument, to string,
 	for _, p := range src.CodeSpecPaths() {
 		if mergeUnder(p, from) {
 			dst.SetCodeSpec(remap(p), src.CodeSpecOr(p))
+		}
+	}
+	for _, p := range src.UnitsPaths() {
+		if mergeUnder(p, from) {
+			dst.SetUnits(remap(p), src.UnitsOr(p))
 		}
 	}
 	return nil

@@ -148,6 +148,7 @@ fn md_reload(md: &str) -> (SpecDocument, SpecMarkdownResult) {
         lists: report.lists.clone(),
         headlines: report.headlines.clone(),
         code_specs: report.code_specs.clone(),
+        units: report.units.clone(),
     });
     (target, report)
 }

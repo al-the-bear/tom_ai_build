@@ -52,6 +52,7 @@ typedef struct {
   size_t lists_cap;
   SomMap headlines; /* path → stored headline (YRD3) */
   SomMap code_specs; /* path → stored codeSpec, comma-joined code locations (codespecs_mapping.md §9.2) */
+  SomMap units;      /* path → stored generation units, comma-joined unit ids (SOM §11.2) */
 } DocumentJson;
 
 void document_json_init(DocumentJson *d);
@@ -94,6 +95,10 @@ typedef struct {
   SomMap headline;         /* path → stored headline (YRD3), sparse */
   SomMap code_spec;        /* path → stored codeSpec (codespecs_mapping.md §9.2), sparse like headline;
                             * the comma-joined list of CodeSpecs code locations */
+  SomMap units;            /* path → stored generation units (SOM §11.2), sparse like
+                            * code_spec: the comma-joined list of generation-unit ids
+                            * that take the section and its subtree; unset means the
+                            * default (every unit with a mapping for its area) */
   char *model_version;     /* owned; the authoring object-model version
                             * (major.minor) this document was loaded from, "" for
                             * a brand-new / unstamped document. Retained by
@@ -191,8 +196,18 @@ void spec_document_set_code_spec(SpecDocument *d, const char *path,
  * (initialised by callee). */
 void spec_document_code_spec_paths(const SpecDocument *d, SomStrList *out);
 
+/* units (SOM §11.2): the stored generation units at `path` (the comma-joined
+ * list of generation-unit ids), or NULL when the section carries none (the
+ * default). Set with an empty value to clear. Sparse like codeSpec. */
+const char *spec_document_units(const SpecDocument *d, const char *path);
+void spec_document_set_units(SpecDocument *d, const char *path,
+                             const char *value);
+/* Writes every path carrying stored units (byte-sorted) into `out`
+ * (initialised by callee). */
+void spec_document_units_paths(const SpecDocument *d, SomStrList *out);
+
 int spec_document_is_empty(const SpecDocument *d);
-/* Returns 1 iff a key of the content, form, list, headline or codeSpec store
+/* Returns 1 iff a key of the content, form, list, headline, codeSpec or units store
  * equals `prefix` or continues it after a '/' or a '-'. Answered by one lookup
  * in a prefix index built on the first call and dropped by every mutator, so
  * a caller asking once per model node stays linear. */
@@ -200,7 +215,7 @@ int spec_document_has_values_under(const SpecDocument *d, const char *prefix);
 
 /* Removes every value at `prefix` and beneath it — content, form entries, list
  * items (with their nested values, assigned section ids and sequence counters),
- * stored headlines and stored codeSpecs — returning the subtree to the
+ * stored headlines, stored codeSpecs and stored units — returning the subtree to the
  * untouched "empty = no value" state (D4).
  *
  * "Beneath" is the same containment `spec_document_has_values_under` tests:
@@ -278,7 +293,7 @@ void spec_list_item_move_free(SpecListItemMove *m);
  * A path is a position, the section id is the identity. Every affected list
  * is renumbered to `<list>-1 … <list>-n` in its new order (its seq becomes n;
  * a list left empty is dropped), and every value under each item — content,
- * forms, nested lists, headline, codeSpec, stored id — travels with it. An
+ * forms, nested lists, headline, codeSpec, units, stored id — travels with it. An
  * anonymous item whose positional id (`spec_effective_list_item_section_id`)
  * would change has its old id stored, so its identity survives the
  * renumbering; the moved item itself is not pinned when it crosses lists (it

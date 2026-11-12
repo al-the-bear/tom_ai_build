@@ -10,10 +10,12 @@ package somruntime
 // sections nest their children, list items appear under their container keyed
 // by their stored section id (or an anonymous positional `<member>-<n>` key), a
 // node's own body text uses the literal key `content`, a node's own stored
-// headline (YRD3) uses the literal key `headline`, and form fields use their
-// bare field names. A scalar-valued node (content/scalar/enum leaf or scalar
-// list item) that carries a stored headline is emitted as a
-// `{headline: …, content: …}` mapping. The former flat two-level path-map format
+// headline (YRD3) uses the literal key `headline`, its stored codeSpec the
+// literal key `codeSpec`, its stored units (SOM §11.2) the literal key `units`
+// right after `codeSpec`, and form fields use their bare field names. A
+// scalar-valued node (content/scalar/enum leaf or scalar list item) that
+// carries a stored headline, codeSpec and/or units is emitted as a
+// `{headline?: …, codeSpec?: …, units?: …, content?: …}` mapping. The former flat two-level path-map format
 // (`document: {content: {"A/b": …}}`) is **retired**; readers reject
 // `version: 1` files with a clear error (no compatibility path).
 //
@@ -777,6 +779,7 @@ type yamlEncoder struct {
 	lists     map[string]bool
 	headlines map[string]string
 	codeSpecs map[string]string
+	units     map[string]string
 }
 
 func newYamlEncoder(doc *SpecDocument) *yamlEncoder {
@@ -787,6 +790,7 @@ func newYamlEncoder(doc *SpecDocument) *yamlEncoder {
 		lists:     map[string]bool{},
 		headlines: map[string]string{},
 		codeSpecs: map[string]string{},
+		units:     map[string]string{},
 	}
 	for _, p := range doc.ContentPaths() {
 		e.content[p] = doc.ContentOr(p)
@@ -806,6 +810,9 @@ func newYamlEncoder(doc *SpecDocument) *yamlEncoder {
 	}
 	for _, p := range doc.CodeSpecPaths() {
 		e.codeSpecs[p] = doc.CodeSpecOr(p)
+	}
+	for _, p := range doc.UnitsPaths() {
+		e.units[p] = doc.UnitsOr(p)
 	}
 	return e
 }
@@ -869,6 +876,20 @@ func (e *yamlEncoder) mappingBody(node *SomMetaNode, path string, indent int) (s
 		e.writeText(b, indent, "codeSpec", ownCodeSpec)
 	}
 
+	// The node's own generation units — the literal `units` key, right after
+	// `codeSpec` (SOM §12.3 rule 6).
+	if ownUnits, ok := e.units[path]; ok {
+		delete(e.units, path)
+		for _, c := range node.Children {
+			if NodeKey(c) == "units" {
+				return "", yamlFormatErr(
+					"cannot emit the stored units at `" + path + "`: a child of " +
+						node.DebugName() + " also serializes as key `units`")
+			}
+		}
+		e.writeText(b, indent, "units", ownUnits)
+	}
+
 	// The node's own body text — the literal `content` key (SOM §12.2).
 	if own, ok := e.content[path]; ok {
 		delete(e.content, path)
@@ -893,8 +914,10 @@ func (e *yamlEncoder) mappingBody(node *SomMetaNode, path string, indent int) (s
 			delete(e.headlines, childPath)
 			cs, hasCs := e.codeSpecs[childPath]
 			delete(e.codeSpecs, childPath)
-			if hasH || hasCs {
-				e.writeScalarWithMeta(b, indent, key, h, hasH, cs, hasCs, v, hasV, true)
+			u, hasU := e.units[childPath]
+			delete(e.units, childPath)
+			if hasH || hasCs || hasU {
+				e.writeScalarWithMeta(b, indent, key, h, hasH, cs, hasCs, u, hasU, v, hasV, true)
 			} else if hasV {
 				e.writeText(b, indent, key, v)
 			}
@@ -905,8 +928,10 @@ func (e *yamlEncoder) mappingBody(node *SomMetaNode, path string, indent int) (s
 			delete(e.headlines, childPath)
 			cs, hasCs := e.codeSpecs[childPath]
 			delete(e.codeSpecs, childPath)
-			if hasH || hasCs {
-				e.writeScalarWithMeta(b, indent, key, h, hasH, cs, hasCs, v, hasV, false)
+			u, hasU := e.units[childPath]
+			delete(e.units, childPath)
+			if hasH || hasCs || hasU {
+				e.writeScalarWithMeta(b, indent, key, h, hasH, cs, hasCs, u, hasU, v, hasV, false)
 			} else if hasV {
 				e.writeValue(b, indent, key, v)
 			}
@@ -933,14 +958,15 @@ func (e *yamlEncoder) mappingBody(node *SomMetaNode, path string, indent int) (s
 }
 
 // writeScalarWithMeta emits a scalar-valued node (content/scalar/enum leaf or
-// scalar list item) that carries a stored headline and/or a codeSpec mapping as
-// a `{headline?: …, codeSpec?: …, content?: …}` mapping (YRD3 +
-// codespecs_mapping.md §9.2). Each entry is emitted only when present
-// (hasHeadline/hasCodeSpec/hasValue); at least one of headline/codeSpec is
-// present at every call site.
+// scalar list item) that carries a stored headline, a codeSpec mapping and/or
+// units as a `{headline?: …, codeSpec?: …, units?: …, content?: …}` mapping
+// (YRD3 + codespecs_mapping.md §9.2 + SOM §12.3 rule 6). Each entry is emitted
+// only when present (hasHeadline/hasCodeSpec/hasUnits/hasValue); at least one
+// of headline/codeSpec/units is present at every call site.
 func (e *yamlEncoder) writeScalarWithMeta(
 	b *yamlBuffer, indent int, key, headline string, hasHeadline bool,
-	codeSpec string, hasCodeSpec bool, value string, hasValue, text bool,
+	codeSpec string, hasCodeSpec bool, units string, hasUnits bool,
+	value string, hasValue, text bool,
 ) {
 	b.writeln(strings.Repeat(" ", indent) + PlainKey(key) + ":")
 	if hasHeadline {
@@ -948,6 +974,9 @@ func (e *yamlEncoder) writeScalarWithMeta(
 	}
 	if hasCodeSpec {
 		e.writeText(b, indent+2, "codeSpec", codeSpec)
+	}
+	if hasUnits {
+		e.writeText(b, indent+2, "units", units)
 	}
 	if hasValue {
 		if text {
@@ -967,12 +996,14 @@ func (e *yamlEncoder) writeForm(
 	delete(e.headlines, path)
 	codeSpec, hasCodeSpec := e.codeSpecs[path]
 	delete(e.codeSpecs, path)
+	units, hasUnits := e.units[path]
+	delete(e.units, path)
 	// The form's preamble — the free text before its first field (SOM §11.4
 	// rule 7, the DocSpecs `${text[]}` region) — rides in the same mapping under
 	// the literal `content` key, exactly as a section's body does.
 	content, hasContent := e.content[path]
 	delete(e.content, path)
-	if (!ok || len(fields) == 0) && !hasHeadline && !hasCodeSpec && !hasContent {
+	if (!ok || len(fields) == 0) && !hasHeadline && !hasCodeSpec && !hasUnits && !hasContent {
 		return nil
 	}
 	meta := node.Form
@@ -996,6 +1027,11 @@ func (e *yamlEncoder) writeForm(
 			"cannot emit the stored codeSpec at `" + path + "`: the form declares a " +
 				"field literally named `codeSpec`")
 	}
+	if hasUnits && meta.FieldNamed("units") != nil {
+		return yamlFormatErr(
+			"cannot emit the stored units at `" + path + "`: the form declares a " +
+				"field literally named `units`")
+	}
 	if hasContent && meta.FieldNamed("content") != nil {
 		return yamlFormatErr(
 			"cannot emit the preamble content at `" + path + "`: the form declares a " +
@@ -1007,6 +1043,9 @@ func (e *yamlEncoder) writeForm(
 	}
 	if hasCodeSpec {
 		e.writeText(b, indent+2, "codeSpec", codeSpec)
+	}
+	if hasUnits {
+		e.writeText(b, indent+2, "units", units)
 	}
 	if hasContent {
 		e.writeText(b, indent+2, "content", content)
@@ -1033,8 +1072,10 @@ func (e *yamlEncoder) writeList(
 	delete(e.headlines, path)
 	codeSpec, hasCodeSpec := e.codeSpecs[path]
 	delete(e.codeSpecs, path)
+	units, hasUnits := e.units[path]
+	delete(e.units, path)
 	items := e.doc.ListItems(path)
-	if len(items) == 0 && !hasHeadline && !hasCodeSpec {
+	if len(items) == 0 && !hasHeadline && !hasCodeSpec && !hasUnits {
 		return nil
 	}
 	b.writeln(strings.Repeat(" ", indent) + PlainKey(key) + ":")
@@ -1044,7 +1085,10 @@ func (e *yamlEncoder) writeList(
 	if hasCodeSpec {
 		e.writeText(b, indent+2, "codeSpec", codeSpec)
 	}
-	used := map[string]bool{"headline": true, "codeSpec": true}
+	if hasUnits {
+		e.writeText(b, indent+2, "units", units)
+	}
+	used := map[string]bool{"headline": true, "codeSpec": true, "units": true}
 	pos := 0
 	for _, itemPath := range items {
 		pos++
@@ -1070,16 +1114,19 @@ func (e *yamlEncoder) writeList(
 		element := node.ElementNode
 		if element == nil {
 			// Scalar list: the item is a direct value — unless it carries a stored
-			// headline and/or codeSpec, in which case it becomes a `{headline?: …,
-			// codeSpec?: …, content: …}` mapping (YRD3 + codespecs_mapping.md §9.2).
+			// headline, codeSpec and/or units, in which case it becomes a
+			// `{headline?: …, codeSpec?: …, units?: …, content: …}` mapping (YRD3 +
+			// codespecs_mapping.md §9.2 + SOM §12.3 rule 6).
 			v, hasV := e.content[itemPath]
 			delete(e.content, itemPath)
 			ih, hasIh := e.headlines[itemPath]
 			delete(e.headlines, itemPath)
 			ics, hasIcs := e.codeSpecs[itemPath]
 			delete(e.codeSpecs, itemPath)
-			if hasIh || hasIcs {
-				e.writeScalarWithMeta(b, indent+2, itemKey, ih, hasIh, ics, hasIcs, v, hasV, false)
+			iu, hasIu := e.units[itemPath]
+			delete(e.units, itemPath)
+			if hasIh || hasIcs || hasIu {
+				e.writeScalarWithMeta(b, indent+2, itemKey, ih, hasIh, ics, hasIcs, iu, hasIu, v, hasV, false)
 			} else {
 				e.writeValue(b, indent+2, itemKey, v)
 			}
@@ -1131,6 +1178,9 @@ func (e *yamlEncoder) assertNothingLeft() error {
 	}
 	for p := range e.codeSpecs {
 		leftovers = append(leftovers, "codeSpec at `"+p+"`")
+	}
+	for p := range e.units {
+		leftovers = append(leftovers, "units at `"+p+"`")
 	}
 	if len(leftovers) == 0 {
 		return nil
@@ -1296,6 +1346,14 @@ func (d *yamlDecoder) loadMapping(node *SomMetaNode, path string, body *YamlMap)
 			d.doc.SetCodeSpec(path, v)
 			continue
 		}
+		if key == "units" {
+			v, err := decoderScalarOf(value, path+" (units)")
+			if err != nil {
+				return err
+			}
+			d.doc.SetUnits(path, v)
+			continue
+		}
 		return yamlFormatErr(
 			"key `" + key + "` under `" + path + "` matches no member of " +
 				node.DebugName() + " (expected one of: " +
@@ -1318,7 +1376,7 @@ func decoderExpectedKeys(node *SomMetaNode) []string {
 	for _, c := range node.Children {
 		out = append(out, "`"+NodeKey(c)+"`")
 	}
-	return append(out, "`content`", "`headline`", "`codeSpec`")
+	return append(out, "`content`", "`headline`", "`codeSpec`", "`units`")
 }
 
 func (d *yamlDecoder) loadChild(
@@ -1326,8 +1384,9 @@ func (d *yamlDecoder) loadChild(
 ) error {
 	switch child.Kind {
 	case SomMetaKindContent, SomMetaKindScalar, SomMetaKindEnumValue:
-		// A populated mapping is a headline-/codeSpec-extended scalar node (YRD3 +
-		// codespecs_mapping.md §9.2): `{headline?: …, codeSpec?: …, content: …}`. An
+		// A populated mapping is a headline-/codeSpec-/units-extended scalar node
+		// (YRD3 + codespecs_mapping.md §9.2 + SOM §12.3 rule 6):
+		// `{headline?: …, codeSpec?: …, units?: …, content: …}`. An
 		// empty mapping is the hand-rolled parser's spelling of a bare `key:` and
 		// stays the empty scalar.
 		if m, isMap := value.(*YamlMap); isMap && m.Len() > 0 {
@@ -1366,6 +1425,14 @@ func (d *yamlDecoder) loadChild(
 						return err
 					}
 					d.doc.SetCodeSpec(path, v)
+					continue
+				}
+				if name == "units" {
+					v, err := decoderScalarOf(fields.GetOr(name), path+" (units)")
+					if err != nil {
+						return err
+					}
+					d.doc.SetUnits(path, v)
 					continue
 				}
 				if name == "content" {
@@ -1436,6 +1503,15 @@ func (d *yamlDecoder) loadList(node *SomMetaNode, path string, items *YamlMap) e
 			d.doc.SetCodeSpec(path, v)
 			continue
 		}
+		if key == "units" {
+			// The list container's own generation units (SOM §11.2), not an item.
+			v, err := decoderScalarOf(value, path+" (units)")
+			if err != nil {
+				return err
+			}
+			d.doc.SetUnits(path, v)
+			continue
+		}
 		var itemPath string
 		if anonymous.MatchString(key) {
 			itemPath = d.doc.AddListItem(path)
@@ -1487,9 +1563,9 @@ func (d *yamlDecoder) loadList(node *SomMetaNode, path string, items *YamlMap) e
 	return nil
 }
 
-// loadScalarWithMeta loads a headline-/codeSpec-extended scalar node (YRD3 +
-// codespecs_mapping.md §9.2): a mapping holding only the literal keys
-// `headline`, `codeSpec` and `content`.
+// loadScalarWithMeta loads a headline-/codeSpec-/units-extended scalar node
+// (YRD3 + codespecs_mapping.md §9.2 + SOM §12.3 rule 6): a mapping holding only
+// the literal keys `headline`, `codeSpec`, `units` and `content`.
 func (d *yamlDecoder) loadScalarWithMeta(path, key string, value *YamlMap) error {
 	for _, name := range value.Keys() {
 		v := value.GetOr(name)
@@ -1506,6 +1582,12 @@ func (d *yamlDecoder) loadScalarWithMeta(path, key string, value *YamlMap) error
 				return err
 			}
 			d.doc.SetCodeSpec(path, s)
+		case "units":
+			s, err := decoderScalarOf(v, path+" (units)")
+			if err != nil {
+				return err
+			}
+			d.doc.SetUnits(path, s)
 		case "content":
 			s, err := decoderScalarOf(v, path+"/content")
 			if err != nil {
@@ -1515,7 +1597,7 @@ func (d *yamlDecoder) loadScalarWithMeta(path, key string, value *YamlMap) error
 		default:
 			return yamlFormatErr(
 				"scalar node `" + key + "` at `" + path + "` may only hold " +
-					"`headline`/`codeSpec`/`content` keys when written as a mapping, " +
+					"`headline`/`codeSpec`/`units`/`content` keys when written as a mapping, " +
 					"found `" + name + "`")
 		}
 	}

@@ -1,5 +1,9 @@
 package tom_som_runtime;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * One extract entry: a single value the specification document stores, with
  * everything needed to trace it back ({@code codespecs_mapping.md} §1.1.1,
@@ -60,9 +64,19 @@ public final class CodeSpecsExtractEntry {
   /** The {@code @CodeSpecKind} {@code note}, verbatim; {@code null} when it carries none. */
   public final String routingNote;
 
+  /**
+   * The generation units the entry goes to (SOM §11.2,
+   * {@code codespecs_mapping.md} §1.1.1): the nearest stored {@code units} at
+   * the entry's path or any ancestor path, split at its commas. Empty when no
+   * section on the way stores one — the default, every unit with a mapping for
+   * the entry's area. Copy-only like {@link #instanceId}.
+   */
+  public final List<String> units;
+
   /** The stored value, <b>verbatim</b>. Never assembled, reformatted or trimmed. */
   public final String value;
 
+  /** An entry carrying no {@link #units} — the default. */
   public CodeSpecsExtractEntry(
       String areaCode,
       String sectionId,
@@ -76,6 +90,24 @@ public final class CodeSpecsExtractEntry {
       String routedAt,
       String routingNote,
       String value) {
+    this(areaCode, sectionId, headline, instanceId, path, className, fieldName,
+        formField, routedBy, routedAt, routingNote, Collections.emptyList(), value);
+  }
+
+  public CodeSpecsExtractEntry(
+      String areaCode,
+      String sectionId,
+      String headline,
+      String instanceId,
+      String path,
+      String className,
+      String fieldName,
+      String formField,
+      String routedBy,
+      String routedAt,
+      String routingNote,
+      List<String> units,
+      String value) {
     this.areaCode = areaCode;
     this.sectionId = sectionId;
     this.headline = headline;
@@ -87,6 +119,9 @@ public final class CodeSpecsExtractEntry {
     this.routedBy = routedBy;
     this.routedAt = routedAt;
     this.routingNote = routingNote;
+    this.units = units == null
+        ? Collections.emptyList()
+        : Collections.unmodifiableList(new ArrayList<>(units));
     this.value = value;
   }
 

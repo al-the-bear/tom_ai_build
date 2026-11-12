@@ -45,7 +45,7 @@ def _scan(d: SpecDocument, prefix: str) -> bool:
     """The predicate the index must reproduce: a stored key equal to
     *prefix*, or continuing it after a ``/`` or a ``-``."""
     held = d.to_json()
-    for store in ("content", "forms", "lists", "headlines", "codeSpecs"):
+    for store in ("content", "forms", "lists", "headlines", "codeSpecs", "units"):
         for key in (held.get(store) or {}):
             k = str(key)
             if k == prefix or k.startswith(f"{prefix}/") or k.startswith(f"{prefix}-"):
@@ -102,6 +102,8 @@ def test_vi1_agrees_with_scan_after_every_mutator() -> None:
     _expect_agrees(d, "set_headline")
     d.set_code_spec("DEMO/DET", "a.b")
     _expect_agrees(d, "set_code_spec")
+    d.set_units("DEMO/REF-LST", "u_a")
+    _expect_agrees(d, "set_units")
     d.set_form_field("DEMO/CARD-LST-1/content", "note", "x")
     _expect_agrees(d, "set_form_field")
     item = d.add_list_item("DEMO/items")

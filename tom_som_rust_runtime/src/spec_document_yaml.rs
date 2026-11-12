@@ -897,6 +897,7 @@ struct YamlEncoder<'a> {
     lists: BTreeSet<String>,
     headlines: BTreeMap<String, String>,
     code_specs: BTreeMap<String, String>,
+    units: BTreeMap<String, String>,
 }
 
 impl<'a> YamlEncoder<'a> {
@@ -908,6 +909,7 @@ impl<'a> YamlEncoder<'a> {
             lists: BTreeSet::new(),
             headlines: BTreeMap::new(),
             code_specs: BTreeMap::new(),
+            units: BTreeMap::new(),
         };
         for p in doc.content_paths() {
             let v = doc.content_or(&p);
@@ -931,6 +933,10 @@ impl<'a> YamlEncoder<'a> {
         for p in doc.code_spec_paths() {
             let v = doc.code_spec_or(&p);
             e.code_specs.insert(p, v);
+        }
+        for p in doc.units_paths() {
+            let v = doc.units_or(&p);
+            e.units.insert(p, v);
         }
         e
     }
@@ -1003,6 +1009,21 @@ impl<'a> YamlEncoder<'a> {
             self.write_text(&mut b, indent, "codeSpec", &own_code_spec);
         }
 
+        // The node's own generation units — the literal `units` key, right
+        // after `codeSpec` (SOM §12.3 rule 6).
+        if let Some(own_units) = self.units.remove(path) {
+            for c in &node.children {
+                if node_key(c) == "units" {
+                    return Err(yaml_format_err(format!(
+                        "cannot emit the stored units at `{}`: a child of {} also serializes as key `units`",
+                        path,
+                        node.debug_name()
+                    )));
+                }
+            }
+            self.write_text(&mut b, indent, "units", &own_units);
+        }
+
         // The node's own body text — the literal `content` key (SOM §12.2).
         if let Some(own) = self.content.remove(path) {
             for c in &node.children {
@@ -1025,8 +1046,9 @@ impl<'a> YamlEncoder<'a> {
                     let v = self.content.remove(&child_path);
                     let h = self.headlines.remove(&child_path);
                     let cs = self.code_specs.remove(&child_path);
-                    if h.is_some() || cs.is_some() {
-                        self.write_scalar_with_meta(&mut b, indent, &key, &h, &cs, &v, true);
+                    let u = self.units.remove(&child_path);
+                    if h.is_some() || cs.is_some() || u.is_some() {
+                        self.write_scalar_with_meta(&mut b, indent, &key, &h, &cs, &u, &v, true);
                     } else if let Some(v) = v {
                         self.write_text(&mut b, indent, &key, &v);
                     }
@@ -1035,8 +1057,9 @@ impl<'a> YamlEncoder<'a> {
                     let v = self.content.remove(&child_path);
                     let h = self.headlines.remove(&child_path);
                     let cs = self.code_specs.remove(&child_path);
-                    if h.is_some() || cs.is_some() {
-                        self.write_scalar_with_meta(&mut b, indent, &key, &h, &cs, &v, false);
+                    let u = self.units.remove(&child_path);
+                    if h.is_some() || cs.is_some() || u.is_some() {
+                        self.write_scalar_with_meta(&mut b, indent, &key, &h, &cs, &u, &v, false);
                     } else if let Some(v) = v {
                         self.write_value(&mut b, indent, &key, &v);
                     }
@@ -1061,10 +1084,11 @@ impl<'a> YamlEncoder<'a> {
     }
 
     /// Emits a scalar-valued node (content/scalar/enum leaf or scalar list
-    /// item) that carries a stored headline and/or a codeSpec mapping as a
-    /// `{headline?: …, codeSpec?: …, content?: …}` mapping (YRD3 +
-    /// codespecs_mapping.md §9.2). Each entry is emitted only when its value is
-    /// `Some`; at least one of `headline`/`code_spec` is `Some` at every call.
+    /// item) that carries a stored headline, a codeSpec mapping and/or units as
+    /// a `{headline?: …, codeSpec?: …, units?: …, content?: …}` mapping (YRD3 +
+    /// codespecs_mapping.md §9.2 + SOM §12.3 rule 6). Each entry is emitted
+    /// only when its value is `Some`; at least one of
+    /// `headline`/`code_spec`/`units` is `Some` at every call.
     #[allow(clippy::too_many_arguments)]
     fn write_scalar_with_meta(
         &self,
@@ -1073,6 +1097,7 @@ impl<'a> YamlEncoder<'a> {
         key: &str,
         headline: &Option<String>,
         code_spec: &Option<String>,
+        units: &Option<String>,
         value: &Option<String>,
         text: bool,
     ) {
@@ -1082,6 +1107,9 @@ impl<'a> YamlEncoder<'a> {
         }
         if let Some(cs) = code_spec {
             self.write_text(b, indent + 2, "codeSpec", cs);
+        }
+        if let Some(u) = units {
+            self.write_text(b, indent + 2, "units", u);
         }
         if let Some(v) = value {
             if text {
@@ -1103,11 +1131,17 @@ impl<'a> YamlEncoder<'a> {
         let fields = self.forms.remove(path).unwrap_or_default();
         let headline = self.headlines.remove(path);
         let code_spec = self.code_specs.remove(path);
+        let units = self.units.remove(path);
         // The form's preamble — the free text before its first field (SOM §11.4
         // rule 7, the DocSpecs `${text[]}` region) — rides in the same mapping
         // under the literal `content` key, exactly as a section's body does.
         let content = self.content.remove(path);
-        if fields.is_empty() && headline.is_none() && code_spec.is_none() && content.is_none() {
+        if fields.is_empty()
+            && headline.is_none()
+            && code_spec.is_none()
+            && units.is_none()
+            && content.is_none()
+        {
             return Ok(());
         }
         let empty_meta = SomFormMeta::default();
@@ -1132,6 +1166,12 @@ impl<'a> YamlEncoder<'a> {
                 path
             )));
         }
+        if units.is_some() && meta.field_named("units").is_some() {
+            return Err(yaml_format_err(format!(
+                "cannot emit the stored units at `{}`: the form declares a field literally named `units`",
+                path
+            )));
+        }
         if content.is_some() && meta.field_named("content").is_some() {
             return Err(yaml_format_err(format!(
                 "cannot emit the preamble content at `{}`: the form declares a field literally named `content`",
@@ -1144,6 +1184,9 @@ impl<'a> YamlEncoder<'a> {
         }
         if let Some(cs) = &code_spec {
             self.write_text(b, indent + 2, "codeSpec", cs);
+        }
+        if let Some(u) = &units {
+            self.write_text(b, indent + 2, "units", u);
         }
         if let Some(c) = &content {
             self.write_text(b, indent + 2, "content", c);
@@ -1173,8 +1216,9 @@ impl<'a> YamlEncoder<'a> {
         self.lists.remove(path);
         let headline = self.headlines.remove(path);
         let code_spec = self.code_specs.remove(path);
+        let units = self.units.remove(path);
         let items = self.doc.list_items(path);
-        if items.is_empty() && headline.is_none() && code_spec.is_none() {
+        if items.is_empty() && headline.is_none() && code_spec.is_none() && units.is_none() {
             return Ok(());
         }
         b.writeln(&format!("{}{}:", " ".repeat(indent), plain_key(key)));
@@ -1184,9 +1228,13 @@ impl<'a> YamlEncoder<'a> {
         if let Some(cs) = &code_spec {
             self.write_text(b, indent + 2, "codeSpec", cs);
         }
+        if let Some(u) = &units {
+            self.write_text(b, indent + 2, "units", u);
+        }
         let mut used: HashSet<String> = HashSet::new();
         used.insert("headline".to_string());
         used.insert("codeSpec".to_string());
+        used.insert("units".to_string());
         let mut pos = 0usize;
         for item_path in &items {
             pos += 1;
@@ -1229,13 +1277,15 @@ impl<'a> YamlEncoder<'a> {
         match &node.element_node {
             None => {
                 // Scalar list: the item is a direct value — unless it carries
-                // a stored headline, in which case it becomes a
-                // `{headline: …, content: …}` mapping (YRD3).
+                // a stored headline, codeSpec and/or units, in which case it
+                // becomes a `{headline?: …, codeSpec?: …, units?: …, content: …}`
+                // mapping (YRD3 + codespecs_mapping.md §9.2 + SOM §12.3 rule 6).
                 let v = self.content.remove(item_path);
                 let h = self.headlines.remove(item_path);
                 let cs = self.code_specs.remove(item_path);
-                if h.is_some() || cs.is_some() {
-                    self.write_scalar_with_meta(b, indent + 2, item_key, &h, &cs, &v, false);
+                let u = self.units.remove(item_path);
+                if h.is_some() || cs.is_some() || u.is_some() {
+                    self.write_scalar_with_meta(b, indent + 2, item_key, &h, &cs, &u, &v, false);
                 } else {
                     self.write_value(b, indent + 2, item_key, &v.unwrap_or_default());
                 }
@@ -1289,6 +1339,9 @@ impl<'a> YamlEncoder<'a> {
         }
         for p in self.code_specs.keys() {
             leftovers.push(format!("codeSpec at `{}`", p));
+        }
+        for p in self.units.keys() {
+            leftovers.push(format!("units at `{}`", p));
         }
         if leftovers.is_empty() {
             return Ok(());
@@ -1454,6 +1507,11 @@ impl YamlDecoder<'_> {
                 self.doc.set_code_spec(path, &v);
                 continue;
             }
+            if key == "units" {
+                let v = decoder_scalar_of(value, &format!("{} (units)", path))?;
+                self.doc.set_units(path, &v);
+                continue;
+            }
             return Err(yaml_format_err(format!(
                 "key `{}` under `{}` matches no member of {} (expected one of: {})",
                 key,
@@ -1510,6 +1568,11 @@ impl YamlDecoder<'_> {
                         if name == "codeSpec" {
                             let v = decoder_scalar_of(raw, &format!("{} (codeSpec)", path))?;
                             self.doc.set_code_spec(path, &v);
+                            continue;
+                        }
+                        if name == "units" {
+                            let v = decoder_scalar_of(raw, &format!("{} (units)", path))?;
+                            self.doc.set_units(path, &v);
                             continue;
                         }
                         if name == "content" {
@@ -1576,6 +1639,13 @@ impl YamlDecoder<'_> {
                 self.doc.set_code_spec(path, &v);
                 continue;
             }
+            if key == "units" {
+                // The list container's own generation units (SOM §11.2), not
+                // an item.
+                let v = decoder_scalar_of(value, &format!("{} (units)", path))?;
+                self.doc.set_units(path, &v);
+                continue;
+            }
             let item_path = if is_anonymous_item_key(&node.member_name, key) {
                 self.doc.add_list_item(path)
             } else {
@@ -1626,9 +1696,9 @@ impl YamlDecoder<'_> {
         Ok(())
     }
 
-    /// Loads a headline-/codeSpec-extended scalar node (YRD3 +
-    /// codespecs_mapping.md §9.2): a mapping holding only the literal keys
-    /// `headline`, `codeSpec` and `content`.
+    /// Loads a headline-/codeSpec-/units-extended scalar node (YRD3 +
+    /// codespecs_mapping.md §9.2 + SOM §12.3 rule 6): a mapping holding only
+    /// the literal keys `headline`, `codeSpec`, `units` and `content`.
     fn load_scalar_with_meta(
         &mut self,
         path: &str,
@@ -1645,13 +1715,17 @@ impl YamlDecoder<'_> {
                     let s = decoder_scalar_of(v, &format!("{} (codeSpec)", path))?;
                     self.doc.set_code_spec(path, &s);
                 }
+                "units" => {
+                    let s = decoder_scalar_of(v, &format!("{} (units)", path))?;
+                    self.doc.set_units(path, &s);
+                }
                 "content" => {
                     let s = decoder_scalar_of(v, &format!("{}/content", path))?;
                     self.doc.set_content(path, &s);
                 }
                 _ => {
                     return Err(yaml_format_err(format!(
-                        "scalar node `{}` at `{}` may only hold `headline`/`codeSpec`/`content` keys when written as a mapping, found `{}`",
+                        "scalar node `{}` at `{}` may only hold `headline`/`codeSpec`/`units`/`content` keys when written as a mapping, found `{}`",
                         key, path, name
                     )));
                 }
@@ -1683,6 +1757,7 @@ fn decoder_expected_keys(node: &SomMetaNode) -> Vec<String> {
     out.push("`content`".to_string());
     out.push("`headline`".to_string());
     out.push("`codeSpec`".to_string());
+    out.push("`units`".to_string());
     out
 }
 

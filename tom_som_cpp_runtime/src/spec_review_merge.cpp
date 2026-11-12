@@ -1085,14 +1085,15 @@ class CanonicalPaths {
   mutable std::map<std::string, std::string> memo_;
 };
 
-/* Every stored path of a document: values, headlines, codeSpecs, lists and
- * their items. */
+/* Every stored path of a document: values, headlines, codeSpecs, units, lists
+ * and their items. */
 std::vector<std::string> storedPaths(const DocumentJson& json) {
   std::vector<std::string> out;
   for (const auto& e : json.content) out.push_back(e.first);
   for (const auto& e : json.forms) out.push_back(e.first);
   for (const auto& e : json.headlines) out.push_back(e.first);
   for (const auto& e : json.codeSpecs) out.push_back(e.first);
+  for (const auto& e : json.units) out.push_back(e.first);
   for (const auto& [list, entry] : json.lists) {
     out.push_back(list);
     out.insert(out.end(), entry.items.begin(), entry.items.end());
@@ -1324,6 +1325,9 @@ void copyItem(const SpecDocument& src, const std::string& from,
   }
   for (const std::string& p : pathsUnder(src.codeSpecPaths(), from)) {
     dst.setCodeSpec(remap(p), src.codeSpec(p));
+  }
+  for (const std::string& p : pathsUnder(src.unitsPaths(), from)) {
+    dst.setUnits(remap(p), src.units(p));
   }
 }
 

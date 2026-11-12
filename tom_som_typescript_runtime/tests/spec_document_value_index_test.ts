@@ -32,7 +32,14 @@ function _check(name: string, ok: boolean, detail = ''): void {
  */
 function _scan(d: SpecDocument, query: string): boolean {
   const json = d.toJson() as Record<string, Record<string, unknown> | undefined>;
-  for (const store of ['content', 'forms', 'lists', 'headlines', 'codeSpecs']) {
+  for (const store of [
+    'content',
+    'forms',
+    'lists',
+    'headlines',
+    'codeSpecs',
+    'units',
+  ]) {
     for (const k of Object.keys(json[store] || {})) {
       if (k === query || k.startsWith(`${query}/`) || k.startsWith(`${query}-`)) {
         return true;
@@ -95,6 +102,8 @@ function testAgreesAfterEveryMutator(): void {
   _expectAgrees(d, 'setHeadline');
   d.setCodeSpec('DEMO/DET', 'a.b');
   _expectAgrees(d, 'setCodeSpec');
+  d.setUnits('DEMO/REF-LST', 'u_a');
+  _expectAgrees(d, 'setUnits');
   d.setFormField('DEMO/CARD-LST-1/content', 'note', 'x');
   _expectAgrees(d, 'setFormField');
   const item = d.addListItem('DEMO/items');

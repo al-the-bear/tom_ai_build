@@ -49,6 +49,7 @@ bool scan(const som::SpecDocument& d, const std::string& query) {
   for (const auto& kv : j.lists) if (under(kv.first)) return true;
   for (const auto& kv : j.headlines) if (under(kv.first)) return true;
   for (const auto& kv : j.codeSpecs) if (under(kv.first)) return true;
+  for (const auto& kv : j.units) if (under(kv.first)) return true;
   return false;
 }
 
@@ -93,6 +94,8 @@ void testEquivalence() {
   expectAgrees(d, "setHeadline");
   d.setCodeSpec("DEMO/DET", "a.b");
   expectAgrees(d, "setCodeSpec");
+  d.setUnits("DEMO/REF-LST", "u_a");
+  expectAgrees(d, "setUnits");
   d.setFormField("DEMO/CARD-LST-1/content", "note", "x");
   expectAgrees(d, "setFormField");
   const std::string item = d.addListItem("DEMO/items");

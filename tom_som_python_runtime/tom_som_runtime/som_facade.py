@@ -144,6 +144,22 @@ class SomNode:
         mapping"."""
         self.doc.set_code_spec(self.path, value or "")
 
+    @property
+    def spec_units(self) -> Optional[str]:
+        """This section's **generation units** (SOM §11.2) as the comma-joined
+        list of generation-unit ids, or ``None`` when the section carries none
+        (the default: every unit with a mapping for the section's area). Sparse
+        exactly like :attr:`spec_code_spec`, available on every node,
+        ``spec_``-prefixed likewise (mirrors the Dart ``$units``)."""
+        return self.doc.units(self.path)
+
+    @spec_units.setter
+    def spec_units(self, value: Optional[str]) -> None:
+        """Sets or clears this section's generation units (SOM §11.2). ``None``
+        or an empty string clears the store, returning the section to the
+        default."""
+        self.doc.set_units(self.path, value or "")
+
 
 class SomScalar(SomNode):
     """A scalar list item — a bare string value held in the document's content

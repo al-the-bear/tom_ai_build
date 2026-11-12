@@ -10,8 +10,8 @@ alone reports every reference into another part as dangling.
 
 The merge is over the plain-data stores (:meth:`SpecDocument.to_json`), and it
 is **refusing**: a value two fragments both write — a content path, a form
-field, a list, a headline, a code-spec location — is an overlap, and an
-assembly with any overlap yields no document. Choosing a winner would make the
+field, a list, a headline, a code-spec location, a units list — is an
+overlap, and an assembly with any overlap yields no document. Choosing a winner would make the
 result depend on fragment order, and two parts writing one place is an
 authoring conflict the parts' authors have to settle.
 """
@@ -34,8 +34,8 @@ __all__ = [
 class SpecAssemblyOverlap:
     """One place two or more fragments both write."""
 
-    #: The store: ``content``, ``forms``, ``lists``, ``headlines`` or
-    #: ``codeSpecs``.
+    #: The store: ``content``, ``forms``, ``lists``, ``headlines``,
+    #: ``codeSpecs`` or ``units``.
     store: str
     #: The document path.
     path: str
@@ -75,10 +75,10 @@ class SpecDocumentAssembly:
 
 
 #: The stores whose entries are a single value at a path.
-_PATH_STORES = ("content", "headlines", "codeSpecs")
+_PATH_STORES = ("content", "headlines", "codeSpecs", "units")
 
 #: The fixed order overlaps are reported in.
-_STORE_ORDER = ("content", "forms", "lists", "headlines", "codeSpecs")
+_STORE_ORDER = ("content", "forms", "lists", "headlines", "codeSpecs", "units")
 
 
 def _code_unit_key(s: str) -> bytes:

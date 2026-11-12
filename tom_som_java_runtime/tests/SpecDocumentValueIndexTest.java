@@ -41,7 +41,7 @@ public final class SpecDocumentValueIndexTest {
   @SuppressWarnings("unchecked")
   private static boolean scan(SpecDocument d, String query) {
     Map<String, Object> json = d.toJson();
-    for (String store : new String[] {"content", "forms", "lists", "headlines", "codeSpecs"}) {
+    for (String store : new String[] {"content", "forms", "lists", "headlines", "codeSpecs", "units"}) {
       Object m = json.get(store);
       if (!(m instanceof Map)) {
         continue;
@@ -100,6 +100,8 @@ public final class SpecDocumentValueIndexTest {
     expectAgrees(d, "setHeadline");
     d.setCodeSpec("DEMO/DET", "a.b");
     expectAgrees(d, "setCodeSpec");
+    d.setUnits("DEMO/REF-LST", "u_a");
+    expectAgrees(d, "setUnits");
     d.setFormField("DEMO/CARD-LST-1/content", "note", "x");
     expectAgrees(d, "setFormField");
     String item = d.addListItem("DEMO/items");
@@ -170,7 +172,7 @@ public final class SpecDocumentValueIndexTest {
 
   @SuppressWarnings("unchecked")
   private static void collectKeys(Map<String, Object> json, List<String> out) {
-    for (String store : new String[] {"content", "forms", "lists", "headlines", "codeSpecs"}) {
+    for (String store : new String[] {"content", "forms", "lists", "headlines", "codeSpecs", "units"}) {
       Object m = json.get(store);
       if (m instanceof Map) {
         for (Object k : ((Map<Object, Object>) m).keySet()) {

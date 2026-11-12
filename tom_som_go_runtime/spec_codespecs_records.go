@@ -162,6 +162,11 @@ func ParseCodeSpecsExtractYaml(text, source string) (*CodeSpecsExtract, error) {
 		e.RoutedBy = req("routedBy")
 		e.RoutedAt = req("routedAt")
 		e.RoutingNote = opt("routingNote")
+		units, err := csrStrList(csrGet(m, "units"), name, "entries[].units")
+		if err != nil && firstErr == nil {
+			firstErr = err
+		}
+		e.Units = units
 		e.Value = req("value")
 		if firstErr != nil {
 			return nil, firstErr

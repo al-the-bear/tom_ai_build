@@ -945,6 +945,7 @@ function _checkStructure(doc, what, refl) {
     ...Object.keys(json.forms ?? {}),
     ...Object.keys(json.headlines ?? {}),
     ...Object.keys(json.codeSpecs ?? {}),
+    ...Object.keys(json.units ?? {}),
     ...Object.entries(json.lists ?? {}).flatMap(([list, l]) => [list, ...l.items]),
   ];
   for (const p of paths) {
@@ -1119,6 +1120,9 @@ function _copyItem(src, from, dst, to, members, refl) {
   }
   for (const p of Array.from(src.codeSpecPaths).filter((x) => _under(x, from))) {
     dst.setCodeSpec(remap(p), src.codeSpec(p));
+  }
+  for (const p of Array.from(src.unitsPaths).filter((x) => _under(x, from))) {
+    dst.setUnits(remap(p), src.units(p));
   }
 }
 

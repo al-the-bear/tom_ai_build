@@ -1245,6 +1245,7 @@ def _check_structure(doc: SpecDocument, what: str, refl: SpecReflection) -> None
         *doc.form_paths,
         *doc.headline_paths,
         *doc.code_spec_paths,
+        *doc.units_paths,
         *(p for lst in doc.list_paths for p in [lst, *doc.list_items(lst)]),
     ]
     for p in paths:
@@ -1423,6 +1424,8 @@ def _copy_item(
         dst.set_headline(remap(p), src.headline(p) or "")
     for p in [x for x in src.code_spec_paths if _under(x, from_)]:
         dst.set_code_spec(remap(p), src.code_spec(p) or "")
+    for p in [x for x in src.units_paths if _under(x, from_)]:
+        dst.set_units(remap(p), src.units(p) or "")
 
 
 def _item_signature(doc: SpecDocument, item: str) -> str:
