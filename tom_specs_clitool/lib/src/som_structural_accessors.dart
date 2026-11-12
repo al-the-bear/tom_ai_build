@@ -4,12 +4,13 @@
 /// Every generated section facade in every one of the nine languages is a thin
 /// wrapper over the runtime's `SomNode`, which carries a small fixed set of
 /// **structural** members — the document and path it is bound to, its section
-/// id, its stored headline, its CodeSpecs forward link, and the two emptiness /
-/// content predicates. A generated field accessor that happens to take one of
-/// those names does not fail to compile in every language: where the facade
-/// *inherits* (Dart, TypeScript, JavaScript, Java, Python) or *embeds*
-/// (Go) the node, a same-named member silently **shadows** the structural one,
-/// and the symptom is a wrong read rather than a build error.
+/// id, its stored headline, its CodeSpecs forward link, its generation units,
+/// and the two emptiness / content predicates. A generated field accessor that
+/// happens to take one of those names does not fail to compile in every
+/// language: where the facade *inherits* (Dart, TypeScript, JavaScript, Java,
+/// Python) or *embeds* (Go) the node, a same-named member silently **shadows**
+/// the structural one, and the symptom is a wrong read rather than a build
+/// error.
 ///
 /// This file is the single place that knows those names. Emitters do not carry
 /// their own literal lists: each one asks [somReservedAccessorNames] for its
@@ -50,6 +51,9 @@ enum SomStructuralMember {
   /// The CodeSpecs forward link (`codespecs_mapping.md` §9.2).
   codeSpec,
 
+  /// The generation units a section goes to (SOM §11.2 `units`).
+  units,
+
   /// The "is this subtree empty *now*?" state predicate (SOM §21).
   isEmpty,
 
@@ -84,6 +88,7 @@ somStructuralAccessorNames = {
     SomStructuralMember.sectionId: [r'$sectionId'],
     SomStructuralMember.headline: [r'$headline'],
     SomStructuralMember.codeSpec: [r'$codeSpec'],
+    SomStructuralMember.units: [r'$units'],
     SomStructuralMember.isEmpty: ['isEmpty'],
     SomStructuralMember.canHaveContent: ['canHaveContent'],
   },
@@ -94,6 +99,7 @@ somStructuralAccessorNames = {
     SomStructuralMember.sectionId: [r'$sectionId'],
     SomStructuralMember.headline: [r'$headline'],
     SomStructuralMember.codeSpec: [r'$codeSpec'],
+    SomStructuralMember.units: [r'$units'],
     SomStructuralMember.isEmpty: ['isEmpty'],
     SomStructuralMember.canHaveContent: ['canHaveContent'],
   },
@@ -103,6 +109,7 @@ somStructuralAccessorNames = {
     SomStructuralMember.sectionId: [r'$sectionId'],
     SomStructuralMember.headline: [r'$headline'],
     SomStructuralMember.codeSpec: [r'$codeSpec'],
+    SomStructuralMember.units: [r'$units'],
     SomStructuralMember.isEmpty: ['isEmpty'],
     SomStructuralMember.canHaveContent: ['canHaveContent'],
   },
@@ -114,6 +121,7 @@ somStructuralAccessorNames = {
     SomStructuralMember.sectionId: [r'$sectionId'],
     SomStructuralMember.headline: [r'$headline'],
     SomStructuralMember.codeSpec: [r'$codeSpec'],
+    SomStructuralMember.units: [r'$units'],
     SomStructuralMember.isEmpty: ['isEmpty'],
     SomStructuralMember.canHaveContent: ['canHaveContent'],
   },
@@ -126,6 +134,7 @@ somStructuralAccessorNames = {
     SomStructuralMember.sectionId: ['spec_section_id'],
     SomStructuralMember.headline: ['spec_headline'],
     SomStructuralMember.codeSpec: ['spec_code_spec'],
+    SomStructuralMember.units: ['spec_units'],
     SomStructuralMember.isEmpty: ['is_empty'],
     SomStructuralMember.canHaveContent: ['can_have_content'],
   },
@@ -138,6 +147,7 @@ somStructuralAccessorNames = {
     SomStructuralMember.sectionId: ['SectionID', 'SetSectionID'],
     SomStructuralMember.headline: ['Headline', 'SetHeadline'],
     SomStructuralMember.codeSpec: ['CodeSpec', 'SetCodeSpec'],
+    SomStructuralMember.units: ['Units', 'SetUnits'],
     SomStructuralMember.isEmpty: ['IsEmpty'],
     SomStructuralMember.canHaveContent: ['CanHaveContent'],
   },
@@ -150,6 +160,7 @@ somStructuralAccessorNames = {
     SomStructuralMember.sectionId: ['sectionId', 'setSectionId'],
     SomStructuralMember.headline: ['headline', 'setHeadline'],
     SomStructuralMember.codeSpec: ['codeSpec', 'setCodeSpec'],
+    SomStructuralMember.units: ['units', 'setUnits'],
     SomStructuralMember.isEmpty: ['isEmpty'],
     SomStructuralMember.canHaveContent: ['canHaveContent'],
   },
@@ -160,6 +171,7 @@ somStructuralAccessorNames = {
     SomStructuralMember.sectionId: [],
     SomStructuralMember.headline: [],
     SomStructuralMember.codeSpec: [],
+    SomStructuralMember.units: [],
     SomStructuralMember.isEmpty: [],
     SomStructuralMember.canHaveContent: [],
   },
@@ -170,6 +182,7 @@ somStructuralAccessorNames = {
     SomStructuralMember.sectionId: [],
     SomStructuralMember.headline: [],
     SomStructuralMember.codeSpec: [],
+    SomStructuralMember.units: [],
     SomStructuralMember.isEmpty: [],
     SomStructuralMember.canHaveContent: [],
   },

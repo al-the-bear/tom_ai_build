@@ -118,11 +118,12 @@ class SpecMarkdownRejection {
 /// full overwrite of the covered scope.
 class SpecMarkdownResult {
   /// Assembles the parse report. The five required maps/sets are always
-  /// determined by a parse (empty when nothing matched), whereas [headlines]
-  /// and [codeSpecs] default to empty because they are *staged only on
+  /// determined by a parse (empty when nothing matched), whereas [headlines],
+  /// [codeSpecs] and [units] default to empty because they are *staged only on
   /// deviation* — a heading whose text equals the effective default title and
-  /// a heading with no `codeSpec` key contribute nothing, which is what keeps
-  /// an untouched document byte-stable across an import/export round trip.
+  /// a heading with no `codeSpec` / `units` key contribute nothing, which is
+  /// what keeps an untouched document byte-stable across an import/export
+  /// round trip.
   SpecMarkdownResult({
     required this.content,
     required this.forms,
@@ -131,6 +132,7 @@ class SpecMarkdownResult {
     required this.rootPrefixes,
     this.headlines = const {},
     this.codeSpecs = const {},
+    this.units = const {},
   });
 
   /// Content/scalar/enum leaf values (and section body text): path → value.
@@ -153,6 +155,11 @@ class SpecMarkdownResult {
   /// `codeSpec="…"` key in the heading comment. Staged whenever present
   /// (codeSpec has no effective default).
   final Map<String, String> codeSpecs;
+
+  /// Stored generation units (SOM §11.2): path → the comma-joined list of
+  /// generation-unit ids parsed from the `units="…"` key in the heading
+  /// comment. Staged whenever present (absent means the default).
+  final Map<String, String> units;
 
   /// Every rejected block, in source order.
   final List<SpecMarkdownRejection> rejections;
@@ -427,6 +434,7 @@ class SpecDocumentMarkdown {
       document.headline(rootSeg) ?? node.headline ?? root.title,
       path: rootSeg,
       codeSpec: document.codeSpec(rootSeg),
+      units: document.units(rootSeg),
     );
     _writeSectionBody(b, node, rootSeg);
     _writeChildren(b, node, rootSeg, 2);
@@ -538,6 +546,7 @@ class SpecDocumentMarkdown {
             document.headline(path) ?? _titleOf(child),
             path: path,
             codeSpec: document.codeSpec(path),
+            units: document.units(path),
           );
           _writeBody(b, value, path);
         case SomMetaKind.form:
@@ -549,6 +558,7 @@ class SpecDocumentMarkdown {
             document.headline(path) ?? _titleOf(child),
             path: path,
             codeSpec: document.codeSpec(path),
+            units: document.units(path),
           );
           _writeForm(b, child, path);
         case SomMetaKind.section:
@@ -560,6 +570,7 @@ class SpecDocumentMarkdown {
             document.headline(path) ?? _titleOf(child),
             path: path,
             codeSpec: document.codeSpec(path),
+            units: document.units(path),
           );
           _writeSectionBody(b, child, path);
           _writeChildren(b, child, path, depth + 1);
@@ -593,6 +604,7 @@ class SpecDocumentMarkdown {
       document.headline(listPath) ?? _titleOf(node),
       path: listPath,
       codeSpec: document.codeSpec(listPath),
+      units: document.units(listPath),
     );
     // Item heading stem. Complex lists derive it from the element class name
     // (SOM §11.5, `Entry` dropped). A scalar list (`List<String>`, shape 6) has
@@ -626,6 +638,7 @@ class SpecDocumentMarkdown {
         document.headline(itemPath) ?? '$stem $pos',
         path: itemPath,
         codeSpec: document.codeSpec(itemPath),
+        units: document.units(itemPath),
       );
       final element = node.elementNode;
       if (element == null) {
@@ -746,7 +759,8 @@ class SpecDocumentMarkdown {
   ///
   /// When [codeSpec] is non-empty it is emitted as a `codeSpec="…"` key inside
   /// the same headline comment (codespecs_mapping.md §9.2): `## <!--[ID]
-  /// codeSpec="A,B"--> Title`.
+  /// codeSpec="A,B"--> Title`. When [units] is non-empty it follows as a
+  /// second key, `units="…"`, after `codeSpec` (SOM §11.2).
   void _writeHeading(
     StringBuffer b,
     int depth,
@@ -754,11 +768,14 @@ class SpecDocumentMarkdown {
     String title, {
     required String path,
     String? codeSpec,
+    String? units,
   }) {
     _headingPaths.add(path);
-    final code = (codeSpec != null && codeSpec.isNotEmpty)
-        ? ' codeSpec="$codeSpec"'
-        : '';
+    final code = StringBuffer();
+    if (codeSpec != null && codeSpec.isNotEmpty) {
+      code.write(' codeSpec="$codeSpec"');
+    }
+    if (units != null && units.isNotEmpty) code.write(' units="$units"');
     // A heading is one line: a stored headline's line breaks travel as `<br>`.
     b.writeln(
       '${'#' * depth} <!--[$id]$code--> ${title.replaceAll('\n', '<br>')}',
@@ -864,6 +881,7 @@ class SpecDocumentMarkdown {
       rootPrefixes: p.rootPrefixes,
       headlines: p.headlines,
       codeSpecs: p.codeSpecs,
+      units: p.units,
     );
   }
 
@@ -898,6 +916,21 @@ class SpecDocumentMarkdown {
 
   static final RegExp _codeSpecPattern = RegExp(
     r'''codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))''',
+  );
+
+  /// Extracts the `units="…"` value from a heading-comment key=value region
+  /// (SOM §11.2): the same quoting rules as [codeSpecOf] — double-quoted,
+  /// single-quoted or bare. The key must start the region or follow
+  /// whitespace, so a `units=` inside a quoted codeSpec value is not read as
+  /// the key. Returns the empty string when the region carries no `units` key.
+  static String unitsOf(String region) {
+    final m = _unitsPattern.firstMatch(region);
+    if (m == null) return '';
+    return (m.group(1) ?? m.group(2) ?? m.group(3) ?? '').trim();
+  }
+
+  static final RegExp _unitsPattern = RegExp(
+    r'''(?:^|\s)units=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))''',
   );
 
   /// Matches the SOM §11.1 declaration line `<!-- docspec: <id>/<version> -->`.
@@ -987,6 +1020,7 @@ class _Parser {
   final lists = <String, _ListState>{};
   final headlines = <String, String>{};
   final codeSpecs = <String, String>{};
+  final units = <String, String>{};
   final rejections = <SpecMarkdownRejection>[];
   final rootPrefixes = <String>{};
 
@@ -1053,10 +1087,11 @@ class _Parser {
     }
     final id = m.group(1)!;
     final codeSpec = SpecDocumentMarkdown.codeSpecOf(m.group(2)!);
+    final unitIds = SpecDocumentMarkdown.unitsOf(m.group(2)!);
     final title = m.group(3)!.trim().replaceAll('<br>', '\n');
 
     if (_stack.isEmpty) {
-      _openRoot(level, id, title, codeSpec, lineNo);
+      _openRoot(level, id, title, codeSpec, unitIds, lineNo);
       return;
     }
 
@@ -1094,7 +1129,16 @@ class _Parser {
     // 1. Under a `-LST` container frame (SOM §11.2), every child heading is one
     //    of that list's items — resolved positionally, not by the schema tree.
     if (pNode.kind == SomMetaKind.list) {
-      _openItemHeading(level, parent, pNode, id, title, codeSpec, lineNo);
+      _openItemHeading(
+        level,
+        parent,
+        pNode,
+        id,
+        title,
+        codeSpec,
+        unitIds,
+        lineNo,
+      );
       return;
     }
 
@@ -1116,6 +1160,8 @@ class _Parser {
         // codespecs_mapping.md §9.2: stage the codeSpec mapping whenever
         // present (no default).
         if (codeSpec.isNotEmpty) codeSpecs[path] = codeSpec;
+        // SOM §11.2: `units` is staged exactly like codeSpec.
+        if (unitIds.isNotEmpty) units[path] = unitIds;
         _stack.add(_Frame(level: level, node: c, path: path, line: lineNo));
         return;
       }
@@ -1149,6 +1195,7 @@ class _Parser {
     String id,
     String title,
     String codeSpec,
+    String unitIds,
     int lineNo,
   ) {
     final listPath = container.path;
@@ -1165,6 +1212,7 @@ class _Parser {
         null,
         title,
         codeSpec,
+        unitIds,
         lineNo,
       );
       return;
@@ -1188,18 +1236,39 @@ class _Parser {
           id,
           title,
           codeSpec,
+          unitIds,
           lineNo,
         );
         return;
       }
       if (_patternMatches(pattern, id)) {
-        _openItem(level, listPath, listNode, null, id, title, codeSpec, lineNo);
+        _openItem(
+          level,
+          listPath,
+          listNode,
+          null,
+          id,
+          title,
+          codeSpec,
+          unitIds,
+          lineNo,
+        );
         return;
       }
     }
     // Any other id under the container is an anonymous next item carrying the
     // stored id (YRD3: stored ids round-trip through md as well as yaml).
-    _openItem(level, listPath, listNode, null, id, title, codeSpec, lineNo);
+    _openItem(
+      level,
+      listPath,
+      listNode,
+      null,
+      id,
+      title,
+      codeSpec,
+      unitIds,
+      lineNo,
+    );
   }
 
   void _openRoot(
@@ -1207,6 +1276,7 @@ class _Parser {
     String id,
     String title,
     String codeSpec,
+    String unitIds,
     int lineNo,
   ) {
     for (final root in codec.model.roots) {
@@ -1223,6 +1293,8 @@ class _Parser {
         // codespecs_mapping.md §9.2: stage the root codeSpec mapping whenever
         // present.
         if (codeSpec.isNotEmpty) codeSpecs[seg] = codeSpec;
+        // SOM §11.2: `units` is staged exactly like codeSpec.
+        if (unitIds.isNotEmpty) units[seg] = unitIds;
         _stack.add(
           _Frame(level: level, node: tree.root, path: seg, line: lineNo),
         );
@@ -1256,6 +1328,7 @@ class _Parser {
     String? storedId,
     String title,
     String codeSpec,
+    String unitIds,
     int lineNo,
   ) {
     final state = lists.putIfAbsent(listPath, _ListState.new);
@@ -1272,6 +1345,8 @@ class _Parser {
     // codespecs_mapping.md §9.2: stage the item codeSpec mapping whenever
     // present.
     if (codeSpec.isNotEmpty) codeSpecs[itemPath] = codeSpec;
+    // SOM §11.2: `units` is staged exactly like codeSpec.
+    if (unitIds.isNotEmpty) units[itemPath] = unitIds;
     _stack.add(
       _Frame(level: level, node: element, path: itemPath, line: lineNo),
     );

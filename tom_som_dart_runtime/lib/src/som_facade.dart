@@ -120,6 +120,16 @@ abstract class SomNode {
   /// §9.2). `null` or an empty string clears the store, returning the section
   /// to "no code mapping".
   set $codeSpec(String? value) => doc.setCodeSpec(path, value ?? '');
+
+  /// This section's **generation units** (SOM §11.2) as the comma-joined list
+  /// of generation-unit ids, or `null` when the section carries none (the
+  /// default: every unit with a mapping for the section's area). Sparse exactly
+  /// like [$codeSpec], available on every node, `$`-prefixed likewise.
+  String? get $units => doc.units(path);
+
+  /// Sets or clears this section's generation units (SOM §11.2). `null` or an
+  /// empty string clears the store, returning the section to the default.
+  set $units(String? value) => doc.setUnits(path, value ?? '');
 }
 
 /// A scalar list item — a bare string value held in the document's content

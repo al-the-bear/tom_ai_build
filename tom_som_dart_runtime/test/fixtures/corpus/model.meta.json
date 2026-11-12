@@ -3,7 +3,7 @@
   "modelVersion": 1,
   "modelVersionLabel": "demo-1.0",
   "generatedAt": "2026-07-20T08:00:00.000000Z",
-  "classCount": 15,
+  "classCount": 17,
   "rootCount": 2,
   "roots": [
     {
@@ -212,6 +212,14 @@
           "kind": "complex",
           "sectionId": "REG",
           "type": "Registry"
+        },
+        {
+          "name": "deliverables",
+          "kind": "list",
+          "sectionId": "DLV-LST",
+          "sectionIdPattern": "DLV-xxx",
+          "elementType": "Deliverable",
+          "elementIsComplex": true
         }
       ]
     },
@@ -873,6 +881,110 @@
               "label": "Selector",
               "type": "String",
               "code": true
+            }
+          ]
+        }
+      ]
+    },
+    "Deliverable": {
+      "name": "Deliverable",
+      "sectionId": "DLV",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "DLV"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.generation"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "formFields": [
+            {
+              "name": "unitId",
+              "label": "Unit Id",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "kind",
+              "label": "Kind",
+              "type": "DeliverableKind",
+              "enumValues": [
+                "client",
+                "server",
+                "shared",
+                "other"
+              ]
+            },
+            {
+              "name": "deploymentTarget",
+              "label": "Deployment Target",
+              "type": "String"
+            },
+            {
+              "name": "component",
+              "label": "Component",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "routes",
+          "kind": "list",
+          "sectionId": "DLR-LST",
+          "sectionIdPattern": "DLR-xxx",
+          "elementType": "DeliverableRoute",
+          "elementIsComplex": true
+        }
+      ]
+    },
+    "DeliverableRoute": {
+      "name": "DeliverableRoute",
+      "sectionId": "DLR",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "DLR"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.generation"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "formFields": [
+            {
+              "name": "area",
+              "label": "Area",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "mapping",
+              "label": "Mapping",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "note",
+              "label": "Note",
+              "type": "String"
             }
           ]
         }

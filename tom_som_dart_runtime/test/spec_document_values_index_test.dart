@@ -20,6 +20,7 @@ bool _scan(SpecDocument d, String query) {
     'lists',
     'headlines',
     'codeSpecs',
+    'units',
   ]) {
     for (final key in (json[store] as Map?)?.keys ?? const []) {
       final k = '$key';
@@ -65,6 +66,8 @@ void main() {
     _expectAgrees(d, 'setHeadline');
     d.setCodeSpec('DEMO/DET', 'a.b');
     _expectAgrees(d, 'setCodeSpec');
+    d.setUnits('DEMO/REF-LST', 'u_a');
+    _expectAgrees(d, 'setUnits');
     d.setFormField('DEMO/CARD-LST-1/content', 'note', 'x');
     _expectAgrees(d, 'setFormField');
     final item = d.addListItem('DEMO/items');

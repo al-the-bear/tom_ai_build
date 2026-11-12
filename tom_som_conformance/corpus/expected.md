@@ -1,7 +1,7 @@
 <!-- docspec: demo-document/1.0 -->
 # <!--[DEMO]--> Demo Document
 
-## <!--[TTL]--> Document Title
+## <!--[TTL] codeSpec="DemoTitle" units="demo_server"--> Document Title
 
 Hello
 
@@ -112,7 +112,7 @@ ctrl-owner
 
 Controlled summary
 
-## <!--[NOTE]--> Notes
+## <!--[NOTE] units="demo_client,demo_server"--> Notes
 
 Wrapper-section text
 
@@ -145,4 +145,30 @@ Tail text.
 <!-- slot: alt -->
 
 Lead: Bob
+
+## <!--[DLV-LST]--> Deliverables
+
+### <!--[DLV-1]--> Deliverable 1
+
+UnitId: demo_client
+
+Kind: client
+
+Component: ARCM-COMP-UI
+
+### <!--[DLV-2]--> Deliverable 2
+
+UnitId: demo_server
+
+Kind: server
+
+DeploymentTarget: DEPTAR-DEPL-API
+
+#### <!--[DLR-LST]--> Routes
+
+##### <!--[DLR-1]--> Deliverable Route 1
+
+Area: CE-DB
+
+Mapping: dart-tom
 

@@ -110,6 +110,7 @@ CodeSpecsExtract parseCodeSpecsExtractYaml(String text, {String source = ''}) {
         routedBy: req('routedBy'),
         routedAt: req('routedAt'),
         routingNote: opt('routingNote'),
+        units: _strList(raw['units'], name, 'entries[].units'),
         value: req('value'),
       ),
     );

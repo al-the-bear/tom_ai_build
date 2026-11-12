@@ -87,6 +87,7 @@ class SpecDocument {
     _migrate(_itemSectionId, normalizer);
     _migrate(_headline, normalizer);
     _migrate(_codeSpec, normalizer);
+    _migrate(_units, normalizer);
     // List item paths are keys in their own right, so they move with their list.
     _migrate(_listItems, normalizer);
     for (final items in _listItems.values) {
@@ -135,6 +136,12 @@ class SpecDocument {
   /// CodeSpecs code locations that section maps to. Sparse like [_headline]:
   /// unset means "no code mapping".
   final Map<String, String> _codeSpec = {};
+
+  /// The generation units a section goes to (SOM §11.2 `units`): any section
+  /// path → the comma-joined list of generation-unit ids that take the section
+  /// and its subtree. Sparse like [_codeSpec]: unset means the default (every
+  /// unit with a mapping for the section's area).
+  final Map<String, String> _units = {};
 
   /// The authoring object-model version (`major.minor`) this document was loaded
   /// from, or `null` for a brand-new / unstamped document. Retained here by
@@ -204,7 +211,7 @@ class SpecDocument {
   /// Applies a parsed Markdown import as a **full overwrite** of the roots it
   /// covers (SOM §11.7): every value under each of
   /// [SpecMarkdownResult.rootPrefixes] is removed, then the parsed content,
-  /// forms, lists, headlines and codeSpecs are written. Other roots are left
+  /// forms, lists, headlines, codeSpecs and units are written. Other roots are left
   /// as they are.
   ///
   /// A result with rejections is refused with a [StateError] unless
@@ -263,6 +270,7 @@ class SpecDocument {
       'lists': lists,
       'headlines': store('headlines')..addAll(keyed(result.headlines)),
       'codeSpecs': store('codeSpecs')..addAll(keyed(result.codeSpecs)),
+      'units': store('units')..addAll(keyed(result.units)),
     });
   }
 
@@ -353,6 +361,28 @@ class SpecDocument {
   /// All section paths currently carrying a stored codeSpec mapping (unordered
   /// snapshot).
   Iterable<String> get codeSpecPaths => _codeSpec.keys;
+
+  /// The stored generation units at [path] as the comma-joined list of
+  /// generation-unit ids, or `null` when the section carries none (SOM §11.2
+  /// — `units` is sparse like codeSpec; absent means the default).
+  String? units(String path) => _units[_key(path)];
+
+  /// Sets the stored generation units at [path] (the comma-joined list of
+  /// generation-unit ids). An empty value clears it, returning the section to
+  /// the default (SOM §11.2).
+  void setUnits(String path, String value) {
+    _dropValueIndex();
+    final key = _key(path);
+    if (value.isEmpty) {
+      _units.remove(key);
+    } else {
+      _units[key] = value;
+    }
+  }
+
+  /// All section paths currently carrying stored generation units (unordered
+  /// snapshot).
+  Iterable<String> get unitsPaths => _units.keys;
 
   /// The value of form [field] at [path], or `null` if unset.
   String? formField(String path, String field) => _form[_key(path)]?[field];
@@ -582,6 +612,7 @@ class SpecDocument {
     final form = rekey(_form);
     final headline = rekey(_headline);
     final codeSpec = rekey(_codeSpec);
+    final units = rekey(_units);
     final ids = rekey(_itemSectionId);
     for (final MapEntry(key: old, value: id) in pinned.entries) {
       ids[remap(old)] = id;
@@ -611,6 +642,9 @@ class SpecDocument {
     _codeSpec
       ..clear()
       ..addAll(codeSpec);
+    _units
+      ..clear()
+      ..addAll(units);
     _itemSectionId
       ..clear()
       ..addAll(ids);
@@ -669,6 +703,7 @@ class SpecDocument {
     _itemSectionId.removeWhere((k, _) => isUnder(k));
     _headline.removeWhere((k, _) => isUnder(k));
     _codeSpec.removeWhere((k, _) => isUnder(k));
+    _units.removeWhere((k, _) => isUnder(k));
   }
 
   /// Drops every value at [prefix] or nested beneath it — content, form
@@ -687,7 +722,8 @@ class SpecDocument {
       _form.isEmpty &&
       _listItems.isEmpty &&
       _headline.isEmpty &&
-      _codeSpec.isEmpty;
+      _codeSpec.isEmpty &&
+      _units.isEmpty;
 
   /// Whether any value exists at [prefix] or nested beneath it — the structural
   /// "empty = no value" test (tom_specs_editor_specification.md §13.1, D4).
@@ -723,6 +759,7 @@ class SpecDocument {
       _listItems.keys,
       _headline.keys,
       _codeSpec.keys,
+      _units.keys,
     ]) {
       for (final key in keys) {
         index.add(key);
@@ -767,6 +804,7 @@ class SpecDocument {
   ///   lists:     { "<path>": { seq: <int>, items: ["<path-1>", ...] }, ... },
   ///   headlines: { "<path>": "<stored headline>", ... },
   ///   codeSpecs: { "<path>": "<comma-joined code locations>", ... },
+  ///   units:     { "<path>": "<comma-joined generation-unit ids>", ... },
   /// }
   /// ```
   ///
@@ -800,6 +838,8 @@ class SpecDocument {
         'headlines': {for (final k in sorted(_headline.keys)) k: _headline[k]},
       if (_codeSpec.isNotEmpty)
         'codeSpecs': {for (final k in sorted(_codeSpec.keys)) k: _codeSpec[k]},
+      if (_units.isNotEmpty)
+        'units': {for (final k in sorted(_units.keys)) k: _units[k]},
     };
   }
 
@@ -817,6 +857,7 @@ class SpecDocument {
     _itemSectionId.clear();
     _headline.clear();
     _codeSpec.clear();
+    _units.clear();
 
     final content = json['content'];
     if (content is Map) {
@@ -879,6 +920,13 @@ class SpecDocument {
         if (v != null && '$v'.isNotEmpty) _codeSpec['$k'] = '$v';
       });
     }
+
+    final units = json['units'];
+    if (units is Map) {
+      units.forEach((k, v) {
+        if (v != null && '$v'.isNotEmpty) _units['$k'] = '$v';
+      });
+    }
   }
 
   /// A deep-copied snapshot of the whole document, for the undo stack
@@ -894,6 +942,7 @@ class SpecDocument {
     itemSectionId: Map.of(_itemSectionId),
     headline: Map.of(_headline),
     codeSpec: Map.of(_codeSpec),
+    units: Map.of(_units),
   );
 
   /// Replaces the document's contents with a previously [captureState]d
@@ -925,6 +974,9 @@ class SpecDocument {
     _codeSpec
       ..clear()
       ..addAll(state._codeSpec);
+    _units
+      ..clear()
+      ..addAll(state._units);
   }
 }
 
@@ -963,6 +1015,7 @@ class SpecDocumentState {
   final Map<String, String> _itemSectionId;
   final Map<String, String> _headline;
   final Map<String, String> _codeSpec;
+  final Map<String, String> _units;
 
   SpecDocumentState._({
     required Map<String, String> content,
@@ -972,13 +1025,15 @@ class SpecDocumentState {
     required Map<String, String> itemSectionId,
     required Map<String, String> headline,
     required Map<String, String> codeSpec,
+    required Map<String, String> units,
   }) : _content = content,
        _form = form,
        _listItems = listItems,
        _listSeq = listSeq,
        _itemSectionId = itemSectionId,
        _headline = headline,
-       _codeSpec = codeSpec;
+       _codeSpec = codeSpec,
+       _units = units;
 
   /// The content value at [path] as of this snapshot (the review's base pane).
   String? contentAt(String path) => _content[path];
@@ -1008,6 +1063,7 @@ class SpecDocumentState {
       enc(_itemSectionId),
       enc(_headline),
       enc(_codeSpec),
+      enc(_units),
     ].join('\u0002');
   }
 }

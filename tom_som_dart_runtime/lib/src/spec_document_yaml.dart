@@ -13,14 +13,16 @@
 /// headline** (YRD3) uses the literal key `headline`, a node's **stored
 /// codeSpec** (csmb1 — the codespecs_mapping.md §9.2 DocSpecs→CodeSpecs forward
 /// link, a comma-joined list of code locations) uses the literal key
-/// `codeSpec`, and form fields use their bare field names (no class fallback
+/// `codeSpec`, a node's **stored units** (SOM §11.2, the comma-joined
+/// generation-unit ids) uses the literal key `units` right after `codeSpec`,
+/// and form fields use their bare field names (no class fallback
 /// for content/form/list/scalar/enum keys). A `@Form` node's mapping carries
 /// its own preamble text — the free text before the first field (SOM §11.4
 /// rule 7) — under the same literal `content` key, so a form section stores its
 /// body exactly as every other section does. A scalar-valued node
 /// (content/scalar/enum leaf or scalar list item) that carries a stored
-/// headline and/or codeSpec is emitted as a `{headline: …, codeSpec: …,
-/// content: …}` mapping instead of a direct scalar. The former flat two-level
+/// headline, codeSpec and/or units is emitted as a `{headline: …, codeSpec: …,
+/// units: …, content: …}` mapping instead of a direct scalar. The former flat two-level
 /// path-map format (`document: {content: {"A/b": …}}`) is **retired**; readers
 /// reject `version: 1` files with a clear error (no compatibility path).
 ///
@@ -501,6 +503,7 @@ class _Encoder {
   final Set<String> _lists;
   final Map<String, String> _headlines;
   final Map<String, String> _codeSpecs;
+  final Map<String, String> _units;
 
   _Encoder(this.doc, this.tree)
     : _content = {for (final p in doc.contentPaths) p: doc.content(p)!},
@@ -510,7 +513,8 @@ class _Encoder {
       },
       _lists = doc.listPaths.toSet(),
       _headlines = {for (final p in doc.headlinePaths) p: doc.headline(p)!},
-      _codeSpecs = {for (final p in doc.codeSpecPaths) p: doc.codeSpec(p)!};
+      _codeSpecs = {for (final p in doc.codeSpecPaths) p: doc.codeSpec(p)!},
+      _units = {for (final p in doc.unitsPaths) p: doc.units(p)!};
 
   void writeDocumentPass(StringBuffer b) {
     final root = tree.root;
@@ -565,6 +569,19 @@ class _Encoder {
       _writeText(b, indent, 'codeSpec', ownCodeSpec);
     }
 
+    // The node's own generation units — the literal `units` key, right after
+    // `codeSpec` (SOM §12.3 rule 6).
+    final ownUnits = _units.remove(path);
+    if (ownUnits != null) {
+      if (node.children.any((c) => SpecDocumentYaml.nodeKey(c) == 'units')) {
+        throw SpecYamlFormatException(
+          'cannot emit the stored units at `$path`: a child of '
+          '${node.debugName} also serializes as key `units`',
+        );
+      }
+      _writeText(b, indent, 'units', ownUnits);
+    }
+
     // The node's own body text — the literal `content` key (SOM §12.2).
     final own = _content.remove(path);
     if (own != null) {
@@ -585,8 +602,9 @@ class _Encoder {
           final v = _content.remove(childPath);
           final h = _headlines.remove(childPath);
           final cs = _codeSpecs.remove(childPath);
-          if (h != null || cs != null) {
-            _writeScalarWithMeta(b, indent, key, h, cs, v, text: true);
+          final u = _units.remove(childPath);
+          if (h != null || cs != null || u != null) {
+            _writeScalarWithMeta(b, indent, key, h, cs, u, v, text: true);
           } else if (v != null) {
             _writeText(b, indent, key, v);
           }
@@ -595,8 +613,9 @@ class _Encoder {
           final v = _content.remove(childPath);
           final h = _headlines.remove(childPath);
           final cs = _codeSpecs.remove(childPath);
-          if (h != null || cs != null) {
-            _writeScalarWithMeta(b, indent, key, h, cs, v, text: false);
+          final u = _units.remove(childPath);
+          if (h != null || cs != null || u != null) {
+            _writeScalarWithMeta(b, indent, key, h, cs, u, v, text: false);
           } else if (v != null) {
             _writeValue(b, indent, key, v);
           }
@@ -617,21 +636,24 @@ class _Encoder {
   }
 
   /// Emits a scalar-valued node (content/scalar/enum leaf) that carries a
-  /// stored headline and/or a codeSpec mapping as a `{headline?: …, codeSpec?:
-  /// …, content?: …}` mapping (YRD3 + codespecs_mapping.md §9.2). At least one
-  /// of [headline]/[codeSpec] is non-null at every call site.
+  /// stored headline, a codeSpec mapping and/or units as a `{headline?: …,
+  /// codeSpec?: …, units?: …, content?: …}` mapping (YRD3 +
+  /// codespecs_mapping.md §9.2 + SOM §12.3 rule 6). At least one of
+  /// [headline]/[codeSpec]/[units] is non-null at every call site.
   void _writeScalarWithMeta(
     StringBuffer b,
     int indent,
     String key,
     String? headline,
     String? codeSpec,
+    String? units,
     String? value, {
     required bool text,
   }) {
     b.writeln('${' ' * indent}${SpecDocumentYaml.plainKey(key)}:');
     if (headline != null) _writeText(b, indent + 2, 'headline', headline);
     if (codeSpec != null) _writeText(b, indent + 2, 'codeSpec', codeSpec);
+    if (units != null) _writeText(b, indent + 2, 'units', units);
     if (value != null) {
       if (text) {
         _writeText(b, indent + 2, 'content', value);
@@ -651,6 +673,7 @@ class _Encoder {
     final fields = _forms.remove(path) ?? const <String, String>{};
     final headline = _headlines.remove(path);
     final codeSpec = _codeSpecs.remove(path);
+    final units = _units.remove(path);
     // The form's preamble — the free text before its first field (SOM §11.4
     // rule 7, the DocSpecs `${text[]}` region) — rides in the same mapping
     // under the literal `content` key, exactly as a section's body does.
@@ -658,6 +681,7 @@ class _Encoder {
     if (fields.isEmpty &&
         headline == null &&
         codeSpec == null &&
+        units == null &&
         content == null) {
       return;
     }
@@ -682,6 +706,12 @@ class _Encoder {
         'field literally named `codeSpec`',
       );
     }
+    if (units != null && meta.fieldNamed('units') != null) {
+      throw SpecYamlFormatException(
+        'cannot emit the stored units at `$path`: the form declares a '
+        'field literally named `units`',
+      );
+    }
     if (content != null && meta.fieldNamed('content') != null) {
       throw SpecYamlFormatException(
         'cannot emit the preamble content at `$path`: the form declares a '
@@ -691,6 +721,7 @@ class _Encoder {
     b.writeln('${' ' * indent}${SpecDocumentYaml.plainKey(key)}:');
     if (headline != null) _writeText(b, indent + 2, 'headline', headline);
     if (codeSpec != null) _writeText(b, indent + 2, 'codeSpec', codeSpec);
+    if (units != null) _writeText(b, indent + 2, 'units', units);
     if (content != null) _writeText(b, indent + 2, 'content', content);
     for (final f in meta.fields) {
       final v = fields[f.name];
@@ -713,12 +744,19 @@ class _Encoder {
     _lists.remove(path);
     final headline = _headlines.remove(path);
     final codeSpec = _codeSpecs.remove(path);
+    final units = _units.remove(path);
     final items = doc.listItems(path);
-    if (items.isEmpty && headline == null && codeSpec == null) return;
+    if (items.isEmpty &&
+        headline == null &&
+        codeSpec == null &&
+        units == null) {
+      return;
+    }
     b.writeln('${' ' * indent}${SpecDocumentYaml.plainKey(key)}:');
     if (headline != null) _writeText(b, indent + 2, 'headline', headline);
     if (codeSpec != null) _writeText(b, indent + 2, 'codeSpec', codeSpec);
-    final used = <String>{'headline', 'codeSpec'};
+    if (units != null) _writeText(b, indent + 2, 'units', units);
+    final used = <String>{'headline', 'codeSpec', 'units'};
     var pos = 0;
     for (final itemPath in items) {
       pos++;
@@ -740,14 +778,24 @@ class _Encoder {
       final element = node.elementNode;
       if (element == null) {
         // Scalar list: the item is a direct value — unless it carries a stored
-        // headline and/or codeSpec, in which case it becomes a `{headline?: …,
-        // codeSpec?: …, content: …}` mapping (YRD3 + codespecs_mapping.md
-        // §9.2).
+        // headline, codeSpec and/or units, in which case it becomes a
+        // `{headline?: …, codeSpec?: …, units?: …, content: …}` mapping (YRD3 +
+        // codespecs_mapping.md §9.2 + SOM §12.3 rule 6).
         final v = _content.remove(itemPath);
         final ih = _headlines.remove(itemPath);
         final ics = _codeSpecs.remove(itemPath);
-        if (ih != null || ics != null) {
-          _writeScalarWithMeta(b, indent + 2, itemKey, ih, ics, v, text: false);
+        final iu = _units.remove(itemPath);
+        if (ih != null || ics != null || iu != null) {
+          _writeScalarWithMeta(
+            b,
+            indent + 2,
+            itemKey,
+            ih,
+            ics,
+            iu,
+            v,
+            text: false,
+          );
         } else {
           _writeValue(b, indent + 2, itemKey, v ?? '');
         }
@@ -802,6 +850,7 @@ class _Encoder {
       ..._lists.map((p) => 'list items at `$p`'),
       ..._headlines.keys.map((p) => 'headline at `$p`'),
       ..._codeSpecs.keys.map((p) => 'codeSpec at `$p`'),
+      ..._units.keys.map((p) => 'units at `$p`'),
     ]..sort();
     if (leftovers.isNotEmpty) {
       throw SpecYamlFormatException(
@@ -842,6 +891,10 @@ class _Decoder {
         doc.setCodeSpec(path, _scalarOf(value, '$path (codeSpec)'));
         return;
       }
+      if (key == 'units') {
+        doc.setUnits(path, _scalarOf(value, '$path (units)'));
+        return;
+      }
       throw SpecYamlFormatException(
         'key `$key` under `$path` matches no member of ${node.debugName} '
         '(expected one of: ${_expectedKeys(node).join(', ')})',
@@ -861,6 +914,7 @@ class _Decoder {
     '`content`',
     '`headline`',
     '`codeSpec`',
+    '`units`',
   ];
 
   void _loadChild(SomMetaNode child, String path, String key, Object? value) {
@@ -891,6 +945,10 @@ class _Decoder {
             }
             if (name == 'codeSpec') {
               doc.setCodeSpec(path, _scalarOf(v, '$path (codeSpec)'));
+              return;
+            }
+            if (name == 'units') {
+              doc.setUnits(path, _scalarOf(v, '$path (units)'));
               return;
             }
             if (name == 'content') {
@@ -941,6 +999,11 @@ class _Decoder {
         doc.setCodeSpec(path, _scalarOf(value, '$path (codeSpec)'));
         return;
       }
+      if (key == 'units') {
+        // The list container's own generation units (SOM §11.2), not an item.
+        doc.setUnits(path, _scalarOf(value, '$path (units)'));
+        return;
+      }
       final itemPath = doc.addListItem(
         path,
         sectionId: anonymous.hasMatch(key) ? null : key,
@@ -973,9 +1036,9 @@ class _Decoder {
     });
   }
 
-  /// Loads a headline-/codeSpec-extended scalar node (YRD3 +
-  /// codespecs_mapping.md §9.2): a mapping holding only the literal keys
-  /// `headline`, `codeSpec` and `content`.
+  /// Loads a headline-/codeSpec-/units-extended scalar node (YRD3 +
+  /// codespecs_mapping.md §9.2 + SOM §12.3 rule 6): a mapping holding only the
+  /// literal keys `headline`, `codeSpec`, `units` and `content`.
   void _loadScalarWithMeta(String path, String key, Map value) {
     value.forEach((k, v) {
       final name = '$k';
@@ -983,12 +1046,14 @@ class _Decoder {
         doc.setHeadline(path, _scalarOf(v, '$path (headline)'));
       } else if (name == 'codeSpec') {
         doc.setCodeSpec(path, _scalarOf(v, '$path (codeSpec)'));
+      } else if (name == 'units') {
+        doc.setUnits(path, _scalarOf(v, '$path (units)'));
       } else if (name == 'content') {
         doc.setContent(path, _scalarOf(v, '$path/content'));
       } else {
         throw SpecYamlFormatException(
           'scalar node `$key` at `$path` may only hold '
-          '`headline`/`codeSpec`/`content` keys when written as a mapping, '
+          '`headline`/`codeSpec`/`units`/`content` keys when written as a mapping, '
           'found `$name`',
         );
       }

@@ -11,6 +11,7 @@ library;
 import 'spec_review_annotations.dart';
 import 'spec_document.dart';
 import 'spec_model.dart';
+import 'spec_paths.dart';
 import 'spec_reflection.dart';
 import 'spec_section_id.dart';
 import 'spec_typed_values.dart';
@@ -103,6 +104,26 @@ enum SpecValidationCode {
   /// A comment id or a question id is used twice in one document
   /// (SOM §11.9.5).
   duplicateAnnotationId,
+
+  /// A section's `units` (SOM §11.2) names an id no generation-unit entry of
+  /// the document declares.
+  unknownUnit,
+
+  /// A section carries `units`, but neither its class nor any class reachable
+  /// beneath it routes anything to CodeSpecs (`@CodeSpecKind`), so the units
+  /// would place nothing.
+  unitsUnrouted,
+
+  /// Two generation-unit entries declare one `unitId`; reported at the second.
+  duplicateUnitId,
+
+  /// A generation-unit entry names neither a `deploymentTarget` nor a
+  /// `component`, so it builds nothing.
+  unitBuildsNothing,
+
+  /// A generation-unit mapping's `area` is not an area code (`CE-` followed by
+  /// capital letters).
+  unitAreaMalformed,
 }
 
 /// One problem found while validating a document.
@@ -331,9 +352,15 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
   // A form field declaring `countOf` states how many entries the document
   // holds; only the instance tier can count them.
   errors.addAll(_validateCountInstances(refl, doc));
+  // 7. Derived values (instance tier, uamtc10).
   errors.addAll(_validateDerivedValues(refl, doc));
 
-  // 7. Review annotations (SOM §11.9.5): malformed, misplaced or duplicated
+  // 8. Generation units (SOM §11.2 `units`, instance-tier phase 8): the ids a
+  // section names must be declared, a section carrying units must route
+  // something, and the register itself must be well-formed.
+  errors.addAll(_validateGenerationUnits(refl, doc));
+
+  // Last: review annotations (SOM §11.9.5): malformed, misplaced or duplicated
   // comment blocks, question blocks and inline marks. Findings, never parse
   // rejections — the rest of the document still validates.
   errors.addAll(SpecReviewAnnotations(doc).validate());
@@ -891,6 +918,172 @@ List<SpecValidationError> _validateDerivedValues(
       return byPath != 0 ? byPath : a.$1.compareTo(b.$1);
     });
   return [for (final e in ordered) e.$2];
+}
+
+/// Instance-tier generation-unit check (SOM §11.2, phase 8).
+///
+/// A **generation-unit entry** is a list item whose class carries
+/// `@NoArtifact(generation)` and declares a form field `unitId`; a **mapping**
+/// is a list item whose class carries `@NoArtifact(generation)` and declares a
+/// form field `area`. Both are recognised by these two facts, never by class
+/// name. Entries and mappings are visited in sorted list-path order, each
+/// list's items in their stored order — that order decides which of two
+/// entries declaring one `unitId` is "the second". An entry or mapping whose
+/// form holds no value at all is absence (an item just added), not a finding.
+///
+/// Findings, all at the list item's path for the register and at the section's
+/// path for `units`: `duplicateUnitId`, `unitBuildsNothing`,
+/// `unitAreaMalformed`, then per section carrying `units` one `unknownUnit`
+/// per undeclared id (in the order written) and `unitsUnrouted`. The group is
+/// sorted by path, stably, like every phase's.
+List<SpecValidationError> _validateGenerationUnits(
+  SpecReflection refl,
+  SpecDocument doc,
+) {
+  final errors = <SpecValidationError>[];
+  final declared = <String>{};
+  for (final listPath in doc.listPaths.toList()..sort()) {
+    for (final item in doc.listItems(listPath)) {
+      final cls = refl.resolve(item)?.targetClass;
+      if (cls == null || cls.noArtifact?.reason != 'generation') continue;
+
+      final unitForm = _formDeclaring(cls, 'unitId');
+      if (unitForm != null) {
+        final formPath = specPathJoin(item, refl.fieldSegment(unitForm));
+        String value(String f) => doc.formField(formPath, f)?.trim() ?? '';
+        if (doc.formFieldNames(formPath).isNotEmpty) {
+          final id = value('unitId');
+          if (id.isNotEmpty && !declared.add(id)) {
+            errors.add(
+              SpecValidationError(
+                path: item,
+                code: SpecValidationCode.duplicateUnitId,
+                message: 'generation unit "$id" is declared twice',
+              ),
+            );
+          }
+          if (value('deploymentTarget').isEmpty && value('component').isEmpty) {
+            errors.add(
+              SpecValidationError(
+                path: item,
+                code: SpecValidationCode.unitBuildsNothing,
+                message:
+                    'generation unit "$id" builds neither a deploymentTarget '
+                    'nor a component',
+              ),
+            );
+          }
+        }
+      }
+
+      final areaForm = _formDeclaring(cls, 'area');
+      if (areaForm != null) {
+        final formPath = specPathJoin(item, refl.fieldSegment(areaForm));
+        final area = doc.formField(formPath, 'area')?.trim() ?? '';
+        if (area.isNotEmpty && !_unitAreaCode.hasMatch(area)) {
+          errors.add(
+            SpecValidationError(
+              path: item,
+              code: SpecValidationCode.unitAreaMalformed,
+              message: 'mapping area "$area" is not an area code (CE-…)',
+            ),
+          );
+        }
+      }
+    }
+  }
+
+  for (final path in doc.unitsPaths.toList()..sort()) {
+    for (final id in _splitUnits(doc.units(path))) {
+      if (!declared.contains(id)) {
+        errors.add(
+          SpecValidationError(
+            path: path,
+            code: SpecValidationCode.unknownUnit,
+            message: 'units names "$id", which no generation unit declares',
+          ),
+        );
+      }
+    }
+    final res = refl.resolve(path);
+    if (res != null && !_routesToCodeSpecs(refl, res)) {
+      errors.add(
+        SpecValidationError(
+          path: path,
+          code: SpecValidationCode.unitsUnrouted,
+          message: 'units is set on a section that routes nothing to CodeSpecs',
+        ),
+      );
+    }
+  }
+
+  final ordered = [for (var i = 0; i < errors.length; i++) (i, errors[i])]
+    ..sort((a, b) {
+      final byPath = a.$2.path.compareTo(b.$2.path);
+      return byPath != 0 ? byPath : a.$1.compareTo(b.$1);
+    });
+  return [for (final e in ordered) e.$2];
+}
+
+/// A stored comma-joined `units` value (SOM §11.2) as its unit ids: split at
+/// the commas, each trimmed, empty pieces dropped; `null` reads as none.
+List<String> _splitUnits(String? units) => [
+  if (units != null)
+    for (final u in units.split(','))
+      if (u.trim().isNotEmpty) u.trim(),
+];
+
+/// `CE-` followed by one or more capital letters — the area-code shape.
+final RegExp _unitAreaCode = RegExp(r'^CE-[A-Z]+$');
+
+/// The form field of [cls] that declares a form field named [name], or `null`.
+SpecField? _formDeclaring(SpecClass cls, String name) {
+  for (final f in cls.fields) {
+    if (f.kind == SpecFieldKind.form &&
+        f.formFields.any((ff) => ff.name == name)) {
+      return f;
+    }
+  }
+  return null;
+}
+
+/// Whether the section [res] resolves to routes anything to CodeSpecs — the
+/// `unitsUnrouted` test.
+///
+/// A class *routes* when it carries `@CodeSpecKind` or declares a field that
+/// carries one (a field-level override routes that field's values). A class
+/// node (root, section, complex, complex list item) routes when any class
+/// reachable from its class ([SpecReflection.reachableClassNames], itself
+/// included) routes. Any other node (a content, scalar or enum leaf, a form, a
+/// list, a scalar list item) routes when its field carries `@CodeSpecKind`,
+/// when the class declaring it — the class at the parent path — carries one,
+/// or when it is a list of complex items some class reachable from whose
+/// element class routes.
+bool _routesToCodeSpecs(SpecReflection refl, SpecResolution res) {
+  bool routes(String name) {
+    final cls = refl.classNamed(name);
+    return cls != null &&
+        (cls.codeSpecKind != null ||
+            cls.fields.any((f) => f.codeSpecKind != null));
+  }
+
+  bool reachRoutes(String type) => refl.reachableClassNames(type).any(routes);
+
+  final target = res.targetClass;
+  if (target != null) return reachRoutes(target.name);
+  final field = res.field;
+  if (field == null) return false;
+  if (field.codeSpecKind != null) return true;
+  final slash = res.path.lastIndexOf('/');
+  final owner = slash > 0
+      ? refl.resolve(res.path.substring(0, slash))?.targetClass
+      : null;
+  if (owner?.codeSpecKind != null) return true;
+  final element = field.elementType;
+  return field.kind == SpecFieldKind.list &&
+      field.elementIsComplex &&
+      element != null &&
+      reachRoutes(element);
 }
 
 double _pow10(int exponent) {

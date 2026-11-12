@@ -315,6 +315,20 @@
             "priority": "high",
             "weight": "2.5"
           },
+          "DEMO/DLV-LST-1/content": {
+            "component": "ARCM-COMP-UI",
+            "kind": "client",
+            "unitId": "demo_client"
+          },
+          "DEMO/DLV-LST-2/DLR-LST-1/content": {
+            "area": "CE-DB",
+            "mapping": "dart-tom"
+          },
+          "DEMO/DLV-LST-2/content": {
+            "deploymentTarget": "DEPTAR-DEPL-API",
+            "kind": "server",
+            "unitId": "demo_server"
+          },
           "DEMO/MIX/alt": {
             "lead": "Bob"
           },
@@ -333,6 +347,26 @@
             "ids": {
               "DEMO/CARD-LST-1": "CARD-ALPHA",
               "DEMO/CARD-LST-2": "CARD-2"
+            }
+          },
+          "DEMO/DLV-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/DLV-LST-1",
+              "DEMO/DLV-LST-2"
+            ],
+            "ids": {
+              "DEMO/DLV-LST-1": "DLV-1",
+              "DEMO/DLV-LST-2": "DLV-2"
+            }
+          },
+          "DEMO/DLV-LST-2/DLR-LST": {
+            "seq": 1,
+            "items": [
+              "DEMO/DLV-LST-2/DLR-LST-1"
+            ],
+            "ids": {
+              "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1"
             }
           },
           "DEMO/META/tags": {
@@ -370,6 +404,13 @@
           "DEMO/REF-LST-1": "Reference to the Spec",
           "DEMO/SUM": "Executive Summary",
           "DEMO/items": "Work Items"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "DemoTitle"
+        },
+        "units": {
+          "DEMO/TTL": "demo_server",
+          "DEMO/notes": "demo_client,demo_server"
         }
       },
       "expect": {
@@ -384,6 +425,11 @@
                 "code": "unknownSection",
                 "location": "MIX",
                 "message": "line 123: section id \"MIX\" resolves to no section-type of the schema"
+              },
+              {
+                "code": "unknownSection",
+                "location": "DLV-LST",
+                "message": "line 149: section id \"DLV-LST\" resolves to no section-type of the schema"
               }
             ]
           },
@@ -458,6 +504,20 @@
             "priority": "high",
             "weight": "2.5"
           },
+          "DEMO/DLV-LST-1/content": {
+            "component": "ARCM-COMP-UI",
+            "kind": "client",
+            "unitId": "demo_client"
+          },
+          "DEMO/DLV-LST-2/DLR-LST-1/content": {
+            "area": "CE-DB",
+            "mapping": "dart-tom"
+          },
+          "DEMO/DLV-LST-2/content": {
+            "deploymentTarget": "DEPTAR-DEPL-API",
+            "kind": "server",
+            "unitId": "demo_server"
+          },
           "DEMO/MIX/alt": {
             "lead": "Bob"
           },
@@ -476,6 +536,26 @@
             "ids": {
               "DEMO/CARD-LST-1": "CARD-ALPHA",
               "DEMO/CARD-LST-2": "CARD-2"
+            }
+          },
+          "DEMO/DLV-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/DLV-LST-1",
+              "DEMO/DLV-LST-2"
+            ],
+            "ids": {
+              "DEMO/DLV-LST-1": "DLV-1",
+              "DEMO/DLV-LST-2": "DLV-2"
+            }
+          },
+          "DEMO/DLV-LST-2/DLR-LST": {
+            "seq": 1,
+            "items": [
+              "DEMO/DLV-LST-2/DLR-LST-1"
+            ],
+            "ids": {
+              "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1"
             }
           },
           "DEMO/META/tags": {
@@ -513,6 +593,13 @@
           "DEMO/REF-LST-1": "Reference to the Spec",
           "DEMO/SUM": "Executive Summary",
           "DEMO/items": "Work Items"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "DemoTitle"
+        },
+        "units": {
+          "DEMO/TTL": "demo_server",
+          "DEMO/notes": "demo_client,demo_server"
         }
       },
       "schema": null,
@@ -696,6 +783,20 @@
             "priority": "high",
             "weight": "2.5"
           },
+          "DEMO/DLV-LST-1/content": {
+            "component": "ARCM-COMP-UI",
+            "kind": "client",
+            "unitId": "demo_client"
+          },
+          "DEMO/DLV-LST-2/DLR-LST-1/content": {
+            "area": "CE-DB",
+            "mapping": "dart-tom"
+          },
+          "DEMO/DLV-LST-2/content": {
+            "deploymentTarget": "DEPTAR-DEPL-API",
+            "kind": "server",
+            "unitId": "demo_server"
+          },
           "DEMO/MIX/alt": {
             "lead": "Bob"
           },
@@ -714,6 +815,26 @@
             "ids": {
               "DEMO/CARD-LST-1": "CARD-ALPHA",
               "DEMO/CARD-LST-2": "CARD-2"
+            }
+          },
+          "DEMO/DLV-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/DLV-LST-1",
+              "DEMO/DLV-LST-2"
+            ],
+            "ids": {
+              "DEMO/DLV-LST-1": "DLV-1",
+              "DEMO/DLV-LST-2": "DLV-2"
+            }
+          },
+          "DEMO/DLV-LST-2/DLR-LST": {
+            "seq": 1,
+            "items": [
+              "DEMO/DLV-LST-2/DLR-LST-1"
+            ],
+            "ids": {
+              "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1"
             }
           },
           "DEMO/META/tags": {
@@ -751,6 +872,13 @@
           "DEMO/REF-LST-1": "Reference to the Spec",
           "DEMO/SUM": "Executive Summary",
           "DEMO/items": "Work Items"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "DemoTitle"
+        },
+        "units": {
+          "DEMO/TTL": "demo_server",
+          "DEMO/notes": "demo_client,demo_server"
         }
       },
       "expect": {
@@ -765,6 +893,11 @@
                 "code": "unknownSection",
                 "location": "MIX",
                 "message": "line 121: section id \"MIX\" resolves to no section-type of the schema"
+              },
+              {
+                "code": "unknownSection",
+                "location": "DLV-LST",
+                "message": "line 147: section id \"DLV-LST\" resolves to no section-type of the schema"
               }
             ]
           },
@@ -850,6 +983,20 @@
             "priority": "high",
             "weight": "2.5"
           },
+          "DEMO/DLV-LST-1/content": {
+            "component": "ARCM-COMP-UI",
+            "kind": "client",
+            "unitId": "demo_client"
+          },
+          "DEMO/DLV-LST-2/DLR-LST-1/content": {
+            "area": "CE-DB",
+            "mapping": "dart-tom"
+          },
+          "DEMO/DLV-LST-2/content": {
+            "deploymentTarget": "DEPTAR-DEPL-API",
+            "kind": "server",
+            "unitId": "demo_server"
+          },
           "DEMO/MIX/alt": {
             "lead": "Bob"
           },
@@ -868,6 +1015,26 @@
             "ids": {
               "DEMO/CARD-LST-1": "CARD-ALPHA",
               "DEMO/CARD-LST-2": "CARD-2"
+            }
+          },
+          "DEMO/DLV-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/DLV-LST-1",
+              "DEMO/DLV-LST-2"
+            ],
+            "ids": {
+              "DEMO/DLV-LST-1": "DLV-1",
+              "DEMO/DLV-LST-2": "DLV-2"
+            }
+          },
+          "DEMO/DLV-LST-2/DLR-LST": {
+            "seq": 1,
+            "items": [
+              "DEMO/DLV-LST-2/DLR-LST-1"
+            ],
+            "ids": {
+              "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1"
             }
           },
           "DEMO/META/tags": {
@@ -905,6 +1072,13 @@
           "DEMO/REF-LST-1": "Reference to the Spec",
           "DEMO/SUM": "Executive Summary",
           "DEMO/items": "Work Items"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "DemoTitle"
+        },
+        "units": {
+          "DEMO/TTL": "demo_server",
+          "DEMO/notes": "demo_client,demo_server"
         }
       },
       "expect": {
@@ -919,6 +1093,11 @@
                 "code": "unknownSection",
                 "location": "MIX",
                 "message": "line 120: section id \"MIX\" resolves to no section-type of the schema"
+              },
+              {
+                "code": "unknownSection",
+                "location": "DLV-LST",
+                "message": "line 146: section id \"DLV-LST\" resolves to no section-type of the schema"
               }
             ]
           },
@@ -999,6 +1178,20 @@
             "priority": "low",
             "weight": "2.5"
           },
+          "DEMO/DLV-LST-1/content": {
+            "component": "ARCM-COMP-UI",
+            "kind": "client",
+            "unitId": "demo_client"
+          },
+          "DEMO/DLV-LST-2/DLR-LST-1/content": {
+            "area": "CE-DB",
+            "mapping": "dart-tom"
+          },
+          "DEMO/DLV-LST-2/content": {
+            "deploymentTarget": "DEPTAR-DEPL-API",
+            "kind": "server",
+            "unitId": "demo_server"
+          },
           "DEMO/MIX/alt": {
             "lead": "Bob"
           },
@@ -1017,6 +1210,26 @@
             "ids": {
               "DEMO/CARD-LST-1": "CARD-ALPHA",
               "DEMO/CARD-LST-2": "CARD-2"
+            }
+          },
+          "DEMO/DLV-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/DLV-LST-1",
+              "DEMO/DLV-LST-2"
+            ],
+            "ids": {
+              "DEMO/DLV-LST-1": "DLV-1",
+              "DEMO/DLV-LST-2": "DLV-2"
+            }
+          },
+          "DEMO/DLV-LST-2/DLR-LST": {
+            "seq": 1,
+            "items": [
+              "DEMO/DLV-LST-2/DLR-LST-1"
+            ],
+            "ids": {
+              "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1"
             }
           },
           "DEMO/META/tags": {
@@ -1054,6 +1267,13 @@
           "DEMO/REF-LST-1": "Reference to the Spec",
           "DEMO/SUM": "Executive Summary",
           "DEMO/items": "Work Items"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "DemoTitle"
+        },
+        "units": {
+          "DEMO/TTL": "demo_server",
+          "DEMO/notes": "demo_client,demo_server"
         }
       },
       "expect": {
@@ -1068,6 +1288,11 @@
                 "code": "unknownSection",
                 "location": "MIX",
                 "message": "line 123: section id \"MIX\" resolves to no section-type of the schema"
+              },
+              {
+                "code": "unknownSection",
+                "location": "DLV-LST",
+                "message": "line 149: section id \"DLV-LST\" resolves to no section-type of the schema"
               }
             ]
           },
@@ -1148,6 +1373,20 @@
             "priority": "high",
             "weight": "2.5"
           },
+          "DEMO/DLV-LST-1/content": {
+            "component": "ARCM-COMP-UI",
+            "kind": "client",
+            "unitId": "demo_client"
+          },
+          "DEMO/DLV-LST-2/DLR-LST-1/content": {
+            "area": "CE-DB",
+            "mapping": "dart-tom"
+          },
+          "DEMO/DLV-LST-2/content": {
+            "deploymentTarget": "DEPTAR-DEPL-API",
+            "kind": "server",
+            "unitId": "demo_server"
+          },
           "DEMO/MIX/alt": {
             "lead": "Bob"
           },
@@ -1166,6 +1405,26 @@
             "ids": {
               "DEMO/CARD-LST-1": "CARD-ALPHA",
               "DEMO/CARD-LST-2": "CARD-2"
+            }
+          },
+          "DEMO/DLV-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/DLV-LST-1",
+              "DEMO/DLV-LST-2"
+            ],
+            "ids": {
+              "DEMO/DLV-LST-1": "DLV-1",
+              "DEMO/DLV-LST-2": "DLV-2"
+            }
+          },
+          "DEMO/DLV-LST-2/DLR-LST": {
+            "seq": 1,
+            "items": [
+              "DEMO/DLV-LST-2/DLR-LST-1"
+            ],
+            "ids": {
+              "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1"
             }
           },
           "DEMO/META/tags": {
@@ -1203,6 +1462,13 @@
           "DEMO/REF-LST-1": "Reference to the Spec",
           "DEMO/SUM": "Executive Summary",
           "DEMO/items": "Work Items"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "DemoTitle"
+        },
+        "units": {
+          "DEMO/TTL": "demo_server",
+          "DEMO/notes": "demo_client,demo_server"
         }
       },
       "gate": {
@@ -1284,6 +1550,11 @@
                 "code": "unknownSection",
                 "location": "MIX",
                 "message": "line 123: section id \"MIX\" resolves to no section-type of the schema"
+              },
+              {
+                "code": "unknownSection",
+                "location": "DLV-LST",
+                "message": "line 149: section id \"DLV-LST\" resolves to no section-type of the schema"
               }
             ]
           },
@@ -1364,6 +1635,20 @@
             "priority": "high",
             "weight": "2.5"
           },
+          "DEMO/DLV-LST-1/content": {
+            "component": "ARCM-COMP-UI",
+            "kind": "client",
+            "unitId": "demo_client"
+          },
+          "DEMO/DLV-LST-2/DLR-LST-1/content": {
+            "area": "CE-DB",
+            "mapping": "dart-tom"
+          },
+          "DEMO/DLV-LST-2/content": {
+            "deploymentTarget": "DEPTAR-DEPL-API",
+            "kind": "server",
+            "unitId": "demo_server"
+          },
           "DEMO/MIX/alt": {
             "lead": "Bob"
           },
@@ -1382,6 +1667,26 @@
             "ids": {
               "DEMO/CARD-LST-1": "CARD-ALPHA",
               "DEMO/CARD-LST-2": "CARD-2"
+            }
+          },
+          "DEMO/DLV-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/DLV-LST-1",
+              "DEMO/DLV-LST-2"
+            ],
+            "ids": {
+              "DEMO/DLV-LST-1": "DLV-1",
+              "DEMO/DLV-LST-2": "DLV-2"
+            }
+          },
+          "DEMO/DLV-LST-2/DLR-LST": {
+            "seq": 1,
+            "items": [
+              "DEMO/DLV-LST-2/DLR-LST-1"
+            ],
+            "ids": {
+              "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1"
             }
           },
           "DEMO/META/tags": {
@@ -1419,6 +1724,13 @@
           "DEMO/REF-LST-1": "Reference to the Spec",
           "DEMO/SUM": "Executive Summary",
           "DEMO/items": "Work Items"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "DemoTitle"
+        },
+        "units": {
+          "DEMO/TTL": "demo_server",
+          "DEMO/notes": "demo_client,demo_server"
         }
       },
       "gate": null,
@@ -1434,6 +1746,11 @@
                 "code": "unknownSection",
                 "location": "MIX",
                 "message": "line 123: section id \"MIX\" resolves to no section-type of the schema"
+              },
+              {
+                "code": "unknownSection",
+                "location": "DLV-LST",
+                "message": "line 149: section id \"DLV-LST\" resolves to no section-type of the schema"
               }
             ]
           },

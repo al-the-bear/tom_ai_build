@@ -399,6 +399,30 @@
         "spans": []
       },
       {
+        "path": "DEMO/DLV-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/DLR-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
         "path": "SIDE/SIDE-DET",
         "kind": "form",
         "classId": null,
@@ -483,6 +507,30 @@
       },
       {
         "path": "DEMO/REG/RGA-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-1/DLR-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/DLR-LST",
         "kind": "list",
         "classId": null,
         "headline": null,
@@ -741,6 +789,30 @@
         "path": "DEMO/REG",
         "kind": "complex",
         "classId": "Registry",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-1",
+        "kind": "listItemComplex",
+        "classId": "Deliverable",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2",
+        "kind": "listItemComplex",
+        "classId": "Deliverable",
         "headline": null,
         "snippet": null,
         "spans": []
@@ -1192,6 +1264,78 @@
         "headline": null,
         "snippet": null,
         "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-1",
+        "kind": "listItemComplex",
+        "classId": "Deliverable",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-1/DLR-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2",
+        "kind": "listItemComplex",
+        "classId": "Deliverable",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/DLR-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/DLR-LST-1",
+        "kind": "listItemComplex",
+        "classId": "DeliverableRoute",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/DLR-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
       }
     ]
   },
@@ -1543,6 +1687,70 @@
         "headline": null,
         "snippet": null,
         "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-1",
+        "kind": "listItemComplex",
+        "classId": "Deliverable",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2",
+        "kind": "listItemComplex",
+        "classId": "Deliverable",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/DLR-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/DLR-LST-1",
+        "kind": "listItemComplex",
+        "classId": "DeliverableRoute",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/DLR-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
       }
     ]
   },
@@ -1683,6 +1891,14 @@
       {
         "path": "DEMO/REG/CHO/CHO-COM/note",
         "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-1/DLR-LST",
+        "kind": "list",
         "classId": null,
         "headline": null,
         "snippet": null,
@@ -2406,6 +2622,78 @@
       {
         "path": "DEMO/REG/CHO/CHO-COM/note",
         "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-1",
+        "kind": "listItemComplex",
+        "classId": "Deliverable",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-1/DLR-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2",
+        "kind": "listItemComplex",
+        "classId": "Deliverable",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/DLR-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/DLR-LST-1",
+        "kind": "listItemComplex",
+        "classId": "DeliverableRoute",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/DLR-LST-1/content",
+        "kind": "form",
         "classId": null,
         "headline": null,
         "snippet": null,

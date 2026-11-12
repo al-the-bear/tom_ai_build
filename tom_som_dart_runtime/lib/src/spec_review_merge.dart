@@ -1445,6 +1445,7 @@ void _checkStructure(SpecDocument doc, String what, SpecReflection refl) {
     ...doc.formPaths,
     ...doc.headlinePaths,
     ...doc.codeSpecPaths,
+    ...doc.unitsPaths,
     for (final list in doc.listPaths) ...[list, ...doc.listItems(list)],
   ];
   for (final p in paths) {
@@ -1666,6 +1667,12 @@ void _copyItem(
       if (_under(x, from)) x,
   ]) {
     dst.setCodeSpec(remap(p), src.codeSpec(p)!);
+  }
+  for (final p in [
+    for (final x in src.unitsPaths)
+      if (_under(x, from)) x,
+  ]) {
+    dst.setUnits(remap(p), src.units(p)!);
   }
 }
 

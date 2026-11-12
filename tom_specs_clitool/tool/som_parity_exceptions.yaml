@@ -51,3 +51,66 @@ exceptions:
       *named* `discriminatorField` ("Is-Success Discriminator"), and a sample's
       field names are indistinguishable by shape from contract tokens. It
       matched Dart's same-named member by coincidence, not by meaning.
+
+  - token: unknownUnit
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP, owned by todo irspecs7 (tom_specs quest): the SOM §11.2
+      `units` member and validation phase 8 (generation units) landed in the
+      Dart reference first, with the shared corpus cases that hold the other
+      eight to it (`validation_cases.json` and the golden documents). The
+      eight ports follow in the same todo; remove this entry when they land.
+
+  - token: unitsUnrouted
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP, owned by todo irspecs7 (tom_specs quest): the SOM §11.2
+      `units` member and validation phase 8 (generation units) landed in the
+      Dart reference first, with the shared corpus cases that hold the other
+      eight to it (`validation_cases.json` and the golden documents). The
+      eight ports follow in the same todo; remove this entry when they land.
+
+  - token: duplicateUnitId
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP, owned by todo irspecs7 (tom_specs quest): the SOM §11.2
+      `units` member and validation phase 8 (generation units) landed in the
+      Dart reference first, with the shared corpus cases that hold the other
+      eight to it (`validation_cases.json` and the golden documents). The
+      eight ports follow in the same todo; remove this entry when they land.
+
+  - token: unitBuildsNothing
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP, owned by todo irspecs7 (tom_specs quest): the SOM §11.2
+      `units` member and validation phase 8 (generation units) landed in the
+      Dart reference first, with the shared corpus cases that hold the other
+      eight to it (`validation_cases.json` and the golden documents). The
+      eight ports follow in the same todo; remove this entry when they land.
+
+  - token: unitAreaMalformed
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP, owned by todo irspecs7 (tom_specs quest): the SOM §11.2
+      `units` member and validation phase 8 (generation units) landed in the
+      Dart reference first, with the shared corpus cases that hold the other
+      eight to it (`validation_cases.json` and the golden documents). The
+      eight ports follow in the same todo; remove this entry when they land.
+
+  - token: unitId
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP, owned by todo irspecs7 (tom_specs quest): the SOM §11.2
+      `units` member and validation phase 8 (generation units) landed in the
+      Dart reference first, with the shared corpus cases that hold the other
+      eight to it (`validation_cases.json` and the golden documents). The
+      eight ports follow in the same todo; remove this entry when they land.
+
+  - token: deploymentTarget
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP, owned by todo irspecs7 (tom_specs quest): the SOM §11.2
+      `units` member and validation phase 8 (generation units) landed in the
+      Dart reference first, with the shared corpus cases that hold the other
+      eight to it (`validation_cases.json` and the golden documents). The
+      eight ports follow in the same todo; remove this entry when they land.

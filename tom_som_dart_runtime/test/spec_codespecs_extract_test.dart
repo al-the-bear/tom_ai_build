@@ -213,6 +213,76 @@ void main() {
       expect(itemEntry.headline, 'Weekly standing order');
     });
 
+    test('carries the nearest stored units, own or inherited (SOM §11.2)', () {
+      final document = _document();
+      final entryPath = document.listItems('ORD/REG/ENT').single;
+      document
+        ..setUnits('ORD', 'app_client')
+        ..setUnits('ORD/REG', 'app_server, app_shared')
+        ..setUnits('ORD/HLP', 'app_shared');
+      final extractor = CodeSpecsExtractor(
+        model: _model(),
+        document: document,
+        catalog: _catalog(),
+      );
+      final byPath = {
+        for (final x in extractor.extractAll())
+          for (final e in x.entries) e.path: e,
+      };
+      // Inherited from the root.
+      expect(byPath['ORD/TTL']!.units, ['app_client']);
+      // The entry's own path wins over every ancestor.
+      expect(byPath['ORD/HLP']!.units, ['app_shared']);
+      // Through the list item from the nearest ancestor (`REG`, which routes
+      // nothing itself), split at its commas and trimmed.
+      expect(byPath['$entryPath/LBL']!.units, ['app_server', 'app_shared']);
+    });
+
+    test('an entry without units on its way carries none', () {
+      final entries = [for (final x in _extractor().extractAll()) ...x.entries];
+      expect(entries, isNotEmpty);
+      expect(entries.every((e) => e.units.isEmpty), isTrue);
+    });
+
+    test('writes units only where set, and reads them back', () {
+      final document = _document()
+        ..setUnits('ORD/TTL', 'app_client,app_server');
+      final extract = CodeSpecsExtractor(
+        model: _model(),
+        document: document,
+        catalog: _catalog(),
+      ).extractAll().firstWhere((x) => x.area.code == 'CE-FM');
+      final yaml = extract.toYaml();
+      expect(
+        yaml,
+        contains(
+          '      routingNote: "the order capture screen"\n'
+          '      units: ["app_client", "app_server"]\n'
+          '      value: "Place an order"\n',
+        ),
+      );
+      expect('units:'.allMatches(yaml), hasLength(1));
+      expect(
+        extract.toMarkdown(),
+        contains(
+          '- routed by: `CodeSpecPart.form` declared on `Order`\n'
+          '- units: `app_client`, `app_server`\n',
+        ),
+      );
+      final back = parseCodeSpecsExtractYaml(yaml);
+      expect(back.entries.firstWhere((e) => e.path == 'ORD/TTL').units, [
+        'app_client',
+        'app_server',
+      ]);
+      expect(
+        back.entries
+            .where((e) => e.path != 'ORD/TTL')
+            .every((e) => e.units.isEmpty),
+        isTrue,
+      );
+      expect(back.toYaml(), yaml);
+    });
+
     test("carries the enclosing list-item instance's stored section id", () {
       // The instance id is the document's stored `<!--[…]-->` id (AA1), so
       // C1 permits copying it. It names *which* instance of a repeated

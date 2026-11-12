@@ -3,8 +3,13 @@ version: 2
 modelVersion: "1.0"
 document:
   DEMO Demo:
-    TTL title: |2-
-      Hello
+    TTL title:
+      codeSpec: |2-
+        DemoTitle
+      units: |2-
+        demo_server
+      content: |2-
+        Hello
     SUM summary:
       headline: |2-
         Executive Summary
@@ -80,6 +85,8 @@ document:
       owner: |2-
         ctrl-owner
     NOTE notes:
+      units: |2-
+        demo_client,demo_server
       NOTE-BDY body: |2-
         Section-kind body
       remarks:
@@ -107,3 +114,27 @@ document:
       alt:
         lead: |2-
           Bob
+    DLV-LST deliverables:
+      DLV-1:
+        content:
+          unitId: |2-
+            demo_client
+          kind: |2-
+            client
+          component: |2-
+            ARCM-COMP-UI
+      DLV-2:
+        content:
+          unitId: |2-
+            demo_server
+          kind: |2-
+            server
+          deploymentTarget: |2-
+            DEPTAR-DEPL-API
+        DLR-LST routes:
+          DLR-1:
+            content:
+              area: |2-
+                CE-DB
+              mapping: |2-
+                dart-tom

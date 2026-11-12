@@ -31,6 +31,11 @@
 //     takes its first constant, `bool`/`int` a literal, a `refersTo` field the
 //     id or value the sample declares for its target, and every field some
 //     `refersTo` names is filled so the reference resolves;
+//   * a generation-unit entry or mapping (a class carrying
+//     `@NoArtifact(generation)` whose form declares `unitId` or `area`, SOM
+//     §11.2 validation phase 8) also gets what that phase demands: an entry
+//     its `deploymentTarget` (a reference, resolved like any other), a
+//     mapping an area code (`CE-DB`) for its `area`;
 //   * a `@OneOf` container whose discriminator is required emits one case per
 //     instance — a list one item per case, a single container the next case
 //     at each encounter — so every case subsection is still instantiated;
@@ -224,8 +229,9 @@ void main(List<String> args) {
       List<dynamic> formFields,
       String? classId,
       Map<String, dynamic>? discriminator,
-      String? chosenCase,
-    ) {
+      String? chosenCase, {
+      bool generation = false,
+    }) {
       out
         ..writeln('$pad$key:')
         ..writeln('$pad  content: Exercise form preamble.');
@@ -236,11 +242,21 @@ void main(List<String> args) {
             discriminator != null && discriminator['name'] == name;
         final isTarget =
             classId != null && refTargetFields.contains('$classId.$name');
-        if (ff['required'] != true && !isTarget && !isDiscriminator) continue;
+        // Phase 8: a generation unit builds something, a mapping names an
+        // area code.
+        final isUnitTarget = generation && name == 'deploymentTarget';
+        if (ff['required'] != true &&
+            !isTarget &&
+            !isDiscriminator &&
+            !isUnitTarget) {
+          continue;
+        }
         final value = formValue(
           classId,
           ff,
-          chosen: isDiscriminator ? chosenCase : null,
+          chosen: isDiscriminator
+              ? chosenCase
+              : (generation && name == 'area' ? 'CE-DB' : null),
         );
         if (isDiscriminator && value.isEmpty) continue;
         out.writeln('$pad  $name: ${jsonEncode(value)}');
@@ -284,6 +300,7 @@ void main(List<String> args) {
               classId,
               discriminator,
               chosenCase,
+              generation: _isGeneration(cls),
             );
             if (fieldId != null) keysEmitted++;
           case 'complex':
@@ -417,3 +434,11 @@ void main(List<String> args) {
     'class bodies emitted: $classBodies, keys emitted: $keysEmitted',
   );
 }
+
+/// Whether [cls] carries `@NoArtifact(generation)` — the generation-unit
+/// register's classes (SOM §11.2, validation phase 8).
+bool _isGeneration(Map<String, dynamic> cls) => [
+  for (final a in (cls['annotations'] as List<dynamic>? ?? const []))
+    if ((a as Map<String, dynamic>)['name'] == 'NoArtifact')
+      '${(a['arguments'] as Map<String, dynamic>?)?['reason']}',
+].any((r) => r.split('.').last == 'generation');

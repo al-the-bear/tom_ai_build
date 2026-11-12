@@ -9,17 +9,19 @@
 ///
 /// The merge is over the plain-data stores ([SpecDocument.toJson]), and it is
 /// **refusing**: a value two fragments both write — a content path, a form
-/// field, a list, a headline, a code-spec location — is an overlap, and an
-/// assembly with any overlap yields no document. Choosing a winner would make
-/// the result depend on fragment order, and two parts writing one place is an
-/// authoring conflict the parts' authors have to settle.
+/// field, a list, a headline, a code-spec location, a units list — is an
+/// overlap, and an assembly with any overlap yields no document. Choosing a
+/// winner would make the result depend on fragment order, and two parts
+/// writing one place is an authoring conflict the parts' authors have to
+/// settle.
 library;
 
 import 'spec_document.dart';
 
 /// One place two or more fragments both write.
 class SpecAssemblyOverlap {
-  /// The store: `content`, `forms`, `lists`, `headlines` or `codeSpecs`.
+  /// The store: `content`, `forms`, `lists`, `headlines`, `codeSpecs` or
+  /// `units`.
   final String store;
 
   /// The document path.
@@ -65,7 +67,7 @@ class SpecDocumentAssembly {
 }
 
 /// The stores whose entries are a single value at a path.
-const List<String> _pathStores = ['content', 'headlines', 'codeSpecs'];
+const List<String> _pathStores = ['content', 'headlines', 'codeSpecs', 'units'];
 
 /// The fixed order overlaps are reported in.
 const List<String> _storeOrder = [
@@ -74,6 +76,7 @@ const List<String> _storeOrder = [
   'lists',
   'headlines',
   'codeSpecs',
+  'units',
 ];
 
 /// Merges [fragments] — name → document, in order — into one document. See

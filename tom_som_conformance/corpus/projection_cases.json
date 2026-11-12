@@ -687,6 +687,116 @@
     "hasValue": false
   },
   {
+    "path": "DEMO/DLV-LST",
+    "kind": "list",
+    "classId": null,
+    "sectionId": "DLV-LST",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/DLV-LST-1",
+    "kind": "listItemComplex",
+    "classId": "Deliverable",
+    "sectionId": "DLV-1",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/DLV-LST-1/content",
+    "kind": "form",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "demo_client",
+      "client",
+      "ARCM-COMP-UI"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/DLV-LST-1/DLR-LST",
+    "kind": "list",
+    "classId": null,
+    "sectionId": "DLR-LST",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  },
+  {
+    "path": "DEMO/DLV-LST-2",
+    "kind": "listItemComplex",
+    "classId": "Deliverable",
+    "sectionId": "DLV-2",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/DLV-LST-2/content",
+    "kind": "form",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "demo_server",
+      "server",
+      "DEPTAR-DEPL-API"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/DLV-LST-2/DLR-LST",
+    "kind": "list",
+    "classId": null,
+    "sectionId": "DLR-LST",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/DLV-LST-2/DLR-LST-1",
+    "kind": "listItemComplex",
+    "classId": "DeliverableRoute",
+    "sectionId": "DLR-1",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/DLV-LST-2/DLR-LST-1/content",
+    "kind": "form",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "CE-DB",
+      "dart-tom"
+    ],
+    "hasValue": true
+  },
+  {
     "path": "SIDE",
     "kind": "root",
     "classId": "Sidecar",

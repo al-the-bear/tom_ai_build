@@ -429,6 +429,8 @@ void main() {
         'forms': parsed.forms,
         'lists': parsed.lists,
         'headlines': parsed.headlines,
+        'codeSpecs': parsed.codeSpecs,
+        'units': parsed.units,
       });
     expect(
       SpecDocumentMarkdown(model, reDoc).exportRoot(model.roots.first),
@@ -1836,7 +1838,7 @@ Map<String, dynamic> _buildMeta() => {
   // class, so declaring one would be a lie. The present-`containerRoot`
   // path is covered by `stamp_cases.json` instead.
   'generatedAt': '2026-07-20T08:00:00.000000Z',
-  'classCount': 15,
+  'classCount': 17,
   'rootCount': 2,
   'roots': [
     {
@@ -2114,6 +2116,21 @@ Map<String, dynamic> _buildMeta() => {
           'kind': 'complex',
           'sectionId': 'REG',
           'type': 'Registry',
+        },
+        {
+          // SOM §11.2 `units` and validation phase 8: the generation-unit
+          // register. A runtime recognises its entries by
+          // `@NoArtifact(generation)` plus a form field `unitId` (a mapping:
+          // plus `area`), never by class name — so the classes are
+          // deliberately NOT named like the model's `GenerationUnitEntry`.
+          // `_buildDocument` populates it so the sections carrying `units`
+          // name declared ids and the `valid` case stays clean.
+          'name': 'deliverables',
+          'kind': 'list',
+          'sectionId': 'DLV-LST',
+          'sectionIdPattern': 'DLV-xxx',
+          'elementType': 'Deliverable',
+          'elementIsComplex': true,
         },
       ],
     },
@@ -2689,6 +2706,90 @@ Map<String, dynamic> _buildMeta() => {
         },
       ],
     },
+    // SOM §11.2 / phase 8: a generation-unit entry and its area mapping.
+    'Deliverable': {
+      'name': 'Deliverable',
+      'sectionId': 'DLV',
+      'annotations': [
+        {
+          'name': 'SectionId',
+          'arguments': {'id': 'DLV'},
+        },
+        {
+          'name': 'NoArtifact',
+          'arguments': {'reason': 'NoArtifactReason.generation'},
+        },
+      ],
+      'fields': [
+        {
+          'name': 'content',
+          'kind': 'form',
+          'formFields': [
+            {
+              'name': 'unitId',
+              'label': 'Unit Id',
+              'type': 'String',
+              'required': true,
+            },
+            {
+              'name': 'kind',
+              'label': 'Kind',
+              'type': 'DeliverableKind',
+              'enumValues': ['client', 'server', 'shared', 'other'],
+            },
+            {
+              'name': 'deploymentTarget',
+              'label': 'Deployment Target',
+              'type': 'String',
+            },
+            {'name': 'component', 'label': 'Component', 'type': 'String'},
+          ],
+        },
+        {
+          'name': 'routes',
+          'kind': 'list',
+          'sectionId': 'DLR-LST',
+          'sectionIdPattern': 'DLR-xxx',
+          'elementType': 'DeliverableRoute',
+          'elementIsComplex': true,
+        },
+      ],
+    },
+    'DeliverableRoute': {
+      'name': 'DeliverableRoute',
+      'sectionId': 'DLR',
+      'annotations': [
+        {
+          'name': 'SectionId',
+          'arguments': {'id': 'DLR'},
+        },
+        {
+          'name': 'NoArtifact',
+          'arguments': {'reason': 'NoArtifactReason.generation'},
+        },
+      ],
+      'fields': [
+        {
+          'name': 'content',
+          'kind': 'form',
+          'formFields': [
+            {
+              'name': 'area',
+              'label': 'Area',
+              'type': 'String',
+              'required': true,
+            },
+            {
+              'name': 'mapping',
+              'label': 'Mapping',
+              'type': 'String',
+              'required': true,
+            },
+            {'name': 'note', 'label': 'Note', 'type': 'String'},
+          ],
+        },
+      ],
+    },
     'Meta': {
       'name': 'Meta',
       // The second `@NoArtifact` reason, and the one whose suppression is
@@ -2850,6 +2951,25 @@ SpecDocument _buildDocument() {
   );
   d.setContent('DEMO/MIX/tail', 'Tail text.');
   d.setFormField('DEMO/MIX/alt', 'lead', 'Bob');
+  // SOM §11.2 `units`: a section carrying codeSpec AND units (`TTL`, both keys
+  // in one heading comment, the scalar-promotion mapping in yaml) and a
+  // section carrying units alone (`notes`), which the extract hands down to
+  // every entry beneath it. Both ids are declared by the register.
+  d.setCodeSpec('DEMO/TTL', 'DemoTitle');
+  d.setUnits('DEMO/TTL', 'demo_server');
+  d.setUnits('DEMO/notes', 'demo_client,demo_server');
+  // Pattern-list items store their positional ids, as `REF-2` does above.
+  final u1 = d.addListItem('DEMO/DLV-LST', sectionId: 'DLV-1');
+  d.setFormField('$u1/content', 'unitId', 'demo_client');
+  d.setFormField('$u1/content', 'kind', 'client');
+  d.setFormField('$u1/content', 'component', 'ARCM-COMP-UI');
+  final u2 = d.addListItem('DEMO/DLV-LST', sectionId: 'DLV-2');
+  d.setFormField('$u2/content', 'unitId', 'demo_server');
+  d.setFormField('$u2/content', 'kind', 'server');
+  d.setFormField('$u2/content', 'deploymentTarget', 'DEPTAR-DEPL-API');
+  final r1 = d.addListItem('$u2/DLR-LST', sectionId: 'DLR-1');
+  d.setFormField('$r1/content', 'area', 'CE-DB');
+  d.setFormField('$r1/content', 'mapping', 'dart-tom');
   return d;
 }
 
@@ -3178,7 +3298,84 @@ List<Map<String, dynamic>> _validationCases(SpecModel model) {
             '> **\u2753 BQ-1 \u2014 Two:** b?\n>\n> **Answer:**',
       },
     }),
+    // SOM §11.2 `units`, phase 8. Clean: a declared id on a routed leaf, and
+    // units on `REG` — `Registry` routes nothing itself, but `RegistryEntry`
+    // beneath it does, so the reachability half is what keeps it clean.
+    caseFor(
+      'generationUnitsValid',
+      _unitsState(
+        areas: ['CE-DB'],
+        units: {'DEMO/TTL': 'u_a', 'DEMO/REG': 'u_a,u_b'},
+      ),
+    ),
+    // `u_ghost` is declared by no entry; `u_a` is, so one finding.
+    caseFor('unknownUnit', _unitsState(units: {'DEMO/TTL': 'u_a,u_ghost'})),
+    // `Meta` carries `@NoArtifact(overview)` and reaches no routed class: the
+    // section and its leaf both route nothing. A card item routes (`Card`
+    // carries `@CodeSpecKind`), so it stays clean.
+    caseFor(
+      'unitsUnrouted',
+      _unitsState(
+        units: {
+          'DEMO/META': 'u_a',
+          'DEMO/META/OWNR': 'u_b',
+          'DEMO/CARD-LST': 'u_a',
+        },
+      ),
+    ),
+    // The second entry declaring `u_a` is reported, at its own path.
+    caseFor(
+      'duplicateUnitId',
+      _unitsState(
+        entries: [
+          {'unitId': 'u_a', 'component': 'ARCM-COMP-A'},
+          {'unitId': 'u_a', 'deploymentTarget': 'DEPTAR-DEPL-B'},
+        ],
+      ),
+    ),
+    // An entry with a unit id and a kind but nothing it builds.
+    caseFor(
+      'unitBuildsNothing',
+      _unitsState(
+        entries: [
+          {'unitId': 'u_a', 'component': 'ARCM-COMP-A'},
+          {'unitId': 'u_b', 'kind': 'server'},
+        ],
+      ),
+    ),
+    // `db` and `CE-db` are no area codes; `CE-DB` is.
+    caseFor('unitAreaMalformed', _unitsState(areas: ['db', 'CE-DB', 'CE-db'])),
   ];
+}
+
+/// A document state for the SOM §11.2 / phase-8 cases: the generation-unit
+/// register `DEMO/DLV-LST` holding [entries] (form values of each entry's
+/// `content` form), mappings under the first entry with the [areas] given
+/// (each with mapping `dart-tom`), and the [units] stored per section path.
+Map<String, Object?> _unitsState({
+  List<Map<String, String>> entries = const [
+    {'unitId': 'u_a', 'kind': 'client', 'component': 'ARCM-COMP-A'},
+    {'unitId': 'u_b', 'kind': 'server', 'deploymentTarget': 'DEPTAR-DEPL-B'},
+  ],
+  List<String> areas = const [],
+  Map<String, String> units = const {},
+}) {
+  final d = SpecDocument();
+  final items = <String>[];
+  for (final entry in entries) {
+    final item = d.addListItem('DEMO/DLV-LST');
+    items.add(item);
+    entry.forEach(
+      (field, value) => d.setFormField('$item/content', field, value),
+    );
+  }
+  for (final area in areas) {
+    final route = d.addListItem('${items.first}/DLR-LST');
+    d.setFormField('$route/content', 'area', area);
+    d.setFormField('$route/content', 'mapping', 'dart-tom');
+  }
+  units.forEach(d.setUnits);
+  return d.toJson();
 }
 
 /// A document state populating the csrf3 registry: two entries (item 1 with a
@@ -6601,7 +6798,7 @@ Map<String, dynamic> _runMarkdownApplyCase(
 /// `UPDATE_CORPUS` keeps them honest. [golden] is `expected.md`.
 Map<String, dynamic> _markdownApplyCases(SpecModel model, String golden) {
   // A base document holding stale values under the covered root `DEMO` (a
-  // value the import does not carry, a headline, a codeSpec, a list) and
+  // value the import does not carry, a headline, a codeSpec, units, a list) and
   // values under another root, which the apply must keep.
   final base = {
     'content': {
@@ -6611,6 +6808,13 @@ Map<String, dynamic> _markdownApplyCases(SpecModel model, String golden) {
     },
     'headlines': {'DEMO/SUM': 'Stale headline', 'OTHER/kept': 'Kept headline'},
     'codeSpecs': {'DEMO/TTL': 'stale.dart', 'OTHER/kept': 'kept.dart'},
+    // SOM §11.2: units are overwritten (`TTL`, which the import carries),
+    // cleared (`SUM`, which it does not) and kept (another root) like codeSpecs.
+    'units': {
+      'DEMO/TTL': 'stale_unit',
+      'DEMO/SUM': 'stale_unit',
+      'OTHER/kept': 'kept_unit',
+    },
     'lists': {
       'DEMO/CARD-LST': {
         'seq': 9,

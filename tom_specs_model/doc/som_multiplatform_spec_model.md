@@ -696,9 +696,10 @@ errors in another — precisely the divergence §19 exists to prevent, and a
 direct contradiction of the "read, write, **validate**, load, save" completeness
 promised per language in §1/§6.
 
-Concretely, all nine emit the same nine codes, in the same six phases, in this
+Concretely, all nine emit the same codes, in the same eight phases, in this
 order — content leaves, form sections, lists, `@OneOf` cases, `refersTo`
-references, stated counts, derived values, each group sorted by path:
+references, stated counts, derived values, generation units, each group sorted
+by path:
 
 | Code | Phase | What it reports |
 | --- | --- | --- |
@@ -714,6 +715,55 @@ references, stated counts, derived values, each group sorted by path:
 | `multipleReferences` | 5 | a reference field without `multiple` holding a comma-separated list of ids (each id is resolved as well) |
 | `countMismatch` | 6 | a `countOf` value (`tom_specs_model_rules.md` §6.2.2) that is not a whole number, or not the number of entries the document holds |
 | `derivedValueMismatch` | 7 | a `productOf` value that is not a number or not the product of its operands, or a `rankOf` value that is not a rank 1 to n used once, or ranks below an entry scoring lower (`tom_specs_model_rules.md` §6.2.4) |
+| `unknownUnit` | 8 | a section's `units` naming an id no generation-unit entry of the document declares |
+| `unitsUnrouted` | 8 | a section carrying `units` whose class, and every class reachable beneath it, carries no `@CodeSpecKind` — the units would place nothing |
+| `duplicateUnitId` | 8 | two generation-unit entries declaring one `unitId` (reported at the second) |
+| `unitBuildsNothing` | 8 | a generation-unit entry with neither a `deploymentTarget` nor a `component` |
+| `unitAreaMalformed` | 8 | a generation-unit mapping whose `area` is not an area code (`CE-` followed by capital letters) |
+
+**Phase 8 — generation units.** A *generation-unit entry* is a list item whose
+class carries `@NoArtifact(generation)` and declares a form field `unitId`; a
+*mapping* is a list item whose class carries `@NoArtifact(generation)` and
+declares a form field `area`. The runtime recognises both by these two facts,
+never by class name, so the check is the model's and not a hard-coded table.
+The rules, as the reference implements them:
+
+- **Register order.** Entries and mappings are visited in sorted list-path
+  order (code-unit order of the list paths), each list's items in their stored
+  order; the first entry declaring a `unitId` declares it and every later one is
+  `duplicateUnitId`. Form values are trimmed before they are compared or
+  tested for emptiness.
+- **Absence is not a finding.** An entry whose unit form holds no value at all
+  (an item just added) is skipped; an empty `unitId` declares nothing and is not
+  a duplicate (a missing required field is `missingRequiredField`'s); an empty
+  `area` is not checked.
+- **Where findings sit.** `duplicateUnitId`, `unitBuildsNothing` and
+  `unitAreaMalformed` at the list item's path; `unknownUnit` and
+  `unitsUnrouted` at the path carrying `units`. A section's `units` is split at
+  its commas, each id trimmed and empty pieces dropped; one `unknownUnit` per
+  undeclared id, in the order written, then `unitsUnrouted`. A `units` path
+  that resolves to no model node gets no `unitsUnrouted`.
+- **Routes something.** A class *routes* when it carries `@CodeSpecKind` or
+  declares a field that carries one. A path resolving to a class node (root,
+  section, complex, complex list item) routes when some class reachable from
+  its class, itself included, routes. Any other node — a content, scalar or
+  enum leaf, a form, a list, a scalar list item — routes when its field carries
+  `@CodeSpecKind`, when the class declaring it (the class at the parent path)
+  carries one, or when it is a list of complex items some class reachable from
+  whose element class routes.
+- **Order.** Phase 8 is sorted by path, stably, and comes after phase 7; the
+  review-annotation findings (§11.9.5) still close the list.
+
+The messages, identical in all nine:
+
+| Code | Message |
+| --- | --- |
+| `unknownUnit` | `units names "<id>", which no generation unit declares` |
+| `unitsUnrouted` | `units is set on a section that routes nothing to CodeSpecs` |
+| `duplicateUnitId` | `generation unit "<id>" is declared twice` |
+| `unitBuildsNothing` | `generation unit "<id>" builds neither a deploymentTarget nor a component` |
+| `unitAreaMalformed` | `mapping area "<area>" is not an area code (CE-…)` |
+
 
 Phase 1 has one exemption, and it is not optional: a **form** node may carry
 content. That content is the form's preamble (§11.4 rule 7), stored in the same
@@ -721,7 +771,7 @@ slot a plain section's body uses, so a phase-1 check written as "content only on
 a value leaf" reports a legal document as invalid. Every other non-leaf kind —
 section, list, container — still fires.
 
-Adding a tenth code means adding it in all nine, in the same phase, with the
+Adding a code means adding it in all nine, in the same phase, with the
 same message text. The corpus obligation in §19 is what makes that mechanical
 rather than remembered — the seventh, `enumValueUnknown`, and the eighth,
 `countMismatch`, were added exactly that way, and the parity gate showed all nine going red on a mutated expectation
@@ -1186,12 +1236,37 @@ Schema id = kebab-case of the `@Document` name; version = model `major.minor`.
   The comment grammar is therefore **three groups** —
   `<!--[<id>]<key=value region>--> <title>` — where the middle region is a
   possibly-empty run of key=value pairs (mirroring the tom_doc_scanner
-  key=value grammar; today `codeSpec` is the only key). The emitter writes it
+  key=value grammar; the keys are `codeSpec` and `units`). The emitter writes it
   double-quoted as ` codeSpec="a,b,c"` immediately after the id bracket; the
   parser accepts double-quoted, single-quoted, or bare (comma/whitespace-free)
   values. The list is comma-separated with no spaces. Like a stored headline it
   is **sparse** — staged only when present, so untouched documents stay
   byte-stable. See `codespecs_mapping.md` §9.2.
+- **`units` — the generation units a section goes to:** a section carrying a
+  non-empty `units` list rides in the same comment as a second key,
+  ` units="a,b"`, written **after** `codeSpec` when both are present:
+
+  ```markdown
+  ### <!--[IMO-014] codeSpec="CsOrder" units="meridian_codespec_server"--> Order entity
+  ```
+
+  The value is the comma-separated list of generation-unit ids (the
+  `unitId` of a `GenerationUnitEntry`, `tom_specs_model_rules.md` §9.1), no
+  spaces, with exactly `codeSpec`'s quoting, parsing and sparseness rules.
+  Absent means the default — every unit with a mapping for the section's
+  area; set, it names the units that take the section **and its subtree**
+  instead. As for `codeSpec`, the parser reads the key by name and ignores
+  any other key in the region; `units` is the key only where it starts the
+  region or follows whitespace, so a `units=` inside a quoted `codeSpec` value
+  is not read as one.
+
+  Every runtime keeps it exactly as it keeps `codeSpec`: a sparse store keyed
+  by section path, read with `units(path)` and written with
+  `setUnits(path, value)` on the document (an empty value clears it), listed by
+  `unitsPaths`, read and written as `$units` on a facade node, carried in the
+  document snapshot as a `units` map (path → the comma-joined list) beside
+  `codeSpecs`, and moved, re-keyed, cleared, merged and assembled wherever a
+  `codeSpec` is.
 
 ### 11.3 Content sections
 
@@ -2557,6 +2632,7 @@ path segment is the bare `introductionAndScope`.
 | Scalar/enum field | `<id> <fieldName>` when the field carries an id, else the field name | `reviewCount` |
 | Stored headline | literal key `headline`, emitted **first** in its section/form/list-item mapping | `headline` |
 | Stored `codeSpec` (`tom_specs_model_rules.md` §5.2) | literal key `codeSpec`, the comma-joined code-location list, emitted right after `headline` in its mapping (§12.3 rule 6) | `codeSpec` |
+| Stored `units` (§11.2) | literal key `units`, the comma-joined unit-id list, emitted right after `codeSpec` in its mapping (§12.3 rule 6) | `units` |
 
 ### 12.3 Structure rules
 
@@ -2575,17 +2651,18 @@ path segment is the bare `introductionAndScope`.
    accept `document: {}` as an empty document of the tree they are given.
 5. **The `*-LST` container is a pure structural level** — it never carries a
    `content` key; its mapping holds only the item keys.
-6. Stored list-item ids, stored headlines, and stored `codeSpec` links persist
-   here losslessly. A section whose value would otherwise be a plain scalar (a
-   content leaf, or a scalar-keyed field) but which carries a stored headline
-   **and/or** a stored `codeSpec` is emitted as a
-   **`{headline?: …, codeSpec?: …, content?: …}` mapping** instead of the bare
-   scalar (at least one of the optional keys present); decoders accept both
-   shapes. `codeSpec`'s value is the same comma-joined code-location list as
-   the md form (§11.2). Collision guards are errors: a model child key
-   literally named `headline` or `codeSpec`, a form field of that name, or a
-   list-item key of that name all refuse to serialize.
-7. **`content` is the third reserved key, and its guard is narrower.** A form's
+6. Stored list-item ids, stored headlines, stored `codeSpec` links and stored
+   `units` persist here losslessly. A section whose value would otherwise be a
+   plain scalar (a content leaf, or a scalar-keyed field) but which carries a
+   stored headline, `codeSpec` **and/or** `units` is emitted as a
+   **`{headline?: …, codeSpec?: …, units?: …, content?: …}` mapping** instead
+   of the bare scalar (at least one of the optional keys present); decoders
+   accept both shapes. `codeSpec`'s and `units`' values are the same
+   comma-joined lists as the md form (§11.2). Collision guards are errors: a
+   model child key literally named `headline`, `codeSpec` or `units`, a form
+   field of that name, or a list-item key of that name all refuse to
+   serialize.
+7. **`content` is the last reserved key, and its guard is narrower.** A form's
    preamble uses the literal key `content` inside the form's own mapping. Unlike
    `headline`/`codeSpec`, a form field literally named `content` is *not* by
    itself a collision: decoders resolve a declared field before the reserved

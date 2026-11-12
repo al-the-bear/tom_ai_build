@@ -4142,11 +4142,12 @@ document:
                   content: Exercise form preamble.
                   unitId: "Exercise value."
                   kind: "client"
+                  deploymentTarget: "DEPTAR-DEPL-1"
                 GEMAP-MAPP-LST mappings:
                   GEMAP-MAPP-1:
                     content:
                       content: Exercise form preamble.
-                      area: "Exercise value."
+                      area: "CE-DB"
                       mapping: "Exercise value."
             COMPAT communicationPatterns:
               content:

@@ -58,6 +58,10 @@ import 'spec_reflection.dart';
 /// copy-only; null when no enclosing instance stores one. The render-time
 /// positional default (`CARD-2`) is derived, never stored, so it is never
 /// carried — that would be the composition C1 forbids.
+///
+/// Entries may carry `units` — the nearest stored generation units (SOM §11.2)
+/// at the entry's path or above it. The key is written only when non-empty and
+/// reads as empty when absent, so it is additive and the version stays 3.
 const int kCodeSpecsExtractFormat = 3;
 
 /// The annotation names of the three routing verdicts (`codespecs_mapping.md`
@@ -198,6 +202,13 @@ class CodeSpecsExtractEntry {
   /// The `@CodeSpecKind` `note`, verbatim; `null` when it carries none.
   final String? routingNote;
 
+  /// The generation units the entry goes to (SOM §11.2,
+  /// `codespecs_mapping.md` §1.1.1): the nearest stored `units` at the entry's
+  /// path or any ancestor path, split at its commas. Empty when no section on
+  /// the way stores one — the default, every unit with a mapping for the
+  /// entry's area. Copy-only like [instanceId].
+  final List<String> units;
+
   /// The stored value, **verbatim**. Never assembled, reformatted or trimmed.
   final String value;
 
@@ -209,7 +220,8 @@ class CodeSpecsExtractEntry {
   /// The four optional ones are absent-by-nature, not defaulted-away:
   /// [headline] and [instanceId] stay null when the document stores neither,
   /// [formField] exists only for a `@Form` field, [routingNote] only when the
-  /// marker carries one. None is ever synthesised to fill the gap — composing
+  /// marker carries one, and [units] is empty when no section on the way
+  /// stores units. None is ever synthesised to fill the gap — composing
   /// a value is exactly what C1 (`codespecs_derivation_contract.md` §2.8)
   /// forbids the extract generator.
   const CodeSpecsExtractEntry({
@@ -225,6 +237,7 @@ class CodeSpecsExtractEntry {
     this.instanceId,
     this.formField,
     this.routingNote,
+    this.units = const [],
   });
 
   @override
@@ -814,6 +827,9 @@ class CodeSpecsExtract {
       b.writeln('      routedBy: ${_yamlString(e.routedBy)}');
       b.writeln('      routedAt: ${_yamlString(e.routedAt)}');
       b.writeln('      routingNote: ${_yamlNullableString(e.routingNote)}');
+      if (e.units.isNotEmpty) {
+        b.writeln('      units: ${_yamlStringList(e.units)}');
+      }
       b.writeln('      value: ${_yamlString(e.value)}');
     }
     return b.toString();
@@ -876,6 +892,9 @@ class CodeSpecsExtract {
       }
       b.writeln('- path: `${e.path}`');
       b.writeln('- routed by: `${e.routedBy}` declared on `${e.routedAt}`');
+      if (e.units.isNotEmpty) {
+        b.writeln('- units: ${e.units.map((u) => '`$u`').join(', ')}');
+      }
       if (e.routingNote != null) {
         b.writeln('- routing note: ${_mdCell(e.routingNote!)}');
       }
@@ -1113,6 +1132,7 @@ class CodeSpecsExtractor {
       cls: model.classNamed(root.type),
       ancestorTypes: {root.type},
       enclosingInstanceId: null,
+      enclosingUnits: null,
       routings: routings,
       entries: entries,
       strict: strict,
@@ -1124,6 +1144,7 @@ class CodeSpecsExtractor {
     required SpecClass? cls,
     required Set<String> ancestorTypes,
     required String? enclosingInstanceId,
+    required String? enclosingUnits,
     required List<CodeSpecsRouting>? routings,
     required List<CodeSpecsExtractEntry>? entries,
     required bool strict,
@@ -1169,9 +1190,16 @@ class CodeSpecsExtractor {
     // id-less instance yields `null` rather than a composed id.
     final instanceId = document.itemSectionId(path) ?? enclosingInstanceId;
 
+    // The nearest stored generation units (SOM §11.2): this node's own, else
+    // whatever the walk inherited. The walk passes every ancestor path of an
+    // entry — class node, field, list container, list item — so "nearest on
+    // the walk" is "nearest at the entry's path or an ancestor path".
+    final classUnits = document.units(path) ?? enclosingUnits;
+
     for (final field in cls.fields) {
       final fieldPath = specPathJoin(path, _reflection.fieldSegment(field));
       final fieldRouting = _fieldRouting(cls, field) ?? classRouting;
+      final fieldUnits = document.units(fieldPath) ?? classUnits;
 
       switch (field.kind) {
         case SpecFieldKind.content:
@@ -1186,6 +1214,7 @@ class CodeSpecsExtractor {
             formField: null,
             headline: headline,
             instanceId: instanceId,
+            units: fieldUnits,
             value: document.content(fieldPath),
           );
         case SpecFieldKind.form:
@@ -1199,6 +1228,7 @@ class CodeSpecsExtractor {
               formField: ff.name,
               headline: headline,
               instanceId: instanceId,
+              units: fieldUnits,
               value: document.formField(fieldPath, ff.name),
             );
           }
@@ -1212,6 +1242,7 @@ class CodeSpecsExtractor {
                 cls: model.classNamed(field.elementType),
                 ancestorTypes: {...ancestorTypes, field.elementType!},
                 enclosingInstanceId: instanceId,
+                enclosingUnits: fieldUnits,
                 routings: routings,
                 entries: entries,
                 strict: strict,
@@ -1229,6 +1260,7 @@ class CodeSpecsExtractor {
                 formField: null,
                 headline: headline,
                 instanceId: document.itemSectionId(itemPath) ?? instanceId,
+                units: document.units(itemPath) ?? fieldUnits,
                 value: document.content(itemPath),
               );
             }
@@ -1241,6 +1273,7 @@ class CodeSpecsExtractor {
               cls: model.classNamed(field.type),
               ancestorTypes: {...ancestorTypes, field.type!},
               enclosingInstanceId: instanceId,
+              enclosingUnits: fieldUnits,
               routings: routings,
               entries: entries,
               strict: strict,
@@ -1261,10 +1294,12 @@ class CodeSpecsExtractor {
     required String? formField,
     required String? headline,
     required String? instanceId,
+    required String? units,
     required String? value,
   }) {
     if (entries == null || routing == null) return;
     if (value == null || value.isEmpty) return;
+    final unitIds = _splitUnits(units);
     for (final kind in routing.values) {
       final area = catalog.byPart(kind);
       if (area == null || !area.active) continue;
@@ -1281,6 +1316,7 @@ class CodeSpecsExtractor {
           routedBy: area.kindValue,
           routedAt: routing.declaredAt,
           routingNote: routing.note,
+          units: unitIds,
           value: value,
         ),
       );
@@ -1473,6 +1509,14 @@ String codeSpecsYamlString(String value) => _yamlString(value);
 
 String _yamlNullableString(String? value) =>
     value == null ? 'null' : _yamlString(value);
+
+/// A stored comma-joined `units` value as its unit ids: split at the commas,
+/// each trimmed, empty pieces dropped; `null` reads as the empty list.
+List<String> _splitUnits(String? units) => [
+  if (units != null)
+    for (final u in units.split(','))
+      if (u.trim().isNotEmpty) u.trim(),
+];
 
 String _yamlStringList(List<String> values) =>
     '[${values.map(_yamlString).join(', ')}]';
