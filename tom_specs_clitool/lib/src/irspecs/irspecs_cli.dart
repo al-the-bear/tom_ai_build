@@ -17,8 +17,8 @@
 ///   area, its mapper, and only the areas `--mapper` holds for the unit are
 ///   written, into `--out/<unit id>` (`irspecs_ir.md` §8.1). The other
 ///   mappers write other languages from the same IR: `ts-shared`,
-///   `ts-react-client` and `ts-hono-server` an npm workspace
-///   (`irspecs_ir.md` §11), `go-server` the server as a Go module
+///   `ts-react-client`, `ts-react-native-client` and `ts-hono-server` an npm
+///   workspace (`irspecs_ir.md` §11), `go-server` the server as a Go module
 ///   (`irspecs_ir.md` §12), `java-spring-server` as a Spring Boot project
 ///   (`irspecs_ir.md` §13), `csharp-aspnet-server` as a .NET solution
 ///   (`irspecs_ir.md` §14).
@@ -289,7 +289,15 @@ Future<int> _map(
         kGoServerMapper => mapGoServer(documents, all: all),
         kJavaSpringServerMapper => mapJavaSpring(documents, all: all),
         kCsharpAspnetServerMapper => mapCsharpAspnet(documents, all: all),
-        _ => mapTypeScript(documents, mapper, all: all),
+        // A TypeScript package joins the workspace already in --out, so a
+        // web and a mobile client unit can share it (irspecs_ir.md §11.2).
+        _ => mergeTsWorkspaceRoot(
+          mapTypeScript(documents, mapper, all: all),
+          switch (File(p.join(results.option('out')!, 'package.json'))) {
+            final root when root.existsSync() => root.readAsStringSync(),
+            _ => null,
+          },
+        ),
       };
       for (final MapEntry(key: path, value: text) in files.entries) {
         File(p.joinAll([results.option('out')!, ...path.split('/')]))

@@ -24,7 +24,7 @@ resolves for a reader of the package.
 |----------|--------|
 | [codespecs_mapping.md](codespecs_mapping.md) | The parts catalogue, the five-package `tom_core`-family basis, the attribute surfaces, and every reuse-versus-gap verdict |
 | [codespecs_derivation_contract.md](codespecs_derivation_contract.md) | What code comes out per marker, and which `tom_core`-family class it is built on |
-| [irspecs_ir.md](irspecs_ir.md) | The IR Specs intermediate representation: a trio as language-neutral data, one document per area, and every CsModel field it carries; generation units (§8.1), the standard emitters (§10), the TypeScript mappers (§11), the Go server mapper (§12), the Java + Spring Boot server mapper (§13) and the C# + ASP.NET Core server mapper (§14) |
+| [irspecs_ir.md](irspecs_ir.md) | The IR Specs intermediate representation: a trio as language-neutral data, one document per area, and every CsModel field it carries; generation units (§8.1), the standard emitters (§10), the TypeScript mappers with the web and the mobile client (§11), the Go server mapper (§12), the Java + Spring Boot server mapper (§13) and the C# + ASP.NET Core server mapper (§14) |
 
 ## API reference
 

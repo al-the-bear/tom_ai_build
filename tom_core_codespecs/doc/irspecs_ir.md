@@ -10,7 +10,8 @@ declarations, `Cs*` markers and their argument values, back-links, doc
 comments, members, method bodies and their statements — in one YAML document
 per area. A mapper per language and framework writes code from it; the Dart +
 Tom mapper's output is today's trio, byte for byte; the TypeScript mappers
-write the same skeleton as an npm workspace (§11), the Go server mapper the
+write the same skeleton as an npm workspace, with a web and a mobile client
+(§11), the Go server mapper the
 server as a Go module (§12), the Java + Spring Boot mapper as a Gradle project
 (§13), the C# + ASP.NET Core mapper as a .NET solution (§14). This document says what is
 in a document, how it is written and what is deliberately left out, and what
@@ -464,22 +465,28 @@ An emitter never drops a fact silently: each one below is a line of
 
 ## 11. The TypeScript mappers
 
-Three mappers write the IR as a three-package npm workspace — TypeScript on
-both sides, one shared package:
+Four mappers write the IR as an npm workspace — TypeScript on both sides,
+one shared package, a web and a mobile client:
 
 ```text
-irspecs map --mapper ts-shared       --ir <spec-root>/irspecs --out <dir>
-irspecs map --mapper ts-react-client --ir <spec-root>/irspecs --out <dir>
-irspecs map --mapper ts-hono-server  --ir <spec-root>/irspecs --out <dir>
+irspecs map --mapper ts-shared              --ir <spec-root>/irspecs --out <dir>
+irspecs map --mapper ts-react-client        --ir <spec-root>/irspecs --out <dir>
+irspecs map --mapper ts-react-native-client --ir <spec-root>/irspecs --out <dir>
+irspecs map --mapper ts-hono-server         --ir <spec-root>/irspecs --out <dir>
 ```
 
 Each writes the package of its locus — whatever the IR holds there — under
-its package name, and the workspace root: a `package.json` naming the three as workspaces and one
-`tsconfig.json` that checks them together (`tsc --noEmit -p .`). With
+its package name, and the workspace root: a `package.json` naming the packages
+as workspaces and one `tsconfig.json` that checks them together
+(`tsc --noEmit -p .`). The root is merged with the one already in `--out`: the
+workspace lists the packages it named, then the new ones. With
 `--spec <document> --unit <unit id>` (§8.1) a unit whose mapping names a
-TypeScript mapper is written as that one package. The client's API calls and
-the server's routes are generated from the OpenAPI document of the whole IR
-folder (§10), whichever package is written.
+TypeScript mapper is written as that one package, named after the unit, and its
+own modules import one another by path. Both client mappers write the client
+locus, so a project with a web and a mobile client declares two client units,
+one mapping each, and maps both from the one IR into one workspace. The
+client's API calls and the server's routes are generated from the OpenAPI
+document of the whole IR folder (§10), whichever package is written.
 
 **What the output is.** A skeleton, as the Dart trio is: it type-checks and
 executes nothing — a body the specification gives no steps for throws
@@ -491,10 +498,14 @@ Deno: imports carry their `.ts` extension, a type is imported with
 The test `tom_specs_clitool/test/irspecs_ts_test.dart` maps the Meridian IR,
 installs the workspace, type-checks it, loads each package under Node's type
 stripping, holds the back-links of every file to the Dart trio's, and the wire
-types to the JSON Schema of §10.
+types to the JSON Schema of §10; `irspecs_ts_native_test.dart` maps the same
+IR as two client units, web and mobile (§11.2), into one workspace and
+type-checks it.
 
 **Pinned versions.** TypeScript 5.9.3, React 19.3, Hono 4.13, Drizzle ORM
-0.45 (`kTsDependencyVersions`). The stack — React with plain `fetch`, Hono, and
+0.45; for the mobile client Expo SDK 58 (`~58.0.25`) with the React 19.3.0 and
+React Native 0.88.1 it pins, React Navigation 7 (`kTsDependencyVersions`). The
+stack — React with plain `fetch`, Expo with React Navigation, Hono, and
 Drizzle over PostgreSQL — is the first of each choice; other client stacks,
 server frameworks and persistence layers are separate mappers to come.
 
@@ -532,6 +543,30 @@ JSDoc text.
 mixin, a top-level function), a construction with positional arguments, an
 initialiser that is neither a construction nor a single string, and a column
 type with no Drizzle builder stop the mapper naming the file.
+
+### 11.2 The mobile client
+
+`ts-react-native-client` writes the client locus as an Expo project in
+TypeScript. It is the web client's mapper with a different package around it:
+every IR declaration becomes what §11.1 says, file for file and byte for byte —
+the layouts, the routes, the server calls and their collaborators, the API
+client (plain `fetch` runs on React Native) and the `tom.ts` of the
+constructions — and it depends on the same `ts-shared` package. What differs:
+
+| | Web client (`ts-react-client`) | Mobile client (`ts-react-native-client`) |
+|---|---|---|
+| package | `react` | `expo`, `react` (the version Expo pins), `react-native`, `@react-navigation/native`, `@react-navigation/native-stack`, `react-native-screens`, `react-native-safe-area-context` |
+| entry | the barrel `src/index.ts` (`exports`) | the barrel, and `"main": "src/main.ts"`, which registers the app with Expo's `registerRootComponent`; `app.json` names the Expo app |
+| routes (CE-NV) | `TomRouteDefinition` constants | the same, and `src/navigation/app_navigator.ts`: `RootStackParamList` with an entry per route (its `routeId`, its parameters as `string`s), a screen component per route (`<Route>Screen`, throwing `not implemented: screen <routeId>` until Phase 6 writes it) and `AppNavigator`, a React Navigation native stack of the screens in route order |
+| layouts (CE-LO) | a component `XView(): ReactElement` that throws | the same: what it renders — DOM elements or React Native views — is Phase 6's |
+
+The navigator is written with `createElement`, so the package needs no JSX
+transform and is checked by the workspace's one `tsconfig.json` beside the web
+packages. A screen is a route: the IR does not say which layouts make up the
+screen a route opens, so a screen's content, like a layout's, is Phase 6's.
+A mobile client whose IR holds no route is refused: a navigator needs a
+screen. The back-links are the web client's — the same JSDoc tags, which the
+test holds file by file against the Dart trio for both clients.
 
 ## 12. The Go server mapper
 

@@ -40,8 +40,8 @@ Schema is `tool/irspecs_ir.schema.json`.
 | `kGuardSuffix` | `'Applies'` | The fixed suffix of a guard method's name (B4). |
 | `irStepRules` | `Map<String, String>` | The step validation rules `S1` … `S5`, each with what it holds. |
 | `kDartTomMapper` | `'dart-tom'` | The Dart + Tom mapper's id, as `irspecs map --mapper` names it. |
-| `kTsSharedMapper`, `kTsReactClientMapper`, `kTsHonoServerMapper` | `'ts-shared'`, `'ts-react-client'`, `'ts-hono-server'` | The TypeScript mappers' ids (`irspecs_ir.md` §11). |
-| `kTsMappers` | `Map<String, CsLocus>` | Each TypeScript mapper and the locus it writes. |
+| `kTsSharedMapper`, `kTsReactClientMapper`, `kTsReactNativeClientMapper`, `kTsHonoServerMapper` | `'ts-shared'`, `'ts-react-client'`, `'ts-react-native-client'`, `'ts-hono-server'` | The TypeScript mappers' ids (`irspecs_ir.md` §11, §11.2). |
+| `kTsMappers` | `Map<String, CsLocus>` | Each TypeScript mapper and the locus it writes; both client mappers write the client locus. |
 | `kTsDependencyVersions` | `Map<String, String>` | The versions the TypeScript workspace pins. |
 | `kGoServerMapper` | `'go-server'` | The Go server mapper's id (`irspecs_ir.md` §12). |
 | `kGoLanguageVersion` | `'1.24'` | The `go` directive of the module's `go.mod`. |
@@ -348,6 +348,8 @@ IrSchemaBuilder(IrIndex index, {required String refBase, required List<String> n
 | `irJson(Object? data)` | `String` | JSON as the emitters write it: two-space indented, one trailing newline. |
 | `irMarker`, `irString`, `irInitialiserString`, `irDocText`, `irHandlerResult` | — | The helpers the emitters read the IR with: a marker by name, a value's string, an initialiser's string argument, a doc comment's text, a handler's response type. |
 | `mapTypeScript(List<IrDocument> share, String mapper, {List<IrDocument>? all})` | `Map<String, String>` | A TypeScript mapper's package and the workspace root, `<path>` → text; the API client and routes read the OpenAPI of `all`. Throws `IrMapException` on a construct it has no rule for. |
+| `tsWorkspaceRoot(String title, List<String> packages)` | `Map<String, String>` | The workspace root of `packages`: `package.json` naming them as workspaces and the `tsconfig.json` checking them together. |
+| `mergeTsWorkspaceRoot(Map<String, String> files, String? existingPackageJson)` | `Map<String, String>` | A TypeScript mapper's output with its root merged into the one already written: the existing packages first, then the new ones. |
 | `mapGoServer(List<IrDocument> share, {List<IrDocument>? all})` | `Map<String, String>` | The Go module of the share's server, `<module>/<path>` → text: the `shared`, `server` and `tom` packages, `router.go` from the OpenAPI of `all`, `go.mod`/`go.sum`, and the sqlc schema, queries and `sqlc.yaml`. Throws `IrMapException` on a construct it has no rule for. |
 | `mapJavaSpring(List<IrDocument> share, {List<IrDocument>? all})` | `Map<String, String>` | The Gradle project of the share's server, `<project>/<path>` → text: the `shared`, `server` and `codespec` packages, the controllers on the openapi-generator interfaces, the Flyway migration, the OpenAPI document of `all` and the build files. Throws `IrMapException` on a construct it has no rule for. |
 | `javaPackageName(String name)` | `String` | The Java package of a package name: lower case, every other character an underscore. |

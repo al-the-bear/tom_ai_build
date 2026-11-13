@@ -1,4 +1,4 @@
-/// What the language mappers share (`irspecs_ir.md` §11–§13): how a top-level
+/// What the language mappers share (`irspecs_ir.md` §11–§14): how a top-level
 /// declaration of the IR is classified, and how a Dart type's arguments are
 /// split. Each mapper writes the shapes in its own language.
 library;

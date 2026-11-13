@@ -76,7 +76,13 @@ void main() {
 
   setUpAll(() {
     out = Directory.systemTemp.createTempSync('irspecs_ts');
-    for (final mapper in kTsMappers.keys) {
+    // The web workspace: the mobile client writes the client locus too, as a
+    // unit of its own (irspecs_ts_native_test.dart).
+    for (final mapper in [
+      kTsSharedMapper,
+      kTsReactClientMapper,
+      kTsHonoServerMapper,
+    ]) {
       files.addAll(mapTypeScript(documents, mapper));
     }
     for (final MapEntry(key: path, value: text) in files.entries) {

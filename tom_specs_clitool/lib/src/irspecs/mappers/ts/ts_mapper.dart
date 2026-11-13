@@ -1,7 +1,8 @@
-/// The TypeScript mappers (`irspecs_ir.md` §11): the IR written as a
-/// three-package npm workspace — `ts-shared` (the shared package),
-/// `ts-react-client` (a React web client, plain `fetch`) and `ts-hono-server`
-/// (a Hono server, Drizzle ORM over PostgreSQL). Like the Dart + Tom mapper the
+/// The TypeScript mappers (`irspecs_ir.md` §11): the IR written as an npm
+/// workspace — `ts-shared` (the shared package), `ts-react-client` (a React web
+/// client, plain `fetch`), `ts-react-native-client` (an Expo React Native
+/// client with React Navigation, `irspecs_ir.md` §11.2) and `ts-hono-server` (a Hono server,
+/// Drizzle ORM over PostgreSQL). Like the Dart + Tom mapper the
 /// output is a skeleton: it type-checks with `tsc --noEmit` and executes
 /// nothing — a body the specification gives no steps for throws
 /// `not implemented`.
@@ -23,13 +24,19 @@ const String kTsSharedMapper = 'ts-shared';
 /// The React web client's mapper.
 const String kTsReactClientMapper = 'ts-react-client';
 
+/// The React Native (Expo) client's mapper (`irspecs_ir.md` §11.2).
+const String kTsReactNativeClientMapper = 'ts-react-native-client';
+
 /// The Hono server's mapper.
 const String kTsHonoServerMapper = 'ts-hono-server';
 
-/// The three TypeScript mappers and the locus each writes.
+/// The TypeScript mappers and the locus each writes. Both client mappers write
+/// the client locus: a project with a web and a mobile client declares two
+/// client units, one mapping each (`irspecs_ir.md` §8.1).
 const Map<String, CsLocus> kTsMappers = {
   kTsSharedMapper: CsLocus.shared,
   kTsReactClientMapper: CsLocus.client,
+  kTsReactNativeClientMapper: CsLocus.client,
   kTsHonoServerMapper: CsLocus.server,
 };
 
@@ -40,6 +47,15 @@ const Map<String, String> kTsDependencyVersions = {
   '@types/react': '^19.3.0',
   'hono': '^4.13.0',
   'drizzle-orm': '^0.45.0',
+  // The mobile client: Expo SDK 58 and the React Native and native-module
+  // versions it pins (its bundledNativeModules.json), React Navigation 7.
+  'expo': '~58.0.25',
+  'react-native': '0.88.1',
+  'react-native/react': '19.3.0',
+  '@react-navigation/native': '^7.5.1',
+  '@react-navigation/native-stack': '^7.21.0',
+  'react-native-screens': '~4.30.1',
+  'react-native-safe-area-context': '~5.11.1',
 };
 
 /// The files [mapper] writes for [share] — the package of its locus — plus the
@@ -58,7 +74,7 @@ Map<String, String> mapTypeScript(
     throw IrMapException('no TypeScript mapper `$mapper`');
   }
   final everything = all ?? share;
-  final symbols = _Symbols(everything);
+  final symbols = _Symbols(everything, share);
   final package = _packageName(share, locus) ?? _packageName(everything, locus);
   if (package == null) return const {};
   final out = <String, String>{};
@@ -105,6 +121,22 @@ Map<String, String> mapTypeScript(
     );
     modules.add(module);
   }
+  final native = mapper == kTsReactNativeClientMapper;
+  if (native) {
+    const module = 'src/navigation/app_navigator.ts';
+    out['$package/$module'] = _appNavigator(share);
+    modules.add(module);
+    out['$package/src/main.ts'] = _banner([
+      "import { registerRootComponent } from 'expo';",
+      "import { AppNavigator } from './navigation/app_navigator.ts';",
+      '',
+      '// The Expo entry: the app is its navigator.',
+      'registerRootComponent(AppNavigator);',
+    ]);
+    out['$package/app.json'] = irJson({
+      'expo': {'name': package, 'slug': package, 'version': '0.0.0'},
+    });
+  }
   if (!tom.isEmpty || locus == CsLocus.server) {
     const module = 'src/tom/tom.ts';
     out['$package/$module'] = tom.render(server: locus == CsLocus.server);
@@ -115,15 +147,26 @@ Map<String, String> mapTypeScript(
     for (final m in modules..sort()) "export * from './${m.substring(4)}';",
   ]);
   final shared = _packageName(everything, CsLocus.shared);
+  final v = kTsDependencyVersions;
   out['$package/package.json'] = irJson({
     'name': package,
     'version': '0.0.0',
     'private': true,
     'type': 'module',
+    if (native) 'main': 'src/main.ts',
     'exports': {'.': './src/index.ts'},
     'dependencies': {
       if (locus != CsLocus.shared && shared != null) shared: '*',
-      if (locus == CsLocus.client) 'react': kTsDependencyVersions['react'],
+      if (native) ...{
+        'expo': v['expo'],
+        'react': v['react-native/react'],
+        'react-native': v['react-native'],
+        '@react-navigation/native': v['@react-navigation/native'],
+        '@react-navigation/native-stack': v['@react-navigation/native-stack'],
+        'react-native-screens': v['react-native-screens'],
+        'react-native-safe-area-context': v['react-native-safe-area-context'],
+      } else if (locus == CsLocus.client)
+        'react': kTsDependencyVersions['react'],
       if (locus == CsLocus.server) ...{
         'hono': kTsDependencyVersions['hono'],
         'drizzle-orm': kTsDependencyVersions['drizzle-orm'],
@@ -134,24 +177,22 @@ Map<String, String> mapTypeScript(
         '@types/react': kTsDependencyVersions['@types/react'],
       },
   });
-  out.addAll(_workspace(share, everything));
+  // A unit's package carries the unit's id (`irspecs_ir.md` §8.1).
+  out.addAll(
+    tsWorkspaceRoot(IrIndex(everything).title, [
+      for (final l in CsLocus.values)
+        ?(_packageName(share, l) ?? _packageName(everything, l)),
+    ]),
+  );
   return out;
 }
 
-/// The workspace root: the npm workspace of the three packages and one
-/// `tsconfig.json` checking them together.
-Map<String, String> _workspace(
-  List<IrDocument> share,
-  List<IrDocument> documents,
-) {
-  // A unit's package carries the unit's id (`irspecs_ir.md` §8.1).
-  final packages = [
-    for (final l in CsLocus.values)
-      ?(_packageName(share, l) ?? _packageName(documents, l)),
-  ];
+/// The workspace root of [packages]: the npm workspace and one
+/// `tsconfig.json` checking them together; [title] names it.
+Map<String, String> tsWorkspaceRoot(String title, List<String> packages) {
   return {
     'package.json': irJson({
-      'name': '${IrIndex(documents).title}_workspace',
+      'name': '${title}_workspace',
       'private': true,
       'type': 'module',
       'workspaces': packages,
@@ -176,6 +217,31 @@ Map<String, String> _workspace(
       'include': [for (final p in packages) '$p/src/**/*.ts'],
     }),
   };
+}
+
+/// [files], a TypeScript mapper's output, with its workspace root merged into
+/// the root already written where it goes ([existingPackageJson], or `null`
+/// when there is none): the workspace lists every package of both, the
+/// existing ones first. Two client units written into one folder — a web and
+/// a mobile client of one IR — so share one workspace.
+Map<String, String> mergeTsWorkspaceRoot(
+  Map<String, String> files,
+  String? existingPackageJson,
+) {
+  if (existingPackageJson == null) return files;
+  final existing = jsonDecode(existingPackageJson) as Map<String, dynamic>;
+  final mine = jsonDecode(files['package.json']!) as Map<String, dynamic>;
+  final title = (mine['name'] as String).replaceFirst(
+    RegExp(r'_workspace$'),
+    '',
+  );
+  final packages = <String>[
+    ...((existing['workspaces'] as List?) ?? const []).cast<String>(),
+  ];
+  for (final p in (mine['workspaces'] as List).cast<String>()) {
+    if (!packages.contains(p)) packages.add(p);
+  }
+  return {...files, ...tsWorkspaceRoot(title, packages)};
 }
 
 String? _packageName(List<IrDocument> documents, CsLocus locus) {
@@ -219,10 +285,15 @@ class _Symbols {
   final Set<String> entities = {};
   final Set<String> enums = {};
 
-  _Symbols(List<IrDocument> documents) {
+  /// The names [documents] declare; a declaration of a locus [share] writes
+  /// lives in the share's package — a unit's id (`irspecs_ir.md` §8.1) —
+  /// every other in the package the IR names.
+  _Symbols(List<IrDocument> documents, [List<IrDocument> share = const []]) {
     final index = IrIndex(documents);
     for (final e in index.topLevel) {
-      final package = _packageName(documents, e.file.locus);
+      final package =
+          _packageName(share, e.file.locus) ??
+          _packageName(documents, e.file.locus);
       if (package == null) continue;
       final module = _modulePath(e.file.file.path);
       final d = e.declaration;
@@ -1033,4 +1104,92 @@ List<String> _importLines(
         "import type { ${(byFrom[from]!.types.toList()..sort()).join(', ')} } from '$from';",
     ],
   ];
+}
+
+// ---------------------------------------------------------------------------
+// The mobile client's navigator (irspecs_ir.md §11.2)
+// ---------------------------------------------------------------------------
+
+/// The routes of the client locus of [share]: every top-level
+/// `TomRouteDefinition` construction, in IR order, with the module that
+/// declares it.
+List<({String name, String routeId, String path, List<String> parameters})>
+_routes(List<IrDocument> share) => [
+  for (final d in share)
+    for (final f in d.files)
+      if (f.locus == CsLocus.client)
+        for (final c in f.file.constructions)
+          if (c.type == 'TomRouteDefinition')
+            if (c.holder case final holder? when !holder.contains('.'))
+              (
+                name: holder,
+                routeId:
+                    irString(c.named['routeId']) ??
+                    (throw IrMapException(
+                      '${f.file.path}: the route ${c.holder} has no routeId',
+                    )),
+                path: irString(c.named['path']) ?? '',
+                parameters: [
+                  if (c.named['parameters'] case CsListValue(:final values))
+                    for (final v in values) ?irString(v),
+                ],
+              ),
+];
+
+/// `orderWorkListRoute` → `OrderWorkListScreen`.
+String _screenName(String route) {
+  final base = route.endsWith('Route')
+      ? route.substring(0, route.length - 'Route'.length)
+      : route;
+  return '${base[0].toUpperCase()}${base.substring(1)}Screen';
+}
+
+/// `navigation/app_navigator.ts`: the React Navigation stack of the routes —
+/// the param list (a route's parameters as strings), a screen per route that
+/// throws until Phase 6 writes it, and the navigator — written with
+/// `createElement`, so the package needs no JSX transform.
+String _appNavigator(List<IrDocument> share) {
+  final routes = _routes(share);
+  if (routes.isEmpty) {
+    throw IrMapException(
+      'the React Native client has no route (CE-NV `TomRouteDefinition`) to '
+      'make a screen of',
+    );
+  }
+  return _banner([
+    "import { createElement, type ReactElement } from 'react';",
+    "import { NavigationContainer } from '@react-navigation/native';",
+    "import { createNativeStackNavigator } from '@react-navigation/native-stack';",
+    '',
+    '/** The screens\' parameters, one entry per route (CE-NV). */',
+    'export type RootStackParamList = {',
+    for (final r in routes)
+      r.parameters.isEmpty
+          ? '  ${jsonEncode(r.routeId)}: undefined;'
+          : '  ${jsonEncode(r.routeId)}: { ${[for (final p in r.parameters) '$p: string'].join('; ')} };',
+    '};',
+    '',
+    'const Stack = createNativeStackNavigator<RootStackParamList>();',
+    for (final r in routes) ...[
+      '',
+      '/** The screen of `${r.name}` (`${r.path}`): written in Phase 6. */',
+      'export function ${_screenName(r.name)}(): ReactElement {',
+      '  throw new Error(${jsonEncode('not implemented: screen ${r.routeId}')});',
+      '}',
+    ],
+    '',
+    '/** The app: a native stack of the screens, the first route first. */',
+    'export function AppNavigator(): ReactElement {',
+    '  return createElement(',
+    '    NavigationContainer,',
+    '    null,',
+    '    createElement(',
+    '      Stack.Navigator,',
+    '      null,',
+    for (final r in routes)
+      '      createElement(Stack.Screen, { name: ${jsonEncode(r.routeId)}, component: ${_screenName(r.name)} }),',
+    '    ),',
+    '  );',
+    '}',
+  ]);
 }
