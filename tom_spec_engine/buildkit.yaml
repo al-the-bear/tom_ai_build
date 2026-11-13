@@ -10,6 +10,14 @@
 # with --scan, not --project: --project takes project names/ids, so a path
 # matches nothing and the generator exits 0 having generated nothing.
 #   dart run bin/d4rtgen.dart --scan=<path-to>/tom_spec_engine --not-recursive
+
+project_id: TOM_SPEC_ENGINE
+name: tom_spec_engine
+description: >-
+  TomSpecs scripting/engine plane — D4rt scope host, file facade, search
+  index, RAG memory and agent substrate behind the TomSpecs editor.
+license: BSD-3-Clause
+
 d4rtgen:
   name: tom_spec_engine
   helpersImport: package:tom_d4rt/tom_d4rt.dart
