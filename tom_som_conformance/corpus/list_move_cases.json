@@ -44,6 +44,10 @@
             "priority": "high",
             "weight": "2.5"
           },
+          "DEMO/DLV-LST-1/DLR-LST-1/content": {
+            "area": "CE-NV",
+            "mapping": "dart-tom"
+          },
           "DEMO/DLV-LST-1/content": {
             "component": "ARCM-COMP-UI",
             "kind": "client",
@@ -51,6 +55,10 @@
           },
           "DEMO/DLV-LST-2/DLR-LST-1/content": {
             "area": "CE-DB",
+            "mapping": "dart-tom"
+          },
+          "DEMO/DLV-LST-2/DLR-LST-2/content": {
+            "area": "CE-NV",
             "mapping": "dart-tom"
           },
           "DEMO/DLV-LST-2/content": {
@@ -89,13 +97,24 @@
               "DEMO/DLV-LST-2": "DLV-2"
             }
           },
-          "DEMO/DLV-LST-2/DLR-LST": {
+          "DEMO/DLV-LST-1/DLR-LST": {
             "seq": 1,
             "items": [
-              "DEMO/DLV-LST-2/DLR-LST-1"
+              "DEMO/DLV-LST-1/DLR-LST-1"
             ],
             "ids": {
-              "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1"
+              "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+            }
+          },
+          "DEMO/DLV-LST-2/DLR-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/DLV-LST-2/DLR-LST-1",
+              "DEMO/DLV-LST-2/DLR-LST-2"
+            ],
+            "ids": {
+              "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1",
+              "DEMO/DLV-LST-2/DLR-LST-2": "DLR-2"
             }
           },
           "DEMO/META/tags": {
@@ -196,6 +215,10 @@
               "priority": "high",
               "weight": "2.5"
             },
+            "DEMO/DLV-LST-1/DLR-LST-1/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
             "DEMO/DLV-LST-1/content": {
               "component": "ARCM-COMP-UI",
               "kind": "client",
@@ -203,6 +226,10 @@
             },
             "DEMO/DLV-LST-2/DLR-LST-1/content": {
               "area": "CE-DB",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-2/content": {
+              "area": "CE-NV",
               "mapping": "dart-tom"
             },
             "DEMO/DLV-LST-2/content": {
@@ -241,13 +268,24 @@
                 "DEMO/DLV-LST-2": "DLV-2"
               }
             },
-            "DEMO/DLV-LST-2/DLR-LST": {
+            "DEMO/DLV-LST-1/DLR-LST": {
               "seq": 1,
               "items": [
-                "DEMO/DLV-LST-2/DLR-LST-1"
+                "DEMO/DLV-LST-1/DLR-LST-1"
               ],
               "ids": {
-                "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1"
+                "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLR-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-2/DLR-LST-1",
+                "DEMO/DLV-LST-2/DLR-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1",
+                "DEMO/DLV-LST-2/DLR-LST-2": "DLR-2"
               }
             },
             "DEMO/META/tags": {
@@ -340,6 +378,10 @@
             "priority": "high",
             "weight": "2.5"
           },
+          "DEMO/DLV-LST-1/DLR-LST-1/content": {
+            "area": "CE-NV",
+            "mapping": "dart-tom"
+          },
           "DEMO/DLV-LST-1/content": {
             "component": "ARCM-COMP-UI",
             "kind": "client",
@@ -347,6 +389,10 @@
           },
           "DEMO/DLV-LST-2/DLR-LST-1/content": {
             "area": "CE-DB",
+            "mapping": "dart-tom"
+          },
+          "DEMO/DLV-LST-2/DLR-LST-2/content": {
+            "area": "CE-NV",
             "mapping": "dart-tom"
           },
           "DEMO/DLV-LST-2/content": {
@@ -385,13 +431,24 @@
               "DEMO/DLV-LST-2": "DLV-2"
             }
           },
-          "DEMO/DLV-LST-2/DLR-LST": {
+          "DEMO/DLV-LST-1/DLR-LST": {
             "seq": 1,
             "items": [
-              "DEMO/DLV-LST-2/DLR-LST-1"
+              "DEMO/DLV-LST-1/DLR-LST-1"
             ],
             "ids": {
-              "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1"
+              "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+            }
+          },
+          "DEMO/DLV-LST-2/DLR-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/DLV-LST-2/DLR-LST-1",
+              "DEMO/DLV-LST-2/DLR-LST-2"
+            ],
+            "ids": {
+              "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1",
+              "DEMO/DLV-LST-2/DLR-LST-2": "DLR-2"
             }
           },
           "DEMO/META/tags": {
@@ -495,6 +552,10 @@
               "priority": "high",
               "weight": "2.5"
             },
+            "DEMO/DLV-LST-1/DLR-LST-1/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
             "DEMO/DLV-LST-1/content": {
               "component": "ARCM-COMP-UI",
               "kind": "client",
@@ -502,6 +563,10 @@
             },
             "DEMO/DLV-LST-2/DLR-LST-1/content": {
               "area": "CE-DB",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-2/content": {
+              "area": "CE-NV",
               "mapping": "dart-tom"
             },
             "DEMO/DLV-LST-2/content": {
@@ -540,13 +605,24 @@
                 "DEMO/DLV-LST-2": "DLV-2"
               }
             },
-            "DEMO/DLV-LST-2/DLR-LST": {
+            "DEMO/DLV-LST-1/DLR-LST": {
               "seq": 1,
               "items": [
-                "DEMO/DLV-LST-2/DLR-LST-1"
+                "DEMO/DLV-LST-1/DLR-LST-1"
               ],
               "ids": {
-                "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1"
+                "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLR-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-2/DLR-LST-1",
+                "DEMO/DLV-LST-2/DLR-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1",
+                "DEMO/DLV-LST-2/DLR-LST-2": "DLR-2"
               }
             },
             "DEMO/META/tags": {
@@ -643,6 +719,10 @@
             "priority": "high",
             "weight": "2.5"
           },
+          "DEMO/DLV-LST-1/DLR-LST-1/content": {
+            "area": "CE-NV",
+            "mapping": "dart-tom"
+          },
           "DEMO/DLV-LST-1/content": {
             "component": "ARCM-COMP-UI",
             "kind": "client",
@@ -650,6 +730,10 @@
           },
           "DEMO/DLV-LST-2/DLR-LST-1/content": {
             "area": "CE-DB",
+            "mapping": "dart-tom"
+          },
+          "DEMO/DLV-LST-2/DLR-LST-2/content": {
+            "area": "CE-NV",
             "mapping": "dart-tom"
           },
           "DEMO/DLV-LST-2/content": {
@@ -688,13 +772,24 @@
               "DEMO/DLV-LST-2": "DLV-2"
             }
           },
-          "DEMO/DLV-LST-2/DLR-LST": {
+          "DEMO/DLV-LST-1/DLR-LST": {
             "seq": 1,
             "items": [
-              "DEMO/DLV-LST-2/DLR-LST-1"
+              "DEMO/DLV-LST-1/DLR-LST-1"
             ],
             "ids": {
-              "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1"
+              "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+            }
+          },
+          "DEMO/DLV-LST-2/DLR-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/DLV-LST-2/DLR-LST-1",
+              "DEMO/DLV-LST-2/DLR-LST-2"
+            ],
+            "ids": {
+              "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1",
+              "DEMO/DLV-LST-2/DLR-LST-2": "DLR-2"
             }
           },
           "DEMO/META/tags": {
@@ -792,6 +887,10 @@
               "priority": "high",
               "weight": "2.5"
             },
+            "DEMO/DLV-LST-1/DLR-LST-1/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
             "DEMO/DLV-LST-1/content": {
               "component": "ARCM-COMP-UI",
               "kind": "client",
@@ -799,6 +898,10 @@
             },
             "DEMO/DLV-LST-2/DLR-LST-1/content": {
               "area": "CE-DB",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-2/content": {
+              "area": "CE-NV",
               "mapping": "dart-tom"
             },
             "DEMO/DLV-LST-2/content": {
@@ -837,13 +940,24 @@
                 "DEMO/DLV-LST-2": "DLV-2"
               }
             },
-            "DEMO/DLV-LST-2/DLR-LST": {
+            "DEMO/DLV-LST-1/DLR-LST": {
               "seq": 1,
               "items": [
-                "DEMO/DLV-LST-2/DLR-LST-1"
+                "DEMO/DLV-LST-1/DLR-LST-1"
               ],
               "ids": {
-                "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1"
+                "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLR-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-2/DLR-LST-1",
+                "DEMO/DLV-LST-2/DLR-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1",
+                "DEMO/DLV-LST-2/DLR-LST-2": "DLR-2"
               }
             },
             "DEMO/META/tags": {
@@ -1228,6 +1342,10 @@
             "priority": "high",
             "weight": "2.5"
           },
+          "DEMO/DLV-LST-1/DLR-LST-1/content": {
+            "area": "CE-NV",
+            "mapping": "dart-tom"
+          },
           "DEMO/DLV-LST-1/content": {
             "component": "ARCM-COMP-UI",
             "kind": "client",
@@ -1235,6 +1353,10 @@
           },
           "DEMO/DLV-LST-2/DLR-LST-1/content": {
             "area": "CE-DB",
+            "mapping": "dart-tom"
+          },
+          "DEMO/DLV-LST-2/DLR-LST-2/content": {
+            "area": "CE-NV",
             "mapping": "dart-tom"
           },
           "DEMO/DLV-LST-2/content": {
@@ -1273,13 +1395,24 @@
               "DEMO/DLV-LST-2": "DLV-2"
             }
           },
-          "DEMO/DLV-LST-2/DLR-LST": {
+          "DEMO/DLV-LST-1/DLR-LST": {
             "seq": 1,
             "items": [
-              "DEMO/DLV-LST-2/DLR-LST-1"
+              "DEMO/DLV-LST-1/DLR-LST-1"
             ],
             "ids": {
-              "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1"
+              "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+            }
+          },
+          "DEMO/DLV-LST-2/DLR-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/DLV-LST-2/DLR-LST-1",
+              "DEMO/DLV-LST-2/DLR-LST-2"
+            ],
+            "ids": {
+              "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1",
+              "DEMO/DLV-LST-2/DLR-LST-2": "DLR-2"
             }
           },
           "DEMO/META/tags": {
@@ -1379,6 +1512,10 @@
             "priority": "high",
             "weight": "2.5"
           },
+          "DEMO/DLV-LST-1/DLR-LST-1/content": {
+            "area": "CE-NV",
+            "mapping": "dart-tom"
+          },
           "DEMO/DLV-LST-1/content": {
             "component": "ARCM-COMP-UI",
             "kind": "client",
@@ -1386,6 +1523,10 @@
           },
           "DEMO/DLV-LST-2/DLR-LST-1/content": {
             "area": "CE-DB",
+            "mapping": "dart-tom"
+          },
+          "DEMO/DLV-LST-2/DLR-LST-2/content": {
+            "area": "CE-NV",
             "mapping": "dart-tom"
           },
           "DEMO/DLV-LST-2/content": {
@@ -1424,13 +1565,24 @@
               "DEMO/DLV-LST-2": "DLV-2"
             }
           },
-          "DEMO/DLV-LST-2/DLR-LST": {
+          "DEMO/DLV-LST-1/DLR-LST": {
             "seq": 1,
             "items": [
-              "DEMO/DLV-LST-2/DLR-LST-1"
+              "DEMO/DLV-LST-1/DLR-LST-1"
             ],
             "ids": {
-              "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1"
+              "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+            }
+          },
+          "DEMO/DLV-LST-2/DLR-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/DLV-LST-2/DLR-LST-1",
+              "DEMO/DLV-LST-2/DLR-LST-2"
+            ],
+            "ids": {
+              "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1",
+              "DEMO/DLV-LST-2/DLR-LST-2": "DLR-2"
             }
           },
           "DEMO/META/tags": {

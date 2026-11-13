@@ -447,6 +447,16 @@
       "declaredAt": "Deliverable"
     },
     {
+      "path": "DEMO/DLV-LST-1/DLR-LST-1",
+      "className": "DeliverableRoute",
+      "verdict": "feedsNothing",
+      "values": [
+        "generation"
+      ],
+      "note": null,
+      "declaredAt": "DeliverableRoute"
+    },
+    {
       "path": "DEMO/DLV-LST-2",
       "className": "Deliverable",
       "verdict": "feedsNothing",
@@ -458,6 +468,16 @@
     },
     {
       "path": "DEMO/DLV-LST-2/DLR-LST-1",
+      "className": "DeliverableRoute",
+      "verdict": "feedsNothing",
+      "values": [
+        "generation"
+      ],
+      "note": null,
+      "declaredAt": "DeliverableRoute"
+    },
+    {
+      "path": "DEMO/DLV-LST-2/DLR-LST-2",
       "className": "DeliverableRoute",
       "verdict": "feedsNothing",
       "values": [
@@ -495,6 +515,9 @@
           "routedBy": "CodeSpecPart.form",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [
+            "demo_server"
+          ],
           "value": "Hello"
         },
         {
@@ -508,6 +531,7 @@
           "routedBy": "CodeSpecPart.form",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "Line one\nLine two\n\nLine four"
         },
         {
@@ -521,6 +545,7 @@
           "routedBy": "CodeSpecPart.form",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "3"
         },
         {
@@ -534,6 +559,7 @@
           "routedBy": "CodeSpecPart.form",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "Bob"
         },
         {
@@ -547,6 +573,7 @@
           "routedBy": "CodeSpecPart.form",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com"
         },
         {
@@ -560,6 +587,7 @@
           "routedBy": "CodeSpecPart.form",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "8"
         },
         {
@@ -573,6 +601,7 @@
           "routedBy": "CodeSpecPart.form",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "2.5"
         },
         {
@@ -586,6 +615,7 @@
           "routedBy": "CodeSpecPart.form",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "true"
         },
         {
@@ -599,6 +629,7 @@
           "routedBy": "CodeSpecPart.form",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "high"
         },
         {
@@ -612,6 +643,7 @@
           "routedBy": "CodeSpecPart.form",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "^[a-z0-9](-?[a-z0-9]){1,62}$"
         },
         {
@@ -625,6 +657,7 @@
           "routedBy": "CodeSpecPart.form",
           "routedAt": "Item",
           "routingNote": null,
+          "units": [],
           "value": "First"
         },
         {
@@ -638,6 +671,7 @@
           "routedBy": "CodeSpecPart.form",
           "routedAt": "Item",
           "routingNote": null,
+          "units": [],
           "value": "open"
         },
         {
@@ -651,6 +685,7 @@
           "routedBy": "CodeSpecPart.form",
           "routedAt": "Item",
           "routingNote": null,
+          "units": [],
           "value": "Second line A\nwith ```triple``` ticks"
         },
         {
@@ -664,6 +699,7 @@
           "routedBy": "CodeSpecPart.form",
           "routedAt": "Item",
           "routingNote": null,
+          "units": [],
           "value": "done"
         },
         {
@@ -677,6 +713,7 @@
           "routedBy": "CodeSpecPart.form",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "spec §1.2"
         },
         {
@@ -690,6 +727,7 @@
           "routedBy": "CodeSpecPart.form",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "ADR7"
         }
       ],
@@ -724,6 +762,10 @@
           "routedBy": "CodeSpecPart.text",
           "routedAt": "Notes",
           "routingNote": null,
+          "units": [
+            "demo_client",
+            "demo_server"
+          ],
           "value": "Section-kind body"
         },
         {
@@ -737,6 +779,7 @@
           "routedBy": "CodeSpecPart.text",
           "routedAt": "Mixed",
           "routingNote": null,
+          "units": [],
           "value": "Ada"
         },
         {
@@ -750,6 +793,7 @@
           "routedBy": "CodeSpecPart.text",
           "routedAt": "Mixed",
           "routingNote": null,
+          "units": [],
           "value": "low"
         },
         {
@@ -763,6 +807,7 @@
           "routedBy": "CodeSpecPart.text",
           "routedAt": "Mixed",
           "routingNote": null,
+          "units": [],
           "value": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose"
         },
         {
@@ -776,6 +821,7 @@
           "routedBy": "CodeSpecPart.text",
           "routedAt": "Mixed",
           "routingNote": null,
+          "units": [],
           "value": "Tail text."
         },
         {
@@ -789,6 +835,7 @@
           "routedBy": "CodeSpecPart.text",
           "routedAt": "Mixed",
           "routingNote": null,
+          "units": [],
           "value": "Bob"
         }
       ],
@@ -839,6 +886,9 @@
           "routedBy": "CodeSpecPart.viewState",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [
+            "demo_server"
+          ],
           "value": "Hello"
         },
         {
@@ -852,6 +902,7 @@
           "routedBy": "CodeSpecPart.viewState",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "Line one\nLine two\n\nLine four"
         },
         {
@@ -865,6 +916,7 @@
           "routedBy": "CodeSpecPart.viewState",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "3"
         },
         {
@@ -878,6 +930,7 @@
           "routedBy": "CodeSpecPart.viewState",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "Bob"
         },
         {
@@ -891,6 +944,7 @@
           "routedBy": "CodeSpecPart.viewState",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com"
         },
         {
@@ -904,6 +958,7 @@
           "routedBy": "CodeSpecPart.viewState",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "8"
         },
         {
@@ -917,6 +972,7 @@
           "routedBy": "CodeSpecPart.viewState",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "2.5"
         },
         {
@@ -930,6 +986,7 @@
           "routedBy": "CodeSpecPart.viewState",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "true"
         },
         {
@@ -943,6 +1000,7 @@
           "routedBy": "CodeSpecPart.viewState",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "high"
         },
         {
@@ -956,6 +1014,7 @@
           "routedBy": "CodeSpecPart.viewState",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "^[a-z0-9](-?[a-z0-9]){1,62}$"
         },
         {
@@ -969,6 +1028,7 @@
           "routedBy": "CodeSpecPart.viewState",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "spec §1.2"
         },
         {
@@ -982,6 +1042,7 @@
           "routedBy": "CodeSpecPart.viewState",
           "routedAt": "Demo",
           "routingNote": "the demo capture screen and its view state",
+          "units": [],
           "value": "ADR7"
         },
         {
@@ -995,6 +1056,7 @@
           "routedBy": "CodeSpecPart.viewState",
           "routedAt": "Card",
           "routingNote": null,
+          "units": [],
           "value": "first card"
         },
         {
@@ -1008,6 +1070,7 @@
           "routedBy": "CodeSpecPart.viewState",
           "routedAt": "Card",
           "routingNote": null,
+          "units": [],
           "value": "second card"
         }
       ],
@@ -1041,11 +1104,15 @@
           "routedBy": "CodeSpecPart.navigation",
           "routedAt": "Demo.priority",
           "routingNote": null,
+          "units": [
+            "demo_client",
+            "demo_server"
+          ],
           "value": "high"
         }
       ],
-      "yaml": "# CE-NV.extract.yaml — generated by spec_codespecs_extract. Do not edit.\nextract:\n  formatVersion: 3\n  catalogSource: \"codespecs_mapping.md §4.1 + §4.4.3 + §4.4.6\"\n  area:\n    code: \"CE-NV\"\n    canonicalId: \"Navigation\"\n    part: \"CodeSpecPart.navigation\"\n    annotations: [\"@CsRoute\", \"@CsScreenFlow\"]\n    builtOn: \"`TomPageRoute` (`tom_flutter_ui`); route-id + screen-flow model (`tom_core_codespecs`)\"\n    attributeSurface: \"codespecs_mapping.md §5.11\"\n    slices: [5]\n    authoringSteps: [23]\n    projects: [\"<app>_codespec_client\"]\n    citableParts: [\"CE-FM\", \"CE-TX\", \"CE-ST\", \"CE-ER\"]\n  document:\n    root: \"DEMO\"\n    entryCount: 1\n  entries:\n    - sectionId: \"PRI\"\n      headline: null\n      instanceId: null\n      path: \"DEMO/PRI\"\n      className: \"Demo\"\n      fieldName: \"priority\"\n      formField: null\n      routedBy: \"CodeSpecPart.navigation\"\n      routedAt: \"Demo.priority\"\n      routingNote: null\n      value: \"high\"\n",
-      "markdown": "# CE-NV — Navigation\n\nGenerated by `spec_codespecs_extract` from the specification document rooted at `DEMO`.\n`CE-NV.extract.yaml` beside this file is the artifact of record; this is a view of it.\n\n## Area\n\n| | |\n|---|---|\n| CE code | `CE-NV` |\n| Canonical id | `Navigation` |\n| `@CodeSpecKind` value | `CodeSpecPart.navigation` |\n| `Cs*` annotations | `@CsRoute`, `@CsScreenFlow` |\n| Built on | `TomPageRoute` (`tom_flutter_ui`); route-id + screen-flow model (`tom_core_codespecs`) |\n| Attribute surface | codespecs_mapping.md §5.11 |\n| Slice(s) | 5 |\n| Authoring step(s) | 23 |\n| Project(s) | `<app>_codespec_client` |\n| May cite | `CE-FM`, `CE-TX`, `CE-ST`, `CE-ER` |\n| Catalogue source | codespecs_mapping.md §4.1 + §4.4.3 + §4.4.6 |\n\n## Entries (1)\n\n### 1. `PRI` — `Demo.priority`\n\n- path: `DEMO/PRI`\n- routed by: `CodeSpecPart.navigation` declared on `Demo.priority`\n\n``` text\nhigh\n```\n\n"
+      "yaml": "# CE-NV.extract.yaml — generated by spec_codespecs_extract. Do not edit.\nextract:\n  formatVersion: 3\n  catalogSource: \"codespecs_mapping.md §4.1 + §4.4.3 + §4.4.6\"\n  area:\n    code: \"CE-NV\"\n    canonicalId: \"Navigation\"\n    part: \"CodeSpecPart.navigation\"\n    annotations: [\"@CsRoute\", \"@CsScreenFlow\"]\n    builtOn: \"`TomPageRoute` (`tom_flutter_ui`); route-id + screen-flow model (`tom_core_codespecs`)\"\n    attributeSurface: \"codespecs_mapping.md §5.11\"\n    slices: [5]\n    authoringSteps: [23]\n    projects: [\"<app>_codespec_client\"]\n    citableParts: [\"CE-FM\", \"CE-TX\", \"CE-ST\", \"CE-ER\"]\n  document:\n    root: \"DEMO\"\n    entryCount: 1\n  entries:\n    - sectionId: \"PRI\"\n      headline: null\n      instanceId: null\n      path: \"DEMO/PRI\"\n      className: \"Demo\"\n      fieldName: \"priority\"\n      formField: null\n      routedBy: \"CodeSpecPart.navigation\"\n      routedAt: \"Demo.priority\"\n      routingNote: null\n      units: [\"demo_client\", \"demo_server\"]\n      value: \"high\"\n",
+      "markdown": "# CE-NV — Navigation\n\nGenerated by `spec_codespecs_extract` from the specification document rooted at `DEMO`.\n`CE-NV.extract.yaml` beside this file is the artifact of record; this is a view of it.\n\n## Area\n\n| | |\n|---|---|\n| CE code | `CE-NV` |\n| Canonical id | `Navigation` |\n| `@CodeSpecKind` value | `CodeSpecPart.navigation` |\n| `Cs*` annotations | `@CsRoute`, `@CsScreenFlow` |\n| Built on | `TomPageRoute` (`tom_flutter_ui`); route-id + screen-flow model (`tom_core_codespecs`) |\n| Attribute surface | codespecs_mapping.md §5.11 |\n| Slice(s) | 5 |\n| Authoring step(s) | 23 |\n| Project(s) | `<app>_codespec_client` |\n| May cite | `CE-FM`, `CE-TX`, `CE-ST`, `CE-ER` |\n| Catalogue source | codespecs_mapping.md §4.1 + §4.4.3 + §4.4.6 |\n\n## Entries (1)\n\n### 1. `PRI` — `Demo.priority`\n\n- path: `DEMO/PRI`\n- routed by: `CodeSpecPart.navigation` declared on `Demo.priority`\n- units: `demo_client`, `demo_server`\n\n``` text\nhigh\n```\n\n"
     },
     {
       "area": "CE-ER",

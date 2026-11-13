@@ -123,6 +123,13 @@ document:
             client
           component: |2-
             ARCM-COMP-UI
+        DLR-LST routes:
+          DLR-1:
+            content:
+              area: |2-
+                CE-NV
+              mapping: |2-
+                dart-tom
       DLV-2:
         content:
           unitId: |2-
@@ -136,5 +143,11 @@ document:
             content:
               area: |2-
                 CE-DB
+              mapping: |2-
+                dart-tom
+          DLR-2:
+            content:
+              area: |2-
+                CE-NV
               mapping: |2-
                 dart-tom

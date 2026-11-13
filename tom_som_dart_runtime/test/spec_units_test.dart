@@ -462,4 +462,50 @@ void main() {
       ]);
     });
   });
+
+  group('the register (specGenerationUnits)', () {
+    final model = _corpusModel();
+
+    test('units in register order, each with its own mappings', () {
+      final d = _register();
+      d.setFormField('DEMO/DLV-LST-1/content', 'kind', 'client');
+      for (final (unit, area, mapping) in [
+        ('DEMO/DLV-LST-1', 'CE-NV', 'dart-tom'),
+        ('DEMO/DLV-LST-1', 'CE-TX', ' ts-react '),
+        ('DEMO/DLV-LST-2', 'CE-NV', 'dart-tom'),
+      ]) {
+        final r = d.addListItem('$unit/DLR-LST');
+        d.setFormField('$r/content', 'area', area);
+        d.setFormField('$r/content', 'mapping', mapping);
+      }
+      final units = specGenerationUnits(model, d);
+      expect([for (final u in units) u.unitId], ['u_a', 'u_b']);
+      expect(units.first.kind, 'client');
+      expect(units.first.path, 'DEMO/DLV-LST-1');
+      expect(
+        [for (final m in units.first.mappings) (m.area, m.mapping)],
+        [('CE-NV', 'dart-tom'), ('CE-TX', 'ts-react')],
+      );
+      expect(units.first.mappingFor('CE-TX'), 'ts-react');
+      expect(units.last.mappingFor('CE-TX'), isNull);
+      expect(specDefaultUnits(units, 'CE-NV'), ['u_a', 'u_b']);
+      expect(specDefaultUnits(units, 'CE-TX'), ['u_a']);
+      expect(specDefaultUnits(units, 'CE-DB'), isEmpty);
+    });
+
+    test('a unit without an id, and a second unit of one id, are left out', () {
+      final d = _register();
+      d.addListItem('DEMO/DLV-LST');
+      final dup = d.addListItem('DEMO/DLV-LST');
+      d.setFormField('$dup/content', 'unitId', 'u_a');
+      expect(
+        [for (final u in specGenerationUnits(model, d)) u.unitId],
+        ['u_a', 'u_b'],
+      );
+    });
+
+    test('a document without a register declares none', () {
+      expect(specGenerationUnits(model, SpecDocument()), isEmpty);
+    });
+  });
 }

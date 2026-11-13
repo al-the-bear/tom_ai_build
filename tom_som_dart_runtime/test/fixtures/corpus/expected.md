@@ -156,6 +156,14 @@ Kind: client
 
 Component: ARCM-COMP-UI
 
+#### <!--[DLR-LST]--> Routes
+
+##### <!--[DLR-1]--> Deliverable Route 1
+
+Area: CE-NV
+
+Mapping: dart-tom
+
 ### <!--[DLV-2]--> Deliverable 2
 
 UnitId: demo_server
@@ -169,6 +177,12 @@ DeploymentTarget: DEPTAR-DEPL-API
 ##### <!--[DLR-1]--> Deliverable Route 1
 
 Area: CE-DB
+
+Mapping: dart-tom
+
+##### <!--[DLR-2]--> Deliverable Route 2
+
+Area: CE-NV
 
 Mapping: dart-tom
 

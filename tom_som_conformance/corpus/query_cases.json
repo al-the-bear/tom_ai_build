@@ -407,6 +407,14 @@
         "spans": []
       },
       {
+        "path": "DEMO/DLV-LST-1/DLR-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
         "path": "DEMO/DLV-LST-2/content",
         "kind": "form",
         "classId": null,
@@ -416,6 +424,14 @@
       },
       {
         "path": "DEMO/DLV-LST-2/DLR-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/DLR-LST-2/content",
         "kind": "form",
         "classId": null,
         "headline": null,
@@ -1298,6 +1314,22 @@
         "spans": []
       },
       {
+        "path": "DEMO/DLV-LST-1/DLR-LST-1",
+        "kind": "listItemComplex",
+        "classId": "DeliverableRoute",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-1/DLR-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
         "path": "DEMO/DLV-LST-2",
         "kind": "listItemComplex",
         "classId": "Deliverable",
@@ -1331,6 +1363,22 @@
       },
       {
         "path": "DEMO/DLV-LST-2/DLR-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/DLR-LST-2",
+        "kind": "listItemComplex",
+        "classId": "DeliverableRoute",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/DLR-LST-2/content",
         "kind": "form",
         "classId": null,
         "headline": null,
@@ -1713,6 +1761,30 @@
         "spans": []
       },
       {
+        "path": "DEMO/DLV-LST-1/DLR-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-1/DLR-LST-1",
+        "kind": "listItemComplex",
+        "classId": "DeliverableRoute",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-1/DLR-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
         "path": "DEMO/DLV-LST-2",
         "kind": "listItemComplex",
         "classId": "Deliverable",
@@ -1746,6 +1818,22 @@
       },
       {
         "path": "DEMO/DLV-LST-2/DLR-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/DLR-LST-2",
+        "kind": "listItemComplex",
+        "classId": "DeliverableRoute",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/DLR-LST-2/content",
         "kind": "form",
         "classId": null,
         "headline": null,
@@ -1891,14 +1979,6 @@
       {
         "path": "DEMO/REG/CHO/CHO-COM/note",
         "kind": "content",
-        "classId": null,
-        "headline": null,
-        "snippet": null,
-        "spans": []
-      },
-      {
-        "path": "DEMO/DLV-LST-1/DLR-LST",
-        "kind": "list",
         "classId": null,
         "headline": null,
         "snippet": null,
@@ -2660,6 +2740,22 @@
         "spans": []
       },
       {
+        "path": "DEMO/DLV-LST-1/DLR-LST-1",
+        "kind": "listItemComplex",
+        "classId": "DeliverableRoute",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-1/DLR-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
         "path": "DEMO/DLV-LST-2",
         "kind": "listItemComplex",
         "classId": "Deliverable",
@@ -2693,6 +2789,22 @@
       },
       {
         "path": "DEMO/DLV-LST-2/DLR-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/DLR-LST-2",
+        "kind": "listItemComplex",
+        "classId": "DeliverableRoute",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DLV-LST-2/DLR-LST-2/content",
         "kind": "form",
         "classId": null,
         "headline": null,

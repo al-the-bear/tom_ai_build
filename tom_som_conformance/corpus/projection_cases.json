@@ -732,7 +732,32 @@
     "detailedIn": null,
     "headline": null,
     "searchableStrings": [],
-    "hasValue": false
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/DLV-LST-1/DLR-LST-1",
+    "kind": "listItemComplex",
+    "classId": "DeliverableRoute",
+    "sectionId": "DLR-1",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/DLV-LST-1/DLR-LST-1/content",
+    "kind": "form",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "CE-NV",
+      "dart-tom"
+    ],
+    "hasValue": true
   },
   {
     "path": "DEMO/DLV-LST-2",
@@ -792,6 +817,31 @@
     "headline": null,
     "searchableStrings": [
       "CE-DB",
+      "dart-tom"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/DLV-LST-2/DLR-LST-2",
+    "kind": "listItemComplex",
+    "classId": "DeliverableRoute",
+    "sectionId": "DLR-2",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/DLV-LST-2/DLR-LST-2/content",
+    "kind": "form",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "CE-NV",
       "dart-tom"
     ],
     "hasValue": true

@@ -95,6 +95,7 @@ and how to pin.
 | `spec_query.dart` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection. |
 | `spec_node_creation.dart` | The constrained node-creation gate (`checkAddNode`, `SpecNodeCreator`) — a document may only grow in ways the model permits. |
 | `spec_codespecs_extract.dart` | The Phase-4 CodeSpecs specification-extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`) — one bounded, cited extract per CodeSpecs area, copied verbatim with provenance, never summarised. Walks one `@Document` root, resolved at construction from an optional root-type argument (`codespecs_prompt.md` §5). |
+| `spec_generation_units.dart` | The generation-unit register of a document (SOM §11.2): `specGenerationUnits` reads each unit (`SpecGenerationUnit`: id, kind, mappings per area), recognised by `@NoArtifact(generation)` as validation phase 8 recognises it; `specDefaultUnits` is the default destination of an area — the extract fills an entry's `units` from it when no section stores units. |
 | `spec_document_yaml.dart` | Byte-stable `*.docspecs.yaml` codec (`SOM §12`). |
 | `spec_document_markdown.dart` | Meta-data-driven Markdown import/export codec (`SOM §11`). |
 | `docspecs_validator.dart` | Schema-free DocSpecs parse, schema loader, and never-fail-fast validator (`SOM §14`). |
@@ -224,6 +225,7 @@ dart analyze
 | `SpecDocumentMarkdown` | DocSpecs-conform Markdown export, parse and round-trip. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
 | `CodeSpecsExtractor` | The Phase-4 extract generator — one verbatim, cited extract per CodeSpecs area. |
+| `SpecGenerationUnit` | One generation unit of a document's register, with its mapping per area (`specGenerationUnits`). |
 | `SomNode` / `SomScalar` / `SomList` | The editing-facade base types the generated `tom_som_dart_v0` classes extend. |
 
 ## Ecosystem

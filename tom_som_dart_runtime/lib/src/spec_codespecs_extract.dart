@@ -43,6 +43,7 @@ library;
 
 import 'spec_codespecs_records.dart';
 import 'spec_document.dart';
+import 'spec_generation_units.dart';
 import 'spec_model.dart';
 import 'spec_paths.dart';
 import 'spec_reflection.dart';
@@ -59,9 +60,11 @@ import 'spec_reflection.dart';
 /// positional default (`CARD-2`) is derived, never stored, so it is never
 /// carried — that would be the composition C1 forbids.
 ///
-/// Entries may carry `units` — the nearest stored generation units (SOM §11.2)
-/// at the entry's path or above it. The key is written only when non-empty and
-/// reads as empty when absent, so it is additive and the version stays 3.
+/// Entries may carry `units` — the generation units the entry goes to (SOM
+/// §11.2): the nearest stored units at the entry's path or above it, else the
+/// units of the document's register whose mappings hold the entry's area. The
+/// key is written only when non-empty and reads as empty when absent, so it is
+/// additive and the version stays 3.
 const int kCodeSpecsExtractFormat = 3;
 
 /// The annotation names of the three routing verdicts (`codespecs_mapping.md`
@@ -204,9 +207,11 @@ class CodeSpecsExtractEntry {
 
   /// The generation units the entry goes to (SOM §11.2,
   /// `codespecs_mapping.md` §1.1.1): the nearest stored `units` at the entry's
-  /// path or any ancestor path, split at its commas. Empty when no section on
-  /// the way stores one — the default, every unit with a mapping for the
-  /// entry's area. Copy-only like [instanceId].
+  /// path or any ancestor path, split at its commas; when no section on the
+  /// way stores one, the default — every unit of the document's register with
+  /// a mapping for the entry's area, in register order
+  /// ([specGenerationUnits]). Empty when the document declares no unit that
+  /// holds the area.
   final List<String> units;
 
   /// The stored value, **verbatim**. Never assembled, reformatted or trimmed.
@@ -220,8 +225,9 @@ class CodeSpecsExtractEntry {
   /// The four optional ones are absent-by-nature, not defaulted-away:
   /// [headline] and [instanceId] stay null when the document stores neither,
   /// [formField] exists only for a `@Form` field, [routingNote] only when the
-  /// marker carries one, and [units] is empty when no section on the way
-  /// stores units. None is ever synthesised to fill the gap — composing
+  /// marker carries one, and [units] is empty when neither a section on the
+  /// way nor the register names a unit. None is ever synthesised to fill the
+  /// gap — composing
   /// a value is exactly what C1 (`codespecs_derivation_contract.md` §2.8)
   /// forbids the extract generator.
   const CodeSpecsExtractEntry({
@@ -975,6 +981,9 @@ class CodeSpecsExtractor {
   /// disagree about what was walked.
   final SpecRoot root;
 
+  /// The document's generation units ([specGenerationUnits]), read once.
+  final List<SpecGenerationUnit> _units;
+
   final SpecReflection _reflection;
 
   /// Binds an extractor to a model / document / catalogue triple.
@@ -996,7 +1005,8 @@ class CodeSpecsExtractor {
     required this.catalog,
     String? rootType,
   }) : root = _refuseProjection(model, _resolveRoot(model, document, rootType)),
-       _reflection = SpecReflection(model);
+       _reflection = SpecReflection(model),
+       _units = specGenerationUnits(model, document);
 
   static String _segment(SpecRoot r) => r.sectionId ?? r.type;
 
@@ -1299,10 +1309,13 @@ class CodeSpecsExtractor {
   }) {
     if (entries == null || routing == null) return;
     if (value == null || value.isEmpty) return;
-    final unitIds = _splitUnits(units);
+    final stored = _splitUnits(units);
     for (final kind in routing.values) {
       final area = catalog.byPart(kind);
       if (area == null || !area.active) continue;
+      final unitIds = stored.isNotEmpty
+          ? stored
+          : specDefaultUnits(_units, area.code);
       entries.add(
         CodeSpecsExtractEntry(
           areaCode: area.code,

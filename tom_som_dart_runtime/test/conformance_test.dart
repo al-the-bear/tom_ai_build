@@ -1478,6 +1478,7 @@ void main() {
                   'routedBy': e.routedBy,
                   'routedAt': e.routedAt,
                   'routingNote': e.routingNote,
+                  'units': e.units,
                   'value': e.value,
                 },
             ],
@@ -2963,6 +2964,11 @@ SpecDocument _buildDocument() {
   d.setFormField('$u1/content', 'unitId', 'demo_client');
   d.setFormField('$u1/content', 'kind', 'client');
   d.setFormField('$u1/content', 'component', 'ARCM-COMP-UI');
+  // Both units map CE-NV, so an entry routed there with no stored units goes
+  // to both by default, in register order (the extract's `units`).
+  final n1 = d.addListItem('$u1/DLR-LST', sectionId: 'DLR-1');
+  d.setFormField('$n1/content', 'area', 'CE-NV');
+  d.setFormField('$n1/content', 'mapping', 'dart-tom');
   final u2 = d.addListItem('DEMO/DLV-LST', sectionId: 'DLV-2');
   d.setFormField('$u2/content', 'unitId', 'demo_server');
   d.setFormField('$u2/content', 'kind', 'server');
@@ -2970,6 +2976,9 @@ SpecDocument _buildDocument() {
   final r1 = d.addListItem('$u2/DLR-LST', sectionId: 'DLR-1');
   d.setFormField('$r1/content', 'area', 'CE-DB');
   d.setFormField('$r1/content', 'mapping', 'dart-tom');
+  final r2 = d.addListItem('$u2/DLR-LST', sectionId: 'DLR-2');
+  d.setFormField('$r2/content', 'area', 'CE-NV');
+  d.setFormField('$r2/content', 'mapping', 'dart-tom');
   return d;
 }
 
@@ -6077,6 +6086,7 @@ Map<String, dynamic> _codeSpecsExtractCases(SpecModel model, SpecDocument doc) {
     'routedBy': e.routedBy,
     'routedAt': e.routedAt,
     'routingNote': e.routingNote,
+    'units': e.units,
     'value': e.value,
   };
 

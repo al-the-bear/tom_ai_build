@@ -88,6 +88,7 @@ export 'src/spec_review_annotations.dart'
 export 'src/spec_review_merge.dart';
 export 'src/spec_annotation_display.dart';
 export 'src/spec_codespecs_extract.dart';
+export 'src/spec_generation_units.dart';
 export 'src/spec_codespecs_gate.dart';
 export 'src/spec_codespecs_records.dart';
 export 'src/som_facade.dart';
