@@ -12,7 +12,7 @@ per area. A mapper per language and framework writes code from it; the Dart +
 Tom mapper's output is today's trio, byte for byte; the TypeScript mappers
 write the same skeleton as an npm workspace (§11), the Go server mapper the
 server as a Go module (§12), the Java + Spring Boot mapper as a Gradle project
-(§13). This document says what is
+(§13), the C# + ASP.NET Core mapper as a .NET solution (§14). This document says what is
 in a document, how it is written and what is deliberately left out, and what
 each standard emitter writes from it (§10). Which code
 a mapper writes from it is each mapper's own document, and what the trio
@@ -740,3 +740,113 @@ stop the mapper naming the file.
 io.spring.dependency-management plugin 1.1.7, openapi-generator 7.17.0.
 Spring Boot with Spring Data JPA is the first choice for Java; other
 frameworks are separate mappers to come.
+
+## 14. The C# + ASP.NET Core server mapper
+
+One mapper writes the server of the IR as a .NET 8 solution — ASP.NET Core
+minimal APIs, EF Core and FluentValidation:
+
+```text
+irspecs map --mapper csharp-aspnet-server --ir <spec-root>/irspecs --out <dir>
+```
+
+It writes the solution `<dir>/<server package>/` — with `--spec <document>
+--unit <unit id>` (§8.1) a server unit whose mapping names
+`csharp-aspnet-server`, and the solution is then named after the unit. Its
+root namespace is the package name in Pascal case
+(`meridian_codespec_server` → `MeridianCodespecServer`), and it holds two
+projects: `<Root>.Shared`, a class library with the IR's shared locus, the
+FluentValidation validators and the back-link attributes
+(`<Root>.CodeSpec`); and `<Root>.Server`, the ASP.NET Core web project with
+the server locus of the share, the EF Core context and its first migration,
+the repository contract and `Program.cs`. A Dart file holding several
+declarations is a C# file per declaration. `Directory.Build.props` targets
+`net8.0` with nullable reference types and implicit usings, and `global.json`
+asks for an 8.0 SDK. A client locus is not this mapper's: a layout in what it
+reads is refused.
+
+**What the output is.** A skeleton, as the Dart trio is: `dotnet build`
+builds it with no warning, and it executes nothing — a handler or body the
+specification gives no steps for throws `NotImplementedException("<explication>")`.
+The server does start, since the database is read only when a repository
+first needs it: the test `tom_specs_clitool/test/irspecs_csharp_test.dart`
+builds the Meridian solution, runs it and checks that a stub handler, a
+request its validator rejects, a request missing a required member and a body
+that does not read are each answered with a 500, the only status a transport
+error has (`codespecs_mapping.md` §7), and any other verb with a 405. It also
+holds the back-links of every file to the Dart trio's and the wire types to
+the JSON Schema of §10, prints and builds a body from its steps, and builds a
+server unit written as its own solution. Running a repository needs what the
+IR does not carry: each entity's key, which EF Core requires, and the
+connection string `ConnectionStrings:Default`.
+
+**NSwag and Kiota.** The wire types are written by the mapper, as the Go
+mapper's are (§12). Kiota generates API clients, not a server. NSwag 14.8
+reads §10's document but turns each OpenAPI 3.1 nullable reference
+(`anyOf [{$ref}, {type: null}]`) into an empty class of its own — `Result`'s
+`value` and `error` become classes named `Value` and `Error` — writes
+Newtonsoft.Json attributes where minimal APIs serialise with
+System.Text.Json, and generates MVC controllers rather than minimal APIs. The
+generic envelope needs no generated form in C#: `Result<T>` serialises as the
+document describes it.
+
+**EF Core.** `<Root>DbContext` holds a `DbSet` per entity
+(`<Entity>Set`) and stores an enum-typed column as the value's name. The
+first migration, `Migrations/00000000000000_CeDbTables.cs`, runs a `CREATE
+TABLE` per entity, a column per field with its `columnType` (without one,
+from the Dart type: `integer`, `double precision`, `boolean`, `timestamptz`,
+`text`), `NOT NULL` unless nullable — the schema the cumulative CE-MG
+migrations converge on (`codespecs_derivation_contract.md` §6, check 13); the
+IR carries no migration DDL of its own. The migration has no model snapshot:
+`dotnet ef migrations add` would write the whole model as its next
+migration.
+
+### 14.1 What each declaration becomes
+
+| IR declaration | C# | Project |
+|----------------|----|---------|
+| a domain enum (CE-EN) | `public enum X { value, … }`, the values as the Dart names them, serialised as strings (`JsonStringEnumConverter<X>`), so they read as the JSON Schema's | Shared |
+| a class of `static const` catalogue entries — operations (CE-API), roles (CE-AZ), error codes (CE-ER), message keys (CE-TX) | `public static class X { public const string entry = "…"; }` | Shared |
+| a plain data class (not abstract, instance fields only) — a wire type (CE-API), the envelope (CE-ER) | `public sealed record X<T>(…)`, a parameter per field in Pascal case (System.Text.Json writes it in camel case, as the schema names it), `[property: JsonRequired]` on every non-nullable member — the schema's `required` — and the field's back-links as `[property: …]` | Shared |
+| the `@CsValidation` rules of a record's fields | a FluentValidation `XValidator : AbstractValidator<X>`: `required` → `NotNull()`, `email` → `EmailAddress()`, `pattern` → `Matches(…)`, `minLength`/`maxLength` → `MinimumLength`/`MaximumLength`, `minItems`/`maxItems` → a count check, `min`/`max` → `GreaterThanOrEqualTo`/`LessThanOrEqualTo`; a `ValidationFilter<X>` runs it on the operation's request | Shared |
+| an entity (`@CsTable`, CE-DB) | `[Table("<table>")] public class X`, a property per column with `[Column("<column>", TypeName = "<columnType>")]`; its table in the first migration | Server |
+| a repository (`@CsRepository`) | `public interface XRepository : TomRepository<X, TKey>`, `TomRepository` the method contract of `tom_core_server`'s repository (`Tom/TomRepository.cs`) | Server |
+| a service unit (`@CsServiceUnit`, CE-SU) | a class registered scoped, its handlers `public virtual` and throwing; in `Program.cs` an `app.MapPost("/<operation>", (Request request, Unit service) => service.Handler(request))` per handler | Server |
+| a collaborator (`@CsCollaborator`) | `public interface X { Task<R> Method(params); }` | the file's |
+| any other class with methods | a class with a private field per Dart field and a constructor taking them, each 3b body printed from its steps (§4.7) — `await collaborator.M(args);`, `if (await collaborator.G(args)) { … }`, `return await collaborator.M(args);` | the file's |
+
+Types follow §10.1's JSON Schema mapping: `String`, `Uri`, `Duration` →
+`string`; `DateTime` → `DateTimeOffset`; `int` → `int`; `double`, `num` →
+`double`; `bool` → `bool`; `Object`, `dynamic` → `object`; `List`,
+`Iterable`, `Set` → `List<X>`; `Map<K, V>` → `Dictionary<K, V>`; `X?` → `X?`;
+a `Cs…Ref`/`…Key`/`…Code` → `string`. A method's `Future<X>` is `Task<X>`,
+`Future<void>` is `Task`; member and method names are in Pascal case, enum
+values and catalogue entries keep the Dart names (they are the wire's).
+
+**Back-links** are attributes of the `Shared` project's `CodeSpec`
+namespace: `[CodeSpec("<id>", "<section id>", …)]` and one
+`[DocSpec("<section id>", "<description>")]` per section, on the declaration
+and on each member — property, method, enum value, constant — with the same
+section ids as the Dart trio, which the test holds file by file. Every `Cs*`
+marker and other Dart annotation is a `Cs: …` / `Dart: …` line of the XML doc
+comment (a record member's in its `<param>`).
+
+**Transport errors** (`codespecs_mapping.md` §7): `Program.cs` sets
+`ThrowOnBadRequest`, so a body that does not read is thrown rather than
+answered with a 400, and an exception handler answers every exception with a
+500 and its message; `ValidationFilter<T>` answers a request its validator
+rejects with a 500 until Phase 6 answers it with the envelope's error arm.
+
+**Refused, not approximated** (as in §8): a declaration kind with no rule (a
+mixin, a top-level function), a top-level variable, a layout, a bounded type
+parameter, a static or initialised field, a service unit with fields, a
+generic record with validation rules, a validator with no FluentValidation
+rule, a type the IR does not declare, a name declared in both the shared and
+the server locus or one the mapper writes itself (`<Root>DbContext`,
+`TomRepository`, `TomPageRequest`), and a column type with no SQL type stop
+the mapper naming the file.
+
+**Pinned versions** (`kCsharpVersions`). .NET 8 (`net8.0`, an 8.0 SDK by
+`global.json`), EF Core 8.0.34 with Npgsql's provider 8.0.11, FluentValidation
+12.2.0. ASP.NET Core minimal APIs with EF Core are the first choice for C#;
+other frameworks are separate mappers to come.

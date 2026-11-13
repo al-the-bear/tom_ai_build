@@ -20,7 +20,8 @@
 ///   `ts-react-client` and `ts-hono-server` an npm workspace
 ///   (`irspecs_ir.md` §11), `go-server` the server as a Go module
 ///   (`irspecs_ir.md` §12), `java-spring-server` as a Spring Boot project
-///   (`irspecs_ir.md` §13).
+///   (`irspecs_ir.md` §13), `csharp-aspnet-server` as a .NET solution
+///   (`irspecs_ir.md` §14).
 ///
 /// * `irspecs emit --standard <name> --ir <dir> --out <dir>`, the name one
 ///   of `openapi`, `jsonschema`, `icu` and `asyncapi`, writes what a standard
@@ -55,6 +56,7 @@ import 'emitters/icu_emitter.dart';
 import 'emitters/json_schema_emitter.dart';
 import 'emitters/openapi_emitter.dart';
 import 'mappers/dart_tom/dart_tom_mapper.dart';
+import 'mappers/csharp/csharp_aspnet_mapper.dart';
 import 'mappers/go/go_mapper.dart';
 import 'mappers/java/java_spring_mapper.dart';
 import 'mappers/ts/ts_mapper.dart';
@@ -92,6 +94,7 @@ ArgParser irspecsParser() => ArgParser()
       ...kTsMappers.keys,
       kGoServerMapper,
       kJavaSpringServerMapper,
+      kCsharpAspnetServerMapper,
     ],
   )
   ..addOption(
@@ -285,6 +288,7 @@ Future<int> _map(
       final files = switch (mapper) {
         kGoServerMapper => mapGoServer(documents, all: all),
         kJavaSpringServerMapper => mapJavaSpring(documents, all: all),
+        kCsharpAspnetServerMapper => mapCsharpAspnet(documents, all: all),
         _ => mapTypeScript(documents, mapper, all: all),
       };
       for (final MapEntry(key: path, value: text) in files.entries) {

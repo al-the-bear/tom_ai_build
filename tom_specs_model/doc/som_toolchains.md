@@ -80,6 +80,20 @@ Packaging tools (SOM §17 parity): **Maven `3.9.16`** (`brew install maven`, run
 JDK 21 via `JAVA_HOME`; bomber has 3.9.11) and **Python `build 1.5.0`**
 (`--user --break-system-packages`, exact match).
 
+The **IR Specs mappers** (`tom_core_codespecs/doc/irspecs_ir.md` §11–§14) are
+tested against the toolchains of their target stacks. On `mbp`: Node 22 (the
+TypeScript mappers; `tsc` comes from the workspace's own `npm install`); Go
+`1.26.5` (go-server; sqlc runs through `go run`); JDK 21 with the Gradle the
+wrapper has unpacked under `~/.gradle/wrapper/dists` (java-spring-server; the
+test finds Gradle 8.14 there when none is on `PATH`); and a **.NET 8 SDK**
+(csharp-aspnet-server), `8.0.428`, installed **per user** into `~/.dotnet` with
+Microsoft's `dotnet-install.sh` — `curl -sSL -o dotnet-install.sh
+https://dot.net/v1/dotnet-install.sh && bash dotnet-install.sh --channel 8.0
+--install-dir ~/.dotnet --no-path` — so it needs no administrator rights and is
+removed with the folder. It is not on `PATH`; the test finds it in `~/.dotnet`.
+No other fleet host carries a .NET SDK (legiondary01 has the .NET runtime
+only), so the C# mapper's building tests skip there with that reason.
+
 macOS-specific notes:
 
 - **`python3` on `mbp` is a framework Python 3.11**, not the 3.12 toolchain.

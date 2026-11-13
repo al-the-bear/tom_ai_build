@@ -49,6 +49,8 @@ Schema is `tool/irspecs_ir.schema.json`.
 | `kSqlcVersion` | `'v1.29.0'` | The sqlc release the module's `sqlc.yaml` is written for. |
 | `kJavaSpringServerMapper` | `'java-spring-server'` | The Java + Spring Boot server mapper's id (`irspecs_ir.md` §13). |
 | `kJavaSpringVersions` | `Map<String, String>` | The Java release, the Gradle and the Gradle plugins the project pins. |
+| `kCsharpAspnetServerMapper` | `'csharp-aspnet-server'` | The C# + ASP.NET Core server mapper's id (`irspecs_ir.md` §14). |
+| `kCsharpVersions` | `Map<String, String>` | The target framework, the SDK band and the NuGet packages the solution pins. |
 | `irStandards` | `Map<String, IrEmission Function(List<IrDocument>)>` | The standards `irspecs emit --standard` writes: `openapi`, `jsonschema`, `icu`, `asyncapi`. |
 | `kOpenApiVersion`, `kOpenApiFile` | `'3.1.0'`, `'openapi.json'` | The OpenAPI emitter's version and file. |
 | `kJsonSchema202012`, `kJsonSchemaFile` | the 2020-12 dialect URI, `'schema.json'` | The JSON Schema emitter's dialect and file. |
@@ -349,8 +351,10 @@ IrSchemaBuilder(IrIndex index, {required String refBase, required List<String> n
 | `mapGoServer(List<IrDocument> share, {List<IrDocument>? all})` | `Map<String, String>` | The Go module of the share's server, `<module>/<path>` → text: the `shared`, `server` and `tom` packages, `router.go` from the OpenAPI of `all`, `go.mod`/`go.sum`, and the sqlc schema, queries and `sqlc.yaml`. Throws `IrMapException` on a construct it has no rule for. |
 | `mapJavaSpring(List<IrDocument> share, {List<IrDocument>? all})` | `Map<String, String>` | The Gradle project of the share's server, `<project>/<path>` → text: the `shared`, `server` and `codespec` packages, the controllers on the openapi-generator interfaces, the Flyway migration, the OpenAPI document of `all` and the build files. Throws `IrMapException` on a construct it has no rule for. |
 | `javaPackageName(String name)` | `String` | The Java package of a package name: lower case, every other character an underscore. |
+| `mapCsharpAspnet(List<IrDocument> share, {List<IrDocument>? all})` | `Map<String, String>` | The .NET solution of the share's server, `<unit>/<path>` → text: the `Shared` and `Server` projects, the validators, the EF Core context and migration, `Program.cs` with its routes from the OpenAPI of `all`, and the solution files. Throws `IrMapException` on a construct it has no rule for. |
+| `csharpNamespaceName(String name)` | `String` | The root namespace of a package name, in Pascal case. |
 | `irDeclarationShape(IrIndex index, IrEntry e, {required String mapper})` | `IrShape` | What a top-level IR declaration is, for every language mapper: catalogue, plain data, entity, layout, service unit, contract, class, variable. |
-| `irFileIndex`, `irSplitTypeArguments`, `irTypeParameterNames`, `irSnake` | | The other helpers the language mappers share (`mappers/mapper_common.dart`). |
+| `irFileIndex`, `irSplitTypeArguments`, `irTypeParameterNames`, `irSnake`, `irMarkerSource` | | The other helpers the language mappers share (`mappers/mapper_common.dart`). |
 | `openApiOperations(Map<String, dynamic> openApi)` | `List<IrOpenApiOperation>` | The operations of a document `emitOpenApi` wrote: path, operation id, request and response schema names, whether the response is the Result envelope. What the mappers write the API client and the routes from. |
 | `irspecsParser()` | `ArgParser` | The `irspecs` option set. |
 | `runIrspecs(List<String> arguments, {StringSink? out, StringSink? err})` | `Future<int>` | Runs `irspecs`; returns the exit code. |

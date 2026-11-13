@@ -658,7 +658,7 @@ class _FileWriter {
         'codeSpec: ${cs.id}${cs.source.isEmpty ? '' : ' source: ${cs.source.join(', ')}'}',
       for (final r in d.docSpec ?? const <CsDocRef>[])
         'docSpec: ${r.sectionId} — ${r.description}',
-      for (final m in d.markers) 'cs: ${_marker(m)}',
+      for (final m in d.markers) 'cs: ${irMarkerSource(m)}',
       for (final a in d.annotations) 'dart: ${a.source}',
     ];
     if (lines.isEmpty && tags.isEmpty) return const [];
@@ -675,21 +675,6 @@ class _FileWriter {
   String _docLine(String line) {
     if (RegExp(r'^[-*+] ').hasMatch(line)) return '  - ${line.substring(2)}';
     return line;
-  }
-
-  String _marker(CsMarker m) {
-    String v(CsValue x) => switch (x) {
-      CsStringValue(:final value) => jsonEncode(value),
-      CsBoolValue(:final value) => '$value',
-      CsIntValue(:final value) => '$value',
-      CsNullValue() => 'null',
-      CsQualifiedValue(:final prefix, :final name) => '$prefix.$name',
-      CsListValue(:final values) => '[${values.map(v).join(', ')}]',
-      CsConstructionValue(:final type, :final positional, :final named) =>
-        '$type(${[...positional.map(v), for (final MapEntry(:key, :value) in named.entries) '$key: ${v(value)}'].join(', ')})',
-      CsUnknownValue(:final source) => source,
-    };
-    return '${m.name}(${[...m.positional.map(v), for (final MapEntry(:key, :value) in m.named.entries) '$key: ${v(value)}'].join(', ')})';
   }
 }
 

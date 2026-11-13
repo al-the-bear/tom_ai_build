@@ -441,6 +441,7 @@ export 'src/irspecs/emitters/openapi_emitter.dart';
 export 'src/irspecs/ir_yaml.dart';
 export 'src/irspecs/irspecs_cli.dart';
 export 'src/irspecs/mappers/dart_tom/dart_tom_mapper.dart';
+export 'src/irspecs/mappers/csharp/csharp_aspnet_mapper.dart';
 export 'src/irspecs/mappers/go/go_mapper.dart';
 export 'src/irspecs/mappers/java/java_spring_mapper.dart';
 export 'src/irspecs/mappers/mapper_common.dart';

@@ -521,8 +521,12 @@ class _FileWriter {
     ];
     final params = <String>[
       for (final m in fields)
-        if (irDocText(m) case final text?)
-          '@param ${m.name} ${text.replaceAll('\n', ' ')}',
+        if ([
+              ?irDocText(m)?.replaceAll('\n', ' '),
+              for (final k in m.markers) 'Cs: ${irMarkerSource(k)}',
+            ]
+            case final parts when parts.isNotEmpty)
+          '@param ${m.name} ${parts.join(' ')}',
     ];
     final components = <String>[];
     for (final (i, m) in fields.indexed) {
@@ -758,7 +762,7 @@ class _FileWriter {
         _javadocText(l.trimLeft().replaceFirst(RegExp(r'^/// ?'), '').trim()),
     ];
     final notes = <String>[
-      for (final m in d.markers) 'Cs: ${_javadocText(_marker(m))}',
+      for (final m in d.markers) 'Cs: ${_javadocText(irMarkerSource(m))}',
       for (final a in d.annotations) 'Dart: ${_javadocText(a.source)}',
     ];
     final params = [for (final p in extra) _javadocParam(p)];
@@ -820,21 +824,6 @@ class _FileWriter {
       ]);
     }
     return out;
-  }
-
-  String _marker(CsMarker m) {
-    String v(CsValue x) => switch (x) {
-      CsStringValue(:final value) => jsonEncode(value),
-      CsBoolValue(:final value) => '$value',
-      CsIntValue(:final value) => '$value',
-      CsNullValue() => 'null',
-      CsQualifiedValue(:final prefix, :final name) => '$prefix.$name',
-      CsListValue(:final values) => '[${values.map(v).join(', ')}]',
-      CsConstructionValue(:final type, :final positional, :final named) =>
-        '$type(${[...positional.map(v), for (final MapEntry(:key, :value) in named.entries) '$key: ${v(value)}'].join(', ')})',
-      CsUnknownValue(:final source) => source,
-    };
-    return '${m.name}(${[...m.positional.map(v), for (final MapEntry(:key, :value) in m.named.entries) '$key: ${v(value)}'].join(', ')})';
   }
 }
 

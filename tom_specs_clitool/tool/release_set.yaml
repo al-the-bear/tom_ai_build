@@ -113,21 +113,23 @@ unpublished_drift:
     mappers ts-shared, ts-react-client and ts-hono-server (irspecs_ir.md
     §11; tom_specs irspecs13); the Go server mapper go-server
     (irspecs_ir.md §12; tom_specs irspecs14); the Java + Spring Boot server
-    mapper java-spring-server (irspecs_ir.md §13; tom_specs irspecs15).
-    Needs the runtime's
+    mapper java-spring-server (irspecs_ir.md §13; tom_specs irspecs15); the
+    C# + ASP.NET Core server mapper csharp-aspnet-server (irspecs_ir.md
+    §14; tom_specs irspecs16). Needs the runtime's
     specGenerationUnits, so it ships with the next release of the chain.
   tom_core_codespecs: >-
     Documentation since 0.13.5: the authoring agent writes IR, not Dart
     (codespecs_derivation_contract.md §2.0, §2.9), the run procedure maps
     each generation unit (codespecs_mapping.md §1.1.1 item 4, §1.1.2),
-    irspecs_ir.md §8.1 (tom_specs irspecs10); irspecs_ir.md §10-§13, the
-    standard emitters and the TypeScript, Go and Java mappers (tom_specs
-    irspecs11, irspecs13, irspecs14, irspecs15). Ships with the next release.
+    irspecs_ir.md §8.1 (tom_specs irspecs10); irspecs_ir.md §10-§14, the
+    standard emitters and the TypeScript, Go, Java and C# mappers (tom_specs
+    irspecs11, irspecs13 to irspecs16). Ships with the next release.
   tom_specs_model: >-
     Documentation since 1.9.0: codespecs_prompt.md §1, §7, §8 (Stage C per
     generation unit, csgen todos name their IR), the SOM document's extract
     units and register reader, tom_specs_project_flow.md PF-PHA-P4
-    (tom_specs irspecs10; the mappers it names, irspecs13 to irspecs15).
+    (tom_specs irspecs10; the mappers it names, irspecs13 to irspecs16;
+    som_toolchains.md, the mappers' toolchains).
     Ships with the next release of the chain.
 
 # Where each member was actually published from, when that is not the commit

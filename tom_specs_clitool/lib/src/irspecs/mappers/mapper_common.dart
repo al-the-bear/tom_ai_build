@@ -3,6 +3,8 @@
 /// split. Each mapper writes the shapes in its own language.
 library;
 
+import 'dart:convert';
+
 import '../../codespecs/cs_model.dart';
 import '../emitters/emit_common.dart';
 import '../ir_model.dart';
@@ -121,3 +123,21 @@ Set<String> irTypeParameterNames(String? typeParameters, String where) {
 String irSnake(String s) => s
     .replaceAllMapped(RegExp('([a-z0-9])([A-Z])'), (m) => '${m[1]}_${m[2]}')
     .toLowerCase();
+
+/// A `Cs*` marker as its Dart source reads, `CsEndpoint("amendOrderLine")`:
+/// what every language mapper writes into the doc comment of the declaration
+/// that carries it.
+String irMarkerSource(CsMarker m) {
+  String v(CsValue x) => switch (x) {
+    CsStringValue(:final value) => jsonEncode(value),
+    CsBoolValue(:final value) => '$value',
+    CsIntValue(:final value) => '$value',
+    CsNullValue() => 'null',
+    CsQualifiedValue(:final prefix, :final name) => '$prefix.$name',
+    CsListValue(:final values) => '[${values.map(v).join(', ')}]',
+    CsConstructionValue(:final type, :final positional, :final named) =>
+      '$type(${[...positional.map(v), for (final MapEntry(:key, :value) in named.entries) '$key: ${v(value)}'].join(', ')})',
+    CsUnknownValue(:final source) => source,
+  };
+  return '${m.name}(${[...m.positional.map(v), for (final MapEntry(:key, :value) in m.named.entries) '$key: ${v(value)}'].join(', ')})';
+}
