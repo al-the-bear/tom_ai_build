@@ -20,8 +20,8 @@ THE TWO VERSION STAMPS. They answer different questions and a tool
 that checks one for the other will accept a file it cannot read:
   modelVersion      = 1  — WHICH MODEL this snapshot describes
   metaSchemaVersion = 1  — the FILE FORMAT the snapshot itself is written in
-  modelVersionLabel = 1.8.1+34.6aba4f68
-  generatedAt       = 2026-11-10T03:15:37.159665Z
+  modelVersionLabel = 1.9.0+35.0cb6858c
+  generatedAt       = 2026-11-12T21:20:52.517240Z
 
 A tool reads `metaSchemaVersion` to decide whether it can parse the
 file at all, and `modelVersion` to decide whether the documents it
@@ -30,7 +30,7 @@ build label for humans — never branch on it.
 
 SNAPSHOT CHECK (`checkStamp`), against a fixed clock:
   age                 : 3 days (aged: false)
-  classes  declared/actual : 1270/1270  disagrees: false
+  classes  declared/actual : 1272/1272  disagrees: false
   roots    declared/actual : 14/14  disagrees: false
   Declared-vs-actual is not redundant: the declared value is what
   the exporter recorded, the actual value is what survived to the
@@ -38,7 +38,7 @@ SNAPSHOT CHECK (`checkStamp`), against a fixed clock:
 
 SHAPE:
   document roots : 14
-  classes        : 1270
+  classes        : 1272
   container root : DocSpecsProject — the one true tree root, which is not itself a document
 
 FIELDS of D00SolutionBlueprint (15 total, first 4):
@@ -135,7 +135,7 @@ a JSON-Schema validator will not find one, because the artifact the
 schema governs is not JSON.
 
   root section id : SBP
-  section types   : 3951
+  section types   : 3955
 
   That count is large because a Solution Blueprint SEEDS the twelve
   Phase-3 documents: its own section classes ARE those documents'
@@ -190,7 +190,7 @@ form slot the form does not declare:
 
 THE CLOSED VERDICT SETS. Both are enums, so a tool switches over
 them exhaustively rather than matching on message text:
-  SpecValidationCode  (15): danglingPath, kindMismatch, unknownFormField, minItems, oneOfCaseMismatch, danglingReference, enumValueUnknown, countMismatch, valueTypeMismatch, derivedValueMismatch, missingRequiredField, multipleReferences, annotationMisplaced, annotationMalformed, duplicateAnnotationId
+  SpecValidationCode  (20): danglingPath, kindMismatch, unknownFormField, minItems, oneOfCaseMismatch, danglingReference, enumValueUnknown, countMismatch, valueTypeMismatch, derivedValueMismatch, missingRequiredField, multipleReferences, annotationMisplaced, annotationMalformed, duplicateAnnotationId, unknownUnit, unitsUnrouted, duplicateUnitId, unitBuildsNothing, unitAreaMalformed
   DocSpecsViolationRule (11):
     unknownSection, missingRequiredSection, idPatternMismatch, tooFewItems
     tooManyItems, missingRequiredField, fieldPatternMismatch, textRequired
@@ -216,13 +216,13 @@ and answering it means walking the model and asking the document.
   SBP.7 Target Operating Model concept       0 /   247    0%
   SBP.8 Information & Data Model             1 /    51    2%
   SBP.9 Requirements (functional + NFR …     0 /    55    0%
-  SBP.11 Solution Architecture & Techno…     0 /  2541    0%
+  SBP.11 Solution Architecture & Techno…     0 /  2542    0%
   SBP.12 Security & Access Model             0 /  1081    0%
   SBP.13 Experience & Interface Design       0 /   488    0%
   SBP.14 Quality & Acceptance Model          0 /   518    0%
   SBP.15 Delivery, Transition & Rollout      0 /   372    0%
   -------------------------------------- -------------------
-  TOTAL                                      4 /  6214    0%
+  TOTAL                                      4 /  6215    0%
 
   SBP.11 offers 2529 positions because a Solution Blueprint SEEDS
   the twelve Phase-3 documents: its section classes ARE those
@@ -233,6 +233,6 @@ and answering it means walking the model and asking the document.
 
   Required-and-missing, from the schema tier, for contrast:
     1 missing required field(s) — the only gaps a validator
-    will name, out of 6210 unwritten positions.
+    will name, out of 6211 unwritten positions.
 
 That gap between the two numbers is the tool's reason to exist.

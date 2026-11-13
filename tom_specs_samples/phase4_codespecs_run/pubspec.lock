@@ -45,34 +45,34 @@ packages:
     dependency: "direct main"
     description:
       name: tom_som_dart_runtime
-      sha256: "8f06020904413f4755f7cd12c99104a6080c7329959a0d924c3005cd4a08007b"
+      sha256: "6d012f6b0d707c7367e905b34bd0e8ed7caf10df896728259f93c3b406e9a77f"
       url: "https://pub.dev"
     source: hosted
-    version: "1.8.1"
+    version: "1.9.0"
   tom_som_dart_v0:
     dependency: "direct main"
     description:
       name: tom_som_dart_v0
-      sha256: "3e0a6964425a34ddc1cb615a675c5ce95ae249173b1ce7747d82dd2453d55ad7"
+      sha256: ef66e06aed7f718fd573159bf7674a7fad00378bf3ed3ba1ee4bfb8ff6b3db47
       url: "https://pub.dev"
     source: hosted
-    version: "1.8.1"
+    version: "1.9.0"
   tom_specs_core:
     dependency: transitive
     description:
       name: tom_specs_core
-      sha256: d7764626186c027049fdf1b22af48d66341722aa45d2f6f92297ce4f2bc3eca6
+      sha256: dea722e041407100a4e28500c7c3e3b1ba19d1e95e6806626d643b134919bcfa
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.0"
+    version: "0.5.0"
   tom_specs_model:
     dependency: "direct main"
     description:
       name: tom_specs_model
-      sha256: "32e351056309ef095fb0c87e147fad702fcc6c92fc4bf3809c4d5dc6c643297e"
+      sha256: a81fe52fc2d36d1d56ba36fef4f0f8450adfbe25eec1c9280dacd1feea3e51c6
       url: "https://pub.dev"
     source: hosted
-    version: "1.8.1"
+    version: "1.9.0"
   yaml:
     dependency: transitive
     description:
