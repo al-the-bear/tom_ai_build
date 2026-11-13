@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.13.5
+
+- Documentation: `doc/irspecs_ir.md`, the IR Specs intermediate
+  representation (a trio as language-neutral data, one document per area, the
+  step language of form-3b bodies, the Dart + Tom mapper), with its row in
+  `doc/index.md`. `codespecs_derivation_contract.md` §2.7: a generated file's
+  layout is `dart format`'s, and byte-identical is said of formatted files.
+  `codespecs_mapping.md` §1.1.1: the generation units and their mappings, and
+  an extract entry carries the section's units; §8.3 names the fourth
+  no-artifact reason, `generation`.
+
 ## 0.13.4
 
 - Documentation: `codespecs_mapping.md` §5.30 and

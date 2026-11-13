@@ -1,4 +1,4 @@
-<!-- docspec: solution-blueprint/1.6 -->
+<!-- docspec: solution-blueprint/1.9 -->
 # <!--[SBP]--> Solution Blueprint
 
 Solution Blueprint for the **Meridian Order Management (MOM)** programme.
@@ -2048,7 +2048,7 @@ ErrorCodeRef: VALIDATION_FAILED
 
 Message: The quantity must be a positive whole number
 
-### <!--[MSGKR]--> Message Key Registry
+### <!--[MSGKR] units="meridian_codespec_shared"--> Message Key Registry
 
 #### <!--[MSGKE-MKEY-LST]--> Message Keys
 
@@ -2365,6 +2365,134 @@ as an adapter that translates to the same command API. Infrastructure is
 provisioned as code.
 
 ### <!--[TECH]--> Technical Framework
+
+#### <!--[BTREQ]--> Basic Requirements
+
+##### <!--[PLLNG]--> Platform And Language
+
+###### <!--[DEPTAR-DEPL-LST]--> Deployment Targets
+
+####### <!--[DEPTAR-DEPL-1]--> Back-office web client
+
+TargetCategory: Web
+
+TargetEnvironment: Production
+
+####### <!--[DEPTAR-DEPL-2]--> Order service
+
+TargetCategory: Container
+
+TargetEnvironment: Production
+
+##### <!--[AS]--> Architecture Style
+
+###### <!--[ARCM-COMP-LST]--> Components
+
+####### <!--[ARCM-COMP-1]--> Order contract package
+
+ComponentType: Package
+
+Domain: Order capture and fulfilment
+
+###### <!--[GENUN-UNIT-LST]--> Generation Units
+
+####### <!--[GENUN-UNIT-1]--> meridian_codespec_shared
+
+UnitId: meridian_codespec_shared
+
+Kind: shared
+
+Component: ARCM-COMP-1
+
+######## <!--[GEMAP-MAPP-LST]--> Mappings
+
+######### <!--[GEMAP-MAPP-1]--> CE-API
+
+Area: CE-API
+
+Mapping: dart-tom
+
+######### <!--[GEMAP-MAPP-2]--> CE-AZ
+
+Area: CE-AZ
+
+Mapping: dart-tom
+
+######### <!--[GEMAP-MAPP-3]--> CE-EN
+
+Area: CE-EN
+
+Mapping: dart-tom
+
+######### <!--[GEMAP-MAPP-4]--> CE-ER
+
+Area: CE-ER
+
+Mapping: dart-tom
+
+######### <!--[GEMAP-MAPP-5]--> CE-TX
+
+Area: CE-TX
+
+Mapping: dart-tom
+
+####### <!--[GENUN-UNIT-2]--> meridian_codespec_client
+
+UnitId: meridian_codespec_client
+
+Kind: client
+
+DeploymentTarget: DEPTAR-DEPL-1
+
+######## <!--[GEMAP-MAPP-LST]--> Mappings
+
+######### <!--[GEMAP-MAPP-1]--> CE-LO
+
+Area: CE-LO
+
+Mapping: dart-tom
+
+######### <!--[GEMAP-MAPP-2]--> CE-NV
+
+Area: CE-NV
+
+Mapping: dart-tom
+
+######### <!--[GEMAP-MAPP-3]--> CE-SC
+
+Area: CE-SC
+
+Mapping: dart-tom
+
+######### <!--[GEMAP-MAPP-4]--> CE-TX
+
+Area: CE-TX
+
+Mapping: dart-tom
+
+Note: The client's own interface texts; the message-key registry names the shared unit alone.
+
+####### <!--[GENUN-UNIT-3]--> meridian_codespec_server
+
+UnitId: meridian_codespec_server
+
+Kind: server
+
+DeploymentTarget: DEPTAR-DEPL-2
+
+######## <!--[GEMAP-MAPP-LST]--> Mappings
+
+######### <!--[GEMAP-MAPP-1]--> CE-DB
+
+Area: CE-DB
+
+Mapping: dart-tom
+
+######### <!--[GEMAP-MAPP-2]--> CE-SU
+
+Area: CE-SU
+
+Mapping: dart-tom
 
 #### <!--[SDR]--> Software Design
 

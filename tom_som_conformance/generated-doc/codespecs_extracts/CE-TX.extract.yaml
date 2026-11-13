@@ -27,6 +27,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "screen.orders.title"
     - sectionId: "content"
       headline: "Work list title"
@@ -38,6 +39,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Orders"
     - sectionId: "content"
       headline: "Work list title"
@@ -49,6 +51,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Page title of the order work list (SCR-01)."
     - sectionId: "content"
       headline: "State filter label"
@@ -60,6 +63,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "screen.orders.filter.state"
     - sectionId: "content"
       headline: "State filter label"
@@ -71,6 +75,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "State"
     - sectionId: "content"
       headline: "State filter label"
@@ -82,6 +87,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Label of the state selector on the work list filter bar."
     - sectionId: "content"
       headline: "State filter hint"
@@ -93,6 +99,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "screen.orders.filter.state.hint"
     - sectionId: "content"
       headline: "State filter hint"
@@ -104,6 +111,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Show only orders in the selected lifecycle state"
     - sectionId: "content"
       headline: "State filter hint"
@@ -115,6 +123,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Helper text of the state selector."
     - sectionId: "content"
       headline: "Open order action"
@@ -126,6 +135,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "screen.orders.action.open"
     - sectionId: "content"
       headline: "Open order action"
@@ -137,6 +147,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Open"
     - sectionId: "content"
       headline: "Open order action"
@@ -148,6 +159,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Row action that navigates from the work list to order detail."
     - sectionId: "content"
       headline: "Empty queue message"
@@ -159,6 +171,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "screen.orders.empty"
     - sectionId: "content"
       headline: "Empty queue message"
@@ -170,6 +183,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "No orders match the selected state filter"
     - sectionId: "content"
       headline: "Empty queue message"
@@ -181,6 +195,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Shown on the work list when the filtered queue is empty, and as the status column's empty-data copy."
     - sectionId: "content"
       headline: "Clear filter action"
@@ -192,6 +207,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "screen.orders.empty.action.clear"
     - sectionId: "content"
       headline: "Clear filter action"
@@ -203,6 +219,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Clear filter"
     - sectionId: "content"
       headline: "Clear filter action"
@@ -214,6 +231,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Recovery action offered on the empty work list."
     - sectionId: "content"
       headline: "Order detail title"
@@ -225,6 +243,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "screen.order.title"
     - sectionId: "content"
       headline: "Order detail title"
@@ -236,6 +255,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Order {orderId}"
     - sectionId: "content"
       headline: "Order detail title"
@@ -247,6 +267,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "orderId"
     - sectionId: "content"
       headline: "Order detail title"
@@ -258,6 +279,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Page title of order detail (SCR-02)."
     - sectionId: "content"
       headline: "Amend line action"
@@ -269,6 +291,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "screen.order.action.amend"
     - sectionId: "content"
       headline: "Amend line action"
@@ -280,6 +303,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Amend line"
     - sectionId: "content"
       headline: "Amend line action"
@@ -291,6 +315,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Submit action on an order line."
     - sectionId: "content"
       headline: "Release hold action"
@@ -302,6 +327,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "screen.order.action.release"
     - sectionId: "content"
       headline: "Release hold action"
@@ -313,6 +339,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Release hold"
     - sectionId: "content"
       headline: "Release hold action"
@@ -324,6 +351,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Header action that releases a credit or stock hold."
     - sectionId: "content"
       headline: "Amendment rejected message"
@@ -335,6 +363,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "screen.order.amend.error"
     - sectionId: "content"
       headline: "Amendment rejected message"
@@ -346,6 +375,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "The amendment could not be applied"
     - sectionId: "content"
       headline: "Amendment rejected message"
@@ -357,6 +387,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Shown on order detail when a line amendment fails validation or reservation."
     - sectionId: "content"
       headline: "Retry amendment action"
@@ -368,6 +399,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "screen.order.amend.action.retry"
     - sectionId: "content"
       headline: "Retry amendment action"
@@ -379,6 +411,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Retry"
     - sectionId: "content"
       headline: "Retry amendment action"
@@ -390,6 +423,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Recovery action offered after a rejected amendment."
     - sectionId: "content"
       headline: "Version conflict message"
@@ -401,6 +435,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "error.order.versionConflict"
     - sectionId: "content"
       headline: "Version conflict message"
@@ -412,6 +447,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "The order changed while you were editing; reload and retry"
     - sectionId: "content"
       headline: "Version conflict message"
@@ -423,6 +459,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Copy of the ORDER_VERSION_CONFLICT error code."
     - sectionId: "content"
       headline: "Amend line operation description"
@@ -434,6 +471,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "op.order.amendLine"
     - sectionId: "content"
       headline: "Amend line operation description"
@@ -445,6 +483,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Re-prices and re-reserves an amended order line"
     - sectionId: "content"
       headline: "Amend line operation description"
@@ -456,6 +495,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Description of the amendOrderLine server operation."
     - sectionId: "content"
       headline: "Work list operation description"
@@ -467,6 +507,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "op.order.fetchWorkList"
     - sectionId: "content"
       headline: "Work list operation description"
@@ -478,6 +519,7 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Fetches a state-filtered page of the order work list"
     - sectionId: "content"
       headline: "Work list operation description"
@@ -489,4 +531,5 @@ extract:
       routedBy: "CodeSpecPart.text"
       routedAt: "MessageKeyEntry"
       routingNote: "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+      units: ["meridian_codespec_shared"]
       value: "Description of the fetchOrderWorkList server operation."

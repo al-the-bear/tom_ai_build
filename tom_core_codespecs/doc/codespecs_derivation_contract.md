@@ -786,7 +786,8 @@ source is §2.3 test (a) applied to prose.
 in the SDK's default style writes for it, so where a line breaks, how far it is
 indented and whether an argument list carries a trailing comma are decided in
 one place, and N8's byte-identical regeneration holds whoever produced the
-tokens. The formatter keeps two things from its input, so they are fixed here:
+tokens. Byte-identical is therefore said of formatted files: two files are
+byte-identical when the same formatter makes them identical. The formatter keeps two things from its input, so they are fixed here:
 a **blank line** between the banner and the imports, between the import groups
 (`dart:`, `package:`, relative, in that order), before every top-level
 declaration and between the members of a class or enum, and nowhere else; and

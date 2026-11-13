@@ -197,7 +197,8 @@ credentials with per-partner rate limits. Every state transition is attributed
 to an authenticated principal in the audit log.''');
 
   // SBP.13 Experience & Interface Design. Seeds -> XDS.
-  sbp.experienceAndInterfaceDesign.content = _md('''
+  sbp.experienceAndInterfaceDesign.content = _md(
+    '''
 The operations back office is a single-page application organised around the
 order queue. The primary screen is a state-filtered work list; selecting an
 order opens a lifecycle timeline with inline actions (release hold, amend line,
@@ -206,7 +207,8 @@ cancel).
 Design priorities:
 
 - keyboard-first navigation for high-volume clerks
-- an unambiguous status colour language shared with the public tracking page''');
+- an unambiguous status colour language shared with the public tracking page''',
+  );
 
   // SBP.14 Quality & Acceptance Model. Seeds -> QAP.
   sbp.qualityAndAcceptanceModel.content = _md('''
@@ -264,8 +266,7 @@ parallel-run gate passes.''');
   // (`tom_specs_model_rules.md` §8 rule 4). The Functional Requirements fixed
   // section keeps its renamed headline as the fixed-section stored-headline
   // fixture.
-  final freList =
-      doc.listPaths.singleWhere((p) => p.endsWith('/FRE-REQU-LST'));
+  final freList = doc.listPaths.singleWhere((p) => p.endsWith('/FRE-REQU-LST'));
   final frSection = freList.substring(0, freList.lastIndexOf('/'));
   doc.setHeadline(frSection, 'Functional Requirements (FR)');
 
@@ -278,15 +279,18 @@ parallel-run gate passes.''');
     tree: d00SolutionBlueprintMetaTree,
     modelVersion: sampleModelVersion,
   );
-  final yamlFile =
-      File('${samplesDir.path}/meridian_order_management.docspecs.yaml');
+  final yamlFile = File(
+    '${samplesDir.path}/meridian_order_management.docspecs.yaml',
+  );
   yamlFile.writeAsStringSync(yaml);
 
   // Human-readable markdown rendition of the SBP root, via the reflection model.
-  final metaFile =
-      File.fromUri(Platform.script.resolve('../meta/spec_model.meta.json'));
+  final metaFile = File.fromUri(
+    Platform.script.resolve('../meta/spec_model.meta.json'),
+  );
   final model = SpecModel.fromJson(
-      jsonDecode(metaFile.readAsStringSync()) as Map<String, dynamic>);
+    jsonDecode(metaFile.readAsStringSync()) as Map<String, dynamic>,
+  );
   final markdown = doc.toMarkdown(model, rootType: 'D00SolutionBlueprint');
   final mdFile = File('${samplesDir.path}/meridian_order_management.md');
   mdFile.writeAsStringSync(markdown);
@@ -294,10 +298,14 @@ parallel-run gate passes.''');
   // Gate, tier A1 — schema *completeness*: the emitted markdown must validate
   // cleanly against the generated Solution Blueprint DocSpecs schema (via the
   // embedded validator API , SOM §14).
-  final schema = DocSpecsSchema.fromYamlText(File.fromUri(Platform.script
-          .resolve('../schemas/solution-blueprint/'
-              'solution-blueprint.1.0.docspecs-schema.yaml'))
-      .readAsStringSync());
+  final schema = DocSpecsSchema.fromYamlText(
+    File.fromUri(
+      Platform.script.resolve(
+        '../schemas/solution-blueprint/'
+        'solution-blueprint.1.0.docspecs-schema.yaml',
+      ),
+    ).readAsStringSync(),
+  );
   final violations = DocSpecsValidator(schema).validateMarkdown(markdown);
   if (violations.isNotEmpty) {
     stderr.writeln('sample markdown FAILS DocSpecs validation:');
@@ -314,8 +322,10 @@ parallel-run gate passes.''');
   // about A2, and the shipped sample is held to both.
   final instanceErrors = validateDocument(model, doc);
   if (instanceErrors.isNotEmpty) {
-    stderr.writeln('sample FAILS instance-tier validation '
-        '(${instanceErrors.length} violations):');
+    stderr.writeln(
+      'sample FAILS instance-tier validation '
+      '(${instanceErrors.length} violations):',
+    );
     for (final e in instanceErrors) {
       stderr.writeln('  [${e.code.name}] ${e.path}: ${e.message}');
     }
@@ -323,21 +333,25 @@ parallel-run gate passes.''');
   }
 
   stdout.writeln('Wrote sample to ${samplesDir.absolute.path}');
-  stdout.writeln('  meridian_order_management.docspecs.yaml (${yaml.length} bytes)');
+  stdout.writeln(
+    '  meridian_order_management.docspecs.yaml (${yaml.length} bytes)',
+  );
   stdout.writeln('  meridian_order_management.md (${markdown.length} bytes)');
   // Reported from the rendition's own `<!-- docspec: id/version -->` line
   // rather than a literal: the version tracks the model's minor, so a literal
   // here goes stale on the next version bump and says so to nobody.
-  stdout.writeln('  markdown validates cleanly against '
-      '${_docspecDeclaration(markdown)}');
+  stdout.writeln(
+    '  markdown validates cleanly against '
+    '${_docspecDeclaration(markdown)}',
+  );
   stdout.writeln('  document validates cleanly against the instance tier');
 }
 
 /// The `id/version` a rendition declares in its SOM §11.1 header line.
 String _docspecDeclaration(String markdown) =>
-    RegExp(r'<!--\s*docspec:\s*([^\s]+)\s*-->')
-        .firstMatch(markdown.split('\n').first)
-        ?.group(1) ??
+    RegExp(
+      r'<!--\s*docspec:\s*([^\s]+)\s*-->',
+    ).firstMatch(markdown.split('\n').first)?.group(1) ??
     '(no docspec declaration)';
 
 /// Collapses a hard-wrapped multi-line string literal into a single paragraph.
@@ -385,10 +399,11 @@ const _authoredItemIdLists = {
 void _normalizeListItemIds(SpecDocument doc, SomMetaTree tree) {
   for (final listPath in doc.listPaths) {
     final node = tree.byPath(listPath);
-    final pattern = node?.sectionIdPattern ?? node?.elementNode?.sectionIdPattern;
+    final pattern =
+        node?.sectionIdPattern ?? node?.elementNode?.sectionIdPattern;
     if (pattern == null) continue;
-    if (_authoredItemIdLists
-        .any((listId) => listPath.endsWith('/$listId'))) continue;
+    if (_authoredItemIdLists.any((listId) => listPath.endsWith('/$listId')))
+      continue;
     final items = doc.listItems(listPath);
     for (var i = 0; i < items.length; i++) {
       doc.setItemSectionId(items[i], pattern.replaceAll('xxx', '${i + 1}'));
@@ -447,21 +462,29 @@ so downstream processing is channel-agnostic.''')
   fr1.source
     ..source = 'VP Operations'
     ..requestDate = '2026-04-02'
-    ..rationale = 'Both channels must feed the same lifecycle to retire re-keying.';
+    ..rationale =
+        'Both channels must feed the same lifecycle to retire re-keying.';
   fr1.verification
-    ..fitCriterion = 'An EDI and a REST order both produce an Order in state Captured within 2s.'
+    ..fitCriterion =
+        'An EDI and a REST order both produce an Order in state Captured within 2s.'
     ..customerSatisfaction = '5'
     ..customerDissatisfaction = '1';
-  _acceptance(fr1.acceptanceCriteria.criteria.add(), 'FR-01-AC-1',
-      'EDI order accepted',
-      given: 'a well-formed EDI 850 purchase order',
-      when: 'the EDI adapter submits it to the capture API',
-      then: 'an Order is created in state Captured and a domain event is emitted');
-  _acceptance(fr1.acceptanceCriteria.criteria.add(), 'FR-01-AC-2',
-      'REST order accepted',
-      given: 'a valid REST order payload from an authenticated partner',
-      when: 'POST /orders is called',
-      then: 'an Order is created in state Captured with the same shape as EDI');
+  _acceptance(
+    fr1.acceptanceCriteria.criteria.add(),
+    'FR-01-AC-1',
+    'EDI order accepted',
+    given: 'a well-formed EDI 850 purchase order',
+    when: 'the EDI adapter submits it to the capture API',
+    then: 'an Order is created in state Captured and a domain event is emitted',
+  );
+  _acceptance(
+    fr1.acceptanceCriteria.criteria.add(),
+    'FR-01-AC-2',
+    'REST order accepted',
+    given: 'a valid REST order payload from an authenticated partner',
+    when: 'POST /orders is called',
+    then: 'an Order is created in state Captured with the same shape as EDI',
+  );
 
   final fr2 = fr.add();
   fr2.content.status = Status.approved;
@@ -481,11 +504,15 @@ making historical orders reproducible.''')
     ..riskLevel = ImportanceBand.medium;
   fr2.verification.fitCriterion =
       'Each confirmed line carries a unitPrice snapshot equal to the price list at pricing time.';
-  _acceptance(fr2.acceptanceCriteria.criteria.add(), 'FR-02-AC-1',
-      'Price snapshotted onto line',
-      given: 'an order with two lines',
-      when: 'the order is priced',
-      then: 'each line stores the resolved unit price as of the pricing timestamp');
+  _acceptance(
+    fr2.acceptanceCriteria.criteria.add(),
+    'FR-02-AC-1',
+    'Price snapshotted onto line',
+    given: 'an order with two lines',
+    when: 'the order is priced',
+    then:
+        'each line stores the resolved unit price as of the pricing timestamp',
+  );
 
   final fr3 = fr.add();
   fr3.content.status = Status.approved;
@@ -503,16 +530,24 @@ whole order.''')
     ..businessValue = ImportanceBand.high
     ..effort = 'L'
     ..riskLevel = ImportanceBand.high;
-  _acceptance(fr3.acceptanceCriteria.criteria.add(), 'FR-03-AC-1',
-      'Stock reserved when available',
-      given: 'an order whose lines all have sufficient stock on hand',
-      when: 'the order is submitted for confirmation',
-      then: 'every line reserves its quantity and the order is eligible to confirm');
-  _acceptance(fr3.acceptanceCriteria.criteria.add(), 'FR-03-AC-2',
-      'Short line placed on Hold',
-      given: 'an order with one line whose demand exceeds available stock',
-      when: 'reservation runs before confirmation',
-      then: 'only the short line is placed on Hold while the remaining lines reserve normally');
+  _acceptance(
+    fr3.acceptanceCriteria.criteria.add(),
+    'FR-03-AC-1',
+    'Stock reserved when available',
+    given: 'an order whose lines all have sufficient stock on hand',
+    when: 'the order is submitted for confirmation',
+    then:
+        'every line reserves its quantity and the order is eligible to confirm',
+  );
+  _acceptance(
+    fr3.acceptanceCriteria.criteria.add(),
+    'FR-03-AC-2',
+    'Short line placed on Hold',
+    given: 'an order with one line whose demand exceeds available stock',
+    when: 'reservation runs before confirmation',
+    then:
+        'only the short line is placed on Hold while the remaining lines reserve normally',
+  );
 
   final fr4 = fr.add();
   fr4.content.status = Status.approved;
@@ -530,16 +565,23 @@ the operations work list and the public tracking page.''')
     ..businessValue = ImportanceBand.high
     ..effort = 'M'
     ..riskLevel = ImportanceBand.medium;
-  _acceptance(fr4.acceptanceCriteria.criteria.add(), 'FR-04-AC-1',
-      'Order confirmed within budget',
-      given: 'a captured order that passes validation, pricing, and reservation',
-      when: 'the lifecycle processes it under normal load',
-      then: 'the order reaches state Confirmed within five minutes of capture');
-  _acceptance(fr4.acceptanceCriteria.criteria.add(), 'FR-04-AC-2',
-      'Confirmation surfaced to operations and tracking',
-      given: 'an order that has just reached state Confirmed',
-      when: 'the confirmation event is published',
-      then: 'the order appears as Confirmed on the operations work list and the public tracking page');
+  _acceptance(
+    fr4.acceptanceCriteria.criteria.add(),
+    'FR-04-AC-1',
+    'Order confirmed within budget',
+    given: 'a captured order that passes validation, pricing, and reservation',
+    when: 'the lifecycle processes it under normal load',
+    then: 'the order reaches state Confirmed within five minutes of capture',
+  );
+  _acceptance(
+    fr4.acceptanceCriteria.criteria.add(),
+    'FR-04-AC-2',
+    'Confirmation surfaced to operations and tracking',
+    given: 'an order that has just reached state Confirmed',
+    when: 'the confirmation event is published',
+    then:
+        'the order appears as Confirmed on the operations work list and the public tracking page',
+  );
 
   final fr5 = fr.add();
   fr5.content.status = Status.approved;
@@ -557,16 +599,24 @@ for the affected lines and is fully audited.''')
     ..businessValue = ImportanceBand.medium
     ..effort = 'M'
     ..riskLevel = ImportanceBand.medium;
-  _acceptance(fr5.acceptanceCriteria.criteria.add(), 'FR-05-AC-1',
-      'Amendment re-runs pricing and reservation',
-      given: 'a confirmed order that has not yet dispatched',
-      when: 'a clerk changes a line quantity',
-      then: 'pricing and reservation re-run for the affected line and the change is written to the audit trail');
-  _acceptance(fr5.acceptanceCriteria.criteria.add(), 'FR-05-AC-2',
-      'Cancellation blocked after dispatch',
-      given: 'an order that has already dispatched',
-      when: 'a clerk attempts to cancel it',
-      then: 'the cancellation is rejected and the rejection is recorded in the audit trail');
+  _acceptance(
+    fr5.acceptanceCriteria.criteria.add(),
+    'FR-05-AC-1',
+    'Amendment re-runs pricing and reservation',
+    given: 'a confirmed order that has not yet dispatched',
+    when: 'a clerk changes a line quantity',
+    then:
+        'pricing and reservation re-run for the affected line and the change is written to the audit trail',
+  );
+  _acceptance(
+    fr5.acceptanceCriteria.criteria.add(),
+    'FR-05-AC-2',
+    'Cancellation blocked after dispatch',
+    given: 'an order that has already dispatched',
+    when: 'a clerk attempts to cancel it',
+    then:
+        'the cancellation is rejected and the rejection is recorded in the audit trail',
+  );
 
   final fr6 = fr.add();
   fr6.content.status = Status.approved;
@@ -583,11 +633,15 @@ into the lifecycle, recording a reason that is attached to the audit trail.''')
     ..businessValue = ImportanceBand.high
     ..effort = 'S'
     ..riskLevel = ImportanceBand.low;
-  _acceptance(fr6.acceptanceCriteria.criteria.add(), 'FR-06-AC-1',
-      'Supervisor releases hold',
-      given: 'an order in state Hold',
-      when: 'a supervisor releases it with a reason',
-      then: 'the order resumes at the transition that placed it on Hold and the reason is audited');
+  _acceptance(
+    fr6.acceptanceCriteria.criteria.add(),
+    'FR-06-AC-1',
+    'Supervisor releases hold',
+    given: 'an order in state Hold',
+    when: 'a supervisor releases it with a reason',
+    then:
+        'the order resumes at the transition that placed it on Hold and the reason is audited',
+  );
 
   // --- Technical requirements (TR) ---------------------------------------
   final tr = reqs.technicalRequirements.requirements;
@@ -597,12 +651,14 @@ into the lifecycle, recording a reason that is attached to the audit trail.''')
   tr1.$sectionId = 'TERQ-REQU-CONFIRM-LATENCY';
   tr1.$headline = 'TR-01 — Confirmation latency budget';
   tr1.details
-    ..description = 'The 95th-percentile order-confirmation latency must stay within budget under peak load.'
+    ..description =
+        'The 95th-percentile order-confirmation latency must stay within budget under peak load.'
     ..category = 'Performance'
     ..subcategory = 'Latency'
     ..priority = ImportanceBand.critical
     ..source = 'Operations SLA'
-    ..rationale = 'Sub-30s p95 keeps the five-minute business promise safe under 3x peak.';
+    ..rationale =
+        'Sub-30s p95 keeps the five-minute business promise safe under 3x peak.';
   tr1.measurement
     ..metric = 'p95 capture-to-confirmation latency'
     ..currentValue = '4.2h (legacy)'
@@ -616,12 +672,14 @@ into the lifecycle, recording a reason that is attached to the audit trail.''')
   tr2.$sectionId = 'TERQ-REQU-CAPTURE-AVAILABILITY';
   tr2.$headline = 'TR-02 — Capture API availability';
   tr2.details
-    ..description = 'The order-capture API must meet a 99.9% monthly availability target.'
+    ..description =
+        'The order-capture API must meet a 99.9% monthly availability target.'
     ..category = 'Reliability'
     ..subcategory = 'Availability'
     ..priority = ImportanceBand.critical
     ..source = 'Partner integration agreement'
-    ..rationale = 'Marketplace partners depend on the capture API being continuously reachable.';
+    ..rationale =
+        'Marketplace partners depend on the capture API being continuously reachable.';
   tr2.measurement
     ..metric = 'Monthly capture-API availability'
     ..targetValue = '>= 99.9%'
@@ -640,7 +698,8 @@ of record and all read models are projections rebuildable from the log.''')
     ..subcategory = 'Persistence'
     ..priority = ImportanceBand.critical
     ..source = 'Enterprise Architecture Board'
-    ..rationale = 'Reproducible history and rebuildable projections are core to auditability.';
+    ..rationale =
+        'Reproducible history and rebuildable projections are core to auditability.';
 
   // --- Security requirements (SR) ----------------------------------------
   final sr = reqs.securityRequirements.requirements;
@@ -675,7 +734,8 @@ transition is attributed to an authenticated principal.''');
     ..subcategory = 'Encryption'
     ..priority = ImportanceBand.critical
     ..source = 'Data Protection Officer'
-    ..rationale = 'GDPR obligations on customer records with a 7-year retention.'
+    ..rationale =
+        'GDPR obligations on customer records with a 7-year retention.'
     ..threatMitigated = 'PII disclosure from storage compromise'
     ..dataClassification = 'Confidential';
   sr2.compliance
@@ -693,7 +753,8 @@ tokens and enforce per-partner rate limits at the gateway.''');
     ..subcategory = 'Authentication'
     ..priority = ImportanceBand.critical
     ..source = 'Security chapter'
-    ..rationale = 'Machine-to-machine partner access without shared secrets in code.'
+    ..rationale =
+        'Machine-to-machine partner access without shared secrets in code.'
     ..threatMitigated = 'Credential replay and partner impersonation'
     ..dataClassification = 'Internal';
   sr3.compliance
@@ -737,8 +798,7 @@ systems daily until the < 0.1% variance gate passes.''');
 // sample's coverage for the YRC5 field-derived item-heading behaviour.
 // ---------------------------------------------------------------------------
 void _authorUserCategories(D00SolutionBlueprint sbp) {
-  final clerk =
-      sbp.introductionAndScope.systemDescription.userCategories.add();
+  final clerk = sbp.introductionAndScope.systemDescription.userCategories.add();
   clerk.$headline = 'Order Operations Clerk';
   clerk.content
     ..description = _p('''
@@ -765,8 +825,14 @@ handling holds and amendments as they arise.''');
 /// joined into the stored headline: `AcceptanceCriterionEntry` carries neither
 /// an id nor a name form field, so the headline is the entry's whole human
 /// title (`tom_specs_model_rules.md` §8 rule 4).
-void _acceptance(AcceptanceCriterionEntry ac, String id, String title,
-    {required String given, required String when, required String then}) {
+void _acceptance(
+  AcceptanceCriterionEntry ac,
+  String id,
+  String title, {
+  required String given,
+  required String when,
+  required String then,
+}) {
   ac.$headline = '$id — $title';
   ac.content
     ..given = given
@@ -784,23 +850,50 @@ void _acceptance(AcceptanceCriterionEntry ac, String id, String title,
 // Interactions, the CodeSpecs (CE-SU / CE-SC) half of the operating model.
 // ---------------------------------------------------------------------------
 void _authorActorsAndUseCases(D00SolutionBlueprint sbp) {
-  final psai =
-      sbp.targetOperatingModelConcept.processStepsAndActorInteractions;
+  final psai = sbp.targetOperatingModelConcept.processStepsAndActorInteractions;
 
   // --- Actors ------------------------------------------------------------
   final actors = psai.actorOverview.actors;
-  _actor(actors.add(), 'ACT-01', 'Order Clerk', 'Human', 'Primary',
-      'Clears the order work list, amends lines, and cancels orders before dispatch.',
-      unit: 'Order Operations', count: '25');
-  _actor(actors.add(), 'ACT-02', 'Order Supervisor', 'Human', 'Primary',
-      'Reviews orders on Hold and releases them back into the lifecycle.',
-      unit: 'Order Operations', count: '4');
-  _actor(actors.add(), 'ACT-03', 'Pricing Admin', 'Human', 'Supporting',
-      'Maintains the price lists that the synchronous pricing step consumes.',
-      unit: 'Commercial', count: '3');
-  _actor(actors.add(), 'ACT-04', 'EDI Integration Account', 'System', 'Primary',
-      'Machine account through which the wholesale EDI adapter submits orders.',
-      unit: 'Integration', count: '1');
+  _actor(
+    actors.add(),
+    'ACT-01',
+    'Order Clerk',
+    'Human',
+    'Primary',
+    'Clears the order work list, amends lines, and cancels orders before dispatch.',
+    unit: 'Order Operations',
+    count: '25',
+  );
+  _actor(
+    actors.add(),
+    'ACT-02',
+    'Order Supervisor',
+    'Human',
+    'Primary',
+    'Reviews orders on Hold and releases them back into the lifecycle.',
+    unit: 'Order Operations',
+    count: '4',
+  );
+  _actor(
+    actors.add(),
+    'ACT-03',
+    'Pricing Admin',
+    'Human',
+    'Supporting',
+    'Maintains the price lists that the synchronous pricing step consumes.',
+    unit: 'Commercial',
+    count: '3',
+  );
+  _actor(
+    actors.add(),
+    'ACT-04',
+    'EDI Integration Account',
+    'System',
+    'Primary',
+    'Machine account through which the wholesale EDI adapter submits orders.',
+    unit: 'Integration',
+    count: '1',
+  );
 
   // --- Use cases ---------------------------------------------------------
   final ucs = psai.interactionCatalog.interactions;
@@ -812,7 +905,8 @@ void _authorActorsAndUseCases(D00SolutionBlueprint sbp) {
   uc1.$sectionId = 'INEN-INTE-UC-01';
   uc1.identification
     ..useCaseName = 'Capture Wholesale Order (EDI)'
-    ..briefDescription = 'A wholesale EDI purchase order is captured, validated, priced, reserved, and confirmed.'
+    ..briefDescription =
+        'A wholesale EDI purchase order is captured, validated, priced, reserved, and confirmed.'
     ..fullDescription = _p('''
 The EDI adapter submits a translated purchase order to the capture command API.
 The system validates the customer and lines, prices each line synchronously,
@@ -824,36 +918,60 @@ transition so the work list and public tracking page stay current.''')
     ..designScope = 'System';
   final uc1pre = uc1.preconditions.add();
   uc1pre.content
-    ..precondition = 'The submitting Integration account is authenticated and scoped to the wholesale channel.'
+    ..precondition =
+        'The submitting Integration account is authenticated and scoped to the wholesale channel.'
     ..trigger = 'An EDI 850 purchase order arrives at the wholesale adapter.'
     ..triggerType = 'External'
     ..triggerSource = 'EDI gateway'
     ..triggerData = 'EDI 850 document';
   final uc1post = uc1.postconditions.add();
   uc1post.content
-    ..minimalGuarantees = 'Either an Order exists in a well-defined state or the submission is rejected with a reason; no partial order is persisted.'
-    ..successGuarantees = 'The Order is in state Confirmed with priced, reserved lines and a full event history.'
-    ..dataPostcondition = 'Order and OrderLine rows persisted; reservation recorded against Product stock.';
-  _step(uc1.mainScenario.steps.add(), '1',
-      'EDI adapter submits the translated order to the capture API.',
-      'System creates the Order in state Captured and emits OrderCaptured.',
-      data: 'Order, OrderLine', ui: '—');
-  _step(uc1.mainScenario.steps.add(), '2',
-      'System validates customer credit and line stock references.',
-      'Order moves to Validated; invalid references are flagged per line.',
-      data: 'Customer, Product', rule: 'Credit limit not exceeded');
-  _step(uc1.mainScenario.steps.add(), '3',
-      'System prices each line against the active price list.',
-      'Unit price is snapshotted onto each line; Order moves to Priced.',
-      data: 'PriceList, OrderLine', rule: 'FR-02 price snapshot');
-  _step(uc1.mainScenario.steps.add(), '4',
-      'System reserves stock for every line.',
-      'Reservations recorded; Order moves to Reserved.',
-      data: 'Product', rule: 'FR-03 reserve before confirm');
-  _step(uc1.mainScenario.steps.add(), '5',
-      'System confirms the order.',
-      'Order moves to Confirmed within five minutes and appears on the work list.',
-      data: 'Order', rule: 'FR-04 five-minute confirmation');
+    ..minimalGuarantees =
+        'Either an Order exists in a well-defined state or the submission is rejected with a reason; no partial order is persisted.'
+    ..successGuarantees =
+        'The Order is in state Confirmed with priced, reserved lines and a full event history.'
+    ..dataPostcondition =
+        'Order and OrderLine rows persisted; reservation recorded against Product stock.';
+  _step(
+    uc1.mainScenario.steps.add(),
+    '1',
+    'EDI adapter submits the translated order to the capture API.',
+    'System creates the Order in state Captured and emits OrderCaptured.',
+    data: 'Order, OrderLine',
+    ui: '—',
+  );
+  _step(
+    uc1.mainScenario.steps.add(),
+    '2',
+    'System validates customer credit and line stock references.',
+    'Order moves to Validated; invalid references are flagged per line.',
+    data: 'Customer, Product',
+    rule: 'Credit limit not exceeded',
+  );
+  _step(
+    uc1.mainScenario.steps.add(),
+    '3',
+    'System prices each line against the active price list.',
+    'Unit price is snapshotted onto each line; Order moves to Priced.',
+    data: 'PriceList, OrderLine',
+    rule: 'FR-02 price snapshot',
+  );
+  _step(
+    uc1.mainScenario.steps.add(),
+    '4',
+    'System reserves stock for every line.',
+    'Reservations recorded; Order moves to Reserved.',
+    data: 'Product',
+    rule: 'FR-03 reserve before confirm',
+  );
+  _step(
+    uc1.mainScenario.steps.add(),
+    '5',
+    'System confirms the order.',
+    'Order moves to Confirmed within five minutes and appears on the work list.',
+    data: 'Order',
+    rule: 'FR-04 five-minute confirmation',
+  );
   // Extension 2a: credit check fails.
   final ex2a = uc1.extensions.extensions.add();
   ex2a.$headline = '2a Credit limit exceeded';
@@ -861,14 +979,18 @@ transition so the work list and public tracking page stay current.''')
     ..branchPoint = 'MNSST-STEP-2'
     ..condition = 'Customer credit limit would be exceeded'
     ..extensionType = 'Exception'
-    ..description = 'Validation detects the order exceeds the customer credit limit.'
+    ..description =
+        'Validation detects the order exceeds the customer credit limit.'
     ..outcome = 'Order is placed on Hold for supervisor review (see UC-02).'
     ..returnKind = FlowReturnPoint.resumeAtStep
     ..severity = 'High';
   ex2a.resumePoint.resumeStep = 'MNSST-STEP-3';
-  _extStep(ex2a.steps.add(), '2a.1',
-      'System places the Order on Hold and emits OrderHeld.',
-      'Order appears in the Hold filter of the work list with reason "Credit exceeded".');
+  _extStep(
+    ex2a.steps.add(),
+    '2a.1',
+    'System places the Order on Hold and emits OrderHeld.',
+    'Order appears in the Hold filter of the work list with reason "Credit exceeded".',
+  );
   // Extension 4a: insufficient stock.
   final ex4a = uc1.extensions.extensions.add();
   ex4a.$headline = '4a Insufficient stock';
@@ -881,16 +1003,20 @@ transition so the work list and public tracking page stay current.''')
     ..returnKind = FlowReturnPoint.resumeAtStep
     ..severity = 'Medium';
   ex4a.resumePoint.resumeStep = 'MNSST-STEP-5';
-  _extStep(ex4a.steps.add(), '4a.1',
-      'System holds the unsatisfiable line and reserves the rest.',
-      'The order is partially reserved; the held line is flagged for follow-up.');
+  _extStep(
+    ex4a.steps.add(),
+    '4a.1',
+    'System holds the unsatisfiable line and reserves the rest.',
+    'The order is partially reserved; the held line is flagged for follow-up.',
+  );
 
   // UC-02 Release Order Hold.
   final uc2 = ucs.add();
   uc2.$sectionId = 'INEN-INTE-UC-02';
   uc2.identification
     ..useCaseName = 'Release Order Hold'
-    ..briefDescription = 'A supervisor reviews an order on Hold and releases it back into the lifecycle.'
+    ..briefDescription =
+        'A supervisor reviews an order on Hold and releases it back into the lifecycle.'
     ..fullDescription = _p('''
 A supervisor opens an order on Hold from the work list, reviews the hold reason,
 and either releases it — resuming the lifecycle at the transition that placed it
@@ -900,29 +1026,41 @@ on Hold — or cancels it, recording a reason in both cases.''')
     ..designScope = 'System';
   final uc2pre = uc2.preconditions.add();
   uc2pre.content
-    ..precondition = 'An order exists in state Hold and the actor holds the Order Supervisor role.'
+    ..precondition =
+        'An order exists in state Hold and the actor holds the Order Supervisor role.'
     ..trigger = 'Supervisor selects a held order from the work list.'
     ..triggerType = 'User'
     ..triggerSource = 'Order Work List screen';
   final uc2post = uc2.postconditions.add();
   uc2post.content
-    ..successGuarantees = 'The order resumes at the transition that placed it on Hold, with the release reason audited.'
-    ..auditTrail = 'Release attributed to the supervisor principal with timestamp and reason.';
-  _step(uc2.mainScenario.steps.add(), '1',
-      'Supervisor opens the held order and reviews the reason.',
-      'System shows the lifecycle timeline and the hold reason.',
-      data: 'Order', ui: 'Order Detail timeline');
-  _step(uc2.mainScenario.steps.add(), '2',
-      'Supervisor releases the order with a reason.',
-      'System resumes the lifecycle and emits OrderHoldReleased.',
-      data: 'Order', rule: 'FR-06 hold release');
+    ..successGuarantees =
+        'The order resumes at the transition that placed it on Hold, with the release reason audited.'
+    ..auditTrail =
+        'Release attributed to the supervisor principal with timestamp and reason.';
+  _step(
+    uc2.mainScenario.steps.add(),
+    '1',
+    'Supervisor opens the held order and reviews the reason.',
+    'System shows the lifecycle timeline and the hold reason.',
+    data: 'Order',
+    ui: 'Order Detail timeline',
+  );
+  _step(
+    uc2.mainScenario.steps.add(),
+    '2',
+    'Supervisor releases the order with a reason.',
+    'System resumes the lifecycle and emits OrderHoldReleased.',
+    data: 'Order',
+    rule: 'FR-06 hold release',
+  );
 
   // UC-03 Amend Order Line before dispatch.
   final uc3 = ucs.add();
   uc3.$sectionId = 'INEN-INTE-UC-03';
   uc3.identification
     ..useCaseName = 'Amend Order Line Before Dispatch'
-    ..briefDescription = 'A clerk changes a line quantity before dispatch, re-running pricing and reservation.'
+    ..briefDescription =
+        'A clerk changes a line quantity before dispatch, re-running pricing and reservation.'
     ..fullDescription = _p('''
 A clerk edits the quantity of a line on a not-yet-dispatched order. The system
 re-prices and re-reserves only the affected line and records the amendment on the
@@ -932,14 +1070,17 @@ audit trail.''')
     ..designScope = 'System';
   final uc3pre = uc3.preconditions.add();
   uc3pre.content
-    ..precondition = 'The order is not yet dispatched and the actor holds the Order Clerk role.'
+    ..precondition =
+        'The order is not yet dispatched and the actor holds the Order Clerk role.'
     ..trigger = 'Clerk edits a line quantity on the Order Detail screen.'
     ..triggerType = 'User'
     ..triggerSource = 'Order Detail screen';
   final uc3post = uc3.postconditions.add();
   uc3post.content
-    ..successGuarantees = 'The amended line carries a fresh price snapshot and reservation; the amendment is audited.'
-    ..dataPostcondition = 'OrderLine updated; prior values retained in the event history.';
+    ..successGuarantees =
+        'The amended line carries a fresh price snapshot and reservation; the amendment is audited.'
+    ..dataPostcondition =
+        'OrderLine updated; prior values retained in the event history.';
   // The save crosses the client/server boundary, so the step's three handling
   // bodies are stated separately (SVCST). This is the sample's *dense* server
   // call: all three `ServerCallRole` values appear on one step, one role twice,
@@ -947,68 +1088,113 @@ audit trail.''')
   // a repeated role and the sparse/populated split of the optional field are all
   // serialized by the cross-language corpus.
   final uc3s1 = uc3.mainScenario.steps.add();
-  _step(uc3s1, '1', 'Clerk changes the quantity of a line and saves.',
-      'System validates the new quantity and re-prices the line.',
-      data: 'OrderLine, PriceList', rule: 'FR-05 amend before dispatch');
+  _step(
+    uc3s1,
+    '1',
+    'Clerk changes the quantity of a line and saves.',
+    'System validates the new quantity and re-prices the line.',
+    data: 'OrderLine, PriceList',
+    rule: 'FR-05 amend before dispatch',
+  );
   // The step *cites* the operation the save invokes; the operation itself is
   // declared once in the server operation registry (SVOPR). This citation is
   // what routes the step's server-call bodies to CE-SC.
   uc3s1.content.serverOperation = 'amendOrderLine';
-  _svcStep(uc3s1.serverCallSteps.add(), 'Stage the core fields',
-      ServerCallRole.assembleRequest,
-      'Puts the line id, the new quantity and the order version onto the amendment command.');
-  _svcStep(uc3s1.serverCallSteps.add(), 'Attach the justification',
-      ServerCallRole.assembleRequest,
-      'Adds the clerk\'s justification note to the command.',
-      condition: 'Only when the clerk entered a justification');
-  _svcStep(uc3s1.serverCallSteps.add(), 'Apply the price snapshot',
-      ServerCallRole.handleResponse,
-      'Applies the returned price snapshot and reservation state to the open line.');
-  _svcStep(uc3s1.serverCallSteps.add(), 'Surface the rejection',
-      ServerCallRole.handleError,
-      'Leaves the line at its stored quantity and shows screen.order.amend.error beside the field.');
-  _step(uc3.mainScenario.steps.add(), '2',
-      'System re-reserves stock for the amended line.',
-      'Reservation is adjusted; the order returns to Confirmed if fully satisfied.',
-      data: 'Product', rule: 'FR-03 reserve before confirm');
+  _svcStep(
+    uc3s1.serverCallSteps.add(),
+    'Stage the core fields',
+    ServerCallRole.assembleRequest,
+    'Puts the line id, the new quantity and the order version onto the amendment command.',
+  );
+  _svcStep(
+    uc3s1.serverCallSteps.add(),
+    'Attach the justification',
+    ServerCallRole.assembleRequest,
+    'Adds the clerk\'s justification note to the command.',
+    condition: 'Only when the clerk entered a justification',
+  );
+  _svcStep(
+    uc3s1.serverCallSteps.add(),
+    'Apply the price snapshot',
+    ServerCallRole.handleResponse,
+    'Applies the returned price snapshot and reservation state to the open line.',
+  );
+  _svcStep(
+    uc3s1.serverCallSteps.add(),
+    'Surface the rejection',
+    ServerCallRole.handleError,
+    'Leaves the line at its stored quantity and shows screen.order.amend.error beside the field.',
+  );
+  _step(
+    uc3.mainScenario.steps.add(),
+    '2',
+    'System re-reserves stock for the amended line.',
+    'Reservation is adjusted; the order returns to Confirmed if fully satisfied.',
+    data: 'Product',
+    rule: 'FR-03 reserve before confirm',
+  );
 
   // --- Key end-to-end scenario ------------------------------------------
   final scn = psai.keyScenarios.scenarios.add();
   scn.$headline = 'SCN-01 Happy-path wholesale order, capture to fulfilment';
   scn.identification
     ..scenarioType = 'End-to-end'
-    ..description = 'A clean wholesale order flows from EDI capture through to fulfilment with no holds.'
-    ..businessGoal = 'Confirm and fulfil a wholesale order without manual intervention.'
+    ..description =
+        'A clean wholesale order flows from EDI capture through to fulfilment with no holds.'
+    ..businessGoal =
+        'Confirm and fulfil a wholesale order without manual intervention.'
     ..primaryActor = 'ACT-04 EDI Integration Account'
     ..supportingActors = 'ACT-01 Order Clerk'
     ..priority = ImportanceBand.high
     ..complexity = 'Medium';
-  _scnStep(scn.steps.add(), '1', 'ACT-04 EDI Integration Account',
-      'Submits a two-line wholesale order.',
-      'Order captured, validated, priced, reserved, and confirmed within five minutes.');
+  _scnStep(
+    scn.steps.add(),
+    '1',
+    'ACT-04 EDI Integration Account',
+    'Submits a two-line wholesale order.',
+    'Order captured, validated, priced, reserved, and confirmed within five minutes.',
+  );
   // The sample's *sparse* server call, on the second host kind it instantiates:
   // a one-entry list carrying a single role. A structure is only exercised by a
   // corpus at the shapes it is instantiated in, and a list of one behaves
   // differently from a list of four in several of the nine ports' serializers.
   final scn2 = scn.steps.add();
-  _scnStep(scn2, '2', 'ACT-01 Order Clerk',
-      'Observes the confirmed order on the work list.',
-      'Order shows state Confirmed with both lines priced and reserved.');
+  _scnStep(
+    scn2,
+    '2',
+    'ACT-01 Order Clerk',
+    'Observes the confirmed order on the work list.',
+    'Order shows state Confirmed with both lines priced and reserved.',
+  );
   scn2.content.serverOperation = 'fetchOrderWorkList';
-  _svcStep(scn2.serverCallSteps.add(), 'Render the work list page',
-      ServerCallRole.handleResponse,
-      'Renders the returned page of work-list rows into the order table.');
-  _scnStep(scn.steps.add(), '3', 'System',
-      'Receives the warehouse dispatch webhook.',
-      'Order moves to Fulfilled and the public tracking page updates.');
+  _svcStep(
+    scn2.serverCallSteps.add(),
+    'Render the work list page',
+    ServerCallRole.handleResponse,
+    'Renders the returned page of work-list rows into the order table.',
+  );
+  _scnStep(
+    scn.steps.add(),
+    '3',
+    'System',
+    'Receives the warehouse dispatch webhook.',
+    'Order moves to Fulfilled and the public tracking page updates.',
+  );
 }
 
 /// Fills one actor entry. [id] and [name] are joined into the stored headline:
 /// `ActorEntry` has no name form field, so the headline is the entry's whole
 /// human title — code included (`tom_specs_model_rules.md` §8 rule 4).
-void _actor(ActorEntry a, String id, String name, String type, String category,
-    String description,
-    {required String unit, required String count}) {
+void _actor(
+  ActorEntry a,
+  String id,
+  String name,
+  String type,
+  String category,
+  String description, {
+  required String unit,
+  required String count,
+}) {
   a.$headline = '$id $name';
   a.identification
     ..actorType = type
@@ -1019,8 +1205,15 @@ void _actor(ActorEntry a, String id, String name, String type, String category,
     ..geographicDistribution = 'Single distribution centre';
 }
 
-void _step(MainScenarioStepEntry s, String number, String actorAction, String systemResponse,
-    {String data = '', String rule = '', String ui = ''}) {
+void _step(
+  MainScenarioStepEntry s,
+  String number,
+  String actorAction,
+  String systemResponse, {
+  String data = '',
+  String rule = '',
+  String ui = '',
+}) {
   s.content
     ..stepNumber = int.tryParse(number)
     ..actorAction = actorAction
@@ -1030,7 +1223,12 @@ void _step(MainScenarioStepEntry s, String number, String actorAction, String sy
     ..uiElementUsed = ui;
 }
 
-void _extStep(ExtensionStepEntry s, String number, String action, String response) {
+void _extStep(
+  ExtensionStepEntry s,
+  String number,
+  String action,
+  String response,
+) {
   s.content
     ..stepNumber = number
     ..action = action
@@ -1044,9 +1242,13 @@ void _extStep(ExtensionStepEntry s, String number, String action, String respons
 /// collaborator method identifier `codespecs_derivation_contract.md` §3.0.1's
 /// N1 derives
 /// from it (an unheadlined step fails Phase-4 generation).
-void _svcStep(ServerCallStepEntry s, String headline, ServerCallRole role,
-    String systemAction,
-    {String condition = ''}) {
+void _svcStep(
+  ServerCallStepEntry s,
+  String headline,
+  ServerCallRole role,
+  String systemAction, {
+  String condition = '',
+}) {
   s.$headline = headline;
   s.content
     ..role = role
@@ -1054,8 +1256,13 @@ void _svcStep(ServerCallStepEntry s, String headline, ServerCallRole role,
     ..condition = condition;
 }
 
-void _scnStep(ScenarioStepEntry s, String number, String actor, String action,
-    String systemResponse) {
+void _scnStep(
+  ScenarioStepEntry s,
+  String number,
+  String actor,
+  String action,
+  String systemResponse,
+) {
   s.content
     ..stepNumber = int.tryParse(number)
     ..actor = actor
@@ -1092,7 +1299,8 @@ historical orders remain reproducible.''');
     ..entityName = 'Order'
     ..tableName = 'mom_order'
     ..entityAlias = 'ORD'
-    ..description = 'A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.'
+    ..description =
+        'A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.'
     ..entityStereoType = 'Entity';
   order.classification
     ..category = 'Transactional'
@@ -1103,29 +1311,70 @@ historical orders remain reproducible.''');
     ..owningDomain = 'Order Management'
     ..dataOwner = 'Head of Order Operations'
     ..sourceSystem = 'MOM';
-  _attr(order.attributes.add(), 'orderId', 'order_id', 'Stable order identifier.',
-      DataAttributeKind.uuid, 'uuid', pii: false, sensitivity: 'Internal');
-  _attr(order.attributes.add(), 'customerId', 'customer_id',
-      'Reference to the ordering customer.', DataAttributeKind.uuid, 'uuid',
-      pii: false, sensitivity: 'Internal');
+  _attr(
+    order.attributes.add(),
+    'orderId',
+    'order_id',
+    'Stable order identifier.',
+    DataAttributeKind.uuid,
+    'uuid',
+    pii: false,
+    sensitivity: 'Internal',
+  );
+  _attr(
+    order.attributes.add(),
+    'customerId',
+    'customer_id',
+    'Reference to the ordering customer.',
+    DataAttributeKind.uuid,
+    'uuid',
+    pii: false,
+    sensitivity: 'Internal',
+  );
   // The two enumeration attributes name their DOMEN enum through
   // `enumerationTypeOptions.domainEnum` — the DAATT-DTEN join gate tier A4
   // holds every enumeration-kind attribute to.
   final channel = order.attributes.add();
-  _attr(channel, 'channel', 'channel',
-      'Capture channel: EDI or REST.', DataAttributeKind.enumeration, 'varchar(8)',
-      pii: false, sensitivity: 'Internal');
+  _attr(
+    channel,
+    'channel',
+    'channel',
+    'Capture channel: EDI or REST.',
+    DataAttributeKind.enumeration,
+    'varchar(8)',
+    pii: false,
+    sensitivity: 'Internal',
+  );
   channel.enumerationTypeOptions.domainEnum = 'OrderChannel';
   final status = order.attributes.add();
-  _attr(status, 'status', 'status',
-      'Lifecycle state (Captured..Closed, with Hold).', DataAttributeKind.enumeration, 'varchar(16)',
-      pii: false, sensitivity: 'Internal');
+  _attr(
+    status,
+    'status',
+    'status',
+    'Lifecycle state (Captured..Closed, with Hold).',
+    DataAttributeKind.enumeration,
+    'varchar(16)',
+    pii: false,
+    sensitivity: 'Internal',
+  );
   status.enumerationTypeOptions.domainEnum = 'OrderStatus';
-  _attr(order.attributes.add(), 'createdAt', 'created_at',
-      'Capture timestamp (UTC).', DataAttributeKind.dateTime, 'timestamptz',
-      pii: false, sensitivity: 'Internal');
-  _key(order.keyAttributes.add(), 'pk_order', 'Primary', 'order_id',
-      'Primary key of the order.');
+  _attr(
+    order.attributes.add(),
+    'createdAt',
+    'created_at',
+    'Capture timestamp (UTC).',
+    DataAttributeKind.dateTime,
+    'timestamptz',
+    pii: false,
+    sensitivity: 'Internal',
+  );
+  _key(
+    order.keyAttributes.add(),
+    'pk_order',
+    'Primary',
+    'order_id',
+    'Primary key of the order.',
+  );
 
   // OrderLine.
   final line = dm.entities.add();
@@ -1133,7 +1382,8 @@ historical orders remain reproducible.''');
     ..entityName = 'OrderLine'
     ..tableName = 'mom_order_line'
     ..entityAlias = 'OLN'
-    ..description = 'A single product/quantity within an order, with a snapshotted price. Realizes FR-02, FR-03, FR-05.'
+    ..description =
+        'A single product/quantity within an order, with a snapshotted price. Realizes FR-02, FR-03, FR-05.'
     ..entityStereoType = 'Entity';
   line.classification
     ..category = 'Transactional'
@@ -1145,40 +1395,93 @@ historical orders remain reproducible.''');
     ..owningDomain = 'Order Management'
     ..dataOwner = 'Head of Order Operations'
     ..sourceSystem = 'MOM';
-  _attr(line.attributes.add(), 'lineId', 'line_id', 'Stable line identifier.',
-      DataAttributeKind.uuid, 'uuid', pii: false, sensitivity: 'Internal');
-  _attr(line.attributes.add(), 'orderId', 'order_id',
-      'Owning order reference.', DataAttributeKind.uuid, 'uuid',
-      pii: false, sensitivity: 'Internal');
-  _attr(line.attributes.add(), 'productId', 'product_id',
-      'Referenced product.', DataAttributeKind.uuid, 'uuid',
-      pii: false, sensitivity: 'Internal');
+  _attr(
+    line.attributes.add(),
+    'lineId',
+    'line_id',
+    'Stable line identifier.',
+    DataAttributeKind.uuid,
+    'uuid',
+    pii: false,
+    sensitivity: 'Internal',
+  );
+  _attr(
+    line.attributes.add(),
+    'orderId',
+    'order_id',
+    'Owning order reference.',
+    DataAttributeKind.uuid,
+    'uuid',
+    pii: false,
+    sensitivity: 'Internal',
+  );
+  _attr(
+    line.attributes.add(),
+    'productId',
+    'product_id',
+    'Referenced product.',
+    DataAttributeKind.uuid,
+    'uuid',
+    pii: false,
+    sensitivity: 'Internal',
+  );
   // The amend-line rule "quantity must be positive" stated as derivable
   // structure (DATAA) rather than step prose: a validationRules string in the
   // `codespecs_mapping.md` §5.19 grammar, plus the CHECK expression the schema carries. CE-VA reads
   // these fields; the prose in the use-case steps only *cites* the rule.
   final quantity = line.attributes.add();
-  _attr(quantity, 'quantity', 'quantity',
-      'Ordered quantity.', DataAttributeKind.integer, 'int', pii: false, sensitivity: 'Internal');
-  _constraint(quantity.constraints.add(), 'quantity-positive',
-      mandatory: 'Required',
-      nullable: 'No',
-      rules: 'required, min:1',
-      check: 'quantity > 0');
+  _attr(
+    quantity,
+    'quantity',
+    'quantity',
+    'Ordered quantity.',
+    DataAttributeKind.integer,
+    'int',
+    pii: false,
+    sensitivity: 'Internal',
+  );
+  _constraint(
+    quantity.constraints.add(),
+    'quantity-positive',
+    mandatory: 'Required',
+    nullable: 'No',
+    rules: 'required, min:1',
+    check: 'quantity > 0',
+  );
   final unitPrice = line.attributes.add();
-  _attr(unitPrice, 'unitPrice', 'unit_price',
-      'Snapshotted unit price at pricing time.', DataAttributeKind.decimal, 'numeric(12,2)',
-      pii: false, sensitivity: 'Internal');
-  _constraint(unitPrice.constraints.add(), 'unit-price-non-negative',
-      mandatory: 'Required',
-      nullable: 'No',
-      rules: 'required, min:0',
-      check: 'unit_price >= 0');
-  _key(line.keyAttributes.add(), 'pk_order_line', 'Primary', 'line_id',
-      'Primary key of the order line.');
+  _attr(
+    unitPrice,
+    'unitPrice',
+    'unit_price',
+    'Snapshotted unit price at pricing time.',
+    DataAttributeKind.decimal,
+    'numeric(12,2)',
+    pii: false,
+    sensitivity: 'Internal',
+  );
+  _constraint(
+    unitPrice.constraints.add(),
+    'unit-price-non-negative',
+    mandatory: 'Required',
+    nullable: 'No',
+    rules: 'required, min:0',
+    check: 'unit_price >= 0',
+  );
+  _key(
+    line.keyAttributes.add(),
+    'pk_order_line',
+    'Primary',
+    'line_id',
+    'Primary key of the order line.',
+  );
   final lineFk = line.keyAttributes.add();
-  _key(lineFk, 'fk_line_order', 'Foreign', 'order_id',
-      'References the owning order.');
+  _key(
+    lineFk,
+    'fk_line_order',
+    'Foreign',
+    'order_id',
+    'References the owning order.',
+  );
   lineFk.referencedEntityRef.ref = _entityIds['Order']!;
 
   // Customer.
@@ -1187,7 +1490,8 @@ historical orders remain reproducible.''');
     ..entityName = 'Customer'
     ..tableName = 'mom_customer'
     ..entityAlias = 'CUS'
-    ..description = 'A wholesale or e-commerce customer that places orders. Realizes FR-01.'
+    ..description =
+        'A wholesale or e-commerce customer that places orders. Realizes FR-01.'
     ..entityStereoType = 'Entity';
   customer.classification
     ..category = 'Master'
@@ -1196,23 +1500,52 @@ historical orders remain reproducible.''');
     ..owningDomain = 'Customer Management'
     ..dataOwner = 'Commercial'
     ..sourceSystem = 'MOM';
-  _attr(customer.attributes.add(), 'customerId', 'customer_id',
-      'Stable customer identifier.', DataAttributeKind.uuid, 'uuid',
-      pii: false, sensitivity: 'Internal');
-  _attr(customer.attributes.add(), 'name', 'name',
-      'Customer legal name (PII).', DataAttributeKind.string, 'varchar(200)',
-      pii: true, sensitivity: 'Confidential');
+  _attr(
+    customer.attributes.add(),
+    'customerId',
+    'customer_id',
+    'Stable customer identifier.',
+    DataAttributeKind.uuid,
+    'uuid',
+    pii: false,
+    sensitivity: 'Internal',
+  );
+  _attr(
+    customer.attributes.add(),
+    'name',
+    'name',
+    'Customer legal name (PII).',
+    DataAttributeKind.string,
+    'varchar(200)',
+    pii: true,
+    sensitivity: 'Confidential',
+  );
   final creditLimit = customer.attributes.add();
-  _attr(creditLimit, 'creditLimit', 'credit_limit',
-      'Approved credit limit used by validation.', DataAttributeKind.decimal, 'numeric(14,2)',
-      pii: false, sensitivity: 'Confidential');
-  _constraint(creditLimit.constraints.add(), 'credit-limit-non-negative',
-      mandatory: 'Required',
-      nullable: 'No',
-      rules: 'required, min:0',
-      check: 'credit_limit >= 0');
-  _key(customer.keyAttributes.add(), 'pk_customer', 'Primary', 'customer_id',
-      'Primary key of the customer.');
+  _attr(
+    creditLimit,
+    'creditLimit',
+    'credit_limit',
+    'Approved credit limit used by validation.',
+    DataAttributeKind.decimal,
+    'numeric(14,2)',
+    pii: false,
+    sensitivity: 'Confidential',
+  );
+  _constraint(
+    creditLimit.constraints.add(),
+    'credit-limit-non-negative',
+    mandatory: 'Required',
+    nullable: 'No',
+    rules: 'required, min:0',
+    check: 'credit_limit >= 0',
+  );
+  _key(
+    customer.keyAttributes.add(),
+    'pk_customer',
+    'Primary',
+    'customer_id',
+    'Primary key of the customer.',
+  );
 
   // Product.
   final product = dm.entities.add();
@@ -1220,7 +1553,8 @@ historical orders remain reproducible.''');
     ..entityName = 'Product'
     ..tableName = 'mom_product'
     ..entityAlias = 'PRD'
-    ..description = 'A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.'
+    ..description =
+        'A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.'
     ..entityStereoType = 'Entity';
   product.classification
     ..category = 'Master'
@@ -1229,42 +1563,103 @@ historical orders remain reproducible.''');
     ..owningDomain = 'Merchandising'
     ..dataOwner = 'Merchandising'
     ..sourceSystem = 'MOM';
-  _attr(product.attributes.add(), 'productId', 'product_id',
-      'Stable product identifier.', DataAttributeKind.uuid, 'uuid',
-      pii: false, sensitivity: 'Internal');
+  _attr(
+    product.attributes.add(),
+    'productId',
+    'product_id',
+    'Stable product identifier.',
+    DataAttributeKind.uuid,
+    'uuid',
+    pii: false,
+    sensitivity: 'Internal',
+  );
   final sku = product.attributes.add();
-  _attr(sku, 'sku', 'sku',
-      'Stock-keeping unit.', DataAttributeKind.string, 'varchar(40)',
-      pii: false, sensitivity: 'Internal');
-  _constraint(sku.constraints.add(), 'sku-format',
-      mandatory: 'Required',
-      nullable: 'No',
-      unique: 'Unique',
-      rules: 'required, pattern:^[A-Z0-9]{4}-[A-Z0-9]{4}\$',
-      pattern: '^[A-Z0-9]{4}-[A-Z0-9]{4}\$');
-  _attr(product.attributes.add(), 'name', 'name',
-      'Product display name.', DataAttributeKind.string, 'varchar(200)',
-      pii: false, sensitivity: 'Internal');
-  _key(product.keyAttributes.add(), 'pk_product', 'Primary', 'product_id',
-      'Primary key of the product.');
+  _attr(
+    sku,
+    'sku',
+    'sku',
+    'Stock-keeping unit.',
+    DataAttributeKind.string,
+    'varchar(40)',
+    pii: false,
+    sensitivity: 'Internal',
+  );
+  _constraint(
+    sku.constraints.add(),
+    'sku-format',
+    mandatory: 'Required',
+    nullable: 'No',
+    unique: 'Unique',
+    rules: 'required, pattern:^[A-Z0-9]{4}-[A-Z0-9]{4}\$',
+    pattern: '^[A-Z0-9]{4}-[A-Z0-9]{4}\$',
+  );
+  _attr(
+    product.attributes.add(),
+    'name',
+    'name',
+    'Product display name.',
+    DataAttributeKind.string,
+    'varchar(200)',
+    pii: false,
+    sensitivity: 'Internal',
+  );
+  _key(
+    product.keyAttributes.add(),
+    'pk_product',
+    'Primary',
+    'product_id',
+    'Primary key of the product.',
+  );
 
   // Relationships.
   final rels = dm.entityRelationships;
-  rels.content = 'The foreign-key relationships binding the ordering core together.';
-  _rel(rels.items.add(), 'Order-owns-Lines', 'Composition',
-      'An order owns one or more order lines.', 'Order', 'OrderLine',
-      source: '1', target: '1..*', fk: 'mom_order_line.order_id');
-  _rel(rels.items.add(), 'Order-placed-by-Customer', 'Association',
-      'Each order is placed by exactly one customer.', 'Order', 'Customer',
-      source: '*', target: '1', fk: 'mom_order.customer_id');
-  _rel(rels.items.add(), 'Line-references-Product', 'Association',
-      'Each order line references exactly one product.', 'OrderLine', 'Product',
-      source: '*', target: '1', fk: 'mom_order_line.product_id');
+  rels.content =
+      'The foreign-key relationships binding the ordering core together.';
+  _rel(
+    rels.items.add(),
+    'Order-owns-Lines',
+    'Composition',
+    'An order owns one or more order lines.',
+    'Order',
+    'OrderLine',
+    source: '1',
+    target: '1..*',
+    fk: 'mom_order_line.order_id',
+  );
+  _rel(
+    rels.items.add(),
+    'Order-placed-by-Customer',
+    'Association',
+    'Each order is placed by exactly one customer.',
+    'Order',
+    'Customer',
+    source: '*',
+    target: '1',
+    fk: 'mom_order.customer_id',
+  );
+  _rel(
+    rels.items.add(),
+    'Line-references-Product',
+    'Association',
+    'Each order line references exactly one product.',
+    'OrderLine',
+    'Product',
+    source: '*',
+    target: '1',
+    fk: 'mom_order_line.product_id',
+  );
 }
 
-void _attr(DataAttributeEntry a, String name, String column, String description,
-    DataAttributeKind dataType, String physicalType,
-    {required bool pii, required String sensitivity}) {
+void _attr(
+  DataAttributeEntry a,
+  String name,
+  String column,
+  String description,
+  DataAttributeKind dataType,
+  String physicalType, {
+  required bool pii,
+  required String sensitivity,
+}) {
   a.$headline = name;
   a.identity
     ..columnName = column
@@ -1282,13 +1677,16 @@ void _attr(DataAttributeEntry a, String name, String column, String description,
 /// `@CsValidation` from; `check` is
 /// the SQL CHECK expression the schema carries; both are *derivable*
 /// restatements of rules that elsewhere appear only as step prose.
-void _constraint(DataAttributeConstraintEntry c, String headline,
-    {String mandatory = '',
-    String nullable = '',
-    String unique = '',
-    String rules = '',
-    String check = '',
-    String pattern = ''}) {
+void _constraint(
+  DataAttributeConstraintEntry c,
+  String headline, {
+  String mandatory = '',
+  String nullable = '',
+  String unique = '',
+  String rules = '',
+  String check = '',
+  String pattern = '',
+}) {
   c.$headline = headline;
   final f = c.content;
   if (mandatory.isNotEmpty) f.mandatory = mandatory;
@@ -1299,8 +1697,13 @@ void _constraint(DataAttributeConstraintEntry c, String headline,
   if (pattern.isNotEmpty) f.patternRegex = pattern;
 }
 
-void _key(KeyAttributeEntry k, String name, String type, String columns,
-    String description) {
+void _key(
+  KeyAttributeEntry k,
+  String name,
+  String type,
+  String columns,
+  String description,
+) {
   k.$headline = name;
   k.content
     ..keyType = type
@@ -1308,14 +1711,23 @@ void _key(KeyAttributeEntry k, String name, String type, String columns,
     ..description = description;
 }
 
-void _rel(EntityRelationshipEntry r, String name, String type, String description,
-    String sourceEntity, String targetEntity,
-    {required String source, required String target, required String fk}) {
+void _rel(
+  EntityRelationshipEntry r,
+  String name,
+  String type,
+  String description,
+  String sourceEntity,
+  String targetEntity, {
+  required String source,
+  required String target,
+  required String fk,
+}) {
   r.$headline = name;
   r.identity
     ..relationshipType = type
     ..description = description
-    ..businessJustification = 'Maintains referential integrity across the ordering core.'
+    ..businessJustification =
+        'Maintains referential integrity across the ordering core.'
     ..implementationType = 'Foreign Key';
   r.cardinality
     ..sourceCardinality = source
@@ -1350,8 +1762,12 @@ const _entityIds = {
 // Interface Design -> Experience CodeSpecs, the UI-generation subtree.
 // ---------------------------------------------------------------------------
 void _authorScreens(D00SolutionBlueprint sbp) {
-  final screens = sbp.experienceAndInterfaceDesign.experienceCodeSpecs.screens
-      .screenInventory.items;
+  final screens = sbp
+      .experienceAndInterfaceDesign
+      .experienceCodeSpecs
+      .screens
+      .screenInventory
+      .items;
 
   // SCR-01 Order Work List. The screen's code is its stored section id — the
   // sole id slot (`tom_specs_model_rules.md` §8 rule 4) — kept on the
@@ -1373,7 +1789,8 @@ void _authorScreens(D00SolutionBlueprint sbp) {
   // roles is the whole requirement — there is no separate access level.
   wl.access.content
     ..requirementKind = AuthorizationRequirementKind.role
-    ..rationale = 'The work list exposes every open order, so it is limited to '
+    ..rationale =
+        'The work list exposes every open order, so it is limited to '
         'the two roles that work the queue.';
   wl.access.roleRequirement.roles = 'Order Clerk, Order Supervisor';
   // `relatedRequirements` resolves against the four requirement registries by
@@ -1381,7 +1798,8 @@ void _authorScreens(D00SolutionBlueprint sbp) {
   // FR-nn headline codes, which are prose.
   wl.traceability
     ..relatedUseCases = 'UC-01, UC-02'
-    ..relatedRequirements = 'FRE-REQU-ORDER-CAPTURE, FRE-REQU-CONFIRM-SLA, '
+    ..relatedRequirements =
+        'FRE-REQU-ORDER-CAPTURE, FRE-REQU-CONFIRM-SLA, '
         'FRE-REQU-HOLD-RELEASE'
     ..dataEntities = 'Order'
     ..primaryAction = 'Open selected order';
@@ -1411,7 +1829,8 @@ void _authorScreens(D00SolutionBlueprint sbp) {
   list.$headline = 'Order table';
   list.content
     ..sectionId = 'SCR-01-SEC-2'
-    ..purpose = 'The work list itself, keyboard-navigable for high-volume clerks.'
+    ..purpose =
+        'The work list itself, keyboard-navigable for high-volume clerks.'
     ..sectionType = 'DataTable';
   list.layout
     ..layoutDirection = 'Vertical'
@@ -1474,7 +1893,8 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..routePattern = 'order-detail';
   detail.access.content
     ..requirementKind = AuthorizationRequirementKind.role
-    ..rationale = 'Order detail carries the amendment actions, so it is held to '
+    ..rationale =
+        'Order detail carries the amendment actions, so it is held to '
         'the same two roles as the work list it is reached from.';
   detail.access.roleRequirement.roles = 'Order Clerk, Order Supervisor';
   detail.traceability
@@ -1557,8 +1977,12 @@ void _authorScreens(D00SolutionBlueprint sbp) {
 /// stable handle, the path is presentation. Without this registry the two
 /// screens' route references dangle.
 void _authorScreenRoutes(D00SolutionBlueprint sbp) {
-  final routes = sbp.experienceAndInterfaceDesign.experienceCodeSpecs.screenFlow
-      .screenRouteMap.routes;
+  final routes = sbp
+      .experienceAndInterfaceDesign
+      .experienceCodeSpecs
+      .screenFlow
+      .screenRouteMap
+      .routes;
 
   final workList = routes.add();
   workList.$headline = 'Order work list route';
@@ -1588,6 +2012,7 @@ void _authorRegistries(D00SolutionBlueprint sbp) {
   _authorMessageKeys(sbp);
   _authorRoles(sbp);
   _authorBoundedContexts(sbp);
+  _authorGenerationUnits(sbp);
   _authorDomainEnums(sbp);
   _authorServerOperations(sbp);
   _authorErrorCodesAndEnvelope(sbp);
@@ -1615,7 +2040,11 @@ void _authorDomainEnums(D00SolutionBlueprint sbp) {
       ..description = description;
   }
 
-  channelValue('edi', 'EDI', 'The wholesale electronic data interchange channel.');
+  channelValue(
+    'edi',
+    'EDI',
+    'The wholesale electronic data interchange channel.',
+  );
   channelValue('rest', 'REST', 'The public REST order API.');
 
   final orderStatus = enums.add();
@@ -1635,15 +2064,39 @@ void _authorDomainEnums(D00SolutionBlueprint sbp) {
       ..description = description;
   }
 
-  statusValue('captured', 'Captured', 'Accepted from EDI or REST; lifecycle entry state.');
-  statusValue('validated', 'Validated', 'Customer and product references verified.');
+  statusValue(
+    'captured',
+    'Captured',
+    'Accepted from EDI or REST; lifecycle entry state.',
+  );
+  statusValue(
+    'validated',
+    'Validated',
+    'Customer and product references verified.',
+  );
   statusValue('priced', 'Priced', 'Unit prices snapshotted onto every line.');
   statusValue('reserved', 'Reserved', 'Stock reserved for every line.');
-  statusValue('confirmed', 'Confirmed', 'Confirmed to the customer with a fulfilment window.');
-  statusValue('fulfilled', 'Fulfilled', 'Dispatched; the public tracking page reflects it.');
+  statusValue(
+    'confirmed',
+    'Confirmed',
+    'Confirmed to the customer with a fulfilment window.',
+  );
+  statusValue(
+    'fulfilled',
+    'Fulfilled',
+    'Dispatched; the public tracking page reflects it.',
+  );
   statusValue('closed', 'Closed', 'Invoiced and complete; terminal state.');
-  statusValue('hold', 'Hold', 'Awaiting manual review; resumes at the transition that placed it on hold.');
-  statusValue('cancelled', 'Cancelled', 'Cancelled before dispatch, with an audited reason; terminal state.');
+  statusValue(
+    'hold',
+    'Hold',
+    'Awaiting manual review; resumes at the transition that placed it on hold.',
+  );
+  statusValue(
+    'cancelled',
+    'Cancelled',
+    'Cancelled before dispatch, with an audited reason; terminal state.',
+  );
 }
 
 /// SBP.8.7 Server Operation Registry (SVOPR -> CE-API). The two operations the
@@ -1669,15 +2122,22 @@ Applies a quantity change to one order line before dispatch, re-pricing and
 re-reserving only the affected line under optimistic concurrency.''')
     ..primaryDataEntity = 'OrderLine'
     ..descriptionKey = 'op.order.amendLine'
-    ..errorCodes = 'VALIDATION_FAILED, ORDER_ALREADY_DISPATCHED, '
+    ..errorCodes =
+        'VALIDATION_FAILED, ORDER_ALREADY_DISPATCHED, '
         'ORDER_VERSION_CONFLICT';
   amend.authorization.content
     ..requirementKind = AuthorizationRequirementKind.role
-    ..rationale = 'Amending a line is a clerk action on the order queue; the '
+    ..rationale =
+        'Amending a line is a clerk action on the order queue; the '
         'supervisor role inherits it via Order Clerk.';
   amend.authorization.roleRequirement.roles = 'Order Clerk';
-  void amendRequest(String name, String type, bool required, String description,
-      {String domainEnum = ''}) {
+  void amendRequest(
+    String name,
+    String type,
+    bool required,
+    String description, {
+    String domainEnum = '',
+  }) {
     final m = amend.requestMembers.add();
     m.$headline = name;
     m.content
@@ -1687,18 +2147,39 @@ re-reserving only the affected line under optimistic concurrency.''')
     if (domainEnum.isNotEmpty) m.content.domainEnum = domainEnum;
   }
 
-  amendRequest('orderId', 'Text', true, 'The order the amended line belongs to.');
+  amendRequest(
+    'orderId',
+    'Text',
+    true,
+    'The order the amended line belongs to.',
+  );
   amendRequest('lineId', 'Text', true, 'The line whose quantity changes.');
-  amendRequest('newQuantity', 'Integer', true,
-      'The new ordered quantity; must satisfy the quantity-positive constraint '
-          'on OrderLine.quantity.');
-  amendRequest('orderVersion', 'Integer', true,
-      'The order version the clerk read; a stale version is rejected with '
-          'ORDER_VERSION_CONFLICT.');
-  amendRequest('justification', 'Text', false,
-      'The clerk\'s justification note, when one was entered.');
-  void amendResponse(String name, String type, String description,
-      {String domainEnum = ''}) {
+  amendRequest(
+    'newQuantity',
+    'Integer',
+    true,
+    'The new ordered quantity; must satisfy the quantity-positive constraint '
+        'on OrderLine.quantity.',
+  );
+  amendRequest(
+    'orderVersion',
+    'Integer',
+    true,
+    'The order version the clerk read; a stale version is rejected with '
+        'ORDER_VERSION_CONFLICT.',
+  );
+  amendRequest(
+    'justification',
+    'Text',
+    false,
+    'The clerk\'s justification note, when one was entered.',
+  );
+  void amendResponse(
+    String name,
+    String type,
+    String description, {
+    String domainEnum = '',
+  }) {
     final m = amend.responseMembers.add();
     m.$headline = name;
     m.content
@@ -1708,15 +2189,27 @@ re-reserving only the affected line under optimistic concurrency.''')
     if (domainEnum.isNotEmpty) m.content.domainEnum = domainEnum;
   }
 
-  amendResponse('unitPrice', 'Decimal',
-      'The fresh price snapshot applied to the amended line.');
-  amendResponse('reserved', 'Boolean',
-      'Whether stock was re-reserved for the amended line.');
-  amendResponse('orderStatus', 'Text',
-      'The order state after the amendment (Confirmed when fully satisfied); '
-          'a value of the OrderStatus domain enum.');
-  amendResponse('orderVersion', 'Integer',
-      'The order version after the amendment, for the next optimistic write.');
+  amendResponse(
+    'unitPrice',
+    'Decimal',
+    'The fresh price snapshot applied to the amended line.',
+  );
+  amendResponse(
+    'reserved',
+    'Boolean',
+    'Whether stock was re-reserved for the amended line.',
+  );
+  amendResponse(
+    'orderStatus',
+    'Text',
+    'The order state after the amendment (Confirmed when fully satisfied); '
+        'a value of the OrderStatus domain enum.',
+  );
+  amendResponse(
+    'orderVersion',
+    'Integer',
+    'The order version after the amendment, for the next optimistic write.',
+  );
 
   // fetchOrderWorkList — the query behind the work-list screen.
   final workList = registry.operations.add();
@@ -1730,16 +2223,19 @@ re-reserving only the affected line under optimistic concurrency.''')
     ..errorCodes = 'VALIDATION_FAILED';
   workList.authorization.content
     ..requirementKind = AuthorizationRequirementKind.role
-    ..rationale = 'The work list exposes every open order, so the query is '
+    ..rationale =
+        'The work list exposes every open order, so the query is '
         'limited to the two roles that work the queue.';
-  workList.authorization.roleRequirement.roles = 'Order Clerk, Order Supervisor';
+  workList.authorization.roleRequirement.roles =
+      'Order Clerk, Order Supervisor';
   final stateFilter = workList.requestMembers.add();
   stateFilter.$headline = 'stateFilter';
   stateFilter.content
     ..memberType = 'DomainEnum'
     ..domainEnum = 'OrderStatus'
     ..required = false
-    ..description = 'Show only orders in this lifecycle state; absent means '
+    ..description =
+        'Show only orders in this lifecycle state; absent means '
         'every open state.';
   final page = workList.requestMembers.add();
   page.$headline = 'page';
@@ -1773,8 +2269,15 @@ void _authorErrorCodesAndEnvelope(D00SolutionBlueprint sbp) {
   registry.content =
       'The shared application error codes the Result envelope\'s error arm carries.';
 
-  void code(String headline, String c, String category, String severity,
-      bool retryable, String copyKey, String description) {
+  void code(
+    String headline,
+    String c,
+    String category,
+    String severity,
+    bool retryable,
+    String copyKey,
+    String description,
+  ) {
     final e = registry.errorCodes.add();
     e.$headline = headline;
     e.content
@@ -1786,18 +2289,36 @@ void _authorErrorCodesAndEnvelope(D00SolutionBlueprint sbp) {
       ..copyKey = copyKey;
   }
 
-  code('Validation failed', 'VALIDATION_FAILED', 'Validation', 'Error', false,
-      'screen.order.amend.error',
-      'A request member failed its declared validation rules; field-level '
-          'details name the offending members.');
-  code('Order already dispatched', 'ORDER_ALREADY_DISPATCHED', 'BusinessRule',
-      'Error', false, 'screen.order.amend.error',
-      'The order left the amendable window before the command arrived '
-          '(FR-05: amendments only before dispatch).');
-  code('Order version conflict', 'ORDER_VERSION_CONFLICT', 'Conflict',
-      'Warning', true, 'error.order.versionConflict',
-      'The order changed between the clerk\'s read and the amendment; the '
-          'client reloads and may retry.');
+  code(
+    'Validation failed',
+    'VALIDATION_FAILED',
+    'Validation',
+    'Error',
+    false,
+    'screen.order.amend.error',
+    'A request member failed its declared validation rules; field-level '
+        'details name the offending members.',
+  );
+  code(
+    'Order already dispatched',
+    'ORDER_ALREADY_DISPATCHED',
+    'BusinessRule',
+    'Error',
+    false,
+    'screen.order.amend.error',
+    'The order left the amendable window before the command arrived '
+        '(FR-05: amendments only before dispatch).',
+  );
+  code(
+    'Order version conflict',
+    'ORDER_VERSION_CONFLICT',
+    'Conflict',
+    'Warning',
+    true,
+    'error.order.versionConflict',
+    'The order changed between the clerk\'s read and the amendment; the '
+        'client reloads and may retry.',
+  );
 
   final envelope = sbp.informationAndDataModel.resultEnvelope;
   envelope.content
@@ -1825,8 +2346,13 @@ code registry.''')
 void _authorMessageKeys(D00SolutionBlueprint sbp) {
   final keys = sbp.informationAndDataModel.messageKeyRegistry.messageKeys;
 
-  void key(String headline, String k, String copy, String where,
-      {String? placeholders}) {
+  void key(
+    String headline,
+    String k,
+    String copy,
+    String where, {
+    String? placeholders,
+  }) {
     final e = keys.add();
     e.$headline = headline;
     e.content
@@ -1836,44 +2362,95 @@ void _authorMessageKeys(D00SolutionBlueprint sbp) {
     if (placeholders != null) e.content.placeholders = placeholders;
   }
 
-  key('Work list title', 'screen.orders.title', 'Orders',
-      'Page title of the order work list (SCR-01).');
-  key('State filter label', 'screen.orders.filter.state', 'State',
-      'Label of the state selector on the work list filter bar.');
-  key('State filter hint', 'screen.orders.filter.state.hint',
-      'Show only orders in the selected lifecycle state',
-      'Helper text of the state selector.');
-  key('Open order action', 'screen.orders.action.open', 'Open',
-      'Row action that navigates from the work list to order detail.');
-  key('Empty queue message', 'screen.orders.empty',
-      'No orders match the selected state filter',
-      'Shown on the work list when the filtered queue is empty, and as the '
-          'status column\'s empty-data copy.');
-  key('Clear filter action', 'screen.orders.empty.action.clear',
-      'Clear filter', 'Recovery action offered on the empty work list.');
+  key(
+    'Work list title',
+    'screen.orders.title',
+    'Orders',
+    'Page title of the order work list (SCR-01).',
+  );
+  key(
+    'State filter label',
+    'screen.orders.filter.state',
+    'State',
+    'Label of the state selector on the work list filter bar.',
+  );
+  key(
+    'State filter hint',
+    'screen.orders.filter.state.hint',
+    'Show only orders in the selected lifecycle state',
+    'Helper text of the state selector.',
+  );
+  key(
+    'Open order action',
+    'screen.orders.action.open',
+    'Open',
+    'Row action that navigates from the work list to order detail.',
+  );
+  key(
+    'Empty queue message',
+    'screen.orders.empty',
+    'No orders match the selected state filter',
+    'Shown on the work list when the filtered queue is empty, and as the '
+        'status column\'s empty-data copy.',
+  );
+  key(
+    'Clear filter action',
+    'screen.orders.empty.action.clear',
+    'Clear filter',
+    'Recovery action offered on the empty work list.',
+  );
   // The detail title interpolates the order id, so the entry declares the
   // placeholder its copy carries.
-  key('Order detail title', 'screen.order.title', 'Order {orderId}',
-      'Page title of order detail (SCR-02).', placeholders: 'orderId');
-  key('Amend line action', 'screen.order.action.amend', 'Amend line',
-      'Submit action on an order line.');
-  key('Release hold action', 'screen.order.action.release', 'Release hold',
-      'Header action that releases a credit or stock hold.');
-  key('Amendment rejected message', 'screen.order.amend.error',
-      'The amendment could not be applied',
-      'Shown on order detail when a line amendment fails validation or '
-          'reservation.');
-  key('Retry amendment action', 'screen.order.amend.action.retry', 'Retry',
-      'Recovery action offered after a rejected amendment.');
-  key('Version conflict message', 'error.order.versionConflict',
-      'The order changed while you were editing; reload and retry',
-      'Copy of the ORDER_VERSION_CONFLICT error code.');
-  key('Amend line operation description', 'op.order.amendLine',
-      'Re-prices and re-reserves an amended order line',
-      'Description of the amendOrderLine server operation.');
-  key('Work list operation description', 'op.order.fetchWorkList',
-      'Fetches a state-filtered page of the order work list',
-      'Description of the fetchOrderWorkList server operation.');
+  key(
+    'Order detail title',
+    'screen.order.title',
+    'Order {orderId}',
+    'Page title of order detail (SCR-02).',
+    placeholders: 'orderId',
+  );
+  key(
+    'Amend line action',
+    'screen.order.action.amend',
+    'Amend line',
+    'Submit action on an order line.',
+  );
+  key(
+    'Release hold action',
+    'screen.order.action.release',
+    'Release hold',
+    'Header action that releases a credit or stock hold.',
+  );
+  key(
+    'Amendment rejected message',
+    'screen.order.amend.error',
+    'The amendment could not be applied',
+    'Shown on order detail when a line amendment fails validation or '
+        'reservation.',
+  );
+  key(
+    'Retry amendment action',
+    'screen.order.amend.action.retry',
+    'Retry',
+    'Recovery action offered after a rejected amendment.',
+  );
+  key(
+    'Version conflict message',
+    'error.order.versionConflict',
+    'The order changed while you were editing; reload and retry',
+    'Copy of the ORDER_VERSION_CONFLICT error code.',
+  );
+  key(
+    'Amend line operation description',
+    'op.order.amendLine',
+    'Re-prices and re-reserves an amended order line',
+    'Description of the amendOrderLine server operation.',
+  );
+  key(
+    'Work list operation description',
+    'op.order.fetchWorkList',
+    'Fetches a state-filtered page of the order work list',
+    'Description of the fetchOrderWorkList server operation.',
+  );
 }
 
 /// SBP.12.1.4 User Authorization. The two roles both screens hold their access
@@ -1882,8 +2459,7 @@ void _authorMessageKeys(D00SolutionBlueprint sbp) {
 /// `@Min(1)` on `USAU`: a role catalogue that grants nothing is not a
 /// specification, so the two lists are authored together.
 void _authorRoles(D00SolutionBlueprint sbp) {
-  final authorization =
-      sbp.securityAndAccessModel.accessControl.authorization;
+  final authorization = sbp.securityAndAccessModel.accessControl.authorization;
 
   final entitlements = authorization.entitlements;
   void entitlement(String name, String description, String accessType) {
@@ -1895,13 +2471,21 @@ void _authorRoles(D00SolutionBlueprint sbp) {
       ..accessType = accessType;
   }
 
-  entitlement('order.read', 'See orders in the work list and open their detail.',
-      'Read');
-  entitlement('order.amend',
-      'Change quantities and lines on an order that is not yet dispatched.',
-      'Write');
-  entitlement('order.hold.release',
-      'Release a credit or stock hold placed on an order.', 'Approve');
+  entitlement(
+    'order.read',
+    'See orders in the work list and open their detail.',
+    'Read',
+  );
+  entitlement(
+    'order.amend',
+    'Change quantities and lines on an order that is not yet dispatched.',
+    'Write',
+  );
+  entitlement(
+    'order.hold.release',
+    'Release a credit or stock hold placed on an order.',
+    'Approve',
+  );
 
   final roles = authorization.roleDefinitions;
 
@@ -1934,8 +2518,12 @@ void _authorRoles(D00SolutionBlueprint sbp) {
 /// model's entities are assigned to; `boundedContext` on an entity resolves
 /// against these names.
 void _authorBoundedContexts(D00SolutionBlueprint sbp) {
-  final contexts = sbp.solutionArchitectureAndTechnology.technicalFramework
-      .softwareDesign.layeringAndModuleStructure.boundedContexts;
+  final contexts = sbp
+      .solutionArchitectureAndTechnology
+      .technicalFramework
+      .softwareDesign
+      .layeringAndModuleStructure
+      .boundedContexts;
 
   void context(String name, String domain, String purpose) {
     final e = contexts.add();
@@ -1947,13 +2535,115 @@ void _authorBoundedContexts(D00SolutionBlueprint sbp) {
     e.scope.purpose = purpose;
   }
 
-  context('Ordering', 'Order capture and fulfilment',
-      'Owns the order aggregate and its lifecycle from capture to dispatch.');
-  context('Customer', 'Customer master data',
-      'Owns customer identity and the credit standing orders are checked '
-          'against.');
-  context('Catalogue', 'Product catalogue and pricing',
-      'Owns the product master and the price list orders are priced from.');
+  context(
+    'Ordering',
+    'Order capture and fulfilment',
+    'Owns the order aggregate and its lifecycle from capture to dispatch.',
+  );
+  context(
+    'Customer',
+    'Customer master data',
+    'Owns customer identity and the credit standing orders are checked '
+        'against.',
+  );
+  context(
+    'Catalogue',
+    'Product catalogue and pricing',
+    'Owns the product master and the price list orders are priced from.',
+  );
+}
+
+/// SBP.8 The generation units Phase 4 writes code into (the register
+/// `GENUN-UNIT-LST`, tom_specs_model 1.9.0): the shared, client and server
+/// packages of the Meridian CodeSpecs trio
+/// (`tom_som_conformance/samples/meridian_codespecs/`), each with the
+/// deployment target or component it builds and a `dart-tom` mapping for
+/// every area it holds there. The units name targets and a component that
+/// are authored here too, because each `refersTo` must resolve.
+///
+/// Text (CE-TX) is mapped by the shared and the client unit, so a section
+/// routed to it goes to both by default. The message-key registry carries a
+/// `units` override naming the shared unit alone — the one place the sample
+/// shows the member, and the placement the trio has.
+void _authorGenerationUnits(D00SolutionBlueprint sbp) {
+  final basic = sbp
+      .solutionArchitectureAndTechnology
+      .technicalFramework
+      .basicRequirements;
+
+  // The ids are authored in the 1-based form [_normalizeListItemIds] gives
+  // every patterned list, so the references below name the ids the committed
+  // document carries rather than the date-lettered ones `add()` generates.
+  String target(String id, String headline, String category) {
+    final t = basic.platformAndLanguage.deploymentTargets.add(sectionId: id);
+    t.$headline = headline;
+    t.content
+      ..targetCategory = category
+      ..targetEnvironment = 'Production';
+    return id;
+  }
+
+  final webClient = target('DEPTAR-DEPL-1', 'Back-office web client', 'Web');
+  final orderService = target('DEPTAR-DEPL-2', 'Order service', 'Container');
+
+  const contract = 'ARCM-COMP-1';
+  final component = basic.architectureStyle.components.add(sectionId: contract);
+  component.$headline = 'Order contract package';
+  component.content
+    ..componentType = 'Package'
+    ..domain = 'Order capture and fulfilment';
+
+  void unit(
+    String unitId,
+    GenerationUnitKind kind,
+    List<String> areas, {
+    String? deploymentTarget,
+    String? component,
+    Map<String, String> notes = const {},
+  }) {
+    final u = basic.architectureStyle.generationUnits.add();
+    u.$headline = unitId;
+    u.content
+      ..unitId = unitId
+      ..kind = kind;
+    if (deploymentTarget != null) u.content.deploymentTarget = deploymentTarget;
+    if (component != null) u.content.component = component;
+    for (final area in areas) {
+      final m = u.mappings.add();
+      m.$headline = area;
+      m.content
+        ..area = area
+        ..mapping = 'dart-tom';
+      final note = notes[area];
+      if (note != null) m.content.note = note;
+    }
+  }
+
+  unit('meridian_codespec_shared', GenerationUnitKind.shared, const [
+    'CE-API',
+    'CE-AZ',
+    'CE-EN',
+    'CE-ER',
+    'CE-TX',
+  ], component: contract);
+  unit(
+    'meridian_codespec_client',
+    GenerationUnitKind.client,
+    const ['CE-LO', 'CE-NV', 'CE-SC', 'CE-TX'],
+    deploymentTarget: webClient,
+    notes: const {
+      'CE-TX':
+          "The client's own interface texts; the message-key registry "
+          'names the shared unit alone.',
+    },
+  );
+  unit('meridian_codespec_server', GenerationUnitKind.server, const [
+    'CE-DB',
+    'CE-SU',
+  ], deploymentTarget: orderService);
+
+  sbp.informationAndDataModel.messageKeyRegistry.$units =
+      'meridian_codespec_shared';
 }
 
 /// YRD7: native-typed form values authored through the typed facade, so the
@@ -1963,7 +2653,10 @@ void _authorBoundedContexts(D00SolutionBlueprint sbp) {
 /// accessors and the generic string-path API and asserts they agree.
 void _authorTypedFormValues(D00SolutionBlueprint sbp) {
   // int form fields — the actor overview's headcount summary.
-  sbp.targetOperatingModelConcept.processStepsAndActorInteractions.actorOverview
+  sbp
+      .targetOperatingModelConcept
+      .processStepsAndActorInteractions
+      .actorOverview
       .overview
     ..totalActorCount = 4
     ..humanActorCount = 3
@@ -1971,8 +2664,13 @@ void _authorTypedFormValues(D00SolutionBlueprint sbp) {
     ..externalActorCount = 0;
 
   // bool form field — the accessibility overview statement flag.
-  sbp.experienceAndInterfaceDesign.designFollowUp.accessibility
-      .accessibilityOverviewContent.accessibilityStatement = true;
+  sbp
+          .experienceAndInterfaceDesign
+          .designFollowUp
+          .accessibility
+          .accessibilityOverviewContent
+          .accessibilityStatement =
+      true;
 
   // enum form field — ISO 25010 coverage entries with a natively-typed
   // characteristic (stored as the constant name, e.g.

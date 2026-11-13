@@ -1,6 +1,6 @@
 # TomSpecs document (*.docspecs.yaml). Hierarchical format v2.
 version: 2
-modelVersion: "1.6"
+modelVersion: "1.9"
 document:
   SBP D00SolutionBlueprint:
     content: |2-
@@ -1960,6 +1960,8 @@ document:
               message: |2-
                 The quantity must be a positive whole number
       MSGKR messageKeyRegistry:
+        units: |2-
+          meridian_codespec_shared
         MSGKE-MKEY-LST messageKeys:
           MSGKE-MKEY-1:
             headline: |2-
@@ -2308,6 +2310,159 @@ document:
         as an adapter that translates to the same command API. Infrastructure is
         provisioned as code.
       TECH technicalFramework:
+        BTREQ basicRequirements:
+          PLLNG platformAndLanguage:
+            DEPTAR-DEPL-LST deploymentTargets:
+              DEPTAR-DEPL-1:
+                headline: |2-
+                  Back-office web client
+                content:
+                  targetCategory: |2-
+                    Web
+                  targetEnvironment: |2-
+                    Production
+              DEPTAR-DEPL-2:
+                headline: |2-
+                  Order service
+                content:
+                  targetCategory: |2-
+                    Container
+                  targetEnvironment: |2-
+                    Production
+          AS architectureStyle:
+            ARCM-COMP-LST components:
+              ARCM-COMP-1:
+                headline: |2-
+                  Order contract package
+                content:
+                  componentType: |2-
+                    Package
+                  domain: |2-
+                    Order capture and fulfilment
+            GENUN-UNIT-LST generationUnits:
+              GENUN-UNIT-1:
+                headline: |2-
+                  meridian_codespec_shared
+                content:
+                  unitId: |2-
+                    meridian_codespec_shared
+                  kind: |2-
+                    shared
+                  component: |2-
+                    ARCM-COMP-1
+                GEMAP-MAPP-LST mappings:
+                  GEMAP-MAPP-1:
+                    headline: |2-
+                      CE-API
+                    content:
+                      area: |2-
+                        CE-API
+                      mapping: |2-
+                        dart-tom
+                  GEMAP-MAPP-2:
+                    headline: |2-
+                      CE-AZ
+                    content:
+                      area: |2-
+                        CE-AZ
+                      mapping: |2-
+                        dart-tom
+                  GEMAP-MAPP-3:
+                    headline: |2-
+                      CE-EN
+                    content:
+                      area: |2-
+                        CE-EN
+                      mapping: |2-
+                        dart-tom
+                  GEMAP-MAPP-4:
+                    headline: |2-
+                      CE-ER
+                    content:
+                      area: |2-
+                        CE-ER
+                      mapping: |2-
+                        dart-tom
+                  GEMAP-MAPP-5:
+                    headline: |2-
+                      CE-TX
+                    content:
+                      area: |2-
+                        CE-TX
+                      mapping: |2-
+                        dart-tom
+              GENUN-UNIT-2:
+                headline: |2-
+                  meridian_codespec_client
+                content:
+                  unitId: |2-
+                    meridian_codespec_client
+                  kind: |2-
+                    client
+                  deploymentTarget: |2-
+                    DEPTAR-DEPL-1
+                GEMAP-MAPP-LST mappings:
+                  GEMAP-MAPP-1:
+                    headline: |2-
+                      CE-LO
+                    content:
+                      area: |2-
+                        CE-LO
+                      mapping: |2-
+                        dart-tom
+                  GEMAP-MAPP-2:
+                    headline: |2-
+                      CE-NV
+                    content:
+                      area: |2-
+                        CE-NV
+                      mapping: |2-
+                        dart-tom
+                  GEMAP-MAPP-3:
+                    headline: |2-
+                      CE-SC
+                    content:
+                      area: |2-
+                        CE-SC
+                      mapping: |2-
+                        dart-tom
+                  GEMAP-MAPP-4:
+                    headline: |2-
+                      CE-TX
+                    content:
+                      area: |2-
+                        CE-TX
+                      mapping: |2-
+                        dart-tom
+                      note: |2-
+                        The client's own interface texts; the message-key registry names the shared unit alone.
+              GENUN-UNIT-3:
+                headline: |2-
+                  meridian_codespec_server
+                content:
+                  unitId: |2-
+                    meridian_codespec_server
+                  kind: |2-
+                    server
+                  deploymentTarget: |2-
+                    DEPTAR-DEPL-2
+                GEMAP-MAPP-LST mappings:
+                  GEMAP-MAPP-1:
+                    headline: |2-
+                      CE-DB
+                    content:
+                      area: |2-
+                        CE-DB
+                      mapping: |2-
+                        dart-tom
+                  GEMAP-MAPP-2:
+                    headline: |2-
+                      CE-SU
+                    content:
+                      area: |2-
+                        CE-SU
+                      mapping: |2-
+                        dart-tom
         SDR softwareDesign:
           LAMS layeringAndModuleStructure:
             BCE-BOUN-LST boundedContexts:

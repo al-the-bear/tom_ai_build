@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.15.0
+
+- IR Specs (`tom_core_codespecs/doc/irspecs_ir.md`): the language-neutral
+  intermediate representation of a CodeSpecs trio. `bin/irspecs.dart`:
+  `irspecs from-codespecs` writes one `<CE-CODE>.ir.yaml` per area plus
+  `package.ir.yaml`; `irspecs map --mapper dart-tom` writes the trio back
+  through the Dart + Tom mapper and `dart format`, byte-equal on both Meridian
+  trios. The library (`lib/src/irspecs/`, summarised in
+  `doc/api/api_summary_irspecs.md`): the document model and its YAML form, the
+  step language for form-3b bodies (rules B1–B8, validation S1–S5) and the
+  mapper; the JSON Schema is `tool/irspecs_ir.schema.json`.
+- `validate_codespecs --ir` runs the forty-one checks on an IR document set
+  with the trio's report; `--regenerated-ir` gives check 31 a second IR run.
+- The release-drift gate no longer counts dot-named paths, which pub never
+  ships.
+- The structural accessors reserve `units`, the SOM member every section
+  carries from model 1.9.0; the C and C++ facade Makefiles rebuild a facade
+  object when a runtime header changes.
+- Depends on `tom_som_dart_runtime` and `tom_som_dart_v0` 1.9.0.
+
 ## 0.14.1
 
 Fixes found by the first run of the suite on Linux and Windows hosts that had
