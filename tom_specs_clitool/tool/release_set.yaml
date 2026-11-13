@@ -109,7 +109,9 @@ unpublished_drift:
     generation unit's package, and an IR file may carry `units`
     (irspecs_ir.md §8.1; tom_specs irspecs10); `irspecs emit`, the
     OpenAPI 3.1, JSON Schema 2020-12, ICU MessageFormat and AsyncAPI 3
-    emitters (irspecs_ir.md §10; tom_specs irspecs11). Needs the runtime's
+    emitters (irspecs_ir.md §10; tom_specs irspecs11); the TypeScript
+    mappers ts-shared, ts-react-client and ts-hono-server (irspecs_ir.md
+    §11; tom_specs irspecs13). Needs the runtime's
     specGenerationUnits, so it ships with the next release of the chain.
   tom_core_codespecs: >-
     Documentation since 0.13.5: the authoring agent writes IR, not Dart

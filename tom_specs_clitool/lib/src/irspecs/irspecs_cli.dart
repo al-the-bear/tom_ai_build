@@ -50,6 +50,7 @@ import 'emitters/icu_emitter.dart';
 import 'emitters/json_schema_emitter.dart';
 import 'emitters/openapi_emitter.dart';
 import 'mappers/dart_tom/dart_tom_mapper.dart';
+import 'mappers/ts/ts_mapper.dart';
 
 /// The `from-codespecs` option set — exposed so the README correspondence
 /// test reads it.
@@ -79,7 +80,7 @@ ArgParser irspecsParser() => ArgParser()
   ..addOption(
     'mapper',
     help: 'map: which mapper writes the code.',
-    allowed: [kDartTomMapper],
+    allowed: [kDartTomMapper, ...kTsMappers.keys],
   )
   ..addOption(
     'spec',
@@ -251,9 +252,10 @@ Future<int> _map(
     return 2;
   }
   List<IrDocument> documents;
+  final List<IrDocument> all;
   try {
     final unit = spec == null ? null : _unitOf(spec, unitId!);
-    documents = readIrFolder(results.option('ir')!);
+    documents = all = readIrFolder(results.option('ir')!);
     if (unit != null) {
       documents = irDocumentsForUnit(
         documents,
@@ -265,7 +267,18 @@ Future<int> _map(
     stderrSink.writeln(e.message);
     return 2;
   }
+  final mapper = results.option('mapper')!;
   try {
+    if (kTsMappers.containsKey(mapper)) {
+      final files = mapTypeScript(documents, mapper, all: all);
+      for (final MapEntry(key: path, value: text) in files.entries) {
+        File(p.joinAll([results.option('out')!, ...path.split('/')]))
+          ..parent.createSync(recursive: true)
+          ..writeAsStringSync(text);
+      }
+      stdoutSink.writeln('${files.length} file(s) written.');
+      return 0;
+    }
     final written = await writeDartTom(documents, results.option('out')!);
     stdoutSink.writeln('${written.length} file(s) written and formatted.');
     return 0;

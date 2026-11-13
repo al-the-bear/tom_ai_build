@@ -441,6 +441,7 @@ export 'src/irspecs/emitters/openapi_emitter.dart';
 export 'src/irspecs/ir_yaml.dart';
 export 'src/irspecs/irspecs_cli.dart';
 export 'src/irspecs/mappers/dart_tom/dart_tom_mapper.dart';
+export 'src/irspecs/mappers/ts/ts_mapper.dart';
 // The public-API dartdoc coverage gate — the `tom_specs_documentation_standard.md` §5 bars of
 // tom_specs_documentation_standard.md, held against reality by a walker over
 // the committed manifest, in the shape of the release-closure gate beside it.

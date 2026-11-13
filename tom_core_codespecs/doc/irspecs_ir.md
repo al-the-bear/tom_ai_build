@@ -9,7 +9,8 @@ CodeSpecs trio as language-neutral data: everything the trio expresses —
 declarations, `Cs*` markers and their argument values, back-links, doc
 comments, members, method bodies and their statements — in one YAML document
 per area. A mapper per language and framework writes code from it; the Dart +
-Tom mapper's output is today's trio, byte for byte. This document says what is
+Tom mapper's output is today's trio, byte for byte; the TypeScript mappers
+write the same skeleton as an npm workspace (§11). This document says what is
 in a document, how it is written and what is deliberately left out, and what
 each standard emitter writes from it (§10). Which code
 a mapper writes from it is each mapper's own document, and what the trio
@@ -458,3 +459,74 @@ An emitter never drops a fact silently: each one below is a line of
 | ICU MessageFormat | the base copy's locale, a message's doc comment, its role and category | a catalogue holds key and message only |
 | AsyncAPI | the channels a notification goes out on, and its body copy key | `TomNotificationType` constructor values, not marker arguments; a message has no copy key |
 | AsyncAPI | a job's retries, backoff and timeout; a cron, calendar or interval trigger | job policy and schedules, not messages |
+
+## 11. The TypeScript mappers
+
+Three mappers write the IR as a three-package npm workspace — TypeScript on
+both sides, one shared package:
+
+```text
+irspecs map --mapper ts-shared       --ir <spec-root>/irspecs --out <dir>
+irspecs map --mapper ts-react-client --ir <spec-root>/irspecs --out <dir>
+irspecs map --mapper ts-hono-server  --ir <spec-root>/irspecs --out <dir>
+```
+
+Each writes the package of its locus — whatever the IR holds there — under
+its package name, and the workspace root: a `package.json` naming the three as workspaces and one
+`tsconfig.json` that checks them together (`tsc --noEmit -p .`). With
+`--spec <document> --unit <unit id>` (§8.1) a unit whose mapping names a
+TypeScript mapper is written as that one package. The client's API calls and
+the server's routes are generated from the OpenAPI document of the whole IR
+folder (§10), whichever package is written.
+
+**What the output is.** A skeleton, as the Dart trio is: it type-checks and
+executes nothing — a body the specification gives no steps for throws
+`new Error("not implemented: <explication>")`, and a component throws until
+Phase 6 writes it. It is written to run as is on Node's type stripping and on
+Deno: imports carry their `.ts` extension, a type is imported with
+`import type`, and the workspace compiles with `verbatimModuleSyntax` and
+`erasableSyntaxOnly`, so `tsc` refuses anything that would need a transform.
+The test `tom_specs_clitool/test/irspecs_ts_test.dart` maps the Meridian IR,
+installs the workspace, type-checks it, loads each package under Node's type
+stripping, holds the back-links of every file to the Dart trio's, and the wire
+types to the JSON Schema of §10.
+
+**Pinned versions.** TypeScript 5.9.3, React 19.3, Hono 4.13, Drizzle ORM
+0.45 (`kTsDependencyVersions`). The stack — React with plain `fetch`, Hono, and
+Drizzle over PostgreSQL — is the first of each choice; other client stacks,
+server frameworks and persistence layers are separate mappers to come.
+
+### 11.1 What each declaration becomes
+
+| IR declaration | TypeScript | In the Meridian trio |
+|----------------|------------|--------|
+| a domain enum (CE-EN) | `export const X = { a: 'a', … } as const` and `export type X` the union of its values | shared |
+| a class of `static const` catalogue entries — operations (CE-API), roles (CE-AZ), error codes (CE-ER), message keys (CE-TX) | the same: a const object of the entries' strings and their union type | shared |
+| a plain data class (not abstract, instance fields only) — a wire type (CE-API), the envelope (CE-ER) | `export interface X<T> { field: type; }` | shared |
+| an entity (`@CsTable`, CE-DB) | a Drizzle table `export const xTable = pgTable('<table>', { … })`, a column per field from its `columnType` (`uuid`, `varchar(n)`, `numeric(p,s)`, `text`, `integer`, `bigint`, `boolean`, `date`, `jsonb`, `timestamp[tz]`; without one, from the Dart type), `.$type<Enum>()` for an enum-typed column, `.notNull()` unless nullable; and `export type X = typeof xTable.$inferSelect` | server |
+| a repository (`@CsRepository`) | `export interface XRepository extends TomRepository<X, K> {}`, `TomRepository` the method contract of `tom_core_server`'s (`tom/tom.ts`) | server |
+| a service unit (`@CsServiceUnit`, CE-SU) | an `abstract class` whose handlers keep their signature and throw `not implemented`; the routes in `app.ts`: `createApp(services)` returns a Hono app with `app.post('/<operation>', …)` per handler | server |
+| a collaborator (`@CsCollaborator`) | `export interface X { method(params): Promise<…>; }` | client |
+| a server call (`@CsServerCall`, CE-SC) and any other class with methods | a class: `collaborator!: X` for the `late` field, each 3b body printed from its steps (§4.7) — `await this.collaborator.m(args)`, `if (await this.collaborator.guard(args)) { … }`, `return …` | client |
+| a layout (`@CsLayout`, CE-LO) | the class with its layout node, and a React component `export function XView(): ReactElement` that throws until Phase 6 | client |
+| a route (`@CsRoute`, CE-NV) | `export const route: TomRouteDefinition = { routeId, path, … }` | client |
+| the operations (from §10's OpenAPI) | `ApiClient`: a plain-`fetch` method per operation, `POST` of the request, the Result envelope back, a 5xx status a transport error | client |
+| a `tom_core` construction (`TomRouteDefinition(…)`, `TomLayoutContainerNode(…)`) | an object literal; its interface in the package's `tom/tom.ts`, derived from the IR's constructions — every named argument a property, optional unless every construction writes it, a `Tom…` enum value a string-literal union | all |
+
+Types follow §10.1's JSON Schema mapping, so the wire types and the schemas
+agree: `String`, `DateTime`, `Uri`, `Duration` → `string`; `int`, `double`,
+`num` → `number`; `bool` → `boolean`; `List`/`Iterable`/`Set` → arrays;
+`Map<String, X>` → `Record<string, X>`; `Future<X>` → `Promise<X>`; `X?` →
+`X | null`; a `Cs…Ref`/`…Key`/`…Code` → `string`.
+
+**Back-links and markers** become JSDoc tags on the declaration and on each
+member: `@codeSpec <id> source: <section ids>`, `@docSpec <section id> —
+<description>`, every `Cs*` marker as `@cs <Marker>(<arguments>)`, and any
+other Dart annotation as `@dart <annotation>` — the same section ids as the
+Dart trio, which the test holds file by file. A doc comment is kept as the
+JSDoc text.
+
+**Refused, not approximated** (as in §8): a declaration kind with no rule (a
+mixin, a top-level function), a construction with positional arguments, an
+initialiser that is neither a construction nor a single string, and a column
+type with no Drizzle builder stop the mapper naming the file.

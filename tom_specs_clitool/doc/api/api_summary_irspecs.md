@@ -40,6 +40,9 @@ Schema is `tool/irspecs_ir.schema.json`.
 | `kGuardSuffix` | `'Applies'` | The fixed suffix of a guard method's name (B4). |
 | `irStepRules` | `Map<String, String>` | The step validation rules `S1` … `S5`, each with what it holds. |
 | `kDartTomMapper` | `'dart-tom'` | The Dart + Tom mapper's id, as `irspecs map --mapper` names it. |
+| `kTsSharedMapper`, `kTsReactClientMapper`, `kTsHonoServerMapper` | `'ts-shared'`, `'ts-react-client'`, `'ts-hono-server'` | The TypeScript mappers' ids (`irspecs_ir.md` §11). |
+| `kTsMappers` | `Map<String, CsLocus>` | Each TypeScript mapper and the locus it writes. |
+| `kTsDependencyVersions` | `Map<String, String>` | The versions the TypeScript workspace pins. |
 | `irStandards` | `Map<String, IrEmission Function(List<IrDocument>)>` | The standards `irspecs emit --standard` writes: `openapi`, `jsonschema`, `icu`, `asyncapi`. |
 | `kOpenApiVersion`, `kOpenApiFile` | `'3.1.0'`, `'openapi.json'` | The OpenAPI emitter's version and file. |
 | `kJsonSchema202012`, `kJsonSchemaFile` | the 2020-12 dialect URI, `'schema.json'` | The JSON Schema emitter's dialect and file. |
@@ -336,5 +339,6 @@ IrSchemaBuilder(IrIndex index, {required String refBase, required List<String> n
 | `icuSyntaxErrors(String message)` | `List<String>` | The ICU MessageFormat syntax errors of a message; empty when it parses. |
 | `irJson(Object? data)` | `String` | JSON as the emitters write it: two-space indented, one trailing newline. |
 | `irMarker`, `irString`, `irInitialiserString`, `irDocText`, `irHandlerResult` | — | The helpers the emitters read the IR with: a marker by name, a value's string, an initialiser's string argument, a doc comment's text, a handler's response type. |
+| `mapTypeScript(List<IrDocument> share, String mapper, {List<IrDocument>? all})` | `Map<String, String>` | A TypeScript mapper's package and the workspace root, `<path>` → text; the API client and routes read the OpenAPI of `all`. Throws `IrMapException` on a construct it has no rule for. |
 | `irspecsParser()` | `ArgParser` | The `irspecs` option set. |
 | `runIrspecs(List<String> arguments, {StringSink? out, StringSink? err})` | `Future<int>` | Runs `irspecs`; returns the exit code. |
