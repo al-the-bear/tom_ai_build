@@ -608,8 +608,7 @@ The `tom_som` API satisfies three obligations this scripting layer depends on:
   path-linked engine.
 - **Projects.** The canonical editor is `tom_forge/tom_specs_editor`;
   `tom_ai/ai_build/tom_specs_reviewer` is a separate read-only structure reviewer
-  over the object model. `tom_spec_engine` lives in `tom_ai/ai_build` and is registered in
-  `.tom_metadata` (§12).
+  over the object model. `tom_spec_engine` lives in `tom_ai/ai_build` (§12).
 - **Bridge generator — consumed by path (stale-cache avoidance).**
   `tom_spec_engine` dev-depends on `tom_d4rt_generator` by
   `path: ../../d4rt/tom_d4rt_generator`, not from pub.dev. The SOM bridges are
