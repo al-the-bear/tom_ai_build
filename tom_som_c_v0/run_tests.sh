@@ -14,6 +14,18 @@
 set -uo pipefail
 cd "$(dirname "$0")"
 
+# testkit (`testkit :baseline` / `:test`) sets TESTKIT_REPORT: every test below
+# then adds one result line to that file (tom_test_kit's line protocol, one
+# JSON object per line). tk_result also folds the test's exit code into rc.
+tk_result() { # <test name> <exit code>
+  if [ -n "${TESTKIT_REPORT:-}" ]; then
+    local result=ok
+    [ "$2" -eq 0 ] || result=fail
+    printf '{"test":"%s","result":"%s"}\n' "$1" "$result" >>"$TESTKIT_REPORT"
+  fi
+  [ "$2" -eq 0 ] || rc=1
+}
+
 RUNTIME_DIR="${RUNTIME_DIR:-../tom_som_c_runtime}"
 CC="${CC:-cc}"
 CFLAGS="${CFLAGS:--std=c11 -Wall -Wextra -O2}"
@@ -32,21 +44,24 @@ INCLUDES="-Iinclude -I$RUNTIME_DIR/include"
 echo "== behavioural test =="
 # shellcheck disable=SC2086
 "$CC" $CFLAGS $INCLUDES tests/generated_test.c "$LIB" "$RUNTIME_LIB" \
-  -o build/generated_test && ./build/generated_test || rc=1
+  -o build/generated_test && ./build/generated_test
+tk_result "tests/generated_test.c" $?
 
 # 3) Compile + run the metadata agreement test (SOM §8): the generated static
 #    trees / dot-notation / ID-tree surfaces agree with the bridge-built trees.
 echo "== metadata agreement test =="
 # shellcheck disable=SC2086
 "$CC" $CFLAGS $INCLUDES tests/meta_agreement_test.c "$LIB" "$RUNTIME_LIB" \
-  -o build/meta_agreement_test && ./build/meta_agreement_test || rc=1
+  -o build/meta_agreement_test && ./build/meta_agreement_test
+tk_result "tests/meta_agreement_test.c" $?
 
 # 4) Compile + run the three samples.
 for sample in a_typed_access b_generic_document c_reflection_metadata; do
   echo "== sample: $sample =="
   # shellcheck disable=SC2086
   "$CC" $CFLAGS $INCLUDES "examples/$sample.c" "$LIB" "$RUNTIME_LIB" \
-    -o "build/$sample" && "./build/$sample" || rc=1
+    -o "build/$sample" && "./build/$sample"
+  tk_result "examples/$sample.c" $?
   echo
 done
 

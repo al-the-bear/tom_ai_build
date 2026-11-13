@@ -13,13 +13,26 @@
 set -uo pipefail
 cd "$(dirname "$0")"
 
+# testkit (`testkit :baseline` / `:test`) sets TESTKIT_REPORT: every test below
+# then adds one result line to that file (tom_test_kit's line protocol, one
+# JSON object per line). tk_result also folds the test's exit code into rc.
+tk_result() { # <test name> <exit code>
+  if [ -n "${TESTKIT_REPORT:-}" ]; then
+    local result=ok
+    [ "$2" -eq 0 ] || result=fail
+    printf '{"test":"%s","result":"%s"}\n' "$1" "$result" >>"$TESTKIT_REPORT"
+  fi
+  [ "$2" -eq 0 ] || rc=1
+}
+
 export PYTHONPATH="$PWD${PYTHONPATH:+:$PYTHONPATH}"
 PY="${PYTHON:-python3}"
 
 rc=0
 for t in tests/*.py; do
   echo "== $t =="
-  "$PY" "$t" || rc=1
+  "$PY" "$t"
+  tk_result "$t" $?
 done
 
 if [ "$rc" -eq 0 ]; then

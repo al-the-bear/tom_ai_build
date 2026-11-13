@@ -65,7 +65,7 @@ UNIT_SRC := tests/version_check_test.cpp tests/facade_editability_test.cpp \
 UNIT_BIN := $(patsubst tests/%.cpp,build/%,$(UNIT_SRC))
 DEP      += $(UNIT_BIN:=.d)
 
-.PHONY: all test unittest clean install dist FORCE
+.PHONY: all test unittest unit-bins unit-list clean install dist FORCE
 
 all: $(STATIC) $(SHARED) $(PC)
 
@@ -114,6 +114,13 @@ test: $(HARNESS)
 # Builds and runs every standalone unit-test binary; stops on the first failure.
 unittest: $(UNIT_BIN)
 	@for t in $(UNIT_BIN); do echo "== $$t =="; ./$$t || exit 1; done
+
+# The unit binaries built but not run, and their list: run_tests.sh runs each
+# on its own and records its result for testkit.
+unit-bins: $(UNIT_BIN)
+
+unit-list:
+	@echo $(UNIT_BIN)
 
 # Install headers, the static + shared libraries (with the versioned soname
 # symlinks), and the pkg-config file. Honours DESTDIR for staged packaging.

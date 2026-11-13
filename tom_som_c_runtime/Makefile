@@ -58,7 +58,7 @@ UNIT_SRC  := $(wildcard tests/*_test.c) tests/facade_editability.c
 UNIT_BIN  := $(patsubst tests/%.c,build/%,$(UNIT_SRC))
 DEP += $(UNIT_BIN:=.d)
 
-.PHONY: all test unit clean install dist FORCE
+.PHONY: all test unit unit-bins unit-list clean install dist FORCE
 
 all: $(STATIC) $(SHARED) $(PC)
 
@@ -106,6 +106,13 @@ test: $(HARNESS)
 
 unit: $(UNIT_BIN)
 	@rc=0; for t in $(UNIT_BIN); do echo "== $$t =="; $$t || rc=1; done; exit $$rc
+
+# The unit binaries built but not run, and their list: run_tests.sh runs each
+# on its own and records its result for testkit.
+unit-bins: $(UNIT_BIN)
+
+unit-list:
+	@echo $(UNIT_BIN)
 
 # Install headers, the static + shared libraries (with the versioned soname
 # symlinks), and the pkg-config file. Honours DESTDIR for staged packaging.

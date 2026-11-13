@@ -19,6 +19,18 @@ set -uo pipefail
 here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$here"
 
+# testkit (`testkit :baseline` / `:test`) sets TESTKIT_REPORT: every test below
+# then adds one result line to that file (tom_test_kit's line protocol, one
+# JSON object per line). tk_result also folds the test's exit code into rc.
+tk_result() { # <test name> <exit code>
+  if [ -n "${TESTKIT_REPORT:-}" ]; then
+    local result=ok
+    [ "$2" -eq 0 ] || result=fail
+    printf '{"test":"%s","result":"%s"}\n' "$1" "$result" >>"$TESTKIT_REPORT"
+  fi
+  [ "$2" -eq 0 ] || rc=1
+}
+
 runtime_rel="$(grep -o '"runtimeSourcePath"[[:space:]]*:[[:space:]]*"[^"]*"' \
   "$here/tom_som_build.json" | sed -E 's/.*"([^"]*)"$/\1/')"
 runtime="$(cd "$here/$runtime_rel" && pwd)"
@@ -35,12 +47,14 @@ rc=0
 for f in "$here"/tests/*Test.java; do
   cls="$(basename "$f" .java)"
   echo "== $cls =="
-  java -cp "$here/build" "$cls" || rc=1
+  java -cp "$here/build" "$cls"
+  tk_result "tests/$cls.java" $?
 done
 
 for sample in ATypedAccess BGenericDocument CReflectionMetadata; do
   echo "== sample: $sample =="
-  java -cp "$here/build" "$sample" || rc=1
+  java -cp "$here/build" "$sample"
+  tk_result "examples/$sample.java" $?
   echo
 done
 
