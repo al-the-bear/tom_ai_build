@@ -9,8 +9,7 @@
 #
 # The output goes to build/api_doc/, never into doc/: doc/ is hand-authored,
 # doc/api/ holds the hand-written API summaries, and build/ is gitignored in
-# every repository — the same folder the workspace `docs` action writes
-# (tom_workspace.yaml). It is DELIBERATELY NOT COMMITTED. See som_toolchains.md,
+# every repository. It is DELIBERATELY NOT COMMITTED. See som_toolchains.md,
 # "Documentation generation", for the reason: a dartdoc tree alone is ~7 MB, the
 # eighteen together are well over a hundred, and every byte of it regenerates
 # from source in seconds — so committing it would trade a large, unreviewable
