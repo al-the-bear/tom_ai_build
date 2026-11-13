@@ -20,9 +20,14 @@ import 'package:tom_code_specs/tom_code_specs.dart';
     'DAATT-SECU',
     'records the sensitivity level and PII marking of the stored attributes',
   ),
-  DocRef('content', 'supplies the rule set and its arguments'),
+  DocRef(
+    'content',
+    'supplies the rule set and its arguments, and the key: its name, kind '
+        'and columns',
+  ),
 ])
 @CsTable('mom_customer')
+@CsTableKey('pk_customer', kind: CsKeyKind.primary, columns: ['customer_id'])
 class Customer {
   /// Stable customer identifier.
   @DocSpec([

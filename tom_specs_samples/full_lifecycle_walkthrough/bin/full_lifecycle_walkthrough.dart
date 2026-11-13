@@ -809,6 +809,12 @@ void _authorEntities(SomList<DataEntityEntry> entities) {
     ..columnName = 'capacity'
     ..description = 'How many people the room seats.';
   capacity.dataTypeSpec.physicalType = 'INTEGER';
+  final roomKey = room.keyAttributes.add(date: _kAuthoredOn);
+  roomKey.$headline = 'pk_rooms';
+  roomKey.content
+    ..keyType = 'Natural'
+    ..keyColumns = 'name'
+    ..description = 'A room is identified by the name on its door.';
 
   final booking = entities.add(date: _kAuthoredOn);
   booking.$headline = 'Booking';
@@ -822,6 +828,12 @@ void _authorEntities(SomList<DataEntityEntry> entities) {
     ..category = 'TransactionData'
     ..boundedContext = 'Booking'
     ..aggregateRoot = 'Booking';
+  final bookingId = booking.attributes.add(date: _kAuthoredOn);
+  bookingId.$headline = 'bookingId';
+  bookingId.identity
+    ..columnName = 'booking_id'
+    ..description = 'The identifier the booking is filed under.';
+  bookingId.dataTypeSpec.physicalType = 'UUID';
   final startsAt = booking.attributes.add(date: _kAuthoredOn);
   startsAt.$headline = 'startsAt';
   startsAt.identity
@@ -834,6 +846,13 @@ void _authorEntities(SomList<DataEntityEntry> entities) {
     ..columnName = 'ends_at'
     ..description = 'When the booking ends, exclusive.';
   endsAt.dataTypeSpec.physicalType = 'TIMESTAMP';
+  final bookingKey = booking.keyAttributes.add(date: _kAuthoredOn);
+  bookingKey.$headline = 'pk_bookings';
+  bookingKey.content
+    ..keyType = 'Primary'
+    ..keyColumns = 'booking_id'
+    ..description = 'The booking identifier.';
+  bookingKey.generation.generationStrategy = 'UUID';
 }
 
 /// Phase 3 — the Requirements Specification, expanding SBP.9.

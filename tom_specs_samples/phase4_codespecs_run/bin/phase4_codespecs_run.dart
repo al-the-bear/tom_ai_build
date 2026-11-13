@@ -58,7 +58,7 @@ List<CodeSpecsExtract> _variantA(_Inputs inputs) {
   _rule('Variant A — a sufficient specification');
   print('0. The document under Phase 4                 [input]');
   print('   a Solution Blueprint whose information model holds 2 entities');
-  print('   and 3 stored attributes; every other section is unwritten.');
+  print('   and 4 stored attributes; every other section is unwritten.');
   print('');
 
   final gate = _runGate(inputs, doc);
@@ -301,7 +301,7 @@ final DateTime _kAuthoredOn = DateTime.utc(2026, 1, 1);
 
 /// Authors the specification this run operates on.
 ///
-/// Deliberately small: two entities and three attributes populate one area and
+/// Deliberately small: two entities, four attributes and their keys populate one area and
 /// leave the rest empty, which is what puts stage 2's "most areas are empty,
 /// and that is not yet a verdict" on one screen.
 ///
@@ -357,6 +357,14 @@ void _authorSpecification(
     ..description = 'The name the customer trades under.';
   displayName.dataTypeSpec.physicalType = 'VARCHAR';
 
+  // A customer is identified by the address it trades under: a natural key.
+  final customerKey = customer.keyAttributes.add(date: _kAuthoredOn);
+  customerKey.$headline = 'pk_customers';
+  customerKey.content
+    ..keyType = 'Natural'
+    ..keyColumns = 'email'
+    ..description = 'A customer is identified by its e-mail address.';
+
   final order = entities.add(date: _kAuthoredOn);
   order.$headline = 'Order';
   order.content = 'One accepted customer order.';
@@ -369,6 +377,21 @@ void _authorSpecification(
     ..category = 'TransactionData'
     ..boundedContext = 'Ordering';
   if (aggregateRoots) order.classification.aggregateRoot = 'Order';
+
+  final orderId = order.attributes.add(date: _kAuthoredOn);
+  orderId.$headline = 'orderId';
+  orderId.identity
+    ..columnName = 'order_id'
+    ..description = 'The identifier the order is filed under.';
+  orderId.dataTypeSpec.physicalType = 'UUID';
+
+  final orderKey = order.keyAttributes.add(date: _kAuthoredOn);
+  orderKey.$headline = 'pk_orders';
+  orderKey.content
+    ..keyType = 'Primary'
+    ..keyColumns = 'order_id'
+    ..description = 'The order identifier.';
+  orderKey.generation.generationStrategy = 'UUID';
 
   final placedAt = order.attributes.add(date: _kAuthoredOn);
   placedAt.$headline = 'placedAt';

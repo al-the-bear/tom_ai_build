@@ -8,7 +8,7 @@ Variant A — a sufficient specification
 ========================================================================
 0. The document under Phase 4                 [input]
    a Solution Blueprint whose information model holds 2 entities
-   and 3 stored attributes; every other section is unwritten.
+   and 4 stored attributes; every other section is unwritten.
 
 1. The starting prompt's quality gate        [MECHANICAL]
    A1 schema completeness  : pass — 0 findings
@@ -22,9 +22,9 @@ Variant A — a sufficient specification
 2. The extract generator                      [MECHANICAL]
    areas in the catalogue   : 27
    populated                : 3
-     CE-API 25 entries  → <app>_codespec_shared, <app>_codespec_server
+     CE-API 28 entries  → <app>_codespec_shared, <app>_codespec_server
      CE-SU  16 entries  → <app>_codespec_server
-     CE-DB  25 entries  → <app>_codespec_server
+     CE-DB  35 entries  → <app>_codespec_server
    empty                    : 24
    Most areas are empty because this document says nothing about
    screens, jobs, reports or migrations. An empty extract is a
@@ -38,7 +38,7 @@ Variant A — a sufficient specification
    Area CE-DB — DataAccess
    built on   : Tom persistence model + repository (`tom_core_server`)
    may cite   : CE-EN, CE-TX, CE-VA, CE-API, CE-AZ, CE-ER, CE-CF, CE-AU, CE-ID, CE-MG, CE-LG, CE-NT, CE-RP
-   entries carried to the agent (25):
+   entries carried to the agent (35):
      content     content        A party that places orders.
      DAENT-IDEN  identity       Customer
      DAENT-IDEN  identity       customers
@@ -53,6 +53,9 @@ Variant A — a sufficient specification
      DAATT-IDEN  identity       display_name
      DAATT-IDEN  identity       The name the customer trades under.
      DAATT-DATA  dataTypeSpec   VARCHAR
+     content     content        Natural
+     content     content        email
+     content     content        A customer is identified by its e-mail ad...
      content     content        One accepted customer order.
      DAENT-IDEN  identity       Order
      DAENT-IDEN  identity       orders
@@ -61,9 +64,16 @@ Variant A — a sufficient specification
      DAENT-CLAS  classification TransactionData
      DAENT-CLAS  classification Ordering
      DAENT-CLAS  classification Order
+     DAATT-IDEN  identity       order_id
+     DAATT-IDEN  identity       The identifier the order is filed under.
+     DAATT-DATA  dataTypeSpec   UUID
      DAATT-IDEN  identity       placed_at
      DAATT-IDEN  identity       The moment the order was accepted.
      DAATT-DATA  dataTypeSpec   TIMESTAMP
+     content     content        Primary
+     content     content        order_id
+     content     content        The order identifier.
+     KEAGN       generation     UUID
 
    What the agent wrote from it is IR, not Dart — one document per
    area (irspecs_ir.md), codespec/irspecs/CE-DB.ir.yaml, opening:
@@ -108,11 +118,12 @@ Variant A — a sufficient specification
          'DAENT-IDEN',
          'supplies the entity, its table and its storage placement',
        ),
-       DocRef('content', 'supplies the entity narrative'),
+       DocRef('content', 'supplies the entity narrative and its key'),
        DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
        DocRef('DAATT-DATA', 'supplies the storage type'),
      ])
      @CsTable('customers')
+     @CsTableKey('pk_customers', kind: CsKeyKind.natural, columns: ['email'])
      class Customer {
        /// The address order confirmations are sent to.
        @DocSpec([
@@ -169,7 +180,7 @@ Variant A — a sufficient specification
      codespecs: checks 40 and 41 (feature-hook completeness and reserved protocol paths) not run — pass --cs-vocabulary pointing at tom_code_specs' vocabulary source; without its csFeatureHooks and csFeatureReservedPaths there is no catalogue to hold a hook or a route against.
      codespecs: check 31 (determinism) not run — pass --regenerated-shared/--regenerated-client/--regenerated-server pointing at a second generation run over the same model.
      codespecs: check 19 (secret is declared), checks 32, 33 and 34 (comment source, template and fidelity) and checks 35 and 36 (extract coverage and back-link resolution) not run — pass --extracts pointing at the run's generated-doc/codespecs_extracts directory.
-     codespecs: 41 checks passed
+     codespecs: 44 checks passed
 
    $ validate_codespecs --shared codespec/shared --client codespec/client \
                          --server codespec/server \
@@ -178,7 +189,7 @@ Variant A — a sufficient specification
      codespecs: check 9 (mirrored catalogues) not run — pass both --cs-vocabulary and --core-source; a catalogue neither side declares mirrors an empty one, which compares equal.
      codespecs: checks 40 and 41 (feature-hook completeness and reserved protocol paths) not run — pass --cs-vocabulary pointing at tom_code_specs' vocabulary source; without its csFeatureHooks and csFeatureReservedPaths there is no catalogue to hold a hook or a route against.
      codespecs: check 31 (determinism) not run — pass --regenerated-shared/--regenerated-client/--regenerated-server pointing at a second generation run over the same model.
-     codespecs: 41 checks passed
+     codespecs: 44 checks passed
 
    Supplying --extracts moved six checks from "not run" to "ran".
    That is the whole reason the extract is an artifact of record and
@@ -204,7 +215,7 @@ both have `aggregateRoot` cleared. Nothing else changed.
 
    What the gate names, per finding:
      A1 missingRequiredField [DAENT-CLAS] line 26: required form field "aggregateRoot" of "daent-clas-form" is missing
-     A1 missingRequiredField [DAENT-CLAS] line 72: required form field "aggregateRoot" of "daent-clas-form" is missing
+     A1 missingRequiredField [DAENT-CLAS] line 82: required form field "aggregateRoot" of "daent-clas-form" is missing
      A2 missingRequiredField [SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAENT-CLAS] form field "aggregateRoot" is required on DataEntityEntry.classification but empty
      A2 missingRequiredField [SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAENT-CLAS] form field "aggregateRoot" is required on DataEntityEntry.classification but empty
      A4 missingSource [SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1] @CsServiceUnit.rootAggregate (CE-SU) is required, and its source DataEntityEntry.classification.aggregateRoot is empty here

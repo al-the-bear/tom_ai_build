@@ -9,19 +9,34 @@ import 'package:tom_code_specs/tom_code_specs.dart';
 /// One room, held for one period, by one member of staff.
 @CodeSpec(
   'dataAccess.Booking',
-  source: ['DAENT-IDEN', 'content', 'DAATT-IDEN', 'DAATT-DATA'],
+  source: ['DAENT-IDEN', 'content', 'KEAGN', 'DAATT-IDEN', 'DAATT-DATA'],
 )
 @DocSpec([
   DocRef(
     'DAENT-IDEN',
     'supplies the entity, its table and its storage placement',
   ),
-  DocRef('content', 'supplies the entity narrative'),
+  DocRef('content', 'supplies the entity narrative and its key'),
+  DocRef('KEAGN', 'supplies the key generation strategy'),
   DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
   DocRef('DAATT-DATA', 'supplies the storage type'),
 ])
 @CsTable('bookings')
+@CsTableKey(
+  'pk_bookings',
+  kind: CsKeyKind.primary,
+  columns: ['booking_id'],
+  generation: CsKeyGeneration.uuid,
+)
 class Booking {
+  /// The identifier the booking is filed under.
+  @DocSpec([
+    DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
+    DocRef('DAATT-DATA', 'supplies the storage type'),
+  ])
+  @CsColumn(column: 'booking_id', columnType: 'UUID')
+  late String bookingId;
+
   /// When the booking begins, inclusive.
   @DocSpec([
     DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),

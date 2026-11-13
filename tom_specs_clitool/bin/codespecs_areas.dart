@@ -71,8 +71,6 @@ Future<void> main(List<String> arguments) async {
           p.join(
             clitoolRoot,
             '..',
-            '..',
-            'core',
             'tom_core_codespecs',
             'doc',
             'codespecs_mapping.md',

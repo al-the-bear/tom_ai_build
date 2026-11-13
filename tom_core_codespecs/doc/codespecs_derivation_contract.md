@@ -1558,6 +1558,18 @@ CE-DS or CE-UP, authored in that scope's own list.
 | **6 Cross-refs** | References the report's own columns by member, not by ref const — they are siblings in one declaration. |
 | **7 Back-link** | `@DocSpec([DocRef('REPCHA', 'supplies the chart type, series and axes')])`. |
 
+#### 3.3.11 `@CsTableKey` / `@CsTableIndex` — CE-DB keys and indexes (repeatable class markers)
+
+| Point | Contract |
+|-------|----------|
+| **1 Input** | The entity's `keyAttributes` list (`KEATT-KEYA-LST`) of `KeyAttributeEntry` (`KEATT`) — the headline, `keyType` and `keyColumns`, with the generation band `KEAGN` (`generationStrategy`, `sequenceName`, `isNaturalKey`), the reference band `KEARF` (`referencedKey`, `onDeleteAction`, `onUpdateAction`) and its resolved target `KEATT-REFE-REF`, and the governance band `KEAGV` (`deferrable`); and the entity's `indexes` list (`ENIDX-INDE-LST`) of `EntityIndexEntry` (`ENIDX`) — the headline, `indexType`, `columns`, `includeColumns`, `isUnique`, `isClustered`, `filterCondition`. Both classes are routed `@CodeSpecKind([CodeSpecPart.dataAccess])`, so they reach CE-DB's extract. |
+| **2 Output** | No declaration of its own: **one `@CsTableKey` per `KEATT` entry and one `@CsTableIndex` per `ENIDX` entry**, written on the §3.3.1 entity class after `@CsTable`, keys first, each list in the entity's order. A key is a property of the table, not of one column — a composite key spans several columns, two keys may share one, and a foreign key carries a target and cascade rules no column has — so neither marker is a `@CsColumn` argument. |
+| **3 Arguments** | `@CsTableKey`: `name` — **first positional, required** ← the `KEATT` headline, verbatim (a migration addresses a constraint by its name, so it is never derived). `kind` ← `keyType`, constant-for-constant onto `CsKeyKind {primary, foreign, alternate, composite, natural, surrogate}`. `columns` ← `keyColumns`, split at its commas into the list of physical column names, order kept, each trimmed and otherwise verbatim. `generation` ← `KEAGN.generationStrategy` onto `CsKeyGeneration {auto, sequence, uuid, ulid, custom, natural}`; `sequenceName` ← `KEAGN.sequenceName`; `isNaturalKey` ← `KEAGN.isNaturalKey` (`Yes`/`No` → `true`/`false`). For a `foreign` key: `references` ← the entity `KEATT-REFE-REF` resolves to, as the **`Type` literal** of its §3.3.1 class; `referencedColumns` ← `KEARF.referencedKey`, split like `columns` — **absent, it is omitted**, and the key references the target's primary key, as SQL's `REFERENCES t` without columns does; `onDelete` / `onUpdate` ← `KEARF.onDeleteAction` / `onUpdateAction` onto `CsReferentialAction {cascade, setNull, restrict, noAction, setDefault}`. `deferrable` ← `KEAGV.deferrable`. Every argument the specification does not author is **omitted** — `null` or empty, never defaulted. `@CsTableIndex`: `name` ← the `ENIDX` headline, verbatim; `columns` ← `columns`, split at its commas, each entry kept verbatim with its direction (`'placed_at DESC'`); `indexType` ← onto `CsIndexType {bTree, hash, gist, gin, fullText, spatial}`; `includeColumns` split like `columns`; `isUnique` / `isClustered` (`Yes`/`No`); `filterCondition` verbatim. |
+| **4 Naming** | None — the markers name nothing in Dart; the constraint and index names are authored keys (N5). |
+| **5 Locus** | `server`, with the entity. |
+| **6 Cross-refs** | A foreign key's target by `Type` literal (`codespecs_mapping.md` §5.23: an entity is already a Dart type). Columns by physical name — the name `@CsColumn(column:)` states, or the member name where it states none. Checks 42–44 hold them: every named column exists on its class, a foreign key's target is a `@CsTable` with the referenced columns, and every table has exactly one key whose kind identifies the row (`primary`, `composite`, `natural`, `surrogate` — `CsKeyKind.identifiesRow`). |
+| **7 Back-link** | The entity's `@CodeSpec` source and `@DocSpec` cite the tokens the key and index values travel under: the entries' form token `content` (`KEATT` and `ENIDX` hold their fields in their `content` form), and `KEAGN`, `KEARF` and `KEAGV` where those bands supplied an argument — e.g. `DocRef('KEAGN', 'supplies the key generation strategy')`. |
+
 ### 3.4 Slice 4 — server behaviour
 
 Cites slices 1, 2 and 3. CE-NT **delivery** — channel routing and the outbox —
@@ -2521,7 +2533,7 @@ Each is named here so the toolchain implements it as a check rather than as a
 convention. They are the mechanised half of the authoring side (§2.0): the agent
 writes the trio, and this program decides whether what it wrote is admissible.
 
-**Where they run.** All forty-one are implemented in
+**Where they run.** All forty-four are implemented in
 `tom_ai/ai_build/tom_specs_clitool/lib/src/codespecs/` (`cs_reader` reads the generated trio via
 the analyzer, `cs_model` resolves it, `cs_extract` reads the per-area extracts
 (through the SOM runtime's `CodeSpecsExtractSet`, the reader every runtime shares),
@@ -2594,7 +2606,7 @@ violating `@CsTrigger(kind: userGesture, form: …)` therefore passes `dart
 analyze` untouched — and the annotation is the only site these markers are ever
 written at. An assert there would enforce nothing while reading as if it did,
 which is worse than no guard, so the enforcement point is the generation-time
-validator's pass over the resolved annotation for **all** forty-one.
+validator's pass over the resolved annotation for **all** forty-four.
 
 | # | Check | Defined in | Implemented by |
 |---|-------|------------|----------------|
@@ -2639,6 +2651,9 @@ validator's pass over the resolved annotation for **all** forty-one.
 | 39 | A binding's method is one of `TomOperationBinding.methods`; no two bindings share a method and a route (version prefix + path); every `{name}` in a path is mapped by a `path` parameter, and every `path` parameter by a `{name}` | §3.4.5 | `CsBindingRouteCheck` |
 | 40 | Every `@CsFeatureHook` names a hook of its feature in `csFeatureHooks`; for every feature the trio implements a hook of, every required hook is implemented exactly once; no hook whose contract is not available is implemented | §3.4.6 | `CsFeatureHookCompletenessCheck` |
 | 41 | No binding's route lies under a path `csFeatureReservedPaths` reserves for a framework protocol feature — the system never re-declares a protocol endpoint | §3.4.5 | `CsReservedProtocolPathCheck` |
+| 42 | Every column a `@CsTableKey` or `@CsTableIndex` names (an index entry without its direction, and its include columns) is a `@CsColumn` of the same `@CsTable` class; both markers sit on a `@CsTable` class only; `references`, `referencedColumns`, `onDelete` and `onUpdate` appear on a `foreign` key only, and a `foreign` key states `references` | §3.3.11 | `CsTableKeyColumnsCheck` |
+| 43 | A `foreign` key's `references` is a `@CsTable` class of the server project, and its `referencedColumns` — or, when it states none, the target's primary-key columns — are columns of that class, one per key column | §3.3.11 | `CsForeignKeyTargetCheck` |
+| 44 | Every `@CsTable` holds exactly one `@CsTableKey` whose kind identifies the row (`primary`, `composite`, `natural`, `surrogate`) | §3.3.11 | `CsPrimaryKeyCheck` |
 
 **Check 23 is the one that makes "compiles" checkable before a compiler sees
 it.** Its two halves fail in opposite directions and neither implies the other.

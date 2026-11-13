@@ -14,6 +14,13 @@
   `csharp-aspnet-server` (§14).
 - Requires `tom_som_dart_runtime` / `tom_som_dart_v0` ^1.10.0
   (`specGenerationUnits`).
+- `validate_codespecs`: checks 42–44 (`codespecs_derivation_contract.md`
+  §3.3.11) — every `@CsTableKey` / `@CsTableIndex` column is a `@CsColumn` of
+  its table and foreign-key arguments sit on a foreign key; a foreign key's
+  target is a `@CsTable` with the referenced columns (or its primary key);
+  every `@CsTable` has exactly one primary key. Forty-four checks.
+- `codespecs_areas`: the default mapping path follows `tom_core_codespecs`
+  into `tom_ai/ai_build`.
 
 ## 0.15.0
 

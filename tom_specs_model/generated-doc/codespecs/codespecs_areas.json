@@ -249,6 +249,8 @@
       "part": "dataAccess",
       "annotations": [
         "CsTable",
+        "CsTableKey",
+        "CsTableIndex",
         "CsColumn",
         "CsRepository"
       ],

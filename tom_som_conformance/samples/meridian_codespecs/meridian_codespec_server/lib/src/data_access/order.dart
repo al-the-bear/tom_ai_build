@@ -19,6 +19,7 @@ import 'package:tom_code_specs/tom_code_specs.dart';
     'ENRLE-NAVI',
     'ENRLE-SOUR-REF',
     'ENRLE-TARG-REF',
+    'content',
   ],
 )
 @DocSpec([
@@ -41,8 +42,10 @@ import 'package:tom_code_specs/tom_code_specs.dart';
   DocRef('ENRLE-NAVI', 'records their navigability and foreign-key location'),
   DocRef('ENRLE-SOUR-REF', 'records the source entity of each relationship'),
   DocRef('ENRLE-TARG-REF', 'records the target entity of each relationship'),
+  DocRef('content', 'supplies the key: its name, kind and columns'),
 ])
 @CsTable('mom_order')
+@CsTableKey('pk_order', kind: CsKeyKind.primary, columns: ['order_id'])
 class Order {
   /// Stable order identifier.
   @DocSpec([

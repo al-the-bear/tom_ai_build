@@ -1,4 +1,4 @@
-/// The forty-one CodeSpecs checks (`codespecs_derivation_contract.md` §6) on
+/// The forty-four CodeSpecs checks (`codespecs_derivation_contract.md` §6) on
 /// the IR (`irspecs_ir.md` §7): the trio an IR document set describes, in the
 /// CsModel shape the checks read.
 ///

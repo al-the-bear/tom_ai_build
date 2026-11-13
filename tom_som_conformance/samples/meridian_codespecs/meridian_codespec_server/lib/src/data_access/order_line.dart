@@ -4,6 +4,8 @@
 
 import 'package:tom_code_specs/tom_code_specs.dart';
 
+import 'order.dart';
+
 /// A single product/quantity within an order, with a snapshotted price. Realizes FR-02, FR-03, FR-05.
 @CodeSpec(
   'dataAccess.OrderLine',
@@ -41,9 +43,20 @@ import 'package:tom_code_specs/tom_code_specs.dart';
   DocRef('ENRLE-NAVI', 'records their navigability and foreign-key location'),
   DocRef('ENRLE-SOUR-REF', 'records the source entity of each relationship'),
   DocRef('ENRLE-TARG-REF', 'records the target entity of each relationship'),
-  DocRef('content', 'supplies the rule set and its arguments'),
+  DocRef(
+    'content',
+    'supplies the rule set and its arguments, and the key: its name, kind '
+        'and columns',
+  ),
 ])
 @CsTable('mom_order_line')
+@CsTableKey('pk_order_line', kind: CsKeyKind.primary, columns: ['line_id'])
+@CsTableKey(
+  'fk_line_order',
+  kind: CsKeyKind.foreign,
+  columns: ['order_id'],
+  references: Order,
+)
 class OrderLine {
   /// Stable line identifier.
   @DocSpec([

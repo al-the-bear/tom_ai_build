@@ -295,7 +295,7 @@ case in a mapper.
 
 ## 7. The checks on the IR
 
-The forty-one checks of `codespecs_derivation_contract.md` §6 run on the IR as
+The forty-four checks of `codespecs_derivation_contract.md` §6 run on the IR as
 they run on the trio, so a specification's CodeSpecs are checked before any
 code exists:
 

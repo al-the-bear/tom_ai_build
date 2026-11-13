@@ -7,6 +7,10 @@
   generation unit (`codespecs_mapping.md` §1.1.1 item 4, §1.1.2);
   `irspecs_ir.md` §8.1 (units), §10 (the standard emitters) and §11–§14 (the
   TypeScript web and mobile, Go, Java and C# mappers).
+- `codespecs_derivation_contract.md` §3.3.11: `@CsTableKey` / `@CsTableIndex`,
+  an entity's keys and indexes from `KEATT` / `ENIDX`; §6 checks 42–44.
+  `codespecs_mapping.md` §4.1 and §5.13: the key and index levels of the CE-DB
+  surface.
 
 ## 0.13.5
 

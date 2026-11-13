@@ -1060,7 +1060,7 @@ class CodeSpecsRegeneration {
   };
 }
 
-/// Everything the forty-one checks read.
+/// Everything the forty-four checks read.
 class CodeSpecsValidationInput {
   /// The shared project.
   final CsLocusProject shared;

@@ -66,7 +66,7 @@ void main() {
       expect(json['formatVersion'], kCodeSpecsReportFormatVersion);
       expect(json['passed'], isTrue);
       expect(json['violations'], isEmpty);
-      expect((json['checks'] as List).length, 41);
+      expect((json['checks'] as List).length, 44);
       expect(
         [for (final n in json['notRun'] as List) ...(n['checks'] as List)],
         containsAll([9, 13, 31, 40, 41]),
@@ -119,7 +119,7 @@ void main() {
       if (_extractsMissing(extractsDir)) return;
       final (code, out, err) = await _run([..._trio(_sample), ...extracts]);
       expect(code, 0, reason: err);
-      expect(out.trim().split('\n').last, 'codespecs: 41 checks passed');
+      expect(out.trim().split('\n').last, 'codespecs: 44 checks passed');
     });
   });
 

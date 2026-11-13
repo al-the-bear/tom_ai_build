@@ -1668,20 +1668,23 @@ void main() {
 
     // KEATT.keyType names six kinds; four of them name the primary key and say
     // what sort it is, so exactly those identify the row.
-    test('the key kinds mirror KEATT.keyType, four of them identify the row', () {
-      expect(CsKeyKind.values.map((k) => k.name), [
-        'primary',
-        'foreign',
-        'alternate',
-        'composite',
-        'natural',
-        'surrogate',
-      ]);
-      expect(
-        CsKeyKind.values.where((k) => k.identifiesRow).map((k) => k.name),
-        ['primary', 'composite', 'natural', 'surrogate'],
-      );
-    });
+    test(
+      'the key kinds mirror KEATT.keyType, four of them identify the row',
+      () {
+        expect(CsKeyKind.values.map((k) => k.name), [
+          'primary',
+          'foreign',
+          'alternate',
+          'composite',
+          'natural',
+          'surrogate',
+        ]);
+        expect(
+          CsKeyKind.values.where((k) => k.identifiesRow).map((k) => k.name),
+          ['primary', 'composite', 'natural', 'surrogate'],
+        );
+      },
+    );
 
     test('the generation, referential-action and index catalogues mirror '
         'their SOM fields', () {

@@ -596,7 +596,7 @@ void _printUsage(ArgParser parser, StringSink sink) {
   );
   sink.writeln();
   sink.writeln(
-    'Enforces the forty-one checks of codespecs_derivation_contract.md §6. '
+    'Enforces the forty-four checks of codespecs_derivation_contract.md §6. '
     'Any violation fails: the exit code is 1 and every breach is written to '
     'stderr naming its check number and defining section (or to the --json '
     'report). --backlinks writes the trio\'s back-link index instead.',

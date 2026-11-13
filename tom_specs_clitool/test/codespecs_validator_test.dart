@@ -1,4 +1,4 @@
-/// Fixtures for the forty-one `codespecs_derivation_contract.md` §6 checks.
+/// Fixtures for the forty-four `codespecs_derivation_contract.md` §6 checks.
 ///
 /// Every check gets **two** fixtures: one that violates the rule and one that
 /// satisfies it. A check exercised only against clean input is
@@ -409,9 +409,9 @@ void main() => defineCodeSpecsFixtures();
 void defineCodeSpecsFixtures({bool throughIr = false}) {
   _throughIr = throughIr;
   group('§6 check catalogue', () {
-    test('names the forty-one checks in table order', () {
+    test('names the forty-four checks in table order', () {
       expect(codeSpecsChecks.map((c) => c.number), [
-        for (var i = 1; i <= 41; i++) i,
+        for (var i = 1; i <= 44; i++) i,
       ]);
     });
 
@@ -4397,6 +4397,188 @@ class Customer {
     });
   });
 
+  group('42 — key and index columns are columns of the table (§3.3.11)', () {
+    _redGreen(
+      42,
+      '§3.3.11',
+      says: allOf(
+        contains("names column 'order_ref'"),
+        contains('belongs to a foreign key only'),
+        contains('is no @CsTable class'),
+      ),
+      red: _input(
+        server: {
+          'lib/a.dart': '''
+@CsTable('orders')
+@CsTableKey('pk_orders', kind: CsKeyKind.primary, columns: ['order_ref'])
+@CsTableKey(
+  'ak_orders',
+  kind: CsKeyKind.alternate,
+  columns: ['id'],
+  onDelete: CsReferentialAction.cascade,
+)
+@CsTableIndex('ix_orders', columns: ['total DESC'])
+class Order {
+  @CsColumn(column: 'id')
+  String id;
+
+  @CsColumn()
+  double total;
+}
+
+@CsTableKey('pk_line', kind: CsKeyKind.primary, columns: ['id'])
+class Line {}
+''',
+        },
+      ),
+      green: _input(
+        server: {
+          'lib/a.dart': '''
+@CsTable('orders')
+@CsTableKey('pk_orders', kind: CsKeyKind.primary, columns: ['id'])
+@CsTableIndex(
+  'ix_orders',
+  columns: ['total DESC', 'id'],
+  includeColumns: ['total'],
+)
+class Order {
+  @CsColumn(column: 'id')
+  String id;
+
+  @CsColumn()
+  double total;
+}
+''',
+        },
+      ),
+    );
+  });
+
+  group('43 — a foreign key points at a table and its columns (§3.3.11)', () {
+    const target = '''
+@CsTable('orders')
+@CsTableKey('pk_orders', kind: CsKeyKind.primary, columns: ['order_id'])
+class Order {
+  @CsColumn(column: 'order_id')
+  String orderId;
+}
+''';
+    _redGreen(
+      43,
+      '§3.3.11',
+      says: allOf(
+        contains('references Invoice, which is no @CsTable class'),
+        contains("references column 'id' of Order"),
+      ),
+      red: _input(
+        server: {
+          'lib/a.dart':
+              '''
+$target
+@CsTable('order_lines')
+@CsTableKey('pk_lines', kind: CsKeyKind.primary, columns: ['line_id'])
+@CsTableKey(
+  'fk_line_order',
+  kind: CsKeyKind.foreign,
+  columns: ['order_id'],
+  references: Order,
+  referencedColumns: ['id'],
+)
+@CsTableKey(
+  'fk_line_invoice',
+  kind: CsKeyKind.foreign,
+  columns: ['order_id'],
+  references: Invoice,
+  referencedColumns: ['invoice_id'],
+)
+class OrderLine {
+  @CsColumn(column: 'line_id')
+  String lineId;
+
+  @CsColumn(column: 'order_id')
+  String orderId;
+}
+''',
+        },
+      ),
+      green: _input(
+        server: {
+          'lib/a.dart':
+              '''
+$target
+@CsTable('order_lines')
+@CsTableKey('pk_lines', kind: CsKeyKind.primary, columns: ['line_id'])
+@CsTableKey(
+  'fk_line_order_pk',
+  kind: CsKeyKind.foreign,
+  columns: ['order_id'],
+  references: Order,
+)
+@CsTableKey(
+  'fk_line_order',
+  kind: CsKeyKind.foreign,
+  columns: ['order_id'],
+  references: Order,
+  referencedColumns: ['order_id'],
+  onDelete: CsReferentialAction.cascade,
+)
+class OrderLine {
+  @CsColumn(column: 'line_id')
+  String lineId;
+
+  @CsColumn(column: 'order_id')
+  String orderId;
+}
+''',
+        },
+      ),
+    );
+  });
+
+  group('44 — every table has exactly one primary key (§3.3.11)', () {
+    _redGreen(
+      44,
+      '§3.3.11',
+      says: allOf(contains('has no primary key'), contains('2 primary keys')),
+      red: _input(
+        server: {
+          'lib/a.dart': '''
+@CsTable('orders')
+@CsTableKey('ak_orders', kind: CsKeyKind.alternate, columns: ['id'])
+class Order {
+  @CsColumn(column: 'id')
+  String id;
+}
+
+@CsTable('lines')
+@CsTableKey('pk_lines', kind: CsKeyKind.primary, columns: ['id'])
+@CsTableKey('pk_lines2', kind: CsKeyKind.surrogate, columns: ['id'])
+class Line {
+  @CsColumn(column: 'id')
+  String id;
+}
+''',
+        },
+      ),
+      green: _input(
+        server: {
+          'lib/a.dart': '''
+@CsTable('orders')
+@CsTableKey('pk_orders', kind: CsKeyKind.composite, columns: ['a', 'b'])
+@CsTableKey('ak_orders', kind: CsKeyKind.alternate, columns: ['a'])
+class Order {
+  @CsColumn()
+  String a;
+
+  @CsColumn()
+  String b;
+}
+''',
+        },
+      ),
+    );
+  });
+
   group('the pass as a whole', () {
     CodeSpecsValidationInput cleanTrio() => _input(
       shared: {
@@ -4471,7 +4653,7 @@ class PlaceOrderHandler {
       final report = runCodeSpecsChecks(cleanTrio());
       expect(report.violations, isEmpty, reason: report.lines.join('\n'));
       expect(report.passed, isTrue);
-      expect(report.summary, 'codespecs: 41 checks passed');
+      expect(report.summary, 'codespecs: 44 checks passed');
     });
 
     test('assertCodeSpecsValid passes a clean trio', () {
@@ -4503,8 +4685,10 @@ class Order {
         },
       );
       final report = runCodeSpecsChecks(broken);
-      expect(report.violations.map((v) => v.check), containsAll([4, 6]));
-      expect(report.summary, contains('across 2 of 41 checks'));
+      // 4 (empty table name), 6 (a body without a throw) and 44 (a table
+      // without a primary key).
+      expect(report.violations.map((v) => v.check), containsAll([4, 6, 44]));
+      expect(report.summary, contains('across 3 of 44 checks'));
       expect(report.lines.join('\n'), contains('codespecs check 4 [§2.1 N5]'));
       expect(
         report.lines.join('\n'),

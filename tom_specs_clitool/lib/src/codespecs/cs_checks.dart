@@ -1,4 +1,4 @@
-/// The forty-one validator checks `codespecs_derivation_contract.md` §6
+/// The forty-four validator checks `codespecs_derivation_contract.md` §6
 /// names.
 ///
 /// One [CodeSpecsCheck] per numbered row, each carrying the §-reference of the
@@ -3995,11 +3995,365 @@ class CsReservedProtocolPathCheck extends CodeSpecsCheck {
   }
 }
 
+/// One `@CsTable` class of the server project with what checks 42–44 read: its
+/// columns (by physical name), its `@CsTableKey` and `@CsTableIndex` markers.
+class _CsTableShape {
+  final CsDeclaration declaration;
+  final String table;
+  final Set<String> columns;
+  final List<CsMarker> keys;
+  final List<CsMarker> indexes;
+
+  const _CsTableShape({
+    required this.declaration,
+    required this.table,
+    required this.columns,
+    required this.keys,
+    required this.indexes,
+  });
+}
+
+/// The `@CsTable` classes of the server project, by class name.
+Map<String, _CsTableShape> _csTableShapes(CodeSpecsValidationInput input) {
+  final server = input.server;
+  final byOwner = <String, List<CsDeclaration>>{};
+  for (final declaration in server.declarations) {
+    final owner = declaration.owner;
+    if (owner == null) continue;
+    byOwner.putIfAbsent(owner, () => []).add(declaration);
+  }
+  final out = <String, _CsTableShape>{};
+  for (final declaration in server.declarations) {
+    if (declaration.owner != null) continue;
+    final table = declaration.marker('CsTable');
+    if (table == null) continue;
+    final columns = <String>{};
+    for (final member in byOwner[declaration.name] ?? const <CsDeclaration>[]) {
+      final column = member.marker('CsColumn');
+      if (column == null) continue;
+      final named = column.named['column'];
+      columns.add(named is CsStringValue ? named.value : member.name);
+    }
+    out[declaration.name] = _CsTableShape(
+      declaration: declaration,
+      table: table.firstPositionalString ?? declaration.name,
+      columns: columns,
+      keys: [
+        for (final m in declaration.markers)
+          if (m.name == 'CsTableKey') m,
+      ],
+      indexes: [
+        for (final m in declaration.markers)
+          if (m.name == 'CsTableIndex') m,
+      ],
+    );
+  }
+  return out;
+}
+
+/// The string elements of the list argument [argument] of [marker].
+List<String> _csStringList(CsMarker marker, String argument) {
+  final value = marker.named[argument];
+  if (value is! CsListValue) return const [];
+  return [
+    for (final element in value.values)
+      if (element is CsStringValue) element.value,
+  ];
+}
+
+/// The `CsKeyKind` constant of a `@CsTableKey`, or `null` when unreadable.
+String? _csKeyKind(CsMarker key) {
+  final kind = key.named['kind'];
+  return kind is CsQualifiedValue && kind.prefix == 'CsKeyKind'
+      ? kind.name
+      : null;
+}
+
+/// The key kinds that name the table's primary key (`CsKeyKind.identifiesRow`).
+const _csIdentifyingKeyKinds = {'primary', 'composite', 'natural', 'surrogate'};
+
+/// The column part of an index column entry (`'created_at DESC'` → `created_at`).
+String _csIndexColumn(String entry) {
+  final parts = entry.trim().split(RegExp(r'\s+'));
+  if (parts.length == 2 &&
+      (parts[1].toUpperCase() == 'ASC' || parts[1].toUpperCase() == 'DESC')) {
+    return parts.first;
+  }
+  return entry.trim();
+}
+
+/// **Check 42** — every column a `@CsTableKey` or `@CsTableIndex` names is a
+/// `@CsColumn` of the same `@CsTable` class, both markers sit on a `@CsTable`
+/// class, and the foreign-key arguments appear on a foreign key only.
+///
+/// A key names columns by their **physical** name, the one `@CsColumn(column:)`
+/// states (or the member name where it states none) — the name a migration and
+/// a mapper write. A name no column carries would produce a constraint over a
+/// column the table does not have.
+class CsTableKeyColumnsCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsTableKeyColumnsCheck();
+
+  @override
+  int get number => 42;
+
+  @override
+  String get definedIn => '§3.3.11';
+
+  @override
+  String get title =>
+      'Every @CsTableKey / @CsTableIndex column is a @CsColumn of its '
+      '@CsTable class, and foreign-key arguments sit on a foreign key';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final out = <CodeSpecsViolation>[];
+    for (final project in input.projects) {
+      for (final declaration in project.declarations) {
+        if (declaration.has('CsTable')) continue;
+        for (final marker in declaration.markers) {
+          if (marker.name != 'CsTableKey' && marker.name != 'CsTableIndex') {
+            continue;
+          }
+          out.add(
+            fail(
+              '${declaration.path} carries @${marker.name} but is no @CsTable '
+              'class; a key or index belongs to the table it constrains',
+              marker.location,
+            ),
+          );
+        }
+      }
+    }
+    for (final shape in _csTableShapes(input).values) {
+      final owner = shape.declaration.name;
+      for (final key in shape.keys) {
+        final name = key.firstPositionalString ?? '?';
+        final columns = _csStringList(key, 'columns');
+        if (columns.isEmpty) {
+          out.add(
+            fail(
+              "@CsTableKey('$name') of $owner names no column",
+              key.location,
+            ),
+          );
+        }
+        for (final column in columns) {
+          if (shape.columns.contains(column)) continue;
+          out.add(
+            fail(
+              "@CsTableKey('$name') of $owner names column '$column', which "
+              'no @CsColumn of $owner declares',
+              key.location,
+            ),
+          );
+        }
+        final kind = _csKeyKind(key);
+        if (kind == null) {
+          out.add(
+            fail(
+              "@CsTableKey('$name') of $owner states no readable CsKeyKind",
+              key.location,
+            ),
+          );
+          continue;
+        }
+        if (kind == 'foreign') {
+          if (!key.named.containsKey('references')) {
+            out.add(
+              fail(
+                "@CsTableKey('$name') of $owner is a foreign key without "
+                'references: the entity it points at is not stated',
+                key.location,
+              ),
+            );
+          }
+          continue;
+        }
+        for (final argument in const [
+          'references',
+          'referencedColumns',
+          'onDelete',
+          'onUpdate',
+        ]) {
+          if (!key.named.containsKey(argument)) continue;
+          out.add(
+            fail(
+              "@CsTableKey('$name') of $owner is a $kind key and carries "
+              '$argument, which belongs to a foreign key only',
+              key.location,
+            ),
+          );
+        }
+      }
+      for (final index in shape.indexes) {
+        final name = index.firstPositionalString ?? '?';
+        final entries = _csStringList(index, 'columns');
+        if (entries.isEmpty) {
+          out.add(
+            fail(
+              "@CsTableIndex('$name') of $owner names no column",
+              index.location,
+            ),
+          );
+        }
+        for (final entry in [
+          ...entries.map(_csIndexColumn),
+          ..._csStringList(index, 'includeColumns'),
+        ]) {
+          if (shape.columns.contains(entry)) continue;
+          out.add(
+            fail(
+              "@CsTableIndex('$name') of $owner names column '$entry', which "
+              'no @CsColumn of $owner declares',
+              index.location,
+            ),
+          );
+        }
+      }
+    }
+    return out;
+  }
+}
+
+/// **Check 43** — a foreign `@CsTableKey`'s `references` names a `@CsTable`
+/// class of the server project, and its `referencedColumns` are columns of
+/// that class, one for each of its own columns. Empty `referencedColumns`
+/// stand for the target's primary key, whose columns are then compared.
+class CsForeignKeyTargetCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsForeignKeyTargetCheck();
+
+  @override
+  int get number => 43;
+
+  @override
+  String get definedIn => '§3.3.11';
+
+  @override
+  String get title =>
+      "A foreign key's references is a @CsTable class and its "
+      'referencedColumns are columns there, one per key column';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final shapes = _csTableShapes(input);
+    final out = <CodeSpecsViolation>[];
+    for (final shape in shapes.values) {
+      final owner = shape.declaration.name;
+      for (final key in shape.keys) {
+        if (_csKeyKind(key) != 'foreign') continue;
+        final reference = key.named['references'];
+        if (reference == null) continue; // check 42 reports it
+        final name = key.firstPositionalString ?? '?';
+        final target = switch (reference) {
+          CsUnknownValue(:final source) => source,
+          CsQualifiedValue(:final name) => name,
+          _ => '$reference',
+        };
+        final targetShape = shapes[target];
+        if (targetShape == null) {
+          out.add(
+            fail(
+              "@CsTableKey('$name') of $owner references $target, which is "
+              'no @CsTable class of the server project',
+              key.location,
+            ),
+          );
+          continue;
+        }
+        final columns = _csStringList(key, 'columns');
+        var referenced = _csStringList(key, 'referencedColumns');
+        if (referenced.isEmpty) {
+          // No `KEARF.referencedKey`: the key references the target's primary
+          // key, as SQL's `REFERENCES t` without columns does (`codespecs_derivation_contract.md` §3.3.11).
+          final primary = [
+            for (final k in targetShape.keys)
+              if (_csIdentifyingKeyKinds.contains(_csKeyKind(k))) k,
+          ];
+          if (primary.length != 1) continue; // check 44 reports the target
+          referenced = _csStringList(primary.single, 'columns');
+        }
+        if (referenced.length != columns.length) {
+          out.add(
+            fail(
+              "@CsTableKey('$name') of $owner has ${columns.length} column(s) "
+              'and ${referenced.length} referenced column(s); a foreign key '
+              'pairs each of its columns with one column of $target',
+              key.location,
+            ),
+          );
+        }
+        for (final column in referenced) {
+          if (targetShape.columns.contains(column)) continue;
+          out.add(
+            fail(
+              "@CsTableKey('$name') of $owner references column '$column' of "
+              '$target, which no @CsColumn of $target declares',
+              key.location,
+            ),
+          );
+        }
+      }
+    }
+    return out;
+  }
+}
+
+/// **Check 44** — every `@CsTable` holds exactly one `@CsTableKey` whose kind
+/// identifies the row (`primary`, `composite`, `natural`, `surrogate`).
+///
+/// Every mapper needs the key: a JPA entity without `@Id` stops the Spring
+/// context, EF Core refuses an entity without one, and a repository cannot
+/// find or delete by key. A table without one is therefore refused here, in
+/// Phase 4, rather than discovered when Phase 6 cannot start the server.
+class CsPrimaryKeyCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsPrimaryKeyCheck();
+
+  @override
+  int get number => 44;
+
+  @override
+  String get definedIn => '§3.3.11';
+
+  @override
+  String get title =>
+      'Every @CsTable holds exactly one @CsTableKey that identifies the row';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final out = <CodeSpecsViolation>[];
+    for (final shape in _csTableShapes(input).values) {
+      final identifying = [
+        for (final key in shape.keys)
+          if (_csIdentifyingKeyKinds.contains(_csKeyKind(key))) key,
+      ];
+      if (identifying.length == 1) continue;
+      final location = shape.declaration.marker('CsTable')!.location;
+      out.add(
+        fail(
+          identifying.isEmpty
+              ? "@CsTable('${shape.table}') (${shape.declaration.name}) has no "
+                    'primary key: no @CsTableKey of kind primary, composite, '
+                    'natural or surrogate'
+              : "@CsTable('${shape.table}') (${shape.declaration.name}) has "
+                    '${identifying.length} primary keys '
+                    '(${identifying.map((k) => k.firstPositionalString).join(', ')}); '
+                    'a table has exactly one',
+          location,
+        ),
+      );
+    }
+    return out;
+  }
+}
+
 // ---------------------------------------------------------------------------
 // The catalogue
 // ---------------------------------------------------------------------------
 
-/// The forty-one checks, in `codespecs_derivation_contract.md` §6 table
+/// The forty-four checks, in `codespecs_derivation_contract.md` §6 table
 /// order.
 const codeSpecsChecks = <CodeSpecsCheck>[
   /// Check 1 — two sections in one locus project deriving the same identifier.
@@ -4200,4 +4554,15 @@ const codeSpecsChecks = <CodeSpecsCheck>[
   /// Check 41 — a binding declared under a path the framework reserves for a
   /// protocol feature. Reads the reserved-path catalogue beside the trio.
   CsReservedProtocolPathCheck(),
+
+  /// Check 42 — a key or index naming a column its table does not declare, or
+  /// foreign-key arguments on a key that is not foreign.
+  CsTableKeyColumnsCheck(),
+
+  /// Check 43 — a foreign key whose target is no `@CsTable`, or whose
+  /// referenced columns are not the target's.
+  CsForeignKeyTargetCheck(),
+
+  /// Check 44 — a table without exactly one primary key.
+  CsPrimaryKeyCheck(),
 ];

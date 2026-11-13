@@ -124,7 +124,7 @@ published, and the shipped `tom_som_dart_v0/tool/` scripts that build and consum
 it resolve their paths into that same unpublished package. A sample that depends
 only on hosted versions therefore cannot load it.
 
-So this sample writes its own: two entities and three stored attributes, which
+So this sample writes its own: two entities, four stored attributes and their keys, which
 is the smallest document that populates an area, leaves most areas empty, and
 still produces a trio a validator will accept. Being small is the point — the
 whole run fits on two screens, and every number the sample prints can be checked
