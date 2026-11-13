@@ -24,9 +24,13 @@ syntax parser in `lib/src/irspecs/emitters/icu_emitter.dart`
 python3 tool/standards/validate_standard.py <openapi|jsonschema|asyncapi> <document.json>
 ```
 
-Validates the document with Python's `jsonschema` (the version every fleet host
-carries for the todo guard suite): OpenAPI against `schema-base` — which checks
+Validates the document with Python's `jsonschema` and `referencing` (jsonschema
+4.18 or later brings both; `python3 -m pip install --user jsonschema`): OpenAPI against `schema-base` — which checks
 the document and, through the OAS dialect, every Schema Object in it — with the
 2020-12 validator, JSON Schema against the 2020-12 meta-schema, AsyncAPI against
 the 3.0.0 schema with the draft-07 validator it is written for. Exits `0` when
 valid and `1` with every error on stdout otherwise, `2` on bad usage.
+
+`test/irspecs_emit_test.dart` runs it through `python3` (`py -3` on Windows) and
+skips the meta-schema checks, naming what is missing, on a host whose Python
+cannot import both modules.
