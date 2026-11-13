@@ -14,6 +14,7 @@ import '../../emitters/openapi_emitter.dart';
 import '../../ir_model.dart';
 import '../../ir_steps.dart';
 import '../dart_tom/dart_tom_mapper.dart' show IrMapException;
+import '../mapper_common.dart';
 
 /// The Go server's mapper.
 const String kGoServerMapper = 'go-server';
@@ -164,10 +165,6 @@ String _fileName(String dartPath, Set<String> taken) {
 String _exported(String name) =>
     name.isEmpty ? name : '${name[0].toUpperCase()}${name.substring(1)}';
 
-String _snake(String s) => s
-    .replaceAllMapped(RegExp('([a-z0-9])([A-Z])'), (m) => '${m[1]}_${m[2]}')
-    .toLowerCase();
-
 /// Go's keywords and predeclared names a Dart parameter could collide with.
 const Set<String> _goReserved = {
   'break', 'case', 'chan', 'const', 'continue', 'default', 'defer', 'else', //
@@ -182,35 +179,9 @@ String _local(String name) => _goReserved.contains(name) ? '${name}_' : name;
 // Symbols
 // ---------------------------------------------------------------------------
 
-/// How a top-level declaration is written in Go.
-enum _Shape {
-  /// An enum, or a class of static const string catalogue entries: a named
-  /// string type and a const per entry.
-  catalogue,
-
-  /// A class of instance fields only: a struct.
-  struct,
-
-  /// A `@CsTable` class: a struct with column tags, and its table's name.
-  entity,
-
-  /// A collaborator or repository (abstract, no bodies): an interface.
-  contract,
-
-  /// A `@CsServiceUnit` class: an interface of its handlers and an
-  /// `Unimplemented…` struct that returns `tom.ErrNotImplemented`.
-  serviceUnit,
-
-  /// Anything else with members or bodies: a struct with methods.
-  classType,
-
-  /// A top-level variable: a const.
-  variable,
-}
-
 class _Symbol {
   final String package;
-  final _Shape shape;
+  final IrShape shape;
   const _Symbol(this.package, this.shape);
 }
 
@@ -222,7 +193,7 @@ class _Symbols {
 
   _Symbols(List<({String package, String area, IrFile file})> files) {
     for (final f in files) {
-      final index = _indexOf(f.area, f.file);
+      final index = irFileIndex(f.area, f.file);
       for (final e in index.topLevel) {
         final shape = _declarationShape(index, e);
         byName[e.declaration.name] = _Symbol(f.package, shape);
@@ -238,88 +209,22 @@ class _Symbols {
   }
 }
 
-IrIndex _indexOf(String area, IrFile file) => IrIndex([
-  IrDocument(area: area, projects: const [], files: [file]),
-]);
-
-_Shape _declarationShape(IrIndex index, IrEntry e) {
-  final d = e.declaration;
-  final members = index.membersOf(e);
-  if (d.kind == CsDeclarationKind.enumType) return _Shape.catalogue;
-  if (d.kind == CsDeclarationKind.topLevelVariable) return _Shape.variable;
-  if (d.kind != CsDeclarationKind.classType) {
+/// The shape of [e] as the Go server mapper writes it: a layout is the
+/// client's, never the server's.
+IrShape _declarationShape(IrIndex index, IrEntry e) {
+  final shape = irDeclarationShape(index, e, mapper: 'Go mapper');
+  if (shape == IrShape.layout) {
     throw IrMapException(
-      '${e.file.file.path}: ${d.name} is a ${d.kind.name}, which the Go '
-      'mapper has no rule for',
+      '${e.file.file.path}: ${e.declaration.name} is a layout; the Go server '
+      'mapper writes no client',
     );
   }
-  if (irMarker(d, 'CsLayout') != null) {
-    throw IrMapException(
-      '${e.file.file.path}: ${d.name} is a layout; the Go server mapper writes '
-      'no client',
-    );
-  }
-  if (irMarker(d, 'CsTable') != null) return _Shape.entity;
-  if (irMarker(d, 'CsServiceUnit') != null) return _Shape.serviceUnit;
-  if (irMarker(d, 'CsCollaborator') != null ||
-      irMarker(d, 'CsRepository') != null) {
-    return _Shape.contract;
-  }
-  final fields = members.where((m) => m.kind == CsDeclarationKind.field);
-  final methods = members.where((m) => m.kind == CsDeclarationKind.method);
-  if (methods.isEmpty &&
-      fields.isNotEmpty &&
-      fields.every(
-        (m) => m.isStatic && m.isConst && irInitialiserString(m) != null,
-      )) {
-    return _Shape.catalogue;
-  }
-  if (methods.isEmpty &&
-      !d.isAbstract &&
-      fields.isNotEmpty &&
-      fields.every((m) => !m.isStatic)) {
-    return _Shape.struct;
-  }
-  return _Shape.classType;
+  return shape;
 }
 
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
-
-List<String> _splitArgs(String s) {
-  final out = <String>[];
-  var depth = 0;
-  var start = 0;
-  for (var i = 0; i < s.length; i++) {
-    if (s[i] == '<') depth++;
-    if (s[i] == '>') depth--;
-    if (s[i] == ',' && depth == 0) {
-      out.add(s.substring(start, i).trim());
-      start = i + 1;
-    }
-  }
-  out.add(s.substring(start).trim());
-  return out;
-}
-
-/// `<T>` → `{T}`. A bounded type parameter has no rule.
-Set<String> _typeParameterNames(String? typeParameters, String where) {
-  if (typeParameters == null) return const {};
-  final inner = typeParameters.trim();
-  if (inner.length < 2) return const {};
-  final names = <String>{};
-  for (final p in _splitArgs(inner.substring(1, inner.length - 1))) {
-    final parts = p.split(RegExp(r'\s+'));
-    if (parts.length > 1) {
-      throw IrMapException(
-        '$where: the bounded type parameter `$p` has no Go rule',
-      );
-    }
-    names.add(parts.single);
-  }
-  return names;
-}
 
 /// `{T}` → `[T any]`.
 String _goTypeParameters(Set<String> names) =>
@@ -362,7 +267,7 @@ class _Types {
     final generic = RegExp(r'^(\w+)<(.*)>$').firstMatch(t);
     if (generic != null) {
       final base = generic.group(1)!;
-      final args = _splitArgs(generic.group(2)!);
+      final args = irSplitTypeArguments(generic.group(2)!);
       switch (base) {
         case 'List' || 'Iterable' || 'Set':
           return '[]${of(args.single)}';
@@ -442,7 +347,7 @@ class _FileWriter {
     required this.symbols,
   });
 
-  late final IrIndex _index = _indexOf(area, file);
+  late final IrIndex _index = irFileIndex(area, file);
 
   _Types _types([Set<String> typeParameters = const {}]) =>
       _Types(symbols, package, module, typeParameters, imports);
@@ -468,11 +373,11 @@ class _FileWriter {
     final d = e.declaration;
     final members = _index.membersOf(e);
     final where = '${file.file.path}: ${d.name}';
-    final typeParameters = _typeParameterNames(d.typeParameters, where);
+    final typeParameters = irTypeParameterNames(d.typeParameters, where);
     final types = _types(typeParameters);
     final head = _doc(d, indent: '');
     switch (_declarationShape(_index, e)) {
-      case _Shape.catalogue:
+      case IrShape.catalogue:
         final entries = d.kind == CsDeclarationKind.enumType
             ? [
                 for (final m in members)
@@ -492,17 +397,17 @@ class _FileWriter {
           ],
           ')',
         ];
-      case _Shape.struct:
+      case IrShape.plainData:
         return [
           ...head,
           'type ${d.name}${_goTypeParameters(typeParameters)} struct {',
           ..._fields(d.name, members, types, entity: false),
           '}',
         ];
-      case _Shape.entity:
+      case IrShape.entity:
         final table =
             irString(irMarker(d, 'CsTable')?.positional.firstOrNull) ??
-            _snake(d.name);
+            irSnake(d.name);
         return [
           ...head,
           'type ${d.name} struct {',
@@ -512,7 +417,7 @@ class _FileWriter {
           '// ${d.name}Table is the table [${d.name}] is stored in.',
           'const ${d.name}Table = ${jsonEncode(table)}',
         ];
-      case _Shape.contract:
+      case IrShape.contract:
         final embedded = d.superclass == null
             ? const <String>[]
             : ['\t${types.of(d.superclass!)}'];
@@ -533,11 +438,13 @@ class _FileWriter {
           ...methods,
           '}',
         ];
-      case _Shape.serviceUnit:
+      case IrShape.serviceUnit:
         return _serviceUnit(d, members, head, types);
-      case _Shape.classType:
+      case IrShape.classType:
         return _classType(e, members, head, types, typeParameters);
-      case _Shape.variable:
+      case IrShape.layout:
+        throw StateError('refused by _declarationShape');
+      case IrShape.variable:
         if (file.file.constructions.any((c) => c.holder == d.name)) {
           throw IrMapException(
             '$where: a construction has no Go form in the server mapper',
@@ -588,7 +495,7 @@ class _FileWriter {
       final String tag;
       if (entity) {
         final col = irMarker(m, 'CsColumn');
-        final column = irString(col?.named['column']) ?? _snake(m.name);
+        final column = irString(col?.named['column']) ?? irSnake(m.name);
         tag = '`db:"$column" json:"$json"`';
       } else {
         tag = '`json:"$json"`';
@@ -964,7 +871,7 @@ String? _router(
   final handlers =
       <String, ({String owner, String method, CsMethodBody body})>{};
   for (final f in server) {
-    final index = _indexOf(f.area, f.file);
+    final index = irFileIndex(f.area, f.file);
     for (final e in index.topLevel) {
       if (irMarker(e.declaration, 'CsServiceUnit') == null) continue;
       for (final m in index.membersOf(e)) {
@@ -1079,7 +986,7 @@ List<_Table> _tables(
 ) {
   final out = <_Table>[];
   for (final f in server) {
-    final index = _indexOf(f.area, f.file);
+    final index = irFileIndex(f.area, f.file);
     for (final e in index.topLevel) {
       final d = e.declaration;
       final cs = irMarker(d, 'CsTable');
@@ -1093,7 +1000,7 @@ List<_Table> _tables(
         final base = nullable ? dart.substring(0, dart.length - 1) : dart;
         columns.add(
           _Column(
-            irString(col?.named['column']) ?? _snake(m.name),
+            irString(col?.named['column']) ?? irSnake(m.name),
             irString(col?.named['columnType']) ?? _sqlType(base, symbols),
             nullable,
           ),
@@ -1102,7 +1009,7 @@ List<_Table> _tables(
       out.add(
         _Table(
           d.name,
-          irString(cs.positional.firstOrNull) ?? _snake(d.name),
+          irString(cs.positional.firstOrNull) ?? irSnake(d.name),
           columns,
         ),
       );
@@ -1118,7 +1025,7 @@ String _sqlType(String dart, _Symbols symbols) => switch (dart) {
   'bool' => 'boolean',
   'DateTime' => 'timestamptz',
   'String' => 'text',
-  _ when symbols.byName[dart]?.shape == _Shape.catalogue => 'text',
+  _ when symbols.byName[dart]?.shape == IrShape.catalogue => 'text',
   _ => throw IrMapException('the column type `$dart` has no SQL type'),
 };
 

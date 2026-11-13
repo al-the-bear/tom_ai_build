@@ -8,6 +8,8 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
+import 'support/java_toolchain.dart';
+
 /// End-to-end tests for the **Java** `v0` SOM generator (som_multiplatform_spec_model.md §10). They
 /// mirror `som_generator_test.dart` / `som_python_generator_test.dart`: the real
 /// `tom_specs_model` is analysed once (shared via [setUpAll]), then the
@@ -294,9 +296,9 @@ void main() {
   });
 
   test('the emitted source compiles under javac', () {
-    final javac = _whichJavac();
+    final javac = findJavac();
     if (javac == null) {
-      markTestSkipped('javac not on PATH');
+      markTestSkipped('no javac found');
       return;
     }
     if (!Directory(p.join(javaRuntimeDir, 'src')).existsSync()) {
@@ -327,7 +329,7 @@ void main() {
   test('build_jar.sh produces a facade-only JAR (SOM §17.2)', () {
     // The JAR builds via the build_jar.sh fallback.
     // Skip cleanly on a host without the JDK/shell toolchain.
-    if (!_hasTool('bash') || _whichJavac() == null || !_hasTool('jar')) {
+    if (!_hasTool('bash') || findJavac() == null || !_hasTool('jar')) {
       markTestSkipped('bash/javac/jar not all on PATH');
       return;
     }
@@ -399,15 +401,4 @@ bool _hasTool(String tool) {
   } on ProcessException {
     return false;
   }
-}
-
-/// Resolves a `javac` executable from PATH, or `null` when none is available.
-String? _whichJavac() {
-  try {
-    final res = Process.runSync('javac', ['-version']);
-    if (res.exitCode == 0) return 'javac';
-  } on ProcessException {
-    // none on PATH
-  }
-  return null;
 }

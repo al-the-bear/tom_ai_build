@@ -19,7 +19,8 @@
 ///   mappers write other languages from the same IR: `ts-shared`,
 ///   `ts-react-client` and `ts-hono-server` an npm workspace
 ///   (`irspecs_ir.md` §11), `go-server` the server as a Go module
-///   (`irspecs_ir.md` §12).
+///   (`irspecs_ir.md` §12), `java-spring-server` as a Spring Boot project
+///   (`irspecs_ir.md` §13).
 ///
 /// * `irspecs emit --standard <name> --ir <dir> --out <dir>`, the name one
 ///   of `openapi`, `jsonschema`, `icu` and `asyncapi`, writes what a standard
@@ -55,6 +56,7 @@ import 'emitters/json_schema_emitter.dart';
 import 'emitters/openapi_emitter.dart';
 import 'mappers/dart_tom/dart_tom_mapper.dart';
 import 'mappers/go/go_mapper.dart';
+import 'mappers/java/java_spring_mapper.dart';
 import 'mappers/ts/ts_mapper.dart';
 
 /// The `from-codespecs` option set — exposed so the README correspondence
@@ -85,7 +87,12 @@ ArgParser irspecsParser() => ArgParser()
   ..addOption(
     'mapper',
     help: 'map: which mapper writes the code.',
-    allowed: [kDartTomMapper, ...kTsMappers.keys, kGoServerMapper],
+    allowed: [
+      kDartTomMapper,
+      ...kTsMappers.keys,
+      kGoServerMapper,
+      kJavaSpringServerMapper,
+    ],
   )
   ..addOption(
     'spec',
@@ -274,10 +281,12 @@ Future<int> _map(
   }
   final mapper = results.option('mapper')!;
   try {
-    if (kTsMappers.containsKey(mapper) || mapper == kGoServerMapper) {
-      final files = mapper == kGoServerMapper
-          ? mapGoServer(documents, all: all)
-          : mapTypeScript(documents, mapper, all: all);
+    if (mapper != kDartTomMapper) {
+      final files = switch (mapper) {
+        kGoServerMapper => mapGoServer(documents, all: all),
+        kJavaSpringServerMapper => mapJavaSpring(documents, all: all),
+        _ => mapTypeScript(documents, mapper, all: all),
+      };
       for (final MapEntry(key: path, value: text) in files.entries) {
         File(p.joinAll([results.option('out')!, ...path.split('/')]))
           ..parent.createSync(recursive: true)

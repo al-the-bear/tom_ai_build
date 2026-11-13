@@ -6,6 +6,8 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
+import 'support/java_toolchain.dart';
+
 /// The same hand-built spec-model the Dart/Python/JavaScript/TypeScript/Go
 /// meta-emitter tests pin — every field kind **plus recursion**
 /// (`Risk.mitigation: Risk`) and an id-less section (`details`) so the
@@ -266,17 +268,6 @@ public final class MetaCheck {
 }
 ''';
 
-/// Locates a `javac` compiler, or `null` when none is on PATH.
-String? _javac() {
-  try {
-    final r = Process.runSync('javac', ['-version']);
-    if (r.exitCode == 0) return 'javac';
-  } on ProcessException {
-    // none on PATH
-  }
-  return null;
-}
-
 /// The `tom_som_java_runtime/src` directory, relative to the clitool root the
 /// test runs from, or `null` when it cannot be located.
 String? _runtimeSrc() {
@@ -396,9 +387,9 @@ void main() {
 
     test('generated tree == bridge tree; dot-notation and ID-tree agree '
         '(functional, javac + java)', () async {
-      final javac = _javac();
+      final javac = findJavac();
       if (javac == null) {
-        markTestSkipped('no javac on PATH');
+        markTestSkipped('no javac found');
         return;
       }
       final runtimeSrc = _runtimeSrc();
@@ -439,7 +430,12 @@ void main() {
               '${compile.stdout}\n${compile.stderr}',
         );
 
-        final run = await Process.run('java', [
+        // The `java` beside the `javac` that compiled it: a PATH `java` of
+        // an older release cannot load JDK 21 class files.
+        final java = javac == 'javac'
+            ? 'java'
+            : p.join(p.dirname(javac), 'java');
+        final run = await Process.run(java, [
           '-cp',
           outDir.path,
           'tom_som_java_v0.MetaCheck',

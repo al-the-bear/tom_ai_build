@@ -11,7 +11,8 @@ comments, members, method bodies and their statements — in one YAML document
 per area. A mapper per language and framework writes code from it; the Dart +
 Tom mapper's output is today's trio, byte for byte; the TypeScript mappers
 write the same skeleton as an npm workspace (§11), the Go server mapper the
-server as a Go module (§12). This document says what is
+server as a Go module (§12), the Java + Spring Boot mapper as a Gradle project
+(§13). This document says what is
 in a document, how it is written and what is deliberately left out, and what
 each standard emitter writes from it (§10). Which code
 a mapper writes from it is each mapper's own document, and what the trio
@@ -628,3 +629,114 @@ type with no SQL type stop the mapper naming the file.
 (`kGoDependencyVersions`), sqlc v1.29.0 (`kSqlcVersion`). net/http with chi
 and sqlc are the first choice of each; other server frameworks, persistence
 layers and a Go Tom substrate are separate mappers to come.
+
+## 13. The Java + Spring Boot server mapper
+
+One mapper writes the server of the IR as a Gradle project — Java 21,
+Spring Boot 3 with Spring Web, Spring Data JPA, Flyway and Jakarta Bean
+Validation:
+
+```text
+irspecs map --mapper java-spring-server --ir <spec-root>/irspecs --out <dir>
+```
+
+It writes the project `<dir>/<server package>/` — with `--spec <document>
+--unit <unit id>` (§8.1) a server unit whose mapping names
+`java-spring-server`, and the project is then named after the unit. Its Java
+packages hang off the project's name (lower case, any other character an
+underscore): `<base>.shared`, the IR's shared locus, which the server needs;
+`<base>.server`, the server locus of the share; `<base>.codespec`, the three
+back-link annotations; `<base>.api` and `<base>.api.model`, generated at build
+time; and the `@SpringBootApplication` class `<Project>Application` in
+`<base>`. A Dart file holding several declarations is a Java file per
+declaration. A client locus is not this mapper's: a layout in what it reads is
+refused.
+
+**What the output is.** A skeleton, as the Dart trio is: `./gradlew
+compileJava` compiles it on JDK 21, and it executes nothing — a handler or
+body the specification gives no steps for throws
+`UnsupportedOperationException("<explication>")`, which Spring answers with a
+500. The project carries `build.gradle.kts`, `settings.gradle.kts` and
+`gradle/wrapper/gradle-wrapper.properties` naming Gradle 8.14; the wrapper's
+scripts and jar are a binary Gradle writes, so the mapper leaves them to one
+`gradle wrapper` (any Gradle). Running the application needs what the IR does
+not carry: an `@Id` on each entity, since the IR does not say which column is
+the key, and a datasource. The test
+`tom_specs_clitool/test/irspecs_java_test.dart` maps the Meridian IR, compiles
+the project with `./gradlew compileJava`, checks that openapi-generator wrote
+the HTTP interfaces and the envelopes and none of the project's own types,
+holds the back-links of every file to the Dart trio's and the wire types to
+the JSON Schema of §10, prints and compiles a body from its steps, and
+compiles a server unit written as its own project.
+
+**openapi-generator.** The project carries §10's OpenAPI document as
+`src/main/resources/openapi/openapi.json`, and `compileJava` runs
+openapi-generator 7.17.0 on it first: the `spring` generator, `interfaceOnly`
+and `skipDefaultInterface`, Spring Boot 3 and Jakarta, Bean Validation on. It
+writes one interface per operation (`<Operation>Api`, a `@RequestMapping` POST
+with `@Valid @RequestBody`), which the controllers implement. Every component
+schema the project declares — the wire types, the envelope, the enums, the
+entities — is mapped to the project's own class (`schemaMappings` in
+`build.gradle.kts`), so the generator writes none of them; what it does write
+as models is what the project cannot: the per-operation instantiation of the
+generic `Result<T>` envelope (`<Operation>200Response`), which OpenAPI flattens
+from its `allOf` and Java cannot express as a generic. A catalogue of string
+constants (the error codes) is not mapped, and the generator's own enum for it
+goes unused. openapi-generator calls its OpenAPI 3.1 support beta; it reads
+§10's document as written.
+
+**Flyway.** `src/main/resources/db/migration/V1__ce_db_tables.sql` holds a
+`CREATE TABLE` per entity, a column per field with its `columnType` (without
+one, from the Dart type: `integer`, `double precision`, `boolean`,
+`timestamptz`, `text`), `NOT NULL` unless nullable — the schema the cumulative
+CE-MG migrations converge on (`codespecs_derivation_contract.md` §6, check 13);
+the IR carries no migration DDL of its own.
+
+### 13.1 What each declaration becomes
+
+| IR declaration | Java | Package |
+|----------------|------|---------|
+| a domain enum (CE-EN) | `public enum X { value, … }`, the values as the Dart names them, so they serialise as the JSON Schema's | shared |
+| a class of `static const` catalogue entries — operations (CE-API), roles (CE-AZ), error codes (CE-ER), message keys (CE-TX) | `public final class X { public static final String entry = "…"; }` | shared |
+| a plain data class (not abstract, instance fields only) — a wire type (CE-API), the envelope (CE-ER) | `public record X<T>(…)`, a component per field with its back-links and its `@CsValidation` rules as Bean Validation constraints: `required` → `@NotNull`, `email` → `@Email`, `pattern` → `@Pattern`, `minLength`/`maxLength`/`minItems`/`maxItems` → `@Size`, `min`/`max` → `@Min`/`@Max` (`@DecimalMin`/`@DecimalMax` for a decimal); the field's doc as the record's `@param` | shared |
+| an entity (`@CsTable`, CE-DB) | `@Entity @Table(name = "<table>")`, a private field per column with `@Column(name, columnDefinition, nullable)`, `@Enumerated(EnumType.STRING)` for an enum-typed column, and its getter and setter; its table in the Flyway migration | server |
+| a repository (`@CsRepository`) | `public interface XRepository extends JpaRepository<X, K>` — Spring Data's repository in the place of `tom_core_server`'s | server |
+| a service unit (`@CsServiceUnit`, CE-SU) | a `@Service` class whose handlers keep their signature and throw; a `@RestController` `<Unit>Controller` implementing the generated `<Operation>Api` of each handler, handing the request to the unit and the `Result` back as the operation's envelope | server |
+| a collaborator (`@CsCollaborator`) | `public interface X { R method(params); }` | the file's |
+| any other class with methods | a class with a private field per Dart field and a constructor taking them, each 3b body printed from its steps (§4.7) — `collaborator.m(args);`, `if (collaborator.g(args)) { … }`, `return collaborator.m(args);` | the file's |
+
+Types follow §10.1's JSON Schema mapping: `String`, `Uri`, `Duration` →
+`String`; `DateTime` → `java.time.OffsetDateTime`; `int` → `Integer`;
+`double`, `num` → `Double`; `bool` → `Boolean` (boxed, so a `required` rule
+can see a missing value); `Object`, `dynamic` → `Object`; `List`,
+`Iterable`, `Set` → `List<X>`; `Map<K, V>` → `Map<K, V>`; `X?` → `X`; a
+`Cs…Ref`/`…Key`/`…Code` → `String`. A method's `Future<X>` is `X` and
+`Future<void>` is `void`: Spring MVC's handlers are synchronous.
+
+**Back-links** are annotations of the project's own `codespec` package, kept
+at run time: `@CodeSpec(id = "<id>", source = {"<section id>", …})` and
+`@DocSpec({@DocRef(sectionId = "<section id>", description = "…"), …})` on
+the declaration and on each member — field, record component, method, enum
+constant — with the same section ids as the Dart trio, which the test holds
+file by file. Every `Cs*` marker and other Dart annotation is a `Cs: …` /
+`Dart: …` line of the Javadoc. The controllers carry no back-links of their
+own: they are their service unit's.
+
+**Transport errors** (`codespecs_mapping.md` §7): a request that does not
+read or fails its constraints is answered with a 500 by `TransportErrors`, a
+`@RestControllerAdvice`, until Phase 6 answers it with the envelope's error
+arm — Spring would otherwise answer a 400, which §7 rules out.
+
+**Refused, not approximated** (as in §8): a declaration kind with no rule (a
+mixin, a top-level function), a top-level variable (Java has no place for
+one), a layout, a bounded type parameter, a static or initialised field of a
+data class, an entity or a class, a service unit with fields, a validator with
+no Bean Validation constraint, a type the IR does not declare, a name declared
+in both the shared and the server locus, and a column type with no SQL type
+stop the mapper naming the file.
+
+**Pinned versions** (`kJavaSpringVersions`). Java 21, Gradle 8.14, Spring Boot
+3.5.16 (its dependency management pins every library), the
+io.spring.dependency-management plugin 1.1.7, openapi-generator 7.17.0.
+Spring Boot with Spring Data JPA is the first choice for Java; other
+frameworks are separate mappers to come.

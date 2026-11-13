@@ -15,6 +15,7 @@ import '../../emitters/openapi_emitter.dart';
 import '../../ir_model.dart';
 import '../../ir_steps.dart';
 import '../dart_tom/dart_tom_mapper.dart' show IrMapException;
+import '../mapper_common.dart';
 
 /// The shared package's mapper.
 const String kTsSharedMapper = 'ts-shared';
@@ -229,84 +230,31 @@ class _Symbols {
       byName[d.name] = _Symbol(
         package,
         module,
-        kind == _Shape.interface ||
-                kind == _Shape.entity ||
-                kind == _Shape.contract
+        kind == IrShape.plainData ||
+                kind == IrShape.entity ||
+                kind == IrShape.contract
             ? _Kind.type
             : _Kind.value,
       );
-      if (kind == _Shape.entity) {
+      if (kind == IrShape.entity) {
         entities.add(d.name);
         byName[_tableName(d.name)] = _Symbol(package, module, _Kind.value);
       }
-      if (kind == _Shape.catalogue && d.kind == CsDeclarationKind.enumType) {
+      if (kind == IrShape.catalogue && d.kind == CsDeclarationKind.enumType) {
         enums.add(d.name);
       }
-      if (kind == _Shape.layout) {
+      if (kind == IrShape.layout) {
         byName['${d.name}View'] = _Symbol(package, module, _Kind.value);
       }
     }
   }
 }
 
-/// How a top-level declaration is written in TypeScript.
-enum _Shape {
-  /// An enum, or a class of static const string catalogue entries: a const
-  /// object `as const` and the union type of its values.
-  catalogue,
-
-  /// A class of instance fields only: an interface.
-  interface,
-
-  /// A `@CsTable` class: a Drizzle table and the row type it infers.
-  entity,
-
-  /// A `@CsLayout` class: the class and a React component stub.
-  layout,
-
-  /// A collaborator or repository (abstract, no bodies): an interface.
-  contract,
-
-  /// Anything else with members or bodies: a class.
-  classType,
-
-  /// A top-level variable: a const.
-  variable,
-}
-
-_Shape _declarationShape(IrIndex index, IrEntry e) {
-  final d = e.declaration;
-  final members = index.membersOf(e);
-  if (d.kind == CsDeclarationKind.enumType) return _Shape.catalogue;
-  if (d.kind == CsDeclarationKind.topLevelVariable) return _Shape.variable;
-  if (d.kind != CsDeclarationKind.classType) {
-    throw IrMapException(
-      '${e.file.file.path}: ${d.name} is a ${d.kind.name}, which the '
-      'TypeScript mappers have no rule for',
-    );
-  }
-  if (irMarker(d, 'CsTable') != null) return _Shape.entity;
-  if (irMarker(d, 'CsLayout') != null) return _Shape.layout;
-  if (irMarker(d, 'CsCollaborator') != null ||
-      irMarker(d, 'CsRepository') != null) {
-    return _Shape.contract;
-  }
-  final fields = members.where((m) => m.kind == CsDeclarationKind.field);
-  final methods = members.where((m) => m.kind == CsDeclarationKind.method);
-  if (methods.isEmpty &&
-      fields.isNotEmpty &&
-      fields.every(
-        (m) => m.isStatic && m.isConst && _catalogueValue(m) != null,
-      )) {
-    return _Shape.catalogue;
-  }
-  if (methods.isEmpty &&
-      !d.isAbstract &&
-      fields.isNotEmpty &&
-      fields.every((m) => !m.isStatic)) {
-    return _Shape.interface;
-  }
-  return _Shape.classType;
+/// The shape of [e] as the TypeScript mappers write it: a service unit is a
+/// class like any other.
+IrShape _declarationShape(IrIndex index, IrEntry e) {
+  final shape = irDeclarationShape(index, e, mapper: 'TypeScript mappers');
+  return shape == IrShape.serviceUnit ? IrShape.classType : shape;
 }
 
 /// The string a catalogue entry stands for: `CsMessageKey('a.b')` → `a.b`.
@@ -330,7 +278,7 @@ String _tsType(String dart, Set<String> typeParameters, Set<String> used) {
   if (generic != null) {
     final base = generic.group(1)!;
     final args = [
-      for (final a in _splitArgs(generic.group(2)!))
+      for (final a in irSplitTypeArguments(generic.group(2)!))
         _tsType(a, typeParameters, used),
     ];
     String wrap(String a) => a.contains('|') ? '($a)' : a;
@@ -366,28 +314,12 @@ String _tsType(String dart, Set<String> typeParameters, Set<String> used) {
   return t;
 }
 
-List<String> _splitArgs(String s) {
-  final out = <String>[];
-  var depth = 0;
-  var start = 0;
-  for (var i = 0; i < s.length; i++) {
-    if (s[i] == '<') depth++;
-    if (s[i] == '>') depth--;
-    if (s[i] == ',' && depth == 0) {
-      out.add(s.substring(start, i).trim());
-      start = i + 1;
-    }
-  }
-  out.add(s.substring(start).trim());
-  return out;
-}
-
 Set<String> _typeParameterNames(String? typeParameters) {
   if (typeParameters == null) return const {};
   final inner = typeParameters.trim();
   if (inner.length < 2) return const {};
   return {
-    for (final p in _splitArgs(inner.substring(1, inner.length - 1)))
+    for (final p in irSplitTypeArguments(inner.substring(1, inner.length - 1)))
       p.split(RegExp(r'\s+')).first,
   };
 }
@@ -623,7 +555,7 @@ class _FileWriter {
     final typeParameters = _typeParameterNames(d.typeParameters);
     final head = _jsDoc(d, indent: '');
     switch (_declarationShape(_index, e)) {
-      case _Shape.catalogue:
+      case IrShape.catalogue:
         final entries = d.kind == CsDeclarationKind.enumType
             ? [
                 for (final m in members)
@@ -642,7 +574,7 @@ class _FileWriter {
           '/** A value of [${d.name}]. */',
           'export type ${d.name} = (typeof ${d.name})[keyof typeof ${d.name}];',
         ];
-      case _Shape.interface:
+      case IrShape.plainData:
         return [
           ...head,
           'export interface ${d.name}${d.typeParameters ?? ''} {',
@@ -653,9 +585,9 @@ class _FileWriter {
             ],
           '}',
         ];
-      case _Shape.entity:
+      case IrShape.entity:
         return _entity(e, members, head);
-      case _Shape.layout:
+      case IrShape.layout:
         declared.add('${d.name}View');
         external.add("import type { ReactElement } from 'react';");
         final cs = irMarker(d, 'CsLayout');
@@ -671,7 +603,7 @@ class _FileWriter {
           '  throw new Error(${jsonEncode('not implemented: layout $id')});',
           '}',
         ];
-      case _Shape.contract:
+      case IrShape.contract:
         final superclass = d.superclass;
         final extendsClause = superclass == null
             ? ''
@@ -696,7 +628,7 @@ class _FileWriter {
             '}',
           ],
         ];
-      case _Shape.classType:
+      case IrShape.classType || IrShape.serviceUnit:
         return [
           ...head,
           'export ${d.isAbstract ? 'abstract ' : ''}class ${d.name}'
@@ -707,7 +639,7 @@ class _FileWriter {
               ..._method(e, m, typeParameters),
           '}',
         ];
-      case _Shape.variable:
+      case IrShape.variable:
         final c = file.file.constructions
             .where((c) => c.holder == d.name)
             .firstOrNull;
@@ -821,13 +753,13 @@ class _FileWriter {
     final d = e.declaration;
     final table =
         irString(irMarker(d, 'CsTable')?.positional.firstOrNull) ??
-        _snake(d.name);
+        irSnake(d.name);
     final builders = <String>{};
     final columns = <String>[];
     for (final m in members) {
       if (m.kind != CsDeclarationKind.field || m.isStatic) continue;
       final col = irMarker(m, 'CsColumn');
-      final name = irString(col?.named['column']) ?? _snake(m.name);
+      final name = irString(col?.named['column']) ?? irSnake(m.name);
       final sqlType = irString(col?.named['columnType']);
       final type = m.declaredType ?? 'String';
       final (builder, call) = _column(name, sqlType, type);
@@ -973,10 +905,6 @@ String _relative(String from, String to) {
   final rest = toParts.sublist(common).join('/');
   return ups == 0 ? './$rest' : '${'../' * ups}$rest';
 }
-
-String _snake(String s) => s
-    .replaceAllMapped(RegExp('([a-z0-9])([A-Z])'), (m) => '${m[1]}_${m[2]}')
-    .toLowerCase();
 
 // ---------------------------------------------------------------------------
 // The API client and the routes, from the OpenAPI document

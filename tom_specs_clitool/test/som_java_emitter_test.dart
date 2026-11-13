@@ -5,6 +5,8 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
+import 'support/java_toolchain.dart';
+
 /// The same hand-built spec-model meta-data the Dart/Python emitter tests pin,
 /// reused here so all three emitters are exercised against an identical model
 /// covering every field kind. `modelVersion` is `0` so the generated `v0` model
@@ -189,17 +191,6 @@ Map<String, dynamic> _formCollisionJson() => {
   },
 };
 
-/// Locates a `javac` compiler, or `null` when none is on PATH.
-String? _javac() {
-  try {
-    final r = Process.runSync('javac', ['-version']);
-    if (r.exitCode == 0) return 'javac';
-  } on ProcessException {
-    // none on PATH
-  }
-  return null;
-}
-
 /// The `tom_som_java_runtime/src` directory, relative to the clitool root the
 /// test runs from, or `null` when it cannot be located.
 String? _runtimeSrc() {
@@ -255,9 +246,9 @@ void main() {
     );
 
     test('the generated source compiles against the runtime (javac)', () {
-      final javac = _javac();
+      final javac = findJavac();
       if (javac == null) {
-        markTestSkipped('no javac on PATH');
+        markTestSkipped('no javac found');
         return;
       }
       final runtimeSrc = _runtimeSrc();

@@ -442,6 +442,8 @@ export 'src/irspecs/ir_yaml.dart';
 export 'src/irspecs/irspecs_cli.dart';
 export 'src/irspecs/mappers/dart_tom/dart_tom_mapper.dart';
 export 'src/irspecs/mappers/go/go_mapper.dart';
+export 'src/irspecs/mappers/java/java_spring_mapper.dart';
+export 'src/irspecs/mappers/mapper_common.dart';
 export 'src/irspecs/mappers/ts/ts_mapper.dart';
 // The public-API dartdoc coverage gate — the `tom_specs_documentation_standard.md` §5 bars of
 // tom_specs_documentation_standard.md, held against reality by a walker over
