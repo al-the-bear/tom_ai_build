@@ -653,14 +653,14 @@ packages:
       path: "../tom_som_dart_runtime"
       relative: true
     source: path
-    version: "1.11.0"
+    version: "1.10.0"
   tom_som_dart_v0:
     dependency: "direct main"
     description:
       path: "../tom_som_dart_v0"
       relative: true
     source: path
-    version: "1.11.0"
+    version: "1.10.0"
   tom_specs_core:
     dependency: "direct main"
     description:
