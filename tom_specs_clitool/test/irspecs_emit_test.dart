@@ -45,9 +45,30 @@ List<IrDocument> _ir(String root, String prefix) {
   return [for (final d in documents) readIrYaml(writeIrYaml(d))];
 }
 
+final String _python = Platform.isWindows ? 'py' : 'python3';
+
+/// Why the vendored validator cannot run here — no Python, or one without
+/// `jsonschema` and `referencing` (`tool/standards/README.md`) — or `null`
+/// when it can.
+final String? _noValidator = () {
+  try {
+    final r = Process.runSync(_python, [
+      if (Platform.isWindows) '-3',
+      '-c',
+      'import jsonschema, referencing',
+    ]);
+    return r.exitCode == 0
+        ? null
+        : 'the validator needs Python with jsonschema and referencing '
+              '(tool/standards/README.md): ${'${r.stderr}'.trim().split('\n').last}';
+  } on ProcessException {
+    return 'the validator needs Python ($_python is not on the PATH)';
+  }
+}();
+
 /// Runs the vendored validator over [file]; returns its exit code and output.
 ({int code, String output}) _validate(String standard, String file) {
-  final python = Platform.isWindows ? 'py' : 'python3';
+  final python = _python;
   final result = Process.runSync(python, [
     if (Platform.isWindows) '-3',
     _validator,
@@ -104,7 +125,7 @@ void main() {
           ..writeAsStringSync(emission.files.values.single);
         final result = _validate(standard, file.path);
         expect(result.code, 0, reason: result.output);
-      });
+      }, skip: _noValidator ?? false);
     }
 
     test('icu: every message parses as ICU MessageFormat', () {
@@ -143,7 +164,7 @@ void main() {
       expect(result.code, 1);
       expect(result.output, contains("'version' is a required property"));
       expect(result.output, contains('objectx'));
-    });
+    }, skip: _noValidator ?? false);
   });
 
   group('IRE2: what the documents say', () {
@@ -366,8 +387,12 @@ class CloseTheDay {}
     ]);
     final file = File(p.join(scratch.path, 'asyncapi_jobs.json'))
       ..writeAsStringSync(emission.files.values.single);
-    final result = _validate('asyncapi', file.path);
-    expect(result.code, 0, reason: result.output);
+    // The meta-schema check needs the vendored validator; the references
+    // resolve whatever the host carries.
+    if (_noValidator == null) {
+      final result = _validate('asyncapi', file.path);
+      expect(result.code, 0, reason: result.output);
+    }
     for (final ref in _refs(doc)) {
       expect(_resolves(doc, ref), isTrue, reason: ref);
     }
