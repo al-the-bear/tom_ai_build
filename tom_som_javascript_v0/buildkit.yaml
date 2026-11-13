@@ -1,0 +1,4 @@
+# buildkit :build / :test / :clean for tom_som_javascript_v0: the commands its own scripts run
+# (the language's defaults do not cover its unit tests beside the conformance runner).
+
+test: ./run_tests.sh

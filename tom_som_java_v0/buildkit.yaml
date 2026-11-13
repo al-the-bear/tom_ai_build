@@ -1,0 +1,6 @@
+# buildkit :build / :test / :clean for tom_som_java_v0: the commands its own scripts run
+# (the language's defaults do not cover a javac build: the project does not use Maven).
+
+build: ./build_jar.sh
+test: ./run_tests.sh
+clean: rm -rf build target

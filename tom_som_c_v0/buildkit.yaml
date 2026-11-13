@@ -1,0 +1,4 @@
+# buildkit :build / :test / :clean for tom_som_c_v0: the commands its own scripts run
+# (the language's defaults do not cover a test target: its Makefile has none).
+
+test: ./run_tests.sh

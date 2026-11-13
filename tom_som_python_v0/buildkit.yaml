@@ -1,0 +1,4 @@
+# buildkit :build / :test / :clean for tom_som_python_v0: the commands its own scripts run
+# (the language's defaults do not cover tests that are plain scripts).
+
+test: ./run_tests.sh
