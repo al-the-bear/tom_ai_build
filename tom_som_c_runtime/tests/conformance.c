@@ -2555,6 +2555,19 @@ static void test_codespecs_extract(Checker *c, const SpecModel *model) {
         snprintf(detail, sizeof(detail), "%s != %s", efs[f].got, efs[f].want);
         check(c, et, strcmp(efs[f].got, efs[f].want) == 0, detail);
       }
+      /* The units the entry goes to: the nearest stored ones, else the
+       * register's default for the area (SOM §11.2). */
+      SomStrList want_units;
+      json_str_list(som_json_get(we, "units"), &want_units);
+      char *gu = som_strlist_join(&e->units, " ~ ");
+      char *wu = som_strlist_join(&want_units, " ~ ");
+      char ut[768];
+      snprintf(ut, sizeof(ut), "%s.units", etag);
+      snprintf(detail, sizeof(detail), "%s != %s", gu, wu);
+      check(c, ut, strlist_eq(&e->units, &want_units), detail);
+      free(gu);
+      free(wu);
+      som_strlist_free(&want_units);
     }
 
     char *yaml = spec_codespecs_extract_to_yaml(x);

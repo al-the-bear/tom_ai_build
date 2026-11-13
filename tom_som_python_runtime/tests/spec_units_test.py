@@ -34,6 +34,8 @@ from tom_som_runtime import (  # noqa: E402
     SpecYamlFormatException,
     build_som_meta_tree,
     parse_code_specs_extract_yaml,
+    spec_default_units,
+    spec_generation_units,
     validate_document,
     yaml_encode,
 )
@@ -564,6 +566,58 @@ def test_extract_write_read() -> None:
     _check("extract.read.roundTrip", back.to_yaml() == y)
 
 
+# --- the register (spec_generation_units) ---------------------------------
+
+
+def test_register_units() -> None:
+    """Units in register order, each with its own mappings."""
+    model = _corpus_model()
+    d = _register()
+    d.set_form_field("DEMO/DLV-LST-1/content", "kind", "client")
+    for unit, area, mapping in [
+        ("DEMO/DLV-LST-1", "CE-NV", "dart-tom"),
+        ("DEMO/DLV-LST-1", "CE-TX", " ts-react "),
+        ("DEMO/DLV-LST-2", "CE-NV", "dart-tom"),
+    ]:
+        r = d.add_list_item(f"{unit}/DLR-LST")
+        d.set_form_field(f"{r}/content", "area", area)
+        d.set_form_field(f"{r}/content", "mapping", mapping)
+    units = spec_generation_units(model, d)
+    ids = [u.unit_id for u in units]
+    _check("register.ids", ids == ["u_a", "u_b"], str(ids))
+    _check("register.kind", units[0].kind == "client", units[0].kind)
+    _check("register.path", units[0].path == "DEMO/DLV-LST-1", units[0].path)
+    pairs = [(m.area, m.mapping) for m in units[0].mappings]
+    _check("register.mappings",
+           pairs == [("CE-NV", "dart-tom"), ("CE-TX", "ts-react")],
+           str(pairs))
+    _check("register.mappingFor",
+           units[0].mapping_for("CE-TX") == "ts-react")
+    _check("register.mappingFor.none",
+           units[-1].mapping_for("CE-TX") is None)
+    _check("register.default.NV",
+           spec_default_units(units, "CE-NV") == ["u_a", "u_b"])
+    _check("register.default.TX",
+           spec_default_units(units, "CE-TX") == ["u_a"])
+    _check("register.default.DB", spec_default_units(units, "CE-DB") == [])
+
+
+def test_register_skipped() -> None:
+    """A unit without an id, and a second unit of one id, are left out."""
+    d = _register()
+    d.add_list_item("DEMO/DLV-LST")
+    dup = d.add_list_item("DEMO/DLV-LST")
+    d.set_form_field(f"{dup}/content", "unitId", "u_a")
+    ids = [u.unit_id for u in spec_generation_units(_corpus_model(), d)]
+    _check("register.skipped", ids == ["u_a", "u_b"], str(ids))
+
+
+def test_register_none() -> None:
+    """A document without a register declares none."""
+    _check("register.none",
+           spec_generation_units(_corpus_model(), SpecDocument()) == [])
+
+
 def main() -> int:
     for t in (
         test_store,
@@ -588,6 +642,9 @@ def main() -> int:
         test_extract_units_inherited,
         test_extract_no_units,
         test_extract_write_read,
+        test_register_units,
+        test_register_skipped,
+        test_register_none,
     ):
         try:
             t()

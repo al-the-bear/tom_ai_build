@@ -100,6 +100,12 @@ const {
   CodeSpecsCarrier,
 } = require('./spec_codespecs_extract');
 const {
+  SpecGenerationUnitMapping,
+  SpecGenerationUnit,
+  specGenerationUnits,
+  specDefaultUnits,
+} = require('./spec_generation_units');
+const {
   CodeSpecsGate,
   CodeSpecsGateCheck,
   CodeSpecsGateFinding,
@@ -334,6 +340,11 @@ module.exports = {
   CodeSpecsGateFinding,
   CodeSpecsGateCheckResult,
   CodeSpecsGateReport,
+  // the generation-unit register (SOM §11.2)
+  SpecGenerationUnitMapping,
+  SpecGenerationUnit,
+  specGenerationUnits,
+  specDefaultUnits,
   // typed-value store boundary
   somScalarBase,
   somTypedTextReadable,

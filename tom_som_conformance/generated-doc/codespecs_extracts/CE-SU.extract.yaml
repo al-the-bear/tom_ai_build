@@ -27,6 +27,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Order"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -38,6 +39,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "mom_order"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -49,6 +51,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "ORD"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -60,6 +63,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06."
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -71,6 +75,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Entity"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -82,6 +87,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Transactional"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -93,6 +99,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Ordering"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -104,6 +111,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Order"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -115,6 +123,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Order Management"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -126,6 +135,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Head of Order Operations"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -137,6 +147,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "MOM"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -148,6 +159,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "OrderLine"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -159,6 +171,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "mom_order_line"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -170,6 +183,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "OLN"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -181,6 +195,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "A single product/quantity within an order, with a snapshotted price. Realizes FR-02, FR-03, FR-05."
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -192,6 +207,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Entity"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -203,6 +219,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Transactional"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -214,6 +231,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Ordering"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -225,6 +243,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Order"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -236,6 +255,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Order Management"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -247,6 +267,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Head of Order Operations"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -258,6 +279,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "MOM"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -269,6 +291,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Customer"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -280,6 +303,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "mom_customer"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -291,6 +315,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "CUS"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -302,6 +327,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "A wholesale or e-commerce customer that places orders. Realizes FR-01."
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -313,6 +339,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Entity"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -324,6 +351,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Master"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -335,6 +363,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Customer"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -346,6 +375,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Customer"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -357,6 +387,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Customer Management"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -368,6 +399,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Commercial"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -379,6 +411,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "MOM"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -390,6 +423,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Product"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -401,6 +435,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "mom_product"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -412,6 +447,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "PRD"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -423,6 +459,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03."
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -434,6 +471,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Entity"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -445,6 +483,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Master"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -456,6 +495,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Catalogue"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -467,6 +507,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Product"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -478,6 +519,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Merchandising"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -489,6 +531,7 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Merchandising"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -500,4 +543,5 @@ extract:
       routedBy: "CodeSpecPart.serviceUnit"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "MOM"

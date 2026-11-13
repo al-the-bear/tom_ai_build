@@ -2084,6 +2084,12 @@ fn test_codespecs_extract(c: &mut Checker, model: &SpecModel) {
                 e.routing_note == want_note,
                 &format!("{:?} != {:?}", e.routing_note, want_note),
             );
+            let want_units = str_list(we.get("units"));
+            c.check(
+                &format!("{}.units", etag),
+                e.units == want_units,
+                &format!("{:?} != {:?}", e.units, want_units),
+            );
             c.check(
                 &format!("{}.value", etag),
                 e.value == we.str_or("value"),

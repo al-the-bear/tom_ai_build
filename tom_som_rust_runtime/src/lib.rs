@@ -25,6 +25,7 @@ pub mod spec_document_assembly;
 pub mod spec_document_markdown;
 pub mod spec_document_yaml;
 pub mod spec_editor;
+pub mod spec_generation_units;
 pub mod spec_meta;
 pub mod spec_meta_bridge;
 pub mod spec_meta_diff;
@@ -103,6 +104,9 @@ pub use spec_document_yaml::{
     SpecYamlError, SpecYamlFormatException, FORMAT_VERSION,
 };
 pub use spec_editor::{SomValue, SpecEditor};
+pub use spec_generation_units::{
+    spec_default_units, spec_generation_units, SpecGenerationUnit, SpecGenerationUnitMapping,
+};
 pub use spec_meta::{
     SomContentTypeMeta, SomDocMeta, SomFormFieldMeta, SomFormMeta, SomListMetaRef, SomMetaExtra,
     SomMetaNode, SomMetaRef, SomMetaTree, SOM_META_KIND_COMPLEX,

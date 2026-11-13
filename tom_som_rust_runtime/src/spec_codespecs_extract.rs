@@ -50,6 +50,7 @@ use std::fmt;
 
 use crate::json::Json;
 use crate::spec_document::SpecDocument;
+use crate::spec_generation_units::{spec_default_units, spec_generation_units, SpecGenerationUnit};
 use crate::spec_model::{
     SpecClass, SpecField, SpecModel, SpecRoot, SPEC_FIELD_KIND_COMPLEX, SPEC_FIELD_KIND_CONTENT,
     SPEC_FIELD_KIND_ENUM, SPEC_FIELD_KIND_FORM, SPEC_FIELD_KIND_LIST, SPEC_FIELD_KIND_SCALAR,
@@ -68,9 +69,11 @@ use crate::spec_reflection::SpecReflection;
 /// **stored** section id (the `<!--[…]-->` id the document serializes),
 /// copy-only; null when no enclosing instance stores one.
 ///
-/// Entries may carry `units` — the nearest stored generation units (SOM §11.2)
-/// at the entry's path or above it. The key is written only when non-empty and
-/// reads as empty when absent, so it is additive and the version stays 3.
+/// Entries may carry `units` — the generation units the entry goes to (SOM
+/// §11.2): the nearest stored units at the entry's path or above it, else the
+/// units of the document's register whose mappings hold the entry's area. The
+/// key is written only when non-empty and reads as empty when absent, so it is
+/// additive and the version stays 3.
 pub const CODE_SPECS_EXTRACT_FORMAT: i64 = 3;
 
 /// The annotation names of the three routing verdicts (`codespecs_mapping.md`
@@ -220,9 +223,11 @@ pub struct CodeSpecsExtractEntry {
 
     /// The generation units the entry goes to (SOM §11.2,
     /// `codespecs_mapping.md` §1.1.1): the nearest stored `units` at the
-    /// entry's path or any ancestor path, split at its commas. Empty when no
-    /// section on the way stores one — the default, every unit with a mapping
-    /// for the entry's area. Copy-only like `instance_id`.
+    /// entry's path or any ancestor path, split at its commas; when no section
+    /// on the way stores one, the default — every unit of the document's
+    /// register with a mapping for the entry's area, in register order
+    /// ([`spec_generation_units`]). Empty when the document declares no unit
+    /// that holds the area.
     pub units: Vec<String>,
 
     /// The stored value, **verbatim**. Never assembled, reformatted or trimmed.
@@ -1316,6 +1321,9 @@ pub struct CodeSpecsExtractor<'d, 'm> {
     /// Resolved once, by the constructor, so [`Self::routings`] and
     /// [`Self::extract_all`] cannot disagree about what was walked.
     pub root: &'m SpecRoot,
+
+    /// The document's generation units ([`spec_generation_units`]), read once.
+    units: Vec<SpecGenerationUnit>,
 }
 
 impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
@@ -1340,11 +1348,13 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
     ) -> Result<CodeSpecsExtractor<'d, 'm>, CodeSpecsExtractError> {
         let root = resolve_code_specs_root(reflection.model, document, root_type)?;
         refuse_code_specs_projection(reflection.model, root)?;
+        let units = spec_generation_units(reflection.model, document);
         Ok(CodeSpecsExtractor {
             document,
             reflection,
             catalog,
             root,
+            units,
         })
     }
 
@@ -1645,11 +1655,16 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
             Some(v) if !v.is_empty() => v,
             _ => return,
         };
-        let unit_ids = crate::spec_validator::split_units(units);
+        let stored = crate::spec_validator::split_units(units);
         for kind in &routing.values {
             let area = match self.catalog.by_part(kind) {
                 Some(a) if a.active => a,
                 _ => continue,
+            };
+            let unit_ids = if stored.is_empty() {
+                spec_default_units(&self.units, &area.code)
+            } else {
+                stored.clone()
             };
             entries.push(CodeSpecsExtractEntry {
                 area_code: area.code.clone(),
@@ -1663,7 +1678,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
                 routed_by: area.kind_value(),
                 routed_at: routing.declared_at.clone(),
                 routing_note: routing.note.clone(),
-                units: unit_ids.clone(),
+                units: unit_ids,
                 value: value.clone(),
             });
         }

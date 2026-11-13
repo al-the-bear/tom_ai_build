@@ -27,6 +27,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataModel"
       routingNote: null
+      units: ["meridian_codespec_server"]
       value: "The relational core of MOM.\n\nOrder is the aggregate root; each Order owns its OrderLines and references a\nCustomer and, per line, a Product. Prices are snapshotted onto lines so\nhistorical orders remain reproducible."
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -38,6 +39,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Order"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -49,6 +51,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "mom_order"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -60,6 +63,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "ORD"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -71,6 +75,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06."
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -82,6 +87,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Entity"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -93,6 +99,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Transactional"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -104,6 +111,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Ordering"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -115,6 +123,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Order"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -126,6 +135,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Order Management"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -137,6 +147,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Head of Order Operations"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -148,6 +159,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "MOM"
     - sectionId: "DAATT-IDEN"
       headline: "orderId"
@@ -159,6 +171,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "order_id"
     - sectionId: "DAATT-IDEN"
       headline: "orderId"
@@ -170,6 +183,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "Stable order identifier."
     - sectionId: "DAATT-DATA"
       headline: "orderId"
@@ -181,6 +195,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "uuid"
     - sectionId: "DAATT-DATA"
       headline: "orderId"
@@ -192,6 +207,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "uuid"
     - sectionId: "DAATT-SECU"
       headline: "orderId"
@@ -203,6 +219,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "DCLSE-ITEM-1"
     - sectionId: "DAATT-SECU"
       headline: "orderId"
@@ -214,6 +231,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "false"
     - sectionId: "DAATT-IDEN"
       headline: "customerId"
@@ -225,6 +243,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "customer_id"
     - sectionId: "DAATT-IDEN"
       headline: "customerId"
@@ -236,6 +255,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "Reference to the ordering customer."
     - sectionId: "DAATT-DATA"
       headline: "customerId"
@@ -247,6 +267,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "uuid"
     - sectionId: "DAATT-DATA"
       headline: "customerId"
@@ -258,6 +279,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "uuid"
     - sectionId: "DAATT-SECU"
       headline: "customerId"
@@ -269,6 +291,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "DCLSE-ITEM-1"
     - sectionId: "DAATT-SECU"
       headline: "customerId"
@@ -280,6 +303,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "false"
     - sectionId: "DAATT-IDEN"
       headline: "channel"
@@ -291,6 +315,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "channel"
     - sectionId: "DAATT-IDEN"
       headline: "channel"
@@ -302,6 +327,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "Capture channel: EDI or REST."
     - sectionId: "DAATT-DATA"
       headline: "channel"
@@ -313,6 +339,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "enumeration"
     - sectionId: "DAATT-DATA"
       headline: "channel"
@@ -324,6 +351,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "varchar(8)"
     - sectionId: "DAATT-DTEN"
       headline: "channel"
@@ -335,6 +363,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "OrderChannel"
     - sectionId: "DAATT-SECU"
       headline: "channel"
@@ -346,6 +375,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "DCLSE-ITEM-1"
     - sectionId: "DAATT-SECU"
       headline: "channel"
@@ -357,6 +387,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "false"
     - sectionId: "DAATT-IDEN"
       headline: "status"
@@ -368,6 +399,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "status"
     - sectionId: "DAATT-IDEN"
       headline: "status"
@@ -379,6 +411,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "Lifecycle state (Captured..Closed, with Hold)."
     - sectionId: "DAATT-DATA"
       headline: "status"
@@ -390,6 +423,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "enumeration"
     - sectionId: "DAATT-DATA"
       headline: "status"
@@ -401,6 +435,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "varchar(16)"
     - sectionId: "DAATT-DTEN"
       headline: "status"
@@ -412,6 +447,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "OrderStatus"
     - sectionId: "DAATT-SECU"
       headline: "status"
@@ -423,6 +459,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "DCLSE-ITEM-1"
     - sectionId: "DAATT-SECU"
       headline: "status"
@@ -434,6 +471,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "false"
     - sectionId: "DAATT-IDEN"
       headline: "createdAt"
@@ -445,6 +483,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "created_at"
     - sectionId: "DAATT-IDEN"
       headline: "createdAt"
@@ -456,6 +495,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "Capture timestamp (UTC)."
     - sectionId: "DAATT-DATA"
       headline: "createdAt"
@@ -467,6 +507,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "dateTime"
     - sectionId: "DAATT-DATA"
       headline: "createdAt"
@@ -478,6 +519,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "timestamptz"
     - sectionId: "DAATT-SECU"
       headline: "createdAt"
@@ -489,6 +531,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "DCLSE-ITEM-1"
     - sectionId: "DAATT-SECU"
       headline: "createdAt"
@@ -500,6 +543,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "false"
     - sectionId: "content"
       headline: "pk_order"
@@ -511,6 +555,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "KeyAttributeEntry"
       routingNote: null
+      units: ["meridian_codespec_server"]
       value: "Primary"
     - sectionId: "content"
       headline: "pk_order"
@@ -522,6 +567,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "KeyAttributeEntry"
       routingNote: null
+      units: ["meridian_codespec_server"]
       value: "order_id"
     - sectionId: "content"
       headline: "pk_order"
@@ -533,6 +579,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "KeyAttributeEntry"
       routingNote: null
+      units: ["meridian_codespec_server"]
       value: "Primary key of the order."
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -544,6 +591,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "OrderLine"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -555,6 +603,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "mom_order_line"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -566,6 +615,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "OLN"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -577,6 +627,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "A single product/quantity within an order, with a snapshotted price. Realizes FR-02, FR-03, FR-05."
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -588,6 +639,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Entity"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -599,6 +651,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Transactional"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -610,6 +663,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Ordering"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -621,6 +675,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Order"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -632,6 +687,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Order Management"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -643,6 +699,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Head of Order Operations"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -654,6 +711,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "MOM"
     - sectionId: "DAATT-IDEN"
       headline: "lineId"
@@ -665,6 +723,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "line_id"
     - sectionId: "DAATT-IDEN"
       headline: "lineId"
@@ -676,6 +735,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "Stable line identifier."
     - sectionId: "DAATT-DATA"
       headline: "lineId"
@@ -687,6 +747,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "uuid"
     - sectionId: "DAATT-DATA"
       headline: "lineId"
@@ -698,6 +759,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "uuid"
     - sectionId: "DAATT-SECU"
       headline: "lineId"
@@ -709,6 +771,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "DCLSE-ITEM-1"
     - sectionId: "DAATT-SECU"
       headline: "lineId"
@@ -720,6 +783,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "false"
     - sectionId: "DAATT-IDEN"
       headline: "orderId"
@@ -731,6 +795,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "order_id"
     - sectionId: "DAATT-IDEN"
       headline: "orderId"
@@ -742,6 +807,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "Owning order reference."
     - sectionId: "DAATT-DATA"
       headline: "orderId"
@@ -753,6 +819,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "uuid"
     - sectionId: "DAATT-DATA"
       headline: "orderId"
@@ -764,6 +831,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "uuid"
     - sectionId: "DAATT-SECU"
       headline: "orderId"
@@ -775,6 +843,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "DCLSE-ITEM-1"
     - sectionId: "DAATT-SECU"
       headline: "orderId"
@@ -786,6 +855,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "false"
     - sectionId: "DAATT-IDEN"
       headline: "productId"
@@ -797,6 +867,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "product_id"
     - sectionId: "DAATT-IDEN"
       headline: "productId"
@@ -808,6 +879,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "Referenced product."
     - sectionId: "DAATT-DATA"
       headline: "productId"
@@ -819,6 +891,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "uuid"
     - sectionId: "DAATT-DATA"
       headline: "productId"
@@ -830,6 +903,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "uuid"
     - sectionId: "DAATT-SECU"
       headline: "productId"
@@ -841,6 +915,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "DCLSE-ITEM-1"
     - sectionId: "DAATT-SECU"
       headline: "productId"
@@ -852,6 +927,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "false"
     - sectionId: "DAATT-IDEN"
       headline: "quantity"
@@ -863,6 +939,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "quantity"
     - sectionId: "DAATT-IDEN"
       headline: "quantity"
@@ -874,6 +951,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "Ordered quantity."
     - sectionId: "DAATT-DATA"
       headline: "quantity"
@@ -885,6 +963,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "integer"
     - sectionId: "DAATT-DATA"
       headline: "quantity"
@@ -896,6 +975,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "int"
     - sectionId: "content"
       headline: "quantity-positive"
@@ -907,6 +987,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeConstraintEntry"
       routingNote: "Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them."
+      units: ["meridian_codespec_server"]
       value: "Required"
     - sectionId: "content"
       headline: "quantity-positive"
@@ -918,6 +999,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeConstraintEntry"
       routingNote: "Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them."
+      units: ["meridian_codespec_server"]
       value: "No"
     - sectionId: "content"
       headline: "quantity-positive"
@@ -929,6 +1011,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeConstraintEntry"
       routingNote: "Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them."
+      units: ["meridian_codespec_server"]
       value: "required, min:1"
     - sectionId: "content"
       headline: "quantity-positive"
@@ -940,6 +1023,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeConstraintEntry"
       routingNote: "Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them."
+      units: ["meridian_codespec_server"]
       value: "quantity > 0"
     - sectionId: "DAATT-SECU"
       headline: "quantity"
@@ -951,6 +1035,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "DCLSE-ITEM-1"
     - sectionId: "DAATT-SECU"
       headline: "quantity"
@@ -962,6 +1047,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "false"
     - sectionId: "DAATT-IDEN"
       headline: "unitPrice"
@@ -973,6 +1059,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "unit_price"
     - sectionId: "DAATT-IDEN"
       headline: "unitPrice"
@@ -984,6 +1071,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "Snapshotted unit price at pricing time."
     - sectionId: "DAATT-DATA"
       headline: "unitPrice"
@@ -995,6 +1083,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "decimal"
     - sectionId: "DAATT-DATA"
       headline: "unitPrice"
@@ -1006,6 +1095,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "numeric(12,2)"
     - sectionId: "content"
       headline: "unit-price-non-negative"
@@ -1017,6 +1107,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeConstraintEntry"
       routingNote: "Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them."
+      units: ["meridian_codespec_server"]
       value: "Required"
     - sectionId: "content"
       headline: "unit-price-non-negative"
@@ -1028,6 +1119,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeConstraintEntry"
       routingNote: "Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them."
+      units: ["meridian_codespec_server"]
       value: "No"
     - sectionId: "content"
       headline: "unit-price-non-negative"
@@ -1039,6 +1131,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeConstraintEntry"
       routingNote: "Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them."
+      units: ["meridian_codespec_server"]
       value: "required, min:0"
     - sectionId: "content"
       headline: "unit-price-non-negative"
@@ -1050,6 +1143,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeConstraintEntry"
       routingNote: "Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them."
+      units: ["meridian_codespec_server"]
       value: "unit_price >= 0"
     - sectionId: "DAATT-SECU"
       headline: "unitPrice"
@@ -1061,6 +1155,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "DCLSE-ITEM-1"
     - sectionId: "DAATT-SECU"
       headline: "unitPrice"
@@ -1072,6 +1167,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "false"
     - sectionId: "content"
       headline: "pk_order_line"
@@ -1083,6 +1179,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "KeyAttributeEntry"
       routingNote: null
+      units: ["meridian_codespec_server"]
       value: "Primary"
     - sectionId: "content"
       headline: "pk_order_line"
@@ -1094,6 +1191,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "KeyAttributeEntry"
       routingNote: null
+      units: ["meridian_codespec_server"]
       value: "line_id"
     - sectionId: "content"
       headline: "pk_order_line"
@@ -1105,6 +1203,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "KeyAttributeEntry"
       routingNote: null
+      units: ["meridian_codespec_server"]
       value: "Primary key of the order line."
     - sectionId: "content"
       headline: "fk_line_order"
@@ -1116,6 +1215,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "KeyAttributeEntry"
       routingNote: null
+      units: ["meridian_codespec_server"]
       value: "Foreign"
     - sectionId: "content"
       headline: "fk_line_order"
@@ -1127,6 +1227,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "KeyAttributeEntry"
       routingNote: null
+      units: ["meridian_codespec_server"]
       value: "order_id"
     - sectionId: "content"
       headline: "fk_line_order"
@@ -1138,6 +1239,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "KeyAttributeEntry"
       routingNote: null
+      units: ["meridian_codespec_server"]
       value: "References the owning order."
     - sectionId: "KEATT-REFE-REF"
       headline: "fk_line_order"
@@ -1149,6 +1251,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "KeyAttributeEntry"
       routingNote: null
+      units: ["meridian_codespec_server"]
       value: "DAENT-ENTI-1"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -1160,6 +1263,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Customer"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -1171,6 +1275,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "mom_customer"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -1182,6 +1287,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "CUS"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -1193,6 +1299,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "A wholesale or e-commerce customer that places orders. Realizes FR-01."
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -1204,6 +1311,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Entity"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -1215,6 +1323,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Master"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -1226,6 +1335,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Customer"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -1237,6 +1347,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Customer"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -1248,6 +1359,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Customer Management"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -1259,6 +1371,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Commercial"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -1270,6 +1383,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "MOM"
     - sectionId: "DAATT-IDEN"
       headline: "customerId"
@@ -1281,6 +1395,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "customer_id"
     - sectionId: "DAATT-IDEN"
       headline: "customerId"
@@ -1292,6 +1407,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "Stable customer identifier."
     - sectionId: "DAATT-DATA"
       headline: "customerId"
@@ -1303,6 +1419,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "uuid"
     - sectionId: "DAATT-DATA"
       headline: "customerId"
@@ -1314,6 +1431,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "uuid"
     - sectionId: "DAATT-SECU"
       headline: "customerId"
@@ -1325,6 +1443,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "DCLSE-ITEM-1"
     - sectionId: "DAATT-SECU"
       headline: "customerId"
@@ -1336,6 +1455,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "false"
     - sectionId: "DAATT-IDEN"
       headline: "name"
@@ -1347,6 +1467,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "name"
     - sectionId: "DAATT-IDEN"
       headline: "name"
@@ -1358,6 +1479,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "Customer legal name (PII)."
     - sectionId: "DAATT-DATA"
       headline: "name"
@@ -1369,6 +1491,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "string"
     - sectionId: "DAATT-DATA"
       headline: "name"
@@ -1380,6 +1503,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "varchar(200)"
     - sectionId: "DAATT-SECU"
       headline: "name"
@@ -1391,6 +1515,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "DCLSE-ITEM-2"
     - sectionId: "DAATT-SECU"
       headline: "name"
@@ -1402,6 +1527,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "true"
     - sectionId: "DAATT-IDEN"
       headline: "creditLimit"
@@ -1413,6 +1539,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "credit_limit"
     - sectionId: "DAATT-IDEN"
       headline: "creditLimit"
@@ -1424,6 +1551,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "Approved credit limit used by validation."
     - sectionId: "DAATT-DATA"
       headline: "creditLimit"
@@ -1435,6 +1563,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "decimal"
     - sectionId: "DAATT-DATA"
       headline: "creditLimit"
@@ -1446,6 +1575,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "numeric(14,2)"
     - sectionId: "content"
       headline: "credit-limit-non-negative"
@@ -1457,6 +1587,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeConstraintEntry"
       routingNote: "Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them."
+      units: ["meridian_codespec_server"]
       value: "Required"
     - sectionId: "content"
       headline: "credit-limit-non-negative"
@@ -1468,6 +1599,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeConstraintEntry"
       routingNote: "Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them."
+      units: ["meridian_codespec_server"]
       value: "No"
     - sectionId: "content"
       headline: "credit-limit-non-negative"
@@ -1479,6 +1611,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeConstraintEntry"
       routingNote: "Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them."
+      units: ["meridian_codespec_server"]
       value: "required, min:0"
     - sectionId: "content"
       headline: "credit-limit-non-negative"
@@ -1490,6 +1623,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeConstraintEntry"
       routingNote: "Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them."
+      units: ["meridian_codespec_server"]
       value: "credit_limit >= 0"
     - sectionId: "DAATT-SECU"
       headline: "creditLimit"
@@ -1501,6 +1635,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "DCLSE-ITEM-2"
     - sectionId: "DAATT-SECU"
       headline: "creditLimit"
@@ -1512,6 +1647,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "false"
     - sectionId: "content"
       headline: "pk_customer"
@@ -1523,6 +1659,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "KeyAttributeEntry"
       routingNote: null
+      units: ["meridian_codespec_server"]
       value: "Primary"
     - sectionId: "content"
       headline: "pk_customer"
@@ -1534,6 +1671,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "KeyAttributeEntry"
       routingNote: null
+      units: ["meridian_codespec_server"]
       value: "customer_id"
     - sectionId: "content"
       headline: "pk_customer"
@@ -1545,6 +1683,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "KeyAttributeEntry"
       routingNote: null
+      units: ["meridian_codespec_server"]
       value: "Primary key of the customer."
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -1556,6 +1695,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Product"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -1567,6 +1707,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "mom_product"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -1578,6 +1719,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "PRD"
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -1589,6 +1731,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03."
     - sectionId: "DAENT-IDEN"
       headline: null
@@ -1600,6 +1743,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Entity"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -1611,6 +1755,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Master"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -1622,6 +1767,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Catalogue"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -1633,6 +1779,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Product"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -1644,6 +1791,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Merchandising"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -1655,6 +1803,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "Merchandising"
     - sectionId: "DAENT-CLAS"
       headline: null
@@ -1666,6 +1815,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataEntityEntry"
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
       value: "MOM"
     - sectionId: "DAATT-IDEN"
       headline: "productId"
@@ -1677,6 +1827,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "product_id"
     - sectionId: "DAATT-IDEN"
       headline: "productId"
@@ -1688,6 +1839,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "Stable product identifier."
     - sectionId: "DAATT-DATA"
       headline: "productId"
@@ -1699,6 +1851,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "uuid"
     - sectionId: "DAATT-DATA"
       headline: "productId"
@@ -1710,6 +1863,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "uuid"
     - sectionId: "DAATT-SECU"
       headline: "productId"
@@ -1721,6 +1875,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "DCLSE-ITEM-1"
     - sectionId: "DAATT-SECU"
       headline: "productId"
@@ -1732,6 +1887,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "false"
     - sectionId: "DAATT-IDEN"
       headline: "sku"
@@ -1743,6 +1899,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "sku"
     - sectionId: "DAATT-IDEN"
       headline: "sku"
@@ -1754,6 +1911,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "Stock-keeping unit."
     - sectionId: "DAATT-DATA"
       headline: "sku"
@@ -1765,6 +1923,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "string"
     - sectionId: "DAATT-DATA"
       headline: "sku"
@@ -1776,6 +1935,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "varchar(40)"
     - sectionId: "content"
       headline: "sku-format"
@@ -1787,6 +1947,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeConstraintEntry"
       routingNote: "Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them."
+      units: ["meridian_codespec_server"]
       value: "Required"
     - sectionId: "content"
       headline: "sku-format"
@@ -1798,6 +1959,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeConstraintEntry"
       routingNote: "Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them."
+      units: ["meridian_codespec_server"]
       value: "No"
     - sectionId: "content"
       headline: "sku-format"
@@ -1809,6 +1971,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeConstraintEntry"
       routingNote: "Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them."
+      units: ["meridian_codespec_server"]
       value: "Unique"
     - sectionId: "content"
       headline: "sku-format"
@@ -1820,6 +1983,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeConstraintEntry"
       routingNote: "Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them."
+      units: ["meridian_codespec_server"]
       value: "required, pattern:^[A-Z0-9]{4}-[A-Z0-9]{4}$"
     - sectionId: "content"
       headline: "sku-format"
@@ -1831,6 +1995,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeConstraintEntry"
       routingNote: "Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them."
+      units: ["meridian_codespec_server"]
       value: "^[A-Z0-9]{4}-[A-Z0-9]{4}$"
     - sectionId: "DAATT-SECU"
       headline: "sku"
@@ -1842,6 +2007,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "DCLSE-ITEM-1"
     - sectionId: "DAATT-SECU"
       headline: "sku"
@@ -1853,6 +2019,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "false"
     - sectionId: "DAATT-IDEN"
       headline: "name"
@@ -1864,6 +2031,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "name"
     - sectionId: "DAATT-IDEN"
       headline: "name"
@@ -1875,6 +2043,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "Product display name."
     - sectionId: "DAATT-DATA"
       headline: "name"
@@ -1886,6 +2055,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "string"
     - sectionId: "DAATT-DATA"
       headline: "name"
@@ -1897,6 +2067,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "varchar(200)"
     - sectionId: "DAATT-SECU"
       headline: "name"
@@ -1908,6 +2079,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "DCLSE-ITEM-1"
     - sectionId: "DAATT-SECU"
       headline: "name"
@@ -1919,6 +2091,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11)."
+      units: ["meridian_codespec_server"]
       value: "false"
     - sectionId: "content"
       headline: "pk_product"
@@ -1930,6 +2103,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "KeyAttributeEntry"
       routingNote: null
+      units: ["meridian_codespec_server"]
       value: "Primary"
     - sectionId: "content"
       headline: "pk_product"
@@ -1941,6 +2115,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "KeyAttributeEntry"
       routingNote: null
+      units: ["meridian_codespec_server"]
       value: "product_id"
     - sectionId: "content"
       headline: "pk_product"
@@ -1952,6 +2127,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "KeyAttributeEntry"
       routingNote: null
+      units: ["meridian_codespec_server"]
       value: "Primary key of the product."
     - sectionId: "content"
       headline: null
@@ -1963,6 +2139,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationships"
       routingNote: null
+      units: ["meridian_codespec_server"]
       value: "The foreign-key relationships binding the ordering core together."
     - sectionId: "ENRLE-IDEN"
       headline: "Order-owns-Lines"
@@ -1974,6 +2151,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "Composition"
     - sectionId: "ENRLE-IDEN"
       headline: "Order-owns-Lines"
@@ -1985,6 +2163,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "An order owns one or more order lines."
     - sectionId: "ENRLE-IDEN"
       headline: "Order-owns-Lines"
@@ -1996,6 +2175,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "Maintains referential integrity across the ordering core."
     - sectionId: "ENRLE-IDEN"
       headline: "Order-owns-Lines"
@@ -2007,6 +2187,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "Foreign Key"
     - sectionId: "ENRLE-CARD"
       headline: "Order-owns-Lines"
@@ -2018,6 +2199,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "1"
     - sectionId: "ENRLE-CARD"
       headline: "Order-owns-Lines"
@@ -2029,6 +2211,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "1..*"
     - sectionId: "ENRLE-NAVI"
       headline: "Order-owns-Lines"
@@ -2040,6 +2223,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "Bidirectional"
     - sectionId: "ENRLE-NAVI"
       headline: "Order-owns-Lines"
@@ -2051,6 +2235,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "mom_order_line.order_id"
     - sectionId: "ENRLE-SOUR-REF"
       headline: "Order-owns-Lines"
@@ -2062,6 +2247,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "DAENT-ENTI-1"
     - sectionId: "ENRLE-TARG-REF"
       headline: "Order-owns-Lines"
@@ -2073,6 +2259,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "DAENT-ENTI-2"
     - sectionId: "ENRLE-IDEN"
       headline: "Order-placed-by-Customer"
@@ -2084,6 +2271,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "Association"
     - sectionId: "ENRLE-IDEN"
       headline: "Order-placed-by-Customer"
@@ -2095,6 +2283,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "Each order is placed by exactly one customer."
     - sectionId: "ENRLE-IDEN"
       headline: "Order-placed-by-Customer"
@@ -2106,6 +2295,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "Maintains referential integrity across the ordering core."
     - sectionId: "ENRLE-IDEN"
       headline: "Order-placed-by-Customer"
@@ -2117,6 +2307,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "Foreign Key"
     - sectionId: "ENRLE-CARD"
       headline: "Order-placed-by-Customer"
@@ -2128,6 +2319,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "*"
     - sectionId: "ENRLE-CARD"
       headline: "Order-placed-by-Customer"
@@ -2139,6 +2331,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "1"
     - sectionId: "ENRLE-NAVI"
       headline: "Order-placed-by-Customer"
@@ -2150,6 +2343,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "Bidirectional"
     - sectionId: "ENRLE-NAVI"
       headline: "Order-placed-by-Customer"
@@ -2161,6 +2355,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "mom_order.customer_id"
     - sectionId: "ENRLE-SOUR-REF"
       headline: "Order-placed-by-Customer"
@@ -2172,6 +2367,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "DAENT-ENTI-1"
     - sectionId: "ENRLE-TARG-REF"
       headline: "Order-placed-by-Customer"
@@ -2183,6 +2379,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "DAENT-ENTI-3"
     - sectionId: "ENRLE-IDEN"
       headline: "Line-references-Product"
@@ -2194,6 +2391,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "Association"
     - sectionId: "ENRLE-IDEN"
       headline: "Line-references-Product"
@@ -2205,6 +2403,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "Each order line references exactly one product."
     - sectionId: "ENRLE-IDEN"
       headline: "Line-references-Product"
@@ -2216,6 +2415,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "Maintains referential integrity across the ordering core."
     - sectionId: "ENRLE-IDEN"
       headline: "Line-references-Product"
@@ -2227,6 +2427,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "Foreign Key"
     - sectionId: "ENRLE-CARD"
       headline: "Line-references-Product"
@@ -2238,6 +2439,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "*"
     - sectionId: "ENRLE-CARD"
       headline: "Line-references-Product"
@@ -2249,6 +2451,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "1"
     - sectionId: "ENRLE-NAVI"
       headline: "Line-references-Product"
@@ -2260,6 +2463,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "Bidirectional"
     - sectionId: "ENRLE-NAVI"
       headline: "Line-references-Product"
@@ -2271,6 +2475,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "mom_order_line.product_id"
     - sectionId: "ENRLE-SOUR-REF"
       headline: "Line-references-Product"
@@ -2282,6 +2487,7 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "DAENT-ENTI-2"
     - sectionId: "ENRLE-TARG-REF"
       headline: "Line-references-Product"
@@ -2293,4 +2499,5 @@ extract:
       routedBy: "CodeSpecPart.dataAccess"
       routedAt: "EntityRelationshipEntry"
       routingNote: "Foreign-key / association between tables."
+      units: ["meridian_codespec_server"]
       value: "DAENT-ENTI-4"

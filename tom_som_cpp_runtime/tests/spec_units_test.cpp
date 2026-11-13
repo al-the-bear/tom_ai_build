@@ -17,6 +17,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <memory>
+#include <optional>
 #include <sstream>
 #include <string>
 #include <tuple>
@@ -28,6 +29,7 @@
 #include "spec_document_assembly.hpp"
 #include "spec_document_markdown.hpp"
 #include "spec_document_yaml.hpp"
+#include "spec_generation_units.hpp"
 #include "spec_meta.hpp"
 #include "spec_meta_bridge.hpp"
 #include "spec_model.hpp"
@@ -574,6 +576,68 @@ void testValidation() {
   }
 }
 
+/* The register (specGenerationUnits): Dart's `the register
+ * (specGenerationUnits)` group. */
+void testRegister() {
+  {
+    som::SpecDocument d = registerDoc();
+    d.setFormField("DEMO/DLV-LST-1/content", "kind", "client");
+    const std::vector<std::tuple<std::string, std::string, std::string>> routes =
+        {{"DEMO/DLV-LST-1", "CE-NV", "dart-tom"},
+         {"DEMO/DLV-LST-1", "CE-TX", " ts-react "},
+         {"DEMO/DLV-LST-2", "CE-NV", "dart-tom"}};
+    for (const auto& [unit, area, mapping] : routes) {
+      const std::string r = d.addListItem(unit + "/DLR-LST");
+      d.setFormField(r + "/content", "area", area);
+      d.setFormField(r + "/content", "mapping", mapping);
+    }
+    const std::vector<som::SpecGenerationUnit> units =
+        som::specGenerationUnits(*g_model, d);
+    std::vector<std::string> ids;
+    for (const som::SpecGenerationUnit& u : units) ids.push_back(u.unitId);
+    check("register.ids", joined(ids) == "u_a,u_b", joined(ids));
+    if (units.size() == 2) {
+      check("register.kind", units.front().kind == "client", units.front().kind);
+      check("register.path", units.front().path == "DEMO/DLV-LST-1",
+            units.front().path);
+      std::vector<std::string> pairs;
+      for (const som::SpecGenerationUnitMapping& m : units.front().mappings) {
+        pairs.push_back(m.area + "=" + m.mapping);
+      }
+      check("register.mappings", joined(pairs) == "CE-NV=dart-tom,CE-TX=ts-react",
+            joined(pairs));
+      check("register.mappingFor",
+            units.front().mappingFor("CE-TX") == std::optional<std::string>("ts-react"));
+      check("register.mappingFor.absent",
+            !units.back().mappingFor("CE-TX").has_value());
+    }
+    check("register.default.NV",
+          joined(som::specDefaultUnits(units, "CE-NV")) == "u_a,u_b",
+          joined(som::specDefaultUnits(units, "CE-NV")));
+    check("register.default.TX",
+          joined(som::specDefaultUnits(units, "CE-TX")) == "u_a",
+          joined(som::specDefaultUnits(units, "CE-TX")));
+    check("register.default.DB", som::specDefaultUnits(units, "CE-DB").empty());
+  }
+  {
+    // A unit without an id, and a second unit of one id, are left out.
+    som::SpecDocument d = registerDoc();
+    d.addListItem("DEMO/DLV-LST");
+    const std::string dup = d.addListItem("DEMO/DLV-LST");
+    d.setFormField(dup + "/content", "unitId", "u_a");
+    std::vector<std::string> ids;
+    for (const som::SpecGenerationUnit& u : som::specGenerationUnits(*g_model, d)) {
+      ids.push_back(u.unitId);
+    }
+    check("register.skipped", joined(ids) == "u_a,u_b", joined(ids));
+  }
+  {
+    // A document without a register declares none.
+    som::SpecDocument d;
+    check("register.none", som::specGenerationUnits(*g_model, d).empty());
+  }
+}
+
 }  // namespace
 
 int main() {
@@ -594,6 +658,7 @@ int main() {
   testYaml();
   testAssemblyAndMerge();
   testValidation();
+  testRegister();
 
   if (g_failures == 0) {
     std::printf("spec_units_test: all %d checks passed\n", g_checks);

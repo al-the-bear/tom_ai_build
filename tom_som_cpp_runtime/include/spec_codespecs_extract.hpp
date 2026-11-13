@@ -58,6 +58,7 @@
 
 #include "som_json.hpp"
 #include "spec_document.hpp"
+#include "spec_generation_units.hpp"
 #include "spec_model.hpp"
 #include "spec_reflection.hpp"
 
@@ -73,9 +74,11 @@ namespace som {
  * **stored** section id (the `<!--[…]-->` id the document serializes),
  * copy-only; null when no enclosing instance stores one.
  *
- * Entries may carry `units` — the nearest stored generation units (SOM §11.2)
- * at the entry's path or above it. The key is written only when non-empty and
- * reads as empty when absent, so it is additive and the version stays 3. */
+ * Entries may carry `units` — the generation units the entry goes to (SOM
+ * §11.2): the nearest stored units at the entry's path or above it, else the
+ * units of the document's register whose mappings hold the entry's area. The
+ * key is written only when non-empty and reads as empty when absent, so it is
+ * additive and the version stays 3. */
 inline constexpr long long kCodeSpecsExtractFormat = 3;
 
 /* The annotation names of the three routing verdicts (`codespecs_mapping.md`
@@ -173,9 +176,10 @@ struct CodeSpecsExtractEntry {
   std::optional<std::string> routingNote;
   /* The generation units the entry goes to (SOM §11.2, `codespecs_mapping.md`
    * §1.1.1): the nearest stored `units` at the entry's path or any ancestor
-   * path, split at its commas. Empty when no section on the way stores one —
-   * the default, every unit with a mapping for the entry's area. Copy-only
-   * like instanceId. */
+   * path, split at its commas; when no section on the way stores one, the
+   * default — every unit of the document's register with a mapping for the
+   * entry's area, in register order (specGenerationUnits). Empty when the
+   * document declares no unit that holds the area. */
   std::vector<std::string> units;
   /* The stored value, **verbatim**. Never assembled, reformatted or trimmed. */
   std::string value;
@@ -583,6 +587,8 @@ class CodeSpecsExtractor {
   const SpecDocument* document_;
   CodeSpecsAreaCatalog catalog_;
   const SpecRoot* root_;
+  /* The document's generation units (specGenerationUnits), read once. */
+  std::vector<SpecGenerationUnit> units_;
 };
 
 }  // namespace som

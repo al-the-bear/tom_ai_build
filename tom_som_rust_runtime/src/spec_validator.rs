@@ -1108,7 +1108,7 @@ fn is_unit_area_code(s: &str) -> bool {
 }
 
 /// The form field of `cls` that declares a form field named `name`, or `None`.
-fn form_declaring<'c>(cls: &'c SpecClass, name: &str) -> Option<&'c SpecField> {
+pub(crate) fn form_declaring<'c>(cls: &'c SpecClass, name: &str) -> Option<&'c SpecField> {
     cls.fields
         .iter()
         .find(|f| f.kind == SPEC_FIELD_KIND_FORM && f.form_fields.iter().any(|ff| ff.name == name))

@@ -27,6 +27,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ErrorCodeRegistry"
       routingNote: "the registry of error codes"
+      units: ["meridian_codespec_shared"]
       value: "The shared application error codes the Result envelope's error arm carries."
     - sectionId: "content"
       headline: "Validation failed"
@@ -38,6 +39,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ErrorCodeEntry"
       routingNote: "CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers)."
+      units: ["meridian_codespec_shared"]
       value: "VALIDATION_FAILED"
     - sectionId: "content"
       headline: "Validation failed"
@@ -49,6 +51,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ErrorCodeEntry"
       routingNote: "CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers)."
+      units: ["meridian_codespec_shared"]
       value: "Validation"
     - sectionId: "content"
       headline: "Validation failed"
@@ -60,6 +63,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ErrorCodeEntry"
       routingNote: "CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers)."
+      units: ["meridian_codespec_shared"]
       value: "Error"
     - sectionId: "content"
       headline: "Validation failed"
@@ -71,6 +75,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ErrorCodeEntry"
       routingNote: "CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers)."
+      units: ["meridian_codespec_shared"]
       value: "false"
     - sectionId: "content"
       headline: "Validation failed"
@@ -82,6 +87,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ErrorCodeEntry"
       routingNote: "CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers)."
+      units: ["meridian_codespec_shared"]
       value: "screen.order.amend.error"
     - sectionId: "content"
       headline: "Order already dispatched"
@@ -93,6 +99,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ErrorCodeEntry"
       routingNote: "CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers)."
+      units: ["meridian_codespec_shared"]
       value: "ORDER_ALREADY_DISPATCHED"
     - sectionId: "content"
       headline: "Order already dispatched"
@@ -104,6 +111,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ErrorCodeEntry"
       routingNote: "CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers)."
+      units: ["meridian_codespec_shared"]
       value: "BusinessRule"
     - sectionId: "content"
       headline: "Order already dispatched"
@@ -115,6 +123,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ErrorCodeEntry"
       routingNote: "CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers)."
+      units: ["meridian_codespec_shared"]
       value: "Error"
     - sectionId: "content"
       headline: "Order already dispatched"
@@ -126,6 +135,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ErrorCodeEntry"
       routingNote: "CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers)."
+      units: ["meridian_codespec_shared"]
       value: "false"
     - sectionId: "content"
       headline: "Order already dispatched"
@@ -137,6 +147,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ErrorCodeEntry"
       routingNote: "CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers)."
+      units: ["meridian_codespec_shared"]
       value: "screen.order.amend.error"
     - sectionId: "content"
       headline: "Order version conflict"
@@ -148,6 +159,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ErrorCodeEntry"
       routingNote: "CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers)."
+      units: ["meridian_codespec_shared"]
       value: "ORDER_VERSION_CONFLICT"
     - sectionId: "content"
       headline: "Order version conflict"
@@ -159,6 +171,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ErrorCodeEntry"
       routingNote: "CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers)."
+      units: ["meridian_codespec_shared"]
       value: "Conflict"
     - sectionId: "content"
       headline: "Order version conflict"
@@ -170,6 +183,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ErrorCodeEntry"
       routingNote: "CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers)."
+      units: ["meridian_codespec_shared"]
       value: "Warning"
     - sectionId: "content"
       headline: "Order version conflict"
@@ -181,6 +195,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ErrorCodeEntry"
       routingNote: "CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers)."
+      units: ["meridian_codespec_shared"]
       value: "true"
     - sectionId: "content"
       headline: "Order version conflict"
@@ -192,6 +207,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ErrorCodeEntry"
       routingNote: "CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers)."
+      units: ["meridian_codespec_shared"]
       value: "error.order.versionConflict"
     - sectionId: "content"
       headline: null
@@ -203,6 +219,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ResultEnvelope"
       routingNote: "CE-ER — the canonical codespecs_mapping.md §7 Result/ErrorResult envelope: a success arm or a structured error arm carrying a code (from the error-code registry), field-level details, and retryable/severity. Realised per application in <app>_codespec_shared; no framework counterpart (csmb4)."
+      units: ["meridian_codespec_shared"]
       value: "success"
     - sectionId: "content"
       headline: null
@@ -214,6 +231,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ResultEnvelope"
       routingNote: "CE-ER — the canonical codespecs_mapping.md §7 Result/ErrorResult envelope: a success arm or a structured error arm carrying a code (from the error-code registry), field-level details, and retryable/severity. Realised per application in <app>_codespec_shared; no framework counterpart (csmb4)."
+      units: ["meridian_codespec_shared"]
       value: "value"
     - sectionId: "content"
       headline: null
@@ -225,6 +243,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ResultEnvelope"
       routingNote: "CE-ER — the canonical codespecs_mapping.md §7 Result/ErrorResult envelope: a success arm or a structured error arm carrying a code (from the error-code registry), field-level details, and retryable/severity. Realised per application in <app>_codespec_shared; no framework counterpart (csmb4)."
+      units: ["meridian_codespec_shared"]
       value: "error"
     - sectionId: "content"
       headline: null
@@ -236,6 +255,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ResultEnvelope"
       routingNote: "CE-ER — the canonical codespecs_mapping.md §7 Result/ErrorResult envelope: a success arm or a structured error arm carrying a code (from the error-code registry), field-level details, and retryable/severity. Realised per application in <app>_codespec_shared; no framework counterpart (csmb4)."
+      units: ["meridian_codespec_shared"]
       value: "true"
     - sectionId: "content"
       headline: null
@@ -247,6 +267,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ResultEnvelope"
       routingNote: "CE-ER — the canonical codespecs_mapping.md §7 Result/ErrorResult envelope: a success arm or a structured error arm carrying a code (from the error-code registry), field-level details, and retryable/severity. Realised per application in <app>_codespec_shared; no framework counterpart (csmb4)."
+      units: ["meridian_codespec_shared"]
       value: "Info | Warning | Error | Fatal"
     - sectionId: "content"
       headline: "Invalid quantity detail"
@@ -258,6 +279,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ResultFieldDetailEntry"
       routingNote: "one field detail carried by a result envelope"
+      units: ["meridian_codespec_shared"]
       value: "newQuantity"
     - sectionId: "content"
       headline: "Invalid quantity detail"
@@ -269,6 +291,7 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ResultFieldDetailEntry"
       routingNote: "one field detail carried by a result envelope"
+      units: ["meridian_codespec_shared"]
       value: "VALIDATION_FAILED"
     - sectionId: "content"
       headline: "Invalid quantity detail"
@@ -280,4 +303,5 @@ extract:
       routedBy: "CodeSpecPart.errorResult"
       routedAt: "ResultFieldDetailEntry"
       routingNote: "one field detail carried by a result envelope"
+      units: ["meridian_codespec_shared"]
       value: "The quantity must be a positive whole number"

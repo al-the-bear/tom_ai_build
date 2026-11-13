@@ -19,6 +19,7 @@ import {
   SpecFieldKind,
   SpecModel,
 } from './spec_model';
+import { specFormDeclaring } from './spec_generation_units';
 import { specPathJoin } from './spec_paths';
 import {
   SpecNodeKind,
@@ -1145,7 +1146,7 @@ function _validateGenerationUnits(
         continue;
       }
 
-      const unitForm = _formDeclaring(cls, 'unitId');
+      const unitForm = specFormDeclaring(cls, 'unitId');
       if (unitForm !== null) {
         const formPath = specPathJoin(item, refl.fieldSegment(unitForm));
         const value = (f: string): string => {
@@ -1180,7 +1181,7 @@ function _validateGenerationUnits(
         }
       }
 
-      const areaForm = _formDeclaring(cls, 'area');
+      const areaForm = specFormDeclaring(cls, 'area');
       if (areaForm !== null) {
         const formPath = specPathJoin(item, refl.fieldSegment(areaForm));
         const raw = doc.formField(formPath, 'area');
@@ -1246,18 +1247,6 @@ function _splitUnits(units: string | null): string[] {
 /** `CE-` followed by one or more capital letters — the area-code shape. */
 const _UNIT_AREA_CODE = /^CE-[A-Z]+$/;
 
-/** The form field of `cls` that declares a form field named `name`, or null. */
-function _formDeclaring(cls: SpecClass, name: string): SpecField | null {
-  for (const f of cls.fields) {
-    if (
-      f.kind === SpecFieldKind.FORM &&
-      f.formFields.some((ff) => ff.name === name)
-    ) {
-      return f;
-    }
-  }
-  return null;
-}
 
 /**
  * Whether the section `res` resolves to routes anything to CodeSpecs — the

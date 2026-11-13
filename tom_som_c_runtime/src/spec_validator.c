@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "spec_generation_units.h"
 #include "spec_paths.h"
 #include "spec_reflection.h"
 #include "spec_review_annotations.h"
@@ -1402,33 +1403,6 @@ static int is_unit_area_code(const char *s) {
   return 1;
 }
 
-/* The form field of `cls` that declares a form field named `name`, or NULL. */
-static const SpecField *form_declaring(const SpecClass *cls, const char *name) {
-  for (size_t i = 0; i < cls->fields_len; i++) {
-    const SpecField *f = &cls->fields[i];
-    if (strcmp(f->kind, SPEC_FIELD_KIND_FORM) != 0) {
-      continue;
-    }
-    for (size_t k = 0; k < f->form_fields_len; k++) {
-      if (strcmp(f->form_fields[k].name, name) == 0) {
-        return f;
-      }
-    }
-  }
-  return NULL;
-}
-
-/* Whether `cls` carries `@NoArtifact(generation)`. */
-static int is_generation_register(const SpecClass *cls) {
-  SpecNoArtifactLink link;
-  if (!spec_annotations_no_artifact(&cls->annotations, &link)) {
-    return 0;
-  }
-  int hit = strcmp(link.reason, "generation") == 0;
-  spec_no_artifact_link_free(&link);
-  return hit;
-}
-
 /* A class *routes* when it carries `@CodeSpecKind` or declares a field that
  * carries one. */
 static int class_routes(const SpecReflection *refl, const char *name) {
@@ -1546,11 +1520,12 @@ static void validate_generation_units(const SpecReflection *refl,
       }
       const SpecClass *cls = res.target_class;
       spec_resolution_free(&res);
-      if (cls == NULL || !is_generation_register(cls)) {
+      if (cls == NULL || !spec_generation_is_register(cls)) {
         continue;
       }
 
-      const SpecField *unit_form = form_declaring(cls, "unitId");
+      const SpecField *unit_form =
+          spec_generation_form_declaring(cls, "unitId");
       if (unit_form != NULL) {
         char *form_path =
             spec_path_join(item, spec_reflection_field_segment(unit_form));
@@ -1588,7 +1563,7 @@ static void validate_generation_units(const SpecReflection *refl,
         free(form_path);
       }
 
-      const SpecField *area_form = form_declaring(cls, "area");
+      const SpecField *area_form = spec_generation_form_declaring(cls, "area");
       if (area_form != NULL) {
         char *form_path =
             spec_path_join(item, spec_reflection_field_segment(area_form));

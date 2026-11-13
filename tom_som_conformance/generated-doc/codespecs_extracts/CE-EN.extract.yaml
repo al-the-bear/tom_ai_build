@@ -27,6 +27,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumEntry"
       routingNote: "A closed value set becomes a domain enum / value type: the enum name is the generated type, each value id + backing value a constant, and each member copy resolves via CE-TX. The enum also serves as the closed-choice (@OneOf) discriminator source (csm-7-4)."
+      units: ["meridian_codespec_shared"]
       value: "OrderChannel"
     - sectionId: "content"
       headline: "OrderChannel"
@@ -38,6 +39,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumEntry"
       routingNote: "A closed value set becomes a domain enum / value type: the enum name is the generated type, each value id + backing value a constant, and each member copy resolves via CE-TX. The enum also serves as the closed-choice (@OneOf) discriminator source (csm-7-4)."
+      units: ["meridian_codespec_shared"]
       value: "The capture channel an order arrived through. Types the Order.channel attribute."
     - sectionId: "content"
       headline: "OrderChannel"
@@ -49,6 +51,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumEntry"
       routingNote: "A closed value set becomes a domain enum / value type: the enum name is the generated type, each value id + backing value a constant, and each member copy resolves via CE-TX. The enum also serves as the closed-choice (@OneOf) discriminator source (csm-7-4)."
+      units: ["meridian_codespec_shared"]
       value: "String"
     - sectionId: "content"
       headline: "edi"
@@ -60,6 +63,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "edi"
     - sectionId: "content"
       headline: "edi"
@@ -71,6 +75,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "EDI"
     - sectionId: "content"
       headline: "edi"
@@ -82,6 +87,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "The wholesale electronic data interchange channel."
     - sectionId: "content"
       headline: "rest"
@@ -93,6 +99,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "rest"
     - sectionId: "content"
       headline: "rest"
@@ -104,6 +111,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "REST"
     - sectionId: "content"
       headline: "rest"
@@ -115,6 +123,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "The public REST order API."
     - sectionId: "content"
       headline: "OrderStatus"
@@ -126,6 +135,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumEntry"
       routingNote: "A closed value set becomes a domain enum / value type: the enum name is the generated type, each value id + backing value a constant, and each member copy resolves via CE-TX. The enum also serves as the closed-choice (@OneOf) discriminator source (csm-7-4)."
+      units: ["meridian_codespec_shared"]
       value: "OrderStatus"
     - sectionId: "content"
       headline: "OrderStatus"
@@ -137,6 +147,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumEntry"
       routingNote: "A closed value set becomes a domain enum / value type: the enum name is the generated type, each value id + backing value a constant, and each member copy resolves via CE-TX. The enum also serves as the closed-choice (@OneOf) discriminator source (csm-7-4)."
+      units: ["meridian_codespec_shared"]
       value: "The order lifecycle state (Captured -> Validated -> Priced -> Reserved -> Confirmed -> Fulfilled -> Closed, with Hold and Cancelled). Types the Order.status attribute."
     - sectionId: "content"
       headline: "OrderStatus"
@@ -148,6 +159,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumEntry"
       routingNote: "A closed value set becomes a domain enum / value type: the enum name is the generated type, each value id + backing value a constant, and each member copy resolves via CE-TX. The enum also serves as the closed-choice (@OneOf) discriminator source (csm-7-4)."
+      units: ["meridian_codespec_shared"]
       value: "String"
     - sectionId: "content"
       headline: "OrderStatus"
@@ -159,6 +171,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumEntry"
       routingNote: "A closed value set becomes a domain enum / value type: the enum name is the generated type, each value id + backing value a constant, and each member copy resolves via CE-TX. The enum also serves as the closed-choice (@OneOf) discriminator source (csm-7-4)."
+      units: ["meridian_codespec_shared"]
       value: "captured"
     - sectionId: "content"
       headline: "captured"
@@ -170,6 +183,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "captured"
     - sectionId: "content"
       headline: "captured"
@@ -181,6 +195,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "Captured"
     - sectionId: "content"
       headline: "captured"
@@ -192,6 +207,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "Accepted from EDI or REST; lifecycle entry state."
     - sectionId: "content"
       headline: "validated"
@@ -203,6 +219,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "validated"
     - sectionId: "content"
       headline: "validated"
@@ -214,6 +231,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "Validated"
     - sectionId: "content"
       headline: "validated"
@@ -225,6 +243,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "Customer and product references verified."
     - sectionId: "content"
       headline: "priced"
@@ -236,6 +255,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "priced"
     - sectionId: "content"
       headline: "priced"
@@ -247,6 +267,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "Priced"
     - sectionId: "content"
       headline: "priced"
@@ -258,6 +279,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "Unit prices snapshotted onto every line."
     - sectionId: "content"
       headline: "reserved"
@@ -269,6 +291,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "reserved"
     - sectionId: "content"
       headline: "reserved"
@@ -280,6 +303,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "Reserved"
     - sectionId: "content"
       headline: "reserved"
@@ -291,6 +315,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "Stock reserved for every line."
     - sectionId: "content"
       headline: "confirmed"
@@ -302,6 +327,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "confirmed"
     - sectionId: "content"
       headline: "confirmed"
@@ -313,6 +339,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "Confirmed"
     - sectionId: "content"
       headline: "confirmed"
@@ -324,6 +351,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "Confirmed to the customer with a fulfilment window."
     - sectionId: "content"
       headline: "fulfilled"
@@ -335,6 +363,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "fulfilled"
     - sectionId: "content"
       headline: "fulfilled"
@@ -346,6 +375,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "Fulfilled"
     - sectionId: "content"
       headline: "fulfilled"
@@ -357,6 +387,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "Dispatched; the public tracking page reflects it."
     - sectionId: "content"
       headline: "closed"
@@ -368,6 +399,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "closed"
     - sectionId: "content"
       headline: "closed"
@@ -379,6 +411,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "Closed"
     - sectionId: "content"
       headline: "closed"
@@ -390,6 +423,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "Invoiced and complete; terminal state."
     - sectionId: "content"
       headline: "hold"
@@ -401,6 +435,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "hold"
     - sectionId: "content"
       headline: "hold"
@@ -412,6 +447,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "Hold"
     - sectionId: "content"
       headline: "hold"
@@ -423,6 +459,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "Awaiting manual review; resumes at the transition that placed it on hold."
     - sectionId: "content"
       headline: "cancelled"
@@ -434,6 +471,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "cancelled"
     - sectionId: "content"
       headline: "cancelled"
@@ -445,6 +483,7 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "Cancelled"
     - sectionId: "content"
       headline: "cancelled"
@@ -456,4 +495,5 @@ extract:
       routedBy: "CodeSpecPart.domainEnum"
       routedAt: "DomainEnumValueEntry"
       routingNote: "one value of a domain enum"
+      units: ["meridian_codespec_shared"]
       value: "Cancelled before dispatch, with an audited reason; terminal state."

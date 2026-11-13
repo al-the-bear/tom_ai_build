@@ -3,7 +3,8 @@
  * has a surface for. Kept exactly as `codeSpec` is: a sparse store by section
  * path, the Markdown heading key `units="a,b"` after `codeSpec`, the YAML key
  * `units` after `codeSpec`, the snapshot's `units` map — and checked by the
- * instance tier's phase 8.
+ * instance tier's phase 8 — and the document's register of units
+ * (`spec_generation_units`, `spec_default_units`).
  *
  * Not ported: the Dart `captureState` / fingerprint and path-normalizer cases
  * (this runtime has neither surface).
@@ -685,6 +686,115 @@ static void test_validation(const SpecModel *model) {
   }
 }
 
+/* ---- the register (spec_generation_units) ------------------------------- */
+
+/* The unit ids of `units`, joined by `,`. Owned. */
+static char *unit_ids(const SpecGenerationUnitList *units) {
+  SomStrList ids;
+  som_strlist_init(&ids);
+  for (size_t i = 0; i < units->len; i++) {
+    som_strlist_push_copy(&ids, units->items[i].unit_id);
+  }
+  char *joined = som_strlist_join(&ids, ",");
+  som_strlist_free(&ids);
+  return joined;
+}
+
+/* `spec_default_units(units, area)`, joined by `,`. Owned. */
+static char *default_units(const SpecGenerationUnitList *units,
+                           const char *area) {
+  SomStrList ids;
+  spec_default_units(units, area, &ids);
+  char *joined = som_strlist_join(&ids, ",");
+  som_strlist_free(&ids);
+  return joined;
+}
+
+static void test_register(const SpecModel *model) {
+  /* units in register order, each with its own mappings */
+  {
+    SpecDocument d;
+    make_register(&d);
+    spec_document_set_form_field(&d, "DEMO/DLV-LST-1/content", "kind",
+                                 "client");
+    const char *routes[][3] = {
+        {"DEMO/DLV-LST-1", "CE-NV", "dart-tom"},
+        {"DEMO/DLV-LST-1", "CE-TX", " ts-react "},
+        {"DEMO/DLV-LST-2", "CE-NV", "dart-tom"},
+    };
+    for (size_t i = 0; i < 3; i++) {
+      char list[64];
+      snprintf(list, sizeof(list), "%s/DLR-LST", routes[i][0]);
+      char *r = spec_document_add_list_item(&d, list);
+      set_form(&d, r, "area", routes[i][1]);
+      set_form(&d, r, "mapping", routes[i][2]);
+      free(r);
+    }
+    SpecGenerationUnitList units;
+    spec_generation_units(model, &d, &units);
+    char *ids = unit_ids(&units);
+    check("register.order", str_eq(ids, "u_a,u_b"), ids);
+    free(ids);
+    if (units.len == 2) {
+      const SpecGenerationUnit *first = &units.items[0];
+      const SpecGenerationUnit *last = &units.items[1];
+      check("register.kind", str_eq(first->kind, "client"), first->kind);
+      check("register.path", str_eq(first->path, "DEMO/DLV-LST-1"),
+            first->path);
+      check("register.mappings",
+            first->mappings_len == 2 &&
+                str_eq(first->mappings[0].area, "CE-NV") &&
+                str_eq(first->mappings[0].mapping, "dart-tom") &&
+                str_eq(first->mappings[1].area, "CE-TX") &&
+                str_eq(first->mappings[1].mapping, "ts-react"),
+            "");
+      check("register.mappingFor",
+            str_eq(spec_generation_unit_mapping_for(first, "CE-TX"),
+                   "ts-react"),
+            "");
+      check("register.mappingForAbsent",
+            spec_generation_unit_mapping_for(last, "CE-TX") == NULL, "");
+    }
+    char *nv = default_units(&units, "CE-NV");
+    char *tx = default_units(&units, "CE-TX");
+    char *db = default_units(&units, "CE-DB");
+    check("register.default.nv", str_eq(nv, "u_a,u_b"), nv);
+    check("register.default.tx", str_eq(tx, "u_a"), tx);
+    check("register.default.none", str_eq(db, ""), db);
+    free(nv);
+    free(tx);
+    free(db);
+    spec_generation_unit_list_free(&units);
+    spec_document_free(&d);
+  }
+  /* a unit without an id, and a second unit of one id, are left out */
+  {
+    SpecDocument d;
+    make_register(&d);
+    free(spec_document_add_list_item(&d, "DEMO/DLV-LST"));
+    char *dup = spec_document_add_list_item(&d, "DEMO/DLV-LST");
+    set_form(&d, dup, "unitId", "u_a");
+    free(dup);
+    SpecGenerationUnitList units;
+    spec_generation_units(model, &d, &units);
+    char *ids = unit_ids(&units);
+    check("register.skipped", str_eq(ids, "u_a,u_b"), ids);
+    free(ids);
+    spec_generation_unit_list_free(&units);
+    spec_document_free(&d);
+  }
+  /* a document without a register declares none */
+  {
+    SpecDocument d;
+    spec_document_init(&d);
+    SpecGenerationUnitList units;
+    spec_generation_units(model, &d, &units);
+    check("register.none", units.len == 0, "");
+    spec_generation_unit_list_free(&units);
+    spec_document_free(&d);
+  }
+}
+
 int main(void) {
   SpecModel *model = corpus_model();
   test_store(model);
@@ -695,6 +805,7 @@ int main(void) {
   test_assembly();
   test_review_merge(model);
   test_validation(model);
+  test_register(model);
   spec_model_free(model);
   if (g_failures == 0) {
     printf("spec_units: all %d checks passed\n", g_checks);

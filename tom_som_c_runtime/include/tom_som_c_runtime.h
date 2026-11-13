@@ -29,6 +29,7 @@
 #include "spec_query.h"
 #include "spec_node_creation.h"
 #include "spec_codespecs_extract.h"
+#include "spec_generation_units.h"
 #include "spec_codespecs_records.h"
 #include "spec_validator.h"
 #include "spec_review_annotations.h"

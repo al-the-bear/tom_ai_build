@@ -47,6 +47,10 @@
 const fs = require('fs');
 
 const { SpecFieldKind } = require('./spec_model');
+const {
+  specDefaultUnits,
+  specGenerationUnits,
+} = require('./spec_generation_units');
 const { specPathJoin } = require('./spec_paths');
 const { SpecReflection } = require('./spec_reflection');
 const yaml = require('./yaml');
@@ -64,9 +68,11 @@ const yaml = require('./yaml');
 // positional default (`CARD-2`) is derived, never stored, so it is never
 // carried — that would be the composition C1 forbids.
 //
-// Entries may carry `units` — the nearest stored generation units (SOM §11.2)
-// at the entry's path or above it. The key is written only when non-empty and
-// reads as empty when absent, so it is additive and the version stays 3.
+// Entries may carry `units` — the generation units the entry goes to (SOM
+// §11.2): the nearest stored units at the entry's path or above it, else the
+// units of the document's register whose mappings hold the entry's area. The
+// key is written only when non-empty and reads as empty when absent, so it is
+// additive and the version stays 3.
 const K_CODESPECS_EXTRACT_FORMAT = 3;
 
 /**
@@ -196,9 +202,11 @@ class CodeSpecsExtractEntry {
     this.routingNote = routingNote;
     /** The generation units the entry goes to (SOM §11.2,
      * `codespecs_mapping.md` §1.1.1): the nearest stored `units` at the
-     * entry's path or any ancestor path, split at its commas. Empty when no
-     * section on the way stores one — the default, every unit with a mapping
-     * for the entry's area. Copy-only like `instanceId`. @type {string[]} */
+     * entry's path or any ancestor path, split at its commas; when no section
+     * on the way stores one, the default — every unit of the document's
+     * register with a mapping for the entry's area, in register order
+     * ({@link specGenerationUnits}). Empty when the document declares no unit
+     * that holds the area. @type {string[]} */
     this.units = units === null || units === undefined ? [] : units;
     /** The stored value, **verbatim**. Never assembled, reformatted or
      * trimmed. */
@@ -1131,6 +1139,9 @@ class CodeSpecsExtractor {
       resolveCodeSpecsRoot(model, document, rootType),
     );
     this._reflection = new SpecReflection(model);
+    /** The document's generation units ({@link specGenerationUnits}), read
+     * once. */
+    this._units = specGenerationUnits(model, document);
   }
 
   /**
@@ -1390,12 +1401,14 @@ class CodeSpecsExtractor {
     if (value === null || value === undefined || value === '') {
       return;
     }
-    const unitIds = _splitUnits(units);
+    const stored = _splitUnits(units);
     for (const kind of routing.values) {
       const area = this.catalog.byPart(kind);
       if (area === null || !area.active) {
         continue;
       }
+      const unitIds =
+        stored.length > 0 ? stored : specDefaultUnits(this._units, area.code);
       entries.push(
         new CodeSpecsExtractEntry({
           areaCode: area.code,

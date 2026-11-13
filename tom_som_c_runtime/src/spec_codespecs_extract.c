@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "spec_generation_units.h"
 #include "spec_paths.h"
 
 /* ---- shared emission helpers --------------------------------------------- */
@@ -305,17 +306,22 @@ static CodeSpecsExtractEntry entry_copy(const CodeSpecsExtractEntry *e) {
 }
 
 /* The growable entry buffer the walk collects into, before the entries are
- * partitioned across the active areas. */
+ * partitioned across the active areas. It also owns the document's generation
+ * units (`spec_generation_units`), read once per extraction: the extractor is a
+ * borrowing value with no free function, so the run that fills the buffer is
+ * the owner the units can have. */
 typedef struct {
   CodeSpecsExtractEntry *items;
   size_t len;
   size_t cap;
+  SpecGenerationUnitList units;
 } EntryBuf;
 
 static void entry_buf_init(EntryBuf *b) {
   b->items = NULL;
   b->len = 0;
   b->cap = 0;
+  spec_generation_unit_list_init(&b->units);
 }
 
 static void entry_buf_free(EntryBuf *b) {
@@ -323,6 +329,7 @@ static void entry_buf_free(EntryBuf *b) {
     spec_codespecs_extract_entry_free(&b->items[i]);
   }
   free(b->items);
+  spec_generation_unit_list_free(&b->units);
   entry_buf_init(b);
 }
 
@@ -1578,7 +1585,8 @@ static void split_units(const char *units, SomStrList *out) {
 /* Appends one entry **per area the routing names** — never deduplicated, because
  * each area's prompt must be self-sufficient (§1.1.1). `units` is the nearest
  * stored generation units (SOM §11.2) at the entry's path or above, NULL when
- * none. */
+ * none; then an entry goes to the area's default units of the document's
+ * register (`spec_default_units`). */
 static void emit_value(const CodeSpecsExtractor *e, EntryBuf *entries,
                        const CodeSpecsRouting *routing, const SpecClass *cls,
                        const SpecField *field, const char *path,
@@ -1591,13 +1599,19 @@ static void emit_value(const CodeSpecsExtractor *e, EntryBuf *entries,
   if (value == NULL || value[0] == '\0') {
     return;
   }
-  SomStrList unit_ids;
-  split_units(units, &unit_ids);
+  SomStrList stored;
+  split_units(units, &stored);
   for (size_t i = 0; i < routing->values.len; i++) {
     const CodeSpecsArea *area =
         spec_codespecs_catalog_by_part(e->catalog, routing->values.items[i]);
     if (area == NULL || !area->active) {
       continue;
+    }
+    SomStrList unit_ids;
+    if (stored.len > 0) {
+      som_strlist_copy(&unit_ids, &stored);
+    } else {
+      spec_default_units(&entries->units, area->code, &unit_ids);
     }
     CodeSpecsExtractEntry entry;
     entry.area_code = som_strdup(area->code);
@@ -1611,11 +1625,11 @@ static void emit_value(const CodeSpecsExtractor *e, EntryBuf *entries,
     entry.routed_by = spec_codespecs_area_kind_value(area);
     entry.routed_at = som_strdup(routing->declared_at);
     entry.routing_note = dup_opt(routing->note);
-    som_strlist_copy(&entry.units, &unit_ids);
+    entry.units = unit_ids;
     entry.value = som_strdup(value);
     entry_buf_push(entries, &entry);
   }
-  som_strlist_free(&unit_ids);
+  som_strlist_free(&stored);
 }
 
 /* Records the `ROUTE-TOTAL` violation `cls` at `path` is, when `err` is
@@ -1803,6 +1817,7 @@ int spec_codespecs_extractor_extract_all(const CodeSpecsExtractor *e,
   spec_codespecs_extract_list_init(out);
   EntryBuf entries;
   entry_buf_init(&entries);
+  spec_generation_units(e->model, e->document, &entries.units);
   if (!walk_all(e, NULL, &entries, 1, err)) {
     entry_buf_free(&entries);
     return 0;

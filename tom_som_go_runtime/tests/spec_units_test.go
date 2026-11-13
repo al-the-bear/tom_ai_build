@@ -561,3 +561,82 @@ func TestUnitsExtractRecordsRoundTrip(t *testing.T) {
 		t.Fatalf("units read back = %v / %v", back.Entries[0].Units, back.Entries[1].Units)
 	}
 }
+
+// --- the register (SpecGenerationUnits) --------------------------------------
+
+func TestUnitsRegisterOrderAndMappings(t *testing.T) {
+	model := unitsCorpusModel(t)
+	d := unitsRegister()
+	d.SetFormField("DEMO/DLV-LST-1/content", "kind", "client")
+	for _, r := range [][3]string{
+		{"DEMO/DLV-LST-1", "CE-NV", "dart-tom"},
+		{"DEMO/DLV-LST-1", "CE-TX", " ts-react "},
+		{"DEMO/DLV-LST-2", "CE-NV", "dart-tom"},
+	} {
+		route := d.AddListItem(r[0] + "/DLR-LST")
+		d.SetFormField(route+"/content", "area", r[1])
+		d.SetFormField(route+"/content", "mapping", r[2])
+	}
+	units := som.SpecGenerationUnits(model, d)
+	var ids []string
+	for _, u := range units {
+		ids = append(ids, u.UnitID)
+	}
+	if !reflect.DeepEqual(ids, []string{"u_a", "u_b"}) {
+		t.Fatalf("unit ids = %v", ids)
+	}
+	first, last := units[0], units[len(units)-1]
+	if first.Kind != "client" {
+		t.Fatalf("kind = %q", first.Kind)
+	}
+	if first.Path != "DEMO/DLV-LST-1" {
+		t.Fatalf("path = %q", first.Path)
+	}
+	wantMappings := []som.SpecGenerationUnitMapping{
+		{Area: "CE-NV", Mapping: "dart-tom"},
+		{Area: "CE-TX", Mapping: "ts-react"},
+	}
+	if !reflect.DeepEqual(first.Mappings, wantMappings) {
+		t.Fatalf("mappings = %v", first.Mappings)
+	}
+	if m, ok := first.MappingFor("CE-TX"); !ok || m != "ts-react" {
+		t.Fatalf("MappingFor(CE-TX) = %q, %v", m, ok)
+	}
+	if m, ok := last.MappingFor("CE-TX"); ok {
+		t.Fatalf("last.MappingFor(CE-TX) = %q, want none", m)
+	}
+	for _, c := range []struct {
+		area string
+		want []string
+	}{
+		{"CE-NV", []string{"u_a", "u_b"}},
+		{"CE-TX", []string{"u_a"}},
+		{"CE-DB", []string{}},
+	} {
+		if got := som.SpecDefaultUnits(units, c.area); !reflect.DeepEqual(got, c.want) {
+			t.Fatalf("SpecDefaultUnits(%s) = %v, want %v", c.area, got, c.want)
+		}
+	}
+}
+
+func TestUnitsRegisterSkipsIdlessAndDuplicateUnits(t *testing.T) {
+	model := unitsCorpusModel(t)
+	d := unitsRegister()
+	d.AddListItem("DEMO/DLV-LST")
+	dup := d.AddListItem("DEMO/DLV-LST")
+	d.SetFormField(dup+"/content", "unitId", "u_a")
+	var ids []string
+	for _, u := range som.SpecGenerationUnits(model, d) {
+		ids = append(ids, u.UnitID)
+	}
+	if !reflect.DeepEqual(ids, []string{"u_a", "u_b"}) {
+		t.Fatalf("unit ids = %v", ids)
+	}
+}
+
+func TestUnitsRegisterAbsentDeclaresNone(t *testing.T) {
+	model := unitsCorpusModel(t)
+	if units := som.SpecGenerationUnits(model, som.NewSpecDocument()); len(units) != 0 {
+		t.Fatalf("units = %v", units)
+	}
+}

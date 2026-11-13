@@ -48,6 +48,11 @@ from enum import Enum
 from typing import Any, Optional
 
 from .spec_document import SpecDocument
+from .spec_generation_units import (
+    SpecGenerationUnit,
+    spec_default_units,
+    spec_generation_units,
+)
 from .spec_model import SpecClass, SpecField, SpecFieldKind, SpecModel, SpecRoot
 from .spec_paths import spec_path_join
 from .spec_reflection import SpecReflection
@@ -64,10 +69,11 @@ from .spec_reflection import SpecReflection
 #: positional default (``CARD-2``) is derived, never stored, so it is never
 #: carried — that would be the composition C1 forbids.
 #:
-#: Entries may carry ``units`` — the nearest stored generation units (SOM
-#: §11.2) at the entry's path or above it. The key is written only when
-#: non-empty and reads as empty when absent, so it is additive and the version
-#: stays 3.
+#: Entries may carry ``units`` — the generation units the entry goes to (SOM
+#: §11.2): the nearest stored units at the entry's path or above it, else the
+#: units of the document's register whose mappings hold the entry's area. The
+#: key is written only when non-empty and reads as empty when absent, so it is
+#: additive and the version stays 3.
 K_CODE_SPECS_EXTRACT_FORMAT = 3
 
 #: The annotation names of the three routing verdicts (`codespecs_mapping.md`
@@ -173,9 +179,11 @@ class CodeSpecsExtractEntry:
     instance_id: Optional[str] = None
     #: The generation units the entry goes to (SOM §11.2,
     #: `codespecs_mapping.md` §1.1.1): the nearest stored ``units`` at the
-    #: entry's path or any ancestor path, split at its commas. Empty when no
-    #: section on the way stores one — the default, every unit with a mapping
-    #: for the entry's area. Copy-only like :attr:`instance_id`.
+    #: entry's path or any ancestor path, split at its commas; when no section
+    #: on the way stores one, the default — every unit of the document's
+    #: register with a mapping for the entry's area, in register order
+    #: (:func:`spec_generation_units`). Empty when the document declares no
+    #: unit that holds the area.
     units: list[str] = dataclass_field(default_factory=list)
 
 
@@ -874,6 +882,11 @@ class CodeSpecsExtractor:
             model, _resolve_root(model, document, root_type)
         )
         self._reflection = SpecReflection(model)
+        #: The document's generation units (:func:`spec_generation_units`),
+        #: read once.
+        self._units: list[SpecGenerationUnit] = spec_generation_units(
+            model, document
+        )
 
     def routings(self) -> list[CodeSpecsRouting]:
         """The verdict of every class node the walk reaches, in document order.
@@ -1107,11 +1120,14 @@ class CodeSpecsExtractor:
             return
         if not value:
             return
-        unit_ids = _split_units(units)
+        stored = _split_units(units)
         for kind in routing.values:
             area = self.catalog.by_part(kind)
             if area is None or not area.active:
                 continue
+            unit_ids = (
+                stored if stored else spec_default_units(self._units, area.code)
+            )
             entries.append(
                 CodeSpecsExtractEntry(
                     area_code=area.code,

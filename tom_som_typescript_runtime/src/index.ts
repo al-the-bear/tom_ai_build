@@ -155,6 +155,13 @@ export {
   CodeSpecsRequiredArgument,
   CodeSpecsCarrier,
 } from './spec_codespecs_extract';
+// the generation-unit register of a document (SOM §11.2)
+export {
+  SpecGenerationUnitMapping,
+  SpecGenerationUnit,
+  specGenerationUnits,
+  specDefaultUnits,
+} from './spec_generation_units';
 // Phase-4 Stage-A gate (codespecs_prompt.md §4, A1–A5)
 export {
   CodeSpecsGate,

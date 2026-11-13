@@ -52,6 +52,11 @@ import {
   SpecModel,
   SpecRoot,
 } from './spec_model';
+import {
+  SpecGenerationUnit,
+  specDefaultUnits,
+  specGenerationUnits,
+} from './spec_generation_units';
 import { specPathJoin } from './spec_paths';
 import { SpecReflection } from './spec_reflection';
 import * as yaml from './yaml';
@@ -69,9 +74,11 @@ import * as yaml from './yaml';
  * positional default (`CARD-2`) is derived, never stored, so it is never
  * carried — that would be the composition C1 forbids.
  *
- * Entries may carry `units` — the nearest stored generation units (SOM §11.2)
- * at the entry's path or above it. The key is written only when non-empty and
- * reads as empty when absent, so it is additive and the version stays 3.
+ * Entries may carry `units` — the generation units the entry goes to (SOM
+ * §11.2): the nearest stored units at the entry's path or above it, else the
+ * units of the document's register whose mappings hold the entry's area. The
+ * key is written only when non-empty and reads as empty when absent, so it is
+ * additive and the version stays 3.
  */
 export const K_CODE_SPECS_EXTRACT_FORMAT = 3;
 
@@ -238,9 +245,11 @@ export class CodeSpecsExtractEntry {
   /**
    * The generation units the entry goes to (SOM §11.2,
    * `codespecs_mapping.md` §1.1.1): the nearest stored `units` at the entry's
-   * path or any ancestor path, split at its commas. Empty when no section on
-   * the way stores one — the default, every unit with a mapping for the
-   * entry's area. Copy-only like {@link instanceId}.
+   * path or any ancestor path, split at its commas; when no section on the
+   * way stores one, the default — every unit of the document's register with
+   * a mapping for the entry's area, in register order
+   * ({@link specGenerationUnits}). Empty when the document declares no unit
+   * that holds the area.
    */
   units: string[];
 
@@ -1218,6 +1227,9 @@ export class CodeSpecsExtractor {
    */
   readonly root: SpecRoot;
 
+  /** The document's generation units ({@link specGenerationUnits}), read once. */
+  private _units: SpecGenerationUnit[];
+
   private _reflection: SpecReflection;
 
   /**
@@ -1249,6 +1261,7 @@ export class CodeSpecsExtractor {
       resolveCodeSpecsRoot(model, document, rootType),
     );
     this._reflection = new SpecReflection(model);
+    this._units = specGenerationUnits(model, document);
   }
 
   /**
@@ -1499,12 +1512,14 @@ export class CodeSpecsExtractor {
     if (value === null || value === '') {
       return;
     }
-    const unitIds = _splitUnits(units);
+    const stored = _splitUnits(units);
     for (const kind of routing.values) {
       const area = this.catalog.byPart(kind);
       if (area === null || !area.active) {
         continue;
       }
+      const unitIds =
+        stored.length > 0 ? stored : specDefaultUnits(this._units, area.code);
       entries.push(
         new CodeSpecsExtractEntry({
           areaCode: area.code,

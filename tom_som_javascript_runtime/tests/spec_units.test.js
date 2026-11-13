@@ -29,6 +29,8 @@ const {
   CodeSpecsAreaCatalog,
   CodeSpecsExtractor,
   parseCodeSpecsExtractYaml,
+  specGenerationUnits,
+  specDefaultUnits,
 } = require('../tom_som_runtime/index.js');
 
 const _CORPUS = path.join(__dirname, '..', '..', 'tom_som_conformance', 'corpus');
@@ -536,5 +538,57 @@ describe('the CodeSpecs extract carries units', () => {
       back.entries.filter((e) => e.path !== 'DEMO/TTL').every((e) => e.units.length === 0),
     );
     assert.strictEqual(back.toYaml(), yaml);
+  });
+});
+
+describe('the register (specGenerationUnits)', () => {
+  const model = corpusModel();
+
+  test('units in register order, each with its own mappings', () => {
+    const d = register();
+    d.setFormField('DEMO/DLV-LST-1/content', 'kind', 'client');
+    for (const [unit, area, mapping] of [
+      ['DEMO/DLV-LST-1', 'CE-NV', 'dart-tom'],
+      ['DEMO/DLV-LST-1', 'CE-TX', ' ts-react '],
+      ['DEMO/DLV-LST-2', 'CE-NV', 'dart-tom'],
+    ]) {
+      const r = d.addListItem(`${unit}/DLR-LST`);
+      d.setFormField(`${r}/content`, 'area', area);
+      d.setFormField(`${r}/content`, 'mapping', mapping);
+    }
+    const units = specGenerationUnits(model, d);
+    assert.deepStrictEqual(
+      units.map((u) => u.unitId),
+      ['u_a', 'u_b'],
+    );
+    assert.strictEqual(units[0].kind, 'client');
+    assert.strictEqual(units[0].path, 'DEMO/DLV-LST-1');
+    assert.deepStrictEqual(
+      units[0].mappings.map((m) => [m.area, m.mapping]),
+      [
+        ['CE-NV', 'dart-tom'],
+        ['CE-TX', 'ts-react'],
+      ],
+    );
+    assert.strictEqual(units[0].mappingFor('CE-TX'), 'ts-react');
+    assert.strictEqual(units[units.length - 1].mappingFor('CE-TX'), null);
+    assert.deepStrictEqual(specDefaultUnits(units, 'CE-NV'), ['u_a', 'u_b']);
+    assert.deepStrictEqual(specDefaultUnits(units, 'CE-TX'), ['u_a']);
+    assert.deepStrictEqual(specDefaultUnits(units, 'CE-DB'), []);
+  });
+
+  test('a unit without an id, and a second unit of one id, are left out', () => {
+    const d = register();
+    d.addListItem('DEMO/DLV-LST');
+    const dup = d.addListItem('DEMO/DLV-LST');
+    d.setFormField(`${dup}/content`, 'unitId', 'u_a');
+    assert.deepStrictEqual(
+      specGenerationUnits(model, d).map((u) => u.unitId),
+      ['u_a', 'u_b'],
+    );
+  });
+
+  test('a document without a register declares none', () => {
+    assert.deepStrictEqual(specGenerationUnits(model, new SpecDocument()), []);
   });
 });

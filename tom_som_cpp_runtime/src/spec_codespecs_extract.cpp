@@ -790,7 +790,8 @@ CodeSpecsExtractor::CodeSpecsExtractor(const SpecModel& model,
       document_(&document),
       catalog_(std::move(catalog)),
       root_(refuseCodeSpecsProjection(
-          model, resolveCodeSpecsRoot(model, document, rootType))) {}
+          model, resolveCodeSpecsRoot(model, document, rootType))),
+      units_(specGenerationUnits(model, document)) {}
 
 std::vector<CodeSpecsRouting> CodeSpecsExtractor::routings() const {
   std::vector<CodeSpecsRouting> out;
@@ -984,7 +985,7 @@ void CodeSpecsExtractor::emitValue(
   }
   // A stored comma-joined `units` value as its unit ids: split at the commas,
   // each trimmed, empty pieces dropped; unset reads as the empty list.
-  std::vector<std::string> unitIds;
+  std::vector<std::string> stored;
   if (units.has_value()) {
     std::size_t start = 0;
     while (start <= units->size()) {
@@ -994,7 +995,7 @@ void CodeSpecsExtractor::emitValue(
       const std::size_t b = id.find_first_not_of(" \t\r\n");
       if (b != std::string::npos) {
         const std::size_t e = id.find_last_not_of(" \t\r\n");
-        unitIds.push_back(id.substr(b, e - b + 1));
+        stored.push_back(id.substr(b, e - b + 1));
       }
       start = comma + 1;
     }
@@ -1016,7 +1017,8 @@ void CodeSpecsExtractor::emitValue(
     e.routedBy = area->kindValue();
     e.routedAt = routing->declaredAt;
     e.routingNote = routing->note;
-    e.units = unitIds;
+    // No section on the way stores units: the register's default for the area.
+    e.units = !stored.empty() ? stored : specDefaultUnits(units_, area->code);
     e.value = value;
     entries->push_back(std::move(e));
   }

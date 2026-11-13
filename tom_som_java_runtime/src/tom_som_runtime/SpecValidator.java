@@ -1149,7 +1149,7 @@ public final class SpecValidator {
   }
 
   /** The trimmed value of form field {@code field} at {@code formPath}, or "". */
-  private static String trimmedFormValue(SpecDocument doc, String formPath, String field) {
+  static String trimmedFormValue(SpecDocument doc, String formPath, String field) {
     String v = doc.formField(formPath, field);
     return v == null ? "" : v.trim();
   }
@@ -1174,7 +1174,7 @@ public final class SpecValidator {
   }
 
   /** The form field of {@code cls} that declares a form field named {@code name}, or null. */
-  private static SpecField formDeclaring(SpecClass cls, String name) {
+  static SpecField formDeclaring(SpecClass cls, String name) {
     for (SpecField f : cls.fields) {
       if (f.kind != SpecFieldKind.FORM) {
         continue;

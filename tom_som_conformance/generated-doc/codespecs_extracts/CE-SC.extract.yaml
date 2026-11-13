@@ -27,6 +27,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "1"
     - sectionId: "content"
       headline: null
@@ -38,6 +39,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "EDI adapter submits the translated order to the capture API."
     - sectionId: "content"
       headline: null
@@ -49,6 +51,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "System creates the Order in state Captured and emits OrderCaptured."
     - sectionId: "content"
       headline: null
@@ -60,6 +63,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Order, OrderLine"
     - sectionId: "content"
       headline: null
@@ -71,6 +75,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "—"
     - sectionId: "content"
       headline: null
@@ -82,6 +87,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "2"
     - sectionId: "content"
       headline: null
@@ -93,6 +99,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "System validates customer credit and line stock references."
     - sectionId: "content"
       headline: null
@@ -104,6 +111,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Order moves to Validated; invalid references are flagged per line."
     - sectionId: "content"
       headline: null
@@ -115,6 +123,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Customer, Product"
     - sectionId: "content"
       headline: null
@@ -126,6 +135,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Credit limit not exceeded"
     - sectionId: "content"
       headline: null
@@ -137,6 +147,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "3"
     - sectionId: "content"
       headline: null
@@ -148,6 +159,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "System prices each line against the active price list."
     - sectionId: "content"
       headline: null
@@ -159,6 +171,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Unit price is snapshotted onto each line; Order moves to Priced."
     - sectionId: "content"
       headline: null
@@ -170,6 +183,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "PriceList, OrderLine"
     - sectionId: "content"
       headline: null
@@ -181,6 +195,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "FR-02 price snapshot"
     - sectionId: "content"
       headline: null
@@ -192,6 +207,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "4"
     - sectionId: "content"
       headline: null
@@ -203,6 +219,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "System reserves stock for every line."
     - sectionId: "content"
       headline: null
@@ -214,6 +231,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Reservations recorded; Order moves to Reserved."
     - sectionId: "content"
       headline: null
@@ -225,6 +243,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Product"
     - sectionId: "content"
       headline: null
@@ -236,6 +255,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "FR-03 reserve before confirm"
     - sectionId: "content"
       headline: null
@@ -247,6 +267,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "5"
     - sectionId: "content"
       headline: null
@@ -258,6 +279,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "System confirms the order."
     - sectionId: "content"
       headline: null
@@ -269,6 +291,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Order moves to Confirmed within five minutes and appears on the work list."
     - sectionId: "content"
       headline: null
@@ -280,6 +303,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Order"
     - sectionId: "content"
       headline: null
@@ -291,6 +315,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "FR-04 five-minute confirmation"
     - sectionId: "content"
       headline: null
@@ -302,6 +327,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ExtensionStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each extension step: actor action, server call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "2a.1"
     - sectionId: "content"
       headline: null
@@ -313,6 +339,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ExtensionStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each extension step: actor action, server call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "System places the Order on Hold and emits OrderHeld."
     - sectionId: "content"
       headline: null
@@ -324,6 +351,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ExtensionStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each extension step: actor action, server call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Order appears in the Hold filter of the work list with reason \"Credit exceeded\"."
     - sectionId: "content"
       headline: null
@@ -335,6 +363,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ExtensionStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each extension step: actor action, server call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "4a.1"
     - sectionId: "content"
       headline: null
@@ -346,6 +375,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ExtensionStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each extension step: actor action, server call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "System holds the unsatisfiable line and reserves the rest."
     - sectionId: "content"
       headline: null
@@ -357,6 +387,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ExtensionStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each extension step: actor action, server call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "The order is partially reserved; the held line is flagged for follow-up."
     - sectionId: "content"
       headline: null
@@ -368,6 +399,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "1"
     - sectionId: "content"
       headline: null
@@ -379,6 +411,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Supervisor opens the held order and reviews the reason."
     - sectionId: "content"
       headline: null
@@ -390,6 +423,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "System shows the lifecycle timeline and the hold reason."
     - sectionId: "content"
       headline: null
@@ -401,6 +435,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Order"
     - sectionId: "content"
       headline: null
@@ -412,6 +447,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Order Detail timeline"
     - sectionId: "content"
       headline: null
@@ -423,6 +459,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "2"
     - sectionId: "content"
       headline: null
@@ -434,6 +471,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Supervisor releases the order with a reason."
     - sectionId: "content"
       headline: null
@@ -445,6 +483,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "System resumes the lifecycle and emits OrderHoldReleased."
     - sectionId: "content"
       headline: null
@@ -456,6 +495,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Order"
     - sectionId: "content"
       headline: null
@@ -467,6 +507,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "FR-06 hold release"
     - sectionId: "content"
       headline: null
@@ -478,6 +519,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "1"
     - sectionId: "content"
       headline: null
@@ -489,6 +531,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Clerk changes the quantity of a line and saves."
     - sectionId: "content"
       headline: null
@@ -500,6 +543,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "System validates the new quantity and re-prices the line."
     - sectionId: "content"
       headline: null
@@ -511,6 +555,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "amendOrderLine"
     - sectionId: "content"
       headline: null
@@ -522,6 +567,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "OrderLine, PriceList"
     - sectionId: "content"
       headline: null
@@ -533,6 +579,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "FR-05 amend before dispatch"
     - sectionId: "content"
       headline: "Stage the core fields"
@@ -544,6 +591,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ServerCallStepEntry"
       routingNote: "CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call."
+      units: ["meridian_codespec_client"]
       value: "assembleRequest"
     - sectionId: "content"
       headline: "Stage the core fields"
@@ -555,6 +603,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ServerCallStepEntry"
       routingNote: "CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call."
+      units: ["meridian_codespec_client"]
       value: "Puts the line id, the new quantity and the order version onto the amendment command."
     - sectionId: "content"
       headline: "Attach the justification"
@@ -566,6 +615,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ServerCallStepEntry"
       routingNote: "CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call."
+      units: ["meridian_codespec_client"]
       value: "assembleRequest"
     - sectionId: "content"
       headline: "Attach the justification"
@@ -577,6 +627,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ServerCallStepEntry"
       routingNote: "CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call."
+      units: ["meridian_codespec_client"]
       value: "Adds the clerk's justification note to the command."
     - sectionId: "content"
       headline: "Attach the justification"
@@ -588,6 +639,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ServerCallStepEntry"
       routingNote: "CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call."
+      units: ["meridian_codespec_client"]
       value: "Only when the clerk entered a justification"
     - sectionId: "content"
       headline: "Apply the price snapshot"
@@ -599,6 +651,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ServerCallStepEntry"
       routingNote: "CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call."
+      units: ["meridian_codespec_client"]
       value: "handleResponse"
     - sectionId: "content"
       headline: "Apply the price snapshot"
@@ -610,6 +663,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ServerCallStepEntry"
       routingNote: "CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call."
+      units: ["meridian_codespec_client"]
       value: "Applies the returned price snapshot and reservation state to the open line."
     - sectionId: "content"
       headline: "Surface the rejection"
@@ -621,6 +675,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ServerCallStepEntry"
       routingNote: "CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call."
+      units: ["meridian_codespec_client"]
       value: "handleError"
     - sectionId: "content"
       headline: "Surface the rejection"
@@ -632,6 +687,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ServerCallStepEntry"
       routingNote: "CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call."
+      units: ["meridian_codespec_client"]
       value: "Leaves the line at its stored quantity and shows screen.order.amend.error beside the field."
     - sectionId: "content"
       headline: null
@@ -643,6 +699,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "2"
     - sectionId: "content"
       headline: null
@@ -654,6 +711,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "System re-reserves stock for the amended line."
     - sectionId: "content"
       headline: null
@@ -665,6 +723,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Reservation is adjusted; the order returns to Confirmed if fully satisfied."
     - sectionId: "content"
       headline: null
@@ -676,6 +735,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Product"
     - sectionId: "content"
       headline: null
@@ -687,6 +747,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "MainScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "FR-03 reserve before confirm"
     - sectionId: "content"
       headline: null
@@ -698,6 +759,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each scenario step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "1"
     - sectionId: "content"
       headline: null
@@ -709,6 +771,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each scenario step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "ACT-04 EDI Integration Account"
     - sectionId: "content"
       headline: null
@@ -720,6 +783,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each scenario step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Submits a two-line wholesale order."
     - sectionId: "content"
       headline: null
@@ -731,6 +795,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each scenario step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Order captured, validated, priced, reserved, and confirmed within five minutes."
     - sectionId: "content"
       headline: null
@@ -742,6 +807,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each scenario step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "2"
     - sectionId: "content"
       headline: null
@@ -753,6 +819,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each scenario step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "ACT-01 Order Clerk"
     - sectionId: "content"
       headline: null
@@ -764,6 +831,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each scenario step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Observes the confirmed order on the work list."
     - sectionId: "content"
       headline: null
@@ -775,6 +843,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each scenario step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Order shows state Confirmed with both lines priced and reserved."
     - sectionId: "content"
       headline: null
@@ -786,6 +855,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each scenario step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "fetchOrderWorkList"
     - sectionId: "content"
       headline: "Render the work list page"
@@ -797,6 +867,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ServerCallStepEntry"
       routingNote: "CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call."
+      units: ["meridian_codespec_client"]
       value: "handleResponse"
     - sectionId: "content"
       headline: "Render the work list page"
@@ -808,6 +879,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ServerCallStepEntry"
       routingNote: "CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call."
+      units: ["meridian_codespec_client"]
       value: "Renders the returned page of work-list rows into the order table."
     - sectionId: "content"
       headline: null
@@ -819,6 +891,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each scenario step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "3"
     - sectionId: "content"
       headline: null
@@ -830,6 +903,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each scenario step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "System"
     - sectionId: "content"
       headline: null
@@ -841,6 +915,7 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each scenario step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Receives the warehouse dispatch webhook."
     - sectionId: "content"
       headline: null
@@ -852,4 +927,5 @@ extract:
       routedBy: "CodeSpecPart.serverCall"
       routedAt: "ScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each scenario step: actor action, server-bound call, and/or screen transition"
+      units: ["meridian_codespec_client"]
       value: "Order moves to Fulfilled and the public tracking page updates."

@@ -1987,6 +1987,8 @@ func testCodeSpecsExtract(c *checker, t *testing.T, model *som.SpecModel) {
 }
 
 func codeSpecsEntryRecord(e som.CodeSpecsExtractEntry) map[string]any {
+	// Always a non-nil slice, so no units encodes as `[]` like the corpus.
+	units := append([]string{}, e.Units...)
 	return map[string]any{
 		"sectionId":   e.SectionID,
 		"headline":    nullable(e.Headline),
@@ -1998,6 +2000,7 @@ func codeSpecsEntryRecord(e som.CodeSpecsExtractEntry) map[string]any {
 		"routedBy":    e.RoutedBy,
 		"routedAt":    e.RoutedAt,
 		"routingNote": nullable(e.RoutingNote),
+		"units":       units,
 		"value":       e.Value,
 	}
 }

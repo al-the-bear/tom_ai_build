@@ -26,6 +26,7 @@ use tom_som_rust_runtime::spec_review_merge::{
 use tom_som_rust_runtime::validate_document;
 use tom_som_rust_runtime::CodeSpecsExtract;
 use tom_som_rust_runtime::SomNode;
+use tom_som_rust_runtime::{spec_default_units, spec_generation_units};
 
 fn corpus(name: &str) -> String {
     let path = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR"))
@@ -651,4 +652,58 @@ fn extract_writes_units_only_where_set_and_reads_them_back() {
         .filter(|e| e.path != "DEMO/TTL")
         .all(|e| e.units.is_empty()));
     assert_eq!(back.to_yaml(), yaml);
+}
+
+// --- the register (spec_generation_units) ---------------------------------
+
+#[test]
+fn register_units_in_register_order_each_with_its_own_mappings() {
+    let model = corpus_model();
+    let mut d = register();
+    d.set_form_field("DEMO/DLV-LST-1/content", "kind", "client");
+    for (unit, area, mapping) in [
+        ("DEMO/DLV-LST-1", "CE-NV", "dart-tom"),
+        ("DEMO/DLV-LST-1", "CE-TX", " ts-react "),
+        ("DEMO/DLV-LST-2", "CE-NV", "dart-tom"),
+    ] {
+        let r = d.add_list_item(&format!("{}/DLR-LST", unit));
+        d.set_form_field(&format!("{}/content", r), "area", area);
+        d.set_form_field(&format!("{}/content", r), "mapping", mapping);
+    }
+    let units = spec_generation_units(&model, &d);
+    let ids: Vec<&str> = units.iter().map(|u| u.unit_id.as_str()).collect();
+    assert_eq!(ids, vec!["u_a", "u_b"]);
+    assert_eq!(units[0].kind, "client");
+    assert_eq!(units[0].path, "DEMO/DLV-LST-1");
+    let first: Vec<(&str, &str)> = units[0]
+        .mappings
+        .iter()
+        .map(|m| (m.area.as_str(), m.mapping.as_str()))
+        .collect();
+    assert_eq!(first, vec![("CE-NV", "dart-tom"), ("CE-TX", "ts-react")]);
+    assert_eq!(units[0].mapping_for("CE-TX"), Some("ts-react"));
+    assert_eq!(units[1].mapping_for("CE-TX"), None);
+    assert_eq!(spec_default_units(&units, "CE-NV"), vec!["u_a", "u_b"]);
+    assert_eq!(spec_default_units(&units, "CE-TX"), vec!["u_a"]);
+    assert!(spec_default_units(&units, "CE-DB").is_empty());
+}
+
+#[test]
+fn register_a_unit_without_an_id_and_a_second_unit_of_one_id_are_left_out() {
+    let model = corpus_model();
+    let mut d = register();
+    d.add_list_item("DEMO/DLV-LST");
+    let dup = d.add_list_item("DEMO/DLV-LST");
+    d.set_form_field(&format!("{}/content", dup), "unitId", "u_a");
+    let ids: Vec<String> = spec_generation_units(&model, &d)
+        .into_iter()
+        .map(|u| u.unit_id)
+        .collect();
+    assert_eq!(ids, vec!["u_a", "u_b"]);
+}
+
+#[test]
+fn register_a_document_without_a_register_declares_none() {
+    let model = corpus_model();
+    assert!(spec_generation_units(&model, &SpecDocument::new()).is_empty());
 }

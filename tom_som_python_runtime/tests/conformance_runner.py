@@ -280,6 +280,11 @@ def _build_document() -> SpecDocument:
     d.set_form_field(f"{u1}/content", "unitId", "demo_client")
     d.set_form_field(f"{u1}/content", "kind", "client")
     d.set_form_field(f"{u1}/content", "component", "ARCM-COMP-UI")
+    # Both units map CE-NV, so an entry routed there with no stored units goes
+    # to both by default, in register order (the extract's `units`).
+    n1 = d.add_list_item(f"{u1}/DLR-LST", section_id="DLR-1")
+    d.set_form_field(f"{n1}/content", "area", "CE-NV")
+    d.set_form_field(f"{n1}/content", "mapping", "dart-tom")
     u2 = d.add_list_item("DEMO/DLV-LST", section_id="DLV-2")
     d.set_form_field(f"{u2}/content", "unitId", "demo_server")
     d.set_form_field(f"{u2}/content", "kind", "server")
@@ -287,6 +292,9 @@ def _build_document() -> SpecDocument:
     r1 = d.add_list_item(f"{u2}/DLR-LST", section_id="DLR-1")
     d.set_form_field(f"{r1}/content", "area", "CE-DB")
     d.set_form_field(f"{r1}/content", "mapping", "dart-tom")
+    r2 = d.add_list_item(f"{u2}/DLR-LST", section_id="DLR-2")
+    d.set_form_field(f"{r2}/content", "area", "CE-NV")
+    d.set_form_field(f"{r2}/content", "mapping", "dart-tom")
     return d
 
 
@@ -1616,6 +1624,7 @@ def test_codespecs_extract(model: SpecModel) -> None:
                     "routedBy": e.routed_by,
                     "routedAt": e.routed_at,
                     "routingNote": e.routing_note,
+                    "units": e.units,
                     "value": e.value,
                 }
                 for e in x.entries

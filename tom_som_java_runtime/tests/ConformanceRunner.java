@@ -2170,6 +2170,11 @@ public final class ConformanceRunner {
     d.setFormField(u1 + "/content", "unitId", "demo_client");
     d.setFormField(u1 + "/content", "kind", "client");
     d.setFormField(u1 + "/content", "component", "ARCM-COMP-UI");
+    // Both units map CE-NV, so an entry routed there with no stored units goes
+    // to both by default, in register order (the extract's `units`).
+    String n1 = d.addListItem(u1 + "/DLR-LST", "DLR-1");
+    d.setFormField(n1 + "/content", "area", "CE-NV");
+    d.setFormField(n1 + "/content", "mapping", "dart-tom");
     String u2 = d.addListItem("DEMO/DLV-LST", "DLV-2");
     d.setFormField(u2 + "/content", "unitId", "demo_server");
     d.setFormField(u2 + "/content", "kind", "server");
@@ -2177,6 +2182,9 @@ public final class ConformanceRunner {
     String r1 = d.addListItem(u2 + "/DLR-LST", "DLR-1");
     d.setFormField(r1 + "/content", "area", "CE-DB");
     d.setFormField(r1 + "/content", "mapping", "dart-tom");
+    String r2 = d.addListItem(u2 + "/DLR-LST", "DLR-2");
+    d.setFormField(r2 + "/content", "area", "CE-NV");
+    d.setFormField(r2 + "/content", "mapping", "dart-tom");
     return d;
   }
 
@@ -2508,6 +2516,7 @@ public final class ConformanceRunner {
         o.put("routedBy", e.routedBy);
         o.put("routedAt", e.routedAt);
         o.put("routingNote", e.routingNote);
+        o.put("units", new ArrayList<Object>(e.units));
         o.put("value", e.value);
         gotEntries.add(o);
       }

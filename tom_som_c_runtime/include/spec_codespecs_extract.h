@@ -74,9 +74,11 @@
  * **stored** section id (the `<!--[…]-->` id the document serializes),
  * copy-only; null when no enclosing instance stores one.
  *
- * Entries may carry `units` — the nearest stored generation units (SOM §11.2)
- * at the entry's path or above it. The key is written only when non-empty and
- * reads as empty when absent, so it is additive and the version stays 3. */
+ * Entries may carry `units` — the generation units the entry goes to (SOM
+ * §11.2): the nearest stored units at the entry's path or above it, else the
+ * units of the document's register whose mappings hold the entry's area. The
+ * key is written only when non-empty and reads as empty when absent, so it is
+ * additive and the version stays 3. */
 #define SPEC_CODESPECS_EXTRACT_FORMAT 3
 
 /* The annotation names of the three routing verdicts (`codespecs_mapping.md`
@@ -195,10 +197,11 @@ typedef struct {
   char *routing_note;
   /* The generation units the entry goes to (SOM §11.2, `codespecs_mapping.md`
    * §1.1.1): the nearest stored `units` at the entry's path or any ancestor
-   * path, split at its commas (each trimmed, empty pieces dropped). Empty when
-   * no section on the way stores one — the default, every unit with a mapping
-   * for the entry's area. Copy-only like `instance_id`. A zeroed list is
-   * empty. */
+   * path, split at its commas (each trimmed, empty pieces dropped); when no
+   * section on the way stores one, the default — every unit of the document's
+   * register with a mapping for the entry's area, in register order
+   * (`spec_generation_units`). Empty when the document declares no unit that
+   * holds the area. A zeroed list is empty. */
   SomStrList units;
   /* The stored value, **verbatim**. Never assembled, reformatted or trimmed. */
   char *value;

@@ -67,16 +67,18 @@ public final class CodeSpecsExtractEntry {
   /**
    * The generation units the entry goes to (SOM §11.2,
    * {@code codespecs_mapping.md} §1.1.1): the nearest stored {@code units} at
-   * the entry's path or any ancestor path, split at its commas. Empty when no
-   * section on the way stores one — the default, every unit with a mapping for
-   * the entry's area. Copy-only like {@link #instanceId}.
+   * the entry's path or any ancestor path, split at its commas; when no section
+   * on the way stores one, the default — every unit of the document's register
+   * with a mapping for the entry's area, in register order
+   * ({@link SpecGenerationUnits#specGenerationUnits}). Empty when the document
+   * declares no unit that holds the area.
    */
   public final List<String> units;
 
   /** The stored value, <b>verbatim</b>. Never assembled, reformatted or trimmed. */
   public final String value;
 
-  /** An entry carrying no {@link #units} — the default. */
+  /** An entry carrying no {@link #units}. */
   public CodeSpecsExtractEntry(
       String areaCode,
       String sectionId,

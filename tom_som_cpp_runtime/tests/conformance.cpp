@@ -1752,6 +1752,10 @@ static void test_codespecs_extract(Checker& c, const som::SpecModel& model) {
               opt_text(e.routingNote) ==
                   json_opt_text(som::jsonGet(we, "routingNote")),
               opt_text(e.routingNote));
+      std::vector<std::string> wantUnits =
+          json_str_list(som::jsonGet(we, "units"));
+      c.check(etag + ".units", e.units == wantUnits,
+              join(e.units) + " != " + join(wantUnits));
       c.check(etag + ".value", e.value == som::jsonStrOr(we, "value"), e.value);
     }
 

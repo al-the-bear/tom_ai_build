@@ -3,6 +3,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,9 @@ import tom_som_runtime.SpecDocument;
 import tom_som_runtime.SpecDocumentAssembly;
 import tom_som_runtime.SpecDocumentMarkdown;
 import tom_som_runtime.SpecDocumentYaml;
+import tom_som_runtime.SpecGenerationUnit;
+import tom_som_runtime.SpecGenerationUnitMapping;
+import tom_som_runtime.SpecGenerationUnits;
 import tom_som_runtime.SpecMarkdownResult;
 import tom_som_runtime.SpecModel;
 import tom_som_runtime.SpecReviewMember;
@@ -102,6 +106,7 @@ public final class SpecUnitsTest {
     reviewMerge(model);
     validation(model);
     extract(model);
+    register(model);
 
     for (String f : failed) {
       System.out.println("  - " + f);
@@ -461,6 +466,10 @@ public final class SpecUnitsTest {
     eq("extract.inherited", byPath.get("DEMO/notes/NOTE-BDY").units,
         List.of("demo_client", "demo_server"));
     eq("extract.none", byPath.get("DEMO/SUM").units, List.of());
+    // No section on the way stores units: the register's default, every unit
+    // mapping the entry's area, in register order (both demo units map CE-NV).
+    eq("extract.registerDefault", byPath.get("DEMO/PRI").units,
+        List.of("demo_client", "demo_server"));
 
     // The nearest wins over every ancestor; values are split and trimmed.
     SpecDocument d = new SpecDocument();
@@ -497,6 +506,12 @@ public final class SpecUnitsTest {
     for (String p : new ArrayList<>(none.unitsPaths())) {
       none.setUnits(p, "");
     }
+    // Without a register there is no default either, so no entry names a unit.
+    List<String> declared = new ArrayList<>(none.listItems("DEMO/DLV-LST"));
+    Collections.reverse(declared);
+    for (String item : declared) {
+      none.removeListItem(item);
+    }
     for (CodeSpecsExtract x : new CodeSpecsExtractor(model, none, catalog).extractAll()) {
       check("extract.absent.yaml[" + x.area.code + "]", !x.toYaml().contains("units:"), "");
       check("extract.absent.md[" + x.area.code + "]", !x.toMarkdown().contains("- units:"), "");
@@ -504,5 +519,62 @@ public final class SpecUnitsTest {
         check("extract.absent.read[" + e.path + "]", e.units.isEmpty(), e.units.toString());
       }
     }
+  }
+
+  // --- the register (specGenerationUnits) ----------------------------------
+
+  private static void register(SpecModel model) {
+    // Units in register order, each with its own mappings.
+    SpecDocument d = register();
+    d.setFormField("DEMO/DLV-LST-1/content", "kind", "client");
+    String[][] routes = {
+      {"DEMO/DLV-LST-1", "CE-NV", "dart-tom"},
+      {"DEMO/DLV-LST-1", "CE-TX", " ts-react "},
+      {"DEMO/DLV-LST-2", "CE-NV", "dart-tom"},
+    };
+    for (String[] route : routes) {
+      String r = d.addListItem(route[0] + "/DLR-LST");
+      d.setFormField(r + "/content", "area", route[1]);
+      d.setFormField(r + "/content", "mapping", route[2]);
+    }
+    List<SpecGenerationUnit> units = SpecGenerationUnits.specGenerationUnits(model, d);
+    List<String> ids = new ArrayList<>();
+    for (SpecGenerationUnit u : units) {
+      ids.add(u.unitId);
+    }
+    eq("register.order", ids, List.of("u_a", "u_b"));
+    SpecGenerationUnit first = units.get(0);
+    SpecGenerationUnit last = units.get(units.size() - 1);
+    eq("register.kind", first.kind, "client");
+    eq("register.path", first.path, "DEMO/DLV-LST-1");
+    List<List<String>> firstMappings = new ArrayList<>();
+    for (SpecGenerationUnitMapping m : first.mappings) {
+      firstMappings.add(List.of(m.area, m.mapping));
+    }
+    eq("register.mappings", firstMappings,
+        List.of(List.of("CE-NV", "dart-tom"), List.of("CE-TX", "ts-react")));
+    eq("register.mappingFor", first.mappingFor("CE-TX"), "ts-react");
+    eq("register.mappingFor.none", last.mappingFor("CE-TX"), null);
+    eq("register.default.both", SpecGenerationUnits.specDefaultUnits(units, "CE-NV"),
+        List.of("u_a", "u_b"));
+    eq("register.default.one", SpecGenerationUnits.specDefaultUnits(units, "CE-TX"),
+        List.of("u_a"));
+    eq("register.default.none", SpecGenerationUnits.specDefaultUnits(units, "CE-DB"),
+        List.of());
+
+    // A unit without an id, and a second unit of one id, are left out.
+    SpecDocument skip = register();
+    skip.addListItem("DEMO/DLV-LST");
+    String dup = skip.addListItem("DEMO/DLV-LST");
+    skip.setFormField(dup + "/content", "unitId", "u_a");
+    List<String> kept = new ArrayList<>();
+    for (SpecGenerationUnit u : SpecGenerationUnits.specGenerationUnits(model, skip)) {
+      kept.add(u.unitId);
+    }
+    eq("register.skipped", kept, List.of("u_a", "u_b"));
+
+    // A document without a register declares none.
+    check("register.none",
+        SpecGenerationUnits.specGenerationUnits(model, new SpecDocument()).isEmpty(), "");
   }
 }

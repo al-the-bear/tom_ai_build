@@ -26,6 +26,8 @@ import {
   buildSomMetaTree,
   mergeReviews,
   parseCodeSpecsExtractYaml,
+  specDefaultUnits,
+  specGenerationUnits,
   validateDocument,
   yamlEncode,
 } from '../src/index';
@@ -559,6 +561,54 @@ function testExtract(): void {
   _check('extract.read.reencode', back.toYaml() === yaml);
 }
 
+// --- the register (specGenerationUnits) --------------------------------------
+
+function testRegister(): void {
+  // Units in register order, each with its own mappings.
+  const d = _register();
+  d.setFormField('DEMO/DLV-LST-1/content', 'kind', 'client');
+  for (const [unit, area, mapping] of [
+    ['DEMO/DLV-LST-1', 'CE-NV', 'dart-tom'],
+    ['DEMO/DLV-LST-1', 'CE-TX', ' ts-react '],
+    ['DEMO/DLV-LST-2', 'CE-NV', 'dart-tom'],
+  ]) {
+    const r = d.addListItem(`${unit}/DLR-LST`);
+    d.setFormField(`${r}/content`, 'area', area);
+    d.setFormField(`${r}/content`, 'mapping', mapping);
+  }
+  const units = specGenerationUnits(model, d);
+  _eq('register.ids', units.map((u) => u.unitId), ['u_a', 'u_b']);
+  _eq('register.kind', units[0].kind, 'client');
+  _eq('register.path', units[0].path, 'DEMO/DLV-LST-1');
+  _eq(
+    'register.mappings',
+    units[0].mappings.map((m) => [m.area, m.mapping]),
+    [
+      ['CE-NV', 'dart-tom'],
+      ['CE-TX', 'ts-react'],
+    ],
+  );
+  _eq('register.mappingFor', units[0].mappingFor('CE-TX'), 'ts-react');
+  _eq('register.mappingFor.none', units[units.length - 1].mappingFor('CE-TX'), null);
+  _eq('register.default.both', specDefaultUnits(units, 'CE-NV'), ['u_a', 'u_b']);
+  _eq('register.default.one', specDefaultUnits(units, 'CE-TX'), ['u_a']);
+  _eq('register.default.none', specDefaultUnits(units, 'CE-DB'), []);
+
+  // A unit without an id, and a second unit of one id, are left out.
+  const left = _register();
+  left.addListItem('DEMO/DLV-LST');
+  const dup = left.addListItem('DEMO/DLV-LST');
+  left.setFormField(`${dup}/content`, 'unitId', 'u_a');
+  _eq(
+    'register.leftOut',
+    specGenerationUnits(model, left).map((u) => u.unitId),
+    ['u_a', 'u_b'],
+  );
+
+  // A document without a register declares none.
+  _eq('register.none', specGenerationUnits(model, new SpecDocument()), []);
+}
+
 function main(): number {
   testStore();
   testSnapshot();
@@ -573,6 +623,7 @@ function main(): number {
   testReviewMerge();
   testValidation();
   testExtract();
+  testRegister();
   if (_failed.length > 0) {
     console.log(`FAIL: ${_failed.length}/${_passed + _failed.length} checks failed`);
     for (const f of _failed) console.log(`  - ${f}`);

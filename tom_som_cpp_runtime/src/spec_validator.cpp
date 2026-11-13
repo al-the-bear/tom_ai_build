@@ -9,6 +9,7 @@
 #include <set>
 
 #include "som_util.hpp"
+#include "spec_generation_units.hpp"
 #include "spec_paths.hpp"
 #include "spec_reflection.hpp"
 #include "spec_review_annotations.hpp"
@@ -836,17 +837,6 @@ bool isUnitAreaCode(const std::string& area) {
   return true;
 }
 
-/* The form field of `cls` that declares a form field named `name`, or null. */
-const SpecField* formDeclaring(const SpecClass& cls, const std::string& name) {
-  for (const SpecField& f : cls.fields) {
-    if (f.kind != kSpecFieldKindForm) continue;
-    for (const FormFieldSpec& ff : f.formFields) {
-      if (ff.name == name) return &f;
-    }
-  }
-  return nullptr;
-}
-
 /* Whether the section `res` resolves to routes anything to CodeSpecs — the
    `unitsUnrouted` test.
 
@@ -925,7 +915,7 @@ std::vector<SpecValidationError> validateGenerationUnits(
         continue;
       }
 
-      if (const SpecField* unitForm = formDeclaring(*cls, "unitId")) {
+      if (const SpecField* unitForm = specFormDeclaring(*cls, "unitId")) {
         const std::string formPath =
             specPathJoin(item, SpecReflection::fieldSegment(*unitForm));
         auto value = [&](const std::string& f) {
@@ -948,7 +938,7 @@ std::vector<SpecValidationError> validateGenerationUnits(
         }
       }
 
-      if (const SpecField* areaForm = formDeclaring(*cls, "area")) {
+      if (const SpecField* areaForm = specFormDeclaring(*cls, "area")) {
         const std::string formPath =
             specPathJoin(item, SpecReflection::fieldSegment(*areaForm));
         const std::string area = trimmed(doc.formField(formPath, "area"));

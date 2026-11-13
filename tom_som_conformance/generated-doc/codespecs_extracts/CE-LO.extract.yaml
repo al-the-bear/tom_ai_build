@@ -27,6 +27,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenEntry"
       routingNote: "CE-LO + CE-NV — a screen is a routable, laid-out page."
+      units: ["meridian_codespec_client"]
       value: "The single, state-filtered queue from which clerks work every order."
     - sectionId: "SCECL"
       headline: "Order Work List"
@@ -38,6 +39,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenEntry"
       routingNote: "CE-LO + CE-NV — a screen is a routable, laid-out page."
+      units: ["meridian_codespec_client"]
       value: "List"
     - sectionId: "SCECL"
       headline: "Order Work List"
@@ -49,6 +51,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenEntry"
       routingNote: "CE-LO + CE-NV — a screen is a routable, laid-out page."
+      units: ["meridian_codespec_client"]
       value: "order-work-list"
     - sectionId: "SCETR"
       headline: "Order Work List"
@@ -60,6 +63,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenEntry"
       routingNote: "CE-LO + CE-NV — a screen is a routable, laid-out page."
+      units: ["meridian_codespec_client"]
       value: "UC-01, UC-02"
     - sectionId: "SCETR"
       headline: "Order Work List"
@@ -71,6 +75,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenEntry"
       routingNote: "CE-LO + CE-NV — a screen is a routable, laid-out page."
+      units: ["meridian_codespec_client"]
       value: "FRE-REQU-ORDER-CAPTURE, FRE-REQU-CONFIRM-SLA, FRE-REQU-HOLD-RELEASE"
     - sectionId: "SCETR"
       headline: "Order Work List"
@@ -82,6 +87,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenEntry"
       routingNote: "CE-LO + CE-NV — a screen is a routable, laid-out page."
+      units: ["meridian_codespec_client"]
       value: "Order"
     - sectionId: "SCETR"
       headline: "Order Work List"
@@ -93,6 +99,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenEntry"
       routingNote: "CE-LO + CE-NV — a screen is a routable, laid-out page."
+      units: ["meridian_codespec_client"]
       value: "Open selected order"
     - sectionId: "SCENPR"
       headline: "Order Work List"
@@ -104,6 +111,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenEntry"
       routingNote: "CE-LO + CE-NV — a screen is a routable, laid-out page."
+      units: ["meridian_codespec_client"]
       value: "screen.orders.title"
     - sectionId: "SCENPR"
       headline: "Order Work List"
@@ -115,6 +123,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenEntry"
       routingNote: "CE-LO + CE-NV — a screen is a routable, laid-out page."
+      units: ["meridian_codespec_client"]
       value: "Master-detail"
     - sectionId: "content"
       headline: "State filter bar"
@@ -126,6 +135,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenSectionEntry"
       routingNote: "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+      units: ["meridian_codespec_client"]
       value: "SCR-01-SEC-1"
     - sectionId: "content"
       headline: "State filter bar"
@@ -137,6 +147,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenSectionEntry"
       routingNote: "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+      units: ["meridian_codespec_client"]
       value: "Filter the queue by lifecycle state."
     - sectionId: "content"
       headline: "State filter bar"
@@ -148,6 +159,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenSectionEntry"
       routingNote: "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+      units: ["meridian_codespec_client"]
       value: "Toolbar"
     - sectionId: "SSEL"
       headline: "State filter bar"
@@ -159,6 +171,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenSectionEntry"
       routingNote: "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+      units: ["meridian_codespec_client"]
       value: "Horizontal"
     - sectionId: "SSEL"
       headline: "State filter bar"
@@ -170,6 +183,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenSectionEntry"
       routingNote: "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+      units: ["meridian_codespec_client"]
       value: "1"
     - sectionId: "content"
       headline: "Order table"
@@ -181,6 +195,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenSectionEntry"
       routingNote: "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+      units: ["meridian_codespec_client"]
       value: "SCR-01-SEC-2"
     - sectionId: "content"
       headline: "Order table"
@@ -192,6 +207,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenSectionEntry"
       routingNote: "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+      units: ["meridian_codespec_client"]
       value: "The work list itself, keyboard-navigable for high-volume clerks."
     - sectionId: "content"
       headline: "Order table"
@@ -203,6 +219,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenSectionEntry"
       routingNote: "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+      units: ["meridian_codespec_client"]
       value: "DataTable"
     - sectionId: "SSEL"
       headline: "Order table"
@@ -214,6 +231,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenSectionEntry"
       routingNote: "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+      units: ["meridian_codespec_client"]
       value: "Vertical"
     - sectionId: "SSEL"
       headline: "Order table"
@@ -225,6 +243,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenSectionEntry"
       routingNote: "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+      units: ["meridian_codespec_client"]
       value: "2"
     - sectionId: "content"
       headline: "Order Detail"
@@ -236,6 +255,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenEntry"
       routingNote: "CE-LO + CE-NV — a screen is a routable, laid-out page."
+      units: ["meridian_codespec_client"]
       value: "The lifecycle timeline and inline actions for a single order."
     - sectionId: "SCECL"
       headline: "Order Detail"
@@ -247,6 +267,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenEntry"
       routingNote: "CE-LO + CE-NV — a screen is a routable, laid-out page."
+      units: ["meridian_codespec_client"]
       value: "Detail"
     - sectionId: "SCECL"
       headline: "Order Detail"
@@ -258,6 +279,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenEntry"
       routingNote: "CE-LO + CE-NV — a screen is a routable, laid-out page."
+      units: ["meridian_codespec_client"]
       value: "SCREN-ITEM-SCR-01"
     - sectionId: "SCECL"
       headline: "Order Detail"
@@ -269,6 +291,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenEntry"
       routingNote: "CE-LO + CE-NV — a screen is a routable, laid-out page."
+      units: ["meridian_codespec_client"]
       value: "order-detail"
     - sectionId: "SCETR"
       headline: "Order Detail"
@@ -280,6 +303,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenEntry"
       routingNote: "CE-LO + CE-NV — a screen is a routable, laid-out page."
+      units: ["meridian_codespec_client"]
       value: "UC-02, UC-03"
     - sectionId: "SCETR"
       headline: "Order Detail"
@@ -291,6 +315,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenEntry"
       routingNote: "CE-LO + CE-NV — a screen is a routable, laid-out page."
+      units: ["meridian_codespec_client"]
       value: "FRE-REQU-AMEND-CANCEL, FRE-REQU-HOLD-RELEASE"
     - sectionId: "SCETR"
       headline: "Order Detail"
@@ -302,6 +327,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenEntry"
       routingNote: "CE-LO + CE-NV — a screen is a routable, laid-out page."
+      units: ["meridian_codespec_client"]
       value: "Order, OrderLine"
     - sectionId: "SCETR"
       headline: "Order Detail"
@@ -313,6 +339,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenEntry"
       routingNote: "CE-LO + CE-NV — a screen is a routable, laid-out page."
+      units: ["meridian_codespec_client"]
       value: "Amend line"
     - sectionId: "SCENPR"
       headline: "Order Detail"
@@ -324,6 +351,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenEntry"
       routingNote: "CE-LO + CE-NV — a screen is a routable, laid-out page."
+      units: ["meridian_codespec_client"]
       value: "screen.order.title"
     - sectionId: "SCENPR"
       headline: "Order Detail"
@@ -335,6 +363,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenEntry"
       routingNote: "CE-LO + CE-NV — a screen is a routable, laid-out page."
+      units: ["meridian_codespec_client"]
       value: "Single column"
     - sectionId: "content"
       headline: "Lifecycle timeline"
@@ -346,6 +375,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenSectionEntry"
       routingNote: "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+      units: ["meridian_codespec_client"]
       value: "SCR-02-SEC-1"
     - sectionId: "content"
       headline: "Lifecycle timeline"
@@ -357,6 +387,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenSectionEntry"
       routingNote: "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+      units: ["meridian_codespec_client"]
       value: "Show every state transition with its authenticated actor."
     - sectionId: "content"
       headline: "Lifecycle timeline"
@@ -368,6 +399,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenSectionEntry"
       routingNote: "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+      units: ["meridian_codespec_client"]
       value: "Timeline"
     - sectionId: "SSEL"
       headline: "Lifecycle timeline"
@@ -379,6 +411,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenSectionEntry"
       routingNote: "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+      units: ["meridian_codespec_client"]
       value: "Vertical"
     - sectionId: "SSEL"
       headline: "Lifecycle timeline"
@@ -390,6 +423,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenSectionEntry"
       routingNote: "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+      units: ["meridian_codespec_client"]
       value: "1"
     - sectionId: "content"
       headline: "Order lines"
@@ -401,6 +435,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenSectionEntry"
       routingNote: "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+      units: ["meridian_codespec_client"]
       value: "SCR-02-SEC-2"
     - sectionId: "content"
       headline: "Order lines"
@@ -412,6 +447,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenSectionEntry"
       routingNote: "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+      units: ["meridian_codespec_client"]
       value: "Editable list of lines with price and reservation status."
     - sectionId: "content"
       headline: "Order lines"
@@ -423,6 +459,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenSectionEntry"
       routingNote: "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+      units: ["meridian_codespec_client"]
       value: "EditableTable"
     - sectionId: "SSEL"
       headline: "Order lines"
@@ -434,6 +471,7 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenSectionEntry"
       routingNote: "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+      units: ["meridian_codespec_client"]
       value: "Vertical"
     - sectionId: "SSEL"
       headline: "Order lines"
@@ -445,4 +483,5 @@ extract:
       routedBy: "CodeSpecPart.layout"
       routedAt: "ScreenSectionEntry"
       routingNote: "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+      units: ["meridian_codespec_client"]
       value: "2"

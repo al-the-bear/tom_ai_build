@@ -20,10 +20,11 @@ public final class CodeSpecsExtract {
    * instance's <b>stored</b> section id (the {@code <!--[…]-->} id the document
    * serializes), copy-only; null when no enclosing instance stores one.
    *
-   * <p>Entries may carry {@code units} — the nearest stored generation units
-   * (SOM §11.2) at the entry's path or above it. The key is written only when
-   * non-empty and reads as empty when absent, so it is additive and the version
-   * stays 3.
+   * <p>Entries may carry {@code units} — the generation units the entry goes to
+   * (SOM §11.2): the nearest stored units at the entry's path or above it, else
+   * the units of the document's register whose mappings hold the entry's area.
+   * The key is written only when non-empty and reads as empty when absent, so it
+   * is additive and the version stays 3.
    */
   public static final int FORMAT_VERSION = 3;
 

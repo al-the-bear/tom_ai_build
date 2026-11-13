@@ -100,6 +100,12 @@ public final class CodeSpecsExtractor {
    */
   public final SpecRoot root;
 
+  /**
+   * The document's generation units
+   * ({@link SpecGenerationUnits#specGenerationUnits}), read once.
+   */
+  private final List<SpecGenerationUnit> units;
+
   private final SpecReflection reflection;
 
   /** Binds an extractor to the document's single populated root. */
@@ -130,6 +136,7 @@ public final class CodeSpecsExtractor {
     this.catalog = catalog;
     this.root = refuseProjection(model, resolveRoot(model, document, rootType));
     this.reflection = new SpecReflection(model);
+    this.units = SpecGenerationUnits.specGenerationUnits(model, document);
   }
 
   /** The document path segment a root's values live under. */
@@ -477,12 +484,15 @@ public final class CodeSpecsExtractor {
     if (value == null || value.isEmpty()) {
       return;
     }
-    List<String> unitIds = SpecValidator.splitUnits(units);
+    List<String> stored = SpecValidator.splitUnits(units);
     for (String kind : routing.values) {
       CodeSpecsArea area = catalog.byPart(kind);
       if (area == null || !area.active) {
         continue;
       }
+      List<String> unitIds = !stored.isEmpty()
+          ? stored
+          : SpecGenerationUnits.specDefaultUnits(this.units, area.code);
       entries.add(
           new CodeSpecsExtractEntry(
               area.code,

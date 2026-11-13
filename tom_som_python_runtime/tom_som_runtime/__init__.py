@@ -76,6 +76,12 @@ from .spec_codespecs_records import (
     parse_code_specs_extract_yaml,
 )
 from .spec_document import SpecDocument, SpecListItemMove
+from .spec_generation_units import (
+    SpecGenerationUnit,
+    SpecGenerationUnitMapping,
+    spec_default_units,
+    spec_generation_units,
+)
 from .spec_document_assembly import (
     SpecAssemblyOverlap,
     SpecDocumentAssembly,
@@ -338,6 +344,8 @@ __all__ = [
     "SpecEditor",
     "SpecField",
     "SpecFieldKind",
+    "SpecGenerationUnit",
+    "SpecGenerationUnitMapping",
     "SpecMarkdownImport",
     "SpecMarkdownRejectReason",
     "SpecMarkdownRejection",
@@ -443,6 +451,8 @@ __all__ = [
     "som_parse_num",
     "som_scalar_base",
     "som_typed_text_readable",
+    "spec_default_units",
+    "spec_generation_units",
     "spec_parent_path",
     "spec_path_join",
     "spec_path_segments",
