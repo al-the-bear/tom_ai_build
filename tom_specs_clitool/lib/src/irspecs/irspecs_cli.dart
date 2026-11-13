@@ -15,7 +15,11 @@
 ///   `--spec <document> --unit <unit id>` it writes one generation unit
 ///   instead: the specification's register names the unit's kind and, per
 ///   area, its mapper, and only the areas `--mapper` holds for the unit are
-///   written, into `--out/<unit id>` (`irspecs_ir.md` §8.1).
+///   written, into `--out/<unit id>` (`irspecs_ir.md` §8.1). The other
+///   mappers write other languages from the same IR: `ts-shared`,
+///   `ts-react-client` and `ts-hono-server` an npm workspace
+///   (`irspecs_ir.md` §11), `go-server` the server as a Go module
+///   (`irspecs_ir.md` §12).
 ///
 /// * `irspecs emit --standard <name> --ir <dir> --out <dir>`, the name one
 ///   of `openapi`, `jsonschema`, `icu` and `asyncapi`, writes what a standard
@@ -50,6 +54,7 @@ import 'emitters/icu_emitter.dart';
 import 'emitters/json_schema_emitter.dart';
 import 'emitters/openapi_emitter.dart';
 import 'mappers/dart_tom/dart_tom_mapper.dart';
+import 'mappers/go/go_mapper.dart';
 import 'mappers/ts/ts_mapper.dart';
 
 /// The `from-codespecs` option set — exposed so the README correspondence
@@ -80,7 +85,7 @@ ArgParser irspecsParser() => ArgParser()
   ..addOption(
     'mapper',
     help: 'map: which mapper writes the code.',
-    allowed: [kDartTomMapper, ...kTsMappers.keys],
+    allowed: [kDartTomMapper, ...kTsMappers.keys, kGoServerMapper],
   )
   ..addOption(
     'spec',
@@ -269,8 +274,10 @@ Future<int> _map(
   }
   final mapper = results.option('mapper')!;
   try {
-    if (kTsMappers.containsKey(mapper)) {
-      final files = mapTypeScript(documents, mapper, all: all);
+    if (kTsMappers.containsKey(mapper) || mapper == kGoServerMapper) {
+      final files = mapper == kGoServerMapper
+          ? mapGoServer(documents, all: all)
+          : mapTypeScript(documents, mapper, all: all);
       for (final MapEntry(key: path, value: text) in files.entries) {
         File(p.joinAll([results.option('out')!, ...path.split('/')]))
           ..parent.createSync(recursive: true)

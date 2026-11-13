@@ -43,6 +43,10 @@ Schema is `tool/irspecs_ir.schema.json`.
 | `kTsSharedMapper`, `kTsReactClientMapper`, `kTsHonoServerMapper` | `'ts-shared'`, `'ts-react-client'`, `'ts-hono-server'` | The TypeScript mappers' ids (`irspecs_ir.md` §11). |
 | `kTsMappers` | `Map<String, CsLocus>` | Each TypeScript mapper and the locus it writes. |
 | `kTsDependencyVersions` | `Map<String, String>` | The versions the TypeScript workspace pins. |
+| `kGoServerMapper` | `'go-server'` | The Go server mapper's id (`irspecs_ir.md` §12). |
+| `kGoLanguageVersion` | `'1.24'` | The `go` directive of the module's `go.mod`. |
+| `kGoDependencyVersions` | `Map<String, String>` | The modules the Go server requires (chi), and their versions. |
+| `kSqlcVersion` | `'v1.29.0'` | The sqlc release the module's `sqlc.yaml` is written for. |
 | `irStandards` | `Map<String, IrEmission Function(List<IrDocument>)>` | The standards `irspecs emit --standard` writes: `openapi`, `jsonschema`, `icu`, `asyncapi`. |
 | `kOpenApiVersion`, `kOpenApiFile` | `'3.1.0'`, `'openapi.json'` | The OpenAPI emitter's version and file. |
 | `kJsonSchema202012`, `kJsonSchemaFile` | the 2020-12 dialect URI, `'schema.json'` | The JSON Schema emitter's dialect and file. |
@@ -340,5 +344,7 @@ IrSchemaBuilder(IrIndex index, {required String refBase, required List<String> n
 | `irJson(Object? data)` | `String` | JSON as the emitters write it: two-space indented, one trailing newline. |
 | `irMarker`, `irString`, `irInitialiserString`, `irDocText`, `irHandlerResult` | — | The helpers the emitters read the IR with: a marker by name, a value's string, an initialiser's string argument, a doc comment's text, a handler's response type. |
 | `mapTypeScript(List<IrDocument> share, String mapper, {List<IrDocument>? all})` | `Map<String, String>` | A TypeScript mapper's package and the workspace root, `<path>` → text; the API client and routes read the OpenAPI of `all`. Throws `IrMapException` on a construct it has no rule for. |
+| `mapGoServer(List<IrDocument> share, {List<IrDocument>? all})` | `Map<String, String>` | The Go module of the share's server, `<module>/<path>` → text: the `shared`, `server` and `tom` packages, `router.go` from the OpenAPI of `all`, `go.mod`/`go.sum`, and the sqlc schema, queries and `sqlc.yaml`. Throws `IrMapException` on a construct it has no rule for. |
+| `openApiOperations(Map<String, dynamic> openApi)` | `List<IrOpenApiOperation>` | The operations of a document `emitOpenApi` wrote: path, operation id, request and response schema names, whether the response is the Result envelope. What the mappers write the API client and the routes from. |
 | `irspecsParser()` | `ArgParser` | The `irspecs` option set. |
 | `runIrspecs(List<String> arguments, {StringSink? out, StringSink? err})` | `Future<int>` | Runs `irspecs`; returns the exit code. |

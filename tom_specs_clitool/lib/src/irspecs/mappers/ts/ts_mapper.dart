@@ -982,58 +982,6 @@ String _snake(String s) => s
 // The API client and the routes, from the OpenAPI document
 // ---------------------------------------------------------------------------
 
-/// The operations of an OpenAPI document: path, operation id, request and
-/// response schema names, and whether the response is the Result envelope.
-List<
-  ({String path, String op, String? request, String? response, bool enveloped})
->
-_operations(Map<String, dynamic> openApi) {
-  String? refName(Object? schema) {
-    if (schema is Map && schema[r'$ref'] is String) {
-      return (schema[r'$ref'] as String).split('/').last;
-    }
-    return null;
-  }
-
-  final out =
-      <
-        ({
-          String path,
-          String op,
-          String? request,
-          String? response,
-          bool enveloped,
-        })
-      >[];
-  for (final MapEntry(key: path, value: item)
-      in (openApi['paths'] as Map<String, dynamic>).entries) {
-    final post = (item as Map<String, dynamic>)['post'] as Map<String, dynamic>;
-    final request = refName(
-      post['requestBody']?['content']?['application/json']?['schema'],
-    );
-    final schema =
-        post['responses']['200']['content']['application/json']['schema'];
-    String? response;
-    var enveloped = false;
-    if (schema is Map && schema['allOf'] is List) {
-      enveloped = true;
-      response = refName(
-        ((schema['allOf'] as List)[1] as Map)['properties']['value'],
-      );
-    } else {
-      response = refName(schema);
-    }
-    out.add((
-      path: path,
-      op: post['operationId'] as String,
-      request: request,
-      response: response,
-      enveloped: enveloped,
-    ));
-  }
-  return out;
-}
-
 String _apiClient(
   Map<String, dynamic> openApi,
   _Symbols symbols,
@@ -1042,7 +990,7 @@ String _apiClient(
 ) {
   final used = <String>{};
   final methods = <String>[];
-  for (final o in _operations(openApi)) {
+  for (final o in openApiOperations(openApi)) {
     final request = o.request ?? 'unknown';
     final value = o.response ?? 'unknown';
     if (o.request != null) used.add(o.request!);
@@ -1109,7 +1057,7 @@ String _honoApp(
   final used = <String>{};
   final services = <String>{};
   final routes = <String>[];
-  for (final o in _operations(openApi)) {
+  for (final o in openApiOperations(openApi)) {
     final owner = handlerOwner[o.op];
     if (owner == null) continue;
     services.add(owner);

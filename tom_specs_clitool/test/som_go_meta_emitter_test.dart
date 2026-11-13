@@ -6,6 +6,8 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
+import 'support/go_toolchain.dart';
+
 /// The same hand-built spec-model the Dart/Python/JavaScript/TypeScript
 /// meta-emitter tests pin — every field kind **plus recursion**
 /// (`Risk.mitigation: Risk`) and an id-less section (`details`) so the
@@ -262,23 +264,6 @@ func main() {
 }
 ''';
 
-/// Locates a `go` toolchain — on PATH, or the conventional `~/.local/go/bin/go`
-/// install used on the fleet's Linux build hosts. Returns `null` when none.
-String? _go() {
-  try {
-    final r = Process.runSync('go', ['version']);
-    if (r.exitCode == 0) return 'go';
-  } on ProcessException {
-    // not on PATH
-  }
-  final home = Platform.environment['HOME'];
-  if (home != null) {
-    final cand = p.join(home, '.local', 'go', 'bin', 'go');
-    if (File(cand).existsSync()) return cand;
-  }
-  return null;
-}
-
 /// The `tom_som_go_runtime` module dir, relative to the clitool root the test
 /// runs from, or `null` when it cannot be located.
 String? _runtimeDir() {
@@ -361,7 +346,7 @@ void main() {
 
     test('generated tree == bridge tree; dot-notation and ID-tree agree '
         '(functional, go run)', () async {
-      final go = _go();
+      final go = findGoToolchain();
       if (go == null) {
         markTestSkipped('no go toolchain found');
         return;
@@ -422,7 +407,7 @@ void main() {
     }, timeout: const Timeout(Duration(minutes: 3)));
 
     test('the emitted module is gofmt-stable by construction', () {
-      final go = _go();
+      final go = findGoToolchain();
       if (go == null) {
         markTestSkipped('no go toolchain found');
         return;

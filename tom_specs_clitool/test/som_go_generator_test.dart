@@ -8,6 +8,8 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
+import 'support/go_toolchain.dart';
+
 /// End-to-end tests for the **Go** `v0` SOM generator (som_multiplatform_spec_model.md §10). They
 /// mirror `som_java_generator_test.dart` / `som_rust_generator_test.dart`: the
 /// real `tom_specs_model` is analysed once (shared via [setUpAll]), then the
@@ -197,7 +199,7 @@ void main() {
   );
 
   test('the emitted module compiles under go build (facade + meta module)', () {
-    final go = _go();
+    final go = findGoToolchain();
     if (go == null) {
       markTestSkipped('no go toolchain found');
       return;
@@ -229,21 +231,4 @@ void main() {
           '${build.stdout}\n${build.stderr}',
     );
   });
-}
-
-/// Locates a `go` toolchain — on PATH, or the conventional `~/.local/go/bin/go`
-/// install used on the fleet's Linux build hosts. Returns `null` when none.
-String? _go() {
-  try {
-    final r = Process.runSync('go', ['version']);
-    if (r.exitCode == 0) return 'go';
-  } on ProcessException {
-    // not on PATH
-  }
-  final home = Platform.environment['HOME'];
-  if (home != null) {
-    final cand = p.join(home, '.local', 'go', 'bin', 'go');
-    if (File(cand).existsSync()) return cand;
-  }
-  return null;
 }

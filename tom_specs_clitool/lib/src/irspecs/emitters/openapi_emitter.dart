@@ -160,3 +160,54 @@ String? _authorization(CsDeclaration? handler) {
   }
   return irString(m.named['requirement']) ?? 'authorized';
 }
+
+/// One operation of an OpenAPI document written by [emitOpenApi]: its path,
+/// operation id, request and response schema names, and whether the response
+/// is the Result envelope. What the mappers write the API client and the
+/// routes from (`irspecs_ir.md` §11, §12).
+typedef IrOpenApiOperation = ({
+  String path,
+  String op,
+  String? request,
+  String? response,
+  bool enveloped,
+});
+
+/// The operations of [openApi], a document [emitOpenApi] wrote, in its order.
+List<IrOpenApiOperation> openApiOperations(Map<String, dynamic> openApi) {
+  String? refName(Object? schema) {
+    if (schema is Map && schema[r'$ref'] is String) {
+      return (schema[r'$ref'] as String).split('/').last;
+    }
+    return null;
+  }
+
+  final out = <IrOpenApiOperation>[];
+  for (final MapEntry(key: path, value: item)
+      in (openApi['paths'] as Map<String, dynamic>).entries) {
+    final post = (item as Map<String, dynamic>)['post'] as Map<String, dynamic>;
+    final request = refName(
+      post['requestBody']?['content']?['application/json']?['schema'],
+    );
+    final schema =
+        post['responses']['200']['content']['application/json']['schema'];
+    String? response;
+    var enveloped = false;
+    if (schema is Map && schema['allOf'] is List) {
+      enveloped = true;
+      response = refName(
+        ((schema['allOf'] as List)[1] as Map)['properties']['value'],
+      );
+    } else {
+      response = refName(schema);
+    }
+    out.add((
+      path: path,
+      op: post['operationId'] as String,
+      request: request,
+      response: response,
+      enveloped: enveloped,
+    ));
+  }
+  return out;
+}

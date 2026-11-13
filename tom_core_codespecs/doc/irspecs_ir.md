@@ -10,7 +10,8 @@ declarations, `Cs*` markers and their argument values, back-links, doc
 comments, members, method bodies and their statements — in one YAML document
 per area. A mapper per language and framework writes code from it; the Dart +
 Tom mapper's output is today's trio, byte for byte; the TypeScript mappers
-write the same skeleton as an npm workspace (§11). This document says what is
+write the same skeleton as an npm workspace (§11), the Go server mapper the
+server as a Go module (§12). This document says what is
 in a document, how it is written and what is deliberately left out, and what
 each standard emitter writes from it (§10). Which code
 a mapper writes from it is each mapper's own document, and what the trio
@@ -530,3 +531,100 @@ JSDoc text.
 mixin, a top-level function), a construction with positional arguments, an
 initialiser that is neither a construction nor a single string, and a column
 type with no Drizzle builder stop the mapper naming the file.
+
+## 12. The Go server mapper
+
+One mapper writes the server of the IR as a Go module — the standard
+library's `net/http` with the chi router, and sqlc for typed SQL over the
+tables:
+
+```text
+irspecs map --mapper go-server --ir <spec-root>/irspecs --out <dir>
+```
+
+It writes the module `<dir>/<server package>/` — with `--spec <document>
+--unit <unit id>` (§8.1) a server unit whose mapping names `go-server`, and
+the module is then named after the unit. The module holds three packages:
+`shared`, the IR's shared locus, which the server needs and Go cannot import
+from another module without publishing it; `server`, the server locus of the
+share; and `tom`, the part of the Tom substrate the skeleton uses. The routes
+come from the OpenAPI document of the whole IR folder (§10), whichever unit is
+written. A client locus is not this mapper's: a layout in what it reads is
+refused.
+
+**What the output is.** A skeleton, as the Dart trio is: `go build ./...`
+and `go vet ./...` pass, `gofmt -l` lists nothing, and it executes nothing —
+a handler the specification gives no steps for returns
+`tom.NotImplemented("<explication>")`, which wraps `tom.ErrNotImplemented`,
+and the router answers that error with a 500, the only status a transport
+error has (`codespecs_mapping.md` §7). `go.mod` pins Go 1.24 and chi v5.5.0
+and carries its `go.sum`, so the module builds as written. The test
+`tom_specs_clitool/test/irspecs_go_test.dart` maps the Meridian IR, builds,
+vets and gofmt-checks the module, runs a Go test of the router against the
+unimplemented service, runs `sqlc generate` and builds again, holds the
+back-links of every file to the Dart trio's and the wire types to the JSON
+Schema of §10, prints a body from its steps, and builds and vets a server
+unit written as its own module.
+
+**sqlc.** `db/schema.sql` holds a `CREATE TABLE` per entity, a column per
+field with its `columnType` (without one, from the Dart type: `integer`,
+`double precision`, `boolean`, `timestamptz`, `text`), `NOT NULL` unless
+nullable — the schema the cumulative CE-MG migrations converge on
+(`codespecs_derivation_contract.md` §6, check 13); the IR carries no
+migration DDL of its own. `db/query/<table>.sql` holds the queries of the
+repository contract that need no key — `Count<Entity>`, `List<Entity>Page`,
+`Insert<Entity>`; a query by key is Phase 6's, since the IR does not say
+which column is the key. `sqlc.yaml` (written for sqlc v1.29.0) generates
+package `db` beside them, a `uuid` column as a Go `string`. The mapper writes
+no sqlc output: `sqlc generate` writes it.
+
+**The wire types are written by the mapper**, in the names oapi-codegen gives
+them — an exported field per property, `json:"<property>"`, a pointer and
+`,omitempty` for a nullable one, which the JSON Schema leaves out of
+`required`. oapi-codegen 2.5.1 cannot read §10's document: it does not
+support OpenAPI 3.1, whose `anyOf` with `{type: null}` is how the document
+writes a nullable reference.
+
+### 12.1 What each declaration becomes
+
+| IR declaration | Go | Package |
+|----------------|----|---------|
+| a domain enum (CE-EN) | `type X string` and a const per value, `XValue X = "value"` | shared |
+| a class of `static const` catalogue entries — operations (CE-API), roles (CE-AZ), error codes (CE-ER), message keys (CE-TX) | the same: a named string type and a const per entry | shared |
+| a plain data class (not abstract, instance fields only) — a wire type (CE-API), the envelope (CE-ER) | ``type X[T any] struct { Field Type `json:"field"` }`` | shared |
+| an entity (`@CsTable`, CE-DB) | a struct, each field tagged `db:"<column>" json:"<field>"`, an enum-typed column typed by its enum; `const XTable = "<table>"`; its table in `db/schema.sql` and its queries in `db/query/` | server |
+| a repository (`@CsRepository`) | `type XRepository interface { tom.Repository[X, K] }`, `tom.Repository` the method contract of `tom_core_server`'s repository | server |
+| a service unit (`@CsServiceUnit`, CE-SU) | `type X interface` of its handlers, each `Name(ctx context.Context, request R) (Result[V], error)`, and `UnimplementedX`, whose every handler returns `tom.NotImplemented`; the routes in `router.go`: `NewRouter(services Services)` returns a chi router with `r.Post("/<operation>", …)` per handler, decoding the request and encoding the answer as JSON | server |
+| a collaborator (`@CsCollaborator`) | `type X interface { Method(ctx context.Context, params) (V, error) }` | the file's |
+| any other class with methods | a struct, `Collaborator X` for the `late` field, each 3b body printed from its steps (§4.7) — `if err := s.Collaborator.M(ctx, args); err != nil { return err }`, a guard as `appliesN, err := s.Collaborator.G(ctx, args)` and `if appliesN { … }`, `return s.Collaborator.M(ctx, args)`; a body without steps returns `tom.NotImplemented` | the file's |
+| a top-level variable with a string initialiser | `const X = "…"` | the file's |
+
+Types follow §10.1's JSON Schema mapping: `String`, `Uri`, `Duration` →
+`string`; `DateTime` → `time.Time`; `int` → `int`; `double`, `num` →
+`float64`; `bool` → `bool`; `Object`, `dynamic` → `any`; `List`, `Iterable`,
+`Set` → slices; `Map<K, V>` → `map[K]V`; `X?` → `*X` (a slice, map or `any`
+stays as it is, being nil-able already); a `Cs…Ref`/`…Key`/`…Code` → `string`.
+Every method takes `ctx context.Context` first and returns `error` last:
+`Future<X>` and `X` → `(X, error)`, `void` and `Future<void>` → `error`. A
+file `lib/src/<dir>/<name>.dart` is `<dir>_<name>.go` in its package's
+directory, with `_gen` added where Go would read the name as
+build-constrained (`…_linux`, `…_test`).
+
+**Back-links and markers** become comment lines of the declaration's and
+each member's doc comment: `// codeSpec: <id> source: <section ids>`,
+`// docSpec: <section id> — <description>`, every `Cs*` marker as
+`// cs: <Marker>(<arguments>)`, any other Dart annotation as
+`// dart: <annotation>` — the same section ids as the Dart trio, which the
+test holds file by file. The `Unimplemented…` stubs carry no back-links of
+their own: they are their interface's.
+
+**Refused, not approximated** (as in §8): a declaration kind with no rule (a
+mixin, a top-level function), a layout, a bounded type parameter, a static
+field in a struct, a service unit with fields, a construction, an initialiser
+that is not a single string, a type the IR does not declare, and a column
+type with no SQL type stop the mapper naming the file.
+
+**Pinned versions.** Go 1.24 (`kGoLanguageVersion`), chi v5.5.0
+(`kGoDependencyVersions`), sqlc v1.29.0 (`kSqlcVersion`). net/http with chi
+and sqlc are the first choice of each; other server frameworks, persistence
+layers and a Go Tom substrate are separate mappers to come.

@@ -5,6 +5,8 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
+import 'support/go_toolchain.dart';
+
 /// The same hand-built spec-model meta-data the Dart/Python/Java/JavaScript/
 /// TypeScript emitter tests pin, reused here so every emitter is exercised
 /// against an identical model covering every field kind. `modelVersion` is `0`
@@ -281,23 +283,6 @@ Map<String, dynamic> _newPrefixCollisionJson() => {
   },
 };
 
-/// Locates a `go` toolchain — on PATH, or the conventional `~/.local/go/bin/go`
-/// install used on the fleet's Linux build hosts. Returns `null` when none.
-String? _go() {
-  try {
-    final r = Process.runSync('go', ['version']);
-    if (r.exitCode == 0) return 'go';
-  } on ProcessException {
-    // not on PATH
-  }
-  final home = Platform.environment['HOME'];
-  if (home != null) {
-    final cand = p.join(home, '.local', 'go', 'bin', 'go');
-    if (File(cand).existsSync()) return cand;
-  }
-  return null;
-}
-
 /// The `tom_som_go_runtime` module dir, relative to the clitool root the test
 /// runs from, or `null` when it cannot be located.
 String? _runtimeDir() {
@@ -314,7 +299,7 @@ String? _runtimeDir() {
 /// (SOM §8), so both files always compile together. A no-op (with a skip
 /// note) when the toolchain or runtime cannot be located.
 void _expectGoBuilds(String source, String metaSource) {
-  final go = _go();
+  final go = findGoToolchain();
   if (go == null) {
     markTestSkipped('no go toolchain found');
     return;
@@ -416,7 +401,7 @@ void main() {
     );
 
     test('the emitted module is gofmt-stable by construction', () {
-      final go = _go();
+      final go = findGoToolchain();
       if (go == null) {
         markTestSkipped('no go toolchain found');
         return;
