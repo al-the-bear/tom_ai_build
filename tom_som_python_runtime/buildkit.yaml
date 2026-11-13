@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../../../.tom/json-schema/buildkit/buildkit.schema.json
 # buildkit :build / :test / :clean for tom_som_python_runtime: the commands its own scripts run
 # (the language's defaults do not cover tests that are plain scripts).
 
