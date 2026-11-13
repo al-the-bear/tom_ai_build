@@ -68,8 +68,8 @@ public class SomNode {
   }
 
   /**
-   * This section's CodeSpecs forward link ({@code codespecs_mapping.md}
-   * codespecs_mapping.md §9.2) as the comma-joined list of code locations, or
+   * This section's CodeSpecs forward link ({@code codespecs_mapping.md} §9.2)
+   * as the comma-joined list of code locations, or
    * {@code null} when the section carries no mapping. Sparse exactly like
    * {@link #$headline()}, and named {@code $codeSpec} for the same
    * collision-proofing reason as {@link #$sectionId()}.
