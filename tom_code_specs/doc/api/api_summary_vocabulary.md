@@ -1,6 +1,6 @@
 # TomSpecs CodeSpecs API Reference: Vocabulary Module
 
-The seventeen closed catalogues the `Cs*` marker arguments select from, and the
+The twenty-one closed catalogues the `Cs*` marker arguments select from, and the
 protocol-feature hook catalogue. A
 catalogue is *closed*: adding a value is a reviewed taxonomy edit, not a
 free-form attribute a specification can invent in passing.
@@ -21,6 +21,10 @@ value means for a specification, see
   - [CsTextCategory](#cstextcategory)
   - [CsElementKind](#cselementkind)
   - [CsSensitivityLevel](#cssensitivitylevel)
+  - [CsKeyKind](#cskeykind)
+  - [CsKeyGeneration](#cskeygeneration)
+  - [CsReferentialAction](#csreferentialaction)
+  - [CsIndexType](#csindextype)
   - [CsGesture](#csgesture)
   - [CsFormEvent](#csformevent)
   - [CsLifecycleScope](#cslifecyclescope)
@@ -38,7 +42,7 @@ value means for a specification, see
 
 ## Overview
 
-The module declares **17 enums**, one class (`CsFeatureHookSpec`) and two
+The module declares **21 enums**, one class (`CsFeatureHookSpec`) and two
 constants (`csFeatureHooks`, `csFeatureReservedPaths`). Every catalogue
 carries the `Cs` prefix without exception.
 
@@ -49,6 +53,10 @@ carries the `Cs` prefix without exception.
 | `CsTextCategory` | 2 | `@CsText(category:)` |
 | `CsElementKind` | 11 | `@CsElement(kind:)` |
 | `CsSensitivityLevel` | 6 | `@CsColumn(sensitivityLevel:)` |
+| `CsKeyKind` | 6 | `@CsTableKey(kind:)` |
+| `CsKeyGeneration` | 6 | `@CsTableKey(generation:)` |
+| `CsReferentialAction` | 5 | `@CsTableKey(onDelete:, onUpdate:)` |
+| `CsIndexType` | 6 | `@CsTableIndex(indexType:)` |
 | `CsGesture` | 3 | `@CsTrigger(gesture:)` |
 | `CsFormEvent` | 4 | `@CsTrigger(formEvent:)` |
 | `CsLifecycleScope` | 3 | `@CsTrigger(scope:)`, `@CsViewModel(scope:)` |
@@ -143,6 +151,65 @@ How sensitive a CE-DB column's stored value is (`codespecs_mapping.md` §5.13).
 | `restricted` | The narrowest non-personal classification. |
 | `pii` | Personally identifiable information. |
 | `phi` | Protected health information. |
+
+### CsKeyKind
+
+What a CE-DB table key is (`codespecs_mapping.md` §5.13); ← `KEATT.keyType`. `identifiesRow` is true for the four kinds that name the primary key.
+
+**Selected by:** `@CsTableKey(kind:)`
+
+| Value | Meaning |
+|-------|---------|
+| `primary` | The primary key. |
+| `foreign` | A key referencing another table's key. |
+| `alternate` | A further unique key beside the primary one. |
+| `composite` | A primary key made of several columns. |
+| `natural` | A primary key with business meaning. |
+| `surrogate` | A primary key with no business meaning, generated for the row. |
+
+### CsKeyGeneration
+
+How a CE-DB key value is generated (`codespecs_mapping.md` §5.13); ← `KEAGN.generationStrategy`.
+
+**Selected by:** `@CsTableKey(generation:)`
+
+| Value | Meaning |
+|-------|---------|
+| `auto` | The datasource assigns it (identity / auto-increment). |
+| `sequence` | From a database sequence, named by `sequenceName`. |
+| `uuid` | A UUID, generated when the row is created. |
+| `ulid` | A ULID, generated when the row is created. |
+| `custom` | Application code generates it. |
+| `natural` | The value is a business value, written by the caller. |
+
+### CsReferentialAction
+
+What a foreign key does when the referenced row is deleted or its key changes (`codespecs_mapping.md` §5.13); ← `KEARF.onDeleteAction` / `onUpdateAction`.
+
+**Selected by:** `@CsTableKey(onDelete:, onUpdate:)`
+
+| Value | Meaning |
+|-------|---------|
+| `cascade` | The change is applied to the referencing rows too. |
+| `setNull` | The referencing columns are set to null. |
+| `restrict` | Refused while referencing rows exist, checked at once. |
+| `noAction` | Refused while referencing rows exist, checked at the end of the statement. |
+| `setDefault` | The referencing columns are set to their default. |
+
+### CsIndexType
+
+The access structure of a CE-DB index (`codespecs_mapping.md` §5.13); ← `ENIDX.indexType`.
+
+**Selected by:** `@CsTableIndex(indexType:)`
+
+| Value | Meaning |
+|-------|---------|
+| `bTree` | A balanced tree. |
+| `hash` | A hash index (equality only). |
+| `gist` | A generalized search tree. |
+| `gin` | A generalized inverted index. |
+| `fullText` | A full-text index. |
+| `spatial` | A spatial index. |
 
 ### CsGesture
 

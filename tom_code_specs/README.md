@@ -107,7 +107,7 @@ CE-SU, CE-DB, CE-NT and CE-RP each have more than one).
 | File | Markers | Parts |
 |------|---------|-------|
 | `element_annotations.dart` | `@CsElement`, `@CsWidget`, `@CsForm`, `@CsLayout`, `@CsText`, `@CsValidation`, `@CsFieldRule`, `@CsFormRule`, `@CsAction`, `@CsTrigger`, `@CsServerCall`, `@CsViewModel`, `@CsRoute`, `@CsScreenFlow` | Client / UI — CE-EL, CE-FM, CE-LO, CE-TX, CE-VA, CE-AC, CE-SC, CE-ST, CE-NV |
-| `service_annotations.dart` | `@CsEndpoint`, `@CsOperationBinding`, `@CsServiceUnit`, `@CsFeatureHook`, `@CsTable`, `@CsColumn` *(with the `CsFileReference` facet)*, `@CsRepository`, `@CsAuthorize` *(with the `CsGradedAccess` facet)*, `@CsServerConfig`, `@CsMigration`, `@CsJob`, `@CsAudited`, `@CsNotification`, `@CsNotificationChannel`, `@CsReport`, `@CsReportColumn`, `@CsReportChart`, `@CsReportParameter` | Server — CE-API (endpoint + protocol binding), CE-SU (service unit + protocol-feature hook), CE-DB, CE-AZ, CE-CF, CE-MG, CE-JB, CE-LG; CE-NT (declarations shared, delivery server); CE-RP (definition server, result envelope + parameters shared) |
+| `service_annotations.dart` | `@CsEndpoint`, `@CsOperationBinding`, `@CsServiceUnit`, `@CsFeatureHook`, `@CsTable`, `@CsTableKey`, `@CsTableIndex`, `@CsColumn` *(with the `CsFileReference` facet)*, `@CsRepository`, `@CsAuthorize` *(with the `CsGradedAccess` facet)*, `@CsServerConfig`, `@CsMigration`, `@CsJob`, `@CsAudited`, `@CsNotification`, `@CsNotificationChannel`, `@CsReport`, `@CsReportColumn`, `@CsReportChart`, `@CsReportParameter` | Server — CE-API (endpoint + protocol binding), CE-SU (service unit + protocol-feature hook), CE-DB, CE-AZ, CE-CF, CE-MG, CE-JB, CE-LG; CE-NT (declarations shared, delivery server); CE-RP (definition server, result envelope + parameters shared) |
 | `contract_annotations.dart` | `@CsError`, `@CsEnum` | Shared — CE-ER, plus the `domainEnum` **member** kind |
 | `client_settings_annotations.dart` | `@CsClient`, `@CsClientConfig`, `@CsDeviceSetting`, `@CsUserSetting`, `@CsIdentity`, `@CsIdentityAttribute`, `@CsAuth` | Client app, the four owner-keyed config/settings scopes, identity and auth — CE-CL, CE-CC, CE-DS, CE-UP, CE-ID, CE-AU |
 
@@ -175,7 +175,7 @@ fallback — which names a **sibling channel**. That is why the family has no
 
 ### The closed catalogues
 
-`vocabulary.dart` holds the seventeen enums a marker's arguments select from
+`vocabulary.dart` holds the twenty-one enums a marker's arguments select from
 ([`codespecs_derivation_contract.md`](../tom_core_codespecs/doc/codespecs_derivation_contract.md)
 §5.3). They are enums rather than strings for
 the same reason the refs are consts: a catalogue grows by a reviewed taxonomy
@@ -195,6 +195,10 @@ edit, not by a specification inventing a value in passing.
 | `CsIdentityAttributePlacement` | `@CsIdentityAttribute(placement:)` |
 | `CsOverridableBy` | `@CsServerConfig` / `@CsClientConfig` / `@CsUserSetting` `(overridableBy:)` |
 | `CsSensitivityLevel` | `@CsColumn(sensitivityLevel:)` |
+| `CsKeyKind` | `@CsTableKey(kind:)` |
+| `CsKeyGeneration` | `@CsTableKey(generation:)` |
+| `CsReferentialAction` | `@CsTableKey(onDelete:, onUpdate:)` |
+| `CsIndexType` | `@CsTableIndex(indexType:)` |
 | `CsProtocolFeature` | `@CsFeatureHook(feature, …)` |
 
 Beside the enums sits the **protocol-feature hook catalogue**
@@ -311,7 +315,7 @@ tom_code_specs                       (depends only on tom_specs_core)
     ├── client_settings_annotations.dart  7 client-app / config / identity markers
     ├── cs_collaborator.dart         @CsCollaborator — the one non-part marker
     ├── cross_part_refs.dart         13 typed cross-part reference consts
-    └── vocabulary.dart              17 closed catalogues + the feature-hook catalogue
+    └── vocabulary.dart              21 closed catalogues + the feature-hook catalogue
 
   Phase 3 documents ──@CodeSpecKind──▶ routing ──▶ per-area extract
                                                         │
@@ -406,7 +410,7 @@ packages, as opposed to this package's own `example/`:
 | [doc/index.md](doc/index.md) | The catalogue of this package's documentation |
 | [doc/marking_code.md](doc/marking_code.md) | Applying `@CodeSpec`, the part markers and `@CsCollaborator` |
 | [doc/cross_references.md](doc/cross_references.md) | The typed `Cs*Ref` family and the `@DocSpec` back-links |
-| [doc/vocabulary.md](doc/vocabulary.md) | The seventeen closed catalogues and the per-kind slot rule |
+| [doc/vocabulary.md](doc/vocabulary.md) | The twenty-one closed catalogues and the per-kind slot rule |
 | [doc/api/api_summary_index.md](doc/api/api_summary_index.md) | The per-module API summaries |
 
 **Siblings** — packages you will reach for next:
@@ -423,13 +427,13 @@ packages, as opposed to this package's own `example/`:
 Version **0.15.0**. Test suite: **96 tests, all passing**
 (`dart test`).
 
-`@CodeSpec`, `@DocSpec`/`DocRef`, the **41-marker `Cs*` family** plus
-`@CsCollaborator`, the **13-const `Cs*Ref` family**, the **17 closed
+`@CodeSpec`, `@DocSpec`/`DocRef`, the **43-marker `Cs*` family** plus
+`@CsCollaborator`, the **13-const `Cs*Ref` family**, the **21 closed
 catalogues** and the protocol-feature hook catalogue are declared — one marker (or marker group) for every active part in
 the `codespecs_mapping.md` §4.1 catalogue, with no marker for a deferred one.
 `@CodeSpecKind` is list-valued.
 
-The family is a marker set **and** an attribute surface. **26 of the 42 markers
+The family is a marker set **and** an attribute surface. **28 of the 44 markers
 take arguments**, wired to `codespecs_mapping.md` §5's per-part spec-authorable
 surface; the other **16 carry a single optional `note`** — a design decision, not
 an omission, because everything their part authors is already carried by the

@@ -454,6 +454,150 @@ class CsColumn {
   });
 }
 
+/// CE-DB — a **key** of a [CsTable]: its primary key, an alternate key or a
+/// foreign key (`codespecs_mapping.md` §5.13).
+///
+/// **Repeatable, on the `@CsTable` class**, one per key the specification
+/// records — one `@CsTableKey` per `KEATT` entry of the entity, in the
+/// entity's order. A key is a property of the table, not of one column: a
+/// composite key spans several columns, two keys may share a column, and a
+/// foreign key carries a target and cascade rules no column has. That is why
+/// it is not an argument of [CsColumn].
+///
+/// [columns] name **physical column names**, the ones [CsColumn.column] states
+/// (or the member name where the column is unnamed), in key order;
+/// `codespecs_derivation_contract.md` §6 check 42 resolves each to a column of
+/// the same class. A foreign key names its target entity by `Type` literal in
+/// [references] — an entity is already a Dart type, so it needs no ref const
+/// (`codespecs_mapping.md` §5.23) — and the target's columns in
+/// [referencedColumns] (check 43). Every table holds exactly one key whose
+/// [kind] identifies the row (check 44).
+class CsTableKey {
+  /// The constraint name, verbatim — the `KEATT` entry's headline.
+  ///
+  /// **Required, first positional, never derived**: a migration addresses a
+  /// constraint by this name, so a generator that invented one could not
+  /// alter or drop it later.
+  final String name;
+
+  /// What the key is (← `KEATT.keyType`).
+  final CsKeyKind kind;
+
+  /// The physical columns of the key, in key order (← `KEATT.keyColumns`).
+  final List<String> columns;
+
+  /// How the key's value is generated (← `KEAGN.generationStrategy`).
+  ///
+  /// `null` means the specification authored no generation band — never a
+  /// claim that the value is written by the caller.
+  final CsKeyGeneration? generation;
+
+  /// The database sequence, for [CsKeyGeneration.sequence]
+  /// (← `KEAGN.sequenceName`).
+  final String? sequenceName;
+
+  /// Whether the key has business meaning (← `KEAGN.isNaturalKey`).
+  final bool? isNaturalKey;
+
+  /// The entity a [CsKeyKind.foreign] key references, by `Type` literal
+  /// (← `KEATT-REFE-REF`, the resolved `KEARF.referencedEntity`).
+  final Type? references;
+
+  /// The referenced entity's columns, in the order of [columns]
+  /// (← `KEARF.referencedKey`).
+  final List<String> referencedColumns;
+
+  /// What happens to referencing rows when the referenced row is deleted
+  /// (← `KEARF.onDeleteAction`).
+  final CsReferentialAction? onDelete;
+
+  /// What happens to referencing rows when the referenced key changes
+  /// (← `KEARF.onUpdateAction`).
+  final CsReferentialAction? onUpdate;
+
+  /// Whether the constraint check may be deferred to the end of the
+  /// transaction (← `KEAGV.deferrable`).
+  final bool? deferrable;
+
+  /// Optional part-specific note.
+  final String? note;
+
+  /// Declares the key [name] of the annotated `@CsTable`, of [kind], over
+  /// [columns].
+  ///
+  /// [name] is positional and verbatim; [kind] and [columns] are required.
+  /// Every other argument is `null` (or empty) where the specification
+  /// authored nothing: absent is never a default. [references],
+  /// [referencedColumns], [onDelete] and [onUpdate] belong to a
+  /// [CsKeyKind.foreign] key; a validator check refuses them on any other
+  /// kind, and refuses a foreign key without [references].
+  const CsTableKey(
+    this.name, {
+    required this.kind,
+    required this.columns,
+    this.generation,
+    this.sequenceName,
+    this.isNaturalKey,
+    this.references,
+    this.referencedColumns = const [],
+    this.onDelete,
+    this.onUpdate,
+    this.deferrable,
+    this.note,
+  });
+}
+
+/// CE-DB — an **index** of a [CsTable] (`codespecs_mapping.md` §5.13).
+///
+/// **Repeatable, on the `@CsTable` class**, one per `ENIDX` entry of the
+/// entity, in the entity's order — the same shape as [CsTableKey], for the
+/// same reason: an index spans columns and belongs to the table.
+class CsTableIndex {
+  /// The index name, verbatim — the `ENIDX` entry's headline.
+  final String name;
+
+  /// The indexed physical columns in order, each as the specification writes
+  /// it, with an optional trailing direction (`'created_at DESC'`)
+  /// (← `ENIDX.columns`). `codespecs_derivation_contract.md` §6 check 42
+  /// resolves the column part of each entry.
+  final List<String> columns;
+
+  /// The access structure (← `ENIDX.indexType`); `null` means the
+  /// datasource's default.
+  final CsIndexType? indexType;
+
+  /// Non-key columns stored in the index (← `ENIDX.includeColumns`).
+  final List<String> includeColumns;
+
+  /// Whether the index enforces uniqueness (← `ENIDX.isUnique`).
+  final bool? isUnique;
+
+  /// Whether the index determines the physical row order
+  /// (← `ENIDX.isClustered`).
+  final bool? isClustered;
+
+  /// The partial-index condition, verbatim (← `ENIDX.filterCondition`).
+  final String? filterCondition;
+
+  /// Optional part-specific note.
+  final String? note;
+
+  /// Declares the index [name] of the annotated `@CsTable` over [columns].
+  ///
+  /// [name] is positional and verbatim; [columns] is required. Every other
+  /// argument is `null` (or empty) where the specification authored nothing.
+  const CsTableIndex(
+    this.name, {
+    required this.columns,
+    this.indexType,
+    this.includeColumns = const [],
+    this.isUnique,
+    this.isClustered,
+    this.filterCondition,
+    this.note,
+  });
+}
+
 /// CE-DB — a repository: the data-access surface over one or more [CsTable]s.
 class CsRepository {
   /// Optional part-specific note.

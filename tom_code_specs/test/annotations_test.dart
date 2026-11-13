@@ -8,7 +8,7 @@
 //     class for CE-FM. This half is asserted by the DECLARATIONS BELOW
 //     COMPILING; a bare stub class would prove the constructor exists and
 //     nothing about whether it is usable where the part lives.
-//  2. **Surface** — that each of the 26 attribute-bearing markers carries its
+//  2. **Surface** — that each of the 28 attribute-bearing markers carries its
 //     full `codespecs_derivation_contract.md` §5.1 argument set, and that the
 //     16 note-only markers carry nothing beyond `note`. This half is asserted in
 //     the test bodies, which const-construct the same full attribute sets.
@@ -1620,6 +1620,118 @@ void main() {
     });
   });
 
+  group('CE-DB table keys and indexes', () {
+    // A key is a property of the table: one `@CsTableKey` per KEATT entry, on
+    // the `@CsTable` class, repeatable (cskey1).
+    test('the annotations are repeatable on one table class', () {
+      expect(_OrderLineTable(), isA<_OrderLineTable>());
+    });
+
+    test('CsTableKey carries the full KEATT surface', () {
+      const key = CsTableKey(
+        'fk_line_order',
+        kind: CsKeyKind.foreign,
+        columns: ['order_id'],
+        references: _OrderTable,
+        referencedColumns: ['order_id'],
+        onDelete: CsReferentialAction.cascade,
+        onUpdate: CsReferentialAction.noAction,
+        deferrable: false,
+        note: 'owning order',
+      );
+      expect(key.name, 'fk_line_order');
+      expect(key.kind, CsKeyKind.foreign);
+      expect(key.columns, ['order_id']);
+      expect(key.references, _OrderTable);
+      expect(key.referencedColumns, ['order_id']);
+      expect(key.onDelete, CsReferentialAction.cascade);
+      expect(key.onUpdate, CsReferentialAction.noAction);
+      expect(key.deferrable, isFalse);
+      expect(key.generation, isNull);
+    });
+
+    test('absent is never a default', () {
+      const key = CsTableKey(
+        'pk_order',
+        kind: CsKeyKind.primary,
+        columns: ['order_id'],
+      );
+      expect(key.generation, isNull);
+      expect(key.sequenceName, isNull);
+      expect(key.isNaturalKey, isNull);
+      expect(key.references, isNull);
+      expect(key.referencedColumns, isEmpty);
+      expect(key.onDelete, isNull);
+      expect(key.onUpdate, isNull);
+      expect(key.deferrable, isNull);
+    });
+
+    // KEATT.keyType names six kinds; four of them name the primary key and say
+    // what sort it is, so exactly those identify the row.
+    test('the key kinds mirror KEATT.keyType, four of them identify the row', () {
+      expect(CsKeyKind.values.map((k) => k.name), [
+        'primary',
+        'foreign',
+        'alternate',
+        'composite',
+        'natural',
+        'surrogate',
+      ]);
+      expect(
+        CsKeyKind.values.where((k) => k.identifiesRow).map((k) => k.name),
+        ['primary', 'composite', 'natural', 'surrogate'],
+      );
+    });
+
+    test('the generation, referential-action and index catalogues mirror '
+        'their SOM fields', () {
+      expect(CsKeyGeneration.values.map((g) => g.name), [
+        'auto',
+        'sequence',
+        'uuid',
+        'ulid',
+        'custom',
+        'natural',
+      ]);
+      expect(CsReferentialAction.values.map((a) => a.name), [
+        'cascade',
+        'setNull',
+        'restrict',
+        'noAction',
+        'setDefault',
+      ]);
+      expect(CsIndexType.values.map((t) => t.name), [
+        'bTree',
+        'hash',
+        'gist',
+        'gin',
+        'fullText',
+        'spatial',
+      ]);
+    });
+
+    test('CsTableIndex carries the full ENIDX surface', () {
+      const index = CsTableIndex(
+        'ix_order_placed',
+        columns: ['customer_id', 'placed_at DESC'],
+        indexType: CsIndexType.bTree,
+        includeColumns: ['status'],
+        isUnique: false,
+        isClustered: false,
+        filterCondition: "status <> 'cancelled'",
+      );
+      expect(index.columns, ['customer_id', 'placed_at DESC']);
+      expect(index.indexType, CsIndexType.bTree);
+      expect(index.includeColumns, ['status']);
+      expect(index.isUnique, isFalse);
+      expect(index.filterCondition, "status <> 'cancelled'");
+      const bare = CsTableIndex('ix', columns: ['a']);
+      expect(bare.indexType, isNull);
+      expect(bare.includeColumns, isEmpty);
+      expect(bare.isUnique, isNull);
+    });
+  });
+
   group('kind vocabulary re-exported', () {
     test('CodeSpecKind and CodeSpecPart are reachable via one import', () {
       const kind = CodeSpecKind([CodeSpecPart.form]);
@@ -1719,4 +1831,35 @@ void main() {
     expect(CrmAddCreditLimit(), isA<CrmAddCreditLimit>());
     expect(AppServerConfig().smtpHost, 'localhost');
   });
+}
+
+@CsTable('mom_order')
+@CsTableKey(
+  'pk_order',
+  kind: CsKeyKind.primary,
+  columns: ['order_id'],
+  generation: CsKeyGeneration.uuid,
+)
+class _OrderTable {
+  @CsColumn(column: 'order_id')
+  late String orderId;
+}
+
+@CsTable('mom_order_line')
+@CsTableKey('pk_order_line', kind: CsKeyKind.primary, columns: ['line_id'])
+@CsTableKey(
+  'fk_line_order',
+  kind: CsKeyKind.foreign,
+  columns: ['order_id'],
+  references: _OrderTable,
+  referencedColumns: ['order_id'],
+  onDelete: CsReferentialAction.cascade,
+)
+@CsTableIndex('ix_line_order', columns: ['order_id'])
+class _OrderLineTable {
+  @CsColumn(column: 'line_id')
+  late String lineId;
+
+  @CsColumn(column: 'order_id')
+  late String orderId;
 }

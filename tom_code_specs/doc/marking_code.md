@@ -3,7 +3,7 @@
 A CodeSpec is an ordinary Dart class built on an existing `tom_core`-family
 class and *marked* by the annotations in this package. This guide covers how the
 markers are applied: the identity annotation every emission unit carries, the
-forty-one `Cs*` part markers, the collaborator marker that is not a part, and the
+forty-three `Cs*` part markers, the collaborator marker that is not a part, and the
 note-only / argument-carrying split. What code each marker produces is
 [`codespecs_derivation_contract.md`](../../tom_core_codespecs/doc/codespecs_derivation_contract.md);
 which specification section feeds which part is
@@ -141,7 +141,7 @@ share one code:
 | File | Markers | Concern |
 |------|---------|---------|
 | `element_annotations.dart` | `@CsElement`, `@CsWidget`, `@CsForm`, `@CsLayout`, `@CsText`, `@CsValidation`, `@CsFieldRule`, `@CsFormRule`, `@CsAction`, `@CsTrigger`, `@CsServerCall`, `@CsViewModel`, `@CsRoute`, `@CsScreenFlow` | Client / UI |
-| `service_annotations.dart` | `@CsEndpoint`, `@CsOperationBinding`, `@CsServiceUnit`, `@CsFeatureHook`, `@CsTable`, `@CsColumn`, `@CsRepository`, `@CsAuthorize`, `@CsServerConfig`, `@CsMigration`, `@CsJob`, `@CsAudited`, `@CsNotification`, `@CsNotificationChannel`, `@CsReport`, `@CsReportColumn`, `@CsReportChart`, `@CsReportParameter` | Server |
+| `service_annotations.dart` | `@CsEndpoint`, `@CsOperationBinding`, `@CsServiceUnit`, `@CsFeatureHook`, `@CsTable`, `@CsTableKey`, `@CsTableIndex`, `@CsColumn`, `@CsRepository`, `@CsAuthorize`, `@CsServerConfig`, `@CsMigration`, `@CsJob`, `@CsAudited`, `@CsNotification`, `@CsNotificationChannel`, `@CsReport`, `@CsReportColumn`, `@CsReportChart`, `@CsReportParameter` | Server |
 | `contract_annotations.dart` | `@CsError`, `@CsEnum` | Shared contract |
 | `client_settings_annotations.dart` | `@CsClient`, `@CsClientConfig`, `@CsDeviceSetting`, `@CsUserSetting`, `@CsIdentity`, `@CsIdentityAttribute`, `@CsAuth` | Client app, the four settings scopes, identity, auth |
 
@@ -195,7 +195,7 @@ collaborators — a name suffix would make convention load-bearing.
 
 ## Note-only versus argument-carrying
 
-Of the forty-two markers, **sixteen carry a single optional `note`** and **twenty-six
+Of the forty-four markers, **sixteen carry a single optional `note`** and **twenty-eight
 take arguments**. The split is a decision, not an accident: a note-only marker's
 attributes are already carried by the annotated Dart declaration or by its
 `tom_core` substrate, so an argument would give them a second home.

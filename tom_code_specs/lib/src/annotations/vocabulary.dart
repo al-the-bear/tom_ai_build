@@ -311,6 +311,105 @@ enum CsMigrationKind {
   iteration,
 }
 
+/// What a CE-DB table key is (`codespecs_mapping.md` §5.13).
+///
+/// ← the SOM's `KEATT.keyType`, constant-for-constant. Four of the six kinds
+/// **identify** the row — [primary], [composite], [natural] and [surrogate]
+/// name the primary key and say what sort of primary key it is — and a
+/// `@CsTable` holds exactly one key of an identifying kind
+/// (`codespecs_derivation_contract.md` §6 check 44). [foreign] references
+/// another table; [alternate] is a further unique key.
+enum CsKeyKind {
+  /// The primary key.
+  primary,
+
+  /// A key referencing another table's key.
+  foreign,
+
+  /// A further unique key beside the primary one.
+  alternate,
+
+  /// A primary key made of several columns.
+  composite,
+
+  /// A primary key with business meaning.
+  natural,
+
+  /// A primary key with no business meaning, generated for the row.
+  surrogate;
+
+  /// Whether this kind names the table's primary key.
+  bool get identifiesRow => this != foreign && this != alternate;
+}
+
+/// How a CE-DB key value is generated (`codespecs_mapping.md` §5.13).
+///
+/// ← the SOM's `KEAGN.generationStrategy`, constant-for-constant.
+enum CsKeyGeneration {
+  /// The datasource assigns it (identity / auto-increment).
+  auto,
+
+  /// From a database sequence, named by `CsTableKey.sequenceName`.
+  sequence,
+
+  /// A UUID, generated when the row is created.
+  uuid,
+
+  /// A ULID, generated when the row is created.
+  ulid,
+
+  /// Application code generates it; the mapping names no strategy.
+  custom,
+
+  /// The value is a business value, written by the caller.
+  natural,
+}
+
+/// What a foreign key does when the referenced row is deleted or its key
+/// changes (`codespecs_mapping.md` §5.13).
+///
+/// ← the SOM's `KEARF.onDeleteAction` / `onUpdateAction`, constant-for-constant.
+enum CsReferentialAction {
+  /// The change is applied to the referencing rows too.
+  cascade,
+
+  /// The referencing columns are set to null.
+  setNull,
+
+  /// The change is refused while referencing rows exist, checked at once.
+  restrict,
+
+  /// The change is refused while referencing rows exist, checked at the end of
+  /// the statement.
+  noAction,
+
+  /// The referencing columns are set to their default.
+  setDefault,
+}
+
+/// The access structure of a CE-DB index (`codespecs_mapping.md` §5.13).
+///
+/// ← the SOM's `ENIDX.indexType`, constant-for-constant.
+enum CsIndexType {
+  /// A balanced tree — the default of most datasources.
+  bTree,
+
+  /// A hash index (equality only).
+  hash,
+
+  /// A generalized search tree.
+  gist,
+
+  /// A generalized inverted index.
+  gin,
+
+  /// A full-text index.
+  fullText,
+
+  /// A spatial index.
+  spatial,
+}
+
 /// What starts a CE-JB background job (`codespecs_mapping.md` §5.29).
 ///
 /// Each arm lowers onto the matching `tom_core_kernel` schedule —

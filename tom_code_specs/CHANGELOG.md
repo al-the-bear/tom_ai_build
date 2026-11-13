@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.18.0
+
+- `@CsTableKey` and `@CsTableIndex`: an entity's keys and indexes, repeatable
+  on the `@CsTable` class, one per `KEATT` / `ENIDX` entry. A key carries its
+  constraint name, `CsKeyKind`, columns, `CsKeyGeneration` (with sequence name
+  and natural-key flag), and for a foreign key the referenced entity by `Type`
+  literal, its columns and the `CsReferentialAction`s on delete and update,
+  plus `deferrable`; an index its columns, `CsIndexType`, include columns,
+  uniqueness, clustering and filter condition.
+- Four closed catalogues: `CsKeyKind` (with `identifiesRow`),
+  `CsKeyGeneration`, `CsReferentialAction`, `CsIndexType`.
+- Packaging: the archive no longer ships `tom_build_state.json`.
+
 ## 0.17.0
 
 - `CsProtocolFeature.saml2IdentityProvider`: a SAML 2.0 identity provider as

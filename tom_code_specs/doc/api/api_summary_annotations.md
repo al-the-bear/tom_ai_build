@@ -41,6 +41,8 @@ catalogues in [api_summary_vocabulary.md](api_summary_vocabulary.md).
     - [CsTable](#cstable)
     - [CsFileReference](#csfilereference)
     - [CsColumn](#cscolumn)
+    - [CsTableKey](#cstablekey)
+    - [CsTableIndex](#cstableindex)
     - [CsRepository](#csrepository)
     - [CsGradedAccess](#csgradedaccess)
     - [CsAuthorize](#csauthorize)
@@ -75,8 +77,8 @@ catalogues in [api_summary_vocabulary.md](api_summary_vocabulary.md).
 
 ## Overview
 
-The module declares **47 classes** across seven source files:
-**42 `Cs*` markers** (41 parts plus `@CsCollaborator`), the
+The module declares **49 classes** across seven source files:
+**44 `Cs*` markers** (43 parts plus `@CsCollaborator`), the
 **2 facet value classes**, and the **3 identity /
 trace declarations.
 
@@ -121,6 +123,8 @@ Object
 │   ├── CsTable
 │   ├── CsFileReference  (facet value class, not a marker)
 │   ├── CsColumn
+│   ├── CsTableKey
+│   ├── CsTableIndex
 │   ├── CsRepository
 │   ├── CsGradedAccess  (facet value class, not a marker)
 │   ├── CsAuthorize
@@ -558,6 +562,76 @@ const CsColumn({
 | `fileReference` | `CsFileReference?` | Present when the column stores a file reference rather than a value. |
 | `sensitivityLevel` | `CsSensitivityLevel?` | The sensitivity classification of the stored value (`codespecs_mapping.md` §5.13). |
 | `isPii` | `bool?` | Whether the stored value is personal data (PII). |
+| `note` | `String?` | Optional part-specific note. |
+
+#### CsTableKey
+
+CE-DB — a key of a [CsTable]: its primary key, an alternate key or a foreign key, repeatable on the `@CsTable` class, one per `KEATT` entry (`codespecs_mapping.md` §5.13).
+
+##### Constructors
+```dart
+const CsTableKey(
+  this.name, {
+  required this.kind,
+  required this.columns,
+  this.generation,
+  this.sequenceName,
+  this.isNaturalKey,
+  this.references,
+  this.referencedColumns = const [],
+  this.onDelete,
+  this.onUpdate,
+  this.deferrable,
+  this.note,
+});
+```
+
+##### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `name` | `String` | The constraint name, verbatim — the `KEATT` entry's headline. |
+| `kind` | `CsKeyKind` | What the key is. |
+| `columns` | `List<String>` | The physical columns of the key, in key order. |
+| `generation` | `CsKeyGeneration?` | How the key's value is generated. |
+| `sequenceName` | `String?` | The database sequence, for `CsKeyGeneration.sequence`. |
+| `isNaturalKey` | `bool?` | Whether the key has business meaning. |
+| `references` | `Type?` | The entity a foreign key references, by `Type` literal. |
+| `referencedColumns` | `List<String>` | The referenced entity's columns, in the order of `columns`. |
+| `onDelete` | `CsReferentialAction?` | What happens to referencing rows when the referenced row is deleted. |
+| `onUpdate` | `CsReferentialAction?` | What happens to referencing rows when the referenced key changes. |
+| `deferrable` | `bool?` | Whether the constraint check may be deferred to the end of the transaction. |
+| `note` | `String?` | Optional part-specific note. |
+
+#### CsTableIndex
+
+CE-DB — an index of a [CsTable], repeatable on the `@CsTable` class, one per `ENIDX` entry (`codespecs_mapping.md` §5.13).
+
+##### Constructors
+```dart
+const CsTableIndex(
+  this.name, {
+  required this.columns,
+  this.indexType,
+  this.includeColumns = const [],
+  this.isUnique,
+  this.isClustered,
+  this.filterCondition,
+  this.note,
+});
+```
+
+##### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `name` | `String` | The index name, verbatim — the `ENIDX` entry's headline. |
+| `columns` | `List<String>` | The indexed physical columns in order, each with an optional trailing direction. |
+| `indexType` | `CsIndexType?` | The access structure; `null` means the datasource's default. |
+| `includeColumns` | `List<String>` | Non-key columns stored in the index. |
+| `isUnique` | `bool?` | Whether the index enforces uniqueness. |
+| `isClustered` | `bool?` | Whether the index determines the physical row order. |
+| `filterCondition` | `String?` | The partial-index condition, verbatim. |
 | `note` | `String?` | Optional part-specific note. |
 
 #### CsRepository
