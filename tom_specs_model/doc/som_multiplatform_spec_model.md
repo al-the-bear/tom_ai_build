@@ -549,7 +549,23 @@ language mirrors it:
   no way to ask for a union of every `@Document` root, and naming a root the
   document never populates is an error rather than 27 silently empty extracts,
   as is a root carrying `@CodeSpecsProjection`, which is a generation input
-  rather than a specification document (`codespecs_prompt.md` §5).
+  rather than a specification document (`codespecs_prompt.md` §5). Each entry
+  carries the **units** it goes to: the nearest stored `units` (§11.2) at its
+  path or above, else the default — every unit of the document's register
+  whose mappings hold the extract's area, in register order — and none when
+  neither names a unit. It is written only when non-empty, as `units: [..]`
+  after `routingNote` in the YAML and a `- units:` line after the routed-by
+  line in the Markdown view.
+- `spec_generation_units.dart` — the document's **generation-unit register**
+  (§11.2): `specGenerationUnits(model, document)` reads every unit — its id,
+  kind, path and its mappings (area, mapper) in stored order — recognised as
+  validation phase 8 recognises it, by `@NoArtifact(generation)` and the form
+  field `unitId` (a mapping by `area`, belonging to the nearest unit above it),
+  in sorted list-path order with each list's items in stored order; a unit
+  without an id and a second unit of one id are left out.
+  `specDefaultUnits(units, area)` is the default destination of an area — the
+  extract's fallback above. Mirrored in all nine languages; `tom_specs_clitool`'s
+  `irspecs map --unit` reads a unit's kind and mappers through the Dart one.
 - `spec_codespecs_records.dart` — the **reading** half of the same files:
   `CodeSpecsExtract.fromYaml` reads an extract back (refusing an unknown
   `formatVersion`, and a `document.entryCount` the entries disagree with),

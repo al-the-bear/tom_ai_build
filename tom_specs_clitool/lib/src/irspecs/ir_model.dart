@@ -62,8 +62,19 @@ class IrFile {
   /// record per body — or the B-rule that kept a body from being steps.
   final List<IrBodySteps> steps;
 
+  /// The generation units the file is written for (`irspecs_ir.md` §8.1),
+  /// by unit id — the units of the extract entries it was written from, where
+  /// they name units of its locus. Empty is the default: every unit of the
+  /// file's locus whose mappings hold the document's area.
+  final List<String> units;
+
   /// Creates a file entry.
-  const IrFile(this.locus, this.file, [this.steps = const []]);
+  const IrFile(
+    this.locus,
+    this.file, [
+    this.steps = const [],
+    this.units = const [],
+  ]);
 }
 
 /// One IR document: the files of one area, across the three projects.

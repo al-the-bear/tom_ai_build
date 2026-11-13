@@ -11,7 +11,11 @@
 ///   trio.
 /// * `irspecs map --mapper dart-tom --ir <dir> --out <dir>` writes the trio
 ///   an IR folder describes, one folder per package under `--out`, through
-///   the Dart + Tom mapper, formatted with `dart format`.
+///   the Dart + Tom mapper, formatted with `dart format`. With
+///   `--spec <document> --unit <unit id>` it writes one generation unit
+///   instead: the specification's register names the unit's kind and, per
+///   area, its mapper, and only the areas `--mapper` holds for the unit are
+///   written, into `--out/<unit id>` (`irspecs_ir.md` §8.1).
 ///
 /// Exit codes: `0` written, `1` the mapper refused the IR, `2` bad usage.
 library;
@@ -22,11 +26,18 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
-    show CodeSpecsAreaCatalog;
+    show
+        CodeSpecsAreaCatalog,
+        SpecDocument,
+        buildSomMetaTree,
+        specGenerationUnits;
+import 'package:tom_som_dart_v0/tom_som_dart_v0_model.dart' show somSpecModel;
 
 import '../codespecs/cs_model.dart';
 import '../codespecs/cs_reader.dart';
+import '../validate_spec_cli.dart' show resolveSpecDocumentRoot;
 import 'ir_model.dart';
+import 'ir_units.dart';
 import 'ir_yaml.dart';
 import 'mappers/dart_tom/dart_tom_mapper.dart';
 
@@ -61,6 +72,18 @@ ArgParser irspecsParser() => ArgParser()
     allowed: [kDartTomMapper],
   )
   ..addOption(
+    'spec',
+    help:
+        'map: the specification document (*.docspecs.yaml or its Markdown '
+        'rendition) whose generation-unit register names --unit.',
+  )
+  ..addOption(
+    'unit',
+    help:
+        'map: write only this generation unit, into --out/<unit id> '
+        '(needs --spec).',
+  )
+  ..addOption(
     'areas',
     help:
         'The CodeSpecs area catalogue (codespecs_areas.json, '
@@ -89,7 +112,8 @@ Future<int> runIrspecs(
     '--shared <dir> --client <dir> --server <dir> --areas <json> '
     '--out <dir>\n'
     '       dart run tom_specs_clitool:irspecs map --mapper dart-tom '
-    '--ir <dir> --out <dir>\n\n${parser.usage}',
+    '--ir <dir> --out <dir> [--spec <document> --unit <unit id>]\n\n'
+    '${parser.usage}',
   );
 
   final ArgResults results;
@@ -199,9 +223,24 @@ Future<int> _map(
     usage();
     return 2;
   }
-  final List<IrDocument> documents;
+  final spec = results.option('spec');
+  final unitId = results.option('unit');
+  if ((spec == null) != (unitId == null)) {
+    stderrSink.writeln('--spec and --unit go together.');
+    usage();
+    return 2;
+  }
+  List<IrDocument> documents;
   try {
+    final unit = spec == null ? null : _unitOf(spec, unitId!);
     documents = readIrFolder(results.option('ir')!);
+    if (unit != null) {
+      documents = irDocumentsForUnit(
+        documents,
+        unit,
+        mapper: results.option('mapper')!,
+      );
+    }
   } on IrSpecsException catch (e) {
     stderrSink.writeln(e.message);
     return 2;
@@ -214,4 +253,41 @@ Future<int> _map(
     stderrSink.writeln(e.message);
     return 1;
   }
+}
+
+/// The generation unit [unitId] of the specification at [specPath]. Throws
+/// [IrSpecsException] when the file cannot be read or decoded, or declares no
+/// such unit.
+IrUnit _unitOf(String specPath, String unitId) {
+  final file = File(specPath);
+  if (!file.existsSync()) {
+    throw IrSpecsException('--spec: no file at $specPath');
+  }
+  final text = file.readAsStringSync();
+  final isMarkdown = specPath.toLowerCase().endsWith('.md');
+  final SpecDocument document;
+  try {
+    final root = resolveSpecDocumentRoot(
+      somSpecModel,
+      null,
+      text,
+      isMarkdown: isMarkdown,
+    );
+    document = isMarkdown
+        ? SpecDocument.fromMarkdown(text, somSpecModel).document
+        : SpecDocument.fromYaml(
+            text,
+            buildSomMetaTree(somSpecModel, rootType: root.type),
+          );
+  } on Object catch (e) {
+    throw IrSpecsException('--spec: $specPath does not decode: $e');
+  }
+  final units = specGenerationUnits(somSpecModel, document);
+  for (final u in units) {
+    if (u.unitId == unitId) return IrUnit.fromRegister(u);
+  }
+  throw IrSpecsException(
+    '--unit: $specPath declares no generation unit "$unitId"'
+    '${units.isEmpty ? '' : '; it declares ${units.map((u) => u.unitId).join(', ')}'}',
+  );
 }

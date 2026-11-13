@@ -21,6 +21,7 @@ Schema is `tool/irspecs_ir.schema.json`.
   - [IrBodySteps and IrStepIssue](#irbodysteps-and-irstepissue)
   - [IrStepViolation](#irstepviolation)
   - [IrMapException](#irmapexception)
+  - [IrUnit](#irunit)
 - [Functions](#functions)
 
 ## Constants
@@ -61,7 +62,12 @@ One generated file in an IR document: its project and its CsModel reading.
 
 #### Constructors
 ```dart
-const IrFile(this.locus, this.file, [this.steps = const []]);
+const IrFile(
+  this.locus,
+  this.file, [
+  this.steps = const [],
+  this.units = const [],
+]);
 ```
 
 #### Properties
@@ -71,6 +77,7 @@ const IrFile(this.locus, this.file, [this.steps = const []]);
 | `locus` | `CsLocus` | The project the file belongs to. |
 | `file` | `CsFile` | The file's CsModel reading; read back from the IR, its `source` is empty. |
 | `steps` | `List<IrBodySteps>` | The steps of the file's form-3b bodies, one record per body. |
+| `units` | `List<String>` | The generation units the file is written for (`irspecs_ir.md` §8.1); empty: every unit of its locus mapping the area. |
 
 ### IrDocument
 
@@ -228,6 +235,34 @@ const IrMapException(this.message);
 |----------|------|-------------|
 | `message` | `String` | What could not be printed, and where. |
 
+### IrUnit
+
+A generation unit as the mapper sees it (`irspecs_ir.md` §8.1).
+
+#### Constructors
+```dart
+const IrUnit({
+  required this.unitId,
+  required this.locus,
+  required this.mappings,
+});
+```
+
+```dart
+factory IrUnit.fromRegister(SpecGenerationUnit unit)
+```
+
+#### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `unitId` | `String` | The unit's id, which is also its package name. |
+| `locus` | `CsLocus` | The locus whose IR files the unit takes. |
+| `mappings` | `Map<String, String>` | Area code → mapper id; the first mapping of an area wins. |
+
+`IrUnit.fromRegister` throws `IrSpecsException` for a unit whose kind is not
+shared, client or server.
+
 ## Functions
 
 | Function | Return Type | Description |
@@ -248,6 +283,7 @@ const IrMapException(this.message);
 | `csModelForChecks(List<IrDocument> documents)` | `({CsLocusProject shared, CsLocusProject client, CsLocusProject server})` | The trio for the forty-one checks: `csModelFromIr`, each file's `source` its IR record. |
 | `readIrYaml(String text, {String source = 'IR document'})` | `IrDocument` | The document YAML text holds. |
 | `plainYaml(Object? yaml)` | `Object?` | Parsed YAML as plain maps, lists and scalars. |
+| `irDocumentsForUnit(List<IrDocument> documents, IrUnit unit, {required String mapper})` | `List<IrDocument>` | The share of the documents `mapper` writes for `unit`: its locus, its areas mapped to `mapper` and the `package` document, files that name the unit or no unit; its project renamed to the unit. |
 | `mapDartTom(List<IrDocument> documents)` | `Map<String, String>` | The Dart + Tom mapper: `<package>/<path>` → unformatted source. |
 | `formatDartFiles(List<String> paths)` | `Future<void>` | Runs `dart format` over the paths. |
 | `writeDartTom(List<IrDocument> documents, String outDir)` | `Future<List<String>>` | Writes and formats the trio the documents describe; returns the written paths. |

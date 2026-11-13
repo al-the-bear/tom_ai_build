@@ -179,6 +179,7 @@ Map<String, Object?> _file(IrFile entry) {
   return {
     'locus': entry.locus.name,
     'path': f.path,
+    if (entry.units.isNotEmpty) 'units': entry.units,
     'imports': f.imports,
     'exports': f.exports,
     'comments': [
@@ -409,6 +410,7 @@ IrFile _readFile(Object? data) {
       ],
     ),
     steps,
+    map['units'] == null ? const [] : _strings(map['units']),
   );
 }
 

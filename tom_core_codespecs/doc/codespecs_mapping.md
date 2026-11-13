@@ -131,7 +131,7 @@ to read.
 |---|---|
 | **Location** | `<spec-root>/generated-doc/codespecs_extracts/` — the `generated-doc/<type>/` convention, rooted at the folder that holds the specification document. For TomSpecs' own worked example that root is `tom_ai/ai_build/tom_specs_model/`; for a specified project it is that project's. |
 | **Names** | `<CE-CODE>.extract.yaml` and `<CE-CODE>.extract.md`, where `<CE-CODE>` is the §4.1 registry key verbatim — `CE-FM.extract.yaml`, `CE-API.extract.md`. The registry key is used because §4.1 fixes it as permanent: never reused, never renamed. |
-| **Entry** | Extract token (the routed field's `@SectionId`, or its own name where it carries none — `codespecs_derivation_contract.md` §2.5 rule 2) · the enclosing section instance's headline, copy-only (the stored headline, else the `@Headline` type default, else null) — the `codespecs_derivation_contract.md` §2.1 N1 headline source · the enclosing instance's stored id (`instanceId`), copy-only (see below) · class name · field name · form field where applicable · the verbatim value · the `@CodeSpecKind` value that routed it here · source location · the section's **units** where it, or a section above it, names them (`units`: the nearest stored `units` up the path, absent when none is — the default). |
+| **Entry** | Extract token (the routed field's `@SectionId`, or its own name where it carries none — `codespecs_derivation_contract.md` §2.5 rule 2) · the enclosing section instance's headline, copy-only (the stored headline, else the `@Headline` type default, else null) — the `codespecs_derivation_contract.md` §2.1 N1 headline source · the enclosing instance's stored id (`instanceId`), copy-only (see below) · class name · field name · form field where applicable · the verbatim value · the `@CodeSpecKind` value that routed it here · source location · the **units** the entry goes to (`units`: the nearest stored `units` up the path, else every unit of the register whose mappings hold the area — item 4 — and absent when neither names one). |
 | **Authority** | The YAML is the artifact of record; the Markdown is a *view* and is regenerated from it. Nothing reads the Markdown as input. |
 | **Gate record** | `gate.verdicts.yaml`, beside the extracts — the Stage-B verdicts persisted per area (`codespecs_prompt.md` §6.3). It is the scope of the pass: the §6-of-`codespecs_derivation_contract.md` transfer checks hold the trio to the `sufficient` areas only, so a recorded partial pass (a descoped *insufficient* area, a *not applicable* area) neither fails coverage nor forces coarse citations. Absent the record, the whole extract tree is the obligation set. |
 
@@ -229,9 +229,17 @@ each unit — its `unitId`, its kind (client, server, shared, other), the
 deployment target or architecture component it builds — and, per area, the
 mapper that writes it (`GEMAP-MAPP-LST`: `CE-DB` → `dart-tom`), several for one
 area where the area is written for two technologies. The register is routed
-`@NoArtifact(generation)`: it steers Phase 4 and becomes no artifact. The IR a
-unit's code is written from, and the Dart + Tom mapper, are
-[`irspecs_ir.md`](irspecs_ir.md).
+`@NoArtifact(generation)`: it steers Phase 4 and becomes no artifact. A section
+goes to every unit whose mappings hold its area unless it, or a section above
+it, names other units in its `units` member (SOM §11.2); every extract entry
+carries the units it goes to (item 1), so the authoring agent reads its
+destination off the extract rather than the register. The agent writes the
+**IR** — one `<spec-root>/irspecs/<CE-CODE>.ir.yaml` per area, a file's
+`units` naming the units it is reserved for — and each unit's package is
+written from it by the unit's mapper (`irspecs map --unit`). The IR, its units
+and the Dart + Tom mapper are [`irspecs_ir.md`](irspecs_ir.md) (§8.1 for the
+units). A specification that declares no units is written as the §4.2 trio:
+one package per locus, every area by the Dart + Tom mapper.
 
 #### 1.1.2 The Phase-4 run procedure
 
@@ -249,10 +257,10 @@ the first to go stale.
 |---|-------|----------|------------|
 | **0** | **Open questions** — read the specification against the derivation contract's required inputs and record every place it does not carry what a derivation needs. The reading is per area, over a pre-gate extraction run (§1.1.3) | one L0 todo per unresolved ambiguity, all `decision-needed` | — |
 | **1** | **Extract** — run the `spec_codespecs_extract` surface of whichever SOM runtime the project uses, over the filled Phase-3 document set | one extract pair per **active** part (§4.1's 26), at the location §1.1.1 item 1 fixes | §4.1 |
-| **2** | **Scaffold** — create the §4.2 project trio, its pubspecs and its per-area folders | one L1 todo per scaffolding unit | §4.2 |
-| **3** | **Author, per step** — walk the thirty-one authoring steps | one L2 todo per step; the step's generated files | §4.4.6 |
+| **2** | **Scaffold** — create one package per generation unit (§1.1.1 item 4) — the §4.2 project trio when the specification declares none — with its pubspec and per-area folders | one L1 todo per scaffolding unit | §4.2 |
+| **3** | **Author, per step** — walk the thirty-one authoring steps | one L2 todo per step; the step's IR documents, `<spec-root>/irspecs/<CE-CODE>.ir.yaml` | §4.4.6 |
 | **4** | **Author, per element** — *inside* a step, walk that step's extract entries | one L3 todo per (section, area) pair | §4.4.8 |
-| **5** | **Validate** — run `validate_codespecs.dart` over the trio, and a second time over a regenerated trio | a pass/fail verdict on the [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md) §6 checks | §6 |
+| **5** | **Map and validate** — per generation unit, `irspecs map --mapper <the unit's mapper> --ir <spec-root>/irspecs --spec <document> --unit <unit id>` writes the unit's package from the IR (without units: `irspecs map --mapper dart-tom` writes the trio); then `validate_codespecs.dart` over the trio, with `--ir` over the IR, and a second time over a regenerated IR (`--regenerated-ir`) | the trio; a pass/fail verdict on the [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md) §6 checks | §6 |
 
 The id ranges the four todo levels occupy — `csopen<n>`, `csproj<n>`,
 `csgen<n>`, `cs<area><n>` — and the prefix-iteration properties that make them
@@ -267,7 +275,8 @@ each missing input. It creates the L0 todos of this stage and the L1/L2 rungs
 stages 2 and 3 will consume, and it writes no code. The two Phase-4 prompts
 partition the phase cleanly: the starting prompt produces todos and no code,
 [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md) §2.9's
-authoring prompt produces code and no todos.
+authoring prompt produces IR and no todos, and the mappers of stage 5 turn the
+IR into code.
 
 **Stages 3 and 4 are nested, not consecutive.** Stage 3 is the walk over steps
 and stage 4 is what one step consists of; a run does not finish every step and
@@ -309,9 +318,11 @@ together with the judgement neither can make.
 stages, not by editing the trio: [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md)
 §2.1, §2.8 — N8's derived names and C5's verbatim comments — make regeneration
 byte-identical over an unchanged document,
-so a diff in a regenerated trio is exactly the specification's diff. Hand-editing
-generated code destroys that property silently, which is why §6 check 31 compares
-two runs rather than trusting one.
+so a diff in a regenerated trio is exactly the specification's diff. The IR is
+the record of a run and the trio is mapped from it, so a change is made in the
+IR (by re-running the step), never in the trio: hand-editing generated code
+destroys that property silently, and the next `irspecs map` overwrites it. This
+is why §6 check 31 compares two runs rather than trusting one.
 
 #### 1.1.3 The generated todo tree
 

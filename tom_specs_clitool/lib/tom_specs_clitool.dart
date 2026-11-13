@@ -432,6 +432,7 @@ export 'src/irspecs/ir_checks.dart';
 export 'src/irspecs/ir_codec.dart';
 export 'src/irspecs/ir_model.dart';
 export 'src/irspecs/ir_steps.dart';
+export 'src/irspecs/ir_units.dart';
 export 'src/irspecs/ir_yaml.dart';
 export 'src/irspecs/irspecs_cli.dart';
 export 'src/irspecs/mappers/dart_tom/dart_tom_mapper.dart';

@@ -1,7 +1,8 @@
 # The emitted CodeSpecs trio
 
-This directory is Phase 4's **output** — what the authoring agent wrote in
-stage 3 of `bin/phase4_codespecs_run.dart`, and what
+This directory is Phase 4's **output** — the IR the authoring agent wrote in
+stage 3 of `bin/phase4_codespecs_run.dart` (`irspecs/`, one document per area,
+`irspecs_ir.md`), the trio the Dart + Tom mapper writes from it, and what
 `tom_specs_clitool/bin/validate_codespecs.dart` checks in stage 4. It is not
 this sample's source, and it is excluded from `dart analyze` by
 `../analysis_options.yaml`; the reasoning is in that file.

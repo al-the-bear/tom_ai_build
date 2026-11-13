@@ -30,8 +30,9 @@ is cited by its `PF-*` section ids, which are not `§` citations.
 A Phase-4 run is started by pasting §8's prompt with its placeholders bound. The
 run is over a **specification document** — one filled TomSpecs document tree,
 rooted at its own document root (`D00SolutionBlueprint` for a Solution
-Blueprint) — and a **target trio** of project names per `codespecs_mapping.md`
-§4.2.
+Blueprint) — and the **generation units** it is written into: the units the
+document's register declares (`codespecs_mapping.md` §1.1.1 item 4), else a
+target trio of project names per `codespecs_mapping.md` §4.2.
 
 The prompt executes three stages, in order, and stops at the first failure:
 
@@ -519,13 +520,13 @@ On pass, the prompt creates the todo tree's upper rungs per
 | Rung | Created | From |
 |------|---------|------|
 | **L0** `csopen<n>` | one per open question the gate surfaced, all `decision-needed` | stage B's insufficient lines, plus any question raised at stage A that a reading resolved into a decision rather than a defect |
-| **L1** `csproj<n>` | the trio scaffolding | `codespecs_mapping.md` §4.2 alone |
-| **L2** `csgen<n>` | the thirty-one authoring steps | `codespecs_mapping.md` §4.4.6's step table alone |
+| **L1** `csproj<n>` | the scaffolding of one package per generation unit — the trio when the specification declares no units | the document's generation-unit register (`codespecs_mapping.md` §1.1.1 item 4), else `codespecs_mapping.md` §4.2 |
+| **L2** `csgen<n>` | the thirty-one authoring steps, each naming the IR documents it writes — `<spec-root>/irspecs/<CE-CODE>.ir.yaml`, one per area the step covers — and the units its extracts' entries go to | `codespecs_mapping.md` §4.4.6's step table, and the entries' `units` |
 
 **Why L1 and L2 are created here even though the run "stops at L0".** They are
-document-independent — `codespecs_mapping.md` §1.1.3 derives them from
-`codespecs_mapping.md` §4.2 and `codespecs_mapping.md` §4.4.6, neither of which
-varies by project — so there is nothing to learn by deferring
+fixed before any area is authored — `codespecs_mapping.md` §1.1.3 derives them
+from the register (or §4.2's trio) and from `codespecs_mapping.md` §4.4.6, and
+the gate has already read both — so there is nothing to learn by deferring
 them, and creating them makes the whole run visible in the todo panel from the
 start. The stop is not achieved by withholding them. It is achieved by L0 being
 `decision-needed`: `CLAUDE.md` rules that `<prefix>*` iteration refuses a
@@ -556,7 +557,8 @@ composed.
 | `<ROOT>` | its document root type | §5 — the document's own root, never all fourteen and never `D13CodeSpecsProjection` |
 | `<EXTRACTS>` | the extract folder | `codespecs_mapping.md` §1.1.1 item 1 fixes name and location |
 | `<AREAS>` | the active-area catalogue | `codespecs_mapping.md` §4.1, as `generated-doc/codespecs/codespecs_areas.json` |
-| `<TRIO>` | the three target project names | `codespecs_mapping.md` §4.2 |
+| `<UNITS>` | the generation units and their kinds, from the document's register; the three target project names when it declares none | `codespecs_mapping.md` §1.1.1 item 4, else §4.2 |
+| `<IR>` | the IR folder, `<spec-root>/irspecs/` | `codespecs_mapping.md` §1.1.2 stage 3 |
 
 ### 8.2 The prompt text
 
@@ -614,9 +616,12 @@ ON REJECTION:
 ON PASS — create todos, and stop:
   L0  csopen<n>, status decision-needed, one per gap line, stating the section
       id and the input the derivation required, verbatim from stage B.
-  L1  csproj<n> for the <TRIO> scaffolding (codespecs_mapping.md §4.2).
+  L1  csproj<n> for the scaffolding of each package of <UNITS>
+      (codespecs_mapping.md §1.1.1 item 4, §4.2).
   L2  csgen<n> for each of the thirty-one authoring steps, <n> its ordinal
-      (codespecs_mapping.md §4.4.6).
+      (codespecs_mapping.md §4.4.6), naming the IR documents the step writes
+      into <IR> — <CE-CODE>.ir.yaml for each area it covers — and the units
+      its extracts' entries go to.
   Take every id from tomAi_generateIdPrefix. Create no L3 todos: each L2 todo
   creates its own as its first act (codespecs_mapping.md §1.1.3).
 

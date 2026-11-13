@@ -212,7 +212,16 @@ void _stage3(List<CodeSpecsExtract> extracts) {
     );
   }
   print('');
-  print('   What the agent wrote from it —');
+  print('   What the agent wrote from it is IR, not Dart — one document per');
+  print('   area (irspecs_ir.md), codespec/irspecs/CE-DB.ir.yaml, opening:');
+  print('');
+  for (final line in _authoredIr.split('\n').take(16)) {
+    print('     $line');
+  }
+  print('');
+  print('   The Dart + Tom mapper writes the code from it (`irspecs map');
+  print('   --mapper dart-tom`; tool/validate.sh checks the trio is exactly');
+  print('   what the IR maps to) —');
   print('   codespec/server/lib/src/data_access/customer.dart:');
   print('');
   for (final line in _authoredExample.trimRight().split('\n')) {
@@ -373,7 +382,13 @@ void _authorSpecification(
 // Helpers.
 // ---------------------------------------------------------------------------
 
-/// The stage-3 output, read from the trio beside this sample.
+/// The stage-3 output: the IR the agent wrote, read from beside this sample.
+final String _authoredIr = File(
+  'codespec/irspecs/CE-DB.ir.yaml',
+).readAsStringSync();
+
+/// The code mapped from the stage-3 output, read from the trio beside this
+/// sample.
 ///
 /// Read rather than inlined so the printed listing and the file the validator
 /// checks cannot drift apart: a sample that prints one thing and validates

@@ -102,6 +102,7 @@ is not an IR document.
 |-----|-------|
 | `locus` | the project the file belongs to |
 | `path` | the package-relative path, `/`-separated (`lib/src/data_access/customer.dart`) |
+| `units` | optional: the generation units the file is written for, by unit id (§8.1); absent, every unit of its locus whose mappings hold the document's area — added for the IR (§6) |
 | `imports` | the `import` URIs, in source order |
 | `exports` | the `export` URIs, in source order — added for the IR (§6) |
 | `comments` | every comment token, in source order: `text` as written (marker included), `documentation` (a `///` comment), `banner` (before the file's first token), `line` |
@@ -362,6 +363,41 @@ file. The two things the formatter keeps from its input are the mapper's:
   before every top-level declaration, between the members of a class or enum;
 - **annotation order** — the doc comment first, then every annotation in the
   order of its `line`, back-links, markers and other annotations alike.
+
+### 8.1 Units
+
+A specification that declares generation units (SOM §11.2, the register
+`GENUN-UNIT-LST`; `codespecs_mapping.md` §1.1.1 item 4) has its code written
+**unit by unit**: a unit is one package of the trio's kind — shared, client or
+server — and names, per area, the mapper that writes it.
+
+```text
+irspecs map --mapper dart-tom --ir <spec-root>/irspecs --out <dir> \
+    --spec <specification document> --unit <unit id>
+```
+
+reads the unit from the specification's register and writes its package into
+`<dir>/<unit id>/`. What the unit takes is decided by three facts and nothing
+else:
+
+1. **Its locus.** Only files whose `locus` is the unit's kind.
+2. **Its areas.** Only the documents of areas the unit maps to `--mapper`, plus
+   the `package` document. An area the unit maps to another mapper is that
+   mapper's to write.
+3. **The file's `units`.** A file without `units` goes to every unit its locus
+   and area select; a file with `units` goes only to the units it names. The
+   authoring agent writes `units` on a file when the extract entries it was
+   written from go to some units of its locus and not others — a section
+   whose `units` override narrows its area's default
+   (`codespecs_derivation_contract.md` §2.9).
+
+The unit's id is its package name: every project of the share is renamed to it,
+so the mapper writes that one package. A unit of kind `other` has no locus and
+is refused, as is a `--unit` the register does not declare (exit `2`). Without
+`--spec` and `--unit`, `irspecs map` writes the whole trio as above. The test
+`tom_specs_clitool/test/irspecs_units_test.dart` writes the Meridian trio unit
+by unit from its IR and the Meridian blueprint's register, and holds each
+package byte-equal to the committed one.
 
 ## 9. Versioning
 

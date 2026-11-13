@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # Records — and re-checks — stage 4 of this sample: `validate_codespecs.dart`
-# run over the emitted shared/client/server trio, twice.
+# run over the emitted shared/client/server trio, twice. Before that it checks
+# the trio is what the IR maps to: the authoring agent's output is the IR in
+# codespec/irspecs/ (irspecs_ir.md), and `irspecs map --mapper dart-tom` writes
+# the trio from it — so the IR is mapped into build/irspecs_mapped/ and every
+# Dart file must equal the committed trio's, byte for byte.
 #
 # Why a script and not part of `dart run`. `tom_specs_clitool` is a development
 # tool, not a dependency of the emitted code, so it is deliberately absent from
@@ -55,6 +59,24 @@ command -v dart > /dev/null 2>&1 || skip "dart not on PATH"
 ( cd "$SAMPLE" && dart pub get > /dev/null && dart run > /dev/null ) \
   || { echo "  FAIL     the sample itself did not run"; exit 1; }
 
+# The trio is what the IR maps to (codespecs_mapping.md §1.1.2 stage 5).
+MAPPED="$SAMPLE/build/irspecs_mapped"
+rm -rf "$MAPPED"
+( cd "$CLITOOL" && dart run bin/irspecs.dart map --mapper dart-tom \
+    --ir "$SAMPLE/codespec/irspecs" --out "$MAPPED" > /dev/null 2>&1 ) \
+  || { echo "  FAIL     irspecs map refused codespec/irspecs"; exit 1; }
+dart_files() { ( cd "$1" 2>/dev/null && find . -name '*.dart' | sort ); }
+IR_STATUS=0
+for locus in shared client server; do
+  if [ "$(dart_files "$MAPPED/$locus")" != "$(dart_files "$SAMPLE/codespec/$locus")" ]; then
+    IR_STATUS=1
+  else
+    for f in $(dart_files "$MAPPED/$locus"); do
+      cmp -s "$MAPPED/$locus/$f" "$SAMPLE/codespec/$locus/$f" || IR_STATUS=1
+    done
+  fi
+done
+
 run_validator() {
   ( cd "$CLITOOL" && dart run bin/validate_codespecs.dart \
       --shared "$SAMPLE/codespec/shared" \
@@ -78,6 +100,8 @@ ACTUAL_JSON="$(run_validator --extracts "$SAMPLE/build/codespecs_extracts" --jso
   | sed "s#$SAMPLE/##g")"
 
 if [ "$RECORD" -eq 1 ]; then
+  [ "$IR_STATUS" -eq 0 ] \
+    || { echo "  FAIL     the trio is not what codespec/irspecs maps to; nothing recorded"; exit 1; }
   printf '%s\n' "$ACTUAL" > "$REPORT"
   printf '%s\n' "$ACTUAL_JSON" > "$JSON_REPORT"
   echo "  RECORDED $REPORT"
@@ -86,6 +110,14 @@ if [ "$RECORD" -eq 1 ]; then
 fi
 
 STATUS=0
+if [ "$IR_STATUS" -eq 0 ]; then
+  echo "  PASS     the trio is what codespec/irspecs maps to"
+else
+  echo "  FAIL     the trio is not what codespec/irspecs maps to"
+  diff -r "$MAPPED" "$SAMPLE/codespec" -x '*.md' -x '*.json' -x '*.txt' -x irspecs \
+    | head -n 40 | sed 's/^/           /'
+  STATUS=1
+fi
 if printf '%s\n' "$ACTUAL" | diff -u "$REPORT" - > /dev/null 2>&1; then
   echo "  PASS     the recorded validation report still matches"
 else

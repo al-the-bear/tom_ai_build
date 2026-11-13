@@ -90,6 +90,15 @@
           "type": "string",
           "minLength": 1
         },
+        "units": {
+          "description": "The generation units the file is written for, by unit id; absent: every unit of its locus whose mappings hold the document's area.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
         "imports": {
           "$ref": "#/$defs/strings"
         },

@@ -27,7 +27,7 @@ readers get wrong. So every step the sample prints is marked:
 |-------|--|-----------|
 | 1 | **[MECHANICAL]** | The starting prompt's quality gate (`codespecs_prompt.md` §4) |
 | 2 | **[MECHANICAL]** | The extract generator — one bounded, cited extract per area |
-| 3 | **[JUDGMENT]** | The authoring agent — one prompt pass per area, writing the Dart |
+| 3 | **[JUDGMENT]** | The authoring agent — one prompt pass per area, writing the IR the Dart is mapped from |
 | 4 | **[MECHANICAL]** | `validate_codespecs.dart` over the emitted trio |
 
 **Stages 1, 2 and 4 are programs.** Given the same document they produce the
@@ -74,8 +74,9 @@ about screens, jobs, reports or migrations. **An empty extract is a candidate fo
 "not applicable", never the verdict** — the verdict is stage B of the gate, and
 stage B is judgment.
 
-**Stage 3** prints one area's extract and the file the agent wrote from it, in
-full, and then names which parts of that file were fixed for the agent and which
+**Stage 3** prints one area's extract, the opening of the IR document the agent
+wrote from it (`codespec/irspecs/CE-DB.ir.yaml`, `irspecs_ir.md`) and the file
+the Dart + Tom mapper prints from that IR, in full, and then names which parts of that file were fixed for the agent and which
 it chose. It also shows the mirror-image case: CE-API's extract is **not** empty
 and still yields no code, because its shared wire DTO is derived from server
 operations this document never specifies. Emptiness and non-emptiness are both
@@ -98,7 +99,11 @@ stdout.
 
 So stage 4's output is recorded in `codespec/validation_report.txt`, and
 `tool/validate.sh` is what keeps the record honest: it re-runs both invocations
-and fails if the file has gone stale. The second invocation is also recorded in
+and fails if the file has gone stale. Before them it maps the IR —
+`irspecs map --mapper dart-tom --ir codespec/irspecs`, into
+`build/irspecs_mapped/` — and fails unless every Dart file equals the
+committed trio's byte for byte: the trio is what the agent's IR maps to
+(`codespecs_mapping.md` §1.1.2 stage 5). The second invocation is also recorded in
 the form a tool reads, `codespec/validation_report.json` (`--json`), with the
 sample's own path removed from the echoed inputs so the record names no
 machine. Like `run_all_samples.sh`, it **skips with
@@ -136,6 +141,7 @@ empty. The stages are the ones below; only the numbers differ.
 | `bin/phase4_codespecs_run.dart` | The run: the specification, the four stages |
 | `tool/validate.sh` | Records and re-checks stage 4 |
 | `codespec/` | The emitted trio — Phase 4's output, with its own README |
+| `codespec/irspecs/` | The IR the authoring agent wrote, one document per area; the trio is mapped from it |
 | `codespec/validation_report.txt` | Stage 4's recorded output |
 | `codespec/validation_report.json` | The same run as the `--json` report |
 | `expected_output.txt` | What `dart run` prints; the samples driver diffs it |

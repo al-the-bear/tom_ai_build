@@ -74,11 +74,15 @@ throughout, and they are not interchangeable:
 | Role | Does | Bound by |
 |------|------|----------|
 | **The extract generator** | Collects, per CodeSpecs area, every SOM field the `@CodeSpecKind` routing sends there into a bounded, cited **extract** — copying and indexing, never summarising, rephrasing, composing or naming | `codespecs_mapping.md` §1.1.1; the same §2.8 C1 prohibitions this document already states |
-| **The authoring agent** | Writes the CodeSpecs Dart from that extract — every declaration, name, argument, comment and body in §3 | This whole document |
+| **The authoring agent** | Writes the CodeSpecs **IR** ([`irspecs_ir.md`](irspecs_ir.md)) from that extract — every declaration, name, argument, comment and body in §3, as the IR records them, one document per area | This whole document |
+| **The mapper** | Writes each generation unit's package from the IR (`irspecs map`; the Dart + Tom mapper `dart-tom` writes the code this contract describes) — printing, never adding or dropping a fact | [`irspecs_ir.md`](irspecs_ir.md) §8 |
 
-**The extract generator emits no Dart.** Every "emits", "writes" and "fails" in
-§2–§5 is the authoring agent's, and every judgement §3 leaves open is the
-agent's to take. That is why this contract is written as tightly as it is: an
+**The extract generator emits no Dart, and neither does the agent.** Every
+"emits", "writes" and "fails" in §2–§5 is the authoring agent's, and every
+judgement §3 leaves open is the agent's to take: the agent states it in the IR,
+and the mapper prints it. This contract describes the code that results — what
+the Dart + Tom mapper writes from the agent's IR — so a rule here binds the IR
+through what it prints to. That is why this contract is written as tightly as it is: an
 author is the one producer that *can* invent, so each rule below says not only
 what to write but what may not be reached for instead.
 
@@ -941,8 +945,8 @@ grounding, and the text that produces code is derivation.
 **This is one of Phase 4's two prompts, and the other one is not here.**
 [`codespecs_prompt.md`](../../tom_specs_model/doc/codespecs_prompt.md) holds the *starting* prompt, which
 gates the run and creates its todo tree. The two partition the phase without
-overlap: that one produces todos and no code, this one produces code and no
-todos. A `csgen<n>` todo exists because the starting prompt created it; this
+overlap: that one produces todos and no code, this one produces the IR the
+code is mapped from, and no todos. A `csgen<n>` todo exists because the starting prompt created it; this
 prompt is what that todo is then handed.
 
 **One prompt, thirty-one instantiations — not thirty-one prompts.** The steps
@@ -967,6 +971,8 @@ design already fixes; none is composed.
 | `<EXTRACTS>` | one extract path per part in `<PARTS>` | `codespecs_mapping.md` §1.1.1 item 1 fixes name and location |
 | `<ENTRIES>` | the §3 entry numbers for the markers those parts emit | §3, via `codespecs_mapping.md` §8.5's walk index |
 | `<LOCUS>` | the project(s) of `codespecs_mapping.md` §4.2 the step writes into | §2.2 |
+| `<IR>` | one IR document per part in `<PARTS>`, `<spec-root>/irspecs/<CE-CODE>.ir.yaml` | `codespecs_mapping.md` §1.1.2 stage 3 |
+| `<UNITS>` | the generation units the step's entries go to, read off their `units` (the trio when the specification declares none) | `codespecs_mapping.md` §1.1.1 items 1 and 4 |
 | `<COMPONENT>` | the component's pass-2 deferral row — **present only for steps 2 and 23** | `codespecs_mapping.md` §4.4.7 |
 
 A step that is not a component omits the `<COMPONENT>` block entirely; it is the
@@ -984,13 +990,17 @@ READ — and read nothing else:
     specification fact routed to <PARTS>. They are your only source of
     specification content.
   - codespecs_derivation_contract.md §2 (universal rules) and entries <ENTRIES>.
-  - The files earlier steps generated, to resolve cross-references and to reuse
-    the names they already fixed.
+  - irspecs_ir.md, the form you write in.
+  - The IR documents earlier steps wrote, to resolve cross-references and to
+    reuse the names they already fixed.
   Do NOT open the Phase-3 specification documents. If a fact you need is not in
   an extract, it was not routed here, and reaching for it would write into
   <PARTS> something another step owns.
 
-WRITE into <LOCUS>:
+WRITE the IR documents <IR> (irspecs_ir.md): each file under its `locus` in
+<LOCUS>, its package named after its unit in <UNITS>. You write IR, not Dart;
+every rule below is about the code the Dart + Tom mapper prints from what you
+write.
   - Walk this step's extract entries in the order codespecs_mapping.md §4.4.8
     fixes — SOM document order (§2.1 N8) across all of this step's parts
     together, not one part after another. One entry is one L3 todo.
@@ -1010,6 +1020,12 @@ WRITE into <LOCUS>:
     (§2.5). Every file has §2.7's five-part shape.
   - Comments are governed by §2.8: C1's sources, C2's four positions, C4's
     shape. Copy the specification's text; do not write a sentence of your own.
+  - Where a file's entries go to some units of its locus and not others (a
+    section whose `units` narrows its area's default), the file carries
+    `units` naming them (irspecs_ir.md §8.1); otherwise it carries none.
+  - Check what you wrote: `irspecs map` the IR into a scratch folder and read
+    the code it prints. The IR is what you hand back; the printed code is
+    not.
 
 <COMPONENT>
 This step is a strongly connected component. Author it in the two passes
@@ -1040,7 +1056,8 @@ NEVER:
     "unresolved" is a csopen<n> todo, not a comment.
 
 HAND BACK:
-  - The list of files written, by locus project.
+  - The IR documents written, and in each the files by locus, with their
+    units where they carry any.
   - The csopen<n> todos filed, if any, with their section ids.
   - The L3 todos of this step, each marked completed or left open against a
     csopen<n>.
