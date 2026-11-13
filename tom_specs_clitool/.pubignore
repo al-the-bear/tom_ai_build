@@ -28,3 +28,9 @@ tool/release_set.yaml
 # which is not shipped either; it is rewritten by every model generation, so
 # shipping it made each model release drift the published clitool.
 tool/model_surface.stamp.json
+
+# The official meta-schemas the standard emitters' output is validated against
+# (irspecs_ir.md §10). Like `test/`, which is the only thing that reads them,
+# they are a test input: a consumer of the tool has no use for 446 KB of
+# schemas the emitters never read.
+tool/standards/

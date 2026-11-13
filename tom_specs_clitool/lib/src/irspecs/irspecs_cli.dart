@@ -17,6 +17,11 @@
 ///   area, its mapper, and only the areas `--mapper` holds for the unit are
 ///   written, into `--out/<unit id>` (`irspecs_ir.md` §8.1).
 ///
+/// * `irspecs emit --standard <name> --ir <dir> --out <dir>`, the name one
+///   of `openapi`, `jsonschema`, `icu` and `asyncapi`, writes what a standard
+///   can express of an IR folder in that standard (`irspecs_ir.md` §10), and
+///   lists on stdout every fact it could not.
+///
 /// Exit codes: `0` written, `1` the mapper refused the IR, `2` bad usage.
 library;
 
@@ -39,6 +44,11 @@ import '../validate_spec_cli.dart' show resolveSpecDocumentRoot;
 import 'ir_model.dart';
 import 'ir_units.dart';
 import 'ir_yaml.dart';
+import 'emitters/asyncapi_emitter.dart';
+import 'emitters/emit_common.dart';
+import 'emitters/icu_emitter.dart';
+import 'emitters/json_schema_emitter.dart';
+import 'emitters/openapi_emitter.dart';
 import 'mappers/dart_tom/dart_tom_mapper.dart';
 
 /// The `from-codespecs` option set — exposed so the README correspondence
@@ -84,6 +94,11 @@ ArgParser irspecsParser() => ArgParser()
         '(needs --spec).',
   )
   ..addOption(
+    'standard',
+    help: 'emit: the standard to write the IR in.',
+    allowed: irStandards.keys.toList(),
+  )
+  ..addOption(
     'areas',
     help:
         'The CodeSpecs area catalogue (codespecs_areas.json, '
@@ -112,7 +127,9 @@ Future<int> runIrspecs(
     '--shared <dir> --client <dir> --server <dir> --areas <json> '
     '--out <dir>\n'
     '       dart run tom_specs_clitool:irspecs map --mapper dart-tom '
-    '--ir <dir> --out <dir> [--spec <document> --unit <unit id>]\n\n'
+    '--ir <dir> --out <dir> [--spec <document> --unit <unit id>]\n'
+    '       dart run tom_specs_clitool:irspecs emit --standard '
+    '<${irStandards.keys.join('|')}> --ir <dir> --out <dir>\n\n'
     '${parser.usage}',
   );
 
@@ -129,10 +146,13 @@ Future<int> runIrspecs(
     return 0;
   }
   final subcommand = results.rest.length == 1 ? results.rest.single : null;
+  if (subcommand == 'emit') {
+    return _emit(results, stdoutSink, stderrSink, usage);
+  }
   if (subcommand != 'from-codespecs' && subcommand != 'map') {
     stderrSink.writeln(
       results.rest.isEmpty
-          ? 'Name the subcommand: from-codespecs or map.'
+          ? 'Name the subcommand: from-codespecs, map or emit.'
           : 'Unknown subcommand: ${results.rest.join(' ')}.',
     );
     usage();
@@ -290,4 +310,52 @@ IrUnit _unitOf(String specPath, String unitId) {
     '--unit: $specPath declares no generation unit "$unitId"'
     '${units.isEmpty ? '' : '; it declares ${units.map((u) => u.unitId).join(', ')}'}',
   );
+}
+
+/// The standards `irspecs emit` writes, by `--standard` name
+/// (`irspecs_ir.md` §10).
+const Map<String, IrEmission Function(List<IrDocument>)> irStandards = {
+  'openapi': emitOpenApi,
+  'jsonschema': emitJsonSchema,
+  'icu': emitIcu,
+  'asyncapi': emitAsyncApi,
+};
+
+int _emit(
+  ArgResults results,
+  StringSink stdoutSink,
+  StringSink stderrSink,
+  void Function() usage,
+) {
+  final missing = [
+    for (final option in ['standard', 'ir', 'out'])
+      if (results.option(option) == null) '--$option',
+  ];
+  if (missing.isNotEmpty) {
+    stderrSink.writeln('Missing ${missing.join(', ')}.');
+    usage();
+    return 2;
+  }
+  final List<IrDocument> documents;
+  try {
+    documents = readIrFolder(results.option('ir')!);
+  } on IrSpecsException catch (e) {
+    stderrSink.writeln(e.message);
+    return 2;
+  }
+  final emission = irStandards[results.option('standard')!]!(documents);
+  final outDir = Directory(results.option('out')!)..createSync(recursive: true);
+  for (final MapEntry(key: name, value: text) in emission.files.entries) {
+    File(p.join(outDir.path, name)).writeAsStringSync(text);
+    stdoutSink.writeln('$name written');
+  }
+  if (emission.notExpressed.isEmpty) {
+    stdoutSink.writeln('Every fact the standard reads was expressed.');
+  } else {
+    stdoutSink.writeln('Not expressed (irspecs_ir.md §10.2):');
+    for (final line in emission.notExpressed) {
+      stdoutSink.writeln('  - $line');
+    }
+  }
+  return 0;
 }

@@ -22,6 +22,9 @@ Schema is `tool/irspecs_ir.schema.json`.
   - [IrStepViolation](#irstepviolation)
   - [IrMapException](#irmapexception)
   - [IrUnit](#irunit)
+  - [IrEmission](#iremission)
+  - [IrIndex and IrEntry](#irindex-and-irentry)
+  - [IrSchemaBuilder](#irschemabuilder)
 - [Functions](#functions)
 
 ## Constants
@@ -37,6 +40,13 @@ Schema is `tool/irspecs_ir.schema.json`.
 | `kGuardSuffix` | `'Applies'` | The fixed suffix of a guard method's name (B4). |
 | `irStepRules` | `Map<String, String>` | The step validation rules `S1` … `S5`, each with what it holds. |
 | `kDartTomMapper` | `'dart-tom'` | The Dart + Tom mapper's id, as `irspecs map --mapper` names it. |
+| `irStandards` | `Map<String, IrEmission Function(List<IrDocument>)>` | The standards `irspecs emit --standard` writes: `openapi`, `jsonschema`, `icu`, `asyncapi`. |
+| `kOpenApiVersion`, `kOpenApiFile` | `'3.1.0'`, `'openapi.json'` | The OpenAPI emitter's version and file. |
+| `kJsonSchema202012`, `kJsonSchemaFile` | the 2020-12 dialect URI, `'schema.json'` | The JSON Schema emitter's dialect and file. |
+| `kIcuFile` | `'messages.json'` | The ICU emitter's file. |
+| `kAsyncApiVersion`, `kAsyncApiFile` | `'3.0.0'`, `'asyncapi.json'` | The AsyncAPI emitter's version and file. |
+| `kResultEnvelope` | `'Result'` | The CE-ER envelope type an operation's response wraps. |
+| `irValidationKeywords` | `Map<String, String>` | The closed `@CsValidation` tokens and the JSON Schema keyword each becomes. |
 
 ## Classes
 
@@ -263,6 +273,37 @@ factory IrUnit.fromRegister(SpecGenerationUnit unit)
 `IrUnit.fromRegister` throws `IrSpecsException` for a unit whose kind is not
 shared, client or server.
 
+### IrEmission
+
+What a standard emitter wrote, and what it could not say (`irspecs_ir.md` §10).
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `files` | `Map<String, String>` | The files written, path relative to `--out` → text. |
+| `notExpressed` | `List<String>` | Every fact the standard has no form for, one line each (§10.2). |
+
+### IrIndex and IrEntry
+
+A read-only index over an IR document set: `topLevel` (every top-level
+declaration as an `IrEntry` of `area`, `file` and `declaration`),
+`membersOf(entry)`, `inArea(area)` and `title` (the shared project's package
+name).
+
+### IrSchemaBuilder
+
+Builds the JSON Schema 2020-12 schemas both the JSON Schema and the OpenAPI
+emitter write (`irspecs_ir.md` §10.1).
+
+```dart
+IrSchemaBuilder(IrIndex index, {required String refBase, required List<String> notExpressed})
+```
+
+| Member | Description |
+|--------|-------------|
+| `build()` | Builds every schema of CE-EN, CE-ER, CE-API and CE-DB into `defs`, by declaration name; returns it. |
+| `fieldSchema(String type, String where)` | The schema of one field type outside any `$defs`. |
+| `refBase` | Where a reference points: `#/$defs/` or `#/components/schemas/`. |
+
 ## Functions
 
 | Function | Return Type | Description |
@@ -287,5 +328,13 @@ shared, client or server.
 | `mapDartTom(List<IrDocument> documents)` | `Map<String, String>` | The Dart + Tom mapper: `<package>/<path>` → unformatted source. |
 | `formatDartFiles(List<String> paths)` | `Future<void>` | Runs `dart format` over the paths. |
 | `writeDartTom(List<IrDocument> documents, String outDir)` | `Future<List<String>>` | Writes and formats the trio the documents describe; returns the written paths. |
+| `emitOpenApi(List<IrDocument> documents)` | `IrEmission` | The OpenAPI 3.1 document, `openapi.json`. |
+| `emitJsonSchema(List<IrDocument> documents)` | `IrEmission` | The JSON Schema 2020-12 document, `schema.json`. |
+| `emitIcu(List<IrDocument> documents)` | `IrEmission` | The ICU MessageFormat catalogue, `messages.json`. |
+| `emitAsyncApi(List<IrDocument> documents)` | `IrEmission` | The AsyncAPI 3 document, `asyncapi.json`. |
+| `icuMessageFor(String baseCopy)` | `String` | A base copy as an ICU message: `{name}` kept, other braces and apostrophes quoted. |
+| `icuSyntaxErrors(String message)` | `List<String>` | The ICU MessageFormat syntax errors of a message; empty when it parses. |
+| `irJson(Object? data)` | `String` | JSON as the emitters write it: two-space indented, one trailing newline. |
+| `irMarker`, `irString`, `irInitialiserString`, `irDocText`, `irHandlerResult` | — | The helpers the emitters read the IR with: a marker by name, a value's string, an initialiser's string argument, a doc comment's text, a handler's response type. |
 | `irspecsParser()` | `ArgParser` | The `irspecs` option set. |
 | `runIrspecs(List<String> arguments, {StringSink? out, StringSink? err})` | `Future<int>` | Runs `irspecs`; returns the exit code. |

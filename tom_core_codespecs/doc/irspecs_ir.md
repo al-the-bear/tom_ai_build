@@ -10,7 +10,8 @@ declarations, `Cs*` markers and their argument values, back-links, doc
 comments, members, method bodies and their statements — in one YAML document
 per area. A mapper per language and framework writes code from it; the Dart +
 Tom mapper's output is today's trio, byte for byte. This document says what is
-in a document, how it is written and what is deliberately left out. Which code
+in a document, how it is written and what is deliberately left out, and what
+each standard emitter writes from it (§10). Which code
 a mapper writes from it is each mapper's own document, and what the trio
 itself must contain stays with
 [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md).
@@ -406,3 +407,54 @@ document, or a new reader an older one. A new optional key is not such a
 change — `arguments`, `hasElse`, `steps` and `stepsRefused` are optional for
 that reason, and a document without them reads as having none; a renamed key,
 a changed value shape or a removed key is.
+
+## 10. The standard emitters
+
+What a standard can express is written in that standard, from the IR, so a
+generator of any language can read it (CSML-3):
+
+```text
+irspecs emit --standard <openapi|jsonschema|icu|asyncapi> --ir <spec-root>/irspecs --out <dir>
+```
+
+writes one document into `--out` and lists on stdout every fact of the IR the
+standard has no form for (§10.2). The emitters live in
+`tom_specs_clitool/lib/src/irspecs/emitters/`. Each document is validated
+against its standard's official meta-schema, vendored with its source URL and
+version under `tom_specs_clitool/tool/standards/`
+(`tom_specs_clitool/test/irspecs_emit_test.dart`, over the Meridian IR and a
+trio with notifications and jobs). ICU MessageFormat has no meta-schema; its
+catalogue is checked by a parser of the ICU MessageFormat syntax
+(`icuSyntaxErrors`).
+
+### 10.1 Which area feeds which standard
+
+| Standard | File | Areas | What becomes what |
+|----------|------|-------|-------------------|
+| **OpenAPI 3.1** | `openapi.json` | CE-API, CE-SU, CE-ER; the types of CE-EN, CE-DB | Every `@CsEndpoint` operation is a `POST /<operation>` (`codespecs_mapping.md` §7): `operationId` the operation, the request body the handler's parameter type (CE-SU; without a handler, the `<Operation>Request` type), the `200` response the `Result` envelope with `value` the handler's result type, `5XX` the only other response. The description is the handler's doc comment, else the catalogue entry's. The types are `components.schemas`, built as for JSON Schema. |
+| **JSON Schema 2020-12** | `schema.json` | CE-EN, CE-ER, CE-API, CE-DB (with CE-VA's `@CsValidation` rules) | `$defs`, one per type: a domain enum (CE-EN) an `enum` of its constants; the error-code catalogue (`@CsError` class) a string `enum` of its codes; every other class with fields — the envelope, the wire types, the entities — an `object` of its instance fields, a field `required` when its type is not nullable or its rules say `required`. Types: `String` string, `int` integer, `double`/`num` number, `bool` boolean, `DateTime` date-time, `Uri` uri, `Duration` duration, `List`/`Iterable` array, `Set` array of unique items, `Map<String, X>` object, a nullable type also `null`, a type of the IR a `$ref`, a class's type parameter any value, a `Cs…Ref`/`…Key`/`…Code` string. Rules (`codespecs_mapping.md` §5.19): `email` format, `minLength`, `maxLength`, `pattern`, `min` minimum, `max` maximum, `minItems`, `maxItems`. Doc comments are `description`s. |
+| **ICU MessageFormat** | `messages.json` | CE-TX | One JSON object, each `@CsText` message key (its `CsMessageKey`) to its base copy as an ICU message: a `{name}` placeholder stays an argument, every other brace and every apostrophe is quoted (`icuMessageFor`), so the copy reads as written. |
+| **AsyncAPI 3.0** | `asyncapi.json` | CE-NT, CE-JB | Each `@CsNotificationChannel` declaration a channel; each `@CsNotification` declaration a message under `components.messages`, its payload an object of its fields; each `@CsJob` triggered by an `event` a channel named after the event and a `receive` operation named after the job. Without either, the document is its `info` alone. |
+
+`info.title` is the shared project's package name; `info.version` is
+`unversioned`, since the IR carries no API version. The other areas — screens,
+forms, layouts, actions, server calls, navigation, view state, configuration,
+settings, authentication, identity, migrations, audit, reporting — have no
+standard here: their code comes only from a mapper.
+
+### 10.2 What a standard cannot express
+
+An emitter never drops a fact silently: each one below is a line of
+`IrEmission.notExpressed`, printed by `irspecs emit` under *Not expressed*.
+
+| Standard | Not expressed | Why |
+|----------|---------------|-----|
+| OpenAPI, JSON Schema | an error code's severity (`@CsError(severity:)`) | an `enum` value carries no attributes |
+| OpenAPI, JSON Schema | an entity's table, its columns' SQL types, lengths and sensitivity (`@CsTable`, `@CsColumn`) | storage, not wire shape |
+| OpenAPI, JSON Schema | a validator outside the closed set — a registered custom name — and a rule whose argument is no number | no JSON Schema keyword |
+| OpenAPI, JSON Schema | a type the IR declares no schema for (a class without fields, an unknown generic) | written as any value |
+| OpenAPI | an operation's authorization (`@CsAuthorize` roles) | OpenAPI security needs a security scheme the IR does not declare |
+| OpenAPI | the path prefix a server mounts the operations under | the IR names operations, not URLs |
+| ICU MessageFormat | the base copy's locale, a message's doc comment, its role and category | a catalogue holds key and message only |
+| AsyncAPI | the channels a notification goes out on, and its body copy key | `TomNotificationType` constructor values, not marker arguments; a message has no copy key |
+| AsyncAPI | a job's retries, backoff and timeout; a cron, calendar or interval trigger | job policy and schedules, not messages |
