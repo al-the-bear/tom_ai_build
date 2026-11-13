@@ -56,7 +56,13 @@ allow:
     path: tom_ai/basics/tom_build_base
     reason: >-
       Published to pub.dev; hosted dependency of tom_analyzer_shared. Its own
-      dependencies are all third-party.
+      dependencies are third-party, but for tom_dcli.
+  tom_dcli:
+    path: tom_ai/xternal/tom_dcli/dcli
+    reason: >-
+      The dcli fork, published to pub.dev as tom_dcli (10.4.7+tom.1); hosted
+      dependency of tom_build_base from 2.27.0. Its own dependencies are all
+      third-party.
 
 # Never reachable, allowlisted or not. Exact names, or `prefix*`.
 forbid:
