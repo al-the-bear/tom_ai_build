@@ -2,7 +2,7 @@
 # Runs everything hand-authored in this package. The tests come in two shapes,
 # so the script has two halves:
 #   - `tests/*.test.js`  — node:test suites (including the conformance wrapper),
-#                          run together under the built-in `node --test` runner
+#                          each file under the built-in `node --test` runner
 #   - `tests/*_test.js`  — dependency-free scripts ending in
 #                          `process.exit(main())`, run one by one
 # `tests/conformance_runner.js` is a module the wrapper imports, not a test, so
