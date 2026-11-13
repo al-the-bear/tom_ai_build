@@ -238,9 +238,13 @@ void main() {
             m.group(1)!,
         ];
       } else {
+        // An entity's columns are the fields its @Column marks; a foreign
+        // key's read-only association (@ManyToOne) is not a property.
         names = [
           for (final m in RegExp(
-            r'^ {4}private [\w<>, ]+ (\w+);$',
+            java.contains('@Entity')
+                ? r'^ {4}@Column\([^\n]*\)\n {4}private [\w<>, ]+ (\w+);$'
+                : r'^ {4}private [\w<>, ]+ (\w+);$',
             multiLine: true,
           ).allMatches(java))
             m.group(1)!,

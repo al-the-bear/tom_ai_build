@@ -369,6 +369,13 @@ file. The two things the formatter keeps from its input are the mapper's:
 - **annotation order** — the doc comment first, then every annotation in the
   order of its `line`, back-links, markers and other annotations alike.
 
+**Keys.** An entity's keys and indexes are its `@CsTableKey` and
+`@CsTableIndex` markers (`codespecs_derivation_contract.md` §3.3.11), printed
+like every marker. `tom_core_server`'s repository finds an entity's primary
+key through `@TomDbTable(primaryKeyFields: …)`, which the trio does not carry,
+so a repository of the Dart output does not run yet; its key type `K` is the
+primary key's member type as the trio writes it.
+
 ### 8.1 Units
 
 A specification that declares generation units (SOM §11.2, the register
@@ -516,7 +523,7 @@ server frameworks and persistence layers are separate mappers to come.
 | a domain enum (CE-EN) | `export const X = { a: 'a', … } as const` and `export type X` the union of its values | shared |
 | a class of `static const` catalogue entries — operations (CE-API), roles (CE-AZ), error codes (CE-ER), message keys (CE-TX) | the same: a const object of the entries' strings and their union type | shared |
 | a plain data class (not abstract, instance fields only) — a wire type (CE-API), the envelope (CE-ER) | `export interface X<T> { field: type; }` | shared |
-| an entity (`@CsTable`, CE-DB) | a Drizzle table `export const xTable = pgTable('<table>', { … })`, a column per field from its `columnType` (`uuid`, `varchar(n)`, `numeric(p,s)`, `text`, `integer`, `bigint`, `boolean`, `date`, `jsonb`, `timestamp[tz]`; without one, from the Dart type), `.$type<Enum>()` for an enum-typed column, `.notNull()` unless nullable; and `export type X = typeof xTable.$inferSelect` | server |
+| an entity (`@CsTable`, CE-DB) | a Drizzle table `export const xTable = pgTable('<table>', { … })`, a column per field from its `columnType` (`uuid`, `varchar(n)`, `numeric(p,s)`, `text`, `integer`, `bigint`, `boolean`, `date`, `jsonb`, `timestamp[tz]`; without one, from the Dart type), `.$type<Enum>()` for an enum-typed column, `.notNull()` unless nullable, and the key's generation on a single-column primary key (`uuid` → `.defaultRandom()`, `auto` → `.generatedByDefaultAsIdentity()`, `sequence` → ``.default(sql`nextval(…)`)``); a third argument `(t) => [ … ]` with the keys and indexes of §11.3; and `export type X = typeof xTable.$inferSelect` | server |
 | a repository (`@CsRepository`) | `export interface XRepository extends TomRepository<X, K> {}`, `TomRepository` the method contract of `tom_core_server`'s (`tom/tom.ts`) | server |
 | a service unit (`@CsServiceUnit`, CE-SU) | an `abstract class` whose handlers keep their signature and throw `not implemented`; the routes in `app.ts`: `createApp(services)` returns a Hono app with `app.post('/<operation>', …)` per handler | server |
 | a collaborator (`@CsCollaborator`) | `export interface X { method(params): Promise<…>; }` | client |
@@ -568,6 +575,24 @@ A mobile client whose IR holds no route is refused: a navigator needs a
 screen. The back-links are the web client's — the same JSDoc tags, which the
 test holds file by file against the Dart trio for both clients.
 
+### 11.3 Keys and indexes
+
+An entity's `@CsTableKey` and `@CsTableIndex` markers
+(`codespecs_derivation_contract.md` §3.3.11) are the Drizzle table's third
+argument, each under its name as the marker states it: the key that
+identifies the row (`primary`, `composite`, `natural`, `surrogate`) as
+`primaryKey({ name, columns })` — the named form for one column too, since
+`.primaryKey()` on a column cannot carry the constraint's name — an
+`alternate` key as `unique(name).on(…)`, a `foreign` key as
+`foreignKey({ name, columns, foreignColumns })` with `.onDelete(…)` and
+`.onUpdate(…)` (the target's table imported; without `referencedColumns` the
+target's primary key), and an index as `index(name)` or, unique,
+`uniqueIndex(name)`, `.using(<method>, …)` for its `indexType` (`bTree` →
+`btree`, `hash`, `gist`, `gin`, `fullText` → `gin`, `spatial` → `gist`), a
+descending column as `.desc()`, a `filterCondition` as ``.where(sql`…`)``.
+Drizzle has no deferrable constraint, covering columns or clustering; the
+PostgreSQL DDL the Go, Java and C# mappers write (§12) carries them.
+
 ## 12. The Go server mapper
 
 One mapper writes the server of the IR as a Go module — the standard
@@ -607,10 +632,33 @@ field with its `columnType` (without one, from the Dart type: `integer`,
 `double precision`, `boolean`, `timestamptz`, `text`), `NOT NULL` unless
 nullable — the schema the cumulative CE-MG migrations converge on
 (`codespecs_derivation_contract.md` §6, check 13); the IR carries no
-migration DDL of its own. `db/query/<table>.sql` holds the queries of the
-repository contract that need no key — `Count<Entity>`, `List<Entity>Page`,
-`Insert<Entity>`; a query by key is Phase 6's, since the IR does not say
-which column is the key. `sqlc.yaml` (written for sqlc v1.29.0) generates
+migration DDL of its own. The entity's keys and indexes (`codespecs_derivation_contract.md` §3.3.11) are
+PostgreSQL DDL under the names the markers state, the same text the Java
+and C# mappers' migrations run:
+
+- the key that identifies the row (`primary`, `composite`, `natural`,
+  `surrogate`) as `CONSTRAINT <name> PRIMARY KEY (…)` and each `alternate`
+  key as `CONSTRAINT <name> UNIQUE (…)` in the `CREATE TABLE`, `DEFERRABLE
+  INITIALLY DEFERRED` when the key is deferrable;
+- a single-column primary key's generation as the column's default:
+  `auto` → `GENERATED BY DEFAULT AS IDENTITY`, `sequence` →
+  `DEFAULT nextval('<sequenceName>')` with a `CREATE SEQUENCE` ahead of the
+  tables, `uuid` → `DEFAULT gen_random_uuid()`; `ulid`, `custom` and
+  `natural` are the application's;
+- every `foreign` key after all the tables, as `ALTER TABLE … ADD CONSTRAINT
+  <name> FOREIGN KEY (…) REFERENCES <table> (…)` with `ON DELETE` / `ON
+  UPDATE` from its referential actions — without `referencedColumns`, the
+  target's primary key — so a table may reference one written after it;
+- every index as `CREATE [UNIQUE] INDEX <name> ON <table> [USING <method>]
+  (…) [INCLUDE (…)] [WHERE …]`, the columns as written (a direction
+  included), and `CLUSTER <table> USING <name>` for a clustered one.
+
+`db/query/<table>.sql` holds the queries of the repository contract:
+`Count<Entity>`, `List<Entity>Page`, `Insert<Entity>`, and by the primary
+key `Find<Entity>ById` and `Delete<Entity>ById` (a composite key by all its
+columns, in key order); an entity without a primary key — which
+`validate_codespecs` check 44 reports — gets the first three only.
+`sqlc.yaml` (written for sqlc v1.29.0) generates
 package `db` beside them, a `uuid` column as a Go `string`. The mapper writes
 no sqlc output: `sqlc generate` writes it.
 
@@ -695,8 +743,7 @@ body the specification gives no steps for throws
 `gradle/wrapper/gradle-wrapper.properties` naming Gradle 8.14; the wrapper's
 scripts and jar are a binary Gradle writes, so the mapper leaves them to one
 `gradle wrapper` (any Gradle). Running the application needs what the IR does
-not carry: an `@Id` on each entity, since the IR does not say which column is
-the key, and a datasource. The test
+not carry: a datasource. The test
 `tom_specs_clitool/test/irspecs_java_test.dart` maps the Meridian IR, compiles
 the project with `./gradlew compileJava`, checks that openapi-generator wrote
 the HTTP interfaces and the envelopes and none of the project's own types,
@@ -720,12 +767,26 @@ constants (the error codes) is not mapped, and the generator's own enum for it
 goes unused. openapi-generator calls its OpenAPI 3.1 support beta; it reads
 §10's document as written.
 
-**Flyway.** `src/main/resources/db/migration/V1__ce_db_tables.sql` holds a
-`CREATE TABLE` per entity, a column per field with its `columnType` (without
-one, from the Dart type: `integer`, `double precision`, `boolean`,
-`timestamptz`, `text`), `NOT NULL` unless nullable — the schema the cumulative
-CE-MG migrations converge on (`codespecs_derivation_contract.md` §6, check 13);
-the IR carries no migration DDL of its own.
+**Flyway.** `src/main/resources/db/migration/V1__ce_db_tables.sql` holds the
+Go mapper's schema (§12): a `CREATE TABLE` per entity with its primary and
+alternate keys, then the foreign keys and the indexes — the schema the
+cumulative CE-MG migrations converge on (`codespecs_derivation_contract.md`
+§6, check 13); the IR carries no migration DDL of its own.
+
+**Keys in JPA** (`codespecs_derivation_contract.md` §3.3.11). The primary key's columns carry `@Id`; a
+composite key adds `@IdClass(<Entity>Id.class)` and the class `<Entity>Id`
+(the key fields, a no-argument constructor, `equals` and `hashCode`). A
+single-column key's generation is `@GeneratedValue`: `uuid` →
+`GenerationType.UUID`, `auto` → `IDENTITY`, `sequence` → `SEQUENCE` with its
+`@SequenceGenerator(allocationSize = 1)`. An `alternate` key is a
+`@UniqueConstraint` of `@Table`, an index an `@Index(name, columnList,
+unique)`. A `foreign` key is a read-only association beside its columns —
+`@ManyToOne(fetch = LAZY)` with `@JoinColumn(insertable = false, updatable =
+false, foreignKey = @ForeignKey(name))` (`@JoinColumns` for several), a field
+named after the target and its getter — so the columns stay the entity's
+fields while JPA knows the relation; its referential actions, deferrability
+and an index's method, covering columns, condition and clustering are the
+migration's.
 
 ### 13.1 What each declaration becomes
 
@@ -734,7 +795,7 @@ the IR carries no migration DDL of its own.
 | a domain enum (CE-EN) | `public enum X { value, … }`, the values as the Dart names them, so they serialise as the JSON Schema's | shared |
 | a class of `static const` catalogue entries — operations (CE-API), roles (CE-AZ), error codes (CE-ER), message keys (CE-TX) | `public final class X { public static final String entry = "…"; }` | shared |
 | a plain data class (not abstract, instance fields only) — a wire type (CE-API), the envelope (CE-ER) | `public record X<T>(…)`, a component per field with its back-links and its `@CsValidation` rules as Bean Validation constraints: `required` → `@NotNull`, `email` → `@Email`, `pattern` → `@Pattern`, `minLength`/`maxLength`/`minItems`/`maxItems` → `@Size`, `min`/`max` → `@Min`/`@Max` (`@DecimalMin`/`@DecimalMax` for a decimal); the field's doc as the record's `@param` | shared |
-| an entity (`@CsTable`, CE-DB) | `@Entity @Table(name = "<table>")`, a private field per column with `@Column(name, columnDefinition, nullable)`, `@Enumerated(EnumType.STRING)` for an enum-typed column, and its getter and setter; its table in the Flyway migration | server |
+| an entity (`@CsTable`, CE-DB) | `@Entity @Table(name = "<table>")`, a private field per column with `@Column(name, columnDefinition, nullable)`, `@Enumerated(EnumType.STRING)` for an enum-typed column, and its getter and setter; `@Id`, `@IdClass`, `@GeneratedValue`, the foreign keys' associations and `@Table`'s unique constraints and indexes from its keys and indexes (§13, Keys in JPA); its table in the Flyway migration | server |
 | a repository (`@CsRepository`) | `public interface XRepository extends JpaRepository<X, K>` — Spring Data's repository in the place of `tom_core_server`'s | server |
 | a service unit (`@CsServiceUnit`, CE-SU) | a `@Service` class whose handlers keep their signature and throw; a `@RestController` `<Unit>Controller` implementing the generated `<Operation>Api` of each handler, handing the request to the unit and the `Result` back as the operation's envelope | server |
 | a collaborator (`@CsCollaborator`) | `public interface X { R method(params); }` | the file's |
@@ -812,8 +873,7 @@ error has (`codespecs_mapping.md` §7), and any other verb with a 405. It also
 holds the back-links of every file to the Dart trio's and the wire types to
 the JSON Schema of §10, prints and builds a body from its steps, and builds a
 server unit written as its own solution. Running a repository needs what the
-IR does not carry: each entity's key, which EF Core requires, and the
-connection string `ConnectionStrings:Default`.
+IR does not carry: the connection string `ConnectionStrings:Default`.
 
 **NSwag and Kiota.** The wire types are written by the mapper, as the Go
 mapper's are (§12). Kiota generates API clients, not a server. NSwag 14.8
@@ -826,13 +886,27 @@ generic envelope needs no generated form in C#: `Result<T>` serialises as the
 document describes it.
 
 **EF Core.** `<Root>DbContext` holds a `DbSet` per entity
-(`<Entity>Set`) and stores an enum-typed column as the value's name. The
-first migration, `Migrations/00000000000000_CeDbTables.cs`, runs a `CREATE
-TABLE` per entity, a column per field with its `columnType` (without one,
-from the Dart type: `integer`, `double precision`, `boolean`, `timestamptz`,
-`text`), `NOT NULL` unless nullable — the schema the cumulative CE-MG
-migrations converge on (`codespecs_derivation_contract.md` §6, check 13); the
-IR carries no migration DDL of its own. The migration has no model snapshot:
+(`<Entity>Set`), stores an enum-typed column as the value's name, and
+configures each entity's keys and indexes (`codespecs_derivation_contract.md` §3.3.11) under their names:
+`HasKey(…).HasName(…)` for the key that identifies the row (`e => new { … }`
+for a composite one), its generation on a single-column key (`auto` →
+`UseIdentityByDefaultColumn()`, `sequence` → `ValueGeneratedOnAdd()` with
+`HasDefaultValueSql("nextval('…')")`, `uuid` → the same with
+`gen_random_uuid()`, otherwise `ValueGeneratedNever()`),
+`HasAlternateKey(…).HasName(…)`, a foreign key as
+`HasOne<Target>().WithMany().HasForeignKey(…)` with `HasPrincipalKey(…)`
+when it references other columns than the target's primary key,
+`HasConstraintName(…)` and `OnDelete(…)` (`setDefault` has no
+`DeleteBehavior`; the DDL carries it, as it carries `ON UPDATE` and
+deferrability), and an index as `HasIndex(…, name)` with `IsUnique()`,
+`IsDescending(…)`, `HasMethod(…)`, `IncludeProperties(…)` and `HasFilter(…)`
+(Npgsql's). The first migration, `Migrations/00000000000000_CeDbTables.cs`,
+runs the Go mapper's schema (§12) — a `CREATE TABLE` per entity with its
+primary and alternate keys, then the foreign keys and the indexes — the
+schema the cumulative CE-MG migrations converge on
+(`codespecs_derivation_contract.md` §6, check 13); its `Down` drops each
+table with `CASCADE` and the sequences. The IR carries no migration DDL of
+its own. The migration has no model snapshot:
 `dotnet ef migrations add` would write the whole model as its next
 migration.
 
@@ -844,7 +918,7 @@ migration.
 | a class of `static const` catalogue entries — operations (CE-API), roles (CE-AZ), error codes (CE-ER), message keys (CE-TX) | `public static class X { public const string entry = "…"; }` | Shared |
 | a plain data class (not abstract, instance fields only) — a wire type (CE-API), the envelope (CE-ER) | `public sealed record X<T>(…)`, a parameter per field in Pascal case (System.Text.Json writes it in camel case, as the schema names it), `[property: JsonRequired]` on every non-nullable member — the schema's `required` — and the field's back-links as `[property: …]` | Shared |
 | the `@CsValidation` rules of a record's fields | a FluentValidation `XValidator : AbstractValidator<X>`: `required` → `NotNull()`, `email` → `EmailAddress()`, `pattern` → `Matches(…)`, `minLength`/`maxLength` → `MinimumLength`/`MaximumLength`, `minItems`/`maxItems` → a count check, `min`/`max` → `GreaterThanOrEqualTo`/`LessThanOrEqualTo`; a `ValidationFilter<X>` runs it on the operation's request | Shared |
-| an entity (`@CsTable`, CE-DB) | `[Table("<table>")] public class X`, a property per column with `[Column("<column>", TypeName = "<columnType>")]`; its table in the first migration | Server |
+| an entity (`@CsTable`, CE-DB) | `[Table("<table>")] public class X`, a property per column with `[Column("<column>", TypeName = "<columnType>")]`; its keys and indexes in the context (§14, EF Core) and its table in the first migration | Server |
 | a repository (`@CsRepository`) | `public interface XRepository : TomRepository<X, TKey>`, `TomRepository` the method contract of `tom_core_server`'s repository (`Tom/TomRepository.cs`) | Server |
 | a service unit (`@CsServiceUnit`, CE-SU) | a class registered scoped, its handlers `public virtual` and throwing; in `Program.cs` an `app.MapPost("/<operation>", (Request request, Unit service) => service.Handler(request))` per handler | Server |
 | a collaborator (`@CsCollaborator`) | `public interface X { Task<R> Method(params); }` | the file's |

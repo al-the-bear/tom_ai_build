@@ -17,6 +17,7 @@ import '../../ir_model.dart';
 import '../../ir_steps.dart';
 import '../dart_tom/dart_tom_mapper.dart' show IrMapException;
 import '../mapper_common.dart';
+import '../mapper_keys.dart';
 
 /// The shared package's mapper.
 const String kTsSharedMapper = 'ts-shared';
@@ -285,6 +286,9 @@ class _Symbols {
   final Set<String> entities = {};
   final Set<String> enums = {};
 
+  /// Every `@CsTable` class with its keys and indexes, by class name.
+  final Map<String, IrEntityTable> tables = {};
+
   /// The names [documents] declare; a declaration of a locus [share] writes
   /// lives in the share's package — a unit's id (`irspecs_ir.md` §8.1) —
   /// every other in the package the IR names.
@@ -309,6 +313,7 @@ class _Symbols {
       );
       if (kind == IrShape.entity) {
         entities.add(d.name);
+        tables[d.name] = irEntityTable(index, e)!;
         byName[_tableName(d.name)] = _Symbol(package, module, _Kind.value);
       }
       if (kind == IrShape.catalogue && d.kind == CsDeclarationKind.enumType) {
@@ -822,11 +827,15 @@ class _FileWriter {
     List<String> head,
   ) {
     final d = e.declaration;
-    final table =
-        irString(irMarker(d, 'CsTable')?.positional.firstOrNull) ??
-        irSnake(d.name);
+    final shape = symbols.tables[d.name]!;
+    final table = shape.table;
     final builders = <String>{};
     final columns = <String>[];
+    final pk = shape.primaryKey;
+    if (pk != null) shape.keyColumns(pk);
+    final singlePk = pk != null && pk.columns.length == 1
+        ? pk.columns.single
+        : null;
     for (final m in members) {
       if (m.kind != CsDeclarationKind.field || m.isStatic) continue;
       final col = irMarker(m, 'CsColumn');
@@ -844,10 +853,12 @@ class _FileWriter {
         chain += '.\$type<$dartType>()';
       }
       if (!type.endsWith('?')) chain += '.notNull()';
+      if (name == singlePk) chain += _generation(pk!, builder);
       columns
         ..addAll(_jsDoc(m, indent: '  '))
         ..add('  ${m.name}: $chain,');
     }
+    final constraints = _constraints(shape, builders);
     builders.add('pgTable');
     external.add(
       "import { ${(builders.toList()..sort()).join(', ')} } from 'drizzle-orm/pg-core';",
@@ -858,14 +869,113 @@ class _FileWriter {
       ..add(d.name);
     return [
       ...head,
-      'export const $tableConst = pgTable(${jsonEncode(table)}, {',
-      ...columns,
-      '});',
+      'export const $tableConst = pgTable(',
+      '  ${jsonEncode(table)},',
+      '  {',
+      for (final c in columns) '  $c',
+      if (constraints.isEmpty)
+        '  },'
+      else ...[
+        '  },',
+        '  (t) => [',
+        for (final c in constraints) '    $c,',
+        '  ],',
+      ],
+      ');',
       '',
       '/** A row of [$tableConst]. */',
       'export type ${d.name} = typeof $tableConst.\$inferSelect;',
     ];
   }
+
+  /// The column default of a single-column primary key's generation
+  /// (codespecs_derivation_contract.md §3.3.11): `defaultRandom()` for `uuid`, an identity for `auto`, the
+  /// sequence for `sequence`; `ulid`, `custom` and `natural` are the
+  /// application's.
+  String _generation(IrTableKey pk, String builder) {
+    switch (pk.generation) {
+      case 'uuid' when builder == 'uuid':
+        return '.defaultRandom()';
+      case 'auto':
+        return '.generatedByDefaultAsIdentity()';
+      case 'sequence' when pk.sequenceName != null:
+        external.add("import { sql } from 'drizzle-orm';");
+        return ".default(sql`nextval('${pk.sequenceName}')`)";
+      default:
+        return '';
+    }
+  }
+
+  /// The table-level entries of [t]: the named primary key, the alternate
+  /// keys as unique constraints, the foreign keys and the indexes
+  /// (codespecs_derivation_contract.md §3.3.11). Drizzle has no deferrable constraint, no covering index and
+  /// no clustering: the migration DDL the other server mappers write carries
+  /// those.
+  List<String> _constraints(IrEntityTable t, Set<String> builders) {
+    String props(List<IrColumn> cs) =>
+        cs.map((c) => 't.${c.member.name}').join(', ');
+    final out = <String>[];
+    final pk = t.primaryKey;
+    if (pk != null) {
+      builders.add('primaryKey');
+      out.add(
+        'primaryKey({ name: ${jsonEncode(pk.name)}, '
+        'columns: [${props(t.keyColumns(pk))}] })',
+      );
+    }
+    for (final k in t.alternateKeys) {
+      builders.add('unique');
+      out.add('unique(${jsonEncode(k.name)}).on(${props(t.keyColumns(k))})');
+    }
+    for (final k in t.foreignKeys) {
+      final target = irReferencedTable(t, k, symbols.tables.values);
+      final referenced = irReferencedColumns(t, k, symbols.tables.values);
+      final targetConst = _tableName(target.entity);
+      if (target.entity != t.entity) used.add(targetConst);
+      final foreign = [
+        for (final c in referenced)
+          '${target.entity == t.entity ? 't' : targetConst}.'
+              '${(target.column(c) ?? (throw IrMapException("@CsTableKey('${k.name}') of ${t.entity} references column '$c' of ${target.entity}, which no @CsColumn declares"))).member.name}',
+      ];
+      builders.add('foreignKey');
+      out.add(
+        'foreignKey({ name: ${jsonEncode(k.name)}, '
+        'columns: [${props(t.keyColumns(k))}], '
+        'foreignColumns: [${foreign.join(', ')}] })'
+        '${k.onDelete == null ? '' : ".onDelete('${_action(k.onDelete!)}')"}'
+        '${k.onUpdate == null ? '' : ".onUpdate('${_action(k.onUpdate!)}')"}',
+      );
+    }
+    for (final x in t.indexes) {
+      final columns = [
+        for (final (i, c) in x.columns.indexed)
+          't.${(t.column(c) ?? (throw IrMapException("@CsTableIndex('${x.name}') of ${t.entity} names column '$c', which no @CsColumn of ${t.entity} declares"))).member.name}'
+              '${x.isDescending(i) ? '.desc()' : ''}',
+      ];
+      final builder = x.isUnique == true ? 'uniqueIndex' : 'index';
+      builders.add(builder);
+      var chain = '$builder(${jsonEncode(x.name)})';
+      chain += x.indexType == null
+          ? '.on(${columns.join(', ')})'
+          : ".using('${irSqlIndexMethod(x.indexType!)}', ${columns.join(', ')})";
+      if (x.filterCondition != null) {
+        external.add("import { sql } from 'drizzle-orm';");
+        chain += '.where(sql`${x.filterCondition}`)';
+      }
+      out.add(chain);
+    }
+    return out;
+  }
+
+  /// Drizzle's spelling of a `CsReferentialAction`.
+  String _action(String action) => switch (action) {
+    'cascade' => 'cascade',
+    'setNull' => 'set null',
+    'restrict' => 'restrict',
+    'noAction' => 'no action',
+    'setDefault' => 'set default',
+    _ => throw IrMapException('the referential action `$action` has no rule'),
+  };
 
   /// The Drizzle column builder for a SQL type as written, else for the Dart
   /// type.

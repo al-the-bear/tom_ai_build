@@ -214,7 +214,15 @@ void main() {
         files['meridian_codespec_server/src/data_access/customer.ts']!;
     expect(
       table,
-      contains('export const customerTable = pgTable("mom_customer"'),
+      contains('export const customerTable = pgTable(\n  "mom_customer",'),
+    );
+    expect(
+      table,
+      contains(
+        '  (t) => [\n'
+        '    primaryKey({ name: "pk_customer", columns: [t.customerId] }),\n'
+        '  ],',
+      ),
     );
     expect(
       table,

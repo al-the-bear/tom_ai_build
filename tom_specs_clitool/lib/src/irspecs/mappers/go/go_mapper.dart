@@ -15,6 +15,7 @@ import '../../ir_model.dart';
 import '../../ir_steps.dart';
 import '../dart_tom/dart_tom_mapper.dart' show IrMapException;
 import '../mapper_common.dart';
+import '../mapper_keys.dart';
 
 /// The Go server's mapper.
 const String kGoServerMapper = 'go-server';
@@ -96,10 +97,10 @@ Map<String, String> mapGoServer(
   final router = _router(openApi, server, symbols, module);
   if (router != null) out['$module/$_server/router.go'] = router;
 
-  final tables = _tables(server, symbols);
+  final tables = irEntityTables(server);
   if (tables.isNotEmpty) {
     out['$module/sqlc.yaml'] = _sqlcYaml(tables);
-    out['$module/db/schema.sql'] = _schemaSql(tables);
+    out['$module/db/schema.sql'] = _schemaSql(tables, symbols);
     for (final t in tables) {
       out['$module/db/query/${t.table}.sql'] = _querySql(t);
     }
@@ -951,58 +952,6 @@ String? _router(
 // sqlc: the schema and the queries
 // ---------------------------------------------------------------------------
 
-class _Column {
-  final String name;
-  final String sqlType;
-  final bool nullable;
-  const _Column(this.name, this.sqlType, this.nullable);
-}
-
-class _Table {
-  final String entity;
-  final String table;
-  final List<_Column> columns;
-  const _Table(this.entity, this.table, this.columns);
-}
-
-List<_Table> _tables(
-  List<({String area, IrFile file})> server,
-  _Symbols symbols,
-) {
-  final out = <_Table>[];
-  for (final f in server) {
-    final index = irFileIndex(f.area, f.file);
-    for (final e in index.topLevel) {
-      final d = e.declaration;
-      final cs = irMarker(d, 'CsTable');
-      if (cs == null) continue;
-      final columns = <_Column>[];
-      for (final m in index.membersOf(e)) {
-        if (m.kind != CsDeclarationKind.field || m.isStatic) continue;
-        final col = irMarker(m, 'CsColumn');
-        final dart = (m.declaredType ?? 'String').trim();
-        final nullable = dart.endsWith('?');
-        final base = nullable ? dart.substring(0, dart.length - 1) : dart;
-        columns.add(
-          _Column(
-            irString(col?.named['column']) ?? irSnake(m.name),
-            irString(col?.named['columnType']) ?? _sqlType(base, symbols),
-            nullable,
-          ),
-        );
-      }
-      out.add(
-        _Table(
-          d.name,
-          irString(cs.positional.firstOrNull) ?? irSnake(d.name),
-          columns,
-        ),
-      );
-    }
-  }
-  return out;
-}
-
 /// The PostgreSQL type of a column the IR gives no `columnType` for.
 String _sqlType(String dart, _Symbols symbols) => switch (dart) {
   'int' => 'integer',
@@ -1014,7 +963,7 @@ String _sqlType(String dart, _Symbols symbols) => switch (dart) {
   _ => throw IrMapException('the column type `$dart` has no SQL type'),
 };
 
-String _sqlcYaml(List<_Table> tables) => [
+String _sqlcYaml(List<IrEntityTable> tables) => [
   '# $_generated',
   '#',
   '# sqlc $kSqlcVersion (https://sqlc.dev): `sqlc generate` writes package db',
@@ -1039,27 +988,32 @@ String _sqlcYaml(List<_Table> tables) => [
   '',
 ].join('\n');
 
-String _schemaSql(List<_Table> tables) => [
-  '-- $_generated',
-  '--',
-  '-- The CE-DB tables, one CREATE TABLE each: the schema the cumulative CE-MG',
-  '-- migrations converge on (codespecs_derivation_contract.md §6, check 13).',
-  for (final t in tables) ...[
-    '',
-    'CREATE TABLE ${t.table} (',
-    for (final (i, c) in t.columns.indexed)
-      '  ${c.name} ${c.sqlType}${c.nullable ? '' : ' NOT NULL'}'
-          '${i < t.columns.length - 1 ? ',' : ''}',
-    ');',
+String _schemaSql(
+  List<IrEntityTable> tables,
+  _Symbols symbols,
+) => irPostgresSchema(
+  tables,
+  sqlType: (c) => _sqlType(c.dartType, symbols),
+  header: [
+    '-- $_generated',
+    '--',
+    '-- The CE-DB tables, one CREATE TABLE each with its primary and',
+    '-- alternate keys, then the foreign keys and the indexes: the schema the',
+    '-- cumulative CE-MG migrations converge on (codespecs_derivation_contract.md',
+    '-- §6, check 13; the keys and indexes §3.3.11).',
   ],
-  '',
-].join('\n');
+);
 
-/// The queries of the repository contract that need no key: the count, a
-/// page, and an insert. A query by key is Phase 6's to write: the IR does not
-/// say which column is the key.
-String _querySql(_Table t) {
+/// The queries of the repository contract: the count, a page and an insert,
+/// and, by the primary key (`@CsTableKey`, codespecs_derivation_contract.md §3.3.11), a find and a delete.
+/// An entity without a primary key gets the first three only
+/// (`validate_codespecs` check 44 reports it).
+String _querySql(IrEntityTable t) {
   final columns = t.columns.map((c) => c.name).toList();
+  final key = t.primaryKey?.columns ?? const <String>[];
+  final where = [
+    for (final (i, c) in key.indexed) '$c = \$${i + 1}',
+  ].join(' AND ');
   return [
     '-- $_generated',
     '',
@@ -1074,6 +1028,16 @@ String _querySql(_Table t) {
     'INSERT INTO ${t.table} (${columns.join(', ')})',
     'VALUES (${[for (var i = 1; i <= columns.length; i++) '\$$i'].join(', ')})',
     'RETURNING *;',
+    if (key.isNotEmpty) ...[
+      '',
+      '-- name: Find${t.entity}ById :one',
+      'SELECT * FROM ${t.table}',
+      'WHERE $where;',
+      '',
+      '-- name: Delete${t.entity}ById :execrows',
+      'DELETE FROM ${t.table}',
+      'WHERE $where;',
+    ],
     '',
   ].join('\n');
 }

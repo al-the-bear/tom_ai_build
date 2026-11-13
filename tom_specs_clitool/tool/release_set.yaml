@@ -103,7 +103,14 @@ workspace_prefixes:
 # `.pubignore`d: it records this workspace's releases, which a consumer of the
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
-unpublished_drift: {}
+unpublished_drift:
+  tom_specs_clitool: >-
+    cskey1 (2026-11-13): the Go, Java, C# and TypeScript server mappers write
+    an entity's keys, foreign keys and indexes (@CsTableKey / @CsTableIndex);
+    published with the next clitool release (with irspecs18's model change).
+  tom_core_codespecs: >-
+    cskey1 (2026-11-13): irspecs_ir.md §8, §11.3 and §12–§14 describe the keys and
+    indexes the server mappers write; ships with the next release.
 
 # Where each member was actually published from, when that is not the commit
 # that set its version. A change that lands after the bump and before the

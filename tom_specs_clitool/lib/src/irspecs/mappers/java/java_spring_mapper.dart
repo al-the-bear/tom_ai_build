@@ -17,6 +17,7 @@ import '../../ir_model.dart';
 import '../../ir_steps.dart';
 import '../dart_tom/dart_tom_mapper.dart' show IrMapException;
 import '../mapper_common.dart';
+import '../mapper_keys.dart';
 
 /// The Java + Spring Boot server's mapper.
 const String kJavaSpringServerMapper = 'java-spring-server';
@@ -73,6 +74,7 @@ Map<String, String> mapJavaSpring(
 
   final out = <String, String>{};
   final javaRoot = 'src/main/java/${base.replaceAll('.', '/')}';
+  final tables = irEntityTables(server);
   for (final (package, files) in [('shared', shared), ('server', server)]) {
     for (final f in files) {
       final writer = _FileWriter(
@@ -81,6 +83,7 @@ Map<String, String> mapJavaSpring(
         package: '$base.$package',
         base: base,
         symbols: symbols,
+        tables: tables,
       );
       for (final MapEntry(key: name, value: text) in writer.render().entries) {
         out['$project/$javaRoot/$package/$name.java'] = text;
@@ -107,10 +110,9 @@ Map<String, String> mapJavaSpring(
     );
   }
 
-  final tables = _tables(server, symbols);
   if (tables.isNotEmpty) {
     out['$project/src/main/resources/db/migration/V1__ce_db_tables.sql'] =
-        _migration(tables);
+        _migration(tables, symbols);
   }
 
   out['$project/settings.gradle.kts'] =
@@ -341,20 +343,31 @@ class _FileWriter {
   final String base;
   final _Symbols symbols;
 
+  /// Every `@CsTable` of the server project: a foreign key's target.
+  final List<IrEntityTable> tables;
+
   _FileWriter({
     required this.file,
     required this.area,
     required this.package,
     required this.base,
     required this.symbols,
+    required this.tables,
   });
+
+  /// The composite-key classes (`@IdClass`) the entities of this file need,
+  /// by class name; filled while the entities are written.
+  final Map<String, String> _idClasses = {};
 
   late final IrIndex _index = irFileIndex(area, file);
 
   /// `<class name>` → the Java file's text.
-  Map<String, String> render() => {
-    for (final e in _index.topLevel) e.declaration.name: _render(e),
-  };
+  Map<String, String> render() {
+    final out = {
+      for (final e in _index.topLevel) e.declaration.name: _render(e),
+    };
+    return {...out, ..._idClasses};
+  }
 
   String _render(IrEntry e) {
     final imports = <String>{};
@@ -397,7 +410,7 @@ class _FileWriter {
       case IrShape.plainData:
         return _record(d, members, types, imports, generics);
       case IrShape.entity:
-        return _entity(d, members, types, imports);
+        return _entity(e, d, members, types, imports);
       case IrShape.contract:
         final extendsClause = d.superclass == null
             ? ''
@@ -613,6 +626,7 @@ class _FileWriter {
   }
 
   List<String> _entity(
+    IrEntry e,
     CsDeclaration d,
     List<CsDeclaration> members,
     _Types types,
@@ -622,17 +636,54 @@ class _FileWriter {
       ..add('jakarta.persistence.Column')
       ..add('jakarta.persistence.Entity')
       ..add('jakarta.persistence.Table');
-    final table =
-        irString(irMarker(d, 'CsTable')?.positional.firstOrNull) ??
-        irSnake(d.name);
+    final shape = irEntityTable(_index, e)!;
+    final table = shape.table;
     final fields = [
       for (final m in members)
         if (m.kind == CsDeclarationKind.field) m,
     ];
+    final pk = shape.primaryKey;
+    final pkColumns = pk == null ? const <String>[] : pk.columns;
+    final composite = pkColumns.length > 1;
+    final idClass = '${d.name}Id';
+    if (pk != null) shape.keyColumns(pk);
+    if (composite) {
+      imports.add('jakarta.persistence.IdClass');
+      _idClasses[idClass] = _idClassFile(d, shape, pk!, types);
+    }
+    final tableArgs = [
+      'name = ${_string(table)}',
+      if (shape.alternateKeys.isNotEmpty) ...[
+        'uniqueConstraints = {',
+        for (final (i, k) in shape.alternateKeys.indexed)
+          '    @UniqueConstraint(name = ${_string(k.name)}, '
+              'columnNames = {${shape.keyColumns(k).map((c) => _string(c.name)).join(', ')}})'
+              '${i < shape.alternateKeys.length - 1 ? ',' : ''}',
+        '}',
+      ],
+      if (shape.indexes.isNotEmpty) ...[
+        'indexes = {',
+        for (final (i, x) in shape.indexes.indexed)
+          '    @Index(${['name = ${_string(x.name)}', 'columnList = ${_string(x.entries.map((e) => e.trim()).join(', '))}', if (x.isUnique == true) 'unique = true'].join(', ')})'
+              '${i < shape.indexes.length - 1 ? ',' : ''}',
+        '}',
+      ],
+    ];
+    if (shape.alternateKeys.isNotEmpty) {
+      imports.add('jakarta.persistence.UniqueConstraint');
+    }
+    if (shape.indexes.isNotEmpty) imports.add('jakarta.persistence.Index');
     final out = [
       ..._doc(d, '', imports),
       '@Entity',
-      '@Table(name = ${_string(table)})',
+      if (tableArgs.length == 1)
+        '@Table(${tableArgs.single})'
+      else ...[
+        '@Table(',
+        for (final a in _joinTableArgs(tableArgs)) '    $a',
+        ')',
+      ],
+      if (composite) '@IdClass($idClass.class)',
       'public class ${d.name} {',
     ];
     for (final (i, m) in fields.indexed) {
@@ -649,13 +700,60 @@ class _FileWriter {
           ..add('jakarta.persistence.EnumType')
           ..add('jakarta.persistence.Enumerated');
       }
+      final isId = pkColumns.contains(column);
+      if (isId) imports.add('jakarta.persistence.Id');
       if (i > 0) out.add('');
       out.addAll([
         ..._doc(m, '    ', imports),
+        if (isId) '    @Id',
+        if (isId && !composite) ..._generatedValue(pk!, imports),
         if (enumType) '    @Enumerated(EnumType.STRING)',
         '    @Column(${['name = ${_string(column)}', if (sqlType != null) 'columnDefinition = ${_string(sqlType)}', if (!dart.endsWith('?')) 'nullable = false'].join(', ')})',
         '    private $type ${_local(m.name)};',
       ]);
+    }
+    final associations = <(String, String)>[];
+    for (final k in shape.foreignKeys) {
+      shape.keyColumns(k);
+      final target = irReferencedTable(shape, k, tables);
+      final referenced = irReferencedColumns(shape, k, tables);
+      final targetType = types.of(target.entity);
+      var name = _local(
+        '${target.entity[0].toLowerCase()}${target.entity.substring(1)}',
+      );
+      while (fields.any((f) => _local(f.name) == name) ||
+          associations.any((a) => a.$2 == name)) {
+        name = '${name}Ref';
+      }
+      associations.add((targetType, name));
+      imports
+        ..add('jakarta.persistence.FetchType')
+        ..add('jakarta.persistence.ForeignKey')
+        ..add('jakarta.persistence.JoinColumn')
+        ..add('jakarta.persistence.ManyToOne');
+      String join(int i) =>
+          '@JoinColumn(name = ${_string(k.columns[i])}, '
+          'referencedColumnName = ${_string(referenced[i])}, '
+          'insertable = false, updatable = false, '
+          'foreignKey = @ForeignKey(name = ${_string(k.name)}))';
+      out.addAll([
+        '',
+        '    // The ${target.entity} the foreign key ${k.name} references, read',
+        '    // through ${k.columns.join(', ')}, which is written as its column.',
+        '    @ManyToOne(fetch = FetchType.LAZY)',
+        if (k.columns.length == 1)
+          '    ${join(0)}'
+        else ...[
+          '    @JoinColumns(',
+          '        value = {',
+          for (var i = 0; i < k.columns.length; i++)
+            '            ${join(i)}${i < k.columns.length - 1 ? ',' : ''}',
+          '        },',
+          '        foreignKey = @ForeignKey(name = ${_string(k.name)}))',
+        ],
+        '    private $targetType $name;',
+      ]);
+      if (k.columns.length > 1) imports.add('jakarta.persistence.JoinColumns');
     }
     for (final m in fields) {
       final type = types.of(m.declaredType ?? 'String');
@@ -671,8 +769,123 @@ class _FileWriter {
         '    }',
       ]);
     }
+    for (final (type, name) in associations) {
+      out.addAll([
+        '',
+        '    public $type get${_capitalised(name)}() {',
+        '        return $name;',
+        '    }',
+      ]);
+    }
     out.add('}');
     return out;
+  }
+
+  /// `@Table` arguments joined: an argument opening a `{` block runs to its
+  /// `}`, separated by commas between arguments.
+  List<String> _joinTableArgs(List<String> args) {
+    final groups = <List<String>>[];
+    for (final a in args) {
+      if (groups.isNotEmpty &&
+          groups.last.first.endsWith('{') &&
+          groups.last.last != '}') {
+        groups.last.add(a);
+      } else {
+        groups.add([a]);
+      }
+    }
+    final out = <String>[];
+    for (final (i, g) in groups.indexed) {
+      final comma = i < groups.length - 1 ? ',' : '';
+      for (final (j, line) in g.indexed) {
+        out.add(j == g.length - 1 ? '$line$comma' : line);
+      }
+    }
+    return out;
+  }
+
+  /// The `@GeneratedValue` of a single-column primary key, from its
+  /// `generation` (codespecs_derivation_contract.md §3.3.11): `uuid` → `UUID`, `auto` → `IDENTITY`,
+  /// `sequence` → `SEQUENCE` with its `@SequenceGenerator`. `ulid`, `custom`
+  /// and `natural` are the application's, and add nothing.
+  List<String> _generatedValue(IrTableKey pk, Set<String> imports) {
+    String strategy(String s) {
+      imports
+        ..add('jakarta.persistence.GeneratedValue')
+        ..add('jakarta.persistence.GenerationType');
+      return s;
+    }
+
+    switch (pk.generation) {
+      case 'uuid':
+        return [
+          '    @GeneratedValue(strategy = ${strategy('GenerationType.UUID')})',
+        ];
+      case 'auto':
+        return [
+          '    @GeneratedValue(strategy = ${strategy('GenerationType.IDENTITY')})',
+        ];
+      case 'sequence' when pk.sequenceName != null:
+        imports.add('jakarta.persistence.SequenceGenerator');
+        final seq = _string(pk.sequenceName!);
+        return [
+          '    @GeneratedValue(strategy = ${strategy('GenerationType.SEQUENCE')}, '
+              'generator = $seq)',
+          '    @SequenceGenerator(name = $seq, sequenceName = $seq, '
+              'allocationSize = 1)',
+        ];
+      default:
+        return const [];
+    }
+  }
+
+  /// The `@IdClass` of [d]'s composite primary key [pk]: its key fields, a
+  /// no-argument constructor, `equals` and `hashCode`, as JPA asks.
+  String _idClassFile(
+    CsDeclaration d,
+    IrEntityTable shape,
+    IrTableKey pk,
+    _Types types,
+  ) {
+    final imports = <String>{'java.io.Serializable', 'java.util.Objects'};
+    final columns = shape.keyColumns(pk);
+    final idTypes = _Types(symbols, package, const {}, imports);
+    final name = '${d.name}Id';
+    final fields = [
+      for (final c in columns)
+        (idTypes.of(c.member.declaredType ?? 'String'), _local(c.member.name)),
+    ];
+    final sorted = imports.where((i) => !_samePackage(i)).toList()..sort();
+    final java = sorted.where((i) => i.startsWith('java.')).toList();
+    final others = sorted.where((i) => !i.startsWith('java.')).toList();
+    return [
+      '// $_generated',
+      '',
+      'package $package;',
+      if (java.isNotEmpty) ...['', for (final i in java) 'import $i;'],
+      if (others.isNotEmpty) ...['', for (final i in others) 'import $i;'],
+      '',
+      '// The composite primary key ${pk.name} of ${d.name} '
+          '(codespecs_derivation_contract.md §3.3.11).',
+      'public class $name implements Serializable {',
+      for (final (type, field) in fields) '    private $type $field;',
+      '',
+      '    public $name() {}',
+      '',
+      '    @Override',
+      '    public boolean equals(Object o) {',
+      '        if (this == o) return true;',
+      '        if (!(o instanceof $name other)) return false;',
+      '        return ${fields.map((f) => 'Objects.equals(${f.$2}, other.${f.$2})').join('\n            && ')};',
+      '    }',
+      '',
+      '    @Override',
+      '    public int hashCode() {',
+      '        return Objects.hash(${fields.map((f) => f.$2).join(', ')});',
+      '    }',
+      '}',
+      '',
+    ].join('\n');
   }
 
   List<String> _classType(
@@ -1212,44 +1425,6 @@ tasks.compileJava {
 // Flyway: the CE-DB tables as the first migration
 // ---------------------------------------------------------------------------
 
-class _Table {
-  final String table;
-  final List<(String, String, bool)> columns;
-  const _Table(this.table, this.columns);
-}
-
-List<_Table> _tables(
-  List<({String area, IrFile file})> server,
-  _Symbols symbols,
-) {
-  final out = <_Table>[];
-  for (final f in server) {
-    final index = irFileIndex(f.area, f.file);
-    for (final e in index.topLevel) {
-      final d = e.declaration;
-      final cs = irMarker(d, 'CsTable');
-      if (cs == null) continue;
-      out.add(
-        _Table(irString(cs.positional.firstOrNull) ?? irSnake(d.name), [
-          for (final m in index.membersOf(e))
-            if (m.kind == CsDeclarationKind.field && !m.isStatic)
-              (
-                irString(irMarker(m, 'CsColumn')?.named['column']) ??
-                    irSnake(m.name),
-                irString(irMarker(m, 'CsColumn')?.named['columnType']) ??
-                    _sqlType(
-                      (m.declaredType ?? 'String').replaceAll('?', ''),
-                      symbols,
-                    ),
-                (m.declaredType ?? '').trim().endsWith('?'),
-              ),
-        ]),
-      );
-    }
-  }
-  return out;
-}
-
 String _sqlType(String dart, _Symbols symbols) => switch (dart.trim()) {
   'int' => 'integer',
   'double' || 'num' => 'double precision',
@@ -1260,19 +1435,19 @@ String _sqlType(String dart, _Symbols symbols) => switch (dart.trim()) {
   final t => throw IrMapException('the column type `$t` has no SQL type'),
 };
 
-String _migration(List<_Table> tables) => [
-  '-- $_generated',
-  '--',
-  '-- The CE-DB tables, one CREATE TABLE each: the schema the cumulative CE-MG',
-  '-- migrations converge on (codespecs_derivation_contract.md §6, check 13),',
-  '-- as Flyway\'s first migration.',
-  for (final t in tables) ...[
-    '',
-    'CREATE TABLE ${t.table} (',
-    for (final (i, (name, type, nullable)) in t.columns.indexed)
-      '  $name $type${nullable ? '' : ' NOT NULL'}'
-          '${i < t.columns.length - 1 ? ',' : ''}',
-    ');',
+String _migration(
+  List<IrEntityTable> tables,
+  _Symbols symbols,
+) => irPostgresSchema(
+  tables,
+  sqlType: (c) => _sqlType(c.dartType, symbols),
+  header: [
+    '-- $_generated',
+    '--',
+    '-- The CE-DB tables, one CREATE TABLE each with its primary and',
+    '-- alternate keys, then the foreign keys and the indexes: the schema the',
+    '-- cumulative CE-MG migrations converge on (codespecs_derivation_contract.md',
+    "-- §6, check 13; the keys and indexes §3.3.11), as Flyway's first",
+    '-- migration.',
   ],
-  '',
-].join('\n');
+);

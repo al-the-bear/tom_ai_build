@@ -17,6 +17,7 @@ import '../../ir_model.dart';
 import '../../ir_steps.dart';
 import '../dart_tom/dart_tom_mapper.dart' show IrMapException;
 import '../mapper_common.dart';
+import '../mapper_keys.dart';
 
 /// The C# + ASP.NET Core server's mapper.
 const String kCsharpAspnetServerMapper = 'csharp-aspnet-server';
@@ -113,13 +114,19 @@ Map<String, String> mapCsharpAspnet(
   ]);
   out['$serverDir/Tom/TomRepository.cs'] = _tomRepository(root);
 
-  final tables = _tables(server, symbols);
-  out['$serverDir/$dbContext.cs'] = _dbContext(root, dbContext, tables);
+  final tables = irEntityTables(server);
+  out['$serverDir/$dbContext.cs'] = _dbContext(
+    root,
+    dbContext,
+    tables,
+    symbols,
+  );
   if (tables.isNotEmpty) {
     out['$serverDir/Migrations/00000000000000_CeDbTables.cs'] = _migration(
       root,
       dbContext,
       tables,
+      symbols,
     );
   }
 
@@ -1145,61 +1152,6 @@ String _solution(String root) {
 // EF Core: the context and the CE-DB tables as the first migration
 // ---------------------------------------------------------------------------
 
-class _Table {
-  final String entity;
-  final String table;
-  final List<(String, String, bool)> columns;
-  final List<String> enumProperties;
-  const _Table(this.entity, this.table, this.columns, this.enumProperties);
-}
-
-List<_Table> _tables(
-  List<({String area, IrFile file})> server,
-  _Symbols symbols,
-) {
-  final out = <_Table>[];
-  for (final f in server) {
-    final index = irFileIndex(f.area, f.file);
-    for (final e in index.topLevel) {
-      final d = e.declaration;
-      final cs = irMarker(d, 'CsTable');
-      if (cs == null) continue;
-      final fields = [
-        for (final m in index.membersOf(e))
-          if (m.kind == CsDeclarationKind.field && !m.isStatic) m,
-      ];
-      out.add(
-        _Table(
-          d.name,
-          irString(cs.positional.firstOrNull) ?? irSnake(d.name),
-          [
-            for (final m in fields)
-              (
-                irString(irMarker(m, 'CsColumn')?.named['column']) ??
-                    irSnake(m.name),
-                irString(irMarker(m, 'CsColumn')?.named['columnType']) ??
-                    _sqlType(
-                      (m.declaredType ?? 'String').replaceAll('?', ''),
-                      symbols,
-                    ),
-                (m.declaredType ?? '').trim().endsWith('?'),
-              ),
-          ],
-          [
-            for (final m in fields)
-              if (symbols
-                      .byName[(m.declaredType ?? '').replaceAll('?', '')]
-                      ?.isEnum ??
-                  false)
-                _pascal(m.name),
-          ],
-        ),
-      );
-    }
-  }
-  return out;
-}
-
 String _sqlType(String dart, _Symbols symbols) => switch (dart.trim()) {
   'int' => 'integer',
   'double' || 'num' => 'double precision',
@@ -1210,13 +1162,131 @@ String _sqlType(String dart, _Symbols symbols) => switch (dart.trim()) {
   final t => throw IrMapException('the column type `$t` has no SQL type'),
 };
 
-String _dbContext(String root, String name, List<_Table> tables) => [
+/// A lambda over the properties of [columns]: `e => e.OrderId`, or
+/// `e => new { e.A, e.B }` for several.
+String _lambda(List<IrColumn> columns) => columns.length == 1
+    ? 'e => e.${_pascal(columns.single.member.name)}'
+    : 'e => new { ${columns.map((c) => 'e.${_pascal(c.member.name)}').join(', ')} }';
+
+/// The EF Core `DeleteBehavior` of a `CsReferentialAction`; `setDefault` has
+/// none (the migration's DDL carries it): `null`.
+String? _deleteBehavior(String action) => switch (action) {
+  'cascade' => 'DeleteBehavior.Cascade',
+  'setNull' => 'DeleteBehavior.SetNull',
+  'restrict' => 'DeleteBehavior.Restrict',
+  'noAction' => 'DeleteBehavior.NoAction',
+  _ => null,
+};
+
+/// The columns of [t] named [names], each a `@CsColumn` (check 42).
+List<IrColumn> _columnsOf(IrEntityTable t, List<String> names, String what) => [
+  for (final c in names)
+    t.column(c) ??
+        (throw IrMapException(
+          "$what of ${t.entity} names column '$c', which no @CsColumn of "
+          '${t.entity} declares',
+        )),
+];
+
+/// The model configuration of [t]'s keys and indexes (codespecs_derivation_contract.md §3.3.11): `HasKey`
+/// with the constraint name and the key's generation, `HasAlternateKey`,
+/// `HasOne().WithMany().HasForeignKey()` per foreign key, `HasIndex`.
+List<String> _keyConfiguration(IrEntityTable t, List<IrEntityTable> tables) {
+  final entity = 'modelBuilder.Entity<${t.entity}>()';
+  final out = <String>[];
+  final pk = t.primaryKey;
+  if (pk != null) {
+    final columns = t.keyColumns(pk);
+    out.add(
+      '        $entity.HasKey(${_lambda(columns)})'
+      '.HasName(${_string(pk.name)});',
+    );
+    if (columns.length == 1) {
+      final property = '        $entity.Property(${_lambda(columns)})';
+      switch (pk.generation) {
+        case 'auto':
+          out.add('$property.UseIdentityByDefaultColumn();');
+        case 'sequence' when pk.sequenceName != null:
+          out.add(
+            '$property.ValueGeneratedOnAdd()'
+            '.HasDefaultValueSql(${_string("nextval('${pk.sequenceName}')")});',
+          );
+        case 'uuid':
+          out.add(
+            '$property.ValueGeneratedOnAdd()'
+            '.HasDefaultValueSql("gen_random_uuid()");',
+          );
+        default:
+          out.add('$property.ValueGeneratedNever();');
+      }
+    }
+  }
+  for (final k in t.alternateKeys) {
+    out.add(
+      '        $entity.HasAlternateKey(${_lambda(t.keyColumns(k))})'
+      '.HasName(${_string(k.name)});',
+    );
+  }
+  for (final k in t.foreignKeys) {
+    final target = irReferencedTable(t, k, tables);
+    final referenced = irReferencedColumns(t, k, tables);
+    final targetPk = target.primaryKey?.columns ?? const <String>[];
+    final principal = _columnsOf(
+      target,
+      referenced,
+      "@CsTableKey('${k.name}') of ${t.entity}: the target",
+    );
+    final behavior = k.onDelete == null ? null : _deleteBehavior(k.onDelete!);
+    out.add(
+      [
+        '        $entity.HasOne<${target.entity}>().WithMany()',
+        '.HasForeignKey(${_lambda(t.keyColumns(k))})',
+        if (referenced.join(',') != targetPk.join(','))
+          '.HasPrincipalKey(${_lambda(principal)})',
+        '.HasConstraintName(${_string(k.name)})',
+        if (behavior != null) '.OnDelete($behavior)',
+        ';',
+      ].join(),
+    );
+  }
+  for (final x in t.indexes) {
+    final what = "@CsTableIndex('${x.name}')";
+    final columns = _columnsOf(t, x.columns, what);
+    final include = _columnsOf(t, x.includeColumns, what);
+    final descending = [
+      for (var i = 0; i < x.entries.length; i++) x.isDescending(i),
+    ];
+    out.add(
+      [
+        '        $entity.HasIndex(${_lambda(columns)}, ${_string(x.name)})',
+        if (x.isUnique == true) '.IsUnique()',
+        if (descending.contains(true))
+          '.IsDescending(${descending.join(', ')})',
+        if (x.indexType != null)
+          '.HasMethod(${_string(irSqlIndexMethod(x.indexType!))})',
+        if (include.isNotEmpty) '.IncludeProperties(${_lambda(include)})',
+        if (x.filterCondition != null)
+          '.HasFilter(${_string(x.filterCondition!)})',
+        ';',
+      ].join(),
+    );
+  }
+  return out;
+}
+
+String _dbContext(
+  String root,
+  String name,
+  List<IrEntityTable> tables,
+  _Symbols symbols,
+) => [
   '// $_generated',
   '',
   'namespace $root.Server;',
   '',
-  '/// <summary>The EF Core context of the CE-DB entities; an enum-typed',
-  '/// column is stored as the enum value\'s name.</summary>',
+  '/// <summary>The EF Core context of the CE-DB entities: their keys, foreign',
+  '/// keys and indexes (codespecs_derivation_contract.md §3.3.11); an',
+  '/// enum-typed column is stored as the enum value\'s name.</summary>',
   'public class $name(DbContextOptions<$name> options) : DbContext(options)',
   '{',
   for (final t in tables) ...[
@@ -1225,49 +1295,68 @@ String _dbContext(String root, String name, List<_Table> tables) => [
   ],
   '    protected override void OnModelCreating(ModelBuilder modelBuilder)',
   '    {',
-  for (final t in tables)
-    for (final p in t.enumProperties)
-      '        modelBuilder.Entity<${t.entity}>().Property(e => e.$p)'
-          '.HasConversion<string>();',
+  for (final t in tables) ...[
+    ..._keyConfiguration(t, tables),
+    for (final c in t.columns)
+      if (symbols.byName[c.dartType]?.isEnum ?? false)
+        '        modelBuilder.Entity<${t.entity}>()'
+            '.Property(e => e.${_pascal(c.member.name)})'
+            '.HasConversion<string>();',
+  ],
   '    }',
   '}',
   '',
 ].join('\n');
 
-String _migration(String root, String context, List<_Table> tables) => [
-  '// $_generated',
-  '',
-  'using Microsoft.EntityFrameworkCore.Infrastructure;',
-  'using Microsoft.EntityFrameworkCore.Migrations;',
-  '',
-  'namespace $root.Server.Migrations;',
-  '',
-  '/// <summary>The CE-DB tables, one CREATE TABLE each: the schema the',
-  '/// cumulative CE-MG migrations converge on (codespecs_derivation_contract.md',
-  '/// §6, check 13), as the first migration.</summary>',
-  '[DbContext(typeof($context))]',
-  '[Migration("00000000000000_CeDbTables")]',
-  'public partial class CeDbTables : Migration',
-  '{',
-  '    protected override void Up(MigrationBuilder migrationBuilder)',
-  '    {',
-  '        migrationBuilder.Sql("""',
-  for (final (n, t) in tables.indexed) ...[
-    if (n > 0) '',
-    '            CREATE TABLE ${t.table} (',
-    for (final (i, (name, type, nullable)) in t.columns.indexed)
-      '              $name $type${nullable ? '' : ' NOT NULL'}'
-          '${i < t.columns.length - 1 ? ',' : ''}',
-    '            );',
-  ],
-  '            """);',
-  '    }',
-  '',
-  '    protected override void Down(MigrationBuilder migrationBuilder)',
-  '    {',
-  for (final t in tables.reversed)
-    '        migrationBuilder.Sql("DROP TABLE ${t.table};");',
-  '    }',
-  '}',
-  '',
-].join('\n');
+String _migration(
+  String root,
+  String context,
+  List<IrEntityTable> tables,
+  _Symbols symbols,
+) {
+  final ddl = irPostgresSchema(
+    tables,
+    sqlType: (c) => _sqlType(c.dartType, symbols),
+    header: const [],
+  ).trim().split('\n');
+  final sequences = <String>{
+    for (final t in tables)
+      for (final k in t.keys)
+        if (k.generation == 'sequence' && k.sequenceName != null)
+          k.sequenceName!,
+  };
+  return [
+    '// $_generated',
+    '',
+    'using Microsoft.EntityFrameworkCore.Infrastructure;',
+    'using Microsoft.EntityFrameworkCore.Migrations;',
+    '',
+    'namespace $root.Server.Migrations;',
+    '',
+    '/// <summary>The CE-DB tables, one CREATE TABLE each with its primary and',
+    '/// alternate keys, then the foreign keys and the indexes: the schema the',
+    '/// cumulative CE-MG migrations converge on (codespecs_derivation_contract.md',
+    '/// §6, check 13; the keys and indexes §3.3.11), as the first',
+    '/// migration.</summary>',
+    '[DbContext(typeof($context))]',
+    '[Migration("00000000000000_CeDbTables")]',
+    'public partial class CeDbTables : Migration',
+    '{',
+    '    protected override void Up(MigrationBuilder migrationBuilder)',
+    '    {',
+    '        migrationBuilder.Sql("""',
+    for (final l in ddl) l.isEmpty ? '' : '            $l',
+    '            """);',
+    '    }',
+    '',
+    '    protected override void Down(MigrationBuilder migrationBuilder)',
+    '    {',
+    for (final t in tables.reversed)
+      '        migrationBuilder.Sql("DROP TABLE ${t.table} CASCADE;");',
+    for (final q in sequences)
+      '        migrationBuilder.Sql("DROP SEQUENCE $q;");',
+    '    }',
+    '}',
+    '',
+  ].join('\n');
+}
