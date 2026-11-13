@@ -429,7 +429,11 @@ ClosureReport checkReleaseClosure({
           kind: ClosureViolationKind.manifest,
           from: name,
           to: p.join(dir, 'pubspec.yaml'),
-          detail: 'manifest names this directory but it holds no pubspec.yaml',
+          detail: Directory(p.join(containerRoot, dir)).existsSync()
+              ? 'manifest names this directory but it holds no pubspec.yaml'
+              : 'manifest names this directory but it is not in this '
+                    'checkout — a submodule not initialised, or a tree '
+                    'behind the commit that added it',
         ),
       );
       return;

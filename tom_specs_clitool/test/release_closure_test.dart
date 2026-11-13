@@ -285,6 +285,37 @@ $devDeps
       expect(v.kind, ClosureViolationKind.manifest);
       expect(v.describe(), contains('gone_dir'));
     });
+    test('RCL6: an allowed crossing whose directory is absent says it is '
+        'not in this checkout; one present without a pubspec says so', () {
+      writePackage(
+        'pkg_a',
+        'tom_pkg_a',
+        '  tom_absent: ^1.0.0\n  tom_empty: ^1.0.0\n',
+      );
+      Directory(p.join(root.path, 'empty')).createSync();
+      final report = checkReleaseClosure(
+        manifest: manifest(
+          releaseSet: {'tom_pkg_a': 'pkg_a'},
+          allow: {
+            for (final (name, dir) in [
+              ('tom_absent', 'absent'),
+              ('tom_empty', 'empty'),
+            ])
+              name: ReleaseAllowEntry(
+                name: name,
+                path: dir,
+                reason: 'published to pub.dev',
+              ),
+          },
+        ),
+        containerRoot: root.path,
+      );
+      final byTarget = {
+        for (final v in report.violations) v.from: v.describe(),
+      };
+      expect(byTarget['tom_absent'], contains('not in this checkout'));
+      expect(byTarget['tom_empty'], contains('holds no pubspec.yaml'));
+    });
   });
 
   group('RCL7: manifest loading', () {
