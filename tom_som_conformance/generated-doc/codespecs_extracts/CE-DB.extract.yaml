@@ -6,7 +6,7 @@ extract:
     code: "CE-DB"
     canonicalId: "DataAccess"
     part: "CodeSpecPart.dataAccess"
-    annotations: ["CsTable", "CsColumn", "CsRepository"]
+    annotations: ["CsTable", "CsTableKey", "CsTableIndex", "CsColumn", "CsRepository"]
     builtOn: "Tom persistence model + repository (`tom_core_server`)"
     attributeSurface: "§5.13"
     slices: [3]
