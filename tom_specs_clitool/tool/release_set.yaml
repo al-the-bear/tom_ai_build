@@ -103,51 +103,7 @@ workspace_prefixes:
 # `.pubignore`d: it records this workspace's releases, which a consumer of the
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
-unpublished_drift:
-  tom_specs_core: >-
-    Since 0.5.0: only tom_build_state.json, a build-tool artefact the 0.5.0
-    archive shipped, deleted by the build cleanup (tom_ai/ai_build 31cb6a45).
-    No code or documentation changed; it leaves with the next release.
-  tom_code_specs: >-
-    Since 0.17.0: only tom_build_state.json, a build-tool artefact the 0.17.0
-    archive shipped, deleted by the build cleanup (tom_ai/ai_build 31cb6a45).
-    No code or documentation changed; it leaves with the next release.
-  tom_som_dart_runtime: >-
-    Since 1.9.0: spec_generation_units.dart (specGenerationUnits /
-    specDefaultUnits, the document's generation-unit register) and the
-    extract's default units — an entry with no stored units carries every
-    unit whose mappings hold its area (tom_specs irspecs10). Additive; ships
-    with the next release of the chain.
-  tom_specs_clitool: >-
-    Since 0.15.0: `irspecs map --spec <document> --unit <id>` writes one
-    generation unit's package, and an IR file may carry `units`
-    (irspecs_ir.md §8.1; tom_specs irspecs10); `irspecs emit`, the
-    OpenAPI 3.1, JSON Schema 2020-12, ICU MessageFormat and AsyncAPI 3
-    emitters (irspecs_ir.md §10; tom_specs irspecs11); the TypeScript
-    mappers ts-shared, ts-react-client and ts-hono-server (irspecs_ir.md
-    §11; tom_specs irspecs13); the Go server mapper go-server
-    (irspecs_ir.md §12; tom_specs irspecs14); the Java + Spring Boot server
-    mapper java-spring-server (irspecs_ir.md §13; tom_specs irspecs15); the
-    C# + ASP.NET Core server mapper csharp-aspnet-server (irspecs_ir.md
-    §14; tom_specs irspecs16); the React Native client mapper
-    ts-react-native-client and the mergeable workspace root (irspecs_ir.md
-    §11.2; tom_specs irspecs17). Needs the runtime's
-    specGenerationUnits, so it ships with the next release of the chain.
-  tom_core_codespecs: >-
-    Documentation since 0.13.5: the authoring agent writes IR, not Dart
-    (codespecs_derivation_contract.md §2.0, §2.9), the run procedure maps
-    each generation unit (codespecs_mapping.md §1.1.1 item 4, §1.1.2),
-    irspecs_ir.md §8.1 (tom_specs irspecs10); irspecs_ir.md §10-§14, the
-    standard emitters and the TypeScript (web and mobile), Go, Java and C#
-    mappers (tom_specs irspecs11, irspecs13 to irspecs17). Ships with the next
-    release.
-  tom_specs_model: >-
-    Documentation since 1.9.0: codespecs_prompt.md §1, §7, §8 (Stage C per
-    generation unit, csgen todos name their IR), the SOM document's extract
-    units and register reader, tom_specs_project_flow.md PF-PHA-P4
-    (tom_specs irspecs10; the mappers it names, irspecs13 to irspecs17;
-    som_toolchains.md, the mappers' toolchains).
-    Ships with the next release of the chain.
+unpublished_drift: {}
 
 # Where each member was actually published from, when that is not the commit
 # that set its version. A change that lands after the bump and before the
@@ -157,8 +113,10 @@ unpublished_drift:
 # next bump supersedes it without anyone having to delete it. Quote both values:
 # a hash like 5e903509 is otherwise a YAML float, and is then ignored.
 published_from:
-  tom_specs_core: {version: '0.5.0', commit: '3b553290'}
-  tom_som_dart_runtime: {version: '1.9.0', commit: '3b553290'}
-  tom_specs_model: {version: '1.9.0', commit: '3b553290'}
-  tom_som_dart_v0: {version: '1.9.0', commit: '3b553290'}
-  tom_code_specs: {version: '0.14.2', commit: '47dba5ea'}
+  tom_specs_core: {version: '0.5.1', commit: 'b4f5a9ee'}
+  tom_code_specs: {version: '0.18.0', commit: 'b4f5a9ee'}
+  tom_som_dart_runtime: {version: '1.10.0', commit: 'b4f5a9ee'}
+  tom_specs_model: {version: '1.10.0', commit: 'b4f5a9ee'}
+  tom_som_dart_v0: {version: '1.10.0', commit: 'b4f5a9ee'}
+  tom_core_codespecs: {version: '0.13.6', commit: 'b4f5a9ee'}
+  tom_specs_clitool: {version: '0.16.0', commit: 'b4f5a9ee'}

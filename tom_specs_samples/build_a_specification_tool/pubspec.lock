@@ -45,18 +45,18 @@ packages:
     dependency: "direct main"
     description:
       name: tom_som_dart_runtime
-      sha256: "6d012f6b0d707c7367e905b34bd0e8ed7caf10df896728259f93c3b406e9a77f"
+      sha256: "15f7892c1b5de4644ab469803c7111fafed2f4acef67013f7a5f101e33cd65fa"
       url: "https://pub.dev"
     source: hosted
-    version: "1.9.0"
+    version: "1.10.0"
   tom_som_dart_v0:
     dependency: "direct main"
     description:
       name: tom_som_dart_v0
-      sha256: ef66e06aed7f718fd573159bf7674a7fad00378bf3ed3ba1ee4bfb8ff6b3db47
+      sha256: c90b0f14fec217e1c9fb6f367ef87e5cbddf8081913c7cdbf81de72873f63fa7
       url: "https://pub.dev"
     source: hosted
-    version: "1.9.0"
+    version: "1.10.0"
   yaml:
     dependency: transitive
     description:
