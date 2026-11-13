@@ -90,7 +90,6 @@ void main() {
       // Pinned because a path added here silently shrinks what the gate sees.
       expect(releaseDriftIgnoredPaths, [
         'pubspec.lock',
-        'tom_build_state.json',
         'testlog/',
         '.dart_tool/',
       ]);

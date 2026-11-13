@@ -70,12 +70,10 @@ import 'release_closure.dart';
 
 /// Paths inside a package that are not part of what it publishes.
 ///
-/// `pubspec.lock` and `tom_build_state.json` move on every local resolve and
-/// build, `testlog/` is gitignored test output, and `.dart_tool/` is the pub
-/// cache's own. Counting them would report drift on a package nobody edited.
+/// `pubspec.lock` moves on every local resolve, `testlog/` is gitignored test
+/// output, and `.dart_tool/` is the pub cache's own. Counting them would report drift on a package nobody edited.
 const releaseDriftIgnoredPaths = <String>[
   'pubspec.lock',
-  'tom_build_state.json',
   'testlog/',
   '.dart_tool/',
 ];
