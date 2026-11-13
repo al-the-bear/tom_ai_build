@@ -221,6 +221,6 @@ operations behaviour, and the Phase-4 CodeSpecs extracts (exit 0 on success).
 
 ## Status
 
-Version **1.1.0**, tracking the TomSpecs model version. Requires JDK ≥ 17
+Version **1.10.0**, tracking the TomSpecs model version. Requires JDK ≥ 17
 (verified with `javac`/`java` 21). Covered by 9 test files; the conformance
 runner reports **OK: 923 checks passed** and `./run_tests.sh` is green.

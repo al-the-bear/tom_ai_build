@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.16.0
+
+- `irspecs map --spec <document> --unit <id>` writes one generation unit's
+  package, and an IR file may carry `units` (`irspecs_ir.md` §8.1).
+- `irspecs emit --standard <openapi|jsonschema|icu|asyncapi>`: OpenAPI 3.1,
+  JSON Schema 2020-12, ICU MessageFormat and AsyncAPI 3 emitters, each listing
+  what its standard cannot express (`irspecs_ir.md` §10).
+- Mappers: the TypeScript mappers `ts-shared`, `ts-react-client`,
+  `ts-react-native-client` and `ts-hono-server` with a mergeable workspace root
+  (§11, §11.2); the Go server mapper `go-server` (§12); the Java + Spring Boot
+  server mapper `java-spring-server` (§13); the C# + ASP.NET Core server mapper
+  `csharp-aspnet-server` (§14).
+- Requires `tom_som_dart_runtime` / `tom_som_dart_v0` ^1.10.0
+  (`specGenerationUnits`).
+
 ## 0.15.0
 
 - IR Specs (`tom_core_codespecs/doc/irspecs_ir.md`): the language-neutral

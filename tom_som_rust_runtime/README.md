@@ -254,6 +254,6 @@ reading back of extracts and the gate record (`codespecs_record_cases.json`).
 
 ## Status
 
-Version **1.1.0**, tracking the TomSpecs model version. Covered by 8 test files;
+Version **1.10.0**, tracking the TomSpecs model version. Covered by 8 test files;
 the conformance runner reports **OK: 3150 checks passed** and `./run_tests.sh` is
 green.

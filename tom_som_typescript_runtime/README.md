@@ -243,6 +243,6 @@ Markdown goldens, and the `ROUTE-TOTAL` error cases).
 
 ## Status
 
-Version **1.1.0**, tracking the TomSpecs model version. Requires Node.js ≥ 18.
+Version **1.10.0**, tracking the TomSpecs model version. Requires Node.js ≥ 18.
 Covered by 10 test files; the conformance runner reports
 **OK: 877 checks passed** and `./run_tests.sh` is green.

@@ -305,7 +305,7 @@ visibly apart in the one folder that hosts both:
 
 ## Status
 
-Version **1.1.0**, published on pub.dev. This version is the **TomSpecs model
+Version **1.10.0**, published on pub.dev. This version is the **TomSpecs model
 version**: it is stamped by the versioner, read by the SOM generator, and the
 nine generated runtime and facade packages are kept in lockstep with it.
 

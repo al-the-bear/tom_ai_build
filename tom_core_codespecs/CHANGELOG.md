@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.13.6
+
+- Documentation: the authoring agent writes IR, not Dart
+  (`codespecs_derivation_contract.md` §2.0, §2.9); the run procedure maps each
+  generation unit (`codespecs_mapping.md` §1.1.1 item 4, §1.1.2);
+  `irspecs_ir.md` §8.1 (units), §10 (the standard emitters) and §11–§14 (the
+  TypeScript web and mobile, Go, Java and C# mappers).
+
 ## 0.13.5
 
 - Documentation: `doc/irspecs_ir.md`, the IR Specs intermediate

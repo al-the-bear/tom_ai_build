@@ -1,3 +1,13 @@
+## 1.10.0
+
+- No model change. Moves in lockstep with `tom_som_dart_runtime` 1.10.0 (the
+  extract's default generation units and the register reader).
+- Documentation since 1.9.0: `codespecs_prompt.md` §1, §7, §8 (Stage C per
+  generation unit; csgen todos name their IR), the SOM document's extract units
+  and register reader (`som_multiplatform_spec_model.md`),
+  `tom_specs_project_flow.md` PF-PHA-P4 (the mappers it names) and
+  `som_toolchains.md` (the mappers' toolchains).
+
 ## 1.9.0
 
 - The generation-unit register: `SolutionArchitectureAndTechnology.generationUnits`

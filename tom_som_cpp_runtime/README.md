@@ -268,6 +268,6 @@ make test CORPUS=/path/to/corpus
 
 ## Status
 
-Version **1.1.0**, tracking the TomSpecs model version. Requires a C++17
+Version **1.10.0**, tracking the TomSpecs model version. Requires a C++17
 compiler. Covered by 10 test files; the conformance runner reports
 **OK: 1924 checks passed** and `./run_tests.sh` is green.

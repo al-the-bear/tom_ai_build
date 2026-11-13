@@ -275,6 +275,6 @@ make test CORPUS=/path/to/corpus
 
 ## Status
 
-Version **1.1.0**, tracking the TomSpecs model version. Covered by 9 test files;
+Version **1.10.0**, tracking the TomSpecs model version. Covered by 9 test files;
 the conformance runner reports **OK: 1969 checks passed** and `./run_tests.sh` is
 green.

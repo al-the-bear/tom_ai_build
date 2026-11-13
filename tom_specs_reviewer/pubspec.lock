@@ -198,14 +198,14 @@ packages:
       path: "../tom_som_dart_runtime"
       relative: true
     source: path
-    version: "1.9.0"
+    version: "1.10.0"
   tom_specs_core:
     dependency: "direct main"
     description:
       path: "../tom_specs_core"
       relative: true
     source: path
-    version: "0.5.0"
+    version: "0.5.1"
   vector_math:
     dependency: transitive
     description:

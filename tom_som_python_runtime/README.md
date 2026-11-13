@@ -215,6 +215,6 @@ document round-trips, and the reflection / validation / operations behaviour.
 
 ## Status
 
-Version **1.1.0**, tracking the TomSpecs model version. Covered by 10 test files;
+Version **1.10.0**, tracking the TomSpecs model version. Covered by 10 test files;
 the conformance runner reports **OK: 874 checks passed** and `./run_tests.sh` is
 green.

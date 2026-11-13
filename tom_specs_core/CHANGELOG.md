@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.1
+
+- Packaging only: the archive no longer ships `tom_build_state.json`, a
+  build-tool artefact. No code or documentation change.
+
 ## 0.5.0
 
 - `NoArtifactReason.generation`: a section the CodeSpecs generator reads to

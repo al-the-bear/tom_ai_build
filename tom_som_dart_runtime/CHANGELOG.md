@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.10.0
+
+- `spec_generation_units.dart`: `specGenerationUnits` reads a document's
+  generation-unit register (`GENUN-UNIT-LST`) and `specDefaultUnits` gives the
+  units whose mappings hold an area — a new public API.
+- The CodeSpecs extract's default units: an entry with no stored `units`
+  carries every unit whose mappings hold its area.
+- Moves with `tom_specs_model` 1.10.0 (no model change). Additive.
+
 ## 1.9.0
 
 - Moves with `tom_specs_model` 1.9.0 (the generation-unit register and

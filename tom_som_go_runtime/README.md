@@ -258,6 +258,6 @@ guard and the `ROUTE-TOTAL` error cases).
 
 ## Status
 
-Version **1.1.0**, tracking the TomSpecs model version. Requires Go ≥ 1.21.
+Version **1.10.0**, tracking the TomSpecs model version. Requires Go ≥ 1.21.
 Covered by 10 test files; the conformance runner reports
 **OK: 971 checks passed** and `./run_tests.sh` is green.

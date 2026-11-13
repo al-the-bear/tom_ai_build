@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.10.0
+
+- The generation-unit register reader and the CodeSpecs extract's default
+  units, as in `tom_som_dart_runtime` 1.10.0: an entry with no stored `units`
+  carries every unit whose mappings hold its area.
+- Moves with `tom_specs_model` 1.10.0 (no model change). Additive.
+
 ## 1.9.0
 
 - Moves with `tom_specs_model` 1.9.0 (the generation-unit register and

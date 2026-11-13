@@ -226,6 +226,6 @@ wrapper (`tests/conformance.test.js`).
 
 ## Status
 
-Version **1.1.0**, tracking the TomSpecs model version. Requires Node.js ≥ 18
+Version **1.10.0**, tracking the TomSpecs model version. Requires Node.js ≥ 18
 (verified with Node 22.x). Covered by 10 test files; the conformance runner
 reports **OK: 896 checks passed** and `./run_tests.sh` is green.
