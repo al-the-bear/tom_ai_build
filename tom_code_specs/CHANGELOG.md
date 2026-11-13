@@ -11,6 +11,8 @@
   uniqueness, clustering and filter condition.
 - Four closed catalogues: `CsKeyKind` (with `identifiesRow`),
   `CsKeyGeneration`, `CsReferentialAction`, `CsIndexType`.
+- Requires `tom_specs_core` ^0.5.1 (it declared ^0.2.0, which a consumer
+  resolved to the 0.2 line while the workspace resolved the sibling by path).
 - Packaging: the archive no longer ships `tom_build_state.json`.
 
 ## 0.17.0

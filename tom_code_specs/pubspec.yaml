@@ -13,7 +13,7 @@ dependencies:
   # link annotation live in tom_specs_core; the Cs* annotation family references
   # them. tom_specs_core is a zero-dependency annotation library. Resolved by
   # path locally via pubspec_overrides.yaml (excluded from publish).
-  tom_specs_core: ^0.2.0
+  tom_specs_core: ^0.5.1
 
 dev_dependencies:
   lints: ^6.0.0
