@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../../../.tom/json-schema/buildkit/buildkit.schema.json
 # D4rt bridge generation for the TomSpecs SOM API
 # (`llm_and_d4rt_tools.md` §13.1).
 #

@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../../../.tom/json-schema/buildkit/buildkit.schema.json
 # TomSpecs model — build configuration (§17, B2/N8).
 #
 # The model project is the single source of the **model version stamp**: the
