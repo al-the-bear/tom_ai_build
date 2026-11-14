@@ -3,6 +3,7 @@
 // Spec model version: 1.1
 
 import 'package:tom_code_specs/tom_code_specs.dart';
+import 'package:tom_core_server/tom_core_server.dart';
 
 /// A meeting room that staff can book.
 ///
@@ -20,8 +21,11 @@ import 'package:tom_code_specs/tom_code_specs.dart';
   DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
   DocRef('DAATT-DATA', 'supplies the storage type'),
 ])
-@CsTable('rooms')
+@CsTable('rooms', datasource: 'main')
 @CsTableKey('pk_rooms', kind: CsKeyKind.natural, columns: ['name'])
+@CsCompletion('AC-1', fact: 'datasource', value: 'main')
+@tomReflector
+@TomDbTable(datasource: 'main', table: 'rooms', primaryKeyFields: ['name'])
 class Room {
   /// The name on the door.
   @DocSpec([

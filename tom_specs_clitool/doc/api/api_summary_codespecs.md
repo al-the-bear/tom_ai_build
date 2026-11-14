@@ -1,7 +1,7 @@
 # TomSpecs CLI Tool API Reference: CodeSpecs
 
 The Phase-4 validation pass: reading a generated trio, resolving it into a
-model, running the forty-four contract checks, and the area catalogue the
+model, running the forty-seven contract checks, and the area catalogue the
 nine-runtime extract surface consumes.
 
 For task-oriented guidance see
@@ -105,10 +105,10 @@ The module declares **80 classes** and **6 enums** across 6 source file(s).
 
 | Source file | Holds |
 |-------------|-------|
-| `cs_reader.dart` | Reading the trio — *(no public types)* |
+| `cs_reader.dart` | Reading the trio — `readCsLocusProject`, `readCsLocusProjectFromDirectory`, `readEnumValues`, and `csReadAnnotation`, which reads a framework annotation (`@TomDbTable(...)`) into the marker shape so a check can compare it with the markers beside it |
 | `cs_extract.dart` | Reading the extracts — `CsExcludedArea`, `CsExtractException`, `CsExtractEntry`, `CsExtract`, `CsExtractSet`, `CsGateVerdict` |
 | `cs_model.dart` | The resolved model the checks read — `CsLocation`, `CsStringValue`, `CsBoolValue`, `CsIntValue`, `CsNullValue`, `CsQualifiedValue`, `CsConstructionValue`, `CsListValue`, `CsUnknownValue`, `CsMarker`, `CsDocRef`, `CsCodeSpecLink`, `CsCall`, `CsStatement`, `CsParameter`, `CsMethodBody`, `CsDocComment`, `CsComment`, `CsDeclaration`, `CsConstruction`, `CsFile`, `CsLocusProject`, `CsEnumMirror`, `CsFeatureHookEntry`, `CsFeatureCatalogue`, `CodeSpecsRegeneration`, `CodeSpecsValidationInput`, `CsLocus`, `CsBodyShape`, `CsStatementKind`, `CsDeclarationKind` |
-| `cs_checks.dart` | The forty-four checks — `CodeSpecsViolation`, `CodeSpecsCheck`, `CsIdentifierCollisionCheck`, `CsReferenceResolutionCheck`, `CsMissingNameCheck`, `CsMissingAuthoredKeyCheck`, `CsEmptyExplicationCheck`, `CsFabricatedValueCheck`, `CsBackLinkAgreementCheck`, `CsSlotExclusivityCheck`, `CsMirroredCatalogueCheck`, `CsErrorCopyCategoryCheck`, `CsLocusArrowCheck`, `CsOperationAgreementCheck`, `CsMigrationConvergenceCheck`, `CsComposeTokenCheck`, `CsOverridableScopeCheck`, `CsSecretInitialiserCheck`, `CsFallbackChannelCheck`, `CsDrillThroughRouteCheck`, `CsSecretIsDeclaredCheck`, `CsSettingKeyCollisionCheck`, `CsGradedDepthCheck`, `CsColumnNotObservableCheck`, `CsCollaboratorCallResolutionCheck`, `CsCollaboratorShapeCheck`, `CsMethodCommentCheck`, `CsNoInBodyCommentCheck`, `CsDocCommentShapeCheck`, `CsBodyStatementShapeCheck`, `CsBranchConditionCheck`, `CsCollaboratorSignatureCheck`, `CsDeterminismCheck`, `CsCommentSourceCheck`, `CsGroupedHolderCommentCheck`, `CsCommentFidelityCheck`, `CsExtractCoverageCheck`, `CsBackLinkExtractedCheck`, `CsReflectionWrittenNotFinalCheck`, `CsBindingOperationCheck`, `CsBindingRouteCheck`, `CsFeatureHookCompletenessCheck`, `CsReservedProtocolPathCheck`, `CsTableKeyColumnsCheck`, `CsForeignKeyTargetCheck`, `CsPrimaryKeyCheck`, `CsCallPosition` |
+| `cs_checks.dart` | The forty-seven checks — `CodeSpecsViolation`, `CodeSpecsCheck`, `CsIdentifierCollisionCheck`, `CsReferenceResolutionCheck`, `CsMissingNameCheck`, `CsMissingAuthoredKeyCheck`, `CsEmptyExplicationCheck`, `CsFabricatedValueCheck`, `CsBackLinkAgreementCheck`, `CsSlotExclusivityCheck`, `CsMirroredCatalogueCheck`, `CsErrorCopyCategoryCheck`, `CsLocusArrowCheck`, `CsOperationAgreementCheck`, `CsMigrationConvergenceCheck`, `CsComposeTokenCheck`, `CsOverridableScopeCheck`, `CsSecretInitialiserCheck`, `CsFallbackChannelCheck`, `CsDrillThroughRouteCheck`, `CsSecretIsDeclaredCheck`, `CsSettingKeyCollisionCheck`, `CsGradedDepthCheck`, `CsColumnNotObservableCheck`, `CsCollaboratorCallResolutionCheck`, `CsCollaboratorShapeCheck`, `CsMethodCommentCheck`, `CsNoInBodyCommentCheck`, `CsDocCommentShapeCheck`, `CsBodyStatementShapeCheck`, `CsBranchConditionCheck`, `CsCollaboratorSignatureCheck`, `CsDeterminismCheck`, `CsCommentSourceCheck`, `CsGroupedHolderCommentCheck`, `CsCommentFidelityCheck`, `CsExtractCoverageCheck`, `CsBackLinkExtractedCheck`, `CsReflectionWrittenNotFinalCheck`, `CsBindingOperationCheck`, `CsBindingRouteCheck`, `CsFeatureHookCompletenessCheck`, `CsReservedProtocolPathCheck`, `CsTableKeyColumnsCheck`, `CsForeignKeyTargetCheck`, `CsPrimaryKeyCheck`, `CsTomDbTableCheck`, `CsRepositoryKeyTypeCheck`, `CsCompletionCheck`, `csCompletedDatasource`, `csCompletionRules`, `CsCallPosition` |
 | `codespecs_validator.dart` | The validation pass — `CodeSpecsValidationReport`, `CodeSpecsValidationException`, `CsFeatureCatalogueException` |
 | `areas_catalog.dart` | The 27-area catalogue — `AreasCatalogException`, `AreasCatalog` |
 
@@ -970,7 +970,7 @@ const CodeSpecsRegeneration({
 
 ### CodeSpecsValidationInput
 
-Everything the forty-four checks read.
+Everything the forty-seven checks read.
 
 #### Constructors
 ```dart

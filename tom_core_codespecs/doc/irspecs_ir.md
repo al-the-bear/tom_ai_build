@@ -295,7 +295,7 @@ case in a mapper.
 
 ## 7. The checks on the IR
 
-The forty-four checks of `codespecs_derivation_contract.md` §6 run on the IR as
+The forty-seven checks of `codespecs_derivation_contract.md` §6 run on the IR as
 they run on the trio, so a specification's CodeSpecs are checked before any
 code exists:
 
@@ -369,12 +369,18 @@ file. The two things the formatter keeps from its input are the mapper's:
 - **annotation order** — the doc comment first, then every annotation in the
   order of its `line`, back-links, markers and other annotations alike.
 
-**Keys.** An entity's keys and indexes are its `@CsTableKey` and
-`@CsTableIndex` markers (`codespecs_derivation_contract.md` §3.3.11), printed
-like every marker. `tom_core_server`'s repository finds an entity's primary
-key through `@TomDbTable(primaryKeyFields: …)`, which the trio does not carry,
-so a repository of the Dart output does not run yet; its key type `K` is the
-primary key's member type as the trio writes it.
+**Keys and the repository binding.** An entity's keys and indexes are its
+`@CsTableKey` and `@CsTableIndex` markers (`codespecs_derivation_contract.md`
+§3.3.11), printed like every marker. Beside them the trio carries the
+framework's binding, `@tomReflector` and `@TomDbTable(datasource:, table:,
+primaryKeyFields:)` (`codespecs_derivation_contract.md` §3.3.1), which
+`tom_core_server`'s repository reads; the IR keeps both as annotations and the
+mapper prints them as written. A repository's key type `K` is the primary
+key's member type, or `TomCompositeKey` for several columns
+(`codespecs_derivation_contract.md` §3.3.4). An entity's datasource, which no
+specification section states, is an authored completion
+(`codespecs_derivation_contract.md` §2.10), recorded as `@CsCompletion` beside
+the markers.
 
 ### 8.1 Units
 

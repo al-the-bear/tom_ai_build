@@ -1,6 +1,6 @@
 # TomSpecs CodeSpecs — The Closed Catalogues
 
-Twenty-eight of the forty-four `Cs*` markers take arguments, and most of those
+Twenty-nine of the forty-five `Cs*` markers take arguments, and most of those
 arguments select from a **closed catalogue** — an enum declared in
 `vocabulary.dart`. This guide covers the twenty-one catalogues, why they are enums
 rather than strings, why they are declared here rather than imported, and the

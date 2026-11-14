@@ -8,7 +8,7 @@
 //     class for CE-FM. This half is asserted by the DECLARATIONS BELOW
 //     COMPILING; a bare stub class would prove the constructor exists and
 //     nothing about whether it is usable where the part lives.
-//  2. **Surface** — that each of the 28 attribute-bearing markers carries its
+//  2. **Surface** — that each of the 29 attribute-bearing markers carries its
 //     full `codespecs_derivation_contract.md` §5.1 argument set, and that the
 //     16 note-only markers carry nothing beyond `note`. This half is asserted in
 //     the test bodies, which const-construct the same full attribute sets.
@@ -1440,6 +1440,26 @@ void main() {
       expect(const CsCollaborator(note: 'Phase-6 seam').note, 'Phase-6 seam');
       expect(const CsCollaborator().note, isNull);
     });
+
+    test('not a part: CsCompletion, a rule of the register and its value', () {
+      // The record of an authored completion (`codespecs_derivation_contract.md`
+      // §2.10): the rule is the first positional, fact and value are required,
+      // so a completion cannot be written without saying what it completed.
+      const c = CsCompletion('AC-1', fact: 'datasource', value: 'main');
+      expect(c.rule, 'AC-1');
+      expect(c.fact, 'datasource');
+      expect(c.value, 'main');
+      expect(c.note, isNull);
+      expect(
+        const CsCompletion(
+          'AC-1',
+          fact: 'datasource',
+          value: 'main',
+          note: 'no migration target',
+        ).note,
+        'no migration target',
+      );
+    });
   });
 
   group('protocol features: the hook catalogue and reserved paths', () {
@@ -1836,13 +1856,14 @@ void main() {
   });
 }
 
-@CsTable('mom_order')
+@CsTable('mom_order', datasource: 'main')
 @CsTableKey(
   'pk_order',
   kind: CsKeyKind.primary,
   columns: ['order_id'],
   generation: CsKeyGeneration.uuid,
 )
+@CsCompletion('AC-1', fact: 'datasource', value: 'main')
 class _OrderTable {
   @CsColumn(column: 'order_id')
   late String orderId;

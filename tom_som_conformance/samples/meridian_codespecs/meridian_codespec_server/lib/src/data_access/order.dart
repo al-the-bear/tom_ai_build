@@ -4,6 +4,7 @@
 
 import 'package:meridian_codespec_shared/meridian_codespec_shared.dart';
 import 'package:tom_code_specs/tom_code_specs.dart';
+import 'package:tom_core_server/tom_core_server.dart';
 
 /// A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.
 @CodeSpec(
@@ -44,8 +45,15 @@ import 'package:tom_code_specs/tom_code_specs.dart';
   DocRef('ENRLE-TARG-REF', 'records the target entity of each relationship'),
   DocRef('content', 'supplies the key: its name, kind and columns'),
 ])
-@CsTable('mom_order')
+@CsTable('mom_order', datasource: 'main')
 @CsTableKey('pk_order', kind: CsKeyKind.primary, columns: ['order_id'])
+@CsCompletion('AC-1', fact: 'datasource', value: 'main')
+@tomReflector
+@TomDbTable(
+  datasource: 'main',
+  table: 'mom_order',
+  primaryKeyFields: ['orderId'],
+)
 class Order {
   /// Stable order identifier.
   @DocSpec([

@@ -1,4 +1,4 @@
-/// Fixtures for the forty-four `codespecs_derivation_contract.md` §6 checks.
+/// Fixtures for the forty-seven `codespecs_derivation_contract.md` §6 checks.
 ///
 /// Every check gets **two** fixtures: one that violates the rule and one that
 /// satisfies it. A check exercised only against clean input is
@@ -409,9 +409,9 @@ void main() => defineCodeSpecsFixtures();
 void defineCodeSpecsFixtures({bool throughIr = false}) {
   _throughIr = throughIr;
   group('§6 check catalogue', () {
-    test('names the forty-four checks in table order', () {
+    test('names the forty-seven checks in table order', () {
       expect(codeSpecsChecks.map((c) => c.number), [
-        for (var i = 1; i <= 44; i++) i,
+        for (var i = 1; i <= 47; i++) i,
       ]);
     });
 
@@ -4579,6 +4579,228 @@ class Order {
     );
   });
 
+  group('45 — an entity carries the framework binding (§3.3.1)', () {
+    _redGreen(
+      45,
+      '§3.3.1',
+      says: allOf(
+        contains('carries no @tomReflector'),
+        contains('states no datasource'),
+        contains("has table 'order'"),
+        contains(
+          'primaryKeyFields [id] where the identifying @CsTableKey '
+          'names the members [orderId, lineNo]',
+        ),
+        contains("@CsTable('notes') (Note) carries no @TomDbTable"),
+      ),
+      red: _input(
+        server: {
+          'lib/a.dart': '''
+@CsTable('orders', datasource: 'main')
+@CsTableKey(
+  'pk_orders',
+  kind: CsKeyKind.composite,
+  columns: ['order_id', 'line_no'],
+)
+@tomReflector
+@TomDbTable(datasource: 'main', table: 'order', primaryKeyFields: ['id'])
+class Order {
+  @CsColumn(column: 'order_id')
+  String orderId;
+
+  @CsColumn(column: 'line_no')
+  int lineNo;
+}
+
+@CsTable('notes')
+@CsTableKey('pk_notes', kind: CsKeyKind.primary, columns: ['id'])
+class Note {
+  @CsColumn()
+  String id;
+}
+''',
+        },
+      ),
+      green: _input(
+        server: {
+          'lib/a.dart': '''
+@CsTable('orders', datasource: 'main')
+@CsTableKey(
+  'pk_orders',
+  kind: CsKeyKind.composite,
+  columns: ['order_id', 'line_no'],
+)
+@CsCompletion('AC-1', fact: 'datasource', value: 'main')
+@tomReflector
+@TomDbTable(
+  datasource: 'main',
+  table: 'orders',
+  primaryKeyFields: ['orderId', 'lineNo'],
+)
+class Order {
+  @CsColumn(column: 'order_id')
+  String orderId;
+
+  @CsColumn(column: 'line_no')
+  int lineNo;
+}
+''',
+        },
+      ),
+    );
+  });
+
+  group('46 — a repository is keyed by its entity primary key (§3.3.4)', () {
+    const entities = '''
+@CsTable('orders', datasource: 'main')
+@CsTableKey('pk_orders', kind: CsKeyKind.primary, columns: ['order_id'])
+@tomReflector
+@TomDbTable(datasource: 'main', table: 'orders', primaryKeyFields: ['orderId'])
+class Order {
+  @CsColumn(column: 'order_id')
+  String orderId;
+}
+
+@CsTable('lines', datasource: 'main')
+@CsTableKey('pk_lines', kind: CsKeyKind.composite, columns: ['order_id', 'no'])
+@tomReflector
+@TomDbTable(
+  datasource: 'main',
+  table: 'lines',
+  primaryKeyFields: ['orderId', 'no'],
+)
+class Line {
+  @CsColumn(column: 'order_id')
+  String orderId;
+
+  @CsColumn()
+  int no;
+}
+''';
+    _redGreen(
+      46,
+      '§3.3.4',
+      says: allOf(
+        contains('but the primary key of Order is String'),
+        contains('but the primary key of Line is TomCompositeKey'),
+        contains('Invoice is no @CsTable class'),
+        contains('does not extend TomRepository<E, K>'),
+      ),
+      red: _input(
+        server: {
+          'lib/a.dart':
+              '''
+$entities
+@CsRepository()
+abstract class OrderRepository extends TomRepository<Order, int> {}
+
+@CsRepository()
+abstract class LineRepository extends TomRepository<Line, String> {}
+
+@CsRepository()
+abstract class InvoiceRepository extends TomRepository<Invoice, String> {}
+
+@CsRepository()
+abstract class NoteRepository {}
+''',
+        },
+      ),
+      green: _input(
+        server: {
+          'lib/a.dart':
+              '''
+$entities
+@CsRepository()
+abstract class OrderRepository extends TomRepository<Order, String> {}
+
+@CsRepository()
+abstract class LineRepository extends TomRepository<Line, TomCompositeKey> {}
+''',
+        },
+      ),
+    );
+  });
+
+  group('47 — an authored completion follows its rule (§2.10)', () {
+    String entity(String datasource, String completion) =>
+        '''
+@CsTable('orders', datasource: '$datasource')
+@CsTableKey('pk_orders', kind: CsKeyKind.primary, columns: ['id'])
+$completion
+@tomReflector
+@TomDbTable(datasource: '$datasource', table: 'orders', primaryKeyFields: ['id'])
+class Order {
+  @CsColumn()
+  String id;
+}
+''';
+    _redGreen(
+      47,
+      '§2.10',
+      says: allOf(
+        contains('names no rule of the register (AC-1)'),
+        contains("completes 'schema', and AC-1 completes 'datasource'"),
+        contains("AC-1's value for this trio is 'main'"),
+        contains('sits on no @CsTable class'),
+        contains('is written twice'),
+      ),
+      red: _input(
+        server: {
+          'lib/a.dart': entity('core', '''
+@CsCompletion('AC-9', fact: 'datasource', value: 'main')
+@CsCompletion('AC-1', fact: 'schema', value: 'core')
+@CsCompletion('AC-1', fact: 'datasource', value: 'core')'''),
+          'lib/b.dart': '''
+@CsCompletion('AC-1', fact: 'datasource', value: 'main')
+@CsServerConfig('db.url', overridableBy: CsOverridableBy.none)
+class DbUrl {}
+''',
+        },
+      ),
+      green: _input(
+        server: {
+          'lib/a.dart': entity(
+            'main',
+            "@CsCompletion('AC-1', fact: 'datasource', value: 'main')",
+          ),
+        },
+      ),
+    );
+
+    test('AC-1 takes the single migration target, else main', () {
+      final withTarget = _input(
+        server: {
+          'lib/a.dart': entity(
+            'orders_db',
+            "@CsCompletion('AC-1', fact: 'datasource', value: 'orders_db')",
+          ),
+          'lib/m.dart': '''
+@CsMigration(datasource: 'orders_db', schema: 'app', kind: CsMigrationKind.baseline)
+class V1Baseline {}
+''',
+        },
+      );
+      expect(csCompletedDatasource(withTarget), 'orders_db');
+      expect(
+        const CsCompletionCheck().run(withTarget),
+        isEmpty,
+        reason: 'the single migration target is AC-1 value',
+      );
+      final twoTargets = _input(
+        server: {
+          'lib/m.dart': '''
+@CsMigration(datasource: 'a', schema: 'app', kind: CsMigrationKind.baseline)
+class A1 {}
+
+@CsMigration(datasource: 'b', schema: 'app', kind: CsMigrationKind.baseline)
+class B1 {}
+''',
+        },
+      );
+      expect(csCompletedDatasource(twoTargets), 'main');
+    });
+  });
+
   group('the pass as a whole', () {
     CodeSpecsValidationInput cleanTrio() => _input(
       shared: {
@@ -4653,7 +4875,7 @@ class PlaceOrderHandler {
       final report = runCodeSpecsChecks(cleanTrio());
       expect(report.violations, isEmpty, reason: report.lines.join('\n'));
       expect(report.passed, isTrue);
-      expect(report.summary, 'codespecs: 44 checks passed');
+      expect(report.summary, 'codespecs: 47 checks passed');
     });
 
     test('assertCodeSpecsValid passes a clean trio', () {
@@ -4685,10 +4907,14 @@ class Order {
         },
       );
       final report = runCodeSpecsChecks(broken);
-      // 4 (empty table name), 6 (a body without a throw) and 44 (a table
-      // without a primary key).
-      expect(report.violations.map((v) => v.check), containsAll([4, 6, 44]));
-      expect(report.summary, contains('across 3 of 44 checks'));
+      // 4 (empty table name), 6 (a body without a throw), 44 (a table
+      // without a primary key) and 45 (an entity without its framework
+      // binding).
+      expect(
+        report.violations.map((v) => v.check),
+        containsAll([4, 6, 44, 45]),
+      );
+      expect(report.summary, contains('across 4 of 47 checks'));
       expect(report.lines.join('\n'), contains('codespecs check 4 [§2.1 N5]'));
       expect(
         report.lines.join('\n'),

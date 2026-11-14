@@ -313,7 +313,11 @@ export 'src/codespecs/cs_extract.dart'
         kCsGateRecordFile,
         kCsGateRecordFormat;
 export 'src/codespecs/cs_reader.dart'
-    show readCsLocusProject, readCsLocusProjectFromDirectory, readEnumValues;
+    show
+        csReadAnnotation,
+        readCsLocusProject,
+        readCsLocusProjectFromDirectory,
+        readEnumValues;
 export 'src/codespecs/cs_checks.dart'
     show
         CodeSpecsCheck,
@@ -359,6 +363,11 @@ export 'src/codespecs/cs_checks.dart'
         CsBindingRouteCheck,
         CsFeatureHookCompletenessCheck,
         CsReservedProtocolPathCheck,
+        CsTomDbTableCheck,
+        CsRepositoryKeyTypeCheck,
+        CsCompletionCheck,
+        csCompletedDatasource,
+        csCompletionRules,
         codeSpecsChecks,
         csMirroredEnumPairs,
         csBindingMethods,

@@ -3,6 +3,7 @@
 // Spec model version: 1.1
 
 import 'package:tom_code_specs/tom_code_specs.dart';
+import 'package:tom_core_server/tom_core_server.dart';
 
 /// A held period on a room.
 ///
@@ -21,12 +22,19 @@ import 'package:tom_code_specs/tom_code_specs.dart';
   DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
   DocRef('DAATT-DATA', 'supplies the storage type'),
 ])
-@CsTable('bookings')
+@CsTable('bookings', datasource: 'main')
 @CsTableKey(
   'pk_bookings',
   kind: CsKeyKind.primary,
   columns: ['booking_id'],
   generation: CsKeyGeneration.uuid,
+)
+@CsCompletion('AC-1', fact: 'datasource', value: 'main')
+@tomReflector
+@TomDbTable(
+  datasource: 'main',
+  table: 'bookings',
+  primaryKeyFields: ['bookingId'],
 )
 class Booking {
   /// The identifier the booking is filed under.

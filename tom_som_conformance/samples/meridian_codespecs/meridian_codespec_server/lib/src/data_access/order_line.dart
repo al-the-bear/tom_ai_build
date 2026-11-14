@@ -3,6 +3,7 @@
 // Spec model version: 1.0.0+3.50e0102
 
 import 'package:tom_code_specs/tom_code_specs.dart';
+import 'package:tom_core_server/tom_core_server.dart';
 
 import 'order.dart';
 
@@ -49,13 +50,20 @@ import 'order.dart';
         'and columns',
   ),
 ])
-@CsTable('mom_order_line')
+@CsTable('mom_order_line', datasource: 'main')
 @CsTableKey('pk_order_line', kind: CsKeyKind.primary, columns: ['line_id'])
 @CsTableKey(
   'fk_line_order',
   kind: CsKeyKind.foreign,
   columns: ['order_id'],
   references: Order,
+)
+@CsCompletion('AC-1', fact: 'datasource', value: 'main')
+@tomReflector
+@TomDbTable(
+  datasource: 'main',
+  table: 'mom_order_line',
+  primaryKeyFields: ['lineId'],
 )
 class OrderLine {
   /// Stable line identifier.

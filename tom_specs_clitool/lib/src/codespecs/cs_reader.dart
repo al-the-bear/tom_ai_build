@@ -1014,6 +1014,28 @@ CsConstruction? _constructionOf(
 // Values
 // ---------------------------------------------------------------------------
 
+/// Reads [annotation] — a non-`Cs*` annotation as the model keeps it, its
+/// source text — into a [CsMarker] of its name and arguments, so a check can
+/// compare a framework annotation (`@TomDbTable(...)`) with the markers beside
+/// it. `null` when the source does not parse as one annotation.
+CsMarker? csReadAnnotation(CsAnnotation annotation) {
+  final unit = parseString(
+    content: '${annotation.source}\nclass _CsAnnotated {}\n',
+    throwIfDiagnostics: false,
+  ).unit;
+  final declaration = unit.declarations.whereType<ClassDeclaration>();
+  if (declaration.isEmpty) return null;
+  final metadata = declaration.first.metadata;
+  if (metadata.length != 1) return null;
+  final (positional, named) = _arguments(metadata.single.arguments);
+  return CsMarker(
+    metadata.single.name.name,
+    positional,
+    named,
+    annotation.location,
+  );
+}
+
 (List<CsValue>, Map<String, CsValue>) _arguments(ArgumentList? arguments) {
   final positional = <CsValue>[];
   final named = <String, CsValue>{};

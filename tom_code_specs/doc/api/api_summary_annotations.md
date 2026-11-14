@@ -69,6 +69,8 @@ catalogues in [api_summary_vocabulary.md](api_summary_vocabulary.md).
     - [CsAuth](#csauth)
   - [The collaborator marker](#the-collaborator-marker)
     - [CsCollaborator](#cscollaborator)
+  - [The completion marker](#the-completion-marker)
+    - [CsCompletion](#cscompletion)
   - [Identity and forward trace](#identity-and-forward-trace)
     - [CodeSpec](#codespec)
   - [Back-trace](#back-trace)
@@ -77,8 +79,8 @@ catalogues in [api_summary_vocabulary.md](api_summary_vocabulary.md).
 
 ## Overview
 
-The module declares **49 classes** across seven source files:
-**44 `Cs*` markers** (43 parts plus `@CsCollaborator`), the
+The module declares **50 classes** across eight source files:
+**45 `Cs*` markers** (43 parts plus `@CsCollaborator` and `@CsCompletion`), the
 **2 facet value classes**, and the **3 identity /
 trace declarations.
 
@@ -88,12 +90,13 @@ trace declarations.
 | `service_annotations.dart` | Server markers — 20 classes |
 | `contract_annotations.dart` | Shared-contract markers — 2 classes |
 | `client_settings_annotations.dart` | Client, settings, identity and auth markers — 7 classes |
-| `cs_collaborator.dart` | The collaborator marker — 1 classes |
+| `cs_collaborator.dart` | The collaborator marker — 1 class |
+| `cs_completion.dart` | The completion marker — 1 class |
 | `code_spec.dart` | Identity and forward trace — 1 classes |
 | `doc_spec.dart` | Back-trace — 2 classes |
 
-Of the forty-two markers, **sixteen carry a single optional `note`** and
-**twenty-six take arguments** — see
+Of the forty-five markers, **sixteen carry a single optional `note`** and
+**twenty-nine take arguments** — see
 [marking_code.md](../marking_code.md#note-only-versus-argument-carrying).
 
 ## Class Hierarchy
@@ -1074,6 +1077,28 @@ const CsCollaborator({this.note});
 
 | Property | Type | Description |
 |----------|------|-------------|
+| `note` | `String?` | Optional note. |
+
+### The completion marker
+
+#### CsCompletion
+
+The record of an authored completion (`codespecs_derivation_contract.md` §2.10):
+a value the authoring agent completed under a rule of the register, written
+beside the code it shaped. Repeatable. **Not a part marker.**
+
+##### Constructors
+```dart
+const CsCompletion(this.rule, {required this.fact, required this.value, this.note});
+```
+
+##### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `rule` | `String` | The rule of the register, `AC-<n>`. |
+| `fact` | `String` | The fact the rule completes (`datasource`). |
+| `value` | `String` | The completed value, as the code carries it. |
 | `note` | `String?` | Optional note. |
 
 ### Identity and forward trace

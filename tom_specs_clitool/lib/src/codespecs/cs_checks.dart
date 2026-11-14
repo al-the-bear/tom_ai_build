@@ -1,4 +1,4 @@
-/// The forty-four validator checks `codespecs_derivation_contract.md` §6
+/// The forty-seven validator checks `codespecs_derivation_contract.md` §6
 /// names.
 ///
 /// One [CodeSpecsCheck] per numbered row, each carrying the §-reference of the
@@ -10,6 +10,7 @@ library;
 
 import 'cs_extract.dart';
 import 'cs_model.dart';
+import 'cs_reader.dart' show csReadAnnotation;
 
 /// One failed check.
 ///
@@ -3995,7 +3996,7 @@ class CsReservedProtocolPathCheck extends CodeSpecsCheck {
   }
 }
 
-/// One `@CsTable` class of the server project with what checks 42–44 read: its
+/// One `@CsTable` class of the server project with what checks 42–46 read: its
 /// columns (by physical name), its `@CsTableKey` and `@CsTableIndex` markers.
 class _CsTableShape {
   final CsDeclaration declaration;
@@ -4349,11 +4350,343 @@ class CsPrimaryKeyCheck extends CodeSpecsCheck {
   }
 }
 
+/// The framework annotation named [name] on [declaration], read into a
+/// [CsMarker] (`@TomDbTable(...)`), or `null` when it carries none.
+CsMarker? _csFrameworkAnnotation(CsDeclaration declaration, String name) {
+  for (final annotation in declaration.annotations) {
+    final source = annotation.source.trim();
+    if (!source.startsWith('@$name')) continue;
+    final rest = source.substring(name.length + 1);
+    if (rest.isNotEmpty && RegExp(r'^[\w$]').hasMatch(rest)) continue;
+    return csReadAnnotation(annotation);
+  }
+  return null;
+}
+
+/// The members of [shape] holding the identifying key's columns, in key
+/// order: `@TomDbTable.primaryKeyFields` as codespecs_derivation_contract.md §3.3.1 derives it. `null` when the
+/// table has no single identifying key (check 44 reports it) or a key column
+/// no member holds (check 42 reports it).
+List<CsDeclaration>? _csPrimaryKeyMembers(
+  _CsTableShape shape,
+  CodeSpecsValidationInput input,
+) {
+  final identifying = [
+    for (final key in shape.keys)
+      if (_csIdentifyingKeyKinds.contains(_csKeyKind(key))) key,
+  ];
+  if (identifying.length != 1) return null;
+  final byColumn = <String, CsDeclaration>{};
+  for (final member in input.server.declarations) {
+    if (member.owner != shape.declaration.name) continue;
+    final column = member.marker('CsColumn');
+    if (column == null) continue;
+    final named = column.named['column'];
+    byColumn[named is CsStringValue ? named.value : member.name] = member;
+  }
+  final members = <CsDeclaration>[];
+  for (final column in _csStringList(identifying.single, 'columns')) {
+    final member = byColumn[column];
+    if (member == null) return null;
+    members.add(member);
+  }
+  return members;
+}
+
+/// A string-valued argument, or `null`.
+String? _csStringArgument(CsMarker marker, String argument) {
+  final value = marker.named[argument];
+  return value is CsStringValue ? value.value : null;
+}
+
+/// **Check 45** — every `@CsTable` class carries the framework's binding
+/// beside the marker: `@tomReflector` and
+/// `@TomDbTable(datasource:, table:, schema:, primaryKeyFields:)`, its
+/// `datasource`, `table` and `schema` those of `@CsTable` and its
+/// `primaryKeyFields` the members holding the identifying `@CsTableKey`'s
+/// columns, in key order. `@CsTable` states a datasource — the specified one,
+/// or AC-1's (codespecs_derivation_contract.md §2.10).
+///
+/// `tom_core_server`'s repository reads `@TomDbTable` and nothing else, so an
+/// entity without it, or with one that disagrees with the markers, has a
+/// repository that fails at construction or addresses the wrong columns.
+class CsTomDbTableCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsTomDbTableCheck();
+
+  @override
+  int get number => 45;
+
+  @override
+  String get definedIn => '§3.3.1';
+
+  @override
+  String get title =>
+      'Every @CsTable class carries @tomReflector and a @TomDbTable agreeing '
+      'with @CsTable and its identifying @CsTableKey';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final out = <CodeSpecsViolation>[];
+    for (final shape in _csTableShapes(input).values) {
+      final d = shape.declaration;
+      final cs = d.marker('CsTable')!;
+      final where = "@CsTable('${shape.table}') (${d.name})";
+      if (!d.annotations.any((a) => a.source.trim() == '@tomReflector')) {
+        out.add(fail('$where carries no @tomReflector', cs.location));
+      }
+      final datasource = _csStringArgument(cs, 'datasource');
+      if (datasource == null) {
+        out.add(
+          fail(
+            '$where states no datasource: write the specified one, or the '
+            "value of the authored completion AC-1 with its @CsCompletion",
+            cs.location,
+          ),
+        );
+      }
+      final tom = _csFrameworkAnnotation(d, 'TomDbTable');
+      if (tom == null) {
+        out.add(fail('$where carries no @TomDbTable', cs.location));
+        continue;
+      }
+      void agree(String argument, String? expected) {
+        final actual = _csStringArgument(tom, argument);
+        if (actual == expected) return;
+        out.add(
+          fail(
+            '@TomDbTable on ${d.name} has $argument '
+            '${actual == null ? 'unset' : "'$actual'"} where @CsTable has '
+            '${expected == null ? 'none' : "'$expected'"}',
+            tom.location,
+          ),
+        );
+      }
+
+      agree('table', shape.table);
+      if (datasource != null) agree('datasource', datasource);
+      agree('schema', _csStringArgument(cs, 'schema'));
+      final members = _csPrimaryKeyMembers(shape, input);
+      if (members == null) continue; // checks 42 and 44 report it
+      final expected = [for (final m in members) m.name];
+      final actual = _csStringList(tom, 'primaryKeyFields');
+      if (actual.join(',') != expected.join(',')) {
+        out.add(
+          fail(
+            '@TomDbTable on ${d.name} has primaryKeyFields $actual where the '
+            'identifying @CsTableKey names the members $expected',
+            tom.location,
+          ),
+        );
+      }
+    }
+    return out;
+  }
+}
+
+/// **Check 46** — a `@CsRepository` class extends `TomRepository<E, K>` whose
+/// `E` is a `@CsTable` class and whose `K` is that entity's primary-key type:
+/// the member's type for a key of one column, `TomCompositeKey` for several.
+class CsRepositoryKeyTypeCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsRepositoryKeyTypeCheck();
+
+  @override
+  int get number => 46;
+
+  @override
+  String get definedIn => '§3.3.4';
+
+  @override
+  String get title =>
+      'A @CsRepository extends TomRepository<E, K> with E a @CsTable class '
+      'and K its primary-key type (TomCompositeKey for several columns)';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final shapes = _csTableShapes(input);
+    final out = <CodeSpecsViolation>[];
+    for (final d in input.server.declarations) {
+      if (!d.isTopLevel) continue;
+      final marker = d.marker('CsRepository');
+      if (marker == null) continue;
+      final match = RegExp(
+        r'^TomRepository<(.*)>$',
+      ).firstMatch((d.superclass ?? '').trim());
+      final arguments = match == null
+          ? const <String>[]
+          : _csTypeArguments(match.group(1)!);
+      if (arguments.length != 2) {
+        out.add(
+          fail(
+            '${d.name} is a @CsRepository but does not extend '
+            'TomRepository<E, K>',
+            marker.location,
+          ),
+        );
+        continue;
+      }
+      final shape = shapes[arguments[0]];
+      if (shape == null) {
+        out.add(
+          fail(
+            '${d.name} extends TomRepository<${arguments[0]}, …>, and '
+            '${arguments[0]} is no @CsTable class of the server project',
+            marker.location,
+          ),
+        );
+        continue;
+      }
+      final members = _csPrimaryKeyMembers(shape, input);
+      if (members == null) continue; // checks 42 and 44 report it
+      final expected = members.length == 1
+          ? (members.single.declaredType ?? '').trim().replaceAll('?', '')
+          : 'TomCompositeKey';
+      if (arguments[1] != expected) {
+        out.add(
+          fail(
+            '${d.name} extends TomRepository<${arguments[0]}, ${arguments[1]}>, '
+            'but the primary key of ${arguments[0]} is $expected',
+            marker.location,
+          ),
+        );
+      }
+    }
+    return out;
+  }
+}
+
+/// The top-level arguments of a type argument list: `A, Map<B, C>` →
+/// `[A, Map<B, C>]`.
+List<String> _csTypeArguments(String s) {
+  final out = <String>[];
+  var depth = 0;
+  var start = 0;
+  for (var i = 0; i < s.length; i++) {
+    if (s[i] == '<') depth++;
+    if (s[i] == '>') depth--;
+    if (s[i] == ',' && depth == 0) {
+      out.add(s.substring(start, i).trim());
+      start = i + 1;
+    }
+  }
+  out.add(s.substring(start).trim());
+  return out;
+}
+
+/// The datasource of authored completion AC-1 (codespecs_derivation_contract.md §2.10): the specification's
+/// migration target when it has exactly one — the datasources the trio's
+/// `@CsMigration` markers name — else `main`.
+String csCompletedDatasource(CodeSpecsValidationInput input) {
+  final datasources = <String>{
+    for (final project in [input.shared, input.client, input.server])
+      for (final d in project.declarations)
+        for (final m in d.markers)
+          if (m.name == 'CsMigration') ?_csStringArgument(m, 'datasource'),
+  };
+  return datasources.length == 1 ? datasources.single : 'main';
+}
+
+/// The rules of the register of authored completions (codespecs_derivation_contract.md §2.10), by id: the fact
+/// each completes.
+const csCompletionRules = {'AC-1': 'datasource'};
+
+/// **Check 47** — every `@CsCompletion` names a rule of the register, the
+/// fact that rule completes, and the rule's value, and the declaration
+/// carries that value: an AC-1 completion sits on a `@CsTable` class whose
+/// `datasource` is the completed one. One completion per rule and
+/// declaration.
+class CsCompletionCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsCompletionCheck();
+
+  @override
+  int get number => 47;
+
+  @override
+  String get definedIn => '§2.10';
+
+  @override
+  String get title =>
+      'Every @CsCompletion names a rule of the register, its fact and its '
+      'value, and the declaration carries that value';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final out = <CodeSpecsViolation>[];
+    String? datasource;
+    for (final project in [input.shared, input.client, input.server]) {
+      for (final d in project.declarations) {
+        final seen = <String>{};
+        for (final m in d.markers) {
+          if (m.name != 'CsCompletion') continue;
+          final rule = m.firstPositionalString ?? '?';
+          final fact = _csStringArgument(m, 'fact');
+          final value = _csStringArgument(m, 'value');
+          final where = "@CsCompletion('$rule') on ${d.name}";
+          if (!seen.add(rule)) {
+            out.add(fail('$where is written twice', m.location));
+            continue;
+          }
+          final ruleFact = csCompletionRules[rule];
+          if (ruleFact == null) {
+            out.add(
+              fail(
+                '$where names no rule of the register '
+                '(${csCompletionRules.keys.join(', ')}): a value without a '
+                'rule is an invented one',
+                m.location,
+              ),
+            );
+            continue;
+          }
+          if (fact != ruleFact) {
+            out.add(
+              fail(
+                "$where completes '${fact ?? '?'}', and $rule completes "
+                "'$ruleFact'",
+                m.location,
+              ),
+            );
+          }
+          switch (rule) {
+            case 'AC-1':
+              datasource ??= csCompletedDatasource(input);
+              if (value != datasource) {
+                out.add(
+                  fail(
+                    "$where has the value '${value ?? '?'}', and AC-1's "
+                    "value for this trio is '$datasource'",
+                    m.location,
+                  ),
+                );
+              }
+              final table = d.marker('CsTable');
+              if (table == null) {
+                out.add(fail('$where sits on no @CsTable class', m.location));
+              } else if (_csStringArgument(table, 'datasource') != value) {
+                out.add(
+                  fail(
+                    "$where completes the datasource '${value ?? '?'}', and "
+                    "@CsTable states "
+                    "'${_csStringArgument(table, 'datasource') ?? 'none'}'",
+                    m.location,
+                  ),
+                );
+              }
+          }
+        }
+      }
+    }
+    return out;
+  }
+}
+
 // ---------------------------------------------------------------------------
 // The catalogue
 // ---------------------------------------------------------------------------
 
-/// The forty-four checks, in `codespecs_derivation_contract.md` §6 table
+/// The forty-seven checks, in `codespecs_derivation_contract.md` §6 table
 /// order.
 const codeSpecsChecks = <CodeSpecsCheck>[
   /// Check 1 — two sections in one locus project deriving the same identifier.
@@ -4565,4 +4898,15 @@ const codeSpecsChecks = <CodeSpecsCheck>[
 
   /// Check 44 — a table without exactly one primary key.
   CsPrimaryKeyCheck(),
+
+  /// Check 45 — an entity without the framework's binding, or with a
+  /// `@TomDbTable` that disagrees with `@CsTable` or its primary key.
+  CsTomDbTableCheck(),
+
+  /// Check 46 — a repository whose `K` is not its entity's primary-key type.
+  CsRepositoryKeyTypeCheck(),
+
+  /// Check 47 — an authored completion without a rule, or with a value other
+  /// than its rule's.
+  CsCompletionCheck(),
 ];

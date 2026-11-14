@@ -17,7 +17,8 @@ are cited here, never restated.
 - [Core Components](#core-components)
   - [@CodeSpec — identity and forward trace](#codespec--identity-and-forward-trace)
   - [The part markers](#the-part-markers)
-  - [@CsCollaborator — the one marker that is not a part](#cscollaborator--the-one-marker-that-is-not-a-part)
+  - [@CsCollaborator — a marker that is not a part](#cscollaborator--a-marker-that-is-not-a-part)
+  - [@CsCompletion — the record of an authored completion](#cscompletion--the-record-of-an-authored-completion)
 - [Note-only versus argument-carrying](#note-only-versus-argument-carrying)
 - [The facet value classes](#the-facet-value-classes)
 - [Placing a marker in the trio](#placing-a-marker-in-the-trio)
@@ -38,11 +39,11 @@ The surface divides into five kinds of declaration:
 
 | Kind | Count | Example |
 |------|-------|---------|
-| Part markers | 41 | `@CsTable`, `@CsEndpoint`, `@CsForm` |
-| The collaborator marker | 1 | `@CsCollaborator` |
+| Part markers | 43 | `@CsTable`, `@CsEndpoint`, `@CsForm` |
+| Markers that are not parts | 2 | `@CsCollaborator`, `@CsCompletion` |
 | Facet value classes | 2 | `CsFileReference`, `CsGradedAccess` |
 | Identity and trace annotations | 3 | `@CodeSpec`, `@DocSpec`, `DocRef` |
-| Closed catalogues (enums) | 17 | `CsElementKind`, `CsAuthRequirement` |
+| Closed catalogues (enums) | 21 | `CsElementKind`, `CsAuthRequirement` |
 
 Cross-part references are a sixth group covered in
 [cross_references.md](cross_references.md); the catalogues are covered in
@@ -150,7 +151,7 @@ candidate. A deferred part is mapping-only — its `CodeSpecPart` value is
 reserved and a specification section may already carry `@CodeSpecKind` for it,
 but there is no annotation and no generated code until it is promoted.
 
-### `@CsCollaborator` — the one marker that is not a part
+### `@CsCollaborator` — a marker that is not a part
 
 `@CsCollaborator` has no `CE-*` code, no `CodeSpecPart` value and no row in the
 parts catalogue, and the distinction is precise: **a part is what a
@@ -193,9 +194,45 @@ It is a marker rather than a naming convention because every generated top-level
 declaration must carry a `Cs*` marker, and because the validator has to *find*
 collaborators — a name suffix would make convention load-bearing.
 
+### `@CsCompletion` — the record of an authored completion
+
+Some facts the code needs are not stated by the specification. Where the
+derivation contract's register of authored completions
+(`codespecs_derivation_contract.md` §2.10) has a rule for such a fact, the
+authoring agent writes the rule's value and records it beside the code it
+shaped, one `@CsCompletion` per completed fact:
+
+```dart
+import 'package:tom_code_specs/tom_code_specs.dart';
+
+@CsTable('mom_order', datasource: 'main')
+@CsCompletion('AC-1', fact: 'datasource', value: 'main')
+class Order {
+  @CsColumn(column: 'order_id')
+  late String orderId;
+}
+
+void main() {
+  const completion = CsCompletion('AC-1', fact: 'datasource', value: 'main');
+  print('${completion.rule} ${completion.fact}=${completion.value}');
+}
+```
+
+Output:
+
+```
+AC-1 datasource=main
+```
+
+Like `@CsCollaborator` it has no `CE-*` code and no `CodeSpecPart` value. The
+value is the rule's, never the agent's choice, so two runs write the same
+completions; the validator holds each completion to its rule
+(`codespecs_derivation_contract.md` §6 check 47), and a run's completions are
+reviewed together.
+
 ## Note-only versus argument-carrying
 
-Of the forty-four markers, **sixteen carry a single optional `note`** and **twenty-eight
+Of the forty-five markers, **sixteen carry a single optional `note`** and **twenty-nine
 take arguments**. The split is a decision, not an accident: a note-only marker's
 attributes are already carried by the annotated Dart declaration or by its
 `tom_core` substrate, so an argument would give them a second home.
@@ -305,6 +342,7 @@ declaration cited from both sides is shared.
 | `service_annotations.dart` | Server |
 | `client_settings_annotations.dart` | Client, except the identity attributes the server persists |
 | `@CsCollaborator` | Whichever project the declaration it serves lands in |
+| `@CsCompletion` | Whichever project the declaration it annotates lands in |
 
 `@CsCollaborator` has no fixed locus for exactly the reason it has no slice: it
 belongs to whichever declaration emitted it. The authoritative placement per

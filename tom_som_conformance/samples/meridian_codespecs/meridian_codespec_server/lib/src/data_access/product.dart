@@ -3,6 +3,7 @@
 // Spec model version: 1.0.0+3.50e0102
 
 import 'package:tom_code_specs/tom_code_specs.dart';
+import 'package:tom_core_server/tom_core_server.dart';
 
 /// A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.
 @CodeSpec(
@@ -26,8 +27,15 @@ import 'package:tom_code_specs/tom_code_specs.dart';
         'and columns',
   ),
 ])
-@CsTable('mom_product')
+@CsTable('mom_product', datasource: 'main')
 @CsTableKey('pk_product', kind: CsKeyKind.primary, columns: ['product_id'])
+@CsCompletion('AC-1', fact: 'datasource', value: 'main')
+@tomReflector
+@TomDbTable(
+  datasource: 'main',
+  table: 'mom_product',
+  primaryKeyFields: ['productId'],
+)
 class Product {
   /// Stable product identifier.
   @DocSpec([

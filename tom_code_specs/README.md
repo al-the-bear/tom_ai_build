@@ -92,10 +92,11 @@ import.
 | `@CodeSpec(id, {source, requirements})` | Identity + forward doc → code trace (CE-TR) on a CodeSpec class | `codespecs_mapping.md` §9 |
 | `@DocSpec([DocRef(sectionId, description), …])` | Code → doc back-trace on a CodeSpec class/member | `codespecs_mapping.md` §9.3 |
 | `DocRef(sectionId, description)` | One back-trace entry | `codespecs_mapping.md` §9.3 |
-| `Cs*` annotation family (no base classes) — 41 markers | The catalogue's part markers, in four files — see the table below | `codespecs_mapping.md` §4.1 |
-| `@CsCollaborator()` | The one marker that is **not** a part: the abstract collaborator a form-3b body calls | `codespecs_derivation_contract.md` §3.0.1 |
+| `Cs*` annotation family (no base classes) — 43 part markers | The catalogue's part markers, in four files — see the table below | `codespecs_mapping.md` §4.1 |
+| `@CsCollaborator()` | Not a part: the abstract collaborator a form-3b body calls | `codespecs_derivation_contract.md` §3.0.1 |
+| `@CsCompletion(rule, {fact, value})` | Not a part: the record of an authored completion — a value the authoring agent completed under a rule of the contract's register | `codespecs_derivation_contract.md` §2.10 |
 | `Cs*Ref` typed cross-part references — 13 consts | Annotation *parameter* vocabulary: one const type per referenceable part | `codespecs_mapping.md` §5.23 |
-| The closed catalogues — 17 enums in `vocabulary.dart` | Annotation *parameter* vocabulary: the arms a marker's argument selects from | `codespecs_derivation_contract.md` §5.3 |
+| The closed catalogues — 21 enums in `vocabulary.dart` | Annotation *parameter* vocabulary: the arms a marker's argument selects from | `codespecs_derivation_contract.md` §5.3 |
 | The protocol-feature hook catalogue — `CsFeatureHookSpec`, `csFeatureHooks`, `csFeatureReservedPaths` | The hooks each `CsProtocolFeature` asks the app to implement, and the paths it reserves | `codespecs_derivation_contract.md` §3.4.6 |
 
 ### The `Cs*` family
@@ -110,6 +111,14 @@ CE-SU, CE-DB, CE-NT and CE-RP each have more than one).
 | `service_annotations.dart` | `@CsEndpoint`, `@CsOperationBinding`, `@CsServiceUnit`, `@CsFeatureHook`, `@CsTable`, `@CsTableKey`, `@CsTableIndex`, `@CsColumn` *(with the `CsFileReference` facet)*, `@CsRepository`, `@CsAuthorize` *(with the `CsGradedAccess` facet)*, `@CsServerConfig`, `@CsMigration`, `@CsJob`, `@CsAudited`, `@CsNotification`, `@CsNotificationChannel`, `@CsReport`, `@CsReportColumn`, `@CsReportChart`, `@CsReportParameter` | Server — CE-API (endpoint + protocol binding), CE-SU (service unit + protocol-feature hook), CE-DB, CE-AZ, CE-CF, CE-MG, CE-JB, CE-LG; CE-NT (declarations shared, delivery server); CE-RP (definition server, result envelope + parameters shared) |
 | `contract_annotations.dart` | `@CsError`, `@CsEnum` | Shared — CE-ER, plus the `domainEnum` **member** kind |
 | `client_settings_annotations.dart` | `@CsClient`, `@CsClientConfig`, `@CsDeviceSetting`, `@CsUserSetting`, `@CsIdentity`, `@CsIdentityAttribute`, `@CsAuth` | Client app, the four owner-keyed config/settings scopes, identity and auth — CE-CL, CE-CC, CE-DS, CE-UP, CE-ID, CE-AU |
+
+`cs_completion.dart` sits beside them too, holding `@CsCompletion`: where the
+code needs a fact the specification does not state and the contract's
+register of authored completions has a rule for it, the agent writes the
+rule's value and records it with one `@CsCompletion` on that declaration
+(`@CsTable('mom_order', datasource: 'main')` with
+`@CsCompletion('AC-1', fact: 'datasource', value: 'main')`), so completed
+values stay distinguishable from specified ones.
 
 `cs_collaborator.dart` sits beside those four and holds `@CsCollaborator`, which
 belongs to **no** part, locus or slice. It marks the abstract class a form-3b
@@ -310,10 +319,11 @@ tom_code_specs                       (depends only on tom_specs_core)
     ├── code_spec.dart               @CodeSpec — identity + forward trace
     ├── doc_spec.dart                @DocSpec / DocRef — back-trace
     ├── element_annotations.dart     14 client / UI markers
-    ├── service_annotations.dart     18 server markers
+    ├── service_annotations.dart     20 server markers
     ├── contract_annotations.dart     2 shared markers
     ├── client_settings_annotations.dart  7 client-app / config / identity markers
-    ├── cs_collaborator.dart         @CsCollaborator — the one non-part marker
+    ├── cs_collaborator.dart         @CsCollaborator — a non-part marker
+    ├── cs_completion.dart           @CsCompletion — a non-part marker
     ├── cross_part_refs.dart         13 typed cross-part reference consts
     └── vocabulary.dart              21 closed catalogues + the feature-hook catalogue
 
@@ -335,10 +345,11 @@ tom_code_specs                       (depends only on tom_specs_core)
 | --- | --- |
 | `CodeSpec` | Identity of a CodeSpec class plus its forward trace to source sections and requirements. |
 | `DocSpec` / `DocRef` | The code → document back-trace: one entry per section that shaped the declaration. |
-| The 41 `Cs*` part markers | Say which catalogue part a declaration is, and carry that part's authored attributes. |
+| The 43 `Cs*` part markers | Say which catalogue part a declaration is, and carry that part's authored attributes. |
 | `CsCollaborator` | Marks the abstract collaborator a stub body calls — one per emitting top-level declaration; not a part. |
+| `CsCompletion` | Records an authored completion — the rule, the fact and the value — on the declaration it shaped; not a part. |
 | The 13 `Cs*Ref` consts | Typed cross-part references; distinct types with no shared supertype, so a wrong kind is a compile error. |
-| The 17 `vocabulary.dart` enums | The closed arms a marker's argument selects from — a value cannot be invented in passing. |
+| The 21 `vocabulary.dart` enums | The closed arms a marker's argument selects from — a value cannot be invented in passing. |
 | `CsFileReference`, `CsGradedAccess` | The two facet value classes, for arguments that are structures rather than scalars. |
 
 ### What lives in `tom_specs_core` instead
@@ -408,7 +419,7 @@ packages, as opposed to this package's own `example/`:
 | Guide | Covers |
 |-------|--------|
 | [doc/index.md](doc/index.md) | The catalogue of this package's documentation |
-| [doc/marking_code.md](doc/marking_code.md) | Applying `@CodeSpec`, the part markers and `@CsCollaborator` |
+| [doc/marking_code.md](doc/marking_code.md) | Applying `@CodeSpec`, the part markers, `@CsCollaborator` and `@CsCompletion` |
 | [doc/cross_references.md](doc/cross_references.md) | The typed `Cs*Ref` family and the `@DocSpec` back-links |
 | [doc/vocabulary.md](doc/vocabulary.md) | The twenty-one closed catalogues and the per-kind slot rule |
 | [doc/api/api_summary_index.md](doc/api/api_summary_index.md) | The per-module API summaries |
@@ -424,16 +435,16 @@ packages, as opposed to this package's own `example/`:
 
 ## Status
 
-Version **0.15.0**. Test suite: **96 tests, all passing**
+Version **0.19.0**. Test suite: **105 tests, all passing**
 (`dart test`).
 
 `@CodeSpec`, `@DocSpec`/`DocRef`, the **43-marker `Cs*` family** plus
-`@CsCollaborator`, the **13-const `Cs*Ref` family**, the **21 closed
+`@CsCollaborator` and `@CsCompletion`, the **13-const `Cs*Ref` family**, the **21 closed
 catalogues** and the protocol-feature hook catalogue are declared — one marker (or marker group) for every active part in
 the `codespecs_mapping.md` §4.1 catalogue, with no marker for a deferred one.
 `@CodeSpecKind` is list-valued.
 
-The family is a marker set **and** an attribute surface. **28 of the 44 markers
+The family is a marker set **and** an attribute surface. **29 of the 45 markers
 take arguments**, wired to `codespecs_mapping.md` §5's per-part spec-authorable
 surface; the other **16 carry a single optional `note`** — a design decision, not
 an omission, because everything their part authors is already carried by the

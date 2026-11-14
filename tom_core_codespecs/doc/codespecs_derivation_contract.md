@@ -91,8 +91,9 @@ what to write but what may not be reached for instead.
 - **Generation** — the act of producing the trio, whichever role performs the
   step. "Generation slice", "generation order" and "regeneration" are about the
   work, not the worker.
-- **A generation error** — the derivation has no admissible output. The agent
-  **must not write the declaration**; it files a `csopen<n>` `decision-needed`
+- **A generation error** — the derivation has no admissible output, and no
+  rule of the register of authored completions (§2.10) supplies the missing
+  fact. The agent **must not write the declaration**; it files a `csopen<n>` `decision-needed`
   todo naming the section id, which pauses the queue (`codespecs_mapping.md`
   §1.1.1 item 3). The validator independently rejects any trio containing one, so
   the failure is caught whether or not the agent noticed it.
@@ -772,8 +773,11 @@ Every emitted file has the same five-part shape, in this order:
    `tom_core_server`.
 3. The declaration's **doc comment** (§2.8 P1), derived from the contributing
    SOM section.
-4. The declaration, annotated `@CodeSpec` then `@DocSpec` then its `Cs*` marker,
-   in that order (`codespecs_mapping.md` §9.5's placement, outermost-provenance-first) — its members
+4. The declaration, annotated `@CodeSpec` then `@DocSpec` then its `Cs*` markers
+   (`@CsCompletion` last, §2.10), in that order (`codespecs_mapping.md` §9.5's
+   placement, outermost-provenance-first), then the framework annotations an
+   entry writes beside its marker (`@tomReflector` and `@TomDbTable` on an
+   entity, §3.3.1) — its members
    each preceded by their own doc comment (§2.8 P2) and its methods by theirs
    (§2.8 P3).
 5. Nothing else. One top-level declaration per file (N7) — parts 3–4 repeating
@@ -1037,6 +1041,11 @@ The component does not compile between the passes. Do not end the step in
 between.
 </COMPONENT>
 
+COMPLETE a fact the code needs and the extract does not state only where a
+rule of the register of authored completions (§2.10) names it: write the
+rule's value and one @CsCompletion recording it, after the declaration's other
+Cs* markers.
+
 STOP when a derivation has no admissible output (§2.0's "generation error"):
   Do NOT write the declaration, and do not substitute a placeholder for the
   missing fact. File a csopen<n> quest todo with status decision-needed, naming
@@ -1058,6 +1067,8 @@ NEVER:
 HAND BACK:
   - The IR documents written, and in each the files by locus, with their
     units where they carry any.
+  - The authored completions written (§2.10): per declaration, the rule, the
+    fact and the value.
   - The csopen<n> todos filed, if any, with their section ids.
   - The L3 todos of this step, each marked completed or left open against a
     csopen<n>.
@@ -1070,6 +1081,52 @@ generated code, the prompt), and the validator would then be checking the
 contract while the agent followed the prompt. Citing keeps one authority per
 rule, which is the property §6 depends on to be a check rather than a second
 opinion.
+
+### 2.10 Authored completions
+
+Some facts the code needs are not stated by the specification, and the code
+cannot do without them: a `tom_core_server` repository has to be told which
+datasource its table lives in, and no section of the SOM states an entity's
+datasource. Such a fact is neither a fail-safe default (§2.3: there is no value
+whose blast radius is smaller than another's) nor a fact the agent may choose.
+It is an **authored completion**: a value the agent writes under a rule of the
+register below, and records where it writes it.
+
+**The register is closed.** A fact the code needs and the specification does
+not state is a generation error (§2.0) unless a rule below names it. The rules
+are added to this register by a reviewed edit, as a catalogue grows (§2.3), never
+by an agent in passing.
+
+**The value is the rule's.** Each rule says, from facts the specification or the
+trio already holds, which value it gives — so two runs over one specification
+write the same completions, and check 31 keeps its meaning. A case a rule
+cannot decide is not a completion; it stays a generation error.
+
+**Every completion is recorded where it is used**, as one `@CsCompletion` on
+the declaration it shaped, after that declaration's other `Cs*` markers:
+
+```dart
+@CsTable('mom_order', datasource: 'main')
+@CsTableKey('pk_order', kind: CsKeyKind.primary, columns: ['order_id'])
+@CsCompletion('AC-1', fact: 'datasource', value: 'main')
+```
+
+The IR carries it as a marker and every mapper prints it with the others, so a
+reader in any language sees which values the specification stated and which were
+completed. A run's completions are reviewed together: they are listed in the
+step's report, and once the specification states the fact, the next run writes
+the stated value and no completion.
+
+| Rule | Fact | Applies when | Value |
+|------|------|--------------|-------|
+| AC-1 | `datasource` — a `@CsTable` entity's datasource (§3.3.1) | the specification states none for the entity | the datasource of the specification's migration targets when they name exactly one (`MIGTG.dataSourceName`, which the trio's `@CsMigration` markers carry); otherwise `main`, the name `tom_core_server`'s tenancy routes by default |
+
+An entity's **schema** is not completed: `@TomDbTable.schema` only tells the
+migration check which schema of a datasource holds the table, so when the
+datasource has one schema none is written, and when it has several and the
+specification does not say which, no rule can decide it — a generation error.
+
+Check 47 holds every completion to its rule.
 
 ---
 
@@ -1385,9 +1442,9 @@ Never cites the client.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `DataEntityEntry` (`DAENT`), with `EntityRelationshipEntry` (`ENRLE`) supplying relationship columns. Consumed at entity level (`codespecs_mapping.md` §5.13): entity name, table, datasource, schema, identity attribute, row-scope rule. |
-| **2 Output** | A **persistent entity class** built on the Tom persistence model (`tom_core_server`), form 1. Its stored fields are `@CsColumn`-marked members (§3.3.2). The row-scope rule is emitted as the framework's own `@TomDbScope`, carried alongside — the same "framework annotation beside the marker" pattern CE-LG and CE-SU use. |
-| **3 Arguments** | `table` — **first positional, required** ← `DAENT`'s table field, **verbatim** (a physical table name is not derived; an agent that slugified it could rename a table under a running system). `datasource` / `schema` ← the corresponding `DAENT` fields, verbatim, `null` meaning the deployment default. The identity attribute is **not** an argument — it is the member carrying the framework's identity annotation (test **a**). |
+| **1 Input** | `DataEntityEntry` (`DAENT`), with `EntityRelationshipEntry` (`ENRLE`) supplying relationship columns, and the entity's keys (§3.3.11). Consumed at entity level (`codespecs_mapping.md` §5.13): entity name, table, datasource, schema, row-scope rule. The SOM states no datasource or schema on an entity: the datasource is completed by AC-1 (§2.10), and the schema is written only where the specification states it. |
+| **2 Output** | A **persistent entity class** built on the Tom persistence model (`tom_core_server`), form 1. Its stored fields are `@CsColumn`-marked members (§3.3.2). Beside the markers, the framework's own binding: **`@tomReflector`** and **`@TomDbTable(datasource:, table:, schema:, primaryKeyFields:)`** — `datasource`, `table` and `schema` those of `@CsTable` (`schema` omitted when `@CsTable` has none), `primaryKeyFields` the members holding the columns of the `@CsTableKey` that identifies the row, in key order. `tom_core_server`'s repository reads `@TomDbTable` and nothing else, so this is what makes the entity's repository run. The row-scope rule is emitted as the framework's own `@TomDbScope`, carried alongside — the same "framework annotation beside the marker" pattern CE-LG and CE-SU use. Check 45 holds the binding to the markers. |
+| **3 Arguments** | `table` — **first positional, required** ← `DAENT`'s table field, **verbatim** (a physical table name is not derived; an agent that slugified it could rename a table under a running system). `datasource` — written always: the specified one, else AC-1's with its `@CsCompletion` (§2.10). `schema` — the specified one, else none. The primary key is **not** an argument — it is the identifying `@CsTableKey` (§3.3.11). |
 | **4 Naming** | Class = PascalCase of `DAENT`'s entity-name field — **not** of the table name; the table is a storage fact and the class is the domain name. N6 applies. |
 | **5 Locus** | `server` — CE-DB is server-only (§4.2), which is also why a rendering attribute cannot be declared on a column (`codespecs_mapping.md` §5.13.1). |
 | **6 Cross-refs** | Relationship columns reference other entities by **`Type` literal**, never a ref const (`codespecs_mapping.md` §5.23). Domain enums by plain type. |
@@ -1449,7 +1506,7 @@ its own optional column as a bare `DateTime? updatedAt`.
 |-------|----------|
 | **1 Input** | `DataEntityEntry` (`DAENT`) for the entity and key type; the named queries come from the operations that read the entity (`SVOPE`, matched by `primaryDataEntity` and by the members typed by the entity). Consumed (`codespecs_mapping.md` §5.13 repository level): entity + key type, named queries, predicates, sort, row cap, distinct, transaction scope. |
 | **2 Output** | A repository over the `tom_core_server` CRUD / MariaDB repositories, form 1, with one method per named query. Each is **form 3b**, and its structured behaviour surface is the query itself: `TomQueryBuilder` is the named substrate (§2.4 statement kind 2), and the `codespecs_mapping.md` §5.13 predicate vocabulary (`eq`, `like`, `between`, `isIn`, `and`, `or`), sort, row cap and distinct are that builder's own surface (test **b**), not annotation arguments — so the body composes the builder and returns its result. A query stated as description only, with no predicates, sort or cap, falls back to **form 3a** (`throw UnsupportedError('<query description>')`). This entry emits no abstract collaborator: `TomQueryBuilder` is the whole vocabulary its bodies need. |
-| **3 Arguments** | None; `@CsRepository({String? note})` unchanged. Entity and key type are the class's generics (test **a**); transaction scope is **ambient** rather than threaded through the call — `TomTransactionManager` holds the current transaction in a `Zone` value, and the flow the repository runs in is what opens it: `@TomTransactional` on the calling CE-API endpoint, or the `runInTransactionScope` wrap CE-JB emits around a job body (§3.7.1). A declared unit of work therefore adds no parameter here (test **b**; `codespecs_mapping.md` §5.13). |
+| **3 Arguments** | None; `@CsRepository({String? note})` unchanged. Entity and key type are the class's generics (test **a**): `TomRepository<E, K>`, `E` the entity and `K` its primary-key type — the type of the member holding the identifying `@CsTableKey`'s column, or `TomCompositeKey` (`tom_core_server`) for a key of several columns, whose by-key methods take a map of those members (check 46); transaction scope is **ambient** rather than threaded through the call — `TomTransactionManager` holds the current transaction in a `Zone` value, and the flow the repository runs in is what opens it: `@TomTransactional` on the calling CE-API endpoint, or the `runInTransactionScope` wrap CE-JB emits around a job body (§3.7.1). A declared unit of work therefore adds no parameter here (test **b**; `codespecs_mapping.md` §5.13). |
 | **4 Naming** | PascalCase of the entity name + `Repository`. |
 | **5 Locus** | `server`. |
 | **6 Cross-refs** | `Type` literals for the entity; `CsOperationRef` where a named query realises a declared operation. |
@@ -1563,7 +1620,7 @@ CE-DS or CE-UP, authored in that scope's own list.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | The entity's `keyAttributes` list (`KEATT-KEYA-LST`) of `KeyAttributeEntry` (`KEATT`) — the headline, `keyType` and `keyColumns`, with the generation band `KEAGN` (`generationStrategy`, `sequenceName`, `isNaturalKey`), the reference band `KEARF` (`referencedKey`, `onDeleteAction`, `onUpdateAction`) and its resolved target `KEATT-REFE-REF`, and the governance band `KEAGV` (`deferrable`); and the entity's `indexes` list (`ENIDX-INDE-LST`) of `EntityIndexEntry` (`ENIDX`) — the headline, `indexType`, `columns`, `includeColumns`, `isUnique`, `isClustered`, `filterCondition`. Both classes are routed `@CodeSpecKind([CodeSpecPart.dataAccess])`, so they reach CE-DB's extract. |
-| **2 Output** | No declaration of its own: **one `@CsTableKey` per `KEATT` entry and one `@CsTableIndex` per `ENIDX` entry**, written on the §3.3.1 entity class after `@CsTable`, keys first, each list in the entity's order. A key is a property of the table, not of one column — a composite key spans several columns, two keys may share one, and a foreign key carries a target and cascade rules no column has — so neither marker is a `@CsColumn` argument. |
+| **2 Output** | No declaration of its own: **one `@CsTableKey` per `KEATT` entry and one `@CsTableIndex` per `ENIDX` entry**, written on the §3.3.1 entity class after `@CsTable`, keys first, each list in the entity's order. A key is a property of the table, not of one column — a composite key spans several columns, two keys may share one, and a foreign key carries a target and cascade rules no column has — so neither marker is a `@CsColumn` argument. The identifying key's columns are also what §3.3.1's `@TomDbTable.primaryKeyFields` names, as the members holding them. |
 | **3 Arguments** | `@CsTableKey`: `name` — **first positional, required** ← the `KEATT` headline, verbatim (a migration addresses a constraint by its name, so it is never derived). `kind` ← `keyType`, constant-for-constant onto `CsKeyKind {primary, foreign, alternate, composite, natural, surrogate}`. `columns` ← `keyColumns`, split at its commas into the list of physical column names, order kept, each trimmed and otherwise verbatim. `generation` ← `KEAGN.generationStrategy` onto `CsKeyGeneration {auto, sequence, uuid, ulid, custom, natural}`; `sequenceName` ← `KEAGN.sequenceName`; `isNaturalKey` ← `KEAGN.isNaturalKey` (`Yes`/`No` → `true`/`false`). For a `foreign` key: `references` ← the entity `KEATT-REFE-REF` resolves to, as the **`Type` literal** of its §3.3.1 class; `referencedColumns` ← `KEARF.referencedKey`, split like `columns` — **absent, it is omitted**, and the key references the target's primary key, as SQL's `REFERENCES t` without columns does; `onDelete` / `onUpdate` ← `KEARF.onDeleteAction` / `onUpdateAction` onto `CsReferentialAction {cascade, setNull, restrict, noAction, setDefault}`. `deferrable` ← `KEAGV.deferrable`. Every argument the specification does not author is **omitted** — `null` or empty, never defaulted. `@CsTableIndex`: `name` ← the `ENIDX` headline, verbatim; `columns` ← `columns`, split at its commas, each entry kept verbatim with its direction (`'placed_at DESC'`); `indexType` ← onto `CsIndexType {bTree, hash, gist, gin, fullText, spatial}`; `includeColumns` split like `columns`; `isUnique` / `isClustered` (`Yes`/`No`); `filterCondition` verbatim. |
 | **4 Naming** | None — the markers name nothing in Dart; the constraint and index names are authored keys (N5). |
 | **5 Locus** | `server`, with the entity. |
@@ -2450,6 +2507,7 @@ it is omitted below.
 | `@CsClient` | `(String clientId, {required CsClientKind kind})` |
 | `@CsIdentityAttribute` | `{required CsIdentityAttributePlacement placement, CsResourceKeyRef? accessKey, String? systemOfRecord, bool required = false}` — `required` is the attribute's own field name here, not the Dart modifier |
 | `@CsMigration` | `{required String datasource, required String schema, required CsMigrationKind kind}` |
+| `@CsCompletion` | `(String rule, {required String fact, required String value})` — not a part: the record of an authored completion (§2.10) |
 | `@CsJob` | `{required CsJobTrigger trigger, String? cron, String? calendar, String? event, Duration? interval, String? intervalAnchor, int maxRetries = 0, Duration? backoff, Duration? timeout, CsMessageKey? failureAlert, List<CsReportRef> targetReports = const []}` |
 | `@CsNotification` | `{required CsMessageKey body}` |
 
@@ -2533,7 +2591,7 @@ Each is named here so the toolchain implements it as a check rather than as a
 convention. They are the mechanised half of the authoring side (§2.0): the agent
 writes the trio, and this program decides whether what it wrote is admissible.
 
-**Where they run.** All forty-four are implemented in
+**Where they run.** All forty-seven are implemented in
 `tom_ai/ai_build/tom_specs_clitool/lib/src/codespecs/` (`cs_reader` reads the generated trio via
 the analyzer, `cs_model` resolves it, `cs_extract` reads the per-area extracts
 (through the SOM runtime's `CodeSpecsExtractSet`, the reader every runtime shares),
@@ -2606,7 +2664,7 @@ violating `@CsTrigger(kind: userGesture, form: …)` therefore passes `dart
 analyze` untouched — and the annotation is the only site these markers are ever
 written at. An assert there would enforce nothing while reading as if it did,
 which is worse than no guard, so the enforcement point is the generation-time
-validator's pass over the resolved annotation for **all** forty-four.
+validator's pass over the resolved annotation for **all** forty-seven.
 
 | # | Check | Defined in | Implemented by |
 |---|-------|------------|----------------|
@@ -2654,6 +2712,9 @@ validator's pass over the resolved annotation for **all** forty-four.
 | 42 | Every column a `@CsTableKey` or `@CsTableIndex` names (an index entry without its direction, and its include columns) is a `@CsColumn` of the same `@CsTable` class; both markers sit on a `@CsTable` class only; `references`, `referencedColumns`, `onDelete` and `onUpdate` appear on a `foreign` key only, and a `foreign` key states `references` | §3.3.11 | `CsTableKeyColumnsCheck` |
 | 43 | A `foreign` key's `references` is a `@CsTable` class of the server project, and its `referencedColumns` — or, when it states none, the target's primary-key columns — are columns of that class, one per key column | §3.3.11 | `CsForeignKeyTargetCheck` |
 | 44 | Every `@CsTable` holds exactly one `@CsTableKey` whose kind identifies the row (`primary`, `composite`, `natural`, `surrogate`) | §3.3.11 | `CsPrimaryKeyCheck` |
+| 45 | Every `@CsTable` class carries `@tomReflector` and a `@TomDbTable` whose `table`, `datasource` and `schema` are those of `@CsTable`, and whose `primaryKeyFields` are the members holding the identifying `@CsTableKey`'s columns, in key order; `@CsTable` states a datasource | §3.3.1 | `CsTomDbTableCheck` |
+| 46 | A `@CsRepository` extends `TomRepository<E, K>`, `E` a `@CsTable` class and `K` its primary-key type — the key member's type, or `TomCompositeKey` for several columns | §3.3.4 | `CsRepositoryKeyTypeCheck` |
+| 47 | Every `@CsCompletion` names a rule of the register, the fact that rule completes and the rule's value, at most once per declaration, and the declaration carries that value (AC-1: a `@CsTable` whose `datasource` is it) | §2.10 | `CsCompletionCheck` |
 
 **Check 23 is the one that makes "compiles" checkable before a compiler sees
 it.** Its two halves fail in opposite directions and neither implies the other.

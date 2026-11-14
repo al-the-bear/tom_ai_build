@@ -3,6 +3,7 @@
 // Spec model version: 1.0.0+3.50e0102
 
 import 'package:tom_code_specs/tom_code_specs.dart';
+import 'package:tom_core_server/tom_core_server.dart';
 
 /// A wholesale or e-commerce customer that places orders. Realizes FR-01.
 @CodeSpec(
@@ -26,8 +27,15 @@ import 'package:tom_code_specs/tom_code_specs.dart';
         'and columns',
   ),
 ])
-@CsTable('mom_customer')
+@CsTable('mom_customer', datasource: 'main')
 @CsTableKey('pk_customer', kind: CsKeyKind.primary, columns: ['customer_id'])
+@CsCompletion('AC-1', fact: 'datasource', value: 'main')
+@tomReflector
+@TomDbTable(
+  datasource: 'main',
+  table: 'mom_customer',
+  primaryKeyFields: ['customerId'],
+)
 class Customer {
   /// Stable customer identifier.
   @DocSpec([

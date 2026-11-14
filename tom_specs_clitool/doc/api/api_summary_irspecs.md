@@ -332,7 +332,7 @@ IrSchemaBuilder(IrIndex index, {required String refBase, required List<String> n
 | `writeIrYaml(IrDocument document)` | `String` | The document as YAML text, every string quoted. |
 | `readIrFolder(String dir)` | `List<IrDocument>` | Every `*.ir.yaml` document in a folder, in file-name order. |
 | `irFileToData(IrFile entry)` | `Map<String, Object?>` | One file entry as data — the record check 31 compares between two IR runs. |
-| `csModelForChecks(List<IrDocument> documents)` | `({CsLocusProject shared, CsLocusProject client, CsLocusProject server})` | The trio for the forty-four checks: `csModelFromIr`, each file's `source` its IR record. |
+| `csModelForChecks(List<IrDocument> documents)` | `({CsLocusProject shared, CsLocusProject client, CsLocusProject server})` | The trio for the forty-seven checks: `csModelFromIr`, each file's `source` its IR record. |
 | `readIrYaml(String text, {String source = 'IR document'})` | `IrDocument` | The document YAML text holds. |
 | `plainYaml(Object? yaml)` | `Object?` | Parsed YAML as plain maps, lists and scalars. |
 | `irDocumentsForUnit(List<IrDocument> documents, IrUnit unit, {required String mapper})` | `List<IrDocument>` | The share of the documents `mapper` writes for `unit`: its locus, its areas mapped to `mapper` and the `package` document, files that name the unit or no unit; its project renamed to the unit. |

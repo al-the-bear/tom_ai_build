@@ -212,7 +212,7 @@ source; the fix regenerates every facade.
 
 ### The CodeSpecs validator
 
-`validate_codespecs.dart` runs the forty-four contract checks over a generated
+`validate_codespecs.dart` runs the forty-seven contract checks over a generated
 trio. It takes `--shared`, `--client` and `--server`; **all three are required**,
 and omitting one exits `2` with usage rather than crashing:
 
@@ -242,7 +242,7 @@ Two machine-readable outputs exist for a tool that would otherwise scrape the
 text. The exit codes are the same in every mode.
 - **`--json`** writes the result as one versioned document (format
   `codespecs-validation`, version 1). It carries the inputs, the unrun checks,
-  the areas a gate record excluded, the 44 checks, and per violation its check
+  the areas a gate record excluded, the 47 checks, and per violation its check
   number and title, defining section, severity, file, line, token and area
   (where the check knows them) and message.
 - **`--backlinks`** runs no check. It writes the trio's back-link index (format

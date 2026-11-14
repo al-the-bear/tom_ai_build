@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.19.0
+
+- `@CsCompletion(rule, {fact, value, note})`: the record of an authored
+  completion — a value the authoring agent completed under a rule of the
+  derivation contract's register (§2.10), written beside the code it shaped,
+  repeatable. Like `@CsCollaborator` it is not a part.
+- Documentation: the README, `doc/marking_code.md`, `doc/index.md` and the API
+  summary count 43 part markers, two non-part markers, 21 catalogues and 29 of
+  45 markers taking arguments (several counts were stale).
+
 ## 0.18.0
 
 - `@CsTableKey` and `@CsTableIndex`: an entity's keys and indexes, repeatable
