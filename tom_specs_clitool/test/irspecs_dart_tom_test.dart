@@ -209,6 +209,94 @@ void main() {
       expect(() => mapDartTom(documents), throwsA(isA<IrMapException>()));
     });
   });
+
+  group('IRDT3: the formatter is the SDK\'s, found from a compiled binary', () {
+    late Directory dir;
+    late String dart;
+    setUp(() {
+      dir = Directory.systemTemp.createTempSync('irspecs_dart_lookup');
+      final name = Platform.isWindows ? 'dart.exe' : 'dart';
+      dart = p.join(dir.path, 'sdk', 'bin', name);
+      File(dart)
+        ..parent.createSync(recursive: true)
+        ..writeAsStringSync('');
+    });
+    tearDown(() => dir.deleteSync(recursive: true));
+
+    final separator = Platform.isWindows ? ';' : ':';
+    final irspecs = p.join('/opt', 'ext', 'bin', 'irspecs');
+
+    test('on the Dart VM, the VM itself', () {
+      final vm = p.join(
+        '/sdk',
+        'bin',
+        Platform.isWindows ? 'dart.exe' : 'dart',
+      );
+      expect(
+        resolveDartExecutable(resolvedExecutable: vm, environment: const {}),
+        vm,
+      );
+    });
+
+    test('in a compiled binary: TOM_DART (the executable or the SDK folder), '
+        'else PATH', () {
+      expect(
+        resolveDartExecutable(
+          resolvedExecutable: irspecs,
+          environment: {'TOM_DART': dart},
+        ),
+        dart,
+      );
+      expect(
+        resolveDartExecutable(
+          resolvedExecutable: irspecs,
+          environment: {'TOM_DART': p.join(dir.path, 'sdk')},
+        ),
+        dart,
+      );
+      expect(
+        resolveDartExecutable(
+          resolvedExecutable: irspecs,
+          environment: {
+            'PATH': ['/nowhere', p.dirname(dart)].join(separator),
+          },
+        ),
+        dart,
+      );
+    });
+
+    test('no SDK: refused, the files written unformatted, TOM_DART and PATH '
+        'named', () async {
+      Object? error;
+      try {
+        await formatDartFiles(
+          ['a.dart', 'b.dart'],
+          resolvedExecutable: irspecs,
+          environment: const {'PATH': '/nowhere'},
+        );
+      } on IrMapException catch (e) {
+        error = e;
+      }
+      expect('$error', contains('2 Dart file(s) were written unformatted'));
+      expect('$error', contains('Set TOM_DART'));
+      expect('$error', contains('put `dart` on PATH'));
+    });
+
+    test('a TOM_DART that is no SDK is named as such', () async {
+      final wrong = p.join(dir.path, 'nothing-here');
+      Object? error;
+      try {
+        await formatDartFiles(
+          ['a.dart'],
+          resolvedExecutable: irspecs,
+          environment: {'TOM_DART': wrong, 'PATH': p.dirname(dart)},
+        );
+      } on IrMapException catch (e) {
+        error = e;
+      }
+      expect('$error', contains('TOM_DART is `$wrong`'));
+    });
+  });
 }
 
 String _firstDifference(String a, String b) {

@@ -337,7 +337,8 @@ IrSchemaBuilder(IrIndex index, {required String refBase, required List<String> n
 | `plainYaml(Object? yaml)` | `Object?` | Parsed YAML as plain maps, lists and scalars. |
 | `irDocumentsForUnit(List<IrDocument> documents, IrUnit unit, {required String mapper})` | `List<IrDocument>` | The share of the documents `mapper` writes for `unit`: its locus, its areas mapped to `mapper` and the `package` document, files that name the unit or no unit; its project renamed to the unit. |
 | `mapDartTom(List<IrDocument> documents)` | `Map<String, String>` | The Dart + Tom mapper: `<package>/<path>` → unformatted source. |
-| `formatDartFiles(List<String> paths)` | `Future<void>` | Runs `dart format` over the paths. |
+| `formatDartFiles(List<String> paths, {String? resolvedExecutable, Map<String, String>? environment})` | `Future<void>` | Runs `dart format` over the paths with the SDK [resolveDartExecutable] finds; throws `IrMapException` naming `TOM_DART` and `PATH` when there is none (the files stay written, unformatted). |
+| `resolveDartExecutable({String? resolvedExecutable, Map<String, String>? environment})` | `String?` | The `dart` to format with: the running VM, else `TOM_DART` (executable or SDK folder), else the first `dart` on `PATH`; `null` when none. |
 | `writeDartTom(List<IrDocument> documents, String outDir)` | `Future<List<String>>` | Writes and formats the trio the documents describe; returns the written paths. |
 | `emitOpenApi(List<IrDocument> documents)` | `IrEmission` | The OpenAPI 3.1 document, `openapi.json`. |
 | `emitJsonSchema(List<IrDocument> documents)` | `IrEmission` | The JSON Schema 2020-12 document, `schema.json`. |

@@ -64,17 +64,75 @@ Map<String, String> mapDartTom(List<IrDocument> documents) {
   return out;
 }
 
-/// Runs `dart format` over [paths]; throws [IrMapException] when it fails.
+/// The `dart` executable [formatDartFiles] runs, or `null` when there is none.
+///
+/// On the Dart VM (`dart run`, `dart test`) it is the running VM itself,
+/// [resolvedExecutable]. A compiled binary (`dart compile exe`, as the VS Code
+/// extension bundles `irspecs`) is not `dart`, so the SDK is looked up: the
+/// `TOM_DART` environment variable, naming the `dart` executable (or an SDK
+/// folder holding `bin/dart`), else the first `dart` on `PATH`. A Dart SDK is a
+/// prerequisite of the dart-tom mapper: the formatter is the SDK's own.
+String? resolveDartExecutable({
+  String? resolvedExecutable,
+  Map<String, String>? environment,
+}) {
+  final self = resolvedExecutable ?? Platform.resolvedExecutable;
+  final env = environment ?? Platform.environment;
+  final names = Platform.isWindows
+      ? const ['dart.exe', 'dart.bat']
+      : const ['dart'];
+  if (names.contains(p.basename(self).toLowerCase())) return self;
+  final fromEnv = env['TOM_DART'];
+  if (fromEnv != null && fromEnv.trim().isNotEmpty) {
+    final path = fromEnv.trim();
+    if (File(path).existsSync()) return path;
+    for (final name in names) {
+      final inSdk = p.join(path, 'bin', name);
+      if (File(inSdk).existsSync()) return inSdk;
+    }
+    return null;
+  }
+  final separator = Platform.isWindows ? ';' : ':';
+  for (final dir in (env['PATH'] ?? '').split(separator)) {
+    if (dir.isEmpty) continue;
+    for (final name in names) {
+      final candidate = p.join(dir, name);
+      if (File(candidate).existsSync()) return candidate;
+    }
+  }
+  return null;
+}
+
+/// Runs `dart format` over [paths]; throws [IrMapException] when it fails or
+/// when no Dart SDK is found ([resolveDartExecutable]).
 ///
 /// The formatter is the SDK's own binary — the one the trio is held to — so
 /// the mapper and a developer formatting by hand agree by construction.
-Future<void> formatDartFiles(List<String> paths) async {
+/// [resolvedExecutable] and [environment] stand in for the process's own in a
+/// test.
+Future<void> formatDartFiles(
+  List<String> paths, {
+  String? resolvedExecutable,
+  Map<String, String>? environment,
+}) async {
   if (paths.isEmpty) return;
-  final result = await Process.run(Platform.resolvedExecutable, [
+  final dart = resolveDartExecutable(
+    resolvedExecutable: resolvedExecutable,
+    environment: environment,
+  );
+  if (dart == null) {
+    final tomDart = (environment ?? Platform.environment)['TOM_DART'];
+    throw IrMapException(
+      'the ${paths.length} Dart file(s) were written unformatted: no Dart SDK '
+      'to run `dart format` with. '
+      '${tomDart == null || tomDart.trim().isEmpty ? 'Set TOM_DART to the `dart` executable (or the SDK folder), or put `dart` on PATH.' : 'TOM_DART is `$tomDart`, which is neither a `dart` executable nor an SDK folder holding bin/dart.'}',
+    );
+  }
+  final result = await Process.run(dart, [
     'format',
     '--output=write',
     ...paths,
-  ]);
+  ], runInShell: dart.toLowerCase().endsWith('.bat'));
   if (result.exitCode != 0) {
     throw IrMapException('dart format failed: ${result.stderr}');
   }
