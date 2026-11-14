@@ -8,7 +8,7 @@
 formatVersion: 1
 gate: G7
 title: Business Acceptance Complete
-checklistVersion: 1.1.0
+checklistVersion: 1.2.0
 criteria: tom_specs_project_flow.md §PF-GAT-G7
 document: the application candidate in its acceptance environment
 items:
@@ -104,3 +104,10 @@ items:
     how: SBP/INSC/RIANAS/RISENT-KEYR-LST[] read against SBP/ACDP/ACRG/DEPRE-DEPS-LST[] — each dependency's status now and as G6's gate report recorded it, and the risks that name the dependency or its subject.
     evidence: The review record — the risks added, changed and closed since G6, each dependency that changed state with the risks re-assessed for it, or "no change".
     pass: The review is recorded, and no dependency that changed state is left without a re-assessment of its risks.
+  - id: G7-EARLIER-1
+    criterion: Earlier results consistent
+    inspect: The earlier phases' results this phase changed were brought up to date with what it settled, as marked changes the user reviewed.
+    method: reading
+    how: consistency.md of the phase's last step before the gate, read against the earlier results it names and their change marks.
+    evidence: consistency.md — each change with the result it changed and what caused it, or "no change".
+    pass: consistency.md exists, every change it lists is in its result and reviewed, and no statement of an earlier result contradicts this phase's.

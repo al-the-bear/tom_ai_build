@@ -10,7 +10,7 @@
 formatVersion: 1
 gate: G2
 title: Solution Blueprint Complete
-checklistVersion: 1.1.0
+checklistVersion: 1.2.0
 criteria: tom_specs_project_flow.md §PF-GAT-G2
 document: SBP
 items:
@@ -238,3 +238,10 @@ items:
     how: SBP/INSC/RIANAS/RISENT-KEYR-LST[] read against the Project Idea's risks (G1-RISK-1) and SBP/ACDP/ACRG/DEPRE-DEPS-LST[] — each dependency's status and the risks that name it.
     evidence: The review record — the risks taken over from the Project Idea, the risks added in Phase 2, each dependency with a status other than Confirmed or Resolved and its risks.
     pass: The review is recorded; every Project Idea risk is in the register or closed with a reason; every Blocking or At-risk dependency has a risk.
+  - id: G2-EARLIER-1
+    criterion: Earlier results consistent
+    inspect: The earlier phases' results this phase changed were brought up to date with what it settled, as marked changes the user reviewed.
+    method: reading
+    how: consistency.md of the phase's last step before the gate, read against the earlier results it names and their change marks.
+    evidence: consistency.md — each change with the result it changed and what caused it, or "no change".
+    pass: consistency.md exists, every change it lists is in its result and reviewed, and no statement of an earlier result contradicts this phase's.

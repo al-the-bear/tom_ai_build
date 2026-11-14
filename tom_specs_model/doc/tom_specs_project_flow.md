@@ -325,6 +325,14 @@ model and no `Cs*` base classes. Every class a CodeSpec instantiates comes from
 | Errors and messages | Error-result and message-key CodeSpecs |
 | Authorization | Authorization CodeSpecs derived from `SAS` |
 
+**Generation units first.** Phase 4 opens by completing and confirming the
+generation-unit register of the Blueprint (`GENUN-UNIT-LST`): one unit per
+package the project builds, its kind, a mapping for every area it holds, the
+`units` overrides and its standard emitters; the user reviews it before Stage A.
+A register left empty is written as the default trio with `dart-tom`
+explicitly. The question rounds of Phases 1–3 ask about the units whenever the
+sources speak of them, so the step usually confirms rather than starts.
+
 **How the code is produced.** Phase 4 is neither a compiler pass nor free
 authoring. It runs in **two passes with a fixed boundary** between them
 ([`codespecs_mapping.md`](../../tom_core_codespecs/doc/codespecs_mapping.md) §1.1, §1.1.1 — pillar (e) and
@@ -724,6 +732,7 @@ Two families of measure run continuously alongside the gates:
 | Delivery roadmap drafted | Content check | Initial phase structure with goals and gate criteria |
 | Business review recorded | Sign-off check | The business review of the Blueprint is documented |
 | Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
+| Earlier results consistent | Consistency review | Every earlier phase's result this phase changed has been brought up to date as marked changes the user reviewed, recorded in `consistency.md` of the phase's last step before the gate (or "no change") |
 
 **Why this gate is heavy.** Twelve documents are derived from this one. Every
 defect that survives G2 is multiplied by the Phase-3 expansion.
@@ -745,6 +754,7 @@ defect that survives G2 is multiplied by the Phase-3 expansion.
 | Acceptance plan complete | Content check | `QAP` defines the acceptance scenarios and their pass criteria |
 | Cross-document consistency | Consistency check | No contradictions between related sections |
 | Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
+| Earlier results consistent | Consistency review | Every earlier phase's result this phase changed has been brought up to date as marked changes the user reviewed, recorded in `consistency.md` of the phase's last step before the gate (or "no change") |
 
 **Consistency check.** A dedicated agent compares related sections across
 documents and reports four classes of defect:
@@ -783,6 +793,8 @@ documents and reports four classes of defect:
 | Feature hooks complete | `validate_codespecs.dart` (check 40) | Every required hook of every enabled framework protocol feature is implemented exactly once, and no hook implements a contract tom_core does not ship |
 | No protocol endpoint re-declared | `validate_codespecs.dart` (check 41) | No binding declares a route under a path the framework reserves for a protocol feature |
 | Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
+| Generation units mapped | Register check | Every area a unit of the generation-unit register holds that the run routed with a `sufficient` verdict has a mapping in that unit; every mapper and emitter the register names exists |
+| Earlier results consistent | Consistency review | Every earlier phase's result this phase changed has been brought up to date as marked changes the user reviewed, recorded in `consistency.md` of the phase's last step before the gate (or "no change") |
 
 The four rows from *Trio is self-sufficient* to *Output is determined, not preferred* are what PF-PHA-P4's two-pass production model makes checkable:
 pass 1 is verified by comparing extracts against their source, pass 2 by the
@@ -806,6 +818,7 @@ validator and by the determinism the derivation contract obliges it to.
 | No redundant coverage | Redundancy check | Tests do not unnecessarily overlap |
 | Baseline recorded | Baseline check | A test baseline exists for Phase 6 comparison |
 | Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
+| Earlier results consistent | Consistency review | Every earlier phase's result this phase changed has been brought up to date as marked changes the user reviewed, recorded in `consistency.md` of the phase's last step before the gate (or "no change") |
 
 ### PF-GAT-G6 G6 — Implementation Complete
 
@@ -827,6 +840,7 @@ The most comprehensive gate — it evaluates the actual code.
 | No untracked markers | Pattern scan | 0 untracked TODO / FIXME |
 | Coverage adequate | Coverage analysis | Line coverage above the project threshold (default 80%) |
 | Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
+| Earlier results consistent | Consistency review | Every earlier phase's result this phase changed has been brought up to date as marked changes the user reviewed, recorded in `consistency.md` of the phase's last step before the gate (or "no change") |
 
 **Execution order.** The orchestrator runs the checks fast-failure-first —
 static analysis, tests, security audit, code review passes, traceability, doc
@@ -856,6 +870,7 @@ business logic can still leak data or bypass a rule.
 | Open defects acceptable | Defect review | No open critical or high defect; remaining defects explicitly accepted |
 | Human sign-off recorded | File check | A signed acceptance record exists |
 | Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
+| Earlier results consistent | Consistency review | Every earlier phase's result this phase changed has been brought up to date as marked changes the user reviewed, recorded in `consistency.md` of the phase's last step before the gate (or "no change") |
 
 **This is the only gate where human sign-off is a hard requirement.** The agents
 assemble the evidence and recommend; the business decides.
@@ -876,6 +891,7 @@ assemble the evidence and recommend; the business decides.
 | Provisioning verified *(multi-tenant only)* | Provisioning test | Sample subscriber provisioned and onboarded end to end |
 | Quota enforcement verified *(multi-tenant only)* | SQM test | Plan quotas, user limits and feature toggles enforce correctly |
 | Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
+| Earlier results consistent | Consistency review | Every earlier phase's result this phase changed has been brought up to date as marked changes the user reviewed, recorded in `consistency.md` of the phase's last step before the gate (or "no change") |
 
 ### PF-GAT-CHK Gate Checklists
 
@@ -1254,6 +1270,15 @@ re-enters that phase.
 6. Re-entry is recorded: which phase, which deliverable, what changed, what was
    re-verified. Repeated re-entry into the same area is a signal that the gate
    which let the defect through needs tightening.
+
+**Earlier results kept up to date.** Not every change a later phase makes is a
+defect of an earlier one: a phase also settles what an earlier result left
+open or said less precisely. So every phase from Phase 2 on brings the earlier
+phases' results up to date in its last step before the gate — as marked changes
+the user reviews, recorded in `consistency.md` of that step (or "no change") —
+and its gate checks that the earlier results are consistent with its own
+(`G<N>-EARLIER-1`, PF-GAT-G2 … PF-GAT-G8). A finding that is a defect of an
+earlier phase still goes through re-entry as above.
 
 ---
 

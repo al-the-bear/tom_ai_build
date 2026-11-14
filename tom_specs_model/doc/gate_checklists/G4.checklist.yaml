@@ -8,7 +8,7 @@
 formatVersion: 1
 gate: G4
 title: CodeSpecs Complete
-checklistVersion: 1.1.1
+checklistVersion: 1.2.0
 criteria: tom_specs_project_flow.md §PF-GAT-G4
 document: the CodeSpecs trio, its extracts and the specification document
 items:
@@ -173,3 +173,17 @@ items:
     how: SBP/INSC/RIANAS/RISENT-KEYR-LST[] read against SBP/ACDP/ACRG/DEPRE-DEPS-LST[] — each dependency's status now and as G3's gate report recorded it, and the risks that name the dependency or its subject.
     evidence: The review record — the risks added, changed and closed since G3, each dependency that changed state with the risks re-assessed for it, or "no change".
     pass: The review is recorded, and no dependency that changed state is left without a re-assessment of its risks.
+  - id: G4-UNITS-1
+    criterion: Generation units mapped
+    inspect: Every area a unit of the generation-unit register holds that the run routed (a non-empty extract with a sufficient verdict) has a mapping in that unit; every mapper and every emitter the register names exists.
+    method: tool
+    how: "SBP/.../GENUN-UNIT-LST[] read against gate.verdicts.yaml and the extracts; the mapper ids against irspecs map --mapper, the emitter ids (openapi, jsonschema, icu, asyncapi) against irspecs emit --standard; the specification validated on every tier (an unknown emitter id is a finding)."
+    evidence: The register as reviewed in step units-review, with each routed area of each unit and its mapping.
+    pass: No routed area of a unit without a mapping, and no unknown mapper or emitter.
+  - id: G4-EARLIER-1
+    criterion: Earlier results consistent
+    inspect: The earlier phases' results this phase changed were brought up to date with what it settled, as marked changes the user reviewed.
+    method: reading
+    how: consistency.md of the phase's last step before the gate, read against the earlier results it names and their change marks.
+    evidence: consistency.md — each change with the result it changed and what caused it, or "no change".
+    pass: consistency.md exists, every change it lists is in its result and reviewed, and no statement of an earlier result contradicts this phase's.
