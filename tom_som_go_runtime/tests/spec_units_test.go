@@ -513,6 +513,21 @@ func TestUnitsValidationRegister(t *testing.T) {
 	})
 }
 
+func TestUnitsValidationEmitterUnknown(t *testing.T) {
+	model := unitsCorpusModel(t)
+	d := unitsRegister()
+	for _, emitter := range []string{"openapi", "swagger", " icu ", "OpenAPI"} {
+		item := d.AddListItem("DEMO/DLV-LST-2/DLE-LST")
+		d.SetFormField(item+"/content", "emitter", emitter)
+	}
+	// An emitter item with no value at all is absence, not a finding.
+	d.AddListItem("DEMO/DLV-LST-2/DLE-LST")
+	unitsExpect(t, unitsCheck(model, d), []unitsFinding{
+		{"DEMO/DLV-LST-2/DLE-LST-2", "unitEmitterUnknown", `emitter "swagger" is no standard emitter (openapi, jsonschema, icu, asyncapi)`},
+		{"DEMO/DLV-LST-2/DLE-LST-4", "unitEmitterUnknown", `emitter "OpenAPI" is no standard emitter (openapi, jsonschema, icu, asyncapi)`},
+	})
+}
+
 func TestUnitsValidationPhaseOrder(t *testing.T) {
 	model := unitsCorpusModel(t)
 	d := unitsRegister()
@@ -616,6 +631,33 @@ func TestUnitsRegisterOrderAndMappings(t *testing.T) {
 		if got := som.SpecDefaultUnits(units, c.area); !reflect.DeepEqual(got, c.want) {
 			t.Fatalf("SpecDefaultUnits(%s) = %v, want %v", c.area, got, c.want)
 		}
+	}
+}
+
+func TestUnitsRegisterEmittersPerUnit(t *testing.T) {
+	model := unitsCorpusModel(t)
+	d := unitsRegister()
+	for _, e := range [][2]string{
+		{"DEMO/DLV-LST-2", "openapi"},
+		{"DEMO/DLV-LST-2", " asyncapi "},
+		{"DEMO/DLV-LST-1", "icu"},
+		{"DEMO/DLV-LST-2", ""},
+	} {
+		item := d.AddListItem(e[0] + "/DLE-LST")
+		d.SetFormField(item+"/content", "emitter", e[1])
+	}
+	units := som.SpecGenerationUnits(model, d)
+	if got := units[0].Emitters; !reflect.DeepEqual(got, []string{"icu"}) {
+		t.Fatalf("first emitters = %v", got)
+	}
+	if got := units[len(units)-1].Emitters; !reflect.DeepEqual(got, []string{"openapi", "asyncapi"}) {
+		t.Fatalf("last emitters = %v", got)
+	}
+	if got := som.SpecGenerationUnits(model, unitsRegister())[0].Emitters; len(got) != 0 {
+		t.Fatalf("emitters without any = %v", got)
+	}
+	if !reflect.DeepEqual(som.SpecStandardEmitters, []string{"openapi", "jsonschema", "icu", "asyncapi"}) {
+		t.Fatalf("SpecStandardEmitters = %v", som.SpecStandardEmitters)
 	}
 }
 

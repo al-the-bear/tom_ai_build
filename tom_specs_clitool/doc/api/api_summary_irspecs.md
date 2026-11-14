@@ -51,7 +51,7 @@ Schema is `tool/irspecs_ir.schema.json`.
 | `kJavaSpringVersions` | `Map<String, String>` | The Java release, the Gradle and the Gradle plugins the project pins. |
 | `kCsharpAspnetServerMapper` | `'csharp-aspnet-server'` | The C# + ASP.NET Core server mapper's id (`irspecs_ir.md` §14). |
 | `kCsharpVersions` | `Map<String, String>` | The target framework, the SDK band and the NuGet packages the solution pins. |
-| `irStandards` | `Map<String, IrEmission Function(List<IrDocument>)>` | The standards `irspecs emit --standard` writes: `openapi`, `jsonschema`, `icu`, `asyncapi`. |
+| `irStandards` | `Map<String, IrEmission Function(List<IrDocument>)>` | The standards `irspecs emit` writes — by `--standard`, or every one a unit's emitters name with `--spec` / `--unit`: `openapi`, `jsonschema`, `icu`, `asyncapi`. |
 | `kOpenApiVersion`, `kOpenApiFile` | `'3.1.0'`, `'openapi.json'` | The OpenAPI emitter's version and file. |
 | `kJsonSchema202012`, `kJsonSchemaFile` | the 2020-12 dialect URI, `'schema.json'` | The JSON Schema emitter's dialect and file. |
 | `kIcuFile` | `'messages.json'` | The ICU emitter's file. |

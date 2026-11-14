@@ -7,7 +7,9 @@
  * as validation phase 8 recognises it: a **unit** is a list item whose class
  * carries `@NoArtifact(generation)` and declares the form field `unitId`; a
  * **mapping** is such a list item declaring the form field `area`, and belongs
- * to the nearest unit whose path is a prefix of its own.
+ * to the nearest unit whose path is a prefix of its own; an **emitter** is
+ * such a list item declaring the form field `emitter`, and belongs to its
+ * unit the same way.
  */
 
 import { SpecDocument } from './spec_document';
@@ -33,6 +35,18 @@ export class SpecGenerationUnitMapping {
   }
 }
 
+/**
+ * The standard emitters a unit's `emitters` may name (`irspecs_ir.md` §10),
+ * in the order `irspecs emit` lists them. Validation phase 8 reports any other
+ * id as `unitEmitterUnknown`.
+ */
+export const K_SPEC_STANDARD_EMITTERS: readonly string[] = Object.freeze([
+  'openapi',
+  'jsonschema',
+  'icu',
+  'asyncapi',
+]);
+
 /** One generation unit the document declares. */
 export class SpecGenerationUnit {
   /** The unit's id — what a section's `units` names, usually the package name. */
@@ -47,17 +61,25 @@ export class SpecGenerationUnit {
   /** The unit's mappings, in stored order. */
   readonly mappings: SpecGenerationUnitMapping[];
 
+  /**
+   * The standard emitters the unit ships (`irspecs_ir.md` §10), as stored
+   * (trimmed), in stored order; an emitter with no id is left out.
+   */
+  readonly emitters: string[];
+
   /** Creates a unit. */
   constructor(props: {
     unitId: string;
     kind: string;
     path: string;
     mappings: SpecGenerationUnitMapping[];
+    emitters?: string[];
   }) {
     this.unitId = props.unitId;
     this.kind = props.kind;
     this.path = props.path;
     this.mappings = props.mappings;
+    this.emitters = props.emitters ?? [];
   }
 
   /** Whether one of the unit's mappings holds `areaCode`. */
@@ -82,6 +104,11 @@ interface _UnitRow {
   path: string;
 }
 
+interface _EmitterRow {
+  path: string;
+  emitter: string;
+}
+
 interface _MappingRow {
   path: string;
   area: string;
@@ -102,6 +129,7 @@ export function specGenerationUnits(
   const refl = new SpecReflection(model);
   const units: _UnitRow[] = [];
   const mappings: _MappingRow[] = [];
+  const emitters: _EmitterRow[] = [];
   const value = (formPath: string, name: string): string => {
     const v = doc.formField(formPath, name);
     return v === null || v === undefined ? '' : v.trim();
@@ -137,6 +165,14 @@ export function specGenerationUnits(
           });
         }
       }
+      const emitterForm = specFormDeclaring(cls, 'emitter');
+      if (emitterForm !== null) {
+        const formPath = specPathJoin(item, refl.fieldSegment(emitterForm));
+        const emitter = value(formPath, 'emitter');
+        if (emitter !== '') {
+          emitters.push({ path: item, emitter });
+        }
+      }
     }
   }
 
@@ -158,6 +194,9 @@ export function specGenerationUnits(
             (m) =>
               new SpecGenerationUnitMapping({ area: m.area, mapping: m.mapping }),
           ),
+        emitters: emitters
+          .filter((e) => _owner(e.path, units) === u.path)
+          .map((e) => e.emitter),
       }),
     );
   }
@@ -176,8 +215,8 @@ export function specDefaultUnits(
 }
 
 /**
- * The path of the unit a mapping at `mappingPath` belongs to: the longest unit
- * path that is a proper prefix of it, or `null`.
+ * The path of the unit a mapping or emitter at `mappingPath` belongs to: the
+ * longest unit path that is a proper prefix of it, or `null`.
  */
 function _owner(mappingPath: string, units: _UnitRow[]): string | null {
   let best: string | null = null;

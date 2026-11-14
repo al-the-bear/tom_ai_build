@@ -26,7 +26,7 @@ use tom_som_rust_runtime::spec_review_merge::{
 use tom_som_rust_runtime::validate_document;
 use tom_som_rust_runtime::CodeSpecsExtract;
 use tom_som_rust_runtime::SomNode;
-use tom_som_rust_runtime::{spec_default_units, spec_generation_units};
+use tom_som_rust_runtime::{spec_default_units, spec_generation_units, SPEC_STANDARD_EMITTERS};
 
 fn corpus(name: &str) -> String {
     let path = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR"))
@@ -548,6 +548,33 @@ fn phase8_the_register_duplicate_builds_nothing_malformed_area() {
 }
 
 #[test]
+fn phase8_unit_emitter_unknown_an_emitter_that_is_no_standard_emitter() {
+    let model = corpus_model();
+    let mut d = register();
+    for emitter in ["openapi", "swagger", " icu ", "OpenAPI"] {
+        let item = d.add_list_item("DEMO/DLV-LST-2/DLE-LST");
+        d.set_form_field(&format!("{}/content", item), "emitter", emitter);
+    }
+    // An emitter item with no value at all is absence, not a finding.
+    d.add_list_item("DEMO/DLV-LST-2/DLE-LST");
+    assert_eq!(
+        check(&model, &d),
+        vec![
+            finding(
+                "DEMO/DLV-LST-2/DLE-LST-2",
+                "unitEmitterUnknown",
+                "emitter \"swagger\" is no standard emitter (openapi, jsonschema, icu, asyncapi)"
+            ),
+            finding(
+                "DEMO/DLV-LST-2/DLE-LST-4",
+                "unitEmitterUnknown",
+                "emitter \"OpenAPI\" is no standard emitter (openapi, jsonschema, icu, asyncapi)"
+            ),
+        ]
+    );
+}
+
+#[test]
 fn phase8_follows_the_derived_values_and_precedes_annotations() {
     let model = corpus_model();
     let mut d = register();
@@ -686,6 +713,31 @@ fn register_units_in_register_order_each_with_its_own_mappings() {
     assert_eq!(spec_default_units(&units, "CE-NV"), vec!["u_a", "u_b"]);
     assert_eq!(spec_default_units(&units, "CE-TX"), vec!["u_a"]);
     assert!(spec_default_units(&units, "CE-DB").is_empty());
+}
+
+#[test]
+fn register_each_unit_carries_its_own_emitters_trimmed_in_stored_order() {
+    let model = corpus_model();
+    let mut d = register();
+    for (unit, emitter) in [
+        ("DEMO/DLV-LST-2", "openapi"),
+        ("DEMO/DLV-LST-2", " asyncapi "),
+        ("DEMO/DLV-LST-1", "icu"),
+        ("DEMO/DLV-LST-2", ""),
+    ] {
+        let item = d.add_list_item(&format!("{}/DLE-LST", unit));
+        d.set_form_field(&format!("{}/content", item), "emitter", emitter);
+    }
+    let units = spec_generation_units(&model, &d);
+    assert_eq!(units.first().unwrap().emitters, vec!["icu"]);
+    assert_eq!(units.last().unwrap().emitters, vec!["openapi", "asyncapi"]);
+    assert!(spec_generation_units(&model, &register())[0]
+        .emitters
+        .is_empty());
+    assert_eq!(
+        SPEC_STANDARD_EMITTERS,
+        &["openapi", "jsonschema", "icu", "asyncapi"]
+    );
 }
 
 #[test]

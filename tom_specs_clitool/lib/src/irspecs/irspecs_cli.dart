@@ -40,6 +40,7 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show
         CodeSpecsAreaCatalog,
         SpecDocument,
+        SpecGenerationUnit,
         buildSomMetaTree,
         specGenerationUnits;
 import 'package:tom_som_dart_v0/tom_som_dart_v0_model.dart' show somSpecModel;
@@ -100,18 +101,19 @@ ArgParser irspecsParser() => ArgParser()
   ..addOption(
     'spec',
     help:
-        'map: the specification document (*.docspecs.yaml or its Markdown '
-        'rendition) whose generation-unit register names --unit.',
+        'map, emit: the specification document (*.docspecs.yaml or its '
+        'Markdown rendition) whose generation-unit register names --unit.',
   )
   ..addOption(
     'unit',
     help:
-        'map: write only this generation unit, into --out/<unit id> '
-        '(needs --spec).',
+        'map: write only this generation unit, into --out/<unit id>. emit: '
+        'write every standard the unit\'s emitters name, instead of '
+        '--standard. Needs --spec.',
   )
   ..addOption(
     'standard',
-    help: 'emit: the standard to write the IR in.',
+    help: 'emit: the standard to write the IR in (or --spec and --unit).',
     allowed: irStandards.keys.toList(),
   )
   ..addOption(
@@ -316,10 +318,16 @@ Future<int> _map(
   }
 }
 
-/// The generation unit [unitId] of the specification at [specPath]. Throws
+/// The generation unit [unitId] of the specification at [specPath], as the
+/// IR mappers take it. Throws [IrSpecsException] when the file cannot be read
+/// or decoded, declares no such unit, or the unit is not of a trio locus.
+IrUnit _unitOf(String specPath, String unitId) =>
+    IrUnit.fromRegister(_registerUnitOf(specPath, unitId));
+
+/// The register entry [unitId] of the specification at [specPath]. Throws
 /// [IrSpecsException] when the file cannot be read or decoded, or declares no
 /// such unit.
-IrUnit _unitOf(String specPath, String unitId) {
+SpecGenerationUnit _registerUnitOf(String specPath, String unitId) {
   final file = File(specPath);
   if (!file.existsSync()) {
     throw IrSpecsException('--spec: no file at $specPath');
@@ -345,7 +353,7 @@ IrUnit _unitOf(String specPath, String unitId) {
   }
   final units = specGenerationUnits(somSpecModel, document);
   for (final u in units) {
-    if (u.unitId == unitId) return IrUnit.fromRegister(u);
+    if (u.unitId == unitId) return u;
   }
   throw IrSpecsException(
     '--unit: $specPath declares no generation unit "$unitId"'
@@ -368,34 +376,78 @@ int _emit(
   StringSink stderrSink,
   void Function() usage,
 ) {
+  final standard = results.option('standard');
+  final spec = results.option('spec');
+  final unitId = results.option('unit');
   final missing = [
-    for (final option in ['standard', 'ir', 'out'])
+    for (final option in ['ir', 'out'])
       if (results.option(option) == null) '--$option',
+    if (standard == null && spec == null && unitId == null)
+      '--standard (or --spec and --unit)',
   ];
   if (missing.isNotEmpty) {
     stderrSink.writeln('Missing ${missing.join(', ')}.');
     usage();
     return 2;
   }
+  if ((spec == null) != (unitId == null)) {
+    stderrSink.writeln('--spec and --unit go together.');
+    usage();
+    return 2;
+  }
+  if (standard != null && spec != null) {
+    stderrSink.writeln(
+      'Give --standard, or --spec and --unit (the unit\'s emitters), not both.',
+    );
+    usage();
+    return 2;
+  }
   final List<IrDocument> documents;
+  final List<String> standards;
   try {
+    if (standard != null) {
+      standards = [standard];
+    } else {
+      final unit = _registerUnitOf(spec!, unitId!);
+      final unknown = [
+        for (final e in unit.emitters)
+          if (!irStandards.containsKey(e)) e,
+      ];
+      if (unknown.isNotEmpty) {
+        throw IrSpecsException(
+          'generation unit "${unit.unitId}" names ${unknown.join(', ')}, '
+          'which irspecs emit does not write (it writes '
+          '${irStandards.keys.join(', ')})',
+        );
+      }
+      standards = unit.emitters;
+      if (standards.isEmpty) {
+        stdoutSink.writeln(
+          'Generation unit "${unit.unitId}" names no emitter; nothing written.',
+        );
+        return 0;
+      }
+    }
     documents = readIrFolder(results.option('ir')!);
   } on IrSpecsException catch (e) {
     stderrSink.writeln(e.message);
     return 2;
   }
-  final emission = irStandards[results.option('standard')!]!(documents);
   final outDir = Directory(results.option('out')!)..createSync(recursive: true);
-  for (final MapEntry(key: name, value: text) in emission.files.entries) {
-    File(p.join(outDir.path, name)).writeAsStringSync(text);
-    stdoutSink.writeln('$name written');
-  }
-  if (emission.notExpressed.isEmpty) {
-    stdoutSink.writeln('Every fact the standard reads was expressed.');
-  } else {
-    stdoutSink.writeln('Not expressed (irspecs_ir.md §10.2):');
-    for (final line in emission.notExpressed) {
-      stdoutSink.writeln('  - $line');
+  for (final name in standards) {
+    if (standards.length > 1) stdoutSink.writeln('$name:');
+    final emission = irStandards[name]!(documents);
+    for (final MapEntry(key: file, value: text) in emission.files.entries) {
+      File(p.join(outDir.path, file)).writeAsStringSync(text);
+      stdoutSink.writeln('$file written');
+    }
+    if (emission.notExpressed.isEmpty) {
+      stdoutSink.writeln('Every fact the standard reads was expressed.');
+    } else {
+      stdoutSink.writeln('Not expressed (irspecs_ir.md §10.2):');
+      for (final line in emission.notExpressed) {
+        stdoutSink.writeln('  - $line');
+      }
     }
   }
   return 0;

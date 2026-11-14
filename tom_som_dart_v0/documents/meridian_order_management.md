@@ -1,4 +1,4 @@
-<!-- docspec: solution-blueprint/1.9 -->
+<!-- docspec: solution-blueprint/1.11 -->
 # <!--[SBP]--> Solution Blueprint
 
 Solution Blueprint for the **Meridian Order Management (MOM)** programme.
@@ -2493,6 +2493,20 @@ Mapping: dart-tom
 Area: CE-SU
 
 Mapping: dart-tom
+
+######## <!--[GEEMI-EMIT-LST]--> Emitters
+
+######### <!--[GEEMI-EMIT-1]--> openapi
+
+Emitter: openapi
+
+Note: The order service operations, for the web client and the partner integrations.
+
+######### <!--[GEEMI-EMIT-2]--> jsonschema
+
+Emitter: jsonschema
+
+Note: The wire types the operations carry.
 
 #### <!--[SDR]--> Software Design
 

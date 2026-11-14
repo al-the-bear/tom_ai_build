@@ -19554,6 +19554,17 @@ void registerSpecOps() {
     ),
   );
   SpecRegistry.register(
+    GenerationUnitEmitterEntry,
+    SpecClassOps(
+      slots: (o) => const [],
+      cloneShallow: (o) {
+        final n = o as GenerationUnitEmitterEntry;
+        return GenerationUnitEmitterEntry()..content = n.content;
+      },
+      yamlScalar: (o) => (o as GenerationUnitEmitterEntry).content,
+    ),
+  );
+  SpecRegistry.register(
     GenerationUnitEntry,
     SpecClassOps(
       slots: (o) {
@@ -19565,13 +19576,20 @@ void registerSpecOps() {
             label: 'mappings',
             sectionId: 'GEMAP-MAPP-LST',
           ),
+          SpecSlot.list(
+            () => n.emitters,
+            (v) => n.emitters = v.cast<GenerationUnitEmitterEntry>(),
+            label: 'emitters',
+            sectionId: 'GEEMI-EMIT-LST',
+          ),
         ];
       },
       cloneShallow: (o) {
         final n = o as GenerationUnitEntry;
         return GenerationUnitEntry()
           ..content = n.content
-          ..mappings = n.mappings;
+          ..mappings = n.mappings
+          ..emitters = n.emitters;
       },
       yamlScalar: (o) => (o as GenerationUnitEntry).content,
     ),

@@ -444,6 +444,23 @@ trio with notifications and jobs). ICU MessageFormat has no meta-schema; its
 catalogue is checked by a parser of the ICU MessageFormat syntax
 (`icuSyntaxErrors`).
 
+**A unit names the standards it ships.** The generation-unit register
+(`codespecs_mapping.md` §1.1.1 item 4) records per unit its **emitters** next to
+its mappings: each an emitter id, `openapi`, `jsonschema`, `icu` or `asyncapi`
+(validation phase 8 reports any other as `unitEmitterUnknown`, SOM §11.2).
+
+```text
+irspecs emit --spec <document> --unit <unit id> --ir <spec-root>/irspecs --out <dir>
+```
+
+writes every standard the unit's emitters name into `--out`, each one exactly
+as `--standard` writes it. A standard is the contract of the whole IR, not of
+the areas the unit maps: a server unit that maps CE-DB and CE-SU still ships
+the OpenAPI document of the operations it serves, whose shapes sit in the
+shared locus. A unit that names no emitter writes nothing; `--standard` and
+`--unit` are given one or the other. The Meridian server unit names `openapi`
+and `jsonschema`.
+
 ### 10.1 Which area feeds which standard
 
 | Standard | File | Areas | What becomes what |

@@ -561,6 +561,26 @@ void testValidation() {
     check("phase8.register", got == want, show(got));
   }
   {
+    // unitEmitterUnknown: an emitter that is no standard emitter.
+    som::SpecDocument d = registerDoc();
+    for (const char* emitter : {"openapi", "swagger", " icu ", "OpenAPI"}) {
+      const std::string item = d.addListItem("DEMO/DLV-LST-2/DLE-LST");
+      d.setFormField(item + "/content", "emitter", emitter);
+    }
+    // An emitter item with no value at all is absence, not a finding.
+    d.addListItem("DEMO/DLV-LST-2/DLE-LST");
+    const std::vector<Finding> want = {
+        {"DEMO/DLV-LST-2/DLE-LST-2", "unitEmitterUnknown",
+         "emitter \"swagger\" is no standard emitter "
+         "(openapi, jsonschema, icu, asyncapi)"},
+        {"DEMO/DLV-LST-2/DLE-LST-4", "unitEmitterUnknown",
+         "emitter \"OpenAPI\" is no standard emitter "
+         "(openapi, jsonschema, icu, asyncapi)"},
+    };
+    const auto got = validate(d);
+    check("phase8.unitEmitterUnknown", got == want, show(got));
+  }
+  {
     // Phase 8 follows the derived values and precedes the annotations.
     som::SpecDocument d = registerDoc();
     d.setUnits("DEMO/TTL", "u_x");
@@ -618,6 +638,39 @@ void testRegister() {
           joined(som::specDefaultUnits(units, "CE-TX")) == "u_a",
           joined(som::specDefaultUnits(units, "CE-TX")));
     check("register.default.DB", som::specDefaultUnits(units, "CE-DB").empty());
+  }
+  {
+    // Each unit carries its own emitters, trimmed, in stored order.
+    som::SpecDocument d = registerDoc();
+    const std::vector<std::pair<std::string, std::string>> emitters = {
+        {"DEMO/DLV-LST-2", "openapi"},
+        {"DEMO/DLV-LST-2", " asyncapi "},
+        {"DEMO/DLV-LST-1", "icu"},
+        {"DEMO/DLV-LST-2", ""}};
+    for (const auto& [unit, emitter] : emitters) {
+      const std::string item = d.addListItem(unit + "/DLE-LST");
+      d.setFormField(item + "/content", "emitter", emitter);
+    }
+    const std::vector<som::SpecGenerationUnit> units =
+        som::specGenerationUnits(*g_model, d);
+    check("register.emitters.count", units.size() == 2);
+    if (units.size() == 2) {
+      check("register.emitters.first", joined(units.front().emitters) == "icu",
+            joined(units.front().emitters));
+      check("register.emitters.last",
+            joined(units.back().emitters) == "openapi,asyncapi",
+            joined(units.back().emitters));
+    }
+    const som::SpecDocument plain = registerDoc();
+    const std::vector<som::SpecGenerationUnit> none =
+        som::specGenerationUnits(*g_model, plain);
+    check("register.emitters.none",
+          !none.empty() && none.front().emitters.empty());
+    std::vector<std::string> standard(som::kSpecStandardEmitters.begin(),
+                                      som::kSpecStandardEmitters.end());
+    check("register.emitters.standard",
+          joined(standard) == "openapi,jsonschema,icu,asyncapi",
+          joined(standard));
   }
   {
     // A unit without an id, and a second unit of one id, are left out.

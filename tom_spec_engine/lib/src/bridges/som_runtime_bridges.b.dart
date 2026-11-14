@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 29 files
-// Generated: 2026-11-13T11:35:09.395093 by tom_d4rt_generator 1.63.2
+// Generated: 2026-11-14T14:41:50.065869 by tom_d4rt_generator 1.63.2
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -1362,6 +1362,17 @@ class SomRuntimeBridge {
       );
     } catch (e) {
       errors.add('Failed to register variable "kNoArtifactAnnotation": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable(
+        'kSpecStandardEmitters',
+        $tom_som_dart_runtime_13.kSpecStandardEmitters,
+        importPath,
+        sourceUri:
+            'package:tom_som_dart_runtime/src/spec_generation_units.dart',
+      );
+    } catch (e) {
+      errors.add('Failed to register variable "kSpecStandardEmitters": $e');
     }
     try {
       interpreter.registerGlobalVariable(
@@ -9795,11 +9806,16 @@ BridgedClass _createSpecGenerationUnitBridge() {
               named['mappings'],
               'mappings',
             );
+        final emitters =
+            named.containsKey('emitters') && named['emitters'] != null
+            ? D4.coerceList<String>(named['emitters'], 'emitters')
+            : const <String>[];
         return $tom_som_dart_runtime_13.SpecGenerationUnit(
           unitId: unitId,
           kind: kind,
           path: path,
           mappings: mappings,
+          emitters: emitters,
         );
       },
     },
@@ -9828,6 +9844,12 @@ BridgedClass _createSpecGenerationUnitBridge() {
             'SpecGenerationUnit',
           )
           .mappings,
+      'emitters': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_13.SpecGenerationUnit>(
+            target,
+            'SpecGenerationUnit',
+          )
+          .emitters,
     },
     methods: {
       'maps': (visitor, target, positional, named, typeArgs) {
@@ -9862,7 +9884,7 @@ BridgedClass _createSpecGenerationUnitBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const SpecGenerationUnit({required String unitId, required String kind, required String path, required List<SpecGenerationUnitMapping> mappings})',
+      '': 'const SpecGenerationUnit({required String unitId, required String kind, required String path, required List<SpecGenerationUnitMapping> mappings, List<String> emitters = const []})',
     },
     methodSignatures: {
       'maps': 'bool maps(String areaCode)',
@@ -9873,6 +9895,7 @@ BridgedClass _createSpecGenerationUnitBridge() {
       'kind': 'String get kind',
       'path': 'String get path',
       'mappings': 'List<SpecGenerationUnitMapping> get mappings',
+      'emitters': 'List<String> get emitters',
     },
   );
 }

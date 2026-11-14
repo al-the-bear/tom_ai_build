@@ -820,9 +820,9 @@ fn meta_children_architecture_style(s: &mut HashSet<String>) -> Vec<Rc<som::SomM
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "ArchitectureStyle".to_string(), member_name: "generationUnits".to_string(), section_id: "GENUN-UNIT-LST".to_string(), section_id_pattern: "GENUN-UNIT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "GenerationUnitEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per generated unit — a client, a server, the package both share — and give each the mapper of every area it holds.".to_string(), doc_comment: "The generation units Phase 4 writes code for, and the mapper each of\ntheir areas is written by.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("arc42 — deployment view".to_string()), som::Json::Str("C4 model — software architecture diagrams".to_string())])), ("connotation".to_string(), som::Json::Str("The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ArchitectureStyle".to_string(), member_name: "generationUnits".to_string(), section_id: "GENUN-UNIT-LST".to_string(), section_id_pattern: "GENUN-UNIT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "GenerationUnitEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per generated unit — a client, a server, the package both share — and give each the mapper of every area it holds.".to_string(), doc_comment: "The generation units Phase 4 writes code for, the mapper each of their\nareas is written by, and the standards each unit is also written in.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("arc42 — deployment view".to_string()), som::Json::Str("C4 model — software architecture diagrams".to_string())])), ("connotation".to_string(), som::Json::Str("The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area and the standard emitters of the unit.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("GenerationUnitEntry", s, meta_children_generation_unit_entry, |r, c| som::SomMetaNode {
-                class_name: "GenerationUnitEntry".to_string(), class_section_id: "GENUN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "GenerationUnitEntry".to_string(), doc_comment: "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).".to_string(), class_doc_comment: "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).".to_string(), recursive: r, children: c,
+                class_name: "GenerationUnitEntry".to_string(), class_section_id: "GENUN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "GenerationUnitEntry".to_string(), doc_comment: "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. Its emitters name the standards it is also written in — an\nOpenAPI document of its operations, a JSON Schema of its types, its messages\nin ICU MessageFormat, its events in AsyncAPI (`irspecs_ir.md` §10). A\nsection that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).".to_string(), class_doc_comment: "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. Its emitters name the standards it is also written in — an\nOpenAPI document of its operations, a JSON Schema of its types, its messages\nin ICU MessageFormat, its events in AsyncAPI (`irspecs_ir.md` §10). A\nsection that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
             }));
             Rc::new(n)
@@ -7736,6 +7736,12 @@ fn meta_children_gap_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>
     ]
 }
 
+fn meta_children_generation_unit_emitter_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "GenerationUnitEmitterEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "emitter".to_string(), type_name: "String".to_string(), description: "Emitter".to_string(), required: true, hint: "The emitter id: openapi, jsonschema, icu or asyncapi".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "note".to_string(), type_name: "String".to_string(), description: "Note".to_string(), required: false, hint: "Why this standard, who reads it".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
 fn meta_children_generation_unit_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "GenerationUnitEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "unitId".to_string(), type_name: "String".to_string(), description: "Unit Id".to_string(), required: true, hint: "The id a section's `units` member cites, as written — usually the package name (meridian_codespec_server)".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "kind".to_string(), type_name: "GenerationUnitKind".to_string(), description: "Kind".to_string(), required: true, hint: "client, server, shared or other".to_string(), order: 1, enum_values: vec!["client".to_string(), "server".to_string(), "shared".to_string(), "other".to_string()], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "deploymentTarget".to_string(), type_name: "String".to_string(), description: "Deployment Target".to_string(), required: false, hint: "The deployment target (DEPTAR-DEPL-…) this unit builds; this or the component, or both".to_string(), order: 2, enum_values: vec![], refers_to: vec!["DEPTAR.@sectionId".to_string()], code: false }, som::SomFormFieldMeta { name: "component".to_string(), type_name: "String".to_string(), description: "Component".to_string(), required: false, hint: "The architecture component (ARCM-COMP-…) this unit builds; this or the deployment target, or both".to_string(), order: 3, enum_values: vec![], refers_to: vec!["ARCM.@sectionId".to_string()], code: false }] }), ..som::SomMetaNode::default() }),
@@ -7743,6 +7749,14 @@ fn meta_children_generation_unit_entry(s: &mut HashSet<String>) -> Vec<Rc<som::S
             let mut n = som::SomMetaNode { class_name: "GenerationUnitEntry".to_string(), member_name: "mappings".to_string(), section_id: "GEMAP-MAPP-LST".to_string(), section_id_pattern: "GEMAP-MAPP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "GenerationUnitMappingEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per area the unit holds; an area written for two technologies gets two entries.".to_string(), doc_comment: "The mapper each area of the unit is written by.".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("GenerationUnitMappingEntry", s, meta_children_generation_unit_mapping_entry, |r, c| som::SomMetaNode {
                 class_name: "GenerationUnitMappingEntry".to_string(), class_section_id: "GEMAP".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "GenerationUnitMappingEntry".to_string(), doc_comment: "One mapping of a generation unit: the area and the mapper that writes it.".to_string(), class_doc_comment: "One mapping of a generation unit: the area and the mapper that writes it.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+        {
+            let mut n = som::SomMetaNode { class_name: "GenerationUnitEntry".to_string(), member_name: "emitters".to_string(), section_id: "GEEMI-EMIT-LST".to_string(), section_id_pattern: "GEEMI-EMIT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "GenerationUnitEmitterEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per standard the unit is also written in: openapi, jsonschema, icu or asyncapi.".to_string(), doc_comment: "The standard emitters the unit is also written by.".to_string(), ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("GenerationUnitEmitterEntry", s, meta_children_generation_unit_emitter_entry, |r, c| som::SomMetaNode {
+                class_name: "GenerationUnitEmitterEntry".to_string(), class_section_id: "GEEMI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "GenerationUnitEmitterEntry".to_string(), doc_comment: "One standard emitter of a generation unit: a standard the unit's code is\nalso written in (`irspecs_ir.md` §10 in `tom_core_codespecs/doc/`) — the\nemitter id `openapi`, `jsonschema`, `icu` or `asyncapi`.".to_string(), class_doc_comment: "One standard emitter of a generation unit: a standard the unit's code is\nalso written in (`irspecs_ir.md` §10 in `tom_core_codespecs/doc/`) — the\nemitter id `openapi`, `jsonschema`, `icu` or `asyncapi`.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
             }));
             Rc::new(n)
@@ -40143,6 +40157,37 @@ impl<'a> GapEntryNav<'a> {
     }
 }
 
+/// GenerationUnitEmitterEntryNav holds the dot-notation accessors of `GenerationUnitEmitterEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct GenerationUnitEmitterEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> GenerationUnitEmitterEntryNav<'a> {
+    /// Binds a GenerationUnitEmitterEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> GenerationUnitEmitterEntryNav<'a> {
+        GenerationUnitEmitterEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
 /// GenerationUnitEntryNav holds the dot-notation accessors of `GenerationUnitEntry` (SOM §8).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -40175,6 +40220,10 @@ impl<'a> GenerationUnitEntryNav<'a> {
 
     pub fn mappings(&self) -> som::SomListMetaRef<'a, GenerationUnitMappingEntryNav<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "GEMAP-MAPP-LST"), GenerationUnitMappingEntryNav::new)
+    }
+
+    pub fn emitters(&self) -> som::SomListMetaRef<'a, GenerationUnitEmitterEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "GEEMI-EMIT-LST"), GenerationUnitEmitterEntryNav::new)
     }
 }
 
@@ -94313,6 +94362,32 @@ impl<'a> GapEntryId<'a> {
     }
 }
 
+/// GenerationUnitEmitterEntryId holds the ID-tree accessors of `GenerationUnitEmitterEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct GenerationUnitEmitterEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> GenerationUnitEmitterEntryId<'a> {
+    /// Binds a GenerationUnitEmitterEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> GenerationUnitEmitterEntryId<'a> {
+        GenerationUnitEmitterEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+}
+
 /// GenerationUnitEntryId holds the ID-tree accessors of `GenerationUnitEntry` (SOM §8):
 /// methods named by section id (`-` → `_`), hoisted through id-less members
 /// so every reachable id is one step. `.path` and `.meta()` agree with the
@@ -94340,6 +94415,10 @@ impl<'a> GenerationUnitEntryId<'a> {
 
     pub fn GEMAP_MAPP_LST(&self) -> som::SomListMetaRef<'a, GenerationUnitMappingEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "GEMAP-MAPP-LST"), GenerationUnitMappingEntryId::new)
+    }
+
+    pub fn GEEMI_EMIT_LST(&self) -> som::SomListMetaRef<'a, GenerationUnitEmitterEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "GEEMI-EMIT-LST"), GenerationUnitEmitterEntryId::new)
     }
 }
 

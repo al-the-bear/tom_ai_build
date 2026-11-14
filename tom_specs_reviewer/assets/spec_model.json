@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-11-13T11:08:21.430684Z",
+  "generatedAt": "2026-11-14T13:47:01.772178Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.10.0+36.6cdeae99",
-  "classCount": 1272,
+  "modelVersionLabel": "1.11.0+37.dc999590",
+  "classCount": 1273,
   "rootCount": 14,
-  "modelHash": "d9d011c0338f033aaae10552a1f6a4c60a545d3cb014e456a3e6f46f2d719177",
+  "modelHash": "bb60630f38c11ce0f86bfad68311595b2683ea76658620665e0eb257c63f178c",
   "containerRoot": "DocSpecsProject",
   "roots": [
     {
@@ -15514,7 +15514,7 @@
         {
           "name": "generationUnits",
           "kind": "list",
-          "doc": "The generation units Phase 4 writes code for, and the mapper each of\ntheir areas is written by.",
+          "doc": "The generation units Phase 4 writes code for, the mapper each of their\nareas is written by, and the standards each unit is also written in.",
           "help": "Add one entry per generated unit — a client, a server, the package both share — and give each the mapper of every area it holds.",
           "sectionId": "GENUN-UNIT-LST",
           "sectionIdPattern": "GENUN-UNIT-xxx",
@@ -15523,7 +15523,7 @@
               "arc42 — deployment view",
               "C4 model — software architecture diagrams"
             ],
-            "connotation": "The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area."
+            "connotation": "The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area and the standard emitters of the unit."
           },
           "serializationOrder": 5,
           "annotations": [
@@ -15534,7 +15534,7 @@
                   "arc42 — deployment view",
                   "C4 model — software architecture diagrams"
                 ],
-                "connotation": "The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area."
+                "connotation": "The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area and the standard emitters of the unit."
               }
             },
             {
@@ -119460,10 +119460,83 @@
         }
       ]
     },
+    "GenerationUnitEmitterEntry": {
+      "name": "GenerationUnitEmitterEntry",
+      "sectionId": "GEEMI",
+      "doc": "One standard emitter of a generation unit: a standard the unit's code is\nalso written in (`irspecs_ir.md` §10 in `tom_core_codespecs/doc/`) — the\nemitter id `openapi`, `jsonschema`, `icu` or `asyncapi`.",
+      "standardReferences": {
+        "standards": [
+          "C4 model — software architecture diagrams"
+        ],
+        "connotation": "Which standard a generation unit is also written in."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "C4 model — software architecture diagrams"
+            ],
+            "connotation": "Which standard a generation unit is also written in."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "GEEMI"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.generation",
+            "note": "read by the CodeSpecs generator to pick the standards a unit emits"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "emitter",
+              "label": "Emitter",
+              "hint": "The emitter id: openapi, jsonschema, icu or asyncapi",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "note",
+              "label": "Note",
+              "hint": "Why this standard, who reads it",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
     "GenerationUnitEntry": {
       "name": "GenerationUnitEntry",
       "sectionId": "GENUN",
-      "doc": "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).",
+      "doc": "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. Its emitters name the standards it is also written in — an\nOpenAPI document of its operations, a JSON Schema of its types, its messages\nin ICU MessageFormat, its events in AsyncAPI (`irspecs_ir.md` §10). A\nsection that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).",
       "standardReferences": {
         "standards": [
           "arc42 — deployment view",
@@ -119600,6 +119673,43 @@
             }
           ],
           "elementType": "GenerationUnitMappingEntry",
+          "elementIsComplex": true
+        },
+        {
+          "name": "emitters",
+          "kind": "list",
+          "doc": "The standard emitters the unit is also written by.",
+          "help": "Add one entry per standard the unit is also written in: openapi, jsonschema, icu or asyncapi.",
+          "sectionId": "GEEMI-EMIT-LST",
+          "sectionIdPattern": "GEEMI-EMIT-xxx",
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "GEEMI-EMIT-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "GEEMI-EMIT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per standard the unit is also written in: openapi, jsonschema, icu or asyncapi."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "elementType": "GenerationUnitEmitterEntry",
           "elementIsComplex": true
         }
       ]

@@ -1454,7 +1454,10 @@ The generation-unit register is that section:
 (client, server, shared, other), the deployment target (`DEPTAR`) or
 architecture component (`ARCM`) it builds — at least one of the two — and its
 `mappings` (`GEMAP-MAPP-LST`): per area, the mapper that writes it, several for
-one area where it is written for two technologies.
+one area where it is written for two technologies — and its `emitters`
+(`GEEMI-EMIT-LST`): the standards the unit ships besides its code, each an
+emitter id (`openapi`, `jsonschema`, `icu`, `asyncapi`; `irspecs_ir.md` §10 in
+`tom_core_codespecs/doc/`).
 
 **Validation & authoring guidance:** `@Prefix`, `@PatternCheckId`,
 `@PatternCheck`, `@TextRequired`, `@MaxDepth`, `@AllowedTags`,

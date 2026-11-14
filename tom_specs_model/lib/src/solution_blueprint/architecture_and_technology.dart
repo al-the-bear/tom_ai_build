@@ -1802,11 +1802,11 @@ Provide the architectural vision and primary style selection rationale.
   @SerializationOrder(4)
   List<ArchitectureComponentEntry> components = [];
 
-  /// The generation units Phase 4 writes code for, and the mapper each of
-  /// their areas is written by.
+  /// The generation units Phase 4 writes code for, the mapper each of their
+  /// areas is written by, and the standards each unit is also written in.
   @StandardReferences(
     ['arc42 — deployment view', 'C4 model — software architecture diagrams'],
-    'The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area.',
+    'The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area and the standard emitters of the unit.',
   )
   @SectionId('GENUN-UNIT-LST')
   @SectionIdPattern('GENUN-UNIT-xxx')
@@ -2288,7 +2288,10 @@ enum GenerationUnitKind {
 /// component (`ARCM`), at least one of the two; which areas it holds and in
 /// which language and framework is said by its mappings — one per area, or
 /// several for one area where the same area is written for two client
-/// technologies. A section that goes to other units than its area's default
+/// technologies. Its emitters name the standards it is also written in — an
+/// OpenAPI document of its operations, a JSON Schema of its types, its messages
+/// in ICU MessageFormat, its events in AsyncAPI (`irspecs_ir.md` §10). A
+/// section that goes to other units than its area's default
 /// names them in its `units` member; the default is every unit with a mapping
 /// for the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).
 ///
@@ -2355,6 +2358,43 @@ class GenerationUnitEntry extends DocSpecsSection {
   )
   @SerializationOrder(1)
   List<GenerationUnitMappingEntry> mappings = [];
+
+  /// The standard emitters the unit is also written by.
+  @SectionId('GEEMI-EMIT-LST')
+  @SectionIdPattern('GEEMI-EMIT-xxx')
+  @ContentHelp(
+    'Add one entry per standard the unit is also written in: openapi, '
+    'jsonschema, icu or asyncapi.',
+  )
+  @SerializationOrder(2)
+  List<GenerationUnitEmitterEntry> emitters = [];
+}
+
+/// One standard emitter of a generation unit: a standard the unit's code is
+/// also written in (`irspecs_ir.md` §10 in `tom_core_codespecs/doc/`) — the
+/// emitter id `openapi`, `jsonschema`, `icu` or `asyncapi`.
+@StandardReferences([
+  'C4 model — software architecture diagrams',
+], 'Which standard a generation unit is also written in.')
+@SectionId('GEEMI')
+@NoArtifact(
+  NoArtifactReason.generation,
+  note: 'read by the CodeSpecs generator to pick the standards a unit emits',
+)
+class GenerationUnitEmitterEntry extends DocSpecsSection {
+  @Form([
+    Field(
+      'emitter',
+      String,
+      'Emitter',
+      required: true,
+      hint: 'The emitter id: openapi, jsonschema, icu or asyncapi',
+    ),
+    Field('note', String, 'Note', hint: 'Why this standard, who reads it'),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
 }
 
 /// One mapping of a generation unit: the area and the mapper that writes it.

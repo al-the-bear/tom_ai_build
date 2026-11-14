@@ -108,6 +108,10 @@ class SpecValidationCode(Enum):
     #: A generation-unit mapping's ``area`` is not an area code (``CE-``
     #: followed by capital letters).
     UNIT_AREA_MALFORMED = "unitAreaMalformed"
+    #: A generation-unit emitter names no standard emitter
+    #: (:data:`K_SPEC_STANDARD_EMITTERS`: ``openapi``, ``jsonschema``, ``icu``,
+    #: ``asyncapi``).
+    UNIT_EMITTER_UNKNOWN = "unitEmitterUnknown"
 
 
 @dataclass(frozen=True)
@@ -942,8 +946,9 @@ def _validate_generation_units(
     A **generation-unit entry** is a list item whose class carries
     ``@NoArtifact(generation)`` and declares a form field ``unitId``; a
     **mapping** is a list item whose class carries ``@NoArtifact(generation)``
-    and declares a form field ``area``. Both are recognised by these two facts,
-    never by class name. Entries and mappings are visited in sorted list-path
+    and declares a form field ``area``; an **emitter** is such a list item
+    declaring a form field ``emitter``. All three are recognised by these
+    facts, never by class name. Entries and mappings are visited in sorted list-path
     order, each list's items in their stored order — that order decides which
     of two entries declaring one ``unitId`` is "the second". An entry or
     mapping whose form holds no value at all is absence (an item just added),
@@ -951,10 +956,13 @@ def _validate_generation_units(
 
     Findings, all at the list item's path for the register and at the
     section's path for ``units``: ``duplicateUnitId``, ``unitBuildsNothing``,
-    ``unitAreaMalformed``, then per section carrying ``units`` one
+    ``unitAreaMalformed``, ``unitEmitterUnknown``, then per section carrying
+    ``units`` one
     ``unknownUnit`` per undeclared id (in the order written) and
     ``unitsUnrouted``. The group is sorted by path, stably, like every
     phase's."""
+    from .spec_generation_units import K_SPEC_STANDARD_EMITTERS
+
     errors: list[SpecValidationError] = []
     declared: set[str] = set()
     for list_path in sorted(doc.list_paths):
@@ -1013,6 +1021,24 @@ def _validate_generation_units(
                             message=(
                                 f'mapping area "{area}" is not an area code '
                                 "(CE-…)"
+                            ),
+                        )
+                    )
+
+            emitter_form = _form_declaring(cls, "emitter")
+            if emitter_form is not None:
+                form_path = spec_path_join(
+                    item, refl.field_segment(emitter_form)
+                )
+                emitter = (doc.form_field(form_path, "emitter") or "").strip()
+                if emitter and emitter not in K_SPEC_STANDARD_EMITTERS:
+                    errors.append(
+                        SpecValidationError(
+                            path=item,
+                            code=SpecValidationCode.UNIT_EMITTER_UNKNOWN,
+                            message=(
+                                f'emitter "{emitter}" is no standard emitter '
+                                f"({', '.join(K_SPEC_STANDARD_EMITTERS)})"
                             ),
                         )
                     )

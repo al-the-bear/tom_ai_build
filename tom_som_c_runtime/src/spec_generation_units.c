@@ -31,6 +31,22 @@ static char *trim_dup(const char *s) {
   return som_strdup_n(s, n);
 }
 
+/* ---- the standard emitters ----------------------------------------------- */
+
+const char *const SPEC_STANDARD_EMITTERS[] = {"openapi", "jsonschema", "icu",
+                                              "asyncapi"};
+const size_t SPEC_STANDARD_EMITTERS_LEN =
+    sizeof(SPEC_STANDARD_EMITTERS) / sizeof(SPEC_STANDARD_EMITTERS[0]);
+
+int spec_is_standard_emitter(const char *id) {
+  for (size_t i = 0; i < SPEC_STANDARD_EMITTERS_LEN; i++) {
+    if (strcmp(SPEC_STANDARD_EMITTERS[i], id) == 0) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
 /* ---- recognition (shared with validation phase 8) ------------------------ */
 
 const SpecField *spec_generation_form_declaring(const SpecClass *cls,
@@ -88,6 +104,15 @@ static void unit_push_mapping(SpecGenerationUnit *u, char *area,
   u->mappings_len++;
 }
 
+static void unit_push_emitter(SpecGenerationUnit *u, char *emitter) {
+  if (u->emitters_len == u->emitters_cap) {
+    u->emitters_cap = u->emitters_cap == 0 ? 4 : u->emitters_cap * 2;
+    u->emitters =
+        (char **)realloc(u->emitters, u->emitters_cap * sizeof(char *));
+  }
+  u->emitters[u->emitters_len++] = emitter;
+}
+
 static void unit_free(SpecGenerationUnit *u) {
   free(u->unit_id);
   free(u->kind);
@@ -97,6 +122,10 @@ static void unit_free(SpecGenerationUnit *u) {
     free(u->mappings[i].mapping);
   }
   free(u->mappings);
+  for (size_t i = 0; i < u->emitters_len; i++) {
+    free(u->emitters[i]);
+  }
+  free(u->emitters);
   memset(u, 0, sizeof(*u));
 }
 
@@ -133,7 +162,13 @@ typedef struct {
   char *mapping;
 } RawMapping;
 
-/* The path of the unit a mapping at `mapping_path` belongs to: the longest unit
+/* A recognised emitter before it is given to its unit. */
+typedef struct {
+  char *path;
+  char *emitter;
+} RawEmitter;
+
+/* The path of the unit a mapping or emitter at `mapping_path` belongs to: the longest unit
  * path (of every recognised unit, a skipped duplicate included) that is a proper
  * prefix of it, or NULL. Borrowed from `units`. */
 static const char *owner_of(const char *mapping_path,
@@ -164,6 +199,9 @@ void spec_generation_units(const SpecModel *model, const SpecDocument *doc,
   RawMapping *mappings = NULL;
   size_t mappings_len = 0;
   size_t mappings_cap = 0;
+  RawEmitter *emitters = NULL;
+  size_t emitters_len = 0;
+  size_t emitters_cap = 0;
 
   SomStrList list_paths;
   spec_document_list_paths(doc, &list_paths);
@@ -224,6 +262,28 @@ void spec_generation_units(const SpecModel *model, const SpecDocument *doc,
         }
         free(form_path);
       }
+
+      const SpecField *emitter_form =
+          spec_generation_form_declaring(cls, "emitter");
+      if (emitter_form != NULL) {
+        char *form_path =
+            spec_path_join(item, spec_reflection_field_segment(emitter_form));
+        char *emitter =
+            trim_dup(spec_document_form_field(doc, form_path, "emitter"));
+        if (emitter[0] != '\0') {
+          if (emitters_len == emitters_cap) {
+            emitters_cap = emitters_cap == 0 ? 4 : emitters_cap * 2;
+            emitters = (RawEmitter *)realloc(emitters,
+                                             emitters_cap * sizeof(RawEmitter));
+          }
+          emitters[emitters_len].path = som_strdup(item);
+          emitters[emitters_len].emitter = emitter;
+          emitters_len++;
+        } else {
+          free(emitter);
+        }
+        free(form_path);
+      }
     }
   }
   som_strlist_free(&list_paths);
@@ -248,6 +308,12 @@ void spec_generation_units(const SpecModel *model, const SpecDocument *doc,
                           som_strdup(mappings[m].mapping));
       }
     }
+    for (size_t e = 0; e < emitters_len; e++) {
+      const char *owner = owner_of(emitters[e].path, &raw_units);
+      if (owner != NULL && strcmp(owner, raw->path) == 0) {
+        unit_push_emitter(&u, som_strdup(emitters[e].emitter));
+      }
+    }
     unit_list_push(out, &u);
   }
   som_strlist_free(&seen);
@@ -258,6 +324,11 @@ void spec_generation_units(const SpecModel *model, const SpecDocument *doc,
     free(mappings[m].mapping);
   }
   free(mappings);
+  for (size_t e = 0; e < emitters_len; e++) {
+    free(emitters[e].path);
+    free(emitters[e].emitter);
+  }
+  free(emitters);
   spec_generation_unit_list_free(&raw_units);
 }
 

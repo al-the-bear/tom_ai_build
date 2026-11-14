@@ -207,7 +207,7 @@ function testModelMeta(model: SpecModel): void {
   const root = model.roots[0];
   _check('model.root.sectionId', root.sectionId === 'DEMO', String(root.sectionId));
   _check('model.root.type', root.type === 'Demo', root.type);
-  _check('model.classCount', model.classes.size === 17, String(model.classes.size));
+  _check('model.classCount', model.classes.size === 18, String(model.classes.size));
   const demo = model.classNamed('Demo');
   _check('model.Demo.found', demo !== null);
   if (demo !== null) {
@@ -1658,6 +1658,9 @@ function _buildFixtureDocument(): SpecDocument {
   const r2 = d.addListItem(`${u2}/DLR-LST`, 'DLR-2');
   d.setFormField(`${r2}/content`, 'area', 'CE-NV');
   d.setFormField(`${r2}/content`, 'mapping', 'dart-tom');
+  // The server ships the OpenAPI document of its contract (irspecs_ir.md §10).
+  const e1 = d.addListItem(`${u2}/DLE-LST`, 'DLE-1');
+  d.setFormField(`${e1}/content`, 'emitter', 'openapi');
   return d;
 }
 

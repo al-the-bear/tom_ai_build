@@ -775,9 +775,9 @@ func metaChildrenArchitectureStyle(s map[string]bool) []*som.SomMetaNode {
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ArchitectureStyle", MemberName: "generationUnits", SectionID: "GENUN-UNIT-LST", SectionIDPattern: "GENUN-UNIT-xxx", Kind: som.SomMetaKindList, TypeName: "GenerationUnitEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per generated unit — a client, a server, the package both share — and give each the mapper of every area it holds.", DocComment: "The generation units Phase 4 writes code for, and the mapper each of\ntheir areas is written by.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"arc42 — deployment view", "C4 model — software architecture diagrams"}, "connotation": "The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area."}}}}
+			n := &som.SomMetaNode{ClassName: "ArchitectureStyle", MemberName: "generationUnits", SectionID: "GENUN-UNIT-LST", SectionIDPattern: "GENUN-UNIT-xxx", Kind: som.SomMetaKindList, TypeName: "GenerationUnitEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per generated unit — a client, a server, the package both share — and give each the mapper of every area it holds.", DocComment: "The generation units Phase 4 writes code for, the mapper each of their\nareas is written by, and the standards each unit is also written in.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"arc42 — deployment view", "C4 model — software architecture diagrams"}, "connotation": "The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area and the standard emitters of the unit."}}}}
 			n.ElementNode = metaCx("GenerationUnitEntry", s, metaChildrenGenerationUnitEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-				return &som.SomMetaNode{ClassName: "GenerationUnitEntry", ClassSectionID: "GENUN", Kind: som.SomMetaKindComplex, TypeName: "GenerationUnitEntry", DocComment: "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).", ClassDocComment: "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).", Recursive: r, Children: c}
+				return &som.SomMetaNode{ClassName: "GenerationUnitEntry", ClassSectionID: "GENUN", Kind: som.SomMetaKindComplex, TypeName: "GenerationUnitEntry", DocComment: "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. Its emitters name the standards it is also written in — an\nOpenAPI document of its operations, a JSON Schema of its types, its messages\nin ICU MessageFormat, its events in AsyncAPI (`irspecs_ir.md` §10). A\nsection that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).", ClassDocComment: "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. Its emitters name the standards it is also written in — an\nOpenAPI document of its operations, a JSON Schema of its types, its messages\nin ICU MessageFormat, its events in AsyncAPI (`irspecs_ir.md` §10). A\nsection that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).", Recursive: r, Children: c}
 			})
 			return n
 		}(),
@@ -7011,6 +7011,12 @@ func metaChildrenGapEntry(s map[string]bool) []*som.SomMetaNode {
 	}
 }
 
+func metaChildrenGenerationUnitEmitterEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "GenerationUnitEmitterEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), DocComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "emitter", TypeName: "String", Description: "Emitter", Required: true, Hint: "The emitter id: openapi, jsonschema, icu or asyncapi", Order: 0}, {Name: "note", TypeName: "String", Description: "Note", Hint: "Why this standard, who reads it", Order: 1}}}},
+	}
+}
+
 func metaChildrenGenerationUnitEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "GenerationUnitEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), DocComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "unitId", TypeName: "String", Description: "Unit Id", Required: true, Hint: "The id a section's `units` member cites, as written — usually the package name (meridian_codespec_server)", Order: 0}, {Name: "kind", TypeName: "GenerationUnitKind", Description: "Kind", Required: true, Hint: "client, server, shared or other", Order: 1, EnumValues: []string{"client", "server", "shared", "other"}}, {Name: "deploymentTarget", TypeName: "String", Description: "Deployment Target", Hint: "The deployment target (DEPTAR-DEPL-…) this unit builds; this or the component, or both", Order: 2, RefersTo: []string{"DEPTAR.@sectionId"}}, {Name: "component", TypeName: "String", Description: "Component", Hint: "The architecture component (ARCM-COMP-…) this unit builds; this or the deployment target, or both", Order: 3, RefersTo: []string{"ARCM.@sectionId"}}}}},
@@ -7018,6 +7024,13 @@ func metaChildrenGenerationUnitEntry(s map[string]bool) []*som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "GenerationUnitEntry", MemberName: "mappings", SectionID: "GEMAP-MAPP-LST", SectionIDPattern: "GEMAP-MAPP-xxx", Kind: som.SomMetaKindList, TypeName: "GenerationUnitMappingEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per area the unit holds; an area written for two technologies gets two entries.", DocComment: "The mapper each area of the unit is written by."}
 			n.ElementNode = metaCx("GenerationUnitMappingEntry", s, metaChildrenGenerationUnitMappingEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "GenerationUnitMappingEntry", ClassSectionID: "GEMAP", Kind: som.SomMetaKindComplex, TypeName: "GenerationUnitMappingEntry", DocComment: "One mapping of a generation unit: the area and the mapper that writes it.", ClassDocComment: "One mapping of a generation unit: the area and the mapper that writes it.", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "GenerationUnitEntry", MemberName: "emitters", SectionID: "GEEMI-EMIT-LST", SectionIDPattern: "GEEMI-EMIT-xxx", Kind: som.SomMetaKindList, TypeName: "GenerationUnitEmitterEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per standard the unit is also written in: openapi, jsonschema, icu or asyncapi.", DocComment: "The standard emitters the unit is also written by."}
+			n.ElementNode = metaCx("GenerationUnitEmitterEntry", s, metaChildrenGenerationUnitEmitterEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "GenerationUnitEmitterEntry", ClassSectionID: "GEEMI", Kind: som.SomMetaKindComplex, TypeName: "GenerationUnitEmitterEntry", DocComment: "One standard emitter of a generation unit: a standard the unit's code is\nalso written in (`irspecs_ir.md` §10 in `tom_core_codespecs/doc/`) — the\nemitter id `openapi`, `jsonschema`, `icu` or `asyncapi`.", ClassDocComment: "One standard emitter of a generation unit: a standard the unit's code is\nalso written in (`irspecs_ir.md` §10 in `tom_core_codespecs/doc/`) — the\nemitter id `openapi`, `jsonschema`, `icu` or `asyncapi`.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
@@ -32826,6 +32839,24 @@ func (x *GapEntryNav) Resolution() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/GAENRE"}
 }
 
+// GenerationUnitEmitterEntryNav holds the dot-notation accessors of `GenerationUnitEmitterEntry` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type GenerationUnitEmitterEntryNav struct {
+	som.SomMetaRef
+}
+
+// newGenerationUnitEmitterEntryNav binds a GenerationUnitEmitterEntryNav accessor to a tree and a path.
+func newGenerationUnitEmitterEntryNav(tree *som.SomMetaTree, path string) *GenerationUnitEmitterEntryNav {
+	return &GenerationUnitEmitterEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *GenerationUnitEmitterEntryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
 // GenerationUnitEntryNav holds the dot-notation accessors of `GenerationUnitEntry` (SOM §8).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -32847,6 +32878,12 @@ func (x *GenerationUnitEntryNav) Content() *som.SomMetaRef {
 func (x *GenerationUnitEntryNav) Mappings() *som.SomListMetaRef[*GenerationUnitMappingEntryNav] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/GEMAP-MAPP-LST", func(t *som.SomMetaTree, p string) *GenerationUnitMappingEntryNav {
 		return newGenerationUnitMappingEntryNav(t, p)
+	})
+}
+
+func (x *GenerationUnitEntryNav) Emitters() *som.SomListMetaRef[*GenerationUnitEmitterEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/GEEMI-EMIT-LST", func(t *som.SomMetaTree, p string) *GenerationUnitEmitterEntryNav {
+		return newGenerationUnitEmitterEntryNav(t, p)
 	})
 }
 
@@ -76626,6 +76663,19 @@ func (x *GapEntryID) GAENRE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/GAENRE"}
 }
 
+// GenerationUnitEmitterEntryID holds the ID-tree accessors of `GenerationUnitEmitterEntry` (SOM §8): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type GenerationUnitEmitterEntryID struct {
+	som.SomMetaRef
+}
+
+// newGenerationUnitEmitterEntryID binds a GenerationUnitEmitterEntryID accessor to a tree and a path.
+func newGenerationUnitEmitterEntryID(tree *som.SomMetaTree, path string) *GenerationUnitEmitterEntryID {
+	return &GenerationUnitEmitterEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
 // GenerationUnitEntryID holds the ID-tree accessors of `GenerationUnitEntry` (SOM §8): methods
 // named by section id (`-` → `_`), hoisted through id-less members so every
 // reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
@@ -76642,6 +76692,12 @@ func newGenerationUnitEntryID(tree *som.SomMetaTree, path string) *GenerationUni
 func (x *GenerationUnitEntryID) GEMAP_MAPP_LST() *som.SomListMetaRef[*GenerationUnitMappingEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/GEMAP-MAPP-LST", func(t *som.SomMetaTree, p string) *GenerationUnitMappingEntryID {
 		return newGenerationUnitMappingEntryID(t, p)
+	})
+}
+
+func (x *GenerationUnitEntryID) GEEMI_EMIT_LST() *som.SomListMetaRef[*GenerationUnitEmitterEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/GEEMI-EMIT-LST", func(t *som.SomMetaTree, p string) *GenerationUnitEmitterEntryID {
+		return newGenerationUnitEmitterEntryID(t, p)
 	})
 }
 

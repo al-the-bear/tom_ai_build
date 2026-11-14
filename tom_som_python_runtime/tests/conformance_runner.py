@@ -295,6 +295,9 @@ def _build_document() -> SpecDocument:
     r2 = d.add_list_item(f"{u2}/DLR-LST", section_id="DLR-2")
     d.set_form_field(f"{r2}/content", "area", "CE-NV")
     d.set_form_field(f"{r2}/content", "mapping", "dart-tom")
+    # The server ships the OpenAPI document of its contract (irspecs_ir.md §10).
+    e1 = d.add_list_item(f"{u2}/DLE-LST", section_id="DLE-1")
+    d.set_form_field(f"{e1}/content", "emitter", "openapi")
     return d
 
 
@@ -315,7 +318,7 @@ def test_model_meta(model: SpecModel) -> None:
     root = model.roots[0]
     _check("model.root.sectionId", root.section_id == "DEMO", str(root.section_id))
     _check("model.root.type", root.type == "Demo", root.type)
-    _check("model.classCount", len(model.classes) == 17, str(len(model.classes)))
+    _check("model.classCount", len(model.classes) == 18, str(len(model.classes)))
     demo = model.class_named("Demo")
     _check("model.Demo.found", demo is not None)
     if demo is not None:

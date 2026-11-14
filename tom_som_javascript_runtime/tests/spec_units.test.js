@@ -31,6 +31,7 @@ const {
   parseCodeSpecsExtractYaml,
   specGenerationUnits,
   specDefaultUnits,
+  K_SPEC_STANDARD_EMITTERS,
 } = require('../tom_som_runtime/index.js');
 
 const _CORPUS = path.join(__dirname, '..', '..', 'tom_som_conformance', 'corpus');
@@ -443,6 +444,30 @@ describe('validation phase 8', () => {
     ]);
   });
 
+  test('unitEmitterUnknown: an emitter that is no standard emitter', () => {
+    const d = register();
+    for (const emitter of ['openapi', 'swagger', ' icu ', 'OpenAPI']) {
+      const item = d.addListItem('DEMO/DLV-LST-2/DLE-LST');
+      d.setFormField(`${item}/content`, 'emitter', emitter);
+    }
+    // An emitter item with no value at all is absence, not a finding.
+    d.addListItem('DEMO/DLV-LST-2/DLE-LST');
+    assert.deepStrictEqual(check(d), [
+      [
+        'DEMO/DLV-LST-2/DLE-LST-2',
+        'unitEmitterUnknown',
+        'emitter "swagger" is no standard emitter ' +
+          '(openapi, jsonschema, icu, asyncapi)',
+      ],
+      [
+        'DEMO/DLV-LST-2/DLE-LST-4',
+        'unitEmitterUnknown',
+        'emitter "OpenAPI" is no standard emitter ' +
+          '(openapi, jsonschema, icu, asyncapi)',
+      ],
+    ]);
+  });
+
   test('phase 8 follows the derived values and precedes annotations', () => {
     const d = register();
     d.setUnits('DEMO/TTL', 'u_x');
@@ -575,6 +600,30 @@ describe('the register (specGenerationUnits)', () => {
     assert.deepStrictEqual(specDefaultUnits(units, 'CE-NV'), ['u_a', 'u_b']);
     assert.deepStrictEqual(specDefaultUnits(units, 'CE-TX'), ['u_a']);
     assert.deepStrictEqual(specDefaultUnits(units, 'CE-DB'), []);
+  });
+
+  test('each unit carries its own emitters, trimmed, in stored order', () => {
+    const d = register();
+    for (const [unit, emitter] of [
+      ['DEMO/DLV-LST-2', 'openapi'],
+      ['DEMO/DLV-LST-2', ' asyncapi '],
+      ['DEMO/DLV-LST-1', 'icu'],
+      ['DEMO/DLV-LST-2', ''],
+    ]) {
+      const item = d.addListItem(`${unit}/DLE-LST`);
+      d.setFormField(`${item}/content`, 'emitter', emitter);
+    }
+    const units = specGenerationUnits(model, d);
+    assert.deepStrictEqual(units[0].emitters, ['icu']);
+    assert.deepStrictEqual(units[units.length - 1].emitters, [
+      'openapi',
+      'asyncapi',
+    ]);
+    assert.deepStrictEqual(specGenerationUnits(model, register())[0].emitters, []);
+    assert.deepStrictEqual(
+      [...K_SPEC_STANDARD_EMITTERS],
+      ['openapi', 'jsonschema', 'icu', 'asyncapi'],
+    );
   });
 
   test('a unit without an id, and a second unit of one id, are left out', () => {

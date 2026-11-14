@@ -21360,6 +21360,24 @@ GapEntryResolutionForm gap_entry_resolution(const GapEntry *self) {
   return out;
 }
 
+void generation_unit_emitter_entry_init(GenerationUnitEmitterEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void generation_unit_emitter_entry_free(GenerationUnitEmitterEntry *self) {
+  som_node_free(&self->node);
+}
+int generation_unit_emitter_entry_can_have_content(const GenerationUnitEmitterEntry *self) {
+  (void)self;
+  return 0;
+}
+GenerationUnitEmitterEntryContentForm generation_unit_emitter_entry_content(const GenerationUnitEmitterEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  GenerationUnitEmitterEntryContentForm out;
+  generation_unit_emitter_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
 void generation_unit_entry_init(GenerationUnitEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -21381,6 +21399,13 @@ SomList generation_unit_entry_mappings(const GenerationUnitEntry *self) {
   char *path = spec_path_join(self->node.path, "GEMAP-MAPP-LST");
   SomList out;
   som_list_init_pattern(&out, self->node.doc, path, "GEMAP-MAPP-xxx");
+  free(path);
+  return out;
+}
+SomList generation_unit_entry_emitters(const GenerationUnitEntry *self) {
+  char *path = spec_path_join(self->node.path, "GEEMI-EMIT-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "GEEMI-EMIT-xxx");
   free(path);
   return out;
 }
@@ -98917,6 +98942,34 @@ char *gap_entry_workaround_form_risk_if_not_addressed(const GapEntryWorkaroundFo
 }
 void gap_entry_workaround_form_set_risk_if_not_addressed(GapEntryWorkaroundForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "riskIfNotAddressed", value);
+}
+
+void generation_unit_emitter_entry_content_form_init(GenerationUnitEmitterEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void generation_unit_emitter_entry_content_form_free(GenerationUnitEmitterEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *generation_unit_emitter_entry_content_form_content(const GenerationUnitEmitterEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void generation_unit_emitter_entry_content_form_set_content(GenerationUnitEmitterEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *generation_unit_emitter_entry_content_form_emitter(const GenerationUnitEmitterEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "emitter");
+  return som_strdup(v != NULL ? v : "");
+}
+void generation_unit_emitter_entry_content_form_set_emitter(GenerationUnitEmitterEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "emitter", value);
+}
+char *generation_unit_emitter_entry_content_form_note(const GenerationUnitEmitterEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "note");
+  return som_strdup(v != NULL ? v : "");
+}
+void generation_unit_emitter_entry_content_form_set_note(GenerationUnitEmitterEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "note", value);
 }
 
 void generation_unit_entry_content_form_init(GenerationUnitEntryContentForm *self, SpecDocument *doc, const char *path) {

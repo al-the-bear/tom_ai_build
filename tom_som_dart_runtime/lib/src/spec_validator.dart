@@ -10,6 +10,7 @@ library;
 
 import 'spec_review_annotations.dart';
 import 'spec_document.dart';
+import 'spec_generation_units.dart' show kSpecStandardEmitters;
 import 'spec_model.dart';
 import 'spec_paths.dart';
 import 'spec_reflection.dart';
@@ -124,6 +125,10 @@ enum SpecValidationCode {
   /// A generation-unit mapping's `area` is not an area code (`CE-` followed by
   /// capital letters).
   unitAreaMalformed,
+
+  /// A generation-unit emitter names no standard emitter
+  /// ([kSpecStandardEmitters]: `openapi`, `jsonschema`, `icu`, `asyncapi`).
+  unitEmitterUnknown,
 }
 
 /// One problem found while validating a document.
@@ -925,7 +930,8 @@ List<SpecValidationError> _validateDerivedValues(
 /// A **generation-unit entry** is a list item whose class carries
 /// `@NoArtifact(generation)` and declares a form field `unitId`; a **mapping**
 /// is a list item whose class carries `@NoArtifact(generation)` and declares a
-/// form field `area`. Both are recognised by these two facts, never by class
+/// form field `area`; an **emitter** is such a list item declaring a form
+/// field `emitter`. All three are recognised by these facts, never by class
 /// name. Entries and mappings are visited in sorted list-path order, each
 /// list's items in their stored order — that order decides which of two
 /// entries declaring one `unitId` is "the second". An entry or mapping whose
@@ -933,7 +939,7 @@ List<SpecValidationError> _validateDerivedValues(
 ///
 /// Findings, all at the list item's path for the register and at the section's
 /// path for `units`: `duplicateUnitId`, `unitBuildsNothing`,
-/// `unitAreaMalformed`, then per section carrying `units` one `unknownUnit`
+/// `unitAreaMalformed`, `unitEmitterUnknown`, then per section carrying `units` one `unknownUnit`
 /// per undeclared id (in the order written) and `unitsUnrouted`. The group is
 /// sorted by path, stably, like every phase's.
 List<SpecValidationError> _validateGenerationUnits(
@@ -986,6 +992,23 @@ List<SpecValidationError> _validateGenerationUnits(
               path: item,
               code: SpecValidationCode.unitAreaMalformed,
               message: 'mapping area "$area" is not an area code (CE-…)',
+            ),
+          );
+        }
+      }
+
+      final emitterForm = _formDeclaring(cls, 'emitter');
+      if (emitterForm != null) {
+        final formPath = specPathJoin(item, refl.fieldSegment(emitterForm));
+        final emitter = doc.formField(formPath, 'emitter')?.trim() ?? '';
+        if (emitter.isNotEmpty && !kSpecStandardEmitters.contains(emitter)) {
+          errors.add(
+            SpecValidationError(
+              path: item,
+              code: SpecValidationCode.unitEmitterUnknown,
+              message:
+                  'emitter "$emitter" is no standard emitter '
+                  '(${kSpecStandardEmitters.join(', ')})',
             ),
           );
         }

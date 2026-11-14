@@ -558,14 +558,19 @@ language mirrors it:
   line in the Markdown view.
 - `spec_generation_units.dart` — the document's **generation-unit register**
   (§11.2): `specGenerationUnits(model, document)` reads every unit — its id,
-  kind, path and its mappings (area, mapper) in stored order — recognised as
-  validation phase 8 recognises it, by `@NoArtifact(generation)` and the form
-  field `unitId` (a mapping by `area`, belonging to the nearest unit above it),
+  kind, path, its mappings (area, mapper) and its emitters (the standards it
+  ships, `irspecs_ir.md` §10 in `tom_core_codespecs/doc/`) in stored order —
+  recognised as validation phase 8 recognises it, by `@NoArtifact(generation)`
+  and the form field `unitId` (a mapping by `area`, an emitter by `emitter`,
+  each belonging to the nearest unit above it),
   in sorted list-path order with each list's items in stored order; a unit
   without an id and a second unit of one id are left out.
   `specDefaultUnits(units, area)` is the default destination of an area — the
-  extract's fallback above. Mirrored in all nine languages; `tom_specs_clitool`'s
-  `irspecs map --unit` reads a unit's kind and mappers through the Dart one.
+  extract's fallback above. `kSpecStandardEmitters` lists the emitter ids a
+  unit may name: `openapi`, `jsonschema`, `icu`, `asyncapi`. Mirrored in all
+  nine languages; `tom_specs_clitool`'s `irspecs map --unit` reads a unit's
+  kind and mappers, and `irspecs emit --unit` its emitters, through the Dart
+  one.
 - `spec_codespecs_records.dart` — the **reading** half of the same files:
   `CodeSpecsExtract.fromYaml` reads an extract back (refusing an unknown
   `formatVersion`, and a `document.entryCount` the entries disagree with),
@@ -736,11 +741,13 @@ by path:
 | `duplicateUnitId` | 8 | two generation-unit entries declaring one `unitId` (reported at the second) |
 | `unitBuildsNothing` | 8 | a generation-unit entry with neither a `deploymentTarget` nor a `component` |
 | `unitAreaMalformed` | 8 | a generation-unit mapping whose `area` is not an area code (`CE-` followed by capital letters) |
+| `unitEmitterUnknown` | 8 | a generation-unit emitter whose `emitter` is none of `openapi`, `jsonschema`, `icu`, `asyncapi` (case-sensitive) |
 
 **Phase 8 — generation units.** A *generation-unit entry* is a list item whose
 class carries `@NoArtifact(generation)` and declares a form field `unitId`; a
 *mapping* is a list item whose class carries `@NoArtifact(generation)` and
-declares a form field `area`. The runtime recognises both by these two facts,
+declares a form field `area`; an *emitter* is such a list item declaring a form
+field `emitter`. The runtime recognises all three by these facts,
 never by class name, so the check is the model's and not a hard-coded table.
 The rules, as the reference implements them:
 
@@ -752,9 +759,9 @@ The rules, as the reference implements them:
 - **Absence is not a finding.** An entry whose unit form holds no value at all
   (an item just added) is skipped; an empty `unitId` declares nothing and is not
   a duplicate (a missing required field is `missingRequiredField`'s); an empty
-  `area` is not checked.
-- **Where findings sit.** `duplicateUnitId`, `unitBuildsNothing` and
-  `unitAreaMalformed` at the list item's path; `unknownUnit` and
+  `area` or `emitter` is not checked.
+- **Where findings sit.** `duplicateUnitId`, `unitBuildsNothing`,
+  `unitAreaMalformed` and `unitEmitterUnknown` at the list item's path; `unknownUnit` and
   `unitsUnrouted` at the path carrying `units`. A section's `units` is split at
   its commas, each id trimmed and empty pieces dropped; one `unknownUnit` per
   undeclared id, in the order written, then `unitsUnrouted`. A `units` path
@@ -779,6 +786,7 @@ The messages, identical in all nine:
 | `duplicateUnitId` | `generation unit "<id>" is declared twice` |
 | `unitBuildsNothing` | `generation unit "<id>" builds neither a deploymentTarget nor a component` |
 | `unitAreaMalformed` | `mapping area "<area>" is not an area code (CE-…)` |
+| `unitEmitterUnknown` | `emitter "<emitter>" is no standard emitter (openapi, jsonschema, icu, asyncapi)` |
 
 
 Phase 1 has one exemption, and it is not optional: a **form** node may carry

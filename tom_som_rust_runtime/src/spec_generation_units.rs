@@ -6,7 +6,9 @@
 //! as validation phase 8 recognises it: a **unit** is a list item whose class
 //! carries `@NoArtifact(generation)` and declares the form field `unitId`; a
 //! **mapping** is such a list item declaring the form field `area`, and belongs
-//! to the nearest unit whose path is a prefix of its own.
+//! to the nearest unit whose path is a prefix of its own; an **emitter** is
+//! such a list item declaring the form field `emitter`, and belongs to its unit
+//! the same way.
 
 use std::collections::HashSet;
 
@@ -27,6 +29,11 @@ pub struct SpecGenerationUnitMapping {
     pub mapping: String,
 }
 
+/// The standard emitters a unit's `emitters` may name (`irspecs_ir.md` §10),
+/// in the order `irspecs emit` lists them. Validation phase 8 reports any other
+/// id as `unitEmitterUnknown`.
+pub const SPEC_STANDARD_EMITTERS: &[&str] = &["openapi", "jsonschema", "icu", "asyncapi"];
+
 /// One generation unit the document declares.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SpecGenerationUnit {
@@ -41,6 +48,10 @@ pub struct SpecGenerationUnit {
 
     /// The unit's mappings, in stored order.
     pub mappings: Vec<SpecGenerationUnitMapping>,
+
+    /// The standard emitters the unit ships (`irspecs_ir.md` §10), as stored
+    /// (trimmed), in stored order; an emitter with no id is left out.
+    pub emitters: Vec<String>,
 }
 
 impl SpecGenerationUnit {
@@ -72,6 +83,12 @@ struct RawMapping {
     mapping: String,
 }
 
+/// An emitter as read, before it is given to its unit.
+struct RawEmitter {
+    path: String,
+    emitter: String,
+}
+
 /// The generation units `doc` declares, in register order: sorted list-path
 /// order, each list's items in their stored order — the order validation phase
 /// 8 visits them in. A unit without a `unitId` is left out; a second unit with
@@ -81,6 +98,7 @@ pub fn spec_generation_units(model: &SpecModel, doc: &SpecDocument) -> Vec<SpecG
     let refl = SpecReflection::new(model);
     let mut units: Vec<RawUnit> = Vec::new();
     let mut mappings: Vec<RawMapping> = Vec::new();
+    let mut emitters: Vec<RawEmitter> = Vec::new();
     let mut list_paths = doc.list_paths();
     list_paths.sort();
     for list_path in &list_paths {
@@ -119,6 +137,16 @@ pub fn spec_generation_units(model: &SpecModel, doc: &SpecDocument) -> Vec<SpecG
                     });
                 }
             }
+            if let Some(emitter_form) = form_declaring(&cls, "emitter") {
+                let form_path = spec_path_join(&item, &refl.field_segment(emitter_form));
+                let emitter = trimmed(&form_path, "emitter");
+                if !emitter.is_empty() {
+                    emitters.push(RawEmitter {
+                        path: item.clone(),
+                        emitter,
+                    });
+                }
+            }
         }
     }
 
@@ -140,6 +168,11 @@ pub fn spec_generation_units(model: &SpecModel, doc: &SpecDocument) -> Vec<SpecG
                     mapping: m.mapping.clone(),
                 })
                 .collect(),
+            emitters: emitters
+                .iter()
+                .filter(|e| owner(&e.path, &units) == Some(u.path.as_str()))
+                .map(|e| e.emitter.clone())
+                .collect(),
         });
     }
     out
@@ -155,8 +188,8 @@ pub fn spec_default_units(units: &[SpecGenerationUnit], area_code: &str) -> Vec<
         .collect()
 }
 
-/// The path of the unit a mapping at `mapping_path` belongs to: the longest
-/// unit path that is a proper prefix of it, or `None`.
+/// The path of the unit a mapping or emitter at `mapping_path` belongs to: the
+/// longest unit path that is a proper prefix of it, or `None`.
 fn owner<'u>(mapping_path: &str, units: &'u [RawUnit]) -> Option<&'u str> {
     let mut best: Option<&str> = None;
     for u in units {

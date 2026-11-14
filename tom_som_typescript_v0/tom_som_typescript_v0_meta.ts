@@ -2737,9 +2737,9 @@ function _mc_ArchitectureStyle(s: Set<string>): SomMetaNode[] {
       typeName: "GenerationUnitEntry",
       serializationOrder: 5,
       contentHelp: "Add one entry per generated unit — a client, a server, the package both share — and give each the mapper of every area it holds.",
-      docComment: "The generation units Phase 4 writes code for, and the mapper each of\ntheir areas is written by.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["arc42 — deployment view", "C4 model — software architecture diagrams"], "connotation": "The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area."})],
-      elementNode: _cx("GenerationUnitEntry", s, _mc_GenerationUnitEntry, (r, c) => new SomMetaNode({className: "GenerationUnitEntry", classSectionId: "GENUN", kind: SomMetaKind.COMPLEX, typeName: "GenerationUnitEntry", docComment: "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).", classDocComment: "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).", recursive: r, children: c}))}),
+      docComment: "The generation units Phase 4 writes code for, the mapper each of their\nareas is written by, and the standards each unit is also written in.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["arc42 — deployment view", "C4 model — software architecture diagrams"], "connotation": "The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area and the standard emitters of the unit."})],
+      elementNode: _cx("GenerationUnitEntry", s, _mc_GenerationUnitEntry, (r, c) => new SomMetaNode({className: "GenerationUnitEntry", classSectionId: "GENUN", kind: SomMetaKind.COMPLEX, typeName: "GenerationUnitEntry", docComment: "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. Its emitters name the standards it is also written in — an\nOpenAPI document of its operations, a JSON Schema of its types, its messages\nin ICU MessageFormat, its events in AsyncAPI (`irspecs_ir.md` §10). A\nsection that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).", classDocComment: "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. Its emitters name the standards it is also written in — an\nOpenAPI document of its operations, a JSON Schema of its types, its messages\nin ICU MessageFormat, its events in AsyncAPI (`irspecs_ir.md` §10). A\nsection that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).", recursive: r, children: c}))}),
      _cx("CommunicationPatterns", s, _mc_CommunicationPatterns,
       (r, c) => new SomMetaNode({
         className: "CommunicationPatterns",
@@ -24592,6 +24592,19 @@ function _mc_GapEntry(s: Set<string>): SomMetaNode[] {
   ];
 }
 
+function _mc_GenerationUnitEmitterEntry(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "GenerationUnitEmitterEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "emitter", typeName: "String", description: "Emitter", required: true, hint: "The emitter id: openapi, jsonschema, icu or asyncapi", order: 0}), new SomFormFieldMeta({name: "note", typeName: "String", description: "Note", hint: "Why this standard, who reads it", order: 1})])}),
+  ];
+}
+
 function _mc_GenerationUnitEntry(s: Set<string>): SomMetaNode[] {
   return [
      new SomMetaNode({
@@ -24613,6 +24626,17 @@ function _mc_GenerationUnitEntry(s: Set<string>): SomMetaNode[] {
       contentHelp: "Add one entry per area the unit holds; an area written for two technologies gets two entries.",
       docComment: "The mapper each area of the unit is written by.",
       elementNode: _cx("GenerationUnitMappingEntry", s, _mc_GenerationUnitMappingEntry, (r, c) => new SomMetaNode({className: "GenerationUnitMappingEntry", classSectionId: "GEMAP", kind: SomMetaKind.COMPLEX, typeName: "GenerationUnitMappingEntry", docComment: "One mapping of a generation unit: the area and the mapper that writes it.", classDocComment: "One mapping of a generation unit: the area and the mapper that writes it.", recursive: r, children: c}))}),
+     new SomMetaNode({
+      className: "GenerationUnitEntry",
+      memberName: "emitters",
+      sectionId: "GEEMI-EMIT-LST",
+      sectionIdPattern: "GEEMI-EMIT-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "GenerationUnitEmitterEntry",
+      serializationOrder: 2,
+      contentHelp: "Add one entry per standard the unit is also written in: openapi, jsonschema, icu or asyncapi.",
+      docComment: "The standard emitters the unit is also written by.",
+      elementNode: _cx("GenerationUnitEmitterEntry", s, _mc_GenerationUnitEmitterEntry, (r, c) => new SomMetaNode({className: "GenerationUnitEmitterEntry", classSectionId: "GEEMI", kind: SomMetaKind.COMPLEX, typeName: "GenerationUnitEmitterEntry", docComment: "One standard emitter of a generation unit: a standard the unit's code is\nalso written in (`irspecs_ir.md` §10 in `tom_core_codespecs/doc/`) — the\nemitter id `openapi`, `jsonschema`, `icu` or `asyncapi`.", classDocComment: "One standard emitter of a generation unit: a standard the unit's code is\nalso written in (`irspecs_ir.md` §10 in `tom_core_codespecs/doc/`) — the\nemitter id `openapi`, `jsonschema`, `icu` or `asyncapi`.", recursive: r, children: c}))}),
   ];
 }
 
@@ -70614,6 +70638,16 @@ export class GapEntry$Nav extends SomMetaRef {
   }
 }
 
+// Dot-notation accessors of `GenerationUnitEmitterEntry` (SOM §8). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class GenerationUnitEmitterEntry$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+}
+
 // Dot-notation accessors of `GenerationUnitEntry` (SOM §8). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -70625,6 +70659,10 @@ export class GenerationUnitEntry$Nav extends SomMetaRef {
 
   get mappings(): SomListMetaRef<GenerationUnitMappingEntry$Nav> {
     return new SomListMetaRef(this.tree, this.path + "/GEMAP-MAPP-LST", (t: SomMetaTree, p: string) => new GenerationUnitMappingEntry$Nav(t, p));
+  }
+
+  get emitters(): SomListMetaRef<GenerationUnitEmitterEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/GEEMI-EMIT-LST", (t: SomMetaTree, p: string) => new GenerationUnitEmitterEntry$Nav(t, p));
   }
 }
 
@@ -104034,12 +104072,22 @@ export class GapEntry$Id extends SomMetaRef {
   }
 }
 
+// ID-tree accessors of `GenerationUnitEmitterEntry` (SOM §8): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+export class GenerationUnitEmitterEntry$Id extends SomMetaRef {
+}
+
 // ID-tree accessors of `GenerationUnitEntry` (SOM §8): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class GenerationUnitEntry$Id extends SomMetaRef {
   get GEMAP_MAPP_LST(): SomListMetaRef<GenerationUnitMappingEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/GEMAP-MAPP-LST", (t: SomMetaTree, p: string) => new GenerationUnitMappingEntry$Id(t, p));
+  }
+
+  get GEEMI_EMIT_LST(): SomListMetaRef<GenerationUnitEmitterEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/GEEMI-EMIT-LST", (t: SomMetaTree, p: string) => new GenerationUnitEmitterEntry$Id(t, p));
   }
 }
 

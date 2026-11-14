@@ -1489,7 +1489,8 @@ static char *quoted_message(const char *before, const char *value,
    A **generation-unit entry** is a list item whose class carries
    `@NoArtifact(generation)` and declares a form field `unitId`; a **mapping**
    is a list item whose class carries `@NoArtifact(generation)` and declares a
-   form field `area`. Both are recognised by these two facts, never by class
+   form field `area`; an **emitter** is such a list item declaring a form
+   field `emitter`. All three are recognised by these facts, never by class
    name. Entries and mappings are visited in sorted list-path order, each
    list's items in their stored order — that order decides which of two
    entries declaring one `unitId` is "the second". An entry or mapping whose
@@ -1497,8 +1498,8 @@ static char *quoted_message(const char *before, const char *value,
 
    Findings, at the list item's path for the register and at the section's
    path for `units`: `duplicateUnitId`, `unitBuildsNothing`,
-   `unitAreaMalformed`, then per section carrying `units` one `unknownUnit`
-   per undeclared id (in the order written) and `unitsUnrouted`. The group is
+   `unitAreaMalformed`, `unitEmitterUnknown`, then per section carrying
+   `units` one `unknownUnit` per undeclared id (in the order written) and `unitsUnrouted`. The group is
    sorted by path, stably, like every phase's. */
 static void validate_generation_units(const SpecReflection *refl,
                                       const SpecDocument *doc,
@@ -1575,6 +1576,34 @@ static void validate_generation_units(const SpecReflection *refl,
                                      "\" is not an area code (CE-\xe2\x80\xa6)"));
         }
         free(area);
+        free(form_path);
+      }
+
+      const SpecField *emitter_form =
+          spec_generation_form_declaring(cls, "emitter");
+      if (emitter_form != NULL) {
+        char *form_path =
+            spec_path_join(item, spec_reflection_field_segment(emitter_form));
+        const char *raw_emitter =
+            spec_document_form_field(doc, form_path, "emitter");
+        char *emitter = trim_dup(raw_emitter != NULL ? raw_emitter : "");
+        if (emitter[0] != '\0' && !spec_is_standard_emitter(emitter)) {
+          SomBuf known;
+          som_buf_init(&known);
+          som_buf_puts(&known, "\" is no standard emitter (");
+          for (size_t k = 0; k < SPEC_STANDARD_EMITTERS_LEN; k++) {
+            if (k > 0) {
+              som_buf_puts(&known, ", ");
+            }
+            som_buf_puts(&known, SPEC_STANDARD_EMITTERS[k]);
+          }
+          som_buf_puts(&known, ")");
+          char *after = som_buf_take(&known);
+          errors_push(out, item, SPEC_VALIDATION_CODE_UNIT_EMITTER_UNKNOWN,
+                      quoted_message("emitter \"", emitter, after));
+          free(after);
+        }
+        free(emitter);
         free(form_path);
       }
     }

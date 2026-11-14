@@ -8,6 +8,7 @@
 //! (mandatory-but-absent nodes) is a separate concern and is not reported here.
 
 use crate::spec_document::SpecDocument;
+use crate::spec_generation_units::SPEC_STANDARD_EMITTERS;
 use crate::spec_model::{
     FormFieldSpec, SpecClass, SpecField, SpecModel, SPEC_FIELD_KIND_FORM, SPEC_FIELD_KIND_LIST,
 };
@@ -89,6 +90,9 @@ pub const SPEC_VALIDATION_CODE_UNIT_BUILDS_NOTHING: &str = "unitBuildsNothing";
 /// A generation-unit mapping's `area` is not an area code (`CE-` followed by
 /// capital letters).
 pub const SPEC_VALIDATION_CODE_UNIT_AREA_MALFORMED: &str = "unitAreaMalformed";
+/// A generation-unit emitter names no standard emitter
+/// ([`SPEC_STANDARD_EMITTERS`]: `openapi`, `jsonschema`, `icu`, `asyncapi`).
+pub const SPEC_VALIDATION_CODE_UNIT_EMITTER_UNKNOWN: &str = "unitEmitterUnknown";
 
 /// One problem found while validating a document.
 #[derive(Debug, Clone, PartialEq)]
@@ -987,7 +991,8 @@ fn validate_derived_values(refl: &SpecReflection, doc: &SpecDocument) -> Vec<Spe
 /// A **generation-unit entry** is a list item whose class carries
 /// `@NoArtifact(generation)` and declares a form field `unitId`; a **mapping**
 /// is a list item whose class carries `@NoArtifact(generation)` and declares a
-/// form field `area`. Both are recognised by these two facts, never by class
+/// form field `area`; an **emitter** is such a list item declaring a form
+/// field `emitter`. All three are recognised by these facts, never by class
 /// name. Entries and mappings are visited in sorted list-path order, each
 /// list's items in their stored order — that order decides which of two
 /// entries declaring one `unitId` is "the second". An entry or mapping whose
@@ -995,8 +1000,8 @@ fn validate_derived_values(refl: &SpecReflection, doc: &SpecDocument) -> Vec<Spe
 ///
 /// Findings, all at the list item's path for the register and at the section's
 /// path for `units`: `duplicateUnitId`, `unitBuildsNothing`,
-/// `unitAreaMalformed`, then per section carrying `units` one `unknownUnit`
-/// per undeclared id (in the order written) and `unitsUnrouted`. The group is
+/// `unitAreaMalformed`, `unitEmitterUnknown`, then per section carrying
+/// `units` one `unknownUnit` per undeclared id (in the order written) and `unitsUnrouted`. The group is
 /// sorted by path, stably, like every phase's.
 fn validate_generation_units(refl: &SpecReflection, doc: &SpecDocument) -> Vec<SpecValidationError> {
     let mut errors: Vec<SpecValidationError> = Vec::new();
@@ -1051,6 +1056,25 @@ fn validate_generation_units(refl: &SpecReflection, doc: &SpecDocument) -> Vec<S
                         path: item.clone(),
                         code: SPEC_VALIDATION_CODE_UNIT_AREA_MALFORMED.to_string(),
                         message: format!("mapping area \"{}\" is not an area code (CE-…)", area),
+                    });
+                }
+            }
+
+            if let Some(emitter_form) = form_declaring(&cls, "emitter") {
+                let form_path = spec_path_join(&item, &refl.field_segment(emitter_form));
+                let emitter = doc
+                    .form_field(&form_path, "emitter")
+                    .map(|v| v.trim().to_string())
+                    .unwrap_or_default();
+                if !emitter.is_empty() && !SPEC_STANDARD_EMITTERS.contains(&emitter.as_str()) {
+                    errors.push(SpecValidationError {
+                        path: item.clone(),
+                        code: SPEC_VALIDATION_CODE_UNIT_EMITTER_UNKNOWN.to_string(),
+                        message: format!(
+                            "emitter \"{}\" is no standard emitter ({})",
+                            emitter,
+                            SPEC_STANDARD_EMITTERS.join(", ")
+                        ),
                     });
                 }
             }

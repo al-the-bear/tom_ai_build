@@ -1054,8 +1054,9 @@ public final class SpecValidator {
    * <p>A <b>generation-unit entry</b> is a list item whose class carries
    * {@code @NoArtifact(generation)} and declares a form field {@code unitId}; a
    * <b>mapping</b> is a list item whose class carries
-   * {@code @NoArtifact(generation)} and declares a form field {@code area}. Both
-   * are recognised by these two facts, never by class name. Entries and
+   * {@code @NoArtifact(generation)} and declares a form field {@code area}; an
+   * <b>emitter</b> is such a list item declaring a form field {@code emitter}.
+   * All three are recognised by these facts, never by class name. Entries and
    * mappings are visited in sorted list-path order, each list's items in their
    * stored order — that order decides which of two entries declaring one
    * {@code unitId} is "the second". An entry or mapping whose form holds no
@@ -1063,7 +1064,8 @@ public final class SpecValidator {
    *
    * <p>Findings, all at the list item's path for the register and at the
    * section's path for {@code units}: {@code duplicateUnitId},
-   * {@code unitBuildsNothing}, {@code unitAreaMalformed}, then per section
+   * {@code unitBuildsNothing}, {@code unitAreaMalformed},
+   * {@code unitEmitterUnknown}, then per section
    * carrying {@code units} one {@code unknownUnit} per undeclared id (in the
    * order written) and {@code unitsUnrouted}. The group is sorted by path,
    * stably, like every phase's.
@@ -1117,6 +1119,20 @@ public final class SpecValidator {
                 item,
                 SpecValidationCode.UNIT_AREA_MALFORMED,
                 "mapping area \"" + area + "\" is not an area code (CE-…)"));
+          }
+        }
+
+        SpecField emitterForm = formDeclaring(cls, "emitter");
+        if (emitterForm != null) {
+          String formPath = SpecPaths.join(item, refl.fieldSegment(emitterForm));
+          String emitter = trimmedFormValue(doc, formPath, "emitter");
+          if (!emitter.isEmpty()
+              && !SpecGenerationUnits.SPEC_STANDARD_EMITTERS.contains(emitter)) {
+            errors.add(new SpecValidationError(
+                item,
+                SpecValidationCode.UNIT_EMITTER_UNKNOWN,
+                "emitter \"" + emitter + "\" is no standard emitter ("
+                    + String.join(", ", SpecGenerationUnits.SPEC_STANDARD_EMITTERS) + ")"));
           }
         }
       }

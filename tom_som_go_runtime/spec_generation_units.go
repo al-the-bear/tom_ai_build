@@ -10,11 +10,33 @@ package somruntime
 // a list item whose class carries `@NoArtifact(generation)` and declares the
 // form field `unitId`; a **mapping** is such a list item declaring the form
 // field `area`, and belongs to the nearest unit whose path is a prefix of its
-// own.
+// own; an **emitter** is such a list item declaring the form field `emitter`,
+// and belongs to its unit the same way.
 
 import (
 	"strings"
 )
+
+// SpecStandardEmitters are the standard emitters a unit's `emitters` may name
+// (`irspecs_ir.md` §10), in the order `irspecs emit` lists them. Validation
+// phase 8 reports any other id as `unitEmitterUnknown`.
+var SpecStandardEmitters = []string{
+	"openapi",
+	"jsonschema",
+	"icu",
+	"asyncapi",
+}
+
+// specIsStandardEmitter reports whether id is one of SpecStandardEmitters
+// (case-sensitive).
+func specIsStandardEmitter(id string) bool {
+	for _, e := range SpecStandardEmitters {
+		if e == id {
+			return true
+		}
+	}
+	return false
+}
 
 // SpecGenerationUnitMapping is one mapping of a generation unit: the area it
 // holds and the mapper that writes that area's code for it.
@@ -37,6 +59,11 @@ type SpecGenerationUnit struct {
 	Path string
 	// Mappings are the unit's mappings, in stored order.
 	Mappings []SpecGenerationUnitMapping
+	// Emitters are the standard emitters the unit ships (`irspecs_ir.md` §10),
+	// as stored (trimmed), in stored order; an emitter with no id is left out.
+	// Nil in a unit built by hand counts as none; SpecGenerationUnits always
+	// sets a non-nil slice.
+	Emitters []string
 }
 
 // Maps reports whether one of the unit's mappings holds areaCode.
@@ -71,6 +98,11 @@ type specMappingDecl struct {
 	path, area, mapping string
 }
 
+// specEmitterDecl is an emitter as the register walk finds it.
+type specEmitterDecl struct {
+	path, emitter string
+}
+
 // SpecGenerationUnits returns the generation units doc declares, in register
 // order: sorted list-path order, each list's items in their stored order — the
 // order validation phase 8 visits them in. A unit without a `unitId` is left
@@ -81,6 +113,7 @@ func SpecGenerationUnits(model *SpecModel, doc *SpecDocument) []SpecGenerationUn
 	refl := NewSpecReflection(model)
 	var units []specUnitDecl
 	var mappings []specMappingDecl
+	var emitters []specEmitterDecl
 	for _, listPath := range sortedCopy(doc.ListPaths()) {
 		for _, item := range doc.ListItems(listPath) {
 			res := refl.Resolve(item)
@@ -113,6 +146,13 @@ func SpecGenerationUnits(model *SpecModel, doc *SpecDocument) []SpecGenerationUn
 					})
 				}
 			}
+			if emitterForm := formDeclaring(cls, "emitter"); emitterForm != nil {
+				formPath := SpecPathJoin(item, refl.FieldSegment(emitterForm))
+				emitter := strings.TrimSpace(doc.FormFieldOr(formPath, "emitter"))
+				if emitter != "" {
+					emitters = append(emitters, specEmitterDecl{path: item, emitter: emitter})
+				}
+			}
 		}
 	}
 
@@ -129,7 +169,15 @@ func SpecGenerationUnits(model *SpecModel, doc *SpecDocument) []SpecGenerationUn
 				ms = append(ms, SpecGenerationUnitMapping{Area: m.area, Mapping: m.mapping})
 			}
 		}
-		out = append(out, SpecGenerationUnit{UnitID: u.id, Kind: u.kind, Path: u.path, Mappings: ms})
+		es := []string{}
+		for _, e := range emitters {
+			if specUnitOwner(e.path, units) == u.path {
+				es = append(es, e.emitter)
+			}
+		}
+		out = append(out, SpecGenerationUnit{
+			UnitID: u.id, Kind: u.kind, Path: u.path, Mappings: ms, Emitters: es,
+		})
 	}
 	return out
 }
@@ -147,8 +195,9 @@ func SpecDefaultUnits(units []SpecGenerationUnit, areaCode string) []string {
 	return out
 }
 
-// specUnitOwner returns the path of the unit a mapping at mappingPath belongs
-// to: the longest unit path that is a proper prefix of it, or "".
+// specUnitOwner returns the path of the unit a mapping or emitter at
+// mappingPath belongs to: the longest unit path that is a proper prefix of it,
+// or "".
 func specUnitOwner(mappingPath string, units []specUnitDecl) string {
 	best := ""
 	found := false

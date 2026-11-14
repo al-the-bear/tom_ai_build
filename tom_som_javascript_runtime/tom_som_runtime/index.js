@@ -104,6 +104,7 @@ const {
   SpecGenerationUnit,
   specGenerationUnits,
   specDefaultUnits,
+  K_SPEC_STANDARD_EMITTERS,
 } = require('./spec_generation_units');
 const {
   CodeSpecsGate,
@@ -345,6 +346,7 @@ module.exports = {
   SpecGenerationUnit,
   specGenerationUnits,
   specDefaultUnits,
+  K_SPEC_STANDARD_EMITTERS,
   // typed-value store boundary
   somScalarBase,
   somTypedTextReadable,

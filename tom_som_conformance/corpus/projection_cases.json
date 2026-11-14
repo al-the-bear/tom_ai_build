@@ -760,6 +760,17 @@
     "hasValue": true
   },
   {
+    "path": "DEMO/DLV-LST-1/DLE-LST",
+    "kind": "list",
+    "classId": null,
+    "sectionId": "DLE-LST",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  },
+  {
     "path": "DEMO/DLV-LST-2",
     "kind": "listItemComplex",
     "classId": "Deliverable",
@@ -843,6 +854,41 @@
     "searchableStrings": [
       "CE-NV",
       "dart-tom"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/DLV-LST-2/DLE-LST",
+    "kind": "list",
+    "classId": null,
+    "sectionId": "DLE-LST",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/DLV-LST-2/DLE-LST-1",
+    "kind": "listItemComplex",
+    "classId": "DeliverableEmitter",
+    "sectionId": "DLE-1",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/DLV-LST-2/DLE-LST-1/content",
+    "kind": "form",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "openapi"
     ],
     "hasValue": true
   },

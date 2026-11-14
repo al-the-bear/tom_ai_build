@@ -490,7 +490,7 @@ public final class ConformanceRunner {
     SpecRoot root = model.roots.get(0);
     check("model.root.sectionId", "DEMO".equals(root.sectionId), String.valueOf(root.sectionId));
     check("model.root.type", "Demo".equals(root.type), String.valueOf(root.type));
-    check("model.classCount", model.classes.size() == 17, String.valueOf(model.classes.size()));
+    check("model.classCount", model.classes.size() == 18, String.valueOf(model.classes.size()));
     SpecClass demo = model.classNamed("Demo");
     check("model.Demo.found", demo != null, "");
     if (demo != null) {
@@ -2185,6 +2185,9 @@ public final class ConformanceRunner {
     String r2 = d.addListItem(u2 + "/DLR-LST", "DLR-2");
     d.setFormField(r2 + "/content", "area", "CE-NV");
     d.setFormField(r2 + "/content", "mapping", "dart-tom");
+    // The server ships the OpenAPI document of its contract (irspecs_ir.md §10).
+    String e1 = d.addListItem(u2 + "/DLE-LST", "DLE-1");
+    d.setFormField(e1 + "/content", "emitter", "openapi");
     return d;
   }
 

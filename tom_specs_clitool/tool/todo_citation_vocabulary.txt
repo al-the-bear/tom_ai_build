@@ -16,6 +16,7 @@
 
 address2                      # HTTP/postal address line 2 — an ExperienceDesign form field
 arm64                         # CPU architecture
+float64                       # a Go type (irspecs_ir.md §12)
 legiondary01                  # a fleet machine name
 libsqlite3                    # the SQLite shared library
 python3                       # the Python 3 interpreter binary

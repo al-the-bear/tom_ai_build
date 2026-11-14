@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.11.0
+
+- The generation-unit register's emitters: `SpecGenerationUnit.emitters` holds
+  the standards a unit ships besides its code (`openapi`, `jsonschema`, `icu`,
+  `asyncapi`; `kSpecStandardEmitters`), read like its mappings.
+- Validation phase 8 reports an emitter that names no standard emitter as
+  `unitEmitterUnknown` (SOM §11.2).
+- Moves with `tom_specs_model` 1.11.0 (`GenerationUnitEntry.emitters`).
+  Additive.
+
 ## 1.10.0
 
 - `spec_generation_units.dart`: `specGenerationUnits` reads a document's

@@ -1379,6 +1379,8 @@
             - content @Form(unitId, kind, deploymentTarget, component)
             - mappings: `GenerationUnitMappingEntry`[]
               - content @Form(area, mapping, note)
+            - emitters: `GenerationUnitEmitterEntry`[]
+              - content @Form(emitter, note)
           - `CommunicationPatterns`
             - content @Form(primaryPattern, secondaryPatterns, syncProtocols), synchronous, asynchronous, dataExchange,
               reliability, observability

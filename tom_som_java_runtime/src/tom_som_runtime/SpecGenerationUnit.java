@@ -24,15 +24,34 @@ public final class SpecGenerationUnit {
   /** The unit's mappings, in stored order. */
   public final List<SpecGenerationUnitMapping> mappings;
 
-  /** Creates a unit. */
+  /**
+   * The standard emitters the unit ships ({@code irspecs_ir.md} §10), as stored
+   * (trimmed), in stored order; an emitter with no id is left out.
+   */
+  public final List<String> emitters;
+
+  /** Creates a unit with no emitters. */
   public SpecGenerationUnit(
       String unitId, String kind, String path, List<SpecGenerationUnitMapping> mappings) {
+    this(unitId, kind, path, mappings, null);
+  }
+
+  /** Creates a unit. */
+  public SpecGenerationUnit(
+      String unitId,
+      String kind,
+      String path,
+      List<SpecGenerationUnitMapping> mappings,
+      List<String> emitters) {
     this.unitId = unitId;
     this.kind = kind;
     this.path = path;
     this.mappings = mappings == null
         ? Collections.emptyList()
         : Collections.unmodifiableList(new ArrayList<>(mappings));
+    this.emitters = emitters == null
+        ? Collections.emptyList()
+        : Collections.unmodifiableList(new ArrayList<>(emitters));
   }
 
   /** Whether one of the unit's mappings holds {@code areaCode}. */

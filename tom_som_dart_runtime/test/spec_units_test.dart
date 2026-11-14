@@ -452,6 +452,30 @@ void main() {
       ]);
     });
 
+    test('unitEmitterUnknown: an emitter that is no standard emitter', () {
+      final d = _register();
+      for (final emitter in ['openapi', 'swagger', ' icu ', 'OpenAPI']) {
+        final item = d.addListItem('DEMO/DLV-LST-2/DLE-LST');
+        d.setFormField('$item/content', 'emitter', emitter);
+      }
+      // An emitter item with no value at all is absence, not a finding.
+      d.addListItem('DEMO/DLV-LST-2/DLE-LST');
+      expect(check(d), [
+        (
+          'DEMO/DLV-LST-2/DLE-LST-2',
+          'unitEmitterUnknown',
+          'emitter "swagger" is no standard emitter '
+              '(openapi, jsonschema, icu, asyncapi)',
+        ),
+        (
+          'DEMO/DLV-LST-2/DLE-LST-4',
+          'unitEmitterUnknown',
+          'emitter "OpenAPI" is no standard emitter '
+              '(openapi, jsonschema, icu, asyncapi)',
+        ),
+      ]);
+    });
+
     test('phase 8 follows the derived values and precedes annotations', () {
       final d = _register()
         ..setUnits('DEMO/TTL', 'u_x')
@@ -491,6 +515,29 @@ void main() {
       expect(specDefaultUnits(units, 'CE-NV'), ['u_a', 'u_b']);
       expect(specDefaultUnits(units, 'CE-TX'), ['u_a']);
       expect(specDefaultUnits(units, 'CE-DB'), isEmpty);
+    });
+
+    test('each unit carries its own emitters, trimmed, in stored order', () {
+      final d = _register();
+      for (final (unit, emitter) in [
+        ('DEMO/DLV-LST-2', 'openapi'),
+        ('DEMO/DLV-LST-2', ' asyncapi '),
+        ('DEMO/DLV-LST-1', 'icu'),
+        ('DEMO/DLV-LST-2', ''),
+      ]) {
+        final item = d.addListItem('$unit/DLE-LST');
+        d.setFormField('$item/content', 'emitter', emitter);
+      }
+      final units = specGenerationUnits(model, d);
+      expect(units.first.emitters, ['icu']);
+      expect(units.last.emitters, ['openapi', 'asyncapi']);
+      expect(specGenerationUnits(model, _register()).first.emitters, isEmpty);
+      expect(kSpecStandardEmitters, [
+        'openapi',
+        'jsonschema',
+        'icu',
+        'asyncapi',
+      ]);
     });
 
     test('a unit without an id, and a second unit of one id, are left out', () {

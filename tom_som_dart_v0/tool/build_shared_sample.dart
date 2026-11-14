@@ -2600,6 +2600,7 @@ void _authorGenerationUnits(D00SolutionBlueprint sbp) {
     String? deploymentTarget,
     String? component,
     Map<String, String> notes = const {},
+    Map<String, String> emitters = const {},
   }) {
     final u = basic.architectureStyle.generationUnits.add();
     u.$headline = unitId;
@@ -2616,6 +2617,14 @@ void _authorGenerationUnits(D00SolutionBlueprint sbp) {
         ..mapping = 'dart-tom';
       final note = notes[area];
       if (note != null) m.content.note = note;
+    }
+    // The standards the unit is also written in (irspecs_ir.md §10).
+    for (final MapEntry(key: emitter, value: note) in emitters.entries) {
+      final e = u.emitters.add();
+      e.$headline = emitter;
+      e.content
+        ..emitter = emitter
+        ..note = note;
     }
   }
 
@@ -2637,10 +2646,18 @@ void _authorGenerationUnits(D00SolutionBlueprint sbp) {
           'names the shared unit alone.',
     },
   );
-  unit('meridian_codespec_server', GenerationUnitKind.server, const [
-    'CE-DB',
-    'CE-SU',
-  ], deploymentTarget: orderService);
+  unit(
+    'meridian_codespec_server',
+    GenerationUnitKind.server,
+    const ['CE-DB', 'CE-SU'],
+    deploymentTarget: orderService,
+    emitters: const {
+      'openapi':
+          'The order service operations, for the web client and the '
+          'partner integrations.',
+      'jsonschema': 'The wire types the operations carry.',
+    },
+  );
 
   sbp.informationAndDataModel.messageKeyRegistry.$units =
       'meridian_codespec_shared';

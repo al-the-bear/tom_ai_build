@@ -667,6 +667,27 @@ static void test_validation(const SpecModel *model) {
 #undef MALFORMED
     spec_document_free(&d);
   }
+  /* unitEmitterUnknown: an emitter that is no standard emitter */
+  {
+    SpecDocument d;
+    make_register(&d);
+    const char *emitters[] = {"openapi", "swagger", " icu ", "OpenAPI"};
+    for (size_t i = 0; i < 4; i++) {
+      char *item = spec_document_add_list_item(&d, "DEMO/DLV-LST-2/DLE-LST");
+      set_form(&d, item, "emitter", emitters[i]);
+      free(item);
+    }
+    /* An emitter item with no value at all is absence, not a finding. */
+    free(spec_document_add_list_item(&d, "DEMO/DLV-LST-2/DLE-LST"));
+#define UNKNOWN(p, e)                                 \
+  p "|unitEmitterUnknown|emitter \"" e                \
+    "\" is no standard emitter (openapi, jsonschema, icu, asyncapi)\n"
+    expect_findings("phase8.unitEmitterUnknown", model, &d,
+                    UNKNOWN("DEMO/DLV-LST-2/DLE-LST-2", "swagger")
+                        UNKNOWN("DEMO/DLV-LST-2/DLE-LST-4", "OpenAPI"));
+#undef UNKNOWN
+    spec_document_free(&d);
+  }
   {
     SpecDocument d;
     make_register(&d);
@@ -766,6 +787,56 @@ static void test_register(const SpecModel *model) {
     free(db);
     spec_generation_unit_list_free(&units);
     spec_document_free(&d);
+  }
+  /* each unit carries its own emitters, trimmed, in stored order */
+  {
+    SpecDocument d;
+    make_register(&d);
+    const char *emitters[][2] = {
+        {"DEMO/DLV-LST-2", "openapi"},
+        {"DEMO/DLV-LST-2", " asyncapi "},
+        {"DEMO/DLV-LST-1", "icu"},
+        {"DEMO/DLV-LST-2", ""},
+    };
+    for (size_t i = 0; i < 4; i++) {
+      char list[64];
+      snprintf(list, sizeof(list), "%s/DLE-LST", emitters[i][0]);
+      char *item = spec_document_add_list_item(&d, list);
+      set_form(&d, item, "emitter", emitters[i][1]);
+      free(item);
+    }
+    SpecGenerationUnitList units;
+    spec_generation_units(model, &d, &units);
+    check("register.emitters.len", units.len == 2, "");
+    if (units.len == 2) {
+      const SpecGenerationUnit *first = &units.items[0];
+      const SpecGenerationUnit *last = &units.items[1];
+      check("register.emitters.first",
+            first->emitters_len == 1 && str_eq(first->emitters[0], "icu"),
+            "");
+      check("register.emitters.last",
+            last->emitters_len == 2 && str_eq(last->emitters[0], "openapi") &&
+                str_eq(last->emitters[1], "asyncapi"),
+            "");
+    }
+    spec_generation_unit_list_free(&units);
+    spec_document_free(&d);
+
+    SpecDocument plain;
+    make_register(&plain);
+    spec_generation_units(model, &plain, &units);
+    check("register.emitters.none",
+          units.len > 0 && units.items[0].emitters_len == 0, "");
+    spec_generation_unit_list_free(&units);
+    spec_document_free(&plain);
+
+    check("register.emitters.standard",
+          SPEC_STANDARD_EMITTERS_LEN == 4 &&
+              str_eq(SPEC_STANDARD_EMITTERS[0], "openapi") &&
+              str_eq(SPEC_STANDARD_EMITTERS[1], "jsonschema") &&
+              str_eq(SPEC_STANDARD_EMITTERS[2], "icu") &&
+              str_eq(SPEC_STANDARD_EMITTERS[3], "asyncapi"),
+          "");
   }
   /* a unit without an id, and a second unit of one id, are left out */
   {

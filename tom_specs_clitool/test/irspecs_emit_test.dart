@@ -286,6 +286,122 @@ void main() {
         expect(out.toString(), contains(line));
       }
     });
+
+    group('`irspecs emit --spec --unit`: the standards a unit names', () {
+      final spec = p.absolute(
+        '../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml',
+      );
+      late String ir;
+      setUp(() {
+        ir = p.join(scratch.path, 'ir_unit');
+        Directory(ir).createSync(recursive: true);
+        for (final d in meridian) {
+          File(p.join(ir, d.fileName)).writeAsStringSync(writeIrYaml(d));
+        }
+      });
+
+      Future<(int, String, String)> emit(List<String> args) async {
+        final out = StringBuffer();
+        final err = StringBuffer();
+        final code = await runIrspecs(
+          ['emit', '--ir', ir, ...args],
+          out: out,
+          err: err,
+        );
+        return (code, '$out', '$err');
+      }
+
+      test('IRE6: the server unit writes its openapi and jsonschema, each '
+          'as the run-wide emit writes it', () async {
+        final out = p.join(scratch.path, 'unit_server');
+        final (code, stdout, _) = await emit([
+          '--spec',
+          spec,
+          '--unit',
+          'meridian_codespec_server',
+          '--out',
+          out,
+        ]);
+        expect(code, 0);
+        expect(
+          Directory(out).listSync().map((f) => p.basename(f.path)).toSet(),
+          {'openapi.json', 'schema.json'},
+        );
+        expect(
+          File(p.join(out, 'openapi.json')).readAsStringSync(),
+          emitOpenApi(meridian).files['openapi.json'],
+        );
+        expect(
+          File(p.join(out, 'schema.json')).readAsStringSync(),
+          emitJsonSchema(meridian).files['schema.json'],
+        );
+        expect(stdout, contains('openapi:\n'));
+        expect(stdout, contains('jsonschema:\n'));
+      });
+
+      test('IRE7: a unit with no emitter writes nothing', () async {
+        final out = p.join(scratch.path, 'unit_shared');
+        final (code, stdout, _) = await emit([
+          '--spec',
+          spec,
+          '--unit',
+          'meridian_codespec_shared',
+          '--out',
+          out,
+        ]);
+        expect(code, 0);
+        expect(stdout, contains('names no emitter; nothing written'));
+        expect(Directory(out).existsSync(), isFalse);
+      });
+
+      test('IRE8: refused — --standard with --unit, --unit alone, an unknown '
+          'unit, an emitter emit does not write', () async {
+        final out = p.join(scratch.path, 'unit_refused');
+        final both = await emit([
+          '--standard',
+          'openapi',
+          '--spec',
+          spec,
+          '--unit',
+          'meridian_codespec_server',
+          '--out',
+          out,
+        ]);
+        expect(both.$1, 2);
+        expect(both.$3, contains('not both'));
+        final alone = await emit(['--unit', 'x', '--out', out]);
+        expect(alone.$1, 2);
+        expect(alone.$3, contains('--spec and --unit go together'));
+        final ghost = await emit([
+          '--spec',
+          spec,
+          '--unit',
+          'meridian_ghost',
+          '--out',
+          out,
+        ]);
+        expect(ghost.$1, 2);
+        expect(ghost.$3, contains('declares no generation unit'));
+        final swagger = File(p.join(scratch.path, 'swagger.docspecs.yaml'))
+          ..writeAsStringSync(
+            File(spec).readAsStringSync().replaceFirst(
+              'emitter: |2-\n                        jsonschema',
+              'emitter: |2-\n                        swagger',
+            ),
+          );
+        final unknown = await emit([
+          '--spec',
+          swagger.path,
+          '--unit',
+          'meridian_codespec_server',
+          '--out',
+          out,
+        ]);
+        expect(unknown.$1, 2);
+        expect(unknown.$3, contains('names swagger'));
+        expect(Directory(out).existsSync(), isFalse);
+      });
+    });
   });
 
   group('IRE4: ICU MessageFormat', () {

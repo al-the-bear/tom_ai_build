@@ -5,7 +5,9 @@ The register is recognised by its annotations, never by class name, exactly as
 validation phase 8 recognises it: a **unit** is a list item whose class carries
 ``@NoArtifact(generation)`` and declares the form field ``unitId``; a
 **mapping** is such a list item declaring the form field ``area``, and belongs
-to the nearest unit whose path is a prefix of its own.
+to the nearest unit whose path is a prefix of its own; an **emitter** is such
+a list item declaring the form field ``emitter``, and belongs to its unit the
+same way.
 """
 
 from __future__ import annotations
@@ -18,6 +20,17 @@ from .spec_model import SpecModel
 from .spec_paths import spec_path_join
 from .spec_reflection import SpecReflection
 from .spec_validator import _form_declaring
+
+
+#: The standard emitters a unit's ``emitters`` may name (``irspecs_ir.md``
+#: §10), in the order ``irspecs emit`` lists them. Validation phase 8 reports
+#: any other id as ``unitEmitterUnknown``.
+K_SPEC_STANDARD_EMITTERS: tuple[str, ...] = (
+    "openapi",
+    "jsonschema",
+    "icu",
+    "asyncapi",
+)
 
 
 @dataclass(frozen=True)
@@ -47,6 +60,9 @@ class SpecGenerationUnit:
     mappings: list[SpecGenerationUnitMapping] = dataclass_field(
         default_factory=list
     )
+    #: The standard emitters the unit ships (``irspecs_ir.md`` §10), as stored
+    #: (trimmed), in stored order; an emitter with no id is left out.
+    emitters: list[str] = dataclass_field(default_factory=list)
 
     def maps(self, area_code: str) -> bool:
         """Whether one of the unit's mappings holds *area_code*."""
@@ -73,6 +89,8 @@ def spec_generation_units(
     # (id, kind, path) per unit; (path, area, mapping) per mapping.
     units: list[tuple[str, str, str]] = []
     mappings: list[tuple[str, str, str]] = []
+    # (path, emitter) per emitter.
+    emitters: list[tuple[str, str]] = []
     for list_path in sorted(doc.list_paths):
         for item in doc.list_items(list_path):
             res = refl.resolve(item)
@@ -96,6 +114,14 @@ def spec_generation_units(
                 if area:
                     mapping = doc.form_field(form_path, "mapping") or ""
                     mappings.append((item, area, mapping.strip()))
+            emitter_form = _form_declaring(cls, "emitter")
+            if emitter_form is not None:
+                form_path = spec_path_join(
+                    item, refl.field_segment(emitter_form)
+                )
+                emitter = (doc.form_field(form_path, "emitter") or "").strip()
+                if emitter:
+                    emitters.append((item, emitter))
 
     unit_paths = [path for _, _, path in units]
     seen: set[str] = set()
@@ -114,6 +140,11 @@ def spec_generation_units(
                     for m_path, area, mapping in mappings
                     if _owner(m_path, unit_paths) == path
                 ],
+                emitters=[
+                    emitter
+                    for e_path, emitter in emitters
+                    if _owner(e_path, unit_paths) == path
+                ],
             )
         )
     return out
@@ -128,7 +159,7 @@ def spec_default_units(
 
 
 def _owner(mapping_path: str, unit_paths: list[str]) -> Optional[str]:
-    """The path of the unit a mapping at *mapping_path* belongs to: the longest
+    """The path of the unit a mapping or emitter at *mapping_path* belongs to: the longest
     unit path that is a proper prefix of it, or ``None``."""
     best: Optional[str] = None
     for path in unit_paths:

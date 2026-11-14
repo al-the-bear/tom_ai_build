@@ -17,6 +17,7 @@ import * as path from 'path';
 
 import {
   CodeSpecsAreaCatalog,
+  K_SPEC_STANDARD_EMITTERS,
   CodeSpecsExtractor,
   SomNode,
   SpecDocument,
@@ -467,6 +468,29 @@ function testValidation(): void {
     ],
   ]);
 
+  // unitEmitterUnknown: an emitter that is no standard emitter.
+  const em = _register();
+  for (const emitter of ['openapi', 'swagger', ' icu ', 'OpenAPI']) {
+    const item = em.addListItem('DEMO/DLV-LST-2/DLE-LST');
+    em.setFormField(`${item}/content`, 'emitter', emitter);
+  }
+  // An emitter item with no value at all is absence, not a finding.
+  em.addListItem('DEMO/DLV-LST-2/DLE-LST');
+  _eq('phase8.unitEmitterUnknown', _findings(em), [
+    [
+      'DEMO/DLV-LST-2/DLE-LST-2',
+      'unitEmitterUnknown',
+      'emitter "swagger" is no standard emitter ' +
+        '(openapi, jsonschema, icu, asyncapi)',
+    ],
+    [
+      'DEMO/DLV-LST-2/DLE-LST-4',
+      'unitEmitterUnknown',
+      'emitter "OpenAPI" is no standard emitter ' +
+        '(openapi, jsonschema, icu, asyncapi)',
+    ],
+  ]);
+
   const order = _register();
   order.setUnits('DEMO/TTL', 'u_x');
   order.setContent('DEMO/SUM', '> ⬆️ **C-1** a\n\n> ⬆️ **C-1** b');
@@ -593,6 +617,31 @@ function testRegister(): void {
   _eq('register.default.both', specDefaultUnits(units, 'CE-NV'), ['u_a', 'u_b']);
   _eq('register.default.one', specDefaultUnits(units, 'CE-TX'), ['u_a']);
   _eq('register.default.none', specDefaultUnits(units, 'CE-DB'), []);
+
+  // Each unit carries its own emitters, trimmed, in stored order.
+  const em = _register();
+  for (const [unit, emitter] of [
+    ['DEMO/DLV-LST-2', 'openapi'],
+    ['DEMO/DLV-LST-2', ' asyncapi '],
+    ['DEMO/DLV-LST-1', 'icu'],
+    ['DEMO/DLV-LST-2', ''],
+  ]) {
+    const item = em.addListItem(`${unit}/DLE-LST`);
+    em.setFormField(`${item}/content`, 'emitter', emitter);
+  }
+  const emUnits = specGenerationUnits(model, em);
+  _eq('register.emitters.first', emUnits[0].emitters, ['icu']);
+  _eq('register.emitters.last', emUnits[emUnits.length - 1].emitters, [
+    'openapi',
+    'asyncapi',
+  ]);
+  _eq('register.emitters.none', specGenerationUnits(model, _register())[0].emitters, []);
+  _eq('register.emitters.standard', [...K_SPEC_STANDARD_EMITTERS], [
+    'openapi',
+    'jsonschema',
+    'icu',
+    'asyncapi',
+  ]);
 
   // A unit without an id, and a second unit of one id, are left out.
   const left = _register();

@@ -9335,6 +9335,12 @@ GapEntryResolutionForm GapEntry::resolution() const {
   return GapEntryResolutionForm(doc(), som::joinPath(path(), "GAENRE"));
 }
 
+GenerationUnitEmitterEntry::GenerationUnitEmitterEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+GenerationUnitEmitterEntryContentForm GenerationUnitEmitterEntry::content() const {
+  return GenerationUnitEmitterEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
 GenerationUnitEntry::GenerationUnitEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 GenerationUnitEntryContentForm GenerationUnitEntry::content() const {
@@ -9342,6 +9348,9 @@ GenerationUnitEntryContentForm GenerationUnitEntry::content() const {
 }
 som::SomList GenerationUnitEntry::mappings() const {
   return som::SomList(doc(), som::joinPath(path(), "GEMAP-MAPP-LST"), "GEMAP-MAPP-xxx");
+}
+som::SomList GenerationUnitEntry::emitters() const {
+  return som::SomList(doc(), som::joinPath(path(), "GEEMI-EMIT-LST"), "GEEMI-EMIT-xxx");
 }
 
 GenerationUnitMappingEntry::GenerationUnitMappingEntry(som::SpecDocument& doc, std::string path)
@@ -59129,6 +59138,27 @@ std::string GapEntryWorkaroundForm::riskIfNotAddressed() const {
 }
 void GapEntryWorkaroundForm::setRiskIfNotAddressed(const std::string& value) {
   doc().setFormField(path(), "riskIfNotAddressed", value);
+}
+
+GenerationUnitEmitterEntryContentForm::GenerationUnitEmitterEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string GenerationUnitEmitterEntryContentForm::content() const {
+  return doc().content(path());
+}
+void GenerationUnitEmitterEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string GenerationUnitEmitterEntryContentForm::emitter() const {
+  return doc().formField(path(), "emitter");
+}
+void GenerationUnitEmitterEntryContentForm::setEmitter(const std::string& value) {
+  doc().setFormField(path(), "emitter", value);
+}
+std::string GenerationUnitEmitterEntryContentForm::note() const {
+  return doc().formField(path(), "note");
+}
+void GenerationUnitEmitterEntryContentForm::setNote(const std::string& value) {
+  doc().setFormField(path(), "note", value);
 }
 
 GenerationUnitEntryContentForm::GenerationUnitEntryContentForm(som::SpecDocument& doc, std::string path)

@@ -31,7 +31,12 @@ struct RawMapping {
   std::string mapping;
 };
 
-/* The path of the unit a mapping at `mappingPath` belongs to: the longest unit
+struct RawEmitter {
+  std::string path;
+  std::string emitter;
+};
+
+/* The path of the unit a mapping or emitter at `mappingPath` belongs to: the longest unit
  * path that is a proper prefix of it, or "" when none is. */
 std::string ownerOf(const std::string& mappingPath,
                     const std::vector<RawUnit>& units) {
@@ -49,6 +54,13 @@ std::string ownerOf(const std::string& mappingPath,
 }
 
 }  // namespace
+
+bool specIsStandardEmitter(const std::string& id) {
+  for (const char* known : kSpecStandardEmitters) {
+    if (id == known) return true;
+  }
+  return false;
+}
 
 bool SpecGenerationUnit::maps(const std::string& areaCode) const {
   for (const SpecGenerationUnitMapping& m : mappings) {
@@ -81,6 +93,7 @@ std::vector<SpecGenerationUnit> specGenerationUnits(const SpecModel& model,
   SpecReflection refl(model);
   std::vector<RawUnit> units;
   std::vector<RawMapping> mappings;
+  std::vector<RawEmitter> emitters;
   // listPaths() is already in sorted (byte) order.
   for (const std::string& listPath : doc.listPaths()) {
     for (const std::string& item : doc.listItems(listPath)) {
@@ -109,6 +122,14 @@ std::vector<SpecGenerationUnit> specGenerationUnits(const SpecModel& model,
               {item, area, trimmed(doc.formField(formPath, "mapping"))});
         }
       }
+      if (const SpecField* emitterForm = specFormDeclaring(*cls, "emitter")) {
+        const std::string formPath =
+            specPathJoin(item, SpecReflection::fieldSegment(*emitterForm));
+        const std::string emitter = trimmed(doc.formField(formPath, "emitter"));
+        if (!emitter.empty()) {
+          emitters.push_back({item, emitter});
+        }
+      }
     }
   }
 
@@ -123,6 +144,11 @@ std::vector<SpecGenerationUnit> specGenerationUnits(const SpecModel& model,
     for (const RawMapping& m : mappings) {
       if (ownerOf(m.path, units) == u.path) {
         unit.mappings.push_back({m.area, m.mapping});
+      }
+    }
+    for (const RawEmitter& e : emitters) {
+      if (ownerOf(e.path, units) == u.path) {
+        unit.emitters.push_back(e.emitter);
       }
     }
     out.push_back(std::move(unit));

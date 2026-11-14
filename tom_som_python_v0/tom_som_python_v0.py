@@ -3683,8 +3683,8 @@ class ArchitectureStyle(SomNode):
     def components(self):
         return SomList(self.doc, f"{self.path}/ARCM-COMP-LST", lambda d, p: ArchitectureComponentEntry(d, p), pattern="ARCM-COMP-xxx")
 
-    # The generation units Phase 4 writes code for, and the mapper each of
-    # their areas is written by.
+    # The generation units Phase 4 writes code for, the mapper each of their
+    # areas is written by, and the standards each unit is also written in.
     @property
     def generationUnits(self):
         return SomList(self.doc, f"{self.path}/GENUN-UNIT-LST", lambda d, p: GenerationUnitEntry(d, p), pattern="GENUN-UNIT-xxx")
@@ -9911,7 +9911,7 @@ class D00SolutionBlueprint(SomNode):
     per the public-standards order of the `@StandardReferences` below.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.10'
+    model_version = '1.11'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "SBP")
@@ -10038,7 +10038,7 @@ class D01CurrentLandscapeAssessment(SomNode):
     and the inventory / migration plan for the systems being replaced.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.10'
+    model_version = '1.11'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "CLA")
@@ -10152,7 +10152,7 @@ class D02TargetOperatingModel(SomNode):
     cross-process analysis, exception handling, and KPIs.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.10'
+    model_version = '1.11'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "TOM")
@@ -10277,7 +10277,7 @@ class D03InformationModel(SomNode):
     integrity constraints.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.10'
+    model_version = '1.11'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "IFM")
@@ -10466,7 +10466,7 @@ class D04RequirementsSpecification(SomNode):
     and coverage analysis.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.10'
+    model_version = '1.11'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "RSP")
@@ -10583,7 +10583,7 @@ class D05InteractionScenarios(SomNode):
     and traceability.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.10'
+    model_version = '1.11'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "ISC")
@@ -10693,7 +10693,7 @@ class D06ArchitectureTechnologySpecification(SomNode):
     and translation handling.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.10'
+    model_version = '1.11'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "ATS")
@@ -10827,7 +10827,7 @@ class D07IntegrationInterfaceSpecification(SomNode):
     migration, operational concerns, and cross-boundary error handling.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.10'
+    model_version = '1.11'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "IIS")
@@ -10952,7 +10952,7 @@ class D08SecurityAccessSpecification(SomNode):
     compliance framework.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.10'
+    model_version = '1.11'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "SAS")
@@ -11079,7 +11079,7 @@ class D09ExperienceDesignSpecification(SomNode):
     mockups.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.10'
+    model_version = '1.11'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "XDS")
@@ -11219,7 +11219,7 @@ class D10QualityAcceptancePlan(SomNode):
     Full quality plan combining quality goals and the acceptance plan.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.10'
+    model_version = '1.11'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "QAP")
@@ -11389,7 +11389,7 @@ class D11DeliveryRoadmap(SomNode):
     framework.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.10'
+    model_version = '1.11'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "DRM")
@@ -11509,7 +11509,7 @@ class D12TransitionRolloutPlan(SomNode):
     transfer, and warranty/support.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.10'
+    model_version = '1.11'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "TRP")
@@ -11654,7 +11654,7 @@ class D13CodeSpecsProjection(SomNode):
     models, the process-step interactions, and the client-side experience seed.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.10'
+    model_version = '1.11'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "CGP")
@@ -19749,6 +19749,21 @@ class GapEntry(SomNode):
     def resolution(self):
         return GapEntryResolutionForm(self.doc, f"{self.path}/GAENRE")
 
+class GenerationUnitEmitterEntry(SomNode):
+    """One standard emitter of a generation unit: a standard the unit's code is
+    also written in (`irspecs_ir.md` §10 in `tom_core_codespecs/doc/`) — the
+    emitter id `openapi`, `jsonschema`, `icu` or `asyncapi`.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    # The section's body content. For a `@Form`-annotated member this is the
+    # form's **preamble** — the free text before the first field line (SOM
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
+    @property
+    def content(self):
+        return GenerationUnitEmitterEntryContentForm(self.doc, f"{self.path}/content")
+
 class GenerationUnitEntry(SomNode):
     """One generation unit: a package the CodeSpecs generator writes code into.
     
@@ -19756,7 +19771,10 @@ class GenerationUnitEntry(SomNode):
     component (`ARCM`), at least one of the two; which areas it holds and in
     which language and framework is said by its mappings — one per area, or
     several for one area where the same area is written for two client
-    technologies. A section that goes to other units than its area's default
+    technologies. Its emitters name the standards it is also written in — an
+    OpenAPI document of its operations, a JSON Schema of its types, its messages
+    in ICU MessageFormat, its events in AsyncAPI (`irspecs_ir.md` §10). A
+    section that goes to other units than its area's default
     names them in its `units` member; the default is every unit with a mapping
     for the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).
     
@@ -19777,6 +19795,11 @@ class GenerationUnitEntry(SomNode):
     @property
     def mappings(self):
         return SomList(self.doc, f"{self.path}/GEMAP-MAPP-LST", lambda d, p: GenerationUnitMappingEntry(d, p), pattern="GEMAP-MAPP-xxx")
+
+    # The standard emitters the unit is also written by.
+    @property
+    def emitters(self):
+        return SomList(self.doc, f"{self.path}/GEEMI-EMIT-LST", lambda d, p: GenerationUnitEmitterEntry(d, p), pattern="GEEMI-EMIT-xxx")
 
 class GenerationUnitMappingEntry(SomNode):
     """One mapping of a generation unit: the area and the mapper that writes it."""
@@ -101441,6 +101464,39 @@ class GapEntryWorkaroundForm(SomNode):
     @riskIfNotAddressed.setter
     def riskIfNotAddressed(self, value):
         self.doc.set_form_field(self.path, "riskIfNotAddressed", value)
+
+class GenerationUnitEmitterEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def emitter(self) -> str:
+        return self.doc.form_field(self.path, "emitter") or ""
+
+    @emitter.setter
+    def emitter(self, value):
+        self.doc.set_form_field(self.path, "emitter", value)
+
+    @property
+    def note(self) -> str:
+        return self.doc.form_field(self.path, "note") or ""
+
+    @note.setter
+    def note(self, value):
+        self.doc.set_form_field(self.path, "note", value)
 
 class GenerationUnitEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""

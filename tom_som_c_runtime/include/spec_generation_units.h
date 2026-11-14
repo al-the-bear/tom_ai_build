@@ -7,11 +7,14 @@
  * helpers below): a **unit** is a list item whose class carries
  * `@NoArtifact(generation)` and declares the form field `unitId`; a **mapping**
  * is such a list item declaring the form field `area`, and belongs to the
- * nearest unit whose path is a prefix of its own.
+ * nearest unit whose path is a prefix of its own; an **emitter** is such a list
+ * item declaring the form field `emitter`, and belongs to its unit the same
+ * way.
  *
- * Ownership: a `SpecGenerationUnitList` owns every unit, mapping and string it
- * holds — release it with `spec_generation_unit_list_free`. The lists
- * `spec_default_units` writes are owned by the caller (`som_strlist_free`).
+ * Ownership: a `SpecGenerationUnitList` owns every unit, mapping, emitter and
+ * string it holds — release it with `spec_generation_unit_list_free`. The
+ * lists `spec_default_units` writes are owned by the caller
+ * (`som_strlist_free`).
  */
 #ifndef SPEC_GENERATION_UNITS_H
 #define SPEC_GENERATION_UNITS_H
@@ -31,7 +34,18 @@ typedef struct {
   char *mapping;
 } SpecGenerationUnitMapping;
 
-/* One generation unit the document declares. Owns its strings and mappings. */
+/* The standard emitters a unit's `emitters` may name (`irspecs_ir.md` §10),
+ * in the order `irspecs emit` lists them: `openapi`, `jsonschema`, `icu`,
+ * `asyncapi`. Validation phase 8 reports any other id as
+ * `unitEmitterUnknown`. */
+extern const char *const SPEC_STANDARD_EMITTERS[];
+extern const size_t SPEC_STANDARD_EMITTERS_LEN;
+
+/* Whether `id` is one of `SPEC_STANDARD_EMITTERS` (case-sensitive). */
+int spec_is_standard_emitter(const char *id);
+
+/* One generation unit the document declares. Owns its strings, mappings and
+ * emitters. */
 typedef struct {
   /* The unit's id — what a section's `units` names, usually the package
    * name. */
@@ -44,6 +58,11 @@ typedef struct {
   SpecGenerationUnitMapping *mappings;
   size_t mappings_len;
   size_t mappings_cap;
+  /* The standard emitters the unit ships (`irspecs_ir.md` §10), as stored
+   * (trimmed), in stored order; an emitter with no id is left out. Owned. */
+  char **emitters;
+  size_t emitters_len;
+  size_t emitters_cap;
 } SpecGenerationUnit;
 
 /* Whether one of the unit's mappings holds `area_code`. */

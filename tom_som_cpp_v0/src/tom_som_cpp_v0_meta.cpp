@@ -519,6 +519,7 @@ void buildFunctionalRequirementsChildren(som::SomMetaNode& parent, std::vector<s
 void buildFunctionalResponsibilitiesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFunctionalSuitabilityCharacteristicChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGapEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildGenerationUnitEmitterEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGenerationUnitEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGenerationUnitMappingEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGeographicDistributionRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -5733,16 +5734,16 @@ void buildArchitectureStyleChildren(som::SomMetaNode& parent, std::vector<std::s
     (*ln).hasSerializationOrder = true;
     (*ln).serializationOrder = 5;
     (*ln).contentHelp = "Add one entry per generated unit — a client, a server, the package both share — and give each the mapper of every area it holds.";
-    (*ln).docComment = "The generation units Phase 4 writes code for, and the mapper each of\ntheir areas is written by.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"arc42 — deployment view\",\"C4 model — software architecture diagrams\"],\"connotation\":\"The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area.\"}", nullptr)});
+    (*ln).docComment = "The generation units Phase 4 writes code for, the mapper each of their\nareas is written by, and the standards each unit is also written in.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"arc42 — deployment view\",\"C4 model — software architecture diagrams\"],\"connotation\":\"The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area and the standard emitters of the unit.\"}", nullptr)});
     ln->elementNode = metaCx("GenerationUnitEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "GenerationUnitEntry";
         n.classSectionId = "GENUN";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "GenerationUnitEntry";
-        n.docComment = "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).";
-        n.classDocComment = "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).";
+        n.docComment = "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. Its emitters name the standards it is also written in — an\nOpenAPI document of its operations, a JSON Schema of its types, its messages\nin ICU MessageFormat, its events in AsyncAPI (`irspecs_ir.md` §10). A\nsection that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).";
+        n.classDocComment = "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. Its emitters name the standards it is also written in — an\nOpenAPI document of its operations, a JSON Schema of its types, its messages\nin ICU MessageFormat, its events in AsyncAPI (`irspecs_ir.md` §10). A\nsection that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).";
       },
       buildGenerationUnitEntryChildren);
     parent.addChild(std::move(ln));
@@ -40278,6 +40279,24 @@ void buildGapEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& s
   }
 }
 
+void buildGenerationUnitEmitterEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "GenerationUnitEmitterEntry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"emitter", "String", "Emitter", true, "The emitter id: openapi, jsonschema, icu or asyncapi", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"note", "String", "Note", false, "Why this standard, who reads it", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    parent.addChild(std::move(n));
+  }
+}
+
 void buildGenerationUnitEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   {
     auto n = std::make_unique<som::SomMetaNode>();
@@ -40317,6 +40336,30 @@ void buildGenerationUnitEntryChildren(som::SomMetaNode& parent, std::vector<std:
         n.classDocComment = "One mapping of a generation unit: the area and the mapper that writes it.";
       },
       buildGenerationUnitMappingEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "GenerationUnitEntry";
+    (*ln).memberName = "emitters";
+    (*ln).sectionId = "GEEMI-EMIT-LST";
+    (*ln).sectionIdPattern = "GEEMI-EMIT-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "GenerationUnitEmitterEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 2;
+    (*ln).contentHelp = "Add one entry per standard the unit is also written in: openapi, jsonschema, icu or asyncapi.";
+    (*ln).docComment = "The standard emitters the unit is also written by.";
+    ln->elementNode = metaCx("GenerationUnitEmitterEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "GenerationUnitEmitterEntry";
+        n.classSectionId = "GEEMI";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "GenerationUnitEmitterEntry";
+        n.docComment = "One standard emitter of a generation unit: a standard the unit's code is\nalso written in (`irspecs_ir.md` §10 in `tom_core_codespecs/doc/`) — the\nemitter id `openapi`, `jsonschema`, `icu` or `asyncapi`.";
+        n.classDocComment = "One standard emitter of a generation unit: a standard the unit's code is\nalso written in (`irspecs_ir.md` §10 in `tom_core_codespecs/doc/`) — the\nemitter id `openapi`, `jsonschema`, `icu` or `asyncapi`.";
+      },
+      buildGenerationUnitEmitterEntryChildren);
     parent.addChild(std::move(ln));
   }
 }
@@ -97148,6 +97191,9 @@ void* metaNavFactoryFunctionalRequirementEntry(const som::SomMetaTree* tree, con
 void* metaNavFactoryGapEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavGapEntry{som::SomMetaRef(tree, path)};
 }
+void* metaNavFactoryGenerationUnitEmitterEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavGenerationUnitEmitterEntry{som::SomMetaRef(tree, path)};
+}
 void* metaNavFactoryGenerationUnitEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavGenerationUnitEntry{som::SomMetaRef(tree, path)};
 }
@@ -98710,6 +98756,9 @@ void* metaIdFactoryFunctionalRequirementEntry(const som::SomMetaTree* tree, cons
 }
 void* metaIdFactoryGapEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdGapEntry{som::SomMetaRef(tree, path)};
+}
+void* metaIdFactoryGenerationUnitEmitterEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdGenerationUnitEmitterEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryGenerationUnitEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdGenerationUnitEntry{som::SomMetaRef(tree, path)};
@@ -106535,11 +106584,17 @@ som::SomMetaRef navGapEntry_workaround(NavGapEntry x) {
 som::SomMetaRef navGapEntry_resolution(NavGapEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GAENRE"));
 }
+som::SomMetaRef navGenerationUnitEmitterEntry_content(NavGenerationUnitEmitterEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
 som::SomMetaRef navGenerationUnitEntry_content(NavGenerationUnitEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomListMetaRef navGenerationUnitEntry_mappings(NavGenerationUnitEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GEMAP-MAPP-LST"), metaNavFactoryGenerationUnitMappingEntry);
+}
+som::SomListMetaRef navGenerationUnitEntry_emitters(NavGenerationUnitEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GEEMI-EMIT-LST"), metaNavFactoryGenerationUnitEmitterEntry);
 }
 som::SomMetaRef navGenerationUnitMappingEntry_content(NavGenerationUnitMappingEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -127229,6 +127284,9 @@ som::SomMetaRef idGapEntry_GAENRE(IdGapEntry x) {
 }
 som::SomListMetaRef idGenerationUnitEntry_GEMAP_MAPP_LST(IdGenerationUnitEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GEMAP-MAPP-LST"), metaIdFactoryGenerationUnitMappingEntry);
+}
+som::SomListMetaRef idGenerationUnitEntry_GEEMI_EMIT_LST(IdGenerationUnitEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GEEMI-EMIT-LST"), metaIdFactoryGenerationUnitEmitterEntry);
 }
 som::SomMetaRef idGoalDependencyEntry_GOLDE_RELA_REF(IdGoalDependencyEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GOLDE-RELA-REF"));

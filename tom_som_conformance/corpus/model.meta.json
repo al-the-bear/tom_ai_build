@@ -3,7 +3,7 @@
   "modelVersion": 1,
   "modelVersionLabel": "demo-1.0",
   "generatedAt": "2026-07-20T08:00:00.000000Z",
-  "classCount": 17,
+  "classCount": 18,
   "rootCount": 2,
   "roots": [
     {
@@ -944,6 +944,51 @@
           "sectionIdPattern": "DLR-xxx",
           "elementType": "DeliverableRoute",
           "elementIsComplex": true
+        },
+        {
+          "name": "emitters",
+          "kind": "list",
+          "sectionId": "DLE-LST",
+          "sectionIdPattern": "DLE-xxx",
+          "elementType": "DeliverableEmitter",
+          "elementIsComplex": true
+        }
+      ]
+    },
+    "DeliverableEmitter": {
+      "name": "DeliverableEmitter",
+      "sectionId": "DLE",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "DLE"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.generation"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "formFields": [
+            {
+              "name": "emitter",
+              "label": "Emitter",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "note",
+              "label": "Note",
+              "type": "String"
+            }
+          ]
         }
       ]
     },

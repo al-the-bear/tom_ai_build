@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.11.0
+
+- The generation units carry the standard emitters they ship (`Emitters`,
+  `SpecStandardEmitters`), and validation phase 8 reports an emitter that is
+  no standard emitter as `unitEmitterUnknown`, as in `tom_som_dart_runtime`
+  1.11.0.
+
 ## 1.10.0
 
 - The generation-unit register reader and the CodeSpecs extract's default

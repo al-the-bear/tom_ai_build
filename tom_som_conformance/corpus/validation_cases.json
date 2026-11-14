@@ -52,6 +52,9 @@
           "kind": "client",
           "unitId": "demo_client"
         },
+        "DEMO/DLV-LST-2/DLE-LST-1/content": {
+          "emitter": "openapi"
+        },
         "DEMO/DLV-LST-2/DLR-LST-1/content": {
           "area": "CE-DB",
           "mapping": "dart-tom"
@@ -103,6 +106,15 @@
           ],
           "ids": {
             "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+          }
+        },
+        "DEMO/DLV-LST-2/DLE-LST": {
+          "seq": 1,
+          "items": [
+            "DEMO/DLV-LST-2/DLE-LST-1"
+          ],
+          "ids": {
+            "DEMO/DLV-LST-2/DLE-LST-1": "DLE-1"
           }
         },
         "DEMO/DLV-LST-2/DLR-LST": {
@@ -1379,6 +1391,12 @@
     "name": "generationUnitsValid",
     "state": {
       "forms": {
+        "DEMO/DLV-LST-1/DLE-LST-1/content": {
+          "emitter": "openapi"
+        },
+        "DEMO/DLV-LST-1/DLE-LST-2/content": {
+          "emitter": " asyncapi "
+        },
         "DEMO/DLV-LST-1/DLR-LST-1/content": {
           "area": "CE-DB",
           "mapping": "dart-tom"
@@ -1400,6 +1418,13 @@
           "items": [
             "DEMO/DLV-LST-1",
             "DEMO/DLV-LST-2"
+          ]
+        },
+        "DEMO/DLV-LST-1/DLE-LST": {
+          "seq": 2,
+          "items": [
+            "DEMO/DLV-LST-1/DLE-LST-1",
+            "DEMO/DLV-LST-1/DLE-LST-2"
           ]
         },
         "DEMO/DLV-LST-1/DLR-LST": {
@@ -1605,6 +1630,63 @@
       {
         "path": "DEMO/DLV-LST-1/DLR-LST-3",
         "code": "unitAreaMalformed"
+      }
+    ]
+  },
+  {
+    "name": "unitEmitterUnknown",
+    "state": {
+      "forms": {
+        "DEMO/DLV-LST-1/DLE-LST-1/content": {
+          "emitter": "openapi"
+        },
+        "DEMO/DLV-LST-1/DLE-LST-2/content": {
+          "emitter": "swagger"
+        },
+        "DEMO/DLV-LST-1/DLE-LST-3/content": {
+          "emitter": " icu "
+        },
+        "DEMO/DLV-LST-1/DLE-LST-4/content": {
+          "emitter": "OpenAPI"
+        },
+        "DEMO/DLV-LST-1/content": {
+          "component": "ARCM-COMP-A",
+          "kind": "client",
+          "unitId": "u_a"
+        },
+        "DEMO/DLV-LST-2/content": {
+          "deploymentTarget": "DEPTAR-DEPL-B",
+          "kind": "server",
+          "unitId": "u_b"
+        }
+      },
+      "lists": {
+        "DEMO/DLV-LST": {
+          "seq": 2,
+          "items": [
+            "DEMO/DLV-LST-1",
+            "DEMO/DLV-LST-2"
+          ]
+        },
+        "DEMO/DLV-LST-1/DLE-LST": {
+          "seq": 4,
+          "items": [
+            "DEMO/DLV-LST-1/DLE-LST-1",
+            "DEMO/DLV-LST-1/DLE-LST-2",
+            "DEMO/DLV-LST-1/DLE-LST-3",
+            "DEMO/DLV-LST-1/DLE-LST-4"
+          ]
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/DLV-LST-1/DLE-LST-2",
+        "code": "unitEmitterUnknown"
+      },
+      {
+        "path": "DEMO/DLV-LST-1/DLE-LST-4",
+        "code": "unitEmitterUnknown"
       }
     ]
   }

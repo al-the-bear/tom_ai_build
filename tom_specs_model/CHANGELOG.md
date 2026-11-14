@@ -1,3 +1,13 @@
+## 1.11.0
+
+- `GenerationUnitEntry.emitters` (`GEEMI-EMIT-LST`, `GenerationUnitEmitterEntry`
+  with the form fields `emitter` and `note`, `@NoArtifact(generation)`): the
+  standards a generation unit ships besides its code — `openapi`,
+  `jsonschema`, `icu`, `asyncapi` (`irspecs_ir.md` §10). Additive (a new
+  optional list), so a minor bump.
+- Documentation: `tom_specs_model_rules.md` (the register), the SOM document
+  (the register reader and phase 8's `unitEmitterUnknown`).
+
 ## 1.10.0
 
 - No model change. Moves in lockstep with `tom_som_dart_runtime` 1.10.0 (the

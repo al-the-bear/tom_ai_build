@@ -5310,13 +5310,13 @@ public final class TomSomV0Meta {
         n.sectionIdPattern = "GENUN-UNIT-xxx";
         n.serializationOrder = 5;
         n.contentHelp = "Add one entry per generated unit — a client, a server, the package both share — and give each the mapper of every area it holds.";
-        n.docComment = "The generation units Phase 4 writes code for, and the mapper each of\ntheir areas is written by.";
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("arc42 — deployment view", "C4 model — software architecture diagrams"), "connotation", "The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area.")));
+        n.docComment = "The generation units Phase 4 writes code for, the mapper each of their\nareas is written by, and the standards each unit is also written in.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("arc42 — deployment view", "C4 model — software architecture diagrams"), "connotation", "The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area and the standard emitters of the unit.")));
         n.elementNode = metaCx("GenerationUnitEntry", s, GenerationUnitEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("GenerationUnitEntry", SomMetaKind.COMPLEX, "GenerationUnitEntry");
           e.classSectionId = "GENUN";
-          e.docComment = "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).";
-          e.classDocComment = "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).";
+          e.docComment = "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. Its emitters name the standards it is also written in — an\nOpenAPI document of its operations, a JSON Schema of its types, its messages\nin ICU MessageFormat, its events in AsyncAPI (`irspecs_ir.md` §10). A\nsection that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).";
+          e.classDocComment = "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. Its emitters name the standards it is also written in — an\nOpenAPI document of its operations, a JSON Schema of its types, its messages\nin ICU MessageFormat, its events in AsyncAPI (`irspecs_ir.md` §10). A\nsection that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).";
           e.recursive = r;
           e.children = c;
           return e;
@@ -44971,6 +44971,37 @@ public final class TomSomV0Meta {
     }
   }
 
+  // GenerationUnitEmitterEntryNav holds the dot-notation accessors of `GenerationUnitEmitterEntry` (SOM §8).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class GenerationUnitEmitterEntryNav extends SomMetaRef {
+    public GenerationUnitEmitterEntryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `GenerationUnitEmitterEntry` (SOM §7.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("GenerationUnitEmitterEntry", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("emitter", "String", "Emitter", true, "The emitter id: openapi, jsonschema, icu or asyncapi", 0),
+            new SomFormFieldMeta("note", "String", "Note", false, "Why this standard, who reads it", 1)));
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+  }
+
   // GenerationUnitEntryNav holds the dot-notation accessors of `GenerationUnitEntry` (SOM §8).
   // Every method is one navigable position: `.path` is the absolute document
   // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
@@ -45015,6 +45046,25 @@ public final class TomSomV0Meta {
         });
         out.add(n);
       }
+      {
+        SomMetaNode n = new SomMetaNode("GenerationUnitEntry", SomMetaKind.LIST, "GenerationUnitEmitterEntry");
+        n.memberName = "emitters";
+        n.sectionId = "GEEMI-EMIT-LST";
+        n.sectionIdPattern = "GEEMI-EMIT-xxx";
+        n.serializationOrder = 2;
+        n.contentHelp = "Add one entry per standard the unit is also written in: openapi, jsonschema, icu or asyncapi.";
+        n.docComment = "The standard emitters the unit is also written by.";
+        n.elementNode = metaCx("GenerationUnitEmitterEntry", s, GenerationUnitEmitterEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("GenerationUnitEmitterEntry", SomMetaKind.COMPLEX, "GenerationUnitEmitterEntry");
+          e.classSectionId = "GEEMI";
+          e.docComment = "One standard emitter of a generation unit: a standard the unit's code is\nalso written in (`irspecs_ir.md` §10 in `tom_core_codespecs/doc/`) — the\nemitter id `openapi`, `jsonschema`, `icu` or `asyncapi`.";
+          e.classDocComment = "One standard emitter of a generation unit: a standard the unit's code is\nalso written in (`irspecs_ir.md` §10 in `tom_core_codespecs/doc/`) — the\nemitter id `openapi`, `jsonschema`, `icu` or `asyncapi`.";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       return out;
     }
 
@@ -45024,6 +45074,10 @@ public final class TomSomV0Meta {
 
     public SomListMetaRef<GenerationUnitMappingEntryNav> mappings() {
       return new SomListMetaRef<>(tree, path + "/GEMAP-MAPP-LST", (t, p) -> new GenerationUnitMappingEntryNav(t, p));
+    }
+
+    public SomListMetaRef<GenerationUnitEmitterEntryNav> emitters() {
+      return new SomListMetaRef<>(tree, path + "/GEEMI-EMIT-LST", (t, p) -> new GenerationUnitEmitterEntryNav(t, p));
     }
   }
 
@@ -128311,6 +128365,16 @@ public final class TomSomV0Meta {
     }
   }
 
+  // GenerationUnitEmitterEntryId holds the ID-tree accessors of `GenerationUnitEmitterEntry` (SOM §8): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class GenerationUnitEmitterEntryId extends SomMetaRef {
+    public GenerationUnitEmitterEntryId(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+  }
+
   // GenerationUnitEntryId holds the ID-tree accessors of `GenerationUnitEntry` (SOM §8): methods
   // named by section id (`-` → `_`), hoisted through id-less members so every
   // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
@@ -128322,6 +128386,10 @@ public final class TomSomV0Meta {
 
     public SomListMetaRef<GenerationUnitMappingEntryId> GEMAP_MAPP_LST() {
       return new SomListMetaRef<>(tree, path + "/GEMAP-MAPP-LST", (t, p) -> new GenerationUnitMappingEntryId(t, p));
+    }
+
+    public SomListMetaRef<GenerationUnitEmitterEntryId> GEEMI_EMIT_LST() {
+      return new SomListMetaRef<>(tree, path + "/GEEMI-EMIT-LST", (t, p) -> new GenerationUnitEmitterEntryId(t, p));
     }
   }
 

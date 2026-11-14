@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: codespecs-generation-projection/1.10
+# Schema: codespecs-generation-projection/1.11
 
 title-format: "# <!--[CGP]--> CodeSpecs Generation Projection"
 section-types:
@@ -802,6 +802,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per global role exclusion.
+  geemi-emit-lst:
+    prefix: GEEMI_EMIT_LST
+    subsection-types:
+      geemi-emit:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per standard the unit is also written in: openapi, jsonschema, icu or asyncapi."
   gemap-mapp-lst:
     prefix: GEMAP_MAPP_LST
     subsection-types:
@@ -2788,6 +2796,12 @@ section-types:
       pattern: ^GBRLX-GLOB-.+$
       error-message: IDs of this section must match GBRLX-GLOB-xxx
     description: Add one entry per global role exclusion.
+  geemi-emit:
+    prefix: GEEMI_EMIT_
+    pattern-check-id:
+      pattern: ^GEEMI-EMIT-.+$
+      error-message: IDs of this section must match GEEMI-EMIT-xxx
+    description: "Add one entry per standard the unit is also written in: openapi, jsonschema, icu or asyncapi."
   gemap-mapp:
     prefix: GEMAP_MAPP_
     pattern-check-id:
@@ -2798,6 +2812,8 @@ section-types:
     prefix: GENUN_UNIT_
     subsection-types:
       gemap-mapp-lst:
+        max-count: 1
+      geemi-emit-lst:
         max-count: 1
     pattern-check-id:
       pattern: ^GENUN-UNIT-.+$

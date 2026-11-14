@@ -229,7 +229,9 @@ specification, not assumed: the generation-unit register
 each unit — its `unitId`, its kind (client, server, shared, other), the
 deployment target or architecture component it builds — and, per area, the
 mapper that writes it (`GEMAP-MAPP-LST`: `CE-DB` → `dart-tom`), several for one
-area where the area is written for two technologies. The register is routed
+area where the area is written for two technologies — and the standards the
+unit ships besides its code (`GEEMI-EMIT-LST`: `openapi`, `jsonschema`, `icu`,
+`asyncapi`). The register is routed
 `@NoArtifact(generation)`: it steers Phase 4 and becomes no artifact. A section
 goes to every unit whose mappings hold its area unless it, or a section above
 it, names other units in its `units` member (SOM §11.2); every extract entry
@@ -261,7 +263,7 @@ the first to go stale.
 | **2** | **Scaffold** — create one package per generation unit (§1.1.1 item 4) — the §4.2 project trio when the specification declares none — with its pubspec and per-area folders | one L1 todo per scaffolding unit | §4.2 |
 | **3** | **Author, per step** — walk the thirty-one authoring steps | one L2 todo per step; the step's IR documents, `<spec-root>/irspecs/<CE-CODE>.ir.yaml` | §4.4.6 |
 | **4** | **Author, per element** — *inside* a step, walk that step's extract entries | one L3 todo per (section, area) pair | §4.4.8 |
-| **5** | **Map and validate** — per generation unit, `irspecs map --mapper <the unit's mapper> --ir <spec-root>/irspecs --spec <document> --unit <unit id>` writes the unit's package from the IR (without units: `irspecs map --mapper dart-tom` writes the trio); then `validate_codespecs.dart` over the trio, with `--ir` over the IR, and a second time over a regenerated IR (`--regenerated-ir`) | the trio; a pass/fail verdict on the [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md) §6 checks | §6 |
+| **5** | **Map and validate** — per generation unit, `irspecs map --mapper <the unit's mapper> --ir <spec-root>/irspecs --spec <document> --unit <unit id>` writes the unit's package from the IR (without units: `irspecs map --mapper dart-tom` writes the trio), and `irspecs emit --spec <document> --unit <unit id>` the standards the unit's emitters name ([`irspecs_ir.md`](irspecs_ir.md) §10); then `validate_codespecs.dart` over the trio, with `--ir` over the IR, and a second time over a regenerated IR (`--regenerated-ir`) | the trio and each unit's standards; a pass/fail verdict on the [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md) §6 checks | §6 |
 
 The id ranges the four todo levels occupy — `csopen<n>`, `csproj<n>`,
 `csgen<n>`, `cs<area><n>` — and the prefix-iteration properties that make them

@@ -1,6 +1,6 @@
 # TomSpecs document (*.docspecs.yaml). Hierarchical format v2.
 version: 2
-modelVersion: "1.9"
+modelVersion: "1.11"
 document:
   SBP D00SolutionBlueprint:
     content: |2-
@@ -2463,6 +2463,23 @@ document:
                         CE-SU
                       mapping: |2-
                         dart-tom
+                GEEMI-EMIT-LST emitters:
+                  GEEMI-EMIT-1:
+                    headline: |2-
+                      openapi
+                    content:
+                      emitter: |2-
+                        openapi
+                      note: |2-
+                        The order service operations, for the web client and the partner integrations.
+                  GEEMI-EMIT-2:
+                    headline: |2-
+                      jsonschema
+                    content:
+                      emitter: |2-
+                        jsonschema
+                      note: |2-
+                        The wire types the operations carry.
         SDR softwareDesign:
           LAMS layeringAndModuleStructure:
             BCE-BOUN-LST boundedContexts:

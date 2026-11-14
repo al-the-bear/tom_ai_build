@@ -161,6 +161,7 @@ export {
   SpecGenerationUnit,
   specGenerationUnits,
   specDefaultUnits,
+  K_SPEC_STANDARD_EMITTERS,
 } from './spec_generation_units';
 // Phase-4 Stage-A gate (codespecs_prompt.md §4, A1–A5)
 export {

@@ -1269,33 +1269,33 @@ char *parse_translation_review_status(const char *token);
 char *parse_user_attribute_placement(const char *token);
 
 // D00_SOLUTION_BLUEPRINT_MODEL_VERSION is the model version the D00SolutionBlueprint object model was generated against (SOM §4.2).
-#define D00_SOLUTION_BLUEPRINT_MODEL_VERSION "1.10"
+#define D00_SOLUTION_BLUEPRINT_MODEL_VERSION "1.11"
 // D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version the D01CurrentLandscapeAssessment object model was generated against (SOM §4.2).
-#define D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION "1.10"
+#define D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION "1.11"
 // D02_TARGET_OPERATING_MODEL_MODEL_VERSION is the model version the D02TargetOperatingModel object model was generated against (SOM §4.2).
-#define D02_TARGET_OPERATING_MODEL_MODEL_VERSION "1.10"
+#define D02_TARGET_OPERATING_MODEL_MODEL_VERSION "1.11"
 // D03_INFORMATION_MODEL_MODEL_VERSION is the model version the D03InformationModel object model was generated against (SOM §4.2).
-#define D03_INFORMATION_MODEL_MODEL_VERSION "1.10"
+#define D03_INFORMATION_MODEL_MODEL_VERSION "1.11"
 // D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version the D04RequirementsSpecification object model was generated against (SOM §4.2).
-#define D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION "1.10"
+#define D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION "1.11"
 // D05_INTERACTION_SCENARIOS_MODEL_VERSION is the model version the D05InteractionScenarios object model was generated against (SOM §4.2).
-#define D05_INTERACTION_SCENARIOS_MODEL_VERSION "1.10"
+#define D05_INTERACTION_SCENARIOS_MODEL_VERSION "1.11"
 // D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version the D06ArchitectureTechnologySpecification object model was generated against (SOM §4.2).
-#define D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION "1.10"
+#define D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION "1.11"
 // D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version the D07IntegrationInterfaceSpecification object model was generated against (SOM §4.2).
-#define D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION "1.10"
+#define D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION "1.11"
 // D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version the D08SecurityAccessSpecification object model was generated against (SOM §4.2).
-#define D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION "1.10"
+#define D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION "1.11"
 // D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version the D09ExperienceDesignSpecification object model was generated against (SOM §4.2).
-#define D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION "1.10"
+#define D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION "1.11"
 // D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version the D10QualityAcceptancePlan object model was generated against (SOM §4.2).
-#define D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION "1.10"
+#define D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION "1.11"
 // D11_DELIVERY_ROADMAP_MODEL_VERSION is the model version the D11DeliveryRoadmap object model was generated against (SOM §4.2).
-#define D11_DELIVERY_ROADMAP_MODEL_VERSION "1.10"
+#define D11_DELIVERY_ROADMAP_MODEL_VERSION "1.11"
 // D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version the D12TransitionRolloutPlan object model was generated against (SOM §4.2).
-#define D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION "1.10"
+#define D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION "1.11"
 // D13_CODE_SPECS_PROJECTION_MODEL_VERSION is the model version the D13CodeSpecsProjection object model was generated against (SOM §4.2).
-#define D13_CODE_SPECS_PROJECTION_MODEL_VERSION "1.10"
+#define D13_CODE_SPECS_PROJECTION_MODEL_VERSION "1.11"
 
 // Typed facade structs — each binds a node (document + path).
 typedef struct { SomNode node; } AcceptanceCriteriaList;
@@ -1781,6 +1781,7 @@ typedef struct { SomNode node; } FunctionalRequirements;
 typedef struct { SomNode node; } FunctionalResponsibilities;
 typedef struct { SomNode node; } FunctionalSuitabilityCharacteristic;
 typedef struct { SomNode node; } GapEntry;
+typedef struct { SomNode node; } GenerationUnitEmitterEntry;
 typedef struct { SomNode node; } GenerationUnitEntry;
 typedef struct { SomNode node; } GenerationUnitMappingEntry;
 typedef struct { SomNode node; } GeographicDistributionRequirements;
@@ -3679,6 +3680,7 @@ typedef struct { SomNode node; } GapEntryDescriptionForm;
 typedef struct { SomNode node; } GapEntryDiscoveryForm;
 typedef struct { SomNode node; } GapEntryResolutionForm;
 typedef struct { SomNode node; } GapEntryWorkaroundForm;
+typedef struct { SomNode node; } GenerationUnitEmitterEntryContentForm;
 typedef struct { SomNode node; } GenerationUnitEntryContentForm;
 typedef struct { SomNode node; } GenerationUnitMappingEntryContentForm;
 typedef struct { SomNode node; } GeographicDistributionRequirementsAnycastForm;
@@ -6734,8 +6736,8 @@ ComponentOrganization architecture_style_component_organization(const Architectu
 // Component/service catalog.
 // Returns the list view; element type: ArchitectureComponentEntry (construct from item paths).
 SomList architecture_style_components(const ArchitectureStyle *self);
-// The generation units Phase 4 writes code for, and the mapper each of
-// their areas is written by.
+// The generation units Phase 4 writes code for, the mapper each of their
+// areas is written by, and the standards each unit is also written in.
 // Returns the list view; element type: GenerationUnitEntry (construct from item paths).
 SomList architecture_style_generation_units(const ArchitectureStyle *self);
 // Communication patterns between components.
@@ -16720,13 +16722,29 @@ GapEntryWorkaroundForm gap_entry_workaround(const GapEntry *self);
 // Resolution planning.
 GapEntryResolutionForm gap_entry_resolution(const GapEntry *self);
 
+// One standard emitter of a generation unit: a standard the unit's code is
+// also written in (`irspecs_ir.md` §10 in `tom_core_codespecs/doc/`) — the
+// emitter id `openapi`, `jsonschema`, `icu` or `asyncapi`.
+// Binds a GenerationUnitEmitterEntry facade to a document and a path (path copied).
+void generation_unit_emitter_entry_init(GenerationUnitEmitterEntry *self, SpecDocument *doc, const char *path);
+void generation_unit_emitter_entry_free(GenerationUnitEmitterEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int generation_unit_emitter_entry_can_have_content(const GenerationUnitEmitterEntry *self);
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in the section's `form`.
+GenerationUnitEmitterEntryContentForm generation_unit_emitter_entry_content(const GenerationUnitEmitterEntry *self);
+
 // One generation unit: a package the CodeSpecs generator writes code into.
 //
 // A unit **builds** a deployment target (`DEPTAR`) or an architecture
 // component (`ARCM`), at least one of the two; which areas it holds and in
 // which language and framework is said by its mappings — one per area, or
 // several for one area where the same area is written for two client
-// technologies. A section that goes to other units than its area's default
+// technologies. Its emitters name the standards it is also written in — an
+// OpenAPI document of its operations, a JSON Schema of its types, its messages
+// in ICU MessageFormat, its events in AsyncAPI (`irspecs_ir.md` §10). A
+// section that goes to other units than its area's default
 // names them in its `units` member; the default is every unit with a mapping
 // for the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).
 //
@@ -16744,6 +16762,9 @@ GenerationUnitEntryContentForm generation_unit_entry_content(const GenerationUni
 // The mapper each area of the unit is written by.
 // Returns the list view; element type: GenerationUnitMappingEntry (construct from item paths).
 SomList generation_unit_entry_mappings(const GenerationUnitEntry *self);
+// The standard emitters the unit is also written by.
+// Returns the list view; element type: GenerationUnitEmitterEntry (construct from item paths).
+SomList generation_unit_entry_emitters(const GenerationUnitEntry *self);
 
 // One mapping of a generation unit: the area and the mapper that writes it.
 // Binds a GenerationUnitMappingEntry facade to a document and a path (path copied).
@@ -49756,6 +49777,17 @@ char *gap_entry_workaround_form_workaround_cost(const GapEntryWorkaroundForm *se
 void gap_entry_workaround_form_set_workaround_cost(GapEntryWorkaroundForm *self, const char *value);
 char *gap_entry_workaround_form_risk_if_not_addressed(const GapEntryWorkaroundForm *self);
 void gap_entry_workaround_form_set_risk_if_not_addressed(GapEntryWorkaroundForm *self, const char *value);
+
+// GenerationUnitEmitterEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void generation_unit_emitter_entry_content_form_init(GenerationUnitEmitterEntryContentForm *self, SpecDocument *doc, const char *path);
+void generation_unit_emitter_entry_content_form_free(GenerationUnitEmitterEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *generation_unit_emitter_entry_content_form_content(const GenerationUnitEmitterEntryContentForm *self);
+void generation_unit_emitter_entry_content_form_set_content(GenerationUnitEmitterEntryContentForm *self, const char *value);
+char *generation_unit_emitter_entry_content_form_emitter(const GenerationUnitEmitterEntryContentForm *self);
+void generation_unit_emitter_entry_content_form_set_emitter(GenerationUnitEmitterEntryContentForm *self, const char *value);
+char *generation_unit_emitter_entry_content_form_note(const GenerationUnitEmitterEntryContentForm *self);
+void generation_unit_emitter_entry_content_form_set_note(GenerationUnitEmitterEntryContentForm *self, const char *value);
 
 // GenerationUnitEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void generation_unit_entry_content_form_init(GenerationUnitEntryContentForm *self, SpecDocument *doc, const char *path);

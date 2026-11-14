@@ -106,6 +106,7 @@ pub use spec_document_yaml::{
 pub use spec_editor::{SomValue, SpecEditor};
 pub use spec_generation_units::{
     spec_default_units, spec_generation_units, SpecGenerationUnit, SpecGenerationUnitMapping,
+    SPEC_STANDARD_EMITTERS,
 };
 pub use spec_meta::{
     SomContentTypeMeta, SomDocMeta, SomFormFieldMeta, SomFormMeta, SomListMetaRef, SomMetaExtra,
@@ -166,5 +167,5 @@ pub use spec_validator::{
     SPEC_VALIDATION_CODE_ANNOTATION_MISPLACED, SPEC_VALIDATION_CODE_DUPLICATE_ANNOTATION_ID,
     SPEC_VALIDATION_CODE_DUPLICATE_UNIT_ID, SPEC_VALIDATION_CODE_UNITS_UNROUTED,
     SPEC_VALIDATION_CODE_UNIT_AREA_MALFORMED, SPEC_VALIDATION_CODE_UNIT_BUILDS_NOTHING,
-    SPEC_VALIDATION_CODE_UNKNOWN_UNIT,
+    SPEC_VALIDATION_CODE_UNIT_EMITTER_UNKNOWN, SPEC_VALIDATION_CODE_UNKNOWN_UNIT,
 };

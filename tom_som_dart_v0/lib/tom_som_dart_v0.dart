@@ -2,7 +2,7 @@
 // ignore_for_file: type=lint, unused_import, document_ignores
 
 /// The generated typed object model for the TomSpecs specification documents
-/// (`v0`), model version `1.10`.
+/// (`v0`), model version `1.11`.
 ///
 /// **Generated — do not edit.** Regenerate with `generate_som.dart`; a hand
 /// edit is overwritten by the next run. The generator is
@@ -3890,8 +3890,8 @@ class ArchitectureStyle extends SomNode {
   /// **Authoring guidance.** Add one entry per architecture component or service.
   SomList<ArchitectureComponentEntry> get components => SomList<ArchitectureComponentEntry>(doc, '$path/ARCM-COMP-LST', (d, p) => ArchitectureComponentEntry(d, p), pattern: 'ARCM-COMP-xxx');
 
-  /// The generation units Phase 4 writes code for, and the mapper each of
-  /// their areas is written by.
+  /// The generation units Phase 4 writes code for, the mapper each of their
+  /// areas is written by, and the standards each unit is also written in.
   ///
   /// **Authoring guidance.** Add one entry per generated unit — a client, a server, the package both share — and give each the mapper of every area it holds.
   SomList<GenerationUnitEntry> get generationUnits => SomList<GenerationUnitEntry>(doc, '$path/GENUN-UNIT-LST', (d, p) => GenerationUnitEntry(d, p), pattern: 'GENUN-UNIT-xxx');
@@ -10226,7 +10226,7 @@ class CutoverProcedure extends SomNode {
 /// per the public-standards order of the `@StandardReferences` below.
 class D00SolutionBlueprint extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.10';
+  static const String modelVersion = '1.11';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10319,7 +10319,7 @@ class D00SolutionBlueprint extends SomNode {
 /// and the inventory / migration plan for the systems being replaced.
 class D01CurrentLandscapeAssessment extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.10';
+  static const String modelVersion = '1.11';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10409,7 +10409,7 @@ class D01CurrentLandscapeAssessment extends SomNode {
 /// cross-process analysis, exception handling, and KPIs.
 class D02TargetOperatingModel extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.10';
+  static const String modelVersion = '1.11';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10506,7 +10506,7 @@ class D02TargetOperatingModel extends SomNode {
 /// integrity constraints.
 class D03InformationModel extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.10';
+  static const String modelVersion = '1.11';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10651,7 +10651,7 @@ class D03InformationModel extends SomNode {
 /// and coverage analysis.
 class D04RequirementsSpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.10';
+  static const String modelVersion = '1.11';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10743,7 +10743,7 @@ class D04RequirementsSpecification extends SomNode {
 /// and traceability.
 class D05InteractionScenarios extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.10';
+  static const String modelVersion = '1.11';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10831,7 +10831,7 @@ class D05InteractionScenarios extends SomNode {
 /// and translation handling.
 class D06ArchitectureTechnologySpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.10';
+  static const String modelVersion = '1.11';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10933,7 +10933,7 @@ class D06ArchitectureTechnologySpecification extends SomNode {
 /// migration, operational concerns, and cross-boundary error handling.
 class D07IntegrationInterfaceSpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.10';
+  static const String modelVersion = '1.11';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -11030,7 +11030,7 @@ class D07IntegrationInterfaceSpecification extends SomNode {
 /// compliance framework.
 class D08SecurityAccessSpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.10';
+  static const String modelVersion = '1.11';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -11131,7 +11131,7 @@ class D08SecurityAccessSpecification extends SomNode {
 /// mockups.
 class D09ExperienceDesignSpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.10';
+  static const String modelVersion = '1.11';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -11237,7 +11237,7 @@ class D09ExperienceDesignSpecification extends SomNode {
 /// Full quality plan combining quality goals and the acceptance plan.
 class D10QualityAcceptancePlan extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.10';
+  static const String modelVersion = '1.11';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -11361,7 +11361,7 @@ class D10QualityAcceptancePlan extends SomNode {
 /// framework.
 class D11DeliveryRoadmap extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.10';
+  static const String modelVersion = '1.11';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -11455,7 +11455,7 @@ class D11DeliveryRoadmap extends SomNode {
 /// transfer, and warranty/support.
 class D12TransitionRolloutPlan extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.10';
+  static const String modelVersion = '1.11';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -11568,7 +11568,7 @@ class D12TransitionRolloutPlan extends SomNode {
 /// models, the process-step interactions, and the client-side experience seed.
 class D13CodeSpecsProjection extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.10';
+  static const String modelVersion = '1.11';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -19483,13 +19483,33 @@ class GapEntry extends SomNode {
   GapEntryResolutionForm get resolution => GapEntryResolutionForm(doc, '$path/GAENRE');
 }
 
+/// One standard emitter of a generation unit: a standard the unit's code is
+/// also written in (`irspecs_ir.md` §10 in `tom_core_codespecs/doc/`) — the
+/// emitter id `openapi`, `jsonschema`, `icu` or `asyncapi`.
+class GenerationUnitEmitterEntry extends SomNode {
+  /// Names the `GenerationUnitEmitterEntry` section at [path] inside [doc].
+  ///
+  /// Constructing a facade node neither allocates storage nor validates —
+  /// it only names a path, so a node may be built for a section the
+  /// document does not yet carry.
+  GenerationUnitEmitterEntry(super.doc, super.path);
+
+  /// The section's body content. For a `@Form`-annotated member this is the
+  /// form's **preamble** — the free text before the first field line (SOM
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
+  GenerationUnitEmitterEntryContentForm get content => GenerationUnitEmitterEntryContentForm(doc, '$path/content');
+}
+
 /// One generation unit: a package the CodeSpecs generator writes code into.
 /// 
 /// A unit **builds** a deployment target (`DEPTAR`) or an architecture
 /// component (`ARCM`), at least one of the two; which areas it holds and in
 /// which language and framework is said by its mappings — one per area, or
 /// several for one area where the same area is written for two client
-/// technologies. A section that goes to other units than its area's default
+/// technologies. Its emitters name the standards it is also written in — an
+/// OpenAPI document of its operations, a JSON Schema of its types, its messages
+/// in ICU MessageFormat, its events in AsyncAPI (`irspecs_ir.md` §10). A
+/// section that goes to other units than its area's default
 /// names them in its `units` member; the default is every unit with a mapping
 /// for the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).
 /// 
@@ -19512,6 +19532,11 @@ class GenerationUnitEntry extends SomNode {
   ///
   /// **Authoring guidance.** Add one entry per area the unit holds; an area written for two technologies gets two entries.
   SomList<GenerationUnitMappingEntry> get mappings => SomList<GenerationUnitMappingEntry>(doc, '$path/GEMAP-MAPP-LST', (d, p) => GenerationUnitMappingEntry(d, p), pattern: 'GEMAP-MAPP-xxx');
+
+  /// The standard emitters the unit is also written by.
+  ///
+  /// **Authoring guidance.** Add one entry per standard the unit is also written in: openapi, jsonschema, icu or asyncapi.
+  SomList<GenerationUnitEmitterEntry> get emitters => SomList<GenerationUnitEmitterEntry>(doc, '$path/GEEMI-EMIT-LST', (d, p) => GenerationUnitEmitterEntry(d, p), pattern: 'GEEMI-EMIT-xxx');
 }
 
 /// One mapping of a generation unit: the area and the mapper that writes it.
@@ -88358,6 +88383,34 @@ class GapEntryWorkaroundForm extends SomNode {
   /// Consequences and risk level if gap remains unresolved
   String get riskIfNotAddressed => doc.formField(path, 'riskIfNotAddressed') ?? '';
   set riskIfNotAddressed(String value) => doc.setFormField(path, 'riskIfNotAddressed', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class GenerationUnitEmitterEntryContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  GenerationUnitEmitterEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Emitter.
+  ///
+  /// The emitter id: openapi, jsonschema, icu or asyncapi
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get emitter => doc.formField(path, 'emitter') ?? '';
+  set emitter(String value) => doc.setFormField(path, 'emitter', value);
+
+  /// Note.
+  ///
+  /// Why this standard, who reads it
+  String get note => doc.formField(path, 'note') ?? '';
+  set note(String value) => doc.setFormField(path, 'note', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:

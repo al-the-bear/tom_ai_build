@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 3 files
-// Generated: 2026-11-13T11:35:17.583973 by tom_d4rt_generator 1.63.2
+// Generated: 2026-11-14T14:41:57.264008 by tom_d4rt_generator 1.63.2
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -509,6 +509,7 @@ class SomV0Bridge {
       _createFunctionalResponsibilitiesBridge(),
       _createFunctionalSuitabilityCharacteristicBridge(),
       _createGapEntryBridge(),
+      _createGenerationUnitEmitterEntryBridge(),
       _createGenerationUnitEntryBridge(),
       _createGenerationUnitMappingEntryBridge(),
       _createGeographicDistributionRequirementsBridge(),
@@ -2407,6 +2408,7 @@ class SomV0Bridge {
       _createGapEntryDiscoveryFormBridge(),
       _createGapEntryResolutionFormBridge(),
       _createGapEntryWorkaroundFormBridge(),
+      _createGenerationUnitEmitterEntryContentFormBridge(),
       _createGenerationUnitEntryContentFormBridge(),
       _createGenerationUnitMappingEntryContentFormBridge(),
       _createGeographicDistributionRequirementsAnycastFormBridge(),
@@ -4631,6 +4633,7 @@ class SomV0Bridge {
       _createFunctionalResponsibilities$NavBridge(),
       _createFunctionalSuitabilityCharacteristic$NavBridge(),
       _createGapEntry$NavBridge(),
+      _createGenerationUnitEmitterEntry$NavBridge(),
       _createGenerationUnitEntry$NavBridge(),
       _createGenerationUnitMappingEntry$NavBridge(),
       _createGeographicDistributionRequirements$NavBridge(),
@@ -5623,6 +5626,7 @@ class SomV0Bridge {
       _createFunctionEntry$IdBridge(),
       _createFunctionalRequirementEntry$IdBridge(),
       _createGapEntry$IdBridge(),
+      _createGenerationUnitEmitterEntry$IdBridge(),
       _createGenerationUnitEntry$IdBridge(),
       _createGenerationUnitMappingEntry$IdBridge(),
       _createGlobalRoleExclusionEntry$IdBridge(),
@@ -6487,6 +6491,7 @@ class SomV0Bridge {
       'FunctionalSuitabilityCharacteristic':
           _createFunctionalSuitabilityCharacteristicBridge,
       'GapEntry': _createGapEntryBridge,
+      'GenerationUnitEmitterEntry': _createGenerationUnitEmitterEntryBridge,
       'GenerationUnitEntry': _createGenerationUnitEntryBridge,
       'GenerationUnitMappingEntry': _createGenerationUnitMappingEntryBridge,
       'GeographicDistributionRequirements':
@@ -9403,6 +9408,8 @@ class SomV0Bridge {
       'GapEntryDiscoveryForm': _createGapEntryDiscoveryFormBridge,
       'GapEntryResolutionForm': _createGapEntryResolutionFormBridge,
       'GapEntryWorkaroundForm': _createGapEntryWorkaroundFormBridge,
+      'GenerationUnitEmitterEntryContentForm':
+          _createGenerationUnitEmitterEntryContentFormBridge,
       'GenerationUnitEntryContentForm':
           _createGenerationUnitEntryContentFormBridge,
       'GenerationUnitMappingEntryContentForm':
@@ -13152,6 +13159,8 @@ class SomV0Bridge {
       'FunctionalSuitabilityCharacteristic\$Nav':
           _createFunctionalSuitabilityCharacteristic$NavBridge,
       'GapEntry\$Nav': _createGapEntry$NavBridge,
+      'GenerationUnitEmitterEntry\$Nav':
+          _createGenerationUnitEmitterEntry$NavBridge,
       'GenerationUnitEntry\$Nav': _createGenerationUnitEntry$NavBridge,
       'GenerationUnitMappingEntry\$Nav':
           _createGenerationUnitMappingEntry$NavBridge,
@@ -14428,6 +14437,8 @@ class SomV0Bridge {
       'FunctionalRequirementEntry\$Id':
           _createFunctionalRequirementEntry$IdBridge,
       'GapEntry\$Id': _createGapEntry$IdBridge,
+      'GenerationUnitEmitterEntry\$Id':
+          _createGenerationUnitEmitterEntry$IdBridge,
       'GenerationUnitEntry\$Id': _createGenerationUnitEntry$IdBridge,
       'GenerationUnitMappingEntry\$Id':
           _createGenerationUnitMappingEntry$IdBridge,
@@ -15417,6 +15428,8 @@ class SomV0Bridge {
       'FunctionalSuitabilityCharacteristic':
           $tom_som_dart_v0_1.FunctionalSuitabilityCharacteristic,
       'GapEntry': $tom_som_dart_v0_1.GapEntry,
+      'GenerationUnitEmitterEntry':
+          $tom_som_dart_v0_1.GenerationUnitEmitterEntry,
       'GenerationUnitEntry': $tom_som_dart_v0_1.GenerationUnitEntry,
       'GenerationUnitMappingEntry':
           $tom_som_dart_v0_1.GenerationUnitMappingEntry,
@@ -18519,6 +18532,8 @@ class SomV0Bridge {
       'GapEntryDiscoveryForm': $tom_som_dart_v0_1.GapEntryDiscoveryForm,
       'GapEntryResolutionForm': $tom_som_dart_v0_1.GapEntryResolutionForm,
       'GapEntryWorkaroundForm': $tom_som_dart_v0_1.GapEntryWorkaroundForm,
+      'GenerationUnitEmitterEntryContentForm':
+          $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm,
       'GenerationUnitEntryContentForm':
           $tom_som_dart_v0_1.GenerationUnitEntryContentForm,
       'GenerationUnitMappingEntryContentForm':
@@ -22603,6 +22618,8 @@ class SomV0Bridge {
       'FunctionalSuitabilityCharacteristic\$Nav':
           $tom_som_dart_v0_2.FunctionalSuitabilityCharacteristic$Nav,
       'GapEntry\$Nav': $tom_som_dart_v0_2.GapEntry$Nav,
+      'GenerationUnitEmitterEntry\$Nav':
+          $tom_som_dart_v0_2.GenerationUnitEmitterEntry$Nav,
       'GenerationUnitEntry\$Nav': $tom_som_dart_v0_2.GenerationUnitEntry$Nav,
       'GenerationUnitMappingEntry\$Nav':
           $tom_som_dart_v0_2.GenerationUnitMappingEntry$Nav,
@@ -24072,6 +24089,8 @@ class SomV0Bridge {
       'FunctionalRequirementEntry\$Id':
           $tom_som_dart_v0_2.FunctionalRequirementEntry$Id,
       'GapEntry\$Id': $tom_som_dart_v0_2.GapEntry$Id,
+      'GenerationUnitEmitterEntry\$Id':
+          $tom_som_dart_v0_2.GenerationUnitEmitterEntry$Id,
       'GenerationUnitEntry\$Id': $tom_som_dart_v0_2.GenerationUnitEntry$Id,
       'GenerationUnitMappingEntry\$Id':
           $tom_som_dart_v0_2.GenerationUnitMappingEntry$Id,
@@ -25178,6 +25197,8 @@ class SomV0Bridge {
       'FunctionalSuitabilityCharacteristic':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'GapEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'GenerationUnitEmitterEntry':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'GenerationUnitEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'GenerationUnitMappingEntry':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -28402,6 +28423,8 @@ class SomV0Bridge {
       'GapEntryDiscoveryForm': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'GapEntryResolutionForm': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'GapEntryWorkaroundForm': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'GenerationUnitEmitterEntryContentForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'GenerationUnitEntryContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'GenerationUnitMappingEntryContentForm':
@@ -32751,6 +32774,8 @@ class SomV0Bridge {
       'FunctionalSuitabilityCharacteristic\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'GapEntry\$Nav': 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'GenerationUnitEmitterEntry\$Nav':
+          'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'GenerationUnitEntry\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'GenerationUnitMappingEntry\$Nav':
@@ -34652,6 +34677,8 @@ class SomV0Bridge {
       'FunctionalRequirementEntry\$Id':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'GapEntry\$Id': 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'GenerationUnitEmitterEntry\$Id':
+          'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'GenerationUnitEntry\$Id':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'GenerationUnitMappingEntry\$Id':
@@ -35779,6 +35806,7 @@ class SomV0Bridge {
       'FunctionalResponsibilities': ['SomNode'],
       'FunctionalSuitabilityCharacteristic': ['SomNode'],
       'GapEntry': ['SomNode'],
+      'GenerationUnitEmitterEntry': ['SomNode'],
       'GenerationUnitEntry': ['SomNode'],
       'GenerationUnitMappingEntry': ['SomNode'],
       'GeographicDistributionRequirements': ['SomNode'],
@@ -37681,6 +37709,7 @@ class SomV0Bridge {
       'GapEntryDiscoveryForm': ['SomNode'],
       'GapEntryResolutionForm': ['SomNode'],
       'GapEntryWorkaroundForm': ['SomNode'],
+      'GenerationUnitEmitterEntryContentForm': ['SomNode'],
       'GenerationUnitEntryContentForm': ['SomNode'],
       'GenerationUnitMappingEntryContentForm': ['SomNode'],
       'GeographicDistributionRequirementsAnycastForm': ['SomNode'],
@@ -39908,6 +39937,7 @@ class SomV0Bridge {
       'FunctionalResponsibilities\$Nav': ['SomMetaRef'],
       'FunctionalSuitabilityCharacteristic\$Nav': ['SomMetaRef'],
       'GapEntry\$Nav': ['SomMetaRef'],
+      'GenerationUnitEmitterEntry\$Nav': ['SomMetaRef'],
       'GenerationUnitEntry\$Nav': ['SomMetaRef'],
       'GenerationUnitMappingEntry\$Nav': ['SomMetaRef'],
       'GeographicDistributionRequirements\$Nav': ['SomMetaRef'],
@@ -40900,6 +40930,7 @@ class SomV0Bridge {
       'FunctionEntry\$Id': ['SomMetaRef'],
       'FunctionalRequirementEntry\$Id': ['SomMetaRef'],
       'GapEntry\$Id': ['SomMetaRef'],
+      'GenerationUnitEmitterEntry\$Id': ['SomMetaRef'],
       'GenerationUnitEntry\$Id': ['SomMetaRef'],
       'GenerationUnitMappingEntry\$Id': ['SomMetaRef'],
       'GlobalRoleExclusionEntry\$Id': ['SomMetaRef'],
@@ -127281,6 +127312,155 @@ BridgedClass _createGapEntryBridge() {
 }
 
 // =============================================================================
+// GenerationUnitEmitterEntry Bridge
+// =============================================================================
+
+BridgedClass _createGenerationUnitEmitterEntryBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.GenerationUnitEmitterEntry,
+    name: 'GenerationUnitEmitterEntry',
+    isAssignable: (v) => v is $tom_som_dart_v0_1.GenerationUnitEmitterEntry,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'GenerationUnitEmitterEntry');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'GenerationUnitEmitterEntry',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'GenerationUnitEmitterEntry',
+        );
+        return $tom_som_dart_v0_1.GenerationUnitEmitterEntry(doc, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.GenerationUnitEmitterEntry>(
+            target,
+            'GenerationUnitEmitterEntry',
+          )
+          .content,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.GenerationUnitEmitterEntry>(
+            target,
+            'GenerationUnitEmitterEntry',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.GenerationUnitEmitterEntry>(
+            target,
+            'GenerationUnitEmitterEntry',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.GenerationUnitEmitterEntry>(
+            target,
+            'GenerationUnitEmitterEntry',
+          )
+          .isEmpty,
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.GenerationUnitEmitterEntry>(
+            target,
+            'GenerationUnitEmitterEntry',
+          )
+          .canHaveContent,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.GenerationUnitEmitterEntry>(
+            target,
+            'GenerationUnitEmitterEntry',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.GenerationUnitEmitterEntry>(
+            target,
+            'GenerationUnitEmitterEntry',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.GenerationUnitEmitterEntry>(
+            target,
+            'GenerationUnitEmitterEntry',
+          )
+          .$codeSpec,
+      '\$units': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.GenerationUnitEmitterEntry>(
+            target,
+            'GenerationUnitEmitterEntry',
+          )
+          .$units,
+    },
+    setters: {
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.GenerationUnitEmitterEntry>(
+                target,
+                'GenerationUnitEmitterEntry',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.GenerationUnitEmitterEntry>(
+                target,
+                'GenerationUnitEmitterEntry',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.GenerationUnitEmitterEntry>(
+                target,
+                'GenerationUnitEmitterEntry',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+      '\$units': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.GenerationUnitEmitterEntry>(
+                target,
+                'GenerationUnitEmitterEntry',
+              )
+              .$units = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$units',
+          ),
+    },
+    constructorSignatures: {
+      '': 'GenerationUnitEmitterEntry(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'content': 'GenerationUnitEmitterEntryContentForm get content',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      'canHaveContent': 'bool get canHaveContent',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+      '\$units': 'String? get \$units',
+    },
+    setterSignatures: {
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+      '\$units': 'set \$units(String? value)',
+    },
+  );
+}
+
+// =============================================================================
 // GenerationUnitEntry Bridge
 // =============================================================================
 
@@ -127321,6 +127501,12 @@ BridgedClass _createGenerationUnitEntryBridge() {
             'GenerationUnitEntry',
           )
           .mappings,
+      'emitters': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.GenerationUnitEntry>(
+            target,
+            'GenerationUnitEntry',
+          )
+          .emitters,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.GenerationUnitEntry>(
             target,
@@ -127418,6 +127604,7 @@ BridgedClass _createGenerationUnitEntryBridge() {
     getterSignatures: {
       'content': 'GenerationUnitEntryContentForm get content',
       'mappings': 'SomList<GenerationUnitMappingEntry> get mappings',
+      'emitters': 'SomList<GenerationUnitEmitterEntry> get emitters',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -509561,6 +509748,192 @@ BridgedClass _createGapEntryWorkaroundFormBridge() {
       'interimWorkaround': 'set interimWorkaround(String value)',
       'workaroundCost': 'set workaroundCost(String value)',
       'riskIfNotAddressed': 'set riskIfNotAddressed(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+      '\$units': 'set \$units(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// GenerationUnitEmitterEntryContentForm Bridge
+// =============================================================================
+
+BridgedClass _createGenerationUnitEmitterEntryContentFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm,
+    name: 'GenerationUnitEmitterEntryContentForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(
+          positional,
+          2,
+          'GenerationUnitEmitterEntryContentForm',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'GenerationUnitEmitterEntryContentForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'GenerationUnitEmitterEntryContentForm',
+        );
+        return $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm(
+          doc,
+          path,
+        );
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm
+          >(target, 'GenerationUnitEmitterEntryContentForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm
+          >(target, 'GenerationUnitEmitterEntryContentForm')
+          .content,
+      'emitter': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm
+          >(target, 'GenerationUnitEmitterEntryContentForm')
+          .emitter,
+      'note': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm
+          >(target, 'GenerationUnitEmitterEntryContentForm')
+          .note,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm
+          >(target, 'GenerationUnitEmitterEntryContentForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm
+          >(target, 'GenerationUnitEmitterEntryContentForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm
+          >(target, 'GenerationUnitEmitterEntryContentForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm
+          >(target, 'GenerationUnitEmitterEntryContentForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm
+          >(target, 'GenerationUnitEmitterEntryContentForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm
+          >(target, 'GenerationUnitEmitterEntryContentForm')
+          .$codeSpec,
+      '\$units': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm
+          >(target, 'GenerationUnitEmitterEntryContentForm')
+          .$units,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm
+              >(target, 'GenerationUnitEmitterEntryContentForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'emitter': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm
+              >(target, 'GenerationUnitEmitterEntryContentForm')
+              .emitter = D4.extractBridgedArg<String>(
+            value,
+            'emitter',
+          ),
+      'note': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm
+              >(target, 'GenerationUnitEmitterEntryContentForm')
+              .note = D4.extractBridgedArg<String>(
+            value,
+            'note',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm
+              >(target, 'GenerationUnitEmitterEntryContentForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm
+              >(target, 'GenerationUnitEmitterEntryContentForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm
+              >(target, 'GenerationUnitEmitterEntryContentForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+      '\$units': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.GenerationUnitEmitterEntryContentForm
+              >(target, 'GenerationUnitEmitterEntryContentForm')
+              .$units = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$units',
+          ),
+    },
+    constructorSignatures: {
+      '': 'GenerationUnitEmitterEntryContentForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'emitter': 'String get emitter',
+      'note': 'String get note',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+      '\$units': 'String? get \$units',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'emitter': 'set emitter(String value)',
+      'note': 'set note(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -949630,6 +950003,72 @@ BridgedClass _createGapEntry$NavBridge() {
 }
 
 // =============================================================================
+// GenerationUnitEmitterEntry$Nav Bridge
+// =============================================================================
+
+BridgedClass _createGenerationUnitEmitterEntry$NavBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.GenerationUnitEmitterEntry$Nav,
+    name: 'GenerationUnitEmitterEntry\$Nav',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.GenerationUnitEmitterEntry$Nav,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'GenerationUnitEmitterEntry\$Nav');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'GenerationUnitEmitterEntry\$Nav',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'GenerationUnitEmitterEntry\$Nav',
+        );
+        return $tom_som_dart_v0_2.GenerationUnitEmitterEntry$Nav(tree, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.GenerationUnitEmitterEntry$Nav>(
+            target,
+            'GenerationUnitEmitterEntry\$Nav',
+          )
+          .content,
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.GenerationUnitEmitterEntry$Nav>(
+            target,
+            'GenerationUnitEmitterEntry\$Nav',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.GenerationUnitEmitterEntry$Nav>(
+            target,
+            'GenerationUnitEmitterEntry\$Nav',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.GenerationUnitEmitterEntry$Nav>(
+            target,
+            'GenerationUnitEmitterEntry\$Nav',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'GenerationUnitEmitterEntry\$Nav(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'content': 'SomMetaRef get content',
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
 // GenerationUnitEntry$Nav Bridge
 // =============================================================================
 
@@ -949670,6 +950109,12 @@ BridgedClass _createGenerationUnitEntry$NavBridge() {
             'GenerationUnitEntry\$Nav',
           )
           .mappings,
+      'emitters': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.GenerationUnitEntry$Nav>(
+            target,
+            'GenerationUnitEntry\$Nav',
+          )
+          .emitters,
       'tree': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.GenerationUnitEntry$Nav>(
             target,
@@ -949696,6 +950141,8 @@ BridgedClass _createGenerationUnitEntry$NavBridge() {
       'content': 'SomMetaRef get content',
       'mappings':
           'SomListMetaRef<GenerationUnitMappingEntry\$Nav> get mappings',
+      'emitters':
+          'SomListMetaRef<GenerationUnitEmitterEntry\$Nav> get emitters',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -1056755,6 +1057202,65 @@ BridgedClass _createGapEntry$IdBridge() {
 }
 
 // =============================================================================
+// GenerationUnitEmitterEntry$Id Bridge
+// =============================================================================
+
+BridgedClass _createGenerationUnitEmitterEntry$IdBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.GenerationUnitEmitterEntry$Id,
+    name: 'GenerationUnitEmitterEntry\$Id',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.GenerationUnitEmitterEntry$Id,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'GenerationUnitEmitterEntry\$Id');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'GenerationUnitEmitterEntry\$Id',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'GenerationUnitEmitterEntry\$Id',
+        );
+        return $tom_som_dart_v0_2.GenerationUnitEmitterEntry$Id(tree, path);
+      },
+    },
+    getters: {
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.GenerationUnitEmitterEntry$Id>(
+            target,
+            'GenerationUnitEmitterEntry\$Id',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.GenerationUnitEmitterEntry$Id>(
+            target,
+            'GenerationUnitEmitterEntry\$Id',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.GenerationUnitEmitterEntry$Id>(
+            target,
+            'GenerationUnitEmitterEntry\$Id',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'GenerationUnitEmitterEntry\$Id(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
 // GenerationUnitEntry$Id Bridge
 // =============================================================================
 
@@ -1056789,6 +1057295,12 @@ BridgedClass _createGenerationUnitEntry$IdBridge() {
             'GenerationUnitEntry\$Id',
           )
           .GEMAP_MAPP_LST,
+      'GEEMI_EMIT_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.GenerationUnitEntry$Id>(
+            target,
+            'GenerationUnitEntry\$Id',
+          )
+          .GEEMI_EMIT_LST,
       'tree': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.GenerationUnitEntry$Id>(
             target,
@@ -1056814,6 +1057326,8 @@ BridgedClass _createGenerationUnitEntry$IdBridge() {
     getterSignatures: {
       'GEMAP_MAPP_LST':
           'SomListMetaRef<GenerationUnitMappingEntry\$Id> get GEMAP_MAPP_LST',
+      'GEEMI_EMIT_LST':
+          'SomListMetaRef<GenerationUnitEmitterEntry\$Id> get GEEMI_EMIT_LST',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',

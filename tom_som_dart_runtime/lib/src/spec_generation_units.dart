@@ -5,7 +5,9 @@
 /// as validation phase 8 recognises it: a **unit** is a list item whose class
 /// carries `@NoArtifact(generation)` and declares the form field `unitId`; a
 /// **mapping** is such a list item declaring the form field `area`, and belongs
-/// to the nearest unit whose path is a prefix of its own.
+/// to the nearest unit whose path is a prefix of its own; an **emitter** is
+/// such a list item declaring the form field `emitter`, and belongs to its
+/// unit the same way.
 library;
 
 import 'spec_document.dart';
@@ -26,6 +28,16 @@ class SpecGenerationUnitMapping {
   const SpecGenerationUnitMapping({required this.area, required this.mapping});
 }
 
+/// The standard emitters a unit's `emitters` may name (`irspecs_ir.md` §10),
+/// in the order `irspecs emit` lists them. Validation phase 8 reports any other
+/// id as `unitEmitterUnknown`.
+const List<String> kSpecStandardEmitters = [
+  'openapi',
+  'jsonschema',
+  'icu',
+  'asyncapi',
+];
+
 /// One generation unit the document declares.
 class SpecGenerationUnit {
   /// The unit's id — what a section's `units` names, usually the package name.
@@ -40,12 +52,17 @@ class SpecGenerationUnit {
   /// The unit's mappings, in stored order.
   final List<SpecGenerationUnitMapping> mappings;
 
+  /// The standard emitters the unit ships (`irspecs_ir.md` §10), as stored
+  /// (trimmed), in stored order; an emitter with no id is left out.
+  final List<String> emitters;
+
   /// Creates a unit.
   const SpecGenerationUnit({
     required this.unitId,
     required this.kind,
     required this.path,
     required this.mappings,
+    this.emitters = const [],
   });
 
   /// Whether one of the unit's mappings holds [areaCode].
@@ -72,6 +89,7 @@ List<SpecGenerationUnit> specGenerationUnits(
   final refl = SpecReflection(model);
   final units = <({String id, String kind, String path})>[];
   final mappings = <({String path, String area, String mapping})>[];
+  final emitters = <({String path, String emitter})>[];
   for (final listPath in doc.listPaths.toList()..sort()) {
     for (final item in doc.listItems(listPath)) {
       final cls = refl.resolve(item)?.targetClass;
@@ -100,6 +118,14 @@ List<SpecGenerationUnit> specGenerationUnits(
           ));
         }
       }
+      final emitterForm = _formDeclaring(cls, 'emitter');
+      if (emitterForm != null) {
+        final formPath = specPathJoin(item, refl.fieldSegment(emitterForm));
+        final emitter = doc.formField(formPath, 'emitter')?.trim() ?? '';
+        if (emitter.isNotEmpty) {
+          emitters.add((path: item, emitter: emitter));
+        }
+      }
     }
   }
 
@@ -116,6 +142,10 @@ List<SpecGenerationUnit> specGenerationUnits(
               if (_owner(m.path, units) == u.path)
                 SpecGenerationUnitMapping(area: m.area, mapping: m.mapping),
           ],
+          emitters: [
+            for (final e in emitters)
+              if (_owner(e.path, units) == u.path) e.emitter,
+          ],
         ),
   ];
 }
@@ -130,7 +160,7 @@ List<String> specDefaultUnits(
     if (u.maps(areaCode)) u.unitId,
 ];
 
-/// The path of the unit a mapping at [mappingPath] belongs to: the longest unit
+/// The path of the unit a mapping or emitter at [mappingPath] belongs to: the longest unit
 /// path that is a proper prefix of it, or `null`.
 String? _owner(
   String mappingPath,

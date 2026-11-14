@@ -27,6 +27,7 @@ sys.path.insert(0, _PKG_ROOT)
 from tom_som_runtime import (  # noqa: E402
     CodeSpecsAreaCatalog,
     CodeSpecsExtractor,
+    K_SPEC_STANDARD_EMITTERS,
     SomNode,
     SpecDocument,
     SpecDocumentMarkdown,
@@ -484,6 +485,26 @@ def test_phase8_register() -> None:
     _check("phase8.register", _findings(d) == want, str(_findings(d)))
 
 
+def test_phase8_emitter_unknown() -> None:
+    """unitEmitterUnknown: an emitter that is no standard emitter."""
+    d = _register()
+    for emitter in ("openapi", "swagger", " icu ", "OpenAPI"):
+        item = d.add_list_item("DEMO/DLV-LST-2/DLE-LST")
+        d.set_form_field(f"{item}/content", "emitter", emitter)
+    # An emitter item with no value at all is absence, not a finding.
+    d.add_list_item("DEMO/DLV-LST-2/DLE-LST")
+    want = [
+        ("DEMO/DLV-LST-2/DLE-LST-2", "unitEmitterUnknown",
+         'emitter "swagger" is no standard emitter '
+         "(openapi, jsonschema, icu, asyncapi)"),
+        ("DEMO/DLV-LST-2/DLE-LST-4", "unitEmitterUnknown",
+         'emitter "OpenAPI" is no standard emitter '
+         "(openapi, jsonschema, icu, asyncapi)"),
+    ]
+    _check("phase8.unitEmitterUnknown", _findings(d) == want,
+           str(_findings(d)))
+
+
 def test_phase8_order() -> None:
     d = _register()
     d.set_units("DEMO/TTL", "u_x")
@@ -602,6 +623,31 @@ def test_register_units() -> None:
     _check("register.default.DB", spec_default_units(units, "CE-DB") == [])
 
 
+def test_register_emitters() -> None:
+    """Each unit carries its own emitters, trimmed, in stored order."""
+    model = _corpus_model()
+    d = _register()
+    for unit, emitter in [
+        ("DEMO/DLV-LST-2", "openapi"),
+        ("DEMO/DLV-LST-2", " asyncapi "),
+        ("DEMO/DLV-LST-1", "icu"),
+        ("DEMO/DLV-LST-2", ""),
+    ]:
+        item = d.add_list_item(f"{unit}/DLE-LST")
+        d.set_form_field(f"{item}/content", "emitter", emitter)
+    units = spec_generation_units(model, d)
+    _check("register.emitters.first", units[0].emitters == ["icu"],
+           str(units[0].emitters))
+    _check("register.emitters.last",
+           units[-1].emitters == ["openapi", "asyncapi"],
+           str(units[-1].emitters))
+    _check("register.emitters.none",
+           spec_generation_units(model, _register())[0].emitters == [])
+    _check("register.emitters.standard",
+           list(K_SPEC_STANDARD_EMITTERS)
+           == ["openapi", "jsonschema", "icu", "asyncapi"])
+
+
 def test_register_skipped() -> None:
     """A unit without an id, and a second unit of one id, are left out."""
     d = _register()
@@ -638,11 +684,13 @@ def main() -> int:
         test_phase8_unknown_unit,
         test_phase8_unrouted,
         test_phase8_register,
+        test_phase8_emitter_unknown,
         test_phase8_order,
         test_extract_units_inherited,
         test_extract_no_units,
         test_extract_write_read,
         test_register_units,
+        test_register_emitters,
         test_register_skipped,
         test_register_none,
     ):

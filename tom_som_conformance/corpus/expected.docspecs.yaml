@@ -151,3 +151,8 @@ document:
                 CE-NV
               mapping: |2-
                 dart-tom
+        DLE-LST emitters:
+          DLE-1:
+            content:
+              emitter: |2-
+                openapi

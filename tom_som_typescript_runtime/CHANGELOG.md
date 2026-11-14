@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.11.0
+
+- The generation units carry the standard emitters they ship (`emitters`,
+  with `K_SPEC_STANDARD_EMITTERS`: `openapi`, `jsonschema`, `icu`,
+  `asyncapi`), as in `tom_som_dart_runtime` 1.11.0; validation phase 8
+  reports an emitter that is none of them as `unitEmitterUnknown`.
+
 ## 1.10.0
 
 - The generation-unit register reader and the CodeSpecs extract's default

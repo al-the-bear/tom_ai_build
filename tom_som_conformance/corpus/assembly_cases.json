@@ -50,6 +50,9 @@
         "kind": "client",
         "unitId": "demo_client"
       },
+      "DEMO/DLV-LST-2/DLE-LST-1/content": {
+        "emitter": "openapi"
+      },
       "DEMO/DLV-LST-2/DLR-LST-1/content": {
         "area": "CE-DB",
         "mapping": "dart-tom"
@@ -101,6 +104,15 @@
         ],
         "ids": {
           "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+        }
+      },
+      "DEMO/DLV-LST-2/DLE-LST": {
+        "seq": 1,
+        "items": [
+          "DEMO/DLV-LST-2/DLE-LST-1"
+        ],
+        "ids": {
+          "DEMO/DLV-LST-2/DLE-LST-1": "DLE-1"
         }
       },
       "DEMO/DLV-LST-2/DLR-LST": {
@@ -251,6 +263,9 @@
                 "kind": "client",
                 "unitId": "demo_client"
               },
+              "DEMO/DLV-LST-2/DLE-LST-1/content": {
+                "emitter": "openapi"
+              },
               "DEMO/DLV-LST-2/DLR-LST-1/content": {
                 "area": "CE-DB",
                 "mapping": "dart-tom"
@@ -291,6 +306,15 @@
                 ],
                 "ids": {
                   "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+                }
+              },
+              "DEMO/DLV-LST-2/DLE-LST": {
+                "seq": 1,
+                "items": [
+                  "DEMO/DLV-LST-2/DLE-LST-1"
+                ],
+                "ids": {
+                  "DEMO/DLV-LST-2/DLE-LST-1": "DLE-1"
                 }
               },
               "DEMO/DLV-LST-2/DLR-LST": {
@@ -393,6 +417,9 @@
               "kind": "client",
               "unitId": "demo_client"
             },
+            "DEMO/DLV-LST-2/DLE-LST-1/content": {
+              "emitter": "openapi"
+            },
             "DEMO/DLV-LST-2/DLR-LST-1/content": {
               "area": "CE-DB",
               "mapping": "dart-tom"
@@ -444,6 +471,15 @@
               ],
               "ids": {
                 "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLE-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-2/DLE-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLE-LST-1": "DLE-1"
               }
             },
             "DEMO/DLV-LST-2/DLR-LST": {
@@ -635,6 +671,9 @@
                 "kind": "client",
                 "unitId": "demo_client"
               },
+              "DEMO/DLV-LST-2/DLE-LST-1/content": {
+                "emitter": "openapi"
+              },
               "DEMO/DLV-LST-2/DLR-LST-1/content": {
                 "area": "CE-DB",
                 "mapping": "dart-tom"
@@ -675,6 +714,15 @@
                 ],
                 "ids": {
                   "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+                }
+              },
+              "DEMO/DLV-LST-2/DLE-LST": {
+                "seq": 1,
+                "items": [
+                  "DEMO/DLV-LST-2/DLE-LST-1"
+                ],
+                "ids": {
+                  "DEMO/DLV-LST-2/DLE-LST-1": "DLE-1"
                 }
               },
               "DEMO/DLV-LST-2/DLR-LST": {

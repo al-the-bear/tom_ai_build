@@ -485,6 +485,16 @@
       ],
       "note": null,
       "declaredAt": "DeliverableRoute"
+    },
+    {
+      "path": "DEMO/DLV-LST-2/DLE-LST-1",
+      "className": "DeliverableEmitter",
+      "verdict": "feedsNothing",
+      "values": [
+        "generation"
+      ],
+      "note": null,
+      "declaredAt": "DeliverableEmitter"
     }
   ],
   "extracts": [

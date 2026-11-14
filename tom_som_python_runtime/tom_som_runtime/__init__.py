@@ -77,6 +77,7 @@ from .spec_codespecs_records import (
 )
 from .spec_document import SpecDocument, SpecListItemMove
 from .spec_generation_units import (
+    K_SPEC_STANDARD_EMITTERS,
     SpecGenerationUnit,
     SpecGenerationUnitMapping,
     spec_default_units,
@@ -311,6 +312,7 @@ __all__ = [
     "K_FOLLOW_UP_KIND_ANNOTATION",
     "K_NO_ARTIFACT_ANNOTATION",
     "K_SECTION_ID_SLOT",
+    "K_SPEC_STANDARD_EMITTERS",
     "KindLink",
     "ListItemSegment",
     "MarkdownFenceTracker",

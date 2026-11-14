@@ -1878,6 +1878,7 @@ class FunctionalRequirements;
 class FunctionalResponsibilities;
 class FunctionalSuitabilityCharacteristic;
 class GapEntry;
+class GenerationUnitEmitterEntry;
 class GenerationUnitEntry;
 class GenerationUnitMappingEntry;
 class GeographicDistributionRequirements;
@@ -3776,6 +3777,7 @@ class GapEntryDescriptionForm;
 class GapEntryDiscoveryForm;
 class GapEntryResolutionForm;
 class GapEntryWorkaroundForm;
+class GenerationUnitEmitterEntryContentForm;
 class GenerationUnitEntryContentForm;
 class GenerationUnitMappingEntryContentForm;
 class GeographicDistributionRequirementsAnycastForm;
@@ -6822,8 +6824,8 @@ class ArchitectureStyle : public som::SomNode {
   // Component/service catalog.
   // Returns the list view; element type: ArchitectureComponentEntry (construct from item paths).
   som::SomList components() const;
-  // The generation units Phase 4 writes code for, and the mapper each of
-  // their areas is written by.
+  // The generation units Phase 4 writes code for, the mapper each of their
+  // areas is written by, and the standards each unit is also written in.
   // Returns the list view; element type: GenerationUnitEntry (construct from item paths).
   som::SomList generationUnits() const;
   // Communication patterns between components.
@@ -10738,7 +10740,7 @@ class CutoverProcedure : public som::SomNode {
 class D00SolutionBlueprint : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.10";
+  static constexpr const char* kModelVersion = "1.11";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10807,7 +10809,7 @@ class D00SolutionBlueprint : public som::SomNode {
 class D01CurrentLandscapeAssessment : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.10";
+  static constexpr const char* kModelVersion = "1.11";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10874,7 +10876,7 @@ class D01CurrentLandscapeAssessment : public som::SomNode {
 class D02TargetOperatingModel : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.10";
+  static constexpr const char* kModelVersion = "1.11";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10947,7 +10949,7 @@ class D02TargetOperatingModel : public som::SomNode {
 class D03InformationModel : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.10";
+  static constexpr const char* kModelVersion = "1.11";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11063,7 +11065,7 @@ class D03InformationModel : public som::SomNode {
 class D04RequirementsSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.10";
+  static constexpr const char* kModelVersion = "1.11";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11133,7 +11135,7 @@ class D04RequirementsSpecification : public som::SomNode {
 class D05InteractionScenarios : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.10";
+  static constexpr const char* kModelVersion = "1.11";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11199,7 +11201,7 @@ class D05InteractionScenarios : public som::SomNode {
 class D06ArchitectureTechnologySpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.10";
+  static constexpr const char* kModelVersion = "1.11";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11273,7 +11275,7 @@ class D06ArchitectureTechnologySpecification : public som::SomNode {
 class D07IntegrationInterfaceSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.10";
+  static constexpr const char* kModelVersion = "1.11";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11347,7 +11349,7 @@ class D07IntegrationInterfaceSpecification : public som::SomNode {
 class D08SecurityAccessSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.10";
+  static constexpr const char* kModelVersion = "1.11";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11423,7 +11425,7 @@ class D08SecurityAccessSpecification : public som::SomNode {
 class D09ExperienceDesignSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.10";
+  static constexpr const char* kModelVersion = "1.11";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11500,7 +11502,7 @@ class D09ExperienceDesignSpecification : public som::SomNode {
 class D10QualityAcceptancePlan : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.10";
+  static constexpr const char* kModelVersion = "1.11";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11589,7 +11591,7 @@ class D10QualityAcceptancePlan : public som::SomNode {
 class D11DeliveryRoadmap : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.10";
+  static constexpr const char* kModelVersion = "1.11";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11659,7 +11661,7 @@ class D11DeliveryRoadmap : public som::SomNode {
 class D12TransitionRolloutPlan : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.10";
+  static constexpr const char* kModelVersion = "1.11";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11744,7 +11746,7 @@ class D12TransitionRolloutPlan : public som::SomNode {
 class D13CodeSpecsProjection : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.10";
+  static constexpr const char* kModelVersion = "1.11";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -16970,13 +16972,28 @@ class GapEntry : public som::SomNode {
   GapEntryResolutionForm resolution() const;
 };
 
+// One standard emitter of a generation unit: a standard the unit's code is
+// also written in (`irspecs_ir.md` §10 in `tom_core_codespecs/doc/`) — the
+// emitter id `openapi`, `jsonschema`, `icu` or `asyncapi`.
+class GenerationUnitEmitterEntry : public som::SomNode {
+ public:
+  GenerationUnitEmitterEntry(som::SpecDocument& doc, std::string path);
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
+  GenerationUnitEmitterEntryContentForm content() const;
+};
+
 // One generation unit: a package the CodeSpecs generator writes code into.
 //
 // A unit **builds** a deployment target (`DEPTAR`) or an architecture
 // component (`ARCM`), at least one of the two; which areas it holds and in
 // which language and framework is said by its mappings — one per area, or
 // several for one area where the same area is written for two client
-// technologies. A section that goes to other units than its area's default
+// technologies. Its emitters name the standards it is also written in — an
+// OpenAPI document of its operations, a JSON Schema of its types, its messages
+// in ICU MessageFormat, its events in AsyncAPI (`irspecs_ir.md` §10). A
+// section that goes to other units than its area's default
 // names them in its `units` member; the default is every unit with a mapping
 // for the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).
 //
@@ -16992,6 +17009,9 @@ class GenerationUnitEntry : public som::SomNode {
   // The mapper each area of the unit is written by.
   // Returns the list view; element type: GenerationUnitMappingEntry (construct from item paths).
   som::SomList mappings() const;
+  // The standard emitters the unit is also written by.
+  // Returns the list view; element type: GenerationUnitEmitterEntry (construct from item paths).
+  som::SomList emitters() const;
 };
 
 // One mapping of a generation unit: the area and the mapper that writes it.
@@ -53615,6 +53635,20 @@ class GapEntryWorkaroundForm : public som::SomNode {
   void setWorkaroundCost(const std::string& value);
   std::string riskIfNotAddressed() const;
   void setRiskIfNotAddressed(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class GenerationUnitEmitterEntryContentForm : public som::SomNode {
+ public:
+  GenerationUnitEmitterEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string emitter() const;
+  void setEmitter(const std::string& value);
+  std::string note() const;
+  void setNote(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.

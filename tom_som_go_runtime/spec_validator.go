@@ -89,6 +89,9 @@ const (
 	// A generation-unit mapping's `area` is not an area code (`CE-` followed by
 	// capital letters).
 	SpecValidationCodeUnitAreaMalformed = "unitAreaMalformed"
+	// A generation-unit emitter names no standard emitter
+	// (SpecStandardEmitters: `openapi`, `jsonschema`, `icu`, `asyncapi`).
+	SpecValidationCodeUnitEmitterUnknown = "unitEmitterUnknown"
 )
 
 // SpecValidationError is one problem found while validating a document.
@@ -1004,15 +1007,16 @@ func validateDerivedValues(refl *SpecReflection, doc *SpecDocument) []SpecValida
 // A **generation-unit entry** is a list item whose class carries
 // `@NoArtifact(generation)` and declares a form field `unitId`; a **mapping**
 // is a list item whose class carries `@NoArtifact(generation)` and declares a
-// form field `area`. Both are recognised by these two facts, never by class
-// name. Entries and mappings are visited in sorted list-path order, each list's
+// form field `area`; an **emitter** is such a list item declaring a form field
+// `emitter`. All three are recognised by these facts, never by class name.
+// Entries and mappings are visited in sorted list-path order, each list's
 // items in their stored order — that order decides which of two entries
 // declaring one `unitId` is "the second". An entry or mapping whose form holds
 // no value at all is absence (an item just added), not a finding.
 //
 // Findings, all at the list item's path for the register and at the section's
 // path for `units`: `duplicateUnitId`, `unitBuildsNothing`,
-// `unitAreaMalformed`, then per section carrying `units` one `unknownUnit` per
+// `unitAreaMalformed`, `unitEmitterUnknown`, then per section carrying `units` one `unknownUnit` per
 // undeclared id (in the order written) and `unitsUnrouted`. The group is
 // sorted by path, stably, like every phase's.
 func validateGenerationUnits(refl *SpecReflection, doc *SpecDocument) []SpecValidationError {
@@ -1065,6 +1069,19 @@ func validateGenerationUnits(refl *SpecReflection, doc *SpecDocument) []SpecVali
 						Path:    item,
 						Code:    SpecValidationCodeUnitAreaMalformed,
 						Message: "mapping area \"" + area + "\" is not an area code (CE-…)",
+					})
+				}
+			}
+
+			if emitterForm := formDeclaring(cls, "emitter"); emitterForm != nil {
+				formPath := SpecPathJoin(item, refl.FieldSegment(emitterForm))
+				emitter := strings.TrimSpace(doc.FormFieldOr(formPath, "emitter"))
+				if emitter != "" && !specIsStandardEmitter(emitter) {
+					errors = append(errors, SpecValidationError{
+						Path: item,
+						Code: SpecValidationCodeUnitEmitterUnknown,
+						Message: "emitter \"" + emitter + "\" is no standard emitter (" +
+							strings.Join(SpecStandardEmitters, ", ") + ")",
 					})
 				}
 			}

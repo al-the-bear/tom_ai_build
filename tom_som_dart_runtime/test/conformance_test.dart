@@ -1839,7 +1839,7 @@ Map<String, dynamic> _buildMeta() => {
   // class, so declaring one would be a lie. The present-`containerRoot`
   // path is covered by `stamp_cases.json` instead.
   'generatedAt': '2026-07-20T08:00:00.000000Z',
-  'classCount': 17,
+  'classCount': 18,
   'rootCount': 2,
   'roots': [
     {
@@ -2754,6 +2754,44 @@ Map<String, dynamic> _buildMeta() => {
           'elementType': 'DeliverableRoute',
           'elementIsComplex': true,
         },
+        {
+          'name': 'emitters',
+          'kind': 'list',
+          'sectionId': 'DLE-LST',
+          'sectionIdPattern': 'DLE-xxx',
+          'elementType': 'DeliverableEmitter',
+          'elementIsComplex': true,
+        },
+      ],
+    },
+    // SOM §11.2 / phase 8: a standard emitter a unit ships (irspecs_ir.md §10).
+    'DeliverableEmitter': {
+      'name': 'DeliverableEmitter',
+      'sectionId': 'DLE',
+      'annotations': [
+        {
+          'name': 'SectionId',
+          'arguments': {'id': 'DLE'},
+        },
+        {
+          'name': 'NoArtifact',
+          'arguments': {'reason': 'NoArtifactReason.generation'},
+        },
+      ],
+      'fields': [
+        {
+          'name': 'content',
+          'kind': 'form',
+          'formFields': [
+            {
+              'name': 'emitter',
+              'label': 'Emitter',
+              'type': 'String',
+              'required': true,
+            },
+            {'name': 'note', 'label': 'Note', 'type': 'String'},
+          ],
+        },
       ],
     },
     'DeliverableRoute': {
@@ -2979,6 +3017,9 @@ SpecDocument _buildDocument() {
   final r2 = d.addListItem('$u2/DLR-LST', sectionId: 'DLR-2');
   d.setFormField('$r2/content', 'area', 'CE-NV');
   d.setFormField('$r2/content', 'mapping', 'dart-tom');
+  // The server ships the OpenAPI document of its contract (irspecs_ir.md §10).
+  final e1 = d.addListItem('$u2/DLE-LST', sectionId: 'DLE-1');
+  d.setFormField('$e1/content', 'emitter', 'openapi');
   return d;
 }
 
@@ -3314,6 +3355,7 @@ List<Map<String, dynamic>> _validationCases(SpecModel model) {
       'generationUnitsValid',
       _unitsState(
         areas: ['CE-DB'],
+        emitters: ['openapi', ' asyncapi '],
         units: {'DEMO/TTL': 'u_a', 'DEMO/REG': 'u_a,u_b'},
       ),
     ),
@@ -3354,19 +3396,27 @@ List<Map<String, dynamic>> _validationCases(SpecModel model) {
     ),
     // `db` and `CE-db` are no area codes; `CE-DB` is.
     caseFor('unitAreaMalformed', _unitsState(areas: ['db', 'CE-DB', 'CE-db'])),
+    // `swagger` and `OpenAPI` name no standard emitter; `openapi` and `icu`
+    // (stored with spaces) do.
+    caseFor(
+      'unitEmitterUnknown',
+      _unitsState(emitters: ['openapi', 'swagger', ' icu ', 'OpenAPI']),
+    ),
   ];
 }
 
 /// A document state for the SOM §11.2 / phase-8 cases: the generation-unit
 /// register `DEMO/DLV-LST` holding [entries] (form values of each entry's
 /// `content` form), mappings under the first entry with the [areas] given
-/// (each with mapping `dart-tom`), and the [units] stored per section path.
+/// (each with mapping `dart-tom`), the [emitters] under the first entry, and
+/// the [units] stored per section path.
 Map<String, Object?> _unitsState({
   List<Map<String, String>> entries = const [
     {'unitId': 'u_a', 'kind': 'client', 'component': 'ARCM-COMP-A'},
     {'unitId': 'u_b', 'kind': 'server', 'deploymentTarget': 'DEPTAR-DEPL-B'},
   ],
   List<String> areas = const [],
+  List<String> emitters = const [],
   Map<String, String> units = const {},
 }) {
   final d = SpecDocument();
@@ -3382,6 +3432,10 @@ Map<String, Object?> _unitsState({
     final route = d.addListItem('${items.first}/DLR-LST');
     d.setFormField('$route/content', 'area', area);
     d.setFormField('$route/content', 'mapping', 'dart-tom');
+  }
+  for (final emitter in emitters) {
+    final item = d.addListItem('${items.first}/DLE-LST');
+    d.setFormField('$item/content', 'emitter', emitter);
   }
   units.forEach(d.setUnits);
   return d.toJson();

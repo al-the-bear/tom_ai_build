@@ -90,6 +90,9 @@
 /* A generation-unit mapping's `area` is not an area code (`CE-` followed by
  * capital letters). */
 #define SPEC_VALIDATION_CODE_UNIT_AREA_MALFORMED "unitAreaMalformed"
+/* A generation-unit emitter names no standard emitter
+ * (`SPEC_STANDARD_EMITTERS`: `openapi`, `jsonschema`, `icu`, `asyncapi`). */
+#define SPEC_VALIDATION_CODE_UNIT_EMITTER_UNKNOWN "unitEmitterUnknown"
 
 typedef struct {
   char *path;    /* owned */

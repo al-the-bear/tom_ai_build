@@ -109,6 +109,10 @@ inline constexpr const char* kSpecValidationCodeUnitBuildsNothing =
  * capital letters). */
 inline constexpr const char* kSpecValidationCodeUnitAreaMalformed =
     "unitAreaMalformed";
+/* A generation-unit emitter names no standard emitter
+ * (kSpecStandardEmitters: `openapi`, `jsonschema`, `icu`, `asyncapi`). */
+inline constexpr const char* kSpecValidationCodeUnitEmitterUnknown =
+    "unitEmitterUnknown";
 
 struct SpecValidationError {
   std::string path;

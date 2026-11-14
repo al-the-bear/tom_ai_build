@@ -16,6 +16,7 @@ const { specPathJoin } = require('./spec_paths');
 const { SpecNodeKind, SpecReflection } = require('./spec_reflection');
 const { K_SECTION_ID_SLOT, effectiveListItemSectionId } = require('./spec_section_id');
 const { somScalarBase, somTypedTextReadable } = require('./spec_typed_values');
+const { K_SPEC_STANDARD_EMITTERS } = require('./spec_generation_units');
 
 /** Why a single value in a document is invalid against the model. */
 const SpecValidationCode = Object.freeze({
@@ -119,6 +120,11 @@ const SpecValidationCode = Object.freeze({
    * capital letters).
    */
   UNIT_AREA_MALFORMED: 'unitAreaMalformed',
+  /**
+   * A generation-unit emitter names no standard emitter
+   * (`K_SPEC_STANDARD_EMITTERS`: `openapi`, `jsonschema`, `icu`, `asyncapi`).
+   */
+  UNIT_EMITTER_UNKNOWN: 'unitEmitterUnknown',
 });
 
 /** One problem found while validating a document. */
@@ -1067,7 +1073,8 @@ function _validateDerivedValues(refl, doc) {
  * A **generation-unit entry** is a list item whose class carries
  * `@NoArtifact(generation)` and declares a form field `unitId`; a **mapping**
  * is a list item whose class carries `@NoArtifact(generation)` and declares a
- * form field `area`. Both are recognised by these two facts, never by class
+ * form field `area`; an **emitter** is such a list item declaring a form
+ * field `emitter`. All three are recognised by these facts, never by class
  * name. Entries and mappings are visited in sorted list-path order, each
  * list's items in their stored order — that order decides which of two
  * entries declaring one `unitId` is "the second". An entry or mapping whose
@@ -1075,7 +1082,7 @@ function _validateDerivedValues(refl, doc) {
  *
  * Findings, all at the list item's path for the register and at the section's
  * path for `units`: `duplicateUnitId`, `unitBuildsNothing`,
- * `unitAreaMalformed`, then per section carrying `units` one `unknownUnit`
+ * `unitAreaMalformed`, `unitEmitterUnknown`, then per section carrying `units` one `unknownUnit`
  * per undeclared id (in the order written) and `unitsUnrouted`. The group is
  * sorted by path, stably, like every phase's.
  *
@@ -1138,6 +1145,23 @@ function _validateGenerationUnits(refl, doc) {
               item,
               SpecValidationCode.UNIT_AREA_MALFORMED,
               `mapping area "${area}" is not an area code (CE-…)`,
+            ),
+          );
+        }
+      }
+
+      const emitterForm = _formDeclaring(cls, 'emitter');
+      if (emitterForm !== null) {
+        const formPath = specPathJoin(item, refl.fieldSegment(emitterForm));
+        const raw = doc.formField(formPath, 'emitter');
+        const emitter = raw === null || raw === undefined ? '' : raw.trim();
+        if (emitter !== '' && !K_SPEC_STANDARD_EMITTERS.includes(emitter)) {
+          errors.push(
+            new SpecValidationError(
+              item,
+              SpecValidationCode.UNIT_EMITTER_UNKNOWN,
+              `emitter "${emitter}" is no standard emitter ` +
+                `(${K_SPEC_STANDARD_EMITTERS.join(', ')})`,
             ),
           );
         }

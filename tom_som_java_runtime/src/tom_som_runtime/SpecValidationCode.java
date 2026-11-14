@@ -97,7 +97,13 @@ public enum SpecValidationCode {
    * A generation-unit mapping's {@code area} is not an area code ({@code CE-}
    * followed by capital letters).
    */
-  UNIT_AREA_MALFORMED("unitAreaMalformed");
+  UNIT_AREA_MALFORMED("unitAreaMalformed"),
+  /**
+   * A generation-unit emitter names no standard emitter
+   * ({@link SpecGenerationUnits#SPEC_STANDARD_EMITTERS}: {@code openapi},
+   * {@code jsonschema}, {@code icu}, {@code asyncapi}).
+   */
+  UNIT_EMITTER_UNKNOWN("unitEmitterUnknown");
 
   public final String value;
 

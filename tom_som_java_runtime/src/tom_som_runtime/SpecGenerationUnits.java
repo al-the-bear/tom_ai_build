@@ -16,14 +16,25 @@ import java.util.Set;
  * whose class carries {@code @NoArtifact(generation)} and declares the form
  * field {@code unitId}; a <b>mapping</b> is such a list item declaring the form
  * field {@code area}, and belongs to the nearest unit whose path is a prefix of
- * its own.
+ * its own; an <b>emitter</b> is such a list item declaring the form field
+ * {@code emitter}, and belongs to its unit the same way.
  */
 public final class SpecGenerationUnits {
   private SpecGenerationUnits() {}
 
+  /**
+   * The standard emitters a unit's {@code emitters} may name
+   * ({@code irspecs_ir.md} §10), in the order {@code irspecs emit} lists them.
+   * Validation phase 8 reports any other id as {@code unitEmitterUnknown}.
+   */
+  public static final List<String> SPEC_STANDARD_EMITTERS =
+      List.of("openapi", "jsonschema", "icu", "asyncapi");
+
   private record UnitDecl(String id, String kind, String path) {}
 
   private record MappingDecl(String path, String area, String mapping) {}
+
+  private record EmitterDecl(String path, String emitter) {}
 
   /**
    * The generation units {@code doc} declares, in register order: sorted
@@ -36,6 +47,7 @@ public final class SpecGenerationUnits {
     SpecReflection refl = new SpecReflection(model);
     List<UnitDecl> units = new ArrayList<>();
     List<MappingDecl> mappings = new ArrayList<>();
+    List<EmitterDecl> emitters = new ArrayList<>();
     List<String> listPaths = new ArrayList<>(doc.listPaths());
     Collections.sort(listPaths);
     for (String listPath : listPaths) {
@@ -67,6 +79,14 @@ public final class SpecGenerationUnits {
                 item, area, SpecValidator.trimmedFormValue(doc, formPath, "mapping")));
           }
         }
+        SpecField emitterForm = SpecValidator.formDeclaring(cls, "emitter");
+        if (emitterForm != null) {
+          String formPath = SpecPaths.join(item, refl.fieldSegment(emitterForm));
+          String emitter = SpecValidator.trimmedFormValue(doc, formPath, "emitter");
+          if (!emitter.isEmpty()) {
+            emitters.add(new EmitterDecl(item, emitter));
+          }
+        }
       }
     }
 
@@ -82,7 +102,13 @@ public final class SpecGenerationUnits {
           own.add(new SpecGenerationUnitMapping(m.area(), m.mapping()));
         }
       }
-      out.add(new SpecGenerationUnit(u.id(), u.kind(), u.path(), own));
+      List<String> ownEmitters = new ArrayList<>();
+      for (EmitterDecl e : emitters) {
+        if (u.path().equals(owner(e.path(), units))) {
+          ownEmitters.add(e.emitter());
+        }
+      }
+      out.add(new SpecGenerationUnit(u.id(), u.kind(), u.path(), own, ownEmitters));
     }
     return out;
   }
@@ -103,7 +129,7 @@ public final class SpecGenerationUnits {
   }
 
   /**
-   * The path of the unit a mapping at {@code mappingPath} belongs to: the
+   * The path of the unit a mapping or emitter at {@code mappingPath} belongs to: the
    * longest unit path that is a proper prefix of it, or {@code null}.
    */
   private static String owner(String mappingPath, List<UnitDecl> units) {

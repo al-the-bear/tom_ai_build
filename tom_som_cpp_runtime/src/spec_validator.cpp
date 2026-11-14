@@ -889,7 +889,8 @@ bool routesToCodeSpecs(const SpecReflection& refl, const SpecResolution& res) {
    A **generation-unit entry** is a list item whose class carries
    `@NoArtifact(generation)` and declares a form field `unitId`; a **mapping**
    is a list item whose class carries `@NoArtifact(generation)` and declares a
-   form field `area`. Both are recognised by these two facts, never by class
+   form field `area`; an **emitter** is such a list item declaring a form
+   field `emitter`. All three are recognised by these facts, never by class
    name. Entries and mappings are visited in sorted list-path order, each
    list's items in their stored order — that order decides which of two
    entries declaring one `unitId` is "the second". An entry or mapping whose
@@ -897,8 +898,8 @@ bool routesToCodeSpecs(const SpecReflection& refl, const SpecResolution& res) {
 
    Findings, all at the list item's path for the register and at the section's
    path for `units`: `duplicateUnitId`, `unitBuildsNothing`,
-   `unitAreaMalformed`, then per section carrying `units` one `unknownUnit`
-   per undeclared id (in the order written) and `unitsUnrouted`. The group is
+   `unitAreaMalformed`, `unitEmitterUnknown`, then per section carrying
+   `units` one `unknownUnit` per undeclared id (in the order written) and `unitsUnrouted`. The group is
    sorted by path, stably, like every phase's. */
 std::vector<SpecValidationError> validateGenerationUnits(
     const SpecReflection& refl, const SpecDocument& doc) {
@@ -946,6 +947,22 @@ std::vector<SpecValidationError> validateGenerationUnits(
           errors.push_back({item, kSpecValidationCodeUnitAreaMalformed,
                             "mapping area \"" + area +
                                 "\" is not an area code (CE-\xe2\x80\xa6)"});
+        }
+      }
+
+      if (const SpecField* emitterForm = specFormDeclaring(*cls, "emitter")) {
+        const std::string formPath =
+            specPathJoin(item, SpecReflection::fieldSegment(*emitterForm));
+        const std::string emitter = trimmed(doc.formField(formPath, "emitter"));
+        if (!emitter.empty() && !specIsStandardEmitter(emitter)) {
+          std::string known;
+          for (const char* e : kSpecStandardEmitters) {
+            if (!known.empty()) known += ", ";
+            known += e;
+          }
+          errors.push_back({item, kSpecValidationCodeUnitEmitterUnknown,
+                            "emitter \"" + emitter +
+                                "\" is no standard emitter (" + known + ")"});
         }
       }
     }

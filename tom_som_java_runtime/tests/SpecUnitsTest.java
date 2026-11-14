@@ -434,6 +434,20 @@ public final class SpecUnitsTest {
         "DEMO/DLV-LST-3|unitBuildsNothing|"
             + "generation unit \"u_a\" builds neither a deploymentTarget nor a component"));
 
+    // unitEmitterUnknown: an emitter that is no standard emitter.
+    SpecDocument emit = register();
+    for (String emitter : List.of("openapi", "swagger", " icu ", "OpenAPI")) {
+      String item = emit.addListItem("DEMO/DLV-LST-2/DLE-LST");
+      emit.setFormField(item + "/content", "emitter", emitter);
+    }
+    // An emitter item with no value at all is absence, not a finding.
+    emit.addListItem("DEMO/DLV-LST-2/DLE-LST");
+    eq("phase8.unitEmitterUnknown", findings(model, emit), List.of(
+        "DEMO/DLV-LST-2/DLE-LST-2|unitEmitterUnknown|"
+            + "emitter \"swagger\" is no standard emitter (openapi, jsonschema, icu, asyncapi)",
+        "DEMO/DLV-LST-2/DLE-LST-4|unitEmitterUnknown|"
+            + "emitter \"OpenAPI\" is no standard emitter (openapi, jsonschema, icu, asyncapi)"));
+
     // Phase 8 follows the derived values and precedes annotations.
     SpecDocument order = register();
     order.setUnits("DEMO/TTL", "u_x");
@@ -561,6 +575,27 @@ public final class SpecUnitsTest {
         List.of("u_a"));
     eq("register.default.none", SpecGenerationUnits.specDefaultUnits(units, "CE-DB"),
         List.of());
+
+    // Each unit carries its own emitters, trimmed, in stored order.
+    SpecDocument em = register();
+    String[][] emitterRows = {
+      {"DEMO/DLV-LST-2", "openapi"},
+      {"DEMO/DLV-LST-2", " asyncapi "},
+      {"DEMO/DLV-LST-1", "icu"},
+      {"DEMO/DLV-LST-2", ""},
+    };
+    for (String[] row : emitterRows) {
+      String item = em.addListItem(row[0] + "/DLE-LST");
+      em.setFormField(item + "/content", "emitter", row[1]);
+    }
+    List<SpecGenerationUnit> emUnits = SpecGenerationUnits.specGenerationUnits(model, em);
+    eq("register.emitters.first", emUnits.get(0).emitters, List.of("icu"));
+    eq("register.emitters.last", emUnits.get(emUnits.size() - 1).emitters,
+        List.of("openapi", "asyncapi"));
+    eq("register.emitters.none",
+        SpecGenerationUnits.specGenerationUnits(model, register()).get(0).emitters, List.of());
+    eq("register.standardEmitters", SpecGenerationUnits.SPEC_STANDARD_EMITTERS,
+        List.of("openapi", "jsonschema", "icu", "asyncapi"));
 
     // A unit without an id, and a second unit of one id, are left out.
     SpecDocument skip = register();
