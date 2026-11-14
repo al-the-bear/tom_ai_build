@@ -20,8 +20,8 @@ THE TWO VERSION STAMPS. They answer different questions and a tool
 that checks one for the other will accept a file it cannot read:
   modelVersion      = 1  — WHICH MODEL this snapshot describes
   metaSchemaVersion = 1  — the FILE FORMAT the snapshot itself is written in
-  modelVersionLabel = 1.10.0+36.6cdeae99
-  generatedAt       = 2026-11-13T07:46:43.974459Z
+  modelVersionLabel = 1.12.0+38.64a42c53
+  generatedAt       = 2026-11-14T14:21:16.518390Z
 
 A tool reads `metaSchemaVersion` to decide whether it can parse the
 file at all, and `modelVersion` to decide whether the documents it
@@ -30,7 +30,7 @@ build label for humans — never branch on it.
 
 SNAPSHOT CHECK (`checkStamp`), against a fixed clock:
   age                 : 3 days (aged: false)
-  classes  declared/actual : 1272/1272  disagrees: false
+  classes  declared/actual : 1273/1273  disagrees: false
   roots    declared/actual : 14/14  disagrees: false
   Declared-vs-actual is not redundant: the declared value is what
   the exporter recorded, the actual value is what survived to the
@@ -38,7 +38,7 @@ SNAPSHOT CHECK (`checkStamp`), against a fixed clock:
 
 SHAPE:
   document roots : 14
-  classes        : 1272
+  classes        : 1273
   container root : DocSpecsProject — the one true tree root, which is not itself a document
 
 FIELDS of D00SolutionBlueprint (15 total, first 4):
@@ -53,6 +53,9 @@ FORM SLOTS of DataEntityEntry.identity (section id DAENT-IDEN):
   entityAlias      Alias/Abbreviation
   description      Description
   entityStereoType Stereotype
+  dataSourceName   Datasource
+  schemaName       Schema
+  tenancy          Tenancy
 
 ANNOTATIONS the meta carries — the model's own metadata, exported
 into the snapshot and therefore visible in ALL NINE language
@@ -135,7 +138,7 @@ a JSON-Schema validator will not find one, because the artifact the
 schema governs is not JSON.
 
   root section id : SBP
-  section types   : 3955
+  section types   : 3957
 
   That count is large because a Solution Blueprint SEEDS the twelve
   Phase-3 documents: its own section classes ARE those documents'
@@ -190,7 +193,7 @@ form slot the form does not declare:
 
 THE CLOSED VERDICT SETS. Both are enums, so a tool switches over
 them exhaustively rather than matching on message text:
-  SpecValidationCode  (20): danglingPath, kindMismatch, unknownFormField, minItems, oneOfCaseMismatch, danglingReference, enumValueUnknown, countMismatch, valueTypeMismatch, derivedValueMismatch, missingRequiredField, multipleReferences, annotationMisplaced, annotationMalformed, duplicateAnnotationId, unknownUnit, unitsUnrouted, duplicateUnitId, unitBuildsNothing, unitAreaMalformed
+  SpecValidationCode  (21): danglingPath, kindMismatch, unknownFormField, minItems, oneOfCaseMismatch, danglingReference, enumValueUnknown, countMismatch, valueTypeMismatch, derivedValueMismatch, missingRequiredField, multipleReferences, annotationMisplaced, annotationMalformed, duplicateAnnotationId, unknownUnit, unitsUnrouted, duplicateUnitId, unitBuildsNothing, unitAreaMalformed, unitEmitterUnknown
   DocSpecsViolationRule (11):
     unknownSection, missingRequiredSection, idPatternMismatch, tooFewItems
     tooManyItems, missingRequiredField, fieldPatternMismatch, textRequired

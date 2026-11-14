@@ -93,7 +93,7 @@ Variant A — a sufficient specification
          path: "lib/src/data_access/customer.dart"
          imports:
            - "package:tom_code_specs/tom_code_specs.dart"
-         exports: []
+           - "package:tom_core_server/tom_core_server.dart"
 
    The Dart + Tom mapper writes the code from it (`irspecs map
    --mapper dart-tom`; tool/validate.sh checks the trio is exactly
@@ -105,6 +105,7 @@ Variant A — a sufficient specification
      // Spec model version: 1.1
 
      import 'package:tom_code_specs/tom_code_specs.dart';
+     import 'package:tom_core_server/tom_core_server.dart';
 
      /// A person or organisation that places orders.
      ///
@@ -122,8 +123,11 @@ Variant A — a sufficient specification
        DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
        DocRef('DAATT-DATA', 'supplies the storage type'),
      ])
-     @CsTable('customers')
+     @CsTable('customers', datasource: 'main')
      @CsTableKey('pk_customers', kind: CsKeyKind.natural, columns: ['email'])
+     @CsCompletion('AC-1', fact: 'datasource', value: 'main')
+     @tomReflector
+     @TomDbTable(datasource: 'main', table: 'customers', primaryKeyFields: ['email'])
      class Customer {
        /// The address order confirmations are sent to.
        @DocSpec([
@@ -180,7 +184,7 @@ Variant A — a sufficient specification
      codespecs: checks 40 and 41 (feature-hook completeness and reserved protocol paths) not run — pass --cs-vocabulary pointing at tom_code_specs' vocabulary source; without its csFeatureHooks and csFeatureReservedPaths there is no catalogue to hold a hook or a route against.
      codespecs: check 31 (determinism) not run — pass --regenerated-shared/--regenerated-client/--regenerated-server pointing at a second generation run over the same model.
      codespecs: check 19 (secret is declared), checks 32, 33 and 34 (comment source, template and fidelity) and checks 35 and 36 (extract coverage and back-link resolution) not run — pass --extracts pointing at the run's generated-doc/codespecs_extracts directory.
-     codespecs: 44 checks passed
+     codespecs: 47 checks passed
 
    $ validate_codespecs --shared codespec/shared --client codespec/client \
                          --server codespec/server \
@@ -189,7 +193,7 @@ Variant A — a sufficient specification
      codespecs: check 9 (mirrored catalogues) not run — pass both --cs-vocabulary and --core-source; a catalogue neither side declares mirrors an empty one, which compares equal.
      codespecs: checks 40 and 41 (feature-hook completeness and reserved protocol paths) not run — pass --cs-vocabulary pointing at tom_code_specs' vocabulary source; without its csFeatureHooks and csFeatureReservedPaths there is no catalogue to hold a hook or a route against.
      codespecs: check 31 (determinism) not run — pass --regenerated-shared/--regenerated-client/--regenerated-server pointing at a second generation run over the same model.
-     codespecs: 44 checks passed
+     codespecs: 47 checks passed
 
    Supplying --extracts moved six checks from "not run" to "ran".
    That is the whole reason the extract is an artifact of record and
