@@ -104,6 +104,10 @@ workspace_prefixes:
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
 unpublished_drift:
+  tom_specs_model: >-
+    buildkit.yaml names its JSON schema (8d6af844, 2026-11-13, a build-file
+    header, nothing a consumer reads); ships with the next model release
+    (1.11.0, irspecs18).
   tom_specs_clitool: >-
     cskey1 (2026-11-13): the Go, Java, C# and TypeScript server mappers write
     an entity's keys, foreign keys and indexes (@CsTableKey / @CsTableIndex);
