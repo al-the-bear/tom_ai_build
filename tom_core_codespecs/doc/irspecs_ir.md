@@ -380,7 +380,9 @@ key's member type, or `TomCompositeKey` for several columns
 (`codespecs_derivation_contract.md` §3.3.4). An entity's datasource, which no
 specification section states, is an authored completion
 (`codespecs_derivation_contract.md` §2.10), recorded as `@CsCompletion` beside
-the markers.
+the markers. A tenant table (`@CsTable(tenancy: CsTableTenancy.tenant,
+tenantField:)`) also carries `@TomTenantTable(field:)`, printed as written; the
+other mappers scope it to its tenant with their own frameworks' means (§11–§14).
 
 ### 8.1 Units
 
@@ -616,6 +618,15 @@ descending column as `.desc()`, a `filterCondition` as ``.where(sql`…`)``.
 Drizzle has no deferrable constraint, covering columns or clustering; the
 PostgreSQL DDL the Go, Java and C# mappers write (§12) carries them.
 
+**Tenant tables.** A tenant table (`@CsTable(tenancy: CsTableTenancy.tenant,
+tenantField:)`, `codespecs_derivation_contract.md` §3.3.1) gets, beside its
+table, `export function <table>OfTenant(tenantId: string)`, returning
+`eq(<table>.<tenantField>, tenantId)` (`drizzle-orm`): the predicate every query
+of the table carries and the value its inserts write. The tenant column is
+`.notNull()` whatever its member's type, and indexed
+(`index("<table>_<column>_idx")`). A system table, and every table of a solution
+that is not multi-tenant, gets neither.
+
 ## 12. The Go server mapper
 
 One mapper writes the server of the IR as a Go module — the standard
@@ -691,6 +702,18 @@ them — an exported field per property, `json:"<property>"`, a pointer and
 `required`. oapi-codegen 2.5.1 cannot read §10's document: it does not
 support OpenAPI 3.1, whose `anyOf` with `{type: null}` is how the document
 writes a nullable reference.
+
+**Tenant tables.** A tenant table's tenant column (`@CsTable(tenantField:)`)
+is `NOT NULL` in the schema whatever its member's type, and indexed
+(`<table>_<column>_idx`); the table is marked with a comment. Every query of
+the table but the insert takes the tenant as its first parameter and filters
+by it: the count, the page (`WHERE <column> = $1 LIMIT $2 OFFSET $3`), and the
+find and delete by key (`WHERE <column> = $1 AND <key> = $2`); the insert
+writes it as one of the table's columns. The tenant travels in the request's
+context: `tom.WithTenant(ctx, id)` puts it there, `tom.TenantFrom(ctx)` reads
+it (`tom/tenant.go`, written when the IR has a tenant table), and a
+repository passes it to the queries. The schema is the one the Java and C#
+migrations run too.
 
 ### 12.1 What each declaration becomes
 
@@ -810,6 +833,17 @@ named after the target and its getter — so the columns stay the entity's
 fields while JPA knows the relation; its referential actions, deferrability
 and an index's method, covering columns, condition and clustering are the
 migration's.
+
+**Tenant tables.** A tenant table's tenant member carries Hibernate's
+`@TenantId` (`org.hibernate.annotations`), so Hibernate binds every statement
+on the entity — reads, updates, deletes — to the session's tenant and writes it
+into a new row. The session's tenant is `TenantIdentifierResolver`'s, a
+`CurrentTenantIdentifierResolver<String>` registered through
+`HibernatePropertiesCustomizer`, which reads `TenantContext` (a thread-local the
+request's authentication sets) and answers the empty id, which no row carries,
+when there is none. Both classes are written into the server package when the
+IR has a tenant table. The Flyway migration's tenant column is `NOT NULL` and
+indexed, as in §12.
 
 ### 13.1 What each declaration becomes
 
@@ -932,6 +966,16 @@ table with `CASCADE` and the sequences. The IR carries no migration DDL of
 its own. The migration has no model snapshot:
 `dotnet ef migrations add` would write the whole model as its next
 migration.
+
+**Tenant tables.** The context takes an `ITenantContext` (the request's
+`TenantId`, set by its authentication; `TenantContext`, registered scoped in
+`Program.cs`, both in `Tenancy.cs`) and gives each tenant table a global query
+filter, `HasQueryFilter(e => e.<TenantField> == tenant.TenantId)`, so every
+query of it — and every update or delete of what a query found — is scoped to
+the tenant; without one it shows no rows. `SaveChanges` writes the tenant into
+every new row of a tenant table and refuses to add one without it. The
+migration's tenant column is `NOT NULL` and indexed, as in §12. These are
+written when the IR has a tenant table.
 
 ### 14.1 What each declaration becomes
 

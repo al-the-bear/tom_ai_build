@@ -177,14 +177,25 @@ class IrEntityTable {
   /// The indexes, in source order.
   final List<IrTableIndex> indexes;
 
+  /// For a tenant table (`@CsTable(tenancy: CsTableTenancy.tenant)`), the
+  /// column of the member `@CsTable.tenantField` names: the tenant every
+  /// statement on the table is bound to (codespecs_derivation_contract.md
+  /// §3.3.1). `null` for a system table and in a solution that is not
+  /// multi-tenant.
+  final IrColumn? tenantColumn;
+
   /// Creates an entity table.
   const IrEntityTable(
     this.entity,
     this.table,
     this.columns,
     this.keys,
-    this.indexes,
-  );
+    this.indexes, {
+    this.tenantColumn,
+  });
+
+  /// Whether the table holds one tenant's rows.
+  bool get isTenant => tenantColumn != null;
 
   /// The key that identifies the row, or `null` when the entity states none
   /// (`validate_codespecs` check 44 reports that).
@@ -302,14 +313,34 @@ IrEntityTable? irEntityTable(IrIndex index, IrEntry e) {
       ),
     );
   }
+  IrColumn? tenantColumn;
+  if (_constant(cs.named['tenancy'], 'CsTableTenancy') == 'tenant') {
+    final field = irString(cs.named['tenantField']);
+    for (final c in columns) {
+      if (c.member.name == field) tenantColumn = c;
+    }
+    if (tenantColumn == null) {
+      throw IrMapException(
+        '${d.name} is a tenant table, and its tenantField '
+        "'${field ?? '(none)'}' names no @CsColumn member "
+        '(validate_codespecs check 45)',
+      );
+    }
+  }
   return IrEntityTable(
     d.name,
     irString(cs.positional.firstOrNull) ?? irSnake(d.name),
     columns,
     irTableKeys(d),
     irTableIndexes(d),
+    tenantColumn: tenantColumn,
   );
 }
+
+/// The index name of a tenant table's tenant column: `<table>_<column>_idx`,
+/// PostgreSQL's own naming for an unnamed index.
+String irTenantIndexName(IrEntityTable t) =>
+    '${t.table}_${t.tenantColumn!.name}_idx';
 
 /// Every `@CsTable` class of the server files [server], in file then source
 /// order.
@@ -403,8 +434,11 @@ String _deferrable(IrTableKey key) =>
 /// The PostgreSQL schema of [tables]: one `CREATE TABLE` each with its
 /// primary and alternate keys, then every foreign key as an
 /// `ALTER TABLE … ADD CONSTRAINT` (so a table may reference one written after
-/// it), then every index. [sqlType] gives the type of a column whose
-/// `@CsColumn` states none. [header] are the leading comment lines.
+/// it), then every index. A tenant table's tenant column is `NOT NULL`
+/// whatever its member's type — a row without a tenant belongs to nobody —
+/// and indexed, since every statement on the table filters by it.
+/// [sqlType] gives the type of a column whose `@CsColumn` states none.
+/// [header] are the leading comment lines.
 String irPostgresSchema(
   List<IrEntityTable> tables, {
   required String Function(IrColumn column) sqlType,
@@ -433,7 +467,7 @@ String irPostgresSchema(
     final lines = [
       for (final c in t.columns)
         '  ${c.name} ${c.columnType ?? sqlType(c)}'
-            '${c.nullable ? '' : ' NOT NULL'}'
+            '${c.nullable && c != t.tenantColumn ? '' : ' NOT NULL'}'
             '${generated[c.name] == null ? '' : ' ${generated[c.name]}'}',
       if (pk != null)
         '  CONSTRAINT ${pk.name} PRIMARY KEY (${pk.columns.join(', ')})'
@@ -442,8 +476,13 @@ String irPostgresSchema(
         '  CONSTRAINT ${k.name} UNIQUE (${k.columns.join(', ')})'
             '${_deferrable(k)}',
     ];
+    out.add('');
+    if (t.isTenant) {
+      out.add(
+        '-- A tenant table: every statement binds ${t.tenantColumn!.name}.',
+      );
+    }
     out
-      ..add('')
       ..add('CREATE TABLE ${t.table} (')
       ..addAll([
         for (final (i, l) in lines.indexed)
@@ -471,6 +510,14 @@ String irPostgresSchema(
     }
   }
   for (final t in tables) {
+    if (t.isTenant) {
+      out
+        ..add('')
+        ..add(
+          'CREATE INDEX ${irTenantIndexName(t)} ON ${t.table} '
+          '(${t.tenantColumn!.name});',
+        );
+    }
     for (final x in t.indexes) {
       for (final c in [...x.columns, ...x.includeColumns]) {
         if (t.column(c) == null) {

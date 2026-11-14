@@ -852,7 +852,9 @@ class _FileWriter {
         used.add(dartType);
         chain += '.\$type<$dartType>()';
       }
-      if (!type.endsWith('?')) chain += '.notNull()';
+      if (!type.endsWith('?') || name == shape.tenantColumn?.name) {
+        chain += '.notNull()';
+      }
       if (name == singlePk) chain += _generation(pk!, builder);
       columns
         ..addAll(_jsDoc(m, indent: '  '))
@@ -864,6 +866,7 @@ class _FileWriter {
       "import { ${(builders.toList()..sort()).join(', ')} } from 'drizzle-orm/pg-core';",
     );
     final tableConst = _tableName(d.name);
+    if (shape.isTenant) external.add("import { eq } from 'drizzle-orm';");
     declared
       ..add(tableConst)
       ..add(d.name);
@@ -885,6 +888,17 @@ class _FileWriter {
       '',
       '/** A row of [$tableConst]. */',
       'export type ${d.name} = typeof $tableConst.\$inferSelect;',
+      if (shape.isTenant) ...[
+        '',
+        '/**',
+        ' * The rows of [$tableConst] the tenant [tenantId] owns: the predicate',
+        ' * every query of this tenant table carries, and the value its inserts',
+        ' * write into `${shape.tenantColumn!.member.name}` (irspecs_ir.md §11).',
+        ' */',
+        'export function ${tableConst}OfTenant(tenantId: string) {',
+        '  return eq($tableConst.${shape.tenantColumn!.member.name}, tenantId);',
+        '}',
+      ],
     ];
   }
 
@@ -916,6 +930,13 @@ class _FileWriter {
         cs.map((c) => 't.${c.member.name}').join(', ');
     final out = <String>[];
     final pk = t.primaryKey;
+    if (t.isTenant) {
+      builders.add('index');
+      out.add(
+        'index(${jsonEncode(irTenantIndexName(t))})'
+        '.on(t.${t.tenantColumn!.member.name})',
+      );
+    }
     if (pk != null) {
       builders.add('primaryKey');
       out.add(

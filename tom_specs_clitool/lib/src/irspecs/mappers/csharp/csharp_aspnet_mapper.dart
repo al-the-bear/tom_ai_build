@@ -139,7 +139,11 @@ Map<String, String> mapCsharpAspnet(
     openApi,
     server,
     symbols,
+    tenancy: tables.any((t) => t.isTenant),
   );
+  if (tables.any((t) => t.isTenant)) {
+    out['$serverDir/Tenancy.cs'] = _tenancy(root);
+  }
   out['$serverDir/ValidationFilter.cs'] = _validationFilter(root);
 
   final v = kCsharpVersions;
@@ -1001,8 +1005,9 @@ String _program(
   String dbContext,
   Map<String, dynamic> openApi,
   List<({String area, IrFile file})> server,
-  _Symbols symbols,
-) {
+  _Symbols symbols, {
+  bool tenancy = false,
+}) {
   final handlers =
       <String, ({String owner, String method, CsMethodBody body})>{};
   final units = <String>{};
@@ -1061,6 +1066,11 @@ String _program(
     '        builder.Configuration.GetConnectionString("Default")',
     '            ?? throw new InvalidOperationException('
         '"ConnectionStrings:Default is not set")));',
+    if (tenancy) ...[
+      '// The tenant a request acts for: set by its authentication, read by the',
+      "// context's tenant filter (irspecs_ir.md §14).",
+      'builder.Services.AddScoped<ITenantContext, TenantContext>();',
+    ],
     for (final u in units.toList()..sort()) 'builder.Services.AddScoped<$u>();',
     'builder.Services.AddValidatorsFromAssemblyContaining<CodeSpecAttribute>();',
     '',
@@ -1279,31 +1289,104 @@ String _dbContext(
   String name,
   List<IrEntityTable> tables,
   _Symbols symbols,
-) => [
+) {
+  final tenantTables = [
+    for (final t in tables)
+      if (t.isTenant) t,
+  ];
+  String tenantProperty(IrEntityTable t) =>
+      _pascal(t.tenantColumn!.member.name);
+  return [
+    '// $_generated',
+    '',
+    'namespace $root.Server;',
+    '',
+    '/// <summary>The EF Core context of the CE-DB entities: their keys, foreign',
+    '/// keys and indexes (codespecs_derivation_contract.md §3.3.11); an',
+    '/// enum-typed column is stored as the enum value\'s name.</summary>',
+    if (tenantTables.isEmpty)
+      'public class $name(DbContextOptions<$name> options) : DbContext(options)'
+    else ...[
+      '/// <remarks>A tenant table\'s queries are filtered to the request\'s tenant,',
+      '/// and its new rows are written with it (irspecs_ir.md §14).</remarks>',
+      'public class $name(DbContextOptions<$name> options, ITenantContext tenant)',
+      '    : DbContext(options)',
+    ],
+    '{',
+    for (final t in tables) ...[
+      '    public DbSet<${t.entity}> ${t.entity}Set => Set<${t.entity}>();',
+      '',
+    ],
+    '    protected override void OnModelCreating(ModelBuilder modelBuilder)',
+    '    {',
+    for (final t in tables) ...[
+      ..._keyConfiguration(t, tables),
+      for (final c in t.columns)
+        if (symbols.byName[c.dartType]?.isEnum ?? false)
+          '        modelBuilder.Entity<${t.entity}>()'
+              '.Property(e => e.${_pascal(c.member.name)})'
+              '.HasConversion<string>();',
+      if (t.isTenant)
+        '        modelBuilder.Entity<${t.entity}>()'
+            '.HasQueryFilter(e => e.${tenantProperty(t)} == tenant.TenantId);',
+    ],
+    '    }',
+    if (tenantTables.isNotEmpty) ...[
+      '',
+      '    public override int SaveChanges(bool acceptAllChangesOnSuccess)',
+      '    {',
+      '        StampTenant();',
+      '        return base.SaveChanges(acceptAllChangesOnSuccess);',
+      '    }',
+      '',
+      '    public override Task<int> SaveChangesAsync(',
+      '        bool acceptAllChangesOnSuccess,',
+      '        CancellationToken cancellationToken = default)',
+      '    {',
+      '        StampTenant();',
+      '        return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);',
+      '    }',
+      '',
+      '    /// <summary>Writes the request\'s tenant into every new row of a tenant',
+      '    /// table; a request without a tenant cannot add one.</summary>',
+      '    private void StampTenant()',
+      '    {',
+      for (final t in tenantTables) ...[
+        '        foreach (var entry in ChangeTracker.Entries<${t.entity}>())',
+        '        {',
+        '            if (entry.State == EntityState.Added)',
+        '            {',
+        '                entry.Entity.${tenantProperty(t)} = tenant.TenantId',
+        '                    ?? throw new InvalidOperationException("no tenant to write ${t.entity} for");',
+        '            }',
+        '        }',
+      ],
+      '    }',
+    ],
+    '}',
+    '',
+  ].join('\n');
+}
+
+/// The tenant a request acts for (irspecs_ir.md §14): written when the IR
+/// has a tenant table.
+String _tenancy(String root) => [
   '// $_generated',
   '',
   'namespace $root.Server;',
   '',
-  '/// <summary>The EF Core context of the CE-DB entities: their keys, foreign',
-  '/// keys and indexes (codespecs_derivation_contract.md §3.3.11); an',
-  '/// enum-typed column is stored as the enum value\'s name.</summary>',
-  'public class $name(DbContextOptions<$name> options) : DbContext(options)',
+  '/// <summary>The tenant the current request acts for. A tenant table\'s',
+  '/// queries are filtered to it and its new rows written with it; without one',
+  '/// a tenant table shows no rows.</summary>',
+  'public interface ITenantContext',
   '{',
-  for (final t in tables) ...[
-    '    public DbSet<${t.entity}> ${t.entity}Set => Set<${t.entity}>();',
-    '',
-  ],
-  '    protected override void OnModelCreating(ModelBuilder modelBuilder)',
-  '    {',
-  for (final t in tables) ...[
-    ..._keyConfiguration(t, tables),
-    for (final c in t.columns)
-      if (symbols.byName[c.dartType]?.isEnum ?? false)
-        '        modelBuilder.Entity<${t.entity}>()'
-            '.Property(e => e.${_pascal(c.member.name)})'
-            '.HasConversion<string>();',
-  ],
-  '    }',
+  '    string? TenantId { get; }',
+  '}',
+  '',
+  '/// <summary>The request\'s tenant, set by its authentication.</summary>',
+  'public sealed class TenantContext : ITenantContext',
+  '{',
+  '    public string? TenantId { get; set; }',
   '}',
   '',
 ].join('\n');

@@ -4,7 +4,9 @@
 /// a sequence-generated surrogate key, an alternate key, a composite primary
 /// key, a deferrable foreign key with both referential actions, a UUID key,
 /// a covering, partial, descending index, a unique clustered index — mapped
-/// by the Go, Java, C# and TypeScript server mappers.
+/// by the Go, Java, C# and TypeScript server mappers. `Tag` is a tenant table
+/// and `Account` a system table (`@CsTable(tenancy:, tenantField:)`), so the
+/// same run checks that each mapper scopes a tenant table to its tenant.
 ///
 /// The PostgreSQL DDL (the Go schema, the Java Flyway migration, the C#
 /// migration) is run against a scratch PostgreSQL cluster when `initdb`,
@@ -52,7 +54,7 @@ import 'package:acc_codespec_shared/acc_codespec_shared.dart';
 import 'package:tom_code_specs/tom_code_specs.dart';
 
 /// A ledger account.
-@CsTable('acc_account')
+@CsTable('acc_account', tenancy: CsTableTenancy.system)
 @CsTableKey(
   'pk_account',
   kind: CsKeyKind.surrogate,
@@ -145,7 +147,7 @@ const _tag = '''
 import 'package:tom_code_specs/tom_code_specs.dart';
 
 /// A free tag.
-@CsTable('acc_tag')
+@CsTable('acc_tag', tenancy: CsTableTenancy.tenant, tenantField: 'tenantId')
 @CsTableKey(
   'pk_tag',
   kind: CsKeyKind.primary,
@@ -160,6 +162,10 @@ class Tag {
   /// The label.
   @CsColumn(columnType: 'text')
   String? label;
+
+  /// The tenant the tag belongs to.
+  @CsColumn(column: 'tenant_id', columnType: 'varchar(64)')
+  String? tenantId;
 }
 ''';
 
@@ -698,5 +704,168 @@ void main() {
       skip: npm == null ? 'no npm on the PATH (source ~/.nvm/nvm.sh)' : false,
       timeout: const Timeout(Duration(minutes: 5)),
     );
+  });
+
+  group('IRKEY5: a tenant table is scoped to its tenant', () {
+    test('the schema: the tenant column NOT NULL and indexed', () {
+      final schema = mapGoServer(documents)['$_server/db/schema.sql']!;
+      expect(
+        schema,
+        contains(
+          '-- A tenant table: every statement binds tenant_id.\n'
+          'CREATE TABLE acc_tag (',
+        ),
+      );
+      expect(schema, contains('  tenant_id varchar(64) NOT NULL,\n'));
+      expect(
+        schema,
+        contains('CREATE INDEX acc_tag_tenant_id_idx ON acc_tag (tenant_id);'),
+      );
+      expect(
+        schema,
+        isNot(contains('CREATE INDEX acc_account_tenant')),
+        reason: 'a system table has no tenant column',
+      );
+    });
+
+    test('Go: every query of the tenant table binds the tenant first', () {
+      final files = mapGoServer(documents);
+      final tag = files['$_server/db/query/acc_tag.sql']!;
+      for (final query in [
+        r'SELECT count(*) FROM acc_tag WHERE tenant_id = $1;',
+        'SELECT * FROM acc_tag\n'
+            r'WHERE tenant_id = $1'
+            '\n'
+            r'LIMIT $2 OFFSET $3;',
+        'SELECT * FROM acc_tag\n'
+            r'WHERE tenant_id = $1 AND tag_id = $2;',
+        'DELETE FROM acc_tag\n'
+            r'WHERE tenant_id = $1 AND tag_id = $2;',
+      ]) {
+        expect(tag, contains(query));
+      }
+      expect(
+        files['$_server/db/query/acc_account.sql']!,
+        contains(r'SELECT count(*) FROM acc_account;'),
+        reason: 'a system table is not filtered',
+      );
+      final tenant = files['$_server/tom/tenant.go']!;
+      expect(tenant, contains('func WithTenant(ctx context.Context'));
+      expect(tenant, contains('func TenantFrom(ctx context.Context)'));
+    });
+
+    test("Java: Hibernate's @TenantId and the tenant resolver", () {
+      final files = mapJavaSpring(documents);
+      String java(String name) =>
+          files['$_server/src/main/java/acc_codespec_server/server/$name.java']!;
+      expect(
+        java('Tag'),
+        contains(
+          '    @TenantId\n'
+          '    @Column(name = "tenant_id", columnDefinition = "varchar(64)")',
+        ),
+      );
+      expect(
+        java('Tag'),
+        contains('import org.hibernate.annotations.TenantId;'),
+      );
+      expect(java('Account'), isNot(contains('@TenantId')));
+      final resolver = java('TenantIdentifierResolver');
+      expect(
+        resolver,
+        contains(
+          'implements CurrentTenantIdentifierResolver<String>, '
+          'HibernatePropertiesCustomizer',
+        ),
+      );
+      expect(
+        resolver,
+        contains('AvailableSettings.MULTI_TENANT_IDENTIFIER_RESOLVER'),
+      );
+      expect(java('TenantContext'), contains('ThreadLocal<String>'));
+    });
+
+    test('C#: a global query filter, and new rows stamped with the tenant', () {
+      final files = mapCsharpAspnet(documents);
+      String server(String path) =>
+          files.entries.firstWhere((e) => e.key.endsWith(path)).value;
+      final context = server('DbContext.cs');
+      expect(
+        context,
+        contains(
+          'modelBuilder.Entity<Tag>()'
+          '.HasQueryFilter(e => e.TenantId == tenant.TenantId);',
+        ),
+      );
+      expect(context, isNot(contains('Entity<Account>().HasQueryFilter')));
+      expect(context, contains('ITenantContext tenant)'));
+      expect(
+        context,
+        contains('foreach (var entry in ChangeTracker.Entries<Tag>())'),
+      );
+      expect(server('Tenancy.cs'), contains('public interface ITenantContext'));
+      expect(
+        server('Program.cs'),
+        contains(
+          'builder.Services.AddScoped<ITenantContext, TenantContext>();',
+        ),
+      );
+    });
+
+    test('TypeScript: the tenant predicate of a tenant table', () {
+      final files = mapTypeScript(documents, kTsHonoServerMapper);
+      String table(String name) =>
+          files.entries.firstWhere((e) => e.key.endsWith('/$name.ts')).value;
+      final tag = table('tag');
+      expect(
+        tag,
+        contains('tenantId: varchar("tenant_id", { length: 64 }).notNull(),'),
+      );
+      expect(tag, contains('index("acc_tag_tenant_id_idx").on(t.tenantId),'));
+      expect(
+        tag,
+        contains(
+          'export function tagTableOfTenant(tenantId: string) {\n'
+          '  return eq(tagTable.tenantId, tenantId);\n'
+          '}',
+        ),
+      );
+      expect(tag, contains("import { eq } from 'drizzle-orm';"));
+      expect(table('account'), isNot(contains('OfTenant')));
+    });
+
+    test('a tenant table whose tenantField names no column is refused', () {
+      CsLocusProject project(CsLocus locus, Map<String, String> sources) =>
+          readCsLocusProject(
+            locus: locus,
+            packageName: 'acc_codespec_${locus.name}',
+            sources: sources,
+          );
+      final documents = irFromCsModel(
+        shared: project(CsLocus.shared, const {}),
+        client: project(CsLocus.client, const {}),
+        server: project(CsLocus.server, {
+          'lib/src/data_access/tag.dart': _tag.replaceFirst(
+            "tenantField: 'tenantId'",
+            "tenantField: 'ownerId'",
+          ),
+        }),
+        areas: IrAreaIndex(
+          CodeSpecsAreaCatalog.fromJson(
+            jsonDecode(File(_areas).readAsStringSync()) as Map<String, dynamic>,
+          ),
+        ),
+      );
+      expect(
+        () => mapGoServer(documents),
+        throwsA(
+          isA<IrMapException>().having(
+            (e) => e.message,
+            'message',
+            contains("its tenantField 'ownerId' names no @CsColumn member"),
+          ),
+        ),
+      );
+    });
   });
 }

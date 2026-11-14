@@ -104,6 +104,9 @@ Map<String, String> mapGoServer(
     for (final t in tables) {
       out['$module/db/query/${t.table}.sql'] = _querySql(t);
     }
+    if (tables.any((t) => t.isTenant)) {
+      out['$module/$_tom/tenant.go'] = _tenantGo;
+    }
   }
 
   out['$module/go.mod'] = [
@@ -846,6 +849,33 @@ type Repository[T any, K comparable] interface {
 // The routes, from the OpenAPI document
 // ---------------------------------------------------------------------------
 
+/// The tenant a request acts for, carried in its context: what a tenant
+/// table's queries bind (irspecs_ir.md §12). Written when the IR has a tenant
+/// table.
+const _tenantGo =
+    '''
+// $_generated
+
+package tom
+
+import "context"
+
+type tenantKey struct{}
+
+// WithTenant returns ctx carrying the tenant a request acts for. A tenant
+// table's queries filter by it and its inserts write it.
+func WithTenant(ctx context.Context, tenantID string) context.Context {
+\treturn context.WithValue(ctx, tenantKey{}, tenantID)
+}
+
+// TenantFrom returns the tenant ctx carries, and whether it carries one. A
+// repository of a tenant table refuses to run without it.
+func TenantFrom(ctx context.Context) (string, bool) {
+\ttenantID, ok := ctx.Value(tenantKey{}).(string)
+\treturn tenantID, ok && tenantID != ""
+}
+''';
+
 String? _router(
   Map<String, dynamic> openApi,
   List<({String area, IrFile file})> server,
@@ -1007,22 +1037,31 @@ String _schemaSql(
 /// The queries of the repository contract: the count, a page and an insert,
 /// and, by the primary key (`@CsTableKey`, codespecs_derivation_contract.md §3.3.11), a find and a delete.
 /// An entity without a primary key gets the first three only
-/// (`validate_codespecs` check 44 reports it).
+/// (`validate_codespecs` check 44 reports it). On a tenant table every query
+/// but the insert takes the tenant as its first parameter and filters by the
+/// tenant column; the insert writes it as one of the table's columns.
 String _querySql(IrEntityTable t) {
   final columns = t.columns.map((c) => c.name).toList();
   final key = t.primaryKey?.columns ?? const <String>[];
+  final tenant = t.tenantColumn?.name;
+  final first = tenant == null ? 1 : 2;
   final where = [
-    for (final (i, c) in key.indexed) '$c = \$${i + 1}',
+    if (tenant != null) '$tenant = \$1',
+    for (final (i, c) in key.indexed) '$c = \$${i + first}',
   ].join(' AND ');
   return [
     '-- $_generated',
     '',
     '-- name: Count${t.entity} :one',
-    'SELECT count(*) FROM ${t.table};',
+    if (tenant == null)
+      'SELECT count(*) FROM ${t.table};'
+    else
+      'SELECT count(*) FROM ${t.table} WHERE $tenant = \$1;',
     '',
     '-- name: List${t.entity}Page :many',
     'SELECT * FROM ${t.table}',
-    'LIMIT \$1 OFFSET \$2;',
+    if (tenant != null) 'WHERE $tenant = \$1',
+    'LIMIT \$$first OFFSET \$${first + 1};',
     '',
     '-- name: Insert${t.entity} :one',
     'INSERT INTO ${t.table} (${columns.join(', ')})',
