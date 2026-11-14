@@ -790,7 +790,7 @@ function _guestQuestion(id: string, g: SpecReviewMember): string {
       id,
       topic: `Guest ${g.memberId}`,
       text: `add ${g.memberId} (${who}) to the review team?`,
-      options: ['(a) yes, from the next round on', '(b) no, this round only'],
+      options: ['(a) yes, from now on', '(b) yes, the next round only', '(c) no'],
       recommended: 'a',
     }),
   ).join('\n');

@@ -1206,8 +1206,9 @@ fn guest_question(id: &str, g: &SpecReviewMember) -> String {
         &format!("add {} ({}) to the review team?", g.member_id, who),
     );
     draft.options = vec![
-        "(a) yes, from the next round on".to_string(),
-        "(b) no, this round only".to_string(),
+        "(a) yes, from now on".to_string(),
+        "(b) yes, the next round only".to_string(),
+        "(c) no".to_string(),
     ];
     draft.recommended = Some("a".to_string());
     format_question_block(&draft, None).join("\n")

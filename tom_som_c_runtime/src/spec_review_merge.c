@@ -1354,15 +1354,15 @@ static char *guest_question(const char *id, const SpecReviewMember *g) {
                               : fmt("%s, %s", g->display_name, role);
   char *topic = fmt("Guest %s", g->member_id);
   char *text = fmt("add %s (%s) to the review team?", g->member_id, who);
-  const char *const options[2] = {"(a) yes, from the next round on",
-                                  "(b) no, this round only"};
+  const char *const options[3] = {"(a) yes, from now on", "(b) yes, the next round only",
+                                  "(c) no"};
   SpecQuestionDraft q;
   memset(&q, 0, sizeof(q));
   q.id = id;
   q.topic = topic;
   q.text = text;
   q.options = options;
-  q.options_len = 2;
+  q.options_len = 3;
   q.recommended = "a";
   SomStrList lines;
   spec_format_question_block(&q, NULL, &lines);

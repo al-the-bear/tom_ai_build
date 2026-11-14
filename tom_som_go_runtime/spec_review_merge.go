@@ -1042,7 +1042,7 @@ func mergeGuestQuestion(id string, g SpecReviewMember) string {
 		ID:          id,
 		Topic:       "Guest " + g.MemberID,
 		Text:        "add " + g.MemberID + " (" + who + ") to the review team?",
-		Options:     []string{"(a) yes, from the next round on", "(b) no, this round only"},
+		Options:     []string{"(a) yes, from now on", "(b) yes, the next round only", "(c) no"},
 		Recommended: "a",
 	}, ""), "\n")
 }

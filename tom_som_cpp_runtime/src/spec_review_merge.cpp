@@ -831,7 +831,7 @@ std::string guestQuestion(const std::string& id, const SpecReviewMember& g) {
   q.id = id;
   q.topic = "Guest " + g.memberId;
   q.text = "add " + g.memberId + " (" + who + ") to the review team?";
-  q.options = {"(a) yes, from the next round on", "(b) no, this round only"};
+  q.options = {"(a) yes, from now on", "(b) yes, the next round only", "(c) no"};
   q.recommended = "a";
   return joinOn(formatQuestionBlock(q), "\n");
 }

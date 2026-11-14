@@ -950,7 +950,7 @@ def _guest_question(qid: str, g: Any) -> str:
                 id=qid,
                 topic=f"Guest {g.member_id}",
                 text=f"add {g.member_id} ({who}) to the review team?",
-                options=("(a) yes, from the next round on", "(b) no, this round only"),
+                options=("(a) yes, from now on", "(b) yes, the next round only", "(c) no"),
                 recommended="a",
             )
         )

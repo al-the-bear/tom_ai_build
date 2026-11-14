@@ -1152,7 +1152,7 @@
       "expect": {
         "merged": {
           "content": {
-            "IFM/content": "Overview of the {++ information ++}{@alice} model.\n\n> **❓ RQ-1 — Guest dave:** add dave (Dave Smith, Security) to the review team?\n> - **(a)** yes, from the next round on\n> - (b) no, this round only\n>\n> **Answer:**"
+            "IFM/content": "Overview of the {++ information ++}{@alice} model.\n\n> **❓ RQ-1 — Guest dave:** add dave (Dave Smith, Security) to the review team?\n> - **(a)** yes, from now on\n> - (b) yes, the next round only\n> - (c) no\n>\n> **Answer:**"
           },
           "forms": {
             "IFM/header/content": {
@@ -1297,7 +1297,7 @@
         "author": "Alice Owner"
       },
       "expect": {
-        "merged": "# Payment review\n\nIntro paragraph.\n\n> **❓ RQ-1 — Guest erin:** add erin (Erin Ops, Operations) to the review team?\n> - **(a)** yes, from the next round on\n> - (b) no, this round only\n>\n> **Answer:**\n\n## Limits\n\nThe limit is {~~ 100 ~> 200 ~~}{@alice} EUR.\n\n> **❓ Q-1 — Currency:** EUR only?\n> - **(a)** yes\n> - (b) also CHF\n>\n> **Answer (alice):** (a)\n> **Answer (erin):** (b) — Swiss customers\n>\n> **Answer:**\n",
+        "merged": "# Payment review\n\nIntro paragraph.\n\n> **❓ RQ-1 — Guest erin:** add erin (Erin Ops, Operations) to the review team?\n> - **(a)** yes, from now on\n> - (b) yes, the next round only\n> - (c) no\n>\n> **Answer:**\n\n## Limits\n\nThe limit is {~~ 100 ~> 200 ~~}{@alice} EUR.\n\n> **❓ Q-1 — Currency:** EUR only?\n> - **(a)** yes\n> - (b) also CHF\n>\n> **Answer (alice):** (a)\n> **Answer (erin):** (b) — Swiss customers\n>\n> **Answer:**\n",
         "report": {
           "reviewers": [
             {

@@ -2491,8 +2491,9 @@ the next round, numbered above the highest question id with the prefix:
 
 ```markdown
 > **❓ RQ-1 — Guest dave:** add dave (Dave Smith, Security) to the review team?
-> - **(a)** yes, from the next round on
-> - (b) no, this round only
+> - **(a)** yes, from now on
+> - (b) yes, the next round only
+> - (c) no
 >
 > **Answer:**
 ```

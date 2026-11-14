@@ -841,8 +841,9 @@ public final class SpecReviewMerge {
   private static String guestQuestion(String id, SpecReviewMember g) {
     String who = g.role.isEmpty() ? g.displayName : g.displayName + ", " + g.role;
     List<String> options = new ArrayList<>();
-    options.add("(a) yes, from the next round on");
-    options.add("(b) no, this round only");
+    options.add("(a) yes, from now on");
+    options.add("(b) yes, the next round only");
+    options.add("(c) no");
     return String.join(
         "\n",
         SpecReviewAnnotations.formatQuestionBlock(

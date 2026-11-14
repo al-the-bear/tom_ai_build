@@ -1128,8 +1128,9 @@ String _guestQuestion(String id, SpecReviewMember g) {
       topic: 'Guest ${g.memberId}',
       text: 'add ${g.memberId} ($who) to the review team?',
       options: const [
-        '(a) yes, from the next round on',
-        '(b) no, this round only',
+        '(a) yes, from now on',
+        '(b) yes, the next round only',
+        '(c) no',
       ],
       recommended: 'a',
     ),

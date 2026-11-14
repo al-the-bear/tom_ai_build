@@ -104,6 +104,10 @@ workspace_prefixes:
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
 unpublished_drift:
+  tom_som_dart_runtime: >-
+    tdrguest2 (2026-11-14): the review merge's guest question offers PD-11's
+    three answers (yes from now on / yes the next round only / no), in all nine
+    runtimes and the review-merge corpus; ships with the next chain release.
   tom_code_specs: >-
     csplace1 (2026-11-14): @CsTable(tenancy:, tenantField:) and the catalogue
     CsTableTenancy, in the unpublished 0.19.0 beside @CsCompletion (cskey2);
