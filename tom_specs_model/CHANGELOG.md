@@ -19,6 +19,8 @@
   checklists G2–G8 (1.2.0) follow the revised `tom_specs` process (generation
   units first in Phase 4, `G4-UNITS-1`, `G<n>-EARLIER-1`); SOM §11.9.9's merge
   example shows the guest question's three answers.
+- Tests: the registry snapshot counts 1283 registered classes (irspecs18's
+  `GenerationUnitEmitterEntry`).
 
 ## 1.11.0
 
