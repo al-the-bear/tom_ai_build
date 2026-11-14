@@ -229,6 +229,8 @@ func shared_request() shared.AmendOrderLineRequest {
       if (d.area == kIrPackageArea) continue;
       for (final f in d.files) {
         if (f.locus == CsLocus.client) continue;
+        // A CE-CF holder is written as configuration, not as a file of types.
+        if (irIsServerConfigFile(d.area, f)) continue;
         final path = '$_module/${f.locus.name}/${_goFile(f.file.path)}';
         final go = files[path];
         expect(go, isNotNull, reason: path);
@@ -439,6 +441,18 @@ func shared_request() shared.AmendOrderLineRequest {
           allOf(contains('lib/src/layout/'), contains('writes no client')),
         ),
       ),
+    );
+  });
+
+  test('IRGO10: the server configuration is ConfigDefaults, keyed by setting '
+      'key', () {
+    final config = files['$_module/server/config.go'];
+    expect(config, isNotNull);
+    expect(config, contains('var ConfigDefaults = map[string]any{'));
+    expect(config, contains('\t"tenancy.isolation": "shared",'));
+    expect(
+      files.keys.where((k) => k.contains('meridian_server_config')),
+      isEmpty,
     );
   });
 }

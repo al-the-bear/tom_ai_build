@@ -64,6 +64,10 @@ Map<String, String> mapGoServer(
         for (final f in d.files)
           if (f.locus == CsLocus.server) (area: d.area, file: f),
   ];
+  // CE-CF holders are configuration, not types: their settings become
+  // `ConfigDefaults` (irspecs_ir.md §12).
+  final settings = irServerSettings(server);
+  server.removeWhere((s) => irIsServerConfigFile(s.area, s.file));
   final shared = [
     for (final d in everything)
       if (d.area != kIrPackageArea)
@@ -90,6 +94,9 @@ Map<String, String> mapGoServer(
     }
   }
   out['$module/$_tom/tom.go'] = _tomPackage();
+  if (settings.isNotEmpty) {
+    out['$module/$_server/config.go'] = _configGo(settings);
+  }
 
   final openApi =
       jsonDecode(emitOpenApi(everything).files[kOpenApiFile]!)
@@ -852,6 +859,30 @@ type Repository[T any, K comparable] interface {
 /// The tenant a request acts for, carried in its context: what a tenant
 /// table's queries bind (irspecs_ir.md §12). Written when the IR has a tenant
 /// table.
+/// The server settings' defaults as a Go map, keyed by setting key, the
+/// values aligned as gofmt aligns them. A setting without a default (a
+/// secret) is not in it.
+String _configGo(List<IrServerSetting> settings) {
+  final entries = [
+    for (final s in settings)
+      if (s.value != null) (key: jsonEncode(s.key), value: jsonEncode(s.value)),
+  ];
+  final width = entries.fold(0, (w, e) => e.key.length > w ? e.key.length : w);
+  return [
+    '// $_generated',
+    '',
+    'package $_server',
+    '',
+    '// ConfigDefaults holds the server settings the specification gives a',
+    '// default, by setting key (CE-CF). A deployment overrides them.',
+    'var ConfigDefaults = map[string]any{',
+    for (final e in entries)
+      '\t${e.key}:${' ' * (width - e.key.length + 1)}${e.value},',
+    '}',
+    '',
+  ].join('\n');
+}
+
 const _tenantGo =
     '''
 // $_generated

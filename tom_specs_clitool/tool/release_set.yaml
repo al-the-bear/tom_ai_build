@@ -123,7 +123,9 @@ unpublished_drift:
     --spec/--unit writes a unit's standards, the chain at ^1.11.0; csplace1
     (2026-11-14): the tenancy halves of checks 45 and 47 (AC-3..AC-5,
     @TomTenantTable), the chain at ^1.12.0; csplace2 (2026-11-14): tenant
-    tables in the Go, Java, C# and TypeScript server mappers; published
+    tables in the Go, Java, C# and TypeScript server mappers; csplace3
+    (2026-11-14): the four server mappers write the CE-CF holders' defaults
+    as their own configuration (irServerSettings); published
     with the next clitool release
     (with irspecs18's model change and tom_code_specs 0.19.0).
   tom_core_codespecs: >-
@@ -134,7 +136,10 @@ unpublished_drift:
     emitters in irspecs_ir.md §10 and codespecs_mapping.md §1.1.1/§1.1.2;
     csplace1 (2026-11-14): an entity's placement and tenancy (§2.10 AC-3..AC-5,
     §3.3.1, §6 checks 45/47, codespecs_mapping.md §5.13); csplace2
-    (2026-11-14): tenant tables in irspecs_ir.md §8 and §11-§14;
+    (2026-11-14): tenant tables in irspecs_ir.md §8 and §11-§14; csplace3
+    (2026-11-14): TDIP's isolation model as tenancy.isolation (N10's
+    framework-owned key, §3.3.6 Tenancy, codespecs_mapping.md §5.13, §5.16,
+    §11) and the server configuration in irspecs_ir.md §11-§14;
     ships with the next release.
 
 # Where each member was actually published from, when that is not the commit

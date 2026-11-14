@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-11-14T14:32:06.774877Z",
+  "generatedAt": "2026-11-14T15:39:16.090860Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.12.0+38.64a42c53",
   "classCount": 1273,
   "rootCount": 14,
-  "modelHash": "a7055426c561f9e34256429a5ec161887d2635dcdc5b9ba8d5a8db6f190b45f6",
+  "modelHash": "0eabf9555c9a930538e3e83561dfe870843b41aed4fe940d3b2a60087660f62d",
   "containerRoot": "DocSpecsProject",
   "roots": [
     {
@@ -275380,9 +275380,10 @@
           "arguments": {
             "kinds": [
               "CodeSpecPart.authorization",
-              "CodeSpecPart.dataAccess"
+              "CodeSpecPart.dataAccess",
+              "CodeSpecPart.serverConfiguration"
             ],
-            "note": "dataAccess: a stated isolation model makes the solution multi-tenant, so an entity that does not say is a tenant table, and the tenant column names its tenant member (authored completions AC-3 and AC-4)"
+            "note": "dataAccess: a stated isolation model makes the solution multi-tenant, so an entity that does not say is a tenant table, and the tenant column names its tenant member (authored completions AC-3 and AC-4); serverConfiguration: tenantIsolationModel is the default of the framework setting tenancy.isolation (shared | schema | database)"
           }
         }
       ],

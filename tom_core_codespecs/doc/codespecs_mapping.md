@@ -2947,7 +2947,8 @@ attribute set for CE-DB:
   well as CE-AZ for that. What the specification leaves out is completed by the
   register of `codespecs_derivation_contract.md` §2.10 (AC-1, AC-3 to AC-5).
   The isolation model itself (shared schema, schema or database per tenant) is
-  deployment configuration, not an entity fact.
+  deployment configuration, not an entity fact: `TDIP` is routed to CE-CF too,
+  where it is the default of `tenancy.isolation` (§5.16).
 - **Attribute level** (per persistent field) — attribute name, storage column,
   value type, **storage nullability**, column (storage) type, read-only,
   not-loaded, json-encoded, **column-access key** (field-level authorization,
@@ -3567,22 +3568,23 @@ and shape are authored.
 
 **CE-CF's two authoring shapes, and the discriminator between them.** The
 declaration list above is not CE-CF's only authoring home, and it is not even
-its common one. **41 of the 42 CE-CF-mapped SOM sections** author settings as
+its common one. **42 of the 43 CE-CF-mapped SOM sections** author settings as
 **fixed-name form fields** — the audit sink (`EVATPO` / `LOSTPO` / `LOPRPO` /
 `LOREPO`), encryption at rest and in transit (`ENATRE`, `ENDACA`, `DAENPO`,
 `FSEP`, `BAENPO`, `ENINTR`, `TLPRPO`, `MUTLPO`, `COCHEN`), key management
 (`KEGEPO`, `KESTPO`, `KEROPO`, `KEABP`, `KCRP`), API and file/storage security
 (`APSE`, `APCOSE`, `APABPR`, `FASS`, `FUVP`, `STENPO`, `COSCPO`, `FDSP`), and
-D09's print-and-export band (`PRLA`, `EFE`, `ETE`, `EXSISE`, `EXFIMA`).
-`SCSET` is the **single** keyed list. The two shapes are kept apart, not merged,
+D09's print-and-export band (`PRLA`, `EFE`, `ETE`, `EXSISE`, `EXFIMA`), and
+the tenant data isolation policy (`TDIP`), whose `tenantIsolationModel` alone
+is a setting. `SCSET` is the **single** keyed list. The two shapes are kept apart, not merged,
 because they answer different questions:
 
-| | **Declared** (`SCSET`) | **Fixed** (the 41 policy/layout bands) |
+| | **Declared** (`SCSET`) | **Fixed** (the 42 policy/layout bands) |
 |---|---|---|
 | Who owns the setting's identity | the **application** — the author invents the key | the **model** — the SOM names the setting, one per form field |
 | Key set | open; grows with the application | closed; one member per `Field` in the band |
 | Author supplies | the whole declaration: key · type · default · sources · secret · overridability | the **value** only |
-| Key | authored, verbatim (§5.23 exemption 1, N5) | derived `<band>.<field>` (N10) |
+| Key | authored, verbatim (§5.23 exemption 1, N5) | derived `<band>.<field>` (N10); the tenancy setting's is the framework's own, `tenancy.isolation` |
 | `environmentVariable` / `commandLineOption` | authorable | absent — CE-CF-only *and* declared-only |
 | `secret` | authorable | always `false` |
 | `overridableBy` | authored, required, no default | always `none` |
@@ -3590,7 +3592,7 @@ because they answer different questions:
 The discriminator is **who owns the setting's identity**, and it decides which
 of a setting's properties can be authored at all. This is why the fixed shape
 cannot be collapsed into `SCSET`: doing so would require an author to invent a
-key for every setting the model already names — 41 sections' worth of security
+key for every setting the model already names — 42 sections' worth of security
 and deployment policy re-entered as free strings, with the model's own inventory
 demoted to a hint. It is equally why `SCSET` cannot be collapsed into fixed
 bands: an application's own settings are, by definition, not ones the model
@@ -6133,7 +6135,7 @@ where a value lives):
 
 | Part | Scope key | Persisted where | Declared in (`@SectionId`) | Example |
 |------|-----------|-----------------|----------------------------|---------|
-| **CE-CF** ServerConfiguration | server/system — no user, no machine | Server (deployment) | `SCSET` under `SYCOMA`, **plus the 41 fixed-name policy/layout bands** (§5.16) | DB connection, worker counts, feature flags (config toggles); TLS/key/audit-sink policy |
+| **CE-CF** ServerConfiguration | server/system — no user, no machine | Server (deployment) | `SCSET` under `SYCOMA`, **plus the 42 fixed-name policy/layout bands** (§5.16) | DB connection, worker counts, feature flags (config toggles); TLS/key/audit-sink policy; the default tenant isolation (`tenancy.isolation`) |
 | **CE-CC** ClientConfiguration | (client app, machine) — no user | Client machine | `CCSET` under `CLICON` | API base URL, device options, per-install toggles |
 | **CE-DS** DeviceSettings | (user, device) | The device, per signed-in user | `DSSET` under `DEVSET` | window layout, last-opened, machine-local cache preferences |
 | **CE-UP** UserSettings | (user) | Server (per user) | `USSET` under `USRSET` | theme, language, notification prefs — restored on any device |
@@ -6148,7 +6150,10 @@ band's own `@CodeSpecKind`, which is again a placement rather than a field, and
 there at all.
 
 - **CE-CF is server configuration only** — it never carries user or client-machine
-  settings.
+  settings. The tenant isolation model is the clearest case: `TDIP` states it
+  once for the deployment, it becomes the default of Tom Core's
+  `tenancy.isolation`, and no narrower scope may override it — a tenant, user or
+  client that could choose its isolation would choose its own.
 - **CE-CC** is keyed by the (client app, machine) pair; two installs of the same
   client on two machines have independent CE-CC. No user identity in the key.
   The client half of the key is authored **on the setting** — `CCSET`'s `client`

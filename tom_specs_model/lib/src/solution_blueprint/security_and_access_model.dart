@@ -7466,11 +7466,17 @@ class ColumnLevelSecurityPolicy extends DocSpecsSection {
 )
 @SectionId('TDIP')
 @CodeSpecKind(
-  [CodeSpecPart.authorization, CodeSpecPart.dataAccess],
+  [
+    CodeSpecPart.authorization,
+    CodeSpecPart.dataAccess,
+    CodeSpecPart.serverConfiguration,
+  ],
   note:
       'dataAccess: a stated isolation model makes the solution multi-tenant, '
       'so an entity that does not say is a tenant table, and the tenant '
-      'column names its tenant member (authored completions AC-3 and AC-4)',
+      'column names its tenant member (authored completions AC-3 and AC-4); '
+      'serverConfiguration: tenantIsolationModel is the default of the '
+      'framework setting tenancy.isolation (shared | schema | database)',
 )
 class TenantDataIsolationPolicy extends DocSpecsSection {
   @ContentHelp(

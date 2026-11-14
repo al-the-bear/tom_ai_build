@@ -44,11 +44,21 @@ import 'package:tom_core_server/tom_core_server.dart';
   DocRef('ENRLE-SOUR-REF', 'records the source entity of each relationship'),
   DocRef('ENRLE-TARG-REF', 'records the target entity of each relationship'),
   DocRef('content', 'supplies the key: its name, kind and columns'),
+  DocRef('content', 'makes the solution multi-tenant'),
 ])
-@CsTable('mom_order', datasource: 'main')
+@CsTable(
+  'mom_order',
+  datasource: 'main',
+  tenancy: CsTableTenancy.tenant,
+  tenantField: 'tenantId',
+)
 @CsTableKey('pk_order', kind: CsKeyKind.primary, columns: ['order_id'])
 @CsCompletion('AC-1', fact: 'datasource', value: 'main')
+@CsCompletion('AC-3', fact: 'tenancy', value: 'tenant')
+@CsCompletion('AC-4', fact: 'tenantColumn', value: 'tenant_id')
+@CsCompletion('AC-5', fact: 'tenantField', value: 'tenantId')
 @tomReflector
+@TomTenantTable(field: 'tenantId')
 @TomDbTable(
   datasource: 'main',
   table: 'mom_order',
@@ -145,4 +155,7 @@ class Order {
     isPii: false,
   )
   late DateTime createdAt;
+
+  @CsColumn(column: 'tenant_id')
+  String? tenantId;
 }

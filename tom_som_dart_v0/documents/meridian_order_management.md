@@ -1642,6 +1642,8 @@ EntityStereoType: Entity
 
 DataSourceName: catalog
 
+Tenancy: system
+
 ###### <!--[DAENT-CLAS]--> Classification
 
 Category: Master
@@ -2484,13 +2486,19 @@ DeploymentTarget: DEPTAR-DEPL-2
 
 ######## <!--[GEMAP-MAPP-LST]--> Mappings
 
-######### <!--[GEMAP-MAPP-1]--> CE-DB
+######### <!--[GEMAP-MAPP-1]--> CE-CF
+
+Area: CE-CF
+
+Mapping: dart-tom
+
+######### <!--[GEMAP-MAPP-2]--> CE-DB
 
 Area: CE-DB
 
 Mapping: dart-tom
 
-######### <!--[GEMAP-MAPP-2]--> CE-SU
+######### <!--[GEMAP-MAPP-3]--> CE-SU
 
 Area: CE-SU
 
@@ -2566,6 +2574,14 @@ credentials with per-partner rate limits. Every state transition is attributed
 to an authenticated principal in the audit log.
 
 ### <!--[ACCM]--> Access Control
+
+#### <!--[RESPRO]--> Resource Protection
+
+##### <!--[DALESE]--> Data Level Security
+
+###### <!--[TDIP]--> Tenant Data Isolation Policy
+
+TenantIsolationModel: SharedDatabase_SharedSchema
 
 #### <!--[USAU]--> Authorization
 

@@ -15,5 +15,17 @@ extract:
     citableParts: ["CE-EN", "CE-TX", "CE-VA", "CE-API", "CE-DB", "CE-AZ", "CE-ER", "CE-AU", "CE-ID", "CE-MG", "CE-LG", "CE-NT", "CE-RP"]
   document:
     root: "SBP"
-    entryCount: 0
-  entries: []
+    entryCount: 1
+  entries:
+    - sectionId: "content"
+      headline: null
+      instanceId: null
+      path: "SBP/securityAndAccessModel/accessControl/resourceProtection/dataLevelSecurity/tenantDataIsolationPolicy/content"
+      className: "TenantDataIsolationPolicy"
+      fieldName: "content"
+      formField: "tenantIsolationModel"
+      routedBy: "CodeSpecPart.serverConfiguration"
+      routedAt: "TenantDataIsolationPolicy"
+      routingNote: "dataAccess: a stated isolation model makes the solution multi-tenant, so an entity that does not say is a tenant table, and the tenant column names its tenant member (authored completions AC-3 and AC-4); serverConfiguration: tenantIsolationModel is the default of the framework setting tenancy.isolation (shared | schema | database)"
+      units: ["meridian_codespec_server"]
+      value: "SharedDatabase_SharedSchema"

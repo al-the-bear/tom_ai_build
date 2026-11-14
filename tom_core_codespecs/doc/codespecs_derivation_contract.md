@@ -232,6 +232,14 @@ collision is caught. Like N4's identifier rule it never auto-suffixes: a
 deployment key is a contract with the operator, and silently renaming one
 abandons whatever value was set against it.
 
+**A framework-owned key.** One fixed setting is read by the framework itself,
+under a key of its own: Tom Core's tenancy configuration reads
+`tenancy.isolation` (`tom_core_server` `doc/tenancy.md`). A derived key would
+name a setting nothing reads, so this setting's key is the framework's,
+verbatim, and so is its value vocabulary — the band's value is mapped onto it
+constant for constant (§3.3.6, *Tenancy*). It is the only such setting; it
+shares the namespace and check 20 with every other key.
+
 ### 2.2 Locus assignment
 
 Locus is not per-entry judgement — it is read off `codespecs_mapping.md` §4.2 by
@@ -1554,7 +1562,7 @@ Never cites the client.
 | **4 Naming** | Class = PascalCase of `DAENT`'s entity-name field — **not** of the table name; the table is a storage fact and the class is the domain name. N6 applies. |
 | **5 Locus** | `server` — CE-DB is server-only (§4.2), which is also why a rendering attribute cannot be declared on a column (`codespecs_mapping.md` §5.13.1). |
 | **6 Cross-refs** | Relationship columns reference other entities by **`Type` literal**, never a ref const (`codespecs_mapping.md` §5.23). Domain enums by plain type. |
-| **7 Back-link** | `@DocSpec([DocRef('DAENT', 'supplies the entity, its table and its storage placement')])`, plus one `DocRef('ENRLE', …)` per relationship the entity carries, and in a multi-tenant solution `DocRef('TDIP', 'makes the solution multi-tenant and names the tenant column')`. |
+| **7 Back-link** | `@DocSpec([DocRef('DAENT-IDEN', 'supplies the entity, its table and its storage placement')])`, plus one `DocRef('ENRLE', …)` per relationship the entity carries, and in a multi-tenant solution `DocRef('content', 'makes the solution multi-tenant')` — the `TDIP` form's token (§2.5 rule 2). |
 
 #### 3.3.2 `@CsColumn` — CE-DB column (member marker)
 
@@ -1641,15 +1649,15 @@ of a setting's properties can be authored at all.
 
 - **Declared** — the *application* owns the key. `SCSET`'s open list; the author
   invents the key, so every property of the setting must be authored.
-- **Fixed** — the *model* owns the key. The 41 policy and layout bands whose
+- **Fixed** — the *model* owns the key. The 42 policy and layout bands whose
   form fields each name one setting the SOM already knows exists; the author
   supplies only the value, so nothing per-setting is authorable.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | **Declared:** `ServerConfigurationSettingEntry` (`SCSET`), the declaration list under `SystemConfigurationManagement` (`SYCOMA`) — one entry per application-owned server setting. **Fixed:** the CE-CF-mapped policy and layout bands — the audit sink (`EVATPO` / `LOSTPO` / `LOPRPO` / `LOREPO` under `AULOFO`), encryption at rest and in transit, key management, API and file/storage security, and D09's print-and-export band — one setting per form field. The fixed shape is the **majority**: 41 of the 42 CE-CF-mapped sections are fixed, `SCSET` is the single declared one. |
+| **1 Input** | **Declared:** `ServerConfigurationSettingEntry` (`SCSET`), the declaration list under `SystemConfigurationManagement` (`SYCOMA`) — one entry per application-owned server setting. **Fixed:** the CE-CF-mapped policy and layout bands — the audit sink (`EVATPO` / `LOSTPO` / `LOPRPO` / `LOREPO` under `AULOFO`), encryption at rest and in transit, key management, API and file/storage security, and D09's print-and-export band — one setting per form field; and the tenant data isolation policy (`TDIP`), of whose fields only `tenantIsolationModel` is a setting (*Tenancy* below). The fixed shape is the **majority**: 42 of the 43 CE-CF-mapped sections are fixed, `SCSET` is the single declared one. |
 | **2 Output** | A **configuration holder** (form 2) built on `TomBaseServerConfiguration` with `TomServerConfigResourceProvider` (`tom_core_server`), one `@CsServerConfig`-marked member per setting — **one holder for both paths**, since the discriminator is about authoring, not about runtime. Feature flags take the same shape — `codespecs_mapping.md` §5.5 lists them as a settings sub-case, not a separate mechanism. |
-| **3 Arguments** | **Declared:** `key` — **first positional, required** ← `SCSET`'s setting key, **verbatim** (`codespecs_mapping.md` §5.23 exemption 1). `envAlias` / `cmdlineAlias` ← `SCSET`'s environment variable and command-line option, verbatim (same exemption). `secret` ← the secret mark, default `false` — the safe arm: a setting wrongly marked secret is merely stripped, one wrongly left unmarked ships its value. `overridableBy` (**required**, `CsOverridableBy {none, client, user, device}`) ← `SCSET`'s overridability opt-in; no default, because choosing a value's blast radius by omission is the exact failure `codespecs_mapping.md` §5.16's fail-safe rule prevents. **Fixed:** `key` ← **derived** per N10; `envAlias` / `cmdlineAlias` **absent** — `codespecs_mapping.md` §5.16 already makes them `SCSET`-only; `secret` **always `false`** and `overridableBy` **always `none`**, both by the `codespecs_mapping.md` §5.16 rules below, neither authorable. For both paths the setting's **type** is the member type and its **default** the member initialiser (test **a**). *Precedence* is not an argument — `codespecs_mapping.md` §5.16 fixes intra- and cross-scope precedence for everyone; `overridableBy` grants the **permission** to contest, it does not order the contest. |
+| **3 Arguments** | **Declared:** `key` — **first positional, required** ← `SCSET`'s setting key, **verbatim** (`codespecs_mapping.md` §5.23 exemption 1). `envAlias` / `cmdlineAlias` ← `SCSET`'s environment variable and command-line option, verbatim (same exemption). `secret` ← the secret mark, default `false` — the safe arm: a setting wrongly marked secret is merely stripped, one wrongly left unmarked ships its value. `overridableBy` (**required**, `CsOverridableBy {none, client, user, device}`) ← `SCSET`'s overridability opt-in; no default, because choosing a value's blast radius by omission is the exact failure `codespecs_mapping.md` §5.16's fail-safe rule prevents. **Fixed:** `key` ← **derived** per N10 — the tenancy setting's is the framework's own (N10, *a framework-owned key*); `envAlias` / `cmdlineAlias` **absent** — `codespecs_mapping.md` §5.16 already makes them `SCSET`-only; `secret` **always `false`** and `overridableBy` **always `none`**, both by the `codespecs_mapping.md` §5.16 rules below, neither authorable. For both paths the setting's **type** is the member type and its **default** the member initialiser (test **a**). *Precedence* is not an argument — `codespecs_mapping.md` §5.16 fixes intra- and cross-scope precedence for everyone; `overridableBy` grants the **permission** to contest, it does not order the contest. |
 | **4 Naming** | Holder = `<App>ServerConfig`. Member = **N5** over the authored key (declared) or **N2/N3 over the N10-derived key** (fixed) — both paths converge on the same member-naming rule, applied to a key that is authored in one and derived in the other. |
 | **5 Locus** | `server`. Deployment-environment names appearing in values are `codespecs_mapping.md` §5.23 exemption 2 — verbatim strings, not refs. |
 | **6 Cross-refs** | None typed. Log format, storage, protection and retention land here rather than on CE-LG — they are sink deployment settings. The compliance *report* lands on neither: reviewing and reporting from the log is a follow-up process, not generated code (`codespecs_mapping.md` §4.3.2). |
@@ -1672,6 +1680,36 @@ setting CE-CF-only and non-overridable, so `none` is not a default chosen by
 omission but the only value the class admits. A setting that genuinely should
 follow a user or a client install is not a fixed band at all: it is CE-CC,
 CE-DS or CE-UP, authored in that scope's own list.
+
+**Tenancy — the fixed setting with a framework key.** `TDIP` is routed to CE-CF
+as well as to CE-AZ and CE-DB, and of its form fields only
+`tenantIsolationModel` is a setting: the deployment's default tenant isolation,
+which `TomBaseServerConfiguration` reads as `tenancy.isolation`. Its member in
+the holder:
+
+```dart
+@DocSpec([DocRef('content', 'supplies the default tenant isolation model')])
+@CsServerConfig('tenancy.isolation', overridableBy: CsOverridableBy.none)
+static const String tenancyIsolation = 'shared';
+```
+
+- **Key** — Tom Core's, verbatim (N10, *a framework-owned key*); the member is
+  N2/N3 over it, `tenancyIsolation`, typed `String`.
+- **Default** — the stated model, mapped constant for constant:
+  `SharedDatabase_SharedSchema` → `shared`, `SharedDatabase_SeparateSchema` →
+  `schema`, `SeparateDatabase` → `database`. The mapping renames a closed set
+  onto a closed set; it copies, it does not compose (C1).
+- **`secret` / `overridableBy`** — `false` and `none`, like every fixed setting:
+  the isolation model is deployment-wide, and a client, user or device that
+  could choose it would choose its own isolation.
+- **No model, no setting.** A `TDIP` that states no `tenantIsolationModel`
+  makes no member: the solution is not multi-tenant (§2.10, AC-3) and Tom
+  Core's own default applies. A value outside the three is not mapped by guess:
+  the authoring step records a coverage gap (§2.11, `needs: unknown`), settled
+  `fixed` once the specification states one of the three.
+
+The back-link's token is `content` (§2.5 rule 2), the same one the CE-DB tenant
+tables cite for the multi-tenancy `TDIP` states.
 
 #### 3.3.7 `@CsAudited` — CE-LG audited element
 

@@ -9,7 +9,10 @@
   authorization: its isolation model makes a solution multi-tenant and its
   tenant column names a tenant table's tenant member, and the CE-DB authoring
   step reads only CE-DB's extract.
-- Additive (optional fields, an added routing), so a minor bump.
+- `TDIP` is routed to serverConfiguration too: its `tenantIsolationModel` is
+  the default of Tom Core's server setting `tenancy.isolation` (`shared`,
+  `schema`, `database`; `codespecs_derivation_contract.md` §3.3.6).
+- Additive (optional fields, added routings), so a minor bump.
 
 ## 1.11.0
 

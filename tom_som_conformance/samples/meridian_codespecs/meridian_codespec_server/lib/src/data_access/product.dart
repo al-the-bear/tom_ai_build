@@ -26,8 +26,9 @@ import 'package:tom_core_server/tom_core_server.dart';
     'supplies the rule set and its arguments, and the key: its name, kind '
         'and columns',
   ),
+  DocRef('content', 'makes the solution multi-tenant'),
 ])
-@CsTable('mom_product', datasource: 'catalog')
+@CsTable('mom_product', datasource: 'catalog', tenancy: CsTableTenancy.system)
 @CsTableKey('pk_product', kind: CsKeyKind.primary, columns: ['product_id'])
 @tomReflector
 @TomDbTable(

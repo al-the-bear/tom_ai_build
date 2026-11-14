@@ -54,6 +54,10 @@ Map<String, String> mapCsharpAspnet(
         for (final f in d.files)
           if (f.locus == CsLocus.server) (area: d.area, file: f),
   ];
+  // CE-CF holders are configuration, not types: their settings become
+  // appsettings.json (irspecs_ir.md §14).
+  final settings = irServerSettings(server);
+  server.removeWhere((s) => irIsServerConfigFile(s.area, s.file));
   final shared = [
     for (final d in everything)
       if (d.area != kIrPackageArea)
@@ -113,6 +117,9 @@ Map<String, String> mapCsharpAspnet(
     '$root.Shared',
   ]);
   out['$serverDir/Tom/TomRepository.cs'] = _tomRepository(root);
+  if (settings.isNotEmpty) {
+    out['$serverDir/appsettings.json'] = _appSettings(settings);
+  }
 
   final tables = irEntityTables(server);
   out['$serverDir/$dbContext.cs'] = _dbContext(
@@ -1442,4 +1449,31 @@ String _migration(
     '}',
     '',
   ].join('\n');
+}
+
+/// The server settings' defaults as ASP.NET Core configuration: a setting key's
+/// dots are configuration sections (`tenancy.isolation` →
+/// `{"tenancy": {"isolation": …}}`). A setting without a default (a secret) is
+/// not in it.
+String _appSettings(List<IrServerSetting> settings) {
+  final root = <String, Object?>{};
+  for (final s in settings) {
+    if (s.value == null) continue;
+    final parts = s.key.split('.');
+    var node = root;
+    for (final part in parts.take(parts.length - 1)) {
+      final next = node.putIfAbsent(part, () => <String, Object?>{});
+      if (next is! Map<String, Object?>) {
+        throw IrMapException(
+          'the setting key ${s.key} nests under a setting that has a value',
+        );
+      }
+      node = next;
+    }
+    if (node.containsKey(parts.last)) {
+      throw IrMapException('the setting key ${s.key} is a section already');
+    }
+    node[parts.last] = s.value;
+  }
+  return irJson(root);
 }

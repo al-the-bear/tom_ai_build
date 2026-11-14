@@ -627,6 +627,15 @@ of the table carries and the value its inserts write. The tenant column is
 (`index("<table>_<column>_idx")`). A system table, and every table of a solution
 that is not multi-tenant, gets neither.
 
+**Server configuration.** A CE-CF holder — a class whose fields are all
+`@CsServerConfig` members (`codespecs_derivation_contract.md` §3.3.6) — is
+configuration, not a type: the server package gets no module for it but
+`src/config.ts`, `export const configDefaults = { "<key>": <default>, … } as
+const`, keyed by setting key, which a deployment overrides. A setting without a
+default (a secret) is not in it. Every server mapper reads the holders the same
+way (`irServerSettings`); a default that is not a string, number or boolean
+literal is refused.
+
 ## 12. The Go server mapper
 
 One mapper writes the server of the IR as a Go module — the standard
@@ -714,6 +723,10 @@ context: `tom.WithTenant(ctx, id)` puts it there, `tom.TenantFrom(ctx)` reads
 it (`tom/tenant.go`, written when the IR has a tenant table), and a
 repository passes it to the queries. The schema is the one the Java and C#
 migrations run too.
+
+**Server configuration.** The CE-CF holders' defaults (§11) are
+`server/config.go`'s `var ConfigDefaults = map[string]any{"<key>": <default>,
+…}`, keyed by setting key.
 
 ### 12.1 What each declaration becomes
 
@@ -844,6 +857,11 @@ request's authentication sets) and answers the empty id, which no row carries,
 when there is none. Both classes are written into the server package when the
 IR has a tenant table. The Flyway migration's tenant column is `NOT NULL` and
 indexed, as in §12.
+
+**Server configuration.** The CE-CF holders' defaults (§11) are
+`src/main/resources/application.properties`, one `<key>=<default>` line per
+setting under its back-links as comments — the key is already Spring's
+property name, so `tenancy.isolation` is read as written.
 
 ### 13.1 What each declaration becomes
 
@@ -976,6 +994,11 @@ the tenant; without one it shows no rows. `SaveChanges` writes the tenant into
 every new row of a tenant table and refuses to add one without it. The
 migration's tenant column is `NOT NULL` and indexed, as in §12. These are
 written when the IR has a tenant table.
+
+**Server configuration.** The CE-CF holders' defaults (§11) are the server
+project's `appsettings.json`, a key's dots its configuration sections
+(`tenancy.isolation` → `{"tenancy": {"isolation": "shared"}}`). A key that is
+both a setting and a section of another is refused.
 
 ### 14.1 What each declaration becomes
 

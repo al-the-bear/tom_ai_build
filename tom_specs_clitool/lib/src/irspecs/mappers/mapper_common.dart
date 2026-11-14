@@ -141,3 +141,101 @@ String irMarkerSource(CsMarker m) {
   };
   return '${m.name}(${[...m.positional.map(v), for (final MapEntry(:key, :value) in m.named.entries) '$key: ${v(value)}'].join(', ')})';
 }
+
+// ---------------------------------------------------------------------------
+// Server configuration (CE-CF)
+// ---------------------------------------------------------------------------
+
+/// One `@CsServerConfig` member of a CE-CF holder: the setting's key and its
+/// default, which every server mapper writes into its language's own
+/// configuration (`irspecs_ir.md` §11–§14).
+class IrServerSetting {
+  /// The setting key, `tenancy.isolation`.
+  final String key;
+
+  /// The default: a `String`, `int`, `double` or `bool`; `null` for a setting
+  /// without one (a secret declares presence and shape only).
+  final Object? value;
+
+  /// Whether the setting's content is supplied out of band.
+  final bool secret;
+
+  /// The back-links of the member (`@DocSpec`), for the formats that carry a
+  /// comment.
+  final List<CsDocRef> docSpec;
+
+  /// Creates a setting.
+  const IrServerSetting(this.key, this.value, this.secret, this.docSpec);
+}
+
+/// Whether every top-level declaration of [file] is a CE-CF holder: a class
+/// whose fields are all `@CsServerConfig` members. Such a file is written as
+/// configuration ([irServerSettings]), never as a type.
+bool irIsServerConfigFile(String area, IrFile file) {
+  final index = irFileIndex(area, file);
+  final top = index.topLevel.toList();
+  if (top.isEmpty) return false;
+  for (final e in top) {
+    final fields = index
+        .membersOf(e)
+        .where((m) => m.kind == CsDeclarationKind.field)
+        .toList();
+    if (fields.isEmpty ||
+        !fields.every((m) => irMarker(m, 'CsServerConfig') != null)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/// The settings of the CE-CF holders among [server], in file then source
+/// order. Throws [IrMapException] for a default no configuration format can
+/// carry (anything but a string, number or boolean literal).
+List<IrServerSetting> irServerSettings(
+  List<({String area, IrFile file})> server,
+) {
+  final out = <IrServerSetting>[];
+  for (final f in server) {
+    if (!irIsServerConfigFile(f.area, f.file)) continue;
+    final index = irFileIndex(f.area, f.file);
+    for (final e in index.topLevel) {
+      for (final m in index.membersOf(e)) {
+        final marker = irMarker(m, 'CsServerConfig');
+        if (marker == null) continue;
+        final key = irString(marker.positional.firstOrNull);
+        if (key == null) {
+          throw IrMapException(
+            '${f.file.file.path}: @CsServerConfig on ${m.name} names no key',
+          );
+        }
+        final secret = switch (marker.named['secret']) {
+          CsBoolValue(:final value) => value,
+          _ => false,
+        };
+        out.add(
+          IrServerSetting(
+            key,
+            _settingValue(m, f.file.file.path),
+            secret,
+            m.docSpec ?? const [],
+          ),
+        );
+      }
+    }
+  }
+  return out;
+}
+
+Object? _settingValue(CsDeclaration m, String path) {
+  final init = m.initialiser?.trim();
+  if (init == null) return null;
+  final string = RegExp(r'''^(['"])([^'"\\$]*)\1$''').firstMatch(init);
+  if (string != null) return string.group(2);
+  if (init == 'true' || init == 'false') return init == 'true';
+  final number = num.tryParse(init);
+  if (number != null) return number;
+  throw IrMapException(
+    '$path: the default of ${m.name} (`$init`) is no string, number or '
+    'boolean literal, which is all a configuration file holds',
+  );
+}

@@ -86,6 +86,9 @@ Map<String, String> mapTypeScript(
     for (final f in d.files) {
       if (f.locus != locus) continue;
       if (d.area == kIrPackageArea) continue; // the barrel is ours to write
+      // A CE-CF holder is configuration, not a type: its settings become
+      // `configDefaults` (irspecs_ir.md §11).
+      if (locus == CsLocus.server && irIsServerConfigFile(d.area, f)) continue;
       final module = _modulePath(f.file.path);
       final text = _FileWriter(
         file: f,
@@ -121,6 +124,29 @@ Map<String, String> mapTypeScript(
       module,
     );
     modules.add(module);
+  }
+  if (locus == CsLocus.server) {
+    final settings = irServerSettings([
+      for (final d in share)
+        if (d.area != kIrPackageArea)
+          for (final f in d.files)
+            if (f.locus == CsLocus.server) (area: d.area, file: f),
+    ]);
+    if (settings.isNotEmpty) {
+      const module = 'src/config.ts';
+      out['$package/$module'] = _banner([
+        '/**',
+        ' * The server settings the specification gives a default, by setting',
+        ' * key (CE-CF). A deployment overrides them.',
+        ' */',
+        'export const configDefaults = {',
+        for (final s in settings)
+          if (s.value != null)
+            '  ${jsonEncode(s.key)}: ${jsonEncode(s.value)},',
+        '} as const;',
+      ]);
+      modules.add(module);
+    }
   }
   final native = mapper == kTsReactNativeClientMapper;
   if (native) {

@@ -15,7 +15,7 @@ extract:
     citableParts: ["CE-EN", "CE-EL", "CE-FM", "CE-TX", "CE-VA", "CE-AC", "CE-SC", "CE-API", "CE-SU", "CE-DB", "CE-ST", "CE-NV", "CE-ER", "CE-CF", "CE-AU", "CE-ID", "CE-MG", "CE-LG", "CE-NT", "CE-RP"]
   document:
     root: "SBP"
-    entryCount: 61
+    entryCount: 62
   entries:
     - sectionId: "ACID"
       headline: "ACT-01 Order Clerk"
@@ -425,6 +425,18 @@ extract:
       routingNote: "Lowers onto a `@CsAuthorize` whose `requirement` is this kind and whose per-kind slot is filled from the selected case subsection (`codespecs_derivation_contract.md` §3.4.3)."
       units: ["meridian_codespec_shared"]
       value: "Order Clerk, Order Supervisor"
+    - sectionId: "content"
+      headline: null
+      instanceId: null
+      path: "SBP/securityAndAccessModel/accessControl/resourceProtection/dataLevelSecurity/tenantDataIsolationPolicy/content"
+      className: "TenantDataIsolationPolicy"
+      fieldName: "content"
+      formField: "tenantIsolationModel"
+      routedBy: "CodeSpecPart.authorization"
+      routedAt: "TenantDataIsolationPolicy"
+      routingNote: "dataAccess: a stated isolation model makes the solution multi-tenant, so an entity that does not say is a tenant table, and the tenant column names its tenant member (authored completions AC-3 and AC-4); serverConfiguration: tenantIsolationModel is the default of the framework setting tenancy.isolation (shared | schema | database)"
+      units: ["meridian_codespec_shared"]
+      value: "SharedDatabase_SharedSchema"
     - sectionId: "content"
       headline: "Order Clerk"
       instanceId: "AZRO-ROLE-1"

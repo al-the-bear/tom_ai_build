@@ -207,6 +207,8 @@ void main() {
       if (d.area == kIrPackageArea) continue;
       for (final f in d.files) {
         if (f.locus == CsLocus.client) continue;
+        // A CE-CF holder is written as configuration, not as a file of types.
+        if (irIsServerConfigFile(d.area, f)) continue;
         final project = f.locus == CsLocus.shared ? 'Shared' : 'Server';
         final cs = [
           for (final decl in f.file.declarations)
@@ -441,6 +443,19 @@ void main() {
           allOf(contains('lib/src/layout/'), contains('writes no client')),
         ),
       ),
+    );
+  });
+
+  test('IRCS9: the server configuration is appsettings.json, a key\'s dots '
+      'its sections', () {
+    final config = files['$_unit/src/$_root.Server/appsettings.json'];
+    expect(config, isNotNull);
+    expect(jsonDecode(config!), {
+      'tenancy': {'isolation': 'shared'},
+    });
+    expect(
+      files.keys.where((k) => k.contains('MeridianServerConfig')),
+      isEmpty,
     );
   });
 }

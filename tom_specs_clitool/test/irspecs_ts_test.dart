@@ -156,6 +156,8 @@ void main() {
     for (final d in documents) {
       if (d.area == kIrPackageArea) continue;
       for (final f in d.files) {
+        // A CE-CF holder is written as configuration, not as a file of types.
+        if (irIsServerConfigFile(d.area, f)) continue;
         final package = d.projects
             .firstWhere((pr) => pr.locus == f.locus)
             .packageName;
@@ -247,6 +249,7 @@ void main() {
       table,
       contains(
         '  (t) => [\n'
+        '    index("mom_customer_tenant_id_idx").on(t.tenantId),\n'
         '    primaryKey({ name: "pk_customer", columns: [t.customerId] }),\n'
         '  ],',
       ),
@@ -256,6 +259,18 @@ void main() {
       contains(
         'creditLimit: numeric("credit_limit", { precision: 14, scale: 2 }).notNull()',
       ),
+    );
+  });
+
+  test('IRTS6: the server configuration is configDefaults, keyed by setting '
+      'key', () {
+    final config = files['meridian_codespec_server/src/config.ts'];
+    expect(config, isNotNull);
+    expect(config, contains('export const configDefaults = {'));
+    expect(config, contains('  "tenancy.isolation": "shared",'));
+    expect(
+      files.keys.where((k) => k.contains('meridian_server_config')),
+      isEmpty,
     );
   });
 }

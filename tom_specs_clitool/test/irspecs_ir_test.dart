@@ -233,6 +233,7 @@ void main() {
         'CE-NV',
         'CE-AZ',
         'CE-ER',
+        'CE-CF',
         kIrPackageArea,
       ]);
       // Only the three barrel libraries belong to no area, and a barrel is

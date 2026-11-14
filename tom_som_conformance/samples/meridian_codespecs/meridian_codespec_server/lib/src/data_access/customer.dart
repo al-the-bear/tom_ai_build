@@ -26,11 +26,21 @@ import 'package:tom_core_server/tom_core_server.dart';
     'supplies the rule set and its arguments, and the key: its name, kind '
         'and columns',
   ),
+  DocRef('content', 'makes the solution multi-tenant'),
 ])
-@CsTable('mom_customer', datasource: 'main')
+@CsTable(
+  'mom_customer',
+  datasource: 'main',
+  tenancy: CsTableTenancy.tenant,
+  tenantField: 'tenantId',
+)
 @CsTableKey('pk_customer', kind: CsKeyKind.primary, columns: ['customer_id'])
 @CsCompletion('AC-1', fact: 'datasource', value: 'main')
+@CsCompletion('AC-3', fact: 'tenancy', value: 'tenant')
+@CsCompletion('AC-4', fact: 'tenantColumn', value: 'tenant_id')
+@CsCompletion('AC-5', fact: 'tenantField', value: 'tenantId')
 @tomReflector
+@TomTenantTable(field: 'tenantId')
 @TomDbTable(
   datasource: 'main',
   table: 'mom_customer',
@@ -88,4 +98,7 @@ class Customer {
   )
   @CsValidation(rules: 'required, min:0')
   late double creditLimit;
+
+  @CsColumn(column: 'tenant_id')
+  String? tenantId;
 }

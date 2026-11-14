@@ -14,7 +14,7 @@ gate:
     - area: CE-CC
       verdict: not applicable
     - area: CE-CF
-      verdict: not applicable
+      verdict: sufficient
     - area: CE-CL
       verdict: not applicable
     - area: CE-DB

@@ -15,7 +15,7 @@ extract:
     citableParts: ["CE-EN", "CE-TX", "CE-VA", "CE-API", "CE-AZ", "CE-ER", "CE-CF", "CE-AU", "CE-ID", "CE-MG", "CE-LG", "CE-NT", "CE-RP"]
   document:
     root: "SBP"
-    entryCount: 208
+    entryCount: 210
   entries:
     - sectionId: "content"
       headline: null
@@ -1757,6 +1757,18 @@ extract:
       routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
       units: ["meridian_codespec_server"]
       value: "catalog"
+    - sectionId: "DAENT-IDEN"
+      headline: null
+      instanceId: "DAENT-ENTI-4"
+      path: "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAENT-IDEN"
+      className: "DataEntityEntry"
+      fieldName: "identity"
+      formField: "tenancy"
+      routedBy: "CodeSpecPart.dataAccess"
+      routedAt: "DataEntityEntry"
+      routingNote: "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+      units: ["meridian_codespec_server"]
+      value: "system"
     - sectionId: "DAENT-CLAS"
       headline: null
       instanceId: "DAENT-ENTI-4"
@@ -2513,3 +2525,15 @@ extract:
       routingNote: "Foreign-key / association between tables."
       units: ["meridian_codespec_server"]
       value: "DAENT-ENTI-4"
+    - sectionId: "content"
+      headline: null
+      instanceId: null
+      path: "SBP/securityAndAccessModel/accessControl/resourceProtection/dataLevelSecurity/tenantDataIsolationPolicy/content"
+      className: "TenantDataIsolationPolicy"
+      fieldName: "content"
+      formField: "tenantIsolationModel"
+      routedBy: "CodeSpecPart.dataAccess"
+      routedAt: "TenantDataIsolationPolicy"
+      routingNote: "dataAccess: a stated isolation model makes the solution multi-tenant, so an entity that does not say is a tenant table, and the tenant column names its tenant member (authored completions AC-3 and AC-4); serverConfiguration: tenantIsolationModel is the default of the framework setting tenancy.isolation (shared | schema | database)"
+      units: ["meridian_codespec_server"]
+      value: "SharedDatabase_SharedSchema"

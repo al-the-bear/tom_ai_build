@@ -1552,6 +1552,8 @@ document:
                 Entity
               dataSourceName: |2-
                 catalog
+              tenancy: |2-
+                system
             DAENT-CLAS classification:
               category: |2-
                 Master
@@ -2451,13 +2453,21 @@ document:
                 GEMAP-MAPP-LST mappings:
                   GEMAP-MAPP-1:
                     headline: |2-
+                      CE-CF
+                    content:
+                      area: |2-
+                        CE-CF
+                      mapping: |2-
+                        dart-tom
+                  GEMAP-MAPP-2:
+                    headline: |2-
                       CE-DB
                     content:
                       area: |2-
                         CE-DB
                       mapping: |2-
                         dart-tom
-                  GEMAP-MAPP-2:
+                  GEMAP-MAPP-3:
                     headline: |2-
                       CE-SU
                     content:
@@ -2537,6 +2547,12 @@ document:
         credentials with per-partner rate limits. Every state transition is attributed
         to an authenticated principal in the audit log.
       ACCM accessControl:
+        RESPRO resourceProtection:
+          DALESE dataLevelSecurity:
+            TDIP tenantDataIsolationPolicy:
+              content:
+                tenantIsolationModel: |2-
+                  SharedDatabase_SharedSchema
         USAU authorization:
           AZRO-ROLE-LST roleDefinitions:
             AZRO-ROLE-1:

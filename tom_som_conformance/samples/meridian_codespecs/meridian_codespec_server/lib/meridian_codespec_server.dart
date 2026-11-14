@@ -10,6 +10,7 @@ export 'src/data_access/order_line_repository.dart';
 export 'src/data_access/order_repository.dart';
 export 'src/data_access/product.dart';
 export 'src/data_access/product_repository.dart';
+export 'src/server_configuration/meridian_server_config.dart';
 export 'src/service_unit/customer_service.dart';
 export 'src/service_unit/order_service.dart';
 export 'src/service_unit/product_service.dart';

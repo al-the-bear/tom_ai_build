@@ -1558,7 +1558,10 @@ historical orders remain reproducible.''');
     ..entityStereoType = 'Entity'
     // The catalogue lives in its own datasource: a stated placement, where the
     // other entities take the authored completion AC-1 (`main`).
-    ..dataSourceName = 'catalog';
+    ..dataSourceName = 'catalog'
+    // The catalogue is the same for every tenant: a system table, where the
+    // other entities take the authored completion AC-3 (tenant tables).
+    ..tenancy = EntityTenancy.system;
   product.classification
     ..category = 'Master'
     ..boundedContext = 'Catalogue'
@@ -2464,6 +2467,8 @@ void _authorMessageKeys(D00SolutionBlueprint sbp) {
 void _authorRoles(D00SolutionBlueprint sbp) {
   final authorization = sbp.securityAndAccessModel.accessControl.authorization;
 
+  _authorTenantIsolation(sbp);
+
   final entitlements = authorization.entitlements;
   void entitlement(String name, String description, String accessType) {
     final e = entitlements.add();
@@ -2652,7 +2657,7 @@ void _authorGenerationUnits(D00SolutionBlueprint sbp) {
   unit(
     'meridian_codespec_server',
     GenerationUnitKind.server,
-    const ['CE-DB', 'CE-SU'],
+    const ['CE-CF', 'CE-DB', 'CE-SU'],
     deploymentTarget: orderService,
     emitters: const {
       'openapi':
@@ -2706,4 +2711,20 @@ void _authorTypedFormValues(D00SolutionBlueprint sbp) {
     ..characteristic = Iso25010Characteristic.reliability
     ..addressedBy = 'Two-week parallel run against OrderDesk'
     ..targetMetric = '< 0.1% reconciliation variance over the parallel run';
+}
+
+/// The tenant data isolation policy (`TDIP`). Meridian serves several trading
+/// companies from one deployment, every company's rows in the same tables: the
+/// isolation model makes the solution multi-tenant, so the entities that do not
+/// say are tenant tables (AC-3) with the column `tenant_id` (AC-4: no
+/// `tenantIdentifierColumn` is stated), and it is the default of the server
+/// setting `tenancy.isolation` (`codespecs_derivation_contract.md` §3.3.6).
+void _authorTenantIsolation(D00SolutionBlueprint sbp) {
+  final policy = sbp
+      .securityAndAccessModel
+      .accessControl
+      .resourceProtection
+      .dataLevelSecurity
+      .tenantDataIsolationPolicy;
+  policy.content.tenantIsolationModel = 'SharedDatabase_SharedSchema';
 }

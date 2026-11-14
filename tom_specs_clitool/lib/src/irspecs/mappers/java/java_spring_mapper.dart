@@ -54,6 +54,10 @@ Map<String, String> mapJavaSpring(
         for (final f in d.files)
           if (f.locus == CsLocus.server) (area: d.area, file: f),
   ];
+  // CE-CF holders are configuration, not types: their settings become
+  // application.properties (irspecs_ir.md §13).
+  final settings = irServerSettings(server);
+  server.removeWhere((s) => irIsServerConfigFile(s.area, s.file));
   final shared = [
     for (final d in everything)
       if (d.area != kIrPackageArea)
@@ -110,6 +114,19 @@ Map<String, String> mapJavaSpring(
     );
   }
 
+  if (settings.isNotEmpty) {
+    out['$project/src/main/resources/application.properties'] = [
+      '# $_generated',
+      '# The server settings the specification gives a default (CE-CF); a',
+      '# deployment overrides them.',
+      for (final setting in settings)
+        if (setting.value != null) ...[
+          for (final r in setting.docSpec) '# ${r.sectionId}: ${r.description}',
+          '${setting.key}=${setting.value}',
+        ],
+      '',
+    ].join('\n');
+  }
   if (tables.isNotEmpty) {
     out['$project/src/main/resources/db/migration/V1__ce_db_tables.sql'] =
         _migration(tables, symbols);

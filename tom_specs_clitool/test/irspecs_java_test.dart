@@ -195,6 +195,8 @@ void main() {
       if (d.area == kIrPackageArea) continue;
       for (final f in d.files) {
         if (f.locus == CsLocus.client) continue;
+        // A CE-CF holder is written as configuration, not as a file of types.
+        if (irIsServerConfigFile(d.area, f)) continue;
         final java = [
           for (final decl in f.file.declarations)
             if (decl.owner == null)
@@ -431,6 +433,20 @@ void main() {
           allOf(contains('lib/src/layout/'), contains('writes no client')),
         ),
       ),
+    );
+  });
+
+  test('IRJV8: the server configuration is application.properties', () {
+    final config = files['$_project/src/main/resources/application.properties'];
+    expect(config, isNotNull);
+    expect(config, contains('\ntenancy.isolation=shared\n'));
+    expect(
+      config,
+      contains('# content: supplies the default tenant isolation model\n'),
+    );
+    expect(
+      files.keys.where((k) => k.contains('MeridianServerConfig')),
+      isEmpty,
     );
   });
 }
