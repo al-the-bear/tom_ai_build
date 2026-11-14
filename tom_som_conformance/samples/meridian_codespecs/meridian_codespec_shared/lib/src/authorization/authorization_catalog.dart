@@ -25,3 +25,28 @@ class SbpRoles {
   ])
   static const CsRoleRef orderSupervisor = CsRoleRef('orderSupervisor');
 }
+
+@CodeSpec('authorization.SbpDataClassifications', source: ['DCLSE-IDEN'])
+@DocSpec([
+  DocRef('DCLSE-IDEN', 'supplies the classification level and its description'),
+])
+class SbpDataClassifications {
+  /// Internal data of the ordering core.
+  @DocSpec([
+    DocRef(
+      'DCLSE-IDEN',
+      'supplies the classification level and its description',
+    ),
+  ])
+  static const CsSensitivityLevel internal = CsSensitivityLevel.internal;
+
+  /// Confidential data of the ordering core.
+  @DocSpec([
+    DocRef(
+      'DCLSE-IDEN',
+      'supplies the classification level and its description',
+    ),
+  ])
+  static const CsSensitivityLevel confidential =
+      CsSensitivityLevel.confidential;
+}

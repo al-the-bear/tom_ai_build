@@ -531,7 +531,7 @@ class _FileWriter {
         if (i > 0) '',
         ..._doc(m, '    '),
         '    public const string ${_id(m.name)} = '
-            '${_string(irInitialiserString(m)!)};',
+            '${_string(irCatalogueValue(m)!)};',
       ],
       '}',
     ];

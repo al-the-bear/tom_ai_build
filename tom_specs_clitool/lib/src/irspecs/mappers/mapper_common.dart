@@ -63,7 +63,7 @@ IrShape irDeclarationShape(IrIndex index, IrEntry e, {required String mapper}) {
   if (methods.isEmpty &&
       fields.isNotEmpty &&
       fields.every(
-        (m) => m.isStatic && m.isConst && irInitialiserString(m) != null,
+        (m) => m.isStatic && m.isConst && irCatalogueValue(m) != null,
       )) {
     return IrShape.catalogue;
   }
@@ -74,6 +74,19 @@ IrShape irDeclarationShape(IrIndex index, IrEntry e, {required String mapper}) {
     return IrShape.plainData;
   }
   return IrShape.classType;
+}
+
+/// The value of a catalogue entry: the single string argument of its
+/// initialiser (`CsRoleRef('orderClerk')`), or the name of the closed-catalogue
+/// constant it is initialised with (`CsSensitivityLevel.internal` →
+/// `internal`) — the vocabulary is `tom_code_specs`', which no language but
+/// Dart has, so every other language writes the constant by its name.
+/// `null` for any other initialiser.
+String? irCatalogueValue(CsDeclaration d) {
+  final s = irInitialiserString(d);
+  if (s != null) return s;
+  final m = RegExp(r'^Cs\w+\.(\w+)$').firstMatch((d.initialiser ?? '').trim());
+  return m?.group(1);
 }
 
 /// The index of one file of [area], as a mapper writes one file at a time.

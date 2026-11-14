@@ -360,7 +360,7 @@ IrShape _declarationShape(IrIndex index, IrEntry e) {
 }
 
 /// The string a catalogue entry stands for: `CsMessageKey('a.b')` → `a.b`.
-String? _catalogueValue(CsDeclaration m) => irInitialiserString(m);
+String? _catalogueValue(CsDeclaration m) => irCatalogueValue(m);
 
 String _tableName(String entity) =>
     '${entity[0].toLowerCase()}${entity.substring(1)}Table';

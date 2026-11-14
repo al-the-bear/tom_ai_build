@@ -598,7 +598,7 @@ class _FileWriter {
         '',
         ..._doc(m, '    ', imports),
         '    public static final String ${m.name} = '
-            '${_string(irInitialiserString(m)!)};',
+            '${_string(irCatalogueValue(m)!)};',
       ],
       '}',
     ];

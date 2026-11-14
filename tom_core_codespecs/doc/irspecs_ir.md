@@ -546,7 +546,7 @@ server frameworks and persistence layers are separate mappers to come.
 | IR declaration | TypeScript | In the Meridian trio |
 |----------------|------------|--------|
 | a domain enum (CE-EN) | `export const X = { a: 'a', … } as const` and `export type X` the union of its values | shared |
-| a class of `static const` catalogue entries — operations (CE-API), roles (CE-AZ), error codes (CE-ER), message keys (CE-TX) | the same: a const object of the entries' strings and their union type | shared |
+| a class of `static const` catalogue entries — operations (CE-API), roles and data classifications (CE-AZ; a classification's value is its `CsSensitivityLevel` constant, written by its name), error codes (CE-ER), message keys (CE-TX) | the same: a const object of the entries' strings and their union type | shared |
 | a plain data class (not abstract, instance fields only) — a wire type (CE-API), the envelope (CE-ER) | `export interface X<T> { field: type; }` | shared |
 | an entity (`@CsTable`, CE-DB) | a Drizzle table `export const xTable = pgTable('<table>', { … })`, a column per field from its `columnType` (`uuid`, `varchar(n)`, `numeric(p,s)`, `text`, `integer`, `bigint`, `boolean`, `date`, `jsonb`, `timestamp[tz]`; without one, from the Dart type), `.$type<Enum>()` for an enum-typed column, `.notNull()` unless nullable, and the key's generation on a single-column primary key (`uuid` → `.defaultRandom()`, `auto` → `.generatedByDefaultAsIdentity()`, `sequence` → ``.default(sql`nextval(…)`)``); a third argument `(t) => [ … ]` with the keys and indexes of §11.3; and `export type X = typeof xTable.$inferSelect` | server |
 | a repository (`@CsRepository`) | `export interface XRepository extends TomRepository<X, K> {}`, `TomRepository` the method contract of `tom_core_server`'s (`tom/tom.ts`) | server |
@@ -733,7 +733,7 @@ migrations run too.
 | IR declaration | Go | Package |
 |----------------|----|---------|
 | a domain enum (CE-EN) | `type X string` and a const per value, `XValue X = "value"` | shared |
-| a class of `static const` catalogue entries — operations (CE-API), roles (CE-AZ), error codes (CE-ER), message keys (CE-TX) | the same: a named string type and a const per entry | shared |
+| a class of `static const` catalogue entries — operations (CE-API), roles and data classifications (CE-AZ; a classification's value is its `CsSensitivityLevel` constant, written by its name), error codes (CE-ER), message keys (CE-TX) | the same: a named string type and a const per entry | shared |
 | a plain data class (not abstract, instance fields only) — a wire type (CE-API), the envelope (CE-ER) | ``type X[T any] struct { Field Type `json:"field"` }`` | shared |
 | an entity (`@CsTable`, CE-DB) | a struct, each field tagged `db:"<column>" json:"<field>"`, an enum-typed column typed by its enum; `const XTable = "<table>"`; its table in `db/schema.sql` and its queries in `db/query/` | server |
 | a repository (`@CsRepository`) | `type XRepository interface { tom.Repository[X, K] }`, `tom.Repository` the method contract of `tom_core_server`'s repository | server |
@@ -868,7 +868,7 @@ property name, so `tenancy.isolation` is read as written.
 | IR declaration | Java | Package |
 |----------------|------|---------|
 | a domain enum (CE-EN) | `public enum X { value, … }`, the values as the Dart names them, so they serialise as the JSON Schema's | shared |
-| a class of `static const` catalogue entries — operations (CE-API), roles (CE-AZ), error codes (CE-ER), message keys (CE-TX) | `public final class X { public static final String entry = "…"; }` | shared |
+| a class of `static const` catalogue entries — operations (CE-API), roles and data classifications (CE-AZ; a classification's value is its `CsSensitivityLevel` constant, written by its name), error codes (CE-ER), message keys (CE-TX) | `public final class X { public static final String entry = "…"; }` | shared |
 | a plain data class (not abstract, instance fields only) — a wire type (CE-API), the envelope (CE-ER) | `public record X<T>(…)`, a component per field with its back-links and its `@CsValidation` rules as Bean Validation constraints: `required` → `@NotNull`, `email` → `@Email`, `pattern` → `@Pattern`, `minLength`/`maxLength`/`minItems`/`maxItems` → `@Size`, `min`/`max` → `@Min`/`@Max` (`@DecimalMin`/`@DecimalMax` for a decimal); the field's doc as the record's `@param` | shared |
 | an entity (`@CsTable`, CE-DB) | `@Entity @Table(name = "<table>")`, a private field per column with `@Column(name, columnDefinition, nullable)`, `@Enumerated(EnumType.STRING)` for an enum-typed column, and its getter and setter; `@Id`, `@IdClass`, `@GeneratedValue`, the foreign keys' associations and `@Table`'s unique constraints and indexes from its keys and indexes (§13, Keys in JPA); its table in the Flyway migration | server |
 | a repository (`@CsRepository`) | `public interface XRepository extends JpaRepository<X, K>` — Spring Data's repository in the place of `tom_core_server`'s | server |
@@ -1005,7 +1005,7 @@ both a setting and a section of another is refused.
 | IR declaration | C# | Project |
 |----------------|----|---------|
 | a domain enum (CE-EN) | `public enum X { value, … }`, the values as the Dart names them, serialised as strings (`JsonStringEnumConverter<X>`), so they read as the JSON Schema's | Shared |
-| a class of `static const` catalogue entries — operations (CE-API), roles (CE-AZ), error codes (CE-ER), message keys (CE-TX) | `public static class X { public const string entry = "…"; }` | Shared |
+| a class of `static const` catalogue entries — operations (CE-API), roles and data classifications (CE-AZ; a classification's value is its `CsSensitivityLevel` constant, written by its name), error codes (CE-ER), message keys (CE-TX) | `public static class X { public const string entry = "…"; }` | Shared |
 | a plain data class (not abstract, instance fields only) — a wire type (CE-API), the envelope (CE-ER) | `public sealed record X<T>(…)`, a parameter per field in Pascal case (System.Text.Json writes it in camel case, as the schema names it), `[property: JsonRequired]` on every non-nullable member — the schema's `required` — and the field's back-links as `[property: …]` | Shared |
 | the `@CsValidation` rules of a record's fields | a FluentValidation `XValidator : AbstractValidator<X>`: `required` → `NotNull()`, `email` → `EmailAddress()`, `pattern` → `Matches(…)`, `minLength`/`maxLength` → `MinimumLength`/`MaximumLength`, `minItems`/`maxItems` → a count check, `min`/`max` → `GreaterThanOrEqualTo`/`LessThanOrEqualTo`; a `ValidationFilter<X>` runs it on the operation's request | Shared |
 | an entity (`@CsTable`, CE-DB) | `[Table("<table>")] public class X`, a property per column with `[Column("<column>", TypeName = "<columnType>")]`; its keys and indexes in the context (§14, EF Core) and its table in the first migration | Server |

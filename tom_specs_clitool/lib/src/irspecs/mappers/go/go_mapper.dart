@@ -394,7 +394,7 @@ class _FileWriter {
                 for (final m in members)
                   if (m.kind == CsDeclarationKind.field) (m, m.name),
               ]
-            : [for (final m in members) (m, irInitialiserString(m)!)];
+            : [for (final m in members) (m, irCatalogueValue(m)!)];
         return [
           ...head,
           'type ${d.name} string',
