@@ -25,6 +25,7 @@ import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 
 import 'codespecs_validator.dart';
+import 'coverage_gaps.dart';
 import 'cs_checks.dart';
 import 'cs_extract.dart';
 import 'cs_model.dart';
@@ -96,7 +97,10 @@ ArgParser validateCodespecsParser() => ArgParser()
         'could not see. A legitimate partial pass is recorded, not '
         'truncated: a gate.verdicts.yaml beside the extracts '
         '(codespecs_prompt.md §6.3) scopes the obligation set to the '
-        'sufficient areas. Omitted: all five report nothing.',
+        'sufficient areas. A coverage_gaps.yaml beside them '
+        '(codespecs_derivation_contract.md §2.11) is read too: check 35 does '
+        'not hold the trio to a token a leaveAsIs gap names. Omitted: all '
+        'five report nothing.',
   )
   ..addOption(
     'cs-vocabulary',
@@ -139,6 +143,16 @@ ArgParser validateCodespecsParser() => ArgParser()
         'Write one JSON report to stdout instead of the text report '
         '(format `$kCodeSpecsReportFormat`, version '
         '$kCodeSpecsReportFormatVersion). Exit codes are unchanged.',
+    negatable: false,
+  )
+  ..addFlag(
+    'record-gaps',
+    help:
+        'With --extracts: append one coverage gap (needs: unknown, foundBy: '
+        'mechanical) to coverage_gaps.yaml beside the extracts for every '
+        'token check 35 reports, unless an open or leaveAsIs gap already '
+        'names it (codespecs_derivation_contract.md §2.11). The checks run '
+        'as without it.',
     negatable: false,
   )
   ..addFlag(
@@ -343,6 +357,65 @@ Future<int> runValidateCodespecs(
     ];
 
     final report = runCodeSpecsChecks(input);
+    final uncited = csUncitedTokens(input);
+    final leftAsIs = [
+      for (final t in uncited.where((t) => t.leftAsIs))
+        if ([
+              for (final g in extracts.coverageGaps.leftAsIs)
+                if (g.names(t.sectionId, t.areaCode)) g.id,
+            ]
+            case final ids)
+          {
+            'token': t.sectionId,
+            'area': t.areaCode,
+            'gaps': ids,
+            'message':
+                '${t.sectionId} in ${t.areaCode} left as is by '
+                '$kCsCoverageGapFile (${ids.join(', ')}) — check 35 does not '
+                'hold the trio to it.',
+          },
+    ];
+    final recorded = <Map<String, Object?>>[];
+    if (results.flag('record-gaps')) {
+      final dir = results.option('extracts');
+      if (dir == null) {
+        throw const _UsageError('--record-gaps needs --extracts.');
+      }
+      var record = extracts.coverageGaps;
+      for (final t in uncited) {
+        if (t.leftAsIs || record.alreadyRecorded(t.sectionId, t.areaCode)) {
+          continue;
+        }
+        final first = t.values.first;
+        final gap = CsCoverageGap(
+          id: 'GAP-${record.nextNumber}',
+          sectionId: t.sectionId,
+          path: t.path,
+          field: first.formField,
+          area: t.areaCode,
+          needs: CsGapNeed.unknown,
+          foundBy: CsGapFinder.mechanical,
+          note:
+              'check 35: ${t.values.length} value(s) of ${t.sectionId} '
+              '(${t.origins}) reached no code',
+        );
+        record = record.adding(gap);
+        recorded.add({
+          'id': gap.id,
+          'token': gap.sectionId,
+          'area': gap.area,
+          'message':
+              'recorded ${gap.id} in $kCsCoverageGapFile: ${gap.sectionId} '
+              'in ${gap.area} reached no code (needs: unknown — the review '
+              'classifies it).',
+        });
+      }
+      if (recorded.isNotEmpty) {
+        File(
+          p.join(p.normalize(p.absolute(dir)), kCsCoverageGapFile),
+        ).writeAsStringSync(writeCsCoverageGaps(record));
+      }
+    }
     if (results.flag('json')) {
       stdoutSink.writeln(
         const JsonEncoder.withIndent('  ').convert(
@@ -367,6 +440,8 @@ Future<int> runValidateCodespecs(
             },
             notRun: notRun,
             excludedAreas: excluded,
+            leftAsIsGaps: leftAsIs,
+            recordedGaps: results.flag('record-gaps') ? recorded : null,
           ),
         ),
       );
@@ -374,7 +449,7 @@ Future<int> runValidateCodespecs(
       for (final n in notRun) {
         stdoutSink.writeln('codespecs: ${n['reason']}');
       }
-      for (final e in excluded) {
+      for (final e in [...excluded, ...leftAsIs, ...recorded]) {
         stdoutSink.writeln('codespecs: ${e['message']}');
       }
       for (final line in report.lines) {
@@ -401,6 +476,8 @@ Map<String, Object?> codeSpecsReportJson(
   Map<String, String?> inputs = const {},
   List<Map<String, Object?>> notRun = const [],
   List<Map<String, Object?>> excludedAreas = const [],
+  List<Map<String, Object?>> leftAsIsGaps = const [],
+  List<Map<String, Object?>>? recordedGaps,
 }) {
   final titles = {for (final c in report.checks) c.number: c.title};
   return {
@@ -415,6 +492,10 @@ Map<String, Object?> codeSpecsReportJson(
     ],
     'notRun': notRun,
     'excludedAreas': excludedAreas,
+    // Present only when there is something to say, so a report of a run
+    // without a coverage-gap record keeps its recorded shape.
+    if (leftAsIsGaps.isNotEmpty) 'leftAsIsGaps': leftAsIsGaps,
+    'recordedGaps': ?recordedGaps,
     'violations': [
       for (final v in report.violations)
         {
@@ -561,7 +642,8 @@ CsExtractSet _extracts(String? path) {
   for (final entity in files) {
     final isExtract = entity.path.endsWith('.extract.yaml');
     final isGate = p.basename(entity.path) == kCsGateRecordFile;
-    if (!isExtract && !isGate) continue;
+    final isGaps = p.basename(entity.path) == kCsCoverageGapFile;
+    if (!isExtract && !isGate && !isGaps) continue;
     sources[_slashed(p.relative(entity.path, from: dir.path))] = entity
         .readAsStringSync();
   }

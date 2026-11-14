@@ -134,6 +134,7 @@ to read.
 | **Entry** | Extract token (the routed field's `@SectionId`, or its own name where it carries none — `codespecs_derivation_contract.md` §2.5 rule 2) · the enclosing section instance's headline, copy-only (the stored headline, else the `@Headline` type default, else null) — the `codespecs_derivation_contract.md` §2.1 N1 headline source · the enclosing instance's stored id (`instanceId`), copy-only (see below) · class name · field name · form field where applicable · the verbatim value · the `@CodeSpecKind` value that routed it here · source location · the **units** the entry goes to (`units`: the nearest stored `units` up the path, else every unit of the register whose mappings hold the area — item 4 — and absent when neither names one). |
 | **Authority** | The YAML is the artifact of record; the Markdown is a *view* and is regenerated from it. Nothing reads the Markdown as input. |
 | **Gate record** | `gate.verdicts.yaml`, beside the extracts — the Stage-B verdicts persisted per area (`codespecs_prompt.md` §6.3). It is the scope of the pass: the §6-of-`codespecs_derivation_contract.md` transfer checks hold the trio to the `sufficient` areas only, so a recorded partial pass (a descoped *insufficient* area, a *not applicable* area) neither fails coverage nor forces coarse citations. Absent the record, the whole extract tree is the obligation set. |
+| **Coverage-gap record** | `coverage_gaps.yaml`, beside the extracts and kept across runs — the facts the specification states that CodeSpecs has no place for yet, recorded by Stage B, the authoring steps and `validate_codespecs --record-gaps`, and settled by the run's gap review (`codespecs_derivation_contract.md` §2.11). An open gap interrupts the run; a gap left as is is not held against the trio by check 35. |
 
 The YAML carries the authority because the whole value of an extract is that its
 provenance is machine-checkable — the (id, verbatim value) pair is the second
@@ -306,6 +307,19 @@ discovered in stage 3 or 4
 files a new L0 todo and the declaration is **not written**. An underspecified
 project therefore halts Phase 4 at the point of the gap, rather than being
 guessed through and discovered in Phase 6.
+
+The converse stops it too. A **coverage gap**
+([`codespecs_derivation_contract.md`](codespecs_derivation_contract.md) §2.11)
+is a fact the specification states that CodeSpecs has no place for: Stage B,
+an authoring step or the mechanical pass over check 35 (`validate_codespecs
+--record-gaps`, stage 5) records it in `coverage_gaps.yaml` beside the
+extracts, and the run's one gap-review todo (`csopen<n>`, `decision-needed`)
+pauses the queue; an authoring step also sets the next `csgen<n>` to
+`decision-needed`. Once the review has settled every gap — the vocabulary
+extended, the miss corrected, or the fact left out of the code knowingly —
+**Phase 4 restarts** from stage 0, because an extended vocabulary can change
+what every later step derives. A gap left as is stays in the record and stops
+no later run.
 
 **What the run is finished against.** Stage 5's validator decides admissibility
 of what was written; **§9.6's self-sufficiency rule** decides whether it carries

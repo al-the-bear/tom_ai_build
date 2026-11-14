@@ -3290,39 +3290,90 @@ class CsExtractCoverageCheck extends CodeSpecsCheck {
       'code';
 
   @override
-  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
-    if (input.extracts.isEmpty) return const [];
-    final cited = csCitedSectionIds(input);
-    final out = <CodeSpecsViolation>[];
-    for (final extract in input.extracts.extracts) {
-      // One violation per uncited token of an area, not per value: the gap is
-      // that the *token* reached no code, and a token with nine values behind
-      // it would otherwise be reported nine times over one fault.
-      final reported = <String>{};
-      for (final entry in extract.entries) {
-        if (cited.contains(entry.sectionId)) continue;
-        if (!reported.add(entry.sectionId)) continue;
-        final values = extract.entries.where(
-          (e) => e.sectionId == entry.sectionId,
-        );
-        final origins = values.map((e) => e.origin).toSet().join(', ');
-        final at = entry.path.isEmpty ? '' : ' at ${entry.path}';
-        out.add(
-          fail(
-            '${extract.source} routes ${values.length} value(s) of '
-            '${entry.sectionId} to ${extract.areaCode}$at ($origins), and no '
-            '@CodeSpec or @DocSpec in the trio names that token — the '
-            'specification fact reached no code, so Phase 5 and Phase 6 would '
-            'have to reopen the document to find it',
-            null,
-            entry.sectionId,
-            extract.areaCode,
-          ),
-        );
-      }
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) => [
+    for (final t in csUncitedTokens(input))
+      if (!t.leftAsIs)
+        fail(
+          '${t.source} routes ${t.values.length} value(s) of '
+          '${t.sectionId} to ${t.areaCode}'
+          '${t.path.isEmpty ? '' : ' at ${t.path}'} (${t.origins}), and no '
+          '@CodeSpec or @DocSpec in the trio names that token — the '
+          'specification fact reached no code, so Phase 5 and Phase 6 would '
+          'have to reopen the document to find it',
+          null,
+          t.sectionId,
+          t.areaCode,
+        ),
+  ];
+}
+
+/// One extract token of one area that no back-link in the trio names.
+class CsUncitedToken {
+  /// The extract file it was read from.
+  final String source;
+
+  /// The `CE-*` area.
+  final String areaCode;
+
+  /// The token.
+  final String sectionId;
+
+  /// The first value's document path.
+  final String path;
+
+  /// Every value of the token in the area.
+  final List<CsExtractEntry> values;
+
+  /// Whether a `leaveAsIs` coverage gap names the token for the area
+  /// (`codespecs_derivation_contract.md` §2.11): check 35 does not report it,
+  /// the validator announces it.
+  final bool leftAsIs;
+
+  /// Creates the token.
+  const CsUncitedToken({
+    required this.source,
+    required this.areaCode,
+    required this.sectionId,
+    required this.path,
+    required this.values,
+    required this.leftAsIs,
+  });
+
+  /// The model fields the values came from, for a message.
+  String get origins => values.map((e) => e.origin).toSet().join(', ');
+}
+
+/// The tokens check 35 looks at: per area, every token of the in-scope
+/// extracts that no `@CodeSpec` / `@DocSpec` of the trio names, once per
+/// token — the gap is that the *token* reached no code, and a token with nine
+/// values behind it would otherwise be reported nine times over one fault.
+/// Also the input of `validate_codespecs.dart --record-gaps`.
+List<CsUncitedToken> csUncitedTokens(CodeSpecsValidationInput input) {
+  if (input.extracts.isEmpty) return const [];
+  final cited = csCitedSectionIds(input);
+  final gaps = input.extracts.coverageGaps;
+  final out = <CsUncitedToken>[];
+  for (final extract in input.extracts.extracts) {
+    final reported = <String>{};
+    for (final entry in extract.entries) {
+      if (cited.contains(entry.sectionId)) continue;
+      if (!reported.add(entry.sectionId)) continue;
+      out.add(
+        CsUncitedToken(
+          source: extract.source,
+          areaCode: extract.areaCode,
+          sectionId: entry.sectionId,
+          path: entry.path,
+          values: [
+            for (final e in extract.entries)
+              if (e.sectionId == entry.sectionId) e,
+          ],
+          leftAsIs: gaps.isLeftAsIs(entry.sectionId, extract.areaCode),
+        ),
+      );
     }
-    return out;
   }
+  return out;
 }
 
 /// `codespecs_derivation_contract.md` §6 check 36.

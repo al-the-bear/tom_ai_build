@@ -20,6 +20,9 @@ the checks themselves, see
   - [CsExtractEntry](#csextractentry)
   - [CsExtract](#csextract)
   - [CsExtractSet](#csextractset)
+  - [CsCoverageGap](#cscoveragegap)
+  - [CsCoverageGapRecord](#cscoveragegaprecord)
+  - [CsCoverageGapException](#cscoveragegapexception)
   - [CsLocation](#cslocation)
   - [CsStringValue](#csstringvalue)
   - [CsBoolValue](#csboolvalue)
@@ -84,6 +87,7 @@ the checks themselves, see
   - [CsGroupedHolderCommentCheck](#csgroupedholdercommentcheck)
   - [CsCommentFidelityCheck](#cscommentfidelitycheck)
   - [CsExtractCoverageCheck](#csextractcoveragecheck)
+  - [CsUncitedToken](#csuncitedtoken)
   - [CsBackLinkExtractedCheck](#csbacklinkextractedcheck)
   - [CsReflectionWrittenNotFinalCheck](#csreflectionwrittennotfinalcheck)
   - [CodeSpecsValidationReport](#codespecsvalidationreport)
@@ -92,6 +96,9 @@ the checks themselves, see
   - [AreasCatalog](#areascatalog)
 - [Enums](#enums)
   - [CsGateVerdict](#csgateverdict)
+  - [CsGapNeed](#csgapneed)
+  - [CsGapFinder](#csgapfinder)
+  - [CsGapResolution](#csgapresolution)
   - [CsLocus](#cslocus)
   - [CsBodyShape](#csbodyshape)
   - [CsStatementKind](#csstatementkind)
@@ -101,14 +108,15 @@ the checks themselves, see
 
 ## Overview
 
-The module declares **80 classes** and **6 enums** across 6 source file(s).
+The module declares **84 classes** and **9 enums** across 7 source file(s).
 
 | Source file | Holds |
 |-------------|-------|
 | `cs_reader.dart` | Reading the trio — `readCsLocusProject`, `readCsLocusProjectFromDirectory`, `readEnumValues`, and `csReadAnnotation`, which reads a framework annotation (`@TomDbTable(...)`) into the marker shape so a check can compare it with the markers beside it |
 | `cs_extract.dart` | Reading the extracts — `CsExcludedArea`, `CsExtractException`, `CsExtractEntry`, `CsExtract`, `CsExtractSet`, `CsGateVerdict` |
+| `coverage_gaps.dart` | The run's coverage-gap record (`codespecs_derivation_contract.md` §2.11) — `CsCoverageGap`, `CsCoverageGapRecord`, `CsCoverageGapException`, `CsGapNeed`, `CsGapFinder`, `CsGapResolution`, `readCsCoverageGaps`, `writeCsCoverageGaps`, `kCsCoverageGapFile`, `kCsCoverageGapFormat` |
 | `cs_model.dart` | The resolved model the checks read — `CsLocation`, `CsStringValue`, `CsBoolValue`, `CsIntValue`, `CsNullValue`, `CsQualifiedValue`, `CsConstructionValue`, `CsListValue`, `CsUnknownValue`, `CsMarker`, `CsDocRef`, `CsCodeSpecLink`, `CsCall`, `CsStatement`, `CsParameter`, `CsMethodBody`, `CsDocComment`, `CsComment`, `CsDeclaration`, `CsConstruction`, `CsFile`, `CsLocusProject`, `CsEnumMirror`, `CsFeatureHookEntry`, `CsFeatureCatalogue`, `CodeSpecsRegeneration`, `CodeSpecsValidationInput`, `CsLocus`, `CsBodyShape`, `CsStatementKind`, `CsDeclarationKind` |
-| `cs_checks.dart` | The forty-seven checks — `CodeSpecsViolation`, `CodeSpecsCheck`, `CsIdentifierCollisionCheck`, `CsReferenceResolutionCheck`, `CsMissingNameCheck`, `CsMissingAuthoredKeyCheck`, `CsEmptyExplicationCheck`, `CsFabricatedValueCheck`, `CsBackLinkAgreementCheck`, `CsSlotExclusivityCheck`, `CsMirroredCatalogueCheck`, `CsErrorCopyCategoryCheck`, `CsLocusArrowCheck`, `CsOperationAgreementCheck`, `CsMigrationConvergenceCheck`, `CsComposeTokenCheck`, `CsOverridableScopeCheck`, `CsSecretInitialiserCheck`, `CsFallbackChannelCheck`, `CsDrillThroughRouteCheck`, `CsSecretIsDeclaredCheck`, `CsSettingKeyCollisionCheck`, `CsGradedDepthCheck`, `CsColumnNotObservableCheck`, `CsCollaboratorCallResolutionCheck`, `CsCollaboratorShapeCheck`, `CsMethodCommentCheck`, `CsNoInBodyCommentCheck`, `CsDocCommentShapeCheck`, `CsBodyStatementShapeCheck`, `CsBranchConditionCheck`, `CsCollaboratorSignatureCheck`, `CsDeterminismCheck`, `CsCommentSourceCheck`, `CsGroupedHolderCommentCheck`, `CsCommentFidelityCheck`, `CsExtractCoverageCheck`, `CsBackLinkExtractedCheck`, `CsReflectionWrittenNotFinalCheck`, `CsBindingOperationCheck`, `CsBindingRouteCheck`, `CsFeatureHookCompletenessCheck`, `CsReservedProtocolPathCheck`, `CsTableKeyColumnsCheck`, `CsForeignKeyTargetCheck`, `CsPrimaryKeyCheck`, `CsTomDbTableCheck`, `CsRepositoryKeyTypeCheck`, `CsCompletionCheck`, `csCompletedDatasource`, `csCompletionRules`, `CsCallPosition` |
+| `cs_checks.dart` | The forty-seven checks — `CodeSpecsViolation`, `CodeSpecsCheck`, `CsIdentifierCollisionCheck`, `CsReferenceResolutionCheck`, `CsMissingNameCheck`, `CsMissingAuthoredKeyCheck`, `CsEmptyExplicationCheck`, `CsFabricatedValueCheck`, `CsBackLinkAgreementCheck`, `CsSlotExclusivityCheck`, `CsMirroredCatalogueCheck`, `CsErrorCopyCategoryCheck`, `CsLocusArrowCheck`, `CsOperationAgreementCheck`, `CsMigrationConvergenceCheck`, `CsComposeTokenCheck`, `CsOverridableScopeCheck`, `CsSecretInitialiserCheck`, `CsFallbackChannelCheck`, `CsDrillThroughRouteCheck`, `CsSecretIsDeclaredCheck`, `CsSettingKeyCollisionCheck`, `CsGradedDepthCheck`, `CsColumnNotObservableCheck`, `CsCollaboratorCallResolutionCheck`, `CsCollaboratorShapeCheck`, `CsMethodCommentCheck`, `CsNoInBodyCommentCheck`, `CsDocCommentShapeCheck`, `CsBodyStatementShapeCheck`, `CsBranchConditionCheck`, `CsCollaboratorSignatureCheck`, `CsDeterminismCheck`, `CsCommentSourceCheck`, `CsGroupedHolderCommentCheck`, `CsCommentFidelityCheck`, `CsExtractCoverageCheck`, `CsUncitedToken`, `csUncitedTokens`, `CsBackLinkExtractedCheck`, `CsReflectionWrittenNotFinalCheck`, `CsBindingOperationCheck`, `CsBindingRouteCheck`, `CsFeatureHookCompletenessCheck`, `CsReservedProtocolPathCheck`, `CsTableKeyColumnsCheck`, `CsForeignKeyTargetCheck`, `CsPrimaryKeyCheck`, `CsTomDbTableCheck`, `CsRepositoryKeyTypeCheck`, `CsCompletionCheck`, `csCompletedDatasource`, `csCompletionRules`, `CsCallPosition` |
 | `codespecs_validator.dart` | The validation pass — `CodeSpecsValidationReport`, `CodeSpecsValidationException`, `CsFeatureCatalogueException` |
 | `areas_catalog.dart` | The 27-area catalogue — `AreasCatalogException`, `AreasCatalog` |
 
@@ -121,6 +129,9 @@ Object
 ├── CsExtractEntry
 ├── CsExtract
 ├── CsExtractSet
+├── CsCoverageGap
+├── CsCoverageGapRecord
+├── CsCoverageGapException  implements Exception
 ├── CsLocation
 ├── CsStringValue  extends CsValue
 ├── CsBoolValue  extends CsValue
@@ -183,6 +194,7 @@ Object
 ├── CsGroupedHolderCommentCheck  extends CodeSpecsCheck
 ├── CsCommentFidelityCheck  extends CodeSpecsCheck
 ├── CsExtractCoverageCheck  extends CodeSpecsCheck
+├── CsUncitedToken
 ├── CsBackLinkExtractedCheck  extends CodeSpecsCheck
 ├── CsReflectionWrittenNotFinalCheck  extends CodeSpecsCheck
 ├── CodeSpecsValidationReport
@@ -304,8 +316,12 @@ Every extract the caller supplied, indexed by section id.
 
 #### Constructors
 ```dart
-CsExtractSet._(this.extracts, this._bySection,
-    {this.excluded = const []});
+CsExtractSet._(
+  this.extracts,
+  this._bySection, {
+  this.excluded = const [],
+  this.coverageGaps = CsCoverageGapRecord.empty,
+});
 ```
 
 #### Properties
@@ -314,6 +330,7 @@ CsExtractSet._(this.extracts, this._bySection,
 |----------|------|-------------|
 | `extracts` | `List<CsExtract>` | The in-scope extracts, in the order they were read. |
 | `excluded` | `List<CsExcludedArea>` | The areas a gate record excluded — empty when no record was supplied. |
+| `coverageGaps` | `CsCoverageGapRecord` | The run's coverage-gap record (`codespecs_derivation_contract.md` §2.11) — empty when none was supplied. Check 35 does not hold the trio to a token a `leaveAsIs` gap names for its area. |
 | `empty` | `CsExtractSet` | An empty set — the state every check treats as "no second input", so a caller that supplied no extracts sees the trio-only checks and nothing else. |
 | `entries` | `Iterable<CsExtractEntry> get` | Every entry across every extract. |
 | `sectionIds` | `Iterable<String> get` | The section ids the extracts know about. |
@@ -325,6 +342,101 @@ CsExtractSet._(this.extracts, this._bySection,
 | `knowsSection(String sectionId)` | `bool` | Whether any extract routed a value of [sectionId]. |
 | `entriesFor(String sectionId)` | `List<CsExtractEntry>` | The values routed from [sectionId], across every area. |
 | `entriesForAll(Iterable<String> sectionIds)` | `List<CsExtractEntry>` | The values routed from any of [sectionIds], in the given order. |
+
+### CsCoverageGap
+
+One recorded gap: a fact the specification states that CodeSpecs has no place for (`codespecs_derivation_contract.md` §2.11).
+
+#### Constructors
+```dart
+const CsCoverageGap({
+  required this.id,
+  required this.sectionId,
+  required this.path,
+  required this.area,
+  required this.needs,
+  required this.foundBy,
+  required this.note,
+  this.field,
+  this.valueKind,
+  this.step,
+  this.resolution = CsGapResolution.open,
+  this.todo,
+  this.reason,
+});
+```
+
+#### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `id` | `String` | `GAP-<n>`, never reused. |
+| `sectionId` | `String` | The extract entry's token. |
+| `path` | `String` | The extract entry's document path. |
+| `field` | `String?` | The entry's form field, or null when the value is the section's content. |
+| `valueKind` | `String?` | The value's kind as the model declares it; null on a mechanical entry. |
+| `area` | `String` | The `CE-*` area the extract routed the fact to. |
+| `needs` | `CsGapNeed` | What would give it a place. |
+| `foundBy` | `CsGapFinder` | Who recorded it. |
+| `step` | `int?` | The authoring step that recorded it, when [foundBy] is authoring. |
+| `note` | `String` | One sentence on what is missing. |
+| `resolution` | `CsGapResolution` | How the review settled it. |
+| `todo` | `String?` | For [CsGapResolution.added]: the work that added the place. |
+| `reason` | `String?` | For [CsGapResolution.leaveAsIs]: why the fact stays out of the code. |
+
+#### Methods
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `names(String sectionId, String area)` | `bool` | Whether this gap names [sectionId] for [area]. |
+
+### CsCoverageGapRecord
+
+The whole record, `coverage_gaps.yaml` beside the extracts.
+
+#### Constructors
+```dart
+const CsCoverageGapRecord(this.gaps);
+```
+
+#### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `gaps` | `List<CsCoverageGap>` | The gaps, in the order they were recorded. |
+| `empty` | `CsCoverageGapRecord` | A record with no gaps — what a run starts from when there is no file. |
+| `open` | `Iterable<CsCoverageGap> get` | The gaps the review has not settled. |
+| `leftAsIs` | `Iterable<CsCoverageGap> get` | The gaps settled as left out of the code. |
+| `nextNumber` | `int get` | The next free `GAP-<n>` number. |
+
+#### Methods
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `isLeftAsIs(String sectionId, String area)` | `bool` | Whether a `leaveAsIs` gap names [sectionId] for [area] — check 35 does not hold the trio to such a token. |
+| `alreadyRecorded(String sectionId, String area)` | `bool` | Whether a finder must record nothing for [sectionId] in [area]: an `open` or `leaveAsIs` gap already names it. |
+| `adding(CsCoverageGap gap)` | `CsCoverageGapRecord` | This record with [gap] appended. |
+
+### CsCoverageGapException
+
+A record that does not read as one.
+
+#### Constructors
+```dart
+const CsCoverageGapException(this.message);
+```
+
+#### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `message` | `String` | What is wrong, naming the file and the entry. |
+
+#### Methods
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `toString()` | `String` | The message. |
 
 ### CsLocation
 
@@ -1868,6 +1980,34 @@ const CsExtractCoverageCheck();
 |--------|-------------|-------------|
 | `run(CodeSpecsValidationInput input)` | `List<CodeSpecsViolation>` | Runs this check over the resolved trio and returns every violation it finds. |
 
+### CsUncitedToken
+
+One extract token of one area that no back-link in the trio names — what check 35 reports, and the input of `validate_codespecs.dart --record-gaps`. `csUncitedTokens(CodeSpecsValidationInput input)` returns them, once per token and area.
+
+#### Constructors
+```dart
+const CsUncitedToken({
+  required this.source,
+  required this.areaCode,
+  required this.sectionId,
+  required this.path,
+  required this.values,
+  required this.leftAsIs,
+});
+```
+
+#### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `source` | `String` | The extract file it was read from. |
+| `areaCode` | `String` | The `CE-*` area. |
+| `sectionId` | `String` | The token. |
+| `path` | `String` | The first value's document path. |
+| `values` | `List<CsExtractEntry>` | Every value of the token in the area. |
+| `leftAsIs` | `bool` | Whether a `leaveAsIs` coverage gap names the token for the area: check 35 does not report it, the validator announces it. |
+| `origins` | `String get` | The model fields the values came from, for a message. |
+
 ### CsBackLinkExtractedCheck
 
 `codespecs_derivation_contract.md` §6 check 36.
@@ -2013,6 +2153,38 @@ One of `codespecs_prompt.md` §6.2's three per-area verdicts.
 | `sufficient` | The extract carries every input `codespecs_derivation_contract.md` §3 requires — the area is in scope. |
 | `notApplicable` | The area does not apply to this project — nothing was routed, with positive evidence of absence (`codespecs_prompt.md` §6.4). |
 | `insufficient` | The extract is missing required inputs — the run stops for this area until its L0 decision resolves. |
+
+### CsGapNeed
+
+What would give a coverage gap's fact a place in the vocabulary.
+
+| Value | Meaning |
+|-------|---------|
+| `markerArgument` | An argument of an existing marker. |
+| `marker` | A new marker in an existing area. |
+| `area` | A part the catalogue lacks. |
+| `unknown` | Not classified yet — the mechanical pass's entries, until the review. |
+
+### CsGapFinder
+
+Who recorded a coverage gap.
+
+| Value | Meaning |
+|-------|---------|
+| `stageB` | Stage B of the starting prompt (`codespecs_prompt.md` §6). |
+| `authoring` | An authoring step (`codespecs_derivation_contract.md` §2.9). |
+| `mechanical` | The mechanical pass over check 35's uncited tokens. |
+
+### CsGapResolution
+
+How the review settled a coverage gap.
+
+| Value | Meaning |
+|-------|---------|
+| `open` | Not settled yet: the run stays interrupted. |
+| `added` | The vocabulary now holds the fact. |
+| `fixed` | Not a vocabulary gap: corrected where it was made. |
+| `leaveAsIs` | The fact stays out of the code, knowingly. |
 
 ### CsLocus
 

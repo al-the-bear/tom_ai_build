@@ -123,6 +123,85 @@ void main() {
     });
   });
 
+  group('--record-gaps', () {
+    test('records the uncited tokens once, and a leaveAsIs gap is no longer '
+        'held by check 35', () async {
+      if (_extractsMissing(extractsDir)) return;
+      // A copy of the trio that cites DAATT-DATA nowhere, and a copy of the
+      // extracts to write the record beside.
+      final root = Directory(p.join('.dart_tool', 'test_tmp', 'csgap1'));
+      if (root.existsSync()) root.deleteSync(recursive: true);
+      for (final f in Directory(
+        p.join(_sample, 'codespec'),
+      ).listSync(recursive: true).whereType<File>()) {
+        File(p.join(root.path, p.relative(f.path, from: _sample)))
+          ..createSync(recursive: true)
+          ..writeAsStringSync(
+            f.readAsStringSync().replaceAll("'DAATT-DATA'", "'DAATT-GONE'"),
+          );
+      }
+      final copied = p.join(root.path, 'extracts');
+      for (final f in Directory(extractsDir).listSync().whereType<File>()) {
+        if (p.basename(f.path) == kCsCoverageGapFile) continue;
+        File(p.join(copied, p.basename(f.path)))
+          ..createSync(recursive: true)
+          ..writeAsStringSync(f.readAsStringSync());
+      }
+      final args = [..._trio(root.path), '--extracts', copied];
+      final gapFile = File(p.join(copied, kCsCoverageGapFile));
+
+      final (code, out, _) = await _run([...args, '--record-gaps']);
+      expect(code, 1);
+      final record = readCsCoverageGaps(gapFile.readAsStringSync());
+      final data = record.gaps.where((g) => g.sectionId == 'DAATT-DATA');
+      expect(data.map((g) => g.area), contains('CE-DB'));
+      for (final g in record.gaps) {
+        expect(g.needs, CsGapNeed.unknown);
+        expect(g.foundBy, CsGapFinder.mechanical);
+        expect(g.resolution, CsGapResolution.open);
+      }
+      expect(out, contains('codespecs: recorded GAP-1 in coverage_gaps.yaml'));
+
+      // A second run records nothing: an open gap already names each token.
+      final before = gapFile.readAsStringSync();
+      final (_, out2, _) = await _run([...args, '--record-gaps', '--json']);
+      expect(gapFile.readAsStringSync(), before);
+      expect((jsonDecode(out2) as Map)['recordedGaps'], isEmpty);
+
+      // Left as is, the token is announced and check 35 no longer reports it.
+      gapFile.writeAsStringSync(
+        before.replaceAll(
+          'resolution: open',
+          'resolution: leaveAsIs\n      reason: "test"',
+        ),
+      );
+      final (_, out3, _) = await _run([...args, '--json']);
+      final json = jsonDecode(out3) as Map<String, dynamic>;
+      final violations = (json['violations'] as List)
+          .cast<Map<String, dynamic>>();
+      expect(violations.where((v) => v['check'] == 35), isEmpty);
+      expect(
+        violations.where((v) => v['check'] == 36),
+        isNotEmpty,
+        reason: 'the stale DAATT-GONE back-link is another fault',
+      );
+      final left = (json['leftAsIsGaps'] as List).cast<Map<String, dynamic>>();
+      expect(left.map((g) => g['token']), contains('DAATT-DATA'));
+      expect(
+        json.containsKey('recordedGaps'),
+        isFalse,
+        reason: 'only a run with --record-gaps reports what it recorded',
+      );
+      root.deleteSync(recursive: true);
+    });
+
+    test('needs --extracts', () async {
+      final (code, _, err) = await _run([..._trio(_sample), '--record-gaps']);
+      expect(code, 2);
+      expect(err, contains('--record-gaps needs --extracts'));
+    });
+  });
+
   group('--cs-vocabulary', () {
     final vocabulary = p.normalize(
       p.absolute('../tom_code_specs/lib/src/annotations/vocabulary.dart'),

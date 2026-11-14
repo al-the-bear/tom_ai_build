@@ -238,11 +238,23 @@ so a skipped check never reads as a passed one. Give `--extracts` the whole tree
 or none: a partial one understates what the trio was supposed to carry, and
 check 35 would pass a gap it could not see.
 
+A `coverage_gaps.yaml` beside the extracts — the run's coverage-gap record,
+`codespecs_derivation_contract.md` §2.11 in `tom_core_codespecs/doc/` — is read
+with them. A token a `leaveAsIs` gap names for its area is not held by check
+35; it is announced on stdout instead, as an excluded area is. With
+**`--record-gaps`** the command also writes the mechanical half of the record:
+one `needs: unknown`, `foundBy: mechanical` gap per token check 35 reports,
+unless an `open` or `leaveAsIs` gap already names it. The checks run and exit
+as without it.
+
 Two machine-readable outputs exist for a tool that would otherwise scrape the
 text. The exit codes are the same in every mode.
 - **`--json`** writes the result as one versioned document (format
   `codespecs-validation`, version 1). It carries the inputs, the unrun checks,
-  the areas a gate record excluded, the 47 checks, and per violation its check
+  the areas a gate record excluded, the 47 checks, the tokens left as is by
+  the coverage-gap record (`leftAsIsGaps`, only when there are any), the gaps
+  `--record-gaps` recorded (`recordedGaps`, only with that flag), and per
+  violation its check
   number and title, defining section, severity, file, line, token and area
   (where the check knows them) and message.
 - **`--backlinks`** runs no check. It writes the trio's back-link index (format

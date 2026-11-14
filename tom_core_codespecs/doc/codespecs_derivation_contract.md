@@ -86,7 +86,7 @@ through what it prints to. That is why this contract is written as tightly as it
 author is the one producer that *can* invent, so each rule below says not only
 what to write but what may not be reached for instead.
 
-**Three defined terms**, used with these meanings and no other:
+**Four defined terms**, used with these meanings and no other:
 
 - **Generation** — the act of producing the trio, whichever role performs the
   step. "Generation slice", "generation order" and "regeneration" are about the
@@ -97,6 +97,10 @@ what to write but what may not be reached for instead.
   todo naming the section id, which pauses the queue (`codespecs_mapping.md`
   §1.1.1 item 3). The validator independently rejects any trio containing one, so
   the failure is caught whether or not the agent noticed it.
+- **A coverage gap** — the converse: the specification states a fact and the
+  vocabulary has no place for it (§2.11). The agent records it and writes
+  nothing for it; the run stops after the step and restarts once the gap is
+  settled.
 - **The generation-time validator** — `validate_codespecs.dart` and the §6
   checks. It is a program, and it is the only mechanised half of the authoring
   side: it reads what the agent wrote and rejects what this contract forbids.
@@ -1046,6 +1050,15 @@ rule of the register of authored completions (§2.10) names it: write the
 rule's value and one @CsCompletion recording it, after the declaration's other
 Cs* markers.
 
+RECORD a fact the extract states that no marker argument, marker or area can
+hold (§2.11, a coverage gap): one entry in coverage_gaps.yaml beside <EXTRACTS>,
+unless a `leaveAsIs` or `open` entry already names its token and area. Do not
+put the fact anywhere in the IR. Finish this step's other entries; then, if
+you recorded a gap, file the run's review todo (one csopen<n>,
+decision-needed) unless one is open, and set the next csgen<n> todo to
+decision-needed naming it. Phase 4 restarts once the review has settled every
+gap.
+
 STOP when a derivation has no admissible output (§2.0's "generation error"):
   Do NOT write the declaration, and do not substitute a placeholder for the
   missing fact. File a csopen<n> quest todo with status decision-needed, naming
@@ -1069,6 +1082,7 @@ HAND BACK:
     units where they carry any.
   - The authored completions written (§2.10): per declaration, the rule, the
     fact and the value.
+  - The coverage gaps recorded (§2.11), by GAP id, and the review todo.
   - The csopen<n> todos filed, if any, with their section ids.
   - The L3 todos of this step, each marked completed or left open against a
     csopen<n>.
@@ -1127,6 +1141,92 @@ datasource has one schema none is written, and when it has several and the
 specification does not say which, no rule can decide it — a generation error.
 
 Check 47 holds every completion to its rule.
+
+### 2.11 Coverage gaps
+
+A **coverage gap** is a fact the specification states that CodeSpecs has no
+place for: the extract carries it, routed to an area, and no marker argument,
+no marker and no area of the vocabulary (`tom_code_specs`, §3, §5) can hold
+it. It is the opposite of a generation error (§2.0), where the code needs a
+fact the specification does not state, and of an authored completion (§2.10),
+where a rule supplies one. A gap is not the specification's fault, and the
+author does not fill it: the fact simply has nowhere to go yet. The first runs
+over a real project find many; a project of any size will always find some, and
+each one is how the vocabulary learns what it is missing.
+
+**A gap is recorded, never worked around.** The agent writes no comment, no
+`note:` and no neighbouring argument to smuggle the fact into the code, and does
+not leave the entry out silently. It writes one entry into the run's
+coverage-gap record and goes on with the step's other entries.
+
+**The record** is `coverage_gaps.yaml` beside the extracts, in
+`<spec-root>/generated-doc/codespecs_extracts/`, one file per specification
+and kept across runs:
+
+```yaml
+coverageGaps:
+  formatVersion: 1
+  gaps:
+    - id: GAP-1
+      sectionId: "DAENT-ORDER"
+      path: "SBP/…/DAENT-ORDER"
+      field: retentionPeriod
+      valueKind: string
+      area: CE-DB
+      needs: markerArgument
+      foundBy: authoring
+      step: 9
+      note: "@CsTable has no argument for how long a row is kept"
+      resolution: open
+```
+
+| Key | Holds |
+|-----|-------|
+| `id` | `GAP-<n>`, the next free number in the file; never reused |
+| `step` | the authoring step that found it, only with `foundBy: authoring` |
+| `sectionId`, `path` | the extract entry's token and path, verbatim |
+| `field` | the entry's form field; absent when the value is the section's content |
+| `valueKind` | the value's kind as the model declares it (`string`, `int`, `bool`, an enum's name, `text`, `list`); absent on a mechanical entry until the review fills it |
+| `area` | the `CE-*` area the extract routed the fact to |
+| `needs` | what would give it a place: `markerArgument` (an argument of an existing marker), `marker` (a new marker in an existing area), `area` (a part the catalogue lacks), or `unknown` (the mechanical pass's entries, until the review classifies them) |
+| `foundBy` | `stageB` (`codespecs_prompt.md` §6), `authoring` (an authoring step, §2.9, with `step`), or `mechanical` (check 35's pass below) |
+| `note` | one sentence on what is missing, in the finder's words — the one place a gap is described rather than copied |
+| `resolution` | `open`, or how the review settled it: `added` (the vocabulary now holds it; `todo` names the work that added it), `fixed` (it was not a vocabulary gap — an authoring miss or a routing error, corrected where it was made), or `leaveAsIs` (the fact stays out of the code, knowingly; `reason` says why) |
+
+**Who writes it.** Stage B records a gap it sees while judging an area's extract
+(`codespecs_prompt.md` §6.3); an authoring step records every gap among its
+entries (§2.9); and the **mechanical pass** — `validate_codespecs.dart
+--record-gaps` — appends one `needs: unknown` entry for every token check 35
+finds uncited, unless the record already holds an `open` or `leaveAsIs` entry
+for that token and area. Check
+35 decides that a fact reached no code; it cannot decide whether the vocabulary
+lacked a place or the author missed it, so the review does.
+
+**A gap interrupts the run** (`codespecs_mapping.md` §1.1.2, *What stops the
+run*). The finder completes its own unit of work — Stage B judges every area, a
+step walks all its entries, the mechanical pass lists every uncited token — and
+then Phase 4 stops: the finder files **one** review todo for the run, a
+`csopen<n>` with status `decision-needed` naming the record and its open gaps
+(one per run: a finder that sees an open review todo adds its gaps to the
+record and to that todo's notes rather than filing another). An authoring step
+also sets the next `csgen<n>` todo to `decision-needed`, naming the review todo,
+so the `csgen*` walk holds there instead of authoring past the gap.
+
+**The review settles every open gap**, each to `added`, `fixed` or `leaveAsIs`.
+A gap that needs vocabulary becomes a todo against `tom_code_specs`, this
+contract or `codespecs_mapping.md`, and stays `open` until that work lands. When
+no gap is open, **Phase 4 restarts** from the starting prompt
+(`codespecs_prompt.md`), because an added marker argument can change what an
+area's verdict and every later step derive: Stage A and the extraction run
+again, Stage C reports the existing tree (it is idempotent), and every `csgen<n>`
+and `cs<area><n>` todo of the run goes back to `not-started`.
+
+**A gap left as is stays recorded.** It does not interrupt a later run: a finder
+that meets a fact whose token and area a `leaveAsIs` entry already names records
+nothing. Check 35 does not hold the trio to it either — the validator reads the
+record with the extracts and announces each such token on stdout, the way it
+announces an area the gate record excluded — so a fact deliberately kept out of
+the code never reads as one that was lost.
 
 ---
 
@@ -2655,6 +2755,16 @@ whole extract tree is the obligation set, exactly as above. Deleting extracts
 from the tree remains inadmissible either way — the record states the scope; a
 missing file merely hides it.
 
+**A gap left as is is recorded, not uncited.** The coverage-gap record
+(`coverage_gaps.yaml`, §2.11) is read with the extracts when it is there. A
+token a `leaveAsIs` entry names for an area is dropped from that area's side of
+check 35 and announced on stdout, as an excluded area is; an `open`, `added` or
+`fixed` entry changes nothing, so a gap that was meant to be closed still fails
+the check until the code carries it. With `--record-gaps` the validator also
+writes the mechanical half of the record: one `needs: unknown`,
+`foundBy: mechanical` entry per token check 35 reports, unless an `open` or
+`leaveAsIs` entry already names that token and area.
+
 **Why none of them is a const-constructor `assert`.** Checks 8, 10, 14, 15, 16 and
 21 are per-instance constraints on a single annotation's arguments, so the obvious
 home looks like an `assert` in the marker's const constructor. It does not work:
@@ -2702,7 +2812,7 @@ validator's pass over the resolved annotation for **all** forty-seven.
 | 32 | Every doc-comment line occurs in the extract of a section the declaration traces to — a line that occurs in no extract is prose the agent composed | §2.8 C1 | `CsCommentSourceCheck` |
 | 33 | A grouped holder — a top-level declaration with no `@DocSpec` — carries C3's one-line template and no other generated prose | §2.8 C3 | `CsGroupedHolderCommentCheck` |
 | 34 | A doc-comment line is its source line entire — not a re-wrap of it, and not a value the comment stopped rendering part-way | §2.8 C4.2 | `CsCommentFidelityCheck` |
-| 35 | Every token the extracts hold a value for is cited by a back-link in the trio — an uncited token is a specification fact that reached no code | §9.6 of `codespecs_mapping.md` | `CsExtractCoverageCheck` |
+| 35 | Every token the extracts hold a value for is cited by a back-link in the trio — an uncited token is a specification fact that reached no code; a token a `leaveAsIs` coverage gap names for its area is not held (§2.11) | §9.6 of `codespecs_mapping.md` | `CsExtractCoverageCheck` |
 | 36 | Every token a back-link names exists in the extracts — a trace to a token no area routed is stale or invented | §9.6 of `codespecs_mapping.md` | `CsBackLinkExtractedCheck` |
 | 37 | A member reflection writes — a `@CsColumn` attribute, a CE-API DTO field — is a plain field, `late` where it is non-nullable and **never `final`**, because reflection assigns through a setter a final field does not have. A `static` holder, the `collaborator` seam, and a member the declaration assigns in its own method body are §2.4's carve-outs | §2.4 | `CsReflectionWrittenNotFinalCheck` |
 | 38 | Every `@CsOperationBinding` names an operation the trio declares — its `CsOperationRef` resolves to a shared-half `@CsEndpoint`, and the `TomOperationBinding`'s first argument is that operation's name | §3.4.5 | `CsBindingOperationCheck` |

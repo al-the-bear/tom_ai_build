@@ -22,6 +22,8 @@ import 'dart:convert';
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'coverage_gaps.dart';
+
 /// The `formatVersion` this reader understands — the runtime's
 /// [kCodeSpecsExtractFormat]; the runtime owns the one reader.
 const int kCsExtractFormat = kCodeSpecsExtractFormat;
@@ -209,9 +211,19 @@ class CsExtractSet {
   /// The areas a gate record excluded — empty when no record was supplied.
   final List<CsExcludedArea> excluded;
 
+  /// The run's coverage-gap record (`codespecs_derivation_contract.md`
+  /// §2.11) — empty when none was supplied. Check 35 does not hold the trio
+  /// to a token a `leaveAsIs` gap names for its area.
+  final CsCoverageGapRecord coverageGaps;
+
   final Map<String, List<CsExtractEntry>> _bySection;
 
-  CsExtractSet._(this.extracts, this._bySection, {this.excluded = const []});
+  CsExtractSet._(
+    this.extracts,
+    this._bySection, {
+    this.excluded = const [],
+    this.coverageGaps = CsCoverageGapRecord.empty,
+  });
 
   /// An empty set — the state every check treats as "no second input", so a
   /// caller that supplied no extracts sees the trio-only checks and nothing
@@ -262,11 +274,31 @@ class CsExtractSet {
 /// `resolution: descoped` is an error, because §6.2 of `codespecs_prompt.md`
 /// says the run may not have continued past it — recording the descope is the
 /// act that legitimizes the partial pass.
+///
+/// A source whose basename is [kCsCoverageGapFile] is read as the run's
+/// coverage-gap record (`codespecs_derivation_contract.md` §2.11) and kept as
+/// [CsExtractSet.coverageGaps]; it scopes nothing else.
 CsExtractSet readCsExtracts(Map<String, String> sources) {
   if (sources.isEmpty) return CsExtractSet.empty;
+  var gaps = CsCoverageGapRecord.empty;
+  final extractSources = <String, String>{};
+  for (final MapEntry(:key, :value) in sources.entries) {
+    if (key.split('/').last == kCsCoverageGapFile) {
+      try {
+        gaps = readCsCoverageGaps(value, source: key);
+      } on CsCoverageGapException catch (e) {
+        throw CsExtractException(e.message);
+      }
+    } else {
+      extractSources[key] = value;
+    }
+  }
+  if (extractSources.isEmpty) {
+    return CsExtractSet._(const [], const {}, coverageGaps: gaps);
+  }
   final CodeSpecsExtractSet read;
   try {
-    read = CodeSpecsExtractSet.fromFiles(sources);
+    read = CodeSpecsExtractSet.fromFiles(extractSources);
   } on CodeSpecsRecordError catch (e) {
     throw CsExtractException(e.message);
   }
@@ -293,6 +325,7 @@ CsExtractSet readCsExtracts(Map<String, String> sources) {
           source: x.source,
         ),
     ]),
+    coverageGaps: gaps,
   );
 }
 

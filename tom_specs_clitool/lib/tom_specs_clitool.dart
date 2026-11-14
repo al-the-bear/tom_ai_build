@@ -312,6 +312,8 @@ export 'src/codespecs/cs_extract.dart'
         kCsExtractFormat,
         kCsGateRecordFile,
         kCsGateRecordFormat;
+// The coverage-gap record of a run (codespecs_derivation_contract.md §2.11).
+export 'src/codespecs/coverage_gaps.dart';
 export 'src/codespecs/cs_reader.dart'
     show
         csReadAnnotation,
@@ -357,6 +359,8 @@ export 'src/codespecs/cs_checks.dart'
         CsGroupedHolderCommentCheck,
         CsCommentFidelityCheck,
         CsExtractCoverageCheck,
+        CsUncitedToken,
+        csUncitedTokens,
         CsBackLinkExtractedCheck,
         CsReflectionWrittenNotFinalCheck,
         CsBindingOperationCheck,

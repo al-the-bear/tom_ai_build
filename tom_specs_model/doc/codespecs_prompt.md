@@ -42,6 +42,12 @@ The prompt executes three stages, in order, and stops at the first failure:
 | **B · Per-area judgment** (§6) | For each of the 27 active areas of the areas catalogue — the 26 active parts of `codespecs_mapping.md` §4.1 plus CE-EN, the `domainEnum` member kind's extract home — reads that area's extract and returns one of three verdicts | Rejection, naming the missing inputs area by area |
 | **C · Instantiation** (§7) | Creates the L0/L1/L2 rungs of `codespecs_mapping.md` §1.1.3's todo tree | — |
 
+A run can also be **interrupted** by a coverage gap: a fact the specification
+states that CodeSpecs has no place for (`codespecs_derivation_contract.md`
+§2.11). Stage B records the gaps it sees (§6.3) and the authoring steps record
+theirs; either way one review todo pauses the queue, and Phase 4 restarts from
+this prompt once the review has settled every gap.
+
 Between A and B sits the **pre-gate extraction run** (§5): stage B judges
 extracts, so the extracts must exist before it. This does not reorder
 `codespecs_mapping.md` §1.1.2's stages — the extraction there is stage 1, and
@@ -486,6 +492,16 @@ the tom_core contract <contract> — should have been carried by
 tom_core.<contract>`. The L0 todo it becomes is a tom_core prerequisite; the
 specification has nothing to fill.
 
+**A fact with no place is a coverage gap, not a verdict.** While reading an
+area's extract, the run may meet a fact the extract carries that no marker
+argument, marker or area of `codespecs_derivation_contract.md` §3 and §5 can
+hold. It does not change the verdict — the verdict asks whether the inputs the
+contract *requires* are present, and this fact is one the contract does not
+know — and it is not a gap line. It is recorded as a **coverage gap**
+(`codespecs_derivation_contract.md` §2.11) in `coverage_gaps.yaml` beside the
+extracts, `foundBy: stageB`, unless an `open` or `leaveAsIs` gap already names
+its token and area. A pass that recorded a gap interrupts the run (§7).
+
 ### 6.4 An empty extract is a candidate, never the verdict
 
 *Not applicable* is the verdict most likely to be reached by accident, because
@@ -538,6 +554,16 @@ L3 is not created here. `codespecs_mapping.md` §1.1.3 makes each L2 todo create
 its own L3 rung as that todo's first act, from its own extracts and
 `codespecs_mapping.md` §4.4.8's order — so an L3 rung is never built from a stale
 extract.
+
+**A pass that recorded coverage gaps is interrupted.** Stage C still creates
+the tree, and adds one more L0 todo: the run's **gap review**, a `csopen<n>`
+with status `decision-needed` that names `coverage_gaps.yaml` and its open gaps
+(one per run — an open review todo takes the new gaps in its notes instead).
+Because L0 is walked first, nothing is authored until the review has settled
+every gap to `added`, `fixed` or `leaveAsIs`; then Phase 4 restarts from this
+prompt (`codespecs_derivation_contract.md` §2.11), and Stage C reports the tree
+it already created. The same review todo, filed by an authoring step, stops a
+run that is already authoring.
 
 A run that passes with **no** insufficient areas creates no L0 todos at all. The
 queue then starts at `csproj*` and is not paused — which is the correct outcome
@@ -609,6 +635,11 @@ STAGE B — per area. For each active area, read that area's extract and answer
   Do not re-decide anything stage A decided. Do not judge prose quality,
   length or style. Thin prose is not a gap; a missing input is.
 
+  A fact the extract states that no marker argument, marker or area can hold
+  is a coverage gap (codespecs_derivation_contract.md §2.11), not a verdict:
+  record it in coverage_gaps.yaml beside <EXTRACTS>, foundBy: stageB, unless
+  an open or leaveAsIs gap already names its token and area.
+
 ON REJECTION:
   Hand back the stage-A results and the per-area table with its gap lines.
   Create no todos. The gate has produced the work list; that is its output.
@@ -624,6 +655,10 @@ ON PASS — create todos, and stop:
       its extracts' entries go to.
   Take every id from tomAi_generateIdPrefix. Create no L3 todos: each L2 todo
   creates its own as its first act (codespecs_mapping.md §1.1.3).
+  If stage B recorded a coverage gap: one more L0 csopen<n>, decision-needed,
+  the run's gap review, naming coverage_gaps.yaml and its open gaps (none if
+  a gap review is already open: add the gaps to its notes). Phase 4 restarts
+  from this prompt once every gap is added, fixed or left as is.
 
 NEVER:
   - Fill a gap. A plausible value is the one failure mode this gate exists for.
@@ -635,6 +670,7 @@ NEVER:
 HAND BACK:
   - The stage-A results, all five.
   - The per-area table, all 27 rows, with gap lines beneath any insufficient.
+  - The coverage gaps recorded, by GAP id, and the gap review todo if filed.
   - The todos created, by rung.
 ```
 
