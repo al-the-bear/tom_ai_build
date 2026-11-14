@@ -284,6 +284,16 @@ std::optional<std::string> DecisionState::parse(const std::string& token) {
   return std::nullopt;
 }
 
+std::optional<std::string> EntityTenancy::parse(const std::string& token) {
+  if (token == tenant) {
+    return token;
+  }
+  if (token == system) {
+    return token;
+  }
+  return std::nullopt;
+}
+
 std::optional<std::string> ExportFieldKind::parse(const std::string& token) {
   if (token == string) {
     return token;
@@ -42389,6 +42399,24 @@ std::string DataEntityEntryIdentityForm::entityStereoType() const {
 }
 void DataEntityEntryIdentityForm::setEntityStereoType(const std::string& value) {
   doc().setFormField(path(), "entityStereoType", value);
+}
+std::string DataEntityEntryIdentityForm::dataSourceName() const {
+  return doc().formField(path(), "dataSourceName");
+}
+void DataEntityEntryIdentityForm::setDataSourceName(const std::string& value) {
+  doc().setFormField(path(), "dataSourceName", value);
+}
+std::string DataEntityEntryIdentityForm::schemaName() const {
+  return doc().formField(path(), "schemaName");
+}
+void DataEntityEntryIdentityForm::setSchemaName(const std::string& value) {
+  doc().setFormField(path(), "schemaName", value);
+}
+std::string DataEntityEntryIdentityForm::tenancy() const {
+  return doc().formField(path(), "tenancy");
+}
+void DataEntityEntryIdentityForm::setTenancy(const std::string& value) {
+  doc().setFormField(path(), "tenancy", value);
 }
 
 DataEntityEntryLifecyclePolicyForm::DataEntityEntryLifecyclePolicyForm(som::SpecDocument& doc, std::string path)

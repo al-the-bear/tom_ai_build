@@ -1126,6 +1126,55 @@ pub fn parse_decision_state(token: &str) -> String {
     }
 }
 
+/// Generated enum constants for `EntityTenancy` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// Each tenant's own rows, isolated from every other tenant's.
+pub const ENTITY_TENANCY_TENANT: &str = "tenant";
+/// Rows shared by all tenants: a tenant registry, reference data.
+pub const ENTITY_TENANCY_SYSTEM: &str = "system";
+
+/// EntityTenancy is the generated enum for `EntityTenancy` values.
+///
+/// The stored token is what [EntityTenancy::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum EntityTenancy {
+    /// Each tenant's own rows, isolated from every other tenant's.
+    Tenant,
+    /// Rows shared by all tenants: a tenant registry, reference data.
+    System,
+}
+
+impl EntityTenancy {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            EntityTenancy::Tenant => "tenant",
+            EntityTenancy::System => "system",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "tenant" => Some(EntityTenancy::Tenant),
+            "system" => Some(EntityTenancy::System),
+            _ => None,
+        }
+    }
+}
+
+/// parse_entity_tenancy returns token when it is a known EntityTenancy value, else "".
+pub fn parse_entity_tenancy(token: &str) -> String {
+    match token {
+        ENTITY_TENANCY_TENANT | ENTITY_TENANCY_SYSTEM => token.to_string(),
+        _ => String::new(),
+    }
+}
+
 /// Generated enum constants for `ExportFieldKind` values. The stored token is byte-
 /// identical across every language port, so documents stay cross-compatible.
 /// A textual export field.
@@ -15960,7 +16009,7 @@ pub struct D00SolutionBlueprint {
 }
 
 /// D00_SOLUTION_BLUEPRINT_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D00_SOLUTION_BLUEPRINT_MODEL_VERSION: &str = "1.11";
+pub const D00_SOLUTION_BLUEPRINT_MODEL_VERSION: &str = "1.12";
 
 impl D00SolutionBlueprint {
     /// Creates the typed facade at the document root and verifies the
@@ -16105,7 +16154,7 @@ pub struct D01CurrentLandscapeAssessment {
 }
 
 /// D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION: &str = "1.11";
+pub const D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION: &str = "1.12";
 
 impl D01CurrentLandscapeAssessment {
     /// Creates the typed facade at the document root and verifies the
@@ -16247,7 +16296,7 @@ pub struct D02TargetOperatingModel {
 }
 
 /// D02_TARGET_OPERATING_MODEL_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D02_TARGET_OPERATING_MODEL_MODEL_VERSION: &str = "1.11";
+pub const D02_TARGET_OPERATING_MODEL_MODEL_VERSION: &str = "1.12";
 
 impl D02TargetOperatingModel {
     /// Creates the typed facade at the document root and verifies the
@@ -16405,7 +16454,7 @@ pub struct D03InformationModel {
 }
 
 /// D03_INFORMATION_MODEL_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D03_INFORMATION_MODEL_MODEL_VERSION: &str = "1.11";
+pub const D03_INFORMATION_MODEL_MODEL_VERSION: &str = "1.12";
 
 impl D03InformationModel {
     /// Creates the typed facade at the document root and verifies the
@@ -16638,7 +16687,7 @@ pub struct D04RequirementsSpecification {
 }
 
 /// D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION: &str = "1.11";
+pub const D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION: &str = "1.12";
 
 impl D04RequirementsSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -16784,7 +16833,7 @@ pub struct D05InteractionScenarios {
 }
 
 /// D05_INTERACTION_SCENARIOS_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D05_INTERACTION_SCENARIOS_MODEL_VERSION: &str = "1.11";
+pub const D05_INTERACTION_SCENARIOS_MODEL_VERSION: &str = "1.12";
 
 impl D05InteractionScenarios {
     /// Creates the typed facade at the document root and verifies the
@@ -16922,7 +16971,7 @@ pub struct D06ArchitectureTechnologySpecification {
 }
 
 /// D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION: &str = "1.11";
+pub const D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION: &str = "1.12";
 
 impl D06ArchitectureTechnologySpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -17079,7 +17128,7 @@ pub struct D07IntegrationInterfaceSpecification {
 }
 
 /// D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION: &str = "1.11";
+pub const D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION: &str = "1.12";
 
 impl D07IntegrationInterfaceSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -17242,7 +17291,7 @@ pub struct D08SecurityAccessSpecification {
 }
 
 /// D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION: &str = "1.11";
+pub const D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION: &str = "1.12";
 
 impl D08SecurityAccessSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -17392,7 +17441,7 @@ pub struct D09ExperienceDesignSpecification {
 }
 
 /// D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION: &str = "1.11";
+pub const D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION: &str = "1.12";
 
 impl D09ExperienceDesignSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -17555,7 +17604,7 @@ pub struct D10QualityAcceptancePlan {
 }
 
 /// D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION: &str = "1.11";
+pub const D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION: &str = "1.12";
 
 impl D10QualityAcceptancePlan {
     /// Creates the typed facade at the document root and verifies the
@@ -17748,7 +17797,7 @@ pub struct D11DeliveryRoadmap {
 }
 
 /// D11_DELIVERY_ROADMAP_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D11_DELIVERY_ROADMAP_MODEL_VERSION: &str = "1.11";
+pub const D11_DELIVERY_ROADMAP_MODEL_VERSION: &str = "1.12";
 
 impl D11DeliveryRoadmap {
     /// Creates the typed facade at the document root and verifies the
@@ -17896,7 +17945,7 @@ pub struct D12TransitionRolloutPlan {
 }
 
 /// D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION: &str = "1.11";
+pub const D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION: &str = "1.12";
 
 impl D12TransitionRolloutPlan {
     /// Creates the typed facade at the document root and verifies the
@@ -18064,7 +18113,7 @@ pub struct D13CodeSpecsProjection {
 }
 
 /// D13_CODE_SPECS_PROJECTION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D13_CODE_SPECS_PROJECTION_MODEL_VERSION: &str = "1.11";
+pub const D13_CODE_SPECS_PROJECTION_MODEL_VERSION: &str = "1.12";
 
 impl D13CodeSpecsProjection {
     /// Creates the typed facade at the document root and verifies the
@@ -19197,7 +19246,8 @@ impl DataEntityEntry {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// What this entity is called, in each vocabulary that needs a name for it.
+    /// What this entity is called, in each vocabulary that needs a name for it,
+    /// and where it is stored.
     ///
     /// One entity is named four times over — logically, physically, in diagrams,
     /// and as a design pattern — and a model that keeps only one of those names
@@ -19206,6 +19256,16 @@ impl DataEntityEntry {
     /// emitted as (`codespecs_mapping.md` §5.13). Aggregate-root-ness is
     /// deliberately not part of the stereotype recorded here: it is read from
     /// `DAENT-CLAS.aggregateRoot`, the only field that states it.
+    ///
+    /// The placement fields say where the entity's rows live: the datasource (a
+    /// logical name the application registers, e.g. `main`), the schema where
+    /// that datasource has several, and whether it is tenant data or system data.
+    /// All three are optional: an entity that names no datasource is stored in
+    /// the specification's single migration target, else `main`, and an entity
+    /// of a multi-tenant solution that does not say is a tenant table — the
+    /// authored completions of `codespecs_derivation_contract.md` §2.10 in
+    /// `tom_core_codespecs/doc/`. Per-tenant placement (shared schema, schema or
+    /// database per tenant) is deployment configuration, not the entity's.
     pub fn identity(&self) -> DataEntityEntryIdentityForm {
         DataEntityEntryIdentityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAENT-IDEN"))
     }
@@ -108215,6 +108275,34 @@ impl DataEntityEntryIdentityForm {
     pub fn set_entity_stereo_type(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "entityStereoType", value);
+    }
+
+    pub fn data_source_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dataSourceName")
+    }
+
+    pub fn set_data_source_name(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dataSourceName", value);
+    }
+
+    pub fn schema_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "schemaName")
+    }
+
+    pub fn set_schema_name(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "schemaName", value);
+    }
+
+    pub fn tenancy(&self) -> Option<EntityTenancy> {
+        EntityTenancy::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "tenancy"))
+    }
+
+    pub fn set_tenancy(&self, value: Option<EntityTenancy>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "tenancy", text);
     }
 }
 

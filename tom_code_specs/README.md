@@ -184,7 +184,7 @@ fallback — which names a **sibling channel**. That is why the family has no
 
 ### The closed catalogues
 
-`vocabulary.dart` holds the twenty-one enums a marker's arguments select from
+`vocabulary.dart` holds the twenty-two enums a marker's arguments select from
 ([`codespecs_derivation_contract.md`](../tom_core_codespecs/doc/codespecs_derivation_contract.md)
 §5.3). They are enums rather than strings for
 the same reason the refs are consts: a catalogue grows by a reviewed taxonomy
@@ -325,7 +325,7 @@ tom_code_specs                       (depends only on tom_specs_core)
     ├── cs_collaborator.dart         @CsCollaborator — a non-part marker
     ├── cs_completion.dart           @CsCompletion — a non-part marker
     ├── cross_part_refs.dart         13 typed cross-part reference consts
-    └── vocabulary.dart              21 closed catalogues + the feature-hook catalogue
+    └── vocabulary.dart              22 closed catalogues + the feature-hook catalogue
 
   Phase 3 documents ──@CodeSpecKind──▶ routing ──▶ per-area extract
                                                         │
@@ -421,7 +421,7 @@ packages, as opposed to this package's own `example/`:
 | [doc/index.md](doc/index.md) | The catalogue of this package's documentation |
 | [doc/marking_code.md](doc/marking_code.md) | Applying `@CodeSpec`, the part markers, `@CsCollaborator` and `@CsCompletion` |
 | [doc/cross_references.md](doc/cross_references.md) | The typed `Cs*Ref` family and the `@DocSpec` back-links |
-| [doc/vocabulary.md](doc/vocabulary.md) | The twenty-one closed catalogues and the per-kind slot rule |
+| [doc/vocabulary.md](doc/vocabulary.md) | The twenty-two closed catalogues and the per-kind slot rule |
 | [doc/api/api_summary_index.md](doc/api/api_summary_index.md) | The per-module API summaries |
 
 **Siblings** — packages you will reach for next:
@@ -439,7 +439,7 @@ Version **0.19.0**. Test suite: **105 tests, all passing**
 (`dart test`).
 
 `@CodeSpec`, `@DocSpec`/`DocRef`, the **43-marker `Cs*` family** plus
-`@CsCollaborator` and `@CsCompletion`, the **13-const `Cs*Ref` family**, the **21 closed
+`@CsCollaborator` and `@CsCompletion`, the **13-const `Cs*Ref` family**, the **22 closed
 catalogues** and the protocol-feature hook catalogue are declared — one marker (or marker group) for every active part in
 the `codespecs_mapping.md` §4.1 catalogue, with no marker for a deferred one.
 `@CodeSpecKind` is list-valued.

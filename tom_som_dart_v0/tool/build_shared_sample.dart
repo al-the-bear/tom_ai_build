@@ -1555,7 +1555,10 @@ historical orders remain reproducible.''');
     ..entityAlias = 'PRD'
     ..description =
         'A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.'
-    ..entityStereoType = 'Entity';
+    ..entityStereoType = 'Entity'
+    // The catalogue lives in its own datasource: a stated placement, where the
+    // other entities take the authored completion AC-1 (`main`).
+    ..dataSourceName = 'catalog';
   product.classification
     ..category = 'Master'
     ..boundedContext = 'Catalogue'

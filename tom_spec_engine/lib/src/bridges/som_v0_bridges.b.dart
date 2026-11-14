@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 3 files
-// Generated: 2026-11-14T14:41:57.264008 by tom_d4rt_generator 1.63.2
+// Generated: 2026-11-14T15:29:56.251808 by tom_d4rt_generator 1.63.2
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -41344,6 +41344,10 @@ class SomV0Bridge {
         name: 'DecisionState',
         values: $tom_som_dart_v0_1.DecisionState.values,
       ),
+      BridgedEnumDefinition<$tom_som_dart_v0_1.EntityTenancy>(
+        name: 'EntityTenancy',
+        values: $tom_som_dart_v0_1.EntityTenancy.values,
+      ),
       BridgedEnumDefinition<$tom_som_dart_v0_1.ExportFieldKind>(
         name: 'ExportFieldKind',
         values: $tom_som_dart_v0_1.ExportFieldKind.values,
@@ -41480,6 +41484,7 @@ class SomV0Bridge {
       'ContextRelationshipType': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'DataAttributeKind': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'DecisionState': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'EntityTenancy': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ExportFieldKind': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'FlowReturnPoint': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'GenerationUnitKind': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -42142,6 +42147,7 @@ class SomV0Bridge {
     'ContextRelationshipType',
     'DataAttributeKind',
     'DecisionState',
+    'EntityTenancy',
     'ExportFieldKind',
     'FlowReturnPoint',
     'GenerationUnitKind',
@@ -398194,6 +398200,24 @@ BridgedClass _createDataEntityEntryIdentityFormBridge() {
             'DataEntityEntryIdentityForm',
           )
           .entityStereoType,
+      'dataSourceName': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.DataEntityEntryIdentityForm>(
+            target,
+            'DataEntityEntryIdentityForm',
+          )
+          .dataSourceName,
+      'schemaName': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.DataEntityEntryIdentityForm>(
+            target,
+            'DataEntityEntryIdentityForm',
+          )
+          .schemaName,
+      'tenancy': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.DataEntityEntryIdentityForm>(
+            target,
+            'DataEntityEntryIdentityForm',
+          )
+          .tenancy,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.DataEntityEntryIdentityForm>(
             target,
@@ -398298,6 +398322,37 @@ BridgedClass _createDataEntityEntryIdentityFormBridge() {
             value,
             'entityStereoType',
           ),
+      'dataSourceName': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.DataEntityEntryIdentityForm>(
+                target,
+                'DataEntityEntryIdentityForm',
+              )
+              .dataSourceName = D4.extractBridgedArg<String>(
+            value,
+            'dataSourceName',
+          ),
+      'schemaName': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.DataEntityEntryIdentityForm>(
+                target,
+                'DataEntityEntryIdentityForm',
+              )
+              .schemaName = D4.extractBridgedArg<String>(
+            value,
+            'schemaName',
+          ),
+      'tenancy': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.DataEntityEntryIdentityForm>(
+                target,
+                'DataEntityEntryIdentityForm',
+              )
+              .tenancy = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.EntityTenancy>(
+                value,
+                'tenancy',
+              ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.DataEntityEntryIdentityForm>(
@@ -398350,6 +398405,9 @@ BridgedClass _createDataEntityEntryIdentityFormBridge() {
       'entityAlias': 'String get entityAlias',
       'description': 'String get description',
       'entityStereoType': 'String get entityStereoType',
+      'dataSourceName': 'String get dataSourceName',
+      'schemaName': 'String get schemaName',
+      'tenancy': 'EntityTenancy? get tenancy',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -398365,6 +398423,9 @@ BridgedClass _createDataEntityEntryIdentityFormBridge() {
       'entityAlias': 'set entityAlias(String value)',
       'description': 'set description(String value)',
       'entityStereoType': 'set entityStereoType(String value)',
+      'dataSourceName': 'set dataSourceName(String value)',
+      'schemaName': 'set schemaName(String value)',
+      'tenancy': 'set tenancy(EntityTenancy? value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',

@@ -4650,6 +4650,160 @@ class Order {
     );
   });
 
+  group('45 — a tenant table carries @TomTenantTable (§3.3.1)', () {
+    String table(String name, String tenancy, String extra, String body) =>
+        '''
+@CsTable('$name', datasource: 'main'$tenancy)
+@CsTableKey('pk_$name', kind: CsKeyKind.primary, columns: ['id'])
+$extra
+@tomReflector
+@TomDbTable(datasource: 'main', table: '$name', primaryKeyFields: ['id'])
+class ${name[0].toUpperCase()}${name.substring(1)} {
+  @CsColumn()
+  String id;
+$body
+}
+''';
+
+    test('a tenant table without its field or binding, a system table with '
+        'them', () {
+      final raised = _forCheck(
+        45,
+        _input(
+          server: {
+            'lib/a.dart': table(
+              'alpha',
+              ', tenancy: CsTableTenancy.tenant',
+              '',
+              '',
+            ),
+            'lib/b.dart': table(
+              'beta',
+              ", tenancy: CsTableTenancy.tenant, tenantField: 'tenantId'",
+              "@TomTenantTable(field: 'owner')",
+              '',
+            ),
+            'lib/c.dart': table(
+              'gamma',
+              ", tenancy: CsTableTenancy.system, tenantField: 'x'",
+              "@TomTenantTable(field: 'x')",
+              '',
+            ),
+          },
+        ),
+      ).map((v) => v.message).join('\n');
+      expect(
+        raised,
+        allOf(
+          contains(
+            "@CsTable('alpha') (Alpha) is a tenant table and names no "
+            'tenantField',
+          ),
+          contains(
+            "@CsTable('alpha') (Alpha) is a tenant table and carries no "
+            '@TomTenantTable',
+          ),
+          contains(
+            "names the tenantField 'tenantId', and Beta has no member "
+            'of that name carrying @CsColumn',
+          ),
+          contains(
+            "@TomTenantTable on Beta names the field 'owner' where "
+            "@CsTable names the tenantField 'tenantId'",
+          ),
+          contains(
+            "@CsTable('gamma') (Gamma) names the tenantField 'x' but is "
+            'no tenant table',
+          ),
+          contains(
+            'Gamma carries @TomTenantTable, and @CsTable makes it no '
+            'tenant table',
+          ),
+        ),
+      );
+    });
+
+    test('a tenant table naming its member, with the completions that made '
+        'it, is clean for 45 and 47', () {
+      final input = _input(
+        server: {
+          'lib/a.dart': table(
+            'alpha',
+            ", tenancy: CsTableTenancy.tenant, tenantField: 'tenantId'",
+            '''
+@CsCompletion('AC-1', fact: 'datasource', value: 'main')
+@CsCompletion('AC-3', fact: 'tenancy', value: 'tenant')
+@CsCompletion('AC-4', fact: 'tenantColumn', value: 'tenant_id')
+@CsCompletion('AC-5', fact: 'tenantField', value: 'tenantId')
+@TomTenantTable(field: 'tenantId')''',
+            '''
+
+  @CsColumn(column: 'tenant_id')
+  String? tenantId;''',
+          ),
+          'lib/b.dart': table(
+            'beta',
+            ', tenancy: CsTableTenancy.system',
+            '',
+            '',
+          ),
+        },
+      );
+      expect(_forCheck(45, input), isEmpty);
+      expect(_forCheck(47, input), isEmpty);
+    });
+
+    test('AC-3 to AC-5 hold their values and their table', () {
+      final raised = _forCheck(
+        47,
+        _input(
+          server: {
+            'lib/a.dart': table(
+              'alpha',
+              ", tenancy: CsTableTenancy.tenant, tenantField: 'ownerId'",
+              '''
+@CsCompletion('AC-3', fact: 'tenancy', value: 'system')
+@CsCompletion('AC-4', fact: 'tenantColumn', value: 'tenant_id')
+@CsCompletion('AC-5', fact: 'tenantField', value: 'tenantId')
+@TomTenantTable(field: 'ownerId')''',
+              '''
+
+  @CsColumn(column: 'org_id')
+  String? ownerId;''',
+            ),
+            'lib/b.dart': table(
+              'beta',
+              ', tenancy: CsTableTenancy.system',
+              "@CsCompletion('AC-3', fact: 'tenancy', value: 'tenant')",
+              '',
+            ),
+          },
+        ),
+      ).map((v) => v.message).join('\n');
+      expect(
+        raised,
+        allOf(
+          contains(
+            "@CsCompletion('AC-3') on Alpha has the value 'system', and "
+            "AC-3's value is 'tenant'",
+          ),
+          contains(
+            "completes the tenant column 'tenant_id', and the tenant "
+            "member's @CsColumn names 'org_id'",
+          ),
+          contains(
+            "completes the tenant member 'tenantId', and Alpha names "
+            "the tenantField 'ownerId'",
+          ),
+          contains(
+            "@CsCompletion('AC-3') on Beta sits on a table @CsTable does "
+            'not make a tenant table',
+          ),
+        ),
+      );
+    });
+  });
+
   group('46 — a repository is keyed by its entity primary key (§3.3.4)', () {
     const entities = '''
 @CsTable('orders', datasource: 'main')
@@ -4738,7 +4892,7 @@ class Order {
       47,
       '§2.10',
       says: allOf(
-        contains('names no rule of the register (AC-1)'),
+        contains('names no rule of the register (AC-1, AC-3, AC-4, AC-5)'),
         contains("completes 'schema', and AC-1 completes 'datasource'"),
         contains("AC-1's value for this trio is 'main'"),
         contains('sits on no @CsTable class'),

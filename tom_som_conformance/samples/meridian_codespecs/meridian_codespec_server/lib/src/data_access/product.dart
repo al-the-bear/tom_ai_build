@@ -27,12 +27,11 @@ import 'package:tom_core_server/tom_core_server.dart';
         'and columns',
   ),
 ])
-@CsTable('mom_product', datasource: 'main')
+@CsTable('mom_product', datasource: 'catalog')
 @CsTableKey('pk_product', kind: CsKeyKind.primary, columns: ['product_id'])
-@CsCompletion('AC-1', fact: 'datasource', value: 'main')
 @tomReflector
 @TomDbTable(
-  datasource: 'main',
+  datasource: 'catalog',
   table: 'mom_product',
   primaryKeyFields: ['productId'],
 )

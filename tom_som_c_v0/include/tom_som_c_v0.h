@@ -305,6 +305,15 @@ char *parse_data_attribute_kind(const char *token);
 // parse_decision_state returns the token (owned) when it is a known DecisionState value, else "".
 char *parse_decision_state(const char *token);
 
+// Generated enum tokens for `EntityTenancy` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// Each tenant's own rows, isolated from every other tenant's.
+#define ENTITY_TENANCY_TENANT "tenant"
+// Rows shared by all tenants: a tenant registry, reference data.
+#define ENTITY_TENANCY_SYSTEM "system"
+// parse_entity_tenancy returns the token (owned) when it is a known EntityTenancy value, else "".
+char *parse_entity_tenancy(const char *token);
+
 // Generated enum tokens for `ExportFieldKind` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 // A textual export field.
@@ -1269,33 +1278,33 @@ char *parse_translation_review_status(const char *token);
 char *parse_user_attribute_placement(const char *token);
 
 // D00_SOLUTION_BLUEPRINT_MODEL_VERSION is the model version the D00SolutionBlueprint object model was generated against (SOM §4.2).
-#define D00_SOLUTION_BLUEPRINT_MODEL_VERSION "1.11"
+#define D00_SOLUTION_BLUEPRINT_MODEL_VERSION "1.12"
 // D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version the D01CurrentLandscapeAssessment object model was generated against (SOM §4.2).
-#define D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION "1.11"
+#define D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION "1.12"
 // D02_TARGET_OPERATING_MODEL_MODEL_VERSION is the model version the D02TargetOperatingModel object model was generated against (SOM §4.2).
-#define D02_TARGET_OPERATING_MODEL_MODEL_VERSION "1.11"
+#define D02_TARGET_OPERATING_MODEL_MODEL_VERSION "1.12"
 // D03_INFORMATION_MODEL_MODEL_VERSION is the model version the D03InformationModel object model was generated against (SOM §4.2).
-#define D03_INFORMATION_MODEL_MODEL_VERSION "1.11"
+#define D03_INFORMATION_MODEL_MODEL_VERSION "1.12"
 // D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version the D04RequirementsSpecification object model was generated against (SOM §4.2).
-#define D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION "1.11"
+#define D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION "1.12"
 // D05_INTERACTION_SCENARIOS_MODEL_VERSION is the model version the D05InteractionScenarios object model was generated against (SOM §4.2).
-#define D05_INTERACTION_SCENARIOS_MODEL_VERSION "1.11"
+#define D05_INTERACTION_SCENARIOS_MODEL_VERSION "1.12"
 // D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version the D06ArchitectureTechnologySpecification object model was generated against (SOM §4.2).
-#define D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION "1.11"
+#define D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION "1.12"
 // D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version the D07IntegrationInterfaceSpecification object model was generated against (SOM §4.2).
-#define D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION "1.11"
+#define D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION "1.12"
 // D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version the D08SecurityAccessSpecification object model was generated against (SOM §4.2).
-#define D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION "1.11"
+#define D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION "1.12"
 // D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version the D09ExperienceDesignSpecification object model was generated against (SOM §4.2).
-#define D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION "1.11"
+#define D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION "1.12"
 // D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version the D10QualityAcceptancePlan object model was generated against (SOM §4.2).
-#define D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION "1.11"
+#define D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION "1.12"
 // D11_DELIVERY_ROADMAP_MODEL_VERSION is the model version the D11DeliveryRoadmap object model was generated against (SOM §4.2).
-#define D11_DELIVERY_ROADMAP_MODEL_VERSION "1.11"
+#define D11_DELIVERY_ROADMAP_MODEL_VERSION "1.12"
 // D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version the D12TransitionRolloutPlan object model was generated against (SOM §4.2).
-#define D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION "1.11"
+#define D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION "1.12"
 // D13_CODE_SPECS_PROJECTION_MODEL_VERSION is the model version the D13CodeSpecsProjection object model was generated against (SOM §4.2).
-#define D13_CODE_SPECS_PROJECTION_MODEL_VERSION "1.11"
+#define D13_CODE_SPECS_PROJECTION_MODEL_VERSION "1.12"
 
 // Typed facade structs — each binds a node (document + path).
 typedef struct { SomNode node; } AcceptanceCriteriaList;
@@ -12201,7 +12210,8 @@ int data_entity_entry_can_have_content(const DataEntityEntry *self);
 // §11.4 rule 7); the field values themselves live in the section's `form`.
 char *data_entity_entry_content(const DataEntityEntry *self);
 void data_entity_entry_set_content(DataEntityEntry *self, const char *value);
-// What this entity is called, in each vocabulary that needs a name for it.
+// What this entity is called, in each vocabulary that needs a name for it,
+// and where it is stored.
 //
 // One entity is named four times over — logically, physically, in diagrams,
 // and as a design pattern — and a model that keeps only one of those names
@@ -12210,6 +12220,16 @@ void data_entity_entry_set_content(DataEntityEntry *self, const char *value);
 // emitted as (`codespecs_mapping.md` §5.13). Aggregate-root-ness is
 // deliberately not part of the stereotype recorded here: it is read from
 // `DAENT-CLAS.aggregateRoot`, the only field that states it.
+//
+// The placement fields say where the entity's rows live: the datasource (a
+// logical name the application registers, e.g. `main`), the schema where
+// that datasource has several, and whether it is tenant data or system data.
+// All three are optional: an entity that names no datasource is stored in
+// the specification's single migration target, else `main`, and an entity
+// of a multi-tenant solution that does not say is a tenant table — the
+// authored completions of `codespecs_derivation_contract.md` §2.10 in
+// `tom_core_codespecs/doc/`. Per-tenant placement (shared schema, schema or
+// database per tenant) is deployment configuration, not the entity's.
 DataEntityEntryIdentityForm data_entity_entry_identity(const DataEntityEntry *self);
 // Where this entity sits in the domain, and who answers for it.
 //
@@ -42280,6 +42300,12 @@ char *data_entity_entry_identity_form_description(const DataEntityEntryIdentityF
 void data_entity_entry_identity_form_set_description(DataEntityEntryIdentityForm *self, const char *value);
 char *data_entity_entry_identity_form_entity_stereo_type(const DataEntityEntryIdentityForm *self);
 void data_entity_entry_identity_form_set_entity_stereo_type(DataEntityEntryIdentityForm *self, const char *value);
+char *data_entity_entry_identity_form_data_source_name(const DataEntityEntryIdentityForm *self);
+void data_entity_entry_identity_form_set_data_source_name(DataEntityEntryIdentityForm *self, const char *value);
+char *data_entity_entry_identity_form_schema_name(const DataEntityEntryIdentityForm *self);
+void data_entity_entry_identity_form_set_schema_name(DataEntityEntryIdentityForm *self, const char *value);
+char *data_entity_entry_identity_form_tenancy(const DataEntityEntryIdentityForm *self);
+void data_entity_entry_identity_form_set_tenancy(DataEntityEntryIdentityForm *self, const char *value);
 
 // DataEntityEntryLifecyclePolicyForm is the generated section facade for the `lifecyclePolicy` @Form section: its own `content` text followed by one typed member per form field.
 void data_entity_entry_lifecycle_policy_form_init(DataEntityEntryLifecyclePolicyForm *self, SpecDocument *doc, const char *path);

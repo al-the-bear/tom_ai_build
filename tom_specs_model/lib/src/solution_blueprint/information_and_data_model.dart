@@ -700,9 +700,10 @@ class DataEntityEntry extends DocSpecsSection {
   String? content;
 
   // ---------------------------------------------------------------------------
-  // Core Identity (5 fields)
+  // Core Identity (8 fields)
   // ---------------------------------------------------------------------------
-  /// What this entity is called, in each vocabulary that needs a name for it.
+  /// What this entity is called, in each vocabulary that needs a name for it,
+  /// and where it is stored.
   ///
   /// One entity is named four times over — logically, physically, in diagrams,
   /// and as a design pattern — and a model that keeps only one of those names
@@ -711,6 +712,16 @@ class DataEntityEntry extends DocSpecsSection {
   /// emitted as (`codespecs_mapping.md` §5.13). Aggregate-root-ness is
   /// deliberately not part of the stereotype recorded here: it is read from
   /// `DAENT-CLAS.aggregateRoot`, the only field that states it.
+  ///
+  /// The placement fields say where the entity's rows live: the datasource (a
+  /// logical name the application registers, e.g. `main`), the schema where
+  /// that datasource has several, and whether it is tenant data or system data.
+  /// All three are optional: an entity that names no datasource is stored in
+  /// the specification's single migration target, else `main`, and an entity
+  /// of a multi-tenant solution that does not say is a tenant table — the
+  /// authored completions of `codespecs_derivation_contract.md` §2.10 in
+  /// `tom_core_codespecs/doc/`. Per-tenant placement (shared schema, schema or
+  /// database per tenant) is deployment configuration, not the entity's.
   @SectionId('DAENT-IDEN')
   @Form([
     Field(
@@ -746,6 +757,28 @@ class DataEntityEntry extends DocSpecsSection {
           'Entity pattern: Entity | ValueObject | Event | View | Bridge. '
           'Aggregate-root-ness is not a stereotype here — it is read from '
           'aggregateRoot below, which is the only field that states it',
+    ),
+    Field(
+      'dataSourceName',
+      String,
+      'Datasource',
+      hint:
+          'The logical datasource the rows are stored in (e.g. main), when '
+          'not the solution\'s default',
+    ),
+    Field(
+      'schemaName',
+      String,
+      'Schema',
+      hint: 'The schema within that datasource, where it has several',
+    ),
+    Field(
+      'tenancy',
+      EntityTenancy,
+      'Tenancy',
+      hint:
+          'Tenant: each tenant\'s own rows; System: shared by all tenants (a '
+          'tenant registry, reference data)',
     ),
   ])
   @SerializationOrder(1)
@@ -6833,4 +6866,17 @@ class ServerOperationMemberEntry extends DocSpecsSection {
   @override
   @SerializationOrder(0)
   String? content;
+}
+
+/// Whether an entity's rows belong to one tenant or to the whole system.
+///
+/// Only a multi-tenant solution (one that states a tenant isolation model)
+/// distinguishes the two; there a tenant table carries its tenant in a column
+/// and every statement is bound to it, while a system table is shared.
+enum EntityTenancy {
+  /// Each tenant's own rows, isolated from every other tenant's.
+  tenant,
+
+  /// Rows shared by all tenants: a tenant registry, reference data.
+  system,
 }

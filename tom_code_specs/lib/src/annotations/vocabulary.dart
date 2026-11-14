@@ -342,6 +342,21 @@ enum CsKeyKind {
   bool get identifiesRow => this != foreign && this != alternate;
 }
 
+/// Whether a CE-DB table holds one tenant's rows or the whole system's
+/// (`codespecs_mapping.md` §5.13).
+///
+/// ← the SOM's `DAENT-IDEN.tenancy` (`EntityTenancy`), constant-for-constant;
+/// when the specification is silent, the authored completion AC-3 of
+/// `codespecs_derivation_contract.md` §2.10 decides. A tenant table carries its
+/// tenant in the member `CsTable.tenantField` names.
+enum CsTableTenancy {
+  /// Shared by all tenants: a tenant registry, reference data.
+  system,
+
+  /// Each tenant's own rows; every statement is bound to the tenant.
+  tenant,
+}
+
 /// How a CE-DB key value is generated (`codespecs_mapping.md` §5.13).
 ///
 /// ← the SOM's `KEAGN.generationStrategy`, constant-for-constant.

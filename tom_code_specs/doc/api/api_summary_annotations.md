@@ -495,7 +495,14 @@ CE-DB — a persistent table (a stored entity type, `codespecs_mapping.md` §5.1
 
 ##### Constructors
 ```dart
-const CsTable(this.table, {this.datasource, this.schema, this.note});
+const CsTable(
+  this.table, {
+  this.datasource,
+  this.schema,
+  this.tenancy,
+  this.tenantField,
+  this.note,
+});
 ```
 
 ##### Properties
@@ -505,6 +512,8 @@ const CsTable(this.table, {this.datasource, this.schema, this.note});
 | `table` | `String` | The physical table name, verbatim. |
 | `datasource` | `String?` | The configured datasource the table lives in. |
 | `schema` | `String?` | The schema within [datasource]. |
+| `tenancy` | `CsTableTenancy?` | Whether the table holds one tenant's rows or the whole system's. |
+| `tenantField` | `String?` | For a tenant table, the member holding the tenant id. |
 | `note` | `String?` | Optional part-specific note. |
 
 #### CsFileReference

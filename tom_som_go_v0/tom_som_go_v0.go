@@ -20,7 +20,7 @@ import (
 // Version is the semantic version of this generated facade module, matching the
 // object-model version it was generated against (vMAJOR.MINOR.PATCH). It is the
 // in-source counterpart of the VCS tag used to pin the module (SOM §4.2).
-const Version = "v1.11.0"
+const Version = "v1.12.0"
 
 // ActionTriggerKind is the generated named type for `ActionTriggerKind` values. Its underlying type is
 // `string` and its value IS the stored token, byte-identical across every
@@ -510,6 +510,30 @@ func parseDecisionState(token string) DecisionState {
 	switch DecisionState(token) {
 	case DecisionStateYes, DecisionStateNo, DecisionStateDepends, DecisionStateUndecided:
 		return DecisionState(token)
+	}
+	return ""
+}
+
+// EntityTenancy is the generated named type for `EntityTenancy` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type EntityTenancy string
+
+const (
+	// Each tenant's own rows, isolated from every other tenant's.
+	EntityTenancyTenant EntityTenancy = "tenant"
+	// Rows shared by all tenants: a tenant registry, reference data.
+	EntityTenancySystem EntityTenancy = "system"
+)
+
+// parseEntityTenancy returns the EntityTenancy whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseEntityTenancy(token string) EntityTenancy {
+	switch EntityTenancy(token) {
+	case EntityTenancyTenant, EntityTenancySystem:
+		return EntityTenancy(token)
 	}
 	return ""
 }
@@ -11504,7 +11528,7 @@ type D00SolutionBlueprint struct {
 
 // D00SolutionBlueprintModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D00SolutionBlueprintModelVersion = "1.11"
+const D00SolutionBlueprintModelVersion = "1.12"
 
 // NewD00SolutionBlueprint creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11654,7 +11678,7 @@ type D01CurrentLandscapeAssessment struct {
 
 // D01CurrentLandscapeAssessmentModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D01CurrentLandscapeAssessmentModelVersion = "1.11"
+const D01CurrentLandscapeAssessmentModelVersion = "1.12"
 
 // NewD01CurrentLandscapeAssessment creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11795,7 +11819,7 @@ type D02TargetOperatingModel struct {
 
 // D02TargetOperatingModelModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D02TargetOperatingModelModelVersion = "1.11"
+const D02TargetOperatingModelModelVersion = "1.12"
 
 // NewD02TargetOperatingModel creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11949,7 +11973,7 @@ type D03InformationModel struct {
 
 // D03InformationModelModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D03InformationModelModelVersion = "1.11"
+const D03InformationModelModelVersion = "1.12"
 
 // NewD03InformationModel creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12169,7 +12193,7 @@ type D04RequirementsSpecification struct {
 
 // D04RequirementsSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D04RequirementsSpecificationModelVersion = "1.11"
+const D04RequirementsSpecificationModelVersion = "1.12"
 
 // NewD04RequirementsSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12313,7 +12337,7 @@ type D05InteractionScenarios struct {
 
 // D05InteractionScenariosModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D05InteractionScenariosModelVersion = "1.11"
+const D05InteractionScenariosModelVersion = "1.12"
 
 // NewD05InteractionScenarios creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12450,7 +12474,7 @@ type D06ArchitectureTechnologySpecification struct {
 
 // D06ArchitectureTechnologySpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D06ArchitectureTechnologySpecificationModelVersion = "1.11"
+const D06ArchitectureTechnologySpecificationModelVersion = "1.12"
 
 // NewD06ArchitectureTechnologySpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12609,7 +12633,7 @@ type D07IntegrationInterfaceSpecification struct {
 
 // D07IntegrationInterfaceSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D07IntegrationInterfaceSpecificationModelVersion = "1.11"
+const D07IntegrationInterfaceSpecificationModelVersion = "1.12"
 
 // NewD07IntegrationInterfaceSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12765,7 +12789,7 @@ type D08SecurityAccessSpecification struct {
 
 // D08SecurityAccessSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D08SecurityAccessSpecificationModelVersion = "1.11"
+const D08SecurityAccessSpecificationModelVersion = "1.12"
 
 // NewD08SecurityAccessSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12917,7 +12941,7 @@ type D09ExperienceDesignSpecification struct {
 
 // D09ExperienceDesignSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D09ExperienceDesignSpecificationModelVersion = "1.11"
+const D09ExperienceDesignSpecificationModelVersion = "1.12"
 
 // NewD09ExperienceDesignSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -13082,7 +13106,7 @@ type D10QualityAcceptancePlan struct {
 
 // D10QualityAcceptancePlanModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D10QualityAcceptancePlanModelVersion = "1.11"
+const D10QualityAcceptancePlanModelVersion = "1.12"
 
 // NewD10QualityAcceptancePlan creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -13277,7 +13301,7 @@ type D11DeliveryRoadmap struct {
 
 // D11DeliveryRoadmapModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D11DeliveryRoadmapModelVersion = "1.11"
+const D11DeliveryRoadmapModelVersion = "1.12"
 
 // NewD11DeliveryRoadmap creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -13424,7 +13448,7 @@ type D12TransitionRolloutPlan struct {
 
 // D12TransitionRolloutPlanModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D12TransitionRolloutPlanModelVersion = "1.11"
+const D12TransitionRolloutPlanModelVersion = "1.12"
 
 // NewD12TransitionRolloutPlan creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -13594,7 +13618,7 @@ type D13CodeSpecsProjection struct {
 
 // D13CodeSpecsProjectionModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D13CodeSpecsProjectionModelVersion = "1.11"
+const D13CodeSpecsProjectionModelVersion = "1.12"
 
 // NewD13CodeSpecsProjection creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -14599,7 +14623,8 @@ func (x *DataEntityEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
-// What this entity is called, in each vocabulary that needs a name for it.
+// What this entity is called, in each vocabulary that needs a name for it,
+// and where it is stored.
 //
 // One entity is named four times over — logically, physically, in diagrams,
 // and as a design pattern — and a model that keeps only one of those names
@@ -14608,6 +14633,16 @@ func (x *DataEntityEntry) SetContent(value string) {
 // emitted as (`codespecs_mapping.md` §5.13). Aggregate-root-ness is
 // deliberately not part of the stereotype recorded here: it is read from
 // `DAENT-CLAS.aggregateRoot`, the only field that states it.
+//
+// The placement fields say where the entity's rows live: the datasource (a
+// logical name the application registers, e.g. `main`), the schema where
+// that datasource has several, and whether it is tenant data or system data.
+// All three are optional: an entity that names no datasource is stored in
+// the specification's single migration target, else `main`, and an entity
+// of a multi-tenant solution that does not say is a tenant table — the
+// authored completions of `codespecs_derivation_contract.md` §2.10 in
+// `tom_core_codespecs/doc/`. Per-tenant placement (shared schema, schema or
+// database per tenant) is deployment configuration, not the entity's.
 func (x *DataEntityEntry) Identity() *DataEntityEntryIdentityForm {
 	return NewDataEntityEntryIdentityForm(x.Doc(), x.Path()+"/DAENT-IDEN")
 }
@@ -92588,6 +92623,30 @@ func (x *DataEntityEntryIdentityForm) EntityStereoType() string {
 
 func (x *DataEntityEntryIdentityForm) SetEntityStereoType(value string) {
 	x.Doc().SetFormField(x.Path(), "entityStereoType", value)
+}
+
+func (x *DataEntityEntryIdentityForm) DataSourceName() string {
+	return x.Doc().FormFieldOr(x.Path(), "dataSourceName")
+}
+
+func (x *DataEntityEntryIdentityForm) SetDataSourceName(value string) {
+	x.Doc().SetFormField(x.Path(), "dataSourceName", value)
+}
+
+func (x *DataEntityEntryIdentityForm) SchemaName() string {
+	return x.Doc().FormFieldOr(x.Path(), "schemaName")
+}
+
+func (x *DataEntityEntryIdentityForm) SetSchemaName(value string) {
+	x.Doc().SetFormField(x.Path(), "schemaName", value)
+}
+
+func (x *DataEntityEntryIdentityForm) Tenancy() EntityTenancy {
+	return parseEntityTenancy(x.Doc().FormFieldOr(x.Path(), "tenancy"))
+}
+
+func (x *DataEntityEntryIdentityForm) SetTenancy(value EntityTenancy) {
+	x.Doc().SetFormField(x.Path(), "tenancy", string(value))
 }
 
 // DataEntityEntryLifecyclePolicyForm is the generated section facade for the `lifecyclePolicy` @Form section: its own

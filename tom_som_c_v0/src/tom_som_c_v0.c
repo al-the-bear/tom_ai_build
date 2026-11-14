@@ -161,6 +161,14 @@ char *parse_decision_state(const char *token) {
   return som_strdup("");
 }
 
+char *parse_entity_tenancy(const char *token) {
+  if (strcmp(token, ENTITY_TENANCY_TENANT) == 0 ||
+      strcmp(token, ENTITY_TENANCY_SYSTEM) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
 char *parse_export_field_kind(const char *token) {
   if (strcmp(token, EXPORT_FIELD_KIND_STRING) == 0 ||
       strcmp(token, EXPORT_FIELD_KIND_INTEGER) == 0 ||
@@ -77901,6 +77909,27 @@ char *data_entity_entry_identity_form_entity_stereo_type(const DataEntityEntryId
 }
 void data_entity_entry_identity_form_set_entity_stereo_type(DataEntityEntryIdentityForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "entityStereoType", value);
+}
+char *data_entity_entry_identity_form_data_source_name(const DataEntityEntryIdentityForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dataSourceName");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_entity_entry_identity_form_set_data_source_name(DataEntityEntryIdentityForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "dataSourceName", value);
+}
+char *data_entity_entry_identity_form_schema_name(const DataEntityEntryIdentityForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "schemaName");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_entity_entry_identity_form_set_schema_name(DataEntityEntryIdentityForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "schemaName", value);
+}
+char *data_entity_entry_identity_form_tenancy(const DataEntityEntryIdentityForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "tenancy");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_entity_entry_identity_form_set_tenancy(DataEntityEntryIdentityForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "tenancy", value);
 }
 
 void data_entity_entry_lifecycle_policy_form_init(DataEntityEntryLifecyclePolicyForm *self, SpecDocument *doc, const char *path) {

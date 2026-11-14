@@ -2,7 +2,7 @@
 // ignore_for_file: type=lint, unused_import, document_ignores
 
 /// The generated typed object model for the TomSpecs specification documents
-/// (`v0`), model version `1.11`.
+/// (`v0`), model version `1.12`.
 ///
 /// **Generated — do not edit.** Regenerate with `generate_som.dart`; a hand
 /// edit is overwritten by the next run. The generator is
@@ -483,6 +483,24 @@ enum DecisionState {
 DecisionState? _parseDecisionState(String? token) {
   if (token == null || token.isEmpty) return null;
   for (final v in DecisionState.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `EntityTenancy` values.
+enum EntityTenancy {
+  /// Each tenant's own rows, isolated from every other tenant's.
+  tenant,
+
+  /// Rows shared by all tenants: a tenant registry, reference data.
+  system;
+}
+
+/// Parses a stored token into a [EntityTenancy], or `null`.
+EntityTenancy? _parseEntityTenancy(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in EntityTenancy.values) {
     if (v.name == token) return v;
   }
   return null;
@@ -10226,7 +10244,7 @@ class CutoverProcedure extends SomNode {
 /// per the public-standards order of the `@StandardReferences` below.
 class D00SolutionBlueprint extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.11';
+  static const String modelVersion = '1.12';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10319,7 +10337,7 @@ class D00SolutionBlueprint extends SomNode {
 /// and the inventory / migration plan for the systems being replaced.
 class D01CurrentLandscapeAssessment extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.11';
+  static const String modelVersion = '1.12';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10409,7 +10427,7 @@ class D01CurrentLandscapeAssessment extends SomNode {
 /// cross-process analysis, exception handling, and KPIs.
 class D02TargetOperatingModel extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.11';
+  static const String modelVersion = '1.12';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10506,7 +10524,7 @@ class D02TargetOperatingModel extends SomNode {
 /// integrity constraints.
 class D03InformationModel extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.11';
+  static const String modelVersion = '1.12';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10651,7 +10669,7 @@ class D03InformationModel extends SomNode {
 /// and coverage analysis.
 class D04RequirementsSpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.11';
+  static const String modelVersion = '1.12';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10743,7 +10761,7 @@ class D04RequirementsSpecification extends SomNode {
 /// and traceability.
 class D05InteractionScenarios extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.11';
+  static const String modelVersion = '1.12';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10831,7 +10849,7 @@ class D05InteractionScenarios extends SomNode {
 /// and translation handling.
 class D06ArchitectureTechnologySpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.11';
+  static const String modelVersion = '1.12';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10933,7 +10951,7 @@ class D06ArchitectureTechnologySpecification extends SomNode {
 /// migration, operational concerns, and cross-boundary error handling.
 class D07IntegrationInterfaceSpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.11';
+  static const String modelVersion = '1.12';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -11030,7 +11048,7 @@ class D07IntegrationInterfaceSpecification extends SomNode {
 /// compliance framework.
 class D08SecurityAccessSpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.11';
+  static const String modelVersion = '1.12';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -11131,7 +11149,7 @@ class D08SecurityAccessSpecification extends SomNode {
 /// mockups.
 class D09ExperienceDesignSpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.11';
+  static const String modelVersion = '1.12';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -11237,7 +11255,7 @@ class D09ExperienceDesignSpecification extends SomNode {
 /// Full quality plan combining quality goals and the acceptance plan.
 class D10QualityAcceptancePlan extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.11';
+  static const String modelVersion = '1.12';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -11361,7 +11379,7 @@ class D10QualityAcceptancePlan extends SomNode {
 /// framework.
 class D11DeliveryRoadmap extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.11';
+  static const String modelVersion = '1.12';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -11455,7 +11473,7 @@ class D11DeliveryRoadmap extends SomNode {
 /// transfer, and warranty/support.
 class D12TransitionRolloutPlan extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.11';
+  static const String modelVersion = '1.12';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -11568,7 +11586,7 @@ class D12TransitionRolloutPlan extends SomNode {
 /// models, the process-step interactions, and the client-side experience seed.
 class D13CodeSpecsProjection extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.11';
+  static const String modelVersion = '1.12';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -12390,7 +12408,8 @@ class DataEntityEntry extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// What this entity is called, in each vocabulary that needs a name for it.
+  /// What this entity is called, in each vocabulary that needs a name for it,
+  /// and where it is stored.
   /// 
   /// One entity is named four times over — logically, physically, in diagrams,
   /// and as a design pattern — and a model that keeps only one of those names
@@ -12399,6 +12418,16 @@ class DataEntityEntry extends SomNode {
   /// emitted as (`codespecs_mapping.md` §5.13). Aggregate-root-ness is
   /// deliberately not part of the stereotype recorded here: it is read from
   /// `DAENT-CLAS.aggregateRoot`, the only field that states it.
+  /// 
+  /// The placement fields say where the entity's rows live: the datasource (a
+  /// logical name the application registers, e.g. `main`), the schema where
+  /// that datasource has several, and whether it is tenant data or system data.
+  /// All three are optional: an entity that names no datasource is stored in
+  /// the specification's single migration target, else `main`, and an entity
+  /// of a multi-tenant solution that does not say is a tenant table — the
+  /// authored completions of `codespecs_derivation_contract.md` §2.10 in
+  /// `tom_core_codespecs/doc/`. Per-tenant placement (shared schema, schema or
+  /// database per tenant) is deployment configuration, not the entity's.
   DataEntityEntryIdentityForm get identity => DataEntityEntryIdentityForm(doc, '$path/DAENT-IDEN');
 
   /// Where this entity sits in the domain, and who answers for it.
@@ -69151,6 +69180,26 @@ class DataEntityEntryIdentityForm extends SomNode {
   /// Entity pattern: Entity | ValueObject | Event | View | Bridge. Aggregate-root-ness is not a stereotype here — it is read from aggregateRoot below, which is the only field that states it
   String get entityStereoType => doc.formField(path, 'entityStereoType') ?? '';
   set entityStereoType(String value) => doc.setFormField(path, 'entityStereoType', value);
+
+  /// Datasource.
+  ///
+  /// The logical datasource the rows are stored in (e.g. main), when not the solution's default
+  String get dataSourceName => doc.formField(path, 'dataSourceName') ?? '';
+  set dataSourceName(String value) => doc.setFormField(path, 'dataSourceName', value);
+
+  /// Schema.
+  ///
+  /// The schema within that datasource, where it has several
+  String get schemaName => doc.formField(path, 'schemaName') ?? '';
+  set schemaName(String value) => doc.setFormField(path, 'schemaName', value);
+
+  /// Tenancy.
+  ///
+  /// Tenant: each tenant's own rows; System: shared by all tenants (a tenant registry, reference data)
+  ///
+  /// Stored as one of: `tenant`, `system`.
+  EntityTenancy? get tenancy => _parseEntityTenancy(doc.formField(path, 'tenancy'));
+  set tenancy(EntityTenancy? value) => doc.setFormField(path, 'tenancy', value?.name ?? '');
 }
 
 /// Generated section facade for the `lifecyclePolicy` `@Form` section:

@@ -936,6 +936,23 @@ void main() {
       const table = CsTable('customer');
       expect(table.datasource, isNull);
       expect(table.schema, isNull);
+      expect(table.tenancy, isNull);
+      expect(table.tenantField, isNull);
+    });
+
+    test('CsTable places a table in a multi-tenant solution', () {
+      const tenant = CsTable(
+        'mom_order',
+        datasource: 'main',
+        tenancy: CsTableTenancy.tenant,
+        tenantField: 'tenantId',
+      );
+      expect(tenant.tenancy, CsTableTenancy.tenant);
+      expect(tenant.tenantField, 'tenantId');
+      const system = CsTable('mom_tenant', tenancy: CsTableTenancy.system);
+      expect(system.tenantField, isNull);
+      // ← the SOM's EntityTenancy, constant-for-constant.
+      expect(CsTableTenancy.values.map((t) => t.name), ['system', 'tenant']);
     });
 
     test('CsColumn expresses what the Dart type cannot', () {

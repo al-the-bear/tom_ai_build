@@ -4056,13 +4056,25 @@ class _CsTableShape {
   final List<CsMarker> keys;
   final List<CsMarker> indexes;
 
+  /// The class's members, in source order.
+  final List<CsDeclaration> members;
+
   const _CsTableShape({
     required this.declaration,
     required this.table,
     required this.columns,
     required this.keys,
     required this.indexes,
+    this.members = const [],
   });
+
+  /// The member named [name], or `null`.
+  CsDeclaration? member(String name) {
+    for (final m in members) {
+      if (m.name == name) return m;
+    }
+    return null;
+  }
 }
 
 /// The `@CsTable` classes of the server project, by class name.
@@ -4098,6 +4110,7 @@ Map<String, _CsTableShape> _csTableShapes(CodeSpecsValidationInput input) {
         for (final m in declaration.markers)
           if (m.name == 'CsTableIndex') m,
       ],
+      members: byOwner[declaration.name] ?? const [],
     );
   }
   return out;
@@ -4458,9 +4471,15 @@ String? _csStringArgument(CsMarker marker, String argument) {
 /// columns, in key order. `@CsTable` states a datasource — the specified one,
 /// or AC-1's (codespecs_derivation_contract.md §2.10).
 ///
-/// `tom_core_server`'s repository reads `@TomDbTable` and nothing else, so an
-/// entity without it, or with one that disagrees with the markers, has a
-/// repository that fails at construction or addresses the wrong columns.
+/// A tenant table (`@CsTable(tenancy: CsTableTenancy.tenant)`) names its
+/// `tenantField`, a member carrying `@CsColumn`, and carries
+/// `@TomTenantTable(field:)` naming the same member; any other table carries
+/// neither.
+///
+/// `tom_core_server`'s repository reads `@TomDbTable` and `@TomTenantTable`
+/// and nothing else, so an entity without them, or with ones that disagree
+/// with the markers, has a repository that fails at construction, addresses
+/// the wrong columns, or reads every tenant's rows.
 class CsTomDbTableCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsTomDbTableCheck();
@@ -4474,7 +4493,8 @@ class CsTomDbTableCheck extends CodeSpecsCheck {
   @override
   String get title =>
       'Every @CsTable class carries @tomReflector and a @TomDbTable agreeing '
-      'with @CsTable and its identifying @CsTableKey';
+      'with @CsTable and its identifying @CsTableKey, and a tenant table its '
+      '@TomTenantTable';
 
   @override
   List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
@@ -4496,6 +4516,7 @@ class CsTomDbTableCheck extends CodeSpecsCheck {
           ),
         );
       }
+      _csCheckTenancy(shape, cs, where, out, fail);
       final tom = _csFrameworkAnnotation(d, 'TomDbTable');
       if (tom == null) {
         out.add(fail('$where carries no @TomDbTable', cs.location));
@@ -4532,6 +4553,81 @@ class CsTomDbTableCheck extends CodeSpecsCheck {
       }
     }
     return out;
+  }
+}
+
+/// `@CsTable(tenancy:)` as its constant name (`tenant`, `system`), or `null`.
+String? _csTenancy(CsMarker table) {
+  final value = table.named['tenancy'];
+  return value is CsQualifiedValue ? value.name : null;
+}
+
+/// Check 45's tenancy half: a tenant table's `tenantField` names a member
+/// carrying `@CsColumn`, and `@TomTenantTable(field:)` names that member; a
+/// table that is not a tenant table has neither.
+void _csCheckTenancy(
+  _CsTableShape shape,
+  CsMarker cs,
+  String where,
+  List<CodeSpecsViolation> out,
+  CodeSpecsViolation Function(String, CsLocation?) fail,
+) {
+  final d = shape.declaration;
+  final tenantField = _csStringArgument(cs, 'tenantField');
+  final tenantTable = _csFrameworkAnnotation(d, 'TomTenantTable');
+  if (_csTenancy(cs) != 'tenant') {
+    if (tenantField != null) {
+      out.add(
+        fail(
+          "$where names the tenantField '$tenantField' but is no tenant table",
+          cs.location,
+        ),
+      );
+    }
+    if (tenantTable != null) {
+      out.add(
+        fail(
+          '${d.name} carries @TomTenantTable, and @CsTable makes it no '
+          'tenant table',
+          tenantTable.location,
+        ),
+      );
+    }
+    return;
+  }
+  if (tenantField == null) {
+    out.add(
+      fail(
+        '$where is a tenant table and names no tenantField: the member that '
+        'holds the tenant (AC-5 completes tenantId)',
+        cs.location,
+      ),
+    );
+  } else if (shape.member(tenantField)?.marker('CsColumn') == null) {
+    out.add(
+      fail(
+        "$where names the tenantField '$tenantField', and ${d.name} has no "
+        'member of that name carrying @CsColumn',
+        cs.location,
+      ),
+    );
+  }
+  if (tenantTable == null) {
+    out.add(
+      fail(
+        '$where is a tenant table and carries no @TomTenantTable',
+        cs.location,
+      ),
+    );
+  } else if (_csStringArgument(tenantTable, 'field') != tenantField) {
+    out.add(
+      fail(
+        '@TomTenantTable on ${d.name} names the field '
+        "'${_csStringArgument(tenantTable, 'field') ?? '?'}' where @CsTable "
+        "names the tenantField '${tenantField ?? '?'}'",
+        tenantTable.location,
+      ),
+    );
   }
 }
 
@@ -4640,13 +4736,29 @@ String csCompletedDatasource(CodeSpecsValidationInput input) {
 
 /// The rules of the register of authored completions (codespecs_derivation_contract.md §2.10), by id: the fact
 /// each completes.
-const csCompletionRules = {'AC-1': 'datasource'};
+const csCompletionRules = {
+  'AC-1': 'datasource',
+  'AC-3': 'tenancy',
+  'AC-4': 'tenantColumn',
+  'AC-5': 'tenantField',
+};
+
+/// The tenant column of AC-4 when the solution's isolation policy names none:
+/// `tom_core_server`'s convention.
+const csCompletedTenantColumn = 'tenant_id';
+
+/// The tenant member of AC-5 when a tenant table has no attribute for the
+/// tenant column.
+const csCompletedTenantField = 'tenantId';
 
 /// **Check 47** — every `@CsCompletion` names a rule of the register, the
 /// fact that rule completes, and the rule's value, and the declaration
 /// carries that value: an AC-1 completion sits on a `@CsTable` class whose
-/// `datasource` is the completed one. One completion per rule and
-/// declaration.
+/// `datasource` is the completed one; an AC-3 completion (`tenant`) on a
+/// tenant table; an AC-4 completion (`tenant_id`) on a tenant table whose
+/// tenant member's `@CsColumn` names that column; an AC-5 completion
+/// (`tenantId`) on a tenant table whose `tenantField` is that member, a
+/// `String?` carrying `@CsColumn`. One completion per rule and declaration.
 class CsCompletionCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsCompletionCheck();
@@ -4666,6 +4778,7 @@ class CsCompletionCheck extends CodeSpecsCheck {
   List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
     final out = <CodeSpecsViolation>[];
     String? datasource;
+    final shapes = _csTableShapes(input);
     for (final project in [input.shared, input.client, input.server]) {
       for (final d in project.declarations) {
         final seen = <String>{};
@@ -4724,6 +4837,71 @@ class CsCompletionCheck extends CodeSpecsCheck {
                     m.location,
                   ),
                 );
+              }
+            case 'AC-3' || 'AC-4' || 'AC-5':
+              final expected = switch (rule) {
+                'AC-3' => 'tenant',
+                'AC-4' => csCompletedTenantColumn,
+                _ => csCompletedTenantField,
+              };
+              if (value != expected) {
+                out.add(
+                  fail(
+                    "$where has the value '${value ?? '?'}', and $rule's "
+                    "value is '$expected'",
+                    m.location,
+                  ),
+                );
+              }
+              final shape = shapes[d.name];
+              final table = shape?.declaration.marker('CsTable');
+              if (shape == null || table == null) {
+                out.add(fail('$where sits on no @CsTable class', m.location));
+                break;
+              }
+              if (_csTenancy(table) != 'tenant') {
+                out.add(
+                  fail(
+                    '$where sits on a table @CsTable does not make a tenant '
+                    'table',
+                    m.location,
+                  ),
+                );
+                break;
+              }
+              final tenantField = _csStringArgument(table, 'tenantField');
+              final member = tenantField == null
+                  ? null
+                  : shape.member(tenantField);
+              if (rule == 'AC-4') {
+                final column = member?.marker('CsColumn');
+                final named = column == null
+                    ? null
+                    : _csStringArgument(column, 'column');
+                if (named != value) {
+                  out.add(
+                    fail(
+                      "$where completes the tenant column '${value ?? '?'}', "
+                      "and the tenant member's @CsColumn names "
+                      "'${named ?? 'none'}'",
+                      m.location,
+                    ),
+                  );
+                }
+              }
+              if (rule == 'AC-5') {
+                final type = (member?.declaredType ?? '').trim();
+                if (tenantField != value ||
+                    member?.marker('CsColumn') == null ||
+                    type != 'String?') {
+                  out.add(
+                    fail(
+                      "$where completes the tenant member '${value ?? '?'}', "
+                      "and ${d.name} ${tenantField != value ? "names the tenantField '${tenantField ?? 'none'}'" : 'has no String? member of that name carrying @CsColumn'}",
+                      m.location,
+                    ),
+                  );
+                }
               }
           }
         }

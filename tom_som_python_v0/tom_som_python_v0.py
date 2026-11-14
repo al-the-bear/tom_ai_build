@@ -429,6 +429,24 @@ def _parse_DecisionState(token):
             return v
     return None
 
+class EntityTenancy(Enum):
+    """Generated enum for `EntityTenancy` values."""
+
+    # Each tenant's own rows, isolated from every other tenant's.
+    tenant = "tenant"
+    # Rows shared by all tenants: a tenant registry, reference data.
+    system = "system"
+
+
+def _parse_EntityTenancy(token):
+    """Parses a stored token into a EntityTenancy, or None."""
+    if not token:
+        return None
+    for v in EntityTenancy:
+        if v.value == token:
+            return v
+    return None
+
 class ExportFieldKind(Enum):
     """Generated enum for `ExportFieldKind` values."""
 
@@ -9911,7 +9929,7 @@ class D00SolutionBlueprint(SomNode):
     per the public-standards order of the `@StandardReferences` below.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.11'
+    model_version = '1.12'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "SBP")
@@ -10038,7 +10056,7 @@ class D01CurrentLandscapeAssessment(SomNode):
     and the inventory / migration plan for the systems being replaced.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.11'
+    model_version = '1.12'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "CLA")
@@ -10152,7 +10170,7 @@ class D02TargetOperatingModel(SomNode):
     cross-process analysis, exception handling, and KPIs.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.11'
+    model_version = '1.12'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "TOM")
@@ -10277,7 +10295,7 @@ class D03InformationModel(SomNode):
     integrity constraints.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.11'
+    model_version = '1.12'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "IFM")
@@ -10466,7 +10484,7 @@ class D04RequirementsSpecification(SomNode):
     and coverage analysis.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.11'
+    model_version = '1.12'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "RSP")
@@ -10583,7 +10601,7 @@ class D05InteractionScenarios(SomNode):
     and traceability.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.11'
+    model_version = '1.12'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "ISC")
@@ -10693,7 +10711,7 @@ class D06ArchitectureTechnologySpecification(SomNode):
     and translation handling.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.11'
+    model_version = '1.12'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "ATS")
@@ -10827,7 +10845,7 @@ class D07IntegrationInterfaceSpecification(SomNode):
     migration, operational concerns, and cross-boundary error handling.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.11'
+    model_version = '1.12'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "IIS")
@@ -10952,7 +10970,7 @@ class D08SecurityAccessSpecification(SomNode):
     compliance framework.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.11'
+    model_version = '1.12'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "SAS")
@@ -11079,7 +11097,7 @@ class D09ExperienceDesignSpecification(SomNode):
     mockups.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.11'
+    model_version = '1.12'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "XDS")
@@ -11219,7 +11237,7 @@ class D10QualityAcceptancePlan(SomNode):
     Full quality plan combining quality goals and the acceptance plan.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.11'
+    model_version = '1.12'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "QAP")
@@ -11389,7 +11407,7 @@ class D11DeliveryRoadmap(SomNode):
     framework.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.11'
+    model_version = '1.12'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "DRM")
@@ -11509,7 +11527,7 @@ class D12TransitionRolloutPlan(SomNode):
     transfer, and warranty/support.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.11'
+    model_version = '1.12'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "TRP")
@@ -11654,7 +11672,7 @@ class D13CodeSpecsProjection(SomNode):
     models, the process-step interactions, and the client-side experience seed.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.11'
+    model_version = '1.12'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "CGP")
@@ -12546,7 +12564,8 @@ class DataEntityEntry(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # What this entity is called, in each vocabulary that needs a name for it.
+    # What this entity is called, in each vocabulary that needs a name for it,
+    # and where it is stored.
     #
     # One entity is named four times over — logically, physically, in diagrams,
     # and as a design pattern — and a model that keeps only one of those names
@@ -12555,6 +12574,16 @@ class DataEntityEntry(SomNode):
     # emitted as (`codespecs_mapping.md` §5.13). Aggregate-root-ness is
     # deliberately not part of the stereotype recorded here: it is read from
     # `DAENT-CLAS.aggregateRoot`, the only field that states it.
+    #
+    # The placement fields say where the entity's rows live: the datasource (a
+    # logical name the application registers, e.g. `main`), the schema where
+    # that datasource has several, and whether it is tenant data or system data.
+    # All three are optional: an entity that names no datasource is stored in
+    # the specification's single migration target, else `main`, and an entity
+    # of a multi-tenant solution that does not say is a tenant table — the
+    # authored completions of `codespecs_derivation_contract.md` §2.10 in
+    # `tom_core_codespecs/doc/`. Per-tenant placement (shared schema, schema or
+    # database per tenant) is deployment configuration, not the entity's.
     @property
     def identity(self):
         return DataEntityEntryIdentityForm(self.doc, f"{self.path}/DAENT-IDEN")
@@ -76697,6 +76726,30 @@ class DataEntityEntryIdentityForm(SomNode):
     @entityStereoType.setter
     def entityStereoType(self, value):
         self.doc.set_form_field(self.path, "entityStereoType", value)
+
+    @property
+    def dataSourceName(self) -> str:
+        return self.doc.form_field(self.path, "dataSourceName") or ""
+
+    @dataSourceName.setter
+    def dataSourceName(self, value):
+        self.doc.set_form_field(self.path, "dataSourceName", value)
+
+    @property
+    def schemaName(self) -> str:
+        return self.doc.form_field(self.path, "schemaName") or ""
+
+    @schemaName.setter
+    def schemaName(self, value):
+        self.doc.set_form_field(self.path, "schemaName", value)
+
+    @property
+    def tenancy(self) -> "EntityTenancy | None":
+        return _parse_EntityTenancy(self.doc.form_field(self.path, "tenancy"))
+
+    @tenancy.setter
+    def tenancy(self, value):
+        self.doc.set_form_field(self.path, "tenancy", "" if value is None else value.value)
 
 class DataEntityEntryLifecyclePolicyForm(SomNode):
     """Generated section facade for the `lifecyclePolicy` @Form section: its own content text followed by one typed member per form field."""

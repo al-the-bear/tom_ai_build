@@ -104,6 +104,10 @@ workspace_prefixes:
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
 unpublished_drift:
+  tom_code_specs: >-
+    csplace1 (2026-11-14): @CsTable(tenancy:, tenantField:) and the catalogue
+    CsTableTenancy, in the unpublished 0.19.0 beside @CsCompletion (cskey2);
+    ships with the next release.
   tom_specs_model: >-
     buildkit.yaml names its JSON schema (8d6af844, 2026-11-13, a build-file
     header, nothing a consumer reads); csgap1 (2026-11-14): coverage gaps in
@@ -116,7 +120,9 @@ unpublished_drift:
     binding, the repository key type, authored completions); csgap1
     (2026-11-14): the coverage-gap record, check 35's leaveAsIs exemption and
     validate_codespecs --record-gaps; irspecs18 (2026-11-14): irspecs emit
-    --spec/--unit writes a unit's standards, the chain at ^1.11.0; published
+    --spec/--unit writes a unit's standards, the chain at ^1.11.0; csplace1
+    (2026-11-14): the tenancy halves of checks 45 and 47 (AC-3..AC-5,
+    @TomTenantTable), the chain at ^1.12.0; published
     with the next clitool release
     (with irspecs18's model change and tom_code_specs 0.19.0).
   tom_core_codespecs: >-
@@ -125,6 +131,8 @@ unpublished_drift:
     binding, §3.3.4, checks 45-47); csgap1 (2026-11-14): §2.11 coverage gaps,
     codespecs_mapping.md §1.1.1/§1.1.2; irspecs18 (2026-11-14): a unit's
     emitters in irspecs_ir.md §10 and codespecs_mapping.md §1.1.1/§1.1.2;
+    csplace1 (2026-11-14): an entity's placement and tenancy (§2.10 AC-3..AC-5,
+    §3.3.1, §6 checks 45/47, codespecs_mapping.md §5.13);
     ships with the next release.
 
 # Where each member was actually published from, when that is not the commit

@@ -7465,7 +7465,13 @@ class ColumnLevelSecurityPolicy extends DocSpecsSection {
   'Defines how each tenant data is isolated, exported, and removed so that one tenant cannot access another tenant records.',
 )
 @SectionId('TDIP')
-@CodeSpecKind([CodeSpecPart.authorization])
+@CodeSpecKind(
+  [CodeSpecPart.authorization, CodeSpecPart.dataAccess],
+  note:
+      'dataAccess: a stated isolation model makes the solution multi-tenant, '
+      'so an entity that does not say is a tenant table, and the tenant '
+      'column names its tenant member (authored completions AC-3 and AC-4)',
+)
 class TenantDataIsolationPolicy extends DocSpecsSection {
   @ContentHelp(
     'Describe the isolation model and the single mechanism that '

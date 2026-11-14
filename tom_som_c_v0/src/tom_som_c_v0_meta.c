@@ -46849,10 +46849,10 @@ static void meta_build_data_entity_entry_identity(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
-  meta_set(&n->doc_comment, "What this entity is called, in each vocabulary that needs a name for it.\n\nOne entity is named four times over — logically, physically, in diagrams,\nand as a design pattern — and a model that keeps only one of those names\nmakes every later reader re-derive the rest. The logical name is what the\nrest of the model refers to; the physical name is what the CE-DB table is\nemitted as (`codespecs_mapping.md` §5.13). Aggregate-root-ness is\ndeliberately not part of the stereotype recorded here: it is read from\n`DAENT-CLAS.aggregateRoot`, the only field that states it.");
+  meta_set(&n->doc_comment, "What this entity is called, in each vocabulary that needs a name for it,\nand where it is stored.\n\nOne entity is named four times over — logically, physically, in diagrams,\nand as a design pattern — and a model that keeps only one of those names\nmakes every later reader re-derive the rest. The logical name is what the\nrest of the model refers to; the physical name is what the CE-DB table is\nemitted as (`codespecs_mapping.md` §5.13). Aggregate-root-ness is\ndeliberately not part of the stereotype recorded here: it is read from\n`DAENT-CLAS.aggregateRoot`, the only field that states it.\n\nThe placement fields say where the entity's rows live: the datasource (a\nlogical name the application registers, e.g. `main`), the schema where\nthat datasource has several, and whether it is tenant data or system data.\nAll three are optional: an entity that names no datasource is stored in\nthe specification's single migration target, else `main`, and an entity\nof a multi-tenant solution that does not say is a tenant table — the\nauthored completions of `codespecs_derivation_contract.md` §2.10 in\n`tom_core_codespecs/doc/`. Per-tenant placement (shared schema, schema or\ndatabase per tenant) is deployment configuration, not the entity's.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 5;
-  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 8;
+  n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("entityName");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Entity Name");
@@ -46883,6 +46883,28 @@ static void meta_build_data_entity_entry_identity(SomMetaNode *n) {
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("Entity pattern: Entity | ValueObject | Event | View | Bridge. Aggregate-root-ness is not a stereotype here — it is read from aggregateRoot below, which is the only field that states it");
   n->form->fields[4].order = 4;
+  n->form->fields[5].name = som_strdup("dataSourceName");
+  n->form->fields[5].type_name = som_strdup("String");
+  n->form->fields[5].description = som_strdup("Datasource");
+  n->form->fields[5].required = 0;
+  n->form->fields[5].hint = som_strdup("The logical datasource the rows are stored in (e.g. main), when not the solution's default");
+  n->form->fields[5].order = 5;
+  n->form->fields[6].name = som_strdup("schemaName");
+  n->form->fields[6].type_name = som_strdup("String");
+  n->form->fields[6].description = som_strdup("Schema");
+  n->form->fields[6].required = 0;
+  n->form->fields[6].hint = som_strdup("The schema within that datasource, where it has several");
+  n->form->fields[6].order = 6;
+  n->form->fields[7].name = som_strdup("tenancy");
+  n->form->fields[7].type_name = som_strdup("EntityTenancy");
+  n->form->fields[7].description = som_strdup("Tenancy");
+  n->form->fields[7].required = 0;
+  n->form->fields[7].hint = som_strdup("Tenant: each tenant's own rows; System: shared by all tenants (a tenant registry, reference data)");
+  n->form->fields[7].order = 7;
+  n->form->fields[7].enum_values_len = 2;
+  n->form->fields[7].enum_values = (char **)calloc(2, sizeof(char *));
+  n->form->fields[7].enum_values[0] = som_strdup("tenant");
+  n->form->fields[7].enum_values[1] = som_strdup("system");
 }
 static void meta_build_data_entity_entry_classification(SomMetaNode *n) {
   meta_set(&n->class_name, "DataEntityEntry");

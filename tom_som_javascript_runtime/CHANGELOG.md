@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.12.0
+
+- No runtime change. Moves in lockstep with `tom_specs_model` 1.12.0 (an
+  entity's datasource, schema and tenancy in `DAENT-IDEN`; `TDIP` routed to
+  dataAccess as well).
+
 ## 1.11.0
 
 - The generation units carry the standard emitters they ship (`emitters`,

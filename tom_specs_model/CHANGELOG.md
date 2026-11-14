@@ -1,3 +1,16 @@
+## 1.12.0
+
+- `DataEntityEntry`'s identity form (`DAENT-IDEN`) gains the entity's
+  placement: `dataSourceName` and `schemaName` (String) and `tenancy`
+  (`EntityTenancy`: `tenant`, `system`), all optional. CodeSpecs writes them
+  into `@CsTable(datasource:, schema:, tenancy:)`; what an entity leaves out is
+  completed by the derivation contract's register (AC-1, AC-3 to AC-5).
+- `TenantDataIsolationPolicy` (`TDIP`) is routed to dataAccess as well as
+  authorization: its isolation model makes a solution multi-tenant and its
+  tenant column names a tenant table's tenant member, and the CE-DB authoring
+  step reads only CE-DB's extract.
+- Additive (optional fields, an added routing), so a minor bump.
+
 ## 1.11.0
 
 - `GenerationUnitEntry.emitters` (`GEEMI-EMIT-LST`, `GenerationUnitEmitterEntry`

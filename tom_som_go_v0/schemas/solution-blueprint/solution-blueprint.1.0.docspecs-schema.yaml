@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: solution-blueprint/1.11
+# Schema: solution-blueprint/1.12
 
 title-format: "# <!--[SBP]--> Solution Blueprint"
 section-types:
@@ -9337,7 +9337,7 @@ section-types:
   daent-iden:
     prefix: DAENT_IDEN
     format: daent-iden-form
-    description: "What this entity is called, in each vocabulary that needs a name for it."
+    description: "What this entity is called, in each vocabulary that needs a name for it,"
   daent-life:
     prefix: DAENT_LIFE
     format: daent-life-form
@@ -33151,6 +33151,12 @@ form-types:
         description: Clear definition of what this entity represents
       - fieldname: entityStereoType
         description: "Entity pattern: Entity | ValueObject | Event | View | Bridge. Aggregate-root-ness is not a stereotype here — it is read from aggregateRoot below, which is the only field that states it"
+      - fieldname: dataSourceName
+        description: "The logical datasource the rows are stored in (e.g. main), when not the solution's default"
+      - fieldname: schemaName
+        description: "The schema within that datasource, where it has several"
+      - fieldname: tenancy
+        description: "Tenant: each tenant's own rows; System: shared by all tenants (a tenant registry, reference data)"
   daent-clas-form:
     fields:
       - fieldname: category

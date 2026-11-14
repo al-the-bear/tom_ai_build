@@ -1,6 +1,6 @@
 # TomSpecs CodeSpecs API Reference: Vocabulary Module
 
-The twenty-one closed catalogues the `Cs*` marker arguments select from, and the
+The twenty-two closed catalogues the `Cs*` marker arguments select from, and the
 protocol-feature hook catalogue. A
 catalogue is *closed*: adding a value is a reviewed taxonomy edit, not a
 free-form attribute a specification can invent in passing.
@@ -25,6 +25,7 @@ value means for a specification, see
   - [CsKeyGeneration](#cskeygeneration)
   - [CsReferentialAction](#csreferentialaction)
   - [CsIndexType](#csindextype)
+  - [CsTableTenancy](#cstabletenancy)
   - [CsGesture](#csgesture)
   - [CsFormEvent](#csformevent)
   - [CsLifecycleScope](#cslifecyclescope)
@@ -57,6 +58,7 @@ carries the `Cs` prefix without exception.
 | `CsKeyGeneration` | 6 | `@CsTableKey(generation:)` |
 | `CsReferentialAction` | 5 | `@CsTableKey(onDelete:, onUpdate:)` |
 | `CsIndexType` | 6 | `@CsTableIndex(indexType:)` |
+| `CsTableTenancy` | 2 | `@CsTable(tenancy:)` |
 | `CsGesture` | 3 | `@CsTrigger(gesture:)` |
 | `CsFormEvent` | 4 | `@CsTrigger(formEvent:)` |
 | `CsLifecycleScope` | 3 | `@CsTrigger(scope:)`, `@CsViewModel(scope:)` |
@@ -166,6 +168,17 @@ What a CE-DB table key is (`codespecs_mapping.md` §5.13); ← `KEATT.keyType`. 
 | `composite` | A primary key made of several columns. |
 | `natural` | A primary key with business meaning. |
 | `surrogate` | A primary key with no business meaning, generated for the row. |
+
+### CsTableTenancy
+
+Whether a CE-DB table holds one tenant's rows or the whole system's (`codespecs_mapping.md` §5.13); ← `DAENT-IDEN.tenancy` (`EntityTenancy`), else the authored completion AC-3 (`codespecs_derivation_contract.md` §2.10).
+
+**Selected by:** `@CsTable(tenancy:)`
+
+| Value | Meaning |
+|-------|---------|
+| `system` | Shared by all tenants: a tenant registry, reference data. |
+| `tenant` | Each tenant's own rows; every statement is bound to the tenant. |
 
 ### CsKeyGeneration
 

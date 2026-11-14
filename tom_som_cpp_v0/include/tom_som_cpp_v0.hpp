@@ -347,6 +347,18 @@ struct DecisionState {
   DecisionState() = delete;
 };
 
+// Generated enum tokens for `EntityTenancy` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+struct EntityTenancy {
+  // Each tenant's own rows, isolated from every other tenant's.
+  static constexpr const char* tenant = "tenant";
+  // Rows shared by all tenants: a tenant registry, reference data.
+  static constexpr const char* system = "system";
+  // Returns the token when it is a known EntityTenancy value, else std::nullopt.
+  static std::optional<std::string> parse(const std::string& token);
+  EntityTenancy() = delete;
+};
+
 // Generated enum tokens for `ExportFieldKind` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 struct ExportFieldKind {
@@ -10740,7 +10752,7 @@ class CutoverProcedure : public som::SomNode {
 class D00SolutionBlueprint : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.11";
+  static constexpr const char* kModelVersion = "1.12";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10809,7 +10821,7 @@ class D00SolutionBlueprint : public som::SomNode {
 class D01CurrentLandscapeAssessment : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.11";
+  static constexpr const char* kModelVersion = "1.12";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10876,7 +10888,7 @@ class D01CurrentLandscapeAssessment : public som::SomNode {
 class D02TargetOperatingModel : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.11";
+  static constexpr const char* kModelVersion = "1.12";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10949,7 +10961,7 @@ class D02TargetOperatingModel : public som::SomNode {
 class D03InformationModel : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.11";
+  static constexpr const char* kModelVersion = "1.12";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11065,7 +11077,7 @@ class D03InformationModel : public som::SomNode {
 class D04RequirementsSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.11";
+  static constexpr const char* kModelVersion = "1.12";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11135,7 +11147,7 @@ class D04RequirementsSpecification : public som::SomNode {
 class D05InteractionScenarios : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.11";
+  static constexpr const char* kModelVersion = "1.12";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11201,7 +11213,7 @@ class D05InteractionScenarios : public som::SomNode {
 class D06ArchitectureTechnologySpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.11";
+  static constexpr const char* kModelVersion = "1.12";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11275,7 +11287,7 @@ class D06ArchitectureTechnologySpecification : public som::SomNode {
 class D07IntegrationInterfaceSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.11";
+  static constexpr const char* kModelVersion = "1.12";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11349,7 +11361,7 @@ class D07IntegrationInterfaceSpecification : public som::SomNode {
 class D08SecurityAccessSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.11";
+  static constexpr const char* kModelVersion = "1.12";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11425,7 +11437,7 @@ class D08SecurityAccessSpecification : public som::SomNode {
 class D09ExperienceDesignSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.11";
+  static constexpr const char* kModelVersion = "1.12";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11502,7 +11514,7 @@ class D09ExperienceDesignSpecification : public som::SomNode {
 class D10QualityAcceptancePlan : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.11";
+  static constexpr const char* kModelVersion = "1.12";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11591,7 +11603,7 @@ class D10QualityAcceptancePlan : public som::SomNode {
 class D11DeliveryRoadmap : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.11";
+  static constexpr const char* kModelVersion = "1.12";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11661,7 +11673,7 @@ class D11DeliveryRoadmap : public som::SomNode {
 class D12TransitionRolloutPlan : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.11";
+  static constexpr const char* kModelVersion = "1.12";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11746,7 +11758,7 @@ class D12TransitionRolloutPlan : public som::SomNode {
 class D13CodeSpecsProjection : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.11";
+  static constexpr const char* kModelVersion = "1.12";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -12388,7 +12400,8 @@ class DataEntityEntry : public som::SomNode {
   // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
-  // What this entity is called, in each vocabulary that needs a name for it.
+  // What this entity is called, in each vocabulary that needs a name for it,
+  // and where it is stored.
   //
   // One entity is named four times over — logically, physically, in diagrams,
   // and as a design pattern — and a model that keeps only one of those names
@@ -12397,6 +12410,16 @@ class DataEntityEntry : public som::SomNode {
   // emitted as (`codespecs_mapping.md` §5.13). Aggregate-root-ness is
   // deliberately not part of the stereotype recorded here: it is read from
   // `DAENT-CLAS.aggregateRoot`, the only field that states it.
+  //
+  // The placement fields say where the entity's rows live: the datasource (a
+  // logical name the application registers, e.g. `main`), the schema where
+  // that datasource has several, and whether it is tenant data or system data.
+  // All three are optional: an entity that names no datasource is stored in
+  // the specification's single migration target, else `main`, and an entity
+  // of a multi-tenant solution that does not say is a tenant table — the
+  // authored completions of `codespecs_derivation_contract.md` §2.10 in
+  // `tom_core_codespecs/doc/`. Per-tenant placement (shared schema, schema or
+  // database per tenant) is deployment configuration, not the entity's.
   DataEntityEntryIdentityForm identity() const;
   // Where this entity sits in the domain, and who answers for it.
   //
@@ -44635,6 +44658,12 @@ class DataEntityEntryIdentityForm : public som::SomNode {
   void setDescription(const std::string& value);
   std::string entityStereoType() const;
   void setEntityStereoType(const std::string& value);
+  std::string dataSourceName() const;
+  void setDataSourceName(const std::string& value);
+  std::string schemaName() const;
+  void setSchemaName(const std::string& value);
+  std::string tenancy() const;
+  void setTenancy(const std::string& value);
 };
 
 // Generated section facade for the `lifecyclePolicy` @Form section: its own `content` text followed by one typed member per form field.

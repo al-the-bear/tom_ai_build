@@ -250,13 +250,27 @@ class CsTable {
 
   /// The configured datasource the table lives in.
   ///
+  /// ← `DAENT-IDEN.dataSourceName`; when the specification names none, the
+  /// authored completion AC-1 (`codespecs_derivation_contract.md` §2.10).
   /// `null` means the deployment default.
   final String? datasource;
 
   /// The schema within [datasource].
   ///
-  /// `null` means the deployment default.
+  /// ← `DAENT-IDEN.schemaName`. `null` means the datasource's own schema.
   final String? schema;
+
+  /// Whether the table holds one tenant's rows or the whole system's.
+  ///
+  /// ← `DAENT-IDEN.tenancy`; in a multi-tenant solution that is silent, the
+  /// authored completion AC-3 (tenant). `null` in a solution that is not
+  /// multi-tenant, where every table is a system table.
+  final CsTableTenancy? tenancy;
+
+  /// For a tenant table, the member holding the tenant id — its column is the
+  /// tenant column (AC-4), and a table without such an attribute gets the
+  /// member `tenantId` (AC-5).
+  final String? tenantField;
 
   /// Optional part-specific note.
   final String? note;
@@ -275,7 +289,19 @@ class CsTable {
   /// [CsMigration] declaration must target for the cumulative DDL to converge
   /// on this entity model, which `codespecs_derivation_contract.md` §6 check 13
   /// verifies against the migration artifacts themselves.
-  const CsTable(this.table, {this.datasource, this.schema, this.note});
+  ///
+  /// [tenancy] and [tenantField] place the table in a multi-tenant solution: a
+  /// [CsTableTenancy.tenant] table names the member holding its tenant, a
+  /// [CsTableTenancy.system] table is shared and names none
+  /// (`codespecs_derivation_contract.md` §3.3.1).
+  const CsTable(
+    this.table, {
+    this.datasource,
+    this.schema,
+    this.tenancy,
+    this.tenantField,
+    this.note,
+  });
 }
 
 /// CE-DB — a **file-reference** column facet (`codespecs_mapping.md` §5.13).

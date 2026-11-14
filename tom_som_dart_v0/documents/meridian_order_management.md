@@ -1,4 +1,4 @@
-<!-- docspec: solution-blueprint/1.11 -->
+<!-- docspec: solution-blueprint/1.12 -->
 # <!--[SBP]--> Solution Blueprint
 
 Solution Blueprint for the **Meridian Order Management (MOM)** programme.
@@ -1639,6 +1639,8 @@ EntityAlias: PRD
 Description: A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.
 
 EntityStereoType: Entity
+
+DataSourceName: catalog
 
 ###### <!--[DAENT-CLAS]--> Classification
 

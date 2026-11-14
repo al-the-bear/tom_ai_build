@@ -371,6 +371,8 @@ export 'src/codespecs/cs_checks.dart'
         CsRepositoryKeyTypeCheck,
         CsCompletionCheck,
         csCompletedDatasource,
+        csCompletedTenantColumn,
+        csCompletedTenantField,
         csCompletionRules,
         codeSpecsChecks,
         csMirroredEnumPairs,

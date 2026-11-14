@@ -2939,7 +2939,15 @@ code basis is the `tom_core_server` persistence model.
 attribute set for CE-DB:
 
 - **Entity level** — entity name, storage table, datasource, schema, identity
-  attribute + identity column, row-scope rule.
+  attribute + identity column, row-scope rule, and in a multi-tenant solution
+  the **tenancy** (tenant or system table) with a tenant table's tenant member.
+  Datasource, schema and tenancy come from `DAENT-IDEN` (`dataSourceName`,
+  `schemaName`, `tenancy`); whether the solution is multi-tenant, and its
+  tenant column, from `TenantDataIsolationPolicy` (`TDIP`), routed to CE-DB as
+  well as CE-AZ for that. What the specification leaves out is completed by the
+  register of `codespecs_derivation_contract.md` §2.10 (AC-1, AC-3 to AC-5).
+  The isolation model itself (shared schema, schema or database per tenant) is
+  deployment configuration, not an entity fact.
 - **Attribute level** (per persistent field) — attribute name, storage column,
   value type, **storage nullability**, column (storage) type, read-only,
   not-loaded, json-encoded, **column-access key** (field-level authorization,

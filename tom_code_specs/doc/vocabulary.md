@@ -2,7 +2,7 @@
 
 Twenty-nine of the forty-five `Cs*` markers take arguments, and most of those
 arguments select from a **closed catalogue** — an enum declared in
-`vocabulary.dart`. This guide covers the twenty-one catalogues, why they are enums
+`vocabulary.dart`. This guide covers the twenty-two catalogues, why they are enums
 rather than strings, why they are declared here rather than imported, and the
 per-kind slot rule that a `const` expression cannot enforce. What each value
 *means* for a specification is
@@ -16,7 +16,7 @@ code it produces is
 - [Overview](#overview)
 - [Quick Start](#quick-start)
 - [Core Components](#core-components)
-  - [The twenty-one catalogues](#the-twenty-one-catalogues)
+  - [The twenty-two catalogues](#the-twenty-two-catalogues)
   - [Why enums, and why declared here](#why-enums-and-why-declared-here)
 - [Per-kind slots and the exclusivity rule](#per-kind-slots-and-the-exclusivity-rule)
 - [The three settings-scope catalogues](#the-three-settings-scope-catalogues)
@@ -71,7 +71,7 @@ ordinary UI copy — needs neither argument.
 
 ## Core Components
 
-### The twenty-one catalogues
+### The twenty-two catalogues
 
 | Catalogue | Values | Selected by | Answers |
 |-----------|--------|-------------|---------|
@@ -90,6 +90,7 @@ ordinary UI copy — needs neither argument.
 | `CsKeyGeneration` | 6 | `@CsTableKey(generation:)` | How a key value is generated |
 | `CsReferentialAction` | 5 | `@CsTableKey(onDelete:, onUpdate:)` | What a foreign key does when its target changes |
 | `CsIndexType` | 6 | `@CsTableIndex(indexType:)` | The access structure of an index |
+| `CsTableTenancy` | 2 | `@CsTable(tenancy:)` | Whether a table holds one tenant's rows or the whole system's |
 | `CsMigrationKind` | 3 | `@CsMigration(kind:)` | Which migration artifact kind this is |
 | `CsJobTrigger` | 3 | `@CsJob(trigger:)` | What starts a background job |
 | `CsClientKind` | 3 | `@CsClient(kind:)` | Which kind of client application this is |

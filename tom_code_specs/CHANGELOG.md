@@ -6,8 +6,13 @@
   completion — a value the authoring agent completed under a rule of the
   derivation contract's register (§2.10), written beside the code it shaped,
   repeatable. Like `@CsCollaborator` it is not a part.
+- `@CsTable(tenancy:, tenantField:)` and the catalogue `CsTableTenancy`
+  (`system`, `tenant`): where a table sits in a multi-tenant solution, from the
+  SOM's `DAENT-IDEN.tenancy` or the authored completion AC-3; a tenant table
+  names the member holding its tenant (AC-4, AC-5). `datasource` and `schema`
+  now come from `DAENT-IDEN.dataSourceName` / `schemaName`.
 - Documentation: the README, `doc/marking_code.md`, `doc/index.md` and the API
-  summary count 43 part markers, two non-part markers, 21 catalogues and 29 of
+  summary count 43 part markers, two non-part markers, 22 catalogues and 29 of
   45 markers taking arguments (several counts were stale).
 
 ## 0.18.0

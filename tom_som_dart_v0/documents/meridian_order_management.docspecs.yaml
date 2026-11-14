@@ -1,6 +1,6 @@
 # TomSpecs document (*.docspecs.yaml). Hierarchical format v2.
 version: 2
-modelVersion: "1.11"
+modelVersion: "1.12"
 document:
   SBP D00SolutionBlueprint:
     content: |2-
@@ -1550,6 +1550,8 @@ document:
                 A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.
               entityStereoType: |2-
                 Entity
+              dataSourceName: |2-
+                catalog
             DAENT-CLAS classification:
               category: |2-
                 Master

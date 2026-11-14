@@ -9,7 +9,7 @@ so a CodeSpecs author has one import.
 |--------|---------|--------|
 | `annotations` | [api_summary_annotations.md](api_summary_annotations.md) | The 45 `Cs*` markers, the 2 facet value classes, and `@CodeSpec` / `@DocSpec` / `DocRef` |
 | `cross_part_refs` | [api_summary_cross_part_refs.md](api_summary_cross_part_refs.md) | The 13 typed cross-part reference consts |
-| `vocabulary` | [api_summary_vocabulary.md](api_summary_vocabulary.md) | The 21 closed catalogues and the protocol-feature hook catalogue |
+| `vocabulary` | [api_summary_vocabulary.md](api_summary_vocabulary.md) | The 22 closed catalogues and the protocol-feature hook catalogue |
 
 For task-oriented guides rather than reference tables, see the
 [documentation index](../index.md).

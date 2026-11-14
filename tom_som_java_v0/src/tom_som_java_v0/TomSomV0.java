@@ -691,6 +691,37 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated enum for `EntityTenancy` values.
+  public enum EntityTenancy {
+    /**
+     * Each tenant's own rows, isolated from every other tenant's.
+     */
+    tenant("tenant"),
+    /**
+     * Rows shared by all tenants: a tenant registry, reference data.
+     */
+    system("system");
+
+    public final String token;
+
+    EntityTenancy(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a EntityTenancy, or null.
+    public static EntityTenancy parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (EntityTenancy v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
   // Generated enum for `ExportFieldKind` values.
   public enum ExportFieldKind {
     /**
@@ -11133,7 +11164,7 @@ public final class TomSomV0 {
   // per the public-standards order of the `@StandardReferences` below.
   public static final class D00SolutionBlueprint extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.11";
+    public static final String MODEL_VERSION = "1.12";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11271,7 +11302,7 @@ public final class TomSomV0 {
   // and the inventory / migration plan for the systems being replaced.
   public static final class D01CurrentLandscapeAssessment extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.11";
+    public static final String MODEL_VERSION = "1.12";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11396,7 +11427,7 @@ public final class TomSomV0 {
   // cross-process analysis, exception handling, and KPIs.
   public static final class D02TargetOperatingModel extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.11";
+    public static final String MODEL_VERSION = "1.12";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11532,7 +11563,7 @@ public final class TomSomV0 {
   // integrity constraints.
   public static final class D03InformationModel extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.11";
+    public static final String MODEL_VERSION = "1.12";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11728,7 +11759,7 @@ public final class TomSomV0 {
   // and coverage analysis.
   public static final class D04RequirementsSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.11";
+    public static final String MODEL_VERSION = "1.12";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11857,7 +11888,7 @@ public final class TomSomV0 {
   // and traceability.
   public static final class D05InteractionScenarios extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.11";
+    public static final String MODEL_VERSION = "1.12";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11978,7 +12009,7 @@ public final class TomSomV0 {
   // and translation handling.
   public static final class D06ArchitectureTechnologySpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.11";
+    public static final String MODEL_VERSION = "1.12";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12123,7 +12154,7 @@ public final class TomSomV0 {
   // migration, operational concerns, and cross-boundary error handling.
   public static final class D07IntegrationInterfaceSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.11";
+    public static final String MODEL_VERSION = "1.12";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12259,7 +12290,7 @@ public final class TomSomV0 {
   // compliance framework.
   public static final class D08SecurityAccessSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.11";
+    public static final String MODEL_VERSION = "1.12";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12397,7 +12428,7 @@ public final class TomSomV0 {
   // mockups.
   public static final class D09ExperienceDesignSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.11";
+    public static final String MODEL_VERSION = "1.12";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12548,7 +12579,7 @@ public final class TomSomV0 {
   // Full quality plan combining quality goals and the acceptance plan.
   public static final class D10QualityAcceptancePlan extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.11";
+    public static final String MODEL_VERSION = "1.12";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12729,7 +12760,7 @@ public final class TomSomV0 {
   // framework.
   public static final class D11DeliveryRoadmap extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.11";
+    public static final String MODEL_VERSION = "1.12";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12860,7 +12891,7 @@ public final class TomSomV0 {
   // transfer, and warranty/support.
   public static final class D12TransitionRolloutPlan extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.11";
+    public static final String MODEL_VERSION = "1.12";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -13016,7 +13047,7 @@ public final class TomSomV0 {
   // models, the process-step interactions, and the client-side experience seed.
   public static final class D13CodeSpecsProjection extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.11";
+    public static final String MODEL_VERSION = "1.12";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -13953,7 +13984,8 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // What this entity is called, in each vocabulary that needs a name for it.
+    // What this entity is called, in each vocabulary that needs a name for it,
+    // and where it is stored.
     //
     // One entity is named four times over — logically, physically, in diagrams,
     // and as a design pattern — and a model that keeps only one of those names
@@ -13962,6 +13994,16 @@ public final class TomSomV0 {
     // emitted as (`codespecs_mapping.md` §5.13). Aggregate-root-ness is
     // deliberately not part of the stereotype recorded here: it is read from
     // `DAENT-CLAS.aggregateRoot`, the only field that states it.
+    //
+    // The placement fields say where the entity's rows live: the datasource (a
+    // logical name the application registers, e.g. `main`), the schema where
+    // that datasource has several, and whether it is tenant data or system data.
+    // All three are optional: an entity that names no datasource is stored in
+    // the specification's single migration target, else `main`, and an entity
+    // of a multi-tenant solution that does not say is a tenant table — the
+    // authored completions of `codespecs_derivation_contract.md` §2.10 in
+    // `tom_core_codespecs/doc/`. Per-tenant placement (shared schema, schema or
+    // database per tenant) is deployment configuration, not the entity's.
     public DataEntityEntryIdentityForm identity() {
       return new DataEntityEntryIdentityForm(doc, path + "/DAENT-IDEN");
     }
@@ -85126,6 +85168,32 @@ public final class TomSomV0 {
 
     public void entityStereoType(String value) {
       doc.setFormField(path, "entityStereoType", value);
+    }
+
+    public String dataSourceName() {
+      String v = doc.formField(path, "dataSourceName");
+      return v == null ? "" : v;
+    }
+
+    public void dataSourceName(String value) {
+      doc.setFormField(path, "dataSourceName", value);
+    }
+
+    public String schemaName() {
+      String v = doc.formField(path, "schemaName");
+      return v == null ? "" : v;
+    }
+
+    public void schemaName(String value) {
+      doc.setFormField(path, "schemaName", value);
+    }
+
+    public EntityTenancy tenancy() {
+      return EntityTenancy.parse(doc.formField(path, "tenancy"));
+    }
+
+    public void setTenancy(EntityTenancy value) {
+      doc.setFormField(path, "tenancy", value == null ? "" : value.token);
     }
   }
 
