@@ -43,6 +43,28 @@ List<IrDocument> _ir() {
   return [for (final d in documents) readIrYaml(writeIrYaml(d))];
 }
 
+/// Why IRTS2 cannot run on this host, or `false`: Node's type stripping
+/// (`--experimental-strip-types`) exists from Node 22.6, and an older `node`
+/// refuses the flag (`bad option`) rather than loading anything.
+final Object _typeStrippingSkip = () {
+  try {
+    final probe = Process.runSync('node', [
+      '--experimental-strip-types',
+      '--no-warnings',
+      '-e',
+      '',
+    ], runInShell: true);
+    if (probe.exitCode == 0) return false;
+    final version = Process.runSync('node', [
+      '--version',
+    ], runInShell: true).stdout.toString().trim();
+    return 'node $version has no --experimental-strip-types (Node 22.6 or '
+        'newer runs TypeScript under type stripping)';
+  } on ProcessException {
+    return 'no node on the PATH';
+  }
+}();
+
 ProcessResult _run(String executable, List<String> args, String cwd) =>
     Process.runSync(executable, args, workingDirectory: cwd, runInShell: true);
 
@@ -105,23 +127,28 @@ void main() {
     expect(tsc.exitCode, 0, reason: '${tsc.stdout}${tsc.stderr}');
   }, timeout: const Timeout(Duration(minutes: 5)));
 
-  test('IRTS2: each package loads under Node type stripping, executing '
-      'nothing', () {
-    for (final package in [
-      'meridian_codespec_shared',
-      'meridian_codespec_client',
-      'meridian_codespec_server',
-    ]) {
-      final load = _run('node', [
-        '--experimental-strip-types',
-        '--no-warnings',
-        '-e',
-        "import('./$package/src/index.ts').then(() => console.log('ok'))",
-      ], out.path);
-      expect(load.exitCode, 0, reason: '$package: ${load.stderr}');
-      expect('${load.stdout}'.trim(), 'ok', reason: package);
-    }
-  }, timeout: const Timeout(Duration(minutes: 2)));
+  test(
+    'IRTS2: each package loads under Node type stripping, executing '
+    'nothing',
+    () {
+      for (final package in [
+        'meridian_codespec_shared',
+        'meridian_codespec_client',
+        'meridian_codespec_server',
+      ]) {
+        final load = _run('node', [
+          '--experimental-strip-types',
+          '--no-warnings',
+          '-e',
+          "import('./$package/src/index.ts').then(() => console.log('ok'))",
+        ], out.path);
+        expect(load.exitCode, 0, reason: '$package: ${load.stderr}');
+        expect('${load.stdout}'.trim(), 'ok', reason: package);
+      }
+    },
+    skip: _typeStrippingSkip,
+    timeout: const Timeout(Duration(minutes: 2)),
+  );
 
   test('IRTS3: the back-links name every section the Dart trio does, file '
       'by file', () {

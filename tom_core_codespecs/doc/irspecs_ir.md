@@ -504,13 +504,13 @@ document of the whole IR folder (§10), whichever package is written.
 **What the output is.** A skeleton, as the Dart trio is: it type-checks and
 executes nothing — a body the specification gives no steps for throws
 `new Error("not implemented: <explication>")`, and a component throws until
-Phase 6 writes it. It is written to run as is on Node's type stripping and on
-Deno: imports carry their `.ts` extension, a type is imported with
+Phase 6 writes it. It is written to run as is on Node's type stripping (Node
+22.6 or newer) and on Deno: imports carry their `.ts` extension, a type is imported with
 `import type`, and the workspace compiles with `verbatimModuleSyntax` and
 `erasableSyntaxOnly`, so `tsc` refuses anything that would need a transform.
 The test `tom_specs_clitool/test/irspecs_ts_test.dart` maps the Meridian IR,
 installs the workspace, type-checks it, loads each package under Node's type
-stripping, holds the back-links of every file to the Dart trio's, and the wire
+stripping (skipped, with the reason stated, on a `node` older than 22.6), holds the back-links of every file to the Dart trio's, and the wire
 types to the JSON Schema of §10; `irspecs_ts_native_test.dart` maps the same
 IR as two client units, web and mobile (§11.2), into one workspace and
 type-checks it.
