@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.14.0
+
+- `codespecs_derivation_contract.md`: §2.10, the register of authored
+  completions (AC-1 the datasource, AC-3 to AC-5 an entity's tenancy) and
+  `@CsCompletion`; §2.11, coverage gaps; §3.3.1, a `@CsTable` entity binds its
+  table with `@TomDbTable` / `@TomTenantTable`; §3.3.4, the repository's key
+  type; §3.3.6, TDIP's isolation model as the server setting
+  `tenancy.isolation`; §6, checks 45–47 (forty-seven checks).
+- `irspecs_ir.md`: an entity's keys, indexes and tenancy in the IR (§8) and in
+  the TypeScript, Go, Java and C# server mappers (§11.3, §12–§14), with the
+  server configuration; a generation unit's standard emitters (§10); Node 22.6
+  for the TypeScript mappers (§11); the Dart + Tom mapper's Dart SDK
+  prerequisite, found through `TOM_DART` or `PATH`.
+- `codespecs_mapping.md`: coverage gaps and a unit's emitters in the run
+  procedure (§1.1.1, §1.1.2); an entity's placement and tenancy (§5.13);
+  §5.16 and §11, `tenancy.isolation`.
+
 ## 0.13.6
 
 - Documentation: the authoring agent writes IR, not Dart

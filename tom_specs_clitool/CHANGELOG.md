@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.17.0
+
+- IR Specs server mappers (Go, Java + Spring Boot, C# + ASP.NET Core,
+  TypeScript/Hono): an entity's keys, foreign keys and indexes from
+  `@CsTableKey` / `@CsTableIndex` (`irspecs_ir.md` §8, §11.3, §12–§14); tenant
+  tables (`@CsTable(tenancy:, tenantField:)`); the CE-CF holders' defaults
+  written as the server's own configuration, `tenancy.isolation` included.
+- The mappers read a catalogue value written as an enum constant
+  (`CsDataClassification.internal`) as well as a string.
+- `irspecs map --mapper dart-tom`: a Dart SDK is a prerequisite of generating
+  Dart. From a compiled binary the mapper finds `dart` through `TOM_DART` (the
+  executable or the SDK folder), else `PATH`; with neither it exits 1 naming
+  both.
+- `irspecs emit --spec <document> --unit <id>` writes the standards a
+  generation unit's register entry names (`emitters`, `irspecs_ir.md` §10).
+- `validate_codespecs`: check 45, a `@CsTable` entity binds its table with
+  `@TomDbTable` (and a tenant table with `@TomTenantTable`); check 46, a
+  repository's key type is its entity's primary key; check 47, every
+  `@CsCompletion` names a rule of the register and carries the rule's value
+  (AC-1, AC-3 to AC-5; `codespecs_derivation_contract.md` §2.10, §3.3.1,
+  §3.3.4). Forty-seven checks.
+- Coverage gaps (`codespecs_derivation_contract.md` §2.11): the run's record of
+  the facts CodeSpecs has no place for, check 35's `leaveAsIs` exemption and
+  `validate_codespecs --record-gaps`.
+- Requires `tom_som_dart_runtime` / `tom_som_dart_v0` ^1.12.0.
+
 ## 0.16.0
 
 - `irspecs map --spec <document> --unit <id>` writes one generation unit's

@@ -13,6 +13,12 @@
   the default of Tom Core's server setting `tenancy.isolation` (`shared`,
   `schema`, `database`; `codespecs_derivation_contract.md` §3.3.6).
 - Additive (optional fields, added routings), so a minor bump.
+- Documentation: `codespecs_prompt.md` records coverage gaps — the facts a
+  specification states that CodeSpecs has no place for — and stops for their
+  review (§1, §6.3, §7, §8.2); `tom_specs_project_flow.md` and the gate
+  checklists G2–G8 (1.2.0) follow the revised `tom_specs` process (generation
+  units first in Phase 4, `G4-UNITS-1`, `G<n>-EARLIER-1`); SOM §11.9.9's merge
+  example shows the guest question's three answers.
 
 ## 1.11.0
 
