@@ -18,6 +18,7 @@
 | Document | Purpose |
 |----------|---------|
 | [SOM Regeneration](som_regeneration.md) | When and how to regenerate the nine committed `tom_som_<slug>_v0` packages, and the freshness gate that catches a stale one |
+| [Working on the TomSpecs stack](working_on_tomspecs.md) | The model-change cascade in order, accessors in all nine runtimes, generated text changed in its emitter, a failing gate that may not be yours, commit scoping |
 
 ## Quick Reference
 
