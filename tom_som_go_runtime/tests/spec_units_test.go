@@ -523,8 +523,8 @@ func TestUnitsValidationEmitterUnknown(t *testing.T) {
 	// An emitter item with no value at all is absence, not a finding.
 	d.AddListItem("DEMO/DLV-LST-2/DLE-LST")
 	unitsExpect(t, unitsCheck(model, d), []unitsFinding{
-		{"DEMO/DLV-LST-2/DLE-LST-2", "unitEmitterUnknown", `emitter "swagger" is no standard emitter (openapi, jsonschema, icu, asyncapi)`},
-		{"DEMO/DLV-LST-2/DLE-LST-4", "unitEmitterUnknown", `emitter "OpenAPI" is no standard emitter (openapi, jsonschema, icu, asyncapi)`},
+		{"DEMO/DLV-LST-2/DLE-LST-2", "unitEmitterUnknown", `emitter "swagger" is no standard emitter (openapi, jsonschema, icu, asyncapi, markdown)`},
+		{"DEMO/DLV-LST-2/DLE-LST-4", "unitEmitterUnknown", `emitter "OpenAPI" is no standard emitter (openapi, jsonschema, icu, asyncapi, markdown)`},
 	})
 }
 
@@ -656,7 +656,7 @@ func TestUnitsRegisterEmittersPerUnit(t *testing.T) {
 	if got := som.SpecGenerationUnits(model, unitsRegister())[0].Emitters; len(got) != 0 {
 		t.Fatalf("emitters without any = %v", got)
 	}
-	if !reflect.DeepEqual(som.SpecStandardEmitters, []string{"openapi", "jsonschema", "icu", "asyncapi"}) {
+	if !reflect.DeepEqual(som.SpecStandardEmitters, []string{"openapi", "jsonschema", "icu", "asyncapi", "markdown"}) {
 		t.Fatalf("SpecStandardEmitters = %v", som.SpecStandardEmitters)
 	}
 }

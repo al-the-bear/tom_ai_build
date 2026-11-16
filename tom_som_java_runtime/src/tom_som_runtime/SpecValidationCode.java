@@ -101,7 +101,7 @@ public enum SpecValidationCode {
   /**
    * A generation-unit emitter names no standard emitter
    * ({@link SpecGenerationUnits#SPEC_STANDARD_EMITTERS}: {@code openapi},
-   * {@code jsonschema}, {@code icu}, {@code asyncapi}).
+   * {@code jsonschema}, {@code icu}, {@code asyncapi}, {@code markdown}).
    */
   UNIT_EMITTER_UNKNOWN("unitEmitterUnknown");
 

@@ -567,7 +567,7 @@ language mirrors it:
   without an id and a second unit of one id are left out.
   `specDefaultUnits(units, area)` is the default destination of an area — the
   extract's fallback above. `kSpecStandardEmitters` lists the emitter ids a
-  unit may name: `openapi`, `jsonschema`, `icu`, `asyncapi`. Mirrored in all
+  unit may name: `openapi`, `jsonschema`, `icu`, `asyncapi`, `markdown`. Mirrored in all
   nine languages; `tom_specs_clitool`'s `irspecs map --unit` reads a unit's
   kind and mappers, and `irspecs emit --unit` its emitters, through the Dart
   one.
@@ -741,7 +741,7 @@ by path:
 | `duplicateUnitId` | 8 | two generation-unit entries declaring one `unitId` (reported at the second) |
 | `unitBuildsNothing` | 8 | a generation-unit entry with neither a `deploymentTarget` nor a `component` |
 | `unitAreaMalformed` | 8 | a generation-unit mapping whose `area` is not an area code (`CE-` followed by capital letters) |
-| `unitEmitterUnknown` | 8 | a generation-unit emitter whose `emitter` is none of `openapi`, `jsonschema`, `icu`, `asyncapi` (case-sensitive) |
+| `unitEmitterUnknown` | 8 | a generation-unit emitter whose `emitter` is none of `openapi`, `jsonschema`, `icu`, `asyncapi`, `markdown` (case-sensitive) |
 
 **Phase 8 — generation units.** A *generation-unit entry* is a list item whose
 class carries `@NoArtifact(generation)` and declares a form field `unitId`; a
@@ -786,7 +786,7 @@ The messages, identical in all nine:
 | `duplicateUnitId` | `generation unit "<id>" is declared twice` |
 | `unitBuildsNothing` | `generation unit "<id>" builds neither a deploymentTarget nor a component` |
 | `unitAreaMalformed` | `mapping area "<area>" is not an area code (CE-…)` |
-| `unitEmitterUnknown` | `emitter "<emitter>" is no standard emitter (openapi, jsonschema, icu, asyncapi)` |
+| `unitEmitterUnknown` | `emitter "<emitter>" is no standard emitter (openapi, jsonschema, icu, asyncapi, markdown)` |
 
 
 Phase 1 has one exemption, and it is not optional: a **form** node may carry

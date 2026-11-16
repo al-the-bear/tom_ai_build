@@ -140,7 +140,7 @@ export const SpecValidationCode = {
   UNIT_AREA_MALFORMED: 'unitAreaMalformed',
   /**
    * A generation-unit emitter names no standard emitter
-   * (`K_SPEC_STANDARD_EMITTERS`: `openapi`, `jsonschema`, `icu`, `asyncapi`).
+   * (`K_SPEC_STANDARD_EMITTERS`: `openapi`, `jsonschema`, `icu`, `asyncapi`, `markdown`).
    */
   UNIT_EMITTER_UNKNOWN: 'unitEmitterUnknown',
 } as const;

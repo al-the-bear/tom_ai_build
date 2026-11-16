@@ -91,7 +91,7 @@
  * capital letters). */
 #define SPEC_VALIDATION_CODE_UNIT_AREA_MALFORMED "unitAreaMalformed"
 /* A generation-unit emitter names no standard emitter
- * (`SPEC_STANDARD_EMITTERS`: `openapi`, `jsonschema`, `icu`, `asyncapi`). */
+ * (`SPEC_STANDARD_EMITTERS`: `openapi`, `jsonschema`, `icu`, `asyncapi`, `markdown`). */
 #define SPEC_VALIDATION_CODE_UNIT_EMITTER_UNKNOWN "unitEmitterUnknown"
 
 typedef struct {

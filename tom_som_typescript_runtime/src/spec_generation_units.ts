@@ -45,6 +45,7 @@ export const K_SPEC_STANDARD_EMITTERS: readonly string[] = Object.freeze([
   'jsonschema',
   'icu',
   'asyncapi',
+  'markdown',
 ]);
 
 /** One generation unit the document declares. */

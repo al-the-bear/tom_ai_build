@@ -109,19 +109,27 @@ unpublished_drift:
     pinned to the SDK formatter's version (3.1.13), so a compiled irspecs needs
     no Dart SDK; test/dart_style_pin_test.dart holds the pin; irout2
     (2026-11-16): IR files are named <CE-CODE>_<canonical id>.ir.yaml, read
-    under both names; published with the next clitool release.
+    under both names; irout3 (2026-11-16): irspecs emit --standard markdown
+    (the IR's Markdown rendering, schema irspecs-md/1.0); published with the
+    next clitool release.
   tom_core_codespecs: >-
     irfmt2 (2026-11-16): irspecs_ir.md §8 states that the dart-tom mapper needs
     no Dart SDK; irout1 (2026-11-16): irspecs_ir.md and codespecs_mapping.md
     state the IR as Phase 4's product and dart-tom as its default mapping;
     irout2 (2026-11-16): the IR file-name pattern in irspecs_ir.md,
-    codespecs_mapping.md and the derivation contract; ships with the next
-    release.
+    codespecs_mapping.md and the derivation contract; irout3 (2026-11-16):
+    irspecs_ir.md §10.3, the Markdown rendering; ships with the next release.
   tom_specs_model: >-
     irout1 (2026-11-16): doc/index.md's irspecs_ir.md row states the IR as
     Phase 4's product; irout2 (2026-11-16): the IR file-name pattern in
-    doc/index.md and doc/codespecs_prompt.md (documentation only); ships with
-    the next release.
+    doc/index.md and doc/codespecs_prompt.md; irout3 (2026-11-16): `markdown`
+    among the emitter ids in som_multiplatform_spec_model.md and
+    tom_specs_model_rules.md (documentation only); ships with the next
+    release.
+  tom_som_dart_runtime: >-
+    irout3 (2026-11-16): kSpecStandardEmitters gains `markdown` (validation
+    phase 8, unitEmitterUnknown), as in the eight other runtimes and the
+    corpus; ships with the next chain release.
 
 # Where each member was actually published from, when that is not the commit
 # that set its version. A change that lands after the bump and before the

@@ -30,6 +30,7 @@ K_SPEC_STANDARD_EMITTERS: tuple[str, ...] = (
     "jsonschema",
     "icu",
     "asyncapi",
+    "markdown",
 )
 
 

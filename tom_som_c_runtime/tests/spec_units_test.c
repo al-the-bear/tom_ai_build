@@ -681,7 +681,7 @@ static void test_validation(const SpecModel *model) {
     free(spec_document_add_list_item(&d, "DEMO/DLV-LST-2/DLE-LST"));
 #define UNKNOWN(p, e)                                 \
   p "|unitEmitterUnknown|emitter \"" e                \
-    "\" is no standard emitter (openapi, jsonschema, icu, asyncapi)\n"
+    "\" is no standard emitter (openapi, jsonschema, icu, asyncapi, markdown)\n"
     expect_findings("phase8.unitEmitterUnknown", model, &d,
                     UNKNOWN("DEMO/DLV-LST-2/DLE-LST-2", "swagger")
                         UNKNOWN("DEMO/DLV-LST-2/DLE-LST-4", "OpenAPI"));
@@ -831,11 +831,12 @@ static void test_register(const SpecModel *model) {
     spec_document_free(&plain);
 
     check("register.emitters.standard",
-          SPEC_STANDARD_EMITTERS_LEN == 4 &&
+          SPEC_STANDARD_EMITTERS_LEN == 5 &&
               str_eq(SPEC_STANDARD_EMITTERS[0], "openapi") &&
               str_eq(SPEC_STANDARD_EMITTERS[1], "jsonschema") &&
               str_eq(SPEC_STANDARD_EMITTERS[2], "icu") &&
-              str_eq(SPEC_STANDARD_EMITTERS[3], "asyncapi"),
+              str_eq(SPEC_STANDARD_EMITTERS[3], "asyncapi") &&
+              str_eq(SPEC_STANDARD_EMITTERS[4], "markdown"),
           "");
   }
   /* a unit without an id, and a second unit of one id, are left out */

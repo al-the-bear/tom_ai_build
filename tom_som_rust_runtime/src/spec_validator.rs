@@ -91,7 +91,7 @@ pub const SPEC_VALIDATION_CODE_UNIT_BUILDS_NOTHING: &str = "unitBuildsNothing";
 /// capital letters).
 pub const SPEC_VALIDATION_CODE_UNIT_AREA_MALFORMED: &str = "unitAreaMalformed";
 /// A generation-unit emitter names no standard emitter
-/// ([`SPEC_STANDARD_EMITTERS`]: `openapi`, `jsonschema`, `icu`, `asyncapi`).
+/// ([`SPEC_STANDARD_EMITTERS`]: `openapi`, `jsonschema`, `icu`, `asyncapi`, `markdown`).
 pub const SPEC_VALIDATION_CODE_UNIT_EMITTER_UNKNOWN: &str = "unitEmitterUnknown";
 
 /// One problem found while validating a document.

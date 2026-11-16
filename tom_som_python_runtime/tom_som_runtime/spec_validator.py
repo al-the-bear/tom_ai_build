@@ -110,7 +110,7 @@ class SpecValidationCode(Enum):
     UNIT_AREA_MALFORMED = "unitAreaMalformed"
     #: A generation-unit emitter names no standard emitter
     #: (:data:`K_SPEC_STANDARD_EMITTERS`: ``openapi``, ``jsonschema``, ``icu``,
-    #: ``asyncapi``).
+    #: ``asyncapi``, ``markdown``).
     UNIT_EMITTER_UNKNOWN = "unitEmitterUnknown"
 
 

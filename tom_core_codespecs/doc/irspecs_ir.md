@@ -478,6 +478,7 @@ generator of any language can read it (CSML-3):
 
 ```text
 irspecs emit --standard <openapi|jsonschema|icu|asyncapi> --ir <spec-root>/irspecs --out <dir>
+irspecs emit --standard markdown --ir <spec-root>/irspecs --areas <catalogue> (§10.3)
 ```
 
 writes one document into `--out` and lists on stdout every fact of the IR the
@@ -492,8 +493,8 @@ catalogue is checked by a parser of the ICU MessageFormat syntax
 
 **A unit names the standards it ships.** The generation-unit register
 (`codespecs_mapping.md` §1.1.1 item 4) records per unit its **emitters** next to
-its mappings: each an emitter id, `openapi`, `jsonschema`, `icu` or `asyncapi`
-(validation phase 8 reports any other as `unitEmitterUnknown`, SOM §11.2).
+its mappings: each an emitter id, `openapi`, `jsonschema`, `icu`, `asyncapi` or
+`markdown` (§10.3) (validation phase 8 reports any other as `unitEmitterUnknown`, SOM §11.2).
 
 ```text
 irspecs emit --spec <document> --unit <unit id> --ir <spec-root>/irspecs --out <dir>
@@ -538,6 +539,57 @@ An emitter never drops a fact silently: each one below is a line of
 | ICU MessageFormat | the base copy's locale, a message's doc comment, its role and category | a catalogue holds key and message only |
 | AsyncAPI | the channels a notification goes out on, and its body copy key | `TomNotificationType` constructor values, not marker arguments; a message has no copy key |
 | AsyncAPI | a job's retries, backoff and timeout; a cron, calendar or interval trigger | job policy and schedules, not messages |
+
+
+### 10.3 The Markdown rendering
+
+A read-only rendering of the IR for agents, processes and tools outside the
+stack — the IR stays the source, and nothing in the rendering is composed:
+every text is the IR's own (a name, a marker argument, a doc comment line, a
+back-link's description), set in a fixed layout.
+
+```text
+irspecs emit --standard markdown --ir <spec-root>/irspecs \
+    --areas <codespecs_areas.json> [--spec <document>] [--out <dir>]
+```
+
+- **Files.** One document per IR document, named like it with `.md`
+  (`CE-DB_data_access.md`, `package.md`, §2), and `index.md`: the areas (code,
+  canonical id, document, IR document, files), the projects, and the
+  generation units of the register with the areas and mappers each holds and
+  its emitters. `--areas` (the area catalogue) names the documents; it is
+  required.
+- **`--spec`.** Gives the index the register's units, and links every
+  back-link token into the specification's Markdown rendition (the document
+  itself when it is `.md`, else the `.md` beside its `*.docspecs.yaml`) as
+  `<rendition>#<token>`. A token names a section kind, not one instance, and a
+  viewer resolves the fragment only where it maps section ids to headings.
+  With `--spec`, `--out` defaults to `<spec-root>/generated-doc/irspecs_md/`;
+  without it `--out` is required, and the index says no register was given.
+- **Form.** DocSpecs, `<!-- docspec: irspecs-md/1.0 -->`, with section ids in
+  the headings: `irspecs_index`; an area document its code with `_` for `-`
+  (`CE_DB`) or `package`; `projects`, `areas`, `units`, `files`; a file
+  `src_<n>`, a top-level declaration `decl_<n>_<m>`, a member
+  `member_<n>_<m>_<k>`. The schema is
+  `tom_specs_clitool/tool/docspecs-schema/irspecs-md.1.0.docspecs-schema.yaml`,
+  mirrored byte for byte in the workspace's `.tom/docspecs-schema/irspecs-md/`
+  where the DocSpecs tools find it.
+- **Content.** Per file its path, locus, units, imports and exports; per
+  declaration and member its kind, name, modifiers, type, type parameters,
+  supertypes, initialiser, `@CodeSpec` link, `Cs*` markers with their
+  arguments, other annotations, back-links (token and description), doc
+  comment and bodies — each body's shape, parameters, return type and thrown
+  message, and a form-3b body's steps as written in one fenced block
+  (`call m(args)`, `return m(args)`, `when guard(args):` with its steps
+  indented), or why it has none. A body is shown under the member that has it.
+- **Left out.** Source positions (`CsLocation`) and the literal spellings of
+  strings (`literal`, `descriptionLiteral`, `thrownLiteral`); the YAML keeps
+  them. The emission reports nothing as not expressed.
+
+`tom_specs_clitool/test/irspecs_markdown_test.dart` renders the Meridian IR
+through the command, validates every document against the schema, checks the
+index and CE-DB against the IR and a step block against its body, and holds
+the workspace mirror to the canonical schema.
 
 ## 11. The TypeScript mappers
 

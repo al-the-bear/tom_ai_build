@@ -110,7 +110,7 @@ inline constexpr const char* kSpecValidationCodeUnitBuildsNothing =
 inline constexpr const char* kSpecValidationCodeUnitAreaMalformed =
     "unitAreaMalformed";
 /* A generation-unit emitter names no standard emitter
- * (kSpecStandardEmitters: `openapi`, `jsonschema`, `icu`, `asyncapi`). */
+ * (kSpecStandardEmitters: `openapi`, `jsonschema`, `icu`, `asyncapi`, `markdown`). */
 inline constexpr const char* kSpecValidationCodeUnitEmitterUnknown =
     "unitEmitterUnknown";
 

@@ -563,12 +563,12 @@ fn phase8_unit_emitter_unknown_an_emitter_that_is_no_standard_emitter() {
             finding(
                 "DEMO/DLV-LST-2/DLE-LST-2",
                 "unitEmitterUnknown",
-                "emitter \"swagger\" is no standard emitter (openapi, jsonschema, icu, asyncapi)"
+                "emitter \"swagger\" is no standard emitter (openapi, jsonschema, icu, asyncapi, markdown)"
             ),
             finding(
                 "DEMO/DLV-LST-2/DLE-LST-4",
                 "unitEmitterUnknown",
-                "emitter \"OpenAPI\" is no standard emitter (openapi, jsonschema, icu, asyncapi)"
+                "emitter \"OpenAPI\" is no standard emitter (openapi, jsonschema, icu, asyncapi, markdown)"
             ),
         ]
     );
@@ -736,7 +736,7 @@ fn register_each_unit_carries_its_own_emitters_trimmed_in_stored_order() {
         .is_empty());
     assert_eq!(
         SPEC_STANDARD_EMITTERS,
-        &["openapi", "jsonschema", "icu", "asyncapi"]
+        &["openapi", "jsonschema", "icu", "asyncapi", "markdown"]
     );
 }
 

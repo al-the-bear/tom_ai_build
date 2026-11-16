@@ -36,6 +36,7 @@ const List<String> kSpecStandardEmitters = [
   'jsonschema',
   'icu',
   'asyncapi',
+  'markdown',
 ];
 
 /// One generation unit the document declares.

@@ -43,6 +43,7 @@ const K_SPEC_STANDARD_EMITTERS = Object.freeze([
   'jsonschema',
   'icu',
   'asyncapi',
+  'markdown',
 ]);
 
 /** One generation unit the document declares. */

@@ -127,7 +127,7 @@ enum SpecValidationCode {
   unitAreaMalformed,
 
   /// A generation-unit emitter names no standard emitter
-  /// ([kSpecStandardEmitters]: `openapi`, `jsonschema`, `icu`, `asyncapi`).
+  /// ([kSpecStandardEmitters]: `openapi`, `jsonschema`, `icu`, `asyncapi`, `markdown`).
   unitEmitterUnknown,
 }
 

@@ -36,8 +36,8 @@ struct SpecGenerationUnitMapping {
 /* The standard emitters a unit's `emitters` may name (`irspecs_ir.md` §10),
  * in the order `irspecs emit` lists them. Validation phase 8 reports any other
  * id as `unitEmitterUnknown`. */
-inline constexpr std::array<const char*, 4> kSpecStandardEmitters = {
-    "openapi", "jsonschema", "icu", "asyncapi"};
+inline constexpr std::array<const char*, 5> kSpecStandardEmitters = {
+    "openapi", "jsonschema", "icu", "asyncapi", "markdown"};
 
 /* Whether `id` is one of kSpecStandardEmitters (case-sensitive). */
 bool specIsStandardEmitter(const std::string& id);

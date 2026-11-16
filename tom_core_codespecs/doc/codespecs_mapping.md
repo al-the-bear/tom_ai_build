@@ -234,7 +234,7 @@ deployment target or architecture component it builds — and, per area, the
 mapper that writes it (`GEMAP-MAPP-LST`: `CE-DB` → `dart-tom`), several for one
 area where the area is written for two technologies — and the standards the
 unit ships besides its code (`GEEMI-EMIT-LST`: `openapi`, `jsonschema`, `icu`,
-`asyncapi`). The register is routed
+`asyncapi`, `markdown` — the IR's Markdown rendering, `irspecs_ir.md` §10.3). The register is routed
 `@NoArtifact(generation)`: it steers Phase 4 and becomes no artifact. A section
 goes to every unit whose mappings hold its area unless it, or a section above
 it, names other units in its `units` member (SOM §11.2); every extract entry

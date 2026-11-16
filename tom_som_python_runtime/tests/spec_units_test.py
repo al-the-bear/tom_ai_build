@@ -496,10 +496,10 @@ def test_phase8_emitter_unknown() -> None:
     want = [
         ("DEMO/DLV-LST-2/DLE-LST-2", "unitEmitterUnknown",
          'emitter "swagger" is no standard emitter '
-         "(openapi, jsonschema, icu, asyncapi)"),
+         "(openapi, jsonschema, icu, asyncapi, markdown)"),
         ("DEMO/DLV-LST-2/DLE-LST-4", "unitEmitterUnknown",
          'emitter "OpenAPI" is no standard emitter '
-         "(openapi, jsonschema, icu, asyncapi)"),
+         "(openapi, jsonschema, icu, asyncapi, markdown)"),
     ]
     _check("phase8.unitEmitterUnknown", _findings(d) == want,
            str(_findings(d)))
@@ -645,7 +645,7 @@ def test_register_emitters() -> None:
            spec_generation_units(model, _register())[0].emitters == [])
     _check("register.emitters.standard",
            list(K_SPEC_STANDARD_EMITTERS)
-           == ["openapi", "jsonschema", "icu", "asyncapi"])
+           == ["openapi", "jsonschema", "icu", "asyncapi", "markdown"])
 
 
 def test_register_skipped() -> None:

@@ -465,13 +465,13 @@ void main() {
           'DEMO/DLV-LST-2/DLE-LST-2',
           'unitEmitterUnknown',
           'emitter "swagger" is no standard emitter '
-              '(openapi, jsonschema, icu, asyncapi)',
+              '(openapi, jsonschema, icu, asyncapi, markdown)',
         ),
         (
           'DEMO/DLV-LST-2/DLE-LST-4',
           'unitEmitterUnknown',
           'emitter "OpenAPI" is no standard emitter '
-              '(openapi, jsonschema, icu, asyncapi)',
+              '(openapi, jsonschema, icu, asyncapi, markdown)',
         ),
       ]);
     });
@@ -537,6 +537,7 @@ void main() {
         'jsonschema',
         'icu',
         'asyncapi',
+        'markdown',
       ]);
     });
 

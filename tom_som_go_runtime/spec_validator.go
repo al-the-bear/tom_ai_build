@@ -90,7 +90,7 @@ const (
 	// capital letters).
 	SpecValidationCodeUnitAreaMalformed = "unitAreaMalformed"
 	// A generation-unit emitter names no standard emitter
-	// (SpecStandardEmitters: `openapi`, `jsonschema`, `icu`, `asyncapi`).
+	// (SpecStandardEmitters: `openapi`, `jsonschema`, `icu`, `asyncapi`, `markdown`).
 	SpecValidationCodeUnitEmitterUnknown = "unitEmitterUnknown"
 )
 

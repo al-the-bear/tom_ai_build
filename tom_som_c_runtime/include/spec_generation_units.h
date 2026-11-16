@@ -36,7 +36,7 @@ typedef struct {
 
 /* The standard emitters a unit's `emitters` may name (`irspecs_ir.md` §10),
  * in the order `irspecs emit` lists them: `openapi`, `jsonschema`, `icu`,
- * `asyncapi`. Validation phase 8 reports any other id as
+ * `asyncapi`, `markdown`. Validation phase 8 reports any other id as
  * `unitEmitterUnknown`. */
 extern const char *const SPEC_STANDARD_EMITTERS[];
 extern const size_t SPEC_STANDARD_EMITTERS_LEN;

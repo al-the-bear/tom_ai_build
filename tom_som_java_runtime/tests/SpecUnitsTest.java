@@ -444,9 +444,9 @@ public final class SpecUnitsTest {
     emit.addListItem("DEMO/DLV-LST-2/DLE-LST");
     eq("phase8.unitEmitterUnknown", findings(model, emit), List.of(
         "DEMO/DLV-LST-2/DLE-LST-2|unitEmitterUnknown|"
-            + "emitter \"swagger\" is no standard emitter (openapi, jsonschema, icu, asyncapi)",
+            + "emitter \"swagger\" is no standard emitter (openapi, jsonschema, icu, asyncapi, markdown)",
         "DEMO/DLV-LST-2/DLE-LST-4|unitEmitterUnknown|"
-            + "emitter \"OpenAPI\" is no standard emitter (openapi, jsonschema, icu, asyncapi)"));
+            + "emitter \"OpenAPI\" is no standard emitter (openapi, jsonschema, icu, asyncapi, markdown)"));
 
     // Phase 8 follows the derived values and precedes annotations.
     SpecDocument order = register();
@@ -595,7 +595,7 @@ public final class SpecUnitsTest {
     eq("register.emitters.none",
         SpecGenerationUnits.specGenerationUnits(model, register()).get(0).emitters, List.of());
     eq("register.standardEmitters", SpecGenerationUnits.SPEC_STANDARD_EMITTERS,
-        List.of("openapi", "jsonschema", "icu", "asyncapi"));
+        List.of("openapi", "jsonschema", "icu", "asyncapi", "markdown"));
 
     // A unit without an id, and a second unit of one id, are left out.
     SpecDocument skip = register();

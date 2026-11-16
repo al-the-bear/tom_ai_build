@@ -28,7 +28,7 @@ public final class SpecGenerationUnits {
    * Validation phase 8 reports any other id as {@code unitEmitterUnknown}.
    */
   public static final List<String> SPEC_STANDARD_EMITTERS =
-      List.of("openapi", "jsonschema", "icu", "asyncapi");
+      List.of("openapi", "jsonschema", "icu", "asyncapi", "markdown");
 
   private record UnitDecl(String id, String kind, String path) {}
 

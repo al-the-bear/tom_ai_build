@@ -1,0 +1,95 @@
+# IR Specs Markdown Schema v1.0
+#
+# The Markdown rendering of an IR Specs folder (`irspecs_ir.md` §10.3), written
+# by `irspecs emit --standard markdown`: one document per IR document
+# (`<CE-CODE>_<canonical id>.md`, `package.md`) and `index.md`. Generated and
+# read-only: the IR (`*.ir.yaml`) stays the source.
+#
+# The canonical copy is tom_specs_clitool/tool/docspecs-schema/; the
+# workspace's `.tom/docspecs-schema/irspecs-md/` holds a byte-equal mirror
+# (test/irspecs_markdown_test.dart holds the two equal).
+#
+# Section ids (letters, digits and underscores, as DocSpecs prefixes are):
+# the index is `irspecs_index`, an area document its code with `_` for `-`
+# (`CE_DB`) or `package`; `projects`, `areas`, `units`, `files`; a file
+# `src_<n>`, a top-level declaration `decl_<n>_<m>`, a member
+# `member_<n>_<m>_<k>`. Types are matched in this order, first matching prefix
+# wins.
+
+section-types:
+  index:
+    prefix: irspecs_index
+    description: "The index: the areas, the projects and the generation units"
+    subsection-types:
+      areas:
+        min-count: 1
+        max-count: 1
+      projects:
+        min-count: 1
+        max-count: 1
+      units:
+        min-count: 1
+        max-count: 1
+
+  areas:
+    prefix: areas
+    text-required: true
+    description: "One table row per area document: code, canonical id, the document, the IR document, its files"
+
+  units:
+    prefix: units
+    text-required: true
+    description: "The generation units of the register (`--spec`), or the note that none was given"
+
+  projects:
+    prefix: projects
+    text-required: true
+    description: "The trio's packages by locus"
+
+  area-document:
+    prefix: CE_
+    description: "One IR document of an area: its projects and its files"
+    subsection-types:
+      projects:
+        min-count: 1
+        max-count: 1
+      files:
+        min-count: 1
+        max-count: 1
+
+  package-document:
+    prefix: package
+    description: "The package IR document: the files no area claims"
+    subsection-types:
+      projects:
+        min-count: 1
+        max-count: 1
+      files:
+        min-count: 1
+        max-count: 1
+
+  files:
+    prefix: files
+    description: "The document's files, one subsection each"
+    subsection-types:
+      source-file:
+        max-count: infinite
+
+  source-file:
+    prefix: src_
+    text-required: true
+    description: "One file: its path, locus, units, imports and exports, then its top-level declarations"
+    subsection-types:
+      declaration:
+        max-count: infinite
+
+  member:
+    prefix: member_
+    description: "A member of a declaration, rendered like the declaration"
+
+  declaration:
+    prefix: decl_
+    description: "A top-level declaration: kind, name, modifiers, type, CodeSpec link, markers, annotations, back-links, doc comment, bodies (steps in a fenced block), then its members"
+    subsection-types:
+      member:
+        max-count: infinite

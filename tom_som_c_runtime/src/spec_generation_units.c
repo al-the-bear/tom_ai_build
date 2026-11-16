@@ -34,7 +34,7 @@ static char *trim_dup(const char *s) {
 /* ---- the standard emitters ----------------------------------------------- */
 
 const char *const SPEC_STANDARD_EMITTERS[] = {"openapi", "jsonschema", "icu",
-                                              "asyncapi"};
+                                              "asyncapi", "markdown"};
 const size_t SPEC_STANDARD_EMITTERS_LEN =
     sizeof(SPEC_STANDARD_EMITTERS) / sizeof(SPEC_STANDARD_EMITTERS[0]);
 

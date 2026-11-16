@@ -25,6 +25,7 @@ var SpecStandardEmitters = []string{
 	"jsonschema",
 	"icu",
 	"asyncapi",
+	"markdown",
 }
 
 // specIsStandardEmitter reports whether id is one of SpecStandardEmitters

@@ -29,6 +29,12 @@
 ///   of `openapi`, `jsonschema`, `icu` and `asyncapi`, writes what a standard
 ///   can express of an IR folder in that standard (`irspecs_ir.md` §10), and
 ///   lists on stdout every fact it could not.
+///   `--standard markdown --areas <codespecs_areas.json>` writes the IR's
+///   Markdown rendering instead, one
+///   DocSpecs document per area and `index.md` (`irspecs_ir.md` §10.3); with
+///   `--spec <document>` the index lists the generation units, back-links
+///   link into the document's Markdown rendition, and `--out` defaults to
+///   `<spec-root>/generated-doc/irspecs_md/`.
 ///
 /// Exit codes: `0` written, `1` the mapper refused the IR, `2` bad usage.
 library;
@@ -57,6 +63,7 @@ import 'emitters/asyncapi_emitter.dart';
 import 'emitters/emit_common.dart';
 import 'emitters/icu_emitter.dart';
 import 'emitters/json_schema_emitter.dart';
+import 'emitters/markdown_emitter.dart';
 import 'emitters/openapi_emitter.dart';
 import 'mappers/dart_tom/dart_tom_mapper.dart';
 import 'mappers/csharp/csharp_aspnet_mapper.dart';
@@ -115,8 +122,12 @@ ArgParser irspecsParser() => ArgParser()
   )
   ..addOption(
     'standard',
-    help: 'emit: the standard to write the IR in (or --spec and --unit).',
-    allowed: irStandards.keys.toList(),
+    help:
+        'emit: the standard to write the IR in (or --spec and --unit). '
+        '`markdown` needs --areas; with --spec it also lists the units and '
+        'links the back-links, and --out defaults to '
+        '<spec-root>/generated-doc/irspecs_md/.',
+    allowed: kIrEmitStandards,
   )
   ..addOption(
     'areas',
@@ -149,7 +160,8 @@ Future<int> runIrspecs(
     '       dart run tom_specs_clitool:irspecs map --mapper dart-tom '
     '--ir <dir> --out <dir> [--spec <document> --unit <unit id>]\n'
     '       dart run tom_specs_clitool:irspecs emit --standard '
-    '<${irStandards.keys.join('|')}> --ir <dir> --out <dir>\n\n'
+    '<${kIrEmitStandards.join('|')}> --ir <dir> --out <dir> '
+    '[--areas <json>] [--spec <document>]\n\n'
     '${parser.usage}',
   );
 
@@ -336,6 +348,19 @@ IrUnit _unitOf(String specPath, String unitId) =>
 /// [IrSpecsException] when the file cannot be read or decoded, or declares no
 /// such unit.
 SpecGenerationUnit _registerUnitOf(String specPath, String unitId) {
+  final units = _registerUnitsOf(specPath);
+  for (final u in units) {
+    if (u.unitId == unitId) return u;
+  }
+  throw IrSpecsException(
+    '--unit: $specPath declares no generation unit "$unitId"'
+    '${units.isEmpty ? '' : '; it declares ${units.map((u) => u.unitId).join(', ')}'}',
+  );
+}
+
+/// Every generation unit the specification at [specPath] declares. Throws
+/// [IrSpecsException] when the file cannot be read or decoded.
+List<SpecGenerationUnit> _registerUnitsOf(String specPath) {
   final file = File(specPath);
   if (!file.existsSync()) {
     throw IrSpecsException('--spec: no file at $specPath');
@@ -359,24 +384,49 @@ SpecGenerationUnit _registerUnitOf(String specPath, String unitId) {
   } on Object catch (e) {
     throw IrSpecsException('--spec: $specPath does not decode: $e');
   }
-  final units = specGenerationUnits(somSpecModel, document);
-  for (final u in units) {
-    if (u.unitId == unitId) return u;
-  }
-  throw IrSpecsException(
-    '--unit: $specPath declares no generation unit "$unitId"'
-    '${units.isEmpty ? '' : '; it declares ${units.map((u) => u.unitId).join(', ')}'}',
-  );
+  return specGenerationUnits(somSpecModel, document);
 }
 
 /// The standards `irspecs emit` writes, by `--standard` name
-/// (`irspecs_ir.md` §10).
+/// (`irspecs_ir.md` §10). The Markdown rendering is written by
+/// [emitMarkdown], which needs the area catalogue as well
+/// ([kIrEmitStandards] lists every name).
 const Map<String, IrEmission Function(List<IrDocument>)> irStandards = {
   'openapi': emitOpenApi,
   'jsonschema': emitJsonSchema,
   'icu': emitIcu,
   'asyncapi': emitAsyncApi,
 };
+
+/// The name of the Markdown rendering among the standards.
+const String kIrMarkdownStandard = 'markdown';
+
+/// Every name `irspecs emit` writes: the standards of [irStandards] and the
+/// Markdown rendering (`irspecs_ir.md` §10.3).
+const List<String> kIrEmitStandards = [
+  'openapi',
+  'jsonschema',
+  'icu',
+  'asyncapi',
+  kIrMarkdownStandard,
+];
+
+/// The specification's Markdown rendition as a path relative to [outDir]:
+/// [specPath] itself when it is Markdown, else the `.md` beside a
+/// `*.docspecs.yaml`; `null` when there is none.
+String? _specRenditionFrom(String specPath, String outDir) {
+  final String md;
+  if (specPath.toLowerCase().endsWith('.md')) {
+    md = specPath;
+  } else if (specPath.endsWith('.docspecs.yaml')) {
+    md =
+        '${specPath.substring(0, specPath.length - '.docspecs.yaml'.length)}.md';
+  } else {
+    return null;
+  }
+  if (!File(md).existsSync()) return null;
+  return p.relative(p.absolute(md), from: p.absolute(outDir));
+}
 
 int _emit(
   ArgResults results,
@@ -387,9 +437,11 @@ int _emit(
   final standard = results.option('standard');
   final spec = results.option('spec');
   final unitId = results.option('unit');
+  final markdownOnly = standard == kIrMarkdownStandard;
   final missing = [
-    for (final option in ['ir', 'out'])
-      if (results.option(option) == null) '--$option',
+    if (results.option('ir') == null) '--ir',
+    if (results.option('out') == null && !(markdownOnly && spec != null))
+      '--out',
     if (standard == null && spec == null && unitId == null)
       '--standard (or --spec and --unit)',
   ];
@@ -398,20 +450,37 @@ int _emit(
     usage();
     return 2;
   }
-  if ((spec == null) != (unitId == null)) {
-    stderrSink.writeln('--spec and --unit go together.');
+  if (unitId != null && spec == null) {
+    stderrSink.writeln('--unit needs --spec (--spec and --unit go together).');
     usage();
     return 2;
   }
-  if (standard != null && spec != null) {
+  if (spec != null && unitId == null && standard == null) {
+    stderrSink.writeln(
+      '--spec goes with --unit (the unit\'s emitters), or with --standard '
+      'markdown.',
+    );
+    usage();
+    return 2;
+  }
+  if (standard != null && unitId != null) {
     stderrSink.writeln(
       'Give --standard, or --spec and --unit (the unit\'s emitters), not both.',
     );
     usage();
     return 2;
   }
+  if (standard != null && spec != null && !markdownOnly) {
+    stderrSink.writeln(
+      '--spec goes with --unit, or with --standard markdown (the units and '
+      'the back-link targets).',
+    );
+    usage();
+    return 2;
+  }
   final List<IrDocument> documents;
   final List<String> standards;
+  var units = const <SpecGenerationUnit>[];
   try {
     if (standard != null) {
       standards = [standard];
@@ -419,13 +488,13 @@ int _emit(
       final unit = _registerUnitOf(spec!, unitId!);
       final unknown = [
         for (final e in unit.emitters)
-          if (!irStandards.containsKey(e)) e,
+          if (!kIrEmitStandards.contains(e)) e,
       ];
       if (unknown.isNotEmpty) {
         throw IrSpecsException(
           'generation unit "${unit.unitId}" names ${unknown.join(', ')}, '
           'which irspecs emit does not write (it writes '
-          '${irStandards.keys.join(', ')})',
+          '${kIrEmitStandards.join(', ')})',
         );
       }
       standards = unit.emitters;
@@ -436,15 +505,50 @@ int _emit(
         return 0;
       }
     }
+    if (standards.contains(kIrMarkdownStandard) && spec != null) {
+      units = _registerUnitsOf(spec);
+    }
     documents = readIrFolder(results.option('ir')!);
   } on IrSpecsException catch (e) {
     stderrSink.writeln(e.message);
     return 2;
   }
-  final outDir = Directory(results.option('out')!)..createSync(recursive: true);
+  CodeSpecsAreaCatalog? catalog;
+  if (standards.contains(kIrMarkdownStandard)) {
+    final areasPath = results.option('areas');
+    if (areasPath == null) {
+      stderrSink.writeln(
+        'markdown needs --areas <codespecs_areas.json>: the area catalogue '
+        'names each document (irspecs_ir.md §10.3).',
+      );
+      usage();
+      return 2;
+    }
+    try {
+      catalog = CodeSpecsAreaCatalog.fromJson(
+        jsonDecode(File(areasPath).readAsStringSync()) as Map<String, dynamic>,
+      );
+    } on Object catch (e) {
+      stderrSink.writeln('Cannot read the area catalogue: $e');
+      return 2;
+    }
+  }
+  final outPath =
+      results.option('out') ??
+      p.join(p.dirname(spec!), 'generated-doc', 'irspecs_md');
+  final outDir = Directory(outPath)..createSync(recursive: true);
   for (final name in standards) {
     if (standards.length > 1) stdoutSink.writeln('$name:');
-    final emission = irStandards[name]!(documents);
+    final emission = name == kIrMarkdownStandard
+        ? emitMarkdown(
+            documents,
+            catalog: catalog!,
+            units: units,
+            specRendition: spec == null
+                ? null
+                : _specRenditionFrom(spec, outDir.path),
+          )
+        : irStandards[name]!(documents);
     for (final MapEntry(key: file, value: text) in emission.files.entries) {
       File(p.join(outDir.path, file)).writeAsStringSync(text);
       stdoutSink.writeln('$file written');

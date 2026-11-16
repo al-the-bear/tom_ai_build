@@ -32,7 +32,7 @@ pub struct SpecGenerationUnitMapping {
 /// The standard emitters a unit's `emitters` may name (`irspecs_ir.md` §10),
 /// in the order `irspecs emit` lists them. Validation phase 8 reports any other
 /// id as `unitEmitterUnknown`.
-pub const SPEC_STANDARD_EMITTERS: &[&str] = &["openapi", "jsonschema", "icu", "asyncapi"];
+pub const SPEC_STANDARD_EMITTERS: &[&str] = &["openapi", "jsonschema", "icu", "asyncapi", "markdown"];
 
 /// One generation unit the document declares.
 #[derive(Debug, Clone, PartialEq, Eq)]

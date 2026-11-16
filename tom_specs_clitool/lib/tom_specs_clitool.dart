@@ -452,6 +452,7 @@ export 'src/irspecs/emitters/asyncapi_emitter.dart';
 export 'src/irspecs/emitters/emit_common.dart';
 export 'src/irspecs/emitters/icu_emitter.dart';
 export 'src/irspecs/emitters/json_schema_emitter.dart';
+export 'src/irspecs/emitters/markdown_emitter.dart';
 export 'src/irspecs/emitters/openapi_emitter.dart';
 export 'src/irspecs/ir_yaml.dart';
 export 'src/irspecs/irspecs_cli.dart';

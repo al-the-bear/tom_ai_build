@@ -1397,6 +1397,9 @@
         "DEMO/DLV-LST-1/DLE-LST-2/content": {
           "emitter": " asyncapi "
         },
+        "DEMO/DLV-LST-1/DLE-LST-3/content": {
+          "emitter": "markdown"
+        },
         "DEMO/DLV-LST-1/DLR-LST-1/content": {
           "area": "CE-DB",
           "mapping": "dart-tom"
@@ -1421,10 +1424,11 @@
           ]
         },
         "DEMO/DLV-LST-1/DLE-LST": {
-          "seq": 2,
+          "seq": 3,
           "items": [
             "DEMO/DLV-LST-1/DLE-LST-1",
-            "DEMO/DLV-LST-1/DLE-LST-2"
+            "DEMO/DLV-LST-1/DLE-LST-2",
+            "DEMO/DLV-LST-1/DLE-LST-3"
           ]
         },
         "DEMO/DLV-LST-1/DLR-LST": {
