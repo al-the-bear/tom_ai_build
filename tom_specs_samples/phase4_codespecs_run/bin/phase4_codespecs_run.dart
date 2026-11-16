@@ -213,7 +213,9 @@ void _stage3(List<CodeSpecsExtract> extracts) {
   }
   print('');
   print('   What the agent wrote from it is IR, not Dart — one document per');
-  print('   area (irspecs_ir.md), codespec/irspecs/CE-DB.ir.yaml, opening:');
+  print(
+    '   area (irspecs_ir.md), codespec/irspecs/CE-DB_data_access.ir.yaml, opening:',
+  );
   print('');
   for (final line in _authoredIr.split('\n').take(16)) {
     print('     $line');
@@ -407,7 +409,7 @@ void _authorSpecification(
 
 /// The stage-3 output: the IR the agent wrote, read from beside this sample.
 final String _authoredIr = File(
-  'codespec/irspecs/CE-DB.ir.yaml',
+  'codespec/irspecs/CE-DB_data_access.ir.yaml',
 ).readAsStringSync();
 
 /// The code mapped from the stage-3 output, read from the trio beside this

@@ -75,7 +75,7 @@ about screens, jobs, reports or migrations. **An empty extract is a candidate fo
 stage B is judgment.
 
 **Stage 3** prints one area's extract, the opening of the IR document the agent
-wrote from it (`codespec/irspecs/CE-DB.ir.yaml`, `irspecs_ir.md`) and the file
+wrote from it (`codespec/irspecs/CE-DB_data_access.ir.yaml`, `irspecs_ir.md`) and the file
 the Dart + Tom mapper prints from that IR, in full, and then names which parts of that file were fixed for the agent and which
 it chose. It also shows the mirror-image case: CE-API's extract is **not** empty
 and still yields no code, because its shared wire DTO is derived from server

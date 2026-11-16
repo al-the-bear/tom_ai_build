@@ -107,16 +107,21 @@ unpublished_drift:
   tom_specs_clitool: >-
     irfmt2 (2026-11-16): the dart-tom mapper formats in-process with dart_style
     pinned to the SDK formatter's version (3.1.13), so a compiled irspecs needs
-    no Dart SDK; test/dart_style_pin_test.dart holds the pin; published with
-    the next clitool release.
+    no Dart SDK; test/dart_style_pin_test.dart holds the pin; irout2
+    (2026-11-16): IR files are named <CE-CODE>_<canonical id>.ir.yaml, read
+    under both names; published with the next clitool release.
   tom_core_codespecs: >-
     irfmt2 (2026-11-16): irspecs_ir.md §8 states that the dart-tom mapper needs
     no Dart SDK; irout1 (2026-11-16): irspecs_ir.md and codespecs_mapping.md
     state the IR as Phase 4's product and dart-tom as its default mapping;
-    ships with the next release.
+    irout2 (2026-11-16): the IR file-name pattern in irspecs_ir.md,
+    codespecs_mapping.md and the derivation contract; ships with the next
+    release.
   tom_specs_model: >-
     irout1 (2026-11-16): doc/index.md's irspecs_ir.md row states the IR as
-    Phase 4's product (documentation only); ships with the next release.
+    Phase 4's product; irout2 (2026-11-16): the IR file-name pattern in
+    doc/index.md and doc/codespecs_prompt.md (documentation only); ships with
+    the next release.
 
 # Where each member was actually published from, when that is not the commit
 # that set its version. A change that lands after the bump and before the

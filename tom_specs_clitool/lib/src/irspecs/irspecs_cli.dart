@@ -4,7 +4,8 @@
 /// Two subcommands:
 ///
 /// * `irspecs from-codespecs` reads a CodeSpecs trio and writes its IR
-///   (`irspecs_ir.md`): one `<CE-CODE>.ir.yaml` per area holding files, plus
+///   (`irspecs_ir.md`): one `<CE-CODE>_<canonical id>.ir.yaml` per area
+///   holding files (`CE-DB_data_access.ir.yaml`), plus
 ///   `package.ir.yaml` for the files no area claims, into `--out` (a spec
 ///   root's `irspecs/` folder). An IR file in `--out` that the trio no longer
 ///   produces is deleted, so the folder is always the IR of exactly that
@@ -215,16 +216,19 @@ Future<int> runIrspecs(
     );
   }
 
+  final index = IrAreaIndex(catalog);
   final documents = irFromCsModel(
     shared: projects[CsLocus.shared]!,
     client: projects[CsLocus.client]!,
     server: projects[CsLocus.server]!,
-    areas: IrAreaIndex(catalog),
+    areas: index,
   );
   final outDir = Directory(results.option('out')!)..createSync(recursive: true);
-  final written = {for (final d in documents) d.fileName};
+  final written = {for (final d in documents) index.fileNameOf(d.area)};
+  final writtenAreas = {for (final d in documents) d.area};
   for (final document in documents) {
-    final file = File(p.join(outDir.path, document.fileName));
+    final name = index.fileNameOf(document.area);
+    final file = File(p.join(outDir.path, name));
     final text = writeIrYaml(document);
     final state = !file.existsSync()
         ? 'new'
@@ -233,15 +237,18 @@ Future<int> runIrspecs(
         : 'changed';
     if (state != 'unchanged') file.writeAsStringSync(text);
     final count = document.files.length;
-    stdoutSink.writeln(
-      '${document.fileName.padRight(22)} $state, $count file(s)',
-    );
+    stdoutSink.writeln('${name.padRight(34)} $state, $count file(s)');
   }
   for (final stale in outDir.listSync().whereType<File>()) {
     final name = p.basename(stale.path);
     if (name.endsWith('.ir.yaml') && !written.contains(name)) {
       stale.deleteSync();
-      stdoutSink.writeln('${name.padRight(22)} deleted (no file in the trio)');
+      final area = irAreaOfFileName(name);
+      stdoutSink.writeln(
+        area != null && writtenAreas.contains(area)
+            ? '${name.padRight(34)} deleted (now ${index.fileNameOf(area)})'
+            : '${name.padRight(34)} deleted (no file in the trio)',
+      );
     }
   }
   return 0;

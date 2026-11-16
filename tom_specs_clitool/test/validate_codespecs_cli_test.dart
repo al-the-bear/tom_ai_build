@@ -506,7 +506,7 @@ const csFeatureReservedPaths = {};
         isNot(contains(31)),
       );
       // A second run that disagreed on one table name.
-      final drifted = File(p.join(same, 'CE-DB.ir.yaml'));
+      final drifted = File(p.join(same, 'CE-DB_data_access.ir.yaml'));
       drifted.writeAsStringSync(
         drifted.readAsStringSync().replaceFirst(
           '"mom_customer"',

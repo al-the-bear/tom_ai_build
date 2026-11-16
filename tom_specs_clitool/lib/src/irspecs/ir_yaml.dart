@@ -14,6 +14,7 @@ library;
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
 import 'ir_codec.dart';
@@ -101,10 +102,18 @@ String _scalar(Object? value) => switch (value) {
   _ => throw ArgumentError.value(value, 'value', 'not an IR scalar'),
 };
 
-/// Every `*.ir.yaml` document in [dir], in file-name order.
+/// Every `*.ir.yaml` document in [dir], in the order of their area codes (the
+/// order the old `<CE-CODE>.ir.yaml` names sorted in, whichever name a file
+/// has).
+///
+/// A document is read under either name an area's file may have: the
+/// descriptive `<CE-CODE>_<canonical id>.ir.yaml` writers use now, and the
+/// `<CE-CODE>.ir.yaml` of IR folders written before it ([irDocumentFileName]).
 ///
 /// Throws [IrSpecsException] when [dir] does not exist, holds no IR document,
-/// or holds one that does not read.
+/// holds one that does not read, holds a file whose name names another area
+/// than the document's own, or holds two documents of one area (an old and a
+/// new name side by side), naming both.
 List<IrDocument> readIrFolder(String dir) {
   final folder = Directory(dir);
   if (!folder.existsSync()) {
@@ -118,7 +127,29 @@ List<IrDocument> readIrFolder(String dir) {
           .toList()
         ..sort((a, b) => a.path.compareTo(b.path));
   if (files.isEmpty) throw IrSpecsException('No *.ir.yaml in $dir.');
-  return [
-    for (final f in files) readIrYaml(f.readAsStringSync(), source: f.path),
-  ];
+  final documents = <IrDocument>[];
+  final byArea = <String, String>{};
+  for (final f in files) {
+    final document = readIrYaml(f.readAsStringSync(), source: f.path);
+    final name = p.basename(f.path);
+    final named = irAreaOfFileName(name);
+    if (named != document.area) {
+      throw IrSpecsException(
+        '${f.path} holds the ${document.area} document, but its name names '
+        '$named: an IR file is named after its area '
+        '(${document.area}_<canonical id>.ir.yaml).',
+      );
+    }
+    final earlier = byArea[document.area];
+    if (earlier != null) {
+      throw IrSpecsException(
+        'Two IR documents of area ${document.area} in $dir: '
+        '${p.basename(earlier)} and $name. Keep one: the descriptive name '
+        'replaces the old `<CE-CODE>.ir.yaml`.',
+      );
+    }
+    byArea[document.area] = f.path;
+    documents.add(document);
+  }
+  return documents..sort((a, b) => a.area.compareTo(b.area));
 }

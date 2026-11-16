@@ -537,7 +537,7 @@ On pass, the prompt creates the todo tree's upper rungs per
 |------|---------|------|
 | **L0** `csopen<n>` | one per open question the gate surfaced, all `decision-needed` | stage B's insufficient lines, plus any question raised at stage A that a reading resolved into a decision rather than a defect |
 | **L1** `csproj<n>` | the scaffolding of one package per generation unit — the trio when the specification declares no units | the document's generation-unit register (`codespecs_mapping.md` §1.1.1 item 4), else `codespecs_mapping.md` §4.2 |
-| **L2** `csgen<n>` | the thirty-one authoring steps, each naming the IR documents it writes — `<spec-root>/irspecs/<CE-CODE>.ir.yaml`, one per area the step covers — and the units its extracts' entries go to | `codespecs_mapping.md` §4.4.6's step table, and the entries' `units` |
+| **L2** `csgen<n>` | the thirty-one authoring steps, each naming the IR documents it writes — `<spec-root>/irspecs/<CE-CODE>_<canonical id>.ir.yaml`, one per area the step covers — and the units its extracts' entries go to | `codespecs_mapping.md` §4.4.6's step table, and the entries' `units` |
 
 **Why L1 and L2 are created here even though the run "stops at L0".** They are
 fixed before any area is authored — `codespecs_mapping.md` §1.1.3 derives them
@@ -651,7 +651,7 @@ ON PASS — create todos, and stop:
       (codespecs_mapping.md §1.1.1 item 4, §4.2).
   L2  csgen<n> for each of the thirty-one authoring steps, <n> its ordinal
       (codespecs_mapping.md §4.4.6), naming the IR documents the step writes
-      into <IR> — <CE-CODE>.ir.yaml for each area it covers — and the units
+      into <IR> — <CE-CODE>_<canonical id>.ir.yaml for each area it covers — and the units
       its extracts' entries go to.
   Take every id from tomAi_generateIdPrefix. Create no L3 todos: each L2 todo
   creates its own as its first act (codespecs_mapping.md §1.1.3).

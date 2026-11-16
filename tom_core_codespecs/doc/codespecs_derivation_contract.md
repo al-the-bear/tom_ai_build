@@ -987,7 +987,7 @@ design already fixes; none is composed.
 | `<EXTRACTS>` | one extract path per part in `<PARTS>` | `codespecs_mapping.md` §1.1.1 item 1 fixes name and location |
 | `<ENTRIES>` | the §3 entry numbers for the markers those parts emit | §3, via `codespecs_mapping.md` §8.5's walk index |
 | `<LOCUS>` | the project(s) of `codespecs_mapping.md` §4.2 the step writes into | §2.2 |
-| `<IR>` | one IR document per part in `<PARTS>`, `<spec-root>/irspecs/<CE-CODE>.ir.yaml` | `codespecs_mapping.md` §1.1.2 stage 3 |
+| `<IR>` | one IR document per part in `<PARTS>`, `<spec-root>/irspecs/<CE-CODE>_<canonical id>.ir.yaml` (`CE-DB_data_access.ir.yaml`; `irspecs_ir.md` §2) | `codespecs_mapping.md` §1.1.2 stage 3 |
 | `<UNITS>` | the generation units the step's entries go to, read off their `units` (the trio when the specification declares none) | `codespecs_mapping.md` §1.1.1 items 1 and 4 |
 | `<COMPONENT>` | the component's pass-2 deferral row — **present only for steps 2 and 23** | `codespecs_mapping.md` §4.4.7 |
 

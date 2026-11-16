@@ -55,11 +55,14 @@ irspecs from-codespecs --shared <dir> --client <dir> --server <dir>
 ships; it decides which file belongs to which area (§2). The command writes
 one document per area holding files, reports each as new, changed or
 unchanged, and deletes an `*.ir.yaml` in `--out` that the trio no longer
-produces — the folder is always the IR of exactly that trio.
+produces, an area's file under its old name included (reported as renamed) —
+the folder is always the IR of exactly that trio.
 
 ## 2. One document per area
 
-The documents are `<spec-root>/irspecs/<CE-CODE>.ir.yaml`, one per area that
+The documents are `<spec-root>/irspecs/<CE-CODE>_<canonical id>.ir.yaml`, the
+area's code and its canonical id from the area catalogue in snake case
+(`CE-DB_data_access.ir.yaml`, `CE-API_server_api.ir.yaml`), one per area that
 holds at least one file, written in catalogue order, and `package.ir.yaml` for
 the files no area claims — always written, files or not, because its header
 names the trio's three packages even for a trio that holds no file. A file belongs to exactly one document; the first of
@@ -102,6 +105,13 @@ The JSON Schema
 [`tom_specs_clitool/tool/irspecs_ir.schema.json`](../../tom_specs_clitool/tool/irspecs_ir.schema.json)
 (draft 2020-12) constrains every document; a document that does not validate
 is not an IR document.
+
+A document's file name names its area (§2): the reader takes
+`<CE-CODE>_<canonical id>.ir.yaml` and the `<CE-CODE>.ir.yaml` of IR folders
+written before descriptive names alike, both in format version 1. It refuses a
+file whose name names another area than the document's header, and two
+documents of one area in one folder (an old and a new name side by side),
+naming both.
 
 ## 4. The records
 

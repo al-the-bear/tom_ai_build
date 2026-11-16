@@ -263,7 +263,9 @@ void main() {
       final ir = p.join(scratch.path, 'ir');
       Directory(ir).createSync();
       for (final d in meridian) {
-        File(p.join(ir, d.fileName)).writeAsStringSync(writeIrYaml(d));
+        File(
+          p.join(ir, irDocumentFileName(d.area)),
+        ).writeAsStringSync(writeIrYaml(d));
       }
       final out = StringBuffer();
       final code = await runIrspecs([
@@ -296,7 +298,9 @@ void main() {
         ir = p.join(scratch.path, 'ir_unit');
         Directory(ir).createSync(recursive: true);
         for (final d in meridian) {
-          File(p.join(ir, d.fileName)).writeAsStringSync(writeIrYaml(d));
+          File(
+            p.join(ir, irDocumentFileName(d.area)),
+          ).writeAsStringSync(writeIrYaml(d));
         }
       });
 

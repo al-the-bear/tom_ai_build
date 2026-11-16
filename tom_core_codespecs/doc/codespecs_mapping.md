@@ -240,7 +240,7 @@ goes to every unit whose mappings hold its area unless it, or a section above
 it, names other units in its `units` member (SOM §11.2); every extract entry
 carries the units it goes to (item 1), so the authoring agent reads its
 destination off the extract rather than the register. The agent writes the
-**IR** — one `<spec-root>/irspecs/<CE-CODE>.ir.yaml` per area, a file's
+**IR** — one `<spec-root>/irspecs/<CE-CODE>_<canonical id>.ir.yaml` per area, a file's
 `units` naming the units it is reserved for — and each unit's package is
 written from it by the unit's mapper (`irspecs map --unit`). The IR, its units
 and the Dart + Tom mapper are [`irspecs_ir.md`](irspecs_ir.md) (§8.1 for the
@@ -264,7 +264,7 @@ the first to go stale.
 | **0** | **Open questions** — read the specification against the derivation contract's required inputs and record every place it does not carry what a derivation needs. The reading is per area, over a pre-gate extraction run (§1.1.3) | one L0 todo per unresolved ambiguity, all `decision-needed` | — |
 | **1** | **Extract** — run the `spec_codespecs_extract` surface of whichever SOM runtime the project uses, over the filled Phase-3 document set | one extract pair per **active** part (§4.1's 26), at the location §1.1.1 item 1 fixes | §4.1 |
 | **2** | **Scaffold** — create one package per generation unit (§1.1.1 item 4) — the §4.2 project trio when the specification declares none — with its pubspec and per-area folders | one L1 todo per scaffolding unit | §4.2 |
-| **3** | **Author, per step** — walk the thirty-one authoring steps | one L2 todo per step; the step's IR documents, `<spec-root>/irspecs/<CE-CODE>.ir.yaml` | §4.4.6 |
+| **3** | **Author, per step** — walk the thirty-one authoring steps | one L2 todo per step; the step's IR documents, `<spec-root>/irspecs/<CE-CODE>_<canonical id>.ir.yaml` | §4.4.6 |
 | **4** | **Author, per element** — *inside* a step, walk that step's extract entries | one L3 todo per (section, area) pair | §4.4.8 |
 | **5** | **Map and validate** — per generation unit, `irspecs map --mapper <the unit's mapper> --ir <spec-root>/irspecs --spec <document> --unit <unit id>` writes the unit's package from the IR (without units: `irspecs map --mapper dart-tom` writes the trio), and `irspecs emit --spec <document> --unit <unit id>` the standards the unit's emitters name ([`irspecs_ir.md`](irspecs_ir.md) §10); then `validate_codespecs.dart` over the trio, with `--ir` over the IR, and a second time over a regenerated IR (`--regenerated-ir`) | the trio and each unit's standards; a pass/fail verdict on the [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md) §6 checks | §6 |
 

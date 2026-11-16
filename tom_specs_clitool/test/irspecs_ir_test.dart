@@ -168,7 +168,8 @@ void main() {
           expect(
             result.isValid,
             isTrue,
-            reason: '${document.fileName}: ${result.errors.join('\n')}',
+            reason:
+                '${irDocumentFileName(document.area)}: ${result.errors.join('\n')}',
           );
         }
       });
@@ -177,9 +178,11 @@ void main() {
         for (final document in documents) {
           final text = writeIrYaml(document);
           expect(
-            writeIrYaml(readIrYaml(text, source: document.fileName)),
+            writeIrYaml(
+              readIrYaml(text, source: irDocumentFileName(document.area)),
+            ),
             text,
-            reason: document.fileName,
+            reason: irDocumentFileName(document.area),
           );
         }
       });
@@ -187,7 +190,10 @@ void main() {
       test('the trio read back from the IR has every CsModel field', () {
         final back = csModelFromIr([
           for (final document in documents)
-            readIrYaml(writeIrYaml(document), source: document.fileName),
+            readIrYaml(
+              writeIrYaml(document),
+              source: irDocumentFileName(document.area),
+            ),
         ]);
         expect(_differences(trio.shared, back.shared, 'shared'), isEmpty);
         expect(_differences(trio.client, back.client, 'client'), isEmpty);
@@ -326,6 +332,9 @@ void main() {
         final out = Directory.systemTemp.createTempSync('irspecs_cli');
         addTearDown(() => out.deleteSync(recursive: true));
         File(p.join(out.path, 'CE-XX.ir.yaml')).writeAsStringSync('stale');
+        // An IR folder written before descriptive names: its CE-DB document
+        // is replaced by the new name.
+        File(p.join(out.path, 'CE-DB.ir.yaml')).writeAsStringSync('old name');
         final stdoutBuffer = StringBuffer();
         final code = await runIrspecs([
           'from-codespecs',
@@ -343,10 +352,30 @@ void main() {
         expect(code, 0);
         final names = out.listSync().map((e) => p.basename(e.path)).toList()
           ..sort();
-        expect(names, contains('CE-DB.ir.yaml'));
+        expect(names, contains('CE-DB_data_access.ir.yaml'));
+        expect(names, contains('CE-API_server_api.ir.yaml'));
         expect(names, contains('package.ir.yaml'));
+        expect(names, isNot(contains('CE-DB.ir.yaml')));
         expect(names, isNot(contains('CE-XX.ir.yaml')));
-        expect('$stdoutBuffer', contains('CE-XX.ir.yaml'));
+        expect(
+          '$stdoutBuffer',
+          contains('CE-XX.ir.yaml'),
+          reason: 'the stale file is reported',
+        );
+        expect(
+          '$stdoutBuffer',
+          contains('deleted (now CE-DB_data_access.ir.yaml)'),
+        );
+        expect(
+          names.where((n) => n.endsWith('.ir.yaml')),
+          everyElement(
+            anyOf(
+              'package.ir.yaml',
+              matches(RegExp(r'^CE-[A-Z]+_[a-z_]+\.ir\.yaml$')),
+            ),
+          ),
+          reason: 'every area document carries its canonical id',
+        );
 
         // A second run over the same trio changes nothing.
         final second = StringBuffer();
@@ -375,6 +404,74 @@ void main() {
       expect(await runIrspecs(['from-codespecs'], err: err), 2);
       expect('$err', contains('--shared'));
       expect(await runIrspecs([], err: StringBuffer()), 2);
+    });
+  });
+
+  group('IRS4: an IR file is read under its old and its new name', () {
+    late Directory dir;
+    late IrDocument document;
+    setUp(() {
+      dir = Directory.systemTemp.createTempSync('irspecs_names');
+      final trio = _readTrio(_trios['meridian_codespecs']!);
+      document = irFromCsModel(
+        shared: trio.shared,
+        client: trio.client,
+        server: trio.server,
+        areas: _areas(),
+      ).firstWhere((d) => d.area == 'CE-DB');
+    });
+    tearDown(() => dir.deleteSync(recursive: true));
+
+    test('the writer names a document after its area and canonical id', () {
+      expect(_areas().fileNameOf('CE-DB'), 'CE-DB_data_access.ir.yaml');
+      expect(_areas().fileNameOf('CE-API'), 'CE-API_server_api.ir.yaml');
+      expect(_areas().fileNameOf(kIrPackageArea), 'package.ir.yaml');
+      expect(irAreaOfFileName('CE-DB_data_access.ir.yaml'), 'CE-DB');
+      expect(irAreaOfFileName('CE-DB.ir.yaml'), 'CE-DB');
+      expect(irAreaOfFileName('CE-DB.yaml'), isNull);
+    });
+
+    for (final name in ['CE-DB.ir.yaml', 'CE-DB_data_access.ir.yaml']) {
+      test('$name reads', () {
+        File(p.join(dir.path, name)).writeAsStringSync(writeIrYaml(document));
+        expect(readIrFolder(dir.path).single.area, 'CE-DB');
+      });
+    }
+
+    test('both names side by side are refused, naming both', () {
+      for (final name in ['CE-DB.ir.yaml', 'CE-DB_data_access.ir.yaml']) {
+        File(p.join(dir.path, name)).writeAsStringSync(writeIrYaml(document));
+      }
+      expect(
+        () => readIrFolder(dir.path),
+        throwsA(
+          isA<IrSpecsException>().having(
+            (e) => '$e',
+            'message',
+            allOf(
+              contains('Two IR documents of area CE-DB'),
+              contains('CE-DB.ir.yaml'),
+              contains('CE-DB_data_access.ir.yaml'),
+            ),
+          ),
+        ),
+      );
+    });
+
+    test('a name that names another area is refused', () {
+      File(
+        p.join(dir.path, 'CE-API_server_api.ir.yaml'),
+      ).writeAsStringSync(writeIrYaml(document));
+      expect(
+        () => readIrFolder(dir.path),
+        throwsA(
+          isA<IrSpecsException>().having(
+            (e) => '$e',
+            'message',
+            contains('holds the CE-DB document, but its name names CE-API'),
+          ),
+        ),
+      );
     });
   });
 }

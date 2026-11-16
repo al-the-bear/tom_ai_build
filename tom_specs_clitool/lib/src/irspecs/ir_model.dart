@@ -30,9 +30,30 @@ const int kIrSpecsFormatVersion = 1;
 /// a project's barrel library, for one.
 const String kIrPackageArea = 'package';
 
-/// The file name of the IR document for [area]: `<CE-CODE>.ir.yaml`, or
-/// `package.ir.yaml`.
-String irDocumentFileName(String area) => '$area.ir.yaml';
+/// The file name of the IR document for [area]:
+/// `<CE-CODE>_<canonical id in snake case>.ir.yaml` (`CE-DB_data_access.ir.yaml`)
+/// given the area's [canonicalId] from the area catalogue, and
+/// `package.ir.yaml` for the [kIrPackageArea] document. Without a canonical id
+/// it is the name IR folders used before descriptive names,
+/// `<CE-CODE>.ir.yaml`, which `readIrFolder` still reads; writers take the
+/// canonical id from [IrAreaIndex.fileNameOf].
+String irDocumentFileName(String area, {String? canonicalId}) =>
+    area == kIrPackageArea
+    ? '$kIrPackageArea.ir.yaml'
+    : canonicalId == null
+    ? '$area.ir.yaml'
+    : '${area}_${snakeCase(canonicalId)}.ir.yaml';
+
+/// The area an IR file name names: the part before the first `_`, or before
+/// `.ir.yaml` when there is none (`CE-DB_data_access.ir.yaml` and
+/// `CE-DB.ir.yaml` both name `CE-DB`); `null` for a name that is no IR file.
+String? irAreaOfFileName(String fileName) {
+  const suffix = '.ir.yaml';
+  if (!fileName.endsWith(suffix)) return null;
+  final stem = fileName.substring(0, fileName.length - suffix.length);
+  final underscore = stem.indexOf('_');
+  return underscore < 0 ? stem : stem.substring(0, underscore);
+}
 
 /// One project of the trio, named in every document's header so a single
 /// document still says which package each locus is.
@@ -94,9 +115,6 @@ class IrDocument {
     required this.projects,
     required this.files,
   });
-
-  /// The file name this document is written to.
-  String get fileName => irDocumentFileName(area);
 }
 
 /// Raised when an IR document set cannot be turned back into a trio.
@@ -130,26 +148,41 @@ class IrAreaIndex {
   final Map<String, String> _byFolder;
   final Map<String, String> _byPart;
   final Map<String, String> _byMarker;
+  final Map<String, String> _canonical;
   final List<String> _order;
 
-  IrAreaIndex._(this._byFolder, this._byPart, this._byMarker, this._order);
+  IrAreaIndex._(
+    this._byFolder,
+    this._byPart,
+    this._byMarker,
+    this._canonical,
+    this._order,
+  );
 
   /// Builds the index from [catalog]'s areas.
   factory IrAreaIndex(CodeSpecsAreaCatalog catalog) {
     final byFolder = <String, String>{};
     final byPart = <String, String>{};
     final byMarker = <String, String>{};
+    final canonical = <String, String>{};
     final order = <String>[];
     for (final area in catalog.areas) {
       order.add(area.code);
+      canonical[area.code] = area.canonicalId;
       byFolder[snakeCase(area.canonicalId)] = area.code;
       byPart[area.part] = area.code;
       for (final annotation in area.annotations) {
         byMarker.putIfAbsent(annotation, () => area.code);
       }
     }
-    return IrAreaIndex._(byFolder, byPart, byMarker, order);
+    return IrAreaIndex._(byFolder, byPart, byMarker, canonical, order);
   }
+
+  /// The file name the IR document of [area] is written to:
+  /// `<CE-CODE>_<canonical id in snake case>.ir.yaml`, `package.ir.yaml` for
+  /// the package document ([irDocumentFileName]).
+  String fileNameOf(String area) =>
+      irDocumentFileName(area, canonicalId: _canonical[area]);
 
   /// The area codes in catalogue order — the order documents are written in.
   List<String> get areaOrder => List.unmodifiable(_order);
@@ -237,7 +270,7 @@ csModelFromIr(List<IrDocument> documents) {
     for (final project in document.projects) {
       if (names[project.locus] != project.packageName) {
         throw IrSpecsException(
-          '${document.fileName} names ${project.locus.label} package '
+          'The ${document.area} document names ${project.locus.label} package '
           '"${project.packageName}", another document "${names[project.locus]}"',
         );
       }

@@ -76,7 +76,7 @@ Variant A — a sufficient specification
      KEAGN       generation     UUID
 
    What the agent wrote from it is IR, not Dart — one document per
-   area (irspecs_ir.md), codespec/irspecs/CE-DB.ir.yaml, opening:
+   area (irspecs_ir.md), codespec/irspecs/CE-DB_data_access.ir.yaml, opening:
 
      format: "irspecs-ir"
      formatVersion: 1
