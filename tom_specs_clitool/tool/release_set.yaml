@@ -111,7 +111,12 @@ unpublished_drift:
     the next clitool release.
   tom_core_codespecs: >-
     irfmt2 (2026-11-16): irspecs_ir.md §8 states that the dart-tom mapper needs
-    no Dart SDK; ships with the next release.
+    no Dart SDK; irout1 (2026-11-16): irspecs_ir.md and codespecs_mapping.md
+    state the IR as Phase 4's product and dart-tom as its default mapping;
+    ships with the next release.
+  tom_specs_model: >-
+    irout1 (2026-11-16): doc/index.md's irspecs_ir.md row states the IR as
+    Phase 4's product (documentation only); ships with the next release.
 
 # Where each member was actually published from, when that is not the commit
 # that set its version. A change that lands after the bump and before the
