@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- `irspecs map --mapper dart-tom` formats in-process with `dart_style`, linked
+  in and pinned to the SDK formatter's version (3.1.13), so a compiled
+  `irspecs` maps to Dart with no Dart SDK; the `TOM_DART` / `PATH` lookup is
+  gone. `test/dart_style_pin_test.dart` holds the pin to the SDK's
+  `dart format --version`.
+
 ## 0.17.0
 
 - IR Specs server mappers (Go, Java + Spring Boot, C# + ASP.NET Core,

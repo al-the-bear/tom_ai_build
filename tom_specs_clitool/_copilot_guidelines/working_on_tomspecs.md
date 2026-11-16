@@ -61,3 +61,16 @@ clitool, engine, reviewer, CodeSpecs packages), `tom_forge` (the editor) and
 up-to-date" while you hold unpushed commits usually means a concurrent session
 pushed on top of them: confirm with `git branch -r --contains <sha>` before
 pushing again.
+
+## The dart_style pin moves with the SDK
+
+The dart-tom mapper formats with `dart_style`, linked into the package so a
+compiled `irspecs` needs no Dart SDK. It is pinned in `pubspec.yaml` to exactly
+the version of the SDK's own formatter (`dart format --version`), and
+`kDartStyleVersion` in `lib/src/irspecs/mappers/dart_tom/dart_tom_mapper.dart`
+names the same version. After an SDK upgrade `test/dart_style_pin_test.dart`
+fails with the version to move to: change both, run `dart pub get`, and run the
+dart-tom round trip (`test/irspecs_dart_tom_test.dart`) and the phase4 sample's
+`tool/validate.sh`. The formatting gate (`bin/check_format.dart`) and the
+spec-ops registry generator keep running the installed `dart format`: they
+format the repository's own files, where the developer's SDK is the reference.

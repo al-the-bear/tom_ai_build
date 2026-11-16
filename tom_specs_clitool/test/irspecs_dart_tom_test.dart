@@ -9,7 +9,9 @@ library;
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as p;
+import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show CodeSpecsAreaCatalog;
@@ -210,91 +212,73 @@ void main() {
     });
   });
 
-  group('IRDT3: the formatter is the SDK\'s, found from a compiled binary', () {
+  group('IRDT4: the formatter runs in-process (dart_style, no SDK)', () {
     late Directory dir;
-    late String dart;
-    setUp(() {
-      dir = Directory.systemTemp.createTempSync('irspecs_dart_lookup');
-      final name = Platform.isWindows ? 'dart.exe' : 'dart';
-      dart = p.join(dir.path, 'sdk', 'bin', name);
-      File(dart)
-        ..parent.createSync(recursive: true)
-        ..writeAsStringSync('');
-    });
+    setUp(() => dir = Directory.systemTemp.createTempSync('irspecs_dart_fmt'));
     tearDown(() => dir.deleteSync(recursive: true));
 
-    final separator = Platform.isWindows ? ';' : ':';
-    final irspecs = p.join('/opt', 'ext', 'bin', 'irspecs');
-
-    test('on the Dart VM, the VM itself', () {
-      final vm = p.join(
-        '/sdk',
-        'bin',
-        Platform.isWindows ? 'dart.exe' : 'dart',
-      );
-      expect(
-        resolveDartExecutable(resolvedExecutable: vm, environment: const {}),
-        vm,
-      );
-    });
-
-    test('in a compiled binary: TOM_DART (the executable or the SDK folder), '
-        'else PATH', () {
-      expect(
-        resolveDartExecutable(
-          resolvedExecutable: irspecs,
-          environment: {'TOM_DART': dart},
-        ),
-        dart,
-      );
-      expect(
-        resolveDartExecutable(
-          resolvedExecutable: irspecs,
-          environment: {'TOM_DART': p.join(dir.path, 'sdk')},
-        ),
-        dart,
-      );
-      expect(
-        resolveDartExecutable(
-          resolvedExecutable: irspecs,
-          environment: {
-            'PATH': ['/nowhere', p.dirname(dart)].join(separator),
-          },
-        ),
-        dart,
-      );
-    });
-
-    test('no SDK: refused, the files written unformatted, TOM_DART and PATH '
-        'named', () async {
-      Object? error;
-      try {
-        await formatDartFiles(
-          ['a.dart', 'b.dart'],
-          resolvedExecutable: irspecs,
-          environment: const {'PATH': '/nowhere'},
+    test(
+      'formats a file in place, and leaves a formatted one as it is',
+      () async {
+        final messy = File(p.join(dir.path, 'a.dart'))
+          ..writeAsStringSync('class   A{int x=1;  void f( ){ }}\n');
+        const tidy = 'class B {}\n';
+        final clean = File(p.join(dir.path, 'b.dart'))..writeAsStringSync(tidy);
+        final before = clean.lastModifiedSync();
+        await formatDartFiles([messy.path, clean.path]);
+        expect(
+          messy.readAsStringSync(),
+          'class A {\n  int x = 1;\n  void f() {}\n}\n',
         );
-      } on IrMapException catch (e) {
-        error = e;
-      }
-      expect('$error', contains('2 Dart file(s) were written unformatted'));
-      expect('$error', contains('Set TOM_DART'));
-      expect('$error', contains('put `dart` on PATH'));
+        expect(clean.readAsStringSync(), tidy);
+        expect(clean.lastModifiedSync(), before, reason: 'not rewritten');
+      },
+    );
+
+    test('a file that does not parse is refused, naming it', () async {
+      final bad = File(p.join(dir.path, 'bad.dart'))
+        ..writeAsStringSync('class {');
+      await expectLater(
+        formatDartFiles([bad.path]),
+        throwsA(
+          isA<IrMapException>().having(
+            (e) => e.message,
+            'message',
+            allOf(contains('dart format failed'), contains('bad.dart')),
+          ),
+        ),
+      );
     });
 
-    test('a TOM_DART that is no SDK is named as such', () async {
-      final wrong = p.join(dir.path, 'nothing-here');
-      Object? error;
-      try {
-        await formatDartFiles(
-          ['a.dart'],
-          resolvedExecutable: irspecs,
-          environment: {'TOM_DART': wrong, 'PATH': p.dirname(dart)},
-        );
-      } on IrMapException catch (e) {
-        error = e;
-      }
-      expect('$error', contains('TOM_DART is `$wrong`'));
+    test('the language version is the package pubspec\'s SDK lower bound, '
+        'else the latest', () {
+      final pkg = Directory(p.join(dir.path, 'pkg'))..createSync();
+      expect(
+        dartLanguageVersionOf(pkg.path),
+        DartFormatter.latestLanguageVersion,
+      );
+      File(
+        p.join(pkg.path, 'pubspec.yaml'),
+      ).writeAsStringSync('name: pkg\nenvironment:\n  sdk: ^3.11.4\n');
+      expect(dartLanguageVersionOf(pkg.path), Version(3, 11, 0));
+      File(
+        p.join(pkg.path, 'pubspec.yaml'),
+      ).writeAsStringSync('name: pkg\nenvironment:\n  sdk: any\n');
+      expect(
+        dartLanguageVersionOf(pkg.path),
+        DartFormatter.latestLanguageVersion,
+      );
+    });
+
+    test('a pubspec above the package root is not read', () {
+      File(
+        p.join(dir.path, 'pubspec.yaml'),
+      ).writeAsStringSync('name: outer\nenvironment:\n  sdk: ^3.0.0\n');
+      final pkg = Directory(p.join(dir.path, 'pkg'))..createSync();
+      expect(
+        dartLanguageVersionOf(pkg.path),
+        DartFormatter.latestLanguageVersion,
+      );
     });
   });
 }

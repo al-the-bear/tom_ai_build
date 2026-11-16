@@ -26,7 +26,10 @@ library;
 
 import 'dart:io';
 
+import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as p;
+import 'package:pub_semver/pub_semver.dart';
+import 'package:yaml/yaml.dart';
 
 import '../../../codespecs/cs_model.dart';
 import '../../ir_model.dart';
@@ -64,77 +67,66 @@ Map<String, String> mapDartTom(List<IrDocument> documents) {
   return out;
 }
 
-/// The `dart` executable [formatDartFiles] runs, or `null` when there is none.
-///
-/// On the Dart VM (`dart run`, `dart test`) it is the running VM itself,
-/// [resolvedExecutable]. A compiled binary (`dart compile exe`, as the VS Code
-/// extension bundles `irspecs`) is not `dart`, so the SDK is looked up: the
-/// `TOM_DART` environment variable, naming the `dart` executable (or an SDK
-/// folder holding `bin/dart`), else the first `dart` on `PATH`. A Dart SDK is a
-/// prerequisite of the dart-tom mapper: the formatter is the SDK's own.
-String? resolveDartExecutable({
-  String? resolvedExecutable,
-  Map<String, String>? environment,
-}) {
-  final self = resolvedExecutable ?? Platform.resolvedExecutable;
-  final env = environment ?? Platform.environment;
-  final names = Platform.isWindows
-      ? const ['dart.exe', 'dart.bat']
-      : const ['dart'];
-  if (names.contains(p.basename(self).toLowerCase())) return self;
-  final fromEnv = env['TOM_DART'];
-  if (fromEnv != null && fromEnv.trim().isNotEmpty) {
-    final path = fromEnv.trim();
-    if (File(path).existsSync()) return path;
-    for (final name in names) {
-      final inSdk = p.join(path, 'bin', name);
-      if (File(inSdk).existsSync()) return inSdk;
+/// The `dart_style` version linked into this package: the formatter the
+/// dart-tom mapper writes with. It is pinned in `pubspec.yaml` to the formatter
+/// of the workspace SDK (`dart format --version`), and
+/// `test/dart_style_pin_test.dart` holds this constant, the pin, the lock and
+/// the SDK to one version.
+const String kDartStyleVersion = '3.1.13';
+
+/// The language version the formatter writes a package in: the lower bound of
+/// the SDK constraint in `<packageDir>/pubspec.yaml`, as `dart format` takes it
+/// from the package's configuration; [DartFormatter.latestLanguageVersion] when
+/// the package has no pubspec (the mapper writes `lib/` files only) or states
+/// no lower bound. Only the package's own root is read, never a folder above
+/// it, so where the output folder lies cannot change the layout.
+Version dartLanguageVersionOf(String packageDir) {
+  final pubspec = File(p.join(packageDir, 'pubspec.yaml'));
+  if (!pubspec.existsSync()) return DartFormatter.latestLanguageVersion;
+  try {
+    final doc = loadYaml(pubspec.readAsStringSync());
+    final sdk = doc is YamlMap && doc['environment'] is YamlMap
+        ? (doc['environment'] as YamlMap)['sdk']
+        : null;
+    if (sdk is! String) return DartFormatter.latestLanguageVersion;
+    final constraint = VersionConstraint.parse(sdk);
+    if (constraint is VersionRange && constraint.min != null) {
+      final min = constraint.min!;
+      return Version(min.major, min.minor, 0);
     }
-    return null;
+  } on FormatException {
+    // An unreadable pubspec (YAML or the constraint) is no reason to refuse
+    // formatting: `dart format` falls back to the latest version too.
   }
-  final separator = Platform.isWindows ? ';' : ':';
-  for (final dir in (env['PATH'] ?? '').split(separator)) {
-    if (dir.isEmpty) continue;
-    for (final name in names) {
-      final candidate = p.join(dir, name);
-      if (File(candidate).existsSync()) return candidate;
-    }
-  }
-  return null;
+  return DartFormatter.latestLanguageVersion;
 }
 
-/// Runs `dart format` over [paths]; throws [IrMapException] when it fails or
-/// when no Dart SDK is found ([resolveDartExecutable]).
+/// Formats [paths] in place with the linked `dart_style`
+/// ([kDartStyleVersion]), in [languageVersion] (default
+/// [DartFormatter.latestLanguageVersion]); throws [IrMapException] naming the
+/// file when one does not parse.
 ///
-/// The formatter is the SDK's own binary — the one the trio is held to — so
-/// the mapper and a developer formatting by hand agree by construction.
-/// [resolvedExecutable] and [environment] stand in for the process's own in a
-/// test.
+/// The formatter runs in-process, the same on the Dart VM and in a compiled
+/// `irspecs`, so mapping to dart-tom needs no Dart SDK. Its version is the
+/// SDK's own (the pin), so the mapper and a developer formatting by hand agree.
 Future<void> formatDartFiles(
   List<String> paths, {
-  String? resolvedExecutable,
-  Map<String, String>? environment,
+  Version? languageVersion,
 }) async {
   if (paths.isEmpty) return;
-  final dart = resolveDartExecutable(
-    resolvedExecutable: resolvedExecutable,
-    environment: environment,
+  final formatter = DartFormatter(
+    languageVersion: languageVersion ?? DartFormatter.latestLanguageVersion,
   );
-  if (dart == null) {
-    final tomDart = (environment ?? Platform.environment)['TOM_DART'];
-    throw IrMapException(
-      'the ${paths.length} Dart file(s) were written unformatted: no Dart SDK '
-      'to run `dart format` with. '
-      '${tomDart == null || tomDart.trim().isEmpty ? 'Set TOM_DART to the `dart` executable (or the SDK folder), or put `dart` on PATH.' : 'TOM_DART is `$tomDart`, which is neither a `dart` executable nor an SDK folder holding bin/dart.'}',
-    );
-  }
-  final result = await Process.run(dart, [
-    'format',
-    '--output=write',
-    ...paths,
-  ], runInShell: dart.toLowerCase().endsWith('.bat'));
-  if (result.exitCode != 0) {
-    throw IrMapException('dart format failed: ${result.stderr}');
+  for (final path in paths) {
+    final file = File(path);
+    final source = file.readAsStringSync();
+    final String formatted;
+    try {
+      formatted = formatter.format(source, uri: path);
+    } on FormatterException catch (e) {
+      throw IrMapException('dart format failed: $path: ${e.message()}');
+    }
+    if (formatted != source) file.writeAsStringSync(formatted);
   }
 }
 
@@ -155,15 +147,23 @@ Future<List<String>> writeDartTom(
     }
   }
   final written = <String>[];
+  final byPackage = <String, List<String>>{};
   for (final MapEntry(key: key, value: source) in mapDartTom(
     documents,
   ).entries) {
-    final file = File(p.joinAll([outDir, ...key.split('/')]))
+    final segments = key.split('/');
+    final file = File(p.joinAll([outDir, ...segments]))
       ..parent.createSync(recursive: true)
       ..writeAsStringSync(source);
     written.add(file.path);
+    byPackage.putIfAbsent(segments.first, () => []).add(file.path);
   }
-  await formatDartFiles(written);
+  for (final MapEntry(key: package, value: paths) in byPackage.entries) {
+    await formatDartFiles(
+      paths,
+      languageVersion: dartLanguageVersionOf(p.join(outDir, package)),
+    );
+  }
   return written;
 }
 

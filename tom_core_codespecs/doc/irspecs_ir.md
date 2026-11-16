@@ -333,13 +333,16 @@ irspecs map --mapper dart-tom --ir <spec-root>/irspecs --out <dir>
 ```
 
 It writes one folder per package under `--out` (`<dir>/<package>/lib/…`), every
-package's folder whether or not it holds a file, and runs `dart format` over
-what it wrote. **A Dart SDK is a prerequisite**: the formatter is the SDK's
-own. Run on the Dart VM, the mapper uses that VM; compiled
-(`dart compile exe bin/irspecs.dart`, as the VS Code extension bundles it), it
-takes `dart` from `TOM_DART` (the executable, or an SDK folder holding
-`bin/dart`), else from `PATH`. Without either it exits `1` naming both, the
-files written but unformatted. Its output is defined by two promises:
+package's folder whether or not it holds a file, and formats what it wrote.
+**No Dart SDK is needed**: the formatter is `dart_style`, linked into
+`irspecs`, so a compiled `irspecs` (`dart compile exe bin/irspecs.dart`, as the
+VS Code extension bundles it) formats as the Dart VM does. It is pinned to the
+version of the SDK's own formatter (`dart format --version`), so the mapper and
+`dart format` write the same layout; `tom_specs_clitool`'s
+`test/dart_style_pin_test.dart` fails when the SDK moves past the pin. The
+language version is the lower bound of the SDK constraint in the package's own
+`pubspec.yaml` under `--out`, else the formatter's latest, as for `dart format`
+without a package configuration. Its output is defined by two promises:
 
 1. **Byte-equal.** For a trio in the form the derivation contract requires,
    `irspecs from-codespecs` followed by `irspecs map` reproduces every

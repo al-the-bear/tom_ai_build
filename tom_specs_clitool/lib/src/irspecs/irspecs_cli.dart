@@ -11,7 +11,8 @@
 ///   trio.
 /// * `irspecs map --mapper dart-tom --ir <dir> --out <dir>` writes the trio
 ///   an IR folder describes, one folder per package under `--out`, through
-///   the Dart + Tom mapper, formatted with `dart format`. With
+///   the Dart + Tom mapper, formatted with the linked `dart_style` (pinned to
+///   the SDK's formatter, so no Dart SDK is needed). With
 ///   `--spec <document> --unit <unit id>` it writes one generation unit
 ///   instead: the specification's register names the unit's kind and, per
 ///   area, its mapper, and only the areas `--mapper` holds for the unit are
