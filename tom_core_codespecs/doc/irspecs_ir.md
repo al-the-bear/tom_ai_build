@@ -4,33 +4,47 @@
 formatVersion 1; implemented by `tom_specs_clitool` (`lib/src/irspecs/`,
 `bin/irspecs.dart`)
 
-**Authority for: what the IR holds and how it is written.** The IR is a
-CodeSpecs trio as language-neutral data: everything the trio expresses —
-declarations, `Cs*` markers and their argument values, back-links, doc
-comments, members, method bodies and their statements — in one YAML document
-per area. A mapper per language and framework writes code from it; the Dart +
-Tom mapper's output is today's trio, byte for byte; the TypeScript mappers
+**Authority for: what the IR holds and how it is written.** The IR is the
+CodeSpecs of a specification as language-neutral data, and Phase 4's product:
+the authoring agent writes it, one YAML document per area
+([`codespecs_derivation_contract.md`](codespecs_derivation_contract.md) §2.9)
+— declarations, `Cs*` markers and their argument values, back-links, doc
+comments, members, method bodies and their statements. A mapper per language
+and framework writes code from it; the Dart + Tom mapper (`dart-tom`, the
+default) writes the CodeSpecs trio the derivation contract describes; the TypeScript mappers
 write the same skeleton as an npm workspace, with a web and a mobile client
 (§11), the Go server mapper the
 server as a Go module (§12), the Java + Spring Boot mapper as a Gradle project
 (§13), the C# + ASP.NET Core mapper as a .NET solution (§14). This document says what is
 in a document, how it is written and what is deliberately left out, and what
 each standard emitter writes from it (§10). Which code
-a mapper writes from it is each mapper's own document, and what the trio
-itself must contain stays with
+a mapper writes from it is each mapper's own document, and what the CodeSpecs
+must contain stays with
 [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md).
 
-## 1. What the IR is read from
+## 1. Where the IR comes from
 
-Format version 1 is read from a generated trio: the three packages
-`<app>_codespec_shared`, `_client` and `_server`
-([`codespecs_mapping.md`](codespecs_mapping.md) §4.2). Every `.dart` file under
-each package's `lib/` is parsed as source text — no resolution, no SDK — by the
-same reader `validate_codespecs` uses, and its reading is the IR's content.
-Nothing a CodeSpecs trio expresses may get lost on the way; the field table in
-§5 is the proof obligation, and a test holds it.
+**The IR is authored.** In Phase 4 each authoring step writes the IR documents
+of its areas from the areas' extracts
+([`codespecs_derivation_contract.md`](codespecs_derivation_contract.md) §2.9,
+[`codespecs_mapping.md`](codespecs_mapping.md) §1.1.2 stage 3), and
+`validate_codespecs --ir` checks them before any code exists (§7). Code is
+mapped from the IR afterwards (§8, §11–§14); the trio of
+[`codespecs_mapping.md`](codespecs_mapping.md) §4.2 —
+`<app>_codespec_shared`, `_client` and `_server` — is the `dart-tom` mapping of
+it.
 
-The command:
+**Its model is the CsModel**, the reading `validate_codespecs` takes of a Dart
+trio: an IR document records that reading as data, so the same checks run on
+the IR and on a trio unchanged. Nothing a CodeSpecs trio can express may be
+missing from the IR; the field table in §5 is the proof obligation, and a test
+holds it.
+
+**A trio written before the IR** (or by hand) is brought over with
+`irspecs from-codespecs`: every `.dart` file under each package's `lib/` is
+parsed as source text — no resolution, no SDK — by that same reader, and its
+reading becomes the IR. The same command, followed by `irspecs map`, is the
+byte-equal test that holds `dart-tom` (§8). The command:
 
 ```text
 irspecs from-codespecs --shared <dir> --client <dir> --server <dir>
@@ -287,9 +301,9 @@ reader, and so to CsModel and to the IR:
 Member order and comments needed nothing new: the reading keeps declarations
 and comments in source order, and the IR writes them in that order.
 
-All of them were found the way §8 says every such fact is found: by writing
-the trio again from the IR and comparing it, byte for byte, with the trio it
-was read from. A fact a future trio needs and this table lacks is added the
+All of them were found the way §8 says every such fact is found: by reading a
+trio into the IR (`irspecs from-codespecs`), writing it again with `dart-tom`
+and comparing the two, byte for byte. A fact a future trio needs and this table lacks is added the
 same way — into the reader, into CsModel, into this table — never as a special
 case in a mapper.
 
@@ -325,8 +339,11 @@ names the three packages when no other document does.
 
 ## 8. The Dart + Tom mapper
 
-The first mapper writes the trio CodeSpecs writes today: Dart on the `tom_core`
-family, following [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md).
+`dart-tom` writes the CodeSpecs trio: Dart on the `tom_core` family, following
+[`codespecs_derivation_contract.md`](codespecs_derivation_contract.md). It is
+the **default mapping**: a specification that declares no generation units is
+mapped by it, as the three packages of
+[`codespecs_mapping.md`](codespecs_mapping.md) §4.2 (§8.1).
 
 ```text
 irspecs map --mapper dart-tom --ir <spec-root>/irspecs --out <dir>
@@ -393,6 +410,15 @@ tenantField:)`) also carries `@TomTenantTable(field:)`, printed as written; the
 other mappers scope it to its tenant with their own frameworks' means (§11–§14).
 
 ### 8.1 Units
+
+**The default and the choice.** A specification without generation units is
+mapped by `dart-tom`, as the trio of
+[`codespecs_mapping.md`](codespecs_mapping.md) §4.2. Every other target —
+another language or framework, a second client, a server of its own — is
+chosen through units: the tom_specs process asks for them and confirms them
+in Phase 4's `units` step, before the authoring steps, and the register names
+per unit and area the mapper that writes it. A specification may also name
+`dart-tom` in its units, for some areas or all.
 
 A specification that declares generation units (SOM §11.2, the register
 `GENUN-UNIT-LST`; `codespecs_mapping.md` §1.1.1 item 4) has its code written
