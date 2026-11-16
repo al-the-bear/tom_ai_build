@@ -17,7 +17,7 @@ write the same skeleton as an npm workspace, with a web and a mobile client
 server as a Go module (§12), the Java + Spring Boot mapper as a Gradle project
 (§13), the C# + ASP.NET Core mapper as a .NET solution (§14). This document says what is
 in a document, how it is written and what is deliberately left out, and what
-each standard emitter writes from it (§10). Which code
+each standard emitter writes from it (§10), and its JSON export (§15). Which code
 a mapper writes from it is each mapper's own document, and what the CodeSpecs
 must contain stays with
 [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md).
@@ -1145,3 +1145,29 @@ the mapper naming the file.
 `global.json`), EF Core 8.0.34 with Npgsql's provider 8.0.11, FluentValidation
 12.2.0. ASP.NET Core minimal APIs with EF Core are the first choice for C#;
 other frameworks are separate mappers to come.
+
+## 15. The JSON export
+
+The IR's committed form is YAML (§3). A tool that reads JSON rather than YAML
+gets it on demand:
+
+```text
+irspecs export --format json --ir <irspecs folder> --out <folder>
+```
+
+writes each document of the folder as `<name>.ir.json` beside its
+`<name>.ir.yaml` name (`CE-DB_data_access.ir.json`; an older
+`<CE-CODE>.ir.yaml` gives `<CE-CODE>.ir.json`). Each JSON file holds the same
+data the YAML writer prints, in the same key order, indented by two spaces:
+the export is lossless. Every file validates against
+`tom_specs_clitool/tool/irspecs_ir.schema.json`, as the YAML does. The folder
+is read and checked as every subcommand reads it (one document per area, its
+name naming its area). An `*.ir.json` in `--out` that the folder no longer
+produces is deleted, so `--out` always holds the export of exactly that IR.
+The export is generated output: it is not committed beside the IR and is
+never edited. JSON is the only export format; no other JSON or YAML output of
+the IR is planned.
+
+`tom_specs_clitool/test/irspecs_export_test.dart` exports the Meridian IR,
+validates every file against the schema, and reads each one back to the
+records of its YAML document.

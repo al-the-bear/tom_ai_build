@@ -110,15 +110,17 @@ unpublished_drift:
     no Dart SDK; test/dart_style_pin_test.dart holds the pin; irout2
     (2026-11-16): IR files are named <CE-CODE>_<canonical id>.ir.yaml, read
     under both names; irout3 (2026-11-16): irspecs emit --standard markdown
-    (the IR's Markdown rendering, schema irspecs-md/1.0); published with the
-    next clitool release.
+    (the IR's Markdown rendering, schema irspecs-md/1.0); irout4 (2026-11-17):
+    irspecs export --format json (the IR as JSON against its schema);
+    published with the next clitool release.
   tom_core_codespecs: >-
     irfmt2 (2026-11-16): irspecs_ir.md §8 states that the dart-tom mapper needs
     no Dart SDK; irout1 (2026-11-16): irspecs_ir.md and codespecs_mapping.md
     state the IR as Phase 4's product and dart-tom as its default mapping;
     irout2 (2026-11-16): the IR file-name pattern in irspecs_ir.md,
     codespecs_mapping.md and the derivation contract; irout3 (2026-11-16):
-    irspecs_ir.md §10.3, the Markdown rendering; ships with the next release.
+    irspecs_ir.md §10.3, the Markdown rendering; irout4 (2026-11-17):
+    irspecs_ir.md §15, the JSON export; ships with the next release.
   tom_specs_model: >-
     irout1 (2026-11-16): doc/index.md's irspecs_ir.md row states the IR as
     Phase 4's product; irout2 (2026-11-16): the IR file-name pattern in

@@ -114,7 +114,13 @@ String _scalar(Object? value) => switch (value) {
 /// holds one that does not read, holds a file whose name names another area
 /// than the document's own, or holds two documents of one area (an old and a
 /// new name side by side), naming both.
-List<IrDocument> readIrFolder(String dir) {
+List<IrDocument> readIrFolder(String dir) => [
+  for (final f in readIrFolderFiles(dir)) f.document,
+];
+
+/// The IR documents of [dir] with the file name each was read from, sorted
+/// by area; checked as [readIrFolder] checks them.
+List<({String name, IrDocument document})> readIrFolderFiles(String dir) {
   final folder = Directory(dir);
   if (!folder.existsSync()) {
     throw IrSpecsException('IR folder not found: $dir');
@@ -127,7 +133,7 @@ List<IrDocument> readIrFolder(String dir) {
           .toList()
         ..sort((a, b) => a.path.compareTo(b.path));
   if (files.isEmpty) throw IrSpecsException('No *.ir.yaml in $dir.');
-  final documents = <IrDocument>[];
+  final documents = <({String name, IrDocument document})>[];
   final byArea = <String, String>{};
   for (final f in files) {
     final document = readIrYaml(f.readAsStringSync(), source: f.path);
@@ -149,7 +155,31 @@ List<IrDocument> readIrFolder(String dir) {
       );
     }
     byArea[document.area] = f.path;
-    documents.add(document);
+    documents.add((name: name, document: document));
   }
-  return documents..sort((a, b) => a.area.compareTo(b.area));
+  return documents..sort((a, b) => a.document.area.compareTo(b.document.area));
 }
+
+/// [document] as JSON text (`irspecs export --format json`), two-space
+/// indented and ending in one newline: the same data [writeIrYaml] prints, in
+/// the same key order, valid against `tool/irspecs_ir.schema.json`.
+String writeIrJson(IrDocument document) =>
+    '${const JsonEncoder.withIndent('  ').convert(irDocumentToData(document))}\n';
+
+/// The document the JSON [text] holds. [source] names it in errors.
+///
+/// Throws [IrSpecsException] when [text] is not JSON or not an IR document.
+IrDocument readIrJson(String text, {String source = 'IR document'}) {
+  final Object? data;
+  try {
+    data = jsonDecode(text);
+  } on FormatException catch (e) {
+    throw IrSpecsException('$source: not JSON (${e.message})');
+  }
+  return irDocumentFromData(data, source: source);
+}
+
+/// The name of the JSON export of the IR file [yamlName]:
+/// `CE-DB_data_access.ir.yaml` becomes `CE-DB_data_access.ir.json`.
+String irJsonFileName(String yamlName) =>
+    '${yamlName.substring(0, yamlName.length - '.ir.yaml'.length)}.ir.json';

@@ -1,7 +1,7 @@
 /// The `irspecs` command, as a function the entry point and the tests both
 /// call.
 ///
-/// Two subcommands:
+/// Four subcommands:
 ///
 /// * `irspecs from-codespecs` reads a CodeSpecs trio and writes its IR
 ///   (`irspecs_ir.md`): one `<CE-CODE>_<canonical id>.ir.yaml` per area
@@ -35,6 +35,13 @@
 ///   `--spec <document>` the index lists the generation units, back-links
 ///   link into the document's Markdown rendition, and `--out` defaults to
 ///   `<spec-root>/generated-doc/irspecs_md/`.
+///
+/// * `irspecs export --format json --ir <dir> --out <dir>` writes every IR
+///   document of the folder as JSON, `<name>.ir.json` beside its
+///   `<name>.ir.yaml` name (`CE-DB_data_access.ir.json`): the same records,
+///   valid against `tool/irspecs_ir.schema.json` (`irspecs_ir.md` §15). The
+///   YAML stays the IR's committed form; an `*.ir.json` in `--out` the
+///   folder no longer produces is deleted.
 ///
 /// Exit codes: `0` written, `1` the mapper refused the IR, `2` bad usage.
 library;
@@ -90,11 +97,12 @@ ArgParser irspecsParser() => ArgParser()
     'out',
     help:
         "from-codespecs: the folder to write the IR to, a spec root's "
-        'irspecs/ folder. map: the folder to write the packages into.',
+        'irspecs/ folder. map: the folder to write the packages into. '
+        'emit, export: the folder to write the output into.',
   )
   ..addOption(
     'ir',
-    help: 'map: the folder of *.ir.yaml documents to write code from.',
+    help: 'map, emit, export: the folder of *.ir.yaml documents to read.',
   )
   ..addOption(
     'mapper',
@@ -130,6 +138,11 @@ ArgParser irspecsParser() => ArgParser()
     allowed: kIrEmitStandards,
   )
   ..addOption(
+    'format',
+    help: 'export: the format to write the IR in.',
+    allowed: kIrExportFormats,
+  )
+  ..addOption(
     'areas',
     help:
         'The CodeSpecs area catalogue (codespecs_areas.json, '
@@ -161,7 +174,9 @@ Future<int> runIrspecs(
     '--ir <dir> --out <dir> [--spec <document> --unit <unit id>]\n'
     '       dart run tom_specs_clitool:irspecs emit --standard '
     '<${kIrEmitStandards.join('|')}> --ir <dir> --out <dir> '
-    '[--areas <json>] [--spec <document>]\n\n'
+    '[--areas <json>] [--spec <document>]\n'
+    '       dart run tom_specs_clitool:irspecs export --format '
+    '<${kIrExportFormats.join('|')}> --ir <dir> --out <dir>\n\n'
     '${parser.usage}',
   );
 
@@ -181,10 +196,13 @@ Future<int> runIrspecs(
   if (subcommand == 'emit') {
     return _emit(results, stdoutSink, stderrSink, usage);
   }
+  if (subcommand == 'export') {
+    return _export(results, stdoutSink, stderrSink, usage);
+  }
   if (subcommand != 'from-codespecs' && subcommand != 'map') {
     stderrSink.writeln(
       results.rest.isEmpty
-          ? 'Name the subcommand: from-codespecs, map or emit.'
+          ? 'Name the subcommand: from-codespecs, map, emit or export.'
           : 'Unknown subcommand: ${results.rest.join(' ')}.',
     );
     usage();
@@ -261,6 +279,76 @@ Future<int> runIrspecs(
             ? '${name.padRight(34)} deleted (now ${index.fileNameOf(area)})'
             : '${name.padRight(34)} deleted (no file in the trio)',
       );
+    }
+  }
+  return 0;
+}
+
+/// The formats `irspecs export --format` writes.
+const List<String> kIrExportFormats = ['json'];
+
+Future<int> _export(
+  ArgResults results,
+  StringSink stdoutSink,
+  StringSink stderrSink,
+  void Function() usage,
+) async {
+  final missing = [
+    for (final option in ['format', 'ir', 'out'])
+      if (results.option(option) == null) '--$option',
+  ];
+  if (missing.isNotEmpty) {
+    stderrSink.writeln('Missing ${missing.join(', ')}.');
+    usage();
+    return 2;
+  }
+  final ignored = [
+    for (final option in [
+      'shared',
+      'client',
+      'server',
+      'mapper',
+      'spec',
+      'unit',
+      'standard',
+      'areas',
+    ])
+      if (results.option(option) != null) '--$option',
+  ];
+  if (ignored.isNotEmpty) {
+    stderrSink.writeln('export takes no ${ignored.join(', ')}.');
+    usage();
+    return 2;
+  }
+  final List<({String name, IrDocument document})> files;
+  try {
+    files = readIrFolderFiles(results.option('ir')!);
+  } on IrSpecsException catch (e) {
+    stderrSink.writeln(e.message);
+    return 2;
+  }
+  final outDir = Directory(results.option('out')!)..createSync(recursive: true);
+  final written = <String>{};
+  for (final f in files) {
+    final name = irJsonFileName(f.name);
+    written.add(name);
+    final file = File(p.join(outDir.path, name));
+    final text = writeIrJson(f.document);
+    final state = !file.existsSync()
+        ? 'new'
+        : file.readAsStringSync() == text
+        ? 'unchanged'
+        : 'changed';
+    if (state != 'unchanged') file.writeAsStringSync(text);
+    stdoutSink.writeln(
+      '${name.padRight(34)} $state, ${f.document.files.length} file(s)',
+    );
+  }
+  for (final stale in outDir.listSync().whereType<File>()) {
+    final name = p.basename(stale.path);
+    if (name.endsWith('.ir.json') && !written.contains(name)) {
+      stale.deleteSync();
+      stdoutSink.writeln('${name.padRight(34)} deleted (not in the IR)');
     }
   }
   return 0;
