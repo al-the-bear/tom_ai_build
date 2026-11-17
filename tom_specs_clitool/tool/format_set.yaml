@@ -21,8 +21,8 @@
 #
 # GENERATED DART IS INSIDE THE GATE, and its generator is therefore obliged to
 # emit formatted output. `tom_specs_model/lib/src/generated/spec_ops.g.dart` is
-# the one such file today, and `generateSpecOpsRegistry` runs `dart format` over
-# what it writes for exactly this reason: a generator whose output the formatter
+# the one such file today, and `generateSpecOpsRegistry` formats what it writes
+# (the linked dart_style, as `dart format` would) for exactly this reason: a generator whose output the formatter
 # would change makes the gate unaddable — clean until the next regeneration, red
 # after it, and red for something nobody did.
 #
@@ -36,8 +36,8 @@
 # out and none of them is a reason about formatting.
 #
 # It is a Flutter application, but this gate never runs `dart test` in a
-# package — it enumerates files and shells out to `dart format`, which reads
-# Flutter Dart like any other. It is outside the *documentation* scope of
+# package — it enumerates files and formats them with the linked dart_style,
+# which reads Flutter Dart like any other. It is outside the *documentation* scope of
 # `tom_specs_documentation_standard.md` §6, but that scope governs what must be
 # documented, not what must be formatted; the two boundaries are unrelated and
 # treating one as the other is how a package ends up ungoverned for a reason

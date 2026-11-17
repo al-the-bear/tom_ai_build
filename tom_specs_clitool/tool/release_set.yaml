@@ -117,7 +117,9 @@ unpublished_drift:
     irout5 (2026-11-17): the Markdown rendering links a back-link only when a
     rendition heading carries its token; tsbin2 (2026-11-17): the `tomspecs`
     binary on tom_build_base, every tool's run function returning its exit
-    code, the versioner stamp; published with the next clitool release.
+    code, the versioner stamp; tsbin3 (2026-11-17): all formatting through
+    the linked dart_style (lib/src/dart_format.dart), never `dart format` as a
+    process; published with the next clitool release.
   tom_core_codespecs: >-
     irfmt2 (2026-11-16): irspecs_ir.md §8 states that the dart-tom mapper needs
     no Dart SDK; irout1 (2026-11-16): irspecs_ir.md and codespecs_mapping.md

@@ -64,13 +64,28 @@ pushing again.
 
 ## The dart_style pin moves with the SDK
 
-The dart-tom mapper formats with `dart_style`, linked into the package so a
-compiled `irspecs` needs no Dart SDK. It is pinned in `pubspec.yaml` to exactly
-the version of the SDK's own formatter (`dart format --version`), and
-`kDartStyleVersion` in `lib/src/irspecs/mappers/dart_tom/dart_tom_mapper.dart`
-names the same version. After an SDK upgrade `test/dart_style_pin_test.dart`
-fails with the version to move to: change both, run `dart pub get`, and run the
-dart-tom round trip (`test/irspecs_dart_tom_test.dart`) and the phase4 sample's
-`tool/validate.sh`. The formatting gate (`bin/check_format.dart`) and the
-spec-ops registry generator keep running the installed `dart format`: they
-format the repository's own files, where the developer's SDK is the reference.
+Everything in the clitool that formats Dart uses `dart_style`, linked into the
+package through one helper, `DartFormat` in `lib/src/dart_format.dart`:
+- the formatting gate (`bin/check_format.dart`, `:gate-format`);
+- the spec-ops registry generator and `codespecs_areas`' accessor;
+- the registry tests generator;
+- the dart-tom mapper.
+
+None of them runs `dart format` as a process, so a compiled `tomspecs` or
+`irspecs` needs no Dart SDK to format. Each file is formatted in its package's
+language version, found the way `dart format` finds it: the nearest
+`.dart_tool/package_config.json`, else the nearest `pubspec.yaml`'s SDK lower
+bound, else the latest.
+
+`dart_style` is pinned in `pubspec.yaml` to exactly the version of the SDK's
+own formatter (`dart format --version`), and `kDartStyleVersion` in
+`lib/src/dart_format.dart` names the same version. So the gate and a developer
+running `dart format` by hand agree; `test/dart_format_test.dart` holds the
+helper's output to the SDK's for the same input at the same place.
+
+After an SDK upgrade `test/dart_style_pin_test.dart` fails with the version to
+move to:
+1. change both the pin and the constant, and run `dart pub get`;
+2. run the formatting gate, the dart-tom round trip
+   (`test/irspecs_dart_tom_test.dart`) and the phase4 sample's
+   `tool/validate.sh`.

@@ -199,33 +199,19 @@ Future<void> _mainCodespecsAreas(List<String> arguments) async {
   throw ToolExit(0);
 }
 
-/// [source] run through `dart format`, or unchanged if the formatter is absent.
+/// [source] as the formatter writes it at [path], or unchanged when it does
+/// not parse.
 ///
 /// `tom_specs_model` is inside the formatting gate (`tool/format_set.yaml`), so
 /// a generator writing into it is obliged to emit formatted output — otherwise
 /// the tree is clean until the next regeneration and red after it, for
-/// something nobody did. Shelling out to the installed `dart` rather than
-/// linking `package:dart_style` is the same choice `check_format.dart` made: a
-/// pinned formatter and the SDK binary drift apart at every SDK bump.
+/// something nobody did. The formatter is the linked `dart_style`
+/// ([DartFormat]) the gate uses, in the language version of the package
+/// [path] lies in.
 Future<String> _formatted(String source, String path) async {
-  final tmp = File(
-    '${Directory.systemTemp.path}/'
-    '${p.basename(path)}.$pid.tmp.dart',
-  )..writeAsStringSync(source);
   try {
-    final r = await Process.run('dart', [
-      'format',
-      '--output=show',
-      '--summary=none',
-      tmp.path,
-    ]);
-    if (r.exitCode == 0 && (r.stdout as String).isNotEmpty) {
-      return r.stdout as String;
-    }
+    return DartFormat().format(source, path: path);
+  } on DartFormatFailure {
     return source;
-  } on ProcessException {
-    return source;
-  } finally {
-    if (tmp.existsSync()) tmp.deleteSync();
   }
 }

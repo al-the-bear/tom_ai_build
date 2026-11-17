@@ -26,7 +26,7 @@ void main() {
       kDartStyleVersion,
       reason:
           'dart_style is pinned to one exact version, and kDartStyleVersion '
-          '(dart_tom_mapper.dart) names it',
+          '(lib/src/dart_format.dart) names it',
     );
   });
 
@@ -60,7 +60,7 @@ void main() {
       reason:
           'The SDK formats with dart_style $sdkFormatter, the dart-tom mapper '
           'with $kDartStyleVersion. Move the pin: dart_style: $sdkFormatter in '
-          'pubspec.yaml and kDartStyleVersion in dart_tom_mapper.dart, then '
+          'pubspec.yaml and kDartStyleVersion in lib/src/dart_format.dart, then '
           '`dart pub get` and run the dart-tom round trip.',
     );
   });

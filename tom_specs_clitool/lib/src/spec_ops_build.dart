@@ -35,6 +35,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 
 import 'analyzer_bootstrap.dart';
+import 'dart_format.dart';
 import 'model_reader.dart';
 import 'spec_ops_generator.dart';
 
@@ -78,8 +79,8 @@ class SpecOpsResult {
   final bool changed;
 }
 
-/// Runs `dart format` over [path], so generated Dart satisfies the same
-/// formatting gate hand-written Dart does.
+/// Formats the generated file at [path] in place, so generated Dart satisfies
+/// the same formatting gate hand-written Dart does.
 ///
 /// **A generator whose output the formatter would change makes the gate
 /// unaddable**: the tree is clean until the next regeneration and red after it,
@@ -87,31 +88,20 @@ class SpecOpsResult {
 /// people to ignore it. `spec_ops.g.dart` lives inside `tom_specs_model`, so it
 /// is inside the gate whether or not anyone intended it to be.
 ///
-/// Shelled out rather than done in-process with `package:dart_style`
-/// **deliberately**. A pinned formatter package and the SDK's `dart format`
-/// drift apart at every SDK bump, and then the generator and the gate disagree
-/// about what formatted means — with the generator winning, silently, on the
-/// files nobody hand-edits. Using the same binary a developer runs makes that
-/// impossible.
+/// The formatter is the linked `dart_style` ([DartFormat]), the same one the
+/// gate uses, pinned to the SDK's formatter (`test/dart_style_pin_test.dart`)
+/// and run in the language version of the package the file is written into:
+/// what `dart format` writes, without running it, so the generator and the
+/// gate cannot disagree about what formatted means.
 ///
-/// A missing or failing `dart format` is reported and does not fail the
-/// generation: the registry itself was produced correctly, and turning a
-/// formatting hiccup into a generation failure would block work for a cosmetic
-/// reason.
+/// A file that does not parse is reported and does not fail the generation:
+/// the registry itself was produced correctly, and turning a formatting
+/// hiccup into a generation failure would block work for a cosmetic reason.
 Future<void> formatGeneratedDart(String path) async {
   try {
-    final result = await Process.run('dart', ['format', path]);
-    if (result.exitCode != 0) {
-      stderr.writeln(
-        'spec_ops: `dart format` exited ${result.exitCode} for '
-        '$path; the file is generated but unformatted.',
-      );
-    }
-  } on ProcessException catch (e) {
-    stderr.writeln(
-      'spec_ops: could not run `dart format` ($e); the file is '
-      'generated but unformatted.',
-    );
+    DartFormat().formatFile(path);
+  } on DartFormatFailure catch (e) {
+    stderr.writeln('spec_ops: $e; the file is generated but unformatted.');
   }
 }
 

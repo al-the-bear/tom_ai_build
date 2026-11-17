@@ -335,8 +335,9 @@ List<RegistryFinding> checkRegistryTests(
       out.add(RegistryFinding('missingFile', '$name is not generated yet'));
       continue;
     }
-    // Formatting is not a registry change: the CLI runs `dart format` over
-    // what it writes, so content is compared with whitespace removed.
+    // Formatting is not a registry change: the CLI formats what it writes
+    // (dart_style, as `dart format`), so content is compared with whitespace
+    // removed.
     // The formatter also adds trailing commas when it splits a list.
     String squash(String v) => v
         .replaceAll(RegExp(r'\s+'), '')

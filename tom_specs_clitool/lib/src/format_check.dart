@@ -13,14 +13,16 @@
 /// line saying so, because leaving the files alone was the only way to keep a
 /// change reviewable.
 ///
-/// ## Why it shells out
+/// ## Which formatter
 ///
-/// The check runs the **installed `dart format`**, not `package:dart_style`
-/// linked in. A pinned formatter package and the SDK's binary drift apart at
-/// every SDK bump, and a gate that asserts a different style from the command
-/// developers actually run is worse than no gate: it fails work that is
-/// correct, and passes work that is not. One process for the whole manifest
-/// keeps it to a single parse pass.
+/// The check runs the `dart_style` linked into this package ([DartFormat]), in
+/// each file's package language version as `dart format` takes it — never
+/// `dart format` as a process, so the `tomspecs` binary needs no Dart SDK to
+/// run it. The formatter is pinned to exactly the version of the workspace
+/// SDK's own (`test/dart_style_pin_test.dart` fails when the SDK moves past
+/// it): a gate asserting a different style from the command developers run
+/// would be worse than no gate, failing work that is correct and passing work
+/// that is not, and the pin is what keeps the two the same.
 ///
 /// ## What it does not do
 ///
@@ -28,24 +30,23 @@
 /// it exists to protect — and would do it on someone else's branch, at a moment
 /// they did not choose. `dart format` is the repair; this only reports.
 ///
-/// ## Why it enumerates files rather than handing over directories
+/// ## Why it enumerates files rather than walking whole directories
 ///
-/// `dart format` has no exclude option, and one file in the governed set must
-/// be excluded: `tom_spec_engine/lib/src/bridges/som_v0_bridges.b.dart` is
+/// One file in the governed set must be excluded: `tom_spec_engine/lib/src/bridges/som_v0_bridges.b.dart` is
 /// **973,181 lines** of generated D4rt bridge, and formatting it takes five
 /// minutes — against four seconds for every other governed package combined. A
 /// gate that cost five minutes would not survive in the default test run, and a
 /// generated file nobody reads is the wrong thing to spend it on. So the check
-/// lists the files itself and drops the excluded ones before handing the rest
-/// over.
+/// lists the files itself and drops the excluded ones before formatting the
+/// rest.
 library;
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
+import 'dart_format.dart';
 import 'package_resolution.dart';
 
 /// The manifest of packages the formatter governs, and the source directories
@@ -186,31 +187,9 @@ class FormatReport {
   }
 }
 
-/// [files] split into runs of arguments whose joined length stays under
-/// [maxChars], each run holding at least one file.
-List<List<String>> formatBatches(List<String> files, {int maxChars = 24000}) {
-  final batches = <List<String>>[];
-  var current = <String>[];
-  var length = 0;
-  for (final file in files) {
-    if (current.isNotEmpty && length + file.length + 1 > maxChars) {
-      batches.add(current);
-      current = <String>[];
-      length = 0;
-    }
-    current.add(file);
-    length += file.length + 1;
-  }
-  if (current.isNotEmpty) batches.add(current);
-  return batches;
-}
-
-/// Runs `dart format --output=none --set-exit-if-changed` over [set]'s
-/// directories under [containerRoot].
-///
-/// As few invocations as the command-line limit allows ([formatBatches]): the
-/// formatter's cost is dominated by parsing, and a process per package would
-/// pay the VM's startup once per package to learn the same thing.
+/// Checks every governed file of [set] under [containerRoot] against the
+/// formatter ([DartFormat]): a file whose text the formatter would change is
+/// reported; nothing is written.
 FormatReport checkFormatting({
   required String containerRoot,
   required FormatSet set,
@@ -235,48 +214,21 @@ FormatReport checkFormatting({
     );
   }
 
-  // Batched: Windows caps a command line at 32,767 characters, and the whole
-  // manifest is several times that ("Der Dateiname oder die Erweiterung ist
-  // zu lang"). The batches stay well under it on every host.
-  final stdoutText = StringBuffer();
-  for (final batch in formatBatches(files)) {
-    final ProcessResult result;
-    try {
-      result = Process.runSync(
-        'dart',
-        ['format', '--output=none', '--set-exit-if-changed', ...batch],
-        stdoutEncoding: utf8,
-        stderrEncoding: utf8,
-      );
-    } on ProcessException catch (e) {
-      return FormatReport(
-        unformatted: const [],
-        missingPackages: missing,
-        unresolvedPackages: unresolved,
-        unavailable: 'could not run `dart format` ($e)',
-      );
-    }
-
-    // Exit 0 clean, 1 "would change", anything else is the formatter failing —
-    // a parse error in a source file, say. Reporting that as "clean" would
-    // hide a broken file behind a green gate.
-    if (result.exitCode > 1) {
-      return FormatReport(
-        unformatted: const [],
-        missingPackages: missing,
-        unresolvedPackages: unresolved,
-        unavailable:
-            '`dart format` exited ${result.exitCode}: '
-            '${(result.stderr as String).trim()}',
-      );
-    }
-    stdoutText.write(result.stdout as String);
-  }
-
+  final format = DartFormat();
   final unformatted = <String>[];
-  for (final line in stdoutText.toString().split('\n')) {
-    if (!line.startsWith('Changed ')) continue;
-    final path = line.substring('Changed '.length).trim();
+  for (final path in files) {
+    try {
+      if (format.isFormatted(path)) continue;
+    } on DartFormatFailure catch (e) {
+      // A file that does not parse is the formatter failing. Reporting that
+      // as "clean" would hide a broken file behind a green gate.
+      return FormatReport(
+        unformatted: const [],
+        missingPackages: missing,
+        unresolvedPackages: unresolved,
+        unavailable: '$e',
+      );
+    }
     unformatted.add(
       p.relative(p.absolute(path), from: containerRoot).replaceAll(r'\', '/'),
     );

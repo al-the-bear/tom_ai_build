@@ -29,9 +29,9 @@ import 'dart:io';
 import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
-import 'package:yaml/yaml.dart';
 
 import '../../../codespecs/cs_model.dart';
+import '../../../dart_format.dart';
 import '../../ir_model.dart';
 import '../../ir_steps.dart';
 
@@ -67,42 +67,15 @@ Map<String, String> mapDartTom(List<IrDocument> documents) {
   return out;
 }
 
-/// The `dart_style` version linked into this package: the formatter the
-/// dart-tom mapper writes with. It is pinned in `pubspec.yaml` to the formatter
-/// of the workspace SDK (`dart format --version`), and
-/// `test/dart_style_pin_test.dart` holds this constant, the pin, the lock and
-/// the SDK to one version.
-const String kDartStyleVersion = '3.1.13';
-
 /// The language version the formatter writes a package in: the lower bound of
-/// the SDK constraint in `<packageDir>/pubspec.yaml`, as `dart format` takes it
-/// from the package's configuration; [DartFormatter.latestLanguageVersion] when
-/// the package has no pubspec (the mapper writes `lib/` files only) or states
-/// no lower bound. Only the package's own root is read, never a folder above
-/// it, so where the output folder lies cannot change the layout.
-Version dartLanguageVersionOf(String packageDir) {
-  final pubspec = File(p.join(packageDir, 'pubspec.yaml'));
-  if (!pubspec.existsSync()) return DartFormatter.latestLanguageVersion;
-  try {
-    final doc = loadYaml(pubspec.readAsStringSync());
-    final sdk = doc is YamlMap && doc['environment'] is YamlMap
-        ? (doc['environment'] as YamlMap)['sdk']
-        : null;
-    if (sdk is! String) return DartFormatter.latestLanguageVersion;
-    final constraint = VersionConstraint.parse(sdk);
-    if (constraint is VersionRange && constraint.min != null) {
-      final min = constraint.min!;
-      return Version(min.major, min.minor, 0);
-    }
-  } on FormatException {
-    // An unreadable pubspec (YAML or the constraint) is no reason to refuse
-    // formatting: `dart format` falls back to the latest version too.
-  }
-  return DartFormatter.latestLanguageVersion;
-}
+/// the SDK constraint in `<packageDir>/pubspec.yaml`
+/// ([pubspecLanguageVersion]). Only the package's own root is read, never a
+/// folder above it, so where the output folder lies cannot change the layout.
+Version dartLanguageVersionOf(String packageDir) =>
+    pubspecLanguageVersion(packageDir);
 
-/// Formats [paths] in place with the linked `dart_style`
-/// ([kDartStyleVersion]), in [languageVersion] (default
+/// Formats [paths] in place with the linked `dart_style` ([DartFormat],
+/// [kDartStyleVersion]), in [languageVersion] (default
 /// [DartFormatter.latestLanguageVersion]); throws [IrMapException] naming the
 /// file when one does not parse.
 ///
@@ -114,19 +87,16 @@ Future<void> formatDartFiles(
   Version? languageVersion,
 }) async {
   if (paths.isEmpty) return;
-  final formatter = DartFormatter(
-    languageVersion: languageVersion ?? DartFormatter.latestLanguageVersion,
-  );
+  final format = DartFormat();
   for (final path in paths) {
-    final file = File(path);
-    final source = file.readAsStringSync();
-    final String formatted;
     try {
-      formatted = formatter.format(source, uri: path);
-    } on FormatterException catch (e) {
-      throw IrMapException('dart format failed: $path: ${e.message()}');
+      format.formatFile(
+        path,
+        languageVersion: languageVersion ?? DartFormatter.latestLanguageVersion,
+      );
+    } on DartFormatFailure catch (e) {
+      throw IrMapException('$e');
     }
-    if (formatted != source) file.writeAsStringSync(formatted);
   }
 }
 

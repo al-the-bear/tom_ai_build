@@ -156,21 +156,6 @@ void main() {
       expect(unresolved, isEmpty);
     });
 
-    test('the files are batched under the command-line limit', () {
-      // Windows caps a command line at 32,767 characters; one call over the
-      // whole manifest failed there ("Dateiname oder Erweiterung zu lang").
-      final files = [for (var i = 0; i < 1000; i++) '/ws/pkg/lib/f$i.dart'];
-      final batches = formatBatches(files, maxChars: 1000);
-      expect(batches.expand((b) => b), files);
-      for (final b in batches) {
-        expect(b.join(' ').length, lessThanOrEqualTo(1000));
-        expect(b, isNotEmpty);
-      }
-      expect(formatBatches(['x' * 5000], maxChars: 1000), [
-        ['x' * 5000],
-      ]);
-    });
-
     test('a folder with nothing to resolve counts as resolved', () {
       // tom_som_conformance: scripts and a corpus, no pubspec of its own.
       final tmp = Directory.systemTemp.createTempSync('format_gate_nopub_');

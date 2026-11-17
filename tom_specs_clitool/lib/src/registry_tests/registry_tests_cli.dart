@@ -18,6 +18,7 @@ import 'package:path/path.dart' as p;
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0_model.dart';
 
+import '../dart_format.dart';
 import 'generator.dart';
 import 'registries.dart';
 
@@ -113,18 +114,24 @@ Future<int> runGenerateRegistryTests(
   }
 
   Directory(outDir).createSync(recursive: true);
-  for (final MapEntry(key: name, value: content) in generation.files.entries) {
-    File(p.join(outDir, name)).writeAsStringSync(content);
-  }
   // Generated Dart is written formatted, so a formatting gate in the
-  // application never fails on it.
-  final format = await Process.run('dart', [
-    'format',
-    for (final name in generation.files.keys) p.join(outDir, name),
-  ]);
+  // application never fails on it: the linked `dart_style` ([DartFormat]), in
+  // the language version of the application package the tests go into.
+  final format = DartFormat();
+  final failures = <String>[];
+  for (final MapEntry(key: name, value: content) in generation.files.entries) {
+    final path = p.join(outDir, name);
+    var text = content;
+    try {
+      text = format.format(content, path: path);
+    } on DartFormatFailure catch (e) {
+      failures.add(e.message);
+    }
+    File(path).writeAsStringSync(text);
+  }
   sink.writeln(
     'generate_registry_tests: wrote ${generation.files.length} file(s) to '
-    '$outDir${format.exitCode == 0 ? '' : ' (dart format failed: ${format.stderr})'}',
+    '$outDir${failures.isEmpty ? '' : ' (dart format failed: ${failures.join('; ')})'}',
   );
   return generation.findings.isEmpty ? 0 : 1;
 }
