@@ -1280,6 +1280,15 @@ and its gate checks that the earlier results are consistent with its own
 (`G<N>-EARLIER-1`, PF-GAT-G2 … PF-GAT-G8). A finding that is a defect of an
 earlier phase still goes through re-entry as above.
 
+**Requirements may change in any phase.** A later phase may find that a
+requirement has to change or that a new one is needed: discovering such aspects
+and problems is part of what the phases are for. The change is the product
+owner's decision, and nothing is built on it before they agree. Once agreed, it
+is written into the document that owns the requirement and into every earlier
+result derived from it, so all documents stay consistent — as part of keeping
+the earlier results up to date, or through re-entry when its consequences need
+the phases in between worked through again.
+
 ---
 
 ## PF-ROL Roles
