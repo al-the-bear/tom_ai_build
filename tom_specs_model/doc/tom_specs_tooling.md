@@ -263,9 +263,10 @@ at the first failure). The work runs as one series:
 - the skeleton and formatting through the linked `dart_style`: done —
   `bin/tomspecs.dart` declares every command with the options of the tool it
   replaces, and nothing in the clitool runs `dart format` as a process;
-- the commands built beside the old tools, with comparison tests
-  (`tsbin4_akqk-spec-codespecs-ir-commands`,
-  `tsbin5_akqk-model-som-schema-editor-commands`, `tsbin6_akqk-gate-commands`);
+- the commands built beside the old tools, with comparison tests: done for
+  the spec-*, codespecs-*, ir-*, som-*, model-*, schema-*, app-* and editor-*
+  commands (each identical to its tool on the same inputs); the gates are
+  next (`tsbin6_akqk-gate-commands`);
 - one migration of the processes, scripts, documents and the VS Code extension,
   tested with the old and the new binaries
   (`tsbin7_akqk-extension-bundles-tomspecs`);

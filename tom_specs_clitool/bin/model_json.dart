@@ -186,12 +186,10 @@ Future<void> _mainModelJson(List<String> arguments) async {
   );
 }
 
-/// The workspace container root, derived from this script's location
-/// (`<container>/tom_ai/ai_build/tom_specs_clitool/bin/model_json.dart`).
-String _containerRoot() {
-  final clitoolRoot = p.dirname(p.dirname(p.fromUri(Platform.script)));
-  return p.normalize(p.join(clitoolRoot, '..', '..', '..'));
-}
+/// The workspace container root, three folders above this package
+/// (`<container>/tom_ai/ai_build/tom_specs_clitool`, [clitoolPackageRoot]).
+String _containerRoot() =>
+    p.normalize(p.join(clitoolPackageRoot(), '..', '..', '..'));
 
 Never _fail(String msg) {
   stderr.writeln('model_json error: $msg');

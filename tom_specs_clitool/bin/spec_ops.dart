@@ -58,9 +58,7 @@ ArgParser specOpsParser() => ArgParser()
   );
 
 Future<void> _mainSpecOps(List<String> arguments) async {
-  final aiBuild = p.dirname(
-    p.normalize(p.dirname(p.dirname(p.fromUri(Platform.script)))),
-  );
+  final aiBuild = p.dirname(clitoolPackageRoot());
 
   final parser = specOpsParser();
 

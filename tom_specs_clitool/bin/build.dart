@@ -5,6 +5,9 @@ import 'package:path/path.dart' as p;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 import 'package:yaml/yaml.dart';
 
+import 'docspecs_schema.dart' as docspecs_schema;
+import 'model_json.dart' as model_json;
+
 /// TomSpecs editor build & packaging orchestrator
 /// (`som_multiplatform_spec_model.md` §17, N8, B1/B2).
 ///
@@ -196,14 +199,12 @@ Future<void> _mainBuild(List<String> arguments) async {
       'relocated editor cannot be stamped from here.',
     );
   }
-  await _run('dart', [
-    'run',
-    p.join('bin', 'model_json.dart'),
+  await _runInProcess('model_json', model_json.runModelJson, [
     '--target',
     ModelJsonTarget.editor.id,
     '--package',
     modelDir,
-  ], cwd: clitoolRoot);
+  ]);
 
   // ── Step 4: DocSpecs schemas, versioned from the stamp (S2) ───────────────
   // Two destinations: the canonical `<id>/<id>.<ver>...` tree under
@@ -221,16 +222,14 @@ Future<void> _mainBuild(List<String> arguments) async {
   if (schemaTreeDir.existsSync()) {
     schemaTreeDir.deleteSync(recursive: true);
   }
-  await _run('dart', [
-    'run',
-    p.join('bin', 'docspecs_schema.dart'),
+  await _runInProcess('docspecs_schema', docspecs_schema.runDocspecsSchema, [
     '--package',
     modelDir,
     '--out-dir',
     schemaTree,
     '--version',
     '$modelVersion',
-  ], cwd: clitoolRoot);
+  ]);
   final schemaOut = Directory(p.join(editorDir, 'assets', 'docspecs-schema'));
   for (final f in schemaOut.listSync().whereType<File>().where(
     (f) => f.path.endsWith('.docspecs-schema.yaml'),
@@ -355,12 +354,9 @@ Future<void> _mainBuild(List<String> arguments) async {
   _banner('Build complete — model v$modelVersion (${stamp.label}) → $os');
 }
 
-/// The resolved root of the `tom_specs_clitool` package (parent of `bin/`).
-String _clitoolRoot() {
-  final scriptPath = p.fromUri(Platform.script);
-  // .../tom_specs_clitool/bin/build.dart → .../tom_specs_clitool
-  return p.normalize(p.dirname(p.dirname(scriptPath)));
-}
+/// The resolved root of the `tom_specs_clitool` package
+/// ([clitoolPackageRoot]: the package config, else the script's `bin/..`).
+String _clitoolRoot() => clitoolPackageRoot();
 
 /// The package directories every summary scope in [buildkitPath] covers,
 /// resolved against the config file's own directory.
@@ -402,6 +398,19 @@ ModelVersionStamp _readStamp(String modelDir) {
   } on ModelVersionStampException catch (e) {
     _fail('${e.message} (did step 1 run?)');
   }
+}
+
+/// Runs one of this package's own tools in this process (TSB-1: no command
+/// starts another of our tools as a process), failing the build when it
+/// does not end with 0.
+Future<void> _runInProcess(
+  String tool,
+  Future<int> Function(List<String>) run,
+  List<String> args,
+) async {
+  stdout.writeln('  \$ $tool ${args.join(' ')}  (in-process)');
+  final code = await run(args);
+  if (code != 0) _fail('`$tool ${args.join(' ')}` failed (exit $code).');
 }
 
 Future<void> _run(String exe, List<String> args, {required String cwd}) async {

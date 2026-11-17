@@ -21,7 +21,8 @@ import 'dart:io';
 import 'package:args/args.dart';
 
 import 'package:tom_specs_clitool/src/som_parity.dart';
-import 'package:tom_specs_clitool/tom_specs_clitool.dart' show ToolExit;
+import 'package:tom_specs_clitool/tom_specs_clitool.dart'
+    show ToolExit, clitoolPackageRoot;
 
 /// Runs `check_som_parity` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
@@ -61,7 +62,7 @@ void _mainCheckSomParity(List<String> arguments) {
     return;
   }
 
-  final here = File.fromUri(Platform.script).parent.parent.path;
+  final here = clitoolPackageRoot();
   final containerRoot =
       (args['container-root'] as String?) ??
       Directory(here).parent.parent.parent.path;

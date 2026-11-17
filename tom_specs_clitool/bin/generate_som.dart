@@ -586,11 +586,9 @@ Future<void> _mainGenerateSom(List<String> arguments) async {
   stdout.writeln('\nDone.');
 }
 
-/// The resolved root of the `tom_specs_clitool` package (parent of `bin/`).
-String _clitoolRoot() {
-  final scriptPath = p.fromUri(Platform.script);
-  return p.normalize(p.dirname(p.dirname(scriptPath)));
-}
+/// The resolved root of the `tom_specs_clitool` package
+/// ([clitoolPackageRoot]: the package config, else the script's `bin/..`).
+String _clitoolRoot() => clitoolPackageRoot();
 
 /// Parses the generated stamp produced by `buildkit :versioner`, reporting a
 /// missing or unparseable stamp as a generation failure.
