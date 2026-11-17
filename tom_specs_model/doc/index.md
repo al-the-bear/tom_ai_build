@@ -173,6 +173,7 @@ generated language runtimes and two file formats.
 |----------|---------------|
 | [tom_specs_project_flow.md](tom_specs_project_flow.md) | **How a system is created with TomSpecs.** The eight phases from project idea to production with their inputs and outputs, the quality-gate framework, the iteration and phase-re-entry rules, the role and decision-authority model, tooling, the issue workflow and upgrade cycles. |
 | [tom_specs_gate_checklists.md](tom_specs_gate_checklists.md) | **How a gate is executed against a checklist.** Where the generic gate checklists live ([`gate_checklists/`](gate_checklists/), one `G<N>.checklist.yaml` per gate) and how they are versioned, the checklist item format, the project checklist a project derives from one, and the format and location of the gate report. The gate criteria themselves stay in `tom_specs_project_flow.md`. |
+| [tom_specs_tooling.md](tom_specs_tooling.md) | **The tools TomSpecs is worked with, today and as planned, and their architecture.** Today's setup (the VS Code extension: MD Browser, process engine, queue and runs, agents, the spec and CodeSpecs tools, the bundled binaries), the code stack every tool reaches, the four processes and what a host must provide to run them, the target setup (the shared AI runtime, Webforge with its quest applications, Webwork's Review area, `tom_specs_editor`'s place, the runtime remote control), which tool serves each phase and activity, the shared files, the move from the extension and the open questions. |
 
 ## The applications and their agent
 
