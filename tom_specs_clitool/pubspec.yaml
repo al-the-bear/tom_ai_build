@@ -21,6 +21,10 @@ dependencies:
   dart_style: 3.1.13
   path: ^1.9.0
   pub_semver: ^2.2.0
+  # The `tomspecs` binary (bin/tomspecs.dart): every tool of this package as a
+  # command of one binary, on the workspace's CLI framework (stand-alone
+  # commands: strictCommandOptions, from 2.40.0).
+  tom_build_base: ^2.40.0
   json2yaml: ^3.0.1
   yaml: ^3.1.2
   # Base-first home of the analyzer-summary infrastructure: the grouped

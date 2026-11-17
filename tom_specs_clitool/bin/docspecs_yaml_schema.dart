@@ -12,21 +12,41 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// single schema for the *file envelope* every `*.docspecs.yaml` shares
 /// (`version` / `modelVersion` / `document` / `review`), so a saved file can be
 /// schema-validated without resolving its model.
-Future<void> main(List<String> arguments) async {
-  final parser = ArgParser()
-    ..addOption(
-      'out-dir',
-      abbr: 'o',
-      help:
-          'Output directory for the schema '
-          '(default: <cwd>/.tom/json-schema).',
-    )
-    ..addFlag(
-      'help',
-      abbr: 'h',
-      help: 'Show usage information.',
-      negatable: false,
-    );
+/// Runs `docspecs_yaml_schema` with [arguments] and returns its exit code, without ending
+/// the process (the `tomspecs` command calls it).
+Future<int> runDocspecsYamlSchema(List<String> arguments) async {
+  _exitCode = 0;
+  try {
+    await _mainDocspecsYamlSchema(arguments);
+  } on ToolExit catch (e) {
+    return e.code;
+  }
+  return _exitCode;
+}
+
+int _exitCode = 0;
+
+Future<void> main(List<String> arguments) async =>
+    exit(await runDocspecsYamlSchema(arguments));
+
+/// The options of `docspecs_yaml_schema` (also the `tomspecs` command's).
+ArgParser docspecsYamlSchemaParser() => ArgParser()
+  ..addOption(
+    'out-dir',
+    abbr: 'o',
+    help:
+        'Output directory for the schema '
+        '(default: <cwd>/.tom/json-schema).',
+  )
+  ..addFlag(
+    'help',
+    abbr: 'h',
+    help: 'Show usage information.',
+    negatable: false,
+  );
+
+Future<void> _mainDocspecsYamlSchema(List<String> arguments) async {
+  final parser = docspecsYamlSchemaParser();
 
   final ArgResults results;
   try {
@@ -34,7 +54,7 @@ Future<void> main(List<String> arguments) async {
   } on FormatException catch (e) {
     stderr.writeln('Error: ${e.message}');
     stdout.writeln(parser.usage);
-    exit(2);
+    throw ToolExit(2);
   }
 
   if (results.flag('help')) {
@@ -43,7 +63,7 @@ Future<void> main(List<String> arguments) async {
       '[--out-dir <dir>]',
     );
     stdout.writeln(parser.usage);
-    exit(0);
+    throw ToolExit(0);
   }
 
   final outDir = p.normalize(

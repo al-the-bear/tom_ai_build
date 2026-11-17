@@ -21,21 +21,24 @@ import 'package:tom_som_dart_v0/tom_som_dart_v0_model.dart';
 import 'generator.dart';
 import 'registries.dart';
 
+/// The options of `generate_registry_tests` (also the `tomspecs` command's).
+ArgParser generateRegistryTestsParser() => ArgParser()
+  ..addOption('out', help: 'The test folder the suites are written to.')
+  ..addOption(
+    'harness-import',
+    defaultsTo: 'registry_harness.dart',
+    help: "Import URI of the application's harness.",
+  )
+  ..addFlag('check', negatable: false, help: 'Compare, write nothing.')
+  ..addFlag('help', abbr: 'h', negatable: false);
+
 /// Runs the command; returns the exit code.
 Future<int> runGenerateRegistryTests(
   List<String> arguments, {
   StringSink? out,
 }) async {
   final sink = out ?? stdout;
-  final parser = ArgParser()
-    ..addOption('out', help: 'The test folder the suites are written to.')
-    ..addOption(
-      'harness-import',
-      defaultsTo: 'registry_harness.dart',
-      help: "Import URI of the application's harness.",
-    )
-    ..addFlag('check', negatable: false, help: 'Compare, write nothing.')
-    ..addFlag('help', abbr: 'h', negatable: false);
+  final parser = generateRegistryTestsParser();
   final ArgResults results;
   try {
     results = parser.parse(arguments);

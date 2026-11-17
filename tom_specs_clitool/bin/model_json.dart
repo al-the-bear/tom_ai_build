@@ -16,46 +16,66 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 ///   * `--package` + `--output` — an ad-hoc export anywhere else, freely
 ///     stampable via `--model-version` / `--model-label`. Pointing it at a
 ///     committed asset is refused: use `--target` for those.
-Future<void> main(List<String> arguments) async {
-  final parser = ArgParser()
-    ..addOption(
-      'target',
-      allowed: [for (final t in ModelJsonTarget.values) t.id],
-      help:
-          'Refresh a committed spec_model.json asset. Determines both the '
-          'output path and the version stamp; cannot be combined with '
-          '--output / --model-version / --model-label.',
-    )
-    ..addOption(
-      'package',
-      abbr: 'p',
-      help:
-          'Path to the target Dart package (its lib/ directory is scanned). '
-          'With --target, defaults to the sibling tom_specs_model package.',
-    )
-    ..addOption(
-      'output',
-      abbr: 'o',
-      help: 'Output JSON file path (ad-hoc exports only).',
-    )
-    ..addOption(
-      'model-version',
-      help:
-          'S2 model-version counter to stamp into the JSON (integer). '
-          'Ad-hoc exports only. Default: 0.',
-    )
-    ..addOption(
-      'model-label',
-      help:
-          'Human-readable build label for the model version stamp '
-          '(ad-hoc exports only).',
-    )
-    ..addFlag(
-      'help',
-      abbr: 'h',
-      help: 'Show usage information.',
-      negatable: false,
-    );
+/// Runs `model_json` with [arguments] and returns its exit code, without ending
+/// the process (the `tomspecs` command calls it).
+Future<int> runModelJson(List<String> arguments) async {
+  _exitCode = 0;
+  try {
+    await _mainModelJson(arguments);
+  } on ToolExit catch (e) {
+    return e.code;
+  }
+  return _exitCode;
+}
+
+int _exitCode = 0;
+
+Future<void> main(List<String> arguments) async =>
+    exit(await runModelJson(arguments));
+
+/// The options of `model_json` (also the `tomspecs` command's).
+ArgParser modelJsonParser() => ArgParser()
+  ..addOption(
+    'target',
+    allowed: [for (final t in ModelJsonTarget.values) t.id],
+    help:
+        'Refresh a committed spec_model.json asset. Determines both the '
+        'output path and the version stamp; cannot be combined with '
+        '--output / --model-version / --model-label.',
+  )
+  ..addOption(
+    'package',
+    abbr: 'p',
+    help:
+        'Path to the target Dart package (its lib/ directory is scanned). '
+        'With --target, defaults to the sibling tom_specs_model package.',
+  )
+  ..addOption(
+    'output',
+    abbr: 'o',
+    help: 'Output JSON file path (ad-hoc exports only).',
+  )
+  ..addOption(
+    'model-version',
+    help:
+        'S2 model-version counter to stamp into the JSON (integer). '
+        'Ad-hoc exports only. Default: 0.',
+  )
+  ..addOption(
+    'model-label',
+    help:
+        'Human-readable build label for the model version stamp '
+        '(ad-hoc exports only).',
+  )
+  ..addFlag(
+    'help',
+    abbr: 'h',
+    help: 'Show usage information.',
+    negatable: false,
+  );
+
+Future<void> _mainModelJson(List<String> arguments) async {
+  final parser = modelJsonParser();
 
   final ArgResults results;
   try {
@@ -63,7 +83,7 @@ Future<void> main(List<String> arguments) async {
   } on FormatException catch (e) {
     stderr.writeln('Error: ${e.message}');
     stdout.writeln(parser.usage);
-    exit(2);
+    throw ToolExit(2);
   }
 
   if (results.flag('help')) {
@@ -75,7 +95,7 @@ Future<void> main(List<String> arguments) async {
       '--package <path> --output <file.json>',
     );
     stdout.writeln(parser.usage);
-    exit(0);
+    throw ToolExit(0);
   }
 
   final containerRoot = _containerRoot();
@@ -175,5 +195,5 @@ String _containerRoot() {
 
 Never _fail(String msg) {
   stderr.writeln('model_json error: $msg');
-  exit(1);
+  throw ToolExit(1);
 }

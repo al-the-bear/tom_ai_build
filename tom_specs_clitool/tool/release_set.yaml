@@ -55,8 +55,10 @@ allow:
   tom_build_base:
     path: tom_ai/basics/tom_build_base
     reason: >-
-      Published to pub.dev; hosted dependency of tom_analyzer_shared. Its own
-      dependencies are third-party, but for tom_dcli.
+      Published to pub.dev; hosted dependency of tom_specs_clitool (the
+      `tomspecs` binary is built on its CLI framework, ^2.40.0) and of
+      tom_analyzer_shared. Its own dependencies are third-party, but for
+      tom_dcli.
   tom_dcli:
     path: tom_ai/xternal/tom_dcli/dcli
     reason: >-
@@ -113,8 +115,9 @@ unpublished_drift:
     (the IR's Markdown rendering, schema irspecs-md/1.0); irout4 (2026-11-17):
     irspecs export --format json (the IR as JSON against its schema);
     irout5 (2026-11-17): the Markdown rendering links a back-link only when a
-    rendition heading carries its token; published with the next clitool
-    release.
+    rendition heading carries its token; tsbin2 (2026-11-17): the `tomspecs`
+    binary on tom_build_base, every tool's run function returning its exit
+    code, the versioner stamp; published with the next clitool release.
   tom_core_codespecs: >-
     irfmt2 (2026-11-16): irspecs_ir.md §8 states that the dart-tom mapper needs
     no Dart SDK; irout1 (2026-11-16): irspecs_ir.md and codespecs_mapping.md

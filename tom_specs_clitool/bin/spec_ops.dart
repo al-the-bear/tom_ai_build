@@ -17,32 +17,52 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// command and the model fingerprint that command stamps certifies it. Reach
 /// for this CLI to write the registry somewhere else, or to regenerate it alone
 /// without paying for a nine-language run.
-Future<void> main(List<String> arguments) async {
+/// Runs `spec_ops` with [arguments] and returns its exit code, without ending
+/// the process (the `tomspecs` command calls it).
+Future<int> runSpecOps(List<String> arguments) async {
+  _exitCode = 0;
+  try {
+    await _mainSpecOps(arguments);
+  } on ToolExit catch (e) {
+    return e.code;
+  }
+  return _exitCode;
+}
+
+int _exitCode = 0;
+
+Future<void> main(List<String> arguments) async =>
+    exit(await runSpecOps(arguments));
+
+/// The options of `spec_ops` (also the `tomspecs` command's).
+ArgParser specOpsParser() => ArgParser()
+  ..addOption(
+    'package',
+    abbr: 'p',
+    help:
+        'Path to the tom_specs_model package (its lib/ is scanned). '
+        'Default: <ai_build>/tom_specs_model.',
+  )
+  ..addOption(
+    'output',
+    abbr: 'o',
+    help:
+        'Output .dart file path. '
+        'Default: <package>/${specOpsPathSegments.join('/')}.',
+  )
+  ..addFlag(
+    'help',
+    abbr: 'h',
+    help: 'Show usage information.',
+    negatable: false,
+  );
+
+Future<void> _mainSpecOps(List<String> arguments) async {
   final aiBuild = p.dirname(
     p.normalize(p.dirname(p.dirname(p.fromUri(Platform.script)))),
   );
 
-  final parser = ArgParser()
-    ..addOption(
-      'package',
-      abbr: 'p',
-      help:
-          'Path to the tom_specs_model package (its lib/ is scanned). '
-          'Default: <ai_build>/tom_specs_model.',
-    )
-    ..addOption(
-      'output',
-      abbr: 'o',
-      help:
-          'Output .dart file path. '
-          'Default: <package>/${specOpsPathSegments.join('/')}.',
-    )
-    ..addFlag(
-      'help',
-      abbr: 'h',
-      help: 'Show usage information.',
-      negatable: false,
-    );
+  final parser = specOpsParser();
 
   final ArgResults results;
   try {
@@ -50,7 +70,7 @@ Future<void> main(List<String> arguments) async {
   } on FormatException catch (e) {
     stderr.writeln('Error: ${e.message}');
     stdout.writeln(parser.usage);
-    exit(2);
+    throw ToolExit(2);
   }
 
   if (results.flag('help')) {
@@ -59,7 +79,7 @@ Future<void> main(List<String> arguments) async {
       '[--package <model-path>] [--output <file.g.dart>]\n',
     );
     stdout.writeln(parser.usage);
-    exit(0);
+    throw ToolExit(0);
   }
 
   final packagePath = p.normalize(
@@ -75,7 +95,7 @@ Future<void> main(List<String> arguments) async {
     );
   } on StateError catch (e) {
     stderr.writeln('Error: ${e.message}');
-    exit(1);
+    throw ToolExit(1);
   }
   stdout.writeln('Found ${result.classCount} classes.');
   stdout.writeln(

@@ -34,61 +34,81 @@ import 'package:yaml/yaml.dart';
 /// `buildkit` drives step 1 (N8); steps 2–7 are dart/flutter script steps the
 /// orchestrator runs in dependency order. Cross-platform: `--os` selects the
 /// flutter target (defaults to the host OS).
-Future<void> main(List<String> arguments) async {
-  final parser = ArgParser()
-    ..addOption(
-      'os',
-      help:
-          'Flutter build target: linux | windows | macos. '
-          'Defaults to the host OS.',
-    )
-    ..addOption(
-      'model',
-      help:
-          'Path to the tom_specs_model package. '
-          'Default: sibling of this clitool package.',
-    )
-    ..addOption(
-      'editor',
-      help:
-          'Path to the tom_specs_editor Flutter package. '
-          'Default: <container>/tom_forge/tom_specs_editor.',
-    )
-    ..addOption(
-      'summaries',
-      help:
-          'Optional directory of pre-generated Dart-editor summary assets '
-          'to embed (B1). Skipped with a notice when absent.',
-    )
-    ..addFlag(
-      'generate-summaries',
-      help:
-          'Generate the B1 analyzer summaries in-place by running '
-          'tom_dart_editor_bundler against the editor\'s buildkit.yaml '
-          '(which declares the scopes and their package closures), instead '
-          'of copying a pre-generated --summaries directory. This runs the '
-          'analyzer once on the build host; the per-OS build still only '
-          'copies the resulting committed assets.',
-      negatable: false,
-    )
-    ..addOption(
-      'buildkit',
-      help: 'buildkit executable (on PATH or absolute). Default: buildkit.',
-      defaultsTo: 'buildkit',
-    )
-    ..addFlag(
-      'no-flutter-build',
-      help:
-          'Run steps 1–6 (versioner, spec-ops, json, schemas, summaries, '
-          'bundle) but skip the final `flutter build` — generation only.',
-      negatable: false,
-    )
-    ..addFlag(
-      'help',
-      abbr: 'h',
-      help: 'Show usage information.',
-      negatable: false,
-    );
+/// Runs `build` with [arguments] and returns its exit code, without ending
+/// the process (the `tomspecs` command calls it).
+Future<int> runBuild(List<String> arguments) async {
+  _exitCode = 0;
+  try {
+    await _mainBuild(arguments);
+  } on ToolExit catch (e) {
+    return e.code;
+  }
+  return _exitCode;
+}
+
+int _exitCode = 0;
+
+Future<void> main(List<String> arguments) async =>
+    exit(await runBuild(arguments));
+
+/// The options of `build` (also the `tomspecs` command's).
+ArgParser buildParser() => ArgParser()
+  ..addOption(
+    'os',
+    help:
+        'Flutter build target: linux | windows | macos. '
+        'Defaults to the host OS.',
+  )
+  ..addOption(
+    'model',
+    help:
+        'Path to the tom_specs_model package. '
+        'Default: sibling of this clitool package.',
+  )
+  ..addOption(
+    'editor',
+    help:
+        'Path to the tom_specs_editor Flutter package. '
+        'Default: <container>/tom_forge/tom_specs_editor.',
+  )
+  ..addOption(
+    'summaries',
+    help:
+        'Optional directory of pre-generated Dart-editor summary assets '
+        'to embed (B1). Skipped with a notice when absent.',
+  )
+  ..addFlag(
+    'generate-summaries',
+    help:
+        'Generate the B1 analyzer summaries in-place by running '
+        'tom_dart_editor_bundler against the editor\'s buildkit.yaml '
+        '(which declares the scopes and their package closures), instead '
+        'of copying a pre-generated --summaries directory. This runs the '
+        'analyzer once on the build host; the per-OS build still only '
+        'copies the resulting committed assets.',
+    negatable: false,
+  )
+  ..addOption(
+    'buildkit',
+    help: 'buildkit executable (on PATH or absolute). Default: buildkit.',
+    defaultsTo: 'buildkit',
+  )
+  ..addFlag(
+    'no-flutter-build',
+    help:
+        'Run steps 1–6 (versioner, spec-ops, json, schemas, summaries, '
+        'bundle) but skip the final `flutter build` — generation only.',
+    negatable: false,
+  )
+  ..addFlag(
+    'help',
+    abbr: 'h',
+    help: 'Show usage information.',
+    negatable: false,
+  );
+
+Future<void> _mainBuild(List<String> arguments) async {
+  final parser = buildParser();
 
   final ArgResults args;
   try {
@@ -96,12 +116,12 @@ Future<void> main(List<String> arguments) async {
   } on FormatException catch (e) {
     stderr.writeln('Error: ${e.message}\n');
     stdout.writeln(parser.usage);
-    exit(2);
+    throw ToolExit(2);
   }
   if (args.flag('help')) {
     stdout.writeln('Usage: dart run bin/build.dart [options]\n');
     stdout.writeln(parser.usage);
-    exit(0);
+    throw ToolExit(0);
   }
 
   final clitoolRoot = _clitoolRoot();
@@ -400,5 +420,5 @@ void _banner(String msg) => stdout.writeln('\n══ $msg ══\n');
 void _step(int n, String msg) => stdout.writeln('\n── step $n: $msg');
 Never _fail(String msg) {
   stderr.writeln('Build error: $msg');
-  exit(1);
+  throw ToolExit(1);
 }

@@ -1,0 +1,9 @@
+# yaml-language-server: $schema=../../../.tom/json-schema/buildkit/buildkit.schema.json
+# TomSpecs CLI tools — build configuration.
+#
+# The `tomspecs` binary (bin/tomspecs.dart) reports this package's version and
+# build with `tomspecs --version`, from the versioner stamp below.
+versioner:
+  # → TomSpecsClitoolVersionInfo (lib/src/version.versioner.dart)
+  variable-prefix: tomSpecsClitool
+  includeGitCommit: true

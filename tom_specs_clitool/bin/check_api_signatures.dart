@@ -16,25 +16,45 @@ import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-Future<void> main(List<String> arguments) async {
-  final parser = ArgParser()
-    ..addOption(
-      'manifest',
-      help: 'Path to the set. Default: <clitool>/$apiSignatureSetPath.',
-    )
-    ..addOption(
-      'container-root',
-      help:
-          'Workspace container root. Default: three levels above this '
-          'package.',
-    )
-    ..addMultiOption(
-      'package',
-      help:
-          'Check this package (container-relative) instead of the set; '
-          'its summaries are read from doc/api.',
-    )
-    ..addFlag('help', abbr: 'h', negatable: false, help: 'Show usage.');
+/// Runs `check_api_signatures` with [arguments] and returns its exit code, without ending
+/// the process (the `tomspecs` command calls it).
+Future<int> runCheckApiSignatures(List<String> arguments) async {
+  _exitCode = 0;
+  try {
+    await _mainCheckApiSignatures(arguments);
+  } on ToolExit catch (e) {
+    return e.code;
+  }
+  return _exitCode;
+}
+
+int _exitCode = 0;
+
+Future<void> main(List<String> arguments) async =>
+    exit(await runCheckApiSignatures(arguments));
+
+/// The options of `check_api_signatures` (also the `tomspecs` command's).
+ArgParser checkApiSignaturesParser() => ArgParser()
+  ..addOption(
+    'manifest',
+    help: 'Path to the set. Default: <clitool>/$apiSignatureSetPath.',
+  )
+  ..addOption(
+    'container-root',
+    help:
+        'Workspace container root. Default: three levels above this '
+        'package.',
+  )
+  ..addMultiOption(
+    'package',
+    help:
+        'Check this package (container-relative) instead of the set; '
+        'its summaries are read from doc/api.',
+  )
+  ..addFlag('help', abbr: 'h', negatable: false, help: 'Show usage.');
+
+Future<void> _mainCheckApiSignatures(List<String> arguments) async {
+  final parser = checkApiSignaturesParser();
 
   final results = parser.parse(arguments);
   if (results['help'] as bool) {
@@ -60,7 +80,7 @@ Future<void> main(List<String> arguments) async {
     );
     if (!manifest.existsSync()) {
       stderr.writeln('api-signature set not found: ${manifest.path}');
-      exit(2);
+      throw ToolExit(2);
     }
     entries = ApiSignatureSet.parse(manifest.readAsStringSync()).entries;
   }
@@ -77,7 +97,7 @@ Future<void> main(List<String> arguments) async {
       );
     } on Object catch (e) {
       stderr.writeln('${entry.package}: $e');
-      exit(2);
+      throw ToolExit(2);
     }
     for (final fault in report.faults) {
       stdout.writeln('${entry.package}/$fault');
@@ -93,9 +113,9 @@ Future<void> main(List<String> arguments) async {
   // A run that compared nothing would report a clean tree.
   if (members == 0) {
     stderr.writeln('no quoted signature was compared');
-    exit(2);
+    throw ToolExit(2);
   }
-  if (faults > 0) exitCode = 1;
+  if (faults > 0) _exitCode = 1;
 }
 
 String _clitoolRoot() {

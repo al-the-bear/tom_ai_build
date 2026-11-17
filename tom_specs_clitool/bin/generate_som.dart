@@ -14,90 +14,110 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// the lossless meta-data file, and the DocSpecs schemas. The model version
 /// stamp is read from the model's `version.versioner.dart` so the committed
 /// meta-data is stable/idempotent (SOM §4.3).
-Future<void> main(List<String> arguments) async {
+/// Runs `generate_som` with [arguments] and returns its exit code, without ending
+/// the process (the `tomspecs` command calls it).
+Future<int> runGenerateSom(List<String> arguments) async {
+  _exitCode = 0;
+  try {
+    await _mainGenerateSom(arguments);
+  } on ToolExit catch (e) {
+    return e.code;
+  }
+  return _exitCode;
+}
+
+int _exitCode = 0;
+
+Future<void> main(List<String> arguments) async =>
+    exit(await runGenerateSom(arguments));
+
+/// The options of `generate_som` (also the `tomspecs` command's).
+ArgParser generateSomParser() => ArgParser()
+  ..addOption(
+    'config',
+    abbr: 'c',
+    help:
+        'Path to the tom-spec-object-model config YAML. '
+        'Default: <clitool>/tom_som.yaml.',
+  )
+  ..addOption(
+    'model',
+    help:
+        'Path to the tom_specs_model package. '
+        'Default: <ai_build>/tom_specs_model.',
+  )
+  ..addOption(
+    'runtime',
+    help:
+        'Path to the tom_som_dart_runtime package (pubspec dep target). '
+        'Default: <ai_build>/tom_som_dart_runtime.',
+  )
+  ..addOption(
+    'py-runtime',
+    help:
+        'Path to the tom_som_python_runtime package (manifest dep '
+        'target). Default: <ai_build>/tom_som_python_runtime.',
+  )
+  ..addOption(
+    'java-runtime',
+    help:
+        'Path to the tom_som_java_runtime package (manifest dep '
+        'target). Default: <ai_build>/tom_som_java_runtime.',
+  )
+  ..addOption(
+    'js-runtime',
+    help:
+        'Path to the tom_som_javascript_runtime package (manifest dep '
+        'target). Default: <ai_build>/tom_som_javascript_runtime.',
+  )
+  ..addOption(
+    'ts-runtime',
+    help:
+        'Path to the tom_som_typescript_runtime package (file: dep '
+        'target). Default: <ai_build>/tom_som_typescript_runtime.',
+  )
+  ..addOption(
+    'go-runtime',
+    help:
+        'Path to the tom_som_go_runtime module (go.mod replace '
+        'target). Default: <ai_build>/tom_som_go_runtime.',
+  )
+  ..addOption(
+    'rust-runtime',
+    help:
+        'Path to the tom_som_rust_runtime crate (Cargo.toml path dep '
+        'target). Default: <ai_build>/tom_som_rust_runtime.',
+  )
+  ..addOption(
+    'c-runtime',
+    help:
+        'Path to the tom_som_c_runtime project (Makefile RUNTIME_DIR '
+        'target). Default: <ai_build>/tom_som_c_runtime.',
+  )
+  ..addOption(
+    'cpp-runtime',
+    help:
+        'Path to the tom_som_cpp_runtime project (Makefile RUNTIME_DIR '
+        'target). Default: <ai_build>/tom_som_cpp_runtime.',
+  )
+  ..addOption(
+    'model-version',
+    help:
+        'Override the integer model-version stamp. '
+        'Default: major component of the model version.',
+  )
+  ..addFlag(
+    'help',
+    abbr: 'h',
+    help: 'Show usage information.',
+    negatable: false,
+  );
+
+Future<void> _mainGenerateSom(List<String> arguments) async {
   final clitoolRoot = _clitoolRoot();
   final aiBuild = p.dirname(clitoolRoot);
 
-  final parser = ArgParser()
-    ..addOption(
-      'config',
-      abbr: 'c',
-      help:
-          'Path to the tom-spec-object-model config YAML. '
-          'Default: <clitool>/tom_som.yaml.',
-    )
-    ..addOption(
-      'model',
-      help:
-          'Path to the tom_specs_model package. '
-          'Default: <ai_build>/tom_specs_model.',
-    )
-    ..addOption(
-      'runtime',
-      help:
-          'Path to the tom_som_dart_runtime package (pubspec dep target). '
-          'Default: <ai_build>/tom_som_dart_runtime.',
-    )
-    ..addOption(
-      'py-runtime',
-      help:
-          'Path to the tom_som_python_runtime package (manifest dep '
-          'target). Default: <ai_build>/tom_som_python_runtime.',
-    )
-    ..addOption(
-      'java-runtime',
-      help:
-          'Path to the tom_som_java_runtime package (manifest dep '
-          'target). Default: <ai_build>/tom_som_java_runtime.',
-    )
-    ..addOption(
-      'js-runtime',
-      help:
-          'Path to the tom_som_javascript_runtime package (manifest dep '
-          'target). Default: <ai_build>/tom_som_javascript_runtime.',
-    )
-    ..addOption(
-      'ts-runtime',
-      help:
-          'Path to the tom_som_typescript_runtime package (file: dep '
-          'target). Default: <ai_build>/tom_som_typescript_runtime.',
-    )
-    ..addOption(
-      'go-runtime',
-      help:
-          'Path to the tom_som_go_runtime module (go.mod replace '
-          'target). Default: <ai_build>/tom_som_go_runtime.',
-    )
-    ..addOption(
-      'rust-runtime',
-      help:
-          'Path to the tom_som_rust_runtime crate (Cargo.toml path dep '
-          'target). Default: <ai_build>/tom_som_rust_runtime.',
-    )
-    ..addOption(
-      'c-runtime',
-      help:
-          'Path to the tom_som_c_runtime project (Makefile RUNTIME_DIR '
-          'target). Default: <ai_build>/tom_som_c_runtime.',
-    )
-    ..addOption(
-      'cpp-runtime',
-      help:
-          'Path to the tom_som_cpp_runtime project (Makefile RUNTIME_DIR '
-          'target). Default: <ai_build>/tom_som_cpp_runtime.',
-    )
-    ..addOption(
-      'model-version',
-      help:
-          'Override the integer model-version stamp. '
-          'Default: major component of the model version.',
-    )
-    ..addFlag(
-      'help',
-      abbr: 'h',
-      help: 'Show usage information.',
-      negatable: false,
-    );
+  final parser = generateSomParser();
 
   final ArgResults args;
   try {
@@ -105,12 +125,12 @@ Future<void> main(List<String> arguments) async {
   } on FormatException catch (e) {
     stderr.writeln('Error: ${e.message}\n');
     stdout.writeln(parser.usage);
-    exit(2);
+    throw ToolExit(2);
   }
   if (args.flag('help')) {
     stdout.writeln('Usage: dart run bin/generate_som.dart [options]\n');
     stdout.writeln(parser.usage);
-    exit(0);
+    throw ToolExit(0);
   }
 
   final configPath = p.normalize(
@@ -584,5 +604,5 @@ ModelVersionStamp _readStamp(String modelDir) {
 
 Never _fail(String msg) {
   stderr.writeln('generate_som error: $msg');
-  exit(1);
+  throw ToolExit(1);
 }

@@ -19,21 +19,41 @@ import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-void main(List<String> arguments) {
-  final parser = ArgParser()
-    ..addOption(
-      'manifest',
-      help:
-          'Path to the format set. Default: tool/format_set.yaml beside '
-          'this package.',
-    )
-    ..addOption(
-      'container-root',
-      help:
-          'Workspace container root. Default: three levels above this '
-          'package.',
-    )
-    ..addFlag('help', abbr: 'h', negatable: false, help: 'Show usage.');
+/// Runs `check_format` with [arguments] and returns its exit code, without ending
+/// the process (the `tomspecs` command calls it).
+Future<int> runCheckFormat(List<String> arguments) async {
+  _exitCode = 0;
+  try {
+    _mainCheckFormat(arguments);
+  } on ToolExit catch (e) {
+    return e.code;
+  }
+  return _exitCode;
+}
+
+int _exitCode = 0;
+
+Future<void> main(List<String> arguments) async =>
+    exit(await runCheckFormat(arguments));
+
+/// The options of `check_format` (also the `tomspecs` command's).
+ArgParser checkFormatParser() => ArgParser()
+  ..addOption(
+    'manifest',
+    help:
+        'Path to the format set. Default: tool/format_set.yaml beside '
+        'this package.',
+  )
+  ..addOption(
+    'container-root',
+    help:
+        'Workspace container root. Default: three levels above this '
+        'package.',
+  )
+  ..addFlag('help', abbr: 'h', negatable: false, help: 'Show usage.');
+
+void _mainCheckFormat(List<String> arguments) {
+  final parser = checkFormatParser();
 
   final ArgResults results;
   try {
@@ -41,12 +61,12 @@ void main(List<String> arguments) {
   } on FormatException catch (e) {
     stderr.writeln('Error: ${e.message}\n');
     stderr.writeln(parser.usage);
-    exit(2);
+    throw ToolExit(2);
   }
   if (results.flag('help')) {
     stdout.writeln('Usage: dart run bin/check_format.dart [options]\n');
     stdout.writeln(parser.usage);
-    exit(0);
+    throw ToolExit(0);
   }
 
   final packageRoot = p.normalize(Directory.current.path);
@@ -59,7 +79,7 @@ void main(List<String> arguments) {
 
   if (!File(manifestPath).existsSync()) {
     stderr.writeln('check_format: manifest not found: $manifestPath');
-    exit(2);
+    throw ToolExit(2);
   }
 
   final report = checkFormatting(
@@ -78,9 +98,9 @@ void main(List<String> arguments) {
   }
   stdout.writeln(report.summary);
 
-  if (report.unavailable != null) exit(2);
+  if (report.unavailable != null) throw ToolExit(2);
   if (!report.isClean) {
     stdout.writeln('Repair with: dart format <path>  (or the package root)');
-    exit(1);
+    throw ToolExit(1);
   }
 }

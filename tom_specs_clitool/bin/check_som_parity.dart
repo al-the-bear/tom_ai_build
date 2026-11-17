@@ -21,18 +21,39 @@ import 'dart:io';
 import 'package:args/args.dart';
 
 import 'package:tom_specs_clitool/src/som_parity.dart';
+import 'package:tom_specs_clitool/tom_specs_clitool.dart' show ToolExit;
 
-void main(List<String> arguments) {
-  final parser = ArgParser()
-    ..addOption('manifest', help: 'The acknowledged-asymmetry manifest.')
-    ..addOption('container-root', help: 'The workspace root to scan.')
-    ..addFlag(
-      'verbose',
-      abbr: 'v',
-      negatable: false,
-      help: 'List every contract token checked.',
-    )
-    ..addFlag('help', abbr: 'h', negatable: false);
+/// Runs `check_som_parity` with [arguments] and returns its exit code, without ending
+/// the process (the `tomspecs` command calls it).
+Future<int> runCheckSomParity(List<String> arguments) async {
+  _exitCode = 0;
+  try {
+    _mainCheckSomParity(arguments);
+  } on ToolExit catch (e) {
+    return e.code;
+  }
+  return _exitCode;
+}
+
+int _exitCode = 0;
+
+Future<void> main(List<String> arguments) async =>
+    exit(await runCheckSomParity(arguments));
+
+/// The options of `check_som_parity` (also the `tomspecs` command's).
+ArgParser checkSomParityParser() => ArgParser()
+  ..addOption('manifest', help: 'The acknowledged-asymmetry manifest.')
+  ..addOption('container-root', help: 'The workspace root to scan.')
+  ..addFlag(
+    'verbose',
+    abbr: 'v',
+    negatable: false,
+    help: 'List every contract token checked.',
+  )
+  ..addFlag('help', abbr: 'h', negatable: false);
+
+void _mainCheckSomParity(List<String> arguments) {
+  final parser = checkSomParityParser();
   final args = parser.parse(arguments);
   if (args['help'] as bool) {
     stdout.writeln('check_som_parity — nine-plane capability parity\n');
@@ -54,7 +75,7 @@ void main(List<String> arguments) {
       'check_som_parity: no conformance corpus at $aiBuild — '
       'nothing to check against',
     );
-    exit(2);
+    throw ToolExit(2);
   }
 
   final planeTokenSets = <String, Set<String>>{
@@ -67,7 +88,7 @@ void main(List<String> arguments) {
       'check_som_parity: no sources read for ${empty.join(", ")} '
       '— a plane that reads as empty would report every capability missing',
     );
-    exit(2);
+    throw ToolExit(2);
   }
 
   final findings = checkParity(vocabulary, planeTokenSets);
@@ -107,5 +128,5 @@ void main(List<String> arguments) {
     'check_som_parity: ${live.length} unacknowledged, '
     '${stale.length} stale exception(s)',
   );
-  exit(1);
+  throw ToolExit(1);
 }

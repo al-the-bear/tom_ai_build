@@ -20,28 +20,48 @@ import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-void main(List<String> arguments) {
-  final parser = ArgParser()
-    ..addFlag(
-      'record',
-      negatable: false,
-      help:
-          'Rewrite the baseline from the current measurement. Use when the '
-          'shared set has shrunk, in the same commit that shrank it.',
-    )
-    ..addOption(
-      'baseline',
-      help:
-          'Path to the baseline. Default: $sharedDocBaselinePath beside this '
-          'package.',
-    )
-    ..addOption(
-      'container-root',
-      help:
-          'Workspace container root holding both spec trees. Default: three '
-          'levels above this package.',
-    )
-    ..addFlag('help', abbr: 'h', negatable: false, help: 'Show usage.');
+/// Runs `check_spec_tree_duplication` with [arguments] and returns its exit code, without ending
+/// the process (the `tomspecs` command calls it).
+Future<int> runCheckSpecTreeDuplication(List<String> arguments) async {
+  _exitCode = 0;
+  try {
+    _mainCheckSpecTreeDuplication(arguments);
+  } on ToolExit catch (e) {
+    return e.code;
+  }
+  return _exitCode;
+}
+
+int _exitCode = 0;
+
+Future<void> main(List<String> arguments) async =>
+    exit(await runCheckSpecTreeDuplication(arguments));
+
+/// The options of `check_spec_tree_duplication` (also the `tomspecs` command's).
+ArgParser checkSpecTreeDuplicationParser() => ArgParser()
+  ..addFlag(
+    'record',
+    negatable: false,
+    help:
+        'Rewrite the baseline from the current measurement. Use when the '
+        'shared set has shrunk, in the same commit that shrank it.',
+  )
+  ..addOption(
+    'baseline',
+    help:
+        'Path to the baseline. Default: $sharedDocBaselinePath beside this '
+        'package.',
+  )
+  ..addOption(
+    'container-root',
+    help:
+        'Workspace container root holding both spec trees. Default: three '
+        'levels above this package.',
+  )
+  ..addFlag('help', abbr: 'h', negatable: false, help: 'Show usage.');
+
+void _mainCheckSpecTreeDuplication(List<String> arguments) {
+  final parser = checkSpecTreeDuplicationParser();
 
   final ArgResults results;
   try {
@@ -49,14 +69,14 @@ void main(List<String> arguments) {
   } on FormatException catch (e) {
     stderr.writeln('Error: ${e.message}\n');
     stderr.writeln(parser.usage);
-    exit(2);
+    throw ToolExit(2);
   }
   if (results.flag('help')) {
     stdout.writeln(
       'Usage: dart run bin/check_spec_tree_duplication.dart [options]\n',
     );
     stdout.writeln(parser.usage);
-    exit(0);
+    throw ToolExit(0);
   }
 
   final packageRoot = p.normalize(Directory.current.path);
@@ -76,7 +96,7 @@ void main(List<String> arguments) {
         'check_spec_tree_duplication: spec tree not found: '
         '${p.join(containerRoot, tree)}',
       );
-      exit(2);
+      throw ToolExit(2);
     }
   }
 
@@ -88,7 +108,7 @@ void main(List<String> arguments) {
       'check_spec_tree_duplication: recorded ${shared.length} shared doc '
       'line(s) to ${baselineFile.path}',
     );
-    exit(0);
+    throw ToolExit(0);
   }
 
   if (!baselineFile.existsSync()) {
@@ -96,7 +116,7 @@ void main(List<String> arguments) {
       'check_spec_tree_duplication: no baseline at ${baselineFile.path}\n'
       '  record one with --record',
     );
-    exit(2);
+    throw ToolExit(2);
   }
 
   final baseline = readSharedDocBaseline(baselineFile);
@@ -120,7 +140,7 @@ void main(List<String> arguments) {
         stdout.writeln('    - $line');
       }
     }
-    exit(0);
+    throw ToolExit(0);
   }
 
   stderr.writeln(
@@ -138,5 +158,5 @@ void main(List<String> arguments) {
     'if the shared wording is genuinely the intended end state — re-record the\n'
     'baseline with --record and say why in the commit.',
   );
-  exit(1);
+  throw ToolExit(1);
 }

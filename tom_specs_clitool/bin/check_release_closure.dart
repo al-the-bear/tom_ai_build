@@ -14,30 +14,50 @@ import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-Future<void> main(List<String> arguments) async {
-  final parser = ArgParser()
-    ..addOption(
-      'manifest',
-      help: 'Release-set manifest. Default: tool/release_set.yaml.',
-    )
-    ..addOption(
-      'container-root',
-      help:
-          'Workspace container root. Default: derived from this script '
-          '(clitool/../../..).',
-    )
-    ..addFlag(
-      'verbose',
-      abbr: 'v',
-      help: 'List every walked package and approved crossing.',
-      negatable: false,
-    )
-    ..addFlag(
-      'help',
-      abbr: 'h',
-      help: 'Show usage information.',
-      negatable: false,
-    );
+/// Runs `check_release_closure` with [arguments] and returns its exit code, without ending
+/// the process (the `tomspecs` command calls it).
+Future<int> runCheckReleaseClosure(List<String> arguments) async {
+  _exitCode = 0;
+  try {
+    await _mainCheckReleaseClosure(arguments);
+  } on ToolExit catch (e) {
+    return e.code;
+  }
+  return _exitCode;
+}
+
+int _exitCode = 0;
+
+Future<void> main(List<String> arguments) async =>
+    exit(await runCheckReleaseClosure(arguments));
+
+/// The options of `check_release_closure` (also the `tomspecs` command's).
+ArgParser checkReleaseClosureParser() => ArgParser()
+  ..addOption(
+    'manifest',
+    help: 'Release-set manifest. Default: tool/release_set.yaml.',
+  )
+  ..addOption(
+    'container-root',
+    help:
+        'Workspace container root. Default: derived from this script '
+        '(clitool/../../..).',
+  )
+  ..addFlag(
+    'verbose',
+    abbr: 'v',
+    help: 'List every walked package and approved crossing.',
+    negatable: false,
+  )
+  ..addFlag(
+    'help',
+    abbr: 'h',
+    help: 'Show usage information.',
+    negatable: false,
+  );
+
+Future<void> _mainCheckReleaseClosure(List<String> arguments) async {
+  final parser = checkReleaseClosureParser();
 
   final ArgResults results;
   try {
@@ -45,13 +65,13 @@ Future<void> main(List<String> arguments) async {
   } on FormatException catch (e) {
     stderr.writeln('Error: ${e.message}');
     stdout.writeln(parser.usage);
-    exit(2);
+    throw ToolExit(2);
   }
 
   if (results.flag('help')) {
     stdout.writeln('Usage: dart run bin/check_release_closure.dart [options]');
     stdout.writeln(parser.usage);
-    exit(0);
+    throw ToolExit(0);
   }
 
   final clitoolRoot = p.dirname(p.dirname(p.fromUri(Platform.script)));
@@ -72,7 +92,7 @@ Future<void> main(List<String> arguments) async {
     manifest = ReleaseManifest.load(manifestPath);
   } on FormatException catch (e) {
     stderr.writeln('check_release_closure error: ${e.message}');
-    exit(2);
+    throw ToolExit(2);
   }
 
   final report = checkReleaseClosure(
@@ -111,7 +131,7 @@ Future<void> main(List<String> arguments) async {
     for (final violation in report.violations) {
       stderr.writeln('  ${violation.describe()}');
     }
-    exit(1);
+    throw ToolExit(1);
   }
 
   stdout.writeln(

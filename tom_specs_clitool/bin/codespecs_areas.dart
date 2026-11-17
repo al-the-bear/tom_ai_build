@@ -14,38 +14,58 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// `--check` writes nothing and exits 1 when the committed file disagrees with
 /// the document, which is what makes the catalogue drift-proof: the mapping
 /// document stays the single authority and the JSON is its transcription.
-Future<void> main(List<String> arguments) async {
-  final parser = ArgParser()
-    ..addOption(
-      'mapping',
-      help:
-          'The mapping document to transcribe. Default: '
-          'tom_ai/ai_build/tom_core_codespecs/doc/codespecs_mapping.md.',
-    )
-    ..addOption(
-      'prompt',
-      help:
-          'The starting-prompt document whose §4.4/§4.5 gate tables are '
-          'transcribed. Default: '
-          'tom_specs_model/doc/codespecs_prompt.md.',
-    )
-    ..addOption(
-      'output',
-      help:
-          'Where to write the catalogue. Default: '
-          'tom_specs_model/generated-doc/codespecs/codespecs_areas.json.',
-    )
-    ..addFlag(
-      'check',
-      help: 'Verify the committed file matches the document; write nothing.',
-      negatable: false,
-    )
-    ..addFlag(
-      'help',
-      abbr: 'h',
-      help: 'Show usage information.',
-      negatable: false,
-    );
+/// Runs `codespecs_areas` with [arguments] and returns its exit code, without ending
+/// the process (the `tomspecs` command calls it).
+Future<int> runCodespecsAreas(List<String> arguments) async {
+  _exitCode = 0;
+  try {
+    await _mainCodespecsAreas(arguments);
+  } on ToolExit catch (e) {
+    return e.code;
+  }
+  return _exitCode;
+}
+
+int _exitCode = 0;
+
+Future<void> main(List<String> arguments) async =>
+    exit(await runCodespecsAreas(arguments));
+
+/// The options of `codespecs_areas` (also the `tomspecs` command's).
+ArgParser codespecsAreasParser() => ArgParser()
+  ..addOption(
+    'mapping',
+    help:
+        'The mapping document to transcribe. Default: '
+        'tom_ai/ai_build/tom_core_codespecs/doc/codespecs_mapping.md.',
+  )
+  ..addOption(
+    'prompt',
+    help:
+        'The starting-prompt document whose §4.4/§4.5 gate tables are '
+        'transcribed. Default: '
+        'tom_specs_model/doc/codespecs_prompt.md.',
+  )
+  ..addOption(
+    'output',
+    help:
+        'Where to write the catalogue. Default: '
+        'tom_specs_model/generated-doc/codespecs/codespecs_areas.json.',
+  )
+  ..addFlag(
+    'check',
+    help: 'Verify the committed file matches the document; write nothing.',
+    negatable: false,
+  )
+  ..addFlag(
+    'help',
+    abbr: 'h',
+    help: 'Show usage information.',
+    negatable: false,
+  );
+
+Future<void> _mainCodespecsAreas(List<String> arguments) async {
+  final parser = codespecsAreasParser();
 
   final ArgResults results;
   try {
@@ -53,13 +73,13 @@ Future<void> main(List<String> arguments) async {
   } on FormatException catch (e) {
     stderr.writeln('Error: ${e.message}');
     stdout.writeln(parser.usage);
-    exit(2);
+    throw ToolExit(2);
   }
 
   if (results.flag('help')) {
     stdout.writeln('Usage: dart run bin/codespecs_areas.dart [options]');
     stdout.writeln(parser.usage);
-    exit(0);
+    throw ToolExit(0);
   }
 
   final clitoolRoot = p.dirname(p.dirname(p.fromUri(Platform.script)));
@@ -116,7 +136,7 @@ Future<void> main(List<String> arguments) async {
       final committed = File(outputPath);
       if (!committed.existsSync()) {
         stderr.writeln('codespecs_areas --check: $outputPath does not exist.');
-        exit(1);
+        throw ToolExit(1);
       }
       if (committed.readAsStringSync() != text) {
         stderr.writeln(
@@ -124,7 +144,7 @@ Future<void> main(List<String> arguments) async {
           '${p.relative(outputPath, from: clitoolRoot)} is stale — '
           'run `dart run bin/codespecs_areas.dart` and commit the diff.',
         );
-        exit(1);
+        throw ToolExit(1);
       }
       // The accessor is checked too, and separately: the two are written in
       // one pass but committed as two files, so a partial commit is exactly
@@ -135,7 +155,7 @@ Future<void> main(List<String> arguments) async {
         stderr.writeln(
           'codespecs_areas --check: $accessorPath does not exist.',
         );
-        exit(1);
+        throw ToolExit(1);
       }
       if (accessor.readAsStringSync() !=
           await _formatted(areasAccessorLibrary(text), accessorPath)) {
@@ -144,7 +164,7 @@ Future<void> main(List<String> arguments) async {
           '${p.relative(accessorPath, from: clitoolRoot)} is stale — '
           'run `dart run bin/codespecs_areas.dart` and commit the diff.',
         );
-        exit(1);
+        throw ToolExit(1);
       }
     } else {
       text = writeAreasCatalog(
@@ -158,7 +178,7 @@ Future<void> main(List<String> arguments) async {
     }
   } on AreasCatalogException catch (e) {
     stderr.writeln('codespecs_areas error: ${e.message}');
-    exit(1);
+    throw ToolExit(1);
   }
 
   final catalog = buildAreasCatalog(
@@ -176,7 +196,7 @@ Future<void> main(List<String> arguments) async {
     '${text.length} byte(s).',
   );
   stdout.writeln('  accessor: ${p.relative(accessorPath, from: clitoolRoot)}');
-  exit(0);
+  throw ToolExit(0);
 }
 
 /// [source] run through `dart format`, or unchanged if the formatter is absent.

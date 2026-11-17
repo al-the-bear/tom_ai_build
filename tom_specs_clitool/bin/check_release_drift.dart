@@ -11,30 +11,50 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// Exits 1 when a package has drifted and is not acknowledged in
 /// `tool/release_set.yaml`'s `unpublished_drift:` block, or when an
 /// acknowledgement names a package the manifest does not release.
-void main(List<String> arguments) {
-  final parser = ArgParser()
-    ..addOption(
-      'manifest',
-      help: 'Release-set manifest. Default: tool/release_set.yaml.',
-    )
-    ..addOption(
-      'container-root',
-      help:
-          'Workspace root the manifest paths are relative to. Default: three '
-          'levels above this package.',
-    )
-    ..addFlag(
-      'verbose',
-      abbr: 'v',
-      help: 'List every changed file rather than the first five.',
-      negatable: false,
-    )
-    ..addFlag(
-      'help',
-      abbr: 'h',
-      help: 'Show usage information.',
-      negatable: false,
-    );
+/// Runs `check_release_drift` with [arguments] and returns its exit code, without ending
+/// the process (the `tomspecs` command calls it).
+Future<int> runCheckReleaseDrift(List<String> arguments) async {
+  _exitCode = 0;
+  try {
+    _mainCheckReleaseDrift(arguments);
+  } on ToolExit catch (e) {
+    return e.code;
+  }
+  return _exitCode;
+}
+
+int _exitCode = 0;
+
+Future<void> main(List<String> arguments) async =>
+    exit(await runCheckReleaseDrift(arguments));
+
+/// The options of `check_release_drift` (also the `tomspecs` command's).
+ArgParser checkReleaseDriftParser() => ArgParser()
+  ..addOption(
+    'manifest',
+    help: 'Release-set manifest. Default: tool/release_set.yaml.',
+  )
+  ..addOption(
+    'container-root',
+    help:
+        'Workspace root the manifest paths are relative to. Default: three '
+        'levels above this package.',
+  )
+  ..addFlag(
+    'verbose',
+    abbr: 'v',
+    help: 'List every changed file rather than the first five.',
+    negatable: false,
+  )
+  ..addFlag(
+    'help',
+    abbr: 'h',
+    help: 'Show usage information.',
+    negatable: false,
+  );
+
+void _mainCheckReleaseDrift(List<String> arguments) {
+  final parser = checkReleaseDriftParser();
 
   final ArgResults results;
   try {
@@ -42,13 +62,13 @@ void main(List<String> arguments) {
   } on FormatException catch (e) {
     stderr.writeln('Error: ${e.message}');
     stdout.writeln(parser.usage);
-    exit(2);
+    throw ToolExit(2);
   }
 
   if (results.flag('help')) {
     stdout.writeln('Usage: dart run bin/check_release_drift.dart [options]');
     stdout.writeln(parser.usage);
-    exit(0);
+    throw ToolExit(0);
   }
 
   final clitoolRoot = p.dirname(p.dirname(p.fromUri(Platform.script)));
@@ -72,7 +92,7 @@ void main(List<String> arguments) {
     stdout.writeln(
       'release-drift: every package is at its published tree, or says why not',
     );
-    exit(0);
+    throw ToolExit(0);
   }
 
   final limit = results.flag('verbose') ? 1 << 30 : 5;
@@ -95,5 +115,5 @@ void main(List<String> arguments) {
     'Either publish the package at a new version, or record why it is behind '
     'under `unpublished_drift:` in tool/release_set.yaml.',
   );
-  exit(1);
+  throw ToolExit(1);
 }

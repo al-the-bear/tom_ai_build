@@ -19,63 +19,83 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// `lib/src/todo_citations.dart` for the two markers, why an ambiguous citation
 /// is not exemptable, and why the id shapes are discovered rather than
 /// enumerated.
-Future<void> main(List<String> arguments) async {
-  final parser = ArgParser()
-    ..addOption(
-      'doc',
-      help:
-          'Documentation folder to scan. Default: the sibling '
-          'tom_specs_model/doc.',
-    )
-    ..addMultiOption(
-      'extra',
-      help:
-          'Additional file to scan, resolved against the same corpus. '
-          'Repeatable. Defaults to the project READMEs that cite the doc set; '
-          'pass --no-default-readmes to scan the doc folder alone.',
-    )
-    ..addFlag(
-      'default-readmes',
-      defaultsTo: true,
-      help: 'Also scan the project READMEs that cite the doc set.',
-    )
-    ..addMultiOption(
-      'doc-folder',
-      help:
-          'Additional package `doc/` folder whose `*.md` files are scanned, '
-          'recursively. Repeatable. Defaults to the package doc folders that '
-          'cite the doc set; pass --no-default-doc-folders to drop them.',
-    )
-    ..addFlag(
-      'default-doc-folders',
-      defaultsTo: true,
-      help: 'Also scan the package `doc/` folders that cite the doc set.',
-    )
-    ..addMultiOption(
-      'quest',
-      help:
-          'Quest folder contributing todos (active + archived + deleted). '
-          'Repeatable. Default: the tom_specs and tom_core quests, the two the '
-          'TomSpecs documents cite.',
-    )
-    ..addOption(
-      'vocabulary',
-      help:
-          'Token list of non-todo words sharing the id shape. '
-          'Default: tool/todo_citation_vocabulary.txt.',
-    )
-    ..addFlag(
-      'verbose',
-      abbr: 'v',
-      help: 'List resolved-open citations too.',
-      negatable: false,
-    )
-    ..addFlag(
-      'help',
-      abbr: 'h',
-      help: 'Show usage information.',
-      negatable: false,
-    );
+/// Runs `check_todo_citations` with [arguments] and returns its exit code, without ending
+/// the process (the `tomspecs` command calls it).
+Future<int> runCheckTodoCitations(List<String> arguments) async {
+  _exitCode = 0;
+  try {
+    await _mainCheckTodoCitations(arguments);
+  } on ToolExit catch (e) {
+    return e.code;
+  }
+  return _exitCode;
+}
+
+int _exitCode = 0;
+
+Future<void> main(List<String> arguments) async =>
+    exit(await runCheckTodoCitations(arguments));
+
+/// The options of `check_todo_citations` (also the `tomspecs` command's).
+ArgParser checkTodoCitationsParser() => ArgParser()
+  ..addOption(
+    'doc',
+    help:
+        'Documentation folder to scan. Default: the sibling '
+        'tom_specs_model/doc.',
+  )
+  ..addMultiOption(
+    'extra',
+    help:
+        'Additional file to scan, resolved against the same corpus. '
+        'Repeatable. Defaults to the project READMEs that cite the doc set; '
+        'pass --no-default-readmes to scan the doc folder alone.',
+  )
+  ..addFlag(
+    'default-readmes',
+    defaultsTo: true,
+    help: 'Also scan the project READMEs that cite the doc set.',
+  )
+  ..addMultiOption(
+    'doc-folder',
+    help:
+        'Additional package `doc/` folder whose `*.md` files are scanned, '
+        'recursively. Repeatable. Defaults to the package doc folders that '
+        'cite the doc set; pass --no-default-doc-folders to drop them.',
+  )
+  ..addFlag(
+    'default-doc-folders',
+    defaultsTo: true,
+    help: 'Also scan the package `doc/` folders that cite the doc set.',
+  )
+  ..addMultiOption(
+    'quest',
+    help:
+        'Quest folder contributing todos (active + archived + deleted). '
+        'Repeatable. Default: the tom_specs and tom_core quests, the two the '
+        'TomSpecs documents cite.',
+  )
+  ..addOption(
+    'vocabulary',
+    help:
+        'Token list of non-todo words sharing the id shape. '
+        'Default: tool/todo_citation_vocabulary.txt.',
+  )
+  ..addFlag(
+    'verbose',
+    abbr: 'v',
+    help: 'List resolved-open citations too.',
+    negatable: false,
+  )
+  ..addFlag(
+    'help',
+    abbr: 'h',
+    help: 'Show usage information.',
+    negatable: false,
+  );
+
+Future<void> _mainCheckTodoCitations(List<String> arguments) async {
+  final parser = checkTodoCitationsParser();
 
   final ArgResults results;
   try {
@@ -83,13 +103,13 @@ Future<void> main(List<String> arguments) async {
   } on FormatException catch (e) {
     stderr.writeln('Error: ${e.message}');
     stdout.writeln(parser.usage);
-    exit(2);
+    throw ToolExit(2);
   }
 
   if (results.flag('help')) {
     stdout.writeln('Usage: dart run bin/check_todo_citations.dart [options]');
     stdout.writeln(parser.usage);
-    exit(0);
+    throw ToolExit(0);
   }
 
   final clitoolRoot = p.dirname(p.dirname(p.fromUri(Platform.script)));
@@ -127,7 +147,7 @@ Future<void> main(List<String> arguments) async {
       'check_todo_citations error: no todo file found under '
       '${questDirs.join(', ')} — every citation would look unresolved.',
     );
-    exit(1);
+    throw ToolExit(1);
   }
 
   final TodoCitationReport report;
@@ -151,7 +171,7 @@ Future<void> main(List<String> arguments) async {
     );
   } on ArgumentError catch (e) {
     stderr.writeln('check_todo_citations error: ${e.message}');
-    exit(1);
+    throw ToolExit(1);
   }
 
   stdout.writeln(
@@ -176,7 +196,7 @@ Future<void> main(List<String> arguments) async {
 
   if (report.isClean) {
     stdout.writeln('OK — every cited todo id resolves to one open todo.');
-    exit(0);
+    throw ToolExit(0);
   }
 
   stderr.writeln('');
@@ -187,5 +207,5 @@ Future<void> main(List<String> arguments) async {
   for (final violation in report.violations) {
     stderr.writeln('  ${violation.describe(relativeTo: containerRoot)}');
   }
-  exit(1);
+  throw ToolExit(1);
 }

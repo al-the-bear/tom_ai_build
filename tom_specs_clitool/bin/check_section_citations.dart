@@ -22,63 +22,83 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// resolves against that document. Exits 1 on any citation that resolves to no
 /// heading. See `lib/src/section_citations.dart` for the run rule and for what
 /// a section id is allowed to look like.
-Future<void> main(List<String> arguments) async {
-  final parser = ArgParser()
-    ..addOption(
-      'doc',
-      help:
-          'Documentation folder to scan. Default: the sibling '
-          'tom_specs_model/doc.',
-    )
-    ..addMultiOption(
-      'extra',
-      help:
-          'Additional file to scan, resolved against the same corpus. '
-          'Repeatable. Defaults to the project READMEs that cite the doc set; '
-          'pass --no-default-readmes to scan the doc folder alone.',
-    )
-    ..addFlag(
-      'default-readmes',
-      defaultsTo: true,
-      help: 'Also scan the project READMEs that cite the doc set.',
-    )
-    ..addMultiOption(
-      'doc-folder',
-      help:
-          'Additional package `doc/` folder whose `*.md` files are scanned, '
-          'recursively. Repeatable. Defaults to the package doc folders that '
-          'cite the doc set; pass --no-default-doc-folders to drop them.',
-    )
-    ..addFlag(
-      'default-doc-folders',
-      defaultsTo: true,
-      help: 'Also scan the package `doc/` folders that cite the doc set.',
-    )
-    ..addMultiOption(
-      'source',
-      help:
-          'Additional source file — or a directory of them — whose comments '
-          'are scanned: `///` in Dart, `#` in shell/Python/YAML, `//` in the '
-          'C family. Repeatable. Defaults to the citing source trees; pass '
-          '--no-default-sources to scan markdown alone.',
-    )
-    ..addFlag(
-      'default-sources',
-      defaultsTo: true,
-      help: 'Also scan the comments of the citing source trees.',
-    )
-    ..addFlag(
-      'verbose',
-      abbr: 'v',
-      help: 'List every citation, not only the unresolved ones.',
-      negatable: false,
-    )
-    ..addFlag(
-      'help',
-      abbr: 'h',
-      help: 'Show usage information.',
-      negatable: false,
-    );
+/// Runs `check_section_citations` with [arguments] and returns its exit code, without ending
+/// the process (the `tomspecs` command calls it).
+Future<int> runCheckSectionCitations(List<String> arguments) async {
+  _exitCode = 0;
+  try {
+    await _mainCheckSectionCitations(arguments);
+  } on ToolExit catch (e) {
+    return e.code;
+  }
+  return _exitCode;
+}
+
+int _exitCode = 0;
+
+Future<void> main(List<String> arguments) async =>
+    exit(await runCheckSectionCitations(arguments));
+
+/// The options of `check_section_citations` (also the `tomspecs` command's).
+ArgParser checkSectionCitationsParser() => ArgParser()
+  ..addOption(
+    'doc',
+    help:
+        'Documentation folder to scan. Default: the sibling '
+        'tom_specs_model/doc.',
+  )
+  ..addMultiOption(
+    'extra',
+    help:
+        'Additional file to scan, resolved against the same corpus. '
+        'Repeatable. Defaults to the project READMEs that cite the doc set; '
+        'pass --no-default-readmes to scan the doc folder alone.',
+  )
+  ..addFlag(
+    'default-readmes',
+    defaultsTo: true,
+    help: 'Also scan the project READMEs that cite the doc set.',
+  )
+  ..addMultiOption(
+    'doc-folder',
+    help:
+        'Additional package `doc/` folder whose `*.md` files are scanned, '
+        'recursively. Repeatable. Defaults to the package doc folders that '
+        'cite the doc set; pass --no-default-doc-folders to drop them.',
+  )
+  ..addFlag(
+    'default-doc-folders',
+    defaultsTo: true,
+    help: 'Also scan the package `doc/` folders that cite the doc set.',
+  )
+  ..addMultiOption(
+    'source',
+    help:
+        'Additional source file — or a directory of them — whose comments '
+        'are scanned: `///` in Dart, `#` in shell/Python/YAML, `//` in the '
+        'C family. Repeatable. Defaults to the citing source trees; pass '
+        '--no-default-sources to scan markdown alone.',
+  )
+  ..addFlag(
+    'default-sources',
+    defaultsTo: true,
+    help: 'Also scan the comments of the citing source trees.',
+  )
+  ..addFlag(
+    'verbose',
+    abbr: 'v',
+    help: 'List every citation, not only the unresolved ones.',
+    negatable: false,
+  )
+  ..addFlag(
+    'help',
+    abbr: 'h',
+    help: 'Show usage information.',
+    negatable: false,
+  );
+
+Future<void> _mainCheckSectionCitations(List<String> arguments) async {
+  final parser = checkSectionCitationsParser();
 
   final ArgResults results;
   try {
@@ -86,7 +106,7 @@ Future<void> main(List<String> arguments) async {
   } on FormatException catch (e) {
     stderr.writeln('Error: ${e.message}');
     stdout.writeln(parser.usage);
-    exit(2);
+    throw ToolExit(2);
   }
 
   if (results.flag('help')) {
@@ -94,7 +114,7 @@ Future<void> main(List<String> arguments) async {
       'Usage: dart run bin/check_section_citations.dart [options]',
     );
     stdout.writeln(parser.usage);
-    exit(0);
+    throw ToolExit(0);
   }
 
   final clitoolRoot = p.dirname(p.dirname(p.fromUri(Platform.script)));
@@ -146,7 +166,7 @@ Future<void> main(List<String> arguments) async {
     );
   } on ArgumentError catch (e) {
     stderr.writeln('check_section_citations error: ${e.message}');
-    exit(1);
+    throw ToolExit(1);
   }
 
   stdout.writeln(
@@ -188,7 +208,7 @@ Future<void> main(List<String> arguments) async {
       'OK — every § citation resolves to a heading, and every '
       'exhibit marker covers one that cannot.',
     );
-    exit(0);
+    throw ToolExit(0);
   }
 
   stderr.writeln('');
@@ -210,5 +230,5 @@ Future<void> main(List<String> arguments) async {
       stderr.writeln('  ${stale.describe(relativeTo: containerRoot)}');
     }
   }
-  exit(1);
+  throw ToolExit(1);
 }

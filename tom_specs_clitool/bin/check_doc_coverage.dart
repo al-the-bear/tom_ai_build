@@ -15,31 +15,51 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// raising a floor. `--raise` winds each floor forward to what is measured
 /// today, which is the only sanctioned way to change one: the manifest is a
 /// ratchet, so a floor may rise and never fall.
-Future<void> main(List<String> arguments) async {
-  final parser = ArgParser()
-    ..addOption(
-      'manifest',
-      help:
-          'Path to the manifest. Default: <clitool>/'
-          '$docCoverageManifestPath.',
-    )
-    ..addOption(
-      'root',
-      help: 'Workspace container root. Default: derived from the clitool.',
-    )
-    ..addFlag(
-      'report',
-      negatable: false,
-      help: 'Print measured coverage for every entry and exit 0.',
-    )
-    ..addFlag(
-      'raise',
-      negatable: false,
-      help:
-          'Wind every floor forward to the measured value and rewrite '
-          'the manifest. Never lowers one.',
-    )
-    ..addFlag('help', abbr: 'h', negatable: false);
+/// Runs `check_doc_coverage` with [arguments] and returns its exit code, without ending
+/// the process (the `tomspecs` command calls it).
+Future<int> runCheckDocCoverage(List<String> arguments) async {
+  _exitCode = 0;
+  try {
+    await _mainCheckDocCoverage(arguments);
+  } on ToolExit catch (e) {
+    return e.code;
+  }
+  return _exitCode;
+}
+
+int _exitCode = 0;
+
+Future<void> main(List<String> arguments) async =>
+    exit(await runCheckDocCoverage(arguments));
+
+/// The options of `check_doc_coverage` (also the `tomspecs` command's).
+ArgParser checkDocCoverageParser() => ArgParser()
+  ..addOption(
+    'manifest',
+    help:
+        'Path to the manifest. Default: <clitool>/'
+        '$docCoverageManifestPath.',
+  )
+  ..addOption(
+    'root',
+    help: 'Workspace container root. Default: derived from the clitool.',
+  )
+  ..addFlag(
+    'report',
+    negatable: false,
+    help: 'Print measured coverage for every entry and exit 0.',
+  )
+  ..addFlag(
+    'raise',
+    negatable: false,
+    help:
+        'Wind every floor forward to the measured value and rewrite '
+        'the manifest. Never lowers one.',
+  )
+  ..addFlag('help', abbr: 'h', negatable: false);
+
+Future<void> _mainCheckDocCoverage(List<String> arguments) async {
+  final parser = checkDocCoverageParser();
 
   final results = parser.parse(arguments);
   if (results['help'] as bool) {
@@ -59,7 +79,7 @@ Future<void> main(List<String> arguments) async {
   final manifestFile = File(manifestPath);
   if (!manifestFile.existsSync()) {
     stderr.writeln('doc-coverage manifest not found: $manifestPath');
-    exit(2);
+    throw ToolExit(2);
   }
   final manifest = DocCoverageManifest.parse(manifestFile.readAsStringSync());
 
@@ -94,7 +114,7 @@ Future<void> main(List<String> arguments) async {
       for (final h in held) {
         stdout.writeln('  $h');
       }
-      exitCode = 1;
+      _exitCode = 1;
     }
     return;
   }
@@ -124,7 +144,7 @@ Future<void> main(List<String> arguments) async {
   for (final v in report.violations) {
     stderr.writeln('  $v');
   }
-  exit(1);
+  throw ToolExit(1);
 }
 
 /// Rewrites each `floor:` to the measured value, upward only.

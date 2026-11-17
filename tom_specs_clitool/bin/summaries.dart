@@ -5,6 +5,7 @@ import 'package:analyzer/dart/sdk/build_sdk_summary.dart';
 import 'package:analyzer/file_system/physical_file_system.dart';
 import 'package:analyzer/src/util/sdk.dart';
 import 'package:args/args.dart';
+import 'package:tom_specs_clitool/tom_specs_clitool.dart' show ToolExit;
 import 'package:path/path.dart' as p;
 import 'package:tom_analyzer_shared/tom_analyzer_shared.dart'
     show
@@ -44,30 +45,50 @@ import 'package:tom_analyzer_shared/tom_analyzer_shared.dart'
 /// [GroupedPackageBundleBuilder] (the base-first home), so the load-bearing
 /// resolver order and package-config merge are implemented exactly once. This
 /// CLI is the thin TomSpecs front-end that also emits `sdk_summary.sum`.
-Future<void> main(List<String> arguments) async {
-  final parser = ArgParser()
-    ..addMultiOption(
-      'package',
-      help:
-          'Target package directory whose resolved '
-          '.dart_tool/package_config.json drives package coverage. '
-          'Run `flutter pub get` / `dart pub get` there first. '
-          'Repeatable: the bundle covers the UNION of every given '
-          'package\'s dependency closure (e.g. the editor plus '
-          'tom_flutter_ui for the CodeSpecs Flutter code fields).',
-      defaultsTo: const ['.'],
-    )
-    ..addOption(
-      'out-dir',
-      help: 'Directory to write sdk_summary.sum + packages.sum into.',
-      defaultsTo: p.join('assets', 'summaries'),
-    )
-    ..addFlag(
-      'sdk-only',
-      help: 'Generate only sdk_summary.sum (skip the heavy package bundle).',
-      negatable: false,
-    )
-    ..addFlag('help', abbr: 'h', negatable: false, help: 'Show usage.');
+/// Runs `summaries` with [arguments] and returns its exit code, without ending
+/// the process (the `tomspecs` command calls it).
+Future<int> runSummaries(List<String> arguments) async {
+  _exitCode = 0;
+  try {
+    await _mainSummaries(arguments);
+  } on ToolExit catch (e) {
+    return e.code;
+  }
+  return _exitCode;
+}
+
+int _exitCode = 0;
+
+Future<void> main(List<String> arguments) async =>
+    io.exit(await runSummaries(arguments));
+
+/// The options of `summaries` (also the `tomspecs` command's).
+ArgParser summariesParser() => ArgParser()
+  ..addMultiOption(
+    'package',
+    help:
+        'Target package directory whose resolved '
+        '.dart_tool/package_config.json drives package coverage. '
+        'Run `flutter pub get` / `dart pub get` there first. '
+        'Repeatable: the bundle covers the UNION of every given '
+        'package\'s dependency closure (e.g. the editor plus '
+        'tom_flutter_ui for the CodeSpecs Flutter code fields).',
+    defaultsTo: const ['.'],
+  )
+  ..addOption(
+    'out-dir',
+    help: 'Directory to write sdk_summary.sum + packages.sum into.',
+    defaultsTo: p.join('assets', 'summaries'),
+  )
+  ..addFlag(
+    'sdk-only',
+    help: 'Generate only sdk_summary.sum (skip the heavy package bundle).',
+    negatable: false,
+  )
+  ..addFlag('help', abbr: 'h', negatable: false, help: 'Show usage.');
+
+Future<void> _mainSummaries(List<String> arguments) async {
+  final parser = summariesParser();
 
   final ArgResults args;
   try {
@@ -75,12 +96,12 @@ Future<void> main(List<String> arguments) async {
   } on FormatException catch (e) {
     io.stderr.writeln('Error: ${e.message}\n');
     io.stdout.writeln(parser.usage);
-    io.exit(2);
+    throw ToolExit(2);
   }
   if (args.flag('help')) {
     io.stdout.writeln('Usage: dart run bin/summaries.dart [options]\n');
     io.stdout.writeln(parser.usage);
-    io.exit(0);
+    throw ToolExit(0);
   }
 
   final packageDirs = args.multiOption('package');
@@ -148,9 +169,9 @@ Future<void> main(List<String> arguments) async {
     );
   } on SummaryConfigException catch (e) {
     io.stderr.writeln('ERROR: ${e.message}');
-    io.exit(1);
+    throw ToolExit(1);
   } catch (e, s) {
     io.stderr.writeln('ERROR building package bundle: $e\n$s');
-    io.exit(1);
+    throw ToolExit(1);
   }
 }

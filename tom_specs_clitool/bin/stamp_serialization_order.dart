@@ -20,20 +20,40 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 ///
 /// Usage:
 ///   `dart run bin/stamp_serialization_order.dart --package <model-path> [--dry-run]`
-Future<void> main(List<String> arguments) async {
-  final parser = ArgParser()
-    ..addOption(
-      'package',
-      abbr: 'p',
-      help: 'Path to the target Dart package (its lib/src is rewritten).',
-      mandatory: true,
-    )
-    ..addFlag(
-      'dry-run',
-      help: 'Report what would change without writing files.',
-      negatable: false,
-    )
-    ..addFlag('help', abbr: 'h', negatable: false);
+/// Runs `stamp_serialization_order` with [arguments] and returns its exit code, without ending
+/// the process (the `tomspecs` command calls it).
+Future<int> runStampSerializationOrder(List<String> arguments) async {
+  _exitCode = 0;
+  try {
+    await _mainStampSerializationOrder(arguments);
+  } on ToolExit catch (e) {
+    return e.code;
+  }
+  return _exitCode;
+}
+
+int _exitCode = 0;
+
+Future<void> main(List<String> arguments) async =>
+    exit(await runStampSerializationOrder(arguments));
+
+/// The options of `stamp_serialization_order` (also the `tomspecs` command's).
+ArgParser stampSerializationOrderParser() => ArgParser()
+  ..addOption(
+    'package',
+    abbr: 'p',
+    help: 'Path to the target Dart package (its lib/src is rewritten).',
+    mandatory: true,
+  )
+  ..addFlag(
+    'dry-run',
+    help: 'Report what would change without writing files.',
+    negatable: false,
+  )
+  ..addFlag('help', abbr: 'h', negatable: false);
+
+Future<void> _mainStampSerializationOrder(List<String> arguments) async {
+  final parser = stampSerializationOrderParser();
 
   final ArgResults results;
   try {
@@ -41,7 +61,7 @@ Future<void> main(List<String> arguments) async {
   } on FormatException catch (e) {
     stderr.writeln('Error: ${e.message}');
     stdout.writeln(parser.usage);
-    exit(2);
+    throw ToolExit(2);
   }
   if (results.flag('help')) {
     stdout.writeln(
@@ -49,7 +69,7 @@ Future<void> main(List<String> arguments) async {
       '--package <path> [--dry-run]',
     );
     stdout.writeln(parser.usage);
-    exit(0);
+    throw ToolExit(0);
   }
 
   final packagePath = p.normalize(p.absolute(results.option('package')!));
@@ -60,7 +80,7 @@ Future<void> main(List<String> arguments) async {
     result = stampSerializationOrder(packagePath: packagePath, dryRun: dryRun);
   } on StateError catch (e) {
     stderr.writeln('Error: ${e.message}');
-    exit(1);
+    throw ToolExit(1);
   }
 
   stdout.writeln(

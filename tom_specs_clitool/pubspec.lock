@@ -626,7 +626,7 @@ packages:
     source: hosted
     version: "0.13.1"
   tom_build_base:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: tom_build_base
       sha256: "3e681c0eca9dfa148c0c7565b94868ee8c37824f0aea4fb37b2eb1169d44a42d"

@@ -4,54 +4,74 @@ import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-Future<void> main(List<String> arguments) async {
-  final parser = ArgParser()
-    ..addOption(
-      'package',
-      abbr: 'p',
-      help: 'Path to the target Dart package (its lib/ directory is scanned).',
-      mandatory: true,
-    )
-    ..addOption(
-      'root-type',
-      abbr: 'r',
-      help: 'Name of the root class to start the outline from.',
-      defaultsTo: 'D00SolutionBlueprint',
-    )
-    ..addOption(
-      'output',
-      abbr: 'o',
-      help:
-          'Output file path. Defaults to '
-          'generated-doc/outlines/<RootType>_outline.md.',
-    )
-    ..addOption(
-      'max-line-length',
-      help: 'Maximum line length before wrapping.',
-      defaultsTo: '120',
-    )
-    ..addFlag(
-      'show-schema-annotations',
-      help:
-          'Show schema-only annotations inline '
-          '(tom_specs_model_rules.md §11.2.14).',
-      defaultsTo: false,
-    )
-    ..addFlag(
-      'stop-at-detailed-in',
-      abbr: 'c',
-      help:
-          'Stop tree traversal at sections annotated with @DetailedIn — '
-          'show the section heading with a → DocId suffix but do not expand '
-          'the sub-tree. Produces a compact high-level outline.',
-      defaultsTo: false,
-    )
-    ..addFlag(
-      'help',
-      abbr: 'h',
-      help: 'Show usage information.',
-      negatable: false,
-    );
+/// Runs `outliner` with [arguments] and returns its exit code, without ending
+/// the process (the `tomspecs` command calls it).
+Future<int> runOutliner(List<String> arguments) async {
+  _exitCode = 0;
+  try {
+    await _mainOutliner(arguments);
+  } on ToolExit catch (e) {
+    return e.code;
+  }
+  return _exitCode;
+}
+
+int _exitCode = 0;
+
+Future<void> main(List<String> arguments) async =>
+    exit(await runOutliner(arguments));
+
+/// The options of `outliner` (also the `tomspecs` command's).
+ArgParser outlinerParser() => ArgParser()
+  ..addOption(
+    'package',
+    abbr: 'p',
+    help: 'Path to the target Dart package (its lib/ directory is scanned).',
+    mandatory: true,
+  )
+  ..addOption(
+    'root-type',
+    abbr: 'r',
+    help: 'Name of the root class to start the outline from.',
+    defaultsTo: 'D00SolutionBlueprint',
+  )
+  ..addOption(
+    'output',
+    abbr: 'o',
+    help:
+        'Output file path. Defaults to '
+        'generated-doc/outlines/<RootType>_outline.md.',
+  )
+  ..addOption(
+    'max-line-length',
+    help: 'Maximum line length before wrapping.',
+    defaultsTo: '120',
+  )
+  ..addFlag(
+    'show-schema-annotations',
+    help:
+        'Show schema-only annotations inline '
+        '(tom_specs_model_rules.md §11.2.14).',
+    defaultsTo: false,
+  )
+  ..addFlag(
+    'stop-at-detailed-in',
+    abbr: 'c',
+    help:
+        'Stop tree traversal at sections annotated with @DetailedIn — '
+        'show the section heading with a → DocId suffix but do not expand '
+        'the sub-tree. Produces a compact high-level outline.',
+    defaultsTo: false,
+  )
+  ..addFlag(
+    'help',
+    abbr: 'h',
+    help: 'Show usage information.',
+    negatable: false,
+  );
+
+Future<void> _mainOutliner(List<String> arguments) async {
+  final parser = outlinerParser();
 
   final ArgResults results;
   try {
@@ -60,12 +80,12 @@ Future<void> main(List<String> arguments) async {
     stderr.writeln('Error: ${e.message}');
     stderr.writeln();
     _printUsage(parser);
-    exit(2);
+    throw ToolExit(2);
   }
 
   if (results.flag('help')) {
     _printUsage(parser);
-    exit(0);
+    throw ToolExit(0);
   }
 
   final packagePath = p.normalize(p.absolute(results.option('package')!));
@@ -89,7 +109,7 @@ Future<void> main(List<String> arguments) async {
   final libPath = p.join(packagePath, 'lib');
   if (!Directory(libPath).existsSync()) {
     stderr.writeln('Error: lib/ directory not found at $libPath');
-    exit(1);
+    throw ToolExit(1);
   }
 
   stdout.writeln('Outliner: analyzing $packagePath ...');
@@ -121,7 +141,7 @@ Future<void> main(List<String> arguments) async {
     for (final error in validation.errors) {
       stderr.writeln('  ERROR: $error');
     }
-    exit(1);
+    throw ToolExit(1);
   }
 
   // 4. Generate outline

@@ -264,6 +264,77 @@ serialises members in the authored order. Re-run it after any model edit that
 adds, removes, or reorders fields; it is idempotent (old annotations are stripped
 and renumbered).
 
+### The `tomspecs` binary
+
+`bin/tomspecs.dart` holds every tool below as a command of one binary, on
+`tom_build_base`. The commands are named by subject, and their options are the
+options of the tool each one replaces:
+
+```text
+dart run tom_specs_clitool:tomspecs --help
+dart run tom_specs_clitool:tomspecs :<command> --help
+dart run tom_specs_clitool:tomspecs --version
+dart run tom_specs_clitool:tomspecs :gate-format :gate-section-citations
+```
+
+- **Several commands per call.** Commands run in order, and the first that
+  fails ends the run with its own exit code: 0 clean, 1 findings, 2 bad usage,
+  3 a refused spec check.
+- **Options.** A command accepts only the options it declares (an undeclared
+  option is bad usage, exit 2), and gets the declared defaults of the options
+  it was not given.
+- **Version.** `tomspecs --version` prints the package version and the build
+  from the versioner stamp (`lib/src/version.versioner.dart`, `buildkit
+  :versioner`).
+- **Old entrypoints.** The tools' `bin/` entrypoints below stay until the
+  commands are their only form.
+
+The **Options** column is each command's whole option surface bar `--help`.
+`test/entrypoint_options_test.dart` holds it against the command's declared
+options in both directions.
+
+| Command | Replaces | What it does | Options |
+| --- | --- | --- | --- |
+| `:spec-validate` | `validate_spec` | Validate a specification document on its three tiers | `--root` `--assembled-out` `--markdown-out` `--json` |
+| `:spec-render` | `spec_checks validate` | Validate a document and write its Markdown rendition | — |
+| `:spec-import-answers` | `spec_checks import-answers` | Import the answers typed into a rendition into the document's YAML | `--dry-run` `--allow-other-edits` |
+| `:spec-accept-marks` | `spec_checks accept-marks` | Accept every inline change mark of a document in place | `--under` `--write` |
+| `:spec-required-fields` | `spec_checks required-fields` | Check required form fields and typed values | — |
+| `:spec-question-register` | `spec_checks question-register` | Check a question index against the document's question blocks | `--write` `--spec-root` |
+| `:spec-feature-register` | `spec_checks feature-register` | Check that every functional requirement is linked by one feature | — |
+| `:spec-idea-coverage` | `spec_checks project-idea-coverage` | Check the requirements' coverage of the Project Idea | `--exclusions` `--all` `--spec-root` |
+| `:spec-authorization` | `spec_checks authorization` | Check that operations, role matrix, screens and use cases agree | `--spec-root` |
+| `:spec-coverage` | `spec_checks coverage` | Report how much of the model a document fills | `--tsv` `--spec-root` |
+| `:spec-answers` | `extract_answers` | Extract a review round's answers, comments and marks (answers.md) | `--output` `--path` `--title` `--open` `--marks` `--counts` |
+| `:codespecs-validate` | `validate_codespecs` | Run the derivation-contract checks over a CodeSpecs trio or its IR | `--shared` `--client` `--server` `--ir` `--regenerated-ir` `--migrations` `--extracts` `--cs-vocabulary` `--core-source` `--regenerated-shared` `--regenerated-client` `--regenerated-server` `--json` `--record-gaps` `--backlinks` |
+| `:codespecs-areas` | `codespecs_areas` | Regenerate the CodeSpecs area catalogue | `--mapping` `--prompt` `--output` `--check` |
+| `:ir-from-codespecs` | `irspecs from-codespecs` | Write the IR of a CodeSpecs trio | `--shared` `--client` `--server` `--out` `--areas` |
+| `:ir-map` | `irspecs map` | Write code from the IR through a mapper | `--out` `--ir` `--mapper` `--spec` `--unit` |
+| `:ir-emit` | `irspecs emit` | Write what a standard can express of the IR | `--out` `--ir` `--spec` `--unit` `--standard` `--areas` |
+| `:ir-export` | `irspecs export` | Write the IR as JSON | `--out` `--ir` `--format` |
+| `:som-generate` | `generate_som` | Generate the nine SOM language packages from the model | `--config` `--model` `--runtime` `--py-runtime` `--java-runtime` `--js-runtime` `--ts-runtime` `--go-runtime` `--rust-runtime` `--c-runtime` `--cpp-runtime` `--model-version` |
+| `:som-parity` | `check_som_parity` | Report capabilities some language plane does not carry | `--manifest` `--container-root` `--verbose` |
+| `:model-outline` | `outliner` | Write the class-tree outline of a model root | `--package` `--root-type` `--output` `--max-line-length` `--show-schema-annotations` `--stop-at-detailed-in` |
+| `:model-json` | `model_json` | Export the model class graph as JSON | `--target` `--package` `--output` `--model-version` `--model-label` |
+| `:model-spec-ops` | `spec_ops` | Generate the spec_ops.g.dart registry | `--package` `--output` |
+| `:model-stamp-order` | `stamp_serialization_order` | Stamp @SerializationOrder on every model member | `--package` `--dry-run` |
+| `:schema-docspecs` | `docspecs_schema` | Generate the DocSpecs schemas of the model roots | `--package` `--out-dir` `--version` `--label` |
+| `:schema-docspecs-yaml` | `docspecs_yaml_schema` | Generate the JSON Schema of the on-disk DocSpecs YAML | `--out-dir` |
+| `:app-registry-tests` | `generate_registry_tests` | Derive the registry part of an application's test suite | `--out` `--harness-import` `--check` |
+| `:editor-summaries` | `summaries` | Generate the analyzer summaries for one consumer | `--package` `--out-dir` `--sdk-only` |
+| `:editor-build` | `build` | Build and package the TomSpecs editor | `--os` `--model` `--editor` `--summaries` `--generate-summaries` `--buildkit` `--no-flutter-build` |
+| `:gate-format` | `check_format` | Report every governed Dart file dart format would rewrite | `--manifest` `--container-root` |
+| `:gate-api-signatures` | `check_api_signatures` | Report API-summary signatures that disagree with the code | `--manifest` `--container-root` `--package` |
+| `:gate-dartdoc` | `check_dartdoc_build` | Build the governed packages' API docs and report their warnings | `--manifest` `--container-root` `--package` |
+| `:gate-doc-coverage` | `check_doc_coverage` | Check public-API dartdoc coverage against the manifest | `--manifest` `--root` `--report` `--raise` |
+| `:gate-oe-citations` | `check_oe_citations` | Check that every cited OE- id is defined | `--register` `--root` `--verbose` |
+| `:gate-section-citations` | `check_section_citations` | Resolve every § citation of the TomSpecs documents | `--doc` `--extra` `--default-readmes` `--doc-folder` `--default-doc-folders` `--source` `--default-sources` `--verbose` |
+| `:gate-todo-citations` | `check_todo_citations` | Check that every cited quest-todo id still resolves | `--doc` `--extra` `--default-readmes` `--doc-folder` `--default-doc-folders` `--quest` `--vocabulary` `--verbose` |
+| `:gate-release-closure` | `check_release_closure` | Check that the release set is dependency-closed | `--manifest` `--container-root` `--verbose` |
+| `:gate-release-drift` | `check_release_drift` | Report release packages changed since their version was set | `--manifest` `--container-root` `--verbose` |
+| `:gate-shipped-paths` | `check_shipped_paths` | Report shipped-script path literals that resolve nowhere | `--package` `--container-root` `--verbose` |
+| `:gate-spec-tree-duplication` | `check_spec_tree_duplication` | Report doc lines newly stated in both spec-tree surfaces | `--record` `--baseline` `--container-root` |
+
 ### Entrypoints
 
 Related entrypoints in `bin/`. Each parses its arguments with `package:args`

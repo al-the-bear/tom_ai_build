@@ -34,21 +34,40 @@ const List<String> defaultPackages = [
   'tom_ai/ai_build/tom_core_codespecs',
 ];
 
-void main(List<String> arguments) {
-  final parser = ArgParser()
-    ..addMultiOption(
-      'package',
-      help:
-          'Package root to scan, relative to the container root. Repeatable. '
-          'Defaults to the publishable set.',
-    )
-    ..addOption(
-      'container-root',
-      help:
-          'Workspace container root. Default: three levels above this package.',
-    )
-    ..addFlag('verbose', abbr: 'v', negatable: false, help: 'List every scan.')
-    ..addFlag('help', abbr: 'h', negatable: false, help: 'Show usage.');
+/// Runs `check_shipped_paths` with [arguments] and returns its exit code, without ending
+/// the process (the `tomspecs` command calls it).
+Future<int> runCheckShippedPaths(List<String> arguments) async {
+  _exitCode = 0;
+  try {
+    _mainCheckShippedPaths(arguments);
+  } on ToolExit catch (e) {
+    return e.code;
+  }
+  return _exitCode;
+}
+
+int _exitCode = 0;
+
+Future<void> main(List<String> arguments) async =>
+    exit(await runCheckShippedPaths(arguments));
+
+/// The options of `check_shipped_paths` (also the `tomspecs` command's).
+ArgParser checkShippedPathsParser() => ArgParser()
+  ..addMultiOption(
+    'package',
+    help:
+        'Package root to scan, relative to the container root. Repeatable. '
+        'Defaults to the publishable set.',
+  )
+  ..addOption(
+    'container-root',
+    help: 'Workspace container root. Default: three levels above this package.',
+  )
+  ..addFlag('verbose', abbr: 'v', negatable: false, help: 'List every scan.')
+  ..addFlag('help', abbr: 'h', negatable: false, help: 'Show usage.');
+
+void _mainCheckShippedPaths(List<String> arguments) {
+  final parser = checkShippedPathsParser();
 
   final ArgResults results;
   try {
@@ -56,12 +75,12 @@ void main(List<String> arguments) {
   } on FormatException catch (e) {
     stderr.writeln('Error: ${e.message}\n');
     stderr.writeln(parser.usage);
-    exit(2);
+    throw ToolExit(2);
   }
   if (results.flag('help')) {
     stdout.writeln('Usage: dart run bin/check_shipped_paths.dart [options]\n');
     stdout.writeln(parser.usage);
-    exit(0);
+    throw ToolExit(0);
   }
 
   final packageRoot = p.normalize(Directory.current.path);
@@ -78,7 +97,7 @@ void main(List<String> arguments) {
     final dir = Directory(p.join(containerRoot, rel));
     if (!dir.existsSync()) {
       stderr.writeln('check_shipped_paths: package not found: ${dir.path}');
-      exit(2);
+      throw ToolExit(2);
     }
     scanned++;
     final escaping = findEscapingPaths(dir);
@@ -93,7 +112,7 @@ void main(List<String> arguments) {
       'check_shipped_paths: $scanned package(s), every path literal in a '
       'shipped script resolves inside its package',
     );
-    exit(0);
+    throw ToolExit(0);
   }
 
   final total = findings.values.fold<int>(0, (a, b) => a + b.length);
@@ -114,5 +133,5 @@ void main(List<String> arguments) {
     'or take the script out of the archive with a `.pubignore` entry if it is\n'
     'a workspace tool rather than a consumer one.',
   );
-  exit(1);
+  throw ToolExit(1);
 }

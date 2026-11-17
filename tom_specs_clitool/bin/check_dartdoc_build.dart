@@ -19,23 +19,43 @@ import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-Future<void> main(List<String> arguments) async {
-  final parser = ArgParser()
-    ..addOption(
-      'manifest',
-      help: 'Path to the set. Default: <clitool>/$dartdocBuildSetPath.',
-    )
-    ..addOption(
-      'container-root',
-      help:
-          'Workspace container root. Default: three levels above this '
-          'package.',
-    )
-    ..addMultiOption(
-      'package',
-      help: 'Build this package (container-relative) instead of the set.',
-    )
-    ..addFlag('help', abbr: 'h', negatable: false, help: 'Show usage.');
+/// Runs `check_dartdoc_build` with [arguments] and returns its exit code, without ending
+/// the process (the `tomspecs` command calls it).
+Future<int> runCheckDartdocBuild(List<String> arguments) async {
+  _exitCode = 0;
+  try {
+    await _mainCheckDartdocBuild(arguments);
+  } on ToolExit catch (e) {
+    return e.code;
+  }
+  return _exitCode;
+}
+
+int _exitCode = 0;
+
+Future<void> main(List<String> arguments) async =>
+    exit(await runCheckDartdocBuild(arguments));
+
+/// The options of `check_dartdoc_build` (also the `tomspecs` command's).
+ArgParser checkDartdocBuildParser() => ArgParser()
+  ..addOption(
+    'manifest',
+    help: 'Path to the set. Default: <clitool>/$dartdocBuildSetPath.',
+  )
+  ..addOption(
+    'container-root',
+    help:
+        'Workspace container root. Default: three levels above this '
+        'package.',
+  )
+  ..addMultiOption(
+    'package',
+    help: 'Build this package (container-relative) instead of the set.',
+  )
+  ..addFlag('help', abbr: 'h', negatable: false, help: 'Show usage.');
+
+Future<void> _mainCheckDartdocBuild(List<String> arguments) async {
+  final parser = checkDartdocBuildParser();
 
   final results = parser.parse(arguments);
   if (results['help'] as bool) {
@@ -56,7 +76,7 @@ Future<void> main(List<String> arguments) async {
     );
     if (!manifest.existsSync()) {
       stderr.writeln('dartdoc build set not found: ${manifest.path}');
-      exit(2);
+      throw ToolExit(2);
     }
     packages = DartdocBuildSet.parse(manifest.readAsStringSync()).packages;
   }
@@ -81,14 +101,14 @@ Future<void> main(List<String> arguments) async {
       final name = packages[i];
       if (report.failedSilently) {
         stderr.writeln('=== dart doc failed for $name ===\n${report.log}');
-        exit(2);
+        throw ToolExit(2);
       }
       if (report.proseBlocks == 0) {
         stderr.writeln(
           '$name: no doc-comment prose in the generated pages, '
           'so no link was judged; not measured',
         );
-        exit(2);
+        throw ToolExit(2);
       }
       for (final w in report.warnings) {
         stdout.writeln('$name: warning: $w');
@@ -102,7 +122,7 @@ Future<void> main(List<String> arguments) async {
       );
       faults += report.faults;
     }
-    if (faults > 0) exitCode = 1;
+    if (faults > 0) _exitCode = 1;
   } finally {
     scratch.deleteSync(recursive: true);
   }
