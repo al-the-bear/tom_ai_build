@@ -15,6 +15,8 @@ import 'package:tom_som_dart_v0/tom_som_dart_v0_model.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0_schemas.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
+import 'support/tomspecs_compare.dart';
+
 final String _meridian = p.normalize(
   p.absolute(
     '../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml',
@@ -32,7 +34,7 @@ String _write(String name, String text) {
 Future<(int, String, String)> _run(List<String> args) async {
   final out = StringBuffer();
   final err = StringBuffer();
-  final code = await runValidateSpec(args, out: out, err: err);
+  final code = await runValidateSpecChecked(args, out: out, err: err);
   return (code, '$out', '$err');
 }
 

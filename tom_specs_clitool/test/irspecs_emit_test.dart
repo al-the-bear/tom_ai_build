@@ -15,6 +15,8 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show CodeSpecsAreaCatalog;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
+import 'support/tomspecs_compare.dart';
+
 final _meridian = p.absolute(
   '../tom_som_conformance/samples/meridian_codespecs',
 );
@@ -268,7 +270,7 @@ void main() {
         ).writeAsStringSync(writeIrYaml(d));
       }
       final out = StringBuffer();
-      final code = await runIrspecs([
+      final code = await runIrspecsChecked([
         'emit',
         '--standard',
         'openapi',
@@ -307,7 +309,7 @@ void main() {
       Future<(int, String, String)> emit(List<String> args) async {
         final out = StringBuffer();
         final err = StringBuffer();
-        final code = await runIrspecs(
+        final code = await runIrspecsChecked(
           ['emit', '--ir', ir, ...args],
           out: out,
           err: err,

@@ -2,6 +2,7 @@
 library;
 
 export 'src/tool_exit.dart';
+export 'src/package_root.dart';
 export 'src/analyzer_bootstrap.dart'
     show UnresolvedPackageException, createAnalysisDriver;
 export 'src/dartdoc_build.dart'

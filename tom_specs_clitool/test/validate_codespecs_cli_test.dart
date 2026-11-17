@@ -13,6 +13,8 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
+import 'support/tomspecs_compare.dart';
+
 final String _sample = p.normalize(
   p.absolute('../tom_specs_samples/phase4_codespecs_run'),
 );
@@ -29,7 +31,7 @@ List<String> _trio(String root) => [
 Future<(int, String, String)> _run(List<String> args) async {
   final out = StringBuffer();
   final err = StringBuffer();
-  final code = await runValidateCodespecs(args, out: out, err: err);
+  final code = await runValidateCodespecsChecked(args, out: out, err: err);
   return (code, '$out', '$err');
 }
 

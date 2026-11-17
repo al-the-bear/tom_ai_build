@@ -119,7 +119,9 @@ unpublished_drift:
     binary on tom_build_base, every tool's run function returning its exit
     code, the versioner stamp; tsbin3 (2026-11-17): all formatting through
     the linked dart_style (lib/src/dart_format.dart), never `dart format` as a
-    process; published with the next clitool release.
+    process; tsbin4 (2026-11-17): clitoolPackageRoot (the package root from
+    the package config, used by codespecs_areas); published with the next
+    clitool release.
   tom_core_codespecs: >-
     irfmt2 (2026-11-16): irspecs_ir.md §8 states that the dart-tom mapper needs
     no Dart SDK; irout1 (2026-11-16): irspecs_ir.md and codespecs_mapping.md

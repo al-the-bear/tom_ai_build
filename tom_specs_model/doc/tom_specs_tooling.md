@@ -260,8 +260,9 @@ calling each tool in-process (`:spec-validate`, `:codespecs-validate`,
 `:ir-map`, `:gate-format`, `:som-generate`, …; several commands in one call stop
 at the first failure). The work runs as one series:
 
-- the skeleton and formatting through the linked `dart_style`
-  (`tsbin2_akqk-tomspecs-skeleton`, `tsbin3_akqk-format-through-dart-style`);
+- the skeleton and formatting through the linked `dart_style`: done —
+  `bin/tomspecs.dart` declares every command with the options of the tool it
+  replaces, and nothing in the clitool runs `dart format` as a process;
 - the commands built beside the old tools, with comparison tests
   (`tsbin4_akqk-spec-codespecs-ir-commands`,
   `tsbin5_akqk-model-som-schema-editor-commands`, `tsbin6_akqk-gate-commands`);

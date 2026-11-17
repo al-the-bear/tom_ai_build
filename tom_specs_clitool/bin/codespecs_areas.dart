@@ -82,7 +82,7 @@ Future<void> _mainCodespecsAreas(List<String> arguments) async {
     throw ToolExit(0);
   }
 
-  final clitoolRoot = p.dirname(p.dirname(p.fromUri(Platform.script)));
+  final clitoolRoot = clitoolPackageRoot();
   final modelRoot = p.normalize(p.join(clitoolRoot, '..', 'tom_specs_model'));
 
   final mappingPath = p.normalize(

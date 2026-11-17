@@ -22,6 +22,8 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 import 'package:yaml/yaml.dart';
 
+import 'support/tomspecs_compare.dart';
+
 /// The two Meridian trios, as (name, shared, client, server) roots.
 final _trios = {
   'phase4_codespecs_run': [
@@ -336,7 +338,7 @@ void main() {
         // is replaced by the new name.
         File(p.join(out.path, 'CE-DB.ir.yaml')).writeAsStringSync('old name');
         final stdoutBuffer = StringBuffer();
-        final code = await runIrspecs([
+        final code = await runIrspecsChecked([
           'from-codespecs',
           '--shared',
           roots[0],
@@ -379,7 +381,7 @@ void main() {
 
         // A second run over the same trio changes nothing.
         final second = StringBuffer();
-        await runIrspecs([
+        await runIrspecsChecked([
           'from-codespecs',
           '--shared',
           roots[0],
@@ -401,9 +403,9 @@ void main() {
 
     test('a missing option or subcommand is bad usage', () async {
       final err = StringBuffer();
-      expect(await runIrspecs(['from-codespecs'], err: err), 2);
+      expect(await runIrspecsChecked(['from-codespecs'], err: err), 2);
       expect('$err', contains('--shared'));
-      expect(await runIrspecs([], err: StringBuffer()), 2);
+      expect(await runIrspecsChecked([], err: StringBuffer()), 2);
     });
   });
 
