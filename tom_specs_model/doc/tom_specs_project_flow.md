@@ -1374,7 +1374,7 @@ defeats the purpose of independent verification.
 |----------|---------|-------|
 | **AI Progress** | Drive deliverable creation | SPEC, DES, DEV |
 | **AI Quality** | Ensure quality through integrated review and iteration | QM-SPEC, QM-DES, QM-DEV |
-| **AI Specialist** | Cross-cutting concerns spanning phases | TM, SEC |
+| **AI Specialist** | Cross-cutting concerns spanning phases | TM, SEC, CHG |
 | **Human** | Decisions, clarifications, approvals, domain expertise | PM, BA, SA, OPS, USR |
 
 | ID | Name | Category | Phases | Paired with | One-line description |
@@ -1387,6 +1387,7 @@ defeats the purpose of independent verification.
 | `QM-DEV` | Development Quality Manager | AI Quality | 5–6 | `DEV` | Reviews and iterates on test and implementation quality |
 | `TM` | Test Manager | AI Specialist | 5–7 | — | Ensures test completeness, coverage and correctness |
 | `SEC` | Security Responsible | AI Specialist | 3–8 | — | Verifies framework compliance and the absence of workarounds |
+| `CHG` | Change Analyst | AI Specialist | 0 (change mode, PF-UPG-CHG) | — | Finds what a change touches before anybody commits to it: the impact walk, the effort, the principles touched, reductions and completions; judges amendments in later phases |
 | `PM` | Project Manager | Human | 1–8 | all | Phase transitions, scope, priority, approvals |
 | `BA` | Business Analyst | Human | 1–3, 7 | `SPEC`, `QM-SPEC` | Requirements, domain expertise, acceptance |
 | `SA` | Solution Architect | Human | 3–6 | `DES`, `QM-DES` | Technical decisions, architecture, framework guidance |
