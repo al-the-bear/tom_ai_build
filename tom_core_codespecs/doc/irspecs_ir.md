@@ -559,11 +559,17 @@ irspecs emit --standard markdown --ir <spec-root>/irspecs \
   generation units of the register with the areas and mappers each holds and
   its emitters. `--areas` (the area catalogue) names the documents; it is
   required.
-- **`--spec`.** Gives the index the register's units, and links every
-  back-link token into the specification's Markdown rendition (the document
-  itself when it is `.md`, else the `.md` beside its `*.docspecs.yaml`) as
-  `<rendition>#<token>`. A token names a section kind, not one instance, and a
-  viewer resolves the fragment only where it maps section ids to headings.
+- **`--spec`.** Gives the index the register's units, and links a back-link
+  token into the specification's Markdown rendition (the document itself when
+  it is `.md`, else the `.md` beside its `*.docspecs.yaml`) as
+  `<rendition>#<token>` when a heading of the rendition carries that section
+  id (`<!--[TOKEN]-->`, or a dotted id ending in it). A token no heading
+  carries stays plain code: the extract gives a leaf without a section id of
+  its own its field name as its token (`content`), which names no heading.
+  A token names a section kind, not one instance, so the link opens its first
+  heading. The Tom AI MD Browser resolves `#<SECTION-ID>` to the heading that
+  carries the id; GitHub and plain Markdown renderers do not (they slug the
+  heading's words), so there the link opens the document at its top.
   With `--spec`, `--out` defaults to `<spec-root>/generated-doc/irspecs_md/`;
   without it `--out` is required, and the index says no register was given.
 - **Form.** DocSpecs, `<!-- docspec: irspecs-md/1.0 -->`, with section ids in
@@ -588,8 +594,9 @@ irspecs emit --standard markdown --ir <spec-root>/irspecs \
 
 `tom_specs_clitool/test/irspecs_markdown_test.dart` renders the Meridian IR
 through the command, validates every document against the schema, checks the
-index and CE-DB against the IR and a step block against its body, and holds
-the workspace mirror to the canonical schema.
+index and CE-DB against the IR (a back-link linked only when a rendition
+heading carries its token) and a step block against its body, and holds the
+workspace mirror to the canonical schema.
 
 ## 11. The TypeScript mappers
 

@@ -131,9 +131,15 @@ void main() {
   });
 
   test('IRMD4: CE-DB shows every declaration, marker and back-link of its IR '
-      'document, the back-links linked into the rendition', () {
+      'document, a back-link linked into the rendition only when a heading '
+      'there carries its token', () {
     final md = File(p.join(out, 'CE-DB_data_access.md')).readAsStringSync();
     final db = documents.firstWhere((d) => d.area == 'CE-DB');
+    final headingIds = markdownHeadingSectionIds(
+      File(_spec.replaceFirst('.docspecs.yaml', '.md')).readAsStringSync(),
+    );
+    var linked = 0;
+    var plain = 0;
     for (final f in db.files) {
       expect(md, contains('--> ${f.file.path}\n'));
       for (final decl in f.file.declarations) {
@@ -142,15 +148,49 @@ void main() {
           expect(md, contains('`@${m.name}'));
         }
         for (final r in decl.docSpec ?? const <CsDocRef>[]) {
-          expect(
-            md,
-            contains(
-              'meridian_order_management.md#${r.sectionId}): ${r.description}',
-            ),
-          );
+          if (headingIds.contains(r.sectionId)) {
+            linked++;
+            expect(
+              md,
+              contains(
+                'meridian_order_management.md#${r.sectionId}): '
+                '${r.description}',
+              ),
+            );
+          } else {
+            plain++;
+            expect(md, contains('  - `${r.sectionId}`: ${r.description}'));
+            expect(md, isNot(contains('#${r.sectionId})')));
+          }
         }
       }
     }
+    // Meridian has both: section-id tokens, and the field token `content`.
+    expect(linked, greaterThan(0));
+    expect(plain, greaterThan(0));
+  });
+
+  test('IRMD8: the section ids a rendition\'s headings carry', () {
+    final ids = markdownHeadingSectionIds(
+      '# <!--[SBP]--> Blueprint\n'
+      'text <!--[NOT]--> here\n'
+      '########### <!--[SSEL]--> Layout\n'
+      '## <!--[SBP.ATS.ORD]--> Orders\n'
+      '```markdown\n'
+      '# <!--[FENCED]--> In a fence\n'
+      '```\n',
+    );
+    expect(ids, {'SBP', 'SSEL', 'SBP.ATS.ORD', 'ORD'});
+    final rendered = emitMarkdown(
+      documents,
+      catalog: _catalog(),
+      specRendition: 'spec.md',
+      renditionSectionIds: const {},
+    );
+    expect(
+      rendered.files['CE-DB_data_access.md'],
+      isNot(contains('](spec.md#')),
+    );
   });
 
   test('IRMD5: a form-3b body is its steps in a fenced block', () {

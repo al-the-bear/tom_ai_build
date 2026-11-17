@@ -32,8 +32,9 @@
 ///   `--standard markdown --areas <codespecs_areas.json>` writes the IR's
 ///   Markdown rendering instead, one
 ///   DocSpecs document per area and `index.md` (`irspecs_ir.md` §10.3); with
-///   `--spec <document>` the index lists the generation units, back-links
-///   link into the document's Markdown rendition, and `--out` defaults to
+///   `--spec <document>` the index lists the generation units, a back-link
+///   whose token a heading of the document's Markdown rendition carries links
+///   into it, and `--out` defaults to
 ///   `<spec-root>/generated-doc/irspecs_md/`.
 ///
 /// * `irspecs export --format json --ir <dir> --out <dir>` writes every IR
@@ -133,7 +134,8 @@ ArgParser irspecsParser() => ArgParser()
     help:
         'emit: the standard to write the IR in (or --spec and --unit). '
         '`markdown` needs --areas; with --spec it also lists the units and '
-        'links the back-links, and --out defaults to '
+        'links each back-link a rendition heading carries, and --out '
+        'defaults to '
         '<spec-root>/generated-doc/irspecs_md/.',
     allowed: kIrEmitStandards,
   )
@@ -499,10 +501,10 @@ const List<String> kIrEmitStandards = [
   kIrMarkdownStandard,
 ];
 
-/// The specification's Markdown rendition as a path relative to [outDir]:
-/// [specPath] itself when it is Markdown, else the `.md` beside a
-/// `*.docspecs.yaml`; `null` when there is none.
-String? _specRenditionFrom(String specPath, String outDir) {
+/// The specification's Markdown rendition: [specPath] itself when it is
+/// Markdown, else the `.md` beside a `*.docspecs.yaml`; `null` when there is
+/// none.
+String? _specRenditionFile(String specPath) {
   final String md;
   if (specPath.toLowerCase().endsWith('.md')) {
     md = specPath;
@@ -512,8 +514,7 @@ String? _specRenditionFrom(String specPath, String outDir) {
   } else {
     return null;
   }
-  if (!File(md).existsSync()) return null;
-  return p.relative(p.absolute(md), from: p.absolute(outDir));
+  return File(md).existsSync() ? md : null;
 }
 
 int _emit(
@@ -625,6 +626,7 @@ int _emit(
       results.option('out') ??
       p.join(p.dirname(spec!), 'generated-doc', 'irspecs_md');
   final outDir = Directory(outPath)..createSync(recursive: true);
+  final rendition = spec == null ? null : _specRenditionFile(spec);
   for (final name in standards) {
     if (standards.length > 1) stdoutSink.writeln('$name:');
     final emission = name == kIrMarkdownStandard
@@ -632,9 +634,15 @@ int _emit(
             documents,
             catalog: catalog!,
             units: units,
-            specRendition: spec == null
+            specRendition: rendition == null
                 ? null
-                : _specRenditionFrom(spec, outDir.path),
+                : p.relative(
+                    p.absolute(rendition),
+                    from: p.absolute(outDir.path),
+                  ),
+            renditionSectionIds: rendition == null
+                ? const {}
+                : markdownHeadingSectionIds(File(rendition).readAsStringSync()),
           )
         : irStandards[name]!(documents);
     for (final MapEntry(key: file, value: text) in emission.files.entries) {

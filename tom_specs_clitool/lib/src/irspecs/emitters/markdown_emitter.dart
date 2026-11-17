@@ -9,6 +9,8 @@
 /// the generation units and the areas each unit holds.
 library;
 
+import 'dart:convert';
+
 import 'package:path/path.dart' as p;
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show CodeSpecsAreaCatalog, SpecGenerationUnit;
@@ -30,13 +32,18 @@ const String kIrMarkdownIndex = 'index.md';
 /// titles carry). [units] is the specification's generation-unit register,
 /// listed in the index; empty when no specification was given.
 /// [specRendition] is the specification's Markdown rendition as a path
-/// relative to the output folder: given, every back-link token links to it
-/// (`<rendition>#<token>`).
+/// relative to the output folder, and [renditionSectionIds] the section ids
+/// its headings carry ([markdownHeadingSectionIds]): given both, a back-link
+/// token links to the rendition (`<rendition>#<token>`) when a heading carries
+/// it. A token no heading carries — a field name such as `content`, which the
+/// extract gives a leaf without its own section id — stays plain code, so no
+/// link points at nothing.
 IrEmission emitMarkdown(
   List<IrDocument> documents, {
   required CodeSpecsAreaCatalog catalog,
   List<SpecGenerationUnit> units = const [],
   String? specRendition,
+  Set<String> renditionSectionIds = const {},
 }) {
   final areas = IrAreaIndex(catalog);
   final canonical = {for (final a in catalog.areas) a.code: a.canonicalId};
@@ -47,10 +54,43 @@ IrEmission emitMarkdown(
       canonical[d.area],
       areas.fileNameOf(d.area),
       specRendition,
+      renditionSectionIds,
     ).render();
   }
   files[kIrMarkdownIndex] = _index(documents, areas, canonical, units);
   return IrEmission(files, const []);
+}
+
+/// The section ids the headings of the Markdown [text] carry
+/// (`# <!--[ID]--> Title`, SOM §11), outside fenced code: each id as written,
+/// and for a dotted full id (`SBP.ATS.SSEL`) its last id too, which is what a
+/// viewer that maps section ids to headings resolves `#SSEL` to. Headings of
+/// any level count.
+Set<String> markdownHeadingSectionIds(String text) {
+  final ids = <String>{};
+  final heading = RegExp(r'^#+\s+<!--\[([^\]]+)\]-->');
+  String? fence;
+  for (final line in const LineSplitter().convert(text)) {
+    final trimmed = line.trimLeft();
+    final open = RegExp(r'^(`{3,}|~{3,})').firstMatch(trimmed);
+    if (open != null) {
+      final mark = open.group(1)!;
+      if (fence == null) {
+        fence = mark;
+      } else if (mark[0] == fence[0] && mark.length >= fence.length) {
+        fence = null;
+      }
+      continue;
+    }
+    if (fence != null) continue;
+    final m = heading.firstMatch(line);
+    if (m == null) continue;
+    final id = m.group(1)!.trim();
+    ids.add(id);
+    final dot = id.lastIndexOf('.');
+    if (dot >= 0) ids.add(id.substring(dot + 1));
+  }
+  return ids;
 }
 
 /// The Markdown name of [area]'s document: the IR name with `.md`.
@@ -146,9 +186,16 @@ class _AreaWriter {
   final String? canonicalId;
   final String irName;
   final String? specRendition;
+  final Set<String> renditionSectionIds;
   final _b = StringBuffer();
 
-  _AreaWriter(this.document, this.canonicalId, this.irName, this.specRendition);
+  _AreaWriter(
+    this.document,
+    this.canonicalId,
+    this.irName,
+    this.specRendition,
+    this.renditionSectionIds,
+  );
 
   String render() {
     final area = document.area;
@@ -297,7 +344,8 @@ class _AreaWriter {
     if (refs.isNotEmpty) {
       _b.writeln('- **Back-links:**');
       for (final r in refs) {
-        final token = specRendition == null
+        final token =
+            specRendition == null || !renditionSectionIds.contains(r.sectionId)
             ? _code(r.sectionId)
             : '[${_code(r.sectionId)}](${p.posix.joinAll(p.split(specRendition!))}#${r.sectionId})';
         _b.writeln('  - $token: ${r.description}');
