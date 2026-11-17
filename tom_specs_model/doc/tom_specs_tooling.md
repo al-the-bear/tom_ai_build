@@ -579,3 +579,9 @@ working there; the process no longer depends on it.
   editor tools, is open in the ai_runtime quest.
 - **Replacing or sitting beside VS Code.** The Webforge plans treat VS Code as
   an equal host; how far the extension's views are retired is not yet planned.
+
+The features proposed to close these gaps — a status matrix, gate buttons on
+every gate, notifications when a step waits, step folders without full copies,
+one review component for every host, and more — are collected, with their
+evidence, owners, sizes and recommendations, in the tom_specs quest's
+`_ai/quests/tom_specs/tooling/tom_specs_tooling_suggestions.md`.
