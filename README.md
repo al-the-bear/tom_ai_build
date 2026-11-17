@@ -123,16 +123,14 @@ held closed by a shipped dependency-closure gate):
 
 - The **Dart chain**, published on pub.dev: `tom_specs_core`,
   `tom_specs_model`, `tom_specs_clitool`, `tom_som_dart_runtime`,
-  `tom_som_dart_v0`, `tom_code_specs`, `tom_doc_scanner`, `tom_doc_specs`
-  (plus `tom_core_codespecs`, the one chain member housed outside this
-  repository, in the `tom_core` tree).
+  `tom_som_dart_v0`, `tom_code_specs`, `tom_core_codespecs`,
+  `tom_doc_scanner`, `tom_doc_specs`.
 - The **sixteen non-Dart packages**: the eight `tom_som_<lang>_runtime` /
   `tom_som_<lang>_v0` pairs, shipped source-only in release 1.
 - The **conformance harness**: `tom_som_conformance`.
 
-**Also in this tree, but not part of release 1:** `tom_spec_engine`,
-`tom_specs_reviewer`, `tom_ai`, `tom_ai_build`, `tom_flow_cli`,
-`tom_flow_engine`. See [RELEASE_NOTES.md](RELEASE_NOTES.md) for why.
+**Also in this tree, but not part of release 1:** `tom_spec_engine` and
+`tom_specs_reviewer`. See [RELEASE_NOTES.md](RELEASE_NOTES.md) for why.
 
 ## License
 
