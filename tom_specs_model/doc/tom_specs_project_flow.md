@@ -23,15 +23,16 @@ It is a single consolidated reference covering:
 | The quality gates between phases | [PF-GAT](#pf-gat-quality-gates) |
 | Quality work *inside* a phase | [PF-ITR](#pf-itr-quality-inside-a-phase) |
 | Who does what | [PF-ROL](#pf-rol-roles) |
-| The tooling that carries the process | [PF-TOO](#pf-too-tooling) |
+| The tooling that carries the process (in `tom_specs_tooling.md`) | [PF-TOO](#pf-too-tooling) |
 | Issue and bug-fix handling during delivery | [PF-ISS](#pf-iss-issues-and-bug-fixes) |
 | Life after release — upgrade cycles, and changes in the process | [PF-UPG](#pf-upg-upgrade-cycles) |
 
 ### PF-DOC-SCP Scope
 
-**In scope:** the end-to-end process, its phases, artifacts, gates, roles and
-tooling; the per-deliverable and per-document quality loops; the issue workflow;
-the upgrade cycle.
+**In scope:** the end-to-end process, its phases, artifacts, gates and roles;
+the per-deliverable and per-document quality loops; the issue workflow; the
+upgrade cycle. The tooling that carries it is
+[`tom_specs_tooling.md`](tom_specs_tooling.md).
 
 **Out of scope:**
 
@@ -1518,121 +1519,13 @@ roles. The role set is fixed; the number of deliverables in flight is not.
 
 ## PF-TOO Tooling
 
-The process is not a paper method. It is carried by a toolchain in which the
-specification is a **typed object model** rather than prose, and the tools work
-on that model.
-
-### PF-TOO-OVE The Toolchain
-
-| Tool / project | Location | Role in the flow |
-|----------------|----------|------------------|
-| **`tom_specs_editor`** | `tom_forge/tom_specs_editor` | The authoring application — the primary human/AI workbench for Phases 2–6 |
-| `tom_specs_model` | `tom_ai/ai_build/tom_specs_model` | The specification object model: typed classes for all 14 document roots |
-| `tom_specs_core` | `tom_ai/ai_build/tom_specs_core` | The annotation library the model is built from — section IDs, forms, content help, `@MapsTo` / `@DetailedIn`, `@CodeSpecKind` |
-| `tom_specs_clitool` | `tom_ai/ai_build/tom_specs_clitool` | Model outliner, structural validator, the JSON export the editor consumes, the spec-document validator (`bin/validate_spec.dart`: decode, DocSpecs schema and instance tier over one document or its assembled fragments), and the Phase-4 CodeSpecs validator (`bin/validate_codespecs.dart`, with `--json` and a back-link index) behind Gate G4 |
-| `tom_specs_reviewer` | `tom_ai/ai_build/tom_specs_reviewer` | Structural review of the object model itself — a methodology tool, not a project tool |
-| `tom_code_specs` | `tom_ai/ai_build/tom_code_specs` | The CodeSpecs annotation framework — the `Cs*` family plus the `@DocSpec` back-trace |
-| `tom_core_codespecs` | `tom_ai/ai_build/tom_core_codespecs` | Gap-filler classes CodeSpecs needs that `tom_core` does not yet provide |
-| **Extract generator** (`spec_codespecs_extract`) | The nine `tom_som_*_v0` runtimes | Phase 4's first pass: routes each specification section by `@CodeSpecKind` into the per-area extract the authoring agent works from. A surface of every runtime, not a Dart tool, so a project specified in TomSpecs is not thereby a Dart project |
-| `tom_doc_specs` / `tom_doc_scanner` | `tom_ai/ai_build/` | DocSpecs schema assets and the markdown parser behind import/export |
-| `testkit` | `tom_ai/devops/tom_test_kit` | Test execution and baseline tracking for Phases 5–7 |
-| `Tom Deploy` | `tom_ai/devops/tom_deploy` | Deployment for Phases 7–8 |
-| `Tom Provisioning` / `Tom SQM` | `tom_ai/cloud/`, `tom_sqm/` | Multi-tenant provisioning and subscription/quota management in Phase 8 |
-
-### PF-TOO-EDT The Spec Editor
-
-**`tom_specs_editor`** is the application the process is worked in. It is a Tom
-Forge desktop app built on the Forge shell (`tom_forge_ui` / `tom_forge_core`)
-with the shared agent UI (`tom_forge_agentic` / `tom_core_agentic`).
-
-**Scope.** It is aimed at the whole delivery arc:
-
-- **Now** — maintaining a SOM-based specification document, then working on the
-  CodeSpecs code, test creation and implementation
-- **Later** — acceptance and business testing, deployment, and operations
-
-**Three applications, one shell.** The editor registers three top-level
-applications behind a toolbar switcher, each with the same four-region layout —
-*document · structure · navigator and change log · chat*:
-
-| Application | Phase | State |
-|-------------|-------|-------|
-| **DocSpecs** | 2–3 | Fully functional — the model-driven specification editor |
-| **CodeSpecs** | 4 | Phase-aware surface presenting the CodeSpecs methodology content |
-| **Implementation** | 5–6 | Phase-aware surface presenting the implementation methodology content |
-
-The CodeSpecs and Implementation applications render the real phase content —
-purpose, inputs, produced artifacts, components, exit criteria — rather than
-empty placeholders. Their own working surfaces are the next build-out step
-(PF-TOO-ROA); for CodeSpecs that is a **run** surface over extracts and emitted
-code, not an editor over a document model, because Phase 4 has no document model
-of its own.
-
-**Modules.**
-
-| Module | Provides |
-|--------|----------|
-| `document/` | The model-driven document editor over the spec model, a root navigator with a model-version footer, and DocSpecs + markdown import/export |
-| `structure/` | The structure browser and structural review, keyed by structural path |
-| `agent/` | The embedded spec agent suite — chat composer, prompt queue, prompt trail — over a spec agent engine with a brain runtime, conversational runtime, memory plane, prompt composer, tools and a script runner |
-| `config/` | Configuration editors with a config rail, editor preferences and raw-file editing |
-
-Undo spans document edits, agent turns and editor actions — an agent turn is
-undoable as a unit, which is what makes it safe to let an agent write directly
-into the specification.
-
-**Why an editor rather than markdown files.** The specification is a typed
-object model. The editor therefore knows, for every position in the document:
-which fields exist and of what type, what content help applies, which Blueprint
-region a section expands, which CodeSpecs part it maps to, and whether the
-structural invariants still hold. Prose in a text file supports none of that.
-
-**How the agent fits.** The embedded agent works **on the model**, not on text:
-it fills sections, expands a Blueprint region into a target document, flags
-gaps, and answers questions against the specification — with the same
-validation, undo and traceability as a human edit. This is what makes
-"filled mostly by AI" (Phase 2) and "generated from the section mapping"
-(Phase 3) practical rather than aspirational.
-
-### PF-TOO-VAL Validation and Export
-
-`tom_specs_clitool` is the non-interactive half of the toolchain:
-
-- **Outliner** (`bin/outliner.dart`) — renders a compact outline of the class
-  tree from any of the document roots
-- **Validator** (`lib/src/validator.dart`) — enforces the field-type rules,
-  content-type compatibility, cycle detection, and the structural invariants:
-  section-ID uniqueness and coverage, pattern uniqueness, `@DetailedIn` →
-  ancestor `@MapsTo`, root-independent section-ID resolution, and per-document
-  detail counts
-- **Model JSON export** (`bin/model_json.dart`) — serializes the resolved class
-  graph for the editor and the reviewer. Both committed copies are refreshed by
-  naming their target (`--target editor` / `--target reviewer`), which carries
-  the version stamp each is pinned at; see `tom_specs_model_meta_schema.md`,
-  "Refreshing the committed assets"
-
-Because the validator runs on the model rather than on rendered output, a
-structural defect is caught at the source — before it can propagate into twelve
-documents, a schema, or nine generated language runtimes.
-
-### PF-TOO-ROA Roadmap
-
-The tooling gap that remains is the back half of the flow. In order:
-
-1. **CodeSpecs application** — a Phase-4 run surface, replacing the phase-aware
-   one: drive the extract generator, show each area's extract beside the code
-   written from it, and work the generated todo tree with its open questions
-   held in view. Deliberately **not** a model-driven editor over a CodeSpecs
-   object model — there is none to edit. CodeSpecs is annotated `tom_core`
-   classes and the extracts they are derived from, so the thing to build is a
-   run surface over those two artifacts
-2. **Implementation application** — the same for the implementation phase,
-   including the test-derivation view
-3. **Acceptance and business testing** — running the `QAP` programme from the
-   editor, with results feeding the evidence store directly
-4. **Deployment** — driving Tom Deploy from the release surface
-5. **Operations** — the post-release view: monitoring, defects, and the upgrade
-   cycle backlog
+The process is carried by tools, and the specification they work on is a typed
+object model rather than prose. Which tool carries which part of the process —
+today the VS Code extension with its MD Browser and process engine, and as
+planned the shared AI runtime, Webforge with its quest applications, Webwork's
+Review area and `tom_specs_editor` for authoring — which tool serves each phase
+and activity, and the files they share, is
+[`tom_specs_tooling.md`](tom_specs_tooling.md).
 
 ---
 
@@ -1995,4 +1888,4 @@ CodeSpecs is **two documents, split by question**.
 | Tom Deploy | Deployment automation, invoked at Phase 8 |
 | Tom Provisioning | Cloud resource provisioning for multi-tenant systems |
 | Tom SQM | Subscriptions and quotas for the subscriber model |
-| Tom Forge | The shell hosting the specification editor |
+| Tom Forge | The shell of Webforge: the development shell, the quest applications, and `tom_specs_editor` for authoring (`tom_specs_tooling.md`) |

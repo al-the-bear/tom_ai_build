@@ -102,6 +102,7 @@ reading order for a newcomer:
 | Document | Read it for |
 | --- | --- |
 | [tom_specs_project_flow.md](tom_specs_model/doc/tom_specs_project_flow.md) | The process itself — the eight phases from project idea to production, quality gates, roles, iteration rules. |
+| [tom_specs_tooling.md](tom_specs_model/doc/tom_specs_tooling.md) | The tools the process is worked with — today the VS Code extension, as planned the shared AI runtime, Webforge and Webwork — and their architecture. |
 | [som_multiplatform_spec_model.md](tom_specs_model/doc/som_multiplatform_spec_model.md) | The SOM: the nine-language generation, the runtime/facade split, the normative markdown and YAML serializations, the validator, packaging. |
 | [tom_specs_model_rules.md](tom_specs_model/doc/tom_specs_model_rules.md) | How the Dart source model is authored — layout, annotations, structural invariants. |
 | [tom_specs_model_meta_schema.md](tom_specs_model/doc/tom_specs_model_meta_schema.md) | The on-disk shape of `spec_model.meta.json`, the class graph every runtime loads. |
