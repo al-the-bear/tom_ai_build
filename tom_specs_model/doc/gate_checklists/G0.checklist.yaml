@@ -1,0 +1,57 @@
+# Generic gate checklist — G0, Change Accepted (change mode).
+#
+# The criteria are tom_specs_project_flow.md §PF-GAT-G0; this file expands each
+# one into the items an orchestrator inspects. A project copies it into its
+# project checklist under the adaptation rules of §PF-GAT-CHK. Format, location,
+# versioning and the gate report: tom_specs_gate_checklists.md.
+#
+# Paths are relative to the change folder `<spec-root>/changes/<change-id>/`.
+formatVersion: 1
+gate: G0
+title: Change Accepted
+checklistVersion: 1.0.0
+criteria: tom_specs_project_flow.md §PF-GAT-G0
+document: change_intend.md, impact_evaluation.md
+items:
+  - id: G0-ID-1
+    criterion: Change identified
+    inspect: The change id, its branch `change/<id>` and its folder exist; the head of change_intend.md records spec-mode = change, the change id, the branch, the base commit, the run and the user.
+    method: query
+    how: "git branch -a (the branch); the folder listing; the head of change_intend.md; the run's chat variables spec-mode and change-id."
+    evidence: The branch, the folder and the head of change_intend.md.
+    pass: All exist and agree with each other and with the run's chat variables.
+  - id: G0-INTENT-1
+    criterion: Intent stated
+    inspect: change_intend.md states the intended effect, the exclusions, the user-visible outcome and the expected size; no open question decides the size.
+    method: reading
+    how: change_intend.md, its sections and its open question blocks (tomAi_mdQuestions, openOnly).
+    evidence: The sections, and the list of open questions with why none decides the size.
+    pass: Every section is filled and no open question decides the size.
+  - id: G0-VERDICT-1
+    criterion: Every part rated
+    inspect: Every SOM root and section, every CodeSpecs and IR area the project has, the tests and the code have a verdict (affected, needed, unaffected) with a reason.
+    method: query
+    how: impact_evaluation.md § Verdicts against the document roots under <spec-root> (tomAi_specOutline), the extracts and IR areas, the test and code packages.
+    evidence: The verdict tables and the list of parts compared against them.
+    pass: No part of the project without a verdict; no verdict without a reason.
+  - id: G0-LEVEL-1
+    criterion: Project level recorded
+    inspect: The level the project has reached is recorded and the phases the change leaves out are named, each with its reason.
+    method: reading
+    how: impact_evaluation.md § Level, checked against what exists on the main branch.
+    evidence: § Level and the check.
+    pass: The level matches the main branch; every phase left out is named.
+  - id: G0-ASSUME-1
+    criterion: Assumptions decided
+    inspect: Every assumption or rule the change touches has the user's decision (keep, change, stop); every completion the user declined is recorded as a known gap.
+    method: reading
+    how: impact_evaluation.md § Assumptions, § Refinements and § Known gaps; their question blocks.
+    evidence: The decisions with their question ids.
+    pass: No touched assumption without a decision; no declined completion missing from § Known gaps.
+  - id: G0-ACCEPT-1
+    criterion: Impact accepted
+    inspect: The user accepted the impact — the impact set, the effort for the specification and for the implementation, the size class.
+    method: sign-off
+    how: The confirmed review of the step 03 Accept the Impact, and impact_evaluation.md § Effort and § Size.
+    evidence: The review confirmation (the process state) and the accepted impact evaluation.
+    pass: The review is confirmed and § Effort and § Size are final.

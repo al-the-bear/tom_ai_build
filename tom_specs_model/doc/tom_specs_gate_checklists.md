@@ -52,7 +52,7 @@ checklist that was in force: check out that package version and read the file.
 
 **Checked by.** `tom_specs_clitool/test/gate_checklist_test.dart` holds every
 file to this document:
-- the file parses and has the format below, and every gate G1 to G8 has one;
+- the file parses and has the format below, and every gate G1 to G8 has one (G0 and G8C, the change mode's gates, have one too);
 - item ids are unique and well-formed;
 - every criterion of the gate's criteria table in `tom_specs_project_flow.md`
   has at least one item, and
@@ -231,7 +231,9 @@ CodeSpecs gate record (`gate.verdicts.yaml`, `codespecs_prompt.md` §6.3).
 | G5 | [`gate_checklists/G5.checklist.yaml`](gate_checklists/G5.checklist.yaml) |
 | G6 | [`gate_checklists/G6.checklist.yaml`](gate_checklists/G6.checklist.yaml) |
 | G7 | [`gate_checklists/G7.checklist.yaml`](gate_checklists/G7.checklist.yaml) |
+| G0 *(change mode)* | [`gate_checklists/G0.checklist.yaml`](gate_checklists/G0.checklist.yaml) |
 | G8 | [`gate_checklists/G8.checklist.yaml`](gate_checklists/G8.checklist.yaml) |
+| G8C *(change mode)* | [`gate_checklists/G8C.checklist.yaml`](gate_checklists/G8C.checklist.yaml) |
 
 Every gate has one. Where an item's method is `tool` and the workspace has no
 tool for it — an acceptance suite, a security scanner, a deployment pipeline —

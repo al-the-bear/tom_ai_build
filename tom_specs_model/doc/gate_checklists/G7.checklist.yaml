@@ -8,7 +8,7 @@
 formatVersion: 1
 gate: G7
 title: Business Acceptance Complete
-checklistVersion: 1.2.0
+checklistVersion: 1.3.0
 criteria: tom_specs_project_flow.md §PF-GAT-G7
 document: the application candidate in its acceptance environment
 items:
@@ -111,3 +111,12 @@ items:
     how: consistency.md of the phase's last step before the gate, read against the earlier results it names and their change marks.
     evidence: consistency.md — each change with the result it changed and what caused it, or "no change".
     pass: consistency.md exists, every change it lists is in its result and reviewed, and no statement of an earlier result contradicts this phase's.
+
+  # ── Change limited to its impact (change mode) ────────────────────────────
+  - id: G7-CHANGE-1
+    criterion: Change limited to its impact *(change mode)*
+    inspect: In change mode, every modification this phase made lies within the change's impact set or an accepted amendment, the accumulated copies against the base commit were written for every review, and the phase's change summary lists every change — or the phase records "no change in this phase". Not applicable to the initial development.
+    method: reading
+    how: "<spec-root>/changes/<change-id>/impact_evaluation.md (§ Impact set, § Amendments) against the phase's change_summary.md and the branch's diff against the base commit (git diff <base> -- <the phase's documents>); the accumulated copies in the phase's step folders."
+    evidence: The change summary and the diff, each modification mapped to its impact-set item or amendment.
+    pass: Initial development — not applicable. Change mode — every modification is mapped, every review had its accumulated copies, or the phase records no change.

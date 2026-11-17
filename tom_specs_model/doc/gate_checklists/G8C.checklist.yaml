@@ -1,0 +1,51 @@
+# Generic gate checklist — G8C, Change Ready for Its Pull Request (change mode).
+#
+# The criteria are tom_specs_project_flow.md §PF-GAT-G8C; this file expands each
+# one into the items an orchestrator inspects. A project copies it into its
+# project checklist under the adaptation rules of §PF-GAT-CHK. Format, location,
+# versioning and the gate report: tom_specs_gate_checklists.md.
+#
+# Paths are relative to the change folder `<spec-root>/changes/<change-id>/`;
+# the code is the change's clone.
+formatVersion: 1
+gate: G8C
+title: Change Ready for Its Pull Request
+checklistVersion: 1.0.0
+criteria: tom_specs_project_flow.md §PF-GAT-G8C
+document: the change's branch, its change folder and its clone
+items:
+  - id: G8C-REG-1
+    criterion: Regression passed
+    inspect: The regression run against the frozen baseline shows no regression outside the change.
+    method: tool
+    how: "The project's test suites in the clone (testkit :test per package), compared with the baseline frozen in Phase 5 (PF-UPG-REG)."
+    evidence: regression.md of the step folder, with the suite results.
+    pass: 0 regressions.
+  - id: G8C-TEST-1
+    criterion: No expected-to-fail test left
+    inspect: Every test the change made false is inverted and archived; no expected-to-fail marker of the change is left.
+    method: query
+    how: Search the clone's tests for the expected-to-fail marker naming the change id; inverted.md of Phase 6.
+    evidence: The search result and inverted.md.
+    pass: 0 markers left; every entry of expected_to_fail.md has its inverted test.
+  - id: G8C-DOCS-1
+    criterion: Documents final
+    inspect: Every changed specification document is final (no inline mark, no question or comment of the change open), its last accumulated copy is kept, and every revision entry the change wrote carries changeId.
+    method: query
+    how: tomAi_specAnnotations on each changed document; the accumulated copies in the step folder of Final Documents; the documents' revision entries.
+    evidence: The annotation counts, the copies, the revision entries.
+    pass: 0 open annotations of the change; every copy present; every entry with changeId.
+  - id: G8C-SCOPE-1
+    criterion: Nothing outside the impact
+    inspect: The branch, compared with the base commit, changes nothing outside the impact set and its accepted amendments.
+    method: reading
+    how: "git diff <base>...change/<change-id> against impact_evaluation.md § Impact set and § Amendments; unintended.md of Final Documents."
+    evidence: unintended.md with every finding and its decision.
+    pass: unintended.md lists nothing, or every entry is added to the impact set by the user's decision or reverted.
+  - id: G8C-ACC-1
+    criterion: Change accepted
+    inspect: Phase 7's acceptance of the change is recorded, or the phase was left out by the project's level.
+    method: sign-off
+    how: Phase 7's gate report in the change folder, or the leaveOut recorded in the process state.
+    evidence: The gate report or the recorded leaveOut.
+    pass: G7 passed for the change, or Phase 7 was left out with the project's level as its reason.

@@ -25,7 +25,7 @@ It is a single consolidated reference covering:
 | Who does what | [PF-ROL](#pf-rol-roles) |
 | The tooling that carries the process | [PF-TOO](#pf-too-tooling) |
 | Issue and bug-fix handling during delivery | [PF-ISS](#pf-iss-issues-and-bug-fixes) |
-| Life after release — upgrade cycles | [PF-UPG](#pf-upg-upgrade-cycles) |
+| Life after release — upgrade cycles, and changes in the process | [PF-UPG](#pf-upg-upgrade-cycles) |
 
 ### PF-DOC-SCP Scope
 
@@ -714,6 +714,7 @@ Two families of measure run continuously alongside the gates:
 | Sources recorded | Content check | The material the idea was drawn from is listed and retrievable |
 | No blocking clarifications | Clarification check | No open items in `_ai/clarifications/` that prevent Blueprint work |
 | Risk register reviewed | Risk review | The risks known so far are listed in the PI with what would trigger each, or the PI states that none is known |
+| Change limited to its impact *(change mode)* | Change review | In change mode: every modification of this phase lies within the change's impact set or an accepted amendment, the accumulated copies against the change's base commit were written for every review, and the phase's `change_summary.md` lists every change — or the phase records "no change in this phase" |
 
 ### PF-GAT-G2 G2 — Solution Blueprint Complete
 
@@ -733,6 +734,7 @@ Two families of measure run continuously alongside the gates:
 | Business review recorded | Sign-off check | The business review of the Blueprint is documented |
 | Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
 | Earlier results consistent | Consistency review | Every earlier phase's result this phase changed has been brought up to date as marked changes the user reviewed, recorded in `consistency.md` of the phase's last step before the gate (or "no change") |
+| Change limited to its impact *(change mode)* | Change review | In change mode: every modification of this phase lies within the change's impact set or an accepted amendment, the accumulated copies against the change's base commit were written for every review, and the phase's `change_summary.md` lists every change — or the phase records "no change in this phase" |
 
 **Why this gate is heavy.** Twelve documents are derived from this one. Every
 defect that survives G2 is multiplied by the Phase-3 expansion.
@@ -755,6 +757,7 @@ defect that survives G2 is multiplied by the Phase-3 expansion.
 | Cross-document consistency | Consistency check | No contradictions between related sections |
 | Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
 | Earlier results consistent | Consistency review | Every earlier phase's result this phase changed has been brought up to date as marked changes the user reviewed, recorded in `consistency.md` of the phase's last step before the gate (or "no change") |
+| Change limited to its impact *(change mode)* | Change review | In change mode: every modification of this phase lies within the change's impact set or an accepted amendment, the accumulated copies against the change's base commit were written for every review, and the phase's `change_summary.md` lists every change — or the phase records "no change in this phase" |
 
 **Consistency check.** A dedicated agent compares related sections across
 documents and reports four classes of defect:
@@ -795,6 +798,7 @@ documents and reports four classes of defect:
 | Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
 | Generation units mapped | Register check | Every area a unit of the generation-unit register holds that the run routed with a `sufficient` verdict has a mapping in that unit; every mapper and emitter the register names exists |
 | Earlier results consistent | Consistency review | Every earlier phase's result this phase changed has been brought up to date as marked changes the user reviewed, recorded in `consistency.md` of the phase's last step before the gate (or "no change") |
+| Change limited to its impact *(change mode)* | Change review | In change mode: every modification of this phase lies within the change's impact set or an accepted amendment, the accumulated copies against the change's base commit were written for every review, and the phase's `change_summary.md` lists every change — or the phase records "no change in this phase" |
 
 The four rows from *Trio is self-sufficient* to *Output is determined, not preferred* are what PF-PHA-P4's two-pass production model makes checkable:
 pass 1 is verified by comparing extracts against their source, pass 2 by the
@@ -819,6 +823,7 @@ validator and by the determinism the derivation contract obliges it to.
 | Baseline recorded | Baseline check | A test baseline exists for Phase 6 comparison |
 | Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
 | Earlier results consistent | Consistency review | Every earlier phase's result this phase changed has been brought up to date as marked changes the user reviewed, recorded in `consistency.md` of the phase's last step before the gate (or "no change") |
+| Change limited to its impact *(change mode)* | Change review | In change mode: every modification of this phase lies within the change's impact set or an accepted amendment, the accumulated copies against the change's base commit were written for every review, and the phase's `change_summary.md` lists every change — or the phase records "no change in this phase" |
 
 ### PF-GAT-G6 G6 — Implementation Complete
 
@@ -841,6 +846,7 @@ The most comprehensive gate — it evaluates the actual code.
 | Coverage adequate | Coverage analysis | Line coverage above the project threshold (default 80%) |
 | Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
 | Earlier results consistent | Consistency review | Every earlier phase's result this phase changed has been brought up to date as marked changes the user reviewed, recorded in `consistency.md` of the phase's last step before the gate (or "no change") |
+| Change limited to its impact *(change mode)* | Change review | In change mode: every modification of this phase lies within the change's impact set or an accepted amendment, the accumulated copies against the change's base commit were written for every review, and the phase's `change_summary.md` lists every change — or the phase records "no change in this phase" |
 
 **Execution order.** The orchestrator runs the checks fast-failure-first —
 static analysis, tests, security audit, code review passes, traceability, doc
@@ -871,6 +877,7 @@ business logic can still leak data or bypass a rule.
 | Human sign-off recorded | File check | A signed acceptance record exists |
 | Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
 | Earlier results consistent | Consistency review | Every earlier phase's result this phase changed has been brought up to date as marked changes the user reviewed, recorded in `consistency.md` of the phase's last step before the gate (or "no change") |
+| Change limited to its impact *(change mode)* | Change review | In change mode: every modification of this phase lies within the change's impact set or an accepted amendment, the accumulated copies against the change's base commit were written for every review, and the phase's `change_summary.md` lists every change — or the phase records "no change in this phase" |
 
 **This is the only gate where human sign-off is a hard requirement.** The agents
 assemble the evidence and recommend; the business decides.
@@ -892,6 +899,31 @@ assemble the evidence and recommend; the business decides.
 | Quota enforcement verified *(multi-tenant only)* | SQM test | Plan quotas, user limits and feature toggles enforce correctly |
 | Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
 | Earlier results consistent | Consistency review | Every earlier phase's result this phase changed has been brought up to date as marked changes the user reviewed, recorded in `consistency.md` of the phase's last step before the gate (or "no change") |
+
+### PF-GAT-G0 G0 — Change Accepted
+
+**Transition:** Phase 0 → Phase 1 (change mode, PF-UPG-CHG) · **Review type:** business
+
+| Criterion | Check method | Pass condition |
+|-----------|--------------|----------------|
+| Change identified | File and branch check | The change id, its branch `change/<id>` and its folder `<spec-root>/changes/<id>/` exist; `change_intend.md` records the mode, the id and the base commit |
+| Intent stated | Content check | The intended effect and the exclusions are stated; no question that decides the size is open |
+| Every part rated | Content check | Every SOM root and section, every CodeSpecs and IR area, the tests and the code have a verdict (affected, needed, unaffected) with a reason |
+| Project level recorded | Content check | The level the project has reached is recorded and the phases the change leaves out are named |
+| Assumptions decided | Decision check | Every assumption or rule the change touches has the user's decision (keep, change, stop); every completion declined is a known gap |
+| Impact accepted | Sign-off check | The user accepted the impact (effort for the specification and for the implementation, size class) |
+
+### PF-GAT-G8C G8C — Change Ready for Its Pull Request
+
+**Transition:** Phase 8C → the pull request (change mode, PF-UPG-CHG) · **Review type:** technical and business
+
+| Criterion | Check method | Pass condition |
+|-----------|--------------|----------------|
+| Regression passed | Full suite execution | The regression run against the frozen baseline shows 0 regressions (PF-UPG-REG) |
+| No expected-to-fail test left | Test check | Every test the change made false is inverted and archived |
+| Documents final | Content check | Every changed document is final, its last accumulated copy kept, every revision entry it wrote carries `changeId` |
+| Nothing outside the impact | Diff review | The branch, compared with the base commit, changes nothing outside the impact set and its accepted amendments |
+| Change accepted | Sign-off check | Phase 7's acceptance of the change is recorded, or the phase was left out by the project's level |
 
 ### PF-GAT-CHK Gate Checklists
 
@@ -1713,13 +1745,16 @@ breaks the traceability chain the whole process rests on.
 
 Once a system passes G8 and enters production, it leaves the creation process
 and enters **upgrade cycles**. The `DRM` Delivery Roadmap defines when that
-transition occurs and what cadence applies afterwards.
+transition occurs and what cadence applies afterwards. Each change of an
+upgrade cycle runs through the `tom_specs` process in its **change mode**
+(PF-UPG-CHG); a change may also start before production, on a project that has
+reached only some of the phases.
 
 ### PF-UPG-DIF How an Upgrade Differs
 
 | Aspect | Initial creation | Upgrade cycle |
 |--------|-----------------|---------------|
-| Phase 1 | Project Idea from scratch | Not applicable — the system exists |
+| Phase 1 | Project Idea from scratch | The Project Idea is updated in every change, so it stays the true statement of what the system is for |
 | Phase 2 | Full Blueprint | Incremental Blueprint update, scoped to the change |
 | Phase 3 | All twelve documents | Only the affected documents |
 | Baseline | None exists | The previous release **is** the baseline |
@@ -1786,6 +1821,27 @@ rollout of user-visible change.
 **UC-7 Release.** Versioned release with a changelog generated from the change
 requests, a **mandatory** rollback plan, coordinated tenant upgrades where
 multi-tenant, and a blue-green or canary deployment.
+
+### PF-UPG-CHG A Change in the Process
+
+In `tom_specs` a change is a run of its own in **change mode**: the process's
+first step asks whether the run is the initial development or a change. The
+upgrade cycle maps onto the phases as follows:
+
+| Cycle | Change mode |
+|-------|-------------|
+| UC-1 Change Collection, UC-2 Impact Analysis | Phase 0 Change Intent and Impact: `change_intend.md` (intended effect, exclusions); the change analyst's walk over every section, area, test and code unit, with the effort for the specification and for the implementation, the principles the change touches, reductions and completions proposed; your acceptance at G0 |
+| UC-3 Spec Update | Phases 1–3 update the existing documents: the Project Idea, the Blueprint and, through its changed sections and the model's traceability, the Phase-3 documents wave by wave; every step reads the whole document against the change and changes only the impact set |
+| UC-4 CodeSpec Update | Phase 4: the change's own clone; the CodeSpecs and IR delta by token |
+| UC-5 Test Update | Phase 5: the frozen baseline; tests the change makes false marked expected to fail |
+| UC-6 Implementation | Phase 6, scoped to the change; the expected-to-fail tests inverted and archived |
+| UC-7 Release | Phase 7 scoped to the change; Phase 8C: the regression gate (G8C) and a tested pull request with its record. Grouping pull requests into a release is a process of its own |
+
+**Traceability.** A change has an id that names its branch, its folder
+(`<spec-root>/changes/<id>/`) and its commits; every revision entry it writes
+carries `changeId`. Every review shows the document with the last round's marks
+and a read-only accumulated copy against the commit the change started from, so
+what the change did stays visible after every round.
 
 ### PF-UPG-TYP Upgrade Types
 
