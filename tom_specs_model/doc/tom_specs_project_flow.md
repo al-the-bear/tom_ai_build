@@ -1931,6 +1931,11 @@ freely. A change to an accepted document requires:
 Changes before acceptance need none of this — that is the point of the
 DRAFT/REVIEWED stages.
 
+Once the specification as a whole has been built — a project that has passed a
+later gate, up to a running application — a change to it runs as a **change**
+in `tom_specs`' change mode ([PF-UPG-CHG](#pf-upg-chg-a-change-in-the-process)):
+Phase 0 is its change request and impact analysis, and its approval is gate G0.
+
 ### PF-SUP-DOC Documentation Derivation
 
 User-facing and operational documentation is **derived**, not written in
