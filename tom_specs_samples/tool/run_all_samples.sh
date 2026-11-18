@@ -180,6 +180,18 @@ run_one() {
       SKIPPED+=("$name"); return
     fi
     cmd=(cargo run --quiet)
+  elif [ -f "$dir/Makefile" ]; then
+    # A C or C++ port: a vendored-source build of the checkout's runtime and
+    # facade (tool/c_sample.mk, tool/cpp_sample.mk), run as build/sample.
+    local compiler=cc
+    [ -f "$dir/main.cpp" ] && compiler=c++
+    for tool in make "$compiler"; do
+      if ! command -v "$tool" > /dev/null 2>&1; then
+        echo "  SKIP     $name — $tool not on PATH"
+        SKIPPED+=("$name"); return
+      fi
+    done
+    cmd=(./build/sample)
   elif [ -f "$dir/pom.xml" ]; then
     if ! command -v mvn > /dev/null 2>&1; then
       echo "  SKIP     $name — mvn not on PATH"
@@ -203,7 +215,8 @@ run_one() {
     fi
   else
     echo "  SKIP     $name — no recognised entry point (pubspec.yaml,"
-    echo "                    main.py, go.mod, Cargo.toml, pom.xml or package.json)"
+    echo "                    main.py, go.mod, Cargo.toml, Makefile, pom.xml or"
+    echo "                    package.json)"
     SKIPPED+=("$name"); return
   fi
 
@@ -250,6 +263,17 @@ run_one() {
       FAILED+=("$name"); return
     fi
     JAVA_RUNTIMES_INSTALLED=1
+  fi
+
+  # A C or C++ sample builds first (compiler errors report as such). Its
+  # objects are shared by every port of the language, so the facade compiles
+  # once per run; `-j` because the runtime is some thirty source files.
+  if [ -f "$dir/Makefile" ]; then
+    if ! (cd "$dir" && make -s -j4) > "$log" 2>&1; then
+      echo "  FAIL     $name — make failed"
+      tail -n 15 "$log" | sed 's/^/             /'
+      FAILED+=("$name"); return
+    fi
   fi
 
   # A Rust sample builds first, so a compile error is reported as one rather

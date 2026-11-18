@@ -94,6 +94,14 @@
  * (`SPEC_STANDARD_EMITTERS`: `openapi`, `jsonschema`, `icu`, `asyncapi`, `markdown`). */
 #define SPEC_VALIDATION_CODE_UNIT_EMITTER_UNKNOWN "unitEmitterUnknown"
 
+/* Every SPEC_VALIDATION_CODE_* above, in declaration order — the enumerable
+ * vocabulary Dart has from its enum, as DOCSPECS_ALL_RULES is for the §14
+ * rules. A tool switches over it exhaustively instead of matching on message
+ * text; tests/spec_validation_all_codes_test.c reads the defines above and
+ * fails when one is missing here. */
+#define SPEC_VALIDATION_ALL_CODES_COUNT 21
+extern const char *const SPEC_VALIDATION_ALL_CODES[SPEC_VALIDATION_ALL_CODES_COUNT];
+
 typedef struct {
   char *path;    /* owned */
   char *code;    /* owned (one of the SPEC_VALIDATION_CODE_* literals, copied) */

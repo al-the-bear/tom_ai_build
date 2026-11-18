@@ -114,6 +114,35 @@ inline constexpr const char* kSpecValidationCodeUnitAreaMalformed =
 inline constexpr const char* kSpecValidationCodeUnitEmitterUnknown =
     "unitEmitterUnknown";
 
+/* Every kSpecValidationCode* above, in declaration order — the enumerable
+ * vocabulary Dart has from its enum, as kDocSpecsAllRules is for the §14
+ * rules. A tool switches over it exhaustively instead of matching on message
+ * text; tests/spec_validation_all_codes_test.cpp reads the constants above and
+ * fails when one is missing here. */
+inline constexpr const char* kSpecValidationAllCodes[] = {
+    kSpecValidationCodeDanglingPath,
+    kSpecValidationCodeKindMismatch,
+    kSpecValidationCodeUnknownFormField,
+    kSpecValidationCodeMinItems,
+    kSpecValidationCodeOneOfCaseMismatch,
+    kSpecValidationCodeDanglingReference,
+    kSpecValidationCodeEnumValueUnknown,
+    kSpecValidationCodeCountMismatch,
+    kSpecValidationCodeValueTypeMismatch,
+    kSpecValidationCodeDerivedValueMismatch,
+    kSpecValidationCodeMissingRequiredField,
+    kSpecValidationCodeMultipleReferences,
+    kSpecValidationCodeAnnotationMisplaced,
+    kSpecValidationCodeAnnotationMalformed,
+    kSpecValidationCodeDuplicateAnnotationId,
+    kSpecValidationCodeUnknownUnit,
+    kSpecValidationCodeUnitsUnrouted,
+    kSpecValidationCodeDuplicateUnitId,
+    kSpecValidationCodeUnitBuildsNothing,
+    kSpecValidationCodeUnitAreaMalformed,
+    kSpecValidationCodeUnitEmitterUnknown,
+};
+
 struct SpecValidationError {
   std::string path;
   std::string code;  // one of kSpecValidationCode*

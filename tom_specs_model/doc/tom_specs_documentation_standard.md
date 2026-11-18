@@ -617,7 +617,11 @@ which builds both packages and compiles the port with `tsc`; Go: `replace`
 directives onto the checkout's modules and `go run`; Rust: `path` dependencies
 on the checkout's crates and `cargo run`; Java: `mvn install` of the
 checkout's runtime and facade into the local Maven repository, then
-`mvn compile exec:java`), until the runtime is published.
+`mvn compile exec:java`), until the runtime is published. The C and C++
+planes ship as source only by decision, so their ports are vendored-source
+builds of the checkout's runtime and facade — the intended integration path,
+not an exception — and are held leak-clean under a sanitizer and a leak
+checker.
 
 **A port sits beside its sample**, one folder per language
 (`<sample>/python/`, …), with its own README and, where its output differs

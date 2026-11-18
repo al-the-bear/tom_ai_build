@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- `SPEC_VALIDATION_ALL_CODES` (`SPEC_VALIDATION_ALL_CODES_COUNT`): every
+  `SPEC_VALIDATION_CODE_*` define, in declaration order — the enumerable
+  vocabulary Dart has from its enum, as `DOCSPECS_ALL_RULES` is for the §14
+  rules. `tests/spec_validation_all_codes_test.c` reads the defines and fails
+  when a code is missing from the list.
 - `markdown` is a standard emitter (`SPEC_STANDARD_EMITTERS`: `openapi`, `jsonschema`,
   `icu`, `asyncapi`, `markdown`): a generation unit may name it, and the
   validator no longer reports it as unknown. It is the IR's Markdown rendering

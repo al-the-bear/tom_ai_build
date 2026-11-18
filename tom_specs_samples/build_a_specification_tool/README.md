@@ -4,7 +4,7 @@ For the reader who is **not authoring specifications but writing programs that
 read them**: an editor, a linter, a report, an importer, a migration.
 
 Ports: [`python/`](python/README.md), [`javascript/`](javascript/README.md),
-[`typescript/`](typescript/README.md), [`go/`](go/README.md), [`rust/`](rust/README.md), [`java/`](java/README.md).
+[`typescript/`](typescript/README.md), [`go/`](go/README.md), [`rust/`](rust/README.md), [`java/`](java/README.md), [`c/`](c/README.md), [`cpp/`](cpp/README.md).
 
 ```bash
 dart pub get
