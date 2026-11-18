@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Records — and re-checks — the two reports this walkthrough prints but cannot
-# produce itself: Phase 4's `validate_codespecs` run over the emitted trio, and
+# produce itself: Phase 4's `tomspecs :codespecs-validate` run over the emitted trio, and
 # Phase 6's `dart test` + `dart analyze` + `dart format`.
 #
 # Why a script and not part of `dart run`. `tom_specs_clitool` is a development

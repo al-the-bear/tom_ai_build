@@ -899,7 +899,7 @@ List<String> _entityNames(SpecDocument doc, String listOwnerPath) {
 // Environment and recorded reports
 // ===========================================================================
 
-/// The second `validate_codespecs` invocation — the one given `--extracts`.
+/// The second `tomspecs :codespecs-validate` invocation — the one given `--extracts`.
 ///
 /// Split rather than searched whole: the FIRST invocation announces checks 35
 /// and 36 unrun, so a `contains` over the report as a whole would find that

@@ -1982,7 +1982,7 @@ const CsExtractCoverageCheck();
 
 ### CsUncitedToken
 
-One extract token of one area that no back-link in the trio names — what check 35 reports, and the input of `validate_codespecs.dart --record-gaps`. `csUncitedTokens(CodeSpecsValidationInput input)` returns them, once per token and area.
+One extract token of one area that no back-link in the trio names — what check 35 reports, and the input of `tomspecs :codespecs-validate --record-gaps`. `csUncitedTokens(CodeSpecsValidationInput input)` returns them, once per token and area.
 
 #### Constructors
 ```dart

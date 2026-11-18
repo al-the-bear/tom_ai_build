@@ -34,7 +34,7 @@ mapped from the IR afterwards (§8, §11–§14); the trio of
 `<app>_codespec_shared`, `_client` and `_server` — is the `dart-tom` mapping of
 it.
 
-**Its model is the CsModel**, the reading `validate_codespecs` takes of a Dart
+**Its model is the CsModel**, the reading `tomspecs :codespecs-validate` takes of a Dart
 trio: an IR document records that reading as data, so the same checks run on
 the IR and on a trio unchanged. Nothing a CodeSpecs trio can express may be
 missing from the IR; the field table in §5 is the proof obligation, and a test
@@ -376,7 +376,7 @@ without a package configuration. Its output is defined by two promises:
    `lib/` source of the trio byte for byte. The test
    `tom_specs_clitool/test/irspecs_dart_tom_test.dart` holds this for both
    Meridian trios and checks that the reproduced trio passes
-   `validate_codespecs` with the result the original gets. A difference is a
+   `tomspecs :codespecs-validate` with the result the original gets. A difference is a
    fact this document's records do not carry; it is fixed in the IR (§6), not
    in the mapper.
 2. **Refused, not approximated.** A construct the mapper has no rule for — a
@@ -803,7 +803,7 @@ and C# mappers' migrations run:
 `Count<Entity>`, `List<Entity>Page`, `Insert<Entity>`, and by the primary
 key `Find<Entity>ById` and `Delete<Entity>ById` (a composite key by all its
 columns, in key order); an entity without a primary key — which
-`validate_codespecs` check 44 reports — gets the first three only.
+`tomspecs :codespecs-validate` check 44 reports — gets the first three only.
 `sqlc.yaml` (written for sqlc v1.29.0) generates
 package `db` beside them, a `uuid` column as a Go `string`. The mapper writes
 no sqlc output: `sqlc generate` writes it.

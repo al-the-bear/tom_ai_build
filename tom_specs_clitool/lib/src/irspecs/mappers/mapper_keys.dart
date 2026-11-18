@@ -323,7 +323,7 @@ IrEntityTable? irEntityTable(IrIndex index, IrEntry e) {
       throw IrMapException(
         '${d.name} is a tenant table, and its tenantField '
         "'${field ?? '(none)'}' names no @CsColumn member "
-        '(validate_codespecs check 45)',
+        '(tomspecs :codespecs-validate check 45)',
       );
     }
   }

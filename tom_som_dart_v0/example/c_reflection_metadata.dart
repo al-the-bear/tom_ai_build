@@ -1,6 +1,6 @@
 // Sample (c) — REFLECTION / meta-information access (som_multiplatform_spec_model.md §6).
 //
-// HAND-AUTHORED — preserved across `generate_som` runs.
+// HAND-AUTHORED — preserved across `tomspecs :som-generate` runs.
 //
 // Demonstrates the value-free "reflection" surface: take the model this
 // package was generated from and query its shape with `SpecReflection` —
@@ -28,10 +28,14 @@ void main() {
   final model = somSpecModel;
   final reflection = SpecReflection(model);
 
-  print('Model version: ${model.modelVersion} '
-      '(${model.modelVersionLabel ?? 'unstamped'})');
-  print('Roots: ${reflection.roots.length}, '
-      'classes: ${reflection.classes.length}\n');
+  print(
+    'Model version: ${model.modelVersion} '
+    '(${model.modelVersionLabel ?? 'unstamped'})',
+  );
+  print(
+    'Roots: ${reflection.roots.length}, '
+    'classes: ${reflection.classes.length}\n',
+  );
 
   // Enumerate the document roots by their addressable segment.
   print('Document roots:');
@@ -44,10 +48,12 @@ void main() {
   final pdFields = reflection.fieldsOf(pdRoot.type);
   print('\nFirst fields of ${pdRoot.type} (${pdFields.length} total):');
   for (final field in pdFields.take(6)) {
-    print('  ${field.name.padRight(24)} '
-        'kind=${field.kind.name}'
-        '${field.type != null ? '  type=${field.type}' : ''}'
-        '${field.elementType != null ? '  elem=${field.elementType}' : ''}');
+    print(
+      '  ${field.name.padRight(24)} '
+      'kind=${field.kind.name}'
+      '${field.type != null ? '  type=${field.type}' : ''}'
+      '${field.elementType != null ? '  elem=${field.elementType}' : ''}',
+    );
   }
 
   // Resolve concrete document paths to model nodes (value-free).
@@ -63,8 +69,10 @@ void main() {
       print('  $path  ->  (unresolved)');
       continue;
     }
-    print('  ${path.padRight(40)} -> kind=${res.kind.name}'
-        '${res.targetClass != null ? '  class=${res.targetClass!.name}' : ''}'
-        '  valueLeaf=${res.isValueLeaf}');
+    print(
+      '  ${path.padRight(40)} -> kind=${res.kind.name}'
+      '${res.targetClass != null ? '  class=${res.targetClass!.name}' : ''}'
+      '  valueLeaf=${res.isValueLeaf}',
+    );
   }
 }

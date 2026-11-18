@@ -1,7 +1,8 @@
-// `spec_checks` — the TomSpecs process checks on any project's specification,
-// over the runtime library `package:tom_som_dart_runtime/spec_checks.dart`.
+// The `tomspecs :spec-*` commands — the TomSpecs process checks on any
+// project's specification, over the runtime library
+// `package:tom_som_dart_runtime/spec_checks.dart`.
 //
-// Each subcommand is one check; a project's own data is read from
+// Each command is one check, called here by its check id; a project's own data is read from
 // `<spec-root>/checks/` (the spec root found from the document, or
 // `--spec-root`), never from beside the tool. The output lines are the
 // checks' own report formats, and the exit code is 0 when clean, 1 on
@@ -16,7 +17,28 @@ import 'package:tom_som_dart_v0/tom_som_dart_v0_schemas.dart';
 
 import 'validate_spec_cli.dart' show resolveSpecDocumentRoot, specSchemaIdFor;
 
-/// The subcommands, each with its usage line.
+/// The `tomspecs` command each check id runs as.
+const Map<String, String> specCheckCommandNames = {
+  'validate': 'spec-render',
+  'import-answers': 'spec-import-answers',
+  'accept-marks': 'spec-accept-marks',
+  'required-fields': 'spec-required-fields',
+  'question-register': 'spec-question-register',
+  'feature-register': 'spec-feature-register',
+  'project-idea-coverage': 'spec-idea-coverage',
+  'authorization': 'spec-authorization',
+  'coverage': 'spec-coverage',
+};
+
+/// [specChecksCommands]' usage line of [check], with the check id replaced by
+/// its `tomspecs` command.
+String specCheckUsage(String check) {
+  final line = specChecksCommands[check]!;
+  return 'tomspecs :${specCheckCommandNames[check]}'
+      '${line.substring(check.length)}';
+}
+
+/// The checks by id, each with its usage line.
 const Map<String, String> specChecksCommands = {
   'validate':
       'validate <doc.docspecs.yaml> [<rendition.md>] — decode, schema and '
@@ -62,7 +84,8 @@ ArgParser specChecksParser() => ArgParser(allowTrailingOptions: false)
         'found from the document.',
   );
 
-/// Runs `spec_checks` with [arguments] and returns its exit code; output goes
+/// Runs the check whose id [arguments] start with and returns its exit code;
+/// output goes
 /// to [out] and [err] (default stdout / stderr).
 int runSpecChecks(List<String> arguments, {IOSink? out, IOSink? err}) {
   final o = out ?? stdout;
@@ -71,7 +94,7 @@ int runSpecChecks(List<String> arguments, {IOSink? out, IOSink? err}) {
   try {
     top = specChecksParser().parse(arguments);
   } on FormatException catch (x) {
-    e.writeln('spec_checks: ${x.message}');
+    e.writeln('tomspecs: ${x.message}');
     _usage(e);
     return 2;
   }
@@ -87,7 +110,7 @@ int runSpecChecks(List<String> arguments, {IOSink? out, IOSink? err}) {
   }
   final command = args.removeAt(0);
   if (!specChecksCommands.containsKey(command)) {
-    e.writeln('spec_checks: unknown check `$command`');
+    e.writeln('tomspecs: unknown check `$command`');
     _usage(e);
     return 2;
   }
@@ -105,7 +128,7 @@ int runSpecChecks(List<String> arguments, {IOSink? out, IOSink? err}) {
       _ => 2,
     };
   } on _Usage catch (u) {
-    e.writeln('usage: spec_checks ${specChecksCommands[command]}');
+    e.writeln('usage: ${specCheckUsage(command)}');
     if (u.message.isNotEmpty) e.writeln(u.message);
     return 2;
   }
@@ -113,15 +136,15 @@ int runSpecChecks(List<String> arguments, {IOSink? out, IOSink? err}) {
 
 void _usage(IOSink sink) {
   sink.writeln(
-    'usage: spec_checks [--spec-root <dir>] <check> <arguments>\n'
+    'usage: tomspecs :spec-<check> [--spec-root <dir>] <arguments>\n'
     "The project's data is read from <spec-root>/checks/; the spec root is\n"
     "found from the document (the nearest folder above it holding checks/,\n"
     "else the document folder's parent) unless --spec-root names it.\n",
   );
   sink.writeln(specChecksParser().usage);
   sink.writeln();
-  for (final line in specChecksCommands.values) {
-    sink.writeln('  $line');
+  for (final check in specChecksCommands.keys) {
+    sink.writeln('  ${specCheckUsage(check)}');
   }
 }
 

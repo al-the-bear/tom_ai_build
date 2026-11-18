@@ -258,7 +258,7 @@ void _stage3(List<CodeSpecsExtract> extracts) {
 
 void _stage4() {
   print('4. Validating the emitted trio                [MECHANICAL]');
-  print('   `validate_codespecs.dart` runs the derivation contract\'s §6');
+  print('   `tomspecs :codespecs-validate` runs the derivation contract\'s §6');
   print('   checks over the shared / client / server trio. It reads emitted');
   print(
     '   Dart with the analyzer\'s parser and never resolves it, so it runs',

@@ -81,9 +81,9 @@ so a normal run takes none.
 A clean run prints a header, then one block per language:
 
 ```
-generate_som: restamped @SerializationOrder — files changed: 0, members stamped: 5153, restamped: 5153
-generate_som: spec-ops registry — 1254 classes, unchanged → lib/src/generated/spec_ops.g.dart
-generate_som: config <…>/tom_specs_clitool/tom_som.yaml
+som-generate: restamped @SerializationOrder — files changed: 0, members stamped: 5153, restamped: 5153
+som-generate: spec-ops registry — 1254 classes, unchanged → lib/src/generated/spec_ops.g.dart
+som-generate: config <…>/tom_specs_clitool/tom_som.yaml
   model:   <…>/tom_specs_model
   runtime: <…>/tom_som_dart_runtime
   version: 1  (label: 1.1.0+5.a15517b3)
@@ -131,7 +131,7 @@ dart run bin/tomspecs.dart :model-stamp-order --package ../tom_specs_model --dry
 ```
 
 ```
-stamp_serialization_order: [dry-run] files changed: 0, members stamped: 5153, restamped (removed old): 5153
+model-stamp-order: [dry-run] files changed: 0, members stamped: 5153, restamped (removed old): 5153
 ```
 
 Read those three numbers precisely, because two of them do not mean what they

@@ -230,7 +230,7 @@ Each entry is a `SpecAnswerEntry` whose `kind` is a `SpecAnswerKind`
 the conformance corpus pins. A comment is cited with the document root's id in
 front (`SBP C-12`). A comment without an id is listed by its line;
 `assignCommentIds` gives it one, when asked. The command line is
-`tom_specs_clitool`'s `extract_answers`.
+`tom_specs_clitool`'s `tomspecs :spec-answers`.
 
 ```javascript
 const fs = require('fs');

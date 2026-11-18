@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Records — and re-checks — stage 4 of this sample: `validate_codespecs.dart`
+# Records — and re-checks — stage 4 of this sample: `tomspecs :codespecs-validate`
 # run over the emitted shared/client/server trio, twice. Before that it checks
 # the trio is what the IR maps to: the authoring agent's output is the IR in
 # codespec/irspecs/ (irspecs_ir.md), and `tomspecs :ir-map --mapper dart-tom` writes

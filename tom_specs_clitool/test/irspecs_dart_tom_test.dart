@@ -1,5 +1,5 @@
 /// The Dart + Tom mapper (`irspecs_ir.md` §8): trio → IR → trio is byte-equal
-/// on both Meridian trios, and the reproduced trio passes validate_codespecs.
+/// on both Meridian trios, and the reproduced trio passes `tomspecs :codespecs-validate`.
 ///
 /// A difference here is a fact the IR does not carry — fixed in the IR and its
 /// specification, never by a special case in the mapper.
@@ -16,7 +16,6 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show CodeSpecsAreaCatalog;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
-
 
 final _trios = {
   'phase4_codespecs_run': [
@@ -108,7 +107,7 @@ void main() {
         );
       });
 
-      test('the reproduced trio passes validate_codespecs', () async {
+      test('the reproduced trio passes :codespecs-validate', () async {
         final code = await runValidateCodespecs(
           [
             for (final (i, locus) in [
@@ -137,57 +136,54 @@ void main() {
     });
   }
 
-  test(
-    'IRDT3: irspecs from-codespecs, then irspecs map, gives the trio',
-    () async {
-      final roots = _trios['meridian_codespecs']!;
-      final work = Directory.systemTemp.createTempSync('irspecs_map_cli');
-      addTearDown(() => work.deleteSync(recursive: true));
-      final ir = p.join(work.path, 'irspecs');
-      final code = p.join(work.path, 'code');
+  test('IRDT3: :ir-from-codespecs, then :ir-map, gives the trio', () async {
+    final roots = _trios['meridian_codespecs']!;
+    final work = Directory.systemTemp.createTempSync('irspecs_map_cli');
+    addTearDown(() => work.deleteSync(recursive: true));
+    final ir = p.join(work.path, 'irspecs');
+    final code = p.join(work.path, 'code');
+    expect(
+      await runIrspecs([
+        'from-codespecs',
+        '--shared',
+        roots[0],
+        '--client',
+        roots[1],
+        '--server',
+        roots[2],
+        '--areas',
+        _areasJson,
+        '--out',
+        ir,
+      ], out: StringBuffer()),
+      0,
+    );
+    final out = StringBuffer();
+    expect(
+      await runIrspecs([
+        'map',
+        '--mapper',
+        'dart-tom',
+        '--ir',
+        ir,
+        '--out',
+        code,
+      ], out: out),
+      0,
+    );
+    final original = _sources(roots);
+    expect('$out', contains('${original.length} file(s)'));
+    for (final MapEntry(key: key, value: text) in original.entries) {
       expect(
-        await runIrspecs([
-          'from-codespecs',
-          '--shared',
-          roots[0],
-          '--client',
-          roots[1],
-          '--server',
-          roots[2],
-          '--areas',
-          _areasJson,
-          '--out',
-          ir,
-        ], out: StringBuffer()),
-        0,
+        File(p.joinAll([code, ...key.split('/')])).readAsStringSync(),
+        text,
+        reason: key,
       );
-      final out = StringBuffer();
-      expect(
-        await runIrspecs([
-          'map',
-          '--mapper',
-          'dart-tom',
-          '--ir',
-          ir,
-          '--out',
-          code,
-        ], out: out),
-        0,
-      );
-      final original = _sources(roots);
-      expect('$out', contains('${original.length} file(s)'));
-      for (final MapEntry(key: key, value: text) in original.entries) {
-        expect(
-          File(p.joinAll([code, ...key.split('/')])).readAsStringSync(),
-          text,
-          reason: key,
-        );
-      }
-      final err = StringBuffer();
-      expect(await runIrspecs(['map', '--ir', ir], err: err), 2);
-      expect('$err', contains('--mapper'));
-    },
-  );
+    }
+    final err = StringBuffer();
+    expect(await runIrspecs(['map', '--ir', ir], err: err), 2);
+    expect('$err', contains('--mapper'));
+  });
 
   group('IRDT2: what the mapper refuses', () {
     test('a construct it has no rule for is refused, not approximated', () {

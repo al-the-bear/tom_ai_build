@@ -414,7 +414,7 @@ it must do, at what boundaries, with what errors).
 5. **Derive data tests** from `IFM`
 6. **Derive integration tests** from `IIS` external-system interactions
 7. **Map every test to its CodeSpec element and source requirement**
-8. **Generate the registry suites** with `generate_registry_tests`
+8. **Generate the registry suites** with `tomspecs :app-registry-tests`
    (`tom_specs_clitool`). The part of the suite that is pure registry data is
    mechanical and the same for every Tom application, so it is generated, not
    written: from the specification's operation registry (`SVOPE`, with its

@@ -108,25 +108,27 @@ workspace_prefixes:
 unpublished_drift:
   tom_specs_clitool: >-
     irfmt2 (2026-11-16): the dart-tom mapper formats in-process with dart_style
-    pinned to the SDK formatter's version (3.1.13), so a compiled irspecs needs
+    pinned to the SDK formatter's version (3.1.13), so the compiled binary needs
     no Dart SDK; test/dart_style_pin_test.dart holds the pin; irout2
     (2026-11-16): IR files are named <CE-CODE>_<canonical id>.ir.yaml, read
-    under both names; irout3 (2026-11-16): irspecs emit --standard markdown
+    under both names; irout3 (2026-11-16): the IR emitter's markdown standard
     (the IR's Markdown rendering, schema irspecs-md/1.0); irout4 (2026-11-17):
-    irspecs export --format json (the IR as JSON against its schema);
+    the IR's JSON export (the IR as JSON against its schema);
     irout5 (2026-11-17): the Markdown rendering links a back-link only when a
     rendition heading carries its token; tsbin2 (2026-11-17): the `tomspecs`
     binary on tom_build_base, every tool's run function returning its exit
     code, the versioner stamp; tsbin3 (2026-11-17): all formatting through
     the linked dart_style (lib/src/dart_format.dart), never `dart format` as a
     process; tsbin4 (2026-11-17): clitoolPackageRoot (the package root from
-    the package config, used by codespecs_areas); tsbin5 (2026-11-17): build,
-    generate_som, spec_ops, model_json and check_som_parity find the package
-    the same way, and build runs model_json and docspecs_schema in-process;
+    the package config); tsbin5 (2026-11-17): the generators and the editor
+    build find the package the same way, and the build runs its generator
+    steps in-process;
     tsbin6 (2026-11-18): the gates find the package the same way, and a
     compiled binary finds it from the current directory; tsbin7 (2026-11-18):
-    the documents, scripts and generator texts name the tomspecs commands
-    instead of the old tools; published with the next clitool release.
+    the documents, scripts and generator texts name the tomspecs commands;
+    tsbin8 (2026-11-18): bin/tomspecs.dart is the only entrypoint, the
+    commands' run functions in lib/src/commands/, their output and usage
+    lines named by command; published with the next clitool release.
   tom_core_codespecs: >-
     irfmt2 (2026-11-16): irspecs_ir.md §8 states that the dart-tom mapper needs
     no Dart SDK; irout1 (2026-11-16): irspecs_ir.md and codespecs_mapping.md
@@ -136,8 +138,7 @@ unpublished_drift:
     irspecs_ir.md §10.3, the Markdown rendering; irout4 (2026-11-17):
     irspecs_ir.md §15, the JSON export; irout5 (2026-11-17): §10.3 names the
     viewers that resolve section-id anchors; tsbin7 (2026-11-18): the
-    documents name the tomspecs commands instead of the old tools (irspecs,
-    validate_codespecs); ships with the next release.
+    documents name the tomspecs commands; ships with the next release.
   tom_specs_model: >-
     irout1 (2026-11-16): doc/index.md's irspecs_ir.md row states the IR as
     Phase 4's product; irout2 (2026-11-16): the IR file-name pattern in
@@ -145,24 +146,24 @@ unpublished_drift:
     among the emitter ids in som_multiplatform_spec_model.md and
     tom_specs_model_rules.md (documentation only); tsbin7 (2026-11-18): the
     documents, gate checklists and the generated spec-ops header name the
-    tomspecs commands instead of the old tools; ships with the next release.
+    tomspecs commands; ships with the next release.
   tom_som_dart_runtime: >-
     irout3 (2026-11-16): kSpecStandardEmitters gains `markdown` (validation
     phase 8, unitEmitterUnknown), as in the eight other runtimes and the
     corpus; tsbin7 (2026-11-18): comments and README name the tomspecs
-    commands instead of the old tools; ships with the next chain release.
+    commands; ships with the next chain release.
   tom_specs_core: >-
     tsbin7 (2026-11-18): the README, doc/annotations.md and the
-    @SerializationOrder doc comment name the tomspecs commands instead of the
-    old tools (documentation only); ships with the next release.
+    @SerializationOrder doc comment name the tomspecs commands (documentation
+    only); ships with the next release.
   tom_code_specs: >-
     tsbin7 (2026-11-18): the README and doc/ name the tomspecs commands
-    instead of validate_codespecs (documentation only); ships with the next
+    (documentation only); ships with the next
     release.
   tom_som_dart_v0: >-
     tsbin7 (2026-11-18): the generated README, readme_howtointegrate.md,
     pubspec description and file headers name `tomspecs :som-generate`
-    instead of generate_som (regenerated, no code change); ships with the
+    (regenerated, no code change); ships with the
     next chain release.
 
 # Where each member was actually published from, when that is not the commit

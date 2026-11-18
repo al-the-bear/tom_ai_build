@@ -68,12 +68,12 @@ The text report names the root and schema, writes each finding to stderr as
 tier:
 
 ```text
-validate_spec doc.docspecs.yaml — root D00SolutionBlueprint (SBP), schema solution-blueprint
+spec-validate doc.docspecs.yaml — root D00SolutionBlueprint (SBP), schema solution-blueprint
 SCHEMA   [missingRequiredField] line 1213 SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAENT-CLAS [DAENT-CLAS]: required form field "aggregateRoot" of "daent-clas-form" is missing
 decode   0 finding(s)
 schema   1 finding(s)
 instance 0 finding(s)
-validate_spec: 1 finding(s) — decode 0, schema 1, instance 0
+spec-validate: 1 finding(s) — decode 0, schema 1, instance 0
 ```
 
 A schema finding's line is a line of the **rendition**, not of the YAML; write

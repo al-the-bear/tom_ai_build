@@ -269,8 +269,8 @@ dart compile exe bin/tomspecs.dart -o tomspecs
 ```
 
 Its CodeSpecs checks need no SDK and no package resolution at run time. The
-test suite compiles the `validate_codespecs` entry point, which runs the same
-checks, and runs it with no Dart on `PATH`.
+test suite compiles `bin/tomspecs.dart` and runs `:codespecs-validate` with no
+Dart on `PATH`.
 
 A project's *specification document*, as opposed to its generated code, is
 checked by `:spec-validate`: decode, the DocSpecs schema and the instance

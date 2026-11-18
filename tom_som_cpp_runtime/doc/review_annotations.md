@@ -224,7 +224,7 @@ An entry (`SpecAnswerEntry`) has a `kind` (`SpecAnswerKind::Answered`, `Open`,
 `Comment`, `Mark`). A comment is cited with the document root's id in front
 (`SBP C-12`). A comment without an id is listed by its line;
 `assignCommentIds` gives it one, when asked. The command line is
-`tom_specs_clitool`'s `extract_answers`.
+`tom_specs_clitool`'s `tomspecs :spec-answers`.
 
 ```cpp
 som::SpecAnswerExtract x = som::extractAnswers(model, doc, "tom_uam.sbp");

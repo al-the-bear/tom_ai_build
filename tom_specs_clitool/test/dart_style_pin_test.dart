@@ -1,5 +1,5 @@
 /// The dart-tom mapper formats with the `dart_style` linked into this package
-/// (so a compiled `irspecs` needs no Dart SDK). The trio is held to the SDK's
+/// (so a compiled `tomspecs` needs no Dart SDK). The trio is held to the SDK's
 /// layout byte for byte, so the linked formatter has to be the SDK's: this
 /// test holds the constant, the pubspec pin, the lock and the formatter of the
 /// SDK running the tests to one version. When the SDK moves, it fails with the

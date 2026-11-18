@@ -80,7 +80,7 @@ Version dartLanguageVersionOf(String packageDir) =>
 /// file when one does not parse.
 ///
 /// The formatter runs in-process, the same on the Dart VM and in a compiled
-/// `irspecs`, so mapping to dart-tom needs no Dart SDK. Its version is the
+/// `tomspecs`, so mapping to dart-tom needs no Dart SDK. Its version is the
 /// SDK's own (the pin), so the mapper and a developer formatting by hand agree.
 Future<void> formatDartFiles(
   List<String> paths, {

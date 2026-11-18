@@ -122,7 +122,7 @@ void main() {
             },
           },
         );
-        expect(code, 2); // check_format: manifest not found
+        expect(code, 2); // gate-format: manifest not found
         expect(ran, isEmpty);
       },
     );
@@ -214,7 +214,7 @@ void main() {
     }
 
     test(
-      'irspecs: the subcommand first, then the options and positionals',
+      ':ir-* commands: the IR operation first, then the options and positionals',
       () async {
         expect(
           await argumentsOf([
@@ -232,7 +232,7 @@ void main() {
     );
 
     test(
-      'spec_checks: --spec-root before the check, its options after',
+      ':spec-* checks: --spec-root before the check, its options after',
       () async {
         expect(
           await argumentsOf([

@@ -1,6 +1,6 @@
 // Sample (b) — GENERIC in-memory document access (som_multiplatform_spec_model.md §6).
 //
-// HAND-AUTHORED — preserved across `generate_som` runs.
+// HAND-AUTHORED — preserved across `tomspecs :som-generate` runs.
 //
 // Demonstrates editing the *same* document shape as sample (a) using ONLY the
 // generic `tom_som_dart_runtime` — string paths, no generated typed classes.
@@ -18,10 +18,14 @@ void main() {
   final doc = SpecDocument();
 
   // Content leaves are addressed by their full path from the root segment.
-  doc.setContent('SBP/content',
-      'A platform that unifies our fragmented order systems.');
-  doc.setContent('SBP/currentLandscape/content',
-      'Three legacy systems with no shared customer record.');
+  doc.setContent(
+    'SBP/content',
+    'A platform that unifies our fragmented order systems.',
+  );
+  doc.setContent(
+    'SBP/currentLandscape/content',
+    'Three legacy systems with no shared customer record.',
+  );
 
   // A list: append items (each call returns the new item's path), then set a
   // content leaf under each. The list path mirrors the typed facade's
@@ -46,8 +50,11 @@ void main() {
   // … and to the canonical hierarchical YAML wire format (walked against the
   // generated metadata tree, stamped with the model version).
   print('\nDocument YAML:');
-  print(SpecDocumentYaml.encode(
+  print(
+    SpecDocumentYaml.encode(
       document: doc,
       tree: d00SolutionBlueprintMetaTree,
-      modelVersion: '1.0'));
+      modelVersion: '1.0',
+    ),
+  );
 }

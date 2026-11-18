@@ -1,5 +1,5 @@
 /// The Markdown rendering of the IR (`irspecs_ir.md` §10.3): the Meridian IR
-/// rendered through `irspecs emit --standard markdown`, every document valid
+/// rendered through `tomspecs :ir-emit --standard markdown`, every document valid
 /// against `irspecs-md/1.0`, the index and one area checked against the IR,
 /// and the schema's workspace mirror held to the canonical copy.
 @TestOn('vm')
@@ -14,7 +14,6 @@ import 'package:tom_doc_specs/tom_doc_specs.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show CodeSpecsAreaCatalog;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
-
 
 final _meridian = p.absolute(
   '../tom_som_conformance/samples/meridian_codespecs',

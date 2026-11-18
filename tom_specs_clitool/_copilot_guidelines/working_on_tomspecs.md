@@ -67,12 +67,12 @@ pushing again.
 Everything in the clitool that formats Dart uses `dart_style`, linked into the
 package through one helper, `DartFormat` in `lib/src/dart_format.dart`:
 - the formatting gate (`tomspecs :gate-format`);
-- the spec-ops registry generator and `codespecs_areas`' accessor;
+- the spec-ops registry generator and `:codespecs-areas`' accessor;
 - the registry tests generator;
 - the dart-tom mapper.
 
 None of them runs `dart format` as a process, so a compiled `tomspecs` or
-`irspecs` needs no Dart SDK to format. Each file is formatted in its package's
+`tomspecs` needs no Dart SDK to format. Each file is formatted in its package's
 language version, found the way `dart format` finds it: the nearest
 `.dart_tool/package_config.json`, else the nearest `pubspec.yaml`'s SDK lower
 bound, else the latest.

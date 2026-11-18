@@ -1,5 +1,5 @@
 /// Generation units in the IR (`irspecs_ir.md` §8.1):
-/// `irspecs map --spec <document> --unit <id>` writes one unit's package —
+/// `tomspecs :ir-map --spec <document> --unit <id>` writes one unit's package —
 /// the share of the IR its locus, its mapped areas and the files' own `units`
 /// give it.
 @TestOn('vm')
@@ -12,7 +12,6 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show SpecGenerationUnit, SpecGenerationUnitMapping;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
-
 
 final _meridian = p.absolute(
   '../tom_som_conformance/samples/meridian_codespecs',

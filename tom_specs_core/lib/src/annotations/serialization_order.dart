@@ -17,7 +17,7 @@ class SerializationOrder {
 
   /// Stamps the annotated member with its declaration [order].
   ///
-  /// Never written by hand: `stamp_serialization_order.dart` renumbers every
+  /// Never written by hand: `tomspecs :model-stamp-order` renumbers every
   /// member of every class from source order, and the SOM generator refuses to
   /// run past an unstamped member. Insert a new member where it belongs in the
   /// source and re-run the stamper rather than choosing an ordinal.

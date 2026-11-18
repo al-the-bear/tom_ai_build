@@ -75,7 +75,7 @@ void main() {
   test('every `(N fields)` banner matches the @Form it heads', () {
     // Joined by hand rather than through `package:path`: `tom_specs_model` is
     // a release-set package, and adding a dependency for a test would widen
-    // the closure `check_release_closure.dart` holds.
+    // the closure `tomspecs :gate-release-closure` holds.
     final root = Directory.current.path;
     final libSrc = Directory('$root/lib/src');
     expect(

@@ -163,7 +163,7 @@ Variant A — a sufficient specification
    is right where the document authored no storage nullability.
 
 4. Validating the emitted trio                [MECHANICAL]
-   `validate_codespecs.dart` runs the derivation contract's §6
+   `tomspecs :codespecs-validate` runs the derivation contract's §6
    checks over the shared / client / server trio. It reads emitted
    Dart with the analyzer's parser and never resolves it, so it runs
    on a tree that has never been through `pub get` — which is what

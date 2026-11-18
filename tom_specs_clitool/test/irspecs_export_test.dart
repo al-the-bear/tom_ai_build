@@ -1,5 +1,5 @@
 /// The JSON export of the IR (`irspecs_ir.md` §15): the Meridian IR written
-/// as YAML, exported through `irspecs export --format json`, every file valid
+/// as YAML, exported through `tomspecs :ir-export --format json`, every file valid
 /// against `tool/irspecs_ir.schema.json` and read back to the records of its
 /// YAML document.
 @TestOn('vm')
@@ -15,7 +15,6 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show CodeSpecsAreaCatalog;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 import 'package:yaml/yaml.dart';
-
 
 final _meridian = p.absolute(
   '../tom_som_conformance/samples/meridian_codespecs',
@@ -143,11 +142,7 @@ void main() {
   test('IREX5: bad usage is refused with exit 2', () async {
     Future<String> refused(List<String> args) async {
       final err = StringBuffer();
-      expect(
-        await runIrspecs(args, err: err),
-        2,
-        reason: args.join(' '),
-      );
+      expect(await runIrspecs(args, err: err), 2, reason: args.join(' '));
       return '$err';
     }
 

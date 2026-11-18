@@ -18,7 +18,7 @@
 ///
 /// Exit codes: `0` all tiers clean, `1` at least one finding, `2` bad usage or
 /// an unreadable file. `--json` writes the same result in the shape
-/// `validate_codespecs --json` uses.
+/// `tomspecs :codespecs-validate --json` uses.
 library;
 
 import 'dart:convert';
@@ -108,7 +108,7 @@ ArgParser validateSpecParser() => ArgParser()
     help:
         'Write one JSON report to stdout (format `$kSpecValidationFormat`, '
         'version $kSpecValidationFormatVersion), in the shape '
-        'validate_codespecs --json uses. Exit codes are unchanged.',
+        'tomspecs :codespecs-validate --json uses. Exit codes are unchanged.',
     negatable: false,
   )
   ..addFlag(

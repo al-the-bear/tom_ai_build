@@ -121,7 +121,7 @@ enum ExemptionReason {
 
   /// Part of the process-check library (`spec_checks.dart`), Dart-only by
   /// decision: a project's gate checks run once, through `tom_specs_clitool`'s
-  /// `spec_checks` command, and need one implementation, so no port will carry
+  /// `tomspecs :spec-*` commands, and need one implementation, so no port will carry
   /// it (tom_specs `tstool1_akiq-spec-process-tooling-out-of-tom-uam`).
   processCheck,
 

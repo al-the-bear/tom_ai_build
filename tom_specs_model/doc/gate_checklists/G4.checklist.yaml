@@ -1,7 +1,7 @@
 # Generic gate checklist — G4, CodeSpecs Complete.
 #
 # The criteria are tom_specs_project_flow.md §PF-GAT-G4. Most of them are
-# checks validate_codespecs already runs; an item names the check by its number
+# checks tomspecs :codespecs-validate already runs; an item names the check by its number
 # in codespecs_derivation_contract.md §6 and does not restate it. The trio is
 # the run's three CodeSpecs projects (shared, client, server). Format, location,
 # versioning and the gate report: tom_specs_gate_checklists.md.

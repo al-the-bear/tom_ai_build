@@ -1,4 +1,4 @@
-// Tests of the `spec_checks` command (lib/src/spec_checks_cli.dart): the
+// Tests of the `tomspecs :spec-*` checks (lib/src/spec_checks_cli.dart): the
 // subcommands, usage errors, and where a check finds the project's data —
 // `<spec-root>/checks/` beside the document, or `--spec-root`.
 //
@@ -74,7 +74,7 @@ void main() {
     test('CLI-1.2 a check with the wrong arguments prints its usage', () {
       final c = _Capture();
       expect(c.run(['feature-register']), 2);
-      expect(c.err, contains('usage: spec_checks feature-register'));
+      expect(c.err, contains('usage: tomspecs :spec-feature-register'));
     });
 
     test('CLI-1.3 --help lists every check', () {

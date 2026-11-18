@@ -1209,7 +1209,7 @@ coverageGaps:
 
 **Who writes it.** Stage B records a gap it sees while judging an area's extract
 (`codespecs_prompt.md` §6.3); an authoring step records every gap among its
-entries (§2.9); and the **mechanical pass** — `validate_codespecs.dart
+entries (§2.9); and the **mechanical pass** — `tomspecs :codespecs-validate
 --record-gaps` — appends one `needs: unknown` entry for every token check 35
 finds uncited, unless the record already holds an `open` or `leaveAsIs` entry
 for that token and area. Check

@@ -1,6 +1,6 @@
 // Sample (a) — TYPED object-model access (som_multiplatform_spec_model.md §6).
 //
-// HAND-AUTHORED — preserved across `generate_som` runs (the generator only
+// HAND-AUTHORED — preserved across `tomspecs :som-generate` runs (the generator only
 // rewrites lib/, meta/, schemas/ and pubspec.yaml; it never touches example/).
 //
 // Demonstrates editing a TomSpecs document through the generated *typed*
@@ -49,7 +49,9 @@ void main() {
 
   // The typed path is the generic path: the same data is addressable through
   // the generic document API (this is exactly what sample (b) uses).
-  print('\nSame value via the generic path '
-      '(doc.content("${csa.path}/content")):');
+  print(
+    '\nSame value via the generic path '
+    '(doc.content("${csa.path}/content")):',
+  );
   print('  ${doc.content('${csa.path}/content')}');
 }

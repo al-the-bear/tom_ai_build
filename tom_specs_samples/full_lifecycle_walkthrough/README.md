@@ -108,7 +108,7 @@ in both directions:
 - **check 36** — every token a back-link names exists in the extracts. A trace
   to a token no area routed is stale or invented.
 
-Both need the extracts, so both run only when `validate_codespecs` is given
+Both need the extracts, so both run only when `tomspecs :codespecs-validate` is given
 `--extracts`. `tool/validate.sh` therefore runs the validator **twice**, and the
 difference between the two recorded invocations is the demonstration: without
 the extracts those checks announce themselves unrun; with them, they run and
@@ -133,7 +133,7 @@ with the code rather than living in a document that can drift from it.
 
 ## The two recorded reports
 
-Two things this sample prints, it cannot produce itself: `validate_codespecs`
+Two things this sample prints, it cannot produce itself: `tomspecs :codespecs-validate`
 needs `tom_specs_clitool`, a **development tool** rather than a dependency of
 the emitted code, and shelling out to `dart test` would make the sample's stdout
 depend on the host's test runner — which `../tool/run_all_samples.sh` diffs.

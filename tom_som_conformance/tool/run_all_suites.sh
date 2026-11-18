@@ -227,7 +227,7 @@ run_gate sample_validate dart "$ROOT/tom_som_dart_v0" dart run tool/validate_sam
 # gates above leave out. The exercise sample instantiates every model shape, so
 # this is the one place a section kind no document can write validly shows up:
 # four such kinds stayed hidden until a project tripped over them, because the
-# only schema-checked document reached part of the model. `validate_spec` runs
+# only schema-checked document reached part of the model. `tomspecs :spec-validate` runs
 # all three tiers on one document, so the decode and instance verdicts are
 # re-confirmed here on the clitool's own path. The committed markdown
 # rendition of a document is imported and held to the same three tiers, so the

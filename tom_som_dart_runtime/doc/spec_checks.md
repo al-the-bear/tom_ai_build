@@ -4,7 +4,7 @@
 checks as functions over a document's text, the project's own data passed in
 as text. It is a library of its own: a document reader imports
 `tom_som_dart_runtime.dart` alone and does not carry the checks.
-`tom_specs_clitool`'s `spec_checks` command is the CLI over it; its
+`tom_specs_clitool`'s `tomspecs :spec-*` commands are the CLI over it; its
 [`process_checks.md`](../../tom_specs_clitool/doc/process_checks.md) describes
 the checks and the `<spec-root>/checks/` files.
 

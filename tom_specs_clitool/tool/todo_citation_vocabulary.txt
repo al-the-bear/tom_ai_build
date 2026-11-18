@@ -27,7 +27,7 @@ sqlite3_load_extension        # SQLite C API
 sqlite3_vec_init              # the sqlite-vec entry point
 vec0                          # the sqlite-vec extension's virtual-table module
 csex7                         # a deliberately non-existent id, used in
-                              #   check_todo_citations' own prose to show what
+                              #   the todo-citation gate's own prose to show what
                               #   an unknown *series* reads like
 csrb99                        # likewise, a wrong *number* in a real series
 tier1                         # the lexical retrieval tier (SpecRecall)

@@ -99,7 +99,7 @@ with `--output`, `--model-version` or `--model-label`.
 An ad-hoc export prints what it found and what it wrote:
 
 ```
-model_json: analyzing <…>/tom_specs_model ...
+model-json: analyzing <…>/tom_specs_model ...
 Found 1254 classes, 25 enums.
 Wrote 14 roots, 1254 classes to <…>/model.json (model version 0)
 ```

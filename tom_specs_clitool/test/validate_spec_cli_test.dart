@@ -1,4 +1,4 @@
-/// `validate_spec`: one project's document on all three tiers.
+/// `tomspecs :spec-validate`: one project's document on all three tiers.
 ///
 /// The clean subject is the Meridian Solution Blueprint shipped with
 /// `tom_som_dart_v0`; each failing case is a copy broken in exactly one tier's
@@ -14,7 +14,6 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0_model.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0_schemas.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
-
 
 final String _meridian = p.normalize(
   p.absolute(

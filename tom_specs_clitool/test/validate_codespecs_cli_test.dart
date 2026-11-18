@@ -1,4 +1,4 @@
-/// `validate_codespecs` as a tool reads it: the `--json` report, the
+/// `tomspecs :codespecs-validate` as a tool reads it: the `--json` report, the
 /// `--backlinks` index, and the compiled standalone binary.
 ///
 /// The subject is the Phase-4 sample's emitted trio and extracts, which the
@@ -384,7 +384,7 @@ const csFeatureReservedPaths = {};
       roots[2],
     ];
 
-    /// The IR of [roots], written by `irspecs from-codespecs` into a folder of
+    /// The IR of [roots], written by `tomspecs :ir-from-codespecs` into a folder of
     /// its own.
     Future<String> irOf(List<String> roots, String name) async {
       final dir = Directory(p.join('.dart_tool', 'test_tmp', 'irspecs5', name));

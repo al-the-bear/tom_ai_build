@@ -1,7 +1,7 @@
-/// The `irspecs` command, as a function the entry point and the tests both
+/// The `tomspecs :ir-*` commands, as a function the entry point and the tests both
 /// call.
 ///
-/// Four subcommands:
+/// Four commands:
 ///
 /// * `tomspecs :ir-from-codespecs` reads a CodeSpecs trio and writes its IR
 ///   (`irspecs_ir.md`): one `<CE-CODE>_<canonical id>.ir.yaml` per area
@@ -158,7 +158,7 @@ ArgParser irspecsParser() => ArgParser()
     negatable: false,
   );
 
-/// Runs `irspecs` with [arguments]; returns the exit code. Output goes to
+/// Runs the IR operation [arguments] start with; returns the exit code. Output goes to
 /// [out] and [err] (stdout and stderr by default).
 Future<int> runIrspecs(
   List<String> arguments, {

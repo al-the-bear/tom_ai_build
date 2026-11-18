@@ -15,7 +15,6 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show CodeSpecsAreaCatalog;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-
 final _meridian = p.absolute(
   '../tom_som_conformance/samples/meridian_codespecs',
 );
@@ -260,7 +259,7 @@ void main() {
       ]);
     });
 
-    test('`irspecs emit` writes the file and lists every line', () async {
+    test('`:ir-emit` writes the file and lists every line', () async {
       final ir = p.join(scratch.path, 'ir');
       Directory(ir).createSync();
       for (final d in meridian) {
@@ -290,7 +289,7 @@ void main() {
       }
     });
 
-    group('`irspecs emit --spec --unit`: the standards a unit names', () {
+    group('`:ir-emit --spec --unit`: the standards a unit names', () {
       final spec = p.absolute(
         '../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml',
       );

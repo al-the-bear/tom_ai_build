@@ -35,7 +35,7 @@ final String realModelMetaPath =
 /// which runs the published archive the way a consumer would.
 ///
 /// The path is assembled from `Directory.current` rather than written as a
-/// literal, which is exactly why the lexical `check_shipped_paths` gate could
+/// literal, which is exactly why the lexical `:gate-shipped-paths` gate could
 /// not see it — the blind spot that tool exists to cover.
 bool get hasRealModel => File(realModelMetaPath).existsSync();
 

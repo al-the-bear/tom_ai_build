@@ -275,7 +275,7 @@ An entry (`SpecAnswerEntry`) has a `kind` (`SPEC_ANSWER_ANSWERED`,
 `SPEC_ANSWER_OPEN`, `SPEC_ANSWER_COMMENT`, `SPEC_ANSWER_MARK`). A comment is
 cited with the document root's id in front (`SBP C-12`). A comment without an
 id is listed by its line; `spec_review_annotations_assign_comment_ids` gives it
-one, when asked. The command line is `tom_specs_clitool`'s `extract_answers`.
+one, when asked. The command line is `tom_specs_clitool`'s `tomspecs :spec-answers`.
 
 ```c
 SpecAnswerExtract x;

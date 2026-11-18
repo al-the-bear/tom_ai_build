@@ -3,7 +3,7 @@
 # from the archive on pub.dev, against dependencies resolved from pub.dev, in a
 # directory with no workspace siblings.
 #
-# WHY IT EXISTS. `check_shipped_paths.dart` is a LEXICAL gate — it reads path
+# WHY IT EXISTS. `tomspecs :gate-shipped-paths` is a LEXICAL gate — it reads path
 # literals — and it reported `tom_som_dart_runtime` clean while two of that
 # package's shipped tests could not run from a hosted install at all, because
 # they build their paths from `Directory.current` plus components rather than
@@ -26,7 +26,7 @@
 # published `tom_doc_scanner` that predated the fixes it relies on — and a check
 # that reports that as a failure teaches a reader to ignore it. So this runs
 # AFTER a lockstep publish, when local and published agree by construction, and
-# it refuses to start when they do not: `check_release_drift.dart` is the
+# it refuses to start when they do not: `tomspecs :gate-release-drift` is the
 # precondition, and `--allow-drift` is the deliberate override.
 #
 # PREFLIGHT, the same question one step earlier. `--preflight` runs each

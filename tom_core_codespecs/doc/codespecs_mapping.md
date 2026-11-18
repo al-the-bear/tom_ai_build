@@ -316,7 +316,7 @@ guessed through and discovered in Phase 6.
 The converse stops it too. A **coverage gap**
 ([`codespecs_derivation_contract.md`](codespecs_derivation_contract.md) §2.11)
 is a fact the specification states that CodeSpecs has no place for: Stage B,
-an authoring step or the mechanical pass over check 35 (`validate_codespecs
+an authoring step or the mechanical pass over check 35 (`tomspecs :codespecs-validate
 --record-gaps`, stage 5) records it in `coverage_gaps.yaml` beside the
 extracts, and the run's one gap-review todo (`csopen<n>`, `decision-needed`)
 pauses the queue; an authoring step also sets the next `csgen<n>` to

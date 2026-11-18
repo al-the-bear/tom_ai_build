@@ -2,7 +2,7 @@
 
 The IR Specs intermediate representation: a CodeSpecs trio as
 language-neutral data, one document per area, its YAML file form and the
-`irspecs` command that writes it.
+`tomspecs :ir-*` commands over it.
 
 What a document holds, how it is written and what it leaves out is
 [`irspecs_ir.md`](../../../tom_core_codespecs/doc/irspecs_ir.md); the JSON
@@ -39,7 +39,7 @@ Schema is `tool/irspecs_ir.schema.json`.
 | `kCollaboratorField` | `'collaborator'` | The field a 3b body reaches its collaborator through. |
 | `kGuardSuffix` | `'Applies'` | The fixed suffix of a guard method's name (B4). |
 | `irStepRules` | `Map<String, String>` | The step validation rules `S1` … `S5`, each with what it holds. |
-| `kDartTomMapper` | `'dart-tom'` | The Dart + Tom mapper's id, as `irspecs map --mapper` names it. |
+| `kDartTomMapper` | `'dart-tom'` | The Dart + Tom mapper's id, as `tomspecs :ir-map --mapper` names it. |
 | `kTsSharedMapper`, `kTsReactClientMapper`, `kTsReactNativeClientMapper`, `kTsHonoServerMapper` | `'ts-shared'`, `'ts-react-client'`, `'ts-react-native-client'`, `'ts-hono-server'` | The TypeScript mappers' ids (`irspecs_ir.md` §11, §11.2). |
 | `kTsMappers` | `Map<String, CsLocus>` | Each TypeScript mapper and the locus it writes; both client mappers write the client locus. |
 | `kTsDependencyVersions` | `Map<String, String>` | The versions the TypeScript workspace pins. |
@@ -51,7 +51,7 @@ Schema is `tool/irspecs_ir.schema.json`.
 | `kJavaSpringVersions` | `Map<String, String>` | The Java release, the Gradle and the Gradle plugins the project pins. |
 | `kCsharpAspnetServerMapper` | `'csharp-aspnet-server'` | The C# + ASP.NET Core server mapper's id (`irspecs_ir.md` §14). |
 | `kCsharpVersions` | `Map<String, String>` | The target framework, the SDK band and the NuGet packages the solution pins. |
-| `irStandards` | `Map<String, IrEmission Function(List<IrDocument>)>` | The standards `irspecs emit` writes — by `--standard`, or every one a unit's emitters name with `--spec` / `--unit`: `openapi`, `jsonschema`, `icu`, `asyncapi`. |
+| `irStandards` | `Map<String, IrEmission Function(List<IrDocument>)>` | The standards `tomspecs :ir-emit` writes — by `--standard`, or every one a unit's emitters name with `--spec` / `--unit`: `openapi`, `jsonschema`, `icu`, `asyncapi`. |
 | `kOpenApiVersion`, `kOpenApiFile` | `'3.1.0'`, `'openapi.json'` | The OpenAPI emitter's version and file. |
 | `kJsonSchema202012`, `kJsonSchemaFile` | the 2020-12 dialect URI, `'schema.json'` | The JSON Schema emitter's dialect and file. |
 | `kIcuFile` | `'messages.json'` | The ICU emitter's file. |
@@ -359,5 +359,5 @@ IrSchemaBuilder(IrIndex index, {required String refBase, required List<String> n
 | `irDeclarationShape(IrIndex index, IrEntry e, {required String mapper})` | `IrShape` | What a top-level IR declaration is, for every language mapper: catalogue, plain data, entity, layout, service unit, contract, class, variable. |
 | `irFileIndex`, `irSplitTypeArguments`, `irTypeParameterNames`, `irSnake`, `irMarkerSource` | | The other helpers the language mappers share (`mappers/mapper_common.dart`). |
 | `openApiOperations(Map<String, dynamic> openApi)` | `List<IrOpenApiOperation>` | The operations of a document `emitOpenApi` wrote: path, operation id, request and response schema names, whether the response is the Result envelope. What the mappers write the API client and the routes from. |
-| `irspecsParser()` | `ArgParser` | The `irspecs` option set. |
-| `runIrspecs(List<String> arguments, {StringSink? out, StringSink? err})` | `Future<int>` | Runs `irspecs`; returns the exit code. |
+| `irspecsParser()` | `ArgParser` | The option set of the `:ir-*` commands. |
+| `runIrspecs(List<String> arguments, {StringSink? out, StringSink? err})` | `Future<int>` | Runs the IR operation the arguments start with; returns the exit code. |

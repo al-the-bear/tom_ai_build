@@ -14,7 +14,7 @@ dependencies:
   # The model-freshness fingerprint (lib/src/model_freshness.dart). Declared
   # explicitly rather than leaned on as an analyzer transitive.
   crypto: ^3.0.0
-  # The dart-tom mapper's formatter, linked in so a compiled `irspecs` needs no
+  # The dart-tom mapper's formatter, linked in so a compiled `tomspecs` needs no
   # Dart SDK. Pinned EXACTLY to the formatter of the workspace SDK
   # (`dart format --version`): the trio is held to the SDK's layout byte for
   # byte, and test/dart_style_pin_test.dart fails when the SDK moves past it.

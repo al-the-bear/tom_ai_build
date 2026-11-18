@@ -216,7 +216,7 @@ document, and the extraction never writes.
 
 A comment is cited with the document root's id in front (`SBP C-12`). A
 comment without an id is listed by its line; `assignCommentIds` gives it one,
-when asked. The command line is `tom_specs_clitool`'s `extract_answers`.
+when asked. The command line is `tom_specs_clitool`'s `tomspecs :spec-answers`.
 
 ```dart
 final x = extractAnswers(model, doc, label: 'tom_uam.sbp');

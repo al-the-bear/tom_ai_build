@@ -22,7 +22,6 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 import 'package:yaml/yaml.dart';
 
-
 /// The two Meridian trios, as (name, shared, client, server) roots.
 final _trios = {
   'phase4_codespecs_run': [
@@ -325,7 +324,7 @@ void main() {
     });
   });
 
-  group('IRS3: the irspecs command', () {
+  group('IRS3: the :ir-* commands', () {
     test(
       'from-codespecs writes one file per area and deletes stale ones',
       () async {

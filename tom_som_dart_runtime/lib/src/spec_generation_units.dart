@@ -29,7 +29,7 @@ class SpecGenerationUnitMapping {
 }
 
 /// The standard emitters a unit's `emitters` may name (`irspecs_ir.md` §10),
-/// in the order `irspecs emit` lists them. Validation phase 8 reports any other
+/// in the order `tomspecs :ir-emit` lists them. Validation phase 8 reports any other
 /// id as `unitEmitterUnknown`.
 const List<String> kSpecStandardEmitters = [
   'openapi',

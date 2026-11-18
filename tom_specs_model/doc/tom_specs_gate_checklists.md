@@ -153,7 +153,7 @@ project's evidence store (`tom_specs_project_flow.md` §PF-GAT-EVD), under
 ├── G2_20261020-1430.gate.yaml     # the report of record
 ├── G2_20261020-1430.gate.md       # the summary for the human review
 └── G2_20261020-1430/              # the evidence the items left
-    ├── G2-SCHEMA-1.validate_spec.json
+    ├── G2-SCHEMA-1.spec-validate.json
     └── G2-STAKE-1.query.txt
 ```
 
@@ -177,7 +177,7 @@ result: fail                      # pass | fail
 items:
   - id: G2-SCHEMA-1
     status: pass                  # pass | fail | not-run
-    evidence: [G2_20261020-1430/G2-SCHEMA-1.validate_spec.json]
+    evidence: [G2_20261020-1430/G2-SCHEMA-1.spec-validate.json]
   - id: G2-REV-1
     status: fail
     evidence: []

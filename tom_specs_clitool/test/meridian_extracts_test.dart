@@ -1,4 +1,4 @@
-/// The Meridian trio held to its extracts: `validate_codespecs` over
+/// The Meridian trio held to its extracts: `tomspecs :codespecs-validate` over
 /// tom_som_conformance's sample trio with the committed conformance extracts
 /// (`generated-doc/codespecs_extracts`) and `tom_code_specs`' vocabulary
 /// reports no violation. With the extracts, checks 32–36 compare the trio

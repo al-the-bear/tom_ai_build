@@ -2123,7 +2123,7 @@ runs over an unchanged document produce the same bytes:
 A comment without an id is listed by its line, because the extraction never
 assigns one.
 
-The command line is `tom_specs_clitool`'s `extract_answers`:
+The command line is `tom_specs_clitool`'s `tomspecs :spec-answers`:
 
 ```
 tomspecs :spec-answers <doc.md|doc.docspecs.yaml>... -o <step folder>/answers.md [--path <subtree>] [--open] [--marks] [--counts]
@@ -2862,7 +2862,7 @@ as dangling. `SpecDocument.assemble` produces the whole, in all nine runtimes:
   one place is a conflict for their authors.
 
 Fragments stay files; there is no partial-validation mode, and references are
-judged on the assembly only. `tom_specs_clitool`'s `validate_spec` takes several
+judged on the assembly only. `tom_specs_clitool`'s `tomspecs :spec-validate` takes several
 fragments and assembles them before the three tiers (and `--assembled-out`
 writes the result).
 

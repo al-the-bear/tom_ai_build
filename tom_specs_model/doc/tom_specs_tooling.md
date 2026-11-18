@@ -61,7 +61,7 @@ Two words used throughout:
 flowchart TB
   subgraph Today["Today"]
     VSC["VS Code extension<br/>MD Browser · PROCESS view · queue and runs<br/>agents · tomAi_* tools · MCP server"]
-    BIN["Bundled binaries<br/>validate_codespecs · spec_checks · irspecs"]
+    BIN["Bundled binary<br/>tomspecs"]
     TSRT["SOM TypeScript runtime<br/>(vendored)"]
     ED["tom_specs_editor<br/>(model-driven authoring)"]
     MDE["tom_md_editor<br/>(review engine)"]
@@ -94,7 +94,7 @@ flowchart TB
 | --- | --- | --- | --- | --- |
 | VS Code extension | `tom_ai/vscode/tom_vscode_extension` | The tool the process is worked in: MD Browser, process engine, queue, runs, sessions, agents, about 225 `tomAi_*` tools, MCP server | today | vscode_extension |
 | MD Browser | in the extension | Renders documents; answers, comments, marks, Grill me / Explain; Finish review round and gate buttons | today | vscode_extension |
-| Bundled binaries | the extension's `bin/<platform>/` | `validate_codespecs`, `spec_checks`, `irspecs`, compiled from `tom_specs_clitool` | today; one `tomspecs` binary planned | tom_specs, vscode_extension |
+| Bundled binary | the extension's `bin/<platform>/` | `tomspecs`, compiled from `tom_specs_clitool`: every CLI tool as a command | today | tom_specs, vscode_extension |
 | TomSpecs code stack | `tom_ai/ai_build/` | The model, the nine SOM runtimes, the CLI tools, CodeSpecs, IR Specs, the conformance corpus (§4) | today | tom_specs |
 | `tom_specs_editor` | `tom_forge/tom_specs_editor` | Model-driven authoring of a TomSpecs document; in Webforge an "Open With" choice for `*.docspecs.yaml` / `*.tomspecs.yaml` | today (authoring) | tom_forge |
 | `tom_md_editor` | `tom_forge/tom_md_editor` | Markdown editor with a review engine: marks accepted and rejected, comment blocks, through the SOM runtime | today | tom_forge |
@@ -169,13 +169,14 @@ marked changes, and as an atomic batch), validation, rendering and conversion,
 the review annotations, `answers.md` files, and team review rounds (create,
 status, merge, decide conflicts). Further tool sets:
 
-- **process checks** over the bundled `spec_checks` binary: required fields,
+- **process checks** over the bundled `tomspecs` (`:spec-*`): required fields,
   question and feature registers, Project Idea coverage, the authorization
   cross-check, model coverage, answer import
   (`tom_specs_clitool/doc/process_checks.md`);
 - **CodeSpecs (Phase 4):** areas, routing, extracts, the Stage A gate,
   verdicts, the todo tree, the step context, validation (bundled
-  `validate_codespecs`), tracing, mapping the IR to code (bundled `irspecs`),
+  `tomspecs :codespecs-validate`), tracing, mapping the IR to code
+  (`tomspecs :ir-map`),
   status and runbooks;
 - **plain Markdown:** DocSpecs sections and question blocks in any `.md`, used
   for the process' own working documents.
@@ -246,8 +247,8 @@ answers.
 | `tom_som_dart_runtime` + `tom_som_dart_v0` | Documents, validation, the review API, answers, the review merge, the CodeSpecs extract and gate, generation units (SOM §9, SOM §11.9) | in-process Dart: the CLI tools, `tom_specs_editor`, `tom_md_editor`, `tom_spec_engine` |
 | `tom_som_typescript_runtime` + `_v0` (and six further language pairs) | The same API in TypeScript, Python, JavaScript, Java, Go, Rust, C and C++ (SOM §17) | the VS Code extension vendors the TypeScript pair |
 | `tom_som_conformance` | The corpus and golden logs that hold the nine runtimes to one behaviour | `run_all_suites.sh` |
-| `tom_specs_clitool` | The generators, the validators (`validate_spec`), the process checks (`spec_checks`), answers extraction, CodeSpecs validation, IR Specs, the documentation gates | bundled binaries in the extension; `dart run` |
-| IR Specs (in the clitool) | Phase 4's product: the IR, its mappers (`dart-tom`, TypeScript web and mobile clients and Hono server, Go, Java + Spring Boot, C# + ASP.NET Core) and standard emitters (OpenAPI, JSON Schema, ICU, AsyncAPI, Markdown) | `irspecs`; `tomAi_specCodeSpecsMap` |
+| `tom_specs_clitool` | The generators, the validators (`:spec-validate`), the process checks (`:spec-*`), answers extraction, CodeSpecs validation, IR Specs, the documentation gates | the bundled `tomspecs` in the extension; `dart run tom_specs_clitool:tomspecs` |
+| IR Specs (in the clitool) | Phase 4's product: the IR, its mappers (`dart-tom`, TypeScript web and mobile clients and Hono server, Go, Java + Spring Boot, C# + ASP.NET Core) and standard emitters (OpenAPI, JSON Schema, ICU, AsyncAPI, Markdown) | `tomspecs :ir-*`; `tomAi_specCodeSpecsMap` |
 | `tom_code_specs`, `tom_core_codespecs` | The `Cs*` annotation family; the CodeSpecs authorities (mapping, derivation contract, IR format) | generated code; `validate_codespecs`; the extension's CodeSpecs resources |
 | `tom_spec_engine` | The scripting plane behind the editor's agent (`llm_and_d4rt_tools.md`) | `tom_specs_editor` |
 | `tom_specs_reviewer` | Structural review of the model itself — a methodology tool, not a project tool (`tom_specs_reviewer_specification.md`) | developers of the model |
@@ -255,23 +256,16 @@ answers.
 
 ### 4.2 The single `tomspecs` binary
 
-All CLI tools become commands of one binary, `tomspecs`, on `tom_build_base`,
-calling each tool in-process (`:spec-validate`, `:codespecs-validate`,
-`:ir-map`, `:gate-format`, `:som-generate`, …; several commands in one call stop
-at the first failure). The work runs as one series:
-
-- the skeleton and formatting through the linked `dart_style`: done —
-  `bin/tomspecs.dart` declares every command with the options of the tool it
-  replaces, and nothing in the clitool runs `dart format` as a process;
-- the commands built beside the old tools, with comparison tests: done for
-  all 39 commands, the gates included (each identical to its tool on the same
-  inputs);
-- one migration to the commands: done — the processes, the scripts, the
-  documents and the VS Code extension call `tomspecs`; the extension's tool
-  tests pass through the old binaries and through `tomspecs` alike, and it
-  bundles the old binaries beside `tomspecs` until they are removed;
-- removal of the old tools and of the comparison tests
-  (`tsbin8_akqk-remove-old-entrypoints-and-exception`).
+All CLI tools are commands of one binary, `tomspecs`, on `tom_build_base`
+(`tom_specs_clitool/bin/tomspecs.dart`, the package's only entrypoint):
+`:spec-validate`, `:codespecs-validate`, `:ir-map`, `:gate-format`,
+`:som-generate`, …; several commands in one call stop at the first failure.
+Every command runs in the binary's own process — no command starts another of
+the package's tools — and all formatting goes through the linked `dart_style`.
+The processes, the scripts, the documents and the VS Code extension call these
+commands, and the extension bundles `tomspecs` as its one TomSpecs binary.
+The command table with every command's options is the clitool README's
+"The `tomspecs` binary".
 
 ### 4.3 Renditions and linked sections
 
@@ -471,7 +465,7 @@ sequenceDiagram
 | 1 Project Idea | VS Code extension: question rounds, MD Browser | Runtime, quest application |
 | 2 Solution Blueprint | VS Code extension: spec tools, MD Browser review, team review, process checks, gates | Runtime, quest application; reviewers in Webwork's Review area; the reading view; set validation (section_automation) |
 | 3 Detailed Specifications | as Phase 2, over twelve documents; the Blueprint kept level by hand | as Phase 2; prefill and backfill (section_automation) |
-| 4 CodeSpecs | VS Code extension: the CodeSpecs tools, bundled `validate_codespecs` and `irspecs` | Runtime with `tomspecs`; extract and IR comparison for changes (`tom_spec_change6_akin-codespecs-extract-comparison`) |
+| 4 CodeSpecs | VS Code extension: the CodeSpecs tools over the bundled `tomspecs` | Runtime with `tomspecs`; extract and IR comparison for changes (`tom_spec_change6_akin-codespecs-extract-comparison`) |
 | 5 Test Derivation | steps defined; `testkit` from the agent; no TomSpecs tool | expected-to-fail tests for changes (`tom_spec_change7_akin-expected-to-fail-tests`); otherwise open |
 | 6 Implementation | steps defined; agent work; no TomSpecs tool | open |
 | 7 Application Candidate | steps defined; no TomSpecs tool | open |
@@ -487,7 +481,7 @@ sequenceDiagram
 | Gates | Gate prompts and checklists; gate buttons or Decide… | The same through the runtime in any host; gates taking in answers (`tom_spec_change11_akml-gates-take-in-answers-and-recommend`); the gate layout (`later4_akmt-tom-specs-gates-with-new-process-features`) |
 | Process engine and runs | VS Code extension | Runtime |
 | Queue and agents | VS Code extension | Runtime |
-| CodeSpecs and IR | Extension tools over bundled binaries | Runtime over `tomspecs` |
+| CodeSpecs and IR | Extension tools over the bundled `tomspecs` | Runtime over `tomspecs` |
 | Status and supervision | PROCESS and RUNS views (one machine) | The runtime remote control; a status view per specification is not yet planned (§11) |
 
 ## 8. Data and files every tool shares
@@ -504,7 +498,7 @@ check, refused when the file changed since it was read.
 | Step folders | `<spec-root>/phase<N>_…/<NN_step>/` with `answers.md`, review documents, `consistency.md` | the agent | the user (MD Browser) |
 | Team review rounds | round folder with `round.yaml`, base, a copy per member, `merged/` (SOM §11.9.8) | team-review tools; the members | team-review tools, MD Browser |
 | Gate checklists, reports, evidence | `<spec-root>/gates/`, `<spec-root>/quality/evidence/gates/` (`tom_specs_gate_checklists.md`) | gate prompts | the user, the next gate |
-| Process checks data | `<spec-root>/checks/` (`tom_specs_clitool/doc/process_checks.md`) | the project | `spec_checks` |
+| Process checks data | `<spec-root>/checks/` (`tom_specs_clitool/doc/process_checks.md`) | the project | `tomspecs :spec-*` |
 | CodeSpecs extracts, gate record, IR | `<spec-root>/generated-doc/codespecs_extracts/`, `<spec-root>/irspecs/` | CodeSpecs tools | the authoring steps, the mappers |
 | Process definitions | `_ai/processes/<id>/` | process editor, `process_design` | the engine |
 | Process position | `_ai/quests/<quest>/process-state.<quest>[.<run>].yaml` | the engine | every host |

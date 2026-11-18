@@ -1,4 +1,4 @@
-// HAND-AUTHORED — not generated. Preserved across `generate_som` runs (the
+// HAND-AUTHORED — not generated. Preserved across `tomspecs :som-generate` runs (the
 // generator only rewrites lib/, meta/, schemas/ and pubspec.yaml).
 //
 // Behavioural suite for the **actually-committed** generated typed object model

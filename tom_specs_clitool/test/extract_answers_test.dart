@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart'
     show runExtractAnswers;
 
-/// `extract_answers` (annot6): a review round's answers as `answers.md`.
+/// `tomspecs :spec-answers` (annot6): a review round's answers as `answers.md`.
 void main() {
   late Directory tmp;
   setUp(() => tmp = Directory.systemTemp.createTempSync('extract_answers'));
