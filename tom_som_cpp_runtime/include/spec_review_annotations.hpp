@@ -23,6 +23,7 @@
 #define SPEC_REVIEW_ANNOTATIONS_HPP
 
 #include <cstddef>
+#include <ctime>
 #include <exception>
 #include <functional>
 #include <map>
@@ -149,6 +150,10 @@ std::string normalizeReviewTime(const std::string& at);
 /* The system clock as a change time in its local offset (SOM §11.9.10),
  * `YYYY-MM-DDTHH:MM±HH:MM`. */
 std::string systemReviewTime();
+
+/* The instant `now` as a change time in the local offset of that instant (TS
+ * `systemReviewTime(now)`), so a caller can stamp a known time. */
+std::string systemReviewTime(std::time_t now);
 
 /* One annotation, located by the value that holds it. `std::nullopt` stands
  * for the Dart `null`. */

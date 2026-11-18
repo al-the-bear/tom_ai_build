@@ -217,8 +217,8 @@ make test CORPUS=/path/to/corpus
 | `SpecEditor` | Typed edits over any path, driven by the meta-model rather than by generated classes. |
 | `SpecNodeCreator` | The creation gate — a document may only grow in ways the model permits. |
 | `validateDocument` | The instance tier: a filled document's values checked against the model. |
-| `SpecDocumentYaml` | Byte-stable `*.docspecs.yaml` encode/decode. |
-| `SpecDocumentMarkdown` | DocSpecs-conform Markdown export, parse and round-trip. |
+| `encodeYaml` / `decodeYaml` | Byte-stable `*.docspecs.yaml` encode/decode (`specYamlWriteScalar`, `specYamlWriteHeader`, `specYamlKey` are the writer's pieces). |
+| `markdownExportRoot` / `markdownParse` | DocSpecs-conform Markdown export, parse and round-trip (`documentToMarkdown`, `markdownCodeSpecOf`, `markdownUnitsOf`). |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
 | `CodeSpecsExtractor` | The Phase-4 extract generator — one verbatim, cited extract per CodeSpecs area. |
 | `SpecGenerationUnit` | One generation unit of a document's register, with its mapping per area and the standard emitters it ships (`specGenerationUnits`). |

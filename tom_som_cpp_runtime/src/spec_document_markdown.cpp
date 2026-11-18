@@ -217,22 +217,6 @@ std::string keyValueOf(const std::string& region, const std::string& key,
   return "";
 }
 
-/* mdCodeSpecPattern = `codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))`: the
- * `codeSpec` value of a heading-comment key=value region
- * (codespecs_mapping.md §9.2), mirroring the tom_doc_scanner key=value
- * grammar. */
-std::string codeSpecOf(const std::string& region) {
-  return keyValueOf(region, "codeSpec=", false);
-}
-
-/* mdUnitsPattern = `(?:^|\s)units=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))`: the
- * `units` value of a heading-comment key=value region (SOM §11.2). The key
- * must start the region or follow whitespace, so a `units=` inside a quoted
- * codeSpec value is not read as the key. */
-std::string unitsOf(const std::string& region) {
-  return keyValueOf(region, "units=", true);
-}
-
 /* mdFenceOpenRE = "^ {0,3}(`{3,}|~{3,})". */
 bool matchFenceOpen(const std::string& s, char* ch, std::size_t* run) {
   std::size_t i = 0;
@@ -391,6 +375,22 @@ std::string stripBlankLines(const std::string& joined) {
 }
 
 }  // namespace
+
+/* mdCodeSpecPattern = `codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))`: the
+ * `codeSpec` value of a heading-comment key=value region
+ * (codespecs_mapping.md §9.2), mirroring the tom_doc_scanner key=value
+ * grammar. */
+std::string markdownCodeSpecOf(const std::string& region) {
+  return keyValueOf(region, "codeSpec=", false);
+}
+
+/* mdUnitsPattern = `(?:^|\s)units=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))`: the
+ * `units` value of a heading-comment key=value region (SOM §11.2). The key
+ * must start the region or follow whitespace, so a `units=` inside a quoted
+ * codeSpec value is not read as the key. */
+std::string markdownUnitsOf(const std::string& region) {
+  return keyValueOf(region, "units=", true);
+}
 
 /* ======================================================================== */
 /* Fence tracker (public API)                                                */
@@ -1958,9 +1958,9 @@ void MdParser::openHeading(int level, const std::string& rest,
   title = replaceAllStr(title, "<br>", "\n");
   // codespecs_mapping.md §9.2: the codeSpec mapping parsed from the heading
   // comment's key=value region, "" when the heading carries no `codeSpec` key.
-  std::string codeSpec = codeSpecOf(region);
+  std::string codeSpec = markdownCodeSpecOf(region);
   // SOM §11.2: the generation units, "" when the heading carries no `units`.
-  std::string units = unitsOf(region);
+  std::string units = markdownUnitsOf(region);
 
   if (stack_.empty()) {
     openRoot(level, id, title, codeSpec, units, line);

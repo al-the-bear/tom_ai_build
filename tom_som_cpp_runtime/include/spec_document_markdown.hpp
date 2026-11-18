@@ -146,6 +146,16 @@ std::string itemTitleStem(const std::string& elementClassName);
  * first letter upper-cased (SOM §11.4). */
 std::string formLabel(const std::string& fieldName);
 
+/* The `codeSpec="…"` value of a heading-comment key=value region
+ * (codespecs_mapping.md §9.2; TS `SpecDocumentMarkdown.codeSpecOf`):
+ * double-quoted, single-quoted or bare, trimmed; "" when absent. */
+std::string markdownCodeSpecOf(const std::string& region);
+
+/* The `units="…"` value of a heading-comment key=value region (SOM §11.2; TS
+ * `SpecDocumentMarkdown.unitsOf`), with the same quoting; the key must start
+ * the region or follow whitespace. "" when absent. */
+std::string markdownUnitsOf(const std::string& region);
+
 /* ---- export / import ----------------------------------------------------- */
 
 /* Renders the populated subtree of `root` as a DocSpecs-conform Markdown

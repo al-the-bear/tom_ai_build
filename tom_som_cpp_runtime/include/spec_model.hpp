@@ -309,6 +309,16 @@ class SpecModel {
   /* Returns the class named `name`, or null. */
   const SpecClass* classNamed(const std::string& name) const;
 
+  /* Every class, in the order the meta-data lists them (TS and Dart
+   * `model.classes`). The pointers borrow from this model. */
+  std::vector<const SpecClass*> classesInOrder() const;
+
+  /* The DocSpecs `major.minor` of this model (TS `SpecModel.modelVersionString`):
+   * somModelVersionString(modelVersion, modelVersionLabel). */
+  std::string modelVersionString() const {
+    return somModelVersionString(modelVersion, modelVersionLabel);
+  }
+
   /* Whether `root` is a generation input rather than a specification
    * document: its class carries the `@CodeSpecsProjection` marker, so it
    * defines what generation reaches and is neither filled nor extracted
@@ -350,6 +360,8 @@ class SpecModel {
 
   // sorted-by-name map (std::map gives byte-ordered, binary-searchable access).
   std::map<std::string, SpecClass> classesByName_;
+  // the class names in the meta-data's order (classesInOrder)
+  std::vector<std::string> classOrder_;
   JsonRef source_;  // owned parsed tree; annotations borrow from it
 };
 

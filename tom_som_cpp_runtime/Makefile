@@ -61,7 +61,8 @@ UNIT_SRC := tests/version_check_test.cpp tests/facade_editability_test.cpp \
             tests/spec_document_markdown_test.cpp \
             tests/docspecs_validator_test.cpp \
             tests/has_values_under_index_test.cpp \
-            tests/spec_units_test.cpp
+            tests/spec_units_test.cpp \
+            tests/public_accessors_test.cpp
 UNIT_BIN := $(patsubst tests/%.cpp,build/%,$(UNIT_SRC))
 DEP      += $(UNIT_BIN:=.d)
 

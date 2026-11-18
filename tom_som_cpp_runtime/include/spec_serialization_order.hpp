@@ -34,6 +34,11 @@ class SpecSerializationOrder {
  public:
   explicit SpecSerializationOrder(const SpecModel& model) : model_(&model) {}
 
+  /* The member-order tuple of `path` (TS and Dart `orderKey`): one entry per
+   * field crossed — its `@SerializationOrder`, or the unordered fallback — plus
+   * a list item's numeric sequence. Empty for a path that does not resolve. */
+  std::vector<long long> orderKey(const std::string& path) const;
+
   /* Orders `paths` by their member-order tuple (lexicographically), breaking
    * ties by the path string. */
   std::vector<std::string> orderPaths(

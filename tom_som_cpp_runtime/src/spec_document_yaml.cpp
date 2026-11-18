@@ -47,6 +47,8 @@ static bool contains(const std::vector<std::string>& v, const std::string& s) {
 
 static std::string jsJsonString(const std::string& s) { return jsonEncodeStr(s); }
 
+std::string specYamlKey(const std::string& key) { return jsJsonString(key); }
+
 std::string specYamlNodeKey(const SomMetaNode& node) {
   const std::string& name =
       !node.memberName.empty() ? node.memberName : node.className;
@@ -519,7 +521,7 @@ void specYamlWriteScalar(std::string& out, std::size_t keyIndent,
 
 /* The file header comment + `version:` line, and the optional `modelVersion:`
  * stamp when non-empty. */
-static void writeHeader(std::string& out, const std::string& modelVersion) {
+void specYamlWriteHeader(std::string& out, const std::string& modelVersion) {
   out += "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\n";
   out += "version: ";
   out += formatI64(kSpecYamlFormatVersion);
@@ -1021,7 +1023,7 @@ std::optional<std::string> encodeYaml(const SpecDocument& document,
                                       std::string* err,
                                       const YamlValue* review) {
   std::string out;
-  writeHeader(out, modelVersion);
+  specYamlWriteHeader(out, modelVersion);
   YamlEncoder e;
   e.init(&document);
   std::string body;

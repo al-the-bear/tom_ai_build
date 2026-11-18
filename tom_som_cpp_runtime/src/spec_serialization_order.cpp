@@ -29,7 +29,7 @@ const SpecField* matchField(const SpecClass& cls, const std::string& segment) {
  * `@SerializationOrder` or the fallback), plus a trailing entry for a list
  * item's numeric sequence. A path that does not resolve yields an empty tuple
  * (so it sorts by its string form only). */
-std::vector<long long> orderKey(const SpecModel& model, const std::string& path) {
+std::vector<long long> orderKeyOf(const SpecModel& model, const std::string& path) {
   std::vector<long long> key;
 
   std::vector<std::string> segs = specPathSegments(path);
@@ -108,12 +108,17 @@ bool pathKeyLess(const PathKey& a, const PathKey& b) {
 
 }  // namespace
 
+std::vector<long long> SpecSerializationOrder::orderKey(
+    const std::string& path) const {
+  return orderKeyOf(*model_, path);
+}
+
 std::vector<std::string> SpecSerializationOrder::orderPaths(
     const std::vector<std::string>& paths) const {
   std::vector<PathKey> items;
   items.reserve(paths.size());
   for (const std::string& p : paths) {
-    items.push_back({p, orderKey(*model_, p)});
+    items.push_back({p, orderKeyOf(*model_, p)});
   }
   std::sort(items.begin(), items.end(), pathKeyLess);
 

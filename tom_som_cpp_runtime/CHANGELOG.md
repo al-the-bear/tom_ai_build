@@ -2,6 +2,23 @@
 
 ## Unreleased
 
+- `som::SomScalar`: one item of a scalar list, `value()` / `setValue()` on the
+  item's own path, as TS and Dart `SomScalar`.
+- `SpecReflection::roots()`, `classes()` (the meta-data's order, from the new
+  `SpecModel::classesInOrder()`), `classNamed()`, `fieldsOf()`,
+  `annotationsOf()`, `fieldAnnotations()`; `SpecModel::modelVersionString()`.
+- `SpecSerializationOrder::orderKey(path)` public (TS `orderKey`).
+- `systemReviewTime(std::time_t now)` beside `systemReviewTime()` (TS
+  `systemReviewTime(now?)`); `extractAnswers` takes `const SpecDocument&`.
+- Declared in the headers: `specYamlKey`, `specYamlWriteHeader`
+  (`spec_document_yaml.hpp`), `markdownCodeSpecOf` / `markdownUnitsOf`
+  (`spec_document_markdown.hpp`; were file-internal `codeSpecOf` / `unitsOf`).
+- Docs: the README names `encodeYaml` / `decodeYaml` and `markdownExportRoot` /
+  `markdownParse` instead of the absent `SpecDocumentYaml` /
+  `SpecDocumentMarkdown` types; `doc/generic_access.md` names
+  `validateDocument` instead of an absent `SpecValidator`.
+- `tests/public_accessors_test.cpp` (35 checks) covers the above.
+
 - Typed values follow the canonical TypeScript reading (tspubnondart20): `somParseInt` / `somParseDouble` / `somParseNum` trim the text and refuse NaN, Infinity, hex, digit separators and literals overflowing to infinity (`1e400`); `somFormatDouble` lays out 1e3 as `1000.0`.
 - `SomList::addWithId` and `addContentWithId` on a list without a
   `@SectionIdPattern` ignore the id and append plainly, as TS and Dart do; they

@@ -55,6 +55,35 @@ class SpecReflection {
   static std::string rootSegment(const SpecRoot& root);
   static std::string fieldSegment(const SpecField& field);
 
+  /* ---- lookups (TS `SpecReflection.roots` / `classes` / `classNamed` /
+   * `fieldsOf` / `annotationsOf` / `fieldAnnotations`). Every result borrows
+   * from the model. A class or field that does not exist yields null or an
+   * empty list. */
+
+  /* The model's document roots, in declaration order. */
+  const std::vector<SpecRoot>& roots() const { return model_->roots; }
+
+  /* Every class, in the order the meta-data lists them. */
+  std::vector<const SpecClass*> classes() const {
+    return model_->classesInOrder();
+  }
+
+  /* The class named `name`, or null. */
+  const SpecClass* classNamed(const std::string& name) const {
+    return model_->classNamed(name);
+  }
+
+  /* The fields of the class `className`, in declaration order. */
+  const std::vector<SpecField>& fieldsOf(const std::string& className) const;
+
+  /* The class-level annotations of the class `className`. */
+  const std::vector<SpecAnnotation>& annotationsOf(
+      const std::string& className) const;
+
+  /* The annotations of the field `fieldName` of the class `className`. */
+  const std::vector<SpecAnnotation>& fieldAnnotations(
+      const std::string& className, const std::string& fieldName) const;
+
   /* Returns the root whose segment matches `segment`, or null. */
   const SpecRoot* rootForSegment(const std::string& segment) const;
 

@@ -43,6 +43,28 @@ std::string SpecReflection::fieldSegment(const SpecField& field) {
   return field.name;
 }
 
+const std::vector<SpecField>& SpecReflection::fieldsOf(
+    const std::string& className) const {
+  static const std::vector<SpecField> kNone;
+  const SpecClass* cls = model_->classNamed(className);
+  return cls != nullptr ? cls->fields : kNone;
+}
+
+const std::vector<SpecAnnotation>& SpecReflection::annotationsOf(
+    const std::string& className) const {
+  static const std::vector<SpecAnnotation> kNone;
+  const SpecClass* cls = model_->classNamed(className);
+  return cls != nullptr ? cls->annotations : kNone;
+}
+
+const std::vector<SpecAnnotation>& SpecReflection::fieldAnnotations(
+    const std::string& className, const std::string& fieldName) const {
+  static const std::vector<SpecAnnotation> kNone;
+  const SpecClass* cls = model_->classNamed(className);
+  const SpecField* f = cls != nullptr ? cls->fieldNamed(fieldName) : nullptr;
+  return f != nullptr ? f->annotations : kNone;
+}
+
 const SpecRoot* SpecReflection::rootForSegment(const std::string& segment) const {
   for (const SpecRoot& root : model_->roots) {
     if (rootSegment(root) == segment) {

@@ -115,6 +115,24 @@ class SomNode {
   std::string path_;   // owned; the node's globally-unique section path
 };
 
+/* ---- SomScalar — one item of a scalar list ------------------------------ */
+
+/* The facade of one scalar list item (TS and Dart `SomScalar`): its value is
+ * the string stored at the item's own path. A scalar list's items have no
+ * typed facade of their own, so a `SomList` item path is wrapped in this. */
+class SomScalar : public SomNode {
+ public:
+  SomScalar(SpecDocument& doc, std::string path)
+      : SomNode(doc, std::move(path)) {}
+
+  /* The string value at this item's path ("" when unset). */
+  std::string value() const { return doc().content(path()); }
+
+  /* Sets the string value; an empty string clears it, as
+   * SpecDocument::setContent does. */
+  void setValue(const std::string& value) { doc().setContent(path(), value); }
+};
+
 /* ---- SomList — a typed view over a list field --------------------------- */
 
 class SomList : public SomNode {

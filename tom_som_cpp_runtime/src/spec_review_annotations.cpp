@@ -2132,8 +2132,9 @@ std::string normalizeReviewTime(const std::string& at) {
       "(e.g. 2026-11-07T14:05+01:00)");
 }
 
-std::string systemReviewTime() {
-  const std::time_t now = std::time(nullptr);
+std::string systemReviewTime() { return systemReviewTime(std::time(nullptr)); }
+
+std::string systemReviewTime(std::time_t now) {
   std::tm local{};
   std::tm utc{};
 #if defined(_WIN32)

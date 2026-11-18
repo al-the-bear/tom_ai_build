@@ -106,7 +106,7 @@ struct SpecAnswerExtract {
  * root the document holds values under, else the first root. Throws as
  * `markdownExportRootWithMap` does. */
 SpecAnswerExtract extractAnswers(
-    const SpecModel& model, SpecDocument& doc, const std::string& label,
+    const SpecModel& model, const SpecDocument& doc, const std::string& label,
     const std::optional<std::string>& path = std::nullopt);
 
 /* What `answers.md` includes besides the answered questions and comments. */

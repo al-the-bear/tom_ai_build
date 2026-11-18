@@ -194,6 +194,15 @@ const SpecClass* SpecModel::classNamed(const std::string& name) const {
   return it != classesByName_.end() ? &it->second : nullptr;
 }
 
+std::vector<const SpecClass*> SpecModel::classesInOrder() const {
+  std::vector<const SpecClass*> out;
+  out.reserve(classOrder_.size());
+  for (const std::string& name : classOrder_) {
+    out.push_back(&classesByName_.at(name));
+  }
+  return out;
+}
+
 bool SpecModel::isGenerationInput(const SpecRoot& root) const {
   const SpecClass* cls = classNamed(root.type);
   return cls != nullptr &&
@@ -528,6 +537,9 @@ std::unique_ptr<SpecModel> SpecModel::buildFromRoot(const JsonRef& root) {
       JsonRef val = std::const_pointer_cast<const Json>(mem.second);
       SpecClass cls = classFromJson(mem.first, val);
       // key by the source member key (matches the C entry name).
+      if (m->classesByName_.find(mem.first) == m->classesByName_.end()) {
+        m->classOrder_.push_back(mem.first);
+      }
       m->classesByName_[mem.first] = std::move(cls);
     }
   }

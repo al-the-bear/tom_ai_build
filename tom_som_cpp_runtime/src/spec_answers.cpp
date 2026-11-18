@@ -184,7 +184,7 @@ std::string SpecAnswerExtract::toJson() const {
   return out;
 }
 
-SpecAnswerExtract extractAnswers(const SpecModel& model, SpecDocument& doc,
+SpecAnswerExtract extractAnswers(const SpecModel& model, const SpecDocument& doc,
                                  const std::string& label,
                                  const std::optional<std::string>& path) {
   if (model.roots.empty()) {
@@ -278,7 +278,9 @@ SpecAnswerExtract extractAnswers(const SpecModel& model, SpecDocument& doc,
             p[path->size()] == '/');
   };
 
-  SpecReviewAnnotations api(doc);
+  // SpecReviewAnnotations edits through a mutable document; only its readers
+  // `list()` and `listMarks()` are called here, so the document is not changed.
+  SpecReviewAnnotations api(const_cast<SpecDocument&>(doc));
   // `list()` and `listMarks()` give the marks in the same order.
   const std::vector<SpecMarkEntry> marks = api.listMarks();
   std::size_t markIndex = 0;

@@ -177,7 +177,7 @@ dart run tom_specs_clitool/bin/tomspecs.dart :som-generate
 | ---- | -------------- |
 | `D00SolutionBlueprint` … | The generated document roots — one per row of the table above, each the typed entry point to a whole document. |
 | `SomNode` | The base every generated section type extends: a document plus the path prefix this section is rooted at. |
-| `SomScalar` | A typed leaf — parse and format at the store boundary, so `int` / `bool` / enum members read as themselves. |
+| `SomScalar` | One item of a scalar list: its string value, read and written at the item's own path. |
 | `SomList` | A typed repeated section — append, index and enumerate items whose paths the store generates. |
 | `SomMetaTree` / `SomMetaNode` | The generated metadata trees (`SOM §7`): the model's shape as data, behind the dot-notation and id-tree access surfaces. |
 | `SomEditability` | The `SOM §4.2` version-check outcome — whether a stamped document may be edited by this facade. |

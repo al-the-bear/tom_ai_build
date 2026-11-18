@@ -672,8 +672,8 @@ String renderFacadeReadme(
       'document plus the path prefix this section is rooted at. |',
     )
     ..writeln(
-      '| `SomScalar` | A typed leaf — parse and format at the store '
-      'boundary, so `int` / `bool` / enum members read as themselves. |',
+      '| `SomScalar` | One item of a scalar list: its string value, read '
+      'and written at the item\'s own path. |',
     )
     ..writeln(
       '| `SomList` | A typed repeated section — append, index and '

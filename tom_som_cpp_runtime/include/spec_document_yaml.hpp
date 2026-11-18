@@ -157,6 +157,15 @@ std::string specYamlNodeKey(const SomMetaNode& node);
  * ids, member names, `<id> <name>` pairs), else a JSON-quoted one. */
 std::string specYamlPlainKey(const std::string& key);
 
+/* `key` JSON-quoted (TS `yamlKey`): a valid YAML flow scalar that quotes and
+ * escapes any path or field name. */
+std::string specYamlKey(const std::string& key);
+
+/* Appends a document's header to `out` (TS `writeHeader`): the header
+ * comment, the `version:` line, and the `modelVersion:` stamp when
+ * `modelVersion` is not empty. */
+void specYamlWriteHeader(std::string& out, const std::string& modelVersion);
+
 /* Whether `value` (UTF-8) may be written as a plain one-line YAML scalar (SOM
  * §12.5): a strict YAML 1.2 parser reads `_v: <value>` (and `- <value>`) back
  * as exactly `value`, and a YAML 1.1 parser does too. The rule:
