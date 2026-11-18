@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- `bin/tomspecs.dart` is the package's only entrypoint: every tool is a
+  `tomspecs` command (README, "The `tomspecs` binary"), and the old `bin/`
+  entrypoints are removed. The run functions and option parsers are in
+  `lib/src/commands/`; output and usage lines name the commands
+  (`spec-validate: …`, `Usage: tomspecs :codespecs-validate …`). JSON outputs
+  are unchanged.
 - The generated SOM packages, `spec_ops.g.dart`, the registry test suites and
   the spec-tree baseline name the `tomspecs` command that writes them
   (`tomspecs :som-generate`, `:app-registry-tests`,
