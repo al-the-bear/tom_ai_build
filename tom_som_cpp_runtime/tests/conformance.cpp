@@ -3081,6 +3081,100 @@ static void run_annotation_cases(Checker& c, const som::SpecModel& model,
   }
 }
 
+/* ---- generation units (spec_generation_units, SOM §11.2) -------------- */
+
+static std::string json_opt_value(const std::optional<std::string>& v) {
+  return v.has_value() ? som::jsonEncodeStr(*v) : std::string("null");
+}
+
+static std::string json_str_array(const std::vector<std::string>& v) {
+  std::string b = "[";
+  for (std::size_t i = 0; i < v.size(); i++) {
+    if (i > 0) b += ",";
+    b += som::jsonEncodeStr(v[i]);
+  }
+  return b + "]";
+}
+
+/* generation_unit_cases.json, run like the TypeScript reference's
+ * `testGenerationUnits`: kSpecStandardEmitters in order, then per case the
+ * register (specGenerationUnits), mappingFor per unit and area,
+ * specDefaultUnits per area and each section's units override (null when
+ * unset), compared with `expect` as JSON (array order matters). */
+static void test_generation_units(Checker& c, const som::SpecModel& model) {
+  som::JsonPtr table = read_json("generation_unit_cases.json");
+  std::vector<std::string> standard(som::kSpecStandardEmitters.begin(),
+                                    som::kSpecStandardEmitters.end());
+  std::vector<std::string> wantStandard =
+      json_str_list(som::jsonGet(table, "standardEmitters"));
+  c.check("generationUnits.standardEmitters", standard == wantStandard,
+          join(standard) + " != " + join(wantStandard));
+  const std::vector<std::string> areas =
+      json_str_list(som::jsonGet(table, "areas"));
+  som::JsonRef cases = som::jsonGet(table, "cases");
+  std::size_t n = som::jsonArrayLen(cases);
+  c.check("generationUnits.cases", n > 0,
+          "no cases in generation_unit_cases.json");
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef kase = som::jsonArrayAt(cases, i);
+    const std::string label =
+        "generationUnits[" + som::jsonStrOr(kase, "name") + "]";
+    som::SpecDocument doc = doc_from_state(
+        som::documentJsonFromJson(som::jsonGet(kase, "state")));
+    const std::vector<som::SpecGenerationUnit> units =
+        som::specGenerationUnits(model, doc);
+
+    std::string got = "{\"units\":[";
+    for (std::size_t u = 0; u < units.size(); u++) {
+      const som::SpecGenerationUnit& unit = units[u];
+      if (u > 0) got += ",";
+      got += "{\"unitId\":" + som::jsonEncodeStr(unit.unitId) +
+             ",\"kind\":" + som::jsonEncodeStr(unit.kind) +
+             ",\"path\":" + som::jsonEncodeStr(unit.path) + ",\"mappings\":[";
+      for (std::size_t m = 0; m < unit.mappings.size(); m++) {
+        if (m > 0) got += ",";
+        got += "{\"area\":" + som::jsonEncodeStr(unit.mappings[m].area) +
+               ",\"mapping\":" + som::jsonEncodeStr(unit.mappings[m].mapping) +
+               "}";
+      }
+      got += "],\"emitters\":" + json_str_array(unit.emitters) + "}";
+    }
+    got += "],\"mappingFor\":{";
+    for (std::size_t u = 0; u < units.size(); u++) {
+      if (u > 0) got += ",";
+      got += som::jsonEncodeStr(units[u].unitId) + ":{";
+      for (std::size_t a = 0; a < areas.size(); a++) {
+        if (a > 0) got += ",";
+        got += som::jsonEncodeStr(areas[a]) + ":" +
+               json_opt_value(units[u].mappingFor(areas[a]));
+      }
+      got += "}";
+    }
+    got += "},\"defaultUnits\":{";
+    for (std::size_t a = 0; a < areas.size(); a++) {
+      if (a > 0) got += ",";
+      got += som::jsonEncodeStr(areas[a]) + ":" +
+             json_str_array(som::specDefaultUnits(units, areas[a]));
+    }
+    got += "},\"sectionUnits\":{";
+    const std::vector<std::string> sections =
+        json_str_list(som::jsonGet(kase, "sections"));
+    for (std::size_t s = 0; s < sections.size(); s++) {
+      if (s > 0) got += ",";
+      const std::string* stored = doc.unitsOpt(sections[s]);
+      got += som::jsonEncodeStr(sections[s]) + ":" +
+             json_opt_value(stored != nullptr
+                                ? std::optional<std::string>(*stored)
+                                : std::nullopt);
+    }
+    got += "}}";
+
+    const std::string g = json_text_canon(got);
+    const std::string w = json_canon(som::jsonGet(kase, "expect"));
+    c.check(label, g == w, byte_diff(label, g, w));
+  }
+}
+
 static void test_annotations(Checker& c, const som::SpecModel& model,
                              const som::SomMetaTree& tree) {
   run_annotation_cases(c, model, tree, "annotation_cases.json", "annotations");
@@ -3401,6 +3495,7 @@ int main(int argc, char** argv) {
   test_inline_marks(c, *model, *tree);
   test_change_marks(c, *model, *tree);
   test_answers(c, *model);
+  test_generation_units(c, *model);
 
   return c.finish();
 }

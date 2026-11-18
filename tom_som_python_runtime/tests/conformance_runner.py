@@ -112,6 +112,9 @@ from tom_som_runtime import (  # noqa: E402
     stale_review_paths,
     yaml_decode,
     yaml_encode,
+    K_SPEC_STANDARD_EMITTERS,
+    spec_default_units,
+    spec_generation_units,
 )
 
 _MODEL_VERSION = "1.0"
@@ -2091,6 +2094,52 @@ def _creation_error_code(
         return e.code.value
 
 
+def test_generation_units(model: SpecModel) -> None:
+    """``generation_unit_cases.json``: the generation-unit register (SOM
+    §11.2) — ``spec_generation_units``, ``mapping_for``, ``spec_default_units``
+    and a section's ``units`` override, plus ``K_SPEC_STANDARD_EMITTERS``."""
+    table = _read_json("generation_unit_cases.json")
+    emitters = list(K_SPEC_STANDARD_EMITTERS)
+    _check(
+        "generationUnits.standardEmitters",
+        emitters == table["standardEmitters"],
+        _json_mismatch(emitters, table["standardEmitters"]),
+    )
+    areas = table["areas"]
+    for case in table["cases"]:
+        doc = _document_from_state(case["state"])
+        units = spec_generation_units(model, doc)
+        got = {
+            "units": [
+                {
+                    "unitId": u.unit_id,
+                    "kind": u.kind,
+                    "path": u.path,
+                    "mappings": [
+                        {"area": m.area, "mapping": m.mapping}
+                        for m in u.mappings
+                    ],
+                    "emitters": list(u.emitters),
+                }
+                for u in units
+            ],
+            "mappingFor": {
+                u.unit_id: {a: u.mapping_for(a) for a in areas} for u in units
+            },
+            "defaultUnits": {a: spec_default_units(units, a) for a in areas},
+            "sectionUnits": {p: doc.units(p) for p in case["sections"]},
+        }
+        expect = case["expect"]
+        # Dict equality ignores key order; the corpus pins order, so compare
+        # the serialised forms too.
+        same = got == expect and json.dumps(got) == json.dumps(expect)
+        _check(
+            f"generationUnits[{case['name']}]",
+            same,
+            _json_mismatch(got, expect),
+        )
+
+
 def main() -> int:
     if not os.path.isdir(_CORPUS):
         print(f"corpus not found at {_CORPUS}", file=sys.stderr)
@@ -2136,6 +2185,7 @@ def main() -> int:
     test_cursor(model)
     test_node_creation(model)
     test_node_creation_script(model)
+    test_generation_units(model)
 
     total = _passed + len(_failed)
     if _failed:

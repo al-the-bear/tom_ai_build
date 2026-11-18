@@ -1756,6 +1756,58 @@ void main() {
       }
     }
   });
+
+  group('generation_unit_cases.json (the generation-unit register)', () {
+    final table =
+        jsonDecode(read('generation_unit_cases.json')) as Map<String, dynamic>;
+    test('standardEmitters', () {
+      expect(kSpecStandardEmitters, table['standardEmitters']);
+    });
+    final areas = (table['areas'] as List).cast<String>();
+    for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+      test('generationUnits: ${c['name']}', () {
+        expect(
+          jsonDecode(jsonEncode(_runGenerationUnitCase(model, areas, c))),
+          c['expect'],
+        );
+      });
+    }
+  });
+}
+
+/// One case of `generation_unit_cases.json`: the units [specGenerationUnits]
+/// reads from the case's `state`, `mappingFor` per unit and area,
+/// [specDefaultUnits] per area, and `units(path)` per listed section.
+Map<String, dynamic> _runGenerationUnitCase(
+  SpecModel model,
+  List<String> areas,
+  Map<String, dynamic> c,
+) {
+  final doc = SpecDocument()
+    ..loadJson((c['state'] as Map).cast<String, dynamic>());
+  final units = specGenerationUnits(model, doc);
+  return {
+    'units': [
+      for (final u in units)
+        {
+          'unitId': u.unitId,
+          'kind': u.kind,
+          'path': u.path,
+          'mappings': [
+            for (final m in u.mappings) {'area': m.area, 'mapping': m.mapping},
+          ],
+          'emitters': u.emitters,
+        },
+    ],
+    'mappingFor': {
+      for (final u in units)
+        u.unitId: {for (final a in areas) a: u.mappingFor(a)},
+    },
+    'defaultUnits': {for (final a in areas) a: specDefaultUnits(units, a)},
+    'sectionUnits': {
+      for (final p in (c['sections'] as List).cast<String>()) p: doc.units(p),
+    },
+  };
 }
 
 /// Rebuilds a [SpecQuery] from its corpus wire form.

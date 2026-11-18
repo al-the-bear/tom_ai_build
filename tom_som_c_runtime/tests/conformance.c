@@ -4973,6 +4973,235 @@ static void test_answers(Checker *c, const SpecModel *model) {
   som_json_free(table);
 }
 
+/* ---- the generation-unit register (spec_generation_units, SOM §11.2) ---- */
+
+/* Writes `v` as canonical JSON into `b`: object members sorted by key (so two
+ * values compare as the reference's deep equality does), arrays in order. */
+static void json_canonical_into(SomBuf *b, const SomJson *v) {
+  if (v == NULL) {
+    som_buf_puts(b, "null");
+    return;
+  }
+  switch (v->type) {
+  case SOM_JSON_NULL:
+    som_buf_puts(b, "null");
+    break;
+  case SOM_JSON_BOOL:
+    som_buf_puts(b, v->as.boolean ? "true" : "false");
+    break;
+  case SOM_JSON_INT:
+    som_buf_puti(b, v->as.integer);
+    break;
+  case SOM_JSON_FLOAT: {
+    char num[64];
+    snprintf(num, sizeof(num), "%.17g", v->as.real);
+    som_buf_puts(b, num);
+    break;
+  }
+  case SOM_JSON_STR: {
+    char *e = som_json_encode_str(v->as.str);
+    som_buf_puts(b, e);
+    free(e);
+    break;
+  }
+  case SOM_JSON_ARRAY:
+    som_buf_putc(b, '[');
+    for (size_t i = 0; i < v->as.array.len; i++) {
+      if (i > 0) {
+        som_buf_putc(b, ',');
+      }
+      json_canonical_into(b, v->as.array.items[i]);
+    }
+    som_buf_putc(b, ']');
+    break;
+  case SOM_JSON_OBJECT: {
+    size_t n = v->as.object.len;
+    size_t *order = (size_t *)malloc((n ? n : 1) * sizeof(size_t));
+    for (size_t i = 0; i < n; i++) {
+      order[i] = i;
+    }
+    for (size_t i = 1; i < n; i++) { /* insertion sort: small n */
+      size_t x = order[i];
+      size_t j = i;
+      while (j > 0 && strcmp(v->as.object.members[order[j - 1]].key,
+                             v->as.object.members[x].key) > 0) {
+        order[j] = order[j - 1];
+        j--;
+      }
+      order[j] = x;
+    }
+    som_buf_putc(b, '{');
+    for (size_t i = 0; i < n; i++) {
+      const SomJsonMember *m = &v->as.object.members[order[i]];
+      if (i > 0) {
+        som_buf_putc(b, ',');
+      }
+      char *k = som_json_encode_str(m->key);
+      som_buf_puts(b, k);
+      free(k);
+      som_buf_putc(b, ':');
+      json_canonical_into(b, m->value);
+    }
+    som_buf_putc(b, '}');
+    free(order);
+    break;
+  }
+  }
+}
+
+/* The canonical JSON of `v`. Owned result. */
+static char *json_canonical(const SomJson *v) {
+  SomBuf b;
+  som_buf_init(&b);
+  json_canonical_into(&b, v);
+  return som_buf_take(&b);
+}
+
+/* Appends `s` as a JSON string literal, or `null` when `s` is NULL. */
+static void buf_json_str(SomBuf *b, const char *s) {
+  if (s == NULL) {
+    som_buf_puts(b, "null");
+    return;
+  }
+  char *e = som_json_encode_str(s);
+  som_buf_puts(b, e);
+  free(e);
+}
+
+/* generation_unit_cases.json, run like the TypeScript reference's
+ * `testGenerationUnits`: the standard emitters in order, then per case the
+ * register's units (id, kind, path, mappings, emitters), each unit's mapper
+ * per area, the default units per area and each section's stored units
+ * override, compared with `expect` as one JSON value. */
+static void test_generation_units(Checker *c, const SpecModel *model) {
+  SomJson *table = read_json("generation_unit_cases.json");
+
+  SomStrList want_emitters;
+  json_str_list(som_json_get(table, "standardEmitters"), &want_emitters);
+  int emitters_ok = want_emitters.len == SPEC_STANDARD_EMITTERS_LEN;
+  for (size_t i = 0; emitters_ok && i < want_emitters.len; i++) {
+    emitters_ok = strcmp(want_emitters.items[i], SPEC_STANDARD_EMITTERS[i]) == 0;
+  }
+  SomBuf eb;
+  som_buf_init(&eb);
+  for (size_t i = 0; i < SPEC_STANDARD_EMITTERS_LEN; i++) {
+    som_buf_puts(&eb, i > 0 ? "," : "");
+    som_buf_puts(&eb, SPEC_STANDARD_EMITTERS[i]);
+  }
+  char *edetail = som_buf_take(&eb);
+  check(c, "generationUnits.standardEmitters", emitters_ok, edetail);
+  free(edetail);
+  som_strlist_free(&want_emitters);
+
+  const SomJson *areas = som_json_get(table, "areas");
+  size_t areas_len = som_json_array_len(areas);
+  const SomJson *cases = som_json_get(table, "cases");
+  size_t n = som_json_array_len(cases);
+  check(c, "generationUnits.cases", n > 0,
+        "no cases in generation_unit_cases.json");
+  for (size_t ci = 0; ci < n; ci++) {
+    const SomJson *kase = som_json_array_at(cases, ci);
+    DocumentJson state;
+    document_json_from_json(som_json_get(kase, "state"), &state);
+    SpecDocument doc;
+    doc_from_state(&doc, &state);
+    document_json_free(&state);
+
+    SpecGenerationUnitList units;
+    spec_generation_units(model, &doc, &units);
+
+    SomBuf b;
+    som_buf_init(&b);
+    som_buf_puts(&b, "{\"units\":[");
+    for (size_t i = 0; i < units.len; i++) {
+      const SpecGenerationUnit *u = &units.items[i];
+      som_buf_puts(&b, i > 0 ? ",{\"unitId\":" : "{\"unitId\":");
+      buf_json_str(&b, u->unit_id);
+      som_buf_puts(&b, ",\"kind\":");
+      buf_json_str(&b, u->kind);
+      som_buf_puts(&b, ",\"path\":");
+      buf_json_str(&b, u->path);
+      som_buf_puts(&b, ",\"mappings\":[");
+      for (size_t k = 0; k < u->mappings_len; k++) {
+        som_buf_puts(&b, k > 0 ? ",{\"area\":" : "{\"area\":");
+        buf_json_str(&b, u->mappings[k].area);
+        som_buf_puts(&b, ",\"mapping\":");
+        buf_json_str(&b, u->mappings[k].mapping);
+        som_buf_putc(&b, '}');
+      }
+      som_buf_puts(&b, "],\"emitters\":[");
+      for (size_t k = 0; k < u->emitters_len; k++) {
+        som_buf_puts(&b, k > 0 ? "," : "");
+        buf_json_str(&b, u->emitters[k]);
+      }
+      som_buf_puts(&b, "]}");
+    }
+    som_buf_puts(&b, "],\"mappingFor\":{");
+    for (size_t i = 0; i < units.len; i++) {
+      const SpecGenerationUnit *u = &units.items[i];
+      som_buf_puts(&b, i > 0 ? "," : "");
+      buf_json_str(&b, u->unit_id);
+      som_buf_puts(&b, ":{");
+      for (size_t a = 0; a < areas_len; a++) {
+        const char *area = som_json_as_str(som_json_array_at(areas, a));
+        som_buf_puts(&b, a > 0 ? "," : "");
+        buf_json_str(&b, area);
+        som_buf_putc(&b, ':');
+        buf_json_str(&b, spec_generation_unit_mapping_for(u, area));
+      }
+      som_buf_putc(&b, '}');
+    }
+    som_buf_puts(&b, "},\"defaultUnits\":{");
+    for (size_t a = 0; a < areas_len; a++) {
+      const char *area = som_json_as_str(som_json_array_at(areas, a));
+      SomStrList ids;
+      spec_default_units(&units, area, &ids);
+      som_buf_puts(&b, a > 0 ? "," : "");
+      buf_json_str(&b, area);
+      som_buf_puts(&b, ":[");
+      for (size_t k = 0; k < ids.len; k++) {
+        som_buf_puts(&b, k > 0 ? "," : "");
+        buf_json_str(&b, ids.items[k]);
+      }
+      som_buf_putc(&b, ']');
+      som_strlist_free(&ids);
+    }
+    som_buf_puts(&b, "},\"sectionUnits\":{");
+    const SomJson *sections = som_json_get(kase, "sections");
+    for (size_t k = 0; k < som_json_array_len(sections); k++) {
+      const char *p = som_json_as_str(som_json_array_at(sections, k));
+      som_buf_puts(&b, k > 0 ? "," : "");
+      buf_json_str(&b, p);
+      som_buf_putc(&b, ':');
+      buf_json_str(&b, spec_document_units(&doc, p));
+    }
+    som_buf_puts(&b, "}}");
+    char *raw = som_buf_take(&b);
+
+    char *perr = NULL;
+    SomJson *got_json = som_json_parse(raw, &perr);
+    char *got = got_json != NULL ? json_canonical(got_json)
+                                 : som_strdup(perr ? perr : "(unparsable)");
+    char *want = json_canonical(som_json_get(kase, "expect"));
+    char tag[640];
+    snprintf(tag, sizeof(tag), "generationUnits[%s]",
+             som_json_str_or(kase, "name"));
+    char *d = byte_diff(tag, got, want);
+    check(c, tag, got_json != NULL && strcmp(got, want) == 0, d);
+    free(d);
+    free(got);
+    free(want);
+    free(perr);
+    if (got_json != NULL) {
+      som_json_free(got_json);
+    }
+    free(raw);
+    spec_generation_unit_list_free(&units);
+    spec_document_free(&doc);
+  }
+  som_json_free(table);
+}
+
 int main(int argc, char **argv) {
   if (argc > 1) {
     snprintf(g_corpus_dir, sizeof(g_corpus_dir), "%s", argv[1]);
@@ -5028,6 +5257,7 @@ int main(int argc, char **argv) {
   test_inline_marks(&c, model, tree);
   test_change_marks(&c, model, tree);
   test_answers(&c, model);
+  test_generation_units(&c, model);
 
   int rc = checker_finish(&c);
   som_meta_tree_free(tree);

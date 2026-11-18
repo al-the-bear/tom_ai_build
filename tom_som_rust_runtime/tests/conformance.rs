@@ -94,6 +94,7 @@ use tom_som_rust_runtime::spec_text_pattern::SomTextPattern;
 use tom_som_rust_runtime::spec_validator::validate_document;
 use tom_som_rust_runtime::yaml::{YamlMap, YamlValue};
 use tom_som_rust_runtime::{
+    spec_default_units, spec_generation_units, SPEC_STANDARD_EMITTERS,
     validate_spec_document, DocSpecsDocument, DocSpecsSchema, DocSpecsValidator, DOCSPECS_ALL_RULES,
 };
 
@@ -231,6 +232,7 @@ fn conformance() {
     test_docspecs(&mut c);
     test_docspecs_replace(&mut c);
     test_docspecs_paths(&mut c, &model);
+    test_generation_units(&mut c, &model);
 
     c.finish();
 }
@@ -3619,4 +3621,86 @@ fn run_annotation_case(
         results.push(result);
     }
     (results, doc.to_json())
+}
+
+/// `generation_unit_cases.json`: the standard emitters, then per case the units
+/// [`spec_generation_units`] reads from the document's register, each unit's
+/// [`SpecGenerationUnit::mapping_for`] per area, [`spec_default_units`] per
+/// area and the document's units override of each listed section (the
+/// TypeScript runner's `testGenerationUnits`).
+fn test_generation_units(c: &mut Checker, model: &SpecModel) {
+    let table = read_json("generation_unit_cases.json");
+    let got_emitters = Json::Array(SPEC_STANDARD_EMITTERS.iter().map(|e| jstr(e)).collect());
+    let want_emitters = table.get("standardEmitters").cloned().unwrap_or(Json::Null);
+    c.check(
+        "generationUnits.standardEmitters",
+        json_eq(&got_emitters, &want_emitters),
+        &format!("got {:?} want {:?}", got_emitters, want_emitters),
+    );
+    let areas = str_list(table.get("areas"));
+    for kase in cases(&table, "cases") {
+        let tag = format!("generationUnits[{}]", kase.str_or("name"));
+        let state = kase.get("state").unwrap_or(&Json::Null);
+        let doc = doc_from_state(&DocumentJson::from_json(state));
+        let units = spec_generation_units(model, &doc);
+        let units_json = Json::Array(
+            units
+                .iter()
+                .map(|u| {
+                    obj(vec![
+                        ("unitId", jstr(&u.unit_id)),
+                        ("kind", jstr(&u.kind)),
+                        ("path", jstr(&u.path)),
+                        (
+                            "mappings",
+                            Json::Array(
+                                u.mappings
+                                    .iter()
+                                    .map(|m| {
+                                        obj(vec![("area", jstr(&m.area)), ("mapping", jstr(&m.mapping))])
+                                    })
+                                    .collect(),
+                            ),
+                        ),
+                        ("emitters", jstrs(&u.emitters)),
+                    ])
+                })
+                .collect(),
+        );
+        let mapping_for = Json::Object(
+            units
+                .iter()
+                .map(|u| {
+                    let per_area = areas
+                        .iter()
+                        .map(|a| {
+                            let v = u.mapping_for(a).map(jstr).unwrap_or(Json::Null);
+                            (a.clone(), v)
+                        })
+                        .collect();
+                    (u.unit_id.clone(), Json::Object(per_area))
+                })
+                .collect(),
+        );
+        let default_units = Json::Object(
+            areas
+                .iter()
+                .map(|a| (a.clone(), jstrs(&spec_default_units(&units, a))))
+                .collect(),
+        );
+        let section_units = Json::Object(
+            str_list(kase.get("sections"))
+                .iter()
+                .map(|p| (p.clone(), doc.units(p).map(|s| jstr(s)).unwrap_or(Json::Null)))
+                .collect(),
+        );
+        let got = obj(vec![
+            ("units", units_json),
+            ("mappingFor", mapping_for),
+            ("defaultUnits", default_units),
+            ("sectionUnits", section_units),
+        ]);
+        let want = kase.get("expect").unwrap_or(&Json::Null);
+        c.check(&tag, json_eq(&got, want), &format!("got {:?} want {:?}", got, want));
+    }
 }

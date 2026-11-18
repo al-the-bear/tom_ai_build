@@ -1,0 +1,289 @@
+{
+  "description": "The generation-unit register (SOM §11.2): specGenerationUnits reads the units a document declares in its register (here DEMO/DLV-LST of the shared model), in register order, each with its trimmed mappings and emitters; a unit without a unitId and a second unit of an id already seen are left out, and so are a mapping without an area and an emitter without an id. mappingFor gives the first mapping of an area or null; specDefaultUnits the units whose mappings hold an area, in register order. sectionUnits is a section's units override as stored (units(path)), null when unset. standardEmitters is K_SPEC_STANDARD_EMITTERS in order. Every runtime runs every case; areas lists the area codes mappingFor and defaultUnits are asked for.",
+  "standardEmitters": [
+    "openapi",
+    "jsonschema",
+    "icu",
+    "asyncapi",
+    "markdown"
+  ],
+  "areas": [
+    "CE-NV",
+    "CE-TX",
+    "CE-UI",
+    "CE-DB",
+    "CE-ZZ",
+    "CE-EN"
+  ],
+  "cases": [
+    {
+      "name": "a register: three units, mappings and emitters, left-out rows, section overrides",
+      "state": {
+        "content": {
+          "DEMO/TTL": "Register demo"
+        },
+        "forms": {
+          "DEMO/DLV-LST-1/DLE-LST-1/content": {
+            "emitter": "icu"
+          },
+          "DEMO/DLV-LST-1/DLR-LST-1/content": {
+            "area": "CE-NV",
+            "mapping": "dart-tom"
+          },
+          "DEMO/DLV-LST-1/DLR-LST-2/content": {
+            "area": "CE-TX",
+            "mapping": " ts-react-client "
+          },
+          "DEMO/DLV-LST-1/DLR-LST-3/content": {
+            "area": "CE-UI",
+            "mapping": "ts-react-client"
+          },
+          "DEMO/DLV-LST-1/content": {
+            "kind": "client",
+            "unitId": "u_web"
+          },
+          "DEMO/DLV-LST-2/DLE-LST-1/content": {
+            "emitter": "openapi"
+          },
+          "DEMO/DLV-LST-2/DLE-LST-2/content": {
+            "emitter": " asyncapi "
+          },
+          "DEMO/DLV-LST-2/DLE-LST-4/content": {
+            "emitter": "markdown"
+          },
+          "DEMO/DLV-LST-2/DLR-LST-1/content": {
+            "area": "CE-NV",
+            "mapping": "dart-tom"
+          },
+          "DEMO/DLV-LST-2/DLR-LST-2/content": {
+            "area": "CE-DB",
+            "mapping": "go-server"
+          },
+          "DEMO/DLV-LST-2/DLR-LST-3/content": {
+            "area": "CE-NV",
+            "mapping": "java-spring-server"
+          },
+          "DEMO/DLV-LST-2/DLR-LST-4/content": {
+            "mapping": "orphan"
+          },
+          "DEMO/DLV-LST-2/content": {
+            "kind": "server",
+            "unitId": "u_srv"
+          },
+          "DEMO/DLV-LST-3/content": {
+            "kind": "shared",
+            "unitId": " u_shared "
+          },
+          "DEMO/DLV-LST-4/content": {
+            "kind": "other"
+          },
+          "DEMO/DLV-LST-5/DLR-LST-1/content": {
+            "area": "CE-ZZ",
+            "mapping": "never"
+          },
+          "DEMO/DLV-LST-5/content": {
+            "kind": "server",
+            "unitId": "u_web"
+          }
+        },
+        "lists": {
+          "DEMO/DLV-LST": {
+            "seq": 5,
+            "items": [
+              "DEMO/DLV-LST-1",
+              "DEMO/DLV-LST-2",
+              "DEMO/DLV-LST-3",
+              "DEMO/DLV-LST-4",
+              "DEMO/DLV-LST-5"
+            ]
+          },
+          "DEMO/DLV-LST-1/DLE-LST": {
+            "seq": 1,
+            "items": [
+              "DEMO/DLV-LST-1/DLE-LST-1"
+            ]
+          },
+          "DEMO/DLV-LST-1/DLR-LST": {
+            "seq": 3,
+            "items": [
+              "DEMO/DLV-LST-1/DLR-LST-1",
+              "DEMO/DLV-LST-1/DLR-LST-2",
+              "DEMO/DLV-LST-1/DLR-LST-3"
+            ]
+          },
+          "DEMO/DLV-LST-2/DLE-LST": {
+            "seq": 4,
+            "items": [
+              "DEMO/DLV-LST-2/DLE-LST-1",
+              "DEMO/DLV-LST-2/DLE-LST-2",
+              "DEMO/DLV-LST-2/DLE-LST-3",
+              "DEMO/DLV-LST-2/DLE-LST-4"
+            ]
+          },
+          "DEMO/DLV-LST-2/DLR-LST": {
+            "seq": 4,
+            "items": [
+              "DEMO/DLV-LST-2/DLR-LST-1",
+              "DEMO/DLV-LST-2/DLR-LST-2",
+              "DEMO/DLV-LST-2/DLR-LST-3",
+              "DEMO/DLV-LST-2/DLR-LST-4"
+            ]
+          },
+          "DEMO/DLV-LST-5/DLR-LST": {
+            "seq": 1,
+            "items": [
+              "DEMO/DLV-LST-5/DLR-LST-1"
+            ]
+          }
+        },
+        "units": {
+          "DEMO/TTL": "u_srv",
+          "DEMO/notes": "u_web,u_srv"
+        }
+      },
+      "sections": [
+        "DEMO/TTL",
+        "DEMO/notes",
+        "DEMO/SUM"
+      ],
+      "expect": {
+        "units": [
+          {
+            "unitId": "u_web",
+            "kind": "client",
+            "path": "DEMO/DLV-LST-1",
+            "mappings": [
+              {
+                "area": "CE-NV",
+                "mapping": "dart-tom"
+              },
+              {
+                "area": "CE-TX",
+                "mapping": "ts-react-client"
+              },
+              {
+                "area": "CE-UI",
+                "mapping": "ts-react-client"
+              }
+            ],
+            "emitters": [
+              "icu"
+            ]
+          },
+          {
+            "unitId": "u_srv",
+            "kind": "server",
+            "path": "DEMO/DLV-LST-2",
+            "mappings": [
+              {
+                "area": "CE-NV",
+                "mapping": "dart-tom"
+              },
+              {
+                "area": "CE-DB",
+                "mapping": "go-server"
+              },
+              {
+                "area": "CE-NV",
+                "mapping": "java-spring-server"
+              }
+            ],
+            "emitters": [
+              "openapi",
+              "asyncapi",
+              "markdown"
+            ]
+          },
+          {
+            "unitId": "u_shared",
+            "kind": "shared",
+            "path": "DEMO/DLV-LST-3",
+            "mappings": [],
+            "emitters": []
+          }
+        ],
+        "mappingFor": {
+          "u_web": {
+            "CE-NV": "dart-tom",
+            "CE-TX": "ts-react-client",
+            "CE-UI": "ts-react-client",
+            "CE-DB": null,
+            "CE-ZZ": null,
+            "CE-EN": null
+          },
+          "u_srv": {
+            "CE-NV": "dart-tom",
+            "CE-TX": null,
+            "CE-UI": null,
+            "CE-DB": "go-server",
+            "CE-ZZ": null,
+            "CE-EN": null
+          },
+          "u_shared": {
+            "CE-NV": null,
+            "CE-TX": null,
+            "CE-UI": null,
+            "CE-DB": null,
+            "CE-ZZ": null,
+            "CE-EN": null
+          }
+        },
+        "defaultUnits": {
+          "CE-NV": [
+            "u_web",
+            "u_srv"
+          ],
+          "CE-TX": [
+            "u_web"
+          ],
+          "CE-UI": [
+            "u_web"
+          ],
+          "CE-DB": [
+            "u_srv"
+          ],
+          "CE-ZZ": [],
+          "CE-EN": []
+        },
+        "sectionUnits": {
+          "DEMO/TTL": "u_srv",
+          "DEMO/notes": "u_web,u_srv",
+          "DEMO/SUM": null
+        }
+      }
+    },
+    {
+      "name": "a document without a register declares no units; an override is stored all the same",
+      "state": {
+        "content": {
+          "DEMO/TTL": "No register"
+        },
+        "units": {
+          "DEMO/TTL": "u_web"
+        }
+      },
+      "sections": [
+        "DEMO/TTL",
+        "DEMO/notes",
+        "DEMO/SUM"
+      ],
+      "expect": {
+        "units": [],
+        "mappingFor": {},
+        "defaultUnits": {
+          "CE-NV": [],
+          "CE-TX": [],
+          "CE-UI": [],
+          "CE-DB": [],
+          "CE-ZZ": [],
+          "CE-EN": []
+        },
+        "sectionUnits": {
+          "DEMO/TTL": "u_web",
+          "DEMO/notes": null,
+          "DEMO/SUM": null
+        }
+      }
+    }
+  ]
+}

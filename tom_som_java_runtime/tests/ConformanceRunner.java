@@ -55,6 +55,9 @@ import tom_som_runtime.SpecDocumentMarkdown;
 import tom_som_runtime.SpecDocumentYaml;
 import tom_som_runtime.SpecEditor;
 import tom_som_runtime.SpecField;
+import tom_som_runtime.SpecGenerationUnit;
+import tom_som_runtime.SpecGenerationUnitMapping;
+import tom_som_runtime.SpecGenerationUnits;
 import tom_som_runtime.SpecListItemMove;
 import tom_som_runtime.SpecMarkdownImport;
 import tom_som_runtime.SpecMarkdownRendition;
@@ -1392,6 +1395,68 @@ public final class ConformanceRunner {
           SpecDocumentYaml.rekeyReview((Map<String, Object>) c.get("review"), renamed);
       Object expect = c.get("expect");
       check("reviewRekey[" + c.get("name") + "]", got.equals(expect), jsonMismatch(got, expect));
+    }
+  }
+
+  /**
+   * {@code generation_unit_cases.json}: the standard emitters, then per case the units
+   * {@link SpecGenerationUnits#specGenerationUnits} reads from the document's register, each
+   * unit's {@link SpecGenerationUnit#mappingFor} per area, {@link
+   * SpecGenerationUnits#specDefaultUnits} per area and the stored units override of each section.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testGenerationUnits(SpecModel model) throws IOException {
+    Map<String, Object> table = readJsonObject("generation_unit_cases.json");
+    List<Object> standard = new ArrayList<Object>(SpecGenerationUnits.SPEC_STANDARD_EMITTERS);
+    check(
+        "generationUnits.standardEmitters",
+        standard.equals(table.get("standardEmitters")),
+        jsonMismatch(standard, table.get("standardEmitters")));
+    List<Object> areas = (List<Object>) table.get("areas");
+    for (Object caseObj : (List<Object>) table.get("cases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      SpecDocument doc = documentFromState((Map<String, Object>) c.get("state"));
+      List<SpecGenerationUnit> units = SpecGenerationUnits.specGenerationUnits(model, doc);
+      List<Object> unitsJson = new ArrayList<>();
+      Map<String, Object> mappingFor = new LinkedHashMap<>();
+      for (SpecGenerationUnit u : units) {
+        Map<String, Object> o = new LinkedHashMap<>();
+        o.put("unitId", u.unitId);
+        o.put("kind", u.kind);
+        o.put("path", u.path);
+        List<Object> mappings = new ArrayList<>();
+        for (SpecGenerationUnitMapping m : u.mappings) {
+          Map<String, Object> mo = new LinkedHashMap<>();
+          mo.put("area", m.area);
+          mo.put("mapping", m.mapping);
+          mappings.add(mo);
+        }
+        o.put("mappings", mappings);
+        o.put("emitters", new ArrayList<Object>(u.emitters));
+        unitsJson.add(o);
+        Map<String, Object> perArea = new LinkedHashMap<>();
+        for (Object a : areas) {
+          perArea.put((String) a, u.mappingFor((String) a));
+        }
+        mappingFor.put(u.unitId, perArea);
+      }
+      Map<String, Object> defaultUnits = new LinkedHashMap<>();
+      for (Object a : areas) {
+        defaultUnits.put(
+            (String) a, new ArrayList<Object>(SpecGenerationUnits.specDefaultUnits(units, (String) a)));
+      }
+      Map<String, Object> sectionUnits = new LinkedHashMap<>();
+      for (Object p : (List<Object>) c.get("sections")) {
+        sectionUnits.put((String) p, doc.units((String) p));
+      }
+      Map<String, Object> got = new LinkedHashMap<>();
+      got.put("units", unitsJson);
+      got.put("mappingFor", mappingFor);
+      got.put("defaultUnits", defaultUnits);
+      got.put("sectionUnits", sectionUnits);
+      Object expect = c.get("expect");
+      check(
+          "generationUnits[" + c.get("name") + "]", got.equals(expect), jsonMismatch(got, expect));
     }
   }
 
@@ -2922,6 +2987,7 @@ public final class ConformanceRunner {
     testNodeCreationCases(model);
     testNodeCreationCoverage();
     testNodeCreationScript(model);
+    testGenerationUnits(model);
 
     int total = passed + failed.size();
     if (!failed.isEmpty()) {

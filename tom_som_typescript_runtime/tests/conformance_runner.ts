@@ -105,6 +105,9 @@ import {
   SpecDocumentYaml,
   SpecReviewMergeError,
   mergeReviews,
+  K_SPEC_STANDARD_EMITTERS,
+  specDefaultUnits,
+  specGenerationUnits,
 } from '../src/index';
 import type { SpecNodeKindValue, SpecStateFilterValue } from '../src/index';
 
@@ -2194,6 +2197,45 @@ function testCursorScript(model: SpecModel): void {
  * the message is prose — so a rejection is checked by code plus the parent/child
  * it names.
  */
+// The generation-unit register (SOM §11.2, `generation_unit_cases.json`): the
+// units a document declares with their trimmed mappings and emitters, the
+// mapper of an area, the default units of an area, a section's units
+// override as stored, and the standard emitters.
+function testGenerationUnits(model: SpecModel): void {
+  const table = _readJson('generation_unit_cases.json');
+  _check(
+    'generationUnits.standardEmitters',
+    _deepEqual([...K_SPEC_STANDARD_EMITTERS], table.standardEmitters),
+    _jsonMismatch([...K_SPEC_STANDARD_EMITTERS], table.standardEmitters),
+  );
+  for (const c of table.cases) {
+    const doc = _documentFromState(c.state);
+    const units = specGenerationUnits(model, doc);
+    const mappingFor: any = {};
+    for (const u of units) {
+      mappingFor[u.unitId] = {};
+      for (const a of table.areas) mappingFor[u.unitId][a] = u.mappingFor(a);
+    }
+    const defaultUnits: any = {};
+    for (const a of table.areas) defaultUnits[a] = specDefaultUnits(units, a);
+    const sectionUnits: any = {};
+    for (const p of c.sections) sectionUnits[p] = doc.units(p);
+    const got = {
+      units: units.map((u) => ({
+        unitId: u.unitId,
+        kind: u.kind,
+        path: u.path,
+        mappings: u.mappings.map((m) => ({ area: m.area, mapping: m.mapping })),
+        emitters: u.emitters,
+      })),
+      mappingFor,
+      defaultUnits,
+      sectionUnits,
+    };
+    _check(`generationUnits[${c.name}]`, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+  }
+}
+
 function testNodeCreationCases(model: SpecModel): void {
   const cases = _readJson('node_creation_cases.json');
   const covered = new Set<string>();
@@ -2595,6 +2637,7 @@ export function main(): number {
   testCursorScript(model);
   testNodeCreationCases(model);
   testNodeCreationScript(model);
+  testGenerationUnits(model);
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

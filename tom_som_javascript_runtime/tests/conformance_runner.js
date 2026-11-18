@@ -25,6 +25,8 @@
  *     writing changes as marks (`change_mark_cases.json`), and extracting
  *     the answers for a step folder (`answer_cases.json`, SOM §11.9.7);
  *   * moving a list item and re-keying the review pass (`list_move_cases.json`);
+ *   * the generation-unit register, its mappings, emitters and section unit
+ *     overrides (`generation_unit_cases.json`);
  *   * the imperative operations script;
  *   * the generic editor (YRD7) script;
  *   * the SOM §9 query tier — the portable text-pattern subset, the query /
@@ -105,6 +107,9 @@ const {
   renderAnswers,
   SpecReviewMergeError,
   mergeReviews,
+  specGenerationUnits,
+  specDefaultUnits,
+  K_SPEC_STANDARD_EMITTERS,
 } = require(path.join(_PKG_ROOT, 'tom_som_runtime', 'index.js'));
 
 const _MODEL_VERSION = '1.0';
@@ -897,6 +902,48 @@ function testListMove(model) {
 // `roundTrip` re-encodes the decoded document with its decoded review pass;
 // `stale` removes the named list items, then asks which review entries no
 // longer resolve.
+// The generation-unit register (SOM §11.2), `generation_unit_cases.json`: the
+// standard emitters, then per case the units the document declares, each
+// unit's mapping per area, the default units per area and the stored section
+// unit overrides.
+function testGenerationUnits(model) {
+  const table = _readJson('generation_unit_cases.json');
+  _check(
+    'generationUnits.standardEmitters',
+    _deepEqual([...K_SPEC_STANDARD_EMITTERS], table.standardEmitters),
+    _jsonMismatch([...K_SPEC_STANDARD_EMITTERS], table.standardEmitters),
+  );
+  for (const c of table.cases) {
+    const doc = _documentFromState(c.state);
+    const units = specGenerationUnits(model, doc);
+    const mappingFor = {};
+    for (const u of units) {
+      mappingFor[u.unitId] = {};
+      for (const a of table.areas) mappingFor[u.unitId][a] = u.mappingFor(a);
+    }
+    const defaultUnits = {};
+    for (const a of table.areas) defaultUnits[a] = specDefaultUnits(units, a);
+    const sectionUnits = {};
+    for (const p of c.sections) {
+      const v = doc.units(p);
+      sectionUnits[p] = v === undefined ? null : v;
+    }
+    const got = {
+      units: units.map((u) => ({
+        unitId: u.unitId,
+        kind: u.kind,
+        path: u.path,
+        mappings: u.mappings.map((m) => ({ area: m.area, mapping: m.mapping })),
+        emitters: [...u.emitters],
+      })),
+      mappingFor,
+      defaultUnits,
+      sectionUnits,
+    };
+    _check(`generationUnits[${c.name}]`, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+  }
+}
+
 function _runYamlReviewCase(model, tree, c) {
   const contents = yamlDecode(c.yaml, tree);
   if (c.op === 'roundTrip') {
@@ -2394,6 +2441,7 @@ function main() {
   testChangeMarks(model, tree);
   testAnswers(model);
   testListMove(model);
+  testGenerationUnits(model);
   testReflection(model);
   testValidation(model);
   testEditor(model);

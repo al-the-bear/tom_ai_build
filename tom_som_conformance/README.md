@@ -680,6 +680,22 @@ fixture:
 - the four refusals, as the error words `argument` / `range` / `collision`;
 - the review pass re-keyed after a swap.
 
+
+##### …and the generation-unit register (SOM §11.2)
+
+[`corpus/generation_unit_cases.json`](corpus/generation_unit_cases.json)
+pins the register reader over the shared model's register `DEMO/DLV-LST`:
+- `specGenerationUnits`: the units in register order, each with its kind, its
+  path, its mappings (area and mapper, trimmed) and its emitters (trimmed); a
+  unit without a `unitId`, a second unit of an id already seen, a mapping
+  without an area and an emitter without an id are left out;
+- `mappingFor` per unit and area — the first mapping of the area, or null;
+- `specDefaultUnits` per area — the units whose mappings hold it;
+- a section's `units` override as stored, null when unset;
+- the standard emitters in order, `markdown` last.
+
+A document without a register declares no units, and a stored override stays
+as it is. Every runtime runs every case.
 ##### …and the Stage-A gate over them
 
 [`corpus/codespecs_gate_cases.json`](corpus/codespecs_gate_cases.json) pins

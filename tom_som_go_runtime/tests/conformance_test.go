@@ -240,6 +240,7 @@ func TestConformance(t *testing.T) {
 	testInlineMarks(c, t, model, tree)
 	testChangeMarks(c, t, model, tree)
 	testAnswers(c, t, model)
+	testGenerationUnits(c, t, model)
 
 	c.finish()
 }
@@ -3408,6 +3409,79 @@ func testChangeMarks(c *checker, t *testing.T, model *som.SpecModel, tree *som.S
 		got := runAnnotationCase(t, model, tree, cc, false)
 		want := toGenericJSON(t, cc.Expect)
 		c.check("changeMarks["+cc.Name+"]", reflect.DeepEqual(got, want),
+			"got "+canonJSON(t, got)+" want "+canonJSON(t, want))
+	}
+}
+
+// generationUnitCaseTable mirrors corpus/generation_unit_cases.json — the
+// generation-unit register (SOM §11.2): SpecGenerationUnits, MappingFor,
+// SpecDefaultUnits, a section's units override and SpecStandardEmitters.
+type generationUnitCaseTable struct {
+	StandardEmitters []string `json:"standardEmitters"`
+	Areas            []string `json:"areas"`
+	Cases            []struct {
+		Name     string           `json:"name"`
+		State    som.DocumentJson `json:"state"`
+		Sections []string         `json:"sections"`
+		Expect   json.RawMessage  `json:"expect"`
+	} `json:"cases"`
+}
+
+func testGenerationUnits(c *checker, t *testing.T, model *som.SpecModel) {
+	var table generationUnitCaseTable
+	readJSON(t, "generation_unit_cases.json", &table)
+	c.check("generationUnits.standardEmitters",
+		reflect.DeepEqual(som.SpecStandardEmitters, table.StandardEmitters),
+		"got "+canonJSON(t, som.SpecStandardEmitters)+" want "+canonJSON(t, table.StandardEmitters))
+	c.check("generationUnits.cases", len(table.Cases) > 0, "no cases in generation_unit_cases.json")
+	for _, cc := range table.Cases {
+		doc := docFromState(&cc.State)
+		units := som.SpecGenerationUnits(model, doc)
+		unitRecords := []any{}
+		mappingFor := map[string]any{}
+		for _, u := range units {
+			mappings := []any{}
+			for _, m := range u.Mappings {
+				mappings = append(mappings, map[string]any{"area": m.Area, "mapping": m.Mapping})
+			}
+			emitters := append([]string{}, u.Emitters...)
+			unitRecords = append(unitRecords, map[string]any{
+				"unitId":   u.UnitID,
+				"kind":     u.Kind,
+				"path":     u.Path,
+				"mappings": mappings,
+				"emitters": emitters,
+			})
+			perArea := map[string]any{}
+			for _, a := range table.Areas {
+				if mapper, ok := u.MappingFor(a); ok {
+					perArea[a] = mapper
+				} else {
+					perArea[a] = nil
+				}
+			}
+			mappingFor[u.UnitID] = perArea
+		}
+		defaultUnits := map[string]any{}
+		for _, a := range table.Areas {
+			defaultUnits[a] = append([]string{}, som.SpecDefaultUnits(units, a)...)
+		}
+		sectionUnits := map[string]any{}
+		for _, p := range cc.Sections {
+			if v, ok := doc.Units(p); ok {
+				sectionUnits[p] = v
+			} else {
+				sectionUnits[p] = nil
+			}
+		}
+		got := generic(t, map[string]any{
+			"units":        unitRecords,
+			"mappingFor":   mappingFor,
+			"defaultUnits": defaultUnits,
+			"sectionUnits": sectionUnits,
+		})
+		want := toGenericJSON(t, cc.Expect)
+		c.check("generationUnits["+cc.Name+"]", reflect.DeepEqual(got, want),
 			"got "+canonJSON(t, got)+" want "+canonJSON(t, want))
 	}
 }
