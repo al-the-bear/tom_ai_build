@@ -690,6 +690,10 @@ type markdownImportCaseTable struct {
 			Message string  `json:"message"`
 		} `json:"rejections"`
 		Document som.DocumentJson `json:"document"`
+		// CodeSpecs / Units, when a case names them, are the heading-comment
+		// values the parse result holds (read trimmed); nil when absent.
+		CodeSpecs map[string]string `json:"codeSpecs"`
+		Units     map[string]string `json:"units"`
 	} `json:"cases"`
 }
 
@@ -734,6 +738,24 @@ func testMarkdownImportRejections(c *checker, t *testing.T, model *som.SpecModel
 		wantJSON := canonJSON(t, &want)
 		c.check("md.reject["+name+"].landed", gotJSON == wantJSON,
 			"got "+gotJSON+" want "+wantJSON)
+		// A case naming heading-comment values holds them too (read trimmed).
+		for _, kv := range []struct {
+			key       string
+			got, want map[string]string
+		}{
+			{"codeSpecs", parsed.CodeSpecs, kase.CodeSpecs},
+			{"units", parsed.Units, kase.Units},
+		} {
+			if kv.want == nil {
+				continue
+			}
+			got := kv.got
+			if got == nil {
+				got = map[string]string{}
+			}
+			g, w := canonJSON(t, got), canonJSON(t, kv.want)
+			c.check("md.reject["+name+"]."+kv.key, g == w, "got "+g+" want "+w)
+		}
 	}
 }
 

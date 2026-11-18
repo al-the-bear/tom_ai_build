@@ -510,6 +510,12 @@ def test_markdown_import_rejections(model: SpecModel) -> None:
         })
         _check(f"md.reject[{name}].landed", landed.to_json() == case["document"],
                _json_mismatch(landed.to_json(), case["document"]))
+        # A case naming heading-comment values holds them too (read trimmed).
+        for key, attr in (("codeSpecs", "code_specs"), ("units", "units")):
+            if key in case:
+                got_values = getattr(parsed, attr)
+                _check(f"md.reject[{name}].{key}", got_values == case[key],
+                       _json_mismatch(got_values, case[key]))
 
 
 def test_reflection(model: SpecModel) -> None:

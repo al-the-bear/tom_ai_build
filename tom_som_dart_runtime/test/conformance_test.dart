@@ -298,6 +298,12 @@ void main() {
           c['document'],
           reason: 'the blocks that were not rejected must still land',
         );
+        if (c.containsKey('codeSpecs')) {
+          expect(parsed.codeSpecs, c['codeSpecs']);
+        }
+        if (c.containsKey('units')) {
+          expect(parsed.units, c['units']);
+        }
       });
     }
   });
@@ -3445,7 +3451,7 @@ List<Map<String, dynamic>> _validationCases(SpecModel model) {
       'generationUnitsValid',
       _unitsState(
         areas: ['CE-DB'],
-        emitters: ['openapi', ' asyncapi '],
+        emitters: ['openapi', ' asyncapi ', 'markdown'],
         units: {'DEMO/TTL': 'u_a', 'DEMO/REG': 'u_a,u_b'},
       ),
     ),
@@ -4558,11 +4564,17 @@ Map<String, dynamic> _markdownImportCases() {
     required List<String> markdown,
     required List<Map<String, dynamic>> rejections,
     required Map<String, dynamic> document,
+    Map<String, String>? codeSpecs,
+    Map<String, String>? units,
   }) => {
     'name': name,
     'markdown': '${markdown.join('\n')}\n',
     'rejections': rejections,
     'document': document,
+    // Only a case about the heading markers carries them: the parse result's
+    // codeSpec and units maps, which the landed document does not hold.
+    'codeSpecs': ?codeSpecs,
+    'units': ?units,
   };
 
   return {
@@ -5138,6 +5150,30 @@ Map<String, dynamic> _markdownImportCases() {
             },
           },
         },
+      ),
+      c(
+        name:
+            'a quoted codeSpec or units value is read trimmed, double- or '
+            'single-quoted',
+        markdown: [
+          '# <!--[DEMO]--> Demo Document',
+          '',
+          '## <!--[TTL] codeSpec="  DemoTitle  " units=" demo_server "--> '
+              'Document Title',
+          '',
+          'Hello',
+          '',
+          "## <!--[SUM] codeSpec='  DemoSummary '--> Executive Summary",
+          '',
+          'A summary.',
+        ],
+        rejections: [],
+        document: {
+          'content': {'DEMO/SUM': 'A summary.', 'DEMO/TTL': 'Hello'},
+          'headlines': {'DEMO/SUM': 'Executive Summary'},
+        },
+        codeSpecs: {'DEMO/TTL': 'DemoTitle', 'DEMO/SUM': 'DemoSummary'},
+        units: {'DEMO/TTL': 'demo_server'},
       ),
     ],
   };
@@ -7406,6 +7442,25 @@ Map<String, dynamic> _yamlReviewCases(
       'op': 'stale',
       'yaml': withReview.toString(),
       'removeItems': ['DEMO/items-2'],
+    },
+    {
+      // A hand-written review value may be a JSON flow map or carry no value
+      // at all; the YAML 1.2 core schema reads them as a map and as null, and
+      // the writer prints both in its own canonical form.
+      'name':
+          'a review value written as a JSON flow map is read as a map, and an '
+          'empty value as null (the YAML 1.2 core schema); both are written '
+          'back in canonical form',
+      'op': 'roundTrip',
+      'yaml':
+          '$golden'
+          'review:\n'
+          '  "DEMO/TTL":\n'
+          '    empty:\n'
+          '    flow_map: {"a": 1, "b": [true, null]}\n'
+          '    flow_seq: [1, "x"]\n'
+          '    nested:\n'
+          '      k: v\n',
     },
   ];
   for (final c in cases) {

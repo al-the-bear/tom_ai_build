@@ -380,6 +380,27 @@
           }
         }
       }
+    },
+    {
+      "name": "a quoted codeSpec or units value is read trimmed, double- or single-quoted",
+      "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[TTL] codeSpec=\"  DemoTitle  \" units=\" demo_server \"--> Document Title\n\nHello\n\n## <!--[SUM] codeSpec='  DemoSummary '--> Executive Summary\n\nA summary.\n",
+      "rejections": [],
+      "document": {
+        "content": {
+          "DEMO/SUM": "A summary.",
+          "DEMO/TTL": "Hello"
+        },
+        "headlines": {
+          "DEMO/SUM": "Executive Summary"
+        }
+      },
+      "codeSpecs": {
+        "DEMO/TTL": "DemoTitle",
+        "DEMO/SUM": "DemoSummary"
+      },
+      "units": {
+        "DEMO/TTL": "demo_server"
+      }
     }
   ]
 }

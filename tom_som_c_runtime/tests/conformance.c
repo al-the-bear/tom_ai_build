@@ -763,6 +763,36 @@ static void test_yaml_review(Checker *c, const SpecModel *model,
  * block fails the first; one that reports it and abandons the rest of the parse
  * fails the second. The corpus spells "no anchor" as JSON null; `som_json_str_or`
  * maps that to "", which is exactly this port's no-anchor sentinel. */
+/* A string map against a corpus JSON object of strings: the same keys, each
+ * with the same value. Writes an owned `{"k":"v",...}` rendering of `got`. */
+static int str_map_equals_json(const SomMap *got, const SomJson *want,
+                               char **got_out) {
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_putc(&b, '{');
+  for (size_t k = 0; k < got->len; k++) {
+    char *ek = som_json_encode_str(got->entries[k].key);
+    char *ev = som_json_encode_str(got->entries[k].val);
+    if (k > 0) som_buf_putc(&b, ',');
+    som_buf_puts(&b, ek);
+    som_buf_putc(&b, ':');
+    som_buf_puts(&b, ev);
+    free(ek);
+    free(ev);
+  }
+  som_buf_putc(&b, '}');
+  *got_out = som_buf_take(&b);
+  if (want == NULL || want->type != SOM_JSON_OBJECT) return 0;
+  if (want->as.object.len != got->len) return 0;
+  for (size_t k = 0; k < want->as.object.len; k++) {
+    const SomJsonMember *m = &want->as.object.members[k];
+    const char *v = som_map_get(got, m->key);
+    const char *w = som_json_as_str(m->value);
+    if (v == NULL || w == NULL || strcmp(v, w) != 0) return 0;
+  }
+  return 1;
+}
+
 static void test_markdown_import_rejections(Checker *c, const SpecModel *model) {
   SomJson *table = read_json("markdown_import_cases.json");
   const SomJson *cases = som_json_get(table, "cases");
@@ -806,6 +836,10 @@ static void test_markdown_import_rejections(Checker *c, const SpecModel *model) 
     spec_document_load_json(&landed, spec_markdown_result_document(&result));
     DocumentJson dj;
     spec_document_to_json(&landed, &dj);
+    /* Like the TS runner, the landed document is the parse's content, forms,
+     * lists and headlines; codeSpecs and units are checked on their own below. */
+    som_map_clear(&dj.code_specs);
+    som_map_clear(&dj.units);
     DocumentJson wanted;
     document_json_from_json(som_json_get(kase, "document"), &wanted);
     char *got_json = document_json_to_canonical_json(&dj);
@@ -819,6 +853,20 @@ static void test_markdown_import_rejections(Checker *c, const SpecModel *model) 
     document_json_free(&wanted);
     document_json_free(&dj);
     spec_document_free(&landed);
+
+    /* A case naming heading-comment values holds them too (read trimmed). */
+    const DocumentJson *staged = spec_markdown_result_document(&result);
+    const char *map_keys[2] = {"codeSpecs", "units"};
+    const SomMap *map_got[2] = {&staged->code_specs, &staged->units};
+    for (size_t k = 0; k < 2; k++) {
+      const SomJson *want_map = som_json_get(kase, map_keys[k]);
+      if (want_map == NULL) continue;
+      char *got_map = NULL;
+      int same = str_map_equals_json(map_got[k], want_map, &got_map);
+      snprintf(label, sizeof(label), "md.reject[%s].%s", name, map_keys[k]);
+      check(c, label, same, got_map);
+      free(got_map);
+    }
     spec_markdown_result_free(&result);
   }
   som_json_free(table);

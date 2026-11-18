@@ -550,11 +550,40 @@ static void test_markdown_import_rejections(Checker& c, const som::SpecModel& mo
 
     som::SpecDocument landed;
     landed.loadJson(result.document());
-    std::string got = som::documentJsonToCanonicalJson(landed.toJson());
+    // Like the TS runner, the landed document is the parse's content, forms,
+    // lists and headlines; codeSpecs and units are checked on their own below.
+    som::DocumentJson landedJson = landed.toJson();
+    landedJson.codeSpecs.clear();
+    landedJson.units.clear();
+    std::string got = som::documentJsonToCanonicalJson(landedJson);
     std::string want = som::documentJsonToCanonicalJson(
         som::documentJsonFromJson(som::jsonGet(kase, "document")));
     c.check("md.reject[" + name + "].landed", got == want,
             "got " + got + " want " + want);
+
+    // A case naming heading-comment values holds them too (read trimmed).
+    const std::pair<const char*, const std::map<std::string, std::string>*>
+        maps[] = {{"codeSpecs", &result.document().codeSpecs},
+                  {"units", &result.document().units}};
+    for (const auto& [key, gotMap] : maps) {
+      som::JsonRef wantMap = som::jsonGet(kase, key);
+      if (!wantMap) continue;
+      bool same = wantMap->type == som::JsonType::Object &&
+                  wantMap->object.size() == gotMap->size();
+      for (std::size_t k = 0; same && k < wantMap->object.size(); k++) {
+        const auto& member = wantMap->object[k];
+        const std::string* w = som::jsonAsStr(member.second);
+        auto it = gotMap->find(member.first);
+        same = w != nullptr && it != gotMap->end() && it->second == *w;
+      }
+      std::string rendered = "{";
+      for (const auto& [k, v] : *gotMap) {
+        if (rendered.size() > 1) rendered += ",";
+        rendered += som::jsonEncodeStr(k) + ":" + som::jsonEncodeStr(v);
+      }
+      rendered += "}";
+      c.check("md.reject[" + name + "]." + key, same, rendered);
+    }
   }
 }
 

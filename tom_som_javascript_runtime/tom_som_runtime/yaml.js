@@ -280,7 +280,8 @@ class _Yaml {
     }
     const childIndent = _leading(this.lines[i]);
     if (childIndent <= parentIndent) {
-      return _newMap();
+      // An empty value: null in the YAML 1.2 core schema (the typed reading).
+      return this.typed ? null : _newMap();
     }
     return this.parseNode(childIndent);
   }
@@ -297,9 +298,9 @@ class _Yaml {
       return JSON.parse(t); // a JSON string literal is a valid YAML flow scalar.
     }
     if (this.typed) {
-      if (t.startsWith('[') && t.endsWith(']')) {
+      if (t.startsWith('[') || t.startsWith('{')) {
         try {
-          return JSON.parse(t); // the JSON flow sequences the encoder writes.
+          return JSON.parse(t); // a JSON flow collection is parsed as JSON.
         } catch (_) {
           // not JSON — keep the plain text.
         }

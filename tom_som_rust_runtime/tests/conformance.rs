@@ -44,7 +44,7 @@
 //!
 //! `cargo test` is the native runner; exit 0 == all green.
 
-use std::collections::{HashMap, HashSet};
+use std::collections::{BTreeMap, HashMap, HashSet};
 use std::path::PathBuf;
 
 use tom_som_rust_runtime::json::Json;
@@ -900,8 +900,13 @@ fn test_markdown_import_rejections(c: &mut Checker, model: &SpecModel) {
                 &got.message,
             );
         }
+        // The landed document holds the value maps only, as the TS reference
+        // loads it; the heading-comment maps are checked on their own below.
         let mut landed = SpecDocument::new();
-        landed.load_json(&parsed.to_document_json());
+        let mut landed_json = parsed.to_document_json();
+        landed_json.code_specs.clear();
+        landed_json.units.clear();
+        landed.load_json(&landed_json);
         let got = landed.to_json().to_canonical_json();
         let want = DocumentJson::from_json(kase.get("document").unwrap_or(&Json::Null))
             .to_canonical_json();
@@ -910,6 +915,21 @@ fn test_markdown_import_rejections(c: &mut Checker, model: &SpecModel) {
             got == want,
             &format!("got {} want {}", got, want),
         );
+        // A case naming heading-comment values holds them too (read trimmed).
+        for (key, got) in [("codeSpecs", &parsed.code_specs), ("units", &parsed.units)] {
+            let Some(want_obj) = kase.get(key).and_then(|v| v.as_object()) else {
+                continue;
+            };
+            let want: BTreeMap<String, String> = want_obj
+                .iter()
+                .map(|(k, v)| (k.clone(), v.as_str().unwrap_or("").to_string()))
+                .collect();
+            c.check(
+                &format!("md.reject[{}].{}", name, key),
+                *got == want,
+                &format!("got {:?} want {:?}", got, want),
+            );
+        }
     }
 }
 

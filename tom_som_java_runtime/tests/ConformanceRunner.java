@@ -1534,12 +1534,27 @@ public final class ConformanceRunner {
           got.equals(wantRejections),
           jsonMismatch(got, wantRejections));
       SpecDocument landed = new SpecDocument();
-      landed.loadJson(parsed.toLoadJson());
+      // As the TS runner: only the value maps land; codeSpecs / units are
+      // checked on their own below.
+      Map<String, Object> loadJson = new LinkedHashMap<>(parsed.toLoadJson());
+      loadJson.remove("codeSpecs");
+      loadJson.remove("units");
+      landed.loadJson(loadJson);
       Object wantDocument = c.get("document");
       check(
           "md.reject[" + name + "].landed",
           landed.toJson().equals(wantDocument),
           jsonMismatch(landed.toJson(), wantDocument));
+      // A case naming heading-comment values holds them too (read trimmed).
+      for (String key : new String[] {"codeSpecs", "units"}) {
+        Object want = c.get(key);
+        if (want == null) continue;
+        Map<String, String> gotMap = key.equals("codeSpecs") ? parsed.codeSpecs : parsed.units;
+        check(
+            "md.reject[" + name + "]." + key,
+            gotMap.equals(want),
+            jsonMismatch(gotMap, want));
+      }
     }
   }
 

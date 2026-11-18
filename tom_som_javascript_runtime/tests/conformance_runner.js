@@ -1001,6 +1001,13 @@ function testMarkdownImportRejections(model) {
       _deepEqual(landed.toJson(), c.document),
       _jsonMismatch(landed.toJson(), c.document),
     );
+    // A case naming heading-comment values holds them too (read trimmed).
+    for (const key of ['codeSpecs', 'units']) {
+      if (c[key] !== undefined) {
+        const got = parsed[key];
+        _check(`md.reject[${c.name}].${key}`, _deepEqual(got, c[key]), _jsonMismatch(got, c[key]));
+      }
+    }
   }
 }
 

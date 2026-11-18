@@ -907,17 +907,17 @@ class SpecDocumentMarkdown {
 
   /**
    * Extracts the `codeSpec="..."` value from a heading-comment key=value region
-   * (group 2 of {@link headlineComment}), or `null` when absent (csmc8,
-   * codespecs_mapping.md §9.2).
+   * (group 2 of {@link headlineComment}), trimmed, or the empty string when
+   * absent (csmc8, codespecs_mapping.md §9.2) — as TS and Dart read it.
    *
-   * @returns {string|null}
+   * @returns {string}
    */
   static codeSpecOf(region) {
-    if (region === null || region === undefined) return null;
+    if (region === null || region === undefined) return '';
     const m = SpecDocumentMarkdown._codeSpecPattern.exec(region);
-    if (m === null) return null;
+    if (m === null) return '';
     const v = m[1] !== undefined ? m[1] : m[2] !== undefined ? m[2] : m[3];
-    return v !== undefined ? v : null;
+    return (v !== undefined ? v : '').trim();
   }
 
   /**

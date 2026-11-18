@@ -51,7 +51,8 @@ public final class Yaml {
    *   <li>float ({@link Double}):
    *       {@code [-+]?(.[0-9]+|[0-9]+(.[0-9]*)?)([eE][-+]?[0-9]+)?},
    *       {@code [-+]?.inf}, {@code .nan} (each in its three spellings);
-   *   <li>a plain {@code [...]} is a JSON flow sequence; anything else a string.
+   *   <li>a plain {@code [...]} / {@code {...}} is a JSON flow sequence / mapping (read as
+   *       JSON; text JSON does not read stays a string); anything else a string.
    * </ul>
    *
    * That is what the uninterpreted {@code review:} pass needs to round-trip its
@@ -291,7 +292,7 @@ public final class Yaml {
     if (FLOAT_PATTERN.matcher(t).matches()) {
       return Double.valueOf(Double.parseDouble(t));
     }
-    if (t.startsWith("[") && t.endsWith("]")) {
+    if (t.startsWith("[") || t.startsWith("{")) {
       try {
         return Json.parse(t);
       } catch (RuntimeException e) {

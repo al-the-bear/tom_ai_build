@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- The typed YAML reading (the `review:` pass) parses a JSON flow map `{...}` as
+  a map, as TS and Dart do; it stayed a string.
+
 ## 1.12.0
 
 - No runtime change. Moves in lockstep with `tom_specs_model` 1.12.0 (an

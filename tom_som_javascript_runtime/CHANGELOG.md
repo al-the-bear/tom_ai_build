@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- The typed YAML reading (the `review:` pass) parses a JSON flow map `{...}` as
+  a map and reads an empty plain value as null, as TS and Dart do (a flow map
+  stayed a string, an empty value an empty map).
+- `SpecDocumentMarkdown.codeSpecOf` returns the value trimmed, `''` when
+  absent, as TS and Dart do (it returned it untrimmed, `null` when absent).
+
 ## 1.12.0
 
 - No runtime change. Moves in lockstep with `tom_specs_model` 1.12.0 (an
