@@ -608,7 +608,16 @@ user gets from the registry, and proving exactly that is what makes it a
 sample rather than a second `example/`. It is the release-closure discipline
 (`tom_specs_clitool/tool/release_set.yaml`) turned outward: that gate keeps the
 shipped set closed over what it ships, and this keeps a sample honest about
-what a consumer receives.
+what a consumer receives. The one exception is a language whose runtime is not published to its
+registry — every non-Dart runtime, by decision: its port runs on the checkout's
+packages through a source install its README gives (Python: `pip install -e`
+of the runtime and the facade, or `PYTHONPATH`), until the runtime is published.
+
+**A port sits beside its sample**, one folder per language
+(`<sample>/python/`, …), with its own README and, where its output differs
+from the Dart sample's, its own `expected_output.txt` and the reason; a port
+without one must print the Dart sample's. The samples README (§ Per language)
+lists what each language covers.
 
 **Samples are not members of the release set.** The release set is the
 dependency-closed unit that ships; a sample consumes that unit from the

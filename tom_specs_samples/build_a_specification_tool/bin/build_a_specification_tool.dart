@@ -415,7 +415,13 @@ void _theTool(SpecModel model, DocSpecsSchema schema, SpecDocument doc) {
     '${'${(100 * report.written / report.offered).round()}%'.padLeft(6)}',
   );
   print('');
-  print('  SBP.11 offers 2529 positions because a Solution Blueprint SEEDS');
+  // The largest row, computed rather than written in: a model change moves the
+  // count, and a number typed into the text goes stale without failing.
+  final largest = report.rows.reduce((a, b) => b.offered > a.offered ? b : a);
+  print(
+    '  ${largest.title.split(' ').first} offers ${largest.offered} positions '
+    'because a Solution Blueprint SEEDS',
+  );
   print('  the twelve Phase-3 documents: its section classes ARE those');
   print('  documents\' types, so the model surface under an SBP root includes');
   print('  everything it seeds. A tool that reports "0 %" against a number');

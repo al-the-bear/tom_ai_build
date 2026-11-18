@@ -3,6 +3,8 @@
 For the reader who is **not authoring specifications but writing programs that
 read them**: an editor, a linter, a report, an importer, a migration.
 
+A Python port is in [`python/`](python/README.md).
+
 ```bash
 dart pub get
 dart run

@@ -227,7 +227,7 @@ and answering it means walking the model and asking the document.
   -------------------------------------- -------------------
   TOTAL                                      4 /  6215    0%
 
-  SBP.11 offers 2529 positions because a Solution Blueprint SEEDS
+  SBP.11 offers 2542 positions because a Solution Blueprint SEEDS
   the twelve Phase-3 documents: its section classes ARE those
   documents' types, so the model surface under an SBP root includes
   everything it seeds. A tool that reports "0 %" against a number

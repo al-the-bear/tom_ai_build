@@ -28,9 +28,16 @@
 # the workspace ztmp/). On failure the diff against the expected output is
 # printed inline, so the reason is visible without opening the file.
 #
+# A sample's ports to other languages sit beside it, one folder per language
+# (`<sample>/python/`, … — the samples README, § Per language), and run as
+# samples of their own, named `<sample>/<language>`. A port compares against
+# its own `expected_output.txt` when it has one (its output differs from the
+# Dart sample's, and its README says why), else against the Dart sample's.
+#
 # Usage:  ./tool/run_all_samples.sh [--strict] [--log-dir DIR] [sample ...]
-#         sample names are directory names, e.g. `author_solution_blueprint`.
-#         With none given, every sample runs.
+#         sample names are directory names, e.g. `author_solution_blueprint`,
+#         or `author_solution_blueprint/python` for one port.
+#         With none given, every sample and every port runs.
 set -uo pipefail
 
 HERE="$(cd "$(dirname "$0")" && pwd)"     # tom_specs_samples/tool
@@ -44,7 +51,7 @@ while [ $# -gt 0 ]; do
   case "$1" in
     --strict) STRICT=1; shift ;;
     --log-dir) LOG_DIR="$2"; shift 2 ;;
-    -h|--help) sed -n '2,33p' "$0"; exit 0 ;;
+    -h|--help) sed -n '2,40p' "$0"; exit 0 ;;
     *) SELECTED+=("$1"); shift ;;
   esac
 done
@@ -55,14 +62,19 @@ fi
 mkdir -p "$LOG_DIR"
 
 # A sample is any directory holding a README.md — the convention's minimum.
-# Discovered rather than listed, so adding one needs no edit here.
+# Discovered rather than listed, so adding one needs no edit here. Its ports
+# are the language folders beside its source that hold a README.md too.
+PORT_LANGUAGES=(python javascript typescript go rust java c cpp)
 discover() {
-  local d
+  local d lang
   for d in "$SAMPLES"/*/; do
     d="${d%/}"
     [ "$(basename "$d")" = "tool" ] && continue
     [ -f "$d/README.md" ] || continue
     basename "$d"
+    for lang in "${PORT_LANGUAGES[@]}"; do
+      [ -f "$d/$lang/README.md" ] && echo "$(basename "$d")/$lang"
+    done
   done
 }
 
@@ -82,14 +94,19 @@ PASSED=(); FAILED=(); SKIPPED=()
 run_one() {
   local name="$1"
   local dir="$SAMPLES/$name"
-  local log="$LOG_DIR/$name.log"
+  local log="$LOG_DIR/${name//\//__}.log"
 
   if [ ! -d "$dir" ]; then
     echo "  MISSING  $name — no such sample directory"
     FAILED+=("$name")
     return
   fi
-  if [ ! -f "$dir/expected_output.txt" ]; then
+  # A port without its own expected output has the Dart sample's.
+  local expected="$dir/expected_output.txt"
+  if [ ! -f "$expected" ] && [[ "$name" == */* ]]; then
+    expected="$(dirname "$dir")/expected_output.txt"
+  fi
+  if [ ! -f "$expected" ]; then
     echo "  FAIL     $name — no expected_output.txt; a sample without one is a"
     echo "                    demo, not a gate (see the samples README)"
     FAILED+=("$name")
@@ -111,7 +128,15 @@ run_one() {
       echo "  SKIP     $name — python3 not on PATH"
       SKIPPED+=("$name"); return
     fi
-    cmd=(python3 main.py)
+    # The Python runtimes are not published (decided 2026-11-18): a sample
+    # runs on the checkout's packages, as its README's source install does.
+    # The runtime needs PyYAML; without it the toolchain is incomplete.
+    if ! python3 -c 'import yaml' > /dev/null 2>&1; then
+      echo "  SKIP     $name — python3 has no PyYAML (pip install PyYAML)"
+      SKIPPED+=("$name"); return
+    fi
+    cmd=(env "PYTHONPATH=$ROOT/tom_som_python_runtime:$ROOT/tom_som_python_v0${PYTHONPATH:+:$PYTHONPATH}"
+         python3 main.py)
   elif [ -f "$dir/go.mod" ]; then
     if ! command -v go > /dev/null 2>&1; then
       echo "  SKIP     $name — go not on PATH"
@@ -152,7 +177,7 @@ run_one() {
     FAILED+=("$name"); return
   fi
 
-  if diff -q "$dir/expected_output.txt" "$log" > /dev/null 2>&1; then
+  if diff -q "$expected" "$log" > /dev/null 2>&1; then
     # A sample whose output records something a workspace tool produced needs a
     # second gate: the stdout diff proves the sample still prints its record,
     # not that the record is still true. `tool/validate.sh` is the convention
@@ -160,7 +185,7 @@ run_one() {
     # stale. Optional, and its own SKIP/--strict semantics are the same as this
     # script's, so an absent toolchain is reported rather than passed.
     if [ -x "$dir/tool/validate.sh" ]; then
-      local vlog="$LOG_DIR/$name.validate.log"
+      local vlog="$LOG_DIR/${name//\//__}.validate.log"
       local vargs=()
       [ "$STRICT" -eq 1 ] && vargs+=(--strict)
       if ! (cd "$dir" && ./tool/validate.sh "${vargs[@]+"${vargs[@]}"}") \
@@ -175,7 +200,7 @@ run_one() {
     PASSED+=("$name")
   else
     echo "  FAIL     $name — output differs from expected_output.txt"
-    diff -u "$dir/expected_output.txt" "$log" | head -n 30 \
+    diff -u "$expected" "$log" | head -n 30 \
       | sed 's/^/             /'
     FAILED+=("$name")
   fi

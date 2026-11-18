@@ -18,10 +18,10 @@ alphabet.
 
 | # | Sample | Teaches | Phase | Language | Run |
 |---|--------|---------|-------|----------|-----|
-| 1 | [`author_solution_blueprint`](author_solution_blueprint/README.md) | Author a specification end to end: write through the typed facade, serialise both renditions, round-trip, validate, and read a real diagnostic | 2 — Solution Blueprint | Dart | `cd author_solution_blueprint && dart pub get && dart run` |
-| 2 | [`phase4_codespecs_run`](phase4_codespecs_run/README.md) | Run Phase 4 end to end: the starting prompt's quality gate (passing and rejecting), the extract generator, the authoring agent, and validation of the emitted trio — with every step marked mechanical or judgment | 4 — CodeSpecs | Dart | `cd phase4_codespecs_run && dart pub get && dart run` |
-| 3 | [`build_a_specification_tool`](build_a_specification_tool/README.md) | Build tooling *on* TomSpecs: reflective access to the model, generic access to a document, the generated schema, the three validation tiers and which two are reachable at runtime, and a completeness report built on all of it | any — tooling | Dart | `cd build_a_specification_tool && dart pub get && dart run` |
-| 4 | [`full_lifecycle_walkthrough`](full_lifecycle_walkthrough/README.md) | **Start here to understand TomSpecs.** One small project from idea to code — the free-form idea, the Blueprint, two detailed specifications, the CodeSpecs trio, the derived tests and the implementation — with all six quality gates actually run, and a failing gate stopping the walk | 1–6 — the process | Dart | `cd full_lifecycle_walkthrough && dart pub get && dart run` |
+| 1 | [`author_solution_blueprint`](author_solution_blueprint/README.md) | Author a specification end to end: write through the typed facade, serialise both renditions, round-trip, validate, and read a real diagnostic | 2 — Solution Blueprint | Dart, [Python](author_solution_blueprint/python/README.md) | `cd author_solution_blueprint && dart pub get && dart run` |
+| 2 | [`phase4_codespecs_run`](phase4_codespecs_run/README.md) | Run Phase 4 end to end: the starting prompt's quality gate (passing and rejecting), the extract generator, the authoring agent, and validation of the emitted trio — with every step marked mechanical or judgment | 4 — CodeSpecs | Dart, [Python](phase4_codespecs_run/python/README.md) (stages 1–2) | `cd phase4_codespecs_run && dart pub get && dart run` |
+| 3 | [`build_a_specification_tool`](build_a_specification_tool/README.md) | Build tooling *on* TomSpecs: reflective access to the model, generic access to a document, the generated schema, the three validation tiers and which two are reachable at runtime, and a completeness report built on all of it | any — tooling | Dart, [Python](build_a_specification_tool/python/README.md) | `cd build_a_specification_tool && dart pub get && dart run` |
+| 4 | [`full_lifecycle_walkthrough`](full_lifecycle_walkthrough/README.md) | **Start here to understand TomSpecs.** One small project from idea to code — the free-form idea, the Blueprint, two detailed specifications, the CodeSpecs trio, the derived tests and the implementation — with all six quality gates actually run, and a failing gate stopping the walk | 1–6 — the process | Dart only | `cd full_lifecycle_walkthrough && dart pub get && dart run` |
 
 **Read sample 4 first if you want to understand TomSpecs at all** — it is the
 only one that shows the methodology rather than an API, and it needs nothing
@@ -37,8 +37,9 @@ than inferring it from a package name.
 ## Running them
 
 ```bash
-./tool/run_all_samples.sh            # every sample
-./tool/run_all_samples.sh sbp_author # one, by directory name
+./tool/run_all_samples.sh                           # every sample and port
+./tool/run_all_samples.sh author_solution_blueprint # one, by directory name
+./tool/run_all_samples.sh author_solution_blueprint/python  # one port
 ./tool/run_all_samples.sh --strict   # a missing toolchain is a failure
 ```
 
@@ -98,3 +99,33 @@ that produced it. Say so in the sample's README.
 the reference; each other language plane gets the same scenarios, so a Go
 reader and a Dart reader learn the same TomSpecs from equivalent code
 (`tom_specs_documentation_standard.md` §7).
+
+## Per language
+
+A sample's port to another language sits **beside its Dart source, one folder
+per language**: `<sample>/python/`, `<sample>/javascript/`, `<sample>/go/`, and
+so on. Each port folder has its own `README.md` (which the driver discovers it
+by), its entry point (`main.py`, `index.js`, `go.mod`, …) and, when its output
+differs from the Dart sample's, its own `expected_output.txt` with the reason
+in its README. A port without one is compared against the Dart sample's
+`expected_output.txt`: it must print the same text. The driver runs a port as
+the sample `<sample>/<language>`.
+
+**The non-Dart runtimes are not published to registries** (decided
+2026-11-18), so a port cannot take published dependencies: it runs on the
+checkout's packages, through a source install its README gives (Python:
+`pip install -e` of the runtime and the facade, or `PYTHONPATH`). That is the
+one exception to "published dependencies only" above, and it holds until those
+runtimes are published.
+
+A port covers what its runtime covers. `phase4_codespecs_run` is ported as far
+as the gate and the extract generator, which every runtime has; the IR, its
+mapping and its validation are Dart tools, and the port says so where they
+would be. `full_lifecycle_walkthrough` stays Dart-only.
+
+| Sample | Python |
+|--------|--------|
+| `author_solution_blueprint` | [`python/`](author_solution_blueprint/python/README.md) — the Dart output |
+| `phase4_codespecs_run` | [`python/`](phase4_codespecs_run/python/README.md) — stages 1–2 |
+| `build_a_specification_tool` | [`python/`](build_a_specification_tool/python/README.md) — own output (Dart-only names) |
+| `full_lifecycle_walkthrough` | — |

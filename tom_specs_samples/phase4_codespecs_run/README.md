@@ -5,6 +5,9 @@ authors for itself: the starting prompt's quality gate, the extract generator,
 the authoring agent, and validation of the emitted shared / client / server
 trio.
 
+A Python port of stages 1 and 2 (the gate and the extract generator) is in
+[`python/`](python/README.md).
+
 ```bash
 dart pub get
 dart run
