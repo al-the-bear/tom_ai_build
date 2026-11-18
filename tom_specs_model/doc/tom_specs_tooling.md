@@ -249,7 +249,7 @@ answers.
 | `tom_som_conformance` | The corpus and golden logs that hold the nine runtimes to one behaviour | `run_all_suites.sh` |
 | `tom_specs_clitool` | The generators, the validators (`:spec-validate`), the process checks (`:spec-*`), answers extraction, CodeSpecs validation, IR Specs, the documentation gates | the bundled `tomspecs` in the extension; `dart run tom_specs_clitool:tomspecs` |
 | IR Specs (in the clitool) | Phase 4's product: the IR, its mappers (`dart-tom`, TypeScript web and mobile clients and Hono server, Go, Java + Spring Boot, C# + ASP.NET Core) and standard emitters (OpenAPI, JSON Schema, ICU, AsyncAPI, Markdown) | `tomspecs :ir-*`; `tomAi_specCodeSpecsMap` |
-| `tom_code_specs`, `tom_core_codespecs` | The `Cs*` annotation family; the CodeSpecs authorities (mapping, derivation contract, IR format) | generated code; `validate_codespecs`; the extension's CodeSpecs resources |
+| `tom_code_specs`, `tom_core_codespecs` | The `Cs*` annotation family; the CodeSpecs authorities (mapping, derivation contract, IR format) | generated code; `tomspecs :codespecs-validate`; the extension's CodeSpecs resources |
 | `tom_spec_engine` | The scripting plane behind the editor's agent (`llm_and_d4rt_tools.md`) | `tom_specs_editor` |
 | `tom_specs_reviewer` | Structural review of the model itself — a methodology tool, not a project tool (`tom_specs_reviewer_specification.md`) | developers of the model |
 | `tom_doc_specs`, `tom_doc_scanner` | DocSpecs schema validation of Markdown renditions | the schema tier of validation |
