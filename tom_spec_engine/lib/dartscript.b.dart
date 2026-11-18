@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for tom_spec_engine
-// Generated: 2026-11-14T15:35:21.768093 by tom_d4rt_generator 1.63.2
+// Generated: 2026-11-18T14:35:05.925968 by tom_d4rt_generator 1.66.0
 
 /// D4rt Bridge Registration for tom_spec_engine
 library;
@@ -23,7 +23,11 @@ class TomSomBridge {
     // Register under sub-package barrels for direct imports
     for (final barrel
         in som_runtime_bridges.SomRuntimeBridge.subPackageBarrels()) {
-      som_runtime_bridges.SomRuntimeBridge.registerBridges(d4rt, barrel);
+      som_runtime_bridges.SomRuntimeBridge.registerBridges(
+        d4rt,
+        barrel,
+        onlyOwnPackage: true,
+      );
     }
     som_v0_bridges.SomV0Bridge.registerBridges(
       d4rt,
@@ -31,7 +35,11 @@ class TomSomBridge {
     );
     // Register under sub-package barrels for direct imports
     for (final barrel in som_v0_bridges.SomV0Bridge.subPackageBarrels()) {
-      som_v0_bridges.SomV0Bridge.registerBridges(d4rt, barrel);
+      som_v0_bridges.SomV0Bridge.registerBridges(
+        d4rt,
+        barrel,
+        onlyOwnPackage: true,
+      );
     }
 
     // RC-2: Register generic constructor factories

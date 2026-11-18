@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 29 files
-// Generated: 2026-11-14T15:29:48.773118 by tom_d4rt_generator 1.63.2
+// Generated: 2026-11-18T14:30:36.013703 by tom_d4rt_generator 1.66.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -1116,7 +1116,24 @@ class SomRuntimeBridge {
   ///
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:my_package/my_package.dart').
-  static void registerBridges(D4rt interpreter, String importPath) {
+  ///
+  /// With [onlyOwnPackage] (a sub-package barrel, [subPackageBarrels]),
+  /// only the declarations whose source is in [importPath]'s package are
+  /// registered: a script importing that barrel sees what the package
+  /// declares, not the whole module. (Without it, a module bridging one
+  /// `package:characters` extension would put all of its classes under
+  /// `package:characters/characters.dart`, which `widgets.dart` re-exports.)
+  static void registerBridges(
+    D4rt interpreter,
+    String importPath, {
+    bool onlyOwnPackage = false,
+  }) {
+    final String? ownPrefix = onlyOwnPackage
+        ? 'package:${importPath.substring('package:'.length).split('/').first}/'
+        : null;
+    bool include(String? sourceUri) =>
+        ownPrefix == null ||
+        (sourceUri != null && sourceUri.startsWith(ownPrefix));
     // Step #17 — register deferred factory thunks (not pre-built
     // BridgedClass objects): a script touching N of the M classes
     // materializes ≈N (each thunk builds its class on first resolve).
@@ -1124,6 +1141,7 @@ class SomRuntimeBridge {
     final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
     for (final entry in classThunks.entries) {
+      if (!include(classSources[entry.key])) continue;
       interpreter.registerBridgedClassLazy(
         entry.key,
         classTypes[entry.key]!,
@@ -1142,6 +1160,7 @@ class SomRuntimeBridge {
     final enums = bridgedEnums();
     final enumSources = enumSourceUris();
     for (final enumDef in enums) {
+      if (!include(enumSources[enumDef.name])) continue;
       interpreter.registerBridgedEnum(
         enumDef,
         importPath,
@@ -1150,13 +1169,14 @@ class SomRuntimeBridge {
     }
 
     // Register global variables
-    registerGlobalVariables(interpreter, importPath);
+    registerGlobalVariables(interpreter, importPath, include: include);
 
     // Register global functions with source URIs for deduplication
     final funcs = globalFunctions();
     final funcSources = globalFunctionSourceUris();
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
+      if (!include(funcSources[entry.key])) continue;
       interpreter.registertopLevelFunction(
         entry.key,
         entry.value,
@@ -1182,275 +1202,395 @@ class SomRuntimeBridge {
   /// [importPath] is the package import path for library-scoped registration.
   /// Collects all registration errors and throws a single exception
   /// with all error details if any registrations fail.
-  static void registerGlobalVariables(D4rt interpreter, String importPath) {
+  static void registerGlobalVariables(
+    D4rt interpreter,
+    String importPath, {
+    bool Function(String? sourceUri)? include,
+  }) {
     final errors = <String>[];
 
-    try {
-      interpreter.registerGlobalVariable(
-        'kListItemSegment',
-        $tom_som_dart_runtime_3.kListItemSegment,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kListItemSegment": $e');
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kListItemSegment',
+          $tom_som_dart_runtime_3.kListItemSegment,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kListItemSegment": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kSectionContentSegment',
-        $tom_som_dart_runtime_3.kSectionContentSegment,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kSectionContentSegment": $e');
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kSectionContentSegment',
+          $tom_som_dart_runtime_3.kSectionContentSegment,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kSectionContentSegment": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kOneOfSegment',
-        $tom_som_dart_runtime_3.kOneOfSegment,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kOneOfSegment": $e');
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kOneOfSegment',
+          $tom_som_dart_runtime_3.kOneOfSegment,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kOneOfSegment": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kProjectionLabel',
-        $tom_som_dart_runtime_3.kProjectionLabel,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kProjectionLabel": $e');
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kProjectionLabel',
+          $tom_som_dart_runtime_3.kProjectionLabel,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kProjectionLabel": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kProjectionExplanation',
-        $tom_som_dart_runtime_3.kProjectionExplanation,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kProjectionExplanation": $e');
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kProjectionExplanation',
+          $tom_som_dart_runtime_3.kProjectionExplanation,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kProjectionExplanation": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kUnusedChipLabel',
-        $tom_som_dart_runtime_3.kUnusedChipLabel,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kUnusedChipLabel": $e');
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kUnusedChipLabel',
+          $tom_som_dart_runtime_3.kUnusedChipLabel,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kUnusedChipLabel": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kReferencesChipLabel',
-        $tom_som_dart_runtime_3.kReferencesChipLabel,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kReferencesChipLabel": $e');
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kReferencesChipLabel',
+          $tom_som_dart_runtime_3.kReferencesChipLabel,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kReferencesChipLabel": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kSerializationOrderToggleLabel',
-        $tom_som_dart_runtime_3.kSerializationOrderToggleLabel,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "kSerializationOrderToggleLabel": $e',
-      );
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kSerializationOrderToggleLabel',
+          $tom_som_dart_runtime_3.kSerializationOrderToggleLabel,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kSerializationOrderToggleLabel": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kRenderedAnnotations',
-        $tom_som_dart_runtime_3.kRenderedAnnotations,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kRenderedAnnotations": $e');
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kRenderedAnnotations',
+          $tom_som_dart_runtime_3.kRenderedAnnotations,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kRenderedAnnotations": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'projectionChip',
-        $tom_som_dart_runtime_3.projectionChip,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "projectionChip": $e');
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'projectionChip',
+          $tom_som_dart_runtime_3.projectionChip,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "projectionChip": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'unusedChip',
-        $tom_som_dart_runtime_3.unusedChip,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "unusedChip": $e');
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'unusedChip',
+          $tom_som_dart_runtime_3.unusedChip,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "unusedChip": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'referencesChip',
-        $tom_som_dart_runtime_3.referencesChip,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "referencesChip": $e');
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'referencesChip',
+          $tom_som_dart_runtime_3.referencesChip,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "referencesChip": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kCodeSpecsExtractFormat',
-        $tom_som_dart_runtime_5.kCodeSpecsExtractFormat,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kCodeSpecsExtractFormat": $e');
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kCodeSpecsExtractFormat',
+          $tom_som_dart_runtime_5.kCodeSpecsExtractFormat,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kCodeSpecsExtractFormat": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kCodeSpecKindAnnotation',
-        $tom_som_dart_runtime_5.kCodeSpecKindAnnotation,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kCodeSpecKindAnnotation": $e');
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kCodeSpecKindAnnotation',
+          $tom_som_dart_runtime_5.kCodeSpecKindAnnotation,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kCodeSpecKindAnnotation": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kFollowUpKindAnnotation',
-        $tom_som_dart_runtime_5.kFollowUpKindAnnotation,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kFollowUpKindAnnotation": $e');
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kFollowUpKindAnnotation',
+          $tom_som_dart_runtime_5.kFollowUpKindAnnotation,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kFollowUpKindAnnotation": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kNoArtifactAnnotation',
-        $tom_som_dart_runtime_5.kNoArtifactAnnotation,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kNoArtifactAnnotation": $e');
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kNoArtifactAnnotation',
+          $tom_som_dart_runtime_5.kNoArtifactAnnotation,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kNoArtifactAnnotation": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kSpecStandardEmitters',
-        $tom_som_dart_runtime_13.kSpecStandardEmitters,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_generation_units.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kSpecStandardEmitters": $e');
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_generation_units.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kSpecStandardEmitters',
+          $tom_som_dart_runtime_13.kSpecStandardEmitters,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_generation_units.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kSpecStandardEmitters": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kCodeSpecsGateRecordFile',
-        $tom_som_dart_runtime_7.kCodeSpecsGateRecordFile,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_codespecs_records.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kCodeSpecsGateRecordFile": $e');
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_codespecs_records.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kCodeSpecsGateRecordFile',
+          $tom_som_dart_runtime_7.kCodeSpecsGateRecordFile,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_codespecs_records.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kCodeSpecsGateRecordFile": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kCodeSpecsGateRecordFormat',
-        $tom_som_dart_runtime_7.kCodeSpecsGateRecordFormat,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_codespecs_records.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "kCodeSpecsGateRecordFormat": $e',
-      );
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_codespecs_records.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kCodeSpecsGateRecordFormat',
+          $tom_som_dart_runtime_7.kCodeSpecsGateRecordFormat,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_codespecs_records.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kCodeSpecsGateRecordFormat": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kCodeSpecsExtractFileSuffix',
-        $tom_som_dart_runtime_7.kCodeSpecsExtractFileSuffix,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_codespecs_records.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "kCodeSpecsExtractFileSuffix": $e',
-      );
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_codespecs_records.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kCodeSpecsExtractFileSuffix',
+          $tom_som_dart_runtime_7.kCodeSpecsExtractFileSuffix,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_codespecs_records.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kCodeSpecsExtractFileSuffix": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kCodeSpecsGateDescoped',
-        $tom_som_dart_runtime_7.kCodeSpecsGateDescoped,
-        importPath,
-        sourceUri:
-            'package:tom_som_dart_runtime/src/spec_codespecs_records.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kCodeSpecsGateDescoped": $e');
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_codespecs_records.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kCodeSpecsGateDescoped',
+          $tom_som_dart_runtime_7.kCodeSpecsGateDescoped,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_codespecs_records.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kCodeSpecsGateDescoped": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'defaultMaxSnapshotAge',
-        $tom_som_dart_runtime_17.defaultMaxSnapshotAge,
-        importPath,
-        sourceUri: 'package:tom_som_dart_runtime/src/spec_model.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "defaultMaxSnapshotAge": $e');
+    if (include == null ||
+        include('package:tom_som_dart_runtime/src/spec_model.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'defaultMaxSnapshotAge',
+          $tom_som_dart_runtime_17.defaultMaxSnapshotAge,
+          importPath,
+          sourceUri: 'package:tom_som_dart_runtime/src/spec_model.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "defaultMaxSnapshotAge": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kSpecPathSeparator',
-        $tom_som_dart_runtime_19.kSpecPathSeparator,
-        importPath,
-        sourceUri: 'package:tom_som_dart_runtime/src/spec_paths.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kSpecPathSeparator": $e');
+    if (include == null ||
+        include('package:tom_som_dart_runtime/src/spec_paths.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kSpecPathSeparator',
+          $tom_som_dart_runtime_19.kSpecPathSeparator,
+          importPath,
+          sourceUri: 'package:tom_som_dart_runtime/src/spec_paths.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kSpecPathSeparator": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kSectionIdSlot',
-        $tom_som_dart_runtime_25.kSectionIdSlot,
-        importPath,
-        sourceUri: 'package:tom_som_dart_runtime/src/spec_section_id.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kSectionIdSlot": $e');
+    if (include == null ||
+        include('package:tom_som_dart_runtime/src/spec_section_id.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kSectionIdSlot',
+          $tom_som_dart_runtime_25.kSectionIdSlot,
+          importPath,
+          sourceUri: 'package:tom_som_dart_runtime/src/spec_section_id.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kSectionIdSlot": $e');
+      }
     }
 
     if (errors.isNotEmpty) {

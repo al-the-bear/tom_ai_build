@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 3 files
-// Generated: 2026-11-14T15:29:56.251808 by tom_d4rt_generator 1.63.2
+// Generated: 2026-11-18T14:30:42.174381 by tom_d4rt_generator 1.66.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -41548,7 +41548,24 @@ class SomV0Bridge {
   ///
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:my_package/my_package.dart').
-  static void registerBridges(D4rt interpreter, String importPath) {
+  ///
+  /// With [onlyOwnPackage] (a sub-package barrel, [subPackageBarrels]),
+  /// only the declarations whose source is in [importPath]'s package are
+  /// registered: a script importing that barrel sees what the package
+  /// declares, not the whole module. (Without it, a module bridging one
+  /// `package:characters` extension would put all of its classes under
+  /// `package:characters/characters.dart`, which `widgets.dart` re-exports.)
+  static void registerBridges(
+    D4rt interpreter,
+    String importPath, {
+    bool onlyOwnPackage = false,
+  }) {
+    final String? ownPrefix = onlyOwnPackage
+        ? 'package:${importPath.substring('package:'.length).split('/').first}/'
+        : null;
+    bool include(String? sourceUri) =>
+        ownPrefix == null ||
+        (sourceUri != null && sourceUri.startsWith(ownPrefix));
     // Step #17 — register deferred factory thunks (not pre-built
     // BridgedClass objects): a script touching N of the M classes
     // materializes ≈N (each thunk builds its class on first resolve).
@@ -41556,6 +41573,7 @@ class SomV0Bridge {
     final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
     for (final entry in classThunks.entries) {
+      if (!include(classSources[entry.key])) continue;
       interpreter.registerBridgedClassLazy(
         entry.key,
         classTypes[entry.key]!,
@@ -41574,6 +41592,7 @@ class SomV0Bridge {
     final enums = bridgedEnums();
     final enumSources = enumSourceUris();
     for (final enumDef in enums) {
+      if (!include(enumSources[enumDef.name])) continue;
       interpreter.registerBridgedEnum(
         enumDef,
         importPath,
@@ -41582,7 +41601,7 @@ class SomV0Bridge {
     }
 
     // Register global variables
-    registerGlobalVariables(interpreter, importPath);
+    registerGlobalVariables(interpreter, importPath, include: include);
 
     // GEN-107: Register library re-exports
     for (final r in bridgeReExports()) {
@@ -41600,478 +41619,615 @@ class SomV0Bridge {
   /// [importPath] is the package import path for library-scoped registration.
   /// Collects all registration errors and throws a single exception
   /// with all error details if any registrations fail.
-  static void registerGlobalVariables(D4rt interpreter, String importPath) {
+  static void registerGlobalVariables(
+    D4rt interpreter,
+    String importPath, {
+    bool Function(String? sourceUri)? include,
+  }) {
     final errors = <String>[];
 
-    try {
-      interpreter.registerGlobalVariable(
-        'd00SolutionBlueprintMetaTree',
-        $tom_som_dart_v0_2.d00SolutionBlueprintMetaTree,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "d00SolutionBlueprintMetaTree": $e',
-      );
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd00SolutionBlueprintMetaTree',
+          $tom_som_dart_v0_2.d00SolutionBlueprintMetaTree,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d00SolutionBlueprintMetaTree": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd00SolutionBlueprint',
-        $tom_som_dart_v0_2.d00SolutionBlueprint,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "d00SolutionBlueprint": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd00SolutionBlueprint',
+          $tom_som_dart_v0_2.d00SolutionBlueprint,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "d00SolutionBlueprint": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'SBP',
-        $tom_som_dart_v0_2.SBP,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "SBP": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'SBP',
+          $tom_som_dart_v0_2.SBP,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "SBP": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd01CurrentLandscapeAssessmentMetaTree',
-        $tom_som_dart_v0_2.d01CurrentLandscapeAssessmentMetaTree,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "d01CurrentLandscapeAssessmentMetaTree": $e',
-      );
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd01CurrentLandscapeAssessmentMetaTree',
+          $tom_som_dart_v0_2.d01CurrentLandscapeAssessmentMetaTree,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d01CurrentLandscapeAssessmentMetaTree": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd01CurrentLandscapeAssessment',
-        $tom_som_dart_v0_2.d01CurrentLandscapeAssessment,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "d01CurrentLandscapeAssessment": $e',
-      );
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd01CurrentLandscapeAssessment',
+          $tom_som_dart_v0_2.d01CurrentLandscapeAssessment,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d01CurrentLandscapeAssessment": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'CLA',
-        $tom_som_dart_v0_2.CLA,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "CLA": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'CLA',
+          $tom_som_dart_v0_2.CLA,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "CLA": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd02TargetOperatingModelMetaTree',
-        $tom_som_dart_v0_2.d02TargetOperatingModelMetaTree,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "d02TargetOperatingModelMetaTree": $e',
-      );
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd02TargetOperatingModelMetaTree',
+          $tom_som_dart_v0_2.d02TargetOperatingModelMetaTree,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d02TargetOperatingModelMetaTree": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd02TargetOperatingModel',
-        $tom_som_dart_v0_2.d02TargetOperatingModel,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "d02TargetOperatingModel": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd02TargetOperatingModel',
+          $tom_som_dart_v0_2.d02TargetOperatingModel,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "d02TargetOperatingModel": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'TOM',
-        $tom_som_dart_v0_2.TOM,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "TOM": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'TOM',
+          $tom_som_dart_v0_2.TOM,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "TOM": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd03InformationModelMetaTree',
-        $tom_som_dart_v0_2.d03InformationModelMetaTree,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "d03InformationModelMetaTree": $e',
-      );
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd03InformationModelMetaTree',
+          $tom_som_dart_v0_2.d03InformationModelMetaTree,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d03InformationModelMetaTree": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd03InformationModel',
-        $tom_som_dart_v0_2.d03InformationModel,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "d03InformationModel": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd03InformationModel',
+          $tom_som_dart_v0_2.d03InformationModel,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "d03InformationModel": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'IFM',
-        $tom_som_dart_v0_2.IFM,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "IFM": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'IFM',
+          $tom_som_dart_v0_2.IFM,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "IFM": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd04RequirementsSpecificationMetaTree',
-        $tom_som_dart_v0_2.d04RequirementsSpecificationMetaTree,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "d04RequirementsSpecificationMetaTree": $e',
-      );
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd04RequirementsSpecificationMetaTree',
+          $tom_som_dart_v0_2.d04RequirementsSpecificationMetaTree,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d04RequirementsSpecificationMetaTree": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd04RequirementsSpecification',
-        $tom_som_dart_v0_2.d04RequirementsSpecification,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "d04RequirementsSpecification": $e',
-      );
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd04RequirementsSpecification',
+          $tom_som_dart_v0_2.d04RequirementsSpecification,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d04RequirementsSpecification": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'RSP',
-        $tom_som_dart_v0_2.RSP,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "RSP": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'RSP',
+          $tom_som_dart_v0_2.RSP,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "RSP": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd05InteractionScenariosMetaTree',
-        $tom_som_dart_v0_2.d05InteractionScenariosMetaTree,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "d05InteractionScenariosMetaTree": $e',
-      );
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd05InteractionScenariosMetaTree',
+          $tom_som_dart_v0_2.d05InteractionScenariosMetaTree,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d05InteractionScenariosMetaTree": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd05InteractionScenarios',
-        $tom_som_dart_v0_2.d05InteractionScenarios,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "d05InteractionScenarios": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd05InteractionScenarios',
+          $tom_som_dart_v0_2.d05InteractionScenarios,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "d05InteractionScenarios": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'ISC',
-        $tom_som_dart_v0_2.ISC,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "ISC": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'ISC',
+          $tom_som_dart_v0_2.ISC,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "ISC": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd06ArchitectureTechnologySpecificationMetaTree',
-        $tom_som_dart_v0_2.d06ArchitectureTechnologySpecificationMetaTree,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "d06ArchitectureTechnologySpecificationMetaTree": $e',
-      );
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd06ArchitectureTechnologySpecificationMetaTree',
+          $tom_som_dart_v0_2.d06ArchitectureTechnologySpecificationMetaTree,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d06ArchitectureTechnologySpecificationMetaTree": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd06ArchitectureTechnologySpecification',
-        $tom_som_dart_v0_2.d06ArchitectureTechnologySpecification,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "d06ArchitectureTechnologySpecification": $e',
-      );
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd06ArchitectureTechnologySpecification',
+          $tom_som_dart_v0_2.d06ArchitectureTechnologySpecification,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d06ArchitectureTechnologySpecification": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'ATS',
-        $tom_som_dart_v0_2.ATS,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "ATS": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'ATS',
+          $tom_som_dart_v0_2.ATS,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "ATS": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd07IntegrationInterfaceSpecificationMetaTree',
-        $tom_som_dart_v0_2.d07IntegrationInterfaceSpecificationMetaTree,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "d07IntegrationInterfaceSpecificationMetaTree": $e',
-      );
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd07IntegrationInterfaceSpecificationMetaTree',
+          $tom_som_dart_v0_2.d07IntegrationInterfaceSpecificationMetaTree,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d07IntegrationInterfaceSpecificationMetaTree": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd07IntegrationInterfaceSpecification',
-        $tom_som_dart_v0_2.d07IntegrationInterfaceSpecification,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "d07IntegrationInterfaceSpecification": $e',
-      );
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd07IntegrationInterfaceSpecification',
+          $tom_som_dart_v0_2.d07IntegrationInterfaceSpecification,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d07IntegrationInterfaceSpecification": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'IIS',
-        $tom_som_dart_v0_2.IIS,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "IIS": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'IIS',
+          $tom_som_dart_v0_2.IIS,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "IIS": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd08SecurityAccessSpecificationMetaTree',
-        $tom_som_dart_v0_2.d08SecurityAccessSpecificationMetaTree,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "d08SecurityAccessSpecificationMetaTree": $e',
-      );
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd08SecurityAccessSpecificationMetaTree',
+          $tom_som_dart_v0_2.d08SecurityAccessSpecificationMetaTree,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d08SecurityAccessSpecificationMetaTree": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd08SecurityAccessSpecification',
-        $tom_som_dart_v0_2.d08SecurityAccessSpecification,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "d08SecurityAccessSpecification": $e',
-      );
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd08SecurityAccessSpecification',
+          $tom_som_dart_v0_2.d08SecurityAccessSpecification,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d08SecurityAccessSpecification": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'SAS',
-        $tom_som_dart_v0_2.SAS,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "SAS": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'SAS',
+          $tom_som_dart_v0_2.SAS,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "SAS": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd09ExperienceDesignSpecificationMetaTree',
-        $tom_som_dart_v0_2.d09ExperienceDesignSpecificationMetaTree,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "d09ExperienceDesignSpecificationMetaTree": $e',
-      );
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd09ExperienceDesignSpecificationMetaTree',
+          $tom_som_dart_v0_2.d09ExperienceDesignSpecificationMetaTree,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d09ExperienceDesignSpecificationMetaTree": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd09ExperienceDesignSpecification',
-        $tom_som_dart_v0_2.d09ExperienceDesignSpecification,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "d09ExperienceDesignSpecification": $e',
-      );
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd09ExperienceDesignSpecification',
+          $tom_som_dart_v0_2.d09ExperienceDesignSpecification,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d09ExperienceDesignSpecification": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'XDS',
-        $tom_som_dart_v0_2.XDS,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "XDS": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'XDS',
+          $tom_som_dart_v0_2.XDS,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "XDS": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd10QualityAcceptancePlanMetaTree',
-        $tom_som_dart_v0_2.d10QualityAcceptancePlanMetaTree,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "d10QualityAcceptancePlanMetaTree": $e',
-      );
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd10QualityAcceptancePlanMetaTree',
+          $tom_som_dart_v0_2.d10QualityAcceptancePlanMetaTree,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d10QualityAcceptancePlanMetaTree": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd10QualityAcceptancePlan',
-        $tom_som_dart_v0_2.d10QualityAcceptancePlan,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "d10QualityAcceptancePlan": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd10QualityAcceptancePlan',
+          $tom_som_dart_v0_2.d10QualityAcceptancePlan,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d10QualityAcceptancePlan": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'QAP',
-        $tom_som_dart_v0_2.QAP,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "QAP": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'QAP',
+          $tom_som_dart_v0_2.QAP,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "QAP": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd11DeliveryRoadmapMetaTree',
-        $tom_som_dart_v0_2.d11DeliveryRoadmapMetaTree,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "d11DeliveryRoadmapMetaTree": $e',
-      );
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd11DeliveryRoadmapMetaTree',
+          $tom_som_dart_v0_2.d11DeliveryRoadmapMetaTree,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d11DeliveryRoadmapMetaTree": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd11DeliveryRoadmap',
-        $tom_som_dart_v0_2.d11DeliveryRoadmap,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "d11DeliveryRoadmap": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd11DeliveryRoadmap',
+          $tom_som_dart_v0_2.d11DeliveryRoadmap,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "d11DeliveryRoadmap": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'DRM',
-        $tom_som_dart_v0_2.DRM,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "DRM": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'DRM',
+          $tom_som_dart_v0_2.DRM,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "DRM": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd12TransitionRolloutPlanMetaTree',
-        $tom_som_dart_v0_2.d12TransitionRolloutPlanMetaTree,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "d12TransitionRolloutPlanMetaTree": $e',
-      );
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd12TransitionRolloutPlanMetaTree',
+          $tom_som_dart_v0_2.d12TransitionRolloutPlanMetaTree,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d12TransitionRolloutPlanMetaTree": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd12TransitionRolloutPlan',
-        $tom_som_dart_v0_2.d12TransitionRolloutPlan,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "d12TransitionRolloutPlan": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd12TransitionRolloutPlan',
+          $tom_som_dart_v0_2.d12TransitionRolloutPlan,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d12TransitionRolloutPlan": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'TRP',
-        $tom_som_dart_v0_2.TRP,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "TRP": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'TRP',
+          $tom_som_dart_v0_2.TRP,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "TRP": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd13CodeSpecsProjectionMetaTree',
-        $tom_som_dart_v0_2.d13CodeSpecsProjectionMetaTree,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "d13CodeSpecsProjectionMetaTree": $e',
-      );
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd13CodeSpecsProjectionMetaTree',
+          $tom_som_dart_v0_2.d13CodeSpecsProjectionMetaTree,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "d13CodeSpecsProjectionMetaTree": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'd13CodeSpecsProjection',
-        $tom_som_dart_v0_2.d13CodeSpecsProjection,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "d13CodeSpecsProjection": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'd13CodeSpecsProjection',
+          $tom_som_dart_v0_2.d13CodeSpecsProjection,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "d13CodeSpecsProjection": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'CGP',
-        $tom_som_dart_v0_2.CGP,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "CGP": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'CGP',
+          $tom_som_dart_v0_2.CGP,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "CGP": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'somMetaRoots',
-        $tom_som_dart_v0_2.somMetaRoots,
-        importPath,
-        sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "somMetaRoots": $e');
+    if (include == null ||
+        include('package:tom_som_dart_v0/tom_som_dart_v0_meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'somMetaRoots',
+          $tom_som_dart_v0_2.somMetaRoots,
+          importPath,
+          sourceUri: 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "somMetaRoots": $e');
+      }
     }
 
     if (errors.isNotEmpty) {
