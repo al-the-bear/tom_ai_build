@@ -266,9 +266,10 @@ at the first failure). The work runs as one series:
 - the commands built beside the old tools, with comparison tests: done for
   all 39 commands, the gates included (each identical to its tool on the same
   inputs);
-- one migration to the commands: done for the processes, the scripts and the
-  documents; the VS Code extension, tested with the old and the new binaries,
-  is in progress (`tsbin7_akqk-extension-bundles-tomspecs`);
+- one migration to the commands: done — the processes, the scripts, the
+  documents and the VS Code extension call `tomspecs`; the extension's tool
+  tests pass through the old binaries and through `tomspecs` alike, and it
+  bundles the old binaries beside `tomspecs` until they are removed;
 - removal of the old tools and of the comparison tests
   (`tsbin8_akqk-remove-old-entrypoints-and-exception`).
 
