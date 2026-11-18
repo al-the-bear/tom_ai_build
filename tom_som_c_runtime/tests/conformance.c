@@ -1325,6 +1325,121 @@ static void test_operations(Checker *c) {
 
 /* ---- section-id conformance (AA1 criteria 3–6) -------------------------- */
 
+static char *json_canon(const SomJson *v);
+static char *json_text_canon(const char *text);
+
+/* Appends `v` as a JSON string literal, or `null` when `v` is NULL. */
+static void list_add_put_opt_str(SomBuf *b, const char *v) {
+  if (v == NULL) {
+    som_buf_puts(b, "null");
+    return;
+  }
+  char *e = som_json_encode_str(v);
+  som_buf_puts(b, e);
+  free(e);
+}
+
+/* Appends `l` as a JSON array of strings. */
+static void list_add_put_str_list(SomBuf *b, const SomStrList *l) {
+  som_buf_putc(b, '[');
+  for (size_t i = 0; i < l->len; i++) {
+    if (i > 0) som_buf_putc(b, ',');
+    list_add_put_opt_str(b, l->items[i]);
+  }
+  som_buf_putc(b, ']');
+}
+
+/* AA1 criterion 5 through the SomList facade (`listAdd`): add / addContent
+ * with an explicit section id, generated ids for a date, and a pattern-less
+ * list ignoring the id — one fresh document, the steps in order. */
+static void test_section_id_list_add(Checker *c, const SomJson *cases) {
+  SpecDocument doc;
+  spec_document_init(&doc);
+  const SomJson *steps = som_json_get(som_json_get(cases, "listAdd"), "steps");
+  size_t n = som_json_array_len(steps);
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *s = som_json_array_at(steps, i);
+    const char *op = som_json_str_or(s, "op");
+    const char *list_path = som_json_str_or(s, "listPath");
+    const char *pattern = som_json_as_str(som_json_get(s, "pattern"));
+    const char *section_id = som_json_as_str(som_json_get(s, "sectionId"));
+    const char *content = som_json_str_or(s, "content");
+    long long month = 0, day = 0;
+    int dated = som_json_as_i64(som_json_get(s, "month"), &month);
+    som_json_as_i64(som_json_get(s, "day"), &day);
+    int is_add = strcmp(op, "add") == 0;
+
+    SomList list;
+    som_list_init_pattern(&list, &doc, list_path, pattern);
+    char *path = NULL;
+    int collision = 0;
+    if (section_id != NULL) {
+      SpecSectionIdError err;
+      spec_section_id_error_init(&err);
+      int ok = is_add ? som_list_add_with_id(&list, section_id, &path, &err)
+                      : som_list_add_content_with_id(&list, content, section_id,
+                                                     &path, &err);
+      collision = !ok && spec_section_id_is_collision(&err);
+      spec_section_id_error_free(&err);
+    } else if (dated) {
+      path = is_add ? som_list_add_on(&list, month, day)
+                    : som_list_add_content_on(&list, content, month, day);
+    } else {
+      path = is_add ? som_list_add(&list) : som_list_add_content(&list, content);
+    }
+
+    SomBuf b;
+    som_buf_init(&b);
+    som_buf_putc(&b, '{');
+    if (path != NULL) {
+      som_buf_puts(&b, "\"path\":");
+      list_add_put_opt_str(&b, path);
+      SomBuf leaf;
+      som_buf_init(&leaf);
+      som_buf_puts(&leaf, path);
+      som_buf_puts(&leaf, "/content");
+      char *leaf_path = som_buf_take(&leaf);
+      som_buf_puts(&b, ",\"content\":");
+      list_add_put_opt_str(&b, spec_document_content(&doc, leaf_path));
+      free(leaf_path);
+    } else {
+      som_buf_puts(&b, "\"error\":");
+      list_add_put_opt_str(&b, collision ? "collision" : "failed");
+    }
+    SomStrList ids;
+    som_list_section_ids(&list, &ids);
+    som_buf_puts(&b, ",\"sectionIds\":");
+    list_add_put_str_list(&b, &ids);
+    som_strlist_free(&ids);
+    SomStrList items;
+    som_list_item_paths(&list, &items);
+    som_buf_puts(&b, ",\"items\":");
+    list_add_put_str_list(&b, &items);
+    som_strlist_free(&items);
+    som_buf_putc(&b, '}');
+
+    char *got_text = som_buf_take(&b);
+    char *got = json_text_canon(got_text);
+    char *want = json_canon(som_json_get(s, "expect"));
+    char tag[256];
+    snprintf(tag, sizeof(tag), "sectionId.listAdd[%zu].%s", i, op);
+    SomBuf d;
+    som_buf_init(&d);
+    som_buf_puts(&d, got);
+    som_buf_puts(&d, " != ");
+    som_buf_puts(&d, want);
+    char *detail = som_buf_take(&d);
+    check(c, tag, strcmp(got, want) == 0, detail);
+    free(detail);
+    free(got_text);
+    free(got);
+    free(want);
+    free(path);
+    som_list_free(&list);
+  }
+  spec_document_free(&doc);
+}
+
 static void test_section_id(Checker *c) {
   SomJson *cases = read_json("section_id_cases.json");
 
@@ -1458,6 +1573,7 @@ static void test_section_id(Checker *c) {
     }
   }
   spec_document_free(&doc);
+  test_section_id_list_add(c, cases);
   som_json_free(cases);
 }
 

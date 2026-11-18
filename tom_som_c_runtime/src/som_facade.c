@@ -173,8 +173,12 @@ char *som_list_add_on(SomList *l, long long month, long long day) {
 
 int som_list_add_with_id(SomList *l, const char *section_id,
                          char **out_item_path, SpecSectionIdError *err) {
-  char *item_path = spec_document_add_list_item_with_section_id(
-      l->doc, l->list_path, section_id, err);
+  /* A pattern-less list ignores the id and appends plainly (as TS `add`). */
+  char *item_path =
+      l->pattern[0] == '\0'
+          ? spec_document_add_list_item(l->doc, l->list_path)
+          : spec_document_add_list_item_with_section_id(l->doc, l->list_path,
+                                                        section_id, err);
   if (item_path == NULL) {
     return 0;
   }
@@ -212,6 +216,22 @@ char *som_list_add_content(SomList *l, const char *content) {
 char *som_list_add_content_on(SomList *l, const char *content, long long month,
                               long long day) {
   return set_content_leaf(l, som_list_add_on(l, month, day), content);
+}
+
+int som_list_add_content_with_id(SomList *l, const char *content,
+                                 const char *section_id, char **out_item_path,
+                                 SpecSectionIdError *err) {
+  char *item_path = NULL;
+  if (!som_list_add_with_id(l, section_id, &item_path, err)) {
+    return 0; /* collision: nothing added, no content written */
+  }
+  item_path = set_content_leaf(l, item_path, content);
+  if (out_item_path != NULL) {
+    *out_item_path = item_path;
+  } else {
+    free(item_path);
+  }
+  return 1;
 }
 
 void som_list_contents(const SomList *l, SomStrList *out) {

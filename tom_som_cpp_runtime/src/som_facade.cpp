@@ -31,8 +31,13 @@ std::string SomList::addItemPath(long long month, long long day) {
   return addGenerated(month, day);
 }
 
-// Explicit-id variant of the shared helper: always appends carrying `sectionId`.
+// Explicit-id variant of the shared helper: a list without a pattern ignores
+// `sectionId` and appends plainly (as the TypeScript reference does); otherwise
+// the item is appended carrying `sectionId`.
 std::string SomList::addItemPathWithId(const std::string& sectionId) {
+  if (pattern_.empty()) {
+    return doc().addListItem(path());
+  }
   return doc().addListItemWithSectionId(path(), sectionId);
 }
 

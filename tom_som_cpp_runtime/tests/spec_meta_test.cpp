@@ -144,9 +144,9 @@ std::unique_ptr<som::SomMetaTree> metaFixtureTree() {
     doco->hasSerializationOrder = true;
     doco->serializationOrder = 2;
     SomFormMeta form;
-    form.fields.push_back({"version", "String", "Version", true, "e.g. 1.0", 1});
-    form.fields.push_back({"approvedBy", "String", "", false, "", 2});
-    form.fields.push_back({"reviewCount", "int", "", false, "", 3});
+    form.fields.push_back({"version", "String", "Version", true, "e.g. 1.0", 1, {}, {}, false});
+    form.fields.push_back({"approvedBy", "String", "", false, "", 2, {}, {}, false});
+    form.fields.push_back({"reviewCount", "int", "", false, "", 3, {}, {}, false});
     doco->form = std::move(form);
     root->addChild(std::move(doco));
   }

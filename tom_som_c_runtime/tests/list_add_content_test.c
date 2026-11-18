@@ -1,5 +1,6 @@
 /* Unit tests for the SOM §21 content-only list convenience in the C list API
- * (`som_list_add_content` / `som_list_add_content_on` / `som_list_contents`),
+ * (`som_list_add_content` / `som_list_add_content_on` /
+ * `som_list_add_content_with_id` / `som_list_contents`),
  * the C port of the Dart `SomList.addContent` + `SomList.contents` reference in
  * `tom_som_dart_runtime/lib/src/som_facade.dart`.
  *
@@ -13,7 +14,11 @@
  *   (b) a pattern-carrying list honours its `@SectionIdPattern` on add_content;
  *   (c) add_content_on accepts an explicit (month, day) override for the id;
  *   (d) `som_list_contents` yields every item's content in item order;
- *   (e) `som_list_contents` reads "" for an item with no content leaf set.
+ *   (e) `som_list_contents` reads "" for an item with no content leaf set;
+ *   (f) `som_list_add_content_with_id` stores the explicit id and the content;
+ *   (g) a colliding explicit id is reported as COLLISION, adding nothing;
+ *   (h) a pattern-less list ignores the id on `som_list_add_with_id` and
+ *       `som_list_add_content_with_id` and appends plainly.
  *
  * Standalone: links the runtime static lib, exit 0 == all green.
  */
@@ -146,11 +151,89 @@ static void test_contents_ordered_and_missing(void) {
   spec_document_free(&doc);
 }
 
+/* (f) explicit id + content; (g) a colliding id adds nothing. */
+static void test_add_content_with_id(void) {
+  SpecDocument doc;
+  spec_document_init(&doc);
+  SomList list;
+  som_list_init_pattern(&list, &doc, "tasks", "TASK-xxx");
+
+  char *item = NULL;
+  SpecSectionIdError err;
+  spec_section_id_error_init(&err);
+  int ok = som_list_add_content_with_id(&list, "alpha", "TASK-ALPHA", &item,
+                                        &err);
+  CHECK(ok == 1, "explicit id add succeeds");
+  CHECK(err.kind == SPEC_SECTION_ID_OK, "no error on success");
+  CHECK_STR(item, "tasks-1", "first item path");
+  CHECK_STR(spec_document_item_section_id(&doc, item), "TASK-ALPHA",
+            "explicit id stored");
+  char leaf[256];
+  snprintf(leaf, sizeof(leaf), "%s/content", item);
+  CHECK_STR(spec_document_content(&doc, leaf), "alpha", "content leaf set");
+  free(item);
+
+  char *again = NULL;
+  ok = som_list_add_content_with_id(&list, "again", "TASK-ALPHA", &again, &err);
+  CHECK(ok == 0, "colliding id refused");
+  CHECK(again == NULL, "no item path on collision");
+  CHECK(spec_section_id_is_collision(&err), "collision reported");
+  CHECK_STR(err.id, "TASK-ALPHA", "collision names the id");
+  CHECK(som_list_length(&list) == 1, "collision adds nothing");
+  spec_section_id_error_free(&err);
+
+  /* NULL out path: the item is still added and the path freed internally. */
+  ok = som_list_add_content_with_id(&list, "beta", "TASK-BETA", NULL, NULL);
+  CHECK(ok == 1 && som_list_length(&list) == 2, "NULL out path still adds");
+
+  som_list_free(&list);
+  spec_document_free(&doc);
+}
+
+/* (h) a pattern-less list ignores the explicit id and appends plainly. */
+static void test_patternless_ignores_id(void) {
+  SpecDocument doc;
+  spec_document_init(&doc);
+  SomList list;
+  som_list_init(&list, &doc, "refs");
+
+  char *a = NULL, *b = NULL, *c = NULL;
+  CHECK(som_list_add_with_id(&list, "REF-X", &a, NULL) == 1,
+        "add_with_id on a pattern-less list succeeds");
+  /* The same id again: ignored, so no collision. */
+  CHECK(som_list_add_with_id(&list, "REF-X", &b, NULL) == 1,
+        "repeated id ignored on a pattern-less list");
+  CHECK(som_list_add_content_with_id(&list, "plain", "REF-X", &c, NULL) == 1,
+        "add_content_with_id on a pattern-less list succeeds");
+  CHECK(a != NULL && spec_document_item_section_id(&doc, a) == NULL,
+        "no section id stored (add_with_id)");
+  CHECK(c != NULL && spec_document_item_section_id(&doc, c) == NULL,
+        "no section id stored (add_content_with_id)");
+  SomStrList ids;
+  som_list_section_ids(&list, &ids);
+  CHECK(ids.len == 0, "pattern-less list has no section ids");
+  som_strlist_free(&ids);
+  if (c != NULL) {
+    char leaf[256];
+    snprintf(leaf, sizeof(leaf), "%s/content", c);
+    CHECK_STR(spec_document_content(&doc, leaf), "plain", "content leaf set");
+  }
+  CHECK(som_list_length(&list) == 3, "three items appended");
+
+  free(a);
+  free(b);
+  free(c);
+  som_list_free(&list);
+  spec_document_free(&doc);
+}
+
 int main(void) {
   test_add_content_sets_leaf();
   test_add_content_honours_pattern();
   test_add_content_on_date_override();
   test_contents_ordered_and_missing();
+  test_add_content_with_id();
+  test_patternless_ignores_id();
   if (g_failures == 0) {
     printf("list_add_content: all checks passed\n");
     return 0;

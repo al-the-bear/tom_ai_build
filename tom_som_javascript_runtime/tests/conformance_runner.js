@@ -58,6 +58,7 @@ const {
   DocSpecsValidator,
   DocSpecsViolationRule,
   SomEditability,
+  SomList,
   SomPatternError,
   SomTextPattern,
   SomVersionError,
@@ -1301,6 +1302,37 @@ function testSectionId() {
       default:
         _check(`sectionId.op[${i}].unknown`, false, s.op);
     }
+  }
+
+  // AA1 criterion 5 through the SomList facade: add / addContent with an
+  // explicit section id, generated ids for a date, and a pattern-less list
+  // ignoring the id.
+  const listDoc = new SpecDocument();
+  const steps = cases.listAdd.steps;
+  for (let i = 0; i < steps.length; i++) {
+    const s = steps[i];
+    const list = new SomList(
+      listDoc,
+      s.listPath,
+      (_d, p) => p,
+      s.pattern === undefined ? null : s.pattern,
+    );
+    const date = s.month === undefined ? null : new Date(2026, s.month - 1, s.day);
+    const sectionId = s.sectionId === undefined ? null : s.sectionId;
+    let got;
+    try {
+      const p =
+        s.op === 'add'
+          ? list.add(sectionId, date)
+          : list.addContent(s.content, sectionId, date);
+      const content = listDoc.content(`${p}/content`);
+      got = { path: p, content: content ?? null };
+    } catch (e) {
+      got = { error: e instanceof SpecSectionIdCollision ? 'collision' : String(e) };
+    }
+    got.sectionIds = listDoc.listItemSectionIds(s.listPath);
+    got.items = listDoc.listItems(s.listPath);
+    _check(`sectionId.listAdd[${i}].${s.op}`, _deepEqual(got, s.expect), _jsonMismatch(got, s.expect));
   }
 }
 

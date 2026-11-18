@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -40,6 +41,7 @@ import tom_som_runtime.FormFieldSpec;
 import tom_som_runtime.Json;
 import tom_som_runtime.SomEditability;
 import tom_som_runtime.SomFacade;
+import tom_som_runtime.SomList;
 import tom_som_runtime.SomMetaBridge;
 import tom_som_runtime.SomMetaTree;
 import tom_som_runtime.SomPatternError;
@@ -1985,6 +1987,43 @@ public final class ConformanceRunner {
         default:
           check("sectionId.op[" + i + "].unknown", false, op);
       }
+    }
+
+    // AA1 criterion 5 through the SomList facade: add / addContent with an
+    // explicit section id, generated ids for a date, and a pattern-less list
+    // ignoring the id.
+    SpecDocument listDoc = new SpecDocument();
+    Map<String, Object> listAdd = (Map<String, Object>) cases.get("listAdd");
+    List<Object> steps = (List<Object>) listAdd.get("steps");
+    for (int i = 0; i < steps.size(); i++) {
+      Map<String, Object> s = (Map<String, Object>) steps.get(i);
+      String op = (String) s.get("op");
+      String listPath = (String) s.get("listPath");
+      SomList<String> list =
+          new SomList<>(listDoc, listPath, (d, p) -> p, (String) s.get("pattern"));
+      LocalDate date =
+          s.get("month") == null
+              ? null
+              : LocalDate.of(2026, intAt(s, "month"), intAt(s, "day"));
+      String sectionId = (String) s.get("sectionId");
+      Map<String, Object> got = new LinkedHashMap<>();
+      try {
+        String p =
+            op.equals("add")
+                ? list.add(sectionId, date)
+                : list.addContent((String) s.get("content"), sectionId, date);
+        got.put("path", p);
+        got.put("content", listDoc.content(p + "/content"));
+      } catch (SpecSectionIdCollision e) {
+        got.put("error", "collision");
+      } catch (RuntimeException e) {
+        got.put("error", String.valueOf(e));
+      }
+      got.put("sectionIds", new ArrayList<Object>(listDoc.listItemSectionIds(listPath)));
+      got.put("items", new ArrayList<Object>(listDoc.listItems(listPath)));
+      Object want = s.get("expect");
+      check(
+          "sectionId.listAdd[" + i + "]." + op, got.equals(want), jsonMismatch(got, want));
     }
   }
 

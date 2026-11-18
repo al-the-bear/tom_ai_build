@@ -281,15 +281,40 @@ func (l *SomList[T]) addItemPath(month, day int) string {
 
 // AddWithID appends a new item with an explicit section id override (AA1
 // criterion 5), validated unique within the list. Returns a
-// *SpecSectionIDCollision on a duplicate. For a pattern-less list the id is
-// still recorded (an explicit override is always honoured).
+// *SpecSectionIDCollision on a duplicate. A pattern-less list ignores the id
+// and appends plainly, as the TS / Dart add(sectionId) does.
 func (l *SomList[T]) AddWithID(sectionID string) (T, error) {
-	itemPath, err := l.doc.AddListItemWithSectionID(l.listPath, sectionID)
+	itemPath, err := l.addItemPathWithID(sectionID)
 	if err != nil {
 		var zero T
 		return zero, err
 	}
 	return l.factory(l.doc, itemPath), nil
+}
+
+// AddContentWithID is the explicit-id companion to AddContent — the Go form
+// of the TS / Dart addContent(content, sectionId): it appends an item under
+// sectionID (validated unique; a *SpecSectionIDCollision on a duplicate),
+// writes content to its nested "<itemPath>/content" leaf and returns the
+// item's element facade. A pattern-less list ignores the id, as AddWithID.
+func (l *SomList[T]) AddContentWithID(content, sectionID string) (T, error) {
+	itemPath, err := l.addItemPathWithID(sectionID)
+	if err != nil {
+		var zero T
+		return zero, err
+	}
+	l.doc.SetContent(itemPath+"/content", content) // nested <item>/content leaf
+	return l.factory(l.doc, itemPath), nil
+}
+
+// addItemPathWithID appends an item under an explicit section id when the list
+// has a pattern, and plainly when it has none (mirrors the Dart _addItemPath
+// with a sectionId).
+func (l *SomList[T]) addItemPathWithID(sectionID string) (string, error) {
+	if l.pattern == "" {
+		return l.doc.AddListItem(l.listPath), nil
+	}
+	return l.doc.AddListItemWithSectionID(l.listPath, sectionID)
 }
 
 // RemoveAt removes the item at index and every value nested beneath it.

@@ -158,7 +158,8 @@ class SomList : public SomNode {
 
   /* Appends a new item carrying the explicit `sectionId` (criterion 5). Throws
    * SomSectionIdError (Collision) when the id is already used by a sibling.
-   * Returns the new item's stable path. */
+   * A list without a `@SectionIdPattern` ignores `sectionId` and appends
+   * plainly. Returns the new item's stable path. */
   std::string addWithId(const std::string& sectionId);
 
   /* Appends a content-only item and sets its nested `<item>/content` leaf in one
@@ -174,7 +175,8 @@ class SomList : public SomNode {
                            long long day);
 
   /* Like addContent() but carrying the explicit `sectionId` (mirrors
-   * addWithId()). Throws SomSectionIdError (Collision) on a sibling id clash. */
+   * addWithId()): a pattern-less list ignores the id. Throws SomSectionIdError
+   * (Collision) on a sibling id clash. */
   std::string addContentWithId(const std::string& content,
                                const std::string& sectionId);
 
@@ -199,7 +201,8 @@ class SomList : public SomNode {
 
   /* Shared append-and-derive-path helper backing both add()/addOn()/addWithId()
    * and their addContent* companions (Dart reference `_addItemPath`): a plain
-   * append when the list has no pattern and no explicit id, otherwise an append
+   * append when the list has no pattern (an explicit id is then ignored),
+   * otherwise an append
    * carrying the derived-or-explicit section id. Returns the new item's path. */
   std::string addItemPath(long long month, long long day);
   std::string addItemPathWithId(const std::string& sectionId);

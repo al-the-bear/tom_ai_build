@@ -72,7 +72,7 @@ use tom_som_rust_runtime::spec_model::{
 };
 use tom_som_rust_runtime::spec_node_creation::{check_add_node, SpecNodeCreator};
 use tom_som_rust_runtime::som_facade::{
-    check_som_model_version, som_editability_for, SomEditability,
+    check_som_model_version, doc_ref, som_editability_for, SomEditability, SomList,
 };
 use tom_som_rust_runtime::spec_query::{
     SpecQuery, SpecQueryCursor, SpecQueryEngine, SpecQueryMatch, SpecStateFilter,
@@ -1585,6 +1585,58 @@ fn test_section_id(c: &mut Checker) {
             }
             other => c.check(&format!("{}.unknown", tag), false, other),
         }
+    }
+
+    // AA1 criterion 5 through the SomList facade: add / add_content with an
+    // explicit section id (add_with_id / add_content_with_id), generated ids
+    // for a date (add_on / add_content_on), and a pattern-less list ignoring
+    // the id.
+    let list_doc = doc_ref(SpecDocument::new());
+    let steps = cases
+        .get("listAdd")
+        .and_then(|v| v.get("steps"))
+        .and_then(|v| v.as_array())
+        .unwrap_or(&[]);
+    c.check("sectionId.listAdd.steps", !steps.is_empty(), "no listAdd steps");
+    for (i, s) in steps.iter().enumerate() {
+        let op = s.str_or("op");
+        let list_path = s.str_or("listPath");
+        let pattern = s.get("pattern").and_then(|v| v.as_str()).unwrap_or("").to_string();
+        let list: SomList<String> =
+            SomList::new(list_doc.clone(), list_path.clone(), Box::new(|_d, p| p), pattern);
+        let section_id = s.get("sectionId").and_then(|v| v.as_str());
+        let date = s
+            .get("month")
+            .and_then(|v| v.as_i64())
+            .map(|m| (m, s.get("day").and_then(|v| v.as_i64()).unwrap_or(0)));
+        let content = s.str_or("content");
+        let added = match (op.as_str(), section_id, date) {
+            ("add", Some(id), _) => list.add_with_id(id),
+            ("add", None, Some((m, d))) => Ok(list.add_on(m, d)),
+            ("add", None, None) => Ok(list.add()),
+            (_, Some(id), _) => list.add_content_with_id(&content, id),
+            (_, None, Some((m, d))) => Ok(list.add_content_on(&content, m, d)),
+            (_, None, None) => Ok(list.add_content(&content)),
+        };
+        let mut got: Vec<(String, Json)> = match added {
+            Ok(p) => {
+                let leaf = list_doc.borrow().content(&format!("{}/content", p)).cloned();
+                vec![("path".to_string(), jstr(&p)), ("content".to_string(), jopt(&leaf))]
+            }
+            Err(ref e) if is_collision(e) => vec![("error".to_string(), jstr("collision"))],
+            Err(e) => vec![("error".to_string(), jstr(&e.to_string()))],
+        };
+        let ids = list_doc.borrow().list_item_section_ids(&list_path);
+        let items = list_doc.borrow().list_items(&list_path);
+        got.push(("sectionIds".to_string(), Json::Array(ids.iter().map(|x| jstr(x)).collect())));
+        got.push(("items".to_string(), Json::Array(items.iter().map(|x| jstr(x)).collect())));
+        let got = Json::Object(got);
+        let want = s.get("expect").cloned().unwrap_or(Json::Null);
+        c.check(
+            &format!("sectionId.listAdd[{}].{}", i, op),
+            json_eq(&got, &want),
+            &format!("{:?} != {:?}", got, want),
+        );
     }
 }
 

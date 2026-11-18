@@ -1280,6 +1280,24 @@ type sectionIdCases struct {
 	TwoLetterDate []sectionIdTwoLetterCase `json:"twoLetterDate"`
 	Generate      []sectionIdGenerateCase  `json:"generate"`
 	DocumentOps   []sectionIdOpCase        `json:"documentOps"`
+	ListAdd       struct {
+		Steps []sectionIdListAddStep `json:"steps"`
+	} `json:"listAdd"`
+}
+
+// sectionIdListAddStep is one step of the listAdd script: the SomList
+// facade's add / addContent with an explicit section id or a generated one
+// (AA1 criterion 5). Optional corpus fields decode as pointers so an absent
+// value is told from a zero one.
+type sectionIdListAddStep struct {
+	Op        string          `json:"op"`
+	ListPath  string          `json:"listPath"`
+	Pattern   *string         `json:"pattern"`
+	Content   string          `json:"content"`
+	SectionID *string         `json:"sectionId"`
+	Month     *int            `json:"month"`
+	Day       *int            `json:"day"`
+	Expect    json.RawMessage `json:"expect"`
 }
 
 // isCollision reports whether err is (or wraps) a SpecSectionIDCollision
@@ -1338,6 +1356,77 @@ func testSectionId(c *checker, t *testing.T) {
 		default:
 			c.check(tag+".unknown", false, s.Op)
 		}
+	}
+
+	// AA1 criterion 5 through the SomList facade: add / addContent with an
+	// explicit section id, generated ids for a date, and a pattern-less list
+	// ignoring the id. One document for the whole script.
+	listDoc := som.NewSpecDocument()
+	for i, s := range cases.ListAdd.Steps {
+		tag := "sectionId.listAdd[" + itoa(i) + "]." + s.Op
+		pattern := ""
+		if s.Pattern != nil {
+			pattern = *s.Pattern
+		}
+		list := som.NewSomList(listDoc, s.ListPath,
+			func(_ *som.SpecDocument, p string) string { return p }, pattern)
+		var p string
+		var err error
+		switch s.Op {
+		case "add":
+			switch {
+			case s.SectionID != nil:
+				p, err = list.AddWithID(*s.SectionID)
+			case s.Month != nil:
+				p = list.AddOn(*s.Month, *s.Day)
+			default:
+				p = list.Add()
+			}
+		case "addContent":
+			switch {
+			case s.SectionID != nil:
+				p, err = list.AddContentWithID(s.Content, *s.SectionID)
+			case s.Month != nil:
+				p = list.AddContentOn(s.Content, *s.Month, *s.Day)
+			default:
+				p = list.AddContent(s.Content)
+			}
+		default:
+			c.check(tag+".unknown", false, s.Op)
+			continue
+		}
+		got := map[string]any{}
+		if err != nil {
+			if isCollision(err) {
+				got["error"] = "collision"
+			} else {
+				got["error"] = err.Error()
+			}
+		} else {
+			got["path"] = p
+			if v, ok := listDoc.Content(p + "/content"); ok {
+				got["content"] = v
+			} else {
+				got["content"] = nil
+			}
+		}
+		ids := listDoc.ListItemSectionIDs(s.ListPath)
+		if ids == nil {
+			ids = []string{}
+		}
+		got["sectionIds"] = ids
+		items := listDoc.ListItems(s.ListPath)
+		if items == nil {
+			items = []string{}
+		}
+		got["items"] = items
+		gotJSON, mErr := json.Marshal(got)
+		if mErr != nil {
+			t.Fatalf("marshal listAdd result: %v", mErr)
+		}
+		gotAny := jsonAny(t, gotJSON)
+		want := jsonAny(t, s.Expect)
+		c.check(tag, reflect.DeepEqual(gotAny, want), canonJSON(t, gotAny)+" != "+canonJSON(t, want))
 	}
 }
 

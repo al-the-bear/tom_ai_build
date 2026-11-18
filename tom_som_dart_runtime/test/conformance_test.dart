@@ -934,6 +934,44 @@ void main() {
           fail('unknown section-id op ${s['op']}');
       }
     }
+
+    // Criterion 5 through the SomList facade: add / addContent with an
+    // explicit section id, a generated id for a date, and a pattern-less list
+    // ignoring the id — one document for the whole script.
+    final listDoc = SpecDocument();
+    final listAdd = cases['listAdd'] as Map<String, dynamic>;
+    final steps = (listAdd['steps'] as List).cast<Map<String, dynamic>>();
+    for (var i = 0; i < steps.length; i++) {
+      final s = steps[i];
+      final listPath = s['listPath'] as String;
+      final list = SomList<String>(
+        listDoc,
+        listPath,
+        (_, p) => p,
+        pattern: s['pattern'] as String?,
+      );
+      final month = s['month'] as int?;
+      final date = month == null
+          ? null
+          : DateTime(2026, month, s['day'] as int);
+      final sectionId = s['sectionId'] as String?;
+      Map<String, dynamic> got;
+      try {
+        final p = s['op'] == 'add'
+            ? list.add(sectionId: sectionId, date: date)
+            : list.addContent(
+                s['content'] as String,
+                sectionId: sectionId,
+                date: date,
+              );
+        got = {'path': p, 'content': listDoc.content('$p/content')};
+      } on SpecSectionIdCollision {
+        got = {'error': 'collision'};
+      }
+      got['sectionIds'] = listDoc.listItemSectionIds(listPath);
+      got['items'] = listDoc.listItems(listPath);
+      expect(got, s['expect'], reason: 'listAdd[$i].${s['op']}');
+    }
   });
 
   // AA1 criterion 7: members serialize in @SerializationOrder, not alphabetical.
@@ -5246,7 +5284,124 @@ Map<String, dynamic> _sectionIdCases() => {
       'id': 'DEMO-ITEM-CD1',
     },
   ],
+  'listAdd': _listAddCases(),
 };
+
+/// AA1 criterion 5 through the `SomList` facade (`section_id_cases.json`
+/// `listAdd`): one script on one document, each step's expectation written
+/// out as the facade produces it.
+Map<String, dynamic> _listAddCases() {
+  Map<String, dynamic> step(
+    String op,
+    String listPath,
+    String? pattern, {
+    String? content,
+    String? sectionId,
+    int? month,
+    int? day,
+    required Map<String, dynamic> expect,
+  }) => {
+    'op': op,
+    'listPath': listPath,
+    'pattern': pattern,
+    if (content != null) 'content': content,
+    if (sectionId != null) 'sectionId': sectionId,
+    if (month != null) 'month': month,
+    if (day != null) 'day': day,
+    'expect': expect,
+  };
+  const card = 'DEMO/CARD-LST';
+  const ref = 'DEMO/REF-LST';
+  return {
+    'description':
+        'The SomList facade\'s add / addContent with an explicit section id '
+        '(AA1 criterion 5), on one document, in order. A list with a pattern '
+        'stores the given id (a duplicate is refused as `collision` and adds '
+        'nothing) or, without one, generates it from the pattern for the '
+        'step\'s month and day; a list without a pattern ignores the given id '
+        'and appends plainly. After each step: the new item\'s path, its '
+        'nested content leaf (null when unset), the list\'s section ids and '
+        'items.',
+    'steps': [
+      step(
+        'addContent',
+        card,
+        'CARD-xxx',
+        content: 'alpha',
+        sectionId: 'CARD-ALPHA',
+        expect: {
+          'path': '$card-1',
+          'content': 'alpha',
+          'sectionIds': ['CARD-ALPHA'],
+          'items': ['$card-1'],
+        },
+      ),
+      step(
+        'addContent',
+        card,
+        'CARD-xxx',
+        content: 'again',
+        sectionId: 'CARD-ALPHA',
+        expect: {
+          'error': 'collision',
+          'sectionIds': ['CARD-ALPHA'],
+          'items': ['$card-1'],
+        },
+      ),
+      step(
+        'addContent',
+        card,
+        'CARD-xxx',
+        content: 'generated',
+        month: 3,
+        day: 4,
+        expect: {
+          'path': '$card-2',
+          'content': 'generated',
+          'sectionIds': ['CARD-ALPHA', 'CARD-CD1'],
+          'items': ['$card-1', '$card-2'],
+        },
+      ),
+      step(
+        'add',
+        card,
+        'CARD-xxx',
+        sectionId: 'CARD-BETA',
+        expect: {
+          'path': '$card-3',
+          'content': null,
+          'sectionIds': ['CARD-ALPHA', 'CARD-CD1', 'CARD-BETA'],
+          'items': ['$card-1', '$card-2', '$card-3'],
+        },
+      ),
+      step(
+        'add',
+        ref,
+        null,
+        sectionId: 'REF-IGNORED',
+        expect: {
+          'path': '$ref-1',
+          'content': null,
+          'sectionIds': <String>[],
+          'items': ['$ref-1'],
+        },
+      ),
+      step(
+        'addContent',
+        ref,
+        null,
+        content: 'plain',
+        sectionId: 'REF-ALSO-IGNORED',
+        expect: {
+          'path': '$ref-2',
+          'content': 'plain',
+          'sectionIds': <String>[],
+          'items': ['$ref-1', '$ref-2'],
+        },
+      ),
+    ],
+  };
+}
 
 /// The serialization-order corpus (AA1 criterion 7). A small model whose fields
 /// declare `@SerializationOrder` in reverse-alphabetical order, so a correct

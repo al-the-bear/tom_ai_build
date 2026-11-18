@@ -73,6 +73,7 @@ from tom_som_runtime import (  # noqa: E402
     DocSpecsValidator,
     DocSpecsViolationRule,
     SomEditability,
+    SomList,
     SomPatternError,
     SomTextPattern,
     SomVersionError,
@@ -753,6 +754,30 @@ def test_section_id() -> None:
                    _raises(lambda: d.add_list_item(s["listPath"], section_id=s["id"])))
         else:  # pragma: no cover
             _check(f"sectionId.op[{i}].unknown", False, op)
+
+    # AA1 criterion 5 through the SomList facade: add / add_content with an
+    # explicit section id, generated ids for a date, and a pattern-less list
+    # ignoring the id.
+    list_doc = SpecDocument()
+    for i, s in enumerate(cases["listAdd"]["steps"]):
+        lst = SomList(list_doc, s["listPath"], lambda _d, p: p, s.get("pattern"))
+        date = (_dt.date(2026, s["month"], s["day"])
+                if s.get("month") is not None else None)
+        section_id = s.get("sectionId")
+        try:
+            if s["op"] == "add":
+                p = lst.add(section_id, date)
+            else:
+                p = lst.add_content(s["content"], section_id, date)
+            got = {"path": p, "content": list_doc.content(f"{p}/content")}
+        except SpecSectionIdCollision:
+            got = {"error": "collision"}
+        got["sectionIds"] = list_doc.list_item_section_ids(s["listPath"])
+        got["items"] = list_doc.list_items(s["listPath"])
+        got_json = json.dumps(got, sort_keys=True)
+        want_json = json.dumps(s["expect"], sort_keys=True)
+        _check(f"sectionId.listAdd[{i}].{s['op']}", got_json == want_json,
+               f"{got_json} != {want_json}")
 
 
 def _raises(fn) -> bool:

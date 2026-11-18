@@ -97,6 +97,29 @@ fn add_content_accepts_id_override() {
     assert_eq!(list.section_ids(), vec!["CUSTOM-1".to_string()]);
 }
 
+/// (c2) the explicit-id forms refuse a duplicate id without adding anything,
+/// and a pattern-less list ignores the id and appends plainly.
+#[test]
+fn explicit_id_collision_and_pattern_less_list() {
+    let doc = doc_ref(SpecDocument::new());
+    let list = content_list(doc.clone(), "DEMO/CARD-LST", "CARD-xxx");
+    list.add_content_with_id("alpha", "CARD-ALPHA").expect("unique");
+    assert!(list.add_content_with_id("again", "CARD-ALPHA").is_err());
+    assert!(list.add_with_id("CARD-ALPHA").is_err());
+    assert_eq!(list.length(), 1);
+    assert_eq!(list.contents(), vec!["alpha".to_string()]);
+
+    let plain = content_list(doc.clone(), "DEMO/REF-LST", "");
+    plain.add_with_id("REF-IGNORED").expect("plain append");
+    let item = plain
+        .add_content_with_id("plain", "REF-ALSO-IGNORED")
+        .expect("plain append");
+    assert_eq!(item.content(), "plain");
+    assert_eq!(item.node.path(), "DEMO/REF-LST-2");
+    assert!(plain.section_ids().is_empty());
+    assert_eq!(plain.length(), 2);
+}
+
 /// (d) contents yields every item's content leaf in item order.
 #[test]
 fn contents_yields_ordered_content() {

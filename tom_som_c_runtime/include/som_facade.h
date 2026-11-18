@@ -134,9 +134,11 @@ char *som_list_add(SomList *l);
  * ignored. Returns the item's stable path (owned). */
 char *som_list_add_on(SomList *l, long long month, long long day);
 /* Appends a new item with an explicit section id override (AA1 criterion 5),
- * validated unique within the list. On collision writes `*err` and returns 0;
- * on success writes an owned item path to `*out_item_path` (when non-NULL) and
- * returns 1. `err` may be NULL. */
+ * validated unique within the list. On collision writes `*err` (COLLISION;
+ * its strings are owned by `*err`, release with `spec_section_id_error_free`),
+ * adds nothing and returns 0; on success writes an owned item path (caller
+ * frees) to `*out_item_path` (when non-NULL) and returns 1. `err` may be NULL.
+ * A pattern-less list ignores `section_id` and appends plainly (always 1). */
 int som_list_add_with_id(SomList *l, const char *section_id,
                          char **out_item_path, SpecSectionIdError *err);
 /* Appends a content-only item and sets its nested `<item>/content` leaf in one
@@ -153,6 +155,20 @@ char *som_list_add_content(SomList *l, const char *content);
  * item's stable path (owned; caller frees). */
 char *som_list_add_content_on(SomList *l, const char *content, long long month,
                               long long day);
+/* The explicit-id companion to `som_list_add_content` (TS
+ * `addContent(content, sectionId)`): appends an item exactly as
+ * `som_list_add_with_id` does — `section_id` validated unique within the list,
+ * a pattern-less list ignoring it and appending plainly — then writes `content`
+ * to the item's nested `<item>/content` leaf. On collision writes `*err`
+ * (COLLISION; strings owned by `*err`, release with
+ * `spec_section_id_error_free`), adds nothing, writes no content and returns 0.
+ * On success writes the item's stable path (owned; caller frees) to
+ * `*out_item_path` (when non-NULL; otherwise it is freed here) and returns 1.
+ * `content` and `section_id` are borrowed (copied as needed); `err` may be
+ * NULL. */
+int som_list_add_content_with_id(SomList *l, const char *content,
+                                 const char *section_id, char **out_item_path,
+                                 SpecSectionIdError *err);
 /* Ordered read-only view of every item's nested `<item>/content` leaf, written
  * into `out` (initialised by callee; caller frees with `som_strlist_free`). A
  * missing leaf is coalesced to the empty string "" (C's absent-content

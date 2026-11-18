@@ -774,6 +774,9 @@ static void test_operations(Checker& c) {
 /* Defined below, alongside the other corpus-list helpers. */
 static std::vector<std::string> json_str_list(const som::JsonRef& arr);
 static std::string join(const std::vector<std::string>& v);
+static std::string json_canon(const som::JsonRef& v);
+static std::string json_text_canon(const std::string& text);
+static std::string json_str_array(const std::vector<std::string>& v);
 
 /* A corpus JSON node as a SomValue, keeping the distinctions the typed contract
  * rests on: the integer 2 is not the double 2.0, and true is not "true". A
@@ -1072,6 +1075,52 @@ static void test_section_id(Checker& c) {
     } else {
       c.check(tag + ".unknown", false, op);
     }
+  }
+
+  // AA1 criterion 5 through the SomList facade: add / addContent with an
+  // explicit section id, generated ids for a (month, day), and a pattern-less
+  // list ignoring the id — one document, in order.
+  som::SpecDocument listDoc;
+  som::JsonRef steps = som::jsonGet(som::jsonGet(cases, "listAdd"), "steps");
+  std::size_t ln = som::jsonArrayLen(steps);
+  c.check("sectionId.listAdd.steps", ln > 0, "no listAdd steps");
+  for (std::size_t i = 0; i < ln; i++) {
+    som::JsonRef s = som::jsonArrayAt(steps, i);
+    std::string op = som::jsonStrOr(s, "op");
+    std::string listPath = som::jsonStrOr(s, "listPath");
+    const std::string* pattern = som::jsonAsStr(som::jsonGet(s, "pattern"));
+    som::SomList list(listDoc, listPath, pattern == nullptr ? "" : *pattern);
+    const std::string* sectionId = som::jsonAsStr(som::jsonGet(s, "sectionId"));
+    std::optional<long long> month = som::jsonAsI64(som::jsonGet(s, "month"));
+    std::optional<long long> day = som::jsonAsI64(som::jsonGet(s, "day"));
+    std::string got = "{";
+    try {
+      std::string p;
+      if (op == "add") {
+        p = sectionId != nullptr ? list.addWithId(*sectionId)
+            : month.has_value() ? list.addOn(*month, day.value_or(0))
+                                : list.add();
+      } else {
+        std::string content = som::jsonStrOr(s, "content");
+        p = sectionId != nullptr
+                ? list.addContentWithId(content, *sectionId)
+            : month.has_value()
+                ? list.addContentOn(content, *month, day.value_or(0))
+                : list.addContent(content);
+      }
+      const std::string* leaf = listDoc.contentOpt(som::joinPath(p, "content"));
+      got += "\"path\":" + som::jsonEncodeStr(p) + ",\"content\":" +
+             (leaf == nullptr ? std::string("null") : som::jsonEncodeStr(*leaf));
+    } catch (const som::SomSectionIdError& e) {
+      got += "\"error\":" +
+             som::jsonEncodeStr(e.isCollision() ? "collision" : e.what());
+    }
+    got += ",\"sectionIds\":" + json_str_array(listDoc.listItemSectionIds(listPath)) +
+           ",\"items\":" + json_str_array(listDoc.listItems(listPath)) + "}";
+    std::string gotCanon = json_text_canon(got);
+    std::string wantCanon = json_canon(som::jsonGet(s, "expect"));
+    c.check("sectionId.listAdd[" + std::to_string(i) + "]." + op,
+            gotCanon == wantCanon, gotCanon + " != " + wantCanon);
   }
 }
 

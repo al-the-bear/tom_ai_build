@@ -300,16 +300,15 @@ impl<T> SomList<T> {
 
     /// Like [`SomList::add_content`] but with an explicit section id override
     /// (AA1 criterion 5), validated unique within the list. Returns
-    /// [`SpecSectionIdError::Collision`] on a duplicate.
+    /// [`SpecSectionIdError::Collision`] on a duplicate (nothing is added). A
+    /// pattern-less list ignores the id and appends plainly, as
+    /// [`SomList::add_with_id`] does.
     pub fn add_content_with_id(
         &self,
         content: &str,
         section_id: &str,
     ) -> Result<T, SpecSectionIdError> {
-        let item_path = self
-            .doc
-            .borrow_mut()
-            .add_list_item_with_section_id(&self.list_path, section_id)?;
+        let item_path = self.add_item_path_with_id(section_id)?;
         self.doc
             .borrow_mut()
             .set_content(&format!("{}/content", item_path), content);
@@ -351,14 +350,24 @@ impl<T> SomList<T> {
 
     /// Appends a new item with an explicit section id override (AA1 criterion 5),
     /// validated unique within the list. Returns
-    /// [`SpecSectionIdError::Collision`] on a duplicate. For a pattern-less list
-    /// the id is still recorded (an explicit override is always honoured).
+    /// [`SpecSectionIdError::Collision`] on a duplicate (nothing is added). A
+    /// pattern-less list has no section ids: the id is ignored and the item is
+    /// appended plainly, matching the JS/TS `add(sectionId)`.
     pub fn add_with_id(&self, section_id: &str) -> Result<T, SpecSectionIdError> {
-        let item_path = self
-            .doc
-            .borrow_mut()
-            .add_list_item_with_section_id(&self.list_path, section_id)?;
+        let item_path = self.add_item_path_with_id(section_id)?;
         Ok((self.factory)(Rc::clone(&self.doc), item_path))
+    }
+
+    /// Shared derivation for the explicit-id `add*` forms: a pattern-less list
+    /// appends without a section id; otherwise the item is stored under
+    /// `section_id`, refused as a collision when the list already holds it.
+    fn add_item_path_with_id(&self, section_id: &str) -> Result<String, SpecSectionIdError> {
+        if self.pattern.is_empty() {
+            return Ok(self.doc.borrow_mut().add_list_item(&self.list_path));
+        }
+        self.doc
+            .borrow_mut()
+            .add_list_item_with_section_id(&self.list_path, section_id)
     }
 
     /// Removes the item at `index` and every value nested beneath it.

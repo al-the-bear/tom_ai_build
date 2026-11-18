@@ -193,5 +193,113 @@
       "listPath": "DEMO/items",
       "id": "DEMO-ITEM-CD1"
     }
-  ]
+  ],
+  "listAdd": {
+    "description": "The SomList facade's add / addContent with an explicit section id (AA1 criterion 5), on one document, in order. A list with a pattern stores the given id (a duplicate is refused as `collision` and adds nothing) or, without one, generates it from the pattern for the step's month and day; a list without a pattern ignores the given id and appends plainly. After each step: the new item's path, its nested content leaf (null when unset), the list's section ids and items.",
+    "steps": [
+      {
+        "op": "addContent",
+        "listPath": "DEMO/CARD-LST",
+        "pattern": "CARD-xxx",
+        "content": "alpha",
+        "sectionId": "CARD-ALPHA",
+        "expect": {
+          "path": "DEMO/CARD-LST-1",
+          "content": "alpha",
+          "sectionIds": [
+            "CARD-ALPHA"
+          ],
+          "items": [
+            "DEMO/CARD-LST-1"
+          ]
+        }
+      },
+      {
+        "op": "addContent",
+        "listPath": "DEMO/CARD-LST",
+        "pattern": "CARD-xxx",
+        "content": "again",
+        "sectionId": "CARD-ALPHA",
+        "expect": {
+          "error": "collision",
+          "sectionIds": [
+            "CARD-ALPHA"
+          ],
+          "items": [
+            "DEMO/CARD-LST-1"
+          ]
+        }
+      },
+      {
+        "op": "addContent",
+        "listPath": "DEMO/CARD-LST",
+        "pattern": "CARD-xxx",
+        "content": "generated",
+        "month": 3,
+        "day": 4,
+        "expect": {
+          "path": "DEMO/CARD-LST-2",
+          "content": "generated",
+          "sectionIds": [
+            "CARD-ALPHA",
+            "CARD-CD1"
+          ],
+          "items": [
+            "DEMO/CARD-LST-1",
+            "DEMO/CARD-LST-2"
+          ]
+        }
+      },
+      {
+        "op": "add",
+        "listPath": "DEMO/CARD-LST",
+        "pattern": "CARD-xxx",
+        "sectionId": "CARD-BETA",
+        "expect": {
+          "path": "DEMO/CARD-LST-3",
+          "content": null,
+          "sectionIds": [
+            "CARD-ALPHA",
+            "CARD-CD1",
+            "CARD-BETA"
+          ],
+          "items": [
+            "DEMO/CARD-LST-1",
+            "DEMO/CARD-LST-2",
+            "DEMO/CARD-LST-3"
+          ]
+        }
+      },
+      {
+        "op": "add",
+        "listPath": "DEMO/REF-LST",
+        "pattern": null,
+        "sectionId": "REF-IGNORED",
+        "expect": {
+          "path": "DEMO/REF-LST-1",
+          "content": null,
+          "sectionIds": [],
+          "items": [
+            "DEMO/REF-LST-1"
+          ]
+        }
+      },
+      {
+        "op": "addContent",
+        "listPath": "DEMO/REF-LST",
+        "pattern": null,
+        "content": "plain",
+        "sectionId": "REF-ALSO-IGNORED",
+        "expect": {
+          "path": "DEMO/REF-LST-2",
+          "content": "plain",
+          "sectionIds": [],
+          "items": [
+            "DEMO/REF-LST-1",
+            "DEMO/REF-LST-2"
+          ]
+        }
+      }
+    ]
+  }
 }
