@@ -1,0 +1,15 @@
+{
+  "name": "tom_specs_sample_build_a_specification_tool",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TomSpecs sample: build a specification tool (JavaScript port).",
+  "license": "BSD-3-Clause",
+  "main": "index.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "tom_som_javascript_runtime": "file:../../../tom_som_javascript_runtime",
+    "tom_som_javascript_v0": "file:../../../tom_som_javascript_v0"
+  }
+}

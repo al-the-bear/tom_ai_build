@@ -154,6 +154,10 @@ run_one() {
       echo "  SKIP     $name — node not on PATH"
       SKIPPED+=("$name"); return
     fi
+    if ! command -v npm > /dev/null 2>&1; then
+      echo "  SKIP     $name — npm not on PATH"
+      SKIPPED+=("$name"); return
+    fi
     cmd=(node index.js)
   else
     echo "  SKIP     $name — no recognised entry point (pubspec.yaml,"
@@ -166,6 +170,17 @@ run_one() {
   if [ -f "$dir/pubspec.yaml" ]; then
     if ! (cd "$dir" && dart pub get) > "$log" 2>&1; then
       echo "  FAIL     $name — dart pub get failed"
+      tail -n 15 "$log" | sed 's/^/             /'
+      FAILED+=("$name"); return
+    fi
+  fi
+
+  # A Node sample installs its dependencies first — the non-Dart runtimes are
+  # `file:` dependencies on the checkout, so this links them rather than
+  # fetching anything. Its failure is the sample's, like `dart pub get`'s.
+  if [ -f "$dir/package.json" ] && [ ! -f "$dir/pubspec.yaml" ]; then
+    if ! (cd "$dir" && npm install --no-audit --no-fund) > "$log" 2>&1; then
+      echo "  FAIL     $name — npm install failed"
       tail -n 15 "$log" | sed 's/^/             /'
       FAILED+=("$name"); return
     fi
