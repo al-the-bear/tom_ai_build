@@ -623,15 +623,15 @@ class CodeSpecsExtract:
         )
         b.writeln("extract:")
         b.writeln(f"  formatVersion: {K_CODE_SPECS_EXTRACT_FORMAT}")
-        b.writeln(f"  catalogSource: {_yaml_string(self.catalog_source)}")
+        b.writeln(f"  catalogSource: {code_specs_yaml_string(self.catalog_source)}")
         b.writeln("  area:")
-        b.writeln(f"    code: {_yaml_string(self.area.code)}")
-        b.writeln(f"    canonicalId: {_yaml_string(self.area.canonical_id)}")
-        b.writeln(f"    part: {_yaml_string(self.area.kind_value)}")
+        b.writeln(f"    code: {code_specs_yaml_string(self.area.code)}")
+        b.writeln(f"    canonicalId: {code_specs_yaml_string(self.area.canonical_id)}")
+        b.writeln(f"    part: {code_specs_yaml_string(self.area.kind_value)}")
         b.writeln(f"    annotations: {_yaml_string_list(self.area.annotations)}")
-        b.writeln(f"    builtOn: {_yaml_string(self.area.built_on)}")
+        b.writeln(f"    builtOn: {code_specs_yaml_string(self.area.built_on)}")
         b.writeln(
-            f"    attributeSurface: {_yaml_string(self.area.attribute_surface)}"
+            f"    attributeSurface: {code_specs_yaml_string(self.area.attribute_surface)}"
         )
         b.writeln(f"    slices: {_yaml_int_list(self.area.slices)}")
         b.writeln(
@@ -640,30 +640,30 @@ class CodeSpecsExtract:
         b.writeln(f"    projects: {_yaml_string_list(self.projects)}")
         b.writeln(f"    citableParts: {_yaml_string_list(self.citable_parts)}")
         b.writeln("  document:")
-        b.writeln(f"    root: {_yaml_string(self.document_root)}")
+        b.writeln(f"    root: {code_specs_yaml_string(self.document_root)}")
         b.writeln(f"    entryCount: {len(self.entries)}")
         if not self.entries:
             b.writeln("  entries: []")
             return str(b)
         b.writeln("  entries:")
         for e in self.entries:
-            b.writeln(f"    - sectionId: {_yaml_string(e.section_id)}")
+            b.writeln(f"    - sectionId: {code_specs_yaml_string(e.section_id)}")
             b.writeln(f"      headline: {_yaml_nullable_string(e.headline)}")
             b.writeln(
                 f"      instanceId: {_yaml_nullable_string(e.instance_id)}"
             )
-            b.writeln(f"      path: {_yaml_string(e.path)}")
-            b.writeln(f"      className: {_yaml_string(e.class_name)}")
-            b.writeln(f"      fieldName: {_yaml_string(e.field_name)}")
+            b.writeln(f"      path: {code_specs_yaml_string(e.path)}")
+            b.writeln(f"      className: {code_specs_yaml_string(e.class_name)}")
+            b.writeln(f"      fieldName: {code_specs_yaml_string(e.field_name)}")
             b.writeln(f"      formField: {_yaml_nullable_string(e.form_field)}")
-            b.writeln(f"      routedBy: {_yaml_string(e.routed_by)}")
-            b.writeln(f"      routedAt: {_yaml_string(e.routed_at)}")
+            b.writeln(f"      routedBy: {code_specs_yaml_string(e.routed_by)}")
+            b.writeln(f"      routedAt: {code_specs_yaml_string(e.routed_at)}")
             b.writeln(
                 f"      routingNote: {_yaml_nullable_string(e.routing_note)}"
             )
             if e.units:
                 b.writeln(f"      units: {_yaml_string_list(e.units)}")
-            b.writeln(f"      value: {_yaml_string(e.value)}")
+            b.writeln(f"      value: {code_specs_yaml_string(e.value)}")
         return str(b)
 
     def to_markdown(self) -> str:
@@ -1295,7 +1295,7 @@ def _describe(v: Any) -> str:
         return "absent"
     type_name = _DART_TYPE_NAMES.get(type(v), type(v).__name__)
     text = ("true" if v else "false") if isinstance(v, bool) else str(v)
-    return f"{type_name} {_yaml_string(text)}"
+    return f"{type_name} {code_specs_yaml_string(text)}"
 
 
 def _string_list(raw: Any) -> list[str]:
@@ -1306,9 +1306,10 @@ def _int_list(raw: Any) -> list[int]:
     return [int(e) for e in raw] if isinstance(raw, list) else []
 
 
-def _yaml_string(value: str) -> str:
+def code_specs_yaml_string(value: str) -> str:
     """A JSON string literal, which is also a valid YAML 1.2 double-quoted
-    scalar. Hand-written rather than delegated to ``json.dumps`` so the eight
+    scalar: the one string encoding of an extract and of a gate record (TS
+    ``codeSpecsYamlString``, Dart ``codeSpecsYamlString``). Hand-written rather than delegated to ``json.dumps`` so the eight
     ports have one rule to transcribe rather than nine encoders to hope
     agree."""
     b = ['"']
@@ -1337,7 +1338,7 @@ def _yaml_string(value: str) -> str:
 
 
 def _yaml_nullable_string(value: Optional[str]) -> str:
-    return "null" if value is None else _yaml_string(value)
+    return "null" if value is None else code_specs_yaml_string(value)
 
 
 def _split_units(units: Optional[str]) -> list[str]:
@@ -1350,7 +1351,7 @@ def _split_units(units: Optional[str]) -> list[str]:
 
 
 def _yaml_string_list(values: list[str]) -> str:
-    return f"[{', '.join(_yaml_string(v) for v in values)}]"
+    return f"[{', '.join(code_specs_yaml_string(v) for v in values)}]"
 
 
 def _yaml_int_list(values: list[int]) -> str:

@@ -264,6 +264,8 @@ the report's `conflicts` (`SpecConflictOutcome`: `id`, `path`, `field`, `line`,
 unresolved or malformed. A structural conflict (`Item removed`, `Item moved`,
 `Headline changed`) only loses its block: its decision is the caller's to
 apply. `stripped()` keeps a conflict's base text and drops the block.
+`format_conflict_block(id, topic, text, base, alternatives)` gives the lines of
+a block.
 
 **Merging.** `merge_reviews(base, copies, options)` merges the returned copies
 into a new document and returns a `SpecReviewMergeResult` (`merged`,

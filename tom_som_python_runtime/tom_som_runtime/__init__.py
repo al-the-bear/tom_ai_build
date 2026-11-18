@@ -53,6 +53,7 @@ from .spec_codespecs_extract import (
     CodeSpecsRoutingVerdict,
     CodeSpecsSlice,
     CodeSpecsStep,
+    code_specs_yaml_string,
 )
 from .spec_codespecs_gate import (
     CodeSpecsGate,
@@ -168,15 +169,22 @@ from .spec_document_markdown import (
 from .spec_schema_validation import validate_spec_document
 from .spec_document_yaml import (
     FORMAT_VERSION,
+    SpecDocumentYaml,
     SpecYamlContents,
     SpecYamlFormatException,
     decode as yaml_decode,
+    dedup_empty_lines,
     encode as yaml_encode,
     is_plain_yaml_scalar,
+    node_key,
+    plain_key,
     rekey_review,
     review_scalar,
     stale_review_paths,
+    write_header,
     write_review_pass,
+    write_scalar,
+    yaml_key,
 )
 from .spec_meta import (
     SomContentTypeMeta,
@@ -206,7 +214,9 @@ from .spec_model import (
     SpecModelStampCheck,
     SpecRoot,
     parse_stamp_timestamp,
+    som_model_version_string,
 )
+from .spec_review_annotations import format_conflict_block
 from .spec_paths import (
     SPEC_PATH_SEPARATOR,
     ListItemSegment,
@@ -262,6 +272,16 @@ from .spec_validator import (
 )
 
 __all__ = [
+    "SpecDocumentYaml",
+    "code_specs_yaml_string",
+    "dedup_empty_lines",
+    "format_conflict_block",
+    "node_key",
+    "plain_key",
+    "som_model_version_string",
+    "write_header",
+    "write_scalar",
+    "yaml_key",
     "DEFAULT_MAX_SNAPSHOT_AGE",
     "AnnotatedSpecNode",
     "CodeSpecsArea",

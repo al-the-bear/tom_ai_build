@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+- Exported from the package root, as TS `index.ts` does: `node_key`,
+  `yaml_key`, `plain_key`, `dedup_empty_lines`, `write_scalar`,
+  `write_header`, `format_conflict_block`, `som_model_version_string`.
+- `SpecDocumentYaml` with static `stale_review_paths` / `rekey_review`, as TS
+  and Dart name them (the module functions stay).
+- `code_specs_yaml_string`, the extract / gate-record string encoding, is
+  public (was the private `_yaml_string`).
+
 ## 1.12.0
 
 - No runtime change. Moves in lockstep with `tom_specs_model` 1.12.0 (an

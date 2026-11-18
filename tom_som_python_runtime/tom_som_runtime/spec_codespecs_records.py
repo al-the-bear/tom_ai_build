@@ -34,7 +34,7 @@ from .spec_codespecs_extract import (
     CodeSpecsAreaCatalog,
     CodeSpecsExtract,
     CodeSpecsExtractEntry,
-    _yaml_string,
+    code_specs_yaml_string,
 )
 
 try:  # PyYAML is the parser the docspecs YAML load path uses.
@@ -498,11 +498,11 @@ class CodeSpecsGateRecord:
             if e.gaps:
                 lines.append("      gaps:")
                 for g in e.gaps:
-                    lines.append(f"        - sectionId: {_yaml_string(g.section_id)}")
-                    lines.append(f"          required: {_yaml_string(g.required)}")
-                    lines.append(f"          carrier: {_yaml_string(g.carrier)}")
+                    lines.append(f"        - sectionId: {code_specs_yaml_string(g.section_id)}")
+                    lines.append(f"          required: {code_specs_yaml_string(g.required)}")
+                    lines.append(f"          carrier: {code_specs_yaml_string(g.carrier)}")
             if e.note is not None:
-                lines.append(f"      note: {_yaml_string(e.note)}")
+                lines.append(f"      note: {code_specs_yaml_string(e.note)}")
         return "\n".join(lines) + "\n"
 
 

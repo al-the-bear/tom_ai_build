@@ -460,16 +460,16 @@ def _write_rendered(
             b.writeln(f"{pad}{line}")
 
 
-def write_scalar(b: _Buffer, key_indent: int, key: str, value: str) -> None:
-    """Writes ``<indent><key>: <scalar>`` where the scalar is a self-verified
+def write_scalar(b: Any, key_indent: int, key: str, value: str) -> None:
+    """Writes (to *b*, anything with ``writeln`` / ``write``) ``<indent><key>: <scalar>`` where the scalar is a self-verified
     block scalar (or a JSON-quoted fallback). Block body lines, which the
     builder emits at a relative indent of 2, are re-indented past
     *key_indent*."""
     _write_rendered(b, key_indent, yaml_key(key), _scalar(value))
 
 
-def write_header(b: _Buffer, model_version: Optional[str] = None) -> None:
-    """Writes the file header comment + ``version:`` line, and the optional
+def write_header(b: Any, model_version: Optional[str] = None) -> None:
+    """Writes (to *b*, anything with ``writeln``) the file header comment + ``version:`` line, and the optional
     ``modelVersion:`` stamp when *model_version* is non-empty."""
     b.writeln("# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.")
     b.writeln(f"version: {FORMAT_VERSION}")
@@ -658,6 +658,23 @@ def rekey_review(review: dict, renamed: dict[str, str]) -> dict[str, Any]:
     item and every entry under it. Entries under no renamed path are kept as
     they are. A new dict; *review* is not changed."""
     return {_rekey_path(_review_str(k), renamed): v for k, v in review.items()}
+
+
+class SpecDocumentYaml:
+    """The YAML codec's review helpers as a class, as TS and Dart name them
+    (``SpecDocumentYaml.staleReviewPaths`` / ``rekeyReview``). The static
+    methods delegate to the module functions :func:`stale_review_paths` and
+    :func:`rekey_review`, which stay the Python form."""
+
+    @staticmethod
+    def stale_review_paths(model: Any, document: SpecDocument, review: dict) -> list[str]:
+        """See :func:`stale_review_paths`."""
+        return stale_review_paths(model, document, review)
+
+    @staticmethod
+    def rekey_review(review: dict, renamed: dict[str, str]) -> dict[str, Any]:
+        """See :func:`rekey_review`."""
+        return rekey_review(review, renamed)
 
 
 class _Encoder:
