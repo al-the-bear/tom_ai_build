@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- The typed review pass (SOM §12.5), as TS and Dart read it:
+  `specYamlTypedReview(review)` reads the parsed `review:` pass typed by the
+  YAML 1.2 core schema (null, bool, int, float, string, flow collections);
+  `specYamlReviewScalar` and `specYamlFormatYamlFloat` print a typed value and a
+  float as the writer does (TS `reviewScalar` / `formatYamlFloat`);
+  `specYamlWriteTypedReviewPass` writes a typed pass back. The shared
+  `yaml_review_cases.json` `typedReview` case checks the reading in all nine
+  runtimes.
 - `som::SomScalar`: one item of a scalar list, `value()` / `setValue()` on the
   item's own path, as TS and Dart `SomScalar`.
 - `SpecReflection::roots()`, `classes()` (the meta-data's order, from the new

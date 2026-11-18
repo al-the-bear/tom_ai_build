@@ -29,8 +29,10 @@
  * position is a structured load error (no silent skips). Symmetrically,
  * `encodeYaml` errors when the document holds values the tree cannot place.
  *
- * The optional `review:` pass is carried by the runtime uninterpreted, read and written back (`decodeYaml` returns
- * it as a raw mapping for the editor to interpret).
+ * The optional `review:` pass is read and written back (`decodeYaml` returns
+ * it as the parsed mapping, its plain scalars as source text);
+ * specYamlTypedReview reads it typed by the YAML 1.2 core schema, as TS and
+ * Dart decode it (SOM §12.5).
  */
 #ifndef SPEC_DOCUMENT_YAML_HPP
 #define SPEC_DOCUMENT_YAML_HPP
@@ -39,6 +41,7 @@
 #include <string>
 #include <vector>
 
+#include "som_json.hpp"
 #include "spec_document.hpp"
 #include "spec_meta.hpp"
 #include "spec_model.hpp"
@@ -53,7 +56,8 @@ inline constexpr int kSpecYamlFormatVersion = 2;
 
 /* The decoded passes of a `*.docspecs.yaml` file: the `document:` pass as a
  * populated SpecDocument (its modelVersion already set from the file stamp),
- * the `review:` pass as a raw mapping (the runtime carries it uninterpreted and writes it back; a null
+ * the `review:` pass as the parsed mapping (its plain scalars as source text,
+ * written back as read; specYamlTypedReview gives the typed values; a null
  * pointer when the file has no `review:` key), and the optional authoring
  * model-version stamp. */
 struct SpecYamlContents {
@@ -116,6 +120,40 @@ std::optional<std::string> encodeYaml(const SpecDocument& document,
  * one level deeper, a list as a JSON flow sequence. An empty map writes
  * `review: {}`. */
 void specYamlWriteReviewPass(std::string& out, const YamlValue& review);
+
+/* ---- the typed reading of the review pass (SOM §12.5) --------------------
+ *
+ * `SpecYamlContents::review` holds the pass as parsed — its plain scalars as
+ * their source text. A host that reads review values asks for them typed, as
+ * TS and Dart decode them: */
+
+/* The review pass (or any value of it) read typed by the YAML 1.2 core schema
+ * (TS `parse(text, typed)` / the decoded `review` of TS and Dart): a plain `~`,
+ * `null`, `Null`, `NULL` or an empty value is Null; `true|True|TRUE|false|
+ * False|FALSE` is Bool; a decimal integer within the signed 64-bit range,
+ * `0x…` or `0o…` is Int; a float spelling, a decimal integer beyond 64 bits,
+ * `[-+].inf` and `.nan` (each in its three case forms) are Float; a JSON flow
+ * collection is its array / object; anything else, and every quoted or block
+ * scalar, is Str. Maps keep their order. A new tree; `review` is not changed. */
+JsonPtr specYamlTypedReview(const YamlValue& review);
+
+/* A float as the review writer prints it (TS `formatYamlFloat`): `.nan`,
+ * `.inf`, `-.inf`; otherwise the shortest digits that read back as the same
+ * double, laid out like JavaScript's Number toString, `.0` on a whole
+ * fixed-notation value (`3.0`, `1e+300`, `1e-7`). */
+std::string specYamlFormatYamlFloat(double value);
+
+/* A typed review scalar as the review writer prints it (TS `reviewScalar`):
+ * `null`, `true` / `false`, an Int in decimal, a Float by
+ * specYamlFormatYamlFloat, a string as itself; a collection as its JSON flow
+ * text. */
+std::string specYamlReviewScalar(const Json& value);
+
+/* Appends a typed review pass (an Object, e.g. specYamlTypedReview's result
+ * after editing) as the `review:` pass — what specYamlWriteReviewPass writes
+ * for the parsed pass it was read from. A non-object or empty object writes
+ * `review: {}`. */
+void specYamlWriteTypedReviewPass(std::string& out, const Json& review);
 
 /* The review paths (keys of `review`) that no longer resolve against
  * `document`: paths `model` cannot resolve, and paths running through a list

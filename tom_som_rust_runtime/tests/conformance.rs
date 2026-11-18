@@ -807,6 +807,44 @@ fn test_markdown_apply(c: &mut Checker, model: &SpecModel) {
     }
 }
 
+/// The typed reading of a review map in the corpus's tagged form
+/// (`yaml_review_cases.json`, op `typedReview`), as JSON text: a map as
+/// `[key, value]` pairs sorted by key, a list in order, an int as its decimal
+/// text, a float as the review writer prints it (`format_yaml_float`), a string
+/// as itself.
+fn typed_review_map(m: &YamlMap) -> String {
+    let mut keys: Vec<&str> = m.keys();
+    keys.sort();
+    let pairs: Vec<String> = keys
+        .iter()
+        .map(|k| {
+            let v = m.get(k).expect("a key of the map");
+            format!("[{},{}]", tom_som_rust_runtime::json::encode_str(k), typed_review(v))
+        })
+        .collect();
+    format!("{{\"type\":\"map\",\"value\":[{}]}}", pairs.join(","))
+}
+
+fn typed_review(v: &YamlValue) -> String {
+    let tagged = |t: &str, value: String| format!("{{\"type\":\"{}\",\"value\":{}}}", t, value);
+    let text = |s: &str| tom_som_rust_runtime::json::encode_str(s);
+    match v {
+        YamlValue::Null => "{\"type\":\"null\"}".to_string(),
+        YamlValue::Bool(b) => tagged("bool", b.to_string()),
+        YamlValue::Int(n) => tagged("int", text(&n.to_string())),
+        YamlValue::Float(f) => tagged("float", text(&tom_som_rust_runtime::format_yaml_float(*f))),
+        YamlValue::Str(s) => tagged("string", text(s)),
+        YamlValue::Seq(items) => tagged(
+            "list",
+            format!(
+                "[{}]",
+                items.iter().map(typed_review).collect::<Vec<_>>().join(",")
+            ),
+        ),
+        YamlValue::Map(m) => typed_review_map(m),
+    }
+}
+
 /// The `review:` pass: written back sorted and byte-stable, and stale entries
 /// (unresolvable paths, removed list items) reported. Each case runs exactly
 /// like the Dart reference's `_runYamlReviewCase`: `roundTrip` re-encodes the
@@ -823,6 +861,16 @@ fn test_yaml_review(c: &mut Checker, model: &SpecModel, tree: &SomMetaTree) {
                 continue;
             }
         };
+        if kase.str_or("op") == "typedReview" {
+            let got_text = match contents.review.as_ref() {
+                Some(m) => typed_review_map(m),
+                None => "{\"type\":\"null\"}".to_string(),
+            };
+            let got = Json::parse(&got_text).expect("typed review JSON");
+            let want = kase.get("expect").expect("an expect");
+            c.check(&tag, json_eq(&got, want), &format!("got {:?} want {:?}", got, want));
+            continue;
+        }
         if kase.str_or("op") == "roundTrip" {
             let want = kase.str_or("expect");
             match encode_yaml_with_review(

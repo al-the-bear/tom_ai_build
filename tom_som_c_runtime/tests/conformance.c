@@ -694,6 +694,134 @@ static void test_markdown_apply(Checker *c, const SpecModel *model) {
  * review pass (must equal `expect` byte for byte); `stale` removes the named
  * list items, then asks which review entries no longer resolve (must equal
  * the sorted `expect` list). */
+static int typed_key_cmp(const void *a, const void *b) {
+  return strcmp(*(const char *const *)a, *(const char *const *)b);
+}
+
+static void put_json_str(SomBuf *b, const char *s) {
+  char *q = som_json_encode_str(s);
+  som_buf_puts(b, q);
+  free(q);
+}
+
+/* The typed reading of a review value in the corpus's tagged form
+ * (yaml_review_cases.json, op typedReview), as canonical JSON text (object
+ * keys sorted): a map as [key, value] pairs sorted by key, a list in order, an
+ * int as its decimal text, a float as the review writer prints it
+ * (spec_yaml_review_scalar), a string as itself. */
+static void typed_review(SomBuf *b, const YamlValue *v) {
+  if (v == NULL || v->type == YAML_NULL) {
+    som_buf_puts(b, "{\"type\":\"null\"}");
+    return;
+  }
+  switch (v->type) {
+  case YAML_BOOL:
+    som_buf_puts(b, v->as.boolean ? "{\"type\":\"bool\",\"value\":true}"
+                                  : "{\"type\":\"bool\",\"value\":false}");
+    return;
+  case YAML_INT:
+    som_buf_puts(b, "{\"type\":\"int\",\"value\":\"");
+    som_buf_puti(b, v->as.integer);
+    som_buf_puts(b, "\"}");
+    return;
+  case YAML_FLOAT: {
+    char *t = spec_yaml_review_scalar(v);
+    som_buf_puts(b, "{\"type\":\"float\",\"value\":");
+    put_json_str(b, t);
+    som_buf_putc(b, '}');
+    free(t);
+    return;
+  }
+  case YAML_STR:
+    som_buf_puts(b, "{\"type\":\"string\",\"value\":");
+    put_json_str(b, v->as.str);
+    som_buf_putc(b, '}');
+    return;
+  case YAML_SEQ:
+    som_buf_puts(b, "{\"type\":\"list\",\"value\":[");
+    for (size_t i = 0; i < v->as.seq.len; i++) {
+      if (i > 0) som_buf_putc(b, ',');
+      typed_review(b, v->as.seq.items[i]);
+    }
+    som_buf_puts(b, "]}");
+    return;
+  case YAML_MAP: {
+    size_t n = v->as.map.len;
+    const char **keys = n > 0 ? (const char **)malloc(n * sizeof(*keys)) : NULL;
+    for (size_t i = 0; i < n; i++) keys[i] = v->as.map.entries[i].key;
+    if (n > 1) qsort(keys, n, sizeof(*keys), typed_key_cmp);
+    som_buf_puts(b, "{\"type\":\"map\",\"value\":[");
+    for (size_t i = 0; i < n; i++) {
+      if (i > 0) som_buf_putc(b, ',');
+      som_buf_putc(b, '[');
+      put_json_str(b, keys[i]);
+      som_buf_putc(b, ',');
+      typed_review(b, yaml_get(v, keys[i]));
+      som_buf_putc(b, ']');
+    }
+    som_buf_puts(b, "]}");
+    free((void *)keys);
+    return;
+  }
+  default:
+    som_buf_puts(b, "{\"type\":\"null\"}");
+    return;
+  }
+}
+
+/* `v` as JSON text with every object's keys sorted, numbers as integers when
+ * integral — the form typed_review writes, so the two compare as strings. */
+static void canonical_json(SomBuf *b, const SomJson *v) {
+  if (v == NULL) {
+    som_buf_puts(b, "null");
+    return;
+  }
+  switch (v->type) {
+  case SOM_JSON_NULL:
+    som_buf_puts(b, "null");
+    return;
+  case SOM_JSON_BOOL:
+    som_buf_puts(b, v->as.boolean ? "true" : "false");
+    return;
+  case SOM_JSON_INT:
+    som_buf_puti(b, v->as.integer);
+    return;
+  case SOM_JSON_FLOAT: {
+    char t[64];
+    snprintf(t, sizeof t, "%.17g", v->as.real);
+    som_buf_puts(b, t);
+    return;
+  }
+  case SOM_JSON_STR:
+    put_json_str(b, v->as.str);
+    return;
+  case SOM_JSON_ARRAY:
+    som_buf_putc(b, '[');
+    for (size_t i = 0; i < v->as.array.len; i++) {
+      if (i > 0) som_buf_putc(b, ',');
+      canonical_json(b, v->as.array.items[i]);
+    }
+    som_buf_putc(b, ']');
+    return;
+  case SOM_JSON_OBJECT: {
+    size_t n = v->as.object.len;
+    const char **keys = n > 0 ? (const char **)malloc(n * sizeof(*keys)) : NULL;
+    for (size_t i = 0; i < n; i++) keys[i] = v->as.object.members[i].key;
+    if (n > 1) qsort(keys, n, sizeof(*keys), typed_key_cmp);
+    som_buf_putc(b, '{');
+    for (size_t i = 0; i < n; i++) {
+      if (i > 0) som_buf_putc(b, ',');
+      put_json_str(b, keys[i]);
+      som_buf_putc(b, ':');
+      canonical_json(b, som_json_get(v, keys[i]));
+    }
+    som_buf_putc(b, '}');
+    free((void *)keys);
+    return;
+  }
+  }
+}
+
 static void test_yaml_review(Checker *c, const SpecModel *model,
                              const SomMetaTree *tree) {
   SomJson *table = read_json("yaml_review_cases.json");
@@ -749,6 +877,20 @@ static void test_yaml_review(Checker *c, const SpecModel *model,
       check(c, label, ok, detail);
       free(got);
       som_strlist_free(&stale);
+    } else if (strcmp(op, "typedReview") == 0) {
+      SomBuf gb;
+      som_buf_init(&gb);
+      typed_review(&gb, contents.review);
+      char *got = som_buf_take(&gb);
+      SomBuf wb;
+      som_buf_init(&wb);
+      canonical_json(&wb, expect);
+      char *want = som_buf_take(&wb);
+      char *d = byte_diff(label, got, want);
+      check(c, label, strcmp(got, want) == 0, d);
+      free(d);
+      free(got);
+      free(want);
     } else {
       check(c, label, 0, op);
     }

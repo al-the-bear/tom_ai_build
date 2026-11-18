@@ -1365,14 +1365,35 @@ void writeReviewValue(std::string& out, std::size_t indent,
 }  // namespace
 
 void specYamlWriteReviewPass(std::string& out, const YamlValue& review) {
-  JsonPtr r = reviewJson(review);
-  if (r->type != JsonType::Object || r->object.empty()) {
+  specYamlWriteTypedReviewPass(out, *reviewJson(review));
+}
+
+void specYamlWriteTypedReviewPass(std::string& out, const Json& review) {
+  if (review.type != JsonType::Object || review.object.empty()) {
     out += "review: {}\n";
     return;
   }
   out += "review:\n";
-  for (const auto& kv : sortedMembers(*r)) {
+  for (const auto& kv : sortedMembers(review)) {
     writeReviewValue(out, 2, jsJsonString(kv.first), *kv.second);
+  }
+}
+
+JsonPtr specYamlTypedReview(const YamlValue& review) { return reviewJson(review); }
+
+std::string specYamlFormatYamlFloat(double value) { return reviewFloat(value); }
+
+std::string specYamlReviewScalar(const Json& value) {
+  switch (value.type) {
+    case JsonType::Float:
+      return reviewFloat(value.real);
+    case JsonType::Str:
+      return value.str;
+    default: {
+      std::string flow;
+      jsonFlow(flow, value);
+      return flow;
+    }
   }
 }
 

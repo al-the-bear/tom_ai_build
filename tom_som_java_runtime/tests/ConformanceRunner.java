@@ -723,10 +723,67 @@ public final class ConformanceRunner {
     }
   }
 
+  /**
+   * The typed reading of a review value in the corpus's tagged form ({@code
+   * yaml_review_cases.json}, op {@code typedReview}): a map as {@code [key,
+   * value]} pairs sorted by key, a list in order, an int as its decimal text, a
+   * float as the review writer prints it ({@link SpecDocumentYaml#reviewScalar}),
+   * a string as itself.
+   */
+  private static Object typedReview(Object v) {
+    Map<String, Object> out = new LinkedHashMap<>();
+    if (v == null) {
+      out.put("type", "null");
+    } else if (v instanceof Boolean) {
+      out.put("type", "bool");
+      out.put("value", v);
+    } else if (v instanceof Integer
+        || v instanceof Long
+        || v instanceof Short
+        || v instanceof Byte
+        || v instanceof java.math.BigInteger) {
+      out.put("type", "int");
+      out.put("value", v.toString());
+    } else if (v instanceof Number) {
+      out.put("type", "float");
+      out.put("value", SpecDocumentYaml.reviewScalar(v));
+    } else if (v instanceof String) {
+      out.put("type", "string");
+      out.put("value", v);
+    } else if (v instanceof List) {
+      List<Object> items = new ArrayList<>();
+      for (Object item : (List<?>) v) {
+        items.add(typedReview(item));
+      }
+      out.put("type", "list");
+      out.put("value", items);
+    } else {
+      Map<?, ?> m = (Map<?, ?>) v;
+      List<String> keys = new ArrayList<>();
+      for (Object k : m.keySet()) {
+        keys.add((String) k);
+      }
+      java.util.Collections.sort(keys);
+      List<Object> pairs = new ArrayList<>();
+      for (String k : keys) {
+        List<Object> pair = new ArrayList<>();
+        pair.add(k);
+        pair.add(typedReview(m.get(k)));
+        pairs.add(pair);
+      }
+      out.put("type", "map");
+      out.put("value", pairs);
+    }
+    return out;
+  }
+
   /** Runs one {@code yaml_review_cases.json} case and returns what it observed. */
   @SuppressWarnings("unchecked")
   private static Object runYamlReviewCase(SpecModel model, SomMetaTree tree, Map<String, Object> c) {
     SpecYamlContents contents = SpecDocumentYaml.decode((String) c.get("yaml"), tree);
+    if ("typedReview".equals(c.get("op"))) {
+      return typedReview(contents.review);
+    }
     if ("roundTrip".equals(c.get("op"))) {
       return SpecDocumentYaml.encode(
           contents.document, tree, contents.modelVersion, contents.review);

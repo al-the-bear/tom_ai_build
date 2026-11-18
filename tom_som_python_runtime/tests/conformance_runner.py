@@ -376,11 +376,36 @@ def test_yaml_decode_round_trip(tree) -> None:
            _byte_diff("yaml.decode.reencode", actual, expected))
 
 
+def _typed_review(v):
+    """The typed reading of a review value in the corpus's tagged form: a map
+    as ``[key, value]`` pairs sorted by key, a list in order, an int as its
+    decimal text, a float as the review writer prints it, a string as
+    itself."""
+    from tom_som_runtime.spec_document_yaml import review_scalar
+    if v is None:
+        return {"type": "null"}
+    if isinstance(v, bool):
+        return {"type": "bool", "value": v}
+    if isinstance(v, int):
+        return {"type": "int", "value": str(v)}
+    if isinstance(v, float):
+        return {"type": "float", "value": review_scalar(v)}
+    if isinstance(v, str):
+        return {"type": "string", "value": v}
+    if isinstance(v, list):
+        return {"type": "list", "value": [_typed_review(x) for x in v]}
+    return {"type": "map",
+            "value": [[k, _typed_review(v[k])] for k in sorted(v)]}
+
+
 def _run_yaml_review_case(model: SpecModel, tree, case: dict):
-    """Runs one ``yaml_review_cases.json`` case: ``roundTrip`` re-encodes the
-    decoded file with its review pass; ``stale`` removes the named list items,
-    then asks which review entries no longer resolve."""
+    """Runs one ``yaml_review_cases.json`` case: ``typedReview`` reports the
+    typed reading of the review pass; ``roundTrip`` re-encodes the decoded file
+    with its review pass; ``stale`` removes the named list items, then asks
+    which review entries no longer resolve."""
     contents = yaml_decode(case["yaml"], tree)
+    if case["op"] == "typedReview":
+        return _typed_review(contents.review)
     if case["op"] == "roundTrip":
         return yaml_encode(contents.document, tree,
                            model_version=contents.model_version,

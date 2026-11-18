@@ -400,6 +400,53 @@ static void test_yaml_decode_round_trip(Checker& c, const som::SomMetaTree& tree
 /* yaml_review_cases.json: the `review:` pass written back by encodeYaml
  * (roundTrip — byte-for-byte) and specYamlStaleReviewPaths after removing list
  * items (stale — the sorted stale paths). */
+/* The typed reading of a review value in the corpus's tagged form
+ * (yaml_review_cases.json, op typedReview), as JSON text: a map as
+ * [key, value] pairs sorted by key, a list in order, an int as its decimal
+ * text, a float as the review writer prints it (specYamlFormatYamlFloat), a
+ * string as itself. */
+static std::string typed_review(const som::Json& v) {
+  auto tagged = [](const std::string& type, const std::string& value) {
+    return "{\"type\":\"" + type + "\",\"value\":" + value + "}";
+  };
+  switch (v.type) {
+    case som::JsonType::Null:
+      return "{\"type\":\"null\"}";
+    case som::JsonType::Bool:
+      return tagged("bool", v.boolean ? "true" : "false");
+    case som::JsonType::Int:
+      return tagged("int", som::jsonEncodeStr(std::to_string(v.integer)));
+    case som::JsonType::Float:
+      return tagged("float", som::jsonEncodeStr(som::specYamlFormatYamlFloat(v.real)));
+    case som::JsonType::Str:
+      return tagged("string", som::jsonEncodeStr(v.str));
+    case som::JsonType::Array: {
+      std::string out = "[";
+      for (std::size_t i = 0; i < v.array.size(); i++) {
+        if (i > 0) out += ",";
+        out += typed_review(*v.array[i]);
+      }
+      return tagged("list", out + "]");
+    }
+    case som::JsonType::Object: {
+      auto members = v.object;
+      std::stable_sort(members.begin(), members.end(),
+                       [](const auto& a, const auto& b) { return a.first < b.first; });
+      std::string out = "[";
+      for (std::size_t i = 0; i < members.size(); i++) {
+        if (i > 0) out += ",";
+        out += "[" + som::jsonEncodeStr(members[i].first) + "," +
+               typed_review(*members[i].second) + "]";
+      }
+      return tagged("map", out + "]");
+    }
+  }
+  return "{\"type\":\"null\"}";
+}
+
+static std::string json_canon(const som::JsonRef& v);
+static std::string json_text_canon(const std::string& text);
+
 static void test_yaml_review(Checker& c, const som::SpecModel& model,
                              const som::SomMetaTree& tree) {
   som::JsonPtr table = read_json("yaml_review_cases.json");
@@ -452,6 +499,15 @@ static void test_yaml_review(Checker& c, const som::SpecModel& model,
       }
       detail += "]";
       c.check(name, got == want, detail);
+    } else if (op == "typedReview") {
+      // The typed reading a host gets (specYamlTypedReview), in the corpus's
+      // tagged form.
+      std::string got = contents.review != nullptr
+                            ? typed_review(*som::specYamlTypedReview(*contents.review))
+                            : std::string("{\"type\":\"null\"}");
+      std::string g = json_text_canon(got);
+      std::string w = json_canon(expect);
+      c.check(name, g == w, "got " + g + " want " + w);
     } else {
       c.check(name, false, "unknown op " + op);
     }

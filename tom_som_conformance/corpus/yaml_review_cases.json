@@ -71,6 +71,269 @@
       "op": "roundTrip",
       "yaml": "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\nversion: 2\nmodelVersion: \"1.0\"\ndocument:\n  DEMO Demo:\n    TTL title:\n      codeSpec: |2-\n        DemoTitle\n      units: |2-\n        demo_server\n      content: |2-\n        Hello\n    SUM summary:\n      headline: |2-\n        Executive Summary\n      content: |2-\n        Line one\n        Line two\n\n        Line four\n    PRI priority: high\n    CNT count: 3\n    DET details:\n      headline: |2-\n        Details & Contacts\n      content: |2-\n        Captured during the November review.\n        Owner: this line is prose, not the field.\n      owner: |2-\n        Bob\n      contact: |2-\n        bob@example.com\n        - on call: weekdays\n        - backup: alice@example.com\n      estimate: 8\n      weight: 2.5\n      active: true\n      priority: |2-\n        high\n      pattern: |2-\n        ^[a-z0-9](-?[a-z0-9]){1,62}$\n    items:\n      headline: |2-\n        Work Items\n      items-1:\n        label: |2-\n          First\n        STS status: open\n      items-2:\n        label: |2-\n          Second line A\n          with ```triple``` ticks\n        STS status: done\n    REF-LST refs:\n      REF-SPEC:\n        headline: |2-\n          Reference to the Spec\n        content: spec §1.2\n      REF-2: ADR7\n    CARD-LST cards:\n      CARD-ALPHA:\n        headline: |2-\n          Alpha Card\n        content:\n          note: |2-\n            first card\n      CARD-2:\n        content:\n          note: |2-\n            second card\n    META meta:\n      OWNR owner: |2-\n        alice\n      tags:\n        tags-1: |2-\n          on\n        tags-2: |2-\n          no\n        tags-3: |2-\n          1:30\n        tags-4: plain\n    CTRL control:\n      CTRL-SUM summary: |2-\n        Controlled summary\n      owner: |2-\n        ctrl-owner\n    NOTE notes:\n      units: |2-\n        demo_client,demo_server\n      NOTE-BDY body: |2-\n        Section-kind body\n      remarks:\n        content: |2-\n          Wrapper-section text\n    MIX mixed:\n      headline: |2-\n        Mixed\n        slots\n      content:\n        content: |2-\n          _Extrapolated._\n        lead: |2-\n          Ada\n        risk: |2-\n          low\n      narrative: |2-\n        First narrative.\n\n\n        After two blank lines.\n        Lead: label-shaped prose\n      tail: |2-\n        Tail text.\n      alt:\n        lead: |2-\n          Bob\n    DLV-LST deliverables:\n      DLV-1:\n        content:\n          unitId: |2-\n            demo_client\n          kind: |2-\n            client\n          component: |2-\n            ARCM-COMP-UI\n        DLR-LST routes:\n          DLR-1:\n            content:\n              area: |2-\n                CE-NV\n              mapping: |2-\n                dart-tom\n      DLV-2:\n        content:\n          unitId: |2-\n            demo_server\n          kind: |2-\n            server\n          deploymentTarget: |2-\n            DEPTAR-DEPL-API\n        DLR-LST routes:\n          DLR-1:\n            content:\n              area: |2-\n                CE-DB\n              mapping: |2-\n                dart-tom\n          DLR-2:\n            content:\n              area: |2-\n                CE-NV\n              mapping: |2-\n                dart-tom\n        DLE-LST emitters:\n          DLE-1:\n            content:\n              emitter: |2-\n                openapi\nreview:\n  \"DEMO/TTL\":\n    empty:\n    flow_map: {\"a\": 1, \"b\": [true, null]}\n    flow_seq: [1, \"x\"]\n    nested:\n      k: v\n",
       "expect": "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\nversion: 2\nmodelVersion: \"1.0\"\ndocument:\n  DEMO Demo:\n    TTL title:\n      codeSpec: |2-\n        DemoTitle\n      units: |2-\n        demo_server\n      content: |2-\n        Hello\n    SUM summary:\n      headline: |2-\n        Executive Summary\n      content: |2-\n        Line one\n        Line two\n\n        Line four\n    PRI priority: high\n    CNT count: 3\n    DET details:\n      headline: |2-\n        Details & Contacts\n      content: |2-\n        Captured during the November review.\n        Owner: this line is prose, not the field.\n      owner: |2-\n        Bob\n      contact: |2-\n        bob@example.com\n        - on call: weekdays\n        - backup: alice@example.com\n      estimate: 8\n      weight: 2.5\n      active: true\n      priority: |2-\n        high\n      pattern: |2-\n        ^[a-z0-9](-?[a-z0-9]){1,62}$\n    items:\n      headline: |2-\n        Work Items\n      items-1:\n        label: |2-\n          First\n        STS status: open\n      items-2:\n        label: |2-\n          Second line A\n          with ```triple``` ticks\n        STS status: done\n    REF-LST refs:\n      REF-SPEC:\n        headline: |2-\n          Reference to the Spec\n        content: spec §1.2\n      REF-2: ADR7\n    CARD-LST cards:\n      CARD-ALPHA:\n        headline: |2-\n          Alpha Card\n        content:\n          note: |2-\n            first card\n      CARD-2:\n        content:\n          note: |2-\n            second card\n    META meta:\n      OWNR owner: |2-\n        alice\n      tags:\n        tags-1: |2-\n          on\n        tags-2: |2-\n          no\n        tags-3: |2-\n          1:30\n        tags-4: plain\n    CTRL control:\n      CTRL-SUM summary: |2-\n        Controlled summary\n      owner: |2-\n        ctrl-owner\n    NOTE notes:\n      units: |2-\n        demo_client,demo_server\n      NOTE-BDY body: |2-\n        Section-kind body\n      remarks:\n        content: |2-\n          Wrapper-section text\n    MIX mixed:\n      headline: |2-\n        Mixed\n        slots\n      content:\n        content: |2-\n          _Extrapolated._\n        lead: |2-\n          Ada\n        risk: |2-\n          low\n      narrative: |2-\n        First narrative.\n\n\n        After two blank lines.\n        Lead: label-shaped prose\n      tail: |2-\n        Tail text.\n      alt:\n        lead: |2-\n          Bob\n    DLV-LST deliverables:\n      DLV-1:\n        content:\n          unitId: |2-\n            demo_client\n          kind: |2-\n            client\n          component: |2-\n            ARCM-COMP-UI\n        DLR-LST routes:\n          DLR-1:\n            content:\n              area: |2-\n                CE-NV\n              mapping: |2-\n                dart-tom\n      DLV-2:\n        content:\n          unitId: |2-\n            demo_server\n          kind: |2-\n            server\n          deploymentTarget: |2-\n            DEPTAR-DEPL-API\n        DLR-LST routes:\n          DLR-1:\n            content:\n              area: |2-\n                CE-DB\n              mapping: |2-\n                dart-tom\n          DLR-2:\n            content:\n              area: |2-\n                CE-NV\n              mapping: |2-\n                dart-tom\n        DLE-LST emitters:\n          DLE-1:\n            content:\n              emitter: |2-\n                openapi\nreview:\n  \"DEMO/TTL\":\n    empty: null\n    flow_map:\n      a: 1\n      b: [true,null]\n    flow_seq: [1,\"x\"]\n    nested:\n      k: v\n"
+    },
+    {
+      "name": "review values are read typed by the YAML 1.2 core schema (SOM §12.5): bool, int (decimal, 0x, 0o, 64-bit bounds), float (whole, fraction, exponent, beyond 64 bits, non-finite), null (~, null, empty) and string (plain, quoted, block); flow collections read as their values. The expect is the typed reading in a tagged form: a map as [key, value] pairs sorted by key, an int as its decimal text, a float as formatYamlFloat writes it",
+      "op": "typedReview",
+      "yaml": "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\nversion: 2\nmodelVersion: \"1.0\"\ndocument:\n  DEMO Demo:\n    TTL title:\n      codeSpec: |2-\n        DemoTitle\n      units: |2-\n        demo_server\n      content: |2-\n        Hello\n    SUM summary:\n      headline: |2-\n        Executive Summary\n      content: |2-\n        Line one\n        Line two\n\n        Line four\n    PRI priority: high\n    CNT count: 3\n    DET details:\n      headline: |2-\n        Details & Contacts\n      content: |2-\n        Captured during the November review.\n        Owner: this line is prose, not the field.\n      owner: |2-\n        Bob\n      contact: |2-\n        bob@example.com\n        - on call: weekdays\n        - backup: alice@example.com\n      estimate: 8\n      weight: 2.5\n      active: true\n      priority: |2-\n        high\n      pattern: |2-\n        ^[a-z0-9](-?[a-z0-9]){1,62}$\n    items:\n      headline: |2-\n        Work Items\n      items-1:\n        label: |2-\n          First\n        STS status: open\n      items-2:\n        label: |2-\n          Second line A\n          with ```triple``` ticks\n        STS status: done\n    REF-LST refs:\n      REF-SPEC:\n        headline: |2-\n          Reference to the Spec\n        content: spec §1.2\n      REF-2: ADR7\n    CARD-LST cards:\n      CARD-ALPHA:\n        headline: |2-\n          Alpha Card\n        content:\n          note: |2-\n            first card\n      CARD-2:\n        content:\n          note: |2-\n            second card\n    META meta:\n      OWNR owner: |2-\n        alice\n      tags:\n        tags-1: |2-\n          on\n        tags-2: |2-\n          no\n        tags-3: |2-\n          1:30\n        tags-4: plain\n    CTRL control:\n      CTRL-SUM summary: |2-\n        Controlled summary\n      owner: |2-\n        ctrl-owner\n    NOTE notes:\n      units: |2-\n        demo_client,demo_server\n      NOTE-BDY body: |2-\n        Section-kind body\n      remarks:\n        content: |2-\n          Wrapper-section text\n    MIX mixed:\n      headline: |2-\n        Mixed\n        slots\n      content:\n        content: |2-\n          _Extrapolated._\n        lead: |2-\n          Ada\n        risk: |2-\n          low\n      narrative: |2-\n        First narrative.\n\n\n        After two blank lines.\n        Lead: label-shaped prose\n      tail: |2-\n        Tail text.\n      alt:\n        lead: |2-\n          Bob\n    DLV-LST deliverables:\n      DLV-1:\n        content:\n          unitId: |2-\n            demo_client\n          kind: |2-\n            client\n          component: |2-\n            ARCM-COMP-UI\n        DLR-LST routes:\n          DLR-1:\n            content:\n              area: |2-\n                CE-NV\n              mapping: |2-\n                dart-tom\n      DLV-2:\n        content:\n          unitId: |2-\n            demo_server\n          kind: |2-\n            server\n          deploymentTarget: |2-\n            DEPTAR-DEPL-API\n        DLR-LST routes:\n          DLR-1:\n            content:\n              area: |2-\n                CE-DB\n              mapping: |2-\n                dart-tom\n          DLR-2:\n            content:\n              area: |2-\n                CE-NV\n              mapping: |2-\n                dart-tom\n        DLE-LST emitters:\n          DLE-1:\n            content:\n              emitter: |2-\n                openapi\nreview:\n  \"DEMO/TTL\":\n    a_true: true\n    b_false: False\n    c_int: 3\n    d_neg: -7\n    e_max: 9223372036854775807\n    f_min: -9223372036854775808\n    g_beyond: 123456789012345678901234567890\n    h_hex: 0x1F\n    i_octal: 0o17\n    j_whole: 3.0\n    k_frac: 2.50\n    l_exp: 1e3\n    m_tiny: 1e-7\n    n_inf: .inf\n    o_neg_inf: -.Inf\n    p_nan: .nan\n    q_tilde: ~\n    r_null: null\n    s_empty:\n    t_token: keep\n    u_words: two words\n    v_block_true: |2-\n      true\n    w_block_num: |2-\n      3.0\n    x_quoted: \"3\"\n    y_flow_map: {\"a\": 1, \"b\": [true, null, 2.5]}\n    z_flow_seq: [1, \"x\"]\n  \"DEMO/items-1/label\":\n    nested:\n      k: v\n      n: 1\n",
+      "expect": {
+        "type": "map",
+        "value": [
+          [
+            "DEMO/TTL",
+            {
+              "type": "map",
+              "value": [
+                [
+                  "a_true",
+                  {
+                    "type": "bool",
+                    "value": true
+                  }
+                ],
+                [
+                  "b_false",
+                  {
+                    "type": "bool",
+                    "value": false
+                  }
+                ],
+                [
+                  "c_int",
+                  {
+                    "type": "int",
+                    "value": "3"
+                  }
+                ],
+                [
+                  "d_neg",
+                  {
+                    "type": "int",
+                    "value": "-7"
+                  }
+                ],
+                [
+                  "e_max",
+                  {
+                    "type": "int",
+                    "value": "9223372036854775807"
+                  }
+                ],
+                [
+                  "f_min",
+                  {
+                    "type": "int",
+                    "value": "-9223372036854775808"
+                  }
+                ],
+                [
+                  "g_beyond",
+                  {
+                    "type": "float",
+                    "value": "1.2345678901234568e+29"
+                  }
+                ],
+                [
+                  "h_hex",
+                  {
+                    "type": "int",
+                    "value": "31"
+                  }
+                ],
+                [
+                  "i_octal",
+                  {
+                    "type": "int",
+                    "value": "15"
+                  }
+                ],
+                [
+                  "j_whole",
+                  {
+                    "type": "float",
+                    "value": "3.0"
+                  }
+                ],
+                [
+                  "k_frac",
+                  {
+                    "type": "float",
+                    "value": "2.5"
+                  }
+                ],
+                [
+                  "l_exp",
+                  {
+                    "type": "float",
+                    "value": "1000.0"
+                  }
+                ],
+                [
+                  "m_tiny",
+                  {
+                    "type": "float",
+                    "value": "1e-7"
+                  }
+                ],
+                [
+                  "n_inf",
+                  {
+                    "type": "float",
+                    "value": ".inf"
+                  }
+                ],
+                [
+                  "o_neg_inf",
+                  {
+                    "type": "float",
+                    "value": "-.inf"
+                  }
+                ],
+                [
+                  "p_nan",
+                  {
+                    "type": "float",
+                    "value": ".nan"
+                  }
+                ],
+                [
+                  "q_tilde",
+                  {
+                    "type": "null"
+                  }
+                ],
+                [
+                  "r_null",
+                  {
+                    "type": "null"
+                  }
+                ],
+                [
+                  "s_empty",
+                  {
+                    "type": "null"
+                  }
+                ],
+                [
+                  "t_token",
+                  {
+                    "type": "string",
+                    "value": "keep"
+                  }
+                ],
+                [
+                  "u_words",
+                  {
+                    "type": "string",
+                    "value": "two words"
+                  }
+                ],
+                [
+                  "v_block_true",
+                  {
+                    "type": "string",
+                    "value": "true"
+                  }
+                ],
+                [
+                  "w_block_num",
+                  {
+                    "type": "string",
+                    "value": "3.0"
+                  }
+                ],
+                [
+                  "x_quoted",
+                  {
+                    "type": "string",
+                    "value": "3"
+                  }
+                ],
+                [
+                  "y_flow_map",
+                  {
+                    "type": "map",
+                    "value": [
+                      [
+                        "a",
+                        {
+                          "type": "int",
+                          "value": "1"
+                        }
+                      ],
+                      [
+                        "b",
+                        {
+                          "type": "list",
+                          "value": [
+                            {
+                              "type": "bool",
+                              "value": true
+                            },
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "float",
+                              "value": "2.5"
+                            }
+                          ]
+                        }
+                      ]
+                    ]
+                  }
+                ],
+                [
+                  "z_flow_seq",
+                  {
+                    "type": "list",
+                    "value": [
+                      {
+                        "type": "int",
+                        "value": "1"
+                      },
+                      {
+                        "type": "string",
+                        "value": "x"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ],
+          [
+            "DEMO/items-1/label",
+            {
+              "type": "map",
+              "value": [
+                [
+                  "nested",
+                  {
+                    "type": "map",
+                    "value": [
+                      [
+                        "k",
+                        {
+                          "type": "string",
+                          "value": "v"
+                        }
+                      ],
+                      [
+                        "n",
+                        {
+                          "type": "int",
+                          "value": "1"
+                        }
+                      ]
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        ]
+      }
     }
   ]
 }

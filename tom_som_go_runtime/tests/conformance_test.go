@@ -40,6 +40,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"sort"
 	"strconv"
 	"strings"
 	"testing"
@@ -544,10 +545,57 @@ func testYamlReview(c *checker, t *testing.T, model *som.SpecModel, tree *som.So
 			}
 			got := som.StaleReviewPaths(model, contents.Document, contents.Review)
 			c.check(tag, sliceEq(got, want), join(got))
+		case "typedReview":
+			var want interface{}
+			if err := json.Unmarshal(rc.Expect, &want); err != nil {
+				c.check(tag, false, "bad expect: "+err.Error())
+				continue
+			}
+			got := toGenericJSON(t, typedReview(contents.Review))
+			c.check(tag, reflect.DeepEqual(got, want), canonJSON(t, got)+" != "+canonJSON(t, want))
 		default:
 			c.check(tag, false, "unknown op "+rc.Op)
 		}
 	}
+}
+
+// typedReview is the typed reading of a review value in the corpus's tagged
+// form (yaml_review_cases.json, op typedReview): a map as [key, value] pairs
+// sorted by key, a list in order, an int as its decimal text, a float as the
+// review writer prints it (som.FormatYamlFloat), a string as itself.
+func typedReview(v interface{}) interface{} {
+	switch x := v.(type) {
+	case nil:
+		return map[string]interface{}{"type": "null"}
+	case *som.YamlMap:
+		if x == nil {
+			return map[string]interface{}{"type": "null"}
+		}
+		keys := append([]string(nil), x.Keys()...)
+		sort.Strings(keys)
+		pairs := []interface{}{}
+		for _, k := range keys {
+			pairs = append(pairs, []interface{}{k, typedReview(x.GetOr(k))})
+		}
+		return map[string]interface{}{"type": "map", "value": pairs}
+	case []interface{}:
+		items := []interface{}{}
+		for _, it := range x {
+			items = append(items, typedReview(it))
+		}
+		return map[string]interface{}{"type": "list", "value": items}
+	case bool:
+		return map[string]interface{}{"type": "bool", "value": x}
+	case int:
+		return map[string]interface{}{"type": "int", "value": strconv.Itoa(x)}
+	case int64:
+		return map[string]interface{}{"type": "int", "value": strconv.FormatInt(x, 10)}
+	case float64:
+		return map[string]interface{}{"type": "float", "value": som.FormatYamlFloat(x)}
+	case string:
+		return map[string]interface{}{"type": "string", "value": x}
+	}
+	return map[string]interface{}{"type": "unknown"}
 }
 
 // --- markdown conformance (SOM §11) -----------------------------------------

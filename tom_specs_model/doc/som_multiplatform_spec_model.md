@@ -2783,6 +2783,16 @@ round-trips byte for byte, and a non-canonical spelling (`TRUE`, `~`, `0x1F`,
 `2.50`, `1e3`) is written in canonical form. Both are pinned by
 `yaml_review_cases.json` in every port.
 
+The typed reading is what a host reads: the decoded review pass of Dart,
+TypeScript and the other ports, and `specYamlTypedReview` in C++, whose parsed
+pass keeps its plain scalars as source text (it is written back from them).
+`yaml_review_cases.json` pins the reading in every port with a `typedReview`
+case. Its `expect` is the reading in a tagged form, so the nine runners compare
+the same thing: a map as `[key, value]` pairs sorted by key, a list in order,
+an int as its decimal text, a float as the writer prints it, a string as
+itself, each tagged with its type (`null`, `bool`, `int`, `float`, `string`,
+`list`, `map`).
+
 ### 12.6 Complete example
 
 ```yaml

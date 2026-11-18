@@ -7262,6 +7262,29 @@ const _plainScalarProbes = <String>[
   '→ arrows and é',
 ];
 
+/// The typed reading of a review value in the corpus's tagged form
+/// (`yaml_review_cases.json`, op `typedReview`): a map as `[key, value]` pairs
+/// sorted by key, a list in order, an int as its decimal text, a float as the
+/// review writer prints it (`formatYamlFloat`), a string as itself.
+Object _typedReview(Object? v) {
+  if (v == null) return {'type': 'null'};
+  if (v is bool) return {'type': 'bool', 'value': v};
+  if (v is int) return {'type': 'int', 'value': '$v'};
+  if (v is double) {
+    return {'type': 'float', 'value': SpecDocumentYaml.reviewScalar(v)};
+  }
+  if (v is String) return {'type': 'string', 'value': v};
+  if (v is List) return {'type': 'list', 'value': v.map(_typedReview).toList()};
+  final m = v as Map;
+  final keys = m.keys.cast<String>().toList()..sort();
+  return {
+    'type': 'map',
+    'value': [
+      for (final k in keys) [k, _typedReview(m[k])],
+    ],
+  };
+}
+
 /// Runs one `yaml_review_cases.json` case and returns what it observed.
 Object? _runYamlReviewCase(
   SpecModel model,
@@ -7269,6 +7292,9 @@ Object? _runYamlReviewCase(
   Map<String, dynamic> c,
 ) {
   final contents = SpecDocumentYaml.decode(c['yaml'] as String, tree);
+  if (c['op'] == 'typedReview') {
+    return _typedReview(contents.review);
+  }
   if (c['op'] == 'roundTrip') {
     return SpecDocumentYaml.encode(
       document: contents.document,
@@ -7497,6 +7523,50 @@ Map<String, dynamic> _yamlReviewCases(
           '    flow_seq: [1, "x"]\n'
           '    nested:\n'
           '      k: v\n',
+    },
+    {
+      // What a host reads from the review pass: every runtime types the
+      // plain scalars by the YAML 1.2 core schema, and reports the reading in
+      // the same tagged form (`_typedReview`).
+      'name':
+          'review values are read typed by the YAML 1.2 core schema (SOM §12.5): bool, int (decimal, 0x, 0o, 64-bit bounds), float (whole, fraction, exponent, beyond 64 bits, non-finite), null (~, null, empty) and string (plain, quoted, block); flow collections read as their values. The expect is the typed reading in a tagged form: a map as [key, value] pairs sorted by key, an int as its decimal text, a float as formatYamlFloat writes it',
+      'op': 'typedReview',
+      'yaml':
+          '$golden'
+          'review:\n'
+          '  "DEMO/TTL":\n'
+          '    a_true: true\n'
+          '    b_false: False\n'
+          '    c_int: 3\n'
+          '    d_neg: -7\n'
+          '    e_max: 9223372036854775807\n'
+          '    f_min: -9223372036854775808\n'
+          '    g_beyond: 123456789012345678901234567890\n'
+          '    h_hex: 0x1F\n'
+          '    i_octal: 0o17\n'
+          '    j_whole: 3.0\n'
+          '    k_frac: 2.50\n'
+          '    l_exp: 1e3\n'
+          '    m_tiny: 1e-7\n'
+          '    n_inf: .inf\n'
+          '    o_neg_inf: -.Inf\n'
+          '    p_nan: .nan\n'
+          '    q_tilde: ~\n'
+          '    r_null: null\n'
+          '    s_empty:\n'
+          '    t_token: keep\n'
+          '    u_words: two words\n'
+          '    v_block_true: |2-\n'
+          '      true\n'
+          '    w_block_num: |2-\n'
+          '      3.0\n'
+          '    x_quoted: "3"\n'
+          '    y_flow_map: {"a": 1, "b": [true, null, 2.5]}\n'
+          '    z_flow_seq: [1, "x"]\n'
+          '  "DEMO/items-1/label":\n'
+          '    nested:\n'
+          '      k: v\n'
+          '      n: 1\n',
     },
   ];
   for (final c in cases) {

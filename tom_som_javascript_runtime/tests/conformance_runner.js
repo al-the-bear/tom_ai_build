@@ -119,6 +119,7 @@ const {
   somParseNum,
   somTypedTextReadable,
 } = require(path.join(_PKG_ROOT, 'tom_som_runtime', 'index.js'));
+const { YamlFloat, formatYamlFloat } = require(path.join(_PKG_ROOT, 'tom_som_runtime', 'index.js'));
 
 const _MODEL_VERSION = '1.0';
 
@@ -952,8 +953,30 @@ function testGenerationUnits(model) {
   }
 }
 
+// The typed reading of a review value in the corpus's tagged form: a map as
+// [key, value] pairs sorted by key, a list in order, an int as its decimal
+// text, a float as formatYamlFloat writes it, a string as itself.
+function _typedReview(v) {
+  if (v === null || v === undefined) return { type: 'null' };
+  if (typeof v === 'boolean') return { type: 'bool', value: v };
+  if (typeof v === 'bigint') return { type: 'int', value: v.toString() };
+  if (v instanceof YamlFloat) return { type: 'float', value: formatYamlFloat(v.value) };
+  if (typeof v === 'number') {
+    return Number.isInteger(v)
+      ? { type: 'int', value: String(v) }
+      : { type: 'float', value: formatYamlFloat(v) };
+  }
+  if (typeof v === 'string') return { type: 'string', value: v };
+  if (Array.isArray(v)) return { type: 'list', value: v.map(_typedReview) };
+  const keys = Object.keys(v).sort();
+  return { type: 'map', value: keys.map((k) => [k, _typedReview(v[k])]) };
+}
+
 function _runYamlReviewCase(model, tree, c) {
   const contents = yamlDecode(c.yaml, tree);
+  if (c.op === 'typedReview') {
+    return _typedReview(contents.review);
+  }
   if (c.op === 'roundTrip') {
     return yamlEncode(contents.document, tree, contents.modelVersion, contents.review);
   }

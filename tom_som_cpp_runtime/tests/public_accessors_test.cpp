@@ -4,6 +4,7 @@
  * const document, and the YAML / Markdown helpers. The expected values are the
  * TypeScript runtime's output for the same inputs (the corpus model, and the
  * small model below). */
+#include <cmath>
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
@@ -183,6 +184,53 @@ void testYamlAndMarkdownHelpers() {
           som::markdownUnitsOf("codeSpec=\"units=x\""), "");
 }
 
+void testTypedReview() {
+  // A review entry as a file holds it: plain scalars stay source text in the
+  // parsed pass, and specYamlTypedReview reads them as TS and Dart do.
+  som::YamlPtr parsed = som::yamlParseMap(
+      "\"DEMO/TTL\":\n  a: true\n  b: 3.0\n  c: 0x1F\n  d: ~\n  e: keep\n"
+      "  f: |2-\n    true\n  g: 1e400\n  h: [1, \"x\"]\n");
+  som::JsonPtr typed = som::specYamlTypedReview(*parsed);
+  check("typed review is a map", typed->type == som::JsonType::Object &&
+                                     typed->object.size() == 1);
+  const som::Json& e = *typed->object[0].second;
+  auto at = [&e](const std::string& k) -> const som::Json& {
+    for (const auto& kv : e.object) {
+      if (kv.first == k) return *kv.second;
+    }
+    static const som::Json none(som::JsonType::Null);
+    return none;
+  };
+  check("bool", at("a").type == som::JsonType::Bool && at("a").boolean);
+  check("whole float stays float", at("b").type == som::JsonType::Float);
+  check("hex int", at("c").type == som::JsonType::Int && at("c").integer == 31);
+  check("tilde null", at("d").type == som::JsonType::Null);
+  check("plain string", at("e").type == som::JsonType::Str && at("e").str == "keep");
+  check("block stays a string", at("f").type == som::JsonType::Str && at("f").str == "true");
+  check("overflow is an infinite float",
+        at("g").type == som::JsonType::Float && std::isinf(at("g").real));
+  check("flow list", at("h").type == som::JsonType::Array && at("h").array.size() == 2);
+
+  checkEq("reviewScalar float", som::specYamlReviewScalar(at("b")), "3.0");
+  checkEq("reviewScalar inf", som::specYamlReviewScalar(at("g")), ".inf");
+  checkEq("reviewScalar int", som::specYamlReviewScalar(at("c")), "31");
+  checkEq("reviewScalar bool", som::specYamlReviewScalar(at("a")), "true");
+  checkEq("reviewScalar null", som::specYamlReviewScalar(at("d")), "null");
+  checkEq("reviewScalar list", som::specYamlReviewScalar(at("h")), "[1,\"x\"]");
+  checkEq("formatYamlFloat", som::specYamlFormatYamlFloat(1e21), "1e+21");
+  checkEq("formatYamlFloat nan", som::specYamlFormatYamlFloat(std::nan("")), ".nan");
+
+  // Writing the typed pass back gives what writing the parsed pass gives.
+  std::string fromParsed;
+  som::specYamlWriteReviewPass(fromParsed, *parsed);
+  std::string fromTyped;
+  som::specYamlWriteTypedReviewPass(fromTyped, *typed);
+  checkEq("typed pass writes back the same", fromTyped, fromParsed);
+  std::string empty;
+  som::specYamlWriteTypedReviewPass(empty, som::Json(som::JsonType::Object));
+  checkEq("empty typed pass", empty, "review: {}\n");
+}
+
 }  // namespace
 
 int main() {
@@ -192,6 +240,7 @@ int main() {
   testReviewTime();
   testExtractAnswersConst();
   testYamlAndMarkdownHelpers();
+  testTypedReview();
   if (g_failed.empty()) {
     std::printf("public_accessors_test: all %zu checks passed.\n", g_passed);
     return 0;
