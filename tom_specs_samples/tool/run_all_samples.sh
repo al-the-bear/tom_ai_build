@@ -64,6 +64,13 @@ if ! command -v cargo > /dev/null 2>&1 && [ -x "$HOME/.cargo/bin/cargo" ]; then
   export PATH
 fi
 
+# Homebrew's Maven (`/opt/homebrew/bin/mvn`) is on the interactive PATH only,
+# like Go below; look there before reporting the Java ports as unrunnable.
+if ! command -v mvn > /dev/null 2>&1 && [ -x /opt/homebrew/bin/mvn ]; then
+  PATH="$PATH:/opt/homebrew/bin"
+  export PATH
+fi
+
 # Go is often on the interactive shell's PATH only: Homebrew's
 # `/opt/homebrew/bin` (macOS) and the official tarball under `/usr/local/go` or
 # `~/.local/go` (Linux). A skip that only reflects that quirk would report the Go
@@ -113,6 +120,7 @@ else
 fi
 
 PASSED=(); FAILED=(); SKIPPED=()
+JAVA_RUNTIMES_INSTALLED=0
 
 run_one() {
   local name="$1"
@@ -172,6 +180,12 @@ run_one() {
       SKIPPED+=("$name"); return
     fi
     cmd=(cargo run --quiet)
+  elif [ -f "$dir/pom.xml" ]; then
+    if ! command -v mvn > /dev/null 2>&1; then
+      echo "  SKIP     $name — mvn not on PATH"
+      SKIPPED+=("$name"); return
+    fi
+    cmd=(mvn -q -B compile exec:java)
   elif [ -f "$dir/package.json" ]; then
     if ! command -v node > /dev/null 2>&1; then
       echo "  SKIP     $name — node not on PATH"
@@ -189,7 +203,7 @@ run_one() {
     fi
   else
     echo "  SKIP     $name — no recognised entry point (pubspec.yaml,"
-    echo "                    main.py, go.mod, Cargo.toml or package.json)"
+    echo "                    main.py, go.mod, Cargo.toml, pom.xml or package.json)"
     SKIPPED+=("$name"); return
   fi
 
@@ -222,6 +236,20 @@ run_one() {
         FAILED+=("$name"); return
       fi
     fi
+  fi
+
+  # A Java sample resolves tom_som_java_runtime and tom_som_java_v0 from the
+  # local Maven repository: the non-Dart runtimes are not published, so the
+  # checkout's two projects are `mvn install`ed first — once per run, the
+  # runtime before the facade that depends on it. Its failure is the sample's.
+  if [ -f "$dir/pom.xml" ] && [ "$JAVA_RUNTIMES_INSTALLED" = 0 ]; then
+    if ! (cd "$ROOT/tom_som_java_runtime" && mvn -q -B install \
+          && cd "$ROOT/tom_som_java_v0" && mvn -q -B install) > "$log" 2>&1; then
+      echo "  FAIL     $name — mvn install of the Java runtime and facade failed"
+      tail -n 15 "$log" | sed 's/^/             /'
+      FAILED+=("$name"); return
+    fi
+    JAVA_RUNTIMES_INSTALLED=1
   fi
 
   # A Rust sample builds first, so a compile error is reported as one rather

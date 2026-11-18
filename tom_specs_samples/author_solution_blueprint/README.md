@@ -4,7 +4,7 @@
 Dart facade — write, serialise both renditions, round-trip, validate, and read
 a real diagnostic.
 **Phase:** 2 (Solution Blueprint) of `tom_specs_project_flow.md`.
-**Language:** Dart. Ports: [`python/`](python/README.md), [`javascript/`](javascript/README.md), [`typescript/`](typescript/README.md), [`go/`](go/README.md), [`rust/`](rust/README.md).
+**Language:** Dart. Ports: [`python/`](python/README.md), [`javascript/`](javascript/README.md), [`typescript/`](typescript/README.md), [`go/`](go/README.md), [`rust/`](rust/README.md), [`java/`](java/README.md).
 
 This is the entry sample. Every other sample assumes you have run it.
 

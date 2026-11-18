@@ -615,7 +615,9 @@ of the runtime and the facade, or `PYTHONPATH`; JavaScript: `file:`
 dependencies and `npm install`; TypeScript: the same, then `npm run build`,
 which builds both packages and compiles the port with `tsc`; Go: `replace`
 directives onto the checkout's modules and `go run`; Rust: `path` dependencies
-on the checkout's crates and `cargo run`), until the runtime is published.
+on the checkout's crates and `cargo run`; Java: `mvn install` of the
+checkout's runtime and facade into the local Maven repository, then
+`mvn compile exec:java`), until the runtime is published.
 
 **A port sits beside its sample**, one folder per language
 (`<sample>/python/`, …), with its own README and, where its output differs
