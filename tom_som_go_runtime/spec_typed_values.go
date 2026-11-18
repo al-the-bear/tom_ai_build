@@ -101,11 +101,12 @@ func SomParseDouble(raw string) (float64, bool) {
 
 // SomFormatDouble formats a float64 for the store.
 //
-// The result always carries a decimal point (`2` formats as `2.0`), matching
-// Dart's `double.toString`: the store is language-neutral, so the same value
-// must serialize identically everywhere — and Go's shortest-round-trip
-// formatting would otherwise drop the point and make an integral double
-// indistinguishable from an int in the persisted text.
+// The result always carries a fraction or an exponent (`2` formats as `2.0`,
+// 1e21 as `1e+21`), matching Dart's `double.toString`: the store is
+// language-neutral, so the same value must serialize identically everywhere —
+// and Go's shortest-round-trip formatting would otherwise drop the point and
+// make an integral double indistinguishable from an int in the persisted text.
+// Non-finite values are `NaN`, `Infinity` and `-Infinity`.
 func SomFormatDouble(value float64) string {
 	if math.IsNaN(value) {
 		return "NaN"
@@ -116,11 +117,10 @@ func SomFormatDouble(value float64) string {
 	if math.IsInf(value, -1) {
 		return "-Infinity"
 	}
-	text := strconv.FormatFloat(value, 'g', -1, 64)
-	if strings.ContainsAny(text, ".eE") {
-		return text
-	}
-	return text + ".0"
+	// One layout in every runtime (decision tspubnondart29 (a)): the shortest
+	// digits in JavaScript's Number toString layout, `.0` on a whole value
+	// (10000000.0, 1e-7, 1e+21) — the review pass's float form.
+	return FormatYamlFloat(value)
 }
 
 // SomParseNum parses a stored string as an int when the text is integral, else
@@ -142,7 +142,9 @@ func SomParseNum(raw string) (any, bool) {
 // narrowing. float64 is the widest numeric carrier Go offers, so it is what the
 // boundary takes on write.
 func SomFormatNum(value float64) string {
-	if isIntegral(value) {
+	// A whole value outside the int64 range is written as a double: int()
+	// would saturate it (1e21 became 9223372036854775807).
+	if isIntegral(value) && value >= -9223372036854775808 && value < 9223372036854775808 {
 		return SomFormatInt(int(value))
 	}
 	return SomFormatDouble(value)

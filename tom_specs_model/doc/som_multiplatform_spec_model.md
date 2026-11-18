@@ -520,8 +520,14 @@ language mirrors it:
   `Infinity`, hexadecimal, digit separators and anything else read as no value,
   because a specification value is finite. The platform parsers accept more
   (`double.tryParse('NaN')`, `strconv.ParseFloat('0x1p4')`, `float('1_000')`),
-  so each runtime checks the text first. `typed_value_cases.json` holds all nine
-  to it.
+  so each runtime checks the text first. Writing a `double` is one layout too,
+  the one §12.5 gives review floats: the shortest digits that read back as the
+  same double, in fixed notation when the value is zero or `1e-6 ≤ |x| < 1e21`
+  with `.0` on a whole value and the sign of `-0.0` kept (`10000000.0`,
+  `0.0005`, `-0.0`), else in exponent notation with a signed, unpadded exponent
+  (`1e+21`, `1e-7`, `1.5e-300`). The platforms' own `toString` differ
+  (`1.0E7`, `1e-07`, `1e+06`, `1000000000000000000000`). `typed_value_cases.json`
+  holds all nine to both rules.
 - `spec_editor.dart` — `SpecEditor`, the generic meta-model-driven modification
   API (YRD7): typed `value`/`setValue`, form field access, headline, list-item
   add/remove and section clearing, over any path. Reads are forgiving

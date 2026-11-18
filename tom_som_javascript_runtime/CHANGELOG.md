@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- `somFormatDouble(-0)` writes `-0.0` (it wrote `0.0`): the sign of a negative
+  zero is kept, as in every runtime (`typed_value_cases.json`).
 - `markdown` is a standard emitter (`K_SPEC_STANDARD_EMITTERS`: `openapi`, `jsonschema`,
   `icu`, `asyncapi`, `markdown`): a generation unit may name it, and the
   validator no longer reports it as unknown. It is the IR's Markdown rendering

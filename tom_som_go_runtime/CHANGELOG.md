@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- `SomFormatDouble` writes a finite double in the one layout of every runtime
+  (`10000000.0`, `1e-7`; it wrote `1e+07`, `1e-07`), and `SomFormatNum` writes
+  a whole value beyond the int64 range as a double (1e21 was written as
+  `9223372036854775807`) (`typed_value_cases.json`).
 - `markdown` is a standard emitter (`SpecStandardEmitters`: `openapi`, `jsonschema`,
   `icu`, `asyncapi`, `markdown`): a generation unit may name it, and the
   validator no longer reports it as unknown. It is the IR's Markdown rendering

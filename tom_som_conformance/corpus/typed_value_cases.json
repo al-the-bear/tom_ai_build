@@ -1,5 +1,5 @@
 {
-  "description": "SOM typed values (decision tspubnondart20 (a), TypeScript reading canonical): an int, double or num field value is read from its stored text with surrounding whitespace trimmed; an int is an optional sign and digits, a double or num a decimal or exponent literal; NaN, Infinity, hexadecimal, digit separators and anything else are refused (null), and so is a literal that overflows (1e400), because a spec value is finite. Each case names the input text, what each type reads it as written back by its formatter (int: the digits; double: always with a fraction or an exponent, 1 → 1.0; num: an int when it reads as one, else a double), null when refused, and whether the text is readable for each type (an empty text is: an unset value). A num whose text is written as a double but has a whole value (1.0, 1e3) carries no num expectation: JavaScript numbers cannot tell 1 from 1.0, so its reading is a property of the language, not of the SOM.",
+  "description": "SOM typed values (decision tspubnondart20 (a), TypeScript reading canonical): an int, double or num field value is read from its stored text with surrounding whitespace trimmed; an int is an optional sign and digits, a double or num a decimal or exponent literal; NaN, Infinity, hexadecimal, digit separators and anything else are refused (null), and so is a literal that overflows (1e400), because a spec value is finite. Each case names the input text, what each type reads it as written back by its formatter (int: the digits; double: always with a fraction or an exponent, 1 → 1.0; num: an int when it reads as one, else a double), null when refused, and whether the text is readable for each type (an empty text is: an unset value). A num whose text is written as a double but has a whole value (1.0, 1e3) carries no num expectation: JavaScript numbers cannot tell 1 from 1.0, so its reading is a property of the language, not of the SOM. A double is written in one layout (decision tspubnondart29 (a)): the shortest digits that read back as the same double, in fixed notation when the value is zero or 1e-6 <= |x| < 1e21, with '.0' on a whole value and the sign of -0.0 kept, else in exponent notation with a signed, unpadded exponent (1e+21, 1e-7, 1.5e-300). A num that is a whole double is not pinned (its form is the runtime's).",
   "cases": [
     {
       "input": " 5",
@@ -259,6 +259,91 @@
         "int": false,
         "double": false,
         "num": false
+      }
+    },
+    {
+      "input": "1e7",
+      "int": null,
+      "double": "10000000.0",
+      "readable": {
+        "int": false,
+        "double": true,
+        "num": true
+      }
+    },
+    {
+      "input": "1e-7",
+      "int": null,
+      "double": "1e-7",
+      "num": "1e-7",
+      "readable": {
+        "int": false,
+        "double": true,
+        "num": true
+      }
+    },
+    {
+      "input": "0.0005",
+      "int": null,
+      "double": "0.0005",
+      "num": "0.0005",
+      "readable": {
+        "int": false,
+        "double": true,
+        "num": true
+      }
+    },
+    {
+      "input": "1e21",
+      "int": null,
+      "double": "1e+21",
+      "num": "1e+21",
+      "readable": {
+        "int": false,
+        "double": true,
+        "num": true
+      }
+    },
+    {
+      "input": "1e20",
+      "int": null,
+      "double": "100000000000000000000.0",
+      "readable": {
+        "int": false,
+        "double": true,
+        "num": true
+      }
+    },
+    {
+      "input": "1.5e-300",
+      "int": null,
+      "double": "1.5e-300",
+      "num": "1.5e-300",
+      "readable": {
+        "int": false,
+        "double": true,
+        "num": true
+      }
+    },
+    {
+      "input": "123456.789",
+      "int": null,
+      "double": "123456.789",
+      "num": "123456.789",
+      "readable": {
+        "int": false,
+        "double": true,
+        "num": true
+      }
+    },
+    {
+      "input": "-0.0",
+      "int": null,
+      "double": "-0.0",
+      "readable": {
+        "int": false,
+        "double": true,
+        "num": true
       }
     }
   ]

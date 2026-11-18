@@ -129,12 +129,22 @@ public final class SpecTypedValues {
    * (clear, D4).
    *
    * <p>A {@code double} always renders with a fraction or an exponent
-   * ({@code 2.0}, {@code 1.0E10}),
+   * ({@code 2.0}, {@code 1e+21}),
    * matching Dart's {@code double.toString} — the store is language-neutral, so
    * the same value must serialize identically everywhere.
    */
   public static String somFormatDouble(Double value) {
-    return value == null ? "" : value.toString();
+    if (value == null) {
+      return "";
+    }
+    if (Double.isNaN(value) || Double.isInfinite(value)) {
+      return value.toString();
+    }
+    // One layout in every runtime (decision tspubnondart29 (a)): the shortest
+    // digits in JavaScript's Number toString layout, ".0" on a whole value
+    // (10000000.0, 1e-7, 1e+21) — the review pass's float form. Double.toString
+    // writes 1.0E7 and 5.0E-4.
+    return SpecDocumentYaml.formatFloat(value);
   }
 
   /**

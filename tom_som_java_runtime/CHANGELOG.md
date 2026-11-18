@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- `SpecTypedValues.somFormatDouble` writes a finite double in the one layout
+  of every runtime (`10000000.0`, `0.0005`, `1e+21`; it wrote `1.0E7`,
+  `5.0E-4`, `1.0E21`) (`typed_value_cases.json`).
 - `markdown` is a standard emitter (`SpecGenerationUnits.SPEC_STANDARD_EMITTERS`: `openapi`, `jsonschema`,
   `icu`, `asyncapi`, `markdown`): a generation unit may name it, and the
   validator no longer reports it as unknown. It is the IR's Markdown rendering

@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- `som_format_double` writes a finite double in the one layout of every
+  runtime (`1e-7`, `1e+21`, `1.5e-300`; it wrote them in full fixed notation)
+  (`typed_value_cases.json`).
 - `markdown` is a standard emitter (`SPEC_STANDARD_EMITTERS`: `openapi`, `jsonschema`,
   `icu`, `asyncapi`, `markdown`): a generation unit may name it, and the
   validator no longer reports it as unknown. It is the IR's Markdown rendering

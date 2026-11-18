@@ -1,4 +1,4 @@
-"""Shared typed-value conversion at the store boundary (YRD7) — a faithful port
+r"""Shared typed-value conversion at the store boundary (YRD7) — a faithful port
 of ``tom_som_dart_runtime/lib/src/spec_typed_values.dart``.
 
 A :class:`SpecDocument`'s stores hold **plain strings** — that is what the
@@ -91,7 +91,15 @@ def som_format_double(value: Optional[float]) -> str:
     """
     if value is None:
         return ""
-    text = repr(float(value))
+    x = float(value)
+    if math.isfinite(x):
+        # One layout in every runtime (decision tspubnondart29 (a)): the
+        # shortest digits in JavaScript's Number toString layout, ``.0`` on a
+        # whole value (``10000000.0``, ``1e-7``, ``1e+21``) — the review
+        # pass's float form. ``repr`` alone writes ``1e+16`` and ``1e-07``.
+        from .spec_document_yaml import review_scalar
+        return review_scalar(x)
+    text = repr(x)
     return text if ("." in text or "e" in text or "n" in text) else text + ".0"
 
 

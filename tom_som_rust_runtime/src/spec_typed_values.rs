@@ -142,22 +142,24 @@ pub fn som_parse_double(raw: Option<&str>) -> Option<f64> {
 
 /// Formats a `double` for the store; `None` becomes `""` (clear, D4).
 ///
-/// A `double` always renders with a decimal point (`2.0`), matching Dart's
-/// `double.toString` — the store is language-neutral, so the same value must
-/// serialize identically everywhere. Rust's `Display` for `f64` is the shortest
-/// round-tripping form but drops the fraction of an integral value (`2`), so the
-/// `.0` is re-attached here.
+/// A `double` always renders with a fraction or an exponent (`2.0`, `1e+21`),
+/// matching Dart's `double.toString` — the store is language-neutral, so the
+/// same value must serialize identically everywhere. Rust's `Display` for `f64`
+/// drops the fraction of an integral value (`2`) and never uses an exponent, so
+/// a finite value goes through `format_yaml_float`.
 pub fn som_format_double(value: Option<f64>) -> String {
     let v = match value {
         None => return String::new(),
         Some(v) => v,
     };
-    let text = v.to_string();
-    if text.contains('.') || text.contains('e') || text.contains('E') || !v.is_finite() {
-        text
-    } else {
-        format!("{}.0", text)
+    if v.is_finite() {
+        // One layout in every runtime (decision tspubnondart29 (a)): the
+        // shortest digits in JavaScript's Number toString layout, `.0` on a
+        // whole value (`10000000.0`, `1e-7`, `1e+21`) — the review pass's
+        // float form. `{}` never uses an exponent (1e21 in full).
+        return crate::spec_document_yaml::format_yaml_float(v);
     }
+    v.to_string()
 }
 
 /// Parses a stored string as `int` when integral, else `double` — both with

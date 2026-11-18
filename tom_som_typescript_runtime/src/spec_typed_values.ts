@@ -89,6 +89,11 @@ export function somFormatDouble(value: number | null | undefined): string {
   if (value === null || value === undefined) {
     return '';
   }
+  // String(-0) is "0": the sign of a negative zero is kept, as every runtime
+  // writes it (decision tspubnondart29 (a)).
+  if (Object.is(value, -0)) {
+    return '-0.0';
+  }
   const text = String(value);
   return _READS_AS_FLOAT.test(text) ? text : `${text}.0`;
 }
