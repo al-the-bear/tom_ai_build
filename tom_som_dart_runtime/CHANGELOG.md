@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- `markdown` is a standard emitter (`kSpecStandardEmitters`: `openapi`, `jsonschema`,
+  `icu`, `asyncapi`, `markdown`): a generation unit may name it, and the
+  validator no longer reports it as unknown. It is the IR's Markdown rendering
+  (`tomspecs :ir-emit --standard markdown`, DocSpecs `irspecs-md/1.0`).
 - A double literal that overflows to infinity (`1e400`) reads as no value, as
   `NaN` and `Infinity` do (`typed_value_cases.json`).
 - Typed values follow the canonical SOM reading: `somParseInt`,

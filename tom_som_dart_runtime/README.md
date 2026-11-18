@@ -99,6 +99,13 @@ and how to pin.
 | `spec_document_yaml.dart` | Byte-stable `*.docspecs.yaml` codec (`SOM §12`). |
 | `spec_document_markdown.dart` | Meta-data-driven Markdown import/export codec (`SOM §11`). |
 | `docspecs_validator.dart` | Schema-free DocSpecs parse, schema loader, and never-fail-fast validator (`SOM §14`). |
+| `spec_review_annotations.dart` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks, conflict blocks, change times and attribution (`SpecReviewAnnotations`). |
+| `spec_review_merge.dart` | Team review (SOM §11.9.8): `mergeReviews` merges the returned copies of a round into one document with votes, individual answers and conflict blocks. |
+| `spec_answers.dart` | A review round's answers (SOM §11.9.7): `extractAnswers` and `renderAnswers` (`answers.md`). |
+| `spec_document_assembly.dart` | Fragments of one document assembled into one (`assembleSpecDocuments`, `SpecDocument.assemble`), refusing overlapping values (`SpecAssemblyOverlap`). |
+| `spec_codespecs_gate.dart` | The Phase-4 Stage-A gate (`CodeSpecsGate`) — checks A1–A5 of `codespecs_prompt.md` §4 run as one; a check that could not run is reported not run, never passed. |
+| `spec_codespecs_records.dart` | A Phase-4 run read back: the extracts (`CodeSpecsExtract.fromYaml`), the gate record (`CodeSpecsGateRecord`) and the scoped `CodeSpecsExtractSet`. |
+| `spec_schema_validation.dart` | `validateSpecDocument` — the DocSpecs schema tier over a document's Markdown rendition. |
 | `som_facade.dart` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList`, `checkSomModelVersion`, `somEditabilityFor`) for the generated `tom_som_dart_v0`. |
 | `spec_section_id.dart`, `spec_serialization_order.dart` | Section-id and serialization-order helpers shared by the codecs. |
 | `spec_checks.dart` (a library of its own) | The TomSpecs process checks over a document's text — answer import, in-place mark acceptance, required fields, the question and feature registers, Project Idea and model coverage, the authorization cross-check; see [doc/spec_checks.md](doc/spec_checks.md). |

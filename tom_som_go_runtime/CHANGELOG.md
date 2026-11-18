@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- `markdown` is a standard emitter (`SpecStandardEmitters`: `openapi`, `jsonschema`,
+  `icu`, `asyncapi`, `markdown`): a generation unit may name it, and the
+  validator no longer reports it as unknown. It is the IR's Markdown rendering
+  (`tomspecs :ir-emit --standard markdown`, DocSpecs `irspecs-md/1.0`).
 - Exported, as TS exports them: `YamlKey`, `WriteScalar`, `WriteHeader` (both
   writing into a `*strings.Builder`), `ReviewScalar`, `FormatYamlFloat` (was
   `reviewFloat`), `SpecDocumentMarkdownCodeSpecOf` / `SpecDocumentMarkdownUnitsOf`
@@ -25,9 +29,11 @@
 
 ## 1.12.0
 
-- No runtime change. Moves in lockstep with `tom_specs_model` 1.12.0 (an
-  entity's datasource, schema and tenancy in `DAENT-IDEN`; `TDIP` routed to
-  dataAccess as well).
+- `MergeReviews`: the question proposing a guest reviewer offers three answers —
+  (a) yes, from now on (recommended), (b) yes, the next round only, (c) no
+  (SOM §11.9.9), as in the eight other runtimes and the review-merge corpus.
+- Moves in lockstep with `tom_specs_model` 1.12.0 (an entity's datasource,
+  schema and tenancy in `DAENT-IDEN`; `TDIP` routed to dataAccess as well).
 
 ## 1.11.0
 

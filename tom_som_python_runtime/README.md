@@ -80,6 +80,17 @@ editable routes and how to pin.
 | `spec_generation_units` | The generation-unit register of a document (SOM §11.2): `spec_generation_units` reads each unit (`SpecGenerationUnit`: id, kind, mappings per area, the standard `emitters` it ships), recognised by `@NoArtifact(generation)` as validation phase 8 recognises it; `K_SPEC_STANDARD_EMITTERS` lists the emitters an emitter may name (phase 8 reports any other as `unitEmitterUnknown`); `spec_default_units` is the default destination of an area — the extract fills an entry's `units` from it when no section stores units. |
 | `spec_codespecs_gate` | The Phase-4 Stage-A gate (`CodeSpecsGate`) — checks A1–A5 of `codespecs_prompt.md` §4 run as one over model, document, area catalogue (its `gate` tables) and DocSpecs schema; a check that cannot run is reported not run and fails the gate. |
 | `spec_codespecs_records` | Reads a Phase-4 run back: `CodeSpecsExtract.from_yaml` (the byte-stable inverse of `to_yaml`), the Stage-B gate record `gate.verdicts.yaml` (`CodeSpecsGateRecord` — read, checked, written), and `CodeSpecsExtractSet`, a tree of extracts scoped by its gate record. |
+| `spec_review_annotations` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks, conflict blocks, change times and attribution (`SpecReviewAnnotations`). |
+| `spec_review_merge` | Team review (SOM §11.9.8): `merge_reviews` merges the returned copies of a round into one document with votes, individual answers and conflict blocks. |
+| `spec_answers` | A review round's answers (SOM §11.9.7): `extract_answers` and `render_answers` (`answers.md`). |
+| `spec_meta` | The metadata tree types (`SomMetaTree`, `SomMetaNode`, …) the YAML codec and the facade navigate by. |
+| `spec_meta_bridge` | `build_som_meta_tree` — the metadata tree of a model, for one root or all. |
+| `spec_meta_diff` | `som_meta_node_diff` — the first difference between two metadata trees, or `None`. |
+| `spec_section_id` | List-item section ids (AA1): `generate_list_item_section_id`, `encode_two_letter_date`, `effective_list_item_section_id`. |
+| `spec_serialization_order` | `SpecSerializationOrder` — the model's member order, which every codec writes in. |
+| `docspecs_validator` | DocSpecs Markdown documents: the schema-free parse (`DocSpecsDocument`) and the schema check (`DocSpecsValidator`). |
+| `spec_schema_validation` | `validate_spec_document` — the DocSpecs schema tier over a document's Markdown rendition. |
+| `som_facade` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList`) for the generated `tom_som_python_v0`. |
 
 ## Quick start
 

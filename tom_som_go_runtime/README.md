@@ -86,6 +86,17 @@ tag / path-`replace` routes and how to pin.
 | `spec_document_yaml.go` | Byte-stable `*.docspecs.yaml` codec (`SOM §12`). |
 | `spec_document_markdown.go` | Meta-data-driven Markdown import/export codec (`SOM §11`). |
 | `som_facade.go` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList[T]`) for the generated `tom_som_go_v0`. |
+| `spec_review_annotations.go` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks (`SpecReviewAnnotations`: insert, answer, decide, comment on a change, assign comment ids, strip, validate), conflict blocks, change times and attribution. |
+| `spec_review_merge.go` | Team review (SOM §11.9.8): `MergeReviews` / `MergeMarkdownReviews` merge the returned copies of a round into one document with votes, individual answers and conflict blocks. |
+| `spec_answers.go` | A review round's answers (SOM §11.9.7): `ExtractAnswers` collects the answered questions and comments with their section-id chain and line, `RenderAnswers` writes `answers.md`. |
+| `spec_meta.go` | The metadata tree types (`SomMetaTree`, `SomMetaNode`, …) the YAML codec and the facade navigate by. |
+| `spec_meta_bridge.go` | `BuildSomMetaTree` — the metadata tree of a model, for one root or all. |
+| `spec_meta_diff.go` | `SomMetaNodeDiff` — the first difference between two metadata trees, or `""`; an optional position prefix. |
+| `spec_section_id.go` | List-item section ids (AA1): `GenerateListItemSectionID`, `EncodeTwoLetterDate`, `EffectiveListItemSectionID`, `SectionIDPatternPrefix`, `SpecSectionIDCollision`. |
+| `spec_serialization_order.go` | `SpecSerializationOrder` — the model's member order (`OrderKey`, `OrderPaths`, `OrderFormFields`), which every codec writes in. |
+| `docspecs_validator.go` | DocSpecs Markdown documents: the schema-free parse (`DocSpecsDocument`, its sections and `AllSections`), the schema check (`DocSpecsValidator`) and `DocSpecsReplaceSectionBody`. |
+| `spec_schema_validation.go` | `ValidateSpecDocument` — the DocSpecs schema tier over a document's Markdown rendition. |
+| `yaml.go` | The YAML reader the codec uses (`YamlParse`, `YamlParseMap`) and the insertion-ordered `YamlMap` the review pass is read into. |
 
 ## Quick start
 

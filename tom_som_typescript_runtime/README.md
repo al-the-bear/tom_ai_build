@@ -83,6 +83,18 @@ path-link routes, version pinning, and building from source.
 | `spec_document_yaml.ts` | Byte-stable `*.docspecs.yaml` codec (`SOM §12`). |
 | `spec_document_markdown.ts` | Meta-data-driven Markdown import/export codec (`SOM §11`). |
 | `som_facade.ts` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList<T>`) for the generated `tom_som_typescript_v0`. |
+| `spec_review_annotations.ts` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks (`SpecReviewAnnotations`: insert, answer, decide, comment on a change, assign comment ids, strip, validate), conflict blocks, change times and attribution; `formatCommentBlock` / `formatQuestionBlock` / `formatConflictBlock`. |
+| `spec_review_merge.ts` | Team review (SOM §11.9.8): `mergeReviews` merges the returned copies of a round into one document with votes, individual answers and conflict blocks (`SpecReviewMergeResult`, `SpecReviewMergeReport`). |
+| `spec_answers.ts` | A review round's answers (SOM §11.9.7): `extractAnswers` collects the answered questions and comments with their section-id chain and line, `renderAnswers` writes `answers.md`. |
+| `spec_document_assembly.ts` | Fragments of one document assembled into one (`assembleSpecDocuments`, `SpecDocumentAssembly`), refusing overlapping values (`SpecAssemblyOverlap`). |
+| `spec_meta.ts` | The metadata tree types (`SomMetaTree`, `SomMetaNode`, `SomMetaKind`, …) the YAML codec and the facade navigate by. |
+| `spec_meta_bridge.ts` | `buildSomMetaTree` — the metadata tree of a model, for one root or all. |
+| `spec_meta_diff.ts` | `somMetaNodeDiff` — the first difference between two metadata trees, or `null`. |
+| `spec_section_id.ts` | List-item section ids (AA1): `generateListItemSectionId`, `encodeTwoLetterDate`, `effectiveListItemSectionId`, `K_SECTION_ID_SLOT`, `SpecSectionIdCollision`. |
+| `spec_serialization_order.ts` | `SpecSerializationOrder` — the model's member order (`orderKey`, `orderPaths`), which every codec writes in. |
+| `docspecs_validator.ts` | DocSpecs Markdown documents: the schema-free parse (`DocSpecsDocument`, its sections and `allSections`) and the schema check (`DocSpecsValidator`, `DocSpecsViolation`). |
+| `spec_schema_validation.ts` | `validateSpecDocument` — the DocSpecs schema tier over a document's Markdown rendition. |
+| `yaml.ts` | The YAML reader the codec uses (`parse`, `parseMap`; `parse(text, true)` types the review pass, SOM §12.5) and `YamlFloat` / `formatYamlFloat`, the review pass's float form. |
 
 ## Quick start
 

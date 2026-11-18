@@ -97,6 +97,16 @@ pkg-config / vendored-tarball / in-tree-monorepo routes and how to pin.
 | `yaml.cpp` | Hand-rolled, dependency-free reader for the constrained docspecs YAML subset. |
 | `som_json.cpp` | Hand-rolled, dependency-free JSON reader/encoder. |
 | `som_util.cpp` | Small numeric/string helpers. |
+| `spec_review_annotations.cpp` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks, conflict blocks, change times and attribution (`SpecReviewAnnotations`). |
+| `spec_review_merge.cpp` | Team review (SOM §11.9.8): `mergeReviews` merges the returned copies of a round into one document (or Markdown file) with votes, individual answers and conflict blocks. |
+| `spec_answers.cpp` | A review round's answers (SOM §11.9.7): `extractAnswers` and `renderAnswers` (`answers.md`). |
+| `spec_meta.cpp` | The metadata tree types (`SomMetaTree`, `SomMetaNode`, …) the YAML codec and the facade navigate by. |
+| `spec_meta_bridge.cpp` | `somBuildMetaTree` — the metadata tree of a model, for one root or all. |
+| `spec_meta_diff.cpp` | `somMetaNodeDiff` — the first difference between two metadata trees, or `""`. |
+| `spec_section_id.cpp` | List-item section ids (AA1): `specGenerateListItemSectionId`, `specEncodeTwoLetterDate`, `specSectionIdPatternPrefix`. |
+| `spec_serialization_order.cpp` | `SpecSerializationOrder` — the model's member order (`orderKey`, `orderPaths`), which every codec writes in. |
+| `docspecs_validator.cpp` | DocSpecs Markdown documents: the schema-free parse (`DocSpecsDocument`) and the schema check (`DocSpecsValidator`). |
+| `spec_schema_validation.cpp` | `validateSpecDocument` — the DocSpecs schema tier over a document's Markdown rendition. |
 
 ## Quick start
 

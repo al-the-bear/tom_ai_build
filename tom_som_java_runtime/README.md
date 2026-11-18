@@ -90,6 +90,17 @@ install / JDK-only `build_jar.sh` routes and how to pin.
 | `SpecGenerationUnits`, `SpecGenerationUnit`, `SpecGenerationUnitMapping` | The generation-unit register of a document (SOM §11.2): `specGenerationUnits` reads each unit (`SpecGenerationUnit`: id, kind, mappings per area, the standard emitters it ships), recognised by `@NoArtifact(generation)` as validation phase 8 recognises it; `specDefaultUnits` is the default destination of an area — the extract fills an entry's `units` from it when no section stores units. `SPEC_STANDARD_EMITTERS` lists the standard emitters (`openapi`, `jsonschema`, `icu`, `asyncapi`, `markdown`); phase 8 reports any other as `unitEmitterUnknown`. |
 | `CodeSpecsGate`, `CodeSpecsGateReport`, `CodeSpecsGateCheckResult`, `CodeSpecsGateFinding`, `CodeSpecsGateCheck`, `CodeSpecsFieldRef`, `CodeSpecsRequiredArgument`, `CodeSpecsCarrier` | The Stage-A gate (`codespecs_prompt.md` §4, A1–A5) run as one over model, document, catalogue and DocSpecs schema: every check runs, a check that cannot run is reported not run, and the report carries the extracts when A3 passed. A4/A5 read the catalogue's optional `gate` tables. |
 | `CodeSpecsExtract.fromYaml`, `CodeSpecsGateRecord`, `CodeSpecsGateEntry`, `CodeSpecsGateVerdict`, `CodeSpecsExtractSet`, `CodeSpecsExcludedArea`, `CodeSpecsRecordError` | Reading a Phase-4 run back: an extract file (the inverse of `toYaml`, refusing an unknown `formatVersion`), the Stage-B gate record `gate.verdicts.yaml` (read, checked, edited with `withVerdict`, written byte-stable) and a set of extracts scoped by that record (`fromFiles`, `fromDirectory`), with the excluded areas kept visible. |
+| `SpecReviewAnnotations`, `SpecReviewAnnotation`, `SpecReviewAnnotationKind` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks, conflict blocks, change times and attribution. |
+| `SpecReviewMerge`, `SpecReviewMergeResult`, `SpecReviewMergeReport`, `SpecReviewMergeOptions` | Team review (SOM §11.9.8): `SpecReviewMerge.mergeReviews` merges the returned copies of a round into one document (or Markdown file) with votes, individual answers and conflict blocks. |
+| `SpecAnswers`, `SpecAnswerExtract`, `SpecAnswerEntry` | A review round's answers (SOM §11.9.7): `extractAnswers` and `renderAnswers` (`answers.md`). |
+| `SomMetaTree`, `SomMetaNode`, `SomMetaKind`, … | The metadata tree the YAML codec and the facade navigate by. |
+| `SomMetaBridge` | `buildSomMetaTree` — the metadata tree of a model, for one root or all. |
+| `SpecMetaDiff` | `somMetaNodeDiff` — the first difference between two metadata trees. |
+| `SpecSectionId`, `SpecSectionIdCollision` | List-item section ids (AA1): `generateListItemSectionId`, `effectiveListItemSectionId`. |
+| `SpecSerializationOrder` | The model's member order, which every codec writes in. |
+| `DocSpecsDocument`, `DocSpecsValidator`, `DocSpecsViolation` | DocSpecs Markdown documents: the schema-free parse (`DocSpecsDocument.parse`) and the schema check. |
+| `SpecSchemaValidation` | `validateSpecDocument` — the DocSpecs schema tier over a document's Markdown rendition. |
+| `Yaml` | The YAML reader the codec uses (`Yaml.parse`, typed for the review pass, SOM §12.5). |
 
 ## Quick start
 

@@ -92,6 +92,16 @@ pkg-config / vendored-tarball / in-tree-monorepo routes and how to pin.
 | `yaml.c` | Hand-rolled, dependency-free reader for the constrained docspecs YAML subset. |
 | `som_json.c` | Hand-rolled, dependency-free JSON reader/encoder (C ships none). |
 | `som_util.c` | C-only support: `SomBuf` (string builder), `SomStrList`, `SomMap` (byte-sorted), small numeric/string helpers. |
+| `spec_review_annotations.c` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks, conflict blocks, change times and attribution (`spec_review_annotations_make`, `spec_review_annotations_list`, …). |
+| `spec_review_merge.c` | Team review (SOM §11.9.8): `spec_review_merge_documents` / `spec_review_merge_markdown` merge the returned copies of a round into one document with votes, individual answers and conflict blocks. |
+| `spec_answers.c` | A review round's answers (SOM §11.9.7): `spec_extract_answers` and `spec_render_answers` (`answers.md`). |
+| `spec_meta.c` | The metadata tree types (`SomMetaTree`, `SomMetaNode`, …) the YAML codec and the facade navigate by. |
+| `spec_meta_bridge.c` | `som_build_meta_tree` — the metadata tree of a model, for one root or all. |
+| `spec_meta_diff.c` | `som_meta_node_diff` — the first difference between two metadata trees, or NULL. |
+| `spec_section_id.c` | List-item section ids (AA1): `spec_generate_list_item_section_id`, `spec_effective_list_item_section_id`, `spec_section_id_pattern_prefix`. |
+| `spec_serialization_order.c` | The model's member order, which every codec writes in (`spec_serialization_order_paths`, `spec_serialization_order_order_key`, `spec_serialization_order_form_fields`). |
+| `docspecs_validator.c` | DocSpecs Markdown documents: the schema-free parse (`docspecs_parse_document`, `docspecs_document_all_sections`) and the schema check (`docspecs_validator_new`, `docspecs_validator_validate_markdown`). |
+| `spec_schema_validation.c` | `validate_spec_document` — the DocSpecs schema tier over a document's Markdown rendition. |
 
 ## Quick start
 

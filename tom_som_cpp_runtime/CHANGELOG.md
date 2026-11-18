@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- `markdown` is a standard emitter (`kSpecStandardEmitters`: `openapi`, `jsonschema`,
+  `icu`, `asyncapi`, `markdown`): a generation unit may name it, and the
+  validator no longer reports it as unknown. It is the IR's Markdown rendering
+  (`tomspecs :ir-emit --standard markdown`, DocSpecs `irspecs-md/1.0`).
 - The typed review pass (SOM §12.5), as TS and Dart read it:
   `specYamlTypedReview(review)` reads the parsed `review:` pass typed by the
   YAML 1.2 core schema (null, bool, int, float, string, flow collections);
@@ -34,9 +38,11 @@
 
 ## 1.12.0
 
-- No runtime change. Moves in lockstep with `tom_specs_model` 1.12.0 (an
-  entity's datasource, schema and tenancy in `DAENT-IDEN`; `TDIP` routed to
-  dataAccess as well).
+- `mergeReviews`: the question proposing a guest reviewer offers three answers —
+  (a) yes, from now on (recommended), (b) yes, the next round only, (c) no
+  (SOM §11.9.9), as in the eight other runtimes and the review-merge corpus.
+- Moves in lockstep with `tom_specs_model` 1.12.0 (an entity's datasource,
+  schema and tenancy in `DAENT-IDEN`; `TDIP` routed to dataAccess as well).
 
 ## 1.11.0
 

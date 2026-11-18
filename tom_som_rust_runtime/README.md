@@ -86,6 +86,16 @@ path routes, version pinning, and `cargo package` from source.
 | `som_facade.rs` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList<T>`) for the generated `tom_som_rust_v0`. |
 | `yaml.rs` | Hand-rolled, dependency-free reader for the constrained docspecs YAML subset. |
 | `json.rs` | Hand-rolled, dependency-free JSON reader/encoder (Rust std ships no JSON). |
+| `spec_review_annotations.rs` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks, conflict blocks, change times and attribution (`SpecReviewAnnotations`). |
+| `spec_review_merge.rs` | Team review (SOM §11.9.8): `merge_reviews` / `merge_reviews_markdown` merge the returned copies of a round into one document with votes, individual answers and conflict blocks. |
+| `spec_answers.rs` | A review round's answers (SOM §11.9.7): `extract_answers` and `render_answers` (`answers.md`). |
+| `spec_meta.rs` | The metadata tree types (`SomMetaTree`, `SomMetaNode`, …) the YAML codec and the facade navigate by. |
+| `spec_meta_bridge.rs` | `build_som_meta_tree` — the metadata tree of a model, for one root or all. |
+| `spec_meta_diff.rs` | `som_meta_node_diff` — the first difference between two metadata trees, or `None`; `som_meta_node_diff_at` names the starting position. |
+| `spec_section_id.rs` | List-item section ids (AA1): `generate_list_item_section_id`, `encode_two_letter_date`, `effective_list_item_section_id`, `K_SECTION_ID_SLOT`. |
+| `spec_serialization_order.rs` | `SpecSerializationOrder` — the model's member order, which every codec writes in. |
+| `docspecs_validator.rs` | DocSpecs Markdown documents: the schema-free parse (`parse_docspecs_document`, `DocSpecsDocument`) and the schema check (`DocSpecsValidator`). |
+| `spec_schema_validation.rs` | `validate_spec_document` — the DocSpecs schema tier over a document's Markdown rendition. |
 
 ## Quick start
 
