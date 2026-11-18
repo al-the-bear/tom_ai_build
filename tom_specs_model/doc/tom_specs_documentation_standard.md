@@ -148,7 +148,7 @@ attribution first.
 blockquote is the densest concentration of citations in a README, and it is the
 one place where the natural line break silently breaks one. `index.md`'s
 convention lets a leading document name govern the citations that follow it, but
-`check_section_citations.dart` recognises that qualifier only across `)`, a
+`tomspecs :gate-section-citations` recognises that qualifier only across `)`, a
 backtick and whitespace — **not across the `>` blockquote marker**. So a name
 ending one line does not reach a `§N` opening the next, and that `§N` resolves
 against the README's own (nonexistent) headings and fails the gate. Rewrap so
@@ -309,7 +309,7 @@ Two closure rules, both checkable by reading:
    `§` citation of a subject-matter document resolves to a real section of that
    document. The citation convention is [`index.md`](index.md)'s, including its
    bare-`§N`-means-this-document rule; package documents are inside the corpus
-   that `tom_specs_clitool/bin/check_section_citations.dart` scans, so a
+   that `tomspecs :gate-section-citations` scans, so a
    dangling citation fails a gate rather than merely misleading a reader.
 
 ---
@@ -366,7 +366,7 @@ format and the model. Neither restates it.
 The `v0` packages are generated, and their `README.md`,
 `readme_howtointegrate.md`, `LICENSE`, `CHANGELOG.md`, `lib/`, `meta/`,
 `schemas/` and manifest are **overwritten on every**
-`tom_specs_clitool/bin/generate_som.dart` **run**. Everything else is preserved
+`tomspecs :som-generate` **run**. Everything else is preserved
 — the generator writes files, it never wipes the output root, which is exactly
 why the hand-authored `example/`, `test/` and `tool/` trees already survive
 there.
@@ -698,7 +698,7 @@ noted as not applicable.
 - [ ] Ecosystem diagram places the package among its real siblings
 - [ ] Further-documentation table has all three parts (§2.4) and links `index.md`
 - [ ] All links relative; all links resolve
-- [ ] Every `§` citation resolves; `check_section_citations.dart` passes. Its default corpus is **closed over the package tier**: every TomSpecs README (`defaultCitedReadmes`), every package `doc/` folder (`defaultCitedDocFolders`) and every citing source tree (`defaultCitedSourceRoots` — a package's `lib/`, `bin/`, `test/` and `tool/`, in Dart and in the shell / Python / YAML / C-family the last of those is written in). A newly documented package is gated the moment its folder is added to that list, and not before
+- [ ] Every `§` citation resolves; `tomspecs :gate-section-citations` passes. Its default corpus is **closed over the package tier**: every TomSpecs README (`defaultCitedReadmes`), every package `doc/` folder (`defaultCitedDocFolders`) and every citing source tree (`defaultCitedSourceRoots` — a package's `lib/`, `bin/`, `test/` and `tool/`, in Dart and in the shell / Python / YAML / C-family the last of those is written in). A newly documented package is gated the moment its folder is added to that list, and not before
 - [ ] Content the package's own tests hold is unchanged — grep `test/` for `README` before reshaping any table or list. Two are known: `tom_specs_clitool`'s `bin/` table (`entrypoint_options_test.dart`) and every public declaration of `tom_core_codespecs` (`gap_class_inventory_test.dart`); grep rather than trust the list
 - [ ] `## Status` version matches the manifest and test count matches a run — or, for a generated README, carries the verify command in place of a count (§2.5)
 
@@ -709,7 +709,7 @@ noted as not applicable.
 - [ ] Each file follows the §3.3 order, with a working Table of Contents
 - [ ] Every code example complete, runnable, with expected output; no non-deterministic values
 - [ ] Nothing restates a subject-matter document — each such fact is a citation (§1.2)
-- [ ] Every `§` citation resolves; `check_section_citations.dart` passes
+- [ ] Every `§` citation resolves; `tomspecs :gate-section-citations` passes
 - [ ] No review annotation left — no comment block, question block or inline mark outside code (§3.5)
 - [ ] `doc/api/api_summary_<module>.md` present per module
 

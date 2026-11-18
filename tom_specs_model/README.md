@@ -124,10 +124,10 @@ decided by
 | Artefact | Produced by | Consumed by |
 |----------|-------------|-------------|
 | `spec_model.meta.json` — the resolved class graph | `tom_specs_clitool`'s `ModelJsonExporter` | all nine SOM runtimes, the editor, the reviewer |
-| Nine `tom_som_<lang>_v0` typed facades + `_runtime` pairs | `tom_specs_clitool/bin/generate_som.dart` | applications reading or writing specifications |
+| Nine `tom_som_<lang>_v0` typed facades + `_runtime` pairs | `tomspecs :som-generate` | applications reading or writing specifications |
 | DocSpecs schemas | `docspecs_schema_generator.dart` | document validation |
 | Class-tree outlines (`generated-doc/outlines/`) | `tom_specs_clitool/tool/regenerate_outlines.sh` | review and documentation |
-| The CodeSpecs area catalogue (`generated-doc/codespecs/`) | `tom_specs_clitool/bin/codespecs_areas.dart` | Phase-4 extract generation |
+| The CodeSpecs area catalogue (`generated-doc/codespecs/`) | `tomspecs :codespecs-areas` | Phase-4 extract generation |
 | `lib/codespecs_areas.dart` — the same catalogue as Dart | the same command, in the same pass | a Dart consumer that must not read a file |
 
 Because all of it is generated, **a model edit is not finished until the
@@ -191,8 +191,8 @@ Two mechanical steps follow every model edit, in this order:
 
 ```bash
 cd ../tom_specs_clitool
-dart run bin/stamp_serialization_order.dart   # renumber @SerializationOrder
-dart run bin/generate_som.dart                # regenerate the nine runtimes
+dart run bin/tomspecs.dart :model-stamp-order  # renumber @SerializationOrder
+dart run bin/tomspecs.dart :som-generate       # regenerate the nine runtimes
 ./tool/regenerate_outlines.sh                 # refresh generated-doc/outlines
 ```
 

@@ -164,7 +164,7 @@ fi
 # ── the precondition ────────────────────────────────────────────────────────
 if [ "$ALLOW_DRIFT" -eq 0 ]; then
   echo "== precondition: local tree == published tree =="
-  if ! ( cd "$CLITOOL" && dart run bin/check_release_drift.dart > "$LOG_DIR/drift.log" 2>&1 ); then
+  if ! ( cd "$CLITOOL" && dart run bin/tomspecs.dart :gate-release-drift > "$LOG_DIR/drift.log" 2>&1 ); then
     tail -n 20 "$LOG_DIR/drift.log" | sed 's/^/    /'
     echo
     echo "verify_published_tests: REFUSED — a release member has unpublished changes," >&2

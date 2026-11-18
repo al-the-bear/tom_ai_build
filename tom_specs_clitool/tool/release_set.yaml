@@ -1,5 +1,5 @@
 # The release-1 set and its closure rules, read by
-# bin/check_release_closure.dart (lib/src/release_closure.dart).
+# `tomspecs :gate-release-closure` (lib/src/release_closure.dart).
 #
 # This is the committed record of the release-1 scope: the Dart chain plus the
 # eight non-Dart runtime/v0 pairs and the conformance assets. The editor,
@@ -81,7 +81,7 @@ forbid:
 workspace_prefixes:
   - tom_
 
-# ACKNOWLEDGED DRIFT — read by bin/check_release_drift.dart
+# ACKNOWLEDGED DRIFT — read by `tomspecs :gate-release-drift`
 # (lib/src/release_drift.dart).
 #
 # A release member whose tree has moved since the commit that set its current
@@ -124,8 +124,9 @@ unpublished_drift:
     generate_som, spec_ops, model_json and check_som_parity find the package
     the same way, and build runs model_json and docspecs_schema in-process;
     tsbin6 (2026-11-18): the gates find the package the same way, and a
-    compiled binary finds it from the current directory; published with the
-    next clitool release.
+    compiled binary finds it from the current directory; tsbin7 (2026-11-18):
+    the documents, scripts and generator texts name the tomspecs commands
+    instead of the old tools; published with the next clitool release.
   tom_core_codespecs: >-
     irfmt2 (2026-11-16): irspecs_ir.md §8 states that the dart-tom mapper needs
     no Dart SDK; irout1 (2026-11-16): irspecs_ir.md and codespecs_mapping.md
@@ -134,18 +135,35 @@ unpublished_drift:
     codespecs_mapping.md and the derivation contract; irout3 (2026-11-16):
     irspecs_ir.md §10.3, the Markdown rendering; irout4 (2026-11-17):
     irspecs_ir.md §15, the JSON export; irout5 (2026-11-17): §10.3 names the
-    viewers that resolve section-id anchors; ships with the next release.
+    viewers that resolve section-id anchors; tsbin7 (2026-11-18): the
+    documents name the tomspecs commands instead of the old tools (irspecs,
+    validate_codespecs); ships with the next release.
   tom_specs_model: >-
     irout1 (2026-11-16): doc/index.md's irspecs_ir.md row states the IR as
     Phase 4's product; irout2 (2026-11-16): the IR file-name pattern in
     doc/index.md and doc/codespecs_prompt.md; irout3 (2026-11-16): `markdown`
     among the emitter ids in som_multiplatform_spec_model.md and
-    tom_specs_model_rules.md (documentation only); ships with the next
-    release.
+    tom_specs_model_rules.md (documentation only); tsbin7 (2026-11-18): the
+    documents, gate checklists and the generated spec-ops header name the
+    tomspecs commands instead of the old tools; ships with the next release.
   tom_som_dart_runtime: >-
     irout3 (2026-11-16): kSpecStandardEmitters gains `markdown` (validation
     phase 8, unitEmitterUnknown), as in the eight other runtimes and the
-    corpus; ships with the next chain release.
+    corpus; tsbin7 (2026-11-18): comments and README name the tomspecs
+    commands instead of the old tools; ships with the next chain release.
+  tom_specs_core: >-
+    tsbin7 (2026-11-18): the README, doc/annotations.md and the
+    @SerializationOrder doc comment name the tomspecs commands instead of the
+    old tools (documentation only); ships with the next release.
+  tom_code_specs: >-
+    tsbin7 (2026-11-18): the README and doc/ name the tomspecs commands
+    instead of validate_codespecs (documentation only); ships with the next
+    release.
+  tom_som_dart_v0: >-
+    tsbin7 (2026-11-18): the generated README, readme_howtointegrate.md,
+    pubspec description and file headers name `tomspecs :som-generate`
+    instead of generate_som (regenerated, no code change); ships with the
+    next chain release.
 
 # Where each member was actually published from, when that is not the commit
 # that set its version. A change that lands after the bump and before the

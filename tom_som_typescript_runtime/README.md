@@ -205,7 +205,7 @@ Markdown goldens, and the `ROUTE-TOTAL` error cases).
 ## Ecosystem
 
 ```
-  tom_specs_model ──▶ tom_specs_clitool ──generate_som──▶ tom_som_typescript_v0
+  tom_specs_model ──▶ tom_specs_clitool ──tomspecs :som-generate──▶ tom_som_typescript_v0
    (the model)          (the generator)                     (typed facade)
                                                                   │ depends on
                                                                   ▼

@@ -216,7 +216,7 @@ reading back of extracts and the gate record (`codespecs_record_cases.json`).
 ## Ecosystem
 
 ```
-  tom_specs_model ──▶ tom_specs_clitool ──generate_som──▶ tom_som_rust_v0
+  tom_specs_model ──▶ tom_specs_clitool ──tomspecs :som-generate──▶ tom_som_rust_v0
    (the model)          (the generator)                     (typed facade)
                                                                   │ depends on
                                                                   ▼

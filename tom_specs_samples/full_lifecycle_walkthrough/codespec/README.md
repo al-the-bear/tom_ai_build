@@ -21,7 +21,7 @@ shared project's one candidate — the CE-API wire DTO — is derived from
 operations that were never specified.
 
 `validation_report.txt` is the recorded output of
-`tom_specs_clitool/bin/validate_codespecs.dart` over this trio, kept current by
+`tomspecs :codespecs-validate` over this trio, kept current by
 `../tool/validate.sh`. The two invocations it records are what make the
 `codespecs_mapping.md` §9.6 self-sufficiency property checkable rather than
 asserted: **checks 35 and 36

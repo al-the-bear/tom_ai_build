@@ -32,9 +32,9 @@ the run saw the whole model rather than a fragment.
 
 | Entry point | Produces | For |
 |-------------|----------|-----|
-| `outliner.dart` | A markdown class-tree outline | A human reading the model's shape |
-| `model_json.dart` | The resolved class graph as JSON | The editor and reviewer apps |
-| `summaries.dart` | An analyzer `sdk_summary.sum` | Faster analyzer startup in a consumer |
+| `:model-outline` | A markdown class-tree outline | A human reading the model's shape |
+| `:model-json` | The resolved class graph as JSON | The editor and reviewer apps |
+| `:editor-summaries` | An analyzer `sdk_summary.sum` | Faster analyzer startup in a consumer |
 
 ## Quick Start
 
@@ -42,7 +42,7 @@ the run saw the whole model rather than a fragment.
 cd tom_ai/ai_build/tom_specs_clitool
 
 # One outline, written to the default generated-doc location.
-dart run bin/outliner.dart --package ../tom_specs_model --root-type D03InformationModel
+dart run bin/tomspecs.dart :model-outline --package ../tom_specs_model --root-type D03InformationModel
 
 # All sixteen committed outlines, then all three citation gates.
 ./tool/regenerate_outlines.sh
@@ -84,7 +84,7 @@ way to discover you broke a citation.
 
 ### The JSON exporter
 
-`model_json.dart` has two modes, and mixing them is rejected rather than
+`:model-json` has two modes, and mixing them is rejected rather than
 silently resolved:
 
 | Mode | Invocation | Writes |
@@ -157,8 +157,8 @@ Two `spec_model.json` assets are committed, one per app, and each pins its own
 version stamp:
 
 ```bash
-dart run bin/model_json.dart --target editor
-dart run bin/model_json.dart --target reviewer
+dart run bin/tomspecs.dart :model-json --target editor
+dart run bin/tomspecs.dart :model-json --target reviewer
 ```
 
 Use `--target`. The ad-hoc form would write the file but stamp it with the
@@ -170,7 +170,7 @@ signal that would have reported the problem.
 
 | Situation | Result |
 |-----------|--------|
-| `--package` omitted from `outliner.dart` | The `mandatory` option is reported and usage printed |
+| `--package` omitted from `:model-outline` | The `mandatory` option is reported and usage printed |
 | `--root-type` naming no `@Document` root | Reported; nothing written |
 | `--target` combined with `--output` / `--model-version` / `--model-label` | Rejected — the target owns both |
 | A model that fails to resolve | The analyzer's diagnostics, before anything is written |

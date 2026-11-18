@@ -58,10 +58,10 @@ document, without compiling against the typed classes.
   `@MapsTo`, `@DetailedIn`, `@ContentType`, `@ContentHelp`,
   `@SerializationOrder`, and the validation annotations. This is the **source of
   truth** for everything `tom_som` emits.
-- **`tom_specs_clitool`** — analyzer-based generation host. `bin/generate_som.dart`
+- **`tom_specs_clitool`** — analyzer-based generation host. `tomspecs :som-generate`
   reads the resolved model graph and drives the per-language emitters; supporting
-  binaries emit the standalone YAML schema (`bin/docspecs_yaml_schema.dart`) and
-  stamp the serialization order (`bin/stamp_serialization_order.dart`). The host
+  binaries emit the standalone YAML schema (`tomspecs :schema-docspecs-yaml`) and
+  stamp the serialization order (`tomspecs :model-stamp-order`). The host
   README, [`tom_specs_clitool/README.md`](../../tom_specs_clitool/README.md),
   is the end-to-end configure / generate / consume guide.
 
@@ -88,7 +88,7 @@ places the generated and runtime projects as siblings of the generation host).
 
 | Project | Kind |
 | --- | --- |
-| `tom_specs_clitool` | Generation host (`bin/generate_som.dart`, config parser, nine language emitters) |
+| `tom_specs_clitool` | Generation host (`tomspecs :som-generate`, config parser, nine language emitters) |
 | `tom_som_dart_runtime` | Hand-written generic runtime (Dart, reference) |
 | `tom_som_dart_v0` | Generated typed facade (Dart) |
 | `tom_som_python_runtime` | Hand-written generic runtime (Python) |
@@ -222,7 +222,7 @@ The config file itself is documented in
 
 ### 5.2 Per-language outputs
 
-`dart run bin/generate_som.dart` emits, per configured language, the
+`dart run bin/tomspecs.dart :som-generate` emits, per configured language, the
 `tom_som_<slug>_<label>` project containing:
 
 - **the meta-data file** `meta/spec_model.meta.json` (§5.3);
@@ -310,7 +310,7 @@ Two schema products are generated from the same model:
   document root, via `DocSpecsSchemaGenerator` (§13).
 - **A standalone YAML schema** for the `*.docspecs.yaml` document format —
   `DocspecsYamlSchemaGenerator` (`docspecs_yaml_schema_generator.dart`), CLI
-  `bin/docspecs_yaml_schema.dart`, written to
+  `tomspecs :schema-docspecs-yaml`, written to
   `.tom/json-schema/docspecs-document.schema.json` (JSON Schema Draft-07).
 
 ### 5.5 Idempotency
@@ -568,8 +568,8 @@ language mirrors it:
   `specDefaultUnits(units, area)` is the default destination of an area — the
   extract's fallback above. `kSpecStandardEmitters` lists the emitter ids a
   unit may name: `openapi`, `jsonschema`, `icu`, `asyncapi`, `markdown`. Mirrored in all
-  nine languages; `tom_specs_clitool`'s `irspecs map --unit` reads a unit's
-  kind and mappers, and `irspecs emit --unit` its emitters, through the Dart
+  nine languages; `tom_specs_clitool`'s `tomspecs :ir-map --unit` reads a unit's
+  kind and mappers, and `tomspecs :ir-emit --unit` its emitters, through the Dart
   one.
 - `spec_codespecs_records.dart` — the **reading** half of the same files:
   `CodeSpecsExtract.fromYaml` reads an extract back (refusing an unknown
@@ -1104,7 +1104,7 @@ not free prose. Both add a fact; neither restates a name.
 
 **Emitted model text is gated like any other citation.** Rendering `help` and
 `hint` into a generated facade carries the *model author's* prose into a source
-file, where `check_section_citations.dart` reads it. A bare `§N` that was
+file, where `tomspecs :gate-section-citations` reads it. A bare `§N` that was
 unambiguous inside a model doc comment resolves to nothing once emitted, so the
 model's text has to name its document. That is a constraint on model authoring,
 not on the emitter.
@@ -2126,7 +2126,7 @@ assigns one.
 The command line is `tom_specs_clitool`'s `extract_answers`:
 
 ```
-extract_answers <doc.md|doc.docspecs.yaml>... -o <step folder>/answers.md [--path <subtree>] [--open] [--marks] [--counts]
+tomspecs :spec-answers <doc.md|doc.docspecs.yaml>... -o <step folder>/answers.md [--path <subtree>] [--open] [--marks] [--counts]
 ```
 
 - **Several files:** files of one root are fragments of one document and are
@@ -3054,7 +3054,7 @@ Each of the 18 projects satisfies all four:
 3. **Facade packaging is generator-emitted; runtime packaging is hand-authored
    with a realigned version.** For the **v0 facade**, the packaging files
    (manifest version, `README.md`, `readme_howtointegrate.md`, and any ecosystem
-   descriptor the facade owns) are emitted by `generate_som.dart`, carry a
+   descriptor the facade owns) are emitted by `tomspecs :som-generate`, carry a
    "generated — do not edit by hand" banner, are refreshed on every run, and are
    committed alongside the generated code. One shared README/howto template
    mechanism in the clitool makes the nine languages produce
@@ -3066,7 +3066,7 @@ Each of the 18 projects satisfies all four:
 4. **The version is the model version.** Both the runtime and the facade carry
    the model version the generator resolves from
    `tom_specs_model/lib/src/version.versioner.dart` (`modelVersion` /
-   `stamp.label` in `generate_som.dart`). There is no independently-maintained
+   `stamp.label` in `tomspecs :som-generate`). There is no independently-maintained
    package version anywhere.
 
 ### 17.2 Built artefacts are not committed

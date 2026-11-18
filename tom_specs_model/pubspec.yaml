@@ -3,7 +3,7 @@ description: >-
   Typed Dart data model for all TomSpecs specification documents — the source
   of truth the SOM generator derives the nine language runtimes from.
 # Version is the TomSpecs model version (stamped by the versioner and read by
-# generate_som; the SOM runtime/facade packages are kept in lockstep with it).
+# tomspecs :som-generate; the SOM runtime/facade packages are kept in lockstep with it).
 version: 1.12.0
 
 repository: https://github.com/al-the-bear/tom_ai_build

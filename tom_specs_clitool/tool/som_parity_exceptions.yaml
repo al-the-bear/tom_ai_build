@@ -1,4 +1,4 @@
-# Acknowledged nine-plane asymmetries, for bin/check_som_parity.dart.
+# Acknowledged nine-plane asymmetries, for `tomspecs :som-parity`.
 #
 # The check asks one question: does every language runtime carry the
 # capabilities the shared contract names? An entry here says a measured absence

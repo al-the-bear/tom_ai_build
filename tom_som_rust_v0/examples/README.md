@@ -2,7 +2,7 @@
 
 Three runnable samples covering the three access paths to a TomSpecs Spec
 Object Model document (`som_multiplatform_spec_model.md` §6). They are **hand-authored**
-and preserved across `generate_som` regeneration (the generator only rewrites
+and preserved across `tomspecs :som-generate` regeneration (the generator only rewrites
 the crate root `src/lib.rs`, `meta/`, `schemas/` and `Cargo.toml`).
 
 Each sample is a single-file Cargo example under `examples/`. Every sample

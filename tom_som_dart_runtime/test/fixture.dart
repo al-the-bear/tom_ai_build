@@ -2,7 +2,7 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
 /// A small, hand-built spec-model meta-data map used across the runtime tests.
 ///
-/// Shape mirrors `tom_specs_clitool/bin/model_json.dart`'s exporter: a class
+/// Shape mirrors `tomspecs :model-json`'s exporter: a class
 /// graph keyed by class name, plus a `roots` list and a version stamp. Building
 /// it through [SpecModel.fromJson] doubles as the decoder test.
 Map<String, dynamic> fixtureJson() => {

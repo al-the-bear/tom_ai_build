@@ -189,7 +189,7 @@ authored value, so the contract forecloses it here.
 
 The inputs are the extraction run's extracts — the run A3 performs — and the
 table below, which the area catalogue carries as `gate.requiredArguments`
-(`tom_specs_clitool/bin/codespecs_areas.dart` transcribes it; no runtime
+(`tomspecs :codespecs-areas` transcribes it; no runtime
 restates it). For each row whose area's extract is non-empty:
 
 1. An **instance** is one node of the row's source class that the area's

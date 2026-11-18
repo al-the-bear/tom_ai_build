@@ -35,7 +35,7 @@
 #         for the instance-tier gate over the same samples
 #         (tom_som_dart_v0/tool/validate_samples.dart), `sample_schema`
 #         for the DocSpecs schema tier over the same samples
-#         (tom_specs_clitool/bin/validate_spec.dart), and `editor` for
+#         (`tomspecs :spec-validate`), and `editor` for
 #         the spec-authoring app's Flutter suite (tom_forge/tom_specs_editor,
 #         preceded by _bin/check_pub_cache.sh). With none given, everything
 #         runs — the five gates first, then the eighteen suites, then the
@@ -237,7 +237,7 @@ run_gate sample_schema dart "$ROOT/tom_specs_clitool" bash -c '
   for f in ../tom_som_conformance/samples/*.docspecs.yaml \
            ../tom_som_dart_v0/documents/*.docspecs.yaml \
            ../tom_som_dart_v0/documents/*.md; do
-    dart run bin/validate_spec.dart "$f" || status=1
+    dart run bin/tomspecs.dart :spec-validate "$f" || status=1
   done
   exit $status'
 

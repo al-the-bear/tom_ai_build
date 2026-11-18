@@ -71,7 +71,7 @@ When you upgrade the model, regenerate the facade, tag both modules at the new
 matching version, and update the in-source `Version` constants so the runtime,
 the facade, and your stored documents stay in step. The runtime is
 hand-authored (never regenerated); only its version is realigned to the model
-version by `generate_som.dart`.
+version by `tomspecs :som-generate`.
 
 ## Building from source
 

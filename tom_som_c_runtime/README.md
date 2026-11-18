@@ -236,7 +236,7 @@ make test CORPUS=/path/to/corpus
 ## Ecosystem
 
 ```
-  tom_specs_model ──▶ tom_specs_clitool ──generate_som──▶ tom_som_c_v0
+  tom_specs_model ──▶ tom_specs_clitool ──tomspecs :som-generate──▶ tom_som_c_v0
    (the model)          (the generator)                     (typed facade)
                                                                   │ links
                                                                   ▼

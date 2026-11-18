@@ -7,7 +7,7 @@
 /// insertion, or alphabetical order.
 ///
 /// Every member of every spec-model class carries this annotation; it is
-/// stamped in bulk by `tom_specs_clitool/bin/stamp_serialization_order.dart`.
+/// stamped in bulk by `tomspecs :model-stamp-order`.
 /// The captured ordinal flows through `ModelReader` (as
 /// `ModelField.serializationOrder`) and `ModelJsonExporter` into the SOM /
 /// `spec_model.json` so generators can preserve member order across languages.

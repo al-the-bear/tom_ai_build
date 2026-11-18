@@ -79,7 +79,7 @@ This is exactly how `tom_som_typescript_v0` consumes the runtime — via a
 model version. When you upgrade the model, regenerate the facade and move both to
 the new matching version so the runtime, the facade, and your stored documents
 stay in step. The runtime is hand-authored (never regenerated); only its version
-is realigned to the model version by `generate_som.dart`.
+is realigned to the model version by `tomspecs :som-generate`.
 
 ## Building from source
 

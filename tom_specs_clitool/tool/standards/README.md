@@ -1,6 +1,6 @@
 # The standards' meta-schemas
 
-The official meta-schemas the output of `irspecs emit` is validated against
+The official meta-schemas the output of `tomspecs :ir-emit` is validated against
 (`tom_core_codespecs/doc/irspecs_ir.md` §10), vendored so the test runs
 offline and against a fixed version. They are copied **unchanged** from their
 publishers; a new version is a new folder, never an edit.

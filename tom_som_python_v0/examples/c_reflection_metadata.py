@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Sample (c) — REFLECTION / meta-information access (som_multiplatform_spec_model.md §6).
 
-HAND-AUTHORED — preserved across ``generate_som`` runs.
+HAND-AUTHORED — preserved across ``tomspecs :som-generate`` runs.
 
 Demonstrates the value-free "reflection" surface: load the exported meta-data
 (``meta/spec_model.meta.json``, the lossless class graph) into a ``SpecModel``

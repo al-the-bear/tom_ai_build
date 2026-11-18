@@ -393,7 +393,7 @@ annotation, so it lives in [`tom_specs_model`](../tom_specs_model) /
   project trio            tom_flutter_ui) + tom_core_codespecs for the gaps
            │
            ▼
-  tom_specs_clitool  bin/validate_codespecs.dart — the derivation-contract checks
+  tom_specs_clitool  `tomspecs :codespecs-validate` — the derivation-contract checks
 ```
 
 ## Further documentation

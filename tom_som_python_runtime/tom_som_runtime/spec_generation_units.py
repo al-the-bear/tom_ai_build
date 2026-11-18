@@ -23,7 +23,7 @@ from .spec_validator import _form_declaring
 
 
 #: The standard emitters a unit's ``emitters`` may name (``irspecs_ir.md``
-#: §10), in the order ``irspecs emit`` lists them. Validation phase 8 reports
+#: §10), in the order ``tomspecs :ir-emit`` lists them. Validation phase 8 reports
 #: any other id as ``unitEmitterUnknown``.
 K_SPEC_STANDARD_EMITTERS: tuple[str, ...] = (
     "openapi",

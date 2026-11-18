@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- The generated SOM packages, `spec_ops.g.dart`, the registry test suites and
+  the spec-tree baseline name the `tomspecs` command that writes them
+  (`tomspecs :som-generate`, `:app-registry-tests`,
+  `:gate-spec-tree-duplication`) instead of the old entry points.
 - `irspecs map --mapper dart-tom` formats in-process with `dart_style`, linked
   in and pinned to the SDK formatter's version (3.1.13), so a compiled
   `irspecs` maps to Dart with no Dart SDK; the `TOM_DART` / `PATH` lookup is

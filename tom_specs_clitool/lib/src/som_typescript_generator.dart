@@ -336,7 +336,7 @@ String _packageJson(String name, String runtimeRel, {required String version}) {
         'Generated typed TomSpecs object model (v0). An editing '
         'facade over the generic tom_som_typescript_runtime; see the meta-data '
         'file and DocSpecs schemas in this package. Regenerate with '
-        'tom_specs_clitool/bin/generate_som.dart.',
+        'tom_specs_clitool tomspecs :som-generate.',
     'main': 'dist/$name.js',
     'types': 'dist/$name.d.ts',
     'type': 'commonjs',

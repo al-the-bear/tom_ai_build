@@ -31,7 +31,7 @@ Everything in this package is an annotation or annotation-parameter vocabulary.
 There are **no base classes**: a CodeSpec inherits from a `tom_core`-family
 class, and the markers say what role that class plays. The package's whole
 run-time behaviour is therefore nil — the readers are the Phase-4 authoring
-agent, the generation-time validator (`validate_codespecs.dart` in
+agent, the generation-time validator (`tomspecs :codespecs-validate` in
 `tom_specs_clitool`), and the Dart compiler itself, which is what turns a
 renamed cross-part reference into a compile error.
 
@@ -356,7 +356,7 @@ three readers, and knowing which one saves debugging time:
 | Mistake | Caught by | When |
 |---------|-----------|------|
 | A cross-part reference to a declaration that no longer exists | The **Dart compiler** | At compile time — the ref is a const, not a string |
-| A `@CsTrigger` carrying a slot its `kind` does not permit | `validate_codespecs.dart` | At generation time |
+| A `@CsTrigger` carrying a slot its `kind` does not permit | `tomspecs :codespecs-validate` | At generation time |
 | A generated top-level declaration with no `Cs*` marker | The same validator | At generation time |
 | A `@CodeSpec.source` missing a section a member realised | The gap analysis | At generation time |
 | A collaborator method with no behaviour on its doc comment | The same validator, fatal | At generation time |

@@ -6,7 +6,7 @@
 # explanation: move the rule to `tom_som_dart_runtime` and have both trees
 # cite it. When it shrinks, re-record this file in the same commit.
 #
-# Regenerate: dart run bin/check_spec_tree_duplication.dart --record
+# Regenerate: dart run bin/tomspecs.dart :gate-spec-tree-duplication --record
 
 (if any) folded into a single choice-group node at the position of the
 **navigation** target (2c). Navigation is expressed as a chain of class

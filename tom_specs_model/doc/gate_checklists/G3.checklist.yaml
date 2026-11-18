@@ -27,7 +27,7 @@ items:
     criterion: All documents schema-valid
     inspect: Each document decodes, validates against its DocSpecs schema and passes the instance tier.
     method: tool
-    how: "dart run tom_specs_clitool:validate_spec <document>.docspecs.yaml --json, once per document (all fragments of one document in one call)"
+    how: "dart run tom_specs_clitool:tomspecs :spec-validate <document>.docspecs.yaml --json, once per document (all fragments of one document in one call)"
     evidence: One JSON report (format spec-validation) per document.
     pass: Every report has exit code 0 — no finding on any tier.
   - id: G3-SCHEMA-2
@@ -67,7 +67,7 @@ items:
     criterion: Cross-references resolved
     inspect: Every reference from one document into another resolves — section ids, requirement codes, operation and entity names cited across documents.
     method: query
-    how: Collect every id one document cites and resolve it against the section ids and registry keys of the whole set (validate_spec over the assembled set where the documents are fragments of one).
+    how: Collect every id one document cites and resolve it against the section ids and registry keys of the whole set (tomspecs :spec-validate over the assembled set where the documents are fragments of one).
     evidence: Every unresolved cross-document reference with both documents.
     pass: 0 unresolved references.
 

@@ -183,7 +183,7 @@ operations behaviour, and the Phase-4 CodeSpecs extracts (exit 0 on success).
 ## Ecosystem
 
 ```
-  tom_specs_model ──▶ tom_specs_clitool ──generate_som──▶ tom_som_java_v0
+  tom_specs_model ──▶ tom_specs_clitool ──tomspecs :som-generate──▶ tom_som_java_v0
    (the model)          (the generator)                     (typed facade)
                                                                   │ depends on
                                                                   ▼

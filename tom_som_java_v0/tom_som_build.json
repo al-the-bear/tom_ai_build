@@ -1,6 +1,6 @@
 {
   "package": "tom_som_java_v0",
   "mainClass": "tom_som_java_v0.TomSomV0",
-  "generator": "tom_specs_clitool generate_som",
+  "generator": "tom_specs_clitool tomspecs :som-generate",
   "runtimeSourcePath": "../tom_som_java_runtime/src"
 }

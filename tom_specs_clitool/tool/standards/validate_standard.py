@@ -1,4 +1,4 @@
-"""Validates a document emitted by `irspecs emit` against its standard's
+"""Validates a document emitted by `tomspecs :ir-emit` against its standard's
 vendored meta-schema, offline (README.md in this folder)."""
 import glob
 import json

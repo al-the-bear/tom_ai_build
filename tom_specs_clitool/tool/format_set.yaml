@@ -1,5 +1,5 @@
 # Formatting manifest — the packages held to `dart format`, read by
-# bin/check_format.dart (lib/src/format_check.dart).
+# `tomspecs :gate-format` (lib/src/format_check.dart).
 #
 # The committed record of which trees the formatter governs, held against
 # reality by a walker — the same shape as tool/release_set.yaml and

@@ -221,7 +221,7 @@ void _stage3(List<CodeSpecsExtract> extracts) {
     print('     $line');
   }
   print('');
-  print('   The Dart + Tom mapper writes the code from it (`irspecs map');
+  print('   The Dart + Tom mapper writes the code from it (`tomspecs :ir-map');
   print('   --mapper dart-tom`; tool/validate.sh checks the trio is exactly');
   print('   what the IR maps to) —');
   print('   codespec/server/lib/src/data_access/customer.dart:');

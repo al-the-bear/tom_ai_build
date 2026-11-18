@@ -6,7 +6,7 @@ nine languages. Each `tom_som_<slug>_v0` package under `tom_ai/ai_build` is
 `meta/spec_model.meta.json`, the 14 DocSpecs schemas, and the packaging files.
 Consumers never run the generator — the committed artefacts are the product.
 
-They are produced by `bin/generate_som.dart` from the `tom-spec-object-model`
+They are produced by `tomspecs :som-generate` from the `tom-spec-object-model`
 block in [`tom_som.yaml`](../tom_som.yaml). So is one further artefact that is
 not a language package: the `spec_ops.g.dart` registry, which is committed
 **inside `tom_specs_model` itself**. One command, one analyzer pass over one
@@ -28,7 +28,7 @@ Never edit them by hand. Change `tom_specs_model` and regenerate.
 
 `spec_ops.g.dart` is generated from the same model by the same reader, so it goes
 stale for the same reason and at the same moment as the nine packages. Splitting
-it out is what let it fall behind: the editor's app build (`bin/build.dart`)
+it out is what let it fall behind: the editor's app build (`tomspecs :editor-build`)
 regenerated it, and nothing else did, so anyone who changed the model and
 followed this document faithfully left it untouched.
 
@@ -40,7 +40,7 @@ the section's prose, and with no `yamlScalar` at all, so the prose did not
 serialize. The compiler cannot notice: the registry is a table of closures, and
 a missing entry is a missing *field*, not a missing symbol.
 
-`bin/build.dart` still regenerates it as its step 2 — an app build must not ship
+`tomspecs :editor-build` still regenerates it as its step 2 — an app build must not ship
 an editor whose registry is older than the model it bundles, whatever ran before
 it. Both go through `generateSpecOpsRegistry`, so there is one emitter and one
 output path.
@@ -67,7 +67,7 @@ committed artefacts were generated:
 | Piece | Role |
 |-------|------|
 | [`lib/src/model_freshness.dart`](../lib/src/model_freshness.dart) | Fingerprints the model source the generator reads |
-| `tool/model_surface.stamp.json` | The fingerprint the committed artefacts were generated from — written by `generate_som.dart`, committed alongside them |
+| `tool/model_surface.stamp.json` | The fingerprint the committed artefacts were generated from — written by `tomspecs :som-generate`, committed alongside them |
 | [`test/model_freshness_test.dart`](../test/model_freshness_test.dart) | Recomputes the fingerprint and fails when it no longer matches the stamp |
 
 One stamp covers the registry as well as the nine packages, with no second
@@ -193,7 +193,7 @@ Two things close it:
   `vendor/tom_som/versions.json` and a guard test compares it with this checkout.
 - **A model change comes with at least a patch bump** of `tom_specs_model`
   (`buildkit -p . :bumpversion` in `tom_specs_model`), whether or not it is
-  published. A canonical `generate_som` run records the hash and version in
+  published. A canonical `tomspecs :som-generate` run records the hash and version in
   `tool/model_surface.stamp.json` and prints a `WARNING` when the hash moved
   while the version did not. It warns rather than fails, because the bump is a
   release decision; the consumer-side check is what fails.
@@ -203,7 +203,7 @@ Two things close it:
 From the `tom_specs_clitool` package root:
 
 ```bash
-dart run bin/generate_som.dart
+dart run bin/tomspecs.dart :som-generate
 ```
 
 It runs the `@SerializationOrder` restamp against `tom_specs_model` as its
@@ -223,7 +223,7 @@ those runs print a note and leave the stamp alone rather than certifying the
 committed packages from a one-off.
 
 Regenerating the Dart target also moves `tom_som_dart_v0`'s public surface, which
-the D4rt bridges in `tom_spec_engine` are generated from. `generate_som.dart`
+the D4rt bridges in `tom_spec_engine` are generated from. `tomspecs :som-generate`
 prints that reminder; see
 [`tom_spec_engine/_copilot_guidelines/bridge_regeneration.md`](../../tom_spec_engine/_copilot_guidelines/bridge_regeneration.md).
 

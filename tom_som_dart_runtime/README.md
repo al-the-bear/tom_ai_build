@@ -231,7 +231,7 @@ dart analyze
 ## Ecosystem
 
 ```
-  tom_specs_model ──▶ tom_specs_clitool ──generate_som──▶ tom_som_dart_v0
+  tom_specs_model ──▶ tom_specs_clitool ──tomspecs :som-generate──▶ tom_som_dart_v0
    (the model)          (the generator)                     (typed facade)
                                                                   │ depends on
                                                                   ▼
@@ -271,7 +271,7 @@ packages, as opposed to this package's own `example/`:
 |---------|-----------|
 | [tom_som_dart_v0](../tom_som_dart_v0) | The generated typed facade over this runtime — the normal path. |
 | [tom_som_conformance](../tom_som_conformance) | The shared corpus and the cross-language drivers that run every port against it. |
-| [tom_specs_clitool](../tom_specs_clitool) | The generator (`generate_som.dart`) and the model-inspection tools. |
+| [tom_specs_clitool](../tom_specs_clitool) | The generator (`tomspecs :som-generate`) and the model-inspection tools. |
 | [tom_spec_engine](../tom_spec_engine) | The scripting plane, where this package's D4rt bridges are generated. |
 
 ## Status

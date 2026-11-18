@@ -2,7 +2,7 @@
 
 **Quest:** tom_specs · **Status:** normative for format `irspecs-ir`,
 formatVersion 1; implemented by `tom_specs_clitool` (`lib/src/irspecs/`,
-`bin/irspecs.dart`)
+the `tomspecs :ir-*` commands)
 
 **Authority for: what the IR holds and how it is written.** The IR is the
 CodeSpecs of a specification as language-neutral data, and Phase 4's product:
@@ -28,7 +28,7 @@ must contain stays with
 of its areas from the areas' extracts
 ([`codespecs_derivation_contract.md`](codespecs_derivation_contract.md) §2.9,
 [`codespecs_mapping.md`](codespecs_mapping.md) §1.1.2 stage 3), and
-`validate_codespecs --ir` checks them before any code exists (§7). Code is
+`tomspecs :codespecs-validate --ir` checks them before any code exists (§7). Code is
 mapped from the IR afterwards (§8, §11–§14); the trio of
 [`codespecs_mapping.md`](codespecs_mapping.md) §4.2 —
 `<app>_codespec_shared`, `_client` and `_server` — is the `dart-tom` mapping of
@@ -41,13 +41,13 @@ missing from the IR; the field table in §5 is the proof obligation, and a test
 holds it.
 
 **A trio written before the IR** (or by hand) is brought over with
-`irspecs from-codespecs`: every `.dart` file under each package's `lib/` is
+`tomspecs :ir-from-codespecs`: every `.dart` file under each package's `lib/` is
 parsed as source text — no resolution, no SDK — by that same reader, and its
-reading becomes the IR. The same command, followed by `irspecs map`, is the
+reading becomes the IR. The same command, followed by `tomspecs :ir-map`, is the
 byte-equal test that holds `dart-tom` (§8). The command:
 
 ```text
-irspecs from-codespecs --shared <dir> --client <dir> --server <dir>
+tomspecs :ir-from-codespecs --shared <dir> --client <dir> --server <dir>
                        --areas <codespecs_areas.json> --out <spec-root>/irspecs
 ```
 
@@ -312,7 +312,7 @@ Member order and comments needed nothing new: the reading keeps declarations
 and comments in source order, and the IR writes them in that order.
 
 All of them were found the way §8 says every such fact is found: by reading a
-trio into the IR (`irspecs from-codespecs`), writing it again with `dart-tom`
+trio into the IR (`tomspecs :ir-from-codespecs`), writing it again with `dart-tom`
 and comparing the two, byte for byte. A fact a future trio needs and this table lacks is added the
 same way — into the reader, into CsModel, into this table — never as a special
 case in a mapper.
@@ -324,7 +324,7 @@ they run on the trio, so a specification's CodeSpecs are checked before any
 code exists:
 
 ```text
-validate_codespecs --ir <spec-root>/irspecs [--extracts …] [--json]
+tomspecs :codespecs-validate --ir <spec-root>/irspecs [--extracts …] [--json]
 ```
 
 `--ir` stands in for `--shared`, `--client` and `--server`; every other input
@@ -356,13 +356,13 @@ mapped by it, as the three packages of
 [`codespecs_mapping.md`](codespecs_mapping.md) §4.2 (§8.1).
 
 ```text
-irspecs map --mapper dart-tom --ir <spec-root>/irspecs --out <dir>
+tomspecs :ir-map --mapper dart-tom --ir <spec-root>/irspecs --out <dir>
 ```
 
 It writes one folder per package under `--out` (`<dir>/<package>/lib/…`), every
 package's folder whether or not it holds a file, and formats what it wrote.
 **No Dart SDK is needed**: the formatter is `dart_style`, linked into
-`irspecs`, so a compiled `irspecs` (`dart compile exe bin/irspecs.dart`, as the
+`tomspecs`, so a compiled `tomspecs` (`dart compile exe bin/tomspecs.dart`, as the
 VS Code extension bundles it) formats as the Dart VM does. It is pinned to the
 version of the SDK's own formatter (`dart format --version`), so the mapper and
 `dart format` write the same layout; `tom_specs_clitool`'s
@@ -372,7 +372,7 @@ language version is the lower bound of the SDK constraint in the package's own
 without a package configuration. Its output is defined by two promises:
 
 1. **Byte-equal.** For a trio in the form the derivation contract requires,
-   `irspecs from-codespecs` followed by `irspecs map` reproduces every
+   `tomspecs :ir-from-codespecs` followed by `tomspecs :ir-map` reproduces every
    `lib/` source of the trio byte for byte. The test
    `tom_specs_clitool/test/irspecs_dart_tom_test.dart` holds this for both
    Meridian trios and checks that the reproduced trio passes
@@ -436,7 +436,7 @@ A specification that declares generation units (SOM §11.2, the register
 server — and names, per area, the mapper that writes it.
 
 ```text
-irspecs map --mapper dart-tom --ir <spec-root>/irspecs --out <dir> \
+tomspecs :ir-map --mapper dart-tom --ir <spec-root>/irspecs --out <dir> \
     --spec <specification document> --unit <unit id>
 ```
 
@@ -458,7 +458,7 @@ else:
 The unit's id is its package name: every project of the share is renamed to it,
 so the mapper writes that one package. A unit of kind `other` has no locus and
 is refused, as is a `--unit` the register does not declare (exit `2`). Without
-`--spec` and `--unit`, `irspecs map` writes the whole trio as above. The test
+`--spec` and `--unit`, `tomspecs :ir-map` writes the whole trio as above. The test
 `tom_specs_clitool/test/irspecs_units_test.dart` writes the Meridian trio unit
 by unit from its IR and the Meridian blueprint's register, and holds each
 package byte-equal to the committed one.
@@ -477,8 +477,8 @@ What a standard can express is written in that standard, from the IR, so a
 generator of any language can read it (CSML-3):
 
 ```text
-irspecs emit --standard <openapi|jsonschema|icu|asyncapi> --ir <spec-root>/irspecs --out <dir>
-irspecs emit --standard markdown --ir <spec-root>/irspecs --areas <catalogue> (§10.3)
+tomspecs :ir-emit --standard <openapi|jsonschema|icu|asyncapi> --ir <spec-root>/irspecs --out <dir>
+tomspecs :ir-emit --standard markdown --ir <spec-root>/irspecs --areas <catalogue> (§10.3)
 ```
 
 writes one document into `--out` and lists on stdout every fact of the IR the
@@ -497,7 +497,7 @@ its mappings: each an emitter id, `openapi`, `jsonschema`, `icu`, `asyncapi` or
 `markdown` (§10.3) (validation phase 8 reports any other as `unitEmitterUnknown`, SOM §11.2).
 
 ```text
-irspecs emit --spec <document> --unit <unit id> --ir <spec-root>/irspecs --out <dir>
+tomspecs :ir-emit --spec <document> --unit <unit id> --ir <spec-root>/irspecs --out <dir>
 ```
 
 writes every standard the unit's emitters name into `--out`, each one exactly
@@ -526,7 +526,7 @@ standard here: their code comes only from a mapper.
 ### 10.2 What a standard cannot express
 
 An emitter never drops a fact silently: each one below is a line of
-`IrEmission.notExpressed`, printed by `irspecs emit` under *Not expressed*.
+`IrEmission.notExpressed`, printed by `tomspecs :ir-emit` under *Not expressed*.
 
 | Standard | Not expressed | Why |
 |----------|---------------|-----|
@@ -549,7 +549,7 @@ every text is the IR's own (a name, a marker argument, a doc comment line, a
 back-link's description), set in a fixed layout.
 
 ```text
-irspecs emit --standard markdown --ir <spec-root>/irspecs \
+tomspecs :ir-emit --standard markdown --ir <spec-root>/irspecs \
     --areas <codespecs_areas.json> [--spec <document>] [--out <dir>]
 ```
 
@@ -604,10 +604,10 @@ Four mappers write the IR as an npm workspace — TypeScript on both sides,
 one shared package, a web and a mobile client:
 
 ```text
-irspecs map --mapper ts-shared              --ir <spec-root>/irspecs --out <dir>
-irspecs map --mapper ts-react-client        --ir <spec-root>/irspecs --out <dir>
-irspecs map --mapper ts-react-native-client --ir <spec-root>/irspecs --out <dir>
-irspecs map --mapper ts-hono-server         --ir <spec-root>/irspecs --out <dir>
+tomspecs :ir-map --mapper ts-shared              --ir <spec-root>/irspecs --out <dir>
+tomspecs :ir-map --mapper ts-react-client        --ir <spec-root>/irspecs --out <dir>
+tomspecs :ir-map --mapper ts-react-native-client --ir <spec-root>/irspecs --out <dir>
+tomspecs :ir-map --mapper ts-hono-server         --ir <spec-root>/irspecs --out <dir>
 ```
 
 Each writes the package of its locus — whatever the IR holds there — under
@@ -746,7 +746,7 @@ library's `net/http` with the chi router, and sqlc for typed SQL over the
 tables:
 
 ```text
-irspecs map --mapper go-server --ir <spec-root>/irspecs --out <dir>
+tomspecs :ir-map --mapper go-server --ir <spec-root>/irspecs --out <dir>
 ```
 
 It writes the module `<dir>/<server package>/` — with `--spec <document>
@@ -882,7 +882,7 @@ Spring Boot 3 with Spring Web, Spring Data JPA, Flyway and Jakarta Bean
 Validation:
 
 ```text
-irspecs map --mapper java-spring-server --ir <spec-root>/irspecs --out <dir>
+tomspecs :ir-map --mapper java-spring-server --ir <spec-root>/irspecs --out <dir>
 ```
 
 It writes the project `<dir>/<server package>/` — with `--spec <document>
@@ -1021,7 +1021,7 @@ One mapper writes the server of the IR as a .NET 8 solution — ASP.NET Core
 minimal APIs, EF Core and FluentValidation:
 
 ```text
-irspecs map --mapper csharp-aspnet-server --ir <spec-root>/irspecs --out <dir>
+tomspecs :ir-map --mapper csharp-aspnet-server --ir <spec-root>/irspecs --out <dir>
 ```
 
 It writes the solution `<dir>/<server package>/` — with `--spec <document>
@@ -1159,7 +1159,7 @@ The IR's committed form is YAML (§3). A tool that reads JSON rather than YAML
 gets it on demand:
 
 ```text
-irspecs export --format json --ir <irspecs folder> --out <folder>
+tomspecs :ir-export --format json --ir <irspecs folder> --out <folder>
 ```
 
 writes each document of the folder as `<name>.ir.json` beside its

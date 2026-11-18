@@ -16,7 +16,7 @@ items:
     criterion: Derivation contract satisfied
     inspect: Every codespecs_derivation_contract.md §6 check runs and passes, none of them unrun.
     method: tool
-    how: "dart run tom_specs_clitool:validate_codespecs --shared <shared> --client <client> --server <server> --extracts <extracts> --migrations <CE-MG artifacts> --cs-vocabulary <tom_code_specs vocabulary.dart> --core-source <tom_core sources> --regenerated-shared … --json"
+    how: "dart run tom_specs_clitool:tomspecs :codespecs-validate --shared <shared> --client <client> --server <server> --extracts <extracts> --migrations <CE-MG artifacts> --cs-vocabulary <tom_code_specs vocabulary.dart> --core-source <tom_core sources> --regenerated-shared … --json"
     evidence: The JSON report (format codespecs-validation), stored with the gate report. The other G4 items cite its per-check results.
     pass: Exit code 0, and no check reported as not run.
   - id: G4-BUILD-1
@@ -177,7 +177,7 @@ items:
     criterion: Generation units mapped
     inspect: Every area a unit of the generation-unit register holds that the run routed (a non-empty extract with a sufficient verdict) has a mapping in that unit; every mapper and every emitter the register names exists.
     method: tool
-    how: "SBP/.../GENUN-UNIT-LST[] read against gate.verdicts.yaml and the extracts; the mapper ids against irspecs map --mapper, the emitter ids (openapi, jsonschema, icu, asyncapi) against irspecs emit --standard; the specification validated on every tier (an unknown emitter id is a finding)."
+    how: "SBP/.../GENUN-UNIT-LST[] read against gate.verdicts.yaml and the extracts; the mapper ids against tomspecs :ir-map --mapper, the emitter ids (openapi, jsonschema, icu, asyncapi) against tomspecs :ir-emit --standard; the specification validated on every tier (an unknown emitter id is a finding)."
     evidence: The register as reviewed in step units-review, with each routed area of each unit and its mapping.
     pass: No routed area of a unit without a mapping, and no unknown mapper or emitter.
   - id: G4-EARLIER-1

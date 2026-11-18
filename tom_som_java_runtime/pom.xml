@@ -6,7 +6,7 @@
 
   <groupId>io.github.al-the-bear</groupId>
   <artifactId>tom_som_java_runtime</artifactId>
-  <!-- Version tracks the TomSpecs model version; realigned by generate_som's
+  <!-- Version tracks the TomSpecs model version; realigned by tomspecs :som-generate's
        packaging hook (never hand-bumped independently of the model). -->
   <version>1.12.0</version>
   <packaging>jar</packaging>

@@ -75,7 +75,7 @@ throughout, and they are not interchangeable:
 |------|------|----------|
 | **The extract generator** | Collects, per CodeSpecs area, every SOM field the `@CodeSpecKind` routing sends there into a bounded, cited **extract** — copying and indexing, never summarising, rephrasing, composing or naming | `codespecs_mapping.md` §1.1.1; the same §2.8 C1 prohibitions this document already states |
 | **The authoring agent** | Writes the CodeSpecs **IR** ([`irspecs_ir.md`](irspecs_ir.md)) from that extract — every declaration, name, argument, comment and body in §3, as the IR records them, one document per area | This whole document |
-| **The mapper** | Writes each generation unit's package from the IR (`irspecs map`; the Dart + Tom mapper `dart-tom` writes the code this contract describes) — printing, never adding or dropping a fact | [`irspecs_ir.md`](irspecs_ir.md) §8 |
+| **The mapper** | Writes each generation unit's package from the IR (`tomspecs :ir-map`; the Dart + Tom mapper `dart-tom` writes the code this contract describes) — printing, never adding or dropping a fact | [`irspecs_ir.md`](irspecs_ir.md) §8 |
 
 **The extract generator emits no Dart, and neither does the agent.** Every
 "emits", "writes" and "fails" in §2–§5 is the authoring agent's, and every
@@ -101,7 +101,7 @@ what to write but what may not be reached for instead.
   vocabulary has no place for it (§2.11). The agent records it and writes
   nothing for it; the run stops after the step and restarts once the gap is
   settled.
-- **The generation-time validator** — `validate_codespecs.dart` and the §6
+- **The generation-time validator** — `tomspecs :codespecs-validate` and the §6
   checks. It is a program, and it is the only mechanised half of the authoring
   side: it reads what the agent wrote and rejects what this contract forbids.
 
@@ -1039,7 +1039,7 @@ write.
   - Where a file's entries go to some units of its locus and not others (a
     section whose `units` narrows its area's default), the file carries
     `units` naming them (irspecs_ir.md §8.1); otherwise it carries none.
-  - Check what you wrote: `irspecs map` the IR into a scratch folder and read
+  - Check what you wrote: `tomspecs :ir-map` the IR into a scratch folder and read
     the code it prints. The IR is what you hand back; the printed code is
     not.
 
@@ -2741,7 +2741,7 @@ the analyzer, `cs_model` resolves it, `cs_extract` reads the per-area extracts
 (through the SOM runtime's `CodeSpecsExtractSet`, the reader every runtime shares),
 `cs_checks` holds the checks, `codespecs_validator` drives them) and are invoked
 by
-`dart run bin/validate_codespecs.dart --shared … --client … --server … [--extracts …]`,
+`dart run bin/tomspecs.dart :codespecs-validate --shared … --client … --server … [--extracts …]`,
 which exits non-zero on any violation. `--json` writes the same result as one
 versioned JSON document — per violation its check, defining section, file, line
 and, where the check knows them, the token and area — and `--backlinks` writes
@@ -2766,7 +2766,7 @@ a composed one, nor a complete transfer from a partial one — and only the
 extract holds the declared setting keys a secret must resolve against, since
 both CE-CF shapes emit the same back-link token. Every corroborating
 input is optional at the CLI, and when one is absent its checks raise nothing
-and `validate_codespecs.dart` **writes that on stdout**, for the reason spelled
+and `tomspecs :codespecs-validate` **writes that on stdout**, for the reason spelled
 out under check 31: a silent pass would read as a verified one.
 
 **The extract is given whole or not at all.** The other three corroborating
@@ -3057,5 +3057,5 @@ non-deterministic producer would still emit *plausible* output — a
 different statement order or a differently spelled guard name compiles and reads
 correctly — which is exactly the class of defect no other check can see. When
 no second run is supplied the check raises nothing and
-`validate_codespecs.dart` **writes that on stdout**: a silent pass would read as
+`tomspecs :codespecs-validate` **writes that on stdout**: a silent pass would read as
 a verified one.

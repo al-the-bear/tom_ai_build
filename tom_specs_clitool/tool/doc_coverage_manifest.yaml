@@ -1,6 +1,6 @@
 # Public-API dartdoc coverage manifest
 # (tom_specs_documentation_standard.md §5), read by
-# bin/check_doc_coverage.dart (lib/src/doc_coverage.dart).
+# `tomspecs :gate-doc-coverage` (lib/src/doc_coverage.dart).
 #
 # The committed record of the agreed documentation bar, held against reality by
 # a walker — the same shape as tool/release_set.yaml beside it. Documentation
@@ -11,7 +11,7 @@
 # RATCHET ONLY. A `floor:` may rise and may never fall, exactly like
 # tom_som_conformance/tool/sample_coverage_manifest.yaml. Wind one forward with
 #
-#   dart run bin/check_doc_coverage.dart --raise
+#   dart run bin/tomspecs.dart :gate-doc-coverage --raise
 #
 # which refuses to lower any. Lowering a floor by hand is not a shortcut around
 # a red gate; it is the gate being switched off, and the diff says so.

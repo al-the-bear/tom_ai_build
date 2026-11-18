@@ -6,7 +6,7 @@ description: >-
   document representation, the meta-model ("reflection") classes that load the
   exported spec-model meta-data, and the document validator. Pure Dart, no
   Flutter dependency.
-# Version tracks the TomSpecs model version (kept in step by generate_som's
+# Version tracks the TomSpecs model version (kept in step by tomspecs :som-generate's
 # packaging hook, alignRuntimeManifestVersion). The typed `tom_som_dart_v0`
 # facade pins the same version.
 version: 1.12.0

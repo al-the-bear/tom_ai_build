@@ -1,16 +1,16 @@
 # Validating a project's spec document
 
-`bin/validate_spec.dart` checks one TomSpecs document — a project's
+`tomspecs :spec-validate` checks one TomSpecs document — a project's
 `*.docspecs.yaml`, or its SOM-rendered `*.md` — against the object model the
 package ships, on three tiers. A project needs no runner of its own.
 
 ## Running it
 
 ```bash
-dart run tom_specs_clitool:validate_spec path/to/project.sbp.docspecs.yaml
-dart run tom_specs_clitool:validate_spec path/to/project.sbp.md
-dart run tom_specs_clitool:validate_spec doc.docspecs.yaml --markdown-out doc.md
-dart run tom_specs_clitool:validate_spec doc.docspecs.yaml --json
+dart run tom_specs_clitool:tomspecs :spec-validate path/to/project.sbp.docspecs.yaml
+dart run tom_specs_clitool:tomspecs :spec-validate path/to/project.sbp.md
+dart run tom_specs_clitool:tomspecs :spec-validate doc.docspecs.yaml --markdown-out doc.md
+dart run tom_specs_clitool:tomspecs :spec-validate doc.docspecs.yaml --json
 ```
 
 | Option | Meaning |
@@ -32,7 +32,7 @@ fragment as `danglingReference`; those findings are not real. Give all the
 fragments at once:
 
 ```bash
-dart run tom_specs_clitool:validate_spec part_a.docspecs.yaml part_b.docspecs.yaml \
+dart run tom_specs_clitool:tomspecs :spec-validate part_a.docspecs.yaml part_b.docspecs.yaml \
     --assembled-out whole.docspecs.yaml
 ```
 
@@ -83,7 +83,7 @@ takes: a section id alone repeats across a document (every entity has a
 `DAENT-CLAS`), so the id is shown beside the path rather than instead of it.
 
 The `--json` report (format `spec-validation`, version 1) has the shape
-`validate_codespecs --json` uses, so a tool reads both the same way: `inputs`,
+`tomspecs :codespecs-validate --json` uses, so a tool reads both the same way: `inputs`,
 `root` (type, section id, title, schema id), `passed`, `summary`, `tiers` (per
 tier whether it ran and its finding count), `notRun`, and `violations` — per
 finding its `tier`, `code`, `severity`, `file`, `line`, `location` (the

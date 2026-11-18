@@ -1,7 +1,7 @@
 # TomSpecs Model — Document Outlines
 
 **Generated — do not edit by hand.** Every file in this folder is produced by
-`tom_specs_clitool/bin/outliner.dart` from the live Dart model in
+`tomspecs :model-outline` from the live Dart model in
 `tom_specs_model/lib/src/`; hand edits are lost on the next run. Hand-written
 documentation lives in [`../../doc/`](../../doc/index.md).
 
@@ -18,14 +18,14 @@ class name. The default output path already points here, so `-o` is only needed
 for a non-standard file name:
 
 ```
-dart run bin/outliner.dart --package ../tom_specs_model --root-type <RootClassName>
+dart run bin/tomspecs.dart :model-outline --package ../tom_specs_model --root-type <RootClassName>
 ```
 
 Add `--stop-at-detailed-in` (short: `-c`) to stop expansion at `@DetailedIn`
 boundaries and emit a compact outline:
 
 ```
-dart run bin/outliner.dart --package ../tom_specs_model --root-type D00SolutionBlueprint \
+dart run bin/tomspecs.dart :model-outline --package ../tom_specs_model --root-type D00SolutionBlueprint \
   --stop-at-detailed-in \
   -o ../tom_specs_model/generated-doc/outlines/SolutionBlueprint_compact_outline.md
 ```

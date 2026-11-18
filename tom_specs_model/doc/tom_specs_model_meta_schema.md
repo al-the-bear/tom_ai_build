@@ -60,7 +60,7 @@ exactly when they describe the same model.
 Leaving the version keys out is what separates the two failures. A bumped
 version with an unchanged hash is a release with no model change; an unchanged
 version with a changed hash is a model change nobody bumped, which
-`generate_som` warns about (it compares the hash and version recorded in
+`tomspecs :som-generate` warns about (it compares the hash and version recorded in
 `tom_specs_clitool/tool/model_surface.stamp.json` by the previous canonical
 run). The rule it enforces: a model change comes with at least a **patch** bump
 of `tom_specs_model`, published or not.
@@ -101,8 +101,8 @@ recorded the build *number* in the model *major* slot.
 Refresh either one by **naming the target**, from `tom_specs_clitool`:
 
 ```bash
-dart run bin/model_json.dart --target editor
-dart run bin/model_json.dart --target reviewer
+dart run bin/tomspecs.dart :model-json --target editor
+dart run bin/tomspecs.dart :model-json --target reviewer
 ```
 
 The target determines both the output path and the stamp, so neither can be
@@ -115,7 +115,7 @@ the nine SOM metas on disk against it — the derived stamp, the label-agreement
 invariant, and that all eleven carry one build — so a wrong-stamp or
 un-regenerated artifact fails there.
 
-`bin/build.dart` refreshes the editor's copy as step 3 by calling the same
+`tomspecs :editor-build` refreshes the editor's copy as step 3 by calling the same
 target. It is not the reviewer's refresh path.
 
 Ad-hoc exports to any other location stay freely stampable and default to

@@ -177,7 +177,7 @@ document round-trips, and the reflection / validation / operations behaviour.
 ## Ecosystem
 
 ```
-  tom_specs_model ──▶ tom_specs_clitool ──generate_som──▶ tom_som_python_v0
+  tom_specs_model ──▶ tom_specs_clitool ──tomspecs :som-generate──▶ tom_som_python_v0
    (the model)          (the generator)                     (typed facade)
                                                                   │ depends on
                                                                   ▼

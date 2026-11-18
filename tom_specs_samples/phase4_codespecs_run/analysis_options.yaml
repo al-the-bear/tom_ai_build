@@ -6,7 +6,7 @@ analyzer:
   exclude:
     # `codespec/` is Phase 4's OUTPUT, not this sample's source. It imports
     # `tom_code_specs` and `tom_core_server`, neither of which is a dependency
-    # of this sample — deliberately: `validate_codespecs.dart` parses emitted
+    # of this sample — deliberately: `tomspecs :codespecs-validate` parses emitted
     # Dart and never resolves it, precisely so a generator can validate its own
     # output before anything fetches a dependency
     # (tom_specs_clitool/lib/src/codespecs/cs_reader.dart states the reasoning).

@@ -31,25 +31,25 @@ every offender when it is not.
 
 | Gate | Asks | Runs in the default `dart test`? |
 |------|------|----------------------------------|
-| `check_section_citations.dart` | Does every `§` citation resolve to a real heading? | yes |
-| `check_todo_citations.dart` | Does every cited quest-todo id name exactly one open todo? | yes |
-| `check_oe_citations.dart` | Does every cited `OE-` id have a register row? | yes |
-| `check_release_closure.dart` | Is the release-1 package set dependency-closed? | yes |
+| `:gate-section-citations` | Does every `§` citation resolve to a real heading? | yes |
+| `:gate-todo-citations` | Does every cited quest-todo id name exactly one open todo? | yes |
+| `:gate-oe-citations` | Does every cited `OE-` id have a register row? | yes |
+| `:gate-release-closure` | Is the release-1 package set dependency-closed? | yes |
 | `pub_archive_ignores_test.dart` (no command) | Does every release member's pub archive carry every file git tracks that no `.pubignore` excludes? | yes |
-| `check_doc_coverage.dart` | Is every measured package at or above its ratchet floor? | yes |
-| `check_format.dart` | Is every governed package what `dart format` would write? | yes |
-| `check_api_signatures.dart` | Does every signature a governed API summary quotes agree with the code? | yes |
-| `check_dartdoc_build.dart` | Does every governed package's `dart doc` build print nothing, and link only where its author chose? | yes |
-| `validate_codespecs.dart` | Does a generated CodeSpecs trio satisfy the `codespecs_derivation_contract.md` §6 checks? | no — needs a trio |
+| `:gate-doc-coverage` | Is every measured package at or above its ratchet floor? | yes |
+| `:gate-format` | Is every governed package what `dart format` would write? | yes |
+| `:gate-api-signatures` | Does every signature a governed API summary quotes agree with the code? | yes |
+| `:gate-dartdoc` | Does every governed package's `dart doc` build print nothing, and link only where its author chose? | yes |
+| `:codespecs-validate` | Does a generated CodeSpecs trio satisfy the `codespecs_derivation_contract.md` §6 checks? | no — needs a trio |
 
 The ones that run in the suite are those with a fixed subject. The CodeSpecs
 validator needs a generated trio to point at, so it is invoked per Phase-4 run.
 
 **The formatting gate reports and never repairs.** `dart format <path>` is the
 repair; a gate that rewrote files would edit a branch at a moment nobody chose,
-and would destroy the very diff it exists to protect. It also shells out to the
-installed `dart format` rather than linking `package:dart_style`, because a
-pinned formatter and the SDK binary drift apart at every SDK bump — and a gate
+and would destroy the very diff it exists to protect. It formats with the linked
+`package:dart_style`, each file in its package's language version, and that
+formatter is pinned to the SDK's own (`test/dart_style_pin_test.dart`): a gate
 asserting a different style from the command developers actually run fails work
 that is correct.
 
@@ -63,10 +63,10 @@ silence.
 ```bash
 cd tom_ai/ai_build/tom_specs_clitool
 
-dart run bin/check_section_citations.dart
-dart run bin/check_todo_citations.dart
-dart run bin/check_oe_citations.dart
-dart run bin/check_release_closure.dart
+dart run bin/tomspecs.dart :gate-section-citations
+dart run bin/tomspecs.dart :gate-todo-citations
+dart run bin/tomspecs.dart :gate-oe-citations
+dart run bin/tomspecs.dart :gate-release-closure
 ```
 
 Or all three citation gates as blocking steps after an outline refresh:
@@ -81,7 +81,7 @@ Or all three citation gates as blocking steps after an outline refresh:
 
 Each reports counts, then a verdict.
 
-**`check_section_citations.dart`** resolves every `§` against `index.md`'s
+**`:gate-section-citations`** resolves every `§` against `index.md`'s
 convention — a bare `§N` means *this* document:
 
 ```
@@ -101,7 +101,7 @@ cannot be determined mechanically, and an `exhibit` marker covers a citation a
 document has to *show* rather than make (a file documenting the convention must
 exhibit its syntax).
 
-**`check_todo_citations.dart`** resolves every cited quest-todo id:
+**`:gate-todo-citations`** resolves every cited quest-todo id:
 
 ```
 Scanned 24 document(s) from tom_ai/ai_build/tom_specs_model/doc and the cited READMEs against 2514 todo stem(s) from 6 file(s).
@@ -116,7 +116,7 @@ All four counters are failure counters here. `ambiguous` is the subtle one: ids
 are `<stem>_<datecode>-<slug>`, so a bare stem can name several todos, and that
 is a violation whatever their statuses — the fix is to write the date code.
 
-**`check_oe_citations.dart`** resolves every `OE-` id against the register:
+**`:gate-oe-citations`** resolves every `OE-` id against the register:
 
 ```
 Scanned 96 file(s) against 35 registered id(s) from tom_ai/ai_build/tom_specs_model/doc/tom_specs_editor_specification.md.
@@ -130,7 +130,7 @@ is what reserves its number, so an unused row is not an error.
 
 ### The release-closure gate
 
-`check_release_closure.dart` walks the committed manifest (`tool/release_set.yaml`)
+`:gate-release-closure` walks the committed manifest (`tool/release_set.yaml`)
 and holds the release-1 set closed:
 
 ```
@@ -149,7 +149,7 @@ behind it: the walk continues through the crossing's own manifest.
 
 ### The API-signature gate
 
-`check_api_signatures.dart` holds the packages in `tool/api_signature_set.yaml`:
+`:gate-api-signatures` holds the packages in `tool/api_signature_set.yaml`:
 
 ```
 tom_ai/ai_build/tom_core_codespecs: 25 fence(s), 0 usage sample(s), 25 member(s) compared, 0 disagree
@@ -183,7 +183,7 @@ tom_ai/ai_build/<package>` and add it to the set once it reads zero.
 
 ### The documentation-build gate
 
-`check_dartdoc_build.dart` builds each package in `tool/dartdoc_build_set.yaml`
+`:gate-dartdoc` builds each package in `tool/dartdoc_build_set.yaml`
 and reads what `dart doc` said and what it rendered:
 
 ```
@@ -212,7 +212,7 @@ source; the fix regenerates every facade.
 
 ### The CodeSpecs validator
 
-`validate_codespecs.dart` runs the forty-seven contract checks over a generated
+`:codespecs-validate` runs the forty-seven contract checks over a generated
 trio. It takes `--shared`, `--client` and `--server`; **all three are required**,
 and omitting one exits `2` with usage rather than crashing:
 
@@ -265,14 +265,15 @@ The reader parses source text and never resolves it, so the command compiles
 into a standalone binary:
 
 ```bash
-dart compile exe bin/validate_codespecs.dart -o validate_codespecs
+dart compile exe bin/tomspecs.dart -o tomspecs
 ```
 
-It needs no SDK and no package resolution at run time. The test suite compiles
-it and runs it with no Dart on `PATH`.
+Its CodeSpecs checks need no SDK and no package resolution at run time. The
+test suite compiles the `validate_codespecs` entry point, which runs the same
+checks, and runs it with no Dart on `PATH`.
 
 A project's *specification document*, as opposed to its generated code, is
-checked by `validate_spec.dart`: decode, the DocSpecs schema and the instance
+checked by `:spec-validate`: decode, the DocSpecs schema and the instance
 tier, over one document or several fragments. See
 [validating_a_document.md](validating_a_document.md).
 
@@ -319,7 +320,7 @@ not held by any gate until it is added to those lists.** Until then, run it
 through explicitly:
 
 ```bash
-dart run bin/check_section_citations.dart --extra ../tom_specs_core/doc/annotations.md
+dart run bin/tomspecs.dart :gate-section-citations --extra ../tom_specs_core/doc/annotations.md
 ```
 
 `--extra` resolves against the **current working directory**, not the container
@@ -339,8 +340,8 @@ source root is gated the day it is written.
 | A cited `OE-` id with no register row | `undefined` non-zero; exit `1` |
 | A register defining one id twice | Exit `1` — an id is allocated once |
 | A release edge leaving the set | The offending edge named; exit `1` |
-| `validate_codespecs.dart` missing a trio option | Usage printed; exit `2` |
-| `validate_codespecs.dart` with a corroborating input absent | The unrun checks named on stdout; the rest still run |
+| `:codespecs-validate` missing a trio option | Usage printed; exit `2` |
+| `:codespecs-validate` with a corroborating input absent | The unrun checks named on stdout; the rest still run |
 | An `--extra` path that resolves to nothing | **Silently scans nothing** — check the file count |
 
 The last row is the one operational trap in this set, and the reason the file
@@ -358,7 +359,7 @@ count is printed at all.
   of the statuses behind it.
 - **Keep a file name on the same line as the `§` it qualifies.** Especially
   inside a blockquote, where the `>` marker breaks the qualifier's reach.
-- **Give `validate_codespecs.dart` the whole extract tree or none.** A partial
+- **Give `:codespecs-validate` the whole extract tree or none.** A partial
   one makes check 35 pass a gap it cannot see.
 - **Compare `Scanned N file(s)` when using `--extra`.** A path that resolves to
   nothing reports success just as loudly as one that passed.

@@ -46,7 +46,7 @@ skip() {
 }
 
 command -v dart > /dev/null 2>&1 || skip "dart not on PATH"
-[ -n "$CLITOOL" ] && [ -f "$CLITOOL/bin/validate_codespecs.dart" ] \
+[ -n "$CLITOOL" ] && [ -f "$CLITOOL/bin/tomspecs.dart" ] \
   || skip "tom_specs_clitool not beside this sample — it is a development tool, not a dependency"
 
 # The extracts are Phase 4's own input; produce them before validating against
@@ -68,7 +68,7 @@ if [ "$RECORD" -eq 0 ] && [ "$RUN_RC" -ne 0 ]; then
 fi
 
 run_validator() {
-  ( cd "$CLITOOL" && dart run bin/validate_codespecs.dart \
+  ( cd "$CLITOOL" && dart run bin/tomspecs.dart :codespecs-validate \
       --shared "$SAMPLE/codespec/shared" \
       --client "$SAMPLE/codespec/client" \
       --server "$SAMPLE/codespec/server" \
@@ -76,13 +76,13 @@ run_validator() {
 }
 
 CS_ACTUAL="$(
-  echo "\$ validate_codespecs --shared codespec/shared --client codespec/client \\"
-  echo "                      --server codespec/server"
+  echo "\$ tomspecs :codespecs-validate --shared codespec/shared --client codespec/client \\"
+  echo "                                --server codespec/server"
   run_validator | sed 's/^/  /'
   echo
-  echo "\$ validate_codespecs --shared codespec/shared --client codespec/client \\"
-  echo "                      --server codespec/server \\"
-  echo "                      --extracts build/codespecs_extracts"
+  echo "\$ tomspecs :codespecs-validate --shared codespec/shared --client codespec/client \\"
+  echo "                                --server codespec/server \\"
+  echo "                                --extracts build/codespecs_extracts"
   run_validator --extracts "$SAMPLE/build/codespecs_extracts" | sed 's/^/  /'
 )"
 

@@ -1,5 +1,5 @@
 /// In-memory representation of the exported TomSpecs class graph (the
-/// spec-model meta-data file produced by `tom_specs_clitool/bin/model_json.dart`,
+/// spec-model meta-data file produced by `tomspecs :model-json`,
 /// schema documented in
 /// `tom_ai/ai_build/tom_specs_model/doc/tom_specs_model_meta_schema.md`).
 ///

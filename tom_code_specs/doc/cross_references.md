@@ -254,7 +254,7 @@ live there. The shared join key is the SOM `@SectionId`.
 |---------|-----------|------|
 | A ref to a renamed or deleted declaration | The **Dart compiler** | Compile time |
 | A route ref passed where an operation ref is expected | The **Dart compiler** | Compile time |
-| A ref string that resolves to no declaration | `validate_codespecs.dart` | Generation time |
+| A ref string that resolves to no declaration | `tomspecs :codespecs-validate` | Generation time |
 | A `@DocSpec` section id that no SOM section carries | The same validator | Generation time |
 | A section realised by a member but absent from the class's `@CodeSpec.source` | The gap analysis | Generation time |
 | A notification channel fallback naming a non-sibling channel | The validator | Generation time |

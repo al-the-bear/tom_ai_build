@@ -2,7 +2,7 @@
 
 Three runnable samples covering the three access paths to a TomSpecs Spec
 Object Model document (`som_multiplatform_spec_model.md` §6). They are **hand-authored**
-and preserved across `generate_som` regeneration (the generator only rewrites
+and preserved across `tomspecs :som-generate` regeneration (the generator only rewrites
 `src/tom_som_java_v0/TomSomV0.java`, `meta/`, `schemas/` and `tom_som_build.json`).
 
 Zero external dependencies — only the JDK (`javac`/`java`). The generic runtime

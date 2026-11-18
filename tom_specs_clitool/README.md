@@ -60,7 +60,7 @@ generic path alone can read, write, validate, load, and save any document.
 
 **All nine languages are shipped.** Every target — Dart, Python, Java,
 JavaScript, TypeScript, Go, Rust, C, and C++ — has a hand-written generic
-runtime and a generated typed facade. `generate_som.dart` has a typed emitter, a
+runtime and a generated typed facade. `tomspecs :som-generate` has a typed emitter, a
 generic generator and a meta emitter for each; none is skipped. Dart and Python
 are the reference ports; the other seven were ported from them.
 
@@ -95,19 +95,19 @@ dart pub get
 
 | Capability | Entry point | Produces |
 | --- | --- | --- |
-| Nine-language SOM emission | `bin/generate_som.dart` | `tom_som_<slug>_v0` per configured language: typed facade, `meta/spec_model.meta.json`, `schemas/`, language-native manifest |
-| Serialization-order stamping | `bin/stamp_serialization_order.dart` | `@SerializationOrder(n)` renumbered across the model, 0-based per class in source-declaration order |
-| Spec-ops registry | `bin/spec_ops.dart` | `tom_specs_model/lib/src/generated/spec_ops.g.dart` — every class's child slots, shallow clone, yaml scalar, and each projection root's `connect:` binding |
-| DocSpecs + YAML schemas | `bin/docspecs_schema.dart`, `bin/docspecs_yaml_schema.dart` | The schema folders, standalone, for a single model package |
-| Registry test suites | `bin/generate_registry_tests.dart` | An application's `registry_operations_test.dart`, `registry_screens_test.dart` and `registry_harness.g.dart`, derived from its specification's registries (Phase 5) |
-| CodeSpecs area catalogue | `bin/codespecs_areas.dart` | `codespecs_areas.json` — the 27-area catalogue the nine runtimes' extract surface reads |
+| Nine-language SOM emission | `tomspecs :som-generate` | `tom_som_<slug>_v0` per configured language: typed facade, `meta/spec_model.meta.json`, `schemas/`, language-native manifest |
+| Serialization-order stamping | `tomspecs :model-stamp-order` | `@SerializationOrder(n)` renumbered across the model, 0-based per class in source-declaration order |
+| Spec-ops registry | `tomspecs :model-spec-ops` | `tom_specs_model/lib/src/generated/spec_ops.g.dart` — every class's child slots, shallow clone, yaml scalar, and each projection root's `connect:` binding |
+| DocSpecs + YAML schemas | `tomspecs :schema-docspecs`, `tomspecs :schema-docspecs-yaml` | The schema folders, standalone, for a single model package |
+| Registry test suites | `tomspecs :app-registry-tests` | An application's `registry_operations_test.dart`, `registry_screens_test.dart` and `registry_harness.g.dart`, derived from its specification's registries (Phase 5) |
+| CodeSpecs area catalogue | `tomspecs :codespecs-areas` | `codespecs_areas.json` — the 27-area catalogue the nine runtimes' extract surface reads |
 
 ### Model inspection and export
 
 | Capability | Entry point | Produces |
 | --- | --- | --- |
-| Class-tree outlines | `bin/outliner.dart` | A compact outline of the model from any of the 14 document roots, or from the container root |
-| Class-graph export | `bin/model_json.dart` | `spec_model.json` — the resolved graph the editor and reviewer apps browse |
+| Class-tree outlines | `tomspecs :model-outline` | A compact outline of the model from any of the 14 document roots, or from the container root |
+| Class-graph export | `tomspecs :model-json` | `spec_model.json` — the resolved graph the editor and reviewer apps browse |
 | Static validation | `SpecModelValidator` (`lib/src/validator.dart`) | Field-type rules, `@ContentType` compatibility, cycle detection, the `content: String?` override, and all seventeen `tom_specs_model_rules.md` §10.2 structural invariants |
 
 ### Gates
@@ -119,25 +119,25 @@ Each fails a build step rather than reporting a warning.
 | Model freshness | The nine generated packages against a fingerprint of the model **source** | `test/model_freshness_test.dart`, default suite |
 | Invariant correspondence | `tom_specs_model_rules.md` §10.2's invariant list against the validator's implementation, in both directions | `test/invariant_correspondence_test.dart` |
 | Entrypoint options | This README's `bin/` table against each entrypoint's own `ArgParser`, in both directions | `test/entrypoint_options_test.dart` |
-| Todo citations | Every cited quest-todo id resolves to exactly one open todo | `bin/check_todo_citations.dart`, `test/todo_citations_test.dart` |
-| Section citations | Every `§` citation resolves to a real heading under `index.md`'s convention | `bin/check_section_citations.dart`, `test/section_citations_test.dart` |
-| `OE-` citations | Every cited open-ends id has a register row | `bin/check_oe_citations.dart`, `test/oe_citations_test.dart` |
+| Todo citations | Every cited quest-todo id resolves to exactly one open todo | `tomspecs :gate-todo-citations`, `test/todo_citations_test.dart` |
+| Section citations | Every `§` citation resolves to a real heading under `index.md`'s convention | `tomspecs :gate-section-citations`, `test/section_citations_test.dart` |
+| `OE-` citations | Every cited open-ends id has a register row | `tomspecs :gate-oe-citations`, `test/oe_citations_test.dart` |
 | Frozen locks (SCC45) | No package in `tom_ai/ai_build` — samples and nested fixtures included — resolves a `tom_*` version behind one already in the pub cache, and no sample declares a chain floor below it. The repo's own copy of the d4rt model guard, run here because this is the suite the repo runs routinely and `test/` is not shipped | `test/scc45_resolution_guard_test.dart` |
-| Nine-plane parity | Every capability the contract names is carried by all nine language runtimes | `bin/check_som_parity.dart`, `test/som_parity_test.dart` |
-| Release closure | The release-1 package set is dependency-closed | `bin/check_release_closure.dart`, `test/release_closure_test.dart` |
-| Release drift | Every release member is at its published tree, or says why not | `bin/check_release_drift.dart`, `test/release_drift_test.dart` |
+| Nine-plane parity | Every capability the contract names is carried by all nine language runtimes | `tomspecs :som-parity`, `test/som_parity_test.dart` |
+| Release closure | The release-1 package set is dependency-closed | `tomspecs :gate-release-closure`, `test/release_closure_test.dart` |
+| Release drift | Every release member is at its published tree, or says why not | `tomspecs :gate-release-drift`, `test/release_drift_test.dart` |
 | Archive ignores | No release member's pub archive drops a file git tracks because a `.gitignore` excludes it — asked of `dart pub publish --dry-run` itself, since git and pub read ignore negations differently | `test/pub_archive_ignores_test.dart` |
 | Published tests | Every release member's own tests pass on the local tree before a publish (`--preflight`), and from its pub.dev archive after one | `tool/verify_published_tests.sh` (a **release step**, not a standing gate) |
-| Doc coverage | Every measured package is at or above its ratchet floor, and enables `public_member_api_docs` | `bin/check_doc_coverage.dart`, `test/doc_coverage_test.dart` |
-| Formatting | Every governed package is what `dart format` would write | `bin/check_format.dart`, `test/format_test.dart` |
-| API signatures | Every signature a governed package's API summary (`doc/api/api_summary_*.md`) quotes agrees with the code | `bin/check_api_signatures.dart`, `test/api_signatures_test.dart` |
-| Documentation build | Every governed package's `dart doc` build prints nothing, and no doc-comment link lands in a package the writer did not choose | `bin/check_dartdoc_build.dart`, `test/dartdoc_build_test.dart` |
-| Shipped script paths | Every path literal in a shipped `example/`/`bin/`/`tool/` script resolves inside its own package | `bin/check_shipped_paths.dart`, `test/shipped_script_paths_test.dart` |
-| Spec-tree duplication | The doc lines stated in **both** spec-tree surfaces, against a committed baseline that may shrink and never grow | `bin/check_spec_tree_duplication.dart`, `test/spec_tree_duplication_test.dart` |
-| CodeSpecs derivation | A generated CodeSpecs trio against the `codespecs_derivation_contract.md` §6 checks | `bin/validate_codespecs.dart` |
-| Spec document | One project's `*.docspecs.yaml` or rendered `*.md` on three tiers: decode, DocSpecs schema, instance | `bin/validate_spec.dart` |
-| Process checks | A project's gate checks beyond the three tiers, with its data under `<spec-root>/checks/` | `bin/spec_checks.dart` |
-| Step-folder answers | A review round's answers, comments, open questions and inline marks as `answers.md` | `bin/extract_answers.dart` |
+| Doc coverage | Every measured package is at or above its ratchet floor, and enables `public_member_api_docs` | `tomspecs :gate-doc-coverage`, `test/doc_coverage_test.dart` |
+| Formatting | Every governed package is what `dart format` would write | `tomspecs :gate-format`, `test/format_test.dart` |
+| API signatures | Every signature a governed package's API summary (`doc/api/api_summary_*.md`) quotes agrees with the code | `tomspecs :gate-api-signatures`, `test/api_signatures_test.dart` |
+| Documentation build | Every governed package's `dart doc` build prints nothing, and no doc-comment link lands in a package the writer did not choose | `tomspecs :gate-dartdoc`, `test/dartdoc_build_test.dart` |
+| Shipped script paths | Every path literal in a shipped `example/`/`bin/`/`tool/` script resolves inside its own package | `tomspecs :gate-shipped-paths`, `test/shipped_script_paths_test.dart` |
+| Spec-tree duplication | The doc lines stated in **both** spec-tree surfaces, against a committed baseline that may shrink and never grow | `tomspecs :gate-spec-tree-duplication`, `test/spec_tree_duplication_test.dart` |
+| CodeSpecs derivation | A generated CodeSpecs trio against the `codespecs_derivation_contract.md` §6 checks | `tomspecs :codespecs-validate` |
+| Spec document | One project's `*.docspecs.yaml` or rendered `*.md` on three tiers: decode, DocSpecs schema, instance | `tomspecs :spec-validate` |
+| Process checks | A project's gate checks beyond the three tiers, with its data under `<spec-root>/checks/` | `tomspecs :spec-*` |
+| Step-folder answers | A review round's answers, comments, open questions and inline marks as `answers.md` | `tomspecs :spec-answers` |
 
 ## Quick start
 
@@ -145,7 +145,7 @@ From the `tom_specs_clitool` package root:
 
 ```bash
 # Regenerate all nine language packages from the annotated Dart model.
-dart run bin/generate_som.dart
+dart run bin/tomspecs.dart :som-generate
 # → ../tom_som_{dart,python,java,javascript,typescript,go,rust,c,cpp}_v0
 #   each with lib/ (or src/), meta/spec_model.meta.json, schemas/, manifest
 
@@ -201,10 +201,10 @@ document lacking the `tom-spec-object-model` block.
 
 ```bash
 # Generate every configured language target from the default config:
-dart run bin/generate_som.dart
+dart run bin/tomspecs.dart :som-generate
 
 # Use a specific config and override key paths:
-dart run bin/generate_som.dart \
+dart run bin/tomspecs.dart :som-generate \
   --config tom_som.yaml \
   --model   ../tom_specs_model \
   --runtime ../tom_som_dart_runtime \
@@ -454,7 +454,7 @@ reports `classCount: 1254` — the model classes, including the `DocSpecsProject
 container root. A generation run covers **1253** of them: the container root is
 reachable from no `@Document`, so no run can ever emit it. That figure is what
 each `Som*GenerationResult.emittedClassCount` reports and what
-`generate_som.dart` prints per language, and under a `document-roots:` filter it
+`tomspecs :som-generate` prints per language, and under a `document-roots:` filter it
 drops further. The Dart facade then declares **3989** classes — the 1253 it can
 instantiate **plus one small accessor class per form**, named
 `<Owner><Form>Form`, giving the form's fields typed getters. That is 2736
@@ -557,13 +557,13 @@ targets — without compiling against the typed classes.
 Publishing a release member is a fixed sequence, because each step answers a
 question the next one depends on:
 
-1. **What moved.** `dart run bin/check_release_drift.dart` names every member
+1. **What moved.** `dart run bin/tomspecs.dart :gate-release-drift` names every member
    whose tree differs from what pub.dev carries; each is acknowledged in
    `tool/release_set.yaml`'s `unpublished_drift:` until it is published.
 2. **Bump.** Raise the version and add the CHANGELOG entry of every member that
    moved, and of every member that depends on one in lockstep. When the model
    chain moves, regenerate after the bump (`buildkit :versioner` run inside
-   `tom_specs_model`, then `bin/generate_som.dart`), so the generated packages
+   `tom_specs_model`, then `tomspecs :som-generate`), so the generated packages
    carry the new version.
 3. **Preflight.** `tool/verify_published_tests.sh --preflight` runs every
    member's own `dart test` on the local tree, with the conformance driver
@@ -609,7 +609,7 @@ as if it were still true. Three commands close that, and each is also a test, so
 the corpus is held at zero violations in the default `dart test` run.
 
 **Todo citations.** A quest-todo id is cited to say who owns an open question.
-`check_todo_citations.dart` resolves every backticked id-shaped token in
+`tomspecs :gate-todo-citations` resolves every backticked id-shaped token in
 `tom_specs_model/doc` — **plus every TomSpecs README and every package `doc/`
 folder** (`defaultCitedReadmes` + `defaultCitedDocFolders`, the same closed sets
 the section gate holds) — against
@@ -656,7 +656,7 @@ archive trips it through `test/todo_citations_test.dart`, which runs in the
 default `dart test`.
 
 **Section citations.** The same documents cite each other's *sections*
-far more often than they cite todos, and `check_section_citations.dart` resolves
+far more often than they cite todos, and `tomspecs :gate-section-citations` resolves
 those. `index.md` owns the convention; this is its decision procedure. A bare
 `§N` means **this** document — that carve-out is what makes the rule decidable at
 all, since intra-document self-reference is how the documents overwhelmingly
@@ -715,7 +715,7 @@ and *zero* stale exemptions. The corpus is the doc folder, every TomSpecs
 README (`defaultCitedReadmes`), every package `doc/` folder
 (`defaultCitedDocFolders`) and the citing source trees' `///` comments
 (`defaultCitedSourceRoots`) — which is also what
-`check_section_citations.dart` scans by default, so the command and the gate
+`tomspecs :gate-section-citations` scans by default, so the command and the gate
 cover the same files and neither list can drift from the other. Anti-vacuity is
 asserted **per root** rather than in aggregate, so a root that resolved to an
 empty directory cannot hide behind the five that did not. Pass
@@ -735,7 +735,7 @@ resolve against the Open-Ends Register in `tom_specs_editor_specification.md`
 editor specification deleted them without folding them in; 71 citations across
 16 ids went on resolving to nothing until someone tried one, and three
 `deferred.tom_specs.md` entries paid for it by restating in prose what an id
-meant. `check_oe_citations.dart` makes the next such deletion fail a build step.
+meant. `tomspecs :gate-oe-citations` makes the next such deletion fail a build step.
 
 Two things about it are deliberate:
 
@@ -831,8 +831,8 @@ tom_specs_clitool
 | [som_toolchains.md](../tom_specs_model/doc/som_toolchains.md) | The per-language build and verify toolchains, and running the Dart host with no installed SDK |
 | [tom_specs_model_meta_schema.md](../tom_specs_model/doc/tom_specs_model_meta_schema.md) | The on-disk schema of the emitted `spec_model.meta.json`, its two version stamps, and the committed-asset refresh procedure |
 | [tom_specs_model_rules.md](../tom_specs_model/doc/tom_specs_model_rules.md) | The model-authoring rules, the seventeen structural invariants the validator enforces, and the outliner |
-| [codespecs_derivation_contract.md](../tom_core_codespecs/doc/codespecs_derivation_contract.md) | What `bin/validate_codespecs.dart` checks, and why each corroborating input is needed |
-| [codespecs_mapping.md](../tom_core_codespecs/doc/codespecs_mapping.md) | The parts catalogue `bin/codespecs_areas.dart` transcribes |
+| [codespecs_derivation_contract.md](../tom_core_codespecs/doc/codespecs_derivation_contract.md) | What `tomspecs :codespecs-validate` checks, and why each corroborating input is needed |
+| [codespecs_mapping.md](../tom_core_codespecs/doc/codespecs_mapping.md) | The parts catalogue `tomspecs :codespecs-areas` transcribes |
 
 **This package** — its own guides:
 

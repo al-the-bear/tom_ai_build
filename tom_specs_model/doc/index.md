@@ -125,7 +125,7 @@ against its parent `N.M` and never against a child of it. A number that names a
 numbered *rule* inside a section rather than a heading is not a citation —
 write "rule 6 of §N.M".
 
-`tom_specs_clitool`'s `bin/check_section_citations.dart` implements exactly this
+`tom_specs_clitool`'s `tomspecs :gate-section-citations` implements exactly this
 procedure, so any `§N` in the doc folder can be resolved without a human reading
 it. That is also why the illustrations above are written with metavariables
 wherever they show an *unqualified* citation: a real number there would be read
@@ -141,7 +141,7 @@ cannot be looked up promises a referent that does not exist. The corpus carries
 one other cited id family — `OE-<n>`, the open-ends ids the editor cites from its
 own source — and it resolves the same way, against the register in
 `tom_specs_editor_specification.md` §22, under the same kind of gate
-(`bin/check_oe_citations.dart`).
+(`tomspecs :gate-oe-citations`).
 
 ---
 
@@ -164,7 +164,7 @@ generated language runtimes and two file formats.
 |----------|---------------|
 | [codespecs_mapping.md](../../tom_core_codespecs/doc/codespecs_mapping.md) | **Everything CodeSpecs *except* what code comes out.** The four pillars and the `tom_core`-family basis (§1.1), the neutral vocabulary (§1.2), the parts catalogue and the three generated projects (§4), the per-part gap analysis and spec-authorable attribute surfaces (§5), the server contract (§7), the SOM→CodeSpecs derivation *map* — the four walk questions, the document map, the CodeSpecs/follow-up split, and (§8.5) the per-part walk index naming where each part's walk enters and where it is stated (§8) — the bidirectional DocSpecs↔CodeSpecs link (§9), the config/settings scope split and the `code_spec` architecture principles (§11–§12). |
 | [codespecs_derivation_contract.md](../../tom_core_codespecs/doc/codespecs_derivation_contract.md) | **What code comes out.** The per-`Cs*`-annotation derivation contract: for every active marker, which SOM class and fields feed it, the exact Dart emitted and its `tom_core`-family superclass, how each annotation argument is derived, the deterministic naming rules (N1–N10), the universal comment-derivation rule (§2.8), the locus project, the typed cross-references and the `@CodeSpec`/`@DocSpec` back-links — plus the constructor shape of every marker and the validator checks that enforce them. |
-| [irspecs_ir.md](../../tom_core_codespecs/doc/irspecs_ir.md) | **What the IR holds.** IR Specs' intermediate representation (format `irspecs-ir`): a specification's CodeSpecs as language-neutral data and Phase 4's product, written by the authoring agent, one `<CE-CODE>_<canonical id>.ir.yaml` per area; the rules that assign a file to its area, the record of every declaration, marker value, back-link, doc comment, body and statement, the one CsModel field left out and why, and what the IR adds to the reading. Code is mapped from it, the Dart trio by the default mapper `dart-tom`, and a trio written before the IR is brought over by `irspecs from-codespecs`; constrained by `tool/irspecs_ir.schema.json`. |
+| [irspecs_ir.md](../../tom_core_codespecs/doc/irspecs_ir.md) | **What the IR holds.** IR Specs' intermediate representation (format `irspecs-ir`): a specification's CodeSpecs as language-neutral data and Phase 4's product, written by the authoring agent, one `<CE-CODE>_<canonical id>.ir.yaml` per area; the rules that assign a file to its area, the record of every declaration, marker value, back-link, doc comment, body and statement, the one CsModel field left out and why, and what the IR adds to the reading. Code is mapped from it, the Dart trio by the default mapper `dart-tom`, and a trio written before the IR is brought over by `tomspecs :ir-from-codespecs`; constrained by `tool/irspecs_ir.schema.json`. |
 | [codespecs_prompt.md](codespecs_prompt.md) | **How a Phase-4 run starts, and when it refuses to.** The starting prompt, and the quality gate that is its first act: the mechanical tier (§4 — schema completeness *and* the instance-tier validator, routing totality, required-argument sources, carrier presence), the pre-gate extraction run and its walk root (§5), the per-area verdict with its fixed question, three outcomes and gap-naming output shape (§6), and the L0/L1/L2 instantiation that leaves the queue paused by construction (§7). |
 
 ## The creation process
@@ -271,7 +271,7 @@ leave a stale copy sitting among the hand-written docs.
 | Folder | Contents | Regenerate with |
 |--------|----------|-----------------|
 | [../generated-doc/outlines/](../generated-doc/outlines/index.md) | One outline per document root (D00–D13) plus the whole-model `DocSpecsProject` outline and a compact `SolutionBlueprint` outline, rendered from the live Dart model | `tom_specs_clitool/tool/regenerate_outlines.sh` |
-| `../generated-doc/codespecs/` | `codespecs_areas.json` — the 27-area CodeSpecs catalogue (26 active parts + the CE-EN `domainEnum` extract home) transcribed from `codespecs_mapping.md` §4.1 + §4.4.3 + §4.4.6, plus the Stage-A gate tables of `codespecs_prompt.md` §4.4.2/§4.5; the input all nine runtimes' `spec_codespecs_extract` and `CodeSpecsGate` read | `tom_specs_clitool/bin/codespecs_areas.dart` |
+| `../generated-doc/codespecs/` | `codespecs_areas.json` — the 27-area CodeSpecs catalogue (26 active parts + the CE-EN `domainEnum` extract home) transcribed from `codespecs_mapping.md` §4.1 + §4.4.3 + §4.4.6, plus the Stage-A gate tables of `codespecs_prompt.md` §4.4.2/§4.5; the input all nine runtimes' `spec_codespecs_extract` and `CodeSpecsGate` read | `tomspecs :codespecs-areas` |
 
 Never edit anything under `generated-doc/` by hand — re-run the generator and
 commit the diff.

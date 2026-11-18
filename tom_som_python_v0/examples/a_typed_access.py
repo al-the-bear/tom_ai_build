@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Sample (a) — TYPED object-model access (som_multiplatform_spec_model.md §6).
 
-HAND-AUTHORED — preserved across ``generate_som`` runs (the generator only
+HAND-AUTHORED — preserved across ``tomspecs :som-generate`` runs (the generator only
 rewrites the module, meta/, schemas/ and pyproject.toml).
 
 Demonstrates editing a TomSpecs document through the generated *typed* facade

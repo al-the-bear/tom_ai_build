@@ -37,13 +37,13 @@ for entry in "${ROOTS[@]}"; do
   root="${entry%%:*}"
   stem="${entry##*:}"
   echo "→ ${stem}_outline.md"
-  dart run bin/outliner.dart --package "$PKG" --root-type "$root" \
+  dart run bin/tomspecs.dart :model-outline --package "$PKG" --root-type "$root" \
     -o "$OUT/${stem}_outline.md"
 done
 
 # Compact SolutionBlueprint outline (stops expansion at @DetailedIn boundaries).
 echo "→ SolutionBlueprint_compact_outline.md"
-dart run bin/outliner.dart --package "$PKG" --root-type D00SolutionBlueprint \
+dart run bin/tomspecs.dart :model-outline --package "$PKG" --root-type D00SolutionBlueprint \
   --stop-at-detailed-in \
   -o "$OUT/SolutionBlueprint_compact_outline.md"
 
@@ -53,19 +53,19 @@ dart run bin/outliner.dart --package "$PKG" --root-type D00SolutionBlueprint \
 # names the wrong id, or a todo archive that closes an id a doc still cites.
 # Non-zero exits abort under `set -e`, which is the point — the check is a gate.
 echo "→ todo citations in the doc folder"
-dart run bin/check_todo_citations.dart
+dart run bin/tomspecs.dart :gate-todo-citations
 
 # The same reasoning for `§` section citations, which decay from either side
 # too: a citation written against the wrong number, or a restructure that moves
 # the heading out from under a citation nobody re-read.
 echo "→ section citations in the doc folder and its READMEs"
-dart run bin/check_section_citations.dart
+dart run bin/tomspecs.dart :gate-section-citations
 
 # And for `OE-` ids, whose citing side is shipped source rather than a document.
 # The register was once a pair of quest files that a consolidation deleted
 # without folding in, leaving 71 citations resolving to nothing; this makes the
 # next such deletion fail here instead of decaying unseen.
 echo "→ OE- citations in the editor, the doc folder and the quest files"
-dart run bin/check_oe_citations.dart
+dart run bin/tomspecs.dart :gate-oe-citations
 
 echo "Done. Review the diff under $OUT/ and commit."

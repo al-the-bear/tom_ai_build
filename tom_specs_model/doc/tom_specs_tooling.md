@@ -264,12 +264,11 @@ at the first failure). The work runs as one series:
   `bin/tomspecs.dart` declares every command with the options of the tool it
   replaces, and nothing in the clitool runs `dart format` as a process;
 - the commands built beside the old tools, with comparison tests: done for
-  the spec-*, codespecs-*, ir-*, som-*, model-*, schema-*, app-* and editor-*
-  commands (each identical to its tool on the same inputs); the gates are
-  next (`tsbin6_akqk-gate-commands`);
-- one migration of the processes, scripts, documents and the VS Code extension,
-  tested with the old and the new binaries
-  (`tsbin7_akqk-extension-bundles-tomspecs`);
+  all 39 commands, the gates included (each identical to its tool on the same
+  inputs);
+- one migration to the commands: done for the processes, the scripts and the
+  documents; the VS Code extension, tested with the old and the new binaries,
+  is in progress (`tsbin7_akqk-extension-bundles-tomspecs`);
 - removal of the old tools and of the comparison tests
   (`tsbin8_akqk-remove-old-entrypoints-and-exception`).
 

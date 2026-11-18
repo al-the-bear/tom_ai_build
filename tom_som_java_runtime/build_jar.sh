@@ -2,7 +2,7 @@
 # JDK-only fallback for `mvn package`: compile the generic runtime with `javac`
 # and package it into build/tom_som_java_runtime-<version>.jar. Zero external
 # dependencies. The version is read from pom.xml so it stays in lockstep with the
-# TomSpecs model version (realigned by generate_som's packaging hook).
+# TomSpecs model version (realigned by tomspecs :som-generate's packaging hook).
 set -euo pipefail
 
 here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

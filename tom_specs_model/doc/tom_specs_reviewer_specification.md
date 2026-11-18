@@ -48,7 +48,7 @@ below:
 
 `assets/spec_model.json` is the exported class graph — a **committed snapshot,
 not a build artifact**. It is produced by
-`tom_specs_clitool/bin/model_json.dart` from the `tom_specs_model` package
+`tomspecs :model-json` from the `tom_specs_model` package
 sources via the Dart analyzer.
 
 Refreshing is a re-export of the current model, never a renumbering of it, so
@@ -58,10 +58,10 @@ policy is carried by the named export target rather than by the caller:
 
 ```bash
 cd ../tom_specs_clitool
-dart run bin/model_json.dart --target reviewer
+dart run bin/tomspecs.dart :model-json --target reviewer
 ```
 
-`tom_specs_clitool/bin/build.dart` is **not** the reviewer's refresh path: it
+`tomspecs :editor-build` is **not** the reviewer's refresh path: it
 refreshes the editor's copy of the same export, which is stamped from the
 build. The procedure for both committed assets, and the reason they carry
 different stamps, is stated once in `tom_specs_model_meta_schema.md`,

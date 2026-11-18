@@ -160,8 +160,8 @@ PHASE 4 — CodeSpecs
   given. `tool/validate.sh` runs the validator twice for exactly
   that reason; its recorded output is below.
 
-  $ validate_codespecs --shared codespec/shared --client codespec/client \
-                        --server codespec/server
+  $ tomspecs :codespecs-validate --shared codespec/shared --client codespec/client \
+                                  --server codespec/server
     codespecs: check 13 (migration convergence) not run — pass --migrations pointing at the run's CE-MG artifacts.
     codespecs: check 9 (mirrored catalogues) not run — pass both --cs-vocabulary and --core-source; a catalogue neither side declares mirrors an empty one, which compares equal.
     codespecs: checks 40 and 41 (feature-hook completeness and reserved protocol paths) not run — pass --cs-vocabulary pointing at tom_code_specs' vocabulary source; without its csFeatureHooks and csFeatureReservedPaths there is no catalogue to hold a hook or a route against.
@@ -169,9 +169,9 @@ PHASE 4 — CodeSpecs
     codespecs: check 19 (secret is declared), checks 32, 33 and 34 (comment source, template and fidelity) and checks 35 and 36 (extract coverage and back-link resolution) not run — pass --extracts pointing at the run's generated-doc/codespecs_extracts directory.
     codespecs: 47 checks passed
 
-  $ validate_codespecs --shared codespec/shared --client codespec/client \
-                        --server codespec/server \
-                        --extracts build/codespecs_extracts
+  $ tomspecs :codespecs-validate --shared codespec/shared --client codespec/client \
+                                  --server codespec/server \
+                                  --extracts build/codespecs_extracts
     codespecs: check 13 (migration convergence) not run — pass --migrations pointing at the run's CE-MG artifacts.
     codespecs: check 9 (mirrored catalogues) not run — pass both --cs-vocabulary and --core-source; a catalogue neither side declares mirrors an empty one, which compares equal.
     codespecs: checks 40 and 41 (feature-hook completeness and reserved protocol paths) not run — pass --cs-vocabulary pointing at tom_code_specs' vocabulary source; without its csFeatureHooks and csFeatureReservedPaths there is no catalogue to hold a hook or a route against.

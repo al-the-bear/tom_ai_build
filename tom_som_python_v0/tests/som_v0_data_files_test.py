@@ -2,7 +2,7 @@
 """Data-file resolution suite for the generated ``tom_som_python_v0_data``
 module — the wheel-data contract.
 
-HAND-AUTHORED — preserved across ``generate_som`` runs.
+HAND-AUTHORED — preserved across ``tomspecs :som-generate`` runs.
 
 The distribution ships two data trees beside the code: the lossless
 object-model meta-data (``meta/spec_model.meta.json``) and the DocSpecs

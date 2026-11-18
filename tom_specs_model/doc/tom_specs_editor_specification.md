@@ -164,7 +164,7 @@ Seven webview editors, all reloading from disk and all exposing an **"open raw f
 ### 3.7 Spec object model & document format (`tom_ai/ai_build`)
 
 - `tom_specs_core` annotations; `tom_specs_model` 14 roots — the `D00SolutionBlueprint` master, the 12 Phase 3 documents (`D01`…`D12`), and `D13CodeSpecsProjection`, the Phase 4 code-generation projection. **Crucial semantics:** the 12 Phase 3 roots are `@Document(basedOn:[SolutionBlueprint])` and aggregate **the same** SBP classes via typed fields with `@MapsTo`/`@DetailedIn`; `D13` is a projection by the same rule but reaches its subtrees directly, driven by `@CodeSpecKind` rather than `@DetailedIn` (its `@CodeSpecsProjection()` marker exempts it from the `tom_specs_model_rules.md` §10.2 detail-count check only). So a spec's single source of truth is the **SolutionBlueprint instance**; the other roots are **projections** over it (this underpins Q9 — see §14).
-- `spec_model.json` (`ModelJsonExporter`, `tom_specs_clitool/bin/model_json.dart`): `{generatedAt, classCount, rootCount, roots[], classes{}}`; `SpecClass{name,sectionId,doc,help,mapsTo,detailedIn,fields[]}`; `SpecField.kind ∈ {list,form,section,content,enum,complex,scalar}` with kind metadata.
+- `spec_model.json` (`ModelJsonExporter`, `tomspecs :model-json`): `{generatedAt, classCount, rootCount, roots[], classes{}}`; `SpecClass{name,sectionId,doc,help,mapsTo,detailedIn,fields[]}`; `SpecField.kind ∈ {list,form,section,content,enum,complex,scalar}` with kind metadata.
 - DocSpecs (`tom_doc_specs`): `<!-- docspec: id/version -->`; schema YAML `{id}-{version}.docspecs-schema.yaml` (`section-types`{prefix,counts,pattern-check,format,text-required,allowed-tags,validation-prompt,required-fields}, `form-types`); runtime `DocSpecsFactory`→`SpecDoc` (`getSection/getSpecSectionType/getSectionsByTag/isValid`), `SpecSection{type,tags,format,fields,text,sections}`. Content joins to model by **section ID**.
 - `tom_specs_reviewer`: `SpecModel.fromJson` over the asset; `spec_tree.dart`; `ReviewStore` (per-path YAML).
 
@@ -521,7 +521,7 @@ The build is driven by the **`buildkit`** tool (N8), which can run **all** build
   `buildkit :versioner` generates `lib/src/version.versioner.dart` (`TomSpecsModelVersionInfo.version/buildNumber/gitCommit/buildTime`); the **build number auto-increments** (counted on from the stamp's own `buildNumber`) and **`version`** is bumped on **official builds**. This single stamp is the source for both the bundled `spec_model.json` version and the schema version (S2).
 - **Build steps (each a buildkit command / script step):**
   1. `buildkit :versioner` in `tom_specs_model` → version stamp.
-  2. Generate `spec_model.json` (`tom_specs_clitool/bin/model_json.dart --target editor`), tagged with the stamp. The stamp is not passed in — it follows from the named target, so this build cannot write the editor's asset at the reviewer's pinned version or vice versa (`tom_specs_model_meta_schema.md`, "Refreshing the committed assets").
+  2. Generate `spec_model.json` (`tomspecs :model-json --target editor`), tagged with the stamp. The stamp is not passed in — it follows from the named target, so this build cannot write the editor's asset at the reviewer's pinned version or vice versa (`tom_specs_model_meta_schema.md`, "Refreshing the committed assets").
   3. Generate DocSpecs schemas (§16), versioned from the stamp.
   4. **Embed pre-generated** `tom_dart_editor` analyzer **summaries** covering `tom_d4rt_flutter` (+ phase-2 `tom_flutter_ui`). Per **B1** the summaries are **pre-generated and committed/embedded as assets** — the build does *not* run the analyzer per-OS, so no per-platform analyzer toolchain is required at build time.
   5. Bundle assets (model json, schemas, embedded summaries).
@@ -601,7 +601,7 @@ one.
 4. **Add the canonical container root to `tom_specs_model` (V2, N9).** New top-level class referencing all 14 document roots; **no `@SectionId`**, not a document node. **Done:** class compiles; the existing model test suite still passes.
 5. **Give the model immutable / copy-on-write handling for snapshotting (N5, U1).** Reshape `tom_specs_model` nodes so the editor can take cheap structurally-shared snapshots. **Done:** a snapshot/restore unit test demonstrates unchanged leaves are shared by identity.
 6. **Add `toYaml` + the connect pass to the model (N11, N12).** Global root `toYaml` writes **only** Solution Blueprint content (each section once); projection roots' `toYaml` used only for their individual-file write, preceded by the connect pass that re-points the root's references onto the live SBP sections (§15.1). **Done:** unit tests prove (a) global save emits no duplicate subtrees, (b) an individual projection write reflects current SBP content, (c) a null SBP section stays null in the projection.
-7. **Tooling: canonical-container root + pure-projection invariant (T1, T2).** Teach `ModelJsonExporter`, the outliner, and the `tom_specs_model_rules.md` §10.2 validator to treat the container as the tree root (exempt from `@SectionId` coverage/uniqueness) and add the invariant that **no projection-root content lacks a SBP counterpart**. **Done:** validator flags a synthetic violation; `model_json.dart` emits the container as root; existing outliner/validator tests pass.
+7. **Tooling: canonical-container root + pure-projection invariant (T1, T2).** Teach `ModelJsonExporter`, the outliner, and the `tom_specs_model_rules.md` §10.2 validator to treat the container as the tree root (exempt from `@SectionId` coverage/uniqueness) and add the invariant that **no projection-root content lacks a SBP counterpart**. **Done:** validator flags a synthetic violation; `tomspecs :model-json` emits the container as root; existing outliner/validator tests pass.
 
 ### Stage B — Editor shell skeleton `[1a]`
 
@@ -660,7 +660,7 @@ the seams, drop-in points and decisions the code cannot restate at every
 occurrence. "Fill the marked call site; that is `OE-3a`" is only useful if
 `OE-3a` can be looked up, and this table is where it is looked up. A citation
 that resolves to nothing promises a register that does not exist, so
-`tom_specs_clitool/bin/check_oe_citations.dart` fails on one rather than letting
+`tomspecs :gate-oe-citations` fails on one rather than letting
 it pass unseen.
 
 **An id is allocated once and is never reused, renumbered or deleted.** It

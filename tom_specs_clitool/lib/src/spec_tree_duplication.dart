@@ -95,7 +95,7 @@ void writeSharedDocBaseline(File file, Set<String> lines) {
     '# explanation: move the rule to `tom_som_dart_runtime` and have both trees\n'
     '# cite it. When it shrinks, re-record this file in the same commit.\n'
     '#\n'
-    '# Regenerate: dart run bin/check_spec_tree_duplication.dart --record\n'
+    '# Regenerate: dart run bin/tomspecs.dart :gate-spec-tree-duplication --record\n'
     '\n'
     '${sorted.join('\n')}\n',
   );

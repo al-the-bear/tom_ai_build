@@ -37,7 +37,7 @@ void main() {
         isNotNull,
         reason:
             'no $modelSurfaceStampPath — run '
-            '`dart run bin/generate_som.dart` to write it.',
+            '`dart run bin/tomspecs.dart :som-generate` to write it.',
       );
 
       final mismatch = somPackageCoverageMismatch(
@@ -61,7 +61,7 @@ void main() {
         isNotNull,
         reason:
             'no $modelSurfaceStampPath — run '
-            '`dart run bin/generate_som.dart` to write it.',
+            '`dart run bin/tomspecs.dart :som-generate` to write it.',
       );
 
       final now = computeModelSurface(
@@ -81,7 +81,7 @@ void main() {
         '${now.declarationCount}\n'
         '\n'
         'Regenerate and commit the result together with the stamp:\n'
-        '  cd tom_specs_clitool && dart run bin/generate_som.dart\n'
+        '  cd tom_specs_clitool && dart run bin/tomspecs.dart :som-generate\n'
         '\n'
         'See _copilot_guidelines/som_regeneration.md.',
       );

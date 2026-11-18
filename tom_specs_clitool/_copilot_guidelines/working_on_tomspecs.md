@@ -10,7 +10,7 @@ rules around it.
 A change to `tom_specs_model` — a member, a doc comment, an annotation argument
 or an annotation's `note` — is followed, in this order, by:
 
-1. `dart run bin/generate_som.dart` (the `@SerializationOrder` restamp, the
+1. `dart run bin/tomspecs.dart :som-generate` (the `@SerializationOrder` restamp, the
    `spec_ops.g.dart` registry, the nine `tom_som_*_v0` packages and the stamp,
    [som_regeneration.md](som_regeneration.md));
 2. the SOM D4rt bridges in `tom_spec_engine`, about 20 minutes
@@ -18,7 +18,7 @@ or an annotation's `note` — is followed, in this order, by:
    a regeneration whose diff is only the `// Generated:` header lines keeps the
    stamp and drops the bridge diff;
 3. the outlines: `tool/regenerate_outlines.sh`;
-4. the two model-graph assets: `dart run bin/model_json.dart --target reviewer`
+4. the two model-graph assets: `dart run bin/tomspecs.dart :model-json --target reviewer`
    and `--target editor` (the editor's asset is in the `tom_forge` repository);
 5. the conformance driver, `tom_som_conformance/tool/run_all_suites.sh`, and the
    clitool's own `dart test`.
@@ -66,7 +66,7 @@ pushing again.
 
 Everything in the clitool that formats Dart uses `dart_style`, linked into the
 package through one helper, `DartFormat` in `lib/src/dart_format.dart`:
-- the formatting gate (`bin/check_format.dart`, `:gate-format`);
+- the formatting gate (`tomspecs :gate-format`);
 - the spec-ops registry generator and `codespecs_areas`' accessor;
 - the registry tests generator;
 - the dart-tom mapper.

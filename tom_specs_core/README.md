@@ -149,7 +149,7 @@ annotation here without deciding where it lands fails a test.
 | `@Document` | `Document({String name, String description, List<Type>? basedOn})` | C | Marks a document-root class; `basedOn` names the source document(s) it derives from. |
 | `@Prefix` | `Prefix(String prefix)` | C | Common section-ID prefix enabling two-stage (heading-prefix) ID resolution. |
 | `@Position` | `Position(String position)` | M | Explicit field ordering (`'first'` / `'last'`); default is declaration order. |
-| `@SerializationOrder` | `SerializationOrder(int order)` | M | **The member's 0-based source-declaration position within its class.** Pins on-disk emission order so every language serialises members identically. Stamped in bulk by `stamp_serialization_order.dart`. |
+| `@SerializationOrder` | `SerializationOrder(int order)` | M | **The member's 0-based source-declaration position within its class.** Pins on-disk emission order so every language serialises members identically. Stamped in bulk by `tomspecs :model-stamp-order`. |
 
 #### Content typing & authoring
 
@@ -249,7 +249,7 @@ void main() {
 
 In `tom_specs_model` every member additionally carries a `@SerializationOrder`
 stamp; it is applied in bulk by `tom_specs_clitool`'s
-`stamp_serialization_order.dart` rather than written by hand.
+`tomspecs :model-stamp-order` rather than written by hand.
 
 ## Usage
 
@@ -354,7 +354,7 @@ tom_specs_core                      (zero dependencies, no runtime logic)
   DocSpecs schema keys; `docspecs_annotation_mapping.dart` declares which key
   each one produces and gates the correspondence in both directions
   (`tom_specs_model_rules.md` §9.5).
-- **`outliner.dart`** renders the class tree; `tom_specs_model_rules.md`
+- **`tomspecs :model-outline`** renders the class tree; `tom_specs_model_rules.md`
   §11.2.13 lists which annotations are *visible* in the outline vs
   *schema-only*.
 

@@ -176,7 +176,7 @@ has moved* — and the cure is one command, run from
 
 ```bash
 cd ../tom_specs_clitool
-dart run bin/model_json.dart --target reviewer
+dart run bin/tomspecs.dart :model-json --target reviewer
 ```
 
 Naming the target is what keeps the stamp right: the target owns the output
@@ -291,7 +291,7 @@ The **readers** (`SpecModel`, `SpecRoot`, `SpecClass`, `SpecField`,
 ```
             tom_specs_model              ← the SOM source model
                     │
-                    │  exported by tom_specs_clitool/bin/model_json.dart
+                    │  exported by `tomspecs :model-json`
                     ▼
           assets/spec_model.json  (committed snapshot, one export, two targets)
                     │

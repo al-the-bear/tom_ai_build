@@ -82,7 +82,7 @@ and the cure is one command:
 
 ```bash
 cd ../tom_specs_clitool
-dart run bin/model_json.dart --target reviewer
+dart run bin/tomspecs.dart :model-json --target reviewer
 ```
 
 **Name the target.** `--target reviewer` owns both the output path and the

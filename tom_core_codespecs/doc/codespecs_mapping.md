@@ -137,7 +137,7 @@ to read.
 | **Entry** | Extract token (the routed field's `@SectionId`, or its own name where it carries none — `codespecs_derivation_contract.md` §2.5 rule 2) · the enclosing section instance's headline, copy-only (the stored headline, else the `@Headline` type default, else null) — the `codespecs_derivation_contract.md` §2.1 N1 headline source · the enclosing instance's stored id (`instanceId`), copy-only (see below) · class name · field name · form field where applicable · the verbatim value · the `@CodeSpecKind` value that routed it here · source location · the **units** the entry goes to (`units`: the nearest stored `units` up the path, else every unit of the register whose mappings hold the area — item 4 — and absent when neither names one). |
 | **Authority** | The YAML is the artifact of record; the Markdown is a *view* and is regenerated from it. Nothing reads the Markdown as input. |
 | **Gate record** | `gate.verdicts.yaml`, beside the extracts — the Stage-B verdicts persisted per area (`codespecs_prompt.md` §6.3). It is the scope of the pass: the §6-of-`codespecs_derivation_contract.md` transfer checks hold the trio to the `sufficient` areas only, so a recorded partial pass (a descoped *insufficient* area, a *not applicable* area) neither fails coverage nor forces coarse citations. Absent the record, the whole extract tree is the obligation set. |
-| **Coverage-gap record** | `coverage_gaps.yaml`, beside the extracts and kept across runs — the facts the specification states that CodeSpecs has no place for yet, recorded by Stage B, the authoring steps and `validate_codespecs --record-gaps`, and settled by the run's gap review (`codespecs_derivation_contract.md` §2.11). An open gap interrupts the run; a gap left as is is not held against the trio by check 35. |
+| **Coverage-gap record** | `coverage_gaps.yaml`, beside the extracts and kept across runs — the facts the specification states that CodeSpecs has no place for yet, recorded by Stage B, the authoring steps and `tomspecs :codespecs-validate --record-gaps`, and settled by the run's gap review (`codespecs_derivation_contract.md` §2.11). An open gap interrupts the run; a gap left as is is not held against the trio by check 35. |
 
 The YAML carries the authority because the whole value of an extract is that its
 provenance is machine-checkable — the (id, verbatim value) pair is the second
@@ -242,7 +242,7 @@ carries the units it goes to (item 1), so the authoring agent reads its
 destination off the extract rather than the register. The agent writes the
 **IR** — one `<spec-root>/irspecs/<CE-CODE>_<canonical id>.ir.yaml` per area, a file's
 `units` naming the units it is reserved for — and each unit's package is
-written from it by the unit's mapper (`irspecs map --unit`). The IR, its units
+written from it by the unit's mapper (`tomspecs :ir-map --unit`). The IR, its units
 and the Dart + Tom mapper are [`irspecs_ir.md`](irspecs_ir.md) (§8.1 for the
 units). A specification that declares no units is written as the §4.2 trio:
 one package per locus, every area by the Dart + Tom mapper.
@@ -266,7 +266,7 @@ the first to go stale.
 | **2** | **Scaffold** — create one package per generation unit (§1.1.1 item 4) — the §4.2 project trio when the specification declares none — with its pubspec and per-area folders | one L1 todo per scaffolding unit | §4.2 |
 | **3** | **Author, per step** — walk the thirty-one authoring steps | one L2 todo per step; the step's IR documents, `<spec-root>/irspecs/<CE-CODE>_<canonical id>.ir.yaml` | §4.4.6 |
 | **4** | **Author, per element** — *inside* a step, walk that step's extract entries | one L3 todo per (section, area) pair | §4.4.8 |
-| **5** | **Map and validate** — per generation unit, `irspecs map --mapper <the unit's mapper> --ir <spec-root>/irspecs --spec <document> --unit <unit id>` writes the unit's package from the IR (without units: `irspecs map --mapper dart-tom` writes the trio), and `irspecs emit --spec <document> --unit <unit id>` the standards the unit's emitters name ([`irspecs_ir.md`](irspecs_ir.md) §10); then `validate_codespecs.dart` over the trio, with `--ir` over the IR, and a second time over a regenerated IR (`--regenerated-ir`) | the trio and each unit's standards; a pass/fail verdict on the [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md) §6 checks | §6 |
+| **5** | **Map and validate** — per generation unit, `tomspecs :ir-map --mapper <the unit's mapper> --ir <spec-root>/irspecs --spec <document> --unit <unit id>` writes the unit's package from the IR (without units: `tomspecs :ir-map --mapper dart-tom` writes the trio), and `tomspecs :ir-emit --spec <document> --unit <unit id>` the standards the unit's emitters name ([`irspecs_ir.md`](irspecs_ir.md) §10); then `tomspecs :codespecs-validate` over the trio, with `--ir` over the IR, and a second time over a regenerated IR (`--regenerated-ir`) | the trio and each unit's standards; a pass/fail verdict on the [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md) §6 checks | §6 |
 
 The id ranges the four todo levels occupy — `csopen<n>`, `csproj<n>`,
 `csgen<n>`, `cs<area><n>` — and the prefix-iteration properties that make them
@@ -340,7 +340,7 @@ byte-identical over an unchanged document,
 so a diff in a regenerated trio is exactly the specification's diff. The IR is
 the record of a run and the trio is mapped from it, so a change is made in the
 IR (by re-running the step), never in the trio: hand-editing generated code
-destroys that property silently, and the next `irspecs map` overwrites it. This
+destroys that property silently, and the next `tomspecs :ir-map` overwrites it. This
 is why §6 check 31 compares two runs rather than trusting one.
 
 #### 1.1.3 The generated todo tree

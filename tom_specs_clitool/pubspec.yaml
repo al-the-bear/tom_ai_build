@@ -30,7 +30,7 @@ dependencies:
   # Base-first home of the analyzer-summary infrastructure: the grouped
   # packages.sum builder (GroupedPackageBundleBuilder) and the package-config
   # helpers (readPackageRoots / mergePackageRootsForDirs / SummaryConfigException)
-  # consumed by bin/summaries.dart. Published — version constraint, not a path.
+  # consumed by `tomspecs :editor-summaries`. Published — version constraint, not a path.
   # Floor 0.7.2: the summary cache is partitioned by Dart SDK version, not just
   # analyzer major, so a point-SDK bundle-format drift can't crash the cached
   # `.sum` reader (RCK26); and bundles are invalidated when a transitive
@@ -52,7 +52,7 @@ dependencies:
   # SpecModel and the generated code extends its SomNode/SomList facade base.
   tom_som_dart_runtime: ^1.12.0
   # The generated Dart facade's embedded object model and DocSpecs schemas —
-  # validate_spec checks a project's document against them, so a project needs
+  # tomspecs :spec-validate checks a project's document against them, so a project needs
   # no runner of its own and no second copy of the model.
   tom_som_dart_v0: ^1.12.0
   # The annotation library the model is written against. The validator reads

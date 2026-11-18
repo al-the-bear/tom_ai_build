@@ -193,7 +193,7 @@ First, Second
 
 The one thing not to do is renumber the surrounding `@SerializationOrder`
 values by hand. Insert the member in the right place and let
-`stamp_serialization_order.dart` renumber every member of the class from source
+`tomspecs :model-stamp-order` renumber every member of the class from source
 order — it is idempotent, and the SOM generator refuses to run past an unstamped
 member, so a forgotten stamp is a hard error rather than a silent misordering.
 
@@ -216,11 +216,11 @@ Three commands, in this order. The first two live in `tom_specs_clitool`:
 
 ```bash
 # 1. Renumber @SerializationOrder from source order (idempotent).
-dart run bin/stamp_serialization_order.dart
+dart run bin/tomspecs.dart :model-stamp-order
 
 # 2. Regenerate: the nine language packages, the metadata trees, the schemas,
 #    the ops registry, and the model freshness stamp.
-dart run bin/generate_som.dart
+dart run bin/tomspecs.dart :som-generate
 
 # 3. Refresh the committed outlines.
 ./tool/regenerate_outlines.sh
@@ -239,7 +239,7 @@ and knowing which one narrows the search:
 
 | Mistake | Reported by | When |
 |---------|-------------|------|
-| A member with no `@SerializationOrder` | `generate_som.dart` | Hard error; the generator refuses to run |
+| A member with no `@SerializationOrder` | `tomspecs :som-generate` | Hard error; the generator refuses to run |
 | A reachable section with no routing verdict | The validator, invariant `ROUTE-TOTAL` | Generation time |
 | A duplicate `@SectionId` | The validator, invariant `ID-UNIQUE` | Generation time |
 | A `@SectionId` on a list element class | The validator | Generation time |

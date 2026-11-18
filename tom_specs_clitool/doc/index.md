@@ -12,7 +12,7 @@ here cite it rather than restating it
 
 | Document | Covers |
 |----------|--------|
-| [generating.md](generating.md) | The canonical `generate_som.dart` run and its five phases, reading its output, stamping serialization order (and the two numbers that do not mean what they look like), the ad-hoc entry points, and the freshness stamp |
+| [generating.md](generating.md) | The canonical `tomspecs :som-generate` run and its five phases, reading its output, stamping serialization order (and the two numbers that do not mean what they look like), the ad-hoc entry points, and the freshness stamp |
 | [inspecting_the_model.md](inspecting_the_model.md) | The outliner, the JSON exporter and the summary builder: running them, **reading an outline's notation**, and refreshing the two committed assets |
 | [validating_a_document.md](validating_a_document.md) | `validate_spec`: checking a project's `*.docspecs.yaml` or rendered `*.md` on the three tiers (decode, DocSpecs schema, instance), reading its report, and the `--json` shape |
 | [process_checks.md](process_checks.md) | `spec_checks`: the process checks a project runs at a gate (answer import, mark acceptance, required fields, registers, coverage, authorization) and the project data they read from `<spec-root>/checks/` |
@@ -62,5 +62,5 @@ what it covers, what it ignores, and the gap it leaves — is in
 | [`tom_specs_model_rules.md`](../../tom_specs_model/doc/tom_specs_model_rules.md) | The model-authoring rules the validator enforces, and — in `tom_specs_model_rules.md` §11 — the outliner's rendering rules |
 | [`tom_specs_model_meta_schema.md`](../../tom_specs_model/doc/tom_specs_model_meta_schema.md) | The on-disk schema of the exported class graph |
 | [`som_toolchains.md`](../../tom_specs_model/doc/som_toolchains.md) | The per-language build and verify toolchains, and regenerating after an SDK change |
-| [`codespecs_derivation_contract.md`](../../tom_core_codespecs/doc/codespecs_derivation_contract.md) | The forty-seven checks `validate_codespecs.dart` runs |
+| [`codespecs_derivation_contract.md`](../../tom_core_codespecs/doc/codespecs_derivation_contract.md) | The forty-seven checks `tomspecs :codespecs-validate` runs |
 | [`tom_specs_model/doc/index.md`](../../tom_specs_model/doc/index.md) | The catalogue of the whole subject-matter tier, and the `§` citation convention |

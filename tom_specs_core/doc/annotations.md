@@ -431,7 +431,7 @@ within its class. It exists so that nine language emitters serialize members in
 the same order without each re-deriving it from source.
 
 It is **stamped, not hand-written**. `tom_specs_clitool`'s
-`stamp_serialization_order.dart` renumbers every member of every class from
+`tomspecs :model-stamp-order` renumbers every member of every class from
 source order, idempotently, and the SOM generator refuses to run past an
 unstamped member. So the workflow is: insert the new member where it belongs in
 the source, then re-stamp — never renumber by hand.
@@ -477,7 +477,7 @@ generation time:
 | A declared schema key the generator never emits | The same test, from the other side | Test failure naming the key |
 | `@DetailedIn` with no `@MapsTo` ancestor | `tom_specs_clitool`'s validator | A `tom_specs_model_rules.md` §10.2 structural-invariant violation |
 | A section with none of the three routing verdicts | The same validator, invariant `ROUTE-TOTAL` | A violation naming the section |
-| An unstamped `@SerializationOrder` | `generate_som.dart`, before emitting | A hard error; the generator refuses to run |
+| An unstamped `@SerializationOrder` | `tomspecs :som-generate`, before emitting | A hard error; the generator refuses to run |
 | A `@Case` bound to a constant the discriminator enum lacks | The validator, then `validateDocument` | A one-of violation |
 | Content violating `@MinLength` / `@PatternCheck` / … | Each runtime's `validateDocument` | An instance-tier validation error |
 

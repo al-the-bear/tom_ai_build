@@ -28,7 +28,7 @@ readers get wrong. So every step the sample prints is marked:
 | 1 | **[MECHANICAL]** | The starting prompt's quality gate (`codespecs_prompt.md` §4) |
 | 2 | **[MECHANICAL]** | The extract generator — one bounded, cited extract per area |
 | 3 | **[JUDGMENT]** | The authoring agent — one prompt pass per area, writing the IR the Dart is mapped from |
-| 4 | **[MECHANICAL]** | `validate_codespecs.dart` over the emitted trio |
+| 4 | **[MECHANICAL]** | `tomspecs :codespecs-validate` over the emitted trio |
 
 **Stages 1, 2 and 4 are programs.** Given the same document they produce the
 same answer every time, and none of them writes a line of Dart.
@@ -82,7 +82,7 @@ and still yields no code, because its shared wire DTO is derived from server
 operations this document never specifies. Emptiness and non-emptiness are both
 inputs to a verdict, not verdicts.
 
-**Stage 4** shows `validate_codespecs.dart` run over the trio twice — once
+**Stage 4** shows `tomspecs :codespecs-validate` run over the trio twice — once
 without `--extracts` and once with it. Four questions cannot be answered from
 emitted code alone, and each brings its own corroborating input; when one is
 absent the tool **names on stdout the checks it left unrun**, so a skipped check
@@ -100,7 +100,7 @@ stdout.
 So stage 4's output is recorded in `codespec/validation_report.txt`, and
 `tool/validate.sh` is what keeps the record honest: it re-runs both invocations
 and fails if the file has gone stale. Before them it maps the IR —
-`irspecs map --mapper dart-tom --ir codespec/irspecs`, into
+`tomspecs :ir-map --mapper dart-tom --ir codespec/irspecs`, into
 `build/irspecs_mapped/` — and fails unless every Dart file equals the
 committed trio's byte for byte: the trio is what the agent's IR maps to
 (`codespecs_mapping.md` §1.1.2 stage 5). The second invocation is also recorded in

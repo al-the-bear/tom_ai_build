@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Sample (b) — GENERIC in-memory document access (som_multiplatform_spec_model.md §6).
 
-HAND-AUTHORED — preserved across ``generate_som`` runs.
+HAND-AUTHORED — preserved across ``tomspecs :som-generate`` runs.
 
 Demonstrates editing the *same* document shape as sample (a) using ONLY the
 generic ``tom_som_runtime`` — string paths, no generated typed classes. This is

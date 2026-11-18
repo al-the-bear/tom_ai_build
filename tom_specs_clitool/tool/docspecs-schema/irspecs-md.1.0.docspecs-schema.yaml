@@ -1,7 +1,7 @@
 # IR Specs Markdown Schema v1.0
 #
 # The Markdown rendering of an IR Specs folder (`irspecs_ir.md` §10.3), written
-# by `irspecs emit --standard markdown`: one document per IR document
+# by `tomspecs :ir-emit --standard markdown`: one document per IR document
 # (`<CE-CODE>_<canonical id>.md`, `package.md`) and `index.md`. Generated and
 # read-only: the IR (`*.ir.yaml`) stays the source.
 #

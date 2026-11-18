@@ -2,7 +2,7 @@
 
 Runnable samples covering the access paths to a TomSpecs Spec Object Model
 document (`som_multiplatform_spec_model.md` §6). They are **hand-authored** and preserved
-across `generate_som` regeneration (the generator only rewrites `lib/`, `meta/`,
+across `tomspecs :som-generate` regeneration (the generator only rewrites `lib/`, `meta/`,
 `schemas/` and `pubspec.yaml`).
 
 Run each from this package directory (`tom_som_dart_v0`):

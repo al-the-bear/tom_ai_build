@@ -25,7 +25,7 @@ and what gets emitted per language is
 
 ## Overview
 
-One command does the whole job. `generate_som.dart` is the **canonical**
+One command does the whole job. `:som-generate` is the **canonical**
 regeneration: it stamps, emits the ops registry, generates all nine language
 projects with their metadata and schemas, writes each package's packaging docs,
 and finally records the model fingerprint the freshness test checks against.
@@ -45,12 +45,12 @@ and commit the diff" a safe instruction.
 cd tom_ai/ai_build/tom_specs_clitool
 
 # 1. After any model edit: re-stamp, regenerate, re-outline.
-dart run bin/stamp_serialization_order.dart --package ../tom_specs_model
-dart run bin/generate_som.dart
+dart run bin/tomspecs.dart :model-stamp-order --package ../tom_specs_model
+dart run bin/tomspecs.dart :som-generate
 ./tool/regenerate_outlines.sh
 ```
 
-Step 1 is optional in practice — `generate_som.dart` re-stamps as its first act
+Step 1 is optional in practice — `:som-generate` re-stamps as its first act
 — but running it alone is how you check what a model edit did before committing
 to a full generation.
 
@@ -58,7 +58,7 @@ to a full generation.
 
 ### The canonical regeneration
 
-`generate_som.dart` runs five phases in order:
+`:som-generate` runs five phases in order:
 
 | Phase | Produces |
 |-------|----------|
@@ -127,7 +127,7 @@ unstamped member, so a forgotten stamp is a hard error rather than a silent
 misordering.
 
 ```bash
-dart run bin/stamp_serialization_order.dart --package ../tom_specs_model --dry-run
+dart run bin/tomspecs.dart :model-stamp-order --package ../tom_specs_model --dry-run
 ```
 
 ```
@@ -157,10 +157,10 @@ one only when you know why the canonical run is not what you want.
 
 | Entry point | Produces | Reach for it when |
 |-------------|----------|-------------------|
-| `spec_ops.dart` | The `SpecClassOps` registry alone | Writing it somewhere else (`--output`), or refreshing it against a given model without a nine-language run |
-| `docspecs_schema.dart` | The DocSpecs schema tree for one model package | Emitting a schema into a non-default `--out-dir`, stamped with a specific `--version` / `--label` |
-| `docspecs_yaml_schema.dart` | The YAML schemas | Same, for the other artefact — it is a separate entry point because the two emit different things from different inputs |
-| `codespecs_areas.dart` | The 27-area CodeSpecs catalogue JSON | Re-transcribing it after a mapping edit, or verifying the committed file |
+| `:model-spec-ops` | The `SpecClassOps` registry alone | Writing it somewhere else (`--output`), or refreshing it against a given model without a nine-language run |
+| `:schema-docspecs` | The DocSpecs schema tree for one model package | Emitting a schema into a non-default `--out-dir`, stamped with a specific `--version` / `--label` |
+| `:schema-docspecs-yaml` | The YAML schemas | Same, for the other artefact — it is a separate entry point because the two emit different things from different inputs |
+| `:codespecs-areas` | The 27-area CodeSpecs catalogue JSON | Re-transcribing it after a mapping edit, or verifying the committed file |
 
 `codespecs_areas.dart --check` verifies without writing, which is what the test
 suite runs:
@@ -172,7 +172,7 @@ OK — up to date ../tom_specs_model/generated-doc/codespecs/codespecs_areas.jso
 
 ## The freshness stamp
 
-`generate_som.dart` writes `tool/model_surface.stamp.json` from a fingerprint of
+`:som-generate` writes `tool/model_surface.stamp.json` from a fingerprint of
 the model **source**, and `test/model_freshness_test.dart` recomputes it in the
 default `dart test` run. So a model edit that never reached the nine language
 packages fails a test rather than shipping.
@@ -211,7 +211,7 @@ next test run red for the wrong reason.
 | A model member with no `@SerializationOrder` | Hard error before any emission; the generator refuses to run |
 | A model edit with no regeneration | `model_freshness_test.dart` fails in the default suite |
 | A `@SectionId` collision or other `tom_specs_model_rules.md` §10.2 invariant breach | The static validator reports it at generation time |
-| A missing `--package` on `docspecs_schema.dart` | The `mandatory` option is reported and usage printed |
+| A missing `--package` on `:schema-docspecs` | The `mandatory` option is reported and usage printed |
 | The Dart facade regenerated | A note that `tom_spec_engine`'s bridges are stale — regenerate them |
 | `codespecs_areas.dart --check` against a stale file | Non-zero exit naming the difference |
 
@@ -221,7 +221,7 @@ impossible.
 
 ## Best Practices
 
-- **Run the canonical `generate_som.dart`, not a subset.** The ad-hoc entry
+- **Run the canonical `:som-generate`, not a subset.** The ad-hoc entry
   points produce exactly what a stale package looks like.
 - **Insert, then stamp.** Never renumber `@SerializationOrder` by hand.
 - **Read `files changed`, ignore `members stamped`.** Only the first describes a

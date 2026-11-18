@@ -247,7 +247,7 @@ comes from one of two places:
 | Mistake | Caught by | When |
 |---------|-----------|------|
 | A value that is not a member of the catalogue | The **Dart compiler** | Compile time |
-| A per-kind slot filled that the head value does not permit | `validate_codespecs.dart` | Generation time |
+| A per-kind slot filled that the head value does not permit | `tomspecs :codespecs-validate` | Generation time |
 | A required head argument omitted (`@CsAuthorize.requirement`) | The **Dart compiler** | Compile time |
 | A `tom_core` catalogue grown without its local mirror | The validator's mirror check | Generation time |
 

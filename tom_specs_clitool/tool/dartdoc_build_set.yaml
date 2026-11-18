@@ -1,10 +1,10 @@
 # The packages whose `dart doc` build must be silent, and whose doc-comment
-# links must land in packages they chose: bin/check_dartdoc_build.dart and
+# links must land in packages they chose: `tomspecs :gate-dartdoc` and
 # test/dartdoc_build_test.dart.
 #
 # A package joins only once it builds silent: adding one with a backlog would
 # pin the backlog rather than fix it. Survey a candidate first with
-#   dart run bin/check_dartdoc_build.dart --package tom_ai/ai_build/<package>
+#   dart run bin/tomspecs.dart :gate-dartdoc --package tom_ai/ai_build/<package>
 #
 # Paths are container-root-relative.
 #

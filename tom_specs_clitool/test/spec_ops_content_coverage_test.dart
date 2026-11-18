@@ -95,7 +95,7 @@ void main() {
             'SpecClassOps, so the engine cannot snapshot or serialize them:\n'
             '${missing.take(20).join('\n')}\n'
             'Regenerate: cd tom_specs_clitool && '
-            'dart run bin/generate_som.dart',
+            'dart run bin/tomspecs.dart :som-generate',
       );
     });
 
