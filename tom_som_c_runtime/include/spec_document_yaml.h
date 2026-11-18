@@ -199,4 +199,19 @@ char *spec_yaml_dedup_empty_lines(const char *value);
 void spec_yaml_write_scalar(SomBuf *out, size_t key_indent, const char *key,
                             const char *value);
 
+/* Writes a document's header into `out` (TS `writeHeader`): the header
+ * comment, the `version:` line, and the `modelVersion:` stamp when
+ * `model_version` is neither NULL nor empty. */
+void spec_yaml_write_header(SomBuf *out, const char *model_version);
+
+/* Returns `key` JSON-quoted (TS `yamlKey`): a valid YAML flow scalar that
+ * quotes and escapes any path or field name. Owned result (free()). */
+char *spec_yaml_key(const char *key);
+
+/* A review scalar in the form that reads back as the same value and type (TS
+ * `reviewScalar`, SOM §12.5): `null`, `true` / `false`, an integer in decimal,
+ * a float in JavaScript's Number layout with `.0` on a whole value, and
+ * `.nan` / `.inf` / `-.inf`; a string verbatim. Owned result (free()). */
+char *spec_yaml_review_scalar(const YamlValue *v);
+
 #endif /* SPEC_DOCUMENT_YAML_H */

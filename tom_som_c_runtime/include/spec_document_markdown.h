@@ -122,6 +122,17 @@ void spec_markdown_fence_feed(SpecMarkdownFenceTracker *t, const char *line);
  * `Demo Item`. Owned result. */
 char *spec_markdown_title_case(const char *name);
 
+/* The `codeSpec="…"` value of a heading-comment key=value region
+ * (codespecs_mapping.md §9.2; TS `SpecDocumentMarkdown.codeSpecOf`):
+ * double-quoted, single-quoted or bare, trimmed; "" when the region has no
+ * `codeSpec` key. Owned result (free()). */
+char *spec_markdown_code_spec_of(const char *region);
+
+/* The `units="…"` value of a heading-comment key=value region (SOM §11.2; TS
+ * `SpecDocumentMarkdown.unitsOf`), with the same quoting; the key must start
+ * the region or follow whitespace. "" when absent. Owned result (free()). */
+char *spec_markdown_units_of(const char *region);
+
 /* Derives the DocSpecs schema id of a `@Document` name (SOM §11.1):
  * `Demo Document` → `demo-document`. Owned result. */
 char *spec_markdown_kebab_case(const char *title);

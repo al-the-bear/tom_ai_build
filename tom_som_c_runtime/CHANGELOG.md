@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- Public, as TS exports them; each header states who owns the result:
+  `spec_serialization_order_order_key` (TS `orderKey`; a `free()`-able array),
+  `spec_yaml_write_header`, `spec_yaml_key`, `spec_yaml_review_scalar`
+  (`write_header` / `review_scalar` were `static`),
+  `spec_markdown_code_spec_of` / `spec_markdown_units_of` (were the `static`
+  `md_code_spec_of` / `md_units_of`), `docspecs_document_all_sections` (TS
+  `allSections`; a `free()`-able array of borrowed sections), and the
+  borrowing reflection lookups `spec_reflection_roots`, `_classes`,
+  `_class_named`, `_fields_of`, `_annotations_of`, `_field_annotations`.
+- `SpecModel.classes_in_order`: the classes in the meta-data's order, which
+  `spec_reflection_classes` returns (TS and Dart `classes`); `classes` stays
+  sorted by name for lookup.
+- `tests/public_helpers_test.c` (37 checks) covers the above.
 - Typed values follow the canonical TypeScript reading (tspubnondart20): `som_parse_int` / `som_parse_double` / `som_parse_num` trim the text and refuse NaN, Infinity, hex, digit separators and literals overflowing to infinity (`1e400`); `som_format_double` lays out 1e3 as `1000.0`.
 - `som_list_add_content_with_id(list, content, section_id, out_item_path, err)`: the
   explicit-id form of `som_list_add_content`, as TS `addContent(content, sectionId)`.

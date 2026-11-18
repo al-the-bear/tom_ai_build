@@ -67,6 +67,8 @@ void spec_yaml_contents_free(SpecYamlContents *c) {
 /* js_json_string / yaml_key — JSON.stringify-compatible quoting. */
 static char *js_json_string(const char *s) { return som_json_encode_str(s); }
 
+char *spec_yaml_key(const char *key) { return js_json_string(key); }
+
 char *spec_yaml_node_key(const SomMetaNode *node) {
   const char *name =
       node->member_name[0] != '\0' ? node->member_name : node->class_name;
@@ -558,7 +560,7 @@ void spec_yaml_write_scalar(SomBuf *out, size_t key_indent, const char *key,
 
 /* writeHeader: the file header comment + `version:` line, and the optional
  * `modelVersion:` stamp when non-empty. */
-static void write_header(SomBuf *out, const char *model_version) {
+void spec_yaml_write_header(SomBuf *out, const char *model_version) {
   som_buf_puts(out,
                "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\n");
   som_buf_puts(out, "version: ");
@@ -1248,7 +1250,7 @@ char *encode_yaml_with_review(const SpecDocument *document,
                               const YamlValue *review, char **err) {
   SomBuf out;
   som_buf_init(&out);
-  write_header(&out, model_version);
+  spec_yaml_write_header(&out, model_version);
   YamlEncoder e;
   encoder_init(&e, document);
   char *body = NULL;
@@ -2160,7 +2162,7 @@ static void write_review_json(SomBuf *b, const YamlValue *v) {
  * value in fixed notation) except that the non-finite values take their YAML
  * spellings `.nan`, `.inf` and `-.inf` (`Infinity` would read back as a
  * string). A string is returned verbatim. Owned. */
-static char *review_scalar(const YamlValue *v) {
+char *spec_yaml_review_scalar(const YamlValue *v) {
   if (v->type == YAML_FLOAT) {
     double d = v->as.real;
     if (d != d) {
@@ -2238,7 +2240,7 @@ static void write_review_value(SomBuf *b, size_t indent,
     write_review_json(b, v);
   } else {
     /* bool / int / float, or a plain-safe identifier string. */
-    char *t = review_scalar(v);
+    char *t = spec_yaml_review_scalar(v);
     som_buf_puts(b, t);
     free(t);
   }

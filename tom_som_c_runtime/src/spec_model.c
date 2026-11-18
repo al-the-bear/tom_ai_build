@@ -560,12 +560,14 @@ static void populate_model(SpecModel *m, const SomJson *root) {
     size_t cn = classes->as.object.len;
     if (cn > 0) {
       m->classes = (SpecClassEntry *)calloc(cn, sizeof(SpecClassEntry));
+      m->classes_in_order = (const SpecClass **)calloc(cn, sizeof(SpecClass *));
       for (size_t i = 0; i < cn; i++) {
         const SomJsonMember *mem = &classes->as.object.members[i];
         SpecClass *cls = (SpecClass *)calloc(1, sizeof(SpecClass));
         class_from_json(mem->key, mem->value, cls);
         m->classes[i].name = som_strdup(mem->key);
         m->classes[i].cls = cls;
+        m->classes_in_order[i] = cls;
       }
       m->classes_len = cn;
       qsort(m->classes, cn, sizeof(SpecClassEntry), class_entry_cmp);
@@ -681,6 +683,7 @@ void spec_model_free(SpecModel *m) {
     class_free(m->classes[i].cls);
   }
   free(m->classes);
+  free((void *)m->classes_in_order);
   free(m->model_version_label);
   free(m->container_root);
   if (m->source != NULL) {

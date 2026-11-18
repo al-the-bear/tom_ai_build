@@ -724,6 +724,36 @@ DocSpecsDocument *docspecs_parse_document(const char *text) {
   return doc;
 }
 
+static size_t docspecs_count_sections(DocSpecsSection *const *list, size_t len) {
+  size_t n = len;
+  for (size_t i = 0; i < len; i++) {
+    n += docspecs_count_sections(list[i]->children, list[i]->children_len);
+  }
+  return n;
+}
+
+static void docspecs_collect_sections(DocSpecsSection *const *list, size_t len,
+                                      const DocSpecsSection **out, size_t *at) {
+  for (size_t i = 0; i < len; i++) {
+    out[(*at)++] = list[i];
+    docspecs_collect_sections(list[i]->children, list[i]->children_len, out, at);
+  }
+}
+
+const DocSpecsSection **docspecs_document_all_sections(const DocSpecsDocument *doc,
+                                                       size_t *out_len) {
+  size_t n = docspecs_count_sections(doc->sections, doc->sections_len);
+  *out_len = n;
+  if (n == 0) {
+    return NULL;
+  }
+  const DocSpecsSection **out =
+      (const DocSpecsSection **)malloc(n * sizeof(*out));
+  size_t at = 0;
+  docspecs_collect_sections(doc->sections, doc->sections_len, out, &at);
+  return out;
+}
+
 void docspecs_document_free(DocSpecsDocument *doc) {
   if (doc == NULL) {
     return;

@@ -125,6 +125,19 @@ static void order_key(const SpecSerializationOrder *o, const char *path,
 
 /* Reproduces the Rust `compare_order_keys` total order: element-wise on the
  * shared prefix, then by length, then ties break on the path string. */
+long long *spec_serialization_order_order_key(const SpecSerializationOrder *o,
+                                                const char *path,
+                                                size_t *out_len) {
+  I64Vec key;
+  order_key(o, path, &key);
+  *out_len = key.len;
+  if (key.len == 0) {
+    i64vec_free(&key);
+    return NULL;
+  }
+  return key.data; /* the caller owns the buffer and frees it with free() */
+}
+
 static int compare_order_keys(const I64Vec *a, const char *a_path,
                               const I64Vec *b, const char *b_path) {
   size_t n = a->len < b->len ? a->len : b->len;

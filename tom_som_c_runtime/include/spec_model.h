@@ -241,6 +241,10 @@ typedef struct {
   size_t roots_len;
   SpecClassEntry *classes; /* sorted by name (binary-searchable) */
   size_t classes_len;
+  /* The same classes in the order the meta-data lists them (TS and Dart
+   * `model.classes`); `classes_len` entries. The array is owned, the classes
+   * are the ones `classes` owns. */
+  const SpecClass **classes_in_order;
   long long model_version;
   char *model_version_label;
   /* Generation stamp. Every key is optional — a pre-stamp snapshot leaves the

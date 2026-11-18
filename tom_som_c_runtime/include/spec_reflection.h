@@ -53,6 +53,41 @@ SpecReflection spec_reflection_make(const SpecModel *model);
 const char *spec_reflection_root_segment(const SpecRoot *root);
 const char *spec_reflection_field_segment(const SpecField *field);
 
+/* ---- lookups (TS `SpecReflection.roots` / `classes` / `classNamed` /
+ * `fieldsOf` / `annotationsOf` / `fieldAnnotations`) ----------------------
+ *
+ * Every result is borrowed from the model: nothing is allocated, nothing is
+ * freed by the caller, and every pointer lives as long as the model. A
+ * lookup that finds nothing returns NULL with `*out_len` 0. */
+
+/* The model's document roots, in declaration order. */
+const SpecRoot *spec_reflection_roots(const SpecReflection *r, size_t *out_len);
+
+/* Every class of the model, in the order the meta-data lists them (TS and
+ * Dart `classes`). */
+const SpecClass *const *spec_reflection_classes(const SpecReflection *r,
+                                                size_t *out_len);
+
+/* The class named `name`, or NULL (also for a NULL `name`). */
+const SpecClass *spec_reflection_class_named(const SpecReflection *r,
+                                             const char *name);
+
+/* The fields of the class named `class_name`, in declaration order. */
+const SpecField *spec_reflection_fields_of(const SpecReflection *r,
+                                           const char *class_name,
+                                           size_t *out_len);
+
+/* The class-level annotations of the class named `class_name`. */
+const SpecAnnotation *spec_reflection_annotations_of(const SpecReflection *r,
+                                                     const char *class_name,
+                                                     size_t *out_len);
+
+/* The annotations of the field `field_name` of the class `class_name`. */
+const SpecAnnotation *spec_reflection_field_annotations(const SpecReflection *r,
+                                                        const char *class_name,
+                                                        const char *field_name,
+                                                        size_t *out_len);
+
 /* Returns the root whose segment matches `segment`, or NULL. */
 const SpecRoot *spec_reflection_root_for_segment(const SpecReflection *r,
                                                  const char *segment);

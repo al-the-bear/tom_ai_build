@@ -305,7 +305,7 @@ static char *md_key_value_of(const char *region, const char *key,
  * `codeSpec` value of a heading-comment key=value region
  * (codespecs_mapping.md §9.2), mirroring the tom_doc_scanner key=value
  * grammar. */
-static char *md_code_spec_of(const char *region) {
+char *spec_markdown_code_spec_of(const char *region) {
   return md_key_value_of(region, "codeSpec=", false);
 }
 
@@ -313,7 +313,7 @@ static char *md_code_spec_of(const char *region) {
  * `units` value of a heading-comment key=value region (SOM §11.2). The key
  * must start the region or follow whitespace, so a `units=` inside a quoted
  * codeSpec value is not read as the key. */
-static char *md_units_of(const char *region) {
+char *spec_markdown_units_of(const char *region) {
   return md_key_value_of(region, "units=", true);
 }
 
@@ -2527,9 +2527,9 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
     *w = '\0';
   }
   /* codespecs_mapping.md §9.2: the optional key=value region (group 2) carries the codeSpec. */
-  char *code_spec = md_code_spec_of(region);
+  char *code_spec = spec_markdown_code_spec_of(region);
   /* SOM §11.2: the same region may carry the section's `units`. */
-  char *units = md_units_of(region);
+  char *units = spec_markdown_units_of(region);
   free(region);
   p->heading_units = units;
 

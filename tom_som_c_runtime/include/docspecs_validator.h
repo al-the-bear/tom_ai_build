@@ -118,6 +118,15 @@ DocSpecsDocument *docspecs_parse_document(const char *text);
 
 void docspecs_document_free(DocSpecsDocument *doc);
 
+/* Every section of `doc` in document order — each section followed by its
+ * descendants, depth first (TS `DocSpecsDocument.allSections`).
+ *
+ * Returns a newly allocated array of `*out_len` pointers, which the caller
+ * frees with free(); the sections themselves stay owned by `doc` and live as
+ * long as it does. NULL (and `*out_len` 0) for a document without sections. */
+const DocSpecsSection **docspecs_document_all_sections(const DocSpecsDocument *doc,
+                                                       size_t *out_len);
+
 /* The DocSpecs id transform: every run of non-alphanumeric/underscore
  * characters becomes a single `_`. Owned result. */
 char *docspecs_id_transform(const char *id);

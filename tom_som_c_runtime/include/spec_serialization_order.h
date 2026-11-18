@@ -31,6 +31,17 @@ typedef struct {
 
 SpecSerializationOrder spec_serialization_order_make(const SpecModel *model);
 
+/* The member-order tuple of `path` (TS and Dart `orderKey`): one entry per
+ * field crossed — its `@SerializationOrder`, or
+ * SPEC_SERIALIZATION_UNORDERED_FALLBACK — plus, for a list item, its numeric
+ * sequence. A path that does not resolve has an empty tuple.
+ *
+ * Returns a newly allocated array of `*out_len` entries, which the caller
+ * frees with free(); NULL (and `*out_len` 0) for an empty tuple. */
+long long *spec_serialization_order_order_key(const SpecSerializationOrder *o,
+                                                const char *path,
+                                                size_t *out_len);
+
 /* Orders `paths` by their member-order tuple (lexicographically), breaking ties
  * by the path string. Writes the ordered copy into `out` (init by callee). */
 void spec_serialization_order_paths(const SpecSerializationOrder *o,

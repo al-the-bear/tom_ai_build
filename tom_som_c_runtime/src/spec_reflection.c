@@ -47,6 +47,52 @@ SpecReflection spec_reflection_make(const SpecModel *model) {
   return r;
 }
 
+const SpecRoot *spec_reflection_roots(const SpecReflection *r, size_t *out_len) {
+  *out_len = r->model->roots_len;
+  return r->model->roots_len == 0 ? NULL : r->model->roots;
+}
+
+const SpecClass *const *spec_reflection_classes(const SpecReflection *r,
+                                                size_t *out_len) {
+  *out_len = r->model->classes_len;
+  return r->model->classes_len == 0 ? NULL : r->model->classes_in_order;
+}
+
+const SpecClass *spec_reflection_class_named(const SpecReflection *r,
+                                             const char *name) {
+  if (name == NULL) {
+    return NULL;
+  }
+  return spec_model_class_named(r->model, name);
+}
+
+const SpecField *spec_reflection_fields_of(const SpecReflection *r,
+                                           const char *class_name,
+                                           size_t *out_len) {
+  const SpecClass *cls = spec_reflection_class_named(r, class_name);
+  *out_len = cls == NULL ? 0 : cls->fields_len;
+  return *out_len == 0 ? NULL : cls->fields;
+}
+
+const SpecAnnotation *spec_reflection_annotations_of(const SpecReflection *r,
+                                                     const char *class_name,
+                                                     size_t *out_len) {
+  const SpecClass *cls = spec_reflection_class_named(r, class_name);
+  *out_len = cls == NULL ? 0 : cls->annotations.len;
+  return *out_len == 0 ? NULL : cls->annotations.items;
+}
+
+const SpecAnnotation *spec_reflection_field_annotations(const SpecReflection *r,
+                                                        const char *class_name,
+                                                        const char *field_name,
+                                                        size_t *out_len) {
+  const SpecClass *cls = spec_reflection_class_named(r, class_name);
+  const SpecField *f =
+      cls == NULL || field_name == NULL ? NULL : spec_class_field_named(cls, field_name);
+  *out_len = f == NULL ? 0 : f->annotations.len;
+  return *out_len == 0 ? NULL : f->annotations.items;
+}
+
 const char *spec_reflection_root_segment(const SpecRoot *root) {
   if (root->section_id != NULL && root->section_id[0] != '\0') {
     return root->section_id;
