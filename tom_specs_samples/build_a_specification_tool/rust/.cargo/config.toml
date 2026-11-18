@@ -1,0 +1,5 @@
+# One target directory for every Rust port of the samples, so the generated
+# facade (tom_som_rust_v0, ~22 MB of source) is compiled once, not per port.
+# Relative to this folder's parent: <tom_specs_samples>/target/rust.
+[build]
+target-dir = "../../target/rust"

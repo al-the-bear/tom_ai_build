@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- `SPEC_VALIDATION_ALL_CODES`: every `SPEC_VALIDATION_CODE_*` constant, in
+  declaration order — the enumerable vocabulary Dart has from its enum, as
+  `DOCSPECS_ALL_RULES` is for the §14 rules. A test reads the constants and
+  fails when a code is missing from the list.
 - `som_format_double` writes a finite double in the one layout of every
   runtime (`1e-7`, `1e+21`, `1.5e-300`; it wrote them in full fixed notation)
   (`typed_value_cases.json`).

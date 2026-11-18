@@ -56,6 +56,14 @@ while [ $# -gt 0 ]; do
   esac
 done
 
+# rustup installs cargo into ~/.cargo/bin and wires it into the interactive
+# shell profile only, so a non-interactive run would skip the Rust ports on a
+# host that can run them. Look there, as the SOM suites driver does.
+if ! command -v cargo > /dev/null 2>&1 && [ -x "$HOME/.cargo/bin/cargo" ]; then
+  PATH="$HOME/.cargo/bin:$PATH"
+  export PATH
+fi
+
 # Go is often on the interactive shell's PATH only: Homebrew's
 # `/opt/homebrew/bin` (macOS) and the official tarball under `/usr/local/go` or
 # `~/.local/go` (Linux). A skip that only reflects that quirk would report the Go
@@ -213,6 +221,19 @@ run_one() {
         tail -n 15 "$log" | sed 's/^/             /'
         FAILED+=("$name"); return
       fi
+    fi
+  fi
+
+  # A Rust sample builds first, so a compile error is reported as one rather
+  # than as output that differs. Its crates are `path` dependencies on the
+  # checkout (the non-Dart runtimes are not published); every Rust port shares
+  # one target directory (`<sample>/rust/.cargo/config.toml`), so the generated
+  # facade crate is compiled once per run, not once per port.
+  if [ -f "$dir/Cargo.toml" ]; then
+    if ! (cd "$dir" && cargo build --quiet) > "$log" 2>&1; then
+      echo "  FAIL     $name — cargo build failed"
+      tail -n 15 "$log" | sed 's/^/             /'
+      FAILED+=("$name"); return
     fi
   fi
 

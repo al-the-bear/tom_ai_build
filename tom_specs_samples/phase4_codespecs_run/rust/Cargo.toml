@@ -1,0 +1,11 @@
+[package]
+name = "phase4_codespecs_run_rust"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# The non-Dart runtimes are not published to a registry (both crates keep
+# `publish = false`): the sample takes them from the checkout by path.
+[dependencies]
+tom_som_rust_runtime = { path = "../../../tom_som_rust_runtime" }
+tom_som_rust_v0 = { path = "../../../tom_som_rust_v0" }

@@ -7,7 +7,7 @@ trio.
 
 Ports of stages 1 and 2 (the gate and the extract generator):
 [`python/`](python/README.md), [`javascript/`](javascript/README.md),
-[`typescript/`](typescript/README.md), [`go/`](go/README.md).
+[`typescript/`](typescript/README.md), [`go/`](go/README.md), [`rust/`](rust/README.md).
 
 ```bash
 dart pub get
