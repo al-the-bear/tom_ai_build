@@ -158,7 +158,12 @@ run_one() {
       echo "  SKIP     $name — npm not on PATH"
       SKIPPED+=("$name"); return
     fi
-    cmd=(node index.js)
+    # A TypeScript sample (a tsconfig.json) runs what `npm run build` compiled.
+    if [ -f "$dir/tsconfig.json" ]; then
+      cmd=(node dist/index.js)
+    else
+      cmd=(node index.js)
+    fi
   else
     echo "  SKIP     $name — no recognised entry point (pubspec.yaml,"
     echo "                    main.py, go.mod, Cargo.toml or package.json)"
@@ -177,12 +182,22 @@ run_one() {
 
   # A Node sample installs its dependencies first — the non-Dart runtimes are
   # `file:` dependencies on the checkout, so this links them rather than
-  # fetching anything. Its failure is the sample's, like `dart pub get`'s.
+  # fetching them (a TypeScript sample also fetches its compiler, a
+  # devDependency). Its failure is the sample's, like `dart pub get`'s.
   if [ -f "$dir/package.json" ] && [ ! -f "$dir/pubspec.yaml" ]; then
     if ! (cd "$dir" && npm install --no-audit --no-fund) > "$log" 2>&1; then
       echo "  FAIL     $name — npm install failed"
       tail -n 15 "$log" | sed 's/^/             /'
       FAILED+=("$name"); return
+    fi
+    # A TypeScript sample builds the two packages it links (their dist/ is not
+    # committed) and compiles itself with tsc; a type error fails the sample.
+    if [ -f "$dir/tsconfig.json" ]; then
+      if ! (cd "$dir" && npm run build) > "$log" 2>&1; then
+        echo "  FAIL     $name — npm run build failed"
+        tail -n 15 "$log" | sed 's/^/             /'
+        FAILED+=("$name"); return
+      fi
     fi
   fi
 

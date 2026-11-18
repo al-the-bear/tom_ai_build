@@ -1,0 +1,24 @@
+{
+  "name": "tom_specs_sample_author_solution_blueprint_typescript",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TomSpecs sample author_solution_blueprint (TypeScript port).",
+  "license": "BSD-3-Clause",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build:packages": "npm --prefix ../../../tom_som_typescript_runtime install --no-audit --no-fund && npm --prefix ../../../tom_som_typescript_runtime run build && npm --prefix ../../../tom_som_typescript_v0 install --no-audit --no-fund && npm --prefix ../../../tom_som_typescript_v0 run build",
+    "build": "npm run build:packages && tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "tom_som_typescript_runtime": "file:../../../tom_som_typescript_runtime",
+    "tom_som_typescript_v0": "file:../../../tom_som_typescript_v0"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3",
+    "@types/node": "^22"
+  }
+}
