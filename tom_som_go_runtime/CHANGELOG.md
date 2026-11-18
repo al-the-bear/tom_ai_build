@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- `SomList.AddContentWithID(content, sectionID)`: the explicit-id form of
+  `AddContent`, as TS `addContent(content, sectionId)`.
+- `SomList.AddWithID` on a list without a `@SectionIdPattern` ignores the id and
+  appends plainly, as TS and Dart do; it used to store it.
+
 ## 1.12.0
 
 - No runtime change. Moves in lockstep with `tom_specs_model` 1.12.0 (an

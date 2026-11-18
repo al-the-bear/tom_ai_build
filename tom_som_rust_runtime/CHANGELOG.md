@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- `SomList::add_with_id` and `add_content_with_id` on a list without a
+  `@SectionIdPattern` ignore the id and append plainly, as TS and Dart do; they
+  used to store it.
+
 ## 1.12.0
 
 - No runtime change. Moves in lockstep with `tom_specs_model` 1.12.0 (an

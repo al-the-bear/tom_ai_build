@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- `som_list_add_content_with_id(list, content, section_id, out_item_path, err)`: the
+  explicit-id form of `som_list_add_content`, as TS `addContent(content, sectionId)`.
+- `som_list_add_with_id` on a list without a `@SectionIdPattern` ignores the id
+  and appends plainly, as TS and Dart do; it used to store it.
+
 ## 1.12.0
 
 - No runtime change. Moves in lockstep with `tom_specs_model` 1.12.0 (an
