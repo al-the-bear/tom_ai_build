@@ -28,7 +28,7 @@ use std::path::Path;
 
 use crate::json::Json;
 use crate::spec_codespecs_extract::{
-    yaml_string, CodeSpecsArea, CodeSpecsAreaCatalog, CodeSpecsExtract, CodeSpecsExtractEntry,
+    code_specs_yaml_string, CodeSpecsArea, CodeSpecsAreaCatalog, CodeSpecsExtract, CodeSpecsExtractEntry,
     CODE_SPECS_EXTRACT_FORMAT,
 };
 use crate::yaml::{yaml_parse_raw_scalars, YamlValue};
@@ -592,17 +592,17 @@ impl CodeSpecsGateRecord {
                 for g in &e.gaps {
                     b.push_str(&format!(
                         "        - sectionId: {}\n",
-                        yaml_string(&g.section_id)
+                        code_specs_yaml_string(&g.section_id)
                     ));
                     b.push_str(&format!(
                         "          required: {}\n",
-                        yaml_string(&g.required)
+                        code_specs_yaml_string(&g.required)
                     ));
-                    b.push_str(&format!("          carrier: {}\n", yaml_string(&g.carrier)));
+                    b.push_str(&format!("          carrier: {}\n", code_specs_yaml_string(&g.carrier)));
                 }
             }
             if let Some(n) = &e.note {
-                b.push_str(&format!("      note: {}\n", yaml_string(n)));
+                b.push_str(&format!("      note: {}\n", code_specs_yaml_string(n)));
             }
         }
         b

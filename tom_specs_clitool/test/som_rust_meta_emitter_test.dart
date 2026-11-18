@@ -221,7 +221,7 @@ fn main() {
 
     // (a) generated static tree == runtime bridge tree, field for field.
     let d = som::som_meta_node_diff(&generated.root, &bridge.root);
-    assert!(d.is_empty(), "generated tree != bridge tree: {}", d);
+    assert!(d.is_none(), "generated tree != bridge tree: {}", d.unwrap_or_default());
 
     // (b) dot-notation paths (SOM §8) — byte-identical to the other ports.
     let nav = meta::solution_blueprint_meta(&generated);

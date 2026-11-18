@@ -66,15 +66,14 @@ fn generated_trees_agree_with_bridge() {
 
     for entry in &roots {
         let tree = (entry.tree)();
-        let bridge = som::build_som_meta_tree(&model, entry.type_name)
-            .expect("build_som_meta_tree");
-        let diff = som::som_meta_node_diff(&tree.root, &bridge.root);
-        assert!(
-            diff.is_empty(),
-            "generated tree for {} disagrees with bridge:\n{}",
-            entry.type_name,
-            diff
-        );
+        let bridge =
+            som::build_som_meta_tree(&model, entry.type_name).expect("build_som_meta_tree");
+        if let Some(diff) = som::som_meta_node_diff(&tree.root, &bridge.root) {
+            panic!(
+                "generated tree for {} disagrees with bridge:\n{}",
+                entry.type_name, diff
+            );
+        }
     }
 }
 
@@ -168,10 +167,7 @@ fn dot_notation_surface() {
     let dot01 = meta::d01_current_landscape_assessment_meta(&tree01);
     assert_ne!(dot01.path(), "SBP", "second root shares the SBP segment");
     assert!(
-        same(
-            &dot01.meta().expect("d01 dot meta()"),
-            &tree01.root
-        ),
+        same(&dot01.meta().expect("d01 dot meta()"), &tree01.root),
         "second-root meta() != its tree root"
     );
 }

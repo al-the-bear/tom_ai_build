@@ -2,6 +2,22 @@
 
 ## Unreleased
 
+- Public and re-exported from the crate root, as TS exports them: `yaml_key`,
+  `write_scalar` and `write_header` (both appending to a `String`, like
+  `write_review_pass`), `review_scalar`, `format_yaml_float` (was
+  `review_float`), `SpecDocumentMarkdown::code_spec_of` / `units_of`, and
+  `code_specs_yaml_string` (was the crate-private `yaml_string`).
+- Re-exported from the crate root: `SPEC_PATH_SEPARATOR`, the
+  `SPEC_NODE_KIND_*` and `SPEC_FIELD_KIND_*` constants, `K_SECTION_ID_SLOT`,
+  `effective_list_item_section_id`, and all 21 `SPEC_VALIDATION_CODE_*`
+  values (9 were).
+- Breaking: `som_meta_node_diff` returns `Option<String>`, `None` when the
+  trees agree (TS `null`; it returned `""`). `som_meta_node_diff_at(a, b, at)`
+  starts the position at `at` instead of `<root>`.
+- Tests: `tests/exports.rs` (the surface above) and
+  `tests/codespecs_extract_directory.rs` (`CodeSpecsExtractSet::from_directory`
+  against `from_files` over the corpus scope cases).
+
 - Typed values follow the canonical (TypeScript) reading: `som_parse_int` /
   `som_parse_double` / `som_parse_num` trim the text and refuse NaN, Infinity,
   hexadecimal and digit separators (shared corpus `typed_value_cases.json`).

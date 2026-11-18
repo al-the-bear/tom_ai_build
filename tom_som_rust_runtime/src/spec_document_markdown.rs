@@ -324,6 +324,22 @@ pub(crate) fn md_headline_comment(rest: &str) -> Option<(&str, &str, &str)> {
     Some((id, region, title.trim_start_matches(is_go_space)))
 }
 
+impl SpecDocumentMarkdown<'_> {
+    /// The `codeSpec="…"` value of a heading-comment key=value region, trimmed;
+    /// the empty string when the region has no `codeSpec` key (TS
+    /// `SpecDocumentMarkdown.codeSpecOf`, codespecs_mapping.md §9.2).
+    pub fn code_spec_of(region: &str) -> String {
+        md_code_spec_of(region)
+    }
+
+    /// The `units="…"` value of a heading-comment key=value region, trimmed;
+    /// the empty string when the region has no `units` key (TS
+    /// `SpecDocumentMarkdown.unitsOf`, SOM §11.2).
+    pub fn units_of(region: &str) -> String {
+        md_units_of(region)
+    }
+}
+
 /// Extracts the `codeSpec="…"` value from a heading-comment key=value region
 /// (`mdCodeSpecRE`: `codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))`), the first
 /// matching group trimmed; the empty string when the region carries no

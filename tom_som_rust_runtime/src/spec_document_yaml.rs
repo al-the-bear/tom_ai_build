@@ -174,7 +174,7 @@ pub fn js_json_string(s: &str) -> String {
 
 /// Returns a safely-quoted mapping key. JSON strings are valid YAML flow
 /// scalars, so this both quotes and escapes any path/field name unambiguously.
-fn yaml_key(key: &str) -> String {
+pub fn yaml_key(key: &str) -> String {
     js_json_string(key)
 }
 
@@ -611,9 +611,32 @@ fn write_rendered(b: &mut YamlBuffer, key_indent: usize, rendered_key: &str, rep
     }
 }
 
+/// Appends `<indent><key>: <scalar>` to `out`, as the codec writes every
+/// scalar of a document: a self-verified block scalar, or a JSON-quoted
+/// fallback, with the key quoted by [`yaml_key`]. `key_indent` is the key's
+/// indent in spaces; block body lines are indented past it (TS `writeScalar`).
+pub fn write_scalar(out: &mut String, key_indent: usize, key: &str, value: &str) {
+    let mut b = YamlBuffer {
+        out: std::mem::take(out),
+    };
+    write_rendered(&mut b, key_indent, &yaml_key(key), &scalar_repr(value));
+    *out = b.out;
+}
+
+/// Appends a document's header to `out`: the header comment, the `version:`
+/// line, and the `modelVersion:` stamp when `model_version` is non-empty (TS
+/// `writeHeader`).
+pub fn write_header(out: &mut String, model_version: &str) {
+    let mut b = YamlBuffer {
+        out: std::mem::take(out),
+    };
+    write_header_to(&mut b, model_version);
+    *out = b.out;
+}
+
 /// Writes the file header comment + `version:` line, and the optional
 /// `modelVersion:` stamp when `model_version` is non-empty.
-fn write_header(b: &mut YamlBuffer, model_version: &str) {
+fn write_header_to(b: &mut YamlBuffer, model_version: &str) {
     b.writeln("# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.");
     b.writeln(&format!("version: {}", FORMAT_VERSION));
     if !model_version.is_empty() {
@@ -655,7 +678,7 @@ pub fn encode_yaml_with_review(
     review: Option<&YamlMap>,
 ) -> Result<String, SpecYamlError> {
     let mut b = YamlBuffer::new();
-    write_header(&mut b, model_version);
+    write_header_to(&mut b, model_version);
     YamlEncoder::new(document).write_document_pass(&mut b, tree)?;
     if let Some(review) = review {
         write_review_pass_to(&mut b, review);
@@ -674,7 +697,7 @@ pub fn encode_yaml_with_review(
 /// Scalars keep their YAML 1.2 type (SOM §12.5, review scalars; [`decode_yaml`]
 /// reads them with [`yaml_parse_typed`]): [`YamlValue::Null`] writes `null`,
 /// booleans `true`/`false`, integers in decimal, a [`YamlValue::Float`] in the
-/// form that reads back as the same float ([`review_float`]: `3.0`, `1e+300`,
+/// form that reads back as the same float ([`format_yaml_float`]: `3.0`, `1e+300`,
 /// `.nan`, `-.inf`). Identifier-like strings that are not a YAML word are
 /// written plain, any other string as a self-verified block scalar, so a
 /// string never reads back as another type. A nested map is written one level
@@ -753,13 +776,13 @@ fn is_yaml_word(s: &str) -> bool {
 
 /// A decoded null, bool or number as the review-pass writer prints it (SOM
 /// §12.5, review scalars): the form that reads back as the same value and
-/// type — integers in decimal, floats through [`review_float`].
-fn review_scalar(value: &YamlValue) -> String {
+/// type — integers in decimal, floats through [`format_yaml_float`].
+pub fn review_scalar(value: &YamlValue) -> String {
     match value {
         YamlValue::Null => "null".to_string(),
         YamlValue::Bool(v) => v.to_string(),
         YamlValue::Int(n) => n.to_string(),
-        YamlValue::Float(f) => review_float(*f),
+        YamlValue::Float(f) => format_yaml_float(*f),
         other => review_json(other),
     }
 }
@@ -774,7 +797,7 @@ fn review_scalar(value: &YamlValue) -> String {
 ///
 /// `{}` on an `f64` is shortest round-trip but never uses an exponent, so the
 /// digits are taken from `{:e}` and laid out here.
-pub fn review_float(x: f64) -> String {
+pub fn format_yaml_float(x: f64) -> String {
     if x.is_nan() {
         return ".nan".to_string();
     }
@@ -830,7 +853,7 @@ fn review_json(value: &YamlValue) -> String {
         YamlValue::Null => "null".to_string(),
         YamlValue::Bool(v) => v.to_string(),
         YamlValue::Int(n) => n.to_string(),
-        YamlValue::Float(f) => review_float(*f),
+        YamlValue::Float(f) => format_yaml_float(*f),
         YamlValue::Str(s) => js_json_string(s),
     }
 }

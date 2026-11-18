@@ -69,6 +69,7 @@ pub use spec_answers::{
     SpecAnswerKind, SpecAnswerRenderOptions,
 };
 pub use spec_codespecs_extract::{
+    code_specs_yaml_string,
     CodeSpecsArea, CodeSpecsAreaCatalog, CodeSpecsCarrier, CodeSpecsExtract,
     CodeSpecsExtractEntry, CodeSpecsExtractError, CodeSpecsExtractor, CodeSpecsFieldRef,
     CodeSpecsRequiredArgument, CodeSpecsRouting, CodeSpecsRoutingVerdict, CodeSpecsSlice,
@@ -99,6 +100,7 @@ pub use spec_document_markdown::{
     SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION,
 };
 pub use spec_document_yaml::{
+    format_yaml_float, review_scalar, write_header, write_scalar, yaml_key,
     decode_yaml, dedup_empty_lines, encode_yaml, encode_yaml_with_review, is_plain_yaml_scalar, js_json_string,
     node_key, plain_key, rekey_review, stale_review_paths, write_review_pass, SpecYamlContents,
     SpecYamlError, SpecYamlFormatException, FORMAT_VERSION,
@@ -115,8 +117,10 @@ pub use spec_meta::{
     SOM_META_KIND_SCALAR, SOM_META_KIND_SECTION,
 };
 pub use spec_meta_bridge::build_som_meta_tree;
-pub use spec_meta_diff::som_meta_node_diff;
+pub use spec_meta_diff::{som_meta_node_diff, som_meta_node_diff_at};
 pub use spec_model::{
+    SPEC_FIELD_KIND_COMPLEX, SPEC_FIELD_KIND_CONTENT, SPEC_FIELD_KIND_ENUM, SPEC_FIELD_KIND_FORM,
+    SPEC_FIELD_KIND_LIST, SPEC_FIELD_KIND_SCALAR, SPEC_FIELD_KIND_SECTION,
     annotation_named, code_spec_kind, follow_up_kind, no_artifact, parse_field_kind,
     parse_stamp_timestamp, som_model_version_string, strip_enum_prefix, FormFieldSpec, KindLink,
     NoArtifactLink, SpecAnnotation, SpecClass, SpecField, SpecModel, SpecModelStampCheck, SpecRoot,
@@ -126,6 +130,7 @@ pub use spec_node_creation::{
     check_add_node, SpecCreationCode, SpecCreationError, SpecNodeCreator,
 };
 pub use spec_paths::{
+    SPEC_PATH_SEPARATOR,
     list_item_path, spec_parent_path, spec_path_join, spec_path_segments, split_list_item_segment,
     ListItemSegment,
 };
@@ -133,7 +138,12 @@ pub use spec_query::{
     glob_matches, SpecNodeProjection, SpecQuery, SpecQueryCursor, SpecQueryEngine, SpecQueryMatch,
     SpecStateFilter,
 };
-pub use spec_reflection::{SpecReflection, SpecResolution};
+pub use spec_reflection::{
+    SpecReflection, SpecResolution, SPEC_NODE_KIND_COMPLEX, SPEC_NODE_KIND_CONTENT,
+    SPEC_NODE_KIND_ENUM_VALUE, SPEC_NODE_KIND_FORM, SPEC_NODE_KIND_LIST,
+    SPEC_NODE_KIND_LIST_ITEM_COMPLEX, SPEC_NODE_KIND_LIST_ITEM_SCALAR, SPEC_NODE_KIND_ROOT,
+    SPEC_NODE_KIND_SCALAR, SPEC_NODE_KIND_SECTION,
+};
 pub use spec_review_annotations::{
     apply_inline_marks_text, decide_all_marks_text, format_comment_block, format_conflict_block,
     format_question_block, is_review_member_id, is_review_time, mark_change_text,
@@ -152,6 +162,7 @@ pub use spec_review_merge::{
 };
 pub use spec_schema_validation::validate_spec_document;
 pub use spec_section_id::{
+    effective_list_item_section_id, K_SECTION_ID_SLOT,
     encode_two_letter_date, generate_list_item_section_id, is_collision, section_id_pattern_prefix,
     today_month_day, SpecSectionIdCollision, SpecSectionIdError,
 };
@@ -164,8 +175,14 @@ pub use spec_typed_values::{
 };
 pub use spec_validator::{
     validate_document, SpecValidationError, SPEC_VALIDATION_CODE_ANNOTATION_MALFORMED,
-    SPEC_VALIDATION_CODE_ANNOTATION_MISPLACED, SPEC_VALIDATION_CODE_DUPLICATE_ANNOTATION_ID,
-    SPEC_VALIDATION_CODE_DUPLICATE_UNIT_ID, SPEC_VALIDATION_CODE_UNITS_UNROUTED,
+    SPEC_VALIDATION_CODE_ANNOTATION_MISPLACED, SPEC_VALIDATION_CODE_COUNT_MISMATCH,
+    SPEC_VALIDATION_CODE_DANGLING_PATH, SPEC_VALIDATION_CODE_DANGLING_REFERENCE,
+    SPEC_VALIDATION_CODE_DERIVED_VALUE_MISMATCH, SPEC_VALIDATION_CODE_DUPLICATE_ANNOTATION_ID,
+    SPEC_VALIDATION_CODE_DUPLICATE_UNIT_ID, SPEC_VALIDATION_CODE_ENUM_VALUE_UNKNOWN,
+    SPEC_VALIDATION_CODE_KIND_MISMATCH, SPEC_VALIDATION_CODE_MIN_ITEMS,
+    SPEC_VALIDATION_CODE_MISSING_REQUIRED_FIELD, SPEC_VALIDATION_CODE_MULTIPLE_REFERENCES,
+    SPEC_VALIDATION_CODE_ONE_OF_CASE_MISMATCH, SPEC_VALIDATION_CODE_UNITS_UNROUTED,
     SPEC_VALIDATION_CODE_UNIT_AREA_MALFORMED, SPEC_VALIDATION_CODE_UNIT_BUILDS_NOTHING,
-    SPEC_VALIDATION_CODE_UNIT_EMITTER_UNKNOWN, SPEC_VALIDATION_CODE_UNKNOWN_UNIT,
+    SPEC_VALIDATION_CODE_UNIT_EMITTER_UNKNOWN, SPEC_VALIDATION_CODE_UNKNOWN_FORM_FIELD,
+    SPEC_VALIDATION_CODE_UNKNOWN_UNIT, SPEC_VALIDATION_CODE_VALUE_TYPE_MISMATCH,
 };

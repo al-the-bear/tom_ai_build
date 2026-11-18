@@ -863,17 +863,17 @@ impl CodeSpecsExtract {
         );
         writeln_to(
             &mut b,
-            &format!("  catalogSource: {}", yaml_string(&self.catalog_source)),
+            &format!("  catalogSource: {}", code_specs_yaml_string(&self.catalog_source)),
         );
         writeln_to(&mut b, "  area:");
-        writeln_to(&mut b, &format!("    code: {}", yaml_string(&self.area.code)));
+        writeln_to(&mut b, &format!("    code: {}", code_specs_yaml_string(&self.area.code)));
         writeln_to(
             &mut b,
-            &format!("    canonicalId: {}", yaml_string(&self.area.canonical_id)),
+            &format!("    canonicalId: {}", code_specs_yaml_string(&self.area.canonical_id)),
         );
         writeln_to(
             &mut b,
-            &format!("    part: {}", yaml_string(&self.area.kind_value())),
+            &format!("    part: {}", code_specs_yaml_string(&self.area.kind_value())),
         );
         writeln_to(
             &mut b,
@@ -884,13 +884,13 @@ impl CodeSpecsExtract {
         );
         writeln_to(
             &mut b,
-            &format!("    builtOn: {}", yaml_string(&self.area.built_on)),
+            &format!("    builtOn: {}", code_specs_yaml_string(&self.area.built_on)),
         );
         writeln_to(
             &mut b,
             &format!(
                 "    attributeSurface: {}",
-                yaml_string(&self.area.attribute_surface)
+                code_specs_yaml_string(&self.area.attribute_surface)
             ),
         );
         writeln_to(
@@ -918,7 +918,7 @@ impl CodeSpecsExtract {
         writeln_to(&mut b, "  document:");
         writeln_to(
             &mut b,
-            &format!("    root: {}", yaml_string(&self.document_root)),
+            &format!("    root: {}", code_specs_yaml_string(&self.document_root)),
         );
         writeln_to(
             &mut b,
@@ -932,7 +932,7 @@ impl CodeSpecsExtract {
         for e in &self.entries {
             writeln_to(
                 &mut b,
-                &format!("    - sectionId: {}", yaml_string(&e.section_id)),
+                &format!("    - sectionId: {}", code_specs_yaml_string(&e.section_id)),
             );
             writeln_to(
                 &mut b,
@@ -948,14 +948,14 @@ impl CodeSpecsExtract {
                     yaml_nullable_string(e.instance_id.as_deref())
                 ),
             );
-            writeln_to(&mut b, &format!("      path: {}", yaml_string(&e.path)));
+            writeln_to(&mut b, &format!("      path: {}", code_specs_yaml_string(&e.path)));
             writeln_to(
                 &mut b,
-                &format!("      className: {}", yaml_string(&e.class_name)),
+                &format!("      className: {}", code_specs_yaml_string(&e.class_name)),
             );
             writeln_to(
                 &mut b,
-                &format!("      fieldName: {}", yaml_string(&e.field_name)),
+                &format!("      fieldName: {}", code_specs_yaml_string(&e.field_name)),
             );
             writeln_to(
                 &mut b,
@@ -966,11 +966,11 @@ impl CodeSpecsExtract {
             );
             writeln_to(
                 &mut b,
-                &format!("      routedBy: {}", yaml_string(&e.routed_by)),
+                &format!("      routedBy: {}", code_specs_yaml_string(&e.routed_by)),
             );
             writeln_to(
                 &mut b,
-                &format!("      routedAt: {}", yaml_string(&e.routed_at)),
+                &format!("      routedAt: {}", code_specs_yaml_string(&e.routed_at)),
             );
             writeln_to(
                 &mut b,
@@ -985,7 +985,7 @@ impl CodeSpecsExtract {
                     &format!("      units: {}", yaml_string_list(&e.units)),
                 );
             }
-            writeln_to(&mut b, &format!("      value: {}", yaml_string(&e.value)));
+            writeln_to(&mut b, &format!("      value: {}", code_specs_yaml_string(&e.value)));
         }
         b
     }
@@ -1785,7 +1785,7 @@ fn writeln_to(b: &mut String, line: &str) {
 /// A JSON string literal, which is also a valid YAML 1.2 double-quoted scalar.
 /// Hand-written rather than delegated to a JSON encoder so the eight ports have
 /// one rule to transcribe rather than nine encoders to hope agree.
-pub(crate) fn yaml_string(value: &str) -> String {
+pub fn code_specs_yaml_string(value: &str) -> String {
     let mut b = String::from("\"");
     for ch in value.chars() {
         match ch {
@@ -1807,12 +1807,12 @@ pub(crate) fn yaml_string(value: &str) -> String {
 fn yaml_nullable_string(value: Option<&str>) -> String {
     match value {
         None => "null".to_string(),
-        Some(v) => yaml_string(v),
+        Some(v) => code_specs_yaml_string(v),
     }
 }
 
 fn yaml_string_list(values: &[String]) -> String {
-    let parts: Vec<String> = values.iter().map(|v| yaml_string(v)).collect();
+    let parts: Vec<String> = values.iter().map(|v| code_specs_yaml_string(v)).collect();
     format!("[{}]", parts.join(", "))
 }
 

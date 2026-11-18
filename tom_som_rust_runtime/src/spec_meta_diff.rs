@@ -26,14 +26,28 @@ use crate::spec_meta::{
 /// Compares the `a` and `b` subtrees field by field (annotations, names,
 /// kinds, form/document metadata, children and list element subtrees).
 ///
-/// Returns `""` when the subtrees are structurally identical, else a
-/// description of the first difference, prefixed with the node's position (a
-/// `/`-joined member-name chain rooted at the `<root>` marker).
-pub fn som_meta_node_diff(a: &SomMetaNode, b: &SomMetaNode) -> String {
+/// Returns `None` when the subtrees are structurally identical (TS `null`),
+/// else a description of the first difference, prefixed with the node's
+/// position (a `/`-joined member-name chain rooted at the `<root>` marker).
+/// [`som_meta_node_diff_at`] names another starting position.
+pub fn som_meta_node_diff(a: &SomMetaNode, b: &SomMetaNode) -> Option<String> {
     som_meta_node_diff_at(a, b, "<root>")
 }
 
-fn som_meta_node_diff_at(a: &SomMetaNode, b: &SomMetaNode, at: &str) -> String {
+/// [`som_meta_node_diff`] with the position prefix `at` in place of `<root>`
+/// (TS and Dart `somMetaNodeDiff(a, b, at)`): a caller comparing subtrees names
+/// where they sit, and the positions below them extend it (`at/member`).
+pub fn som_meta_node_diff_at(a: &SomMetaNode, b: &SomMetaNode, at: &str) -> Option<String> {
+    let d = diff_at(a, b, at);
+    if d.is_empty() {
+        None
+    } else {
+        Some(d)
+    }
+}
+
+/// The comparison itself; `""` when the subtrees agree.
+fn diff_at(a: &SomMetaNode, b: &SomMetaNode, at: &str) -> String {
     if a.class_name != b.class_name {
         return str_diff(at, "className", &a.class_name, &b.class_name);
     }
@@ -147,7 +161,7 @@ fn som_meta_node_diff_at(a: &SomMetaNode, b: &SomMetaNode, at: &str) -> String {
         } else {
             &ca.member_name
         };
-        let d = som_meta_node_diff_at(ca, cb, &format!("{}/{}", at, name));
+        let d = diff_at(ca, cb, &format!("{}/{}", at, name));
         if !d.is_empty() {
             return d;
         }
@@ -162,7 +176,7 @@ fn som_meta_node_diff_at(a: &SomMetaNode, b: &SomMetaNode, at: &str) -> String {
         );
     }
     if let (Some(ea), Some(eb)) = (&a.element_node, &b.element_node) {
-        return som_meta_node_diff_at(ea, eb, &format!("{}/§element", at));
+        return diff_at(ea, eb, &format!("{}/§element", at));
     }
     String::new()
 }
