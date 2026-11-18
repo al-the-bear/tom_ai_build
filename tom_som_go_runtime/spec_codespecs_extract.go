@@ -58,6 +58,7 @@ package somruntime
 // typed nil stored in an interface is not nil.
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"strings"
@@ -492,6 +493,51 @@ func CodeSpecsAreaCatalogFromJSON(data []byte) (*CodeSpecsAreaCatalog, error) {
 	return catalog, nil
 }
 
+// codeSpecsCatalogRow reads one catalogue row as the catalogue reader does, by
+// reading a catalogue holding only that row under key, so a row read alone is
+// checked and named exactly as it is inside the catalogue.
+func codeSpecsCatalogRow(key string, data []byte) (*CodeSpecsAreaCatalog, error) {
+	trimmed := bytes.TrimSpace(data)
+	if len(trimmed) == 0 || trimmed[0] != '{' {
+		return nil, fmt.Errorf("CodeSpecs area catalogue: a %s row is not an object", key)
+	}
+	wrapped := make([]byte, 0, len(trimmed)+len(key)+8)
+	wrapped = append(wrapped, `{"`+key+`":[`...)
+	wrapped = append(wrapped, trimmed...)
+	wrapped = append(wrapped, "]}"...)
+	return CodeSpecsAreaCatalogFromJSON(wrapped)
+}
+
+// CodeSpecsSliceFromJSON reads one slice row: `number` is a required JSON
+// number, the other cells fall back to empty.
+func CodeSpecsSliceFromJSON(data []byte) (*CodeSpecsSlice, error) {
+	c, err := codeSpecsCatalogRow("slices", data)
+	if err != nil {
+		return nil, err
+	}
+	return c.Slices[0], nil
+}
+
+// CodeSpecsStepFromJSON reads one authoring-step row: `number` and `slice` are
+// required JSON numbers, the other cells fall back to empty.
+func CodeSpecsStepFromJSON(data []byte) (*CodeSpecsStep, error) {
+	c, err := codeSpecsCatalogRow("steps", data)
+	if err != nil {
+		return nil, err
+	}
+	return c.Steps[0], nil
+}
+
+// CodeSpecsAreaFromJSON reads one area row: `code` and `part` are required
+// non-empty strings, an absent `active` reads as true.
+func CodeSpecsAreaFromJSON(data []byte) (*CodeSpecsArea, error) {
+	c, err := codeSpecsCatalogRow("areas", data)
+	if err != nil {
+		return nil, err
+	}
+	return c.Areas[0], nil
+}
+
 // ActiveAreas returns the active areas, in catalogue order — one extract each.
 func (c *CodeSpecsAreaCatalog) ActiveAreas() []*CodeSpecsArea {
 	out := []*CodeSpecsArea{}
@@ -646,20 +692,20 @@ func (x *CodeSpecsExtract) ToYaml() string {
 		"spec_codespecs_extract. Do not edit.\n")
 	b.WriteString("extract:\n")
 	b.WriteString("  formatVersion: " + itoa(CodeSpecsExtractFormatVersion) + "\n")
-	b.WriteString("  catalogSource: " + cseYamlString(x.CatalogSource) + "\n")
+	b.WriteString("  catalogSource: " + CodeSpecsYamlString(x.CatalogSource) + "\n")
 	b.WriteString("  area:\n")
-	b.WriteString("    code: " + cseYamlString(x.Area.Code) + "\n")
-	b.WriteString("    canonicalId: " + cseYamlString(x.Area.CanonicalID) + "\n")
-	b.WriteString("    part: " + cseYamlString(x.Area.KindValue()) + "\n")
+	b.WriteString("    code: " + CodeSpecsYamlString(x.Area.Code) + "\n")
+	b.WriteString("    canonicalId: " + CodeSpecsYamlString(x.Area.CanonicalID) + "\n")
+	b.WriteString("    part: " + CodeSpecsYamlString(x.Area.KindValue()) + "\n")
 	b.WriteString("    annotations: " + cseYamlStringList(x.Area.Annotations) + "\n")
-	b.WriteString("    builtOn: " + cseYamlString(x.Area.BuiltOn) + "\n")
-	b.WriteString("    attributeSurface: " + cseYamlString(x.Area.AttributeSurface) + "\n")
+	b.WriteString("    builtOn: " + CodeSpecsYamlString(x.Area.BuiltOn) + "\n")
+	b.WriteString("    attributeSurface: " + CodeSpecsYamlString(x.Area.AttributeSurface) + "\n")
 	b.WriteString("    slices: " + cseYamlIntList(x.Area.Slices) + "\n")
 	b.WriteString("    authoringSteps: " + cseYamlIntList(x.Area.AuthoringSteps) + "\n")
 	b.WriteString("    projects: " + cseYamlStringList(x.Projects) + "\n")
 	b.WriteString("    citableParts: " + cseYamlStringList(x.CitableParts) + "\n")
 	b.WriteString("  document:\n")
-	b.WriteString("    root: " + cseYamlString(x.DocumentRoot) + "\n")
+	b.WriteString("    root: " + CodeSpecsYamlString(x.DocumentRoot) + "\n")
 	b.WriteString("    entryCount: " + itoa(len(x.Entries)) + "\n")
 	if len(x.Entries) == 0 {
 		b.WriteString("  entries: []\n")
@@ -667,20 +713,20 @@ func (x *CodeSpecsExtract) ToYaml() string {
 	}
 	b.WriteString("  entries:\n")
 	for _, e := range x.Entries {
-		b.WriteString("    - sectionId: " + cseYamlString(e.SectionID) + "\n")
+		b.WriteString("    - sectionId: " + CodeSpecsYamlString(e.SectionID) + "\n")
 		b.WriteString("      headline: " + cseYamlNullableString(e.Headline) + "\n")
 		b.WriteString("      instanceId: " + cseYamlNullableString(e.InstanceID) + "\n")
-		b.WriteString("      path: " + cseYamlString(e.Path) + "\n")
-		b.WriteString("      className: " + cseYamlString(e.ClassName) + "\n")
-		b.WriteString("      fieldName: " + cseYamlString(e.FieldName) + "\n")
+		b.WriteString("      path: " + CodeSpecsYamlString(e.Path) + "\n")
+		b.WriteString("      className: " + CodeSpecsYamlString(e.ClassName) + "\n")
+		b.WriteString("      fieldName: " + CodeSpecsYamlString(e.FieldName) + "\n")
 		b.WriteString("      formField: " + cseYamlNullableString(e.FormField) + "\n")
-		b.WriteString("      routedBy: " + cseYamlString(e.RoutedBy) + "\n")
-		b.WriteString("      routedAt: " + cseYamlString(e.RoutedAt) + "\n")
+		b.WriteString("      routedBy: " + CodeSpecsYamlString(e.RoutedBy) + "\n")
+		b.WriteString("      routedAt: " + CodeSpecsYamlString(e.RoutedAt) + "\n")
 		b.WriteString("      routingNote: " + cseYamlNullableString(e.RoutingNote) + "\n")
 		if len(e.Units) > 0 {
 			b.WriteString("      units: " + cseYamlStringList(e.Units) + "\n")
 		}
-		b.WriteString("      value: " + cseYamlString(e.Value) + "\n")
+		b.WriteString("      value: " + CodeSpecsYamlString(e.Value) + "\n")
 	}
 	return b.String()
 }
@@ -1327,16 +1373,16 @@ func cseWith(types map[string]bool, add string) map[string]bool {
 	return out
 }
 
-// cseYamlString renders value as a JSON string literal, which is also a valid
+// CodeSpecsYamlString renders value as a JSON string literal, which is also a valid
 // YAML 1.2 double-quoted scalar.
 //
 // The rule is hand-written rather than delegated to encoding/json so the nine
 // runtimes have one rule to transcribe rather than nine encoders to hope agree —
 // and this package already carries that hand-written rule as jsJSONString (the
 // same short escapes, the same lowercase \u00xx below 0x20, every other rune
-// verbatim), which yamlKey reuses the same way. A second copy here would be a
+// verbatim), which YamlKey reuses the same way. A second copy here would be a
 // second chance to drift.
-func cseYamlString(value string) string { return jsJSONString(value) }
+func CodeSpecsYamlString(value string) string { return jsJSONString(value) }
 
 // cseYamlNullableString renders this port's "" (its stand-in for the reference's
 // null) as the YAML `null` the goldens carry.
@@ -1344,7 +1390,7 @@ func cseYamlNullableString(value string) string {
 	if value == "" {
 		return "null"
 	}
-	return cseYamlString(value)
+	return CodeSpecsYamlString(value)
 }
 
 // cseSplitUnits reads a stored comma-joined `units` value as its unit ids:
@@ -1370,7 +1416,7 @@ func cseYamlStringList(values []string) string {
 		if i > 0 {
 			b.WriteString(", ")
 		}
-		b.WriteString(cseYamlString(v))
+		b.WriteString(CodeSpecsYamlString(v))
 	}
 	b.WriteString("]")
 	return b.String()

@@ -169,9 +169,9 @@ func jsJSONString(s string) string {
 	return b.String()
 }
 
-// yamlKey returns a safely-quoted mapping key. JSON strings are valid YAML flow
+// YamlKey returns a safely-quoted mapping key. JSON strings are valid YAML flow
 // scalars, so this both quotes and escapes any path/field name unambiguously.
-func yamlKey(key string) string {
+func YamlKey(key string) string {
 	return jsJSONString(key)
 }
 
@@ -184,7 +184,7 @@ func PlainKey(key string) string {
 	if plainKeyPattern.MatchString(key) {
 		return key
 	}
-	return yamlKey(key)
+	return YamlKey(key)
 }
 
 var blankRuns = regexp.MustCompile(`\n{3,}`)
@@ -436,7 +436,26 @@ func writeRendered(b *yamlBuffer, keyIndent int, renderedKey, repr string) {
 // keyIndent. (Kept as the shared helper the review-pass writer uses in the
 // other ports.)
 func writeScalar(b *yamlBuffer, keyIndent int, key, value string) {
-	writeRendered(b, keyIndent, yamlKey(key), scalarRepr(value))
+	writeRendered(b, keyIndent, YamlKey(key), scalarRepr(value))
+}
+
+// WriteScalar writes "<indent><key>: <scalar>" into out, as the codec writes
+// every scalar of a document: a self-verified block scalar, or a JSON-quoted
+// fallback, with the key quoted by YamlKey. keyIndent is the key's indent in
+// spaces; block body lines are indented past it.
+func WriteScalar(out *strings.Builder, keyIndent int, key, value string) {
+	b := &yamlBuffer{}
+	writeScalar(b, keyIndent, key, value)
+	out.WriteString(b.String())
+}
+
+// WriteHeader writes a document's header into out: the header comment, the
+// `version:` line, and the `modelVersion:` stamp when modelVersion is not
+// empty.
+func WriteHeader(out *strings.Builder, modelVersion string) {
+	b := &yamlBuffer{}
+	writeHeader(b, modelVersion)
+	out.WriteString(b.String())
 }
 
 // writeHeader writes the file header comment + `version:` line, and the
@@ -498,7 +517,7 @@ func EncodeYamlWithReview(
 // followed by encode byte-identical. Scalars keep their YAML 1.2 type (SOM
 // §12.5, review scalars; DecodeYaml reads them with YamlParseTyped): nil writes
 // `null`, booleans `true`/`false`, integers (int, int64) in decimal, a float64
-// in the form that reads back as the same float (reviewFloat: `3.0`, `1e+300`,
+// in the form that reads back as the same float (FormatYamlFloat: `3.0`, `1e+300`,
 // `.nan`, `-.inf`); identifier-like strings that are not a YAML word are
 // written plain, any other string as a self-verified block scalar (the writer
 // used for document values), so a string never reads back as another type. A
@@ -519,7 +538,7 @@ func writeReviewPass(b *yamlBuffer, review *YamlMap) {
 	keys := review.Keys()
 	sort.Strings(keys)
 	for _, key := range keys {
-		writeReviewValue(b, 2, yamlKey(key), review.GetOr(key))
+		writeReviewValue(b, 2, YamlKey(key), review.GetOr(key))
 	}
 }
 
@@ -546,7 +565,7 @@ func writeReviewValue(b *yamlBuffer, indent int, renderedKey string, value inter
 	case nil:
 		b.writeln(pad + renderedKey + ": null")
 	case bool, int, int64, float64:
-		b.writeln(pad + renderedKey + ": " + reviewScalar(v))
+		b.writeln(pad + renderedKey + ": " + ReviewScalar(v))
 	case []interface{}:
 		b.writeln(pad + renderedKey + ": " + reviewJSON(v))
 	case string:
@@ -569,10 +588,10 @@ var yamlWords = map[string]bool{
 	"on": true, "off": true, "y": true, "n": true,
 }
 
-// reviewScalar renders a decoded bool or number as the review-pass writer
+// ReviewScalar renders a decoded bool or number as the review-pass writer
 // prints it (SOM §12.5, review scalars): the form that reads back as the same
-// value and type — integers in decimal, floats through reviewFloat.
-func reviewScalar(value interface{}) string {
+// value and type — integers in decimal, floats through FormatYamlFloat.
+func ReviewScalar(value interface{}) string {
 	switch v := value.(type) {
 	case bool:
 		if v {
@@ -584,19 +603,19 @@ func reviewScalar(value interface{}) string {
 	case int64:
 		return strconv.FormatInt(v, 10)
 	case float64:
-		return reviewFloat(v)
+		return FormatYamlFloat(v)
 	}
 	return reviewJSON(value)
 }
 
-// reviewFloat writes x so that it reads back as the same float64 (SOM §12.5):
+// FormatYamlFloat writes x so that it reads back as the same float64 (SOM §12.5):
 // NaN `.nan`, ±infinity `.inf` / `-.inf`; otherwise the shortest digit string
 // that parses back to x, laid out like JavaScript's Number.prototype.toString —
 // fixed notation when x is 0 or 1e-6 <= |x| < 1e21, exponent notation with an
 // explicit exponent sign and no padding otherwise (`1e+300`, `1.5e-300`,
 // `1e-7`) — with `.0` appended to a fixed form without a fraction (`3.0`,
 // `-0.0`, `100000000000000000000.0`) so it stays a float.
-func reviewFloat(x float64) string {
+func FormatYamlFloat(x float64) string {
 	switch {
 	case math.IsNaN(x):
 		return ".nan"
@@ -643,7 +662,7 @@ func reviewFloat(x float64) string {
 }
 
 // reviewJSON renders a review value as JSON (the flow form of a list):
-// integers in decimal, floats through reviewFloat (so they stay floats),
+// integers in decimal, floats through FormatYamlFloat (so they stay floats),
 // strings via jsJSONString, maps with their keys sorted.
 func reviewJSON(value interface{}) string {
 	switch v := value.(type) {
@@ -659,7 +678,7 @@ func reviewJSON(value interface{}) string {
 	case int64:
 		return strconv.FormatInt(v, 10)
 	case float64:
-		return reviewFloat(v)
+		return FormatYamlFloat(v)
 	case string:
 		return jsJSONString(v)
 	case []interface{}:

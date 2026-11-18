@@ -588,13 +588,13 @@ func (r *CodeSpecsGateRecord) ToYaml() string {
 		if len(e.Gaps) > 0 {
 			b.WriteString("      gaps:\n")
 			for _, g := range e.Gaps {
-				b.WriteString("        - sectionId: " + cseYamlString(g.SectionID) + "\n")
-				b.WriteString("          required: " + cseYamlString(g.Required) + "\n")
-				b.WriteString("          carrier: " + cseYamlString(g.Carrier) + "\n")
+				b.WriteString("        - sectionId: " + CodeSpecsYamlString(g.SectionID) + "\n")
+				b.WriteString("          required: " + CodeSpecsYamlString(g.Required) + "\n")
+				b.WriteString("          carrier: " + CodeSpecsYamlString(g.Carrier) + "\n")
 			}
 		}
 		if e.Note != "" {
-			b.WriteString("      note: " + cseYamlString(e.Note) + "\n")
+			b.WriteString("      note: " + CodeSpecsYamlString(e.Note) + "\n")
 		}
 	}
 	return b.String()

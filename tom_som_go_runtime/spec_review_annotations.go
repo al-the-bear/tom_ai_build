@@ -13,6 +13,8 @@ package somruntime
 // number is the same in all of them. Byte offsets are used internally only.
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"regexp"
 	"sort"
@@ -483,6 +485,49 @@ type SpecQuestionDraft struct {
 	// Recommended is the recommended option's letter, or empty; that option
 	// is written bold.
 	Recommended string
+}
+
+// SpecQuestionDraftFromJSON reads a draft from its JSON form — the shape the
+// conformance corpus and the MCP tools pass (`{"id", "topic", "text",
+// "options", "recommendation", "assumption", "starred", "recommended"}`).
+// Absent keys read as empty; an option that is not a string is kept as its JSON
+// text, as the reference stringifies it. It returns an error when data is not a
+// JSON object or a key has the wrong type.
+func SpecQuestionDraftFromJSON(data []byte) (SpecQuestionDraft, error) {
+	var raw struct {
+		ID             string            `json:"id"`
+		Topic          string            `json:"topic"`
+		Text           string            `json:"text"`
+		Options        []json.RawMessage `json:"options"`
+		Recommendation string            `json:"recommendation"`
+		Assumption     string            `json:"assumption"`
+		Starred        bool              `json:"starred"`
+		Recommended    *string           `json:"recommended"`
+	}
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return SpecQuestionDraft{}, fmt.Errorf("SpecQuestionDraft: %w", err)
+	}
+	d := SpecQuestionDraft{
+		ID:             raw.ID,
+		Topic:          raw.Topic,
+		Text:           raw.Text,
+		Options:        []string{},
+		Recommendation: raw.Recommendation,
+		Assumption:     raw.Assumption,
+		Starred:        raw.Starred,
+	}
+	if raw.Recommended != nil {
+		d.Recommended = *raw.Recommended
+	}
+	for _, o := range raw.Options {
+		var str string
+		if err := json.Unmarshal(o, &str); err == nil {
+			d.Options = append(d.Options, str)
+		} else {
+			d.Options = append(d.Options, string(bytes.TrimSpace(o)))
+		}
+	}
+	return d, nil
 }
 
 // SpecReviewAnnotationError is returned when an operation names an

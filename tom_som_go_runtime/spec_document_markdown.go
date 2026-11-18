@@ -351,10 +351,10 @@ func SpecMarkdownItemTitleStem(elementClassName string) string {
 	return SpecMarkdownTitleCase(stem)
 }
 
-// mdCodeSpecOf extracts the `codeSpec="…"` value from a heading-comment
+// SpecDocumentMarkdownCodeSpecOf extracts the `codeSpec="…"` value from a heading-comment
 // key=value region (codespecs_mapping.md §9.2). Returns the empty string when
 // the region carries no `codeSpec` key (first non-empty submatch, trimmed).
-func mdCodeSpecOf(region string) string {
+func SpecDocumentMarkdownCodeSpecOf(region string) string {
 	m := mdCodeSpecRE.FindStringSubmatch(region)
 	if m == nil {
 		return ""
@@ -367,11 +367,11 @@ func mdCodeSpecOf(region string) string {
 	return ""
 }
 
-// mdUnitsOf extracts the `units="…"` value from a heading-comment key=value
+// SpecDocumentMarkdownUnitsOf extracts the `units="…"` value from a heading-comment key=value
 // region (SOM §11.2): the same quoting rules as the codeSpec key —
 // double-quoted, single-quoted or bare. Returns the empty string when the
 // region carries no `units` key (first non-empty submatch, trimmed).
-func mdUnitsOf(region string) string {
+func SpecDocumentMarkdownUnitsOf(region string) string {
 	m := mdUnitsRE.FindStringSubmatch(region)
 	if m == nil {
 		return ""
@@ -1337,8 +1337,8 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 		return
 	}
 	id := m[1]
-	codeSpec := mdCodeSpecOf(m[2])
-	unitIDs := mdUnitsOf(m[2])
+	codeSpec := SpecDocumentMarkdownCodeSpecOf(m[2])
+	unitIDs := SpecDocumentMarkdownUnitsOf(m[2])
 	title := strings.ReplaceAll(strings.TrimSpace(m[3]), "<br>", "\n")
 
 	if len(p.stack) == 0 {

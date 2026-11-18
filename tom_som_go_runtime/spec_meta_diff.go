@@ -29,10 +29,17 @@ import (
 // names, kinds, form/document metadata, children and list element subtrees).
 //
 // Returns "" when the subtrees are structurally identical, else a description
-// of the first difference, prefixed with the node's position (a `/`-joined
-// member-name chain rooted at the `<root>` marker).
-func SomMetaNodeDiff(a, b *SomMetaNode) string {
-	return somMetaNodeDiffAt(a, b, "<root>")
+// of the first difference, prefixed with the node's position: at, then a
+// `/`-joined member-name chain below it. at is optional and defaults to the
+// `<root>` marker, as the reference's `at = '<root>'` does; a caller comparing
+// subtrees names where they sit (`SomMetaNodeDiff(a, b, "<root>/orders")`).
+// Only the first at is read.
+func SomMetaNodeDiff(a, b *SomMetaNode, at ...string) string {
+	start := "<root>"
+	if len(at) > 0 {
+		start = at[0]
+	}
+	return somMetaNodeDiffAt(a, b, start)
 }
 
 func somMetaNodeDiffAt(a, b *SomMetaNode, at string) string {

@@ -56,7 +56,7 @@ anything that computes the path rather than knowing it.
 | `SpecDocument` | The sparse, path-keyed store of content, form and list values |
 | `SpecModel` | The exported class graph — roots, classes, fields, annotations |
 | `SpecReflection` | Resolves and enumerates paths against the model **without reading values** |
-| `SpecValidator` / `validateDocument` | The instance tier: a filled document's values checked against the model |
+| `ValidateDocument` (`SpecValidationError`) | The instance tier: a filled document's values checked against the model |
 | the YAML and Markdown codecs | `*.docspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages |
 | the editing-facade bases | What the generated `tom_som_go_v0` types extend |
 

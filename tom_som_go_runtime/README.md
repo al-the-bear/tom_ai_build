@@ -208,7 +208,7 @@ guard and the `ROUTE-TOTAL` error cases).
 | `SpecEditor` | Typed edits over any path, driven by the meta-model rather than by generated structs. |
 | `SpecNodeCreator` | The creation gate — a document may only grow in ways the model permits. |
 | `ValidateDocument` | The instance tier: a filled document's values checked against the model. |
-| `SpecDocumentYaml` | Byte-stable `*.docspecs.yaml` encode/decode. |
+| `EncodeYaml` / `DecodeYaml` | Byte-stable `*.docspecs.yaml` encode/decode (`EncodeYamlWithReview` with a `review:` pass; `WriteScalar`, `WriteHeader`, `YamlKey` and `ReviewScalar` are the writer's pieces). |
 | `SpecDocumentMarkdown` | DocSpecs-conform Markdown export, parse and round-trip. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
 | `CodeSpecsExtractor` | The Phase-4 extract generator — one verbatim, cited extract per CodeSpecs area. |

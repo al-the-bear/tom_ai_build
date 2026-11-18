@@ -6,7 +6,7 @@
 //   - SpecDocument — a sparse, live instance of a TomSpecs document, keyed by the
 //     globally-unique section-ID path (content / form / list stores);
 //   - SpecModel / SpecReflection — the class graph and reflection helpers;
-//   - the version editability rules (CheckSomModelVersion / CanEditSomModel);
+//   - the version editability rules (CheckSomModelVersion / SomEditabilityFor);
 //   - markdown & YAML (de)serialisation of a document;
 //   - SpecReviewAnnotations — the review annotations in content values (SOM
 //     §11.9): comment blocks, question blocks and CriticMarkup inline marks,

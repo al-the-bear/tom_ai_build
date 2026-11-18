@@ -3009,23 +3009,16 @@ func opInt(op map[string]any, key string) int {
 	return 0
 }
 
+// opDraft reads an op's `question` through som.SpecQuestionDraftFromJSON, the
+// constructor a host receiving drafts as JSON uses.
 func opDraft(op map[string]any) som.SpecQuestionDraft {
-	q, _ := op["question"].(map[string]any)
-	d := som.SpecQuestionDraft{
-		ID:             opString(q, "id"),
-		Topic:          opString(q, "topic"),
-		Text:           opString(q, "text"),
-		Recommendation: opString(q, "recommendation"),
-		Assumption:     opString(q, "assumption"),
-		Recommended:    opString(q, "recommended"),
+	raw, err := json.Marshal(op["question"])
+	if err != nil {
+		panic(err)
 	}
-	if b, ok := q["starred"].(bool); ok {
-		d.Starred = b
-	}
-	if opts, ok := q["options"].([]any); ok {
-		for _, o := range opts {
-			d.Options = append(d.Options, o.(string))
-		}
+	d, err := som.SpecQuestionDraftFromJSON(raw)
+	if err != nil {
+		panic(err)
 	}
 	return d
 }

@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- Exported, as TS exports them: `YamlKey`, `WriteScalar`, `WriteHeader` (both
+  writing into a `*strings.Builder`), `ReviewScalar`, `FormatYamlFloat` (was
+  `reviewFloat`), `SpecDocumentMarkdownCodeSpecOf` / `SpecDocumentMarkdownUnitsOf`
+  (TS `SpecDocumentMarkdown.codeSpecOf` / `unitsOf`) and `CodeSpecsYamlString`.
+- JSON constructors, as TS `fromJson`: `SpecQuestionDraftFromJSON`, and
+  `CodeSpecsSliceFromJSON`, `CodeSpecsStepFromJSON`, `CodeSpecsAreaFromJSON`,
+  `CodeSpecsFieldRefFromJSON`, `CodeSpecsRequiredArgumentFromJSON` and
+  `CodeSpecsCarrierFromJSON`, with the catalogue reader's checks and messages.
+- `SomMetaNodeDiff(a, b, at...)` takes the position prefix TS and Dart take
+  (default `<root>`).
+- Docs: `doc.go` names `SomEditabilityFor` (not the absent `CanEditSomModel`);
+  the README names `EncodeYaml` / `DecodeYaml` (not an absent
+  `SpecDocumentYaml` type); `doc/generic_access.md` names `ValidateDocument`.
 - Typed values follow the canonical (TypeScript) reading: `SomParseInt` /
   `SomParseDouble` / `SomParseNum` trim the text and refuse NaN, Infinity,
   hexadecimal and digit separators (shared corpus `typed_value_cases.json`).

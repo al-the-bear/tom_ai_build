@@ -319,6 +319,60 @@ func codeSpecsRequiredArgumentFromRow(r *codeSpecsRow) (*CodeSpecsRequiredArgume
 	return o, nil
 }
 
+// codeSpecsRowFromJSON reads one gate row; data must be a JSON object.
+func codeSpecsRowFromJSON(data []byte) (*codeSpecsRow, error) {
+	r := &codeSpecsRow{}
+	if err := json.Unmarshal(data, r); err != nil {
+		return nil, err
+	}
+	return r, nil
+}
+
+// CodeSpecsFieldRefFromJSON reads one field reference — `className` and
+// `member` required, `formField` optional — with the checks and messages of
+// the catalogue reader.
+func CodeSpecsFieldRefFromJSON(data []byte) (*CodeSpecsFieldRef, error) {
+	r, err := codeSpecsRowFromJSON(data)
+	if err != nil {
+		return nil, err
+	}
+	ref, err := codeSpecsFieldRefFromRow(r)
+	if err != nil {
+		return nil, err
+	}
+	return &ref, nil
+}
+
+// CodeSpecsRequiredArgumentFromJSON reads one row of the catalogue's
+// `gate.requiredArguments`.
+func CodeSpecsRequiredArgumentFromJSON(data []byte) (*CodeSpecsRequiredArgument, error) {
+	r, err := codeSpecsRowFromJSON(data)
+	if err != nil {
+		return nil, err
+	}
+	return codeSpecsRequiredArgumentFromRow(r)
+}
+
+// CodeSpecsCarrierFromJSON reads one row of the catalogue's `gate.carriers`.
+func CodeSpecsCarrierFromJSON(data []byte) (*CodeSpecsCarrier, error) {
+	r, err := codeSpecsRowFromJSON(data)
+	if err != nil {
+		return nil, err
+	}
+	return codeSpecsCarrierFromRow(r)
+}
+
+// codeSpecsCarrierFromRow reads one carrier row: a field reference and an
+// optional `introducedBy`.
+func codeSpecsCarrierFromRow(r *codeSpecsRow) (*CodeSpecsCarrier, error) {
+	ref, err := codeSpecsFieldRefFromRow(r)
+	if err != nil {
+		return nil, err
+	}
+	introducedBy, _ := r.str("introducedBy")
+	return &CodeSpecsCarrier{Field: ref, IntroducedBy: introducedBy}, nil
+}
+
 // readGateTables fills the gate tables from the catalogue's `gate` block; a nil
 // block (absent or null) leaves the catalogue without them.
 func (c *CodeSpecsAreaCatalog) readGateTables(gate *codeSpecsGateJSON) error {
@@ -336,12 +390,11 @@ func (c *CodeSpecsAreaCatalog) readGateTables(gate *codeSpecsGateJSON) error {
 		c.RequiredArguments = append(c.RequiredArguments, o)
 	}
 	for _, row := range gate.Carriers {
-		ref, err := codeSpecsFieldRefFromRow(row)
+		carrier, err := codeSpecsCarrierFromRow(row)
 		if err != nil {
 			return err
 		}
-		introducedBy, _ := row.str("introducedBy")
-		c.Carriers = append(c.Carriers, &CodeSpecsCarrier{Field: ref, IntroducedBy: introducedBy})
+		c.Carriers = append(c.Carriers, carrier)
 	}
 	return nil
 }
