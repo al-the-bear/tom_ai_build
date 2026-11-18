@@ -4,7 +4,7 @@
 /// The generated typed object model for the TomSpecs specification documents
 /// (`v0`), model version `1.12`.
 ///
-/// **Generated — do not edit.** Regenerate with `generate_som.dart`; a hand
+/// **Generated — do not edit.** Regenerate with `tomspecs :som-generate`; a hand
 /// edit is overwritten by the next run. The generator is
 /// `SomDartEmitter` in `tom_specs_clitool`.
 ///

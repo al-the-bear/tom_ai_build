@@ -18,7 +18,6 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show CodeSpecsAreaCatalog;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-
 final _meridian = p.absolute(
   '../tom_som_conformance/samples/meridian_codespecs',
 );

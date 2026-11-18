@@ -18,7 +18,8 @@ void main() {
 
       final result = await Process.run('dart', [
         'run',
-        p.join('bin', 'summaries.dart'),
+        p.join('bin', 'tomspecs.dart'),
+        ':editor-summaries',
         '--sdk-only',
         '--out-dir',
         outDir.path,

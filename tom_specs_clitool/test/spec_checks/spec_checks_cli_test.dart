@@ -81,7 +81,7 @@ void main() {
       final c = _Capture();
       expect(c.run(['--help']), 0);
       for (final name in specChecksCommands.keys) {
-        expect(c.out, contains('  $name '));
+        expect(c.out, contains('  tomspecs :${specCheckCommandNames[name]} '));
       }
     });
   });

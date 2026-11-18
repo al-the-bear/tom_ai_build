@@ -15,6 +15,10 @@
 /// (`lib/src/commands/`, and the CLI libraries beside them), so the help and
 /// the accepted options are that parser's, and the command runs the function
 /// in this process. This is the package's only entrypoint.
+///
+/// Two commands carry a contract of their own: `:codespecs-validate` runs the
+/// `codespecs_derivation_contract.md` §6 checks, and `:spec-answers` writes a
+/// review round's `answers.md` (SOM §11.9.7).
 library;
 
 import 'dart:io';
