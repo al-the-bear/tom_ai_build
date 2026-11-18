@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- `index.js` exports `formatYamlFloat` and `MILLIS_PER_DAY`, and the TS
+  constant names `K_CODE_SPECS_*` / `K_CODE_SPEC_KIND_ANNOTATION` beside
+  `K_CODESPECS_*` / `K_CODESPEC_KIND_ANNOTATION` (same values), so every name
+  of the TS `index.ts` is exported. The README lists every module and the
+  calls that take an options object where TS takes positional parameters.
 - A double literal that overflows to infinity (`1e400`) reads as no value, as
   `NaN` and `Infinity` do (`typed_value_cases.json`).
 - Typed values follow the canonical SOM reading: `somParseInt`,

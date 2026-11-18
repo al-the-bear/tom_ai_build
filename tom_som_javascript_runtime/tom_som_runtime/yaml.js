@@ -431,4 +431,7 @@ function parseMap(text) {
   return _newMap();
 }
 
-module.exports = { parse, parseMap, YamlFloat, floatText };
+/** The TS name of {@link floatText} (`yaml.ts` `formatYamlFloat`). */
+const formatYamlFloat = floatText;
+
+module.exports = { parse, parseMap, YamlFloat, floatText, formatYamlFloat };

@@ -33,7 +33,9 @@ const {
   DEFAULT_MAX_SNAPSHOT_AGE_MS,
   parseStampTimestamp,
   somModelVersionString,
+  MILLIS_PER_DAY,
 } = require('./spec_model');
+const { formatYamlFloat } = require('./yaml');
 const {
   SPEC_PATH_SEPARATOR,
   specPathJoin,
@@ -488,4 +490,13 @@ module.exports = {
   DocSpecsValidator,
   bindDocspecsMarkdown,
   validateSpecDocument,
+  // The names TS `index.ts` uses, beside the ones above (same values).
+  formatYamlFloat,
+  MILLIS_PER_DAY,
+  K_CODE_SPECS_EXTRACT_FORMAT: K_CODESPECS_EXTRACT_FORMAT,
+  K_CODE_SPEC_KIND_ANNOTATION: K_CODESPEC_KIND_ANNOTATION,
+  K_CODE_SPECS_GATE_RECORD_FILE: K_CODESPECS_GATE_RECORD_FILE,
+  K_CODE_SPECS_GATE_RECORD_FORMAT: K_CODESPECS_GATE_RECORD_FORMAT,
+  K_CODE_SPECS_EXTRACT_FILE_SUFFIX: K_CODESPECS_EXTRACT_FILE_SUFFIX,
+  K_CODE_SPECS_GATE_DESCOPED: K_CODESPECS_GATE_DESCOPED,
 };

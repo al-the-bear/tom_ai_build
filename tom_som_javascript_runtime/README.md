@@ -81,6 +81,34 @@ and how to pin.
 | `spec_document_markdown.js` | DocSpecs-conform Markdown import/export codec (`SOM §11`). |
 | `docspecs_validator.js` | Schema-free DocSpecs parse, schema loader, and never-fail-fast validator (`SOM §14`). |
 | `som_facade.js` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList`) for the generated `tom_som_javascript_v0`. |
+| `spec_review_annotations.js` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks (`SpecReviewAnnotations`: insert, answer, decide, comment on a change, assign comment ids, strip, validate), conflict blocks, change times and attribution; `formatCommentBlock` / `formatQuestionBlock` / `formatConflictBlock`. |
+| `spec_review_merge.js` | Team review (SOM §11.9.8): `mergeReviews` merges the returned copies of a round into one document with votes, individual answers and conflict blocks (`SpecReviewMergeResult`, `SpecReviewMergeReport`). |
+| `spec_answers.js` | A review round's answers (SOM §11.9.7): `extractAnswers` collects the answered questions and comments with their section-id chain and line, `renderAnswers` writes `answers.md`. |
+| `spec_document_assembly.js` | Fragments of one document assembled into one (`assembleSpecDocuments`, `SpecDocumentAssembly`), refusing overlapping values (`SpecAssemblyOverlap`). |
+| `spec_meta.js` | The metadata tree types (`SomMetaTree`, `SomMetaNode`, `SomMetaKind`, …) the YAML codec and the facade navigate by. |
+| `spec_meta_bridge.js` | `buildSomMetaTree` — the metadata tree of a model, for one root or all. |
+| `spec_meta_diff.js` | `somMetaNodeDiff` — the first difference between two metadata trees, or `null`. |
+| `spec_section_id.js` | List-item section ids (AA1): `generateListItemSectionId`, `encodeTwoLetterDate`, `effectiveListItemSectionId`, `K_SECTION_ID_SLOT`, `SpecSectionIdCollision`. |
+| `spec_serialization_order.js` | `SpecSerializationOrder` — the model's member order, which every codec writes in. |
+| `spec_schema_validation.js` | `validateSpecDocument` — the DocSpecs schema tier over a document's Markdown rendition. |
+| `yaml.js` | The YAML reader the codec uses (`parse`, `parseMap`, the typed reading of the review pass) and `YamlFloat` / `formatYamlFloat`, the review pass's float form. |
+
+### Call style
+
+The surface is the TypeScript runtime's, name for name; `index.js` also carries
+the TypeScript spellings `K_CODE_SPECS_*` / `K_CODE_SPEC_KIND_ANNOTATION` beside
+`K_CODESPECS_*` / `K_CODESPEC_KIND_ANNOTATION`. Where TypeScript takes
+**positional optional parameters**, JavaScript takes **one options object**:
+
+| TypeScript | JavaScript |
+| ---------- | ---------- |
+| `editor.addListItem(listPath, sectionId, month, day)` | `editor.addListItem(listPath, { sectionId, month, day })` |
+| `creator.add(parentPath, childSegment, itemId, month, day)` | `creator.add(parentPath, childSegment, { itemId, month, day })` |
+| `SomTextPattern.compile(source, caseInsensitive)` | `SomTextPattern.compile(source, { caseInsensitive })` |
+| `SomTextPattern.literal(text, caseInsensitive)` | `SomTextPattern.literal(text, { caseInsensitive })` |
+| `parse(text, typed)` (`yaml`) | `parse(text, { typed })` |
+
+Every other call has the TypeScript signature.
 
 ## Quick start
 

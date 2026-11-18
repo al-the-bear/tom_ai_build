@@ -836,6 +836,7 @@ function somModelVersionString(major, label) {
 }
 
 module.exports = {
+  MILLIS_PER_DAY,
   SpecFieldKind,
   parseFieldKind,
   SpecAnnotation,
