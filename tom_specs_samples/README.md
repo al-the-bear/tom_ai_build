@@ -18,9 +18,9 @@ alphabet.
 
 | # | Sample | Teaches | Phase | Language | Run |
 |---|--------|---------|-------|----------|-----|
-| 1 | [`author_solution_blueprint`](author_solution_blueprint/README.md) | Author a specification end to end: write through the typed facade, serialise both renditions, round-trip, validate, and read a real diagnostic | 2 — Solution Blueprint | Dart, [Python](author_solution_blueprint/python/README.md), [JavaScript](author_solution_blueprint/javascript/README.md), [TypeScript](author_solution_blueprint/typescript/README.md) | `cd author_solution_blueprint && dart pub get && dart run` |
-| 2 | [`phase4_codespecs_run`](phase4_codespecs_run/README.md) | Run Phase 4 end to end: the starting prompt's quality gate (passing and rejecting), the extract generator, the authoring agent, and validation of the emitted trio — with every step marked mechanical or judgment | 4 — CodeSpecs | Dart, [Python](phase4_codespecs_run/python/README.md), [JavaScript](phase4_codespecs_run/javascript/README.md), [TypeScript](phase4_codespecs_run/typescript/README.md) (stages 1–2) | `cd phase4_codespecs_run && dart pub get && dart run` |
-| 3 | [`build_a_specification_tool`](build_a_specification_tool/README.md) | Build tooling *on* TomSpecs: reflective access to the model, generic access to a document, the generated schema, the three validation tiers and which two are reachable at runtime, and a completeness report built on all of it | any — tooling | Dart, [Python](build_a_specification_tool/python/README.md), [JavaScript](build_a_specification_tool/javascript/README.md), [TypeScript](build_a_specification_tool/typescript/README.md) | `cd build_a_specification_tool && dart pub get && dart run` |
+| 1 | [`author_solution_blueprint`](author_solution_blueprint/README.md) | Author a specification end to end: write through the typed facade, serialise both renditions, round-trip, validate, and read a real diagnostic | 2 — Solution Blueprint | Dart, [Python](author_solution_blueprint/python/README.md), [JavaScript](author_solution_blueprint/javascript/README.md), [TypeScript](author_solution_blueprint/typescript/README.md), [Go](author_solution_blueprint/go/README.md) | `cd author_solution_blueprint && dart pub get && dart run` |
+| 2 | [`phase4_codespecs_run`](phase4_codespecs_run/README.md) | Run Phase 4 end to end: the starting prompt's quality gate (passing and rejecting), the extract generator, the authoring agent, and validation of the emitted trio — with every step marked mechanical or judgment | 4 — CodeSpecs | Dart, [Python](phase4_codespecs_run/python/README.md), [JavaScript](phase4_codespecs_run/javascript/README.md), [TypeScript](phase4_codespecs_run/typescript/README.md), [Go](phase4_codespecs_run/go/README.md) (stages 1–2) | `cd phase4_codespecs_run && dart pub get && dart run` |
+| 3 | [`build_a_specification_tool`](build_a_specification_tool/README.md) | Build tooling *on* TomSpecs: reflective access to the model, generic access to a document, the generated schema, the three validation tiers and which two are reachable at runtime, and a completeness report built on all of it | any — tooling | Dart, [Python](build_a_specification_tool/python/README.md), [JavaScript](build_a_specification_tool/javascript/README.md), [TypeScript](build_a_specification_tool/typescript/README.md), [Go](build_a_specification_tool/go/README.md) | `cd build_a_specification_tool && dart pub get && dart run` |
 | 4 | [`full_lifecycle_walkthrough`](full_lifecycle_walkthrough/README.md) | **Start here to understand TomSpecs.** One small project from idea to code — the free-form idea, the Blueprint, two detailed specifications, the CodeSpecs trio, the derived tests and the implementation — with all six quality gates actually run, and a failing gate stopping the walk | 1–6 — the process | Dart only | `cd full_lifecycle_walkthrough && dart pub get && dart run` |
 
 **Read sample 4 first if you want to understand TomSpecs at all** — it is the
@@ -118,7 +118,8 @@ checkout's packages, through a source install its README gives (Python:
 `pip install -e` of the runtime and the facade, or `PYTHONPATH`; JavaScript:
 `file:` dependencies and `npm install`; TypeScript: the same, then
 `npm run build`, which builds both packages — their `dist/` is not committed —
-and compiles the port with `tsc`). That is the
+and compiles the port with `tsc`; Go: `replace` directives onto the checkout's
+modules and `go run`). That is the
 one exception to "published dependencies only" above, and it holds until those
 runtimes are published.
 
@@ -127,9 +128,9 @@ as the gate and the extract generator, which every runtime has; the IR, its
 mapping and its validation are Dart tools, and the port says so where they
 would be. `full_lifecycle_walkthrough` stays Dart-only.
 
-| Sample | Python | JavaScript | TypeScript |
-|--------|--------|------------|------------|
-| `author_solution_blueprint` | [`python/`](author_solution_blueprint/python/README.md) — the Dart output | [`javascript/`](author_solution_blueprint/javascript/README.md) — the Dart output | [`typescript/`](author_solution_blueprint/typescript/README.md) — the Dart output; a mis-typed section fails to compile (`tool/validate.sh`) |
-| `phase4_codespecs_run` | [`python/`](phase4_codespecs_run/python/README.md) — stages 1–2 | [`javascript/`](phase4_codespecs_run/javascript/README.md) — stages 1–2 | [`typescript/`](phase4_codespecs_run/typescript/README.md) — stages 1–2 |
-| `build_a_specification_tool` | [`python/`](build_a_specification_tool/python/README.md) — own output (Dart-only names) | [`javascript/`](build_a_specification_tool/javascript/README.md) — own output (Dart-only names) | [`typescript/`](build_a_specification_tool/typescript/README.md) — own output (Dart-only names) |
-| `full_lifecycle_walkthrough` | — | — | — |
+| Sample | Python | JavaScript | TypeScript | Go |
+|--------|--------|------------|------------|----|
+| `author_solution_blueprint` | [`python/`](author_solution_blueprint/python/README.md) — the Dart output | [`javascript/`](author_solution_blueprint/javascript/README.md) — the Dart output | [`typescript/`](author_solution_blueprint/typescript/README.md) — the Dart output; a mis-typed section fails to compile (`tool/validate.sh`) | [`go/`](author_solution_blueprint/go/README.md) — the Dart output |
+| `phase4_codespecs_run` | [`python/`](phase4_codespecs_run/python/README.md) — stages 1–2 | [`javascript/`](phase4_codespecs_run/javascript/README.md) — stages 1–2 | [`typescript/`](phase4_codespecs_run/typescript/README.md) — stages 1–2 | [`go/`](phase4_codespecs_run/go/README.md) — stages 1–2 |
+| `build_a_specification_tool` | [`python/`](build_a_specification_tool/python/README.md) — own output (Dart-only names) | [`javascript/`](build_a_specification_tool/javascript/README.md) — own output (Dart-only names) | [`typescript/`](build_a_specification_tool/typescript/README.md) — own output (Dart-only names) | [`go/`](build_a_specification_tool/go/README.md) — own output (Dart-only and Go names) |
+| `full_lifecycle_walkthrough` | — | — | — | — |

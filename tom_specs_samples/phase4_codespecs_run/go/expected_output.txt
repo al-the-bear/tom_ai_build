@@ -1,0 +1,113 @@
+========================================================================
+A Phase 4 CodeSpecs run, stage by stage
+========================================================================
+Every step is marked [MECHANICAL] or [JUDGMENT].
+
+========================================================================
+Variant A — a sufficient specification
+========================================================================
+0. The document under Phase 4                 [input]
+   a Solution Blueprint whose information model holds 2 entities
+   and 4 stored attributes; every other section is unwritten.
+
+1. The starting prompt's quality gate        [MECHANICAL]
+   A1 schema completeness  : pass — 0 findings
+   A2 instance-tier values : pass — 0 findings
+   A3 routing totality     : pass — 0 findings
+   A4 required arguments   : pass — 0 findings
+   A5 structured carriers  : pass — 0 findings
+   (A4 held 31 required-argument rows, A5 34 carriers, both from the catalogue's gate tables)
+   gate verdict             : PASS — the run may begin
+
+2. The extract generator                      [MECHANICAL]
+   areas in the catalogue   : 27
+   populated                : 3
+     CE-API 28 entries  → <app>_codespec_shared, <app>_codespec_server
+     CE-SU  16 entries  → <app>_codespec_server
+     CE-DB  35 entries  → <app>_codespec_server
+   empty                    : 24
+   Most areas are empty because this document says nothing about
+   screens, jobs, reports or migrations. An empty extract is a
+   CANDIDATE for "not applicable" — never the verdict itself, which
+   is a judgment and belongs to stage B (codespecs_prompt.md §6.4).
+
+   Area CE-DB — DataAccess, the extract the
+   authoring agent reads in stage 3:
+   built on   : Tom persistence model + repository (`tom_core_server`)
+   may cite   : CE-EN, CE-TX, CE-VA, CE-API, CE-AZ, CE-ER, CE-CF, CE-AU, CE-ID, CE-MG, CE-LG, CE-NT, CE-RP
+   entries carried to the agent (35):
+     content     content        A party that places orders.
+     DAENT-IDEN  identity       Customer
+     DAENT-IDEN  identity       customers
+     DAENT-IDEN  identity       CUST
+     DAENT-IDEN  identity       A person or organisation that places orders.
+     DAENT-CLAS  classification MasterData
+     DAENT-CLAS  classification Ordering
+     DAENT-CLAS  classification Customer
+     DAATT-IDEN  identity       email
+     DAATT-IDEN  identity       The address order confirmations are sent to.
+     DAATT-DATA  dataTypeSpec   VARCHAR
+     DAATT-IDEN  identity       display_name
+     DAATT-IDEN  identity       The name the customer trades under.
+     DAATT-DATA  dataTypeSpec   VARCHAR
+     content     content        Natural
+     content     content        email
+     content     content        A customer is identified by its e-mail ad...
+     content     content        One accepted customer order.
+     DAENT-IDEN  identity       Order
+     DAENT-IDEN  identity       orders
+     DAENT-IDEN  identity       ORD
+     DAENT-IDEN  identity       A single order placed by a customer.
+     DAENT-CLAS  classification TransactionData
+     DAENT-CLAS  classification Ordering
+     DAENT-CLAS  classification Order
+     DAATT-IDEN  identity       order_id
+     DAATT-IDEN  identity       The identifier the order is filed under.
+     DAATT-DATA  dataTypeSpec   UUID
+     DAATT-IDEN  identity       placed_at
+     DAATT-IDEN  identity       The moment the order was accepted.
+     DAATT-DATA  dataTypeSpec   TIMESTAMP
+     content     content        Primary
+     content     content        order_id
+     content     content        The order identifier.
+     KEAGN       generation     UUID
+
+3. The authoring agent                        [JUDGMENT]
+4. Validating the emitted trio                [MECHANICAL]
+   Not in the Go runtime. The authoring agent writes the IR
+   from these extracts, and the Dart tools map and validate it
+   (`tomspecs :ir-map`, `tomspecs :codespecs-validate`); the Dart
+   sample in ../bin/ shows both stages on this same specification.
+
+========================================================================
+Variant B — the same document, one required field cleared
+========================================================================
+Both entities keep their `DAENT-CLAS` section and its `category`, and
+both have `aggregateRoot` cleared. Nothing else changed.
+
+1. The starting prompt's quality gate        [MECHANICAL]
+   A1 schema completeness  : FAIL — 2 findings
+   A2 instance-tier values : FAIL — 2 findings
+   A3 routing totality     : pass — 0 findings
+   A4 required arguments   : FAIL — 2 findings
+   A5 structured carriers  : pass — 0 findings
+   (A4 held 31 required-argument rows, A5 34 carriers, both from the catalogue's gate tables)
+   gate verdict             : REJECTED — the run may not begin
+
+   What the gate names, per finding:
+     A1 missingRequiredField [DAENT-CLAS] line 26: required form field "aggregateRoot" of "daent-clas-form" is missing
+     A1 missingRequiredField [DAENT-CLAS] line 82: required form field "aggregateRoot" of "daent-clas-form" is missing
+     A2 missingRequiredField [SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAENT-CLAS] form field "aggregateRoot" is required on DataEntityEntry.classification but empty
+     A2 missingRequiredField [SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAENT-CLAS] form field "aggregateRoot" is required on DataEntityEntry.classification but empty
+     A4 missingSource [SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1] @CsServiceUnit.rootAggregate (CE-SU) is required, and its source DataEntityEntry.classification.aggregateRoot is empty here
+     A4 missingSource [SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2] @CsServiceUnit.rootAggregate (CE-SU) is required, and its source DataEntityEntry.classification.aggregateRoot is empty here
+
+   A2 moved too: 2 violations, against 0 for variant A. The
+   classification form still holds other values, so its empty
+   required field is reported by both tiers. They part where a value
+   is absent rather than empty: a missing required section is seen by
+   A1 alone. That is why the gate runs both tiers and not either one
+   (codespecs_prompt.md §4.1/§4.2 and its §10.1/§10.2 fixtures).
+
+
+Extracts written to build/codespecs_extracts/ (54 files).

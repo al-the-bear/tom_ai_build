@@ -56,6 +56,21 @@ while [ $# -gt 0 ]; do
   esac
 done
 
+# Go is often on the interactive shell's PATH only: Homebrew's
+# `/opt/homebrew/bin` (macOS) and the official tarball under `/usr/local/go` or
+# `~/.local/go` (Linux). A skip that only reflects that quirk would report the Go
+# ports as unrun on a host that can run them, so look there too, as the SOM
+# suites driver does (tom_som_conformance/tool/run_all_suites.sh).
+if ! command -v go > /dev/null 2>&1; then
+  for go_dir in /opt/homebrew/bin /usr/local/go/bin "$HOME/.local/go/bin"; do
+    if [ -x "$go_dir/go" ]; then
+      PATH="$PATH:$go_dir"
+      export PATH
+      break
+    fi
+  done
+fi
+
 if [ -z "$LOG_DIR" ]; then
   LOG_DIR="$(cd "$ROOT/../.." && pwd)/ztmp/sample_logs"
 fi

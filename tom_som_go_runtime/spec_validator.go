@@ -94,6 +94,35 @@ const (
 	SpecValidationCodeUnitEmitterUnknown = "unitEmitterUnknown"
 )
 
+// SpecValidationAllCodes is the complete SpecValidationCode vocabulary, in
+// declaration order — the enumerable form of what Dart gets for free from its
+// enum, as DocSpecsAllRules is for the §14 rules. A tool switches over it
+// exhaustively instead of matching on message text; the runtime test reads the
+// constant block above and fails when a code is missing here.
+var SpecValidationAllCodes = []string{
+	SpecValidationCodeDanglingPath,
+	SpecValidationCodeKindMismatch,
+	SpecValidationCodeUnknownFormField,
+	SpecValidationCodeMinItems,
+	SpecValidationCodeOneOfCaseMismatch,
+	SpecValidationCodeDanglingReference,
+	SpecValidationCodeEnumValueUnknown,
+	SpecValidationCodeCountMismatch,
+	SpecValidationCodeValueTypeMismatch,
+	SpecValidationCodeDerivedValueMismatch,
+	SpecValidationCodeMissingRequiredField,
+	SpecValidationCodeMultipleReferences,
+	SpecValidationCodeAnnotationMisplaced,
+	SpecValidationCodeAnnotationMalformed,
+	SpecValidationCodeDuplicateAnnotationID,
+	SpecValidationCodeUnknownUnit,
+	SpecValidationCodeUnitsUnrouted,
+	SpecValidationCodeDuplicateUnitID,
+	SpecValidationCodeUnitBuildsNothing,
+	SpecValidationCodeUnitAreaMalformed,
+	SpecValidationCodeUnitEmitterUnknown,
+}
+
 // SpecValidationError is one problem found while validating a document.
 type SpecValidationError struct {
 	Path    string

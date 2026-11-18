@@ -613,8 +613,9 @@ registry — every non-Dart runtime, by decision: its port runs on the checkout'
 packages through a source install its README gives (Python: `pip install -e`
 of the runtime and the facade, or `PYTHONPATH`; JavaScript: `file:`
 dependencies and `npm install`; TypeScript: the same, then `npm run build`,
-which builds both packages and compiles the port with `tsc`), until the
-runtime is published.
+which builds both packages and compiles the port with `tsc`; Go: `replace`
+directives onto the checkout's modules and `go run`), until the runtime is
+published.
 
 **A port sits beside its sample**, one folder per language
 (`<sample>/python/`, …), with its own README and, where its output differs
