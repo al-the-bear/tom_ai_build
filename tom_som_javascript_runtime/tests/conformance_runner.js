@@ -111,6 +111,13 @@ const {
   specGenerationUnits,
   specDefaultUnits,
   K_SPEC_STANDARD_EMITTERS,
+  somFormatDouble,
+  somFormatInt,
+  somFormatNum,
+  somParseDouble,
+  somParseInt,
+  somParseNum,
+  somTypedTextReadable,
 } = require(path.join(_PKG_ROOT, 'tom_som_runtime', 'index.js'));
 
 const _MODEL_VERSION = '1.0';
@@ -2453,6 +2460,38 @@ function testCodeSpecsGate(meta) {
   }
 }
 
+/**
+ * typed_value_cases.json (decision tspubnondart20 (a): the TypeScript reading
+ * is canonical). A case without a `num` key is not checked for num.
+ */
+function testTypedValues() {
+  const table = _readJson('typed_value_cases.json');
+  const read = (p, f, x) => {
+    const v = p(x);
+    return v === null ? null : f(v);
+  };
+  for (const c of table.cases) {
+    const got = {
+      input: c.input,
+      int: read(somParseInt, somFormatInt, c.input),
+      double: read(somParseDouble, somFormatDouble, c.input),
+      readable: {
+        int: somTypedTextReadable('int', c.input),
+        double: somTypedTextReadable('double', c.input),
+        num: somTypedTextReadable('num?', c.input),
+      },
+    };
+    if ('num' in c) {
+      got.num = read(somParseNum, somFormatNum, c.input);
+    }
+    _check(
+      `typedValues[${JSON.stringify(c.input)}]`,
+      _deepEqual(got, c),
+      _jsonMismatch(got, c),
+    );
+  }
+}
+
 function main() {
   if (!fs.existsSync(_CORPUS) || !fs.statSync(_CORPUS).isDirectory()) {
     process.stderr.write(`corpus not found at ${_CORPUS}\n`);
@@ -2502,6 +2541,7 @@ function main() {
   testDocSpecs();
   testDocSpecsPath(model);
   testDocSpecsReplace();
+  testTypedValues();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

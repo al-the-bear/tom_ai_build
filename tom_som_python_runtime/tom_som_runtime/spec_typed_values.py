@@ -10,11 +10,18 @@ cannot disagree on a conversion).
 
 Conventions (the typed contract, mirrored by all nine runtimes):
   * absent / empty string ⇒ ``None`` on read; ``None`` on write ⇒ clear (D4);
-  * ``int`` — decimal integer, :func:`som_parse_int` returns ``None`` for
-    non-numeric text;
-  * ``float`` — accepts any parsable floating literal (also plain integers);
-    formatting always carries a decimal point, so an integral value round-trips
-    as ``2.0`` rather than ``2`` (Dart's ``double.toString``);
+  * numbers are read the way the TypeScript runtime reads them (the canonical
+    reading, decision tspubnondart20 (a)): the text is trimmed of surrounding
+    whitespace, an ``int`` is an optional sign and ASCII digits
+    (``^[+-]?[0-9]+$``), a ``double`` / ``num`` a decimal or exponent literal
+    (``^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?$``);
+    everything else — ``nan``, ``inf``, hexadecimal, digit separators such as
+    ``1_000``, non-ASCII digits — reads as ``None``, although Python's
+    ``int()`` / ``float()`` would take some of it, because a spec value is
+    finite;
+  * ``float`` — formatting always carries a fraction or an exponent, so an
+    integral value round-trips as ``2.0`` rather than ``2`` (Dart's
+    ``double.toString``);
   * ``bool`` — stored as ``true`` / ``false`` (lower case, language-neutral);
     parsing accepts exactly those, anything else reads as ``None``;
   * enums — stored as the constant **name** (e.g. ``high``); the generic layer
@@ -23,17 +30,42 @@ Conventions (the typed contract, mirrored by all nine runtimes):
 
 from __future__ import annotations
 
+import math
+import re
 from typing import Iterable, Optional, Union
+
+#: A decimal integer literal with an optional sign.
+_INT_TEXT = re.compile(r"[+-]?[0-9]+")
+
+#: A floating literal with an optional exponent (also a plain integer).
+_FLOAT_TEXT = re.compile(
+    r"[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?"
+)
+
+#: The characters JavaScript's ``String.prototype.trim`` removes (its
+#: WhiteSpace and LineTerminator sets), so every runtime trims the same text.
+_TRIM_CHARS = (
+    "\t\n\v\f\r \u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005"
+    "\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000\ufeff"
+)
+
+
+def _finite(value: float) -> Optional[float]:
+    """*value* when it is finite, else ``None``: a literal that overflows
+    (``1e400``) is no value, as ``nan`` and ``inf`` are not."""
+    return value if math.isfinite(value) else None
+
+
+def _trimmed(raw: str) -> str:
+    return raw.strip(_TRIM_CHARS)
 
 
 def som_parse_int(raw: Optional[str]) -> Optional[int]:
     """Parses a stored string as ``int``, or ``None`` when absent/unparsable."""
     if raw is None or raw == "":
         return None
-    try:
-        return int(raw, 10)
-    except ValueError:
-        return None
+    text = _trimmed(raw)
+    return int(text, 10) if _INT_TEXT.fullmatch(text) else None
 
 
 def som_format_int(value: Optional[int]) -> str:
@@ -42,19 +74,18 @@ def som_format_int(value: Optional[int]) -> str:
 
 
 def som_parse_double(raw: Optional[str]) -> Optional[float]:
-    """Parses a stored string as ``float``, or ``None`` when unparsable."""
+    """Parses a stored string as ``float``, or ``None`` when absent/unparsable
+    (the text is trimmed; ``nan``, ``inf``, ``1_000`` and the like are refused)."""
     if raw is None or raw == "":
         return None
-    try:
-        return float(raw)
-    except ValueError:
-        return None
+    text = _trimmed(raw)
+    return _finite(float(text)) if _FLOAT_TEXT.fullmatch(text) else None
 
 
 def som_format_double(value: Optional[float]) -> str:
     """Formats a ``float`` for the store; ``None`` becomes ``''`` (clear, D4).
 
-    A ``float`` always renders with a decimal point (``2.0``), matching Dart's
+    A ``float`` always renders with a fraction or an exponent (``2.0``), matching Dart's
     ``double.toString`` — the store is language-neutral, so the same value must
     serialize identically everywhere.
     """
@@ -72,14 +103,10 @@ def som_parse_num(raw: Optional[str]) -> Optional[Union[int, float]]:
     """
     if raw is None or raw == "":
         return None
-    try:
-        return int(raw, 10)
-    except ValueError:
-        pass
-    try:
-        return float(raw)
-    except ValueError:
-        return None
+    text = _trimmed(raw)
+    if _INT_TEXT.fullmatch(text):
+        return int(text, 10)
+    return _finite(float(text)) if _FLOAT_TEXT.fullmatch(text) else None
 
 
 def som_format_num(value: Optional[Union[int, float]]) -> str:

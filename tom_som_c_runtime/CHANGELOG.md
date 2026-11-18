@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Typed values follow the canonical TypeScript reading (tspubnondart20): `som_parse_int` / `som_parse_double` / `som_parse_num` trim the text and refuse NaN, Infinity, hex, digit separators and literals overflowing to infinity (`1e400`); `som_format_double` lays out 1e3 as `1000.0`.
 - `som_list_add_content_with_id(list, content, section_id, out_item_path, err)`: the
   explicit-id form of `som_list_add_content`, as TS `addContent(content, sectionId)`.
 - `som_list_add_with_id` on a list without a `@SectionIdPattern` ignores the id

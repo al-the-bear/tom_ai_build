@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- A double literal that overflows to infinity (`1e400`) reads as no value, as
+  `NaN` and `Infinity` do (`typed_value_cases.json`).
+- Typed values read as the TypeScript runtime does (canonical, decision
+  tspubnondart20 (a)): the text is trimmed, `nan`, `inf`, `1_000` and other
+  text outside the int / decimal literal grammar read as `None`.
 - Exported from the package root, as TS `index.ts` does: `node_key`,
   `yaml_key`, `plain_key`, `dedup_empty_lines`, `write_scalar`,
   `write_header`, `format_conflict_block`, `som_model_version_string`.

@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- A double literal that overflows to infinity (`1e400`) reads as no value, as
+  `NaN` and `Infinity` do (`typed_value_cases.json`).
+- Typed values follow the canonical SOM reading: `somParseInt`,
+  `somParseDouble` and `somParseNum` trim the text and refuse hexadecimal,
+  `NaN` and `Infinity`.
+
 ## 1.12.0
 
 - `mergeReviews`: the question proposing a guest reviewer offers three

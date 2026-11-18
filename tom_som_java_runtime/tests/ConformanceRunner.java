@@ -100,6 +100,7 @@ import tom_som_runtime.SpecSectionIdCollision;
 import tom_som_runtime.SpecSchemaValidation;
 import tom_som_runtime.SpecSerializationOrder;
 import tom_som_runtime.SpecStateFilter;
+import tom_som_runtime.SpecTypedValues;
 import tom_som_runtime.SpecValidationError;
 import tom_som_runtime.SpecValidator;
 import tom_som_runtime.SpecYamlContents;
@@ -2990,6 +2991,37 @@ public final class ConformanceRunner {
     }
   }
 
+  /**
+   * The canonical typed-value reading ({@code typed_value_cases.json}): each
+   * input read as int / double / num and written back by the formatter, and
+   * whether the text is readable for each type. A case without a {@code num}
+   * key is not checked for num.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testTypedValues() throws IOException {
+    Map<String, Object> table = readJsonObject("typed_value_cases.json");
+    for (Object caseObj : (List<Object>) table.get("cases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String input = (String) c.get("input");
+      Integer asInt = SpecTypedValues.somParseInt(input);
+      Double asDouble = SpecTypedValues.somParseDouble(input);
+      Map<String, Object> readable = new LinkedHashMap<>();
+      readable.put("int", SpecTypedValues.somTypedTextReadable("int", input));
+      readable.put("double", SpecTypedValues.somTypedTextReadable("double", input));
+      readable.put("num", SpecTypedValues.somTypedTextReadable("num?", input));
+      Map<String, Object> got = new LinkedHashMap<>();
+      got.put("input", input);
+      got.put("int", asInt == null ? null : SpecTypedValues.somFormatInt(asInt));
+      got.put("double", asDouble == null ? null : SpecTypedValues.somFormatDouble(asDouble));
+      got.put("readable", readable);
+      if (c.containsKey("num")) {
+        Number asNum = SpecTypedValues.somParseNum(input);
+        got.put("num", asNum == null ? null : SpecTypedValues.somFormatNum(asNum));
+      }
+      check("typedValues[" + Json.write(input) + "]", got.equals(c), jsonMismatch(got, c));
+    }
+  }
+
   public static void main(String[] args) throws IOException {
     String corpusArg =
         args.length > 0 ? args[0] : "../tom_som_conformance/corpus";
@@ -3042,6 +3074,7 @@ public final class ConformanceRunner {
     testNodeCreationCoverage();
     testNodeCreationScript(model);
     testGenerationUnits(model);
+    testTypedValues();
 
     int total = passed + failed.size();
     if (!failed.isEmpty()) {

@@ -117,6 +117,15 @@ from tom_som_runtime import (  # noqa: E402
     spec_default_units,
     spec_generation_units,
 )
+from tom_som_runtime.spec_typed_values import (  # noqa: E402
+    som_format_double,
+    som_format_int,
+    som_format_num,
+    som_parse_double,
+    som_parse_int,
+    som_parse_num,
+    som_typed_text_readable,
+)
 
 _MODEL_VERSION = "1.0"
 
@@ -2171,6 +2180,35 @@ def test_generation_units(model: SpecModel) -> None:
         )
 
 
+def test_typed_values() -> None:
+    """The canonical typed-value reading (``typed_value_cases.json``): each
+    input read as int / double / num and written back by the formatter, and
+    whether the text is readable for each type. A case without a ``num`` key
+    is not checked for num."""
+    table = _read_json("typed_value_cases.json")
+
+    def read(parse, fmt, text):
+        value = parse(text)
+        return None if value is None else fmt(value)
+
+    for case in table["cases"]:
+        text = case["input"]
+        got = {
+            "input": text,
+            "int": read(som_parse_int, som_format_int, text),
+            "double": read(som_parse_double, som_format_double, text),
+            "readable": {
+                "int": som_typed_text_readable("int", text),
+                "double": som_typed_text_readable("double", text),
+                "num": som_typed_text_readable("num?", text),
+            },
+        }
+        if "num" in case:
+            got["num"] = read(som_parse_num, som_format_num, text)
+        _check(f"typedValues[{json.dumps(text)}]", got == case,
+               _json_mismatch(got, case))
+
+
 def main() -> int:
     if not os.path.isdir(_CORPUS):
         print(f"corpus not found at {_CORPUS}", file=sys.stderr)
@@ -2217,6 +2255,7 @@ def main() -> int:
     test_node_creation(model)
     test_node_creation_script(model)
     test_generation_units(model)
+    test_typed_values()
 
     total = _passed + len(_failed)
     if _failed:

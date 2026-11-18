@@ -16,6 +16,7 @@
 #include "spec_paths.hpp"
 #include "spec_reflection.hpp"
 #include "spec_section_id.hpp"
+#include "spec_typed_values.hpp"
 
 namespace som {
 
@@ -1058,54 +1059,7 @@ namespace {
  * fractional part (`3.0`, `-0.0`, `100000000000000000000.0`), exponent
  * notation otherwise with an explicit sign and no padding (`1e+21`,
  * `1.5e-300`, `1e-7`); `NaN` / `Infinity` / `-Infinity`. */
-std::string dartDouble(double value) {
-  if (std::isnan(value)) {
-    return "NaN";
-  }
-  if (std::isinf(value)) {
-    return value < 0 ? "-Infinity" : "Infinity";
-  }
-  std::string sign = std::signbit(value) ? "-" : "";
-  double a = std::fabs(value);
-  if (a == 0.0) {
-    return sign + "0.0";
-  }
-  char buf[64];
-  for (int prec = 0; prec <= 17; prec++) {
-    std::snprintf(buf, sizeof buf, "%.*e", prec, a);
-    if (std::strtod(buf, nullptr) == a) {
-      break;
-    }
-  }
-  std::string rep = buf;
-  std::size_t e = rep.find('e');
-  std::string digits;
-  for (std::size_t i = 0; i < e; i++) {
-    if (rep[i] != '.') {
-      digits.push_back(rep[i]);
-    }
-  }
-  while (digits.size() > 1 && digits.back() == '0') {
-    digits.pop_back();
-  }
-  long n = std::strtol(rep.c_str() + e + 1, nullptr, 10) + 1;
-  long k = static_cast<long>(digits.size());
-  std::string out;
-  if (k <= n && n <= 21) {
-    out = digits + std::string(static_cast<std::size_t>(n - k), '0') + ".0";
-  } else if (0 < n && n <= 21) {
-    out = digits.substr(0, static_cast<std::size_t>(n)) + "." +
-          digits.substr(static_cast<std::size_t>(n));
-  } else if (-6 < n && n <= 0) {
-    out = "0." + std::string(static_cast<std::size_t>(-n), '0') + digits;
-  } else {
-    long x = n - 1;
-    std::string exp = (x < 0 ? "-" : "+") + formatI64(x < 0 ? -x : x);
-    out = k == 1 ? digits + "e" + exp
-                 : digits.substr(0, 1) + "." + digits.substr(1) + "e" + exp;
-  }
-  return sign + out;
-}
+std::string dartDouble(double value) { return somFormatDouble(value); }
 
 JsonPtr jsonOf(JsonType t) { return std::make_shared<Json>(t); }
 

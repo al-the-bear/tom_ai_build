@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Typed values follow the canonical TypeScript reading (tspubnondart20): `somParseInt` / `somParseDouble` / `somParseNum` trim the text and refuse NaN, Infinity, hex, digit separators and literals overflowing to infinity (`1e400`); `somFormatDouble` lays out 1e3 as `1000.0`.
 - `SomList::addWithId` and `addContentWithId` on a list without a
   `@SectionIdPattern` ignore the id and append plainly, as TS and Dart do; they
   used to store it.

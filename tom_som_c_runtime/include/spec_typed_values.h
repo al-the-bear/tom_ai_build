@@ -13,11 +13,16 @@
  * Conventions (the typed contract, mirrored by all nine runtimes):
  *   - absent / empty string => "no value" on read; no value on write => clear
  *     (D4, so the key is REMOVED rather than stored as "");
- *   - `int` — decimal integer (optional sign); the raw parser answers "no
- *     value" for non-numeric text, but the editor's typed reads fail on it
+ *   - numbers follow the canonical reading (decision tspubnondart20 (a), the
+ *     TypeScript `spec_typed_values.ts`): the text is read with surrounding
+ *     whitespace trimmed; NaN, Infinity, hexadecimal, digit separators and
+ *     anything else are refused, because a spec value is finite;
+ *   - `int` — `^[+-]?[0-9]+$`; the raw parser answers "no value" for any
+ *     other text, but the editor's typed reads fail on it
  *     (`som_typed_text_readable`);
- *   - `double` — accepts any parsable floating literal (also plain integers);
- *     formatting always carries a decimal point, so an integral value
+ *   - `double` — `^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?$`
+ *     (also plain integers); formatting is the shortest round-trip digits and
+ *     always carries a fraction or an exponent, so an integral value
  *     round-trips as `2.0` rather than `2` (Dart's `double.toString`);
  *   - `num` — an integral literal keeps the narrower int shape, otherwise
  *     double (Dart's `num.tryParse`);
@@ -78,20 +83,22 @@ char *som_value_debug(const SomValue *v);
 
 /* ---- the ten boundary helpers ------------------------------------------- */
 
-/* Parses a stored string as `int`. Returns 1 and writes `*out` on success; 0
- * (leaving `*out` untouched) when absent/empty/unparsable — reads are
- * forgiving. */
+/* Parses a stored string as `int` (whitespace trimmed, `^[+-]?[0-9]+$`).
+ * Returns 1 and writes `*out` on success; 0 (leaving `*out` untouched) when
+ * absent/empty/unparsable — reads are forgiving. */
 int som_parse_int(const char *raw, long long *out);
 
 /* Formats an `int` for the store. Owned result. */
 char *som_format_int(long long value);
 
-/* Parses a stored string as `double`. Returns 1 and writes `*out` on success;
- * 0 when absent/empty/unparsable. */
+/* Parses a stored string as `double` (whitespace trimmed, a decimal or
+ * exponent literal; NaN, Infinity, hex and a literal overflowing to infinity are
+ * refused). Returns 1 and writes
+ * `*out` on success; 0 when absent/empty/unparsable. */
 int som_parse_double(const char *raw, double *out);
 
 /* Formats a `double` for the store, shortest round-trip and **always with a
- * decimal point** (`2.0`, never `2`) so an integral double is distinguishable
+ * fraction or an exponent** (`2.0`, never `2`; `1000.0`; `1e+21`) so an integral double is distinguishable
  * from an int in the language-neutral store. Owned result. */
 char *som_format_double(double value);
 

@@ -5366,6 +5366,69 @@ static void test_generation_units(Checker *c, const SpecModel *model) {
   som_json_free(table);
 }
 
+/* ---- typed values (typed_value_cases.json) ----------------------------- */
+
+/* Compares a formatted reading (owned, NULL when refused) with the case's
+ * expectation (a string, or JSON null); frees `got`. */
+static void check_typed_reading(Checker *c, const char *tag, char *got,
+                                const SomJson *want) {
+  const char *w = som_json_as_str(want);
+  int ok = (got == NULL) ? (want != NULL && want->type == SOM_JSON_NULL)
+                         : (w != NULL && strcmp(got, w) == 0);
+  char detail[512];
+  snprintf(detail, sizeof(detail), "got %s, want %s", got ? got : "null",
+           w ? w : "null");
+  check(c, tag, ok, detail);
+  free(got);
+}
+
+static void test_typed_values(Checker *c) {
+  SomJson *table = read_json("typed_value_cases.json");
+  const SomJson *cases = som_json_get(table, "cases");
+  size_t n = som_json_array_len(cases);
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *kase = som_json_array_at(cases, i);
+    const char *input = som_json_as_str(som_json_get(kase, "input"));
+    char *quoted = som_json_encode_str(input);
+    char tag[512];
+
+    long long iv = 0;
+    snprintf(tag, sizeof(tag), "typedValues[%s].int", quoted);
+    check_typed_reading(c, tag,
+                        som_parse_int(input, &iv) ? som_format_int(iv) : NULL,
+                        som_json_get(kase, "int"));
+
+    double dv = 0.0;
+    snprintf(tag, sizeof(tag), "typedValues[%s].double", quoted);
+    check_typed_reading(
+        c, tag, som_parse_double(input, &dv) ? som_format_double(dv) : NULL,
+        som_json_get(kase, "double"));
+
+    /* A case without a `num` key carries no num expectation. */
+    const SomJson *want_num = som_json_get(kase, "num");
+    if (want_num != NULL) {
+      SomValue nv = som_value_none();
+      char *got = som_parse_num(input, &nv) ? som_format_num(&nv) : NULL;
+      som_value_free(&nv);
+      snprintf(tag, sizeof(tag), "typedValues[%s].num", quoted);
+      check_typed_reading(c, tag, got, want_num);
+    }
+
+    const SomJson *readable = som_json_get(kase, "readable");
+    static const char *const types[3][2] = {
+        {"int", "int"}, {"double", "double"}, {"num", "num?"}};
+    for (size_t t = 0; t < 3; t++) {
+      int want = som_json_bool_or(readable, types[t][0]);
+      int got = som_typed_text_readable(types[t][1], input) ? 1 : 0;
+      snprintf(tag, sizeof(tag), "typedValues[%s].readable.%s", quoted,
+               types[t][0]);
+      check(c, tag, got == want, got ? "readable" : "not readable");
+    }
+    free(quoted);
+  }
+  som_json_free(table);
+}
+
 int main(int argc, char **argv) {
   if (argc > 1) {
     snprintf(g_corpus_dir, sizeof(g_corpus_dir), "%s", argv[1]);
@@ -5422,6 +5485,7 @@ int main(int argc, char **argv) {
   test_change_marks(&c, model, tree);
   test_answers(&c, model);
   test_generation_units(&c, model);
+  test_typed_values(&c);
 
   int rc = checker_finish(&c);
   som_meta_tree_free(tree);

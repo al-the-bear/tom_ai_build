@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Typed values follow the canonical (TypeScript) reading: `SomParseInt` /
+  `SomParseDouble` / `SomParseNum` trim the text and refuse NaN, Infinity,
+  hexadecimal and digit separators (shared corpus `typed_value_cases.json`).
 - `SomList.AddContentWithID(content, sectionID)`: the explicit-id form of
   `AddContent`, as TS `addContent(content, sectionId)`.
 - `SomList.AddWithID` on a list without a `@SectionIdPattern` ignores the id and

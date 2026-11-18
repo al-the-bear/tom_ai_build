@@ -81,16 +81,84 @@ std::string SomValue::debug() const {
   return "null";
 }
 
+/* ---- the canonical number grammar -------------------------------------- */
+
+/* The typed-value reading every runtime shares (decision tspubnondart20 (a),
+ * the TypeScript `spec_typed_values.ts` canonical): the stored text is read
+ * with its surrounding whitespace trimmed; an int is `^[+-]?[0-9]+$`, a double
+ * `^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?$`. Everything
+ * else — NaN, Infinity, hexadecimal, digit separators, the platform extensions
+ * std::strtod would let through — is refused, because a spec value is finite. */
+
+namespace {
+
+bool isSpace(char ch) {
+  return ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r' || ch == '\v' ||
+         ch == '\f';
+}
+
+bool isDigit(char ch) { return ch >= '0' && ch <= '9'; }
+
+std::string trimmed(const std::string& raw) {
+  std::size_t b = 0;
+  std::size_t e = raw.size();
+  while (b < e && isSpace(raw[b])) {
+    b++;
+  }
+  while (e > b && isSpace(raw[e - 1])) {
+    e--;
+  }
+  return raw.substr(b, e - b);
+}
+
+/* Whether `s` (already trimmed) is a decimal or exponent literal. */
+bool isFloatText(const std::string& s) {
+  std::size_t i = 0;
+  const std::size_t n = s.size();
+  if (i < n && (s[i] == '+' || s[i] == '-')) {
+    i++;
+  }
+  std::size_t digits = 0;
+  while (i < n && isDigit(s[i])) {
+    i++;
+    digits++;
+  }
+  if (i < n && s[i] == '.') {
+    i++;
+    while (i < n && isDigit(s[i])) {
+      i++;
+      digits++;
+    }
+  }
+  if (digits == 0) {
+    return false;
+  }
+  if (i < n && (s[i] == 'e' || s[i] == 'E')) {
+    i++;
+    if (i < n && (s[i] == '+' || s[i] == '-')) {
+      i++;
+    }
+    if (i == n || !isDigit(s[i])) {
+      return false;
+    }
+    while (i < n && isDigit(s[i])) {
+      i++;
+    }
+  }
+  return i == n;
+}
+
+}  // namespace
+
 /* ---- int ---------------------------------------------------------------- */
 
 std::optional<long long> somParseInt(const std::string& raw) {
   if (raw.empty()) {
     return std::nullopt;
   }
-  /* parseI64 is the runtime's own strict base-10 reader: optional sign then
-   * digits only, so hex / trailing text / whitespace all read as "no value"
-   * exactly as the Dart and Python ports' `int.tryParse` / `int(raw, 10)` do. */
-  return parseI64(raw);
+  /* parseI64 is the runtime's strict base-10 reader (optional sign, then
+   * digits only), applied to the trimmed text. */
+  return parseI64(trimmed(raw));
 }
 
 std::string somFormatInt(const std::optional<long long>& value) {
@@ -99,30 +167,21 @@ std::string somFormatInt(const std::optional<long long>& value) {
 
 /* ---- double ------------------------------------------------------------- */
 
-/* Reads `raw` as a floating literal, rejecting anything std::strtod would
- * accept but the reference runtimes would not (hex literals, trailing text,
- * surrounding whitespace). */
-static std::optional<double> parseFloatingLiteral(const std::string& raw) {
+std::optional<double> somParseDouble(const std::string& raw) {
   if (raw.empty()) {
     return std::nullopt;
   }
-  /* strtod skips leading whitespace and accepts 0x… hex floats; neither is a
-   * literal any other runtime accepts. */
-  if (std::isspace(static_cast<unsigned char>(raw.front())) != 0 ||
-      raw.find('x') != std::string::npos || raw.find('X') != std::string::npos) {
+  std::string text = trimmed(raw);
+  if (!isFloatText(text)) {
     return std::nullopt;
   }
-  const char* begin = raw.c_str();
-  char* end = nullptr;
-  double v = std::strtod(begin, &end);
-  if (end == begin || *end != '\0') {
+  /* A literal that overflows to infinity is no value either: a spec value is
+   * finite. */
+  double v = std::strtod(text.c_str(), nullptr);
+  if (!std::isfinite(v)) {
     return std::nullopt;
   }
   return v;
-}
-
-std::optional<double> somParseDouble(const std::string& raw) {
-  return parseFloatingLiteral(raw);
 }
 
 std::string somFormatDouble(const std::optional<double>& value) {
@@ -134,27 +193,54 @@ std::string somFormatDouble(const std::optional<double>& value) {
     return "NaN";
   }
   if (std::isinf(v)) {
-    return v > 0 ? "Infinity" : "-Infinity";
+    return v < 0 ? "-Infinity" : "Infinity";
   }
-  /* The shortest %g rendering that reads back as the same double — the C++
-   * equivalent of Dart's shortest `double.toString()`. Neither std::to_string
-   * (which pads to "2.000000") nor operator<< (which drops to "2") produces it. */
+  /* The shortest digit string that parses back to the same double (`%.{p}e`
+   * for growing p until strtod agrees), laid out like Dart's double.toString
+   * and JavaScript's Number.prototype.toString — fixed notation when v == 0 or
+   * 1e-6 <= |v| < 1e21, with `.0` appended when there is no fractional part
+   * (`3.0`, `-0.0`, `1000.0`), exponent notation otherwise with an explicit
+   * sign and no padding (`1e+21`, `1.5e-300`, `1e-7`). */
+  std::string sign = std::signbit(v) ? "-" : "";
+  double a = std::fabs(v);
+  if (a == 0.0) {
+    return sign + "0.0";
+  }
   char buf[64];
-  for (int precision = 1; precision <= 17; precision++) {
-    std::snprintf(buf, sizeof(buf), "%.*g", precision, v);
-    if (std::strtod(buf, nullptr) == v) {
+  for (int prec = 0; prec <= 17; prec++) {
+    std::snprintf(buf, sizeof buf, "%.*e", prec, a);
+    if (std::strtod(buf, nullptr) == a) {
       break;
     }
   }
-  std::string text(buf);
-  /* An integral value must still read as a double, so give it a fraction: `2`
-   * becomes `2.0`. An exponent form already reads as one. */
-  if (text.find('.') == std::string::npos &&
-      text.find('e') == std::string::npos &&
-      text.find('E') == std::string::npos) {
-    text += ".0";
+  std::string rep = buf;
+  std::size_t e = rep.find('e');
+  std::string digits;
+  for (std::size_t i = 0; i < e; i++) {
+    if (rep[i] != '.') {
+      digits.push_back(rep[i]);
+    }
   }
-  return text;
+  while (digits.size() > 1 && digits.back() == '0') {
+    digits.pop_back();
+  }
+  long n = std::strtol(rep.c_str() + e + 1, nullptr, 10) + 1;
+  long k = static_cast<long>(digits.size());
+  std::string out;
+  if (k <= n && n <= 21) {
+    out = digits + std::string(static_cast<std::size_t>(n - k), '0') + ".0";
+  } else if (0 < n && n <= 21) {
+    out = digits.substr(0, static_cast<std::size_t>(n)) + "." +
+          digits.substr(static_cast<std::size_t>(n));
+  } else if (-6 < n && n <= 0) {
+    out = "0." + std::string(static_cast<std::size_t>(-n), '0') + digits;
+  } else {
+    long x = n - 1;
+    std::string exp = (x < 0 ? "-" : "+") + formatI64(x < 0 ? -x : x);
+    out = k == 1 ? digits + "e" + exp
+                 : digits.substr(0, 1) + "." + digits.substr(1) + "e" + exp;
+  }
+  return sign + out;
 }
 
 /* ---- num ---------------------------------------------------------------- */

@@ -109,6 +109,13 @@ import {
   K_SPEC_STANDARD_EMITTERS,
   specDefaultUnits,
   specGenerationUnits,
+  somFormatDouble,
+  somFormatInt,
+  somFormatNum,
+  somParseDouble,
+  somParseInt,
+  somParseNum,
+  somTypedTextReadable,
 } from '../src/index';
 import type { SpecNodeKindValue, SpecStateFilterValue } from '../src/index';
 
@@ -2274,6 +2281,31 @@ function testGenerationUnits(model: SpecModel): void {
   }
 }
 
+// SOM typed values (`typed_value_cases.json`, decision tspubnondart20 (a)):
+// how an int / double / num field's stored text is read and written back,
+// and whether a text is readable for each type.
+function testTypedValues(): void {
+  const table = _readJson('typed_value_cases.json');
+  const read = <T>(p: (x: string) => T | null, f: (v: T) => string, x: string) => {
+    const v = p(x);
+    return v === null ? null : f(v);
+  };
+  for (const c of table.cases) {
+    const got: any = {
+      input: c.input,
+      int: read(somParseInt, somFormatInt, c.input),
+      double: read(somParseDouble, somFormatDouble, c.input),
+      readable: {
+        int: somTypedTextReadable('int', c.input),
+        double: somTypedTextReadable('double', c.input),
+        num: somTypedTextReadable('num?', c.input),
+      },
+    };
+    if ('num' in c) got.num = read(somParseNum, somFormatNum, c.input);
+    _check(`typedValues[${JSON.stringify(c.input)}]`, _deepEqual(got, c), _jsonMismatch(got, c));
+  }
+}
+
 function testNodeCreationCases(model: SpecModel): void {
   const cases = _readJson('node_creation_cases.json');
   const covered = new Set<string>();
@@ -2676,6 +2708,7 @@ export function main(): number {
   testNodeCreationCases(model);
   testNodeCreationScript(model);
   testGenerationUnits(model);
+  testTypedValues();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

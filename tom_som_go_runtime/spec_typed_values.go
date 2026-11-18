@@ -17,10 +17,17 @@ package somruntime
 //
 //   - absent / empty string ⇒ unset on read; the empty string on write ⇒ clear
 //     (D4), which the stores treat as a delete;
-//   - int — decimal integer, SomParseInt reports unset for non-numeric text;
-//   - double — accepts any float literal (also a plain integer); formatting
-//     always carries a decimal point, so an integral value round-trips as `2.0`
-//     rather than `2` (Dart's `double.toString`);
+//   - int, double and num read their text with surrounding whitespace trimmed
+//     (the canonical reading of `tom_som_typescript_runtime`'s
+//     `spec_typed_values.ts`, shared corpus `typed_value_cases.json`);
+//   - int — an optional sign and decimal digits (`^[+-]?[0-9]+$`), SomParseInt
+//     reports unset for anything else;
+//   - double — a decimal or exponent literal
+//     (`^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?$`, also a
+//     plain integer); NaN, Infinity, hexadecimal and digit separators — which
+//     strconv.ParseFloat would take — are refused, because a spec value is
+//     finite; formatting always carries a fraction or an exponent, so an
+//     integral value round-trips as `2.0` rather than `2`;
 //   - num — parses to an int when the text is integral, else a float64, and
 //     formats the same way round;
 //   - bool — stored as `true` / `false` (lower case, language-neutral); parsing
@@ -39,17 +46,31 @@ package somruntime
 
 import (
 	"math"
+	"regexp"
 	"strconv"
 	"strings"
 )
 
+// intText is a decimal integer literal with an optional sign.
+var intText = regexp.MustCompile(`^[+-]?[0-9]+$`)
+
+// floatText is a decimal literal with an optional exponent. strconv.ParseFloat
+// alone also takes NaN, Inf, hexadecimal floats and underscores, which a SOM
+// value never is.
+var floatText = regexp.MustCompile(`^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?$`)
+
 // SomParseInt parses a stored string as an int, with ok=false when the text is
-// absent (empty) or not a decimal integer.
+// absent (empty) or, with surrounding whitespace trimmed, not an optional sign
+// and decimal digits.
 func SomParseInt(raw string) (int, bool) {
 	if raw == "" {
 		return 0, false
 	}
-	n, err := strconv.ParseInt(raw, 10, 64)
+	text := strings.TrimSpace(raw)
+	if !intText.MatchString(text) {
+		return 0, false
+	}
+	n, err := strconv.ParseInt(text, 10, 64)
 	if err != nil {
 		return 0, false
 	}
@@ -60,13 +81,18 @@ func SomParseInt(raw string) (int, bool) {
 func SomFormatInt(value int) string { return itoa(value) }
 
 // SomParseDouble parses a stored string as a float64, with ok=false when the
-// text is absent (empty) or not a float literal. A plain integer parses fine —
-// `2` reads as 2.0.
+// text is absent (empty) or, with surrounding whitespace trimmed, not a decimal
+// or exponent literal. A plain integer parses fine — `2` reads as 2.0; NaN,
+// Infinity, hexadecimal and digit separators are refused.
 func SomParseDouble(raw string) (float64, bool) {
 	if raw == "" {
 		return 0, false
 	}
-	f, err := strconv.ParseFloat(raw, 64)
+	text := strings.TrimSpace(raw)
+	if !floatText.MatchString(text) {
+		return 0, false
+	}
+	f, err := strconv.ParseFloat(text, 64)
 	if err != nil {
 		return 0, false
 	}

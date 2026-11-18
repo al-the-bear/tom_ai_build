@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- A double literal that overflows to infinity (`1e400`) reads as no value, as
+  `NaN` and `Infinity` do (`typed_value_cases.json`).
+- Typed values read as the TypeScript runtime does (canonical, decision
+  tspubnondart20 (a)): the text is trimmed, `NaN`, `Infinity`, hexadecimal
+  and other text outside the int / decimal literal grammar read as `null`.
 - The typed YAML reading (the `review:` pass) parses a JSON flow map `{...}` as
   a map, as TS and Dart do; it stayed a string.
 

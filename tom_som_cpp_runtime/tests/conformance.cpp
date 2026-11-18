@@ -3521,6 +3521,64 @@ static void test_answers(Checker& c, const som::SpecModel& model) {
   }
 }
 
+/* ---- typed values (typed_value_cases.json) ----------------------------- */
+
+/* Compares a formatted reading (no value when refused) with the case's
+ * expectation (a string, or JSON null). */
+static void check_typed_reading(Checker& c, const std::string& tag,
+                                const std::optional<std::string>& got,
+                                const som::JsonRef& want) {
+  const std::string* w = som::jsonAsStr(want);
+  bool ok = got.has_value()
+                ? (w != nullptr && *w == *got)
+                : (want != nullptr && want->type == som::JsonType::Null);
+  c.check(tag, ok,
+          "got " + got.value_or("null") + ", want " + (w ? *w : "null"));
+}
+
+static void test_typed_values(Checker& c) {
+  som::JsonRef table = read_json("typed_value_cases.json");
+  som::JsonRef cases = som::jsonGet(table, "cases");
+  for (std::size_t i = 0; i < som::jsonArrayLen(cases); i++) {
+    som::JsonRef kase = som::jsonArrayAt(cases, i);
+    const std::string input = som::jsonStrOr(kase, "input");
+    const std::string tag = "typedValues[" + som::jsonEncodeStr(input) + "]";
+
+    std::optional<long long> iv = som::somParseInt(input);
+    check_typed_reading(c, tag + ".int",
+                        iv ? std::optional<std::string>(som::somFormatInt(iv))
+                           : std::nullopt,
+                        som::jsonGet(kase, "int"));
+
+    std::optional<double> dv = som::somParseDouble(input);
+    check_typed_reading(c, tag + ".double",
+                        dv ? std::optional<std::string>(som::somFormatDouble(dv))
+                           : std::nullopt,
+                        som::jsonGet(kase, "double"));
+
+    /* A case without a `num` key carries no num expectation. */
+    som::JsonRef wantNum = som::jsonGet(kase, "num");
+    if (wantNum != nullptr) {
+      som::SomValue nv = som::somParseNum(input);
+      check_typed_reading(c, tag + ".num",
+                          nv.isNull() ? std::nullopt
+                                      : std::optional<std::string>(
+                                            som::somFormatNum(nv)),
+                          wantNum);
+    }
+
+    som::JsonRef readable = som::jsonGet(kase, "readable");
+    const std::pair<const char*, const char*> types[] = {
+        {"int", "int"}, {"double", "double"}, {"num", "num?"}};
+    for (const auto& t : types) {
+      bool want = som::jsonBoolOr(readable, t.first);
+      bool got = som::somTypedTextReadable(t.second, input);
+      c.check(tag + ".readable." + t.first, got == want,
+              got ? "readable" : "not readable");
+    }
+  }
+}
+
 int main(int argc, char** argv) {
   if (argc > 1) {
     g_corpus_dir = argv[1];
@@ -3574,6 +3632,7 @@ int main(int argc, char** argv) {
   test_change_marks(c, *model, *tree);
   test_answers(c, *model);
   test_generation_units(c, *model);
+  test_typed_values(c);
 
   return c.finish();
 }

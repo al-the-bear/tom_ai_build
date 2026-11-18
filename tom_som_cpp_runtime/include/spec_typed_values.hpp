@@ -12,10 +12,14 @@
  * Conventions (the typed contract, mirrored by all nine runtimes):
  *   - absent / empty string => "no value" on read; no value on write => clear
  *     (D4);
- *   - `int` — decimal integer (optional sign, digits only); somParseInt yields
- *     no value for anything else;
- *   - `double` — accepts any parsable floating literal (also a plain integer);
- *     formatting always carries a decimal point, so an integral value
+ *   - numbers follow the canonical reading (decision tspubnondart20 (a), the
+ *     TypeScript `spec_typed_values.ts`): the text is read with surrounding
+ *     whitespace trimmed; NaN, Infinity, hexadecimal, digit separators and
+ *     anything else are refused, because a spec value is finite;
+ *   - `int` — `^[+-]?[0-9]+$`; somParseInt yields no value for anything else;
+ *   - `double` — `^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?$`
+ *     (also a plain integer); formatting is the shortest round-trip digits and
+ *     always carries a fraction or an exponent, so an integral value
  *     round-trips as `2.0` rather than `2` (Dart's `double.toString`);
  *   - `num` — an integral literal keeps the narrower `int` shape, everything
  *     else becomes a `double` (Dart's `num.tryParse`);
@@ -92,20 +96,24 @@ class SomValue {
 
 /* ---- the ten boundary helpers ------------------------------------------- */
 
-/* Parses a stored string as `int`, or no value when absent/unparsable. */
+/* Parses a stored string as `int` (whitespace trimmed, `^[+-]?[0-9]+$`), or
+ * no value when absent/unparsable. */
 std::optional<long long> somParseInt(const std::string& raw);
 
 /* Formats an `int` for the store; no value becomes "" (clear, D4). */
 std::string somFormatInt(const std::optional<long long>& value);
 
-/* Parses a stored string as `double`, or no value when absent/unparsable. */
+/* Parses a stored string as `double` (whitespace trimmed, a decimal or exponent
+ * literal; NaN, Infinity, hex and a literal overflowing to infinity
+ * are refused), or no value when
+ * absent/unparsable. */
 std::optional<double> somParseDouble(const std::string& raw);
 
 /* Formats a `double` for the store; no value becomes "" (clear, D4).
  *
  * The rendering is the shortest text that reads back as the same double, and it
  * always carries a decimal point or an exponent — an integral `2` stores as
- * `2.0`, never `2`, because the store is language-neutral and the same value
+ * `2.0`, never `2`, `1e3` as `1000.0`, because the store is language-neutral and the same value
  * must serialize identically in every runtime. */
 std::string somFormatDouble(const std::optional<double>& value);
 

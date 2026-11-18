@@ -13,11 +13,17 @@
 //!
 //! Conventions (the typed contract, mirrored by all nine runtimes):
 //!   * absent / empty string ⇒ `None` on read; `None` on write ⇒ clear (D4);
-//!   * `int` — decimal integer, [`som_parse_int`] yields `None` for non-numeric
-//!     text;
-//!   * `double` — accepts any parsable floating literal (also plain integers);
-//!     formatting always carries a decimal point, so an integral value
-//!     round-trips as `2.0` rather than `2` (Dart's `double.toString`);
+//!   * `int`, `double` and `num` read their text with surrounding whitespace
+//!     trimmed (the canonical reading of `tom_som_typescript_runtime`'s
+//!     `spec_typed_values.ts`, shared corpus `typed_value_cases.json`);
+//!   * `int` — an optional sign and decimal digits (`^[+-]?[0-9]+$`),
+//!     [`som_parse_int`] yields `None` for anything else;
+//!   * `double` — a decimal or exponent literal
+//!     (`^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?$`, also
+//!     plain integers); NaN, Infinity, hexadecimal and digit separators — some
+//!     of which `str::parse::<f64>` would take — are refused, because a spec
+//!     value is finite; formatting always carries a fraction or an exponent, so
+//!     an integral value round-trips as `2.0` rather than `2`;
 //!   * `num` — an integral literal parses back as an `int` (Dart's
 //!     `num.tryParse`), so a `num` field keeps the narrower type when the text
 //!     carries no fraction; hence [`SomNum`];
@@ -44,12 +50,67 @@ pub enum SomNum {
     Double(f64),
 }
 
-/// Parses a stored string as `int`, or `None` when absent/unparsable.
+/// Whether `text` is an optional sign followed by one or more decimal digits.
+fn is_int_text(text: &str) -> bool {
+    let digits = text.strip_prefix(['+', '-']).unwrap_or(text);
+    !digits.is_empty() && digits.bytes().all(|b| b.is_ascii_digit())
+}
+
+/// Whether `text` is a decimal literal with an optional exponent:
+/// `[+-]?(digits(.digits?)?|.digits)([eE][+-]?digits)?`.
+fn is_float_text(text: &str) -> bool {
+    let b = text.as_bytes();
+    let mut i = 0;
+    if i < b.len() && (b[i] == b'+' || b[i] == b'-') {
+        i += 1;
+    }
+    let int_start = i;
+    while i < b.len() && b[i].is_ascii_digit() {
+        i += 1;
+    }
+    let int_digits = i - int_start;
+    let mut frac_digits = 0;
+    if i < b.len() && b[i] == b'.' {
+        i += 1;
+        let frac_start = i;
+        while i < b.len() && b[i].is_ascii_digit() {
+            i += 1;
+        }
+        frac_digits = i - frac_start;
+    }
+    if int_digits == 0 && frac_digits == 0 {
+        return false;
+    }
+    if i < b.len() && (b[i] == b'e' || b[i] == b'E') {
+        i += 1;
+        if i < b.len() && (b[i] == b'+' || b[i] == b'-') {
+            i += 1;
+        }
+        let exp_start = i;
+        while i < b.len() && b[i].is_ascii_digit() {
+            i += 1;
+        }
+        if i == exp_start {
+            return false;
+        }
+    }
+    i == b.len()
+}
+
+/// Parses a stored string as `int`, or `None` when absent or when the text,
+/// with surrounding whitespace trimmed, is not an optional sign and digits.
 pub fn som_parse_int(raw: Option<&str>) -> Option<i64> {
     match raw {
         None => None,
         Some(s) if s.is_empty() => None,
-        Some(s) => s.parse::<i64>().ok(),
+        Some(s) => {
+            let text = s.trim();
+            if is_int_text(text) {
+                text.parse::<i64>().ok()
+            } else {
+                None
+            }
+        }
     }
 }
 
@@ -61,12 +122,21 @@ pub fn som_format_int(value: Option<i64>) -> String {
     }
 }
 
-/// Parses a stored string as `double`, or `None` when absent/unparsable.
+/// Parses a stored string as `double`, or `None` when absent or when the text,
+/// with surrounding whitespace trimmed, is not a decimal or exponent literal
+/// (NaN, Infinity, hexadecimal and digit separators are refused).
 pub fn som_parse_double(raw: Option<&str>) -> Option<f64> {
     match raw {
         None => None,
         Some(s) if s.is_empty() => None,
-        Some(s) => s.parse::<f64>().ok(),
+        Some(s) => {
+            let text = s.trim();
+            if is_float_text(text) {
+                text.parse::<f64>().ok().filter(|v| v.is_finite())
+            } else {
+                None
+            }
+        }
     }
 }
 
@@ -90,7 +160,8 @@ pub fn som_format_double(value: Option<f64>) -> String {
     }
 }
 
-/// Parses a stored string as `int` when integral, else `double`.
+/// Parses a stored string as `int` when integral, else `double` — both with
+/// the text trimmed and read as [`som_parse_int`] / [`som_parse_double`] do.
 ///
 /// Mirrors Dart's `num.tryParse`: an integral literal yields an `int`, so `num`
 /// fields keep the narrower type when the text carries no fraction.
@@ -100,10 +171,10 @@ pub fn som_parse_num(raw: Option<&str>) -> Option<SomNum> {
         Some(s) if s.is_empty() => return None,
         Some(s) => s,
     };
-    if let Ok(n) = s.parse::<i64>() {
+    if let Some(n) = som_parse_int(Some(s)) {
         return Some(SomNum::Int(n));
     }
-    s.parse::<f64>().ok().map(SomNum::Double)
+    som_parse_double(Some(s)).map(SomNum::Double)
 }
 
 /// Formats a `num` for the store; `None` becomes `""` (clear, D4).
@@ -188,6 +259,13 @@ mod tests {
         assert_eq!(som_parse_num(Some("3.5")), Some(SomNum::Double(3.5)));
         assert_eq!(som_format_num(Some(SomNum::Int(3))), "3");
         assert_eq!(som_format_num(Some(SomNum::Double(3.0))), "3.0");
+
+        assert_eq!(som_parse_int(Some(" 5")), Some(5));
+        assert_eq!(som_parse_double(Some("NaN")), None);
+        assert_eq!(som_parse_double(Some("inf")), None);
+        assert_eq!(som_parse_double(Some("1.")), Some(1.0));
+        assert_eq!(som_parse_double(Some(".5")), Some(0.5));
+        assert_eq!(som_parse_double(Some("1e")), None);
 
         assert_eq!(som_parse_bool(Some("true")), Some(true));
         assert_eq!(som_parse_bool(Some("TRUE")), None);

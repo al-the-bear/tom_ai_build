@@ -1,6 +1,7 @@
 package tom_som_runtime;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Shared typed-value conversion at the store boundary (YRD7) — a faithful port
@@ -19,10 +20,20 @@ import java.util.List;
  * <ul>
  *   <li>absent / empty string ⇒ {@code null} on read; {@code null} on write ⇒
  *       clear (D4);
- *   <li>{@code int} — decimal integer, {@link #somParseInt} returns {@code null}
- *       for non-numeric text;
- *   <li>{@code double} — accepts any floating literal (also a plain integer);
- *       formatting always carries a decimal point, so an integral value
+ *   <li>numbers are read the way the TypeScript runtime reads them (the
+ *       canonical reading, decision tspubnondart20 (a)): the text is trimmed of
+ *       surrounding whitespace, an {@code int} is an optional sign and ASCII
+ *       digits ({@code ^[+-]?[0-9]+$}), a {@code double} / {@code num} a
+ *       decimal or exponent literal
+ *       ({@code ^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?$});
+ *       everything else — {@code NaN}, {@code Infinity}, hexadecimal, digit
+ *       separators, a {@code d}/{@code f} suffix, non-ASCII digits — reads as
+ *       {@code null}, although {@code Integer.valueOf} / {@code Double.valueOf}
+ *       would take some of it, because a spec value is finite;
+ *   <li>{@code int} — {@link #somParseInt} also reads {@code null} for an
+ *       integer literal outside the {@link Integer} range;
+ *   <li>{@code double} — formatting always carries a fraction or an exponent,
+ *       so an integral value
  *       round-trips as {@code 2.0} rather than {@code 2} (Dart's
  *       {@code double.toString});
  *   <li>{@code num} — an integral literal parses to {@link Integer}, anything
@@ -42,15 +53,47 @@ import java.util.List;
 public final class SpecTypedValues {
   private SpecTypedValues() {}
 
+  /** A decimal integer literal with an optional sign. */
+  private static final Pattern INT_TEXT = Pattern.compile("[+-]?[0-9]+");
+
+  /** A floating literal with an optional exponent (also a plain integer). */
+  private static final Pattern FLOAT_TEXT =
+      Pattern.compile("[+-]?(?:[0-9]+(?:\\.[0-9]*)?|\\.[0-9]+)(?:[eE][+-]?[0-9]+)?");
+
+  /**
+   * The characters JavaScript's {@code String.prototype.trim} removes (its
+   * WhiteSpace and LineTerminator sets), so every runtime trims the same text;
+   * Java's {@code strip()} / {@code trim()} use other sets.
+   */
+  private static final String TRIM_CHARS =
+      "\t\n\u000B\f\r \u00A0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006"
+          + "\u2007\u2008\u2009\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF";
+
+  private static String trimmed(String raw) {
+    int start = 0;
+    int end = raw.length();
+    while (start < end && TRIM_CHARS.indexOf(raw.charAt(start)) >= 0) {
+      start++;
+    }
+    while (end > start && TRIM_CHARS.indexOf(raw.charAt(end - 1)) >= 0) {
+      end--;
+    }
+    return raw.substring(start, end);
+  }
+
   /** Parses a stored string as {@code int}, or {@code null} when absent/unparsable. */
   public static Integer somParseInt(String raw) {
     if (raw == null || raw.isEmpty()) {
       return null;
     }
-    try {
-      return Integer.valueOf(raw);
-    } catch (NumberFormatException e) {
+    String text = trimmed(raw);
+    if (!INT_TEXT.matcher(text).matches()) {
       return null;
+    }
+    try {
+      return Integer.valueOf(text);
+    } catch (NumberFormatException e) {
+      return null; // outside the Integer range
     }
   }
 
@@ -63,27 +106,30 @@ public final class SpecTypedValues {
    * Parses a stored string as {@code double}, or {@code null} when
    * absent/unparsable.
    *
-   * <p>The Java-only literal forms {@code Double.parseDouble} additionally
-   * accepts — a {@code d}/{@code f} type suffix and hexadecimal floats — are
-   * rejected here, because the store is language-neutral and the Dart/Python
-   * references read those as unset.
+   * <p>The text is trimmed and must match the decimal literal grammar; the
+   * forms {@code Double.valueOf} additionally accepts — {@code NaN},
+   * {@code Infinity}, a {@code d}/{@code f} type suffix, hexadecimal floats —
+   * read as {@code null}, because the store is language-neutral.
    */
   public static Double somParseDouble(String raw) {
-    if (raw == null || raw.isEmpty() || !isFloatLiteral(raw)) {
+    if (raw == null || raw.isEmpty()) {
       return null;
     }
-    try {
-      return Double.valueOf(raw);
-    } catch (NumberFormatException e) {
+    String text = trimmed(raw);
+    if (!FLOAT_TEXT.matcher(text).matches()) {
       return null;
     }
+    Double value = Double.valueOf(text);
+    // A literal that overflows (1e400) is no value: a spec value is finite.
+    return Double.isFinite(value) ? value : null;
   }
 
   /**
    * Formats a {@code double} for the store; {@code null} becomes {@code ""}
    * (clear, D4).
    *
-   * <p>A {@code double} always renders with a decimal point ({@code 2.0}),
+   * <p>A {@code double} always renders with a fraction or an exponent
+   * ({@code 2.0}, {@code 1.0E10}),
    * matching Dart's {@code double.toString} — the store is language-neutral, so
    * the same value must serialize identically everywhere.
    */
@@ -211,18 +257,5 @@ public final class SpecTypedValues {
       return somParseBool(raw) != null;
     }
     return true;
-  }
-
-  /**
-   * Whether {@code raw} is a decimal floating literal in the language-neutral
-   * shape the store uses — the guard that keeps {@link #somParseDouble} from
-   * accepting Java's extra {@code 12f} / {@code 0x1p3} spellings.
-   */
-  private static boolean isFloatLiteral(String raw) {
-    if (raw.indexOf('x') >= 0 || raw.indexOf('X') >= 0) {
-      return false;
-    }
-    char last = raw.charAt(raw.length() - 1);
-    return last != 'd' && last != 'D' && last != 'f' && last != 'F';
   }
 }

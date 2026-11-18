@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- A double literal that overflows to infinity (`1e400`) reads as no value, as
+  `NaN` and `Infinity` do (`typed_value_cases.json`).
+- Typed values follow the canonical SOM reading: `somParseInt`,
+  `somParseDouble` and `somParseNum` trim the text and refuse `NaN` and
+  `Infinity`.
 - The typed YAML reading (the `review:` pass) parses a JSON flow map `{...}` as
   a map and reads an empty plain value as null, as TS and Dart do (a flow map
   stayed a string, an empty value an empty map).

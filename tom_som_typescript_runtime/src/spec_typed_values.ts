@@ -45,6 +45,15 @@ const _FLOAT_TEXT =
  */
 const _READS_AS_FLOAT = /[.eEnN]/;
 
+/**
+ * `value` when it is finite, else `null`: a literal that overflows (`1e400`)
+ * is no value, as `NaN` and `Infinity` are not (a specification value is
+ * finite).
+ */
+function _finite(value: number): number | null {
+  return Number.isFinite(value) ? value : null;
+}
+
 /** Parses a stored string as `int`, or `null` when absent/unparsable. */
 export function somParseInt(raw: string | null | undefined): number | null {
   if (raw === null || raw === undefined || raw === '') {
@@ -65,7 +74,7 @@ export function somParseDouble(raw: string | null | undefined): number | null {
     return null;
   }
   const text = raw.trim();
-  return _FLOAT_TEXT.test(text) ? parseFloat(text) : null;
+  return _FLOAT_TEXT.test(text) ? _finite(parseFloat(text)) : null;
 }
 
 /**
@@ -99,7 +108,7 @@ export function somParseNum(raw: string | null | undefined): number | null {
   if (_INT_TEXT.test(text)) {
     return parseInt(text, 10);
   }
-  return _FLOAT_TEXT.test(text) ? parseFloat(text) : null;
+  return _FLOAT_TEXT.test(text) ? _finite(parseFloat(text)) : null;
 }
 
 /**

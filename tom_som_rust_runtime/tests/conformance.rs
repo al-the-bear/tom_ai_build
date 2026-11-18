@@ -233,6 +233,7 @@ fn conformance() {
     test_docspecs_replace(&mut c);
     test_docspecs_paths(&mut c, &model);
     test_generation_units(&mut c, &model);
+    test_typed_values(&mut c);
 
     c.finish();
 }
@@ -3774,5 +3775,45 @@ fn test_generation_units(c: &mut Checker, model: &SpecModel) {
         ]);
         let want = kase.get("expect").unwrap_or(&Json::Null);
         c.check(&tag, json_eq(&got, want), &format!("got {:?} want {:?}", got, want));
+    }
+}
+
+/// The canonical typed-value reading (decision tspubnondart20 (a), the
+/// TypeScript runtime's reading), replayed from corpus/typed_value_cases.json:
+/// what each numeric type reads the input as, written back by its formatter
+/// (null when refused), and whether the text is readable for each type. A case
+/// without a `num` key is not checked for num.
+fn test_typed_values(c: &mut Checker) {
+    use tom_som_rust_runtime::spec_typed_values::{
+        som_format_double, som_format_int, som_format_num, som_parse_double, som_parse_int,
+        som_parse_num, som_typed_text_readable,
+    };
+    let table = read_json("typed_value_cases.json");
+    let cases = table.get("cases").and_then(|v| v.as_array()).expect("cases");
+    let want = |c: &Json, key: &str| -> Option<String> { c.get(key).and_then(|v| v.as_str()).map(str::to_string) };
+    for case in cases {
+        let input = case.str_or("input");
+        let name = format!("typedValues[{:?}]", input);
+        let got_int = som_parse_int(Some(&input)).map(|n| som_format_int(Some(n)));
+        let got_double = som_parse_double(Some(&input)).map(|d| som_format_double(Some(d)));
+        let want_int = want(case, "int");
+        let want_double = want(case, "double");
+        c.check(&format!("{}.int", name), got_int == want_int, &format!("{:?} != {:?}", got_int, want_int));
+        c.check(
+            &format!("{}.double", name),
+            got_double == want_double,
+            &format!("{:?} != {:?}", got_double, want_double),
+        );
+        if case.get("num").is_some() {
+            let got_num = som_parse_num(Some(&input)).map(|n| som_format_num(Some(n)));
+            let want_num = want(case, "num");
+            c.check(&format!("{}.num", name), got_num == want_num, &format!("{:?} != {:?}", got_num, want_num));
+        }
+        let readable = case.get("readable").expect("readable");
+        for (key, ty) in [("int", "int"), ("double", "double"), ("num", "num?")] {
+            let expected = readable.bool_or(key);
+            let got = som_typed_text_readable(Some(ty), Some(&input));
+            c.check(&format!("{}.readable.{}", name, key), got == expected, &format!("{}", got));
+        }
     }
 }

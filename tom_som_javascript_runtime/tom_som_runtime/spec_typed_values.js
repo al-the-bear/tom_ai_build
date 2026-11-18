@@ -16,11 +16,15 @@
  * Conventions (the typed contract, mirrored by all nine runtimes):
  *
  *   * absent / empty string ⇒ `null` on read; `null` on write ⇒ clear (D4);
- *   * `int` — decimal integer, {@link somParseInt} returns `null` for
- *     non-numeric text (and for a fractional literal — `12.5` is not an `int`);
- *   * `double` — accepts any parsable floating literal (also plain integers);
- *     formatting always carries a decimal point, so an integral value
- *     round-trips as `2.0` rather than `2` (Dart's `double.toString`);
+ *   * `int`, `double` and `num` text is read with surrounding whitespace
+ *     trimmed (the TypeScript reading is canonical for every runtime);
+ *   * `int` — an optional sign and decimal digits; {@link somParseInt} returns
+ *     `null` for anything else (a fraction — `12.5` is not an `int` —,
+ *     hexadecimal, digit separators);
+ *   * `double` — a decimal or exponent literal (also a plain integer); `NaN`,
+ *     `Infinity` and every other spelling read as `null`, because a spec value
+ *     is finite; formatting always shows a fraction or an exponent, so an
+ *     integral value round-trips as `2.0` rather than `2`;
  *   * `num` — an integral literal parses to an integer, everything else to a
  *     float; JavaScript has one numeric type, so formatting decides by
  *     inspecting the value (`Number.isInteger`) rather than by its class;
@@ -40,18 +44,17 @@ const _INT_PATTERN = /^[+-]?[0-9]+$/;
 
 /** The `double` grammar: a decimal literal with optional fraction/exponent. */
 const _DOUBLE_PATTERN =
-  /^[+-]?(?:[0-9]+\.?[0-9]*|\.[0-9]+)(?:[eE][+-]?[0-9]+)?$/;
+  /^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?$/;
 
-/** The non-finite literals `double.tryParse` accepts alongside the grammar. */
-const _DOUBLE_LITERALS = new Map([
-  ['NaN', NaN],
-  ['Infinity', Infinity],
-  ['+Infinity', Infinity],
-  ['-Infinity', -Infinity],
-]);
+/**
+ * Whether a rendered number already reads as a floating literal — a decimal
+ * point, an exponent, or one of the non-finite spellings (`Infinity`, `NaN`).
+ */
+const _READS_AS_FLOAT = /[.eEnN]/;
 
 /**
  * Parses a stored string as an integer, or `null` when absent/unparsable.
+ * The text is trimmed; only an optional sign and decimal digits are read.
  *
  * @param {?string} raw
  * @returns {?number}
@@ -60,7 +63,8 @@ function somParseInt(raw) {
   if (raw === null || raw === undefined || raw === '') {
     return null;
   }
-  return _INT_PATTERN.test(raw) ? parseInt(raw, 10) : null;
+  const text = raw.trim();
+  return _INT_PATTERN.test(text) ? parseInt(text, 10) : null;
 }
 
 /**
@@ -75,7 +79,8 @@ function somFormatInt(value) {
 
 /**
  * Parses a stored string as a floating-point number, or `null` when
- * absent/unparsable.
+ * absent/unparsable. The text is trimmed; only a decimal or exponent literal is
+ * read — `NaN`, `Infinity` and hexadecimal text are refused.
  *
  * @param {?string} raw
  * @returns {?number}
@@ -84,20 +89,21 @@ function somParseDouble(raw) {
   if (raw === null || raw === undefined || raw === '') {
     return null;
   }
-  if (_DOUBLE_LITERALS.has(raw)) {
-    return _DOUBLE_LITERALS.get(raw);
-  }
-  return _DOUBLE_PATTERN.test(raw) ? Number(raw) : null;
+  const text = raw.trim();
+  if (!_DOUBLE_PATTERN.test(text)) return null;
+  const value = parseFloat(text);
+  // A literal that overflows (`1e400`) is no value: a spec value is finite.
+  return Number.isFinite(value) ? value : null;
 }
 
 /**
  * Formats a `double` for the store; `null` becomes `''` (clear, D4).
  *
- * A `double` always renders with a decimal point (`2.0`), matching Dart's
- * `double.toString` — the store is language-neutral, so the same value must
- * serialize identically everywhere. JavaScript has a single numeric type and
- * would render `2`, so the point is forced here; the caller decides that the
- * value *is* a `double` from the field's declared type.
+ * A `double` always renders with a fraction or an exponent (`2.0`), matching
+ * Dart's `double.toString` — the store is language-neutral, so the same value
+ * must serialize identically everywhere. JavaScript has a single numeric type
+ * and would render `2`, so the point is forced here; the caller decides that
+ * the value *is* a `double` from the field's declared type.
  *
  * @param {?number} value
  * @returns {string}
@@ -107,15 +113,12 @@ function somFormatDouble(value) {
     return '';
   }
   const text = String(value);
-  if (!Number.isFinite(value) || text.includes('.') || text.includes('e')) {
-    return text;
-  }
-  return `${text}.0`;
+  return _READS_AS_FLOAT.test(text) ? text : `${text}.0`;
 }
 
 /**
  * Parses a stored string as an integer when the text is integral, else as a
- * floating-point number; `null` when absent/unparsable.
+ * floating-point number; `null` when absent/unparsable. The text is trimmed.
  *
  * Mirrors Dart's `num.tryParse`: an integral literal yields an `int`, so `num`
  * fields keep the narrower type when the text carries no fraction. JavaScript

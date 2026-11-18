@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- `somParseDouble` / `somParseNum` refuse a literal that overflows to infinity
+  (`1e400`), as they refuse `NaN` and `Infinity`: a spec value is finite. The
+  reading is canonical for all nine runtimes (`typed_value_cases.json`).
+
 ## 1.12.0
 
 - No runtime change. Moves in lockstep with `tom_specs_model` 1.12.0 (an

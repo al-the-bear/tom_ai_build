@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Typed values follow the canonical (TypeScript) reading: `som_parse_int` /
+  `som_parse_double` / `som_parse_num` trim the text and refuse NaN, Infinity,
+  hexadecimal and digit separators (shared corpus `typed_value_cases.json`).
 - `SomList::add_with_id` and `add_content_with_id` on a list without a
   `@SectionIdPattern` ignore the id and append plainly, as TS and Dart do; they
   used to store it.

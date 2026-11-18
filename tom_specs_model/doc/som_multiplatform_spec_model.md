@@ -514,7 +514,14 @@ language mirrors it:
   never `2`; an integral `num` formats as `7`, and only a fractional one as
   `7.5`. A `num` therefore renders from its *runtime value* and a `double` from
   its *declared type* — a port with one shared number-to-string routine can
-  satisfy at most one of the two.
+  satisfy at most one of the two. Reading is one rule in every runtime: the
+  stored text is trimmed; an `int` is an optional sign and decimal digits, a
+  `double` or `num` a decimal or exponent literal (`1.`, `.5`, `1e3`); `NaN`,
+  `Infinity`, hexadecimal, digit separators and anything else read as no value,
+  because a specification value is finite. The platform parsers accept more
+  (`double.tryParse('NaN')`, `strconv.ParseFloat('0x1p4')`, `float('1_000')`),
+  so each runtime checks the text first. `typed_value_cases.json` holds all nine
+  to it.
 - `spec_editor.dart` — `SpecEditor`, the generic meta-model-driven modification
   API (YRD7): typed `value`/`setValue`, form field access, headline, list-item
   add/remove and section clearing, over any path. Reads are forgiving

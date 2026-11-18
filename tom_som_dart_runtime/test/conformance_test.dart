@@ -1318,6 +1318,42 @@ void main() {
     }
   });
 
+  // Decision tspubnondart20 (a): the TypeScript typed-value reading is the
+  // canonical one. A case without a `num` key is not checked for num (a whole
+  // value written as a double has no language-neutral num reading).
+  group('typed_value_cases.json (reading typed values)', () {
+    final table =
+        jsonDecode(read('typed_value_cases.json')) as Map<String, dynamic>;
+    String? readAs<T extends Object>(
+      T? Function(String?) parse,
+      String Function(T?) format,
+      String input,
+    ) {
+      final v = parse(input);
+      return v == null ? null : format(v);
+    }
+
+    for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+      final input = c['input'] as String;
+      test('typed values: ${jsonEncode(input)}', () {
+        final got = <String, dynamic>{
+          'input': input,
+          'int': readAs<int>(somParseInt, somFormatInt, input),
+          'double': readAs<double>(somParseDouble, somFormatDouble, input),
+          'readable': {
+            'int': somTypedTextReadable('int', input),
+            'double': somTypedTextReadable('double', input),
+            'num': somTypedTextReadable('num?', input),
+          },
+        };
+        if (c.containsKey('num')) {
+          got['num'] = readAs<num>(somParseNum, somFormatNum, input);
+        }
+        expect(got, c);
+      });
+    }
+  });
+
   group('assembly_cases.json (assembling a document from fragments)', () {
     final table = update
         ? assemblyCases

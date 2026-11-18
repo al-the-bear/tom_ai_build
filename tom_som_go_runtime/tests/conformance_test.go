@@ -241,6 +241,7 @@ func TestConformance(t *testing.T) {
 	testChangeMarks(c, t, model, tree)
 	testAnswers(c, t, model)
 	testGenerationUnits(c, t, model)
+	testTypedValues(c, t)
 
 	c.finish()
 }
@@ -3594,5 +3595,77 @@ func testGenerationUnits(c *checker, t *testing.T, model *som.SpecModel) {
 		want := toGenericJSON(t, cc.Expect)
 		c.check("generationUnits["+cc.Name+"]", reflect.DeepEqual(got, want),
 			"got "+canonJSON(t, got)+" want "+canonJSON(t, want))
+	}
+}
+
+// typedValueCase mirrors one case of corpus/typed_value_cases.json: what each
+// numeric type reads the input as, written back by its formatter (nil when
+// refused), and whether the text is readable for each type. Num is absent for
+// a whole value written as a double (a property of the language, not the SOM).
+type typedValueCase struct {
+	Input    string          `json:"input"`
+	Int      *string         `json:"int"`
+	Double   *string         `json:"double"`
+	Num      json.RawMessage `json:"num"`
+	Readable struct {
+		Int    bool `json:"int"`
+		Double bool `json:"double"`
+		Num    bool `json:"num"`
+	} `json:"readable"`
+}
+
+// testTypedValues replays the canonical typed-value reading (decision
+// tspubnondart20 (a), the TypeScript runtime's reading).
+func testTypedValues(c *checker, t *testing.T) {
+	var table struct {
+		Cases []typedValueCase `json:"cases"`
+	}
+	readJSON(t, "typed_value_cases.json", &table)
+	show := func(s *string) string {
+		if s == nil {
+			return "null"
+		}
+		return strconv.Quote(*s)
+	}
+	same := func(got, want *string) bool {
+		if got == nil || want == nil {
+			return got == nil && want == nil
+		}
+		return *got == *want
+	}
+	for _, tc := range table.Cases {
+		name := "typedValues[" + strconv.Quote(tc.Input) + "]"
+		var gotInt, gotDouble *string
+		if n, ok := som.SomParseInt(tc.Input); ok {
+			s := som.SomFormatInt(n)
+			gotInt = &s
+		}
+		if f, ok := som.SomParseDouble(tc.Input); ok {
+			s := som.SomFormatDouble(f)
+			gotDouble = &s
+		}
+		c.check(name+".int", same(gotInt, tc.Int), show(gotInt)+" != "+show(tc.Int))
+		c.check(name+".double", same(gotDouble, tc.Double), show(gotDouble)+" != "+show(tc.Double))
+		if tc.Num != nil {
+			var wantNum *string
+			if err := json.Unmarshal(tc.Num, &wantNum); err != nil {
+				t.Fatalf("%s: num: %v", name, err)
+			}
+			var gotNum *string
+			if v, ok := som.SomParseNum(tc.Input); ok {
+				var s string
+				switch n := v.(type) {
+				case int:
+					s = som.SomFormatInt(n)
+				case float64:
+					s = som.SomFormatNum(n)
+				}
+				gotNum = &s
+			}
+			c.check(name+".num", same(gotNum, wantNum), show(gotNum)+" != "+show(wantNum))
+		}
+		c.check(name+".readable.int", som.SomTypedTextReadable("int", tc.Input) == tc.Readable.Int, "")
+		c.check(name+".readable.double", som.SomTypedTextReadable("double", tc.Input) == tc.Readable.Double, "")
+		c.check(name+".readable.num", som.SomTypedTextReadable("num?", tc.Input) == tc.Readable.Num, "")
 	}
 }

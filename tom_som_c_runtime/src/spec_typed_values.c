@@ -1,9 +1,11 @@
 #include "spec_typed_values.h"
 
-#include <math.h>
+#include <float.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "yaml.h"
 
 /* ---- SomValue ----------------------------------------------------------- */
 
@@ -110,85 +112,130 @@ char *som_value_debug(const SomValue *v) {
   return som_strdup("none");
 }
 
+/* ---- the canonical number grammar -------------------------------------- */
+
+/* The typed-value reading every runtime shares (decision tspubnondart20 (a),
+ * the TypeScript `spec_typed_values.ts` canonical): the stored text is read
+ * with its surrounding whitespace trimmed; an int is `^[+-]?[0-9]+$`, a double
+ * `^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?$`. Everything
+ * else — NaN, Infinity, hexadecimal, digit separators, the platform extensions
+ * `strtod` would let through — is refused, because a spec value is finite. */
+
+static int is_space(char ch) {
+  return ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r' ||
+         ch == '\v' || ch == '\f';
+}
+
+static int is_digit(char ch) { return ch >= '0' && ch <= '9'; }
+
+/* An owned copy of `raw` without its surrounding whitespace, or NULL for NULL
+ * or empty text. */
+static char *trimmed_copy(const char *raw) {
+  if (raw == NULL || raw[0] == '\0') {
+    return NULL;
+  }
+  const char *b = raw;
+  while (*b != '\0' && is_space(*b)) {
+    b++;
+  }
+  size_t n = strlen(b);
+  while (n > 0 && is_space(b[n - 1])) {
+    n--;
+  }
+  char *out = (char *)malloc(n + 1);
+  memcpy(out, b, n);
+  out[n] = '\0';
+  return out;
+}
+
+/* Whether `s` (already trimmed) is a decimal integer literal. */
+static int int_text(const char *s) {
+  size_t i = (s[0] == '+' || s[0] == '-') ? 1 : 0;
+  if (!is_digit(s[i])) {
+    return 0;
+  }
+  for (; s[i] != '\0'; i++) {
+    if (!is_digit(s[i])) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+/* Whether `s` (already trimmed) is a decimal or exponent literal. */
+static int float_text(const char *s) {
+  size_t i = (s[0] == '+' || s[0] == '-') ? 1 : 0;
+  size_t whole = 0;
+  size_t frac = 0;
+  while (is_digit(s[i])) {
+    i++;
+    whole++;
+  }
+  if (s[i] == '.') {
+    i++;
+    while (is_digit(s[i])) {
+      i++;
+      frac++;
+    }
+  }
+  if (whole == 0 && frac == 0) {
+    return 0;
+  }
+  if (s[i] == 'e' || s[i] == 'E') {
+    i++;
+    if (s[i] == '+' || s[i] == '-') {
+      i++;
+    }
+    if (!is_digit(s[i])) {
+      return 0;
+    }
+    while (is_digit(s[i])) {
+      i++;
+    }
+  }
+  return s[i] == '\0';
+}
+
 /* ---- int ---------------------------------------------------------------- */
 
 int som_parse_int(const char *raw, long long *out) {
-  if (raw == NULL || raw[0] == '\0') {
+  char *text = trimmed_copy(raw);
+  if (text == NULL) {
     return 0;
   }
-  return som_parse_i64(raw, out);
+  int ok = int_text(text) && som_parse_i64(text, out);
+  free(text);
+  return ok;
 }
 
 char *som_format_int(long long value) { return som_format_i64(value); }
 
 /* ---- double ------------------------------------------------------------- */
 
-/* Dart's `double.tryParse` grammar minus the platform extensions `strtod`
- * would otherwise let through: no leading/trailing whitespace and no hex
- * literal, so every runtime accepts the same set of strings. */
-static int parse_finite_double(const char *raw, double *out) {
-  if (raw == NULL || raw[0] == '\0') {
-    return 0;
-  }
-  size_t i = (raw[0] == '+' || raw[0] == '-') ? 1 : 0;
-  if (raw[i] == '0' && (raw[i + 1] == 'x' || raw[i + 1] == 'X')) {
-    return 0;
-  }
-  char *end = NULL;
-  double v = strtod(raw, &end);
-  if (end == raw || end == NULL || *end != '\0') {
-    return 0;
-  }
-  *out = v;
-  return 1;
-}
-
 int som_parse_double(const char *raw, double *out) {
-  if (raw == NULL || raw[0] == '\0') {
+  char *text = trimmed_copy(raw);
+  if (text == NULL) {
     return 0;
   }
-  /* The three named literals Dart spells with capitals; `strtod` would accept
-   * `inf`/`nan` in any case, which the other ports do not. */
-  const char *s = (raw[0] == '+' || raw[0] == '-') ? raw + 1 : raw;
-  double sign = (raw[0] == '-') ? -1.0 : 1.0;
-  if (strcmp(s, "Infinity") == 0) {
-    *out = sign * HUGE_VAL;
-    return 1;
+  int ok = 0;
+  if (float_text(text)) {
+    /* A literal that overflows to infinity is no value either: a spec value
+     * is finite (no libm: the comparison against DBL_MAX is the check). */
+    double v = strtod(text, NULL);
+    if (v >= -DBL_MAX && v <= DBL_MAX) {
+      *out = v;
+      ok = 1;
+    }
   }
-  if (strcmp(s, "NaN") == 0) {
-    *out = (double)NAN;
-    return 1;
-  }
-  return parse_finite_double(raw, out);
+  free(text);
+  return ok;
 }
 
 char *som_format_double(double value) {
-  if (isnan(value)) {
-    return som_strdup("NaN");
-  }
-  if (isinf(value)) {
-    return som_strdup(value > 0 ? "Infinity" : "-Infinity");
-  }
-  /* Shortest representation that still round-trips, matching Dart's
-   * `double.toString` (and Python's `repr`). */
-  char buf[64];
-  for (int prec = 1; prec <= 17; prec++) {
-    snprintf(buf, sizeof(buf), "%.*g", prec, value);
-    if (strtod(buf, NULL) == value) {
-      break;
-    }
-  }
-  /* An integral double must stay distinguishable from an int in the store:
-   * `%g` renders 2.0 as "2", so give it back its decimal point. */
-  if (strpbrk(buf, ".eE") == NULL) {
-    size_t n = strlen(buf);
-    if (n + 3 <= sizeof(buf)) {
-      buf[n] = '.';
-      buf[n + 1] = '0';
-      buf[n + 2] = '\0';
-    }
-  }
-  return som_strdup(buf);
+  /* Shortest round-trip digits, laid out like Dart's `double.toString` and
+   * JavaScript's Number.prototype.toString, always with a fraction or an
+   * exponent (`1.0`, `1000.0`, `1e+21`). */
+  return yaml_format_double(value);
 }
 
 /* ---- num ---------------------------------------------------------------- */

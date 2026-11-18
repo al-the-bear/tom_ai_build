@@ -10,13 +10,21 @@
 ///
 /// Conventions (the typed contract):
 ///   * absent / empty string ⇒ `null` on read; `null` on write ⇒ clear (D4);
-///   * `int` — decimal integer, `somParseInt` returns `null` for non-numeric;
-///   * `double` — accepts any Dart-parsable floating literal (also plain
-///     integers); formatting uses the value's shortest `toString()`, which
-///     **keeps the decimal point on an integral value** (`2.0`, never `2`).
-///     That is the whole reason this is a shared boundary rather than each
-///     language's default number-to-string: a runtime with one numeric type
-///     writes `2` and silently diverges in every serialized document;
+///   * `int`, `double` and `num` text is read with surrounding whitespace
+///     trimmed (the TypeScript reading is canonical for every runtime);
+///   * `int` — an optional sign and decimal digits; `somParseInt` returns
+///     `null` for anything else (hexadecimal `0x10`, a fraction, digit
+///     separators), although Dart's `int.tryParse` would accept a hex literal;
+///   * `double` — a decimal or exponent literal (`5`, `1.`, `.5`, `-2.5e2`);
+///     `NaN`, `Infinity` and every other spelling Dart's `double.tryParse`
+///     accepts beyond that grammar read as `null`, because a spec value is
+///     finite. Formatting uses the value's shortest `toString()`, which
+///     **always shows a fraction or an exponent** (`1.0`, never `1`). That is
+///     the whole reason this is a shared boundary rather than each language's
+///     default number-to-string: a runtime with one numeric type writes `1`
+///     and silently diverges in every serialized document;
+///   * `num` — an `int` when the text reads as one, else a `double` by the
+///     same grammar;
 ///   * `bool` — stored as `true` / `false`; parsing accepts exactly those
 ///     (case-sensitive), anything else reads as `null`;
 ///   * enums — stored as the constant **name** (e.g. `high`); the generic
@@ -28,23 +36,54 @@
 /// `tom_som_conformance/corpus/editor_cases.json`.
 library;
 
+/// A decimal integer literal: an optional sign and digits.
+final RegExp _intText = RegExp(r'^[+-]?[0-9]+$');
+
+/// A floating literal: digits with an optional fraction, or a bare fraction,
+/// and an optional exponent.
+final RegExp _floatText = RegExp(
+  r'^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?$',
+);
+
 /// Parses a stored string as `int`, or `null` when absent/unparsable.
-int? somParseInt(String? raw) =>
-    (raw == null || raw.isEmpty) ? null : int.tryParse(raw);
+///
+/// The text is trimmed; only an optional sign and decimal digits are read.
+int? somParseInt(String? raw) {
+  if (raw == null || raw.isEmpty) return null;
+  final text = raw.trim();
+  return _intText.hasMatch(text) ? int.tryParse(text) : null;
+}
 
 /// Formats an `int` for the store; `null` becomes `''` (clear, D4).
 String somFormatInt(int? value) => value?.toString() ?? '';
 
 /// Parses a stored string as `double`, or `null` when absent/unparsable.
-double? somParseDouble(String? raw) =>
-    (raw == null || raw.isEmpty) ? null : double.tryParse(raw);
+///
+/// The text is trimmed; only a decimal or exponent literal is read — `NaN`,
+/// `Infinity` and hexadecimal text are refused.
+double? somParseDouble(String? raw) {
+  if (raw == null || raw.isEmpty) return null;
+  final text = raw.trim();
+  return _floatText.hasMatch(text) ? _finite(double.tryParse(text)) : null;
+}
 
 /// Formats a `double` for the store; `null` becomes `''` (clear, D4).
+///
+/// Dart's `double.toString` always shows a fraction or an exponent (`1.0`).
 String somFormatDouble(double? value) => value?.toString() ?? '';
 
 /// Parses a stored string as `num`, or `null` when absent/unparsable.
-num? somParseNum(String? raw) =>
-    (raw == null || raw.isEmpty) ? null : num.tryParse(raw);
+///
+/// The text is trimmed; it reads as an `int` when it is an integer literal,
+/// else as a `double` by [somParseDouble]'s grammar.
+num? somParseNum(String? raw) {
+  if (raw == null || raw.isEmpty) return null;
+  final text = raw.trim();
+  if (_intText.hasMatch(text)) {
+    return int.tryParse(text) ?? _finite(double.parse(text));
+  }
+  return _floatText.hasMatch(text) ? _finite(double.tryParse(text)) : null;
+}
 
 /// Formats a `num` for the store; `null` becomes `''` (clear, D4).
 String somFormatNum(num? value) => value?.toString() ?? '';
@@ -116,3 +155,9 @@ bool somTypedTextReadable(String? typeName, String? raw) {
       return true;
   }
 }
+
+/// [value] when it is finite, else `null`: a literal that overflows (`1e400`)
+/// is no value, as `NaN` and `Infinity` are not (a specification value is
+/// finite).
+double? _finite(double? value) =>
+    value != null && value.isFinite ? value : null;

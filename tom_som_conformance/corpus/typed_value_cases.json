@@ -1,0 +1,265 @@
+{
+  "description": "SOM typed values (decision tspubnondart20 (a), TypeScript reading canonical): an int, double or num field value is read from its stored text with surrounding whitespace trimmed; an int is an optional sign and digits, a double or num a decimal or exponent literal; NaN, Infinity, hexadecimal, digit separators and anything else are refused (null), and so is a literal that overflows (1e400), because a spec value is finite. Each case names the input text, what each type reads it as written back by its formatter (int: the digits; double: always with a fraction or an exponent, 1 → 1.0; num: an int when it reads as one, else a double), null when refused, and whether the text is readable for each type (an empty text is: an unset value). A num whose text is written as a double but has a whole value (1.0, 1e3) carries no num expectation: JavaScript numbers cannot tell 1 from 1.0, so its reading is a property of the language, not of the SOM.",
+  "cases": [
+    {
+      "input": " 5",
+      "int": "5",
+      "double": "5.0",
+      "num": "5",
+      "readable": {
+        "int": true,
+        "double": true,
+        "num": true
+      }
+    },
+    {
+      "input": "5 ",
+      "int": "5",
+      "double": "5.0",
+      "num": "5",
+      "readable": {
+        "int": true,
+        "double": true,
+        "num": true
+      }
+    },
+    {
+      "input": "\t7\n",
+      "int": "7",
+      "double": "7.0",
+      "num": "7",
+      "readable": {
+        "int": true,
+        "double": true,
+        "num": true
+      }
+    },
+    {
+      "input": "+3",
+      "int": "3",
+      "double": "3.0",
+      "num": "3",
+      "readable": {
+        "int": true,
+        "double": true,
+        "num": true
+      }
+    },
+    {
+      "input": "42",
+      "int": "42",
+      "double": "42.0",
+      "num": "42",
+      "readable": {
+        "int": true,
+        "double": true,
+        "num": true
+      }
+    },
+    {
+      "input": "5.5",
+      "int": null,
+      "double": "5.5",
+      "num": "5.5",
+      "readable": {
+        "int": false,
+        "double": true,
+        "num": true
+      }
+    },
+    {
+      "input": "1.0",
+      "int": null,
+      "double": "1.0",
+      "readable": {
+        "int": false,
+        "double": true,
+        "num": true
+      }
+    },
+    {
+      "input": "1.",
+      "int": null,
+      "double": "1.0",
+      "readable": {
+        "int": false,
+        "double": true,
+        "num": true
+      }
+    },
+    {
+      "input": ".5",
+      "int": null,
+      "double": "0.5",
+      "num": "0.5",
+      "readable": {
+        "int": false,
+        "double": true,
+        "num": true
+      }
+    },
+    {
+      "input": "1e3",
+      "int": null,
+      "double": "1000.0",
+      "readable": {
+        "int": false,
+        "double": true,
+        "num": true
+      }
+    },
+    {
+      "input": "-2.5e2",
+      "int": null,
+      "double": "-250.0",
+      "readable": {
+        "int": false,
+        "double": true,
+        "num": true
+      }
+    },
+    {
+      "input": "NaN",
+      "int": null,
+      "double": null,
+      "num": null,
+      "readable": {
+        "int": false,
+        "double": false,
+        "num": false
+      }
+    },
+    {
+      "input": "nan",
+      "int": null,
+      "double": null,
+      "num": null,
+      "readable": {
+        "int": false,
+        "double": false,
+        "num": false
+      }
+    },
+    {
+      "input": "Infinity",
+      "int": null,
+      "double": null,
+      "num": null,
+      "readable": {
+        "int": false,
+        "double": false,
+        "num": false
+      }
+    },
+    {
+      "input": "-Infinity",
+      "int": null,
+      "double": null,
+      "num": null,
+      "readable": {
+        "int": false,
+        "double": false,
+        "num": false
+      }
+    },
+    {
+      "input": "inf",
+      "int": null,
+      "double": null,
+      "num": null,
+      "readable": {
+        "int": false,
+        "double": false,
+        "num": false
+      }
+    },
+    {
+      "input": "0x10",
+      "int": null,
+      "double": null,
+      "num": null,
+      "readable": {
+        "int": false,
+        "double": false,
+        "num": false
+      }
+    },
+    {
+      "input": "1_000",
+      "int": null,
+      "double": null,
+      "num": null,
+      "readable": {
+        "int": false,
+        "double": false,
+        "num": false
+      }
+    },
+    {
+      "input": "1,5",
+      "int": null,
+      "double": null,
+      "num": null,
+      "readable": {
+        "int": false,
+        "double": false,
+        "num": false
+      }
+    },
+    {
+      "input": "abc",
+      "int": null,
+      "double": null,
+      "num": null,
+      "readable": {
+        "int": false,
+        "double": false,
+        "num": false
+      }
+    },
+    {
+      "input": "",
+      "int": null,
+      "double": null,
+      "num": null,
+      "readable": {
+        "int": true,
+        "double": true,
+        "num": true
+      }
+    },
+    {
+      "input": " ",
+      "int": null,
+      "double": null,
+      "num": null,
+      "readable": {
+        "int": false,
+        "double": false,
+        "num": false
+      }
+    },
+    {
+      "input": "1e400",
+      "int": null,
+      "double": null,
+      "num": null,
+      "readable": {
+        "int": false,
+        "double": false,
+        "num": false
+      }
+    },
+    {
+      "input": "-1e400",
+      "int": null,
+      "double": null,
+      "num": null,
+      "readable": {
+        "int": false,
+        "double": false,
+        "num": false
+      }
+    }
+  ]
+}
