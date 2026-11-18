@@ -71,7 +71,7 @@ void _mainCheckReleaseDrift(List<String> arguments) {
     throw ToolExit(0);
   }
 
-  final clitoolRoot = p.dirname(p.dirname(p.fromUri(Platform.script)));
+  final clitoolRoot = clitoolPackageRoot();
   final containerRoot = p.normalize(
     results.option('container-root') ?? p.join(clitoolRoot, '..', '..', '..'),
   );

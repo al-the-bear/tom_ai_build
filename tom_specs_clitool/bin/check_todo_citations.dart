@@ -112,7 +112,7 @@ Future<void> _mainCheckTodoCitations(List<String> arguments) async {
     throw ToolExit(0);
   }
 
-  final clitoolRoot = p.dirname(p.dirname(p.fromUri(Platform.script)));
+  final clitoolRoot = clitoolPackageRoot();
   final containerRoot = p.normalize(p.join(clitoolRoot, '..', '..', '..'));
 
   final docDir = p.normalize(

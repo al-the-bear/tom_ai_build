@@ -123,7 +123,9 @@ unpublished_drift:
     the package config, used by codespecs_areas); tsbin5 (2026-11-17): build,
     generate_som, spec_ops, model_json and check_som_parity find the package
     the same way, and build runs model_json and docspecs_schema in-process;
-    published with the next clitool release.
+    tsbin6 (2026-11-18): the gates find the package the same way, and a
+    compiled binary finds it from the current directory; published with the
+    next clitool release.
   tom_core_codespecs: >-
     irfmt2 (2026-11-16): irspecs_ir.md §8 states that the dart-tom mapper needs
     no Dart SDK; irout1 (2026-11-16): irspecs_ir.md and codespecs_mapping.md

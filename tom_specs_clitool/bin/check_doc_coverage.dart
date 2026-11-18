@@ -176,11 +176,4 @@ List<String> _raise(File file, DocCoverageReport report) {
 }
 
 /// The `tom_specs_clitool` root, from this script's own location.
-String _clitoolRoot() {
-  var dir = p.dirname(p.fromUri(Platform.script));
-  while (dir != p.dirname(dir)) {
-    if (File(p.join(dir, 'pubspec.yaml')).existsSync()) return dir;
-    dir = p.dirname(dir);
-  }
-  return Directory.current.path;
-}
+String _clitoolRoot() => clitoolPackageRoot();

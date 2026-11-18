@@ -128,11 +128,4 @@ Future<void> _mainCheckDartdocBuild(List<String> arguments) async {
   }
 }
 
-String _clitoolRoot() {
-  var dir = p.dirname(p.fromUri(Platform.script));
-  while (dir != p.dirname(dir)) {
-    if (File(p.join(dir, 'pubspec.yaml')).existsSync()) return dir;
-    dir = p.dirname(dir);
-  }
-  return Directory.current.path;
-}
+String _clitoolRoot() => clitoolPackageRoot();

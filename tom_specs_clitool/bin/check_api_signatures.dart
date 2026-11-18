@@ -118,11 +118,4 @@ Future<void> _mainCheckApiSignatures(List<String> arguments) async {
   if (faults > 0) _exitCode = 1;
 }
 
-String _clitoolRoot() {
-  var dir = p.dirname(p.fromUri(Platform.script));
-  while (dir != p.dirname(dir)) {
-    if (File(p.join(dir, 'pubspec.yaml')).existsSync()) return dir;
-    dir = p.dirname(dir);
-  }
-  return Directory.current.path;
-}
+String _clitoolRoot() => clitoolPackageRoot();
