@@ -97,20 +97,20 @@ public final class CodeSpecsExtract {
         + "spec_codespecs_extract. Do not edit.");
     line(b, "extract:");
     line(b, "  formatVersion: " + FORMAT_VERSION);
-    line(b, "  catalogSource: " + yamlString(catalogSource));
+    line(b, "  catalogSource: " + codeSpecsYamlString(catalogSource));
     line(b, "  area:");
-    line(b, "    code: " + yamlString(area.code));
-    line(b, "    canonicalId: " + yamlString(area.canonicalId));
-    line(b, "    part: " + yamlString(area.kindValue()));
+    line(b, "    code: " + codeSpecsYamlString(area.code));
+    line(b, "    canonicalId: " + codeSpecsYamlString(area.canonicalId));
+    line(b, "    part: " + codeSpecsYamlString(area.kindValue()));
     line(b, "    annotations: " + yamlStringList(area.annotations));
-    line(b, "    builtOn: " + yamlString(area.builtOn));
-    line(b, "    attributeSurface: " + yamlString(area.attributeSurface));
+    line(b, "    builtOn: " + codeSpecsYamlString(area.builtOn));
+    line(b, "    attributeSurface: " + codeSpecsYamlString(area.attributeSurface));
     line(b, "    slices: " + yamlIntList(area.slices));
     line(b, "    authoringSteps: " + yamlIntList(area.authoringSteps));
     line(b, "    projects: " + yamlStringList(projects));
     line(b, "    citableParts: " + yamlStringList(citableParts));
     line(b, "  document:");
-    line(b, "    root: " + yamlString(documentRoot));
+    line(b, "    root: " + codeSpecsYamlString(documentRoot));
     line(b, "    entryCount: " + entries.size());
     if (entries.isEmpty()) {
       line(b, "  entries: []");
@@ -118,20 +118,20 @@ public final class CodeSpecsExtract {
     }
     line(b, "  entries:");
     for (CodeSpecsExtractEntry e : entries) {
-      line(b, "    - sectionId: " + yamlString(e.sectionId));
+      line(b, "    - sectionId: " + codeSpecsYamlString(e.sectionId));
       line(b, "      headline: " + yamlNullableString(e.headline));
       line(b, "      instanceId: " + yamlNullableString(e.instanceId));
-      line(b, "      path: " + yamlString(e.path));
-      line(b, "      className: " + yamlString(e.className));
-      line(b, "      fieldName: " + yamlString(e.fieldName));
+      line(b, "      path: " + codeSpecsYamlString(e.path));
+      line(b, "      className: " + codeSpecsYamlString(e.className));
+      line(b, "      fieldName: " + codeSpecsYamlString(e.fieldName));
       line(b, "      formField: " + yamlNullableString(e.formField));
-      line(b, "      routedBy: " + yamlString(e.routedBy));
-      line(b, "      routedAt: " + yamlString(e.routedAt));
+      line(b, "      routedBy: " + codeSpecsYamlString(e.routedBy));
+      line(b, "      routedAt: " + codeSpecsYamlString(e.routedAt));
       line(b, "      routingNote: " + yamlNullableString(e.routingNote));
       if (!e.units.isEmpty()) {
         line(b, "      units: " + yamlStringList(e.units));
       }
-      line(b, "      value: " + yamlString(e.value));
+      line(b, "      value: " + codeSpecsYamlString(e.value));
     }
     return b.toString();
   }
@@ -222,9 +222,10 @@ public final class CodeSpecsExtract {
    *
    * <p>Iterates by <b>code point</b>, not UTF-16 code unit, so a surrogate pair
    * is emitted whole exactly as the Dart reference's {@code runes} loop does.
-   * Package-private: the gate record writes its notes with the same rule.
+   * Public as TS {@code codeSpecsYamlString}; the gate record writes its notes
+   * with the same rule.
    */
-  static String yamlString(String value) {
+  public static String codeSpecsYamlString(String value) {
     StringBuilder b = new StringBuilder("\"");
     for (int i = 0; i < value.length(); ) {
       int rune = value.codePointAt(i);
@@ -269,7 +270,7 @@ public final class CodeSpecsExtract {
   }
 
   private static String yamlNullableString(String value) {
-    return value == null ? "null" : yamlString(value);
+    return value == null ? "null" : codeSpecsYamlString(value);
   }
 
   private static String yamlStringList(List<String> values) {
@@ -278,7 +279,7 @@ public final class CodeSpecsExtract {
       if (i > 0) {
         b.append(", ");
       }
-      b.append(yamlString(values.get(i)));
+      b.append(codeSpecsYamlString(values.get(i)));
     }
     return b.append(']').toString();
   }

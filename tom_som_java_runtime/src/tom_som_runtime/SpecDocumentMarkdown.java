@@ -89,7 +89,7 @@ public final class SpecDocumentMarkdown {
    * (SOM §11.2): double-quoted, single-quoted or bare, trimmed. Returns the
    * empty string when the region carries no {@code units} key.
    */
-  static String unitsOf(String region) {
+  public static String unitsOf(String region) {
     Matcher m = UNITS_PATTERN.matcher(region);
     if (m.find()) {
       for (int g = 1; g <= 3; g++) {
@@ -101,7 +101,13 @@ public final class SpecDocumentMarkdown {
     return "";
   }
 
-  static String codeSpecOf(String region) {
+  /**
+   * Extracts the {@code codeSpec="…"} value from a heading-comment key=value
+   * region (codespecs_mapping.md §9.2): double-quoted, single-quoted or bare,
+   * trimmed. Returns the empty string when the region carries no
+   * {@code codeSpec} key.
+   */
+  public static String codeSpecOf(String region) {
     Matcher m = CODE_SPEC_PATTERN.matcher(region);
     if (m.find()) {
       for (int g = 1; g <= 3; g++) {

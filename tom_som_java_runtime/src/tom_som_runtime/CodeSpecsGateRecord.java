@@ -283,18 +283,18 @@ public final class CodeSpecsGateRecord {
         b.append("      gaps:\n");
         for (CodeSpecsGateGap g : e.gaps) {
           b.append("        - sectionId: ")
-              .append(CodeSpecsExtract.yamlString(g.sectionId))
+              .append(CodeSpecsExtract.codeSpecsYamlString(g.sectionId))
               .append('\n');
           b.append("          required: ")
-              .append(CodeSpecsExtract.yamlString(g.required))
+              .append(CodeSpecsExtract.codeSpecsYamlString(g.required))
               .append('\n');
           b.append("          carrier: ")
-              .append(CodeSpecsExtract.yamlString(g.carrier))
+              .append(CodeSpecsExtract.codeSpecsYamlString(g.carrier))
               .append('\n');
         }
       }
       if (e.note != null) {
-        b.append("      note: ").append(CodeSpecsExtract.yamlString(e.note)).append('\n');
+        b.append("      note: ").append(CodeSpecsExtract.codeSpecsYamlString(e.note)).append('\n');
       }
     }
     return b.toString();

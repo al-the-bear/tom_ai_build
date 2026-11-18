@@ -398,7 +398,7 @@ public final class SpecDocumentYaml {
    * Writes the file header comment + {@code version:} line, and the optional
    * {@code modelVersion:} stamp when {@code modelVersion} is non-empty.
    */
-  private static void writeHeader(StringBuilder b, String modelVersion) {
+  public static void writeHeader(StringBuilder b, String modelVersion) {
     b.append("# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\n");
     b.append("version: ").append(FORMAT_VERSION).append('\n');
     if (modelVersion != null && !modelVersion.isEmpty()) {

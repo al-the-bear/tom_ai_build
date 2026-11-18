@@ -114,6 +114,6 @@ public final class CodeSpecsFieldRef {
   static String describe(Object v) {
     return v == null
         ? "absent"
-        : v.getClass().getSimpleName() + " " + CodeSpecsExtract.yamlString(String.valueOf(v));
+        : v.getClass().getSimpleName() + " " + CodeSpecsExtract.codeSpecsYamlString(String.valueOf(v));
   }
 }

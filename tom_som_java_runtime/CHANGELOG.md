@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Public, as TS exports them: `SpecDocumentYaml.writeHeader`,
+  `SpecDocumentMarkdown.codeSpecOf` / `unitsOf`, and
+  `CodeSpecsExtract.codeSpecsYamlString` (was the package-private
+  `yamlString`).
+- Tests: `SomFacadeEditabilityTest` (the port of TS
+  `som_facade_editability_test.ts`: a generated root's static
+  `editabilityFor` and its constructor version check, 8 checks) and
+  `SpecPublicHelpersTest` (the helpers above, called from outside the package).
 - A double literal that overflows to infinity (`1e400`) reads as no value, as
   `NaN` and `Infinity` do (`typed_value_cases.json`).
 - Typed values read as the TypeScript runtime does (canonical, decision
