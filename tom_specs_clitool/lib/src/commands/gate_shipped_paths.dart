@@ -34,7 +34,7 @@ const List<String> defaultPackages = [
   'tom_ai/ai_build/tom_core_codespecs',
 ];
 
-/// Runs `check_shipped_paths` with [arguments] and returns its exit code, without ending
+/// Runs `tomspecs :gate-shipped-paths` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
 Future<int> runCheckShippedPaths(List<String> arguments) async {
   _exitCode = 0;
@@ -48,10 +48,7 @@ Future<int> runCheckShippedPaths(List<String> arguments) async {
 
 int _exitCode = 0;
 
-Future<void> main(List<String> arguments) async =>
-    exit(await runCheckShippedPaths(arguments));
-
-/// The options of `check_shipped_paths` (also the `tomspecs` command's).
+/// The options of `tomspecs :gate-shipped-paths`.
 ArgParser checkShippedPathsParser() => ArgParser()
   ..addMultiOption(
     'package',
@@ -78,7 +75,7 @@ void _mainCheckShippedPaths(List<String> arguments) {
     throw ToolExit(2);
   }
   if (results.flag('help')) {
-    stdout.writeln('Usage: dart run bin/check_shipped_paths.dart [options]\n');
+    stdout.writeln('Usage: tomspecs :gate-shipped-paths [options]\n');
     stdout.writeln(parser.usage);
     throw ToolExit(0);
   }
@@ -96,7 +93,7 @@ void _mainCheckShippedPaths(List<String> arguments) {
   for (final rel in packages) {
     final dir = Directory(p.join(containerRoot, rel));
     if (!dir.existsSync()) {
-      stderr.writeln('check_shipped_paths: package not found: ${dir.path}');
+      stderr.writeln('gate-shipped-paths: package not found: ${dir.path}');
       throw ToolExit(2);
     }
     scanned++;
@@ -109,7 +106,7 @@ void _mainCheckShippedPaths(List<String> arguments) {
 
   if (findings.isEmpty) {
     stdout.writeln(
-      'check_shipped_paths: $scanned package(s), every path literal in a '
+      'gate-shipped-paths: $scanned package(s), every path literal in a '
       'shipped script resolves inside its package',
     );
     throw ToolExit(0);
@@ -117,7 +114,7 @@ void _mainCheckShippedPaths(List<String> arguments) {
 
   final total = findings.values.fold<int>(0, (a, b) => a + b.length);
   stderr.writeln(
-    'check_shipped_paths: $total path literal(s) in shipped scripts resolve '
+    'gate-shipped-paths: $total path literal(s) in shipped scripts resolve '
     'nowhere inside their package',
   );
   for (final entry in findings.entries) {

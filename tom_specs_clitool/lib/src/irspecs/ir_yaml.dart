@@ -160,7 +160,7 @@ List<({String name, IrDocument document})> readIrFolderFiles(String dir) {
   return documents..sort((a, b) => a.document.area.compareTo(b.document.area));
 }
 
-/// [document] as JSON text (`irspecs export --format json`), two-space
+/// [document] as JSON text (`tomspecs :ir-export --format json`), two-space
 /// indented and ending in one newline: the same data [writeIrYaml] prints, in
 /// the same key order, valid against `tool/irspecs_ir.schema.json`.
 String writeIrJson(IrDocument document) =>

@@ -8,7 +8,7 @@
 ///   non-static instance member of every spec-model class by source-declaration
 ///   order (0-based, per class). It is idempotent/re-runnable (it strips any old
 ///   ordinal before writing the fresh one). This is the same logic the
-///   `bin/stamp_serialization_order.dart` CLI exposes, extracted here so the SOM
+///   `tomspecs :model-stamp-order` CLI exposes, extracted here so the SOM
 ///   language generator can invoke it as its mandatory **first step**.
 /// * [findUnstampedModelMembers] / [unstampedMembers] — the **guard**: after a
 ///   restamp, verify that every member the model reflects into the wire format

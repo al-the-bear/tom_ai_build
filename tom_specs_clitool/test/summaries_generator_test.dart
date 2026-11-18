@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
-/// End-to-end test for the B1 analyzer-summary generator (`bin/summaries.dart`,
+/// End-to-end test for the B1 analyzer-summary generator (`tomspecs :editor-summaries`,
 /// OE-1). The SDK-summary path is deterministic and fast (a couple of seconds);
 /// the heavy package-bundle path (~40 MB, ~30 s) is exercised by the real build
 /// (`build.dart --generate-summaries`) and the committed assets, not in CI.

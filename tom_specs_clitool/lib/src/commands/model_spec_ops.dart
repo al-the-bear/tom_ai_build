@@ -7,17 +7,17 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// Generates the `spec_ops.g.dart` registry that adopts the snapshot/
 /// serialization contract across every `tom_specs_model` class (OE-2).
 ///
-/// Reads the model package with the analyzer (same path as `model_json.dart`),
+/// Reads the model package with the analyzer (same path as `tomspecs :model-json`),
 /// then emits one `registerSpecOps()` registering a `SpecClassOps` per concrete
 /// type.
 ///
 /// **This is the ad-hoc entry point, not the canonical one.** The registry is
 /// generated out of `tom_specs_model` exactly like the nine language packages,
-/// so `bin/generate_som.dart` produces it as part of the one regeneration
+/// so `tomspecs :som-generate` produces it as part of the one regeneration
 /// command and the model fingerprint that command stamps certifies it. Reach
 /// for this CLI to write the registry somewhere else, or to regenerate it alone
 /// without paying for a nine-language run.
-/// Runs `spec_ops` with [arguments] and returns its exit code, without ending
+/// Runs `tomspecs :model-spec-ops` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
 Future<int> runSpecOps(List<String> arguments) async {
   _exitCode = 0;
@@ -31,10 +31,7 @@ Future<int> runSpecOps(List<String> arguments) async {
 
 int _exitCode = 0;
 
-Future<void> main(List<String> arguments) async =>
-    exit(await runSpecOps(arguments));
-
-/// The options of `spec_ops` (also the `tomspecs` command's).
+/// The options of `tomspecs :model-spec-ops`.
 ArgParser specOpsParser() => ArgParser()
   ..addOption(
     'package',
@@ -73,7 +70,7 @@ Future<void> _mainSpecOps(List<String> arguments) async {
 
   if (results.flag('help')) {
     stdout.writeln(
-      'Usage: dart run bin/spec_ops.dart '
+      'Usage: tomspecs :model-spec-ops '
       '[--package <model-path>] [--output <file.g.dart>]\n',
     );
     stdout.writeln(parser.usage);
@@ -84,7 +81,7 @@ Future<void> _mainSpecOps(List<String> arguments) async {
     p.absolute(results.option('package') ?? p.join(aiBuild, 'tom_specs_model')),
   );
 
-  stdout.writeln('spec_ops: analyzing $packagePath ...');
+  stdout.writeln('model-spec-ops: analyzing $packagePath ...');
   final SpecOpsResult result;
   try {
     result = await generateSpecOpsRegistry(

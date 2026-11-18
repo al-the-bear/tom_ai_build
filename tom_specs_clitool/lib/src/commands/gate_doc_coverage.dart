@@ -15,7 +15,7 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// raising a floor. `--raise` winds each floor forward to what is measured
 /// today, which is the only sanctioned way to change one: the manifest is a
 /// ratchet, so a floor may rise and never fall.
-/// Runs `check_doc_coverage` with [arguments] and returns its exit code, without ending
+/// Runs `tomspecs :gate-doc-coverage` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
 Future<int> runCheckDocCoverage(List<String> arguments) async {
   _exitCode = 0;
@@ -29,10 +29,7 @@ Future<int> runCheckDocCoverage(List<String> arguments) async {
 
 int _exitCode = 0;
 
-Future<void> main(List<String> arguments) async =>
-    exit(await runCheckDocCoverage(arguments));
-
-/// The options of `check_doc_coverage` (also the `tomspecs` command's).
+/// The options of `tomspecs :gate-doc-coverage`.
 ArgParser checkDocCoverageParser() => ArgParser()
   ..addOption(
     'manifest',
@@ -63,7 +60,7 @@ Future<void> _mainCheckDocCoverage(List<String> arguments) async {
 
   final results = parser.parse(arguments);
   if (results['help'] as bool) {
-    stdout.writeln('Usage: dart run bin/check_doc_coverage.dart [options]');
+    stdout.writeln('Usage: tomspecs :gate-doc-coverage [options]');
     stdout.writeln(parser.usage);
     return;
   }

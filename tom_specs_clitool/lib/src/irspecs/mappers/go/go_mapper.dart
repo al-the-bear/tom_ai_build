@@ -1068,7 +1068,7 @@ String _schemaSql(
 /// The queries of the repository contract: the count, a page and an insert,
 /// and, by the primary key (`@CsTableKey`, codespecs_derivation_contract.md §3.3.11), a find and a delete.
 /// An entity without a primary key gets the first three only
-/// (`validate_codespecs` check 44 reports it). On a tenant table every query
+/// (`tomspecs :codespecs-validate` check 44 reports it). On a tenant table every query
 /// but the insert takes the tenant as its first parameter and filters by the
 /// tenant column; the insert writes it as one of the table's columns.
 String _querySql(IrEntityTable t) {

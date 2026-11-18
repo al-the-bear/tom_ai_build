@@ -45,7 +45,7 @@ void main() {
         isTrue,
         reason:
             'no baseline at $sharedDocBaselinePath — record it with '
-            '`dart run bin/check_spec_tree_duplication.dart --record`',
+            '`dart run bin/tomspecs.dart :gate-spec-tree-duplication --record`',
       );
 
       final shared = sharedSpecTreeDocs(containerRoot);

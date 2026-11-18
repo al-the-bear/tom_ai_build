@@ -3,7 +3,7 @@
 ///
 /// A coverage gap is a fact the specification states that CodeSpecs has no
 /// place for. Stage B, the authoring steps and the mechanical pass
-/// (`validate_codespecs.dart --record-gaps`) record each one in
+/// (`tomspecs :codespecs-validate --record-gaps`) record each one in
 /// `coverage_gaps.yaml` beside the extracts; the run stops, a review settles
 /// every gap, and Phase 4 restarts. A gap settled as `leaveAsIs` stays in the
 /// record and is not held against the trio by check 35.

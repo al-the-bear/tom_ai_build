@@ -7,9 +7,9 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// Resolves every `§` citation in the TomSpecs doc folder against `index.md`'s
 /// citation convention.
 ///
-///   dart run bin/check_section_citations.dart
-///   dart run bin/check_section_citations.dart --verbose
-///   dart run bin/check_section_citations.dart --no-default-readmes
+///   tomspecs :gate-section-citations
+///   tomspecs :gate-section-citations --verbose
+///   tomspecs :gate-section-citations --no-default-readmes
 ///
 /// The project READMEs that cite the doc set ([defaultCitedReadmes]) and the
 /// comments of every citing source tree ([defaultCitedSourceRoots] — each
@@ -22,7 +22,7 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// resolves against that document. Exits 1 on any citation that resolves to no
 /// heading. See `lib/src/section_citations.dart` for the run rule and for what
 /// a section id is allowed to look like.
-/// Runs `check_section_citations` with [arguments] and returns its exit code, without ending
+/// Runs `tomspecs :gate-section-citations` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
 Future<int> runCheckSectionCitations(List<String> arguments) async {
   _exitCode = 0;
@@ -36,10 +36,7 @@ Future<int> runCheckSectionCitations(List<String> arguments) async {
 
 int _exitCode = 0;
 
-Future<void> main(List<String> arguments) async =>
-    exit(await runCheckSectionCitations(arguments));
-
-/// The options of `check_section_citations` (also the `tomspecs` command's).
+/// The options of `tomspecs :gate-section-citations`.
 ArgParser checkSectionCitationsParser() => ArgParser()
   ..addOption(
     'doc',
@@ -110,9 +107,7 @@ Future<void> _mainCheckSectionCitations(List<String> arguments) async {
   }
 
   if (results.flag('help')) {
-    stdout.writeln(
-      'Usage: dart run bin/check_section_citations.dart [options]',
-    );
+    stdout.writeln('Usage: tomspecs :gate-section-citations [options]');
     stdout.writeln(parser.usage);
     throw ToolExit(0);
   }
@@ -165,7 +160,7 @@ Future<void> _mainCheckSectionCitations(List<String> arguments) async {
       ],
     );
   } on ArgumentError catch (e) {
-    stderr.writeln('check_section_citations error: ${e.message}');
+    stderr.writeln('gate-section-citations error: ${e.message}');
     throw ToolExit(1);
   }
 

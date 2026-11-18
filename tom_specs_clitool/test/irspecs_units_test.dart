@@ -13,7 +13,6 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show SpecGenerationUnit, SpecGenerationUnitMapping;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-import 'support/tomspecs_compare.dart';
 
 final _meridian = p.absolute(
   '../tom_som_conformance/samples/meridian_codespecs',
@@ -62,7 +61,7 @@ void main() {
       scratch = Directory.systemTemp.createTempSync('irspecs_units');
       final ir = p.join(scratch.path, 'ir');
       expect(
-        await runIrspecsChecked([
+        await runIrspecs([
           'from-codespecs',
           '--shared',
           p.join(_meridian, _units[0]),
@@ -79,7 +78,7 @@ void main() {
       );
       for (final unit in _units) {
         expect(
-          await runIrspecsChecked([
+          await runIrspecs([
             'map',
             '--mapper',
             'dart-tom',
@@ -218,7 +217,7 @@ void main() {
   test('IRU3: an unknown unit and a lone --unit are usage errors', () async {
     final err = StringBuffer();
     expect(
-      await runIrspecsChecked(
+      await runIrspecs(
         [
           'map',
           '--mapper',
@@ -239,7 +238,7 @@ void main() {
     );
     expect(err.toString(), contains('declares no generation unit "nope"'));
     expect(
-      await runIrspecsChecked(
+      await runIrspecs(
         [
           'map',
           '--mapper',

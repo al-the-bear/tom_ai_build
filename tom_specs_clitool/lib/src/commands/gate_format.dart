@@ -19,7 +19,7 @@ import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-/// Runs `check_format` with [arguments] and returns its exit code, without ending
+/// Runs `tomspecs :gate-format` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
 Future<int> runCheckFormat(List<String> arguments) async {
   _exitCode = 0;
@@ -33,10 +33,7 @@ Future<int> runCheckFormat(List<String> arguments) async {
 
 int _exitCode = 0;
 
-Future<void> main(List<String> arguments) async =>
-    exit(await runCheckFormat(arguments));
-
-/// The options of `check_format` (also the `tomspecs` command's).
+/// The options of `tomspecs :gate-format`.
 ArgParser checkFormatParser() => ArgParser()
   ..addOption(
     'manifest',
@@ -64,7 +61,7 @@ void _mainCheckFormat(List<String> arguments) {
     throw ToolExit(2);
   }
   if (results.flag('help')) {
-    stdout.writeln('Usage: dart run bin/check_format.dart [options]\n');
+    stdout.writeln('Usage: tomspecs :gate-format [options]\n');
     stdout.writeln(parser.usage);
     throw ToolExit(0);
   }
@@ -78,7 +75,7 @@ void _mainCheckFormat(List<String> arguments) {
       p.join(packageRoot, 'tool', 'format_set.yaml');
 
   if (!File(manifestPath).existsSync()) {
-    stderr.writeln('check_format: manifest not found: $manifestPath');
+    stderr.writeln('gate-format: manifest not found: $manifestPath');
     throw ToolExit(2);
   }
 

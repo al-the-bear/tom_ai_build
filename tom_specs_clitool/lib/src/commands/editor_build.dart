@@ -5,7 +5,7 @@ import 'package:path/path.dart' as p;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 import 'package:yaml/yaml.dart';
 
-import 'docspecs_schema.dart' as docspecs_schema;
+import 'schema_docspecs.dart' as docspecs_schema;
 import 'model_json.dart' as model_json;
 
 /// TomSpecs editor build & packaging orchestrator
@@ -17,12 +17,12 @@ import 'model_json.dart' as model_json;
 ///   1. `buildkit :versioner` in `tom_specs_model` → the **version stamp**
 ///      (`TomSpecsModelVersionInfo`). This single stamp is the source for both
 ///      the bundled `spec_model.json` version and the schema version (B2/S2).
-///   2. Regenerate `spec_ops.g.dart` (`spec_ops.dart`) — the reflection-free
+///   2. Regenerate `spec_ops.g.dart` (`tomspecs :model-spec-ops`) — the reflection-free
 ///      snapshot/serialization registry for every model class (OE-2). It is a
 ///      committed model source artifact, regenerated here so it tracks the
 ///      model the rest of the build runs against.
-///   3. Generate `spec_model.json` (`model_json.dart`), tagged with the stamp.
-///   4. Generate DocSpecs schemas (`docspecs_schema.dart`), versioned from the
+///   3. Generate `spec_model.json` (`tomspecs :model-json`), tagged with the stamp.
+///   4. Generate DocSpecs schemas (`tomspecs :schema-docspecs`), versioned from the
 ///      stamp.
 ///   5. Provide the `tom_dart_editor` analyzer **summaries** (B1). By default
 ///      they are pre-generated assets the build copies in (it never runs the
@@ -37,7 +37,7 @@ import 'model_json.dart' as model_json;
 /// `buildkit` drives step 1 (N8); steps 2–7 are dart/flutter script steps the
 /// orchestrator runs in dependency order. Cross-platform: `--os` selects the
 /// flutter target (defaults to the host OS).
-/// Runs `build` with [arguments] and returns its exit code, without ending
+/// Runs `tomspecs :editor-build` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
 Future<int> runBuild(List<String> arguments) async {
   _exitCode = 0;
@@ -51,10 +51,7 @@ Future<int> runBuild(List<String> arguments) async {
 
 int _exitCode = 0;
 
-Future<void> main(List<String> arguments) async =>
-    exit(await runBuild(arguments));
-
-/// The options of `build` (also the `tomspecs` command's).
+/// The options of `tomspecs :editor-build`.
 ArgParser buildParser() => ArgParser()
   ..addOption(
     'os',
@@ -122,7 +119,7 @@ Future<void> _mainBuild(List<String> arguments) async {
     throw ToolExit(2);
   }
   if (args.flag('help')) {
-    stdout.writeln('Usage: dart run bin/build.dart [options]\n');
+    stdout.writeln('Usage: tomspecs :editor-build [options]\n');
     stdout.writeln(parser.usage);
     throw ToolExit(0);
   }
@@ -169,7 +166,7 @@ Future<void> _mainBuild(List<String> arguments) async {
   // a committed source artifact inside the model package; regenerating it here
   // keeps it in lock-step with the model the build compiles and ships.
   //
-  // The canonical producer is `bin/generate_som.dart`, which emits it alongside
+  // The canonical producer is `tomspecs :som-generate`, which emits it alongside
   // the nine language packages and stamps the model fingerprint that certifies
   // it. This step is the app build's own belt-and-braces: it must not ship an
   // editor whose registry is older than the model it bundles, whatever ran
@@ -199,7 +196,7 @@ Future<void> _mainBuild(List<String> arguments) async {
       'relocated editor cannot be stamped from here.',
     );
   }
-  await _runInProcess('model_json', model_json.runModelJson, [
+  await _runInProcess(':model-json', model_json.runModelJson, [
     '--target',
     ModelJsonTarget.editor.id,
     '--package',
@@ -222,7 +219,7 @@ Future<void> _mainBuild(List<String> arguments) async {
   if (schemaTreeDir.existsSync()) {
     schemaTreeDir.deleteSync(recursive: true);
   }
-  await _runInProcess('docspecs_schema', docspecs_schema.runDocspecsSchema, [
+  await _runInProcess(':schema-docspecs', docspecs_schema.runDocspecsSchema, [
     '--package',
     modelDir,
     '--out-dir',
@@ -400,7 +397,7 @@ ModelVersionStamp _readStamp(String modelDir) {
   }
 }
 
-/// Runs one of this package's own tools in this process (TSB-1: no command
+/// Runs one of this package's own commands in this process (TSB-1: no command
 /// starts another of our tools as a process), failing the build when it
 /// does not end with 0.
 Future<void> _runInProcess(

@@ -153,15 +153,6 @@ export 'src/spec_tree_duplication.dart'
         sharedSpecTreeDocs,
         readSharedDocBaseline,
         writeSharedDocBaseline;
-export 'src/entrypoint_options.dart'
-    show
-        kUniversalOption,
-        EntrypointOption,
-        EntrypointRow,
-        EntrypointCorrespondence,
-        parseEntrypointOptions,
-        parseEntrypointRows,
-        compareEntrypointOptions;
 export 'src/meta_tree.dart'
     show
         MetaTreeBuilder,
@@ -444,7 +435,7 @@ export 'src/codespecs/areas_catalog.dart'
         kSliceCites,
         kAuthoringSliceOrder;
 // IR Specs (irspecs_ir.md): a CodeSpecs trio as language-neutral data, one
-// document per area, and the `irspecs` command that writes it.
+// document per area, and the `tomspecs :ir-*` commands over it.
 export 'src/irspecs/ir_checks.dart';
 export 'src/irspecs/ir_codec.dart';
 export 'src/irspecs/ir_model.dart';

@@ -1,6 +1,6 @@
 /// Formatting Dart with the `dart_style` linked into this package — the one
 /// formatter every part of the clitool uses: the formatting gate, the
-/// generators (spec_ops, codespecs_areas, the registry tests) and the dart-tom
+/// generators (`:model-spec-ops`, `:codespecs-areas`, the registry tests) and the dart-tom
 /// mapper. No part of it runs `dart format` as a process, so a compiled
 /// `tomspecs` needs no Dart SDK to format, and every part formats alike.
 ///

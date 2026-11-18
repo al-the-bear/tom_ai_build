@@ -136,7 +136,7 @@ const _skipDirectories = <String>{
 ///
 /// `spec_checks` is the TomSpecs process-check library
 /// (`package:tom_som_dart_runtime/spec_checks.dart`): a project's gate checks,
-/// run through `tom_specs_clitool`'s `spec_checks` command and the extension
+/// run through `tom_specs_clitool`'s `tomspecs :spec-*` commands and the extension
 /// over it. It is Dart-only by decision — the other planes are document
 /// readers, and a check a gate runs once needs one implementation — so the
 /// document fields it reads (`featureId`, `actorAction`, …) are not a

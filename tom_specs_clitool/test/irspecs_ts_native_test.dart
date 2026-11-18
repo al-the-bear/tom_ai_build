@@ -18,7 +18,6 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show CodeSpecsAreaCatalog;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-import 'support/tomspecs_compare.dart';
 
 final _meridian = p.absolute(
   '../tom_som_conformance/samples/meridian_codespecs',
@@ -271,7 +270,7 @@ void main() {
       }
       for (final mapper in [kTsSharedMapper, kTsReactNativeClientMapper]) {
         final err = StringBuffer();
-        final code = await runIrspecsChecked(
+        final code = await runIrspecs(
           ['map', '--mapper', mapper, '--ir', ir.path, '--out', cliOut.path],
           out: StringBuffer(),
           err: err,

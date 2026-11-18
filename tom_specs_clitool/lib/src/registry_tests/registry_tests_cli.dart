@@ -1,7 +1,7 @@
-/// `generate_registry_tests` — derives the registry part of an application's
+/// `tomspecs :app-registry-tests` — derives the registry part of an application's
 /// test suite from its specification (`tom_specs_project_flow.md`, Phase 5).
 ///
-/// Usage: `generate_registry_tests SPEC --out DIR [--check]
+/// Usage: `tomspecs :app-registry-tests SPEC --out DIR [--check]
 /// [--harness-import URI]`. Writes `registry_harness.g.dart`,
 /// `registry_operations_test.dart` and `registry_screens_test.dart` into
 /// `--out`; the application supplies `registry_harness.dart` there (or at
@@ -22,7 +22,7 @@ import '../dart_format.dart';
 import 'generator.dart';
 import 'registries.dart';
 
-/// The options of `generate_registry_tests` (also the `tomspecs` command's).
+/// The options of `tomspecs :app-registry-tests` (also the `tomspecs` command's).
 ArgParser generateRegistryTestsParser() => ArgParser()
   ..addOption('out', help: 'The test folder the suites are written to.')
   ..addOption(
@@ -44,12 +44,12 @@ Future<int> runGenerateRegistryTests(
   try {
     results = parser.parse(arguments);
   } on FormatException catch (e) {
-    sink.writeln('generate_registry_tests: ${e.message}');
+    sink.writeln('app-registry-tests: ${e.message}');
     return 2;
   }
   if (results.flag('help') || results.rest.length != 1) {
     sink.writeln(
-      'Usage: generate_registry_tests <spec.docspecs.yaml|.md> --out <dir> '
+      'Usage: tomspecs :app-registry-tests <spec.docspecs.yaml|.md> --out <dir> '
       '[--check]\n${parser.usage}',
     );
     return results.flag('help') ? 0 : 2;
@@ -57,12 +57,12 @@ Future<int> runGenerateRegistryTests(
   final specPath = results.rest.single;
   final outDir = results.option('out');
   if (outDir == null) {
-    sink.writeln('generate_registry_tests: --out is required');
+    sink.writeln('app-registry-tests: --out is required');
     return 2;
   }
   final file = File(specPath);
   if (!file.existsSync()) {
-    sink.writeln('generate_registry_tests: no such file $specPath');
+    sink.writeln('app-registry-tests: no such file $specPath');
     return 2;
   }
 
@@ -85,7 +85,7 @@ Future<int> runGenerateRegistryTests(
     harnessImport: results.option('harness-import')!,
   );
   sink.writeln(
-    'generate_registry_tests: ${registries.operations.length} operation(s), '
+    'app-registry-tests: ${registries.operations.length} operation(s), '
     '${registries.roles.length} role(s), ${registries.errorCodes.length} '
     'error code(s), ${registries.screens.length} screen(s)',
   );
@@ -107,8 +107,8 @@ Future<int> runGenerateRegistryTests(
     final ok = generation.findings.isEmpty && stale.isEmpty;
     sink.writeln(
       ok
-          ? 'generate_registry_tests: the suites match the registries'
-          : 'generate_registry_tests: ${generation.findings.length + stale.length} finding(s)',
+          ? 'app-registry-tests: the suites match the registries'
+          : 'app-registry-tests: ${generation.findings.length + stale.length} finding(s)',
     );
     return ok ? 0 : 1;
   }
@@ -130,7 +130,7 @@ Future<int> runGenerateRegistryTests(
     File(path).writeAsStringSync(text);
   }
   sink.writeln(
-    'generate_registry_tests: wrote ${generation.files.length} file(s) to '
+    'app-registry-tests: wrote ${generation.files.length} file(s) to '
     '$outDir${failures.isEmpty ? '' : ' (dart format failed: ${failures.join('; ')})'}',
   );
   return generation.findings.isEmpty ? 0 : 1;

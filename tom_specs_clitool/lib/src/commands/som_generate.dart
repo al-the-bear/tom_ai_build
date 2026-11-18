@@ -14,7 +14,7 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// the lossless meta-data file, and the DocSpecs schemas. The model version
 /// stamp is read from the model's `version.versioner.dart` so the committed
 /// meta-data is stable/idempotent (SOM §4.3).
-/// Runs `generate_som` with [arguments] and returns its exit code, without ending
+/// Runs `tomspecs :som-generate` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
 Future<int> runGenerateSom(List<String> arguments) async {
   _exitCode = 0;
@@ -28,10 +28,7 @@ Future<int> runGenerateSom(List<String> arguments) async {
 
 int _exitCode = 0;
 
-Future<void> main(List<String> arguments) async =>
-    exit(await runGenerateSom(arguments));
-
-/// The options of `generate_som` (also the `tomspecs` command's).
+/// The options of `tomspecs :som-generate`.
 ArgParser generateSomParser() => ArgParser()
   ..addOption(
     'config',
@@ -128,7 +125,7 @@ Future<void> _mainGenerateSom(List<String> arguments) async {
     throw ToolExit(2);
   }
   if (args.flag('help')) {
-    stdout.writeln('Usage: dart run bin/generate_som.dart [options]\n');
+    stdout.writeln('Usage: tomspecs :som-generate [options]\n');
     stdout.writeln(parser.usage);
     throw ToolExit(0);
   }
@@ -208,7 +205,7 @@ Future<void> _mainGenerateSom(List<String> arguments) async {
     _fail('serialization-order restamp failed: ${e.message}');
   }
   stdout.writeln(
-    'generate_som: restamped @SerializationOrder — '
+    'som-generate: restamped @SerializationOrder — '
     'files changed: ${stampResult.filesChanged}, '
     'members stamped: ${stampResult.membersStamped}'
     '${stampResult.membersRestamped > 0 ? ', restamped: '
@@ -247,7 +244,7 @@ Future<void> _mainGenerateSom(List<String> arguments) async {
     _fail('spec-ops registry generation failed: ${e.message}');
   }
   stdout.writeln(
-    'generate_som: spec-ops registry — '
+    'som-generate: spec-ops registry — '
     '${specOps.classCount} classes, '
     '${specOps.changed ? 'rewritten' : 'unchanged'} → '
     '${p.relative(specOps.outputPath, from: modelDir)}',
@@ -265,7 +262,7 @@ Future<void> _mainGenerateSom(List<String> arguments) async {
   // `output-base` is resolved relative to the config file's directory.
   final configDir = p.dirname(configPath);
 
-  stdout.writeln('generate_som: config $configPath');
+  stdout.writeln('som-generate: config $configPath');
   stdout.writeln('  model:   $modelDir');
   stdout.writeln('  runtime: $runtimeDir');
   stdout.writeln('  version: $modelVersion  (label: ${stamp.label})');
@@ -601,6 +598,6 @@ ModelVersionStamp _readStamp(String modelDir) {
 }
 
 Never _fail(String msg) {
-  stderr.writeln('generate_som error: $msg');
+  stderr.writeln('som-generate error: $msg');
   throw ToolExit(1);
 }

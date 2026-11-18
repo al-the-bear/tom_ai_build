@@ -198,7 +198,7 @@ class IrEntityTable {
   bool get isTenant => tenantColumn != null;
 
   /// The key that identifies the row, or `null` when the entity states none
-  /// (`validate_codespecs` check 44 reports that).
+  /// (`tomspecs :codespecs-validate` check 44 reports that).
   IrTableKey? get primaryKey {
     for (final k in keys) {
       if (k.identifiesRow) return k;

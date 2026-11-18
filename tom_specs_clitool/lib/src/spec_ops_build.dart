@@ -14,7 +14,7 @@
 /// It fails to *carry* something, silently.
 ///
 /// While it could only be produced by its own CLI, it was regenerated only when
-/// the editor's app build (`bin/build.dart`) ran. A model change follows the
+/// the editor's app build (`tomspecs :editor-build`) ran. A model change follows the
 /// regeneration chain in `_copilot_guidelines/som_regeneration.md`, which
 /// nothing connected to this artifact, so the registry could sit a whole
 /// campaign behind the model: a campaign that gave 116 section classes a
@@ -23,7 +23,7 @@
 /// the section's prose) and no `yamlScalar` at all (the prose did not
 /// serialize). Nothing went red.
 ///
-/// Exposing generation as a call is what lets `bin/generate_som.dart` — the
+/// Exposing generation as a call is what lets `tomspecs :som-generate` — the
 /// canonical regeneration command, which already reads the model with the same
 /// analyzer — produce this artifact too, so one command leaves the whole tree
 /// consistent and the model fingerprint that command stamps certifies all
@@ -42,8 +42,8 @@ import 'spec_ops_generator.dart';
 /// The registry's committed home, as path segments relative to the
 /// `tom_specs_model` package root.
 ///
-/// Named once because three entry points write it — `bin/generate_som.dart`,
-/// `bin/spec_ops.dart` and the editor build's step 2 — and a registry written
+/// Named once because three entry points write it — `tomspecs :som-generate`,
+/// `tomspecs :model-spec-ops` and the editor build's step 2 — and a registry written
 /// to two different paths is a registry nothing loads.
 const specOpsPathSegments = ['lib', 'src', 'generated', 'spec_ops.g.dart'];
 
@@ -101,7 +101,9 @@ Future<void> formatGeneratedDart(String path) async {
   try {
     DartFormat().formatFile(path);
   } on DartFormatFailure catch (e) {
-    stderr.writeln('spec_ops: $e; the file is generated but unformatted.');
+    stderr.writeln(
+      'model-spec-ops: $e; the file is generated but unformatted.',
+    );
   }
 }
 

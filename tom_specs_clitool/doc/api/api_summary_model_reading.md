@@ -33,16 +33,13 @@ validator enforces, see
   - [InvariantEntry](#invariantentry)
   - [InvariantCorrespondence](#invariantcorrespondence)
   - [SerializationStampResult](#serializationstampresult)
-  - [EntrypointOption](#entrypointoption)
-  - [EntrypointRow](#entrypointrow)
-  - [EntrypointCorrespondence](#entrypointcorrespondence)
 - [Enums](#enums)
   - [ModelJsonTarget](#modeljsontarget)
 - [Global Functions and Constants](#global-functions-and-constants)
 
 ## Overview
 
-The module declares **20 classes** and **1 enums** across 11 source file(s).
+The module declares **17 classes** and **1 enums** across 10 source file(s).
 
 | Source file | Holds |
 |-------------|-------|
@@ -56,7 +53,6 @@ The module declares **20 classes** and **1 enums** across 11 source file(s).
 | `validator.dart` | The static structural validator — *(no public types)* |
 | `invariant_correspondence.dart` | The `tom_specs_model_rules.md` §10.2 invariant correspondence — `InvariantCitation`, `InvariantEntry`, `InvariantCorrespondence` |
 | `serialization_order.dart` | The @SerializationOrder stamper — `SerializationStampResult` |
-| `entrypoint_options.dart` | The bin/ option correspondence — `EntrypointOption`, `EntrypointRow`, `EntrypointCorrespondence` |
 
 ## Class Hierarchy
 
@@ -78,10 +74,7 @@ Object
 ├── InvariantCitation
 ├── InvariantEntry
 ├── InvariantCorrespondence
-├── SerializationStampResult
-├── EntrypointOption
-├── EntrypointRow
-└── EntrypointCorrespondence
+└── SerializationStampResult
 ```
 
 ## Classes
@@ -546,73 +539,6 @@ const SerializationStampResult({
 | `membersStamped` | `int` | How many member annotations were (re)written in total. |
 | `membersRestamped` | `int` | How many pre-existing `@SerializationOrder` annotations were stripped and replaced (the renumber count). |
 | `multiVarWarnings` | `List<String>` | One entry per multi-variable field declaration (`int a, b;`), which shares a single ordinal. |
-
-### EntrypointOption
-
-One option, flag or multi-option an entrypoint's `ArgParser` declares.
-
-#### Constructors
-```dart
-const EntrypointOption({
-  required this.name,
-  required this.isFlag,
-  required this.negatable,
-  required this.mandatory,
-});
-```
-
-#### Properties
-
-| Property | Type | Description |
-|----------|------|-------------|
-| `name` | `String` | The option name, without leading dashes. |
-| `isFlag` | `bool` | Whether it was declared with `addFlag` rather than `addOption` / `addMultiOption`. |
-| `negatable` | `bool` | Whether `--no-<name>` is also a valid spelling — true for an `addFlag` that is not `negatable: false`. |
-| `mandatory` | `bool` | Whether the declaration is `mandatory: true`. |
-
-#### Methods
-
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `toString()` | `String` | A compact diagnostic rendering. |
-
-### EntrypointRow
-
-One row of `README.md`'s `bin/` entrypoint table.
-
-#### Constructors
-```dart
-const EntrypointRow({required this.entrypoints, required this.citedFlags});
-```
-
-#### Properties
-
-| Property | Type | Description |
-|----------|------|-------------|
-| `entrypoints` | `List<String>` | The `<name>.dart` files the first cell names. |
-| `citedFlags` | `Set<String>` | Every `--flag` spelling the row cites, from any of its cells. |
-
-#### Methods
-
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `toString()` | `String` | A compact diagnostic rendering. |
-
-### EntrypointCorrespondence
-
-The outcome of one comparison.
-
-#### Constructors
-```dart
-const EntrypointCorrespondence({required this.rows, required this.problems});
-```
-
-#### Properties
-
-| Property | Type | Description |
-|----------|------|-------------|
-| `rows` | `List<EntrypointRow>` | The rows the README declares, in table order. |
-| `problems` | `List<String>` | Everything wrong, one line each; empty when the two agree. |
 
 ## Enums
 

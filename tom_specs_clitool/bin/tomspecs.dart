@@ -11,10 +11,10 @@
 /// of the tom_specs quest, TSB-4 and the TSB-7 table). Several commands run
 /// in one call, in order; the first that fails ends the run with its own exit
 /// code (0 clean, 1 findings, 2 bad usage, 3 a refused spec check). Each
-/// command's options are those of the tool it replaces — read from that
-/// tool's `ArgParser`, so the help and the accepted options stay the tool's —
-/// and the command runs that tool's run function in this process. The tools'
-/// own `bin/` entrypoints remain until the commands are their only form.
+/// command's options are read from the `ArgParser` of its run function
+/// (`lib/src/commands/`, and the CLI libraries beside them), so the help and
+/// the accepted options are that parser's, and the command runs the function
+/// in this process. This is the package's only entrypoint.
 library;
 
 import 'dart:io';
@@ -36,31 +36,50 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart'
         validateCodespecsParser,
         validateSpecParser;
 
-import 'build.dart' as build;
-import 'check_api_signatures.dart' as check_api_signatures;
-import 'check_dartdoc_build.dart' as check_dartdoc_build;
-import 'check_doc_coverage.dart' as check_doc_coverage;
-import 'check_format.dart' as check_format;
-import 'check_oe_citations.dart' as check_oe_citations;
-import 'check_release_closure.dart' as check_release_closure;
-import 'check_release_drift.dart' as check_release_drift;
-import 'check_section_citations.dart' as check_section_citations;
-import 'check_shipped_paths.dart' as check_shipped_paths;
-import 'check_som_parity.dart' as check_som_parity;
-import 'check_spec_tree_duplication.dart' as check_spec_tree_duplication;
-import 'check_todo_citations.dart' as check_todo_citations;
-import 'codespecs_areas.dart' as codespecs_areas;
-import 'docspecs_schema.dart' as docspecs_schema;
-import 'docspecs_yaml_schema.dart' as docspecs_yaml_schema;
-import 'generate_som.dart' as generate_som;
-import 'model_json.dart' as model_json;
-import 'outliner.dart' as outliner;
-import 'spec_ops.dart' as spec_ops;
-import 'stamp_serialization_order.dart' as stamp_serialization_order;
-import 'summaries.dart' as summaries;
+import 'package:tom_specs_clitool/src/commands/editor_build.dart'
+    as editor_build;
+import 'package:tom_specs_clitool/src/commands/gate_api_signatures.dart'
+    as gate_api_signatures;
+import 'package:tom_specs_clitool/src/commands/gate_dartdoc.dart'
+    as gate_dartdoc;
+import 'package:tom_specs_clitool/src/commands/gate_doc_coverage.dart'
+    as gate_doc_coverage;
+import 'package:tom_specs_clitool/src/commands/gate_format.dart' as gate_format;
+import 'package:tom_specs_clitool/src/commands/gate_oe_citations.dart'
+    as gate_oe_citations;
+import 'package:tom_specs_clitool/src/commands/gate_release_closure.dart'
+    as gate_release_closure;
+import 'package:tom_specs_clitool/src/commands/gate_release_drift.dart'
+    as gate_release_drift;
+import 'package:tom_specs_clitool/src/commands/gate_section_citations.dart'
+    as gate_section_citations;
+import 'package:tom_specs_clitool/src/commands/gate_shipped_paths.dart'
+    as gate_shipped_paths;
+import 'package:tom_specs_clitool/src/commands/som_parity.dart' as som_parity;
+import 'package:tom_specs_clitool/src/commands/gate_spec_tree_duplication.dart'
+    as gate_spec_tree_duplication;
+import 'package:tom_specs_clitool/src/commands/gate_todo_citations.dart'
+    as gate_todo_citations;
+import 'package:tom_specs_clitool/src/commands/codespecs_areas.dart'
+    as codespecs_areas;
+import 'package:tom_specs_clitool/src/commands/schema_docspecs.dart'
+    as schema_docspecs;
+import 'package:tom_specs_clitool/src/commands/schema_docspecs_yaml.dart'
+    as schema_docspecs_yaml;
+import 'package:tom_specs_clitool/src/commands/som_generate.dart'
+    as som_generate;
+import 'package:tom_specs_clitool/src/commands/model_json.dart' as model_json;
+import 'package:tom_specs_clitool/src/commands/model_outline.dart'
+    as model_outline;
+import 'package:tom_specs_clitool/src/commands/model_spec_ops.dart'
+    as model_spec_ops;
+import 'package:tom_specs_clitool/src/commands/model_stamp_order.dart'
+    as model_stamp_order;
+import 'package:tom_specs_clitool/src/commands/editor_summaries.dart'
+    as editor_summaries;
 
-/// One `tomspecs` command: its name, what it does, the tool it replaces, its
-/// options and how it runs.
+/// One `tomspecs` command: its name, what it does, its options and how it
+/// runs.
 class TomspecsCommand {
   /// The command name, without `:`.
   final String name;
@@ -68,24 +87,20 @@ class TomspecsCommand {
   /// One line for the help.
   final String description;
 
-  /// The tool (and subcommand) this command replaces, e.g. `irspecs map`.
-  final String replaces;
-
   /// The command's options.
   final List<OptionDefinition> options;
 
-  /// The arguments the replaced tool is run with, for the options and
+  /// The arguments the run function is called with, for the options and
   /// positionals given to the command.
   final List<String> Function(Map<String, dynamic> options, List<String> rest)
   arguments;
 
-  /// Runs the replaced tool with [arguments]; returns its exit code.
+  /// Runs the command's function with [arguments]; returns its exit code.
   final Future<int> Function(List<String> arguments) run;
 
   const TomspecsCommand({
     required this.name,
     required this.description,
-    required this.replaces,
     required this.options,
     required this.arguments,
     required this.run,
@@ -94,7 +109,7 @@ class TomspecsCommand {
   /// The command as tom_build_base declares it.
   CommandDefinition get definition => CommandDefinition(
     name: name,
-    description: '$description (was `$replaces`)',
+    description: description,
     options: options,
     supportsProjectTraversal: false,
     requiresTraversal: false,
@@ -187,7 +202,6 @@ List<String> argumentsFor(
 TomspecsCommand _tool(
   String name,
   String description,
-  String replaces,
   ArgParser Function() parser,
   Future<int> Function(List<String>) run, {
   List<String> before = const [],
@@ -195,14 +209,13 @@ TomspecsCommand _tool(
 }) => TomspecsCommand(
   name: name,
   description: description,
-  replaces: replaces,
   options: optionsOf(parser(), only: only),
   arguments: (options, rest) =>
       argumentsFor(parser(), options, rest, before: before),
   run: run,
 );
 
-// The spec_checks checks read their own options from their arguments.
+// The process checks (`:spec-*`) read their own options from their arguments.
 
 const _specRoot = OptionDefinition.option(
   name: 'spec-root',
@@ -221,7 +234,6 @@ TomspecsCommand _check(
 }) => TomspecsCommand(
   name: name,
   description: description,
-  replaces: 'spec_checks $check',
   options: [...options, if (specRoot) _specRoot],
   arguments: (given, rest) => [
     if (given['spec-root'] != null) ...['--spec-root', '${given['spec-root']}'],
@@ -243,7 +255,6 @@ final List<TomspecsCommand> tomspecsCommands = [
   _tool(
     'spec-validate',
     'Validate a specification document on its three tiers',
-    'validate_spec',
     validateSpecParser,
     runValidateSpec,
   ),
@@ -343,28 +354,24 @@ final List<TomspecsCommand> tomspecsCommands = [
   _tool(
     'spec-answers',
     "Extract a review round's answers, comments and marks (answers.md)",
-    'extract_answers',
     extractAnswersParser,
     runExtractAnswers,
   ),
   _tool(
     'codespecs-validate',
     'Run the derivation-contract checks over a CodeSpecs trio or its IR',
-    'validate_codespecs',
     validateCodespecsParser,
     runValidateCodespecs,
   ),
   _tool(
     'codespecs-areas',
     'Regenerate the CodeSpecs area catalogue',
-    'codespecs_areas',
     codespecs_areas.codespecsAreasParser,
     codespecs_areas.runCodespecsAreas,
   ),
   _tool(
     'ir-from-codespecs',
     'Write the IR of a CodeSpecs trio',
-    'irspecs from-codespecs',
     irspecsParser,
     runIrspecs,
     before: const ['from-codespecs'],
@@ -373,7 +380,6 @@ final List<TomspecsCommand> tomspecsCommands = [
   _tool(
     'ir-map',
     'Write code from the IR through a mapper',
-    'irspecs map',
     irspecsParser,
     runIrspecs,
     before: const ['map'],
@@ -382,7 +388,6 @@ final List<TomspecsCommand> tomspecsCommands = [
   _tool(
     'ir-emit',
     'Write what a standard can express of the IR',
-    'irspecs emit',
     irspecsParser,
     runIrspecs,
     before: const ['emit'],
@@ -391,7 +396,6 @@ final List<TomspecsCommand> tomspecsCommands = [
   _tool(
     'ir-export',
     'Write the IR as JSON',
-    'irspecs export',
     irspecsParser,
     runIrspecs,
     before: const ['export'],
@@ -400,156 +404,134 @@ final List<TomspecsCommand> tomspecsCommands = [
   _tool(
     'som-generate',
     'Generate the nine SOM language packages from the model',
-    'generate_som',
-    generate_som.generateSomParser,
-    generate_som.runGenerateSom,
+    som_generate.generateSomParser,
+    som_generate.runGenerateSom,
   ),
   _tool(
     'som-parity',
     'Report capabilities some language plane does not carry',
-    'check_som_parity',
-    check_som_parity.checkSomParityParser,
-    check_som_parity.runCheckSomParity,
+    som_parity.checkSomParityParser,
+    som_parity.runCheckSomParity,
   ),
   _tool(
     'model-outline',
     'Write the class-tree outline of a model root',
-    'outliner',
-    outliner.outlinerParser,
-    outliner.runOutliner,
+    model_outline.outlinerParser,
+    model_outline.runOutliner,
   ),
   _tool(
     'model-json',
     'Export the model class graph as JSON',
-    'model_json',
     model_json.modelJsonParser,
     model_json.runModelJson,
   ),
   _tool(
     'model-spec-ops',
-    'Generate the spec_ops.g.dart registry',
-    'spec_ops',
-    spec_ops.specOpsParser,
-    spec_ops.runSpecOps,
+    'Generate the model_spec_ops.g.dart registry',
+    model_spec_ops.specOpsParser,
+    model_spec_ops.runSpecOps,
   ),
   _tool(
     'model-stamp-order',
     'Stamp @SerializationOrder on every model member',
-    'stamp_serialization_order',
-    stamp_serialization_order.stampSerializationOrderParser,
-    stamp_serialization_order.runStampSerializationOrder,
+    model_stamp_order.stampSerializationOrderParser,
+    model_stamp_order.runStampSerializationOrder,
   ),
   _tool(
     'schema-docspecs',
     'Generate the DocSpecs schemas of the model roots',
-    'docspecs_schema',
-    docspecs_schema.docspecsSchemaParser,
-    docspecs_schema.runDocspecsSchema,
+    schema_docspecs.docspecsSchemaParser,
+    schema_docspecs.runDocspecsSchema,
   ),
   _tool(
     'schema-docspecs-yaml',
     'Generate the JSON Schema of the on-disk DocSpecs YAML',
-    'docspecs_yaml_schema',
-    docspecs_yaml_schema.docspecsYamlSchemaParser,
-    docspecs_yaml_schema.runDocspecsYamlSchema,
+    schema_docspecs_yaml.docspecsYamlSchemaParser,
+    schema_docspecs_yaml.runDocspecsYamlSchema,
   ),
   _tool(
     'app-registry-tests',
     "Derive the registry part of an application's test suite",
-    'generate_registry_tests',
     generateRegistryTestsParser,
     runGenerateRegistryTests,
   ),
   _tool(
     'editor-summaries',
     'Generate the analyzer summaries for one consumer',
-    'summaries',
-    summaries.summariesParser,
-    summaries.runSummaries,
+    editor_summaries.summariesParser,
+    editor_summaries.runSummaries,
   ),
   _tool(
     'editor-build',
     'Build and package the TomSpecs editor',
-    'build',
-    build.buildParser,
-    build.runBuild,
+    editor_build.buildParser,
+    editor_build.runBuild,
   ),
   _tool(
     'gate-format',
     'Report every governed Dart file dart format would rewrite',
-    'check_format',
-    check_format.checkFormatParser,
-    check_format.runCheckFormat,
+    gate_format.checkFormatParser,
+    gate_format.runCheckFormat,
   ),
   _tool(
     'gate-api-signatures',
     'Report API-summary signatures that disagree with the code',
-    'check_api_signatures',
-    check_api_signatures.checkApiSignaturesParser,
-    check_api_signatures.runCheckApiSignatures,
+    gate_api_signatures.checkApiSignaturesParser,
+    gate_api_signatures.runCheckApiSignatures,
   ),
   _tool(
     'gate-dartdoc',
     "Build the governed packages' API docs and report their warnings",
-    'check_dartdoc_build',
-    check_dartdoc_build.checkDartdocBuildParser,
-    check_dartdoc_build.runCheckDartdocBuild,
+    gate_dartdoc.checkDartdocBuildParser,
+    gate_dartdoc.runCheckDartdocBuild,
   ),
   _tool(
     'gate-doc-coverage',
     'Check public-API dartdoc coverage against the manifest',
-    'check_doc_coverage',
-    check_doc_coverage.checkDocCoverageParser,
-    check_doc_coverage.runCheckDocCoverage,
+    gate_doc_coverage.checkDocCoverageParser,
+    gate_doc_coverage.runCheckDocCoverage,
   ),
   _tool(
     'gate-oe-citations',
     'Check that every cited OE- id is defined',
-    'check_oe_citations',
-    check_oe_citations.checkOeCitationsParser,
-    check_oe_citations.runCheckOeCitations,
+    gate_oe_citations.checkOeCitationsParser,
+    gate_oe_citations.runCheckOeCitations,
   ),
   _tool(
     'gate-section-citations',
     'Resolve every § citation of the TomSpecs documents',
-    'check_section_citations',
-    check_section_citations.checkSectionCitationsParser,
-    check_section_citations.runCheckSectionCitations,
+    gate_section_citations.checkSectionCitationsParser,
+    gate_section_citations.runCheckSectionCitations,
   ),
   _tool(
     'gate-todo-citations',
     'Check that every cited quest-todo id still resolves',
-    'check_todo_citations',
-    check_todo_citations.checkTodoCitationsParser,
-    check_todo_citations.runCheckTodoCitations,
+    gate_todo_citations.checkTodoCitationsParser,
+    gate_todo_citations.runCheckTodoCitations,
   ),
   _tool(
     'gate-release-closure',
     'Check that the release set is dependency-closed',
-    'check_release_closure',
-    check_release_closure.checkReleaseClosureParser,
-    check_release_closure.runCheckReleaseClosure,
+    gate_release_closure.checkReleaseClosureParser,
+    gate_release_closure.runCheckReleaseClosure,
   ),
   _tool(
     'gate-release-drift',
     'Report release packages changed since their version was set',
-    'check_release_drift',
-    check_release_drift.checkReleaseDriftParser,
-    check_release_drift.runCheckReleaseDrift,
+    gate_release_drift.checkReleaseDriftParser,
+    gate_release_drift.runCheckReleaseDrift,
   ),
   _tool(
     'gate-shipped-paths',
     'Report shipped-script path literals that resolve nowhere',
-    'check_shipped_paths',
-    check_shipped_paths.checkShippedPathsParser,
-    check_shipped_paths.runCheckShippedPaths,
+    gate_shipped_paths.checkShippedPathsParser,
+    gate_shipped_paths.runCheckShippedPaths,
   ),
   _tool(
     'gate-spec-tree-duplication',
     'Report doc lines newly stated in both spec-tree surfaces',
-    'check_spec_tree_duplication',
-    check_spec_tree_duplication.checkSpecTreeDuplicationParser,
-    check_spec_tree_duplication.runCheckSpecTreeDuplication,
+    gate_spec_tree_duplication.checkSpecTreeDuplicationParser,
+    gate_spec_tree_duplication.runCheckSpecTreeDuplication,
   ),
 ];
 
@@ -606,7 +588,7 @@ class _CommandExecutor extends CommandExecutor {
 
 /// Runs `tomspecs` with [arguments]; returns the exit code. Help and version
 /// go to [out], usage errors to [err] (stdout and stderr by default); each
-/// command writes its own output where its tool always did.
+/// command writes its own output to stdout and stderr.
 Future<int> runTomspecs(
   List<String> arguments, {
   StringSink? out,
@@ -623,7 +605,6 @@ Future<int> runTomspecs(
               : TomspecsCommand(
                   name: c.name,
                   description: c.description,
-                  replaces: c.replaces,
                   options: c.options,
                   arguments: c.arguments,
                   run: runOverrides![c.name]!,

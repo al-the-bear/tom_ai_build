@@ -8,13 +8,13 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// the nine-runtime `spec_codespecs_extract` surface reads — by transcribing
 /// `codespecs_mapping.md` §4.1, §4.4.3 and §4.4.6.
 ///
-///   dart run bin/codespecs_areas.dart
-///   dart run bin/codespecs_areas.dart --check
+///   tomspecs :codespecs-areas
+///   tomspecs :codespecs-areas --check
 ///
 /// `--check` writes nothing and exits 1 when the committed file disagrees with
 /// the document, which is what makes the catalogue drift-proof: the mapping
 /// document stays the single authority and the JSON is its transcription.
-/// Runs `codespecs_areas` with [arguments] and returns its exit code, without ending
+/// Runs `tomspecs :codespecs-areas` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
 Future<int> runCodespecsAreas(List<String> arguments) async {
   _exitCode = 0;
@@ -28,10 +28,7 @@ Future<int> runCodespecsAreas(List<String> arguments) async {
 
 int _exitCode = 0;
 
-Future<void> main(List<String> arguments) async =>
-    exit(await runCodespecsAreas(arguments));
-
-/// The options of `codespecs_areas` (also the `tomspecs` command's).
+/// The options of `tomspecs :codespecs-areas`.
 ArgParser codespecsAreasParser() => ArgParser()
   ..addOption(
     'mapping',
@@ -77,7 +74,7 @@ Future<void> _mainCodespecsAreas(List<String> arguments) async {
   }
 
   if (results.flag('help')) {
-    stdout.writeln('Usage: dart run bin/codespecs_areas.dart [options]');
+    stdout.writeln('Usage: tomspecs :codespecs-areas [options]');
     stdout.writeln(parser.usage);
     throw ToolExit(0);
   }
@@ -135,14 +132,14 @@ Future<void> _mainCodespecsAreas(List<String> arguments) async {
       ).toJsonText();
       final committed = File(outputPath);
       if (!committed.existsSync()) {
-        stderr.writeln('codespecs_areas --check: $outputPath does not exist.');
+        stderr.writeln('codespecs-areas --check: $outputPath does not exist.');
         throw ToolExit(1);
       }
       if (committed.readAsStringSync() != text) {
         stderr.writeln(
-          'codespecs_areas --check: '
+          'codespecs-areas --check: '
           '${p.relative(outputPath, from: clitoolRoot)} is stale — '
-          'run `dart run bin/codespecs_areas.dart` and commit the diff.',
+          'run `tomspecs :codespecs-areas` and commit the diff.',
         );
         throw ToolExit(1);
       }
@@ -153,16 +150,16 @@ Future<void> _mainCodespecsAreas(List<String> arguments) async {
       final accessor = File(accessorPath);
       if (!accessor.existsSync()) {
         stderr.writeln(
-          'codespecs_areas --check: $accessorPath does not exist.',
+          'codespecs-areas --check: $accessorPath does not exist.',
         );
         throw ToolExit(1);
       }
       if (accessor.readAsStringSync() !=
           await _formatted(areasAccessorLibrary(text), accessorPath)) {
         stderr.writeln(
-          'codespecs_areas --check: '
+          'codespecs-areas --check: '
           '${p.relative(accessorPath, from: clitoolRoot)} is stale — '
-          'run `dart run bin/codespecs_areas.dart` and commit the diff.',
+          'run `tomspecs :codespecs-areas` and commit the diff.',
         );
         throw ToolExit(1);
       }
@@ -177,7 +174,7 @@ Future<void> _mainCodespecsAreas(List<String> arguments) async {
       );
     }
   } on AreasCatalogException catch (e) {
-    stderr.writeln('codespecs_areas error: ${e.message}');
+    stderr.writeln('codespecs-areas error: ${e.message}');
     throw ToolExit(1);
   }
 

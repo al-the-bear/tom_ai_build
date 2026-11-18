@@ -20,7 +20,7 @@ import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-/// Runs `check_spec_tree_duplication` with [arguments] and returns its exit code, without ending
+/// Runs `tomspecs :gate-spec-tree-duplication` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
 Future<int> runCheckSpecTreeDuplication(List<String> arguments) async {
   _exitCode = 0;
@@ -34,10 +34,7 @@ Future<int> runCheckSpecTreeDuplication(List<String> arguments) async {
 
 int _exitCode = 0;
 
-Future<void> main(List<String> arguments) async =>
-    exit(await runCheckSpecTreeDuplication(arguments));
-
-/// The options of `check_spec_tree_duplication` (also the `tomspecs` command's).
+/// The options of `tomspecs :gate-spec-tree-duplication`.
 ArgParser checkSpecTreeDuplicationParser() => ArgParser()
   ..addFlag(
     'record',
@@ -72,9 +69,7 @@ void _mainCheckSpecTreeDuplication(List<String> arguments) {
     throw ToolExit(2);
   }
   if (results.flag('help')) {
-    stdout.writeln(
-      'Usage: dart run bin/check_spec_tree_duplication.dart [options]\n',
-    );
+    stdout.writeln('Usage: tomspecs :gate-spec-tree-duplication [options]\n');
     stdout.writeln(parser.usage);
     throw ToolExit(0);
   }
@@ -93,7 +88,7 @@ void _mainCheckSpecTreeDuplication(List<String> arguments) {
   for (final tree in [reviewerTreeRoot, editorTreeRoot]) {
     if (!Directory(p.join(containerRoot, tree)).existsSync()) {
       stderr.writeln(
-        'check_spec_tree_duplication: spec tree not found: '
+        'gate-spec-tree-duplication: spec tree not found: '
         '${p.join(containerRoot, tree)}',
       );
       throw ToolExit(2);
@@ -105,7 +100,7 @@ void _mainCheckSpecTreeDuplication(List<String> arguments) {
   if (results.flag('record')) {
     writeSharedDocBaseline(baselineFile, shared);
     stdout.writeln(
-      'check_spec_tree_duplication: recorded ${shared.length} shared doc '
+      'gate-spec-tree-duplication: recorded ${shared.length} shared doc '
       'line(s) to ${baselineFile.path}',
     );
     throw ToolExit(0);
@@ -113,7 +108,7 @@ void _mainCheckSpecTreeDuplication(List<String> arguments) {
 
   if (!baselineFile.existsSync()) {
     stderr.writeln(
-      'check_spec_tree_duplication: no baseline at ${baselineFile.path}\n'
+      'gate-spec-tree-duplication: no baseline at ${baselineFile.path}\n'
       '  record one with --record',
     );
     throw ToolExit(2);
@@ -125,7 +120,7 @@ void _mainCheckSpecTreeDuplication(List<String> arguments) {
 
   if (added.isEmpty) {
     stdout.writeln(
-      'check_spec_tree_duplication: ${shared.length} shared doc line(s), '
+      'gate-spec-tree-duplication: ${shared.length} shared doc line(s), '
       'none new',
     );
     if (removed.isNotEmpty) {
@@ -144,7 +139,7 @@ void _mainCheckSpecTreeDuplication(List<String> arguments) {
   }
 
   stderr.writeln(
-    'check_spec_tree_duplication: ${added.length} NEW shared doc line(s) '
+    'gate-spec-tree-duplication: ${added.length} NEW shared doc line(s) '
     'between the two spec trees',
   );
   for (final line in added.toList()..sort()) {

@@ -1,4 +1,4 @@
-/// `extract_answers`: a review round's answers as a step folder's
+/// `tomspecs :spec-answers`: a review round's answers as a step folder's
 /// `answers.md` (SOM §11.9.7, `tom_specs_project_flow.md` PF-ITR-REV).
 ///
 /// Every document given is read; files of the same root are fragments of one
@@ -47,7 +47,7 @@ ArgParser extractAnswersParser() => ArgParser()
   )
   ..addFlag('help', abbr: 'h', help: 'Show this help.', negatable: false);
 
-/// Runs `extract_answers` over [arguments]. Exit codes: `0` written, `1` a
+/// Runs `tomspecs :spec-answers` over [arguments]. Exit codes: `0` written, `1` a
 /// document is unreadable or holds a malformed annotation, `2` bad usage.
 Future<int> runExtractAnswers(
   List<String> arguments, {
@@ -63,21 +63,21 @@ Future<int> runExtractAnswers(
     results = parser.parse(arguments);
   } on FormatException catch (e) {
     stderrSink
-      ..writeln('extract_answers: ${e.message}')
+      ..writeln('spec-answers: ${e.message}')
       ..writeln(parser.usage);
     return 2;
   }
   if (results.flag('help')) {
     stdoutSink
       ..writeln(
-        'Usage: extract_answers <doc.md|doc.docspecs.yaml>... '
+        'Usage: tomspecs :spec-answers <doc.md|doc.docspecs.yaml>... '
         '[-o answers.md] [--path <subtree>] [--open] [--marks] [--counts]',
       )
       ..writeln(parser.usage);
     return 0;
   }
   if (results.rest.isEmpty) {
-    stderrSink.writeln('extract_answers: give at least one document');
+    stderrSink.writeln('spec-answers: give at least one document');
     return 2;
   }
   final specModel = model ?? somSpecModel;
@@ -88,7 +88,7 @@ Future<int> runExtractAnswers(
   for (final path in results.rest) {
     final file = File(path);
     if (!file.existsSync()) {
-      stderrSink.writeln('extract_answers: document not found: $path');
+      stderrSink.writeln('spec-answers: document not found: $path');
       return 1;
     }
     final text = file.readAsStringSync();
@@ -97,7 +97,7 @@ Future<int> runExtractAnswers(
     try {
       root = resolveSpecDocumentRoot(specModel, null, text, isMarkdown: isMd);
     } on ArgumentError catch (e) {
-      stderrSink.writeln('extract_answers: $path: ${e.message}');
+      stderrSink.writeln('spec-answers: $path: ${e.message}');
       return 1;
     }
     final key = root.type;
@@ -112,7 +112,7 @@ Future<int> runExtractAnswers(
           buildSomMetaTree(specModel, rootType: root.type),
         );
       } on SpecYamlFormatException catch (e) {
-        stderrSink.writeln('extract_answers: $path: ${e.message}');
+        stderrSink.writeln('spec-answers: $path: ${e.message}');
         return 1;
       }
     }
@@ -131,7 +131,7 @@ Future<int> runExtractAnswers(
       final assembled = assembly.document;
       if (assembled == null) {
         for (final o in assembly.overlaps) {
-          stderrSink.writeln('extract_answers: ${o.message}');
+          stderrSink.writeln('spec-answers: ${o.message}');
         }
         return 1;
       }
@@ -144,7 +144,7 @@ Future<int> runExtractAnswers(
           e.code == SpecValidationCode.annotationMisplaced ||
           e.code == SpecValidationCode.duplicateAnnotationId) {
         stderrSink.writeln(
-          'extract_answers: ${labels[rootType]}: [${e.code.name}] '
+          'spec-answers: ${labels[rootType]}: [${e.code.name}] '
           '${e.message}',
         );
         failed = true;

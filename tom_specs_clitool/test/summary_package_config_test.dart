@@ -8,7 +8,7 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart'
 /// Tests for the B1 summary package-config helper (OE-1 / OE-25).
 ///
 /// These exercise the *pure* config-reading/merging logic that feeds
-/// `bin/summaries.dart`'s package-bundle build. They rely only on the resolved
+/// `tomspecs :editor-summaries`' package-bundle build. They rely only on the resolved
 /// `.dart_tool/package_config.json` files of two sibling packages that are
 /// already `pub get`-resolved in the workspace — never on the heavy analyzer
 /// bundle — so they stay fast and CI-safe.

@@ -794,7 +794,7 @@ class _SlotCollector {
 
   /// `@SerializationOrder(order)` — the member's sibling emission position
   /// in every observable surface (`*.md`, yaml, schema, all nine facades).
-  /// It is stamped in bulk by `bin/stamp_serialization_order.dart`, not
+  /// It is stamped in bulk by `tomspecs :model-stamp-order`, not
   /// hand-written; null on an unstamped model, where declaration order is
   /// the fallback.
   int? get serializationOrder =>

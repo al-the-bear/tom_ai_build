@@ -11,7 +11,7 @@
 /// serialize), and every suite stayed green throughout.
 ///
 /// `test/model_freshness_test.dart` now guards the artifact's *currency*: the
-/// registry is emitted by `bin/generate_som.dart`, whose stamp fails when the
+/// registry is emitted by `tomspecs :som-generate`, whose stamp fails when the
 /// model has moved. This is the second net, and it guards something the
 /// fingerprint cannot see — that the emitter, given a current model, actually
 /// emitted the two members `content` depends on. Both inputs are committed

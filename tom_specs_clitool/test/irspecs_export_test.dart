@@ -16,7 +16,6 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 import 'package:yaml/yaml.dart';
 
-import 'support/tomspecs_compare.dart';
 
 final _meridian = p.absolute(
   '../tom_som_conformance/samples/meridian_codespecs',
@@ -44,7 +43,7 @@ void main() {
     scratch = Directory.systemTemp.createTempSync('irspecs_export');
     ir = p.join(scratch.path, 'irspecs');
     out = p.join(scratch.path, 'json');
-    final made = await runIrspecsChecked([
+    final made = await runIrspecs([
       'from-codespecs',
       for (final locus in ['shared', 'client', 'server']) ...[
         '--$locus',
@@ -58,7 +57,7 @@ void main() {
     expect(made, 0);
     final buffer = StringBuffer();
     final err = StringBuffer();
-    final code = await runIrspecsChecked(
+    final code = await runIrspecs(
       ['export', '--format', 'json', '--ir', ir, '--out', out],
       out: buffer,
       err: err,
@@ -124,7 +123,7 @@ void main() {
     File(p.join(out, 'CE-XX_gone.ir.json')).writeAsStringSync('{}');
     final buffer = StringBuffer();
     expect(
-      await runIrspecsChecked([
+      await runIrspecs([
         'export',
         '--format',
         'json',
@@ -145,7 +144,7 @@ void main() {
     Future<String> refused(List<String> args) async {
       final err = StringBuffer();
       expect(
-        await runIrspecsChecked(args, err: err),
+        await runIrspecs(args, err: err),
         2,
         reason: args.join(' '),
       );

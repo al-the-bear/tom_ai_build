@@ -17,7 +17,6 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show CodeSpecsAreaCatalog;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-import 'support/tomspecs_compare.dart';
 
 final _trios = {
   'phase4_codespecs_run': [
@@ -147,7 +146,7 @@ void main() {
       final ir = p.join(work.path, 'irspecs');
       final code = p.join(work.path, 'code');
       expect(
-        await runIrspecsChecked([
+        await runIrspecs([
           'from-codespecs',
           '--shared',
           roots[0],
@@ -164,7 +163,7 @@ void main() {
       );
       final out = StringBuffer();
       expect(
-        await runIrspecsChecked([
+        await runIrspecs([
           'map',
           '--mapper',
           'dart-tom',
@@ -185,7 +184,7 @@ void main() {
         );
       }
       final err = StringBuffer();
-      expect(await runIrspecsChecked(['map', '--ir', ir], err: err), 2);
+      expect(await runIrspecs(['map', '--ir', ir], err: err), 2);
       expect('$err', contains('--mapper'));
     },
   );

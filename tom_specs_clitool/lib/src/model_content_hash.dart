@@ -50,7 +50,7 @@ Object? _canonical(Object? value) {
   return value;
 }
 
-/// The warning `generate_som` prints when the model's content changed since the
+/// The warning `tomspecs :som-generate` prints when the model's content changed since the
 /// last canonical run but its version did not, or `null` when there is nothing
 /// to say.
 ///

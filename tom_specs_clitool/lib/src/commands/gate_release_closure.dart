@@ -14,7 +14,7 @@ import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-/// Runs `check_release_closure` with [arguments] and returns its exit code, without ending
+/// Runs `tomspecs :gate-release-closure` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
 Future<int> runCheckReleaseClosure(List<String> arguments) async {
   _exitCode = 0;
@@ -28,10 +28,7 @@ Future<int> runCheckReleaseClosure(List<String> arguments) async {
 
 int _exitCode = 0;
 
-Future<void> main(List<String> arguments) async =>
-    exit(await runCheckReleaseClosure(arguments));
-
-/// The options of `check_release_closure` (also the `tomspecs` command's).
+/// The options of `tomspecs :gate-release-closure`.
 ArgParser checkReleaseClosureParser() => ArgParser()
   ..addOption(
     'manifest',
@@ -69,7 +66,7 @@ Future<void> _mainCheckReleaseClosure(List<String> arguments) async {
   }
 
   if (results.flag('help')) {
-    stdout.writeln('Usage: dart run bin/check_release_closure.dart [options]');
+    stdout.writeln('Usage: tomspecs :gate-release-closure [options]');
     stdout.writeln(parser.usage);
     throw ToolExit(0);
   }
@@ -91,7 +88,7 @@ Future<void> _mainCheckReleaseClosure(List<String> arguments) async {
   try {
     manifest = ReleaseManifest.load(manifestPath);
   } on FormatException catch (e) {
-    stderr.writeln('check_release_closure error: ${e.message}');
+    stderr.writeln('gate-release-closure error: ${e.message}');
     throw ToolExit(2);
   }
 
@@ -125,7 +122,7 @@ Future<void> _mainCheckReleaseClosure(List<String> arguments) async {
 
   if (!report.isClosed) {
     stderr.writeln(
-      'check_release_closure: '
+      'gate-release-closure: '
       '${report.violations.length} violation(s):',
     );
     for (final violation in report.violations) {

@@ -22,14 +22,14 @@
 
 ## Quick Reference
 
-**Entrypoints use `package:args`, not `tom_build_base`.** This package is the
-recorded exception to the workspace's `tom_build_base`-first rule
-(`tool_dependencies.md`): its `bin/` tools are development gates and generators
-over this repository, and `tom_build_base` would become a direct dependency of a
-release-set member. Keep a new entrypoint in the same style — a plain
-`ArgParser`, with `--help` and the exit codes handled in the file — so the
-package never mixes two, and so `test/entrypoint_options_test.dart` can read its
-`addOption`/`addFlag` literals.
+**One entrypoint: `bin/tomspecs.dart`, on `tom_build_base`.** Every tool of the
+package is a command of it. A new tool is a new command, never a new file in
+`bin/`: its run function and `ArgParser` go in `lib/src/commands/` (or the CLI
+library of its subject), the command is declared in `bin/tomspecs.dart` with
+its options read from that parser, and it gets a row in the README's `tomspecs`
+command table, which `test/entrypoint_options_test.dart` holds against the
+declared options. A command runs other commands' functions in process, never as
+a process.
 
 The subject-matter documentation lives with the model, in
 `../tom_specs_model/doc/` — `som_multiplatform_spec_model.md` (the SOM

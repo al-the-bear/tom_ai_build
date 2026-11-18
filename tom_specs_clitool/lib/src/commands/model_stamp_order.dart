@@ -19,8 +19,8 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// cleanly after the model is edited.
 ///
 /// Usage:
-///   `dart run bin/stamp_serialization_order.dart --package <model-path> [--dry-run]`
-/// Runs `stamp_serialization_order` with [arguments] and returns its exit code, without ending
+///   `tomspecs :model-stamp-order --package <model-path> [--dry-run]`
+/// Runs `tomspecs :model-stamp-order` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
 Future<int> runStampSerializationOrder(List<String> arguments) async {
   _exitCode = 0;
@@ -34,10 +34,7 @@ Future<int> runStampSerializationOrder(List<String> arguments) async {
 
 int _exitCode = 0;
 
-Future<void> main(List<String> arguments) async =>
-    exit(await runStampSerializationOrder(arguments));
-
-/// The options of `stamp_serialization_order` (also the `tomspecs` command's).
+/// The options of `tomspecs :model-stamp-order`.
 ArgParser stampSerializationOrderParser() => ArgParser()
   ..addOption(
     'package',
@@ -65,7 +62,7 @@ Future<void> _mainStampSerializationOrder(List<String> arguments) async {
   }
   if (results.flag('help')) {
     stdout.writeln(
-      'Usage: dart run bin/stamp_serialization_order.dart '
+      'Usage: tomspecs :model-stamp-order '
       '--package <path> [--dry-run]',
     );
     stdout.writeln(parser.usage);
@@ -84,7 +81,7 @@ Future<void> _mainStampSerializationOrder(List<String> arguments) async {
   }
 
   stdout.writeln(
-    'stamp_serialization_order: '
+    'model-stamp-order: '
     '${dryRun ? '[dry-run] ' : ''}'
     'files changed: ${result.filesChanged}, '
     'members stamped: ${result.membersStamped}'

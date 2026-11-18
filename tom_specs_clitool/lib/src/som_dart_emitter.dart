@@ -593,7 +593,7 @@ class SomDartEmitter {
 /// The generated typed object model for the TomSpecs specification documents
 /// (`$versionLabel`), model version `$modelVersionString`.
 ///
-/// **Generated — do not edit.** Regenerate with `generate_som.dart`; a hand
+/// **Generated — do not edit.** Regenerate with `tomspecs :som-generate`; a hand
 /// edit is overwritten by the next run. The generator is
 /// `SomDartEmitter` in `tom_specs_clitool`.
 ///

@@ -1,5 +1,5 @@
 /// One generation unit's share of an IR document set (`irspecs_ir.md` §8.1):
-/// what `irspecs map --unit` writes.
+/// what `tomspecs :ir-map --unit` writes.
 ///
 /// A unit is a package of one kind — shared, client or server, the three loci
 /// of the trio — whose register entry names, per area, the mapper that writes

@@ -7,8 +7,8 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// Checks that every quest-todo id cited in the TomSpecs documentation still
 /// points a reader at exactly one **open** todo.
 ///
-///   dart run bin/check_todo_citations.dart
-///   dart run bin/check_todo_citations.dart --verbose
+///   tomspecs :gate-todo-citations
+///   tomspecs :gate-todo-citations --verbose
 ///
 /// The scan is the TomSpecs doc folder plus the project READMEs that cite it —
 /// the same closed set the section gate holds, since a README pointing at a
@@ -19,7 +19,7 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// `lib/src/todo_citations.dart` for the two markers, why an ambiguous citation
 /// is not exemptable, and why the id shapes are discovered rather than
 /// enumerated.
-/// Runs `check_todo_citations` with [arguments] and returns its exit code, without ending
+/// Runs `tomspecs :gate-todo-citations` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
 Future<int> runCheckTodoCitations(List<String> arguments) async {
   _exitCode = 0;
@@ -33,10 +33,7 @@ Future<int> runCheckTodoCitations(List<String> arguments) async {
 
 int _exitCode = 0;
 
-Future<void> main(List<String> arguments) async =>
-    exit(await runCheckTodoCitations(arguments));
-
-/// The options of `check_todo_citations` (also the `tomspecs` command's).
+/// The options of `tomspecs :gate-todo-citations`.
 ArgParser checkTodoCitationsParser() => ArgParser()
   ..addOption(
     'doc',
@@ -107,7 +104,7 @@ Future<void> _mainCheckTodoCitations(List<String> arguments) async {
   }
 
   if (results.flag('help')) {
-    stdout.writeln('Usage: dart run bin/check_todo_citations.dart [options]');
+    stdout.writeln('Usage: tomspecs :gate-todo-citations [options]');
     stdout.writeln(parser.usage);
     throw ToolExit(0);
   }
@@ -144,7 +141,7 @@ Future<void> _mainCheckTodoCitations(List<String> arguments) async {
   ]);
   if (corpus.sourceFiles.isEmpty) {
     stderr.writeln(
-      'check_todo_citations error: no todo file found under '
+      'gate-todo-citations error: no todo file found under '
       '${questDirs.join(', ')} — every citation would look unresolved.',
     );
     throw ToolExit(1);
@@ -170,7 +167,7 @@ Future<void> _mainCheckTodoCitations(List<String> arguments) async {
       vocabulary: TodoCitationVocabulary.load(vocabularyPath),
     );
   } on ArgumentError catch (e) {
-    stderr.writeln('check_todo_citations error: ${e.message}');
+    stderr.writeln('gate-todo-citations error: ${e.message}');
     throw ToolExit(1);
   }
 

@@ -21,7 +21,7 @@
 ///   * [ensureGitignoreContent] — the built-artifact ignore policy: emitted
 ///     packaging never checks in binaries (wheels, jars, `.crate`, `dist/`, …).
 ///   * [writeFacadePackaging] / [alignRuntimeManifestVersion] — the IO hooks
-///     `generate_som.dart` invokes per target (via [packagingDescriptorFor]).
+///     `tomspecs :som-generate` invokes per target (via [packagingDescriptorFor]).
 ///
 /// Nothing here hard-codes a language; [packagingDescriptorFor] is the registry
 /// each language's descriptor is entered in, at which point the generator hook
@@ -430,7 +430,7 @@ String _withVersion(String body, String version) =>
 /// The facade `README.md` — the `tom_specs_documentation_standard.md` §2
 /// template, emitted rather than hand-written.
 ///
-/// The whole file is regenerated on every `generate_som.dart` run, so anything
+/// The whole file is regenerated on every `tomspecs :som-generate` run, so anything
 /// a reader needs must come from either the shared template here or the
 /// language's [PackagingDescriptor]; there is no third place, and a hand edit
 /// is destroyed by the next run. Per-language nuance is a descriptor field, not
@@ -966,7 +966,7 @@ String ensureGitignoreContent(String existing, List<String> globs) {
 /// Writes the facade's packaging docs (`README.md`, `readme_howtointegrate.md`,
 /// `LICENSE`, `CHANGELOG.md`) and ensures its `.gitignore`, all under
 /// [outputRoot], stamped with [version]. This is the emit-hook
-/// `generate_som.dart` calls per target once the target has a registered
+/// `tomspecs :som-generate` calls per target once the target has a registered
 /// [PackagingDescriptor]. `LICENSE` and `CHANGELOG.md` are ecosystem-neutral
 /// (every registry benefits from them), so they live here rather than in a
 /// per-language generator.
@@ -1030,7 +1030,7 @@ void alignRuntimeManifestVersion({
 ///
 /// A language's [PackagingDescriptor] entry here immediately activates
 /// [writeFacadePackaging] + [alignRuntimeManifestVersion] for that language on
-/// the next `generate_som.dart` run. All nine ecosystems of the SOM §17.3 table
+/// the next `tomspecs :som-generate` run. All nine ecosystems of the SOM §17.3 table
 /// are registered: Dart (pub); Python (PEP 517); Java (Maven); JavaScript
 /// (npm); TypeScript (npm + compiled `dist/`); Go (module path + in-source
 /// version constant / VCS tag scheme); Rust (Cargo crate — versioned `path`

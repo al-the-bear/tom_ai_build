@@ -84,7 +84,7 @@ class DocCoverageEntry {
   /// The ratchet floor: measured coverage may not fall below this.
   ///
   /// Seeded at the value measured when the entry was added and raised as
-  /// sweeps land. It never falls: `bin/check_doc_coverage.dart --raise` only
+  /// sweeps land. It never falls: `tomspecs :gate-doc-coverage --raise` only
   /// winds it forward, and a measurement below it is one of
   /// [DocCoverageReport.violations].
   final int floor;

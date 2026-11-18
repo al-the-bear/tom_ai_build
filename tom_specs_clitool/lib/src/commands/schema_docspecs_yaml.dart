@@ -7,12 +7,12 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// Generates the standalone JSON Schema for the generic on-disk
 /// `*.docspecs.yaml` **document wire format**.
 ///
-/// Unlike `docspecs_schema.dart` — which emits one per-root DocSpecs schema
+/// Unlike `tomspecs :schema-docspecs` — which emits one per-root DocSpecs schema
 /// describing the section grammar of a single document root — this emits a
 /// single schema for the *file envelope* every `*.docspecs.yaml` shares
 /// (`version` / `modelVersion` / `document` / `review`), so a saved file can be
 /// schema-validated without resolving its model.
-/// Runs `docspecs_yaml_schema` with [arguments] and returns its exit code, without ending
+/// Runs `tomspecs :schema-docspecs-yaml` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
 Future<int> runDocspecsYamlSchema(List<String> arguments) async {
   _exitCode = 0;
@@ -26,10 +26,7 @@ Future<int> runDocspecsYamlSchema(List<String> arguments) async {
 
 int _exitCode = 0;
 
-Future<void> main(List<String> arguments) async =>
-    exit(await runDocspecsYamlSchema(arguments));
-
-/// The options of `docspecs_yaml_schema` (also the `tomspecs` command's).
+/// The options of `tomspecs :schema-docspecs-yaml`.
 ArgParser docspecsYamlSchemaParser() => ArgParser()
   ..addOption(
     'out-dir',
@@ -59,7 +56,7 @@ Future<void> _mainDocspecsYamlSchema(List<String> arguments) async {
 
   if (results.flag('help')) {
     stdout.writeln(
-      'Usage: dart run bin/docspecs_yaml_schema.dart '
+      'Usage: tomspecs :schema-docspecs-yaml '
       '[--out-dir <dir>]',
     );
     stdout.writeln(parser.usage);
@@ -79,7 +76,7 @@ Future<void> _mainDocspecsYamlSchema(List<String> arguments) async {
   file.writeAsStringSync(generator.toJsonString());
 
   stdout.writeln(
-    'docspecs_yaml_schema: wrote ${file.path} '
+    'schema-docspecs-yaml: wrote ${file.path} '
     '(format version ${generator.formatVersion}).',
   );
 }

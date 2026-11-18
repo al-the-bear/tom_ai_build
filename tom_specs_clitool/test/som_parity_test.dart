@@ -169,7 +169,7 @@ void main() {
 
     test('the gate is green: every gap is acknowledged, every entry live', () {
       // The gate itself, in the default `dart test` run — the same walk
-      // `bin/check_som_parity.dart` performs, over the real nine planes and the
+      // `tomspecs :som-parity` performs, over the real nine planes and the
       // committed manifest. Without this the check would only run when somebody
       // remembered to, which is the state this todo existed to end.
       if (root == null) return;

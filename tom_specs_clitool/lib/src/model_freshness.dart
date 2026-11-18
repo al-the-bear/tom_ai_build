@@ -1,5 +1,5 @@
 /// Fingerprints `tom_specs_model` — the input every committed artifact
-/// `bin/generate_som.dart` writes is generated from — so a model edit that was
+/// `tomspecs :som-generate` writes is generated from — so a model edit that was
 /// never followed by a regeneration fails a test instead of shipping.
 ///
 /// That is the nine `tom_som_<slug>_v0` packages **and** the `spec_ops.g.dart`
@@ -13,7 +13,7 @@
 /// of sources, `meta/spec_model.meta.json` and 14 DocSpecs schemas, plus the
 /// registry. Nothing verified that the committed output still described the
 /// model. Regeneration happened only when whoever changed `tom_specs_model`
-/// remembered to run `bin/generate_som.dart`, so a model change could merge with
+/// remembered to run `tomspecs :som-generate`, so a model change could merge with
 /// all nine packages describing the *previous* model and no test would go red.
 ///
 /// That is not hypothetical. The packages were stale from the commit that routed
@@ -131,7 +131,7 @@ class ModelSurface {
   /// `null` in a stamp written before the hash existed.
   ///
   /// Not part of the freshness comparison, which is over the model *source*.
-  /// It is the baseline `generate_som` holds the next run's hash against, to
+  /// It is the baseline `tomspecs :som-generate` holds the next run's hash against, to
   /// say when the content moved while [modelVersion] did not.
   final String? modelHash;
 
@@ -282,7 +282,7 @@ ModelSurface? readModelSurfaceStamp({required String clitoolRoot}) {
   );
 }
 
-/// Writes [surface] to the stamp file. Called by `bin/generate_som.dart`, never
+/// Writes [surface] to the stamp file. Called by `tomspecs :som-generate`, never
 /// by a test — a test that could re-stamp would only ever agree with itself.
 void writeModelSurfaceStamp(
   ModelSurface surface, {
@@ -308,7 +308,7 @@ List<String> configuredPackageNames(SpecObjectModelConfig config) =>
 /// is not on disk at all.
 ///
 /// [configDir] is the directory the config's `output-base` resolves against —
-/// the config file's own directory, matching `bin/generate_som.dart`.
+/// the config file's own directory, matching `tomspecs :som-generate`.
 String? somPackageCoverageMismatch({
   required SpecObjectModelConfig config,
   required String configDir,

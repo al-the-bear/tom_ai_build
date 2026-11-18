@@ -1,4 +1,4 @@
-/// The `validate_codespecs` command, as a function the entry point and the
+/// The `tomspecs :codespecs-validate` command, as a function the entry point and the
 /// tests both call.
 ///
 /// Three outputs from one binary:
@@ -673,7 +673,7 @@ List<String> _dartSources(String? path) {
 
 void _printUsage(ArgParser parser, StringSink sink) {
   sink.writeln(
-    'Usage: validate_codespecs --shared <dir> --client <dir> --server <dir> '
+    'Usage: tomspecs :codespecs-validate --shared <dir> --client <dir> --server <dir> '
     '[options]',
   );
   sink.writeln();

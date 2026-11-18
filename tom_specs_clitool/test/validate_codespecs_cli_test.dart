@@ -13,8 +13,6 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-import 'support/tomspecs_compare.dart';
-
 final String _sample = p.normalize(
   p.absolute('../tom_specs_samples/phase4_codespecs_run'),
 );
@@ -31,7 +29,7 @@ List<String> _trio(String root) => [
 Future<(int, String, String)> _run(List<String> args) async {
   final out = StringBuffer();
   final err = StringBuffer();
-  final code = await runValidateCodespecsChecked(args, out: out, err: err);
+  final code = await runValidateCodespecs(args, out: out, err: err);
   return (code, '$out', '$err');
 }
 
@@ -319,12 +317,12 @@ const csFeatureReservedPaths = {};
         ..createSync(recursive: true);
       final exe = p.join(
         exeDir.path,
-        Platform.isWindows ? 'validate_codespecs.exe' : 'validate_codespecs',
+        Platform.isWindows ? 'tomspecs.exe' : 'tomspecs',
       );
       final compile = await Process.run(Platform.resolvedExecutable, [
         'compile',
         'exe',
-        'bin/validate_codespecs.dart',
+        'bin/tomspecs.dart',
         '-o',
         exe,
       ]);
@@ -333,7 +331,7 @@ const csFeatureReservedPaths = {};
       // project in it: what the extension's bundled copy will meet.
       final run = await Process.run(
         exe,
-        [..._trio(_sample), ...extracts, '--json'],
+        [':codespecs-validate', ..._trio(_sample), ...extracts, '--json'],
         workingDirectory: Directory.systemTemp.path,
         environment: {'PATH': '/usr/bin:/bin'},
         includeParentEnvironment: false,
@@ -342,7 +340,7 @@ const csFeatureReservedPaths = {};
       expect((jsonDecode('${run.stdout}') as Map)['passed'], isTrue);
       final links = await Process.run(
         exe,
-        [..._trio(_sample), '--backlinks'],
+        [':codespecs-validate', ..._trio(_sample), '--backlinks'],
         workingDirectory: Directory.systemTemp.path,
         environment: {'PATH': '/usr/bin:/bin'},
         includeParentEnvironment: false,
@@ -353,7 +351,7 @@ const csFeatureReservedPaths = {};
         isNotEmpty,
       );
     },
-    timeout: const Timeout(Duration(minutes: 3)),
+    timeout: const Timeout(Duration(minutes: 8)),
     testOn: 'mac-os || linux',
   );
 

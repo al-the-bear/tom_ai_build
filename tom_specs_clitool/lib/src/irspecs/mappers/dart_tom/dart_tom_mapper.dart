@@ -35,7 +35,7 @@ import '../../../dart_format.dart';
 import '../../ir_model.dart';
 import '../../ir_steps.dart';
 
-/// The mapper's id, as `irspecs map --mapper` names it.
+/// The mapper's id, as `tomspecs :ir-map --mapper` names it.
 const String kDartTomMapper = 'dart-tom';
 
 /// Raised when the IR holds something the mapper has no rule to print.

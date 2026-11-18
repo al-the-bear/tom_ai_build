@@ -2823,7 +2823,7 @@ class CsCollaboratorSignatureCheck extends CodeSpecsCheck {
 /// input) and then their bytes.
 ///
 /// The check needs a caller who ran the generator twice. When none did, it
-/// raises nothing — see `bin/validate_codespecs.dart`, which says so on stdout
+/// raises nothing — see `tomspecs :codespecs-validate`, which says so on stdout
 /// rather than letting a silent pass read as a verified one.
 class CsDeterminismCheck extends CodeSpecsCheck {
   /// Creates the check.
@@ -3347,7 +3347,7 @@ class CsUncitedToken {
 /// extracts that no `@CodeSpec` / `@DocSpec` of the trio names, once per
 /// token — the gap is that the *token* reached no code, and a token with nine
 /// values behind it would otherwise be reported nine times over one fault.
-/// Also the input of `validate_codespecs.dart --record-gaps`.
+/// Also the input of `tomspecs :codespecs-validate --record-gaps`.
 List<CsUncitedToken> csUncitedTokens(CodeSpecsValidationInput input) {
   if (input.extracts.isEmpty) return const [];
   final cited = csCitedSectionIds(input);

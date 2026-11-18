@@ -16,7 +16,7 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 ///   * `--package` + `--output` — an ad-hoc export anywhere else, freely
 ///     stampable via `--model-version` / `--model-label`. Pointing it at a
 ///     committed asset is refused: use `--target` for those.
-/// Runs `model_json` with [arguments] and returns its exit code, without ending
+/// Runs `tomspecs :model-json` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
 Future<int> runModelJson(List<String> arguments) async {
   _exitCode = 0;
@@ -30,10 +30,7 @@ Future<int> runModelJson(List<String> arguments) async {
 
 int _exitCode = 0;
 
-Future<void> main(List<String> arguments) async =>
-    exit(await runModelJson(arguments));
-
-/// The options of `model_json` (also the `tomspecs` command's).
+/// The options of `tomspecs :model-json`.
 ArgParser modelJsonParser() => ArgParser()
   ..addOption(
     'target',
@@ -87,11 +84,9 @@ Future<void> _mainModelJson(List<String> arguments) async {
   }
 
   if (results.flag('help')) {
+    stdout.writeln('Usage: tomspecs :model-json --target editor|reviewer');
     stdout.writeln(
-      'Usage: dart run bin/model_json.dart --target editor|reviewer',
-    );
-    stdout.writeln(
-      '       dart run bin/model_json.dart '
+      '       tomspecs :model-json '
       '--package <path> --output <file.json>',
     );
     stdout.writeln(parser.usage);
@@ -160,7 +155,7 @@ Future<void> _mainModelJson(List<String> arguments) async {
     _fail('lib/ directory not found at $libPath');
   }
 
-  stdout.writeln('model_json: analyzing $packagePath ...');
+  stdout.writeln('model-json: analyzing $packagePath ...');
   final driver = createAnalysisDriver(packagePath);
   final reader = ModelReader(driver);
   await reader.analyzePackage(libPath);
@@ -192,6 +187,6 @@ String _containerRoot() =>
     p.normalize(p.join(clitoolPackageRoot(), '..', '..', '..'));
 
 Never _fail(String msg) {
-  stderr.writeln('model_json error: $msg');
+  stderr.writeln('model-json error: $msg');
   throw ToolExit(1);
 }

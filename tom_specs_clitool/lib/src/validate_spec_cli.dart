@@ -1,4 +1,4 @@
-/// The `validate_spec` command: one project's TomSpecs document checked on all
+/// The `tomspecs :spec-validate` command: one project's TomSpecs document checked on all
 /// three tiers, so a project never writes its own runner.
 ///
 /// The tiers ask disjoint questions, so all three run every time:
@@ -313,8 +313,8 @@ Future<int> runValidateSpec(
         t: findings.where((f) => f.tier == t).length,
     };
     final summary = passed
-        ? 'validate_spec: all three tiers clean'
-        : 'validate_spec: ${findings.length} finding(s) — '
+        ? 'spec-validate: all three tiers clean'
+        : 'spec-validate: ${findings.length} finding(s) — '
               '${kSpecValidationTiers.map((t) => '$t ${counts[t]}').join(', ')}'
               '${notRun.isEmpty ? '' : '; ${notRun.length} tier(s) not run'}';
 
@@ -366,7 +366,7 @@ Future<int> runValidateSpec(
       );
     } else {
       stdoutSink.writeln(
-        'validate_spec ${paths.join(' + ')} — root ${root.type} '
+        'spec-validate ${paths.join(' + ')} — root ${root.type} '
         '(${root.sectionId}), schema $schemaId'
         '${paths.length > 1 ? ' — ${paths.length} fragments assembled' : ''}',
       );
@@ -491,7 +491,9 @@ SpecRoot _resolveRoot(
 }
 
 void _printUsage(ArgParser parser, StringSink sink) {
-  sink.writeln('Usage: validate_spec <document> [<fragment> ...] [options]');
+  sink.writeln(
+    'Usage: tomspecs :spec-validate <document> [<fragment> ...] [options]',
+  );
   sink.writeln();
   sink.writeln(
     'Checks one TomSpecs document — a *.docspecs.yaml or a SOM-rendered *.md — '

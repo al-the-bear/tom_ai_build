@@ -14,7 +14,7 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// The `--version` integer is the model stamp (S2) and counts up as the model
 /// changes; it is rendered as `<version>.0` to stay parseable by the DocSpecs
 /// filename grammar.
-/// Runs `docspecs_schema` with [arguments] and returns its exit code, without ending
+/// Runs `tomspecs :schema-docspecs` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
 Future<int> runDocspecsSchema(List<String> arguments) async {
   _exitCode = 0;
@@ -28,10 +28,7 @@ Future<int> runDocspecsSchema(List<String> arguments) async {
 
 int _exitCode = 0;
 
-Future<void> main(List<String> arguments) async =>
-    exit(await runDocspecsSchema(arguments));
-
-/// The options of `docspecs_schema` (also the `tomspecs` command's).
+/// The options of `tomspecs :schema-docspecs`.
 ArgParser docspecsSchemaParser() => ArgParser()
   ..addOption(
     'package',
@@ -81,7 +78,7 @@ Future<void> _mainDocspecsSchema(List<String> arguments) async {
 
   if (results.flag('help')) {
     stdout.writeln(
-      'Usage: dart run bin/docspecs_schema.dart '
+      'Usage: tomspecs :schema-docspecs '
       '--package <path> [--out-dir <dir>] [--version <n>] [--label <s>]',
     );
     stdout.writeln(parser.usage);
@@ -109,7 +106,7 @@ Future<void> _mainDocspecsSchema(List<String> arguments) async {
     throw ToolExit(1);
   }
 
-  stdout.writeln('docspecs_schema: analyzing $packagePath ...');
+  stdout.writeln('schema-docspecs: analyzing $packagePath ...');
   final driver = createAnalysisDriver(packagePath);
   final reader = ModelReader(driver);
   await reader.analyzePackage(libPath);

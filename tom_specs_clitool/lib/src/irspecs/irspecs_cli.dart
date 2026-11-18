@@ -3,14 +3,14 @@
 ///
 /// Four subcommands:
 ///
-/// * `irspecs from-codespecs` reads a CodeSpecs trio and writes its IR
+/// * `tomspecs :ir-from-codespecs` reads a CodeSpecs trio and writes its IR
 ///   (`irspecs_ir.md`): one `<CE-CODE>_<canonical id>.ir.yaml` per area
 ///   holding files (`CE-DB_data_access.ir.yaml`), plus
 ///   `package.ir.yaml` for the files no area claims, into `--out` (a spec
 ///   root's `irspecs/` folder). An IR file in `--out` that the trio no longer
 ///   produces is deleted, so the folder is always the IR of exactly that
 ///   trio.
-/// * `irspecs map --mapper dart-tom --ir <dir> --out <dir>` writes the trio
+/// * `tomspecs :ir-map --mapper dart-tom --ir <dir> --out <dir>` writes the trio
 ///   an IR folder describes, one folder per package under `--out`, through
 ///   the Dart + Tom mapper, formatted with the linked `dart_style` (pinned to
 ///   the SDK's formatter, so no Dart SDK is needed). With
@@ -25,7 +25,7 @@
 ///   (`irspecs_ir.md` §13), `csharp-aspnet-server` as a .NET solution
 ///   (`irspecs_ir.md` §14).
 ///
-/// * `irspecs emit --standard <name> --ir <dir> --out <dir>`, the name one
+/// * `tomspecs :ir-emit --standard <name> --ir <dir> --out <dir>`, the name one
 ///   of `openapi`, `jsonschema`, `icu` and `asyncapi`, writes what a standard
 ///   can express of an IR folder in that standard (`irspecs_ir.md` §10), and
 ///   lists on stdout every fact it could not.
@@ -37,7 +37,7 @@
 ///   into it, and `--out` defaults to
 ///   `<spec-root>/generated-doc/irspecs_md/`.
 ///
-/// * `irspecs export --format json --ir <dir> --out <dir>` writes every IR
+/// * `tomspecs :ir-export --format json --ir <dir> --out <dir>` writes every IR
 ///   document of the folder as JSON, `<name>.ir.json` beside its
 ///   `<name>.ir.yaml` name (`CE-DB_data_access.ir.json`): the same records,
 ///   valid against `tool/irspecs_ir.schema.json` (`irspecs_ir.md` §15). The
@@ -169,15 +169,15 @@ Future<int> runIrspecs(
   final stderrSink = err ?? stderr;
   final parser = irspecsParser();
   void usage() => stderrSink.writeln(
-    'Usage: dart run tom_specs_clitool:irspecs from-codespecs '
+    'Usage: dart run tom_specs_clitool:tomspecs :ir-from-codespecs '
     '--shared <dir> --client <dir> --server <dir> --areas <json> '
     '--out <dir>\n'
-    '       dart run tom_specs_clitool:irspecs map --mapper dart-tom '
+    '       dart run tom_specs_clitool:tomspecs :ir-map --mapper dart-tom '
     '--ir <dir> --out <dir> [--spec <document> --unit <unit id>]\n'
-    '       dart run tom_specs_clitool:irspecs emit --standard '
+    '       dart run tom_specs_clitool:tomspecs :ir-emit --standard '
     '<${kIrEmitStandards.join('|')}> --ir <dir> --out <dir> '
     '[--areas <json>] [--spec <document>]\n'
-    '       dart run tom_specs_clitool:irspecs export --format '
+    '       dart run tom_specs_clitool:tomspecs :ir-export --format '
     '<${kIrExportFormats.join('|')}> --ir <dir> --out <dir>\n\n'
     '${parser.usage}',
   );
@@ -286,7 +286,7 @@ Future<int> runIrspecs(
   return 0;
 }
 
-/// The formats `irspecs export --format` writes.
+/// The formats `tomspecs :ir-export --format` writes.
 const List<String> kIrExportFormats = ['json'];
 
 Future<int> _export(
@@ -477,7 +477,7 @@ List<SpecGenerationUnit> _registerUnitsOf(String specPath) {
   return specGenerationUnits(somSpecModel, document);
 }
 
-/// The standards `irspecs emit` writes, by `--standard` name
+/// The standards `tomspecs :ir-emit` writes, by `--standard` name
 /// (`irspecs_ir.md` §10). The Markdown rendering is written by
 /// [emitMarkdown], which needs the area catalogue as well
 /// ([kIrEmitStandards] lists every name).
@@ -491,7 +491,7 @@ const Map<String, IrEmission Function(List<IrDocument>)> irStandards = {
 /// The name of the Markdown rendering among the standards.
 const String kIrMarkdownStandard = 'markdown';
 
-/// Every name `irspecs emit` writes: the standards of [irStandards] and the
+/// Every name `tomspecs :ir-emit` writes: the standards of [irStandards] and the
 /// Markdown rendering (`irspecs_ir.md` §10.3).
 const List<String> kIrEmitStandards = [
   'openapi',
@@ -582,7 +582,7 @@ int _emit(
       if (unknown.isNotEmpty) {
         throw IrSpecsException(
           'generation unit "${unit.unitId}" names ${unknown.join(', ')}, '
-          'which irspecs emit does not write (it writes '
+          'which tomspecs :ir-emit does not write (it writes '
           '${kIrEmitStandards.join(', ')})',
         );
       }

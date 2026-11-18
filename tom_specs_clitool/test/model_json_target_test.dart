@@ -1,6 +1,6 @@
 /// The guard over the two **committed** `spec_model.json` assets.
 ///
-/// `bin/model_json.dart` writes the same class-graph export to two tracked
+/// `tomspecs :model-json` writes the same class-graph export to two tracked
 /// locations. Nothing used to pair a stamp with its target, so a regeneration
 /// pass that re-exported "both assets" with one command rewrote one at the
 /// other's version — which is how the editor's copy silently reached
@@ -132,14 +132,14 @@ void main() {
           asset['modelVersion'],
           committedMajor,
           reason:
-              'refresh it with `dart run bin/model_json.dart '
+              'refresh it with `dart run bin/tomspecs.dart :model-json '
               '--target ${target.id}`',
         );
         expect(
           asset['modelVersionLabel'],
           startsWith('$committedVersion+'),
           reason:
-              'refresh it with `dart run bin/model_json.dart '
+              'refresh it with `dart run bin/tomspecs.dart :model-json '
               '--target ${target.id}`',
         );
         expect(asset['metaSchemaVersion'], specModelMetaSchemaVersion);

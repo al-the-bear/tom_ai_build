@@ -44,7 +44,7 @@ int? modelMajorOfLabel(String? label) {
 
 /// A **committed** `spec_model.json` asset.
 ///
-/// `model_json.dart` writes the same class-graph export to two committed
+/// `tomspecs :model-json` writes the same class-graph export to two committed
 /// locations. Nothing used to pair a destination with a stamp, so a regeneration
 /// pass that re-exported "both assets" with one command silently rewrote one of
 /// them at the other's version — which is how the editor's copy ended up at
@@ -62,7 +62,7 @@ int? modelMajorOfLabel(String? label) {
 /// slot, so the asset disagreed with its own label about which model it
 /// described and reported a build it had not been generated from.
 enum ModelJsonTarget {
-  /// The spec-authoring app's bundled asset. Refreshed by `bin/build.dart`
+  /// The spec-authoring app's bundled asset. Refreshed by `tomspecs :editor-build`
   /// (step 3), so it tracks the same build as the SOM metas and the DocSpecs
   /// schemas.
   editor('editor', 'tom_forge/tom_specs_editor/assets/spec_model.json'),

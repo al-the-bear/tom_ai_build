@@ -13,7 +13,7 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-/// The publishable set, mirroring `bin/check_shipped_paths.dart`.
+/// The publishable set, mirroring `tomspecs :gate-shipped-paths`.
 const _packages = [
   'tom_ai/ai_build/tom_som_dart_v0',
   'tom_ai/ai_build/tom_som_dart_runtime',

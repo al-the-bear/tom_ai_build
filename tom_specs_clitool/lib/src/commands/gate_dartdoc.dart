@@ -19,7 +19,7 @@ import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-/// Runs `check_dartdoc_build` with [arguments] and returns its exit code, without ending
+/// Runs `tomspecs :gate-dartdoc` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
 Future<int> runCheckDartdocBuild(List<String> arguments) async {
   _exitCode = 0;
@@ -33,10 +33,7 @@ Future<int> runCheckDartdocBuild(List<String> arguments) async {
 
 int _exitCode = 0;
 
-Future<void> main(List<String> arguments) async =>
-    exit(await runCheckDartdocBuild(arguments));
-
-/// The options of `check_dartdoc_build` (also the `tomspecs` command's).
+/// The options of `tomspecs :gate-dartdoc`.
 ArgParser checkDartdocBuildParser() => ArgParser()
   ..addOption(
     'manifest',
@@ -59,7 +56,7 @@ Future<void> _mainCheckDartdocBuild(List<String> arguments) async {
 
   final results = parser.parse(arguments);
   if (results['help'] as bool) {
-    stdout.writeln('Usage: dart run bin/check_dartdoc_build.dart [options]');
+    stdout.writeln('Usage: tomspecs :gate-dartdoc [options]');
     stdout.writeln(parser.usage);
     return;
   }

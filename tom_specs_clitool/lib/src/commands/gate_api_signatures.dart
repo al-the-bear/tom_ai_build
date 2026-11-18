@@ -16,7 +16,7 @@ import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-/// Runs `check_api_signatures` with [arguments] and returns its exit code, without ending
+/// Runs `tomspecs :gate-api-signatures` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
 Future<int> runCheckApiSignatures(List<String> arguments) async {
   _exitCode = 0;
@@ -30,10 +30,7 @@ Future<int> runCheckApiSignatures(List<String> arguments) async {
 
 int _exitCode = 0;
 
-Future<void> main(List<String> arguments) async =>
-    exit(await runCheckApiSignatures(arguments));
-
-/// The options of `check_api_signatures` (also the `tomspecs` command's).
+/// The options of `tomspecs :gate-api-signatures`.
 ArgParser checkApiSignaturesParser() => ArgParser()
   ..addOption(
     'manifest',
@@ -58,7 +55,7 @@ Future<void> _mainCheckApiSignatures(List<String> arguments) async {
 
   final results = parser.parse(arguments);
   if (results['help'] as bool) {
-    stdout.writeln('Usage: dart run bin/check_api_signatures.dart [options]');
+    stdout.writeln('Usage: tomspecs :gate-api-signatures [options]');
     stdout.writeln(parser.usage);
     return;
   }

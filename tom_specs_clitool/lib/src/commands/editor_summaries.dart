@@ -45,7 +45,7 @@ import 'package:tom_analyzer_shared/tom_analyzer_shared.dart'
 /// [GroupedPackageBundleBuilder] (the base-first home), so the load-bearing
 /// resolver order and package-config merge are implemented exactly once. This
 /// CLI is the thin TomSpecs front-end that also emits `sdk_summary.sum`.
-/// Runs `summaries` with [arguments] and returns its exit code, without ending
+/// Runs `tomspecs :editor-summaries` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
 Future<int> runSummaries(List<String> arguments) async {
   _exitCode = 0;
@@ -59,10 +59,7 @@ Future<int> runSummaries(List<String> arguments) async {
 
 int _exitCode = 0;
 
-Future<void> main(List<String> arguments) async =>
-    io.exit(await runSummaries(arguments));
-
-/// The options of `summaries` (also the `tomspecs` command's).
+/// The options of `tomspecs :editor-summaries`.
 ArgParser summariesParser() => ArgParser()
   ..addMultiOption(
     'package',
@@ -99,7 +96,7 @@ Future<void> _mainSummaries(List<String> arguments) async {
     throw ToolExit(2);
   }
   if (args.flag('help')) {
-    io.stdout.writeln('Usage: dart run bin/summaries.dart [options]\n');
+    io.stdout.writeln('Usage: tomspecs :editor-summaries [options]\n');
     io.stdout.writeln(parser.usage);
     throw ToolExit(0);
   }

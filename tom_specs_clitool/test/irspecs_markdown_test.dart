@@ -15,7 +15,6 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show CodeSpecsAreaCatalog;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-import 'support/tomspecs_compare.dart';
 
 final _meridian = p.absolute(
   '../tom_som_conformance/samples/meridian_codespecs',
@@ -69,7 +68,7 @@ void main() {
     }
     out = p.join(scratch.path, 'md');
     final buffer = StringBuffer();
-    final code = await runIrspecsChecked([
+    final code = await runIrspecs([
       'emit',
       '--standard',
       'markdown',
@@ -213,7 +212,7 @@ void main() {
       'rows and no links, and --out is required', () async {
     final err = StringBuffer();
     expect(
-      await runIrspecsChecked([
+      await runIrspecs([
         'emit',
         '--standard',
         'markdown',
@@ -229,7 +228,7 @@ void main() {
     expect(plain.files['index.md'], contains('No generation-unit register'));
     expect(plain.files['CE-DB_data_access.md'], isNot(contains('](')));
     expect(
-      await runIrspecsChecked([
+      await runIrspecs([
         'emit',
         '--standard',
         'markdown',
@@ -242,7 +241,7 @@ void main() {
     );
     final specAlone = StringBuffer();
     expect(
-      await runIrspecsChecked([
+      await runIrspecs([
         'emit',
         '--ir',
         ir,

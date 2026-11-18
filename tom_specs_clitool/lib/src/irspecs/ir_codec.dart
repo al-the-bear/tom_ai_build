@@ -169,7 +169,7 @@ IrDocument irDocumentFromData(Object? data, {String source = 'IR document'}) {
 // Writing
 // ---------------------------------------------------------------------------
 
-/// One file entry of a document as data — the record `validate_codespecs`
+/// One file entry of a document as data — the record `tomspecs :codespecs-validate`
 /// compares between two IR runs (check 31) in place of the file's text.
 Map<String, Object?> irFileToData(IrFile entry) => _file(entry);
 

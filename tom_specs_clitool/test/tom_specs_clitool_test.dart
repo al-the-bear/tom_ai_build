@@ -289,7 +289,7 @@ void main() {
     test('CS-03 (dsa6): validateModel yields ZERO errors from every one of the '
         '14 roots + the container — @ContentType / tom_specs_model_rules.md '
         '§5.1 field-shape clean', () {
-      // This is exactly the gate bin/outliner.dart applies (it exit(1)s on
+      // This is exactly the gate `tomspecs :model-outline` applies (it exit(1)s on
       // any validateModel error). Asserting zero errors from every root —
       // including D00SolutionBlueprint, which historically errored out on the
       // CS-03 @ContentType violations — locks the fix in and guards the

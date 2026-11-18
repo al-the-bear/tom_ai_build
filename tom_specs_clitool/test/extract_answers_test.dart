@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:test/test.dart';
-
-import 'support/tomspecs_compare.dart';
+import 'package:tom_specs_clitool/tom_specs_clitool.dart'
+    show runExtractAnswers;
 
 /// `extract_answers` (annot6): a review round's answers as `answers.md`.
 void main() {
@@ -33,7 +33,7 @@ The scope.
 
   Future<(int, String, String)> run(List<String> args) async {
     final out = StringBuffer(), err = StringBuffer();
-    final code = await runExtractAnswersChecked(args, out: out, err: err);
+    final code = await runExtractAnswers(args, out: out, err: err);
     return (code, out.toString(), err.toString());
   }
 

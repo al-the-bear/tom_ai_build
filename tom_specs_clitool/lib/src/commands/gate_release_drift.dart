@@ -6,12 +6,12 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
 /// Reports which release-set packages have moved since their version was set.
 ///
-///   dart run bin/check_release_drift.dart
+///   tomspecs :gate-release-drift
 ///
 /// Exits 1 when a package has drifted and is not acknowledged in
 /// `tool/release_set.yaml`'s `unpublished_drift:` block, or when an
 /// acknowledgement names a package the manifest does not release.
-/// Runs `check_release_drift` with [arguments] and returns its exit code, without ending
+/// Runs `tomspecs :gate-release-drift` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
 Future<int> runCheckReleaseDrift(List<String> arguments) async {
   _exitCode = 0;
@@ -25,10 +25,7 @@ Future<int> runCheckReleaseDrift(List<String> arguments) async {
 
 int _exitCode = 0;
 
-Future<void> main(List<String> arguments) async =>
-    exit(await runCheckReleaseDrift(arguments));
-
-/// The options of `check_release_drift` (also the `tomspecs` command's).
+/// The options of `tomspecs :gate-release-drift`.
 ArgParser checkReleaseDriftParser() => ArgParser()
   ..addOption(
     'manifest',
@@ -66,7 +63,7 @@ void _mainCheckReleaseDrift(List<String> arguments) {
   }
 
   if (results.flag('help')) {
-    stdout.writeln('Usage: dart run bin/check_release_drift.dart [options]');
+    stdout.writeln('Usage: tomspecs :gate-release-drift [options]');
     stdout.writeln(parser.usage);
     throw ToolExit(0);
   }

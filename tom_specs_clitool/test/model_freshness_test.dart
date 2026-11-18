@@ -1,8 +1,8 @@
-/// The freshness gate over everything `bin/generate_som.dart` commits: the nine
+/// The freshness gate over everything `tomspecs :som-generate` commits: the nine
 /// `tom_som_<slug>_v0` packages and the model package's own `spec_ops.g.dart`.
 ///
 /// Group 1 is the guard itself: it fails when `tom_specs_model` has moved since
-/// `bin/generate_som.dart` last ran, so a model edit cannot ship with those
+/// `tomspecs :som-generate` last ran, so a model edit cannot ship with those
 /// artifacts describing the previous model.
 ///
 /// Group 2 proves the fingerprint moves for the *right* reasons. Without it the

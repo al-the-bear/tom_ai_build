@@ -94,7 +94,7 @@ void main() {
       expect(
         committed.existsSync(),
         isTrue,
-        reason: 'run `dart run bin/codespecs_areas.dart`',
+        reason: 'run `dart run bin/tomspecs.dart :codespecs-areas`',
       );
       expect(
         committed.readAsStringSync(),

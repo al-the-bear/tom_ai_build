@@ -9,7 +9,7 @@
 /// and cannot see.
 ///
 /// Usage:
-///   dart run bin/check_som_parity.dart [--manifest FILE] [--container-root DIR]
+///   tomspecs :som-parity [--manifest FILE] [--container-root DIR]
 ///                                      [--verbose]
 ///
 /// Exits 1 when a plane is missing a capability no committed exception
@@ -24,7 +24,7 @@ import 'package:tom_specs_clitool/src/som_parity.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart'
     show ToolExit, clitoolPackageRoot;
 
-/// Runs `check_som_parity` with [arguments] and returns its exit code, without ending
+/// Runs `tomspecs :som-parity` with [arguments] and returns its exit code, without ending
 /// the process (the `tomspecs` command calls it).
 Future<int> runCheckSomParity(List<String> arguments) async {
   _exitCode = 0;
@@ -38,10 +38,7 @@ Future<int> runCheckSomParity(List<String> arguments) async {
 
 int _exitCode = 0;
 
-Future<void> main(List<String> arguments) async =>
-    exit(await runCheckSomParity(arguments));
-
-/// The options of `check_som_parity` (also the `tomspecs` command's).
+/// The options of `tomspecs :som-parity`.
 ArgParser checkSomParityParser() => ArgParser()
   ..addOption('manifest', help: 'The acknowledged-asymmetry manifest.')
   ..addOption('container-root', help: 'The workspace root to scan.')
@@ -57,7 +54,7 @@ void _mainCheckSomParity(List<String> arguments) {
   final parser = checkSomParityParser();
   final args = parser.parse(arguments);
   if (args['help'] as bool) {
-    stdout.writeln('check_som_parity — nine-plane capability parity\n');
+    stdout.writeln('som-parity — nine-plane capability parity\n');
     stdout.writeln(parser.usage);
     return;
   }
@@ -73,7 +70,7 @@ void _mainCheckSomParity(List<String> arguments) {
   final vocabulary = contractVocabulary('$aiBuild/tom_som_conformance');
   if (vocabulary.isEmpty) {
     stderr.writeln(
-      'check_som_parity: no conformance corpus at $aiBuild — '
+      'som-parity: no conformance corpus at $aiBuild — '
       'nothing to check against',
     );
     throw ToolExit(2);
@@ -86,7 +83,7 @@ void _mainCheckSomParity(List<String> arguments) {
   final empty = somPlanes.where((p) => planeTokenSets[p]!.isEmpty).toList();
   if (empty.isNotEmpty) {
     stderr.writeln(
-      'check_som_parity: no sources read for ${empty.join(", ")} '
+      'som-parity: no sources read for ${empty.join(", ")} '
       '— a plane that reads as empty would report every capability missing',
     );
     throw ToolExit(2);
@@ -98,7 +95,7 @@ void _mainCheckSomParity(List<String> arguments) {
   final stale = staleExceptions(findings, exceptions);
 
   stdout.writeln(
-    'check_som_parity: ${vocabulary.length} contract token(s), '
+    'som-parity: ${vocabulary.length} contract token(s), '
     '${somPlanes.length} planes',
   );
   if (args['verbose'] as bool) {
@@ -120,13 +117,13 @@ void _mainCheckSomParity(List<String> arguments) {
 
   if (live.isEmpty && stale.isEmpty) {
     stdout.writeln(
-      'check_som_parity: every contract capability reaches all '
+      'som-parity: every contract capability reaches all '
       'nine planes, or is acknowledged',
     );
     return;
   }
   stdout.writeln(
-    'check_som_parity: ${live.length} unacknowledged, '
+    'som-parity: ${live.length} unacknowledged, '
     '${stale.length} stale exception(s)',
   );
   throw ToolExit(1);
