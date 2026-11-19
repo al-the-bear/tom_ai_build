@@ -716,8 +716,7 @@ inline model of its own:
   phases reached and left out; the current documents of a listing (the step
   folders excluded); the Markdown table.
 
-The Dart, TypeScript and JavaScript runtimes run every case; the six others do
-not carry the walk yet.
+Every runtime runs every case.
 
 ##### …and the Stage-A gate over them
 

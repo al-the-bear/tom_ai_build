@@ -1697,64 +1697,84 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
     /// prefix, so the codes here are bare whatever spelling the meta chose. Two
     /// readers of the same annotations would be two chances to disagree.
     fn verdict_of(&self, cls: &SpecClass, path: &str) -> CodeSpecsRouting {
-        if let Some(code) = cls.code_spec_kind() {
-            return CodeSpecsRouting {
-                path: path.to_string(),
-                class_name: cls.name.clone(),
-                verdict: CodeSpecsRoutingVerdict::FeedsCode,
-                values: code.kinds,
-                note: code.note,
-                declared_at: cls.name.clone(),
-            };
-        }
-        if let Some(follow_up) = cls.follow_up_kind() {
-            return CodeSpecsRouting {
-                path: path.to_string(),
-                class_name: cls.name.clone(),
-                verdict: CodeSpecsRoutingVerdict::FeedsProcess,
-                values: follow_up.kinds,
-                note: follow_up.note,
-                declared_at: cls.name.clone(),
-            };
-        }
-        if let Some(none) = cls.no_artifact() {
-            return CodeSpecsRouting {
-                path: path.to_string(),
-                class_name: cls.name.clone(),
-                verdict: CodeSpecsRoutingVerdict::FeedsNothing,
-                values: vec![none.reason],
-                note: none.note,
-                declared_at: cls.name.clone(),
-            };
-        }
-        let verdict = if cls.has_annotation("Document") {
-            CodeSpecsRoutingVerdict::DocumentRoot
-        } else {
-            CodeSpecsRoutingVerdict::Unrouted
-        };
-        CodeSpecsRouting {
-            path: path.to_string(),
-            class_name: cls.name.clone(),
-            verdict,
-            values: Vec::new(),
-            note: None,
-            declared_at: String::new(),
-        }
+        code_specs_class_routing(cls, path)
     }
 
     /// A field-level `@CodeSpecKind`, which overrides its class's routing for
     /// that field alone; `None` when the field carries none.
     fn field_routing(&self, cls: &SpecClass, field: &SpecField) -> Option<CodeSpecsRouting> {
-        let code = field.code_spec_kind()?;
-        Some(CodeSpecsRouting {
-            path: String::new(),
+        code_specs_field_routing(cls, field)
+    }
+}
+
+// --- routing verdicts --------------------------------------------------------
+
+/// The routing verdict of one class node at `path`: `@CodeSpecKind` (feeds
+/// code), `@FollowUpKind` (a process delivers it), `@NoArtifact` (feeds
+/// nothing), a `@Document` root, else unrouted — the same verdict
+/// [`CodeSpecsExtractor::routings`] records, shared with the impact walk
+/// ([`crate::spec_impact_walk`]).
+///
+/// The three markers are mutually exclusive (`KIND-EXCLUSIVE`), so the order
+/// they are tested in is a readability choice rather than a precedence rule.
+pub fn code_specs_class_routing(cls: &SpecClass, path: &str) -> CodeSpecsRouting {
+    if let Some(code) = cls.code_spec_kind() {
+        return CodeSpecsRouting {
+            path: path.to_string(),
             class_name: cls.name.clone(),
             verdict: CodeSpecsRoutingVerdict::FeedsCode,
             values: code.kinds,
             note: code.note,
-            declared_at: format!("{}.{}", cls.name, field.name),
-        })
+            declared_at: cls.name.clone(),
+        };
     }
+    if let Some(follow_up) = cls.follow_up_kind() {
+        return CodeSpecsRouting {
+            path: path.to_string(),
+            class_name: cls.name.clone(),
+            verdict: CodeSpecsRoutingVerdict::FeedsProcess,
+            values: follow_up.kinds,
+            note: follow_up.note,
+            declared_at: cls.name.clone(),
+        };
+    }
+    if let Some(none) = cls.no_artifact() {
+        return CodeSpecsRouting {
+            path: path.to_string(),
+            class_name: cls.name.clone(),
+            verdict: CodeSpecsRoutingVerdict::FeedsNothing,
+            values: vec![none.reason],
+            note: none.note,
+            declared_at: cls.name.clone(),
+        };
+    }
+    let verdict = if cls.has_annotation("Document") {
+        CodeSpecsRoutingVerdict::DocumentRoot
+    } else {
+        CodeSpecsRoutingVerdict::Unrouted
+    };
+    CodeSpecsRouting {
+        path: path.to_string(),
+        class_name: cls.name.clone(),
+        verdict,
+        values: Vec::new(),
+        note: None,
+        declared_at: String::new(),
+    }
+}
+
+/// A field-level `@CodeSpecKind`, which overrides its class's routing for
+/// that field alone; `None` when the field carries none.
+pub fn code_specs_field_routing(cls: &SpecClass, field: &SpecField) -> Option<CodeSpecsRouting> {
+    let code = field.code_spec_kind()?;
+    Some(CodeSpecsRouting {
+        path: String::new(),
+        class_name: cls.name.clone(),
+        verdict: CodeSpecsRoutingVerdict::FeedsCode,
+        values: code.kinds,
+        note: code.note,
+        declared_at: format!("{}.{}", cls.name, field.name),
+    })
 }
 
 // --- shared emission helpers ----------------------------------------------

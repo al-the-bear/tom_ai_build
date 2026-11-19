@@ -140,6 +140,20 @@ struct CodeSpecsRouting {
   std::string display() const;
 };
 
+/* The verdict `cls` carries, for the class node at `path`: FeedsCode
+ * (`@CodeSpecKind`), FeedsProcess (`@FollowUpKind`), FeedsNothing
+ * (`@NoArtifact`), else DocumentRoot for a `@Document` class, else Unrouted.
+ * The routing rule the extractor applies, shared with the impact walk
+ * (spec_impact_walk). */
+CodeSpecsRouting codeSpecsClassRouting(const SpecClass& cls,
+                                       const std::string& path);
+
+/* A field-level `@CodeSpecKind`, which overrides its class's routing for that
+ * field alone (declared at `Class.field`); std::nullopt when the field carries
+ * none. */
+std::optional<CodeSpecsRouting> codeSpecsFieldRouting(const SpecClass& cls,
+                                                      const SpecField& field);
+
 /* One extract entry: a single value the specification document stores, with
  * everything needed to trace it back (`codespecs_mapping.md` §1.1.1,
  * "Entry"). */

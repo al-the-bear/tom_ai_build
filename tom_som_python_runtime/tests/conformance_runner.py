@@ -116,6 +116,11 @@ from tom_som_runtime import (  # noqa: E402
     K_SPEC_STANDARD_EMITTERS,
     spec_default_units,
     spec_generation_units,
+    SpecImpactFolder,
+    spec_impact_document_files,
+    spec_impact_level,
+    spec_impact_walk,
+    spec_impact_walk_markdown,
 )
 from tom_som_runtime.spec_typed_values import (  # noqa: E402
     som_format_double,
@@ -2234,6 +2239,49 @@ def test_typed_values() -> None:
                _json_mismatch(got, case))
 
 
+def test_impact_walk() -> None:
+    """``impact_walk_cases.json``: the impact walk of the change mode
+    (``spec_impact_walk``), the project's level (``spec_impact_level``), the
+    document files of a listing (``spec_impact_document_files``) and the
+    Markdown table (``spec_impact_walk_markdown``)."""
+    table = _read_json("impact_walk_cases.json")
+
+    def folders(raw):
+        if raw is None:
+            return None
+        return [SpecImpactFolder(path=f["path"], present=f["present"]) for f in raw]
+
+    for case in table["cases"]:
+        raw_model = case["model"]
+        model = SpecModel.from_json(
+            _read_json(raw_model) if isinstance(raw_model, str) else raw_model
+        )
+        documents = {}
+        for type_, state in case["documents"].items():
+            documents[type_] = _document_from_state(
+                _read_json(state) if isinstance(state, str) else state
+            )
+        walk = spec_impact_walk(model, documents)
+        level = spec_impact_level(
+            model, walk, case["listing"], folders(case["tests"]),
+            folders(case["code"]),
+        )
+        got = {
+            "walk": [w.to_json() for w in walk],
+            "level": level.to_json(),
+            "documentFiles": spec_impact_document_files(case["listing"]),
+            "markdown": spec_impact_walk_markdown(walk, level),
+        }
+        for key in ("walk", "level", "documentFiles", "markdown"):
+            expect = case["expect"][key]
+            detail = (
+                _byte_diff(key, got[key], expect)
+                if key == "markdown"
+                else _json_mismatch(got[key], expect)
+            )
+            _check(f"impactWalk[{case['name']}].{key}", got[key] == expect, detail)
+
+
 def main() -> int:
     if not os.path.isdir(_CORPUS):
         print(f"corpus not found at {_CORPUS}", file=sys.stderr)
@@ -2281,6 +2329,7 @@ def main() -> int:
     test_node_creation_script(model)
     test_generation_units(model)
     test_typed_values()
+    test_impact_walk()
 
     total = _passed + len(_failed)
     if _failed:

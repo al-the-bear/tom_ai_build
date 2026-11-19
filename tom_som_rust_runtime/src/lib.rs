@@ -26,6 +26,7 @@ pub mod spec_document_markdown;
 pub mod spec_document_yaml;
 pub mod spec_editor;
 pub mod spec_generation_units;
+pub mod spec_impact_walk;
 pub mod spec_meta;
 pub mod spec_meta_bridge;
 pub mod spec_meta_diff;
@@ -69,7 +70,7 @@ pub use spec_answers::{
     SpecAnswerKind, SpecAnswerRenderOptions,
 };
 pub use spec_codespecs_extract::{
-    code_specs_yaml_string,
+    code_specs_class_routing, code_specs_field_routing, code_specs_yaml_string,
     CodeSpecsArea, CodeSpecsAreaCatalog, CodeSpecsCarrier, CodeSpecsExtract,
     CodeSpecsExtractEntry, CodeSpecsExtractError, CodeSpecsExtractor, CodeSpecsFieldRef,
     CodeSpecsRequiredArgument, CodeSpecsRouting, CodeSpecsRoutingVerdict, CodeSpecsSlice,
@@ -109,6 +110,11 @@ pub use spec_editor::{SomValue, SpecEditor};
 pub use spec_generation_units::{
     spec_default_units, spec_generation_units, SpecGenerationUnit, SpecGenerationUnitMapping,
     SPEC_STANDARD_EMITTERS,
+};
+pub use spec_impact_walk::{
+    spec_impact_document_files, spec_impact_level, spec_impact_walk, spec_impact_walk_markdown,
+    SpecImpactFolder, SpecImpactLevel, SpecImpactLevelDocument, SpecImpactRootWalk, SpecImpactRow,
+    SpecImpactRowKind,
 };
 pub use spec_meta::{
     SomContentTypeMeta, SomDocMeta, SomFormFieldMeta, SomFormMeta, SomListMetaRef, SomMetaExtra,

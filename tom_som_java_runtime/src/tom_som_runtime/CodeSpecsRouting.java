@@ -57,6 +57,64 @@ public final class CodeSpecsRouting {
     this(path, className, verdict, Collections.<String>emptyList(), null, "");
   }
 
+  /**
+   * The verdict {@code cls} carries, for the class node at {@code path}. The
+   * three markers are mutually exclusive ({@code KIND-EXCLUSIVE}), so the order
+   * they are tested in is a readability choice rather than a precedence rule.
+   * Read through the model's own {@link SpecAnnotations} accessors, so the codes
+   * are bare whatever spelling the meta chose. Shared by the extractor and the
+   * impact walk ({@link SpecImpactWalk}).
+   */
+  public static CodeSpecsRouting codeSpecsClassRouting(SpecClass cls, String path) {
+    KindLink code = cls.codeSpecKind();
+    if (code != null) {
+      return new CodeSpecsRouting(
+          path, cls.name, CodeSpecsRoutingVerdict.FEEDS_CODE, code.kinds, code.note, cls.name);
+    }
+    KindLink followUp = cls.followUpKind();
+    if (followUp != null) {
+      return new CodeSpecsRouting(
+          path,
+          cls.name,
+          CodeSpecsRoutingVerdict.FEEDS_PROCESS,
+          followUp.kinds,
+          followUp.note,
+          cls.name);
+    }
+    NoArtifactLink none = cls.noArtifact();
+    if (none != null) {
+      return new CodeSpecsRouting(
+          path,
+          cls.name,
+          CodeSpecsRoutingVerdict.FEEDS_NOTHING,
+          Collections.singletonList(none.reason),
+          none.note,
+          cls.name);
+    }
+    if (cls.hasAnnotation("Document")) {
+      return new CodeSpecsRouting(path, cls.name, CodeSpecsRoutingVerdict.DOCUMENT_ROOT);
+    }
+    return new CodeSpecsRouting(path, cls.name, CodeSpecsRoutingVerdict.UNROUTED);
+  }
+
+  /**
+   * A field-level {@code @CodeSpecKind}, which overrides its class's routing for
+   * that field alone; {@code null} when the field carries none.
+   */
+  public static CodeSpecsRouting codeSpecsFieldRouting(SpecClass cls, SpecField field) {
+    KindLink code = field.codeSpecKind();
+    if (code == null) {
+      return null;
+    }
+    return new CodeSpecsRouting(
+        "",
+        cls.name,
+        CodeSpecsRoutingVerdict.FEEDS_CODE,
+        code.kinds,
+        code.note,
+        cls.name + "." + field.name);
+  }
+
   @Override
   public String toString() {
     return "CodeSpecsRouting(" + path + ", " + className + ", " + verdict.value + ")";

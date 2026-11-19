@@ -94,7 +94,8 @@ use tom_som_rust_runtime::spec_text_pattern::SomTextPattern;
 use tom_som_rust_runtime::spec_validator::validate_document;
 use tom_som_rust_runtime::yaml::{YamlMap, YamlValue};
 use tom_som_rust_runtime::{
-    spec_default_units, spec_generation_units, SPEC_STANDARD_EMITTERS,
+    spec_default_units, spec_generation_units, spec_impact_document_files, spec_impact_level,
+    spec_impact_walk, spec_impact_walk_markdown, SpecImpactFolder, SPEC_STANDARD_EMITTERS,
     validate_spec_document, DocSpecsDocument, DocSpecsSchema, DocSpecsValidator, DOCSPECS_ALL_RULES,
 };
 
@@ -233,6 +234,7 @@ fn conformance() {
     test_docspecs_replace(&mut c);
     test_docspecs_paths(&mut c, &model);
     test_generation_units(&mut c, &model);
+    test_impact_walk(&mut c);
     test_typed_values(&mut c);
 
     c.finish();
@@ -3863,5 +3865,79 @@ fn test_typed_values(c: &mut Checker) {
             let got = som_typed_text_readable(Some(ty), Some(&input));
             c.check(&format!("{}.readable.{}", name, key), got == expected, &format!("{}", got));
         }
+    }
+}
+
+/// `impact_walk_cases.json`: per case the walk of every document root, the
+/// level over the case's listing, tests and code folders, the current document
+/// files of the listing and the Markdown table (the TypeScript runner's
+/// `testImpactWalk`).
+fn test_impact_walk(c: &mut Checker) {
+    let table = read_json("impact_walk_cases.json");
+    let folders = |v: Option<&Json>| -> Option<Vec<SpecImpactFolder>> {
+        v.and_then(|j| j.as_array()).map(|a| {
+            a.iter()
+                .map(|f| SpecImpactFolder {
+                    path: f.str_or("path"),
+                    present: f.bool_or("present"),
+                })
+                .collect()
+        })
+    };
+    for kase in cases(&table, "cases") {
+        let name = kase.str_or("name");
+        let model_json = kase.get("model").expect("model");
+        let model = match model_json.as_str() {
+            Some(file) => SpecModel::from_json(&read_json(file)),
+            None => SpecModel::from_json(model_json),
+        };
+        let mut documents = HashMap::new();
+        for (ty, state) in kase.get("documents").and_then(|d| d.as_object()).unwrap_or(&[]) {
+            let state = match state.as_str() {
+                Some(file) => read_json(file),
+                None => state.clone(),
+            };
+            documents.insert(ty.clone(), doc_from_state(&DocumentJson::from_json(&state)));
+        }
+        let walk = match spec_impact_walk(&model, &documents) {
+            Ok(walk) => walk,
+            Err(e) => {
+                c.check(&format!("impactWalk[{}]", name), false, &e);
+                continue;
+            }
+        };
+        let listing = str_list(kase.get("listing"));
+        let level = spec_impact_level(
+            &model,
+            &walk,
+            &listing,
+            folders(kase.get("tests")),
+            folders(kase.get("code")),
+        );
+        let expect = kase.get("expect").unwrap_or(&Json::Null);
+        let null = Json::Null;
+        let got_walk = Json::Array(walk.iter().map(|w| w.to_json()).collect());
+        let got_level = level.to_json();
+        let got_files = Json::Array(
+            spec_impact_document_files(&listing)
+                .into_iter()
+                .map(Json::Str)
+                .collect(),
+        );
+        for (key, got) in [("walk", &got_walk), ("level", &got_level), ("documentFiles", &got_files)] {
+            let want = expect.get(key).unwrap_or(&null);
+            c.check(
+                &format!("impactWalk[{}].{}", name, key),
+                json_eq(got, want),
+                &format!("got {:?} want {:?}", got, want),
+            );
+        }
+        let markdown = spec_impact_walk_markdown(&walk, Some(&level));
+        let want_markdown = expect.get("markdown").and_then(|m| m.as_str()).unwrap_or("");
+        c.check(
+            &format!("impactWalk[{}].markdown", name),
+            markdown == want_markdown,
+            &byte_diff("markdown", &markdown, want_markdown),
+        );
     }
 }

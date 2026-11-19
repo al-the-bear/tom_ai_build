@@ -1149,74 +1149,95 @@ class CodeSpecsExtractor:
     # --- verdict resolution --------------------------------------------------
 
     def _verdict_of(self, cls: SpecClass, path: str) -> CodeSpecsRouting:
-        """The verdict *cls* carries. The three markers are mutually exclusive
-        (``KIND-EXCLUSIVE``), so the order they are tested in is a readability
-        choice rather than a precedence rule.
-
-        Read through the model's own :class:`AnnotatedSpecNode` accessors rather
-        than off the raw annotation bag: they already know that
-        ``@CodeSpecKind``'s list argument is ``kinds`` while ``@FollowUpKind``'s
-        is ``processes``, and they strip the enum prefix, so the codes here are
-        bare whatever spelling the meta chose. Two readers of the same
-        annotations would be two chances to disagree."""
-        code = cls.code_spec_kind
-        if code is not None:
-            return CodeSpecsRouting(
-                path=path,
-                class_name=cls.name,
-                verdict=CodeSpecsRoutingVerdict.FEEDS_CODE,
-                values=code.kinds,
-                note=code.note,
-                declared_at=cls.name,
-            )
-        follow_up = cls.follow_up_kind
-        if follow_up is not None:
-            return CodeSpecsRouting(
-                path=path,
-                class_name=cls.name,
-                verdict=CodeSpecsRoutingVerdict.FEEDS_PROCESS,
-                values=follow_up.kinds,
-                note=follow_up.note,
-                declared_at=cls.name,
-            )
-        none = cls.no_artifact
-        if none is not None:
-            return CodeSpecsRouting(
-                path=path,
-                class_name=cls.name,
-                verdict=CodeSpecsRoutingVerdict.FEEDS_NOTHING,
-                values=[none.reason],
-                note=none.note,
-                declared_at=cls.name,
-            )
-        if cls.has_annotation("Document"):
-            return CodeSpecsRouting(
-                path=path,
-                class_name=cls.name,
-                verdict=CodeSpecsRoutingVerdict.DOCUMENT_ROOT,
-            )
-        return CodeSpecsRouting(
-            path=path,
-            class_name=cls.name,
-            verdict=CodeSpecsRoutingVerdict.UNROUTED,
-        )
+        """The verdict *cls* carries (:func:`code_specs_class_routing`)."""
+        return code_specs_class_routing(cls, path)
 
     def _field_routing(
         self, cls: SpecClass, field: SpecField
     ) -> Optional[CodeSpecsRouting]:
-        """A field-level ``@CodeSpecKind``, which overrides its class's routing
-        for that field alone; ``None`` when the field carries none."""
-        code = field.code_spec_kind
-        if code is None:
-            return None
+        """A field-level ``@CodeSpecKind`` (:func:`code_specs_field_routing`)."""
+        return code_specs_field_routing(cls, field)
+
+
+# --- routing verdicts (shared with the impact walk) -------------------------
+
+
+def code_specs_class_routing(cls: SpecClass, path: str) -> CodeSpecsRouting:
+    """The routing verdict of one class node at *path*: ``@CodeSpecKind``
+    (feeds code), ``@FollowUpKind`` (a process delivers it), ``@NoArtifact``
+    (feeds nothing), a ``@Document`` root, else unrouted — the same verdict
+    :meth:`CodeSpecsExtractor.routings` records, shared with the impact walk
+    (``spec_impact_walk``).
+
+    The verdict *cls* carries. The three markers are mutually exclusive
+    (``KIND-EXCLUSIVE``), so the order they are tested in is a readability
+    choice rather than a precedence rule.
+
+    Read through the model's own :class:`AnnotatedSpecNode` accessors rather
+    than off the raw annotation bag: they already know that
+    ``@CodeSpecKind``'s list argument is ``kinds`` while ``@FollowUpKind``'s
+    is ``processes``, and they strip the enum prefix, so the codes here are
+    bare whatever spelling the meta chose. Two readers of the same
+    annotations would be two chances to disagree."""
+    code = cls.code_spec_kind
+    if code is not None:
         return CodeSpecsRouting(
-            path="",
+            path=path,
             class_name=cls.name,
             verdict=CodeSpecsRoutingVerdict.FEEDS_CODE,
             values=code.kinds,
             note=code.note,
-            declared_at=f"{cls.name}.{field.name}",
+            declared_at=cls.name,
         )
+    follow_up = cls.follow_up_kind
+    if follow_up is not None:
+        return CodeSpecsRouting(
+            path=path,
+            class_name=cls.name,
+            verdict=CodeSpecsRoutingVerdict.FEEDS_PROCESS,
+            values=follow_up.kinds,
+            note=follow_up.note,
+            declared_at=cls.name,
+        )
+    none = cls.no_artifact
+    if none is not None:
+        return CodeSpecsRouting(
+            path=path,
+            class_name=cls.name,
+            verdict=CodeSpecsRoutingVerdict.FEEDS_NOTHING,
+            values=[none.reason],
+            note=none.note,
+            declared_at=cls.name,
+        )
+    if cls.has_annotation("Document"):
+        return CodeSpecsRouting(
+            path=path,
+            class_name=cls.name,
+            verdict=CodeSpecsRoutingVerdict.DOCUMENT_ROOT,
+        )
+    return CodeSpecsRouting(
+        path=path,
+        class_name=cls.name,
+        verdict=CodeSpecsRoutingVerdict.UNROUTED,
+    )
+
+
+def code_specs_field_routing(
+    cls: SpecClass, field: SpecField
+) -> Optional[CodeSpecsRouting]:
+    """A field-level ``@CodeSpecKind``, which overrides its class's routing
+    for that field alone; ``None`` when the field carries none."""
+    code = field.code_spec_kind
+    if code is None:
+        return None
+    return CodeSpecsRouting(
+        path="",
+        class_name=cls.name,
+        verdict=CodeSpecsRoutingVerdict.FEEDS_CODE,
+        values=code.kinds,
+        note=code.note,
+        declared_at=f"{cls.name}.{field.name}",
+    )
 
 
 # --- shared emission helpers ------------------------------------------------

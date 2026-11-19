@@ -1035,8 +1035,8 @@ void CodeSpecsExtractor::emitValue(
  * `kinds` while `@FollowUpKind`'s is `processes`, and they strip the enum
  * prefix, so the codes here are bare whatever spelling the meta chose. Two
  * readers of the same annotations would be two chances to disagree. */
-CodeSpecsRouting CodeSpecsExtractor::verdictOf(const SpecClass& cls,
-                                               const std::string& path) const {
+CodeSpecsRouting codeSpecsClassRouting(const SpecClass& cls,
+                                       const std::string& path) {
   CodeSpecsRouting out;
   out.path = path;
   out.className = cls.name;
@@ -1073,8 +1073,8 @@ CodeSpecsRouting CodeSpecsExtractor::verdictOf(const SpecClass& cls,
 
 /* A field-level `@CodeSpecKind`, which overrides its class's routing for that
  * field alone; std::nullopt when the field carries none. */
-std::optional<CodeSpecsRouting> CodeSpecsExtractor::fieldRouting(
-    const SpecClass& cls, const SpecField& field) const {
+std::optional<CodeSpecsRouting> codeSpecsFieldRouting(const SpecClass& cls,
+                                                      const SpecField& field) {
   std::optional<KindLink> code = specCodeSpecKind(field.annotations);
   if (!code.has_value()) {
     return std::nullopt;
@@ -1086,6 +1086,16 @@ std::optional<CodeSpecsRouting> CodeSpecsExtractor::fieldRouting(
   out.note = code->note;
   out.declaredAt = cls.name + "." + field.name;
   return out;
+}
+
+CodeSpecsRouting CodeSpecsExtractor::verdictOf(const SpecClass& cls,
+                                               const std::string& path) const {
+  return codeSpecsClassRouting(cls, path);
+}
+
+std::optional<CodeSpecsRouting> CodeSpecsExtractor::fieldRouting(
+    const SpecClass& cls, const SpecField& field) const {
+  return codeSpecsFieldRouting(cls, field);
 }
 
 }  // namespace som

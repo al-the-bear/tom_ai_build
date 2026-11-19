@@ -1268,7 +1268,23 @@ func (x *CodeSpecsExtractor) emitValue(
 
 // --- verdict resolution -----------------------------------------------------
 
-// verdictOf returns the verdict cls carries. The three markers are mutually
+// verdictOf returns the verdict cls carries; it delegates to
+// CodeSpecsClassRouting, which the impact walk shares.
+func (x *CodeSpecsExtractor) verdictOf(cls *SpecClass, path string) CodeSpecsRouting {
+	return CodeSpecsClassRouting(cls, path)
+}
+
+// fieldRouting returns a field-level `@CodeSpecKind`; it delegates to
+// CodeSpecsFieldRouting, which the impact walk shares.
+func (x *CodeSpecsExtractor) fieldRouting(cls *SpecClass, field *SpecField) *CodeSpecsRouting {
+	return CodeSpecsFieldRouting(cls, field)
+}
+
+// CodeSpecsClassRouting returns the routing verdict of one class node at path:
+// `@CodeSpecKind` (feeds code), `@FollowUpKind` (a process delivers it),
+// `@NoArtifact` (feeds nothing), a `@Document` root, else unrouted — the same
+// verdict CodeSpecsExtractor.Routings records, shared with the impact walk
+// (spec_impact_walk.go). The three markers are mutually
 // exclusive (`KIND-EXCLUSIVE`), so the order they are tested in is a readability
 // choice rather than a precedence rule.
 //
@@ -1278,7 +1294,7 @@ func (x *CodeSpecsExtractor) emitValue(
 // `processes`, and they strip the enum prefix, so the codes here are bare
 // whatever spelling the meta chose. Two readers of the same annotations would be
 // two chances to disagree.
-func (x *CodeSpecsExtractor) verdictOf(cls *SpecClass, path string) CodeSpecsRouting {
+func CodeSpecsClassRouting(cls *SpecClass, path string) CodeSpecsRouting {
 	if code := cls.CodeSpecKind(); code != nil {
 		return CodeSpecsRouting{
 			Path:       path,
@@ -1325,9 +1341,9 @@ func (x *CodeSpecsExtractor) verdictOf(cls *SpecClass, path string) CodeSpecsRou
 	}
 }
 
-// fieldRouting returns a field-level `@CodeSpecKind`, which overrides its
-// class's routing for that field alone; nil when the field carries none.
-func (x *CodeSpecsExtractor) fieldRouting(cls *SpecClass, field *SpecField) *CodeSpecsRouting {
+// CodeSpecsFieldRouting returns a field-level `@CodeSpecKind`, which overrides
+// its class's routing for that field alone; nil when the field carries none.
+func CodeSpecsFieldRouting(cls *SpecClass, field *SpecField) *CodeSpecsRouting {
 	code := field.CodeSpecKind()
 	if code == nil {
 		return nil

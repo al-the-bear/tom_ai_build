@@ -34,7 +34,8 @@
  *   - team reviews (SOM §11.9.8): attribution tokens, individual answers,
  *     conflict blocks, `open:`, and their findings;
  *   - merging reviewed copies (SOM §11.9.9), SOM documents and Markdown;
- *   - extracting a review round's answers for a step folder (SOM §11.9.7).
+ *   - extracting a review round's answers for a step folder (SOM §11.9.7);
+ *   - the impact walk of the change mode (spec_impact_walk).
  *
  * The corpus directory is argv[1], defaulting to
  * "../tom_som_conformance/corpus" relative to the runner's cwd. Exit 0 == all
@@ -3309,6 +3310,93 @@ static void test_generation_units(Checker& c, const som::SpecModel& model) {
   }
 }
 
+/* ---- impact walk (spec_impact_walk) ------------------------------------ */
+
+/* A case's `tests` / `code`: null, or a list of {path, present}. */
+static std::optional<std::vector<som::SpecImpactFolder>> impact_folders(
+    const som::JsonRef& v) {
+  if (v == nullptr || v->type != som::JsonType::Array) return std::nullopt;
+  std::vector<som::SpecImpactFolder> out;
+  for (std::size_t i = 0; i < som::jsonArrayLen(v); i++) {
+    som::JsonRef f = som::jsonArrayAt(v, i);
+    out.push_back({som::jsonStrOr(f, "path"), som::jsonBoolOr(f, "present")});
+  }
+  return out;
+}
+
+/* impact_walk_cases.json, run like the TypeScript reference's
+ * `testImpactWalk`: per case the model (the corpus model.meta.json or an
+ * inline one) and its documents (a corpus state file or an inline state, keyed
+ * by root type), then the walk, the level and the document files (as
+ * canonical JSON) and the Markdown (byte for byte) against `expect`. */
+static void test_impact_walk(Checker& c) {
+  som::JsonPtr table = read_json("impact_walk_cases.json");
+  som::JsonRef cases = som::jsonGet(table, "cases");
+  std::size_t n = som::jsonArrayLen(cases);
+  c.check("impactWalk.cases", n > 0, "no cases in impact_walk_cases.json");
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef kase = som::jsonArrayAt(cases, i);
+    const std::string label =
+        "impactWalk[" + som::jsonStrOr(kase, "name") + "]";
+    som::JsonRef modelJson = som::jsonGet(kase, "model");
+    if (const std::string* name = som::jsonAsStr(modelJson)) {
+      modelJson = read_json(*name);
+    }
+    std::unique_ptr<som::SpecModel> model = som::SpecModel::fromJson(modelJson);
+    if (model == nullptr) {
+      c.check(label + ".model", false, "model does not load");
+      continue;
+    }
+    std::map<std::string, som::SpecDocument> documents;
+    som::JsonRef docs = som::jsonGet(kase, "documents");
+    if (docs != nullptr && docs->type == som::JsonType::Object) {
+      for (const auto& kv : docs->object) {
+        som::JsonRef state = kv.second;
+        if (const std::string* name = som::jsonAsStr(state)) {
+          state = read_json(*name);
+        }
+        documents[kv.first] = doc_from_state(som::documentJsonFromJson(state));
+      }
+    }
+    std::vector<som::SpecImpactRootWalk> walk;
+    try {
+      walk = som::specImpactWalk(*model, documents);
+    } catch (const std::exception& e) {
+      c.check(label + ".walk", false, e.what());
+      continue;
+    }
+    const std::vector<std::string> listing =
+        json_str_list(som::jsonGet(kase, "listing"));
+    const som::SpecImpactLevel level = som::specImpactLevel(
+        *model, walk, listing, impact_folders(som::jsonGet(kase, "tests")),
+        impact_folders(som::jsonGet(kase, "code")));
+    som::JsonRef expect = som::jsonGet(kase, "expect");
+
+    std::string walkJson = "[";
+    for (std::size_t w = 0; w < walk.size(); w++) {
+      if (w > 0) walkJson += ",";
+      walkJson += walk[w].toJson();
+    }
+    walkJson += "]";
+    const std::pair<std::string, std::string> json[] = {
+        {"walk", walkJson},
+        {"level", level.toJson()},
+        {"documentFiles",
+         json_str_array(som::specImpactDocumentFiles(listing))},
+    };
+    for (const auto& kv : json) {
+      const std::string g = json_text_canon(kv.second);
+      const std::string want = json_canon(som::jsonGet(expect, kv.first));
+      const std::string tag = label + "." + kv.first;
+      c.check(tag, g == want, byte_diff(tag, g, want));
+    }
+    const std::string md = som::specImpactWalkMarkdown(walk, &level);
+    const std::string wantMd = som::jsonStrOr(expect, "markdown");
+    c.check(label + ".markdown", md == wantMd,
+            byte_diff(label + ".markdown", md, wantMd));
+  }
+}
+
 static void test_annotations(Checker& c, const som::SpecModel& model,
                              const som::SomMetaTree& tree) {
   run_annotation_cases(c, model, tree, "annotation_cases.json", "annotations");
@@ -3688,6 +3776,7 @@ int main(int argc, char** argv) {
   test_change_marks(c, *model, *tree);
   test_answers(c, *model);
   test_generation_units(c, *model);
+  test_impact_walk(c);
   test_typed_values(c);
 
   return c.finish();

@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- `spec_impact_walk`: the impact walk of the `tom_specs` change mode —
+  `spec_impact_walk`, `spec_impact_level`, `spec_impact_document_files`,
+  `spec_impact_walk_markdown` (`impact_walk_cases.json`). The routing verdict
+  is shared with the extractor as `code_specs_class_routing` /
+  `code_specs_field_routing`.
 - `som_format_double` writes a finite double in the one layout of every
   runtime (`1e-7`, `100000000000000000000.0`; it wrote `1e-07`, `1e+20`)
   (`typed_value_cases.json`).

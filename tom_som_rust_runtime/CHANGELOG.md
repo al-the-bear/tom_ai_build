@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- `spec_impact_walk.rs`: the impact walk of the `tom_specs` change mode —
+  `spec_impact_walk`, `spec_impact_level`, `spec_impact_document_files`,
+  `spec_impact_walk_markdown` (`impact_walk_cases.json`). The routing verdict
+  is shared with the extractor as `code_specs_class_routing` /
+  `code_specs_field_routing`, re-exported from the crate root.
+
 - `SPEC_VALIDATION_ALL_CODES`: every `SPEC_VALIDATION_CODE_*` constant, in
   declaration order — the enumerable vocabulary Dart has from its enum, as
   `DOCSPECS_ALL_RULES` is for the §14 rules. A test reads the constants and

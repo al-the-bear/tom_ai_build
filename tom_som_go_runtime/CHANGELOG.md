@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- `spec_impact_walk.go`: the impact walk of the `tom_specs` change mode — `SpecImpactWalk`, `SpecImpactLevelOf`, `SpecImpactDocumentFiles`, `SpecImpactWalkMarkdown` (`impact_walk_cases.json`). The routing verdict is shared with the extractor as `CodeSpecsClassRouting` / `CodeSpecsFieldRouting`.
 - `SpecValidationAllCodes`: every `SpecValidationCode` constant, in declaration
   order — the enumerable vocabulary Dart has from its enum, as `DocSpecsAllRules`
   is for the §14 rules. A test reads the constant block and fails when a code is

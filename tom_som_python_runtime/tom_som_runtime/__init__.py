@@ -53,6 +53,8 @@ from .spec_codespecs_extract import (
     CodeSpecsRoutingVerdict,
     CodeSpecsSlice,
     CodeSpecsStep,
+    code_specs_class_routing,
+    code_specs_field_routing,
     code_specs_yaml_string,
 )
 from .spec_codespecs_gate import (
@@ -83,6 +85,17 @@ from .spec_generation_units import (
     SpecGenerationUnitMapping,
     spec_default_units,
     spec_generation_units,
+)
+from .spec_impact_walk import (
+    SpecImpactFolder,
+    SpecImpactLevel,
+    SpecImpactRootWalk,
+    SpecImpactRow,
+    SpecImpactRowKind,
+    spec_impact_document_files,
+    spec_impact_level,
+    spec_impact_walk,
+    spec_impact_walk_markdown,
 )
 from .spec_document_assembly import (
     SpecAssemblyOverlap,
@@ -475,6 +488,17 @@ __all__ = [
     "som_typed_text_readable",
     "spec_default_units",
     "spec_generation_units",
+    "code_specs_class_routing",
+    "code_specs_field_routing",
+    "SpecImpactFolder",
+    "SpecImpactLevel",
+    "SpecImpactRootWalk",
+    "SpecImpactRow",
+    "SpecImpactRowKind",
+    "spec_impact_document_files",
+    "spec_impact_level",
+    "spec_impact_walk",
+    "spec_impact_walk_markdown",
     "spec_parent_path",
     "spec_path_join",
     "spec_path_segments",

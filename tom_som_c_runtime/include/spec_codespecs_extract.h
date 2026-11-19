@@ -157,6 +157,22 @@ typedef struct {
 void spec_codespecs_routing_list_init(CodeSpecsRoutingList *l);
 void spec_codespecs_routing_list_free(CodeSpecsRoutingList *l);
 
+/* The routing verdict of the class node `cls` at document `path` (the
+ * three-verdict reading of `codespecs_mapping.md` §8.3, `@Document` roots
+ * exempt): the reader the extractor's walk uses, public so the impact walk
+ * (`spec_impact_walk.h`) reads the same verdicts. The result owns its strings;
+ * release it with `spec_codespecs_routing_free`. */
+CodeSpecsRouting spec_codespecs_class_routing(const SpecClass *cls,
+                                              const char *path);
+
+/* A field-level `@CodeSpecKind`, which overrides its class's routing for that
+ * field alone: returns 1 and fills `*out` (owned; release it with
+ * `spec_codespecs_routing_free`, its `path` is "" and its `declared_at`
+ * `Class.field`) when `field` carries one, 0 (leaving `*out` untouched) when
+ * it does not. */
+int spec_codespecs_field_routing(const SpecClass *cls, const SpecField *field,
+                                 CodeSpecsRouting *out);
+
 /* ---- extract entries ----------------------------------------------------- */
 
 /* One extract entry: a single value the specification document stores, with

@@ -583,8 +583,8 @@ language mirrors it:
   extracts and gate record, IR, gate files, the test and code folders the caller
   probed, the phases reached and left out); `specImpactDocumentFiles` gives the
   current documents of a listing (the `phase*` folders, not their step folders);
-  `specImpactWalkMarkdown` writes the table. In the Dart, TypeScript and
-  JavaScript runtimes (`impact_walk_cases.json`).
+  `specImpactWalkMarkdown` writes the table (`impact_walk_cases.json`, all
+  nine runtimes).
 - `spec_generation_units.dart` — the document's **generation-unit register**
   (§11.2): `specGenerationUnits(model, document)` reads every unit — its id,
   kind, path, its mappings (area, mapper) and its emitters (the standards it

@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- `spec_impact_walk.hpp`: the impact walk of the `tom_specs` change mode —
+  `specImpactWalk`, `specImpactLevel`, `specImpactDocumentFiles`,
+  `specImpactWalkMarkdown` (`impact_walk_cases.json`). The routing verdict is
+  shared with the extractor as the free functions `codeSpecsClassRouting` /
+  `codeSpecsFieldRouting`.
 - `kSpecValidationAllCodes`: every `kSpecValidationCode*` constant, in
   declaration order — the enumerable vocabulary Dart has from its enum, as
   `kDocSpecsAllRules` is for the §14 rules.

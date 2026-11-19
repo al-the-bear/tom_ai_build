@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- `spec_impact_walk.h` / `.c`: the impact walk of the `tom_specs` change mode —
+  `spec_impact_walk`, `spec_impact_level`, `spec_impact_document_files`,
+  `spec_impact_walk_markdown`, with `spec_impact_walk_to_json` /
+  `spec_impact_level_to_json` and a `*_free` for every result
+  (`impact_walk_cases.json`). The routing verdict is shared with the extractor
+  as the public `spec_codespecs_class_routing` / `spec_codespecs_field_routing`.
 - `SPEC_VALIDATION_ALL_CODES` (`SPEC_VALIDATION_ALL_CODES_COUNT`): every
   `SPEC_VALIDATION_CODE_*` define, in declaration order — the enumerable
   vocabulary Dart has from its enum, as `DOCSPECS_ALL_RULES` is for the §14

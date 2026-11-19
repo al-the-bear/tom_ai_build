@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- `SpecImpactWalk`: the impact walk of the `tom_specs` change mode — `specImpactWalk`, `specImpactLevel`, `specImpactDocumentFiles`, `specImpactWalkMarkdown` (`impact_walk_cases.json`). The routing verdict is shared with the extractor as `CodeSpecsRouting.codeSpecsClassRouting` / `codeSpecsFieldRouting`.
 - `SpecTypedValues.somFormatDouble` writes a finite double in the one layout
   of every runtime (`10000000.0`, `0.0005`, `1e+21`; it wrote `1.0E7`,
   `5.0E-4`, `1.0E21`) (`typed_value_cases.json`).

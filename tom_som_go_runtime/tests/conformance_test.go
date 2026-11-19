@@ -243,6 +243,7 @@ func TestConformance(t *testing.T) {
 	testAnswers(c, t, model)
 	testGenerationUnits(c, t, model)
 	testTypedValues(c, t)
+	testImpactWalk(c, t)
 
 	c.finish()
 }
@@ -3708,5 +3709,76 @@ func testTypedValues(c *checker, t *testing.T) {
 		c.check(name+".readable.int", som.SomTypedTextReadable("int", tc.Input) == tc.Readable.Int, "")
 		c.check(name+".readable.double", som.SomTypedTextReadable("double", tc.Input) == tc.Readable.Double, "")
 		c.check(name+".readable.num", som.SomTypedTextReadable("num?", tc.Input) == tc.Readable.Num, "")
+	}
+}
+
+// impactWalkCaseTable mirrors corpus/impact_walk_cases.json — the impact walk
+// of the tom_specs change mode: SpecImpactWalk, SpecImpactLevelOf,
+// SpecImpactDocumentFiles and SpecImpactWalkMarkdown.
+type impactWalkCaseTable struct {
+	Cases []struct {
+		Name      string                     `json:"name"`
+		Model     json.RawMessage            `json:"model"`
+		Documents map[string]json.RawMessage `json:"documents"`
+		Listing   []string                   `json:"listing"`
+		Tests     []som.SpecImpactFolder     `json:"tests"`
+		Code      []som.SpecImpactFolder     `json:"code"`
+		Expect    map[string]json.RawMessage `json:"expect"`
+	} `json:"cases"`
+}
+
+// corpusOrInline returns a corpus file's bytes when raw is a JSON string (the
+// file name), else raw itself (an inline object).
+func corpusOrInline(t *testing.T, raw json.RawMessage) []byte {
+	var name string
+	if err := json.Unmarshal(raw, &name); err == nil {
+		return []byte(readCorpus(t, name))
+	}
+	return raw
+}
+
+func testImpactWalk(c *checker, t *testing.T) {
+	var table impactWalkCaseTable
+	readJSON(t, "impact_walk_cases.json", &table)
+	c.check("impactWalk.cases", len(table.Cases) > 0, "no cases in impact_walk_cases.json")
+	for _, cc := range table.Cases {
+		model, err := som.SpecModelFromJSON(corpusOrInline(t, cc.Model))
+		if err != nil {
+			t.Fatalf("impactWalk[%s]: model: %v", cc.Name, err)
+		}
+		documents := map[string]*som.SpecDocument{}
+		for typ, raw := range cc.Documents {
+			var state som.DocumentJson
+			if err := json.Unmarshal(corpusOrInline(t, raw), &state); err != nil {
+				t.Fatalf("impactWalk[%s]: document %s: %v", cc.Name, typ, err)
+			}
+			documents[typ] = docFromState(&state)
+		}
+		walk, err := som.SpecImpactWalk(model, documents)
+		if err != nil {
+			t.Fatalf("impactWalk[%s]: %v", cc.Name, err)
+		}
+		level := som.SpecImpactLevelOf(model, walk, cc.Listing, cc.Tests, cc.Code)
+		walkJSON := []any{}
+		for _, w := range walk {
+			walkJSON = append(walkJSON, w.ToJSON())
+		}
+		got := map[string]any{
+			"walk":          generic(t, walkJSON),
+			"level":         generic(t, level.ToJSON()),
+			"documentFiles": generic(t, som.SpecImpactDocumentFiles(cc.Listing)),
+		}
+		for _, key := range []string{"walk", "level", "documentFiles"} {
+			want := toGenericJSON(t, cc.Expect[key])
+			c.check("impactWalk["+cc.Name+"]."+key, reflect.DeepEqual(got[key], want),
+				"got "+canonJSON(t, got[key])+" want "+canonJSON(t, want))
+		}
+		var wantMarkdown string
+		if err := json.Unmarshal(cc.Expect["markdown"], &wantMarkdown); err != nil {
+			t.Fatalf("impactWalk[%s]: markdown: %v", cc.Name, err)
+		}
+		gotMarkdown := som.SpecImpactWalkMarkdown(walk, &level)
+		c.check("impactWalk["+cc.Name+"].markdown", gotMarkdown == wantMarkdown,
+			byteDiff("markdown", gotMarkdown, wantMarkdown))
 	}
 }

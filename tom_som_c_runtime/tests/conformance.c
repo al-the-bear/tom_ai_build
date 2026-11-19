@@ -34,7 +34,8 @@
  *   - team reviews (SOM §11.9.8): attribution tokens, individual answers,
  *     conflict blocks, `open:`, and their findings;
  *   - merging reviewed copies (SOM §11.9.9), SOM documents and Markdown;
- *   - extracting a review round's answers for a step folder (SOM §11.9.7).
+ *   - extracting a review round's answers for a step folder (SOM §11.9.7);
+ *   - the impact walk of the change mode (`impact_walk_cases.json`).
  *
  * The corpus directory is argv[1], defaulting to
  * "../tom_som_conformance/corpus" relative to the runner's cwd. Exit 0 == all
@@ -5508,6 +5509,182 @@ static void test_generation_units(Checker *c, const SpecModel *model) {
   som_json_free(table);
 }
 
+/* ---- the impact walk (spec_impact_walk, impact_walk_cases.json) --------- */
+
+/* A folder list from the case's `tests` / `code` (`null`: none given, NULL
+ * returned; else `*l` is filled and returned). */
+static const SpecImpactFolderList *impact_folders(const SomJson *v,
+                                                  SpecImpactFolderList *l) {
+  spec_impact_folder_list_init(l);
+  if (v == NULL || v->type != SOM_JSON_ARRAY) {
+    return NULL;
+  }
+  for (size_t i = 0; i < som_json_array_len(v); i++) {
+    const SomJson *f = som_json_array_at(v, i);
+    spec_impact_folder_list_push(l, som_json_str_or(f, "path"),
+                                 som_json_bool_or(f, "present"));
+  }
+  return l;
+}
+
+/* Compares JSON text `got` with the case's expectation canonically. */
+static void check_impact_json(Checker *c, const char *tag, const char *got,
+                              const SomJson *want) {
+  char *perr = NULL;
+  SomJson *got_json = som_json_parse(got, &perr);
+  char *g = got_json != NULL ? json_canonical(got_json)
+                             : som_strdup(perr ? perr : "(unparsable)");
+  char *w = json_canonical(want);
+  char *d = byte_diff(tag, g, w);
+  check(c, tag, got_json != NULL && strcmp(g, w) == 0, d);
+  free(d);
+  free(g);
+  free(w);
+  free(perr);
+  if (got_json != NULL) {
+    som_json_free(got_json);
+  }
+}
+
+/* impact_walk_cases.json, run like the TypeScript reference's
+ * `testImpactWalk`: the walk, the level, the document files and the
+ * Markdown of each case, against its `expect`. */
+static void test_impact_walk(Checker *c) {
+  SomJson *table = read_json("impact_walk_cases.json");
+  const SomJson *cases = som_json_get(table, "cases");
+  size_t n = som_json_array_len(cases);
+  check(c, "impactWalk.cases", n > 0, "no cases in impact_walk_cases.json");
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *kase = som_json_array_at(cases, i);
+    const char *name = som_json_str_or(kase, "name");
+    const SomJson *model_json = som_json_get(kase, "model");
+    SomJson *model_file = NULL;
+    if (som_json_as_str(model_json) != NULL) {
+      model_file = read_json(som_json_as_str(model_json));
+      model_json = model_file;
+    }
+    SpecModel *model = spec_model_from_json(model_json);
+    char tag[640];
+    snprintf(tag, sizeof(tag), "impactWalk[%s].model", name);
+    check(c, tag, model != NULL, "model did not load");
+    if (model == NULL) {
+      if (model_file != NULL) som_json_free(model_file);
+      continue;
+    }
+
+    const SomJson *docs = som_json_get(kase, "documents");
+    size_t docs_len = docs != NULL && docs->type == SOM_JSON_OBJECT
+                          ? docs->as.object.len
+                          : 0;
+    const char **types =
+        (const char **)calloc(docs_len ? docs_len : 1, sizeof(char *));
+    SpecDocument *store =
+        (SpecDocument *)calloc(docs_len ? docs_len : 1, sizeof(SpecDocument));
+    const SpecDocument **documents = (const SpecDocument **)calloc(
+        docs_len ? docs_len : 1, sizeof(SpecDocument *));
+    for (size_t d = 0; d < docs_len; d++) {
+      const SomJsonMember *m = &docs->as.object.members[d];
+      const SomJson *state_json = m->value;
+      SomJson *state_file = NULL;
+      if (som_json_as_str(state_json) != NULL) {
+        state_file = read_json(som_json_as_str(state_json));
+        state_json = state_file;
+      }
+      DocumentJson state;
+      document_json_from_json(state_json, &state);
+      doc_from_state(&store[d], &state);
+      document_json_free(&state);
+      if (state_file != NULL) som_json_free(state_file);
+      types[d] = m->key;
+      documents[d] = &store[d];
+    }
+
+    SpecImpactWalk walk;
+    char *err = NULL;
+    int ok = spec_impact_walk(model, types, documents, docs_len, &walk, &err);
+    snprintf(tag, sizeof(tag), "impactWalk[%s].ok", name);
+    check(c, tag, ok, err != NULL ? err : "");
+    free(err);
+    if (ok) {
+      SomStrList listing;
+      json_str_list(som_json_get(kase, "listing"), &listing);
+      SpecImpactFolderList tests_l, code_l;
+      const SpecImpactFolderList *tests =
+          impact_folders(som_json_get(kase, "tests"), &tests_l);
+      const SpecImpactFolderList *code =
+          impact_folders(som_json_get(kase, "code"), &code_l);
+      SpecImpactLevel level;
+      spec_impact_level(model, &walk, &listing, tests, code, &level);
+      const SomJson *expect = som_json_get(kase, "expect");
+
+      char *walk_json = spec_impact_walk_to_json(&walk);
+      snprintf(tag, sizeof(tag), "impactWalk[%s].walk", name);
+      check_impact_json(c, tag, walk_json, som_json_get(expect, "walk"));
+      free(walk_json);
+
+      char *level_json = spec_impact_level_to_json(&level);
+      snprintf(tag, sizeof(tag), "impactWalk[%s].level", name);
+      check_impact_json(c, tag, level_json, som_json_get(expect, "level"));
+      free(level_json);
+
+      SomStrList files;
+      spec_impact_document_files(&listing, &files);
+      SomStrList want_files;
+      json_str_list(som_json_get(expect, "documentFiles"), &want_files);
+      snprintf(tag, sizeof(tag), "impactWalk[%s].documentFiles", name);
+      char *got_joined = som_strlist_join(&files, ", ");
+      check(c, tag, strlist_eq(&files, &want_files), got_joined);
+      free(got_joined);
+      som_strlist_free(&files);
+      som_strlist_free(&want_files);
+
+      char *markdown = spec_impact_walk_markdown(&walk, &level);
+      const char *want_md = som_json_str_or(expect, "markdown");
+      snprintf(tag, sizeof(tag), "impactWalk[%s].markdown", name);
+      char *d = byte_diff(tag, markdown, want_md != NULL ? want_md : "");
+      check(c, tag, want_md != NULL && strcmp(markdown, want_md) == 0, d);
+      free(d);
+      free(markdown);
+
+      spec_impact_level_free(&level);
+      spec_impact_folder_list_free(&tests_l);
+      spec_impact_folder_list_free(&code_l);
+      som_strlist_free(&listing);
+      spec_impact_walk_free(&walk);
+    }
+
+    for (size_t d = 0; d < docs_len; d++) {
+      spec_document_free(&store[d]);
+    }
+    free(store);
+    free(documents);
+    free(types);
+    spec_model_free(model);
+    if (model_file != NULL) som_json_free(model_file);
+  }
+
+  /* A document keyed by a type the model has no root for is refused. */
+  {
+    SpecModel *model = load_model();
+    SpecDocument doc;
+    spec_document_init(&doc);
+    const char *types[] = {"NoSuchRoot"};
+    const SpecDocument *documents[] = {&doc};
+    SpecImpactWalk walk;
+    char *err = NULL;
+    int ok = spec_impact_walk(model, types, documents, 1, &walk, &err);
+    check(c, "impactWalk.unknownRoot",
+          !ok && err != NULL &&
+              strstr(err, "no document root NoSuchRoot") != NULL,
+          err != NULL ? err : "accepted");
+    free(err);
+    spec_impact_walk_free(&walk);
+    spec_document_free(&doc);
+    spec_model_free(model);
+  }
+  som_json_free(table);
+}
+
 /* ---- typed values (typed_value_cases.json) ----------------------------- */
 
 /* Compares a formatted reading (owned, NULL when refused) with the case's
@@ -5627,6 +5804,7 @@ int main(int argc, char **argv) {
   test_change_marks(&c, model, tree);
   test_answers(&c, model);
   test_generation_units(&c, model);
+  test_impact_walk(&c);
   test_typed_values(&c);
 
   int rc = checker_finish(&c);

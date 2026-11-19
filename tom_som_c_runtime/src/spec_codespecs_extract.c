@@ -1490,7 +1490,8 @@ spec_codespecs_extractor_make(const SpecModel *model,
  * `kinds` while `@FollowUpKind`'s is `processes`, and they strip the enum
  * prefix, so the codes here are bare whatever spelling the meta chose. Two
  * readers of the same annotations would be two chances to disagree. */
-static CodeSpecsRouting verdict_of(const SpecClass *cls, const char *path) {
+CodeSpecsRouting spec_codespecs_class_routing(const SpecClass *cls,
+                                              const char *path) {
   CodeSpecsRouting r;
   r.path = som_strdup(path);
   r.class_name = som_strdup(cls->name);
@@ -1531,8 +1532,8 @@ static CodeSpecsRouting verdict_of(const SpecClass *cls, const char *path) {
 /* A field-level `@CodeSpecKind`, which overrides its class's routing for that
  * field alone. Returns 1 and fills `*out` when the field carries one, 0 when it
  * does not. */
-static int field_routing(const SpecClass *cls, const SpecField *field,
-                         CodeSpecsRouting *out) {
+int spec_codespecs_field_routing(const SpecClass *cls, const SpecField *field,
+                                 CodeSpecsRouting *out) {
   SpecKindLink link;
   if (!spec_annotations_code_spec_kind(&field->annotations, &link)) {
     return 0;
@@ -1550,6 +1551,17 @@ static int field_routing(const SpecClass *cls, const SpecField *field,
   out->declared_at = som_buf_take(&b);
   som_buf_free(&b);
   return 1;
+}
+
+/* The extractor's own names for the two routing readers, delegating to the
+ * public ones so the walk and the impact walk read one implementation. */
+static CodeSpecsRouting verdict_of(const SpecClass *cls, const char *path) {
+  return spec_codespecs_class_routing(cls, path);
+}
+
+static int field_routing(const SpecClass *cls, const SpecField *field,
+                         CodeSpecsRouting *out) {
+  return spec_codespecs_field_routing(cls, field, out);
 }
 
 /* A stored comma-joined `units` value as its unit ids, written into `out`

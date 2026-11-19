@@ -526,40 +526,7 @@ public final class CodeSpecsExtractor {
    * be two chances to disagree.
    */
   private CodeSpecsRouting verdictOf(SpecClass cls, String path) {
-    KindLink code = cls.codeSpecKind();
-    if (code != null) {
-      return new CodeSpecsRouting(
-          path,
-          cls.name,
-          CodeSpecsRoutingVerdict.FEEDS_CODE,
-          code.kinds,
-          code.note,
-          cls.name);
-    }
-    KindLink followUp = cls.followUpKind();
-    if (followUp != null) {
-      return new CodeSpecsRouting(
-          path,
-          cls.name,
-          CodeSpecsRoutingVerdict.FEEDS_PROCESS,
-          followUp.kinds,
-          followUp.note,
-          cls.name);
-    }
-    NoArtifactLink none = cls.noArtifact();
-    if (none != null) {
-      return new CodeSpecsRouting(
-          path,
-          cls.name,
-          CodeSpecsRoutingVerdict.FEEDS_NOTHING,
-          Collections.singletonList(none.reason),
-          none.note,
-          cls.name);
-    }
-    if (cls.hasAnnotation("Document")) {
-      return new CodeSpecsRouting(path, cls.name, CodeSpecsRoutingVerdict.DOCUMENT_ROOT);
-    }
-    return new CodeSpecsRouting(path, cls.name, CodeSpecsRoutingVerdict.UNROUTED);
+    return CodeSpecsRouting.codeSpecsClassRouting(cls, path);
   }
 
   /**
@@ -567,16 +534,6 @@ public final class CodeSpecsExtractor {
    * that field alone; {@code null} when the field carries none.
    */
   private CodeSpecsRouting fieldRouting(SpecClass cls, SpecField field) {
-    KindLink code = field.codeSpecKind();
-    if (code == null) {
-      return null;
-    }
-    return new CodeSpecsRouting(
-        "",
-        cls.name,
-        CodeSpecsRoutingVerdict.FEEDS_CODE,
-        code.kinds,
-        code.note,
-        cls.name + "." + field.name);
+    return CodeSpecsRouting.codeSpecsFieldRouting(cls, field);
   }
 }

@@ -60,6 +60,10 @@ import tom_som_runtime.SpecField;
 import tom_som_runtime.SpecGenerationUnit;
 import tom_som_runtime.SpecGenerationUnitMapping;
 import tom_som_runtime.SpecGenerationUnits;
+import tom_som_runtime.SpecImpactFolder;
+import tom_som_runtime.SpecImpactLevel;
+import tom_som_runtime.SpecImpactRootWalk;
+import tom_som_runtime.SpecImpactWalk;
 import tom_som_runtime.SpecListItemMove;
 import tom_som_runtime.SpecMarkdownImport;
 import tom_som_runtime.SpecMarkdownRendition;
@@ -1455,6 +1459,66 @@ public final class ConformanceRunner {
           SpecDocumentYaml.rekeyReview((Map<String, Object>) c.get("review"), renamed);
       Object expect = c.get("expect");
       check("reviewRekey[" + c.get("name") + "]", got.equals(expect), jsonMismatch(got, expect));
+    }
+  }
+
+  private static List<SpecImpactFolder> impactFolders(Object raw) {
+    if (raw == null) {
+      return null;
+    }
+    List<SpecImpactFolder> out = new ArrayList<>();
+    for (Object o : (List<?>) raw) {
+      Map<?, ?> m = (Map<?, ?>) o;
+      out.add(new SpecImpactFolder((String) m.get("path"), Boolean.TRUE.equals(m.get("present"))));
+    }
+    return out;
+  }
+
+  /**
+   * {@code impact_walk_cases.json}: per case the walk ({@link SpecImpactWalk#specImpactWalk}),
+   * the level, the document files and the Markdown, each compared with the case's expectation.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testImpactWalk() throws IOException {
+    Map<String, Object> table = readJsonObject("impact_walk_cases.json");
+    for (Object caseObj : (List<Object>) table.get("cases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      Object modelRaw = c.get("model");
+      SpecModel model = SpecModel.fromJson(
+          modelRaw instanceof String ? readJsonObject((String) modelRaw) : (Map<String, Object>) modelRaw);
+      Map<String, SpecDocument> documents = new LinkedHashMap<>();
+      for (Map.Entry<String, Object> e : ((Map<String, Object>) c.get("documents")).entrySet()) {
+        Object state = e.getValue();
+        documents.put(e.getKey(), documentFromState(
+            state instanceof String ? readJsonObject((String) state) : (Map<String, Object>) state));
+      }
+      List<String> listing = new ArrayList<>();
+      for (Object o : (List<Object>) c.get("listing")) {
+        listing.add((String) o);
+      }
+      List<SpecImpactRootWalk> walk = SpecImpactWalk.specImpactWalk(model, documents);
+      SpecImpactLevel level = SpecImpactWalk.specImpactLevel(
+          model, walk, listing, impactFolders(c.get("tests")), impactFolders(c.get("code")));
+      List<Object> walkJson = new ArrayList<>();
+      for (SpecImpactRootWalk w : walk) {
+        walkJson.add(w.toJson());
+      }
+      Map<String, Object> got = new LinkedHashMap<>();
+      got.put("walk", walkJson);
+      got.put("level", level.toJson());
+      got.put("documentFiles", new ArrayList<Object>(SpecImpactWalk.specImpactDocumentFiles(listing)));
+      got.put("markdown", SpecImpactWalk.specImpactWalkMarkdown(walk, level));
+      Map<String, Object> expect = (Map<String, Object>) c.get("expect");
+      for (String key : new String[] {"walk", "level", "documentFiles", "markdown"}) {
+        Object g = got.get(key);
+        Object w = expect.get(key);
+        check(
+            "impactWalk[" + c.get("name") + "]." + key,
+            Objects.equals(g, w),
+            g instanceof String && w instanceof String
+                ? byteDiff(key, (String) g, (String) w)
+                : jsonMismatch(g, w));
+      }
     }
   }
 
@@ -3132,6 +3196,7 @@ public final class ConformanceRunner {
     testNodeCreationScript(model);
     testGenerationUnits(model);
     testTypedValues();
+    testImpactWalk();
 
     int total = passed + failed.size();
     if (!failed.isEmpty()) {
