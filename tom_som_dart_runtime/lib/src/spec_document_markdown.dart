@@ -221,11 +221,30 @@ class SpecDocumentMarkdown {
   ///
   /// [formLayout] chooses how forms are emitted (default
   /// [SpecFormLayout.fields], today's format); it does not affect [parse].
+  ///
+  /// [fileStem] and [documentFiles] name the files cross-document reference
+  /// links point at (tables layout only): a root's rendition is
+  /// `<fileStem>.<root id in lower case>.tomspecs.md` unless [documentFiles]
+  /// maps the root (by section id or type) to another file name.
   SpecDocumentMarkdown(
     this.model,
     this.document, {
     this.formLayout = SpecFormLayout.fields,
+    this.fileStem,
+    this.documentFiles = const {},
   });
+
+  /// The stem of the document set's file names (`tom_uam` of
+  /// `tom_uam.rsp.tomspecs.md`); null writes `<root id>.tomspecs.md`.
+  final String? fileStem;
+
+  /// File names for roots that do not follow the
+  /// `<fileStem>.<root id>.tomspecs.md` convention, keyed by the root's section
+  /// id or type.
+  final Map<String, String> documentFiles;
+
+  /// The root the current export renders (the target of same-document links).
+  SpecRoot? _currentRoot;
 
   /// How the emitter lays out forms; [SpecFormLayout.tables] also writes a
   /// heading anchor on every heading. Parsing is unaffected.
@@ -448,6 +467,7 @@ class SpecDocumentMarkdown {
   final List<String> _headingPaths = [];
 
   String _exportRoot(SpecRoot root) {
+    _currentRoot = root;
     final tree = _treeFor(root.type);
     final node = tree.root;
     final b = StringBuffer();
@@ -610,7 +630,9 @@ class SpecDocumentMarkdown {
             units: document.units(path),
           );
           _writeSectionBody(b, child, path);
-          _writeChildren(b, child, path, depth + 1);
+          if (!_tables || !_writeSectionTable(b, child, path)) {
+            _writeChildren(b, child, path, depth + 1);
+          }
         case SomMetaKind.list:
           _writeList(b, child, path, depth);
       }
@@ -651,6 +673,11 @@ class SpecDocumentMarkdown {
     // populated scalar list gets meaningful per-item headings (YRC5).
     final stem = _itemStemOf(node);
     final pattern = node.sectionIdPattern ?? node.elementNode?.sectionIdPattern;
+    if (_tables &&
+        (_writeReferenceLine(b, node, items, pattern) ||
+            _writeRecordTable(b, node, items, pattern))) {
+      return;
+    }
     for (var i = 0; i < items.length; i++) {
       final itemPath = items[i];
       final pos = i + 1;
@@ -683,7 +710,8 @@ class SpecDocumentMarkdown {
         _writeBody(b, document.content(itemPath) ?? '', itemPath);
       } else {
         _writeSectionBody(b, element, itemPath);
-        if (!element.recursive) {
+        if (!element.recursive &&
+            !(_tables && _writeSectionTable(b, element, itemPath))) {
           _writeChildren(b, element, itemPath, depth + 2);
         }
       }
@@ -792,6 +820,354 @@ class SpecDocumentMarkdown {
     b.writeln();
   }
 
+  // --- Reading view: reference lines, record tables, section tables --------
+
+  /// Every stored key at or below [prefix] in [keys].
+  static Iterable<String> _under(Iterable<String> keys, String prefix) =>
+      keys.where((k) => k == prefix || k.startsWith('$prefix/'));
+
+  bool _hasKeys(String path) =>
+      (document.codeSpec(path)?.isNotEmpty ?? false) ||
+      (document.units(path)?.isNotEmpty ?? false);
+
+  /// The id of item [pos] (1-based) of [node] at [itemPath], as its heading
+  /// carries it.
+  String _itemId(SomMetaNode node, String itemPath, int pos, String? pattern) =>
+      effectiveListItemSectionId(
+        storedId: document.itemSectionId(itemPath),
+        pattern: pattern,
+        position: pos,
+        fallbackStem: node.memberName ?? node.segment,
+      );
+
+  /// The item class's own form (its class-level `@Form`, a transparent body
+  /// slot), or null when the class carries none or more than one.
+  (SomMetaNode, String)? _itemForm(SomMetaNode element) {
+    final forms = [
+      for (final s in _bodySlots(element))
+        if (s.$1.kind == SomMetaKind.form) s,
+    ];
+    return forms.length == 1 ? forms.single : null;
+  }
+
+  /// Whether the item at [itemPath] holds values only in its form at
+  /// [formPath], all of them table cells: no preamble, no other content,
+  /// form or list, no `codeSpec` / `units`, no headline other than the item's
+  /// own when [allowHeadline].
+  bool _isFormOnlyItem(
+    SomMetaNode form,
+    String itemPath,
+    String formPath, {
+    required bool allowHeadline,
+  }) {
+    if (_under(document.contentPaths, itemPath).isNotEmpty) return false;
+    if (_under(document.listPaths, itemPath).isNotEmpty) return false;
+    if (_under(document.unitsPaths, itemPath).isNotEmpty) return false;
+    if (_under(document.formPaths, itemPath).any((k) => k != formPath)) {
+      return false;
+    }
+    for (final h in _under(document.headlinePaths, itemPath)) {
+      if (!allowHeadline || h != itemPath) return false;
+    }
+    if (_hasKeys(itemPath) || _hasKeys(formPath)) return false;
+    if (_undeclaredFormFields(form, formPath).isNotEmpty) return false;
+    var any = false;
+    for (final f in form.form?.fields ?? const <SomFormFieldMeta>[]) {
+      final value = document.formField(formPath, f.name);
+      if (value == null) continue;
+      if (!_isCellValue(f, value)) return false;
+      any = true;
+    }
+    return any;
+  }
+
+  /// A list whose every item holds only one reference id becomes one `refs`
+  /// div of links in list order (BP-11). All or nothing; returns whether it
+  /// was written.
+  bool _writeReferenceLine(
+    StringBuffer b,
+    SomMetaNode node,
+    List<String> items,
+    String? pattern,
+  ) {
+    final element = node.elementNode;
+    if (element == null || element.recursive) return false;
+    (SomMetaNode, String)? ref;
+    for (final (child, rel) in _effectiveChildren(element)) {
+      final fields = child.form?.fields ?? const <SomFormFieldMeta>[];
+      if (child.kind == SomMetaKind.form &&
+          fields.length == 1 &&
+          fields.single.refersTo.isNotEmpty &&
+          child.extra.any((e) => e.annotation == 'Reference')) {
+        ref = (child, rel);
+        break;
+      }
+    }
+    if (ref == null) return false;
+    final field = ref.$1.form!.fields.single;
+    final links = <String>[];
+    for (var i = 0; i < items.length; i++) {
+      final itemPath = items[i];
+      final refPath = '$itemPath/${ref.$2}';
+      final stored = document.itemSectionId(itemPath);
+      final positional = effectiveListItemSectionId(
+        storedId: null,
+        pattern: pattern,
+        position: i + 1,
+        fallbackStem: node.memberName ?? node.segment,
+      );
+      if (stored != null && stored != positional) return false;
+      if (_under(document.contentPaths, itemPath).isNotEmpty ||
+          _under(document.listPaths, itemPath).isNotEmpty ||
+          _under(document.unitsPaths, itemPath).isNotEmpty ||
+          _under(document.headlinePaths, itemPath).isNotEmpty ||
+          _under(document.formPaths, itemPath).any((k) => k != refPath) ||
+          _hasKeys(itemPath) ||
+          _hasKeys(refPath)) {
+        return false;
+      }
+      final names = document.formFieldNames(refPath).toList();
+      if (names.length != 1 || names.single != field.name) return false;
+      final id = document.formField(refPath, field.name)!.trim();
+      if (!_idShape.hasMatch(id)) return false;
+      links.add(_link(field, id) ?? id);
+    }
+    b
+      ..writeln('::: {.refs}')
+      ..writeln(links.join(', '))
+      ..writeln(':::')
+      ..writeln();
+    return true;
+  }
+
+  /// A list whose every item is one form of table cells becomes a `records`
+  /// div with one table: `Id` (with its anchor), `Title` when any item has a
+  /// stored headline, one column per declared field any item populates
+  /// (BP-11). All or nothing; returns whether it was written.
+  bool _writeRecordTable(
+    StringBuffer b,
+    SomMetaNode node,
+    List<String> items,
+    String? pattern,
+  ) {
+    final element = node.elementNode;
+    if (element == null || element.recursive) return false;
+    final formSlot = _itemForm(element);
+    if (formSlot == null) return false;
+    final (form, rel) = formSlot;
+    for (final itemPath in items) {
+      if (!_isFormOnlyItem(
+        form,
+        itemPath,
+        '$itemPath/$rel',
+        allowHeadline: true,
+      )) {
+        return false;
+      }
+    }
+    final declared = form.form?.fields ?? const <SomFormFieldMeta>[];
+    final columns = [
+      for (final f in declared)
+        if (items.any((i) => document.formField('$i/$rel', f.name) != null)) f,
+    ];
+    final withTitle = items.any((i) => document.headline(i) != null);
+    final header = [
+      'Id',
+      if (withTitle) 'Title',
+      for (final f in columns) formLabel(f.name),
+    ];
+    b
+      ..writeln('::: {.records}')
+      ..writeln('| ${header.join(' | ')} |')
+      ..writeln('| ${List.filled(header.length, '---').join(' | ')} |');
+    for (var i = 0; i < items.length; i++) {
+      final itemPath = items[i];
+      final id = _itemId(node, itemPath, i + 1, pattern);
+      final cells = [
+        '<a id="$id"></a>$id',
+        if (withTitle)
+          (document.headline(itemPath) ?? '')
+              .replaceAll('\n', '<br>')
+              .replaceAll('|', r'\|'),
+        for (final f in columns)
+          switch (document.formField('$itemPath/$rel', f.name)) {
+            null => '',
+            final v => _linkedCellText(f, v),
+          },
+      ];
+      b.writeln('| ${cells.join(' | ')} |');
+    }
+    b
+      ..writeln(':::')
+      ..writeln();
+    return true;
+  }
+
+  /// A section whose populated children are all single forms of table cells
+  /// with default headlines (or lists of such single-form items) becomes one
+  /// `| Section | Field | Value |` table after its own body; the children's
+  /// headings are not written (DP-part-renditions-4). All or nothing; returns
+  /// whether it was written.
+  bool _writeSectionTable(StringBuffer b, SomMetaNode node, String path) {
+    final rows = <String>[];
+    var children = 0;
+    void addRows(String sectionCell, SomMetaNode form, String formPath) {
+      var first = true;
+      for (final f in form.form?.fields ?? const <SomFormFieldMeta>[]) {
+        final value = document.formField(formPath, f.name);
+        if (value == null) continue;
+        rows.add(
+          '| ${first ? sectionCell : ''} | ${formLabel(f.name)} | '
+          '${_linkedCellText(f, value)} |',
+        );
+        first = false;
+      }
+    }
+
+    for (final (child, rel) in _effectiveChildren(node)) {
+      final childPath = '$path/$rel';
+      if (!document.hasValuesUnder(childPath)) continue;
+      children++;
+      final childId = _headingIdOf(child);
+      switch (child.kind) {
+        case SomMetaKind.form:
+          if (!_isFormOnlyItem(
+            child,
+            childPath,
+            childPath,
+            allowHeadline: false,
+          )) {
+            return false;
+          }
+          addRows('<a id="$childId"></a>$childId', child, childPath);
+        case SomMetaKind.list:
+          final element = child.elementNode;
+          if (element == null || element.recursive) return false;
+          if (document.headline(childPath) != null || _hasKeys(childPath)) {
+            return false;
+          }
+          final formSlot = _itemForm(element);
+          if (formSlot == null) return false;
+          final (form, rel2) = formSlot;
+          final items = document.listItems(childPath);
+          final pattern = child.sectionIdPattern ?? element.sectionIdPattern;
+          for (var i = 0; i < items.length; i++) {
+            final itemPath = items[i];
+            if (!_isFormOnlyItem(
+              form,
+              itemPath,
+              '$itemPath/$rel2',
+              allowHeadline: false,
+            )) {
+              return false;
+            }
+            final itemId = _itemId(child, itemPath, i + 1, pattern);
+            addRows(
+              '<a id="$itemId"></a>$childId / $itemId',
+              form,
+              '$itemPath/$rel2',
+            );
+          }
+        default:
+          return false;
+      }
+    }
+    if (children == 0 || rows.isEmpty) return false;
+    b
+      ..writeln('| Section | Field | Value |')
+      ..writeln('| --- | --- | --- |');
+    for (final row in rows) {
+      b.writeln(row);
+    }
+    b.writeln();
+    return true;
+  }
+
+  /// A section id as a reference holds it: upper-case segments joined by `-`.
+  static final RegExp _idShape = RegExp(r'^[A-Z][A-Z0-9]*(-[A-Z0-9]+)*$');
+
+  /// [value] as a table cell, every reference id of a `refersTo` field
+  /// written as a link to its section (reading view, DI-14).
+  String _linkedCellText(SomFormFieldMeta f, String value) {
+    if (f.refersTo.isEmpty || f.code) return _cellText(f, value);
+    final ids = value.split(',').map((v) => v.trim()).toList();
+    if (ids.isEmpty || !ids.every(_idShape.hasMatch)) {
+      return _cellText(f, value);
+    }
+    final links = [for (final id in ids) _link(f, id)];
+    if (links.contains(null)) return _cellText(f, value);
+    return links.join(', ');
+  }
+
+  /// `[ID](<file>#ID)` for a reference id of form field [f], `[ID](#ID)` when
+  /// the target lives in the document being rendered; null when no target of
+  /// [f] names a section id (`<SECTIONID>.@sectionId`), which has no anchor.
+  String? _link(SomFormFieldMeta f, String id) {
+    final classIds = [
+      for (final t in f.refersTo)
+        if (t.endsWith('.@sectionId')) t.substring(0, t.length - 11),
+    ];
+    if (classIds.isEmpty) return null;
+    final current = _currentRoot;
+    for (final classId in classIds) {
+      final className = _classBySectionId(classId);
+      if (className != null &&
+          current != null &&
+          _reachedBy(current).contains(className)) {
+        return '[$id](#$id)';
+      }
+    }
+    final file = _fileFor(_classBySectionId(classIds.first));
+    return file == null ? '[$id](#$id)' : '[$id]($file#$id)';
+  }
+
+  String? _classBySectionId(String sectionId) {
+    for (final c in model.classes.values) {
+      if (c.sectionId == sectionId) return c.name;
+    }
+    return null;
+  }
+
+  final Map<String, Set<String>> _reach = {};
+
+  /// The class names the meta tree of [root] reaches.
+  Set<String> _reachedBy(SpecRoot root) => _reach.putIfAbsent(root.type, () {
+    final names = <String>{};
+    void walk(SomMetaNode n) {
+      names.add(n.className);
+      if (n.recursive) return;
+      for (final c in n.children) {
+        walk(c);
+      }
+      final e = n.elementNode;
+      if (e != null) walk(e);
+    }
+
+    walk(_treeFor(root.type).root);
+    return names;
+  });
+
+  /// The rendition file of the root a reference to [className] points into:
+  /// the root other than the current one that reaches the class, the most
+  /// specific (fewest classes) first, so a detailed document wins over a
+  /// projection such as the Solution Blueprint.
+  String? _fileFor(String? className) {
+    if (className == null) return null;
+    final candidates = [
+      for (final r in model.roots)
+        if (r.type != _currentRoot?.type && _reachedBy(r).contains(className))
+          r,
+    ]..sort((a, b) => _reachedBy(a).length.compareTo(_reachedBy(b).length));
+    if (candidates.isEmpty) return null;
+    final root = candidates.first;
+    final id = root.sectionId ?? root.type;
+    final mapped = documentFiles[id] ?? documentFiles[root.type];
+    if (mapped != null) return mapped;
+    final stem = fileStem;
+    final name = '${id.toLowerCase()}.tomspecs.md';
+    return stem == null || stem.isEmpty ? name : '$stem.$name';
+  }
+
   /// [SpecFormLayout.tables]: the preamble, then the declared fields in model
   /// order — each run of consecutive cell values one `| Field | Value |`
   /// table, each paragraph value a `Field:` group at its place (table – text –
@@ -812,7 +1188,7 @@ class SpecDocumentMarkdown {
           table = ['| Field | Value |', '| --- | --- |'];
           groups.add(table);
         }
-        table.add('| $label | ${_cellText(f, value)} |');
+        table.add('| $label | ${_linkedCellText(f, value)} |');
         continue;
       }
       table = null;

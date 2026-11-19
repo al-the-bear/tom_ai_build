@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 30 files
-// Generated: 2026-11-19T19:30:36.620083 by tom_d4rt_generator 1.67.0
+// Generated: 2026-11-19T19:50:47.396566 by tom_d4rt_generator 1.67.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -13581,14 +13581,36 @@ BridgedClass _createSpecDocumentMarkdownBridge() {
               'formLayout',
               $tom_som_dart_runtime_10.SpecFormLayout.fields,
             );
+        final fileStem = D4.getOptionalNamedArg<String?>(named, 'fileStem');
+        final documentFiles =
+            named.containsKey('documentFiles') && named['documentFiles'] != null
+            ? D4.coerceMap<String, String>(
+                named['documentFiles'],
+                'documentFiles',
+              )
+            : const <String, String>{};
         return $tom_som_dart_runtime_10.SpecDocumentMarkdown(
           model,
           document,
           formLayout: formLayout,
+          fileStem: fileStem,
+          documentFiles: documentFiles,
         );
       },
     },
     getters: {
+      'fileStem': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_10.SpecDocumentMarkdown>(
+            target,
+            'SpecDocumentMarkdown',
+          )
+          .fileStem,
+      'documentFiles': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_10.SpecDocumentMarkdown>(
+            target,
+            'SpecDocumentMarkdown',
+          )
+          .documentFiles,
       'formLayout': (visitor, target) => D4
           .validateTarget<$tom_som_dart_runtime_10.SpecDocumentMarkdown>(
             target,
@@ -13725,7 +13747,7 @@ BridgedClass _createSpecDocumentMarkdownBridge() {
       },
     },
     constructorSignatures: {
-      '': 'SpecDocumentMarkdown(SpecModel model, SpecDocument document, {SpecFormLayout formLayout = SpecFormLayout.fields})',
+      '': 'SpecDocumentMarkdown(SpecModel model, SpecDocument document, {SpecFormLayout formLayout = SpecFormLayout.fields, String? fileStem, Map<String, String> documentFiles = const {}})',
     },
     methodSignatures: {
       'exportRoot': 'String exportRoot(SpecRoot root)',
@@ -13734,6 +13756,8 @@ BridgedClass _createSpecDocumentMarkdownBridge() {
       'parse': 'SpecMarkdownResult parse(String text)',
     },
     getterSignatures: {
+      'fileStem': 'String? get fileStem',
+      'documentFiles': 'Map<String, String> get documentFiles',
       'formLayout': 'SpecFormLayout get formLayout',
       'model': 'SpecModel get model',
       'document': 'SpecDocument get document',

@@ -9,6 +9,13 @@
   that would read as the form table escaped with one leading space; every
   heading carries `<a id="<ID>"></a>`. The default `SpecFormLayout.fields` is
   unchanged.
+- `SpecFormLayout.tables` also writes the list and section forms, each all or
+  nothing: a list of single references as one `refs` div of links, a list of
+  single-form items as one `records` table (`Id` with its anchor, `Title` when
+  an item has a stored headline), and a section whose children are single
+  forms as one `| Section | Field | Value |` table. A `refersTo` value in a table
+  cell is a link `[ID](<stem>.<root id>.tomspecs.md#ID)`, or `[ID](#ID)` within
+  the document (`fileStem`, `documentFiles`).
 - `FormFieldSpec.multiParagraph` and `SomFormFieldMeta.multiParagraph`, read from
   the meta's `multiParagraph` key (`Field.multiParagraph`): a field whose values
   hold paragraphs or blocks. `formFieldChips` shows it as the `¶ paragraphs`
