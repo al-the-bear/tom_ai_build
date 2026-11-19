@@ -128,7 +128,9 @@ unpublished_drift:
     the documents, scripts and generator texts name the tomspecs commands;
     tsbin8 (2026-11-18): bin/tomspecs.dart is the only entrypoint, the
     commands' run functions in lib/src/commands/, their output and usage
-    lines named by command; published with the next clitool release.
+    lines named by command; 02a_rdv4 (2026-11-19):
+    tool/multi_paragraph_fields.dart, the multi-paragraph field report;
+    published with the next clitool release.
   tom_core_codespecs: >-
     irfmt2 (2026-11-16): irspecs_ir.md §8 states that the dart-tom mapper needs
     no Dart SDK; irout1 (2026-11-16): irspecs_ir.md and codespecs_mapping.md
