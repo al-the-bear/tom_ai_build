@@ -1,0 +1,9 @@
+G1-DOC-1 — file existence and size (2026-11-19T17:44+0100)
+path: tom_ai/ai_build/specification/phase1_project_idea/project_idea.ai_runtime.md
+exists: True
+bytes: 199150
+lines: 2473
+words: 34646
+headings: 70 (16 top-level sections)
+first line: # Project Idea — Tom AI Runtime
+other entries in the folder: ['01_01_Questions Round', 'project_idea.ai_runtime.md', 'sources']

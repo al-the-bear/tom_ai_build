@@ -1,0 +1,9 @@
+id: G1-USER-1
+status: pass
+evidence:
+- G1-USER-1.reading.md
+finding: 'USR > USR-GROUPS names seven user groups (U-1 … U-7) and USR > USR-HOSTS six stakeholders (U-8
+  … U-13). The owner is named only in the product owner''s answer to PQ-1 inside USR > USR-TEAM ("owner
+  and reviewer am I, alexis"); the section''s text still says the owner is not recorded. Borderline: counted
+  as named because the document holds the name; the section text still has to take the answer in (owner
+  alexis as product owner and only reviewer, with member id, display name and role).'

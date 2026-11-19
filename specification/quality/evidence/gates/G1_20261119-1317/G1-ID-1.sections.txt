@@ -1,0 +1,71 @@
+G1-ID-1 — per section: items with an id, top-level list items and table rows without one
+
+ABOUT: with id 0, list items without id 0, table rows without id 1
+ABOUT > ABOUT-READ: with id 0, list items without id 0, table rows without id 14
+SRC: with id 20, list items without id 0, table rows without id 0
+VIS: with id 0, list items without id 0, table rows without id 0
+VIS > VIS-PROBLEM: with id 0, list items without id 4, table rows without id 0
+VIS > VIS-SYSTEM: with id 0, list items without id 0, table rows without id 1
+VIS > VIS-GIVES: with id 8, list items without id 0, table rows without id 0
+USR: with id 0, list items without id 0, table rows without id 0
+USR > USR-GROUPS: with id 7, list items without id 0, table rows without id 0
+USR > USR-HOSTS: with id 6, list items without id 0, table rows without id 0
+USR > USR-TEAM: with id 0, list items without id 0, table rows without id 0
+GLO: with id 0, list items without id 0, table rows without id 37
+SCO: with id 0, list items without id 0, table rows without id 0
+SCO > SCO-IN: with id 0, list items without id 0, table rows without id 15
+SCO > SCO-OUT: with id 8, list items without id 0, table rows without id 0
+SCO > SCO-LATER: with id 11, list items without id 0, table rows without id 0
+LAND: with id 0, list items without id 0, table rows without id 0
+LAND > LAND-BUILT: with id 7, list items without id 0, table rows without id 0
+LAND > LAND-MISSING: with id 7, list items without id 0, table rows without id 0
+LAND > LAND-WAIT: with id 4, list items without id 0, table rows without id 0
+RT: with id 0, list items without id 0, table rows without id 0
+RT > RT-HOLDS: with id 7, list items without id 0, table rows without id 0
+RT > RT-RUNS: with id 7, list items without id 0, table rows without id 0
+RT > RT-QUEUE: with id 10, list items without id 0, table rows without id 0
+RT > RT-TRANSPORTS: with id 7, list items without id 0, table rows without id 0
+RT > RT-LOCATIONS: with id 4, list items without id 0, table rows without id 0
+RT > RT-CONFIG: with id 6, list items without id 0, table rows without id 0
+RT > RT-MACHINE: with id 4, list items without id 0, table rows without id 0
+RT > RT-INSTALL: with id 6, list items without id 0, table rows without id 0
+RT > RT-SECRETS: with id 5, list items without id 0, table rows without id 0
+RT > RT-PROTO: with id 12, list items without id 0, table rows without id 0
+RT > RT-HOST: with id 3, list items without id 0, table rows without id 0
+RT > RT-TOOLS: with id 10, list items without id 0, table rows without id 0
+RT > RT-MCP: with id 6, list items without id 0, table rows without id 0
+RT > RT-ASKS: with id 8, list items without id 0, table rows without id 0
+RT > RT-VERSIONS: with id 7, list items without id 0, table rows without id 0
+RT > RT-PROVIDERS: with id 7, list items without id 0, table rows without id 0
+CLI: with id 0, list items without id 0, table rows without id 0
+CLI > CLI-PACK: with id 11, list items without id 0, table rows without id 0
+CLI > CLI-UI: with id 9, list items without id 0, table rows without id 0
+CLI > CLI-SCREENS: with id 6, list items without id 0, table rows without id 30
+CLI > CLI-TRC: with id 9, list items without id 0, table rows without id 0
+TAC: with id 0, list items without id 0, table rows without id 0
+TAC > TAC-JOBS: with id 2, list items without id 0, table rows without id 1
+TAC > TAC-COORD: with id 22, list items without id 0, table rows without id 0
+TAC > TAC-BACKENDS: with id 11, list items without id 0, table rows without id 0
+TAC > TAC-PEOPLE: with id 15, list items without id 0, table rows without id 0
+TAC > TAC-KINDS: with id 6, list items without id 0, table rows without id 0
+TAC > TAC-CONV: with id 8, list items without id 0, table rows without id 0
+TAC > TAC-DOCS: with id 9, list items without id 0, table rows without id 0
+TAC > TAC-REVIEW: with id 6, list items without id 0, table rows without id 0
+TAC > TAC-CRYPT: with id 3, list items without id 0, table rows without id 0
+TAC > TAC-SPEC: with id 3, list items without id 0, table rows without id 0
+TAC > TAC-WEBWORK: with id 6, list items without id 0, table rows without id 1
+PAR: with id 0, list items without id 0, table rows without id 0
+PAR > PAR-PROBLEM: with id 1, list items without id 0, table rows without id 11
+PAR > PAR-APPROACH: with id 16, list items without id 0, table rows without id 0
+PAR > PAR-CROSS: with id 7, list items without id 0, table rows without id 0
+PAR > PAR-QUESTS: with id 8, list items without id 0, table rows without id 0
+NFR: with id 34, list items without id 0, table rows without id 0
+NFR > NFR-TOPO: with id 8, list items without id 0, table rows without id 0
+NFR > NFR-TOPO > NFR-TOPO-FLOWS: with id 12, list items without id 0, table rows without id 0
+NFR > NFR-GEN: with id 0, list items without id 0, table rows without id 11
+DEC: with id 43, list items without id 0, table rows without id 0
+CON: with id 12, list items without id 0, table rows without id 0
+RISK: with id 0, list items without id 0, table rows without id 0
+RISK > RISK-RISKS: with id 14, list items without id 0, table rows without id 0
+RISK > RISK-DEPS: with id 7, list items without id 0, table rows without id 0
+DEL: with id 0, list items without id 11, table rows without id 3

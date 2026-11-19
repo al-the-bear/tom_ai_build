@@ -1,0 +1,82 @@
+# Project gate checklist — G1, Project Idea Captured, Tom AI Runtime.
+# Copied from the generic checklist; no item narrowed, added or removed.
+# Format: tom_specs_model/doc/tom_specs_gate_checklists.md § 4.
+derivedFrom:
+  checklist: tom_specs_model/doc/gate_checklists/G1.checklist.yaml
+  checklistVersion: 1.2.0
+  modelPackage: tom_specs_model 1.12.0
+parameters:
+  projectIdea: tom_ai/ai_build/specification/phase1_project_idea/project_idea.ai_runtime.md
+removed: []
+formatVersion: 1
+gate: G1
+title: Project Idea Captured
+checklistVersion: 1.2.0
+criteria: tom_specs_project_flow.md §PF-GAT-G1
+document: PI
+items:
+  - id: G1-DOC-1
+    criterion: Idea document exists
+    inspect: The Project Idea exists in the project's specification folder and is more than a title.
+    method: tool
+    how: File existence and size of the Project Idea document(s).
+    evidence: The paths and their sizes.
+    pass: At least one Project Idea document with meaningful content.
+  - id: G1-PROB-1
+    criterion: Problem statement present
+    inspect: What the system solves is stated, for whom, and why now.
+    method: reading
+    how: The problem statement section of the Project Idea.
+    evidence: A reader's note quoting the statement's location.
+    pass: The problem is stated in the Project Idea's own words.
+  - id: G1-USER-1
+    criterion: Users and stakeholders named
+    inspect: The primary user groups and the owner are identified.
+    method: reading
+    how: The users and stakeholders part of the Project Idea.
+    evidence: The user groups and the owner found.
+    pass: At least one primary user group and the owner are named.
+  - id: G1-SCOPE-1
+    criterion: Rough scope stated
+    inspect: In-scope and out-of-scope boundaries are sketched.
+    method: reading
+    how: The scope part of the Project Idea.
+    evidence: The boundaries found.
+    pass: At least one in-scope and one out-of-scope statement.
+  - id: G1-SRC-1
+    criterion: Sources recorded
+    inspect: Every source the idea was drawn from is listed and can be retrieved.
+    method: tool
+    how: Resolve each listed source (a file path, a URL, a referenced document).
+    evidence: Each source with its resolution result.
+    pass: Every listed source resolves.
+  - id: G1-ID-1
+    criterion: Sources recorded
+    inspect: The Project Idea's items carry ids, so the Blueprint can trace to them.
+    method: query
+    how: Count the id-carrying items of the Project Idea.
+    evidence: The id count and any item without an id.
+    pass: Every item the Blueprint will need to cite has an id.
+  - id: G1-CLAR-1
+    criterion: No blocking clarifications
+    inspect: No open clarification prevents Blueprint work.
+    method: reading
+    how: The project's clarification files.
+    evidence: The open clarifications and whether each blocks Phase 2.
+    pass: None blocks Phase 2.
+  - id: G1-RISK-1
+    criterion: Risk register reviewed
+    inspect: The risks known so far are listed, each with what would trigger it; the Blueprint's risk register (SBP/INSC/RIANAS) starts from them.
+    method: reading
+    how: The risks part of the Project Idea, and the dependencies it names (systems, teams, vendors, decisions the project waits on).
+    evidence: The risks found with their triggers, and the dependencies found.
+    pass: Every risk the Project Idea mentions is listed with a trigger, or the Project Idea states that none is known.
+
+  # ── Change limited to its impact (change mode) ────────────────────────────
+  - id: G1-CHANGE-1
+    criterion: Change limited to its impact *(change mode)*
+    inspect: In change mode, every modification this phase made lies within the change's impact set or an accepted amendment, the accumulated copies against the base commit were written for every review, and the phase's change summary lists every change — or the phase records "no change in this phase". Not applicable to the initial development.
+    method: reading
+    how: "<spec-root>/changes/<change-id>/impact_evaluation.md (§ Impact set, § Amendments) against the phase's change_summary.md and the branch's diff against the base commit (git diff <base> -- <the phase's documents>); the accumulated copies in the phase's step folders."
+    evidence: The change summary and the diff, each modification mapped to its impact-set item or amendment.
+    pass: Initial development — not applicable. Change mode — every modification is mapped, every review had its accumulated copies, or the phase records no change.

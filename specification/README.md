@@ -11,9 +11,11 @@ authority is `tom_specs_project_flow.md` in the `tom_specs_model` package
 | Folder | Phase | Content |
 | --- | --- | --- |
 | [`phase1_project_idea/`](phase1_project_idea/) | 1 — Project Idea | The free-form idea, [`sources/`](phase1_project_idea/sources/) with snapshots of what it was drawn from, and one folder per question round |
+| [`gates/`](gates/) | — | The project's gate checklists (`G<N>.checklist.yaml`) |
+| [`quality/evidence/gates/`](quality/evidence/gates/) | — | Per gate run: the report of record (`.gate.yaml`), its summary (`.gate.md`) and the evidence folder |
 
 ## Status
 
 | Phase | Artifact | State | Gate |
 | --- | --- | --- | --- |
-| 1 | [`project_idea.ai_runtime.md`](phase1_project_idea/project_idea.ai_runtime.md) | Question round 1 written: 19 questions open | G1 |
+| 1 | [`project_idea.ai_runtime.md`](phase1_project_idea/project_idea.ai_runtime.md) | Question round 1 written and answered (19 answers, not yet taken into the text) | G1 run 1 on 2026-11-19: **failed** (G1-ID-1, G1-CLAR-1) — [report](quality/evidence/gates/G1_20261119-1317.gate.md) |

@@ -1,0 +1,6 @@
+id: G1-CHANGE-1
+status: pass
+evidence:
+- G1-CHANGE-1.chatvariable.txt
+finding: 'Initial development — not applicable. The run ai_runtime_solution_sbp has the chat variable spec-mode
+  = initial; there is no change folder under the specification root.'

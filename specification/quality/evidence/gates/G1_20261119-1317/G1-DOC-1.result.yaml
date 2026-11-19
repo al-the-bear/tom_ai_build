@@ -1,0 +1,6 @@
+id: G1-DOC-1
+status: pass
+evidence:
+- G1-DOC-1.size.txt
+finding: 'The Project Idea exists at tom_ai/ai_build/specification/phase1_project_idea/project_idea.ai_runtime.md:
+  199,150 bytes, 2,473 lines, 73 headings in 16 top-level sections. It is far more than a title.'

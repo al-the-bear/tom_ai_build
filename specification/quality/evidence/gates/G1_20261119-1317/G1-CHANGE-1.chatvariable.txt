@@ -1,0 +1,5 @@
+tomAi_readChatVariable {key: "spec-mode", run: "ai_runtime_solution_sbp"}  (2026-11-19)
+-> {"key": "spec-mode", "value": "initial", "exists": true, "isBuiltIn": false}
+
+The run ai_runtime_solution_sbp is the initial development of the Tom AI Runtime
+specification, not a change run. There is no changes/<change-id>/ folder to inspect.

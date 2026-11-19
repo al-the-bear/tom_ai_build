@@ -1,0 +1,7 @@
+id: G1-PROB-1
+status: pass
+evidence:
+- G1-PROB-1.reading.md
+finding: 'VIS > VIS-PROBLEM states in the document''s own words what the system solves (work larger than
+  a coding session; an engine entangled with one host, with four consequences), for whom (other applications,
+  agents and people in shared clones, people outside the editor) and why now (its last paragraph).'

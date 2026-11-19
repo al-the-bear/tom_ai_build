@@ -62,16 +62,16 @@ S1 § 2.4 lists what is outdated in the older ones.
 | **S3** | `_ai/quests/ai_runtime/webwork_requirements.md`; snapshot `sources/webwork_requirements.md` | What Webwork needs from tar and tac, WR-1 … WR-7, each with what exists and what is missing | current as a requirement statement; WR-2 and WR-6 are met differently (S1 § 7.10) |
 | **S4** | `_ai/quests/ai_runtime/quest-notes.ai_runtime.md` | The product owner's notes: the names tar, tac, trc, the goals a … n, the split of the MCP server, the relay | current; the owner's words |
 | **S5** | `tom_ai/vscode/tom_tac_service/doc/tac_specification.md` | The protocol `tac/1.0` as built: records, lease lifecycle, operations, backends, errors, the HTTP / WebSocket and GitHub refs bindings | current for what is built; it knows no people, teams, user messages or documents, and names a quest `agent_coordination` as its owner |
-| **S6** | `_ai/quests/ai_runtime/ideas/agent_collaboration/agent_collaboration.md` | The coordination idea: todo follow-ups, protocol, service, client and backends, claims, branches and worktrees, messages between runtimes, endpoints, the Coordination page, the guideline, the rollout | current for leases, messages between runtimes, endpoints and branches; outdated in its owner, its package places and where it describes submodule pointers |
+| **S6** | `_ai/quests/ai_runtime/ideas/agent_collaboration/agent_collaboration.docspecs.md` | The coordination idea: todo follow-ups, protocol, service, client and backends, claims, branches and worktrees, messages between runtimes, endpoints, the Coordination page, the guideline, the rollout | current for leases, messages between runtimes, endpoints and branches; outdated in its owner, its package places and where it describes submodule pointers |
 | **S7** | `_ai/quests/ai_runtime/llm_providers_runtime_integration.ai_runtime.md` | Model providers and the three ways into them | current |
-| **S8** | `_ai/quests/ai_runtime/ideas/remote_control_app/remote_control_app.md` | The supervision app in the product owner's words | current; input only |
+| **S8** | `_ai/quests/ai_runtime/ideas/remote_control_app/remote_control_app.docspecs.md` | The supervision app in the product owner's words | current; input only |
 | **S9** | S1 § 15 "Research: what other teams do" | External research read on 2026-11-18, with its links: client and agent protocols, parallel work and git models, spec-driven work, cloud agents, UI kits, supervision, secrets | current; some claims rest on secondary sources, marked there |
 | **S10** | `_ai/quests/tom_specs/tooling/notes_ai_runtime.md` | The components and interfaces of this quest as the TomSpecs tooling sees them, and the contradictions it found | outdated in package names and places; useful as a cross-check |
 | **S11** | `_ai/quests/tom_specs/tooling/tom_specs_tooling_suggestions.md` | Suggestions addressed to this product: one review component for every host, review copies that travel without the user, the process engine as a runtime service, the remote control | current |
-| **S12** | `_ai/quests/al_the_bear/ideas/workspace_layout/workspace_layout.md` | The workspace layout: root, workspace folders, the layout resolver, the configuration layers, independent repositories, the repository record | current |
-| **S13** | `_ai/quests/webwork/ideas/webwork_redesign/webwork_redesign.md` | Webwork's redesign: messaging, the review exchange, the bottom panel with the AI tab, the wave plan | current |
+| **S12** | `_ai/quests/al_the_bear/ideas/workspace_layout/workspace_layout.docspecs.md` | The workspace layout: root, workspace folders, the layout resolver, the configuration layers, independent repositories, the repository record | current |
+| **S13** | `_ai/quests/webwork/ideas/webwork_redesign/webwork_redesign.docspecs.md` | Webwork's redesign: messaging, the review exchange, the bottom panel with the AI tab, the wave plan | current |
 | **S14** | `_ai/quests/tom_forge/spec_quest_workbench.tom_forge.md` | Tom Forge's quest application: the views it expects, hosting a runtime per open quest | outdated in the runtime's name and owner; its second part waits for this specification |
-| **S15** | `tom_ai/secrets_clients/protocol/protocol.md` and `_ai/quests/tom_core/ideas/tom_secrets_manager/tom_secrets_manager.md` | Tom Secrets Manager: the client protocol, the reference grammar, how a client is identified and approved | current |
+| **S15** | `tom_ai/secrets_clients/protocol/protocol.md` and `_ai/quests/tom_core/ideas/tom_secrets_manager/tom_secrets_manager.docspecs.md` | Tom Secrets Manager: the client protocol, the reference grammar, how a client is identified and approved | current |
 | **S16** | `_copilot_guidelines/parallel_work.md` | The rules for working in parallel today, and what enforces each | current; names a quest `agent_coordination` as the future owner |
 | **S17** | `tom_ai/vscode/tom_vscode_extension/`: its code, `tom_ai/vscode/tom_vscode_extension/_copilot_guidelines/architecture.md` and `tom_ai/vscode/tom_vscode_extension/doc/` | The engine as built: the starting point of the runtime and of the UI components | current; it keeps changing |
 | **S18** | `_ai/quests/ai_runtime/runtime_split_plan.ai_runtime.md` | What comes before the split of the extension; the stable build during it | its questions are settled in S1 § 14.1 |
@@ -213,7 +213,7 @@ e-mail address — and whether some document types have a team of their own.
 >
 > *Recommendation:* (a) for now — it matches how the decisions were taken so far; members can be added in the Solution Blueprint when someone joins.
 >
-> **Answer:**
+> **Answer (2026-11-19T10:45+01:00):** (a), owner and reviewer am I, alexis
 
 ## <!--[GLO]--> 4 Glossary
 
@@ -497,7 +497,7 @@ it, attaches to it and shows what it does. (S1 § 4, § 5; FO-1)
 >
 > *Recommendation:* (a) — long runs need fixes to their process, and the confirmation is the point where a person sees what the fix changes for this run.
 >
-> **Answer:**
+> **Answer (2026-11-19T10:46+01:00):** (a), usually the updates are intended to be used immediately
 
 - **CR.13** A step declares what must hold before it starts (answered
   questions, a passed gate, documents that exist). The runtime checks this
@@ -516,7 +516,7 @@ it, attaches to it and shows what it does. (S1 § 4, § 5; FO-1)
 >
 > *Recommendation:* (a) — a refusal with the reason costs nothing when everything is in place, and it replaces a wasted agent turn when something is missing.
 >
-> **Answer:**
+> **Answer (2026-11-19T10:46+01:00):** (a)
 
 - **CR.14** A small change can run through a short process (intent, change,
   check), so the full phases are not the only shape of work. (S1 § 5.2,
@@ -534,7 +534,7 @@ it, attaches to it and shows what it does. (S1 § 4, § 5; FO-1)
 >
 > *Recommendation:* (b) — it keeps the product to the engine; (c) is worth its own decision when the parallel-work part is settled, because the same recorded check is what the integration step would run.
 >
-> **Answer:**
+> **Answer (2026-11-19T10:48+01:00):** File this with concrete proposal in the tom_specs quest. The is already a change mode in the tom_specs process, but it's still very heavy. A quick path for smaller changes seems appropriate. Check the tom_specs process for the current change/revision mode, so you don't miss any important steps for the new and shortened process.
 
 ### <!--[RT-QUEUE]--> 7.3 The queue
 
@@ -779,7 +779,7 @@ it, attaches to it and shows what it does. (S1 § 4, § 5; FO-1)
 >
 > *Recommendation:* (a) — the same three shapes are what the other agent protocols settled on, so adapters to them stay thin.
 >
-> **Answer:**
+> **Answer (2026-11-19T10:54+01:00):** I think we have two ways today: (1) review outside of a turn, the process waits until I prompt for continuation (2) the ask tool to ask individual questions (the agent can put ids there if he wants) (3) Asking in a document using the askInMd tool, which has the questions inside a document and usually with a unique questions id. Isn't that already the three things? We are also working on a review subprocess to be started at review points in (1). What are we missing? It seems we are covering all of that.
 
 - **CP.9** An ask outlives the process that asked: a pending ask is a stored
   record, the turn can end, and the run resumes when the answer arrives.
@@ -947,7 +947,11 @@ files, and an older runtime does not work on newer files (S1 § 6.7, DQ-9).
 >
 > *Recommendation:* (a) — it needs the runtime to support one format back, which is also what makes "an old client keeps working" hold for the files and not only for the protocol.
 >
-> **Answer:**
+> **Answer (2026-11-19T11:01+01:00):** 1. every host install the runtime if none is installed and offers updating it in the corresponding section of the app (which might offer other things to install/uninstall).
+> 2. if there is a runtime it uses it and if this is a too new runtime it disables all features that would use it or refuses to start and asks the user to upgrade to a new application version (that hopefully already exists)
+> 3. upgrade only happens after having been asked to. This happens actively if the runtime detects a workspace format it can't handle, because it has been upgraded already from somewhere else.
+> 4. if the runtime finds a workspace that is older that what it supports it must offer to migrate to the new version or to downgrade to an older version of the runtime that can work with the old format (if there is one that is compatible with the application). If there is no compatible version it says so and only offers to upgrade the workspace.
+> 5. I'm assuming that we usually upgrade runtime and workspace when the first host has updated and we try to keep hosts to be compatible with several runtime versions through the SDK layer and protocol backwards compatibility in the evolution of the runtime.
 
 - **CP.30** The aim is that the protocol and the formats become very stable
   after a while. (S1 § 6.7, DQ-9)
@@ -999,7 +1003,7 @@ files, and an older runtime does not work on newer files (S1 § 6.7, DQ-9).
 >
 > *Recommendation:* (a) — the protocol will still move while the first hosts are built, and every language added before it settles multiplies each change.
 >
-> **Answer:**
+> **Answer (2026-11-19T11:01+01:00):** (b)
 
 - **CL.2** In every language there are two clients, each in a package of its
   own: the **runtime client**, which speaks the runtime protocol, and the
@@ -1084,7 +1088,7 @@ files, and an older runtime does not work on newer files (S1 § 6.7, DQ-9).
 >
 > *Recommendation:* (a), with the gallery application built together with the first step, so every later group has a place to be shown.
 >
-> **Answer:**
+> **Answer (2026-11-19T11:04+01:00):** We build in the order that will get us to the finished full product fastest. We should consider working in parallel for our own todos here, so they run in two runs in parallel. I queued some todos in vscode extension that should help with this for waiting if a todos is blocked and continuing once it is unblocked (verify this is complete in the todos queued, in the todo list or in the recently done todos (today). If something is missing, add a vscimpb* todo to vscode extension
 
 - **CU.7** The bounded Markdown view keeps the last so-many lines or
   kilobytes and forgets the rest; it follows its end. It serves a run's log
@@ -1212,7 +1216,7 @@ each is decided when the screen is described. (S1 § 12.3; S17)
 >
 > *Recommendation:* (a) — it keeps one rule for every application, and outside the VPN a phone needs the relay with device pairing anyway, which is also later.
 >
-> **Answer:**
+> **Answer (2026-11-19T11:07+01:00):** (b), I want to make sure we get the architecture right for apps on phones and tablets. This will require connecting to an internet tac or on the LAN/VPN. We should check for testing if our VPN can be used from iphone and android, but we also need to cover the internet case as this is very relevant to check on the road what is going on and answer questions while away. Of course this must be secure, so probably there must be some pairing process to get a device-specific key etc.
 
 - **CK.9** The open asks of a team, with their age and their place in the
   chain (CP.23), are part of trc's view. (S1 § 6.6)
@@ -1374,7 +1378,7 @@ team, an agent group and a customer are tied to each other is asked
 >
 > *Recommendation:* (b) — everything the new parts add (people, teams, messages, documents, the integration queue) needs a service, so the GitHub backend would offer less and less of the whole; deferring keeps the door open at no cost now.
 >
-> **Answer:**
+> **Answer (2026-11-19T11:08+01:00):** (a)
 
 - **CA.27** The server is the full server from the start: customers, access
   keys kept as salted hashes, quotas per customer, the administration
@@ -1437,7 +1441,7 @@ teams.
 >
 > *Recommendation:* (a) — leases only help when everyone who writes to a repository is in the same agent group, and that is not always one team.
 >
-> **Answer:**
+> **Answer (2026-11-19T11:10+01:00):** Explain this in more details, how do agent groups compare with our quests with their run and prompts? I can only decide what we need here if I understand what you are proposed in detail. What IS an agent group?
 
 - **CI.2** A person is a member of one team or of several. A person runs
   several runtimes, and those may be in several agent groups. One runtime
@@ -1481,7 +1485,7 @@ teams.
 >
 > *Recommendation:* (a) — a team is people who trust each other; the runtime's own host setting is the place to refuse remote control.
 >
-> **Answer:**
+> **Answer (2026-11-19T11:12+01:00):** (a), the last row depends on the result of the previous question. I'd say team member can create or delete their own agent groups, but this depends on our definitions for the last question.
 
 - **CI.6** A person joins a team by **invitation** (S1 § 7.3, CQ-10, DQ-2):
   1. An owner creates an invitation for an e-mail address.
@@ -1518,7 +1522,7 @@ teams.
 >
 > *Recommendation:* (a) — it lets a first team start without setup, as decided, and keeps the operations that can do harm behind the token.
 >
-> **Answer:**
+> **Answer (2026-11-19T11:15+01:00):** (a), setting per server in the server configuration, a server either only works with strict invitation/identity check or completely without it, so it is open. While me being alone on the VPN only the open server is fine, once I open to the internet or there are other people there must be a secure link (think if internet access is secured enough with HTTPS + the token). I think identification must be strict for all internet access, non-configurable.
 
 - **CI.11** A quest has a **home team** and an owner (`RT > RT-ASKS`,
   CP.16); it records both. Its runtime acts as a member of the home team:
@@ -1766,7 +1770,7 @@ wait for the product owner's confirmation (`new_questions.md`, section
 >
 > *Recommendation:* (a) — the integration step is what gives the trunk its missing check and lets several runs work in one repository; without it working trees only move the conflict to the end.
 >
-> **Answer:**
+> **Answer (2026-11-19T11:19+01:00):** (a), but (1) must have a strict mode that blocks all the time, just as we need to have a non-worktree mode which always requires strict locks while a todo executes.
 
 **A run's result is a branch**
 
@@ -2043,7 +2047,7 @@ by the sources; none carries a number the sources do not give.
 >
 > *Recommendation:* (a) — client packages are only useful where a developer can get them, while the runtime's version must match its host and is better carried by it.
 >
-> **Answer:**
+> **Answer (2026-11-19T11:20+01:00):** (a), for now we publish only to pub.dev and to our tom_binaries repo. We'll later publish to more official repos and the app stores.
 
 **Documentation**
 
@@ -2112,7 +2116,7 @@ runtime server; the question on the runtime server asks.
 >
 > *Recommendation:* (a) — it follows the decision on the lifetime as it was given; (b) is the natural form when it comes.
 >
-> **Answer:**
+> **Answer (2026-11-19T11:23+01:00):** (a), however there can already be a server for a web application or apps that hosts one runtime per client in the current model. The server would be permanent, the runtimes start and die with the apps/users. Fully standalone runtime will come later, if needed. For me this is just a special case where a longterm service hosts a runtime for a long time and we're not planning this service now.
 
 #### <!--[NFR-TOPO-FLOWS]--> 11.1.1 Key flows
 
@@ -2197,7 +2201,7 @@ generation units.
 >
 > *Recommendation:* (a) — the service's store, its leases and its streams are not what a business-application mapper writes, and it is to stay free of dependencies.
 >
-> **Answer:**
+> **Answer (2026-11-19T11:26+01:00):** I think this is complicated for this project as we have multiple components we're creating. For some the mapping/emitters might be useful, for other we start directly from the JSON/YAML output. I actually suggest to name at the beginning of phase 4 which mapping we need for each areas of the specification and how to proceed with it for each component and see if there are missing generators we should build in phase 4 to keep the process as automated as possible. I'd like to be able to run through regeneration quickly when we have changes later.
 
 > **❓ PQ-18 (2026-11-19T09:20+01:00) — Standard descriptions the project publishes:** in which standard forms are the product's interfaces described and published?
 >
@@ -2216,7 +2220,7 @@ generation units.
 >
 > *Recommendation:* (c) — the HTTP operations of the coordination service are what an outside developer is most likely to call directly, and OpenAPI is what their tools read; the streams are few and well described in text.
 >
-> **Answer:**
+> **Answer (2026-11-19T11:28+01:00):** Let's decide this in phase 4, we also need API docs for the SDKs and (handwritten) user and programmer's guides.
 
 ## <!--[DEC]--> 12 Decisions
 
@@ -2362,7 +2366,7 @@ Where sources disagree, and how it is resolved.
 >
 > *Recommendation:* (a) — it keeps one process and one set of documents, and matches your later answers (the Blueprint first and deepened, never all documents); the gates of Phases 2 and 3 then check exactly what you wanted to walk through component by component.
 >
-> **Answer:**
+> **Answer (2026-11-19T11:30+01:00):** (c), make suggestions if you think we can skip some of the steps of a phase, but we should go through the normal process with all its phases. You can do this while we proceed.
 
 - **X-8** **The owner of the coordination.** S5, S6 and S16 name a quest
   `agent_coordination` as the owner of tac and of the parallel-work rules;

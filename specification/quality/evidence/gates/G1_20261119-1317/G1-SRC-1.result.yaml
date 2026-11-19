@@ -1,0 +1,8 @@
+id: G1-SRC-1
+status: pass
+evidence:
+- G1-SRC-1.resolve.txt
+finding: 'All 20 listed sources (S1 … S20) resolve: 25 paths exist (22 files, 3 folders; the three snapshots
+  in sources/ included), S9 is a part of S1 (§ 15) that exists in the original and the snapshot and holds
+  39 URLs, which are noted and not fetched. Every S<n> cited in the document is in the SRC table; no gap,
+  no duplicate. Observation, not a failure of this item: S10 is cited nowhere outside its own row.'

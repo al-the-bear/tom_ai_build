@@ -1,0 +1,8 @@
+id: G1-RISK-1
+status: pass
+evidence:
+- G1-RISK-1.reading.md
+finding: 'RISK > RISK-RISKS lists 14 risks (R-1 … R-14), each with a trigger, and RISK > RISK-DEPS seven
+  dependencies (R-15 … R-21) with their state. Reading the rest of the document found no risk stated elsewhere
+  that the list lacks. Borderline: R-13 does not spell out the team case of PQ-9 (files shared through
+  git), and the answered questions PQ-16 and PQ-19 are not yet in the text, so what they add was not judged.'

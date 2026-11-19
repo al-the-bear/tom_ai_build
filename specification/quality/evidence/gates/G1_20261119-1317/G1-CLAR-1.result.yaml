@@ -1,0 +1,17 @@
+id: G1-CLAR-1
+status: fail
+evidence:
+- G1-CLAR-1.reading.md
+finding: 'The project has no clarification files; its clarifications are the 19 question blocks PQ-1 … PQ-19,
+  all answered, none taken into the text. PQ-11 (customers, teams and agent groups) is not decided — the
+  owner asks what an agent group is — and holds up the Blueprint''s information model and security and
+  access model, with the last row of PQ-12 (borderline: the Blueprint could ask it again itself). And the
+  text contradicts its owner''s answers in statements the Blueprint cites: D-36, D-37, X-7, DEL and
+  NFR > NFR-GEN (PQ-19, PQ-17), SCO > SCO-LATER L-6 and L-8 and topology T8 (PQ-9), TAC > TAC-PEOPLE CI.10
+  (PQ-13), CLI > CLI-PACK (PQ-7). PQ-5 is open too (asked back) but does not block; PQ-17 and PQ-18 are
+  deferred by the owner to Phase 4.'
+remediation: 'A second question round of Phase 1 takes the 19 answers into the text, explains the agent group
+  and asks PQ-11 (with the last row of PQ-12) and PQ-5 again, records PQ-17 and PQ-18 as deferred to Phase
+  4, and carries out the two actions the answers ask for (a proposal todo in tom_specs for PQ-4, the check
+  of the vscode_extension todos for PQ-8).'
+phasetodo: phasetodosone2_aksr-second-question-round-answers-taken-in

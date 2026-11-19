@@ -1,0 +1,62 @@
+G1-SRC-1 — resolution of every source in SRC (2026-11-19T17:44+0100). Paths are relative to the workspace folder; sources/… is relative to the document.
+
+S1: `_ai/quests/ai_runtime/ai_runtime_concept.md`; snapshot `sources/ai_runtime_concept.md`
+    RESOLVES _ai/quests/ai_runtime/ai_runtime_concept.md  (file, 98141 bytes)
+    RESOLVES sources/ai_runtime_concept.md  (file, 98164 bytes)
+S2: `_ai/quests/ai_runtime/ai_runtime_feature_overview.md`; snapshot `sources/ai_runtime_feature_overview.md`
+    RESOLVES _ai/quests/ai_runtime/ai_runtime_feature_overview.md  (file, 26637 bytes)
+    RESOLVES sources/ai_runtime_feature_overview.md  (file, 26714 bytes)
+S3: `_ai/quests/ai_runtime/webwork_requirements.md`; snapshot `sources/webwork_requirements.md`
+    RESOLVES _ai/quests/ai_runtime/webwork_requirements.md  (file, 11037 bytes)
+    RESOLVES sources/webwork_requirements.md  (file, 11107 bytes)
+S4: `_ai/quests/ai_runtime/quest-notes.ai_runtime.md`
+    RESOLVES _ai/quests/ai_runtime/quest-notes.ai_runtime.md  (file, 4990 bytes)
+S5: `tom_ai/vscode/tom_tac_service/doc/tac_specification.md`
+    RESOLVES tom_ai/vscode/tom_tac_service/doc/tac_specification.md  (file, 38338 bytes)
+S6: `_ai/quests/ai_runtime/ideas/agent_collaboration/agent_collaboration.docspecs.md`
+    RESOLVES _ai/quests/ai_runtime/ideas/agent_collaboration/agent_collaboration.docspecs.md  (file, 208979 bytes)
+S7: `_ai/quests/ai_runtime/llm_providers_runtime_integration.ai_runtime.md`
+    RESOLVES _ai/quests/ai_runtime/llm_providers_runtime_integration.ai_runtime.md  (file, 9514 bytes)
+S8: `_ai/quests/ai_runtime/ideas/remote_control_app/remote_control_app.docspecs.md`
+    RESOLVES _ai/quests/ai_runtime/ideas/remote_control_app/remote_control_app.docspecs.md  (file, 1288 bytes)
+S9: S1 § 15 "Research: what other teams do"
+    referenced document part S1 § 15: heading FOUND in the S1 snapshot, FOUND in the S1 original ("## 15. Research: what other teams do")
+    links in that section: 39 URLs (noted, not fetched)
+S10: `_ai/quests/tom_specs/tooling/notes_ai_runtime.md`
+    RESOLVES _ai/quests/tom_specs/tooling/notes_ai_runtime.md  (file, 26049 bytes)
+S11: `_ai/quests/tom_specs/tooling/tom_specs_tooling_suggestions.md`
+    RESOLVES _ai/quests/tom_specs/tooling/tom_specs_tooling_suggestions.md  (file, 20877 bytes)
+S12: `_ai/quests/al_the_bear/ideas/workspace_layout/workspace_layout.docspecs.md`
+    RESOLVES _ai/quests/al_the_bear/ideas/workspace_layout/workspace_layout.docspecs.md  (file, 227144 bytes)
+S13: `_ai/quests/webwork/ideas/webwork_redesign/webwork_redesign.docspecs.md`
+    RESOLVES _ai/quests/webwork/ideas/webwork_redesign/webwork_redesign.docspecs.md  (file, 298329 bytes)
+S14: `_ai/quests/tom_forge/spec_quest_workbench.tom_forge.md`
+    RESOLVES _ai/quests/tom_forge/spec_quest_workbench.tom_forge.md  (file, 7250 bytes)
+S15: `tom_ai/secrets_clients/protocol/protocol.md` and `_ai/quests/tom_core/ideas/tom_secrets_manager/tom_secrets_manager.doc
+    RESOLVES tom_ai/secrets_clients/protocol/protocol.md  (file, 111909 bytes)
+    RESOLVES _ai/quests/tom_core/ideas/tom_secrets_manager/tom_secrets_manager.docspecs.md  (file, 484709 bytes)
+S16: `_copilot_guidelines/parallel_work.md`
+    RESOLVES _copilot_guidelines/parallel_work.md  (file, 8658 bytes)
+S17: `tom_ai/vscode/tom_vscode_extension/`: its code, `tom_ai/vscode/tom_vscode_extension/_copilot_guidelines/architecture.md
+    RESOLVES tom_ai/vscode/tom_vscode_extension/  (dir, 44 entries)
+    RESOLVES tom_ai/vscode/tom_vscode_extension/_copilot_guidelines/architecture.md  (file, 168166 bytes)
+    RESOLVES tom_ai/vscode/tom_vscode_extension/doc/  (dir, 23 entries)
+S18: `_ai/quests/ai_runtime/runtime_split_plan.ai_runtime.md`
+    RESOLVES _ai/quests/ai_runtime/runtime_split_plan.ai_runtime.md  (file, 12208 bytes)
+S19: `_ai/quests/ai_runtime/quest_runtime_design.ai_runtime.md`
+    RESOLVES _ai/quests/ai_runtime/quest_runtime_design.ai_runtime.md  (file, 24327 bytes)
+S20: `_ai/quests/ai_runtime/ai_runtime_project_idea.md`
+    RESOLVES _ai/quests/ai_runtime/ai_runtime_project_idea.md  (file, 28383 bytes)
+
+listed in SRC: 20 (S1 … S20); numbering gaps: none; duplicates: none
+S<n> appearing anywhere in the document: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9', 'S10', 'S11', 'S12', 'S13', 'S14', 'S15', 'S16', 'S17', 'S18', 'S19', 'S20']
+cited but not in the SRC table: none
+occurrences per source (whole document, its own table row included): S1=377, S2=77, S3=32, S4=24, S5=38, S6=25, S7=8, S8=8, S9=7, S10=1, S11=5, S12=8, S13=6, S14=8, S15=7, S16=10, S17=4, S18=4, S19=10, S20=3
+listed but appearing nowhere outside its own row: ['S10']
+
+snapshot sources/ai_runtime_concept.md: first line: <!-- snapshot of _ai/quests/ai_runtime/ai_runtime_concept.md, 2026-11-19 -->
+snapshot sources/ai_runtime_feature_overview.md: first line: <!-- snapshot of _ai/quests/ai_runtime/ai_runtime_feature_overview.md, 2026-11-19 -->
+snapshot sources/webwork_requirements.md: first line: <!-- snapshot of _ai/quests/ai_runtime/webwork_requirements.md, 2026-11-19 -->
+URLs written in the Project Idea itself: 0
+
+RESULT: every listed source resolves and every cited S<n> is listed: True

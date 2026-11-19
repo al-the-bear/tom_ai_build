@@ -1,0 +1,6 @@
+id: G1-SCOPE-1
+status: pass
+evidence:
+- G1-SCOPE-1.reading.md
+finding: 'SCO > SCO-IN lists 14 in-scope areas, SCO > SCO-OUT eight out-of-scope statements (O-1 … O-8),
+  and SCO > SCO-LATER eleven features deferred to later (L-1 … L-11).'

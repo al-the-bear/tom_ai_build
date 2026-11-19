@@ -1,0 +1,14 @@
+id: G1-ID-1
+status: fail
+evidence:
+- G1-ID-1.counts.md
+- G1-ID-1.sections.txt
+- G1-ID-1.reading.md
+finding: '449 items carry ids, numbered without gaps or duplicates in every kind, and every capability
+  and expectation has one. Four groups the Blueprint will cite have none: the 7 generation units (NFR
+  > NFR-GEN), the 29 rows of the screen inventory (CLI > CLI-SCREENS), the 4 problem statements of VIS
+  > VIS-PROBLEM and the 10 problems of PAR > PAR-PROBLEM. Borderline: none of them is a capability or
+  an expectation; the item fails on ''every item the Blueprint will need to cite''.'
+remediation: Give each row or list item of the four groups an id of a kind of its own, add the kinds to
+  the table in ABOUT > ABOUT-READ, and number them without gaps.
+phasetodo: phasetodosone1_aksr-ids-for-units-screens-problems

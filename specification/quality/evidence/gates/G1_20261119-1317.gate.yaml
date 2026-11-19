@@ -1,0 +1,124 @@
+# Gate report of record — G1 (Project Idea Captured), Tom AI Runtime, run 1.
+# Format: tom_ai/ai_build/tom_specs_model/doc/tom_specs_gate_checklists.md, The gate report. Never edited after it is written;
+# a re-evaluation writes a new report naming this one in `reevaluates`. Summary: G1_20261119-1317.gate.md.
+formatVersion: 1
+gate: G1
+takenAt: '2026-11-19T17:53:42+01:00'
+document:
+  path: tom_ai/ai_build/specification/phase1_project_idea/project_idea.ai_runtime.md
+  commit: ed871ce2
+  note: 'Inspected in the working tree: the document of ai_build ed871ce2 (question round 1) with the product owner''s
+    19 answers of 2026-11-19 written in the review, not yet committed. That state is committed together with this
+    report (commit message "ai_runtime specification: G1 — Project Idea Captured, run 1 (fail)").'
+checklist:
+  path: tom_ai/ai_build/specification/gates/G1.checklist.yaml
+  checklistVersion: 1.2.0
+  modelPackage: tom_specs_model 1.12.0
+reevaluates: null
+result: fail
+items:
+- id: G1-DOC-1
+  status: pass
+  evidence:
+  - G1_20261119-1317/G1-DOC-1.size.txt
+  finding: 'The Project Idea exists at tom_ai/ai_build/specification/phase1_project_idea/project_idea.ai_runtime.md:
+    199,150 bytes, 2,473 lines, 73 headings in 16 top-level sections. It is far more than a title.'
+- id: G1-PROB-1
+  status: pass
+  evidence:
+  - G1_20261119-1317/G1-PROB-1.reading.md
+  finding: VIS > VIS-PROBLEM states in the document's own words what the system solves (work larger than a coding
+    session; an engine entangled with one host, with four consequences), for whom (other applications, agents and
+    people in shared clones, people outside the editor) and why now (its last paragraph).
+- id: G1-USER-1
+  status: pass
+  evidence:
+  - G1_20261119-1317/G1-USER-1.reading.md
+  finding: 'USR > USR-GROUPS names seven user groups (U-1 … U-7) and USR > USR-HOSTS six stakeholders (U-8 … U-13).
+    The owner is named only in the product owner''s answer to PQ-1 inside USR > USR-TEAM ("owner and reviewer am
+    I, alexis"); the section''s text still says the owner is not recorded. Borderline: counted as named because
+    the document holds the name; the section text still has to take the answer in (owner alexis as product owner
+    and only reviewer, with member id, display name and role).'
+- id: G1-SCOPE-1
+  status: pass
+  evidence:
+  - G1_20261119-1317/G1-SCOPE-1.reading.md
+  finding: SCO > SCO-IN lists 14 in-scope areas, SCO > SCO-OUT eight out-of-scope statements (O-1 … O-8), and SCO
+    > SCO-LATER eleven features deferred to later (L-1 … L-11).
+- id: G1-SRC-1
+  status: pass
+  evidence:
+  - G1_20261119-1317/G1-SRC-1.resolve.txt
+  finding: 'All 20 listed sources (S1 … S20) resolve: 25 paths exist (22 files, 3 folders; the three snapshots in
+    sources/ included), S9 is a part of S1 (§ 15) that exists in the original and the snapshot and holds 39 URLs,
+    which are noted and not fetched. Every S<n> cited in the document is in the SRC table; no gap, no duplicate.
+    Observation, not a failure of this item: S10 is cited nowhere outside its own row.'
+- id: G1-ID-1
+  status: fail
+  evidence:
+  - G1_20261119-1317/G1-ID-1.counts.md
+  - G1_20261119-1317/G1-ID-1.sections.txt
+  - G1_20261119-1317/G1-ID-1.reading.md
+  finding: '449 items carry ids, numbered without gaps or duplicates in every kind, and every capability and expectation
+    has one. Four groups the Blueprint will cite have none: the 7 generation units (NFR > NFR-GEN), the 29 rows
+    of the screen inventory (CLI > CLI-SCREENS), the 4 problem statements of VIS > VIS-PROBLEM and the 10 problems
+    of PAR > PAR-PROBLEM. Borderline: none of them is a capability or an expectation; the item fails on ''every
+    item the Blueprint will need to cite''.'
+  phasetodo: phasetodosone1_aksr-ids-for-units-screens-problems
+- id: G1-CLAR-1
+  status: fail
+  evidence:
+  - G1_20261119-1317/G1-CLAR-1.reading.md
+  finding: 'The project has no clarification files; its clarifications are the 19 question blocks PQ-1 … PQ-19,
+    all answered, none taken into the text. PQ-11 (customers, teams and agent groups) is not decided — the owner
+    asks what an agent group is — and holds up the Blueprint''s information model and security and access model,
+    with the last row of PQ-12 (borderline: the Blueprint could ask it again itself). And the text contradicts its
+    owner''s answers in statements the Blueprint cites: D-36, D-37, X-7, DEL and NFR > NFR-GEN (PQ-19, PQ-17), SCO
+    > SCO-LATER L-6 and L-8 and topology T8 (PQ-9), TAC > TAC-PEOPLE CI.10 (PQ-13), CLI > CLI-PACK (PQ-7). PQ-5
+    is open too (asked back) but does not block; PQ-17 and PQ-18 are deferred by the owner to Phase 4.'
+  phasetodo: phasetodosone2_aksr-second-question-round-answers-taken-in
+- id: G1-RISK-1
+  status: pass
+  evidence:
+  - G1_20261119-1317/G1-RISK-1.reading.md
+  finding: 'RISK > RISK-RISKS lists 14 risks (R-1 … R-14), each with a trigger, and RISK > RISK-DEPS seven dependencies
+    (R-15 … R-21) with their state. Reading the rest of the document found no risk stated elsewhere that the list
+    lacks. Borderline: R-13 does not spell out the team case of PQ-9 (files shared through git), and the answered
+    questions PQ-16 and PQ-19 are not yet in the text, so what they add was not judged.'
+- id: G1-CHANGE-1
+  status: pass
+  evidence:
+  - G1_20261119-1317/G1-CHANGE-1.chatvariable.txt
+  finding: Initial development — not applicable. The run ai_runtime_solution_sbp has the chat variable spec-mode
+    = initial; there is no change folder under the specification root.
+removed: []
+criteria:
+- criterion: Idea document exists
+  status: pass
+- criterion: Problem statement present
+  status: pass
+- criterion: Users and stakeholders named
+  status: pass
+- criterion: Rough scope stated
+  status: pass
+- criterion: Sources recorded
+  status: fail
+- criterion: No blocking clarifications
+  status: fail
+- criterion: Risk register reviewed
+  status: pass
+- criterion: Change limited to its impact *(change mode)*
+  status: pass
+remediation:
+- 'G1-CLAR-1: A second question round of Phase 1 takes the 19 answers into the text, explains the agent group and
+  asks PQ-11 (with the last row of PQ-12) and PQ-5 again, records PQ-17 and PQ-18 as deferred to Phase 4, and carries
+  out the two actions the answers ask for (a proposal todo in tom_specs for PQ-4, the check of the vscode_extension
+  todos for PQ-8). (todo phasetodosone2_aksr-second-question-round-answers-taken-in)'
+- 'G1-ID-1: Give each row or list item of the four groups an id of a kind of its own, add the kinds to the table
+  in ABOUT > ABOUT-READ, and number them without gaps. (todo phasetodosone1_aksr-ids-for-units-screens-problems)'
+closingCheck: G1_20261119-1317/phasetodos_and_traceability.md
+approval:
+  by: null
+  role: null
+  date: null
+  decision: null
