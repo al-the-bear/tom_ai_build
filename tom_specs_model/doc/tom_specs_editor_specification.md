@@ -434,6 +434,8 @@ The document editor walks the `SpecClass` graph for the active root and renders 
 - **Inline Flutter-layout fields (k):** layout-typed `content` renders live via `SourceFlutterD4rt().build<Widget>(source, context)`.
 - **In-document Dart editor (l):** code-typed fields embed `SummaryBackedDartCodeEditor` with **pre-generated, embedded summaries covering `tom_d4rt_flutter`** (B1); phase-2 → `tom_flutter_ui` summaries.
 - **Renderer-only md (m):** `tom_md_editor` supplies the renderer; the document is model-driven, screen scaffolding is Flutter (+ d4rt-flutter for dynamic layout).
+- **Value editors keep the value as typed.** A text field shows the stored text — notation and review marks included, as plain characters — and the controller's `typeContent` / `typeFormField` store exactly what is typed; how a value is written into a rendition (a form-table row or a `Field:` paragraph) is the renderer's rule on export. Every value editor is **multi-line**, so a line break typed or already stored is kept (a one-line field filters line breaks out of its input on the first keystroke): prose `content` opens three lines high and scrolls past eight; a `scalar` starts one line high and grows with its value.
+- **A form is one grid.** A `form` is edited as one grid (`_formField`): the label in a fixed-width left column (160 logical pixels), the value in the right one, one row per declared form field in model order. Each value cell starts one line high and grows with its value, so a hard-wrapped or multi-paragraph value is edited in its cell.
 
 ### 13.1 Compact, variable-height tree (requirement *d*)
 
