@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=../../../.tom/json-schema/buildkit/buildkit.schema.json
+# yaml-language-server: $schema=../../../../../../../.tom/json-schema/buildkit/buildkit.schema.json
 # TomSpecs CLI tools — build configuration.
 #
 # The `tomspecs` binary (bin/tomspecs.dart) reports this package's version and
