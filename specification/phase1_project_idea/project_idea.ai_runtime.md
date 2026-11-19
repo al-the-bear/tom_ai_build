@@ -33,6 +33,9 @@ they start with `sources/`, which is beside this document.
 | **`O-<n>`** | Something out of scope (section 5). |
 | **`L-<n>`** | A feature deferred to later (section 5). |
 | **`E-<n>`** | A fact about what exists today (section 6). |
+| **`P-<n>`** | A problem the product solves: of the vision (section 2.1, `P-1` to `P-4`) and of parallel work today (section 10.1, `P-5` to `P-14`). |
+| **`SC-<n>`** | A row of the screen inventory: a screen of the extension, or a new screen, with what it becomes (section 8.3). |
+| **`G-<n>`** | A generation unit: a package or application the project builds (section 11.2). |
 | **`T<n>`** | A network topology (section 11.1). |
 | **`F<n>`** | A key flow (section 11.1.1). |
 | **`PQ-<n>`** | A question to the product owner, standing after the statement it asks about. |
@@ -101,16 +104,16 @@ runs, a prompt queue, sessions, transports to the models, tools, team review.
 It lives inside one host, the VS Code extension, and is entangled with it
 (S1 § 2.1). Four things follow:
 
-- **Other applications cannot use it.** Webforge (Tom Forge) and Webwork need
+- **P-1** **Other applications cannot use it.** Webforge (Tom Forge) and Webwork need
   the same engine and would have to build it again (S4, notes a, k).
-- **Agents and people work side by side without anything keeping them
+- **P-2** **Agents and people work side by side without anything keeping them
   apart.** Everything is committed on one branch in shared clones; "one writer
   per repository" is an agreement; machines drift apart unnoticed; shared
   files are overwritten by another window (S1 § 10.1).
-- **People outside the editor cannot take part.** A reviewer or a decider
+- **P-3** **People outside the editor cannot take part.** A reviewer or a decider
   without access to a repository gets documents by hand, and a question from
   an agent waits in the window that asked it (S1 § 3.5, § 6.6).
-- **Nobody sees the whole.** What waits, where, on which machine, is spread
+- **P-4** **Nobody sees the whole.** What waits, where, on which machine, is spread
   over windows (S8).
 
 Why now: the engine's features are complete enough to be extracted; three
@@ -1142,37 +1145,37 @@ The inventory as it stands. ___check here___ The outcomes are a first pass
 from the names of the extension's views and handlers, not yet from their code;
 each is decided when the screen is described. (S1 § 12.3; S17)
 
-| Extension screen | Outcome (first pass) | Component group |
-| --- | --- | --- |
-| The chat panel | reused | conversation |
-| The bars for a question, a pick, a tool approval and a plan approval | reused | asks |
-| The panel of open interactions, user notifications | starting point (the ask inbox) | asks |
-| Queue editor, queue entry, queue templates | reused | queue |
-| Timed requests editor | reused | queue |
-| Process view, process branching | reused | runs and processes |
-| Process editor, process template editor | starting point | runs and processes |
-| Runs overview | reused | runs and processes |
-| Quest todos, session todos, workspace todos, the todo panel | reused | todos |
-| Quest todo editor | reused | todos |
-| Todo log | reused | todos |
-| Trail viewer, trail editor, quest logs | reused | trail |
-| Output channels | starting point (the bounded Markdown view) | trail |
-| Sessions view, session pickers | reused | sessions and memory |
-| Memory panel, chat variables editor | reused | sessions and memory |
-| Quest notes, workspace notes | reused | sessions and memory |
-| VS Code notes | host's own | — |
-| The document browser, with questions, marks, team review, consolidation | starting point (the review component) | review |
-| Window status | starting point (the list of a team's runtimes) | supervision |
-| Notifications | reused | supervision |
-| Status page | split (providers, profiles, coordination, diagnostics each on their own) | settings; supervision |
-| Editors for prompt templates and reusable prompts | reused | settings |
-| Roles editor | reused | settings |
-| The workspace panel (guidelines, documents, logs) | starting point | partly host's own |
-| Resources, prerequisites, the issues panel, the test panels | host's own | — |
-| Reload overlay, migration screens | starting point (the version callbacks) | settings |
-| — messaging: conversations, composer, document and review cards | new | messaging |
-| — the coordination page: claims, leases, the integration queue | new | supervision |
-| — team administration: members, invitations, devices | new | settings |
+| Id | Extension screen | Outcome (first pass) | Component group |
+| --- | --- | --- | --- |
+| **SC-1** | The chat panel | reused | conversation |
+| **SC-2** | The bars for a question, a pick, a tool approval and a plan approval | reused | asks |
+| **SC-3** | The panel of open interactions, user notifications | starting point (the ask inbox) | asks |
+| **SC-4** | Queue editor, queue entry, queue templates | reused | queue |
+| **SC-5** | Timed requests editor | reused | queue |
+| **SC-6** | Process view, process branching | reused | runs and processes |
+| **SC-7** | Process editor, process template editor | starting point | runs and processes |
+| **SC-8** | Runs overview | reused | runs and processes |
+| **SC-9** | Quest todos, session todos, workspace todos, the todo panel | reused | todos |
+| **SC-10** | Quest todo editor | reused | todos |
+| **SC-11** | Todo log | reused | todos |
+| **SC-12** | Trail viewer, trail editor, quest logs | reused | trail |
+| **SC-13** | Output channels | starting point (the bounded Markdown view) | trail |
+| **SC-14** | Sessions view, session pickers | reused | sessions and memory |
+| **SC-15** | Memory panel, chat variables editor | reused | sessions and memory |
+| **SC-16** | Quest notes, workspace notes | reused | sessions and memory |
+| **SC-17** | VS Code notes | host's own | — |
+| **SC-18** | The document browser, with questions, marks, team review, consolidation | starting point (the review component) | review |
+| **SC-19** | Window status | starting point (the list of a team's runtimes) | supervision |
+| **SC-20** | Notifications | reused | supervision |
+| **SC-21** | Status page | split (providers, profiles, coordination, diagnostics each on their own) | settings; supervision |
+| **SC-22** | Editors for prompt templates and reusable prompts | reused | settings |
+| **SC-23** | Roles editor | reused | settings |
+| **SC-24** | The workspace panel (guidelines, documents, logs) | starting point | partly host's own |
+| **SC-25** | Resources, prerequisites, the issues panel, the test panels | host's own | — |
+| **SC-26** | Reload overlay, migration screens | starting point (the version callbacks) | settings |
+| **SC-27** | — messaging: conversations, composer, document and review cards | new | messaging |
+| **SC-28** | — the coordination page: claims, leases, the integration queue | new | supervision |
+| **SC-29** | — team administration: members, invitations, devices | new | settings |
 
 ### <!--[CLI-TRC]--> 8.4 The supervision application (trc)
 
@@ -1721,18 +1724,18 @@ files get repositories of their own.
 
 The problems this part solves (S1 § 10.1; S16):
 
-| Problem | What it means |
-| --- | --- |
-| Everything is committed on the main branch, in clones several sessions share | "One writer per repository" is an agreement nobody enforces. A repository many want is a queue of one. |
-| Nothing stands before the main branch | A broken commit is at once the base of every other session, and is published to those who depend on it. |
-| A run cannot be discarded | Work that went wrong is undone by hand. |
-| A long run holds a repository for hours | Half-finished states lie on the main branch meanwhile. |
-| Other sessions' uncommitted work is in the way | Installs, builds and syncs meet changes that are not theirs; such changes have been committed by a sync and destroyed by one command. |
-| Nobody can ask "is anything writing here" | Before a sync between machines the answer is found by hand, and a queue cannot be asked to pause. |
-| Machines drift apart unnoticed | A machine can be thousands of commits behind without anything saying so. |
-| Shared files are written whole by one process | One window overwrites what another just set. |
-| Requests to another quest get stuck | An item sent to a run that is paused or does not exist waits unseen; a request ends without anything being filed. |
-| A release ripples | One release of a shared package moves dozens of dependents, and "version X is published" is nothing a todo can wait for. |
+| Id | Problem | What it means |
+| --- | --- | --- |
+| **P-5** | Everything is committed on the main branch, in clones several sessions share | "One writer per repository" is an agreement nobody enforces. A repository many want is a queue of one. |
+| **P-6** | Nothing stands before the main branch | A broken commit is at once the base of every other session, and is published to those who depend on it. |
+| **P-7** | A run cannot be discarded | Work that went wrong is undone by hand. |
+| **P-8** | A long run holds a repository for hours | Half-finished states lie on the main branch meanwhile. |
+| **P-9** | Other sessions' uncommitted work is in the way | Installs, builds and syncs meet changes that are not theirs; such changes have been committed by a sync and destroyed by one command. |
+| **P-10** | Nobody can ask "is anything writing here" | Before a sync between machines the answer is found by hand, and a queue cannot be asked to pause. |
+| **P-11** | Machines drift apart unnoticed | A machine can be thousands of commits behind without anything saying so. |
+| **P-12** | Shared files are written whole by one process | One window overwrites what another just set. |
+| **P-13** | Requests to another quest get stuck | An item sent to a run that is paused or does not exist waits unseen; a request ends without anything being filed. |
+| **P-14** | A release ripples | One release of a shared package moves dozens of dependents, and "version X is published" is nothing a todo can wait for. |
 
 - **CW.1** The trunk is kept: work lands on the main branch of each
   repository, without a pull request per task and without a build server.
@@ -2142,15 +2145,15 @@ The flows the architecture document draws as sequences (S1 § 9).
 What the project builds, as far as the sources state it. A generation unit is
 one package or application with the technology it is written in.
 
-| Unit | Kind | Builds | Technology | Source |
-| --- | --- | --- | --- | --- |
-| `tom_ai_runtime` | server (also a library inside the VS Code extension) | The runtime: engine, protocol, runtime tools, the MCP server, the tac client inside the runtime | TypeScript on Node; `tom_ai/ai_build/tom_ai_runtime` | S2 § 5, FO-1; S1 § 4 |
-| `tom_tac_service` | server | The coordination and messaging service with its backends, the server mode and the relay | TypeScript on Node, no runtime dependencies; today in `tom_ai/vscode/`, to be in `tom_ai/ai_build/tom_tac_service` | S5; S2 § 5, FO-19 |
-| `tom_tac_client` | client | The Dart client of tac | Dart, without Flutter | S1 § 12.1, CQ-15 |
-| `tom_ai_runtime_client` | client | The Dart client of the runtime; depends on `tom_tac_client` | Dart, without Flutter | S2 § 5, FO-11; S1 § 12.1 |
-| the clients of the eight other languages | client | A runtime client and a tac client each for TypeScript, JavaScript, Python, Java, Go, Rust, C and C++ | each in its language; `tom_ai/ai_build/tom_ai_runtime_nondart/<language>/` | S2 § 5, FO-10, FO-11; S1 § 12.1 |
-| `tom_ai_runtime_ui` | client | The Flutter components and their gallery application | Dart with Flutter; `tom_ai/ai_build/tom_ai_runtime_ui` | S2 § 5, FO-11; S1 § 12.2, § 12.3 |
-| the supervision application (trc) | client (an application) | The supervision of a team's runtimes, as a Webforge application that also runs standalone | Dart with Flutter; it may depend on Tom Forge packages | S2 § 5, FO-12; S1 § 12.4 |
+| Id | Unit | Kind | Builds | Technology | Source |
+| --- | --- | --- | --- | --- | --- |
+| **G-1** | `tom_ai_runtime` | server (also a library inside the VS Code extension) | The runtime: engine, protocol, runtime tools, the MCP server, the tac client inside the runtime | TypeScript on Node; `tom_ai/ai_build/tom_ai_runtime` | S2 § 5, FO-1; S1 § 4 |
+| **G-2** | `tom_tac_service` | server | The coordination and messaging service with its backends, the server mode and the relay | TypeScript on Node, no runtime dependencies; today in `tom_ai/vscode/`, to be in `tom_ai/ai_build/tom_tac_service` | S5; S2 § 5, FO-19 |
+| **G-3** | `tom_tac_client` | client | The Dart client of tac | Dart, without Flutter | S1 § 12.1, CQ-15 |
+| **G-4** | `tom_ai_runtime_client` | client | The Dart client of the runtime; depends on `tom_tac_client` | Dart, without Flutter | S2 § 5, FO-11; S1 § 12.1 |
+| **G-5** | the clients of the eight other languages | client | A runtime client and a tac client each for TypeScript, JavaScript, Python, Java, Go, Rust, C and C++ | each in its language; `tom_ai/ai_build/tom_ai_runtime_nondart/<language>/` | S2 § 5, FO-10, FO-11; S1 § 12.1 |
+| **G-6** | `tom_ai_runtime_ui` | client | The Flutter components and their gallery application | Dart with Flutter; `tom_ai/ai_build/tom_ai_runtime_ui` | S2 § 5, FO-11; S1 § 12.2, § 12.3 |
+| **G-7** | the supervision application (trc) | client (an application) | The supervision of a team's runtimes, as a Webforge application that also runs standalone | Dart with Flutter; it may depend on Tom Forge packages | S2 § 5, FO-12; S1 § 12.4 |
 
 No source names a unit of the kind "shared". What the units share is the
 runtime protocol's JSON schema and the TAC specification; the protocol layer
