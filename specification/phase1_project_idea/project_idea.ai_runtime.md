@@ -7,10 +7,10 @@
 | **Artifact** | Phase 1 Project Idea (PI) of the TomSpecs project flow (`tom_specs_project_flow.md`, `PF-PHA-P1`) |
 | **Product** | Tom AI Runtime (tar), Tom Agent Coordination (tac), Tom Runtime Control (trc), the client packages and the Flutter UI components |
 | **Spec root** | `tom_ai/ai_build/specification/` |
-| **Product owner and review team** | recorded in `USR > USR-TEAM` |
+| **Product owner and review team** | alexis, product owner and only reviewer (`USR > USR-TEAM`) |
 | **Sources** | section 1 (`SRC`); the three main ones are kept as snapshots in `sources/` |
 | **Written by** | `agent_spec_author` |
-| **Status** | Question round 1: 19 questions open |
+| **Status** | Question round 2: the 19 answers of round 1 are in the text; 3 questions open (`PQ-20`, `PQ-21`, `PQ-22`) |
 | **Next phase** | Phase 2 Solution Blueprint |
 
 The document states the idea as it stands. It is free-form Markdown; the
@@ -29,7 +29,7 @@ they start with `sources/`, which is beside this document.
 | **`N-<n>`** | A non-functional expectation. |
 | **`D-<n>`** | A decision of the product owner (section 12), with the id it had in its source. |
 | **`X-<n>`** | A contradiction found between sources, and how it was resolved (section 13). |
-| **`R-<n>`** | A risk, with what would trigger it, or a dependency (section 14). |
+| **`R-<n>`** | A risk, with what would trigger it, or a dependency (section 14). `R-1` to `R-14` and `R-22` to `R-24` are risks, `R-15` to `R-21` dependencies. |
 | **`O-<n>`** | Something out of scope (section 5). |
 | **`L-<n>`** | A feature deferred to later (section 5). |
 | **`E-<n>`** | A fact about what exists today (section 6). |
@@ -38,7 +38,7 @@ they start with `sources/`, which is beside this document.
 | **`G-<n>`** | A generation unit: a package or application the project builds (section 11.2). |
 | **`T<n>`** | A network topology (section 11.1). |
 | **`F<n>`** | A key flow (section 11.1.1). |
-| **`PQ-<n>`** | A question to the product owner, standing after the statement it asks about. |
+| **`PQ-<n>`** | A question to the product owner, standing after the statement it asks about. `PQ-1` to `PQ-19` are answered and taken into the text; their answers are cited as sources (`PQ-7`) and kept in `01_02_Questions Round/answers.md`. |
 
 After a statement, its source stands in brackets: the source id and the place
 in it, e.g. `(S1 § 7.3, DQ-2)`. `CQ-n`, `DQ-n` and `WQ-n` are the product
@@ -192,31 +192,25 @@ The hosts of the first version are the VS Code extension, Webforge and Webwork
 
 ### <!--[USR-TEAM]--> 3.1 Owner and review team
 
-The Project Idea does not record the product owner and the review team yet.
-This section is filled from the answer to the question on the owner and the
-review team in the round's question list: the owner (always a reviewer), the
-members who review the specification by default — each with a member id, a
-display name and a role, optionally the stakeholder they represent and an
-e-mail address — and whether some document types have a team of their own.
+The product owner is the only reviewer. Every document type uses this team;
+no document type has a team of its own. (PQ-1)
 
-> **❓ PQ-1 (2026-11-19T09:22+01:00) — Product owner and review team:** who is the product owner of this specification, and who reviews it by default?
+| Member id | Display name | Role | Owner |
+| --- | --- | --- | --- |
+| `alexis` | asked in PQ-22 | product owner | yes |
+
+> **❓ PQ-22 (2026-11-19T18:45+01:00) — Your entry in the review team:** how are you written in the review team of the specification documents?
 >
-> **Context.** The Project Idea's section "Owner and review team" is empty: no source names them. The Solution Blueprint records a review team — the owner, who is always a reviewer, and the members who review the specification's documents by default — and a document type may have a team of its own. Each member is recorded with:
-> - a **member id**: lowercase letters, digits and `_`, for example `alice`; never `agent`. It is the name of that member's copy in a review round and the signature on their comments and answers;
-> - a **display name** and a **role** (for example product owner, architect, developer, business reviewer);
-> - optionally the **stakeholder** they represent (for example Webwork, Tom Forge, the fleet) and an **e-mail address**, which is only stored.
+> **Context.** You answered that you are the owner and the only reviewer: "owner and reviewer am I, alexis". The Solution Blueprint records its review team as a list of members, each with a member id (lowercase letters, digits and `_`), a display name and a role; the owner is marked. The member id is what review marks and answers are signed with; the display name is what the documents show. From your answer I took the member id `alexis` and the role "product owner". The display name was not given.
 >
-> So far every decision in the sources was taken by one person, and the review rounds of other specifications in this workspace ran with that person alone.
+> **Why I ask.** The first step of the next phase writes this entry into the Blueprint, and review copies are named after the member id.
 >
-> **Why I ask.** The owner and the team go into the Solution Blueprint and decide who gets each document in a review round. With one reviewer a round is the owner's own review; with more it becomes a team review with copies, merging and conflicts. The system itself is also about teams, so reviewing it with a second person would exercise what it specifies.
+> - **(a)** Member id `alexis`, display name "Alexis", role "Product owner". No e-mail address is stored.
+> - (b) The same, with another display name or an e-mail address — write them in the answer.
 >
-> - **(a)** **The owner alone.** One member: you, as product owner and only reviewer. Please give your member id, display name and role. Every document type uses this team.
-> - (b) **The owner and further members.** Please list each member with id, display name and role (and, if you like, stakeholder and e-mail), and say whether all review every document.
-> - (c) **Different teams per document type** — for example a business reviewer only for the experience design document, a second developer only for the interface and security documents. Please list the default team and each exception.
+> *Recommendation:* (a).
 >
-> *Recommendation:* (a) for now — it matches how the decisions were taken so far; members can be added in the Solution Blueprint when someone joins.
->
-> **Answer (2026-11-19T10:45+01:00):** (a), owner and reviewer am I, alexis
+> **Answer:**
 
 ## <!--[GLO]--> 4 Glossary
 
@@ -252,7 +246,7 @@ e-mail address — and whether some document types have a team of their own.
 | Term | Meaning |
 | --- | --- |
 | **team** | A group of **people**: members, owners, invitations, conversations, review sets, and the right to control each other's runtimes. |
-| **agent group** | A group of **runtimes** that coordinate: presence, leases, messages between runtimes, endpoints. A team and an agent group are two different things. |
+| **agent group** | The set of **runtimes** that work on the same repositories and therefore share one pool of leases, whichever quests they serve and on whichever machines they run; they see each other, exchange messages and publish their endpoints to each other. A team and an agent group are two different things (`TAC > TAC-PEOPLE > TAC-GROUPS`). |
 | **participant** | Someone tac knows: a person (user id, e-mail, display name) or a runtime. A runtime names the person it belongs to. |
 | **invitation** | How a person joins a team: an owner creates it for an e-mail address; it carries a one-time password. |
 | **team token** | What a person holds after redeeming an invitation: the proof of membership in one team, sent with every request. |
@@ -329,6 +323,9 @@ The specification's root is `tom_ai/ai_build/specification/`.
   FO-8)
 - **O-8** The earlier agent_container and project_coordination work as input.
   (S4, note m)
+- **O-9** A short process for small changes. The engine carries any
+  process; which processes exist is decided where they are written. It is
+  proposed in the quest `tom_specs`. (PQ-4)
 
 ### <!--[SCO-LATER]--> 5.3 Deferred to later
 
@@ -341,9 +338,9 @@ Decided as not part of the first version (S1 § 11.1).
 | **L-3** | Asking people outside the team by e-mail, answered on a web page of the tac server | DQ-3: needs the server to send e-mail and a small web client |
 | **L-4** | The tac server sending invitation e-mails itself | DQ-2: the owner passes the one-time password on; the protocol does not change |
 | **L-5** | Standalone runtimes that outlive their host, to which a client attaches to supervise and detaches again | CQ-4: a runtime ends with its host; the protocol does not prevent the other |
-| **L-6** | Pairing of devices and end-to-end encryption between a device and a runtime | CQ-10: mandatory with the relay, once anything is reachable from outside the VPN |
+| **L-6** | End-to-end encryption between a device and a runtime, on top of encryption in transit and the paired device's key | CQ-10, PQ-9: the pairing of devices is in the first version; whether end-to-end encryption has to be is an open point for the security model (`TAC > TAC-CRYPT`, CI.19) |
 | **L-7** | A review's own git repository on the tac server, for reviewers without repository access | DQ-4: pinned blobs cover reading and returning |
-| **L-8** | A server-side runtime for web, phone and tablet clients, which also hosts the web version; such a client reaches tac only through it | WQ-1: in a later wave; until then messaging in Webwork works on the desktop |
+| **L-8** | Webwork in a browser, on a phone and on a tablet, with its messaging there: Webwork's own server side | WQ-1: in a later wave of Webwork; the server-side runtime it will use is in the first version, for the supervision application (`NFR > NFR-TOPO`, T8; PQ-9) |
 | **L-9** | Telegram: one bot token for every runtime, one chat per machine | FO-16 |
 | **L-10** | Encryption at rest of messages and blobs | FO-20: an option, its key in Tom Secrets Manager |
 | **L-11** | Billing, and customers of several organisations on one server | the server has the records for it (CQ-9) |
@@ -484,60 +481,24 @@ it, attaches to it and shows what it does. (S1 § 4, § 5; FO-1)
   and an agent can suggest a subprocess for the running step.
   (S1 § 3.1)
 - **CR.12** A run pins the version of its process: it records the revision of
-  the process definition it started on, and a changed definition is taken
-  over only at a step boundary the user confirms, never in the middle of a
-  step. (S1 § 5.2, a proposal; asked in the round's question list)
-
-> **❓ PQ-2 (2026-11-19T09:22+01:00) — A run and a changed process definition:** when the definition of a process is changed while a run of it is in progress, which definition does the run follow?
->
-> **Context.** A process is defined in a file every quest shares (its phases, steps, gates and the prompt of each step). A run of that process can last weeks. The concept proposes, without your confirmation so far: "**Proposal — a run pins its process version.** A run records the revision of the process definition it started on; a changed definition is taken at a step boundary the user confirms, never mid-step." The reason it gives is an incident: while one quest was in the middle of a specification process, another running quest changed that shared process definition with the tool that writes processes, and the first run went on under changed steps without anyone deciding it.
->
-> **Why I ask.** The Project Idea states this as a capability of the runtime. It decides what a run stores (a pointer to a revision, or a copy of the definition), what the process view shows when the definition has moved on, and whether an improvement to a process reaches the runs that are already under way.
->
-> - **(a)** **Pinned, taken over on confirmation.** A run records the revision it started on. When the definition changes, the run goes on as it was; at its next step boundary the user is shown what changed and decides whether this run takes the new definition. A run never changes in the middle of a step.
-> - (b) **Pinned for good.** A run always finishes on the definition it started with; only new runs get the new one. Simplest to reason about; a fix to a process never reaches a run in progress.
-> - (c) **Not pinned, as today.** Every run always follows the current definition. A change takes effect everywhere at once; a run can find itself at a step that no longer exists.
->
-> *Recommendation:* (a) — long runs need fixes to their process, and the confirmation is the point where a person sees what the fix changes for this run.
->
-> **Answer (2026-11-19T10:46+01:00):** (a), usually the updates are intended to be used immediately
+  the process definition it started on. When the definition changes, the run
+  goes on as it was; at its next step boundary the user is shown what changed
+  and confirms that the run takes the new definition over. Taking it over is
+  the usual case, since a change to a process is normally meant to be used at
+  once; a run never changes in the middle of a step. (S1 § 5.2; PQ-2)
 
 - **CR.13** A step declares what must hold before it starts (answered
   questions, a passed gate, documents that exist). The runtime checks this
   and refuses to start the step with the reason, instead of starting it.
-  (S1 § 5.2, a proposal; asked in the round's question list)
+  The preconditions come from a fixed set: every question of a named
+  document answered, a named gate passed, named documents exist, a named
+  group of todos done. The user can override a refusal, and the override is
+  recorded. (S1 § 5.2; PQ-3)
 
-> **❓ PQ-3 (2026-11-19T09:22+01:00) — Preconditions of a step:** may a process step refuse to start when what it needs is not there?
->
-> **Context.** The concept proposes, without your confirmation so far: "**Proposal — step preconditions.** A step declares what must hold before it starts (answered questions, a passed gate, documents present); the runtime checks it and refuses with the reason instead of starting." It comes from a recorded case: a step that works the answers of a question round into a document was started although none of the twelve questions had been answered, and the agent had to notice that itself and ask. Today a step starts whenever the user presses Proceed; only the agent's prompt can find out that something is missing.
->
-> **Why I ask.** As a capability it adds a declared part to every process definition and a check to the runtime. The Blueprint needs to know whether preconditions exist at all, and whether they block or only warn.
->
-> - **(a)** **Declared and enforced.** A step may declare preconditions from a fixed set (every question of a named document answered; a named gate passed; named documents exist; a named todo group done). The runtime checks them when the step is to start and refuses with the reason. The user can override, and the override is recorded.
-> - (b) **Declared, as a warning.** The same declarations, but the runtime only shows what is missing and starts the step anyway when the user confirms.
-> - (c) **None.** A step's prompt keeps checking for itself, as today.
->
-> *Recommendation:* (a) — a refusal with the reason costs nothing when everything is in place, and it replaces a wasted agent turn when something is missing.
->
-> **Answer (2026-11-19T10:46+01:00):** (a)
-
-- **CR.14** A small change can run through a short process (intent, change,
-  check), so the full phases are not the only shape of work. (S1 § 5.2,
-  § 15.3, a proposal; asked in the round's question list)
-
-> **❓ PQ-4 (2026-11-19T09:22+01:00) — A short path for small changes:** does the product include a short process for a small change, beside the full processes?
->
-> **Context.** The concept proposes, without your confirmation so far: "**Proposal — a fast path.** A small change gets a short process (intent, change, check), so the full phases are not the only shape." It took this from the research on how other teams work with specifications: the most frequent criticism of specification-driven work is that the full sequence of documents and gates is too heavy for a small change. Today a small change in this workspace is either a single todo without any process, or a full process run.
->
-> **Why I ask.** A process is content, not engine: the runtime runs whatever process a quest names. The question is whether this product delivers such a short process as part of what it ships (as a process definition with its prompts), or whether the Project Idea should say nothing about it and leave it to whoever writes processes.
->
-> - (a) **Part of the product.** The runtime ships a short process: state the intent, make the change, check it (the acceptance stated in the intent), with one gate. It is one more process definition; the engine needs nothing new for it.
-> - **(b)** **Not part of this product.** The engine carries any process; which processes exist is decided where processes are written. The Project Idea drops the statement.
-> - (c) **Not a process but a property of a todo:** a todo carries its acceptance check as fields the working agent cannot edit, and the runtime records the check's result when the todo is completed. Small changes stay single todos, with a recorded check.
->
-> *Recommendation:* (b) — it keeps the product to the engine; (c) is worth its own decision when the parallel-work part is settled, because the same recorded check is what the integration step would run.
->
-> **Answer (2026-11-19T10:48+01:00):** File this with concrete proposal in the tom_specs quest. The is already a change mode in the tom_specs process, but it's still very heavy. A quick path for smaller changes seems appropriate. Check the tom_specs process for the current change/revision mode, so you don't miss any important steps for the new and shortened process.
+- **CR.14** Which processes exist is not the runtime's matter: the engine
+  carries any process definition. A short process for small changes is not
+  part of this product; it is proposed where the specification process is
+  defined. (PQ-4; `SCO > SCO-OUT`)
 
 ### <!--[RT-QUEUE]--> 7.3 The queue
 
@@ -692,17 +653,26 @@ it, attaches to it and shows what it does. (S1 § 4, § 5; FO-1)
 - **CR.41** Versions are installed side by side, each in a folder of its
   own, with a pointer `current` to the newest. A running runtime keeps its
   version until it is restarted. (S1 § 5.7; S2 § 5, FO-4)
-- **CR.42** Every host carries the runtime version it was built with,
-  installs it into the shared location when that version is not there yet,
-  and starts that version. Hosts on one machine thereby share installations.
-  (S1 § 5.7, DQ-9)
+- **CR.42** Every host carries a runtime and installs it into the shared
+  location when no runtime is installed there. When one is installed, the
+  host uses it. Hosts on one machine thereby share one runtime. A host
+  offers updating the runtime in the part of its settings where it offers
+  what can be installed and removed; nothing is updated without the user
+  having asked for it. (S1 § 5.7, DQ-9; PQ-6)
 - **CR.43** Provider SDKs are installed on request, when a profile first
   needs one. (S2 § 3.2; S1 § 3.1)
 - **CR.44** A runtime is started by its host and ends with it. A long walk
   needs its host open. (S1 § 5.7, CQ-4; `SCO > SCO-LATER`, L-5)
+- **CR.46** A server can host runtimes for clients that have none of their
+  own: the server side of a web application or of an application on a phone
+  or a tablet runs permanently and starts one runtime per client, which ends
+  with that client's session. The rule of CR.44 holds: the server is the
+  host. A runtime that runs for a long time without any client, on an
+  always-on machine, is later (`SCO > SCO-LATER`, L-5). (PQ-16, PQ-9;
+  `NFR > NFR-TOPO`, T8)
 - **CR.45** Inside a running runtime, a run is unloaded when its last
   subscriber has gone and nothing is queued in it. (S1 § 6.1, a proposal;
-  asked in the round's question list)
+  asked in PQ-21, which stands in `RT > RT-PROTO`)
 
 ### <!--[RT-SECRETS]--> 7.9 Secrets
 
@@ -757,32 +727,35 @@ it, attaches to it and shows what it does. (S1 § 4, § 5; FO-1)
 - **CP.7** A conversation is modelled as thread, turn and item: a session
   holds turns, a turn holds items (text, reasoning, tool call, ask, result),
   and an item has started, delta and completed events. A turn can be steered
-  and interrupted. (S1 § 6.1, a proposal; asked in the round's question
-  list)
+  and interrupted. (S1 § 6.1, a proposal; asked in PQ-21)
 - **CP.8** Every question the runtime puts to a person has one form, the
   **ask envelope**: a stable id, a kind (question, pick, document, tool
   approval, plan, decision, gate), the allowed responses, an optional schema
-  of the response, a declared default and a deadline. (S1 § 6.1, a
-  proposal; asked in the round's question list)
+  of the response, a declared default and a deadline. The ways an agent asks
+  today stay as they are: a review outside a turn, the tool that asks single
+  questions, and questions inside a document; the envelope is the one record
+  the runtime sends a host for any of them. (S1 § 6.1, a proposal; asked in
+  PQ-21)
 
-> **❓ PQ-5 (2026-11-19T09:22+01:00) — The shape of the protocol's conversation and questions:** do you confirm the three shapes the concept proposes for the protocol?
+> **❓ PQ-21 (2026-11-19T18:45+01:00) — Three shapes of the runtime's protocol:** do you confirm how the runtime tells a host about a conversation, about a question, and when it lets go of a run?
 >
-> **Context.** Decided so far: the wire (JSON-RPC over a local TCP connection, WebSocket for remote clients), commands, numbered events per run kept in memory with a bound, reverse requests, a published JSON schema, and that a pending question is a stored record that can travel to another person. The concept's section on the protocol lists further points under "Proposals from what others built", which you have not confirmed one by one:
-> - "**Thread, turn, item.** The chat model follows the lifecycle others converged on: a session holds turns, a turn holds items (text, reasoning, tool call, ask, result) with started, delta and completed events; a turn can be steered and interrupted."
-> - "**One ask envelope** for every question the runtime puts to a person: a stable id, a kind (question, pick, document, tool approval, plan, decision, gate), the allowed responses, an optional response schema, a declared default, a deadline."
-> - "**Subscriptions per connection**, and a run unloads when its last subscriber has gone and nothing is queued."
+> **Context.** This asks the earlier question again, in other words. It is **not** about the ways an agent asks you something. Those stay exactly as they are: a review outside a turn, the tool that asks single questions, and questions inside a document. You named them in your answer, and nothing is missing there.
 >
-> Today the extension has one shape per kind of question (a question panel, a picker, a document with buttons, a tool-approval bar, a plan approval, a process decision), and its chat stream is a sequence of live-trail calls (text, thinking, tool call, tool result) without the turn and item levels.
+> The question is about the **wire between a runtime and a host**. Today the engine and the views are one program (the VS Code extension), so the engine just calls the view. Once the runtime is a program of its own, a host (Webforge, Webwork, the supervision application) is a separate program that only receives messages. Three things about those messages are so far only proposed:
 >
-> **Why I ask.** These three are the backbone of the protocol and of every client and component built on it: the conversation component draws items, the ask inbox draws envelopes, and the supervision application depends on a run staying loaded while it watches. Changing them later changes all nine clients.
+> 1. **How a conversation arrives.** Today the engine writes a flat trail: one entry after another (text, a tool call, a result). Proposed: the runtime sends a conversation in three levels. A *thread* is a session. A *turn* is one prompt with everything that answers it. An *item* is one piece of a turn: a text, a piece of reasoning, a tool call, a question, a result. Each item is announced when it starts, streamed in pieces, and closed. Example of what a host receives for one prompt: `turn started` → `item started (reasoning)` … `item completed` → `item started (tool call: read file)` → `item completed (result)` → `item started (text)` → `delta "The file…"` → `delta " holds…"` → `item completed` → `turn completed (usage)`. A host can then draw a tool card or a reasoning block without guessing where it begins and ends, and can steer or interrupt a turn by its id.
+> 2. **How a question arrives.** Today each way of asking has its own code path to its own panel. Proposed: whatever the way of asking, the runtime sends the host **one record** with the same fields: an id; a kind (question, pick from a list, a document to answer in, approval of a tool call, approval of a plan, a decision, a gate result); the allowed responses; an optional form of the response; a default, if one was declared; a deadline. Example: your gate decision arrives as `{id, kind: gate, responses: [passed, failed], deadline: none}`, and a tool approval as `{id, kind: tool approval, responses: [allow, deny], default: deny}`. A host needs one inbox and one way to answer instead of seven, and a question can be passed on to another device or person because it is a record.
+> 3. **When a run is let go.** A runtime holds every run of its quest in memory. Proposed: a run that nobody watches (no host is subscribed to it) and that has nothing queued is unloaded, and loaded again from its files when someone opens it or queues something. Example: Webwork has one run per area; the runs of areas you have not opened today cost nothing.
 >
-> - **(a)** **All three as proposed.** One conversation model (thread, turn, item), one envelope for every kind of question, and a run stays loaded as long as someone is subscribed or something is queued.
-> - (b) **The envelope and the unloading, but the chat stream as it is today** (a flat sequence of trail events). Less to change in the engine; the conversation component has to rebuild turns and items from the flat stream itself, in every language.
+> **Why I ask.** The protocol specification is written from these shapes, and every client library in every language and every UI component is built on them. Changing them later changes all of those.
+>
+> - **(a)** **All three as described.**
+> - (b) **The question record and the unloading, but the conversation stays a flat trail** as today. Less to change in the engine; every host then has to work out by itself where a turn and a tool call begin and end, in every language.
 > - (c) **Different** — say which of the three, and how.
 >
-> *Recommendation:* (a) — the same three shapes are what the other agent protocols settled on, so adapters to them stay thin.
+> *Recommendation:* (a) — the three levels are what the other agent protocols have settled on, so the UI components and an adapter to those protocols get simpler.
 >
-> **Answer (2026-11-19T10:54+01:00):** I think we have two ways today: (1) review outside of a turn, the process waits until I prompt for continuation (2) the ask tool to ask individual questions (the agent can put ids there if he wants) (3) Asking in a document using the askInMd tool, which has the questions inside a document and usually with a unique questions id. Isn't that already the three things? We are also working on a review subprocess to be started at review points in (1). What are we missing? It seems we are covering all of that.
+> **Answer:**
 
 - **CP.9** An ask outlives the process that asked: a pending ask is a stored
   record, the turn can end, and the run resumes when the answer arrives.
@@ -929,35 +902,31 @@ files, and an older runtime does not work on newer files (S1 § 6.7, DQ-9).
   the host's runtime cannot work on, and when the host is too old for the
   runtime it found. The host decides what to show and do. (S1 § 6.7, DQ-9)
 - **CP.28** A runtime that finds workspace files in a newer format than it
-  knows stops working on them. (S1 § 6.7, DQ-9)
+  knows stops working on them, says that they were upgraded from somewhere
+  else, and offers the update of the runtime. (S1 § 6.7, DQ-9; PQ-6)
 - **CP.29** A migration of the workspace files runs once per machine, under
   a lock; the other runtimes on the machine pause while it runs. (S1 § 6.7,
   § 3.1)
 
-> **❓ PQ-6 (2026-11-19T09:22+01:00) — Migrating the workspace files:** who decides that the files of a workspace are migrated to a new format, when not every runtime that works on them is updated yet?
->
-> **Context.** Decided: every host installs the runtime version it was built with; versions exist side by side; three versions are checked on connect; an older client keeps working with a newer runtime; "a runtime update often comes with an update of the workspace/quest files and older runtime don't run on them"; a client library tells its host through callbacks when the files were migrated to a format its runtime cannot work on, and that runtime then stops working on them. Today the extension migrates the `_ai` files when a newer build first opens them, once per machine under a lock, and other windows on the machine pause meanwhile.
->
-> What the sources do not say is what happens **between** hosts and machines. Two cases:
-> - On one machine, Webforge was updated and brings a runtime with a newer format; the VS Code extension on the same machine is still the older one, working on the same quest files.
-> - The quest files are shared through git. One team member's updated runtime migrates them and commits; after the next pull, every colleague whose runtime is older stops working on that quest until they update.
->
-> **Why I ask.** With one person and one host, migrating at first sight was harmless. With several hosts and a team, an automatic migration by whoever updates first stops everyone else's work without warning. The Blueprint needs the rule.
->
-> - **(a)** **A migration is a decision, asked once.** A newer runtime that finds files in an older format works on them in the older format as long as it can (it keeps the ability to read and write the previous format), and offers the migration. The migration runs when the quest's owner (or on a single-user workspace, the user) confirms it; the confirmation shows which runtimes known to the coordination service are still on an older version and would stop.
-> - (b) **Automatic, as today.** The first newer runtime migrates. The others stop with the callback and a message naming the version to install. Simple; whoever updates first decides for all.
-> - (c) **Never while an older runtime is present.** The newer runtime refuses to migrate while the coordination service lists an older runtime on the same quest or workspace, and works in the old format until then.
->
-> *Recommendation:* (a) — it needs the runtime to support one format back, which is also what makes "an old client keeps working" hold for the files and not only for the protocol.
->
-> **Answer (2026-11-19T11:01+01:00):** 1. every host install the runtime if none is installed and offers updating it in the corresponding section of the app (which might offer other things to install/uninstall).
-> 2. if there is a runtime it uses it and if this is a too new runtime it disables all features that would use it or refuses to start and asks the user to upgrade to a new application version (that hopefully already exists)
-> 3. upgrade only happens after having been asked to. This happens actively if the runtime detects a workspace format it can't handle, because it has been upgraded already from somewhere else.
-> 4. if the runtime finds a workspace that is older that what it supports it must offer to migrate to the new version or to downgrade to an older version of the runtime that can work with the old format (if there is one that is compatible with the application). If there is no compatible version it says so and only offers to upgrade the workspace.
-> 5. I'm assuming that we usually upgrade runtime and workspace when the first host has updated and we try to keep hosts to be compatible with several runtime versions through the SDK layer and protocol backwards compatibility in the evolution of the runtime.
-
 - **CP.30** The aim is that the protocol and the formats become very stable
   after a while. (S1 § 6.7, DQ-9)
+- **CP.31** A host that finds an installed runtime too new for it switches
+  off every feature that would use the runtime, or refuses to start, and asks
+  the user to update the application. (PQ-6)
+- **CP.32** A runtime is updated only after the user was asked. The question
+  is put actively when the runtime meets workspace files it cannot work on
+  because they were upgraded elsewhere. (PQ-6)
+- **CP.33** A runtime that finds workspace files in an older format than it
+  works on offers two ways: to migrate the files to its format, or to go back
+  to an older version of the runtime that works on the old format, if there
+  is one the application is compatible with. When there is none, it says so
+  and offers only the migration. Files are never migrated without the user
+  having confirmed it. (PQ-6)
+- **CP.34** The usual course is that the runtime and the workspace files are
+  updated together, when the first host has been updated. The other hosts
+  keep working because a host is compatible with several versions of the
+  runtime, through the client package and the protocol's backward
+  compatibility (CP.25). (PQ-6)
 
 ### <!--[RT-PROVIDERS]--> 7.16 Model providers
 
@@ -992,21 +961,10 @@ files, and an older runtime does not work on newer files (S1 § 6.7, DQ-9).
 ### <!--[CLI-PACK]--> 8.1 The client packages
 
 - **CL.1** There are client packages for nine languages: Dart, TypeScript,
-  JavaScript, Python, Java, Go, Rust, C and C++. (S1 § 12.1; S4, note k)
-
-> **❓ PQ-7 (2026-11-19T09:22+01:00) — Which languages come first:** which of the nine languages' client packages are part of the first delivery?
->
-> **Context.** Decided: client packages for nine languages (Dart, TypeScript, JavaScript, Python, Java, Go, Rust, C, C++), each with a runtime client and a tac client; the protocol layer generated from the schema, the convenience layer written by hand per language, one conformance suite; "we will only thoroughly test Dart and JS/TS, as we need those for the two platforms with building". Who needs which: the Flutter applications (Webwork, Tom Forge, the supervision application) need Dart; the VS Code extension and the tac service are TypeScript. No source names a user of the other six yet.
->
-> **Why I ask.** Eighteen packages (two per language) are a large part of the work if all are in the first delivery, and each convenience layer is hand-written. The delivery plan and the size of the conformance suite depend on it.
->
-> - **(a)** **Dart and TypeScript / JavaScript first; the others follow once the protocol is stable.** The first delivery has the two tested clients, the schema, the generator for the protocol layer and the conformance suite, built so that a further language is added by generating its protocol layer and writing its convenience layer. The other six follow as a later step.
-> - (b) **All nine in the first delivery**, the other six with the generated protocol layer and a minimal convenience layer, checked by the conformance suite only.
-> - (c) **Dart and TypeScript / JavaScript now, the others only when someone needs one.** No date for the other six; each is added on request.
->
-> *Recommendation:* (a) — the protocol will still move while the first hosts are built, and every language added before it settles multiplies each change.
->
-> **Answer (2026-11-19T11:01+01:00):** (b)
+  JavaScript, Python, Java, Go, Rust, C and C++. All nine are part of the
+  first delivery: Dart, TypeScript and JavaScript tested thoroughly (CL.7),
+  the other six with the generated protocol layer and their convenience
+  layer, checked by the conformance suite. (S1 § 12.1; S4, note k; PQ-7)
 
 - **CL.2** In every language there are two clients, each in a package of its
   own: the **runtime client**, which speaks the runtime protocol, and the
@@ -1044,8 +1002,8 @@ files, and an older runtime does not work on newer files (S1 § 6.7, DQ-9).
   a VS Code window and against a runtime. (S2 § 3.5; S1 § 2.1)
 - **CL.11** An application reaches tac through its runtime. The tac client is
   used by runtimes, servers and tools. An application in a browser, on a
-  phone or on a tablet uses the runtime client against a runtime on a server.
-  (S1 § 12.1, § 7.3, WQ-1; `SCO > SCO-LATER`, L-8)
+  phone or on a tablet uses the runtime client against a runtime on a server
+  (`RT > RT-INSTALL`, CR.46). (S1 § 12.1, § 7.3, WQ-1; `NFR > NFR-TOPO`, T8)
 
 ### <!--[CLI-UI]--> 8.2 The Flutter UI components
 
@@ -1078,20 +1036,6 @@ files, and an older runtime does not work on newer files (S1 § 6.7, DQ-9).
   | **Review** | the review component for Markdown documents: questions and answers, comments, marks, team chips, votes, conflicts, consolidation | the document browser |
   | **Supervision** | runtime list, what waits, notifications, the coordination page (claims, leases, the integration queue), status of the machine's runtimes | the window status and notifications views; new |
   | **Settings** | profiles, providers and keys, coordination, team administration, what the extension's status page holds | the status page |
-
-> **❓ PQ-8 (2026-11-19T09:21+01:00) — Which components are built first:** in which order are the component groups of the Flutter library built?
->
-> **Context.** Decided: every reusable component lives in one Flutter package; the description work covers the extension's screens completely before building ("We will completely specify what can be specified now"); the product is built in two tracks in parallel, one for the coordination service and one for the runtime. The package has eleven groups: conversation; asks; queue; runs and processes; todos; trail; sessions and memory; messaging; review; supervision; settings. Who waits for which: Webwork's AI tab needs conversation, queue and trail (and the bounded Markdown view); Tom Forge's quest application needs nearly all of them; the supervision application needs asks, runs, queue and supervision; messaging and review need the coordination service's messaging and documents, which the other track builds.
->
-> **Why I ask.** The descriptions are complete before building, but the building has an order, and the delivery plan in the Blueprint needs it. It also decides which host can be tried first.
->
-> - **(a)** **By who waits.** 1. conversation, queue, trail; 2. asks and the ask inbox; 3. runs and processes; 4. todos; 5. sessions, memory, settings; 6. review; 7. messaging; 8. supervision. The first step is enough for Webwork's AI tab, the first four for a usable quest application.
-> - (b) **Messaging and review early**, right after the first step, so that the coordination track has a user interface to be tried with as soon as it has messages and documents.
-> - (c) **No fixed order**; each group is built when the host that needs it is being built.
->
-> *Recommendation:* (a), with the gallery application built together with the first step, so every later group has a place to be shown.
->
-> **Answer (2026-11-19T11:04+01:00):** We build in the order that will get us to the finished full product fastest. We should consider working in parallel for our own todos here, so they run in two runs in parallel. I queued some todos in vscode extension that should help with this for waiting if a todos is blocked and continuing once it is unblocked (verify this is complete in the todos queued, in the todo list or in the recently done todos (today). If something is missing, add a vscimpb* todo to vscode extension
 
 - **CU.7** The bounded Markdown view keeps the last so-many lines or
   kilobytes and forgets the rest; it follows its end. It serves a run's log
@@ -1205,28 +1149,23 @@ each is decided when the screen is described. (S1 § 12.3; S17)
   they publish, and attaches to each runtime's numbered events.
   (S1 § 9, flow F10; S2 § 3.6)
 
-> **❓ PQ-9 (2026-11-19T09:21+01:00) — How the supervision application connects, and where it runs:** does the supervision application have a runtime of its own, and on which platforms does it run in the first version?
->
-> **Context.** Decided: the supervision application is "a Webforge application from the start which run standalone, too, outside tom_forge"; it shows every runtime of a team and controls them; remote control works only inside a team and where a runtime's host allows it. Also decided: an application reaches the coordination service only **through a runtime** — a browser, phone or tablet client through a runtime on a server, which comes in a later wave. And your original idea: "our own remote control mobile app […] so I can see all questions, decision-needed, queue-state, errors in a nicely structure app".
->
-> These fit together only with one more rule. The supervision application talks to many runtimes (it attaches to each one's events), but to find them and to see a team's open questions it needs the coordination service — and it has no quest of its own.
->
-> **Why I ask.** It decides what the supervision application is made of, and whether the phone, the device the idea started from, is in the first version.
->
-> - **(a)** **Desktop first, with a runtime of its own without a quest.** On the desktop (inside Webforge or standalone) the supervision application starts a runtime instance that serves no quest, as Webwork's own AI does. Through it, it reaches the coordination service, finds the team's runtimes and attaches to them. The phone and the tablet follow with the server-side runtime, in the later wave.
-> - (b) **The same, and the phone in the first version**, which pulls the server-side runtime for phone clients forward into the first version, for this application only.
-> - (c) **The supervision application is the one exception:** it may use the coordination service's client directly, without a runtime, on every platform. It is then the only application that does, and the rule "always through a runtime" has an exception to specify and secure.
->
-> *Recommendation:* (a) — it keeps one rule for every application, and outside the VPN a phone needs the relay with device pairing anyway, which is also later.
->
-> **Answer (2026-11-19T11:07+01:00):** (b), I want to make sure we get the architecture right for apps on phones and tablets. This will require connecting to an internet tac or on the LAN/VPN. We should check for testing if our VPN can be used from iphone and android, but we also need to cover the internet case as this is very relevant to check on the road what is going on and answer questions while away. Of course this must be secure, so probably there must be some pairing process to get a device-specific key etc.
-
 - **CK.9** The open asks of a team, with their age and their place in the
   chain (CP.23), are part of trc's view. (S1 § 6.6)
 
-Reaching runtimes from outside the VPN needs the relay, and with it the
-pairing of devices and end-to-end encryption, which are deferred
-(`SCO > SCO-LATER`, L-6).
+- **CK.10** trc runs on the phone and the tablet in the first version, beside
+  the desktop. On the desktop it has a runtime of its own that serves no
+  quest; on a phone or a tablet it uses a runtime on a server
+  (`RT > RT-INSTALL`, CR.46). The architecture for applications on phones
+  and tablets is part of the first version. (PQ-9)
+- **CK.11** A phone or tablet reaches the tac server and the runtimes from
+  the internet as well as from the local network or the VPN: looking at what
+  is going on and answering questions while away is what the application is
+  for. Every access from the internet is strict (`TAC > TAC-PEOPLE`, CI.10),
+  and a device is paired first and gets a key of its own
+  (`TAC > TAC-CRYPT`, CI.18). (PQ-9)
+- **CK.12** Whether the VPN can be used from an iPhone and from an Android
+  device is checked, so that the application can be tried on the VPN before
+  the access from the internet is opened. (PQ-9)
 
 ## <!--[TAC]--> 9 Coordination and messaging (tac)
 
@@ -1249,9 +1188,10 @@ local mode (`LAND > LAND-BUILT`, E-3); this section states what tac is to be.
   **team** (`TAC > TAC-PEOPLE`). (S5 § 3.2; S1 § 7.3, DQ-1)
 
 ___check here___ S1 § 7.1 still says "A team is one agent group"; S1 § 7.3
-(DQ-1) decides that they are two things. This section follows DQ-1; how a
-team, an agent group and a customer are tied to each other is asked
-(`new_questions.md`, section `TAC-PEOPLE`). — `agent_spec_author`
+(DQ-1) decides that they are two things. This section follows DQ-1. What an
+agent group is, is explained in `TAC > TAC-PEOPLE > TAC-GROUPS`; how a team,
+an agent group and a customer are tied to each other is asked there
+(PQ-20). — `agent_spec_author`
 
 ### <!--[TAC-COORD]--> 9.2 Coordination between runtimes
 
@@ -1369,19 +1309,9 @@ team, an agent group and a customer are tied to each other is asked
   | **GitHub** | one user's machines | leases, sessions, units and endpoints as refs in a coordination repository; no messages across machines — messages go through each machine's local service |
   | **server** | a team, or several | everything, independent of git: customers, access keys, quotas, an administration interface |
 
-> **❓ PQ-10 (2026-11-19T09:21+01:00) — The GitHub backend in the first delivery:** is the backend that keeps the coordination in a GitHub repository still part of the first delivery?
->
-> **Context.** The coordination service has three planned backends. The **local** one serves one machine and one user and is built. The **server** serves a team, independent of git; it is decided that the full server is built first ("customers, access keys, quotas, the admin API"), and that the whole protocol is built in one go. The **GitHub** backend was designed earlier for one user's several machines, when no server existed: it keeps leases, sessions, units and endpoints as refs in a private coordination repository through GitHub's API, and it carries **no messages across machines** — the coordination idea says "a GitHub-backend workspace has messages on each machine but not across machines". It also needs a call budget, because GitHub limits how often refs may be written, and a coordination repository with a token on every machine.
->
-> **Why I ask.** With the server built first, a user with several machines can run the server on one of them and gets everything, messages across machines included. The GitHub backend then serves only those who have several machines and no machine to run a server on. It is a second implementation of leases, with its own rules for clocks, races and limits, to specify, build and test. The Blueprint has to say whether it is in the first delivery.
->
-> - (a) **Keep it in the first delivery**, as designed: three backends. A user without a server still coordinates leases across machines; messaging, documents and reviews across machines are not available on it.
-> - **(b)** **Defer it.** The first delivery has the local backend and the server. The protocol keeps what the GitHub backend needs (the binding to refs stays specified), so it can be built later without changing clients. The coordination repository and its tokens are not needed now.
-> - (c) **Drop it.** Two backends for good; the binding to refs is removed from the protocol.
->
-> *Recommendation:* (b) — everything the new parts add (people, teams, messages, documents, the integration queue) needs a service, so the GitHub backend would offer less and less of the whole; deferring keeps the door open at no cost now.
->
-> **Answer (2026-11-19T11:08+01:00):** (a)
+  All three are part of the first delivery. On the GitHub backend a user
+  without a server coordinates leases across machines; messaging, documents
+  and reviews across machines need the server. (PQ-10)
 
 - **CA.27** The server is the full server from the start: customers, access
   keys kept as salted hashes, quotas per customer, the administration
@@ -1432,19 +1362,8 @@ teams.
   | **team** | people | members, owners, invitations, conversations, review sets, the right to control each other's runtimes |
   | **agent group** | runtimes that coordinate | presence, leases, messages between runtimes, endpoints |
 
-> **❓ PQ-11 (2026-11-19T09:21+01:00) — Customers, teams and agent groups:** how are a customer, a team and an agent group tied to each other, and who creates the first of each?
->
-> **Context.** Three records exist above a person and a runtime. A **customer** is whoever a server serves: it has access keys and quotas, and is created through the server's administration interface. An **agent group** is the set of runtimes that coordinate (they see each other and compete for the same leases); today a group comes into being when the first runtime names it. A **team** is a group of people. It is decided that a team and an agent group are two different things: "A team is a group of humans, each human may run several agent groups, in several runtimes", and that "a team has owners; the first is whoever created the team with the server's admin API". Nothing says yet how the three relate: whether teams and agent groups both belong to a customer, whether an agent group belongs to a team, and who creates the first customer on a new server.
->
-> **Why I ask.** The Blueprint's information model needs the relations, and the security part needs to know who may create what. It also decides what a person does on the first day: installing a server and ending up with a working team.
->
-> - **(a)** **A customer has teams and agent groups; a team names the agent groups it uses.** Whoever installs the server creates the first customer and its first access key from the server's command line. With that key, a person creates a team and becomes its first owner. An agent group is created by a team's owner and belongs to the customer; a team lists the agent groups its members' runtimes may join, and an agent group may be listed by several teams of the same customer (two teams sharing repositories share the leases on them). A runtime joins an agent group with its person's token of a team that lists that group.
-> - (b) **An agent group belongs to exactly one team.** Simpler: a team's owner creates its agent groups, and only that team's members' runtimes join them. Two teams working on the same repositories do not see each other's leases.
-> - (c) **Agent groups stay free of teams**, as today: any runtime that has the customer's access key and names a group joins it. Teams only concern messaging and remote control.
->
-> *Recommendation:* (a) — leases only help when everyone who writes to a repository is in the same agent group, and that is not always one team.
->
-> **Answer (2026-11-19T11:10+01:00):** Explain this in more details, how do agent groups compare with our quests with their run and prompts? I can only decide what we need here if I understand what you are proposed in detail. What IS an agent group?
+  What an agent group is, compared with a quest, a run and a prompt, and
+  with an example, is in `TAC > TAC-PEOPLE > TAC-GROUPS`.
 
 - **CI.2** A person is a member of one team or of several. A person runs
   several runtimes, and those may be in several agent groups. One runtime
@@ -1456,39 +1375,25 @@ teams.
   position. (S1 § 7.3)
 - **CI.4** Every client reaches tac through a runtime: on the desktop the
   host's own runtime, in a browser, on a phone or on a tablet a runtime on a
-  server (`CLI > CLI-PACK`, CL.11; `SCO > SCO-LATER`, L-8). tac's
+  server (`CLI > CLI-PACK`, CL.11; `NFR > NFR-TOPO`, T8). tac's
   participants are people and runtimes, never a device on its own.
   (S1 § 7.3, WQ-1)
-- **CI.5** A team has owners and members. (S1 § 7.3, DQ-2)
+- **CI.5** A team has owners and members. What each may do (S1 § 7.3, DQ-2;
+  PQ-12):
 
-> **❓ PQ-12 (2026-11-19T09:21+01:00) — What an owner of a team may do that a member may not:** which rights does a team's owner have?
->
-> **Context.** Decided so far: a team has owners and members; an owner creates invitations and removes members; "only the team's owners change" the team's configuration (the providers, which of them may be used, the standard profiles); a stale lease is freed "only by the user"; an unanswered question ends, at the end of its chain, with the team's owners. Not said: who may make someone an owner, who may free another member's stale lease, who may set the team's limits (how long messages are kept, the worktree setting per repository, the working hours used for escalation), and who may remove a device of another member.
->
-> **Why I ask.** The Blueprint's security part lists every operation with who may call it. Without a rule, either everything a member can do to their own things an owner can do to everyone's, or nothing can be done for a member who is away.
->
-> **Proposed split**, to confirm or correct:
->
-> | Operation | Member | Owner |
-> | --- | --- | --- |
-> | send messages, send and return documents, answer and forward questions | yes | yes |
-> | see the team's people, runtimes, leases and open questions | yes | yes |
-> | control another member's runtime remotely (where its host allows it) | yes | yes |
-> | free a stale lease | their own | anyone's |
-> | remove a device | their own | anyone's |
-> | invite a person, remove a member | no | yes |
-> | make a member an owner, or take that away (never from the last owner) | no | yes |
-> | change the team's configuration and settings (providers, retention of messages, working trees per repository, escalation times) | no | yes |
-> | declare units and infrastructure resources of an agent group | yes | yes |
-> | create or delete an agent group; delete the team | no | yes |
->
-> - **(a)** As in the table.
-> - (b) As in the table, but controlling another member's runtime needs that member's consent each time, or an owner.
-> - (c) Different — say which rows.
->
-> *Recommendation:* (a) — a team is people who trust each other; the runtime's own host setting is the place to refuse remote control.
->
-> **Answer (2026-11-19T11:12+01:00):** (a), the last row depends on the result of the previous question. I'd say team member can create or delete their own agent groups, but this depends on our definitions for the last question.
+  | Operation | Member | Owner |
+  | --- | --- | --- |
+  | send messages, send and return documents, answer and forward questions | yes | yes |
+  | see the team's people, runtimes, leases and open questions | yes | yes |
+  | control another member's runtime remotely (where its host allows it) | yes | yes |
+  | free a stale lease | their own | anyone's |
+  | remove a device | their own | anyone's |
+  | invite a person, remove a member | no | yes |
+  | make a member an owner, or take that away (never from the last owner) | no | yes |
+  | change the team's configuration and settings (providers, retention of messages, working trees per repository, escalation times) | no | yes |
+  | declare units and infrastructure resources of an agent group | yes | yes |
+  | delete the team | no | yes |
+  | create or delete an agent group | open: decided with PQ-20 | open: decided with PQ-20 |
 
 - **CI.6** A person joins a team by **invitation** (S1 § 7.3, CQ-10, DQ-2):
   1. An owner creates an invitation for an e-mail address.
@@ -1511,21 +1416,13 @@ teams.
 - **CI.10** There are two levels of identity, and both are built:
   **identification**, where a client states a user id and an e-mail address
   and is believed, so that work can start without any setup; and
-  **invitation with team tokens**. (S1 § 7.3, CQ-10; S3, WR-2)
-
-> **❓ PQ-13 (2026-11-19T09:21+01:00) — Identification without an invitation:** when does a team accept a member who only states a user id and an e-mail address?
->
-> **Context.** Two levels of identity are decided, "both built": **identification**, where a client states a user id and an e-mail address and is believed ("we should have (a) and (b) so we can start without troubles, test (b) and fix it while working using (a)"), and **invitation**, where a one-time password proves that the person was invited, the server generates the user id ("so the host cannot fake an id"), and a team token is sent with every request. Not said: whether identification stays possible once invitations work, and who decides that for a team.
->
-> **Why I ask.** With identification, anyone who can reach the server and knows a team's name can state any identity; remote control of runtimes is allowed inside a team. The Blueprint has to say where identification is accepted.
->
-> - **(a)** **A setting per team, strict by default.** A team accepts identification only when its owner switched it on; a new team requires invitations. Remote control of a runtime and the team's configuration always require a team token, also in a team that accepts identification for messaging.
-> - (b) **Identification only on the local backend** (one machine, one user), never on a server.
-> - (c) **Identification everywhere until the product owner switches it off** for the whole server, as a means to start; no setting per team.
->
-> *Recommendation:* (a) — it lets a first team start without setup, as decided, and keeps the operations that can do harm behind the token.
->
-> **Answer (2026-11-19T11:15+01:00):** (a), setting per server in the server configuration, a server either only works with strict invitation/identity check or completely without it, so it is open. While me being alone on the VPN only the open server is fine, once I open to the internet or there are other people there must be a secure link (think if internet access is secured enough with HTTPS + the token). I think identification must be strict for all internet access, non-configurable.
+  **invitation with team tokens**. Which of them a server works with is a
+  setting of the **server**, in its configuration, not of a team: a server
+  is either **open** (identification for everyone on it) or **strict**
+  (invitation and team tokens for everyone on it). An open server is right
+  for one person alone on the VPN. As soon as other people use the server it
+  is strict. Every access from the internet is strict, whatever the setting;
+  that cannot be configured. (S1 § 7.3, CQ-10; S3, WR-2; PQ-13)
 
 - **CI.11** A quest has a **home team** and an owner (`RT > RT-ASKS`,
   CP.16); it records both. Its runtime acts as a member of the home team:
@@ -1543,6 +1440,79 @@ teams.
   (S1 § 7.10; S3, WR-2)
 - **CI.15** A team has a configuration that tac keeps and delivers to its
   members' runtimes (`RT > RT-CONFIG`, CS.3 … CS.6). (S1 § 5.5, DQ-11)
+
+#### <!--[TAC-GROUPS]--> 9.4.1 What an agent group is
+
+An agent group answers one question: **which runtimes have to keep out of
+each other's way?**
+
+- **What is in it.** Runtimes, nothing else. Every runtime that takes part in
+  coordination is in exactly one agent group at a time. A runtime is one
+  running engine: one VS Code window, or one quest opened in Webforge.
+- **What the runtimes of a group share.** They see each other (which runtimes
+  are there, on which machine, for which quest). They take leases from the
+  same pool: when one of them holds a repository, the others see it and wait.
+  They can send each other messages (a todo for another quest, "I am done").
+  They publish their endpoints to each other. A runtime outside the group
+  sees none of this and is not seen.
+- **How it compares with a quest, a run and a prompt.** These are the units
+  of the **work**; an agent group is a unit of **who is working at the same
+  time**.
+
+  | Unit | Is | Example |
+  | --- | --- | --- |
+  | prompt | one request to a model, with its answer | "do todo 4" |
+  | run | one line of work inside a quest: a process position, a queue, its sessions | the run that writes this specification |
+  | quest | one project: its todos, documents, runs | `ai_runtime`, `webwork` |
+  | runtime | the engine that serves one quest while a window or application is open; all runs of that quest are in it | the VS Code window of `ai_runtime` on the MacBook |
+  | **agent group** | every runtime, of whatever quest, on whatever machine, that works on the same repositories | all your windows on all four machines |
+
+  A quest does not coordinate anything by itself: two quests regularly write
+  to the same repository (the `webwork` quest and the `ai_runtime` quest both
+  change `tom_ai/ai_build`), and one quest is open on two machines. What must
+  not happen is that two runtimes write into the same repository at once,
+  whichever quests they serve. So the lease pool cannot belong to a quest; it
+  belongs to the set of runtimes that share repositories. That set is the
+  agent group.
+- **An example from the fleet.** Today eleven quest windows are open on the
+  MacBook, and the same quests are worked on the three other machines. All of
+  these runtimes would be in one agent group, the one planned as
+  `al-the-bear-fleet`. When the `webwork` window on the MacBook runs a todo in
+  `tom_ai/ai_build`, the `ai_runtime` window on the same machine and a window
+  on another machine see the lease and wait or work elsewhere. There is one
+  agent group because there is one set of repositories everybody shares.
+- **When there would be a second agent group.** When a set of repositories is
+  worked on by other runtimes that never touch yours: a customer's project
+  with its own repositories and its own people. Its runtimes do not need to
+  see your leases, and yours not theirs.
+- **How it differs from a team.** A team is people: who may message whom, who
+  reviews, who may control whose runtime. One person's runtimes are in an
+  agent group; the person is in one or several teams. A team of five people
+  who share repositories has all its members' runtimes in one agent group. A
+  reviewer from the business side is in the team and has no runtime in any
+  agent group.
+- **Today** (`tac/1.0`, as built) an agent group has no owner and is not
+  created by anyone: it comes into being when the first runtime names it,
+  and any runtime that has the service's key and names the group is in it.
+  With a server that serves more than one team, somebody has to be allowed
+  to create a group and to say who may join it. That is the question.
+
+> **❓ PQ-20 (2026-11-19T18:45+01:00) — Who an agent group belongs to:** on a server, who creates an agent group, and which runtimes may join it?
+>
+> **Context.** The section above this question explains what an agent group is: the set of runtimes that share repositories and therefore share one pool of leases, across quests and machines. A **team** is people. A **customer** is whoever a server serves (an organisation, or you); the server keeps access keys and quotas per customer. You decided that a team and an agent group are two different things, that "a team has owners; the first is whoever created the team", and you wrote about this question: "I'd say team member can create or delete their own agent groups, but this depends on our definitions."
+>
+> Three things are not said anywhere: whether an agent group belongs to a customer, to a team or to a person; who creates the first customer on a new server; and which runtimes may join a group.
+>
+> **Why I ask.** The Solution Blueprint has an information model (which records exist and how they point to each other) and a security model (who may call which operation). Both need this. It also decides what the first day on a new server looks like.
+>
+> - **(a)** **A group belongs to the customer and is opened to teams; a team's owner creates it.** Whoever installs the server creates the first customer and its first access key from the server's command line. With that key a person creates a team and is its first owner. A team's owner creates an agent group; it belongs to the customer. A team lists the agent groups its members' runtimes may join, and a group may be listed by several teams of the same customer, so two teams that share repositories share the leases on them. A runtime joins a group with its person's token of a team that lists the group. For you: one customer, one team with you in it, one agent group for all your machines.
+> - (b) **As (a), and every member may create agent groups**, as you suggested: a member creates a group, it is listed in that member's team, and the member who created it (or an owner) may delete it. More freedom; a team can end up with several groups over the same repositories, whose runtimes then do not see each other's leases — the one thing a group is for.
+> - (c) **A group belongs to exactly one team.** A team's owner creates its groups, and only that team's members' runtimes join them. Simpler to explain. Two teams working on the same repositories cannot share leases.
+> - (d) **Groups stay as today:** no owner, no creation; any runtime with the customer's key that names a group is in it. Teams only concern messaging and remote control. Nothing to administer; nothing keeps a runtime out of a group.
+>
+> *Recommendation:* (a) — a group only works when everyone who writes to a repository is in the same one, so creating one should be a deliberate act of an owner, and it must be possible for two teams to share one.
+>
+> **Answer:**
 
 ### <!--[TAC-KINDS]--> 9.5 Message kinds
 
@@ -1674,10 +1644,28 @@ teams.
   transit. (S1 § 7.8; S3, WR-3)
 - **CI.17** What the service stores is not encrypted by default. Encryption
   at rest is an option (`SCO > SCO-LATER`, L-10). (S1 § 7.8; S2 § 5, FO-20)
-- **CI.18** Pairing of devices and end-to-end encryption between a device
-  and a runtime become mandatory as soon as anything can be reached from
-  outside the VPN, that is, with the relay (`SCO > SCO-LATER`, L-6).
-  (S1 § 7.8, CQ-10)
+- **CI.18** A device that reaches the server from the internet is **paired**
+  first: it is enrolled once, from inside, by its person, and gets a key of
+  its own. A single device can be removed, and its key then stops working.
+  Pairing is part of the first version, since phones and tablets reach the
+  server from the internet in it. (S1 § 7.8, CQ-10; PQ-9)
+- **CI.19** ___check here___ **An open point for the security model of the
+  Solution Blueprint:** whether encryption in transit (HTTPS), the team
+  token and the paired device's key are enough for access from the internet,
+  or whether end-to-end encryption between a device and a runtime is needed
+  in the first version too. The product owner asked it ("think if internet
+  access is secured enough with HTTPS + the token"). What can be said now:
+  HTTPS with the team token and a device key protects against anyone on the
+  network between the device and the server, and a lost device is shut out
+  by removing its key. It does not protect against the server itself or
+  whoever controls it, because the server and its relay see what they
+  forward; end-to-end encryption would. In the first version the server is
+  run by the team that uses it, so the server is trusted as the team's
+  machines are. The earlier decision made end-to-end encryption mandatory
+  with the relay (S1 § 7.8, CQ-10); with the server-side runtime for phones
+  the path from a device ends at a runtime on the server, where there is no
+  second end to encrypt to. The security model decides it; it does not hold
+  up the Blueprint. (PQ-13, PQ-9; `SCO > SCO-LATER`, L-6)
 
 ### <!--[TAC-SPEC]--> 9.10 One specification: `tac/2.0`
 
@@ -1745,35 +1733,11 @@ The problems this part solves (S1 § 10.1; S16):
 
 ### <!--[PAR-APPROACH]--> 10.2 The approach
 
-CW.2 and CW.3 are decided. CW.4 to CW.14 are stated here as capabilities and
-wait for the product owner's confirmation (`new_questions.md`, section
-`PAR-APPROACH`): the concept proposes them.
-
-> **❓ PQ-14 (2026-11-19T09:21+01:00) — The integration step and what goes with it:** do you confirm the parts of the approach to parallel work that so far are only proposed?
->
-> **Context.** Decided: the trunk is kept, and whether runs get a working tree and a branch of their own is a setting per repository that the team decides. The concept proposes nine further parts, as "items 2 to 10" of its section on keeping the trunk, and marks them as proposals. Each, with what it means:
->
-> | Nr. | Part | What it means |
-> | --- | --- | --- |
-> | 2 | The lease covers the integration, not the run | A run holds only an advisory claim on what it touches while it works; the exclusive lock on a repository is taken just for the moment its commits are brought onto the main branch (rebase, checks, fast-forward, push). Today's design locks the repository for the whole todo. |
-> | 3 | An integration queue per repository | The coordination service lines up the runs that want to land on a repository, one after the other; each lands if the repository's declared checks pass, else it is sent back to its run. |
-> | 4 | A touch set per todo | A todo says which repositories, packages and paths it will touch; the queue starts only todos that do not overlap and says up front who waits for whom. |
-> | 5 | Waiting runs rebase | After each landing, the runs still waiting are rebased onto the new main branch and their checks run again before they land. |
-> | 6 | A record of each todo's commits | Per repository the commit before and after a todo. It is what a review looks at, what is reverted to discard a todo, and how a commit is traced to its session. |
-> | 7 | "Published at version N" as something a todo waits for | A todo can be blocked until a package is published at a version; the runtime checks the registry and unblocks it. |
-> | 8 | Quiescence as a question | The coordination service answers who holds what in a repository, a workspace or on all machines; a sync asks instead of assuming; a runtime can be asked to pause its queue after its current item. |
-> | 9 | The agent state stays on the main branch | Todo and state files get no working trees and no integration step; they are merged by their own merge drivers. |
-> | 10 | Review without pull requests | A todo's difference as a review document, a review agent that sees only the difference and the todo's completion criteria, a person only for paths that carry weight, the verdict recorded with the todo. |
->
-> **Why I ask.** These parts are most of what the product adds to parallel work, and parts 2, 3 and 5 change the design of leases that the coordination idea settled earlier (a claim held exclusively from a todo's start to its end). The Blueprint needs to know which of them are requirements. Parts 2, 3 and 5 only make sense where a repository has working trees switched on; with one working tree, two runs cannot work at once whatever the lease covers.
->
-> - **(a)** **Confirm all nine.** Where a repository has working trees, the claim during the run is advisory and the exclusive lease is taken for the integration; where it has none, the claim is exclusive for the whole todo, as designed earlier.
-> - (b) **Confirm with exceptions** — name the numbers that are not part of the product, or are later.
-> - (c) **Only the leases, without the integration queue:** parts 4, 6, 7, 8 and 9 are kept; a claim stays exclusive for the whole todo in every repository, and a run with a working tree merges its branch itself when it holds the lease (parts 2, 3, 5 and 10 are dropped or later).
->
-> *Recommendation:* (a) — the integration step is what gives the trunk its missing check and lets several runs work in one repository; without it working trees only move the conflict to the end.
->
-> **Answer (2026-11-19T11:19+01:00):** (a), but (1) must have a strict mode that blocks all the time, just as we need to have a non-worktree mode which always requires strict locks while a todo executes.
+All of the approach is decided: the parts the concept only proposed (the
+lease for the integration, the integration queue, the touch set, the rebase
+of waiting runs, the record of commits, publication as a dependency, the
+answer to who holds what, the `_ai` state on the main branch, review without
+pull requests) are confirmed, with a strict mode added (CW.5). (PQ-14)
 
 **A run's result is a branch**
 
@@ -1798,7 +1762,10 @@ wait for the product owner's confirmation (`new_questions.md`, section
   the short, exclusive lease on the repository only to integrate. The
   integration step is: rebase the run's commits onto the main branch, run
   the repository's checks, fast-forward the main branch, push. The fencing
-  token is checked at the push. (S1 § 10.4, item 2)
+  token is checked at the push. There is a **strict mode**, in which the
+  claim is exclusive and blocks others for the whole todo. A repository
+  without working trees per run (CW.2) is always in the strict mode while a
+  todo executes in it. (S1 § 10.4, item 2; PQ-14)
 - **CW.6** Every repository has an **integration queue**, kept by tac. It is
   serial and mechanical: it runs the checks the repository declares
   (analysis, the tests the change affects) and lands the run's commits or
@@ -2004,9 +1971,11 @@ by the sources; none carries a number the sources do not give.
 - **N-20** What travels between a client and the tac server is encrypted in
   transit. What the service stores is not encrypted by default. (S3 WR-3;
   S2 § 5, FO-7, FO-20; S1 § 7.8)
-- **N-21** As soon as anything is reachable from outside the VPN, pairing of
-  devices and end-to-end encryption between a device and a runtime are
-  required. (S1 § 7.8, CQ-10; `SCO > SCO-LATER`, L-6)
+- **N-21** Whatever is reachable from the internet is reached only by paired
+  devices, each with its own key, over an encrypted connection, with strict
+  identity. Whether end-to-end encryption between a device and a runtime is
+  required as well is decided in the security model. (S1 § 7.8, CQ-10; PQ-9,
+  PQ-13; `TAC > TAC-CRYPT`, CI.18, CI.19)
 - **N-22** A user id is generated by the server when an invitation is
   redeemed; no client chooses one. (S1 § 7.3, DQ-2)
 - **N-23** A file a prompt drew from an encrypted document leaves no trail on
@@ -2032,25 +2001,11 @@ by the sources; none carries a number the sources do not give.
 - **N-29** The packages are BSD-3, as the framework's packages are.
   `tom_tac_service` carries that licence today, and Webwork's choice of tac
   for its messaging rests on it. (S5; S13, DPMESSAGING-2; S19)
-  ___check here___ No decision of the product owner states the licence of the
-  new packages; the question on licence and publication asks.
-
-> **❓ PQ-15 (2026-11-19T09:21+01:00) — Licence and publication of the packages:** under which licence are the new packages released, and where are they published?
->
-> **Context.** The product builds new packages: the runtime (TypeScript), the coordination service (TypeScript), a runtime client and a coordination client in each of nine languages, the Flutter components, the supervision application. No decision of the product owner names their licence or where they are published. What the sources say:
-> - the coordination service that exists today carries the BSD-3 licence, and Webwork chose it for its messaging because it is "own BSD-3", not a copyleft product;
-> - the first runtime design said: licence BSD-3, and "one esbuild bundle, installed on demand; nothing published to npm";
-> - since then it was decided that every host carries the runtime version it was built with and installs it into a shared place on the machine, and that client packages exist for nine languages "for applications to use".
->
-> **Why I ask.** The Solution Blueprint records the licence and how each package reaches its users. A client package that an application developer is to use must be obtainable from that language's registry or in some other stated way; and "nothing published to npm" was decided for the runtime when only Tom's own hosts were to carry it.
->
-> - **(a)** **BSD-3 for everything; clients and components published, the runtime and the service carried.** The client packages and the Flutter components are published to their languages' registries (pub.dev for Dart, npm for TypeScript and JavaScript, and so on, each when its client is built). The runtime and the coordination service are not published to a registry: hosts carry the runtime, and the service is installed from the binaries layer or by its own installer.
-> - (b) **BSD-3 for everything; everything published**, the runtime and the service to npm too, so anyone can install them without one of Tom's hosts.
-> - (c) **BSD-3; nothing published for now.** Everything is used from the workspace's repositories until the product is stable; publication is decided later.
->
-> *Recommendation:* (a) — client packages are only useful where a developer can get them, while the runtime's version must match its host and is better carried by it.
->
-> **Answer (2026-11-19T11:20+01:00):** (a), for now we publish only to pub.dev and to our tom_binaries repo. We'll later publish to more official repos and the app stores.
+  The new packages are BSD-3 too. For now they are published only to
+  pub.dev (the Dart packages) and to the workspace's binaries repository
+  (everything a host or a server installs: the runtime, the tac service, the
+  clients of the other languages). Publication to further registries and to
+  the application stores is later. (PQ-15)
 
 **Documentation**
 
@@ -2060,7 +2015,9 @@ by the sources; none carries a number the sources do not give.
     the flows as sequences, who owns which state, security;
   - the runtime protocol specification, with its JSON schema;
   - the TAC specification `tac/2.0`;
-  - the API documentation of the clients, per language, with examples;
+  - the API documentation of the client packages, per language, with
+    examples (PQ-18);
+  - a user guide and a programmer's guide, written by hand (PQ-18);
   - the screen and component descriptions;
   - guides: integrating the runtime into a Flutter application; setting up a
     tac server and a team; pairing with Tom Secrets Manager; the rules for
@@ -2084,8 +2041,8 @@ by the sources; none carries a number the sources do not give.
 
 ### <!--[NFR-TOPO]--> 11.1 Network topologies
 
-The topologies the architecture document describes (S1 § 8). T1 to T6 belong
-to the first version; T7 and T8 are later.
+The topologies the architecture document describes (S1 § 8). T1 to T5 and T8
+belong to the first version; T6 and T7 are later. (PQ-9, PQ-16)
 
 | Id | Topology | What runs where | What must be reachable |
 | --- | --- | --- | --- |
@@ -2094,32 +2051,16 @@ to the first version; T7 and T8 are later.
 | **T3** | One user, several machines on the VPN | Each machine as T1 or T2. The machines form one agent group through the GitHub backend or the server. | Each machine reaches the coordination repository or the tac server; runtimes reach each other's published MCP endpoints directly over the VPN. |
 | **T4** | A team on the VPN | As T3 with several people; the server carries the messaging. Webwork on the desktop connects through its local runtime. | Every member's machine reaches the tac server over TLS on the VPN. |
 | **T5** | A member off the VPN | A machine outside reaches the server's public address; the relay forwards TAC and MCP to runtimes inside. | The server's public address over TLS. Runtimes inside keep an outbound connection to the relay; nothing inside accepts a connection from outside. |
-| **T6** | A runtime server | An always-on machine runs runtimes without a window; quests are worked from the queue and supervised through trc. | The machine reaches the tac server; trc reaches the runtimes' endpoints. |
+| **T6** | A runtime server (later) | An always-on machine runs runtimes for a long time without a window or a client; quests are worked from the queue and supervised through trc. | The machine reaches the tac server; trc reaches the runtimes' endpoints. (`SCO > SCO-LATER`, L-5; PQ-16) |
 | **T7** | A cloud agent (later) | A vendor's sandbox clones a repository, works and pushes a branch; the runtime that sent the todo asks the vendor and the repository host for the result. | The sandbox reaches the repository host only; it reaches neither tac nor a runtime. (`SCO > SCO-LATER`, L-1) |
-| **T8** | A server-side runtime for web, phone and tablet (later) | A browser or phone client without a local runtime uses a runtime on a server, which also hosts the web version. It is the only way such a client reaches tac. | The client reaches that server over WebSocket; the server-side runtime reaches tac. (`SCO > SCO-LATER`, L-8; WQ-1) |
+| **T8** | A server-side runtime for phone, tablet and web clients | A client without a local runtime uses a runtime on a server: the server runs permanently and starts one runtime per client, which ends with the client's session. It is the only way such a client reaches tac. The supervision application on a phone or tablet uses it in the first version; Webwork's web, phone and tablet clients follow in a later wave of Webwork (`SCO > SCO-LATER`, L-8). | The client reaches that server over WebSocket, from the local network, the VPN or the internet; from the internet only as a paired device with strict identity. The server-side runtime reaches tac. (WQ-1; PQ-9, PQ-16; `RT > RT-INSTALL`, CR.46) |
 
 T6 depends on a runtime that runs without a host application, while a runtime
-is started by its host and ends with it (`RT > RT-INSTALL`, CR.44;
-`SCO > SCO-LATER`, L-5). The sources do not say what hosts a runtime on a
-runtime server; the question on the runtime server asks.
-
-> **❓ PQ-16 (2026-11-19T09:20+01:00) — A runtime server and the lifetime of a runtime:** what runs the runtimes on an always-on machine, when a runtime ends with its host?
->
-> **Context.** Two statements of the concept stand side by side:
-> - among the network topologies: "A runtime server. A machine that is always on (bigbeast) runs runtime servers without a window: quests worked from the queue, supervised through trc."
-> - the decision on the lifetime of a runtime: "the host starts it and it ends with the host, we might later investigate in standalone runtimes to which a client connects to supervise and the disconnects again, similar to the remote control. I think this can be change later easily."
->
-> A runtime without a window has no host application in the sense of the three hosts of the first version (the VS Code extension, Webforge, Webwork). Later features rest on such a machine too: the server side for web and phone clients, and handing todos to a runtime of our own.
->
-> **Why I ask.** The Solution Blueprint lists the topologies of the first version. If the runtime server belongs to it, something must start, stop and restart runtimes there and give them what a host gives (locations, identity, configuration, an answer to "who is asked"), and the rule "ends with its host" needs that something as the host.
->
-> - **(a)** **Not in the first version.** The runtime server is later, together with standalone runtimes and the server side for web and phone. The first version's topologies are: one machine; several hosts on one machine; one user's machines on the VPN; a team on the VPN; a member off the VPN through the relay. On the always-on machine only the coordination server runs.
-> - (b) **In the first version, with a small host of its own:** a command-line host (a service on the machine) that starts one runtime per configured quest, restarts it when it fails, and sends every question through the coordination service to the quest's owner. "Ends with its host" holds: the service is the host.
-> - (c) **In the first version by running an existing host there** (a VS Code server or a Webforge instance on the always-on machine), with nothing new built.
->
-> *Recommendation:* (a) — it follows the decision on the lifetime as it was given; (b) is the natural form when it comes.
->
-> **Answer (2026-11-19T11:23+01:00):** (a), however there can already be a server for a web application or apps that hosts one runtime per client in the current model. The server would be permanent, the runtimes start and die with the apps/users. Fully standalone runtime will come later, if needed. For me this is just a special case where a longterm service hosts a runtime for a long time and we're not planning this service now.
+is started by its host and ends with it (`RT > RT-INSTALL`, CR.44). It is
+later, with standalone runtimes (`SCO > SCO-LATER`, L-5): it is a service
+that hosts a runtime for a long time, and that service is not planned now.
+On the always-on machine only the tac server runs in the first version.
+(PQ-16)
 
 #### <!--[NFR-TOPO-FLOWS]--> 11.1.1 Key flows
 
@@ -2160,10 +2101,15 @@ runtime protocol's JSON schema and the TAC specification; the protocol layer
 of every client is generated from the schema (S2 § 5, FO-10; `CLI > CLI-PACK`,
 CL.4).
 
-**How the units are produced.** The specification takes the document
-structure of the TomSpecs model; the runtime is implemented by hand from it,
-and the clients' protocol layer is generated from the protocol's JSON schema,
-outside the code generation of the TomSpecs process (S1 § 13.1, CQ-17, DQ-10).
+**How the units are produced** is decided at the start of Phase 4 of the
+specification process, not here (PQ-17, PQ-19). There, for each area of the
+specification and for each unit, it is named which mapper or emitter writes
+its code and what is produced directly from the specification's structured
+output; a generator that is missing is built in that phase, so that as much
+as possible is generated and a change later runs through regeneration
+quickly. The units differ: for some a mapper or emitter fits, for others the
+work starts from the structured output. Until then the register below names
+the units and their technology, and no mapper.
 
 **What the tooling offers** (`tomspecs` 0.17.0 in
 `$TOM_BINARY_PATH/darwin-arm64/`, asked on 2026-11-19):
@@ -2175,55 +2121,12 @@ outside the code generation of the TomSpecs process (S1 § 13.1, CQ-17, DQ-10).
 
 The mappers write business applications: entities, repositories, HTTP routes
 and screens. None of them writes a runtime, a protocol library or a command
-line (S1 § 3.5). Whether a mapper applies to any unit, and which standard
-descriptions the project publishes, is asked in the questions on the
-generation units.
+line today (S1 § 3.5); which are used, and which have to be built, is named
+at the start of Phase 4.
 
-> **❓ PQ-17 (2026-11-19T09:20+01:00) — Mappers or hand-written code, per unit:** for each unit the project builds, does one of the TomSpecs tooling's mappers write code for it, or is it written by hand?
->
-> **Context.** The units the sources name:
->
-> | Unit | Builds | Written in |
-> | --- | --- | --- |
-> | `tom_ai_runtime` | the runtime | TypeScript on Node |
-> | `tom_tac_service` | the coordination and messaging service | TypeScript on Node |
-> | `tom_tac_client`, `tom_ai_runtime_client` | the Dart clients | Dart |
-> | the clients under `tom_ai_runtime_nondart/` | a runtime client and a coordination client for TypeScript, JavaScript, Python, Java, Go, Rust, C, C++ | each language |
-> | `tom_ai_runtime_ui` | the Flutter components and their gallery | Dart with Flutter |
-> | the supervision application | supervision of a team's runtimes | Dart with Flutter |
->
-> The TomSpecs tool (`tomspecs` 0.17.0) offers these mappers, which write a package from the specification's intermediate form: `dart-tom`, `ts-shared`, `ts-react-client`, `ts-react-native-client`, `ts-hono-server`, `go-server`, `java-spring-server`, `csharp-aspnet-server`. (The calls `tomspecs :ir-map --mapper` and `tomspecs :ir-emit --standard` without a value end with "needs a value"; the names are those the tool lists in its help and when given an unknown value.) These mappers write business applications: entities, repositories, HTTP routes with a database behind them, screens over them. None writes a runtime, a protocol library or a set of user interface components.
->
-> You decided: the specification takes the document structure of the TomSpecs model; the runtime is implemented by hand; the protocol layer of the clients is generated from the protocol's JSON schema, by a generator of the project's own, outside the code generation of the TomSpecs process.
->
-> **Why I ask.** The Solution Blueprint has a register of generation units, and each unit names its mappers or none. One unit is closer to what a mapper writes than the others: the coordination server, which has records (customers, teams, participants, conversations, messages, leases), operations over HTTP and a store. Whether it is still written by hand is not said anywhere.
->
-> - **(a)** **Every unit by hand; no mapper.** The register lists the units with no mapper. The only generated code is the clients' protocol layer, from the JSON schemas of the runtime protocol and of the coordination protocol. The code-generation phase of the TomSpecs process is not used for this product.
-> - (b) **By hand, except the coordination server's record and route layer**, which `ts-shared` and `ts-hono-server` write from the specification; everything else by hand. It would add the Hono web framework and a database to a service that today has no dependencies and keeps its own journal store.
-> - (c) **Decide in the Solution Blueprint**, unit by unit, once its information model shows how much of each unit is plain records and operations.
->
-> *Recommendation:* (a) — the service's store, its leases and its streams are not what a business-application mapper writes, and it is to stay free of dependencies.
->
-> **Answer (2026-11-19T11:26+01:00):** I think this is complicated for this project as we have multiple components we're creating. For some the mapping/emitters might be useful, for other we start directly from the JSON/YAML output. I actually suggest to name at the beginning of phase 4 which mapping we need for each areas of the specification and how to proceed with it for each component and see if there are missing generators we should build in phase 4 to keep the process as automated as possible. I'd like to be able to run through regeneration quickly when we have changes later.
-
-> **❓ PQ-18 (2026-11-19T09:20+01:00) — Standard descriptions the project publishes:** in which standard forms are the product's interfaces described and published?
->
-> **Context.** The product has three interfaces others program against:
-> - the **runtime protocol**: commands, numbered events and requests from the runtime to its host, as JSON-RPC over a local connection or a WebSocket;
-> - the **coordination protocol** (TAC): operations over HTTP, and a stream of messages over a WebSocket;
-> - the **MCP server** of the runtime, whose tools carry their own schemas.
->
-> Decided so far: "the protocol as a JSON schema in the package; the API packages are generated from it and checked against it." The TomSpecs tool can write four standards from a specification's intermediate form: `openapi`, `jsonschema`, `asyncapi` and `icu` (message texts), besides `markdown`. Since the product is not generated through that intermediate form, these descriptions would be written or generated by the project itself.
->
-> **Why I ask.** Each description is something to keep in step with the code and to check in the conformance suite; and the client packages in nine languages are generated from one of them. The Solution Blueprint names them as deliverables.
->
-> - (a) **JSON Schema for both protocols; OpenAPI for the coordination protocol's HTTP operations; AsyncAPI for the event stream of the runtime and the message stream of the coordination service.** JSON Schema is the source the clients are generated from; OpenAPI and AsyncAPI are derived from it and published for those who use other tools.
-> - (b) **JSON Schema only**, for both protocols. One description, the one the clients are generated from; OpenAPI and AsyncAPI are not published.
-> - **(c)** **JSON Schema for both, and OpenAPI for the coordination protocol's HTTP operations**, no AsyncAPI: the streams are described in the protocol specifications' text.
->
-> *Recommendation:* (c) — the HTTP operations of the coordination service are what an outside developer is most likely to call directly, and OpenAPI is what their tools read; the streams are few and well described in text.
->
-> **Answer (2026-11-19T11:28+01:00):** Let's decide this in phase 4, we also need API docs for the SDKs and (handwritten) user and programmer's guides.
+**Which standard descriptions the project publishes** (JSON Schema for the
+two protocols, OpenAPI for the coordination protocol's HTTP operations,
+AsyncAPI for the streams) is decided in Phase 4 as well. (PQ-18)
 
 ## <!--[DEC]--> 12 Decisions
 
@@ -2270,7 +2173,7 @@ under "Replaces or completes".
 | **D-22** | CQ-9 | The full server (customers, keys, quotas, administration) is built first; TLS ends at a reverse proxy. | the smaller team server | `TAC > TAC-BACKENDS` |
 | **D-23** | FO-9 | The relay is part of the server, carries TAC and MCP, and only forwards. | — | `TAC > TAC-BACKENDS` |
 | **D-24** | DQ-1 | A team is people, an agent group is runtimes; one runtime belongs to one person. | — | `TAC > TAC-PEOPLE`, `GLO` |
-| **D-25** | CQ-10, DQ-2 | Identification by user id and e-mail and invitation with team tokens are both built; an owner invites, a one-time password is passed on by the owner, the server generates the user id; remote control only inside a team and only where the runtime's host allows it. | — | `TAC > TAC-PEOPLE` |
+| **D-25** | CQ-10, DQ-2 | Identification by user id and e-mail and invitation with team tokens are both built; an owner invites, a one-time password is passed on by the owner, the server generates the user id; remote control only inside a team and only where the runtime's host allows it. Where identification is accepted: D-54. | — | `TAC > TAC-PEOPLE` |
 | **D-26** | DQ-12 | A quest has a home team; its runtime acts for another team only by explicit address, with the person's token for that team. | — | `TAC > TAC-PEOPLE` |
 | **D-27** | WQ-1 | A browser, phone or tablet client reaches tac only through a runtime on the server side, which also hosts the web version; tac's participants are people and runtimes. | the earlier answer that such a client registers in tac, and the concept's earlier text | `TAC > TAC-PEOPLE`, `NFR > NFR-TOPO`, `SCO > SCO-LATER` |
 | **D-28** | FO-7, WQ-3 | User messages: direct, group and attached conversations, stored with a retention of one year by default that a team may change. | — | `TAC > TAC-CONV` |
@@ -2291,14 +2194,36 @@ under "Replaces or completes".
 
 | Id | Source id | Decision | Replaces or completes | Shaped |
 | --- | --- | --- | --- | --- |
-| **D-36** | CQ-17, DQ-10 | The specification's documents are TomSpecs documents: the Solution Blueprint first and deepened, a detailed document only where a component needs one. The runtime is implemented by hand. | RS-5 | `DEL`, `NFR > NFR-GEN` |
-| **D-37** | CQ-1, DQ-13 | The specification is made in a run of the idea-to-todos process on the concept, not in the TomSpecs process. ___check here___ This document is written in a run of the TomSpecs process; see X-7. | — | `CON` |
+| **D-36** | PQ-19, PQ-17 | The specification's documents are TomSpecs documents, written in the TomSpecs process with all its phases: the Project Idea, the Solution Blueprint, the detailed documents, then the code generation, where the mapping per area and per unit is named at the start of Phase 4. | CQ-17 and DQ-10 (the Blueprint deepened, a detailed document only where a component needs one, the runtime implemented by hand); RS-5 | `DEL`, `NFR > NFR-GEN` |
+| **D-37** | PQ-19 | The specification is made in a run of the TomSpecs process, through all its phases. Which steps of a phase can be skipped is suggested as the run proceeds, and the product owner decides each time. | CQ-1 and DQ-13 (a run of the idea-to-todos process on the concept, not the TomSpecs process) | `CON`, `DEL` |
 | **D-38** | CQ-18, DQ-7 | The design is delivered as a complete inventory of the extension's screens, a description per screen and component, and a gallery application. | — | `CLI > CLI-SCREENS` |
 | **D-39** | DQ-6 | Two tracks are built in parallel: tac, and the runtime. | — | `DEL` |
 | **D-40** | RS-3, RT-5 | The split of the extension starts after the extension's features and the workspace layout are finished. | — | `DEL` |
 | **D-41** | CQ-19 | During the split the extension is branched, the new line has its own extension id and working tree, and it refuses to start beside the old one in the same window. | RS-1 | `DEL` |
 | **D-42** | CQ-20 | The todos filed before the concept are input; a new set replaces them. | RS-4 | `DEL` |
 | **D-43** | RT-8 | The Dart runtime client is the client Tom Forge builds on. | — | `CLI > CLI-PACK` |
+
+**Decisions of the first question round** (the product owner's answers of
+2026-11-19 to the questions `PQ-1` … `PQ-19`, kept in
+`01_02_Questions Round/answers.md`; D-36 and D-37 above are from this round
+too)
+
+| Id | Source id | Decision | Replaces or completes | Shaped |
+| --- | --- | --- | --- | --- |
+| **D-44** | PQ-1 | The product owner, alexis, is the only reviewer of the specification; no document type has a team of its own. | — | `USR > USR-TEAM` |
+| **D-45** | PQ-8 | No fixed order of building: the order that reaches the finished product fastest, with two runs working in parallel. | — | `DEL` |
+| **D-46** | PQ-2, PQ-3 | A run pins the version of its process and takes a changed definition over at a step boundary on confirmation, which is the usual case; a step declares preconditions, which the runtime enforces and the user can override. | — | `RT > RT-RUNS` |
+| **D-47** | PQ-10 | Three backends are in the first delivery; the GitHub backend stays. | — | `TAC > TAC-BACKENDS` |
+| **D-48** | PQ-4 | A short process for small changes is not part of this product; it is proposed in the quest `tom_specs`. | — | `RT > RT-RUNS`, `SCO > SCO-OUT` |
+| **D-49** | PQ-6 | A host installs the runtime when none is installed and otherwise uses the installed one; an update happens only when the user was asked; a host too old for the runtime switches the features off or refuses to start; older workspace files are migrated or the runtime goes back to an older version, on the user's choice. | DQ-9 in the part "every host starts the version it was built with" | `RT > RT-INSTALL`, `RT > RT-VERSIONS` |
+| **D-50** | PQ-7 | The client packages of all nine languages are in the first delivery. | — | `CLI > CLI-PACK` |
+| **D-51** | PQ-9 | The supervision application runs on the phone and the tablet in the first version, reached from the internet as well as from the local network or the VPN; a device is paired and gets a key of its own. | CQ-10 in the part that defers the pairing; WQ-1 in the part that defers the server-side runtime | `CLI > CLI-TRC`, `NFR > NFR-TOPO`, `SCO > SCO-LATER`, `TAC > TAC-CRYPT` |
+| **D-52** | PQ-16 | A runtime server on an always-on machine and standalone runtimes are later; a permanent server that hosts one runtime per client, each ending with its client, is part of the model. | — | `RT > RT-INSTALL`, `NFR > NFR-TOPO` |
+| **D-53** | PQ-12 | An owner of a team may do what the table of rights says; who creates and deletes agent groups is still open. | — | `TAC > TAC-PEOPLE` |
+| **D-54** | PQ-13 | Open (identification) or strict (invitation and team tokens) is a setting of the server, for everyone on it; every access from the internet is strict and that cannot be configured. | D-25 in the part that leaves open where identification is accepted | `TAC > TAC-PEOPLE` |
+| **D-55** | PQ-14 | The whole approach to parallel work is confirmed; a strict mode makes a claim block for the whole todo, and a repository without working trees per run is always in it while a todo executes. | — | `PAR > PAR-APPROACH` |
+| **D-56** | PQ-15 | The new packages are BSD-3; for now they are published only to pub.dev and to the workspace's binaries repository. | — | `NFR` |
+| **D-57** | PQ-17, PQ-18 | Which mapper or generator writes which unit, and which standard descriptions are published, is decided at the start of Phase 4; missing generators are built there. The API documentation of the client packages and hand-written user and programmer's guides are delivered. | — | `NFR > NFR-GEN`, `NFR` |
 
 ## <!--[CON]--> 13 Contradictions
 
@@ -2325,8 +2250,8 @@ Where sources disagree, and how it is resolved.
   such a client talk to tac directly. **Resolved:** every client reaches tac
   through a runtime; a browser, phone or tablet client uses a runtime on the
   server side (D-27). WR-2 and WR-6 are met differently than asked, and
-  Webwork's messaging on the web and the phone comes with that server side
-  (`TAC > TAC-WEBWORK`; `SCO > SCO-LATER`, L-8).
+  Webwork's messaging on the web and the phone comes with Webwork's own
+  server side (`TAC > TAC-WEBWORK`; `SCO > SCO-LATER`, L-8).
 - **X-4** **Two scopes of the server.** S6 and S5 plan the full server with
   customers, keys, quotas and an administration interface; S3 (WR-1) asks for
   a small team's server without them. **Resolved:** the full server is built
@@ -2339,37 +2264,15 @@ Where sources disagree, and how it is resolved.
   to the protocol in minor versions, one per capability; S5 § 8 says minor
   versions only add. **Resolved:** one specification `tac/2.0`, built in one
   go, with capabilities announced on connect (D-21).
-- **X-7** **How the specification is made.** ___check here___ **Unresolved.**
-  S1 § 13.1 and § 14.1 record the product owner's decision that the
-  specification "is made in the `idea_to_todos` run on this concept, not in
-  the tom_specs process", and that the next step is such a run. This Project
-  Idea is Phase 1 of a run of the TomSpecs process. The same source also says
-  that the documents are TomSpecs documents, with the Solution Blueprint
-  first and deepened and a detailed document only where a component needs one
-  (D-36). The two can fit — this run produces the Project Idea and the
-  Solution Blueprint and goes deeper inside the Blueprint — or the decision
-  has changed. The question on how the specification is made asks.
-
-> **❓ PQ-19 (2026-11-19T09:20+01:00) — How the specification is made:** this Project Idea is written in a run of the TomSpecs process, while your recorded decision says the specification is not made in that process. How do the two fit?
->
-> **Context.** In the concept you answered the question how the specification and the todos are produced: "we should try to get in direction of a specification here in the idea2todo run, very detailed todos and todos to create the detailed documents. The process is not the TomSpecs process. Here in the idea we dicuss what we need and how it is split up. Then I can run through individual component documents one by one, e.g. in a askInMd* guided process with you, document (=component) per document." The concept records as the next step "an `idea_to_todos` run with this document as its input document".
->
-> Later answers in the same document point the other way:
-> - on the structure: "Can't you simply access the SOM tom_specs uses and go through the sections and collect what we'll need for this project and then use this as a basis to move forward by filling out the sections."
-> - on the form of the documents: "(a), however never all documents. And maybe we can simply work only on the blueprint and go deeper in there. Nothing prevents from using only the system blue print … it is easy to generate the 12 other document automatically from a system blueprint".
->
-> What is happening now: a run of the TomSpecs process has started in this quest, and this Project Idea is its Phase 1. That process goes on with Phase 2 (the Solution Blueprint), Phase 3 (twelve detailed documents in three waves), Phase 4 (code generation), Phase 5 (tests), Phase 6 (the system), Phase 7 (acceptance) and Phase 8 (release), each ended by a gate.
->
-> **Why I ask.** The Project Idea's sections on delivery and on the generation units, and the plan of everything after this phase, depend on which of the two it is. The todos that build the product also have to come from somewhere: the TomSpecs process files them in its later phases, the idea process in its last phase.
->
-> - **(a)** **This run, to the Solution Blueprint, and deeper inside it.** The TomSpecs process is used for Phase 1 (this Project Idea) and Phase 2 (the Solution Blueprint), and the Blueprint is deepened until it carries the specification. In Phase 3 a detailed document is written only where a component needs one (for example the interface document for the two protocols, the experience design document for the user interface components); the others are left out. Phase 4's code generation is not used; the todos that build the product are derived from the Blueprint and the detailed documents. The idea run on the concept is not started.
-> - (b) **Both, one after the other.** This run produces the Project Idea and the Solution Blueprint and stops there. An idea run then takes the Blueprint as its input, splits the work into parts and files the todos, among them the todos that write the detailed documents, which you go through component by component.
-> - (c) **The TomSpecs process as it is defined**, through all its phases, with all twelve detailed documents and the code generation where a mapper applies.
-> - (d) **The idea run after all:** this run ends with the Project Idea, which becomes one more input of an idea run on the concept.
->
-> *Recommendation:* (a) — it keeps one process and one set of documents, and matches your later answers (the Blueprint first and deepened, never all documents); the gates of Phases 2 and 3 then check exactly what you wanted to walk through component by component.
->
-> **Answer (2026-11-19T11:30+01:00):** (c), make suggestions if you think we can skip some of the steps of a phase, but we should go through the normal process with all its phases. You can do this while we proceed.
+- **X-7** **How the specification is made.** S1 § 13.1 and § 14.1 record the
+  product owner's decision that the specification "is made in the
+  `idea_to_todos` run on this concept, not in the tom_specs process", with
+  the Solution Blueprint deepened and a detailed document only where a
+  component needs one. This Project Idea is Phase 1 of a run of the TomSpecs
+  process. **Resolved:** the decision has changed. The specification is made
+  in the TomSpecs process with all its phases; steps that can be skipped are
+  suggested as the run proceeds (D-37, D-36). The idea run on the concept is
+  not started.
 
 - **X-8** **The owner of the coordination.** S5, S6 and S16 name a quest
   `agent_coordination` as the owner of tac and of the parallel-work rules;
@@ -2384,15 +2287,33 @@ Where sources disagree, and how it is resolved.
   of the coordination idea. **Resolved:** deferred (D-6).
 - **X-11** **Messages over the GitHub backend.** S6 says the GitHub backend
   carries no messages between machines; S2 § 3.4 has it keep the blobs of
-  messages in the coordination repository. Not resolved by a decision: with
-  messaging and documents on the server, what of them the GitHub backend
-  carries is part of the question on that backend in the first delivery
-  (`TAC > TAC-BACKENDS`).
+  messages in the coordination repository. **Resolved:** the GitHub backend
+  stays in the first delivery as S6 designed it, for leases, sessions, units
+  and endpoints; messaging, documents and reviews across machines are on the
+  server only (D-47; `TAC > TAC-BACKENDS`, CA.26).
 - **X-12** **The runtime server and the lifetime of a runtime.** S1 § 8 has a
   topology in which an always-on machine runs runtimes without a window
   (T6); the decision is that a runtime is started by its host and ends with
-  it, with standalone runtimes later (D-15). ___check here___ Not resolved;
-  the question on the runtime server asks.
+  it, with standalone runtimes later (D-15). **Resolved:** the runtime
+  server is later; a server that hosts one runtime per client, each ending
+  with its client, is part of the model and is not a standalone runtime
+  (D-52).
+
+- **X-13** **Which runtime a host starts.** The earlier answer was that every
+  host carries the runtime version it was built with and starts that version
+  (S1 § 5.7, DQ-9). The answer of the first question round is that a host
+  installs a runtime only when none is installed, otherwise uses the
+  installed one, and that nothing is updated without the user having been
+  asked. **Resolved:** the later answer holds (D-49). Versions can still lie
+  side by side (CR.41), which is what going back to an older runtime needs
+  (CP.33).
+- **X-14** **Pairing of devices and the server-side runtime, later or now.**
+  S1 § 11.1 defers both (CQ-10, WQ-1). The answer of the first question
+  round puts the supervision application on the phone in the first version,
+  reached from the internet. **Resolved:** the pairing of devices and the
+  server-side runtime for the supervision application are in the first
+  version (D-51); end-to-end encryption and Webwork's own server side stay
+  later (`SCO > SCO-LATER`, L-6, L-8).
 
 ## <!--[RISK]--> 14 Risks and dependencies
 
@@ -2407,13 +2328,22 @@ Where sources disagree, and how it is resolved.
 | **R-5** | **Vendors' interfaces in preview.** The agent SDKs and command lines the agent transports rest on, and every interface for hosted agents, are preview or beta; one hosted agent service was shut down with two months' notice. | A vendor changes or withdraws an interface a transport uses. | S9; S1 § 11.5, § 15.4 |
 | **R-6** | **The full server before anybody uses it.** Customers, quotas and the administration interface are built before a first team works on the server. | The first team's use shows needs the full server did not foresee; Webwork's messaging waits for parts it does not need. | S1 § 7.2, CQ-9; S3 |
 | **R-7** | **Everything in one go.** tac is built to the whole of `tac/2.0` and Webwork is told the product is built in one go; nothing is used before all of it is there. | An early part proves wrong only when a later part uses it. | S1 § 7.9, WQ-2, WQ-4 |
-| **R-8** | **Webwork's messaging on the web and the phone waits.** It comes with the server-side runtime, which is later; until then messaging works on the desktop only. | Webwork's team needs messaging or review on a phone or in a browser before that server side exists. | S1 § 7.10, WQ-1; S13 |
+| **R-8** | **Webwork's messaging on the web and the phone waits.** It comes with Webwork's own server side, in a later wave of Webwork; until then its messaging works on the desktop only. The server-side runtime it will use is built in the first version, for the supervision application. | Webwork's team needs messaging or review on a phone or in a browser before Webwork's server side exists. | S1 § 7.10, WQ-1; S13; PQ-9 |
 | **R-9** | **Another writer in the repositories.** Other sessions, runs and machines write to the same repositories on one branch while this product is specified and built; uncommitted work of others is in the way of builds and installs. | Two runs touch the same repository; a build or an install runs from a tree another session left changed. | S16; S1 § 10.1 |
 | **R-10** | **Leases held by agents.** Others found that locks held by agents are held too long or never given back. | A run ends without releasing its claim; a long run holds a repository. | S9; S1 § 15.2 |
 | **R-11** | **No gate before the main branch until the integration step exists.** Until then a broken commit is at once every other session's base. | A run commits a change that breaks a package others build on. | S1 § 10.1, § 10.3 |
 | **R-12** | **Nine languages.** Seven of the client packages are tested only through the conformance suite; nobody uses them yet. | A first user of such a client meets what the suite does not cover. | S2 § 3.5; S1 § 12.1 |
 | **R-13** | **Two hosts and several runtime versions on one set of workspace files.** A host with an older runtime stops working when the files are migrated. | A host is updated and migrates the files while another host with an older runtime is in use. | S1 § 6.7, § 9 F12 |
 | **R-14** | **The product's value depends on others being able to use its parts.** The protocol, the process format and the coordination are entangled with this workspace's conventions. | A user outside this workspace tries to use tac or a client without the rest. | S9; S1 § 15 |
+
+**Risks the first question round added.** (They are numbered after the
+dependencies below, since the numbers before them are taken.)
+
+| Id | Risk | Trigger | Source |
+| --- | --- | --- | --- |
+| **R-22** | **A server reachable from the internet in the first version.** The tac server and the server-side runtime are reached by phones from the internet before the product has been used by anyone but its owner; the security model is written for a case the first design had deferred. | The server's public address is opened; a device is lost; a team token or a device key leaks. | PQ-9, PQ-13; `TAC > TAC-CRYPT`, CI.19 |
+| **R-23** | **The full process for a product no mapper fits yet.** The specification runs through every phase of the TomSpecs process, and the code generation has no mapper for a runtime, a protocol library or a command line; generators have to be built in Phase 4. | Phase 4 is reached and the generators needed are larger than the code they would write. | PQ-19, PQ-17; `NFR > NFR-GEN` |
+| **R-24** | **Six client languages nobody uses yet, in the first delivery.** They have to be built, kept in step with the protocol and published with the rest. | The protocol changes late; a language's convenience layer falls behind. | PQ-7; `CLI > CLI-PACK` |
 
 ### <!--[RISK-DEPS]--> 14.2 Dependencies
 
@@ -2457,16 +2387,28 @@ their parts and progress on their own meanwhile (`LAND > LAND-WAIT`).
 - The old extension keeps being changed as needed; its changes are merged
   forward into the new line, or their work is repeated there.
 
-**The documents of the specification.** (S1 § 13.1, CQ-17, DQ-10; D-36)
+**The documents of the specification.** (PQ-19; D-36, D-37)
 
-- The Solution Blueprint comes first, one for the whole system, and the work
-  goes deeper inside it.
-- A detailed document is written only where a component needs one — for
-  example the interface document for the runtime protocol and for TAC, the
-  experience design document for the UI components — never all of them.
+- The specification runs through the TomSpecs process with all its phases:
+  this Project Idea, the Solution Blueprint for the whole system, the
+  detailed documents, the code generation, the tests, the implementation,
+  the acceptance and the release.
+- Where a step of a phase adds nothing for this product, skipping it is
+  suggested when the run reaches it, and the product owner decides.
+- At the start of Phase 4 the mapping per area of the specification and per
+  unit is named, and missing generators are built there
+  (`NFR > NFR-GEN`).
 - They are TomSpecs documents, so the specification tools work on them.
-- How this fits the decision that the specification is made in an idea run is
-  X-7.
+
+**The order of building.** (PQ-8; D-45)
+
+- No order of the component groups or of the units is fixed in advance:
+  the order is the one that reaches the finished, whole product fastest.
+- The work is done by two runs in parallel (the two tracks above). A todo
+  that waits for a todo of the other run is held and goes on when that one
+  is done; that the queue does this without a person is asked of the
+  extension (quest `vscode_extension`, todo
+  `vscimpb179_akss-blocked-item-resumes-by-itself`).
 
 **What is delivered** is the code of the units (`NFR > NFR-GEN`) and the
 documents of N-30.
