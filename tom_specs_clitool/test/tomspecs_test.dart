@@ -16,7 +16,8 @@ import '../bin/tomspecs.dart';
 /// The command names of the TSB-7 table
 /// (`decisions/tsimp1a_clitool_on_tom_build_base.md`), in its order, with the
 /// commands added since in their place: `spec-impact-walk` (the change mode's
-/// impact walk) after `spec-validate`.
+/// impact walk) after `spec-validate`, `spec-fill-frem` (FREM from git)
+/// after `spec-coverage`.
 const _tsb7 = [
   'spec-validate',
   'spec-impact-walk',
@@ -29,6 +30,7 @@ const _tsb7 = [
   'spec-idea-coverage',
   'spec-authorization',
   'spec-coverage',
+  'spec-fill-frem',
   'spec-answers',
   'codespecs-validate',
   'codespecs-areas',

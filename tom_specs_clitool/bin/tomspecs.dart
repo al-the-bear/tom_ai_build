@@ -364,6 +364,22 @@ final List<TomspecsCommand> tomspecsCommands = [
     ],
     specRoot: true,
   ),
+  _check(
+    'spec-fill-frem',
+    'fill-frem',
+    "Fill each functional requirement's FREM from the document's git history",
+    options: const [
+      OptionDefinition.flag(
+        name: 'dry-run',
+        description: 'Show the fill, write nothing.',
+      ),
+      OptionDefinition.option(
+        name: 'rendition',
+        description: 'Also write the markdown rendition to this file.',
+        valueName: 'doc.tomspecs.md',
+      ),
+    ],
+  ),
   _tool(
     'spec-answers',
     "Extract a review round's answers, comments and marks (answers.md)",

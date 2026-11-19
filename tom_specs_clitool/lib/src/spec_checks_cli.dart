@@ -28,6 +28,7 @@ const Map<String, String> specCheckCommandNames = {
   'project-idea-coverage': 'spec-idea-coverage',
   'authorization': 'spec-authorization',
   'coverage': 'spec-coverage',
+  'fill-frem': 'spec-fill-frem',
 };
 
 /// [specChecksCommands]' usage line of [check], with the check id replaced by
@@ -70,6 +71,10 @@ const Map<String, String> specChecksCommands = {
       'coverage <sample.tomspecs.yaml> <sbp.tomspecs.yaml> [<old.tomspecs.yaml>] '
       '[--tsv <out.tsv>] — how much of the model the document fills '
       '(checks/coverage_rows.yaml, checks/coverage_reasons.yaml)',
+  'fill-frem':
+      'fill-frem <doc.tomspecs.yaml> [--dry-run] [--rendition <doc.tomspecs.md>] '
+      "— every functional requirement's FREM (version, date, author) from the "
+      'document revision of the git revision that last changed it',
 };
 
 /// The top-level options; a check's own arguments follow its name and are
@@ -125,6 +130,7 @@ int runSpecChecks(List<String> arguments, {IOSink? out, IOSink? err}) {
       'project-idea-coverage' => _projectIdeaCoverage(args, specRoot, o, e),
       'authorization' => _authorization(args, specRoot, o, e),
       'coverage' => _coverage(args, specRoot, o, e),
+      'fill-frem' => _fillFrem(args, o, e),
       _ => 2,
     };
   } on _Usage catch (u) {
@@ -537,4 +543,117 @@ int _coverage(List<String> args, String? specRoot, IOSink o, IOSink e) {
   o.write(report.render());
   if (tsv != null) File(tsv).writeAsStringSync(report.renderTsv());
   return 0;
+}
+
+/// The versions of the document at [path] in git, oldest first, with the
+/// working tree last when it differs from the last commit; null when the file
+/// is not under git.
+List<FremHistoryVersion>? fremGitHistory(String path) {
+  final file = File(path).absolute;
+  final dir = file.parent.path;
+  final name = file.uri.pathSegments.last;
+  ProcessResult git(List<String> a, {String? cwd}) =>
+      Process.runSync('git', a, workingDirectory: cwd ?? dir);
+  final top = git(['rev-parse', '--show-toplevel']);
+  if (top.exitCode != 0) return null;
+  final topDir = '${top.stdout}'.trim();
+  final log = git([
+    'log',
+    '--follow',
+    '--format=%x01%H',
+    '--name-only',
+    '--',
+    name,
+  ]);
+  if (log.exitCode != 0) return null;
+  final commits = <(String, String)>[];
+  for (final block in '${log.stdout}'.split('\x01').skip(1)) {
+    final lines = block
+        .split('\n')
+        .map((l) => l.trim())
+        .where((l) => l.isNotEmpty)
+        .toList();
+    if (lines.length < 2) continue;
+    commits.add((lines.first, lines.last));
+  }
+  if (commits.isEmpty) return null;
+  final versions = <FremHistoryVersion>[];
+  for (final (hash, repoPath) in commits.reversed) {
+    final show = git(['show', '$hash:$repoPath'], cwd: topDir);
+    if (show.exitCode != 0) continue;
+    versions.add(FremHistoryVersion(hash, '${show.stdout}'));
+  }
+  final current = file.readAsStringSync();
+  if (versions.isEmpty || versions.last.text != current) {
+    versions.add(FremHistoryVersion('working tree', current));
+  }
+  return versions;
+}
+
+int _fillFrem(List<String> args, IOSink o, IOSink e) {
+  final dryRun = _flag(args, '--dry-run');
+  final rendition = _option(args, '--rendition');
+  if (args.length != 1 || args.first.startsWith('-')) throw _Usage();
+  final path = args.first;
+  final text = _read(path);
+  final history = fremGitHistory(path);
+  if (history == null) {
+    throw _Usage('$path is not a committed file of a git repository');
+  }
+  final SpecRootDefinition type;
+  final FremFillPlan plan;
+  try {
+    type = _definitionOf(text);
+    plan = planFremFill(history, type.tree);
+  } on FremFillVerificationException catch (x) {
+    e.writeln('VERIFY    $x — nothing written');
+    return 1;
+  } on Exception catch (x) {
+    e.writeln('DECODE FAILED: $x');
+    return 1;
+  } on ArgumentError catch (x) {
+    e.writeln('DECODE FAILED: ${x.message}');
+    return 1;
+  }
+  for (final f in plan.fills) {
+    o.writeln(f.reportLine);
+  }
+  for (final finding in plan.findings) {
+    o.writeln(finding);
+  }
+  o.writeln(
+    'fill-frem ${history.length} version(s), ${plan.fills.length} '
+    'requirement(s), ${plan.changed.length} to change'
+    '${plan.newText == null
+        ? ''
+        : plan.inPlace
+        ? ' (in place)'
+        : ' (re-encoded)'}'
+    ' — ${plan.findings.length} finding(s)',
+  );
+  final newText = plan.newText;
+  if (newText != null) {
+    if (dryRun) {
+      o.writeln('dry run   nothing written');
+    } else {
+      // The staged write: a sibling file, read back, then renamed over the
+      // document, so the document is never half written.
+      final stage = File('$path.fill-frem.stage')..writeAsStringSync(newText);
+      if (stage.readAsStringSync() != newText) {
+        stage.deleteSync();
+        e.writeln(
+          'VERIFY    the staged file did not read back — nothing written',
+        );
+        return 1;
+      }
+      stage.renameSync(path);
+      o.writeln('written   $path');
+      if (rendition != null) {
+        final doc = type.decode(newText);
+        File(rendition).writeAsStringSync(type.render(doc));
+        o.writeln('rendition $rendition');
+      }
+    }
+  }
+  return plan.findings.isEmpty ? 0 : 1;
 }

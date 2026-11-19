@@ -130,6 +130,7 @@ unpublished_drift:
     commands' run functions in lib/src/commands/, their output and usage
     lines named by command; 02a_rdv4 (2026-11-19):
     tool/multi_paragraph_fields.dart, the multi-paragraph field report;
+    07_sau1 (2026-11-19): `:spec-fill-frem`, FREM filled from git;
     published with the next clitool release.
   tom_core_codespecs: >-
     irfmt2 (2026-11-16): irspecs_ir.md §8 states that the dart-tom mapper needs
@@ -161,8 +162,9 @@ unpublished_drift:
     SomFormFieldMeta.multiParagraph and the `¶ paragraphs` chip; 02a_rdv2
     (2026-11-19): the emit-only trial `SpecFormLayout.tables` (form tables,
     heading anchors); 02a_rdv3 (2026-11-19): its reference lines, record
-    tables, section tables and reference links; ships with the next chain
-    release.
+    tables, section tables and reference links; 07_sau1 (2026-11-19):
+    spec_checks' planFremFill (FREM from the document's git history); ships
+    with the next chain release.
   tom_specs_core: >-
     tsbin7 (2026-11-18): the README, doc/annotations.md and the
     @SerializationOrder doc comment name the tomspecs commands (documentation

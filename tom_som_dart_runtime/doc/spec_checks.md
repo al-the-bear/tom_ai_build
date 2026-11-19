@@ -42,4 +42,5 @@ final validation = sbp.validate(doc); // validation.markdown, .isClean
 | `measureProjectIdeaCoverage(idea, sources, exclusions:)` | Each Project Idea id's coverage class (`parseProjectIdea`, `requirementSources`, `parseExclusions` read the inputs) |
 | `crossCheckAuthorization(yamlText, roleModelYaml)` | The authorization cross-check's findings per check |
 | `measureCoverage(...)` | The model coverage table |
+| `planFremFill(history, tree)` | A `FremFillPlan`: per functional requirement the `FREM` values of the document revision that last changed it (`FremFill`, `FremRevision`), the findings on the revision rule, and the verified new text; `history` is the document's versions oldest first (`FremHistoryVersion`), read from git by `tomspecs :spec-fill-frem` |
 | `locateValues` / `rewriteValues` | The layout-keeping YAML value rewrite the import uses |

@@ -10,6 +10,8 @@
 ///   coverage ([measureProjectIdeaCoverage]), the authorization cross-check
 ///   ([crossCheckAuthorization]) and the model coverage ([measureCoverage]);
 /// - accepting a document's change marks in place ([acceptMarksInPlace]);
+/// - filling the functional requirements' version metadata (`FREM`) from the
+///   document's git history ([planFremFill]);
 /// - the layout-keeping YAML value rewrite they share ([locateValues],
 ///   [rewriteValues]).
 ///
@@ -33,6 +35,17 @@ export 'src/spec_checks/coverage_measurement.dart'
     show CoverageReport, UnfilledSection, measureCoverage;
 export 'src/spec_checks/feature_register_check.dart'
     show FeatureRegisterFinding, FeatureRegisterReport, checkFeatureRegister;
+export 'src/spec_checks/frem_fill.dart'
+    show
+        FremFill,
+        FremFillPlan,
+        FremFillVerificationException,
+        FremHistoryVersion,
+        FremRevision,
+        fremFields,
+        fremSectionId,
+        planFremFill,
+        revisionListSectionId;
 export 'src/spec_checks/marks_in_place.dart'
     show MarksInPlaceResult, MarksSectionNotFound, acceptMarksInPlace;
 export 'src/spec_checks/project_idea_coverage.dart'

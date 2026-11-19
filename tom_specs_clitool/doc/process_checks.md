@@ -27,10 +27,47 @@ package folder does the same.
 | `:spec-idea-coverage` | `<project_idea.md> <sbp.tomspecs.yaml> [--exclusions <yaml>] [--all]` | Every Project Idea id cited by a requirement's source, carried by a covered id, or excluded by a record. `--all` lists the covered ids too. |
 | `:spec-authorization` | `<sbp.tomspecs.yaml>` | Operations, the role matrix, screens and use cases agree. |
 | `:spec-coverage` | `<sample.tomspecs.yaml> <sbp.tomspecs.yaml> [<old.tomspecs.yaml>] [--tsv <out.tsv>]` | How much of the model the document fills, per configured row, and the class of every empty section. |
+| `:spec-fill-frem` | `<doc.tomspecs.yaml> [--dry-run] [--rendition <doc.tomspecs.md>]` | Fills every functional requirement's `FREM` (version, last modified, modified by) from the document's git history; see [Filling FREM from git](#filling-frem-from-git). |
 
 Exit codes: `0` clean, `1` findings, `2` usage error (or a refused import).
 The model is the one the installed `tom_som_dart_v0` embeds; the document's
 root is read from the document.
+
+## Filling FREM from git
+
+Every git revision of a document has its own document revision: a commit that
+changes the document adds its entry to the revision list (`RVENT-REVS-LST`). The
+list therefore maps document revisions to git revisions; an entry's git revision
+is the commit that added it. `:spec-fill-frem` reads that mapping:
+
+1. It walks the document's commits (`git log --follow`), oldest first, and the
+   working tree last when it differs from the last commit.
+2. For each functional requirement it compares the requirement's section, found
+   by its section id in each version's YAML, and takes the last version that
+   changed it. Key order and the requirement's own `FREM` are left out of the
+   comparison, so a reordered model or an earlier fill is not a change.
+3. It writes that version's document revision into `FREM`: `version`,
+   `lastModified` (the entry's date) and `modifiedBy` (its author).
+
+The write is staged: the new text goes to a sibling `<doc>.fill-frem.stage`,
+is read back and renamed over the document. The values are rewritten in place
+when every `FREM` already holds its three fields as block scalars; otherwise the
+document is re-encoded. Before anything is written, the new text is decoded and
+compared with the document plus the fills, so no other value can change.
+`--dry-run` reports and writes nothing; `--rendition` also writes the markdown
+rendition.
+
+Each requirement gets one report line: `FREM` when its values change, `same`
+when they are already right. Findings exit `1`; the fills are written all the
+same:
+
+- `REVISION`: a commit changed the document without adding a revision entry.
+  Its changes are attributed to the newest entry it holds.
+- `NOREVISION`: a requirement's last change is in a version without a revision
+  list. Its `FREM` is left as it is.
+- `DUPLICATE`: a requirement's section id occurs more than once.
+
+A file that is not committed to a git repository is a usage error (exit `2`).
 
 ## The project's data: `<spec-root>/checks/`
 
