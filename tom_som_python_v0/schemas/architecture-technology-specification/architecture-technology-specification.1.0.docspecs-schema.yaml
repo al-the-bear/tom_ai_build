@@ -8848,14 +8848,14 @@ form-types:
     fields:
       - fieldname: usageScope
         description: "Core, Feature-specific, Development-only, Testing-only"
-      - fieldname: integrationPoints
-        description: Where this framework integrates in the architecture
       - fieldname: requiredPlugins
         description: Mandatory plugins or extensions
       - fieldname: optionalPlugins
         description: Recommended optional plugins
       - fieldname: excludedFeatures
         description: Framework features that should not be used
+      - fieldname: integrationPoints
+        description: Where this framework integrates in the architecture
   fwrcp-form:
     fields:
       - fieldname: compatibleWith
@@ -8874,15 +8874,15 @@ form-types:
         description: "Excellent, Good, Fair, Poor"
   fwrjt-form:
     fields:
-      - fieldname: justification
-        required: true
-        description: Reason for selecting this framework
       - fieldname: alternativesConsidered
         description: Other frameworks evaluated
       - fieldname: riskAssessment
         description: "Vendor lock-in, maintenance, complexity risks"
       - fieldname: notes
         description: Additional framework notes
+      - fieldname: justification
+        required: true
+        description: Reason for selecting this framework
   btcvr-form:
     fields:
       - fieldname: minimumVersion
@@ -8899,10 +8899,10 @@ form-types:
         description: Recommended optional plugins
   btep-form:
     fields:
-      - fieldname: buildProfiles
-        description: "E.g., Debug, Release, Profile, Production"
       - fieldname: defaultProfile
         description: Default build profile
+      - fieldname: buildProfiles
+        description: "E.g., Debug, Release, Profile, Production"
   btei-form:
     fields:
       - fieldname: cicdIntegration
@@ -8963,8 +8963,6 @@ form-types:
         description: Feature flag implementation
   dtec-form:
     fields:
-      - fieldname: complianceRequirements
-        description: "Store guidelines, regulatory requirements"
       - fieldname: privacyRequirements
         description: "Privacy manifest, tracking transparency"
       - fieldname: priority
@@ -8973,6 +8971,8 @@ form-types:
         description: Target date for this deployment
       - fieldname: notes
         description: Additional deployment notes
+      - fieldname: complianceRequirements
+        description: "Store guidelines, regulatory requirements"
   demave-form:
     fields:
       - fieldname: versioningPolicy
@@ -9021,18 +9021,18 @@ form-types:
         description: "SSD required, HDD acceptable"
   ruenne-form:
     fields:
-      - fieldname: networkRequirements
-        description: Connectivity requirements
       - fieldname: bandwidthRequirements
         description: Minimum bandwidth
       - fieldname: latencyRequirements
         description: Maximum acceptable latency
+      - fieldname: networkRequirements
+        description: Connectivity requirements
   ruenva-form:
     fields:
-      - fieldname: requiredEnvVariables
-        description: Mandatory environment variables
       - fieldname: optionalEnvVariables
         description: Optional configuration variables
+      - fieldname: requiredEnvVariables
+        description: Mandatory environment variables
   ruende-form:
     fields:
       - fieldname: systemDependencies
@@ -9053,11 +9053,11 @@ form-types:
         description: Additional runtime environment notes
   arovdr-form:
     fields:
+      - fieldname: businessDrivers
+        description: Business requirements driving the choice
       - fieldname: justification
         required: true
         description: Why this architecture style was chosen
-      - fieldname: businessDrivers
-        description: Business requirements driving the choice
       - fieldname: technicalDrivers
         description: Technical requirements driving the choice
   aoto-form:
@@ -9142,13 +9142,13 @@ form-types:
         description: Additional organization notes
   acep-form:
     fields:
+      - fieldname: notResponsibleFor
+        description: Explicitly out of scope
       - fieldname: purpose
         required: true
         description: What this component does
       - fieldname: responsibilities
         description: List of responsibilities
-      - fieldname: notResponsibleFor
-        description: Explicitly out of scope
   aceb-form:
     fields:
       - fieldname: publicInterface
@@ -9183,10 +9183,10 @@ form-types:
         description: Additional component notes
   copasy-form:
     fields:
-      - fieldname: syncPatterns
-        description: "Request-response, Service mesh"
       - fieldname: apiGateway
         description: Central gateway pattern details
+      - fieldname: syncPatterns
+        description: "Request-response, Service mesh"
   copaas-form:
     fields:
       - fieldname: asyncProtocols
@@ -9197,12 +9197,12 @@ form-types:
         description: "Pub/Sub, Event sourcing, CQRS"
   cpde-form:
     fields:
-      - fieldname: dataContracts
-        description: API contracts and schemas
       - fieldname: schemaEvolution
         description: How schemas evolve over time
       - fieldname: serialization
         description: Serialization approach
+      - fieldname: dataContracts
+        description: API contracts and schemas
   copare-form:
     fields:
       - fieldname: retryPolicies
@@ -9269,10 +9269,10 @@ form-types:
     fields:
       - fieldname: expectedLoad
         description: Expected concurrent users/requests
-      - fieldname: peakLoad
-        description: Peak load expectations
       - fieldname: growthProjection
         description: Expected growth over time
+      - fieldname: peakLoad
+        description: Peak load expectations
   scarta-form:
     fields:
       - fieldname: responseTimeTargets
@@ -9311,10 +9311,10 @@ form-types:
     fields:
       - fieldname: externalSystemCount
         description: Number of external integrations
-      - fieldname: integrationTypes
-        description: "REST, SOAP, File, Database, Events"
       - fieldname: realTimeIntegrations
         description: Integrations requiring real-time sync
+      - fieldname: integrationTypes
+        description: "REST, SOAP, File, Database, Events"
   inarda-form:
     fields:
       - fieldname: dataTransformation
@@ -9325,12 +9325,12 @@ form-types:
         description: Synchronization patterns and frequency
   inarse-form:
     fields:
-      - fieldname: authenticationApproach
-        description: How integrations are authenticated
       - fieldname: authorizationApproach
         description: How integrations are authorized
       - fieldname: secureTransport
         description: "Transport security (TLS, VPN)"
+      - fieldname: authenticationApproach
+        description: How integrations are authenticated
   inarre-form:
     fields:
       - fieldname: errorHandling
@@ -9400,9 +9400,6 @@ form-types:
         description: Constraints that influenced the decision
   adro-form:
     fields:
-      - fieldname: decision
-        required: true
-        description: What was decided
       - fieldname: rationale
         required: true
         description: Why this decision was made
@@ -9410,10 +9407,11 @@ form-types:
         description: Other options that were evaluated
       - fieldname: decisionMakers
         description: Who made this decision
+      - fieldname: decision
+        required: true
+        description: What was decided
   ardereco-form:
     fields:
-      - fieldname: consequences
-        description: Impact of this decision
       - fieldname: positiveConsequences
         description: Benefits of this decision
       - fieldname: negativeConsequences
@@ -9422,6 +9420,8 @@ form-types:
         description: When this decision should be reviewed
       - fieldname: notes
         description: Additional decision notes
+      - fieldname: consequences
+        description: Impact of this decision
   adrr-form:
     fields:
       - fieldname: relatedDecisions
@@ -9468,13 +9468,13 @@ form-types:
         description: Additional pattern notes
   cserd-form:
     fields:
-      - fieldname: rule
-        required: true
-        description: Clear statement of the coding rule
       - fieldname: rationale
         description: Why this rule matters
       - fieldname: examples
         description: Good and bad code examples
+      - fieldname: rule
+        required: true
+        description: Clear statement of the coding rule
   csen-form:
     fields:
       - fieldname: namingConvention
@@ -9746,10 +9746,10 @@ form-types:
       - fieldname: purpose
         required: true
         description: Primary responsibility of this layer
-      - fieldname: responsibilities
-        description: Specific functions this layer handles
       - fieldname: prohibitions
         description: What this layer must NOT do
+      - fieldname: responsibilities
+        description: Specific functions this layer handles
   slec-form:
     fields:
       - fieldname: typicalComponents
@@ -9804,12 +9804,12 @@ form-types:
         description: Additional layer communication notes
   bces-form:
     fields:
-      - fieldname: purpose
-        description: Why this context exists
       - fieldname: includedConcepts
         description: Domain concepts within this context
       - fieldname: excludedConcepts
         description: Domain concepts explicitly outside this context
+      - fieldname: purpose
+        description: Why this context exists
       - fieldname: ubiquitousLanguage
         description: Key terms and their definitions
   bceb-form:
@@ -9836,30 +9836,30 @@ form-types:
         description: Domain events this context subscribes to
   bocoenin-form:
     fields:
-      - fieldname: apiEndpoints
-        description: Public API endpoints exposed
       - fieldname: integrationPatterns
         description: How this context integrates with others
       - fieldname: notes
         description: Additional context notes
+      - fieldname: apiEndpoints
+        description: Public API endpoints exposed
   paorst-form:
     fields:
       - fieldname: monorepoVsPolyrepo
         description: Single vs multiple repositories
-      - fieldname: directoryLayout
-        description: Top-level directory organization
       - fieldname: featureGrouping
         description: How features are grouped in structure
+      - fieldname: directoryLayout
+        description: Top-level directory organization
   paorty-form:
     fields:
-      - fieldname: corePackages
-        description: Foundation packages required by all
-      - fieldname: featurePackages
-        description: Business feature packages
       - fieldname: sharedPackages
         description: Shared utility packages
       - fieldname: platformPackages
         description: Platform-specific packages
+      - fieldname: corePackages
+        description: Foundation packages required by all
+      - fieldname: featurePackages
+        description: Business feature packages
   paorde-form:
     fields:
       - fieldname: dependencyManagement
@@ -9883,12 +9883,12 @@ form-types:
       - fieldname: purpose
         required: true
         description: What this module provides
-      - fieldname: functionality
-        description: Specific features/functions
       - fieldname: publicApi
         description: Key public interfaces/classes
       - fieldname: entryPoints
         description: Main entry points to the module
+      - fieldname: functionality
+        description: Specific features/functions
   moend1-form:
     fields:
       - fieldname: requiredModules
@@ -10146,12 +10146,12 @@ form-types:
         description: "Debug, profile, release settings"
   btcs-form:
     fields:
-      - fieldname: buildScripts
-        description: Custom build scripts location
       - fieldname: preCommitHooks
         description: Pre-commit hook configuration
       - fieldname: postBuildActions
         description: Actions after successful build
+      - fieldname: buildScripts
+        description: Custom build scripts location
   btca-form:
     fields:
       - fieldname: artifactLocation
@@ -11346,14 +11346,14 @@ form-types:
         description: Rights granted to users
   recoenre-form:
     fields:
-      - fieldname: keyRequirements
-        description: Main requirements to meet
       - fieldname: technicalControls
         description: Required technical measures
       - fieldname: proceduralControls
         description: Required procedures
       - fieldname: documentationRequired
         description: Required documentation
+      - fieldname: keyRequirements
+        description: Main requirements to meet
   rcep-form:
     fields:
       - fieldname: penaltiesForNonCompliance
@@ -15863,16 +15863,16 @@ form-types:
         description: Which component categories this criterion applies to
   cmpvd-form:
     fields:
-      - fieldname: version
-        description: Current version in use or targeted
-      - fieldname: purpose
-        description: Why this component is needed in business terms
-      - fieldname: libraryRef
-        description: "The framework or third-party library this component is — a framework (FRREEN-…) or library (THPALI-…) section id, so one library is described once"
       - fieldname: vendorName
         description: Company or organization behind the component
+      - fieldname: version
+        description: Current version in use or targeted
+      - fieldname: libraryRef
+        description: "The framework or third-party library this component is — a framework (FRREEN-…) or library (THPALI-…) section id, so one library is described once"
       - fieldname: vendorStability
         description: "Financial health, market position, acquisition risk"
+      - fieldname: purpose
+        description: Why this component is needed in business terms
   cmpmt-form:
     fields:
       - fieldname: maturityLevel

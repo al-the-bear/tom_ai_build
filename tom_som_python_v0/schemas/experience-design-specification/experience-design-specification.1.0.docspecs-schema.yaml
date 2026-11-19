@@ -3074,11 +3074,11 @@ form-types:
         description: The resource key from the resource-key catalogue the caller must hold a grant on
   azreq-cust-form:
     fields:
+      - fieldname: resourceId
+        description: "The resource id passed to the handler, where it needs one"
       - fieldname: handler
         required: true
         description: "The registered access handler that decides, by its name in the access-handler catalogue"
-      - fieldname: resourceId
-        description: "The resource id passed to the handler, where it needs one"
       - fieldname: decisionRule
         required: true
         description: "What the handler must decide, in business terms — this is the specification the handler is implemented against"
@@ -3128,12 +3128,12 @@ form-types:
         description: "The server operations this screen calls, comma-separated — operationNames in the operation registry (SVOPE)"
   scenpr-form:
     fields:
+      - fieldname: helpTopicId
+        description: "Topic id in the documentation system — owned by the documentation process, not declared in this blueprint"
       - fieldname: pageTitleResource
         description: Message key (MSGKR registry) for the screen title text
       - fieldname: pageIconResource
         description: Resource key for the screen icon
-      - fieldname: helpTopicId
-        description: "Topic id in the documentation system — owned by the documentation process, not declared in this blueprint"
       - fieldname: layout
         description: "Layout description, e.g., Responsive grid — 3 col desktop, 1 col mobile"
   ssel-form:
@@ -3184,10 +3184,10 @@ form-types:
         description: When this element is read-only
   scelenpr-form:
     fields:
-      - fieldname: styleVariant
-        description: Primary/Secondary/Danger/Subtle/Custom
       - fieldname: accessibilityLabel
         description: Override for screen readers
+      - fieldname: styleVariant
+        description: Primary/Secondary/Danger/Subtle/Custom
       - fieldname: dataBinding
         description: "Path to bound data field, e.g., order.customerName"
       - fieldname: defaultValue

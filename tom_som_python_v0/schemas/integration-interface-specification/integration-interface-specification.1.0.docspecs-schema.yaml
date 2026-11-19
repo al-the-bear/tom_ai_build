@@ -534,14 +534,14 @@ form-types:
         description: Whether the interface uses webhooks/callbacks
       - fieldname: webhookEndpoint
         description: Our endpoint that receives callbacks
-      - fieldname: eventTypes
-        description: Event types delivered via webhook
       - fieldname: signatureVerification
         description: How webhook authenticity is verified
       - fieldname: retryPolicy
         description: External retry behavior on delivery failure
       - fieldname: idempotencyHandling
         description: How duplicate webhook deliveries are handled
+      - fieldname: eventTypes
+        description: Event types delivered via webhook
   inseau-form:
     fields:
       - fieldname: authorizationModel

@@ -1753,12 +1753,12 @@ form-types:
         description: Maximum time allowed for approval decision
   ultef-form:
     fields:
-      - fieldname: sideEffects
-        description: "Actions performed on transition (revoke tokens, send email, deprovision)"
       - fieldname: notificationRecipients
         description: "Who is notified (user, admin, manager)"
       - fieldname: notificationChannels
         description: "Email | SMS | InApp | Webhook"
+      - fieldname: sideEffects
+        description: "Actions performed on transition (revoke tokens, send email, deprovision)"
   ultau-form:
     fields:
       - fieldname: reversible
@@ -2627,10 +2627,10 @@ form-types:
         description: "Yes | No — whether CI/CD scans for hardcoded credentials in source code"
   mcrea-form:
     fields:
-      - fieldname: allowedAuthenticatorTypes
-        description: "TOTP | WebAuthn | FIDO2 | SMS | Push | Passkey — allowed second-factor types"
       - fieldname: phishingResistanceRequired
         description: "Yes | No | Recommended — whether phishing-resistant authenticators are required"
+      - fieldname: allowedAuthenticatorTypes
+        description: "TOTP | WebAuthn | FIDO2 | SMS | Push | Passkey — allowed second-factor types"
   mcret-form:
     fields:
       - fieldname: mfaEnrollmentDeadline

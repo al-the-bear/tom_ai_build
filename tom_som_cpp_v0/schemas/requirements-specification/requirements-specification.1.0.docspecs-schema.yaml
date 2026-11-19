@@ -733,13 +733,13 @@ form-types:
         description: Notes on coverage and any gaps in the requirement set
   fred-form:
     fields:
-      - fieldname: description
-        required: true
-        description: Detailed "the system shall..." statement of the requirement
       - fieldname: requirementType
         description: "Feature, User Story, Business Rule, Report, Integration, etc."
       - fieldname: category
         description: Functional-area grouping for this requirement
+      - fieldname: description
+        required: true
+        description: Detailed "the system shall..." statement of the requirement
   frep-form:
     fields:
       - fieldname: priority
@@ -753,11 +753,11 @@ form-types:
         description: Qualitative band for the risk of not meeting the requirement.
   fres-form:
     fields:
+      - fieldname: requestDate
+        description: Date the requirement was requested
       - fieldname: source
         required: true
         description: "Who requested it: stakeholder name, workshop, or document"
-      - fieldname: requestDate
-        description: Date the requirement was requested
       - fieldname: rationale
         description: Why this requirement is needed
   frev-form:
@@ -939,22 +939,22 @@ form-types:
         description: "e.g., 99.99% availability, sub-100ms latency, 10k concurrent users"
   tred-form:
     fields:
-      - fieldname: description
+      - fieldname: priority
         required: true
-        description: "Full requirement statement, e.g., The system shall respond within 100ms"
+        description: Qualitative priority band.
       - fieldname: category
         required: true
         description: ISO 25010 quality characteristic the requirement addresses
       - fieldname: subcategory
         description: "More specific aspect, e.g., response time within Performance"
-      - fieldname: priority
+      - fieldname: rationale
+        description: Why this requirement is needed
+      - fieldname: description
         required: true
-        description: Qualitative priority band.
+        description: "Full requirement statement, e.g., The system shall respond within 100ms"
       - fieldname: source
         required: true
         description: "Stakeholder, document, or standard that originated it"
-      - fieldname: rationale
-        description: Why this requirement is needed
   trem-form:
     fields:
       - fieldname: metric
@@ -1010,23 +1010,23 @@ form-types:
         description: Classes of attack the requirements mitigate
   sereencl-form:
     fields:
+      - fieldname: priority
+        required: true
+        description: Qualitative priority band.
       - fieldname: category
         required: true
         description: Security domain the requirement falls under
       - fieldname: subcategory
         description: More specific aspect within the category
-      - fieldname: priority
-        required: true
-        description: Qualitative priority band.
-      - fieldname: source
-        required: true
-        description: "Stakeholder, standard, or document that originated it"
       - fieldname: rationale
         description: Why this security requirement is needed
       - fieldname: threatMitigated
         description: Attack or risk this requirement prevents
       - fieldname: dataClassification
         description: Sensitivity of data the requirement protects
+      - fieldname: source
+        required: true
+        description: "Stakeholder, standard, or document that originated it"
   sereenco-form:
     fields:
       - fieldname: owaspCategory
@@ -1092,19 +1092,19 @@ form-types:
         description: Assessed readiness of the organization to adopt the change
   orec-form:
     fields:
+      - fieldname: priority
+        required: true
+        description: MoSCoW scoping band — what happens if this requirement does not ship.
       - fieldname: category
         required: true
         description: Type of organizational change the requirement entails
       - fieldname: subcategory
         description: More specific aspect within the category
-      - fieldname: priority
-        required: true
-        description: MoSCoW scoping band — what happens if this requirement does not ship.
+      - fieldname: rationale
+        description: Why this organizational change is needed
       - fieldname: source
         required: true
         description: Stakeholder or document that originated it
-      - fieldname: rationale
-        description: Why this organizational change is needed
   orei-form:
     fields:
       - fieldname: impactedGroups
