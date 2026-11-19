@@ -405,7 +405,7 @@ static char *read_file(const char *path) {
  * Dart "one-call loading" group. */
 static void test_one_call_loading(void) {
   const char *sample_path =
-      "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
+      "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml";
 
   /* load_yaml collapses decode -> load_json -> thread-version into one call. */
   {
@@ -750,9 +750,9 @@ static int strlist_eq(const SomStrList *a, const SomStrList *b) {
  * guards. */
 static void test_live_document_case(void) {
   const char *sample_path =
-      "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
+      "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml";
   const char *sample_md_path =
-      "../tom_som_dart_v0/documents/meridian_order_management.md";
+      "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.md";
   const char *schema_path =
       "schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml";
   const char *model_meta_path = "meta/spec_model.meta.json";
@@ -945,7 +945,7 @@ static int stored_id_matches_position(const SpecDocument *doc,
   return sl >= tl && strcmp(sid + sl - tl, dash) == 0;
 }
 
-/* Markdown import: the .md lands on exactly the .docspecs.yaml. The .md is the
+/* Markdown import: the .md lands on exactly the .tomspecs.yaml. The .md is the
  * yaml's rendition, so importing it must reproduce the yaml byte for byte —
  * including every list item's section id, which a heading carries even when it
  * equals the @SectionIdPattern default (`UCE-USER-1`). Ids are identity and
@@ -953,9 +953,9 @@ static int stored_id_matches_position(const SpecDocument *doc,
  * take its new position's. Mirrors the Dart v0 test of the same name. */
 static void test_markdown_import_lands_on_yaml(void) {
   const char *sample_path =
-      "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
+      "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml";
   const char *sample_md_path =
-      "../tom_som_dart_v0/documents/meridian_order_management.md";
+      "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.md";
   const char *model_meta_path = "meta/spec_model.meta.json";
   const SomMetaTree *tree = d00_solution_blueprint_meta_tree();
 
@@ -991,7 +991,7 @@ static void test_markdown_import_lands_on_yaml(void) {
                                       &eerr)
                         : NULL;
     ok(encoded != NULL && strcmp(encoded, yaml_text) == 0,
-       "md import: encodes byte-equal to the .docspecs.yaml");
+       "md import: encodes byte-equal to the .tomspecs.yaml");
     if (encoded == NULL) {
       fprintf(stderr, "  encode_yaml failed: %s\n", eerr != NULL ? eerr : "?");
     } else if (strcmp(encoded, yaml_text) != 0) {

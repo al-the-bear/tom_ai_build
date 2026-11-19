@@ -76,7 +76,7 @@ int main(int argc, char** argv) {
   const std::string sample =
       argc > 1 ? argv[1]
                : "../tom_som_dart_v0/documents/"
-                 "meridian_order_management.docspecs.yaml";
+                 "meridian_order_management.tomspecs.yaml";
   const std::string output =
       argc > 2 ? argv[2] : "../tom_som_conformance/golden/cpp.log";
 
@@ -444,7 +444,7 @@ int main(int argc, char** argv) {
         "schemas/solution-blueprint/"
         "solution-blueprint.1.0.docspecs-schema.yaml";
     const std::string sampleMdPath =
-        "../tom_som_dart_v0/documents/meridian_order_management.md";
+        "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.md";
     std::string schemaErr;
     std::optional<som::DocSpecsSchema> schema =
         som::docspecsSchemaFromYamlText(readFile(schemaPath), &schemaErr);
@@ -483,7 +483,7 @@ int main(int argc, char** argv) {
             &schemaErr);
     if (!demoSchema) die("demo DocSpecsSchemaFromYamlText failed: " + schemaErr);
     const std::string invalidMd =
-        readFile("../tom_som_conformance/samples/invalid_demo_document.md");
+        readFile("../tom_som_conformance/samples/invalid_demo_document.tomspecs.md");
     som::DocSpecsValidator validator(*demoSchema);
     std::vector<som::DocSpecsViolation> invalidViolations;
     validator.validateMarkdown(invalidMd, invalidViolations);

@@ -4,7 +4,7 @@
 //! and the SOM runtime carries **zero external dependencies** — so this module
 //! stands in for `serde_json`. It parses the meta-data file, the conformance
 //! corpus fixtures, and the `document:` pass loaded from YAML. Output (the
-//! byte-stable `*.docspecs.yaml` scalars) is produced by
+//! byte-stable `*.tomspecs.yaml` scalars) is produced by
 //! [`crate::spec_document_yaml::js_json_string`], not here, so this parser only
 //! needs to *read*.
 //!

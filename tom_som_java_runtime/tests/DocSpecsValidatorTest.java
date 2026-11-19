@@ -518,7 +518,7 @@ public final class DocSpecsValidatorTest {
   private static void testBindDocspecsMarkdown() throws IOException {
     String corpus = SIBLINGS + "/tom_som_conformance/corpus";
     SpecModel model = modelFromFile(corpus + "/model.meta.json");
-    String md = readFile(corpus + "/expected.md");
+    String md = readFile(corpus + "/expected.tomspecs.md");
     SpecMarkdownResult result =
         DocSpecsValidator.bindDocspecsMarkdown(model, new SpecDocument(), md);
     check("bind.clean", result.isClean(), rejStr(result));
@@ -542,10 +542,10 @@ public final class DocSpecsValidatorTest {
   private static void testDr7Acceptance() throws IOException {
     String metaPath = SIBLINGS + "/tom_som_dart_v0/meta/spec_model.meta.json";
     SpecModel model = modelFromFile(metaPath);
-    // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12): decode it
+    // The shared sample is a hierarchical-v2 `*.tomspecs.yaml` (SOM §12): decode it
     // against the metadata tree bridged from the exported model.
     String samplePath =
-        SIBLINGS + "/tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
+        SIBLINGS + "/tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml";
     SomMetaTree tree = SomMetaBridge.buildSomMetaTree(model, "D00SolutionBlueprint");
     SpecDocument document = SpecDocument.fromFile(samplePath, tree);
     String md = document.toMarkdown(model);

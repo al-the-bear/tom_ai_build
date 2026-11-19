@@ -566,7 +566,7 @@ class SomRustEmitter {
         ..writeln('\t}')
         ..writeln()
         ..writeln(
-          '\t/// Loads a `*.docspecs.yaml` document and returns the '
+          '\t/// Loads a `*.tomspecs.yaml` document and returns the '
           'typed root with the',
         )
         ..writeln(
@@ -599,7 +599,7 @@ class SomRustEmitter {
         ..writeln('\t}')
         ..writeln()
         ..writeln(
-          '\t/// Loads a `*.docspecs.yaml` document from the file at '
+          '\t/// Loads a `*.tomspecs.yaml` document from the file at '
           '`path` — the file',
         )
         ..writeln('\t/// companion to [`${cls.name}::load_yaml`].')

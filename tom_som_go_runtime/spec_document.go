@@ -110,7 +110,7 @@ func NewSpecDocument() *SpecDocument {
 	}
 }
 
-// FromYaml loads a hierarchical `*.docspecs.yaml` document in one call: decode
+// FromYaml loads a hierarchical `*.tomspecs.yaml` document in one call: decode
 // the YAML against the document's metadata tree (SOM §12) and retain the parsed
 // ModelVersion on the document. Collapses the former DecodeYaml →
 // thread-documentVersion incantation (SOM §21). Format problems surface as a
@@ -123,7 +123,7 @@ func FromYaml(yaml string, tree *SomMetaTree) (*SpecDocument, error) {
 	return decoded.Document, nil
 }
 
-// FromFile loads a `*.docspecs.yaml` document from the file at path — the file
+// FromFile loads a `*.tomspecs.yaml` document from the file at path — the file
 // companion to FromYaml the generated LoadFile funcs delegate to. A read error
 // is returned to the caller (Go has no exceptions).
 func FromFile(path string, tree *SomMetaTree) (*SpecDocument, error) {

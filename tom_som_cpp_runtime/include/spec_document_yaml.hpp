@@ -1,4 +1,4 @@
-/* spec_document_yaml — generic YAML codec for the native `*.docspecs.yaml`
+/* spec_document_yaml — generic YAML codec for the native `*.tomspecs.yaml`
  * document format — **hierarchical format v2** (SOM §12); an idiomatic-C++ port
  * of the C `spec_document_yaml` module (which itself ports the Go / Dart / TS
  * references).
@@ -54,7 +54,7 @@ namespace som {
  * read. */
 inline constexpr int kSpecYamlFormatVersion = 2;
 
-/* The decoded passes of a `*.docspecs.yaml` file: the `document:` pass as a
+/* The decoded passes of a `*.tomspecs.yaml` file: the `document:` pass as a
  * populated SpecDocument (its modelVersion already set from the file stamp),
  * the `review:` pass as the parsed mapping (its plain scalars as source text,
  * written back as read; specYamlTypedReview gives the typed values; a null
@@ -173,7 +173,7 @@ std::vector<std::string> specYamlStaleReviewPaths(const SpecModel& model,
 YamlPtr specYamlRekeyReview(const YamlValue& review,
                             const SpecPathPairs& renamed);
 
-/* Parses a `*.docspecs.yaml` file into its passes, matching every `document:`
+/* Parses a `*.tomspecs.yaml` file into its passes, matching every `document:`
  * key against `tree`. On success writes `*out` and returns true.
  *
  * Returns false (writing a message to `*err` when non-null) for a

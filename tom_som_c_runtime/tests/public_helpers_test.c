@@ -110,11 +110,11 @@ static void test_yaml_and_markdown_helpers(void) {
   spec_yaml_write_header(&b, "");
   spec_yaml_write_header(&b, NULL);
   check_str("spec_yaml_write_header", som_buf_take(&b),
-            "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\n"
+            "# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\n"
             "version: 2\nmodelVersion: \"1.2.3\"\n"
-            "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\n"
+            "# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\n"
             "version: 2\n"
-            "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\n"
+            "# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\n"
             "version: 2\n");
 
   check_str("spec_yaml_key", spec_yaml_key("a b"), "\"a b\"");

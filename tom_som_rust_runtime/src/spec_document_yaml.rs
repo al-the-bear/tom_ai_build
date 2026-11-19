@@ -1,4 +1,4 @@
-//! `spec_document_yaml` — generic YAML codec for the native `*.docspecs.yaml`
+//! `spec_document_yaml` — generic YAML codec for the native `*.tomspecs.yaml`
 //! document format — **hierarchical format v2** (SOM §12); a faithful port of
 //! the Go `spec_document_yaml.go` (itself a port of
 //! `tom_som_dart_runtime/lib/src/spec_document_yaml.dart`).
@@ -67,7 +67,7 @@ use crate::yaml::{yaml_parse, yaml_parse_typed, YamlMap, YamlValue};
 /// on read.
 pub const FORMAT_VERSION: i64 = 2;
 
-/// A structural error in a `*.docspecs.yaml` file: wrong/unsupported format
+/// A structural error in a `*.tomspecs.yaml` file: wrong/unsupported format
 /// version, a key that does not match the metadata tree at its position, a
 /// malformed value shape, or (on encode) document values the tree cannot place.
 #[derive(Debug, Clone, PartialEq)]
@@ -90,7 +90,7 @@ impl std::error::Error for SpecYamlFormatException {}
 /// the `error` interface).
 #[derive(Debug, Clone, PartialEq)]
 pub enum SpecYamlError {
-    /// A structural `*.docspecs.yaml` error.
+    /// A structural `*.tomspecs.yaml` error.
     Format(SpecYamlFormatException),
     /// A section-id error raised while materialising a decoded list item.
     SectionId(SpecSectionIdError),
@@ -111,7 +111,7 @@ fn yaml_format_err(message: String) -> SpecYamlError {
     SpecYamlError::Format(SpecYamlFormatException { message })
 }
 
-/// The decoded passes of a `*.docspecs.yaml` file: the `document:` pass as a
+/// The decoded passes of a `*.tomspecs.yaml` file: the `document:` pass as a
 /// populated [`SpecDocument`], the `review:` pass as a raw mapping (the runtime carries it
 /// uninterpreted and writes it back), and the optional authoring model-version stamp.
 #[derive(Debug, Clone, Default)]
@@ -637,7 +637,7 @@ pub fn write_header(out: &mut String, model_version: &str) {
 /// Writes the file header comment + `version:` line, and the optional
 /// `modelVersion:` stamp when `model_version` is non-empty.
 fn write_header_to(b: &mut YamlBuffer, model_version: &str) {
-    b.writeln("# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.");
+    b.writeln("# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.");
     b.writeln(&format!("version: {}", FORMAT_VERSION));
     if !model_version.is_empty() {
         b.writeln(&format!("modelVersion: {}", js_json_string(model_version)));
@@ -1379,7 +1379,7 @@ impl<'a> YamlEncoder<'a> {
 
 // --- Decode -------------------------------------------------------------------
 
-/// Parses a `*.docspecs.yaml` file into its passes, matching every `document:`
+/// Parses a `*.tomspecs.yaml` file into its passes, matching every `document:`
 /// key against `tree`.
 ///
 /// Returns a [`SpecYamlError::Format`] for a missing/unsupported `version:`
@@ -1396,7 +1396,7 @@ pub fn decode_yaml(yaml_text: &str, tree: &SomMetaTree) -> Result<SpecYamlConten
         Some(m) => m,
         None => {
             return Err(yaml_format_err(
-                "not a *.docspecs.yaml mapping (expected version/document keys)".to_string(),
+                "not a *.tomspecs.yaml mapping (expected version/document keys)".to_string(),
             ))
         }
     };

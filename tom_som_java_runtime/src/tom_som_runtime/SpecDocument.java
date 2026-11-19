@@ -69,7 +69,7 @@ public final class SpecDocument {
   }
 
   /**
-   * Loads a hierarchical-v2 {@code *.docspecs.yaml} document in one call:
+   * Loads a hierarchical-v2 {@code *.tomspecs.yaml} document in one call:
    * decode the YAML against the metadata {@code tree} and retain the parsed
    * {@link #modelVersion} on the document (the decoder already stamps it).
    * Collapses the former three-step decode → loadJson →
@@ -80,7 +80,7 @@ public final class SpecDocument {
   }
 
   /**
-   * Loads a {@code *.docspecs.yaml} document from the file at {@code path} — the
+   * Loads a {@code *.tomspecs.yaml} document from the file at {@code path} — the
    * file companion to {@link #fromYaml(String, SomMetaTree)} the generated
    * {@code loadFile} static delegates to.
    */

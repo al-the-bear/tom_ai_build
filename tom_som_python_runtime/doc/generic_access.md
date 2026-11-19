@@ -57,7 +57,7 @@ anything that computes the path rather than knowing it.
 | `SpecModel` | The exported class graph — roots, classes, fields, annotations |
 | `SpecReflection` | Resolves and enumerates paths against the model **without reading values** |
 | `SpecValidator` / `validateDocument` | The instance tier: a filled document's values checked against the model |
-| the YAML and Markdown codecs | `*.docspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages |
+| the YAML and Markdown codecs | `*.tomspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages |
 | the editing-facade bases | What the generated `tom_som_python_v0` types extend |
 
 The full catalogue is the [README](../README.md); this guide is about using
@@ -156,7 +156,7 @@ the per-language generator notes, are in
 
 ## Error Handling
 
-Failures raise. `validate_document` returns a list of errors rather than raising; a malformed `*.docspecs.yaml` raises with the path it could not place.
+Failures raise. `validate_document` returns a list of errors rather than raising; a malformed `*.tomspecs.yaml` raises with the path it could not place.
 
 The generic path has one failure mode the typed path does not:
 

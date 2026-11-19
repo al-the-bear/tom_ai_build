@@ -22,7 +22,7 @@ final _areas = p.absolute(
   '../tom_specs_model/generated-doc/codespecs/codespecs_areas.json',
 );
 final _spec = p.absolute(
-  '../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml',
+  '../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml',
 );
 final _schemaFolder = p.absolute('tool/docspecs-schema');
 final _schemaName = 'irspecs-md.1.0.docspecs-schema.yaml';
@@ -136,7 +136,9 @@ void main() {
     final md = File(p.join(out, 'CE-DB_data_access.md')).readAsStringSync();
     final db = documents.firstWhere((d) => d.area == 'CE-DB');
     final headingIds = markdownHeadingSectionIds(
-      File(_spec.replaceFirst('.docspecs.yaml', '.md')).readAsStringSync(),
+      File(
+        _spec.replaceFirst('.tomspecs.yaml', '.tomspecs.md'),
+      ).readAsStringSync(),
     );
     var linked = 0;
     var plain = 0;
@@ -153,7 +155,7 @@ void main() {
             expect(
               md,
               contains(
-                'meridian_order_management.md#${r.sectionId}): '
+                'meridian_order_management.tomspecs.md#${r.sectionId}): '
                 '${r.description}',
               ),
             );

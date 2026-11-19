@@ -137,7 +137,7 @@ class DocSpecsProject extends DocSpecsSection {
   /// duplicates a subtree.
   ///
   /// [tree] is the metadata tree of [D00SolutionBlueprint]; the output is the
-  /// hierarchical-v2 `*.docspecs.yaml` every SOM runtime reads (SOM §12).
+  /// hierarchical-v2 `*.tomspecs.yaml` every SOM runtime reads (SOM §12).
   String toYaml({required SomMetaTree tree, String? modelVersion}) =>
       SpecYaml.toYaml(
         solutionBlueprint,

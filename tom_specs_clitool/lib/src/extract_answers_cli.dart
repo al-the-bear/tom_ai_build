@@ -70,7 +70,7 @@ Future<int> runExtractAnswers(
   if (results.flag('help')) {
     stdoutSink
       ..writeln(
-        'Usage: tomspecs :spec-answers <doc.md|doc.docspecs.yaml>... '
+        'Usage: tomspecs :spec-answers <doc.tomspecs.md|doc.tomspecs.yaml>... '
         '[-o answers.md] [--path <subtree>] [--open] [--marks] [--counts]',
       )
       ..writeln(parser.usage);
@@ -190,10 +190,16 @@ Future<int> runExtractAnswers(
 }
 
 /// A document's label: its file name without the format suffix
-/// (`tom_uam.sbp.docspecs.yaml` → `tom_uam.sbp`).
+/// (`tom_uam.sbp.tomspecs.yaml`, `tom_uam.sbp.tomspecs.md` → `tom_uam.sbp`).
 String _label(String path) {
   var name = path.split(Platform.pathSeparator).last.split('/').last;
-  for (final suffix in ['.docspecs.yaml', '.yaml', '.md']) {
+  for (final suffix in [
+    '.tomspecs.yaml',
+    '.tomspecs.md',
+    '.readable.md',
+    '.yaml',
+    '.md',
+  ]) {
     if (name.endsWith(suffix)) {
       name = name.substring(0, name.length - suffix.length);
       break;

@@ -1,4 +1,4 @@
-/* Hierarchical `*.docspecs.yaml` v2 codec tests — an idiomatic-C++ port of
+/* Hierarchical `*.tomspecs.yaml` v2 codec tests — an idiomatic-C++ port of
  * the C `tom_som_c_runtime/tests/spec_document_yaml_test.c` (itself a port of
  * the Go / TS / JS / Python / Dart suites).
  *
@@ -181,7 +181,7 @@ void yamlTestEncode() {
     som::SpecDocument populated = yamlPopulated();
     std::string yaml = yamlEnc(populated, "1.0");
     static const std::string header =
-        "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\n";
+        "# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\n";
     check("encode.header", yaml.compare(0, header.size(), header) == 0, yaml);
     check("encode.version", contains(yaml, "version: 2\n"));
     check("encode.stamp", contains(yaml, "modelVersion: \"1.0\"\n"));

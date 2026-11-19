@@ -427,9 +427,9 @@ func TestDocspecsBindDocspecsMarkdown(t *testing.T) {
 	if err != nil {
 		t.Fatalf("SpecModelFromJSON: %v", err)
 	}
-	mdBytes, err := os.ReadFile(filepath.Join(corpus, "expected.md"))
+	mdBytes, err := os.ReadFile(filepath.Join(corpus, "expected.tomspecs.md"))
 	if err != nil {
-		t.Fatalf("read expected.md: %v", err)
+		t.Fatalf("read expected.tomspecs.md: %v", err)
 	}
 	result := som.BindDocspecsMarkdown(model, som.NewSpecDocument(), string(mdBytes))
 	mdCheck(t, "bind.clean", result.IsClean(), mdRejStr(result))
@@ -450,11 +450,11 @@ func TestDocspecsDr7Acceptance(t *testing.T) {
 	if err != nil {
 		t.Fatalf("SpecModelFromJSON: %v", err)
 	}
-	// The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12): decode it
+	// The shared sample is a hierarchical-v2 `*.tomspecs.yaml` (SOM §12): decode it
 	// against the metadata tree bridged from the exported model.
 	samplePath := filepath.Join(
 		dvSiblings, "tom_som_dart_v0", "documents",
-		"meridian_order_management.docspecs.yaml")
+		"meridian_order_management.tomspecs.yaml")
 	tree, err := som.BuildSomMetaTree(model, "D00SolutionBlueprint")
 	if err != nil {
 		t.Fatalf("BuildSomMetaTree: %v", err)

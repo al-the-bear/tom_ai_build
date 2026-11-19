@@ -1,4 +1,4 @@
-/* Hierarchical `*.docspecs.yaml` v2 codec tests — a port of the Go
+/* Hierarchical `*.tomspecs.yaml` v2 codec tests — a port of the Go
  * `tom_som_go_runtime/tests/spec_document_yaml_test.go` (itself a port of the
  * TypeScript / JavaScript / Python / Dart suites).
  *
@@ -227,7 +227,7 @@ static void yaml_test_encode(void) {
   yaml_populated(&populated);
   char *yaml = yaml_enc(&populated, "1.0");
   static const char *header =
-      "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\n";
+      "# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\n";
   check("encode.header", strncmp(yaml, header, strlen(header)) == 0, yaml);
   check("encode.version", strstr(yaml, "version: 2\n") != NULL, "");
   check("encode.stamp", strstr(yaml, "modelVersion: \"1.0\"\n") != NULL, "");

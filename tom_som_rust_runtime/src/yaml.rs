@@ -1,5 +1,5 @@
 //! `yaml` — a minimal, dependency-free YAML reader for the constrained
-//! `*.docspecs.yaml` subset the codec emits, a faithful port of the Go
+//! `*.tomspecs.yaml` subset the codec emits, a faithful port of the Go
 //! `yaml.go`.
 //!
 //! The runtime ships with no external libraries, so this hand-rolled

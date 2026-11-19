@@ -9,7 +9,7 @@ languages: Dart, Python, Java, JavaScript, TypeScript, Go, Rust, C, and C++.
 **Status:** Normative. This document is the single specification of `tom_som`.
 It describes the component as it is: its projects, what the generator produces,
 the metadata tree and the generated surfaces, the fixed runtime, the two
-on-disk formats (`*.md` and `*.docspecs.yaml`), schema generation, the embedded
+on-disk formats (`*.tomspecs.md` and `*.tomspecs.yaml`), schema generation, the embedded
 parse/validate API, the scripting surface, per-language packaging, and the
 conformance corpus.
 
@@ -37,7 +37,7 @@ representation.
 
 A specification document is held as a **path-keyed memory representation**
 (`SpecDocument`: content / forms / lists keyed by a globally-unique section
-path) and saved as a `*.docspecs.yaml` file (§12) or a `*.docspecs` Markdown
+path) and saved as a `*.tomspecs.yaml` file (§12) or a `*.tomspecs.md` Markdown
 file (§11). Two APIs read and write that same representation in parallel:
 
 - a **type-safe** path (the generated `tom_som_<lang>_v0` classes — typed
@@ -133,7 +133,7 @@ version label defaults to `v0` and is configurable via `version-label:`.
 
 A document records the **model version it was authored with**, distinct from
 `formatVersion` (the on-disk format). This stamp is written under `modelVersion`
-in `*.docspecs.yaml`, beside `formatVersion`
+in `*.tomspecs.yaml`, beside `formatVersion`
 (`SpecDocumentYaml.encode(document:, modelVersion:)`).
 
 Each typed root carries `static const String modelVersion` and an
@@ -308,7 +308,7 @@ Two schema products are generated from the same model:
 
 - **Per-root DocSpecs schemas** — `{id}-{version}.docspecs-schema.yaml`, one per
   document root, via `DocSpecsSchemaGenerator` (§13).
-- **A standalone YAML schema** for the `*.docspecs.yaml` document format —
+- **A standalone YAML schema** for the `*.tomspecs.yaml` document format —
   `DocspecsYamlSchemaGenerator` (`docspecs_yaml_schema_generator.dart`), CLI
   `tomspecs :schema-docspecs-yaml`, written to
   `.tom/json-schema/docspecs-document.schema.json` (JSON Schema Draft-07).
@@ -1242,7 +1242,12 @@ artifacts is a port with a design decision in it rather than a mechanical one.
 Python's model accessor already shows the two answers differ — it reads the file
 and Dart embeds it — so the ports are owed the question, not the copy.
 
-## 11. The `*.md` format — strict DocSpecs, full fidelity
+## 11. The `*.tomspecs.md` format — strict DocSpecs, full fidelity
+
+A document's Markdown rendition is named `<name>.tomspecs.md` and stands beside
+its `<name>.tomspecs.yaml` (§12); a project's documents are
+`<project>.<root id in lower case>.tomspecs.md` (`tom_uam.rsp.tomspecs.md`). The
+tools read and write these names only and look no file up under another.
 
 The generated/authored markdown **is a genuine DocSpecs document**, readable
 and validatable by any DocSpecs-conform tool. **Markdown is a FULL-fidelity
@@ -2155,7 +2160,7 @@ assigns one.
 The command line is `tom_specs_clitool`'s `tomspecs :spec-answers`:
 
 ```
-tomspecs :spec-answers <doc.md|doc.docspecs.yaml>... -o <step folder>/answers.md [--path <subtree>] [--open] [--marks] [--counts]
+tomspecs :spec-answers <doc.tomspecs.md|doc.tomspecs.yaml>... -o <step folder>/answers.md [--path <subtree>] [--open] [--marks] [--counts]
 ```
 
 - **Several files:** files of one root are fragments of one document and are
@@ -2623,14 +2628,14 @@ copies (§11.9.9) writes a copy's team answer as the member's individual answer
 with the copy's answer time. A time that is not of the format is not a time: it is read as
 before (an author, a member id) and reported where that reading is a finding.
 
-## 12. The hierarchical `*.docspecs.yaml` format
+## 12. The hierarchical `*.tomspecs.yaml` format
 
 One nested YAML tree whose indentation mirrors the document structure.
 
 ### 12.1 File layout
 
 ```yaml
-# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.
+# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.
 version: 2                # on-disk format version
 modelVersion: "1.0"       # authoring object-model major.minor (optional)
 document:
@@ -2818,7 +2823,7 @@ itself, each tagged with its type (`null`, `bool`, `int`, `float`, `string`,
 ### 12.6 Complete example
 
 ```yaml
-# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.
+# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.
 version: 2
 modelVersion: "1.0"
 document:
@@ -2885,7 +2890,7 @@ per-format in §9, "Form-field order".
 ### 12.9 Fragments and assembly
 
 A large document may be authored in parts — one group, or one agent, per set of
-sections — each part a complete `*.docspecs.yaml` of the same root holding a
+sections — each part a complete `*.tomspecs.yaml` of the same root holding a
 subset of the sections. References between parts can only be judged on the
 whole, since the instance tier (§9) resolves a `refersTo` against the document
 it is given: a part validated alone reports every reference into another part
@@ -3170,7 +3175,7 @@ gcc/g++ 13.3.0, clang++ 18.1.3, javac 21.0.11 (openjdk-21-jdk-headless), tsc
 identical behaviour across the nine language runtimes. It holds a shared,
 language-agnostic corpus (`corpus/`) — a cross-language contract of checks,
 including the Markdown→memory route (`md.land.*`) — and shared sample documents
-(`samples/`, e.g. `meridian_order_management.docspecs.yaml`) that every
+(`samples/`, e.g. `meridian_order_management.tomspecs.yaml`) that every
 language's SOM examples load. A fix or extension to a shared sample benefits all
 nine languages at once.
 
@@ -3240,7 +3245,7 @@ those nine emit lines are separately hand-ported code reading the violation
 through a separate accessor. The JavaScript generator read `v.rule.name` against
 a runtime that models the vocabulary as frozen string constants; it emitted `DV
 undefined`, and nothing was red. A companion section closes it:
-`samples/invalid_demo_document.md` is a deliberately invalid document that
+`samples/invalid_demo_document.tomspecs.md` is a deliberately invalid document that
 breaks each of the eleven rules exactly once, and every generator emits a
 `docspecs-invalid` section (FORMAT 10) validating it against
 `corpus/docspecs_schema.yaml` — the demo schema rather than the generated SBP

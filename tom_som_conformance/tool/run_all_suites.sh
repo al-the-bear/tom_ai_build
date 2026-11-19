@@ -208,7 +208,7 @@ run_gate sample_coverage dart "$CONF" dart "$HERE/check_sample_coverage.dart" "$
 # which is exactly what the copy exists to spare the published one.
 run_gate corpus_copies dart "$CONF" dart "$HERE/check_corpus_copies.dart" "$CONF"
 
-# The shared-sample decode gate: every `samples/*.docspecs.yaml` must decode
+# The shared-sample decode gate: every `samples/*.tomspecs.yaml` must decode
 # through the typed Dart loader (metadata-tree key matching, SOM §12), so a
 # sample that only *looks* structurally plausible — enough to fool the lexical
 # coverage scan above — fails here with the offending key and path named.
@@ -234,8 +234,8 @@ run_gate sample_validate dart "$ROOT/tom_som_dart_v0" dart run tool/validate_sam
 # round trip yaml → md → document stays the identity it is specified to be.
 run_gate sample_schema dart "$ROOT/tom_specs_clitool" bash -c '
   status=0
-  for f in ../tom_som_conformance/samples/*.docspecs.yaml \
-           ../tom_som_dart_v0/documents/*.docspecs.yaml \
+  for f in ../tom_som_conformance/samples/*.tomspecs.yaml \
+           ../tom_som_dart_v0/documents/*.tomspecs.yaml \
            ../tom_som_dart_v0/documents/*.md; do
     dart run bin/tomspecs.dart :spec-validate "$f" || status=1
   done

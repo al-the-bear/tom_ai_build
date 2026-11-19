@@ -1,4 +1,4 @@
-"""Generic YAML codec for the native ``*.docspecs.yaml`` document format —
+"""Generic YAML codec for the native ``*.tomspecs.yaml`` document format —
 **hierarchical format v2** (SOM §12); a faithful port of
 `tom_som_dart_runtime/lib/src/spec_document_yaml.dart`.
 
@@ -63,7 +63,7 @@ except ImportError:  # pragma: no cover - surfaced clearly at call sites.
 def _require_yaml() -> Any:
     if _yaml is None:  # pragma: no cover
         raise RuntimeError(
-            "PyYAML is required for *.docspecs.yaml decoding/self-verification; "
+            "PyYAML is required for *.tomspecs.yaml decoding/self-verification; "
             "install it with `pip install pyyaml`."
         )
     return _yaml
@@ -158,7 +158,7 @@ FORMAT_VERSION = 2
 
 
 class SpecYamlFormatException(Exception):
-    """A structural error in a ``*.docspecs.yaml`` file: wrong/unsupported
+    """A structural error in a ``*.tomspecs.yaml`` file: wrong/unsupported
     format version, a key that does not match the metadata tree at its
     position, a malformed value shape, or (on encode) document values the tree
     cannot place."""
@@ -173,7 +173,7 @@ class SpecYamlFormatException(Exception):
 
 
 class SpecYamlContents:
-    """The decoded passes of a ``*.docspecs.yaml`` file: the ``document:``
+    """The decoded passes of a ``*.tomspecs.yaml`` file: the ``document:``
     pass as a populated :class:`SpecDocument`, the ``review:`` pass as a raw
     map (the runtime carries it uninterpreted and writes it back), and the optional authoring
     model-version stamp."""
@@ -471,7 +471,7 @@ def write_scalar(b: Any, key_indent: int, key: str, value: str) -> None:
 def write_header(b: Any, model_version: Optional[str] = None) -> None:
     """Writes (to *b*, anything with ``writeln``) the file header comment + ``version:`` line, and the optional
     ``modelVersion:`` stamp when *model_version* is non-empty."""
-    b.writeln("# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.")
+    b.writeln("# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.")
     b.writeln(f"version: {FORMAT_VERSION}")
     if model_version:
         b.writeln(f"modelVersion: {json.dumps(model_version, ensure_ascii=False)}")
@@ -1007,7 +1007,7 @@ def _is_numeric_or_bool(type_name: str) -> bool:
 
 
 def decode(yaml_text: str, tree: SomMetaTree) -> SpecYamlContents:
-    """Parses a ``*.docspecs.yaml`` file into its passes, matching every
+    """Parses a ``*.tomspecs.yaml`` file into its passes, matching every
     ``document:`` key against *tree*.
 
     Raises :class:`SpecYamlFormatException` for a missing/unsupported
@@ -1026,7 +1026,7 @@ def decode(yaml_text: str, tree: SomMetaTree) -> SpecYamlContents:
     )
     if not isinstance(root, dict):
         raise SpecYamlFormatException(
-            "not a *.docspecs.yaml mapping (expected version/document keys)"
+            "not a *.tomspecs.yaml mapping (expected version/document keys)"
         )
     version = root.get("version")
     if _parsed_scalar_str(version) != str(FORMAT_VERSION):

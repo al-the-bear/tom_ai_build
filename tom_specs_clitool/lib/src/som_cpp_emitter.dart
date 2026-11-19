@@ -402,7 +402,7 @@ class SomCppEmitter {
           'const std::string& documentVersion = "");',
         )
         ..writeln(
-          '  // Loads a `*.docspecs.yaml` document into the '
+          '  // Loads a `*.tomspecs.yaml` document into the '
           'caller-owned `doc` and',
         )
         ..writeln(
@@ -423,7 +423,7 @@ class SomCppEmitter {
           'const std::string& yaml);',
         )
         ..writeln(
-          '  // Loads a `*.docspecs.yaml` document from the file at '
+          '  // Loads a `*.tomspecs.yaml` document from the file at '
           '`path` into the',
         )
         ..writeln('  // caller-owned `doc` — the file companion to loadYaml.')

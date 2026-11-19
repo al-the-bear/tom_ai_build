@@ -9,7 +9,7 @@
 //! shared language-agnostic conformance corpus in `tom_som_conformance/corpus`.
 //!
 //! JSON parsing uses a hand-rolled, dependency-free parser ([`json`]); YAML uses
-//! a hand-rolled reader ([`yaml`]). Byte-stable `*.docspecs.yaml` output requires
+//! a hand-rolled reader ([`yaml`]). Byte-stable `*.tomspecs.yaml` output requires
 //! a custom [`spec_document_yaml::js_json_string`] that matches JavaScript's
 //! `JSON.stringify` exactly — so output is identical across every language port.
 

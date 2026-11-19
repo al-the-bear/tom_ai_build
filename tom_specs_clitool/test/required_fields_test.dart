@@ -16,7 +16,7 @@ void main() {
   final tree = buildSomMetaTree(somSpecModel, rootType: 'D00SolutionBlueprint');
   final refl = SpecReflection(somSpecModel);
   SpecDocument sample() => SpecDocument.fromFile(
-    '../tom_som_conformance/samples/exercise_full_model.docspecs.yaml',
+    '../tom_som_conformance/samples/exercise_full_model.tomspecs.yaml',
     tree,
   );
 

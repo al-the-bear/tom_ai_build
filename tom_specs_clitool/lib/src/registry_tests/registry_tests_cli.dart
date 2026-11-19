@@ -49,7 +49,7 @@ Future<int> runGenerateRegistryTests(
   }
   if (results.flag('help') || results.rest.length != 1) {
     sink.writeln(
-      'Usage: tomspecs :app-registry-tests <spec.docspecs.yaml|.md> --out <dir> '
+      'Usage: tomspecs :app-registry-tests <spec.tomspecs.yaml|.tomspecs.md> --out <dir> '
       '[--check]\n${parser.usage}',
     );
     return results.flag('help') ? 0 : 2;

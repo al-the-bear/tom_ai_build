@@ -522,7 +522,7 @@ void specYamlWriteScalar(std::string& out, std::size_t keyIndent,
 /* The file header comment + `version:` line, and the optional `modelVersion:`
  * stamp when non-empty. */
 void specYamlWriteHeader(std::string& out, const std::string& modelVersion) {
-  out += "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\n";
+  out += "# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\n";
   out += "version: ";
   out += formatI64(kSpecYamlFormatVersion);
   out.push_back('\n');
@@ -1821,7 +1821,7 @@ bool decodeYaml(const std::string& yamlText, const SomMetaTree& tree,
   }
   if (root == nullptr || root->type != YamlType::Map) {
     setErr(err,
-           "not a *.docspecs.yaml mapping (expected version/document keys)");
+           "not a *.tomspecs.yaml mapping (expected version/document keys)");
     return false;
   }
 

@@ -6,7 +6,7 @@ reflect current content.
 
 For task-oriented guidance see
 [snapshot_and_serialization.md](../package/snapshot_and_serialization.md#serialization).
-The `*.docspecs.yaml` format itself is `SOM §12`.
+The `*.tomspecs.yaml` format itself is `SOM §12`.
 
 ## Table of Contents
 

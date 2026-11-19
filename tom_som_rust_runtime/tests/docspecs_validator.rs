@@ -599,7 +599,7 @@ fn test_docspecs_bind_docspecs_markdown(c: &mut Checker) {
     let model_text =
         std::fs::read_to_string(corpus.join("model.meta.json")).expect("read model.meta.json");
     let model = SpecModel::from_json(&Json::parse(&model_text).expect("parse model.meta.json"));
-    let md_text = std::fs::read_to_string(corpus.join("expected.md")).expect("read expected.md");
+    let md_text = std::fs::read_to_string(corpus.join("expected.tomspecs.md")).expect("read expected.tomspecs.md");
     let result = bind_docspecs_markdown(&model, &SpecDocument::new(), &md_text);
     let rej = result
         .rejections
@@ -627,12 +627,12 @@ fn test_docspecs_dr7_acceptance(c: &mut Checker) {
     let meta_text = std::fs::read_to_string(&meta_path)
         .unwrap_or_else(|e| panic!("read {}: {}", meta_path.display(), e));
     let model = SpecModel::from_json(&Json::parse(&meta_text).expect("parse spec_model.meta.json"));
-    // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12): decode it
+    // The shared sample is a hierarchical-v2 `*.tomspecs.yaml` (SOM §12): decode it
     // against the metadata tree bridged from the exported model.
     let sample_path = dv_siblings()
         .join("tom_som_dart_v0")
         .join("documents")
-        .join("meridian_order_management.docspecs.yaml");
+        .join("meridian_order_management.tomspecs.yaml");
     let tree = build_som_meta_tree(&model, "D00SolutionBlueprint").expect("build_som_meta_tree");
     let sample_text = std::fs::read_to_string(&sample_path)
         .unwrap_or_else(|e| panic!("read {}: {}", sample_path.display(), e));

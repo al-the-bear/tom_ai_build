@@ -334,7 +334,7 @@ impl SpecDocument {
         SpecDocument::default()
     }
 
-    /// Loads a `*.docspecs.yaml` document in one call: decode the hierarchical
+    /// Loads a `*.tomspecs.yaml` document in one call: decode the hierarchical
     /// v2 YAML against `tree` (the document root's metadata tree) and retain
     /// the parsed `model_version` on the document. Collapses the former
     /// `decode_yaml` → thread-`model_version` incantation (SOM §21). Returns
@@ -347,7 +347,7 @@ impl SpecDocument {
         Ok(decoded.document)
     }
 
-    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// Loads a `*.tomspecs.yaml` document from the file at `path` — the file
     /// companion to [`SpecDocument::from_yaml`] the generated `load_file`
     /// associated function delegates to.
     pub fn from_file(

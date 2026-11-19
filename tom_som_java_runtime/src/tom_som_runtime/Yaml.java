@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  * A minimal, dependency-free YAML reader for the constrained
- * {@code *.docspecs.yaml} subset the {@link SpecDocumentYaml} codec emits — the
+ * {@code *.tomspecs.yaml} subset the {@link SpecDocumentYaml} codec emits — the
  * Java runtime ships with no external libraries (no SnakeYAML), so this
  * hand-rolled indentation parser stands in for {@code package:yaml} / PyYAML.
  *

@@ -81,7 +81,7 @@ cd tom_som_dart_v0 && dart pub get && dart pub publish --dry-run
 | Document | Covers |
 |----------|--------|
 | [README.md](README.md) | What this package is, its document roots, and how to use them. |
-| [doc/tutorial.md](doc/tutorial.md) | A Dart walkthrough end to end — add the dependency, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown. |
+| [doc/tutorial.md](doc/tutorial.md) | A Dart walkthrough end to end — add the dependency, open a document, read and edit a section, validate it, and serialize to `*.tomspecs.yaml` and Markdown. |
 | [example/README.md](example/README.md) | The runnable samples. |
 | [tom_specs_model/doc/som_multiplatform_spec_model.md](../tom_specs_model/doc/som_multiplatform_spec_model.md) | The SOM authority: the model, the formats, and `SOM §17` — the packaging rules this guide implements. |
 | [tom_specs_model/doc/index.md](../tom_specs_model/doc/index.md) | The catalogue of every TomSpecs subject-matter document. |

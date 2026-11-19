@@ -116,7 +116,7 @@ func (x *SolutionBlueprint) EditabilityFor(documentVersion string) som.SomEditab
 	return som.SomEditabilityFor(SolutionBlueprintModelVersion, documentVersion)
 }
 
-// LoadYamlSolutionBlueprint loads a `*.docspecs.yaml` document in one call: decode the
+// LoadYamlSolutionBlueprint loads a `*.tomspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
 // decode → loadJson → thread-documentVersion sequence (SOM §21). Returns a
@@ -131,7 +131,7 @@ func LoadYamlSolutionBlueprint(yaml string) (*SolutionBlueprint, error) {
 	return NewSolutionBlueprint(doc, doc.ModelVersion)
 }
 
-// LoadFileSolutionBlueprint loads a `*.docspecs.yaml` document from the file at path —
+// LoadFileSolutionBlueprint loads a `*.tomspecs.yaml` document from the file at path —
 // the file companion to LoadYamlSolutionBlueprint. A read or decode error is returned
 // to the caller.
 func LoadFileSolutionBlueprint(path string) (*SolutionBlueprint, error) {

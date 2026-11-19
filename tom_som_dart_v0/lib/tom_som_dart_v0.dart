@@ -10253,7 +10253,7 @@ class D00SolutionBlueprint extends SomNode {
     checkSomModelVersion(modelVersion, documentVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+  /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
   /// document's authoring stamp already applied (SOM §21) — one call for
   /// the former decode → loadJson → thread-`documentVersion` sequence.
   static D00SolutionBlueprint loadYaml(String yaml) {
@@ -10261,7 +10261,7 @@ class D00SolutionBlueprint extends SomNode {
     return D00SolutionBlueprint(doc, documentVersion: doc.modelVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document from the file at [path] — the file
+  /// Loads a `*.tomspecs.yaml` document from the file at [path] — the file
   /// companion to [loadYaml].
   static D00SolutionBlueprint loadFile(String path) {
     final doc = SpecDocument.fromFile(path, d00SolutionBlueprintMetaTree);
@@ -10346,7 +10346,7 @@ class D01CurrentLandscapeAssessment extends SomNode {
     checkSomModelVersion(modelVersion, documentVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+  /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
   /// document's authoring stamp already applied (SOM §21) — one call for
   /// the former decode → loadJson → thread-`documentVersion` sequence.
   static D01CurrentLandscapeAssessment loadYaml(String yaml) {
@@ -10354,7 +10354,7 @@ class D01CurrentLandscapeAssessment extends SomNode {
     return D01CurrentLandscapeAssessment(doc, documentVersion: doc.modelVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document from the file at [path] — the file
+  /// Loads a `*.tomspecs.yaml` document from the file at [path] — the file
   /// companion to [loadYaml].
   static D01CurrentLandscapeAssessment loadFile(String path) {
     final doc = SpecDocument.fromFile(path, d01CurrentLandscapeAssessmentMetaTree);
@@ -10436,7 +10436,7 @@ class D02TargetOperatingModel extends SomNode {
     checkSomModelVersion(modelVersion, documentVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+  /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
   /// document's authoring stamp already applied (SOM §21) — one call for
   /// the former decode → loadJson → thread-`documentVersion` sequence.
   static D02TargetOperatingModel loadYaml(String yaml) {
@@ -10444,7 +10444,7 @@ class D02TargetOperatingModel extends SomNode {
     return D02TargetOperatingModel(doc, documentVersion: doc.modelVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document from the file at [path] — the file
+  /// Loads a `*.tomspecs.yaml` document from the file at [path] — the file
   /// companion to [loadYaml].
   static D02TargetOperatingModel loadFile(String path) {
     final doc = SpecDocument.fromFile(path, d02TargetOperatingModelMetaTree);
@@ -10533,7 +10533,7 @@ class D03InformationModel extends SomNode {
     checkSomModelVersion(modelVersion, documentVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+  /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
   /// document's authoring stamp already applied (SOM §21) — one call for
   /// the former decode → loadJson → thread-`documentVersion` sequence.
   static D03InformationModel loadYaml(String yaml) {
@@ -10541,7 +10541,7 @@ class D03InformationModel extends SomNode {
     return D03InformationModel(doc, documentVersion: doc.modelVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document from the file at [path] — the file
+  /// Loads a `*.tomspecs.yaml` document from the file at [path] — the file
   /// companion to [loadYaml].
   static D03InformationModel loadFile(String path) {
     final doc = SpecDocument.fromFile(path, d03InformationModelMetaTree);
@@ -10678,7 +10678,7 @@ class D04RequirementsSpecification extends SomNode {
     checkSomModelVersion(modelVersion, documentVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+  /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
   /// document's authoring stamp already applied (SOM §21) — one call for
   /// the former decode → loadJson → thread-`documentVersion` sequence.
   static D04RequirementsSpecification loadYaml(String yaml) {
@@ -10686,7 +10686,7 @@ class D04RequirementsSpecification extends SomNode {
     return D04RequirementsSpecification(doc, documentVersion: doc.modelVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document from the file at [path] — the file
+  /// Loads a `*.tomspecs.yaml` document from the file at [path] — the file
   /// companion to [loadYaml].
   static D04RequirementsSpecification loadFile(String path) {
     final doc = SpecDocument.fromFile(path, d04RequirementsSpecificationMetaTree);
@@ -10770,7 +10770,7 @@ class D05InteractionScenarios extends SomNode {
     checkSomModelVersion(modelVersion, documentVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+  /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
   /// document's authoring stamp already applied (SOM §21) — one call for
   /// the former decode → loadJson → thread-`documentVersion` sequence.
   static D05InteractionScenarios loadYaml(String yaml) {
@@ -10778,7 +10778,7 @@ class D05InteractionScenarios extends SomNode {
     return D05InteractionScenarios(doc, documentVersion: doc.modelVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document from the file at [path] — the file
+  /// Loads a `*.tomspecs.yaml` document from the file at [path] — the file
   /// companion to [loadYaml].
   static D05InteractionScenarios loadFile(String path) {
     final doc = SpecDocument.fromFile(path, d05InteractionScenariosMetaTree);
@@ -10858,7 +10858,7 @@ class D06ArchitectureTechnologySpecification extends SomNode {
     checkSomModelVersion(modelVersion, documentVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+  /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
   /// document's authoring stamp already applied (SOM §21) — one call for
   /// the former decode → loadJson → thread-`documentVersion` sequence.
   static D06ArchitectureTechnologySpecification loadYaml(String yaml) {
@@ -10866,7 +10866,7 @@ class D06ArchitectureTechnologySpecification extends SomNode {
     return D06ArchitectureTechnologySpecification(doc, documentVersion: doc.modelVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document from the file at [path] — the file
+  /// Loads a `*.tomspecs.yaml` document from the file at [path] — the file
   /// companion to [loadYaml].
   static D06ArchitectureTechnologySpecification loadFile(String path) {
     final doc = SpecDocument.fromFile(path, d06ArchitectureTechnologySpecificationMetaTree);
@@ -10960,7 +10960,7 @@ class D07IntegrationInterfaceSpecification extends SomNode {
     checkSomModelVersion(modelVersion, documentVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+  /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
   /// document's authoring stamp already applied (SOM §21) — one call for
   /// the former decode → loadJson → thread-`documentVersion` sequence.
   static D07IntegrationInterfaceSpecification loadYaml(String yaml) {
@@ -10968,7 +10968,7 @@ class D07IntegrationInterfaceSpecification extends SomNode {
     return D07IntegrationInterfaceSpecification(doc, documentVersion: doc.modelVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document from the file at [path] — the file
+  /// Loads a `*.tomspecs.yaml` document from the file at [path] — the file
   /// companion to [loadYaml].
   static D07IntegrationInterfaceSpecification loadFile(String path) {
     final doc = SpecDocument.fromFile(path, d07IntegrationInterfaceSpecificationMetaTree);
@@ -11057,7 +11057,7 @@ class D08SecurityAccessSpecification extends SomNode {
     checkSomModelVersion(modelVersion, documentVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+  /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
   /// document's authoring stamp already applied (SOM §21) — one call for
   /// the former decode → loadJson → thread-`documentVersion` sequence.
   static D08SecurityAccessSpecification loadYaml(String yaml) {
@@ -11065,7 +11065,7 @@ class D08SecurityAccessSpecification extends SomNode {
     return D08SecurityAccessSpecification(doc, documentVersion: doc.modelVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document from the file at [path] — the file
+  /// Loads a `*.tomspecs.yaml` document from the file at [path] — the file
   /// companion to [loadYaml].
   static D08SecurityAccessSpecification loadFile(String path) {
     final doc = SpecDocument.fromFile(path, d08SecurityAccessSpecificationMetaTree);
@@ -11158,7 +11158,7 @@ class D09ExperienceDesignSpecification extends SomNode {
     checkSomModelVersion(modelVersion, documentVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+  /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
   /// document's authoring stamp already applied (SOM §21) — one call for
   /// the former decode → loadJson → thread-`documentVersion` sequence.
   static D09ExperienceDesignSpecification loadYaml(String yaml) {
@@ -11166,7 +11166,7 @@ class D09ExperienceDesignSpecification extends SomNode {
     return D09ExperienceDesignSpecification(doc, documentVersion: doc.modelVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document from the file at [path] — the file
+  /// Loads a `*.tomspecs.yaml` document from the file at [path] — the file
   /// companion to [loadYaml].
   static D09ExperienceDesignSpecification loadFile(String path) {
     final doc = SpecDocument.fromFile(path, d09ExperienceDesignSpecificationMetaTree);
@@ -11264,7 +11264,7 @@ class D10QualityAcceptancePlan extends SomNode {
     checkSomModelVersion(modelVersion, documentVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+  /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
   /// document's authoring stamp already applied (SOM §21) — one call for
   /// the former decode → loadJson → thread-`documentVersion` sequence.
   static D10QualityAcceptancePlan loadYaml(String yaml) {
@@ -11272,7 +11272,7 @@ class D10QualityAcceptancePlan extends SomNode {
     return D10QualityAcceptancePlan(doc, documentVersion: doc.modelVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document from the file at [path] — the file
+  /// Loads a `*.tomspecs.yaml` document from the file at [path] — the file
   /// companion to [loadYaml].
   static D10QualityAcceptancePlan loadFile(String path) {
     final doc = SpecDocument.fromFile(path, d10QualityAcceptancePlanMetaTree);
@@ -11388,7 +11388,7 @@ class D11DeliveryRoadmap extends SomNode {
     checkSomModelVersion(modelVersion, documentVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+  /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
   /// document's authoring stamp already applied (SOM §21) — one call for
   /// the former decode → loadJson → thread-`documentVersion` sequence.
   static D11DeliveryRoadmap loadYaml(String yaml) {
@@ -11396,7 +11396,7 @@ class D11DeliveryRoadmap extends SomNode {
     return D11DeliveryRoadmap(doc, documentVersion: doc.modelVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document from the file at [path] — the file
+  /// Loads a `*.tomspecs.yaml` document from the file at [path] — the file
   /// companion to [loadYaml].
   static D11DeliveryRoadmap loadFile(String path) {
     final doc = SpecDocument.fromFile(path, d11DeliveryRoadmapMetaTree);
@@ -11482,7 +11482,7 @@ class D12TransitionRolloutPlan extends SomNode {
     checkSomModelVersion(modelVersion, documentVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+  /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
   /// document's authoring stamp already applied (SOM §21) — one call for
   /// the former decode → loadJson → thread-`documentVersion` sequence.
   static D12TransitionRolloutPlan loadYaml(String yaml) {
@@ -11490,7 +11490,7 @@ class D12TransitionRolloutPlan extends SomNode {
     return D12TransitionRolloutPlan(doc, documentVersion: doc.modelVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document from the file at [path] — the file
+  /// Loads a `*.tomspecs.yaml` document from the file at [path] — the file
   /// companion to [loadYaml].
   static D12TransitionRolloutPlan loadFile(String path) {
     final doc = SpecDocument.fromFile(path, d12TransitionRolloutPlanMetaTree);
@@ -11595,7 +11595,7 @@ class D13CodeSpecsProjection extends SomNode {
     checkSomModelVersion(modelVersion, documentVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+  /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
   /// document's authoring stamp already applied (SOM §21) — one call for
   /// the former decode → loadJson → thread-`documentVersion` sequence.
   static D13CodeSpecsProjection loadYaml(String yaml) {
@@ -11603,7 +11603,7 @@ class D13CodeSpecsProjection extends SomNode {
     return D13CodeSpecsProjection(doc, documentVersion: doc.modelVersion);
   }
 
-  /// Loads a `*.docspecs.yaml` document from the file at [path] — the file
+  /// Loads a `*.tomspecs.yaml` document from the file at [path] — the file
   /// companion to [loadYaml].
   static D13CodeSpecsProjection loadFile(String path) {
     final doc = SpecDocument.fromFile(path, d13CodeSpecsProjectionMetaTree);

@@ -292,7 +292,7 @@ class SomJavaScriptEmitter {
         ..writeln('  }')
         ..writeln()
         ..writeln(
-          '  // Loads a `*.docspecs.yaml` document and returns the typed '
+          '  // Loads a `*.tomspecs.yaml` document and returns the typed '
           'root with the',
         )
         ..writeln(
@@ -312,7 +312,7 @@ class SomJavaScriptEmitter {
         ..writeln('  }')
         ..writeln()
         ..writeln(
-          '  // Loads a `*.docspecs.yaml` document from the file at '
+          '  // Loads a `*.tomspecs.yaml` document from the file at '
           '`path` — the file',
         )
         ..writeln('  // companion to `loadYaml`.')

@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Generic YAML codec for the native `*.docspecs.yaml` document format —
+ * Generic YAML codec for the native `*.tomspecs.yaml` document format —
  * **hierarchical format v2** (SOM §12); a faithful port of
  * `tom_som_dart_runtime/lib/src/spec_document_yaml.dart` (and
  * `spec_document_yaml.py`).
@@ -63,7 +63,7 @@ const { SpecNodeKind, SpecReflection } = require('./spec_reflection');
 const FORMAT_VERSION = 2;
 
 /**
- * A structural error in a `*.docspecs.yaml` file: wrong/unsupported format
+ * A structural error in a `*.tomspecs.yaml` file: wrong/unsupported format
  * version, a key that does not match the metadata tree at its position, a
  * malformed value shape, or (on encode) document values the tree cannot place.
  */
@@ -81,7 +81,7 @@ class SpecYamlFormatException extends Error {
 }
 
 /**
- * The decoded passes of a `*.docspecs.yaml` file: the `document:` pass as a
+ * The decoded passes of a `*.tomspecs.yaml` file: the `document:` pass as a
  * populated {@link SpecDocument}, the `review:` pass as a raw map (the runtime carries it
  * uninterpreted and writes it back), and the optional authoring model-version stamp.
  */
@@ -418,7 +418,7 @@ function writeScalar(b, keyIndent, key, value) {
  * `modelVersion:` stamp when `modelVersion` is non-empty.
  */
 function writeHeader(b, modelVersion = null) {
-  b.writeln('# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.');
+  b.writeln('# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.');
   b.writeln(`version: ${FORMAT_VERSION}`);
   if (modelVersion) {
     b.writeln(`modelVersion: ${JSON.stringify(modelVersion)}`);
@@ -1065,7 +1065,7 @@ class _Encoder {
 // --- Decode -------------------------------------------------------------------
 
 /**
- * Parses a `*.docspecs.yaml` file into its passes, matching every `document:`
+ * Parses a `*.tomspecs.yaml` file into its passes, matching every `document:`
  * key against `tree`.
  *
  * Throws {@link SpecYamlFormatException} for a missing/unsupported `version:`
@@ -1081,7 +1081,7 @@ function decode(yamlText, tree) {
   const root = yamlText.trim() === '' ? null : yaml.parse(yamlText);
   if (!_isMapping(root)) {
     throw new SpecYamlFormatException(
-      'not a *.docspecs.yaml mapping (expected version/document keys)',
+      'not a *.tomspecs.yaml mapping (expected version/document keys)',
     );
   }
   const version = root['version'];

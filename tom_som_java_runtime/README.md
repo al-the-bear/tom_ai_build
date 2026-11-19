@@ -4,7 +4,7 @@
 > [`tom_specs_model/doc/som_multiplatform_spec_model.md`](../tom_specs_model/doc/som_multiplatform_spec_model.md)
 > is the SOM authority: `SOM §9` decides what a runtime must contain, `SOM §6`
 > decides the split between the generic and the typed access path, `SOM §11` and
-> `SOM §12` decide the `*.md` and `*.docspecs.yaml` formats, and `SOM §19`
+> `SOM §12` decide the `*.tomspecs.md` and `*.tomspecs.yaml` formats, and `SOM §19`
 > decides the conformance corpus this port is measured against.
 > [`tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md)
 > decides this language plane's build and verify toolchain. This README says how
@@ -81,7 +81,7 @@ install / JDK-only `build_jar.sh` routes and how to pin.
 | `SomTextPattern`, `SomPatternError` | The portable pattern subset — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime (`java.util.regex` is a different grammar, and its case folding is Unicode-wide where the contract stops at ASCII). |
 | `SpecQuery`, `SpecQueryEngine`, `SpecQueryCursor`, `SpecQueryMatch` | The lexical/structural query surface plus the flat tier-1 node projection. |
 | `SpecNodeCreator`, `SpecCreationError`, `SpecCreationCode` | The constrained node-creation gate (`checkAddNode`, `add`) — a document may only grow in ways the model permits. |
-| `SpecDocumentYaml` | Byte-stable `*.docspecs.yaml` codec (`SOM §12`). |
+| `SpecDocumentYaml` | Byte-stable `*.tomspecs.yaml` codec (`SOM §12`). |
 | `SpecDocumentMarkdown` | Meta-data-driven Markdown import/export codec (`SOM §11`). |
 | `SomNode`, `SomScalar`, `SomList`, `SomFacade` | Editing-facade base types for the generated `tom_som_java_v0`. |
 | `SomEditability`, `SomVersionError` | `SOM §4.2` version-check outcome enum (non-throwing `SomFacade.somEditabilityFor`) and its throwing error. |
@@ -183,7 +183,7 @@ operations behaviour, and the Phase-4 CodeSpecs extracts (exit 0 on success).
 | `SpecEditor` | Typed edits over any path, driven by the meta-model rather than by generated classes. |
 | `SpecNodeCreator` | The creation gate — a document may only grow in ways the model permits. |
 | `SpecValidator` | The instance tier: a filled document's values checked against the model. |
-| `SpecDocumentYaml` | Byte-stable `*.docspecs.yaml` encode/decode. |
+| `SpecDocumentYaml` | Byte-stable `*.tomspecs.yaml` encode/decode. |
 | `SpecDocumentMarkdown` | DocSpecs-conform Markdown export, parse and round-trip. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
 | `CodeSpecsExtractor` | The Phase-4 extract generator — one verbatim, cited extract per CodeSpecs area. |
@@ -214,7 +214,7 @@ operations behaviour, and the Phase-4 CodeSpecs extracts (exit 0 on success).
 | Document | Authority for |
 |----------|---------------|
 | [index.md](../tom_specs_model/doc/index.md) | The catalogue of every TomSpecs subject-matter document, and the `§` citation convention. |
-| [som_multiplatform_spec_model.md](../tom_specs_model/doc/som_multiplatform_spec_model.md) | What a SOM runtime must contain, the two access paths, the `*.md` and `*.docspecs.yaml` formats, the validator, and the conformance corpus. |
+| [som_multiplatform_spec_model.md](../tom_specs_model/doc/som_multiplatform_spec_model.md) | What a SOM runtime must contain, the two access paths, the `*.tomspecs.md` and `*.tomspecs.yaml` formats, the validator, and the conformance corpus. |
 | [som_toolchains.md](../tom_specs_model/doc/som_toolchains.md) | This language plane's build and verify toolchain, and the reference host. |
 | [tom_specs_model_meta_schema.md](../tom_specs_model/doc/tom_specs_model_meta_schema.md) | The on-disk schema of `meta/spec_model.meta.json`, which `SpecModel` loads. |
 

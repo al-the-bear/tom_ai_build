@@ -1,5 +1,5 @@
 // Locates the text of every content value of a hierarchical v2
-// `*.docspecs.yaml` file, so that a value can be rewritten in place without
+// `*.tomspecs.yaml` file, so that a value can be rewritten in place without
 // re-serialising the document.
 //
 // The locator walks the YAML node tree (package:yaml, which keeps source

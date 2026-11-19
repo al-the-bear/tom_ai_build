@@ -117,7 +117,7 @@ typedef struct {
 void spec_document_init(SpecDocument *d);
 void spec_document_free(SpecDocument *d);
 
-/* Loads a `*.docspecs.yaml` document in one call: decode the hierarchical v2
+/* Loads a `*.tomspecs.yaml` document in one call: decode the hierarchical v2
  * YAML against `tree` (the metadata tree of the document's root), populate the
  * sparse stores, and retain the parsed model version on the document
  * (SOM §21). Returns an owned heap document (free with `spec_document_free` +
@@ -125,7 +125,7 @@ void spec_document_free(SpecDocument *d);
  * an owned message. */
 SpecDocument *spec_document_from_yaml(const char *yaml,
                                       const SomMetaTree *tree, char **err);
-/* Loads a `*.docspecs.yaml` document from the file at `path` — the file
+/* Loads a `*.tomspecs.yaml` document from the file at `path` — the file
  * companion to `spec_document_from_yaml` the generated `<root>_load_file`
  * functions delegate to. Returns NULL (writing `*err`) when the file cannot
  * be read or fails to decode. */

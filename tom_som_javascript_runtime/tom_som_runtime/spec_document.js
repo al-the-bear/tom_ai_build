@@ -86,7 +86,7 @@ class SpecDocument {
   // --- loading ------------------------------------------------------------
 
   /**
-   * Loads a hierarchical v2 `*.docspecs.yaml` document in one call: decode
+   * Loads a hierarchical v2 `*.tomspecs.yaml` document in one call: decode
    * the YAML against the document's {@link SomMetaTree} and return the
    * populated document (with {@link modelVersion} already threaded by the
    * codec). Collapses the former three-step `decode` → `loadJson` →
@@ -105,7 +105,7 @@ class SpecDocument {
   }
 
   /**
-   * Loads a `*.docspecs.yaml` document from the file at `path` — the file
+   * Loads a `*.tomspecs.yaml` document from the file at `path` — the file
    * companion to {@link fromYaml} the generated `loadFile` static delegates to.
    *
    * @param {string} path

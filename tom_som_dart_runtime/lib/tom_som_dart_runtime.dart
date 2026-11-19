@@ -12,7 +12,7 @@
 ///     facades emit trees directly);
 ///   * [SpecDocument] / [SpecDocumentState] — the sparse, path-keyed in-memory
 ///     representation of a concrete document and its undo snapshots;
-///   * [SpecDocumentYaml] — the hierarchical `*.docspecs.yaml` v2 codec (one
+///   * [SpecDocumentYaml] — the hierarchical `*.tomspecs.yaml` v2 codec (one
 ///     nested tree walked against the metadata tree; strict
 ///     [SpecYamlFormatException] load errors, no v1 compatibility);
 ///   * [SpecModel] and friends ([SpecRoot], [SpecClass], [SpecField],

@@ -1,4 +1,4 @@
-// Hierarchical `*.docspecs.yaml` v2 codec tests — a port of
+// Hierarchical `*.tomspecs.yaml` v2 codec tests — a port of
 // `tom_som_typescript_runtime/tests/spec_document_yaml_test.ts` (itself a port
 // of `tom_som_javascript_runtime/tests/spec_document_yaml_test.js` /
 // `tom_som_python_runtime/tests/spec_document_yaml_test.py` /
@@ -159,7 +159,7 @@ func yamlTestEncode(c *checker, t *testing.T, tree *som.SomMetaTree) {
 	yaml := yamlEnc(t, tree, yamlPopulated(t), "1.0")
 	c.check("encode.header",
 		strings.HasPrefix(yaml,
-			"# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\n"),
+			"# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\n"),
 		strings.SplitN(yaml, "\n", 2)[0])
 	c.check("encode.version", strings.Contains(yaml, "version: 2\n"), "")
 	c.check("encode.stamp", strings.Contains(yaml, "modelVersion: \"1.0\"\n"), "")

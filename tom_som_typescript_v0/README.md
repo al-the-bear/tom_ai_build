@@ -210,7 +210,7 @@ The same shape repeats for all nine languages; the corpus at the bottom is share
 | Document | Authority for |
 |----------|---------------|
 | [index.md](../tom_specs_model/doc/index.md) | The catalogue of every TomSpecs subject-matter document, and the `§` citation convention. |
-| [som_multiplatform_spec_model.md](../tom_specs_model/doc/som_multiplatform_spec_model.md) | The two access paths, what this generated surface contains, the version stamp and editing rules, the `*.md` and `*.docspecs.yaml` formats, and the conformance corpus. |
+| [som_multiplatform_spec_model.md](../tom_specs_model/doc/som_multiplatform_spec_model.md) | The two access paths, what this generated surface contains, the version stamp and editing rules, the `*.tomspecs.md` and `*.tomspecs.yaml` formats, and the conformance corpus. |
 | [som_toolchains.md](../tom_specs_model/doc/som_toolchains.md) | This language plane's build and verify toolchain, and the reference host. |
 | [tom_specs_model_meta_schema.md](../tom_specs_model/doc/tom_specs_model_meta_schema.md) | The on-disk schema of `meta/spec_model.meta.json`. |
 
@@ -218,7 +218,7 @@ The same shape repeats for all nine languages; the corpus at the bottom is share
 
 | Guide | Covers |
 |-------|--------|
-| [doc/tutorial.md](doc/tutorial.md) | A TypeScript walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown. |
+| [doc/tutorial.md](doc/tutorial.md) | A TypeScript walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.tomspecs.yaml` and Markdown. |
 | [readme_howtointegrate.md](readme_howtointegrate.md) | Every dependency route, how to pin the version, and building from source. |
 | [examples/README.md](examples/README.md) | The runnable samples and how to run each. |
 

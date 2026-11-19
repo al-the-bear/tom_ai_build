@@ -12,7 +12,7 @@ import tom_som_runtime.SpecYamlContents;
 import tom_som_runtime.SpecYamlFormatException;
 
 /**
- * Hierarchical {@code *.docspecs.yaml} v2 codec tests — a port of
+ * Hierarchical {@code *.tomspecs.yaml} v2 codec tests — a port of
  * {@code tom_som_go_runtime/tests/spec_document_yaml_test.go} (itself a port
  * of {@code spec_document_yaml_test.ts} / {@code spec_document_yaml_test.js} /
  * {@code spec_document_yaml_test.py} / {@code spec_document_yaml_test.dart}).
@@ -180,7 +180,7 @@ public final class SpecDocumentYamlTest {
     String yaml = SpecDocumentYaml.encode(populated(), tree, "1.0");
     check(
         "encode.header",
-        yaml.startsWith("# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\n"),
+        yaml.startsWith("# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\n"),
         yaml.split("\n", 2)[0]);
     check("encode.version", yaml.contains("version: 2\n"), "");
     check("encode.stamp", yaml.contains("modelVersion: \"1.0\"\n"), "");

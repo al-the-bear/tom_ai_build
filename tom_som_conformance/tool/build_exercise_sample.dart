@@ -1,6 +1,6 @@
 // Exercise-sample generator (SOM §19).
 //
-// Emits `samples/exercise_full_model.docspecs.yaml`: a specialized exercise
+// Emits `samples/exercise_full_model.tomspecs.yaml`: a specialized exercise
 // specification whose sole purpose is to instantiate every model structure
 // reachable from the `D00SolutionBlueprint` root — the remainder that the
 // narrative samples (Meridian, the UAM access hub) do not plausibly reach.
@@ -62,7 +62,7 @@ void main(List<String> args) {
   final metaFile = File(
     '${Directory(confDir).parent.path}/tom_som_dart_v0/meta/spec_model.meta.json',
   );
-  final outFile = File('$confDir/samples/exercise_full_model.docspecs.yaml');
+  final outFile = File('$confDir/samples/exercise_full_model.tomspecs.yaml');
 
   if (!metaFile.existsSync()) {
     stderr.writeln('model meta missing: ${metaFile.path}');
@@ -78,7 +78,7 @@ void main(List<String> args) {
   }
 
   final b = StringBuffer()
-    ..writeln('# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.')
+    ..writeln('# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.')
     ..writeln('#')
     ..writeln(
       '# GENERATED exercise sample — instantiates every model structure',

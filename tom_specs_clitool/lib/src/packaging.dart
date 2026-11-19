@@ -736,7 +736,7 @@ String renderFacadeReadme(
       '| [som_multiplatform_spec_model.md]'
       '($doc/som_multiplatform_spec_model.md) | The two access paths, what '
       'this generated surface contains, the version stamp and editing '
-      'rules, the `*.md` and `*.docspecs.yaml` formats, and the conformance '
+      'rules, the `*.tomspecs.md` and `*.tomspecs.yaml` formats, and the conformance '
       'corpus. |',
     )
     ..writeln(
@@ -1128,7 +1128,7 @@ void main() {
   whereThisFitsSentence:
       'Dart is the reference plane: the model, the generator and the conformance goldens are all authored here, and the other eight languages are transcribed from it.',
   tutorialSentence:
-      'A Dart walkthrough end to end — add the dependency, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
+      'A Dart walkthrough end to end — add the dependency, open a document, read and edit a section, validate it, and serialize to `*.tomspecs.yaml` and Markdown.',
   exampleDirName: 'example',
   examples: [
     PackagingExample(
@@ -1339,7 +1339,7 @@ print(blueprint.content)''',
   whereThisFitsSentence:
       'The facade is a single top-level module and the runtime ships the importable `tom_som_runtime` package, so both resolve from a plain `pip install` with no build step.',
   tutorialSentence:
-      'A Python walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
+      'A Python walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.tomspecs.yaml` and Markdown.',
   exampleDirName: 'examples',
   examples: [
     PackagingExample(
@@ -1490,7 +1490,7 @@ System.out.println(blueprint.content());''',
   whereThisFitsSentence:
       'Both halves are plain Maven `jar` artifacts with no third-party dependencies, so a JDK alone builds and runs them — `build_jar.sh` produces the same artifact `mvn package` would.',
   tutorialSentence:
-      'A Java walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
+      'A Java walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.tomspecs.yaml` and Markdown.',
   exampleDirName: 'examples',
   examples: [
     PackagingExample(
@@ -1652,7 +1652,7 @@ console.log(blueprint.content);''',
   whereThisFitsSentence:
       'Plain CommonJS with no build step and no runtime dependencies — `require` the package and the typed roots are there.',
   tutorialSentence:
-      'A JavaScript walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
+      'A JavaScript walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.tomspecs.yaml` and Markdown.',
   exampleDirName: 'examples',
   examples: [
     PackagingExample(
@@ -1823,7 +1823,7 @@ console.log(blueprint.content);''',
   whereThisFitsSentence:
       'The package ships TypeScript sources and compiles to `dist/`, so consumers get the declaration files and the section types are checked by `tsc` rather than at run time.',
   tutorialSentence:
-      'A TypeScript walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
+      'A TypeScript walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.tomspecs.yaml` and Markdown.',
   exampleDirName: 'examples',
   examples: [
     PackagingExample(
@@ -1989,7 +1989,7 @@ fmt.Println(blueprint.Content())''',
   whereThisFitsSentence:
       'Go versions live in VCS tags rather than a manifest, so each module also carries an in-source `Version` constant, and the generator writes a `require` plus a local `replace` so the module builds both standalone and in-repo.',
   tutorialSentence:
-      'A Go walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
+      'A Go walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.tomspecs.yaml` and Markdown.',
   exampleDirName: 'examples',
   examples: [
     PackagingExample(
@@ -2164,7 +2164,7 @@ fn main() {
   whereThisFitsSentence:
       'The crate has no third-party dependencies — only the runtime crate — and because `cargo package` requires every dependency to carry a version, the `path` dependency on the runtime also pins the model version.',
   tutorialSentence:
-      'A Rust walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
+      'A Rust walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.tomspecs.yaml` and Markdown.',
   exampleDirName: 'examples',
   examples: [
     PackagingExample(
@@ -2360,7 +2360,7 @@ int main(void) {
   whereThisFitsSentence:
       'There is no registry: both halves build to a static and a shared library with a pkg-config `.pc` file, so `make install` and `pkg-config --cflags --libs` are the integration surface.',
   tutorialSentence:
-      'A C walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
+      'A C walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.tomspecs.yaml` and Markdown.',
   exampleDirName: 'examples',
   examples: [
     PackagingExample(
@@ -2554,7 +2554,7 @@ int main() {
   whereThisFitsSentence:
       'Idiomatic C++17 with RAII throughout — the document is a value that must outlive every facade bound to it, and getters return `std::string` by value, so there is nothing to free.',
   tutorialSentence:
-      'A C++ walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
+      'A C++ walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.tomspecs.yaml` and Markdown.',
   exampleDirName: 'examples',
   examples: [
     PackagingExample(

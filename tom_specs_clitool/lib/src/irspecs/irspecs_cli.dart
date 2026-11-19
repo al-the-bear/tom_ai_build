@@ -119,7 +119,7 @@ ArgParser irspecsParser() => ArgParser()
   ..addOption(
     'spec',
     help:
-        'map, emit: the specification document (*.docspecs.yaml or its '
+        'map, emit: the specification document (*.tomspecs.yaml or its '
         'Markdown rendition) whose generation-unit register names --unit.',
   )
   ..addOption(
@@ -502,15 +502,15 @@ const List<String> kIrEmitStandards = [
 ];
 
 /// The specification's Markdown rendition: [specPath] itself when it is
-/// Markdown, else the `.md` beside a `*.docspecs.yaml`; `null` when there is
+/// Markdown, else the `*.tomspecs.md` beside a `*.tomspecs.yaml`; `null` when there is
 /// none.
 String? _specRenditionFile(String specPath) {
   final String md;
   if (specPath.toLowerCase().endsWith('.md')) {
     md = specPath;
-  } else if (specPath.endsWith('.docspecs.yaml')) {
+  } else if (specPath.endsWith('.tomspecs.yaml')) {
     md =
-        '${specPath.substring(0, specPath.length - '.docspecs.yaml'.length)}.md';
+        '${specPath.substring(0, specPath.length - '.tomspecs.yaml'.length)}.tomspecs.md';
   } else {
     return null;
   }

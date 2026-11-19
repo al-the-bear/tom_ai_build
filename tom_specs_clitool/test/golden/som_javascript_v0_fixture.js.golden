@@ -90,7 +90,7 @@ class SolutionBlueprint extends SomNode {
     checkSomModelVersion(SolutionBlueprint.MODEL_VERSION, documentVersion);
   }
 
-  // Loads a `*.docspecs.yaml` document and returns the typed root with the
+  // Loads a `*.tomspecs.yaml` document and returns the typed root with the
   // document's authoring stamp already applied (SOM §21) — one call for
   // the former decode → loadJson → thread-`documentVersion` sequence.
   static loadYaml(yaml) {
@@ -98,7 +98,7 @@ class SolutionBlueprint extends SomNode {
     return new SolutionBlueprint(doc, doc.modelVersion);
   }
 
-  // Loads a `*.docspecs.yaml` document from the file at `path` — the file
+  // Loads a `*.tomspecs.yaml` document from the file at `path` — the file
   // companion to `loadYaml`.
   static loadFile(path) {
     const doc = SpecDocument.fromFile(path, _meta.solutionBlueprintMetaTree);

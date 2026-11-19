@@ -41,33 +41,33 @@ String specCheckUsage(String check) {
 /// The checks by id, each with its usage line.
 const Map<String, String> specChecksCommands = {
   'validate':
-      'validate <doc.docspecs.yaml> [<rendition.md>] — decode, schema and '
+      'validate <doc.tomspecs.yaml> [<rendition.tomspecs.md>] — decode, schema and '
       'instance tiers; writes the markdown rendition when a path is given',
   'import-answers':
-      'import-answers [--dry-run] [--allow-other-edits] <doc.docspecs.yaml> '
-      '<rendition.md> — the answers typed into the rendition, into the YAML',
+      'import-answers [--dry-run] [--allow-other-edits] <doc.tomspecs.yaml> '
+      '<rendition.tomspecs.md> — the answers typed into the rendition, into the YAML',
   'accept-marks':
-      'accept-marks <doc.docspecs.yaml> [--under <ID>/<ID>] [--write] — every '
+      'accept-marks <doc.tomspecs.yaml> [--under <ID>/<ID>] [--write] — every '
       'inline change mark accepted in place',
   'required-fields':
-      'required-fields <doc.docspecs.yaml> — required form fields filled, '
+      'required-fields <doc.tomspecs.yaml> — required form fields filled, '
       'int / bool / enum values typed',
   'question-register':
-      'question-register <doc.docspecs.yaml> <index.md> [--write] — the '
+      'question-register <doc.tomspecs.yaml> <index.md> [--write] — the '
       "question index against the document's question blocks "
       '(checks/question_register.yaml)',
   'feature-register':
-      'feature-register <sbp.docspecs.yaml> — every functional requirement '
+      'feature-register <sbp.tomspecs.yaml> — every functional requirement '
       'linked by exactly one feature',
   'project-idea-coverage':
-      'project-idea-coverage <project_idea.md> <sbp.docspecs.yaml> [--exclusions <yaml>] [--all] — '
+      'project-idea-coverage <project_idea.md> <sbp.tomspecs.yaml> [--exclusions <yaml>] [--all] — '
       "the requirements' coverage of the Project Idea "
       '(checks/project_idea_coverage.yaml)',
   'authorization':
-      'authorization <sbp.docspecs.yaml> — operations, role matrix, screens '
+      'authorization <sbp.tomspecs.yaml> — operations, role matrix, screens '
       'and use cases agree (checks/authorization_cross_check.yaml)',
   'coverage':
-      'coverage <sample.docspecs.yaml> <sbp.docspecs.yaml> [<old.docspecs.yaml>] '
+      'coverage <sample.tomspecs.yaml> <sbp.tomspecs.yaml> [<old.tomspecs.yaml>] '
       '[--tsv <out.tsv>] — how much of the model the document fills '
       '(checks/coverage_rows.yaml, checks/coverage_reasons.yaml)',
 };

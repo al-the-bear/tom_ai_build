@@ -1,4 +1,4 @@
-/* spec_document_yaml — generic YAML codec for the native `*.docspecs.yaml`
+/* spec_document_yaml — generic YAML codec for the native `*.tomspecs.yaml`
  * document format — **hierarchical format v2** (SOM §12); a faithful port of
  * the Go `spec_document_yaml.go` (which itself ports `spec_document_yaml.dart`
  * / `spec_document_yaml.ts`).
@@ -52,7 +52,7 @@
  * rejected on read. */
 #define SPEC_YAML_FORMAT_VERSION 2
 
-/* SpecYamlContents is the decoded passes of a `*.docspecs.yaml` file: the
+/* SpecYamlContents is the decoded passes of a `*.tomspecs.yaml` file: the
  * `document:` pass as a populated SpecDocument (its model_version already set
  * from the file stamp), the `review:` pass as a raw mapping (the runtime carries it
  * uninterpreted and writes it back; an owned deep clone, NULL when the file has
@@ -143,7 +143,7 @@ YamlValue *spec_yaml_rekey_review(const YamlValue *review,
                                   const SomStrList *renamed_from,
                                   const SomStrList *renamed_to);
 
-/* Parses a `*.docspecs.yaml` file into its passes, matching every `document:`
+/* Parses a `*.tomspecs.yaml` file into its passes, matching every `document:`
  * key against `tree`. On success writes `*out` (owned by the caller; release
  * with `spec_yaml_contents_free`) and returns 1.
  *

@@ -4,7 +4,7 @@
 > [`tom_specs_model/doc/som_multiplatform_spec_model.md`](../tom_specs_model/doc/som_multiplatform_spec_model.md)
 > is the SOM authority: `SOM §9` decides what a runtime must contain, `SOM §6`
 > decides the split between the generic and the typed access path, `SOM §11` and
-> `SOM §12` decide the `*.md` and `*.docspecs.yaml` formats, and `SOM §19`
+> `SOM §12` decide the `*.tomspecs.md` and `*.tomspecs.yaml` formats, and `SOM §19`
 > decides the conformance corpus this port is measured against.
 > [`tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md)
 > decides this language plane's build and verify toolchain. This README says how
@@ -84,7 +84,7 @@ tag / path-`replace` routes and how to pin.
 | `spec_generation_units.go` | The generation-unit register of a document (SOM §11.2): `SpecGenerationUnits` reads each unit (`SpecGenerationUnit`: id, kind, mappings per area, the standard `Emitters` it ships), recognised by `@NoArtifact(generation)` as validation phase 8 recognises it; `SpecStandardEmitters` lists the emitters an emitter may name (phase 8 reports any other as `unitEmitterUnknown`); `SpecDefaultUnits` is the default destination of an area — the extract fills an entry's `Units` from it when no section stores units. |
 | `spec_codespecs_gate.go` | The Phase-4 Stage-A gate (`CodeSpecsGate`) — checks A1–A5 of `codespecs_prompt.md` §4 run as one over model, document, area catalogue (its `gate` tables) and DocSpecs schema; a check that cannot run is reported not run and fails the gate. |
 | `spec_codespecs_records.go` | Reads a Phase-4 run back: `CodeSpecsExtractFromYaml` (the byte-stable inverse of `ToYaml`), the Stage-B gate record `gate.verdicts.yaml` (`CodeSpecsGateRecord` — read, checked, written), and `CodeSpecsExtractSet`, a tree of extracts scoped by its gate record. |
-| `spec_document_yaml.go` | Byte-stable `*.docspecs.yaml` codec (`SOM §12`). |
+| `spec_document_yaml.go` | Byte-stable `*.tomspecs.yaml` codec (`SOM §12`). |
 | `spec_document_markdown.go` | Meta-data-driven Markdown import/export codec (`SOM §11`). |
 | `som_facade.go` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList[T]`) for the generated `tom_som_go_v0`. |
 | `spec_review_annotations.go` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks (`SpecReviewAnnotations`: insert, answer, decide, comment on a change, assign comment ids, strip, validate), conflict blocks, change times and attribution. |
@@ -135,7 +135,7 @@ fmt.Println(len(som.ValidateDocument(model, doc)) == 0)
 The module depends only on the Go standard library — no third-party packages.
 JSON parsing uses `encoding/json`; YAML uses a **hand-rolled, dependency-free**
 parser (`yaml.go`, the constrained docspecs subset, ported from the Java
-runtime's `Yaml.java`). Byte-stable `*.docspecs.yaml` output requires a custom
+runtime's `Yaml.java`). Byte-stable `*.tomspecs.yaml` output requires a custom
 `jsJSONString` that matches JavaScript's `JSON.stringify` exactly — Go's
 `encoding/json` HTML-escapes `<`, `>`, `&` and U+2028/U+2029, so it is **not**
 used for the on-disk YAML scalars.
@@ -186,7 +186,7 @@ The runner reproduces every golden byte-for-byte and exercises the same cases as
 the Dart/Python/Java/JavaScript/TypeScript runners: model meta-data load,
 `state.json` round-trip, YAML encode/decode, Markdown export/round-trip, the
 **Markdown→memory landing** check (the `md.land.*` shared contract — parsing
-`expected.md` lands the same memory as the YAML route), reflection resolution,
+`expected.tomspecs.md` lands the same memory as the YAML route), reflection resolution,
 validation, the imperative operations script, and the Phase-4 CodeSpecs extract
 tier (routing verdicts, the per-area YAML/Markdown goldens, the verbatim-copy
 guard and the `ROUTE-TOTAL` error cases).
@@ -220,7 +220,7 @@ guard and the `ROUTE-TOTAL` error cases).
 | `SpecEditor` | Typed edits over any path, driven by the meta-model rather than by generated structs. |
 | `SpecNodeCreator` | The creation gate — a document may only grow in ways the model permits. |
 | `ValidateDocument` | The instance tier: a filled document's values checked against the model. |
-| `EncodeYaml` / `DecodeYaml` | Byte-stable `*.docspecs.yaml` encode/decode (`EncodeYamlWithReview` with a `review:` pass; `WriteScalar`, `WriteHeader`, `YamlKey` and `ReviewScalar` are the writer's pieces). |
+| `EncodeYaml` / `DecodeYaml` | Byte-stable `*.tomspecs.yaml` encode/decode (`EncodeYamlWithReview` with a `review:` pass; `WriteScalar`, `WriteHeader`, `YamlKey` and `ReviewScalar` are the writer's pieces). |
 | `SpecDocumentMarkdown` | DocSpecs-conform Markdown export, parse and round-trip. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
 | `CodeSpecsExtractor` | The Phase-4 extract generator — one verbatim, cited extract per CodeSpecs area. |
@@ -250,7 +250,7 @@ guard and the `ROUTE-TOTAL` error cases).
 | Document | Authority for |
 |----------|---------------|
 | [index.md](../tom_specs_model/doc/index.md) | The catalogue of every TomSpecs subject-matter document, and the `§` citation convention. |
-| [som_multiplatform_spec_model.md](../tom_specs_model/doc/som_multiplatform_spec_model.md) | What a SOM runtime must contain, the two access paths, the `*.md` and `*.docspecs.yaml` formats, the validator, and the conformance corpus. |
+| [som_multiplatform_spec_model.md](../tom_specs_model/doc/som_multiplatform_spec_model.md) | What a SOM runtime must contain, the two access paths, the `*.tomspecs.md` and `*.tomspecs.yaml` formats, the validator, and the conformance corpus. |
 | [som_toolchains.md](../tom_specs_model/doc/som_toolchains.md) | This language plane's build and verify toolchain, and the reference host. |
 | [tom_specs_model_meta_schema.md](../tom_specs_model/doc/tom_specs_model_meta_schema.md) | The on-disk schema of `meta/spec_model.meta.json`, which `SpecModel` loads. |
 

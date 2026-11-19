@@ -681,13 +681,13 @@ public final class ConformanceRunner {
 
   private static void testYamlEncode(SomMetaTree tree) throws IOException {
     SpecDocument doc = documentFromState(readJsonObject("state.json"));
-    String expected = read("expected.docspecs.yaml");
+    String expected = read("expected.tomspecs.yaml");
     String actual = SpecDocumentYaml.encode(doc, tree, MODEL_VERSION);
     check("yaml.encode", actual.equals(expected), byteDiff("yaml.encode", actual, expected));
   }
 
   private static void testYamlDecodeRoundTrip(SomMetaTree tree) throws IOException {
-    String expected = read("expected.docspecs.yaml");
+    String expected = read("expected.tomspecs.yaml");
     SpecYamlContents contents = SpecDocumentYaml.decode(expected, tree);
     check(
         "yaml.decode.stamp",
@@ -808,7 +808,7 @@ public final class ConformanceRunner {
 
   private static void testMarkdownExport(SpecModel model) throws IOException {
     SpecDocument doc = documentFromState(readJsonObject("state.json"));
-    String expected = read("expected.md");
+    String expected = read("expected.tomspecs.md");
     String actual;
     try {
       actual = new SpecDocumentMarkdown(model, doc).exportRoot(model.roots.get(0));
@@ -820,7 +820,7 @@ public final class ConformanceRunner {
   }
 
   private static void testMarkdownRoundTrip(SpecModel model) throws IOException {
-    String golden = read("expected.md");
+    String golden = read("expected.tomspecs.md");
     SpecDocument doc = documentFromState(readJsonObject("state.json"));
     SpecMarkdownResult parsed = new SpecDocumentMarkdown(model, doc).parse(golden);
     check("md.parse.clean", parsed.rejections.isEmpty(), rejDetail(parsed));
@@ -846,12 +846,12 @@ public final class ConformanceRunner {
   }
 
   /**
-   * Markdown/YAML convergence: parsing {@code expected.md} and applying it must
+   * Markdown/YAML convergence: parsing {@code expected.tomspecs.md} and applying it must
    * reproduce {@code state.json} (the YAML-route memory) exactly, proving both
    * formats converge on one in-memory document (SOM §8).
    */
   private static void testMarkdownMemoryLanding(SpecModel model) throws IOException {
-    String golden = read("expected.md");
+    String golden = read("expected.tomspecs.md");
     Map<String, Object> canonical = readJsonObject("state.json");
     SpecMarkdownImport imported = SpecDocument.fromMarkdown(golden, model);
     check("md.land.clean", imported.rejections().isEmpty(), rejDetail(imported.result));

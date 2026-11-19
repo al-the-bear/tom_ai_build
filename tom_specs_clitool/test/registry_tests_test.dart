@@ -154,7 +154,7 @@ void main() {
       rootType: 'D00SolutionBlueprint',
     );
     final doc = SpecDocument.fromFile(
-      '../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml',
+      '../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml',
       tree,
     );
     final registries = readRegistries(somSpecModel, doc);

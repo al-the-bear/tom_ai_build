@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
- * Generic YAML codec for the native {@code *.docspecs.yaml} document format —
+ * Generic YAML codec for the native {@code *.tomspecs.yaml} document format —
  * <b>hierarchical format v2</b> (SOM §12); a faithful port of
  * {@code spec_document_yaml.dart} / {@code spec_document_yaml.ts}.
  *
@@ -399,7 +399,7 @@ public final class SpecDocumentYaml {
    * {@code modelVersion:} stamp when {@code modelVersion} is non-empty.
    */
   public static void writeHeader(StringBuilder b, String modelVersion) {
-    b.append("# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\n");
+    b.append("# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\n");
     b.append("version: ").append(FORMAT_VERSION).append('\n');
     if (modelVersion != null && !modelVersion.isEmpty()) {
       b.append("modelVersion: ").append(Json.encodeString(modelVersion)).append('\n');
@@ -1099,7 +1099,7 @@ public final class SpecDocumentYaml {
   // --- Decode ---------------------------------------------------------------
 
   /**
-   * Parses a {@code *.docspecs.yaml} file into its passes, matching every
+   * Parses a {@code *.tomspecs.yaml} file into its passes, matching every
    * {@code document:} key against {@code tree}.
    *
    * <p>Throws a {@link SpecYamlFormatException} for a missing/unsupported
@@ -1113,7 +1113,7 @@ public final class SpecDocumentYaml {
     Object root = yamlText.trim().isEmpty() ? null : Yaml.parse(yamlText);
     if (!(root instanceof Map)) {
       throw new SpecYamlFormatException(
-          "not a *.docspecs.yaml mapping (expected version/document keys)");
+          "not a *.tomspecs.yaml mapping (expected version/document keys)");
     }
     Map<String, Object> rootMap = (Map<String, Object>) root;
     boolean hasVersion = rootMap.containsKey("version");

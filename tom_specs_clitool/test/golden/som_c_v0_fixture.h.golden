@@ -54,7 +54,7 @@ const char *solution_blueprint_object_model_version(const SolutionBlueprint *sel
 // companion to solution_blueprint_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability solution_blueprint_editability_for(const char *document_version);
-// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// Loads a `*.tomspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
 // thread-`document_version` sequence (SOM §21). The owned heap document is
@@ -63,7 +63,7 @@ SomEditability solution_blueprint_editability_for(const char *document_version);
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
 // owned message (and frees the document).
 int solution_blueprint_load_yaml(SolutionBlueprint *self, const char *yaml, SpecDocument **out_doc, char **err);
-// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// Loads a `*.tomspecs.yaml` document from the file at `path` — the file companion
 // to solution_blueprint_load_yaml. Returns non-zero (without writing `*out_doc`) when the
 // file cannot be read.
 int solution_blueprint_load_file(SolutionBlueprint *self, const char *path, SpecDocument **out_doc, char **err);

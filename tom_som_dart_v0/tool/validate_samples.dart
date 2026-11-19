@@ -7,7 +7,7 @@
 // those are caught, and until this gate existed only the Meridian document was
 // ever held to it, by `build_shared_sample.dart` at build time.
 //
-// WHY IT EXISTS. `uam_access_hub.docspecs.yaml` carried eleven
+// WHY IT EXISTS. `uam_access_hub.tomspecs.yaml` carried eleven
 // `danglingReference` findings from a check that had existed since csrb3. None
 // was new; nobody had run the check against that file. They came in three
 // shapes, each a document that read fine and generated wrong code:
@@ -61,10 +61,10 @@ void main() {
       ...d
           .listSync()
           .whereType<File>()
-          .where((f) => f.path.endsWith('.docspecs.yaml')),
+          .where((f) => f.path.endsWith('.tomspecs.yaml')),
   ]..sort((a, b) => a.path.compareTo(b.path));
   if (files.isEmpty) {
-    stderr.writeln('no *.docspecs.yaml samples found');
+    stderr.writeln('no *.tomspecs.yaml samples found');
     exit(1);
   }
 

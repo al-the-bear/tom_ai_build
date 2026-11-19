@@ -325,7 +325,7 @@ void main() {
     final blueprint = Directory(
       '../../../tom_uam/tom_specs/phase2_solution_blueprint',
     );
-    final yamlFile = File('${blueprint.path}/tom_uam.sbp.docspecs.yaml');
+    final yamlFile = File('${blueprint.path}/tom_uam.sbp.tomspecs.yaml');
     final scratch = Directory(
       '../../../ztmp/tom_specs_clitool_spec_checks_imp4',
     );
@@ -341,7 +341,7 @@ void main() {
               'BQ-78',
         });
         File(
-          '${scratch.path}/tom_uam.sbp.docspecs.yaml',
+          '${scratch.path}/tom_uam.sbp.tomspecs.yaml',
         ).writeAsStringSync(yaml);
         final real = AnswerImporter.forYaml(_sbp, yaml);
         var edited = answerIn(real.rendition, 'BQ-125', ['b']);
@@ -349,7 +349,7 @@ void main() {
           'rec',
           'and publish it as the sample.',
         ]);
-        File('${scratch.path}/tom_uam.sbp.md').writeAsStringSync(edited);
+        File('${scratch.path}/tom_uam.sbp.tomspecs.md').writeAsStringSync(edited);
 
         final plan = real.plan(edited);
         expect(plan.isRefused, isFalse, reason: plan.refusals.join('\n'));
@@ -375,7 +375,7 @@ void main() {
           ),
         );
         File(
-          '${scratch.path}/tom_uam.sbp.docspecs.yaml.imported',
+          '${scratch.path}/tom_uam.sbp.tomspecs.yaml.imported',
         ).writeAsStringSync(plan.newYaml!);
         expect(_sbp.render(plan.newDocument!), edited);
         expect(_sbp.validate(plan.newDocument!).isClean, isTrue);

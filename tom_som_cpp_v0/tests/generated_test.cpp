@@ -434,7 +434,7 @@ void testCanHaveContent() {
 // sentinel when absent). Mirrors the Dart "one-call loading" group.
 void testOneCallLoading() {
   const std::string samplePath =
-      "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
+      "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml";
 
   // (4) loadYaml collapses decode -> loadJson -> thread-version to one call.
   {
@@ -544,9 +544,9 @@ void testOneCallLoading() {
 void testLiveDocumentCase() {
   namespace m = tom_som_v0_meta;
   const std::string samplePath =
-      "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
+      "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml";
   const std::string sampleMdPath =
-      "../tom_som_dart_v0/documents/meridian_order_management.md";
+      "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.md";
   const std::string schemaPath =
       "schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml";
   const std::string modelMetaPath = "meta/spec_model.meta.json";
@@ -665,7 +665,7 @@ void testLiveDocumentCase() {
   }
 }
 
-// Markdown import: the .md lands on exactly the .docspecs.yaml. The .md is the
+// Markdown import: the .md lands on exactly the .tomspecs.yaml. The .md is the
 // yaml's rendition, so importing it must reproduce the yaml byte for byte —
 // including every list item's section id, which a heading carries even when it
 // equals the @SectionIdPattern default (`UCE-USER-1`). Ids are identity and
@@ -674,9 +674,9 @@ void testLiveDocumentCase() {
 void testMarkdownImportLandsOnYaml() {
   namespace m = tom_som_v0_meta;
   const std::string samplePath =
-      "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
+      "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml";
   const std::string sampleMdPath =
-      "../tom_som_dart_v0/documents/meridian_order_management.md";
+      "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.md";
   const std::string modelMetaPath = "meta/spec_model.meta.json";
   const som::SomMetaTree& tree = m::d00SolutionBlueprintMetaTree();
 
@@ -703,7 +703,7 @@ void testMarkdownImportLandsOnYaml() {
   std::optional<std::string> encoded =
       som::encodeYaml(document, tree, original->modelVersion, &encErr);
   ok(encoded.has_value() && *encoded == yamlText,
-     "md import: encodes byte-equal to the .docspecs.yaml");
+     "md import: encodes byte-equal to the .tomspecs.yaml");
   if (!encoded) {
     std::cerr << "  encodeYaml failed: " << encErr << "\n";
   } else if (*encoded != yamlText) {

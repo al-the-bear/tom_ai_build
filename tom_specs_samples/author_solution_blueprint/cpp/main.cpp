@@ -135,12 +135,12 @@ int main() {
   const std::string yaml = som::encodeYaml(doc, tree, model->modelVersionString(), &err).value();
   const std::string markdown = doc.toMarkdown(*model, "D00SolutionBlueprint");
 
-  writeFile("build/blueprint.docspecs.yaml", yaml);
-  writeFile("build/blueprint.md", markdown);
+  writeFile("build/blueprint.tomspecs.yaml", yaml);
+  writeFile("build/blueprint.tomspecs.md", markdown);
 
   std::cout << "3. Serialised both renditions into build/\n";
-  std::cout << "   blueprint.docspecs.yaml : " << lines(yaml) << " lines  (SOM §12)\n";
-  std::cout << "   blueprint.md            : " << lines(markdown) << " lines  (SOM §11)\n\n";
+  std::cout << "   blueprint.tomspecs.yaml : " << lines(yaml) << " lines  (SOM §12)\n";
+  std::cout << "   blueprint.tomspecs.md   : " << lines(markdown) << " lines  (SOM §11)\n\n";
 
   // -------------------------------------------------------------- step 4
   // The one-call typed loader: decode, apply the document's own authoring
@@ -150,7 +150,7 @@ int main() {
   // the root borrows it.
   som::SpecDocument reloadedDoc;
   tom_som_v0::D00SolutionBlueprint reloaded =
-      tom_som_v0::D00SolutionBlueprint::loadFile(reloadedDoc, "build/blueprint.docspecs.yaml");
+      tom_som_v0::D00SolutionBlueprint::loadFile(reloadedDoc, "build/blueprint.tomspecs.yaml");
   const std::string reYaml = som::encodeYaml(reloadedDoc, tree, model->modelVersionString(), &err).value();
 
   som::SomList reMetrics = reloaded.currentLandscape().operationalMetrics();

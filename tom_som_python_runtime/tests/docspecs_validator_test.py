@@ -434,7 +434,7 @@ def test_bind_docspecs_markdown() -> None:
     corpus = os.path.join(_SIBLINGS, "tom_som_conformance", "corpus")
     with open(os.path.join(corpus, "model.meta.json"), encoding="utf-8") as fh:
         model = SpecModel.from_json(json.load(fh))
-    with open(os.path.join(corpus, "expected.md"), encoding="utf-8") as fh:
+    with open(os.path.join(corpus, "expected.tomspecs.md"), encoding="utf-8") as fh:
         md = fh.read()
     result = bind_docspecs_markdown(model, SpecDocument(), md)
     _check("bind.clean", result.is_clean,
@@ -454,11 +454,11 @@ def test_dr7_acceptance() -> None:
     )
     with open(meta_path, encoding="utf-8") as fh:
         model = SpecModel.from_json(json.load(fh))
-    # The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12): decode
+    # The shared sample is a hierarchical-v2 `*.tomspecs.yaml` (SOM §12): decode
     # it against the metadata tree bridged from the exported model.
     sample_path = os.path.join(
         _SIBLINGS, "tom_som_dart_v0", "documents",
-        "meridian_order_management.docspecs.yaml",
+        "meridian_order_management.tomspecs.yaml",
     )
     document = SpecDocument.from_file(
         sample_path,

@@ -2,7 +2,7 @@
  * faithful port of the Rust `json.rs` (which itself stands in for serde_json).
  *
  * It reads the meta-data file, the conformance corpus fixtures, and the
- * `document:` pass loaded from YAML. Output of the byte-stable `*.docspecs.yaml`
+ * `document:` pass loaded from YAML. Output of the byte-stable `*.tomspecs.yaml`
  * scalars is produced by `js_json_string` (spec_document_yaml) via
  * `som_json_encode_str`, so this parser only needs to *read*.
  *

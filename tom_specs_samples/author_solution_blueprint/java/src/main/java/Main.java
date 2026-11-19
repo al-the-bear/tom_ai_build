@@ -89,12 +89,12 @@ public final class Main {
         doc, TomSomV0Meta.D00SolutionBlueprintMetaTree, model.modelVersionString());
     String markdown = doc.toMarkdown(model, "D00SolutionBlueprint");
 
-    Files.writeString(outDir.resolve("blueprint.docspecs.yaml"), yaml);
-    Files.writeString(outDir.resolve("blueprint.md"), markdown);
+    Files.writeString(outDir.resolve("blueprint.tomspecs.yaml"), yaml);
+    Files.writeString(outDir.resolve("blueprint.tomspecs.md"), markdown);
 
     System.out.println("3. Serialised both renditions into build/");
-    System.out.println("   blueprint.docspecs.yaml : " + lines(yaml) + " lines  (SOM §12)");
-    System.out.println("   blueprint.md            : " + lines(markdown) + " lines  (SOM §11)");
+    System.out.println("   blueprint.tomspecs.yaml : " + lines(yaml) + " lines  (SOM §12)");
+    System.out.println("   blueprint.tomspecs.md   : " + lines(markdown) + " lines  (SOM §11)");
     System.out.println();
 
     // -------------------------------------------------------------- step 4
@@ -103,7 +103,7 @@ public final class Main {
     // the two strings is the actual proof — comparing field by field would
     // only prove the fields somebody thought to compare.
     TomSomV0.D00SolutionBlueprint reloaded =
-        TomSomV0.D00SolutionBlueprint.loadFile(outDir.resolve("blueprint.docspecs.yaml").toString());
+        TomSomV0.D00SolutionBlueprint.loadFile(outDir.resolve("blueprint.tomspecs.yaml").toString());
     String reYaml = SpecDocumentYaml.encode(
         reloaded.doc, TomSomV0Meta.D00SolutionBlueprintMetaTree, model.modelVersionString());
 

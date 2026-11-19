@@ -12,7 +12,7 @@
  *   * the generation stamp decodes and reaches the shared staleness verdict;
  *   * the SOM §4.2/§21 editability classification and its refusal messages;
  *   * `state.json` loads and re-serialises identically;
- *   * YAML encode == `expected.docspecs.yaml` (byte-for-byte, hierarchical v2
+ *   * YAML encode == `expected.tomspecs.yaml` (byte-for-byte, hierarchical v2
  *     via the SomMetaTree built from the model meta-data);
  *   * YAML decode → memory → encode is byte-stable + preserves the stamp and
  *     lands the same memory as `state.json`;
@@ -364,13 +364,13 @@ function testStateRoundTrip() {
 
 function testYamlEncode(tree) {
   const doc = _documentFromState(_readJson('state.json'));
-  const expected = _read('expected.docspecs.yaml');
+  const expected = _read('expected.tomspecs.yaml');
   const actual = yamlEncode(doc, tree, _MODEL_VERSION);
   _check('yaml.encode', actual === expected, _byteDiff('yaml.encode', actual, expected));
 }
 
 function testYamlDecodeRoundTrip(tree) {
-  const expected = _read('expected.docspecs.yaml');
+  const expected = _read('expected.tomspecs.yaml');
   const contents = yamlDecode(expected, tree);
   _check('yaml.decode.stamp', contents.modelVersion === _MODEL_VERSION, String(contents.modelVersion));
   _check(
@@ -384,13 +384,13 @@ function testYamlDecodeRoundTrip(tree) {
 
 function testMarkdownExport(model) {
   const doc = _documentFromState(_readJson('state.json'));
-  const expected = _read('expected.md');
+  const expected = _read('expected.tomspecs.md');
   const actual = new SpecDocumentMarkdown(model, doc).exportRoot(model.roots[0]);
   _check('md.export', actual === expected, _byteDiff('md.export', actual, expected));
 }
 
 function testMarkdownRoundTrip(model) {
-  const golden = _read('expected.md');
+  const golden = _read('expected.tomspecs.md');
   const doc = _documentFromState(_readJson('state.json'));
   const parsed = new SpecDocumentMarkdown(model, doc).parse(golden);
   _check(
@@ -421,11 +421,11 @@ function testMarkdownRoundTrip(model) {
   _check('md.parse.reexport', actual === golden, _byteDiff('md.parse.reexport', actual, golden));
 }
 
-// Markdown/YAML convergence: parsing `expected.md` and applying it must
+// Markdown/YAML convergence: parsing `expected.tomspecs.md` and applying it must
 // reproduce `state.json` (the YAML-route memory) exactly, proving both formats
 // converge on one in-memory document (SOM §8).
 function testMarkdownMemoryLanding(model) {
-  const golden = _read('expected.md');
+  const golden = _read('expected.tomspecs.md');
   const canonical = _readJson('state.json');
   const imported = SpecDocument.fromMarkdown(golden, model);
   _check(

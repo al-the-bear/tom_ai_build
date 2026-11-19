@@ -10615,7 +10615,7 @@ const char *d00_solution_blueprint_object_model_version(const D00SolutionBluepri
 // companion to d00_solution_blueprint_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d00_solution_blueprint_editability_for(const char *document_version);
-// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// Loads a `*.tomspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
 // thread-`document_version` sequence (SOM §21). The owned heap document is
@@ -10624,7 +10624,7 @@ SomEditability d00_solution_blueprint_editability_for(const char *document_versi
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
 // owned message (and frees the document).
 int d00_solution_blueprint_load_yaml(D00SolutionBlueprint *self, const char *yaml, SpecDocument **out_doc, char **err);
-// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// Loads a `*.tomspecs.yaml` document from the file at `path` — the file companion
 // to d00_solution_blueprint_load_yaml. Returns non-zero (without writing `*out_doc`) when the
 // file cannot be read.
 int d00_solution_blueprint_load_file(D00SolutionBlueprint *self, const char *path, SpecDocument **out_doc, char **err);
@@ -10681,7 +10681,7 @@ const char *d01_current_landscape_assessment_object_model_version(const D01Curre
 // companion to d01_current_landscape_assessment_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d01_current_landscape_assessment_editability_for(const char *document_version);
-// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// Loads a `*.tomspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
 // thread-`document_version` sequence (SOM §21). The owned heap document is
@@ -10690,7 +10690,7 @@ SomEditability d01_current_landscape_assessment_editability_for(const char *docu
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
 // owned message (and frees the document).
 int d01_current_landscape_assessment_load_yaml(D01CurrentLandscapeAssessment *self, const char *yaml, SpecDocument **out_doc, char **err);
-// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// Loads a `*.tomspecs.yaml` document from the file at `path` — the file companion
 // to d01_current_landscape_assessment_load_yaml. Returns non-zero (without writing `*out_doc`) when the
 // file cannot be read.
 int d01_current_landscape_assessment_load_file(D01CurrentLandscapeAssessment *self, const char *path, SpecDocument **out_doc, char **err);
@@ -10745,7 +10745,7 @@ const char *d02_target_operating_model_object_model_version(const D02TargetOpera
 // companion to d02_target_operating_model_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d02_target_operating_model_editability_for(const char *document_version);
-// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// Loads a `*.tomspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
 // thread-`document_version` sequence (SOM §21). The owned heap document is
@@ -10754,7 +10754,7 @@ SomEditability d02_target_operating_model_editability_for(const char *document_v
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
 // owned message (and frees the document).
 int d02_target_operating_model_load_yaml(D02TargetOperatingModel *self, const char *yaml, SpecDocument **out_doc, char **err);
-// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// Loads a `*.tomspecs.yaml` document from the file at `path` — the file companion
 // to d02_target_operating_model_load_yaml. Returns non-zero (without writing `*out_doc`) when the
 // file cannot be read.
 int d02_target_operating_model_load_file(D02TargetOperatingModel *self, const char *path, SpecDocument **out_doc, char **err);
@@ -10815,7 +10815,7 @@ const char *d03_information_model_object_model_version(const D03InformationModel
 // companion to d03_information_model_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d03_information_model_editability_for(const char *document_version);
-// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// Loads a `*.tomspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
 // thread-`document_version` sequence (SOM §21). The owned heap document is
@@ -10824,7 +10824,7 @@ SomEditability d03_information_model_editability_for(const char *document_versio
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
 // owned message (and frees the document).
 int d03_information_model_load_yaml(D03InformationModel *self, const char *yaml, SpecDocument **out_doc, char **err);
-// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// Loads a `*.tomspecs.yaml` document from the file at `path` — the file companion
 // to d03_information_model_load_yaml. Returns non-zero (without writing `*out_doc`) when the
 // file cannot be read.
 int d03_information_model_load_file(D03InformationModel *self, const char *path, SpecDocument **out_doc, char **err);
@@ -10928,7 +10928,7 @@ const char *d04_requirements_specification_object_model_version(const D04Require
 // companion to d04_requirements_specification_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d04_requirements_specification_editability_for(const char *document_version);
-// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// Loads a `*.tomspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
 // thread-`document_version` sequence (SOM §21). The owned heap document is
@@ -10937,7 +10937,7 @@ SomEditability d04_requirements_specification_editability_for(const char *docume
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
 // owned message (and frees the document).
 int d04_requirements_specification_load_yaml(D04RequirementsSpecification *self, const char *yaml, SpecDocument **out_doc, char **err);
-// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// Loads a `*.tomspecs.yaml` document from the file at `path` — the file companion
 // to d04_requirements_specification_load_yaml. Returns non-zero (without writing `*out_doc`) when the
 // file cannot be read.
 int d04_requirements_specification_load_file(D04RequirementsSpecification *self, const char *path, SpecDocument **out_doc, char **err);
@@ -10995,7 +10995,7 @@ const char *d05_interaction_scenarios_object_model_version(const D05InteractionS
 // companion to d05_interaction_scenarios_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d05_interaction_scenarios_editability_for(const char *document_version);
-// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// Loads a `*.tomspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
 // thread-`document_version` sequence (SOM §21). The owned heap document is
@@ -11004,7 +11004,7 @@ SomEditability d05_interaction_scenarios_editability_for(const char *document_ve
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
 // owned message (and frees the document).
 int d05_interaction_scenarios_load_yaml(D05InteractionScenarios *self, const char *yaml, SpecDocument **out_doc, char **err);
-// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// Loads a `*.tomspecs.yaml` document from the file at `path` — the file companion
 // to d05_interaction_scenarios_load_yaml. Returns non-zero (without writing `*out_doc`) when the
 // file cannot be read.
 int d05_interaction_scenarios_load_file(D05InteractionScenarios *self, const char *path, SpecDocument **out_doc, char **err);
@@ -11058,7 +11058,7 @@ const char *d06_architecture_technology_specification_object_model_version(const
 // companion to d06_architecture_technology_specification_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d06_architecture_technology_specification_editability_for(const char *document_version);
-// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// Loads a `*.tomspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
 // thread-`document_version` sequence (SOM §21). The owned heap document is
@@ -11067,7 +11067,7 @@ SomEditability d06_architecture_technology_specification_editability_for(const c
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
 // owned message (and frees the document).
 int d06_architecture_technology_specification_load_yaml(D06ArchitectureTechnologySpecification *self, const char *yaml, SpecDocument **out_doc, char **err);
-// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// Loads a `*.tomspecs.yaml` document from the file at `path` — the file companion
 // to d06_architecture_technology_specification_load_yaml. Returns non-zero (without writing `*out_doc`) when the
 // file cannot be read.
 int d06_architecture_technology_specification_load_file(D06ArchitectureTechnologySpecification *self, const char *path, SpecDocument **out_doc, char **err);
@@ -11129,7 +11129,7 @@ const char *d07_integration_interface_specification_object_model_version(const D
 // companion to d07_integration_interface_specification_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d07_integration_interface_specification_editability_for(const char *document_version);
-// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// Loads a `*.tomspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
 // thread-`document_version` sequence (SOM §21). The owned heap document is
@@ -11138,7 +11138,7 @@ SomEditability d07_integration_interface_specification_editability_for(const cha
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
 // owned message (and frees the document).
 int d07_integration_interface_specification_load_yaml(D07IntegrationInterfaceSpecification *self, const char *yaml, SpecDocument **out_doc, char **err);
-// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// Loads a `*.tomspecs.yaml` document from the file at `path` — the file companion
 // to d07_integration_interface_specification_load_yaml. Returns non-zero (without writing `*out_doc`) when the
 // file cannot be read.
 int d07_integration_interface_specification_load_file(D07IntegrationInterfaceSpecification *self, const char *path, SpecDocument **out_doc, char **err);
@@ -11200,7 +11200,7 @@ const char *d08_security_access_specification_object_model_version(const D08Secu
 // companion to d08_security_access_specification_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d08_security_access_specification_editability_for(const char *document_version);
-// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// Loads a `*.tomspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
 // thread-`document_version` sequence (SOM §21). The owned heap document is
@@ -11209,7 +11209,7 @@ SomEditability d08_security_access_specification_editability_for(const char *doc
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
 // owned message (and frees the document).
 int d08_security_access_specification_load_yaml(D08SecurityAccessSpecification *self, const char *yaml, SpecDocument **out_doc, char **err);
-// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// Loads a `*.tomspecs.yaml` document from the file at `path` — the file companion
 // to d08_security_access_specification_load_yaml. Returns non-zero (without writing `*out_doc`) when the
 // file cannot be read.
 int d08_security_access_specification_load_file(D08SecurityAccessSpecification *self, const char *path, SpecDocument **out_doc, char **err);
@@ -11273,7 +11273,7 @@ const char *d09_experience_design_specification_object_model_version(const D09Ex
 // companion to d09_experience_design_specification_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d09_experience_design_specification_editability_for(const char *document_version);
-// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// Loads a `*.tomspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
 // thread-`document_version` sequence (SOM §21). The owned heap document is
@@ -11282,7 +11282,7 @@ SomEditability d09_experience_design_specification_editability_for(const char *d
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
 // owned message (and frees the document).
 int d09_experience_design_specification_load_yaml(D09ExperienceDesignSpecification *self, const char *yaml, SpecDocument **out_doc, char **err);
-// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// Loads a `*.tomspecs.yaml` document from the file at `path` — the file companion
 // to d09_experience_design_specification_load_yaml. Returns non-zero (without writing `*out_doc`) when the
 // file cannot be read.
 int d09_experience_design_specification_load_file(D09ExperienceDesignSpecification *self, const char *path, SpecDocument **out_doc, char **err);
@@ -11347,7 +11347,7 @@ const char *d10_quality_acceptance_plan_object_model_version(const D10QualityAcc
 // companion to d10_quality_acceptance_plan_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d10_quality_acceptance_plan_editability_for(const char *document_version);
-// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// Loads a `*.tomspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
 // thread-`document_version` sequence (SOM §21). The owned heap document is
@@ -11356,7 +11356,7 @@ SomEditability d10_quality_acceptance_plan_editability_for(const char *document_
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
 // owned message (and frees the document).
 int d10_quality_acceptance_plan_load_yaml(D10QualityAcceptancePlan *self, const char *yaml, SpecDocument **out_doc, char **err);
-// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// Loads a `*.tomspecs.yaml` document from the file at `path` — the file companion
 // to d10_quality_acceptance_plan_load_yaml. Returns non-zero (without writing `*out_doc`) when the
 // file cannot be read.
 int d10_quality_acceptance_plan_load_file(D10QualityAcceptancePlan *self, const char *path, SpecDocument **out_doc, char **err);
@@ -11433,7 +11433,7 @@ const char *d11_delivery_roadmap_object_model_version(const D11DeliveryRoadmap *
 // companion to d11_delivery_roadmap_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d11_delivery_roadmap_editability_for(const char *document_version);
-// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// Loads a `*.tomspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
 // thread-`document_version` sequence (SOM §21). The owned heap document is
@@ -11442,7 +11442,7 @@ SomEditability d11_delivery_roadmap_editability_for(const char *document_version
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
 // owned message (and frees the document).
 int d11_delivery_roadmap_load_yaml(D11DeliveryRoadmap *self, const char *yaml, SpecDocument **out_doc, char **err);
-// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// Loads a `*.tomspecs.yaml` document from the file at `path` — the file companion
 // to d11_delivery_roadmap_load_yaml. Returns non-zero (without writing `*out_doc`) when the
 // file cannot be read.
 int d11_delivery_roadmap_load_file(D11DeliveryRoadmap *self, const char *path, SpecDocument **out_doc, char **err);
@@ -11500,7 +11500,7 @@ const char *d12_transition_rollout_plan_object_model_version(const D12Transition
 // companion to d12_transition_rollout_plan_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d12_transition_rollout_plan_editability_for(const char *document_version);
-// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// Loads a `*.tomspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
 // thread-`document_version` sequence (SOM §21). The owned heap document is
@@ -11509,7 +11509,7 @@ SomEditability d12_transition_rollout_plan_editability_for(const char *document_
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
 // owned message (and frees the document).
 int d12_transition_rollout_plan_load_yaml(D12TransitionRolloutPlan *self, const char *yaml, SpecDocument **out_doc, char **err);
-// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// Loads a `*.tomspecs.yaml` document from the file at `path` — the file companion
 // to d12_transition_rollout_plan_load_yaml. Returns non-zero (without writing `*out_doc`) when the
 // file cannot be read.
 int d12_transition_rollout_plan_load_file(D12TransitionRolloutPlan *self, const char *path, SpecDocument **out_doc, char **err);
@@ -11582,7 +11582,7 @@ const char *d13_code_specs_projection_object_model_version(const D13CodeSpecsPro
 // companion to d13_code_specs_projection_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d13_code_specs_projection_editability_for(const char *document_version);
-// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// Loads a `*.tomspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
 // thread-`document_version` sequence (SOM §21). The owned heap document is
@@ -11591,7 +11591,7 @@ SomEditability d13_code_specs_projection_editability_for(const char *document_ve
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
 // owned message (and frees the document).
 int d13_code_specs_projection_load_yaml(D13CodeSpecsProjection *self, const char *yaml, SpecDocument **out_doc, char **err);
-// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// Loads a `*.tomspecs.yaml` document from the file at `path` — the file companion
 // to d13_code_specs_projection_load_yaml. Returns non-zero (without writing `*out_doc`) when the
 // file cannot be read.
 int d13_code_specs_projection_load_file(D13CodeSpecsProjection *self, const char *path, SpecDocument **out_doc, char **err);

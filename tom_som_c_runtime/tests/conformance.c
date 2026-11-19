@@ -6,9 +6,9 @@
  * every golden byte-for-byte and matches every behavioural case:
  *   - model meta-data loads (root + class structure);
  *   - state.json loads and re-serialises identically;
- *   - YAML encode == expected.docspecs.yaml (byte-for-byte);
+ *   - YAML encode == expected.tomspecs.yaml (byte-for-byte);
  *   - YAML decode -> memory -> encode is byte-stable + preserves the stamp;
- *   - Markdown export == expected.md (byte-for-byte);
+ *   - Markdown export == expected.tomspecs.md (byte-for-byte);
  *   - Markdown parse -> memory -> export is clean + byte-stable;
  *   - the Markdown route lands the fixture in the same memory as the YAML
  * route;
@@ -457,7 +457,7 @@ static void test_yaml_encode(Checker *c, const SomMetaTree *tree) {
   document_json_from_json(sj, &state);
   SpecDocument doc;
   doc_from_state(&doc, &state);
-  char *expected = read_corpus("expected.docspecs.yaml");
+  char *expected = read_corpus("expected.tomspecs.yaml");
   char *err = NULL;
   char *actual = encode_yaml(&doc, tree, MODEL_VERSION, &err);
   if (actual == NULL) {
@@ -476,7 +476,7 @@ static void test_yaml_encode(Checker *c, const SomMetaTree *tree) {
 }
 
 static void test_yaml_decode_round_trip(Checker *c, const SomMetaTree *tree) {
-  char *expected = read_corpus("expected.docspecs.yaml");
+  char *expected = read_corpus("expected.tomspecs.yaml");
   SpecYamlContents contents;
   char *err = NULL;
   if (!decode_yaml(expected, tree, &contents, &err)) {
@@ -534,7 +534,7 @@ static void test_markdown_export(Checker *c, const SpecModel *model) {
   document_json_from_json(sj, &state);
   SpecDocument doc;
   doc_from_state(&doc, &state);
-  char *expected = read_corpus("expected.md");
+  char *expected = read_corpus("expected.tomspecs.md");
   char *actual = spec_markdown_export_root(model, &doc, &model->roots[0], NULL);
   char *d = byte_diff("md.export", actual, expected);
   check(c, "md.export", strcmp(actual, expected) == 0, d);
@@ -559,7 +559,7 @@ static char *rej_str(const SpecMarkdownResult *r) {
 }
 
 static void test_markdown_round_trip(Checker *c, const SpecModel *model) {
-  char *expected = read_corpus("expected.md");
+  char *expected = read_corpus("expected.tomspecs.md");
   SpecMarkdownResult result;
   spec_markdown_parse(model, expected, &result);
   char *rs = rej_str(&result);
@@ -590,7 +590,7 @@ static void test_markdown_round_trip(Checker *c, const SpecModel *model) {
 }
 
 static void test_markdown_memory_landing(Checker *c, const SpecModel *model) {
-  char *expected_md = read_corpus("expected.md");
+  char *expected_md = read_corpus("expected.tomspecs.md");
   SomJson *sj = read_json("state.json");
   DocumentJson canonical;
   document_json_from_json(sj, &canonical);

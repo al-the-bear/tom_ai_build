@@ -42,7 +42,7 @@ import tom_som_python_v0 as m  # noqa: E402
 
 _DEFAULT_SAMPLE_MD = os.path.normpath(os.path.join(
     _PROJECT, "..", "tom_som_dart_v0", "documents",
-    "meridian_order_management.md"))
+    "meridian_order_management.tomspecs.md"))
 _DEFAULT_SCHEMA = os.path.join(
     _PROJECT, "schemas", "solution-blueprint",
     "solution-blueprint.1.0.docspecs-schema.yaml")
@@ -53,7 +53,7 @@ _DEFAULT_SCHEMA = os.path.join(
 # unreachable against it whatever the document says.
 _DEFAULT_INVALID_SAMPLE_MD = os.path.normpath(os.path.join(
     _PROJECT, "..", "tom_som_conformance", "samples",
-    "invalid_demo_document.md"))
+    "invalid_demo_document.tomspecs.md"))
 _DEFAULT_DEMO_SCHEMA = os.path.normpath(os.path.join(
     _PROJECT, "..", "tom_som_conformance", "corpus", "docspecs_schema.yaml"))
 
@@ -71,7 +71,7 @@ _KIND_DART_NAME = {
 
 _DEFAULT_SAMPLE = os.path.normpath(os.path.join(
     _PROJECT, "..", "tom_som_dart_v0", "documents",
-    "meridian_order_management.docspecs.yaml"))
+    "meridian_order_management.tomspecs.yaml"))
 _DEFAULT_OUTPUT = os.path.normpath(os.path.join(
     _PROJECT, "..", "tom_som_conformance", "golden", "python.log"))
 

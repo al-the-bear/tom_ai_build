@@ -17,7 +17,7 @@ final _meridian = p.absolute(
   '../tom_som_conformance/samples/meridian_codespecs',
 );
 final _spec = p.absolute(
-  '../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml',
+  '../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml',
 );
 final _areas = p.absolute(
   '../tom_specs_model/generated-doc/codespecs/codespecs_areas.json',

@@ -14,7 +14,7 @@
 //
 //   * list structures — every `list` field's `sectionId` (the `…-LST` ids);
 //     a structure is instantiated when its id appears as a mapping key in any
-//     `samples/*.docspecs.yaml`.
+//     `samples/*.tomspecs.yaml`.
 //   * section ids — every reachable class or field `sectionId`; covered under
 //     the same key-appearance rule, and a list element class's id also when
 //     an item key matches that list's `@SectionIdPattern` (a document keys
@@ -148,12 +148,12 @@ void main(List<String> args) {
   final sampleFiles = [
     for (final d in samplesDirs)
       ...d.listSync().whereType<File>().where(
-        (f) => f.path.endsWith('.docspecs.yaml'),
+        (f) => f.path.endsWith('.tomspecs.yaml'),
       ),
   ]..sort((a, b) => a.path.compareTo(b.path));
   if (sampleFiles.isEmpty) {
     stderr.writeln(
-      'no *.docspecs.yaml samples under '
+      'no *.tomspecs.yaml samples under '
       '${samplesDirs.map((d) => d.path).join(', ')}',
     );
     exit(1);

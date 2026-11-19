@@ -41,7 +41,7 @@ normally installs the facade, which depends on the runtime.
 
 | Where | What it decides |
 |-------|-----------------|
-| [`som_multiplatform_spec_model.md`](../../tom_specs_model/doc/som_multiplatform_spec_model.md) | The object model, the two access paths, the `*.md` and `*.docspecs.yaml` formats, the validator, and the conformance corpus |
+| [`som_multiplatform_spec_model.md`](../../tom_specs_model/doc/som_multiplatform_spec_model.md) | The object model, the two access paths, the `*.tomspecs.md` and `*.tomspecs.yaml` formats, the validator, and the conformance corpus |
 | [`som_toolchains.md`](../../tom_specs_model/doc/som_toolchains.md) | This language plane's build, test and documentation toolchains |
 | [`tom_specs_model_meta_schema.md`](../../tom_specs_model/doc/tom_specs_model_meta_schema.md) | The on-disk schema of `meta/spec_model.meta.json` |
 | [`tom_specs_model/doc/index.md`](../../tom_specs_model/doc/index.md) | The catalogue of the whole subject-matter tier, and the `§` citation convention |

@@ -117,8 +117,8 @@ SpecDocument _phase2(_Environment env, String idea) {
   _authorBlueprint(D00SolutionBlueprint(doc));
 
   final markdown = doc.toMarkdown(env.model, rootType: 'D00SolutionBlueprint');
-  File('build/02_solution_blueprint.md').writeAsStringSync(markdown);
-  File('build/02_solution_blueprint.docspecs.yaml').writeAsStringSync(
+  File('build/02_solution_blueprint.tomspecs.md').writeAsStringSync(markdown);
+  File('build/02_solution_blueprint.tomspecs.yaml').writeAsStringSync(
     SpecDocumentYaml.encode(
       document: doc,
       tree: d00SolutionBlueprintMetaTree,
@@ -186,7 +186,7 @@ SpecDocument _phase2(_Environment env, String idea) {
 
 /// The Phase-3 documents this walkthrough carries, having passed gate G3.
 Map<String, SpecDocument> _phase3(_Environment env, SpecDocument sbp) {
-  _phase(3, 'Detailed Specifications', 'build/03_*.md');
+  _phase(3, 'Detailed Specifications', 'build/03_*.tomspecs.md');
   print('  IN   the accepted Blueprint and the SBP → target section mapping');
   print('  OUT  the twelve specification documents, each at the depth needed');
   print('       to derive code and tests without further interpretation.');
@@ -216,7 +216,9 @@ Map<String, SpecDocument> _phase3(_Environment env, SpecDocument sbp) {
   final results = <String, ({int schema, int values})>{};
   for (final entry in docs.entries) {
     final md = entry.value.toMarkdown(env.model, rootType: roots[entry.key]!);
-    File('build/03_${entry.key.toLowerCase()}.md').writeAsStringSync(md);
+    File(
+      'build/03_${entry.key.toLowerCase()}.tomspecs.md',
+    ).writeAsStringSync(md);
     results[entry.key] = (
       schema: DocSpecsValidator(
         schemas[entry.key]!,

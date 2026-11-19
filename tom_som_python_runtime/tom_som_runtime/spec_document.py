@@ -82,7 +82,7 @@ class SpecDocument:
 
     @classmethod
     def from_yaml(cls, yaml: str, tree: Any) -> "SpecDocument":
-        """Loads a hierarchical ``*.docspecs.yaml`` (v2) document in one call:
+        """Loads a hierarchical ``*.tomspecs.yaml`` (v2) document in one call:
         decode the YAML against the :class:`SomMetaTree` *tree*, populate the
         sparse stores, and retain the parsed :attr:`model_version` (SOM §21;
         The tree-based signature — mirrors Dart's
@@ -93,7 +93,7 @@ class SpecDocument:
 
     @classmethod
     def from_file(cls, path: str, tree: Any) -> "SpecDocument":
-        """Loads a ``*.docspecs.yaml`` document from the file at *path* — the file
+        """Loads a ``*.tomspecs.yaml`` document from the file at *path* — the file
         companion to :meth:`from_yaml` the generated ``load_file`` classmethod
         delegates to."""
         with open(path, "r", encoding="utf-8") as f:

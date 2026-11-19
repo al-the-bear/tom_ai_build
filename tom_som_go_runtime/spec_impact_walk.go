@@ -436,7 +436,7 @@ var (
 	impactIRRe          = regexp.MustCompile(`^irspecs/[^/]+\.ir\.yaml$`)
 	impactGateRe        = regexp.MustCompile(`^gates/G[^/]*\.checklist\.yaml$`)
 	impactGateReportRe  = regexp.MustCompile(`^quality/evidence/gates/[^/]+\.md$`)
-	impactDocumentRe    = regexp.MustCompile(`^phase[^/]*/[^/]+\.docspecs\.yaml$`)
+	impactDocumentRe    = regexp.MustCompile(`^phase[^/]*/[^/]+\.tomspecs\.yaml$`)
 )
 
 // impactNormalize turns a listing entry `/`-separated and drops one leading
@@ -554,7 +554,7 @@ func SpecImpactLevelOf(model *SpecModel, walk []SpecImpactRootWalk, listing []st
 }
 
 // SpecImpactDocumentFiles returns the specification's current documents in a
-// listing of the spec root: the `*.docspecs.yaml` files directly in a `phase*`
+// listing of the spec root: the `*.tomspecs.yaml` files directly in a `phase*`
 // folder, sorted. The numbered step folders below hold round copies and are
 // not the specification.
 func SpecImpactDocumentFiles(listing []string) []string {

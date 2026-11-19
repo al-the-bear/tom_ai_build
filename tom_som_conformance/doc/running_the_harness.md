@@ -118,7 +118,7 @@ detail is one file away.
 document cases, the schema, the reflection, validation, query, cursor,
 node-creation, editability, operations, pattern, projection, section-id,
 serialization-order and CodeSpecs-extract tables, plus the two expected
-renderings (`expected.md`, `expected.docspecs.yaml`) and the shared
+renderings (`expected.tomspecs.md`, `expected.tomspecs.yaml`) and the shared
 `model.meta.json`.
 
 `samples/` holds the shared documents the golden generators read, and `golden/`
@@ -128,7 +128,7 @@ it is not committed, and regenerating it is how it comes back.
 `check_sample_coverage.dart` is the gate that keeps the samples honest:
 
 ```
-samples: exercise_full_model.docspecs.yaml, meridian_order_management.docspecs.yaml, uam_access_hub.docspecs.yaml
+samples: exercise_full_model.tomspecs.yaml, meridian_order_management.tomspecs.yaml, uam_access_hub.tomspecs.yaml
 list structures instantiated: 569/569 (0 remaining)
 section ids instantiated:     3854/3854 (0 remaining)
 OK — the manifest is exactly the remaining set.

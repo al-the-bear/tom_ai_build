@@ -4,12 +4,12 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show SpecDocumentYaml;
 
 /// Generates a standalone JSON Schema (Draft-07) for the on-disk
-/// `*.docspecs.yaml` **document wire format**.
+/// `*.tomspecs.yaml` **document wire format**.
 ///
 /// This is deliberately *not* a per-root DocSpecs schema (those are produced by
 /// [DocSpecsSchemaGenerator] and describe the section grammar of one document
 /// root). This schema describes the **generic file shape** every
-/// `*.docspecs.yaml` shares regardless of which model root it carries — the
+/// `*.tomspecs.yaml` shares regardless of which model root it carries — the
 /// hierarchical v2 envelope written by `SpecDocumentYaml.encode` (SOM §12):
 ///
 /// ```yaml
@@ -25,7 +25,7 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
 /// ```
 ///
 /// It validates the structural envelope (key shapes and value nesting), not
-/// the section ids themselves: a `*.docspecs.yaml` can be schema-validated as
+/// the section ids themselves: a `*.tomspecs.yaml` can be schema-validated as
 /// a well-formed document file independently of the DocSpecs per-root schemas,
 /// so a saved file is checkable without resolving its model.
 ///
@@ -62,7 +62,7 @@ class DocspecsYamlSchemaGenerator {
     return {
       r'$schema': 'http://json-schema.org/draft-07/schema#',
       r'$id': schemaId,
-      'title': 'TomSpecs Document (*.docspecs.yaml)',
+      'title': 'TomSpecs Document (*.tomspecs.yaml)',
       'description':
           'Structural schema for the generic on-disk TomSpecs '
           'document wire format written by SpecDocumentYaml.encode '

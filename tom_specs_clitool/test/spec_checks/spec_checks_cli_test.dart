@@ -12,7 +12,7 @@ import 'package:test/test.dart';
 import 'package:tom_specs_clitool/src/spec_checks_cli.dart';
 
 const _meridian =
-    '../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml';
+    '../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml';
 
 /// A sink collecting what a run writes.
 class _Capture {
@@ -58,7 +58,7 @@ void main() {
     final scratch = Directory('../../../ztmp')..createSync(recursive: true);
     root = scratch.createTempSync('tom_specs_clitool_spec_checks_cli_');
     Directory('${root.path}/phase2').createSync();
-    doc = '${root.path}/phase2/sbp.docspecs.yaml';
+    doc = '${root.path}/phase2/sbp.tomspecs.yaml';
     File(_meridian).copySync(doc);
   });
   tearDown(() => root.deleteSync(recursive: true));

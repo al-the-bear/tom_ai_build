@@ -64,7 +64,7 @@ void main() {
         _aiBuild,
         'tom_som_conformance',
         'samples',
-        'exercise_full_model.docspecs.yaml',
+        'exercise_full_model.tomspecs.yaml',
       ),
     ).readAsStringSync(),
     d00SolutionBlueprintMetaTree,

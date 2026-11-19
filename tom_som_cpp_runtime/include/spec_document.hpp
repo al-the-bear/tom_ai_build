@@ -114,7 +114,7 @@ class SpecDocument {
    * automatically. */
   std::string modelVersion;
 
-  /* Loads a `*.docspecs.yaml` document in one call: decode the hierarchical v2
+  /* Loads a `*.tomspecs.yaml` document in one call: decode the hierarchical v2
    * YAML against `tree` (the metadata tree of the document's root), populate
    * the sparse stores, and retain the parsed model version on the document (SOM
    * §21). Returns std::nullopt on a format error and, when `err` is
@@ -123,7 +123,7 @@ class SpecDocument {
                                               const SomMetaTree& tree,
                                               std::string* err);
 
-  /* Loads a `*.docspecs.yaml` document from the file at `path` — the file
+  /* Loads a `*.tomspecs.yaml` document from the file at `path` — the file
    * companion to fromYaml the generated loadFile static delegates to. Returns
    * std::nullopt (writing `*err`) when the file cannot be read or fails to
    * decode. */

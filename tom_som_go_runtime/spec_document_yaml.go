@@ -1,6 +1,6 @@
 package somruntime
 
-// spec_document_yaml.go — generic YAML codec for the native `*.docspecs.yaml`
+// spec_document_yaml.go — generic YAML codec for the native `*.tomspecs.yaml`
 // document format — **hierarchical format v2** (SOM §12); a faithful port of
 // `tom_som_dart_runtime/lib/src/spec_document_yaml.dart` (and the TypeScript
 // `spec_document_yaml.ts`).
@@ -60,7 +60,7 @@ import (
 // rejected on read.
 const FormatVersion = 2
 
-// SpecYamlFormatException is a structural error in a `*.docspecs.yaml` file:
+// SpecYamlFormatException is a structural error in a `*.tomspecs.yaml` file:
 // wrong/unsupported format version, a key that does not match the metadata
 // tree at its position, a malformed value shape, or (on encode) document
 // values the tree cannot place.
@@ -78,7 +78,7 @@ func yamlFormatErr(message string) error {
 	return &SpecYamlFormatException{Message: message}
 }
 
-// SpecYamlContents is the decoded passes of a `*.docspecs.yaml` file: the
+// SpecYamlContents is the decoded passes of a `*.tomspecs.yaml` file: the
 // `document:` pass as a populated SpecDocument, the `review:` pass as a raw
 // mapping (the runtime carries it uninterpreted and writes it back), and the optional authoring
 // model-version stamp.
@@ -461,7 +461,7 @@ func WriteHeader(out *strings.Builder, modelVersion string) {
 // writeHeader writes the file header comment + `version:` line, and the
 // optional `modelVersion:` stamp when modelVersion is non-empty.
 func writeHeader(b *yamlBuffer, modelVersion string) {
-	b.writeln("# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.")
+	b.writeln("# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.")
 	b.writeln("version: " + itoa(FormatVersion))
 	if modelVersion != "" {
 		b.writeln("modelVersion: " + jsJSONString(modelVersion))
@@ -1223,7 +1223,7 @@ func sortStrings(s []string) {
 
 // --- Decode -------------------------------------------------------------------
 
-// DecodeYaml parses a `*.docspecs.yaml` file into its passes, matching every
+// DecodeYaml parses a `*.tomspecs.yaml` file into its passes, matching every
 // `document:` key against tree.
 //
 // Returns a *SpecYamlFormatException for a missing/unsupported `version:`
@@ -1238,7 +1238,7 @@ func DecodeYaml(yamlText string, tree *SomMetaTree) (*SpecYamlContents, error) {
 	rootMap, ok := root.(*YamlMap)
 	if !ok {
 		return nil, yamlFormatErr(
-			"not a *.docspecs.yaml mapping (expected version/document keys)")
+			"not a *.tomspecs.yaml mapping (expected version/document keys)")
 	}
 	version, hasVersion := rootMap.Get("version")
 	if !hasVersion || parsedScalarStr(version) != itoa(FormatVersion) {

@@ -532,12 +532,12 @@ SpecImpactLevel specImpactLevel(
 }
 
 /// The specification's current documents in a listing of the spec root: the
-/// `*.docspecs.yaml` files directly in a `phase*` folder. The numbered step
+/// `*.tomspecs.yaml` files directly in a `phase*` folder. The numbered step
 /// folders below hold round copies and are not the specification.
 List<String> specImpactDocumentFiles(List<String> listing) =>
     listing
         .map(_normalised)
-        .where((f) => RegExp(r'^phase[^/]*/[^/]+\.docspecs\.yaml$').hasMatch(f))
+        .where((f) => RegExp(r'^phase[^/]*/[^/]+\.tomspecs\.yaml$').hasMatch(f))
         .toList()
       ..sort();
 

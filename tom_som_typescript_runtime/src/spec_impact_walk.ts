@@ -440,13 +440,13 @@ export function specImpactLevel(
 
 /**
  * The specification's current documents in a listing of the spec root: the
- * `*.docspecs.yaml` files directly in a `phase*` folder. The numbered step
+ * `*.tomspecs.yaml` files directly in a `phase*` folder. The numbered step
  * folders below hold round copies and are not the specification.
  */
 export function specImpactDocumentFiles(listing: string[]): string[] {
   return listing
     .map((p) => p.replace(/\\/g, '/').replace(/^\.\//, ''))
-    .filter((f) => /^phase[^/]*\/[^/]+\.docspecs\.yaml$/.test(f))
+    .filter((f) => /^phase[^/]*\/[^/]+\.tomspecs\.yaml$/.test(f))
     .sort();
 }
 

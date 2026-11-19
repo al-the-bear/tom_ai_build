@@ -7,7 +7,7 @@
 //
 //   - model meta-data loads (root + class structure);
 //   - state.json loads and re-serialises identically;
-//   - hierarchical YAML encode (v2, tree-based) == expected.docspecs.yaml
+//   - hierarchical YAML encode (v2, tree-based) == expected.tomspecs.yaml
 //     (byte-for-byte);
 //   - YAML decode → memory equals state.json, and → encode is byte-stable +
 //     preserves the stamp;
@@ -457,7 +457,7 @@ func testYamlEncode(c *checker, t *testing.T, tree *som.SomMetaTree) {
 	var state som.DocumentJson
 	readJSON(t, "state.json", &state)
 	doc := docFromState(&state)
-	expected := readCorpus(t, "expected.docspecs.yaml")
+	expected := readCorpus(t, "expected.tomspecs.yaml")
 	actual, err := som.EncodeYaml(doc, tree, modelVersion)
 	if err != nil {
 		c.check("yaml.encode", false, err.Error())
@@ -467,7 +467,7 @@ func testYamlEncode(c *checker, t *testing.T, tree *som.SomMetaTree) {
 }
 
 func testYamlDecodeRoundTrip(c *checker, t *testing.T, tree *som.SomMetaTree) {
-	expected := readCorpus(t, "expected.docspecs.yaml")
+	expected := readCorpus(t, "expected.tomspecs.yaml")
 	contents, err := som.DecodeYaml(expected, tree)
 	if err != nil {
 		c.check("yaml.decode.stamp", false, err.Error())
@@ -605,7 +605,7 @@ func testMarkdownExport(c *checker, t *testing.T, model *som.SpecModel) {
 	var state som.DocumentJson
 	readJSON(t, "state.json", &state)
 	doc := docFromState(&state)
-	expected := readCorpus(t, "expected.md")
+	expected := readCorpus(t, "expected.tomspecs.md")
 	actual, err := som.NewSpecDocumentMarkdown(model, doc).ExportRoot(model.Roots[0])
 	if err != nil {
 		c.check("md.export", false, err.Error())
@@ -615,7 +615,7 @@ func testMarkdownExport(c *checker, t *testing.T, model *som.SpecModel) {
 }
 
 func testMarkdownRoundTrip(c *checker, t *testing.T, model *som.SpecModel) {
-	golden := readCorpus(t, "expected.md")
+	golden := readCorpus(t, "expected.tomspecs.md")
 	var state som.DocumentJson
 	readJSON(t, "state.json", &state)
 	doc := docFromState(&state)
@@ -645,11 +645,11 @@ func testMarkdownRoundTrip(c *checker, t *testing.T, model *som.SpecModel) {
 	c.check("md.parse.reexport", actual == golden, byteDiff("md.parse.reexport", actual, golden))
 }
 
-// Markdown/YAML convergence: parsing `expected.md` and applying it must
+// Markdown/YAML convergence: parsing `expected.tomspecs.md` and applying it must
 // reproduce `state.json` (the YAML-route memory) exactly, proving both formats
 // converge on one in-memory document (SOM §8).
 func testMarkdownMemoryLanding(c *checker, t *testing.T, model *som.SpecModel) {
-	golden := readCorpus(t, "expected.md")
+	golden := readCorpus(t, "expected.tomspecs.md")
 	var canonical som.DocumentJson
 	readJSON(t, "state.json", &canonical)
 	imported, err := som.SpecDocumentFromMarkdown(golden, model)

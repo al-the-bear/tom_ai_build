@@ -3,7 +3,7 @@
 // section left empty is empty (`coverage_reasons.yaml`).
 //
 // The model's sections are read from the model's full exercise sample
-// (`tom_som_conformance/samples/exercise_full_model.docspecs.yaml`):
+// (`tom_som_conformance/samples/exercise_full_model.tomspecs.yaml`):
 //
 //   * a model section is a key `<ID> <fieldName>` whose value is a block
 //     (mapping or empty) — complex, list and form sections; text leaves and the

@@ -19,7 +19,7 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 ///   tomspecs :spec-impact-walk --spec-root <dir> --tests <dir> --code <dir> --json
 /// ```
 ///
-/// The documents are the `*.docspecs.yaml` files directly in the spec root's
+/// The documents are the `*.tomspecs.yaml` files directly in the spec root's
 /// `phase*` folders (the step folders below hold round copies), unless `--file`
 /// names them. The walk is the runtime's `spec_impact_walk`; this command only
 /// finds the files, probes the folders and writes the result.

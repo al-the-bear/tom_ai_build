@@ -24,10 +24,10 @@ const m = require(path.join(_PROJECT, 'tom_som_javascript_v0.js'));
 
 const DEFAULT_SAMPLE = path.resolve(
   _PROJECT, '..', 'tom_som_dart_v0', 'documents',
-  'meridian_order_management.docspecs.yaml');
+  'meridian_order_management.tomspecs.yaml');
 const DEFAULT_SAMPLE_MD = path.resolve(
   _PROJECT, '..', 'tom_som_dart_v0', 'documents',
-  'meridian_order_management.md');
+  'meridian_order_management.tomspecs.md');
 const DEFAULT_SCHEMA = path.resolve(
   _PROJECT, 'schemas', 'solution-blueprint',
   'solution-blueprint.1.0.docspecs-schema.yaml');
@@ -38,7 +38,7 @@ const DEFAULT_SCHEMA = path.resolve(
 // unreachable against it whatever the document says.
 const DEFAULT_INVALID_SAMPLE_MD = path.resolve(
   _PROJECT, '..', 'tom_som_conformance', 'samples',
-  'invalid_demo_document.md');
+  'invalid_demo_document.tomspecs.md');
 const DEFAULT_DEMO_SCHEMA = path.resolve(
   _PROJECT, '..', 'tom_som_conformance', 'corpus', 'docspecs_schema.yaml');
 const DEFAULT_OUTPUT = path.resolve(

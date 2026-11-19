@@ -26,7 +26,10 @@ const List<(String, String)> _copies = [
     '../tom_som_dart_runtime/test/fixtures/corpus/model.meta.json',
     'model.meta.json',
   ),
-  ('../tom_som_dart_runtime/test/fixtures/corpus/expected.md', 'expected.md'),
+  (
+    '../tom_som_dart_runtime/test/fixtures/corpus/expected.tomspecs.md',
+    'expected.tomspecs.md',
+  ),
 ];
 
 void main(List<String> args) {

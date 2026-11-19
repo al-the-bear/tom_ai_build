@@ -9937,7 +9937,7 @@ class D00SolutionBlueprint(SomNode):
 
     @classmethod
     def load_yaml(cls, yaml):
-        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        """Loads a `*.tomspecs.yaml` document and returns the typed root with the
         document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d00SolutionBlueprintMetaTree)
@@ -9945,7 +9945,7 @@ class D00SolutionBlueprint(SomNode):
 
     @classmethod
     def load_file(cls, path):
-        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        """Loads a `*.tomspecs.yaml` document from the file at *path* — the file
         companion to :meth:`load_yaml`."""
         doc = SpecDocument.from_file(path, d00SolutionBlueprintMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -10064,7 +10064,7 @@ class D01CurrentLandscapeAssessment(SomNode):
 
     @classmethod
     def load_yaml(cls, yaml):
-        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        """Loads a `*.tomspecs.yaml` document and returns the typed root with the
         document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d01CurrentLandscapeAssessmentMetaTree)
@@ -10072,7 +10072,7 @@ class D01CurrentLandscapeAssessment(SomNode):
 
     @classmethod
     def load_file(cls, path):
-        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        """Loads a `*.tomspecs.yaml` document from the file at *path* — the file
         companion to :meth:`load_yaml`."""
         doc = SpecDocument.from_file(path, d01CurrentLandscapeAssessmentMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -10178,7 +10178,7 @@ class D02TargetOperatingModel(SomNode):
 
     @classmethod
     def load_yaml(cls, yaml):
-        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        """Loads a `*.tomspecs.yaml` document and returns the typed root with the
         document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d02TargetOperatingModelMetaTree)
@@ -10186,7 +10186,7 @@ class D02TargetOperatingModel(SomNode):
 
     @classmethod
     def load_file(cls, path):
-        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        """Loads a `*.tomspecs.yaml` document from the file at *path* — the file
         companion to :meth:`load_yaml`."""
         doc = SpecDocument.from_file(path, d02TargetOperatingModelMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -10303,7 +10303,7 @@ class D03InformationModel(SomNode):
 
     @classmethod
     def load_yaml(cls, yaml):
-        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        """Loads a `*.tomspecs.yaml` document and returns the typed root with the
         document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d03InformationModelMetaTree)
@@ -10311,7 +10311,7 @@ class D03InformationModel(SomNode):
 
     @classmethod
     def load_file(cls, path):
-        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        """Loads a `*.tomspecs.yaml` document from the file at *path* — the file
         companion to :meth:`load_yaml`."""
         doc = SpecDocument.from_file(path, d03InformationModelMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -10492,7 +10492,7 @@ class D04RequirementsSpecification(SomNode):
 
     @classmethod
     def load_yaml(cls, yaml):
-        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        """Loads a `*.tomspecs.yaml` document and returns the typed root with the
         document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d04RequirementsSpecificationMetaTree)
@@ -10500,7 +10500,7 @@ class D04RequirementsSpecification(SomNode):
 
     @classmethod
     def load_file(cls, path):
-        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        """Loads a `*.tomspecs.yaml` document from the file at *path* — the file
         companion to :meth:`load_yaml`."""
         doc = SpecDocument.from_file(path, d04RequirementsSpecificationMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -10609,7 +10609,7 @@ class D05InteractionScenarios(SomNode):
 
     @classmethod
     def load_yaml(cls, yaml):
-        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        """Loads a `*.tomspecs.yaml` document and returns the typed root with the
         document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d05InteractionScenariosMetaTree)
@@ -10617,7 +10617,7 @@ class D05InteractionScenarios(SomNode):
 
     @classmethod
     def load_file(cls, path):
-        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        """Loads a `*.tomspecs.yaml` document from the file at *path* — the file
         companion to :meth:`load_yaml`."""
         doc = SpecDocument.from_file(path, d05InteractionScenariosMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -10719,7 +10719,7 @@ class D06ArchitectureTechnologySpecification(SomNode):
 
     @classmethod
     def load_yaml(cls, yaml):
-        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        """Loads a `*.tomspecs.yaml` document and returns the typed root with the
         document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d06ArchitectureTechnologySpecificationMetaTree)
@@ -10727,7 +10727,7 @@ class D06ArchitectureTechnologySpecification(SomNode):
 
     @classmethod
     def load_file(cls, path):
-        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        """Loads a `*.tomspecs.yaml` document from the file at *path* — the file
         companion to :meth:`load_yaml`."""
         doc = SpecDocument.from_file(path, d06ArchitectureTechnologySpecificationMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -10853,7 +10853,7 @@ class D07IntegrationInterfaceSpecification(SomNode):
 
     @classmethod
     def load_yaml(cls, yaml):
-        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        """Loads a `*.tomspecs.yaml` document and returns the typed root with the
         document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d07IntegrationInterfaceSpecificationMetaTree)
@@ -10861,7 +10861,7 @@ class D07IntegrationInterfaceSpecification(SomNode):
 
     @classmethod
     def load_file(cls, path):
-        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        """Loads a `*.tomspecs.yaml` document from the file at *path* — the file
         companion to :meth:`load_yaml`."""
         doc = SpecDocument.from_file(path, d07IntegrationInterfaceSpecificationMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -10978,7 +10978,7 @@ class D08SecurityAccessSpecification(SomNode):
 
     @classmethod
     def load_yaml(cls, yaml):
-        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        """Loads a `*.tomspecs.yaml` document and returns the typed root with the
         document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d08SecurityAccessSpecificationMetaTree)
@@ -10986,7 +10986,7 @@ class D08SecurityAccessSpecification(SomNode):
 
     @classmethod
     def load_file(cls, path):
-        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        """Loads a `*.tomspecs.yaml` document from the file at *path* — the file
         companion to :meth:`load_yaml`."""
         doc = SpecDocument.from_file(path, d08SecurityAccessSpecificationMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -11105,7 +11105,7 @@ class D09ExperienceDesignSpecification(SomNode):
 
     @classmethod
     def load_yaml(cls, yaml):
-        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        """Loads a `*.tomspecs.yaml` document and returns the typed root with the
         document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d09ExperienceDesignSpecificationMetaTree)
@@ -11113,7 +11113,7 @@ class D09ExperienceDesignSpecification(SomNode):
 
     @classmethod
     def load_file(cls, path):
-        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        """Loads a `*.tomspecs.yaml` document from the file at *path* — the file
         companion to :meth:`load_yaml`."""
         doc = SpecDocument.from_file(path, d09ExperienceDesignSpecificationMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -11245,7 +11245,7 @@ class D10QualityAcceptancePlan(SomNode):
 
     @classmethod
     def load_yaml(cls, yaml):
-        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        """Loads a `*.tomspecs.yaml` document and returns the typed root with the
         document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d10QualityAcceptancePlanMetaTree)
@@ -11253,7 +11253,7 @@ class D10QualityAcceptancePlan(SomNode):
 
     @classmethod
     def load_file(cls, path):
-        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        """Loads a `*.tomspecs.yaml` document from the file at *path* — the file
         companion to :meth:`load_yaml`."""
         doc = SpecDocument.from_file(path, d10QualityAcceptancePlanMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -11415,7 +11415,7 @@ class D11DeliveryRoadmap(SomNode):
 
     @classmethod
     def load_yaml(cls, yaml):
-        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        """Loads a `*.tomspecs.yaml` document and returns the typed root with the
         document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d11DeliveryRoadmapMetaTree)
@@ -11423,7 +11423,7 @@ class D11DeliveryRoadmap(SomNode):
 
     @classmethod
     def load_file(cls, path):
-        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        """Loads a `*.tomspecs.yaml` document from the file at *path* — the file
         companion to :meth:`load_yaml`."""
         doc = SpecDocument.from_file(path, d11DeliveryRoadmapMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -11535,7 +11535,7 @@ class D12TransitionRolloutPlan(SomNode):
 
     @classmethod
     def load_yaml(cls, yaml):
-        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        """Loads a `*.tomspecs.yaml` document and returns the typed root with the
         document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d12TransitionRolloutPlanMetaTree)
@@ -11543,7 +11543,7 @@ class D12TransitionRolloutPlan(SomNode):
 
     @classmethod
     def load_file(cls, path):
-        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        """Loads a `*.tomspecs.yaml` document from the file at *path* — the file
         companion to :meth:`load_yaml`."""
         doc = SpecDocument.from_file(path, d12TransitionRolloutPlanMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -11680,7 +11680,7 @@ class D13CodeSpecsProjection(SomNode):
 
     @classmethod
     def load_yaml(cls, yaml):
-        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        """Loads a `*.tomspecs.yaml` document and returns the typed root with the
         document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d13CodeSpecsProjectionMetaTree)
@@ -11688,7 +11688,7 @@ class D13CodeSpecsProjection(SomNode):
 
     @classmethod
     def load_file(cls, path):
-        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        """Loads a `*.tomspecs.yaml` document from the file at *path* — the file
         companion to :meth:`load_yaml`."""
         doc = SpecDocument.from_file(path, d13CodeSpecsProjectionMetaTree)
         return cls(doc, document_version=doc.model_version)

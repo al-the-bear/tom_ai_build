@@ -7,10 +7,10 @@
 //!
 //!   - model meta-data loads (root + class structure);
 //!   - state.json loads and re-serialises identically;
-//!   - YAML encode == expected.docspecs.yaml (byte-for-byte, hierarchical v2);
+//!   - YAML encode == expected.tomspecs.yaml (byte-for-byte, hierarchical v2);
 //!   - YAML decode → memory → encode is byte-stable + preserves the stamp and
 //!     lands the fixture memory (state.json);
-//!   - Markdown export == expected.md, parse round-trips byte-stable, and the
+//!   - Markdown export == expected.tomspecs.md, parse round-trips byte-stable, and the
 //!     parsed values land the fixture memory (md.export / md.parse.* /
 //!     md.land.*), and applying a parsed import overwrites only the roots it
 //!     covers (mdApply[…]);
@@ -461,7 +461,7 @@ fn test_state_round_trip(c: &mut Checker) {
 fn test_yaml_encode(c: &mut Checker, tree: &SomMetaTree) {
     let state = DocumentJson::from_json(&read_json("state.json"));
     let doc = doc_from_state(&state);
-    let expected = read_corpus("expected.docspecs.yaml");
+    let expected = read_corpus("expected.tomspecs.yaml");
     match encode_yaml(&doc, tree, MODEL_VERSION) {
         Ok(actual) => c.check(
             "yaml.encode",
@@ -473,7 +473,7 @@ fn test_yaml_encode(c: &mut Checker, tree: &SomMetaTree) {
 }
 
 fn test_yaml_decode_round_trip(c: &mut Checker, tree: &SomMetaTree) {
-    let expected = read_corpus("expected.docspecs.yaml");
+    let expected = read_corpus("expected.tomspecs.yaml");
     let contents = match decode_yaml(&expected, tree) {
         Ok(contents) => contents,
         Err(e) => {
@@ -515,7 +515,7 @@ fn test_yaml_decode_round_trip(c: &mut Checker, tree: &SomMetaTree) {
 fn test_markdown_export(c: &mut Checker, model: &SpecModel) {
     let state = DocumentJson::from_json(&read_json("state.json"));
     let doc = doc_from_state(&state);
-    let expected = read_corpus("expected.md");
+    let expected = read_corpus("expected.tomspecs.md");
     match SpecDocumentMarkdown::new(model, &doc).export_root(&model.roots[0]) {
         Ok(actual) => c.check(
             "md.export",
@@ -527,7 +527,7 @@ fn test_markdown_export(c: &mut Checker, model: &SpecModel) {
 }
 
 fn test_markdown_round_trip(c: &mut Checker, model: &SpecModel) {
-    let golden = read_corpus("expected.md");
+    let golden = read_corpus("expected.tomspecs.md");
     let state = DocumentJson::from_json(&read_json("state.json"));
     let doc = doc_from_state(&state);
     let parsed = SpecDocumentMarkdown::new(model, &doc).parse(&golden);
@@ -555,11 +555,11 @@ fn test_markdown_round_trip(c: &mut Checker, model: &SpecModel) {
     }
 }
 
-// Markdown/YAML convergence: parsing `expected.md` and applying it must
+// Markdown/YAML convergence: parsing `expected.tomspecs.md` and applying it must
 // reproduce `state.json` (the YAML-route memory) exactly, proving both formats
 // converge on one in-memory document (SOM §8).
 fn test_markdown_memory_landing(c: &mut Checker, model: &SpecModel) {
-    let golden = read_corpus("expected.md");
+    let golden = read_corpus("expected.tomspecs.md");
     let canonical = DocumentJson::from_json(&read_json("state.json"));
     let imported = SpecDocument::from_markdown(&golden, model);
     c.check(

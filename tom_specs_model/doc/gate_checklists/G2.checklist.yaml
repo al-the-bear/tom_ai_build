@@ -19,7 +19,7 @@ items:
     criterion: Blueprint schema-valid
     inspect: The Blueprint decodes against the model, its markdown rendition validates against the solution-blueprint DocSpecs schema, and its values pass the instance-tier validator.
     method: tool
-    how: "dart run tom_specs_clitool:tomspecs :spec-validate <blueprint>.docspecs.yaml --json (all fragments of the document in one call)"
+    how: "dart run tom_specs_clitool:tomspecs :spec-validate <blueprint>.tomspecs.yaml --json (all fragments of the document in one call)"
     evidence: The JSON report (format spec-validation), stored with the gate report.
     pass: Exit code 0 — no finding on the decode, schema or instance tier.
   - id: G2-SCHEMA-2

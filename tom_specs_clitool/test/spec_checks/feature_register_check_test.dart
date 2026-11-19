@@ -96,7 +96,7 @@ void main() {
   group('FRC-2: the real Blueprint', () {
     test('FRC-2.1: the tom_uam Blueprint passes', () {
       final file = File(
-        '$_ws/tom_uam/tom_specs/phase2_solution_blueprint/tom_uam.sbp.docspecs.yaml',
+        '$_ws/tom_uam/tom_specs/phase2_solution_blueprint/tom_uam.sbp.tomspecs.yaml',
       );
       if (!file.existsSync()) {
         markTestSkipped('run from the workspace root');

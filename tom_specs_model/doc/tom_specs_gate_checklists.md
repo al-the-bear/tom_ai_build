@@ -166,7 +166,7 @@ formatVersion: 1
 gate: G2
 takenAt: 2026-10-20T14:30:00Z
 document:
-  path: tom_uam/tom_specs/phase2_solution_blueprint/tom_uam.sbp.docspecs.yaml
+  path: tom_uam/tom_specs/phase2_solution_blueprint/tom_uam.sbp.tomspecs.yaml
   commit: 3f2a9c1e                # the revision the gate inspected
 checklist:
   path: tom_uam/tom_specs/gates/G2.checklist.yaml

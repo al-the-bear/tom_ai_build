@@ -16,7 +16,7 @@
  * the 1-based position (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`), else `<member>-<pos>`
  * for a pattern-less list. The container carries no content of its own; a
  * stored `@SectionId` is **not** surfaced in md (it lives losslessly in the
- * `*.docspecs.yaml` format, SOM §12) so the generated schema's `pattern-check-id`
+ * `*.tomspecs.yaml` format, SOM §12) so the generated schema's `pattern-check-id`
  * stays a clean `^<stem>-[0-9]+$`. Id-less members are **transparent** (mirroring
  * the schema generator , SOM §13): a transparent value member's text or form block
  * is the owner's body region, emitted without a heading and bound at its own

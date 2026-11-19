@@ -17,7 +17,7 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
 final String _meridian = p.normalize(
   p.absolute(
-    '../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml',
+    '../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml',
   ),
 );
 
@@ -94,7 +94,7 @@ void main() {
       '    NOPE notAMember:\n      content: x\n    DOCTL documentControl:',
     );
     final json = await _json([
-      _write('bad_decode.docspecs.yaml', text),
+      _write('bad_decode.tomspecs.yaml', text),
     ], exit: 1);
     expect(_violations(json, 'decode'), isNotEmpty);
     expect(
@@ -111,7 +111,7 @@ void main() {
       '',
     );
     final json = await _json([
-      _write('no_aggregate.docspecs.yaml', text),
+      _write('no_aggregate.tomspecs.yaml', text),
     ], exit: 1);
     expect(_violations(json, 'decode'), isEmpty);
     final schema = _violations(json, 'schema');
@@ -143,7 +143,7 @@ void main() {
       RegExp(r'(\n( *)boundedContext: \|2-\n\2  )[^\n]*'),
       (m) => '${m[1]}NoSuchContext',
     );
-    final json = await _json([_write('bad_ref.docspecs.yaml', text)], exit: 1);
+    final json = await _json([_write('bad_ref.tomspecs.yaml', text)], exit: 1);
     expect(_violations(json, 'decode'), isEmpty);
     expect(_violations(json, 'schema'), isEmpty);
     final instance = _violations(json, 'instance');
@@ -160,7 +160,7 @@ void main() {
           '  ${root.sectionId} ${root.type}:\n'
           '    content: "A ${root.title}."\n';
       final json = await _json([
-        _write('${root.sectionId}.docspecs.yaml', text),
+        _write('${root.sectionId}.tomspecs.yaml', text),
       ]);
       expect(
         (json['root'] as Map)['type'],
@@ -179,7 +179,7 @@ void main() {
 
   group('fragments', () {
     // The Meridian Blueprint cut into two fragments by top-level section, each
-    // a complete *.docspecs.yaml of the same root — how a document authored in
+    // a complete *.tomspecs.yaml of the same root — how a document authored in
     // parallel groups is held on disk.
     final tree = buildSomMetaTree(
       somSpecModel,
@@ -208,8 +208,8 @@ void main() {
 
     bool inModel(String path) =>
         path == informationModel || path.startsWith('$informationModel/');
-    final model = fragment('model.docspecs.yaml', inModel);
-    final rest = fragment('rest.docspecs.yaml', (p) => !inModel(p));
+    final model = fragment('model.tomspecs.yaml', inModel);
+    final rest = fragment('rest.tomspecs.yaml', (p) => !inModel(p));
 
     test(
       'a fragment alone reports references into the other as dangling',
@@ -224,7 +224,7 @@ void main() {
 
     test('the fragments together are the document: clean, and the assembly '
         'decodes back to it', () async {
-      final assembled = p.join(_tmp.path, 'assembled.docspecs.yaml');
+      final assembled = p.join(_tmp.path, 'assembled.tomspecs.yaml');
       final json = await _json([
         model,
         rest,
@@ -239,7 +239,7 @@ void main() {
     test('fragments that both write one place are refused, naming the '
         'place and both fragments', () async {
       final copy = _write(
-        'model_again.docspecs.yaml',
+        'model_again.tomspecs.yaml',
         File(model).readAsStringSync(),
       );
       final json = await _json([model, rest, copy], exit: 1);
@@ -256,7 +256,7 @@ void main() {
 
     test('fragments of two different roots are bad usage', () async {
       final other = _write(
-        'other_root.docspecs.yaml',
+        'other_root.tomspecs.yaml',
         'version: 2\ndocument:\n  CLA D01CurrentLandscapeAssessment:\n'
             '    content: "x"\n',
       );
@@ -277,7 +277,7 @@ void main() {
 
     test('no document, or a missing one, is exit 2', () async {
       expect((await _run([])).$1, 2);
-      expect((await _run(['no_such.docspecs.yaml'])).$1, 2);
+      expect((await _run(['no_such.tomspecs.yaml'])).$1, 2);
     });
   });
 }

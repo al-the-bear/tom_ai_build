@@ -243,7 +243,7 @@ class SomPythonEmitter {
         ..writeln('    @classmethod')
         ..writeln('    def load_yaml(cls, yaml):')
         ..writeln(
-          '        """Loads a `*.docspecs.yaml` document and returns the '
+          '        """Loads a `*.tomspecs.yaml` document and returns the '
           'typed root with the',
         )
         ..writeln(
@@ -263,7 +263,7 @@ class SomPythonEmitter {
         ..writeln('    @classmethod')
         ..writeln('    def load_file(cls, path):')
         ..writeln(
-          '        """Loads a `*.docspecs.yaml` document from the file at '
+          '        """Loads a `*.tomspecs.yaml` document from the file at '
           '*path* — the file',
         )
         ..writeln('        companion to :meth:`load_yaml`."""')

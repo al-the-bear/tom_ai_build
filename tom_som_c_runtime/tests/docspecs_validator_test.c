@@ -707,7 +707,7 @@ static void TestDocspecsBindDocspecsMarkdown(void) {
   SpecModel *model = spec_model_from_json_str(modelText, &err);
   if (model == NULL) fatal("SpecModelFromJSON", err);
   char *mdText =
-      read_file(DV_SIBLINGS "/tom_som_conformance/corpus/expected.md");
+      read_file(DV_SIBLINGS "/tom_som_conformance/corpus/expected.tomspecs.md");
   SpecMarkdownResult result;
   docspecs_bind_markdown(model, mdText, &result);
   char *rej = NULL;
@@ -748,7 +748,7 @@ static void TestDocspecsDr7Acceptance(void) {
 
   const char *samplePath =
       DV_SIBLINGS
-      "/tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
+      "/tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml";
   SpecDocument *document = spec_document_from_file(samplePath, tree, &err);
   if (document == NULL) fatal("FromFile", err);
 

@@ -474,7 +474,7 @@ class SomCEmitter {
           'const char *document_version);',
         )
         ..writeln(
-          '// Loads a `*.docspecs.yaml` document in one call: decode the '
+          '// Loads a `*.tomspecs.yaml` document in one call: decode the '
           'YAML, populate the',
         )
         ..writeln(
@@ -507,7 +507,7 @@ class SomCEmitter {
           'SpecDocument **out_doc, char **err);',
         )
         ..writeln(
-          '// Loads a `*.docspecs.yaml` document from the file at `path` '
+          '// Loads a `*.tomspecs.yaml` document from the file at `path` '
           '— the file companion',
         )
         ..writeln(

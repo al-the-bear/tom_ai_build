@@ -57,7 +57,7 @@ anything that computes the path rather than knowing it.
 | `SpecModel` | The exported class graph — roots, classes, fields, annotations |
 | `SpecReflection` | Resolves and enumerates paths against the model **without reading values** |
 | `SpecValidator` / `validateDocument` | The instance tier: a filled document's values checked against the model |
-| the YAML and Markdown codecs | `*.docspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages |
+| the YAML and Markdown codecs | `*.tomspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages |
 | the editing-facade bases | What the generated `tom_som_java_v0` types extend |
 
 The full catalogue is the [README](../README.md); this guide is about using

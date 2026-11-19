@@ -12,7 +12,7 @@
 
 /// The fixture YAML text.
 const String fixtureYaml = '''
-# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.
+# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.
 version: 2
 modelVersion: "1.4"
 document:

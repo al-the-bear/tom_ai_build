@@ -1,5 +1,5 @@
 /**
- * A minimal, dependency-free YAML reader for the constrained `*.docspecs.yaml`
+ * A minimal, dependency-free YAML reader for the constrained `*.tomspecs.yaml`
  * subset the {@link SpecDocumentYaml} codec emits — the runtime ships with no
  * external libraries (no js-yaml), so this hand-rolled indentation parser stands
  * in for `package:yaml` / PyYAML. It is a faithful port of the JavaScript

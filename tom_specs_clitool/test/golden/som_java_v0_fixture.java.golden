@@ -92,7 +92,7 @@ public final class TomSomV0 {
       this(doc, null);
     }
 
-    // Loads a *.docspecs.yaml document and returns the typed root with the
+    // Loads a *.tomspecs.yaml document and returns the typed root with the
     // document's authoring stamp already applied (SOM §21) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
     // root's generated metadata tree is threaded into the runtime,
@@ -102,7 +102,7 @@ public final class TomSomV0 {
       return new SolutionBlueprint(doc, doc.modelVersion());
     }
 
-    // Loads a *.docspecs.yaml document from the file at path — the file
+    // Loads a *.tomspecs.yaml document from the file at path — the file
     // companion to loadYaml.
     public static SolutionBlueprint loadFile(String path) {
       SpecDocument doc = SpecDocument.fromFile(path, TomSomV0Meta.SolutionBlueprintMetaTree);

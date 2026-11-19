@@ -1,5 +1,5 @@
 /* yaml — a minimal, dependency-free YAML reader for the constrained
- * `*.docspecs.yaml` subset the codec emits, a faithful port of the Rust
+ * `*.tomspecs.yaml` subset the codec emits, a faithful port of the Rust
  * `yaml.rs`.
  *
  * It supports exactly what the encoder produces (and what the self-verify

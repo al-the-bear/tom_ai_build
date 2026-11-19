@@ -30,9 +30,9 @@ public final class SpecPublicHelpersTest {
     SpecDocumentYaml.writeHeader(b, "1.2.3");
     SpecDocumentYaml.writeHeader(b, "");
     eq("writeHeader", b.toString(),
-        "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\nversion: 2\n"
+        "# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\nversion: 2\n"
             + "modelVersion: \"1.2.3\"\n"
-            + "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\nversion: 2\n");
+            + "# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\nversion: 2\n");
 
     eq("codeSpecOf", SpecDocumentMarkdown.codeSpecOf("sectionId=\"X\" codeSpec=\" a,b \""), "a,b");
     eq("codeSpecOf absent", SpecDocumentMarkdown.codeSpecOf("sectionId=\"X\""), "");

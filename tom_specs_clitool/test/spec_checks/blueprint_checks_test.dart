@@ -17,7 +17,7 @@ const _checks = '$_ws/tom_uam/tom_specs/checks';
 /// (tom_ai/ai_build/tom_specs_clitool).
 const _ws = '../../..';
 
-final _blueprint = File('$_dir/tom_uam.sbp.docspecs.yaml');
+final _blueprint = File('$_dir/tom_uam.sbp.tomspecs.yaml');
 
 /// Whether tom_uam's real data is here: the Blueprint and its `checks/`
 /// folder. A checkout of tom_uam from before its check data moved to
@@ -287,7 +287,7 @@ rules:
     test('BCK-2.2: the real Blueprint against the real model', () {
       final ab = Platform.environment['AI_BUILD'] ?? '..';
       final s = File(
-        '$ab/tom_som_conformance/samples/exercise_full_model.docspecs.yaml',
+        '$ab/tom_som_conformance/samples/exercise_full_model.tomspecs.yaml',
       );
       final m = File('$ab/tom_som_dart_v0/meta/spec_model.meta.json');
       if (!_hasRealData || !s.existsSync() || !m.existsSync()) {

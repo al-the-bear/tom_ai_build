@@ -1,4 +1,4 @@
-// Tests for the hierarchical `*.docspecs.yaml` v2 codec (SOM §12).
+// Tests for the hierarchical `*.tomspecs.yaml` v2 codec (SOM §12).
 //
 // The codec walks the document root's SomMetaTree: sections nest, keys are
 // `<section-id> <member-name>`, list items key by stored section id (or an
@@ -270,7 +270,7 @@ void main() {
       expect(
         yaml,
         startsWith(
-          '# TomSpecs document (*.docspecs.yaml). '
+          '# TomSpecs document (*.tomspecs.yaml). '
           'Hierarchical format v2.\n',
         ),
       );

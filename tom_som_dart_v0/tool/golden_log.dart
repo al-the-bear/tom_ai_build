@@ -1,7 +1,7 @@
 // Cross-language golden-log generator (SOM §19).
 //
 // Loads the language-agnostic shared sample
-// (`documents/meridian_order_management.docspecs.yaml`) and
+// (`documents/meridian_order_management.tomspecs.yaml`) and
 // emits a canonical, deterministic log of *essentially every section* read
 // through **both** the generic string-path API and the typed facade. The nine
 // per-language generators (one per `tom_som_<lang>_v0`) all emit the identical
@@ -27,9 +27,9 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
 
 const _defaultSample =
-    'documents/meridian_order_management.docspecs.yaml';
+    'documents/meridian_order_management.tomspecs.yaml';
 const _defaultSampleMd =
-    'documents/meridian_order_management.md';
+    'documents/meridian_order_management.tomspecs.md';
 const _defaultSchema =
     'schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml';
 // The deliberately-invalid companion fixture and the hand-authored demo schema
@@ -38,7 +38,7 @@ const _defaultSchema =
 // `pattern-check:` and no `text-required:`, so two of the eleven rules are
 // unreachable against it whatever the document says.
 const _defaultInvalidSampleMd =
-    '../tom_som_conformance/samples/invalid_demo_document.md';
+    '../tom_som_conformance/samples/invalid_demo_document.tomspecs.md';
 const _defaultDemoSchema = '../tom_som_conformance/corpus/docspecs_schema.yaml';
 const _defaultOutput = '../tom_som_conformance/golden/dart.log';
 
@@ -56,7 +56,7 @@ void main(List<String> args) {
   final samplePath = args.isNotEmpty ? args[0] : _defaultSample;
   final outputPath = args.length > 1 ? args[1] : _defaultOutput;
 
-  // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12); the
+  // The shared sample is a hierarchical-v2 `*.tomspecs.yaml` (SOM §12); the
   // one-call loader decodes it against the SBP metadata tree and retains the
   // modelVersion stamp on the document.
   final doc = SpecDocument.fromFile(samplePath, d00SolutionBlueprintMetaTree);

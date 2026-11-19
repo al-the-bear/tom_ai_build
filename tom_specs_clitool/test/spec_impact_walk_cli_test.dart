@@ -16,7 +16,7 @@ import 'package:tom_specs_clitool/src/commands/spec_impact_walk.dart';
 
 final String _meridian = p.normalize(
   p.absolute(
-    '../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml',
+    '../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml',
   ),
 );
 
@@ -35,9 +35,9 @@ Directory _specRoot() {
     ..parent.createSync(recursive: true)
     ..writeAsStringSync(text);
   write('phase1_project_idea/project_idea.md', '# Idea\n');
-  write('phase2_solution_blueprint/meridian.sbp.docspecs.yaml', blueprint);
+  write('phase2_solution_blueprint/meridian.sbp.tomspecs.yaml', blueprint);
   write(
-    'phase2_solution_blueprint/01_Initial Version/meridian.sbp.docspecs.yaml',
+    'phase2_solution_blueprint/01_Initial Version/meridian.sbp.tomspecs.yaml',
     blueprint,
   );
   write('gates/G2.checklist.yaml', 'items: []\n');
@@ -120,7 +120,7 @@ void main() {
     final second = p.join(
       root.path,
       'phase2_solution_blueprint',
-      'copy.sbp.docspecs.yaml',
+      'copy.sbp.tomspecs.yaml',
     );
     File(_meridian).copySync(second);
     expect(

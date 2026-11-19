@@ -9,7 +9,7 @@
 /// (`tom_specs_editor_specification.md` §14). Two serialization rules follow
 /// from that:
 ///
-///  - **Global save (`*.docspecs.yaml`) writes only the Solution Blueprint.**
+///  - **Global save (`*.tomspecs.yaml`) writes only the Solution Blueprint.**
 ///    Because every projection is a view over the same SBP sections,
 ///    serializing the SBP tree alone emits each section **exactly once** —
 ///    there are no duplicate subtrees (N9, `tom_specs_editor_specification.md`
@@ -26,7 +26,7 @@
 ///
 /// ## One file format, one encoder
 ///
-/// The `*.docspecs.yaml` hierarchical-v2 format (SOM §12) has exactly one
+/// The `*.tomspecs.yaml` hierarchical-v2 format (SOM §12) has exactly one
 /// encoder: [SpecDocumentYaml] in `tom_som_dart_runtime`, the shape all nine
 /// SOM runtimes derive from. This library does **not** write YAML — it
 /// *projects the live object tree onto a [SpecDocument]* and hands that to the
@@ -117,7 +117,7 @@ bool connectProjection(Object projection, Object source) {
 /// hierarchical-v2 encoder, and orchestrates the connect-before-write pass for
 /// projection roots (N11, N12).
 abstract final class SpecYaml {
-  /// The global `document:` pass: the `*.docspecs.yaml` of
+  /// The global `document:` pass: the `*.tomspecs.yaml` of
   /// [solutionBlueprintRoot] alone, described by [tree].
   ///
   /// Pass the Solution Blueprint root here for the native save. Because the

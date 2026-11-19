@@ -394,7 +394,7 @@ SpecImpactLevel specImpactLevel(
 
 std::vector<std::string> specImpactDocumentFiles(
     const std::vector<std::string>& listing) {
-  static const std::regex kDocument("phase[^/]*/[^/]+\\.docspecs\\.yaml");
+  static const std::regex kDocument("phase[^/]*/[^/]+\\.tomspecs\\.yaml");
   std::vector<std::string> out;
   for (const std::string& f : normalised(listing)) {
     if (matches(f, kDocument)) out.push_back(f);

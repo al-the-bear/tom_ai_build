@@ -1,7 +1,7 @@
 package somruntime
 
 // yaml.go — a minimal, dependency-free YAML reader for the constrained
-// `*.docspecs.yaml` subset the SpecDocumentYaml codec emits, a faithful port of
+// `*.tomspecs.yaml` subset the SpecDocumentYaml codec emits, a faithful port of
 // `tom_som_dart_runtime/lib/src/yaml.dart` (and the TypeScript `yaml.ts`).
 //
 // The runtime ships with no external libraries, so this hand-rolled indentation

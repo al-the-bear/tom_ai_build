@@ -85,12 +85,12 @@ func main() {
 	markdown, err := doc.ToMarkdown(model, "D00SolutionBlueprint")
 	must(err)
 
-	must(os.WriteFile(filepath.Join(outDir, "blueprint.docspecs.yaml"), []byte(yaml), 0o644))
-	must(os.WriteFile(filepath.Join(outDir, "blueprint.md"), []byte(markdown), 0o644))
+	must(os.WriteFile(filepath.Join(outDir, "blueprint.tomspecs.yaml"), []byte(yaml), 0o644))
+	must(os.WriteFile(filepath.Join(outDir, "blueprint.tomspecs.md"), []byte(markdown), 0o644))
 
 	fmt.Println("3. Serialised both renditions into build/")
-	fmt.Printf("   blueprint.docspecs.yaml : %d lines  (SOM §12)\n", lines(yaml))
-	fmt.Printf("   blueprint.md            : %d lines  (SOM §11)\n", lines(markdown))
+	fmt.Printf("   blueprint.tomspecs.yaml : %d lines  (SOM §12)\n", lines(yaml))
+	fmt.Printf("   blueprint.tomspecs.md   : %d lines  (SOM §11)\n", lines(markdown))
 	fmt.Println()
 
 	// -------------------------------------------------------------- step 4
@@ -98,7 +98,7 @@ func main() {
 	// stamp, and hand back a typed root. Re-encoding the reload and comparing
 	// the two strings is the actual proof — comparing field by field would only
 	// prove the fields somebody thought to compare.
-	reloaded, err := somv0.LoadFileD00SolutionBlueprint(filepath.Join(outDir, "blueprint.docspecs.yaml"))
+	reloaded, err := somv0.LoadFileD00SolutionBlueprint(filepath.Join(outDir, "blueprint.tomspecs.yaml"))
 	must(err)
 	reYaml, err := som.EncodeYaml(reloaded.Doc(), somv0.D00SolutionBlueprintMetaTree, model.ModelVersionString())
 	must(err)

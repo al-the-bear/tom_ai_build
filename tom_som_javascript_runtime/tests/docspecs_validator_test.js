@@ -426,7 +426,7 @@ function testBindDocspecsMarkdown() {
   const model = SpecModel.fromJson(
     JSON.parse(fs.readFileSync(path.join(corpus, 'model.meta.json'), 'utf8')),
   );
-  const md = fs.readFileSync(path.join(corpus, 'expected.md'), 'utf8');
+  const md = fs.readFileSync(path.join(corpus, 'expected.tomspecs.md'), 'utf8');
   const result = bindDocspecsMarkdown(model, new SpecDocument(), md);
   _check('bind.clean', result.isClean, result.rejections.map((r) => String(r)).join('; '));
   _check('bind.appliedCount', result.appliedCount > 0, String(result.appliedCount));
@@ -439,13 +439,13 @@ function testBindDocspecsMarkdown() {
 function testDr7Acceptance() {
   const metaPath = path.join(_SIBLINGS, 'tom_som_dart_v0', 'meta', 'spec_model.meta.json');
   const model = SpecModel.fromJson(JSON.parse(fs.readFileSync(metaPath, 'utf8')));
-  // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12): decode it
+  // The shared sample is a hierarchical-v2 `*.tomspecs.yaml` (SOM §12): decode it
   // against the metadata tree bridged from the exported model.
   const samplePath = path.join(
     _SIBLINGS,
     'tom_som_dart_v0',
     'documents',
-    'meridian_order_management.docspecs.yaml',
+    'meridian_order_management.tomspecs.yaml',
   );
   const document = SpecDocument.fromFile(
     samplePath,

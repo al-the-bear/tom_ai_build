@@ -333,7 +333,9 @@ document:
         jsonDecode(File('$corpusFixtureDir/model.meta.json').readAsStringSync())
             as Map<String, dynamic>,
       );
-      final md = File('$corpusFixtureDir/expected.md').readAsStringSync();
+      final md = File(
+        '$corpusFixtureDir/expected.tomspecs.md',
+      ).readAsStringSync();
       final result = bindDocSpecsMarkdown(model, SpecDocument(), md);
       expect(result.isClean, isTrue);
       expect(result.appliedCount, greaterThan(0));

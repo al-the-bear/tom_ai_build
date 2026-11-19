@@ -239,7 +239,7 @@ public final class SpecImpactWalk {
   private static final Pattern IR = Pattern.compile("^irspecs/[^/]+\\.ir\\.yaml$");
   private static final Pattern GATE_CHECKLIST = Pattern.compile("^gates/G[^/]*\\.checklist\\.yaml$");
   private static final Pattern GATE_REPORT = Pattern.compile("^quality/evidence/gates/[^/]+\\.md$");
-  private static final Pattern DOCUMENT_FILE = Pattern.compile("^phase[^/]*/[^/]+\\.docspecs\\.yaml$");
+  private static final Pattern DOCUMENT_FILE = Pattern.compile("^phase[^/]*/[^/]+\\.tomspecs\\.yaml$");
 
   private static List<String> normalized(List<String> listing) {
     List<String> out = new ArrayList<>();
@@ -354,7 +354,7 @@ public final class SpecImpactWalk {
 
   /**
    * The specification's current documents in a listing of the spec root: the
-   * {@code *.docspecs.yaml} files directly in a {@code phase*} folder, sorted.
+   * {@code *.tomspecs.yaml} files directly in a {@code phase*} folder, sorted.
    * The numbered step folders below hold round copies and are not the
    * specification.
    */

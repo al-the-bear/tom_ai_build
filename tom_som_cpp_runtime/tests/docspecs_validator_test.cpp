@@ -572,7 +572,7 @@ void TestDocspecsBindDocspecsMarkdown() {
     fatal("SpecModelFromJSON", err);
   }
   std::string mdText =
-      readFile(std::string(DV_SIBLINGS) + "/tom_som_conformance/corpus/expected.md");
+      readFile(std::string(DV_SIBLINGS) + "/tom_som_conformance/corpus/expected.tomspecs.md");
   som::SpecMarkdownResult result = som::docspecsBindMarkdown(*model, mdText);
   std::string rej;
   for (std::size_t i = 0; i < result.rejections.size(); ++i) {
@@ -604,7 +604,7 @@ void TestDocspecsDr7Acceptance() {
 
   std::string samplePath =
       std::string(DV_SIBLINGS) +
-      "/tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
+      "/tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml";
   auto document = som::SpecDocument::fromFile(samplePath, *tree, &err);
   if (!document.has_value()) {
     fatal("FromFile", err);

@@ -304,7 +304,7 @@ def test_one_call_loading() -> None:
     from tom_som_runtime.spec_document_yaml import decode
 
     # The suite runs from the project root; this relative path resolves there.
-    sample_path = "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml"
+    sample_path = "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml"
 
     # 4) load_yaml collapses decode → load_json → thread-version to one call.
     with open(sample_path, "r", encoding="utf-8") as f:
@@ -376,8 +376,8 @@ def test_live_document_case() -> None:
     regression fails ``python3 tests/som_v0_generated_test.py`` without needing
     a full nine-toolchain golden run.
     """
-    sample = "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml"
-    sample_md = "../tom_som_dart_v0/documents/meridian_order_management.md"
+    sample = "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml"
+    sample_md = "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.md"
     schema_path = ("schemas/solution-blueprint/"
                    "solution-blueprint.1.0.docspecs-schema.yaml")
     tree = m.d00SolutionBlueprintMetaTree
@@ -449,7 +449,7 @@ def test_live_document_case() -> None:
 
 
 def test_markdown_import_lands_on_yaml() -> None:
-    """Markdown import: the .md lands on exactly the .docspecs.yaml.
+    """Markdown import: the .md lands on exactly the .tomspecs.yaml.
 
     The .md is the yaml's rendition, so importing it must reproduce the yaml
     byte for byte — including every list item's section id, which a heading
@@ -457,8 +457,8 @@ def test_markdown_import_lands_on_yaml() -> None:
     Ids are identity and paths only position, so after a move the item must
     keep its id rather than take its new position's.
     """
-    sample = "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml"
-    sample_md = "../tom_som_dart_v0/documents/meridian_order_management.md"
+    sample = "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml"
+    sample_md = "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.md"
     tree = m.d00SolutionBlueprintMetaTree
     with open("meta/spec_model.meta.json", encoding="utf-8") as fh:
         model = SpecModel.from_json(json.load(fh))

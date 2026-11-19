@@ -237,7 +237,7 @@ public final class GeneratedModelTest {
   // The language-agnostic shared sample; read relative to the project dir so the
   // ../tom_som_conformance path resolves (matches GoldenLog + run_tests.sh cwd).
   private static final String SAMPLE_PATH =
-      "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
+      "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml";
 
   private static String readSample() {
     try {
@@ -455,7 +455,7 @@ public final class GeneratedModelTest {
   // Mirrors the Dart (dsa7), Python (dsa8), JavaScript (dsa9), TypeScript (dsa10)
   // and Go (dsa11) durability guards.
   private static void testLiveDocumentCase() {
-    final String sampleMd = "../tom_som_dart_v0/documents/meridian_order_management.md";
+    final String sampleMd = "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.md";
     final String schemaPath =
         "schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml";
     final String modelMetaPath = "meta/spec_model.meta.json";
@@ -549,9 +549,9 @@ public final class GeneratedModelTest {
   // which a heading carries even when it equals the @SectionIdPattern default
   // (`UCE-USER-1`). Ids are identity and paths only position, so after a move
   // the item must keep its id rather than take its new position's. Mirrors the
-  // Dart v0 test 'markdown import: the .md lands on exactly the .docspecs.yaml'.
+  // Dart v0 test 'markdown import: the .md lands on exactly the .tomspecs.yaml'.
   private static void testMarkdownImportLandsOnYaml() {
-    final String sampleMd = "../tom_som_dart_v0/documents/meridian_order_management.md";
+    final String sampleMd = "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.md";
     final String modelMetaPath = "meta/spec_model.meta.json";
     SomMetaTree tree = TomSomV0Meta.D00SolutionBlueprintMetaTree;
     SpecModel model = SpecModel.fromJson(Json.parseObject(readText(modelMetaPath)));

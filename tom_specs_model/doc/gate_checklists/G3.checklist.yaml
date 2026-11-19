@@ -27,7 +27,7 @@ items:
     criterion: All documents schema-valid
     inspect: Each document decodes, validates against its DocSpecs schema and passes the instance tier.
     method: tool
-    how: "dart run tom_specs_clitool:tomspecs :spec-validate <document>.docspecs.yaml --json, once per document (all fragments of one document in one call)"
+    how: "dart run tom_specs_clitool:tomspecs :spec-validate <document>.tomspecs.yaml --json, once per document (all fragments of one document in one call)"
     evidence: One JSON report (format spec-validation) per document.
     pass: Every report has exit code 0 — no finding on any tier.
   - id: G3-SCHEMA-2

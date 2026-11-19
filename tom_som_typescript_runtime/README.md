@@ -4,7 +4,7 @@
 > [`tom_specs_model/doc/som_multiplatform_spec_model.md`](../tom_specs_model/doc/som_multiplatform_spec_model.md)
 > is the SOM authority: `SOM §9` decides what a runtime must contain, `SOM §6`
 > decides the split between the generic and the typed access path, `SOM §11` and
-> `SOM §12` decide the `*.md` and `*.docspecs.yaml` formats, and `SOM §19`
+> `SOM §12` decide the `*.tomspecs.md` and `*.tomspecs.yaml` formats, and `SOM §19`
 > decides the conformance corpus this port is measured against.
 > [`tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md)
 > decides this language plane's build and verify toolchain, including the pinned
@@ -81,7 +81,7 @@ path-link routes, version pinning, and building from source.
 | `spec_impact_walk.ts` | The impact walk of the `tom_specs` change mode: `specImpactWalk` lists every section of every document root of the model for a specification (a root without a document over an empty one) — section-id chain, class, fill state, value count, CodeSpecs routing — and an empty list of sections as a template `<list>/*`; `specImpactLevel` records how far the project has come from a listing of its spec root; `specImpactDocumentFiles` finds the current documents in that listing; `specImpactWalkMarkdown` writes the table. Pure (no IO); the extension's `tomAi_specImpactWalk` runs it in-process. |
 | `spec_generation_units.ts` | The generation-unit register of a document (SOM §11.2): `specGenerationUnits` reads each unit (`SpecGenerationUnit`: id, kind, mappings per area, the standard emitters it ships — `K_SPEC_STANDARD_EMITTERS`), recognised by `@NoArtifact(generation)` as validation phase 8 recognises it; `specDefaultUnits` is the default destination of an area — the extract fills an entry's `units` from it when no section stores units. |
 | `spec_codespecs_gate.ts` | The Phase-4 Stage-A gate (`CodeSpecsGate`) — checks A1–A5 of `codespecs_prompt.md` §4 run as one over model, document, catalogue and DocSpecs schema; a check that could not run is reported not run, never passed. |
-| `spec_document_yaml.ts` | Byte-stable `*.docspecs.yaml` codec (`SOM §12`). |
+| `spec_document_yaml.ts` | Byte-stable `*.tomspecs.yaml` codec (`SOM §12`). |
 | `spec_document_markdown.ts` | Meta-data-driven Markdown import/export codec (`SOM §11`). |
 | `som_facade.ts` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList<T>`) for the generated `tom_som_typescript_v0`. |
 | `spec_review_annotations.ts` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks (`SpecReviewAnnotations`: insert, answer, decide, comment on a change, assign comment ids, strip, validate), conflict blocks, change times and attribution; `formatCommentBlock` / `formatQuestionBlock` / `formatConflictBlock`. |
@@ -172,7 +172,7 @@ The runner reproduces every golden byte-for-byte and exercises the same cases as
 the Dart/Python/Java/JavaScript runners: model meta-data load, `state.json`
 round-trip, YAML encode/decode, Markdown export/round-trip, the
 **Markdown→memory landing** check (the `md.land.*` shared contract — parsing
-`expected.md` lands the same memory as the YAML route), reflection resolution,
+`expected.tomspecs.md` lands the same memory as the YAML route), reflection resolution,
 validation, the imperative operations script, and the **Phase-4 CodeSpecs
 extract** tier (routing verdicts, the per-area extracts with their YAML and
 Markdown goldens, and the `ROUTE-TOTAL` error cases).
@@ -206,7 +206,7 @@ Markdown goldens, and the `ROUTE-TOTAL` error cases).
 | `SpecEditor` | Typed edits over any path, driven by the meta-model rather than by generated classes. |
 | `SpecNodeCreator` | The creation gate — a document may only grow in ways the model permits. |
 | `validateDocument` | The instance tier: a filled document's values checked against the model. |
-| `SpecDocumentYaml` | Byte-stable `*.docspecs.yaml` encode/decode. |
+| `SpecDocumentYaml` | Byte-stable `*.tomspecs.yaml` encode/decode. |
 | `SpecDocumentMarkdown` | DocSpecs-conform Markdown export, parse and round-trip. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
 | `CodeSpecsExtractor` | The Phase-4 extract generator — one verbatim, cited extract per CodeSpecs area. |
@@ -236,7 +236,7 @@ Markdown goldens, and the `ROUTE-TOTAL` error cases).
 | Document | Authority for |
 |----------|---------------|
 | [index.md](../tom_specs_model/doc/index.md) | The catalogue of every TomSpecs subject-matter document, and the `§` citation convention. |
-| [som_multiplatform_spec_model.md](../tom_specs_model/doc/som_multiplatform_spec_model.md) | What a SOM runtime must contain, the two access paths, the `*.md` and `*.docspecs.yaml` formats, the validator, and the conformance corpus. |
+| [som_multiplatform_spec_model.md](../tom_specs_model/doc/som_multiplatform_spec_model.md) | What a SOM runtime must contain, the two access paths, the `*.tomspecs.md` and `*.tomspecs.yaml` formats, the validator, and the conformance corpus. |
 | [som_toolchains.md](../tom_specs_model/doc/som_toolchains.md) | This language plane's build and verify toolchain, and the pinned project-local compiler. |
 | [tom_specs_model_meta_schema.md](../tom_specs_model/doc/tom_specs_model_meta_schema.md) | The on-disk schema of `meta/spec_model.meta.json`, which `SpecModel` loads. |
 

@@ -81,12 +81,12 @@ Future<void> main() async {
   );
   final markdown = doc.toMarkdown(model, rootType: 'D00SolutionBlueprint');
 
-  File('${outDir.path}/blueprint.docspecs.yaml').writeAsStringSync(yaml);
-  File('${outDir.path}/blueprint.md').writeAsStringSync(markdown);
+  File('${outDir.path}/blueprint.tomspecs.yaml').writeAsStringSync(yaml);
+  File('${outDir.path}/blueprint.tomspecs.md').writeAsStringSync(markdown);
 
   print('3. Serialised both renditions into build/');
-  print('   blueprint.docspecs.yaml : ${_lines(yaml)} lines  (SOM §12)');
-  print('   blueprint.md            : ${_lines(markdown)} lines  (SOM §11)');
+  print('   blueprint.tomspecs.yaml : ${_lines(yaml)} lines  (SOM §12)');
+  print('   blueprint.tomspecs.md   : ${_lines(markdown)} lines  (SOM §11)');
   print('');
 
   // ---------------------------------------------------------------- step 4
@@ -95,7 +95,7 @@ Future<void> main() async {
   // the two strings is the actual proof — comparing field by field would only
   // prove the fields somebody thought to compare.
   final reloaded = D00SolutionBlueprint.loadFile(
-    '${outDir.path}/blueprint.docspecs.yaml',
+    '${outDir.path}/blueprint.tomspecs.yaml',
   );
   final reYaml = SpecDocumentYaml.encode(
     document: reloaded.doc,

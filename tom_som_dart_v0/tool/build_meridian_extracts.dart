@@ -34,7 +34,7 @@ void main() {
 
   // --- Load the three inputs ------------------------------------------------
   final sampleFile = at('../documents/'
-      'meridian_order_management.docspecs.yaml');
+      'meridian_order_management.tomspecs.yaml');
   final doc =
       SpecDocument.fromFile(sampleFile.path, d00SolutionBlueprintMetaTree);
 
@@ -49,7 +49,7 @@ void main() {
 
   // --- Gate, tier A1 — schema completeness ----------------------------------
   final markdown =
-      at('../documents/meridian_order_management.md')
+      at('../documents/meridian_order_management.tomspecs.md')
           .readAsStringSync();
   final schema = DocSpecsSchema.fromYamlText(at(
           '../schemas/solution-blueprint/'

@@ -87,16 +87,16 @@ fn main() {
         .to_markdown(&model, Some("D00SolutionBlueprint"))
         .expect("markdown");
 
-    fs::write(out_dir.join("blueprint.docspecs.yaml"), &yaml).expect("write yaml");
-    fs::write(out_dir.join("blueprint.md"), &markdown).expect("write markdown");
+    fs::write(out_dir.join("blueprint.tomspecs.yaml"), &yaml).expect("write yaml");
+    fs::write(out_dir.join("blueprint.tomspecs.md"), &markdown).expect("write markdown");
 
     println!("3. Serialised both renditions into build/");
     println!(
-        "   blueprint.docspecs.yaml : {} lines  (SOM §12)",
+        "   blueprint.tomspecs.yaml : {} lines  (SOM §12)",
         lines(&yaml)
     );
     println!(
-        "   blueprint.md            : {} lines  (SOM §11)",
+        "   blueprint.tomspecs.md   : {} lines  (SOM §11)",
         lines(&markdown)
     );
     println!();
@@ -107,7 +107,7 @@ fn main() {
     // the two strings is the actual proof — comparing field by field would only
     // prove the fields somebody thought to compare.
     let reloaded =
-        D00SolutionBlueprint::load_file("build/blueprint.docspecs.yaml").expect("reload");
+        D00SolutionBlueprint::load_file("build/blueprint.tomspecs.yaml").expect("reload");
     let re_yaml = som::encode_yaml(
         &reloaded.node.doc().borrow(),
         &tree,

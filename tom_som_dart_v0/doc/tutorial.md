@@ -43,7 +43,7 @@ five in order:
 | 2 | Edit through named members |
 | 3 | Read a value back |
 | 4 | Validate the document against the model |
-| 5 | Serialize to `*.docspecs.yaml`, and decode it again |
+| 5 | Serialize to `*.tomspecs.yaml`, and decode it again |
 
 ## Quick Start
 
@@ -64,7 +64,7 @@ same version. Every other dependency route is in
 | `SpecDocument` | the runtime | The sparse, path-keyed store the facade is a view over |
 | the metadata tree | this package | The model's shape as data; the codecs walk it |
 | `validateDocument` | the runtime | The instance tier — a filled document's values checked against the model |
-| the YAML codec | the runtime | `*.docspecs.yaml`, byte-stable in all nine languages |
+| the YAML codec | the runtime | `*.tomspecs.yaml`, byte-stable in all nine languages |
 
 The document roots are listed in the
 [README](../README.md#document-roots); `D00SolutionBlueprint` is the master and

@@ -1,6 +1,6 @@
 // Decode gate for every shared conformance sample.
 //
-// Loads every `*.docspecs.yaml` sample through the typed
+// Loads every `*.tomspecs.yaml` sample through the typed
 // one-call loader (`D00SolutionBlueprint.loadFile`), which decodes the file
 // against the SBP metadata tree — so every mapping key must match a model
 // member at its position (SOM §12) and every value must have a legal shape.
@@ -47,10 +47,10 @@ void main() {
       ...d
           .listSync()
           .whereType<File>()
-          .where((f) => f.path.endsWith('.docspecs.yaml')),
+          .where((f) => f.path.endsWith('.tomspecs.yaml')),
   ]..sort((a, b) => a.path.compareTo(b.path));
   if (files.isEmpty) {
-    stderr.writeln('no *.docspecs.yaml samples under '
+    stderr.writeln('no *.tomspecs.yaml samples under '
         '${samplesDirs.map((d) => d.path).join(', ')}');
     exit(1);
   }

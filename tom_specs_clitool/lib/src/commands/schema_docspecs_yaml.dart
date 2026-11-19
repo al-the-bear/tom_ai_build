@@ -5,11 +5,11 @@ import 'package:path/path.dart' as p;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
 /// Generates the standalone JSON Schema for the generic on-disk
-/// `*.docspecs.yaml` **document wire format**.
+/// `*.tomspecs.yaml` **document wire format**.
 ///
 /// Unlike `tomspecs :schema-docspecs` — which emits one per-root DocSpecs schema
 /// describing the section grammar of a single document root — this emits a
-/// single schema for the *file envelope* every `*.docspecs.yaml` shares
+/// single schema for the *file envelope* every `*.tomspecs.yaml` shares
 /// (`version` / `modelVersion` / `document` / `review`), so a saved file can be
 /// schema-validated without resolving its model.
 /// Runs `tomspecs :schema-docspecs-yaml` with [arguments] and returns its exit code, without ending

@@ -32,7 +32,7 @@ import {
 const PROJECT = path.resolve(__dirname, '..', '..');
 const DEFAULT_SAMPLE = path.resolve(
   PROJECT, '..', 'tom_som_dart_v0', 'documents',
-  'meridian_order_management.docspecs.yaml');
+  'meridian_order_management.tomspecs.yaml');
 const DEFAULT_OUTPUT = path.resolve(
   PROJECT, '..', 'tom_som_conformance', 'golden', 'typescript.log');
 const DEFAULT_SCHEMA = path.resolve(
@@ -40,7 +40,7 @@ const DEFAULT_SCHEMA = path.resolve(
   'solution-blueprint.1.0.docspecs-schema.yaml');
 const DEFAULT_SAMPLE_MD = path.resolve(
   PROJECT, '..', 'tom_som_dart_v0', 'documents',
-  'meridian_order_management.md');
+  'meridian_order_management.tomspecs.md');
 // The deliberately-invalid companion fixture and the hand-authored demo schema
 // it is written against (the same schema the runtime conformance corpus uses).
 // The generated SBP schema cannot stand in for it: it declares no
@@ -48,7 +48,7 @@ const DEFAULT_SAMPLE_MD = path.resolve(
 // unreachable against it whatever the document says.
 const DEFAULT_INVALID_SAMPLE_MD = path.resolve(
   PROJECT, '..', 'tom_som_conformance', 'samples',
-  'invalid_demo_document.md');
+  'invalid_demo_document.tomspecs.md');
 const DEFAULT_DEMO_SCHEMA = path.resolve(
   PROJECT, '..', 'tom_som_conformance', 'corpus', 'docspecs_schema.yaml');
 

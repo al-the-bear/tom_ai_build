@@ -389,7 +389,7 @@ fn can_have_content_ignores_document_state() {
 
 /// The shared conformance sample, resolved relative to the crate root (which is
 /// `cargo test`'s cwd).
-const SAMPLE_PATH: &str = "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
+const SAMPLE_PATH: &str = "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml";
 
 /// `load_yaml` collapses the former parse-into-document → thread-version
 /// incantation into one call, applying the document stamp automatically and
@@ -494,7 +494,7 @@ fn unstamped_document_has_empty_model_version() {
 /// Java (dsa12) durability guards.
 #[test]
 fn live_document_case() {
-    const SAMPLE_MD: &str = "../tom_som_dart_v0/documents/meridian_order_management.md";
+    const SAMPLE_MD: &str = "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.md";
     const SCHEMA_PATH: &str =
         "schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml";
     const MODEL_META_PATH: &str = "meta/spec_model.meta.json";
@@ -611,10 +611,10 @@ fn live_document_case() {
 /// carries even when it equals the `@SectionIdPattern` default (`UCE-USER-1`).
 /// Ids are identity and paths only position, so after a move the item must
 /// keep its id rather than take its new position's. Mirrors the Dart guard
-/// 'markdown import: the .md lands on exactly the .docspecs.yaml'.
+/// 'markdown import: the .md lands on exactly the .tomspecs.yaml'.
 #[test]
 fn markdown_import_lands_on_yaml() {
-    const SAMPLE_MD: &str = "../tom_som_dart_v0/documents/meridian_order_management.md";
+    const SAMPLE_MD: &str = "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.md";
     const MODEL_META_PATH: &str = "meta/spec_model.meta.json";
     let tree = meta::d00_solution_blueprint_meta_tree();
 
@@ -630,7 +630,7 @@ fn markdown_import_lands_on_yaml() {
         som::encode_yaml(&document, &tree, &original.model_version).expect("encode_yaml");
     assert!(
         encoded == yaml_text,
-        "imported markdown does not encode to the sample .docspecs.yaml"
+        "imported markdown does not encode to the sample .tomspecs.yaml"
     );
 
     // The first list whose items all carry a stored id equal to their

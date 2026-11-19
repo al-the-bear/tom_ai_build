@@ -1,4 +1,4 @@
-/// Generic YAML codec for the native `*.docspecs.yaml` document format —
+/// Generic YAML codec for the native `*.tomspecs.yaml` document format —
 /// **hierarchical format v2** (SOM §12).
 ///
 /// One nested YAML tree whose indentation mirrors the document structure: every
@@ -55,7 +55,7 @@ import 'spec_model.dart';
 import 'spec_paths.dart';
 import 'spec_reflection.dart';
 
-/// A structural error in a `*.docspecs.yaml` file: wrong/unsupported format
+/// A structural error in a `*.tomspecs.yaml` file: wrong/unsupported format
 /// version, a key that does not match the metadata tree at its position, a
 /// malformed value shape, or (on encode) document values the tree cannot
 /// place.
@@ -74,7 +74,7 @@ class SpecYamlFormatException implements Exception {
   String toString() => 'SpecYamlFormatException: $message';
 }
 
-/// The decoded passes of a `*.docspecs.yaml` file: the `document:` pass as a
+/// The decoded passes of a `*.tomspecs.yaml` file: the `document:` pass as a
 /// populated [SpecDocument], the `review:` pass as a raw map (the runtime carries it
 /// uninterpreted and writes it back), and the optional authoring model-version stamp.
 class SpecYamlContents {
@@ -101,7 +101,7 @@ class SpecYamlContents {
   final String? modelVersion;
 }
 
-/// Codec for the `document:` pass of the native `*.docspecs.yaml` format.
+/// Codec for the `document:` pass of the native `*.tomspecs.yaml` format.
 class SpecDocumentYaml {
   /// The on-disk format version (independent of the model-version stamp).
   /// Version 2 is the hierarchical tree format; version-1 flat files are
@@ -270,7 +270,7 @@ class SpecDocumentYaml {
   static void writeHeader(StringBuffer b, {String? modelVersion}) {
     b
       ..writeln(
-        '# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.',
+        '# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.',
       )
       ..writeln('version: $formatVersion');
     if (modelVersion != null && modelVersion.isNotEmpty) {
@@ -415,7 +415,7 @@ class SpecDocumentYaml {
 
   // --- Decode -------------------------------------------------------------
 
-  /// Parses a `*.docspecs.yaml` file into its passes, matching every
+  /// Parses a `*.tomspecs.yaml` file into its passes, matching every
   /// `document:` key against [tree].
   ///
   /// Throws [SpecYamlFormatException] for a missing/unsupported `version:`
@@ -427,7 +427,7 @@ class SpecDocumentYaml {
     final root = yaml.trim().isEmpty ? null : loadYaml(yaml);
     if (root is! Map) {
       throw SpecYamlFormatException(
-        'not a *.docspecs.yaml mapping (expected version/document keys)',
+        'not a *.tomspecs.yaml mapping (expected version/document keys)',
       );
     }
     final version = root['version'];

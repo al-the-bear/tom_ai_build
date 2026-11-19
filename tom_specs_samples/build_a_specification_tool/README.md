@@ -113,7 +113,7 @@ The individual APIs are demonstrated one at a time in `tom_som_dart_v0`'s
 | `c_reflection_metadata.dart` | the reflection surface | yes |
 | `d_`, `e_`, `f_sample_*.dart` | typed / generic / hybrid access to a real document | **no** |
 
-The last three load `meridian_order_management.docspecs.yaml` from
+The last three load `meridian_order_management.tomspecs.yaml` from
 `tom_som_conformance`, which is **not published** — so from a hosted install
 their input does not exist. `f_sample_hybrid_access.dart` is still worth
 *reading* for its header, which states the two safe ways to obtain a path

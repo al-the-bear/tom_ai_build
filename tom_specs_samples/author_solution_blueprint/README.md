@@ -46,7 +46,7 @@ and as the `<!--[ID]-->` comments in the markdown. Watching
 that reading about it does not.
 
 **3 — both renditions.** The same document serialises to the hierarchical
-`*.docspecs.yaml` wire format (`som_multiplatform_spec_model.md` §12) and to
+`*.tomspecs.yaml` wire format (`som_multiplatform_spec_model.md` §12) and to
 DocSpecs markdown (`som_multiplatform_spec_model.md` §11). They are two
 encodings of one store, not two documents.
 

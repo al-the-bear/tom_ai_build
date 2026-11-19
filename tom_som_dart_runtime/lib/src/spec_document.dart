@@ -150,7 +150,7 @@ class SpecDocument {
   /// `loadYaml` / `loadFile` statics apply it automatically.
   String? modelVersion;
 
-  /// Loads a hierarchical-v2 `*.docspecs.yaml` document in one call: decode
+  /// Loads a hierarchical-v2 `*.tomspecs.yaml` document in one call: decode
   /// the YAML against [tree] (the metadata tree of the document's root),
   /// populate the sparse stores, and retain the parsed [modelVersion] on the
   /// document. Throws [SpecYamlFormatException] for version-1 files or
@@ -158,7 +158,7 @@ class SpecDocument {
   static SpecDocument fromYaml(String yaml, SomMetaTree tree) =>
       SpecDocumentYaml.decode(yaml, tree).document;
 
-  /// Loads a `*.docspecs.yaml` document from the file at [path] — the file
+  /// Loads a `*.tomspecs.yaml` document from the file at [path] — the file
   /// companion to [fromYaml] the generated `loadFile` static delegates to.
   static SpecDocument fromFile(String path, SomMetaTree tree) =>
       fromYaml(File(path).readAsStringSync(), tree);

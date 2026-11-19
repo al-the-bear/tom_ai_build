@@ -59,7 +59,7 @@ func die(msg string) {
 
 func main() {
 	sample := filepath.Join("..", "tom_som_dart_v0", "documents",
-		"meridian_order_management.docspecs.yaml")
+		"meridian_order_management.tomspecs.yaml")
 	output := filepath.Join("..", "tom_som_conformance", "golden", "go.log")
 	if len(os.Args) > 1 {
 		sample = os.Args[1]
@@ -405,7 +405,7 @@ func main() {
 		die("parse schema failed: " + err.Error())
 	}
 	sampleMd, err := os.ReadFile(filepath.Join("..", "tom_som_dart_v0", "documents",
-		"meridian_order_management.md"))
+		"meridian_order_management.tomspecs.md"))
 	if err != nil {
 		die("read sample md failed: " + err.Error())
 	}
@@ -444,7 +444,7 @@ func main() {
 		die("parse demo schema failed: " + err.Error())
 	}
 	invalidMd, err := os.ReadFile(filepath.Join("..", "tom_som_conformance", "samples",
-		"invalid_demo_document.md"))
+		"invalid_demo_document.tomspecs.md"))
 	if err != nil {
 		die("read invalid sample md failed: " + err.Error())
 	}

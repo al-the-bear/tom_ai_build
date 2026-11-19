@@ -291,7 +291,7 @@ void main() {
 
     group('`:ir-emit --spec --unit`: the standards a unit names', () {
       final spec = p.absolute(
-        '../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml',
+        '../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml',
       );
       late String ir;
       setUp(() {
@@ -386,7 +386,7 @@ void main() {
         ]);
         expect(ghost.$1, 2);
         expect(ghost.$3, contains('declares no generation unit'));
-        final swagger = File(p.join(scratch.path, 'swagger.docspecs.yaml'))
+        final swagger = File(p.join(scratch.path, 'swagger.tomspecs.yaml'))
           ..writeAsStringSync(
             File(spec).readAsStringSync().replaceFirst(
               'emitter: |2-\n                        jsonschema',

@@ -376,7 +376,7 @@ DocSpecsSchemaGenerator(this.classes, {this.enums = const {}});
 
 ### DocspecsYamlSchemaGenerator
 
-Generates a standalone JSON Schema (Draft-07) for the on-disk `*.docspecs.yaml` **document wire format**.
+Generates a standalone JSON Schema (Draft-07) for the on-disk `*.tomspecs.yaml` **document wire format**.
 
 #### Constructors
 ```dart

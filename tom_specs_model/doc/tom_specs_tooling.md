@@ -96,7 +96,7 @@ flowchart TB
 | MD Browser | in the extension | Renders documents; answers, comments, marks, Grill me / Explain; Finish review round and gate buttons | today | vscode_extension |
 | Bundled binary | the extension's `bin/<platform>/` | `tomspecs`, compiled from `tom_specs_clitool`: every CLI tool as a command | today | tom_specs, vscode_extension |
 | TomSpecs code stack | `tom_ai/ai_build/` | The model, the nine SOM runtimes, the CLI tools, CodeSpecs, IR Specs, the conformance corpus (§4) | today | tom_specs |
-| `tom_specs_editor` | `tom_forge/tom_specs_editor` | Model-driven authoring of a TomSpecs document; in Webforge an "Open With" choice for `*.docspecs.yaml` / `*.tomspecs.yaml` | today (authoring) | tom_forge |
+| `tom_specs_editor` | `tom_forge/tom_specs_editor` | Model-driven authoring of a TomSpecs document; in Webforge an "Open With" choice for `*.tomspecs.yaml` / `*.tomspecs.yaml` | today (authoring) | tom_forge |
 | `tom_md_editor` | `tom_forge/tom_md_editor` | Markdown editor with a review engine: marks accepted and rejected, comment blocks, through the SOM runtime | today | tom_forge |
 | Shared AI runtime | planned in `tom_ai/vscode/` | The extension's engine as a runtime of its own; every host attaches to it | planned | ai_runtime |
 | Webforge | `app_webwork/tom_webwork_webforge` | Tom Forge's development shell, one quest application per quest, and Webwork | frame today; quest applications planned | tom_forge, webwork |
@@ -493,7 +493,7 @@ check, refused when the file changed since it was read.
 
 | Data | Where | Written by | Read by |
 | --- | --- | --- | --- |
-| TomSpecs documents and renditions | `<spec-root>/…/*.docspecs.yaml` and `.md` (renamed `*.tomspecs.*` by the reading view) | spec tools, `tom_specs_editor`, the user | every tool |
+| TomSpecs documents and renditions | `<spec-root>/…/*.tomspecs.yaml` and `.md` (renamed `*.tomspecs.*` by the reading view) | spec tools, `tom_specs_editor`, the user | every tool |
 | Review annotations | inside the documents (SOM §11.9) | spec tools, MD Browser, `tom_md_editor` | every review surface |
 | Step folders | `<spec-root>/phase<N>_…/<NN_step>/` with `answers.md`, review documents, `consistency.md` | the agent | the user (MD Browser) |
 | Team review rounds | round folder with `round.yaml`, base, a copy per member, `merged/` (SOM §11.9.8) | team-review tools; the members | team-review tools, MD Browser |

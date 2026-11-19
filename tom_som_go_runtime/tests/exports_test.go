@@ -22,8 +22,8 @@ func TestWriteScalarAndHeader(t *testing.T) {
 	som.WriteHeader(&b, "1.2.3")
 	som.WriteHeader(&b, "")
 	want := "  \"key\": |2-\n    one\n  \"a b\": |2-\n    line1\n    line2\n\"k\": |2-\n\n" +
-		"# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\nversion: 2\nmodelVersion: \"1.2.3\"\n" +
-		"# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\nversion: 2\n"
+		"# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\nversion: 2\nmodelVersion: \"1.2.3\"\n" +
+		"# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\nversion: 2\n"
 	if got := b.String(); got != want {
 		t.Fatalf("WriteScalar/WriteHeader:\n got %q\nwant %q", got, want)
 	}

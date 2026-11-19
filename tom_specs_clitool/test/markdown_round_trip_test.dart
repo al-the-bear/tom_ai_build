@@ -60,9 +60,9 @@ void main() {
 
   group('MRT-1: the shared samples round-trip through markdown', () {
     for (final rel in const [
-      'tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml',
-      'tom_som_conformance/samples/exercise_full_model.docspecs.yaml',
-      'tom_som_conformance/samples/uam_access_hub.docspecs.yaml',
+      'tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml',
+      'tom_som_conformance/samples/exercise_full_model.tomspecs.yaml',
+      'tom_som_conformance/samples/uam_access_hub.tomspecs.yaml',
     ]) {
       test(
         p.basename(rel),
@@ -79,7 +79,7 @@ void main() {
       'tom_uam',
       'tom_specs',
       'phase2_solution_blueprint',
-      'tom_uam.sbp.docspecs.yaml',
+      'tom_uam.sbp.tomspecs.yaml',
     ),
   );
   test(

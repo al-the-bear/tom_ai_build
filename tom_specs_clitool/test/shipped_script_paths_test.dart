@@ -67,7 +67,7 @@ void main() {
           p.join(
             containerRoot,
             'tom_ai/ai_build/tom_som_dart_v0/documents/'
-            'meridian_order_management.docspecs.yaml',
+            'meridian_order_management.tomspecs.yaml',
           ),
         );
         expect(doc.existsSync(), isTrue);

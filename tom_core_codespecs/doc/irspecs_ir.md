@@ -561,7 +561,7 @@ tomspecs :ir-emit --standard markdown --ir <spec-root>/irspecs \
   required.
 - **`--spec`.** Gives the index the register's units, and links a back-link
   token into the specification's Markdown rendition (the document itself when
-  it is `.md`, else the `.md` beside its `*.docspecs.yaml`) as
+  it is `.md`, else the `*.tomspecs.md` beside its `*.tomspecs.yaml`) as
   `<rendition>#<token>` when a heading of the rendition carries that section
   id (`<!--[TOKEN]-->`, or a dotted id ending in it). A token no heading
   carries stays plain code: the extract gives a leaf without a section id of

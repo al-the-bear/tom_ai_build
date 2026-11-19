@@ -1,21 +1,21 @@
 # Shared SOM sample documents
 
 Language-agnostic sample specification documents in the native
-`*.docspecs.yaml` wire format. Every `tom_som_<lang>_v0` example suite loads
+`*.tomspecs.yaml` wire format. Every `tom_som_<lang>_v0` example suite loads
 these same files, so a fix or extension to a sample benefits all nine languages
 at once.
 
 | File | Root | Description |
 | ---- | ---- | ----------- |
-| `meridian_order_management.docspecs.yaml` | `D00SolutionBlueprint` (SBP) | A genuinely implementable Solution Blueprint for a fictional "Meridian Order Management" programme (~261 populated leaf paths) — 14 typed requirements across four list types (functional / technical / security / organizational), three Cockburn-style use cases with full flows and exception extensions, four actors, a key end-to-end scenario, the server calls made by the two step kinds that reach across the client/server boundary (all three `ServerCallRole` values on one use-case step, a single role on one scenario step), a coherent four-entity / three-relationship data model, two fully-detailed screens, and the registries those screens refer into (11 message keys, 2 roles over 3 entitlements, 3 bounded contexts, 2 routes), plus multi-line markdown content across all fifteen top-level SBP sections. Broad enough to exercise the blueprint for access examples and the cross-language golden harness. |
-| `meridian_order_management.md` | — | DocSpecs markdown rendition of the same document (generated alongside the YAML). |
-| `uam_access_hub.docspecs.yaml` | `D00SolutionBlueprint` (SBP) | Hand-authored Solution Blueprint for **"Tom Access Hub" (TAH)**, a multi-tenant, multi-application authorization application managing organizations and applications within a tenant. Grounded in the `tom_uam` DDL (`um_clients` / `um_users` / `um_organizations` / `um_applications` / `um_roles` / `um_role_resource_grants` / `tom_principal_delegation`) and deliberately more complex than what that DDL covers today: graded resource grants with overlay semantics, delegation with approval workflow and validity windows, and periodic access-review campaigns. Instantiates model regions the Meridian sample does not reach (security/organizational requirement details, entity constraints and keys, relationships, domain enums, error-code registry, result envelope, service operations with authorization requirements, screen states/actions/transitions, accessibility statement, quality characteristics). |
-| `exercise_full_model.docspecs.yaml` | `D00SolutionBlueprint` (SBP) | **Generated exercise specification — placeholder prose by design.** Emitted by `../tool/build_exercise_sample.dart`; its sole purpose is to instantiate *every* model structure reachable from the SBP root (every list structure and every section id), driving `../tool/sample_coverage_manifest.yaml` to empty. Decodes through the typed loader, but is not a narrative document and is deliberately outside the golden harness. Regenerate after model changes and commit the diff. |
-| `invalid_demo_document.md` | — | **Invalid on purpose — do not repair.** A small hand-authored document written against `../corpus/docspecs_schema.yaml` (the demo schema, not the generated SBP one) that breaks each of the eleven `DocSpecsViolationRule` spellings exactly once. |
+| `meridian_order_management.tomspecs.yaml` | `D00SolutionBlueprint` (SBP) | A genuinely implementable Solution Blueprint for a fictional "Meridian Order Management" programme (~261 populated leaf paths) — 14 typed requirements across four list types (functional / technical / security / organizational), three Cockburn-style use cases with full flows and exception extensions, four actors, a key end-to-end scenario, the server calls made by the two step kinds that reach across the client/server boundary (all three `ServerCallRole` values on one use-case step, a single role on one scenario step), a coherent four-entity / three-relationship data model, two fully-detailed screens, and the registries those screens refer into (11 message keys, 2 roles over 3 entitlements, 3 bounded contexts, 2 routes), plus multi-line markdown content across all fifteen top-level SBP sections. Broad enough to exercise the blueprint for access examples and the cross-language golden harness. |
+| `meridian_order_management.tomspecs.md` | — | DocSpecs markdown rendition of the same document (generated alongside the YAML). |
+| `uam_access_hub.tomspecs.yaml` | `D00SolutionBlueprint` (SBP) | Hand-authored Solution Blueprint for **"Tom Access Hub" (TAH)**, a multi-tenant, multi-application authorization application managing organizations and applications within a tenant. Grounded in the `tom_uam` DDL (`um_clients` / `um_users` / `um_organizations` / `um_applications` / `um_roles` / `um_role_resource_grants` / `tom_principal_delegation`) and deliberately more complex than what that DDL covers today: graded resource grants with overlay semantics, delegation with approval workflow and validity windows, and periodic access-review campaigns. Instantiates model regions the Meridian sample does not reach (security/organizational requirement details, entity constraints and keys, relationships, domain enums, error-code registry, result envelope, service operations with authorization requirements, screen states/actions/transitions, accessibility statement, quality characteristics). |
+| `exercise_full_model.tomspecs.yaml` | `D00SolutionBlueprint` (SBP) | **Generated exercise specification — placeholder prose by design.** Emitted by `../tool/build_exercise_sample.dart`; its sole purpose is to instantiate *every* model structure reachable from the SBP root (every list structure and every section id), driving `../tool/sample_coverage_manifest.yaml` to empty. Decodes through the typed loader, but is not a narrative document and is deliberately outside the golden harness. Regenerate after model changes and commit the diff. |
+| `invalid_demo_document.tomspecs.md` | — | **Invalid on purpose — do not repair.** A small hand-authored document written against `../corpus/docspecs_schema.yaml` (the demo schema, not the generated SBP one) that breaks each of the eleven `DocSpecsViolationRule` spellings exactly once. |
 
 ## Formats
 
-- **`*.docspecs.yaml`** — the **hierarchical v2** wire format (SOM §12): a single
+- **`*.tomspecs.yaml`** — the **hierarchical v2** wire format (SOM §12): a single
   document-root key (`SBP D00SolutionBlueprint`) holding the nested section
   tree; `version: 2`, `modelVersion: "1.0"`. Loaded with the one-call loaders
   (`D00SolutionBlueprint.loadFile(path)` typed, or
@@ -28,7 +28,7 @@ at once.
 
 ## Gates over the samples
 
-Two gates hold every `*.docspecs.yaml` file here, and both run first in
+Two gates hold every `*.tomspecs.yaml` file here, and both run first in
 `../tool/run_all_suites.sh`:
 
 - **decode** (`tom_som_dart_v0/tool/verify_samples.dart`) — every sample must
@@ -42,7 +42,7 @@ Two gates hold every `*.docspecs.yaml` file here, and both run first in
   ratchets forward.
 
 New samples count toward coverage the moment they land (the gate globs
-`samples/*.docspecs.yaml`); joining the nine-language golden harness is a
+`samples/*.tomspecs.yaml`); joining the nine-language golden harness is a
 separate, optional step per sample — only the Meridian pair is referenced by
 the golden generators.
 
@@ -68,7 +68,7 @@ their worked example.
 Validating cleanly is exactly what makes the Meridian sample unable to check the
 validator's *output*: it can only ever report zero violations, so the golden
 harness's per-violation `DV` line never executed and a per-language defect in it
-was invisible. `invalid_demo_document.md` is the counterweight — a hand-authored
+was invisible. `invalid_demo_document.tomspecs.md` is the counterweight — a hand-authored
 document that violates each of the eleven rules once, so the nine golden logs
 carry a non-empty violation list whose rule spellings are byte-compared.
 

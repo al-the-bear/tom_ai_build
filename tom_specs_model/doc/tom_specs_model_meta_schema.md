@@ -77,7 +77,7 @@ with the label recording the newer build — refreshing a copy is a re-export of
 the current model, never a renumbering of it.
 
 The document-side counterpart of `modelVersion` lives in each
-`*.docspecs.yaml` under its own `modelVersion` key (beside the on-disk
+`*.tomspecs.yaml` under its own `modelVersion` key (beside the on-disk
 `formatVersion`), recording the authoring model `major.minor` of that document.
 
 ## Refreshing the committed assets

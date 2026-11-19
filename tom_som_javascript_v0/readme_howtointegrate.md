@@ -81,7 +81,7 @@ cd ../tom_som_javascript_v0 && npm pack --dry-run
 | Document | Covers |
 |----------|--------|
 | [README.md](README.md) | What this package is, its document roots, and how to use them. |
-| [doc/tutorial.md](doc/tutorial.md) | A JavaScript walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown. |
+| [doc/tutorial.md](doc/tutorial.md) | A JavaScript walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.tomspecs.yaml` and Markdown. |
 | [examples/README.md](examples/README.md) | The runnable samples. |
 | [tom_specs_model/doc/som_multiplatform_spec_model.md](../tom_specs_model/doc/som_multiplatform_spec_model.md) | The SOM authority: the model, the formats, and `SOM §17` — the packaging rules this guide implements. |
 | [tom_specs_model/doc/index.md](../tom_specs_model/doc/index.md) | The catalogue of every TomSpecs subject-matter document. |

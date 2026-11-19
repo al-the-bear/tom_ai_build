@@ -98,14 +98,14 @@ def test_yaml_helpers() -> None:
     _eq(
         "write_header",
         str(h),
-        '# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\nversion: 2\nmodelVersion: "1.12"\n',
+        '# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\nversion: 2\nmodelVersion: "1.12"\n',
     )
     h0 = _Buffer()
     write_header(h0)
     _eq(
         "write_header.noModel",
         str(h0),
-        "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\nversion: 2\n",
+        "# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\nversion: 2\n",
     )
     s = _Buffer()
     write_scalar(s, 2, "title", "Line one\nLine two")

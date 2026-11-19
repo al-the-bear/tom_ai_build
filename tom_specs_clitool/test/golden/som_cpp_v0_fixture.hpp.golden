@@ -53,13 +53,13 @@ class SolutionBlueprint : public som::SomNode {
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
   explicit SolutionBlueprint(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
+  // Loads a `*.tomspecs.yaml` document into the caller-owned `doc` and
   // returns the typed root with the document's authoring stamp already
   // applied (SOM §21) — one call for the former decode → loadJson →
   // thread-documentVersion sequence. `doc` is borrowed by the returned
   // root and must outlive it (RAII ownership model).
   static SolutionBlueprint loadYaml(som::SpecDocument& doc, const std::string& yaml);
-  // Loads a `*.docspecs.yaml` document from the file at `path` into the
+  // Loads a `*.tomspecs.yaml` document from the file at `path` into the
   // caller-owned `doc` — the file companion to loadYaml.
   static SolutionBlueprint loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per SOM §4.2.

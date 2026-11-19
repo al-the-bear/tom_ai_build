@@ -1,22 +1,22 @@
 # Validating a project's spec document
 
 `tomspecs :spec-validate` checks one TomSpecs document — a project's
-`*.docspecs.yaml`, or its SOM-rendered `*.md` — against the object model the
+`*.tomspecs.yaml`, or its SOM-rendered `*.tomspecs.md` — against the object model the
 package ships, on three tiers. A project needs no runner of its own.
 
 ## Running it
 
 ```bash
-dart run tom_specs_clitool:tomspecs :spec-validate path/to/project.sbp.docspecs.yaml
+dart run tom_specs_clitool:tomspecs :spec-validate path/to/project.sbp.tomspecs.yaml
 dart run tom_specs_clitool:tomspecs :spec-validate path/to/project.sbp.md
-dart run tom_specs_clitool:tomspecs :spec-validate doc.docspecs.yaml --markdown-out doc.md
-dart run tom_specs_clitool:tomspecs :spec-validate doc.docspecs.yaml --json
+dart run tom_specs_clitool:tomspecs :spec-validate doc.tomspecs.yaml --markdown-out doc.md
+dart run tom_specs_clitool:tomspecs :spec-validate doc.tomspecs.yaml --json
 ```
 
 | Option | Meaning |
 |--------|---------|
 | `--root <type or section id>` | The document root. Default: detected — the key under `document:` in a YAML file (`SBP D00SolutionBlueprint`), the id of the title heading in a markdown rendition (`# <!--[SBP]--> …`). Every one of the fourteen roots is accepted. |
-| `--assembled-out <file>` | Write the assembled document as a `*.docspecs.yaml` — with one input, that document re-encoded. |
+| `--assembled-out <file>` | Write the assembled document as a `*.tomspecs.yaml` — with one input, that document re-encoded. |
 | `--markdown-out <file>` | Also write the document's markdown rendition — the text the schema tier checks. |
 | `--json` | One JSON report on stdout instead of the text report. |
 
@@ -26,14 +26,14 @@ Exit codes: `0` all three tiers clean, `1` at least one finding, `2` bad usage
 ## A document in fragments
 
 A document authored in parallel is often several files — each a complete
-`*.docspecs.yaml` (or rendered `*.md`) of the **same root**, holding a subset of
+`*.tomspecs.yaml` (or rendered `*.tomspecs.md`) of the **same root**, holding a subset of
 the sections. Validated alone, a fragment reports every reference into another
 fragment as `danglingReference`; those findings are not real. Give all the
 fragments at once:
 
 ```bash
-dart run tom_specs_clitool:tomspecs :spec-validate part_a.docspecs.yaml part_b.docspecs.yaml \
-    --assembled-out whole.docspecs.yaml
+dart run tom_specs_clitool:tomspecs :spec-validate part_a.tomspecs.yaml part_b.tomspecs.yaml \
+    --assembled-out whole.tomspecs.yaml
 ```
 
 Each fragment is decoded, then they are assembled (SOM §12.9) and the schema
@@ -68,7 +68,7 @@ The text report names the root and schema, writes each finding to stderr as
 tier:
 
 ```text
-spec-validate doc.docspecs.yaml — root D00SolutionBlueprint (SBP), schema solution-blueprint
+spec-validate doc.tomspecs.yaml — root D00SolutionBlueprint (SBP), schema solution-blueprint
 SCHEMA   [missingRequiredField] line 1213 SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAENT-CLAS [DAENT-CLAS]: required form field "aggregateRoot" of "daent-clas-form" is missing
 decode   0 finding(s)
 schema   1 finding(s)

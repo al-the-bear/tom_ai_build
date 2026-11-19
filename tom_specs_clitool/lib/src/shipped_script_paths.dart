@@ -5,7 +5,7 @@
 ///
 /// `tom_som_dart_v0` published six examples of which **three could not run**:
 /// each read
-/// `../../tom_som_conformance/samples/meridian_order_management.docspecs.yaml`,
+/// `../../tom_som_conformance/samples/meridian_order_management.tomspecs.yaml`,
 /// and `tom_som_conformance` is not a published package. From a hosted install
 /// that path names a directory that does not exist. Four `tool/` scripts and
 /// one shipped `test/` file had the same fault. It was found twice by accident

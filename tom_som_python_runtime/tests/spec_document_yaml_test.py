@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Hierarchical ``*.docspecs.yaml`` v2 codec tests — a port of
+"""Hierarchical ``*.tomspecs.yaml`` v2 codec tests — a port of
 ``tom_som_dart_runtime/test/spec_document_yaml_test.dart``.
 
 The codec walks the document root's SomMetaTree: sections nest, keys are
@@ -211,7 +211,7 @@ def test_encode() -> None:
     _check(
         "encode.header",
         yaml.startswith(
-            "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\n"
+            "# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\n"
         ),
         yaml.split("\n")[0],
     )

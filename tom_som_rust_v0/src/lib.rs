@@ -16033,7 +16033,7 @@ impl D00SolutionBlueprint {
         som::som_editability_for(D00_SOLUTION_BLUEPRINT_MODEL_VERSION, document_version)
     }
 
-    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (SOM §21) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
     /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
@@ -16045,7 +16045,7 @@ impl D00SolutionBlueprint {
         D00SolutionBlueprint::new(som::doc_ref(doc), &version).map_err(SomLoadError::Version)
     }
 
-    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// Loads a `*.tomspecs.yaml` document from the file at `path` — the file
     /// companion to [`D00SolutionBlueprint::load_yaml`].
     pub fn load_file(path: &str) -> Result<D00SolutionBlueprint, SomLoadError> {
         let tree = meta::d00_solution_blueprint_meta_tree();
@@ -16178,7 +16178,7 @@ impl D01CurrentLandscapeAssessment {
         som::som_editability_for(D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION, document_version)
     }
 
-    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (SOM §21) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
     /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
@@ -16190,7 +16190,7 @@ impl D01CurrentLandscapeAssessment {
         D01CurrentLandscapeAssessment::new(som::doc_ref(doc), &version).map_err(SomLoadError::Version)
     }
 
-    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// Loads a `*.tomspecs.yaml` document from the file at `path` — the file
     /// companion to [`D01CurrentLandscapeAssessment::load_yaml`].
     pub fn load_file(path: &str) -> Result<D01CurrentLandscapeAssessment, SomLoadError> {
         let tree = meta::d01_current_landscape_assessment_meta_tree();
@@ -16320,7 +16320,7 @@ impl D02TargetOperatingModel {
         som::som_editability_for(D02_TARGET_OPERATING_MODEL_MODEL_VERSION, document_version)
     }
 
-    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (SOM §21) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
     /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
@@ -16332,7 +16332,7 @@ impl D02TargetOperatingModel {
         D02TargetOperatingModel::new(som::doc_ref(doc), &version).map_err(SomLoadError::Version)
     }
 
-    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// Loads a `*.tomspecs.yaml` document from the file at `path` — the file
     /// companion to [`D02TargetOperatingModel::load_yaml`].
     pub fn load_file(path: &str) -> Result<D02TargetOperatingModel, SomLoadError> {
         let tree = meta::d02_target_operating_model_meta_tree();
@@ -16478,7 +16478,7 @@ impl D03InformationModel {
         som::som_editability_for(D03_INFORMATION_MODEL_MODEL_VERSION, document_version)
     }
 
-    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (SOM §21) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
     /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
@@ -16490,7 +16490,7 @@ impl D03InformationModel {
         D03InformationModel::new(som::doc_ref(doc), &version).map_err(SomLoadError::Version)
     }
 
-    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// Loads a `*.tomspecs.yaml` document from the file at `path` — the file
     /// companion to [`D03InformationModel::load_yaml`].
     pub fn load_file(path: &str) -> Result<D03InformationModel, SomLoadError> {
         let tree = meta::d03_information_model_meta_tree();
@@ -16711,7 +16711,7 @@ impl D04RequirementsSpecification {
         som::som_editability_for(D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION, document_version)
     }
 
-    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (SOM §21) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
     /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
@@ -16723,7 +16723,7 @@ impl D04RequirementsSpecification {
         D04RequirementsSpecification::new(som::doc_ref(doc), &version).map_err(SomLoadError::Version)
     }
 
-    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// Loads a `*.tomspecs.yaml` document from the file at `path` — the file
     /// companion to [`D04RequirementsSpecification::load_yaml`].
     pub fn load_file(path: &str) -> Result<D04RequirementsSpecification, SomLoadError> {
         let tree = meta::d04_requirements_specification_meta_tree();
@@ -16857,7 +16857,7 @@ impl D05InteractionScenarios {
         som::som_editability_for(D05_INTERACTION_SCENARIOS_MODEL_VERSION, document_version)
     }
 
-    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (SOM §21) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
     /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
@@ -16869,7 +16869,7 @@ impl D05InteractionScenarios {
         D05InteractionScenarios::new(som::doc_ref(doc), &version).map_err(SomLoadError::Version)
     }
 
-    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// Loads a `*.tomspecs.yaml` document from the file at `path` — the file
     /// companion to [`D05InteractionScenarios::load_yaml`].
     pub fn load_file(path: &str) -> Result<D05InteractionScenarios, SomLoadError> {
         let tree = meta::d05_interaction_scenarios_meta_tree();
@@ -16995,7 +16995,7 @@ impl D06ArchitectureTechnologySpecification {
         som::som_editability_for(D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION, document_version)
     }
 
-    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (SOM §21) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
     /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
@@ -17007,7 +17007,7 @@ impl D06ArchitectureTechnologySpecification {
         D06ArchitectureTechnologySpecification::new(som::doc_ref(doc), &version).map_err(SomLoadError::Version)
     }
 
-    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// Loads a `*.tomspecs.yaml` document from the file at `path` — the file
     /// companion to [`D06ArchitectureTechnologySpecification::load_yaml`].
     pub fn load_file(path: &str) -> Result<D06ArchitectureTechnologySpecification, SomLoadError> {
         let tree = meta::d06_architecture_technology_specification_meta_tree();
@@ -17152,7 +17152,7 @@ impl D07IntegrationInterfaceSpecification {
         som::som_editability_for(D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION, document_version)
     }
 
-    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (SOM §21) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
     /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
@@ -17164,7 +17164,7 @@ impl D07IntegrationInterfaceSpecification {
         D07IntegrationInterfaceSpecification::new(som::doc_ref(doc), &version).map_err(SomLoadError::Version)
     }
 
-    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// Loads a `*.tomspecs.yaml` document from the file at `path` — the file
     /// companion to [`D07IntegrationInterfaceSpecification::load_yaml`].
     pub fn load_file(path: &str) -> Result<D07IntegrationInterfaceSpecification, SomLoadError> {
         let tree = meta::d07_integration_interface_specification_meta_tree();
@@ -17315,7 +17315,7 @@ impl D08SecurityAccessSpecification {
         som::som_editability_for(D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION, document_version)
     }
 
-    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (SOM §21) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
     /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
@@ -17327,7 +17327,7 @@ impl D08SecurityAccessSpecification {
         D08SecurityAccessSpecification::new(som::doc_ref(doc), &version).map_err(SomLoadError::Version)
     }
 
-    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// Loads a `*.tomspecs.yaml` document from the file at `path` — the file
     /// companion to [`D08SecurityAccessSpecification::load_yaml`].
     pub fn load_file(path: &str) -> Result<D08SecurityAccessSpecification, SomLoadError> {
         let tree = meta::d08_security_access_specification_meta_tree();
@@ -17465,7 +17465,7 @@ impl D09ExperienceDesignSpecification {
         som::som_editability_for(D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION, document_version)
     }
 
-    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (SOM §21) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
     /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
@@ -17477,7 +17477,7 @@ impl D09ExperienceDesignSpecification {
         D09ExperienceDesignSpecification::new(som::doc_ref(doc), &version).map_err(SomLoadError::Version)
     }
 
-    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// Loads a `*.tomspecs.yaml` document from the file at `path` — the file
     /// companion to [`D09ExperienceDesignSpecification::load_yaml`].
     pub fn load_file(path: &str) -> Result<D09ExperienceDesignSpecification, SomLoadError> {
         let tree = meta::d09_experience_design_specification_meta_tree();
@@ -17628,7 +17628,7 @@ impl D10QualityAcceptancePlan {
         som::som_editability_for(D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION, document_version)
     }
 
-    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (SOM §21) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
     /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
@@ -17640,7 +17640,7 @@ impl D10QualityAcceptancePlan {
         D10QualityAcceptancePlan::new(som::doc_ref(doc), &version).map_err(SomLoadError::Version)
     }
 
-    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// Loads a `*.tomspecs.yaml` document from the file at `path` — the file
     /// companion to [`D10QualityAcceptancePlan::load_yaml`].
     pub fn load_file(path: &str) -> Result<D10QualityAcceptancePlan, SomLoadError> {
         let tree = meta::d10_quality_acceptance_plan_meta_tree();
@@ -17821,7 +17821,7 @@ impl D11DeliveryRoadmap {
         som::som_editability_for(D11_DELIVERY_ROADMAP_MODEL_VERSION, document_version)
     }
 
-    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (SOM §21) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
     /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
@@ -17833,7 +17833,7 @@ impl D11DeliveryRoadmap {
         D11DeliveryRoadmap::new(som::doc_ref(doc), &version).map_err(SomLoadError::Version)
     }
 
-    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// Loads a `*.tomspecs.yaml` document from the file at `path` — the file
     /// companion to [`D11DeliveryRoadmap::load_yaml`].
     pub fn load_file(path: &str) -> Result<D11DeliveryRoadmap, SomLoadError> {
         let tree = meta::d11_delivery_roadmap_meta_tree();
@@ -17969,7 +17969,7 @@ impl D12TransitionRolloutPlan {
         som::som_editability_for(D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION, document_version)
     }
 
-    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (SOM §21) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
     /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
@@ -17981,7 +17981,7 @@ impl D12TransitionRolloutPlan {
         D12TransitionRolloutPlan::new(som::doc_ref(doc), &version).map_err(SomLoadError::Version)
     }
 
-    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// Loads a `*.tomspecs.yaml` document from the file at `path` — the file
     /// companion to [`D12TransitionRolloutPlan::load_yaml`].
     pub fn load_file(path: &str) -> Result<D12TransitionRolloutPlan, SomLoadError> {
         let tree = meta::d12_transition_rollout_plan_meta_tree();
@@ -18137,7 +18137,7 @@ impl D13CodeSpecsProjection {
         som::som_editability_for(D13_CODE_SPECS_PROJECTION_MODEL_VERSION, document_version)
     }
 
-    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// Loads a `*.tomspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (SOM §21) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
     /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
@@ -18149,7 +18149,7 @@ impl D13CodeSpecsProjection {
         D13CodeSpecsProjection::new(som::doc_ref(doc), &version).map_err(SomLoadError::Version)
     }
 
-    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// Loads a `*.tomspecs.yaml` document from the file at `path` — the file
     /// companion to [`D13CodeSpecsProjection::load_yaml`].
     pub fn load_file(path: &str) -> Result<D13CodeSpecsProjection, SomLoadError> {
         let tree = meta::d13_code_specs_projection_meta_tree();

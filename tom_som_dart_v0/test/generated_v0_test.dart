@@ -191,11 +191,11 @@ void main() {
     late D00SolutionBlueprint sbp;
 
     setUp(() {
-      // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12): load
+      // The shared sample is a hierarchical-v2 `*.tomspecs.yaml` (SOM §12): load
       // it with the generated one-call loader, which decodes against the SBP
       // metadata tree and applies the yaml's modelVersion stamp.
       sbp = D00SolutionBlueprint.loadFile(
-        'documents/meridian_order_management.docspecs.yaml',
+        'documents/meridian_order_management.tomspecs.yaml',
       );
       doc = sbp.doc;
     });
@@ -463,7 +463,7 @@ void main() {
       final tmp = Directory.systemTemp.createTempSync('som_v0_test_');
       addTearDown(() => tmp.deleteSync(recursive: true));
       final yaml = buildV2Yaml();
-      final path = '${tmp.path}/sample.docspecs.yaml';
+      final path = '${tmp.path}/sample.tomspecs.yaml';
       File(path).writeAsStringSync(yaml);
       final fromFile = D00SolutionBlueprint.loadFile(path);
       final fromYaml = D00SolutionBlueprint.loadYaml(yaml);
@@ -499,13 +499,13 @@ void main() {
   // that silently drops any of them from the Dart reference fails `dart test` —
   // not only a full nine-toolchain golden run.
   group('shared sample: live-document case durability (YRD8 / dsa7)', () {
-    const samplePath = 'documents/meridian_order_management.docspecs.yaml';
-    const sampleMdPath = 'documents/meridian_order_management.md';
+    const samplePath = 'documents/meridian_order_management.tomspecs.yaml';
+    const sampleMdPath = 'documents/meridian_order_management.tomspecs.md';
     const schemaPath =
         'schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml';
     const modelMetaPath = 'meta/spec_model.meta.json';
 
-    test('markdown import: the .md lands on exactly the .docspecs.yaml', () {
+    test('markdown import: the .md lands on exactly the .tomspecs.yaml', () {
       // The .md is the yaml's rendition, so importing it must reproduce the
       // yaml byte for byte — including every list item's section id, which a
       // heading carries even when it equals the @SectionIdPattern default

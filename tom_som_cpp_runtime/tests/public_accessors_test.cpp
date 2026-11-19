@@ -170,9 +170,9 @@ void testYamlAndMarkdownHelpers() {
   som::specYamlWriteHeader(out, "1.2.3");
   som::specYamlWriteHeader(out, "");
   checkEq("specYamlWriteHeader", out,
-          "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\n"
+          "# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\n"
           "version: 2\nmodelVersion: \"1.2.3\"\n"
-          "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\n"
+          "# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\n"
           "version: 2\n");
   checkEq("markdownCodeSpecOf",
           som::markdownCodeSpecOf("sectionId=\"X\" codeSpec=\" a,b \""), "a,b");

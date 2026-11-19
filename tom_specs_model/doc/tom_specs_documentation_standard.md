@@ -654,7 +654,7 @@ what the sample teaches rather than about convenience.
 
 *For a realistic document, use the Meridian Order Management Solution
 Blueprint.* It ships as
-`tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml` (with a
+`tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml` (with a
 markdown rendition beside it), so a sample reaches it by depending on
 `tom_som_dart_v0` — the published-packages-only rule above is satisfied rather
 than bent. It is a broad, coherent blueprint held by the decode and

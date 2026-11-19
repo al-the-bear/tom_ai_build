@@ -1,5 +1,5 @@
 /* yaml — a minimal, dependency-free YAML reader for the constrained
- * `*.docspecs.yaml` subset the codec emits, an idiomatic-C++ port of the C
+ * `*.tomspecs.yaml` subset the codec emits, an idiomatic-C++ port of the C
  * `yaml` module.
  *
  * It supports exactly what the encoder produces (and what the self-verify

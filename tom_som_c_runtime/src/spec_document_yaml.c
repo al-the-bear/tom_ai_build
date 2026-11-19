@@ -562,7 +562,7 @@ void spec_yaml_write_scalar(SomBuf *out, size_t key_indent, const char *key,
  * `modelVersion:` stamp when non-empty. */
 void spec_yaml_write_header(SomBuf *out, const char *model_version) {
   som_buf_puts(out,
-               "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\n");
+               "# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\n");
   som_buf_puts(out, "version: ");
   som_buf_puti(out, SPEC_YAML_FORMAT_VERSION);
   som_buf_putc(out, '\n');
@@ -1995,7 +1995,7 @@ int decode_yaml(const char *yaml_text, const SomMetaTree *tree,
   if (root == NULL || root->type != YAML_MAP) {
     yaml_value_free(root);
     set_err(err, som_strdup(
-                     "not a *.docspecs.yaml mapping (expected version/document keys)"));
+                     "not a *.tomspecs.yaml mapping (expected version/document keys)"));
     return 0;
   }
 

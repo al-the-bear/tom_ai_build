@@ -4,7 +4,7 @@
 > [`tom_specs_model/doc/som_multiplatform_spec_model.md`](../tom_specs_model/doc/som_multiplatform_spec_model.md)
 > is the SOM authority: `SOM §9` decides what a runtime must contain, `SOM §6`
 > decides the split between the generic and the typed access path, `SOM §11` and
-> `SOM §12` decide the `*.md` and `*.docspecs.yaml` formats, and `SOM §19`
+> `SOM §12` decide the `*.tomspecs.md` and `*.tomspecs.yaml` formats, and `SOM §19`
 > decides the conformance corpus this port is measured against.
 > [`tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md)
 > decides this language plane's build and verify toolchain. This README says how
@@ -87,7 +87,7 @@ pkg-config / vendored-tarball / in-tree-monorepo routes and how to pin.
 | `spec_impact_walk.c` | The impact walk of the `tom_specs` change mode: `spec_impact_walk` lists every section of every document root of the model for a specification (a root without a document over an empty one) — section-id chain, class, fill state, value count, CodeSpecs routing (`spec_codespecs_class_routing` / `spec_codespecs_field_routing`, shared with the extractor) — and an empty list of sections as a template `<list>/*`; `spec_impact_level` records how far the project has come from a listing of its spec root; `spec_impact_document_files` finds the current documents in that listing; `spec_impact_walk_markdown` writes the table. Pure (no IO); every result has its `*_free`. |
 | `spec_codespecs_records.c` | Reads Phase-4 output back: `spec_codespecs_extract_from_yaml` (the inverse of `spec_codespecs_extract_to_yaml`), the Stage-B gate record `gate.verdicts.yaml` (`CodeSpecsGateRecord` — read, checked, written byte-stable), and `CodeSpecsExtractSet`, a set of extract files scoped by its gate record. Failures fill a `CodeSpecsRecordError`. |
 | `spec_codespecs_gate.c` | The Stage-A gate (`CodeSpecsGate`, `codespecs_prompt.md` §4): runs A1 (DocSpecs completeness of the rendered Markdown), A2 (`validate_document`), A3 (every section routed, then the extraction), A4 (required marker arguments populated, from the catalogue's `gate` tables) and A5 (carriers still in the model) as one, reporting a not-run check as not run. |
-| `spec_document_yaml.c` | Byte-stable `*.docspecs.yaml` codec (`SOM §12`). |
+| `spec_document_yaml.c` | Byte-stable `*.tomspecs.yaml` codec (`SOM §12`). |
 | `spec_document_markdown.c` | Meta-data-driven Markdown import/export codec (`SOM §11`). |
 | `som_facade.c` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList`) for the generated `tom_som_c_v0`. |
 | `yaml.c` | Hand-rolled, dependency-free reader for the constrained docspecs YAML subset. |
@@ -145,7 +145,7 @@ spec_validation_errors_free(&errs);
 
 The library depends only on the C standard library. JSON parsing uses the
 hand-rolled `som_json` module; YAML uses the hand-rolled `yaml` module (the
-constrained docspecs subset). Byte-stable `*.docspecs.yaml` output requires a
+constrained docspecs subset). Byte-stable `*.tomspecs.yaml` output requires a
 `js_json_string` that matches JavaScript's `JSON.stringify` exactly — it
 delegates to `som_json_encode_str`, which emits the short escapes for
 `" \ \b \f \n \r \t`, control characters below `0x20` as lowercase `\u00xx`, and
@@ -235,7 +235,7 @@ make test CORPUS=/path/to/corpus
 | `SpecEditor` | Typed edits over any path, driven by the meta-model rather than by generated structs. |
 | `SpecNodeCreator` | The creation gate — a document may only grow in ways the model permits. |
 | `validate_document` | The instance tier: a filled document's values checked against the model. |
-| `spec_document_yaml` | Byte-stable `*.docspecs.yaml` encode/decode. |
+| `spec_document_yaml` | Byte-stable `*.tomspecs.yaml` encode/decode. |
 | `spec_document_markdown` | DocSpecs-conform Markdown export, parse and round-trip. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
 | `CodeSpecsExtractor` | The Phase-4 extract generator — one verbatim, cited extract per CodeSpecs area. |
@@ -266,7 +266,7 @@ make test CORPUS=/path/to/corpus
 | Document | Authority for |
 |----------|---------------|
 | [index.md](../tom_specs_model/doc/index.md) | The catalogue of every TomSpecs subject-matter document, and the `§` citation convention. |
-| [som_multiplatform_spec_model.md](../tom_specs_model/doc/som_multiplatform_spec_model.md) | What a SOM runtime must contain, the two access paths, the `*.md` and `*.docspecs.yaml` formats, the validator, and the conformance corpus. |
+| [som_multiplatform_spec_model.md](../tom_specs_model/doc/som_multiplatform_spec_model.md) | What a SOM runtime must contain, the two access paths, the `*.tomspecs.md` and `*.tomspecs.yaml` formats, the validator, and the conformance corpus. |
 | [som_toolchains.md](../tom_specs_model/doc/som_toolchains.md) | This language plane's build and verify toolchain, and the reference host. |
 | [tom_specs_model_meta_schema.md](../tom_specs_model/doc/tom_specs_model_meta_schema.md) | The on-disk schema of `meta/spec_model.meta.json`, which `SpecModel` loads. |
 

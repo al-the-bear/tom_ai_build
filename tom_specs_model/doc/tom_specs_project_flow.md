@@ -1172,7 +1172,7 @@ of a question or comment in the text is its context.
 a human review of the per-deliverable loop (PF-ITR-DEL) — runs in four steps:
 
 1. **Annotate.** The reviewer writes comments, inline marks and answers into
-   the document of record (the `*.docspecs.yaml`) or into its Markdown
+   the document of record (the `*.tomspecs.yaml`) or into its Markdown
    rendition. Answers written into the rendition are imported back into the
    YAML before the next validation run overwrites the rendition. The runtime
    API gives every comment without an id its `C-<n>` on import or save.

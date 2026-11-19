@@ -9,9 +9,9 @@ golden byte-for-byte and matches every behavioural case:
   * the generation stamp decodes and reaches the shared staleness verdict;
   * the SOM §4.2/§21 editability classification and its refusal messages;
   * ``state.json`` loads and re-serialises identically;
-  * YAML encode == ``expected.docspecs.yaml`` (byte-for-byte);
+  * YAML encode == ``expected.tomspecs.yaml`` (byte-for-byte);
   * YAML decode → memory → encode is byte-stable + preserves the stamp;
-  * Markdown export == ``expected.md`` (byte-for-byte);
+  * Markdown export == ``expected.tomspecs.md`` (byte-for-byte);
   * Markdown parse → memory → export is clean + byte-stable;
   * reflection resolution cases;
   * validation cases;
@@ -362,13 +362,13 @@ def _json_mismatch(actual, expected) -> str:
 
 def test_yaml_encode(tree) -> None:
     doc = _document_from_state(_read_json("state.json"))
-    expected = _read("expected.docspecs.yaml")
+    expected = _read("expected.tomspecs.yaml")
     actual = yaml_encode(doc, tree, model_version=_MODEL_VERSION)
     _check("yaml.encode", actual == expected, _byte_diff("yaml.encode", actual, expected))
 
 
 def test_yaml_decode_round_trip(tree) -> None:
-    expected = _read("expected.docspecs.yaml")
+    expected = _read("expected.tomspecs.yaml")
     contents = yaml_decode(expected, tree)
     _check("yaml.decode.stamp", contents.model_version == _MODEL_VERSION,
            str(contents.model_version))
@@ -432,14 +432,14 @@ def test_yaml_review(model: SpecModel, tree) -> None:
 
 def test_markdown_export(model: SpecModel) -> None:
     doc = _document_from_state(_read_json("state.json"))
-    expected = _read("expected.md")
+    expected = _read("expected.tomspecs.md")
     actual = SpecDocumentMarkdown(model, doc).export_root(model.roots[0])
     _check("md.export", actual == expected,
            _byte_diff("md.export", actual, expected))
 
 
 def test_markdown_round_trip(model: SpecModel) -> None:
-    golden = _read("expected.md")
+    golden = _read("expected.tomspecs.md")
     doc = _document_from_state(_read_json("state.json"))
     parsed = SpecDocumentMarkdown(model, doc).parse(golden)
     _check("md.parse.clean", not parsed.rejections,
@@ -465,10 +465,10 @@ def test_markdown_round_trip(model: SpecModel) -> None:
 
 
 def test_markdown_lands_in_shared_memory(model: SpecModel) -> None:
-    """Markdown/YAML convergence: parsing ``expected.md`` and applying it must
+    """Markdown/YAML convergence: parsing ``expected.tomspecs.md`` and applying it must
     reproduce ``state.json`` (the YAML-route memory) exactly, proving both
     formats converge on one in-memory document (SOM §8)."""
-    golden = _read("expected.md")
+    golden = _read("expected.tomspecs.md")
     canonical = _read_json("state.json")
     imported = SpecDocument.from_markdown(golden, model)
     _check("md.land.clean", not imported.rejections,

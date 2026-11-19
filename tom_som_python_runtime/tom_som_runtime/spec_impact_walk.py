@@ -433,7 +433,7 @@ _EXTRACT = re.compile(r"^generated-doc/codespecs_extracts/CE-[^/]+\.extract\.yam
 _IR = re.compile(r"^irspecs/[^/]+\.ir\.yaml$")
 _GATE_CHECKLIST = re.compile(r"^gates/G[^/]*\.checklist\.yaml$")
 _GATE_REPORT = re.compile(r"^quality/evidence/gates/[^/]+\.md$")
-_DOCUMENT_FILE = re.compile(r"^phase[^/]*/[^/]+\.docspecs\.yaml$")
+_DOCUMENT_FILE = re.compile(r"^phase[^/]*/[^/]+\.tomspecs\.yaml$")
 
 
 def _matches(pattern: re.Pattern[str], text: str) -> bool:
@@ -506,7 +506,7 @@ def spec_impact_level(
 
 def spec_impact_document_files(listing: list[str]) -> list[str]:
     """The specification's current documents in a listing of the spec root:
-    the ``*.docspecs.yaml`` files directly in a ``phase*`` folder. The
+    the ``*.tomspecs.yaml`` files directly in a ``phase*`` folder. The
     numbered step folders below hold round copies and are not the
     specification."""
     return sorted(f for f in _normalise(listing) if _matches(_DOCUMENT_FILE, f))

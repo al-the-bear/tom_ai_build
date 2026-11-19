@@ -7,10 +7,10 @@
  * every golden byte-for-byte and matches every behavioural case:
  *   - model meta-data loads (root + class structure);
  *   - state.json loads and re-serialises identically;
- *   - YAML encode == expected.docspecs.yaml (byte-for-byte);
+ *   - YAML encode == expected.tomspecs.yaml (byte-for-byte);
  *   - YAML decode -> memory -> encode is byte-stable + preserves the stamp;
  *   - the YAML `review:` pass (write-back round trip + stale review paths);
- *   - Markdown export == expected.md (byte-for-byte);
+ *   - Markdown export == expected.tomspecs.md (byte-for-byte);
  *   - Markdown parse -> memory -> export is clean + byte-stable;
  *   - the Markdown route lands the fixture in the same memory as the YAML
  * route;
@@ -353,7 +353,7 @@ static void test_yaml_encode(Checker& c, const som::SomMetaTree& tree) {
   som::JsonPtr sj = read_json("state.json");
   som::DocumentJson state = som::documentJsonFromJson(sj);
   som::SpecDocument doc = doc_from_state(state);
-  std::string expected = read_corpus("expected.docspecs.yaml");
+  std::string expected = read_corpus("expected.tomspecs.yaml");
   std::string err;
   auto actual = som::encodeYaml(doc, tree, MODEL_VERSION, &err);
   if (!actual.has_value()) {
@@ -365,7 +365,7 @@ static void test_yaml_encode(Checker& c, const som::SomMetaTree& tree) {
 }
 
 static void test_yaml_decode_round_trip(Checker& c, const som::SomMetaTree& tree) {
-  std::string expected = read_corpus("expected.docspecs.yaml");
+  std::string expected = read_corpus("expected.tomspecs.yaml");
   som::SpecYamlContents contents;
   std::string err;
   if (!som::decodeYaml(expected, tree, &contents, &err)) {
@@ -519,7 +519,7 @@ static void test_markdown_export(Checker& c, const som::SpecModel& model) {
   som::JsonPtr sj = read_json("state.json");
   som::DocumentJson state = som::documentJsonFromJson(sj);
   som::SpecDocument doc = doc_from_state(state);
-  std::string expected = read_corpus("expected.md");
+  std::string expected = read_corpus("expected.tomspecs.md");
   std::string actual = som::markdownExportRoot(model, doc, model.roots[0]);
   c.check("md.export", actual == expected,
           byte_diff("md.export", actual, expected));
@@ -535,7 +535,7 @@ static std::string rej_str(const som::SpecMarkdownResult& r) {
 }
 
 static void test_markdown_round_trip(Checker& c, const som::SpecModel& model) {
-  std::string expected = read_corpus("expected.md");
+  std::string expected = read_corpus("expected.tomspecs.md");
   som::SpecMarkdownResult result = som::markdownParse(model, expected);
   c.check("md.parse.clean", result.isClean(), rej_str(result));
   som::SpecDocument applied;
@@ -553,7 +553,7 @@ static void test_markdown_round_trip(Checker& c, const som::SpecModel& model) {
 }
 
 static void test_markdown_memory_landing(Checker& c, const som::SpecModel& model) {
-  std::string expected_md = read_corpus("expected.md");
+  std::string expected_md = read_corpus("expected.tomspecs.md");
   som::JsonPtr sj = read_json("state.json");
   som::DocumentJson canonical = som::documentJsonFromJson(sj);
   som::SpecMarkdownImport imported =

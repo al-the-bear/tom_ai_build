@@ -21,8 +21,8 @@ fn write_scalar_and_header() {
     let want = concat!(
         "x\n",
         "  \"key\": |2-\n    one\n  \"a b\": |2-\n    line1\n    line2\n\"k\": |2-\n\n",
-        "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\nversion: 2\nmodelVersion: \"1.2.3\"\n",
-        "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\nversion: 2\n",
+        "# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\nversion: 2\nmodelVersion: \"1.2.3\"\n",
+        "# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\nversion: 2\n",
     );
     assert_eq!(out, want);
 }

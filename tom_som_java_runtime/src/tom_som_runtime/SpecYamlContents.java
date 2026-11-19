@@ -3,7 +3,7 @@ package tom_som_runtime;
 import java.util.Map;
 
 /**
- * The decoded passes of a {@code *.docspecs.yaml} file: the {@code document:}
+ * The decoded passes of a {@code *.tomspecs.yaml} file: the {@code document:}
  * pass as a populated {@link SpecDocument}, the {@code review:} pass as a raw
  * mapping (the runtime carries it uninterpreted and writes it back), and the optional authoring
  * model-version stamp — a faithful port of {@code spec_document_yaml.dart} /

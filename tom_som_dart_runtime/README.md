@@ -4,7 +4,7 @@
 > [`tom_specs_model/doc/som_multiplatform_spec_model.md`](../tom_specs_model/doc/som_multiplatform_spec_model.md)
 > is the SOM authority: `SOM §9` decides what a runtime must contain, `SOM §6`
 > decides the split between the generic and the typed access path, `SOM §11` and
-> `SOM §12` decide the `*.md` and `*.docspecs.yaml` formats, and `SOM §19`
+> `SOM §12` decide the `*.tomspecs.md` and `*.tomspecs.yaml` formats, and `SOM §19`
 > decides the conformance corpus this port is measured against.
 > [`tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md)
 > decides this language plane's build and verify toolchain. This README says how
@@ -49,7 +49,7 @@ they belong to, and an absent key means "no value" rather than an empty one.
 - **the meta-model** — `SpecModel` loads the exported class graph
   (`meta/spec_model.meta.json`), and `SpecReflection` resolves a path against it
   without touching values, which is what makes generic navigation possible;
-- **the codecs** — byte-stable `*.docspecs.yaml` and DocSpecs-conform Markdown,
+- **the codecs** — byte-stable `*.tomspecs.yaml` and DocSpecs-conform Markdown,
   both driven by the meta-model so a new model version needs no codec change;
 - **the editing and validation tiers** — `SpecEditor` for typed edits over any
   path, `SpecNodeCreator` to keep growth inside what the model permits, and
@@ -97,7 +97,7 @@ and how to pin.
 | `spec_codespecs_extract.dart` | The Phase-4 CodeSpecs specification-extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`) — one bounded, cited extract per CodeSpecs area, copied verbatim with provenance, never summarised. Walks one `@Document` root, resolved at construction from an optional root-type argument (`codespecs_prompt.md` §5). |
 | `spec_impact_walk.dart` | The impact walk of the `tom_specs` change mode: `specImpactWalk` lists every section of every document root of the model for a specification (a root without a document over an empty one) — section-id chain, class, fill state, value count, CodeSpecs routing — and an empty list of sections as a template `<list>/*`; `specImpactLevel` records how far the project has come from a listing of its spec root; `specImpactDocumentFiles` finds the current documents in that listing; `specImpactWalkMarkdown` writes the table. Pure (no IO); `tomspecs :spec-impact-walk` is the command over it. |
 | `spec_generation_units.dart` | The generation-unit register of a document (SOM §11.2): `specGenerationUnits` reads each unit (`SpecGenerationUnit`: id, kind, mappings per area, the standard emitters it ships — `kSpecStandardEmitters`), recognised by `@NoArtifact(generation)` as validation phase 8 recognises it; `specDefaultUnits` is the default destination of an area — the extract fills an entry's `units` from it when no section stores units. |
-| `spec_document_yaml.dart` | Byte-stable `*.docspecs.yaml` codec (`SOM §12`). |
+| `spec_document_yaml.dart` | Byte-stable `*.tomspecs.yaml` codec (`SOM §12`). |
 | `spec_document_markdown.dart` | Meta-data-driven Markdown import/export codec (`SOM §11`). |
 | `docspecs_validator.dart` | Schema-free DocSpecs parse, schema loader, and never-fail-fast validator (`SOM §14`). |
 | `spec_review_annotations.dart` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks, conflict blocks, change times and attribution (`SpecReviewAnnotations`). |
@@ -229,7 +229,7 @@ dart analyze
 | `SpecEditor` | Typed edits over any path, driven by the meta-model rather than by generated classes. |
 | `SpecNodeCreator` | The creation gate — a document may only grow in ways the model permits. |
 | `validateDocument` | The instance tier: a filled document's values checked against the model. |
-| `SpecDocumentYaml` | Byte-stable `*.docspecs.yaml` encode/decode. |
+| `SpecDocumentYaml` | Byte-stable `*.tomspecs.yaml` encode/decode. |
 | `SpecDocumentMarkdown` | DocSpecs-conform Markdown export, parse and round-trip. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
 | `CodeSpecsExtractor` | The Phase-4 extract generator — one verbatim, cited extract per CodeSpecs area. |
@@ -257,7 +257,7 @@ dart analyze
 | Document | Authority for |
 |----------|---------------|
 | [index.md](../tom_specs_model/doc/index.md) | The catalogue of every TomSpecs subject-matter document, and the `§` citation convention. |
-| [som_multiplatform_spec_model.md](../tom_specs_model/doc/som_multiplatform_spec_model.md) | What a SOM runtime must contain, the two access paths, the `*.md` and `*.docspecs.yaml` formats, the validator, and the conformance corpus. |
+| [som_multiplatform_spec_model.md](../tom_specs_model/doc/som_multiplatform_spec_model.md) | What a SOM runtime must contain, the two access paths, the `*.tomspecs.md` and `*.tomspecs.yaml` formats, the validator, and the conformance corpus. |
 | [som_toolchains.md](../tom_specs_model/doc/som_toolchains.md) | This language plane's build and verify toolchain, and the reference host. |
 | [tom_specs_model_meta_schema.md](../tom_specs_model/doc/tom_specs_model_meta_schema.md) | The on-disk schema of `meta/spec_model.meta.json`, which `SpecModel` loads. |
 | [tom_specs_model_rules.md](../tom_specs_model/doc/tom_specs_model_rules.md) | The model-authoring rules the class graph obeys — field shapes, section ids, annotations, invariants. |

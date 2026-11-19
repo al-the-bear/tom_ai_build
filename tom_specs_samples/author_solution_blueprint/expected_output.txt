@@ -9,8 +9,8 @@
    SBP/currentLandscape/CUOPME-OPER-LST           2 operational metrics
 
 3. Serialised both renditions into build/
-   blueprint.docspecs.yaml : 20 lines  (SOM §12)
-   blueprint.md            : 22 lines  (SOM §11)
+   blueprint.tomspecs.yaml : 20 lines  (SOM §12)
+   blueprint.tomspecs.md   : 22 lines  (SOM §11)
 
 4. Round-tripped the yaml through D00SolutionBlueprint.loadFile
    reload equals original  : true

@@ -87,8 +87,8 @@ void main() {
         File('${corpusDir.path}/$name').writeAsStringSync(body);
     write('model.meta.json', '${enc.convert(meta)}\n');
     write('state.json', '${enc.convert(state)}\n');
-    write('expected.docspecs.yaml', yamlGolden);
-    write('expected.md', mdGolden);
+    write('expected.tomspecs.yaml', yamlGolden);
+    write('expected.tomspecs.md', mdGolden);
     write('reflection_cases.json', '${enc.convert(reflectionCases)}\n');
     write('validation_cases.json', '${enc.convert(validationCases)}\n');
     write('operations_cases.json', '${enc.convert(operationsCases)}\n');
@@ -400,12 +400,12 @@ void main() {
   test('YAML encode is byte-stable against the committed golden', () {
     expect(
       SpecDocumentYaml.encode(document: doc, tree: tree, modelVersion: stamp),
-      read('expected.docspecs.yaml'),
+      read('expected.tomspecs.yaml'),
     );
   });
 
   test('YAML decode→memory→encode is byte-stable and preserves the stamp', () {
-    final golden = read('expected.docspecs.yaml');
+    final golden = read('expected.tomspecs.yaml');
     final decoded = SpecDocumentYaml.decode(golden, tree);
     expect(decoded.modelVersion, stamp);
     expect(
@@ -421,12 +421,12 @@ void main() {
   test('Markdown export is byte-stable against the committed golden', () {
     expect(
       SpecDocumentMarkdown(model, doc).exportRoot(model.roots.first),
-      read('expected.md'),
+      read('expected.tomspecs.md'),
     );
   });
 
   test('Markdown parse→memory→export is clean and byte-stable', () {
-    final golden = read('expected.md');
+    final golden = read('expected.tomspecs.md');
     final parsed = SpecDocumentMarkdown(model, doc).parse(golden);
     expect(parsed.rejections, isEmpty, reason: parsed.rejections.join('\n'));
     final reDoc = SpecDocument()
@@ -447,12 +447,12 @@ void main() {
   // `som_multiplatform_spec_model.md` §11: the Markdown route must land a
   // fixture document in the *same* shared memory representation as the
   // canonical state — not merely re-export
-  // byte-stably. Parsing `expected.md` and applying it must reproduce
+  // byte-stably. Parsing `expected.tomspecs.md` and applying it must reproduce
   // `state.json` (the YAML-route memory) exactly, proving both formats converge
   // on one in-memory document (SOM §8 "both routes land in the same memory
   // representation"). Every language port asserts the same against this corpus.
   test('Markdown route lands in the shared memory representation', () {
-    final golden = read('expected.md');
+    final golden = read('expected.tomspecs.md');
     final canonical = jsonDecode(read('state.json')) as Map<String, dynamic>;
     final imported = SpecDocument.fromMarkdown(golden, model);
     expect(
@@ -475,7 +475,7 @@ void main() {
   // against the committed golden so every language port reproduces the identical
   // container structure.
   group('list-container structure (SOM §11.2)', () {
-    final md = read('expected.md');
+    final md = read('expected.tomspecs.md');
     final lines = md.split('\n');
 
     int levelAt(int idx) =>
@@ -7192,7 +7192,7 @@ Map<String, dynamic> _runMarkdownApplyCase(
 }
 
 /// The `markdown_apply_cases.json` table: expected results computed live, so
-/// `UPDATE_CORPUS` keeps them honest. [golden] is `expected.md`.
+/// `UPDATE_CORPUS` keeps them honest. [golden] is `expected.tomspecs.md`.
 Map<String, dynamic> _markdownApplyCases(SpecModel model, String golden) {
   // A base document holding stale values under the covered root `DEMO` (a
   // value the import does not carry, a headline, a codeSpec, units, a list) and
@@ -7370,7 +7370,7 @@ Object? _runYamlReviewCase(
 }
 
 /// The `yaml_review_cases.json` table, expected results computed live.
-/// [golden] is `expected.docspecs.yaml`, which carries no review pass.
+/// [golden] is `expected.tomspecs.yaml`, which carries no review pass.
 Map<String, dynamic> _yamlReviewCases(
   SpecModel model,
   SomMetaTree tree,

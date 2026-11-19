@@ -498,7 +498,7 @@ class SomGoEmitter {
         ..writeln('}')
         ..writeln()
         ..writeln(
-          '// LoadYaml${cls.name} loads a `*.docspecs.yaml` document in '
+          '// LoadYaml${cls.name} loads a `*.tomspecs.yaml` document in '
           'one call: decode the',
         )
         ..writeln(
@@ -537,7 +537,7 @@ class SomGoEmitter {
         ..writeln('}')
         ..writeln()
         ..writeln(
-          '// LoadFile${cls.name} loads a `*.docspecs.yaml` document '
+          '// LoadFile${cls.name} loads a `*.tomspecs.yaml` document '
           'from the file at path —',
         )
         ..writeln(

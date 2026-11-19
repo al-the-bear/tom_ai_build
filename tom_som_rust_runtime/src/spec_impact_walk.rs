@@ -660,13 +660,13 @@ pub fn spec_impact_level(
 }
 
 /// The specification's current documents in a listing of the spec root: the
-/// `*.docspecs.yaml` files directly in a `phase*` folder. The numbered step
+/// `*.tomspecs.yaml` files directly in a `phase*` folder. The numbered step
 /// folders below hold round copies and are not the specification.
 pub fn spec_impact_document_files(listing: &[String]) -> Vec<String> {
     let mut files: Vec<String> = listing
         .iter()
         .map(|p| normalize_listing_path(p))
-        .filter(|f| file_in_prefixed_folder(f, "phase", ".docspecs.yaml"))
+        .filter(|f| file_in_prefixed_folder(f, "phase", ".tomspecs.yaml"))
         .collect();
     files.sort();
     files

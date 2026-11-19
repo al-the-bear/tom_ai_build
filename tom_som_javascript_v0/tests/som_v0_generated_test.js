@@ -291,7 +291,7 @@ function testAbsenceSemantics() {
 // from the project root, so the sample is reached via the sibling conformance
 // project.
 const _samplePath =
-  '../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml';
+  '../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml';
 
 function testOneCallLoading() {
   // 4. loadYaml collapses decode → loadJson → thread-version to one call.
@@ -464,9 +464,9 @@ function testCanHaveContent() {
 // golden run. Mirrors the Dart (dsa7) and Python (dsa8) durability guards.
 function testLiveDocumentCase() {
   const sample =
-    '../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml';
+    '../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml';
   const sampleMd =
-    '../tom_som_dart_v0/documents/meridian_order_management.md';
+    '../tom_som_dart_v0/documents/meridian_order_management.tomspecs.md';
   const schemaPath =
     'schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml';
   const tree = m.d00SolutionBlueprintMetaTree;
@@ -536,7 +536,7 @@ function testLiveDocumentCase() {
   check('live.node.id-identity', idRef.meta === navItem.meta);
 }
 
-// Markdown import: the .md lands on exactly the .docspecs.yaml. The .md is the
+// Markdown import: the .md lands on exactly the .tomspecs.yaml. The .md is the
 // yaml's rendition, so importing it must reproduce the yaml byte for byte —
 // including every list item's section id, which a heading carries even when it
 // equals the @SectionIdPattern default (`UCE-USER-1`). Ids are identity and
@@ -544,9 +544,9 @@ function testLiveDocumentCase() {
 // take its new position's.
 function testMarkdownImportLandsOnYaml() {
   const sample =
-    '../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml';
+    '../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml';
   const sampleMd =
-    '../tom_som_dart_v0/documents/meridian_order_management.md';
+    '../tom_som_dart_v0/documents/meridian_order_management.tomspecs.md';
   const tree = m.d00SolutionBlueprintMetaTree;
   const model = SpecModel.fromJson(
     JSON.parse(fs.readFileSync('meta/spec_model.meta.json', 'utf8')),

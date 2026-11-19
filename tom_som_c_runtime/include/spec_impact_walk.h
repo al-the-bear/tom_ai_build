@@ -230,7 +230,7 @@ void spec_impact_level(const SpecModel *model, const SpecImpactWalk *walk,
 char *spec_impact_level_to_json(const SpecImpactLevel *l);
 
 /* The specification's current documents in a listing of the spec root: the
- * `*.docspecs.yaml` files directly in a `phase*` folder, sorted. The numbered
+ * `*.tomspecs.yaml` files directly in a `phase*` folder, sorted. The numbered
  * step folders below hold round copies and are not the specification. Writes
  * into `out` (initialised by the callee). */
 void spec_impact_document_files(const SomStrList *listing, SomStrList *out);

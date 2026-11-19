@@ -162,7 +162,7 @@ SpecImpactLevel specImpactLevel(
     const std::optional<std::vector<SpecImpactFolder>>& code);
 
 /* The specification's current documents in a listing of the spec root: the
- * `*.docspecs.yaml` files directly in a `phase*` folder, sorted. */
+ * `*.tomspecs.yaml` files directly in a `phase*` folder, sorted. */
 std::vector<std::string> specImpactDocumentFiles(
     const std::vector<std::string>& listing);
 

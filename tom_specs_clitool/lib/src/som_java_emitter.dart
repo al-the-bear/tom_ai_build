@@ -264,7 +264,7 @@ class SomJavaEmitter {
         ..writeln('$_i2}')
         ..writeln()
         ..writeln(
-          '$_i2// Loads a *.docspecs.yaml document and returns the typed '
+          '$_i2// Loads a *.tomspecs.yaml document and returns the typed '
           'root with the',
         )
         ..writeln(
@@ -292,7 +292,7 @@ class SomJavaEmitter {
         ..writeln('$_i2}')
         ..writeln()
         ..writeln(
-          '$_i2// Loads a *.docspecs.yaml document from the file at '
+          '$_i2// Loads a *.tomspecs.yaml document from the file at '
           'path — the file',
         )
         ..writeln('$_i2// companion to loadYaml.')

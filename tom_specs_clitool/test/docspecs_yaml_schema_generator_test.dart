@@ -11,7 +11,7 @@ import 'package:yaml/yaml.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
 /// Tests for [DocspecsYamlSchemaGenerator]: the
-/// standalone JSON Schema for the generic on-disk `*.docspecs.yaml` document
+/// standalone JSON Schema for the generic on-disk `*.tomspecs.yaml` document
 /// wire format (hierarchical v2, SOM §12). The schema must accept a known-good
 /// document and reject documents the format genuinely cannot represent.
 
@@ -106,14 +106,14 @@ void main() {
       expect(_buildSchema().validate(doc).isValid, isTrue);
     });
 
-    test('validates the known-good corpus expected.docspecs.yaml', () {
+    test('validates the known-good corpus expected.tomspecs.yaml', () {
       final corpus = File(
         p.join(
           Directory.current.path,
           '..',
           'tom_som_conformance',
           'corpus',
-          'expected.docspecs.yaml',
+          'expected.tomspecs.yaml',
         ),
       );
       expect(

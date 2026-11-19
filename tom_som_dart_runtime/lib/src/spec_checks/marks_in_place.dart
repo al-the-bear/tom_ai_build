@@ -1,4 +1,4 @@
-// Accepts the inline change marks of a `*.docspecs.yaml` in place: every `|2-`
+// Accepts the inline change marks of a `*.tomspecs.yaml` in place: every `|2-`
 // block scalar is rewritten with `applyInlineMarksText(accept: true)` and every
 // other byte stays; a quoted one-line substitution (`"{~~old~>new~~}"`) takes
 // its new text. A file whose layout is not the encoder's keeps its layout,

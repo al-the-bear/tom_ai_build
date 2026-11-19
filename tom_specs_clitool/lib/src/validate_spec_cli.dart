@@ -4,8 +4,8 @@
 /// The tiers ask disjoint questions, so all three run every time:
 ///
 /// 1. **decode** — the file loads against the object model: every key of a
-///    `*.docspecs.yaml` sits where the model says it may; every block of a
-///    SOM-rendered `*.md` resolves to a section (SOM §11.7);
+///    `*.tomspecs.yaml` sits where the model says it may; every block of a
+///    SOM-rendered `*.tomspecs.md` resolves to a section (SOM §11.7);
 /// 2. **schema** — the document's markdown rendition against its generated
 ///    DocSpecs schema: required sections and required form fields
 ///    (completeness, SOM §13);
@@ -96,7 +96,7 @@ ArgParser validateSpecParser() => ArgParser()
   ..addOption(
     'assembled-out',
     help:
-        'Write the assembled document as a *.docspecs.yaml to this file. With '
+        'Write the assembled document as a *.tomspecs.yaml to this file. With '
         'one input it is that document, re-encoded.',
   )
   ..addOption(
@@ -141,7 +141,7 @@ Future<int> runValidateSpec(
     }
     if (results.rest.isEmpty) {
       throw const _UsageError(
-        'give at least one document: a *.docspecs.yaml or a SOM-rendered *.md. '
+        'give at least one document: a *.tomspecs.yaml or a SOM-rendered *.tomspecs.md. '
         'Several are fragments of one document and are assembled first.',
         showUsage: true,
       );
@@ -418,7 +418,7 @@ String specSchemaIdFor(SpecRoot root) => root.title
 /// title heading in a markdown rendition (`# <!--[SBP]--> …`).
 /// The root of a specification document: [explicit] (a root type or section
 /// id) when given, else the one the text declares — the first heading of a
-/// Markdown rendition, the `document:` key of a `*.docspecs.yaml`. Throws an
+/// Markdown rendition, the `document:` key of a `*.tomspecs.yaml`. Throws an
 /// [ArgumentError] naming the problem when it cannot be found.
 SpecRoot resolveSpecDocumentRoot(
   SpecModel model,
@@ -496,7 +496,7 @@ void _printUsage(ArgParser parser, StringSink sink) {
   );
   sink.writeln();
   sink.writeln(
-    'Checks one TomSpecs document — a *.docspecs.yaml or a SOM-rendered *.md — '
+    'Checks one TomSpecs document — a *.tomspecs.yaml or a SOM-rendered *.tomspecs.md — '
     'on three tiers: decode, the DocSpecs schema over its rendition, and the '
     'instance tier. All three run every time. Several documents are fragments '
     'of one document: they are assembled first — a place two fragments both '

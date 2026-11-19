@@ -2,7 +2,7 @@
 //
 // Builds a broad, coherent `D00SolutionBlueprint` (Solution Blueprint) for a
 // fictional "Meridian Order Management" programme via the typed facade, then
-// serialises it to the language-agnostic `*.docspecs.yaml` wire format (and a
+// serialises it to the language-agnostic `*.tomspecs.yaml` wire format (and a
 // human-readable markdown rendition) under this package's own `documents/`,
 // so that the examples which load it keep working from a hosted install.
 //
@@ -280,7 +280,7 @@ parallel-run gate passes.''');
     modelVersion: sampleModelVersion,
   );
   final yamlFile = File(
-    '${samplesDir.path}/meridian_order_management.docspecs.yaml',
+    '${samplesDir.path}/meridian_order_management.tomspecs.yaml',
   );
   yamlFile.writeAsStringSync(yaml);
 
@@ -292,7 +292,7 @@ parallel-run gate passes.''');
     jsonDecode(metaFile.readAsStringSync()) as Map<String, dynamic>,
   );
   final markdown = doc.toMarkdown(model, rootType: 'D00SolutionBlueprint');
-  final mdFile = File('${samplesDir.path}/meridian_order_management.md');
+  final mdFile = File('${samplesDir.path}/meridian_order_management.tomspecs.md');
   mdFile.writeAsStringSync(markdown);
 
   // Gate, tier A1 — schema *completeness*: the emitted markdown must validate
@@ -334,9 +334,9 @@ parallel-run gate passes.''');
 
   stdout.writeln('Wrote sample to ${samplesDir.absolute.path}');
   stdout.writeln(
-    '  meridian_order_management.docspecs.yaml (${yaml.length} bytes)',
+    '  meridian_order_management.tomspecs.yaml (${yaml.length} bytes)',
   );
-  stdout.writeln('  meridian_order_management.md (${markdown.length} bytes)');
+  stdout.writeln('  meridian_order_management.tomspecs.md (${markdown.length} bytes)');
   // Reported from the rendition's own `<!-- docspec: id/version -->` line
   // rather than a literal: the version tracks the model's minor, so a literal
   // here goes stale on the next version bump and says so to nobody.

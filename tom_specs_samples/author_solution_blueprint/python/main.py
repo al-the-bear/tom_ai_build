@@ -88,12 +88,12 @@ def main() -> int:
     )
     markdown = doc.to_markdown(model, root_type="D00SolutionBlueprint")
 
-    _write(os.path.join(out_dir, "blueprint.docspecs.yaml"), yaml)
-    _write(os.path.join(out_dir, "blueprint.md"), markdown)
+    _write(os.path.join(out_dir, "blueprint.tomspecs.yaml"), yaml)
+    _write(os.path.join(out_dir, "blueprint.tomspecs.md"), markdown)
 
     print("3. Serialised both renditions into build/")
-    print(f"   blueprint.docspecs.yaml : {_lines(yaml)} lines  (SOM §12)")
-    print(f"   blueprint.md            : {_lines(markdown)} lines  (SOM §11)")
+    print(f"   blueprint.tomspecs.yaml : {_lines(yaml)} lines  (SOM §12)")
+    print(f"   blueprint.tomspecs.md   : {_lines(markdown)} lines  (SOM §11)")
     print("")
 
     # -------------------------------------------------------------- step 4
@@ -102,7 +102,7 @@ def main() -> int:
     # the two strings is the actual proof — comparing field by field would
     # only prove the fields somebody thought to compare.
     reloaded = D00SolutionBlueprint.load_file(
-        os.path.join(out_dir, "blueprint.docspecs.yaml")
+        os.path.join(out_dir, "blueprint.tomspecs.yaml")
     )
     re_yaml = yaml_encode(
         reloaded.doc,

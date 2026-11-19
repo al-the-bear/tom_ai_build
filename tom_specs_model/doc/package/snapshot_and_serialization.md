@@ -4,7 +4,7 @@ Three thousand flat data classes, no shared base, no reflection available, and
 an editor that needs a cheap undo stack and a byte-stable save. This guide
 covers how that is solved: the per-class contract, the two ways of supplying it,
 the copy-on-write snapshotter, and the projection onto the wire format. The
-`*.docspecs.yaml` format itself is `SOM §12` and is cited, not restated.
+`*.tomspecs.yaml` format itself is `SOM §12` and is cited, not restated.
 
 ## Table of Contents
 

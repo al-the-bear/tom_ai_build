@@ -11554,7 +11554,7 @@ func (x *D00SolutionBlueprint) EditabilityFor(documentVersion string) som.SomEdi
 	return som.SomEditabilityFor(D00SolutionBlueprintModelVersion, documentVersion)
 }
 
-// LoadYamlD00SolutionBlueprint loads a `*.docspecs.yaml` document in one call: decode the
+// LoadYamlD00SolutionBlueprint loads a `*.tomspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
 // decode → loadJson → thread-documentVersion sequence (SOM §21). Returns a
@@ -11569,7 +11569,7 @@ func LoadYamlD00SolutionBlueprint(yaml string) (*D00SolutionBlueprint, error) {
 	return NewD00SolutionBlueprint(doc, doc.ModelVersion)
 }
 
-// LoadFileD00SolutionBlueprint loads a `*.docspecs.yaml` document from the file at path —
+// LoadFileD00SolutionBlueprint loads a `*.tomspecs.yaml` document from the file at path —
 // the file companion to LoadYamlD00SolutionBlueprint. A read or decode error is returned
 // to the caller.
 func LoadFileD00SolutionBlueprint(path string) (*D00SolutionBlueprint, error) {
@@ -11704,7 +11704,7 @@ func (x *D01CurrentLandscapeAssessment) EditabilityFor(documentVersion string) s
 	return som.SomEditabilityFor(D01CurrentLandscapeAssessmentModelVersion, documentVersion)
 }
 
-// LoadYamlD01CurrentLandscapeAssessment loads a `*.docspecs.yaml` document in one call: decode the
+// LoadYamlD01CurrentLandscapeAssessment loads a `*.tomspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
 // decode → loadJson → thread-documentVersion sequence (SOM §21). Returns a
@@ -11719,7 +11719,7 @@ func LoadYamlD01CurrentLandscapeAssessment(yaml string) (*D01CurrentLandscapeAss
 	return NewD01CurrentLandscapeAssessment(doc, doc.ModelVersion)
 }
 
-// LoadFileD01CurrentLandscapeAssessment loads a `*.docspecs.yaml` document from the file at path —
+// LoadFileD01CurrentLandscapeAssessment loads a `*.tomspecs.yaml` document from the file at path —
 // the file companion to LoadYamlD01CurrentLandscapeAssessment. A read or decode error is returned
 // to the caller.
 func LoadFileD01CurrentLandscapeAssessment(path string) (*D01CurrentLandscapeAssessment, error) {
@@ -11845,7 +11845,7 @@ func (x *D02TargetOperatingModel) EditabilityFor(documentVersion string) som.Som
 	return som.SomEditabilityFor(D02TargetOperatingModelModelVersion, documentVersion)
 }
 
-// LoadYamlD02TargetOperatingModel loads a `*.docspecs.yaml` document in one call: decode the
+// LoadYamlD02TargetOperatingModel loads a `*.tomspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
 // decode → loadJson → thread-documentVersion sequence (SOM §21). Returns a
@@ -11860,7 +11860,7 @@ func LoadYamlD02TargetOperatingModel(yaml string) (*D02TargetOperatingModel, err
 	return NewD02TargetOperatingModel(doc, doc.ModelVersion)
 }
 
-// LoadFileD02TargetOperatingModel loads a `*.docspecs.yaml` document from the file at path —
+// LoadFileD02TargetOperatingModel loads a `*.tomspecs.yaml` document from the file at path —
 // the file companion to LoadYamlD02TargetOperatingModel. A read or decode error is returned
 // to the caller.
 func LoadFileD02TargetOperatingModel(path string) (*D02TargetOperatingModel, error) {
@@ -11999,7 +11999,7 @@ func (x *D03InformationModel) EditabilityFor(documentVersion string) som.SomEdit
 	return som.SomEditabilityFor(D03InformationModelModelVersion, documentVersion)
 }
 
-// LoadYamlD03InformationModel loads a `*.docspecs.yaml` document in one call: decode the
+// LoadYamlD03InformationModel loads a `*.tomspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
 // decode → loadJson → thread-documentVersion sequence (SOM §21). Returns a
@@ -12014,7 +12014,7 @@ func LoadYamlD03InformationModel(yaml string) (*D03InformationModel, error) {
 	return NewD03InformationModel(doc, doc.ModelVersion)
 }
 
-// LoadFileD03InformationModel loads a `*.docspecs.yaml` document from the file at path —
+// LoadFileD03InformationModel loads a `*.tomspecs.yaml` document from the file at path —
 // the file companion to LoadYamlD03InformationModel. A read or decode error is returned
 // to the caller.
 func LoadFileD03InformationModel(path string) (*D03InformationModel, error) {
@@ -12219,7 +12219,7 @@ func (x *D04RequirementsSpecification) EditabilityFor(documentVersion string) so
 	return som.SomEditabilityFor(D04RequirementsSpecificationModelVersion, documentVersion)
 }
 
-// LoadYamlD04RequirementsSpecification loads a `*.docspecs.yaml` document in one call: decode the
+// LoadYamlD04RequirementsSpecification loads a `*.tomspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
 // decode → loadJson → thread-documentVersion sequence (SOM §21). Returns a
@@ -12234,7 +12234,7 @@ func LoadYamlD04RequirementsSpecification(yaml string) (*D04RequirementsSpecific
 	return NewD04RequirementsSpecification(doc, doc.ModelVersion)
 }
 
-// LoadFileD04RequirementsSpecification loads a `*.docspecs.yaml` document from the file at path —
+// LoadFileD04RequirementsSpecification loads a `*.tomspecs.yaml` document from the file at path —
 // the file companion to LoadYamlD04RequirementsSpecification. A read or decode error is returned
 // to the caller.
 func LoadFileD04RequirementsSpecification(path string) (*D04RequirementsSpecification, error) {
@@ -12363,7 +12363,7 @@ func (x *D05InteractionScenarios) EditabilityFor(documentVersion string) som.Som
 	return som.SomEditabilityFor(D05InteractionScenariosModelVersion, documentVersion)
 }
 
-// LoadYamlD05InteractionScenarios loads a `*.docspecs.yaml` document in one call: decode the
+// LoadYamlD05InteractionScenarios loads a `*.tomspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
 // decode → loadJson → thread-documentVersion sequence (SOM §21). Returns a
@@ -12378,7 +12378,7 @@ func LoadYamlD05InteractionScenarios(yaml string) (*D05InteractionScenarios, err
 	return NewD05InteractionScenarios(doc, doc.ModelVersion)
 }
 
-// LoadFileD05InteractionScenarios loads a `*.docspecs.yaml` document from the file at path —
+// LoadFileD05InteractionScenarios loads a `*.tomspecs.yaml` document from the file at path —
 // the file companion to LoadYamlD05InteractionScenarios. A read or decode error is returned
 // to the caller.
 func LoadFileD05InteractionScenarios(path string) (*D05InteractionScenarios, error) {
@@ -12500,7 +12500,7 @@ func (x *D06ArchitectureTechnologySpecification) EditabilityFor(documentVersion 
 	return som.SomEditabilityFor(D06ArchitectureTechnologySpecificationModelVersion, documentVersion)
 }
 
-// LoadYamlD06ArchitectureTechnologySpecification loads a `*.docspecs.yaml` document in one call: decode the
+// LoadYamlD06ArchitectureTechnologySpecification loads a `*.tomspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
 // decode → loadJson → thread-documentVersion sequence (SOM §21). Returns a
@@ -12515,7 +12515,7 @@ func LoadYamlD06ArchitectureTechnologySpecification(yaml string) (*D06Architectu
 	return NewD06ArchitectureTechnologySpecification(doc, doc.ModelVersion)
 }
 
-// LoadFileD06ArchitectureTechnologySpecification loads a `*.docspecs.yaml` document from the file at path —
+// LoadFileD06ArchitectureTechnologySpecification loads a `*.tomspecs.yaml` document from the file at path —
 // the file companion to LoadYamlD06ArchitectureTechnologySpecification. A read or decode error is returned
 // to the caller.
 func LoadFileD06ArchitectureTechnologySpecification(path string) (*D06ArchitectureTechnologySpecification, error) {
@@ -12659,7 +12659,7 @@ func (x *D07IntegrationInterfaceSpecification) EditabilityFor(documentVersion st
 	return som.SomEditabilityFor(D07IntegrationInterfaceSpecificationModelVersion, documentVersion)
 }
 
-// LoadYamlD07IntegrationInterfaceSpecification loads a `*.docspecs.yaml` document in one call: decode the
+// LoadYamlD07IntegrationInterfaceSpecification loads a `*.tomspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
 // decode → loadJson → thread-documentVersion sequence (SOM §21). Returns a
@@ -12674,7 +12674,7 @@ func LoadYamlD07IntegrationInterfaceSpecification(yaml string) (*D07IntegrationI
 	return NewD07IntegrationInterfaceSpecification(doc, doc.ModelVersion)
 }
 
-// LoadFileD07IntegrationInterfaceSpecification loads a `*.docspecs.yaml` document from the file at path —
+// LoadFileD07IntegrationInterfaceSpecification loads a `*.tomspecs.yaml` document from the file at path —
 // the file companion to LoadYamlD07IntegrationInterfaceSpecification. A read or decode error is returned
 // to the caller.
 func LoadFileD07IntegrationInterfaceSpecification(path string) (*D07IntegrationInterfaceSpecification, error) {
@@ -12815,7 +12815,7 @@ func (x *D08SecurityAccessSpecification) EditabilityFor(documentVersion string) 
 	return som.SomEditabilityFor(D08SecurityAccessSpecificationModelVersion, documentVersion)
 }
 
-// LoadYamlD08SecurityAccessSpecification loads a `*.docspecs.yaml` document in one call: decode the
+// LoadYamlD08SecurityAccessSpecification loads a `*.tomspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
 // decode → loadJson → thread-documentVersion sequence (SOM §21). Returns a
@@ -12830,7 +12830,7 @@ func LoadYamlD08SecurityAccessSpecification(yaml string) (*D08SecurityAccessSpec
 	return NewD08SecurityAccessSpecification(doc, doc.ModelVersion)
 }
 
-// LoadFileD08SecurityAccessSpecification loads a `*.docspecs.yaml` document from the file at path —
+// LoadFileD08SecurityAccessSpecification loads a `*.tomspecs.yaml` document from the file at path —
 // the file companion to LoadYamlD08SecurityAccessSpecification. A read or decode error is returned
 // to the caller.
 func LoadFileD08SecurityAccessSpecification(path string) (*D08SecurityAccessSpecification, error) {
@@ -12967,7 +12967,7 @@ func (x *D09ExperienceDesignSpecification) EditabilityFor(documentVersion string
 	return som.SomEditabilityFor(D09ExperienceDesignSpecificationModelVersion, documentVersion)
 }
 
-// LoadYamlD09ExperienceDesignSpecification loads a `*.docspecs.yaml` document in one call: decode the
+// LoadYamlD09ExperienceDesignSpecification loads a `*.tomspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
 // decode → loadJson → thread-documentVersion sequence (SOM §21). Returns a
@@ -12982,7 +12982,7 @@ func LoadYamlD09ExperienceDesignSpecification(yaml string) (*D09ExperienceDesign
 	return NewD09ExperienceDesignSpecification(doc, doc.ModelVersion)
 }
 
-// LoadFileD09ExperienceDesignSpecification loads a `*.docspecs.yaml` document from the file at path —
+// LoadFileD09ExperienceDesignSpecification loads a `*.tomspecs.yaml` document from the file at path —
 // the file companion to LoadYamlD09ExperienceDesignSpecification. A read or decode error is returned
 // to the caller.
 func LoadFileD09ExperienceDesignSpecification(path string) (*D09ExperienceDesignSpecification, error) {
@@ -13132,7 +13132,7 @@ func (x *D10QualityAcceptancePlan) EditabilityFor(documentVersion string) som.So
 	return som.SomEditabilityFor(D10QualityAcceptancePlanModelVersion, documentVersion)
 }
 
-// LoadYamlD10QualityAcceptancePlan loads a `*.docspecs.yaml` document in one call: decode the
+// LoadYamlD10QualityAcceptancePlan loads a `*.tomspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
 // decode → loadJson → thread-documentVersion sequence (SOM §21). Returns a
@@ -13147,7 +13147,7 @@ func LoadYamlD10QualityAcceptancePlan(yaml string) (*D10QualityAcceptancePlan, e
 	return NewD10QualityAcceptancePlan(doc, doc.ModelVersion)
 }
 
-// LoadFileD10QualityAcceptancePlan loads a `*.docspecs.yaml` document from the file at path —
+// LoadFileD10QualityAcceptancePlan loads a `*.tomspecs.yaml` document from the file at path —
 // the file companion to LoadYamlD10QualityAcceptancePlan. A read or decode error is returned
 // to the caller.
 func LoadFileD10QualityAcceptancePlan(path string) (*D10QualityAcceptancePlan, error) {
@@ -13327,7 +13327,7 @@ func (x *D11DeliveryRoadmap) EditabilityFor(documentVersion string) som.SomEdita
 	return som.SomEditabilityFor(D11DeliveryRoadmapModelVersion, documentVersion)
 }
 
-// LoadYamlD11DeliveryRoadmap loads a `*.docspecs.yaml` document in one call: decode the
+// LoadYamlD11DeliveryRoadmap loads a `*.tomspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
 // decode → loadJson → thread-documentVersion sequence (SOM §21). Returns a
@@ -13342,7 +13342,7 @@ func LoadYamlD11DeliveryRoadmap(yaml string) (*D11DeliveryRoadmap, error) {
 	return NewD11DeliveryRoadmap(doc, doc.ModelVersion)
 }
 
-// LoadFileD11DeliveryRoadmap loads a `*.docspecs.yaml` document from the file at path —
+// LoadFileD11DeliveryRoadmap loads a `*.tomspecs.yaml` document from the file at path —
 // the file companion to LoadYamlD11DeliveryRoadmap. A read or decode error is returned
 // to the caller.
 func LoadFileD11DeliveryRoadmap(path string) (*D11DeliveryRoadmap, error) {
@@ -13474,7 +13474,7 @@ func (x *D12TransitionRolloutPlan) EditabilityFor(documentVersion string) som.So
 	return som.SomEditabilityFor(D12TransitionRolloutPlanModelVersion, documentVersion)
 }
 
-// LoadYamlD12TransitionRolloutPlan loads a `*.docspecs.yaml` document in one call: decode the
+// LoadYamlD12TransitionRolloutPlan loads a `*.tomspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
 // decode → loadJson → thread-documentVersion sequence (SOM §21). Returns a
@@ -13489,7 +13489,7 @@ func LoadYamlD12TransitionRolloutPlan(yaml string) (*D12TransitionRolloutPlan, e
 	return NewD12TransitionRolloutPlan(doc, doc.ModelVersion)
 }
 
-// LoadFileD12TransitionRolloutPlan loads a `*.docspecs.yaml` document from the file at path —
+// LoadFileD12TransitionRolloutPlan loads a `*.tomspecs.yaml` document from the file at path —
 // the file companion to LoadYamlD12TransitionRolloutPlan. A read or decode error is returned
 // to the caller.
 func LoadFileD12TransitionRolloutPlan(path string) (*D12TransitionRolloutPlan, error) {
@@ -13644,7 +13644,7 @@ func (x *D13CodeSpecsProjection) EditabilityFor(documentVersion string) som.SomE
 	return som.SomEditabilityFor(D13CodeSpecsProjectionModelVersion, documentVersion)
 }
 
-// LoadYamlD13CodeSpecsProjection loads a `*.docspecs.yaml` document in one call: decode the
+// LoadYamlD13CodeSpecsProjection loads a `*.tomspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
 // decode → loadJson → thread-documentVersion sequence (SOM §21). Returns a
@@ -13659,7 +13659,7 @@ func LoadYamlD13CodeSpecsProjection(yaml string) (*D13CodeSpecsProjection, error
 	return NewD13CodeSpecsProjection(doc, doc.ModelVersion)
 }
 
-// LoadFileD13CodeSpecsProjection loads a `*.docspecs.yaml` document from the file at path —
+// LoadFileD13CodeSpecsProjection loads a `*.tomspecs.yaml` document from the file at path —
 // the file companion to LoadYamlD13CodeSpecsProjection. A read or decode error is returned
 // to the caller.
 func LoadFileD13CodeSpecsProjection(path string) (*D13CodeSpecsProjection, error) {

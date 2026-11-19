@@ -2,7 +2,7 @@
 'use strict';
 
 /**
- * Hierarchical `*.docspecs.yaml` v2 codec tests — a port of
+ * Hierarchical `*.tomspecs.yaml` v2 codec tests — a port of
  * `tom_som_python_runtime/tests/spec_document_yaml_test.py` (itself a port of
  * `tom_som_dart_runtime/test/spec_document_yaml_test.dart`).
  *
@@ -202,7 +202,7 @@ function testEncode() {
   _check(
     'encode.header',
     yaml.startsWith(
-      '# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\n',
+      '# TomSpecs document (*.tomspecs.yaml). Hierarchical format v2.\n',
     ),
     yaml.split('\n')[0],
   );

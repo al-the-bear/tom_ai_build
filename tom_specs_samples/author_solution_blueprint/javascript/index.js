@@ -89,12 +89,12 @@ function main() {
   const yaml = yamlEncode(doc, d00SolutionBlueprintMetaTree, model.modelVersionString);
   const markdown = doc.toMarkdown(model, 'D00SolutionBlueprint');
 
-  fs.writeFileSync(path.join(outDir, 'blueprint.docspecs.yaml'), yaml);
-  fs.writeFileSync(path.join(outDir, 'blueprint.md'), markdown);
+  fs.writeFileSync(path.join(outDir, 'blueprint.tomspecs.yaml'), yaml);
+  fs.writeFileSync(path.join(outDir, 'blueprint.tomspecs.md'), markdown);
 
   console.log('3. Serialised both renditions into build/');
-  console.log(`   blueprint.docspecs.yaml : ${lines(yaml)} lines  (SOM §12)`);
-  console.log(`   blueprint.md            : ${lines(markdown)} lines  (SOM §11)`);
+  console.log(`   blueprint.tomspecs.yaml : ${lines(yaml)} lines  (SOM §12)`);
+  console.log(`   blueprint.tomspecs.md   : ${lines(markdown)} lines  (SOM §11)`);
   console.log('');
 
   // -------------------------------------------------------------- step 4
@@ -103,7 +103,7 @@ function main() {
   // the two strings is the actual proof — comparing field by field would only
   // prove the fields somebody thought to compare.
   const reloaded = D00SolutionBlueprint.loadFile(
-    path.join(outDir, 'blueprint.docspecs.yaml'),
+    path.join(outDir, 'blueprint.tomspecs.yaml'),
   );
   const reYaml = yamlEncode(
     reloaded.doc,

@@ -16,7 +16,7 @@ import 'package:tom_som_dart_v0/tom_som_dart_v0_model.dart';
 void main() {
   final tree = buildSomMetaTree(somSpecModel, rootType: 'D00SolutionBlueprint');
   SpecDocument meridian() => SpecDocument.fromFile(
-    '../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml',
+    '../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml',
     tree,
   );
   final scalePath = tree.byId('SYSCL')!.path!;

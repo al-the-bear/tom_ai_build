@@ -179,12 +179,12 @@ int main(void) {
     fprintf(stderr, "serialisation failed\n");
     return 1;
   }
-  write_file("build/blueprint.docspecs.yaml", yaml);
-  write_file("build/blueprint.md", markdown);
+  write_file("build/blueprint.tomspecs.yaml", yaml);
+  write_file("build/blueprint.tomspecs.md", markdown);
 
   printf("3. Serialised both renditions into build/\n");
-  printf("   blueprint.docspecs.yaml : %d lines  (SOM §12)\n", lines(yaml));
-  printf("   blueprint.md            : %d lines  (SOM §11)\n", lines(markdown));
+  printf("   blueprint.tomspecs.yaml : %d lines  (SOM §12)\n", lines(yaml));
+  printf("   blueprint.tomspecs.md   : %d lines  (SOM §11)\n", lines(markdown));
   printf("\n");
 
   /* ------------------------------------------------------------ step 4
@@ -196,7 +196,7 @@ int main(void) {
   D00SolutionBlueprint reloaded;
   SpecDocument *reloaded_doc = NULL;
   char *err = NULL;
-  if (d00_solution_blueprint_load_file(&reloaded, "build/blueprint.docspecs.yaml", &reloaded_doc, &err) != 0) {
+  if (d00_solution_blueprint_load_file(&reloaded, "build/blueprint.tomspecs.yaml", &reloaded_doc, &err) != 0) {
     fprintf(stderr, "reload: %s\n", err != NULL ? err : "?");
     free(err);
     return 1;

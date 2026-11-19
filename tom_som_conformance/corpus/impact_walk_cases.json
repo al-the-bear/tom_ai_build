@@ -1016,8 +1016,8 @@
       },
       "listing": [
         "phase1_project_idea/project_idea.md",
-        "phase2_solution_blueprint/plan.sbp.docspecs.yaml",
-        "phase2_solution_blueprint/01_Initial Version/plan.sbp.docspecs.yaml",
+        "phase2_solution_blueprint/plan.sbp.tomspecs.yaml",
+        "phase2_solution_blueprint/01_Initial Version/plan.sbp.tomspecs.yaml",
         "phase3_detailed_specifications/notes.md",
         "generated-doc/codespecs_extracts/CE-DB.extract.yaml",
         "generated-doc/codespecs_extracts/CE-DB.extract.md",
@@ -1302,7 +1302,7 @@
           ]
         },
         "documentFiles": [
-          "phase2_solution_blueprint/plan.sbp.docspecs.yaml"
+          "phase2_solution_blueprint/plan.sbp.tomspecs.yaml"
         ],
         "markdown": "# Impact walk\n\nEvery section of every document root, filled or not: the section-id chain, the model class, whether it holds values, and its CodeSpecs routing. A list counts its items; an empty list of sections shows what a new item holds at `<list>/*`.\n\n## SBP — Plan\n\n10 rows, 6 holding values.\n\n| Section-id chain | Path | Kind | Class | Values | Items | Routing |\n| --- | --- | --- | --- | --- | --- | --- |\n| SBP | `SBP` | root | Plan | 7 |  | documentRoot |\n| SBP > OPS | `SBP/OPS` | complex | Ops | 4 |  | feedsProcess: ops |\n| SBP > OPS > STP-LST | `SBP/OPS/STP-LST` | list | Step | 3 | 2 | feedsProcess: ops |\n| SBP > OPS > STP-LST > STP-DEPLOY | `SBP/OPS/STP-LST-1` | item | Step | 2 |  | feedsProcess: ops |\n| SBP > OPS > STP-LST > STP-LST-2 | `SBP/OPS/STP-LST-2` | item | Step | 1 |  | feedsProcess: ops |\n| SBP > TAG-LST | `SBP/TAG-LST` | list |  | 2 | 2 | feedsCode: textCatalogue |\n| SBP > PRT-LST | `SBP/PRT-LST` | list | Part | — | 0 | unrouted |\n| SBP > PRT-LST > * | `SBP/PRT-LST/*` | template | Part | — |  | unrouted |\n| SBP > PRT-LST > * > PDT | `SBP/PRT-LST/*/PDT` | complex | Detail | — |  | feedsNothing: overview |\n| SBP > DTL | `SBP/DTL` | section | Detail | — |  | feedsNothing: overview |\n\n## EXT — Extra (absent)\n\n4 rows, 0 holding values.\n\n| Section-id chain | Path | Kind | Class | Values | Items | Routing |\n| --- | --- | --- | --- | --- | --- | --- |\n| EXT | `EXT` | root | Extra | — |  | feedsCode: form |\n| EXT > XPT-LST | `EXT/XPT-LST` | list | Part | — | 0 | unrouted |\n| EXT > XPT-LST > * | `EXT/XPT-LST/*` | template | Part | — |  | unrouted |\n| EXT > XPT-LST > * > PDT | `EXT/XPT-LST/*/PDT` | complex | Detail | — |  | feedsNothing: overview |\n\n## Level\n\n- Documents present: SBP\n- Documents absent: EXT\n- Project Idea: yes\n- CodeSpecs extracts: 2; gate record: yes\n- IR Specs: 1\n- Gates: `gates/G2.checklist.yaml`, `quality/evidence/gates/G2_20261104-1943.gate.md`\n- Tests: `plan_server/test` (present)\n- Code: `plan_server/lib` (absent)\n- Phases reached: 1, 2, 4, 5; left out by a change: 3, 6 (Phases 7–8 are not visible on disk)\n"
       }

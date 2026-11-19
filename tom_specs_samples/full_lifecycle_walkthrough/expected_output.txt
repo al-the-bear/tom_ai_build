@@ -74,7 +74,7 @@ PHASE 2 — Solution Blueprint
 --------------------------------------------------------------------------
 PHASE 3 — Detailed Specifications
 --------------------------------------------------------------------------
-  artifact: build/03_*.md
+  artifact: build/03_*.tomspecs.md
 
   IN   the accepted Blueprint and the SBP → target section mapping
   OUT  the twelve specification documents, each at the depth needed

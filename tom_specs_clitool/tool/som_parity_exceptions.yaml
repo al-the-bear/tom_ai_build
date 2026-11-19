@@ -47,7 +47,7 @@ exceptions:
       layer to serve, so the resolved member would have no caller.
 
       The token reached the vocabulary as DOCUMENT CONTENT, which is the part
-      worth knowing: `samples/uam_access_hub.docspecs.yaml` has a form field
+      worth knowing: `samples/uam_access_hub.tomspecs.yaml` has a form field
       *named* `discriminatorField` ("Is-Success Discriminator"), and a sample's
       field names are indistinguishable by shape from contract tokens. It
       matched Dart's same-named member by coincidence, not by meaning.

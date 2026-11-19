@@ -733,7 +733,7 @@ void spec_impact_document_files(const SomStrList *listing, SomStrList *out) {
   som_strlist_init(out);
   for (size_t i = 0; i < files.len; i++) {
     if (folder_file_matches(files.items[i], "phase", "", 1,
-                            ".docspecs.yaml")) {
+                            ".tomspecs.yaml")) {
       som_strlist_push_copy(out, files.items[i]);
     }
   }

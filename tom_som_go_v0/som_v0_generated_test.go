@@ -39,7 +39,7 @@ import (
 // samplePath is the shared cross-language conformance sample. Tests read it via
 // this relative path, so `go test` must run from the project directory (the
 // `../tom_som_conformance/...` prefix resolves against the module root).
-const samplePath = "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml"
+const samplePath = "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.yaml"
 
 func TestRootAndParity(t *testing.T) {
 	doc := som.NewSpecDocument()
@@ -536,7 +536,7 @@ func TestOneCallLoading(t *testing.T) {
 // nine-toolchain golden run. Mirrors the Dart (dsa7), Python (dsa8),
 // JavaScript (dsa9) and TypeScript (dsa10) durability guards.
 func TestLiveDocumentCase(t *testing.T) {
-	const sampleMd = "../tom_som_dart_v0/documents/meridian_order_management.md"
+	const sampleMd = "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.md"
 	const schemaPath = "schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml"
 	const modelMetaPath = "meta/spec_model.meta.json"
 	tree := D00SolutionBlueprintMetaTree
@@ -668,9 +668,9 @@ func TestLiveDocumentCase(t *testing.T) {
 // @SectionIdPattern default (`UCE-USER-1`). Ids are identity and paths only
 // position, so after a move the item must keep its id rather than take its new
 // position's. Mirrors the Dart guard 'markdown import: the .md lands on exactly
-// the .docspecs.yaml'.
+// the .tomspecs.yaml'.
 func TestMarkdownImportLandsOnYaml(t *testing.T) {
-	const sampleMd = "../tom_som_dart_v0/documents/meridian_order_management.md"
+	const sampleMd = "../tom_som_dart_v0/documents/meridian_order_management.tomspecs.md"
 	const modelMetaPath = "meta/spec_model.meta.json"
 	tree := D00SolutionBlueprintMetaTree
 
@@ -707,7 +707,7 @@ func TestMarkdownImportLandsOnYaml(t *testing.T) {
 		t.Fatalf("som.EncodeYaml: %v", err)
 	}
 	if encoded != string(yamlText) {
-		t.Fatal("imported markdown does not encode to the sample .docspecs.yaml")
+		t.Fatal("imported markdown does not encode to the sample .tomspecs.yaml")
 	}
 
 	// The first list whose items all carry a stored id equal to their

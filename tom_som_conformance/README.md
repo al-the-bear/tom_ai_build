@@ -149,7 +149,7 @@ accessor *names* differ:
 | `meta-nav` | Dot-notation navigation accessors (`d00SolutionBlueprint.introductionAndScope.goals`), asserted to resolve to the same node instance `byPath` finds. |
 | `meta-id` | Hoisted-id accessors (`SBP`, `SBP.RVENT_REVS_LST.item(0)`), asserted to agree with the dot-notation position. |
 | `docspecs` | The sample's markdown validated against the facade's generated DocSpecs schema — root id, warning count, violation count. |
-| `docspecs-invalid` | [`samples/invalid_demo_document.md`](samples/invalid_demo_document.md) validated against [`corpus/docspecs_schema.yaml`](corpus/docspecs_schema.yaml) (FORMAT 10) — the same three counters plus the rule-vocabulary size and the number of distinct rules reached, then **one `DV` line per violation**. This is the only section that puts the per-violation emission under byte comparison; see "The invalid companion fixture" in [`samples/README.md`](samples/README.md). |
+| `docspecs-invalid` | [`samples/invalid_demo_document.tomspecs.md`](samples/invalid_demo_document.tomspecs.md) validated against [`corpus/docspecs_schema.yaml`](corpus/docspecs_schema.yaml) (FORMAT 10) — the same three counters plus the rule-vocabulary size and the number of distinct rules reached, then **one `DV` line per violation**. This is the only section that puts the per-violation emission under byte comparison; see "The invalid companion fixture" in [`samples/README.md`](samples/README.md). |
 
 Each generator is itself a test: it asserts the typed reads equal the generic
 reads, the metadata-tree nav/id accessors resolve to the same nodes `byPath`
@@ -176,7 +176,7 @@ Each guard carries a **fourth** assertion, and it is the one guarantee in the
 group that has no golden section behind it: the sample also validates cleanly on
 the **instance tier** (`validateDocument`, SOM §9). A golden section could not
 carry it — over a valid sample it would only ever report zero, which is the same
-reason the `docspecs` golden needed the separate `invalid_demo_document.md`
+reason the `docspecs` golden needed the separate `invalid_demo_document.tomspecs.md`
 companion. The two validation tiers are disjoint questions — the `docspecs`
 golden section asks whether every *required section* is present,
 `validateDocument` asks whether the *values* are well-formed (field kinds, form
@@ -243,7 +243,7 @@ the harness's diet:
   ([`tom_som_dart_v0/meta/spec_model.meta.json`](../tom_som_dart_v0/meta/spec_model.meta.json))
   from the `D00SolutionBlueprint` root and holds both metrics (instantiated list
   structures, instantiated section ids, where *instantiated* means the id
-  appears as a mapping key in some `samples/*.docspecs.yaml`, never in prose)
+  appears as a mapping key in some `samples/*.tomspecs.yaml`, never in prose)
   against the committed remaining set in
   [`tool/sample_coverage_manifest.yaml`](tool/sample_coverage_manifest.yaml),
   which is **empty**: full instantiation coverage, ratcheted — a structure
@@ -335,7 +335,7 @@ is a pair:
 | ---- | ---- |
 | [`corpus/docspecs_schema.yaml`](corpus/docspecs_schema.yaml) | The shared schema **input** — one schema whose features exist to provoke all eleven rules (a `max-text-length`, a `min-count: 2` container, a required form field with a pattern check, …). |
 | [`corpus/docspecs_cases.json`](corpus/docspecs_cases.json) | One case per rule: the invalid markdown plus the `rule` / `sectionId` / `line` triples the reference produces. |
-| [`samples/invalid_demo_document.md`](samples/invalid_demo_document.md) | The golden tier's counterpart to the cases file — one document violating all eleven rules at once, against the *same* schema. Read only by the nine golden generators, not by the runtime runners. |
+| [`samples/invalid_demo_document.tomspecs.md`](samples/invalid_demo_document.tomspecs.md) | The golden tier's counterpart to the cases file — one document violating all eleven rules at once, against the *same* schema. Read only by the nine golden generators, not by the runtime runners. |
 
 Three things about the table are deliberate:
 
@@ -522,7 +522,7 @@ totality outright.
 [`corpus/markdown_import_cases.json`](corpus/markdown_import_cases.json) pins what
 a Markdown import does with a block it **cannot** place. It arrived after the same
 trap as the tier above: `SpecMarkdownRejectReason` was declared in all nine
-runtimes and asked about by nothing, because [`expected.md`](corpus/expected.md)
+runtimes and asked about by nothing, because [`expected.tomspecs.md`](corpus/expected.tomspecs.md)
 is a byte-golden of a *successful* export and the three markdown tiers all assert
 `isClean()`. The failure that hid behind that is the worst one SOM §11.7 exists to
 prevent — a port that silently **drops** an unplaceable block is
@@ -1031,11 +1031,11 @@ for reaching a path without a literal by navigate-then-read off a node's `.path`
 ```text
 tom_som_conformance/
 ├── samples/                 the shared specification documents
-│   ├── meridian_order_management.docspecs.yaml   the golden harness's diet
-│   ├── meridian_order_management.md              …and its markdown rendition
-│   ├── uam_access_hub.docspecs.yaml              reaches what Meridian does not
-│   ├── exercise_full_model.docspecs.yaml         generated; drives coverage to empty
-│   ├── invalid_demo_document.md                  invalid on purpose
+│   ├── meridian_order_management.tomspecs.yaml   the golden harness's diet
+│   ├── meridian_order_management.tomspecs.md              …and its markdown rendition
+│   ├── uam_access_hub.tomspecs.yaml              reaches what Meridian does not
+│   ├── exercise_full_model.tomspecs.yaml         generated; drives coverage to empty
+│   ├── invalid_demo_document.tomspecs.md                  invalid on purpose
 │   └── meridian_codespecs/                       the Phase-4 CodeSpecs trio
 ├── corpus/                  language-agnostic case tables + expected outputs
 ├── golden/                  per-language logs — git-ignored, regenerated on demand
@@ -1046,8 +1046,8 @@ tom_som_conformance/
 
 | Path | Purpose |
 | ---- | ------- |
-| [`samples/`](samples/) | The shared specification samples: the Meridian pair (`meridian_order_management.docspecs.yaml` + `.md`, authored through the Dart typed facade and loaded by every language's golden generator), the hand-authored UAM access-hub sample, the generated full-model exercise sample, and the deliberately invalid companion fixture. Together the `*.docspecs.yaml` samples instantiate the **full** SBP-reachable model (the coverage manifest is empty); only the Meridian pair feeds the golden harness. See [`samples/README.md`](samples/README.md). |
-| [`samples/meridian_codespecs/`](samples/meridian_codespecs/) | The Phase-4 CodeSpecs trio authored from the Meridian sample's extracts — `meridian_codespec_shared` / `_client` / `_server`, the three-project split. Skeletal `Cs*`-annotated Dart depending only on [`tom_code_specs`](../tom_code_specs/), kept as a worked reference for what Phase 4 produces; outside the golden harness and outside the coverage gate, which read `*.docspecs.yaml` only. |
+| [`samples/`](samples/) | The shared specification samples: the Meridian pair (`meridian_order_management.tomspecs.yaml` + `.md`, authored through the Dart typed facade and loaded by every language's golden generator), the hand-authored UAM access-hub sample, the generated full-model exercise sample, and the deliberately invalid companion fixture. Together the `*.tomspecs.yaml` samples instantiate the **full** SBP-reachable model (the coverage manifest is empty); only the Meridian pair feeds the golden harness. See [`samples/README.md`](samples/README.md). |
+| [`samples/meridian_codespecs/`](samples/meridian_codespecs/) | The Phase-4 CodeSpecs trio authored from the Meridian sample's extracts — `meridian_codespec_shared` / `_client` / `_server`, the three-project split. Skeletal `Cs*`-annotated Dart depending only on [`tom_code_specs`](../tom_code_specs/), kept as a worked reference for what Phase 4 produces; outside the golden harness and outside the coverage gate, which read `*.tomspecs.yaml` only. |
 | [`corpus/`](corpus/) | Language-agnostic case tables plus their expected outputs, consumed by each runtime's conformance runner. **Every tier has a `##### …and so does the <tier>` subsection above, and each one names its own tables** — the tiers are not listed here, because a list in two places is a list that goes stale in one of them (it did: the scripting tier and the version check were both added without this row noticing). What keeps the tables *complete* is the enum-coverage guard — see "Corpus completeness" above before adding a check to any runtime. |
 | `golden/` | Per-language golden logs (`<lang>.log`) written by the nine golden generators. **Git-ignored** — regenerated on demand by [`tool/regenerate_golden.sh`](tool/regenerate_golden.sh). |
 | [`generated-doc/`](generated-doc/) | Generator output, kept out of the hand-written tree so a stray ad-hoc run cannot leave a stale copy among authored files. One type so far: `codespecs_extracts/`, the 27 per-area Phase-4 extracts emitted by `spec_codespecs_extract` over the Meridian sample, as `.extract.yaml` (the artifact of record) / `.extract.md` (the rendered view) pairs plus `gate.verdicts.yaml`. |
