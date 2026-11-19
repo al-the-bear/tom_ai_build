@@ -10,7 +10,7 @@
 | **Product owner and review team** | alexis, product owner and only reviewer (`USR > USR-TEAM`) |
 | **Sources** | section 1 (`SRC`); the three main ones are kept as snapshots in `sources/` |
 | **Written by** | `agent_spec_author` |
-| **Status** | Question round 2 closed: every answer of `PQ-1` … `PQ-23` is in the text; no question open |
+| **Status** | Question round 2 closed: every answer of `PQ-1` … `PQ-23` is in the text, and the text was read as a whole against the answers; no question open |
 | **Next phase** | Phase 2 Solution Blueprint |
 
 The document states the idea as it stands. It is free-form Markdown; the
@@ -131,12 +131,14 @@ and two sets of libraries:
 | --- | --- | --- |
 | **Tom AI Runtime** | tar | The engine as a runtime of its own (`tom_ai/ai_build/tom_ai_runtime`, TypeScript): quests, todos, processes and runs, the queue, sessions, transports, tools and an MCP server, without a VS Code window. A host attaches to it and adds as thin a user interface as it needs. (S1 § 4, § 5; FO-1) |
 | **Tom Agent Coordination** | tac | The service through which runtimes find each other and keep out of each other's way (presence, leases, messages, endpoints), and the messaging server between the people who use applications linked with a runtime: documents for review, messages, reminders, decisions. A reusable component of its own. (S1 § 4, § 7.1, § 7.2; CQ-15) |
-| **Tom Runtime Control** | trc | The supervision application: every runtime of a team in one view, with full remote control. A Webforge application that also runs standalone. (S1 § 12.4; FO-12) |
+| **Tom Runtime Control** | trc | The supervision application: every runtime of a team in one view, with full remote control. A Webforge application that also runs standalone, on the desktop and, in the first version, on the phone and the tablet. (S1 § 12.4; FO-12; PQ-9) |
 | **Client packages** | — | One runtime client and one tac client per language, for nine languages (Dart, TypeScript, JavaScript, Python, Java, Go, Rust, C, C++). (S1 § 12.1; FO-10, FO-11, CQ-15) |
 | **Flutter UI components** | — | `tom_ai_runtime_ui`: the reusable user interface of the runtime for Flutter applications. No user interface components for other platforms. (S1 § 12.2; S4, note l) |
 
-The hosts of the first version are the VS Code extension, Webforge and Webwork
-(S1 § 4).
+The hosts of the first version are the VS Code extension, Webforge, Webwork
+and the supervision application; for the supervision application on a phone
+or a tablet the host is a server that runs one runtime per client (S1 § 4;
+PQ-9, PQ-16; `RT > RT-INSTALL`, CR.46).
 
 ### <!--[VIS-GIVES]--> 2.3 What it is to give
 
@@ -160,8 +162,8 @@ The hosts of the first version are the VS Code extension, Webforge and Webwork
 - **V-6** Parallel work that is enforced, not agreed: claims on what a run
   touches, an integration step before the main branch, a record of what each
   todo changed. (S1 § 10.4)
-- **V-7** Supervision of a whole team's runtimes from one place. (S8;
-  S1 § 12.4)
+- **V-7** Supervision of a whole team's runtimes from one place, also from
+  a phone or a tablet while away. (S8; S1 § 12.4; PQ-9)
 - **V-8** Putting the runtime's user interface into a Flutter application is
   simple. (S4, note l; S1 § 12.2)
 
@@ -173,11 +175,11 @@ The hosts of the first version are the VS Code extension, Webforge and Webwork
 | --- | --- | --- | --- |
 | **U-1** | **A developer working with agents in an editor.** One person with one or several machines, many quests, many windows. | Queue prompts and todo walks, run processes, answer the agents' questions, review results, and work in parallel without runs disturbing each other. | S1 § 3.1, § 10.1 |
 | **U-2** | **A team member who reviews or decides**, often without access to any repository (a business reviewer). | Receive documents for review, annotate and return them; answer questions and take decisions that a run or a colleague addresses to them; exchange messages. | S1 § 3.2, § 7.7; S3 |
-| **U-3** | **A team owner.** | Create a team, invite members, remove them, administer the team's configuration (the providers that may be used, standard profiles); is the last in the chain when a question stays unanswered. | S1 § 7.3, § 5.5, § 6.6; DQ-2, DQ-11 |
+| **U-3** | **A team owner.** | Create a team on a server they have joined, invite members, remove them, administer the team's configuration (the providers that may be used, standard profiles); is the last in the chain when a question stays unanswered. | S1 § 7.3, § 5.5, § 6.6; DQ-2, DQ-11; PQ-20 |
 | **U-4** | **A quest owner.** Every quest has one. | Answer the questions that concern the quest's topics, or forward them. | S1 § 6.6; CQ-7 |
-| **U-5** | **A supervisor of a group of runtimes.** Usually a person supervising their own runtimes, or a part of a team's. | See what every runtime does and what waits; queue todos, start and pause runs, continue processes, answer questions, review documents, from one place. | S8; S1 § 12.4; FO-12 |
+| **U-5** | **A supervisor of a group of runtimes.** Usually a person supervising their own runtimes, or a part of a team's. | See what every runtime does and what waits; queue todos, start and pause runs, continue processes, answer questions, review documents, from one place: at the desk, and from a phone or a tablet while away. | S8; S1 § 12.4; FO-12; PQ-9 |
 | **U-6** | **An application developer** who embeds the runtime in a Flutter application, or uses it from another language. | Attach an application to a runtime through a client package, offer the application's own tools to it, and build the user interface from ready components. | S1 § 12.1, § 12.2, § 6.3; S4, notes k, l |
-| **U-7** | **An administrator of a tac server.** | Run the server for one or several teams, set it up with TLS, create the first team, pair it with Tom Secrets Manager. | S1 § 7.2, § 5.8; CQ-9, CQ-16 |
+| **U-7** | **An administrator of a tac server.** | Run the server for one or several teams, set it up with TLS, set whether it is open or strict, create the first customer and its access key, pair the server with Tom Secrets Manager. | S1 § 7.2, § 5.8; CQ-9, CQ-16; PQ-13, PQ-20 |
 
 ### <!--[USR-HOSTS]--> 3.0.1 Hosts and waiting quests
 
@@ -210,7 +212,7 @@ no document type has a team of its own. No e-mail address is stored.
 | **tac** | Tom Agent Coordination: the service for coordination between runtimes and messaging between people; `TAC` is its protocol. |
 | **trc** | Tom Runtime Control: the supervision application. |
 | **runtime** | One running instance of tar. It serves one quest (or none, for an application's own AI), belongs to exactly one person, and is started by its host. |
-| **host** | The application a runtime runs for and through which it reaches a user: the VS Code extension, Webforge, Webwork. The host supplies locations, identity, configuration, the user interface for questions, and its own tools. |
+| **host** | The application a runtime runs for and through which it reaches a user: the VS Code extension, Webforge, Webwork, the supervision application; for a client in a browser, on a phone or on a tablet, a server that runs one runtime per client. The host supplies locations, identity, configuration, the user interface for questions, and its own tools. |
 
 **Work in a runtime**
 
@@ -241,7 +243,10 @@ no document type has a team of its own. No e-mail address is stored.
 | **lease** | An exclusive right on a resource for a limited time, granted by tac to a session and renewed while it is used. |
 | **claim** | What a run asks for before it works: the leases on the resources its todo needs, taken all or none. |
 | **fencing token** | A number that grows with every grant of a lease; a write carries it, so a write by a holder whose lease has passed to someone else is refused. |
-| **unit** | A declared part of a repository (a path in it) that can be claimed on its own. |
+| **resource** | What a lease is held on: for now a whole repository, or a part of one described by a pattern of paths. It is named when it is asked for and registered nowhere; tac knows only what it has granted. |
+| **strict mode** | The mode in which a claim is exclusive and blocks others for the whole todo. A repository without a working tree per run is always in it while a todo executes. |
+| **open server, strict server** | The setting of a tac server for identity: on an open server a client states a user id and an e-mail address and is believed; on a strict server everyone needs an invitation and a team token. Access from the internet is always strict. |
+| **pairing** | Enrolling a device once, from inside, by its person, so that it gets a key of its own and may reach the server from the internet; a single device can be removed. |
 | **endpoint** | An address a runtime publishes through tac for others to reach it (its MCP server, its remote control); it exists only while the runtime is present. |
 
 **Messaging, documents and review**
@@ -275,17 +280,17 @@ The specification's root is `tom_ai/ai_build/specification/`.
 | Runtime core (`CR`) | The `_ai` formats and stores; processes and runs; the queue; sessions; model and agent transports; locations and configuration; machine-wide state; installation, lifetime and versions | S1 § 5 |
 | Protocol and hosts (`CP`) | The runtime protocol (commands, numbered events, reverse requests, asks); the host interface; routing and escalation of asks; versions and compatibility; the Agent Client Protocol in both directions | S1 § 6 |
 | Tools and MCP (`CT`) | Runtime tools, host tools, the runtime's MCP server, the runtime as client of external MCP servers | S1 § 6.3, § 6.4 |
-| Coordination between runtimes (`CA`) | Presence and discovery, sessions, leases and units, messages between runtimes, endpoints; the backends local, GitHub and server; the relay | S1 § 7.1, § 7.2; S5; S6 |
-| People, teams and identity (`CI`) | Participants, teams, invitations and team tokens, identification, permission for remote control, a quest's home team and owner | S1 § 7.3 |
+| Coordination between runtimes (`CA`) | Presence and discovery, sessions, leases on named resources, messages between runtimes, endpoints; the backends local, GitHub and server; the relay | S1 § 7.1, § 7.2; S5; S6; PQ-10, PQ-23 |
+| People, teams and identity (`CI`) | Participants, teams, invitations and team tokens, identification, the open or strict server, the pairing of devices, permission for remote control, a quest's home team and owner | S1 § 7.3; PQ-9, PQ-13 |
 | Messaging (`CM`) | Conversations, message kinds, reminders, presence-aware delivery, history and read state | S1 § 7.4, § 7.5 |
 | Documents and review (`CV`) | Blobs with lifetimes and pinning, review sets, the review exchange | S1 § 7.6, § 7.7 |
 | Parallel work and integration (`CW`) | Claims in the queue, worktrees per repository setting, the integration step and queue, touch sets, the record of a todo's commits, quiescence, cross-quest addressing and delivery | S1 § 10.4, § 10.5 |
 | Client packages (`CL`) | The runtime client and the tac client in nine languages, with one conformance suite | S1 § 12.1 |
 | UI components (`CU`) | `tom_ai_runtime_ui`, the descriptions of its screens and components, a gallery application | S1 § 12.2, § 12.3 |
-| Supervision (`CK`) | trc | S1 § 12.4 |
+| Supervision (`CK`) | trc, on the desktop, the phone and the tablet | S1 § 12.4; PQ-9 |
 | Repository quests and personal files (`CQ`) | Quest types, the personal repository, personal notes | S1 § 12.5; S2 § 3.7 |
 | Secrets, configuration and providers (`CS`) | Secret references and their resolution; the configuration split into the repository's, the team's and the runtime's part; the model providers | S1 § 5.5, § 5.8; S7 |
-| The split | Extracting the engine from the VS Code extension, with a stable extension beside it while that runs | S1 § 13.3 |
+| The split (no area of its own: D-40, D-41; N-32, N-33; R-1; `DEL`) | Extracting the engine from the VS Code extension, with a stable extension beside it while that runs | S1 § 13.3 |
 
 ### <!--[SCO-OUT]--> 5.2 Out of scope
 
@@ -293,8 +298,8 @@ The specification's root is `tom_ai/ai_build/specification/`.
   and the tools that need VS Code. They stay in the extension, which becomes
   a host. (S1 § 6.3; S2 § 3.3)
 - **O-2** The applications that host a runtime — Webforge, Webwork and their
-  own tools and screens — apart from what they need from this product. (S3;
-  S14)
+  own tools and screens — apart from what they need from this product. (S3,
+  "Why Webwork needs it, and when" and WR-7; S14, part two, § 5)
 - **O-3** User interface components for platforms other than Flutter. (S4,
   note l)
 - **O-4** Transports implemented by a host: the VS Code language-model
@@ -322,16 +327,16 @@ Decided as not part of the first version (S1 § 11.1).
 | Id | Feature | What defers it |
 | --- | --- | --- |
 | **L-1** | Todos to the cloud: handing a todo to a vendor's hosted agent, or to a runtime server of our own, and integrating the branch that comes back | CQ-13: sending work out sends source code out; a data policy comes first (S1 § 11.2 … § 11.5) |
-| **L-2** | A data policy per quest or repository: which provider may see what | DQ-8: the centrally administered configuration decides for now |
-| **L-3** | Asking people outside the team by e-mail, answered on a web page of the tac server | DQ-3: needs the server to send e-mail and a small web client |
-| **L-4** | The tac server sending invitation e-mails itself | DQ-2: the owner passes the one-time password on; the protocol does not change |
-| **L-5** | Standalone runtimes that outlive their host, to which a client attaches to supervise and detaches again | CQ-4: a runtime ends with its host; the protocol does not prevent the other |
-| **L-6** | End-to-end encryption between a device and a runtime, on top of encryption in transit and the paired device's key | CQ-10, PQ-9: the pairing of devices is in the first version; whether end-to-end encryption has to be is an open point for the security model (`TAC > TAC-CRYPT`, CI.19) |
-| **L-7** | A review's own git repository on the tac server, for reviewers without repository access | DQ-4: pinned blobs cover reading and returning |
-| **L-8** | Webwork in a browser, on a phone and on a tablet, with its messaging there: Webwork's own server side | WQ-1: in a later wave of Webwork; the server-side runtime it will use is in the first version, for the supervision application (`NFR > NFR-TOPO`, T8; PQ-9) |
-| **L-9** | Telegram: one bot token for every runtime, one chat per machine | FO-16 |
-| **L-10** | Encryption at rest of messages and blobs | FO-20: an option, its key in Tom Secrets Manager |
-| **L-11** | Billing, and customers of several organisations on one server | the server has the records for it (CQ-9) |
+| **L-2** | A data policy per quest or repository: which provider may see what | DQ-8: the centrally administered configuration decides for now (S1 § 11.1) |
+| **L-3** | Asking people outside the team by e-mail, answered on a web page of the tac server | DQ-3: needs the server to send e-mail and a small web client (S1 § 11.1) |
+| **L-4** | The tac server sending invitation e-mails itself | DQ-2: the owner passes the one-time password on; the protocol does not change (S1 § 11.1) |
+| **L-5** | Standalone runtimes that outlive their host, to which a client attaches to supervise and detaches again | CQ-4, PQ-16: a runtime ends with its host; the protocol does not prevent the other (S1 § 11.1) |
+| **L-6** | End-to-end encryption between a device and a runtime, on top of encryption in transit and the paired device's key | CQ-10, PQ-9: the pairing of devices is in the first version; whether end-to-end encryption has to be is an open point for the security model (S1 § 11.1; `TAC > TAC-CRYPT`, CI.19) |
+| **L-7** | A review's own git repository on the tac server, for reviewers without repository access | DQ-4: pinned blobs cover reading and returning (S1 § 11.1) |
+| **L-8** | Webwork in a browser, on a phone and on a tablet, with its messaging there: Webwork's own server side | WQ-1: in a later wave of Webwork; the server-side runtime it will use is in the first version, for the supervision application (S1 § 11.1; `NFR > NFR-TOPO`, T8; PQ-9) |
+| **L-9** | Telegram: one bot token for every runtime, one chat per machine | FO-16 (S1 § 11.1) |
+| **L-10** | Encryption at rest of messages and blobs | FO-20: an option, its key in Tom Secrets Manager (S1 § 11.1) |
+| **L-11** | Billing, and customers of several organisations on one server | the server has the records for it (S1 § 11.1; CQ-9) |
 
 ## <!--[LAND]--> 6 What exists today
 
@@ -377,9 +382,10 @@ Decided as not part of the first version (S1 § 11.1).
 - **E-5** **Merge drivers for the `_ai` files** in TypeScript. (S1 § 2.1)
 - **E-6** **Tom Secrets Manager clients:** Dart (`tom_secrets_client` 0.2.11)
   and TypeScript (`@al-the-bear/tom-secrets-client` 0.1.0), and the command
-  line `tsm` 0.2.6. (S15)
+  line `tsm` 0.2.6. (S15: the protocol document, § 5 "The client endpoint";
+  the idea document, part-clients)
 - **E-7** **The rules for parallel work** as a guideline, most of them by
-  agreement. (S16)
+  agreement. (S16, § 1 … § 6 and "What enforces what")
 
 ### <!--[LAND-MISSING]--> 6.2 Not built
 
@@ -395,7 +401,8 @@ Decided as not part of the first version (S1 § 11.1).
 - **E-12** tac has no server mode, no GitHub backend, no people, teams, user
   messages or documents; they exist as specification text or decisions only.
   (S5; S1 § 2.2, § 7)
-- **E-13** No supervision application exists. (S8)
+- **E-13** No supervision application exists. (S8, section `input`: the idea
+  only)
 - **E-14** No quest is a repository of its own, and there is no personal
   repository. (S2 § 3.7)
 
@@ -651,6 +658,12 @@ it, attaches to it and shows what it does. (S1 § 4, § 5; FO-1)
   needs one. (S2 § 3.2; S1 § 3.1)
 - **CR.44** A runtime is started by its host and ends with it. A long walk
   needs its host open. (S1 § 5.7, CQ-4; `SCO > SCO-LATER`, L-5)
+- **CR.45** Inside a running runtime, a run is unloaded when its last
+  subscriber has gone and nothing is queued in it. This is an option, not
+  part of the first version unless measurement shows the memory is worth the
+  added complexity: a runtime ends with its host and loads its runs again
+  when the host starts, so a run is not held for long anyway. (S1 § 6.1;
+  PQ-21)
 - **CR.46** A server can host runtimes for clients that have none of their
   own: the server side of a web application or of an application on a phone
   or a tablet runs permanently and starts one runtime per client, which ends
@@ -658,12 +671,6 @@ it, attaches to it and shows what it does. (S1 § 4, § 5; FO-1)
   host. A runtime that runs for a long time without any client, on an
   always-on machine, is later (`SCO > SCO-LATER`, L-5). (PQ-16, PQ-9;
   `NFR > NFR-TOPO`, T8)
-- **CR.45** Inside a running runtime, a run is unloaded when its last
-  subscriber has gone and nothing is queued in it. This is an option, not
-  part of the first version unless measurement shows the memory is worth the
-  added complexity: a runtime ends with its host and loads its runs again
-  when the host starts, so a run is not held for long anyway. (S1 § 6.1;
-  PQ-21)
 
 ### <!--[RT-SECRETS]--> 7.9 Secrets
 
@@ -741,6 +748,14 @@ it, attaches to it and shows what it does. (S1 § 4, § 5; FO-1)
 - **CP.10** The protocol has **reverse requests** from the runtime to the
   host: the asks, notifications, opening a file or a document, and the
   host's tools. (S1 § 6.1, § 6.2)
+- **CP.35** The link between a host and its runtime is an API with callbacks in both directions: the host calls the
+  runtime, and a tool an agent calls in the runtime can call straight into
+  the host to trigger what the host has to show or do, in the way the
+  extension's script server lets Dart code call VS Code today. Under it is a
+  wire protocol of JSON structures whose details follow what the tools need.
+  The records it carries (quest, todo, run, queue item, session, question,
+  trail entry and the others) get object models, worked out from the schemas
+  the workspace already has for the extension's files. (PQ-21; CP.10)
 - **CP.11** The protocol is published as a JSON schema in the runtime's
   package. The client packages generate their protocol layer from it and are
   checked against it. (S1 § 6.1; S2 § 5, FO-10)
@@ -904,15 +919,6 @@ files, and an older runtime does not work on newer files (S1 § 6.7, DQ-9).
   keep working because a host is compatible with several versions of the
   runtime, through the client package and the protocol's backward
   compatibility (CP.25). (PQ-6)
-- **CP.35** (belongs to `RT > RT-PROTO`) The link between a host and its
-  runtime is an API with callbacks in both directions: the host calls the
-  runtime, and a tool an agent calls in the runtime can call straight into
-  the host to trigger what the host has to show or do, in the way the
-  extension's script server lets Dart code call VS Code today. Under it is a
-  wire protocol of JSON structures whose details follow what the tools need.
-  The records it carries (quest, todo, run, queue item, session, question,
-  trail entry and the others) get object models, worked out from the schemas
-  the workspace already has for the extension's files. (PQ-21; CP.10)
 
 ### <!--[RT-PROVIDERS]--> 7.16 Model providers
 
@@ -937,7 +943,8 @@ files, and an older runtime does not work on newer files (S1 § 6.7, DQ-9).
 - **CS.17** A new transport maps its stream onto the runtime's events (text,
   reasoning, tool call, tool result, retry, notice, usage), bridges the
   runtime's tools, routes approvals, and returns the answer, with a session
-  id where the agent owns the conversation. (S7)
+  id where the agent owns the conversation. (S7, "How the runtime
+  reaches a model today")
 - **CS.18** The providers beyond today's transports are built in the
   runtime, after the transports have moved into it; none is built in the
   extension first. (S2 § 3.8; S7)
@@ -966,8 +973,9 @@ files, and an older runtime does not work on newer files (S1 § 6.7, DQ-9).
 
 - **CL.4** A client has two layers. The **protocol layer** is generated from
   the protocol's JSON schema. The **convenience layer** is written by hand
-  in each language and is the same in every language. (S1 § 12.1; S2 § 5,
-  FO-10)
+  in each language and is the same in every language. Which generator
+  writes what, and what more can be generated, is named at the start of
+  Phase 4 (`NFR > NFR-GEN`). (S1 § 12.1; S2 § 5, FO-10; PQ-17)
 - **CL.5** The convenience layer of the runtime client: find or start the
   installed runtime, connect, subscribe to events, queue a prompt, walk a
   group of todos, answer an ask, register the host's tools. That of the tac
@@ -1164,7 +1172,7 @@ local mode (`LAND > LAND-BUILT`, E-3); this section states what tac is to be.
 
 | Job | For | Area |
 | --- | --- | --- |
-| **Coordination** | runtimes: presence, discovery, sessions, leases, units, messages between runtimes, endpoints | `CA` |
+| **Coordination** | runtimes: presence, discovery, sessions, leases on named resources, messages between runtimes, endpoints | `CA` |
 | **Messaging** | people, and runtimes acting for them: conversations, messages of several kinds, documents, reminders | `CM`, `CV` |
 
 - **CA.1** Both jobs are done by one service. They share the identities, the
@@ -1182,7 +1190,10 @@ local mode (`LAND > LAND-BUILT`, E-3); this section states what tac is to be.
 - **CA.3** A runtime registers with its team: its id, its kind, its
   machine, its workspace, the quests it serves (none for a runtime without a
   quest), the repositories it coordinates with the state of their clones,
-  and the person it belongs to. (S5 § 3.3; S1 § 7.3)
+  and the person it belongs to. The repositories are what the runtime says
+  about itself, for the answer to who works where (`PAR > PAR-APPROACH`,
+  CW.13, CW.16); they are not a list tac grants from (CA.42).
+  (S5 § 3.3; S1 § 7.3; PQ-23)
 - **CA.4** A runtime is present while it holds its connection to the
   service. The service computes presence; no client writes it. (S5 § 3.3,
   § 5.2)
@@ -1204,7 +1215,7 @@ local mode (`LAND > LAND-BUILT`, E-3); this section states what tac is to be.
   restart or a window reload the new process re-attaches to its session and
   finds its leases unchanged. (S5 § 3.4, § 4.3)
 
-**Leases, units and fencing tokens**
+**Leases, resources and fencing tokens**
 
 - **CA.9** A lease is held on resources of two kinds, for now: a whole
   repository, and a part of a repository described by a pattern of paths
@@ -1272,8 +1283,8 @@ local mode (`LAND > LAND-BUILT`, E-3); this section states what tac is to be.
 - **CA.23** A runtime publishes the endpoints it serves — its MCP server,
   its remote control — with the address, where the address can be reached
   from (the machine, the VPN, the public network), the protocol with its
-  version, and how to authenticate, never a secret. The others of the agent
-  group list them. (S5 § 3.10; S1 § 6.4)
+  version, and how to authenticate, never a secret. The others of the team
+  list them. (S5 § 3.10; S1 § 6.4)
 - **CA.24** An endpoint exists only while its runtime is present. The
   registry says where an endpoint is; the endpoint itself checks who may use
   it. (S5 § 3.10)
@@ -1289,7 +1300,7 @@ local mode (`LAND > LAND-BUILT`, E-3); this section states what tac is to be.
   | Backend | For | What it offers |
   | --- | --- | --- |
   | **local** | one machine and one user | everything except customers and quotas; the service is started by the first client that needs it and runs once per machine and user |
-  | **GitHub** | one user's machines | leases, sessions, units and endpoints as refs in a coordination repository; no messages across machines — messages go through each machine's local service |
+  | **GitHub** | one user's machines | leases, sessions and endpoints as refs in a coordination repository; no messages across machines — messages go through each machine's local service |
   | **server** | a team, or several | everything, independent of git: customers, access keys, quotas, an administration interface |
 
   All three are part of the first delivery. On the GitHub backend a user
@@ -1312,7 +1323,11 @@ local mode (`LAND > LAND-BUILT`, E-3); this section states what tac is to be.
 - **CA.30** The **relay** is part of the server. It carries TAC and MCP for
   machines that are not on the VPN and only forwards. A machine
   authenticates to it with a key per runtime that an owner of the team
-  issues. (S1 § 7.2; S2 § 5, FO-9; S4)
+  issues. What comes through the relay comes from the internet: it is strict
+  and from a paired device (`TAC > TAC-PEOPLE`, CI.10; `TAC > TAC-CRYPT`,
+  CI.18). How the key per runtime and the paired device's key relate is part
+  of the open point for the security model (CI.19).
+  (S1 § 7.2; S2 § 5, FO-9; S4; PQ-9, PQ-13)
 - **CA.31** With coordination switched off (`mode: off`, the default)
   nothing is coordinated and everything works as it does without tac.
   (S1 § 7.2; S6, IDEA-6)
@@ -1416,8 +1431,17 @@ teams.
   (S1 § 7.10; S3, WR-2)
 - **CI.15** A team has a configuration that tac keeps and delivers to its
   members' runtimes (`RT > RT-CONFIG`, CS.3 … CS.6). (S1 § 5.5, DQ-11)
+- **CI.20** On a server a team belongs to a customer. Whoever installs the
+  server creates the first customer and its first access key from the
+  server's command line. With that key a person joins the server, creates a
+  team and is its first owner; the others join the team by invitation
+  (CI.6). (PQ-20; S1 § 7.3, DQ-2; `TAC > TAC-BACKENDS`, CA.27)
 
 #### <!--[TAC-GROUPS]--> 9.4.1 The team is what its runtimes coordinate in
+
+The team of CI.1 is also where its members' runtimes coordinate. This
+subsection says what that means for the runtimes, and for the resources they
+hold. (PQ-23)
 
 - **CA.39** All runtimes of a team's members coordinate with each other: they
   see each other as present, they ask the same service for their grants, and
@@ -1628,14 +1652,14 @@ runtime, is met in `RT` and `CLI`).
 | Requirement | Met by | How |
 | --- | --- | --- |
 | **WR-1** tac reachable as a server by a small team | CA.26 … CA.28 | The full server; a small team is one customer on it. (S1 § 7.10, CQ-9) |
-| **WR-2** identification by user id and e-mail on connect | CI.3, CI.4, CI.10, CI.14 | Identification is one of the two levels of identity. **Differently from the requirement:** a client without a runtime does not register in tac; it goes through a runtime. (S1 § 7.10, WQ-1) |
+| **WR-2** identification by user id and e-mail on connect | CI.3, CI.4, CI.10, CI.14 | Identification is one of the two levels of identity, on a server set to open (CI.10; PQ-13). **Differently from the requirement:** a client without a runtime does not register in tac; it goes through a runtime. (S1 § 7.10, WQ-1) |
 | **WR-3** encryption on the wire only | CI.16, CI.17, CA.28 | Encrypted in transit, ending at a reverse proxy; nothing required at rest. (S1 § 7.10) |
 | **WR-4** user messages | CM.1 … CM.13 | Conversations, history, read state, retention, the request id. (S1 § 7.10, WQ-3) |
 | **WR-5** documents as blobs for the review exchange | CV.1 … CV.6, CV.10 … CV.14 | Blobs with limits and lifetimes, pinning, review sets, the exchange. (S1 § 7.10, CQ-11) |
-| **WR-6** a Dart client that needs no AI runtime | `CLI > CLI-PACK`, CL.2, CL.3, CL.11 | The Dart tac client is a package of its own. **Differently from the requirement:** an application does not connect to tac directly from a browser or a phone; it uses the runtime client against a runtime on a server (`SCO > SCO-LATER`, L-8). Until that exists, Webwork's messaging works on the desktop. (S1 § 7.10, CQ-15, WQ-1) |
+| **WR-6** a Dart client that needs no AI runtime | `CLI > CLI-PACK`, CL.2, CL.3, CL.11 | The Dart tac client is a package of its own. **Differently from the requirement:** an application does not connect to tac directly from a browser or a phone; it uses the runtime client against a runtime on a server (`RT > RT-INSTALL`, CR.46). The server-side runtime is in the first version, for the supervision application; Webwork's own server side is in a later wave of Webwork (`SCO > SCO-LATER`, L-8), and until it exists Webwork's messaging works on the desktop. (S1 § 7.10, CQ-15, WQ-1; PQ-9) |
 
-Webwork does not need leases, units, endpoints, the GitHub backend or
-messages between runtimes for its messaging. (S3)
+Webwork does not need leases, endpoints, the GitHub backend or messages
+between runtimes for its messaging. (S3, "What Webwork does not need")
 
 ## <!--[PAR]--> 10 Parallel work, cross-quest work and repository quests
 
@@ -1908,10 +1932,12 @@ by the sources; none carries a number the sources do not give.
 - **N-18** The runtime's MCP server reads and writes only the `_ai` state; no
   file, command, web or git tool is offered through it. That is what makes it
   safe to publish to other machines. (S4; S2 § 5, FO-17; S1 § 6.3, § 6.4)
-- **N-19** The VPN is the boundary today: inside it, identification by user
-  id and e-mail address is accepted. Remote control of a runtime is possible
-  only inside a team and only where the runtime's host allows it. (S1 § 7.3,
-  CQ-10)
+- **N-19** Whether identification by user id and e-mail address is accepted
+  is a setting of the server: an open server is right for one person alone
+  on the VPN; as soon as other people use a server it is strict, and every
+  access from the internet is strict whatever the setting. Remote control of
+  a runtime is possible only inside a team and only where the runtime's host
+  allows it. (S1 § 7.3, CQ-10; PQ-13; `TAC > TAC-PEOPLE`, CI.10)
 - **N-20** What travels between a client and the tac server is encrypted in
   transit. What the service stores is not encrypted by default. (S3 WR-3;
   S2 § 5, FO-7, FO-20; S1 § 7.8)
@@ -1988,16 +2014,16 @@ by the sources; none carries a number the sources do not give.
 The topologies the architecture document describes (S1 § 8). T1 to T5 and T8
 belong to the first version; T6 and T7 are later. (PQ-9, PQ-16)
 
-| Id | Topology | What runs where | What must be reachable |
-| --- | --- | --- | --- |
-| **T1** | One machine, VS Code only | One runtime per window, inside the extension; the local tac service once for the machine and user. | Only the loopback interface. Nothing leaves the machine. |
-| **T2** | One machine, several hosts | VS Code windows, and Webforge with one runtime process per open quest plus one without a quest for Webwork's own AI. Two hosts may work on one quest. | The loopback interface; all hosts find the shared installation and the local tac service. |
-| **T3** | One user, several machines on the VPN | Each machine as T1 or T2. The runtimes on them coordinate in one team through the GitHub backend or the server. | Each machine reaches the coordination repository or the tac server; runtimes reach each other's published MCP endpoints directly over the VPN. |
-| **T4** | A team on the VPN | As T3 with several people; the server carries the messaging. Webwork on the desktop connects through its local runtime. | Every member's machine reaches the tac server over TLS on the VPN. |
-| **T5** | A member off the VPN | A machine outside reaches the server's public address; the relay forwards TAC and MCP to runtimes inside. | The server's public address over TLS. Runtimes inside keep an outbound connection to the relay; nothing inside accepts a connection from outside. |
-| **T6** | A runtime server (later) | An always-on machine runs runtimes for a long time without a window or a client; quests are worked from the queue and supervised through trc. | The machine reaches the tac server; trc reaches the runtimes' endpoints. (`SCO > SCO-LATER`, L-5; PQ-16) |
-| **T7** | A cloud agent (later) | A vendor's sandbox clones a repository, works and pushes a branch; the runtime that sent the todo asks the vendor and the repository host for the result. | The sandbox reaches the repository host only; it reaches neither tac nor a runtime. (`SCO > SCO-LATER`, L-1) |
-| **T8** | A server-side runtime for phone, tablet and web clients | A client without a local runtime uses a runtime on a server: the server runs permanently and starts one runtime per client, which ends with the client's session. It is the only way such a client reaches tac. The supervision application on a phone or tablet uses it in the first version; Webwork's web, phone and tablet clients follow in a later wave of Webwork (`SCO > SCO-LATER`, L-8). | The client reaches that server over WebSocket, from the local network, the VPN or the internet; from the internet only as a paired device with strict identity. The server-side runtime reaches tac. (WQ-1; PQ-9, PQ-16; `RT > RT-INSTALL`, CR.46) |
+| Id | Topology | What runs where | What must be reachable | Source |
+| --- | --- | --- | --- | --- |
+| **T1** | One machine, VS Code only | One runtime per window, inside the extension; the local tac service once for the machine and user. | Only the loopback interface. Nothing leaves the machine. | S1 § 8 |
+| **T2** | One machine, several hosts | VS Code windows, and Webforge with one runtime process per open quest plus one without a quest for Webwork's own AI. Two hosts may work on one quest. | The loopback interface; all hosts find the shared installation and the local tac service. | S1 § 8 |
+| **T3** | One user, several machines on the VPN | Each machine as T1 or T2. The runtimes on them coordinate in one team through the GitHub backend or the server. | Each machine reaches the coordination repository or the tac server; runtimes reach each other's published MCP endpoints directly over the VPN. | S1 § 8 |
+| **T4** | A team on the VPN | As T3 with several people; the server carries the messaging. Webwork on the desktop connects through its local runtime. | Every member's machine reaches the tac server over TLS on the VPN. | S1 § 8 |
+| **T5** | A member off the VPN | A machine outside reaches the server's public address; the relay forwards TAC and MCP to runtimes inside. | The server's public address over TLS, with strict identity and from a paired device (`TAC > TAC-PEOPLE`, CI.10; `TAC > TAC-CRYPT`, CI.18). Runtimes inside keep an outbound connection to the relay; nothing inside accepts a connection from outside. | S1 § 8; PQ-9, PQ-13 |
+| **T6** | A runtime server (later) | An always-on machine runs runtimes for a long time without a window or a client; quests are worked from the queue and supervised through trc. | The machine reaches the tac server; trc reaches the runtimes' endpoints. (`SCO > SCO-LATER`, L-5; PQ-16) | S1 § 8 |
+| **T7** | A cloud agent (later) | A vendor's sandbox clones a repository, works and pushes a branch; the runtime that sent the todo asks the vendor and the repository host for the result. | The sandbox reaches the repository host only; it reaches neither tac nor a runtime. (`SCO > SCO-LATER`, L-1) | S1 § 8 |
+| **T8** | A server-side runtime for phone, tablet and web clients | A client without a local runtime uses a runtime on a server: the server runs permanently and starts one runtime per client, which ends with the client's session. It is the only way such a client reaches tac. The supervision application on a phone or tablet uses it in the first version; Webwork's web, phone and tablet clients follow in a later wave of Webwork (`SCO > SCO-LATER`, L-8). | The client reaches that server over WebSocket, from the local network, the VPN or the internet; from the internet only as a paired device with strict identity. The server-side runtime reaches tac. (WQ-1; PQ-9, PQ-16; `RT > RT-INSTALL`, CR.46) | S1 § 8 |
 
 T6 depends on a runtime that runs without a host application, while a runtime
 is started by its host and ends with it (`RT > RT-INSTALL`, CR.44). It is
@@ -2010,20 +2036,20 @@ On the always-on machine only the tac server runs in the first version.
 
 The flows the architecture document draws as sequences (S1 § 9).
 
-| Id | Flow | In one line |
-| --- | --- | --- |
-| **F1** | A host attaches | The host finds the installed runtime, starts it, exchanges the versions, registers its tools and subscribes to the events from a sequence number on. |
-| **F2** | A prompt | The host queues an item (at the end, next, or as an update to the running prompt); the queue sends it when the session is free; the transport streams; tool calls go to runtime tools or back to the host; the result is recorded in the trail. |
-| **F3** | A todo walk | A walk takes the next ready todo, takes its claims through tac all or none, runs it, carries out what follows its completion and gives the claims back. |
-| **F4** | A process step with a gate | The step's prompt and its walks run; the gate writes its report and asks with the decision buttons; the decision moves the process. |
-| **F5** | An ask reaches a person elsewhere | A run asks; nobody is active on the asking host; the ask travels through tac to the person's other devices or along its chain, and the answer returns to the run. |
-| **F6** | A team review | The runtime creates the round folder and sends the review request with the document set to each member through tac; each returns a copy; reminders go out before the deadline; the copies are merged and the round's files are released. |
-| **F7** | A todo to another quest | An item or a walk is queued in a named run of another quest, on the same machine or another; it is accepted, refused with a reason, or waits visibly; the done notification returns to the run that asked. |
-| **F8** | Two runs on one repository | Each run works in its own working tree on a run branch; when its todo is done it takes the repository's integration lease, rebases, runs the checks, fast-forwards the main branch and pushes; the next run rebases first. |
-| **F9** | A todo to the cloud (later) | A todo goes to a hosted agent or a runtime elsewhere; a branch comes back and is integrated as in F8. |
-| **F10** | Supervising a group of runtimes | trc reads the team's runtimes and their endpoints from tac, attaches to each runtime's events, shows what waits; the supervisor answers an ask, pauses a queue, continues a process. |
-| **F11** | A machine joins | The runtime is installed, gets the team's access and registers; it sees the team's runtimes; nothing is converged for it. |
-| **F12** | A version update | A host installs a new runtime version beside the old one; running runtimes go on; a migration of the workspace files runs once under the machine's lock while the others pause. |
+| Id | Flow | In one line | Source |
+| --- | --- | --- | --- |
+| **F1** | A host attaches | The host finds the installed runtime (it installs the one it carries only when none is installed), starts it, exchanges the versions, registers its tools and subscribes to the events from a sequence number on. A host that finds the runtime too new for it switches the features that use it off, or does not start. | S1 § 9; PQ-6 |
+| **F2** | A prompt | The host queues an item (at the end, next, or as an update to the running prompt); the queue sends it when the session is free; the transport streams; tool calls go to runtime tools or back to the host; the result is recorded in the trail. | S1 § 9 |
+| **F3** | A todo walk | A walk takes the next ready todo, takes its claims through tac all or none, runs it, carries out what follows its completion and gives the claims back. | S1 § 9 |
+| **F4** | A process step with a gate | The step's prompt and its walks run; the gate writes its report and asks with the decision buttons; the decision moves the process. | S1 § 9 |
+| **F5** | An ask reaches a person elsewhere | A run asks; nobody is active on the asking host; the ask travels through tac to the person's other devices or along its chain, and the answer returns to the run. | S1 § 9 |
+| **F6** | A team review | The runtime creates the round folder and sends the review request with the document set to each member through tac; each returns a copy; reminders go out before the deadline; the copies are merged and the round's files are released. | S1 § 9 |
+| **F7** | A todo to another quest | An item or a walk is queued in a named run of another quest, on the same machine or another; it is accepted, refused with a reason, or waits visibly; the done notification returns to the run that asked. | S1 § 9 |
+| **F8** | Two runs on one repository | Each run works in its own working tree on a run branch; when its todo is done it takes the repository's integration lease, rebases, runs the checks, fast-forwards the main branch and pushes; the next run rebases first. | S1 § 9 |
+| **F9** | A todo to the cloud (later) | A todo goes to a hosted agent or a runtime elsewhere; a branch comes back and is integrated as in F8. | S1 § 9 |
+| **F10** | Supervising a group of runtimes | trc reads the team's runtimes and their endpoints from tac, attaches to each runtime's events, shows what waits; the supervisor answers an ask, pauses a queue, continues a process. | S1 § 9 |
+| **F11** | A machine joins | The runtime is installed, gets the team's access and registers; it sees the team's runtimes; nothing is converged for it. | S1 § 9 |
+| **F12** | A version update | After the user asked for it, a host installs a new runtime version beside the old one; running runtimes go on. A migration of the workspace files runs only when the user confirmed it, once under the machine's lock while the others pause; a runtime that meets files in an older format offers the migration or going back to an older runtime version. | S1 § 9; PQ-6 |
 
 ### <!--[NFR-GEN]--> 11.2 Generation units
 
@@ -2101,7 +2127,7 @@ under "Replaces or completes".
 | **D-11** | RT-7 | The protocol's commands are a superset of today's bridge methods. | — | `RT > RT-PROTO` |
 | **D-12** | CQ-6 | The numbered events of a run are kept in memory with a bound; the trail files are the durable record. | — | `RT > RT-PROTO` |
 | **D-13** | CQ-2 | The runtime owns machine-wide state; its implementation routes through the local tac service. | — | `RT > RT-MACHINE` |
-| **D-14** | FO-3, FO-4, DQ-9 | One installation per machine in the per-user application data folder, versions side by side; every host installs the version it was built with; version checks, pass-through of unknown fields and upgrade callbacks in every client package. | — | `RT > RT-INSTALL`, `RT > RT-VERSIONS` |
+| **D-14** | FO-3, FO-4, DQ-9 | One installation per machine in the per-user application data folder, versions side by side; version checks, pass-through of unknown fields and upgrade callbacks in every client package. Which runtime a host installs and starts: D-49. | — | `RT > RT-INSTALL`, `RT > RT-VERSIONS` |
 | **D-15** | CQ-4 | A runtime is started by its host and ends with it; standalone runtimes later. | — | `RT > RT-INSTALL` |
 | **D-16** | RT-3 | The Agent SDK server of today becomes a mode of the runtime, so Webwork ships one Node payload. | — | `RT > RT-INSTALL` |
 | **D-17** | RS-2, CQ-3, DQ-5 | The runtime finds its places through the workspace layout resolver; the repositories are those of the workspace's setup file; every todo is written with its own resources, and a quest's list of repositories and subtrees is the fallback. | RT-6, RT-10 (locations from a setting) | `RT > RT-LOCATIONS`, `PAR > PAR-APPROACH` |
@@ -2147,10 +2173,10 @@ under "Replaces or completes".
 | **D-42** | CQ-20 | The todos filed before the concept are input; a new set replaces them. | RS-4 | `DEL` |
 | **D-43** | RT-8 | The Dart runtime client is the client Tom Forge builds on. | — | `CLI > CLI-PACK` |
 
-**Decisions of the first question round** (the product owner's answers of
-2026-11-19 to the questions `PQ-1` … `PQ-19`, kept in
-`01_02_Questions Round/answers.md`; D-36 and D-37 above are from this round
-too)
+**Decisions from the answers to the questions `PQ-1` … `PQ-23`** (the
+product owner's answers of 2026-11-19, kept in
+`01_02_Questions Round/answers.md`; D-36 and D-37 above are from these
+answers too)
 
 | Id | Source id | Decision | Replaces or completes | Shaped |
 | --- | --- | --- | --- | --- |
@@ -2167,13 +2193,15 @@ too)
 | **D-54** | PQ-13 | Open (identification) or strict (invitation and team tokens) is a setting of the server, for everyone on it; every access from the internet is strict and that cannot be configured. | D-25 in the part that leaves open where identification is accepted | `TAC > TAC-PEOPLE` |
 | **D-55** | PQ-14 | The whole approach to parallel work is confirmed; a strict mode makes a claim block for the whole todo, and a repository without working trees per run is always in it while a todo executes. | — | `PAR > PAR-APPROACH` |
 | **D-56** | PQ-15 | The new packages are BSD-3; for now they are published only to pub.dev and to the workspace's binaries repository. | — | `NFR` |
-| **D-58** | PQ-21 | The link between a host and its runtime is an API with callbacks in both directions over a wire protocol of JSON structures; its records get object models worked out from the workspace's existing schemas; the shape of a conversation and of a question on the wire is settled in the interface specification; unloading runs is an option, not part of the first version unless measurement warrants it. | — | `RT > RT-PROTO`, `RT > RT-INSTALL` |
-| **D-59** | PQ-23 | A resource is a whole repository or a part of one described by a pattern, named and not registered; tac knows only what it has granted and decides a request from the grants that exist; a runtime works with what its user can reach. | S5's declared units and infrastructure resources, for now | `TAC > TAC-PEOPLE`, `TAC > TAC-COORD` |
 | **D-57** | PQ-17, PQ-18 | Which mapper or generator writes which unit, and which standard descriptions are published, is decided at the start of Phase 4; missing generators are built there. The API documentation of the client packages and hand-written user and programmer's guides are delivered. | — | `NFR > NFR-GEN`, `NFR` |
+| **D-58** | PQ-21 | The link between a host and its runtime is an API with callbacks in both directions over a wire protocol of JSON structures; its records get object models worked out from the workspace's existing schemas; the shape of a conversation and of a question on the wire is settled in the interface specification; unloading runs is an option, not part of the first version unless measurement warrants it. | — | `RT > RT-PROTO`, `RT > RT-INSTALL` |
+| **D-59** | PQ-23, PQ-20 | A resource is a whole repository or a part of one described by a pattern, named and not registered; tac knows only what it has granted and decides a request from the grants that exist; a runtime works with what its user can reach. A person joins a server and then creates a team. | S5's declared units and infrastructure resources, for now | `TAC > TAC-PEOPLE`, `TAC > TAC-PEOPLE > TAC-GROUPS`, `TAC > TAC-COORD` |
 
 ## <!--[CON]--> 13 Contradictions
 
-Where sources disagree, and how it is resolved.
+Where sources disagree, and how it is resolved. The cross-check S10 § 6
+lists four of them from the TomSpecs tooling's reading of this quest's
+documents (X-1, X-8, X-9, X-10); they stand here as that reading found them.
 
 - **X-1** **Host transports and host tools.** S19 gives a host its own
   transports and tools; S2 § 3.1 says a host "provides no tools and no
@@ -2207,8 +2235,9 @@ Where sources disagree, and how it is resolved.
   § 7.3 (DQ-1) kept the two apart. **Resolved:** a team is people, and its
   members' runtimes coordinate in it; the agent group is not a thing of its
   own (D-24). Webwork's "one team, one group" holds.
-- **X-6** **One `tac/2.0` against stepwise versions.** The earlier plan added
-  to the protocol in minor versions, one per capability; S5 § 8 says minor
+- **X-6** **One `tac/2.0` against stepwise versions.** The earlier plan (the
+  todos S1 § 7.10 describes) added to the protocol in minor versions, one per
+  capability; S5 § 8 says minor
   versions only add. **Resolved:** one specification `tac/2.0`, built in one
   go, with capabilities announced on connect (D-21).
 - **X-7** **How the specification is made.** S1 § 13.1 and § 14.1 record the
@@ -2235,8 +2264,8 @@ Where sources disagree, and how it is resolved.
 - **X-11** **Messages over the GitHub backend.** S6 says the GitHub backend
   carries no messages between machines; S2 § 3.4 has it keep the blobs of
   messages in the coordination repository. **Resolved:** the GitHub backend
-  stays in the first delivery as S6 designed it, for leases, sessions, units
-  and endpoints; messaging, documents and reviews across machines are on the
+  stays in the first delivery as S6 designed it, for leases, sessions and
+  endpoints; messaging, documents and reviews across machines are on the
   server only (D-47; `TAC > TAC-BACKENDS`, CA.26).
 - **X-12** **The runtime server and the lifetime of a runtime.** S1 § 8 has a
   topology in which an always-on machine runs runtimes without a window
@@ -2254,12 +2283,6 @@ Where sources disagree, and how it is resolved.
   asked. **Resolved:** the later answer holds (D-49). Versions can still lie
   side by side (CR.41), which is what going back to an older runtime needs
   (CP.33).
-- **X-15** **Declared resources or named ones.** S5 and S6 have units and
-  infrastructure resources declared in the group's data, and four kinds of
-  resource. The answer to the question on what runtimes share is that a
-  resource is only named when it is asked for, that there are two kinds for
-  now, and that tac keeps no list of resources. **Resolved:** the later
-  answer holds (D-59); the protocol's other kinds stay unused for now.
 - **X-14** **Pairing of devices and the server-side runtime, later or now.**
   S1 § 11.1 defers both (CQ-10, WQ-1). The answer of the first question
   round puts the supervision application on the phone in the first version,
@@ -2267,6 +2290,12 @@ Where sources disagree, and how it is resolved.
   server-side runtime for the supervision application are in the first
   version (D-51); end-to-end encryption and Webwork's own server side stay
   later (`SCO > SCO-LATER`, L-6, L-8).
+- **X-15** **Declared resources or named ones.** S5 and S6 have units and
+  infrastructure resources declared in the group's data, and four kinds of
+  resource. The answer to PQ-23 is that a
+  resource is only named when it is asked for, that there are two kinds for
+  now, and that tac keeps no list of resources. **Resolved:** the later
+  answer holds (D-59); the protocol's other kinds stay unused for now.
 
 ## <!--[RISK]--> 14 Risks and dependencies
 
@@ -2285,8 +2314,8 @@ Where sources disagree, and how it is resolved.
 | **R-9** | **Another writer in the repositories.** Other sessions, runs and machines write to the same repositories on one branch while this product is specified and built; uncommitted work of others is in the way of builds and installs. | Two runs touch the same repository; a build or an install runs from a tree another session left changed. | S16; S1 § 10.1 |
 | **R-10** | **Leases held by agents.** Others found that locks held by agents are held too long or never given back. | A run ends without releasing its claim; a long run holds a repository. | S9; S1 § 15.2 |
 | **R-11** | **No gate before the main branch until the integration step exists.** Until then a broken commit is at once every other session's base. | A run commits a change that breaks a package others build on. | S1 § 10.1, § 10.3 |
-| **R-12** | **Nine languages.** Seven of the client packages are tested only through the conformance suite; nobody uses them yet. | A first user of such a client meets what the suite does not cover. | S2 § 3.5; S1 § 12.1 |
-| **R-13** | **Two hosts and several runtime versions on one set of workspace files.** A host with an older runtime stops working when the files are migrated. | A host is updated and migrates the files while another host with an older runtime is in use. | S1 § 6.7, § 9 F12 |
+| **R-12** | **Nine languages.** Six of the client packages are tested only through the conformance suite; nobody uses them yet (see also R-24). | A first user of such a client meets what the suite does not cover. | S2 § 3.5; S1 § 12.1; PQ-7 |
+| **R-13** | **Several hosts and runtime versions on one set of workspace files.** On one machine the hosts share the installed runtime, and a host too old for it switches its features off or does not start. Across machines and people the files are shared through git: once they are migrated on one machine, every runtime elsewhere that is older stops working on them until it is updated. | The user confirms a migration on one machine while another machine, or another member of the team, still runs an older runtime; an application is not yet available in a version that fits the installed runtime. | S1 § 6.7, § 9 F12; PQ-6 |
 | **R-14** | **The product's value depends on others being able to use its parts.** The protocol, the process format and the coordination are entangled with this workspace's conventions. | A user outside this workspace tries to use tac or a client without the rest. | S9; S1 § 15 |
 
 **Risks the first question round added.** (They are numbered after the
@@ -2312,7 +2341,7 @@ dependencies below, since the numbers before them are taken.)
 
 ## <!--[DEL]--> 15 Delivery
 
-**The order.** (S2 § 4.1; S1 § 13.1; D-40)
+**What comes before the building.** (S2 § 4.1; S1 § 13.1; D-40)
 
 1. The VS Code extension's features are finished.
 2. The workspace layout is restructured.
@@ -2324,10 +2353,11 @@ dependencies below, since the numbers before them are taken.)
 | Track | Contains | Depends on the split of the extension |
 | --- | --- | --- |
 | **tac** | The server, participants and teams, messaging, documents, the tac clients | no |
-| **the runtime** | The split, the protocol, the runtime client, the UI components, then the tac client inside the runtime with claims and the integration step | yes |
+| **the runtime** | The split, the protocol, the runtime client, the UI components, the tac client inside the runtime with claims and the integration step | yes |
 
 The two tracks touch different repositories. Webwork and Tom Forge wait for
-their parts and progress on their own meanwhile (`LAND > LAND-WAIT`).
+their parts and progress on their own meanwhile (`LAND > LAND-WAIT`). Inside
+and between the tracks no order is fixed (below).
 
 **The stable extension during the split.** (S1 § 13.3, CQ-19; D-41)
 
