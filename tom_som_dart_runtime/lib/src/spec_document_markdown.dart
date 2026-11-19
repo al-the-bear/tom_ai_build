@@ -193,6 +193,22 @@ class SpecMarkdownImport {
   List<SpecMarkdownRejection> get rejections => result.rejections;
 }
 
+/// How the Markdown emitter lays out a form section (reading view, trial).
+///
+/// [fields] is the SOM §11.4 layout every runtime writes today. [tables] is
+/// the reading-view trial: the declared fields in order, each run of values
+/// that fit a table cell one `| Field | Value |` table, every other value a
+/// `Field:` paragraph at its place, and every heading carrying an HTML anchor
+/// for its section id. Emit only: the parser that reads [tables] back is still
+/// to come, so a [tables] rendition does not yet round-trip.
+enum SpecFormLayout {
+  /// `FieldName: value` groups, one blank line apart (SOM §11.4).
+  fields,
+
+  /// Form tables between `Field:` paragraphs, and heading anchors.
+  tables,
+}
+
 /// Codec binding a [SpecModel] and a concrete [SpecDocument] to the DocSpecs
 /// Markdown import/export format (SOM §11).
 class SpecDocumentMarkdown {
@@ -202,7 +218,20 @@ class SpecDocumentMarkdown {
   /// and parse needs the model to decide whether a heading is legal at its
   /// nesting position. Neither is copied — the codec holds live references, so
   /// later mutations are visible; only the per-root metadata trees are cached.
-  SpecDocumentMarkdown(this.model, this.document);
+  ///
+  /// [formLayout] chooses how forms are emitted (default
+  /// [SpecFormLayout.fields], today's format); it does not affect [parse].
+  SpecDocumentMarkdown(
+    this.model,
+    this.document, {
+    this.formLayout = SpecFormLayout.fields,
+  });
+
+  /// How the emitter lays out forms; [SpecFormLayout.tables] also writes a
+  /// heading anchor on every heading. Parsing is unaffected.
+  final SpecFormLayout formLayout;
+
+  bool get _tables => formLayout == SpecFormLayout.tables;
 
   /// The schema side of the codec: supplies the root types, section ids and
   /// member kinds every heading is checked against. A heading id unknown to
@@ -458,6 +487,11 @@ class SpecDocumentMarkdown {
     ];
     final hasForms = formSlots.isNotEmpty;
     final defaultRel = _defaultBodyRel(slots);
+    Set<String> formLabelsOf(List<(SomMetaNode, String)> forms) => {
+      for (final (form, _) in forms)
+        for (final f in form.form?.fields ?? const <SomFormFieldMeta>[])
+          formLabel(f.name).toLowerCase(),
+    };
     var written = false;
 
     void marker(String rel) => b
@@ -469,7 +503,10 @@ class SpecDocumentMarkdown {
       final prepared = _prepareValue(value, valuePath);
       if (prepared.isEmpty) return;
       if (written || rel != defaultRel) marker(rel);
-      for (final line in prepared.split('\n')) {
+      final lines = _tables
+          ? _escapeFormTables(prepared, formLabelsOf(formSlots)).split('\n')
+          : prepared.split('\n');
+      for (final line in lines) {
         b.writeln(hasForms && _labelShaped.hasMatch(line) ? ' $line' : line);
       }
       b.writeln();
@@ -712,6 +749,10 @@ class SpecDocumentMarkdown {
   /// holds a field the model does not declare.
   void _writeForm(StringBuffer b, SomMetaNode node, String path) {
     _checkFormDeclared(node, path);
+    if (_tables) {
+      _writeFormTables(b, node, path);
+      return;
+    }
     final fields = StringBuffer();
     for (final f in node.form?.fields ?? const <SomFormFieldMeta>[]) {
       final value = document.formField(path, f.name);
@@ -751,6 +792,123 @@ class SpecDocumentMarkdown {
     b.writeln();
   }
 
+  /// [SpecFormLayout.tables]: the preamble, then the declared fields in model
+  /// order — each run of consecutive cell values one `| Field | Value |`
+  /// table, each paragraph value a `Field:` group at its place (table – text –
+  /// table). Groups are one blank line apart. A content table in the preamble
+  /// or in a paragraph value that would read as this form's table is escaped
+  /// with one leading space (DI-2).
+  void _writeFormTables(StringBuffer b, SomMetaNode node, String path) {
+    final declared = node.form?.fields ?? const <SomFormFieldMeta>[];
+    final labels = {for (final f in declared) formLabel(f.name).toLowerCase()};
+    final groups = <List<String>>[];
+    List<String>? table;
+    for (final f in declared) {
+      final value = document.formField(path, f.name);
+      if (value == null) continue;
+      final label = formLabel(f.name);
+      if (_isCellValue(f, value)) {
+        if (table == null) {
+          table = ['| Field | Value |', '| --- | --- |'];
+          groups.add(table);
+        }
+        table.add('| $label | ${_cellText(f, value)} |');
+        continue;
+      }
+      table = null;
+      final lines = f.code && _isInlineCode(value)
+          ? [_encodeCodeSpan(value)]
+          : _escapeFormTables(_prepareValue(value, path), labels).split('\n');
+      groups.add([
+        '$label: ${lines.first}',
+        for (final line in lines.skip(1))
+          _labelShaped.hasMatch(line) ? ' $line' : line,
+      ]);
+    }
+
+    final preamble = document.content(path);
+    if (preamble != null) {
+      final prepared = _prepareValue(preamble, path);
+      if (prepared.isNotEmpty) {
+        for (final line in _escapeFormTables(prepared, labels).split('\n')) {
+          b.writeln(_labelShaped.hasMatch(line) ? ' $line' : line);
+        }
+        if (groups.isNotEmpty) b.writeln();
+      }
+    }
+    for (var i = 0; i < groups.length; i++) {
+      if (i > 0) b.writeln();
+      for (final line in groups[i]) {
+        b.writeln(line);
+      }
+    }
+    b.writeln();
+  }
+
+  /// Whether [value] of form field [f] is written as a table row (reading
+  /// view, part *What the model says about reading*): not when the model flags
+  /// the field `multiParagraph`, nor when the value holds a line break, is a
+  /// block of Markdown, holds a backslash directly before `|`, or holds
+  /// `<!--`. There is no length limit.
+  static bool _isCellValue(SomFormFieldMeta f, String value) {
+    if (f.multiParagraph) return false;
+    if (value.contains('\n') || value.contains('\\|')) return false;
+    if (value.contains('<!--')) return false;
+    return !_blockStart.hasMatch(value);
+  }
+
+  /// A one-line value that Markdown reads as a block: a list item, a block
+  /// quote (review comment and question blocks among them), a fence or a
+  /// fenced div. A table needs two lines, so it is caught by the line break.
+  static final RegExp _blockStart = RegExp(
+    r'^\s*([-*+]\s|\d+[.)]\s|>|```|~~~|:::)',
+  );
+
+  /// The table cell for [value]: a `code: true` value as its inline code
+  /// span, every `|` written `\|`.
+  static String _cellText(SomFormFieldMeta f, String value) {
+    final text = f.code && _isInlineCode(value)
+        ? _encodeCodeSpan(value)
+        : value;
+    return text.replaceAll('|', r'\|');
+  }
+
+  /// [text] with every table that would read as a form table of the form
+  /// declaring [labels] — header `| Field | Value |`, every body row's first
+  /// cell a declared label — written with one space before its header's
+  /// first `|` (DI-2). Lines inside fenced code are left alone.
+  static String _escapeFormTables(String text, Set<String> labels) {
+    final lines = text.split('\n');
+    final fence = MarkdownFenceTracker();
+    for (var i = 0; i < lines.length; i++) {
+      final line = lines[i];
+      if (!fence.inFence &&
+          _formTableHeader.hasMatch(line) &&
+          i + 1 < lines.length &&
+          _tableSeparator.hasMatch(lines[i + 1])) {
+        var j = i + 2;
+        var rows = 0;
+        var qualifies = true;
+        while (j < lines.length && lines[j].trimLeft().startsWith('|')) {
+          final cells = lines[j].trim().split('|');
+          final first = cells.length > 1 ? cells[1].trim().toLowerCase() : '';
+          if (!labels.contains(first)) qualifies = false;
+          rows++;
+          j++;
+        }
+        if (qualifies && rows > 0) lines[i] = ' $line';
+      }
+      fence.feed(line);
+    }
+    return lines.join('\n');
+  }
+
+  static final RegExp _formTableHeader = RegExp(
+    r'^\|\s*Field\s*\|\s*Value\s*\|\s*$',
+    caseSensitive: false,
+  );
+  static final RegExp _tableSeparator = RegExp(r'^\s*\|\s*:?-+:?\s*\|');
+
   /// `## <!--[ID]--> Title` at [depth]. SOM §11.2 is normative — heading level
   /// = 1 + section depth, **uncapped**: deep models (the Solution Blueprint
   /// nests past markdown's native 6 levels) keep their structure; the parse
@@ -777,8 +935,12 @@ class SpecDocumentMarkdown {
     }
     if (units != null && units.isNotEmpty) code.write(' units="$units"');
     // A heading is one line: a stored headline's line breaks travel as `<br>`.
+    // Reading view (DI-3): the section id as an HTML anchor after the id
+    // comment and its keys, so `#<ID>` links jump in every viewer.
+    final anchor = _tables ? '<a id="$id"></a> ' : '';
     b.writeln(
-      '${'#' * depth} <!--[$id]$code--> ${title.replaceAll('\n', '<br>')}',
+      '${'#' * depth} <!--[$id]$code--> $anchor'
+      '${title.replaceAll('\n', '<br>')}',
     );
     b.writeln();
   }

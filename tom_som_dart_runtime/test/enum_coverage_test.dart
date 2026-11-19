@@ -508,6 +508,17 @@ final List<ExemptEnum> _exempt = [
         'is the stronger statement — a constant added to either alone fails.',
   ),
   ExemptEnum(
+    enumName: 'SpecFormLayout',
+    reason: ExemptionReason.dartOnly,
+    note:
+        'The reading-view trial switch of the Markdown emitter (fields | '
+        'tables), emit-only and Dart-only for now; pinned by '
+        'test/spec_document_markdown_form_tables_test.dart. '
+        '04a_rdv3_akpu-tables-default-verification brings the TypeScript emit '
+        'and the two goldens, and 05a_rdv4_akpu-runtime-parity-audit the '
+        'other seven runtimes; the corpus table comes with the goldens.',
+  ),
+  ExemptEnum(
     enumName: 'SpecChipRole',
     reason: ExemptionReason.presentation,
     note:
@@ -699,7 +710,7 @@ void main() {
       // todo that ends it, so the list cannot quietly become permanent.
       expect(
         e.note,
-        contains('tscomp'),
+        matches(RegExp(r'\b[a-z0-9][a-z0-9_]*\d+_[a-zäñöüß]{4}-[a-z0-9-]+')),
         reason:
             '${e.enumName} is exempt as ${e.reason.name}, which is a '
             'temporary state, but its note names no todo that ends it',

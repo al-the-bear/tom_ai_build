@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- `SpecDocumentMarkdown(..., formLayout: SpecFormLayout.tables)`: the reading-view
+  trial layout, emit only. A form's declared fields in order, each run of values
+  that fit a cell one `| Field | Value |` table, a `multiParagraph` field or a
+  value that cannot be a cell a `Field:` paragraph at its place; a content table
+  that would read as the form table escaped with one leading space; every
+  heading carries `<a id="<ID>"></a>`. The default `SpecFormLayout.fields` is
+  unchanged.
 - `FormFieldSpec.multiParagraph` and `SomFormFieldMeta.multiParagraph`, read from
   the meta's `multiParagraph` key (`Field.multiParagraph`): a field whose values
   hold paragraphs or blocks. `formFieldChips` shows it as the `¶ paragraphs`

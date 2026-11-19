@@ -156,8 +156,9 @@ unpublished_drift:
     corpus; tsbin7 (2026-11-18): comments and README name the tomspecs
     commands; 01a_rdv1 (2026-11-19): the YAML header line and the impact walk
     name *.tomspecs.yaml; 02a_rdv1 (2026-11-19): FormFieldSpec /
-    SomFormFieldMeta.multiParagraph and the `¶ paragraphs` chip; ships with
-    the next chain release.
+    SomFormFieldMeta.multiParagraph and the `¶ paragraphs` chip; 02a_rdv2
+    (2026-11-19): the emit-only trial `SpecFormLayout.tables` (form tables,
+    heading anchors); ships with the next chain release.
   tom_specs_core: >-
     tsbin7 (2026-11-18): the README, doc/annotations.md and the
     @SerializationOrder doc comment name the tomspecs commands (documentation
