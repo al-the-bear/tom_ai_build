@@ -1,0 +1,12 @@
+id: G1-SCOPE-1
+status: pass
+run1: pass
+evidence:
+- G1-SCOPE-1.reading.md
+finding: 'SCO > SCO-IN has fourteen in-scope rows (the thirteen capability areas and the split), SCO >
+  SCO-OUT nine out-of-scope statements (O-1 … O-9, O-9 new from PQ-4), SCO > SCO-LATER eleven deferred
+  features. Round 2 moved the supervision application on phone and tablet, the pairing of devices and
+  the server-side runtime into the first version; end-to-end encryption (L-6), Webwork''s own server side
+  (L-8) and standalone runtimes (L-5) stay later, and every L-<n> agrees with the places that name its
+  subject. Two wordings noted, neither a contradiction: the section''s opening cites S1 § 11.1 although
+  L-6 and L-8 now differ from it (each row says so), and U-9 says Tom Forge ''later hosts trc''.'

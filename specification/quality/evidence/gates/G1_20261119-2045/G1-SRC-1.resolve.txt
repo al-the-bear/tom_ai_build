@@ -1,0 +1,99 @@
+G1-SRC-1 — resolution of the sources of tom_ai/ai_build/specification/phase1_project_idea/project_idea.ai_runtime.md
+workspace folder: /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container
+ai_build HEAD: 07412a22
+
+== 1. Every source of the table in SRC ==
+S1: RESOLVES file _ai/quests/ai_runtime/ai_runtime_concept.md (98141 bytes)
+S1: RESOLVES file sources/ai_runtime_concept.md (98164 bytes)  [relative to the document]
+S2: RESOLVES file _ai/quests/ai_runtime/ai_runtime_feature_overview.md (26637 bytes)
+S2: RESOLVES file sources/ai_runtime_feature_overview.md (26712 bytes)  [relative to the document]
+S3: RESOLVES file _ai/quests/ai_runtime/webwork_requirements.md (11037 bytes)
+S3: RESOLVES file sources/webwork_requirements.md (11107 bytes)  [relative to the document]
+S4: RESOLVES file _ai/quests/ai_runtime/quest-notes.ai_runtime.md (4990 bytes)
+S5: RESOLVES file tom_ai/vscode/tom_tac_service/doc/tac_specification.md (38338 bytes)
+S6: RESOLVES file _ai/quests/ai_runtime/ideas/agent_collaboration/agent_collaboration.docspecs.md (208979 bytes)
+S7: RESOLVES file _ai/quests/ai_runtime/llm_providers_runtime_integration.ai_runtime.md (9514 bytes)
+S8: RESOLVES file _ai/quests/ai_runtime/ideas/remote_control_app/remote_control_app.docspecs.md (1288 bytes)
+S9: no path — "S1 § 15 "Research: what other teams do""
+    refers to a section of S1: "## 15. Research: what other teams do" present in the original: True; in the snapshot: True
+S10: RESOLVES file _ai/quests/tom_specs/tooling/notes_ai_runtime.md (26049 bytes)
+S11: RESOLVES file _ai/quests/tom_specs/tooling/tom_specs_tooling_suggestions.md (20877 bytes)
+S12: RESOLVES file _ai/quests/al_the_bear/ideas/workspace_layout/workspace_layout.docspecs.md (226900 bytes)
+S13: RESOLVES file _ai/quests/webwork/ideas/webwork_redesign/webwork_redesign.docspecs.md (298329 bytes)
+S14: RESOLVES file _ai/quests/tom_forge/spec_quest_workbench.tom_forge.md (7250 bytes)
+S15: RESOLVES file tom_ai/secrets_clients/protocol/protocol.md (116348 bytes)
+S15: RESOLVES file _ai/quests/tom_core/ideas/tom_secrets_manager/tom_secrets_manager.docspecs.md (484770 bytes)
+S16: RESOLVES file _agent_guidelines/parallel_work.md (8620 bytes)
+S17: RESOLVES dir tom_ai/vscode/tom_vscode_extension/ (44 entries)
+S17: RESOLVES file tom_ai/vscode/tom_vscode_extension/_agent_guidelines/architecture.md (172373 bytes)
+S17: RESOLVES dir tom_ai/vscode/tom_vscode_extension/doc/ (24 entries)
+S18: RESOLVES file _ai/quests/ai_runtime/runtime_split_plan.ai_runtime.md (12208 bytes)
+S19: RESOLVES file _ai/quests/ai_runtime/quest_runtime_design.ai_runtime.md (24327 bytes)
+S20: RESOLVES file _ai/quests/ai_runtime/ai_runtime_project_idea.md (28383 bytes)
+
+sources in the table: 20 (S1 … S20); unresolved: 0
+
+== 2. URLs in SRC ==
+none (S9 names the links as being in S1 § 15)
+links in the snapshot of S1 § 15 and after: 39 (noted, not fetched)
+
+== 3. The snapshots: first line ==
+ai_runtime_concept.md :: <!-- snapshot of _ai/quests/ai_runtime/ai_runtime_concept.md, 2026-11-19 -->
+    original _ai/quests/ai_runtime/ai_runtime_concept.md exists: True ; identical to the snapshot today: False
+ai_runtime_feature_overview.md :: <!-- snapshot of _ai/quests/ai_runtime/ai_runtime_feature_overview.md, 2026-11-19 -->
+    original _ai/quests/ai_runtime/ai_runtime_feature_overview.md exists: True ; identical to the snapshot today: False
+webwork_requirements.md :: <!-- snapshot of _ai/quests/ai_runtime/webwork_requirements.md, 2026-11-19 -->
+    original _ai/quests/ai_runtime/webwork_requirements.md exists: True ; identical to the snapshot today: False
+
+== 4. Every S<n> cited in the document, against the table ==
+S1: cited 399 times outside SRC 
+S2: cited 76 times outside SRC 
+S3: cited 31 times outside SRC 
+S4: cited 22 times outside SRC 
+S5: cited 38 times outside SRC 
+S6: cited 25 times outside SRC 
+S7: cited 7 times outside SRC 
+S8: cited 7 times outside SRC 
+S9: cited 6 times outside SRC 
+S10: cited 1 times outside SRC 
+S11: cited 4 times outside SRC 
+S12: cited 7 times outside SRC 
+S13: cited 5 times outside SRC 
+S14: cited 7 times outside SRC 
+S15: cited 6 times outside SRC 
+S16: cited 9 times outside SRC 
+S17: cited 3 times outside SRC 
+S18: cited 3 times outside SRC 
+S19: cited 9 times outside SRC 
+S20: cited 2 times outside SRC 
+cited but not in the table: none
+in the table but cited nowhere outside SRC: none
+
+S10 — where it is cited:
+  line 2202: Where sources disagree, and how it is resolved. The cross-check S10 § 6
+
+== 5. The record of the answers the document names ==
+RESOLVES 01_02_Questions Round/answers.md (65992 bytes)
+round folder 01_02_Questions Round/: ['answers.md', 'changes.md', 'new_questions.md', 'phaseoq_review.md', 'project_idea.ai_runtime.md']
+PQ ids named in answers.md: 1 … 23 count 23 missing of 1..23: none
+
+== 6. Other paths the document names in backticks (outside SRC), resolved ==
+RESOLVES tom_ai/ai_build/specification/
+RESOLVES tom_ai/
+MISSING  tom_ai/ai_build/tom_ai_runtime
+RESOLVES tom_ai/vscode/tom_vscode_extension
+RESOLVES tom_ai/vscode/tom_tac_service
+RESOLVES _agent_guidelines/
+MISSING  tom_ai/ai_build/tom_ai_runtime_client
+MISSING  tom_ai/ai_build/tom_tac_client
+MISSING  tom_ai/ai_build/tom_ai_runtime_ui
+RESOLVES tom_ai/vscode/
+MISSING  tom_ai/ai_build/tom_tac_service
+
+== 7. Notes on the output above ==
+ai_runtime_concept.md: lines differing from the original after dropping the snapshot's first line: 8; after dropping its first two lines: 9
+ai_runtime_feature_overview.md: lines differing from the original after dropping the snapshot's first line: 4; after dropping its first two lines: 5
+webwork_requirements.md: lines differing from the original after dropping the snapshot's first line: 2; after dropping its first two lines: 3
+(a snapshot differs from its original by the line that names the original and the date; a difference of 0 means the original is unchanged since the snapshot)
+The five paths MISSING in part 6 are packages the product is to build (G-1 … G-4, G-6 of NFR > NFR-GEN, and the future place of G-2); the document names them as places to be, not as sources. They do not count for this item.
+URLs: the Project Idea itself holds none; S9 is a section of S1 and its 39 links are in the snapshot (noted, not fetched).

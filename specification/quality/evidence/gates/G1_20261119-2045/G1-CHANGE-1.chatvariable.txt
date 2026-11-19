@@ -1,0 +1,6 @@
+G1-CHANGE-1 — the mode of the run (run 2)
+tomAi_readChatVariable {key: "spec-mode"} on 2026-11-19, run ai_runtime_solution_sbp:
+{"key": "spec-mode", "value": "initial", "exists": true, "isBuiltIn": false}
+
+The run is the initial development: no change id, no base commit, no impact set.
+The item's pass text: "Initial development — not applicable."

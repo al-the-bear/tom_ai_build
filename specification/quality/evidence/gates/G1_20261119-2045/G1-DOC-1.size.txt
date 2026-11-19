@@ -1,0 +1,9 @@
+G1-DOC-1 — the Project Idea: path and size (run 2)
+path (relative to the workspace folder): tom_ai/ai_build/specification/phase1_project_idea/project_idea.ai_runtime.md
+-rw-r--r--@ 1 alexiskyaw  staff  174683 Nov 19 20:26 tom_ai/ai_build/specification/phase1_project_idea/project_idea.ai_runtime.md
+2401 lines, 30592 words, 174683 bytes
+headings: 71 (sections with an id: 70)
+ai_build commit of the document: 07412a22 chore: rename _copilot_guidelines to _agent_guidelines (DP-part-root-tom-6)
+ai_build HEAD: 07412a22; the document is unchanged in the working tree: 0 modified
+other documents in the folder: 01_01_Questions Round 01_02_Questions Round project_idea.ai_runtime.md sources 
+run 1 measured: G1-DOC-1 — file existence and size (2026-11-19T17:44+0100) path: tom_ai/ai_build/specification/phase1_project_idea/project_idea.ai_runtime.md exists: True bytes: 199150 lines: 2473 words: 34646 headings: 70 (16 top-level sections) first line: # Project Idea — Tom AI Runtime other entries in the 

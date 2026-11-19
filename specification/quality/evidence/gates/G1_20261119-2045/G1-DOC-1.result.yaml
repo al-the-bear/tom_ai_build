@@ -1,0 +1,9 @@
+id: G1-DOC-1
+status: pass
+run1: pass
+evidence:
+- G1-DOC-1.size.txt
+finding: 'The Project Idea exists at tom_ai/ai_build/specification/phase1_project_idea/project_idea.ai_runtime.md:
+  174,683 bytes, 2,401 lines, 30,592 words, 71 headings (70 sections with an id), unchanged in the working
+  tree at ai_build 07412a22. It is smaller than in run 1 (199,150 bytes) because the 23 question blocks
+  left the text.'

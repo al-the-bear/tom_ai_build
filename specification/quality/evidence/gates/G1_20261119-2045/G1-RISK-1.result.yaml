@@ -1,0 +1,14 @@
+id: G1-RISK-1
+status: pass
+run1: pass
+evidence:
+- G1-RISK-1.reading.md
+finding: 'RISK > RISK-RISKS lists 17 risks (R-1 … R-14, R-22 … R-24), each with a trigger, and RISK >
+  RISK-DEPS seven dependencies (R-15 … R-21) with their state. What round 2 brought in is listed: the
+  server reachable from the internet (R-22), the full process for a product no mapper fits (R-23), six
+  more client languages (R-24), the shared runtime per machine and files shared through git (R-13); both
+  borderlines of run 1 are gone. No risk the document states elsewhere is missing. Borderline in one point:
+  DEL names a dependency on the extension''s todo vscimpb179 (a blocked queue item resuming by itself)
+  that RISK > RISK-DEPS does not list; the pass text asks for risks, so it is reported, not failed. Three
+  unknowns are noted for the Blueprint''s register (the screen inventory''s first pass, the VPN on phones
+  in CK.12, the queues stopping when the backend is unreachable).'

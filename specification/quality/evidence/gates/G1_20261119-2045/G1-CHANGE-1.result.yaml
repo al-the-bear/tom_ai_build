@@ -1,0 +1,6 @@
+id: G1-CHANGE-1
+status: pass
+run1: pass
+evidence:
+- G1-CHANGE-1.chatvariable.txt
+finding: 'The run''s chat variable spec-mode is ''initial'': initial development — not applicable.'

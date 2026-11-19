@@ -1,0 +1,11 @@
+id: G1-SRC-1
+status: pass
+run1: pass
+evidence:
+- G1-SRC-1.resolve.txt
+- G1-SRC-1.reading.md
+finding: 'All 20 sources of SRC resolve (25 paths from the workspace folder or beside the document; S9
+  is a section of S1 that exists; the document holds no URL, S9''s 39 links are in S1 § 15 and are noted).
+  Every S<n> cited is in the table and every source is cited: S10, cited nowhere in run 1, is cited once
+  in CON. The record of the answers, 01_02_Questions Round/answers.md, resolves and names PQ-1 … PQ-23.
+  The three snapshots differ from their originals today only in renamed links and a folder name.'

@@ -1,0 +1,14 @@
+id: G1-ID-1
+status: pass
+run1: fail
+evidence:
+- G1-ID-1.counts.md
+- G1-ID-1.reading.md
+finding: 'The four groups run 1 found without ids carry them now: the generation units G-1 … G-7, the
+  screen inventory SC-1 … SC-29, the problems P-1 … P-4 and P-5 … P-14, each kind listed in ABOUT > ABOUT-READ.
+  565 items carry ids in 29 kinds (539 of the document''s own), without gaps or duplicates, and every
+  cited id is defined. Statements without an id of their own are the body of a statement or decision that
+  has one (the rows of the rights table through CI.5, USR > USR-TEAM through D-44, the paragraphs of DEL
+  and NFR > NFR-GEN through D-36 … D-45 and D-57). Borderline, not a failure: the table of the tooling''s
+  mappers and emitters in NFR > NFR-GEN and one sentence each in NFR > NFR-GEN and TAC > TAC-WEBWORK can
+  be cited by their section only; none states something about the product.'

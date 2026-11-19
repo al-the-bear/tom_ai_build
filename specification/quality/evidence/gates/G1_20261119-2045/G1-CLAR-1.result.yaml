@@ -1,0 +1,16 @@
+id: G1-CLAR-1
+status: pass
+run1: fail
+evidence:
+- G1-CLAR-1.questions.txt
+- G1-CLAR-1.reading.md
+finding: 'No clarification is open: the document holds no question block, the project has no clarification
+  file, all 23 answers PQ-1 … PQ-23 are stated in the text as given, and every statement run 1 named is
+  corrected (D-36, D-37, X-7, DEL, NFR > NFR-GEN, L-6, L-8, T8, CI.10, CLI > CLI-PACK). What the answers
+  left to later does not prevent the Blueprint and is carried as such: the protocol''s shapes to the interface
+  specification (CP.7, CP.8, D-58), mappers and standard descriptions to Phase 4 (D-57), end-to-end encryption
+  to the security model (CI.19). Borderline, recorded: one sentence without an id in NFR > NFR-TOPO (''On
+  the always-on machine only the tac server runs in the first version'') still stands against the answers
+  to PQ-16 and PQ-9, while T8, CR.46 and D-52 state them correctly; CI.19 leaves a decision to the security
+  model that the owner confirms there; five points the answers opened and nobody asked are listed in the
+  reading, none blocking.'

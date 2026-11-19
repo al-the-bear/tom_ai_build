@@ -1,0 +1,9 @@
+id: G1-USER-1
+status: pass
+run1: pass
+evidence:
+- G1-USER-1.reading.md
+finding: 'USR > USR-GROUPS names seven user groups (U-1 … U-7) and USR > USR-HOSTS six stakeholders (U-8
+  … U-13). USR > USR-TEAM now names the owner in its own text: member id alexis, display name Alexis,
+  role Product owner, the only reviewer; ABOUT and D-44 say the same. Run 1''s borderline (the owner only
+  in an answer) is gone.'

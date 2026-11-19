@@ -1,0 +1,143 @@
+# Gate report of record — G1 (Project Idea Captured), Tom AI Runtime, run 2 (re-evaluates run 1).
+# Format: tom_ai/ai_build/tom_specs_model/doc/tom_specs_gate_checklists.md, The gate report. Never edited after it is written;
+# a re-evaluation writes a new report naming this one in `reevaluates`. Summary: G1_20261119-2045.gate.md.
+formatVersion: 1
+gate: G1
+takenAt: '2026-11-19T21:00:29+01:00'
+document:
+  path: tom_ai/ai_build/specification/phase1_project_idea/project_idea.ai_runtime.md
+  commit: 07412a22
+  note: The Project Idea after question round 2 (content last changed in ai_build 88cea9b6; 07412a22 only renamed
+    a guidelines folder in its paths). Unchanged in the working tree while the items were evaluated.
+checklist:
+  path: tom_ai/ai_build/specification/gates/G1.checklist.yaml
+  checklistVersion: 1.2.0
+  modelPackage: tom_specs_model 1.12.2
+reevaluates: G1_20261119-1317
+result: pass
+note: 'All nine items were evaluated again, not only the two that failed in run 1 (G1-ID-1, G1-CLAR-1): between
+  the runs the document was changed throughout (question round 2 took 23 answers in), so run 1''s results were about
+  another text.'
+items:
+- id: G1-DOC-1
+  status: pass
+  run1: pass
+  evidence:
+  - G1_20261119-2045/G1-DOC-1.size.txt
+  finding: 'The Project Idea exists at tom_ai/ai_build/specification/phase1_project_idea/project_idea.ai_runtime.md:
+    174,683 bytes, 2,401 lines, 30,592 words, 71 headings (70 sections with an id), unchanged in the working tree
+    at ai_build 07412a22. It is smaller than in run 1 (199,150 bytes) because the 23 question blocks left the text.'
+- id: G1-PROB-1
+  status: pass
+  run1: pass
+  evidence:
+  - G1_20261119-2045/G1-PROB-1.reading.md
+  finding: VIS > VIS-PROBLEM states in the document's own words what is solved (work with agents is organised around
+    the coding session, and the engine for larger work is locked into one host; four problems P-1 … P-4), for whom
+    (the other applications, people and agents working side by side, reviewers and deciders outside the editor,
+    whoever has to see the whole) and why now (the engine is complete enough to extract, hosts and quests wait,
+    the coordination service's first part is used by nothing). The text is run 1's with the ids P-1 … P-4 added.
+- id: G1-USER-1
+  status: pass
+  run1: pass
+  evidence:
+  - G1_20261119-2045/G1-USER-1.reading.md
+  finding: 'USR > USR-GROUPS names seven user groups (U-1 … U-7) and USR > USR-HOSTS six stakeholders (U-8 … U-13).
+    USR > USR-TEAM now names the owner in its own text: member id alexis, display name Alexis, role Product owner,
+    the only reviewer; ABOUT and D-44 say the same. Run 1''s borderline (the owner only in an answer) is gone.'
+- id: G1-SCOPE-1
+  status: pass
+  run1: pass
+  evidence:
+  - G1_20261119-2045/G1-SCOPE-1.reading.md
+  finding: 'SCO > SCO-IN has fourteen in-scope rows (the thirteen capability areas and the split), SCO > SCO-OUT
+    nine out-of-scope statements (O-1 … O-9, O-9 new from PQ-4), SCO > SCO-LATER eleven deferred features. Round
+    2 moved the supervision application on phone and tablet, the pairing of devices and the server-side runtime
+    into the first version; end-to-end encryption (L-6), Webwork''s own server side (L-8) and standalone runtimes
+    (L-5) stay later, and every L-<n> agrees with the places that name its subject. Two wordings noted, neither
+    a contradiction: the section''s opening cites S1 § 11.1 although L-6 and L-8 now differ from it (each row says
+    so), and U-9 says Tom Forge ''later hosts trc''.'
+- id: G1-SRC-1
+  status: pass
+  run1: pass
+  evidence:
+  - G1_20261119-2045/G1-SRC-1.resolve.txt
+  - G1_20261119-2045/G1-SRC-1.reading.md
+  finding: 'All 20 sources of SRC resolve (25 paths from the workspace folder or beside the document; S9 is a section
+    of S1 that exists; the document holds no URL, S9''s 39 links are in S1 § 15 and are noted). Every S<n> cited
+    is in the table and every source is cited: S10, cited nowhere in run 1, is cited once in CON. The record of
+    the answers, 01_02_Questions Round/answers.md, resolves and names PQ-1 … PQ-23. The three snapshots differ from
+    their originals today only in renamed links and a folder name.'
+- id: G1-ID-1
+  status: pass
+  run1: fail
+  evidence:
+  - G1_20261119-2045/G1-ID-1.counts.md
+  - G1_20261119-2045/G1-ID-1.reading.md
+  finding: 'The four groups run 1 found without ids carry them now: the generation units G-1 … G-7, the screen inventory
+    SC-1 … SC-29, the problems P-1 … P-4 and P-5 … P-14, each kind listed in ABOUT > ABOUT-READ. 565 items carry
+    ids in 29 kinds (539 of the document''s own), without gaps or duplicates, and every cited id is defined. Statements
+    without an id of their own are the body of a statement or decision that has one (the rows of the rights table
+    through CI.5, USR > USR-TEAM through D-44, the paragraphs of DEL and NFR > NFR-GEN through D-36 … D-45 and D-57).
+    Borderline, not a failure: the table of the tooling''s mappers and emitters in NFR > NFR-GEN and one sentence
+    each in NFR > NFR-GEN and TAC > TAC-WEBWORK can be cited by their section only; none states something about
+    the product.'
+- id: G1-CLAR-1
+  status: pass
+  run1: fail
+  evidence:
+  - G1_20261119-2045/G1-CLAR-1.questions.txt
+  - G1_20261119-2045/G1-CLAR-1.reading.md
+  finding: 'No clarification is open: the document holds no question block, the project has no clarification file,
+    all 23 answers PQ-1 … PQ-23 are stated in the text as given, and every statement run 1 named is corrected (D-36,
+    D-37, X-7, DEL, NFR > NFR-GEN, L-6, L-8, T8, CI.10, CLI > CLI-PACK). What the answers left to later does not
+    prevent the Blueprint and is carried as such: the protocol''s shapes to the interface specification (CP.7, CP.8,
+    D-58), mappers and standard descriptions to Phase 4 (D-57), end-to-end encryption to the security model (CI.19).
+    Borderline, recorded: one sentence without an id in NFR > NFR-TOPO (''On the always-on machine only the tac
+    server runs in the first version'') still stands against the answers to PQ-16 and PQ-9, while T8, CR.46 and
+    D-52 state them correctly; CI.19 leaves a decision to the security model that the owner confirms there; five
+    points the answers opened and nobody asked are listed in the reading, none blocking.'
+- id: G1-RISK-1
+  status: pass
+  run1: pass
+  evidence:
+  - G1_20261119-2045/G1-RISK-1.reading.md
+  finding: 'RISK > RISK-RISKS lists 17 risks (R-1 … R-14, R-22 … R-24), each with a trigger, and RISK > RISK-DEPS
+    seven dependencies (R-15 … R-21) with their state. What round 2 brought in is listed: the server reachable from
+    the internet (R-22), the full process for a product no mapper fits (R-23), six more client languages (R-24),
+    the shared runtime per machine and files shared through git (R-13); both borderlines of run 1 are gone. No risk
+    the document states elsewhere is missing. Borderline in one point: DEL names a dependency on the extension''s
+    todo vscimpb179 (a blocked queue item resuming by itself) that RISK > RISK-DEPS does not list; the pass text
+    asks for risks, so it is reported, not failed. Three unknowns are noted for the Blueprint''s register (the screen
+    inventory''s first pass, the VPN on phones in CK.12, the queues stopping when the backend is unreachable).'
+- id: G1-CHANGE-1
+  status: pass
+  run1: pass
+  evidence:
+  - G1_20261119-2045/G1-CHANGE-1.chatvariable.txt
+  finding: 'The run''s chat variable spec-mode is ''initial'': initial development — not applicable.'
+removed: []
+criteria:
+- criterion: Idea document exists
+  status: pass
+- criterion: Problem statement present
+  status: pass
+- criterion: Users and stakeholders named
+  status: pass
+- criterion: Rough scope stated
+  status: pass
+- criterion: Sources recorded
+  status: pass
+- criterion: No blocking clarifications
+  status: pass
+- criterion: Risk register reviewed
+  status: pass
+- criterion: Change limited to its impact *(change mode)*
+  status: pass
+remediation: []
+closingCheck: G1_20261119-2045/phasetodos_and_traceability.md
+approval:
+  by: null
+  role: null
+  date: null
+  decision: null

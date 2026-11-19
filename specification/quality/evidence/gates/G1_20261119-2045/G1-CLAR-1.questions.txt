@@ -1,0 +1,29 @@
+G1-CLAR-1, run 2 — open questions and clarification files (2026-11-19)
+
+1. Question blocks of the Project Idea
+   tomAi_mdQuestions on tom_ai/ai_build/specification/phase1_project_idea/project_idea.ai_runtime.md:
+   {"ok":true,"total":0,"open":0,"questions":[]}   (revision 0e40ba8e9165…)
+   grep for "❓" and "**Answer" in the document: no line.
+
+2. Clarification files under _ai/clarifications/
+   20260124_172438_clarification.tom_core.md
+   20260207_buildkit_consolidation_plan.md
+   20260607_150942_clarification.tom_brain.md
+   20260608_120149_clarification.tom_forge.md
+   20260608_122351_clarification.tom_forge.md
+   20260613_195337_clarification.d4rt.md
+   Files named for ai_runtime: 0. Files whose text names ai_runtime, tom_ai_runtime or the Project Idea: 0.
+
+3. Review marks left in the document ("___check here___")
+   line 1082  CLI > CLI-SCREENS   the outcomes of the screen inventory are a first pass
+   line 1613  TAC > TAC-CRYPT     CI.19, the open point for the security model
+   line 1855  PAR > PAR-QUESTS    CQ.5 is stated only in the superseded first collection
+   (judged in G1-CLAR-1.reading.md)
+
+4. The two actions the answers asked for
+   PQ-4: tom_specs, todo smallchange1_akss-short-change-process-proposal — exists, decision-needed.
+   PQ-8: vscode_extension, todo vscimpb179_akss-blocked-item-resumes-by-itself — exists, not-started.
+
+5. Does Phase 2's gate ask for a mapper per unit? (for PQ-17)
+   grep -i "unit|mapper" tom_ai/ai_build/tom_specs_model/doc/gate_checklists/G2.checklist.yaml:
+   only G2-NFR-2 ("Every target is numeric, with a unit and a measurement method"); no item on generation units or mappers.

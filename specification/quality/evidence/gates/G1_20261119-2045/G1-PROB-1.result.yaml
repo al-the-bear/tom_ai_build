@@ -1,0 +1,11 @@
+id: G1-PROB-1
+status: pass
+run1: pass
+evidence:
+- G1-PROB-1.reading.md
+finding: VIS > VIS-PROBLEM states in the document's own words what is solved (work with agents is organised
+  around the coding session, and the engine for larger work is locked into one host; four problems P-1
+  … P-4), for whom (the other applications, people and agents working side by side, reviewers and deciders
+  outside the editor, whoever has to see the whole) and why now (the engine is complete enough to extract,
+  hosts and quests wait, the coordination service's first part is used by nothing). The text is run 1's
+  with the ids P-1 … P-4 added.
