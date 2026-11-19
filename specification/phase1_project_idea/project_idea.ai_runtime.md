@@ -10,7 +10,7 @@
 | **Product owner and review team** | alexis, product owner and only reviewer (`USR > USR-TEAM`) |
 | **Sources** | section 1 (`SRC`); the three main ones are kept as snapshots in `sources/` |
 | **Written by** | `agent_spec_author` |
-| **Status** | Question round 2: the 19 answers of round 1 and the answers to `PQ-21` and `PQ-22` are in the text; 1 question open (`PQ-23`) |
+| **Status** | Question round 2 closed: every answer of `PQ-1` … `PQ-23` is in the text; no question open |
 | **Next phase** | Phase 2 Solution Blueprint |
 
 The document states the idea as it stands. It is free-form Markdown; the
@@ -38,7 +38,7 @@ they start with `sources/`, which is beside this document.
 | **`G-<n>`** | A generation unit: a package or application the project builds (section 11.2). |
 | **`T<n>`** | A network topology (section 11.1). |
 | **`F<n>`** | A key flow (section 11.1.1). |
-| **`PQ-<n>`** | A question to the product owner, standing after the statement it asks about. `PQ-1` to `PQ-22` are answered and taken into the text (`PQ-20` asked again as `PQ-23`); their answers are cited as sources (`PQ-7`) and kept in `01_02_Questions Round/answers.md`. |
+| **`PQ-<n>`** | A question to the product owner, standing after the statement it asks about. `PQ-1` to `PQ-23` are answered and taken into the text; their answers are cited as sources (`PQ-7`) and kept in `01_02_Questions Round/answers.md`. |
 
 After a statement, its source stands in brackets: the source id and the place
 in it, e.g. `(S1 § 7.3, DQ-2)`. `CQ-n`, `DQ-n` and `WQ-n` are the product
@@ -234,7 +234,7 @@ no document type has a team of its own. No e-mail address is stored.
 | Term | Meaning |
 | --- | --- |
 | **team** | A group of **people**: members, owners, invitations, conversations, review sets, and the right to control each other's runtimes. |
-| **agent group** | The coordination protocol's name for the set of **runtimes** that share one list of leases, see each other as present and can send each other items. It has nothing to do with how a runtime calls its models. Whether it stays a thing of its own beside the team is open (`TAC > TAC-PEOPLE > TAC-GROUPS`). |
+| **agent group** | The name the coordination protocol as built (`tac/1.0`) gives to the set of runtimes that coordinate. In the product that set is the **team**; the term is not used otherwise. It has nothing to do with how a runtime calls its models. |
 | **participant** | Someone tac knows: a person (user id, e-mail, display name) or a runtime. A runtime names the person it belongs to. |
 | **invitation** | How a person joins a team: an owner creates it for an e-mail address; it carries a one-time password. |
 | **team token** | What a person holds after redeeming an invitation: the proof of membership in one team, sent with every request. |
@@ -815,7 +815,7 @@ it, attaches to it and shows what it does. (S1 § 4, § 5; FO-1)
   first notes)
 - **CT.12** The server asks for a bearer token. (S1 § 6.4, § 3.6)
 - **CT.13** A runtime can publish its MCP server as an endpoint through tac,
-  so other runtimes of its agent group find it and call its tools.
+  so other runtimes of its team find it and call its tools.
   (S1 § 6.4; `TAC`)
 - **CT.14** Inside a runtime, the tools of the local runtime, of the host and
   of a remote runtime are all presented to the model as tools; routing a
@@ -1169,21 +1169,17 @@ local mode (`LAND > LAND-BUILT`, E-3); this section states what tac is to be.
 
 - **CA.1** Both jobs are done by one service. They share the identities, the
   transport, the store and the server. (S1 § 7.1)
-- **CA.2** Coordination happens in an **agent group**: the runtimes whose
-  workspaces name the same backend and group id. Messaging happens in a
-  **team** (`TAC > TAC-PEOPLE`). (S5 § 3.2; S1 § 7.3, DQ-1)
-
-___check here___ S1 § 7.1 still says "A team is one agent group"; S1 § 7.3
-(DQ-1) decides that they are two things. This section follows DQ-1 and
-describes the protocol as built. Whether the agent group stays a thing of
-its own or the team takes its place is asked in
-`TAC > TAC-PEOPLE > TAC-GROUPS` (PQ-23). — `agent_spec_author`
+- **CA.2** Coordination and messaging both happen in a **team**
+  (`TAC > TAC-PEOPLE`): its people message each other, and its members'
+  runtimes coordinate. The protocol as built calls the set of runtimes that
+  coordinate an "agent group"; in the product that is the team
+  (`TAC > TAC-PEOPLE > TAC-GROUPS`, CA.39). (S5 § 3.2; PQ-23)
 
 ### <!--[TAC-COORD]--> 9.2 Coordination between runtimes
 
 **Presence and discovery**
 
-- **CA.3** A runtime registers with its agent group: its id, its kind, its
+- **CA.3** A runtime registers with its team: its id, its kind, its
   machine, its workspace, the quests it serves (none for a runtime without a
   quest), the repositories it coordinates with the state of their clones,
   and the person it belongs to. (S5 § 3.3; S1 § 7.3)
@@ -1195,7 +1191,7 @@ its own or the team takes its place is asked in
   items needing attention and of reviews waiting, and the state of its queue
   — so a client that connects late shows the right picture at once.
   (S5 § 3.3)
-- **CA.6** Any runtime of the agent group can list the agent group's runtimes with their
+- **CA.6** Any runtime of the team can list the team's runtimes with their
   presence and state. One quest may have several runtimes. (S5 § 3.3, § 5.2)
 - **CA.7** Runtimes find each other through tac and nowhere else: on one
   machine, across the VPN, and through the relay beyond it. (S2 § 3.4;
@@ -1210,19 +1206,19 @@ its own or the team takes its place is asked in
 
 **Leases, units and fencing tokens**
 
-- **CA.9** A lease is held on resource keys of four kinds: a whole
-  repository; a unit, which is a declared path inside a repository; a
-  declared infrastructure resource (something that is not a set of files in
-  one repository, such as publishing a package or a release asset); a folder
-  of the `_ai` state. (S5 § 3.5 … § 3.7; S6, part-claims)
+- **CA.9** A lease is held on resources of two kinds, for now: a whole
+  repository, and a part of a repository described by a pattern of paths
+  (CA.41). The protocol as built has two more kinds, a declared
+  infrastructure resource (something that is not a set of files in one
+  repository, such as publishing a package) and a folder of the `_ai` state;
+  they are not used for now. (S5 § 3.5 … § 3.7; S6, part-claims; PQ-23)
 - **CA.10** A repository is named by its identity (provider, owner, name),
   never by a path on a machine, so the same repository is the same resource
   on every machine. (S5 § 3.5)
-- **CA.11** Two keys conflict when they name the same repository and one is
-  the whole repository, when they name units of one repository and one
-  unit's path contains the other's, or when they are the same infrastructure
-  or `_ai` key. A unit can declare shared paths that conflict with nothing.
-  Keys conflict only within one agent group. (S5 § 3.5, § 3.7)
+- **CA.11** Two resources conflict when they name the same repository and
+  one is the whole repository, or when they name parts of one repository
+  whose patterns overlap. Resources conflict only within one team.
+  (S5 § 3.5, § 3.7; PQ-23; CA.42)
 - **CA.12** A session acquires all the resources it asks for or none. When
   one is held, the answer names the holders. (S5 § 4.1, § 6.2; S6,
   part-claims)
@@ -1237,9 +1233,10 @@ its own or the team takes its place is asked in
 - **CA.15** Times that decide about leases and presence are the service's
   clock, never a client's, so a machine with a wrong clock can neither keep
   a lease fresh nor make one go stale. (S5 § 4.4)
-- **CA.16** Units and infrastructure resources are declared in the agent
-  group's data and can be changed while the group works. (S5 § 3.6, § 3.7;
-  S6, BP-9)
+- **CA.16** Resources are not declared anywhere beforehand: a part of a
+  repository exists for tac from the moment it is asked for until it is
+  given back (CA.42). The declared units and infrastructure resources of
+  the protocol as built are not needed for that. (PQ-23)
 - **CA.17** Todo state and journals are not claimed: todo files, the files
   of questions, decisions and progress, the session history and the process
   state are written by many sessions at once, by design. A todo claims an
@@ -1247,7 +1244,7 @@ its own or the team takes its place is asked in
 
 **Messages between runtimes**
 
-- **CA.18** A runtime sends a message to all quests of its agent group or to named
+- **CA.18** A runtime sends a message to all quests of its team or to named
   quests. The service routes by the target and never reads the type or the
   payload; the meaning of a type is the clients' convention. (S5 § 3.9;
   S6, part-messages)
@@ -1314,22 +1311,22 @@ its own or the team takes its place is asked in
   endpoint, or renewing a lease already held. (S5 § 3.12)
 - **CA.30** The **relay** is part of the server. It carries TAC and MCP for
   machines that are not on the VPN and only forwards. A machine
-  authenticates to it with a key per runtime that the group's administrator
+  authenticates to it with a key per runtime that an owner of the team
   issues. (S1 § 7.2; S2 § 5, FO-9; S4)
 - **CA.31** With coordination switched off (`mode: off`, the default)
   nothing is coordinated and everything works as it does without tac.
   (S1 § 7.2; S6, IDEA-6)
 - **CA.32** When the backend cannot be reached, nothing falls back on its
-  own: the queues of the agent group stop after their current todo, and the client
+  own: the queues of the team's runtimes stop after their current todo, and the client
   recovers by itself when the backend is back. Working locally meanwhile is
   an emergency step a person confirms twice. (S6, BP-7)
-- **CA.33** An agent group moves from one backend to another by a migration that
-  carries its units, infrastructure resources, token counters and
-  undelivered commands. (S5 § 3.11, § 5.8)
+- **CA.33** A team's coordination moves from one backend to another by a
+  migration that carries its token counters and undelivered commands.
+  (S5 § 3.11, § 5.8)
 - **CA.34** Every runtime also registers with the local service of its
   machine, whatever its backend. The local service reports, as warnings that
   block nothing: one repository under two different backends, two workspaces
-  naming one agent group with different backends, a listed repository whose clone
+  naming one team with different backends, a listed repository whose clone
   is missing or has another origin. (S5 § 6.4)
 - **CA.35** The runtime has one client for all of this. The queue, the
   tools, the views and the hosts ask that client and never a backend.
@@ -1340,20 +1337,15 @@ its own or the team takes its place is asked in
 `tac/1.0` knows runtimes only. Messaging and supervision need people and
 teams.
 
-- **CI.1** A **team** is a group of people. An **agent group** is a group of
-  runtimes. They are two different things (S1 § 7.3, DQ-1):
-
-  | | Is | Has |
-  | --- | --- | --- |
-  | **team** | people | members, owners, invitations, conversations, review sets, the right to control each other's runtimes |
-  | **agent group** | runtimes that coordinate | presence, leases, messages between runtimes, endpoints |
-
-  What "agent group" names, and whether it stays a thing of its own, is in
-  `TAC > TAC-PEOPLE > TAC-GROUPS` (PQ-23).
+- **CI.1** A **team** is a group of people. It has members, owners,
+  invitations, conversations, review sets and the right to control each
+  other's runtimes; and its members' runtimes coordinate in it: presence,
+  leases, messages between runtimes, endpoints
+  (`TAC > TAC-PEOPLE > TAC-GROUPS`, CA.39). (S1 § 7.3, DQ-1; PQ-23)
 
 - **CI.2** A person is a member of one team or of several. A person runs
-  several runtimes, and those may be in several agent groups. One runtime
-  belongs to exactly one person. (S1 § 7.3, DQ-1)
+  several runtimes; each coordinates in the home team of its quest. One
+  runtime belongs to exactly one person. (S1 § 7.3, DQ-1)
 - **CI.3** A **participant** is a person (a user id, an e-mail address, a
   display name) or a runtime. A runtime names the person it belongs to, so
   what an agent sends is attributed to the runtime and to its person. A
@@ -1377,9 +1369,7 @@ teams.
   | invite a person, remove a member | no | yes |
   | make a member an owner, or take that away (never from the last owner) | no | yes |
   | change the team's configuration and settings (providers, retention of messages, working trees per repository, escalation times) | no | yes |
-  | declare units and infrastructure resources of an agent group | yes | yes |
   | delete the team | no | yes |
-  | create or delete an agent group | open: decided with PQ-23 | open: decided with PQ-23 |
 
 - **CI.6** A person joins a team by **invitation** (S1 § 7.3, CQ-10, DQ-2):
   1. An owner creates an invitation for an e-mail address.
@@ -1427,49 +1417,39 @@ teams.
 - **CI.15** A team has a configuration that tac keeps and delivers to its
   members' runtimes (`RT > RT-CONFIG`, CS.3 … CS.6). (S1 § 5.5, DQ-11)
 
-#### <!--[TAC-GROUPS]--> 9.4.1 Which runtimes share one list of leases
+#### <!--[TAC-GROUPS]--> 9.4.1 The team is what its runtimes coordinate in
 
-___check here___ The term "agent group" comes from the coordination protocol
-as built (`tac/1.0`), and it misleads. It has nothing to do with how a runtime
-works with its models: every runtime calls the model APIs and the agent SDKs
-directly, as the extension does today, each runtime serves one quest, and a
-host with several quests starts several runtimes. Quest files and all other
-AI state are on the machine of the host and are read and written there. None
-of that involves a group. (PQ-20)
-
-What the term names is only this: **a shared list of who holds what.** When
-the window of one quest runs a todo in a repository, another window (of
-another quest, or on another machine) must not write into the same
-repository at the same time. For that, each runtime asks tac for a lease
-before it writes and gives it back afterwards. A lease only helps if the
-other runtimes look at the **same list** of leases. The set of runtimes that
-look at one list is what `tac/1.0` calls an agent group; it also decides
-which runtimes see each other as present and can send each other items.
-
-Example: on the MacBook the windows of `webwork` and `ai_runtime` are both
-open, and both change the repository `tom_ai/ai_build`. On another machine
-`webwork` is open too. All three runtimes have to see one list, or the lease
-one of them takes means nothing to the others.
-
-Until the question below is answered, the document keeps the word "agent
-group" where it describes the protocol as built (`TAC > TAC-COORD`), and the
-last row of the table of rights (CI.5) stays open.
-
-> **❓ PQ-23 (2026-11-19T19:40+01:00) — Which runtimes share one list of leases:** when one of your windows holds a repository, which other runtimes see that and wait?
->
-> **Context.** Your answer to the earlier question was: "each runtime calls the LLM/direct APIs or the SDK directly, just like VS Code does, no agent groups involved … I don't see any groups of agent here", and: "The sequence with joining a server, then creating a team makes sense to me." You are right about the runtimes: nothing in this question is about how a runtime calls a model. The word "agent group" is the coordination protocol's name for something else: the set of runtimes that share **one list of leases**. A lease is the note "this runtime is writing in this repository now". Two windows only keep out of each other's way if they look at the same list. Example: your `webwork` window and your `ai_runtime` window on the MacBook both change `tom_ai/ai_build`, and `webwork` is also open on another machine; all three must see one list. What has to be decided is which runtimes share a list — and whether that needs a concept of its own, or whether something you already have (the team, the server) is the answer.
->
-> You decided earlier that a quest has a home team and that its runtime acts as a member of that team. So every runtime already belongs to exactly one team.
->
-> **Why I ask.** The information model of the Solution Blueprint needs to know whether there is a record for this beside the team, and the security model who may create it. It also decides whether the word "agent group" stays in the product at all.
->
-> - **(a)** **The team is the list.** All runtimes of a team's members share one list of leases: a runtime uses the list of its quest's home team. There is no separate concept and nothing to create or administer; the word "agent group" disappears from the product, and what the protocol calls a group id is the team. For you: one server, one team, and every window on every machine sees every lease. Cost: two different teams that work on the same repositories do not see each other's leases; they would have to be one team for coordination, or this is added later.
-> - (b) **A list of its own, created by a team's owner and opened to teams.** A separate record (under a clearer name, for example "coordination group") that a team's owner creates; a team names the lists its runtimes use, and two teams can name the same one. Covers two teams on the same repositories from the start; one more thing to create, name and explain, for a case you do not have today.
-> - (c) **The server is the list.** Every runtime connected to a server shares one list, whatever its team. Nothing to set up; on a server with several unrelated teams, every team sees every other team's leases and repository names.
->
-> *Recommendation:* (a) — it matches how you described the setup (join a server, create a team), needs no new concept, and (b) can be added later without changing what a single team does.
->
-> **Answer:**
+- **CA.39** All runtimes of a team's members coordinate with each other: they
+  see each other as present, they ask the same service for their grants, and
+  they can send each other items. A runtime does this in the home team of
+  its quest (CI.11). There is no separate record for it beside the team and
+  nothing to create or administer. What the coordination protocol as built
+  (`tac/1.0`) calls an "agent group", and its group id, is the team. The
+  term has nothing to do with how a runtime works with its models: every
+  runtime calls the model APIs and the agent SDKs directly, serves one
+  quest, and reads and writes the quest's files and the other AI state on
+  the machine of its host. (PQ-23, PQ-20)
+- **CA.40** A runtime works with what its user can reach: the repositories
+  the person it runs for has access to at the repository host, cloned on its
+  machine. A user who works on a quest normally has access to all of the
+  quest's repositories. An agent uses only resources it can reach; when work
+  needs something it cannot reach, it says that the work cannot be done here
+  and has to be done elsewhere. (PQ-23)
+- **CA.41** A **resource** is, for now, a whole repository or a part of one
+  described by a pattern of paths. It is named, not registered: the
+  repository by its identity, the part by the repository and the pattern,
+  for example `al_the_bear/ai_build` and `al_the_bear/ai_build#runtime/**`.
+  (PQ-23; CA.9, CA.10)
+- **CA.42** tac knows what it has granted, and nothing else. A runtime that
+  is about to run a todo sends tac the names of what it wants to hold. tac
+  understands the names: while the whole repository is granted, no part of
+  it can be granted, and while a part is granted, neither the whole
+  repository nor a part that overlaps it. Whether a request can be granted
+  follows from the grants that exist; tac does not need to know which
+  repositories or paths exist, keeps no list of resources, and does not have
+  to store a resource that nobody holds. (PQ-23)
+- **CA.43** A grant that is stuck is known to tac, because tac gave it: it
+  is listed and can be freed (CA.13). (PQ-23)
 
 ### <!--[TAC-KINDS]--> 9.5 Message kinds
 
@@ -1749,7 +1729,7 @@ pull requests) are confirmed, with a strict mode added (CW.5). (PQ-14)
   later. The runtime checks the package registry and unblocks the todo.
   (S1 § 10.4, item 7)
 - **CW.13** tac answers **who holds what**: for a repository, a workspace or
-  all machines of an agent group. A sync between machines or a change of the
+  all machines of a team. A sync between machines or a change of the
   workspace's layout asks instead of assuming. A runtime can be asked to
   pause its queue after its current item. (S1 § 10.4, item 8)
 - **CW.14** The `_ai` state stays on the main branch: todo and state files
@@ -1795,6 +1775,13 @@ pull requests) are confirmed, with a strict mode added (CW.5). (PQ-14)
   and touch sets can be checked against it. The repositories of a workspace
   are those of the file the workspace is set up from. (S1 § 10.5, § 5.5,
   CQ-3)
+
+- **CW.25** When work has to be done in another quest, a todo is created in
+  that quest. For that it is enough to reach the quest: by writing into the
+  quest's repository, or into the shared state repository that holds
+  several quests, where the user has access to it; later also by finding a
+  runtime of the target quest and sending the todo there, through tac or
+  the runtime's MCP server. (PQ-23; CW.20 … CW.24)
 
 ### <!--[PAR-QUESTS]--> 10.4 Repository quests and personal files
 
@@ -1894,7 +1881,7 @@ by the sources; none carries a number the sources do not give.
 - **N-11** With coordination switched off, everything works as it does
   without tac. (S1 § 7.2; `TAC > TAC-BACKENDS`)
 - **N-12** When the coordination backend cannot be reached, nothing falls
-  back on its own: the queues of the agent group stop after their current todo,
+  back on its own: the queues of the team's runtimes stop after their current todo,
   and the user can switch to an emergency local mode. (S6; S1 § 7.2;
   `TAC > TAC-BACKENDS`)
 - **N-13** A lease that is no longer renewed becomes stale and is shown; only
@@ -2005,7 +1992,7 @@ belong to the first version; T6 and T7 are later. (PQ-9, PQ-16)
 | --- | --- | --- | --- |
 | **T1** | One machine, VS Code only | One runtime per window, inside the extension; the local tac service once for the machine and user. | Only the loopback interface. Nothing leaves the machine. |
 | **T2** | One machine, several hosts | VS Code windows, and Webforge with one runtime process per open quest plus one without a quest for Webwork's own AI. Two hosts may work on one quest. | The loopback interface; all hosts find the shared installation and the local tac service. |
-| **T3** | One user, several machines on the VPN | Each machine as T1 or T2. The machines form one agent group through the GitHub backend or the server. | Each machine reaches the coordination repository or the tac server; runtimes reach each other's published MCP endpoints directly over the VPN. |
+| **T3** | One user, several machines on the VPN | Each machine as T1 or T2. The runtimes on them coordinate in one team through the GitHub backend or the server. | Each machine reaches the coordination repository or the tac server; runtimes reach each other's published MCP endpoints directly over the VPN. |
 | **T4** | A team on the VPN | As T3 with several people; the server carries the messaging. Webwork on the desktop connects through its local runtime. | Every member's machine reaches the tac server over TLS on the VPN. |
 | **T5** | A member off the VPN | A machine outside reaches the server's public address; the relay forwards TAC and MCP to runtimes inside. | The server's public address over TLS. Runtimes inside keep an outbound connection to the relay; nothing inside accepts a connection from outside. |
 | **T6** | A runtime server (later) | An always-on machine runs runtimes for a long time without a window or a client; quests are worked from the queue and supervised through trc. | The machine reaches the tac server; trc reaches the runtimes' endpoints. (`SCO > SCO-LATER`, L-5; PQ-16) |
@@ -2035,7 +2022,7 @@ The flows the architecture document draws as sequences (S1 § 9).
 | **F8** | Two runs on one repository | Each run works in its own working tree on a run branch; when its todo is done it takes the repository's integration lease, rebases, runs the checks, fast-forwards the main branch and pushes; the next run rebases first. |
 | **F9** | A todo to the cloud (later) | A todo goes to a hosted agent or a runtime elsewhere; a branch comes back and is integrated as in F8. |
 | **F10** | Supervising a group of runtimes | trc reads the team's runtimes and their endpoints from tac, attaches to each runtime's events, shows what waits; the supervisor answers an ask, pauses a queue, continues a process. |
-| **F11** | A machine joins | The runtime is installed, gets the agent group's access and registers; it sees the agent group; nothing is converged for it. |
+| **F11** | A machine joins | The runtime is installed, gets the team's access and registers; it sees the team's runtimes; nothing is converged for it. |
 | **F12** | A version update | A host installs a new runtime version beside the old one; running runtimes go on; a migration of the workspace files runs once under the machine's lock while the others pause. |
 
 ### <!--[NFR-GEN]--> 11.2 Generation units
@@ -2129,7 +2116,7 @@ under "Replaces or completes".
 | **D-21** | CQ-8, WQ-2 | tac is specified as one `tac/2.0` and built in one go; a service announces its capabilities, and new ones are added within `tac/2.0`. | the minor versions in the earlier todos | `TAC > TAC-SPEC` |
 | **D-22** | CQ-9 | The full server (customers, keys, quotas, administration) is built first; TLS ends at a reverse proxy. | the smaller team server | `TAC > TAC-BACKENDS` |
 | **D-23** | FO-9 | The relay is part of the server, carries TAC and MCP, and only forwards. | — | `TAC > TAC-BACKENDS` |
-| **D-24** | DQ-1 | A team is people, an agent group is runtimes; one runtime belongs to one person. | — | `TAC > TAC-PEOPLE`, `GLO` |
+| **D-24** | DQ-1, PQ-23 | A team is people, and its members' runtimes coordinate in it; there is no agent group as a thing of its own. One runtime belongs to one person. | DQ-1 in the part that kept the agent group as a second thing | `TAC > TAC-PEOPLE`, `GLO` |
 | **D-25** | CQ-10, DQ-2 | Identification by user id and e-mail and invitation with team tokens are both built; an owner invites, a one-time password is passed on by the owner, the server generates the user id; remote control only inside a team and only where the runtime's host allows it. Where identification is accepted: D-54. | — | `TAC > TAC-PEOPLE` |
 | **D-26** | DQ-12 | A quest has a home team; its runtime acts for another team only by explicit address, with the person's token for that team. | — | `TAC > TAC-PEOPLE` |
 | **D-27** | WQ-1 | A browser, phone or tablet client reaches tac only through a runtime on the server side, which also hosts the web version; tac's participants are people and runtimes. | the earlier answer that such a client registers in tac, and the concept's earlier text | `TAC > TAC-PEOPLE`, `NFR > NFR-TOPO`, `SCO > SCO-LATER` |
@@ -2176,11 +2163,12 @@ too)
 | **D-50** | PQ-7 | The client packages of all nine languages are in the first delivery. | — | `CLI > CLI-PACK` |
 | **D-51** | PQ-9 | The supervision application runs on the phone and the tablet in the first version, reached from the internet as well as from the local network or the VPN; a device is paired and gets a key of its own. | CQ-10 in the part that defers the pairing; WQ-1 in the part that defers the server-side runtime | `CLI > CLI-TRC`, `NFR > NFR-TOPO`, `SCO > SCO-LATER`, `TAC > TAC-CRYPT` |
 | **D-52** | PQ-16 | A runtime server on an always-on machine and standalone runtimes are later; a permanent server that hosts one runtime per client, each ending with its client, is part of the model. | — | `RT > RT-INSTALL`, `NFR > NFR-TOPO` |
-| **D-53** | PQ-12 | An owner of a team may do what the table of rights says; its last row (agent groups) is open with PQ-23. | — | `TAC > TAC-PEOPLE` |
+| **D-53** | PQ-12, PQ-23 | An owner of a team may do what the table of rights says; with no agent groups, nothing of them is created or deleted. | — | `TAC > TAC-PEOPLE` |
 | **D-54** | PQ-13 | Open (identification) or strict (invitation and team tokens) is a setting of the server, for everyone on it; every access from the internet is strict and that cannot be configured. | D-25 in the part that leaves open where identification is accepted | `TAC > TAC-PEOPLE` |
 | **D-55** | PQ-14 | The whole approach to parallel work is confirmed; a strict mode makes a claim block for the whole todo, and a repository without working trees per run is always in it while a todo executes. | — | `PAR > PAR-APPROACH` |
 | **D-56** | PQ-15 | The new packages are BSD-3; for now they are published only to pub.dev and to the workspace's binaries repository. | — | `NFR` |
 | **D-58** | PQ-21 | The link between a host and its runtime is an API with callbacks in both directions over a wire protocol of JSON structures; its records get object models worked out from the workspace's existing schemas; the shape of a conversation and of a question on the wire is settled in the interface specification; unloading runs is an option, not part of the first version unless measurement warrants it. | — | `RT > RT-PROTO`, `RT > RT-INSTALL` |
+| **D-59** | PQ-23 | A resource is a whole repository or a part of one described by a pattern, named and not registered; tac knows only what it has granted and decides a request from the grants that exist; a runtime works with what its user can reach. | S5's declared units and infrastructure resources, for now | `TAC > TAC-PEOPLE`, `TAC > TAC-COORD` |
 | **D-57** | PQ-17, PQ-18 | Which mapper or generator writes which unit, and which standard descriptions are published, is decided at the start of Phase 4; missing generators are built there. The API documentation of the client packages and hand-written user and programmer's guides are delivered. | — | `NFR > NFR-GEN`, `NFR` |
 
 ## <!--[CON]--> 13 Contradictions
@@ -2214,10 +2202,11 @@ Where sources disagree, and how it is resolved.
   customers, keys, quotas and an administration interface; S3 (WR-1) asks for
   a small team's server without them. **Resolved:** the full server is built
   first; a small team is that server with one customer (D-22).
-- **X-5** **"Group" where a team is meant.** S13 says "a Webwork team is one
-  tac group"; S5 uses "agent group" for runtimes that coordinate.
-  **Resolved:** a team is people, an agent group is runtimes (D-24); the
-  specification uses the two words so, and Webwork is told.
+- **X-5** **"Group", "agent group" and team.** S13 says "a Webwork team is
+  one tac group"; S5 uses "agent group" for runtimes that coordinate; S1
+  § 7.3 (DQ-1) kept the two apart. **Resolved:** a team is people, and its
+  members' runtimes coordinate in it; the agent group is not a thing of its
+  own (D-24). Webwork's "one team, one group" holds.
 - **X-6** **One `tac/2.0` against stepwise versions.** The earlier plan added
   to the protocol in minor versions, one per capability; S5 § 8 says minor
   versions only add. **Resolved:** one specification `tac/2.0`, built in one
@@ -2265,6 +2254,12 @@ Where sources disagree, and how it is resolved.
   asked. **Resolved:** the later answer holds (D-49). Versions can still lie
   side by side (CR.41), which is what going back to an older runtime needs
   (CP.33).
+- **X-15** **Declared resources or named ones.** S5 and S6 have units and
+  infrastructure resources declared in the group's data, and four kinds of
+  resource. The answer to the question on what runtimes share is that a
+  resource is only named when it is asked for, that there are two kinds for
+  now, and that tac keeps no list of resources. **Resolved:** the later
+  answer holds (D-59); the protocol's other kinds stay unused for now.
 - **X-14** **Pairing of devices and the server-side runtime, later or now.**
   S1 § 11.1 defers both (CQ-10, WQ-1). The answer of the first question
   round puts the supervision application on the phone in the first version,
