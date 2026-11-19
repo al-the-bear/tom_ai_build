@@ -212,7 +212,7 @@ the same rule the DocSpecs schema generator applies when it gives the section
 an `<id>-form` format. Each entry always carries `name`, `label`
 (the declared description, else the field name split on PascalCase), `type` (the
 Dart type name) and `required`; `hint`, `enumValues`, `refersTo` and `countOf`
-are omitted when empty, and `code` is omitted when `false`.
+are omitted when empty, and `code` and `multiParagraph` are omitted when `false`.
 
 `enumValues` lists the constant names when `type` is a model enum, so a runtime
 can validate and convert a value without the analyzer. `enumValueDocs` is its
@@ -265,6 +265,13 @@ skipped, and an empty value is not checked.
 (`Field.code`). Consumers use it in the markdown codec, which writes a
 single-line value as an inline code span and unwraps it on import (SOM §11.4
 rule 8). It never constrains the value.
+
+`multiParagraph: true` states that the field's values **hold paragraphs or
+blocks** (`Field.multiParagraph`). Consumers use it in the markdown renderer,
+which writes such a value as a `Field:` paragraph and never as a row of the
+form table. Like `code`, it changes only how the value is written and never
+constrains it. The key is optional, so `metaSchemaVersion` stays `1`: a reader
+that does not know it renders the field as before.
 
 ## Validation contract
 

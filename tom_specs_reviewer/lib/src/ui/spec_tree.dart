@@ -1476,6 +1476,8 @@ class _FormPanel extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                      for (final chip in _paint(formFieldChips(field)))
+                        _ChipWidget(chip),
                     ],
                   ),
                   const SizedBox(height: 2),

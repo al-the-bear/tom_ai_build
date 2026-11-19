@@ -118,6 +118,12 @@ class FormFieldInfo {
   /// `tom_specs_core`.
   final bool code;
 
+  /// Whether the field's values hold paragraphs or blocks
+  /// (`Field.multiParagraph`), so the markdown rendition writes them as a
+  /// `Field:` paragraph, never as a form-table row. See `Field.multiParagraph`
+  /// in `tom_specs_core`.
+  final bool multiParagraph;
+
   /// [name] and [typeName] are required — a slot without either is not
   /// addressable and not parseable. Every remaining property defaults to
   /// its *empty* value (`''` / `const []`) rather than null, so consumers
@@ -137,6 +143,7 @@ class FormFieldInfo {
     this.productOf = const [],
     this.rankOf = '',
     this.code = false,
+    this.multiParagraph = false,
   });
 }
 
@@ -1000,6 +1007,8 @@ class ModelReader {
         final rankOf = item.getField('rankOf')?.toStringValue() ?? '';
         final multiple = item.getField('multiple')?.toBoolValue() ?? false;
         final code = item.getField('code')?.toBoolValue() ?? false;
+        final multiParagraph =
+            item.getField('multiParagraph')?.toBoolValue() ?? false;
 
         // Extract type name from the Type literal; resolve enum constant
         // names right here (YRD7) so downstream consumers need no analyzer.
@@ -1030,6 +1039,7 @@ class ModelReader {
             productOf: productOf,
             rankOf: rankOf,
             code: code,
+            multiParagraph: multiParagraph,
           ),
         );
       }

@@ -39,6 +39,7 @@ import {
   SomMetaKind,
   SomMetaNode,
   SomMetaTree,
+  FormFieldSpec,
 } from '../src/index';
 
 let _passed = 0;
@@ -544,12 +545,36 @@ function testItemPath(): void {
   _check('itemPath.nestedList', _raises(() => nested.itemPath(1)));
 }
 
+function testMultiParagraph(): void {
+  // `Field.multiParagraph`: read from the model meta, absent means false, and
+  // carried by the form-field meta slot.
+  const flagged = FormFieldSpec.fromJson({
+    name: 'rationale',
+    label: 'Rationale',
+    type: 'String',
+    multiParagraph: true,
+  });
+  const plain = FormFieldSpec.fromJson({ name: 'title', label: 'Title' });
+  _check('multiParagraph.read', flagged.multiParagraph === true);
+  _check('multiParagraph.absent', plain.multiParagraph === false);
+  const meta = new SomFormFieldMeta({
+    name: 'rationale',
+    typeName: 'String',
+    order: 1,
+    multiParagraph: true,
+  });
+  const metaPlain = new SomFormFieldMeta({ name: 'title', typeName: 'String', order: 2 });
+  _check('multiParagraph.metaSlot', meta.multiParagraph === true);
+  _check('multiParagraph.metaDefault', metaPlain.multiParagraph === false);
+}
+
 function main(): number {
   testWiring();
   testMetadataSlots();
   testById();
   testByPath();
   testItemPath();
+  testMultiParagraph();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

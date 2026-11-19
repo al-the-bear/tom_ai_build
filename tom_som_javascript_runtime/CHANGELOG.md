@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- SOM documents are named `*.tomspecs.yaml` / `*.tomspecs.md`: the YAML encoder's
+  header line names `*.tomspecs.yaml`, and the impact walk discovers
+  `*.tomspecs.yaml` documents in a spec root's `phase*` folders.
 - `spec_impact_walk.js`: the impact walk of the `tom_specs` change mode — `specImpactWalk`, `specImpactLevel`, `specImpactDocumentFiles`, `specImpactWalkMarkdown` (`impact_walk_cases.json`), as in the TypeScript runtime. The routing verdict is shared with the extractor as `codeSpecsClassRouting` / `codeSpecsFieldRouting`.
 - `somFormatDouble(-0)` writes `-0.0` (it wrote `0.0`): the sign of a negative
   zero is kept, as in every runtime (`typed_value_cases.json`).

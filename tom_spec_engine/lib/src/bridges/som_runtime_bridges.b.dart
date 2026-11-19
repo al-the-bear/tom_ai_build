@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 30 files
-// Generated: 2026-11-19T14:21:54.222427 by tom_d4rt_generator 1.67.0
+// Generated: 2026-11-19T18:32:13.255822 by tom_d4rt_generator 1.67.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -1370,6 +1370,24 @@ class SomRuntimeBridge {
         )) {
       try {
         interpreter.registerGlobalVariable(
+          'kMultiParagraphChipLabel',
+          $tom_som_dart_runtime_3.kMultiParagraphChipLabel,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kMultiParagraphChipLabel": $e',
+        );
+      }
+    }
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
           'kSerializationOrderToggleLabel',
           $tom_som_dart_runtime_3.kSerializationOrderToggleLabel,
           importPath,
@@ -1444,6 +1462,22 @@ class SomRuntimeBridge {
         );
       } catch (e) {
         errors.add('Failed to register variable "referencesChip": $e');
+      }
+    }
+    if (include == null ||
+        include(
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'multiParagraphChip',
+          $tom_som_dart_runtime_3.multiParagraphChip,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "multiParagraphChip": $e');
       }
     }
     if (include == null ||
@@ -1881,6 +1915,16 @@ class SomRuntimeBridge {
           copies,
           options,
         );
+      },
+      'formFieldChips': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'formFieldChips');
+        final field = D4.getRequiredArg<$tom_som_dart_runtime_18.FormFieldSpec>(
+          positional,
+          0,
+          'field',
+          'formFieldChips',
+        );
+        return $tom_som_dart_runtime_3.formFieldChips(field);
       },
       'kindChips': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'kindChips');
@@ -2716,6 +2760,8 @@ class SomRuntimeBridge {
       'markChangeText':
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'mergeReviews': 'package:tom_som_dart_runtime/src/spec_review_merge.dart',
+      'formFieldChips':
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
       'kindChips':
           'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
       'codeSpecKindChips':
@@ -2836,6 +2882,7 @@ class SomRuntimeBridge {
           'SpecMarkedChange markChangeText(String oldValue, String newValue)',
       'mergeReviews':
           'SpecReviewMergeResult<D> mergeReviews(D base, List<SpecReviewedCopy<D>> copies, SpecReviewMergeOptions options)',
+      'formFieldChips': 'List<SpecChip> formFieldChips(FormFieldSpec field)',
       'kindChips':
           'List<SpecChip> kindChips(KindLink? codeSpec, KindLink? followUp, NoArtifactLink? noArtifact)',
       'codeSpecKindChips':
@@ -14502,6 +14549,11 @@ BridgedClass _createSomFormFieldMetaBridge() {
             ? D4.coerceList<String>(named['refersTo'], 'refersTo')
             : const <String>[];
         final code = D4.getNamedArgWithDefault<bool>(named, 'code', false);
+        final multiParagraph = D4.getNamedArgWithDefault<bool>(
+          named,
+          'multiParagraph',
+          false,
+        );
         return $tom_som_dart_runtime_15.SomFormFieldMeta(
           name: name,
           typeName: typeName,
@@ -14512,6 +14564,7 @@ BridgedClass _createSomFormFieldMetaBridge() {
           enumValues: enumValues,
           refersTo: refersTo,
           code: code,
+          multiParagraph: multiParagraph,
         );
       },
     },
@@ -14570,9 +14623,15 @@ BridgedClass _createSomFormFieldMetaBridge() {
             'SomFormFieldMeta',
           )
           .code,
+      'multiParagraph': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SomFormFieldMeta>(
+            target,
+            'SomFormFieldMeta',
+          )
+          .multiParagraph,
     },
     constructorSignatures: {
-      '': 'const SomFormFieldMeta({required String name, required String typeName, String? description, bool required = false, String? hint, required int order, List<String> enumValues = const [], List<String> refersTo = const [], bool code = false})',
+      '': 'const SomFormFieldMeta({required String name, required String typeName, String? description, bool required = false, String? hint, required int order, List<String> enumValues = const [], List<String> refersTo = const [], bool code = false, bool multiParagraph = false})',
     },
     getterSignatures: {
       'name': 'String get name',
@@ -14584,6 +14643,7 @@ BridgedClass _createSomFormFieldMetaBridge() {
       'enumValues': 'List<String> get enumValues',
       'refersTo': 'List<String> get refersTo',
       'code': 'bool get code',
+      'multiParagraph': 'bool get multiParagraph',
     },
   );
 }
@@ -15511,6 +15571,11 @@ BridgedClass _createFormFieldSpecBridge() {
             : const <String>[];
         final rankOf = D4.getOptionalNamedArg<String?>(named, 'rankOf');
         final code = D4.getNamedArgWithDefault<bool>(named, 'code', false);
+        final multiParagraph = D4.getNamedArgWithDefault<bool>(
+          named,
+          'multiParagraph',
+          false,
+        );
         return $tom_som_dart_runtime_18.FormFieldSpec(
           name: name,
           label: label,
@@ -15525,6 +15590,7 @@ BridgedClass _createFormFieldSpecBridge() {
           productOf: productOf,
           rankOf: rankOf,
           code: code,
+          multiParagraph: multiParagraph,
         );
       },
       'fromJson': (visitor, positional, named) {
@@ -15617,9 +15683,15 @@ BridgedClass _createFormFieldSpecBridge() {
             'FormFieldSpec',
           )
           .code,
+      'multiParagraph': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_18.FormFieldSpec>(
+            target,
+            'FormFieldSpec',
+          )
+          .multiParagraph,
     },
     constructorSignatures: {
-      '': 'FormFieldSpec({required String name, required String label, required String type, String? hint, bool required = false, List<String> enumValues = const [], Map<String, String> enumValueDocs = const {}, List<String> refersTo = const [], List<String> countOf = const [], bool multiple = false, List<String> productOf = const [], String? rankOf, bool code = false})',
+      '': 'FormFieldSpec({required String name, required String label, required String type, String? hint, bool required = false, List<String> enumValues = const [], Map<String, String> enumValueDocs = const {}, List<String> refersTo = const [], List<String> countOf = const [], bool multiple = false, List<String> productOf = const [], String? rankOf, bool code = false, bool multiParagraph = false})',
       'fromJson': 'factory FormFieldSpec.fromJson(Map<String, dynamic> j)',
     },
     getterSignatures: {
@@ -15636,6 +15708,7 @@ BridgedClass _createFormFieldSpecBridge() {
       'productOf': 'List<String> get productOf',
       'rankOf': 'String? get rankOf',
       'code': 'bool get code',
+      'multiParagraph': 'bool get multiParagraph',
     },
   );
 }

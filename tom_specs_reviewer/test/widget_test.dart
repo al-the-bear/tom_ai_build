@@ -1967,12 +1967,15 @@ entries:
 
   group('No-artifact feedback axis (TSRA9)', () {
     test('the reason vocabulary is the canonical NoArtifactReason enum', () {
-      // Not a mirrored enum: the model already closes this vocabulary at
-      // three, so a copy could only ever drift from it.
-      expect(NoArtifactReason.values, hasLength(3));
+      // Not a mirrored enum: the model closes this vocabulary itself, so a
+      // copy could only ever drift from it. Every reason parses and has a
+      // label of its own.
+      expect(NoArtifactReason.values, hasLength(4));
       for (final reason in NoArtifactReason.values) {
         expect(parseNoArtifactReason(reason.name), reason);
+        expect(noArtifactReasonLabel(reason), isNot('Undecided'));
       }
+      expect(noArtifactReasonLabel(NoArtifactReason.generation), 'Generation');
     });
 
     test('parsing accepts both the bare and the prefixed token form', () {

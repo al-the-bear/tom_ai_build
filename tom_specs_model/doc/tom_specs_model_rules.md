@@ -892,6 +892,26 @@ backticks into the YAML. Nothing checks the value against a language.
 Declare it on a field whose value markdown would otherwise interpret: patterns,
 expressions, formulas. A field that only *mentions* code in prose stays prose.
 
+#### Multi-paragraph form fields (`multiParagraph:`)
+
+A form field whose values hold **paragraphs or blocks** — a rationale, a
+procedure, a list — declares `multiParagraph: true`:
+
+```dart
+Field('rationale', String, 'Rationale', multiParagraph: true),
+```
+
+Like `code:`, the flag changes how the value is **written**, never what it may
+hold. The markdown renderer writes a form's fields in declaration order: runs of
+one-line values as a form table, and every field declaring this flag as a
+`Field:` paragraph between the tables, since a table cell holds one line. A
+value written as a paragraph imports to the same stored text as one written in
+a cell. Nothing checks the value against the flag.
+
+Declare it on a field whose values routinely run to more than one paragraph,
+and order such fields towards the end of their form, so the one-line fields
+stay together in one table.
+
 #### 6.2.4 Derived form fields (`productOf:`, `rankOf:`)
 
 Some values are not counts but are still **derived** from others: a risk score
@@ -1463,6 +1483,12 @@ emitter id (`openapi`, `jsonschema`, `icu`, `asyncapi`, `markdown`; `irspecs_ir.
 **Validation & authoring guidance:** `@Prefix`, `@PatternCheckId`,
 `@PatternCheck`, `@TextRequired`, `@MaxDepth`, `@AllowedTags`,
 `@ValidationPrompt`, `@MinLength`, `@MaxLength`, `@ContentHelp`, `@Comment`.
+
+**Form-field qualifiers** (named parameters of `Field`, not annotations):
+`required`, `hint`, `refersTo` and `multiple` (§6.2), `countOf` (§6.2.2),
+`code` and `multiParagraph` (§6.2.3 and the subsection after it), `productOf`
+and `rankOf` (§6.2.4). `code` and `multiParagraph` only shape how a value is
+written and are model-only (`docSpecsFieldQualifierBindings`).
 
 Two authoring notes with model-wide consequences:
 

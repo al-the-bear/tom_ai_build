@@ -226,6 +226,27 @@ void main() {
       expect(correspondence.declared.length, greaterThan(30));
     });
 
+    test('every Field qualifier binding names a parameter of Field', () {
+      final parameters = readFieldNamedParameters(
+        File(p.join(_annotationsDir.path, 'form.dart')),
+      );
+      // Guard the reader: an empty set would make the check below vacuous.
+      expect(parameters, containsAll(<String>['required', 'code']));
+      for (final binding in docSpecsFieldQualifierBindings) {
+        expect(
+          parameters,
+          contains(binding.qualifier),
+          reason: '${binding.qualifier} is not a named parameter of Field.',
+        );
+        expect(binding.note, isNotEmpty);
+      }
+      final byName = {
+        for (final b in docSpecsFieldQualifierBindings) b.qualifier: b,
+      };
+      expect(byName['multiParagraph']?.modelOnly, ModelOnlyReason.generation);
+      expect(byName['code']?.modelOnly, ModelOnlyReason.generation);
+    });
+
     test('every binding is exactly one of schema-bound or model-only', () {
       for (final binding in docSpecsAnnotationBindings) {
         expect(

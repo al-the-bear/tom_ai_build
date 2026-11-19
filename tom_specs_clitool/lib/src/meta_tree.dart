@@ -131,6 +131,11 @@ class MetaFormField {
   /// on import (SOM §11.4 rule 8).
   final bool code;
 
+  /// Whether the field's values hold paragraphs or blocks
+  /// (`Field.multiParagraph`): every language's markdown renderer writes them
+  /// as a `Field:` paragraph, never as a row of the form table.
+  final bool multiParagraph;
+
   /// [name], [typeName] and [order] are required: a slot is not addressable
   /// without a name and a type, and [order] is the authored position, which
   /// the caller knows and this class cannot recompute. Everything else
@@ -147,6 +152,7 @@ class MetaFormField {
     this.enumValues = const [],
     this.refersTo = const [],
     this.code = false,
+    this.multiParagraph = false,
   });
 }
 
@@ -447,6 +453,7 @@ class MetaNode {
                 if (f.enumValues.isNotEmpty) 'enumValues': f.enumValues,
                 if (f.refersTo.isNotEmpty) 'refersTo': f.refersTo,
                 if (f.code) 'code': true,
+                if (f.multiParagraph) 'multiParagraph': true,
               },
             )
             .toList(),
@@ -896,6 +903,7 @@ class _SlotCollector {
           enumValues: f.enumValues,
           refersTo: f.refersTo,
           code: f.code,
+          multiParagraph: f.multiParagraph,
         ),
       );
     }

@@ -388,6 +388,7 @@ class SomTypeScriptMetaEmitter {
           if (ff.refersTo.isNotEmpty)
             'refersTo: [${ff.refersTo.map(_str).join(', ')}]',
           if (ff.code) 'code: true',
+          if (ff.multiParagraph) 'multiParagraph: true',
         ];
         fields.add('new SomFormFieldMeta({${ffArgs.join(', ')}})');
       }

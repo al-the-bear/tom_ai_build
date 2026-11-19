@@ -310,6 +310,12 @@ Map<String, dynamic> kAnnotationShowcaseJson() => {
               'type': 'enum',
               'enumValues': ['alpha', 'beta', 'gamma'],
             },
+            {
+              'name': 'rationale',
+              'label': 'Rationale',
+              'type': 'String',
+              'multiParagraph': true,
+            },
           ],
         },
         {
@@ -364,6 +370,9 @@ Set<String> expectedShowcaseChipLabels(SpecModel model) {
       if (field.isUnused) labels.add(unusedChip.label);
       if (field.hasReferences) labels.add(referencesChip.label);
       addAll(fieldChips(field));
+      for (final ff in field.formFields) {
+        addAll(formFieldChips(ff));
+      }
     }
   }
   return labels;

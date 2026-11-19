@@ -105,6 +105,11 @@ class SomFormFieldMeta {
   /// §11.4 rule 8).
   final bool code;
 
+  /// Whether the field's values hold paragraphs or blocks
+  /// (`Field.multiParagraph`): the markdown renderer writes them as a `Field:`
+  /// paragraph, never as a row of the form table.
+  final bool multiParagraph;
+
   /// [name], [typeName] and [order] are required — they are the field's
   /// identity and its fixed place in the form's serialization and render
   /// order. Everything else describes an annotation the model may simply not
@@ -122,6 +127,7 @@ class SomFormFieldMeta {
     this.enumValues = const [],
     this.refersTo = const [],
     this.code = false,
+    this.multiParagraph = false,
   });
 }
 

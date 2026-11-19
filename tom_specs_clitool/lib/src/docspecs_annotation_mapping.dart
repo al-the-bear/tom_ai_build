@@ -530,6 +530,73 @@ Map<String, DocSpecsAnnotationBinding> get docSpecsAnnotationBindingsByName => {
   for (final b in docSpecsAnnotationBindings) b.annotation: b,
 };
 
+/// One qualifier of a `@Form` field (a named parameter of `Field`) whose
+/// destination is decided here rather than through `Field`'s own binding.
+///
+/// `Field` itself is schema-bound (`fieldname`, with `required` and the
+/// author hint); a qualifier listed here is model-only: it reaches every
+/// runtime through the exported meta, and no DocSpecs schema key holds it.
+class DocSpecsFieldQualifierBinding {
+  /// Declares that the `Field` parameter [qualifier] is model-only for
+  /// [modelOnly], with [note] saying what reads it.
+  const DocSpecsFieldQualifierBinding(
+    this.qualifier, {
+    required this.modelOnly,
+    required this.note,
+  });
+
+  /// The named parameter of `Field` (`tom_specs_core`), e.g. `multiParagraph`.
+  final String qualifier;
+
+  /// Why the qualifier has no DocSpecs schema counterpart.
+  final ModelOnlyReason modelOnly;
+
+  /// What reads the qualifier instead of the schema.
+  final String note;
+}
+
+/// The `Field` qualifiers that only shape how a value is written. They govern
+/// the generated renditions in all nine runtimes, not what a document must
+/// contain, so no schema key holds them.
+const List<DocSpecsFieldQualifierBinding> docSpecsFieldQualifierBindings = [
+  DocSpecsFieldQualifierBinding(
+    'code',
+    modelOnly: ModelOnlyReason.generation,
+    note:
+        'The value is code: every markdown codec writes it as an inline code '
+        'span and unwraps it on import (SOM §11.4 rule 8). Exported as '
+        '`code: true` on the meta form field.',
+  ),
+  DocSpecsFieldQualifierBinding(
+    'multiParagraph',
+    modelOnly: ModelOnlyReason.generation,
+    note:
+        'The values hold paragraphs or blocks: the markdown renderer writes '
+        'them as `Field:` paragraphs, never as a form-table row. Exported as '
+        '`multiParagraph: true` on the meta form field.',
+  ),
+];
+
+/// The named parameters `Field`'s constructor declares in [formDart]
+/// (`tom_specs_core/lib/src/annotations/form.dart`), read from its
+/// `this.<name>` initialising formals inside the braces.
+Set<String> readFieldNamedParameters(File formDart) {
+  final text = formDart.readAsStringSync();
+  final start = text.indexOf('const Field(');
+  if (start < 0) {
+    throw ArgumentError('No `const Field(` constructor in ${formDart.path}');
+  }
+  final open = text.indexOf('{', start);
+  final close = text.indexOf('}', open);
+  final names = <String>{};
+  for (final m in RegExp(
+    r'this\.(\w+)',
+  ).allMatches(text.substring(open, close))) {
+    names.add(m.group(1)!);
+  }
+  return names;
+}
+
 /// The schema keys the generator is expected to be able to emit.
 Set<String> get boundDocSpecsSchemaKeys => {
   for (final b in docSpecsAnnotationBindings)

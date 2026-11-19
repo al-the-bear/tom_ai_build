@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- SOM documents are named `*.tomspecs.yaml` / `*.tomspecs.md`: the YAML encoder's
+  header line names `*.tomspecs.yaml`, and the impact walk discovers
+  `*.tomspecs.yaml` documents in a spec root's `phase*` folders.
 - `spec_impact_walk.hpp`: the impact walk of the `tom_specs` change mode —
   `specImpactWalk`, `specImpactLevel`, `specImpactDocumentFiles`,
   `specImpactWalkMarkdown` (`impact_walk_cases.json`). The routing verdict is

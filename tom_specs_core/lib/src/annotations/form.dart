@@ -156,6 +156,18 @@ class Field {
   /// it; it only changes how the value is written.
   final bool code;
 
+  /// Declares that the field's values hold **paragraphs or blocks**, so the
+  /// markdown rendition always writes them as a `Field:` paragraph and never as
+  /// a row of the form table, whose cell holds one line.
+  ///
+  /// The flag only changes how the renderer lays out the form: a form's fields
+  /// are written in declaration order, consecutive one-line values as one
+  /// table, and every field carrying this flag as a `Field:` paragraph between
+  /// tables. It says nothing about the value itself and is not checked
+  /// against it; a value written as a paragraph imports to the same stored
+  /// text as one written in a cell.
+  final bool multiParagraph;
+
   /// Declares a form field called [name] holding a value of [type].
   ///
   /// The three positional arguments are the ones every field has; the named
@@ -173,5 +185,6 @@ class Field {
     this.productOf = const [],
     this.rankOf,
     this.code = false,
+    this.multiParagraph = false,
   });
 }

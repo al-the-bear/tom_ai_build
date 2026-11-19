@@ -132,6 +132,8 @@ String noArtifactReasonLabel(NoArtifactReason? reason) {
       return 'Overview';
     case NoArtifactReason.view:
       return 'View';
+    case NoArtifactReason.generation:
+      return 'Generation';
   }
 }
 

@@ -121,6 +121,7 @@ FormFieldInfo({
   this.productOf = const [],
   this.rankOf = '',
   this.code = false,
+  this.multiParagraph = false,
 });
 ```
 

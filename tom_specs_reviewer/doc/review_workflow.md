@@ -132,6 +132,7 @@ app's opinion:
 | `case:` | The `@OneOf` alternative this subsection is bound to |
 | `unused`, a struck-through label | `@Unused` — text here is not expected |
 | `refs` | Standard references, folded away because thousands of fields carry them |
+| `¶ paragraphs` | On a form field: `Field.multiParagraph`, written as a `Field:` paragraph, never as a form-table row |
 | `#n` | The `@SerializationOrder` stamp, behind the toolbar toggle |
 
 What each marker *means* is not this app's decision — the labels, tooltips and

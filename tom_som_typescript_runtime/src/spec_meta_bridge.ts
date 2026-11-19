@@ -219,6 +219,7 @@ function _fieldNode(
             enumValues: ff.enumValues,
             refersTo: ff.refersTo,
             code: ff.code,
+            multiParagraph: ff.multiParagraph,
           }),
       ),
     );

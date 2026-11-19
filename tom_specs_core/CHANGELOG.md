@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- `Field.multiParagraph`: a field whose values hold paragraphs or blocks. The
+  markdown rendition writes such a value as a `Field:` paragraph, never as a
+  row of the form table. No field carries it yet.
+
 ## 0.5.1
 
 - Packaging only: the archive no longer ships `tom_build_state.json`, a

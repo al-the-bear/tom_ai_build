@@ -146,16 +146,27 @@ unpublished_drift:
     among the emitter ids in som_multiplatform_spec_model.md and
     tom_specs_model_rules.md (documentation only); tsbin7 (2026-11-18): the
     documents, gate checklists and the generated spec-ops header name the
-    tomspecs commands; ships with the next release.
+    tomspecs commands; 01a_rdv1 (2026-11-19): doc comments name the
+    *.tomspecs.yaml / *.tomspecs.md files; 02a_rdv1 (2026-11-19): version
+    1.12.1, the meta schema and model rules describe `multiParagraph`; ships
+    with the next release.
   tom_som_dart_runtime: >-
     irout3 (2026-11-16): kSpecStandardEmitters gains `markdown` (validation
     phase 8, unitEmitterUnknown), as in the eight other runtimes and the
     corpus; tsbin7 (2026-11-18): comments and README name the tomspecs
-    commands; ships with the next chain release.
+    commands; 01a_rdv1 (2026-11-19): the YAML header line and the impact walk
+    name *.tomspecs.yaml; 02a_rdv1 (2026-11-19): FormFieldSpec /
+    SomFormFieldMeta.multiParagraph and the `¶ paragraphs` chip; ships with
+    the next chain release.
   tom_specs_core: >-
     tsbin7 (2026-11-18): the README, doc/annotations.md and the
     @SerializationOrder doc comment name the tomspecs commands (documentation
-    only); ships with the next release.
+    only); 02a_rdv1 (2026-11-19): `Field.multiParagraph` (a new optional
+    parameter, the next minor version); ships with the next release.
+  tom_doc_scanner: >-
+    01a_rdv1 (2026-11-19): a comment in test/doc_scanner_test.dart names the
+    fixture's source as meridian_order_management.tomspecs.md (test only,
+    nothing shipped changes); ships with the next release.
   tom_code_specs: >-
     tsbin7 (2026-11-18): the README and doc/ name the tomspecs commands
     (documentation only); ships with the next

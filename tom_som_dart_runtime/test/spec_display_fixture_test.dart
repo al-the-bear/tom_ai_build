@@ -20,6 +20,10 @@ void main() {
       names.addAll(cls.annotations.map((a) => a.name));
       for (final f in cls.fields) {
         names.addAll(f.annotations.map((a) => a.name));
+        // The `Field` qualifiers the display layer renders as chips.
+        if (f.formFields.any((ff) => ff.multiParagraph)) {
+          names.add('multiParagraph');
+        }
       }
     }
     return names;

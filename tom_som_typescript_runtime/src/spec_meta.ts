@@ -74,6 +74,7 @@ export interface SomFormFieldMetaInit {
   enumValues?: string[] | null;
   refersTo?: string[] | null;
   code?: boolean;
+  multiParagraph?: boolean;
 }
 
 /** One field of a `@Form` section (SOM §7.1 `FormMeta.fields`). */
@@ -110,6 +111,12 @@ export class SomFormFieldMeta {
    * §11.4 rule 8).
    */
   code: boolean;
+  /**
+   * Whether the field's values hold paragraphs or blocks
+   * (`Field.multiParagraph`): the markdown renderer writes them as a `Field:`
+   * paragraph, never as a row of the form table.
+   */
+  multiParagraph: boolean;
 
   constructor(init: SomFormFieldMetaInit) {
     this.name = init.name;
@@ -121,6 +128,7 @@ export class SomFormFieldMeta {
     this.enumValues = init.enumValues != null ? init.enumValues : [];
     this.refersTo = init.refersTo != null ? init.refersTo : [];
     this.code = init.code != null ? init.code : false;
+    this.multiParagraph = init.multiParagraph != null ? init.multiParagraph : false;
   }
 }
 

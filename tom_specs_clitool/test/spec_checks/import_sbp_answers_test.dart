@@ -349,7 +349,9 @@ void main() {
           'rec',
           'and publish it as the sample.',
         ]);
-        File('${scratch.path}/tom_uam.sbp.tomspecs.md').writeAsStringSync(edited);
+        File(
+          '${scratch.path}/tom_uam.sbp.tomspecs.md',
+        ).writeAsStringSync(edited);
 
         final plan = real.plan(edited);
         expect(plan.isRefused, isFalse, reason: plan.refusals.join('\n'));

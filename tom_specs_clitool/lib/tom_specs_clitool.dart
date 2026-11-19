@@ -249,11 +249,14 @@ export 'src/docspecs_schema_generator.dart'
 export 'src/docspecs_annotation_mapping.dart'
     show
         DocSpecsAnnotationBinding,
+        DocSpecsFieldQualifierBinding,
         DocSpecsOwner,
         ModelOnlyReason,
         AnnotationCatalogueCorrespondence,
         docSpecsAnnotationBindings,
         docSpecsAnnotationBindingsByName,
+        docSpecsFieldQualifierBindings,
+        readFieldNamedParameters,
         boundDocSpecsSchemaKeys,
         readDeclaredAnnotationClasses,
         checkAnnotationCatalogue;

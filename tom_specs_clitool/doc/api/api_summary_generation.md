@@ -188,6 +188,7 @@ const MetaFormField({
   this.enumValues = const [],
   this.refersTo = const [],
   this.code = false,
+  this.multiParagraph = false,
 });
 ```
 

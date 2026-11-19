@@ -1,3 +1,12 @@
+## 1.12.1
+
+- `Field(..., multiParagraph: true)` (`tom_specs_core`) is exported as
+  `"multiParagraph": true` on the meta form field and carried by the Dart and
+  TypeScript meta classes: the markdown renderer will write such a field as a
+  `Field:` paragraph, never as a form-table row. No field carries it yet; no
+  change of structure.
+- Doc comments name the document files `*.tomspecs.yaml` / `*.tomspecs.md`.
+
 ## 1.12.0
 
 - `DataEntityEntry`'s identity form (`DAENT-IDEN`) gains the entity's

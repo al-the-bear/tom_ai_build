@@ -236,6 +236,9 @@ class ModelJsonExporter {
                 // The value is code, not prose: every markdown codec writes it
                 // as a code span and unwraps it on import (SOM §11.4).
                 if (ff.code) 'code': true,
+                // The values hold paragraphs or blocks: the markdown rendition
+                // writes them as `Field:` paragraphs, never as a table row.
+                if (ff.multiParagraph) 'multiParagraph': true,
               },
             )
             .toList();

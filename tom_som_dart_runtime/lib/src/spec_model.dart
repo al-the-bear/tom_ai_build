@@ -225,6 +225,11 @@ class FormFieldSpec {
   /// §11.4 rule 8). Omitted from the export when `false`.
   final bool code;
 
+  /// Whether the field's values hold paragraphs or blocks
+  /// (`Field.multiParagraph`): the markdown renderer writes them as a `Field:`
+  /// paragraph, never as a row of the form table.
+  final bool multiParagraph;
+
   /// Only [name], [label] and [type] are required — the three a form line
   /// cannot be written without. Everything else defaults to the "nothing was
   /// declared" state: no [hint], not [required], and empty [enumValues] /
@@ -243,6 +248,7 @@ class FormFieldSpec {
     this.productOf = const [],
     this.rankOf,
     this.code = false,
+    this.multiParagraph = false,
   });
 
   /// Reads one `formFields[]` entry
@@ -272,6 +278,7 @@ class FormFieldSpec {
         const [],
     rankOf: j['rankOf'] as String?,
     code: j['code'] as bool? ?? false,
+    multiParagraph: j['multiParagraph'] as bool? ?? false,
   );
 }
 

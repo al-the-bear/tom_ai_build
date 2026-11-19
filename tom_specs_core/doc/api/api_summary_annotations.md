@@ -303,6 +303,7 @@ const Field(
   List<String> productOf = const [],
   String? rankOf,
   bool code = false,
+  bool multiParagraph = false,
 });
 ```
 
@@ -321,6 +322,7 @@ const Field(
 | `productOf` | `List<String>` | The fields whose product this field's value is (a numeric operand by its number, an enum by its 1-based position); checked as `derivedValueMismatch`. |
 | `rankOf` | `String?` | The field of the same form this field ranks by, highest first, over every instance of the form in the document. |
 | `code` | `bool` | Whether the value is code rather than prose, so the markdown rendition writes it as an inline code span. |
+| `multiParagraph` | `bool` | Whether the values hold paragraphs or blocks, so the markdown rendition writes them as a `Field:` paragraph, never as a form-table row. |
 
 #### ContentHelp
 

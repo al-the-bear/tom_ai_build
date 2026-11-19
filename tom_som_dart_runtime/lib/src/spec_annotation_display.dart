@@ -77,6 +77,11 @@ const String kUnusedChipLabel = 'unused';
 /// standards, and inlining them would bury the structure.
 const String kReferencesChipLabel = 'refs';
 
+/// Marker on a form field declared `Field(..., multiParagraph: true)`: its
+/// values hold paragraphs or blocks, so the markdown renderer writes them as a
+/// `Field:` paragraph and never as a row of the form table.
+const String kMultiParagraphChipLabel = '¶ paragraphs';
+
 /// Label of the switch revealing `@SerializationOrder` ordinals.
 const String kSerializationOrderToggleLabel = 'Show serialization order';
 
@@ -115,6 +120,9 @@ const Set<String> kRenderedAnnotations = {
   'Reference', // references panel
   'StandardReferences', // references panel
   'SerializationOrder', // `#n` badge, behind the toggle
+  // A `Field` qualifier, not an annotation: it reaches the meta as the form
+  // field's `multiParagraph` key and shows as a chip in the form panel.
+  'multiParagraph', // `¶ paragraphs` chip on the form field
 };
 
 /// The kind of statement a chip makes, so an app can colour it without knowing
@@ -228,6 +236,21 @@ const SpecChip referencesChip = SpecChip(
   SpecChipRole.references,
   tooltip: 'Show the standards this section derives from',
 );
+
+/// The chip on a form field whose values hold paragraphs or blocks
+/// (`Field.multiParagraph`).
+const SpecChip multiParagraphChip = SpecChip(
+  kMultiParagraphChipLabel,
+  SpecChipRole.structural,
+  tooltip:
+      'multiParagraph — the markdown rendition writes this field as a '
+      '`Field:` paragraph, never as a row of the form table',
+);
+
+/// The chips a form field carries in a form panel.
+List<SpecChip> formFieldChips(FormFieldSpec field) => [
+  if (field.multiParagraph) multiParagraphChip,
+];
 
 /// The chips stating where a node's subject matter is headed.
 ///

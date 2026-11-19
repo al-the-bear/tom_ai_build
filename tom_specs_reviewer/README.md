@@ -111,7 +111,7 @@ passing unseen.
 | Group | Annotations and how they draw |
 | --- | --- |
 | Identity and headline | `@Document` (the root rail), `@SectionId` and `@SectionIdPattern` (badges on the row), `@Headline` (quoted secondary label) |
-| Shape | `@Form` (the form panel under the row), `@ContentType` and `@Min` (the row's type label), `@ContentHelp` (the row's doc line) |
+| Shape | `@Form` (the form panel under the row; a field declared `multiParagraph` carries a `¶ paragraphs` chip), `@ContentType` and `@Min` (the row's type label), `@ContentHelp` (the row's doc line) |
 | Hand-offs and taxonomies | `@MapsTo` and `@DetailedIn` (`maps→` / `detail→` chips, and the anchors the two cut toggles act on); the three routing verdicts `@CodeSpecKind`, `@FollowUpKind` and `@NoArtifact` (part / process / `na:<reason>` chips); `@CodeSpecsProjection` (the projection badge) |
 | Closed choices | `@OneOf` (the choice group node) and `@Case` (`case:` chips on its alternatives) |
 | Markers, notes and provenance | `@Unused` (struck-through label plus an `unused` chip), `@Comment` (inline `←` note), `@Reference` and `@StandardReferences` (behind a `refs` chip — thousands of fields carry standards, and inlining them would bury the structure), `@SerializationOrder` (a `#n` badge, behind the toolbar toggle) |
@@ -194,9 +194,9 @@ Expected stamp after a clean refresh:
 
 | Key | Value |
 | --- | --- |
-| `modelVersion` / `modelVersionLabel` | `1` / `1.7.1+29.32d601e4` |
+| `modelVersion` / `modelVersionLabel` | `1` / `1.12.1+39.702929c9` |
 | `metaSchemaVersion` | `1` |
-| `classCount` | 1270 |
+| `classCount` | 1273 |
 | `rootCount` | 14 |
 | `containerRoot` | `DocSpecsProject` |
 

@@ -114,6 +114,13 @@ export class FormFieldSpec {
    * the instance tier reports a list in it (`multipleReferences`).
    */
   multiple: boolean;
+  /**
+   * Whether the field's values hold paragraphs or blocks
+   * (`Field.multiParagraph`): the markdown renderer writes them as a `Field:`
+   * paragraph, never as a row of the form table. Omitted from the export when
+   * `false`.
+   */
+  multiParagraph: boolean;
 
   constructor(props: {
     name: string;
@@ -128,6 +135,7 @@ export class FormFieldSpec {
     rankOf?: string | null;
     code?: boolean;
     multiple?: boolean;
+    multiParagraph?: boolean;
   }) {
     this.name = props.name;
     this.label = props.label;
@@ -141,6 +149,7 @@ export class FormFieldSpec {
     this.rankOf = props.rankOf != null ? props.rankOf : null;
     this.code = Boolean(props.code || false);
     this.multiple = Boolean(props.multiple || false);
+    this.multiParagraph = Boolean(props.multiParagraph || false);
   }
 
   static fromJson(j: any): FormFieldSpec {
@@ -157,6 +166,7 @@ export class FormFieldSpec {
       rankOf: typeof j.rankOf === 'string' ? j.rankOf : null,
       code: j.code === true,
       multiple: j.multiple === true,
+      multiParagraph: j.multiParagraph === true,
     });
   }
 }
