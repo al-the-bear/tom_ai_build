@@ -325,9 +325,68 @@ final List<CorpusGuardedEnum> _guarded = [
         for (final v in (k['violations'] as List).cast<Map<String, dynamic>>())
           v['rule'] as String,
     },
+    // The reading notation's nine rules are reported by the Dart and
+    // TypeScript validators only so far; notation_cases.json exercises them
+    // (`validatorCases`, and NotationFindingCode below, which they mirror
+    // constant for constant) and the other seven runtimes join through the
+    // reading view's parity audit.
+    waived: {
+      for (final n in NotationFindingCode.values)
+        n.name: '05a_rdv4_akpu-runtime-parity-audit',
+    },
     why:
         'a §14 DocSpecs rule that eight runtimes need not implement — the '
         'exact gap that let all eleven rules go unexercised until tscomp8',
+  ),
+  CorpusGuardedEnum(
+    enumName: 'NotationFindingCode',
+    declared: _wire(NotationFindingCode.values),
+    corpusFile: 'notation_cases.json',
+    exercised: (c) => {
+      for (final k
+          in ((c as Map<String, dynamic>)['cases'] as List)
+              .cast<Map<String, dynamic>>())
+        for (final f in (k['findings'] as List).cast<Map<String, dynamic>>())
+          f['code'] as String,
+    },
+    why:
+        'a reading-notation finding (DocSpecs specification RN-10) a runtime '
+        'is never asked to report',
+  ),
+  CorpusGuardedEnum(
+    enumName: 'NotationSeverity',
+    declared: _wire(NotationSeverity.values),
+    corpusFile: 'notation_cases.json',
+    exercised: (c) => {
+      for (final k
+          in ((c as Map<String, dynamic>)['cases'] as List)
+              .cast<Map<String, dynamic>>())
+        for (final f in (k['findings'] as List).cast<Map<String, dynamic>>())
+          f['severity'] as String,
+    },
+    why: 'RN-10: the warning (an unknown kind) beside the errors',
+  ),
+  CorpusGuardedEnum(
+    enumName: 'NotationElementType',
+    declared: _wire(NotationElementType.values),
+    corpusFile: 'notation_cases.json',
+    exercised: (c) {
+      final types = <String>{};
+      void walk(List<dynamic> elements) {
+        for (final e in elements.cast<Map<String, dynamic>>()) {
+          types.add(e['type'] as String);
+          walk(e['children'] as List);
+        }
+      }
+
+      for (final k
+          in ((c as Map<String, dynamic>)['cases'] as List)
+              .cast<Map<String, dynamic>>()) {
+        walk(k['elements'] as List);
+      }
+      return types;
+    },
+    why: 'RN-1 to RN-3: divs, spans and citation shapes are all scanned',
   ),
   CorpusGuardedEnum(
     enumName: 'SpecFieldKind',
@@ -619,11 +678,10 @@ void main() {
   });
 
   group('ECG3: no waiver outlives its cause [2026-08-09]', () {
-    // Currently DORMANT — [_guarded] holds no waiver, so this group emits no
-    // tests. That is the goal state, not a broken check: every registered
-    // constant has a corpus case. It revives by itself the moment a waiver is
-    // added, which is why the mechanism stays rather than being deleted along
-    // with its last user.
+    // The waivers today are DocSpecsViolationRule's reading-notation rules,
+    // which docspecs_cases.json (run by all nine runtimes) cannot hold until
+    // the other seven runtimes report them. With no waiver this group emits no
+    // tests, which is the goal state.
     for (final g in _guarded.where((g) => g.waived.isNotEmpty)) {
       test(g.enumName, () {
         final exercised = g.exercised(corpus(g.corpusFile));

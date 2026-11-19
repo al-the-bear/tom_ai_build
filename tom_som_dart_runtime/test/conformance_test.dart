@@ -1221,6 +1221,53 @@ void main() {
     }
   });
 
+  group('notation_cases.json (the reading notation, RN-1 to RN-13)', () {
+    // Hand-maintained: the update mode above does not write it.
+    final table =
+        jsonDecode(read('notation_cases.json')) as Map<String, dynamic>;
+    for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+      test('scan: ${c['name']}', () {
+        final text = c['text'] as String;
+        final scan = scanNotation(text, tomSpecs: c['tomSpecs'] as bool);
+        expect(
+          jsonDecode(
+            jsonEncode([for (final e in scan.elements) e.toJson(text)]),
+          ),
+          c['elements'],
+        );
+        expect(
+          jsonDecode(jsonEncode([for (final f in scan.findings) f.toJson()])),
+          c['findings'],
+        );
+      });
+    }
+    final schema = DocSpecsSchema.fromYamlText(read('docspecs_schema.yaml'));
+    final validatorCases = (table['validatorCases'] as List)
+        .cast<Map<String, dynamic>>();
+    for (final c in validatorCases) {
+      test('validate: ${c['name']}', () {
+        final got = DocSpecsValidator(schema, tomSpecs: c['tomSpecs'] as bool)
+            .validateMarkdown(c['markdown'] as String)
+            .map(
+              (v) => {
+                'rule': v.rule.name,
+                'sectionId': v.sectionId,
+                'line': v.line,
+              },
+            )
+            .toList();
+        expect(got, c['violations']);
+      });
+    }
+    test('the validator cases report every notation rule', () {
+      final rules = {
+        for (final c in validatorCases)
+          for (final v in (c['violations'] as List).cast<Map>()) v['rule'],
+      };
+      expect(rules, containsAll(NotationFindingCode.values.map((n) => n.name)));
+    });
+  });
+
   group('inline_mark_cases.json (accepting and rejecting marks)', () {
     final table = update
         ? inlineMarkCases

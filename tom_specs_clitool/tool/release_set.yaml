@@ -151,7 +151,8 @@ unpublished_drift:
     documents, gate checklists and the generated spec-ops header name the
     tomspecs commands; 01a_rdv1 (2026-11-19): doc comments name the
     *.tomspecs.yaml / *.tomspecs.md files; 02a_rdv1 (2026-11-19): version
-    1.12.1, the meta schema and model rules describe `multiParagraph`; ships
+    1.12.1, the meta schema and model rules describe `multiParagraph`;
+    03a_rdv1 (2026-11-19): SOM §14 lists the reading notation's rules; ships
     with the next release.
   tom_som_dart_runtime: >-
     irout3 (2026-11-16): kSpecStandardEmitters gains `markdown` (validation
@@ -163,8 +164,9 @@ unpublished_drift:
     (2026-11-19): the emit-only trial `SpecFormLayout.tables` (form tables,
     heading anchors); 02a_rdv3 (2026-11-19): its reference lines, record
     tables, section tables and reference links; 07_sau1 (2026-11-19):
-    spec_checks' planFremFill (FREM from the document's git history); ships
-    with the next chain release.
+    spec_checks' planFremFill (FREM from the document's git history);
+    03a_rdv1 (2026-11-19): the reading notation's scanner (spec_notation.dart)
+    and its nine DocSpecs validator rules; ships with the next chain release.
   tom_specs_core: >-
     tsbin7 (2026-11-18): the README, doc/annotations.md and the
     @SerializationOrder doc comment name the tomspecs commands (documentation

@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- `scanNotation(text, { tomSpecs })` (`spec_notation.ts`): the reading
+  notation's scanner, the port of the Dart one: divs, spans and citation shapes
+  with kind, attributes, offsets, lines and nesting, and the RN-10 findings
+  (`NotationFindingCode`). `new DocSpecsValidator(schema, { tomSpecs })` reports
+  them as `DocSpecsViolationRule` entries per section body and, for a TomSpecs
+  rendition, per form-field value; `unknownKind` is a warning
+  (`DocSpecsViolation.isWarning`). `validateSpecDocument` validates as a
+  TomSpecs rendition. Pinned by `notation_cases.json`.
 - `FormFieldSpec.multiParagraph` and `SomFormFieldMeta.multiParagraph`, read from
   the meta's `multiParagraph` key (`Field.multiParagraph`): a field whose values
   hold paragraphs or blocks.

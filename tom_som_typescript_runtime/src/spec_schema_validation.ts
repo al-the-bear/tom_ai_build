@@ -35,7 +35,7 @@ export function validateSpecDocument(
   rootType?: string,
 ): DocSpecsViolation[] {
   const rendition = document.toMarkdownWithMap(model, rootType);
-  return new DocSpecsValidator(schema)
+  return new DocSpecsValidator(schema, { tomSpecs: true })
     .validateMarkdown(rendition.markdown)
     .map(
       (v) =>

@@ -31,6 +31,7 @@ List<DocSpecsViolation> validateSpecDocument(
   return [
     for (final v in DocSpecsValidator(
       schema,
+      tomSpecs: true,
     ).validateMarkdown(rendition.markdown))
       DocSpecsViolation(
         rule: v.rule,

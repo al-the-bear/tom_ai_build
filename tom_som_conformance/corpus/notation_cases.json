@@ -1,0 +1,1130 @@
+{
+  "description": "The reading notation (DocSpecs specification, Reading Notation RN-1 to RN-13). `cases`: one text value each, scanned with scanNotation(text, tomSpecs); `elements` are the top-level elements with their nested `children`, `start`/`end` UTF-16 offsets, 1-based `line`/`endLine`, and `source`/`content` the text slices; `findings` in source order. `validatorCases`: a document of docspecs_schema.yaml validated with DocSpecsValidator(schema, tomSpecs), the expected violations as rule, sectionId and line, the notation findings after the other rules. Hand-maintained; Dart and TypeScript run it (05a_rdv4 audits the other seven runtimes).",
+  "cases": [
+    {
+      "name": "div with braces",
+      "text": "Text before.\n\n::: {.provenance}\n_Extrapolated — see iterations/sbpa21_notes.md._\n:::\n\nText after.",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "div",
+          "kind": "provenance",
+          "classes": [
+            "provenance"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": null,
+          "start": 14,
+          "end": 84,
+          "line": 3,
+          "endLine": 5,
+          "closed": true,
+          "source": "::: {.provenance}\n_Extrapolated — see iterations/sbpa21_notes.md._\n:::",
+          "content": "_Extrapolated — see iterations/sbpa21_notes.md._\n",
+          "children": []
+        }
+      ],
+      "findings": []
+    },
+    {
+      "name": "div with a bare kind holding a list",
+      "text": "::: aside\n- a list inside a div\n- is a list like any other\n:::",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "div",
+          "kind": "aside",
+          "classes": [
+            "aside"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": null,
+          "start": 0,
+          "end": 62,
+          "line": 1,
+          "endLine": 4,
+          "closed": true,
+          "source": "::: aside\n- a list inside a div\n- is a list like any other\n:::",
+          "content": "- a list inside a div\n- is a list like any other\n",
+          "children": []
+        }
+      ],
+      "findings": []
+    },
+    {
+      "name": "div attributes: label, source, id, further classes",
+      "text": "::: {.provenance .extra #n1 label=\"intake workshop\" source='iterations/sbpa21_notes.md'}\nTaken over from the intake workshop notes, unchanged.\n:::",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "div",
+          "kind": "provenance",
+          "classes": [
+            "provenance",
+            "extra"
+          ],
+          "id": "n1",
+          "attributes": {
+            "label": "intake workshop",
+            "source": "iterations/sbpa21_notes.md"
+          },
+          "shape": null,
+          "start": 0,
+          "end": 146,
+          "line": 1,
+          "endLine": 3,
+          "closed": true,
+          "source": "::: {.provenance .extra #n1 label=\"intake workshop\" source='iterations/sbpa21_notes.md'}\nTaken over from the intake workshop notes, unchanged.\n:::",
+          "content": "Taken over from the intake workshop notes, unchanged.\n",
+          "children": []
+        }
+      ],
+      "findings": []
+    },
+    {
+      "name": "nested divs, the outer fence longer, a citation inside",
+      "text": ":::: {.editorial}\nThe conventions of this document.\n\n::: {.provenance}\nAgreed in the kick-off (<- minutes/2026-03-02.md).\n:::\n::::",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "div",
+          "kind": "editorial",
+          "classes": [
+            "editorial"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": null,
+          "start": 0,
+          "end": 130,
+          "line": 1,
+          "endLine": 7,
+          "closed": true,
+          "source": ":::: {.editorial}\nThe conventions of this document.\n\n::: {.provenance}\nAgreed in the kick-off (<- minutes/2026-03-02.md).\n:::\n::::",
+          "content": "The conventions of this document.\n\n::: {.provenance}\nAgreed in the kick-off (<- minutes/2026-03-02.md).\n:::\n",
+          "children": [
+            {
+              "type": "div",
+              "kind": "provenance",
+              "classes": [
+                "provenance"
+              ],
+              "id": null,
+              "attributes": {},
+              "shape": null,
+              "start": 53,
+              "end": 125,
+              "line": 4,
+              "endLine": 6,
+              "closed": true,
+              "source": "::: {.provenance}\nAgreed in the kick-off (<- minutes/2026-03-02.md).\n:::",
+              "content": "Agreed in the kick-off (<- minutes/2026-03-02.md).\n",
+              "children": [
+                {
+                  "type": "citation",
+                  "kind": "provenance",
+                  "classes": [
+                    "provenance"
+                  ],
+                  "id": null,
+                  "attributes": {},
+                  "shape": "<-",
+                  "start": 94,
+                  "end": 120,
+                  "line": 5,
+                  "endLine": 5,
+                  "closed": true,
+                  "source": "(<- minutes/2026-03-02.md)",
+                  "content": "minutes/2026-03-02.md",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "findings": []
+    },
+    {
+      "name": "div indented by the rule-3 escape space",
+      "text": " ::: {.editorial}\n The fields below follow the intake form of 2026-03.\n :::\nOwner: Platform team",
+      "tomSpecs": true,
+      "elements": [
+        {
+          "type": "div",
+          "kind": "editorial",
+          "classes": [
+            "editorial"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": null,
+          "start": 0,
+          "end": 75,
+          "line": 1,
+          "endLine": 3,
+          "closed": true,
+          "source": " ::: {.editorial}\n The fields below follow the intake form of 2026-03.\n :::",
+          "content": " The fields below follow the intake form of 2026-03.\n",
+          "children": []
+        }
+      ],
+      "findings": []
+    },
+    {
+      "name": "four spaces make no div",
+      "text": "    ::: {.aside}\n    indented code\n    :::",
+      "tomSpecs": false,
+      "elements": [],
+      "findings": []
+    },
+    {
+      "name": "div inside a list item",
+      "text": "- The first rule.\n\n  ::: {.aside}\n  Why the rule exists.\n  :::\n\n- The second rule.",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "div",
+          "kind": "aside",
+          "classes": [
+            "aside"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": null,
+          "start": 19,
+          "end": 62,
+          "line": 3,
+          "endLine": 5,
+          "closed": true,
+          "source": "  ::: {.aside}\n  Why the rule exists.\n  :::",
+          "content": "  Why the rule exists.\n",
+          "children": []
+        }
+      ],
+      "findings": []
+    },
+    {
+      "name": "span",
+      "text": "The token lives 15 minutes [as the security review asked in March]{.aside}.",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "span",
+          "kind": "aside",
+          "classes": [
+            "aside"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": null,
+          "start": 27,
+          "end": 74,
+          "line": 1,
+          "endLine": 1,
+          "closed": true,
+          "source": "[as the security review asked in March]{.aside}",
+          "content": "as the security review asked in March",
+          "children": []
+        }
+      ],
+      "findings": []
+    },
+    {
+      "name": "span with a label, wrapping a line",
+      "text": "The limit is 150 EUR [per order,\nnot per day]{.aside label=\"scope of the limit\"}.",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "span",
+          "kind": "aside",
+          "classes": [
+            "aside"
+          ],
+          "id": null,
+          "attributes": {
+            "label": "scope of the limit"
+          },
+          "shape": null,
+          "start": 21,
+          "end": 80,
+          "line": 1,
+          "endLine": 2,
+          "closed": true,
+          "source": "[per order,\nnot per day]{.aside label=\"scope of the limit\"}",
+          "content": "per order,\nnot per day",
+          "children": []
+        }
+      ],
+      "findings": []
+    },
+    {
+      "name": "a space before the braces is no span",
+      "text": "Read [text] {.aside} as text.",
+      "tomSpecs": false,
+      "elements": [],
+      "findings": []
+    },
+    {
+      "name": "span inside a span, a link inside",
+      "text": "[outer [inner]{.trace} and [a link](#X)]{.aside}",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "span",
+          "kind": "aside",
+          "classes": [
+            "aside"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": null,
+          "start": 0,
+          "end": 48,
+          "line": 1,
+          "endLine": 1,
+          "closed": true,
+          "source": "[outer [inner]{.trace} and [a link](#X)]{.aside}",
+          "content": "outer [inner]{.trace} and [a link](#X)",
+          "children": [
+            {
+              "type": "span",
+              "kind": "trace",
+              "classes": [
+                "trace"
+              ],
+              "id": null,
+              "attributes": {},
+              "shape": null,
+              "start": 7,
+              "end": 22,
+              "line": 1,
+              "endLine": 1,
+              "closed": true,
+              "source": "[inner]{.trace}",
+              "content": "inner",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "findings": []
+    },
+    {
+      "name": "span in a table cell",
+      "text": "| Field | Value |\n| --- | --- |\n| Format | `json` [or `yaml \\| toml` on request]{.aside} |",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "span",
+          "kind": "aside",
+          "classes": [
+            "aside"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": null,
+          "start": 50,
+          "end": 88,
+          "line": 3,
+          "endLine": 3,
+          "closed": true,
+          "source": "[or `yaml \\| toml` on request]{.aside}",
+          "content": "or `yaml \\| toml` on request",
+          "children": []
+        }
+      ],
+      "findings": []
+    },
+    {
+      "name": "trace citation with several ids",
+      "text": "Rights scoped to a node apply to its subtree (-> C2.1, TR-07).",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "citation",
+          "kind": "trace",
+          "classes": [
+            "trace"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": "->",
+          "start": 45,
+          "end": 61,
+          "line": 1,
+          "endLine": 1,
+          "closed": true,
+          "source": "(-> C2.1, TR-07)",
+          "content": "C2.1, TR-07",
+          "children": []
+        }
+      ],
+      "findings": []
+    },
+    {
+      "name": "provenance citations: taken from, extrapolated from",
+      "text": "The rule holds (<- tom_uam.sbp.tomspecs.md#FRE-REQU-LST).\n\n(<~ iterations/sbpa21_notes.md)",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "citation",
+          "kind": "provenance",
+          "classes": [
+            "provenance"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": "<-",
+          "start": 15,
+          "end": 56,
+          "line": 1,
+          "endLine": 1,
+          "closed": true,
+          "source": "(<- tom_uam.sbp.tomspecs.md#FRE-REQU-LST)",
+          "content": "tom_uam.sbp.tomspecs.md#FRE-REQU-LST",
+          "children": []
+        },
+        {
+          "type": "citation",
+          "kind": "provenance",
+          "classes": [
+            "provenance"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": "<~",
+          "start": 59,
+          "end": 90,
+          "line": 3,
+          "endLine": 3,
+          "closed": true,
+          "source": "(<~ iterations/sbpa21_notes.md)",
+          "content": "iterations/sbpa21_notes.md",
+          "children": []
+        }
+      ],
+      "findings": []
+    },
+    {
+      "name": "a citation holding a balanced parenthesis",
+      "text": "Backed (-> FR-1 (draft), C2).",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "citation",
+          "kind": "trace",
+          "classes": [
+            "trace"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": "->",
+          "start": 7,
+          "end": 28,
+          "line": 1,
+          "endLine": 1,
+          "closed": true,
+          "source": "(-> FR-1 (draft), C2)",
+          "content": "FR-1 (draft), C2",
+          "children": []
+        }
+      ],
+      "findings": []
+    },
+    {
+      "name": "shapes that are no citation",
+      "text": "(->C2.1) ( -> C2.1) (SHA-256) (-> ) (<- unclosed",
+      "tomSpecs": false,
+      "elements": [],
+      "findings": []
+    },
+    {
+      "name": "code span and fenced code are literal",
+      "text": "Write `(-> C2.1)` and `[x]{.aside}` in code.\n\n::: {.aside}\n```text\n:::\n[y]{.aside} (-> C3)\n```\n:::",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "div",
+          "kind": "aside",
+          "classes": [
+            "aside"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": null,
+          "start": 46,
+          "end": 98,
+          "line": 3,
+          "endLine": 8,
+          "closed": true,
+          "source": "::: {.aside}\n```text\n:::\n[y]{.aside} (-> C3)\n```\n:::",
+          "content": "```text\n:::\n[y]{.aside} (-> C3)\n```\n",
+          "children": []
+        }
+      ],
+      "findings": []
+    },
+    {
+      "name": "tilde fence is literal",
+      "text": "~~~\n::: {.aside}\n~~~",
+      "tomSpecs": false,
+      "elements": [],
+      "findings": []
+    },
+    {
+      "name": "escapes are text",
+      "text": "\\::: is how the notation opens a block.\nThe array [0]\\{.x} is not a span.",
+      "tomSpecs": false,
+      "elements": [],
+      "findings": []
+    },
+    {
+      "name": "unknown kind passes through",
+      "text": "::: {.vendor-note}\nUnknown here [and here]{.vendor-span}.\n:::",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "div",
+          "kind": "vendor-note",
+          "classes": [
+            "vendor-note"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": null,
+          "start": 0,
+          "end": 61,
+          "line": 1,
+          "endLine": 3,
+          "closed": true,
+          "source": "::: {.vendor-note}\nUnknown here [and here]{.vendor-span}.\n:::",
+          "content": "Unknown here [and here]{.vendor-span}.\n",
+          "children": [
+            {
+              "type": "span",
+              "kind": "vendor-span",
+              "classes": [
+                "vendor-span"
+              ],
+              "id": null,
+              "attributes": {},
+              "shape": null,
+              "start": 32,
+              "end": 56,
+              "line": 2,
+              "endLine": 2,
+              "closed": true,
+              "source": "[and here]{.vendor-span}",
+              "content": "and here",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "findings": []
+    },
+    {
+      "name": "unknown kind in a TomSpecs rendition",
+      "text": "::: {.vendor-note}\nUnknown here [and here]{.vendor-span}.\n:::",
+      "tomSpecs": true,
+      "elements": [
+        {
+          "type": "div",
+          "kind": "vendor-note",
+          "classes": [
+            "vendor-note"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": null,
+          "start": 0,
+          "end": 61,
+          "line": 1,
+          "endLine": 3,
+          "closed": true,
+          "source": "::: {.vendor-note}\nUnknown here [and here]{.vendor-span}.\n:::",
+          "content": "Unknown here [and here]{.vendor-span}.\n",
+          "children": [
+            {
+              "type": "span",
+              "kind": "vendor-span",
+              "classes": [
+                "vendor-span"
+              ],
+              "id": null,
+              "attributes": {},
+              "shape": null,
+              "start": 32,
+              "end": 56,
+              "line": 2,
+              "endLine": 2,
+              "closed": true,
+              "source": "[and here]{.vendor-span}",
+              "content": "and here",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "unknownKind",
+          "severity": "warning",
+          "line": 1
+        },
+        {
+          "code": "unknownKind",
+          "severity": "warning",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "name": "div without a kind",
+      "text": "::: {#n1}\nA note without a kind.\n:::",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "div",
+          "kind": null,
+          "classes": [],
+          "id": "n1",
+          "attributes": {},
+          "shape": null,
+          "start": 0,
+          "end": 36,
+          "line": 1,
+          "endLine": 3,
+          "closed": true,
+          "source": "::: {#n1}\nA note without a kind.\n:::",
+          "content": "A note without a kind.\n",
+          "children": []
+        }
+      ],
+      "findings": []
+    },
+    {
+      "name": "div without a kind in a TomSpecs rendition",
+      "text": "::: {#n1}\nA note without a kind.\n:::\n\n::: {label=\"x\"}\nAnother.\n:::",
+      "tomSpecs": true,
+      "elements": [
+        {
+          "type": "div",
+          "kind": null,
+          "classes": [],
+          "id": "n1",
+          "attributes": {},
+          "shape": null,
+          "start": 0,
+          "end": 36,
+          "line": 1,
+          "endLine": 3,
+          "closed": true,
+          "source": "::: {#n1}\nA note without a kind.\n:::",
+          "content": "A note without a kind.\n",
+          "children": []
+        },
+        {
+          "type": "div",
+          "kind": null,
+          "classes": [],
+          "id": null,
+          "attributes": {
+            "label": "x"
+          },
+          "shape": null,
+          "start": 38,
+          "end": 66,
+          "line": 5,
+          "endLine": 7,
+          "closed": true,
+          "source": "::: {label=\"x\"}\nAnother.\n:::",
+          "content": "Another.\n",
+          "children": []
+        }
+      ],
+      "findings": [
+        {
+          "code": "divWithoutKind",
+          "severity": "error",
+          "line": 1
+        },
+        {
+          "code": "divWithoutKind",
+          "severity": "error",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "name": "unclosed div",
+      "text": "::: {.provenance}\nTaken from the workshop.",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "div",
+          "kind": "provenance",
+          "classes": [
+            "provenance"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": null,
+          "start": 0,
+          "end": 42,
+          "line": 1,
+          "endLine": 2,
+          "closed": false,
+          "source": "::: {.provenance}\nTaken from the workshop.",
+          "content": "Taken from the workshop.",
+          "children": []
+        }
+      ],
+      "findings": [
+        {
+          "code": "unclosedDiv",
+          "severity": "error",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "name": "unclosed inner div",
+      "text": "::: {.editorial}\n::: {.aside}\nInner.\n:::",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "div",
+          "kind": "editorial",
+          "classes": [
+            "editorial"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": null,
+          "start": 0,
+          "end": 40,
+          "line": 1,
+          "endLine": 4,
+          "closed": false,
+          "source": "::: {.editorial}\n::: {.aside}\nInner.\n:::",
+          "content": "::: {.aside}\nInner.\n:::",
+          "children": [
+            {
+              "type": "div",
+              "kind": "aside",
+              "classes": [
+                "aside"
+              ],
+              "id": null,
+              "attributes": {},
+              "shape": null,
+              "start": 17,
+              "end": 40,
+              "line": 2,
+              "endLine": 4,
+              "closed": true,
+              "source": "::: {.aside}\nInner.\n:::",
+              "content": "Inner.\n",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "unclosedDiv",
+          "severity": "error",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "name": "stray closing fence",
+      "text": "A paragraph.\n:::",
+      "tomSpecs": false,
+      "elements": [],
+      "findings": [
+        {
+          "code": "strayClosingFence",
+          "severity": "error",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "name": "unclosed span",
+      "text": "The limit is 150 EUR [per order]{.aside label=\"scope\".\n\nNext paragraph }.",
+      "tomSpecs": false,
+      "elements": [],
+      "findings": [
+        {
+          "code": "unclosedSpan",
+          "severity": "error",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "name": "mark across a span",
+      "text": "Backed by [the review {++of March]{.aside} and April++}.",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "span",
+          "kind": "aside",
+          "classes": [
+            "aside"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": null,
+          "start": 10,
+          "end": 42,
+          "line": 1,
+          "endLine": 1,
+          "closed": true,
+          "source": "[the review {++of March]{.aside}",
+          "content": "the review {++of March",
+          "children": []
+        }
+      ],
+      "findings": [
+        {
+          "code": "markAcrossNotation",
+          "severity": "error",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "name": "marks inside and around a citation are allowed",
+      "text": "The subtree inherits the rights (-> {++C2.1, ++}C2.4).\nRights scoped to a node apply to its subtree{++ (-> C2.1)++}.",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "citation",
+          "kind": "trace",
+          "classes": [
+            "trace"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": "->",
+          "start": 32,
+          "end": 53,
+          "line": 1,
+          "endLine": 1,
+          "closed": true,
+          "source": "(-> {++C2.1, ++}C2.4)",
+          "content": "{++C2.1, ++}C2.4",
+          "children": []
+        },
+        {
+          "type": "citation",
+          "kind": "trace",
+          "classes": [
+            "trace"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": "->",
+          "start": 103,
+          "end": 112,
+          "line": 2,
+          "endLine": 2,
+          "closed": true,
+          "source": "(-> C2.1)",
+          "content": "C2.1",
+          "children": []
+        }
+      ],
+      "findings": []
+    },
+    {
+      "name": "mark across a citation",
+      "text": "Backed (-> C2.1 {--and)--} more.",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "citation",
+          "kind": "trace",
+          "classes": [
+            "trace"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": "->",
+          "start": 7,
+          "end": 23,
+          "line": 1,
+          "endLine": 1,
+          "closed": true,
+          "source": "(-> C2.1 {--and)",
+          "content": "C2.1 {--and",
+          "children": []
+        }
+      ],
+      "findings": [
+        {
+          "code": "markAcrossNotation",
+          "severity": "error",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "name": "comment block inside a div",
+      "text": "::: {.editorial}\n> ⬆️ **C-12** (alice, 2026-11-19T10:05+01:00): Is this still true?\n:::",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "div",
+          "kind": "editorial",
+          "classes": [
+            "editorial"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": null,
+          "start": 0,
+          "end": 87,
+          "line": 1,
+          "endLine": 3,
+          "closed": true,
+          "source": "::: {.editorial}\n> ⬆️ **C-12** (alice, 2026-11-19T10:05+01:00): Is this still true?\n:::",
+          "content": "> ⬆️ **C-12** (alice, 2026-11-19T10:05+01:00): Is this still true?\n",
+          "children": []
+        }
+      ],
+      "findings": [
+        {
+          "code": "annotationInsideDiv",
+          "severity": "error",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "name": "question block inside a div",
+      "text": "::: {.aside}\n> **❓ BQ-1 — topic:** Which?\n> **Answer:**\n:::",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "div",
+          "kind": "aside",
+          "classes": [
+            "aside"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": null,
+          "start": 0,
+          "end": 59,
+          "line": 1,
+          "endLine": 4,
+          "closed": true,
+          "source": "::: {.aside}\n> **❓ BQ-1 — topic:** Which?\n> **Answer:**\n:::",
+          "content": "> **❓ BQ-1 — topic:** Which?\n> **Answer:**\n",
+          "children": []
+        }
+      ],
+      "findings": [
+        {
+          "code": "annotationInsideDiv",
+          "severity": "error",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "name": "div inside a comment block",
+      "text": "> ⬆️ **C-13** (alice, 2026-11-19T10:06+01:00): Move this note?\n> ::: {.aside}\n> A note.\n> :::",
+      "tomSpecs": false,
+      "elements": [],
+      "findings": [
+        {
+          "code": "divInsideAnnotation",
+          "severity": "error",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "name": "a plain quote inside a div is no annotation",
+      "text": "::: {.aside}\n> A quoted line.\n:::",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "div",
+          "kind": "aside",
+          "classes": [
+            "aside"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": null,
+          "start": 0,
+          "end": 33,
+          "line": 1,
+          "endLine": 3,
+          "closed": true,
+          "source": "::: {.aside}\n> A quoted line.\n:::",
+          "content": "> A quoted line.\n",
+          "children": []
+        }
+      ],
+      "findings": []
+    },
+    {
+      "name": "rejected block",
+      "text": "::: {.rejected reason=\"malformedBlock\" line=\"412\" field=\"owner\" label=\"field Owner given twice\"}\nOwner: Platform team\n:::",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "div",
+          "kind": "rejected",
+          "classes": [
+            "rejected"
+          ],
+          "id": null,
+          "attributes": {
+            "reason": "malformedBlock",
+            "line": "412",
+            "field": "owner",
+            "label": "field Owner given twice"
+          },
+          "shape": null,
+          "start": 0,
+          "end": 121,
+          "line": 1,
+          "endLine": 3,
+          "closed": true,
+          "source": "::: {.rejected reason=\"malformedBlock\" line=\"412\" field=\"owner\" label=\"field Owner given twice\"}\nOwner: Platform team\n:::",
+          "content": "Owner: Platform team\n",
+          "children": []
+        }
+      ],
+      "findings": [
+        {
+          "code": "rejectedBlock",
+          "severity": "error",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "name": "empty text",
+      "text": "",
+      "tomSpecs": false,
+      "elements": [],
+      "findings": []
+    }
+  ],
+  "validatorCases": [
+    {
+      "name": "a div closes before the next heading",
+      "tomSpecs": false,
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\n::: {.provenance}\nTaken from the workshop.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+      "violations": [
+        {
+          "rule": "unclosedDiv",
+          "sectionId": "D00-OVR",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "name": "a div crossing two form values is unclosed in a TomSpecs rendition",
+      "tomSpecs": true,
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\n::: {.aside}\nA note.\nReviewer: Bob\n:::\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+      "violations": [
+        {
+          "rule": "unclosedDiv",
+          "sectionId": "D00-HDR",
+          "line": 13
+        },
+        {
+          "rule": "strayClosingFence",
+          "sectionId": "D00-HDR",
+          "line": 16
+        }
+      ]
+    },
+    {
+      "name": "the same div is one value in any other document",
+      "tomSpecs": false,
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\n::: {.aside}\nA note.\nReviewer: Bob\n:::\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+      "violations": []
+    },
+    {
+      "name": "a div inside one form value",
+      "tomSpecs": true,
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\n::: {.aside}\nA note.\n:::\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+      "violations": []
+    },
+    {
+      "name": "kinds in a TomSpecs rendition",
+      "tomSpecs": true,
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal [noted]{.vendor-span}.\n\n::: {#n1}\nNo kind.\n:::\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+      "violations": [
+        {
+          "rule": "unknownKind",
+          "sectionId": "GOAL-ITEM-1",
+          "line": 19
+        },
+        {
+          "rule": "divWithoutKind",
+          "sectionId": "GOAL-ITEM-1",
+          "line": 21
+        }
+      ]
+    },
+    {
+      "name": "kinds in any other document",
+      "tomSpecs": false,
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal [noted]{.vendor-span}.\n\n::: {#n1}\nNo kind.\n:::\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+      "violations": []
+    },
+    {
+      "name": "stray fence, unclosed span, marks, annotations, rejected",
+      "tomSpecs": false,
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nA paragraph.\n:::\n\nThe limit [per order]{.aside label=\"x\".\n\nBacked by [the review {++of March]{.aside} and April++}.\n\n::: {.editorial}\n> ⬆️ **C-12** (alice, 2026-11-19T10:05+01:00): Still true?\n:::\n\n> ⬆️ **C-13** (alice, 2026-11-19T10:06+01:00): Move?\n> ::: {.aside}\n> A note.\n> :::\n\n::: {.rejected reason=\"malformedBlock\"}\nOwner: Platform team\n:::\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+      "violations": [
+        {
+          "rule": "strayClosingFence",
+          "sectionId": "D00-OVR",
+          "line": 9
+        },
+        {
+          "rule": "unclosedSpan",
+          "sectionId": "D00-OVR",
+          "line": 11
+        },
+        {
+          "rule": "markAcrossNotation",
+          "sectionId": "D00-OVR",
+          "line": 13
+        },
+        {
+          "rule": "annotationInsideDiv",
+          "sectionId": "D00-OVR",
+          "line": 16
+        },
+        {
+          "rule": "divInsideAnnotation",
+          "sectionId": "D00-OVR",
+          "line": 20
+        },
+        {
+          "rule": "rejectedBlock",
+          "sectionId": "D00-OVR",
+          "line": 24
+        }
+      ]
+    }
+  ]
+}

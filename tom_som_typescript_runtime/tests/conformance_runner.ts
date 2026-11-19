@@ -122,6 +122,8 @@ import {
   somTypedTextReadable,
   YamlFloat,
   formatYamlFloat,
+  scanNotation,
+  NotationFindingCode,
 } from '../src/index';
 import type { SpecNodeKindValue, SpecStateFilterValue } from '../src/index';
 
@@ -1504,6 +1506,39 @@ function testSerializationOrder(): void {
 }
 
 /**
+ * The reading notation (`notation_cases.json`): each text value scanned with
+ * scanNotation, its elements and findings as the Dart reference writes them;
+ * then documents of the shared DocSpecs schema validated with the notation's
+ * rules, plain and as TomSpecs renditions.
+ */
+function testNotation(): void {
+  const table = _readJson('notation_cases.json');
+  const codes = new Set<string>();
+  for (const c of table.cases) {
+    const scan = scanNotation(c.text, { tomSpecs: c.tomSpecs });
+    const elements = JSON.parse(
+      JSON.stringify(scan.elements.map((e) => e.toJson(c.text))),
+    );
+    const findings = scan.findings.map((f) => f.toJson());
+    _check(`notation.scan[${c.name}].elements`, _deepEqual(elements, c.elements),
+      `${JSON.stringify(elements)} != ${JSON.stringify(c.elements)}`);
+    _check(`notation.scan[${c.name}].findings`, _deepEqual(findings, c.findings),
+      `${JSON.stringify(findings)} != ${JSON.stringify(c.findings)}`);
+    for (const f of c.findings) codes.add(f.code);
+  }
+  const uncovered = Object.values(NotationFindingCode).filter((k) => !codes.has(k));
+  _check('notation.codeCoverage', uncovered.length === 0, `uncovered: ${uncovered}`);
+  const schema = DocSpecsSchema.fromYamlText(_read('docspecs_schema.yaml'));
+  for (const c of table.validatorCases) {
+    const got = new DocSpecsValidator(schema, { tomSpecs: c.tomSpecs })
+      .validateMarkdown(c.markdown)
+      .map((v) => ({ rule: v.rule, sectionId: v.sectionId, line: v.line }));
+    _check(`notation.validate[${c.name}]`, _deepEqual(got, c.violations),
+      `${JSON.stringify(got)} != ${JSON.stringify(c.violations)}`);
+  }
+}
+
+/**
  * The SOM §14 DocSpecs tier: one shared schema, one case per rule.
  *
  * The corpus carries the rule/sectionId/line triples the Dart reference
@@ -1526,6 +1561,13 @@ function testDocSpecs(): void {
     );
     _check(`docspecs[${c.name}]`, _deepEqual(got, want),
       `${JSON.stringify(got)} != ${JSON.stringify(want)}`);
+    for (const v of c.violations) {
+      covered.add(v.rule);
+    }
+  }
+  // The reading notation's rules are exercised by notation_cases.json's
+  // validator cases (testNotation), not by the nine-runtime table.
+  for (const c of _readJson('notation_cases.json').validatorCases) {
     for (const v of c.violations) {
       covered.add(v.rule);
     }
@@ -2750,6 +2792,7 @@ export function main(): number {
   testSectionId();
   testSerializationOrder();
   testDocSpecs();
+  testNotation();
   testDocSpecsReplace();
   testDocSpecsPaths(model);
   const queryDoc = _buildFixtureDocument();

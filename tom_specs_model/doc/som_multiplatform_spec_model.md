@@ -2985,7 +2985,10 @@ Violation
   rule      unknownSection | missingRequiredSection | idPatternMismatch |
             tooFewItems | tooManyItems | missingRequiredField |
             fieldPatternMismatch | textRequired | textLengthOut |
-            formatMismatch | malformedHeading
+            formatMismatch | malformedHeading |
+            unclosedDiv | strayClosingFence | unclosedSpan |
+            divWithoutKind | unknownKind | markAcrossNotation |
+            annotationInsideDiv | divInsideAnnotation | rejectedBlock
   sectionId String?
   path      String?
   line      Int (1-based)
@@ -2993,8 +2996,22 @@ Violation
 ```
 
 `validate` returns the full list (never fail-fast); a document is valid iff
-the list is empty. The Dart implementation's rule/section/line triples are the
+the list holds no error. The Dart implementation's rule/section/line triples are the
 golden reference.
+
+The last nine rules are the reading notation's findings, as the DocSpecs
+specification's *Reading Notation* section (RN-10) names them. The runtime's
+notation scanner (`scanNotation(text, tomSpecs)`, Dart and TypeScript) reads
+one text value: its fenced divs, bracketed spans and citation shapes, with
+kind, attributes, source range and nesting, and its findings. `validate` scans
+every section's own body as one value. A validator made for TomSpecs
+renditions (`DocSpecsValidator(schema, tomSpecs: true)`, which
+`validateSpecDocument` uses) also scans each form field's value apart, and
+reports `divWithoutKind` and `unknownKind`. `unknownKind` is the one warning
+(`isWarning`) and does not make a document invalid. The line of a notation
+finding is the line of the fence, bracket or block it is about. Pinned by
+`notation_cases.json`, which the Dart and TypeScript runtimes run; the other
+seven runtimes do not report the notation's rules yet.
 
 `validate` judges Markdown and leaves `path` null. For a SOM document the
 runtime fills it, because a section id repeats across a document (every

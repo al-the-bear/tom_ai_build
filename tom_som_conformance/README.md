@@ -369,6 +369,28 @@ that models the vocabulary as frozen string constants, and emitted `DV
 undefined` — a defect the passing cases table could not see, because the valid
 sample meant the line had never once executed.
 
+##### The reading notation: Dart and TypeScript so far
+
+The DocSpecs tier also carries the reading notation's nine findings (the DocSpecs
+specification's *Reading Notation* section, RN-10: `unclosedDiv` …
+`rejectedBlock`), reported by the notation scanner of the Dart and TypeScript
+runtimes. They have a table of their own,
+[`corpus/notation_cases.json`](corpus/notation_cases.json), so that
+`docspecs_cases.json` stays a table all nine runtimes pass:
+
+- `cases`: one text value each, scanned with `scanNotation(text, tomSpecs)`,
+  with the expected elements (type, kind, classes, id, attributes, citation
+  shape, offsets, lines, the `source` and `content` slices, nested `children`)
+  and findings (code, severity, line);
+- `validatorCases`: documents of `docspecs_schema.yaml` validated plain and as
+  TomSpecs renditions, with the expected `rule` / `sectionId` / `line` triples.
+
+The table is hand-maintained (`UPDATE_CORPUS=1` does not write it). The Dart
+enum guard waives the nine rules on `docspecs_cases.json` against the reading
+view's parity audit (`05a_rdv4_akpu-runtime-parity-audit`) and guards
+`NotationFindingCode` on this table instead; the TypeScript coverage gate counts
+both tables.
+
 ##### …and so does the editor tier (SOM §9)
 
 `SpecEditor` and the `spec_typed_values` helpers are nine-language for the third

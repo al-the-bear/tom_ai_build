@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- `scanNotation(text, tomSpecs:)` (`spec_notation.dart`): the reading
+  notation's scanner. One call per text value returns its fenced divs,
+  bracketed spans and citation shapes (`(-> ids)`, `(<- source)`,
+  `(<~ source)`) with kind, classes, id, attributes, offsets, lines and
+  nesting, and the RN-10 findings (`NotationFindingCode`). Code spans, fenced
+  code and the escapes `\:::` and `]\{.` are literal; an unknown kind passes
+  through. `DocSpecsValidator(schema, tomSpecs:)` reports the nine findings as
+  `DocSpecsViolationRule` entries with their lines, per section body and, for a
+  TomSpecs rendition, per form-field value; `unknownKind` is a warning
+  (`DocSpecsViolation.isWarning`) that `SbpValidation.isClean` does not count.
+  `validateSpecDocument` and `SpecRootDefinition.validate` validate as a
+  TomSpecs rendition. Pinned by `notation_cases.json`.
 - `SpecDocumentMarkdown(..., formLayout: SpecFormLayout.tables)`: the reading-view
   trial layout, emit only. A form's declared fields in order, each run of values
   that fit a cell one `| Field | Value |` table, a `multiParagraph` field or a

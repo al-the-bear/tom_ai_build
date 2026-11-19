@@ -102,6 +102,7 @@ export 'src/spec_meta.dart';
 export 'src/spec_meta_bridge.dart';
 export 'src/spec_meta_diff.dart';
 export 'src/spec_model.dart';
+export 'src/spec_notation.dart';
 export 'src/spec_node_creation.dart';
 export 'src/spec_paths.dart';
 export 'src/spec_query.dart';

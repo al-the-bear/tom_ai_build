@@ -364,6 +364,20 @@ export {
   bindDocspecsMarkdown,
 } from './docspecs_validator';
 export { validateSpecDocument } from './spec_schema_validation';
+export {
+  registeredNotationKinds,
+  NotationFindingCode,
+  notationSeverity,
+  NotationElement,
+  NotationFinding,
+  NotationScan,
+  scanNotation,
+} from './spec_notation';
+export type {
+  NotationElementType,
+  NotationSeverity,
+  NotationFindingCodeValue,
+} from './spec_notation';
 export type {
   DocSpecsViolationRuleValue,
   DocSpecsSectionTypeInit,

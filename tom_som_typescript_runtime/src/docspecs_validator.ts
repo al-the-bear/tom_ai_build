@@ -24,6 +24,7 @@ import {
   SpecMarkdownResult,
 } from './spec_document_markdown';
 import * as yaml from './yaml';
+import { scanNotation } from './spec_notation';
 import type { SpecDocument } from './spec_document';
 import type { SpecModel } from './spec_model';
 
@@ -40,6 +41,18 @@ export const DocSpecsViolationRule = Object.freeze({
   TEXT_LENGTH_OUT: 'textLengthOut',
   FORMAT_MISMATCH: 'formatMismatch',
   MALFORMED_HEADING: 'malformedHeading',
+  // The reading notation's findings (DocSpecs specification, RN-10), reported
+  // by scanNotation per value: a section's own body, and in a TomSpecs
+  // rendition each form field's value apart.
+  UNCLOSED_DIV: 'unclosedDiv',
+  STRAY_CLOSING_FENCE: 'strayClosingFence',
+  UNCLOSED_SPAN: 'unclosedSpan',
+  DIV_WITHOUT_KIND: 'divWithoutKind',
+  UNKNOWN_KIND: 'unknownKind',
+  MARK_ACROSS_NOTATION: 'markAcrossNotation',
+  ANNOTATION_INSIDE_DIV: 'annotationInsideDiv',
+  DIV_INSIDE_ANNOTATION: 'divInsideAnnotation',
+  REJECTED_BLOCK: 'rejectedBlock',
 } as const);
 
 /** One of the {@link DocSpecsViolationRule} string values. */
@@ -66,6 +79,14 @@ export class DocSpecsViolation {
     this.message = message;
     this.sectionId = sectionId;
     this.path = path;
+  }
+
+  /**
+   * Whether the finding is a warning rather than an error: only `unknownKind`
+   * is. A warning does not make a document invalid.
+   */
+  get isWarning(): boolean {
+    return this.rule === DocSpecsViolationRule.UNKNOWN_KIND;
   }
 
   toString(): string {
@@ -635,9 +656,16 @@ const _FIELD_LABEL = /^([A-Za-z][A-Za-z0-9_]*): ?(.*)$/;
 /** Never-fail-fast validator of a parsed document against a schema. */
 export class DocSpecsValidator {
   schema: DocSpecsSchema;
+  /**
+   * Whether the documents are TomSpecs renditions: the reading notation is
+   * then scanned value by value (a form field's value apart from the next),
+   * and a div without a class and an unregistered kind are reported too.
+   */
+  tomSpecs: boolean;
 
-  constructor(schema: DocSpecsSchema) {
+  constructor(schema: DocSpecsSchema, options: { tomSpecs?: boolean } = {}) {
     this.schema = schema;
+    this.tomSpecs = options.tomSpecs === true;
   }
 
   /** Convenience: parse + validate in one step. */
@@ -681,7 +709,59 @@ export class DocSpecsValidator {
       );
     }
     this._validateDocumentSections(root, v);
+    this._validateNotation(doc, v);
     return v;
+  }
+
+  /**
+   * The reading notation of every section's own body: one value per section,
+   * and in a TomSpecs rendition one per form field of a form-formatted
+   * section (its preamble included).
+   */
+  private _validateNotation(doc: DocSpecsDocument, v: DocSpecsViolation[]): void {
+    for (const section of doc.allSections) {
+      for (const [first, lines] of this._notationValues(section)) {
+        const scan = scanNotation(lines.join('\n'), { tomSpecs: this.tomSpecs });
+        for (const f of scan.findings) {
+          v.push(
+            new DocSpecsViolation(
+              f.code,
+              section.bodyStartLine + first + f.line - 1,
+              f.message,
+              section.id,
+            ),
+          );
+        }
+      }
+    }
+  }
+
+  /** The values of a section's own body as [index of the first line, lines]. */
+  private _notationValues(section: DocSpecsSection): Array<[number, string[]]> {
+    const body = section.bodyLines;
+    const type =
+      this.tomSpecs && section.id != null
+        ? this.schema.resolveSectionType(section.id)
+        : null;
+    const form =
+      type != null && type.format != null ? this.schema.formTypes[type.format] : undefined;
+    if (form === undefined) return [[0, body]];
+    const labels = new Set(form.fields.map((f) => f.name.toLowerCase()));
+    const values: Array<[number, string[]]> = [];
+    const fence = new MarkdownFenceTracker();
+    let first = 0;
+    for (let i = 0; i < body.length; i++) {
+      if (!fence.inFence && i > first) {
+        const m = _FIELD_LABEL.exec(body[i]);
+        if (m != null && labels.has(m[1].toLowerCase())) {
+          values.push([first, body.slice(first, i)]);
+          first = i;
+        }
+      }
+      fence.feed(body[i]);
+    }
+    values.push([first, body.slice(first)]);
+    return values;
   }
 
   private _resolveChild(

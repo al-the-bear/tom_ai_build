@@ -36,6 +36,7 @@ import 'package:yaml/yaml.dart';
 import 'spec_document.dart';
 import 'spec_document_markdown.dart';
 import 'spec_model.dart';
+import 'spec_notation.dart';
 
 /// The SOM §14 violation rule vocabulary — identical across all nine runtimes.
 enum DocSpecsViolationRule {
@@ -75,6 +76,41 @@ enum DocSpecsViolationRule {
 
   /// A heading line without a parseable `<!--[SECTION-ID]-->` comment.
   malformedHeading,
+
+  // The reading notation's findings (DocSpecs specification, Reading
+  // Notation RN-10), reported by [scanNotation] per value: a section's own
+  // body, and in a TomSpecs rendition each form field's value apart.
+
+  /// An opening fence has no closing fence in the same value (TomSpecs) or
+  /// before the next heading (any other document).
+  unclosedDiv,
+
+  /// A closing fence has no open div.
+  strayClosingFence,
+
+  /// A span's attribute braces open after `]` and do not close on the
+  /// paragraph.
+  unclosedSpan,
+
+  /// A div's attributes hold no class (TomSpecs renditions only).
+  divWithoutKind,
+
+  /// A div's or span's kind is not registered (TomSpecs renditions only). The
+  /// one warning: [DocSpecsViolation.isWarning].
+  unknownKind,
+
+  /// An inline review mark opens inside a span or citation and closes outside
+  /// it, or the reverse.
+  markAcrossNotation,
+
+  /// A comment or question block stands inside a div.
+  annotationInsideDiv,
+
+  /// A div stands inside a comment or question block.
+  divInsideAnnotation,
+
+  /// A `rejected` div is present.
+  rejectedBlock,
 }
 
 /// One structured violation (SOM §14): the [rule], the offending [sectionId]
@@ -135,6 +171,11 @@ class DocSpecsViolation {
   /// not stable API, and an authored `error-message` on the failing
   /// pattern-check replaces the generated wording when one exists.
   final String message;
+
+  /// Whether the finding is a warning rather than an error: only
+  /// [DocSpecsViolationRule.unknownKind] is. A warning does not make a
+  /// document invalid.
+  bool get isWarning => rule == DocSpecsViolationRule.unknownKind;
 
   @override
   String toString() =>
@@ -927,10 +968,18 @@ class DocSpecsValidator {
   /// Binds the validator to one [schema]. The schema is the only state, so an
   /// instance is reusable across any number of documents and safe to hold for
   /// the life of a session — construct it once per schema, not per document.
-  DocSpecsValidator(this.schema);
+  ///
+  /// [tomSpecs] says the documents are TomSpecs renditions: the reading
+  /// notation is then scanned value by value (a form field's value apart from
+  /// the next), and a div without a class and an unregistered kind are
+  /// reported too (RN-10).
+  DocSpecsValidator(this.schema, {this.tomSpecs = false});
 
   /// The schema every check is made against.
   final DocSpecsSchema schema;
+
+  /// Whether the documents are TomSpecs renditions.
+  final bool tomSpecs;
 
   /// Whether [doc] declares a *different* schema than this validator holds —
   /// the one-line answer to "am I about to validate against the wrong file?".
@@ -1026,7 +1075,54 @@ class DocSpecsValidator {
       );
     }
     _validateDocumentSections(root, v);
+    _validateNotation(doc, v);
     return v;
+  }
+
+  /// The reading notation of every section's own body: one value per
+  /// section, and in a TomSpecs rendition one per form field of a
+  /// form-formatted section (its preamble included).
+  void _validateNotation(DocSpecsDocument doc, List<DocSpecsViolation> v) {
+    for (final section in doc.allSections) {
+      for (final (first, lines) in _notationValues(section)) {
+        final scan = scanNotation(lines.join('\n'), tomSpecs: tomSpecs);
+        for (final f in scan.findings) {
+          v.add(
+            DocSpecsViolation(
+              rule: DocSpecsViolationRule.values.byName(f.code.name),
+              sectionId: section.id,
+              line: section.bodyStartLine + first + f.line - 1,
+              message: f.message,
+            ),
+          );
+        }
+      }
+    }
+  }
+
+  /// The values of [section]'s own body as (index of the first line, lines).
+  List<(int, List<String>)> _notationValues(DocSpecsSection section) {
+    final body = section.bodyLines;
+    final id = section.id;
+    final type = tomSpecs && id != null ? schema.resolveSectionType(id) : null;
+    final form = type?.format == null ? null : schema.formTypes[type!.format];
+    if (form == null) return [(0, body)];
+    final labels = {for (final f in form.fields) f.name.toLowerCase()};
+    final values = <(int, List<String>)>[];
+    final fence = MarkdownFenceTracker();
+    var first = 0;
+    for (var i = 0; i < body.length; i++) {
+      if (!fence.inFence && i > first) {
+        final m = _fieldLabel.firstMatch(body[i]);
+        if (m != null && labels.contains(m.group(1)!.toLowerCase())) {
+          values.add((first, body.sublist(first, i)));
+          first = i;
+        }
+      }
+      fence.feed(body[i]);
+    }
+    values.add((first, body.sublist(first)));
+    return values;
   }
 
   /// Root children must occupy `document: sections:` slots; required slots

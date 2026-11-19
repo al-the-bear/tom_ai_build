@@ -62,6 +62,29 @@ test('every name TS index.ts exports exists here (workspace checkout only)', (t)
     t.skip('tom_som_typescript_runtime is not built beside this package');
     return;
   }
-  const missing = Object.keys(require(tsIndex)).filter((n) => !(n in R));
+  const missing = Object.keys(require(tsIndex))
+    .filter((n) => !(n in R))
+    .filter((n) => !PENDING_PARITY.has(n));
   assert.deepStrictEqual(missing, []);
+});
+
+/**
+ * TS names this runtime does not have yet, each with the todo that ports it.
+ * The reading notation's scanner (`spec_notation.ts`) is Dart and TypeScript
+ * only until the reading view's parity audit
+ * (`05a_rdv4_akpu-runtime-parity-audit`) files its port.
+ */
+const PENDING_PARITY = new Set([
+  'registeredNotationKinds',
+  'NotationFindingCode',
+  'notationSeverity',
+  'NotationElement',
+  'NotationFinding',
+  'NotationScan',
+  'scanNotation',
+]);
+
+test('no pending-parity name is here already (the exception ends with its port)', () => {
+  const present = [...PENDING_PARITY].filter((n) => n in R);
+  assert.deepStrictEqual(present, []);
 });

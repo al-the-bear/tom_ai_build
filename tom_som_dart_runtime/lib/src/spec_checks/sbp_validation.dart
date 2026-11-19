@@ -59,7 +59,10 @@ class SpecRootDefinition {
     final rendition = markdown ?? render(doc);
     return SbpValidation(
       markdown: rendition,
-      schemaFindings: DocSpecsValidator(schema).validateMarkdown(rendition),
+      schemaFindings: DocSpecsValidator(
+        schema,
+        tomSpecs: true,
+      ).validateMarkdown(rendition),
       instanceFindings: validateDocument(model, doc),
     );
   }
@@ -98,8 +101,10 @@ class SbpValidation {
   /// Tier 3 findings (the document against the model).
   final List<SpecValidationError> instanceFindings;
 
-  /// Whether both tiers are clean.
-  bool get isClean => schemaFindings.isEmpty && instanceFindings.isEmpty;
+  /// Whether both tiers are clean (a schema warning, an unknown notation
+  /// kind, does not count).
+  bool get isClean =>
+      schemaFindings.every((f) => f.isWarning) && instanceFindings.isEmpty;
 
   /// Every finding, one line each, then the two tier summaries: the format
   /// the `spec_checks validate` command prints.
