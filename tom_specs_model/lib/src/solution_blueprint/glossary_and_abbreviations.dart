@@ -43,9 +43,15 @@ class GlossaryAndAbbreviations extends DocSpecsSection {
 class GlossaryEntry extends DocSpecsSection {
   @Form([
     Field('term', String, 'Term', required: true),
-    Field('definition', String, 'Definition', required: true),
     Field('acronym', String, 'Acronym / Abbreviation'),
     Field('seeAlso', String, 'See Also (related terms)'),
+    Field(
+      'definition',
+      String,
+      'Definition',
+      required: true,
+      multiParagraph: true,
+    ),
   ])
   @override
   @SerializationOrder(0)

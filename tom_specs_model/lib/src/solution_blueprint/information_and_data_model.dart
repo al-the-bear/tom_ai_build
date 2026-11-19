@@ -738,27 +738,6 @@ class DataEntityEntry extends DocSpecsSection {
       hint: 'Database table name if different from logical name',
     ),
     Field(
-      'entityAlias',
-      String,
-      'Alias/Abbreviation',
-      hint: 'Short alias for diagrams and references (e.g., CUST, ORD)',
-    ),
-    Field(
-      'description',
-      String,
-      'Description',
-      hint: 'Clear definition of what this entity represents',
-    ),
-    Field(
-      'entityStereoType',
-      String,
-      'Stereotype',
-      hint:
-          'Entity pattern: Entity | ValueObject | Event | View | Bridge. '
-          'Aggregate-root-ness is not a stereotype here — it is read from '
-          'aggregateRoot below, which is the only field that states it',
-    ),
-    Field(
       'dataSourceName',
       String,
       'Datasource',
@@ -779,6 +758,28 @@ class DataEntityEntry extends DocSpecsSection {
       hint:
           'Tenant: each tenant\'s own rows; System: shared by all tenants (a '
           'tenant registry, reference data)',
+    ),
+    Field(
+      'entityAlias',
+      String,
+      'Alias/Abbreviation',
+      hint: 'Short alias for diagrams and references (e.g., CUST, ORD)',
+    ),
+    Field(
+      'entityStereoType',
+      String,
+      'Stereotype',
+      hint:
+          'Entity pattern: Entity | ValueObject | Event | View | Bridge. '
+          'Aggregate-root-ness is not a stereotype here — it is read from '
+          'aggregateRoot below, which is the only field that states it',
+    ),
+    Field(
+      'description',
+      String,
+      'Description',
+      hint: 'Clear definition of what this entity represents',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -1098,12 +1099,6 @@ class DataAttributeEntry extends DocSpecsSection {
       hint: 'Database column name if different (e.g., snake_case)',
     ),
     Field(
-      'description',
-      String,
-      'Description',
-      hint: 'Clear definition of what this attribute represents',
-    ),
-    Field(
       'businessTerm',
       String,
       'Business Term',
@@ -1114,6 +1109,13 @@ class DataAttributeEntry extends DocSpecsSection {
       String,
       'Example Values',
       hint: 'Comma-separated examples (e.g., "Draft, Confirmed, Shipped")',
+    ),
+    Field(
+      'description',
+      String,
+      'Description',
+      hint: 'Clear definition of what this attribute represents',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -2017,12 +2019,6 @@ class EntityRelationshipEntry extends DocSpecsSection {
           'Association | Aggregation | Composition | Generalization | Dependency',
     ),
     Field(
-      'description',
-      String,
-      'Description',
-      hint: 'Business meaning of this relationship',
-    ),
-    Field(
       'businessJustification',
       String,
       'Business Justification',
@@ -2033,6 +2029,13 @@ class EntityRelationshipEntry extends DocSpecsSection {
       String,
       'Implementation Type',
       hint: 'ForeignKey | JunctionTable | Embedded | Reference',
+    ),
+    Field(
+      'description',
+      String,
+      'Description',
+      hint: 'Business meaning of this relationship',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -3478,12 +3481,18 @@ class LifecycleTransitionEntry extends DocSpecsSection {
     'UML state machines — object lifecycle/state modeling',
   ], 'The event that triggers a lifecycle transition and its trigger type.')
   @Form([
-    Field('trigger', String, 'Trigger', hint: 'What initiates this transition'),
     Field(
       'triggerType',
       String,
       'Trigger Type',
       hint: 'UserAction | SystemEvent | Timer | ExternalEvent',
+    ),
+    Field(
+      'trigger',
+      String,
+      'Trigger',
+      hint: 'What initiates this transition',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -4177,6 +4186,7 @@ class BusinessRuleEntry extends DocSpecsSection {
       String,
       'Business Statement',
       hint: 'Natural language statement from business perspective',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -6338,10 +6348,14 @@ class ServerOperationEntry extends DocSpecsSection {
           'token of the specified system, not a restatement of the headline',
     ),
     Field(
-      'purpose',
+      'descriptionKey',
       String,
-      'Purpose',
-      hint: 'What the operation does, from the caller\'s point of view',
+      'Description Copy Key',
+      hint:
+          'MessageKeyEntry.key into the message key registry (MSGKR) for the '
+          "operation's user-facing description (author copy once, reference "
+          'here)',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'primaryDataEntity',
@@ -6354,16 +6368,6 @@ class ServerOperationEntry extends DocSpecsSection {
       refersTo: ['DAENT.entityName'],
     ),
     Field(
-      'descriptionKey',
-      String,
-      'Description Copy Key',
-      hint:
-          'MessageKeyEntry.key into the message key registry (MSGKR) for the '
-          "operation's user-facing description (author copy once, reference "
-          'here)',
-      refersTo: ['MSGKE.key'],
-    ),
-    Field(
       'errorCodes',
       String,
       'Error Codes',
@@ -6373,6 +6377,13 @@ class ServerOperationEntry extends DocSpecsSection {
           'of the Result envelope',
       refersTo: ['ERCEN.code'],
       multiple: true,
+    ),
+    Field(
+      'purpose',
+      String,
+      'Purpose',
+      hint: 'What the operation does, from the caller\'s point of view',
+      multiParagraph: true,
     ),
   ])
   @override

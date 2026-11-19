@@ -27394,10 +27394,10 @@ form-types:
     fields:
       - fieldname: overallComplexity
         description: Low / Medium / High / Very High — based on scope and integrations
-      - fieldname: keyRisks
-        description: Brief list of top 3 risks
       - fieldname: keyAssumptions
         description: Brief list of critical assumptions
+      - fieldname: keyRisks
+        description: Brief list of top 3 risks
   sdsm-form:
     fields:
       - fieldname: primaryFunction
@@ -27408,20 +27408,20 @@ form-types:
         description: "e.g., Healthcare, Finance, Manufacturing, E-commerce"
       - fieldname: deploymentModel
         description: "Cloud-native SaaS, Cloud-hosted PaaS, Hybrid Cloud, On-premises, Edge/Distributed, Mobile-first, Desktop, Embedded"
-      - fieldname: architectureStyle
-        description: "Microservices, Monolithic, Serverless, Event-driven, Layered, Modular Monolith, Service-oriented, Peer-to-peer, Client-server"
       - fieldname: primaryTechnologyStack
         description: "e.g., Flutter/Dart, Firebase, PostgreSQL"
-      - fieldname: interfaceTypes
-        description: "Web UI, Mobile App, Desktop App, REST API, GraphQL API, gRPC API, CLI, Voice Interface, Chat/Bot Interface, Hardware"
       - fieldname: dataCharacteristics
         description: "e.g., Real-time processing, batch analytics, ACID transactions"
-      - fieldname: securityClassification
-        description: "Public/Open, Internal Use, Confidential, Highly Confidential, Regulated (HIPAA/GDPR/SOX), Government/Classified"
       - fieldname: availabilityRequirement
         description: "99.999% (Five 9s), 99.99% (Four 9s), 99.9% (Three 9s), 99%, Business Hours Only, Best Effort"
       - fieldname: scalabilityModel
         description: "Horizontal Auto-scaling, Vertical Scaling, Manual Scaling, Fixed Capacity, Edge Distribution, Federation"
+      - fieldname: architectureStyle
+        description: "Microservices, Monolithic, Serverless, Event-driven, Layered, Modular Monolith, Service-oriented, Peer-to-peer, Client-server"
+      - fieldname: interfaceTypes
+        description: "Web UI, Mobile App, Desktop App, REST API, GraphQL API, gRPC API, CLI, Voice Interface, Chat/Bot Interface, Hardware"
+      - fieldname: securityClassification
+        description: "Public/Open, Internal Use, Confidential, Highly Confidential, Regulated (HIPAA/GDPR/SOX), Government/Classified"
       - fieldname: expectedUserLoad
         description: "Single User, Team (<100), Enterprise (100-1000), Large Enterprise (1000-10000), Consumer (10000+)"
       - fieldname: keyDifferentiators
@@ -27452,10 +27452,10 @@ form-types:
         description: How often this actor interacts with the system
       - fieldname: interactionChannel
         description: The channel through which the interaction occurs
-      - fieldname: dataExchanged
-        description: What information flows to and from this actor
       - fieldname: accessLevel
         description: The level of access this actor has
+      - fieldname: dataExchanged
+        description: What information flows to and from this actor
   eaec-form:
     fields:
       - fieldname: authenticationMethod
@@ -27469,12 +27469,12 @@ form-types:
       - fieldname: integrationDirection
         required: true
         description: The direction in which data flows for this integration
-      - fieldname: integrationPurpose
-        description: The business need this integration serves
       - fieldname: dataExchanged
         description: What data flows between the systems
       - fieldname: integrationMethod
         description: The technical method used for the integration
+      - fieldname: integrationPurpose
+        description: The business need this integration serves
   esceo-form:
     fields:
       - fieldname: integrationFrequency
@@ -27807,12 +27807,12 @@ form-types:
         description: "Face ID, Touch ID, Fingerprint"
   iped-form:
     fields:
-      - fieldname: description
-        description: What this pattern involves
       - fieldname: useCases
         description: List of use cases that follow this pattern
       - fieldname: userCategories
         description: Which user categories use this pattern
+      - fieldname: description
+        description: What this pattern involves
   ipet-form:
     fields:
       - fieldname: triggerType
@@ -27941,13 +27941,13 @@ form-types:
         description: The primary quantity measured to gauge success
       - fieldname: currentValue
         description: Baseline measurement before the project starts
-      - fieldname: targetValue
-        required: true
-        description: Desired end-state value for the metric
       - fieldname: measurementMethod
         description: How the metric is captured or calculated
       - fieldname: measurementFrequency
         description: "Daily, Weekly, Monthly, or Quarterly"
+      - fieldname: targetValue
+        required: true
+        description: Desired end-state value for the metric
   bgeg-form:
     fields:
       - fieldname: targetDate
@@ -28016,9 +28016,6 @@ form-types:
         description: The primary quantity measured for this goal
       - fieldname: currentValue
         description: Current/baseline value before the project
-      - fieldname: targetValue
-        required: true
-        description: Target value to be achieved
       - fieldname: measurementMethod
         description: "APM, load testing, security scan, etc."
       - fieldname: measurementTool
@@ -28027,6 +28024,9 @@ form-types:
         description: "Production, staging, or load-test environment"
       - fieldname: verificationPoint
         description: "When/how verified: unit, integration, acceptance, production monitoring"
+      - fieldname: targetValue
+        required: true
+        description: Target value to be achieved
   tgeg-form:
     fields:
       - fieldname: systemArea
@@ -28175,22 +28175,22 @@ form-types:
         description: How shortfalls are addressed
   ro-requ-form:
     fields:
-      - fieldname: requirementsProcess
-        description: "How requirements are elicited, analysed, and managed"
       - fieldname: traceabilityApproach
         description: "How requirements are linked to goals, tests, and code"
-      - fieldname: changeControlProcess
-        description: "How requirement changes are proposed, reviewed, and approved"
       - fieldname: prioritizationMethod
         description: "MoSCoW, weighted scoring, or other prioritisation scheme"
       - fieldname: totalRequirements
         description: Estimated total number of requirements
-      - fieldname: mustHaveCount
-        description: Estimated count of Must-Have requirements
       - fieldname: shouldHaveCount
         description: Estimated count of Should-Have requirements
       - fieldname: couldHaveCount
         description: Estimated count of Could-Have requirements
+      - fieldname: requirementsProcess
+        description: "How requirements are elicited, analysed, and managed"
+      - fieldname: changeControlProcess
+        description: "How requirement changes are proposed, reviewed, and approved"
+      - fieldname: mustHaveCount
+        description: Estimated count of Must-Have requirements
   fr-summ-form:
     fields:
       - fieldname: totalFunctionalRequirements
@@ -28207,13 +28207,13 @@ form-types:
         description: Notes on coverage and any gaps in the requirement set
   fred-form:
     fields:
-      - fieldname: description
-        required: true
-        description: Detailed "the system shall..." statement of the requirement
       - fieldname: requirementType
         description: "Feature, User Story, Business Rule, Report, Integration, etc."
       - fieldname: category
         description: Functional-area grouping for this requirement
+      - fieldname: description
+        required: true
+        description: Detailed "the system shall..." statement of the requirement
   frep-form:
     fields:
       - fieldname: priority
@@ -28227,11 +28227,11 @@ form-types:
         description: Qualitative band for the risk of not meeting the requirement.
   fres-form:
     fields:
+      - fieldname: requestDate
+        description: Date the requirement was requested
       - fieldname: source
         required: true
         description: "Who requested it: stakeholder name, workshop, or document"
-      - fieldname: requestDate
-        description: Date the requirement was requested
       - fieldname: rationale
         description: Why this requirement is needed
   frev-form:
@@ -28413,22 +28413,22 @@ form-types:
         description: "e.g., 99.99% availability, sub-100ms latency, 10k concurrent users"
   tred-form:
     fields:
-      - fieldname: description
+      - fieldname: priority
         required: true
-        description: "Full requirement statement, e.g., The system shall respond within 100ms"
+        description: Qualitative priority band.
       - fieldname: category
         required: true
         description: ISO 25010 quality characteristic the requirement addresses
       - fieldname: subcategory
         description: "More specific aspect, e.g., response time within Performance"
-      - fieldname: priority
+      - fieldname: rationale
+        description: Why this requirement is needed
+      - fieldname: description
         required: true
-        description: Qualitative priority band.
+        description: "Full requirement statement, e.g., The system shall respond within 100ms"
       - fieldname: source
         required: true
         description: "Stakeholder, document, or standard that originated it"
-      - fieldname: rationale
-        description: Why this requirement is needed
   trem-form:
     fields:
       - fieldname: metric
@@ -28484,23 +28484,23 @@ form-types:
         description: Classes of attack the requirements mitigate
   sereencl-form:
     fields:
+      - fieldname: priority
+        required: true
+        description: Qualitative priority band.
       - fieldname: category
         required: true
         description: Security domain the requirement falls under
       - fieldname: subcategory
         description: More specific aspect within the category
-      - fieldname: priority
-        required: true
-        description: Qualitative priority band.
-      - fieldname: source
-        required: true
-        description: "Stakeholder, standard, or document that originated it"
       - fieldname: rationale
         description: Why this security requirement is needed
       - fieldname: threatMitigated
         description: Attack or risk this requirement prevents
       - fieldname: dataClassification
         description: Sensitivity of data the requirement protects
+      - fieldname: source
+        required: true
+        description: "Stakeholder, standard, or document that originated it"
   sereenco-form:
     fields:
       - fieldname: owaspCategory
@@ -28566,19 +28566,19 @@ form-types:
         description: Assessed readiness of the organization to adopt the change
   orec-form:
     fields:
+      - fieldname: priority
+        required: true
+        description: MoSCoW scoping band — what happens if this requirement does not ship.
       - fieldname: category
         required: true
         description: Type of organizational change the requirement entails
       - fieldname: subcategory
         description: More specific aspect within the category
-      - fieldname: priority
-        required: true
-        description: MoSCoW scoping band — what happens if this requirement does not ship.
+      - fieldname: rationale
+        description: Why this organizational change is needed
       - fieldname: source
         required: true
         description: Stakeholder or document that originated it
-      - fieldname: rationale
-        description: Why this organizational change is needed
   orei-form:
     fields:
       - fieldname: impactedGroups
@@ -29063,14 +29063,14 @@ form-types:
         description: Whether the interface uses webhooks/callbacks
       - fieldname: webhookEndpoint
         description: Our endpoint that receives callbacks
-      - fieldname: eventTypes
-        description: Event types delivered via webhook
       - fieldname: signatureVerification
         description: How webhook authenticity is verified
       - fieldname: retryPolicy
         description: External retry behavior on delivery failure
       - fieldname: idempotencyHandling
         description: How duplicate webhook deliveries are handled
+      - fieldname: eventTypes
+        description: Event types delivered via webhook
   inseau-form:
     fields:
       - fieldname: authorizationModel
@@ -29608,12 +29608,12 @@ form-types:
         description: Name of the role after adjustment
       - fieldname: adjustmentDescription
         description: Detailed description of what changed
-      - fieldname: affectedResponsibilities
-        description: Which responsibilities are impacted by this change
       - fieldname: mergedWithRoles
         description: "If merged, which other roles it combines with"
       - fieldname: splitIntoRoles
         description: "If split, names of the resulting roles"
+      - fieldname: affectedResponsibilities
+        description: Which responsibilities are impacted by this change
   rlaer-form:
     fields:
       - fieldname: rationale
@@ -32453,10 +32453,10 @@ form-types:
         description: Target response time or throughput
       - fieldname: userSatisfaction
         description: Target satisfaction or NPS scores
-      - fieldname: businessOutcomes
-        description: Expected business-level outcomes
       - fieldname: measurementApproach
         description: How and when success is measured
+      - fieldname: businessOutcomes
+        description: Expected business-level outcomes
   dpovw-form:
     fields:
       - fieldname: principlePhilosophy
@@ -32471,8 +32471,6 @@ form-types:
     fields:
       - fieldname: totalProcessCount
         description: Number of processes in the catalog
-      - fieldname: scopeStatement
-        description: What the catalog does and does not cover
       - fieldname: classificationFramework
         description: Framework used to classify processes
       - fieldname: namingConvention
@@ -32485,6 +32483,8 @@ form-types:
         description: How process changes are controlled
       - fieldname: versioningApproach
         description: How process versions are tracked
+      - fieldname: scopeStatement
+        description: What the catalog does and does not cover
   prccl-form:
     fields:
       - fieldname: level1Categories
@@ -32513,12 +32513,12 @@ form-types:
         description: The functional type of the process
   pidef-form:
     fields:
-      - fieldname: description
-        description: What the process actually does
       - fieldname: purpose
         description: Why the process exists
       - fieldname: scope
         description: Where the process starts and ends
+      - fieldname: description
+        description: What the process actually does
   pigov-form:
     fields:
       - fieldname: processOwner
@@ -32805,20 +32805,18 @@ form-types:
         description: Enter how many actors are internal systems
       - fieldname: externalActorCount
         description: Enter how many actors are external systems
-      - fieldname: actorIdentificationApproach
-        description: Describe the method used to discover actors
       - fieldname: actorPrioritization
         description: State which actors matter most and why
       - fieldname: actorGoalAlignment
         description: Explain how actor goals map to business goals
+      - fieldname: actorIdentificationApproach
+        description: Describe the method used to discover actors
   acid-form:
     fields:
       - fieldname: actorType
         description: "State whether the actor is a person, system or scheduled job"
       - fieldname: category
         description: Classify using Cockburn primary/secondary/supporting/offstage
-      - fieldname: description
-        description: Explain the actor’s purpose in one or two sentences
       - fieldname: realWorldExamples
         description: Name concrete job titles or people that fill this role
       - fieldname: organizationalUnit
@@ -32827,6 +32825,8 @@ form-types:
         description: Estimate the number of individuals in this role
       - fieldname: geographicDistribution
         description: Note the locations or regions where actors operate
+      - fieldname: description
+        description: Explain the actor’s purpose in one or two sentences
   acchus-form:
     fields:
       - fieldname: usageDuration
@@ -33145,18 +33145,18 @@ form-types:
         description: "Singular noun or noun phrase (e.g., Customer, OrderItem)"
       - fieldname: tableName
         description: Database table name if different from logical name
-      - fieldname: entityAlias
-        description: "Short alias for diagrams and references (e.g., CUST, ORD)"
-      - fieldname: description
-        description: Clear definition of what this entity represents
-      - fieldname: entityStereoType
-        description: "Entity pattern: Entity | ValueObject | Event | View | Bridge. Aggregate-root-ness is not a stereotype here — it is read from aggregateRoot below, which is the only field that states it"
       - fieldname: dataSourceName
         description: "The logical datasource the rows are stored in (e.g. main), when not the solution's default"
       - fieldname: schemaName
         description: "The schema within that datasource, where it has several"
       - fieldname: tenancy
         description: "Tenant: each tenant's own rows; System: shared by all tenants (a tenant registry, reference data)"
+      - fieldname: entityAlias
+        description: "Short alias for diagrams and references (e.g., CUST, ORD)"
+      - fieldname: entityStereoType
+        description: "Entity pattern: Entity | ValueObject | Event | View | Bridge. Aggregate-root-ness is not a stereotype here — it is read from aggregateRoot below, which is the only field that states it"
+      - fieldname: description
+        description: Clear definition of what this entity represents
   daent-clas-form:
     fields:
       - fieldname: category
@@ -33208,12 +33208,12 @@ form-types:
     fields:
       - fieldname: columnName
         description: "Database column name if different (e.g., snake_case)"
-      - fieldname: description
-        description: Clear definition of what this attribute represents
       - fieldname: businessTerm
         description: Business glossary term this maps to
       - fieldname: exampleValues
         description: "Comma-separated examples (e.g., \"Draft, Confirmed, Shipped\")"
+      - fieldname: description
+        description: Clear definition of what this attribute represents
   daatt-data-form:
     fields:
       - fieldname: dataType
@@ -33327,12 +33327,12 @@ form-types:
     fields:
       - fieldname: relationshipType
         description: "Association | Aggregation | Composition | Generalization | Dependency"
-      - fieldname: description
-        description: Business meaning of this relationship
       - fieldname: businessJustification
         description: Why this relationship exists from business perspective
       - fieldname: implementationType
         description: "ForeignKey | JunctionTable | Embedded | Reference"
+      - fieldname: description
+        description: Business meaning of this relationship
   enrle-card-form:
     fields:
       - fieldname: sourceCardinality
@@ -33525,10 +33525,10 @@ form-types:
         description: "Section id of the business rule (`BIRU`)"
   ltet-form:
     fields:
-      - fieldname: trigger
-        description: What initiates this transition
       - fieldname: triggerType
         description: "UserAction | SystemEvent | Timer | ExternalEvent"
+      - fieldname: trigger
+        description: What initiates this transition
   ltec-form:
     fields:
       - fieldname: guardConditions
@@ -33740,11 +33740,11 @@ form-types:
         description: The resource key from the resource-key catalogue the caller must hold a grant on
   azreq-cust-form:
     fields:
+      - fieldname: resourceId
+        description: "The resource id passed to the handler, where it needs one"
       - fieldname: handler
         required: true
         description: "The registered access handler that decides, by its name in the access-handler catalogue"
-      - fieldname: resourceId
-        description: "The resource id passed to the handler, where it needs one"
       - fieldname: decisionRule
         required: true
         description: "What the handler must decide, in business terms — this is the specification the handler is implemented against"
@@ -33991,14 +33991,14 @@ form-types:
     fields:
       - fieldname: usageScope
         description: "Core, Feature-specific, Development-only, Testing-only"
-      - fieldname: integrationPoints
-        description: Where this framework integrates in the architecture
       - fieldname: requiredPlugins
         description: Mandatory plugins or extensions
       - fieldname: optionalPlugins
         description: Recommended optional plugins
       - fieldname: excludedFeatures
         description: Framework features that should not be used
+      - fieldname: integrationPoints
+        description: Where this framework integrates in the architecture
   fwrcp-form:
     fields:
       - fieldname: compatibleWith
@@ -34017,15 +34017,15 @@ form-types:
         description: "Excellent, Good, Fair, Poor"
   fwrjt-form:
     fields:
-      - fieldname: justification
-        required: true
-        description: Reason for selecting this framework
       - fieldname: alternativesConsidered
         description: Other frameworks evaluated
       - fieldname: riskAssessment
         description: "Vendor lock-in, maintenance, complexity risks"
       - fieldname: notes
         description: Additional framework notes
+      - fieldname: justification
+        required: true
+        description: Reason for selecting this framework
   btcvr-form:
     fields:
       - fieldname: minimumVersion
@@ -34042,10 +34042,10 @@ form-types:
         description: Recommended optional plugins
   btep-form:
     fields:
-      - fieldname: buildProfiles
-        description: "E.g., Debug, Release, Profile, Production"
       - fieldname: defaultProfile
         description: Default build profile
+      - fieldname: buildProfiles
+        description: "E.g., Debug, Release, Profile, Production"
   btei-form:
     fields:
       - fieldname: cicdIntegration
@@ -34106,8 +34106,6 @@ form-types:
         description: Feature flag implementation
   dtec-form:
     fields:
-      - fieldname: complianceRequirements
-        description: "Store guidelines, regulatory requirements"
       - fieldname: privacyRequirements
         description: "Privacy manifest, tracking transparency"
       - fieldname: priority
@@ -34116,6 +34114,8 @@ form-types:
         description: Target date for this deployment
       - fieldname: notes
         description: Additional deployment notes
+      - fieldname: complianceRequirements
+        description: "Store guidelines, regulatory requirements"
   demave-form:
     fields:
       - fieldname: versioningPolicy
@@ -34164,18 +34164,18 @@ form-types:
         description: "SSD required, HDD acceptable"
   ruenne-form:
     fields:
-      - fieldname: networkRequirements
-        description: Connectivity requirements
       - fieldname: bandwidthRequirements
         description: Minimum bandwidth
       - fieldname: latencyRequirements
         description: Maximum acceptable latency
+      - fieldname: networkRequirements
+        description: Connectivity requirements
   ruenva-form:
     fields:
-      - fieldname: requiredEnvVariables
-        description: Mandatory environment variables
       - fieldname: optionalEnvVariables
         description: Optional configuration variables
+      - fieldname: requiredEnvVariables
+        description: Mandatory environment variables
   ruende-form:
     fields:
       - fieldname: systemDependencies
@@ -34196,11 +34196,11 @@ form-types:
         description: Additional runtime environment notes
   arovdr-form:
     fields:
+      - fieldname: businessDrivers
+        description: Business requirements driving the choice
       - fieldname: justification
         required: true
         description: Why this architecture style was chosen
-      - fieldname: businessDrivers
-        description: Business requirements driving the choice
       - fieldname: technicalDrivers
         description: Technical requirements driving the choice
   aoto-form:
@@ -34285,13 +34285,13 @@ form-types:
         description: Additional organization notes
   acep-form:
     fields:
+      - fieldname: notResponsibleFor
+        description: Explicitly out of scope
       - fieldname: purpose
         required: true
         description: What this component does
       - fieldname: responsibilities
         description: List of responsibilities
-      - fieldname: notResponsibleFor
-        description: Explicitly out of scope
   aceb-form:
     fields:
       - fieldname: publicInterface
@@ -34326,10 +34326,10 @@ form-types:
         description: Additional component notes
   copasy-form:
     fields:
-      - fieldname: syncPatterns
-        description: "Request-response, Service mesh"
       - fieldname: apiGateway
         description: Central gateway pattern details
+      - fieldname: syncPatterns
+        description: "Request-response, Service mesh"
   copaas-form:
     fields:
       - fieldname: asyncProtocols
@@ -34340,12 +34340,12 @@ form-types:
         description: "Pub/Sub, Event sourcing, CQRS"
   cpde-form:
     fields:
-      - fieldname: dataContracts
-        description: API contracts and schemas
       - fieldname: schemaEvolution
         description: How schemas evolve over time
       - fieldname: serialization
         description: Serialization approach
+      - fieldname: dataContracts
+        description: API contracts and schemas
   copare-form:
     fields:
       - fieldname: retryPolicies
@@ -34412,10 +34412,10 @@ form-types:
     fields:
       - fieldname: expectedLoad
         description: Expected concurrent users/requests
-      - fieldname: peakLoad
-        description: Peak load expectations
       - fieldname: growthProjection
         description: Expected growth over time
+      - fieldname: peakLoad
+        description: Peak load expectations
   scarta-form:
     fields:
       - fieldname: responseTimeTargets
@@ -34454,10 +34454,10 @@ form-types:
     fields:
       - fieldname: externalSystemCount
         description: Number of external integrations
-      - fieldname: integrationTypes
-        description: "REST, SOAP, File, Database, Events"
       - fieldname: realTimeIntegrations
         description: Integrations requiring real-time sync
+      - fieldname: integrationTypes
+        description: "REST, SOAP, File, Database, Events"
   inarda-form:
     fields:
       - fieldname: dataTransformation
@@ -34468,12 +34468,12 @@ form-types:
         description: Synchronization patterns and frequency
   inarse-form:
     fields:
-      - fieldname: authenticationApproach
-        description: How integrations are authenticated
       - fieldname: authorizationApproach
         description: How integrations are authorized
       - fieldname: secureTransport
         description: "Transport security (TLS, VPN)"
+      - fieldname: authenticationApproach
+        description: How integrations are authenticated
   inarre-form:
     fields:
       - fieldname: errorHandling
@@ -34543,9 +34543,6 @@ form-types:
         description: Constraints that influenced the decision
   adro-form:
     fields:
-      - fieldname: decision
-        required: true
-        description: What was decided
       - fieldname: rationale
         required: true
         description: Why this decision was made
@@ -34553,10 +34550,11 @@ form-types:
         description: Other options that were evaluated
       - fieldname: decisionMakers
         description: Who made this decision
+      - fieldname: decision
+        required: true
+        description: What was decided
   ardereco-form:
     fields:
-      - fieldname: consequences
-        description: Impact of this decision
       - fieldname: positiveConsequences
         description: Benefits of this decision
       - fieldname: negativeConsequences
@@ -34565,6 +34563,8 @@ form-types:
         description: When this decision should be reviewed
       - fieldname: notes
         description: Additional decision notes
+      - fieldname: consequences
+        description: Impact of this decision
   adrr-form:
     fields:
       - fieldname: relatedDecisions
@@ -34611,13 +34611,13 @@ form-types:
         description: Additional pattern notes
   cserd-form:
     fields:
-      - fieldname: rule
-        required: true
-        description: Clear statement of the coding rule
       - fieldname: rationale
         description: Why this rule matters
       - fieldname: examples
         description: Good and bad code examples
+      - fieldname: rule
+        required: true
+        description: Clear statement of the coding rule
   csen-form:
     fields:
       - fieldname: namingConvention
@@ -34889,10 +34889,10 @@ form-types:
       - fieldname: purpose
         required: true
         description: Primary responsibility of this layer
-      - fieldname: responsibilities
-        description: Specific functions this layer handles
       - fieldname: prohibitions
         description: What this layer must NOT do
+      - fieldname: responsibilities
+        description: Specific functions this layer handles
   slec-form:
     fields:
       - fieldname: typicalComponents
@@ -34947,12 +34947,12 @@ form-types:
         description: Additional layer communication notes
   bces-form:
     fields:
-      - fieldname: purpose
-        description: Why this context exists
       - fieldname: includedConcepts
         description: Domain concepts within this context
       - fieldname: excludedConcepts
         description: Domain concepts explicitly outside this context
+      - fieldname: purpose
+        description: Why this context exists
       - fieldname: ubiquitousLanguage
         description: Key terms and their definitions
   bceb-form:
@@ -34979,30 +34979,30 @@ form-types:
         description: Domain events this context subscribes to
   bocoenin-form:
     fields:
-      - fieldname: apiEndpoints
-        description: Public API endpoints exposed
       - fieldname: integrationPatterns
         description: How this context integrates with others
       - fieldname: notes
         description: Additional context notes
+      - fieldname: apiEndpoints
+        description: Public API endpoints exposed
   paorst-form:
     fields:
       - fieldname: monorepoVsPolyrepo
         description: Single vs multiple repositories
-      - fieldname: directoryLayout
-        description: Top-level directory organization
       - fieldname: featureGrouping
         description: How features are grouped in structure
+      - fieldname: directoryLayout
+        description: Top-level directory organization
   paorty-form:
     fields:
-      - fieldname: corePackages
-        description: Foundation packages required by all
-      - fieldname: featurePackages
-        description: Business feature packages
       - fieldname: sharedPackages
         description: Shared utility packages
       - fieldname: platformPackages
         description: Platform-specific packages
+      - fieldname: corePackages
+        description: Foundation packages required by all
+      - fieldname: featurePackages
+        description: Business feature packages
   paorde-form:
     fields:
       - fieldname: dependencyManagement
@@ -35026,12 +35026,12 @@ form-types:
       - fieldname: purpose
         required: true
         description: What this module provides
-      - fieldname: functionality
-        description: Specific features/functions
       - fieldname: publicApi
         description: Key public interfaces/classes
       - fieldname: entryPoints
         description: Main entry points to the module
+      - fieldname: functionality
+        description: Specific features/functions
   moend1-form:
     fields:
       - fieldname: requiredModules
@@ -35289,12 +35289,12 @@ form-types:
         description: "Debug, profile, release settings"
   btcs-form:
     fields:
-      - fieldname: buildScripts
-        description: Custom build scripts location
       - fieldname: preCommitHooks
         description: Pre-commit hook configuration
       - fieldname: postBuildActions
         description: Actions after successful build
+      - fieldname: buildScripts
+        description: Custom build scripts location
   btca-form:
     fields:
       - fieldname: artifactLocation
@@ -36489,14 +36489,14 @@ form-types:
         description: Rights granted to users
   recoenre-form:
     fields:
-      - fieldname: keyRequirements
-        description: Main requirements to meet
       - fieldname: technicalControls
         description: Required technical measures
       - fieldname: proceduralControls
         description: Required procedures
       - fieldname: documentationRequired
         description: Required documentation
+      - fieldname: keyRequirements
+        description: Main requirements to meet
   rcep-form:
     fields:
       - fieldname: penaltiesForNonCompliance
@@ -41006,16 +41006,16 @@ form-types:
         description: Which component categories this criterion applies to
   cmpvd-form:
     fields:
-      - fieldname: version
-        description: Current version in use or targeted
-      - fieldname: purpose
-        description: Why this component is needed in business terms
-      - fieldname: libraryRef
-        description: "The framework or third-party library this component is — a framework (FRREEN-…) or library (THPALI-…) section id, so one library is described once"
       - fieldname: vendorName
         description: Company or organization behind the component
+      - fieldname: version
+        description: Current version in use or targeted
+      - fieldname: libraryRef
+        description: "The framework or third-party library this component is — a framework (FRREEN-…) or library (THPALI-…) section id, so one library is described once"
       - fieldname: vendorStability
         description: "Financial health, market position, acquisition risk"
+      - fieldname: purpose
+        description: Why this component is needed in business terms
   cmpmt-form:
     fields:
       - fieldname: maturityLevel
@@ -41538,12 +41538,12 @@ form-types:
         description: Maximum time allowed for approval decision
   ultef-form:
     fields:
-      - fieldname: sideEffects
-        description: "Actions performed on transition (revoke tokens, send email, deprovision)"
       - fieldname: notificationRecipients
         description: "Who is notified (user, admin, manager)"
       - fieldname: notificationChannels
         description: "Email | SMS | InApp | Webhook"
+      - fieldname: sideEffects
+        description: "Actions performed on transition (revoke tokens, send email, deprovision)"
   ultau-form:
     fields:
       - fieldname: reversible
@@ -42412,10 +42412,10 @@ form-types:
         description: "Yes | No — whether CI/CD scans for hardcoded credentials in source code"
   mcrea-form:
     fields:
-      - fieldname: allowedAuthenticatorTypes
-        description: "TOTP | WebAuthn | FIDO2 | SMS | Push | Passkey — allowed second-factor types"
       - fieldname: phishingResistanceRequired
         description: "Yes | No | Recommended — whether phishing-resistant authenticators are required"
+      - fieldname: allowedAuthenticatorTypes
+        description: "TOTP | WebAuthn | FIDO2 | SMS | Push | Passkey — allowed second-factor types"
   mcret-form:
     fields:
       - fieldname: mfaEnrollmentDeadline
@@ -43634,12 +43634,12 @@ form-types:
         description: "The server operations this screen calls, comma-separated — operationNames in the operation registry (SVOPE)"
   scenpr-form:
     fields:
+      - fieldname: helpTopicId
+        description: "Topic id in the documentation system — owned by the documentation process, not declared in this blueprint"
       - fieldname: pageTitleResource
         description: Message key (MSGKR registry) for the screen title text
       - fieldname: pageIconResource
         description: Resource key for the screen icon
-      - fieldname: helpTopicId
-        description: "Topic id in the documentation system — owned by the documentation process, not declared in this blueprint"
       - fieldname: layout
         description: "Layout description, e.g., Responsive grid — 3 col desktop, 1 col mobile"
   ssel-form:
@@ -43690,10 +43690,10 @@ form-types:
         description: When this element is read-only
   scelenpr-form:
     fields:
-      - fieldname: styleVariant
-        description: Primary/Secondary/Danger/Subtle/Custom
       - fieldname: accessibilityLabel
         description: Override for screen readers
+      - fieldname: styleVariant
+        description: Primary/Secondary/Danger/Subtle/Custom
       - fieldname: dataBinding
         description: "Path to bound data field, e.g., order.customerName"
       - fieldname: defaultValue
@@ -45967,12 +45967,12 @@ form-types:
         description: Person responsible for locale
   syqg-gove-form:
     fields:
+      - fieldname: qualityOwner
+        description: Role accountable for quality outcomes
       - fieldname: qualityApproach
         description: "Overall quality philosophy: proactive, reactive, hybrid"
       - fieldname: qualityStandards
         description: "ISO 25010, ISO 9001, CMMI, industry-specific"
-      - fieldname: qualityOwner
-        description: Role accountable for quality outcomes
   sqggv-form:
     fields:
       - fieldname: qualityReviewBoard
@@ -46149,12 +46149,12 @@ form-types:
         description: Max bandwidth consumption
   efquve-form:
     fields:
-      - fieldname: loadTestingRequirement
-        description: "Load test scenarios, thresholds"
       - fieldname: performanceProfilingApproach
         description: "APM tools, custom instrumentation"
       - fieldname: performanceBaselineDate
         description: When baseline was established
+      - fieldname: loadTestingRequirement
+        description: "Load test scenarios, thresholds"
       - fieldname: performanceSlaDefinition
         description: SLA for performance metrics
   cmpt-comp-form:
@@ -46383,10 +46383,10 @@ form-types:
         description: "ISO 27001, SOC 2, GDPR, sector-specific"
   sequau-form:
     fields:
-      - fieldname: authenticationMethod
-        description: "OAuth2, SAML, OIDC, MFA"
       - fieldname: mfaRequirement
         description: "All users, privileged users, optional"
+      - fieldname: authenticationMethod
+        description: "OAuth2, SAML, OIDC, MFA"
       - fieldname: passwordPolicy
         description: "Complexity, rotation, history"
       - fieldname: sessionManagement
@@ -46419,12 +46419,12 @@ form-types:
         description: "SAST, DAST, security review"
   isoqa-form:
     fields:
-      - fieldname: privilegedAccessManagement
-        description: "PAM solution, just-in-time"
       - fieldname: accessReviewFrequency
         description: "Quarterly, annually"
       - fieldname: accessAuditLogging
         description: What access is logged
+      - fieldname: privilegedAccessManagement
+        description: "PAM solution, just-in-time"
   isoqr-form:
     fields:
       - fieldname: drTestingFrequency
@@ -46731,12 +46731,12 @@ form-types:
         description: Who can grant waivers
   mpced-form:
     fields:
-      - fieldname: criterionDescription
-        description: What must be achieved
       - fieldname: qualityCategory
         description: The ISO/IEC 25010:2023 characteristic the criterion assures
       - fieldname: qualityAttribute
         description: Specific attribute this relates to
+      - fieldname: criterionDescription
+        description: What must be achieved
   mpcev-form:
     fields:
       - fieldname: verificationProcedure
@@ -46786,12 +46786,12 @@ form-types:
         description: When checklist is used
   qgced-form:
     fields:
-      - fieldname: checkDescription
-        description: Detailed description of check
-      - fieldname: checkCategory
-        description: Category of check
       - fieldname: qualityCategory
         description: The ISO/IEC 25010:2023 characteristic the criterion assures
+      - fieldname: checkCategory
+        description: Category of check
+      - fieldname: checkDescription
+        description: Detailed description of check
   qgcev-form:
     fields:
       - fieldname: verificationCriteria
@@ -46869,10 +46869,10 @@ form-types:
         description: "Clarifications, exceptions, or conditions"
   dlvid-form:
     fields:
-      - fieldname: description
-        description: What this deliverable contains and its purpose
       - fieldname: category
         description: Application / Library / Tool / Configuration / Document
+      - fieldname: description
+        description: What this deliverable contains and its purpose
   dlvlog-form:
     fields:
       - fieldname: deliveryFormat
@@ -46959,14 +46959,14 @@ form-types:
         description: "Entry gate, mid-point review, final review, sign-off"
   acprde-form:
     fields:
-      - fieldname: decisionCriteria
-        description: How accept/reject/conditional decisions are made
       - fieldname: defectThreshold
         description: Maximum open defects by severity to proceed
       - fieldname: conditionalAcceptanceRules
         description: Conditions under which acceptance with known issues is allowed
       - fieldname: rejectionCriteria
         description: Conditions that automatically block acceptance
+      - fieldname: decisionCriteria
+        description: How accept/reject/conditional decisions are made
   acpres-form:
     fields:
       - fieldname: escalationProcess
@@ -47327,10 +47327,10 @@ form-types:
         description: How schedule buffers are allocated — PerStage / Aggregated / CriticalChain
   sspco-form:
     fields:
-      - fieldname: crossStageDependencySummary
-        description: Key dependencies between stages that affect sequencing
       - fieldname: crossStageRiskSummary
         description: Top risks that span multiple stages or affect staging order
+      - fieldname: crossStageDependencySummary
+        description: Key dependencies between stages that affect sequencing
       - fieldname: regulatoryComplianceConsiderations
         description: "Regulatory requirements affecting staging order or timing — e.g. SOX, GDPR data readiness, PCI-DSS"
   ssprd-form:
@@ -47347,10 +47347,10 @@ form-types:
     fields:
       - fieldname: approachDescription
         description: Brief description of how the staging approach will be applied
-      - fieldname: alternativesConsidered
-        description: Other staging approaches evaluated and why rejected
       - fieldname: selectionCriteria
         description: Criteria used to select this approach
+      - fieldname: alternativesConsidered
+        description: Other staging approaches evaluated and why rejected
   stagrt-form:
     fields:
       - fieldname: riskReductionRationale
@@ -47685,12 +47685,12 @@ form-types:
     fields:
       - fieldname: stageCodename
         description: "Optional internal codename, e.g. Atlas, Phoenix"
-      - fieldname: stageDescription
-        description: Brief description of what this stage delivers
       - fieldname: businessObjective
         description: Primary business outcome this stage achieves
       - fieldname: stageType
         description: Foundation / Incremental / Enhancement / Optimization / Migration
+      - fieldname: stageDescription
+        description: Brief description of what this stage delivers
   stti-form:
     fields:
       - fieldname: plannedStartDate
@@ -47713,8 +47713,6 @@ form-types:
         description: Periods during which no changes can be deployed
   stsc-form:
     fields:
-      - fieldname: scopeSummary
-        description: High-level summary of features included in this stage
       - fieldname: includedFeatures
         description: Key features explicitly included
       - fieldname: excludedDeferred
@@ -47729,20 +47727,22 @@ form-types:
         description: Total estimated effort in story points
       - fieldname: technicalDebtItems
         description: Known technical debt to be addressed
+      - fieldname: scopeSummary
+        description: High-level summary of features included in this stage
   stqu-form:
     fields:
+      - fieldname: acceptanceCriteriaSummary
+        description: High-level criteria for business acceptance
       - fieldname: entryCriteria
         description: Conditions that must be met before the stage can begin
-      - fieldname: exitCriteria
-        description: Conditions that must be met for stage completion
       - fieldname: qualityGates
         description: Formal checkpoints within the stage
       - fieldname: testingStrategy
         description: Testing approach for this stage
-      - fieldname: acceptanceCriteriaSummary
-        description: High-level criteria for business acceptance
       - fieldname: toleranceLevels
         description: "PRINCE2 tolerances — time, cost, scope, quality"
+      - fieldname: exitCriteria
+        description: Conditions that must be met for stage completion
   sd-form:
     fields:
       - fieldname: deploymentApproach
@@ -47783,10 +47783,10 @@ form-types:
         description: Minimum outcome required to declare success
   sseo-form:
     fields:
-      - fieldname: description
-        description: Brief description of this sub-stage or milestone
       - fieldname: objective
         description: What this sub-stage aims to achieve
+      - fieldname: description
+        description: Brief description of this sub-stage or milestone
   sset-form:
     fields:
       - fieldname: targetStartDate
@@ -48731,12 +48731,12 @@ form-types:
         description: How translation memory is maintained
   locrp-form:
     fields:
-      - fieldname: rolloutStrategy
-        description: "Big bang, phased, pilot"
       - fieldname: rolloutTimeline
         description: High-level rollout schedule
       - fieldname: rolloutRegions
         description: Geographic rollout order
+      - fieldname: rolloutStrategy
+        description: "Big bang, phased, pilot"
 document:
   sections:
     doctl:

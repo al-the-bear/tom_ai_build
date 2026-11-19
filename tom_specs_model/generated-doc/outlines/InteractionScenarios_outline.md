@@ -14,7 +14,7 @@
     - reviewers: `ReviewerRecord`[]
       - content @Form(memberId, displayName, role, guest)
   - `ProcessStepsOverview`
-    - content @Form(useCaseScope, primaryActorFocus, interactionCoverage, scenarioCoverage, useCaseNamingConvention, traceabilityApproach, detailLevel, notationStandard)
+    - content @Form(primaryActorFocus, interactionCoverage, scenarioCoverage, useCaseNamingConvention, notationStandard, useCaseScope, traceabilityApproach, detailLevel)
   - `ActorOverview`
     - content, overview, categorization
     - [1,] actors: `ActorEntry`[]
@@ -33,19 +33,19 @@
       - stakeholders: `StakeholdersAndInterests`[]
         - content @Form(primaryActorInterest, systemOwnerInterest, regulatorInterest, operationsInterest, supportStaffInterest, otherStakeholders, stakeholderRefs)
       - preconditions: `PreconditionsAndTriggers`[]
-        - content @Form(precondition, trigger, triggerType, triggerSource, triggerData, frequencyOfTrigger, validationBeforeStart)
+        - content @Form(trigger, triggerType, triggerSource, triggerData, frequencyOfTrigger, validationBeforeStart, precondition)
       - postconditions: `PostconditionsAndGuarantees`[]
-        - content @Form(minimalGuarantees, successGuarantees, primaryActorPostcondition, systemPostcondition, dataPostcondition, notificationsGenerated, auditTrail)
+        - content @Form(minimalGuarantees, primaryActorPostcondition, systemPostcondition, dataPostcondition, auditTrail, successGuarantees, notificationsGenerated)
       - mainScenario: `MainSuccessScenario`
         - content @Form(scenarioSummary, estimatedDuration, stepCount)
         - [1,] steps: `MainScenarioStepEntry`[]
-          - content @Form(stepNumber, actorAction, systemResponse, serverOperation, dataInvolved, businessRuleApplied, uiElementUsed, validationPerformed, expectedDuration)
+          - content @Form(stepNumber, actorAction, systemResponse, serverOperation, dataInvolved, uiElementUsed, validationPerformed, expectedDuration, businessRuleApplied)
           - serverCallSteps: `ServerCallStepEntry`[]
             - content @Form(role, systemAction, condition)
       - extensions: `UseCaseExtensions`
         - content @Form(extensionSummary, extensionCount)
         - extensions: `ExtensionEntry`[]
-          - content @Form(branchPoint, condition, extensionType, description, outcome, returnKind, frequency, severity),
+          - content @Form(returnKind, branchPoint, condition, extensionType, outcome, frequency, severity, description),
             resumePoint
           - steps: `ExtensionStepEntry`[]
             - content @Form(stepNumber, action, response, serverOperation)

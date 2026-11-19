@@ -20,7 +20,7 @@
     - drivers: `StagingDrivers`[]
       - content @Form(primaryDrivers, businessConstraints, technicalConstraints, regulatoryConstraints, geographicConstraints, seasonalConsiderations)
     - dependencies: `StagingDependencies`[]
-      - content @Form(criticalPrerequisites, externalDependencies, internalDependencies, dependencyRisks)
+      - content @Form(externalDependencies, internalDependencies, dependencyRisks, criticalPrerequisites)
     - keyAssumptions: `String`[]
     - constraints: `String`[]
   - `StageOverview`

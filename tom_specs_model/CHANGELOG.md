@@ -1,3 +1,12 @@
+## 1.12.2
+
+- `multiParagraph: true` on the 170 form fields whose values hold paragraphs or
+  blocks in Tom UAM's documents and the samples (reading view, the approved
+  `field_order_proposal.md`), and their forms reordered: identifying and
+  summary fields first, the flagged fields last. No field is added or removed;
+  a document's `Field:` lines and YAML keys follow the new order on its next
+  write, and no value changes.
+
 ## 1.12.1
 
 - `Field(..., multiParagraph: true)` (`tom_specs_core`) is exported as

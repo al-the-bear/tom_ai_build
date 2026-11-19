@@ -262,16 +262,17 @@ class DeliverableEntry extends DocSpecsSection {
   ], 'Captures the identifying description and category of a deliverable.')
   @Form([
     Field(
-      'description',
-      String,
-      'Description',
-      hint: 'What this deliverable contains and its purpose',
-    ),
-    Field(
       'category',
       String,
       'Category',
       hint: 'Application / Library / Tool / Configuration / Document',
+    ),
+    Field(
+      'description',
+      String,
+      'Description',
+      hint: 'What this deliverable contains and its purpose',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -1013,12 +1014,6 @@ class AcceptanceProcess extends DocSpecsSection {
   )
   @Form([
     Field(
-      'decisionCriteria',
-      String,
-      'Decision Criteria',
-      hint: 'How accept/reject/conditional decisions are made',
-    ),
-    Field(
       'defectThreshold',
       String,
       'Acceptable Defect Threshold',
@@ -1035,6 +1030,13 @@ class AcceptanceProcess extends DocSpecsSection {
       String,
       'Rejection Criteria',
       hint: 'Conditions that automatically block acceptance',
+    ),
+    Field(
+      'decisionCriteria',
+      String,
+      'Decision Criteria',
+      hint: 'How accept/reject/conditional decisions are made',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(4)

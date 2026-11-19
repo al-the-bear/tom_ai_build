@@ -33017,14 +33017,14 @@ void acceptance_process_decision_form_free(AcceptanceProcessDecisionForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *acceptance_process_decision_form_content(const AcceptanceProcessDecisionForm *self);
 void acceptance_process_decision_form_set_content(AcceptanceProcessDecisionForm *self, const char *value);
-char *acceptance_process_decision_form_decision_criteria(const AcceptanceProcessDecisionForm *self);
-void acceptance_process_decision_form_set_decision_criteria(AcceptanceProcessDecisionForm *self, const char *value);
 char *acceptance_process_decision_form_defect_threshold(const AcceptanceProcessDecisionForm *self);
 void acceptance_process_decision_form_set_defect_threshold(AcceptanceProcessDecisionForm *self, const char *value);
 char *acceptance_process_decision_form_conditional_acceptance_rules(const AcceptanceProcessDecisionForm *self);
 void acceptance_process_decision_form_set_conditional_acceptance_rules(AcceptanceProcessDecisionForm *self, const char *value);
 char *acceptance_process_decision_form_rejection_criteria(const AcceptanceProcessDecisionForm *self);
 void acceptance_process_decision_form_set_rejection_criteria(AcceptanceProcessDecisionForm *self, const char *value);
+char *acceptance_process_decision_form_decision_criteria(const AcceptanceProcessDecisionForm *self);
+void acceptance_process_decision_form_set_decision_criteria(AcceptanceProcessDecisionForm *self, const char *value);
 
 // AcceptanceProcessDocumentationForm is the generated section facade for the `documentation` @Form section: its own `content` text followed by one typed member per form field.
 void acceptance_process_documentation_form_init(AcceptanceProcessDocumentationForm *self, SpecDocument *doc, const char *path);
@@ -33715,8 +33715,6 @@ char *actor_entry_identification_form_actor_type(const ActorEntryIdentificationF
 void actor_entry_identification_form_set_actor_type(ActorEntryIdentificationForm *self, const char *value);
 char *actor_entry_identification_form_category(const ActorEntryIdentificationForm *self);
 void actor_entry_identification_form_set_category(ActorEntryIdentificationForm *self, const char *value);
-char *actor_entry_identification_form_description(const ActorEntryIdentificationForm *self);
-void actor_entry_identification_form_set_description(ActorEntryIdentificationForm *self, const char *value);
 char *actor_entry_identification_form_real_world_examples(const ActorEntryIdentificationForm *self);
 void actor_entry_identification_form_set_real_world_examples(ActorEntryIdentificationForm *self, const char *value);
 char *actor_entry_identification_form_organizational_unit(const ActorEntryIdentificationForm *self);
@@ -33725,6 +33723,8 @@ char *actor_entry_identification_form_estimated_count(const ActorEntryIdentifica
 void actor_entry_identification_form_set_estimated_count(ActorEntryIdentificationForm *self, const char *value);
 char *actor_entry_identification_form_geographic_distribution(const ActorEntryIdentificationForm *self);
 void actor_entry_identification_form_set_geographic_distribution(ActorEntryIdentificationForm *self, const char *value);
+char *actor_entry_identification_form_description(const ActorEntryIdentificationForm *self);
+void actor_entry_identification_form_set_description(ActorEntryIdentificationForm *self, const char *value);
 
 // ActorEntryInteractionsForm is the generated section facade for the `interactions` @Form section: its own `content` text followed by one typed member per form field.
 void actor_entry_interactions_form_init(ActorEntryInteractionsForm *self, SpecDocument *doc, const char *path);
@@ -33826,12 +33826,12 @@ long actor_overview_overview_form_system_actor_count(const ActorOverviewOverview
 void actor_overview_overview_form_set_system_actor_count(ActorOverviewOverviewForm *self, long value);
 long actor_overview_overview_form_external_actor_count(const ActorOverviewOverviewForm *self);
 void actor_overview_overview_form_set_external_actor_count(ActorOverviewOverviewForm *self, long value);
-char *actor_overview_overview_form_actor_identification_approach(const ActorOverviewOverviewForm *self);
-void actor_overview_overview_form_set_actor_identification_approach(ActorOverviewOverviewForm *self, const char *value);
 char *actor_overview_overview_form_actor_prioritization(const ActorOverviewOverviewForm *self);
 void actor_overview_overview_form_set_actor_prioritization(ActorOverviewOverviewForm *self, const char *value);
 char *actor_overview_overview_form_actor_goal_alignment(const ActorOverviewOverviewForm *self);
 void actor_overview_overview_form_set_actor_goal_alignment(ActorOverviewOverviewForm *self, const char *value);
+char *actor_overview_overview_form_actor_identification_approach(const ActorOverviewOverviewForm *self);
+void actor_overview_overview_form_set_actor_identification_approach(ActorOverviewOverviewForm *self, const char *value);
 
 // ActorPermissionsContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void actor_permissions_content_form_init(ActorPermissionsContentForm *self, SpecDocument *doc, const char *path);
@@ -34859,8 +34859,6 @@ char *applicable_regulation_entry_content_form_jurisdiction(const ApplicableRegu
 void applicable_regulation_entry_content_form_set_jurisdiction(ApplicableRegulationEntryContentForm *self, const char *value);
 char *applicable_regulation_entry_content_form_applicability(const ApplicableRegulationEntryContentForm *self);
 void applicable_regulation_entry_content_form_set_applicability(ApplicableRegulationEntryContentForm *self, const char *value);
-char *applicable_regulation_entry_content_form_key_requirements(const ApplicableRegulationEntryContentForm *self);
-void applicable_regulation_entry_content_form_set_key_requirements(ApplicableRegulationEntryContentForm *self, const char *value);
 char *applicable_regulation_entry_content_form_compliance_status(const ApplicableRegulationEntryContentForm *self);
 void applicable_regulation_entry_content_form_set_compliance_status(ApplicableRegulationEntryContentForm *self, const char *value);
 char *applicable_regulation_entry_content_form_compliance_owner(const ApplicableRegulationEntryContentForm *self);
@@ -34869,6 +34867,8 @@ char *applicable_regulation_entry_content_form_audit_requirements(const Applicab
 void applicable_regulation_entry_content_form_set_audit_requirements(ApplicableRegulationEntryContentForm *self, const char *value);
 char *applicable_regulation_entry_content_form_penalties(const ApplicableRegulationEntryContentForm *self);
 void applicable_regulation_entry_content_form_set_penalties(ApplicableRegulationEntryContentForm *self, const char *value);
+char *applicable_regulation_entry_content_form_key_requirements(const ApplicableRegulationEntryContentForm *self);
+void applicable_regulation_entry_content_form_set_key_requirements(ApplicableRegulationEntryContentForm *self, const char *value);
 
 // ApplicationDiagnosticsContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void application_diagnostics_content_form_init(ApplicationDiagnosticsContentForm *self, SpecDocument *doc, const char *path);
@@ -35182,12 +35182,12 @@ void architecture_component_entry_purpose_form_free(ArchitectureComponentEntryPu
 // The section's own free-text content, before the form fields (owned).
 char *architecture_component_entry_purpose_form_content(const ArchitectureComponentEntryPurposeForm *self);
 void architecture_component_entry_purpose_form_set_content(ArchitectureComponentEntryPurposeForm *self, const char *value);
+char *architecture_component_entry_purpose_form_not_responsible_for(const ArchitectureComponentEntryPurposeForm *self);
+void architecture_component_entry_purpose_form_set_not_responsible_for(ArchitectureComponentEntryPurposeForm *self, const char *value);
 char *architecture_component_entry_purpose_form_purpose(const ArchitectureComponentEntryPurposeForm *self);
 void architecture_component_entry_purpose_form_set_purpose(ArchitectureComponentEntryPurposeForm *self, const char *value);
 char *architecture_component_entry_purpose_form_responsibilities(const ArchitectureComponentEntryPurposeForm *self);
 void architecture_component_entry_purpose_form_set_responsibilities(ArchitectureComponentEntryPurposeForm *self, const char *value);
-char *architecture_component_entry_purpose_form_not_responsible_for(const ArchitectureComponentEntryPurposeForm *self);
-void architecture_component_entry_purpose_form_set_not_responsible_for(ArchitectureComponentEntryPurposeForm *self, const char *value);
 
 // ArchitectureComponentEntryTechnicalForm is the generated section facade for the `technical` @Form section: its own `content` text followed by one typed member per form field.
 void architecture_component_entry_technical_form_init(ArchitectureComponentEntryTechnicalForm *self, SpecDocument *doc, const char *path);
@@ -35208,8 +35208,6 @@ void architecture_decision_record_consequences_form_free(ArchitectureDecisionRec
 // The section's own free-text content, before the form fields (owned).
 char *architecture_decision_record_consequences_form_content(const ArchitectureDecisionRecordConsequencesForm *self);
 void architecture_decision_record_consequences_form_set_content(ArchitectureDecisionRecordConsequencesForm *self, const char *value);
-char *architecture_decision_record_consequences_form_consequences(const ArchitectureDecisionRecordConsequencesForm *self);
-void architecture_decision_record_consequences_form_set_consequences(ArchitectureDecisionRecordConsequencesForm *self, const char *value);
 char *architecture_decision_record_consequences_form_positive_consequences(const ArchitectureDecisionRecordConsequencesForm *self);
 void architecture_decision_record_consequences_form_set_positive_consequences(ArchitectureDecisionRecordConsequencesForm *self, const char *value);
 char *architecture_decision_record_consequences_form_negative_consequences(const ArchitectureDecisionRecordConsequencesForm *self);
@@ -35218,6 +35216,8 @@ char *architecture_decision_record_consequences_form_review_date(const Architect
 void architecture_decision_record_consequences_form_set_review_date(ArchitectureDecisionRecordConsequencesForm *self, const char *value);
 char *architecture_decision_record_consequences_form_notes(const ArchitectureDecisionRecordConsequencesForm *self);
 void architecture_decision_record_consequences_form_set_notes(ArchitectureDecisionRecordConsequencesForm *self, const char *value);
+char *architecture_decision_record_consequences_form_consequences(const ArchitectureDecisionRecordConsequencesForm *self);
+void architecture_decision_record_consequences_form_set_consequences(ArchitectureDecisionRecordConsequencesForm *self, const char *value);
 
 // ArchitectureDecisionRecordContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void architecture_decision_record_content_form_init(ArchitectureDecisionRecordContentForm *self, SpecDocument *doc, const char *path);
@@ -35249,14 +35249,14 @@ void architecture_decision_record_outcome_form_free(ArchitectureDecisionRecordOu
 // The section's own free-text content, before the form fields (owned).
 char *architecture_decision_record_outcome_form_content(const ArchitectureDecisionRecordOutcomeForm *self);
 void architecture_decision_record_outcome_form_set_content(ArchitectureDecisionRecordOutcomeForm *self, const char *value);
-char *architecture_decision_record_outcome_form_decision(const ArchitectureDecisionRecordOutcomeForm *self);
-void architecture_decision_record_outcome_form_set_decision(ArchitectureDecisionRecordOutcomeForm *self, const char *value);
 char *architecture_decision_record_outcome_form_rationale(const ArchitectureDecisionRecordOutcomeForm *self);
 void architecture_decision_record_outcome_form_set_rationale(ArchitectureDecisionRecordOutcomeForm *self, const char *value);
 char *architecture_decision_record_outcome_form_alternatives_considered(const ArchitectureDecisionRecordOutcomeForm *self);
 void architecture_decision_record_outcome_form_set_alternatives_considered(ArchitectureDecisionRecordOutcomeForm *self, const char *value);
 char *architecture_decision_record_outcome_form_decision_makers(const ArchitectureDecisionRecordOutcomeForm *self);
 void architecture_decision_record_outcome_form_set_decision_makers(ArchitectureDecisionRecordOutcomeForm *self, const char *value);
+char *architecture_decision_record_outcome_form_decision(const ArchitectureDecisionRecordOutcomeForm *self);
+void architecture_decision_record_outcome_form_set_decision(ArchitectureDecisionRecordOutcomeForm *self, const char *value);
 
 // ArchitectureDecisionRecordRelationsForm is the generated section facade for the `relations` @Form section: its own `content` text followed by one typed member per form field.
 void architecture_decision_record_relations_form_init(ArchitectureDecisionRecordRelationsForm *self, SpecDocument *doc, const char *path);
@@ -35303,10 +35303,10 @@ void architecture_overview_drivers_form_free(ArchitectureOverviewDriversForm *se
 // The section's own free-text content, before the form fields (owned).
 char *architecture_overview_drivers_form_content(const ArchitectureOverviewDriversForm *self);
 void architecture_overview_drivers_form_set_content(ArchitectureOverviewDriversForm *self, const char *value);
-char *architecture_overview_drivers_form_justification(const ArchitectureOverviewDriversForm *self);
-void architecture_overview_drivers_form_set_justification(ArchitectureOverviewDriversForm *self, const char *value);
 char *architecture_overview_drivers_form_business_drivers(const ArchitectureOverviewDriversForm *self);
 void architecture_overview_drivers_form_set_business_drivers(ArchitectureOverviewDriversForm *self, const char *value);
+char *architecture_overview_drivers_form_justification(const ArchitectureOverviewDriversForm *self);
+void architecture_overview_drivers_form_set_justification(ArchitectureOverviewDriversForm *self, const char *value);
 char *architecture_overview_drivers_form_technical_drivers(const ArchitectureOverviewDriversForm *self);
 void architecture_overview_drivers_form_set_technical_drivers(ArchitectureOverviewDriversForm *self, const char *value);
 
@@ -35613,10 +35613,10 @@ void authorization_requirement_spec_custom_requirement_form_free(AuthorizationRe
 // The section's own free-text content, before the form fields (owned).
 char *authorization_requirement_spec_custom_requirement_form_content(const AuthorizationRequirementSpecCustomRequirementForm *self);
 void authorization_requirement_spec_custom_requirement_form_set_content(AuthorizationRequirementSpecCustomRequirementForm *self, const char *value);
-char *authorization_requirement_spec_custom_requirement_form_handler(const AuthorizationRequirementSpecCustomRequirementForm *self);
-void authorization_requirement_spec_custom_requirement_form_set_handler(AuthorizationRequirementSpecCustomRequirementForm *self, const char *value);
 char *authorization_requirement_spec_custom_requirement_form_resource_id(const AuthorizationRequirementSpecCustomRequirementForm *self);
 void authorization_requirement_spec_custom_requirement_form_set_resource_id(AuthorizationRequirementSpecCustomRequirementForm *self, const char *value);
+char *authorization_requirement_spec_custom_requirement_form_handler(const AuthorizationRequirementSpecCustomRequirementForm *self);
+void authorization_requirement_spec_custom_requirement_form_set_handler(AuthorizationRequirementSpecCustomRequirementForm *self, const char *value);
 char *authorization_requirement_spec_custom_requirement_form_decision_rule(const AuthorizationRequirementSpecCustomRequirementForm *self);
 void authorization_requirement_spec_custom_requirement_form_set_decision_rule(AuthorizationRequirementSpecCustomRequirementForm *self, const char *value);
 
@@ -35664,10 +35664,10 @@ char *authorization_role_entry_content_form_content(const AuthorizationRoleEntry
 void authorization_role_entry_content_form_set_content(AuthorizationRoleEntryContentForm *self, const char *value);
 char *authorization_role_entry_content_form_role_name(const AuthorizationRoleEntryContentForm *self);
 void authorization_role_entry_content_form_set_role_name(AuthorizationRoleEntryContentForm *self, const char *value);
-char *authorization_role_entry_content_form_description(const AuthorizationRoleEntryContentForm *self);
-void authorization_role_entry_content_form_set_description(AuthorizationRoleEntryContentForm *self, const char *value);
 char *authorization_role_entry_content_form_role_category(const AuthorizationRoleEntryContentForm *self);
 void authorization_role_entry_content_form_set_role_category(AuthorizationRoleEntryContentForm *self, const char *value);
+char *authorization_role_entry_content_form_description(const AuthorizationRoleEntryContentForm *self);
+void authorization_role_entry_content_form_set_description(AuthorizationRoleEntryContentForm *self, const char *value);
 
 // AuthorizationRoleEntryGovernanceForm is the generated section facade for the `governance` @Form section: its own `content` text followed by one typed member per form field.
 void authorization_role_entry_governance_form_init(AuthorizationRoleEntryGovernanceForm *self, SpecDocument *doc, const char *path);
@@ -36464,12 +36464,12 @@ void bounded_context_entry_integration_form_free(BoundedContextEntryIntegrationF
 // The section's own free-text content, before the form fields (owned).
 char *bounded_context_entry_integration_form_content(const BoundedContextEntryIntegrationForm *self);
 void bounded_context_entry_integration_form_set_content(BoundedContextEntryIntegrationForm *self, const char *value);
-char *bounded_context_entry_integration_form_api_endpoints(const BoundedContextEntryIntegrationForm *self);
-void bounded_context_entry_integration_form_set_api_endpoints(BoundedContextEntryIntegrationForm *self, const char *value);
 char *bounded_context_entry_integration_form_integration_patterns(const BoundedContextEntryIntegrationForm *self);
 void bounded_context_entry_integration_form_set_integration_patterns(BoundedContextEntryIntegrationForm *self, const char *value);
 char *bounded_context_entry_integration_form_notes(const BoundedContextEntryIntegrationForm *self);
 void bounded_context_entry_integration_form_set_notes(BoundedContextEntryIntegrationForm *self, const char *value);
+char *bounded_context_entry_integration_form_api_endpoints(const BoundedContextEntryIntegrationForm *self);
+void bounded_context_entry_integration_form_set_api_endpoints(BoundedContextEntryIntegrationForm *self, const char *value);
 
 // BoundedContextEntryScopeForm is the generated section facade for the `scope` @Form section: its own `content` text followed by one typed member per form field.
 void bounded_context_entry_scope_form_init(BoundedContextEntryScopeForm *self, SpecDocument *doc, const char *path);
@@ -36477,12 +36477,12 @@ void bounded_context_entry_scope_form_free(BoundedContextEntryScopeForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *bounded_context_entry_scope_form_content(const BoundedContextEntryScopeForm *self);
 void bounded_context_entry_scope_form_set_content(BoundedContextEntryScopeForm *self, const char *value);
-char *bounded_context_entry_scope_form_purpose(const BoundedContextEntryScopeForm *self);
-void bounded_context_entry_scope_form_set_purpose(BoundedContextEntryScopeForm *self, const char *value);
 char *bounded_context_entry_scope_form_included_concepts(const BoundedContextEntryScopeForm *self);
 void bounded_context_entry_scope_form_set_included_concepts(BoundedContextEntryScopeForm *self, const char *value);
 char *bounded_context_entry_scope_form_excluded_concepts(const BoundedContextEntryScopeForm *self);
 void bounded_context_entry_scope_form_set_excluded_concepts(BoundedContextEntryScopeForm *self, const char *value);
+char *bounded_context_entry_scope_form_purpose(const BoundedContextEntryScopeForm *self);
+void bounded_context_entry_scope_form_set_purpose(BoundedContextEntryScopeForm *self, const char *value);
 char *bounded_context_entry_scope_form_ubiquitous_language(const BoundedContextEntryScopeForm *self);
 void bounded_context_entry_scope_form_set_ubiquitous_language(BoundedContextEntryScopeForm *self, const char *value);
 
@@ -36761,10 +36761,10 @@ void build_toolchain_entry_profiles_form_free(BuildToolchainEntryProfilesForm *s
 // The section's own free-text content, before the form fields (owned).
 char *build_toolchain_entry_profiles_form_content(const BuildToolchainEntryProfilesForm *self);
 void build_toolchain_entry_profiles_form_set_content(BuildToolchainEntryProfilesForm *self, const char *value);
-char *build_toolchain_entry_profiles_form_build_profiles(const BuildToolchainEntryProfilesForm *self);
-void build_toolchain_entry_profiles_form_set_build_profiles(BuildToolchainEntryProfilesForm *self, const char *value);
 char *build_toolchain_entry_profiles_form_default_profile(const BuildToolchainEntryProfilesForm *self);
 void build_toolchain_entry_profiles_form_set_default_profile(BuildToolchainEntryProfilesForm *self, const char *value);
+char *build_toolchain_entry_profiles_form_build_profiles(const BuildToolchainEntryProfilesForm *self);
+void build_toolchain_entry_profiles_form_set_build_profiles(BuildToolchainEntryProfilesForm *self, const char *value);
 
 // BuildToolchainEntryVersionsForm is the generated section facade for the `versions` @Form section: its own `content` text followed by one typed member per form field.
 void build_toolchain_entry_versions_form_init(BuildToolchainEntryVersionsForm *self, SpecDocument *doc, const char *path);
@@ -36837,12 +36837,12 @@ void build_tools_configuration_scripts_form_free(BuildToolsConfigurationScriptsF
 // The section's own free-text content, before the form fields (owned).
 char *build_tools_configuration_scripts_form_content(const BuildToolsConfigurationScriptsForm *self);
 void build_tools_configuration_scripts_form_set_content(BuildToolsConfigurationScriptsForm *self, const char *value);
-char *build_tools_configuration_scripts_form_build_scripts(const BuildToolsConfigurationScriptsForm *self);
-void build_tools_configuration_scripts_form_set_build_scripts(BuildToolsConfigurationScriptsForm *self, const char *value);
 char *build_tools_configuration_scripts_form_pre_commit_hooks(const BuildToolsConfigurationScriptsForm *self);
 void build_tools_configuration_scripts_form_set_pre_commit_hooks(BuildToolsConfigurationScriptsForm *self, const char *value);
 char *build_tools_configuration_scripts_form_post_build_actions(const BuildToolsConfigurationScriptsForm *self);
 void build_tools_configuration_scripts_form_set_post_build_actions(BuildToolsConfigurationScriptsForm *self, const char *value);
+char *build_tools_configuration_scripts_form_build_scripts(const BuildToolsConfigurationScriptsForm *self);
+void build_tools_configuration_scripts_form_set_build_scripts(BuildToolsConfigurationScriptsForm *self, const char *value);
 
 // BusinessComponentEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void business_component_entry_content_form_init(BusinessComponentEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -36969,12 +36969,12 @@ char *business_goal_entry_measurement_form_success_metric(const BusinessGoalEntr
 void business_goal_entry_measurement_form_set_success_metric(BusinessGoalEntryMeasurementForm *self, const char *value);
 char *business_goal_entry_measurement_form_current_value(const BusinessGoalEntryMeasurementForm *self);
 void business_goal_entry_measurement_form_set_current_value(BusinessGoalEntryMeasurementForm *self, const char *value);
-char *business_goal_entry_measurement_form_target_value(const BusinessGoalEntryMeasurementForm *self);
-void business_goal_entry_measurement_form_set_target_value(BusinessGoalEntryMeasurementForm *self, const char *value);
 char *business_goal_entry_measurement_form_measurement_method(const BusinessGoalEntryMeasurementForm *self);
 void business_goal_entry_measurement_form_set_measurement_method(BusinessGoalEntryMeasurementForm *self, const char *value);
 char *business_goal_entry_measurement_form_measurement_frequency(const BusinessGoalEntryMeasurementForm *self);
 void business_goal_entry_measurement_form_set_measurement_frequency(BusinessGoalEntryMeasurementForm *self, const char *value);
+char *business_goal_entry_measurement_form_target_value(const BusinessGoalEntryMeasurementForm *self);
+void business_goal_entry_measurement_form_set_target_value(BusinessGoalEntryMeasurementForm *self, const char *value);
 
 // BusinessGoalEntryStrategyForm is the generated section facade for the `strategy` @Form section: its own `content` text followed by one typed member per form field.
 void business_goal_entry_strategy_form_init(BusinessGoalEntryStrategyForm *self, SpecDocument *doc, const char *path);
@@ -38962,12 +38962,12 @@ void coding_standard_entry_rule_details_form_free(CodingStandardEntryRuleDetails
 // The section's own free-text content, before the form fields (owned).
 char *coding_standard_entry_rule_details_form_content(const CodingStandardEntryRuleDetailsForm *self);
 void coding_standard_entry_rule_details_form_set_content(CodingStandardEntryRuleDetailsForm *self, const char *value);
-char *coding_standard_entry_rule_details_form_rule(const CodingStandardEntryRuleDetailsForm *self);
-void coding_standard_entry_rule_details_form_set_rule(CodingStandardEntryRuleDetailsForm *self, const char *value);
 char *coding_standard_entry_rule_details_form_rationale(const CodingStandardEntryRuleDetailsForm *self);
 void coding_standard_entry_rule_details_form_set_rationale(CodingStandardEntryRuleDetailsForm *self, const char *value);
 char *coding_standard_entry_rule_details_form_examples(const CodingStandardEntryRuleDetailsForm *self);
 void coding_standard_entry_rule_details_form_set_examples(CodingStandardEntryRuleDetailsForm *self, const char *value);
+char *coding_standard_entry_rule_details_form_rule(const CodingStandardEntryRuleDetailsForm *self);
+void coding_standard_entry_rule_details_form_set_rule(CodingStandardEntryRuleDetailsForm *self, const char *value);
 
 // CodingStandardsSectionContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void coding_standards_section_content_form_init(CodingStandardsSectionContentForm *self, SpecDocument *doc, const char *path);
@@ -39267,12 +39267,12 @@ void communication_patterns_data_exchange_form_free(CommunicationPatternsDataExc
 // The section's own free-text content, before the form fields (owned).
 char *communication_patterns_data_exchange_form_content(const CommunicationPatternsDataExchangeForm *self);
 void communication_patterns_data_exchange_form_set_content(CommunicationPatternsDataExchangeForm *self, const char *value);
-char *communication_patterns_data_exchange_form_data_contracts(const CommunicationPatternsDataExchangeForm *self);
-void communication_patterns_data_exchange_form_set_data_contracts(CommunicationPatternsDataExchangeForm *self, const char *value);
 char *communication_patterns_data_exchange_form_schema_evolution(const CommunicationPatternsDataExchangeForm *self);
 void communication_patterns_data_exchange_form_set_schema_evolution(CommunicationPatternsDataExchangeForm *self, const char *value);
 char *communication_patterns_data_exchange_form_serialization(const CommunicationPatternsDataExchangeForm *self);
 void communication_patterns_data_exchange_form_set_serialization(CommunicationPatternsDataExchangeForm *self, const char *value);
+char *communication_patterns_data_exchange_form_data_contracts(const CommunicationPatternsDataExchangeForm *self);
+void communication_patterns_data_exchange_form_set_data_contracts(CommunicationPatternsDataExchangeForm *self, const char *value);
 
 // CommunicationPatternsObservabilityForm is the generated section facade for the `observability` @Form section: its own `content` text followed by one typed member per form field.
 void communication_patterns_observability_form_init(CommunicationPatternsObservabilityForm *self, SpecDocument *doc, const char *path);
@@ -39310,10 +39310,10 @@ void communication_patterns_synchronous_form_free(CommunicationPatternsSynchrono
 // The section's own free-text content, before the form fields (owned).
 char *communication_patterns_synchronous_form_content(const CommunicationPatternsSynchronousForm *self);
 void communication_patterns_synchronous_form_set_content(CommunicationPatternsSynchronousForm *self, const char *value);
-char *communication_patterns_synchronous_form_sync_patterns(const CommunicationPatternsSynchronousForm *self);
-void communication_patterns_synchronous_form_set_sync_patterns(CommunicationPatternsSynchronousForm *self, const char *value);
 char *communication_patterns_synchronous_form_api_gateway(const CommunicationPatternsSynchronousForm *self);
 void communication_patterns_synchronous_form_set_api_gateway(CommunicationPatternsSynchronousForm *self, const char *value);
+char *communication_patterns_synchronous_form_sync_patterns(const CommunicationPatternsSynchronousForm *self);
+void communication_patterns_synchronous_form_set_sync_patterns(CommunicationPatternsSynchronousForm *self, const char *value);
 
 // CommunicationToolsRequirementsContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void communication_tools_requirements_content_form_init(CommunicationToolsRequirementsContentForm *self, SpecDocument *doc, const char *path);
@@ -39759,16 +39759,16 @@ void component_entry_vendor_form_free(ComponentEntryVendorForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *component_entry_vendor_form_content(const ComponentEntryVendorForm *self);
 void component_entry_vendor_form_set_content(ComponentEntryVendorForm *self, const char *value);
-char *component_entry_vendor_form_version(const ComponentEntryVendorForm *self);
-void component_entry_vendor_form_set_version(ComponentEntryVendorForm *self, const char *value);
-char *component_entry_vendor_form_purpose(const ComponentEntryVendorForm *self);
-void component_entry_vendor_form_set_purpose(ComponentEntryVendorForm *self, const char *value);
-char *component_entry_vendor_form_library_ref(const ComponentEntryVendorForm *self);
-void component_entry_vendor_form_set_library_ref(ComponentEntryVendorForm *self, const char *value);
 char *component_entry_vendor_form_vendor_name(const ComponentEntryVendorForm *self);
 void component_entry_vendor_form_set_vendor_name(ComponentEntryVendorForm *self, const char *value);
+char *component_entry_vendor_form_version(const ComponentEntryVendorForm *self);
+void component_entry_vendor_form_set_version(ComponentEntryVendorForm *self, const char *value);
+char *component_entry_vendor_form_library_ref(const ComponentEntryVendorForm *self);
+void component_entry_vendor_form_set_library_ref(ComponentEntryVendorForm *self, const char *value);
 char *component_entry_vendor_form_vendor_stability(const ComponentEntryVendorForm *self);
 void component_entry_vendor_form_set_vendor_stability(ComponentEntryVendorForm *self, const char *value);
+char *component_entry_vendor_form_purpose(const ComponentEntryVendorForm *self);
+void component_entry_vendor_form_set_purpose(ComponentEntryVendorForm *self, const char *value);
 
 // ComponentFamilyEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void component_family_entry_content_form_init(ComponentFamilyEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -40986,14 +40986,14 @@ void constraint_register_entry_content_form_free(ConstraintRegisterEntryContentF
 // The section's own free-text content, before the form fields (owned).
 char *constraint_register_entry_content_form_content(const ConstraintRegisterEntryContentForm *self);
 void constraint_register_entry_content_form_set_content(ConstraintRegisterEntryContentForm *self, const char *value);
-char *constraint_register_entry_content_form_description(const ConstraintRegisterEntryContentForm *self);
-void constraint_register_entry_content_form_set_description(ConstraintRegisterEntryContentForm *self, const char *value);
 char *constraint_register_entry_content_form_type(const ConstraintRegisterEntryContentForm *self);
 void constraint_register_entry_content_form_set_type(ConstraintRegisterEntryContentForm *self, const char *value);
 char *constraint_register_entry_content_form_source(const ConstraintRegisterEntryContentForm *self);
 void constraint_register_entry_content_form_set_source(ConstraintRegisterEntryContentForm *self, const char *value);
 char *constraint_register_entry_content_form_impact(const ConstraintRegisterEntryContentForm *self);
 void constraint_register_entry_content_form_set_impact(ConstraintRegisterEntryContentForm *self, const char *value);
+char *constraint_register_entry_content_form_description(const ConstraintRegisterEntryContentForm *self);
+void constraint_register_entry_content_form_set_description(ConstraintRegisterEntryContentForm *self, const char *value);
 
 // ContentScanningPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void content_scanning_policy_content_form_init(ContentScanningPolicyContentForm *self, SpecDocument *doc, const char *path);
@@ -41974,12 +41974,12 @@ char *data_attribute_entry_identity_form_content(const DataAttributeEntryIdentit
 void data_attribute_entry_identity_form_set_content(DataAttributeEntryIdentityForm *self, const char *value);
 char *data_attribute_entry_identity_form_column_name(const DataAttributeEntryIdentityForm *self);
 void data_attribute_entry_identity_form_set_column_name(DataAttributeEntryIdentityForm *self, const char *value);
-char *data_attribute_entry_identity_form_description(const DataAttributeEntryIdentityForm *self);
-void data_attribute_entry_identity_form_set_description(DataAttributeEntryIdentityForm *self, const char *value);
 char *data_attribute_entry_identity_form_business_term(const DataAttributeEntryIdentityForm *self);
 void data_attribute_entry_identity_form_set_business_term(DataAttributeEntryIdentityForm *self, const char *value);
 char *data_attribute_entry_identity_form_example_values(const DataAttributeEntryIdentityForm *self);
 void data_attribute_entry_identity_form_set_example_values(DataAttributeEntryIdentityForm *self, const char *value);
+char *data_attribute_entry_identity_form_description(const DataAttributeEntryIdentityForm *self);
+void data_attribute_entry_identity_form_set_description(DataAttributeEntryIdentityForm *self, const char *value);
 
 // DataAttributeEntryMigrationLineageForm is the generated section facade for the `migrationLineage` @Form section: its own `content` text followed by one typed member per form field.
 void data_attribute_entry_migration_lineage_form_init(DataAttributeEntryMigrationLineageForm *self, SpecDocument *doc, const char *path);
@@ -42294,18 +42294,18 @@ char *data_entity_entry_identity_form_entity_name(const DataEntityEntryIdentityF
 void data_entity_entry_identity_form_set_entity_name(DataEntityEntryIdentityForm *self, const char *value);
 char *data_entity_entry_identity_form_table_name(const DataEntityEntryIdentityForm *self);
 void data_entity_entry_identity_form_set_table_name(DataEntityEntryIdentityForm *self, const char *value);
-char *data_entity_entry_identity_form_entity_alias(const DataEntityEntryIdentityForm *self);
-void data_entity_entry_identity_form_set_entity_alias(DataEntityEntryIdentityForm *self, const char *value);
-char *data_entity_entry_identity_form_description(const DataEntityEntryIdentityForm *self);
-void data_entity_entry_identity_form_set_description(DataEntityEntryIdentityForm *self, const char *value);
-char *data_entity_entry_identity_form_entity_stereo_type(const DataEntityEntryIdentityForm *self);
-void data_entity_entry_identity_form_set_entity_stereo_type(DataEntityEntryIdentityForm *self, const char *value);
 char *data_entity_entry_identity_form_data_source_name(const DataEntityEntryIdentityForm *self);
 void data_entity_entry_identity_form_set_data_source_name(DataEntityEntryIdentityForm *self, const char *value);
 char *data_entity_entry_identity_form_schema_name(const DataEntityEntryIdentityForm *self);
 void data_entity_entry_identity_form_set_schema_name(DataEntityEntryIdentityForm *self, const char *value);
 char *data_entity_entry_identity_form_tenancy(const DataEntityEntryIdentityForm *self);
 void data_entity_entry_identity_form_set_tenancy(DataEntityEntryIdentityForm *self, const char *value);
+char *data_entity_entry_identity_form_entity_alias(const DataEntityEntryIdentityForm *self);
+void data_entity_entry_identity_form_set_entity_alias(DataEntityEntryIdentityForm *self, const char *value);
+char *data_entity_entry_identity_form_entity_stereo_type(const DataEntityEntryIdentityForm *self);
+void data_entity_entry_identity_form_set_entity_stereo_type(DataEntityEntryIdentityForm *self, const char *value);
+char *data_entity_entry_identity_form_description(const DataEntityEntryIdentityForm *self);
+void data_entity_entry_identity_form_set_description(DataEntityEntryIdentityForm *self, const char *value);
 
 // DataEntityEntryLifecyclePolicyForm is the generated section facade for the `lifecyclePolicy` @Form section: its own `content` text followed by one typed member per form field.
 void data_entity_entry_lifecycle_policy_form_init(DataEntityEntryLifecyclePolicyForm *self, SpecDocument *doc, const char *path);
@@ -44152,10 +44152,10 @@ void deliverable_entry_identity_form_free(DeliverableEntryIdentityForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *deliverable_entry_identity_form_content(const DeliverableEntryIdentityForm *self);
 void deliverable_entry_identity_form_set_content(DeliverableEntryIdentityForm *self, const char *value);
-char *deliverable_entry_identity_form_description(const DeliverableEntryIdentityForm *self);
-void deliverable_entry_identity_form_set_description(DeliverableEntryIdentityForm *self, const char *value);
 char *deliverable_entry_identity_form_category(const DeliverableEntryIdentityForm *self);
 void deliverable_entry_identity_form_set_category(DeliverableEntryIdentityForm *self, const char *value);
+char *deliverable_entry_identity_form_description(const DeliverableEntryIdentityForm *self);
+void deliverable_entry_identity_form_set_description(DeliverableEntryIdentityForm *self, const char *value);
 
 // DeliverableEntryLegalForm is the generated section facade for the `legal` @Form section: its own `content` text followed by one typed member per form field.
 void deliverable_entry_legal_form_init(DeliverableEntryLegalForm *self, SpecDocument *doc, const char *path);
@@ -44312,12 +44312,12 @@ void delivery_transition_and_rollout_locale_rollout_plan_form_free(DeliveryTrans
 // The section's own free-text content, before the form fields (owned).
 char *delivery_transition_and_rollout_locale_rollout_plan_form_content(const DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self);
 void delivery_transition_and_rollout_locale_rollout_plan_form_set_content(DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self, const char *value);
-char *delivery_transition_and_rollout_locale_rollout_plan_form_rollout_strategy(const DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self);
-void delivery_transition_and_rollout_locale_rollout_plan_form_set_rollout_strategy(DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self, const char *value);
 char *delivery_transition_and_rollout_locale_rollout_plan_form_rollout_timeline(const DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self);
 void delivery_transition_and_rollout_locale_rollout_plan_form_set_rollout_timeline(DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self, const char *value);
 char *delivery_transition_and_rollout_locale_rollout_plan_form_rollout_regions(const DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self);
 void delivery_transition_and_rollout_locale_rollout_plan_form_set_rollout_regions(DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self, const char *value);
+char *delivery_transition_and_rollout_locale_rollout_plan_form_rollout_strategy(const DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self);
+void delivery_transition_and_rollout_locale_rollout_plan_form_set_rollout_strategy(DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self, const char *value);
 
 // DependencyHealthMonitoringCacheForm is the generated section facade for the `cache` @Form section: its own `content` text followed by one typed member per form field.
 void dependency_health_monitoring_cache_form_init(DependencyHealthMonitoringCacheForm *self, SpecDocument *doc, const char *path);
@@ -44516,8 +44516,6 @@ void dependency_register_entry_content_form_free(DependencyRegisterEntryContentF
 // The section's own free-text content, before the form fields (owned).
 char *dependency_register_entry_content_form_content(const DependencyRegisterEntryContentForm *self);
 void dependency_register_entry_content_form_set_content(DependencyRegisterEntryContentForm *self, const char *value);
-char *dependency_register_entry_content_form_description(const DependencyRegisterEntryContentForm *self);
-void dependency_register_entry_content_form_set_description(DependencyRegisterEntryContentForm *self, const char *value);
 char *dependency_register_entry_content_form_type(const DependencyRegisterEntryContentForm *self);
 void dependency_register_entry_content_form_set_type(DependencyRegisterEntryContentForm *self, const char *value);
 char *dependency_register_entry_content_form_depends_on(const DependencyRegisterEntryContentForm *self);
@@ -44526,6 +44524,8 @@ char *dependency_register_entry_content_form_criticality(const DependencyRegiste
 void dependency_register_entry_content_form_set_criticality(DependencyRegisterEntryContentForm *self, const char *value);
 char *dependency_register_entry_content_form_status(const DependencyRegisterEntryContentForm *self);
 void dependency_register_entry_content_form_set_status(DependencyRegisterEntryContentForm *self, const char *value);
+char *dependency_register_entry_content_form_description(const DependencyRegisterEntryContentForm *self);
+void dependency_register_entry_content_form_set_description(DependencyRegisterEntryContentForm *self, const char *value);
 
 // DependencyScanningRequirementsContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void dependency_scanning_requirements_content_form_init(DependencyScanningRequirementsContentForm *self, SpecDocument *doc, const char *path);
@@ -44834,8 +44834,6 @@ void deployment_target_entry_compliance_form_free(DeploymentTargetEntryComplianc
 // The section's own free-text content, before the form fields (owned).
 char *deployment_target_entry_compliance_form_content(const DeploymentTargetEntryComplianceForm *self);
 void deployment_target_entry_compliance_form_set_content(DeploymentTargetEntryComplianceForm *self, const char *value);
-char *deployment_target_entry_compliance_form_compliance_requirements(const DeploymentTargetEntryComplianceForm *self);
-void deployment_target_entry_compliance_form_set_compliance_requirements(DeploymentTargetEntryComplianceForm *self, const char *value);
 char *deployment_target_entry_compliance_form_privacy_requirements(const DeploymentTargetEntryComplianceForm *self);
 void deployment_target_entry_compliance_form_set_privacy_requirements(DeploymentTargetEntryComplianceForm *self, const char *value);
 char *deployment_target_entry_compliance_form_priority(const DeploymentTargetEntryComplianceForm *self);
@@ -44844,6 +44842,8 @@ char *deployment_target_entry_compliance_form_target_launch_date(const Deploymen
 void deployment_target_entry_compliance_form_set_target_launch_date(DeploymentTargetEntryComplianceForm *self, const char *value);
 char *deployment_target_entry_compliance_form_notes(const DeploymentTargetEntryComplianceForm *self);
 void deployment_target_entry_compliance_form_set_notes(DeploymentTargetEntryComplianceForm *self, const char *value);
+char *deployment_target_entry_compliance_form_compliance_requirements(const DeploymentTargetEntryComplianceForm *self);
+void deployment_target_entry_compliance_form_set_compliance_requirements(DeploymentTargetEntryComplianceForm *self, const char *value);
 
 // DeploymentTargetEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void deployment_target_entry_content_form_init(DeploymentTargetEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -44853,10 +44853,10 @@ char *deployment_target_entry_content_form_content(const DeploymentTargetEntryCo
 void deployment_target_entry_content_form_set_content(DeploymentTargetEntryContentForm *self, const char *value);
 char *deployment_target_entry_content_form_target_category(const DeploymentTargetEntryContentForm *self);
 void deployment_target_entry_content_form_set_target_category(DeploymentTargetEntryContentForm *self, const char *value);
-char *deployment_target_entry_content_form_target_environment(const DeploymentTargetEntryContentForm *self);
-void deployment_target_entry_content_form_set_target_environment(DeploymentTargetEntryContentForm *self, const char *value);
 char *deployment_target_entry_content_form_environment_ref(const DeploymentTargetEntryContentForm *self);
 void deployment_target_entry_content_form_set_environment_ref(DeploymentTargetEntryContentForm *self, const char *value);
+char *deployment_target_entry_content_form_target_environment(const DeploymentTargetEntryContentForm *self);
+void deployment_target_entry_content_form_set_target_environment(DeploymentTargetEntryContentForm *self, const char *value);
 
 // DeploymentTargetEntryPlatformForm is the generated section facade for the `platform` @Form section: its own `content` text followed by one typed member per form field.
 void deployment_target_entry_platform_form_init(DeploymentTargetEntryPlatformForm *self, SpecDocument *doc, const char *path);
@@ -46000,10 +46000,10 @@ void document_relevant_sections_content_form_free(DocumentRelevantSectionsConten
 // The section's own free-text content, before the form fields (owned).
 char *document_relevant_sections_content_form_content(const DocumentRelevantSectionsContentForm *self);
 void document_relevant_sections_content_form_set_content(DocumentRelevantSectionsContentForm *self, const char *value);
-char *document_relevant_sections_content_form_section_reference(const DocumentRelevantSectionsContentForm *self);
-void document_relevant_sections_content_form_set_section_reference(DocumentRelevantSectionsContentForm *self, const char *value);
 char *document_relevant_sections_content_form_section_title(const DocumentRelevantSectionsContentForm *self);
 void document_relevant_sections_content_form_set_section_title(DocumentRelevantSectionsContentForm *self, const char *value);
+char *document_relevant_sections_content_form_section_reference(const DocumentRelevantSectionsContentForm *self);
+void document_relevant_sections_content_form_set_section_reference(DocumentRelevantSectionsContentForm *self, const char *value);
 char *document_relevant_sections_content_form_relevance(const DocumentRelevantSectionsContentForm *self);
 void document_relevant_sections_content_form_set_relevance(DocumentRelevantSectionsContentForm *self, const char *value);
 char *document_relevant_sections_content_form_extract_summary(const DocumentRelevantSectionsContentForm *self);
@@ -46443,12 +46443,12 @@ void efficiency_verification_form_free(EfficiencyVerificationForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *efficiency_verification_form_content(const EfficiencyVerificationForm *self);
 void efficiency_verification_form_set_content(EfficiencyVerificationForm *self, const char *value);
-char *efficiency_verification_form_load_testing_requirement(const EfficiencyVerificationForm *self);
-void efficiency_verification_form_set_load_testing_requirement(EfficiencyVerificationForm *self, const char *value);
 char *efficiency_verification_form_performance_profiling_approach(const EfficiencyVerificationForm *self);
 void efficiency_verification_form_set_performance_profiling_approach(EfficiencyVerificationForm *self, const char *value);
 char *efficiency_verification_form_performance_baseline_date(const EfficiencyVerificationForm *self);
 void efficiency_verification_form_set_performance_baseline_date(EfficiencyVerificationForm *self, const char *value);
+char *efficiency_verification_form_load_testing_requirement(const EfficiencyVerificationForm *self);
+void efficiency_verification_form_set_load_testing_requirement(EfficiencyVerificationForm *self, const char *value);
 char *efficiency_verification_form_performance_sla_definition(const EfficiencyVerificationForm *self);
 void efficiency_verification_form_set_performance_sla_definition(EfficiencyVerificationForm *self, const char *value);
 
@@ -46648,10 +46648,10 @@ char *entitlement_entry_content_form_content(const EntitlementEntryContentForm *
 void entitlement_entry_content_form_set_content(EntitlementEntryContentForm *self, const char *value);
 char *entitlement_entry_content_form_entitlement_name(const EntitlementEntryContentForm *self);
 void entitlement_entry_content_form_set_entitlement_name(EntitlementEntryContentForm *self, const char *value);
-char *entitlement_entry_content_form_description(const EntitlementEntryContentForm *self);
-void entitlement_entry_content_form_set_description(EntitlementEntryContentForm *self, const char *value);
 char *entitlement_entry_content_form_access_type(const EntitlementEntryContentForm *self);
 void entitlement_entry_content_form_set_access_type(EntitlementEntryContentForm *self, const char *value);
+char *entitlement_entry_content_form_description(const EntitlementEntryContentForm *self);
+void entitlement_entry_content_form_set_description(EntitlementEntryContentForm *self, const char *value);
 char *entitlement_entry_content_form_conditions(const EntitlementEntryContentForm *self);
 void entitlement_entry_content_form_set_conditions(EntitlementEntryContentForm *self, const char *value);
 
@@ -46750,12 +46750,12 @@ char *entity_relationship_entry_identity_form_content(const EntityRelationshipEn
 void entity_relationship_entry_identity_form_set_content(EntityRelationshipEntryIdentityForm *self, const char *value);
 char *entity_relationship_entry_identity_form_relationship_type(const EntityRelationshipEntryIdentityForm *self);
 void entity_relationship_entry_identity_form_set_relationship_type(EntityRelationshipEntryIdentityForm *self, const char *value);
-char *entity_relationship_entry_identity_form_description(const EntityRelationshipEntryIdentityForm *self);
-void entity_relationship_entry_identity_form_set_description(EntityRelationshipEntryIdentityForm *self, const char *value);
 char *entity_relationship_entry_identity_form_business_justification(const EntityRelationshipEntryIdentityForm *self);
 void entity_relationship_entry_identity_form_set_business_justification(EntityRelationshipEntryIdentityForm *self, const char *value);
 char *entity_relationship_entry_identity_form_implementation_type(const EntityRelationshipEntryIdentityForm *self);
 void entity_relationship_entry_identity_form_set_implementation_type(EntityRelationshipEntryIdentityForm *self, const char *value);
+char *entity_relationship_entry_identity_form_description(const EntityRelationshipEntryIdentityForm *self);
+void entity_relationship_entry_identity_form_set_description(EntityRelationshipEntryIdentityForm *self, const char *value);
 
 // EntityRelationshipEntryNavigationForm is the generated section facade for the `navigation` @Form section: its own `content` text followed by one typed member per form field.
 void entity_relationship_entry_navigation_form_init(EntityRelationshipEntryNavigationForm *self, SpecDocument *doc, const char *path);
@@ -48116,22 +48116,22 @@ void extension_entry_content_form_free(ExtensionEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *extension_entry_content_form_content(const ExtensionEntryContentForm *self);
 void extension_entry_content_form_set_content(ExtensionEntryContentForm *self, const char *value);
+char *extension_entry_content_form_return_kind(const ExtensionEntryContentForm *self);
+void extension_entry_content_form_set_return_kind(ExtensionEntryContentForm *self, const char *value);
 char *extension_entry_content_form_branch_point(const ExtensionEntryContentForm *self);
 void extension_entry_content_form_set_branch_point(ExtensionEntryContentForm *self, const char *value);
 char *extension_entry_content_form_condition(const ExtensionEntryContentForm *self);
 void extension_entry_content_form_set_condition(ExtensionEntryContentForm *self, const char *value);
 char *extension_entry_content_form_extension_type(const ExtensionEntryContentForm *self);
 void extension_entry_content_form_set_extension_type(ExtensionEntryContentForm *self, const char *value);
-char *extension_entry_content_form_description(const ExtensionEntryContentForm *self);
-void extension_entry_content_form_set_description(ExtensionEntryContentForm *self, const char *value);
 char *extension_entry_content_form_outcome(const ExtensionEntryContentForm *self);
 void extension_entry_content_form_set_outcome(ExtensionEntryContentForm *self, const char *value);
-char *extension_entry_content_form_return_kind(const ExtensionEntryContentForm *self);
-void extension_entry_content_form_set_return_kind(ExtensionEntryContentForm *self, const char *value);
 char *extension_entry_content_form_frequency(const ExtensionEntryContentForm *self);
 void extension_entry_content_form_set_frequency(ExtensionEntryContentForm *self, const char *value);
 char *extension_entry_content_form_severity(const ExtensionEntryContentForm *self);
 void extension_entry_content_form_set_severity(ExtensionEntryContentForm *self, const char *value);
+char *extension_entry_content_form_description(const ExtensionEntryContentForm *self);
+void extension_entry_content_form_set_description(ExtensionEntryContentForm *self, const char *value);
 
 // ExtensionEntryResumePointForm is the generated section facade for the `resumePoint` @Form section: its own `content` text followed by one typed member per form field.
 void extension_entry_resume_point_form_init(ExtensionEntryResumePointForm *self, SpecDocument *doc, const char *path);
@@ -48193,10 +48193,10 @@ char *external_actor_entry_interaction_form_interaction_frequency(const External
 void external_actor_entry_interaction_form_set_interaction_frequency(ExternalActorEntryInteractionForm *self, const char *value);
 char *external_actor_entry_interaction_form_interaction_channel(const ExternalActorEntryInteractionForm *self);
 void external_actor_entry_interaction_form_set_interaction_channel(ExternalActorEntryInteractionForm *self, const char *value);
-char *external_actor_entry_interaction_form_data_exchanged(const ExternalActorEntryInteractionForm *self);
-void external_actor_entry_interaction_form_set_data_exchanged(ExternalActorEntryInteractionForm *self, const char *value);
 char *external_actor_entry_interaction_form_access_level(const ExternalActorEntryInteractionForm *self);
 void external_actor_entry_interaction_form_set_access_level(ExternalActorEntryInteractionForm *self, const char *value);
+char *external_actor_entry_interaction_form_data_exchanged(const ExternalActorEntryInteractionForm *self);
+void external_actor_entry_interaction_form_set_data_exchanged(ExternalActorEntryInteractionForm *self, const char *value);
 
 // ExternalInterfaceEntryIdentificationContentForm is the generated section facade for the `identificationContent` @Form section: its own `content` text followed by one typed member per form field.
 void external_interface_entry_identification_content_form_init(ExternalInterfaceEntryIdentificationContentForm *self, SpecDocument *doc, const char *path);
@@ -48486,12 +48486,12 @@ char *external_system_context_entry_integration_form_content(const ExternalSyste
 void external_system_context_entry_integration_form_set_content(ExternalSystemContextEntryIntegrationForm *self, const char *value);
 char *external_system_context_entry_integration_form_integration_direction(const ExternalSystemContextEntryIntegrationForm *self);
 void external_system_context_entry_integration_form_set_integration_direction(ExternalSystemContextEntryIntegrationForm *self, const char *value);
-char *external_system_context_entry_integration_form_integration_purpose(const ExternalSystemContextEntryIntegrationForm *self);
-void external_system_context_entry_integration_form_set_integration_purpose(ExternalSystemContextEntryIntegrationForm *self, const char *value);
 char *external_system_context_entry_integration_form_data_exchanged(const ExternalSystemContextEntryIntegrationForm *self);
 void external_system_context_entry_integration_form_set_data_exchanged(ExternalSystemContextEntryIntegrationForm *self, const char *value);
 char *external_system_context_entry_integration_form_integration_method(const ExternalSystemContextEntryIntegrationForm *self);
 void external_system_context_entry_integration_form_set_integration_method(ExternalSystemContextEntryIntegrationForm *self, const char *value);
+char *external_system_context_entry_integration_form_integration_purpose(const ExternalSystemContextEntryIntegrationForm *self);
+void external_system_context_entry_integration_form_set_integration_purpose(ExternalSystemContextEntryIntegrationForm *self, const char *value);
 
 // ExternalSystemContextEntryOperationsForm is the generated section facade for the `operations` @Form section: its own `content` text followed by one typed member per form field.
 void external_system_context_entry_operations_form_init(ExternalSystemContextEntryOperationsForm *self, SpecDocument *doc, const char *path);
@@ -49413,14 +49413,14 @@ void framework_requirement_entry_justification_form_free(FrameworkRequirementEnt
 // The section's own free-text content, before the form fields (owned).
 char *framework_requirement_entry_justification_form_content(const FrameworkRequirementEntryJustificationForm *self);
 void framework_requirement_entry_justification_form_set_content(FrameworkRequirementEntryJustificationForm *self, const char *value);
-char *framework_requirement_entry_justification_form_justification(const FrameworkRequirementEntryJustificationForm *self);
-void framework_requirement_entry_justification_form_set_justification(FrameworkRequirementEntryJustificationForm *self, const char *value);
 char *framework_requirement_entry_justification_form_alternatives_considered(const FrameworkRequirementEntryJustificationForm *self);
 void framework_requirement_entry_justification_form_set_alternatives_considered(FrameworkRequirementEntryJustificationForm *self, const char *value);
 char *framework_requirement_entry_justification_form_risk_assessment(const FrameworkRequirementEntryJustificationForm *self);
 void framework_requirement_entry_justification_form_set_risk_assessment(FrameworkRequirementEntryJustificationForm *self, const char *value);
 char *framework_requirement_entry_justification_form_notes(const FrameworkRequirementEntryJustificationForm *self);
 void framework_requirement_entry_justification_form_set_notes(FrameworkRequirementEntryJustificationForm *self, const char *value);
+char *framework_requirement_entry_justification_form_justification(const FrameworkRequirementEntryJustificationForm *self);
+void framework_requirement_entry_justification_form_set_justification(FrameworkRequirementEntryJustificationForm *self, const char *value);
 
 // FrameworkRequirementEntryScopeForm is the generated section facade for the `scope` @Form section: its own `content` text followed by one typed member per form field.
 void framework_requirement_entry_scope_form_init(FrameworkRequirementEntryScopeForm *self, SpecDocument *doc, const char *path);
@@ -49430,14 +49430,14 @@ char *framework_requirement_entry_scope_form_content(const FrameworkRequirementE
 void framework_requirement_entry_scope_form_set_content(FrameworkRequirementEntryScopeForm *self, const char *value);
 char *framework_requirement_entry_scope_form_usage_scope(const FrameworkRequirementEntryScopeForm *self);
 void framework_requirement_entry_scope_form_set_usage_scope(FrameworkRequirementEntryScopeForm *self, const char *value);
-char *framework_requirement_entry_scope_form_integration_points(const FrameworkRequirementEntryScopeForm *self);
-void framework_requirement_entry_scope_form_set_integration_points(FrameworkRequirementEntryScopeForm *self, const char *value);
 char *framework_requirement_entry_scope_form_required_plugins(const FrameworkRequirementEntryScopeForm *self);
 void framework_requirement_entry_scope_form_set_required_plugins(FrameworkRequirementEntryScopeForm *self, const char *value);
 char *framework_requirement_entry_scope_form_optional_plugins(const FrameworkRequirementEntryScopeForm *self);
 void framework_requirement_entry_scope_form_set_optional_plugins(FrameworkRequirementEntryScopeForm *self, const char *value);
 char *framework_requirement_entry_scope_form_excluded_features(const FrameworkRequirementEntryScopeForm *self);
 void framework_requirement_entry_scope_form_set_excluded_features(FrameworkRequirementEntryScopeForm *self, const char *value);
+char *framework_requirement_entry_scope_form_integration_points(const FrameworkRequirementEntryScopeForm *self);
+void framework_requirement_entry_scope_form_set_integration_points(FrameworkRequirementEntryScopeForm *self, const char *value);
 
 // FrameworkRequirementEntrySupportForm is the generated section facade for the `support` @Form section: its own `content` text followed by one typed member per form field.
 void framework_requirement_entry_support_form_init(FrameworkRequirementEntrySupportForm *self, SpecDocument *doc, const char *path);
@@ -49617,12 +49617,12 @@ void functional_requirement_entry_details_form_free(FunctionalRequirementEntryDe
 // The section's own free-text content, before the form fields (owned).
 char *functional_requirement_entry_details_form_content(const FunctionalRequirementEntryDetailsForm *self);
 void functional_requirement_entry_details_form_set_content(FunctionalRequirementEntryDetailsForm *self, const char *value);
-char *functional_requirement_entry_details_form_description(const FunctionalRequirementEntryDetailsForm *self);
-void functional_requirement_entry_details_form_set_description(FunctionalRequirementEntryDetailsForm *self, const char *value);
 char *functional_requirement_entry_details_form_requirement_type(const FunctionalRequirementEntryDetailsForm *self);
 void functional_requirement_entry_details_form_set_requirement_type(FunctionalRequirementEntryDetailsForm *self, const char *value);
 char *functional_requirement_entry_details_form_category(const FunctionalRequirementEntryDetailsForm *self);
 void functional_requirement_entry_details_form_set_category(FunctionalRequirementEntryDetailsForm *self, const char *value);
+char *functional_requirement_entry_details_form_description(const FunctionalRequirementEntryDetailsForm *self);
+void functional_requirement_entry_details_form_set_description(FunctionalRequirementEntryDetailsForm *self, const char *value);
 
 // FunctionalRequirementEntryMetadataForm is the generated section facade for the `metadata` @Form section: its own `content` text followed by one typed member per form field.
 void functional_requirement_entry_metadata_form_init(FunctionalRequirementEntryMetadataForm *self, SpecDocument *doc, const char *path);
@@ -49658,10 +49658,10 @@ void functional_requirement_entry_source_form_free(FunctionalRequirementEntrySou
 // The section's own free-text content, before the form fields (owned).
 char *functional_requirement_entry_source_form_content(const FunctionalRequirementEntrySourceForm *self);
 void functional_requirement_entry_source_form_set_content(FunctionalRequirementEntrySourceForm *self, const char *value);
-char *functional_requirement_entry_source_form_source(const FunctionalRequirementEntrySourceForm *self);
-void functional_requirement_entry_source_form_set_source(FunctionalRequirementEntrySourceForm *self, const char *value);
 char *functional_requirement_entry_source_form_request_date(const FunctionalRequirementEntrySourceForm *self);
 void functional_requirement_entry_source_form_set_request_date(FunctionalRequirementEntrySourceForm *self, const char *value);
+char *functional_requirement_entry_source_form_source(const FunctionalRequirementEntrySourceForm *self);
+void functional_requirement_entry_source_form_set_source(FunctionalRequirementEntrySourceForm *self, const char *value);
 char *functional_requirement_entry_source_form_rationale(const FunctionalRequirementEntrySourceForm *self);
 void functional_requirement_entry_source_form_set_rationale(FunctionalRequirementEntrySourceForm *self, const char *value);
 
@@ -49935,12 +49935,12 @@ char *glossary_entry_content_form_content(const GlossaryEntryContentForm *self);
 void glossary_entry_content_form_set_content(GlossaryEntryContentForm *self, const char *value);
 char *glossary_entry_content_form_term(const GlossaryEntryContentForm *self);
 void glossary_entry_content_form_set_term(GlossaryEntryContentForm *self, const char *value);
-char *glossary_entry_content_form_definition(const GlossaryEntryContentForm *self);
-void glossary_entry_content_form_set_definition(GlossaryEntryContentForm *self, const char *value);
 char *glossary_entry_content_form_acronym(const GlossaryEntryContentForm *self);
 void glossary_entry_content_form_set_acronym(GlossaryEntryContentForm *self, const char *value);
 char *glossary_entry_content_form_see_also(const GlossaryEntryContentForm *self);
 void glossary_entry_content_form_set_see_also(GlossaryEntryContentForm *self, const char *value);
+char *glossary_entry_content_form_definition(const GlossaryEntryContentForm *self);
+void glossary_entry_content_form_set_definition(GlossaryEntryContentForm *self, const char *value);
 
 // GoalDependencyEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void goal_dependency_entry_content_form_init(GoalDependencyEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -51360,12 +51360,12 @@ void integration_architecture_content_form_free(IntegrationArchitectureContentFo
 // The section's own free-text content, before the form fields (owned).
 char *integration_architecture_content_form_content(const IntegrationArchitectureContentForm *self);
 void integration_architecture_content_form_set_content(IntegrationArchitectureContentForm *self, const char *value);
-char *integration_architecture_content_form_integration_strategy(const IntegrationArchitectureContentForm *self);
-void integration_architecture_content_form_set_integration_strategy(IntegrationArchitectureContentForm *self, const char *value);
 char *integration_architecture_content_form_integration_patterns(const IntegrationArchitectureContentForm *self);
 void integration_architecture_content_form_set_integration_patterns(IntegrationArchitectureContentForm *self, const char *value);
 char *integration_architecture_content_form_api_management(const IntegrationArchitectureContentForm *self);
 void integration_architecture_content_form_set_api_management(IntegrationArchitectureContentForm *self, const char *value);
+char *integration_architecture_content_form_integration_strategy(const IntegrationArchitectureContentForm *self);
+void integration_architecture_content_form_set_integration_strategy(IntegrationArchitectureContentForm *self, const char *value);
 
 // IntegrationArchitectureDataForm is the generated section facade for the `data` @Form section: its own `content` text followed by one typed member per form field.
 void integration_architecture_data_form_init(IntegrationArchitectureDataForm *self, SpecDocument *doc, const char *path);
@@ -51412,12 +51412,12 @@ void integration_architecture_security_form_free(IntegrationArchitectureSecurity
 // The section's own free-text content, before the form fields (owned).
 char *integration_architecture_security_form_content(const IntegrationArchitectureSecurityForm *self);
 void integration_architecture_security_form_set_content(IntegrationArchitectureSecurityForm *self, const char *value);
-char *integration_architecture_security_form_authentication_approach(const IntegrationArchitectureSecurityForm *self);
-void integration_architecture_security_form_set_authentication_approach(IntegrationArchitectureSecurityForm *self, const char *value);
 char *integration_architecture_security_form_authorization_approach(const IntegrationArchitectureSecurityForm *self);
 void integration_architecture_security_form_set_authorization_approach(IntegrationArchitectureSecurityForm *self, const char *value);
 char *integration_architecture_security_form_secure_transport(const IntegrationArchitectureSecurityForm *self);
 void integration_architecture_security_form_set_secure_transport(IntegrationArchitectureSecurityForm *self, const char *value);
+char *integration_architecture_security_form_authentication_approach(const IntegrationArchitectureSecurityForm *self);
+void integration_architecture_security_form_set_authentication_approach(IntegrationArchitectureSecurityForm *self, const char *value);
 
 // IntegrationArchitectureSystemsForm is the generated section facade for the `systems` @Form section: its own `content` text followed by one typed member per form field.
 void integration_architecture_systems_form_init(IntegrationArchitectureSystemsForm *self, SpecDocument *doc, const char *path);
@@ -51427,10 +51427,10 @@ char *integration_architecture_systems_form_content(const IntegrationArchitectur
 void integration_architecture_systems_form_set_content(IntegrationArchitectureSystemsForm *self, const char *value);
 char *integration_architecture_systems_form_external_system_count(const IntegrationArchitectureSystemsForm *self);
 void integration_architecture_systems_form_set_external_system_count(IntegrationArchitectureSystemsForm *self, const char *value);
-char *integration_architecture_systems_form_integration_types(const IntegrationArchitectureSystemsForm *self);
-void integration_architecture_systems_form_set_integration_types(IntegrationArchitectureSystemsForm *self, const char *value);
 char *integration_architecture_systems_form_real_time_integrations(const IntegrationArchitectureSystemsForm *self);
 void integration_architecture_systems_form_set_real_time_integrations(IntegrationArchitectureSystemsForm *self, const char *value);
+char *integration_architecture_systems_form_integration_types(const IntegrationArchitectureSystemsForm *self);
+void integration_architecture_systems_form_set_integration_types(IntegrationArchitectureSystemsForm *self, const char *value);
 
 // IntegrationConstraintEntryComplianceForm is the generated section facade for the `compliance` @Form section: its own `content` text followed by one typed member per form field.
 void integration_constraint_entry_compliance_form_init(IntegrationConstraintEntryComplianceForm *self, SpecDocument *doc, const char *path);
@@ -51867,12 +51867,12 @@ void interaction_pattern_entry_definition_form_free(InteractionPatternEntryDefin
 // The section's own free-text content, before the form fields (owned).
 char *interaction_pattern_entry_definition_form_content(const InteractionPatternEntryDefinitionForm *self);
 void interaction_pattern_entry_definition_form_set_content(InteractionPatternEntryDefinitionForm *self, const char *value);
-char *interaction_pattern_entry_definition_form_description(const InteractionPatternEntryDefinitionForm *self);
-void interaction_pattern_entry_definition_form_set_description(InteractionPatternEntryDefinitionForm *self, const char *value);
 char *interaction_pattern_entry_definition_form_use_cases(const InteractionPatternEntryDefinitionForm *self);
 void interaction_pattern_entry_definition_form_set_use_cases(InteractionPatternEntryDefinitionForm *self, const char *value);
 char *interaction_pattern_entry_definition_form_user_categories(const InteractionPatternEntryDefinitionForm *self);
 void interaction_pattern_entry_definition_form_set_user_categories(InteractionPatternEntryDefinitionForm *self, const char *value);
+char *interaction_pattern_entry_definition_form_description(const InteractionPatternEntryDefinitionForm *self);
+void interaction_pattern_entry_definition_form_set_description(InteractionPatternEntryDefinitionForm *self, const char *value);
 
 // InteractionPatternEntryTriggerForm is the generated section facade for the `trigger` @Form section: its own `content` text followed by one typed member per form field.
 void interaction_pattern_entry_trigger_form_init(InteractionPatternEntryTriggerForm *self, SpecDocument *doc, const char *path);
@@ -52342,14 +52342,14 @@ bool interface_technical_spec_webhook_spec_form_webhooks_used(const InterfaceTec
 void interface_technical_spec_webhook_spec_form_set_webhooks_used(InterfaceTechnicalSpecWebhookSpecForm *self, bool value);
 char *interface_technical_spec_webhook_spec_form_webhook_endpoint(const InterfaceTechnicalSpecWebhookSpecForm *self);
 void interface_technical_spec_webhook_spec_form_set_webhook_endpoint(InterfaceTechnicalSpecWebhookSpecForm *self, const char *value);
-char *interface_technical_spec_webhook_spec_form_event_types(const InterfaceTechnicalSpecWebhookSpecForm *self);
-void interface_technical_spec_webhook_spec_form_set_event_types(InterfaceTechnicalSpecWebhookSpecForm *self, const char *value);
 char *interface_technical_spec_webhook_spec_form_signature_verification(const InterfaceTechnicalSpecWebhookSpecForm *self);
 void interface_technical_spec_webhook_spec_form_set_signature_verification(InterfaceTechnicalSpecWebhookSpecForm *self, const char *value);
 char *interface_technical_spec_webhook_spec_form_retry_policy(const InterfaceTechnicalSpecWebhookSpecForm *self);
 void interface_technical_spec_webhook_spec_form_set_retry_policy(InterfaceTechnicalSpecWebhookSpecForm *self, const char *value);
 char *interface_technical_spec_webhook_spec_form_idempotency_handling(const InterfaceTechnicalSpecWebhookSpecForm *self);
 void interface_technical_spec_webhook_spec_form_set_idempotency_handling(InterfaceTechnicalSpecWebhookSpecForm *self, const char *value);
+char *interface_technical_spec_webhook_spec_form_event_types(const InterfaceTechnicalSpecWebhookSpecForm *self);
+void interface_technical_spec_webhook_spec_form_set_event_types(InterfaceTechnicalSpecWebhookSpecForm *self, const char *value);
 
 // InterfaceTestScenarioEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void interface_test_scenario_entry_content_form_init(InterfaceTestScenarioEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -52589,18 +52589,18 @@ char *it_landscape_position_position_details_form_application_category(const ItL
 void it_landscape_position_position_details_form_set_application_category(ItLandscapePositionPositionDetailsForm *self, const char *value);
 char *it_landscape_position_position_details_form_portfolio_role(const ItLandscapePositionPositionDetailsForm *self);
 void it_landscape_position_position_details_form_set_portfolio_role(ItLandscapePositionPositionDetailsForm *self, const char *value);
-char *it_landscape_position_position_details_form_replaced_systems(const ItLandscapePositionPositionDetailsForm *self);
-void it_landscape_position_position_details_form_set_replaced_systems(ItLandscapePositionPositionDetailsForm *self, const char *value);
 char *it_landscape_position_position_details_form_complementary_systems(const ItLandscapePositionPositionDetailsForm *self);
 void it_landscape_position_position_details_form_set_complementary_systems(ItLandscapePositionPositionDetailsForm *self, const char *value);
-char *it_landscape_position_position_details_form_depends_on_systems(const ItLandscapePositionPositionDetailsForm *self);
-void it_landscape_position_position_details_form_set_depends_on_systems(ItLandscapePositionPositionDetailsForm *self, const char *value);
 char *it_landscape_position_position_details_form_dependent_systems(const ItLandscapePositionPositionDetailsForm *self);
 void it_landscape_position_position_details_form_set_dependent_systems(ItLandscapePositionPositionDetailsForm *self, const char *value);
-char *it_landscape_position_position_details_form_data_ownership(const ItLandscapePositionPositionDetailsForm *self);
-void it_landscape_position_position_details_form_set_data_ownership(ItLandscapePositionPositionDetailsForm *self, const char *value);
 char *it_landscape_position_position_details_form_integration_pattern(const ItLandscapePositionPositionDetailsForm *self);
 void it_landscape_position_position_details_form_set_integration_pattern(ItLandscapePositionPositionDetailsForm *self, const char *value);
+char *it_landscape_position_position_details_form_replaced_systems(const ItLandscapePositionPositionDetailsForm *self);
+void it_landscape_position_position_details_form_set_replaced_systems(ItLandscapePositionPositionDetailsForm *self, const char *value);
+char *it_landscape_position_position_details_form_depends_on_systems(const ItLandscapePositionPositionDetailsForm *self);
+void it_landscape_position_position_details_form_set_depends_on_systems(ItLandscapePositionPositionDetailsForm *self, const char *value);
+char *it_landscape_position_position_details_form_data_ownership(const ItLandscapePositionPositionDetailsForm *self);
+void it_landscape_position_position_details_form_set_data_ownership(ItLandscapePositionPositionDetailsForm *self, const char *value);
 
 // ItSecurityOperationsAccessForm is the generated section facade for the `access` @Form section: its own `content` text followed by one typed member per form field.
 void it_security_operations_access_form_init(ItSecurityOperationsAccessForm *self, SpecDocument *doc, const char *path);
@@ -52608,12 +52608,12 @@ void it_security_operations_access_form_free(ItSecurityOperationsAccessForm *sel
 // The section's own free-text content, before the form fields (owned).
 char *it_security_operations_access_form_content(const ItSecurityOperationsAccessForm *self);
 void it_security_operations_access_form_set_content(ItSecurityOperationsAccessForm *self, const char *value);
-char *it_security_operations_access_form_privileged_access_management(const ItSecurityOperationsAccessForm *self);
-void it_security_operations_access_form_set_privileged_access_management(ItSecurityOperationsAccessForm *self, const char *value);
 char *it_security_operations_access_form_access_review_frequency(const ItSecurityOperationsAccessForm *self);
 void it_security_operations_access_form_set_access_review_frequency(ItSecurityOperationsAccessForm *self, const char *value);
 char *it_security_operations_access_form_access_audit_logging(const ItSecurityOperationsAccessForm *self);
 void it_security_operations_access_form_set_access_audit_logging(ItSecurityOperationsAccessForm *self, const char *value);
+char *it_security_operations_access_form_privileged_access_management(const ItSecurityOperationsAccessForm *self);
+void it_security_operations_access_form_set_privileged_access_management(ItSecurityOperationsAccessForm *self, const char *value);
 
 // ItSecurityOperationsContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void it_security_operations_content_form_init(ItSecurityOperationsContentForm *self, SpecDocument *doc, const char *path);
@@ -53291,10 +53291,10 @@ void lifecycle_transition_entry_trigger_form_free(LifecycleTransitionEntryTrigge
 // The section's own free-text content, before the form fields (owned).
 char *lifecycle_transition_entry_trigger_form_content(const LifecycleTransitionEntryTriggerForm *self);
 void lifecycle_transition_entry_trigger_form_set_content(LifecycleTransitionEntryTriggerForm *self, const char *value);
-char *lifecycle_transition_entry_trigger_form_trigger(const LifecycleTransitionEntryTriggerForm *self);
-void lifecycle_transition_entry_trigger_form_set_trigger(LifecycleTransitionEntryTriggerForm *self, const char *value);
 char *lifecycle_transition_entry_trigger_form_trigger_type(const LifecycleTransitionEntryTriggerForm *self);
 void lifecycle_transition_entry_trigger_form_set_trigger_type(LifecycleTransitionEntryTriggerForm *self, const char *value);
+char *lifecycle_transition_entry_trigger_form_trigger(const LifecycleTransitionEntryTriggerForm *self);
+void lifecycle_transition_entry_trigger_form_set_trigger(LifecycleTransitionEntryTriggerForm *self, const char *value);
 
 // LimitationEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void limitation_entry_content_form_init(LimitationEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -53815,14 +53815,14 @@ char *main_scenario_step_entry_content_form_server_operation(const MainScenarioS
 void main_scenario_step_entry_content_form_set_server_operation(MainScenarioStepEntryContentForm *self, const char *value);
 char *main_scenario_step_entry_content_form_data_involved(const MainScenarioStepEntryContentForm *self);
 void main_scenario_step_entry_content_form_set_data_involved(MainScenarioStepEntryContentForm *self, const char *value);
-char *main_scenario_step_entry_content_form_business_rule_applied(const MainScenarioStepEntryContentForm *self);
-void main_scenario_step_entry_content_form_set_business_rule_applied(MainScenarioStepEntryContentForm *self, const char *value);
 char *main_scenario_step_entry_content_form_ui_element_used(const MainScenarioStepEntryContentForm *self);
 void main_scenario_step_entry_content_form_set_ui_element_used(MainScenarioStepEntryContentForm *self, const char *value);
 char *main_scenario_step_entry_content_form_validation_performed(const MainScenarioStepEntryContentForm *self);
 void main_scenario_step_entry_content_form_set_validation_performed(MainScenarioStepEntryContentForm *self, const char *value);
 char *main_scenario_step_entry_content_form_expected_duration(const MainScenarioStepEntryContentForm *self);
 void main_scenario_step_entry_content_form_set_expected_duration(MainScenarioStepEntryContentForm *self, const char *value);
+char *main_scenario_step_entry_content_form_business_rule_applied(const MainScenarioStepEntryContentForm *self);
+void main_scenario_step_entry_content_form_set_business_rule_applied(MainScenarioStepEntryContentForm *self, const char *value);
 
 // MainSuccessScenarioContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void main_success_scenario_content_form_init(MainSuccessScenarioContentForm *self, SpecDocument *doc, const char *path);
@@ -54498,10 +54498,10 @@ void mfa_category_requirement_entry_authenticators_form_free(MfaCategoryRequirem
 // The section's own free-text content, before the form fields (owned).
 char *mfa_category_requirement_entry_authenticators_form_content(const MfaCategoryRequirementEntryAuthenticatorsForm *self);
 void mfa_category_requirement_entry_authenticators_form_set_content(MfaCategoryRequirementEntryAuthenticatorsForm *self, const char *value);
-char *mfa_category_requirement_entry_authenticators_form_allowed_authenticator_types(const MfaCategoryRequirementEntryAuthenticatorsForm *self);
-void mfa_category_requirement_entry_authenticators_form_set_allowed_authenticator_types(MfaCategoryRequirementEntryAuthenticatorsForm *self, const char *value);
 char *mfa_category_requirement_entry_authenticators_form_phishing_resistance_required(const MfaCategoryRequirementEntryAuthenticatorsForm *self);
 void mfa_category_requirement_entry_authenticators_form_set_phishing_resistance_required(MfaCategoryRequirementEntryAuthenticatorsForm *self, const char *value);
+char *mfa_category_requirement_entry_authenticators_form_allowed_authenticator_types(const MfaCategoryRequirementEntryAuthenticatorsForm *self);
+void mfa_category_requirement_entry_authenticators_form_set_allowed_authenticator_types(MfaCategoryRequirementEntryAuthenticatorsForm *self, const char *value);
 
 // MfaCategoryRequirementEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void mfa_category_requirement_entry_content_form_init(MfaCategoryRequirementEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -55476,12 +55476,12 @@ char *module_entry_description_form_content(const ModuleEntryDescriptionForm *se
 void module_entry_description_form_set_content(ModuleEntryDescriptionForm *self, const char *value);
 char *module_entry_description_form_purpose(const ModuleEntryDescriptionForm *self);
 void module_entry_description_form_set_purpose(ModuleEntryDescriptionForm *self, const char *value);
-char *module_entry_description_form_functionality(const ModuleEntryDescriptionForm *self);
-void module_entry_description_form_set_functionality(ModuleEntryDescriptionForm *self, const char *value);
 char *module_entry_description_form_public_api(const ModuleEntryDescriptionForm *self);
 void module_entry_description_form_set_public_api(ModuleEntryDescriptionForm *self, const char *value);
 char *module_entry_description_form_entry_points(const ModuleEntryDescriptionForm *self);
 void module_entry_description_form_set_entry_points(ModuleEntryDescriptionForm *self, const char *value);
+char *module_entry_description_form_functionality(const ModuleEntryDescriptionForm *self);
+void module_entry_description_form_set_functionality(ModuleEntryDescriptionForm *self, const char *value);
 
 // ModuleEntryOwnershipForm is the generated section facade for the `ownership` @Form section: its own `content` text followed by one typed member per form field.
 void module_entry_ownership_form_init(ModuleEntryOwnershipForm *self, SpecDocument *doc, const char *path);
@@ -55833,12 +55833,12 @@ void must_pass_criterion_entry_definition_form_free(MustPassCriterionEntryDefini
 // The section's own free-text content, before the form fields (owned).
 char *must_pass_criterion_entry_definition_form_content(const MustPassCriterionEntryDefinitionForm *self);
 void must_pass_criterion_entry_definition_form_set_content(MustPassCriterionEntryDefinitionForm *self, const char *value);
-char *must_pass_criterion_entry_definition_form_criterion_description(const MustPassCriterionEntryDefinitionForm *self);
-void must_pass_criterion_entry_definition_form_set_criterion_description(MustPassCriterionEntryDefinitionForm *self, const char *value);
 char *must_pass_criterion_entry_definition_form_quality_category(const MustPassCriterionEntryDefinitionForm *self);
 void must_pass_criterion_entry_definition_form_set_quality_category(MustPassCriterionEntryDefinitionForm *self, const char *value);
 char *must_pass_criterion_entry_definition_form_quality_attribute(const MustPassCriterionEntryDefinitionForm *self);
 void must_pass_criterion_entry_definition_form_set_quality_attribute(MustPassCriterionEntryDefinitionForm *self, const char *value);
+char *must_pass_criterion_entry_definition_form_criterion_description(const MustPassCriterionEntryDefinitionForm *self);
+void must_pass_criterion_entry_definition_form_set_criterion_description(MustPassCriterionEntryDefinitionForm *self, const char *value);
 
 // MustPassCriterionEntryGovernanceForm is the generated section facade for the `governance` @Form section: its own `content` text followed by one typed member per form field.
 void must_pass_criterion_entry_governance_form_init(MustPassCriterionEntryGovernanceForm *self, SpecDocument *doc, const char *path);
@@ -57226,10 +57226,6 @@ char *opportunity_statement_opportunity_details_form_opportunity_summary(const O
 void opportunity_statement_opportunity_details_form_set_opportunity_summary(OpportunityStatementOpportunityDetailsForm *self, const char *value);
 char *opportunity_statement_opportunity_details_form_future_state(const OpportunityStatementOpportunityDetailsForm *self);
 void opportunity_statement_opportunity_details_form_set_future_state(OpportunityStatementOpportunityDetailsForm *self, const char *value);
-char *opportunity_statement_opportunity_details_form_new_capabilities(const OpportunityStatementOpportunityDetailsForm *self);
-void opportunity_statement_opportunity_details_form_set_new_capabilities(OpportunityStatementOpportunityDetailsForm *self, const char *value);
-char *opportunity_statement_opportunity_details_form_improvements(const OpportunityStatementOpportunityDetailsForm *self);
-void opportunity_statement_opportunity_details_form_set_improvements(OpportunityStatementOpportunityDetailsForm *self, const char *value);
 char *opportunity_statement_opportunity_details_form_competitive_advantage(const OpportunityStatementOpportunityDetailsForm *self);
 void opportunity_statement_opportunity_details_form_set_competitive_advantage(OpportunityStatementOpportunityDetailsForm *self, const char *value);
 char *opportunity_statement_opportunity_details_form_innovation_aspects(const OpportunityStatementOpportunityDetailsForm *self);
@@ -57240,6 +57236,10 @@ char *opportunity_statement_opportunity_details_form_efficiency_gains(const Oppo
 void opportunity_statement_opportunity_details_form_set_efficiency_gains(OpportunityStatementOpportunityDetailsForm *self, const char *value);
 char *opportunity_statement_opportunity_details_form_time_to_value(const OpportunityStatementOpportunityDetailsForm *self);
 void opportunity_statement_opportunity_details_form_set_time_to_value(OpportunityStatementOpportunityDetailsForm *self, const char *value);
+char *opportunity_statement_opportunity_details_form_new_capabilities(const OpportunityStatementOpportunityDetailsForm *self);
+void opportunity_statement_opportunity_details_form_set_new_capabilities(OpportunityStatementOpportunityDetailsForm *self, const char *value);
+char *opportunity_statement_opportunity_details_form_improvements(const OpportunityStatementOpportunityDetailsForm *self);
+void opportunity_statement_opportunity_details_form_set_improvements(OpportunityStatementOpportunityDetailsForm *self, const char *value);
 
 // OrgChangeRisksContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void org_change_risks_content_form_init(OrgChangeRisksContentForm *self, SpecDocument *doc, const char *path);
@@ -57468,16 +57468,16 @@ void organizational_requirement_entry_classification_form_free(OrganizationalReq
 // The section's own free-text content, before the form fields (owned).
 char *organizational_requirement_entry_classification_form_content(const OrganizationalRequirementEntryClassificationForm *self);
 void organizational_requirement_entry_classification_form_set_content(OrganizationalRequirementEntryClassificationForm *self, const char *value);
+char *organizational_requirement_entry_classification_form_priority(const OrganizationalRequirementEntryClassificationForm *self);
+void organizational_requirement_entry_classification_form_set_priority(OrganizationalRequirementEntryClassificationForm *self, const char *value);
 char *organizational_requirement_entry_classification_form_category(const OrganizationalRequirementEntryClassificationForm *self);
 void organizational_requirement_entry_classification_form_set_category(OrganizationalRequirementEntryClassificationForm *self, const char *value);
 char *organizational_requirement_entry_classification_form_subcategory(const OrganizationalRequirementEntryClassificationForm *self);
 void organizational_requirement_entry_classification_form_set_subcategory(OrganizationalRequirementEntryClassificationForm *self, const char *value);
-char *organizational_requirement_entry_classification_form_priority(const OrganizationalRequirementEntryClassificationForm *self);
-void organizational_requirement_entry_classification_form_set_priority(OrganizationalRequirementEntryClassificationForm *self, const char *value);
-char *organizational_requirement_entry_classification_form_source(const OrganizationalRequirementEntryClassificationForm *self);
-void organizational_requirement_entry_classification_form_set_source(OrganizationalRequirementEntryClassificationForm *self, const char *value);
 char *organizational_requirement_entry_classification_form_rationale(const OrganizationalRequirementEntryClassificationForm *self);
 void organizational_requirement_entry_classification_form_set_rationale(OrganizationalRequirementEntryClassificationForm *self, const char *value);
+char *organizational_requirement_entry_classification_form_source(const OrganizationalRequirementEntryClassificationForm *self);
+void organizational_requirement_entry_classification_form_set_source(OrganizationalRequirementEntryClassificationForm *self, const char *value);
 
 // OrganizationalRequirementEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void organizational_requirement_entry_content_form_init(OrganizationalRequirementEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -57651,12 +57651,12 @@ char *other_agreement_entry_content_form_effective_date(const OtherAgreementEntr
 void other_agreement_entry_content_form_set_effective_date(OtherAgreementEntryContentForm *self, const char *value);
 char *other_agreement_entry_content_form_expiration_date(const OtherAgreementEntryContentForm *self);
 void other_agreement_entry_content_form_set_expiration_date(OtherAgreementEntryContentForm *self, const char *value);
+char *other_agreement_entry_content_form_location(const OtherAgreementEntryContentForm *self);
+void other_agreement_entry_content_form_set_location(OtherAgreementEntryContentForm *self, const char *value);
 char *other_agreement_entry_content_form_key_terms(const OtherAgreementEntryContentForm *self);
 void other_agreement_entry_content_form_set_key_terms(OtherAgreementEntryContentForm *self, const char *value);
 char *other_agreement_entry_content_form_obligations(const OtherAgreementEntryContentForm *self);
 void other_agreement_entry_content_form_set_obligations(OtherAgreementEntryContentForm *self, const char *value);
-char *other_agreement_entry_content_form_location(const OtherAgreementEntryContentForm *self);
-void other_agreement_entry_content_form_set_location(OtherAgreementEntryContentForm *self, const char *value);
 
 // OutOfScopeEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void out_of_scope_entry_content_form_init(OutOfScopeEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -57750,10 +57750,10 @@ char *package_organization_structure_form_content(const PackageOrganizationStruc
 void package_organization_structure_form_set_content(PackageOrganizationStructureForm *self, const char *value);
 char *package_organization_structure_form_monorepo_vs_polyrepo(const PackageOrganizationStructureForm *self);
 void package_organization_structure_form_set_monorepo_vs_polyrepo(PackageOrganizationStructureForm *self, const char *value);
-char *package_organization_structure_form_directory_layout(const PackageOrganizationStructureForm *self);
-void package_organization_structure_form_set_directory_layout(PackageOrganizationStructureForm *self, const char *value);
 char *package_organization_structure_form_feature_grouping(const PackageOrganizationStructureForm *self);
 void package_organization_structure_form_set_feature_grouping(PackageOrganizationStructureForm *self, const char *value);
+char *package_organization_structure_form_directory_layout(const PackageOrganizationStructureForm *self);
+void package_organization_structure_form_set_directory_layout(PackageOrganizationStructureForm *self, const char *value);
 
 // PackageOrganizationTypesForm is the generated section facade for the `types` @Form section: its own `content` text followed by one typed member per form field.
 void package_organization_types_form_init(PackageOrganizationTypesForm *self, SpecDocument *doc, const char *path);
@@ -57761,14 +57761,14 @@ void package_organization_types_form_free(PackageOrganizationTypesForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *package_organization_types_form_content(const PackageOrganizationTypesForm *self);
 void package_organization_types_form_set_content(PackageOrganizationTypesForm *self, const char *value);
-char *package_organization_types_form_core_packages(const PackageOrganizationTypesForm *self);
-void package_organization_types_form_set_core_packages(PackageOrganizationTypesForm *self, const char *value);
-char *package_organization_types_form_feature_packages(const PackageOrganizationTypesForm *self);
-void package_organization_types_form_set_feature_packages(PackageOrganizationTypesForm *self, const char *value);
 char *package_organization_types_form_shared_packages(const PackageOrganizationTypesForm *self);
 void package_organization_types_form_set_shared_packages(PackageOrganizationTypesForm *self, const char *value);
 char *package_organization_types_form_platform_packages(const PackageOrganizationTypesForm *self);
 void package_organization_types_form_set_platform_packages(PackageOrganizationTypesForm *self, const char *value);
+char *package_organization_types_form_core_packages(const PackageOrganizationTypesForm *self);
+void package_organization_types_form_set_core_packages(PackageOrganizationTypesForm *self, const char *value);
+char *package_organization_types_form_feature_packages(const PackageOrganizationTypesForm *self);
+void package_organization_types_form_set_feature_packages(PackageOrganizationTypesForm *self, const char *value);
 
 // PainPointEntryClassificationForm is the generated section facade for the `classification` @Form section: its own `content` text followed by one typed member per form field.
 void pain_point_entry_classification_form_init(PainPointEntryClassificationForm *self, SpecDocument *doc, const char *path);
@@ -58201,14 +58201,14 @@ char *periodic_review_policy_content_form_access_review_frequency(const Periodic
 void periodic_review_policy_content_form_set_access_review_frequency(PeriodicReviewPolicyContentForm *self, const char *value);
 char *periodic_review_policy_content_form_privileged_account_review(const PeriodicReviewPolicyContentForm *self);
 void periodic_review_policy_content_form_set_privileged_account_review(PeriodicReviewPolicyContentForm *self, const char *value);
-char *periodic_review_policy_content_form_reviewers(const PeriodicReviewPolicyContentForm *self);
-void periodic_review_policy_content_form_set_reviewers(PeriodicReviewPolicyContentForm *self, const char *value);
 char *periodic_review_policy_content_form_dormant_account_review(const PeriodicReviewPolicyContentForm *self);
 void periodic_review_policy_content_form_set_dormant_account_review(PeriodicReviewPolicyContentForm *self, const char *value);
 char *periodic_review_policy_content_form_segregation_of_duties_review(const PeriodicReviewPolicyContentForm *self);
 void periodic_review_policy_content_form_set_segregation_of_duties_review(PeriodicReviewPolicyContentForm *self, const char *value);
 char *periodic_review_policy_content_form_review_documentation(const PeriodicReviewPolicyContentForm *self);
 void periodic_review_policy_content_form_set_review_documentation(PeriodicReviewPolicyContentForm *self, const char *value);
+char *periodic_review_policy_content_form_reviewers(const PeriodicReviewPolicyContentForm *self);
+void periodic_review_policy_content_form_set_reviewers(PeriodicReviewPolicyContentForm *self, const char *value);
 
 // PeripheralEquipmentEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void peripheral_equipment_entry_content_form_init(PeripheralEquipmentEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -58786,8 +58786,6 @@ char *portability_content_form_desktop_os_versions(const PortabilityContentForm 
 void portability_content_form_set_desktop_os_versions(PortabilityContentForm *self, const char *value);
 char *portability_content_form_migration_effort_constraint(const PortabilityContentForm *self);
 void portability_content_form_set_migration_effort_constraint(PortabilityContentForm *self, const char *value);
-char *portability_content_form_data_portability(const PortabilityContentForm *self);
-void portability_content_form_set_data_portability(PortabilityContentForm *self, const char *value);
 char *portability_content_form_vendor_lock_in_avoidance(const PortabilityContentForm *self);
 void portability_content_form_set_vendor_lock_in_avoidance(PortabilityContentForm *self, const char *value);
 char *portability_content_form_containerization_requirement(const PortabilityContentForm *self);
@@ -58796,6 +58794,8 @@ char *portability_content_form_infrastructure_as_code(const PortabilityContentFo
 void portability_content_form_set_infrastructure_as_code(PortabilityContentForm *self, const char *value);
 char *portability_content_form_portability_verification(const PortabilityContentForm *self);
 void portability_content_form_set_portability_verification(PortabilityContentForm *self, const char *value);
+char *portability_content_form_data_portability(const PortabilityContentForm *self);
+void portability_content_form_set_data_portability(PortabilityContentForm *self, const char *value);
 
 // PostMaintenanceValidationClosureForm is the generated section facade for the `closure` @Form section: its own `content` text followed by one typed member per form field.
 void post_maintenance_validation_closure_form_init(PostMaintenanceValidationClosureForm *self, SpecDocument *doc, const char *path);
@@ -58850,18 +58850,18 @@ char *postconditions_and_guarantees_content_form_content(const PostconditionsAnd
 void postconditions_and_guarantees_content_form_set_content(PostconditionsAndGuaranteesContentForm *self, const char *value);
 char *postconditions_and_guarantees_content_form_minimal_guarantees(const PostconditionsAndGuaranteesContentForm *self);
 void postconditions_and_guarantees_content_form_set_minimal_guarantees(PostconditionsAndGuaranteesContentForm *self, const char *value);
-char *postconditions_and_guarantees_content_form_success_guarantees(const PostconditionsAndGuaranteesContentForm *self);
-void postconditions_and_guarantees_content_form_set_success_guarantees(PostconditionsAndGuaranteesContentForm *self, const char *value);
 char *postconditions_and_guarantees_content_form_primary_actor_postcondition(const PostconditionsAndGuaranteesContentForm *self);
 void postconditions_and_guarantees_content_form_set_primary_actor_postcondition(PostconditionsAndGuaranteesContentForm *self, const char *value);
 char *postconditions_and_guarantees_content_form_system_postcondition(const PostconditionsAndGuaranteesContentForm *self);
 void postconditions_and_guarantees_content_form_set_system_postcondition(PostconditionsAndGuaranteesContentForm *self, const char *value);
 char *postconditions_and_guarantees_content_form_data_postcondition(const PostconditionsAndGuaranteesContentForm *self);
 void postconditions_and_guarantees_content_form_set_data_postcondition(PostconditionsAndGuaranteesContentForm *self, const char *value);
-char *postconditions_and_guarantees_content_form_notifications_generated(const PostconditionsAndGuaranteesContentForm *self);
-void postconditions_and_guarantees_content_form_set_notifications_generated(PostconditionsAndGuaranteesContentForm *self, const char *value);
 char *postconditions_and_guarantees_content_form_audit_trail(const PostconditionsAndGuaranteesContentForm *self);
 void postconditions_and_guarantees_content_form_set_audit_trail(PostconditionsAndGuaranteesContentForm *self, const char *value);
+char *postconditions_and_guarantees_content_form_success_guarantees(const PostconditionsAndGuaranteesContentForm *self);
+void postconditions_and_guarantees_content_form_set_success_guarantees(PostconditionsAndGuaranteesContentForm *self, const char *value);
+char *postconditions_and_guarantees_content_form_notifications_generated(const PostconditionsAndGuaranteesContentForm *self);
+void postconditions_and_guarantees_content_form_set_notifications_generated(PostconditionsAndGuaranteesContentForm *self, const char *value);
 
 // PreconditionsAndTriggersContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void preconditions_and_triggers_content_form_init(PreconditionsAndTriggersContentForm *self, SpecDocument *doc, const char *path);
@@ -58869,8 +58869,6 @@ void preconditions_and_triggers_content_form_free(PreconditionsAndTriggersConten
 // The section's own free-text content, before the form fields (owned).
 char *preconditions_and_triggers_content_form_content(const PreconditionsAndTriggersContentForm *self);
 void preconditions_and_triggers_content_form_set_content(PreconditionsAndTriggersContentForm *self, const char *value);
-char *preconditions_and_triggers_content_form_precondition(const PreconditionsAndTriggersContentForm *self);
-void preconditions_and_triggers_content_form_set_precondition(PreconditionsAndTriggersContentForm *self, const char *value);
 char *preconditions_and_triggers_content_form_trigger(const PreconditionsAndTriggersContentForm *self);
 void preconditions_and_triggers_content_form_set_trigger(PreconditionsAndTriggersContentForm *self, const char *value);
 char *preconditions_and_triggers_content_form_trigger_type(const PreconditionsAndTriggersContentForm *self);
@@ -58883,6 +58881,8 @@ char *preconditions_and_triggers_content_form_frequency_of_trigger(const Precond
 void preconditions_and_triggers_content_form_set_frequency_of_trigger(PreconditionsAndTriggersContentForm *self, const char *value);
 char *preconditions_and_triggers_content_form_validation_before_start(const PreconditionsAndTriggersContentForm *self);
 void preconditions_and_triggers_content_form_set_validation_before_start(PreconditionsAndTriggersContentForm *self, const char *value);
+char *preconditions_and_triggers_content_form_precondition(const PreconditionsAndTriggersContentForm *self);
+void preconditions_and_triggers_content_form_set_precondition(PreconditionsAndTriggersContentForm *self, const char *value);
 
 // PrimaryNavigationBottomNavForm is the generated section facade for the `bottomNav` @Form section: its own `content` text followed by one typed member per form field.
 void primary_navigation_bottom_nav_form_init(PrimaryNavigationBottomNavForm *self, SpecDocument *doc, const char *path);
@@ -59196,22 +59196,22 @@ char *problem_statement_problem_details_form_content(const ProblemStatementProbl
 void problem_statement_problem_details_form_set_content(ProblemStatementProblemDetailsForm *self, const char *value);
 char *problem_statement_problem_details_form_problem_summary(const ProblemStatementProblemDetailsForm *self);
 void problem_statement_problem_details_form_set_problem_summary(ProblemStatementProblemDetailsForm *self, const char *value);
+char *problem_statement_problem_details_form_impact_severity(const ProblemStatementProblemDetailsForm *self);
+void problem_statement_problem_details_form_set_impact_severity(ProblemStatementProblemDetailsForm *self, const char *value);
 char *problem_statement_problem_details_form_current_state(const ProblemStatementProblemDetailsForm *self);
 void problem_statement_problem_details_form_set_current_state(ProblemStatementProblemDetailsForm *self, const char *value);
 char *problem_statement_problem_details_form_affected_parties(const ProblemStatementProblemDetailsForm *self);
 void problem_statement_problem_details_form_set_affected_parties(ProblemStatementProblemDetailsForm *self, const char *value);
 char *problem_statement_problem_details_form_impact_description(const ProblemStatementProblemDetailsForm *self);
 void problem_statement_problem_details_form_set_impact_description(ProblemStatementProblemDetailsForm *self, const char *value);
-char *problem_statement_problem_details_form_impact_severity(const ProblemStatementProblemDetailsForm *self);
-void problem_statement_problem_details_form_set_impact_severity(ProblemStatementProblemDetailsForm *self, const char *value);
-char *problem_statement_problem_details_form_impact_metrics(const ProblemStatementProblemDetailsForm *self);
-void problem_statement_problem_details_form_set_impact_metrics(ProblemStatementProblemDetailsForm *self, const char *value);
-char *problem_statement_problem_details_form_root_causes(const ProblemStatementProblemDetailsForm *self);
-void problem_statement_problem_details_form_set_root_causes(ProblemStatementProblemDetailsForm *self, const char *value);
 char *problem_statement_problem_details_form_urgency(const ProblemStatementProblemDetailsForm *self);
 void problem_statement_problem_details_form_set_urgency(ProblemStatementProblemDetailsForm *self, const char *value);
 char *problem_statement_problem_details_form_urgency_justification(const ProblemStatementProblemDetailsForm *self);
 void problem_statement_problem_details_form_set_urgency_justification(ProblemStatementProblemDetailsForm *self, const char *value);
+char *problem_statement_problem_details_form_impact_metrics(const ProblemStatementProblemDetailsForm *self);
+void problem_statement_problem_details_form_set_impact_metrics(ProblemStatementProblemDetailsForm *self, const char *value);
+char *problem_statement_problem_details_form_root_causes(const ProblemStatementProblemDetailsForm *self);
+void problem_statement_problem_details_form_set_root_causes(ProblemStatementProblemDetailsForm *self, const char *value);
 char *problem_statement_problem_details_form_consequences_of_inaction(const ProblemStatementProblemDetailsForm *self);
 void problem_statement_problem_details_form_set_consequences_of_inaction(ProblemStatementProblemDetailsForm *self, const char *value);
 
@@ -59378,8 +59378,6 @@ char *process_catalog_overview_form_content(const ProcessCatalogOverviewForm *se
 void process_catalog_overview_form_set_content(ProcessCatalogOverviewForm *self, const char *value);
 long process_catalog_overview_form_total_process_count(const ProcessCatalogOverviewForm *self);
 void process_catalog_overview_form_set_total_process_count(ProcessCatalogOverviewForm *self, long value);
-char *process_catalog_overview_form_scope_statement(const ProcessCatalogOverviewForm *self);
-void process_catalog_overview_form_set_scope_statement(ProcessCatalogOverviewForm *self, const char *value);
 char *process_catalog_overview_form_classification_framework(const ProcessCatalogOverviewForm *self);
 void process_catalog_overview_form_set_classification_framework(ProcessCatalogOverviewForm *self, const char *value);
 char *process_catalog_overview_form_naming_convention(const ProcessCatalogOverviewForm *self);
@@ -59392,6 +59390,8 @@ char *process_catalog_overview_form_governance_model(const ProcessCatalogOvervie
 void process_catalog_overview_form_set_governance_model(ProcessCatalogOverviewForm *self, const char *value);
 char *process_catalog_overview_form_versioning_approach(const ProcessCatalogOverviewForm *self);
 void process_catalog_overview_form_set_versioning_approach(ProcessCatalogOverviewForm *self, const char *value);
+char *process_catalog_overview_form_scope_statement(const ProcessCatalogOverviewForm *self);
+void process_catalog_overview_form_set_scope_statement(ProcessCatalogOverviewForm *self, const char *value);
 
 // ProcessCharacteristicsBusinessForm is the generated section facade for the `business` @Form section: its own `content` text followed by one typed member per form field.
 void process_characteristics_business_form_init(ProcessCharacteristicsBusinessForm *self, SpecDocument *doc, const char *path);
@@ -59531,10 +59531,10 @@ void process_design_principle_entry_content_form_free(ProcessDesignPrincipleEntr
 // The section's own free-text content, before the form fields (owned).
 char *process_design_principle_entry_content_form_content(const ProcessDesignPrincipleEntryContentForm *self);
 void process_design_principle_entry_content_form_set_content(ProcessDesignPrincipleEntryContentForm *self, const char *value);
+char *process_design_principle_entry_content_form_priority(const ProcessDesignPrincipleEntryContentForm *self);
+void process_design_principle_entry_content_form_set_priority(ProcessDesignPrincipleEntryContentForm *self, const char *value);
 char *process_design_principle_entry_content_form_category(const ProcessDesignPrincipleEntryContentForm *self);
 void process_design_principle_entry_content_form_set_category(ProcessDesignPrincipleEntryContentForm *self, const char *value);
-char *process_design_principle_entry_content_form_statement(const ProcessDesignPrincipleEntryContentForm *self);
-void process_design_principle_entry_content_form_set_statement(ProcessDesignPrincipleEntryContentForm *self, const char *value);
 char *process_design_principle_entry_content_form_rationale(const ProcessDesignPrincipleEntryContentForm *self);
 void process_design_principle_entry_content_form_set_rationale(ProcessDesignPrincipleEntryContentForm *self, const char *value);
 char *process_design_principle_entry_content_form_implications(const ProcessDesignPrincipleEntryContentForm *self);
@@ -59543,10 +59543,10 @@ char *process_design_principle_entry_content_form_examples(const ProcessDesignPr
 void process_design_principle_entry_content_form_set_examples(ProcessDesignPrincipleEntryContentForm *self, const char *value);
 char *process_design_principle_entry_content_form_tradeoffs(const ProcessDesignPrincipleEntryContentForm *self);
 void process_design_principle_entry_content_form_set_tradeoffs(ProcessDesignPrincipleEntryContentForm *self, const char *value);
-char *process_design_principle_entry_content_form_priority(const ProcessDesignPrincipleEntryContentForm *self);
-void process_design_principle_entry_content_form_set_priority(ProcessDesignPrincipleEntryContentForm *self, const char *value);
 char *process_design_principle_entry_content_form_applicability(const ProcessDesignPrincipleEntryContentForm *self);
 void process_design_principle_entry_content_form_set_applicability(ProcessDesignPrincipleEntryContentForm *self, const char *value);
+char *process_design_principle_entry_content_form_statement(const ProcessDesignPrincipleEntryContentForm *self);
+void process_design_principle_entry_content_form_set_statement(ProcessDesignPrincipleEntryContentForm *self, const char *value);
 
 // ProcessDesignPrinciplesOverviewForm is the generated section facade for the `overview` @Form section: its own `content` text followed by one typed member per form field.
 void process_design_principles_overview_form_init(ProcessDesignPrinciplesOverviewForm *self, SpecDocument *doc, const char *path);
@@ -59674,12 +59674,12 @@ void process_identification_definition_form_free(ProcessIdentificationDefinition
 // The section's own free-text content, before the form fields (owned).
 char *process_identification_definition_form_content(const ProcessIdentificationDefinitionForm *self);
 void process_identification_definition_form_set_content(ProcessIdentificationDefinitionForm *self, const char *value);
-char *process_identification_definition_form_description(const ProcessIdentificationDefinitionForm *self);
-void process_identification_definition_form_set_description(ProcessIdentificationDefinitionForm *self, const char *value);
 char *process_identification_definition_form_purpose(const ProcessIdentificationDefinitionForm *self);
 void process_identification_definition_form_set_purpose(ProcessIdentificationDefinitionForm *self, const char *value);
 char *process_identification_definition_form_scope(const ProcessIdentificationDefinitionForm *self);
 void process_identification_definition_form_set_scope(ProcessIdentificationDefinitionForm *self, const char *value);
+char *process_identification_definition_form_description(const ProcessIdentificationDefinitionForm *self);
+void process_identification_definition_form_set_description(ProcessIdentificationDefinitionForm *self, const char *value);
 
 // ProcessIdentificationGovernanceForm is the generated section facade for the `governance` @Form section: its own `content` text followed by one typed member per form field.
 void process_identification_governance_form_init(ProcessIdentificationGovernanceForm *self, SpecDocument *doc, const char *path);
@@ -60000,14 +60000,14 @@ char *process_relationship_entry_content_form_target_process(const ProcessRelati
 void process_relationship_entry_content_form_set_target_process(ProcessRelationshipEntryContentForm *self, const char *value);
 char *process_relationship_entry_content_form_relationship_type(const ProcessRelationshipEntryContentForm *self);
 void process_relationship_entry_content_form_set_relationship_type(ProcessRelationshipEntryContentForm *self, const char *value);
-char *process_relationship_entry_content_form_data_exchanged(const ProcessRelationshipEntryContentForm *self);
-void process_relationship_entry_content_form_set_data_exchanged(ProcessRelationshipEntryContentForm *self, const char *value);
 char *process_relationship_entry_content_form_timing_dependency(const ProcessRelationshipEntryContentForm *self);
 void process_relationship_entry_content_form_set_timing_dependency(ProcessRelationshipEntryContentForm *self, const char *value);
 char *process_relationship_entry_content_form_frequency_of_interaction(const ProcessRelationshipEntryContentForm *self);
 void process_relationship_entry_content_form_set_frequency_of_interaction(ProcessRelationshipEntryContentForm *self, const char *value);
 char *process_relationship_entry_content_form_criticality(const ProcessRelationshipEntryContentForm *self);
 void process_relationship_entry_content_form_set_criticality(ProcessRelationshipEntryContentForm *self, const char *value);
+char *process_relationship_entry_content_form_data_exchanged(const ProcessRelationshipEntryContentForm *self);
+void process_relationship_entry_content_form_set_data_exchanged(ProcessRelationshipEntryContentForm *self, const char *value);
 
 // ProcessRoleEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void process_role_entry_content_form_init(ProcessRoleEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -60126,8 +60126,6 @@ void process_steps_overview_content_form_free(ProcessStepsOverviewContentForm *s
 // The section's own free-text content, before the form fields (owned).
 char *process_steps_overview_content_form_content(const ProcessStepsOverviewContentForm *self);
 void process_steps_overview_content_form_set_content(ProcessStepsOverviewContentForm *self, const char *value);
-char *process_steps_overview_content_form_use_case_scope(const ProcessStepsOverviewContentForm *self);
-void process_steps_overview_content_form_set_use_case_scope(ProcessStepsOverviewContentForm *self, const char *value);
 char *process_steps_overview_content_form_primary_actor_focus(const ProcessStepsOverviewContentForm *self);
 void process_steps_overview_content_form_set_primary_actor_focus(ProcessStepsOverviewContentForm *self, const char *value);
 char *process_steps_overview_content_form_interaction_coverage(const ProcessStepsOverviewContentForm *self);
@@ -60136,12 +60134,14 @@ char *process_steps_overview_content_form_scenario_coverage(const ProcessStepsOv
 void process_steps_overview_content_form_set_scenario_coverage(ProcessStepsOverviewContentForm *self, const char *value);
 char *process_steps_overview_content_form_use_case_naming_convention(const ProcessStepsOverviewContentForm *self);
 void process_steps_overview_content_form_set_use_case_naming_convention(ProcessStepsOverviewContentForm *self, const char *value);
+char *process_steps_overview_content_form_notation_standard(const ProcessStepsOverviewContentForm *self);
+void process_steps_overview_content_form_set_notation_standard(ProcessStepsOverviewContentForm *self, const char *value);
+char *process_steps_overview_content_form_use_case_scope(const ProcessStepsOverviewContentForm *self);
+void process_steps_overview_content_form_set_use_case_scope(ProcessStepsOverviewContentForm *self, const char *value);
 char *process_steps_overview_content_form_traceability_approach(const ProcessStepsOverviewContentForm *self);
 void process_steps_overview_content_form_set_traceability_approach(ProcessStepsOverviewContentForm *self, const char *value);
 char *process_steps_overview_content_form_detail_level(const ProcessStepsOverviewContentForm *self);
 void process_steps_overview_content_form_set_detail_level(ProcessStepsOverviewContentForm *self, const char *value);
-char *process_steps_overview_content_form_notation_standard(const ProcessStepsOverviewContentForm *self);
-void process_steps_overview_content_form_set_notation_standard(ProcessStepsOverviewContentForm *self, const char *value);
 
 // ProcessTechnologyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void process_technology_content_form_init(ProcessTechnologyContentForm *self, SpecDocument *doc, const char *path);
@@ -60265,10 +60265,10 @@ char *process_vision_success_criteria_form_performance_targets(const ProcessVisi
 void process_vision_success_criteria_form_set_performance_targets(ProcessVisionSuccessCriteriaForm *self, const char *value);
 char *process_vision_success_criteria_form_user_satisfaction(const ProcessVisionSuccessCriteriaForm *self);
 void process_vision_success_criteria_form_set_user_satisfaction(ProcessVisionSuccessCriteriaForm *self, const char *value);
-char *process_vision_success_criteria_form_business_outcomes(const ProcessVisionSuccessCriteriaForm *self);
-void process_vision_success_criteria_form_set_business_outcomes(ProcessVisionSuccessCriteriaForm *self, const char *value);
 char *process_vision_success_criteria_form_measurement_approach(const ProcessVisionSuccessCriteriaForm *self);
 void process_vision_success_criteria_form_set_measurement_approach(ProcessVisionSuccessCriteriaForm *self, const char *value);
+char *process_vision_success_criteria_form_business_outcomes(const ProcessVisionSuccessCriteriaForm *self);
+void process_vision_success_criteria_form_set_business_outcomes(ProcessVisionSuccessCriteriaForm *self, const char *value);
 
 // ProgrammingLanguageEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void programming_language_entry_content_form_init(ProgrammingLanguageEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -60864,10 +60864,10 @@ char *quality_gate_adjustment_details_content_form_adjustment_description(const 
 void quality_gate_adjustment_details_content_form_set_adjustment_description(QualityGateAdjustmentDetailsContentForm *self, const char *value);
 char *quality_gate_adjustment_details_content_form_original_criteria(const QualityGateAdjustmentDetailsContentForm *self);
 void quality_gate_adjustment_details_content_form_set_original_criteria(QualityGateAdjustmentDetailsContentForm *self, const char *value);
-char *quality_gate_adjustment_details_content_form_adjusted_criteria(const QualityGateAdjustmentDetailsContentForm *self);
-void quality_gate_adjustment_details_content_form_set_adjusted_criteria(QualityGateAdjustmentDetailsContentForm *self, const char *value);
 char *quality_gate_adjustment_details_content_form_criteria_threshold_change(const QualityGateAdjustmentDetailsContentForm *self);
 void quality_gate_adjustment_details_content_form_set_criteria_threshold_change(QualityGateAdjustmentDetailsContentForm *self, const char *value);
+char *quality_gate_adjustment_details_content_form_adjusted_criteria(const QualityGateAdjustmentDetailsContentForm *self);
+void quality_gate_adjustment_details_content_form_set_adjusted_criteria(QualityGateAdjustmentDetailsContentForm *self, const char *value);
 
 // QualityGateAdjustmentEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void quality_gate_adjustment_entry_content_form_init(QualityGateAdjustmentEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -60982,12 +60982,12 @@ void quality_gate_check_entry_definition_form_free(QualityGateCheckEntryDefiniti
 // The section's own free-text content, before the form fields (owned).
 char *quality_gate_check_entry_definition_form_content(const QualityGateCheckEntryDefinitionForm *self);
 void quality_gate_check_entry_definition_form_set_content(QualityGateCheckEntryDefinitionForm *self, const char *value);
-char *quality_gate_check_entry_definition_form_check_description(const QualityGateCheckEntryDefinitionForm *self);
-void quality_gate_check_entry_definition_form_set_check_description(QualityGateCheckEntryDefinitionForm *self, const char *value);
-char *quality_gate_check_entry_definition_form_check_category(const QualityGateCheckEntryDefinitionForm *self);
-void quality_gate_check_entry_definition_form_set_check_category(QualityGateCheckEntryDefinitionForm *self, const char *value);
 char *quality_gate_check_entry_definition_form_quality_category(const QualityGateCheckEntryDefinitionForm *self);
 void quality_gate_check_entry_definition_form_set_quality_category(QualityGateCheckEntryDefinitionForm *self, const char *value);
+char *quality_gate_check_entry_definition_form_check_category(const QualityGateCheckEntryDefinitionForm *self);
+void quality_gate_check_entry_definition_form_set_check_category(QualityGateCheckEntryDefinitionForm *self, const char *value);
+char *quality_gate_check_entry_definition_form_check_description(const QualityGateCheckEntryDefinitionForm *self);
+void quality_gate_check_entry_definition_form_set_check_description(QualityGateCheckEntryDefinitionForm *self, const char *value);
 
 // QualityGateCheckEntryExecutionForm is the generated section facade for the `execution` @Form section: its own `content` text followed by one typed member per form field.
 void quality_gate_check_entry_execution_form_init(QualityGateCheckEntryExecutionForm *self, SpecDocument *doc, const char *path);
@@ -61610,14 +61610,14 @@ void regulatory_compliance_entry_requirements_form_free(RegulatoryComplianceEntr
 // The section's own free-text content, before the form fields (owned).
 char *regulatory_compliance_entry_requirements_form_content(const RegulatoryComplianceEntryRequirementsForm *self);
 void regulatory_compliance_entry_requirements_form_set_content(RegulatoryComplianceEntryRequirementsForm *self, const char *value);
-char *regulatory_compliance_entry_requirements_form_key_requirements(const RegulatoryComplianceEntryRequirementsForm *self);
-void regulatory_compliance_entry_requirements_form_set_key_requirements(RegulatoryComplianceEntryRequirementsForm *self, const char *value);
 char *regulatory_compliance_entry_requirements_form_technical_controls(const RegulatoryComplianceEntryRequirementsForm *self);
 void regulatory_compliance_entry_requirements_form_set_technical_controls(RegulatoryComplianceEntryRequirementsForm *self, const char *value);
 char *regulatory_compliance_entry_requirements_form_procedural_controls(const RegulatoryComplianceEntryRequirementsForm *self);
 void regulatory_compliance_entry_requirements_form_set_procedural_controls(RegulatoryComplianceEntryRequirementsForm *self, const char *value);
 char *regulatory_compliance_entry_requirements_form_documentation_required(const RegulatoryComplianceEntryRequirementsForm *self);
 void regulatory_compliance_entry_requirements_form_set_documentation_required(RegulatoryComplianceEntryRequirementsForm *self, const char *value);
+char *regulatory_compliance_entry_requirements_form_key_requirements(const RegulatoryComplianceEntryRequirementsForm *self);
+void regulatory_compliance_entry_requirements_form_set_key_requirements(RegulatoryComplianceEntryRequirementsForm *self, const char *value);
 
 // RegulatoryRequirementEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void regulatory_requirement_entry_content_form_init(RegulatoryRequirementEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -61631,16 +61631,16 @@ char *regulatory_requirement_entry_content_form_regulatory_body(const Regulatory
 void regulatory_requirement_entry_content_form_set_regulatory_body(RegulatoryRequirementEntryContentForm *self, const char *value);
 char *regulatory_requirement_entry_content_form_jurisdiction(const RegulatoryRequirementEntryContentForm *self);
 void regulatory_requirement_entry_content_form_set_jurisdiction(RegulatoryRequirementEntryContentForm *self, const char *value);
-char *regulatory_requirement_entry_content_form_applicability(const RegulatoryRequirementEntryContentForm *self);
-void regulatory_requirement_entry_content_form_set_applicability(RegulatoryRequirementEntryContentForm *self, const char *value);
 char *regulatory_requirement_entry_content_form_compliance_deadline(const RegulatoryRequirementEntryContentForm *self);
 void regulatory_requirement_entry_content_form_set_compliance_deadline(RegulatoryRequirementEntryContentForm *self, const char *value);
-char *regulatory_requirement_entry_content_form_evidence_required(const RegulatoryRequirementEntryContentForm *self);
-void regulatory_requirement_entry_content_form_set_evidence_required(RegulatoryRequirementEntryContentForm *self, const char *value);
 char *regulatory_requirement_entry_content_form_responsible_party(const RegulatoryRequirementEntryContentForm *self);
 void regulatory_requirement_entry_content_form_set_responsible_party(RegulatoryRequirementEntryContentForm *self, const char *value);
 char *regulatory_requirement_entry_content_form_penalty_for_non_compliance(const RegulatoryRequirementEntryContentForm *self);
 void regulatory_requirement_entry_content_form_set_penalty_for_non_compliance(RegulatoryRequirementEntryContentForm *self, const char *value);
+char *regulatory_requirement_entry_content_form_applicability(const RegulatoryRequirementEntryContentForm *self);
+void regulatory_requirement_entry_content_form_set_applicability(RegulatoryRequirementEntryContentForm *self, const char *value);
+char *regulatory_requirement_entry_content_form_evidence_required(const RegulatoryRequirementEntryContentForm *self);
+void regulatory_requirement_entry_content_form_set_evidence_required(RegulatoryRequirementEntryContentForm *self, const char *value);
 
 // RelatedDocumentEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void related_document_entry_content_form_init(RelatedDocumentEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -61755,10 +61755,10 @@ char *relevant_section_entry_content_form_section_reference(const RelevantSectio
 void relevant_section_entry_content_form_set_section_reference(RelevantSectionEntryContentForm *self, const char *value);
 char *relevant_section_entry_content_form_relevance(const RelevantSectionEntryContentForm *self);
 void relevant_section_entry_content_form_set_relevance(RelevantSectionEntryContentForm *self, const char *value);
-char *relevant_section_entry_content_form_extract_summary(const RelevantSectionEntryContentForm *self);
-void relevant_section_entry_content_form_set_extract_summary(RelevantSectionEntryContentForm *self, const char *value);
 bool relevant_section_entry_content_form_compliance_required(const RelevantSectionEntryContentForm *self);
 void relevant_section_entry_content_form_set_compliance_required(RelevantSectionEntryContentForm *self, bool value);
+char *relevant_section_entry_content_form_extract_summary(const RelevantSectionEntryContentForm *self);
+void relevant_section_entry_content_form_set_extract_summary(RelevantSectionEntryContentForm *self, const char *value);
 
 // ReliabilityCharacteristicReliabilityContentForm is the generated section facade for the `reliabilityContent` @Form section: its own `content` text followed by one typed member per form field.
 void reliability_characteristic_reliability_content_form_init(ReliabilityCharacteristicReliabilityContentForm *self, SpecDocument *doc, const char *path);
@@ -63020,22 +63020,22 @@ void requirements_overview_requirements_form_form_free(RequirementsOverviewRequi
 // The section's own free-text content, before the form fields (owned).
 char *requirements_overview_requirements_form_form_content(const RequirementsOverviewRequirementsFormForm *self);
 void requirements_overview_requirements_form_form_set_content(RequirementsOverviewRequirementsFormForm *self, const char *value);
-char *requirements_overview_requirements_form_form_requirements_process(const RequirementsOverviewRequirementsFormForm *self);
-void requirements_overview_requirements_form_form_set_requirements_process(RequirementsOverviewRequirementsFormForm *self, const char *value);
 char *requirements_overview_requirements_form_form_traceability_approach(const RequirementsOverviewRequirementsFormForm *self);
 void requirements_overview_requirements_form_form_set_traceability_approach(RequirementsOverviewRequirementsFormForm *self, const char *value);
-char *requirements_overview_requirements_form_form_change_control_process(const RequirementsOverviewRequirementsFormForm *self);
-void requirements_overview_requirements_form_form_set_change_control_process(RequirementsOverviewRequirementsFormForm *self, const char *value);
 char *requirements_overview_requirements_form_form_prioritization_method(const RequirementsOverviewRequirementsFormForm *self);
 void requirements_overview_requirements_form_form_set_prioritization_method(RequirementsOverviewRequirementsFormForm *self, const char *value);
 char *requirements_overview_requirements_form_form_total_requirements(const RequirementsOverviewRequirementsFormForm *self);
 void requirements_overview_requirements_form_form_set_total_requirements(RequirementsOverviewRequirementsFormForm *self, const char *value);
-char *requirements_overview_requirements_form_form_must_have_count(const RequirementsOverviewRequirementsFormForm *self);
-void requirements_overview_requirements_form_form_set_must_have_count(RequirementsOverviewRequirementsFormForm *self, const char *value);
 char *requirements_overview_requirements_form_form_should_have_count(const RequirementsOverviewRequirementsFormForm *self);
 void requirements_overview_requirements_form_form_set_should_have_count(RequirementsOverviewRequirementsFormForm *self, const char *value);
 char *requirements_overview_requirements_form_form_could_have_count(const RequirementsOverviewRequirementsFormForm *self);
 void requirements_overview_requirements_form_form_set_could_have_count(RequirementsOverviewRequirementsFormForm *self, const char *value);
+char *requirements_overview_requirements_form_form_requirements_process(const RequirementsOverviewRequirementsFormForm *self);
+void requirements_overview_requirements_form_form_set_requirements_process(RequirementsOverviewRequirementsFormForm *self, const char *value);
+char *requirements_overview_requirements_form_form_change_control_process(const RequirementsOverviewRequirementsFormForm *self);
+void requirements_overview_requirements_form_form_set_change_control_process(RequirementsOverviewRequirementsFormForm *self, const char *value);
+char *requirements_overview_requirements_form_form_must_have_count(const RequirementsOverviewRequirementsFormForm *self);
+void requirements_overview_requirements_form_form_set_must_have_count(RequirementsOverviewRequirementsFormForm *self, const char *value);
 
 // ResourceAllocationEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void resource_allocation_entry_content_form_init(ResourceAllocationEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -63971,12 +63971,12 @@ void risk_identification_content_form_free(RiskIdentificationContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *risk_identification_content_form_content(const RiskIdentificationContentForm *self);
 void risk_identification_content_form_set_content(RiskIdentificationContentForm *self, const char *value);
-char *risk_identification_content_form_description(const RiskIdentificationContentForm *self);
-void risk_identification_content_form_set_description(RiskIdentificationContentForm *self, const char *value);
 char *risk_identification_content_form_category(const RiskIdentificationContentForm *self);
 void risk_identification_content_form_set_category(RiskIdentificationContentForm *self, const char *value);
 char *risk_identification_content_form_subcategory(const RiskIdentificationContentForm *self);
 void risk_identification_content_form_set_subcategory(RiskIdentificationContentForm *self, const char *value);
+char *risk_identification_content_form_description(const RiskIdentificationContentForm *self);
+void risk_identification_content_form_set_description(RiskIdentificationContentForm *self, const char *value);
 
 // RiskIdentificationSourceDetailsForm is the generated section facade for the `sourceDetails` @Form section: its own `content` text followed by one typed member per form field.
 void risk_identification_source_details_form_init(RiskIdentificationSourceDetailsForm *self, SpecDocument *doc, const char *path);
@@ -64161,12 +64161,12 @@ char *role_adjustment_entry_details_form_adjusted_role_name(const RoleAdjustment
 void role_adjustment_entry_details_form_set_adjusted_role_name(RoleAdjustmentEntryDetailsForm *self, const char *value);
 char *role_adjustment_entry_details_form_adjustment_description(const RoleAdjustmentEntryDetailsForm *self);
 void role_adjustment_entry_details_form_set_adjustment_description(RoleAdjustmentEntryDetailsForm *self, const char *value);
-char *role_adjustment_entry_details_form_affected_responsibilities(const RoleAdjustmentEntryDetailsForm *self);
-void role_adjustment_entry_details_form_set_affected_responsibilities(RoleAdjustmentEntryDetailsForm *self, const char *value);
 char *role_adjustment_entry_details_form_merged_with_roles(const RoleAdjustmentEntryDetailsForm *self);
 void role_adjustment_entry_details_form_set_merged_with_roles(RoleAdjustmentEntryDetailsForm *self, const char *value);
 char *role_adjustment_entry_details_form_split_into_roles(const RoleAdjustmentEntryDetailsForm *self);
 void role_adjustment_entry_details_form_set_split_into_roles(RoleAdjustmentEntryDetailsForm *self, const char *value);
+char *role_adjustment_entry_details_form_affected_responsibilities(const RoleAdjustmentEntryDetailsForm *self);
+void role_adjustment_entry_details_form_set_affected_responsibilities(RoleAdjustmentEntryDetailsForm *self, const char *value);
 
 // RoleAdjustmentEntryGovernanceForm is the generated section facade for the `governance` @Form section: its own `content` text followed by one typed member per form field.
 void role_adjustment_entry_governance_form_init(RoleAdjustmentEntryGovernanceForm *self, SpecDocument *doc, const char *path);
@@ -64730,12 +64730,12 @@ void runtime_environment_network_form_free(RuntimeEnvironmentNetworkForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *runtime_environment_network_form_content(const RuntimeEnvironmentNetworkForm *self);
 void runtime_environment_network_form_set_content(RuntimeEnvironmentNetworkForm *self, const char *value);
-char *runtime_environment_network_form_network_requirements(const RuntimeEnvironmentNetworkForm *self);
-void runtime_environment_network_form_set_network_requirements(RuntimeEnvironmentNetworkForm *self, const char *value);
 char *runtime_environment_network_form_bandwidth_requirements(const RuntimeEnvironmentNetworkForm *self);
 void runtime_environment_network_form_set_bandwidth_requirements(RuntimeEnvironmentNetworkForm *self, const char *value);
 char *runtime_environment_network_form_latency_requirements(const RuntimeEnvironmentNetworkForm *self);
 void runtime_environment_network_form_set_latency_requirements(RuntimeEnvironmentNetworkForm *self, const char *value);
+char *runtime_environment_network_form_network_requirements(const RuntimeEnvironmentNetworkForm *self);
+void runtime_environment_network_form_set_network_requirements(RuntimeEnvironmentNetworkForm *self, const char *value);
 
 // RuntimeEnvironmentRuntimeNotesForm is the generated section facade for the `runtimeNotes` @Form section: its own `content` text followed by one typed member per form field.
 void runtime_environment_runtime_notes_form_init(RuntimeEnvironmentRuntimeNotesForm *self, SpecDocument *doc, const char *path);
@@ -64776,10 +64776,10 @@ void runtime_environment_variables_form_free(RuntimeEnvironmentVariablesForm *se
 // The section's own free-text content, before the form fields (owned).
 char *runtime_environment_variables_form_content(const RuntimeEnvironmentVariablesForm *self);
 void runtime_environment_variables_form_set_content(RuntimeEnvironmentVariablesForm *self, const char *value);
-char *runtime_environment_variables_form_required_env_variables(const RuntimeEnvironmentVariablesForm *self);
-void runtime_environment_variables_form_set_required_env_variables(RuntimeEnvironmentVariablesForm *self, const char *value);
 char *runtime_environment_variables_form_optional_env_variables(const RuntimeEnvironmentVariablesForm *self);
 void runtime_environment_variables_form_set_optional_env_variables(RuntimeEnvironmentVariablesForm *self, const char *value);
+char *runtime_environment_variables_form_required_env_variables(const RuntimeEnvironmentVariablesForm *self);
+void runtime_environment_variables_form_set_required_env_variables(RuntimeEnvironmentVariablesForm *self, const char *value);
 
 // ScalabilityArchitectureCapacityForm is the generated section facade for the `capacity` @Form section: its own `content` text followed by one typed member per form field.
 void scalability_architecture_capacity_form_init(ScalabilityArchitectureCapacityForm *self, SpecDocument *doc, const char *path);
@@ -64789,10 +64789,10 @@ char *scalability_architecture_capacity_form_content(const ScalabilityArchitectu
 void scalability_architecture_capacity_form_set_content(ScalabilityArchitectureCapacityForm *self, const char *value);
 char *scalability_architecture_capacity_form_expected_load(const ScalabilityArchitectureCapacityForm *self);
 void scalability_architecture_capacity_form_set_expected_load(ScalabilityArchitectureCapacityForm *self, const char *value);
-char *scalability_architecture_capacity_form_peak_load(const ScalabilityArchitectureCapacityForm *self);
-void scalability_architecture_capacity_form_set_peak_load(ScalabilityArchitectureCapacityForm *self, const char *value);
 char *scalability_architecture_capacity_form_growth_projection(const ScalabilityArchitectureCapacityForm *self);
 void scalability_architecture_capacity_form_set_growth_projection(ScalabilityArchitectureCapacityForm *self, const char *value);
+char *scalability_architecture_capacity_form_peak_load(const ScalabilityArchitectureCapacityForm *self);
+void scalability_architecture_capacity_form_set_peak_load(ScalabilityArchitectureCapacityForm *self, const char *value);
 
 // ScalabilityArchitectureContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void scalability_architecture_content_form_init(ScalabilityArchitectureContentForm *self, SpecDocument *doc, const char *path);
@@ -65387,14 +65387,14 @@ void scope_item_entry_content_form_free(ScopeItemEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *scope_item_entry_content_form_content(const ScopeItemEntryContentForm *self);
 void scope_item_entry_content_form_set_content(ScopeItemEntryContentForm *self, const char *value);
-char *scope_item_entry_content_form_item_description(const ScopeItemEntryContentForm *self);
-void scope_item_entry_content_form_set_item_description(ScopeItemEntryContentForm *self, const char *value);
 char *scope_item_entry_content_form_category(const ScopeItemEntryContentForm *self);
 void scope_item_entry_content_form_set_category(ScopeItemEntryContentForm *self, const char *value);
 char *scope_item_entry_content_form_rationale(const ScopeItemEntryContentForm *self);
 void scope_item_entry_content_form_set_rationale(ScopeItemEntryContentForm *self, const char *value);
 char *scope_item_entry_content_form_related_requirements(const ScopeItemEntryContentForm *self);
 void scope_item_entry_content_form_set_related_requirements(ScopeItemEntryContentForm *self, const char *value);
+char *scope_item_entry_content_form_item_description(const ScopeItemEntryContentForm *self);
+void scope_item_entry_content_form_set_item_description(ScopeItemEntryContentForm *self, const char *value);
 
 // ScreenActionEntryBehaviorForm is the generated section facade for the `behavior` @Form section: its own `content` text followed by one typed member per form field.
 void screen_action_entry_behavior_form_init(ScreenActionEntryBehaviorForm *self, SpecDocument *doc, const char *path);
@@ -65438,10 +65438,10 @@ char *screen_action_entry_content_form_action_type(const ScreenActionEntryConten
 void screen_action_entry_content_form_set_action_type(ScreenActionEntryContentForm *self, const char *value);
 char *screen_action_entry_content_form_owning_controller(const ScreenActionEntryContentForm *self);
 void screen_action_entry_content_form_set_owning_controller(ScreenActionEntryContentForm *self, const char *value);
-char *screen_action_entry_content_form_description(const ScreenActionEntryContentForm *self);
-void screen_action_entry_content_form_set_description(ScreenActionEntryContentForm *self, const char *value);
 char *screen_action_entry_content_form_context_type(const ScreenActionEntryContentForm *self);
 void screen_action_entry_content_form_set_context_type(ScreenActionEntryContentForm *self, const char *value);
+char *screen_action_entry_content_form_description(const ScreenActionEntryContentForm *self);
+void screen_action_entry_content_form_set_description(ScreenActionEntryContentForm *self, const char *value);
 
 // ScreenActionEntryVisualForm is the generated section facade for the `visual` @Form section: its own `content` text followed by one typed member per form field.
 void screen_action_entry_visual_form_init(ScreenActionEntryVisualForm *self, SpecDocument *doc, const char *path);
@@ -65620,10 +65620,10 @@ void screen_element_entry_presentation_form_free(ScreenElementEntryPresentationF
 // The section's own free-text content, before the form fields (owned).
 char *screen_element_entry_presentation_form_content(const ScreenElementEntryPresentationForm *self);
 void screen_element_entry_presentation_form_set_content(ScreenElementEntryPresentationForm *self, const char *value);
-char *screen_element_entry_presentation_form_style_variant(const ScreenElementEntryPresentationForm *self);
-void screen_element_entry_presentation_form_set_style_variant(ScreenElementEntryPresentationForm *self, const char *value);
 char *screen_element_entry_presentation_form_accessibility_label(const ScreenElementEntryPresentationForm *self);
 void screen_element_entry_presentation_form_set_accessibility_label(ScreenElementEntryPresentationForm *self, const char *value);
+char *screen_element_entry_presentation_form_style_variant(const ScreenElementEntryPresentationForm *self);
+void screen_element_entry_presentation_form_set_style_variant(ScreenElementEntryPresentationForm *self, const char *value);
 char *screen_element_entry_presentation_form_data_binding(const ScreenElementEntryPresentationForm *self);
 void screen_element_entry_presentation_form_set_data_binding(ScreenElementEntryPresentationForm *self, const char *value);
 char *screen_element_entry_presentation_form_default_value(const ScreenElementEntryPresentationForm *self);
@@ -65788,12 +65788,12 @@ void screen_entry_presentation_form_free(ScreenEntryPresentationForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *screen_entry_presentation_form_content(const ScreenEntryPresentationForm *self);
 void screen_entry_presentation_form_set_content(ScreenEntryPresentationForm *self, const char *value);
+char *screen_entry_presentation_form_help_topic_id(const ScreenEntryPresentationForm *self);
+void screen_entry_presentation_form_set_help_topic_id(ScreenEntryPresentationForm *self, const char *value);
 char *screen_entry_presentation_form_page_title_resource(const ScreenEntryPresentationForm *self);
 void screen_entry_presentation_form_set_page_title_resource(ScreenEntryPresentationForm *self, const char *value);
 char *screen_entry_presentation_form_page_icon_resource(const ScreenEntryPresentationForm *self);
 void screen_entry_presentation_form_set_page_icon_resource(ScreenEntryPresentationForm *self, const char *value);
-char *screen_entry_presentation_form_help_topic_id(const ScreenEntryPresentationForm *self);
-void screen_entry_presentation_form_set_help_topic_id(ScreenEntryPresentationForm *self, const char *value);
 char *screen_entry_presentation_form_layout(const ScreenEntryPresentationForm *self);
 void screen_entry_presentation_form_set_layout(ScreenEntryPresentationForm *self, const char *value);
 
@@ -65995,10 +65995,10 @@ char *screen_section_entry_content_form_content(const ScreenSectionEntryContentF
 void screen_section_entry_content_form_set_content(ScreenSectionEntryContentForm *self, const char *value);
 char *screen_section_entry_content_form_section_id(const ScreenSectionEntryContentForm *self);
 void screen_section_entry_content_form_set_section_id(ScreenSectionEntryContentForm *self, const char *value);
-char *screen_section_entry_content_form_purpose(const ScreenSectionEntryContentForm *self);
-void screen_section_entry_content_form_set_purpose(ScreenSectionEntryContentForm *self, const char *value);
 char *screen_section_entry_content_form_section_type(const ScreenSectionEntryContentForm *self);
 void screen_section_entry_content_form_set_section_type(ScreenSectionEntryContentForm *self, const char *value);
+char *screen_section_entry_content_form_purpose(const ScreenSectionEntryContentForm *self);
+void screen_section_entry_content_form_set_purpose(ScreenSectionEntryContentForm *self, const char *value);
 
 // ScreenSectionEntryLayoutForm is the generated section facade for the `layout` @Form section: its own `content` text followed by one typed member per form field.
 void screen_section_entry_layout_form_init(ScreenSectionEntryLayoutForm *self, SpecDocument *doc, const char *path);
@@ -66023,20 +66023,20 @@ char *screen_state_entry_content_form_content(const ScreenStateEntryContentForm 
 void screen_state_entry_content_form_set_content(ScreenStateEntryContentForm *self, const char *value);
 char *screen_state_entry_content_form_state_id(const ScreenStateEntryContentForm *self);
 void screen_state_entry_content_form_set_state_id(ScreenStateEntryContentForm *self, const char *value);
-char *screen_state_entry_content_form_description(const ScreenStateEntryContentForm *self);
-void screen_state_entry_content_form_set_description(ScreenStateEntryContentForm *self, const char *value);
+char *screen_state_entry_content_form_primary_action_label(const ScreenStateEntryContentForm *self);
+void screen_state_entry_content_form_set_primary_action_label(ScreenStateEntryContentForm *self, const char *value);
+char *screen_state_entry_content_form_secondary_action_label(const ScreenStateEntryContentForm *self);
+void screen_state_entry_content_form_set_secondary_action_label(ScreenStateEntryContentForm *self, const char *value);
 char *screen_state_entry_content_form_message_resource(const ScreenStateEntryContentForm *self);
 void screen_state_entry_content_form_set_message_resource(ScreenStateEntryContentForm *self, const char *value);
 char *screen_state_entry_content_form_icon_resource(const ScreenStateEntryContentForm *self);
 void screen_state_entry_content_form_set_icon_resource(ScreenStateEntryContentForm *self, const char *value);
 char *screen_state_entry_content_form_illustration_resource(const ScreenStateEntryContentForm *self);
 void screen_state_entry_content_form_set_illustration_resource(ScreenStateEntryContentForm *self, const char *value);
-char *screen_state_entry_content_form_primary_action_label(const ScreenStateEntryContentForm *self);
-void screen_state_entry_content_form_set_primary_action_label(ScreenStateEntryContentForm *self, const char *value);
 char *screen_state_entry_content_form_primary_action_target(const ScreenStateEntryContentForm *self);
 void screen_state_entry_content_form_set_primary_action_target(ScreenStateEntryContentForm *self, const char *value);
-char *screen_state_entry_content_form_secondary_action_label(const ScreenStateEntryContentForm *self);
-void screen_state_entry_content_form_set_secondary_action_label(ScreenStateEntryContentForm *self, const char *value);
+char *screen_state_entry_content_form_description(const ScreenStateEntryContentForm *self);
+void screen_state_entry_content_form_set_description(ScreenStateEntryContentForm *self, const char *value);
 
 // ScreenTransitionEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void screen_transition_entry_content_form_init(ScreenTransitionEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -66128,10 +66128,10 @@ void security_authentication_form_free(SecurityAuthenticationForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *security_authentication_form_content(const SecurityAuthenticationForm *self);
 void security_authentication_form_set_content(SecurityAuthenticationForm *self, const char *value);
-char *security_authentication_form_authentication_method(const SecurityAuthenticationForm *self);
-void security_authentication_form_set_authentication_method(SecurityAuthenticationForm *self, const char *value);
 char *security_authentication_form_mfa_requirement(const SecurityAuthenticationForm *self);
 void security_authentication_form_set_mfa_requirement(SecurityAuthenticationForm *self, const char *value);
+char *security_authentication_form_authentication_method(const SecurityAuthenticationForm *self);
+void security_authentication_form_set_authentication_method(SecurityAuthenticationForm *self, const char *value);
 char *security_authentication_form_password_policy(const SecurityAuthenticationForm *self);
 void security_authentication_form_set_password_policy(SecurityAuthenticationForm *self, const char *value);
 char *security_authentication_form_session_management(const SecurityAuthenticationForm *self);
@@ -66453,20 +66453,20 @@ void security_requirement_entry_classification_form_free(SecurityRequirementEntr
 // The section's own free-text content, before the form fields (owned).
 char *security_requirement_entry_classification_form_content(const SecurityRequirementEntryClassificationForm *self);
 void security_requirement_entry_classification_form_set_content(SecurityRequirementEntryClassificationForm *self, const char *value);
+char *security_requirement_entry_classification_form_priority(const SecurityRequirementEntryClassificationForm *self);
+void security_requirement_entry_classification_form_set_priority(SecurityRequirementEntryClassificationForm *self, const char *value);
 char *security_requirement_entry_classification_form_category(const SecurityRequirementEntryClassificationForm *self);
 void security_requirement_entry_classification_form_set_category(SecurityRequirementEntryClassificationForm *self, const char *value);
 char *security_requirement_entry_classification_form_subcategory(const SecurityRequirementEntryClassificationForm *self);
 void security_requirement_entry_classification_form_set_subcategory(SecurityRequirementEntryClassificationForm *self, const char *value);
-char *security_requirement_entry_classification_form_priority(const SecurityRequirementEntryClassificationForm *self);
-void security_requirement_entry_classification_form_set_priority(SecurityRequirementEntryClassificationForm *self, const char *value);
-char *security_requirement_entry_classification_form_source(const SecurityRequirementEntryClassificationForm *self);
-void security_requirement_entry_classification_form_set_source(SecurityRequirementEntryClassificationForm *self, const char *value);
 char *security_requirement_entry_classification_form_rationale(const SecurityRequirementEntryClassificationForm *self);
 void security_requirement_entry_classification_form_set_rationale(SecurityRequirementEntryClassificationForm *self, const char *value);
 char *security_requirement_entry_classification_form_threat_mitigated(const SecurityRequirementEntryClassificationForm *self);
 void security_requirement_entry_classification_form_set_threat_mitigated(SecurityRequirementEntryClassificationForm *self, const char *value);
 char *security_requirement_entry_classification_form_data_classification(const SecurityRequirementEntryClassificationForm *self);
 void security_requirement_entry_classification_form_set_data_classification(SecurityRequirementEntryClassificationForm *self, const char *value);
+char *security_requirement_entry_classification_form_source(const SecurityRequirementEntryClassificationForm *self);
+void security_requirement_entry_classification_form_set_source(SecurityRequirementEntryClassificationForm *self, const char *value);
 
 // SecurityRequirementEntryComplianceForm is the generated section facade for the `compliance` @Form section: its own `content` text followed by one typed member per form field.
 void security_requirement_entry_compliance_form_init(SecurityRequirementEntryComplianceForm *self, SpecDocument *doc, const char *path);
@@ -66993,14 +66993,14 @@ char *server_operation_entry_content_form_content(const ServerOperationEntryCont
 void server_operation_entry_content_form_set_content(ServerOperationEntryContentForm *self, const char *value);
 char *server_operation_entry_content_form_operation_name(const ServerOperationEntryContentForm *self);
 void server_operation_entry_content_form_set_operation_name(ServerOperationEntryContentForm *self, const char *value);
-char *server_operation_entry_content_form_purpose(const ServerOperationEntryContentForm *self);
-void server_operation_entry_content_form_set_purpose(ServerOperationEntryContentForm *self, const char *value);
-char *server_operation_entry_content_form_primary_data_entity(const ServerOperationEntryContentForm *self);
-void server_operation_entry_content_form_set_primary_data_entity(ServerOperationEntryContentForm *self, const char *value);
 char *server_operation_entry_content_form_description_key(const ServerOperationEntryContentForm *self);
 void server_operation_entry_content_form_set_description_key(ServerOperationEntryContentForm *self, const char *value);
+char *server_operation_entry_content_form_primary_data_entity(const ServerOperationEntryContentForm *self);
+void server_operation_entry_content_form_set_primary_data_entity(ServerOperationEntryContentForm *self, const char *value);
 char *server_operation_entry_content_form_error_codes(const ServerOperationEntryContentForm *self);
 void server_operation_entry_content_form_set_error_codes(ServerOperationEntryContentForm *self, const char *value);
+char *server_operation_entry_content_form_purpose(const ServerOperationEntryContentForm *self);
+void server_operation_entry_content_form_set_purpose(ServerOperationEntryContentForm *self, const char *value);
 
 // ServerOperationEntryControlsForm is the generated section facade for the `controls` @Form section: its own `content` text followed by one typed member per form field.
 void server_operation_entry_controls_form_init(ServerOperationEntryControlsForm *self, SpecDocument *doc, const char *path);
@@ -68257,10 +68257,10 @@ char *software_layer_entry_responsibilities_form_content(const SoftwareLayerEntr
 void software_layer_entry_responsibilities_form_set_content(SoftwareLayerEntryResponsibilitiesForm *self, const char *value);
 char *software_layer_entry_responsibilities_form_purpose(const SoftwareLayerEntryResponsibilitiesForm *self);
 void software_layer_entry_responsibilities_form_set_purpose(SoftwareLayerEntryResponsibilitiesForm *self, const char *value);
-char *software_layer_entry_responsibilities_form_responsibilities(const SoftwareLayerEntryResponsibilitiesForm *self);
-void software_layer_entry_responsibilities_form_set_responsibilities(SoftwareLayerEntryResponsibilitiesForm *self, const char *value);
 char *software_layer_entry_responsibilities_form_prohibitions(const SoftwareLayerEntryResponsibilitiesForm *self);
 void software_layer_entry_responsibilities_form_set_prohibitions(SoftwareLayerEntryResponsibilitiesForm *self, const char *value);
+char *software_layer_entry_responsibilities_form_responsibilities(const SoftwareLayerEntryResponsibilitiesForm *self);
+void software_layer_entry_responsibilities_form_set_responsibilities(SoftwareLayerEntryResponsibilitiesForm *self, const char *value);
 
 // SoftwareLayerEntryTechnologyForm is the generated section facade for the `technology` @Form section: its own `content` text followed by one typed member per form field.
 void software_layer_entry_technology_form_init(SoftwareLayerEntryTechnologyForm *self, SpecDocument *doc, const char *path);
@@ -68568,12 +68568,12 @@ char *stage_entry_identity_form_content(const StageEntryIdentityForm *self);
 void stage_entry_identity_form_set_content(StageEntryIdentityForm *self, const char *value);
 char *stage_entry_identity_form_stage_codename(const StageEntryIdentityForm *self);
 void stage_entry_identity_form_set_stage_codename(StageEntryIdentityForm *self, const char *value);
-char *stage_entry_identity_form_stage_description(const StageEntryIdentityForm *self);
-void stage_entry_identity_form_set_stage_description(StageEntryIdentityForm *self, const char *value);
 char *stage_entry_identity_form_business_objective(const StageEntryIdentityForm *self);
 void stage_entry_identity_form_set_business_objective(StageEntryIdentityForm *self, const char *value);
 char *stage_entry_identity_form_stage_type(const StageEntryIdentityForm *self);
 void stage_entry_identity_form_set_stage_type(StageEntryIdentityForm *self, const char *value);
+char *stage_entry_identity_form_stage_description(const StageEntryIdentityForm *self);
+void stage_entry_identity_form_set_stage_description(StageEntryIdentityForm *self, const char *value);
 
 // StageEntryMetricsForm is the generated section facade for the `metrics` @Form section: its own `content` text followed by one typed member per form field.
 void stage_entry_metrics_form_init(StageEntryMetricsForm *self, SpecDocument *doc, const char *path);
@@ -68598,18 +68598,18 @@ void stage_entry_quality_form_free(StageEntryQualityForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *stage_entry_quality_form_content(const StageEntryQualityForm *self);
 void stage_entry_quality_form_set_content(StageEntryQualityForm *self, const char *value);
+char *stage_entry_quality_form_acceptance_criteria_summary(const StageEntryQualityForm *self);
+void stage_entry_quality_form_set_acceptance_criteria_summary(StageEntryQualityForm *self, const char *value);
 char *stage_entry_quality_form_entry_criteria(const StageEntryQualityForm *self);
 void stage_entry_quality_form_set_entry_criteria(StageEntryQualityForm *self, const char *value);
-char *stage_entry_quality_form_exit_criteria(const StageEntryQualityForm *self);
-void stage_entry_quality_form_set_exit_criteria(StageEntryQualityForm *self, const char *value);
 char *stage_entry_quality_form_quality_gates(const StageEntryQualityForm *self);
 void stage_entry_quality_form_set_quality_gates(StageEntryQualityForm *self, const char *value);
 char *stage_entry_quality_form_testing_strategy(const StageEntryQualityForm *self);
 void stage_entry_quality_form_set_testing_strategy(StageEntryQualityForm *self, const char *value);
-char *stage_entry_quality_form_acceptance_criteria_summary(const StageEntryQualityForm *self);
-void stage_entry_quality_form_set_acceptance_criteria_summary(StageEntryQualityForm *self, const char *value);
 char *stage_entry_quality_form_tolerance_levels(const StageEntryQualityForm *self);
 void stage_entry_quality_form_set_tolerance_levels(StageEntryQualityForm *self, const char *value);
+char *stage_entry_quality_form_exit_criteria(const StageEntryQualityForm *self);
+void stage_entry_quality_form_set_exit_criteria(StageEntryQualityForm *self, const char *value);
 
 // StageEntryRiskForm is the generated section facade for the `risk` @Form section: its own `content` text followed by one typed member per form field.
 void stage_entry_risk_form_init(StageEntryRiskForm *self, SpecDocument *doc, const char *path);
@@ -68632,8 +68632,6 @@ void stage_entry_scope_form_free(StageEntryScopeForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *stage_entry_scope_form_content(const StageEntryScopeForm *self);
 void stage_entry_scope_form_set_content(StageEntryScopeForm *self, const char *value);
-char *stage_entry_scope_form_scope_summary(const StageEntryScopeForm *self);
-void stage_entry_scope_form_set_scope_summary(StageEntryScopeForm *self, const char *value);
 char *stage_entry_scope_form_included_features(const StageEntryScopeForm *self);
 void stage_entry_scope_form_set_included_features(StageEntryScopeForm *self, const char *value);
 char *stage_entry_scope_form_excluded_deferred(const StageEntryScopeForm *self);
@@ -68648,6 +68646,8 @@ char *stage_entry_scope_form_story_point_estimate(const StageEntryScopeForm *sel
 void stage_entry_scope_form_set_story_point_estimate(StageEntryScopeForm *self, const char *value);
 char *stage_entry_scope_form_technical_debt_items(const StageEntryScopeForm *self);
 void stage_entry_scope_form_set_technical_debt_items(StageEntryScopeForm *self, const char *value);
+char *stage_entry_scope_form_scope_summary(const StageEntryScopeForm *self);
+void stage_entry_scope_form_set_scope_summary(StageEntryScopeForm *self, const char *value);
 
 // StageEntryTimelineForm is the generated section facade for the `timeline` @Form section: its own `content` text followed by one typed member per form field.
 void stage_entry_timeline_form_init(StageEntryTimelineForm *self, SpecDocument *doc, const char *path);
@@ -69397,14 +69397,14 @@ void staging_dependencies_content_form_free(StagingDependenciesContentForm *self
 // The section's own free-text content, before the form fields (owned).
 char *staging_dependencies_content_form_content(const StagingDependenciesContentForm *self);
 void staging_dependencies_content_form_set_content(StagingDependenciesContentForm *self, const char *value);
-char *staging_dependencies_content_form_critical_prerequisites(const StagingDependenciesContentForm *self);
-void staging_dependencies_content_form_set_critical_prerequisites(StagingDependenciesContentForm *self, const char *value);
 char *staging_dependencies_content_form_external_dependencies(const StagingDependenciesContentForm *self);
 void staging_dependencies_content_form_set_external_dependencies(StagingDependenciesContentForm *self, const char *value);
 char *staging_dependencies_content_form_internal_dependencies(const StagingDependenciesContentForm *self);
 void staging_dependencies_content_form_set_internal_dependencies(StagingDependenciesContentForm *self, const char *value);
 char *staging_dependencies_content_form_dependency_risks(const StagingDependenciesContentForm *self);
 void staging_dependencies_content_form_set_dependency_risks(StagingDependenciesContentForm *self, const char *value);
+char *staging_dependencies_content_form_critical_prerequisites(const StagingDependenciesContentForm *self);
+void staging_dependencies_content_form_set_critical_prerequisites(StagingDependenciesContentForm *self, const char *value);
 
 // StagingDriversContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void staging_drivers_content_form_init(StagingDriversContentForm *self, SpecDocument *doc, const char *path);
@@ -69433,10 +69433,10 @@ char *staging_strategy_approach_selection_form_content(const StagingStrategyAppr
 void staging_strategy_approach_selection_form_set_content(StagingStrategyApproachSelectionForm *self, const char *value);
 char *staging_strategy_approach_selection_form_approach_description(const StagingStrategyApproachSelectionForm *self);
 void staging_strategy_approach_selection_form_set_approach_description(StagingStrategyApproachSelectionForm *self, const char *value);
-char *staging_strategy_approach_selection_form_alternatives_considered(const StagingStrategyApproachSelectionForm *self);
-void staging_strategy_approach_selection_form_set_alternatives_considered(StagingStrategyApproachSelectionForm *self, const char *value);
 char *staging_strategy_approach_selection_form_selection_criteria(const StagingStrategyApproachSelectionForm *self);
 void staging_strategy_approach_selection_form_set_selection_criteria(StagingStrategyApproachSelectionForm *self, const char *value);
+char *staging_strategy_approach_selection_form_alternatives_considered(const StagingStrategyApproachSelectionForm *self);
+void staging_strategy_approach_selection_form_set_alternatives_considered(StagingStrategyApproachSelectionForm *self, const char *value);
 
 // StagingStrategyCommunicationForm is the generated section facade for the `communication` @Form section: its own `content` text followed by one typed member per form field.
 void staging_strategy_communication_form_init(StagingStrategyCommunicationForm *self, SpecDocument *doc, const char *path);
@@ -69629,16 +69629,16 @@ void stakeholder_register_entry_content_form_free(StakeholderRegisterEntryConten
 // The section's own free-text content, before the form fields (owned).
 char *stakeholder_register_entry_content_form_content(const StakeholderRegisterEntryContentForm *self);
 void stakeholder_register_entry_content_form_set_content(StakeholderRegisterEntryContentForm *self, const char *value);
-char *stakeholder_register_entry_content_form_role(const StakeholderRegisterEntryContentForm *self);
-void stakeholder_register_entry_content_form_set_role(StakeholderRegisterEntryContentForm *self, const char *value);
-char *stakeholder_register_entry_content_form_interest(const StakeholderRegisterEntryContentForm *self);
-void stakeholder_register_entry_content_form_set_interest(StakeholderRegisterEntryContentForm *self, const char *value);
 char *stakeholder_register_entry_content_form_influence(const StakeholderRegisterEntryContentForm *self);
 void stakeholder_register_entry_content_form_set_influence(StakeholderRegisterEntryContentForm *self, const char *value);
 char *stakeholder_register_entry_content_form_concerns(const StakeholderRegisterEntryContentForm *self);
 void stakeholder_register_entry_content_form_set_concerns(StakeholderRegisterEntryContentForm *self, const char *value);
 char *stakeholder_register_entry_content_form_engagement_strategy(const StakeholderRegisterEntryContentForm *self);
 void stakeholder_register_entry_content_form_set_engagement_strategy(StakeholderRegisterEntryContentForm *self, const char *value);
+char *stakeholder_register_entry_content_form_role(const StakeholderRegisterEntryContentForm *self);
+void stakeholder_register_entry_content_form_set_role(StakeholderRegisterEntryContentForm *self, const char *value);
+char *stakeholder_register_entry_content_form_interest(const StakeholderRegisterEntryContentForm *self);
+void stakeholder_register_entry_content_form_set_interest(StakeholderRegisterEntryContentForm *self, const char *value);
 
 // StakeholdersAndGovernanceSummaryForm is the generated section facade for the `summary` @Form section: its own `content` text followed by one typed member per form field.
 void stakeholders_and_governance_summary_form_init(StakeholdersAndGovernanceSummaryForm *self, SpecDocument *doc, const char *path);
@@ -69805,8 +69805,6 @@ char *strategic_alignment_alignment_details_form_aligned_business_objectives(con
 void strategic_alignment_alignment_details_form_set_aligned_business_objectives(StrategicAlignmentAlignmentDetailsForm *self, const char *value);
 char *strategic_alignment_alignment_details_form_aligned_it_strategy(const StrategicAlignmentAlignmentDetailsForm *self);
 void strategic_alignment_alignment_details_form_set_aligned_it_strategy(StrategicAlignmentAlignmentDetailsForm *self, const char *value);
-char *strategic_alignment_alignment_details_form_related_initiatives(const StrategicAlignmentAlignmentDetailsForm *self);
-void strategic_alignment_alignment_details_form_set_related_initiatives(StrategicAlignmentAlignmentDetailsForm *self, const char *value);
 char *strategic_alignment_alignment_details_form_digitization_contribution(const StrategicAlignmentAlignmentDetailsForm *self);
 void strategic_alignment_alignment_details_form_set_digitization_contribution(StrategicAlignmentAlignmentDetailsForm *self, const char *value);
 char *strategic_alignment_alignment_details_form_innovation_contribution(const StrategicAlignmentAlignmentDetailsForm *self);
@@ -69817,6 +69815,8 @@ char *strategic_alignment_alignment_details_form_market_positioning(const Strate
 void strategic_alignment_alignment_details_form_set_market_positioning(StrategicAlignmentAlignmentDetailsForm *self, const char *value);
 char *strategic_alignment_alignment_details_form_strategic_timing_rationale(const StrategicAlignmentAlignmentDetailsForm *self);
 void strategic_alignment_alignment_details_form_set_strategic_timing_rationale(StrategicAlignmentAlignmentDetailsForm *self, const char *value);
+char *strategic_alignment_alignment_details_form_related_initiatives(const StrategicAlignmentAlignmentDetailsForm *self);
+void strategic_alignment_alignment_details_form_set_related_initiatives(StrategicAlignmentAlignmentDetailsForm *self, const char *value);
 
 // SubFunctionEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void sub_function_entry_content_form_init(SubFunctionEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -69863,10 +69863,10 @@ void sub_stage_entry_overview_form_free(SubStageEntryOverviewForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *sub_stage_entry_overview_form_content(const SubStageEntryOverviewForm *self);
 void sub_stage_entry_overview_form_set_content(SubStageEntryOverviewForm *self, const char *value);
-char *sub_stage_entry_overview_form_description(const SubStageEntryOverviewForm *self);
-void sub_stage_entry_overview_form_set_description(SubStageEntryOverviewForm *self, const char *value);
 char *sub_stage_entry_overview_form_objective(const SubStageEntryOverviewForm *self);
 void sub_stage_entry_overview_form_set_objective(SubStageEntryOverviewForm *self, const char *value);
+char *sub_stage_entry_overview_form_description(const SubStageEntryOverviewForm *self);
+void sub_stage_entry_overview_form_set_description(SubStageEntryOverviewForm *self, const char *value);
 
 // SubStageEntryScopeForm is the generated section facade for the `scope` @Form section: its own `content` text followed by one typed member per form field.
 void sub_stage_entry_scope_form_init(SubStageEntryScopeForm *self, SpecDocument *doc, const char *path);
@@ -70568,20 +70568,20 @@ char *system_description_description_summary_form_domain_classification(const Sy
 void system_description_description_summary_form_set_domain_classification(SystemDescriptionDescriptionSummaryForm *self, const char *value);
 char *system_description_description_summary_form_deployment_model(const SystemDescriptionDescriptionSummaryForm *self);
 void system_description_description_summary_form_set_deployment_model(SystemDescriptionDescriptionSummaryForm *self, const char *value);
-char *system_description_description_summary_form_architecture_style(const SystemDescriptionDescriptionSummaryForm *self);
-void system_description_description_summary_form_set_architecture_style(SystemDescriptionDescriptionSummaryForm *self, const char *value);
 char *system_description_description_summary_form_primary_technology_stack(const SystemDescriptionDescriptionSummaryForm *self);
 void system_description_description_summary_form_set_primary_technology_stack(SystemDescriptionDescriptionSummaryForm *self, const char *value);
-char *system_description_description_summary_form_interface_types(const SystemDescriptionDescriptionSummaryForm *self);
-void system_description_description_summary_form_set_interface_types(SystemDescriptionDescriptionSummaryForm *self, const char *value);
 char *system_description_description_summary_form_data_characteristics(const SystemDescriptionDescriptionSummaryForm *self);
 void system_description_description_summary_form_set_data_characteristics(SystemDescriptionDescriptionSummaryForm *self, const char *value);
-char *system_description_description_summary_form_security_classification(const SystemDescriptionDescriptionSummaryForm *self);
-void system_description_description_summary_form_set_security_classification(SystemDescriptionDescriptionSummaryForm *self, const char *value);
 char *system_description_description_summary_form_availability_requirement(const SystemDescriptionDescriptionSummaryForm *self);
 void system_description_description_summary_form_set_availability_requirement(SystemDescriptionDescriptionSummaryForm *self, const char *value);
 char *system_description_description_summary_form_scalability_model(const SystemDescriptionDescriptionSummaryForm *self);
 void system_description_description_summary_form_set_scalability_model(SystemDescriptionDescriptionSummaryForm *self, const char *value);
+char *system_description_description_summary_form_architecture_style(const SystemDescriptionDescriptionSummaryForm *self);
+void system_description_description_summary_form_set_architecture_style(SystemDescriptionDescriptionSummaryForm *self, const char *value);
+char *system_description_description_summary_form_interface_types(const SystemDescriptionDescriptionSummaryForm *self);
+void system_description_description_summary_form_set_interface_types(SystemDescriptionDescriptionSummaryForm *self, const char *value);
+char *system_description_description_summary_form_security_classification(const SystemDescriptionDescriptionSummaryForm *self);
+void system_description_description_summary_form_set_security_classification(SystemDescriptionDescriptionSummaryForm *self, const char *value);
 char *system_description_description_summary_form_expected_user_load(const SystemDescriptionDescriptionSummaryForm *self);
 void system_description_description_summary_form_set_expected_user_load(SystemDescriptionDescriptionSummaryForm *self, const char *value);
 char *system_description_description_summary_form_key_differentiators(const SystemDescriptionDescriptionSummaryForm *self);
@@ -70996,12 +70996,12 @@ void system_quality_goals_governance_content_form_free(SystemQualityGoalsGoverna
 // The section's own free-text content, before the form fields (owned).
 char *system_quality_goals_governance_content_form_content(const SystemQualityGoalsGovernanceContentForm *self);
 void system_quality_goals_governance_content_form_set_content(SystemQualityGoalsGovernanceContentForm *self, const char *value);
+char *system_quality_goals_governance_content_form_quality_owner(const SystemQualityGoalsGovernanceContentForm *self);
+void system_quality_goals_governance_content_form_set_quality_owner(SystemQualityGoalsGovernanceContentForm *self, const char *value);
 char *system_quality_goals_governance_content_form_quality_approach(const SystemQualityGoalsGovernanceContentForm *self);
 void system_quality_goals_governance_content_form_set_quality_approach(SystemQualityGoalsGovernanceContentForm *self, const char *value);
 char *system_quality_goals_governance_content_form_quality_standards(const SystemQualityGoalsGovernanceContentForm *self);
 void system_quality_goals_governance_content_form_set_quality_standards(SystemQualityGoalsGovernanceContentForm *self, const char *value);
-char *system_quality_goals_governance_content_form_quality_owner(const SystemQualityGoalsGovernanceContentForm *self);
-void system_quality_goals_governance_content_form_set_quality_owner(SystemQualityGoalsGovernanceContentForm *self, const char *value);
 
 // SystemQualityGoalsGovernanceForm is the generated section facade for the `governance` @Form section: its own `content` text followed by one typed member per form field.
 void system_quality_goals_governance_form_init(SystemQualityGoalsGovernanceForm *self, SpecDocument *doc, const char *path);
@@ -71110,10 +71110,10 @@ void system_stage_plan_coordination_form_free(SystemStagePlanCoordinationForm *s
 // The section's own free-text content, before the form fields (owned).
 char *system_stage_plan_coordination_form_content(const SystemStagePlanCoordinationForm *self);
 void system_stage_plan_coordination_form_set_content(SystemStagePlanCoordinationForm *self, const char *value);
-char *system_stage_plan_coordination_form_cross_stage_dependency_summary(const SystemStagePlanCoordinationForm *self);
-void system_stage_plan_coordination_form_set_cross_stage_dependency_summary(SystemStagePlanCoordinationForm *self, const char *value);
 char *system_stage_plan_coordination_form_cross_stage_risk_summary(const SystemStagePlanCoordinationForm *self);
 void system_stage_plan_coordination_form_set_cross_stage_risk_summary(SystemStagePlanCoordinationForm *self, const char *value);
+char *system_stage_plan_coordination_form_cross_stage_dependency_summary(const SystemStagePlanCoordinationForm *self);
+void system_stage_plan_coordination_form_set_cross_stage_dependency_summary(SystemStagePlanCoordinationForm *self, const char *value);
 char *system_stage_plan_coordination_form_regulatory_compliance_considerations(const SystemStagePlanCoordinationForm *self);
 void system_stage_plan_coordination_form_set_regulatory_compliance_considerations(SystemStagePlanCoordinationForm *self, const char *value);
 
@@ -71168,10 +71168,10 @@ char *system_summary_complexity_form_content(const SystemSummaryComplexityForm *
 void system_summary_complexity_form_set_content(SystemSummaryComplexityForm *self, const char *value);
 char *system_summary_complexity_form_overall_complexity(const SystemSummaryComplexityForm *self);
 void system_summary_complexity_form_set_overall_complexity(SystemSummaryComplexityForm *self, const char *value);
-char *system_summary_complexity_form_key_risks(const SystemSummaryComplexityForm *self);
-void system_summary_complexity_form_set_key_risks(SystemSummaryComplexityForm *self, const char *value);
 char *system_summary_complexity_form_key_assumptions(const SystemSummaryComplexityForm *self);
 void system_summary_complexity_form_set_key_assumptions(SystemSummaryComplexityForm *self, const char *value);
+char *system_summary_complexity_form_key_risks(const SystemSummaryComplexityForm *self);
+void system_summary_complexity_form_set_key_risks(SystemSummaryComplexityForm *self, const char *value);
 
 // SystemSummaryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void system_summary_content_form_init(SystemSummaryContentForm *self, SpecDocument *doc, const char *path);
@@ -71924,8 +71924,6 @@ char *technical_goal_entry_measurement_form_success_metric(const TechnicalGoalEn
 void technical_goal_entry_measurement_form_set_success_metric(TechnicalGoalEntryMeasurementForm *self, const char *value);
 char *technical_goal_entry_measurement_form_current_value(const TechnicalGoalEntryMeasurementForm *self);
 void technical_goal_entry_measurement_form_set_current_value(TechnicalGoalEntryMeasurementForm *self, const char *value);
-char *technical_goal_entry_measurement_form_target_value(const TechnicalGoalEntryMeasurementForm *self);
-void technical_goal_entry_measurement_form_set_target_value(TechnicalGoalEntryMeasurementForm *self, const char *value);
 char *technical_goal_entry_measurement_form_measurement_method(const TechnicalGoalEntryMeasurementForm *self);
 void technical_goal_entry_measurement_form_set_measurement_method(TechnicalGoalEntryMeasurementForm *self, const char *value);
 char *technical_goal_entry_measurement_form_measurement_tool(const TechnicalGoalEntryMeasurementForm *self);
@@ -71934,6 +71932,8 @@ char *technical_goal_entry_measurement_form_measurement_environment(const Techni
 void technical_goal_entry_measurement_form_set_measurement_environment(TechnicalGoalEntryMeasurementForm *self, const char *value);
 char *technical_goal_entry_measurement_form_verification_point(const TechnicalGoalEntryMeasurementForm *self);
 void technical_goal_entry_measurement_form_set_verification_point(TechnicalGoalEntryMeasurementForm *self, const char *value);
+char *technical_goal_entry_measurement_form_target_value(const TechnicalGoalEntryMeasurementForm *self);
+void technical_goal_entry_measurement_form_set_target_value(TechnicalGoalEntryMeasurementForm *self, const char *value);
 
 // TechnicalGoalTestCaseEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void technical_goal_test_case_entry_content_form_init(TechnicalGoalTestCaseEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -72076,18 +72076,18 @@ void technical_requirement_entry_details_form_free(TechnicalRequirementEntryDeta
 // The section's own free-text content, before the form fields (owned).
 char *technical_requirement_entry_details_form_content(const TechnicalRequirementEntryDetailsForm *self);
 void technical_requirement_entry_details_form_set_content(TechnicalRequirementEntryDetailsForm *self, const char *value);
-char *technical_requirement_entry_details_form_description(const TechnicalRequirementEntryDetailsForm *self);
-void technical_requirement_entry_details_form_set_description(TechnicalRequirementEntryDetailsForm *self, const char *value);
+char *technical_requirement_entry_details_form_priority(const TechnicalRequirementEntryDetailsForm *self);
+void technical_requirement_entry_details_form_set_priority(TechnicalRequirementEntryDetailsForm *self, const char *value);
 char *technical_requirement_entry_details_form_category(const TechnicalRequirementEntryDetailsForm *self);
 void technical_requirement_entry_details_form_set_category(TechnicalRequirementEntryDetailsForm *self, const char *value);
 char *technical_requirement_entry_details_form_subcategory(const TechnicalRequirementEntryDetailsForm *self);
 void technical_requirement_entry_details_form_set_subcategory(TechnicalRequirementEntryDetailsForm *self, const char *value);
-char *technical_requirement_entry_details_form_priority(const TechnicalRequirementEntryDetailsForm *self);
-void technical_requirement_entry_details_form_set_priority(TechnicalRequirementEntryDetailsForm *self, const char *value);
-char *technical_requirement_entry_details_form_source(const TechnicalRequirementEntryDetailsForm *self);
-void technical_requirement_entry_details_form_set_source(TechnicalRequirementEntryDetailsForm *self, const char *value);
 char *technical_requirement_entry_details_form_rationale(const TechnicalRequirementEntryDetailsForm *self);
 void technical_requirement_entry_details_form_set_rationale(TechnicalRequirementEntryDetailsForm *self, const char *value);
+char *technical_requirement_entry_details_form_description(const TechnicalRequirementEntryDetailsForm *self);
+void technical_requirement_entry_details_form_set_description(TechnicalRequirementEntryDetailsForm *self, const char *value);
+char *technical_requirement_entry_details_form_source(const TechnicalRequirementEntryDetailsForm *self);
+void technical_requirement_entry_details_form_set_source(TechnicalRequirementEntryDetailsForm *self, const char *value);
 
 // TechnicalRequirementEntryImpactForm is the generated section facade for the `impact` @Form section: its own `content` text followed by one typed member per form field.
 void technical_requirement_entry_impact_form_init(TechnicalRequirementEntryImpactForm *self, SpecDocument *doc, const char *path);
@@ -73356,12 +73356,12 @@ char *tooling_content_form_content(const ToolingContentForm *self);
 void tooling_content_form_set_content(ToolingContentForm *self, const char *value);
 char *tooling_content_form_tool_strategy_overview(const ToolingContentForm *self);
 void tooling_content_form_set_tool_strategy_overview(ToolingContentForm *self, const char *value);
-char *tooling_content_form_standard_tool_stack_description(const ToolingContentForm *self);
-void tooling_content_form_set_standard_tool_stack_description(ToolingContentForm *self, const char *value);
 char *tooling_content_form_tool_governance_policy(const ToolingContentForm *self);
 void tooling_content_form_set_tool_governance_policy(ToolingContentForm *self, const char *value);
 char *tooling_content_form_tool_approval_process(const ToolingContentForm *self);
 void tooling_content_form_set_tool_approval_process(ToolingContentForm *self, const char *value);
+char *tooling_content_form_standard_tool_stack_description(const ToolingContentForm *self);
+void tooling_content_form_set_standard_tool_stack_description(ToolingContentForm *self, const char *value);
 
 // ToolingGovernanceForm is the generated section facade for the `governance` @Form section: its own `content` text followed by one typed member per form field.
 void tooling_governance_form_init(ToolingGovernanceForm *self, SpecDocument *doc, const char *path);
@@ -74441,12 +74441,12 @@ char *trust_boundary_entry_content_form_description(const TrustBoundaryEntryCont
 void trust_boundary_entry_content_form_set_description(TrustBoundaryEntryContentForm *self, const char *value);
 char *trust_boundary_entry_content_form_components_crossing(const TrustBoundaryEntryContentForm *self);
 void trust_boundary_entry_content_form_set_components_crossing(TrustBoundaryEntryContentForm *self, const char *value);
-char *trust_boundary_entry_content_form_protection_mechanisms(const TrustBoundaryEntryContentForm *self);
-void trust_boundary_entry_content_form_set_protection_mechanisms(TrustBoundaryEntryContentForm *self, const char *value);
 char *trust_boundary_entry_content_form_trust_level(const TrustBoundaryEntryContentForm *self);
 void trust_boundary_entry_content_form_set_trust_level(TrustBoundaryEntryContentForm *self, const char *value);
 char *trust_boundary_entry_content_form_compliance_implications(const TrustBoundaryEntryContentForm *self);
 void trust_boundary_entry_content_form_set_compliance_implications(TrustBoundaryEntryContentForm *self, const char *value);
+char *trust_boundary_entry_content_form_protection_mechanisms(const TrustBoundaryEntryContentForm *self);
+void trust_boundary_entry_content_form_set_protection_mechanisms(TrustBoundaryEntryContentForm *self, const char *value);
 
 // TypographyStyleEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void typography_style_entry_content_form_init(TypographyStyleEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -75319,12 +75319,12 @@ void user_category_definition_content_form_free(UserCategoryDefinitionContentFor
 // The section's own free-text content, before the form fields (owned).
 char *user_category_definition_content_form_content(const UserCategoryDefinitionContentForm *self);
 void user_category_definition_content_form_set_content(UserCategoryDefinitionContentForm *self, const char *value);
-char *user_category_definition_content_form_description(const UserCategoryDefinitionContentForm *self);
-void user_category_definition_content_form_set_description(UserCategoryDefinitionContentForm *self, const char *value);
 char *user_category_definition_content_form_access_level(const UserCategoryDefinitionContentForm *self);
 void user_category_definition_content_form_set_access_level(UserCategoryDefinitionContentForm *self, const char *value);
 char *user_category_definition_content_form_estimated_count(const UserCategoryDefinitionContentForm *self);
 void user_category_definition_content_form_set_estimated_count(UserCategoryDefinitionContentForm *self, const char *value);
+char *user_category_definition_content_form_description(const UserCategoryDefinitionContentForm *self);
+void user_category_definition_content_form_set_description(UserCategoryDefinitionContentForm *self, const char *value);
 
 // UserCategoryEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void user_category_entry_content_form_init(UserCategoryEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -75332,10 +75332,10 @@ void user_category_entry_content_form_free(UserCategoryEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *user_category_entry_content_form_content(const UserCategoryEntryContentForm *self);
 void user_category_entry_content_form_set_content(UserCategoryEntryContentForm *self, const char *value);
-char *user_category_entry_content_form_description(const UserCategoryEntryContentForm *self);
-void user_category_entry_content_form_set_description(UserCategoryEntryContentForm *self, const char *value);
 char *user_category_entry_content_form_user_type(const UserCategoryEntryContentForm *self);
 void user_category_entry_content_form_set_user_type(UserCategoryEntryContentForm *self, const char *value);
+char *user_category_entry_content_form_description(const UserCategoryEntryContentForm *self);
+void user_category_entry_content_form_set_description(UserCategoryEntryContentForm *self, const char *value);
 
 // UserCategoryEntryImportanceForm is the generated section facade for the `importance` @Form section: its own `content` text followed by one typed member per form field.
 void user_category_entry_importance_form_init(UserCategoryEntryImportanceForm *self, SpecDocument *doc, const char *path);
@@ -75567,10 +75567,10 @@ char *user_lifecycle_transition_entry_content_form_from_state(const UserLifecycl
 void user_lifecycle_transition_entry_content_form_set_from_state(UserLifecycleTransitionEntryContentForm *self, const char *value);
 char *user_lifecycle_transition_entry_content_form_to_state(const UserLifecycleTransitionEntryContentForm *self);
 void user_lifecycle_transition_entry_content_form_set_to_state(UserLifecycleTransitionEntryContentForm *self, const char *value);
-char *user_lifecycle_transition_entry_content_form_trigger(const UserLifecycleTransitionEntryContentForm *self);
-void user_lifecycle_transition_entry_content_form_set_trigger(UserLifecycleTransitionEntryContentForm *self, const char *value);
 char *user_lifecycle_transition_entry_content_form_trigger_conditions(const UserLifecycleTransitionEntryContentForm *self);
 void user_lifecycle_transition_entry_content_form_set_trigger_conditions(UserLifecycleTransitionEntryContentForm *self, const char *value);
+char *user_lifecycle_transition_entry_content_form_trigger(const UserLifecycleTransitionEntryContentForm *self);
+void user_lifecycle_transition_entry_content_form_set_trigger(UserLifecycleTransitionEntryContentForm *self, const char *value);
 
 // UserLifecycleTransitionEntryEffectsForm is the generated section facade for the `effects` @Form section: its own `content` text followed by one typed member per form field.
 void user_lifecycle_transition_entry_effects_form_init(UserLifecycleTransitionEntryEffectsForm *self, SpecDocument *doc, const char *path);
@@ -75578,12 +75578,12 @@ void user_lifecycle_transition_entry_effects_form_free(UserLifecycleTransitionEn
 // The section's own free-text content, before the form fields (owned).
 char *user_lifecycle_transition_entry_effects_form_content(const UserLifecycleTransitionEntryEffectsForm *self);
 void user_lifecycle_transition_entry_effects_form_set_content(UserLifecycleTransitionEntryEffectsForm *self, const char *value);
-char *user_lifecycle_transition_entry_effects_form_side_effects(const UserLifecycleTransitionEntryEffectsForm *self);
-void user_lifecycle_transition_entry_effects_form_set_side_effects(UserLifecycleTransitionEntryEffectsForm *self, const char *value);
 char *user_lifecycle_transition_entry_effects_form_notification_recipients(const UserLifecycleTransitionEntryEffectsForm *self);
 void user_lifecycle_transition_entry_effects_form_set_notification_recipients(UserLifecycleTransitionEntryEffectsForm *self, const char *value);
 char *user_lifecycle_transition_entry_effects_form_notification_channels(const UserLifecycleTransitionEntryEffectsForm *self);
 void user_lifecycle_transition_entry_effects_form_set_notification_channels(UserLifecycleTransitionEntryEffectsForm *self, const char *value);
+char *user_lifecycle_transition_entry_effects_form_side_effects(const UserLifecycleTransitionEntryEffectsForm *self);
+void user_lifecycle_transition_entry_effects_form_set_side_effects(UserLifecycleTransitionEntryEffectsForm *self, const char *value);
 
 // UserLifecycleTransitionsContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void user_lifecycle_transitions_content_form_init(UserLifecycleTransitionsContentForm *self, SpecDocument *doc, const char *path);
@@ -76042,12 +76042,12 @@ char *value_proposition_value_details_form_content(const ValuePropositionValueDe
 void value_proposition_value_details_form_set_content(ValuePropositionValueDetailsForm *self, const char *value);
 char *value_proposition_value_details_form_value_statement(const ValuePropositionValueDetailsForm *self);
 void value_proposition_value_details_form_set_value_statement(ValuePropositionValueDetailsForm *self, const char *value);
+char *value_proposition_value_details_form_qualitative_benefits(const ValuePropositionValueDetailsForm *self);
+void value_proposition_value_details_form_set_qualitative_benefits(ValuePropositionValueDetailsForm *self, const char *value);
 char *value_proposition_value_details_form_primary_benefits(const ValuePropositionValueDetailsForm *self);
 void value_proposition_value_details_form_set_primary_benefits(ValuePropositionValueDetailsForm *self, const char *value);
 char *value_proposition_value_details_form_quantifiable_benefits(const ValuePropositionValueDetailsForm *self);
 void value_proposition_value_details_form_set_quantifiable_benefits(ValuePropositionValueDetailsForm *self, const char *value);
-char *value_proposition_value_details_form_qualitative_benefits(const ValuePropositionValueDetailsForm *self);
-void value_proposition_value_details_form_set_qualitative_benefits(ValuePropositionValueDetailsForm *self, const char *value);
 
 // VersionControlConfigurationBranchingForm is the generated section facade for the `branching` @Form section: its own `content` text followed by one typed member per form field.
 void version_control_configuration_branching_form_init(VersionControlConfigurationBranchingForm *self, SpecDocument *doc, const char *path);

@@ -636,10 +636,10 @@ form-types:
         description: Target response time or throughput
       - fieldname: userSatisfaction
         description: Target satisfaction or NPS scores
-      - fieldname: businessOutcomes
-        description: Expected business-level outcomes
       - fieldname: measurementApproach
         description: How and when success is measured
+      - fieldname: businessOutcomes
+        description: Expected business-level outcomes
   dpovw-form:
     fields:
       - fieldname: principlePhilosophy
@@ -654,8 +654,6 @@ form-types:
     fields:
       - fieldname: totalProcessCount
         description: Number of processes in the catalog
-      - fieldname: scopeStatement
-        description: What the catalog does and does not cover
       - fieldname: classificationFramework
         description: Framework used to classify processes
       - fieldname: namingConvention
@@ -668,6 +666,8 @@ form-types:
         description: How process changes are controlled
       - fieldname: versioningApproach
         description: How process versions are tracked
+      - fieldname: scopeStatement
+        description: What the catalog does and does not cover
   prccl-form:
     fields:
       - fieldname: level1Categories
@@ -696,12 +696,12 @@ form-types:
         description: The functional type of the process
   pidef-form:
     fields:
-      - fieldname: description
-        description: What the process actually does
       - fieldname: purpose
         description: Why the process exists
       - fieldname: scope
         description: Where the process starts and ends
+      - fieldname: description
+        description: What the process actually does
   pigov-form:
     fields:
       - fieldname: processOwner

@@ -168,6 +168,11 @@ unpublished_drift:
     @SerializationOrder doc comment name the tomspecs commands (documentation
     only); 02a_rdv1 (2026-11-19): `Field.multiParagraph` (a new optional
     parameter, the next minor version); ships with the next release.
+  tom_doc_specs: >-
+    07412a22 (2026-11-19): the repository-wide rename of _copilot_guidelines to
+    _agent_guidelines changed one test fixture
+    (test/fixtures/schemas/specification.1.0.docspecs-schema.yaml; test only,
+    nothing shipped changes); ships with the next release.
   tom_doc_scanner: >-
     01a_rdv1 (2026-11-19): a comment in test/doc_scanner_test.dart names the
     fixture's source as meridian_order_management.tomspecs.md (test only,

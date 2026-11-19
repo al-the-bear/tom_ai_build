@@ -37,6 +37,7 @@ class SystemStagePlan extends DocSpecsSection {
       hint:
           'BigBang / PhasedByFunction / PhasedByGeography / '
           'PhasedByUserGroup / Incremental / Hybrid',
+      multiParagraph: true,
     ),
     Field(
       'parallelismApproach',
@@ -45,6 +46,7 @@ class SystemStagePlan extends DocSpecsSection {
       hint:
           'Sequential / PartialOverlap / FullyParallel — '
           'whether stages can overlap in execution',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -88,12 +90,6 @@ class SystemStagePlan extends DocSpecsSection {
   @SectionId('SSPCO')
   @Form([
     Field(
-      'crossStageDependencySummary',
-      String,
-      'Cross-Stage Dependency Summary',
-      hint: 'Key dependencies between stages that affect sequencing',
-    ),
-    Field(
       'crossStageRiskSummary',
       String,
       'Cross-Stage Risk Summary',
@@ -102,12 +98,20 @@ class SystemStagePlan extends DocSpecsSection {
           'order',
     ),
     Field(
+      'crossStageDependencySummary',
+      String,
+      'Cross-Stage Dependency Summary',
+      hint: 'Key dependencies between stages that affect sequencing',
+      multiParagraph: true,
+    ),
+    Field(
       'regulatoryComplianceConsiderations',
       String,
       'Regulatory/Compliance Considerations',
       hint:
           'Regulatory requirements affecting staging order or '
           'timing — e.g. SOX, GDPR data readiness, PCI-DSS',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(2)
@@ -254,16 +258,17 @@ class StagingStrategy extends DocSpecsSection {
       hint: 'Brief description of how the staging approach will be applied',
     ),
     Field(
-      'alternativesConsidered',
-      String,
-      'Alternatives Considered',
-      hint: 'Other staging approaches evaluated and why rejected',
-    ),
-    Field(
       'selectionCriteria',
       String,
       'Selection Criteria',
       hint: 'Criteria used to select this approach',
+    ),
+    Field(
+      'alternativesConsidered',
+      String,
+      'Alternatives Considered',
+      hint: 'Other staging approaches evaluated and why rejected',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -813,12 +818,6 @@ class StagingDrivers extends DocSpecsSection {
 class StagingDependencies extends DocSpecsSection {
   @Form([
     Field(
-      'criticalPrerequisites',
-      String,
-      'Critical Prerequisites',
-      hint: 'Prerequisites before staged deployment can begin',
-    ),
-    Field(
       'externalDependencies',
       String,
       'External Dependencies',
@@ -835,6 +834,13 @@ class StagingDependencies extends DocSpecsSection {
       String,
       'Dependency Risks',
       hint: 'Risks associated with dependencies',
+    ),
+    Field(
+      'criticalPrerequisites',
+      String,
+      'Critical Prerequisites',
+      hint: 'Prerequisites before staged deployment can begin',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -1889,12 +1895,6 @@ class StageEntry extends DocSpecsSection {
       hint: 'Optional internal codename, e.g. Atlas, Phoenix',
     ),
     Field(
-      'stageDescription',
-      String,
-      'Description',
-      hint: 'Brief description of what this stage delivers',
-    ),
-    Field(
       'businessObjective',
       String,
       'Business Objective',
@@ -1905,6 +1905,13 @@ class StageEntry extends DocSpecsSection {
       String,
       'Stage Type',
       hint: 'Foundation / Incremental / Enhancement / Optimization / Migration',
+    ),
+    Field(
+      'stageDescription',
+      String,
+      'Description',
+      hint: 'Brief description of what this stage delivers',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -1978,12 +1985,6 @@ class StageEntry extends DocSpecsSection {
   @SectionId('STSC')
   @Form([
     Field(
-      'scopeSummary',
-      String,
-      'Scope Summary',
-      hint: 'High-level summary of features included in this stage',
-    ),
-    Field(
       'includedFeatures',
       String,
       'Included Features',
@@ -2025,6 +2026,13 @@ class StageEntry extends DocSpecsSection {
       'Technical Debt Items',
       hint: 'Known technical debt to be addressed',
     ),
+    Field(
+      'scopeSummary',
+      String,
+      'Scope Summary',
+      hint: 'High-level summary of features included in this stage',
+      multiParagraph: true,
+    ),
   ])
   @SerializationOrder(3)
   DocSpecsSection? scope;
@@ -2045,16 +2053,16 @@ class StageEntry extends DocSpecsSection {
   @SectionId('STQU')
   @Form([
     Field(
+      'acceptanceCriteriaSummary',
+      String,
+      'Acceptance Criteria Summary',
+      hint: 'High-level criteria for business acceptance',
+    ),
+    Field(
       'entryCriteria',
       String,
       'Entry Criteria',
       hint: 'Conditions that must be met before the stage can begin',
-    ),
-    Field(
-      'exitCriteria',
-      String,
-      'Exit Criteria',
-      hint: 'Conditions that must be met for stage completion',
     ),
     Field(
       'qualityGates',
@@ -2069,16 +2077,17 @@ class StageEntry extends DocSpecsSection {
       hint: 'Testing approach for this stage',
     ),
     Field(
-      'acceptanceCriteriaSummary',
-      String,
-      'Acceptance Criteria Summary',
-      hint: 'High-level criteria for business acceptance',
-    ),
-    Field(
       'toleranceLevels',
       String,
       'Tolerance Levels',
       hint: 'PRINCE2 tolerances — time, cost, scope, quality',
+    ),
+    Field(
+      'exitCriteria',
+      String,
+      'Exit Criteria',
+      hint: 'Conditions that must be met for stage completion',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(6)
@@ -2407,16 +2416,17 @@ class SubStageEntry extends DocSpecsSection {
   @SectionId('SSEO')
   @Form([
     Field(
-      'description',
-      String,
-      'Description',
-      hint: 'Brief description of this sub-stage or milestone',
-    ),
-    Field(
       'objective',
       String,
       'Objective',
       hint: 'What this sub-stage aims to achieve',
+    ),
+    Field(
+      'description',
+      String,
+      'Description',
+      hint: 'Brief description of this sub-stage or milestone',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -4316,6 +4326,7 @@ class DataMigrationStrategy extends DocSpecsSection {
       String,
       'Alternatives Considered',
       hint: 'Other approaches evaluated and why rejected',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)

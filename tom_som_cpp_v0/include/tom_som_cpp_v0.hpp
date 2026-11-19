@@ -33560,14 +33560,14 @@ class AcceptanceProcessDecisionForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string decisionCriteria() const;
-  void setDecisionCriteria(const std::string& value);
   std::string defectThreshold() const;
   void setDefectThreshold(const std::string& value);
   std::string conditionalAcceptanceRules() const;
   void setConditionalAcceptanceRules(const std::string& value);
   std::string rejectionCriteria() const;
   void setRejectionCriteria(const std::string& value);
+  std::string decisionCriteria() const;
+  void setDecisionCriteria(const std::string& value);
 };
 
 // Generated section facade for the `documentation` @Form section: its own `content` text followed by one typed member per form field.
@@ -34378,8 +34378,6 @@ class ActorEntryIdentificationForm : public som::SomNode {
   void setActorType(const std::string& value);
   std::string category() const;
   void setCategory(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
   std::string realWorldExamples() const;
   void setRealWorldExamples(const std::string& value);
   std::string organizationalUnit() const;
@@ -34388,6 +34386,8 @@ class ActorEntryIdentificationForm : public som::SomNode {
   void setEstimatedCount(const std::string& value);
   std::string geographicDistribution() const;
   void setGeographicDistribution(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
 };
 
 // Generated section facade for the `interactions` @Form section: its own `content` text followed by one typed member per form field.
@@ -34504,12 +34504,12 @@ class ActorOverviewOverviewForm : public som::SomNode {
   void setSystemActorCount(std::optional<long> value);
   std::optional<long> externalActorCount() const;
   void setExternalActorCount(std::optional<long> value);
-  std::string actorIdentificationApproach() const;
-  void setActorIdentificationApproach(const std::string& value);
   std::string actorPrioritization() const;
   void setActorPrioritization(const std::string& value);
   std::string actorGoalAlignment() const;
   void setActorGoalAlignment(const std::string& value);
+  std::string actorIdentificationApproach() const;
+  void setActorIdentificationApproach(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -35708,8 +35708,6 @@ class ApplicableRegulationEntryContentForm : public som::SomNode {
   void setJurisdiction(const std::string& value);
   std::string applicability() const;
   void setApplicability(const std::string& value);
-  std::string keyRequirements() const;
-  void setKeyRequirements(const std::string& value);
   std::string complianceStatus() const;
   void setComplianceStatus(const std::string& value);
   std::string complianceOwner() const;
@@ -35718,6 +35716,8 @@ class ApplicableRegulationEntryContentForm : public som::SomNode {
   void setAuditRequirements(const std::string& value);
   std::string penalties() const;
   void setPenalties(const std::string& value);
+  std::string keyRequirements() const;
+  void setKeyRequirements(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -36100,12 +36100,12 @@ class ArchitectureComponentEntryPurposeForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
+  std::string notResponsibleFor() const;
+  void setNotResponsibleFor(const std::string& value);
   std::string purpose() const;
   void setPurpose(const std::string& value);
   std::string responsibilities() const;
   void setResponsibilities(const std::string& value);
-  std::string notResponsibleFor() const;
-  void setNotResponsibleFor(const std::string& value);
 };
 
 // Generated section facade for the `technical` @Form section: its own `content` text followed by one typed member per form field.
@@ -36132,8 +36132,6 @@ class ArchitectureDecisionRecordConsequencesForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string consequences() const;
-  void setConsequences(const std::string& value);
   std::string positiveConsequences() const;
   void setPositiveConsequences(const std::string& value);
   std::string negativeConsequences() const;
@@ -36142,6 +36140,8 @@ class ArchitectureDecisionRecordConsequencesForm : public som::SomNode {
   void setReviewDate(const std::string& value);
   std::string notes() const;
   void setNotes(const std::string& value);
+  std::string consequences() const;
+  void setConsequences(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -36182,14 +36182,14 @@ class ArchitectureDecisionRecordOutcomeForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string decision() const;
-  void setDecision(const std::string& value);
   std::string rationale() const;
   void setRationale(const std::string& value);
   std::string alternativesConsidered() const;
   void setAlternativesConsidered(const std::string& value);
   std::string decisionMakers() const;
   void setDecisionMakers(const std::string& value);
+  std::string decision() const;
+  void setDecision(const std::string& value);
 };
 
 // Generated section facade for the `relations` @Form section: its own `content` text followed by one typed member per form field.
@@ -36248,10 +36248,10 @@ class ArchitectureOverviewDriversForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string justification() const;
-  void setJustification(const std::string& value);
   std::string businessDrivers() const;
   void setBusinessDrivers(const std::string& value);
+  std::string justification() const;
+  void setJustification(const std::string& value);
   std::string technicalDrivers() const;
   void setTechnicalDrivers(const std::string& value);
 };
@@ -36618,10 +36618,10 @@ class AuthorizationRequirementSpecCustomRequirementForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string handler() const;
-  void setHandler(const std::string& value);
   std::string resourceId() const;
   void setResourceId(const std::string& value);
+  std::string handler() const;
+  void setHandler(const std::string& value);
   std::string decisionRule() const;
   void setDecisionRule(const std::string& value);
 };
@@ -36684,10 +36684,10 @@ class AuthorizationRoleEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string roleName() const;
   void setRoleName(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
   std::string roleCategory() const;
   void setRoleCategory(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
 };
 
 // Generated section facade for the `governance` @Form section: its own `content` text followed by one typed member per form field.
@@ -37646,12 +37646,12 @@ class BoundedContextEntryIntegrationForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string apiEndpoints() const;
-  void setApiEndpoints(const std::string& value);
   std::string integrationPatterns() const;
   void setIntegrationPatterns(const std::string& value);
   std::string notes() const;
   void setNotes(const std::string& value);
+  std::string apiEndpoints() const;
+  void setApiEndpoints(const std::string& value);
 };
 
 // Generated section facade for the `scope` @Form section: its own `content` text followed by one typed member per form field.
@@ -37662,12 +37662,12 @@ class BoundedContextEntryScopeForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string purpose() const;
-  void setPurpose(const std::string& value);
   std::string includedConcepts() const;
   void setIncludedConcepts(const std::string& value);
   std::string excludedConcepts() const;
   void setExcludedConcepts(const std::string& value);
+  std::string purpose() const;
+  void setPurpose(const std::string& value);
   std::string ubiquitousLanguage() const;
   void setUbiquitousLanguage(const std::string& value);
 };
@@ -38006,10 +38006,10 @@ class BuildToolchainEntryProfilesForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string buildProfiles() const;
-  void setBuildProfiles(const std::string& value);
   std::string defaultProfile() const;
   void setDefaultProfile(const std::string& value);
+  std::string buildProfiles() const;
+  void setBuildProfiles(const std::string& value);
 };
 
 // Generated section facade for the `versions` @Form section: its own `content` text followed by one typed member per form field.
@@ -38100,12 +38100,12 @@ class BuildToolsConfigurationScriptsForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string buildScripts() const;
-  void setBuildScripts(const std::string& value);
   std::string preCommitHooks() const;
   void setPreCommitHooks(const std::string& value);
   std::string postBuildActions() const;
   void setPostBuildActions(const std::string& value);
+  std::string buildScripts() const;
+  void setBuildScripts(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -38262,12 +38262,12 @@ class BusinessGoalEntryMeasurementForm : public som::SomNode {
   void setSuccessMetric(const std::string& value);
   std::string currentValue() const;
   void setCurrentValue(const std::string& value);
-  std::string targetValue() const;
-  void setTargetValue(const std::string& value);
   std::string measurementMethod() const;
   void setMeasurementMethod(const std::string& value);
   std::string measurementFrequency() const;
   void setMeasurementFrequency(const std::string& value);
+  std::string targetValue() const;
+  void setTargetValue(const std::string& value);
 };
 
 // Generated section facade for the `strategy` @Form section: its own `content` text followed by one typed member per form field.
@@ -40660,12 +40660,12 @@ class CodingStandardEntryRuleDetailsForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string rule() const;
-  void setRule(const std::string& value);
   std::string rationale() const;
   void setRationale(const std::string& value);
   std::string examples() const;
   void setExamples(const std::string& value);
+  std::string rule() const;
+  void setRule(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -41022,12 +41022,12 @@ class CommunicationPatternsDataExchangeForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string dataContracts() const;
-  void setDataContracts(const std::string& value);
   std::string schemaEvolution() const;
   void setSchemaEvolution(const std::string& value);
   std::string serialization() const;
   void setSerialization(const std::string& value);
+  std::string dataContracts() const;
+  void setDataContracts(const std::string& value);
 };
 
 // Generated section facade for the `observability` @Form section: its own `content` text followed by one typed member per form field.
@@ -41074,10 +41074,10 @@ class CommunicationPatternsSynchronousForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string syncPatterns() const;
-  void setSyncPatterns(const std::string& value);
   std::string apiGateway() const;
   void setApiGateway(const std::string& value);
+  std::string syncPatterns() const;
+  void setSyncPatterns(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -41616,16 +41616,16 @@ class ComponentEntryVendorForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string version() const;
-  void setVersion(const std::string& value);
-  std::string purpose() const;
-  void setPurpose(const std::string& value);
-  std::string libraryRef() const;
-  void setLibraryRef(const std::string& value);
   std::string vendorName() const;
   void setVendorName(const std::string& value);
+  std::string version() const;
+  void setVersion(const std::string& value);
+  std::string libraryRef() const;
+  void setLibraryRef(const std::string& value);
   std::string vendorStability() const;
   void setVendorStability(const std::string& value);
+  std::string purpose() const;
+  void setPurpose(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -43104,14 +43104,14 @@ class ConstraintRegisterEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
   std::string type() const;
   void setType(const std::string& value);
   std::string source() const;
   void setSource(const std::string& value);
   std::string impact() const;
   void setImpact(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -44272,12 +44272,12 @@ class DataAttributeEntryIdentityForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string columnName() const;
   void setColumnName(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
   std::string businessTerm() const;
   void setBusinessTerm(const std::string& value);
   std::string exampleValues() const;
   void setExampleValues(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
 };
 
 // Generated section facade for the `migrationLineage` @Form section: its own `content` text followed by one typed member per form field.
@@ -44652,18 +44652,18 @@ class DataEntityEntryIdentityForm : public som::SomNode {
   void setEntityName(const std::string& value);
   std::string tableName() const;
   void setTableName(const std::string& value);
-  std::string entityAlias() const;
-  void setEntityAlias(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
-  std::string entityStereoType() const;
-  void setEntityStereoType(const std::string& value);
   std::string dataSourceName() const;
   void setDataSourceName(const std::string& value);
   std::string schemaName() const;
   void setSchemaName(const std::string& value);
   std::string tenancy() const;
   void setTenancy(const std::string& value);
+  std::string entityAlias() const;
+  void setEntityAlias(const std::string& value);
+  std::string entityStereoType() const;
+  void setEntityStereoType(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
 };
 
 // Generated section facade for the `lifecyclePolicy` @Form section: its own `content` text followed by one typed member per form field.
@@ -46870,10 +46870,10 @@ class DeliverableEntryIdentityForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
   std::string category() const;
   void setCategory(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
 };
 
 // Generated section facade for the `legal` @Form section: its own `content` text followed by one typed member per form field.
@@ -47066,12 +47066,12 @@ class DeliveryTransitionAndRolloutLocaleRolloutPlanForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string rolloutStrategy() const;
-  void setRolloutStrategy(const std::string& value);
   std::string rolloutTimeline() const;
   void setRolloutTimeline(const std::string& value);
   std::string rolloutRegions() const;
   void setRolloutRegions(const std::string& value);
+  std::string rolloutStrategy() const;
+  void setRolloutStrategy(const std::string& value);
 };
 
 // Generated section facade for the `cache` @Form section: its own `content` text followed by one typed member per form field.
@@ -47318,8 +47318,6 @@ class DependencyRegisterEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
   std::string type() const;
   void setType(const std::string& value);
   std::string dependsOn() const;
@@ -47328,6 +47326,8 @@ class DependencyRegisterEntryContentForm : public som::SomNode {
   void setCriticality(const std::string& value);
   std::string status() const;
   void setStatus(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -47702,8 +47702,6 @@ class DeploymentTargetEntryComplianceForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string complianceRequirements() const;
-  void setComplianceRequirements(const std::string& value);
   std::string privacyRequirements() const;
   void setPrivacyRequirements(const std::string& value);
   std::string priority() const;
@@ -47712,6 +47710,8 @@ class DeploymentTargetEntryComplianceForm : public som::SomNode {
   void setTargetLaunchDate(const std::string& value);
   std::string notes() const;
   void setNotes(const std::string& value);
+  std::string complianceRequirements() const;
+  void setComplianceRequirements(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -47724,10 +47724,10 @@ class DeploymentTargetEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string targetCategory() const;
   void setTargetCategory(const std::string& value);
-  std::string targetEnvironment() const;
-  void setTargetEnvironment(const std::string& value);
   std::string environmentRef() const;
   void setEnvironmentRef(const std::string& value);
+  std::string targetEnvironment() const;
+  void setTargetEnvironment(const std::string& value);
 };
 
 // Generated section facade for the `platform` @Form section: its own `content` text followed by one typed member per form field.
@@ -49120,10 +49120,10 @@ class DocumentRelevantSectionsContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string sectionReference() const;
-  void setSectionReference(const std::string& value);
   std::string sectionTitle() const;
   void setSectionTitle(const std::string& value);
+  std::string sectionReference() const;
+  void setSectionReference(const std::string& value);
   std::string relevance() const;
   void setRelevance(const std::string& value);
   std::string extractSummary() const;
@@ -49650,12 +49650,12 @@ class EfficiencyVerificationForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string loadTestingRequirement() const;
-  void setLoadTestingRequirement(const std::string& value);
   std::string performanceProfilingApproach() const;
   void setPerformanceProfilingApproach(const std::string& value);
   std::string performanceBaselineDate() const;
   void setPerformanceBaselineDate(const std::string& value);
+  std::string loadTestingRequirement() const;
+  void setLoadTestingRequirement(const std::string& value);
   std::string performanceSlaDefinition() const;
   void setPerformanceSlaDefinition(const std::string& value);
 };
@@ -49894,10 +49894,10 @@ class EntitlementEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string entitlementName() const;
   void setEntitlementName(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
   std::string accessType() const;
   void setAccessType(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
   std::string conditions() const;
   void setConditions(const std::string& value);
 };
@@ -50014,12 +50014,12 @@ class EntityRelationshipEntryIdentityForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string relationshipType() const;
   void setRelationshipType(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
   std::string businessJustification() const;
   void setBusinessJustification(const std::string& value);
   std::string implementationType() const;
   void setImplementationType(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
 };
 
 // Generated section facade for the `navigation` @Form section: its own `content` text followed by one typed member per form field.
@@ -51650,22 +51650,22 @@ class ExtensionEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
+  std::string returnKind() const;
+  void setReturnKind(const std::string& value);
   std::string branchPoint() const;
   void setBranchPoint(const std::string& value);
   std::string condition() const;
   void setCondition(const std::string& value);
   std::string extensionType() const;
   void setExtensionType(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
   std::string outcome() const;
   void setOutcome(const std::string& value);
-  std::string returnKind() const;
-  void setReturnKind(const std::string& value);
   std::string frequency() const;
   void setFrequency(const std::string& value);
   std::string severity() const;
   void setSeverity(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
 };
 
 // Generated section facade for the `resumePoint` @Form section: its own `content` text followed by one typed member per form field.
@@ -51742,10 +51742,10 @@ class ExternalActorEntryInteractionForm : public som::SomNode {
   void setInteractionFrequency(const std::string& value);
   std::string interactionChannel() const;
   void setInteractionChannel(const std::string& value);
-  std::string dataExchanged() const;
-  void setDataExchanged(const std::string& value);
   std::string accessLevel() const;
   void setAccessLevel(const std::string& value);
+  std::string dataExchanged() const;
+  void setDataExchanged(const std::string& value);
 };
 
 // Generated section facade for the `identificationContent` @Form section: its own `content` text followed by one typed member per form field.
@@ -52098,12 +52098,12 @@ class ExternalSystemContextEntryIntegrationForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string integrationDirection() const;
   void setIntegrationDirection(const std::string& value);
-  std::string integrationPurpose() const;
-  void setIntegrationPurpose(const std::string& value);
   std::string dataExchanged() const;
   void setDataExchanged(const std::string& value);
   std::string integrationMethod() const;
   void setIntegrationMethod(const std::string& value);
+  std::string integrationPurpose() const;
+  void setIntegrationPurpose(const std::string& value);
 };
 
 // Generated section facade for the `operations` @Form section: its own `content` text followed by one typed member per form field.
@@ -53196,14 +53196,14 @@ class FrameworkRequirementEntryJustificationForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string justification() const;
-  void setJustification(const std::string& value);
   std::string alternativesConsidered() const;
   void setAlternativesConsidered(const std::string& value);
   std::string riskAssessment() const;
   void setRiskAssessment(const std::string& value);
   std::string notes() const;
   void setNotes(const std::string& value);
+  std::string justification() const;
+  void setJustification(const std::string& value);
 };
 
 // Generated section facade for the `scope` @Form section: its own `content` text followed by one typed member per form field.
@@ -53216,14 +53216,14 @@ class FrameworkRequirementEntryScopeForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string usageScope() const;
   void setUsageScope(const std::string& value);
-  std::string integrationPoints() const;
-  void setIntegrationPoints(const std::string& value);
   std::string requiredPlugins() const;
   void setRequiredPlugins(const std::string& value);
   std::string optionalPlugins() const;
   void setOptionalPlugins(const std::string& value);
   std::string excludedFeatures() const;
   void setExcludedFeatures(const std::string& value);
+  std::string integrationPoints() const;
+  void setIntegrationPoints(const std::string& value);
 };
 
 // Generated section facade for the `support` @Form section: its own `content` text followed by one typed member per form field.
@@ -53442,12 +53442,12 @@ class FunctionalRequirementEntryDetailsForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
   std::string requirementType() const;
   void setRequirementType(const std::string& value);
   std::string category() const;
   void setCategory(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
 };
 
 // Generated section facade for the `metadata` @Form section: its own `content` text followed by one typed member per form field.
@@ -53492,10 +53492,10 @@ class FunctionalRequirementEntrySourceForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string source() const;
-  void setSource(const std::string& value);
   std::string requestDate() const;
   void setRequestDate(const std::string& value);
+  std::string source() const;
+  void setSource(const std::string& value);
   std::string rationale() const;
   void setRationale(const std::string& value);
 };
@@ -53826,12 +53826,12 @@ class GlossaryEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string term() const;
   void setTerm(const std::string& value);
-  std::string definition() const;
-  void setDefinition(const std::string& value);
   std::string acronym() const;
   void setAcronym(const std::string& value);
   std::string seeAlso() const;
   void setSeeAlso(const std::string& value);
+  std::string definition() const;
+  void setDefinition(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -55554,12 +55554,12 @@ class IntegrationArchitectureContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string integrationStrategy() const;
-  void setIntegrationStrategy(const std::string& value);
   std::string integrationPatterns() const;
   void setIntegrationPatterns(const std::string& value);
   std::string apiManagement() const;
   void setApiManagement(const std::string& value);
+  std::string integrationStrategy() const;
+  void setIntegrationStrategy(const std::string& value);
 };
 
 // Generated section facade for the `data` @Form section: its own `content` text followed by one typed member per form field.
@@ -55618,12 +55618,12 @@ class IntegrationArchitectureSecurityForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string authenticationApproach() const;
-  void setAuthenticationApproach(const std::string& value);
   std::string authorizationApproach() const;
   void setAuthorizationApproach(const std::string& value);
   std::string secureTransport() const;
   void setSecureTransport(const std::string& value);
+  std::string authenticationApproach() const;
+  void setAuthenticationApproach(const std::string& value);
 };
 
 // Generated section facade for the `systems` @Form section: its own `content` text followed by one typed member per form field.
@@ -55636,10 +55636,10 @@ class IntegrationArchitectureSystemsForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string externalSystemCount() const;
   void setExternalSystemCount(const std::string& value);
-  std::string integrationTypes() const;
-  void setIntegrationTypes(const std::string& value);
   std::string realTimeIntegrations() const;
   void setRealTimeIntegrations(const std::string& value);
+  std::string integrationTypes() const;
+  void setIntegrationTypes(const std::string& value);
 };
 
 // Generated section facade for the `compliance` @Form section: its own `content` text followed by one typed member per form field.
@@ -56154,12 +56154,12 @@ class InteractionPatternEntryDefinitionForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
   std::string useCases() const;
   void setUseCases(const std::string& value);
   std::string userCategories() const;
   void setUserCategories(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
 };
 
 // Generated section facade for the `trigger` @Form section: its own `content` text followed by one typed member per form field.
@@ -56722,14 +56722,14 @@ class InterfaceTechnicalSpecWebhookSpecForm : public som::SomNode {
   void setWebhooksUsed(std::optional<bool> value);
   std::string webhookEndpoint() const;
   void setWebhookEndpoint(const std::string& value);
-  std::string eventTypes() const;
-  void setEventTypes(const std::string& value);
   std::string signatureVerification() const;
   void setSignatureVerification(const std::string& value);
   std::string retryPolicy() const;
   void setRetryPolicy(const std::string& value);
   std::string idempotencyHandling() const;
   void setIdempotencyHandling(const std::string& value);
+  std::string eventTypes() const;
+  void setEventTypes(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -57020,18 +57020,18 @@ class ItLandscapePositionPositionDetailsForm : public som::SomNode {
   void setApplicationCategory(const std::string& value);
   std::string portfolioRole() const;
   void setPortfolioRole(const std::string& value);
-  std::string replacedSystems() const;
-  void setReplacedSystems(const std::string& value);
   std::string complementarySystems() const;
   void setComplementarySystems(const std::string& value);
-  std::string dependsOnSystems() const;
-  void setDependsOnSystems(const std::string& value);
   std::string dependentSystems() const;
   void setDependentSystems(const std::string& value);
-  std::string dataOwnership() const;
-  void setDataOwnership(const std::string& value);
   std::string integrationPattern() const;
   void setIntegrationPattern(const std::string& value);
+  std::string replacedSystems() const;
+  void setReplacedSystems(const std::string& value);
+  std::string dependsOnSystems() const;
+  void setDependsOnSystems(const std::string& value);
+  std::string dataOwnership() const;
+  void setDataOwnership(const std::string& value);
 };
 
 // Generated section facade for the `access` @Form section: its own `content` text followed by one typed member per form field.
@@ -57042,12 +57042,12 @@ class ItSecurityOperationsAccessForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string privilegedAccessManagement() const;
-  void setPrivilegedAccessManagement(const std::string& value);
   std::string accessReviewFrequency() const;
   void setAccessReviewFrequency(const std::string& value);
   std::string accessAuditLogging() const;
   void setAccessAuditLogging(const std::string& value);
+  std::string privilegedAccessManagement() const;
+  void setPrivilegedAccessManagement(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -57860,10 +57860,10 @@ class LifecycleTransitionEntryTriggerForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string trigger() const;
-  void setTrigger(const std::string& value);
   std::string triggerType() const;
   void setTriggerType(const std::string& value);
+  std::string trigger() const;
+  void setTrigger(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -58486,14 +58486,14 @@ class MainScenarioStepEntryContentForm : public som::SomNode {
   void setServerOperation(const std::string& value);
   std::string dataInvolved() const;
   void setDataInvolved(const std::string& value);
-  std::string businessRuleApplied() const;
-  void setBusinessRuleApplied(const std::string& value);
   std::string uiElementUsed() const;
   void setUiElementUsed(const std::string& value);
   std::string validationPerformed() const;
   void setValidationPerformed(const std::string& value);
   std::string expectedDuration() const;
   void setExpectedDuration(const std::string& value);
+  std::string businessRuleApplied() const;
+  void setBusinessRuleApplied(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -59310,10 +59310,10 @@ class MfaCategoryRequirementEntryAuthenticatorsForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string allowedAuthenticatorTypes() const;
-  void setAllowedAuthenticatorTypes(const std::string& value);
   std::string phishingResistanceRequired() const;
   void setPhishingResistanceRequired(const std::string& value);
+  std::string allowedAuthenticatorTypes() const;
+  void setAllowedAuthenticatorTypes(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -60462,12 +60462,12 @@ class ModuleEntryDescriptionForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string purpose() const;
   void setPurpose(const std::string& value);
-  std::string functionality() const;
-  void setFunctionality(const std::string& value);
   std::string publicApi() const;
   void setPublicApi(const std::string& value);
   std::string entryPoints() const;
   void setEntryPoints(const std::string& value);
+  std::string functionality() const;
+  void setFunctionality(const std::string& value);
 };
 
 // Generated section facade for the `ownership` @Form section: its own `content` text followed by one typed member per form field.
@@ -60888,12 +60888,12 @@ class MustPassCriterionEntryDefinitionForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string criterionDescription() const;
-  void setCriterionDescription(const std::string& value);
   std::string qualityCategory() const;
   void setQualityCategory(const std::string& value);
   std::string qualityAttribute() const;
   void setQualityAttribute(const std::string& value);
+  std::string criterionDescription() const;
+  void setCriterionDescription(const std::string& value);
 };
 
 // Generated section facade for the `governance` @Form section: its own `content` text followed by one typed member per form field.
@@ -62554,10 +62554,6 @@ class OpportunityStatementOpportunityDetailsForm : public som::SomNode {
   void setOpportunitySummary(const std::string& value);
   std::string futureState() const;
   void setFutureState(const std::string& value);
-  std::string newCapabilities() const;
-  void setNewCapabilities(const std::string& value);
-  std::string improvements() const;
-  void setImprovements(const std::string& value);
   std::string competitiveAdvantage() const;
   void setCompetitiveAdvantage(const std::string& value);
   std::string innovationAspects() const;
@@ -62568,6 +62564,10 @@ class OpportunityStatementOpportunityDetailsForm : public som::SomNode {
   void setEfficiencyGains(const std::string& value);
   std::string timeToValue() const;
   void setTimeToValue(const std::string& value);
+  std::string newCapabilities() const;
+  void setNewCapabilities(const std::string& value);
+  std::string improvements() const;
+  void setImprovements(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -62838,16 +62838,16 @@ class OrganizationalRequirementEntryClassificationForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
+  std::string priority() const;
+  void setPriority(const std::string& value);
   std::string category() const;
   void setCategory(const std::string& value);
   std::string subcategory() const;
   void setSubcategory(const std::string& value);
-  std::string priority() const;
-  void setPriority(const std::string& value);
-  std::string source() const;
-  void setSource(const std::string& value);
   std::string rationale() const;
   void setRationale(const std::string& value);
+  std::string source() const;
+  void setSource(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -63054,12 +63054,12 @@ class OtherAgreementEntryContentForm : public som::SomNode {
   void setEffectiveDate(const std::string& value);
   std::string expirationDate() const;
   void setExpirationDate(const std::string& value);
+  std::string location() const;
+  void setLocation(const std::string& value);
   std::string keyTerms() const;
   void setKeyTerms(const std::string& value);
   std::string obligations() const;
   void setObligations(const std::string& value);
-  std::string location() const;
-  void setLocation(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -63174,10 +63174,10 @@ class PackageOrganizationStructureForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string monorepoVsPolyrepo() const;
   void setMonorepoVsPolyrepo(const std::string& value);
-  std::string directoryLayout() const;
-  void setDirectoryLayout(const std::string& value);
   std::string featureGrouping() const;
   void setFeatureGrouping(const std::string& value);
+  std::string directoryLayout() const;
+  void setDirectoryLayout(const std::string& value);
 };
 
 // Generated section facade for the `types` @Form section: its own `content` text followed by one typed member per form field.
@@ -63188,14 +63188,14 @@ class PackageOrganizationTypesForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string corePackages() const;
-  void setCorePackages(const std::string& value);
-  std::string featurePackages() const;
-  void setFeaturePackages(const std::string& value);
   std::string sharedPackages() const;
   void setSharedPackages(const std::string& value);
   std::string platformPackages() const;
   void setPlatformPackages(const std::string& value);
+  std::string corePackages() const;
+  void setCorePackages(const std::string& value);
+  std::string featurePackages() const;
+  void setFeaturePackages(const std::string& value);
 };
 
 // Generated section facade for the `classification` @Form section: its own `content` text followed by one typed member per form field.
@@ -63700,14 +63700,14 @@ class PeriodicReviewPolicyContentForm : public som::SomNode {
   void setAccessReviewFrequency(const std::string& value);
   std::string privilegedAccountReview() const;
   void setPrivilegedAccountReview(const std::string& value);
-  std::string reviewers() const;
-  void setReviewers(const std::string& value);
   std::string dormantAccountReview() const;
   void setDormantAccountReview(const std::string& value);
   std::string segregationOfDutiesReview() const;
   void setSegregationOfDutiesReview(const std::string& value);
   std::string reviewDocumentation() const;
   void setReviewDocumentation(const std::string& value);
+  std::string reviewers() const;
+  void setReviewers(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -64396,8 +64396,6 @@ class PortabilityContentForm : public som::SomNode {
   void setDesktopOsVersions(const std::string& value);
   std::string migrationEffortConstraint() const;
   void setMigrationEffortConstraint(const std::string& value);
-  std::string dataPortability() const;
-  void setDataPortability(const std::string& value);
   std::string vendorLockInAvoidance() const;
   void setVendorLockInAvoidance(const std::string& value);
   std::string containerizationRequirement() const;
@@ -64406,6 +64404,8 @@ class PortabilityContentForm : public som::SomNode {
   void setInfrastructureAsCode(const std::string& value);
   std::string portabilityVerification() const;
   void setPortabilityVerification(const std::string& value);
+  std::string dataPortability() const;
+  void setDataPortability(const std::string& value);
 };
 
 // Generated section facade for the `closure` @Form section: its own `content` text followed by one typed member per form field.
@@ -64472,18 +64472,18 @@ class PostconditionsAndGuaranteesContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string minimalGuarantees() const;
   void setMinimalGuarantees(const std::string& value);
-  std::string successGuarantees() const;
-  void setSuccessGuarantees(const std::string& value);
   std::string primaryActorPostcondition() const;
   void setPrimaryActorPostcondition(const std::string& value);
   std::string systemPostcondition() const;
   void setSystemPostcondition(const std::string& value);
   std::string dataPostcondition() const;
   void setDataPostcondition(const std::string& value);
-  std::string notificationsGenerated() const;
-  void setNotificationsGenerated(const std::string& value);
   std::string auditTrail() const;
   void setAuditTrail(const std::string& value);
+  std::string successGuarantees() const;
+  void setSuccessGuarantees(const std::string& value);
+  std::string notificationsGenerated() const;
+  void setNotificationsGenerated(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -64494,8 +64494,6 @@ class PreconditionsAndTriggersContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string precondition() const;
-  void setPrecondition(const std::string& value);
   std::string trigger() const;
   void setTrigger(const std::string& value);
   std::string triggerType() const;
@@ -64508,6 +64506,8 @@ class PreconditionsAndTriggersContentForm : public som::SomNode {
   void setFrequencyOfTrigger(const std::string& value);
   std::string validationBeforeStart() const;
   void setValidationBeforeStart(const std::string& value);
+  std::string precondition() const;
+  void setPrecondition(const std::string& value);
 };
 
 // Generated section facade for the `bottomNav` @Form section: its own `content` text followed by one typed member per form field.
@@ -64884,22 +64884,22 @@ class ProblemStatementProblemDetailsForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string problemSummary() const;
   void setProblemSummary(const std::string& value);
+  std::string impactSeverity() const;
+  void setImpactSeverity(const std::string& value);
   std::string currentState() const;
   void setCurrentState(const std::string& value);
   std::string affectedParties() const;
   void setAffectedParties(const std::string& value);
   std::string impactDescription() const;
   void setImpactDescription(const std::string& value);
-  std::string impactSeverity() const;
-  void setImpactSeverity(const std::string& value);
-  std::string impactMetrics() const;
-  void setImpactMetrics(const std::string& value);
-  std::string rootCauses() const;
-  void setRootCauses(const std::string& value);
   std::string urgency() const;
   void setUrgency(const std::string& value);
   std::string urgencyJustification() const;
   void setUrgencyJustification(const std::string& value);
+  std::string impactMetrics() const;
+  void setImpactMetrics(const std::string& value);
+  std::string rootCauses() const;
+  void setRootCauses(const std::string& value);
   std::string consequencesOfInaction() const;
   void setConsequencesOfInaction(const std::string& value);
 };
@@ -65096,8 +65096,6 @@ class ProcessCatalogOverviewForm : public som::SomNode {
   void setContent(const std::string& value);
   std::optional<long> totalProcessCount() const;
   void setTotalProcessCount(std::optional<long> value);
-  std::string scopeStatement() const;
-  void setScopeStatement(const std::string& value);
   std::string classificationFramework() const;
   void setClassificationFramework(const std::string& value);
   std::string namingConvention() const;
@@ -65110,6 +65108,8 @@ class ProcessCatalogOverviewForm : public som::SomNode {
   void setGovernanceModel(const std::string& value);
   std::string versioningApproach() const;
   void setVersioningApproach(const std::string& value);
+  std::string scopeStatement() const;
+  void setScopeStatement(const std::string& value);
 };
 
 // Generated section facade for the `business` @Form section: its own `content` text followed by one typed member per form field.
@@ -65276,10 +65276,10 @@ class ProcessDesignPrincipleEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
+  std::string priority() const;
+  void setPriority(const std::string& value);
   std::string category() const;
   void setCategory(const std::string& value);
-  std::string statement() const;
-  void setStatement(const std::string& value);
   std::string rationale() const;
   void setRationale(const std::string& value);
   std::string implications() const;
@@ -65288,10 +65288,10 @@ class ProcessDesignPrincipleEntryContentForm : public som::SomNode {
   void setExamples(const std::string& value);
   std::string tradeoffs() const;
   void setTradeoffs(const std::string& value);
-  std::string priority() const;
-  void setPriority(const std::string& value);
   std::string applicability() const;
   void setApplicability(const std::string& value);
+  std::string statement() const;
+  void setStatement(const std::string& value);
 };
 
 // Generated section facade for the `overview` @Form section: its own `content` text followed by one typed member per form field.
@@ -65446,12 +65446,12 @@ class ProcessIdentificationDefinitionForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
   std::string purpose() const;
   void setPurpose(const std::string& value);
   std::string scope() const;
   void setScope(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
 };
 
 // Generated section facade for the `governance` @Form section: its own `content` text followed by one typed member per form field.
@@ -65832,14 +65832,14 @@ class ProcessRelationshipEntryContentForm : public som::SomNode {
   void setTargetProcess(const std::string& value);
   std::string relationshipType() const;
   void setRelationshipType(const std::string& value);
-  std::string dataExchanged() const;
-  void setDataExchanged(const std::string& value);
   std::string timingDependency() const;
   void setTimingDependency(const std::string& value);
   std::string frequencyOfInteraction() const;
   void setFrequencyOfInteraction(const std::string& value);
   std::string criticality() const;
   void setCriticality(const std::string& value);
+  std::string dataExchanged() const;
+  void setDataExchanged(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -65982,8 +65982,6 @@ class ProcessStepsOverviewContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string useCaseScope() const;
-  void setUseCaseScope(const std::string& value);
   std::string primaryActorFocus() const;
   void setPrimaryActorFocus(const std::string& value);
   std::string interactionCoverage() const;
@@ -65992,12 +65990,14 @@ class ProcessStepsOverviewContentForm : public som::SomNode {
   void setScenarioCoverage(const std::string& value);
   std::string useCaseNamingConvention() const;
   void setUseCaseNamingConvention(const std::string& value);
+  std::string notationStandard() const;
+  void setNotationStandard(const std::string& value);
+  std::string useCaseScope() const;
+  void setUseCaseScope(const std::string& value);
   std::string traceabilityApproach() const;
   void setTraceabilityApproach(const std::string& value);
   std::string detailLevel() const;
   void setDetailLevel(const std::string& value);
-  std::string notationStandard() const;
-  void setNotationStandard(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -66142,10 +66142,10 @@ class ProcessVisionSuccessCriteriaForm : public som::SomNode {
   void setPerformanceTargets(const std::string& value);
   std::string userSatisfaction() const;
   void setUserSatisfaction(const std::string& value);
-  std::string businessOutcomes() const;
-  void setBusinessOutcomes(const std::string& value);
   std::string measurementApproach() const;
   void setMeasurementApproach(const std::string& value);
+  std::string businessOutcomes() const;
+  void setBusinessOutcomes(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -66864,10 +66864,10 @@ class QualityGateAdjustmentDetailsContentForm : public som::SomNode {
   void setAdjustmentDescription(const std::string& value);
   std::string originalCriteria() const;
   void setOriginalCriteria(const std::string& value);
-  std::string adjustedCriteria() const;
-  void setAdjustedCriteria(const std::string& value);
   std::string criteriaThresholdChange() const;
   void setCriteriaThresholdChange(const std::string& value);
+  std::string adjustedCriteria() const;
+  void setAdjustedCriteria(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -67006,12 +67006,12 @@ class QualityGateCheckEntryDefinitionForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string checkDescription() const;
-  void setCheckDescription(const std::string& value);
-  std::string checkCategory() const;
-  void setCheckCategory(const std::string& value);
   std::string qualityCategory() const;
   void setQualityCategory(const std::string& value);
+  std::string checkCategory() const;
+  void setCheckCategory(const std::string& value);
+  std::string checkDescription() const;
+  void setCheckDescription(const std::string& value);
 };
 
 // Generated section facade for the `execution` @Form section: its own `content` text followed by one typed member per form field.
@@ -67754,14 +67754,14 @@ class RegulatoryComplianceEntryRequirementsForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string keyRequirements() const;
-  void setKeyRequirements(const std::string& value);
   std::string technicalControls() const;
   void setTechnicalControls(const std::string& value);
   std::string proceduralControls() const;
   void setProceduralControls(const std::string& value);
   std::string documentationRequired() const;
   void setDocumentationRequired(const std::string& value);
+  std::string keyRequirements() const;
+  void setKeyRequirements(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -67778,16 +67778,16 @@ class RegulatoryRequirementEntryContentForm : public som::SomNode {
   void setRegulatoryBody(const std::string& value);
   std::string jurisdiction() const;
   void setJurisdiction(const std::string& value);
-  std::string applicability() const;
-  void setApplicability(const std::string& value);
   std::string complianceDeadline() const;
   void setComplianceDeadline(const std::string& value);
-  std::string evidenceRequired() const;
-  void setEvidenceRequired(const std::string& value);
   std::string responsibleParty() const;
   void setResponsibleParty(const std::string& value);
   std::string penaltyForNonCompliance() const;
   void setPenaltyForNonCompliance(const std::string& value);
+  std::string applicability() const;
+  void setApplicability(const std::string& value);
+  std::string evidenceRequired() const;
+  void setEvidenceRequired(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -67926,10 +67926,10 @@ class RelevantSectionEntryContentForm : public som::SomNode {
   void setSectionReference(const std::string& value);
   std::string relevance() const;
   void setRelevance(const std::string& value);
-  std::string extractSummary() const;
-  void setExtractSummary(const std::string& value);
   std::optional<bool> complianceRequired() const;
   void setComplianceRequired(std::optional<bool> value);
+  std::string extractSummary() const;
+  void setExtractSummary(const std::string& value);
 };
 
 // Generated section facade for the `reliabilityContent` @Form section: its own `content` text followed by one typed member per form field.
@@ -69440,22 +69440,22 @@ class RequirementsOverviewRequirementsFormForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string requirementsProcess() const;
-  void setRequirementsProcess(const std::string& value);
   std::string traceabilityApproach() const;
   void setTraceabilityApproach(const std::string& value);
-  std::string changeControlProcess() const;
-  void setChangeControlProcess(const std::string& value);
   std::string prioritizationMethod() const;
   void setPrioritizationMethod(const std::string& value);
   std::string totalRequirements() const;
   void setTotalRequirements(const std::string& value);
-  std::string mustHaveCount() const;
-  void setMustHaveCount(const std::string& value);
   std::string shouldHaveCount() const;
   void setShouldHaveCount(const std::string& value);
   std::string couldHaveCount() const;
   void setCouldHaveCount(const std::string& value);
+  std::string requirementsProcess() const;
+  void setRequirementsProcess(const std::string& value);
+  std::string changeControlProcess() const;
+  void setChangeControlProcess(const std::string& value);
+  std::string mustHaveCount() const;
+  void setMustHaveCount(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -70580,12 +70580,12 @@ class RiskIdentificationContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
   std::string category() const;
   void setCategory(const std::string& value);
   std::string subcategory() const;
   void setSubcategory(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
 };
 
 // Generated section facade for the `sourceDetails` @Form section: its own `content` text followed by one typed member per form field.
@@ -70806,12 +70806,12 @@ class RoleAdjustmentEntryDetailsForm : public som::SomNode {
   void setAdjustedRoleName(const std::string& value);
   std::string adjustmentDescription() const;
   void setAdjustmentDescription(const std::string& value);
-  std::string affectedResponsibilities() const;
-  void setAffectedResponsibilities(const std::string& value);
   std::string mergedWithRoles() const;
   void setMergedWithRoles(const std::string& value);
   std::string splitIntoRoles() const;
   void setSplitIntoRoles(const std::string& value);
+  std::string affectedResponsibilities() const;
+  void setAffectedResponsibilities(const std::string& value);
 };
 
 // Generated section facade for the `governance` @Form section: its own `content` text followed by one typed member per form field.
@@ -71486,12 +71486,12 @@ class RuntimeEnvironmentNetworkForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string networkRequirements() const;
-  void setNetworkRequirements(const std::string& value);
   std::string bandwidthRequirements() const;
   void setBandwidthRequirements(const std::string& value);
   std::string latencyRequirements() const;
   void setLatencyRequirements(const std::string& value);
+  std::string networkRequirements() const;
+  void setNetworkRequirements(const std::string& value);
 };
 
 // Generated section facade for the `runtimeNotes` @Form section: its own `content` text followed by one typed member per form field.
@@ -71544,10 +71544,10 @@ class RuntimeEnvironmentVariablesForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string requiredEnvVariables() const;
-  void setRequiredEnvVariables(const std::string& value);
   std::string optionalEnvVariables() const;
   void setOptionalEnvVariables(const std::string& value);
+  std::string requiredEnvVariables() const;
+  void setRequiredEnvVariables(const std::string& value);
 };
 
 // Generated section facade for the `capacity` @Form section: its own `content` text followed by one typed member per form field.
@@ -71560,10 +71560,10 @@ class ScalabilityArchitectureCapacityForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string expectedLoad() const;
   void setExpectedLoad(const std::string& value);
-  std::string peakLoad() const;
-  void setPeakLoad(const std::string& value);
   std::string growthProjection() const;
   void setGrowthProjection(const std::string& value);
+  std::string peakLoad() const;
+  void setPeakLoad(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -72284,14 +72284,14 @@ class ScopeItemEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string itemDescription() const;
-  void setItemDescription(const std::string& value);
   std::string category() const;
   void setCategory(const std::string& value);
   std::string rationale() const;
   void setRationale(const std::string& value);
   std::string relatedRequirements() const;
   void setRelatedRequirements(const std::string& value);
+  std::string itemDescription() const;
+  void setItemDescription(const std::string& value);
 };
 
 // Generated section facade for the `behavior` @Form section: its own `content` text followed by one typed member per form field.
@@ -72344,10 +72344,10 @@ class ScreenActionEntryContentForm : public som::SomNode {
   void setActionType(const std::string& value);
   std::string owningController() const;
   void setOwningController(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
   std::string contextType() const;
   void setContextType(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
 };
 
 // Generated section facade for the `visual` @Form section: its own `content` text followed by one typed member per form field.
@@ -72562,10 +72562,10 @@ class ScreenElementEntryPresentationForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string styleVariant() const;
-  void setStyleVariant(const std::string& value);
   std::string accessibilityLabel() const;
   void setAccessibilityLabel(const std::string& value);
+  std::string styleVariant() const;
+  void setStyleVariant(const std::string& value);
   std::string dataBinding() const;
   void setDataBinding(const std::string& value);
   std::string defaultValue() const;
@@ -72766,12 +72766,12 @@ class ScreenEntryPresentationForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
+  std::string helpTopicId() const;
+  void setHelpTopicId(const std::string& value);
   std::string pageTitleResource() const;
   void setPageTitleResource(const std::string& value);
   std::string pageIconResource() const;
   void setPageIconResource(const std::string& value);
-  std::string helpTopicId() const;
-  void setHelpTopicId(const std::string& value);
   std::string layout() const;
   void setLayout(const std::string& value);
 };
@@ -73018,10 +73018,10 @@ class ScreenSectionEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string sectionId_() const;
   void setSectionId_(const std::string& value);
-  std::string purpose() const;
-  void setPurpose(const std::string& value);
   std::string sectionType() const;
   void setSectionType(const std::string& value);
+  std::string purpose() const;
+  void setPurpose(const std::string& value);
 };
 
 // Generated section facade for the `layout` @Form section: its own `content` text followed by one typed member per form field.
@@ -73052,20 +73052,20 @@ class ScreenStateEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string stateId() const;
   void setStateId(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
+  std::string primaryActionLabel() const;
+  void setPrimaryActionLabel(const std::string& value);
+  std::string secondaryActionLabel() const;
+  void setSecondaryActionLabel(const std::string& value);
   std::string messageResource() const;
   void setMessageResource(const std::string& value);
   std::string iconResource() const;
   void setIconResource(const std::string& value);
   std::string illustrationResource() const;
   void setIllustrationResource(const std::string& value);
-  std::string primaryActionLabel() const;
-  void setPrimaryActionLabel(const std::string& value);
   std::string primaryActionTarget() const;
   void setPrimaryActionTarget(const std::string& value);
-  std::string secondaryActionLabel() const;
-  void setSecondaryActionLabel(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -73178,10 +73178,10 @@ class SecurityAuthenticationForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string authenticationMethod() const;
-  void setAuthenticationMethod(const std::string& value);
   std::string mfaRequirement() const;
   void setMfaRequirement(const std::string& value);
+  std::string authenticationMethod() const;
+  void setAuthenticationMethod(const std::string& value);
   std::string passwordPolicy() const;
   void setPasswordPolicy(const std::string& value);
   std::string sessionManagement() const;
@@ -73572,20 +73572,20 @@ class SecurityRequirementEntryClassificationForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
+  std::string priority() const;
+  void setPriority(const std::string& value);
   std::string category() const;
   void setCategory(const std::string& value);
   std::string subcategory() const;
   void setSubcategory(const std::string& value);
-  std::string priority() const;
-  void setPriority(const std::string& value);
-  std::string source() const;
-  void setSource(const std::string& value);
   std::string rationale() const;
   void setRationale(const std::string& value);
   std::string threatMitigated() const;
   void setThreatMitigated(const std::string& value);
   std::string dataClassification() const;
   void setDataClassification(const std::string& value);
+  std::string source() const;
+  void setSource(const std::string& value);
 };
 
 // Generated section facade for the `compliance` @Form section: its own `content` text followed by one typed member per form field.
@@ -74220,14 +74220,14 @@ class ServerOperationEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string operationName() const;
   void setOperationName(const std::string& value);
-  std::string purpose() const;
-  void setPurpose(const std::string& value);
-  std::string primaryDataEntity() const;
-  void setPrimaryDataEntity(const std::string& value);
   std::string descriptionKey() const;
   void setDescriptionKey(const std::string& value);
+  std::string primaryDataEntity() const;
+  void setPrimaryDataEntity(const std::string& value);
   std::string errorCodes() const;
   void setErrorCodes(const std::string& value);
+  std::string purpose() const;
+  void setPurpose(const std::string& value);
 };
 
 // Generated section facade for the `controls` @Form section: its own `content` text followed by one typed member per form field.
@@ -75724,10 +75724,10 @@ class SoftwareLayerEntryResponsibilitiesForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string purpose() const;
   void setPurpose(const std::string& value);
-  std::string responsibilities() const;
-  void setResponsibilities(const std::string& value);
   std::string prohibitions() const;
   void setProhibitions(const std::string& value);
+  std::string responsibilities() const;
+  void setResponsibilities(const std::string& value);
 };
 
 // Generated section facade for the `technology` @Form section: its own `content` text followed by one typed member per form field.
@@ -76092,12 +76092,12 @@ class StageEntryIdentityForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string stageCodename() const;
   void setStageCodename(const std::string& value);
-  std::string stageDescription() const;
-  void setStageDescription(const std::string& value);
   std::string businessObjective() const;
   void setBusinessObjective(const std::string& value);
   std::string stageType() const;
   void setStageType(const std::string& value);
+  std::string stageDescription() const;
+  void setStageDescription(const std::string& value);
 };
 
 // Generated section facade for the `metrics` @Form section: its own `content` text followed by one typed member per form field.
@@ -76128,18 +76128,18 @@ class StageEntryQualityForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
+  std::string acceptanceCriteriaSummary() const;
+  void setAcceptanceCriteriaSummary(const std::string& value);
   std::string entryCriteria() const;
   void setEntryCriteria(const std::string& value);
-  std::string exitCriteria() const;
-  void setExitCriteria(const std::string& value);
   std::string qualityGates() const;
   void setQualityGates(const std::string& value);
   std::string testingStrategy() const;
   void setTestingStrategy(const std::string& value);
-  std::string acceptanceCriteriaSummary() const;
-  void setAcceptanceCriteriaSummary(const std::string& value);
   std::string toleranceLevels() const;
   void setToleranceLevels(const std::string& value);
+  std::string exitCriteria() const;
+  void setExitCriteria(const std::string& value);
 };
 
 // Generated section facade for the `risk` @Form section: its own `content` text followed by one typed member per form field.
@@ -76168,8 +76168,6 @@ class StageEntryScopeForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string scopeSummary() const;
-  void setScopeSummary(const std::string& value);
   std::string includedFeatures() const;
   void setIncludedFeatures(const std::string& value);
   std::string excludedDeferred() const;
@@ -76184,6 +76182,8 @@ class StageEntryScopeForm : public som::SomNode {
   void setStoryPointEstimate(const std::string& value);
   std::string technicalDebtItems() const;
   void setTechnicalDebtItems(const std::string& value);
+  std::string scopeSummary() const;
+  void setScopeSummary(const std::string& value);
 };
 
 // Generated section facade for the `timeline` @Form section: its own `content` text followed by one typed member per form field.
@@ -77074,14 +77074,14 @@ class StagingDependenciesContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string criticalPrerequisites() const;
-  void setCriticalPrerequisites(const std::string& value);
   std::string externalDependencies() const;
   void setExternalDependencies(const std::string& value);
   std::string internalDependencies() const;
   void setInternalDependencies(const std::string& value);
   std::string dependencyRisks() const;
   void setDependencyRisks(const std::string& value);
+  std::string criticalPrerequisites() const;
+  void setCriticalPrerequisites(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -77116,10 +77116,10 @@ class StagingStrategyApproachSelectionForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string approachDescription() const;
   void setApproachDescription(const std::string& value);
-  std::string alternativesConsidered() const;
-  void setAlternativesConsidered(const std::string& value);
   std::string selectionCriteria() const;
   void setSelectionCriteria(const std::string& value);
+  std::string alternativesConsidered() const;
+  void setAlternativesConsidered(const std::string& value);
 };
 
 // Generated section facade for the `communication` @Form section: its own `content` text followed by one typed member per form field.
@@ -77348,16 +77348,16 @@ class StakeholderRegisterEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string role() const;
-  void setRole(const std::string& value);
-  std::string interest() const;
-  void setInterest(const std::string& value);
   std::string influence() const;
   void setInfluence(const std::string& value);
   std::string concerns() const;
   void setConcerns(const std::string& value);
   std::string engagementStrategy() const;
   void setEngagementStrategy(const std::string& value);
+  std::string role() const;
+  void setRole(const std::string& value);
+  std::string interest() const;
+  void setInterest(const std::string& value);
 };
 
 // Generated section facade for the `summary` @Form section: its own `content` text followed by one typed member per form field.
@@ -77542,8 +77542,6 @@ class StrategicAlignmentAlignmentDetailsForm : public som::SomNode {
   void setAlignedBusinessObjectives(const std::string& value);
   std::string alignedItStrategy() const;
   void setAlignedItStrategy(const std::string& value);
-  std::string relatedInitiatives() const;
-  void setRelatedInitiatives(const std::string& value);
   std::string digitizationContribution() const;
   void setDigitizationContribution(const std::string& value);
   std::string innovationContribution() const;
@@ -77554,6 +77552,8 @@ class StrategicAlignmentAlignmentDetailsForm : public som::SomNode {
   void setMarketPositioning(const std::string& value);
   std::string strategicTimingRationale() const;
   void setStrategicTimingRationale(const std::string& value);
+  std::string relatedInitiatives() const;
+  void setRelatedInitiatives(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -77612,10 +77612,10 @@ class SubStageEntryOverviewForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
   std::string objective() const;
   void setObjective(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
 };
 
 // Generated section facade for the `scope` @Form section: its own `content` text followed by one typed member per form field.
@@ -78458,20 +78458,20 @@ class SystemDescriptionDescriptionSummaryForm : public som::SomNode {
   void setDomainClassification(const std::string& value);
   std::string deploymentModel() const;
   void setDeploymentModel(const std::string& value);
-  std::string architectureStyle() const;
-  void setArchitectureStyle(const std::string& value);
   std::string primaryTechnologyStack() const;
   void setPrimaryTechnologyStack(const std::string& value);
-  std::string interfaceTypes() const;
-  void setInterfaceTypes(const std::string& value);
   std::string dataCharacteristics() const;
   void setDataCharacteristics(const std::string& value);
-  std::string securityClassification() const;
-  void setSecurityClassification(const std::string& value);
   std::string availabilityRequirement() const;
   void setAvailabilityRequirement(const std::string& value);
   std::string scalabilityModel() const;
   void setScalabilityModel(const std::string& value);
+  std::string architectureStyle() const;
+  void setArchitectureStyle(const std::string& value);
+  std::string interfaceTypes() const;
+  void setInterfaceTypes(const std::string& value);
+  std::string securityClassification() const;
+  void setSecurityClassification(const std::string& value);
   std::string expectedUserLoad() const;
   void setExpectedUserLoad(const std::string& value);
   std::string keyDifferentiators() const;
@@ -78970,12 +78970,12 @@ class SystemQualityGoalsGovernanceContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
+  std::string qualityOwner() const;
+  void setQualityOwner(const std::string& value);
   std::string qualityApproach() const;
   void setQualityApproach(const std::string& value);
   std::string qualityStandards() const;
   void setQualityStandards(const std::string& value);
-  std::string qualityOwner() const;
-  void setQualityOwner(const std::string& value);
 };
 
 // Generated section facade for the `governance` @Form section: its own `content` text followed by one typed member per form field.
@@ -79108,10 +79108,10 @@ class SystemStagePlanCoordinationForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string crossStageDependencySummary() const;
-  void setCrossStageDependencySummary(const std::string& value);
   std::string crossStageRiskSummary() const;
   void setCrossStageRiskSummary(const std::string& value);
+  std::string crossStageDependencySummary() const;
+  void setCrossStageDependencySummary(const std::string& value);
   std::string regulatoryComplianceConsiderations() const;
   void setRegulatoryComplianceConsiderations(const std::string& value);
 };
@@ -79178,10 +79178,10 @@ class SystemSummaryComplexityForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string overallComplexity() const;
   void setOverallComplexity(const std::string& value);
-  std::string keyRisks() const;
-  void setKeyRisks(const std::string& value);
   std::string keyAssumptions() const;
   void setKeyAssumptions(const std::string& value);
+  std::string keyRisks() const;
+  void setKeyRisks(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -80090,8 +80090,6 @@ class TechnicalGoalEntryMeasurementForm : public som::SomNode {
   void setSuccessMetric(const std::string& value);
   std::string currentValue() const;
   void setCurrentValue(const std::string& value);
-  std::string targetValue() const;
-  void setTargetValue(const std::string& value);
   std::string measurementMethod() const;
   void setMeasurementMethod(const std::string& value);
   std::string measurementTool() const;
@@ -80100,6 +80098,8 @@ class TechnicalGoalEntryMeasurementForm : public som::SomNode {
   void setMeasurementEnvironment(const std::string& value);
   std::string verificationPoint() const;
   void setVerificationPoint(const std::string& value);
+  std::string targetValue() const;
+  void setTargetValue(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -80266,18 +80266,18 @@ class TechnicalRequirementEntryDetailsForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
+  std::string priority() const;
+  void setPriority(const std::string& value);
   std::string category() const;
   void setCategory(const std::string& value);
   std::string subcategory() const;
   void setSubcategory(const std::string& value);
-  std::string priority() const;
-  void setPriority(const std::string& value);
-  std::string source() const;
-  void setSource(const std::string& value);
   std::string rationale() const;
   void setRationale(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
+  std::string source() const;
+  void setSource(const std::string& value);
 };
 
 // Generated section facade for the `impact` @Form section: its own `content` text followed by one typed member per form field.
@@ -81768,12 +81768,12 @@ class ToolingContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string toolStrategyOverview() const;
   void setToolStrategyOverview(const std::string& value);
-  std::string standardToolStackDescription() const;
-  void setStandardToolStackDescription(const std::string& value);
   std::string toolGovernancePolicy() const;
   void setToolGovernancePolicy(const std::string& value);
   std::string toolApprovalProcess() const;
   void setToolApprovalProcess(const std::string& value);
+  std::string standardToolStackDescription() const;
+  void setStandardToolStackDescription(const std::string& value);
 };
 
 // Generated section facade for the `governance` @Form section: its own `content` text followed by one typed member per form field.
@@ -83060,12 +83060,12 @@ class TrustBoundaryEntryContentForm : public som::SomNode {
   void setDescription(const std::string& value);
   std::string componentsCrossing() const;
   void setComponentsCrossing(const std::string& value);
-  std::string protectionMechanisms() const;
-  void setProtectionMechanisms(const std::string& value);
   std::string trustLevel() const;
   void setTrustLevel(const std::string& value);
   std::string complianceImplications() const;
   void setComplianceImplications(const std::string& value);
+  std::string protectionMechanisms() const;
+  void setProtectionMechanisms(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -84106,12 +84106,12 @@ class UserCategoryDefinitionContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
   std::string accessLevel() const;
   void setAccessLevel(const std::string& value);
   std::string estimatedCount() const;
   void setEstimatedCount(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -84122,10 +84122,10 @@ class UserCategoryEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
   std::string userType() const;
   void setUserType(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
 };
 
 // Generated section facade for the `importance` @Form section: its own `content` text followed by one typed member per form field.
@@ -84402,10 +84402,10 @@ class UserLifecycleTransitionEntryContentForm : public som::SomNode {
   void setFromState(const std::string& value);
   std::string toState() const;
   void setToState(const std::string& value);
-  std::string trigger() const;
-  void setTrigger(const std::string& value);
   std::string triggerConditions() const;
   void setTriggerConditions(const std::string& value);
+  std::string trigger() const;
+  void setTrigger(const std::string& value);
 };
 
 // Generated section facade for the `effects` @Form section: its own `content` text followed by one typed member per form field.
@@ -84416,12 +84416,12 @@ class UserLifecycleTransitionEntryEffectsForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string sideEffects() const;
-  void setSideEffects(const std::string& value);
   std::string notificationRecipients() const;
   void setNotificationRecipients(const std::string& value);
   std::string notificationChannels() const;
   void setNotificationChannels(const std::string& value);
+  std::string sideEffects() const;
+  void setSideEffects(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -84964,12 +84964,12 @@ class ValuePropositionValueDetailsForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string valueStatement() const;
   void setValueStatement(const std::string& value);
+  std::string qualitativeBenefits() const;
+  void setQualitativeBenefits(const std::string& value);
   std::string primaryBenefits() const;
   void setPrimaryBenefits(const std::string& value);
   std::string quantifiableBenefits() const;
   void setQuantifiableBenefits(const std::string& value);
-  std::string qualitativeBenefits() const;
-  void setQualitativeBenefits(const std::string& value);
 };
 
 // Generated section facade for the `branching` @Form section: its own `content` text followed by one typed member per form field.

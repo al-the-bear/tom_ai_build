@@ -1280,10 +1280,10 @@ form-types:
     fields:
       - fieldname: approachDescription
         description: Brief description of how the staging approach will be applied
-      - fieldname: alternativesConsidered
-        description: Other staging approaches evaluated and why rejected
       - fieldname: selectionCriteria
         description: Criteria used to select this approach
+      - fieldname: alternativesConsidered
+        description: Other staging approaches evaluated and why rejected
   stagrt-form:
     fields:
       - fieldname: riskReductionRationale
@@ -1618,12 +1618,12 @@ form-types:
     fields:
       - fieldname: stageCodename
         description: "Optional internal codename, e.g. Atlas, Phoenix"
-      - fieldname: stageDescription
-        description: Brief description of what this stage delivers
       - fieldname: businessObjective
         description: Primary business outcome this stage achieves
       - fieldname: stageType
         description: Foundation / Incremental / Enhancement / Optimization / Migration
+      - fieldname: stageDescription
+        description: Brief description of what this stage delivers
   stti-form:
     fields:
       - fieldname: plannedStartDate
@@ -1646,8 +1646,6 @@ form-types:
         description: Periods during which no changes can be deployed
   stsc-form:
     fields:
-      - fieldname: scopeSummary
-        description: High-level summary of features included in this stage
       - fieldname: includedFeatures
         description: Key features explicitly included
       - fieldname: excludedDeferred
@@ -1662,20 +1660,22 @@ form-types:
         description: Total estimated effort in story points
       - fieldname: technicalDebtItems
         description: Known technical debt to be addressed
+      - fieldname: scopeSummary
+        description: High-level summary of features included in this stage
   stqu-form:
     fields:
+      - fieldname: acceptanceCriteriaSummary
+        description: High-level criteria for business acceptance
       - fieldname: entryCriteria
         description: Conditions that must be met before the stage can begin
-      - fieldname: exitCriteria
-        description: Conditions that must be met for stage completion
       - fieldname: qualityGates
         description: Formal checkpoints within the stage
       - fieldname: testingStrategy
         description: Testing approach for this stage
-      - fieldname: acceptanceCriteriaSummary
-        description: High-level criteria for business acceptance
       - fieldname: toleranceLevels
         description: "PRINCE2 tolerances — time, cost, scope, quality"
+      - fieldname: exitCriteria
+        description: Conditions that must be met for stage completion
   sd-form:
     fields:
       - fieldname: deploymentApproach
@@ -1716,10 +1716,10 @@ form-types:
         description: Minimum outcome required to declare success
   sseo-form:
     fields:
-      - fieldname: description
-        description: Brief description of this sub-stage or milestone
       - fieldname: objective
         description: What this sub-stage aims to achieve
+      - fieldname: description
+        description: Brief description of this sub-stage or milestone
   sset-form:
     fields:
       - fieldname: targetStartDate

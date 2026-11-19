@@ -26,7 +26,7 @@
       - buildToolchain: `BuildToolchainEntry`[]
         - content @Form(toolCategory, platform), versions, configuration, profiles, integration, outputs, operations
       - deploymentTargets: `DeploymentTargetEntry`[]
-        - content @Form(targetCategory, targetEnvironment, environmentRef), platform, buildOutput, requirements,
+        - content @Form(targetCategory, environmentRef, targetEnvironment), platform, buildOutput, requirements,
           process, compliance
       - `DependencyManagement`
         - content @Form(primaryPackageManager, secondaryPackageManagers, registryUrls), versioning, security, internal,
@@ -60,7 +60,7 @@
         - content @Form(scalabilityModel, elasticityApproach, scalingTriggers), capacity, targets, patterns,
           optimization, testing
       - `IntegrationArchitecture`
-        - content @Form(integrationStrategy, integrationPatterns, apiManagement), systems, data, security, reliability,
+        - content @Form(integrationPatterns, apiManagement, integrationStrategy), systems, data, security, reliability,
           operations
       - `DeploymentTopology`
         - content @Form(topologyType, deploymentModel, cloudProviders), infrastructure, environmentsConfig,

@@ -106,7 +106,7 @@
   - `ServerOperationRegistry`
     - content
     - operations: `ServerOperationEntry`[]
-      - content @Form(operationName, purpose, primaryDataEntity, descriptionKey, errorCodes), controls
+      - content @Form(operationName, descriptionKey, primaryDataEntity, errorCodes, purpose), controls
       - authorization: `AuthorizationRequirementSpec`
         - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
           resourceKeyRequirement, customRequirement

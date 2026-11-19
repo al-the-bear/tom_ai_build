@@ -340,16 +340,17 @@ class ProcessVision extends DocSpecsSection {
       hint: 'Target satisfaction or NPS scores',
     ),
     Field(
-      'businessOutcomes',
-      String,
-      'Business Outcomes — revenue, market share impact',
-      hint: 'Expected business-level outcomes',
-    ),
-    Field(
       'measurementApproach',
       String,
       'Measurement Approach — how success is measured',
       hint: 'How and when success is measured',
+    ),
+    Field(
+      'businessOutcomes',
+      String,
+      'Business Outcomes — revenue, market share impact',
+      hint: 'Expected business-level outcomes',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(4)
@@ -519,16 +520,16 @@ class ProcessDesignPrinciples extends DocSpecsSection {
 class ProcessDesignPrincipleEntry extends DocSpecsSection {
   @Form([
     Field(
+      'priority',
+      ImportanceBand,
+      'Priority',
+      hint: 'Relative importance of the principle.',
+    ),
+    Field(
       'category',
       String,
       'Category — efficiency, quality, compliance, user experience',
       hint: 'The dimension this principle addresses',
-    ),
-    Field(
-      'statement',
-      String,
-      'Statement — the principle statement',
-      hint: 'The principle expressed as a directive',
     ),
     Field(
       'rationale',
@@ -555,16 +556,17 @@ class ProcessDesignPrincipleEntry extends DocSpecsSection {
       hint: 'What is given up to follow the principle',
     ),
     Field(
-      'priority',
-      ImportanceBand,
-      'Priority',
-      hint: 'Relative importance of the principle.',
-    ),
-    Field(
       'applicability',
       String,
       'Applicability — all processes or specific types',
       hint: 'Which processes the principle applies to',
+    ),
+    Field(
+      'statement',
+      String,
+      'Statement — the principle statement',
+      hint: 'The principle expressed as a directive',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -616,12 +618,6 @@ class ProcessCatalog extends DocSpecsSection {
       hint: 'Number of processes in the catalog',
     ),
     Field(
-      'scopeStatement',
-      String,
-      'Scope Statement — what processes are in scope',
-      hint: 'What the catalog does and does not cover',
-    ),
-    Field(
       'classificationFramework',
       String,
       'Classification Framework — APQC PCF, custom',
@@ -656,6 +652,13 @@ class ProcessCatalog extends DocSpecsSection {
       String,
       'Versioning Approach — how process versions are managed',
       hint: 'How process versions are tracked',
+    ),
+    Field(
+      'scopeStatement',
+      String,
+      'Scope Statement — what processes are in scope',
+      hint: 'What the catalog does and does not cover',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -858,12 +861,6 @@ class ProcessIdentification extends DocSpecsSection {
   )
   @Form([
     Field(
-      'description',
-      String,
-      'Description — what the process does',
-      hint: 'What the process actually does',
-    ),
-    Field(
       'purpose',
       String,
       'Purpose — why the process exists',
@@ -874,6 +871,13 @@ class ProcessIdentification extends DocSpecsSection {
       String,
       'Scope — boundaries of the process',
       hint: 'Where the process starts and ends',
+    ),
+    Field(
+      'description',
+      String,
+      'Description — what the process does',
+      hint: 'What the process actually does',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(2)
@@ -2777,12 +2781,6 @@ class ProcessRelationshipEntry extends DocSpecsSection {
       hint: 'Classify the relationship type',
     ),
     Field(
-      'dataExchanged',
-      String,
-      'Data Exchanged — what flows between processes',
-      hint: 'State what data flows between them',
-    ),
-    Field(
       'timingDependency',
       String,
       'Timing Dependency — must complete before, can run parallel',
@@ -2799,6 +2797,13 @@ class ProcessRelationshipEntry extends DocSpecsSection {
       String,
       'Criticality — how critical is this relationship',
       hint: 'State how critical the relationship is',
+    ),
+    Field(
+      'dataExchanged',
+      String,
+      'Data Exchanged — what flows between processes',
+      hint: 'State what data flows between them',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -2918,12 +2923,6 @@ postconditions in the ISC (Interaction Scenarios) document.
 class ProcessStepsOverview extends DocSpecsSection {
   @Form([
     Field(
-      'useCaseScope',
-      String,
-      'Use Case Scope — system, organization, subsystem',
-      hint: 'State the design scope of the use cases',
-    ),
-    Field(
       'primaryActorFocus',
       String,
       'Primary Actor Focus — main user types',
@@ -2948,22 +2947,31 @@ class ProcessStepsOverview extends DocSpecsSection {
       hint: 'State the naming/ID pattern for use cases',
     ),
     Field(
+      'notationStandard',
+      String,
+      'Notation Standard — Cockburn, Fowler, RUP',
+      hint: 'Name the use-case notation standard followed',
+    ),
+    Field(
+      'useCaseScope',
+      String,
+      'Use Case Scope — system, organization, subsystem',
+      hint: 'State the design scope of the use cases',
+      multiParagraph: true,
+    ),
+    Field(
       'traceabilityApproach',
       String,
       'Traceability Approach — link to TOM, ISC documents',
       hint: 'Explain how interactions trace to TOM and ISC',
+      multiParagraph: true,
     ),
     Field(
       'detailLevel',
       String,
       'Detail Level — brief, casual, fully dressed',
       hint: 'Choose the Cockburn detail level applied',
-    ),
-    Field(
-      'notationStandard',
-      String,
-      'Notation Standard — Cockburn, Fowler, RUP',
-      hint: 'Name the use-case notation standard followed',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -3294,12 +3302,6 @@ modeling conventions with Cockburn-style goal and scope annotations.
       hint: 'Enter how many actors are external systems',
     ),
     Field(
-      'actorIdentificationApproach',
-      String,
-      'Actor Identification Approach — how actors were identified',
-      hint: 'Describe the method used to discover actors',
-    ),
-    Field(
       'actorPrioritization',
       String,
       'Actor Prioritization — which actors are most important',
@@ -3310,6 +3312,13 @@ modeling conventions with Cockburn-style goal and scope annotations.
       String,
       'Actor Goal Alignment — how actor goals align with business goals',
       hint: 'Explain how actor goals map to business goals',
+    ),
+    Field(
+      'actorIdentificationApproach',
+      String,
+      'Actor Identification Approach — how actors were identified',
+      hint: 'Describe the method used to discover actors',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -3367,6 +3376,7 @@ modeling conventions with Cockburn-style goal and scope annotations.
       String,
       'Timer/Scheduled Actors — time-triggered actions',
       hint: 'List time-triggered or scheduled actors',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(3)
@@ -3427,12 +3437,6 @@ class ActorEntry extends DocSpecsSection {
       hint: 'Classify using Cockburn primary/secondary/supporting/offstage',
     ),
     Field(
-      'description',
-      String,
-      'Description — role purpose',
-      hint: 'Explain the actor’s purpose in one or two sentences',
-    ),
-    Field(
       'realWorldExamples',
       String,
       'Real World Examples — who fills this role',
@@ -3455,6 +3459,13 @@ class ActorEntry extends DocSpecsSection {
       String,
       'Geographic Distribution — where actors are located',
       hint: 'Note the locations or regions where actors operate',
+    ),
+    Field(
+      'description',
+      String,
+      'Description — role purpose',
+      hint: 'Explain the actor’s purpose in one or two sentences',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -3999,6 +4010,7 @@ following Cockburn's fully dressed use case template.
       String,
       'Traceability to Processes — link to BP section',
       hint: 'Reference the TOM-xxx process each interaction realizes',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -4599,12 +4611,6 @@ class StakeholdersAndInterests extends DocSpecsSection {
 class PreconditionsAndTriggers extends DocSpecsSection {
   @Form([
     Field(
-      'precondition',
-      String,
-      'Preconditions — must be true before',
-      hint: 'State assumed true before the interaction starts',
-    ),
-    Field(
       'trigger',
       String,
       'Trigger — what initiates this use case',
@@ -4640,6 +4646,13 @@ class PreconditionsAndTriggers extends DocSpecsSection {
       'Validation Before Start — checks before proceeding',
       hint: 'Guard checks performed before the main flow',
     ),
+    Field(
+      'precondition',
+      String,
+      'Preconditions — must be true before',
+      hint: 'State assumed true before the interaction starts',
+      multiParagraph: true,
+    ),
   ])
   @override
   @SerializationOrder(0)
@@ -4671,12 +4684,6 @@ class PostconditionsAndGuarantees extends DocSpecsSection {
       hint: 'What the system promises even when the flow fails',
     ),
     Field(
-      'successGuarantees',
-      String,
-      'Success Guarantees — true after successful completion',
-      hint: 'What holds true only after successful completion',
-    ),
-    Field(
       'primaryActorPostcondition',
       String,
       'Primary Actor Postcondition — actor state after',
@@ -4695,16 +4702,24 @@ class PostconditionsAndGuarantees extends DocSpecsSection {
       hint: 'Persistent data created, updated or removed',
     ),
     Field(
-      'notificationsGenerated',
-      String,
-      'Notifications Generated — who is notified',
-      hint: 'Notifications sent and their recipients',
-    ),
-    Field(
       'auditTrail',
       String,
       'Audit Trail — what is logged',
       hint: 'Audit records written for this interaction',
+    ),
+    Field(
+      'successGuarantees',
+      String,
+      'Success Guarantees — true after successful completion',
+      hint: 'What holds true only after successful completion',
+      multiParagraph: true,
+    ),
+    Field(
+      'notificationsGenerated',
+      String,
+      'Notifications Generated — who is notified',
+      hint: 'Notifications sent and their recipients',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -4823,14 +4838,6 @@ class MainScenarioStepEntry extends DocSpecsSection {
       hint: 'Data read or written during the step',
     ),
     Field(
-      'businessRuleApplied',
-      String,
-      'Business Rule Applied',
-      hint:
-          'The rule enforced at this step, as prose — it may cite a business '
-          'rule (BIRU-…) or a Project Idea rule (C6.5); not resolved',
-    ),
-    Field(
       'uiElementUsed',
       String,
       'UI Element Used — screen/component',
@@ -4847,6 +4854,15 @@ class MainScenarioStepEntry extends DocSpecsSection {
       String,
       'Expected Duration — time for this step',
       hint: 'Expected time to complete this step',
+    ),
+    Field(
+      'businessRuleApplied',
+      String,
+      'Business Rule Applied',
+      hint:
+          'The rule enforced at this step, as prose — it may cite a business '
+          'rule (BIRU-…) or a Project Idea rule (C6.5); not resolved',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -5051,6 +5067,15 @@ class UseCaseExtensions extends DocSpecsSection {
 class ExtensionEntry extends DocSpecsSection {
   @Form([
     Field(
+      'returnKind',
+      FlowReturnPoint,
+      'Return Kind — resume the scenario, or end it',
+      required: true,
+      hint:
+          'Where control goes when this branch finishes — back to a named '
+          'main-scenario step, or nowhere because the use case ends here',
+    ),
+    Field(
       'branchPoint',
       String,
       'Branch Point — main-scenario step',
@@ -5075,25 +5100,10 @@ class ExtensionEntry extends DocSpecsSection {
       hint: 'Classify: alternative, exception or error',
     ),
     Field(
-      'description',
-      String,
-      'Description — what happens',
-      hint: 'What happens along this extension path',
-    ),
-    Field(
       'outcome',
       String,
       'Outcome — how it ends',
       hint: 'Result reached when the branch completes',
-    ),
-    Field(
-      'returnKind',
-      FlowReturnPoint,
-      'Return Kind — resume the scenario, or end it',
-      required: true,
-      hint:
-          'Where control goes when this branch finishes — back to a named '
-          'main-scenario step, or nowhere because the use case ends here',
     ),
     Field(
       'frequency',
@@ -5106,6 +5116,13 @@ class ExtensionEntry extends DocSpecsSection {
       String,
       'Severity — impact level (for exceptions)',
       hint: 'Impact level for exception/error branches',
+    ),
+    Field(
+      'description',
+      String,
+      'Description — what happens',
+      hint: 'What happens along this extension path',
+      multiParagraph: true,
     ),
   ])
   @override

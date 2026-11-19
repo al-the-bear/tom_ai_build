@@ -195,6 +195,7 @@ framework. It is not something to restate per site.
       String,
       'Rationale',
       hint: 'Why this requirement and not a wider or narrower one',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -278,6 +279,12 @@ framework. It is not something to restate per site.
   @Case(AuthorizationRequirementKind.custom)
   @Form([
     Field(
+      'resourceId',
+      String,
+      'Resource ID',
+      hint: 'The resource id passed to the handler, where it needs one',
+    ),
+    Field(
       'handler',
       String,
       'Handler',
@@ -288,12 +295,6 @@ framework. It is not something to restate per site.
           'access-handler catalogue',
     ),
     Field(
-      'resourceId',
-      String,
-      'Resource ID',
-      hint: 'The resource id passed to the handler, where it needs one',
-    ),
-    Field(
       'decisionRule',
       String,
       'Decision Rule',
@@ -301,6 +302,7 @@ framework. It is not something to restate per site.
       hint:
           'What the handler must decide, in business terms — this is the '
           'specification the handler is implemented against',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(5)

@@ -324,12 +324,6 @@ relationships.
 class UserCategoryDefinition extends DocSpecsSection {
   @Form([
     Field(
-      'description',
-      String,
-      'Short description',
-      hint: 'Brief description of this category.',
-    ),
-    Field(
       'accessLevel',
       String,
       'Access Level',
@@ -340,6 +334,13 @@ class UserCategoryDefinition extends DocSpecsSection {
       String,
       'Estimated Count',
       hint: 'Estimated number of users in this category.',
+    ),
+    Field(
+      'description',
+      String,
+      'Short description',
+      hint: 'Brief description of this category.',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -1281,16 +1282,17 @@ class UserLifecycleTransitionEntry extends DocSpecsSection {
       hint: 'Target lifecycle state',
     ),
     Field(
-      'trigger',
-      String,
-      'Trigger',
-      hint: 'UserRequest | AdminAction | SystemEvent | ScheduledJob',
-    ),
-    Field(
       'triggerConditions',
       String,
       'Trigger Conditions',
       hint: 'Pre-conditions that must be met for this transition',
+    ),
+    Field(
+      'trigger',
+      String,
+      'Trigger',
+      hint: 'UserRequest | AdminAction | SystemEvent | ScheduledJob',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -1340,13 +1342,6 @@ class UserLifecycleTransitionEntry extends DocSpecsSection {
   )
   @Form([
     Field(
-      'sideEffects',
-      String,
-      'Side Effects',
-      hint:
-          'Actions performed on transition (revoke tokens, send email, deprovision)',
-    ),
-    Field(
       'notificationRecipients',
       String,
       'Notification Recipients',
@@ -1357,6 +1352,14 @@ class UserLifecycleTransitionEntry extends DocSpecsSection {
       String,
       'Notification Channels',
       hint: 'Email | SMS | InApp | Webhook',
+    ),
+    Field(
+      'sideEffects',
+      String,
+      'Side Effects',
+      hint:
+          'Actions performed on transition (revoke tokens, send email, deprovision)',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(2)
@@ -6016,18 +6019,19 @@ class MfaCategoryRequirementEntry extends DocSpecsSection {
   )
   @Form([
     Field(
-      'allowedAuthenticatorTypes',
-      String,
-      'Allowed Authenticator Types',
-      hint:
-          'TOTP | WebAuthn | FIDO2 | SMS | Push | Passkey — allowed second-factor types',
-    ),
-    Field(
       'phishingResistanceRequired',
       String,
       'Phishing Resistance Required',
       hint:
           'Yes | No | Recommended — whether phishing-resistant authenticators are required',
+    ),
+    Field(
+      'allowedAuthenticatorTypes',
+      String,
+      'Allowed Authenticator Types',
+      hint:
+          'TOTP | WebAuthn | FIDO2 | SMS | Push | Passkey — allowed second-factor types',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -11594,18 +11598,19 @@ class AuthorizationRoleEntry extends DocSpecsSection {
       required: true,
     ),
     Field(
-      'description',
-      String,
-      'Short description',
-      hint: 'Purpose of the role and the access it grants',
-    ),
-    Field(
       'roleCategory',
       String,
       'Role Category',
       hint:
           'Business | Technical | Administrative | System | Compliance | '
           'Custom — classification of the role by function',
+    ),
+    Field(
+      'description',
+      String,
+      'Short description',
+      hint: 'Purpose of the role and the access it grants',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -12149,18 +12154,20 @@ class EntitlementEntry extends DocSpecsSection {
       required: true,
       hint: 'Name of the entitlement.',
     ),
+    Field('accessType', String, 'Access Type', hint: 'Type of access granted.'),
     Field(
       'description',
       String,
       'Short description',
       hint: 'Brief description.',
+      multiParagraph: true,
     ),
-    Field('accessType', String, 'Access Type', hint: 'Type of access granted.'),
     Field(
       'conditions',
       String,
       'Conditions',
       hint: 'Conditions under which the entitlement applies.',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -15004,12 +15011,6 @@ class PeriodicReviewPolicy extends DocSpecsSection {
           '(e.g., monthly, bi-annually)',
     ),
     Field(
-      'reviewers',
-      String,
-      'Reviewers',
-      hint: 'Who performs reviews (e.g., manager, security team, CISO)',
-    ),
-    Field(
       'dormantAccountReview',
       String,
       'Dormant Account Review',
@@ -15026,6 +15027,13 @@ class PeriodicReviewPolicy extends DocSpecsSection {
       String,
       'Review Documentation',
       hint: 'How review results are documented',
+    ),
+    Field(
+      'reviewers',
+      String,
+      'Reviewers',
+      hint: 'Who performs reviews (e.g., manager, security team, CISO)',
+      multiParagraph: true,
     ),
   ])
   @override

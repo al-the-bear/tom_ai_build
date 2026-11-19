@@ -404,7 +404,13 @@ class TargetPlatformEntry extends DocSpecsSection {
       hint:
           'Operating System, Runtime Environment, Container Platform, Cloud Platform',
     ),
-    Field('platformType', String, 'Type', hint: 'Server, Desktop, Mobile, IoT'),
+    Field(
+      'platformType',
+      String,
+      'Type',
+      hint: 'Server, Desktop, Mobile, IoT',
+      multiParagraph: true,
+    ),
   ])
   @override
   @SerializationOrder(0)
@@ -481,6 +487,7 @@ class TargetPlatformEntry extends DocSpecsSection {
       String,
       'Required Features',
       hint: 'Specific OS features or capabilities needed',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(3)
@@ -745,6 +752,7 @@ class FrameworkRequirementEntry extends DocSpecsSection {
       'Purpose',
       required: true,
       hint: 'What problem this framework solves',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -821,12 +829,6 @@ class FrameworkRequirementEntry extends DocSpecsSection {
       hint: 'Core, Feature-specific, Development-only, Testing-only',
     ),
     Field(
-      'integrationPoints',
-      String,
-      'Integration Points',
-      hint: 'Where this framework integrates in the architecture',
-    ),
-    Field(
       'requiredPlugins',
       String,
       'Required Plugins/Extensions',
@@ -843,6 +845,13 @@ class FrameworkRequirementEntry extends DocSpecsSection {
       String,
       'Excluded Features',
       hint: 'Framework features that should not be used',
+    ),
+    Field(
+      'integrationPoints',
+      String,
+      'Integration Points',
+      hint: 'Where this framework integrates in the architecture',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(3)
@@ -917,13 +926,6 @@ class FrameworkRequirementEntry extends DocSpecsSection {
   )
   @Form([
     Field(
-      'justification',
-      String,
-      'Justification',
-      required: true,
-      hint: 'Reason for selecting this framework',
-    ),
-    Field(
       'alternativesConsidered',
       String,
       'Alternatives Considered',
@@ -936,6 +938,14 @@ class FrameworkRequirementEntry extends DocSpecsSection {
       hint: 'Vendor lock-in, maintenance, complexity risks',
     ),
     Field('notes', String, 'Notes', hint: 'Additional framework notes'),
+    Field(
+      'justification',
+      String,
+      'Justification',
+      required: true,
+      hint: 'Reason for selecting this framework',
+      multiParagraph: true,
+    ),
   ])
   @SerializationOrder(6)
   DocSpecsSection? justification;
@@ -1030,16 +1040,17 @@ class BuildToolchainEntry extends DocSpecsSection {
   )
   @Form([
     Field(
-      'buildProfiles',
-      String,
-      'Build Profiles',
-      hint: 'E.g., Debug, Release, Profile, Production',
-    ),
-    Field(
       'defaultProfile',
       String,
       'Default Profile',
       hint: 'Default build profile',
+    ),
+    Field(
+      'buildProfiles',
+      String,
+      'Build Profiles',
+      hint: 'E.g., Debug, Release, Profile, Production',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(3)
@@ -1143,18 +1154,19 @@ class DeploymentTargetEntry extends DocSpecsSection {
       hint: 'Web, Mobile App, Desktop App, Cloud Service, Container, Embedded',
     ),
     Field(
-      'targetEnvironment',
-      String,
-      'Environment',
-      hint: 'Development, Staging, Production',
-    ),
-    Field(
       'environmentRef',
       String,
       'Environment',
       hint:
           'The environment (ENVEN-ITEM-…) this entry describes; the environment itself is described in the environment register',
       refersTo: ['ENVEN.@sectionId'],
+    ),
+    Field(
+      'targetEnvironment',
+      String,
+      'Environment',
+      hint: 'Development, Staging, Production',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -1294,12 +1306,6 @@ class DeploymentTargetEntry extends DocSpecsSection {
   )
   @Form([
     Field(
-      'complianceRequirements',
-      String,
-      'Compliance Requirements',
-      hint: 'Store guidelines, regulatory requirements',
-    ),
-    Field(
       'privacyRequirements',
       String,
       'Privacy Requirements',
@@ -1313,6 +1319,13 @@ class DeploymentTargetEntry extends DocSpecsSection {
       hint: 'Target date for this deployment',
     ),
     Field('notes', String, 'Notes', hint: 'Additional deployment notes'),
+    Field(
+      'complianceRequirements',
+      String,
+      'Compliance Requirements',
+      hint: 'Store guidelines, regulatory requirements',
+      multiParagraph: true,
+    ),
   ])
   @SerializationOrder(5)
   DocSpecsSection? compliance;
@@ -1347,6 +1360,7 @@ class DependencyManagement extends DocSpecsSection {
       String,
       'Registry URLs',
       hint: 'Package registry URLs (public and private)',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -1578,12 +1592,6 @@ class RuntimeEnvironment extends DocSpecsSection {
   )
   @Form([
     Field(
-      'networkRequirements',
-      String,
-      'Network Requirements',
-      hint: 'Connectivity requirements',
-    ),
-    Field(
       'bandwidthRequirements',
       String,
       'Bandwidth Requirements',
@@ -1594,6 +1602,13 @@ class RuntimeEnvironment extends DocSpecsSection {
       String,
       'Latency Requirements',
       hint: 'Maximum acceptable latency',
+    ),
+    Field(
+      'networkRequirements',
+      String,
+      'Network Requirements',
+      hint: 'Connectivity requirements',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(4)
@@ -1607,16 +1622,17 @@ class RuntimeEnvironment extends DocSpecsSection {
   )
   @Form([
     Field(
-      'requiredEnvVariables',
-      String,
-      'Required Environment Variables',
-      hint: 'Mandatory environment variables',
-    ),
-    Field(
       'optionalEnvVariables',
       String,
       'Optional Environment Variables',
       hint: 'Optional configuration variables',
+    ),
+    Field(
+      'requiredEnvVariables',
+      String,
+      'Required Environment Variables',
+      hint: 'Mandatory environment variables',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(5)
@@ -1880,6 +1896,7 @@ class ArchitectureOverview extends DocSpecsSection {
       String,
       'Style Summary',
       hint: 'Brief description of the chosen architecture',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -1894,23 +1911,25 @@ class ArchitectureOverview extends DocSpecsSection {
   ], 'The business and technical drivers that justify the architecture choice.')
   @Form([
     Field(
-      'justification',
-      String,
-      'Justification',
-      required: true,
-      hint: 'Why this architecture style was chosen',
-    ),
-    Field(
       'businessDrivers',
       String,
       'Business Drivers',
       hint: 'Business requirements driving the choice',
     ),
     Field(
+      'justification',
+      String,
+      'Justification',
+      required: true,
+      hint: 'Why this architecture style was chosen',
+      multiParagraph: true,
+    ),
+    Field(
       'technicalDrivers',
       String,
       'Technical Drivers',
       hint: 'Technical requirements driving the choice',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -2473,23 +2492,25 @@ class ArchitectureComponentEntry extends DocSpecsSection {
   )
   @Form([
     Field(
+      'notResponsibleFor',
+      String,
+      'Not Responsible For',
+      hint: 'Explicitly out of scope',
+    ),
+    Field(
       'purpose',
       String,
       'Purpose',
       required: true,
       hint: 'What this component does',
+      multiParagraph: true,
     ),
     Field(
       'responsibilities',
       String,
       'Responsibilities',
       hint: 'List of responsibilities',
-    ),
-    Field(
-      'notResponsibleFor',
-      String,
-      'Not Responsible For',
-      hint: 'Explicitly out of scope',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -2658,16 +2679,17 @@ class CommunicationPatterns extends DocSpecsSection {
   ], 'The synchronous request-response patterns and API gateway details.')
   @Form([
     Field(
-      'syncPatterns',
-      String,
-      'Synchronous Patterns',
-      hint: 'Request-response, Service mesh',
-    ),
-    Field(
       'apiGateway',
       String,
       'API Gateway',
       hint: 'Central gateway pattern details',
+    ),
+    Field(
+      'syncPatterns',
+      String,
+      'Synchronous Patterns',
+      hint: 'Request-response, Service mesh',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -2700,6 +2722,7 @@ class CommunicationPatterns extends DocSpecsSection {
       String,
       'Event Patterns',
       hint: 'Pub/Sub, Event sourcing, CQRS',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(2)
@@ -2716,12 +2739,6 @@ class CommunicationPatterns extends DocSpecsSection {
   )
   @Form([
     Field(
-      'dataContracts',
-      String,
-      'Data Contracts',
-      hint: 'API contracts and schemas',
-    ),
-    Field(
       'schemaEvolution',
       String,
       'Schema Evolution',
@@ -2732,6 +2749,13 @@ class CommunicationPatterns extends DocSpecsSection {
       String,
       'Serialization',
       hint: 'Serialization approach',
+    ),
+    Field(
+      'dataContracts',
+      String,
+      'Data Contracts',
+      hint: 'API contracts and schemas',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(3)
@@ -3025,12 +3049,18 @@ class ScalabilityArchitecture extends DocSpecsSection {
       'Expected Load',
       hint: 'Expected concurrent users/requests',
     ),
-    Field('peakLoad', String, 'Peak Load', hint: 'Peak load expectations'),
     Field(
       'growthProjection',
       String,
       'Growth Projection',
       hint: 'Expected growth over time',
+    ),
+    Field(
+      'peakLoad',
+      String,
+      'Peak Load',
+      hint: 'Peak load expectations',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -3181,12 +3211,6 @@ class ScalabilityArchitecture extends DocSpecsSection {
 class IntegrationArchitecture extends DocSpecsSection {
   @Form([
     Field(
-      'integrationStrategy',
-      String,
-      'Integration Strategy',
-      hint: 'Point-to-point, Hub-and-spoke, ESB, API-led',
-    ),
-    Field(
       'integrationPatterns',
       String,
       'Integration Patterns',
@@ -3197,6 +3221,13 @@ class IntegrationArchitecture extends DocSpecsSection {
       String,
       'API Management',
       hint: 'How APIs are managed',
+    ),
+    Field(
+      'integrationStrategy',
+      String,
+      'Integration Strategy',
+      hint: 'Point-to-point, Hub-and-spoke, ESB, API-led',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -3220,16 +3251,17 @@ class IntegrationArchitecture extends DocSpecsSection {
       hint: 'Number of external integrations',
     ),
     Field(
-      'integrationTypes',
-      String,
-      'Integration Types',
-      hint: 'REST, SOAP, File, Database, Events',
-    ),
-    Field(
       'realTimeIntegrations',
       String,
       'Real-Time Integrations',
       hint: 'Integrations requiring real-time sync',
+    ),
+    Field(
+      'integrationTypes',
+      String,
+      'Integration Types',
+      hint: 'REST, SOAP, File, Database, Events',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -3278,12 +3310,6 @@ class IntegrationArchitecture extends DocSpecsSection {
   )
   @Form([
     Field(
-      'authenticationApproach',
-      String,
-      'Authentication Approach',
-      hint: 'How integrations are authenticated',
-    ),
-    Field(
       'authorizationApproach',
       String,
       'Authorization Approach',
@@ -3294,6 +3320,13 @@ class IntegrationArchitecture extends DocSpecsSection {
       String,
       'Secure Transport',
       hint: 'Transport security (TLS, VPN)',
+    ),
+    Field(
+      'authenticationApproach',
+      String,
+      'Authentication Approach',
+      hint: 'How integrations are authenticated',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(3)
@@ -3628,13 +3661,6 @@ class ArchitectureDecisionRecord extends DocSpecsSection {
   )
   @Form([
     Field(
-      'decision',
-      String,
-      'Decision',
-      required: true,
-      hint: 'What was decided',
-    ),
-    Field(
       'rationale',
       String,
       'Rationale',
@@ -3653,6 +3679,14 @@ class ArchitectureDecisionRecord extends DocSpecsSection {
       'Decision Makers',
       hint: 'Who made this decision',
     ),
+    Field(
+      'decision',
+      String,
+      'Decision',
+      required: true,
+      hint: 'What was decided',
+      multiParagraph: true,
+    ),
   ])
   @SerializationOrder(2)
   DocSpecsSection? outcome;
@@ -3667,12 +3701,6 @@ class ArchitectureDecisionRecord extends DocSpecsSection {
     'The positive and negative consequences of an architecture decision and its review date.',
   )
   @Form([
-    Field(
-      'consequences',
-      String,
-      'Consequences',
-      hint: 'Impact of this decision',
-    ),
     Field(
       'positiveConsequences',
       String,
@@ -3692,6 +3720,13 @@ class ArchitectureDecisionRecord extends DocSpecsSection {
       hint: 'When this decision should be reviewed',
     ),
     Field('notes', String, 'Notes', hint: 'Additional decision notes'),
+    Field(
+      'consequences',
+      String,
+      'Consequences',
+      hint: 'Impact of this decision',
+      multiParagraph: true,
+    ),
   ])
   @SerializationOrder(3)
   DocSpecsSection? consequences;
@@ -4070,15 +4105,16 @@ class CodingStandardEntry extends DocSpecsSection {
     'SOLID principles — object-oriented design',
   ], 'States a coding rule together with its rationale and examples.')
   @Form([
+    Field('rationale', String, 'Rationale', hint: 'Why this rule matters'),
+    Field('examples', String, 'Examples', hint: 'Good and bad code examples'),
     Field(
       'rule',
       String,
       'Rule',
       required: true,
       hint: 'Clear statement of the coding rule',
+      multiParagraph: true,
     ),
-    Field('rationale', String, 'Rationale', hint: 'Why this rule matters'),
-    Field('examples', String, 'Examples', hint: 'Good and bad code examples'),
   ])
   @SerializationOrder(1)
   DocSpecsSection? ruleDetails;
@@ -5576,16 +5612,17 @@ class SoftwareLayerEntry extends DocSpecsSection {
       hint: 'Primary responsibility of this layer',
     ),
     Field(
-      'responsibilities',
-      String,
-      'Key Responsibilities',
-      hint: 'Specific functions this layer handles',
-    ),
-    Field(
       'prohibitions',
       String,
       'Prohibitions',
       hint: 'What this layer must NOT do',
+    ),
+    Field(
+      'responsibilities',
+      String,
+      'Key Responsibilities',
+      hint: 'Specific functions this layer handles',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -5882,7 +5919,6 @@ class BoundedContextEntry extends DocSpecsSection {
     'Defines the scope, included/excluded concepts, and ubiquitous language of a bounded context.',
   )
   @Form([
-    Field('purpose', String, 'Purpose', hint: 'Why this context exists'),
     Field(
       'includedConcepts',
       String,
@@ -5896,10 +5932,18 @@ class BoundedContextEntry extends DocSpecsSection {
       hint: 'Domain concepts explicitly outside this context',
     ),
     Field(
+      'purpose',
+      String,
+      'Purpose',
+      hint: 'Why this context exists',
+      multiParagraph: true,
+    ),
+    Field(
       'ubiquitousLanguage',
       String,
       'Ubiquitous Language',
       hint: 'Key terms and their definitions',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -5978,12 +6022,14 @@ class BoundedContextEntry extends DocSpecsSection {
       String,
       'Published Events',
       hint: 'Domain events this context publishes',
+      multiParagraph: true,
     ),
     Field(
       'consumedEvents',
       String,
       'Consumed Events',
       hint: 'Domain events this context subscribes to',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(3)
@@ -6000,18 +6046,19 @@ class BoundedContextEntry extends DocSpecsSection {
   )
   @Form([
     Field(
-      'apiEndpoints',
-      String,
-      'API Endpoints',
-      hint: 'Public API endpoints exposed',
-    ),
-    Field(
       'integrationPatterns',
       String,
       'Integration Patterns',
       hint: 'How this context integrates with others',
     ),
     Field('notes', String, 'Notes', hint: 'Additional context notes'),
+    Field(
+      'apiEndpoints',
+      String,
+      'API Endpoints',
+      hint: 'Public API endpoints exposed',
+      multiParagraph: true,
+    ),
   ])
   @SerializationOrder(4)
   DocSpecsSection? integration;
@@ -6107,16 +6154,17 @@ class PackageOrganization extends DocSpecsSection {
       hint: 'Single vs multiple repositories',
     ),
     Field(
-      'directoryLayout',
-      String,
-      'Directory Layout',
-      hint: 'Top-level directory organization',
-    ),
-    Field(
       'featureGrouping',
       String,
       'Feature Grouping',
       hint: 'How features are grouped in structure',
+    ),
+    Field(
+      'directoryLayout',
+      String,
+      'Directory Layout',
+      hint: 'Top-level directory organization',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -6130,18 +6178,6 @@ class PackageOrganization extends DocSpecsSection {
   ], 'Categorizes packages into core, feature, shared, and platform types.')
   @Form([
     Field(
-      'corePackages',
-      String,
-      'Core Packages',
-      hint: 'Foundation packages required by all',
-    ),
-    Field(
-      'featurePackages',
-      String,
-      'Feature Packages',
-      hint: 'Business feature packages',
-    ),
-    Field(
       'sharedPackages',
       String,
       'Shared Packages',
@@ -6152,6 +6188,20 @@ class PackageOrganization extends DocSpecsSection {
       String,
       'Platform Packages',
       hint: 'Platform-specific packages',
+    ),
+    Field(
+      'corePackages',
+      String,
+      'Core Packages',
+      hint: 'Foundation packages required by all',
+      multiParagraph: true,
+    ),
+    Field(
+      'featurePackages',
+      String,
+      'Feature Packages',
+      hint: 'Business feature packages',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(2)
@@ -6261,12 +6311,6 @@ class ModuleEntry extends DocSpecsSection {
       hint: 'What this module provides',
     ),
     Field(
-      'functionality',
-      String,
-      'Functionality',
-      hint: 'Specific features/functions',
-    ),
-    Field(
       'publicApi',
       String,
       'Public API',
@@ -6277,6 +6321,13 @@ class ModuleEntry extends DocSpecsSection {
       String,
       'Entry Points',
       hint: 'Main entry points to the module',
+    ),
+    Field(
+      'functionality',
+      String,
+      'Functionality',
+      hint: 'Specific features/functions',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -7584,12 +7635,6 @@ class BuildToolsConfiguration extends DocSpecsSection {
   )
   @Form([
     Field(
-      'buildScripts',
-      String,
-      'Build Scripts',
-      hint: 'Custom build scripts location',
-    ),
-    Field(
       'preCommitHooks',
       String,
       'Pre-Commit Hooks',
@@ -7600,6 +7645,13 @@ class BuildToolsConfiguration extends DocSpecsSection {
       String,
       'Post-Build Actions',
       hint: 'Actions after successful build',
+    ),
+    Field(
+      'buildScripts',
+      String,
+      'Build Scripts',
+      hint: 'Custom build scripts location',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(3)
@@ -13547,12 +13599,6 @@ class RegulatoryComplianceEntry extends DocSpecsSection {
   ], 'Captures the technical and procedural controls required by a regulation.')
   @Form([
     Field(
-      'keyRequirements',
-      String,
-      'Key Requirements',
-      hint: 'Main requirements to meet',
-    ),
-    Field(
       'technicalControls',
       String,
       'Technical Controls',
@@ -13569,6 +13615,13 @@ class RegulatoryComplianceEntry extends DocSpecsSection {
       String,
       'Documentation Required',
       hint: 'Required documentation',
+    ),
+    Field(
+      'keyRequirements',
+      String,
+      'Key Requirements',
+      hint: 'Main requirements to meet',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(2)
@@ -28967,6 +29020,7 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
       hint:
           'The recurrence expression, verbatim (e.g. 0 2 * * * for daily at '
           '02:00)',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)

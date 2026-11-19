@@ -1469,12 +1469,12 @@ form-types:
         description: Max bandwidth consumption
   efquve-form:
     fields:
-      - fieldname: loadTestingRequirement
-        description: "Load test scenarios, thresholds"
       - fieldname: performanceProfilingApproach
         description: "APM tools, custom instrumentation"
       - fieldname: performanceBaselineDate
         description: When baseline was established
+      - fieldname: loadTestingRequirement
+        description: "Load test scenarios, thresholds"
       - fieldname: performanceSlaDefinition
         description: SLA for performance metrics
   cmpt-comp-form:
@@ -1703,10 +1703,10 @@ form-types:
         description: "ISO 27001, SOC 2, GDPR, sector-specific"
   sequau-form:
     fields:
-      - fieldname: authenticationMethod
-        description: "OAuth2, SAML, OIDC, MFA"
       - fieldname: mfaRequirement
         description: "All users, privileged users, optional"
+      - fieldname: authenticationMethod
+        description: "OAuth2, SAML, OIDC, MFA"
       - fieldname: passwordPolicy
         description: "Complexity, rotation, history"
       - fieldname: sessionManagement
@@ -1739,12 +1739,12 @@ form-types:
         description: "SAST, DAST, security review"
   isoqa-form:
     fields:
-      - fieldname: privilegedAccessManagement
-        description: "PAM solution, just-in-time"
       - fieldname: accessReviewFrequency
         description: "Quarterly, annually"
       - fieldname: accessAuditLogging
         description: What access is logged
+      - fieldname: privilegedAccessManagement
+        description: "PAM solution, just-in-time"
   isoqr-form:
     fields:
       - fieldname: drTestingFrequency
@@ -2051,12 +2051,12 @@ form-types:
         description: Who can grant waivers
   mpced-form:
     fields:
-      - fieldname: criterionDescription
-        description: What must be achieved
       - fieldname: qualityCategory
         description: The ISO/IEC 25010:2023 characteristic the criterion assures
       - fieldname: qualityAttribute
         description: Specific attribute this relates to
+      - fieldname: criterionDescription
+        description: What must be achieved
   mpcev-form:
     fields:
       - fieldname: verificationProcedure
@@ -2106,12 +2106,12 @@ form-types:
         description: When checklist is used
   qgced-form:
     fields:
-      - fieldname: checkDescription
-        description: Detailed description of check
-      - fieldname: checkCategory
-        description: Category of check
       - fieldname: qualityCategory
         description: The ISO/IEC 25010:2023 characteristic the criterion assures
+      - fieldname: checkCategory
+        description: Category of check
+      - fieldname: checkDescription
+        description: Detailed description of check
   qgcev-form:
     fields:
       - fieldname: verificationCriteria
@@ -2215,14 +2215,14 @@ form-types:
         description: "Entry gate, mid-point review, final review, sign-off"
   acprde-form:
     fields:
-      - fieldname: decisionCriteria
-        description: How accept/reject/conditional decisions are made
       - fieldname: defectThreshold
         description: Maximum open defects by severity to proceed
       - fieldname: conditionalAcceptanceRules
         description: Conditions under which acceptance with known issues is allowed
       - fieldname: rejectionCriteria
         description: Conditions that automatically block acceptance
+      - fieldname: decisionCriteria
+        description: How accept/reject/conditional decisions are made
   acpres-form:
     fields:
       - fieldname: escalationProcess

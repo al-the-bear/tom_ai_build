@@ -74,7 +74,7 @@
       - content @Form(componentArchitecture, componentGranularity, componentReplaceability), modularity, deployment,
         extensibility, narrative @text
     - `Portability`
-      - content @Form(targetPlatforms, browserSupport, mobileOsVersions, desktopOsVersions, migrationEffortConstraint, dataPortability, vendorLockInAvoidance, containerizationRequirement, infrastructureAsCode, portabilityVerification),
+      - content @Form(targetPlatforms, browserSupport, mobileOsVersions, desktopOsVersions, migrationEffortConstraint, vendorLockInAvoidance, containerizationRequirement, infrastructureAsCode, portabilityVerification, dataPortability),
         narrative @text
   - `DocumentationQualityCriteria`
     - content, documentationOverviewContent, overview @text

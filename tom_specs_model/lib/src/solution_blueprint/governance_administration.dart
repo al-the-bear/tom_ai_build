@@ -3146,22 +3146,10 @@ class RegulatoryRequirementEntry extends DocSpecsSection {
       hint: 'Geographic or legal scope where the regulation applies',
     ),
     Field(
-      'applicability',
-      String,
-      'Applicability',
-      hint: 'Why and how the regulation applies to this project',
-    ),
-    Field(
       'complianceDeadline',
       String,
       'Compliance Deadline',
       hint: 'When compliance must be achieved',
-    ),
-    Field(
-      'evidenceRequired',
-      String,
-      'Evidence Required',
-      hint: 'Proof needed to demonstrate compliance',
     ),
     Field(
       'responsibleParty',
@@ -3174,6 +3162,20 @@ class RegulatoryRequirementEntry extends DocSpecsSection {
       String,
       'Penalty for Non-compliance',
       hint: 'Consequences of failing to comply',
+    ),
+    Field(
+      'applicability',
+      String,
+      'Applicability',
+      hint: 'Why and how the regulation applies to this project',
+      multiParagraph: true,
+    ),
+    Field(
+      'evidenceRequired',
+      String,
+      'Evidence Required',
+      hint: 'Proof needed to demonstrate compliance',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -3573,22 +3575,24 @@ class OtherAgreementEntry extends DocSpecsSection {
       hint: 'When the agreement expires',
     ),
     Field(
+      'location',
+      String,
+      'Document Location',
+      hint: 'Where the signed agreement is stored',
+    ),
+    Field(
       'keyTerms',
       String,
       'Key Terms',
       hint: 'Principal terms of the agreement',
+      multiParagraph: true,
     ),
     Field(
       'obligations',
       String,
       'Obligations',
       hint: 'Obligations the agreement imposes',
-    ),
-    Field(
-      'location',
-      String,
-      'Document Location',
-      hint: 'Where the signed agreement is stored',
+      multiParagraph: true,
     ),
   ])
   @override

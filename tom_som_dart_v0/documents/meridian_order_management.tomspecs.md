@@ -38,9 +38,9 @@ Out of scope:
 
 ##### <!--[UCE-USER-1]--> Order Operations Clerk
 
-Description: Back-office staff who clear the order work list, amend lines, and cancel orders before dispatch across the wholesale and e-commerce channels.
-
 UserType: Internal
+
+Description: Back-office staff who clear the order work list, amend lines, and cancel orders before dispatch across the wholesale and e-commerce channels.
 
 ###### <!--[SYTS-SYST-LST]--> System Tasks
 
@@ -96,11 +96,11 @@ Status: approved
 
 ####### <!--[FRED]--> Details
 
-Description: The system must accept orders from the wholesale EDI adapter and the public REST order API, translating both into a single internal order-capture command so downstream processing is channel-agnostic.
-
 RequirementType: Functional
 
 Category: Order Capture
+
+Description: The system must accept orders from the wholesale EDI adapter and the public REST order API, translating both into a single internal order-capture command so downstream processing is channel-agnostic.
 
 ####### <!--[FREP]--> Priority
 
@@ -114,9 +114,9 @@ RiskLevel: medium
 
 ####### <!--[FRES]--> Source
 
-Source: VP Operations
-
 RequestDate: 2026-04-02
+
+Source: VP Operations
 
 Rationale: Both channels must feed the same lifecycle to retire re-keying.
 
@@ -170,11 +170,11 @@ Status: approved
 
 ####### <!--[FRED]--> Details
 
-Description: Pricing must be computed synchronously during order processing and the resulting unit price snapshotted onto each order line, eliminating the nightly batch and making historical orders reproducible.
-
 RequirementType: Functional
 
 Category: Pricing
+
+Description: Pricing must be computed synchronously during order processing and the resulting unit price snapshotted onto each order line, eliminating the nightly batch and making historical orders reproducible.
 
 ####### <!--[FREP]--> Priority
 
@@ -216,11 +216,11 @@ Status: approved
 
 ####### <!--[FRED]--> Details
 
-Description: Before an order is confirmed the system must reserve stock for every line; insufficient stock places the affected line on Hold rather than failing the whole order.
-
 RequirementType: Functional
 
 Category: Fulfilment
+
+Description: Before an order is confirmed the system must reserve stock for every line; insufficient stock places the affected line on Hold rather than failing the whole order.
 
 ####### <!--[FREP]--> Priority
 
@@ -274,11 +274,11 @@ Status: approved
 
 ####### <!--[FRED]--> Details
 
-Description: An order that passes validation, pricing, and reservation must reach state Confirmed within five minutes of capture, with the confirmation communicated on the operations work list and the public tracking page.
-
 RequirementType: Functional
 
 Category: Order Lifecycle
+
+Description: An order that passes validation, pricing, and reservation must reach state Confirmed within five minutes of capture, with the confirmation communicated on the operations work list and the public tracking page.
 
 ####### <!--[FREP]--> Priority
 
@@ -332,11 +332,11 @@ Status: approved
 
 ####### <!--[FRED]--> Details
 
-Description: Until an order is dispatched, a clerk must be able to amend line quantities and cancel lines or the whole order; each amendment re-runs pricing and reservation for the affected lines and is fully audited.
-
 RequirementType: Functional
 
 Category: Order Amendment
+
+Description: Until an order is dispatched, a clerk must be able to amend line quantities and cancel lines or the whole order; each amendment re-runs pricing and reservation for the affected lines and is fully audited.
 
 ####### <!--[FREP]--> Priority
 
@@ -390,11 +390,11 @@ Status: approved
 
 ####### <!--[FRED]--> Details
 
-Description: An Order Supervisor must be able to review an order on Hold and release it back into the lifecycle, recording a reason that is attached to the audit trail.
-
 RequirementType: Functional
 
 Category: Exception Handling
+
+Description: An Order Supervisor must be able to review an order on Hold and release it back into the lifecycle, recording a reason that is attached to the audit trail.
 
 ####### <!--[FREP]--> Priority
 
@@ -436,17 +436,17 @@ Status: approved
 
 ####### <!--[TRED]--> Details
 
-Description: The 95th-percentile order-confirmation latency must stay within budget under peak load.
+Priority: critical
 
 Category: Performance
 
 Subcategory: Latency
 
-Priority: critical
+Rationale: Sub-30s p95 keeps the five-minute business promise safe under 3x peak.
+
+Description: The 95th-percentile order-confirmation latency must stay within budget under peak load.
 
 Source: Operations SLA
-
-Rationale: Sub-30s p95 keeps the five-minute business promise safe under 3x peak.
 
 ####### <!--[TREM]--> Measurement
 
@@ -468,17 +468,17 @@ Status: approved
 
 ####### <!--[TRED]--> Details
 
-Description: The order-capture API must meet a 99.9% monthly availability target.
+Priority: critical
 
 Category: Reliability
 
 Subcategory: Availability
 
-Priority: critical
+Rationale: Marketplace partners depend on the capture API being continuously reachable.
+
+Description: The order-capture API must meet a 99.9% monthly availability target.
 
 Source: Partner integration agreement
-
-Rationale: Marketplace partners depend on the capture API being continuously reachable.
 
 ####### <!--[TREM]--> Measurement
 
@@ -496,17 +496,17 @@ Status: approved
 
 ####### <!--[TRED]--> Details
 
-Description: The order service must be event-sourced: the append-only event log is the system of record and all read models are projections rebuildable from the log.
+Priority: critical
 
 Category: Architecture
 
 Subcategory: Persistence
 
-Priority: critical
+Rationale: Reproducible history and rebuildable projections are core to auditability.
+
+Description: The order service must be event-sourced: the append-only event log is the system of record and all read models are projections rebuildable from the log.
 
 Source: Enterprise Architecture Board
-
-Rationale: Reproducible history and rebuildable projections are core to auditability.
 
 #### <!--[SR1]--> Security Requirements
 
@@ -518,19 +518,19 @@ Description: Access is governed by the roles Order Clerk, Order Supervisor, Pric
 
 ####### <!--[SEREENCL]--> Classification
 
+Priority: critical
+
 Category: Access Control
 
 Subcategory: Authorization
-
-Priority: critical
-
-Source: Security chapter
 
 Rationale: Least privilege across human and machine actors.
 
 ThreatMitigated: Unauthorized order manipulation
 
 DataClassification: Internal
+
+Source: Security chapter
 
 ####### <!--[SEREENCO]--> Compliance
 
@@ -546,19 +546,19 @@ Description: All customer personally identifiable information must be encrypted 
 
 ####### <!--[SEREENCL]--> Classification
 
+Priority: critical
+
 Category: Data Protection
 
 Subcategory: Encryption
-
-Priority: critical
-
-Source: Data Protection Officer
 
 Rationale: GDPR obligations on customer records with a 7-year retention.
 
 ThreatMitigated: PII disclosure from storage compromise
 
 DataClassification: Confidential
+
+Source: Data Protection Officer
 
 ####### <!--[SEREENCO]--> Compliance
 
@@ -572,19 +572,19 @@ Description: The public order API must authenticate partners with OAuth2 client-
 
 ####### <!--[SEREENCL]--> Classification
 
+Priority: critical
+
 Category: API Security
 
 Subcategory: Authentication
-
-Priority: critical
-
-Source: Security chapter
 
 Rationale: Machine-to-machine partner access without shared secrets in code.
 
 ThreatMitigated: Credential replay and partner impersonation
 
 DataClassification: Internal
+
+Source: Security chapter
 
 ####### <!--[SEREENCO]--> Compliance
 
@@ -719,13 +719,13 @@ ActorType: Human
 
 Category: Primary
 
-Description: Clears the order work list, amends lines, and cancels orders before dispatch.
-
 OrganizationalUnit: Order Operations
 
 EstimatedCount: 25
 
 GeographicDistribution: Single distribution centre
+
+Description: Clears the order work list, amends lines, and cancels orders before dispatch.
 
 ###### <!--[ACEN-ACTO-2]--> ACT-02 Order Supervisor
 
@@ -735,13 +735,13 @@ ActorType: Human
 
 Category: Primary
 
-Description: Reviews orders on Hold and releases them back into the lifecycle.
-
 OrganizationalUnit: Order Operations
 
 EstimatedCount: 4
 
 GeographicDistribution: Single distribution centre
+
+Description: Reviews orders on Hold and releases them back into the lifecycle.
 
 ###### <!--[ACEN-ACTO-3]--> ACT-03 Pricing Admin
 
@@ -751,13 +751,13 @@ ActorType: Human
 
 Category: Supporting
 
-Description: Maintains the price lists that the synchronous pricing step consumes.
-
 OrganizationalUnit: Commercial
 
 EstimatedCount: 3
 
 GeographicDistribution: Single distribution centre
+
+Description: Maintains the price lists that the synchronous pricing step consumes.
 
 ###### <!--[ACEN-ACTO-4]--> ACT-04 EDI Integration Account
 
@@ -767,13 +767,13 @@ ActorType: System
 
 Category: Primary
 
-Description: Machine account through which the wholesale EDI adapter submits orders.
-
 OrganizationalUnit: Integration
 
 EstimatedCount: 1
 
 GeographicDistribution: Single distribution centre
+
+Description: Machine account through which the wholesale EDI adapter submits orders.
 
 #### <!--[INCA]--> Interaction Catalog
 
@@ -801,8 +801,6 @@ DesignScope: System
 
 ######## <!--[PRANTR-PREC-1]--> Preconditions And Triggers 1
 
-Precondition: The submitting Integration account is authenticated and scoped to the wholesale channel.
-
 Trigger: An EDI 850 purchase order arrives at the wholesale adapter.
 
 TriggerType: External
@@ -811,15 +809,17 @@ TriggerSource: EDI gateway
 
 TriggerData: EDI 850 document
 
+Precondition: The submitting Integration account is authenticated and scoped to the wholesale channel.
+
 ####### <!--[POANGU-POST-LST]--> Postconditions
 
 ######## <!--[POANGU-POST-1]--> Postconditions And Guarantees 1
 
 MinimalGuarantees: Either an Order exists in a well-defined state or the submission is rejected with a reason; no partial order is persisted.
 
-SuccessGuarantees: The Order is in state Confirmed with priced, reserved lines and a full event history.
-
 DataPostcondition: Order and OrderLine rows persisted; reservation recorded against Product stock.
+
+SuccessGuarantees: The Order is in state Confirmed with priced, reserved lines and a full event history.
 
 ####### <!--[MASUSC]--> Main Scenario
 
@@ -891,19 +891,19 @@ BusinessRuleApplied: FR-04 five-minute confirmation
 
 ######### <!--[EXTEN-EXTE-1]--> 2a Credit limit exceeded
 
+ReturnKind: resumeAtStep
+
 BranchPoint: MNSST-STEP-2
 
 Condition: Customer credit limit would be exceeded
 
 ExtensionType: Exception
 
-Description: Validation detects the order exceeds the customer credit limit.
-
 Outcome: Order is placed on Hold for supervisor review (see UC-02).
 
-ReturnKind: resumeAtStep
-
 Severity: High
+
+Description: Validation detects the order exceeds the customer credit limit.
 
 ########## <!--[EXTEN-RESU]--> Resume Point
 
@@ -921,19 +921,19 @@ Response: Order appears in the Hold filter of the work list with reason "Credit 
 
 ######### <!--[EXTEN-EXTE-2]--> 4a Insufficient stock
 
+ReturnKind: resumeAtStep
+
 BranchPoint: MNSST-STEP-4
 
 Condition: Insufficient stock for one or more lines
 
 ExtensionType: Exception
 
-Description: Reservation cannot be fully satisfied for a line.
-
 Outcome: The affected line is placed on Hold; other lines proceed.
 
-ReturnKind: resumeAtStep
-
 Severity: Medium
+
+Description: Reservation cannot be fully satisfied for a line.
 
 ########## <!--[EXTEN-RESU]--> Resume Point
 
@@ -969,21 +969,21 @@ DesignScope: System
 
 ######## <!--[PRANTR-PREC-1]--> Preconditions And Triggers 1
 
-Precondition: An order exists in state Hold and the actor holds the Order Supervisor role.
-
 Trigger: Supervisor selects a held order from the work list.
 
 TriggerType: User
 
 TriggerSource: Order Work List screen
 
+Precondition: An order exists in state Hold and the actor holds the Order Supervisor role.
+
 ####### <!--[POANGU-POST-LST]--> Postconditions
 
 ######## <!--[POANGU-POST-1]--> Postconditions And Guarantees 1
 
-SuccessGuarantees: The order resumes at the transition that placed it on Hold, with the release reason audited.
-
 AuditTrail: Release attributed to the supervisor principal with timestamp and reason.
+
+SuccessGuarantees: The order resumes at the transition that placed it on Hold, with the release reason audited.
 
 ####### <!--[MASUSC]--> Main Scenario
 
@@ -1033,21 +1033,21 @@ DesignScope: System
 
 ######## <!--[PRANTR-PREC-1]--> Preconditions And Triggers 1
 
-Precondition: The order is not yet dispatched and the actor holds the Order Clerk role.
-
 Trigger: Clerk edits a line quantity on the Order Detail screen.
 
 TriggerType: User
 
 TriggerSource: Order Detail screen
 
+Precondition: The order is not yet dispatched and the actor holds the Order Clerk role.
+
 ####### <!--[POANGU-POST-LST]--> Postconditions
 
 ######## <!--[POANGU-POST-1]--> Postconditions And Guarantees 1
 
-SuccessGuarantees: The amended line carries a fresh price snapshot and reservation; the amendment is audited.
-
 DataPostcondition: OrderLine updated; prior values retained in the event history.
+
+SuccessGuarantees: The amended line carries a fresh price snapshot and reservation; the amendment is audited.
 
 ####### <!--[MASUSC]--> Main Scenario
 
@@ -1200,9 +1200,9 @@ TableName: mom_order
 
 EntityAlias: ORD
 
-Description: A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.
-
 EntityStereoType: Entity
+
+Description: A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.
 
 ###### <!--[DAENT-CLAS]--> Classification
 
@@ -1348,9 +1348,9 @@ TableName: mom_order_line
 
 EntityAlias: OLN
 
-Description: A single product/quantity within an order, with a snapshotted price. Realizes FR-02, FR-03, FR-05.
-
 EntityStereoType: Entity
+
+Description: A single product/quantity within an order, with a snapshotted price. Realizes FR-02, FR-03, FR-05.
 
 ###### <!--[DAENT-CLAS]--> Classification
 
@@ -1524,9 +1524,9 @@ TableName: mom_customer
 
 EntityAlias: CUS
 
-Description: A wholesale or e-commerce customer that places orders. Realizes FR-01.
-
 EntityStereoType: Entity
+
+Description: A wholesale or e-commerce customer that places orders. Realizes FR-01.
 
 ###### <!--[DAENT-CLAS]--> Classification
 
@@ -1634,15 +1634,15 @@ EntityName: Product
 
 TableName: mom_product
 
-EntityAlias: PRD
-
-Description: A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.
-
-EntityStereoType: Entity
-
 DataSourceName: catalog
 
 Tenancy: system
+
+EntityAlias: PRD
+
+EntityStereoType: Entity
+
+Description: A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.
 
 ###### <!--[DAENT-CLAS]--> Classification
 
@@ -1756,11 +1756,11 @@ The foreign-key relationships binding the ordering core together.
 
 RelationshipType: Composition
 
-Description: An order owns one or more order lines.
-
 BusinessJustification: Maintains referential integrity across the ordering core.
 
 ImplementationType: Foreign Key
+
+Description: An order owns one or more order lines.
 
 ####### <!--[ENRLE-CARD]--> Cardinality
 
@@ -1788,11 +1788,11 @@ Ref: DAENT-ENTI-2
 
 RelationshipType: Association
 
-Description: Each order is placed by exactly one customer.
-
 BusinessJustification: Maintains referential integrity across the ordering core.
 
 ImplementationType: Foreign Key
+
+Description: Each order is placed by exactly one customer.
 
 ####### <!--[ENRLE-CARD]--> Cardinality
 
@@ -1820,11 +1820,11 @@ Ref: DAENT-ENTI-3
 
 RelationshipType: Association
 
-Description: Each order line references exactly one product.
-
 BusinessJustification: Maintains referential integrity across the ordering core.
 
 ImplementationType: Foreign Key
+
+Description: Each order line references exactly one product.
 
 ####### <!--[ENRLE-CARD]--> Cardinality
 
@@ -2182,13 +2182,13 @@ interaction step that cites the operation.
 
 OperationName: amendOrderLine
 
-Purpose: Applies a quantity change to one order line before dispatch, re-pricing and re-reserving only the affected line under optimistic concurrency.
+DescriptionKey: op.order.amendLine
 
 PrimaryDataEntity: OrderLine
 
-DescriptionKey: op.order.amendLine
-
 ErrorCodes: VALIDATION_FAILED, ORDER_ALREADY_DISPATCHED, ORDER_VERSION_CONFLICT
+
+Purpose: Applies a quantity change to one order line before dispatch, re-pricing and re-reserving only the affected line under optimistic concurrency.
 
 ###### <!--[AZREQ]--> Authorization
 
@@ -2280,13 +2280,13 @@ Description: The order version after the amendment, for the next optimistic writ
 
 OperationName: fetchOrderWorkList
 
-Purpose: Returns one state-filtered page of the order work list in queue order.
+DescriptionKey: op.order.fetchWorkList
 
 PrimaryDataEntity: Order
 
-DescriptionKey: op.order.fetchWorkList
-
 ErrorCodes: VALIDATION_FAILED
+
+Purpose: Returns one state-filtered page of the order work list in queue order.
 
 ###### <!--[AZREQ]--> Authorization
 
@@ -2591,9 +2591,9 @@ TenantIsolationModel: SharedDatabase_SharedSchema
 
 RoleName: Order Clerk
 
-Description: Works the order queue: captures, amends, and confirms orders.
-
 RoleCategory: Business
+
+Description: Works the order queue: captures, amends, and confirms orders.
 
 ####### <!--[ARES]--> Structure
 
@@ -2607,9 +2607,9 @@ PermissionSet: order.read, order.amend
 
 RoleName: Order Supervisor
 
-Description: Everything a clerk may do, plus releasing credit and stock holds.
-
 RoleCategory: Business
+
+Description: Everything a clerk may do, plus releasing credit and stock holds.
 
 ####### <!--[ARES]--> Structure
 
@@ -2625,25 +2625,25 @@ PermissionSet: order.read, order.amend, order.hold.release
 
 EntitlementName: order.read
 
-Description: See orders in the work list and open their detail.
-
 AccessType: Read
+
+Description: See orders in the work list and open their detail.
 
 ###### <!--[ENT-ENTI-2]--> order.amend
 
 EntitlementName: order.amend
 
-Description: Change quantities and lines on an order that is not yet dispatched.
-
 AccessType: Write
+
+Description: Change quantities and lines on an order that is not yet dispatched.
 
 ###### <!--[ENT-ENTI-3]--> order.hold.release
 
 EntitlementName: order.hold.release
 
-Description: Release a credit or stock hold placed on an order.
-
 AccessType: Approve
+
+Description: Release a credit or stock hold placed on an order.
 
 ## <!--[XID]--> Experience And Interface Design
 
@@ -2709,9 +2709,9 @@ Layout: Master-detail
 
 SectionId: SCR-01-SEC-1
 
-Purpose: Filter the queue by lifecycle state.
-
 SectionType: Toolbar
+
+Purpose: Filter the queue by lifecycle state.
 
 ########### <!--[SSEL]--> Layout
 
@@ -2737,9 +2737,9 @@ HintResource: screen.orders.filter.state.hint
 
 SectionId: SCR-01-SEC-2
 
-Purpose: The work list itself, keyboard-navigable for high-volume clerks.
-
 SectionType: DataTable
+
+Purpose: The work list itself, keyboard-navigable for high-volume clerks.
 
 ########### <!--[SSEL]--> Layout
 
@@ -2787,9 +2787,9 @@ ActionType: Navigate
 
 OwningController: Order
 
-Description: Opens the selected order's detail screen.
-
 ContextType: OrderViewModel
+
+Description: Opens the selected order's detail screen.
 
 ########### <!--[SAEV]--> Visual
 
@@ -2807,13 +2807,13 @@ ButtonStyle: Primary
 
 StateId: empty-queue
 
-Description: No orders match the selected state filter.
+PrimaryActionLabel: screen.orders.empty.action.clear
 
 MessageResource: screen.orders.empty
 
-PrimaryActionLabel: screen.orders.empty.action.clear
-
 PrimaryActionTarget: SCR-01-EL-1
+
+Description: No orders match the selected state filter.
 
 ####### <!--[SCREN-ITEM-SCR-02]--> Order Detail
 
@@ -2861,9 +2861,9 @@ Layout: Single column
 
 SectionId: SCR-02-SEC-1
 
-Purpose: Show every state transition with its authenticated actor.
-
 SectionType: Timeline
+
+Purpose: Show every state transition with its authenticated actor.
 
 ########### <!--[SSEL]--> Layout
 
@@ -2875,9 +2875,9 @@ DisplayOrder: 1
 
 SectionId: SCR-02-SEC-2
 
-Purpose: Editable list of lines with price and reservation status.
-
 SectionType: EditableTable
+
+Purpose: Editable list of lines with price and reservation status.
 
 ########### <!--[SSEL]--> Layout
 
@@ -2915,9 +2915,9 @@ ActionType: Submit
 
 OwningController: Order
 
-Description: Submits the amended line quantity for revalidation.
-
 ContextType: OrderViewModel
+
+Description: Submits the amended line quantity for revalidation.
 
 ########### <!--[SAEV]--> Visual
 
@@ -2935,9 +2935,9 @@ ActionType: Submit
 
 OwningController: Order
 
-Description: Releases the credit hold on the order.
-
 ContextType: OrderViewModel
+
+Description: Releases the credit hold on the order.
 
 ########### <!--[SAEV]--> Visual
 
@@ -2955,13 +2955,13 @@ ButtonStyle: Secondary
 
 StateId: amendment-rejected
 
-Description: The new quantity failed validation or reservation.
+PrimaryActionLabel: screen.order.amend.action.retry
 
 MessageResource: screen.order.amend.error
 
-PrimaryActionLabel: screen.order.amend.action.retry
-
 PrimaryActionTarget: SCR-02-ACT-1
+
+Description: The new quantity failed validation or reservation.
 
 #### <!--[SCFLST]--> Screen Flow
 

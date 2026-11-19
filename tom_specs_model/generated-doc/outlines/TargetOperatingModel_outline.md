@@ -20,7 +20,7 @@
   - designPrinciples: `ProcessDesignPrinciples`
     - content, overview
     - principles: `ProcessDesignPrincipleEntry`[]
-      - content @Form(category, statement, rationale, implications, examples, tradeoffs, priority, applicability)
+      - content @Form(priority, category, rationale, implications, examples, tradeoffs, applicability, statement)
   - `ProcessCatalog`
     - content, overview, classification
     - [1,] processes: `BusinessProcessEntry`[]
@@ -70,7 +70,7 @@
   - `ProcessRelationships`
     - content
     - relationships: `ProcessRelationshipEntry`[]
-      - content @Form(sourceProcess, targetProcess, relationshipType, dataExchanged, timingDependency, frequencyOfInteraction, criticality)
+      - content @Form(sourceProcess, targetProcess, relationshipType, timingDependency, frequencyOfInteraction, criticality, dataExchanged)
   - detailedWorkflows: `DetailedProcessWorkflow`[]
     - content
   - `CrossProcessAnalysis`

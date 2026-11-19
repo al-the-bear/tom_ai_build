@@ -99,10 +99,16 @@ class AssumptionRegisterEntry extends DocSpecsSection {
 @SectionId('CONRE')
 class ConstraintRegisterEntry extends DocSpecsSection {
   @Form([
-    Field('description', String, 'Description', required: true),
     Field('type', String, 'Type (Technical, Regulatory, Budget, Schedule)'),
     Field('source', String, 'Source'),
     Field('impact', String, 'Impact on the solution'),
+    Field(
+      'description',
+      String,
+      'Description',
+      required: true,
+      multiParagraph: true,
+    ),
   ])
   @override
   @SerializationOrder(0)
@@ -124,7 +130,6 @@ class ConstraintRegisterEntry extends DocSpecsSection {
 @SectionId('DEPRE')
 class DependencyRegisterEntry extends DocSpecsSection {
   @Form([
-    Field('description', String, 'Description', required: true),
     Field(
       'type',
       String,
@@ -133,6 +138,13 @@ class DependencyRegisterEntry extends DocSpecsSection {
     Field('dependsOn', String, 'Depends on (the external party / artifact)'),
     Field('criticality', String, 'Criticality (Low, Medium, High, Blocking)'),
     Field('status', String, 'Status (Open, Confirmed, Resolved, At risk)'),
+    Field(
+      'description',
+      String,
+      'Description',
+      required: true,
+      multiParagraph: true,
+    ),
   ])
   @override
   @SerializationOrder(0)

@@ -1309,18 +1309,18 @@ form-types:
         description: "Singular noun or noun phrase (e.g., Customer, OrderItem)"
       - fieldname: tableName
         description: Database table name if different from logical name
-      - fieldname: entityAlias
-        description: "Short alias for diagrams and references (e.g., CUST, ORD)"
-      - fieldname: description
-        description: Clear definition of what this entity represents
-      - fieldname: entityStereoType
-        description: "Entity pattern: Entity | ValueObject | Event | View | Bridge. Aggregate-root-ness is not a stereotype here — it is read from aggregateRoot below, which is the only field that states it"
       - fieldname: dataSourceName
         description: "The logical datasource the rows are stored in (e.g. main), when not the solution's default"
       - fieldname: schemaName
         description: "The schema within that datasource, where it has several"
       - fieldname: tenancy
         description: "Tenant: each tenant's own rows; System: shared by all tenants (a tenant registry, reference data)"
+      - fieldname: entityAlias
+        description: "Short alias for diagrams and references (e.g., CUST, ORD)"
+      - fieldname: entityStereoType
+        description: "Entity pattern: Entity | ValueObject | Event | View | Bridge. Aggregate-root-ness is not a stereotype here — it is read from aggregateRoot below, which is the only field that states it"
+      - fieldname: description
+        description: Clear definition of what this entity represents
   daent-clas-form:
     fields:
       - fieldname: category
@@ -1372,12 +1372,12 @@ form-types:
     fields:
       - fieldname: columnName
         description: "Database column name if different (e.g., snake_case)"
-      - fieldname: description
-        description: Clear definition of what this attribute represents
       - fieldname: businessTerm
         description: Business glossary term this maps to
       - fieldname: exampleValues
         description: "Comma-separated examples (e.g., \"Draft, Confirmed, Shipped\")"
+      - fieldname: description
+        description: Clear definition of what this attribute represents
   daatt-data-form:
     fields:
       - fieldname: dataType
@@ -1491,12 +1491,12 @@ form-types:
     fields:
       - fieldname: relationshipType
         description: "Association | Aggregation | Composition | Generalization | Dependency"
-      - fieldname: description
-        description: Business meaning of this relationship
       - fieldname: businessJustification
         description: Why this relationship exists from business perspective
       - fieldname: implementationType
         description: "ForeignKey | JunctionTable | Embedded | Reference"
+      - fieldname: description
+        description: Business meaning of this relationship
   enrle-card-form:
     fields:
       - fieldname: sourceCardinality
@@ -1689,10 +1689,10 @@ form-types:
         description: "Section id of the business rule (`BIRU`)"
   ltet-form:
     fields:
-      - fieldname: trigger
-        description: What initiates this transition
       - fieldname: triggerType
         description: "UserAction | SystemEvent | Timer | ExternalEvent"
+      - fieldname: trigger
+        description: What initiates this transition
   ltec-form:
     fields:
       - fieldname: guardConditions
@@ -1853,11 +1853,11 @@ form-types:
         description: The resource key from the resource-key catalogue the caller must hold a grant on
   azreq-cust-form:
     fields:
+      - fieldname: resourceId
+        description: "The resource id passed to the handler, where it needs one"
       - fieldname: handler
         required: true
         description: "The registered access handler that decides, by its name in the access-handler catalogue"
-      - fieldname: resourceId
-        description: "The resource id passed to the handler, where it needs one"
       - fieldname: decisionRule
         required: true
         description: "What the handler must decide, in business terms — this is the specification the handler is implemented against"

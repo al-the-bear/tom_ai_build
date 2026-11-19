@@ -705,16 +705,16 @@ class ComponentEntry extends DocSpecsSection {
   )
   @Form([
     Field(
+      'vendorName',
+      String,
+      'Vendor / Publisher',
+      hint: 'Company or organization behind the component',
+    ),
+    Field(
       'version',
       String,
       'Version',
       hint: 'Current version in use or targeted',
-    ),
-    Field(
-      'purpose',
-      String,
-      'Business Purpose',
-      hint: 'Why this component is needed in business terms',
     ),
     Field(
       'libraryRef',
@@ -725,16 +725,17 @@ class ComponentEntry extends DocSpecsSection {
       refersTo: ['FRREEN.@sectionId', 'THPALI.@sectionId'],
     ),
     Field(
-      'vendorName',
-      String,
-      'Vendor / Publisher',
-      hint: 'Company or organization behind the component',
-    ),
-    Field(
       'vendorStability',
       String,
       'Vendor Stability Assessment',
       hint: 'Financial health, market position, acquisition risk',
+    ),
+    Field(
+      'purpose',
+      String,
+      'Business Purpose',
+      hint: 'Why this component is needed in business terms',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)

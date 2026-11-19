@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-11-19T17:31:28.347712Z",
+  "generatedAt": "2026-11-19T19:49:53.262880Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.12.1+39.702929c9",
+  "modelVersionLabel": "1.12.2+40.07412a22",
   "classCount": 1273,
   "rootCount": 14,
-  "modelHash": "0eabf9555c9a930538e3e83561dfe870843b41aed4fe940d3b2a60087660f62d",
+  "modelHash": "4f9d7d20d910b9c0e2d3d58d22941ec1ca6fa52d1c722b5f842bf1a88a600b61",
   "containerRoot": "DocSpecsProject",
   "roots": [
     {
@@ -1101,13 +1101,6 @@
           ],
           "formFields": [
             {
-              "name": "decisionCriteria",
-              "label": "Decision Criteria",
-              "hint": "How accept/reject/conditional decisions are made",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "defectThreshold",
               "label": "Acceptable Defect Threshold",
               "hint": "Maximum open defects by severity to proceed",
@@ -1127,6 +1120,14 @@
               "hint": "Conditions that automatically block acceptance",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "decisionCriteria",
+              "label": "Decision Criteria",
+              "hint": "How accept/reject/conditional decisions are made",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -5604,13 +5605,6 @@
               "required": false
             },
             {
-              "name": "description",
-              "label": "Description — role purpose",
-              "hint": "Explain the actor’s purpose in one or two sentences",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "realWorldExamples",
               "label": "Real World Examples — who fills this role",
               "hint": "Name concrete job titles or people that fill this role",
@@ -5637,6 +5631,14 @@
               "hint": "Note the locations or regions where actors operate",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "description",
+              "label": "Description — role purpose",
+              "hint": "Explain the actor’s purpose in one or two sentences",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -6227,13 +6229,6 @@
               "required": false
             },
             {
-              "name": "actorIdentificationApproach",
-              "label": "Actor Identification Approach — how actors were identified",
-              "hint": "Describe the method used to discover actors",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "actorPrioritization",
               "label": "Actor Prioritization — which actors are most important",
               "hint": "State which actors matter most and why",
@@ -6246,6 +6241,14 @@
               "hint": "Explain how actor goals map to business goals",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "actorIdentificationApproach",
+              "label": "Actor Identification Approach — how actors were identified",
+              "hint": "Describe the method used to discover actors",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -6387,7 +6390,8 @@
               "label": "Timer/Scheduled Actors — time-triggered actions",
               "hint": "List time-triggered or scheduled actors",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -12544,13 +12548,6 @@
               "required": false
             },
             {
-              "name": "keyRequirements",
-              "label": "Key Requirements (summary of main requirements)",
-              "hint": "A summary of the main requirements",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "complianceStatus",
               "label": "Compliance Status (Compliant, Partially Compliant, Non-Compliant, To Be Assessed)",
               "hint": "The current compliance status",
@@ -12577,6 +12574,14 @@
               "hint": "Consequences of non-compliance",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "keyRequirements",
+              "label": "Key Requirements (summary of main requirements)",
+              "hint": "A summary of the main requirements",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -14077,25 +14082,27 @@
           ],
           "formFields": [
             {
+              "name": "notResponsibleFor",
+              "label": "Not Responsible For",
+              "hint": "Explicitly out of scope",
+              "type": "String",
+              "required": false
+            },
+            {
               "name": "purpose",
               "label": "Purpose",
               "hint": "What this component does",
               "type": "String",
-              "required": true
+              "required": true,
+              "multiParagraph": true
             },
             {
               "name": "responsibilities",
               "label": "Responsibilities",
               "hint": "List of responsibilities",
               "type": "String",
-              "required": false
-            },
-            {
-              "name": "notResponsibleFor",
-              "label": "Not Responsible For",
-              "hint": "Explicitly out of scope",
-              "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -14547,13 +14554,6 @@
           ],
           "formFields": [
             {
-              "name": "decision",
-              "label": "Decision",
-              "hint": "What was decided",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "rationale",
               "label": "Rationale",
               "hint": "Why this decision was made",
@@ -14573,6 +14573,14 @@
               "hint": "Who made this decision",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "decision",
+              "label": "Decision",
+              "hint": "What was decided",
+              "type": "String",
+              "required": true,
+              "multiParagraph": true
             }
           ]
         },
@@ -14621,13 +14629,6 @@
           ],
           "formFields": [
             {
-              "name": "consequences",
-              "label": "Consequences",
-              "hint": "Impact of this decision",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "positiveConsequences",
               "label": "Positive Consequences",
               "hint": "Benefits of this decision",
@@ -14654,6 +14655,14 @@
               "hint": "Additional decision notes",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "consequences",
+              "label": "Consequences",
+              "hint": "Impact of this decision",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -14797,7 +14806,8 @@
               "label": "Style Summary",
               "hint": "Brief description of the chosen architecture",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -14846,13 +14856,6 @@
           ],
           "formFields": [
             {
-              "name": "justification",
-              "label": "Justification",
-              "hint": "Why this architecture style was chosen",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "businessDrivers",
               "label": "Business Drivers",
               "hint": "Business requirements driving the choice",
@@ -14860,11 +14863,20 @@
               "required": false
             },
             {
+              "name": "justification",
+              "label": "Justification",
+              "hint": "Why this architecture style was chosen",
+              "type": "String",
+              "required": true,
+              "multiParagraph": true
+            },
+            {
               "name": "technicalDrivers",
               "label": "Technical Drivers",
               "hint": "Technical requirements driving the choice",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -18533,7 +18545,8 @@
               "label": "Rationale",
               "hint": "Why this requirement and not a wider or narrower one",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -18746,6 +18759,13 @@
           ],
           "formFields": [
             {
+              "name": "resourceId",
+              "label": "Resource ID",
+              "hint": "The resource id passed to the handler, where it needs one",
+              "type": "String",
+              "required": false
+            },
+            {
               "name": "handler",
               "label": "Handler",
               "hint": "The registered access handler that decides, by its name in the access-handler catalogue",
@@ -18756,18 +18776,12 @@
               ]
             },
             {
-              "name": "resourceId",
-              "label": "Resource ID",
-              "hint": "The resource id passed to the handler, where it needs one",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "decisionRule",
               "label": "Decision Rule",
               "hint": "What the handler must decide, in business terms — this is the specification the handler is implemented against",
               "type": "String",
-              "required": true
+              "required": true,
+              "multiParagraph": true
             }
           ]
         },
@@ -18860,18 +18874,19 @@
               "required": true
             },
             {
-              "name": "description",
-              "label": "Short description",
-              "hint": "Purpose of the role and the access it grants",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "roleCategory",
               "label": "Role Category",
               "hint": "Business | Technical | Administrative | System | Compliance | Custom — classification of the role by function",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "description",
+              "label": "Short description",
+              "hint": "Purpose of the role and the access it grants",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -23940,13 +23955,6 @@
           ],
           "formFields": [
             {
-              "name": "purpose",
-              "label": "Purpose",
-              "hint": "Why this context exists",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "includedConcepts",
               "label": "Included Concepts",
               "hint": "Domain concepts within this context",
@@ -23961,11 +23969,20 @@
               "required": false
             },
             {
+              "name": "purpose",
+              "label": "Purpose",
+              "hint": "Why this context exists",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
+            },
+            {
               "name": "ubiquitousLanguage",
               "label": "Ubiquitous Language",
               "hint": "Key terms and their definitions",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -24117,14 +24134,16 @@
               "label": "Published Events",
               "hint": "Domain events this context publishes",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             },
             {
               "name": "consumedEvents",
               "label": "Consumed Events",
               "hint": "Domain events this context subscribes to",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -24173,13 +24192,6 @@
           ],
           "formFields": [
             {
-              "name": "apiEndpoints",
-              "label": "API Endpoints",
-              "hint": "Public API endpoints exposed",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "integrationPatterns",
               "label": "Integration Patterns",
               "hint": "How this context integrates with others",
@@ -24192,6 +24204,14 @@
               "hint": "Additional context notes",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "apiEndpoints",
+              "label": "API Endpoints",
+              "hint": "Public API endpoints exposed",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -25632,18 +25652,19 @@
           ],
           "formFields": [
             {
-              "name": "buildProfiles",
-              "label": "Build Profiles",
-              "hint": "E.g., Debug, Release, Profile, Production",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "defaultProfile",
               "label": "Default Profile",
               "hint": "Default build profile",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "buildProfiles",
+              "label": "Build Profiles",
+              "hint": "E.g., Debug, Release, Profile, Production",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -26093,13 +26114,6 @@
           ],
           "formFields": [
             {
-              "name": "buildScripts",
-              "label": "Build Scripts",
-              "hint": "Custom build scripts location",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "preCommitHooks",
               "label": "Pre-Commit Hooks",
               "hint": "Pre-commit hook configuration",
@@ -26112,6 +26126,14 @@
               "hint": "Actions after successful build",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "buildScripts",
+              "label": "Build Scripts",
+              "hint": "Custom build scripts location",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -26967,13 +26989,6 @@
               "required": false
             },
             {
-              "name": "targetValue",
-              "label": "Target Value (desired end state)",
-              "hint": "Desired end-state value for the metric",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "measurementMethod",
               "label": "Measurement Method (how the metric is captured)",
               "hint": "How the metric is captured or calculated",
@@ -26986,6 +27001,14 @@
               "hint": "Daily, Weekly, Monthly, or Quarterly",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "targetValue",
+              "label": "Target Value (desired end state)",
+              "hint": "Desired end-state value for the metric",
+              "type": "String",
+              "required": true,
+              "multiParagraph": true
             }
           ]
         },
@@ -29657,7 +29680,8 @@
               "label": "Business Statement",
               "hint": "Natural language statement from business perspective",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -40744,13 +40768,6 @@
           ],
           "formFields": [
             {
-              "name": "rule",
-              "label": "Rule",
-              "hint": "Clear statement of the coding rule",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "rationale",
               "label": "Rationale",
               "hint": "Why this rule matters",
@@ -40763,6 +40780,14 @@
               "hint": "Good and bad code examples",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "rule",
+              "label": "Rule",
+              "hint": "Clear statement of the coding rule",
+              "type": "String",
+              "required": true,
+              "multiParagraph": true
             }
           ]
         },
@@ -42644,18 +42669,19 @@
           ],
           "formFields": [
             {
-              "name": "syncPatterns",
-              "label": "Synchronous Patterns",
-              "hint": "Request-response, Service mesh",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "apiGateway",
               "label": "API Gateway",
               "hint": "Central gateway pattern details",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "syncPatterns",
+              "label": "Synchronous Patterns",
+              "hint": "Request-response, Service mesh",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -42722,7 +42748,8 @@
               "label": "Event Patterns",
               "hint": "Pub/Sub, Event sourcing, CQRS",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -42771,13 +42798,6 @@
           ],
           "formFields": [
             {
-              "name": "dataContracts",
-              "label": "Data Contracts",
-              "hint": "API contracts and schemas",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "schemaEvolution",
               "label": "Schema Evolution",
               "hint": "How schemas evolve over time",
@@ -42790,6 +42810,14 @@
               "hint": "Serialization approach",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "dataContracts",
+              "label": "Data Contracts",
+              "hint": "API contracts and schemas",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -43367,7 +43395,8 @@
               "label": "Interoperability Standards",
               "hint": "Protocols/formats for exchanging and using information",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -45978,16 +46007,16 @@
           ],
           "formFields": [
             {
-              "name": "version",
-              "label": "Version",
-              "hint": "Current version in use or targeted",
+              "name": "vendorName",
+              "label": "Vendor / Publisher",
+              "hint": "Company or organization behind the component",
               "type": "String",
               "required": false
             },
             {
-              "name": "purpose",
-              "label": "Business Purpose",
-              "hint": "Why this component is needed in business terms",
+              "name": "version",
+              "label": "Version",
+              "hint": "Current version in use or targeted",
               "type": "String",
               "required": false
             },
@@ -46003,18 +46032,19 @@
               ]
             },
             {
-              "name": "vendorName",
-              "label": "Vendor / Publisher",
-              "hint": "Company or organization behind the component",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "vendorStability",
               "label": "Vendor Stability Assessment",
               "hint": "Financial health, market position, acquisition risk",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "purpose",
+              "label": "Business Purpose",
+              "hint": "Why this component is needed in business terms",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -53830,12 +53860,6 @@
           ],
           "formFields": [
             {
-              "name": "description",
-              "label": "Description",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "type",
               "label": "Type (Technical, Regulatory, Budget, Schedule)",
               "type": "String",
@@ -53852,6 +53876,13 @@
               "label": "Impact on the solution",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "type": "String",
+              "required": true,
+              "multiParagraph": true
             }
           ]
         }
@@ -65795,13 +65826,6 @@
               "required": false
             },
             {
-              "name": "description",
-              "label": "Description",
-              "hint": "Clear definition of what this attribute represents",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "businessTerm",
               "label": "Business Term",
               "hint": "Business glossary term this maps to",
@@ -65814,6 +65838,14 @@
               "hint": "Comma-separated examples (e.g., \"Draft, Confirmed, Shipped\")",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "hint": "Clear definition of what this attribute represents",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -68169,27 +68201,6 @@
               "required": false
             },
             {
-              "name": "entityAlias",
-              "label": "Alias/Abbreviation",
-              "hint": "Short alias for diagrams and references (e.g., CUST, ORD)",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "description",
-              "label": "Description",
-              "hint": "Clear definition of what this entity represents",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "entityStereoType",
-              "label": "Stereotype",
-              "hint": "Entity pattern: Entity | ValueObject | Event | View | Bridge. Aggregate-root-ness is not a stereotype here — it is read from aggregateRoot below, which is the only field that states it",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "dataSourceName",
               "label": "Datasource",
               "hint": "The logical datasource the rows are stored in (e.g. main), when not the solution's default",
@@ -68217,6 +68228,28 @@
                 "tenant": "Each tenant's own rows, isolated from every other tenant's.",
                 "system": "Rows shared by all tenants: a tenant registry, reference data."
               }
+            },
+            {
+              "name": "entityAlias",
+              "label": "Alias/Abbreviation",
+              "hint": "Short alias for diagrams and references (e.g., CUST, ORD)",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "entityStereoType",
+              "label": "Stereotype",
+              "hint": "Entity pattern: Entity | ValueObject | Event | View | Bridge. Aggregate-root-ness is not a stereotype here — it is read from aggregateRoot below, which is the only field that states it",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "hint": "Clear definition of what this entity represents",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -71197,7 +71230,8 @@
               "label": "Alternatives Considered",
               "hint": "Other approaches evaluated and why rejected",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -80354,18 +80388,19 @@
           ],
           "formFields": [
             {
-              "name": "description",
-              "label": "Description",
-              "hint": "What this deliverable contains and its purpose",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "category",
               "label": "Category",
               "hint": "Application / Library / Tool / Configuration / Document",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "hint": "What this deliverable contains and its purpose",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -81642,13 +81677,6 @@
           ],
           "formFields": [
             {
-              "name": "rolloutStrategy",
-              "label": "Rollout Strategy",
-              "hint": "Big bang, phased, pilot",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "rolloutTimeline",
               "label": "Rollout Timeline",
               "hint": "High-level rollout schedule",
@@ -81661,6 +81689,14 @@
               "hint": "Geographic rollout order",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "rolloutStrategy",
+              "label": "Rollout Strategy",
+              "hint": "Big bang, phased, pilot",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -82609,7 +82645,8 @@
               "label": "Registry URLs",
               "hint": "Package registry URLs (public and private)",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -82921,12 +82958,6 @@
           ],
           "formFields": [
             {
-              "name": "description",
-              "label": "Description",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "type",
               "label": "Type (System, Team, Vendor, Deliverable, Framework)",
               "type": "String",
@@ -82949,6 +82980,13 @@
               "label": "Status (Open, Confirmed, Resolved, At risk)",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "type": "String",
+              "required": true,
+              "multiParagraph": true
             }
           ]
         }
@@ -84715,13 +84753,6 @@
               "required": false
             },
             {
-              "name": "targetEnvironment",
-              "label": "Environment",
-              "hint": "Development, Staging, Production",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "environmentRef",
               "label": "Environment",
               "hint": "The environment (ENVEN-ITEM-…) this entry describes; the environment itself is described in the environment register",
@@ -84730,6 +84761,14 @@
               "refersTo": [
                 "ENVEN.@sectionId"
               ]
+            },
+            {
+              "name": "targetEnvironment",
+              "label": "Environment",
+              "hint": "Development, Staging, Production",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -85052,13 +85091,6 @@
           ],
           "formFields": [
             {
-              "name": "complianceRequirements",
-              "label": "Compliance Requirements",
-              "hint": "Store guidelines, regulatory requirements",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "privacyRequirements",
               "label": "Privacy Requirements",
               "hint": "Privacy manifest, tracking transparency",
@@ -85085,6 +85117,14 @@
               "hint": "Additional deployment notes",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "complianceRequirements",
+              "label": "Compliance Requirements",
+              "hint": "Store guidelines, regulatory requirements",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -92775,16 +92815,16 @@
           ],
           "formFields": [
             {
-              "name": "sectionReference",
-              "label": "Section Reference (chapter, section, or page number)",
-              "hint": "Locate the section: chapter, clause, or page number.",
+              "name": "sectionTitle",
+              "label": "Section Title or Description",
+              "hint": "Title or short description of the section.",
               "type": "String",
               "required": true
             },
             {
-              "name": "sectionTitle",
-              "label": "Section Title or Description",
-              "hint": "Title or short description of the section.",
+              "name": "sectionReference",
+              "label": "Section Reference (chapter, section, or page number)",
+              "hint": "Locate the section: chapter, clause, or page number.",
               "type": "String",
               "required": true
             },
@@ -92800,7 +92840,8 @@
               "label": "Summary / Key Extract (brief summary of applicable content)",
               "hint": "Brief summary or key extract of the applicable content.",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -96229,7 +96270,8 @@
               "label": "Scalability Model",
               "hint": "Horizontal, vertical, auto-scaling",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -96348,13 +96390,6 @@
           ],
           "formFields": [
             {
-              "name": "loadTestingRequirement",
-              "label": "Load Testing Requirement",
-              "hint": "Load test scenarios, thresholds",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "performanceProfilingApproach",
               "label": "Performance Profiling",
               "hint": "APM tools, custom instrumentation",
@@ -96369,11 +96404,20 @@
               "required": false
             },
             {
+              "name": "loadTestingRequirement",
+              "label": "Load Testing Requirement",
+              "hint": "Load test scenarios, thresholds",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
+            },
+            {
               "name": "performanceSlaDefinition",
               "label": "Performance SLA Definition",
               "hint": "SLA for performance metrics",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -97922,13 +97966,6 @@
               "required": true
             },
             {
-              "name": "description",
-              "label": "Short description",
-              "hint": "Brief description.",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "accessType",
               "label": "Access Type",
               "hint": "Type of access granted.",
@@ -97936,11 +97973,20 @@
               "required": false
             },
             {
+              "name": "description",
+              "label": "Short description",
+              "hint": "Brief description.",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
+            },
+            {
               "name": "conditions",
               "label": "Conditions",
               "hint": "Conditions under which the entitlement applies.",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -98733,13 +98779,6 @@
               "required": false
             },
             {
-              "name": "description",
-              "label": "Description",
-              "hint": "Business meaning of this relationship",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "businessJustification",
               "label": "Business Justification",
               "hint": "Why this relationship exists from business perspective",
@@ -98752,6 +98791,14 @@
               "hint": "ForeignKey | JunctionTable | Embedded | Reference",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "hint": "Business meaning of this relationship",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -107794,6 +107841,21 @@
           ],
           "formFields": [
             {
+              "name": "returnKind",
+              "label": "Return Kind — resume the scenario, or end it",
+              "hint": "Where control goes when this branch finishes — back to a named main-scenario step, or nowhere because the use case ends here",
+              "type": "FlowReturnPoint",
+              "required": true,
+              "enumValues": [
+                "resumeAtStep",
+                "endFlow"
+              ],
+              "enumValueDocs": {
+                "resumeAtStep": "The branch hands control back to a named step of the flow it left.\n\nBinds a case subsection, because the generated body cannot rejoin\nanywhere until the step it rejoins at has been named.",
+                "endFlow": "The branch is the end of the scenario — control goes back to nobody.\n\nThe `noCase` arm: there is no step to name and no payload to carry, so a\ncase subsection here would have nothing in it."
+              }
+            },
+            {
               "name": "branchPoint",
               "label": "Branch Point — main-scenario step",
               "hint": "The main-scenario step this branch leaves from, as that step's section id (MNSST-STEP-…). The branch is taken instead of that step, so name the step the condition is evaluated before — not the step before it, and not a restated step number.",
@@ -107818,33 +107880,11 @@
               "required": false
             },
             {
-              "name": "description",
-              "label": "Description — what happens",
-              "hint": "What happens along this extension path",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "outcome",
               "label": "Outcome — how it ends",
               "hint": "Result reached when the branch completes",
               "type": "String",
               "required": false
-            },
-            {
-              "name": "returnKind",
-              "label": "Return Kind — resume the scenario, or end it",
-              "hint": "Where control goes when this branch finishes — back to a named main-scenario step, or nowhere because the use case ends here",
-              "type": "FlowReturnPoint",
-              "required": true,
-              "enumValues": [
-                "resumeAtStep",
-                "endFlow"
-              ],
-              "enumValueDocs": {
-                "resumeAtStep": "The branch hands control back to a named step of the flow it left.\n\nBinds a case subsection, because the generated body cannot rejoin\nanywhere until the step it rejoins at has been named.",
-                "endFlow": "The branch is the end of the scenario — control goes back to nobody.\n\nThe `noCase` arm: there is no step to name and no payload to carry, so a\ncase subsection here would have nothing in it."
-              }
             },
             {
               "name": "frequency",
@@ -107859,6 +107899,14 @@
               "hint": "Impact level for exception/error branches",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "description",
+              "label": "Description — what happens",
+              "hint": "What happens along this extension path",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -108243,18 +108291,19 @@
               "required": false
             },
             {
-              "name": "dataExchanged",
-              "label": "Data Exchanged (what information flows to/from this actor)",
-              "hint": "What information flows to and from this actor",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "accessLevel",
               "label": "Access Level (Read, Write, Admin, API-only, etc.)",
               "hint": "The level of access this actor has",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "dataExchanged",
+              "label": "Data Exchanged (what information flows to/from this actor)",
+              "hint": "What information flows to and from this actor",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -110682,13 +110731,6 @@
               "required": true
             },
             {
-              "name": "integrationPurpose",
-              "label": "Integration Purpose (what business need does this serve)",
-              "hint": "The business need this integration serves",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "dataExchanged",
               "label": "Data Exchanged (what data flows between systems)",
               "hint": "What data flows between the systems",
@@ -110701,6 +110743,14 @@
               "hint": "The technical method used for the integration",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "integrationPurpose",
+              "label": "Integration Purpose (what business need does this serve)",
+              "hint": "The business need this integration serves",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -116448,7 +116498,8 @@
               "label": "Purpose",
               "hint": "What problem this framework solves",
               "type": "String",
-              "required": true
+              "required": true,
+              "multiParagraph": true
             }
           ]
         },
@@ -116634,13 +116685,6 @@
               "required": false
             },
             {
-              "name": "integrationPoints",
-              "label": "Integration Points",
-              "hint": "Where this framework integrates in the architecture",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "requiredPlugins",
               "label": "Required Plugins/Extensions",
               "hint": "Mandatory plugins or extensions",
@@ -116660,6 +116704,14 @@
               "hint": "Framework features that should not be used",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "integrationPoints",
+              "label": "Integration Points",
+              "hint": "Where this framework integrates in the architecture",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -116838,13 +116890,6 @@
           ],
           "formFields": [
             {
-              "name": "justification",
-              "label": "Justification",
-              "hint": "Reason for selecting this framework",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "alternativesConsidered",
               "label": "Alternatives Considered",
               "hint": "Other frameworks evaluated",
@@ -116864,6 +116909,14 @@
               "hint": "Additional framework notes",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "justification",
+              "label": "Justification",
+              "hint": "Reason for selecting this framework",
+              "type": "String",
+              "required": true,
+              "multiParagraph": true
             }
           ]
         }
@@ -118040,13 +118093,6 @@
           ],
           "formFields": [
             {
-              "name": "description",
-              "label": "Description (The system shall... detailed statement)",
-              "hint": "Detailed \"the system shall...\" statement of the requirement",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "requirementType",
               "label": "Requirement Type (Feature, User Story, Business Rule, Report, Integration, Calculation, Workflow, Notification, Search, Data Entry, Data Display, Data Export, Batch Process)",
               "hint": "Feature, User Story, Business Rule, Report, Integration, etc.",
@@ -118059,6 +118105,14 @@
               "hint": "Functional-area grouping for this requirement",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "description",
+              "label": "Description (The system shall... detailed statement)",
+              "hint": "Detailed \"the system shall...\" statement of the requirement",
+              "type": "String",
+              "required": true,
+              "multiParagraph": true
             }
           ]
         },
@@ -118215,13 +118269,6 @@
           ],
           "formFields": [
             {
-              "name": "source",
-              "label": "Source (who requested: stakeholder name, workshop, document)",
-              "hint": "Who requested it: stakeholder name, workshop, or document",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "requestDate",
               "label": "Request Date",
               "hint": "Date the requirement was requested",
@@ -118229,11 +118276,20 @@
               "required": false
             },
             {
+              "name": "source",
+              "label": "Source (who requested: stakeholder name, workshop, document)",
+              "hint": "Who requested it: stakeholder name, workshop, or document",
+              "type": "String",
+              "required": true,
+              "multiParagraph": true
+            },
+            {
               "name": "rationale",
               "label": "Rationale (why this requirement is needed)",
               "hint": "Why this requirement is needed",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -120439,12 +120495,6 @@
               "required": true
             },
             {
-              "name": "definition",
-              "label": "Definition",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "acronym",
               "label": "Acronym / Abbreviation",
               "type": "String",
@@ -120455,6 +120505,13 @@
               "label": "See Also (related terms)",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "definition",
+              "label": "Definition",
+              "type": "String",
+              "required": true,
+              "multiParagraph": true
             }
           ]
         }
@@ -130084,13 +130141,6 @@
           ],
           "formFields": [
             {
-              "name": "integrationStrategy",
-              "label": "Integration Strategy",
-              "hint": "Point-to-point, Hub-and-spoke, ESB, API-led",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "integrationPatterns",
               "label": "Integration Patterns",
               "hint": "Adapters, Facades, Gateways",
@@ -130103,6 +130153,14 @@
               "hint": "How APIs are managed",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "integrationStrategy",
+              "label": "Integration Strategy",
+              "hint": "Point-to-point, Hub-and-spoke, ESB, API-led",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -130158,18 +130216,19 @@
               "required": false
             },
             {
-              "name": "integrationTypes",
-              "label": "Integration Types",
-              "hint": "REST, SOAP, File, Database, Events",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "realTimeIntegrations",
               "label": "Real-Time Integrations",
               "hint": "Integrations requiring real-time sync",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "integrationTypes",
+              "label": "Integration Types",
+              "hint": "REST, SOAP, File, Database, Events",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -130285,13 +130344,6 @@
           ],
           "formFields": [
             {
-              "name": "authenticationApproach",
-              "label": "Authentication Approach",
-              "hint": "How integrations are authenticated",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "authorizationApproach",
               "label": "Authorization Approach",
               "hint": "How integrations are authorized",
@@ -130304,6 +130356,14 @@
               "hint": "Transport security (TLS, VPN)",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "authenticationApproach",
+              "label": "Authentication Approach",
+              "hint": "How integrations are authenticated",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -131808,7 +131868,8 @@
               "label": "Traceability to Processes — link to BP section",
               "hint": "Reference the TOM-xxx process each interaction realizes",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -133566,13 +133627,6 @@
           ],
           "formFields": [
             {
-              "name": "description",
-              "label": "Description",
-              "hint": "What this pattern involves",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "useCases",
               "label": "Use Cases",
               "hint": "List of use cases that follow this pattern",
@@ -133585,6 +133639,14 @@
               "hint": "Which user categories use this pattern",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "hint": "What this pattern involves",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -136700,13 +136762,6 @@
               "required": false
             },
             {
-              "name": "eventTypes",
-              "label": "Event Types Received",
-              "hint": "Event types delivered via webhook",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "signatureVerification",
               "label": "Signature Verification Method",
               "hint": "How webhook authenticity is verified",
@@ -136726,6 +136781,14 @@
               "hint": "How duplicate webhook deliveries are handled",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "eventTypes",
+              "label": "Event Types Received",
+              "hint": "Event types delivered via webhook",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -138387,13 +138450,15 @@
               "name": "addressedBy",
               "label": "Addressed By (which quality goals / NFRs)",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             },
             {
               "name": "targetMetric",
               "label": "Target Metric",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -138500,23 +138565,9 @@
               "required": false
             },
             {
-              "name": "replacedSystems",
-              "label": "Replaced Systems (systems this will replace or retire)",
-              "hint": "Systems this will replace or retire",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "complementarySystems",
               "label": "Complementary Systems (systems this works alongside)",
               "hint": "Systems this works alongside",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "dependsOnSystems",
-              "label": "Depends On Systems (systems this requires to operate)",
-              "hint": "Systems this requires to operate",
               "type": "String",
               "required": false
             },
@@ -138528,18 +138579,35 @@
               "required": false
             },
             {
-              "name": "dataOwnership",
-              "label": "Data Ownership (what master data does this system own)",
-              "hint": "What master data this system owns",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "integrationPattern",
               "label": "Primary Integration Pattern (API, Event, Batch, Real-time)",
               "hint": "The primary integration pattern used",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "replacedSystems",
+              "label": "Replaced Systems (systems this will replace or retire)",
+              "hint": "Systems this will replace or retire",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
+            },
+            {
+              "name": "dependsOnSystems",
+              "label": "Depends On Systems (systems this requires to operate)",
+              "hint": "Systems this requires to operate",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
+            },
+            {
+              "name": "dataOwnership",
+              "label": "Data Ownership (what master data does this system own)",
+              "hint": "What master data this system owns",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -138661,13 +138729,6 @@
           ],
           "formFields": [
             {
-              "name": "privilegedAccessManagement",
-              "label": "Privileged Access Management",
-              "hint": "PAM solution, just-in-time",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "accessReviewFrequency",
               "label": "Access Review Frequency",
               "hint": "Quarterly, annually",
@@ -138680,6 +138741,14 @@
               "hint": "What access is logged",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "privilegedAccessManagement",
+              "label": "Privileged Access Management",
+              "hint": "PAM solution, just-in-time",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -143814,18 +143883,19 @@
           ],
           "formFields": [
             {
-              "name": "trigger",
-              "label": "Trigger",
-              "hint": "What initiates this transition",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "triggerType",
               "label": "Trigger Type",
               "hint": "UserAction | SystemEvent | Timer | ExternalEvent",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "trigger",
+              "label": "Trigger",
+              "hint": "What initiates this transition",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -147015,13 +147085,6 @@
               "required": false
             },
             {
-              "name": "businessRuleApplied",
-              "label": "Business Rule Applied",
-              "hint": "The rule enforced at this step, as prose — it may cite a business rule (BIRU-…) or a Project Idea rule (C6.5); not resolved",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "uiElementUsed",
               "label": "UI Element Used — screen/component",
               "hint": "Screen or component the actor interacts with",
@@ -147041,6 +147104,14 @@
               "hint": "Expected time to complete this step",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "businessRuleApplied",
+              "label": "Business Rule Applied",
+              "hint": "The rule enforced at this step, as prose — it may cite a business rule (BIRU-…) or a Project Idea rule (C6.5); not resolved",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -151766,18 +151837,19 @@
           ],
           "formFields": [
             {
-              "name": "allowedAuthenticatorTypes",
-              "label": "Allowed Authenticator Types",
-              "hint": "TOTP | WebAuthn | FIDO2 | SMS | Push | Passkey — allowed second-factor types",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "phishingResistanceRequired",
               "label": "Phishing Resistance Required",
               "hint": "Yes | No | Recommended — whether phishing-resistant authenticators are required",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "allowedAuthenticatorTypes",
+              "label": "Allowed Authenticator Types",
+              "hint": "TOTP | WebAuthn | FIDO2 | SMS | Push | Passkey — allowed second-factor types",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -157608,13 +157680,6 @@
               "required": true
             },
             {
-              "name": "functionality",
-              "label": "Functionality",
-              "hint": "Specific features/functions",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "publicApi",
               "label": "Public API",
               "hint": "Key public interfaces/classes",
@@ -157627,6 +157692,14 @@
               "hint": "Main entry points to the module",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "functionality",
+              "label": "Functionality",
+              "hint": "Specific features/functions",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -160517,13 +160590,6 @@
           ],
           "formFields": [
             {
-              "name": "criterionDescription",
-              "label": "Description",
-              "hint": "What must be achieved",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "qualityCategory",
               "label": "Quality Category",
               "hint": "The ISO/IEC 25010:2023 characteristic the criterion assures",
@@ -160556,6 +160622,14 @@
               "hint": "Specific attribute this relates to",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "criterionDescription",
+              "label": "Description",
+              "hint": "What must be achieved",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -169793,20 +169867,6 @@
               "required": false
             },
             {
-              "name": "newCapabilities",
-              "label": "New Capabilities (what becomes possible that wasn't before)",
-              "hint": "What becomes possible that was not possible before",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "improvements",
-              "label": "Improvements (quantitative and qualitative improvements expected)",
-              "hint": "Quantitative and qualitative improvements expected",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "competitiveAdvantage",
               "label": "Competitive Advantage (market positioning benefits)",
               "hint": "Market positioning benefits the system provides",
@@ -169840,6 +169900,22 @@
               "hint": "When benefits will start being realized",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "newCapabilities",
+              "label": "New Capabilities (what becomes possible that wasn't before)",
+              "hint": "What becomes possible that was not possible before",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
+            },
+            {
+              "name": "improvements",
+              "label": "Improvements (quantitative and qualitative improvements expected)",
+              "hint": "Quantitative and qualitative improvements expected",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -172099,7 +172175,8 @@
               "label": "Description (detailed statement)",
               "hint": "Full statement of the organizational change needed",
               "type": "String",
-              "required": true
+              "required": true,
+              "multiParagraph": true
             }
           ]
         },
@@ -172150,20 +172227,6 @@
           ],
           "formFields": [
             {
-              "name": "category",
-              "label": "Category (Training, Process Change, Role Change, Support, Communication, Policy, Governance, Culture, Staffing)",
-              "hint": "Type of organizational change the requirement entails",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "subcategory",
-              "label": "Subcategory",
-              "hint": "More specific aspect within the category",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "priority",
               "label": "Priority",
               "hint": "MoSCoW scoping band — what happens if this requirement does not ship.",
@@ -172183,11 +172246,18 @@
               }
             },
             {
-              "name": "source",
-              "label": "Source",
-              "hint": "Stakeholder or document that originated it",
+              "name": "category",
+              "label": "Category (Training, Process Change, Role Change, Support, Communication, Policy, Governance, Culture, Staffing)",
+              "hint": "Type of organizational change the requirement entails",
               "type": "String",
               "required": true
+            },
+            {
+              "name": "subcategory",
+              "label": "Subcategory",
+              "hint": "More specific aspect within the category",
+              "type": "String",
+              "required": false
             },
             {
               "name": "rationale",
@@ -172195,6 +172265,14 @@
               "hint": "Why this organizational change is needed",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "source",
+              "label": "Source",
+              "hint": "Stakeholder or document that originated it",
+              "type": "String",
+              "required": true,
+              "multiParagraph": true
             }
           ]
         },
@@ -173496,25 +173574,27 @@
               "required": false
             },
             {
+              "name": "location",
+              "label": "Document Location",
+              "hint": "Where the signed agreement is stored",
+              "type": "String",
+              "required": false
+            },
+            {
               "name": "keyTerms",
               "label": "Key Terms",
               "hint": "Principal terms of the agreement",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             },
             {
               "name": "obligations",
               "label": "Obligations",
               "hint": "Obligations the agreement imposes",
               "type": "String",
-              "required": false
-            },
-            {
-              "name": "location",
-              "label": "Document Location",
-              "hint": "Where the signed agreement is stored",
-              "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -174017,18 +174097,19 @@
               "required": false
             },
             {
-              "name": "directoryLayout",
-              "label": "Directory Layout",
-              "hint": "Top-level directory organization",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "featureGrouping",
               "label": "Feature Grouping",
               "hint": "How features are grouped in structure",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "directoryLayout",
+              "label": "Directory Layout",
+              "hint": "Top-level directory organization",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -174077,20 +174158,6 @@
           ],
           "formFields": [
             {
-              "name": "corePackages",
-              "label": "Core Packages",
-              "hint": "Foundation packages required by all",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "featurePackages",
-              "label": "Feature Packages",
-              "hint": "Business feature packages",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "sharedPackages",
               "label": "Shared Packages",
               "hint": "Shared utility packages",
@@ -174103,6 +174170,22 @@
               "hint": "Platform-specific packages",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "corePackages",
+              "label": "Core Packages",
+              "hint": "Foundation packages required by all",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
+            },
+            {
+              "name": "featurePackages",
+              "label": "Feature Packages",
+              "hint": "Business feature packages",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -177225,13 +177308,6 @@
               "required": false
             },
             {
-              "name": "reviewers",
-              "label": "Reviewers",
-              "hint": "Who performs reviews (e.g., manager, security team, CISO)",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "dormantAccountReview",
               "label": "Dormant Account Review",
               "hint": "Review of inactive accounts (e.g., disable after 90 days)",
@@ -177251,6 +177327,14 @@
               "hint": "How review results are documented",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "reviewers",
+              "label": "Reviewers",
+              "hint": "Who performs reviews (e.g., manager, security team, CISO)",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -181249,13 +181333,6 @@
               "required": false
             },
             {
-              "name": "dataPortability",
-              "label": "Data Portability",
-              "hint": "Export formats, import capabilities",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "vendorLockInAvoidance",
               "label": "Vendor Lock-in Avoidance",
               "hint": "Standards-based, abstraction layers",
@@ -181282,6 +181359,14 @@
               "hint": "Cross-platform testing, compatibility matrix",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "dataPortability",
+              "label": "Data Portability",
+              "hint": "Export formats, import capabilities",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -181600,13 +181685,6 @@
               "required": false
             },
             {
-              "name": "successGuarantees",
-              "label": "Success Guarantees — true after successful completion",
-              "hint": "What holds true only after successful completion",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "primaryActorPostcondition",
               "label": "Primary Actor Postcondition — actor state after",
               "hint": "The primary actor's state once the flow ends",
@@ -181628,18 +181706,27 @@
               "required": false
             },
             {
-              "name": "notificationsGenerated",
-              "label": "Notifications Generated — who is notified",
-              "hint": "Notifications sent and their recipients",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "auditTrail",
               "label": "Audit Trail — what is logged",
               "hint": "Audit records written for this interaction",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "successGuarantees",
+              "label": "Success Guarantees — true after successful completion",
+              "hint": "What holds true only after successful completion",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
+            },
+            {
+              "name": "notificationsGenerated",
+              "label": "Notifications Generated — who is notified",
+              "hint": "Notifications sent and their recipients",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -181706,13 +181793,6 @@
           ],
           "formFields": [
             {
-              "name": "precondition",
-              "label": "Preconditions — must be true before",
-              "hint": "State assumed true before the interaction starts",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "trigger",
               "label": "Trigger — what initiates this use case",
               "hint": "The event that starts the interaction",
@@ -181753,6 +181833,14 @@
               "hint": "Guard checks performed before the main flow",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "precondition",
+              "label": "Preconditions — must be true before",
+              "hint": "State assumed true before the interaction starts",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -183561,6 +183649,25 @@
               "required": true
             },
             {
+              "name": "impactSeverity",
+              "label": "Impact Severity",
+              "hint": "Qualitative impact severity band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
+            },
+            {
               "name": "currentState",
               "label": "Current State (describe the AS-IS situation that is problematic)",
               "hint": "Describe the current AS-IS situation that is problematic",
@@ -183582,39 +183689,6 @@
               "required": false
             },
             {
-              "name": "impactSeverity",
-              "label": "Impact Severity",
-              "hint": "Qualitative impact severity band.",
-              "type": "ImportanceBand",
-              "required": false,
-              "enumValues": [
-                "critical",
-                "high",
-                "medium",
-                "low"
-              ],
-              "enumValueDocs": {
-                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
-                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
-                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
-                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
-              }
-            },
-            {
-              "name": "impactMetrics",
-              "label": "Impact Metrics (quantifiable measures of the problem's cost)",
-              "hint": "Quantifiable measures of the problem's cost",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "rootCauses",
-              "label": "Root Causes (underlying reasons for problem)",
-              "hint": "Underlying reasons that cause the problem",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "urgency",
               "label": "Urgency (Immediate, Short-term, Medium-term, Long-term)",
               "hint": "Immediate / Short-term / Medium-term / Long-term",
@@ -183629,11 +183703,28 @@
               "required": false
             },
             {
+              "name": "impactMetrics",
+              "label": "Impact Metrics (quantifiable measures of the problem's cost)",
+              "hint": "Quantifiable measures of the problem's cost",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
+            },
+            {
+              "name": "rootCauses",
+              "label": "Root Causes (underlying reasons for problem)",
+              "hint": "Underlying reasons that cause the problem",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
+            },
+            {
               "name": "consequencesOfInaction",
               "label": "Consequences of Inaction (what happens if not addressed)",
               "hint": "What happens if the problem is not addressed",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -184659,13 +184750,6 @@
               "required": false
             },
             {
-              "name": "scopeStatement",
-              "label": "Scope Statement — what processes are in scope",
-              "hint": "What the catalog does and does not cover",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "classificationFramework",
               "label": "Classification Framework — APQC PCF, custom",
               "hint": "Framework used to classify processes",
@@ -184706,6 +184790,14 @@
               "hint": "How process versions are tracked",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "scopeStatement",
+              "label": "Scope Statement — what processes are in scope",
+              "hint": "What the catalog does and does not cover",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -185676,16 +185768,28 @@
           ],
           "formFields": [
             {
+              "name": "priority",
+              "label": "Priority",
+              "hint": "Relative importance of the principle.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
+            },
+            {
               "name": "category",
               "label": "Category — efficiency, quality, compliance, user experience",
               "hint": "The dimension this principle addresses",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "statement",
-              "label": "Statement — the principle statement",
-              "hint": "The principle expressed as a directive",
               "type": "String",
               "required": false
             },
@@ -185718,30 +185822,19 @@
               "required": false
             },
             {
-              "name": "priority",
-              "label": "Priority",
-              "hint": "Relative importance of the principle.",
-              "type": "ImportanceBand",
-              "required": false,
-              "enumValues": [
-                "critical",
-                "high",
-                "medium",
-                "low"
-              ],
-              "enumValueDocs": {
-                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
-                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
-                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
-                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
-              }
-            },
-            {
               "name": "applicability",
               "label": "Applicability — all processes or specific types",
               "hint": "Which processes the principle applies to",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "statement",
+              "label": "Statement — the principle statement",
+              "hint": "The principle expressed as a directive",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -186721,13 +186814,6 @@
           ],
           "formFields": [
             {
-              "name": "description",
-              "label": "Description — what the process does",
-              "hint": "What the process actually does",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "purpose",
               "label": "Purpose — why the process exists",
               "hint": "Why the process exists",
@@ -186740,6 +186826,14 @@
               "hint": "Where the process starts and ends",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "description",
+              "label": "Description — what the process does",
+              "hint": "What the process actually does",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -189836,13 +189930,6 @@
               "required": false
             },
             {
-              "name": "dataExchanged",
-              "label": "Data Exchanged — what flows between processes",
-              "hint": "State what data flows between them",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "timingDependency",
               "label": "Timing Dependency — must complete before, can run parallel",
               "hint": "State the timing dependency",
@@ -189862,6 +189949,14 @@
               "hint": "State how critical the relationship is",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "dataExchanged",
+              "label": "Data Exchanged — what flows between processes",
+              "hint": "State what data flows between them",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -191052,13 +191147,6 @@
           ],
           "formFields": [
             {
-              "name": "useCaseScope",
-              "label": "Use Case Scope — system, organization, subsystem",
-              "hint": "State the design scope of the use cases",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "primaryActorFocus",
               "label": "Primary Actor Focus — main user types",
               "hint": "Name the main actor types the interactions center on",
@@ -191087,25 +191175,35 @@
               "required": false
             },
             {
+              "name": "notationStandard",
+              "label": "Notation Standard — Cockburn, Fowler, RUP",
+              "hint": "Name the use-case notation standard followed",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "useCaseScope",
+              "label": "Use Case Scope — system, organization, subsystem",
+              "hint": "State the design scope of the use cases",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
+            },
+            {
               "name": "traceabilityApproach",
               "label": "Traceability Approach — link to TOM, ISC documents",
               "hint": "Explain how interactions trace to TOM and ISC",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             },
             {
               "name": "detailLevel",
               "label": "Detail Level — brief, casual, fully dressed",
               "hint": "Choose the Cockburn detail level applied",
               "type": "String",
-              "required": false
-            },
-            {
-              "name": "notationStandard",
-              "label": "Notation Standard — Cockburn, Fowler, RUP",
-              "hint": "Name the use-case notation standard followed",
-              "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -191992,18 +192090,19 @@
               "required": false
             },
             {
-              "name": "businessOutcomes",
-              "label": "Business Outcomes — revenue, market share impact",
-              "hint": "Expected business-level outcomes",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "measurementApproach",
               "label": "Measurement Approach — how success is measured",
               "hint": "How and when success is measured",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "businessOutcomes",
+              "label": "Business Outcomes — revenue, market share impact",
+              "hint": "Expected business-level outcomes",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -196541,18 +196640,19 @@
               "required": false
             },
             {
-              "name": "adjustedCriteria",
-              "label": "Adjusted Criteria",
-              "hint": "Modified pass/fail criteria after adjustment",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "criteriaThresholdChange",
               "label": "Threshold Change",
               "hint": "How thresholds were modified",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "adjustedCriteria",
+              "label": "Adjusted Criteria",
+              "hint": "Modified pass/fail criteria after adjustment",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -197283,20 +197383,6 @@
           ],
           "formFields": [
             {
-              "name": "checkDescription",
-              "label": "Check Description",
-              "hint": "Detailed description of check",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "checkCategory",
-              "label": "Check Category",
-              "hint": "Category of check",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "qualityCategory",
               "label": "Quality Category",
               "hint": "The ISO/IEC 25010:2023 characteristic the criterion assures",
@@ -197322,6 +197408,21 @@
                 "maintainability": "ISO/IEC 25010:2023 *maintainability* — the effectiveness and efficiency\nwith which the product can be modified by its maintainers, whether to\ncorrect, improve or adapt it. The assessment is meaningless without\nnaming *who* maintains it and over what horizon. Modelled by\n`MaintainabilityCharacteristic`.",
                 "flexibility": "ISO/IEC 25010:2023 *flexibility* — the degree to which the product can be\nadapted to changes in its requirements, contexts of use or system\nenvironment.\n\n**New in the 2023 edition, and where *portability* went.** A reader\nworking from the 2011 edition looking for a `portability` constant lands\nhere: the older characteristic's adaptability, installability and\nreplaceability concerns are carried under flexibility, alongside\nscalability. The localization & translation concern cross-maps to exactly\nthis portability/adaptability content\n(`tom_specs_model_rules.md` §2.3). Modelled by\n`FlexibilityCharacteristic`."
               }
+            },
+            {
+              "name": "checkCategory",
+              "label": "Check Category",
+              "hint": "Category of check",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "checkDescription",
+              "label": "Check Description",
+              "hint": "Detailed description of check",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -200959,13 +201060,6 @@
           ],
           "formFields": [
             {
-              "name": "keyRequirements",
-              "label": "Key Requirements",
-              "hint": "Main requirements to meet",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "technicalControls",
               "label": "Technical Controls",
               "hint": "Required technical measures",
@@ -200985,6 +201079,14 @@
               "hint": "Required documentation",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "keyRequirements",
+              "label": "Key Requirements",
+              "hint": "Main requirements to meet",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -201471,23 +201573,9 @@
               "required": false
             },
             {
-              "name": "applicability",
-              "label": "Applicability",
-              "hint": "Why and how the regulation applies to this project",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "complianceDeadline",
               "label": "Compliance Deadline",
               "hint": "When compliance must be achieved",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "evidenceRequired",
-              "label": "Evidence Required",
-              "hint": "Proof needed to demonstrate compliance",
               "type": "String",
               "required": false
             },
@@ -201504,6 +201592,22 @@
               "hint": "Consequences of failing to comply",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "applicability",
+              "label": "Applicability",
+              "hint": "Why and how the regulation applies to this project",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
+            },
+            {
+              "name": "evidenceRequired",
+              "label": "Evidence Required",
+              "hint": "Proof needed to demonstrate compliance",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -202125,18 +202229,19 @@
               "required": false
             },
             {
-              "name": "extractSummary",
-              "label": "Summary / Key Extract (brief summary of applicable content)",
-              "hint": "Brief summary or key extract of the applicable content.",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "complianceRequired",
               "label": "Compliance Required (must project comply with this section?)",
               "hint": "True if the project must comply with this section.",
               "type": "bool",
               "required": false
+            },
+            {
+              "name": "extractSummary",
+              "label": "Summary / Key Extract (brief summary of applicable content)",
+              "hint": "Brief summary or key extract of the applicable content.",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -211010,23 +211115,9 @@
           ],
           "formFields": [
             {
-              "name": "requirementsProcess",
-              "label": "Requirements Process (how requirements are elicited and managed)",
-              "hint": "How requirements are elicited, analysed, and managed",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "traceabilityApproach",
               "label": "Traceability Approach (how requirements are linked to goals, tests, code)",
               "hint": "How requirements are linked to goals, tests, and code",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "changeControlProcess",
-              "label": "Change Control Process (how requirement changes are handled)",
-              "hint": "How requirement changes are proposed, reviewed, and approved",
               "type": "String",
               "required": false
             },
@@ -211045,13 +211136,6 @@
               "required": false
             },
             {
-              "name": "mustHaveCount",
-              "label": "Must-Have Requirements (estimated)",
-              "hint": "Estimated count of Must-Have requirements",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "shouldHaveCount",
               "label": "Should-Have Requirements (estimated)",
               "hint": "Estimated count of Should-Have requirements",
@@ -211064,6 +211148,30 @@
               "hint": "Estimated count of Could-Have requirements",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "requirementsProcess",
+              "label": "Requirements Process (how requirements are elicited and managed)",
+              "hint": "How requirements are elicited, analysed, and managed",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
+            },
+            {
+              "name": "changeControlProcess",
+              "label": "Change Control Process (how requirement changes are handled)",
+              "hint": "How requirement changes are proposed, reviewed, and approved",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
+            },
+            {
+              "name": "mustHaveCount",
+              "label": "Must-Have Requirements (estimated)",
+              "hint": "Estimated count of Must-Have requirements",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -217521,13 +217629,6 @@
           ],
           "formFields": [
             {
-              "name": "description",
-              "label": "Description — detailed risk event and potential causes",
-              "hint": "Detailed description of the risk event and its causes",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "category",
               "label": "Category — Technical, Schedule, Cost, Resource, External, Legal, Organizational",
               "hint": "Top-level risk category",
@@ -217540,6 +217641,14 @@
               "hint": "More specific categorization within the category",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "description",
+              "label": "Description — detailed risk event and potential causes",
+              "hint": "Detailed description of the risk event and its causes",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -218619,13 +218728,6 @@
               "required": false
             },
             {
-              "name": "affectedResponsibilities",
-              "label": "Affected Responsibilities",
-              "hint": "Which responsibilities are impacted by this change",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "mergedWithRoles",
               "label": "Merged With Roles",
               "hint": "If merged, which other roles it combines with",
@@ -218638,6 +218740,14 @@
               "hint": "If split, names of the resulting roles",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "affectedResponsibilities",
+              "label": "Affected Responsibilities",
+              "hint": "Which responsibilities are impacted by this change",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -218839,14 +218949,16 @@
               "label": "Risk Description",
               "hint": "What could go wrong due to this adjustment",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             },
             {
               "name": "mitigationMeasures",
               "label": "Mitigation Measures",
               "hint": "How risks from this adjustment are mitigated",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -222528,13 +222640,6 @@
           ],
           "formFields": [
             {
-              "name": "networkRequirements",
-              "label": "Network Requirements",
-              "hint": "Connectivity requirements",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "bandwidthRequirements",
               "label": "Bandwidth Requirements",
               "hint": "Minimum bandwidth",
@@ -222547,6 +222652,14 @@
               "hint": "Maximum acceptable latency",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "networkRequirements",
+              "label": "Network Requirements",
+              "hint": "Connectivity requirements",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -222593,18 +222706,19 @@
           ],
           "formFields": [
             {
-              "name": "requiredEnvVariables",
-              "label": "Required Environment Variables",
-              "hint": "Mandatory environment variables",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "optionalEnvVariables",
               "label": "Optional Environment Variables",
               "hint": "Optional configuration variables",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "requiredEnvVariables",
+              "label": "Required Environment Variables",
+              "hint": "Mandatory environment variables",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -222913,18 +223027,19 @@
               "required": false
             },
             {
-              "name": "peakLoad",
-              "label": "Peak Load",
-              "hint": "Peak load expectations",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "growthProjection",
               "label": "Growth Projection",
               "hint": "Expected growth over time",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "peakLoad",
+              "label": "Peak Load",
+              "hint": "Peak load expectations",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -225014,7 +225129,8 @@
               "label": "Recurrence Expression",
               "hint": "The recurrence expression, verbatim (e.g. 0 2 * * * for daily at 02:00)",
               "type": "String",
-              "required": true
+              "required": true,
+              "multiParagraph": true
             }
           ]
         },
@@ -226789,13 +226905,6 @@
           ],
           "formFields": [
             {
-              "name": "itemDescription",
-              "label": "Item Description",
-              "hint": "Describe the feature, process, or system in scope or excluded",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "category",
               "label": "Category (Feature, Process, User Group, System, Data, Geography, etc.)",
               "hint": "Feature, Process, User Group, System, Data, Geography, etc.",
@@ -226822,6 +226931,14 @@
                 "ORRQ.@sectionId"
               ],
               "multiple": true
+            },
+            {
+              "name": "itemDescription",
+              "label": "Item Description",
+              "hint": "Describe the feature, process, or system in scope or excluded",
+              "type": "String",
+              "required": true,
+              "multiParagraph": true
             }
           ]
         }
@@ -226908,18 +227025,19 @@
               "required": true
             },
             {
-              "name": "description",
-              "label": "Description",
-              "hint": "What the action does — the stated behavior of an action no scenario step contributes to",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "contextType",
               "label": "Context Type",
               "hint": "The view-model type the action requires as its context, e.g. OrderViewModel",
               "type": "String",
               "required": true
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "hint": "What the action does — the stated behavior of an action no scenario step contributes to",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -228454,16 +228572,16 @@
           ],
           "formFields": [
             {
-              "name": "styleVariant",
-              "label": "Style Variant",
-              "hint": "Primary/Secondary/Danger/Subtle/Custom",
+              "name": "accessibilityLabel",
+              "label": "Accessibility Label",
+              "hint": "Override for screen readers",
               "type": "String",
               "required": false
             },
             {
-              "name": "accessibilityLabel",
-              "label": "Accessibility Label",
-              "hint": "Override for screen readers",
+              "name": "styleVariant",
+              "label": "Style Variant",
+              "hint": "Primary/Secondary/Danger/Subtle/Custom",
               "type": "String",
               "required": false
             },
@@ -228486,7 +228604,8 @@
               "label": "Design Notes",
               "hint": "Design rationale or open questions",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -229474,7 +229593,8 @@
               "label": "Purpose",
               "hint": "Business purpose — what the user accomplishes here",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -229710,6 +229830,13 @@
           ],
           "formFields": [
             {
+              "name": "helpTopicId",
+              "label": "Help Topic ID (external)",
+              "hint": "Topic id in the documentation system — owned by the documentation process, not declared in this blueprint",
+              "type": "String",
+              "required": false
+            },
+            {
               "name": "pageTitleResource",
               "label": "Page Title Resource",
               "hint": "Message key (MSGKR registry) for the screen title text",
@@ -229727,18 +229854,12 @@
               "required": false
             },
             {
-              "name": "helpTopicId",
-              "label": "Help Topic ID (external)",
-              "hint": "Topic id in the documentation system — owned by the documentation process, not declared in this blueprint",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "layout",
               "label": "Layout",
               "hint": "Layout description, e.g., Responsive grid — 3 col desktop, 1 col mobile",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -231595,18 +231716,19 @@
               "required": true
             },
             {
-              "name": "purpose",
-              "label": "Purpose",
-              "hint": "What this zone contains",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "sectionType",
               "label": "Section Type",
               "hint": "Header/Toolbar/Filter-Bar/Content-Primary/Content-Secondary/Sidebar/Footer/Tab-Panel/Accordion-Panel/Drawer/Action-Bar/Form-Group",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "purpose",
+              "label": "Purpose",
+              "hint": "What this zone contains",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -231994,11 +232116,24 @@
               "required": true
             },
             {
-              "name": "description",
-              "label": "Description",
-              "hint": "When this state occurs",
+              "name": "primaryActionLabel",
+              "label": "Primary Action Label",
+              "hint": "Message key (MSGKR registry) for recovery action, e.g., Try Again",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
+            },
+            {
+              "name": "secondaryActionLabel",
+              "label": "Secondary Action Label",
+              "hint": "Message key (MSGKR registry) for alternative action",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "messageResource",
@@ -232025,16 +232160,6 @@
               "required": false
             },
             {
-              "name": "primaryActionLabel",
-              "label": "Primary Action Label",
-              "hint": "Message key (MSGKR registry) for recovery action, e.g., Try Again",
-              "type": "String",
-              "required": false,
-              "refersTo": [
-                "MSGKE.key"
-              ]
-            },
-            {
               "name": "primaryActionTarget",
               "label": "Primary Action Target",
               "hint": "Action or navigation on recovery",
@@ -232042,14 +232167,12 @@
               "required": false
             },
             {
-              "name": "secondaryActionLabel",
-              "label": "Secondary Action Label",
-              "hint": "Message key (MSGKR registry) for alternative action",
+              "name": "description",
+              "label": "Description",
+              "hint": "When this state occurs",
               "type": "String",
               "required": false,
-              "refersTo": [
-                "MSGKE.key"
-              ]
+              "multiParagraph": true
             }
           ]
         }
@@ -232631,13 +232754,6 @@
           ],
           "formFields": [
             {
-              "name": "authenticationMethod",
-              "label": "Authentication Method",
-              "hint": "OAuth2, SAML, OIDC, MFA",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "mfaRequirement",
               "label": "MFA Requirement",
               "hint": "All users, privileged users, optional",
@@ -232645,18 +232761,28 @@
               "required": false
             },
             {
+              "name": "authenticationMethod",
+              "label": "Authentication Method",
+              "hint": "OAuth2, SAML, OIDC, MFA",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
+            },
+            {
               "name": "passwordPolicy",
               "label": "Password Policy",
               "hint": "Complexity, rotation, history",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             },
             {
               "name": "sessionManagement",
               "label": "Session Management",
               "hint": "Timeout, concurrent sessions",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -232721,7 +232847,8 @@
               "label": "Privilege Escalation",
               "hint": "Controls to prevent escalation",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -233982,14 +234109,16 @@
               "label": "Security Approach",
               "hint": "Zero-trust, defence-in-depth, least-privilege",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             },
             {
               "name": "securityComplianceTarget",
               "label": "Security Compliance Target",
               "hint": "ISO 27001, SOC 2, GDPR, sector-specific",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -235633,7 +235762,8 @@
               "label": "Description (The system shall... detailed statement)",
               "hint": "Full requirement statement, e.g., The system shall encrypt data at rest",
               "type": "String",
-              "required": true
+              "required": true,
+              "multiParagraph": true
             }
           ]
         },
@@ -235682,20 +235812,6 @@
           ],
           "formFields": [
             {
-              "name": "category",
-              "label": "Category (Authentication, Authorization, Data Protection, Encryption, Audit Logging, Input Validation, Session Management, Error Handling, Communication Security, Configuration, Cryptography, Data Retention, Privacy)",
-              "hint": "Security domain the requirement falls under",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "subcategory",
-              "label": "Subcategory",
-              "hint": "More specific aspect within the category",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "priority",
               "label": "Priority",
               "hint": "Qualitative priority band.",
@@ -235715,11 +235831,18 @@
               }
             },
             {
-              "name": "source",
-              "label": "Source",
-              "hint": "Stakeholder, standard, or document that originated it",
+              "name": "category",
+              "label": "Category (Authentication, Authorization, Data Protection, Encryption, Audit Logging, Input Validation, Session Management, Error Handling, Communication Security, Configuration, Cryptography, Data Retention, Privacy)",
+              "hint": "Security domain the requirement falls under",
               "type": "String",
               "required": true
+            },
+            {
+              "name": "subcategory",
+              "label": "Subcategory",
+              "hint": "More specific aspect within the category",
+              "type": "String",
+              "required": false
             },
             {
               "name": "rationale",
@@ -235741,6 +235864,14 @@
               "hint": "Sensitivity of data the requirement protects",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "source",
+              "label": "Source",
+              "hint": "Stakeholder, standard, or document that originated it",
+              "type": "String",
+              "required": true,
+              "multiParagraph": true
             }
           ]
         },
@@ -238759,11 +238890,14 @@
               "required": true
             },
             {
-              "name": "purpose",
-              "label": "Purpose",
-              "hint": "What the operation does, from the caller's point of view",
+              "name": "descriptionKey",
+              "label": "Description Copy Key",
+              "hint": "MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "primaryDataEntity",
@@ -238776,16 +238910,6 @@
               ]
             },
             {
-              "name": "descriptionKey",
-              "label": "Description Copy Key",
-              "hint": "MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)",
-              "type": "String",
-              "required": false,
-              "refersTo": [
-                "MSGKE.key"
-              ]
-            },
-            {
               "name": "errorCodes",
               "label": "Error Codes",
               "hint": "Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope",
@@ -238795,6 +238919,14 @@
                 "ERCEN.code"
               ],
               "multiple": true
+            },
+            {
+              "name": "purpose",
+              "label": "Purpose",
+              "hint": "What the operation does, from the caller's point of view",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -246645,18 +246777,19 @@
               "required": true
             },
             {
-              "name": "responsibilities",
-              "label": "Key Responsibilities",
-              "hint": "Specific functions this layer handles",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "prohibitions",
               "label": "Prohibitions",
               "hint": "What this layer must NOT do",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "responsibilities",
+              "label": "Key Responsibilities",
+              "hint": "Specific functions this layer handles",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -248447,13 +248580,6 @@
               "required": false
             },
             {
-              "name": "stageDescription",
-              "label": "Description",
-              "hint": "Brief description of what this stage delivers",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "businessObjective",
               "label": "Business Objective",
               "hint": "Primary business outcome this stage achieves",
@@ -248466,6 +248592,14 @@
               "hint": "Foundation / Incremental / Enhancement / Optimization / Migration",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "stageDescription",
+              "label": "Description",
+              "hint": "Brief description of what this stage delivers",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -248589,13 +248723,6 @@
           ],
           "formFields": [
             {
-              "name": "scopeSummary",
-              "label": "Scope Summary",
-              "hint": "High-level summary of features included in this stage",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "includedFeatures",
               "label": "Included Features",
               "hint": "Key features explicitly included",
@@ -248643,6 +248770,14 @@
               "hint": "Known technical debt to be addressed",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "scopeSummary",
+              "label": "Scope Summary",
+              "hint": "High-level summary of features included in this stage",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -248734,16 +248869,16 @@
           ],
           "formFields": [
             {
-              "name": "entryCriteria",
-              "label": "Entry Criteria",
-              "hint": "Conditions that must be met before the stage can begin",
+              "name": "acceptanceCriteriaSummary",
+              "label": "Acceptance Criteria Summary",
+              "hint": "High-level criteria for business acceptance",
               "type": "String",
               "required": false
             },
             {
-              "name": "exitCriteria",
-              "label": "Exit Criteria",
-              "hint": "Conditions that must be met for stage completion",
+              "name": "entryCriteria",
+              "label": "Entry Criteria",
+              "hint": "Conditions that must be met before the stage can begin",
               "type": "String",
               "required": false
             },
@@ -248762,18 +248897,19 @@
               "required": false
             },
             {
-              "name": "acceptanceCriteriaSummary",
-              "label": "Acceptance Criteria Summary",
-              "hint": "High-level criteria for business acceptance",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "toleranceLevels",
               "label": "Tolerance Levels",
               "hint": "PRINCE2 tolerances — time, cost, scope, quality",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "exitCriteria",
+              "label": "Exit Criteria",
+              "hint": "Conditions that must be met for stage completion",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -253042,13 +253178,6 @@
           ],
           "formFields": [
             {
-              "name": "criticalPrerequisites",
-              "label": "Critical Prerequisites",
-              "hint": "Prerequisites before staged deployment can begin",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "externalDependencies",
               "label": "External Dependencies",
               "hint": "Dependencies on external parties",
@@ -253068,6 +253197,14 @@
               "hint": "Risks associated with dependencies",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "criticalPrerequisites",
+              "label": "Critical Prerequisites",
+              "hint": "Prerequisites before staged deployment can begin",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -253325,18 +253462,19 @@
               "required": false
             },
             {
-              "name": "alternativesConsidered",
-              "label": "Alternatives Considered",
-              "hint": "Other staging approaches evaluated and why rejected",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "selectionCriteria",
               "label": "Selection Criteria",
               "hint": "Criteria used to select this approach",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "alternativesConsidered",
+              "label": "Alternatives Considered",
+              "hint": "Other staging approaches evaluated and why rejected",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -254433,7 +254571,8 @@
               "label": "Expected Benefits (the scope-framing value this group gains from the system)",
               "hint": "The scope-framing value this group gains from the system",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -254488,18 +254627,6 @@
           ],
           "formFields": [
             {
-              "name": "role",
-              "label": "Role",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "interest",
-              "label": "Interest (what they care about)",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "influence",
               "label": "Influence",
               "hint": "Qualitative influence band.",
@@ -254529,6 +254656,20 @@
               "label": "Engagement Strategy",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "role",
+              "label": "Role",
+              "type": "String",
+              "required": true,
+              "multiParagraph": true
+            },
+            {
+              "name": "interest",
+              "label": "Interest (what they care about)",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -256652,13 +256793,6 @@
               "required": false
             },
             {
-              "name": "relatedInitiatives",
-              "label": "Related Initiatives (other projects or programs this connects to)",
-              "hint": "Other projects or programs this connects to",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "digitizationContribution",
               "label": "Digitization Contribution (how this advances digital transformation)",
               "hint": "How this advances digital transformation",
@@ -256692,6 +256826,14 @@
               "hint": "Why now is the right time for this initiative",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "relatedInitiatives",
+              "label": "Related Initiatives (other projects or programs this connects to)",
+              "hint": "Other projects or programs this connects to",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -256855,18 +256997,19 @@
           ],
           "formFields": [
             {
-              "name": "description",
-              "label": "Description",
-              "hint": "Brief description of this sub-stage or milestone",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "objective",
               "label": "Objective",
               "hint": "What this sub-stage aims to achieve",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "hint": "Brief description of this sub-stage or milestone",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -262094,13 +262237,6 @@
               "required": false
             },
             {
-              "name": "architectureStyle",
-              "label": "Primary architectural pattern",
-              "hint": "Microservices, Monolithic, Serverless, Event-driven, Layered, Modular Monolith, Service-oriented, Peer-to-peer, Client-server",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "primaryTechnologyStack",
               "label": "Main technologies and frameworks",
               "hint": "e.g., Flutter/Dart, Firebase, PostgreSQL",
@@ -262108,23 +262244,9 @@
               "required": false
             },
             {
-              "name": "interfaceTypes",
-              "label": "Types of user and system interfaces",
-              "hint": "Web UI, Mobile App, Desktop App, REST API, GraphQL API, gRPC API, CLI, Voice Interface, Chat/Bot Interface, Hardware",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "dataCharacteristics",
               "label": "Key data handling characteristics",
               "hint": "e.g., Real-time processing, batch analytics, ACID transactions",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "securityClassification",
-              "label": "Overall security posture requirement",
-              "hint": "Public/Open, Internal Use, Confidential, Highly Confidential, Regulated (HIPAA/GDPR/SOX), Government/Classified",
               "type": "String",
               "required": false
             },
@@ -262143,25 +262265,52 @@
               "required": false
             },
             {
+              "name": "architectureStyle",
+              "label": "Primary architectural pattern",
+              "hint": "Microservices, Monolithic, Serverless, Event-driven, Layered, Modular Monolith, Service-oriented, Peer-to-peer, Client-server",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
+            },
+            {
+              "name": "interfaceTypes",
+              "label": "Types of user and system interfaces",
+              "hint": "Web UI, Mobile App, Desktop App, REST API, GraphQL API, gRPC API, CLI, Voice Interface, Chat/Bot Interface, Hardware",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
+            },
+            {
+              "name": "securityClassification",
+              "label": "Overall security posture requirement",
+              "hint": "Public/Open, Internal Use, Confidential, Highly Confidential, Regulated (HIPAA/GDPR/SOX), Government/Classified",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
+            },
+            {
               "name": "expectedUserLoad",
               "label": "Anticipated concurrent user volume",
               "hint": "Single User, Team (<100), Enterprise (100-1000), Large Enterprise (1000-10000), Consumer (10000+)",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             },
             {
               "name": "keyDifferentiators",
               "label": "What makes this system unique",
               "hint": "e.g., AI-powered recommendations, real-time collaboration",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             },
             {
               "name": "criticalCapabilities",
               "label": "Most important system capabilities",
               "hint": "e.g., Multi-tenant data isolation, offline-first sync",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -265318,25 +265467,27 @@
           ],
           "formFields": [
             {
+              "name": "qualityOwner",
+              "label": "Quality Owner",
+              "hint": "Role accountable for quality outcomes",
+              "type": "String",
+              "required": false
+            },
+            {
               "name": "qualityApproach",
               "label": "Quality Approach",
               "hint": "Overall quality philosophy: proactive, reactive, hybrid",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             },
             {
               "name": "qualityStandards",
               "label": "Applicable Quality Standards",
               "hint": "ISO 25010, ISO 9001, CMMI, industry-specific",
               "type": "String",
-              "required": false
-            },
-            {
-              "name": "qualityOwner",
-              "label": "Quality Owner",
-              "hint": "Role accountable for quality outcomes",
-              "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -266562,14 +266713,16 @@
               "label": "Overall Staging Philosophy",
               "hint": "BigBang / PhasedByFunction / PhasedByGeography / PhasedByUserGroup / Incremental / Hybrid",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             },
             {
               "name": "parallelismApproach",
               "label": "Parallelism Approach",
               "hint": "Sequential / PartialOverlap / FullyParallel — whether stages can overlap in execution",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -266658,13 +266811,6 @@
           ],
           "formFields": [
             {
-              "name": "crossStageDependencySummary",
-              "label": "Cross-Stage Dependency Summary",
-              "hint": "Key dependencies between stages that affect sequencing",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "crossStageRiskSummary",
               "label": "Cross-Stage Risk Summary",
               "hint": "Top risks that span multiple stages or affect staging order",
@@ -266672,11 +266818,20 @@
               "required": false
             },
             {
+              "name": "crossStageDependencySummary",
+              "label": "Cross-Stage Dependency Summary",
+              "hint": "Key dependencies between stages that affect sequencing",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
+            },
+            {
               "name": "regulatoryComplianceConsiderations",
               "label": "Regulatory/Compliance Considerations",
               "hint": "Regulatory requirements affecting staging order or timing — e.g. SOX, GDPR data readiness, PCI-DSS",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -267187,18 +267342,19 @@
               "required": false
             },
             {
-              "name": "keyRisks",
-              "label": "Key Risks Summary",
-              "hint": "Brief list of top 3 risks",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "keyAssumptions",
               "label": "Key Assumptions Summary",
               "hint": "Brief list of critical assumptions",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "keyRisks",
+              "label": "Key Risks Summary",
+              "hint": "Brief list of top 3 risks",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -269707,7 +269863,8 @@
               "label": "Type",
               "hint": "Server, Desktop, Mobile, IoT",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -269895,7 +270052,8 @@
               "label": "Required Features",
               "hint": "Specific OS features or capabilities needed",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -272554,13 +272712,6 @@
               "required": false
             },
             {
-              "name": "targetValue",
-              "label": "Target Value",
-              "hint": "Target value to be achieved",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "measurementMethod",
               "label": "Measurement Method (APM, load testing, security scan, etc.)",
               "hint": "APM, load testing, security scan, etc.",
@@ -272587,6 +272738,14 @@
               "hint": "When/how verified: unit, integration, acceptance, production monitoring",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "targetValue",
+              "label": "Target Value",
+              "hint": "Target value to be achieved",
+              "type": "String",
+              "required": true,
+              "multiParagraph": true
             }
           ]
         },
@@ -273740,27 +273899,6 @@
           ],
           "formFields": [
             {
-              "name": "description",
-              "label": "Description (The system shall... detailed statement)",
-              "hint": "Full requirement statement, e.g., The system shall respond within 100ms",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "category",
-              "label": "Category (Performance, Scalability, Availability, Reliability, Security, Usability, Accessibility, Maintainability, Portability, Interoperability, Compliance, Capacity, Recoverability)",
-              "hint": "ISO 25010 quality characteristic the requirement addresses",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "subcategory",
-              "label": "Subcategory (specific aspect within category)",
-              "hint": "More specific aspect, e.g., response time within Performance",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "priority",
               "label": "Priority",
               "hint": "Qualitative priority band.",
@@ -273780,11 +273918,18 @@
               }
             },
             {
-              "name": "source",
-              "label": "Source (who requested)",
-              "hint": "Stakeholder, document, or standard that originated it",
+              "name": "category",
+              "label": "Category (Performance, Scalability, Availability, Reliability, Security, Usability, Accessibility, Maintainability, Portability, Interoperability, Compliance, Capacity, Recoverability)",
+              "hint": "ISO 25010 quality characteristic the requirement addresses",
               "type": "String",
               "required": true
+            },
+            {
+              "name": "subcategory",
+              "label": "Subcategory (specific aspect within category)",
+              "hint": "More specific aspect, e.g., response time within Performance",
+              "type": "String",
+              "required": false
             },
             {
               "name": "rationale",
@@ -273792,6 +273937,22 @@
               "hint": "Why this requirement is needed",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "description",
+              "label": "Description (The system shall... detailed statement)",
+              "hint": "Full requirement statement, e.g., The system shall respond within 100ms",
+              "type": "String",
+              "required": true,
+              "multiParagraph": true
+            },
+            {
+              "name": "source",
+              "label": "Source (who requested)",
+              "hint": "Stakeholder, document, or standard that originated it",
+              "type": "String",
+              "required": true,
+              "multiParagraph": true
             }
           ]
         },
@@ -274279,7 +274440,8 @@
               "label": "Architecture Drivers (top constraints shaping design)",
               "hint": "e.g., 99.99% availability, sub-100ms latency, 10k concurrent users",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -281066,13 +281228,6 @@
               "required": false
             },
             {
-              "name": "standardToolStackDescription",
-              "label": "Standard Tool Stack Description",
-              "hint": "Summary of the baseline tool stack all teams are expected to use",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "toolGovernancePolicy",
               "label": "Tool Governance Policy",
               "hint": "Who decides on tool adoption, how exceptions are handled, review cadence",
@@ -281085,6 +281240,14 @@
               "hint": "Workflow for requesting, evaluating, and approving new tools",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "standardToolStackDescription",
+              "label": "Standard Tool Stack Description",
+              "hint": "Summary of the baseline tool stack all teams are expected to use",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -288110,13 +288273,6 @@
               "required": false
             },
             {
-              "name": "protectionMechanisms",
-              "label": "Protection Mechanisms (firewall, encryption, authentication, etc.)",
-              "hint": "Mechanisms protecting this boundary",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "trustLevel",
               "label": "Trust Level (Untrusted, Semi-trusted, Trusted, Highly Trusted)",
               "hint": "The trust level on the other side of this boundary",
@@ -288129,6 +288285,14 @@
               "hint": "Regulatory requirements for crossing this boundary",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "protectionMechanisms",
+              "label": "Protection Mechanisms (firewall, encryption, authentication, etc.)",
+              "hint": "Mechanisms protecting this boundary",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -294153,13 +294317,6 @@
           ],
           "formFields": [
             {
-              "name": "description",
-              "label": "Short description",
-              "hint": "Brief description of this category.",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "accessLevel",
               "label": "Access Level",
               "hint": "Typical access level for this category.",
@@ -294172,6 +294329,14 @@
               "hint": "Estimated number of users in this category.",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "description",
+              "label": "Short description",
+              "hint": "Brief description of this category.",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         }
@@ -294228,18 +294393,19 @@
           ],
           "formFields": [
             {
-              "name": "description",
-              "label": "Description (brief summary of this user type)",
-              "hint": "One- or two-sentence summary of this user type",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "userType",
               "label": "User Type (Internal, External, Partner, Customer, Administrator, etc.)",
               "hint": "Internal / External / Partner / Customer / Administrator",
               "type": "String",
               "required": true
+            },
+            {
+              "name": "description",
+              "label": "Description (brief summary of this user type)",
+              "hint": "One- or two-sentence summary of this user type",
+              "type": "String",
+              "required": true,
+              "multiParagraph": true
             }
           ]
         },
@@ -296230,18 +296396,19 @@
               "required": true
             },
             {
-              "name": "trigger",
-              "label": "Trigger",
-              "hint": "UserRequest | AdminAction | SystemEvent | ScheduledJob",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "triggerConditions",
               "label": "Trigger Conditions",
               "hint": "Pre-conditions that must be met for this transition",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "trigger",
+              "label": "Trigger",
+              "hint": "UserRequest | AdminAction | SystemEvent | ScheduledJob",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -296357,13 +296524,6 @@
           ],
           "formFields": [
             {
-              "name": "sideEffects",
-              "label": "Side Effects",
-              "hint": "Actions performed on transition (revoke tokens, send email, deprovision)",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "notificationRecipients",
               "label": "Notification Recipients",
               "hint": "Who is notified (user, admin, manager)",
@@ -296376,6 +296536,14 @@
               "hint": "Email | SMS | InApp | Webhook",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "sideEffects",
+              "label": "Side Effects",
+              "hint": "Actions performed on transition (revoke tokens, send email, deprovision)",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },
@@ -299951,25 +300119,27 @@
               "required": true
             },
             {
+              "name": "qualitativeBenefits",
+              "label": "Qualitative Benefits (non-quantifiable but important benefits)",
+              "hint": "Non-quantifiable but important benefits",
+              "type": "String",
+              "required": false
+            },
+            {
               "name": "primaryBenefits",
               "label": "Primary Benefits (top 3-5 benefits in priority order)",
               "hint": "Top 3-5 benefits in priority order",
               "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             },
             {
               "name": "quantifiableBenefits",
               "label": "Quantifiable Benefits (measurable improvements with targets)",
               "hint": "Measurable improvements with concrete targets",
               "type": "String",
-              "required": false
-            },
-            {
-              "name": "qualitativeBenefits",
-              "label": "Qualitative Benefits (non-quantifiable but important benefits)",
-              "hint": "Non-quantifiable but important benefits",
-              "type": "String",
-              "required": false
+              "required": false,
+              "multiParagraph": true
             }
           ]
         },

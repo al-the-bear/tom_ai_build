@@ -45788,14 +45788,6 @@ class AcceptanceProcessDecisionForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def decisionCriteria(self) -> str:
-        return self.doc.form_field(self.path, "decisionCriteria") or ""
-
-    @decisionCriteria.setter
-    def decisionCriteria(self, value):
-        self.doc.set_form_field(self.path, "decisionCriteria", value)
-
-    @property
     def defectThreshold(self) -> str:
         return self.doc.form_field(self.path, "defectThreshold") or ""
 
@@ -45818,6 +45810,14 @@ class AcceptanceProcessDecisionForm(SomNode):
     @rejectionCriteria.setter
     def rejectionCriteria(self, value):
         self.doc.set_form_field(self.path, "rejectionCriteria", value)
+
+    @property
+    def decisionCriteria(self) -> str:
+        return self.doc.form_field(self.path, "decisionCriteria") or ""
+
+    @decisionCriteria.setter
+    def decisionCriteria(self, value):
+        self.doc.set_form_field(self.path, "decisionCriteria", value)
 
 class AcceptanceProcessDocumentationForm(SomNode):
     """Generated section facade for the `documentation` @Form section: its own content text followed by one typed member per form field."""
@@ -48164,14 +48164,6 @@ class ActorEntryIdentificationForm(SomNode):
         self.doc.set_form_field(self.path, "category", value)
 
     @property
-    def description(self) -> str:
-        return self.doc.form_field(self.path, "description") or ""
-
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
-
-    @property
     def realWorldExamples(self) -> str:
         return self.doc.form_field(self.path, "realWorldExamples") or ""
 
@@ -48202,6 +48194,14 @@ class ActorEntryIdentificationForm(SomNode):
     @geographicDistribution.setter
     def geographicDistribution(self, value):
         self.doc.set_form_field(self.path, "geographicDistribution", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
 class ActorEntryInteractionsForm(SomNode):
     """Generated section facade for the `interactions` @Form section: its own content text followed by one typed member per form field."""
@@ -48577,14 +48577,6 @@ class ActorOverviewOverviewForm(SomNode):
         self.doc.set_form_field(self.path, "externalActorCount", "" if value is None else str(value))
 
     @property
-    def actorIdentificationApproach(self) -> str:
-        return self.doc.form_field(self.path, "actorIdentificationApproach") or ""
-
-    @actorIdentificationApproach.setter
-    def actorIdentificationApproach(self, value):
-        self.doc.set_form_field(self.path, "actorIdentificationApproach", value)
-
-    @property
     def actorPrioritization(self) -> str:
         return self.doc.form_field(self.path, "actorPrioritization") or ""
 
@@ -48599,6 +48591,14 @@ class ActorOverviewOverviewForm(SomNode):
     @actorGoalAlignment.setter
     def actorGoalAlignment(self, value):
         self.doc.set_form_field(self.path, "actorGoalAlignment", value)
+
+    @property
+    def actorIdentificationApproach(self) -> str:
+        return self.doc.form_field(self.path, "actorIdentificationApproach") or ""
+
+    @actorIdentificationApproach.setter
+    def actorIdentificationApproach(self, value):
+        self.doc.set_form_field(self.path, "actorIdentificationApproach", value)
 
 class ActorPermissionsContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -52160,14 +52160,6 @@ class ApplicableRegulationEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "applicability", value)
 
     @property
-    def keyRequirements(self) -> str:
-        return self.doc.form_field(self.path, "keyRequirements") or ""
-
-    @keyRequirements.setter
-    def keyRequirements(self, value):
-        self.doc.set_form_field(self.path, "keyRequirements", value)
-
-    @property
     def complianceStatus(self) -> str:
         return self.doc.form_field(self.path, "complianceStatus") or ""
 
@@ -52198,6 +52190,14 @@ class ApplicableRegulationEntryContentForm(SomNode):
     @penalties.setter
     def penalties(self, value):
         self.doc.set_form_field(self.path, "penalties", value)
+
+    @property
+    def keyRequirements(self) -> str:
+        return self.doc.form_field(self.path, "keyRequirements") or ""
+
+    @keyRequirements.setter
+    def keyRequirements(self, value):
+        self.doc.set_form_field(self.path, "keyRequirements", value)
 
 class ApplicationDiagnosticsContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -53227,6 +53227,14 @@ class ArchitectureComponentEntryPurposeForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
+    def notResponsibleFor(self) -> str:
+        return self.doc.form_field(self.path, "notResponsibleFor") or ""
+
+    @notResponsibleFor.setter
+    def notResponsibleFor(self, value):
+        self.doc.set_form_field(self.path, "notResponsibleFor", value)
+
+    @property
     def purpose(self) -> str:
         return self.doc.form_field(self.path, "purpose") or ""
 
@@ -53241,14 +53249,6 @@ class ArchitectureComponentEntryPurposeForm(SomNode):
     @responsibilities.setter
     def responsibilities(self, value):
         self.doc.set_form_field(self.path, "responsibilities", value)
-
-    @property
-    def notResponsibleFor(self) -> str:
-        return self.doc.form_field(self.path, "notResponsibleFor") or ""
-
-    @notResponsibleFor.setter
-    def notResponsibleFor(self, value):
-        self.doc.set_form_field(self.path, "notResponsibleFor", value)
 
 class ArchitectureComponentEntryTechnicalForm(SomNode):
     """Generated section facade for the `technical` @Form section: its own content text followed by one typed member per form field."""
@@ -53309,14 +53309,6 @@ class ArchitectureDecisionRecordConsequencesForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def consequences(self) -> str:
-        return self.doc.form_field(self.path, "consequences") or ""
-
-    @consequences.setter
-    def consequences(self, value):
-        self.doc.set_form_field(self.path, "consequences", value)
-
-    @property
     def positiveConsequences(self) -> str:
         return self.doc.form_field(self.path, "positiveConsequences") or ""
 
@@ -53347,6 +53339,14 @@ class ArchitectureDecisionRecordConsequencesForm(SomNode):
     @notes.setter
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
+
+    @property
+    def consequences(self) -> str:
+        return self.doc.form_field(self.path, "consequences") or ""
+
+    @consequences.setter
+    def consequences(self, value):
+        self.doc.set_form_field(self.path, "consequences", value)
 
 class ArchitectureDecisionRecordContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -53440,14 +53440,6 @@ class ArchitectureDecisionRecordOutcomeForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def decision(self) -> str:
-        return self.doc.form_field(self.path, "decision") or ""
-
-    @decision.setter
-    def decision(self, value):
-        self.doc.set_form_field(self.path, "decision", value)
-
-    @property
     def rationale(self) -> str:
         return self.doc.form_field(self.path, "rationale") or ""
 
@@ -53470,6 +53462,14 @@ class ArchitectureDecisionRecordOutcomeForm(SomNode):
     @decisionMakers.setter
     def decisionMakers(self, value):
         self.doc.set_form_field(self.path, "decisionMakers", value)
+
+    @property
+    def decision(self) -> str:
+        return self.doc.form_field(self.path, "decision") or ""
+
+    @decision.setter
+    def decision(self, value):
+        self.doc.set_form_field(self.path, "decision", value)
 
 class ArchitectureDecisionRecordRelationsForm(SomNode):
     """Generated section facade for the `relations` @Form section: its own content text followed by one typed member per form field."""
@@ -53612,20 +53612,20 @@ class ArchitectureOverviewDriversForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def justification(self) -> str:
-        return self.doc.form_field(self.path, "justification") or ""
-
-    @justification.setter
-    def justification(self, value):
-        self.doc.set_form_field(self.path, "justification", value)
-
-    @property
     def businessDrivers(self) -> str:
         return self.doc.form_field(self.path, "businessDrivers") or ""
 
     @businessDrivers.setter
     def businessDrivers(self, value):
         self.doc.set_form_field(self.path, "businessDrivers", value)
+
+    @property
+    def justification(self) -> str:
+        return self.doc.form_field(self.path, "justification") or ""
+
+    @justification.setter
+    def justification(self, value):
+        self.doc.set_form_field(self.path, "justification", value)
 
     @property
     def technicalDrivers(self) -> str:
@@ -54632,20 +54632,20 @@ class AuthorizationRequirementSpecCustomRequirementForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def handler(self) -> str:
-        return self.doc.form_field(self.path, "handler") or ""
-
-    @handler.setter
-    def handler(self, value):
-        self.doc.set_form_field(self.path, "handler", value)
-
-    @property
     def resourceId(self) -> str:
         return self.doc.form_field(self.path, "resourceId") or ""
 
     @resourceId.setter
     def resourceId(self, value):
         self.doc.set_form_field(self.path, "resourceId", value)
+
+    @property
+    def handler(self) -> str:
+        return self.doc.form_field(self.path, "handler") or ""
+
+    @handler.setter
+    def handler(self, value):
+        self.doc.set_form_field(self.path, "handler", value)
 
     @property
     def decisionRule(self) -> str:
@@ -54781,20 +54781,20 @@ class AuthorizationRoleEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "roleName", value)
 
     @property
-    def description(self) -> str:
-        return self.doc.form_field(self.path, "description") or ""
-
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
-
-    @property
     def roleCategory(self) -> str:
         return self.doc.form_field(self.path, "roleCategory") or ""
 
     @roleCategory.setter
     def roleCategory(self, value):
         self.doc.set_form_field(self.path, "roleCategory", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
 class AuthorizationRoleEntryGovernanceForm(SomNode):
     """Generated section facade for the `governance` @Form section: its own content text followed by one typed member per form field."""
@@ -57421,14 +57421,6 @@ class BoundedContextEntryIntegrationForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def apiEndpoints(self) -> str:
-        return self.doc.form_field(self.path, "apiEndpoints") or ""
-
-    @apiEndpoints.setter
-    def apiEndpoints(self, value):
-        self.doc.set_form_field(self.path, "apiEndpoints", value)
-
-    @property
     def integrationPatterns(self) -> str:
         return self.doc.form_field(self.path, "integrationPatterns") or ""
 
@@ -57443,6 +57435,14 @@ class BoundedContextEntryIntegrationForm(SomNode):
     @notes.setter
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
+
+    @property
+    def apiEndpoints(self) -> str:
+        return self.doc.form_field(self.path, "apiEndpoints") or ""
+
+    @apiEndpoints.setter
+    def apiEndpoints(self, value):
+        self.doc.set_form_field(self.path, "apiEndpoints", value)
 
 class BoundedContextEntryScopeForm(SomNode):
     """Generated section facade for the `scope` @Form section: its own content text followed by one typed member per form field."""
@@ -57462,14 +57462,6 @@ class BoundedContextEntryScopeForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def purpose(self) -> str:
-        return self.doc.form_field(self.path, "purpose") or ""
-
-    @purpose.setter
-    def purpose(self, value):
-        self.doc.set_form_field(self.path, "purpose", value)
-
-    @property
     def includedConcepts(self) -> str:
         return self.doc.form_field(self.path, "includedConcepts") or ""
 
@@ -57484,6 +57476,14 @@ class BoundedContextEntryScopeForm(SomNode):
     @excludedConcepts.setter
     def excludedConcepts(self, value):
         self.doc.set_form_field(self.path, "excludedConcepts", value)
+
+    @property
+    def purpose(self) -> str:
+        return self.doc.form_field(self.path, "purpose") or ""
+
+    @purpose.setter
+    def purpose(self, value):
+        self.doc.set_form_field(self.path, "purpose", value)
 
     @property
     def ubiquitousLanguage(self) -> str:
@@ -58385,20 +58385,20 @@ class BuildToolchainEntryProfilesForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def buildProfiles(self) -> str:
-        return self.doc.form_field(self.path, "buildProfiles") or ""
-
-    @buildProfiles.setter
-    def buildProfiles(self, value):
-        self.doc.set_form_field(self.path, "buildProfiles", value)
-
-    @property
     def defaultProfile(self) -> str:
         return self.doc.form_field(self.path, "defaultProfile") or ""
 
     @defaultProfile.setter
     def defaultProfile(self, value):
         self.doc.set_form_field(self.path, "defaultProfile", value)
+
+    @property
+    def buildProfiles(self) -> str:
+        return self.doc.form_field(self.path, "buildProfiles") or ""
+
+    @buildProfiles.setter
+    def buildProfiles(self, value):
+        self.doc.set_form_field(self.path, "buildProfiles", value)
 
 class BuildToolchainEntryVersionsForm(SomNode):
     """Generated section facade for the `versions` @Form section: its own content text followed by one typed member per form field."""
@@ -58623,14 +58623,6 @@ class BuildToolsConfigurationScriptsForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def buildScripts(self) -> str:
-        return self.doc.form_field(self.path, "buildScripts") or ""
-
-    @buildScripts.setter
-    def buildScripts(self, value):
-        self.doc.set_form_field(self.path, "buildScripts", value)
-
-    @property
     def preCommitHooks(self) -> str:
         return self.doc.form_field(self.path, "preCommitHooks") or ""
 
@@ -58645,6 +58637,14 @@ class BuildToolsConfigurationScriptsForm(SomNode):
     @postBuildActions.setter
     def postBuildActions(self, value):
         self.doc.set_form_field(self.path, "postBuildActions", value)
+
+    @property
+    def buildScripts(self) -> str:
+        return self.doc.form_field(self.path, "buildScripts") or ""
+
+    @buildScripts.setter
+    def buildScripts(self, value):
+        self.doc.set_form_field(self.path, "buildScripts", value)
 
 class BusinessComponentEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -59041,14 +59041,6 @@ class BusinessGoalEntryMeasurementForm(SomNode):
         self.doc.set_form_field(self.path, "currentValue", value)
 
     @property
-    def targetValue(self) -> str:
-        return self.doc.form_field(self.path, "targetValue") or ""
-
-    @targetValue.setter
-    def targetValue(self, value):
-        self.doc.set_form_field(self.path, "targetValue", value)
-
-    @property
     def measurementMethod(self) -> str:
         return self.doc.form_field(self.path, "measurementMethod") or ""
 
@@ -59063,6 +59055,14 @@ class BusinessGoalEntryMeasurementForm(SomNode):
     @measurementFrequency.setter
     def measurementFrequency(self, value):
         self.doc.set_form_field(self.path, "measurementFrequency", value)
+
+    @property
+    def targetValue(self) -> str:
+        return self.doc.form_field(self.path, "targetValue") or ""
+
+    @targetValue.setter
+    def targetValue(self, value):
+        self.doc.set_form_field(self.path, "targetValue", value)
 
 class BusinessGoalEntryStrategyForm(SomNode):
     """Generated section facade for the `strategy` @Form section: its own content text followed by one typed member per form field."""
@@ -65647,14 +65647,6 @@ class CodingStandardEntryRuleDetailsForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def rule(self) -> str:
-        return self.doc.form_field(self.path, "rule") or ""
-
-    @rule.setter
-    def rule(self, value):
-        self.doc.set_form_field(self.path, "rule", value)
-
-    @property
     def rationale(self) -> str:
         return self.doc.form_field(self.path, "rationale") or ""
 
@@ -65669,6 +65661,14 @@ class CodingStandardEntryRuleDetailsForm(SomNode):
     @examples.setter
     def examples(self, value):
         self.doc.set_form_field(self.path, "examples", value)
+
+    @property
+    def rule(self) -> str:
+        return self.doc.form_field(self.path, "rule") or ""
+
+    @rule.setter
+    def rule(self, value):
+        self.doc.set_form_field(self.path, "rule", value)
 
 class CodingStandardsSectionContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -66667,14 +66667,6 @@ class CommunicationPatternsDataExchangeForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def dataContracts(self) -> str:
-        return self.doc.form_field(self.path, "dataContracts") or ""
-
-    @dataContracts.setter
-    def dataContracts(self, value):
-        self.doc.set_form_field(self.path, "dataContracts", value)
-
-    @property
     def schemaEvolution(self) -> str:
         return self.doc.form_field(self.path, "schemaEvolution") or ""
 
@@ -66689,6 +66681,14 @@ class CommunicationPatternsDataExchangeForm(SomNode):
     @serialization.setter
     def serialization(self, value):
         self.doc.set_form_field(self.path, "serialization", value)
+
+    @property
+    def dataContracts(self) -> str:
+        return self.doc.form_field(self.path, "dataContracts") or ""
+
+    @dataContracts.setter
+    def dataContracts(self, value):
+        self.doc.set_form_field(self.path, "dataContracts", value)
 
 class CommunicationPatternsObservabilityForm(SomNode):
     """Generated section facade for the `observability` @Form section: its own content text followed by one typed member per form field."""
@@ -66806,20 +66806,20 @@ class CommunicationPatternsSynchronousForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def syncPatterns(self) -> str:
-        return self.doc.form_field(self.path, "syncPatterns") or ""
-
-    @syncPatterns.setter
-    def syncPatterns(self, value):
-        self.doc.set_form_field(self.path, "syncPatterns", value)
-
-    @property
     def apiGateway(self) -> str:
         return self.doc.form_field(self.path, "apiGateway") or ""
 
     @apiGateway.setter
     def apiGateway(self, value):
         self.doc.set_form_field(self.path, "apiGateway", value)
+
+    @property
+    def syncPatterns(self) -> str:
+        return self.doc.form_field(self.path, "syncPatterns") or ""
+
+    @syncPatterns.setter
+    def syncPatterns(self, value):
+        self.doc.set_form_field(self.path, "syncPatterns", value)
 
 class CommunicationToolsRequirementsContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -68263,20 +68263,20 @@ class ComponentEntryVendorForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
+    def vendorName(self) -> str:
+        return self.doc.form_field(self.path, "vendorName") or ""
+
+    @vendorName.setter
+    def vendorName(self, value):
+        self.doc.set_form_field(self.path, "vendorName", value)
+
+    @property
     def version(self) -> str:
         return self.doc.form_field(self.path, "version") or ""
 
     @version.setter
     def version(self, value):
         self.doc.set_form_field(self.path, "version", value)
-
-    @property
-    def purpose(self) -> str:
-        return self.doc.form_field(self.path, "purpose") or ""
-
-    @purpose.setter
-    def purpose(self, value):
-        self.doc.set_form_field(self.path, "purpose", value)
 
     @property
     def libraryRef(self) -> str:
@@ -68287,20 +68287,20 @@ class ComponentEntryVendorForm(SomNode):
         self.doc.set_form_field(self.path, "libraryRef", value)
 
     @property
-    def vendorName(self) -> str:
-        return self.doc.form_field(self.path, "vendorName") or ""
-
-    @vendorName.setter
-    def vendorName(self, value):
-        self.doc.set_form_field(self.path, "vendorName", value)
-
-    @property
     def vendorStability(self) -> str:
         return self.doc.form_field(self.path, "vendorStability") or ""
 
     @vendorStability.setter
     def vendorStability(self, value):
         self.doc.set_form_field(self.path, "vendorStability", value)
+
+    @property
+    def purpose(self) -> str:
+        return self.doc.form_field(self.path, "purpose") or ""
+
+    @purpose.setter
+    def purpose(self, value):
+        self.doc.set_form_field(self.path, "purpose", value)
 
 class ComponentFamilyEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -72276,14 +72276,6 @@ class ConstraintRegisterEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def description(self) -> str:
-        return self.doc.form_field(self.path, "description") or ""
-
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
-
-    @property
     def type(self) -> str:
         return self.doc.form_field(self.path, "type") or ""
 
@@ -72306,6 +72298,14 @@ class ConstraintRegisterEntryContentForm(SomNode):
     @impact.setter
     def impact(self, value):
         self.doc.set_form_field(self.path, "impact", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
 class ContentScanningPolicyContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -75620,14 +75620,6 @@ class DataAttributeEntryIdentityForm(SomNode):
         self.doc.set_form_field(self.path, "columnName", value)
 
     @property
-    def description(self) -> str:
-        return self.doc.form_field(self.path, "description") or ""
-
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
-
-    @property
     def businessTerm(self) -> str:
         return self.doc.form_field(self.path, "businessTerm") or ""
 
@@ -75642,6 +75634,14 @@ class DataAttributeEntryIdentityForm(SomNode):
     @exampleValues.setter
     def exampleValues(self, value):
         self.doc.set_form_field(self.path, "exampleValues", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
 class DataAttributeEntryMigrationLineageForm(SomNode):
     """Generated section facade for the `migrationLineage` @Form section: its own content text followed by one typed member per form field."""
@@ -76704,30 +76704,6 @@ class DataEntityEntryIdentityForm(SomNode):
         self.doc.set_form_field(self.path, "tableName", value)
 
     @property
-    def entityAlias(self) -> str:
-        return self.doc.form_field(self.path, "entityAlias") or ""
-
-    @entityAlias.setter
-    def entityAlias(self, value):
-        self.doc.set_form_field(self.path, "entityAlias", value)
-
-    @property
-    def description(self) -> str:
-        return self.doc.form_field(self.path, "description") or ""
-
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
-
-    @property
-    def entityStereoType(self) -> str:
-        return self.doc.form_field(self.path, "entityStereoType") or ""
-
-    @entityStereoType.setter
-    def entityStereoType(self, value):
-        self.doc.set_form_field(self.path, "entityStereoType", value)
-
-    @property
     def dataSourceName(self) -> str:
         return self.doc.form_field(self.path, "dataSourceName") or ""
 
@@ -76750,6 +76726,30 @@ class DataEntityEntryIdentityForm(SomNode):
     @tenancy.setter
     def tenancy(self, value):
         self.doc.set_form_field(self.path, "tenancy", "" if value is None else value.value)
+
+    @property
+    def entityAlias(self) -> str:
+        return self.doc.form_field(self.path, "entityAlias") or ""
+
+    @entityAlias.setter
+    def entityAlias(self, value):
+        self.doc.set_form_field(self.path, "entityAlias", value)
+
+    @property
+    def entityStereoType(self) -> str:
+        return self.doc.form_field(self.path, "entityStereoType") or ""
+
+    @entityStereoType.setter
+    def entityStereoType(self, value):
+        self.doc.set_form_field(self.path, "entityStereoType", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
 class DataEntityEntryLifecyclePolicyForm(SomNode):
     """Generated section facade for the `lifecyclePolicy` @Form section: its own content text followed by one typed member per form field."""
@@ -82869,20 +82869,20 @@ class DeliverableEntryIdentityForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def description(self) -> str:
-        return self.doc.form_field(self.path, "description") or ""
-
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
-
-    @property
     def category(self) -> str:
         return self.doc.form_field(self.path, "category") or ""
 
     @category.setter
     def category(self, value):
         self.doc.set_form_field(self.path, "category", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
 class DeliverableEntryLegalForm(SomNode):
     """Generated section facade for the `legal` @Form section: its own content text followed by one typed member per form field."""
@@ -83377,14 +83377,6 @@ class DeliveryTransitionAndRolloutLocaleRolloutPlanForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def rolloutStrategy(self) -> str:
-        return self.doc.form_field(self.path, "rolloutStrategy") or ""
-
-    @rolloutStrategy.setter
-    def rolloutStrategy(self, value):
-        self.doc.set_form_field(self.path, "rolloutStrategy", value)
-
-    @property
     def rolloutTimeline(self) -> str:
         return self.doc.form_field(self.path, "rolloutTimeline") or ""
 
@@ -83399,6 +83391,14 @@ class DeliveryTransitionAndRolloutLocaleRolloutPlanForm(SomNode):
     @rolloutRegions.setter
     def rolloutRegions(self, value):
         self.doc.set_form_field(self.path, "rolloutRegions", value)
+
+    @property
+    def rolloutStrategy(self) -> str:
+        return self.doc.form_field(self.path, "rolloutStrategy") or ""
+
+    @rolloutStrategy.setter
+    def rolloutStrategy(self, value):
+        self.doc.set_form_field(self.path, "rolloutStrategy", value)
 
 class DependencyHealthMonitoringCacheForm(SomNode):
     """Generated section facade for the `cache` @Form section: its own content text followed by one typed member per form field."""
@@ -84023,14 +84023,6 @@ class DependencyRegisterEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def description(self) -> str:
-        return self.doc.form_field(self.path, "description") or ""
-
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
-
-    @property
     def type(self) -> str:
         return self.doc.form_field(self.path, "type") or ""
 
@@ -84061,6 +84053,14 @@ class DependencyRegisterEntryContentForm(SomNode):
     @status.setter
     def status(self, value):
         self.doc.set_form_field(self.path, "status", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
 class DependencyScanningRequirementsContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -85060,14 +85060,6 @@ class DeploymentTargetEntryComplianceForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def complianceRequirements(self) -> str:
-        return self.doc.form_field(self.path, "complianceRequirements") or ""
-
-    @complianceRequirements.setter
-    def complianceRequirements(self, value):
-        self.doc.set_form_field(self.path, "complianceRequirements", value)
-
-    @property
     def privacyRequirements(self) -> str:
         return self.doc.form_field(self.path, "privacyRequirements") or ""
 
@@ -85099,6 +85091,14 @@ class DeploymentTargetEntryComplianceForm(SomNode):
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
 
+    @property
+    def complianceRequirements(self) -> str:
+        return self.doc.form_field(self.path, "complianceRequirements") or ""
+
+    @complianceRequirements.setter
+    def complianceRequirements(self, value):
+        self.doc.set_form_field(self.path, "complianceRequirements", value)
+
 class DeploymentTargetEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -85125,20 +85125,20 @@ class DeploymentTargetEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "targetCategory", value)
 
     @property
-    def targetEnvironment(self) -> str:
-        return self.doc.form_field(self.path, "targetEnvironment") or ""
-
-    @targetEnvironment.setter
-    def targetEnvironment(self, value):
-        self.doc.set_form_field(self.path, "targetEnvironment", value)
-
-    @property
     def environmentRef(self) -> str:
         return self.doc.form_field(self.path, "environmentRef") or ""
 
     @environmentRef.setter
     def environmentRef(self, value):
         self.doc.set_form_field(self.path, "environmentRef", value)
+
+    @property
+    def targetEnvironment(self) -> str:
+        return self.doc.form_field(self.path, "targetEnvironment") or ""
+
+    @targetEnvironment.setter
+    def targetEnvironment(self, value):
+        self.doc.set_form_field(self.path, "targetEnvironment", value)
 
 class DeploymentTargetEntryPlatformForm(SomNode):
     """Generated section facade for the `platform` @Form section: its own content text followed by one typed member per form field."""
@@ -88842,20 +88842,20 @@ class DocumentRelevantSectionsContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def sectionReference(self) -> str:
-        return self.doc.form_field(self.path, "sectionReference") or ""
-
-    @sectionReference.setter
-    def sectionReference(self, value):
-        self.doc.set_form_field(self.path, "sectionReference", value)
-
-    @property
     def sectionTitle(self) -> str:
         return self.doc.form_field(self.path, "sectionTitle") or ""
 
     @sectionTitle.setter
     def sectionTitle(self, value):
         self.doc.set_form_field(self.path, "sectionTitle", value)
+
+    @property
+    def sectionReference(self) -> str:
+        return self.doc.form_field(self.path, "sectionReference") or ""
+
+    @sectionReference.setter
+    def sectionReference(self, value):
+        self.doc.set_form_field(self.path, "sectionReference", value)
 
     @property
     def relevance(self) -> str:
@@ -90307,14 +90307,6 @@ class EfficiencyVerificationForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def loadTestingRequirement(self) -> str:
-        return self.doc.form_field(self.path, "loadTestingRequirement") or ""
-
-    @loadTestingRequirement.setter
-    def loadTestingRequirement(self, value):
-        self.doc.set_form_field(self.path, "loadTestingRequirement", value)
-
-    @property
     def performanceProfilingApproach(self) -> str:
         return self.doc.form_field(self.path, "performanceProfilingApproach") or ""
 
@@ -90329,6 +90321,14 @@ class EfficiencyVerificationForm(SomNode):
     @performanceBaselineDate.setter
     def performanceBaselineDate(self, value):
         self.doc.set_form_field(self.path, "performanceBaselineDate", value)
+
+    @property
+    def loadTestingRequirement(self) -> str:
+        return self.doc.form_field(self.path, "loadTestingRequirement") or ""
+
+    @loadTestingRequirement.setter
+    def loadTestingRequirement(self, value):
+        self.doc.set_form_field(self.path, "loadTestingRequirement", value)
 
     @property
     def performanceSlaDefinition(self) -> str:
@@ -91002,20 +91002,20 @@ class EntitlementEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "entitlementName", value)
 
     @property
-    def description(self) -> str:
-        return self.doc.form_field(self.path, "description") or ""
-
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
-
-    @property
     def accessType(self) -> str:
         return self.doc.form_field(self.path, "accessType") or ""
 
     @accessType.setter
     def accessType(self, value):
         self.doc.set_form_field(self.path, "accessType", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
     @property
     def conditions(self) -> str:
@@ -91344,14 +91344,6 @@ class EntityRelationshipEntryIdentityForm(SomNode):
         self.doc.set_form_field(self.path, "relationshipType", value)
 
     @property
-    def description(self) -> str:
-        return self.doc.form_field(self.path, "description") or ""
-
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
-
-    @property
     def businessJustification(self) -> str:
         return self.doc.form_field(self.path, "businessJustification") or ""
 
@@ -91366,6 +91358,14 @@ class EntityRelationshipEntryIdentityForm(SomNode):
     @implementationType.setter
     def implementationType(self, value):
         self.doc.set_form_field(self.path, "implementationType", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
 class EntityRelationshipEntryNavigationForm(SomNode):
     """Generated section facade for the `navigation` @Form section: its own content text followed by one typed member per form field."""
@@ -95913,6 +95913,14 @@ class ExtensionEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
+    def returnKind(self) -> "FlowReturnPoint | None":
+        return _parse_FlowReturnPoint(self.doc.form_field(self.path, "returnKind"))
+
+    @returnKind.setter
+    def returnKind(self, value):
+        self.doc.set_form_field(self.path, "returnKind", "" if value is None else value.value)
+
+    @property
     def branchPoint(self) -> str:
         return self.doc.form_field(self.path, "branchPoint") or ""
 
@@ -95937,28 +95945,12 @@ class ExtensionEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "extensionType", value)
 
     @property
-    def description(self) -> str:
-        return self.doc.form_field(self.path, "description") or ""
-
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
-
-    @property
     def outcome(self) -> str:
         return self.doc.form_field(self.path, "outcome") or ""
 
     @outcome.setter
     def outcome(self, value):
         self.doc.set_form_field(self.path, "outcome", value)
-
-    @property
-    def returnKind(self) -> "FlowReturnPoint | None":
-        return _parse_FlowReturnPoint(self.doc.form_field(self.path, "returnKind"))
-
-    @returnKind.setter
-    def returnKind(self, value):
-        self.doc.set_form_field(self.path, "returnKind", "" if value is None else value.value)
 
     @property
     def frequency(self) -> str:
@@ -95975,6 +95967,14 @@ class ExtensionEntryContentForm(SomNode):
     @severity.setter
     def severity(self, value):
         self.doc.set_form_field(self.path, "severity", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
 class ExtensionEntryResumePointForm(SomNode):
     """Generated section facade for the `resumePoint` @Form section: its own content text followed by one typed member per form field."""
@@ -96166,20 +96166,20 @@ class ExternalActorEntryInteractionForm(SomNode):
         self.doc.set_form_field(self.path, "interactionChannel", value)
 
     @property
-    def dataExchanged(self) -> str:
-        return self.doc.form_field(self.path, "dataExchanged") or ""
-
-    @dataExchanged.setter
-    def dataExchanged(self, value):
-        self.doc.set_form_field(self.path, "dataExchanged", value)
-
-    @property
     def accessLevel(self) -> str:
         return self.doc.form_field(self.path, "accessLevel") or ""
 
     @accessLevel.setter
     def accessLevel(self, value):
         self.doc.set_form_field(self.path, "accessLevel", value)
+
+    @property
+    def dataExchanged(self) -> str:
+        return self.doc.form_field(self.path, "dataExchanged") or ""
+
+    @dataExchanged.setter
+    def dataExchanged(self, value):
+        self.doc.set_form_field(self.path, "dataExchanged", value)
 
 class ExternalInterfaceEntryIdentificationContentForm(SomNode):
     """Generated section facade for the `identificationContent` @Form section: its own content text followed by one typed member per form field."""
@@ -97110,14 +97110,6 @@ class ExternalSystemContextEntryIntegrationForm(SomNode):
         self.doc.set_form_field(self.path, "integrationDirection", value)
 
     @property
-    def integrationPurpose(self) -> str:
-        return self.doc.form_field(self.path, "integrationPurpose") or ""
-
-    @integrationPurpose.setter
-    def integrationPurpose(self, value):
-        self.doc.set_form_field(self.path, "integrationPurpose", value)
-
-    @property
     def dataExchanged(self) -> str:
         return self.doc.form_field(self.path, "dataExchanged") or ""
 
@@ -97132,6 +97124,14 @@ class ExternalSystemContextEntryIntegrationForm(SomNode):
     @integrationMethod.setter
     def integrationMethod(self, value):
         self.doc.set_form_field(self.path, "integrationMethod", value)
+
+    @property
+    def integrationPurpose(self) -> str:
+        return self.doc.form_field(self.path, "integrationPurpose") or ""
+
+    @integrationPurpose.setter
+    def integrationPurpose(self, value):
+        self.doc.set_form_field(self.path, "integrationPurpose", value)
 
 class ExternalSystemContextEntryOperationsForm(SomNode):
     """Generated section facade for the `operations` @Form section: its own content text followed by one typed member per form field."""
@@ -100239,14 +100239,6 @@ class FrameworkRequirementEntryJustificationForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def justification(self) -> str:
-        return self.doc.form_field(self.path, "justification") or ""
-
-    @justification.setter
-    def justification(self, value):
-        self.doc.set_form_field(self.path, "justification", value)
-
-    @property
     def alternativesConsidered(self) -> str:
         return self.doc.form_field(self.path, "alternativesConsidered") or ""
 
@@ -100269,6 +100261,14 @@ class FrameworkRequirementEntryJustificationForm(SomNode):
     @notes.setter
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
+
+    @property
+    def justification(self) -> str:
+        return self.doc.form_field(self.path, "justification") or ""
+
+    @justification.setter
+    def justification(self, value):
+        self.doc.set_form_field(self.path, "justification", value)
 
 class FrameworkRequirementEntryScopeForm(SomNode):
     """Generated section facade for the `scope` @Form section: its own content text followed by one typed member per form field."""
@@ -100296,14 +100296,6 @@ class FrameworkRequirementEntryScopeForm(SomNode):
         self.doc.set_form_field(self.path, "usageScope", value)
 
     @property
-    def integrationPoints(self) -> str:
-        return self.doc.form_field(self.path, "integrationPoints") or ""
-
-    @integrationPoints.setter
-    def integrationPoints(self, value):
-        self.doc.set_form_field(self.path, "integrationPoints", value)
-
-    @property
     def requiredPlugins(self) -> str:
         return self.doc.form_field(self.path, "requiredPlugins") or ""
 
@@ -100326,6 +100318,14 @@ class FrameworkRequirementEntryScopeForm(SomNode):
     @excludedFeatures.setter
     def excludedFeatures(self, value):
         self.doc.set_form_field(self.path, "excludedFeatures", value)
+
+    @property
+    def integrationPoints(self) -> str:
+        return self.doc.form_field(self.path, "integrationPoints") or ""
+
+    @integrationPoints.setter
+    def integrationPoints(self, value):
+        self.doc.set_form_field(self.path, "integrationPoints", value)
 
 class FrameworkRequirementEntrySupportForm(SomNode):
     """Generated section facade for the `support` @Form section: its own content text followed by one typed member per form field."""
@@ -100901,14 +100901,6 @@ class FunctionalRequirementEntryDetailsForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def description(self) -> str:
-        return self.doc.form_field(self.path, "description") or ""
-
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
-
-    @property
     def requirementType(self) -> str:
         return self.doc.form_field(self.path, "requirementType") or ""
 
@@ -100923,6 +100915,14 @@ class FunctionalRequirementEntryDetailsForm(SomNode):
     @category.setter
     def category(self, value):
         self.doc.set_form_field(self.path, "category", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
 class FunctionalRequirementEntryMetadataForm(SomNode):
     """Generated section facade for the `metadata` @Form section: its own content text followed by one typed member per form field."""
@@ -101032,20 +101032,20 @@ class FunctionalRequirementEntrySourceForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def source(self) -> str:
-        return self.doc.form_field(self.path, "source") or ""
-
-    @source.setter
-    def source(self, value):
-        self.doc.set_form_field(self.path, "source", value)
-
-    @property
     def requestDate(self) -> str:
         return self.doc.form_field(self.path, "requestDate") or ""
 
     @requestDate.setter
     def requestDate(self, value):
         self.doc.set_form_field(self.path, "requestDate", value)
+
+    @property
+    def source(self) -> str:
+        return self.doc.form_field(self.path, "source") or ""
+
+    @source.setter
+    def source(self, value):
+        self.doc.set_form_field(self.path, "source", value)
 
     @property
     def rationale(self) -> str:
@@ -101939,14 +101939,6 @@ class GlossaryEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "term", value)
 
     @property
-    def definition(self) -> str:
-        return self.doc.form_field(self.path, "definition") or ""
-
-    @definition.setter
-    def definition(self, value):
-        self.doc.set_form_field(self.path, "definition", value)
-
-    @property
     def acronym(self) -> str:
         return self.doc.form_field(self.path, "acronym") or ""
 
@@ -101961,6 +101953,14 @@ class GlossaryEntryContentForm(SomNode):
     @seeAlso.setter
     def seeAlso(self, value):
         self.doc.set_form_field(self.path, "seeAlso", value)
+
+    @property
+    def definition(self) -> str:
+        return self.doc.form_field(self.path, "definition") or ""
+
+    @definition.setter
+    def definition(self, value):
+        self.doc.set_form_field(self.path, "definition", value)
 
 class GoalDependencyEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -106605,14 +106605,6 @@ class IntegrationArchitectureContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def integrationStrategy(self) -> str:
-        return self.doc.form_field(self.path, "integrationStrategy") or ""
-
-    @integrationStrategy.setter
-    def integrationStrategy(self, value):
-        self.doc.set_form_field(self.path, "integrationStrategy", value)
-
-    @property
     def integrationPatterns(self) -> str:
         return self.doc.form_field(self.path, "integrationPatterns") or ""
 
@@ -106627,6 +106619,14 @@ class IntegrationArchitectureContentForm(SomNode):
     @apiManagement.setter
     def apiManagement(self, value):
         self.doc.set_form_field(self.path, "apiManagement", value)
+
+    @property
+    def integrationStrategy(self) -> str:
+        return self.doc.form_field(self.path, "integrationStrategy") or ""
+
+    @integrationStrategy.setter
+    def integrationStrategy(self, value):
+        self.doc.set_form_field(self.path, "integrationStrategy", value)
 
 class IntegrationArchitectureDataForm(SomNode):
     """Generated section facade for the `data` @Form section: its own content text followed by one typed member per form field."""
@@ -106769,14 +106769,6 @@ class IntegrationArchitectureSecurityForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def authenticationApproach(self) -> str:
-        return self.doc.form_field(self.path, "authenticationApproach") or ""
-
-    @authenticationApproach.setter
-    def authenticationApproach(self, value):
-        self.doc.set_form_field(self.path, "authenticationApproach", value)
-
-    @property
     def authorizationApproach(self) -> str:
         return self.doc.form_field(self.path, "authorizationApproach") or ""
 
@@ -106791,6 +106783,14 @@ class IntegrationArchitectureSecurityForm(SomNode):
     @secureTransport.setter
     def secureTransport(self, value):
         self.doc.set_form_field(self.path, "secureTransport", value)
+
+    @property
+    def authenticationApproach(self) -> str:
+        return self.doc.form_field(self.path, "authenticationApproach") or ""
+
+    @authenticationApproach.setter
+    def authenticationApproach(self, value):
+        self.doc.set_form_field(self.path, "authenticationApproach", value)
 
 class IntegrationArchitectureSystemsForm(SomNode):
     """Generated section facade for the `systems` @Form section: its own content text followed by one typed member per form field."""
@@ -106818,20 +106818,20 @@ class IntegrationArchitectureSystemsForm(SomNode):
         self.doc.set_form_field(self.path, "externalSystemCount", value)
 
     @property
-    def integrationTypes(self) -> str:
-        return self.doc.form_field(self.path, "integrationTypes") or ""
-
-    @integrationTypes.setter
-    def integrationTypes(self, value):
-        self.doc.set_form_field(self.path, "integrationTypes", value)
-
-    @property
     def realTimeIntegrations(self) -> str:
         return self.doc.form_field(self.path, "realTimeIntegrations") or ""
 
     @realTimeIntegrations.setter
     def realTimeIntegrations(self, value):
         self.doc.set_form_field(self.path, "realTimeIntegrations", value)
+
+    @property
+    def integrationTypes(self) -> str:
+        return self.doc.form_field(self.path, "integrationTypes") or ""
+
+    @integrationTypes.setter
+    def integrationTypes(self, value):
+        self.doc.set_form_field(self.path, "integrationTypes", value)
 
 class IntegrationConstraintEntryComplianceForm(SomNode):
     """Generated section facade for the `compliance` @Form section: its own content text followed by one typed member per form field."""
@@ -108347,14 +108347,6 @@ class InteractionPatternEntryDefinitionForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def description(self) -> str:
-        return self.doc.form_field(self.path, "description") or ""
-
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
-
-    @property
     def useCases(self) -> str:
         return self.doc.form_field(self.path, "useCases") or ""
 
@@ -108369,6 +108361,14 @@ class InteractionPatternEntryDefinitionForm(SomNode):
     @userCategories.setter
     def userCategories(self, value):
         self.doc.set_form_field(self.path, "userCategories", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
 class InteractionPatternEntryTriggerForm(SomNode):
     """Generated section facade for the `trigger` @Form section: its own content text followed by one typed member per form field."""
@@ -109923,14 +109923,6 @@ class InterfaceTechnicalSpecWebhookSpecForm(SomNode):
         self.doc.set_form_field(self.path, "webhookEndpoint", value)
 
     @property
-    def eventTypes(self) -> str:
-        return self.doc.form_field(self.path, "eventTypes") or ""
-
-    @eventTypes.setter
-    def eventTypes(self, value):
-        self.doc.set_form_field(self.path, "eventTypes", value)
-
-    @property
     def signatureVerification(self) -> str:
         return self.doc.form_field(self.path, "signatureVerification") or ""
 
@@ -109953,6 +109945,14 @@ class InterfaceTechnicalSpecWebhookSpecForm(SomNode):
     @idempotencyHandling.setter
     def idempotencyHandling(self, value):
         self.doc.set_form_field(self.path, "idempotencyHandling", value)
+
+    @property
+    def eventTypes(self) -> str:
+        return self.doc.form_field(self.path, "eventTypes") or ""
+
+    @eventTypes.setter
+    def eventTypes(self, value):
+        self.doc.set_form_field(self.path, "eventTypes", value)
 
 class InterfaceTestScenarioEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -110731,28 +110731,12 @@ class ItLandscapePositionPositionDetailsForm(SomNode):
         self.doc.set_form_field(self.path, "portfolioRole", value)
 
     @property
-    def replacedSystems(self) -> str:
-        return self.doc.form_field(self.path, "replacedSystems") or ""
-
-    @replacedSystems.setter
-    def replacedSystems(self, value):
-        self.doc.set_form_field(self.path, "replacedSystems", value)
-
-    @property
     def complementarySystems(self) -> str:
         return self.doc.form_field(self.path, "complementarySystems") or ""
 
     @complementarySystems.setter
     def complementarySystems(self, value):
         self.doc.set_form_field(self.path, "complementarySystems", value)
-
-    @property
-    def dependsOnSystems(self) -> str:
-        return self.doc.form_field(self.path, "dependsOnSystems") or ""
-
-    @dependsOnSystems.setter
-    def dependsOnSystems(self, value):
-        self.doc.set_form_field(self.path, "dependsOnSystems", value)
 
     @property
     def dependentSystems(self) -> str:
@@ -110763,20 +110747,36 @@ class ItLandscapePositionPositionDetailsForm(SomNode):
         self.doc.set_form_field(self.path, "dependentSystems", value)
 
     @property
-    def dataOwnership(self) -> str:
-        return self.doc.form_field(self.path, "dataOwnership") or ""
-
-    @dataOwnership.setter
-    def dataOwnership(self, value):
-        self.doc.set_form_field(self.path, "dataOwnership", value)
-
-    @property
     def integrationPattern(self) -> str:
         return self.doc.form_field(self.path, "integrationPattern") or ""
 
     @integrationPattern.setter
     def integrationPattern(self, value):
         self.doc.set_form_field(self.path, "integrationPattern", value)
+
+    @property
+    def replacedSystems(self) -> str:
+        return self.doc.form_field(self.path, "replacedSystems") or ""
+
+    @replacedSystems.setter
+    def replacedSystems(self, value):
+        self.doc.set_form_field(self.path, "replacedSystems", value)
+
+    @property
+    def dependsOnSystems(self) -> str:
+        return self.doc.form_field(self.path, "dependsOnSystems") or ""
+
+    @dependsOnSystems.setter
+    def dependsOnSystems(self, value):
+        self.doc.set_form_field(self.path, "dependsOnSystems", value)
+
+    @property
+    def dataOwnership(self) -> str:
+        return self.doc.form_field(self.path, "dataOwnership") or ""
+
+    @dataOwnership.setter
+    def dataOwnership(self, value):
+        self.doc.set_form_field(self.path, "dataOwnership", value)
 
 class ItSecurityOperationsAccessForm(SomNode):
     """Generated section facade for the `access` @Form section: its own content text followed by one typed member per form field."""
@@ -110796,14 +110796,6 @@ class ItSecurityOperationsAccessForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def privilegedAccessManagement(self) -> str:
-        return self.doc.form_field(self.path, "privilegedAccessManagement") or ""
-
-    @privilegedAccessManagement.setter
-    def privilegedAccessManagement(self, value):
-        self.doc.set_form_field(self.path, "privilegedAccessManagement", value)
-
-    @property
     def accessReviewFrequency(self) -> str:
         return self.doc.form_field(self.path, "accessReviewFrequency") or ""
 
@@ -110818,6 +110810,14 @@ class ItSecurityOperationsAccessForm(SomNode):
     @accessAuditLogging.setter
     def accessAuditLogging(self, value):
         self.doc.set_form_field(self.path, "accessAuditLogging", value)
+
+    @property
+    def privilegedAccessManagement(self) -> str:
+        return self.doc.form_field(self.path, "privilegedAccessManagement") or ""
+
+    @privilegedAccessManagement.setter
+    def privilegedAccessManagement(self, value):
+        self.doc.set_form_field(self.path, "privilegedAccessManagement", value)
 
 class ItSecurityOperationsContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -113044,20 +113044,20 @@ class LifecycleTransitionEntryTriggerForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def trigger(self) -> str:
-        return self.doc.form_field(self.path, "trigger") or ""
-
-    @trigger.setter
-    def trigger(self, value):
-        self.doc.set_form_field(self.path, "trigger", value)
-
-    @property
     def triggerType(self) -> str:
         return self.doc.form_field(self.path, "triggerType") or ""
 
     @triggerType.setter
     def triggerType(self, value):
         self.doc.set_form_field(self.path, "triggerType", value)
+
+    @property
+    def trigger(self) -> str:
+        return self.doc.form_field(self.path, "trigger") or ""
+
+    @trigger.setter
+    def trigger(self, value):
+        self.doc.set_form_field(self.path, "trigger", value)
 
 class LimitationEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -114784,14 +114784,6 @@ class MainScenarioStepEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "dataInvolved", value)
 
     @property
-    def businessRuleApplied(self) -> str:
-        return self.doc.form_field(self.path, "businessRuleApplied") or ""
-
-    @businessRuleApplied.setter
-    def businessRuleApplied(self, value):
-        self.doc.set_form_field(self.path, "businessRuleApplied", value)
-
-    @property
     def uiElementUsed(self) -> str:
         return self.doc.form_field(self.path, "uiElementUsed") or ""
 
@@ -114814,6 +114806,14 @@ class MainScenarioStepEntryContentForm(SomNode):
     @expectedDuration.setter
     def expectedDuration(self, value):
         self.doc.set_form_field(self.path, "expectedDuration", value)
+
+    @property
+    def businessRuleApplied(self) -> str:
+        return self.doc.form_field(self.path, "businessRuleApplied") or ""
+
+    @businessRuleApplied.setter
+    def businessRuleApplied(self, value):
+        self.doc.set_form_field(self.path, "businessRuleApplied", value)
 
 class MainSuccessScenarioContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -117047,20 +117047,20 @@ class MfaCategoryRequirementEntryAuthenticatorsForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def allowedAuthenticatorTypes(self) -> str:
-        return self.doc.form_field(self.path, "allowedAuthenticatorTypes") or ""
-
-    @allowedAuthenticatorTypes.setter
-    def allowedAuthenticatorTypes(self, value):
-        self.doc.set_form_field(self.path, "allowedAuthenticatorTypes", value)
-
-    @property
     def phishingResistanceRequired(self) -> str:
         return self.doc.form_field(self.path, "phishingResistanceRequired") or ""
 
     @phishingResistanceRequired.setter
     def phishingResistanceRequired(self, value):
         self.doc.set_form_field(self.path, "phishingResistanceRequired", value)
+
+    @property
+    def allowedAuthenticatorTypes(self) -> str:
+        return self.doc.form_field(self.path, "allowedAuthenticatorTypes") or ""
+
+    @allowedAuthenticatorTypes.setter
+    def allowedAuthenticatorTypes(self, value):
+        self.doc.set_form_field(self.path, "allowedAuthenticatorTypes", value)
 
 class MfaCategoryRequirementEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -120371,14 +120371,6 @@ class ModuleEntryDescriptionForm(SomNode):
         self.doc.set_form_field(self.path, "purpose", value)
 
     @property
-    def functionality(self) -> str:
-        return self.doc.form_field(self.path, "functionality") or ""
-
-    @functionality.setter
-    def functionality(self, value):
-        self.doc.set_form_field(self.path, "functionality", value)
-
-    @property
     def publicApi(self) -> str:
         return self.doc.form_field(self.path, "publicApi") or ""
 
@@ -120393,6 +120385,14 @@ class ModuleEntryDescriptionForm(SomNode):
     @entryPoints.setter
     def entryPoints(self, value):
         self.doc.set_form_field(self.path, "entryPoints", value)
+
+    @property
+    def functionality(self) -> str:
+        return self.doc.form_field(self.path, "functionality") or ""
+
+    @functionality.setter
+    def functionality(self, value):
+        self.doc.set_form_field(self.path, "functionality", value)
 
 class ModuleEntryOwnershipForm(SomNode):
     """Generated section facade for the `ownership` @Form section: its own content text followed by one typed member per form field."""
@@ -121561,14 +121561,6 @@ class MustPassCriterionEntryDefinitionForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def criterionDescription(self) -> str:
-        return self.doc.form_field(self.path, "criterionDescription") or ""
-
-    @criterionDescription.setter
-    def criterionDescription(self, value):
-        self.doc.set_form_field(self.path, "criterionDescription", value)
-
-    @property
     def qualityCategory(self) -> "Iso25010Characteristic | None":
         return _parse_Iso25010Characteristic(self.doc.form_field(self.path, "qualityCategory"))
 
@@ -121583,6 +121575,14 @@ class MustPassCriterionEntryDefinitionForm(SomNode):
     @qualityAttribute.setter
     def qualityAttribute(self, value):
         self.doc.set_form_field(self.path, "qualityAttribute", value)
+
+    @property
+    def criterionDescription(self) -> str:
+        return self.doc.form_field(self.path, "criterionDescription") or ""
+
+    @criterionDescription.setter
+    def criterionDescription(self, value):
+        self.doc.set_form_field(self.path, "criterionDescription", value)
 
 class MustPassCriterionEntryGovernanceForm(SomNode):
     """Generated section facade for the `governance` @Form section: its own content text followed by one typed member per form field."""
@@ -126211,22 +126211,6 @@ class OpportunityStatementOpportunityDetailsForm(SomNode):
         self.doc.set_form_field(self.path, "futureState", value)
 
     @property
-    def newCapabilities(self) -> str:
-        return self.doc.form_field(self.path, "newCapabilities") or ""
-
-    @newCapabilities.setter
-    def newCapabilities(self, value):
-        self.doc.set_form_field(self.path, "newCapabilities", value)
-
-    @property
-    def improvements(self) -> str:
-        return self.doc.form_field(self.path, "improvements") or ""
-
-    @improvements.setter
-    def improvements(self, value):
-        self.doc.set_form_field(self.path, "improvements", value)
-
-    @property
     def competitiveAdvantage(self) -> str:
         return self.doc.form_field(self.path, "competitiveAdvantage") or ""
 
@@ -126265,6 +126249,22 @@ class OpportunityStatementOpportunityDetailsForm(SomNode):
     @timeToValue.setter
     def timeToValue(self, value):
         self.doc.set_form_field(self.path, "timeToValue", value)
+
+    @property
+    def newCapabilities(self) -> str:
+        return self.doc.form_field(self.path, "newCapabilities") or ""
+
+    @newCapabilities.setter
+    def newCapabilities(self, value):
+        self.doc.set_form_field(self.path, "newCapabilities", value)
+
+    @property
+    def improvements(self) -> str:
+        return self.doc.form_field(self.path, "improvements") or ""
+
+    @improvements.setter
+    def improvements(self, value):
+        self.doc.set_form_field(self.path, "improvements", value)
 
 class OrgChangeRisksContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -127043,6 +127043,14 @@ class OrganizationalRequirementEntryClassificationForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
+    def priority(self) -> "Priority | None":
+        return _parse_Priority(self.doc.form_field(self.path, "priority"))
+
+    @priority.setter
+    def priority(self, value):
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
+
+    @property
     def category(self) -> str:
         return self.doc.form_field(self.path, "category") or ""
 
@@ -127059,12 +127067,12 @@ class OrganizationalRequirementEntryClassificationForm(SomNode):
         self.doc.set_form_field(self.path, "subcategory", value)
 
     @property
-    def priority(self) -> "Priority | None":
-        return _parse_Priority(self.doc.form_field(self.path, "priority"))
+    def rationale(self) -> str:
+        return self.doc.form_field(self.path, "rationale") or ""
 
-    @priority.setter
-    def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
+    @rationale.setter
+    def rationale(self, value):
+        self.doc.set_form_field(self.path, "rationale", value)
 
     @property
     def source(self) -> str:
@@ -127073,14 +127081,6 @@ class OrganizationalRequirementEntryClassificationForm(SomNode):
     @source.setter
     def source(self, value):
         self.doc.set_form_field(self.path, "source", value)
-
-    @property
-    def rationale(self) -> str:
-        return self.doc.form_field(self.path, "rationale") or ""
-
-    @rationale.setter
-    def rationale(self, value):
-        self.doc.set_form_field(self.path, "rationale", value)
 
 class OrganizationalRequirementEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -127654,6 +127654,14 @@ class OtherAgreementEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "expirationDate", value)
 
     @property
+    def location(self) -> str:
+        return self.doc.form_field(self.path, "location") or ""
+
+    @location.setter
+    def location(self, value):
+        self.doc.set_form_field(self.path, "location", value)
+
+    @property
     def keyTerms(self) -> str:
         return self.doc.form_field(self.path, "keyTerms") or ""
 
@@ -127668,14 +127676,6 @@ class OtherAgreementEntryContentForm(SomNode):
     @obligations.setter
     def obligations(self, value):
         self.doc.set_form_field(self.path, "obligations", value)
-
-    @property
-    def location(self) -> str:
-        return self.doc.form_field(self.path, "location") or ""
-
-    @location.setter
-    def location(self, value):
-        self.doc.set_form_field(self.path, "location", value)
 
 class OutOfScopeEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -127973,20 +127973,20 @@ class PackageOrganizationStructureForm(SomNode):
         self.doc.set_form_field(self.path, "monorepoVsPolyrepo", value)
 
     @property
-    def directoryLayout(self) -> str:
-        return self.doc.form_field(self.path, "directoryLayout") or ""
-
-    @directoryLayout.setter
-    def directoryLayout(self, value):
-        self.doc.set_form_field(self.path, "directoryLayout", value)
-
-    @property
     def featureGrouping(self) -> str:
         return self.doc.form_field(self.path, "featureGrouping") or ""
 
     @featureGrouping.setter
     def featureGrouping(self, value):
         self.doc.set_form_field(self.path, "featureGrouping", value)
+
+    @property
+    def directoryLayout(self) -> str:
+        return self.doc.form_field(self.path, "directoryLayout") or ""
+
+    @directoryLayout.setter
+    def directoryLayout(self, value):
+        self.doc.set_form_field(self.path, "directoryLayout", value)
 
 class PackageOrganizationTypesForm(SomNode):
     """Generated section facade for the `types` @Form section: its own content text followed by one typed member per form field."""
@@ -128006,22 +128006,6 @@ class PackageOrganizationTypesForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def corePackages(self) -> str:
-        return self.doc.form_field(self.path, "corePackages") or ""
-
-    @corePackages.setter
-    def corePackages(self, value):
-        self.doc.set_form_field(self.path, "corePackages", value)
-
-    @property
-    def featurePackages(self) -> str:
-        return self.doc.form_field(self.path, "featurePackages") or ""
-
-    @featurePackages.setter
-    def featurePackages(self, value):
-        self.doc.set_form_field(self.path, "featurePackages", value)
-
-    @property
     def sharedPackages(self) -> str:
         return self.doc.form_field(self.path, "sharedPackages") or ""
 
@@ -128036,6 +128020,22 @@ class PackageOrganizationTypesForm(SomNode):
     @platformPackages.setter
     def platformPackages(self, value):
         self.doc.set_form_field(self.path, "platformPackages", value)
+
+    @property
+    def corePackages(self) -> str:
+        return self.doc.form_field(self.path, "corePackages") or ""
+
+    @corePackages.setter
+    def corePackages(self, value):
+        self.doc.set_form_field(self.path, "corePackages", value)
+
+    @property
+    def featurePackages(self) -> str:
+        return self.doc.form_field(self.path, "featurePackages") or ""
+
+    @featurePackages.setter
+    def featurePackages(self, value):
+        self.doc.set_form_field(self.path, "featurePackages", value)
 
 class PainPointEntryClassificationForm(SomNode):
     """Generated section facade for the `classification` @Form section: its own content text followed by one typed member per form field."""
@@ -129550,14 +129550,6 @@ class PeriodicReviewPolicyContentForm(SomNode):
         self.doc.set_form_field(self.path, "privilegedAccountReview", value)
 
     @property
-    def reviewers(self) -> str:
-        return self.doc.form_field(self.path, "reviewers") or ""
-
-    @reviewers.setter
-    def reviewers(self, value):
-        self.doc.set_form_field(self.path, "reviewers", value)
-
-    @property
     def dormantAccountReview(self) -> str:
         return self.doc.form_field(self.path, "dormantAccountReview") or ""
 
@@ -129580,6 +129572,14 @@ class PeriodicReviewPolicyContentForm(SomNode):
     @reviewDocumentation.setter
     def reviewDocumentation(self, value):
         self.doc.set_form_field(self.path, "reviewDocumentation", value)
+
+    @property
+    def reviewers(self) -> str:
+        return self.doc.form_field(self.path, "reviewers") or ""
+
+    @reviewers.setter
+    def reviewers(self, value):
+        self.doc.set_form_field(self.path, "reviewers", value)
 
 class PeripheralEquipmentEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -131521,14 +131521,6 @@ class PortabilityContentForm(SomNode):
         self.doc.set_form_field(self.path, "migrationEffortConstraint", value)
 
     @property
-    def dataPortability(self) -> str:
-        return self.doc.form_field(self.path, "dataPortability") or ""
-
-    @dataPortability.setter
-    def dataPortability(self, value):
-        self.doc.set_form_field(self.path, "dataPortability", value)
-
-    @property
     def vendorLockInAvoidance(self) -> str:
         return self.doc.form_field(self.path, "vendorLockInAvoidance") or ""
 
@@ -131559,6 +131551,14 @@ class PortabilityContentForm(SomNode):
     @portabilityVerification.setter
     def portabilityVerification(self, value):
         self.doc.set_form_field(self.path, "portabilityVerification", value)
+
+    @property
+    def dataPortability(self) -> str:
+        return self.doc.form_field(self.path, "dataPortability") or ""
+
+    @dataPortability.setter
+    def dataPortability(self, value):
+        self.doc.set_form_field(self.path, "dataPortability", value)
 
 class PostMaintenanceValidationClosureForm(SomNode):
     """Generated section facade for the `closure` @Form section: its own content text followed by one typed member per form field."""
@@ -131740,14 +131740,6 @@ class PostconditionsAndGuaranteesContentForm(SomNode):
         self.doc.set_form_field(self.path, "minimalGuarantees", value)
 
     @property
-    def successGuarantees(self) -> str:
-        return self.doc.form_field(self.path, "successGuarantees") or ""
-
-    @successGuarantees.setter
-    def successGuarantees(self, value):
-        self.doc.set_form_field(self.path, "successGuarantees", value)
-
-    @property
     def primaryActorPostcondition(self) -> str:
         return self.doc.form_field(self.path, "primaryActorPostcondition") or ""
 
@@ -131772,20 +131764,28 @@ class PostconditionsAndGuaranteesContentForm(SomNode):
         self.doc.set_form_field(self.path, "dataPostcondition", value)
 
     @property
-    def notificationsGenerated(self) -> str:
-        return self.doc.form_field(self.path, "notificationsGenerated") or ""
-
-    @notificationsGenerated.setter
-    def notificationsGenerated(self, value):
-        self.doc.set_form_field(self.path, "notificationsGenerated", value)
-
-    @property
     def auditTrail(self) -> str:
         return self.doc.form_field(self.path, "auditTrail") or ""
 
     @auditTrail.setter
     def auditTrail(self, value):
         self.doc.set_form_field(self.path, "auditTrail", value)
+
+    @property
+    def successGuarantees(self) -> str:
+        return self.doc.form_field(self.path, "successGuarantees") or ""
+
+    @successGuarantees.setter
+    def successGuarantees(self, value):
+        self.doc.set_form_field(self.path, "successGuarantees", value)
+
+    @property
+    def notificationsGenerated(self) -> str:
+        return self.doc.form_field(self.path, "notificationsGenerated") or ""
+
+    @notificationsGenerated.setter
+    def notificationsGenerated(self, value):
+        self.doc.set_form_field(self.path, "notificationsGenerated", value)
 
 class PreconditionsAndTriggersContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -131803,14 +131803,6 @@ class PreconditionsAndTriggersContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def precondition(self) -> str:
-        return self.doc.form_field(self.path, "precondition") or ""
-
-    @precondition.setter
-    def precondition(self, value):
-        self.doc.set_form_field(self.path, "precondition", value)
 
     @property
     def trigger(self) -> str:
@@ -131859,6 +131851,14 @@ class PreconditionsAndTriggersContentForm(SomNode):
     @validationBeforeStart.setter
     def validationBeforeStart(self, value):
         self.doc.set_form_field(self.path, "validationBeforeStart", value)
+
+    @property
+    def precondition(self) -> str:
+        return self.doc.form_field(self.path, "precondition") or ""
+
+    @precondition.setter
+    def precondition(self, value):
+        self.doc.set_form_field(self.path, "precondition", value)
 
 class PrimaryNavigationBottomNavForm(SomNode):
     """Generated section facade for the `bottomNav` @Form section: its own content text followed by one typed member per form field."""
@@ -132894,6 +132894,14 @@ class ProblemStatementProblemDetailsForm(SomNode):
         self.doc.set_form_field(self.path, "problemSummary", value)
 
     @property
+    def impactSeverity(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "impactSeverity"))
+
+    @impactSeverity.setter
+    def impactSeverity(self, value):
+        self.doc.set_form_field(self.path, "impactSeverity", "" if value is None else value.value)
+
+    @property
     def currentState(self) -> str:
         return self.doc.form_field(self.path, "currentState") or ""
 
@@ -132918,12 +132926,20 @@ class ProblemStatementProblemDetailsForm(SomNode):
         self.doc.set_form_field(self.path, "impactDescription", value)
 
     @property
-    def impactSeverity(self) -> "ImportanceBand | None":
-        return _parse_ImportanceBand(self.doc.form_field(self.path, "impactSeverity"))
+    def urgency(self) -> str:
+        return self.doc.form_field(self.path, "urgency") or ""
 
-    @impactSeverity.setter
-    def impactSeverity(self, value):
-        self.doc.set_form_field(self.path, "impactSeverity", "" if value is None else value.value)
+    @urgency.setter
+    def urgency(self, value):
+        self.doc.set_form_field(self.path, "urgency", value)
+
+    @property
+    def urgencyJustification(self) -> str:
+        return self.doc.form_field(self.path, "urgencyJustification") or ""
+
+    @urgencyJustification.setter
+    def urgencyJustification(self, value):
+        self.doc.set_form_field(self.path, "urgencyJustification", value)
 
     @property
     def impactMetrics(self) -> str:
@@ -132940,22 +132956,6 @@ class ProblemStatementProblemDetailsForm(SomNode):
     @rootCauses.setter
     def rootCauses(self, value):
         self.doc.set_form_field(self.path, "rootCauses", value)
-
-    @property
-    def urgency(self) -> str:
-        return self.doc.form_field(self.path, "urgency") or ""
-
-    @urgency.setter
-    def urgency(self, value):
-        self.doc.set_form_field(self.path, "urgency", value)
-
-    @property
-    def urgencyJustification(self) -> str:
-        return self.doc.form_field(self.path, "urgencyJustification") or ""
-
-    @urgencyJustification.setter
-    def urgencyJustification(self, value):
-        self.doc.set_form_field(self.path, "urgencyJustification", value)
 
     @property
     def consequencesOfInaction(self) -> str:
@@ -133554,14 +133554,6 @@ class ProcessCatalogOverviewForm(SomNode):
         self.doc.set_form_field(self.path, "totalProcessCount", "" if value is None else str(value))
 
     @property
-    def scopeStatement(self) -> str:
-        return self.doc.form_field(self.path, "scopeStatement") or ""
-
-    @scopeStatement.setter
-    def scopeStatement(self, value):
-        self.doc.set_form_field(self.path, "scopeStatement", value)
-
-    @property
     def classificationFramework(self) -> str:
         return self.doc.form_field(self.path, "classificationFramework") or ""
 
@@ -133608,6 +133600,14 @@ class ProcessCatalogOverviewForm(SomNode):
     @versioningApproach.setter
     def versioningApproach(self, value):
         self.doc.set_form_field(self.path, "versioningApproach", value)
+
+    @property
+    def scopeStatement(self) -> str:
+        return self.doc.form_field(self.path, "scopeStatement") or ""
+
+    @scopeStatement.setter
+    def scopeStatement(self, value):
+        self.doc.set_form_field(self.path, "scopeStatement", value)
 
 class ProcessCharacteristicsBusinessForm(SomNode):
     """Generated section facade for the `business` @Form section: its own content text followed by one typed member per form field."""
@@ -134067,20 +134067,20 @@ class ProcessDesignPrincipleEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
+
+    @priority.setter
+    def priority(self, value):
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
+
+    @property
     def category(self) -> str:
         return self.doc.form_field(self.path, "category") or ""
 
     @category.setter
     def category(self, value):
         self.doc.set_form_field(self.path, "category", value)
-
-    @property
-    def statement(self) -> str:
-        return self.doc.form_field(self.path, "statement") or ""
-
-    @statement.setter
-    def statement(self, value):
-        self.doc.set_form_field(self.path, "statement", value)
 
     @property
     def rationale(self) -> str:
@@ -134115,20 +134115,20 @@ class ProcessDesignPrincipleEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "tradeoffs", value)
 
     @property
-    def priority(self) -> "ImportanceBand | None":
-        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
-
-    @priority.setter
-    def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
-
-    @property
     def applicability(self) -> str:
         return self.doc.form_field(self.path, "applicability") or ""
 
     @applicability.setter
     def applicability(self, value):
         self.doc.set_form_field(self.path, "applicability", value)
+
+    @property
+    def statement(self) -> str:
+        return self.doc.form_field(self.path, "statement") or ""
+
+    @statement.setter
+    def statement(self, value):
+        self.doc.set_form_field(self.path, "statement", value)
 
 class ProcessDesignPrinciplesOverviewForm(SomNode):
     """Generated section facade for the `overview` @Form section: its own content text followed by one typed member per form field."""
@@ -134540,14 +134540,6 @@ class ProcessIdentificationDefinitionForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def description(self) -> str:
-        return self.doc.form_field(self.path, "description") or ""
-
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
-
-    @property
     def purpose(self) -> str:
         return self.doc.form_field(self.path, "purpose") or ""
 
@@ -134562,6 +134554,14 @@ class ProcessIdentificationDefinitionForm(SomNode):
     @scope.setter
     def scope(self, value):
         self.doc.set_form_field(self.path, "scope", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
 class ProcessIdentificationGovernanceForm(SomNode):
     """Generated section facade for the `governance` @Form section: its own content text followed by one typed member per form field."""
@@ -135648,14 +135648,6 @@ class ProcessRelationshipEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "relationshipType", value)
 
     @property
-    def dataExchanged(self) -> str:
-        return self.doc.form_field(self.path, "dataExchanged") or ""
-
-    @dataExchanged.setter
-    def dataExchanged(self, value):
-        self.doc.set_form_field(self.path, "dataExchanged", value)
-
-    @property
     def timingDependency(self) -> str:
         return self.doc.form_field(self.path, "timingDependency") or ""
 
@@ -135678,6 +135670,14 @@ class ProcessRelationshipEntryContentForm(SomNode):
     @criticality.setter
     def criticality(self, value):
         self.doc.set_form_field(self.path, "criticality", value)
+
+    @property
+    def dataExchanged(self) -> str:
+        return self.doc.form_field(self.path, "dataExchanged") or ""
+
+    @dataExchanged.setter
+    def dataExchanged(self, value):
+        self.doc.set_form_field(self.path, "dataExchanged", value)
 
 class ProcessRoleEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -136082,14 +136082,6 @@ class ProcessStepsOverviewContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def useCaseScope(self) -> str:
-        return self.doc.form_field(self.path, "useCaseScope") or ""
-
-    @useCaseScope.setter
-    def useCaseScope(self, value):
-        self.doc.set_form_field(self.path, "useCaseScope", value)
-
-    @property
     def primaryActorFocus(self) -> str:
         return self.doc.form_field(self.path, "primaryActorFocus") or ""
 
@@ -136122,6 +136114,22 @@ class ProcessStepsOverviewContentForm(SomNode):
         self.doc.set_form_field(self.path, "useCaseNamingConvention", value)
 
     @property
+    def notationStandard(self) -> str:
+        return self.doc.form_field(self.path, "notationStandard") or ""
+
+    @notationStandard.setter
+    def notationStandard(self, value):
+        self.doc.set_form_field(self.path, "notationStandard", value)
+
+    @property
+    def useCaseScope(self) -> str:
+        return self.doc.form_field(self.path, "useCaseScope") or ""
+
+    @useCaseScope.setter
+    def useCaseScope(self, value):
+        self.doc.set_form_field(self.path, "useCaseScope", value)
+
+    @property
     def traceabilityApproach(self) -> str:
         return self.doc.form_field(self.path, "traceabilityApproach") or ""
 
@@ -136136,14 +136144,6 @@ class ProcessStepsOverviewContentForm(SomNode):
     @detailLevel.setter
     def detailLevel(self, value):
         self.doc.set_form_field(self.path, "detailLevel", value)
-
-    @property
-    def notationStandard(self) -> str:
-        return self.doc.form_field(self.path, "notationStandard") or ""
-
-    @notationStandard.setter
-    def notationStandard(self, value):
-        self.doc.set_form_field(self.path, "notationStandard", value)
 
 class ProcessTechnologyContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -136561,20 +136561,20 @@ class ProcessVisionSuccessCriteriaForm(SomNode):
         self.doc.set_form_field(self.path, "userSatisfaction", value)
 
     @property
-    def businessOutcomes(self) -> str:
-        return self.doc.form_field(self.path, "businessOutcomes") or ""
-
-    @businessOutcomes.setter
-    def businessOutcomes(self, value):
-        self.doc.set_form_field(self.path, "businessOutcomes", value)
-
-    @property
     def measurementApproach(self) -> str:
         return self.doc.form_field(self.path, "measurementApproach") or ""
 
     @measurementApproach.setter
     def measurementApproach(self, value):
         self.doc.set_form_field(self.path, "measurementApproach", value)
+
+    @property
+    def businessOutcomes(self) -> str:
+        return self.doc.form_field(self.path, "businessOutcomes") or ""
+
+    @businessOutcomes.setter
+    def businessOutcomes(self, value):
+        self.doc.set_form_field(self.path, "businessOutcomes", value)
 
 class ProgrammingLanguageEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -138540,20 +138540,20 @@ class QualityGateAdjustmentDetailsContentForm(SomNode):
         self.doc.set_form_field(self.path, "originalCriteria", value)
 
     @property
-    def adjustedCriteria(self) -> str:
-        return self.doc.form_field(self.path, "adjustedCriteria") or ""
-
-    @adjustedCriteria.setter
-    def adjustedCriteria(self, value):
-        self.doc.set_form_field(self.path, "adjustedCriteria", value)
-
-    @property
     def criteriaThresholdChange(self) -> str:
         return self.doc.form_field(self.path, "criteriaThresholdChange") or ""
 
     @criteriaThresholdChange.setter
     def criteriaThresholdChange(self, value):
         self.doc.set_form_field(self.path, "criteriaThresholdChange", value)
+
+    @property
+    def adjustedCriteria(self) -> str:
+        return self.doc.form_field(self.path, "adjustedCriteria") or ""
+
+    @adjustedCriteria.setter
+    def adjustedCriteria(self, value):
+        self.doc.set_form_field(self.path, "adjustedCriteria", value)
 
 class QualityGateAdjustmentEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -138955,12 +138955,12 @@ class QualityGateCheckEntryDefinitionForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def checkDescription(self) -> str:
-        return self.doc.form_field(self.path, "checkDescription") or ""
+    def qualityCategory(self) -> "Iso25010Characteristic | None":
+        return _parse_Iso25010Characteristic(self.doc.form_field(self.path, "qualityCategory"))
 
-    @checkDescription.setter
-    def checkDescription(self, value):
-        self.doc.set_form_field(self.path, "checkDescription", value)
+    @qualityCategory.setter
+    def qualityCategory(self, value):
+        self.doc.set_form_field(self.path, "qualityCategory", "" if value is None else value.value)
 
     @property
     def checkCategory(self) -> str:
@@ -138971,12 +138971,12 @@ class QualityGateCheckEntryDefinitionForm(SomNode):
         self.doc.set_form_field(self.path, "checkCategory", value)
 
     @property
-    def qualityCategory(self) -> "Iso25010Characteristic | None":
-        return _parse_Iso25010Characteristic(self.doc.form_field(self.path, "qualityCategory"))
+    def checkDescription(self) -> str:
+        return self.doc.form_field(self.path, "checkDescription") or ""
 
-    @qualityCategory.setter
-    def qualityCategory(self, value):
-        self.doc.set_form_field(self.path, "qualityCategory", "" if value is None else value.value)
+    @checkDescription.setter
+    def checkDescription(self, value):
+        self.doc.set_form_field(self.path, "checkDescription", value)
 
 class QualityGateCheckEntryExecutionForm(SomNode):
     """Generated section facade for the `execution` @Form section: its own content text followed by one typed member per form field."""
@@ -141040,14 +141040,6 @@ class RegulatoryComplianceEntryRequirementsForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def keyRequirements(self) -> str:
-        return self.doc.form_field(self.path, "keyRequirements") or ""
-
-    @keyRequirements.setter
-    def keyRequirements(self, value):
-        self.doc.set_form_field(self.path, "keyRequirements", value)
-
-    @property
     def technicalControls(self) -> str:
         return self.doc.form_field(self.path, "technicalControls") or ""
 
@@ -141070,6 +141062,14 @@ class RegulatoryComplianceEntryRequirementsForm(SomNode):
     @documentationRequired.setter
     def documentationRequired(self, value):
         self.doc.set_form_field(self.path, "documentationRequired", value)
+
+    @property
+    def keyRequirements(self) -> str:
+        return self.doc.form_field(self.path, "keyRequirements") or ""
+
+    @keyRequirements.setter
+    def keyRequirements(self, value):
+        self.doc.set_form_field(self.path, "keyRequirements", value)
 
 class RegulatoryRequirementEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -141113,28 +141113,12 @@ class RegulatoryRequirementEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "jurisdiction", value)
 
     @property
-    def applicability(self) -> str:
-        return self.doc.form_field(self.path, "applicability") or ""
-
-    @applicability.setter
-    def applicability(self, value):
-        self.doc.set_form_field(self.path, "applicability", value)
-
-    @property
     def complianceDeadline(self) -> str:
         return self.doc.form_field(self.path, "complianceDeadline") or ""
 
     @complianceDeadline.setter
     def complianceDeadline(self, value):
         self.doc.set_form_field(self.path, "complianceDeadline", value)
-
-    @property
-    def evidenceRequired(self) -> str:
-        return self.doc.form_field(self.path, "evidenceRequired") or ""
-
-    @evidenceRequired.setter
-    def evidenceRequired(self, value):
-        self.doc.set_form_field(self.path, "evidenceRequired", value)
 
     @property
     def responsibleParty(self) -> str:
@@ -141151,6 +141135,22 @@ class RegulatoryRequirementEntryContentForm(SomNode):
     @penaltyForNonCompliance.setter
     def penaltyForNonCompliance(self, value):
         self.doc.set_form_field(self.path, "penaltyForNonCompliance", value)
+
+    @property
+    def applicability(self) -> str:
+        return self.doc.form_field(self.path, "applicability") or ""
+
+    @applicability.setter
+    def applicability(self, value):
+        self.doc.set_form_field(self.path, "applicability", value)
+
+    @property
+    def evidenceRequired(self) -> str:
+        return self.doc.form_field(self.path, "evidenceRequired") or ""
+
+    @evidenceRequired.setter
+    def evidenceRequired(self, value):
+        self.doc.set_form_field(self.path, "evidenceRequired", value)
 
 class RelatedDocumentEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -141524,14 +141524,6 @@ class RelevantSectionEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "relevance", value)
 
     @property
-    def extractSummary(self) -> str:
-        return self.doc.form_field(self.path, "extractSummary") or ""
-
-    @extractSummary.setter
-    def extractSummary(self, value):
-        self.doc.set_form_field(self.path, "extractSummary", value)
-
-    @property
     def complianceRequired(self) -> "bool | None":
         v = self.doc.form_field(self.path, "complianceRequired")
         return None if v is None else (v == "true")
@@ -141539,6 +141531,14 @@ class RelevantSectionEntryContentForm(SomNode):
     @complianceRequired.setter
     def complianceRequired(self, value):
         self.doc.set_form_field(self.path, "complianceRequired", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def extractSummary(self) -> str:
+        return self.doc.form_field(self.path, "extractSummary") or ""
+
+    @extractSummary.setter
+    def extractSummary(self, value):
+        self.doc.set_form_field(self.path, "extractSummary", value)
 
 class ReliabilityCharacteristicReliabilityContentForm(SomNode):
     """Generated section facade for the `reliabilityContent` @Form section: its own content text followed by one typed member per form field."""
@@ -145744,28 +145744,12 @@ class RequirementsOverviewRequirementsFormForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def requirementsProcess(self) -> str:
-        return self.doc.form_field(self.path, "requirementsProcess") or ""
-
-    @requirementsProcess.setter
-    def requirementsProcess(self, value):
-        self.doc.set_form_field(self.path, "requirementsProcess", value)
-
-    @property
     def traceabilityApproach(self) -> str:
         return self.doc.form_field(self.path, "traceabilityApproach") or ""
 
     @traceabilityApproach.setter
     def traceabilityApproach(self, value):
         self.doc.set_form_field(self.path, "traceabilityApproach", value)
-
-    @property
-    def changeControlProcess(self) -> str:
-        return self.doc.form_field(self.path, "changeControlProcess") or ""
-
-    @changeControlProcess.setter
-    def changeControlProcess(self, value):
-        self.doc.set_form_field(self.path, "changeControlProcess", value)
 
     @property
     def prioritizationMethod(self) -> str:
@@ -145784,14 +145768,6 @@ class RequirementsOverviewRequirementsFormForm(SomNode):
         self.doc.set_form_field(self.path, "totalRequirements", value)
 
     @property
-    def mustHaveCount(self) -> str:
-        return self.doc.form_field(self.path, "mustHaveCount") or ""
-
-    @mustHaveCount.setter
-    def mustHaveCount(self, value):
-        self.doc.set_form_field(self.path, "mustHaveCount", value)
-
-    @property
     def shouldHaveCount(self) -> str:
         return self.doc.form_field(self.path, "shouldHaveCount") or ""
 
@@ -145806,6 +145782,30 @@ class RequirementsOverviewRequirementsFormForm(SomNode):
     @couldHaveCount.setter
     def couldHaveCount(self, value):
         self.doc.set_form_field(self.path, "couldHaveCount", value)
+
+    @property
+    def requirementsProcess(self) -> str:
+        return self.doc.form_field(self.path, "requirementsProcess") or ""
+
+    @requirementsProcess.setter
+    def requirementsProcess(self, value):
+        self.doc.set_form_field(self.path, "requirementsProcess", value)
+
+    @property
+    def changeControlProcess(self) -> str:
+        return self.doc.form_field(self.path, "changeControlProcess") or ""
+
+    @changeControlProcess.setter
+    def changeControlProcess(self, value):
+        self.doc.set_form_field(self.path, "changeControlProcess", value)
+
+    @property
+    def mustHaveCount(self) -> str:
+        return self.doc.form_field(self.path, "mustHaveCount") or ""
+
+    @mustHaveCount.setter
+    def mustHaveCount(self, value):
+        self.doc.set_form_field(self.path, "mustHaveCount", value)
 
 class ResourceAllocationEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -148897,14 +148897,6 @@ class RiskIdentificationContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def description(self) -> str:
-        return self.doc.form_field(self.path, "description") or ""
-
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
-
-    @property
     def category(self) -> str:
         return self.doc.form_field(self.path, "category") or ""
 
@@ -148919,6 +148911,14 @@ class RiskIdentificationContentForm(SomNode):
     @subcategory.setter
     def subcategory(self, value):
         self.doc.set_form_field(self.path, "subcategory", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
 class RiskIdentificationSourceDetailsForm(SomNode):
     """Generated section facade for the `sourceDetails` @Form section: its own content text followed by one typed member per form field."""
@@ -149525,14 +149525,6 @@ class RoleAdjustmentEntryDetailsForm(SomNode):
         self.doc.set_form_field(self.path, "adjustmentDescription", value)
 
     @property
-    def affectedResponsibilities(self) -> str:
-        return self.doc.form_field(self.path, "affectedResponsibilities") or ""
-
-    @affectedResponsibilities.setter
-    def affectedResponsibilities(self, value):
-        self.doc.set_form_field(self.path, "affectedResponsibilities", value)
-
-    @property
     def mergedWithRoles(self) -> str:
         return self.doc.form_field(self.path, "mergedWithRoles") or ""
 
@@ -149547,6 +149539,14 @@ class RoleAdjustmentEntryDetailsForm(SomNode):
     @splitIntoRoles.setter
     def splitIntoRoles(self, value):
         self.doc.set_form_field(self.path, "splitIntoRoles", value)
+
+    @property
+    def affectedResponsibilities(self) -> str:
+        return self.doc.form_field(self.path, "affectedResponsibilities") or ""
+
+    @affectedResponsibilities.setter
+    def affectedResponsibilities(self, value):
+        self.doc.set_form_field(self.path, "affectedResponsibilities", value)
 
 class RoleAdjustmentEntryGovernanceForm(SomNode):
     """Generated section facade for the `governance` @Form section: its own content text followed by one typed member per form field."""
@@ -151471,14 +151471,6 @@ class RuntimeEnvironmentNetworkForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def networkRequirements(self) -> str:
-        return self.doc.form_field(self.path, "networkRequirements") or ""
-
-    @networkRequirements.setter
-    def networkRequirements(self, value):
-        self.doc.set_form_field(self.path, "networkRequirements", value)
-
-    @property
     def bandwidthRequirements(self) -> str:
         return self.doc.form_field(self.path, "bandwidthRequirements") or ""
 
@@ -151493,6 +151485,14 @@ class RuntimeEnvironmentNetworkForm(SomNode):
     @latencyRequirements.setter
     def latencyRequirements(self, value):
         self.doc.set_form_field(self.path, "latencyRequirements", value)
+
+    @property
+    def networkRequirements(self) -> str:
+        return self.doc.form_field(self.path, "networkRequirements") or ""
+
+    @networkRequirements.setter
+    def networkRequirements(self, value):
+        self.doc.set_form_field(self.path, "networkRequirements", value)
 
 class RuntimeEnvironmentRuntimeNotesForm(SomNode):
     """Generated section facade for the `runtimeNotes` @Form section: its own content text followed by one typed member per form field."""
@@ -151611,20 +151611,20 @@ class RuntimeEnvironmentVariablesForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def requiredEnvVariables(self) -> str:
-        return self.doc.form_field(self.path, "requiredEnvVariables") or ""
-
-    @requiredEnvVariables.setter
-    def requiredEnvVariables(self, value):
-        self.doc.set_form_field(self.path, "requiredEnvVariables", value)
-
-    @property
     def optionalEnvVariables(self) -> str:
         return self.doc.form_field(self.path, "optionalEnvVariables") or ""
 
     @optionalEnvVariables.setter
     def optionalEnvVariables(self, value):
         self.doc.set_form_field(self.path, "optionalEnvVariables", value)
+
+    @property
+    def requiredEnvVariables(self) -> str:
+        return self.doc.form_field(self.path, "requiredEnvVariables") or ""
+
+    @requiredEnvVariables.setter
+    def requiredEnvVariables(self, value):
+        self.doc.set_form_field(self.path, "requiredEnvVariables", value)
 
 class ScalabilityArchitectureCapacityForm(SomNode):
     """Generated section facade for the `capacity` @Form section: its own content text followed by one typed member per form field."""
@@ -151652,20 +151652,20 @@ class ScalabilityArchitectureCapacityForm(SomNode):
         self.doc.set_form_field(self.path, "expectedLoad", value)
 
     @property
-    def peakLoad(self) -> str:
-        return self.doc.form_field(self.path, "peakLoad") or ""
-
-    @peakLoad.setter
-    def peakLoad(self, value):
-        self.doc.set_form_field(self.path, "peakLoad", value)
-
-    @property
     def growthProjection(self) -> str:
         return self.doc.form_field(self.path, "growthProjection") or ""
 
     @growthProjection.setter
     def growthProjection(self, value):
         self.doc.set_form_field(self.path, "growthProjection", value)
+
+    @property
+    def peakLoad(self) -> str:
+        return self.doc.form_field(self.path, "peakLoad") or ""
+
+    @peakLoad.setter
+    def peakLoad(self, value):
+        self.doc.set_form_field(self.path, "peakLoad", value)
 
 class ScalabilityArchitectureContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -153638,14 +153638,6 @@ class ScopeItemEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def itemDescription(self) -> str:
-        return self.doc.form_field(self.path, "itemDescription") or ""
-
-    @itemDescription.setter
-    def itemDescription(self, value):
-        self.doc.set_form_field(self.path, "itemDescription", value)
-
-    @property
     def category(self) -> str:
         return self.doc.form_field(self.path, "category") or ""
 
@@ -153668,6 +153660,14 @@ class ScopeItemEntryContentForm(SomNode):
     @relatedRequirements.setter
     def relatedRequirements(self, value):
         self.doc.set_form_field(self.path, "relatedRequirements", value)
+
+    @property
+    def itemDescription(self) -> str:
+        return self.doc.form_field(self.path, "itemDescription") or ""
+
+    @itemDescription.setter
+    def itemDescription(self, value):
+        self.doc.set_form_field(self.path, "itemDescription", value)
 
 class ScreenActionEntryBehaviorForm(SomNode):
     """Generated section facade for the `behavior` @Form section: its own content text followed by one typed member per form field."""
@@ -153809,20 +153809,20 @@ class ScreenActionEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "owningController", value)
 
     @property
-    def description(self) -> str:
-        return self.doc.form_field(self.path, "description") or ""
-
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
-
-    @property
     def contextType(self) -> str:
         return self.doc.form_field(self.path, "contextType") or ""
 
     @contextType.setter
     def contextType(self, value):
         self.doc.set_form_field(self.path, "contextType", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
 class ScreenActionEntryVisualForm(SomNode):
     """Generated section facade for the `visual` @Form section: its own content text followed by one typed member per form field."""
@@ -154417,20 +154417,20 @@ class ScreenElementEntryPresentationForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def styleVariant(self) -> str:
-        return self.doc.form_field(self.path, "styleVariant") or ""
-
-    @styleVariant.setter
-    def styleVariant(self, value):
-        self.doc.set_form_field(self.path, "styleVariant", value)
-
-    @property
     def accessibilityLabel(self) -> str:
         return self.doc.form_field(self.path, "accessibilityLabel") or ""
 
     @accessibilityLabel.setter
     def accessibilityLabel(self, value):
         self.doc.set_form_field(self.path, "accessibilityLabel", value)
+
+    @property
+    def styleVariant(self) -> str:
+        return self.doc.form_field(self.path, "styleVariant") or ""
+
+    @styleVariant.setter
+    def styleVariant(self, value):
+        self.doc.set_form_field(self.path, "styleVariant", value)
 
     @property
     def dataBinding(self) -> str:
@@ -154975,6 +154975,14 @@ class ScreenEntryPresentationForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
+    def helpTopicId(self) -> str:
+        return self.doc.form_field(self.path, "helpTopicId") or ""
+
+    @helpTopicId.setter
+    def helpTopicId(self, value):
+        self.doc.set_form_field(self.path, "helpTopicId", value)
+
+    @property
     def pageTitleResource(self) -> str:
         return self.doc.form_field(self.path, "pageTitleResource") or ""
 
@@ -154989,14 +154997,6 @@ class ScreenEntryPresentationForm(SomNode):
     @pageIconResource.setter
     def pageIconResource(self, value):
         self.doc.set_form_field(self.path, "pageIconResource", value)
-
-    @property
-    def helpTopicId(self) -> str:
-        return self.doc.form_field(self.path, "helpTopicId") or ""
-
-    @helpTopicId.setter
-    def helpTopicId(self, value):
-        self.doc.set_form_field(self.path, "helpTopicId", value)
 
     @property
     def layout(self) -> str:
@@ -155638,20 +155638,20 @@ class ScreenSectionEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "sectionId", value)
 
     @property
-    def purpose(self) -> str:
-        return self.doc.form_field(self.path, "purpose") or ""
-
-    @purpose.setter
-    def purpose(self, value):
-        self.doc.set_form_field(self.path, "purpose", value)
-
-    @property
     def sectionType(self) -> str:
         return self.doc.form_field(self.path, "sectionType") or ""
 
     @sectionType.setter
     def sectionType(self, value):
         self.doc.set_form_field(self.path, "sectionType", value)
+
+    @property
+    def purpose(self) -> str:
+        return self.doc.form_field(self.path, "purpose") or ""
+
+    @purpose.setter
+    def purpose(self, value):
+        self.doc.set_form_field(self.path, "purpose", value)
 
 class ScreenSectionEntryLayoutForm(SomNode):
     """Generated section facade for the `layout` @Form section: its own content text followed by one typed member per form field."""
@@ -155734,12 +155734,20 @@ class ScreenStateEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "stateId", value)
 
     @property
-    def description(self) -> str:
-        return self.doc.form_field(self.path, "description") or ""
+    def primaryActionLabel(self) -> str:
+        return self.doc.form_field(self.path, "primaryActionLabel") or ""
 
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
+    @primaryActionLabel.setter
+    def primaryActionLabel(self, value):
+        self.doc.set_form_field(self.path, "primaryActionLabel", value)
+
+    @property
+    def secondaryActionLabel(self) -> str:
+        return self.doc.form_field(self.path, "secondaryActionLabel") or ""
+
+    @secondaryActionLabel.setter
+    def secondaryActionLabel(self, value):
+        self.doc.set_form_field(self.path, "secondaryActionLabel", value)
 
     @property
     def messageResource(self) -> str:
@@ -155766,14 +155774,6 @@ class ScreenStateEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "illustrationResource", value)
 
     @property
-    def primaryActionLabel(self) -> str:
-        return self.doc.form_field(self.path, "primaryActionLabel") or ""
-
-    @primaryActionLabel.setter
-    def primaryActionLabel(self, value):
-        self.doc.set_form_field(self.path, "primaryActionLabel", value)
-
-    @property
     def primaryActionTarget(self) -> str:
         return self.doc.form_field(self.path, "primaryActionTarget") or ""
 
@@ -155782,12 +155782,12 @@ class ScreenStateEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "primaryActionTarget", value)
 
     @property
-    def secondaryActionLabel(self) -> str:
-        return self.doc.form_field(self.path, "secondaryActionLabel") or ""
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
 
-    @secondaryActionLabel.setter
-    def secondaryActionLabel(self, value):
-        self.doc.set_form_field(self.path, "secondaryActionLabel", value)
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
 class ScreenTransitionEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -156077,20 +156077,20 @@ class SecurityAuthenticationForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def authenticationMethod(self) -> str:
-        return self.doc.form_field(self.path, "authenticationMethod") or ""
-
-    @authenticationMethod.setter
-    def authenticationMethod(self, value):
-        self.doc.set_form_field(self.path, "authenticationMethod", value)
-
-    @property
     def mfaRequirement(self) -> str:
         return self.doc.form_field(self.path, "mfaRequirement") or ""
 
     @mfaRequirement.setter
     def mfaRequirement(self, value):
         self.doc.set_form_field(self.path, "mfaRequirement", value)
+
+    @property
+    def authenticationMethod(self) -> str:
+        return self.doc.form_field(self.path, "authenticationMethod") or ""
+
+    @authenticationMethod.setter
+    def authenticationMethod(self, value):
+        self.doc.set_form_field(self.path, "authenticationMethod", value)
 
     @property
     def passwordPolicy(self) -> str:
@@ -157128,6 +157128,14 @@ class SecurityRequirementEntryClassificationForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
+
+    @priority.setter
+    def priority(self, value):
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
+
+    @property
     def category(self) -> str:
         return self.doc.form_field(self.path, "category") or ""
 
@@ -157142,22 +157150,6 @@ class SecurityRequirementEntryClassificationForm(SomNode):
     @subcategory.setter
     def subcategory(self, value):
         self.doc.set_form_field(self.path, "subcategory", value)
-
-    @property
-    def priority(self) -> "ImportanceBand | None":
-        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
-
-    @priority.setter
-    def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
-
-    @property
-    def source(self) -> str:
-        return self.doc.form_field(self.path, "source") or ""
-
-    @source.setter
-    def source(self, value):
-        self.doc.set_form_field(self.path, "source", value)
 
     @property
     def rationale(self) -> str:
@@ -157182,6 +157174,14 @@ class SecurityRequirementEntryClassificationForm(SomNode):
     @dataClassification.setter
     def dataClassification(self, value):
         self.doc.set_form_field(self.path, "dataClassification", value)
+
+    @property
+    def source(self) -> str:
+        return self.doc.form_field(self.path, "source") or ""
+
+    @source.setter
+    def source(self, value):
+        self.doc.set_form_field(self.path, "source", value)
 
 class SecurityRequirementEntryComplianceForm(SomNode):
     """Generated section facade for the `compliance` @Form section: its own content text followed by one typed member per form field."""
@@ -158913,12 +158913,12 @@ class ServerOperationEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "operationName", value)
 
     @property
-    def purpose(self) -> str:
-        return self.doc.form_field(self.path, "purpose") or ""
+    def descriptionKey(self) -> str:
+        return self.doc.form_field(self.path, "descriptionKey") or ""
 
-    @purpose.setter
-    def purpose(self, value):
-        self.doc.set_form_field(self.path, "purpose", value)
+    @descriptionKey.setter
+    def descriptionKey(self, value):
+        self.doc.set_form_field(self.path, "descriptionKey", value)
 
     @property
     def primaryDataEntity(self) -> str:
@@ -158929,20 +158929,20 @@ class ServerOperationEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "primaryDataEntity", value)
 
     @property
-    def descriptionKey(self) -> str:
-        return self.doc.form_field(self.path, "descriptionKey") or ""
-
-    @descriptionKey.setter
-    def descriptionKey(self, value):
-        self.doc.set_form_field(self.path, "descriptionKey", value)
-
-    @property
     def errorCodes(self) -> str:
         return self.doc.form_field(self.path, "errorCodes") or ""
 
     @errorCodes.setter
     def errorCodes(self, value):
         self.doc.set_form_field(self.path, "errorCodes", value)
+
+    @property
+    def purpose(self) -> str:
+        return self.doc.form_field(self.path, "purpose") or ""
+
+    @purpose.setter
+    def purpose(self, value):
+        self.doc.set_form_field(self.path, "purpose", value)
 
 class ServerOperationEntryControlsForm(SomNode):
     """Generated section facade for the `controls` @Form section: its own content text followed by one typed member per form field."""
@@ -163151,20 +163151,20 @@ class SoftwareLayerEntryResponsibilitiesForm(SomNode):
         self.doc.set_form_field(self.path, "purpose", value)
 
     @property
-    def responsibilities(self) -> str:
-        return self.doc.form_field(self.path, "responsibilities") or ""
-
-    @responsibilities.setter
-    def responsibilities(self, value):
-        self.doc.set_form_field(self.path, "responsibilities", value)
-
-    @property
     def prohibitions(self) -> str:
         return self.doc.form_field(self.path, "prohibitions") or ""
 
     @prohibitions.setter
     def prohibitions(self, value):
         self.doc.set_form_field(self.path, "prohibitions", value)
+
+    @property
+    def responsibilities(self) -> str:
+        return self.doc.form_field(self.path, "responsibilities") or ""
+
+    @responsibilities.setter
+    def responsibilities(self, value):
+        self.doc.set_form_field(self.path, "responsibilities", value)
 
 class SoftwareLayerEntryTechnologyForm(SomNode):
     """Generated section facade for the `technology` @Form section: its own content text followed by one typed member per form field."""
@@ -164204,14 +164204,6 @@ class StageEntryIdentityForm(SomNode):
         self.doc.set_form_field(self.path, "stageCodename", value)
 
     @property
-    def stageDescription(self) -> str:
-        return self.doc.form_field(self.path, "stageDescription") or ""
-
-    @stageDescription.setter
-    def stageDescription(self, value):
-        self.doc.set_form_field(self.path, "stageDescription", value)
-
-    @property
     def businessObjective(self) -> str:
         return self.doc.form_field(self.path, "businessObjective") or ""
 
@@ -164226,6 +164218,14 @@ class StageEntryIdentityForm(SomNode):
     @stageType.setter
     def stageType(self, value):
         self.doc.set_form_field(self.path, "stageType", value)
+
+    @property
+    def stageDescription(self) -> str:
+        return self.doc.form_field(self.path, "stageDescription") or ""
+
+    @stageDescription.setter
+    def stageDescription(self, value):
+        self.doc.set_form_field(self.path, "stageDescription", value)
 
 class StageEntryMetricsForm(SomNode):
     """Generated section facade for the `metrics` @Form section: its own content text followed by one typed member per form field."""
@@ -164302,20 +164302,20 @@ class StageEntryQualityForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
+    def acceptanceCriteriaSummary(self) -> str:
+        return self.doc.form_field(self.path, "acceptanceCriteriaSummary") or ""
+
+    @acceptanceCriteriaSummary.setter
+    def acceptanceCriteriaSummary(self, value):
+        self.doc.set_form_field(self.path, "acceptanceCriteriaSummary", value)
+
+    @property
     def entryCriteria(self) -> str:
         return self.doc.form_field(self.path, "entryCriteria") or ""
 
     @entryCriteria.setter
     def entryCriteria(self, value):
         self.doc.set_form_field(self.path, "entryCriteria", value)
-
-    @property
-    def exitCriteria(self) -> str:
-        return self.doc.form_field(self.path, "exitCriteria") or ""
-
-    @exitCriteria.setter
-    def exitCriteria(self, value):
-        self.doc.set_form_field(self.path, "exitCriteria", value)
 
     @property
     def qualityGates(self) -> str:
@@ -164334,20 +164334,20 @@ class StageEntryQualityForm(SomNode):
         self.doc.set_form_field(self.path, "testingStrategy", value)
 
     @property
-    def acceptanceCriteriaSummary(self) -> str:
-        return self.doc.form_field(self.path, "acceptanceCriteriaSummary") or ""
-
-    @acceptanceCriteriaSummary.setter
-    def acceptanceCriteriaSummary(self, value):
-        self.doc.set_form_field(self.path, "acceptanceCriteriaSummary", value)
-
-    @property
     def toleranceLevels(self) -> str:
         return self.doc.form_field(self.path, "toleranceLevels") or ""
 
     @toleranceLevels.setter
     def toleranceLevels(self, value):
         self.doc.set_form_field(self.path, "toleranceLevels", value)
+
+    @property
+    def exitCriteria(self) -> str:
+        return self.doc.form_field(self.path, "exitCriteria") or ""
+
+    @exitCriteria.setter
+    def exitCriteria(self, value):
+        self.doc.set_form_field(self.path, "exitCriteria", value)
 
 class StageEntryRiskForm(SomNode):
     """Generated section facade for the `risk` @Form section: its own content text followed by one typed member per form field."""
@@ -164416,14 +164416,6 @@ class StageEntryScopeForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def scopeSummary(self) -> str:
-        return self.doc.form_field(self.path, "scopeSummary") or ""
-
-    @scopeSummary.setter
-    def scopeSummary(self, value):
-        self.doc.set_form_field(self.path, "scopeSummary", value)
-
-    @property
     def includedFeatures(self) -> str:
         return self.doc.form_field(self.path, "includedFeatures") or ""
 
@@ -164478,6 +164470,14 @@ class StageEntryScopeForm(SomNode):
     @technicalDebtItems.setter
     def technicalDebtItems(self, value):
         self.doc.set_form_field(self.path, "technicalDebtItems", value)
+
+    @property
+    def scopeSummary(self) -> str:
+        return self.doc.form_field(self.path, "scopeSummary") or ""
+
+    @scopeSummary.setter
+    def scopeSummary(self, value):
+        self.doc.set_form_field(self.path, "scopeSummary", value)
 
 class StageEntryTimelineForm(SomNode):
     """Generated section facade for the `timeline` @Form section: its own content text followed by one typed member per form field."""
@@ -166959,14 +166959,6 @@ class StagingDependenciesContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def criticalPrerequisites(self) -> str:
-        return self.doc.form_field(self.path, "criticalPrerequisites") or ""
-
-    @criticalPrerequisites.setter
-    def criticalPrerequisites(self, value):
-        self.doc.set_form_field(self.path, "criticalPrerequisites", value)
-
-    @property
     def externalDependencies(self) -> str:
         return self.doc.form_field(self.path, "externalDependencies") or ""
 
@@ -166989,6 +166981,14 @@ class StagingDependenciesContentForm(SomNode):
     @dependencyRisks.setter
     def dependencyRisks(self, value):
         self.doc.set_form_field(self.path, "dependencyRisks", value)
+
+    @property
+    def criticalPrerequisites(self) -> str:
+        return self.doc.form_field(self.path, "criticalPrerequisites") or ""
+
+    @criticalPrerequisites.setter
+    def criticalPrerequisites(self, value):
+        self.doc.set_form_field(self.path, "criticalPrerequisites", value)
 
 class StagingDriversContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -167081,20 +167081,20 @@ class StagingStrategyApproachSelectionForm(SomNode):
         self.doc.set_form_field(self.path, "approachDescription", value)
 
     @property
-    def alternativesConsidered(self) -> str:
-        return self.doc.form_field(self.path, "alternativesConsidered") or ""
-
-    @alternativesConsidered.setter
-    def alternativesConsidered(self, value):
-        self.doc.set_form_field(self.path, "alternativesConsidered", value)
-
-    @property
     def selectionCriteria(self) -> str:
         return self.doc.form_field(self.path, "selectionCriteria") or ""
 
     @selectionCriteria.setter
     def selectionCriteria(self, value):
         self.doc.set_form_field(self.path, "selectionCriteria", value)
+
+    @property
+    def alternativesConsidered(self) -> str:
+        return self.doc.form_field(self.path, "alternativesConsidered") or ""
+
+    @alternativesConsidered.setter
+    def alternativesConsidered(self, value):
+        self.doc.set_form_field(self.path, "alternativesConsidered", value)
 
 class StagingStrategyCommunicationForm(SomNode):
     """Generated section facade for the `communication` @Form section: its own content text followed by one typed member per form field."""
@@ -167733,22 +167733,6 @@ class StakeholderRegisterEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def role(self) -> str:
-        return self.doc.form_field(self.path, "role") or ""
-
-    @role.setter
-    def role(self, value):
-        self.doc.set_form_field(self.path, "role", value)
-
-    @property
-    def interest(self) -> str:
-        return self.doc.form_field(self.path, "interest") or ""
-
-    @interest.setter
-    def interest(self, value):
-        self.doc.set_form_field(self.path, "interest", value)
-
-    @property
     def influence(self) -> "ImportanceBand | None":
         return _parse_ImportanceBand(self.doc.form_field(self.path, "influence"))
 
@@ -167771,6 +167755,22 @@ class StakeholderRegisterEntryContentForm(SomNode):
     @engagementStrategy.setter
     def engagementStrategy(self, value):
         self.doc.set_form_field(self.path, "engagementStrategy", value)
+
+    @property
+    def role(self) -> str:
+        return self.doc.form_field(self.path, "role") or ""
+
+    @role.setter
+    def role(self, value):
+        self.doc.set_form_field(self.path, "role", value)
+
+    @property
+    def interest(self) -> str:
+        return self.doc.form_field(self.path, "interest") or ""
+
+    @interest.setter
+    def interest(self, value):
+        self.doc.set_form_field(self.path, "interest", value)
 
 class StakeholdersAndGovernanceSummaryForm(SomNode):
     """Generated section facade for the `summary` @Form section: its own content text followed by one typed member per form field."""
@@ -168444,14 +168444,6 @@ class StrategicAlignmentAlignmentDetailsForm(SomNode):
         self.doc.set_form_field(self.path, "alignedItStrategy", value)
 
     @property
-    def relatedInitiatives(self) -> str:
-        return self.doc.form_field(self.path, "relatedInitiatives") or ""
-
-    @relatedInitiatives.setter
-    def relatedInitiatives(self, value):
-        self.doc.set_form_field(self.path, "relatedInitiatives", value)
-
-    @property
     def digitizationContribution(self) -> str:
         return self.doc.form_field(self.path, "digitizationContribution") or ""
 
@@ -168490,6 +168482,14 @@ class StrategicAlignmentAlignmentDetailsForm(SomNode):
     @strategicTimingRationale.setter
     def strategicTimingRationale(self, value):
         self.doc.set_form_field(self.path, "strategicTimingRationale", value)
+
+    @property
+    def relatedInitiatives(self) -> str:
+        return self.doc.form_field(self.path, "relatedInitiatives") or ""
+
+    @relatedInitiatives.setter
+    def relatedInitiatives(self, value):
+        self.doc.set_form_field(self.path, "relatedInitiatives", value)
 
 class SubFunctionEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -168632,20 +168632,20 @@ class SubStageEntryOverviewForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def description(self) -> str:
-        return self.doc.form_field(self.path, "description") or ""
-
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
-
-    @property
     def objective(self) -> str:
         return self.doc.form_field(self.path, "objective") or ""
 
     @objective.setter
     def objective(self, value):
         self.doc.set_form_field(self.path, "objective", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
 class SubStageEntryScopeForm(SomNode):
     """Generated section facade for the `scope` @Form section: its own content text followed by one typed member per form field."""
@@ -171037,14 +171037,6 @@ class SystemDescriptionDescriptionSummaryForm(SomNode):
         self.doc.set_form_field(self.path, "deploymentModel", value)
 
     @property
-    def architectureStyle(self) -> str:
-        return self.doc.form_field(self.path, "architectureStyle") or ""
-
-    @architectureStyle.setter
-    def architectureStyle(self, value):
-        self.doc.set_form_field(self.path, "architectureStyle", value)
-
-    @property
     def primaryTechnologyStack(self) -> str:
         return self.doc.form_field(self.path, "primaryTechnologyStack") or ""
 
@@ -171053,28 +171045,12 @@ class SystemDescriptionDescriptionSummaryForm(SomNode):
         self.doc.set_form_field(self.path, "primaryTechnologyStack", value)
 
     @property
-    def interfaceTypes(self) -> str:
-        return self.doc.form_field(self.path, "interfaceTypes") or ""
-
-    @interfaceTypes.setter
-    def interfaceTypes(self, value):
-        self.doc.set_form_field(self.path, "interfaceTypes", value)
-
-    @property
     def dataCharacteristics(self) -> str:
         return self.doc.form_field(self.path, "dataCharacteristics") or ""
 
     @dataCharacteristics.setter
     def dataCharacteristics(self, value):
         self.doc.set_form_field(self.path, "dataCharacteristics", value)
-
-    @property
-    def securityClassification(self) -> str:
-        return self.doc.form_field(self.path, "securityClassification") or ""
-
-    @securityClassification.setter
-    def securityClassification(self, value):
-        self.doc.set_form_field(self.path, "securityClassification", value)
 
     @property
     def availabilityRequirement(self) -> str:
@@ -171091,6 +171067,30 @@ class SystemDescriptionDescriptionSummaryForm(SomNode):
     @scalabilityModel.setter
     def scalabilityModel(self, value):
         self.doc.set_form_field(self.path, "scalabilityModel", value)
+
+    @property
+    def architectureStyle(self) -> str:
+        return self.doc.form_field(self.path, "architectureStyle") or ""
+
+    @architectureStyle.setter
+    def architectureStyle(self, value):
+        self.doc.set_form_field(self.path, "architectureStyle", value)
+
+    @property
+    def interfaceTypes(self) -> str:
+        return self.doc.form_field(self.path, "interfaceTypes") or ""
+
+    @interfaceTypes.setter
+    def interfaceTypes(self, value):
+        self.doc.set_form_field(self.path, "interfaceTypes", value)
+
+    @property
+    def securityClassification(self) -> str:
+        return self.doc.form_field(self.path, "securityClassification") or ""
+
+    @securityClassification.setter
+    def securityClassification(self, value):
+        self.doc.set_form_field(self.path, "securityClassification", value)
 
     @property
     def expectedUserLoad(self) -> str:
@@ -172474,6 +172474,14 @@ class SystemQualityGoalsGovernanceContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
+    def qualityOwner(self) -> str:
+        return self.doc.form_field(self.path, "qualityOwner") or ""
+
+    @qualityOwner.setter
+    def qualityOwner(self, value):
+        self.doc.set_form_field(self.path, "qualityOwner", value)
+
+    @property
     def qualityApproach(self) -> str:
         return self.doc.form_field(self.path, "qualityApproach") or ""
 
@@ -172488,14 +172496,6 @@ class SystemQualityGoalsGovernanceContentForm(SomNode):
     @qualityStandards.setter
     def qualityStandards(self, value):
         self.doc.set_form_field(self.path, "qualityStandards", value)
-
-    @property
-    def qualityOwner(self) -> str:
-        return self.doc.form_field(self.path, "qualityOwner") or ""
-
-    @qualityOwner.setter
-    def qualityOwner(self, value):
-        self.doc.set_form_field(self.path, "qualityOwner", value)
 
 class SystemQualityGoalsGovernanceForm(SomNode):
     """Generated section facade for the `governance` @Form section: its own content text followed by one typed member per form field."""
@@ -172842,20 +172842,20 @@ class SystemStagePlanCoordinationForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def crossStageDependencySummary(self) -> str:
-        return self.doc.form_field(self.path, "crossStageDependencySummary") or ""
-
-    @crossStageDependencySummary.setter
-    def crossStageDependencySummary(self, value):
-        self.doc.set_form_field(self.path, "crossStageDependencySummary", value)
-
-    @property
     def crossStageRiskSummary(self) -> str:
         return self.doc.form_field(self.path, "crossStageRiskSummary") or ""
 
     @crossStageRiskSummary.setter
     def crossStageRiskSummary(self, value):
         self.doc.set_form_field(self.path, "crossStageRiskSummary", value)
+
+    @property
+    def crossStageDependencySummary(self) -> str:
+        return self.doc.form_field(self.path, "crossStageDependencySummary") or ""
+
+    @crossStageDependencySummary.setter
+    def crossStageDependencySummary(self, value):
+        self.doc.set_form_field(self.path, "crossStageDependencySummary", value)
 
     @property
     def regulatoryComplianceConsiderations(self) -> str:
@@ -173030,20 +173030,20 @@ class SystemSummaryComplexityForm(SomNode):
         self.doc.set_form_field(self.path, "overallComplexity", value)
 
     @property
-    def keyRisks(self) -> str:
-        return self.doc.form_field(self.path, "keyRisks") or ""
-
-    @keyRisks.setter
-    def keyRisks(self, value):
-        self.doc.set_form_field(self.path, "keyRisks", value)
-
-    @property
     def keyAssumptions(self) -> str:
         return self.doc.form_field(self.path, "keyAssumptions") or ""
 
     @keyAssumptions.setter
     def keyAssumptions(self, value):
         self.doc.set_form_field(self.path, "keyAssumptions", value)
+
+    @property
+    def keyRisks(self) -> str:
+        return self.doc.form_field(self.path, "keyRisks") or ""
+
+    @keyRisks.setter
+    def keyRisks(self, value):
+        self.doc.set_form_field(self.path, "keyRisks", value)
 
 class SystemSummaryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -175584,14 +175584,6 @@ class TechnicalGoalEntryMeasurementForm(SomNode):
         self.doc.set_form_field(self.path, "currentValue", value)
 
     @property
-    def targetValue(self) -> str:
-        return self.doc.form_field(self.path, "targetValue") or ""
-
-    @targetValue.setter
-    def targetValue(self, value):
-        self.doc.set_form_field(self.path, "targetValue", value)
-
-    @property
     def measurementMethod(self) -> str:
         return self.doc.form_field(self.path, "measurementMethod") or ""
 
@@ -175622,6 +175614,14 @@ class TechnicalGoalEntryMeasurementForm(SomNode):
     @verificationPoint.setter
     def verificationPoint(self, value):
         self.doc.set_form_field(self.path, "verificationPoint", value)
+
+    @property
+    def targetValue(self) -> str:
+        return self.doc.form_field(self.path, "targetValue") or ""
+
+    @targetValue.setter
+    def targetValue(self, value):
+        self.doc.set_form_field(self.path, "targetValue", value)
 
 class TechnicalGoalTestCaseEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -176128,12 +176128,12 @@ class TechnicalRequirementEntryDetailsForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def description(self) -> str:
-        return self.doc.form_field(self.path, "description") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
+    @priority.setter
+    def priority(self, value):
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
     @property
     def category(self) -> str:
@@ -176152,12 +176152,20 @@ class TechnicalRequirementEntryDetailsForm(SomNode):
         self.doc.set_form_field(self.path, "subcategory", value)
 
     @property
-    def priority(self) -> "ImportanceBand | None":
-        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
+    def rationale(self) -> str:
+        return self.doc.form_field(self.path, "rationale") or ""
 
-    @priority.setter
-    def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
+    @rationale.setter
+    def rationale(self, value):
+        self.doc.set_form_field(self.path, "rationale", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
     @property
     def source(self) -> str:
@@ -176166,14 +176174,6 @@ class TechnicalRequirementEntryDetailsForm(SomNode):
     @source.setter
     def source(self, value):
         self.doc.set_form_field(self.path, "source", value)
-
-    @property
-    def rationale(self) -> str:
-        return self.doc.form_field(self.path, "rationale") or ""
-
-    @rationale.setter
-    def rationale(self, value):
-        self.doc.set_form_field(self.path, "rationale", value)
 
 class TechnicalRequirementEntryImpactForm(SomNode):
     """Generated section facade for the `impact` @Form section: its own content text followed by one typed member per form field."""
@@ -180463,14 +180463,6 @@ class ToolingContentForm(SomNode):
         self.doc.set_form_field(self.path, "toolStrategyOverview", value)
 
     @property
-    def standardToolStackDescription(self) -> str:
-        return self.doc.form_field(self.path, "standardToolStackDescription") or ""
-
-    @standardToolStackDescription.setter
-    def standardToolStackDescription(self, value):
-        self.doc.set_form_field(self.path, "standardToolStackDescription", value)
-
-    @property
     def toolGovernancePolicy(self) -> str:
         return self.doc.form_field(self.path, "toolGovernancePolicy") or ""
 
@@ -180485,6 +180477,14 @@ class ToolingContentForm(SomNode):
     @toolApprovalProcess.setter
     def toolApprovalProcess(self, value):
         self.doc.set_form_field(self.path, "toolApprovalProcess", value)
+
+    @property
+    def standardToolStackDescription(self) -> str:
+        return self.doc.form_field(self.path, "standardToolStackDescription") or ""
+
+    @standardToolStackDescription.setter
+    def standardToolStackDescription(self, value):
+        self.doc.set_form_field(self.path, "standardToolStackDescription", value)
 
 class ToolingGovernanceForm(SomNode):
     """Generated section facade for the `governance` @Form section: its own content text followed by one typed member per form field."""
@@ -184076,14 +184076,6 @@ class TrustBoundaryEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "componentsCrossing", value)
 
     @property
-    def protectionMechanisms(self) -> str:
-        return self.doc.form_field(self.path, "protectionMechanisms") or ""
-
-    @protectionMechanisms.setter
-    def protectionMechanisms(self, value):
-        self.doc.set_form_field(self.path, "protectionMechanisms", value)
-
-    @property
     def trustLevel(self) -> str:
         return self.doc.form_field(self.path, "trustLevel") or ""
 
@@ -184098,6 +184090,14 @@ class TrustBoundaryEntryContentForm(SomNode):
     @complianceImplications.setter
     def complianceImplications(self, value):
         self.doc.set_form_field(self.path, "complianceImplications", value)
+
+    @property
+    def protectionMechanisms(self) -> str:
+        return self.doc.form_field(self.path, "protectionMechanisms") or ""
+
+    @protectionMechanisms.setter
+    def protectionMechanisms(self, value):
+        self.doc.set_form_field(self.path, "protectionMechanisms", value)
 
 class TypographyStyleEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -186979,14 +186979,6 @@ class UserCategoryDefinitionContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def description(self) -> str:
-        return self.doc.form_field(self.path, "description") or ""
-
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
-
-    @property
     def accessLevel(self) -> str:
         return self.doc.form_field(self.path, "accessLevel") or ""
 
@@ -187001,6 +186993,14 @@ class UserCategoryDefinitionContentForm(SomNode):
     @estimatedCount.setter
     def estimatedCount(self, value):
         self.doc.set_form_field(self.path, "estimatedCount", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
 class UserCategoryEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -187020,20 +187020,20 @@ class UserCategoryEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def description(self) -> str:
-        return self.doc.form_field(self.path, "description") or ""
-
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
-
-    @property
     def userType(self) -> str:
         return self.doc.form_field(self.path, "userType") or ""
 
     @userType.setter
     def userType(self, value):
         self.doc.set_form_field(self.path, "userType", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
 class UserCategoryEntryImportanceForm(SomNode):
     """Generated section facade for the `importance` @Form section: its own content text followed by one typed member per form field."""
@@ -187880,20 +187880,20 @@ class UserLifecycleTransitionEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "toState", value)
 
     @property
-    def trigger(self) -> str:
-        return self.doc.form_field(self.path, "trigger") or ""
-
-    @trigger.setter
-    def trigger(self, value):
-        self.doc.set_form_field(self.path, "trigger", value)
-
-    @property
     def triggerConditions(self) -> str:
         return self.doc.form_field(self.path, "triggerConditions") or ""
 
     @triggerConditions.setter
     def triggerConditions(self, value):
         self.doc.set_form_field(self.path, "triggerConditions", value)
+
+    @property
+    def trigger(self) -> str:
+        return self.doc.form_field(self.path, "trigger") or ""
+
+    @trigger.setter
+    def trigger(self, value):
+        self.doc.set_form_field(self.path, "trigger", value)
 
 class UserLifecycleTransitionEntryEffectsForm(SomNode):
     """Generated section facade for the `effects` @Form section: its own content text followed by one typed member per form field."""
@@ -187913,14 +187913,6 @@ class UserLifecycleTransitionEntryEffectsForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def sideEffects(self) -> str:
-        return self.doc.form_field(self.path, "sideEffects") or ""
-
-    @sideEffects.setter
-    def sideEffects(self, value):
-        self.doc.set_form_field(self.path, "sideEffects", value)
-
-    @property
     def notificationRecipients(self) -> str:
         return self.doc.form_field(self.path, "notificationRecipients") or ""
 
@@ -187935,6 +187927,14 @@ class UserLifecycleTransitionEntryEffectsForm(SomNode):
     @notificationChannels.setter
     def notificationChannels(self, value):
         self.doc.set_form_field(self.path, "notificationChannels", value)
+
+    @property
+    def sideEffects(self) -> str:
+        return self.doc.form_field(self.path, "sideEffects") or ""
+
+    @sideEffects.setter
+    def sideEffects(self, value):
+        self.doc.set_form_field(self.path, "sideEffects", value)
 
 class UserLifecycleTransitionsContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -189486,6 +189486,14 @@ class ValuePropositionValueDetailsForm(SomNode):
         self.doc.set_form_field(self.path, "valueStatement", value)
 
     @property
+    def qualitativeBenefits(self) -> str:
+        return self.doc.form_field(self.path, "qualitativeBenefits") or ""
+
+    @qualitativeBenefits.setter
+    def qualitativeBenefits(self, value):
+        self.doc.set_form_field(self.path, "qualitativeBenefits", value)
+
+    @property
     def primaryBenefits(self) -> str:
         return self.doc.form_field(self.path, "primaryBenefits") or ""
 
@@ -189500,14 +189508,6 @@ class ValuePropositionValueDetailsForm(SomNode):
     @quantifiableBenefits.setter
     def quantifiableBenefits(self, value):
         self.doc.set_form_field(self.path, "quantifiableBenefits", value)
-
-    @property
-    def qualitativeBenefits(self) -> str:
-        return self.doc.form_field(self.path, "qualitativeBenefits") or ""
-
-    @qualitativeBenefits.setter
-    def qualitativeBenefits(self, value):
-        self.doc.set_form_field(self.path, "qualitativeBenefits", value)
 
 class VersionControlConfigurationBranchingForm(SomNode):
     """Generated section facade for the `branching` @Form section: its own content text followed by one typed member per form field."""

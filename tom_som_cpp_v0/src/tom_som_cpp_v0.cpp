@@ -21305,12 +21305,6 @@ std::string AcceptanceProcessDecisionForm::content() const {
 void AcceptanceProcessDecisionForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string AcceptanceProcessDecisionForm::decisionCriteria() const {
-  return doc().formField(path(), "decisionCriteria");
-}
-void AcceptanceProcessDecisionForm::setDecisionCriteria(const std::string& value) {
-  doc().setFormField(path(), "decisionCriteria", value);
-}
 std::string AcceptanceProcessDecisionForm::defectThreshold() const {
   return doc().formField(path(), "defectThreshold");
 }
@@ -21328,6 +21322,12 @@ std::string AcceptanceProcessDecisionForm::rejectionCriteria() const {
 }
 void AcceptanceProcessDecisionForm::setRejectionCriteria(const std::string& value) {
   doc().setFormField(path(), "rejectionCriteria", value);
+}
+std::string AcceptanceProcessDecisionForm::decisionCriteria() const {
+  return doc().formField(path(), "decisionCriteria");
+}
+void AcceptanceProcessDecisionForm::setDecisionCriteria(const std::string& value) {
+  doc().setFormField(path(), "decisionCriteria", value);
 }
 
 AcceptanceProcessDocumentationForm::AcceptanceProcessDocumentationForm(som::SpecDocument& doc, std::string path)
@@ -22947,12 +22947,6 @@ std::string ActorEntryIdentificationForm::category() const {
 void ActorEntryIdentificationForm::setCategory(const std::string& value) {
   doc().setFormField(path(), "category", value);
 }
-std::string ActorEntryIdentificationForm::description() const {
-  return doc().formField(path(), "description");
-}
-void ActorEntryIdentificationForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
-}
 std::string ActorEntryIdentificationForm::realWorldExamples() const {
   return doc().formField(path(), "realWorldExamples");
 }
@@ -22976,6 +22970,12 @@ std::string ActorEntryIdentificationForm::geographicDistribution() const {
 }
 void ActorEntryIdentificationForm::setGeographicDistribution(const std::string& value) {
   doc().setFormField(path(), "geographicDistribution", value);
+}
+std::string ActorEntryIdentificationForm::description() const {
+  return doc().formField(path(), "description");
+}
+void ActorEntryIdentificationForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
 }
 
 ActorEntryInteractionsForm::ActorEntryInteractionsForm(som::SpecDocument& doc, std::string path)
@@ -23228,12 +23228,6 @@ std::optional<long> ActorOverviewOverviewForm::externalActorCount() const {
 void ActorOverviewOverviewForm::setExternalActorCount(std::optional<long> value) {
   doc().setFormField(path(), "externalActorCount", value.has_value() ? std::to_string(*value) : "");
 }
-std::string ActorOverviewOverviewForm::actorIdentificationApproach() const {
-  return doc().formField(path(), "actorIdentificationApproach");
-}
-void ActorOverviewOverviewForm::setActorIdentificationApproach(const std::string& value) {
-  doc().setFormField(path(), "actorIdentificationApproach", value);
-}
 std::string ActorOverviewOverviewForm::actorPrioritization() const {
   return doc().formField(path(), "actorPrioritization");
 }
@@ -23245,6 +23239,12 @@ std::string ActorOverviewOverviewForm::actorGoalAlignment() const {
 }
 void ActorOverviewOverviewForm::setActorGoalAlignment(const std::string& value) {
   doc().setFormField(path(), "actorGoalAlignment", value);
+}
+std::string ActorOverviewOverviewForm::actorIdentificationApproach() const {
+  return doc().formField(path(), "actorIdentificationApproach");
+}
+void ActorOverviewOverviewForm::setActorIdentificationApproach(const std::string& value) {
+  doc().setFormField(path(), "actorIdentificationApproach", value);
 }
 
 ActorPermissionsContentForm::ActorPermissionsContentForm(som::SpecDocument& doc, std::string path)
@@ -25749,12 +25749,6 @@ std::string ApplicableRegulationEntryContentForm::applicability() const {
 void ApplicableRegulationEntryContentForm::setApplicability(const std::string& value) {
   doc().setFormField(path(), "applicability", value);
 }
-std::string ApplicableRegulationEntryContentForm::keyRequirements() const {
-  return doc().formField(path(), "keyRequirements");
-}
-void ApplicableRegulationEntryContentForm::setKeyRequirements(const std::string& value) {
-  doc().setFormField(path(), "keyRequirements", value);
-}
 std::string ApplicableRegulationEntryContentForm::complianceStatus() const {
   return doc().formField(path(), "complianceStatus");
 }
@@ -25778,6 +25772,12 @@ std::string ApplicableRegulationEntryContentForm::penalties() const {
 }
 void ApplicableRegulationEntryContentForm::setPenalties(const std::string& value) {
   doc().setFormField(path(), "penalties", value);
+}
+std::string ApplicableRegulationEntryContentForm::keyRequirements() const {
+  return doc().formField(path(), "keyRequirements");
+}
+void ApplicableRegulationEntryContentForm::setKeyRequirements(const std::string& value) {
+  doc().setFormField(path(), "keyRequirements", value);
 }
 
 ApplicationDiagnosticsContentForm::ApplicationDiagnosticsContentForm(som::SpecDocument& doc, std::string path)
@@ -26498,6 +26498,12 @@ std::string ArchitectureComponentEntryPurposeForm::content() const {
 void ArchitectureComponentEntryPurposeForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
+std::string ArchitectureComponentEntryPurposeForm::notResponsibleFor() const {
+  return doc().formField(path(), "notResponsibleFor");
+}
+void ArchitectureComponentEntryPurposeForm::setNotResponsibleFor(const std::string& value) {
+  doc().setFormField(path(), "notResponsibleFor", value);
+}
 std::string ArchitectureComponentEntryPurposeForm::purpose() const {
   return doc().formField(path(), "purpose");
 }
@@ -26509,12 +26515,6 @@ std::string ArchitectureComponentEntryPurposeForm::responsibilities() const {
 }
 void ArchitectureComponentEntryPurposeForm::setResponsibilities(const std::string& value) {
   doc().setFormField(path(), "responsibilities", value);
-}
-std::string ArchitectureComponentEntryPurposeForm::notResponsibleFor() const {
-  return doc().formField(path(), "notResponsibleFor");
-}
-void ArchitectureComponentEntryPurposeForm::setNotResponsibleFor(const std::string& value) {
-  doc().setFormField(path(), "notResponsibleFor", value);
 }
 
 ArchitectureComponentEntryTechnicalForm::ArchitectureComponentEntryTechnicalForm(som::SpecDocument& doc, std::string path)
@@ -26552,12 +26552,6 @@ std::string ArchitectureDecisionRecordConsequencesForm::content() const {
 void ArchitectureDecisionRecordConsequencesForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string ArchitectureDecisionRecordConsequencesForm::consequences() const {
-  return doc().formField(path(), "consequences");
-}
-void ArchitectureDecisionRecordConsequencesForm::setConsequences(const std::string& value) {
-  doc().setFormField(path(), "consequences", value);
-}
 std::string ArchitectureDecisionRecordConsequencesForm::positiveConsequences() const {
   return doc().formField(path(), "positiveConsequences");
 }
@@ -26581,6 +26575,12 @@ std::string ArchitectureDecisionRecordConsequencesForm::notes() const {
 }
 void ArchitectureDecisionRecordConsequencesForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
+}
+std::string ArchitectureDecisionRecordConsequencesForm::consequences() const {
+  return doc().formField(path(), "consequences");
+}
+void ArchitectureDecisionRecordConsequencesForm::setConsequences(const std::string& value) {
+  doc().setFormField(path(), "consequences", value);
 }
 
 ArchitectureDecisionRecordContentForm::ArchitectureDecisionRecordContentForm(som::SpecDocument& doc, std::string path)
@@ -26639,12 +26639,6 @@ std::string ArchitectureDecisionRecordOutcomeForm::content() const {
 void ArchitectureDecisionRecordOutcomeForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string ArchitectureDecisionRecordOutcomeForm::decision() const {
-  return doc().formField(path(), "decision");
-}
-void ArchitectureDecisionRecordOutcomeForm::setDecision(const std::string& value) {
-  doc().setFormField(path(), "decision", value);
-}
 std::string ArchitectureDecisionRecordOutcomeForm::rationale() const {
   return doc().formField(path(), "rationale");
 }
@@ -26662,6 +26656,12 @@ std::string ArchitectureDecisionRecordOutcomeForm::decisionMakers() const {
 }
 void ArchitectureDecisionRecordOutcomeForm::setDecisionMakers(const std::string& value) {
   doc().setFormField(path(), "decisionMakers", value);
+}
+std::string ArchitectureDecisionRecordOutcomeForm::decision() const {
+  return doc().formField(path(), "decision");
+}
+void ArchitectureDecisionRecordOutcomeForm::setDecision(const std::string& value) {
+  doc().setFormField(path(), "decision", value);
 }
 
 ArchitectureDecisionRecordRelationsForm::ArchitectureDecisionRecordRelationsForm(som::SpecDocument& doc, std::string path)
@@ -26753,17 +26753,17 @@ std::string ArchitectureOverviewDriversForm::content() const {
 void ArchitectureOverviewDriversForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string ArchitectureOverviewDriversForm::justification() const {
-  return doc().formField(path(), "justification");
-}
-void ArchitectureOverviewDriversForm::setJustification(const std::string& value) {
-  doc().setFormField(path(), "justification", value);
-}
 std::string ArchitectureOverviewDriversForm::businessDrivers() const {
   return doc().formField(path(), "businessDrivers");
 }
 void ArchitectureOverviewDriversForm::setBusinessDrivers(const std::string& value) {
   doc().setFormField(path(), "businessDrivers", value);
+}
+std::string ArchitectureOverviewDriversForm::justification() const {
+  return doc().formField(path(), "justification");
+}
+void ArchitectureOverviewDriversForm::setJustification(const std::string& value) {
+  doc().setFormField(path(), "justification", value);
 }
 std::string ArchitectureOverviewDriversForm::technicalDrivers() const {
   return doc().formField(path(), "technicalDrivers");
@@ -27443,17 +27443,17 @@ std::string AuthorizationRequirementSpecCustomRequirementForm::content() const {
 void AuthorizationRequirementSpecCustomRequirementForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string AuthorizationRequirementSpecCustomRequirementForm::handler() const {
-  return doc().formField(path(), "handler");
-}
-void AuthorizationRequirementSpecCustomRequirementForm::setHandler(const std::string& value) {
-  doc().setFormField(path(), "handler", value);
-}
 std::string AuthorizationRequirementSpecCustomRequirementForm::resourceId() const {
   return doc().formField(path(), "resourceId");
 }
 void AuthorizationRequirementSpecCustomRequirementForm::setResourceId(const std::string& value) {
   doc().setFormField(path(), "resourceId", value);
+}
+std::string AuthorizationRequirementSpecCustomRequirementForm::handler() const {
+  return doc().formField(path(), "handler");
+}
+void AuthorizationRequirementSpecCustomRequirementForm::setHandler(const std::string& value) {
+  doc().setFormField(path(), "handler", value);
 }
 std::string AuthorizationRequirementSpecCustomRequirementForm::decisionRule() const {
   return doc().formField(path(), "decisionRule");
@@ -27536,17 +27536,17 @@ std::string AuthorizationRoleEntryContentForm::roleName() const {
 void AuthorizationRoleEntryContentForm::setRoleName(const std::string& value) {
   doc().setFormField(path(), "roleName", value);
 }
-std::string AuthorizationRoleEntryContentForm::description() const {
-  return doc().formField(path(), "description");
-}
-void AuthorizationRoleEntryContentForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
-}
 std::string AuthorizationRoleEntryContentForm::roleCategory() const {
   return doc().formField(path(), "roleCategory");
 }
 void AuthorizationRoleEntryContentForm::setRoleCategory(const std::string& value) {
   doc().setFormField(path(), "roleCategory", value);
+}
+std::string AuthorizationRoleEntryContentForm::description() const {
+  return doc().formField(path(), "description");
+}
+void AuthorizationRoleEntryContentForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
 }
 
 AuthorizationRoleEntryGovernanceForm::AuthorizationRoleEntryGovernanceForm(som::SpecDocument& doc, std::string path)
@@ -29346,12 +29346,6 @@ std::string BoundedContextEntryIntegrationForm::content() const {
 void BoundedContextEntryIntegrationForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string BoundedContextEntryIntegrationForm::apiEndpoints() const {
-  return doc().formField(path(), "apiEndpoints");
-}
-void BoundedContextEntryIntegrationForm::setApiEndpoints(const std::string& value) {
-  doc().setFormField(path(), "apiEndpoints", value);
-}
 std::string BoundedContextEntryIntegrationForm::integrationPatterns() const {
   return doc().formField(path(), "integrationPatterns");
 }
@@ -29364,6 +29358,12 @@ std::string BoundedContextEntryIntegrationForm::notes() const {
 void BoundedContextEntryIntegrationForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
 }
+std::string BoundedContextEntryIntegrationForm::apiEndpoints() const {
+  return doc().formField(path(), "apiEndpoints");
+}
+void BoundedContextEntryIntegrationForm::setApiEndpoints(const std::string& value) {
+  doc().setFormField(path(), "apiEndpoints", value);
+}
 
 BoundedContextEntryScopeForm::BoundedContextEntryScopeForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -29372,12 +29372,6 @@ std::string BoundedContextEntryScopeForm::content() const {
 }
 void BoundedContextEntryScopeForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
-}
-std::string BoundedContextEntryScopeForm::purpose() const {
-  return doc().formField(path(), "purpose");
-}
-void BoundedContextEntryScopeForm::setPurpose(const std::string& value) {
-  doc().setFormField(path(), "purpose", value);
 }
 std::string BoundedContextEntryScopeForm::includedConcepts() const {
   return doc().formField(path(), "includedConcepts");
@@ -29390,6 +29384,12 @@ std::string BoundedContextEntryScopeForm::excludedConcepts() const {
 }
 void BoundedContextEntryScopeForm::setExcludedConcepts(const std::string& value) {
   doc().setFormField(path(), "excludedConcepts", value);
+}
+std::string BoundedContextEntryScopeForm::purpose() const {
+  return doc().formField(path(), "purpose");
+}
+void BoundedContextEntryScopeForm::setPurpose(const std::string& value) {
+  doc().setFormField(path(), "purpose", value);
 }
 std::string BoundedContextEntryScopeForm::ubiquitousLanguage() const {
   return doc().formField(path(), "ubiquitousLanguage");
@@ -29989,17 +29989,17 @@ std::string BuildToolchainEntryProfilesForm::content() const {
 void BuildToolchainEntryProfilesForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string BuildToolchainEntryProfilesForm::buildProfiles() const {
-  return doc().formField(path(), "buildProfiles");
-}
-void BuildToolchainEntryProfilesForm::setBuildProfiles(const std::string& value) {
-  doc().setFormField(path(), "buildProfiles", value);
-}
 std::string BuildToolchainEntryProfilesForm::defaultProfile() const {
   return doc().formField(path(), "defaultProfile");
 }
 void BuildToolchainEntryProfilesForm::setDefaultProfile(const std::string& value) {
   doc().setFormField(path(), "defaultProfile", value);
+}
+std::string BuildToolchainEntryProfilesForm::buildProfiles() const {
+  return doc().formField(path(), "buildProfiles");
+}
+void BuildToolchainEntryProfilesForm::setBuildProfiles(const std::string& value) {
+  doc().setFormField(path(), "buildProfiles", value);
 }
 
 BuildToolchainEntryVersionsForm::BuildToolchainEntryVersionsForm(som::SpecDocument& doc, std::string path)
@@ -30145,12 +30145,6 @@ std::string BuildToolsConfigurationScriptsForm::content() const {
 void BuildToolsConfigurationScriptsForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string BuildToolsConfigurationScriptsForm::buildScripts() const {
-  return doc().formField(path(), "buildScripts");
-}
-void BuildToolsConfigurationScriptsForm::setBuildScripts(const std::string& value) {
-  doc().setFormField(path(), "buildScripts", value);
-}
 std::string BuildToolsConfigurationScriptsForm::preCommitHooks() const {
   return doc().formField(path(), "preCommitHooks");
 }
@@ -30162,6 +30156,12 @@ std::string BuildToolsConfigurationScriptsForm::postBuildActions() const {
 }
 void BuildToolsConfigurationScriptsForm::setPostBuildActions(const std::string& value) {
   doc().setFormField(path(), "postBuildActions", value);
+}
+std::string BuildToolsConfigurationScriptsForm::buildScripts() const {
+  return doc().formField(path(), "buildScripts");
+}
+void BuildToolsConfigurationScriptsForm::setBuildScripts(const std::string& value) {
+  doc().setFormField(path(), "buildScripts", value);
 }
 
 BusinessComponentEntryContentForm::BusinessComponentEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -30421,12 +30421,6 @@ std::string BusinessGoalEntryMeasurementForm::currentValue() const {
 void BusinessGoalEntryMeasurementForm::setCurrentValue(const std::string& value) {
   doc().setFormField(path(), "currentValue", value);
 }
-std::string BusinessGoalEntryMeasurementForm::targetValue() const {
-  return doc().formField(path(), "targetValue");
-}
-void BusinessGoalEntryMeasurementForm::setTargetValue(const std::string& value) {
-  doc().setFormField(path(), "targetValue", value);
-}
 std::string BusinessGoalEntryMeasurementForm::measurementMethod() const {
   return doc().formField(path(), "measurementMethod");
 }
@@ -30438,6 +30432,12 @@ std::string BusinessGoalEntryMeasurementForm::measurementFrequency() const {
 }
 void BusinessGoalEntryMeasurementForm::setMeasurementFrequency(const std::string& value) {
   doc().setFormField(path(), "measurementFrequency", value);
+}
+std::string BusinessGoalEntryMeasurementForm::targetValue() const {
+  return doc().formField(path(), "targetValue");
+}
+void BusinessGoalEntryMeasurementForm::setTargetValue(const std::string& value) {
+  doc().setFormField(path(), "targetValue", value);
 }
 
 BusinessGoalEntryStrategyForm::BusinessGoalEntryStrategyForm(som::SpecDocument& doc, std::string path)
@@ -34908,12 +34908,6 @@ std::string CodingStandardEntryRuleDetailsForm::content() const {
 void CodingStandardEntryRuleDetailsForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string CodingStandardEntryRuleDetailsForm::rule() const {
-  return doc().formField(path(), "rule");
-}
-void CodingStandardEntryRuleDetailsForm::setRule(const std::string& value) {
-  doc().setFormField(path(), "rule", value);
-}
 std::string CodingStandardEntryRuleDetailsForm::rationale() const {
   return doc().formField(path(), "rationale");
 }
@@ -34925,6 +34919,12 @@ std::string CodingStandardEntryRuleDetailsForm::examples() const {
 }
 void CodingStandardEntryRuleDetailsForm::setExamples(const std::string& value) {
   doc().setFormField(path(), "examples", value);
+}
+std::string CodingStandardEntryRuleDetailsForm::rule() const {
+  return doc().formField(path(), "rule");
+}
+void CodingStandardEntryRuleDetailsForm::setRule(const std::string& value) {
+  doc().setFormField(path(), "rule", value);
 }
 
 CodingStandardsSectionContentForm::CodingStandardsSectionContentForm(som::SpecDocument& doc, std::string path)
@@ -35603,12 +35603,6 @@ std::string CommunicationPatternsDataExchangeForm::content() const {
 void CommunicationPatternsDataExchangeForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string CommunicationPatternsDataExchangeForm::dataContracts() const {
-  return doc().formField(path(), "dataContracts");
-}
-void CommunicationPatternsDataExchangeForm::setDataContracts(const std::string& value) {
-  doc().setFormField(path(), "dataContracts", value);
-}
 std::string CommunicationPatternsDataExchangeForm::schemaEvolution() const {
   return doc().formField(path(), "schemaEvolution");
 }
@@ -35620,6 +35614,12 @@ std::string CommunicationPatternsDataExchangeForm::serialization() const {
 }
 void CommunicationPatternsDataExchangeForm::setSerialization(const std::string& value) {
   doc().setFormField(path(), "serialization", value);
+}
+std::string CommunicationPatternsDataExchangeForm::dataContracts() const {
+  return doc().formField(path(), "dataContracts");
+}
+void CommunicationPatternsDataExchangeForm::setDataContracts(const std::string& value) {
+  doc().setFormField(path(), "dataContracts", value);
 }
 
 CommunicationPatternsObservabilityForm::CommunicationPatternsObservabilityForm(som::SpecDocument& doc, std::string path)
@@ -35696,17 +35696,17 @@ std::string CommunicationPatternsSynchronousForm::content() const {
 void CommunicationPatternsSynchronousForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string CommunicationPatternsSynchronousForm::syncPatterns() const {
-  return doc().formField(path(), "syncPatterns");
-}
-void CommunicationPatternsSynchronousForm::setSyncPatterns(const std::string& value) {
-  doc().setFormField(path(), "syncPatterns", value);
-}
 std::string CommunicationPatternsSynchronousForm::apiGateway() const {
   return doc().formField(path(), "apiGateway");
 }
 void CommunicationPatternsSynchronousForm::setApiGateway(const std::string& value) {
   doc().setFormField(path(), "apiGateway", value);
+}
+std::string CommunicationPatternsSynchronousForm::syncPatterns() const {
+  return doc().formField(path(), "syncPatterns");
+}
+void CommunicationPatternsSynchronousForm::setSyncPatterns(const std::string& value) {
+  doc().setFormField(path(), "syncPatterns", value);
 }
 
 CommunicationToolsRequirementsContentForm::CommunicationToolsRequirementsContentForm(som::SpecDocument& doc, std::string path)
@@ -36675,17 +36675,17 @@ std::string ComponentEntryVendorForm::content() const {
 void ComponentEntryVendorForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
+std::string ComponentEntryVendorForm::vendorName() const {
+  return doc().formField(path(), "vendorName");
+}
+void ComponentEntryVendorForm::setVendorName(const std::string& value) {
+  doc().setFormField(path(), "vendorName", value);
+}
 std::string ComponentEntryVendorForm::version() const {
   return doc().formField(path(), "version");
 }
 void ComponentEntryVendorForm::setVersion(const std::string& value) {
   doc().setFormField(path(), "version", value);
-}
-std::string ComponentEntryVendorForm::purpose() const {
-  return doc().formField(path(), "purpose");
-}
-void ComponentEntryVendorForm::setPurpose(const std::string& value) {
-  doc().setFormField(path(), "purpose", value);
 }
 std::string ComponentEntryVendorForm::libraryRef() const {
   return doc().formField(path(), "libraryRef");
@@ -36693,17 +36693,17 @@ std::string ComponentEntryVendorForm::libraryRef() const {
 void ComponentEntryVendorForm::setLibraryRef(const std::string& value) {
   doc().setFormField(path(), "libraryRef", value);
 }
-std::string ComponentEntryVendorForm::vendorName() const {
-  return doc().formField(path(), "vendorName");
-}
-void ComponentEntryVendorForm::setVendorName(const std::string& value) {
-  doc().setFormField(path(), "vendorName", value);
-}
 std::string ComponentEntryVendorForm::vendorStability() const {
   return doc().formField(path(), "vendorStability");
 }
 void ComponentEntryVendorForm::setVendorStability(const std::string& value) {
   doc().setFormField(path(), "vendorStability", value);
+}
+std::string ComponentEntryVendorForm::purpose() const {
+  return doc().formField(path(), "purpose");
+}
+void ComponentEntryVendorForm::setPurpose(const std::string& value) {
+  doc().setFormField(path(), "purpose", value);
 }
 
 ComponentFamilyEntryContentForm::ComponentFamilyEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -39356,12 +39356,6 @@ std::string ConstraintRegisterEntryContentForm::content() const {
 void ConstraintRegisterEntryContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string ConstraintRegisterEntryContentForm::description() const {
-  return doc().formField(path(), "description");
-}
-void ConstraintRegisterEntryContentForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
-}
 std::string ConstraintRegisterEntryContentForm::type() const {
   return doc().formField(path(), "type");
 }
@@ -39379,6 +39373,12 @@ std::string ConstraintRegisterEntryContentForm::impact() const {
 }
 void ConstraintRegisterEntryContentForm::setImpact(const std::string& value) {
   doc().setFormField(path(), "impact", value);
+}
+std::string ConstraintRegisterEntryContentForm::description() const {
+  return doc().formField(path(), "description");
+}
+void ConstraintRegisterEntryContentForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
 }
 
 ContentScanningPolicyContentForm::ContentScanningPolicyContentForm(som::SpecDocument& doc, std::string path)
@@ -41654,12 +41654,6 @@ std::string DataAttributeEntryIdentityForm::columnName() const {
 void DataAttributeEntryIdentityForm::setColumnName(const std::string& value) {
   doc().setFormField(path(), "columnName", value);
 }
-std::string DataAttributeEntryIdentityForm::description() const {
-  return doc().formField(path(), "description");
-}
-void DataAttributeEntryIdentityForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
-}
 std::string DataAttributeEntryIdentityForm::businessTerm() const {
   return doc().formField(path(), "businessTerm");
 }
@@ -41671,6 +41665,12 @@ std::string DataAttributeEntryIdentityForm::exampleValues() const {
 }
 void DataAttributeEntryIdentityForm::setExampleValues(const std::string& value) {
   doc().setFormField(path(), "exampleValues", value);
+}
+std::string DataAttributeEntryIdentityForm::description() const {
+  return doc().formField(path(), "description");
+}
+void DataAttributeEntryIdentityForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
 }
 
 DataAttributeEntryMigrationLineageForm::DataAttributeEntryMigrationLineageForm(som::SpecDocument& doc, std::string path)
@@ -42382,24 +42382,6 @@ std::string DataEntityEntryIdentityForm::tableName() const {
 void DataEntityEntryIdentityForm::setTableName(const std::string& value) {
   doc().setFormField(path(), "tableName", value);
 }
-std::string DataEntityEntryIdentityForm::entityAlias() const {
-  return doc().formField(path(), "entityAlias");
-}
-void DataEntityEntryIdentityForm::setEntityAlias(const std::string& value) {
-  doc().setFormField(path(), "entityAlias", value);
-}
-std::string DataEntityEntryIdentityForm::description() const {
-  return doc().formField(path(), "description");
-}
-void DataEntityEntryIdentityForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
-}
-std::string DataEntityEntryIdentityForm::entityStereoType() const {
-  return doc().formField(path(), "entityStereoType");
-}
-void DataEntityEntryIdentityForm::setEntityStereoType(const std::string& value) {
-  doc().setFormField(path(), "entityStereoType", value);
-}
 std::string DataEntityEntryIdentityForm::dataSourceName() const {
   return doc().formField(path(), "dataSourceName");
 }
@@ -42417,6 +42399,24 @@ std::string DataEntityEntryIdentityForm::tenancy() const {
 }
 void DataEntityEntryIdentityForm::setTenancy(const std::string& value) {
   doc().setFormField(path(), "tenancy", value);
+}
+std::string DataEntityEntryIdentityForm::entityAlias() const {
+  return doc().formField(path(), "entityAlias");
+}
+void DataEntityEntryIdentityForm::setEntityAlias(const std::string& value) {
+  doc().setFormField(path(), "entityAlias", value);
+}
+std::string DataEntityEntryIdentityForm::entityStereoType() const {
+  return doc().formField(path(), "entityStereoType");
+}
+void DataEntityEntryIdentityForm::setEntityStereoType(const std::string& value) {
+  doc().setFormField(path(), "entityStereoType", value);
+}
+std::string DataEntityEntryIdentityForm::description() const {
+  return doc().formField(path(), "description");
+}
+void DataEntityEntryIdentityForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
 }
 
 DataEntityEntryLifecyclePolicyForm::DataEntityEntryLifecyclePolicyForm(som::SpecDocument& doc, std::string path)
@@ -46542,17 +46542,17 @@ std::string DeliverableEntryIdentityForm::content() const {
 void DeliverableEntryIdentityForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string DeliverableEntryIdentityForm::description() const {
-  return doc().formField(path(), "description");
-}
-void DeliverableEntryIdentityForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
-}
 std::string DeliverableEntryIdentityForm::category() const {
   return doc().formField(path(), "category");
 }
 void DeliverableEntryIdentityForm::setCategory(const std::string& value) {
   doc().setFormField(path(), "category", value);
+}
+std::string DeliverableEntryIdentityForm::description() const {
+  return doc().formField(path(), "description");
+}
+void DeliverableEntryIdentityForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
 }
 
 DeliverableEntryLegalForm::DeliverableEntryLegalForm(som::SpecDocument& doc, std::string path)
@@ -46878,12 +46878,6 @@ std::string DeliveryTransitionAndRolloutLocaleRolloutPlanForm::content() const {
 void DeliveryTransitionAndRolloutLocaleRolloutPlanForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string DeliveryTransitionAndRolloutLocaleRolloutPlanForm::rolloutStrategy() const {
-  return doc().formField(path(), "rolloutStrategy");
-}
-void DeliveryTransitionAndRolloutLocaleRolloutPlanForm::setRolloutStrategy(const std::string& value) {
-  doc().setFormField(path(), "rolloutStrategy", value);
-}
 std::string DeliveryTransitionAndRolloutLocaleRolloutPlanForm::rolloutTimeline() const {
   return doc().formField(path(), "rolloutTimeline");
 }
@@ -46895,6 +46889,12 @@ std::string DeliveryTransitionAndRolloutLocaleRolloutPlanForm::rolloutRegions() 
 }
 void DeliveryTransitionAndRolloutLocaleRolloutPlanForm::setRolloutRegions(const std::string& value) {
   doc().setFormField(path(), "rolloutRegions", value);
+}
+std::string DeliveryTransitionAndRolloutLocaleRolloutPlanForm::rolloutStrategy() const {
+  return doc().formField(path(), "rolloutStrategy");
+}
+void DeliveryTransitionAndRolloutLocaleRolloutPlanForm::setRolloutStrategy(const std::string& value) {
+  doc().setFormField(path(), "rolloutStrategy", value);
 }
 
 DependencyHealthMonitoringCacheForm::DependencyHealthMonitoringCacheForm(som::SpecDocument& doc, std::string path)
@@ -47310,12 +47310,6 @@ std::string DependencyRegisterEntryContentForm::content() const {
 void DependencyRegisterEntryContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string DependencyRegisterEntryContentForm::description() const {
-  return doc().formField(path(), "description");
-}
-void DependencyRegisterEntryContentForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
-}
 std::string DependencyRegisterEntryContentForm::type() const {
   return doc().formField(path(), "type");
 }
@@ -47339,6 +47333,12 @@ std::string DependencyRegisterEntryContentForm::status() const {
 }
 void DependencyRegisterEntryContentForm::setStatus(const std::string& value) {
   doc().setFormField(path(), "status", value);
+}
+std::string DependencyRegisterEntryContentForm::description() const {
+  return doc().formField(path(), "description");
+}
+void DependencyRegisterEntryContentForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
 }
 
 DependencyScanningRequirementsContentForm::DependencyScanningRequirementsContentForm(som::SpecDocument& doc, std::string path)
@@ -48014,12 +48014,6 @@ std::string DeploymentTargetEntryComplianceForm::content() const {
 void DeploymentTargetEntryComplianceForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string DeploymentTargetEntryComplianceForm::complianceRequirements() const {
-  return doc().formField(path(), "complianceRequirements");
-}
-void DeploymentTargetEntryComplianceForm::setComplianceRequirements(const std::string& value) {
-  doc().setFormField(path(), "complianceRequirements", value);
-}
 std::string DeploymentTargetEntryComplianceForm::privacyRequirements() const {
   return doc().formField(path(), "privacyRequirements");
 }
@@ -48044,6 +48038,12 @@ std::string DeploymentTargetEntryComplianceForm::notes() const {
 void DeploymentTargetEntryComplianceForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
 }
+std::string DeploymentTargetEntryComplianceForm::complianceRequirements() const {
+  return doc().formField(path(), "complianceRequirements");
+}
+void DeploymentTargetEntryComplianceForm::setComplianceRequirements(const std::string& value) {
+  doc().setFormField(path(), "complianceRequirements", value);
+}
 
 DeploymentTargetEntryContentForm::DeploymentTargetEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -48059,17 +48059,17 @@ std::string DeploymentTargetEntryContentForm::targetCategory() const {
 void DeploymentTargetEntryContentForm::setTargetCategory(const std::string& value) {
   doc().setFormField(path(), "targetCategory", value);
 }
-std::string DeploymentTargetEntryContentForm::targetEnvironment() const {
-  return doc().formField(path(), "targetEnvironment");
-}
-void DeploymentTargetEntryContentForm::setTargetEnvironment(const std::string& value) {
-  doc().setFormField(path(), "targetEnvironment", value);
-}
 std::string DeploymentTargetEntryContentForm::environmentRef() const {
   return doc().formField(path(), "environmentRef");
 }
 void DeploymentTargetEntryContentForm::setEnvironmentRef(const std::string& value) {
   doc().setFormField(path(), "environmentRef", value);
+}
+std::string DeploymentTargetEntryContentForm::targetEnvironment() const {
+  return doc().formField(path(), "targetEnvironment");
+}
+void DeploymentTargetEntryContentForm::setTargetEnvironment(const std::string& value) {
+  doc().setFormField(path(), "targetEnvironment", value);
 }
 
 DeploymentTargetEntryPlatformForm::DeploymentTargetEntryPlatformForm(som::SpecDocument& doc, std::string path)
@@ -50548,17 +50548,17 @@ std::string DocumentRelevantSectionsContentForm::content() const {
 void DocumentRelevantSectionsContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string DocumentRelevantSectionsContentForm::sectionReference() const {
-  return doc().formField(path(), "sectionReference");
-}
-void DocumentRelevantSectionsContentForm::setSectionReference(const std::string& value) {
-  doc().setFormField(path(), "sectionReference", value);
-}
 std::string DocumentRelevantSectionsContentForm::sectionTitle() const {
   return doc().formField(path(), "sectionTitle");
 }
 void DocumentRelevantSectionsContentForm::setSectionTitle(const std::string& value) {
   doc().setFormField(path(), "sectionTitle", value);
+}
+std::string DocumentRelevantSectionsContentForm::sectionReference() const {
+  return doc().formField(path(), "sectionReference");
+}
+void DocumentRelevantSectionsContentForm::setSectionReference(const std::string& value) {
+  doc().setFormField(path(), "sectionReference", value);
 }
 std::string DocumentRelevantSectionsContentForm::relevance() const {
   return doc().formField(path(), "relevance");
@@ -51553,12 +51553,6 @@ std::string EfficiencyVerificationForm::content() const {
 void EfficiencyVerificationForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string EfficiencyVerificationForm::loadTestingRequirement() const {
-  return doc().formField(path(), "loadTestingRequirement");
-}
-void EfficiencyVerificationForm::setLoadTestingRequirement(const std::string& value) {
-  doc().setFormField(path(), "loadTestingRequirement", value);
-}
 std::string EfficiencyVerificationForm::performanceProfilingApproach() const {
   return doc().formField(path(), "performanceProfilingApproach");
 }
@@ -51570,6 +51564,12 @@ std::string EfficiencyVerificationForm::performanceBaselineDate() const {
 }
 void EfficiencyVerificationForm::setPerformanceBaselineDate(const std::string& value) {
   doc().setFormField(path(), "performanceBaselineDate", value);
+}
+std::string EfficiencyVerificationForm::loadTestingRequirement() const {
+  return doc().formField(path(), "loadTestingRequirement");
+}
+void EfficiencyVerificationForm::setLoadTestingRequirement(const std::string& value) {
+  doc().setFormField(path(), "loadTestingRequirement", value);
 }
 std::string EfficiencyVerificationForm::performanceSlaDefinition() const {
   return doc().formField(path(), "performanceSlaDefinition");
@@ -52028,17 +52028,17 @@ std::string EntitlementEntryContentForm::entitlementName() const {
 void EntitlementEntryContentForm::setEntitlementName(const std::string& value) {
   doc().setFormField(path(), "entitlementName", value);
 }
-std::string EntitlementEntryContentForm::description() const {
-  return doc().formField(path(), "description");
-}
-void EntitlementEntryContentForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
-}
 std::string EntitlementEntryContentForm::accessType() const {
   return doc().formField(path(), "accessType");
 }
 void EntitlementEntryContentForm::setAccessType(const std::string& value) {
   doc().setFormField(path(), "accessType", value);
+}
+std::string EntitlementEntryContentForm::description() const {
+  return doc().formField(path(), "description");
+}
+void EntitlementEntryContentForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
 }
 std::string EntitlementEntryContentForm::conditions() const {
   return doc().formField(path(), "conditions");
@@ -52262,12 +52262,6 @@ std::string EntityRelationshipEntryIdentityForm::relationshipType() const {
 void EntityRelationshipEntryIdentityForm::setRelationshipType(const std::string& value) {
   doc().setFormField(path(), "relationshipType", value);
 }
-std::string EntityRelationshipEntryIdentityForm::description() const {
-  return doc().formField(path(), "description");
-}
-void EntityRelationshipEntryIdentityForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
-}
 std::string EntityRelationshipEntryIdentityForm::businessJustification() const {
   return doc().formField(path(), "businessJustification");
 }
@@ -52279,6 +52273,12 @@ std::string EntityRelationshipEntryIdentityForm::implementationType() const {
 }
 void EntityRelationshipEntryIdentityForm::setImplementationType(const std::string& value) {
   doc().setFormField(path(), "implementationType", value);
+}
+std::string EntityRelationshipEntryIdentityForm::description() const {
+  return doc().formField(path(), "description");
+}
+void EntityRelationshipEntryIdentityForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
 }
 
 EntityRelationshipEntryNavigationForm::EntityRelationshipEntryNavigationForm(som::SpecDocument& doc, std::string path)
@@ -55340,6 +55340,12 @@ std::string ExtensionEntryContentForm::content() const {
 void ExtensionEntryContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
+std::string ExtensionEntryContentForm::returnKind() const {
+  return doc().formField(path(), "returnKind");
+}
+void ExtensionEntryContentForm::setReturnKind(const std::string& value) {
+  doc().setFormField(path(), "returnKind", value);
+}
 std::string ExtensionEntryContentForm::branchPoint() const {
   return doc().formField(path(), "branchPoint");
 }
@@ -55358,23 +55364,11 @@ std::string ExtensionEntryContentForm::extensionType() const {
 void ExtensionEntryContentForm::setExtensionType(const std::string& value) {
   doc().setFormField(path(), "extensionType", value);
 }
-std::string ExtensionEntryContentForm::description() const {
-  return doc().formField(path(), "description");
-}
-void ExtensionEntryContentForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
-}
 std::string ExtensionEntryContentForm::outcome() const {
   return doc().formField(path(), "outcome");
 }
 void ExtensionEntryContentForm::setOutcome(const std::string& value) {
   doc().setFormField(path(), "outcome", value);
-}
-std::string ExtensionEntryContentForm::returnKind() const {
-  return doc().formField(path(), "returnKind");
-}
-void ExtensionEntryContentForm::setReturnKind(const std::string& value) {
-  doc().setFormField(path(), "returnKind", value);
 }
 std::string ExtensionEntryContentForm::frequency() const {
   return doc().formField(path(), "frequency");
@@ -55387,6 +55381,12 @@ std::string ExtensionEntryContentForm::severity() const {
 }
 void ExtensionEntryContentForm::setSeverity(const std::string& value) {
   doc().setFormField(path(), "severity", value);
+}
+std::string ExtensionEntryContentForm::description() const {
+  return doc().formField(path(), "description");
+}
+void ExtensionEntryContentForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
 }
 
 ExtensionEntryResumePointForm::ExtensionEntryResumePointForm(som::SpecDocument& doc, std::string path)
@@ -55511,17 +55511,17 @@ std::string ExternalActorEntryInteractionForm::interactionChannel() const {
 void ExternalActorEntryInteractionForm::setInteractionChannel(const std::string& value) {
   doc().setFormField(path(), "interactionChannel", value);
 }
-std::string ExternalActorEntryInteractionForm::dataExchanged() const {
-  return doc().formField(path(), "dataExchanged");
-}
-void ExternalActorEntryInteractionForm::setDataExchanged(const std::string& value) {
-  doc().setFormField(path(), "dataExchanged", value);
-}
 std::string ExternalActorEntryInteractionForm::accessLevel() const {
   return doc().formField(path(), "accessLevel");
 }
 void ExternalActorEntryInteractionForm::setAccessLevel(const std::string& value) {
   doc().setFormField(path(), "accessLevel", value);
+}
+std::string ExternalActorEntryInteractionForm::dataExchanged() const {
+  return doc().formField(path(), "dataExchanged");
+}
+void ExternalActorEntryInteractionForm::setDataExchanged(const std::string& value) {
+  doc().setFormField(path(), "dataExchanged", value);
 }
 
 ExternalInterfaceEntryIdentificationContentForm::ExternalInterfaceEntryIdentificationContentForm(som::SpecDocument& doc, std::string path)
@@ -56144,12 +56144,6 @@ std::string ExternalSystemContextEntryIntegrationForm::integrationDirection() co
 void ExternalSystemContextEntryIntegrationForm::setIntegrationDirection(const std::string& value) {
   doc().setFormField(path(), "integrationDirection", value);
 }
-std::string ExternalSystemContextEntryIntegrationForm::integrationPurpose() const {
-  return doc().formField(path(), "integrationPurpose");
-}
-void ExternalSystemContextEntryIntegrationForm::setIntegrationPurpose(const std::string& value) {
-  doc().setFormField(path(), "integrationPurpose", value);
-}
 std::string ExternalSystemContextEntryIntegrationForm::dataExchanged() const {
   return doc().formField(path(), "dataExchanged");
 }
@@ -56161,6 +56155,12 @@ std::string ExternalSystemContextEntryIntegrationForm::integrationMethod() const
 }
 void ExternalSystemContextEntryIntegrationForm::setIntegrationMethod(const std::string& value) {
   doc().setFormField(path(), "integrationMethod", value);
+}
+std::string ExternalSystemContextEntryIntegrationForm::integrationPurpose() const {
+  return doc().formField(path(), "integrationPurpose");
+}
+void ExternalSystemContextEntryIntegrationForm::setIntegrationPurpose(const std::string& value) {
+  doc().setFormField(path(), "integrationPurpose", value);
 }
 
 ExternalSystemContextEntryOperationsForm::ExternalSystemContextEntryOperationsForm(som::SpecDocument& doc, std::string path)
@@ -58307,12 +58307,6 @@ std::string FrameworkRequirementEntryJustificationForm::content() const {
 void FrameworkRequirementEntryJustificationForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string FrameworkRequirementEntryJustificationForm::justification() const {
-  return doc().formField(path(), "justification");
-}
-void FrameworkRequirementEntryJustificationForm::setJustification(const std::string& value) {
-  doc().setFormField(path(), "justification", value);
-}
 std::string FrameworkRequirementEntryJustificationForm::alternativesConsidered() const {
   return doc().formField(path(), "alternativesConsidered");
 }
@@ -58331,6 +58325,12 @@ std::string FrameworkRequirementEntryJustificationForm::notes() const {
 void FrameworkRequirementEntryJustificationForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
 }
+std::string FrameworkRequirementEntryJustificationForm::justification() const {
+  return doc().formField(path(), "justification");
+}
+void FrameworkRequirementEntryJustificationForm::setJustification(const std::string& value) {
+  doc().setFormField(path(), "justification", value);
+}
 
 FrameworkRequirementEntryScopeForm::FrameworkRequirementEntryScopeForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -58345,12 +58345,6 @@ std::string FrameworkRequirementEntryScopeForm::usageScope() const {
 }
 void FrameworkRequirementEntryScopeForm::setUsageScope(const std::string& value) {
   doc().setFormField(path(), "usageScope", value);
-}
-std::string FrameworkRequirementEntryScopeForm::integrationPoints() const {
-  return doc().formField(path(), "integrationPoints");
-}
-void FrameworkRequirementEntryScopeForm::setIntegrationPoints(const std::string& value) {
-  doc().setFormField(path(), "integrationPoints", value);
 }
 std::string FrameworkRequirementEntryScopeForm::requiredPlugins() const {
   return doc().formField(path(), "requiredPlugins");
@@ -58369,6 +58363,12 @@ std::string FrameworkRequirementEntryScopeForm::excludedFeatures() const {
 }
 void FrameworkRequirementEntryScopeForm::setExcludedFeatures(const std::string& value) {
   doc().setFormField(path(), "excludedFeatures", value);
+}
+std::string FrameworkRequirementEntryScopeForm::integrationPoints() const {
+  return doc().formField(path(), "integrationPoints");
+}
+void FrameworkRequirementEntryScopeForm::setIntegrationPoints(const std::string& value) {
+  doc().setFormField(path(), "integrationPoints", value);
 }
 
 FrameworkRequirementEntrySupportForm::FrameworkRequirementEntrySupportForm(som::SpecDocument& doc, std::string path)
@@ -58751,12 +58751,6 @@ std::string FunctionalRequirementEntryDetailsForm::content() const {
 void FunctionalRequirementEntryDetailsForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string FunctionalRequirementEntryDetailsForm::description() const {
-  return doc().formField(path(), "description");
-}
-void FunctionalRequirementEntryDetailsForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
-}
 std::string FunctionalRequirementEntryDetailsForm::requirementType() const {
   return doc().formField(path(), "requirementType");
 }
@@ -58768,6 +58762,12 @@ std::string FunctionalRequirementEntryDetailsForm::category() const {
 }
 void FunctionalRequirementEntryDetailsForm::setCategory(const std::string& value) {
   doc().setFormField(path(), "category", value);
+}
+std::string FunctionalRequirementEntryDetailsForm::description() const {
+  return doc().formField(path(), "description");
+}
+void FunctionalRequirementEntryDetailsForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
 }
 
 FunctionalRequirementEntryMetadataForm::FunctionalRequirementEntryMetadataForm(som::SpecDocument& doc, std::string path)
@@ -58838,17 +58838,17 @@ std::string FunctionalRequirementEntrySourceForm::content() const {
 void FunctionalRequirementEntrySourceForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string FunctionalRequirementEntrySourceForm::source() const {
-  return doc().formField(path(), "source");
-}
-void FunctionalRequirementEntrySourceForm::setSource(const std::string& value) {
-  doc().setFormField(path(), "source", value);
-}
 std::string FunctionalRequirementEntrySourceForm::requestDate() const {
   return doc().formField(path(), "requestDate");
 }
 void FunctionalRequirementEntrySourceForm::setRequestDate(const std::string& value) {
   doc().setFormField(path(), "requestDate", value);
+}
+std::string FunctionalRequirementEntrySourceForm::source() const {
+  return doc().formField(path(), "source");
+}
+void FunctionalRequirementEntrySourceForm::setSource(const std::string& value) {
+  doc().setFormField(path(), "source", value);
 }
 std::string FunctionalRequirementEntrySourceForm::rationale() const {
   return doc().formField(path(), "rationale");
@@ -59447,12 +59447,6 @@ std::string GlossaryEntryContentForm::term() const {
 void GlossaryEntryContentForm::setTerm(const std::string& value) {
   doc().setFormField(path(), "term", value);
 }
-std::string GlossaryEntryContentForm::definition() const {
-  return doc().formField(path(), "definition");
-}
-void GlossaryEntryContentForm::setDefinition(const std::string& value) {
-  doc().setFormField(path(), "definition", value);
-}
 std::string GlossaryEntryContentForm::acronym() const {
   return doc().formField(path(), "acronym");
 }
@@ -59464,6 +59458,12 @@ std::string GlossaryEntryContentForm::seeAlso() const {
 }
 void GlossaryEntryContentForm::setSeeAlso(const std::string& value) {
   doc().setFormField(path(), "seeAlso", value);
+}
+std::string GlossaryEntryContentForm::definition() const {
+  return doc().formField(path(), "definition");
+}
+void GlossaryEntryContentForm::setDefinition(const std::string& value) {
+  doc().setFormField(path(), "definition", value);
 }
 
 GoalDependencyEntryContentForm::GoalDependencyEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -62584,12 +62584,6 @@ std::string IntegrationArchitectureContentForm::content() const {
 void IntegrationArchitectureContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string IntegrationArchitectureContentForm::integrationStrategy() const {
-  return doc().formField(path(), "integrationStrategy");
-}
-void IntegrationArchitectureContentForm::setIntegrationStrategy(const std::string& value) {
-  doc().setFormField(path(), "integrationStrategy", value);
-}
 std::string IntegrationArchitectureContentForm::integrationPatterns() const {
   return doc().formField(path(), "integrationPatterns");
 }
@@ -62601,6 +62595,12 @@ std::string IntegrationArchitectureContentForm::apiManagement() const {
 }
 void IntegrationArchitectureContentForm::setApiManagement(const std::string& value) {
   doc().setFormField(path(), "apiManagement", value);
+}
+std::string IntegrationArchitectureContentForm::integrationStrategy() const {
+  return doc().formField(path(), "integrationStrategy");
+}
+void IntegrationArchitectureContentForm::setIntegrationStrategy(const std::string& value) {
+  doc().setFormField(path(), "integrationStrategy", value);
 }
 
 IntegrationArchitectureDataForm::IntegrationArchitectureDataForm(som::SpecDocument& doc, std::string path)
@@ -62692,12 +62692,6 @@ std::string IntegrationArchitectureSecurityForm::content() const {
 void IntegrationArchitectureSecurityForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string IntegrationArchitectureSecurityForm::authenticationApproach() const {
-  return doc().formField(path(), "authenticationApproach");
-}
-void IntegrationArchitectureSecurityForm::setAuthenticationApproach(const std::string& value) {
-  doc().setFormField(path(), "authenticationApproach", value);
-}
 std::string IntegrationArchitectureSecurityForm::authorizationApproach() const {
   return doc().formField(path(), "authorizationApproach");
 }
@@ -62709,6 +62703,12 @@ std::string IntegrationArchitectureSecurityForm::secureTransport() const {
 }
 void IntegrationArchitectureSecurityForm::setSecureTransport(const std::string& value) {
   doc().setFormField(path(), "secureTransport", value);
+}
+std::string IntegrationArchitectureSecurityForm::authenticationApproach() const {
+  return doc().formField(path(), "authenticationApproach");
+}
+void IntegrationArchitectureSecurityForm::setAuthenticationApproach(const std::string& value) {
+  doc().setFormField(path(), "authenticationApproach", value);
 }
 
 IntegrationArchitectureSystemsForm::IntegrationArchitectureSystemsForm(som::SpecDocument& doc, std::string path)
@@ -62725,17 +62725,17 @@ std::string IntegrationArchitectureSystemsForm::externalSystemCount() const {
 void IntegrationArchitectureSystemsForm::setExternalSystemCount(const std::string& value) {
   doc().setFormField(path(), "externalSystemCount", value);
 }
-std::string IntegrationArchitectureSystemsForm::integrationTypes() const {
-  return doc().formField(path(), "integrationTypes");
-}
-void IntegrationArchitectureSystemsForm::setIntegrationTypes(const std::string& value) {
-  doc().setFormField(path(), "integrationTypes", value);
-}
 std::string IntegrationArchitectureSystemsForm::realTimeIntegrations() const {
   return doc().formField(path(), "realTimeIntegrations");
 }
 void IntegrationArchitectureSystemsForm::setRealTimeIntegrations(const std::string& value) {
   doc().setFormField(path(), "realTimeIntegrations", value);
+}
+std::string IntegrationArchitectureSystemsForm::integrationTypes() const {
+  return doc().formField(path(), "integrationTypes");
+}
+void IntegrationArchitectureSystemsForm::setIntegrationTypes(const std::string& value) {
+  doc().setFormField(path(), "integrationTypes", value);
 }
 
 IntegrationConstraintEntryComplianceForm::IntegrationConstraintEntryComplianceForm(som::SpecDocument& doc, std::string path)
@@ -63753,12 +63753,6 @@ std::string InteractionPatternEntryDefinitionForm::content() const {
 void InteractionPatternEntryDefinitionForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string InteractionPatternEntryDefinitionForm::description() const {
-  return doc().formField(path(), "description");
-}
-void InteractionPatternEntryDefinitionForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
-}
 std::string InteractionPatternEntryDefinitionForm::useCases() const {
   return doc().formField(path(), "useCases");
 }
@@ -63770,6 +63764,12 @@ std::string InteractionPatternEntryDefinitionForm::userCategories() const {
 }
 void InteractionPatternEntryDefinitionForm::setUserCategories(const std::string& value) {
   doc().setFormField(path(), "userCategories", value);
+}
+std::string InteractionPatternEntryDefinitionForm::description() const {
+  return doc().formField(path(), "description");
+}
+void InteractionPatternEntryDefinitionForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
 }
 
 InteractionPatternEntryTriggerForm::InteractionPatternEntryTriggerForm(som::SpecDocument& doc, std::string path)
@@ -64820,12 +64820,6 @@ std::string InterfaceTechnicalSpecWebhookSpecForm::webhookEndpoint() const {
 void InterfaceTechnicalSpecWebhookSpecForm::setWebhookEndpoint(const std::string& value) {
   doc().setFormField(path(), "webhookEndpoint", value);
 }
-std::string InterfaceTechnicalSpecWebhookSpecForm::eventTypes() const {
-  return doc().formField(path(), "eventTypes");
-}
-void InterfaceTechnicalSpecWebhookSpecForm::setEventTypes(const std::string& value) {
-  doc().setFormField(path(), "eventTypes", value);
-}
 std::string InterfaceTechnicalSpecWebhookSpecForm::signatureVerification() const {
   return doc().formField(path(), "signatureVerification");
 }
@@ -64843,6 +64837,12 @@ std::string InterfaceTechnicalSpecWebhookSpecForm::idempotencyHandling() const {
 }
 void InterfaceTechnicalSpecWebhookSpecForm::setIdempotencyHandling(const std::string& value) {
   doc().setFormField(path(), "idempotencyHandling", value);
+}
+std::string InterfaceTechnicalSpecWebhookSpecForm::eventTypes() const {
+  return doc().formField(path(), "eventTypes");
+}
+void InterfaceTechnicalSpecWebhookSpecForm::setEventTypes(const std::string& value) {
+  doc().setFormField(path(), "eventTypes", value);
 }
 
 InterfaceTestScenarioEntryContentForm::InterfaceTestScenarioEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -65371,23 +65371,11 @@ std::string ItLandscapePositionPositionDetailsForm::portfolioRole() const {
 void ItLandscapePositionPositionDetailsForm::setPortfolioRole(const std::string& value) {
   doc().setFormField(path(), "portfolioRole", value);
 }
-std::string ItLandscapePositionPositionDetailsForm::replacedSystems() const {
-  return doc().formField(path(), "replacedSystems");
-}
-void ItLandscapePositionPositionDetailsForm::setReplacedSystems(const std::string& value) {
-  doc().setFormField(path(), "replacedSystems", value);
-}
 std::string ItLandscapePositionPositionDetailsForm::complementarySystems() const {
   return doc().formField(path(), "complementarySystems");
 }
 void ItLandscapePositionPositionDetailsForm::setComplementarySystems(const std::string& value) {
   doc().setFormField(path(), "complementarySystems", value);
-}
-std::string ItLandscapePositionPositionDetailsForm::dependsOnSystems() const {
-  return doc().formField(path(), "dependsOnSystems");
-}
-void ItLandscapePositionPositionDetailsForm::setDependsOnSystems(const std::string& value) {
-  doc().setFormField(path(), "dependsOnSystems", value);
 }
 std::string ItLandscapePositionPositionDetailsForm::dependentSystems() const {
   return doc().formField(path(), "dependentSystems");
@@ -65395,17 +65383,29 @@ std::string ItLandscapePositionPositionDetailsForm::dependentSystems() const {
 void ItLandscapePositionPositionDetailsForm::setDependentSystems(const std::string& value) {
   doc().setFormField(path(), "dependentSystems", value);
 }
-std::string ItLandscapePositionPositionDetailsForm::dataOwnership() const {
-  return doc().formField(path(), "dataOwnership");
-}
-void ItLandscapePositionPositionDetailsForm::setDataOwnership(const std::string& value) {
-  doc().setFormField(path(), "dataOwnership", value);
-}
 std::string ItLandscapePositionPositionDetailsForm::integrationPattern() const {
   return doc().formField(path(), "integrationPattern");
 }
 void ItLandscapePositionPositionDetailsForm::setIntegrationPattern(const std::string& value) {
   doc().setFormField(path(), "integrationPattern", value);
+}
+std::string ItLandscapePositionPositionDetailsForm::replacedSystems() const {
+  return doc().formField(path(), "replacedSystems");
+}
+void ItLandscapePositionPositionDetailsForm::setReplacedSystems(const std::string& value) {
+  doc().setFormField(path(), "replacedSystems", value);
+}
+std::string ItLandscapePositionPositionDetailsForm::dependsOnSystems() const {
+  return doc().formField(path(), "dependsOnSystems");
+}
+void ItLandscapePositionPositionDetailsForm::setDependsOnSystems(const std::string& value) {
+  doc().setFormField(path(), "dependsOnSystems", value);
+}
+std::string ItLandscapePositionPositionDetailsForm::dataOwnership() const {
+  return doc().formField(path(), "dataOwnership");
+}
+void ItLandscapePositionPositionDetailsForm::setDataOwnership(const std::string& value) {
+  doc().setFormField(path(), "dataOwnership", value);
 }
 
 ItSecurityOperationsAccessForm::ItSecurityOperationsAccessForm(som::SpecDocument& doc, std::string path)
@@ -65415,12 +65415,6 @@ std::string ItSecurityOperationsAccessForm::content() const {
 }
 void ItSecurityOperationsAccessForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
-}
-std::string ItSecurityOperationsAccessForm::privilegedAccessManagement() const {
-  return doc().formField(path(), "privilegedAccessManagement");
-}
-void ItSecurityOperationsAccessForm::setPrivilegedAccessManagement(const std::string& value) {
-  doc().setFormField(path(), "privilegedAccessManagement", value);
 }
 std::string ItSecurityOperationsAccessForm::accessReviewFrequency() const {
   return doc().formField(path(), "accessReviewFrequency");
@@ -65433,6 +65427,12 @@ std::string ItSecurityOperationsAccessForm::accessAuditLogging() const {
 }
 void ItSecurityOperationsAccessForm::setAccessAuditLogging(const std::string& value) {
   doc().setFormField(path(), "accessAuditLogging", value);
+}
+std::string ItSecurityOperationsAccessForm::privilegedAccessManagement() const {
+  return doc().formField(path(), "privilegedAccessManagement");
+}
+void ItSecurityOperationsAccessForm::setPrivilegedAccessManagement(const std::string& value) {
+  doc().setFormField(path(), "privilegedAccessManagement", value);
 }
 
 ItSecurityOperationsContentForm::ItSecurityOperationsContentForm(som::SpecDocument& doc, std::string path)
@@ -66937,17 +66937,17 @@ std::string LifecycleTransitionEntryTriggerForm::content() const {
 void LifecycleTransitionEntryTriggerForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string LifecycleTransitionEntryTriggerForm::trigger() const {
-  return doc().formField(path(), "trigger");
-}
-void LifecycleTransitionEntryTriggerForm::setTrigger(const std::string& value) {
-  doc().setFormField(path(), "trigger", value);
-}
 std::string LifecycleTransitionEntryTriggerForm::triggerType() const {
   return doc().formField(path(), "triggerType");
 }
 void LifecycleTransitionEntryTriggerForm::setTriggerType(const std::string& value) {
   doc().setFormField(path(), "triggerType", value);
+}
+std::string LifecycleTransitionEntryTriggerForm::trigger() const {
+  return doc().formField(path(), "trigger");
+}
+void LifecycleTransitionEntryTriggerForm::setTrigger(const std::string& value) {
+  doc().setFormField(path(), "trigger", value);
 }
 
 LimitationEntryContentForm::LimitationEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -68127,12 +68127,6 @@ std::string MainScenarioStepEntryContentForm::dataInvolved() const {
 void MainScenarioStepEntryContentForm::setDataInvolved(const std::string& value) {
   doc().setFormField(path(), "dataInvolved", value);
 }
-std::string MainScenarioStepEntryContentForm::businessRuleApplied() const {
-  return doc().formField(path(), "businessRuleApplied");
-}
-void MainScenarioStepEntryContentForm::setBusinessRuleApplied(const std::string& value) {
-  doc().setFormField(path(), "businessRuleApplied", value);
-}
 std::string MainScenarioStepEntryContentForm::uiElementUsed() const {
   return doc().formField(path(), "uiElementUsed");
 }
@@ -68150,6 +68144,12 @@ std::string MainScenarioStepEntryContentForm::expectedDuration() const {
 }
 void MainScenarioStepEntryContentForm::setExpectedDuration(const std::string& value) {
   doc().setFormField(path(), "expectedDuration", value);
+}
+std::string MainScenarioStepEntryContentForm::businessRuleApplied() const {
+  return doc().formField(path(), "businessRuleApplied");
+}
+void MainScenarioStepEntryContentForm::setBusinessRuleApplied(const std::string& value) {
+  doc().setFormField(path(), "businessRuleApplied", value);
 }
 
 MainSuccessScenarioContentForm::MainSuccessScenarioContentForm(som::SpecDocument& doc, std::string path)
@@ -69688,17 +69688,17 @@ std::string MfaCategoryRequirementEntryAuthenticatorsForm::content() const {
 void MfaCategoryRequirementEntryAuthenticatorsForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string MfaCategoryRequirementEntryAuthenticatorsForm::allowedAuthenticatorTypes() const {
-  return doc().formField(path(), "allowedAuthenticatorTypes");
-}
-void MfaCategoryRequirementEntryAuthenticatorsForm::setAllowedAuthenticatorTypes(const std::string& value) {
-  doc().setFormField(path(), "allowedAuthenticatorTypes", value);
-}
 std::string MfaCategoryRequirementEntryAuthenticatorsForm::phishingResistanceRequired() const {
   return doc().formField(path(), "phishingResistanceRequired");
 }
 void MfaCategoryRequirementEntryAuthenticatorsForm::setPhishingResistanceRequired(const std::string& value) {
   doc().setFormField(path(), "phishingResistanceRequired", value);
+}
+std::string MfaCategoryRequirementEntryAuthenticatorsForm::allowedAuthenticatorTypes() const {
+  return doc().formField(path(), "allowedAuthenticatorTypes");
+}
+void MfaCategoryRequirementEntryAuthenticatorsForm::setAllowedAuthenticatorTypes(const std::string& value) {
+  doc().setFormField(path(), "allowedAuthenticatorTypes", value);
 }
 
 MfaCategoryRequirementEntryContentForm::MfaCategoryRequirementEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -71946,12 +71946,6 @@ std::string ModuleEntryDescriptionForm::purpose() const {
 void ModuleEntryDescriptionForm::setPurpose(const std::string& value) {
   doc().setFormField(path(), "purpose", value);
 }
-std::string ModuleEntryDescriptionForm::functionality() const {
-  return doc().formField(path(), "functionality");
-}
-void ModuleEntryDescriptionForm::setFunctionality(const std::string& value) {
-  doc().setFormField(path(), "functionality", value);
-}
 std::string ModuleEntryDescriptionForm::publicApi() const {
   return doc().formField(path(), "publicApi");
 }
@@ -71963,6 +71957,12 @@ std::string ModuleEntryDescriptionForm::entryPoints() const {
 }
 void ModuleEntryDescriptionForm::setEntryPoints(const std::string& value) {
   doc().setFormField(path(), "entryPoints", value);
+}
+std::string ModuleEntryDescriptionForm::functionality() const {
+  return doc().formField(path(), "functionality");
+}
+void ModuleEntryDescriptionForm::setFunctionality(const std::string& value) {
+  doc().setFormField(path(), "functionality", value);
 }
 
 ModuleEntryOwnershipForm::ModuleEntryOwnershipForm(som::SpecDocument& doc, std::string path)
@@ -72761,12 +72761,6 @@ std::string MustPassCriterionEntryDefinitionForm::content() const {
 void MustPassCriterionEntryDefinitionForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string MustPassCriterionEntryDefinitionForm::criterionDescription() const {
-  return doc().formField(path(), "criterionDescription");
-}
-void MustPassCriterionEntryDefinitionForm::setCriterionDescription(const std::string& value) {
-  doc().setFormField(path(), "criterionDescription", value);
-}
 std::string MustPassCriterionEntryDefinitionForm::qualityCategory() const {
   return doc().formField(path(), "qualityCategory");
 }
@@ -72778,6 +72772,12 @@ std::string MustPassCriterionEntryDefinitionForm::qualityAttribute() const {
 }
 void MustPassCriterionEntryDefinitionForm::setQualityAttribute(const std::string& value) {
   doc().setFormField(path(), "qualityAttribute", value);
+}
+std::string MustPassCriterionEntryDefinitionForm::criterionDescription() const {
+  return doc().formField(path(), "criterionDescription");
+}
+void MustPassCriterionEntryDefinitionForm::setCriterionDescription(const std::string& value) {
+  doc().setFormField(path(), "criterionDescription", value);
 }
 
 MustPassCriterionEntryGovernanceForm::MustPassCriterionEntryGovernanceForm(som::SpecDocument& doc, std::string path)
@@ -75916,18 +75916,6 @@ std::string OpportunityStatementOpportunityDetailsForm::futureState() const {
 void OpportunityStatementOpportunityDetailsForm::setFutureState(const std::string& value) {
   doc().setFormField(path(), "futureState", value);
 }
-std::string OpportunityStatementOpportunityDetailsForm::newCapabilities() const {
-  return doc().formField(path(), "newCapabilities");
-}
-void OpportunityStatementOpportunityDetailsForm::setNewCapabilities(const std::string& value) {
-  doc().setFormField(path(), "newCapabilities", value);
-}
-std::string OpportunityStatementOpportunityDetailsForm::improvements() const {
-  return doc().formField(path(), "improvements");
-}
-void OpportunityStatementOpportunityDetailsForm::setImprovements(const std::string& value) {
-  doc().setFormField(path(), "improvements", value);
-}
 std::string OpportunityStatementOpportunityDetailsForm::competitiveAdvantage() const {
   return doc().formField(path(), "competitiveAdvantage");
 }
@@ -75957,6 +75945,18 @@ std::string OpportunityStatementOpportunityDetailsForm::timeToValue() const {
 }
 void OpportunityStatementOpportunityDetailsForm::setTimeToValue(const std::string& value) {
   doc().setFormField(path(), "timeToValue", value);
+}
+std::string OpportunityStatementOpportunityDetailsForm::newCapabilities() const {
+  return doc().formField(path(), "newCapabilities");
+}
+void OpportunityStatementOpportunityDetailsForm::setNewCapabilities(const std::string& value) {
+  doc().setFormField(path(), "newCapabilities", value);
+}
+std::string OpportunityStatementOpportunityDetailsForm::improvements() const {
+  return doc().formField(path(), "improvements");
+}
+void OpportunityStatementOpportunityDetailsForm::setImprovements(const std::string& value) {
+  doc().setFormField(path(), "improvements", value);
 }
 
 OrgChangeRisksContentForm::OrgChangeRisksContentForm(som::SpecDocument& doc, std::string path)
@@ -76480,6 +76480,12 @@ std::string OrganizationalRequirementEntryClassificationForm::content() const {
 void OrganizationalRequirementEntryClassificationForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
+std::string OrganizationalRequirementEntryClassificationForm::priority() const {
+  return doc().formField(path(), "priority");
+}
+void OrganizationalRequirementEntryClassificationForm::setPriority(const std::string& value) {
+  doc().setFormField(path(), "priority", value);
+}
 std::string OrganizationalRequirementEntryClassificationForm::category() const {
   return doc().formField(path(), "category");
 }
@@ -76492,23 +76498,17 @@ std::string OrganizationalRequirementEntryClassificationForm::subcategory() cons
 void OrganizationalRequirementEntryClassificationForm::setSubcategory(const std::string& value) {
   doc().setFormField(path(), "subcategory", value);
 }
-std::string OrganizationalRequirementEntryClassificationForm::priority() const {
-  return doc().formField(path(), "priority");
+std::string OrganizationalRequirementEntryClassificationForm::rationale() const {
+  return doc().formField(path(), "rationale");
 }
-void OrganizationalRequirementEntryClassificationForm::setPriority(const std::string& value) {
-  doc().setFormField(path(), "priority", value);
+void OrganizationalRequirementEntryClassificationForm::setRationale(const std::string& value) {
+  doc().setFormField(path(), "rationale", value);
 }
 std::string OrganizationalRequirementEntryClassificationForm::source() const {
   return doc().formField(path(), "source");
 }
 void OrganizationalRequirementEntryClassificationForm::setSource(const std::string& value) {
   doc().setFormField(path(), "source", value);
-}
-std::string OrganizationalRequirementEntryClassificationForm::rationale() const {
-  return doc().formField(path(), "rationale");
-}
-void OrganizationalRequirementEntryClassificationForm::setRationale(const std::string& value) {
-  doc().setFormField(path(), "rationale", value);
 }
 
 OrganizationalRequirementEntryContentForm::OrganizationalRequirementEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -76897,6 +76897,12 @@ std::string OtherAgreementEntryContentForm::expirationDate() const {
 void OtherAgreementEntryContentForm::setExpirationDate(const std::string& value) {
   doc().setFormField(path(), "expirationDate", value);
 }
+std::string OtherAgreementEntryContentForm::location() const {
+  return doc().formField(path(), "location");
+}
+void OtherAgreementEntryContentForm::setLocation(const std::string& value) {
+  doc().setFormField(path(), "location", value);
+}
 std::string OtherAgreementEntryContentForm::keyTerms() const {
   return doc().formField(path(), "keyTerms");
 }
@@ -76908,12 +76914,6 @@ std::string OtherAgreementEntryContentForm::obligations() const {
 }
 void OtherAgreementEntryContentForm::setObligations(const std::string& value) {
   doc().setFormField(path(), "obligations", value);
-}
-std::string OtherAgreementEntryContentForm::location() const {
-  return doc().formField(path(), "location");
-}
-void OtherAgreementEntryContentForm::setLocation(const std::string& value) {
-  doc().setFormField(path(), "location", value);
 }
 
 OutOfScopeEntryContentForm::OutOfScopeEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -77110,17 +77110,17 @@ std::string PackageOrganizationStructureForm::monorepoVsPolyrepo() const {
 void PackageOrganizationStructureForm::setMonorepoVsPolyrepo(const std::string& value) {
   doc().setFormField(path(), "monorepoVsPolyrepo", value);
 }
-std::string PackageOrganizationStructureForm::directoryLayout() const {
-  return doc().formField(path(), "directoryLayout");
-}
-void PackageOrganizationStructureForm::setDirectoryLayout(const std::string& value) {
-  doc().setFormField(path(), "directoryLayout", value);
-}
 std::string PackageOrganizationStructureForm::featureGrouping() const {
   return doc().formField(path(), "featureGrouping");
 }
 void PackageOrganizationStructureForm::setFeatureGrouping(const std::string& value) {
   doc().setFormField(path(), "featureGrouping", value);
+}
+std::string PackageOrganizationStructureForm::directoryLayout() const {
+  return doc().formField(path(), "directoryLayout");
+}
+void PackageOrganizationStructureForm::setDirectoryLayout(const std::string& value) {
+  doc().setFormField(path(), "directoryLayout", value);
 }
 
 PackageOrganizationTypesForm::PackageOrganizationTypesForm(som::SpecDocument& doc, std::string path)
@@ -77130,18 +77130,6 @@ std::string PackageOrganizationTypesForm::content() const {
 }
 void PackageOrganizationTypesForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
-}
-std::string PackageOrganizationTypesForm::corePackages() const {
-  return doc().formField(path(), "corePackages");
-}
-void PackageOrganizationTypesForm::setCorePackages(const std::string& value) {
-  doc().setFormField(path(), "corePackages", value);
-}
-std::string PackageOrganizationTypesForm::featurePackages() const {
-  return doc().formField(path(), "featurePackages");
-}
-void PackageOrganizationTypesForm::setFeaturePackages(const std::string& value) {
-  doc().setFormField(path(), "featurePackages", value);
 }
 std::string PackageOrganizationTypesForm::sharedPackages() const {
   return doc().formField(path(), "sharedPackages");
@@ -77154,6 +77142,18 @@ std::string PackageOrganizationTypesForm::platformPackages() const {
 }
 void PackageOrganizationTypesForm::setPlatformPackages(const std::string& value) {
   doc().setFormField(path(), "platformPackages", value);
+}
+std::string PackageOrganizationTypesForm::corePackages() const {
+  return doc().formField(path(), "corePackages");
+}
+void PackageOrganizationTypesForm::setCorePackages(const std::string& value) {
+  doc().setFormField(path(), "corePackages", value);
+}
+std::string PackageOrganizationTypesForm::featurePackages() const {
+  return doc().formField(path(), "featurePackages");
+}
+void PackageOrganizationTypesForm::setFeaturePackages(const std::string& value) {
+  doc().setFormField(path(), "featurePackages", value);
 }
 
 PainPointEntryClassificationForm::PainPointEntryClassificationForm(som::SpecDocument& doc, std::string path)
@@ -78179,12 +78179,6 @@ std::string PeriodicReviewPolicyContentForm::privilegedAccountReview() const {
 void PeriodicReviewPolicyContentForm::setPrivilegedAccountReview(const std::string& value) {
   doc().setFormField(path(), "privilegedAccountReview", value);
 }
-std::string PeriodicReviewPolicyContentForm::reviewers() const {
-  return doc().formField(path(), "reviewers");
-}
-void PeriodicReviewPolicyContentForm::setReviewers(const std::string& value) {
-  doc().setFormField(path(), "reviewers", value);
-}
 std::string PeriodicReviewPolicyContentForm::dormantAccountReview() const {
   return doc().formField(path(), "dormantAccountReview");
 }
@@ -78202,6 +78196,12 @@ std::string PeriodicReviewPolicyContentForm::reviewDocumentation() const {
 }
 void PeriodicReviewPolicyContentForm::setReviewDocumentation(const std::string& value) {
   doc().setFormField(path(), "reviewDocumentation", value);
+}
+std::string PeriodicReviewPolicyContentForm::reviewers() const {
+  return doc().formField(path(), "reviewers");
+}
+void PeriodicReviewPolicyContentForm::setReviewers(const std::string& value) {
+  doc().setFormField(path(), "reviewers", value);
 }
 
 PeripheralEquipmentEntryContentForm::PeripheralEquipmentEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -79536,12 +79536,6 @@ std::string PortabilityContentForm::migrationEffortConstraint() const {
 void PortabilityContentForm::setMigrationEffortConstraint(const std::string& value) {
   doc().setFormField(path(), "migrationEffortConstraint", value);
 }
-std::string PortabilityContentForm::dataPortability() const {
-  return doc().formField(path(), "dataPortability");
-}
-void PortabilityContentForm::setDataPortability(const std::string& value) {
-  doc().setFormField(path(), "dataPortability", value);
-}
 std::string PortabilityContentForm::vendorLockInAvoidance() const {
   return doc().formField(path(), "vendorLockInAvoidance");
 }
@@ -79565,6 +79559,12 @@ std::string PortabilityContentForm::portabilityVerification() const {
 }
 void PortabilityContentForm::setPortabilityVerification(const std::string& value) {
   doc().setFormField(path(), "portabilityVerification", value);
+}
+std::string PortabilityContentForm::dataPortability() const {
+  return doc().formField(path(), "dataPortability");
+}
+void PortabilityContentForm::setDataPortability(const std::string& value) {
+  doc().setFormField(path(), "dataPortability", value);
 }
 
 PostMaintenanceValidationClosureForm::PostMaintenanceValidationClosureForm(som::SpecDocument& doc, std::string path)
@@ -79694,12 +79694,6 @@ std::string PostconditionsAndGuaranteesContentForm::minimalGuarantees() const {
 void PostconditionsAndGuaranteesContentForm::setMinimalGuarantees(const std::string& value) {
   doc().setFormField(path(), "minimalGuarantees", value);
 }
-std::string PostconditionsAndGuaranteesContentForm::successGuarantees() const {
-  return doc().formField(path(), "successGuarantees");
-}
-void PostconditionsAndGuaranteesContentForm::setSuccessGuarantees(const std::string& value) {
-  doc().setFormField(path(), "successGuarantees", value);
-}
 std::string PostconditionsAndGuaranteesContentForm::primaryActorPostcondition() const {
   return doc().formField(path(), "primaryActorPostcondition");
 }
@@ -79718,17 +79712,23 @@ std::string PostconditionsAndGuaranteesContentForm::dataPostcondition() const {
 void PostconditionsAndGuaranteesContentForm::setDataPostcondition(const std::string& value) {
   doc().setFormField(path(), "dataPostcondition", value);
 }
-std::string PostconditionsAndGuaranteesContentForm::notificationsGenerated() const {
-  return doc().formField(path(), "notificationsGenerated");
-}
-void PostconditionsAndGuaranteesContentForm::setNotificationsGenerated(const std::string& value) {
-  doc().setFormField(path(), "notificationsGenerated", value);
-}
 std::string PostconditionsAndGuaranteesContentForm::auditTrail() const {
   return doc().formField(path(), "auditTrail");
 }
 void PostconditionsAndGuaranteesContentForm::setAuditTrail(const std::string& value) {
   doc().setFormField(path(), "auditTrail", value);
+}
+std::string PostconditionsAndGuaranteesContentForm::successGuarantees() const {
+  return doc().formField(path(), "successGuarantees");
+}
+void PostconditionsAndGuaranteesContentForm::setSuccessGuarantees(const std::string& value) {
+  doc().setFormField(path(), "successGuarantees", value);
+}
+std::string PostconditionsAndGuaranteesContentForm::notificationsGenerated() const {
+  return doc().formField(path(), "notificationsGenerated");
+}
+void PostconditionsAndGuaranteesContentForm::setNotificationsGenerated(const std::string& value) {
+  doc().setFormField(path(), "notificationsGenerated", value);
 }
 
 PreconditionsAndTriggersContentForm::PreconditionsAndTriggersContentForm(som::SpecDocument& doc, std::string path)
@@ -79738,12 +79738,6 @@ std::string PreconditionsAndTriggersContentForm::content() const {
 }
 void PreconditionsAndTriggersContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
-}
-std::string PreconditionsAndTriggersContentForm::precondition() const {
-  return doc().formField(path(), "precondition");
-}
-void PreconditionsAndTriggersContentForm::setPrecondition(const std::string& value) {
-  doc().setFormField(path(), "precondition", value);
 }
 std::string PreconditionsAndTriggersContentForm::trigger() const {
   return doc().formField(path(), "trigger");
@@ -79780,6 +79774,12 @@ std::string PreconditionsAndTriggersContentForm::validationBeforeStart() const {
 }
 void PreconditionsAndTriggersContentForm::setValidationBeforeStart(const std::string& value) {
   doc().setFormField(path(), "validationBeforeStart", value);
+}
+std::string PreconditionsAndTriggersContentForm::precondition() const {
+  return doc().formField(path(), "precondition");
+}
+void PreconditionsAndTriggersContentForm::setPrecondition(const std::string& value) {
+  doc().setFormField(path(), "precondition", value);
 }
 
 PrimaryNavigationBottomNavForm::PrimaryNavigationBottomNavForm(som::SpecDocument& doc, std::string path)
@@ -80472,6 +80472,12 @@ std::string ProblemStatementProblemDetailsForm::problemSummary() const {
 void ProblemStatementProblemDetailsForm::setProblemSummary(const std::string& value) {
   doc().setFormField(path(), "problemSummary", value);
 }
+std::string ProblemStatementProblemDetailsForm::impactSeverity() const {
+  return doc().formField(path(), "impactSeverity");
+}
+void ProblemStatementProblemDetailsForm::setImpactSeverity(const std::string& value) {
+  doc().setFormField(path(), "impactSeverity", value);
+}
 std::string ProblemStatementProblemDetailsForm::currentState() const {
   return doc().formField(path(), "currentState");
 }
@@ -80490,11 +80496,17 @@ std::string ProblemStatementProblemDetailsForm::impactDescription() const {
 void ProblemStatementProblemDetailsForm::setImpactDescription(const std::string& value) {
   doc().setFormField(path(), "impactDescription", value);
 }
-std::string ProblemStatementProblemDetailsForm::impactSeverity() const {
-  return doc().formField(path(), "impactSeverity");
+std::string ProblemStatementProblemDetailsForm::urgency() const {
+  return doc().formField(path(), "urgency");
 }
-void ProblemStatementProblemDetailsForm::setImpactSeverity(const std::string& value) {
-  doc().setFormField(path(), "impactSeverity", value);
+void ProblemStatementProblemDetailsForm::setUrgency(const std::string& value) {
+  doc().setFormField(path(), "urgency", value);
+}
+std::string ProblemStatementProblemDetailsForm::urgencyJustification() const {
+  return doc().formField(path(), "urgencyJustification");
+}
+void ProblemStatementProblemDetailsForm::setUrgencyJustification(const std::string& value) {
+  doc().setFormField(path(), "urgencyJustification", value);
 }
 std::string ProblemStatementProblemDetailsForm::impactMetrics() const {
   return doc().formField(path(), "impactMetrics");
@@ -80507,18 +80519,6 @@ std::string ProblemStatementProblemDetailsForm::rootCauses() const {
 }
 void ProblemStatementProblemDetailsForm::setRootCauses(const std::string& value) {
   doc().setFormField(path(), "rootCauses", value);
-}
-std::string ProblemStatementProblemDetailsForm::urgency() const {
-  return doc().formField(path(), "urgency");
-}
-void ProblemStatementProblemDetailsForm::setUrgency(const std::string& value) {
-  doc().setFormField(path(), "urgency", value);
-}
-std::string ProblemStatementProblemDetailsForm::urgencyJustification() const {
-  return doc().formField(path(), "urgencyJustification");
-}
-void ProblemStatementProblemDetailsForm::setUrgencyJustification(const std::string& value) {
-  doc().setFormField(path(), "urgencyJustification", value);
 }
 std::string ProblemStatementProblemDetailsForm::consequencesOfInaction() const {
   return doc().formField(path(), "consequencesOfInaction");
@@ -80912,12 +80912,6 @@ std::optional<long> ProcessCatalogOverviewForm::totalProcessCount() const {
 void ProcessCatalogOverviewForm::setTotalProcessCount(std::optional<long> value) {
   doc().setFormField(path(), "totalProcessCount", value.has_value() ? std::to_string(*value) : "");
 }
-std::string ProcessCatalogOverviewForm::scopeStatement() const {
-  return doc().formField(path(), "scopeStatement");
-}
-void ProcessCatalogOverviewForm::setScopeStatement(const std::string& value) {
-  doc().setFormField(path(), "scopeStatement", value);
-}
 std::string ProcessCatalogOverviewForm::classificationFramework() const {
   return doc().formField(path(), "classificationFramework");
 }
@@ -80953,6 +80947,12 @@ std::string ProcessCatalogOverviewForm::versioningApproach() const {
 }
 void ProcessCatalogOverviewForm::setVersioningApproach(const std::string& value) {
   doc().setFormField(path(), "versioningApproach", value);
+}
+std::string ProcessCatalogOverviewForm::scopeStatement() const {
+  return doc().formField(path(), "scopeStatement");
+}
+void ProcessCatalogOverviewForm::setScopeStatement(const std::string& value) {
+  doc().setFormField(path(), "scopeStatement", value);
 }
 
 ProcessCharacteristicsBusinessForm::ProcessCharacteristicsBusinessForm(som::SpecDocument& doc, std::string path)
@@ -81263,17 +81263,17 @@ std::string ProcessDesignPrincipleEntryContentForm::content() const {
 void ProcessDesignPrincipleEntryContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
+std::string ProcessDesignPrincipleEntryContentForm::priority() const {
+  return doc().formField(path(), "priority");
+}
+void ProcessDesignPrincipleEntryContentForm::setPriority(const std::string& value) {
+  doc().setFormField(path(), "priority", value);
+}
 std::string ProcessDesignPrincipleEntryContentForm::category() const {
   return doc().formField(path(), "category");
 }
 void ProcessDesignPrincipleEntryContentForm::setCategory(const std::string& value) {
   doc().setFormField(path(), "category", value);
-}
-std::string ProcessDesignPrincipleEntryContentForm::statement() const {
-  return doc().formField(path(), "statement");
-}
-void ProcessDesignPrincipleEntryContentForm::setStatement(const std::string& value) {
-  doc().setFormField(path(), "statement", value);
 }
 std::string ProcessDesignPrincipleEntryContentForm::rationale() const {
   return doc().formField(path(), "rationale");
@@ -81299,17 +81299,17 @@ std::string ProcessDesignPrincipleEntryContentForm::tradeoffs() const {
 void ProcessDesignPrincipleEntryContentForm::setTradeoffs(const std::string& value) {
   doc().setFormField(path(), "tradeoffs", value);
 }
-std::string ProcessDesignPrincipleEntryContentForm::priority() const {
-  return doc().formField(path(), "priority");
-}
-void ProcessDesignPrincipleEntryContentForm::setPriority(const std::string& value) {
-  doc().setFormField(path(), "priority", value);
-}
 std::string ProcessDesignPrincipleEntryContentForm::applicability() const {
   return doc().formField(path(), "applicability");
 }
 void ProcessDesignPrincipleEntryContentForm::setApplicability(const std::string& value) {
   doc().setFormField(path(), "applicability", value);
+}
+std::string ProcessDesignPrincipleEntryContentForm::statement() const {
+  return doc().formField(path(), "statement");
+}
+void ProcessDesignPrincipleEntryContentForm::setStatement(const std::string& value) {
+  doc().setFormField(path(), "statement", value);
 }
 
 ProcessDesignPrinciplesOverviewForm::ProcessDesignPrinciplesOverviewForm(som::SpecDocument& doc, std::string path)
@@ -81584,12 +81584,6 @@ std::string ProcessIdentificationDefinitionForm::content() const {
 void ProcessIdentificationDefinitionForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string ProcessIdentificationDefinitionForm::description() const {
-  return doc().formField(path(), "description");
-}
-void ProcessIdentificationDefinitionForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
-}
 std::string ProcessIdentificationDefinitionForm::purpose() const {
   return doc().formField(path(), "purpose");
 }
@@ -81601,6 +81595,12 @@ std::string ProcessIdentificationDefinitionForm::scope() const {
 }
 void ProcessIdentificationDefinitionForm::setScope(const std::string& value) {
   doc().setFormField(path(), "scope", value);
+}
+std::string ProcessIdentificationDefinitionForm::description() const {
+  return doc().formField(path(), "description");
+}
+void ProcessIdentificationDefinitionForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
 }
 
 ProcessIdentificationGovernanceForm::ProcessIdentificationGovernanceForm(som::SpecDocument& doc, std::string path)
@@ -82330,12 +82330,6 @@ std::string ProcessRelationshipEntryContentForm::relationshipType() const {
 void ProcessRelationshipEntryContentForm::setRelationshipType(const std::string& value) {
   doc().setFormField(path(), "relationshipType", value);
 }
-std::string ProcessRelationshipEntryContentForm::dataExchanged() const {
-  return doc().formField(path(), "dataExchanged");
-}
-void ProcessRelationshipEntryContentForm::setDataExchanged(const std::string& value) {
-  doc().setFormField(path(), "dataExchanged", value);
-}
 std::string ProcessRelationshipEntryContentForm::timingDependency() const {
   return doc().formField(path(), "timingDependency");
 }
@@ -82353,6 +82347,12 @@ std::string ProcessRelationshipEntryContentForm::criticality() const {
 }
 void ProcessRelationshipEntryContentForm::setCriticality(const std::string& value) {
   doc().setFormField(path(), "criticality", value);
+}
+std::string ProcessRelationshipEntryContentForm::dataExchanged() const {
+  return doc().formField(path(), "dataExchanged");
+}
+void ProcessRelationshipEntryContentForm::setDataExchanged(const std::string& value) {
+  doc().setFormField(path(), "dataExchanged", value);
 }
 
 ProcessRoleEntryContentForm::ProcessRoleEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -82618,12 +82618,6 @@ std::string ProcessStepsOverviewContentForm::content() const {
 void ProcessStepsOverviewContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string ProcessStepsOverviewContentForm::useCaseScope() const {
-  return doc().formField(path(), "useCaseScope");
-}
-void ProcessStepsOverviewContentForm::setUseCaseScope(const std::string& value) {
-  doc().setFormField(path(), "useCaseScope", value);
-}
 std::string ProcessStepsOverviewContentForm::primaryActorFocus() const {
   return doc().formField(path(), "primaryActorFocus");
 }
@@ -82648,6 +82642,18 @@ std::string ProcessStepsOverviewContentForm::useCaseNamingConvention() const {
 void ProcessStepsOverviewContentForm::setUseCaseNamingConvention(const std::string& value) {
   doc().setFormField(path(), "useCaseNamingConvention", value);
 }
+std::string ProcessStepsOverviewContentForm::notationStandard() const {
+  return doc().formField(path(), "notationStandard");
+}
+void ProcessStepsOverviewContentForm::setNotationStandard(const std::string& value) {
+  doc().setFormField(path(), "notationStandard", value);
+}
+std::string ProcessStepsOverviewContentForm::useCaseScope() const {
+  return doc().formField(path(), "useCaseScope");
+}
+void ProcessStepsOverviewContentForm::setUseCaseScope(const std::string& value) {
+  doc().setFormField(path(), "useCaseScope", value);
+}
 std::string ProcessStepsOverviewContentForm::traceabilityApproach() const {
   return doc().formField(path(), "traceabilityApproach");
 }
@@ -82659,12 +82665,6 @@ std::string ProcessStepsOverviewContentForm::detailLevel() const {
 }
 void ProcessStepsOverviewContentForm::setDetailLevel(const std::string& value) {
   doc().setFormField(path(), "detailLevel", value);
-}
-std::string ProcessStepsOverviewContentForm::notationStandard() const {
-  return doc().formField(path(), "notationStandard");
-}
-void ProcessStepsOverviewContentForm::setNotationStandard(const std::string& value) {
-  doc().setFormField(path(), "notationStandard", value);
 }
 
 ProcessTechnologyContentForm::ProcessTechnologyContentForm(som::SpecDocument& doc, std::string path)
@@ -82951,17 +82951,17 @@ std::string ProcessVisionSuccessCriteriaForm::userSatisfaction() const {
 void ProcessVisionSuccessCriteriaForm::setUserSatisfaction(const std::string& value) {
   doc().setFormField(path(), "userSatisfaction", value);
 }
-std::string ProcessVisionSuccessCriteriaForm::businessOutcomes() const {
-  return doc().formField(path(), "businessOutcomes");
-}
-void ProcessVisionSuccessCriteriaForm::setBusinessOutcomes(const std::string& value) {
-  doc().setFormField(path(), "businessOutcomes", value);
-}
 std::string ProcessVisionSuccessCriteriaForm::measurementApproach() const {
   return doc().formField(path(), "measurementApproach");
 }
 void ProcessVisionSuccessCriteriaForm::setMeasurementApproach(const std::string& value) {
   doc().setFormField(path(), "measurementApproach", value);
+}
+std::string ProcessVisionSuccessCriteriaForm::businessOutcomes() const {
+  return doc().formField(path(), "businessOutcomes");
+}
+void ProcessVisionSuccessCriteriaForm::setBusinessOutcomes(const std::string& value) {
+  doc().setFormField(path(), "businessOutcomes", value);
 }
 
 ProgrammingLanguageEntryContentForm::ProgrammingLanguageEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -84284,17 +84284,17 @@ std::string QualityGateAdjustmentDetailsContentForm::originalCriteria() const {
 void QualityGateAdjustmentDetailsContentForm::setOriginalCriteria(const std::string& value) {
   doc().setFormField(path(), "originalCriteria", value);
 }
-std::string QualityGateAdjustmentDetailsContentForm::adjustedCriteria() const {
-  return doc().formField(path(), "adjustedCriteria");
-}
-void QualityGateAdjustmentDetailsContentForm::setAdjustedCriteria(const std::string& value) {
-  doc().setFormField(path(), "adjustedCriteria", value);
-}
 std::string QualityGateAdjustmentDetailsContentForm::criteriaThresholdChange() const {
   return doc().formField(path(), "criteriaThresholdChange");
 }
 void QualityGateAdjustmentDetailsContentForm::setCriteriaThresholdChange(const std::string& value) {
   doc().setFormField(path(), "criteriaThresholdChange", value);
+}
+std::string QualityGateAdjustmentDetailsContentForm::adjustedCriteria() const {
+  return doc().formField(path(), "adjustedCriteria");
+}
+void QualityGateAdjustmentDetailsContentForm::setAdjustedCriteria(const std::string& value) {
+  doc().setFormField(path(), "adjustedCriteria", value);
 }
 
 QualityGateAdjustmentEntryContentForm::QualityGateAdjustmentEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -84554,11 +84554,11 @@ std::string QualityGateCheckEntryDefinitionForm::content() const {
 void QualityGateCheckEntryDefinitionForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string QualityGateCheckEntryDefinitionForm::checkDescription() const {
-  return doc().formField(path(), "checkDescription");
+std::string QualityGateCheckEntryDefinitionForm::qualityCategory() const {
+  return doc().formField(path(), "qualityCategory");
 }
-void QualityGateCheckEntryDefinitionForm::setCheckDescription(const std::string& value) {
-  doc().setFormField(path(), "checkDescription", value);
+void QualityGateCheckEntryDefinitionForm::setQualityCategory(const std::string& value) {
+  doc().setFormField(path(), "qualityCategory", value);
 }
 std::string QualityGateCheckEntryDefinitionForm::checkCategory() const {
   return doc().formField(path(), "checkCategory");
@@ -84566,11 +84566,11 @@ std::string QualityGateCheckEntryDefinitionForm::checkCategory() const {
 void QualityGateCheckEntryDefinitionForm::setCheckCategory(const std::string& value) {
   doc().setFormField(path(), "checkCategory", value);
 }
-std::string QualityGateCheckEntryDefinitionForm::qualityCategory() const {
-  return doc().formField(path(), "qualityCategory");
+std::string QualityGateCheckEntryDefinitionForm::checkDescription() const {
+  return doc().formField(path(), "checkDescription");
 }
-void QualityGateCheckEntryDefinitionForm::setQualityCategory(const std::string& value) {
-  doc().setFormField(path(), "qualityCategory", value);
+void QualityGateCheckEntryDefinitionForm::setCheckDescription(const std::string& value) {
+  doc().setFormField(path(), "checkDescription", value);
 }
 
 QualityGateCheckEntryExecutionForm::QualityGateCheckEntryExecutionForm(som::SpecDocument& doc, std::string path)
@@ -85974,12 +85974,6 @@ std::string RegulatoryComplianceEntryRequirementsForm::content() const {
 void RegulatoryComplianceEntryRequirementsForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string RegulatoryComplianceEntryRequirementsForm::keyRequirements() const {
-  return doc().formField(path(), "keyRequirements");
-}
-void RegulatoryComplianceEntryRequirementsForm::setKeyRequirements(const std::string& value) {
-  doc().setFormField(path(), "keyRequirements", value);
-}
 std::string RegulatoryComplianceEntryRequirementsForm::technicalControls() const {
   return doc().formField(path(), "technicalControls");
 }
@@ -85997,6 +85991,12 @@ std::string RegulatoryComplianceEntryRequirementsForm::documentationRequired() c
 }
 void RegulatoryComplianceEntryRequirementsForm::setDocumentationRequired(const std::string& value) {
   doc().setFormField(path(), "documentationRequired", value);
+}
+std::string RegulatoryComplianceEntryRequirementsForm::keyRequirements() const {
+  return doc().formField(path(), "keyRequirements");
+}
+void RegulatoryComplianceEntryRequirementsForm::setKeyRequirements(const std::string& value) {
+  doc().setFormField(path(), "keyRequirements", value);
 }
 
 RegulatoryRequirementEntryContentForm::RegulatoryRequirementEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -86025,23 +86025,11 @@ std::string RegulatoryRequirementEntryContentForm::jurisdiction() const {
 void RegulatoryRequirementEntryContentForm::setJurisdiction(const std::string& value) {
   doc().setFormField(path(), "jurisdiction", value);
 }
-std::string RegulatoryRequirementEntryContentForm::applicability() const {
-  return doc().formField(path(), "applicability");
-}
-void RegulatoryRequirementEntryContentForm::setApplicability(const std::string& value) {
-  doc().setFormField(path(), "applicability", value);
-}
 std::string RegulatoryRequirementEntryContentForm::complianceDeadline() const {
   return doc().formField(path(), "complianceDeadline");
 }
 void RegulatoryRequirementEntryContentForm::setComplianceDeadline(const std::string& value) {
   doc().setFormField(path(), "complianceDeadline", value);
-}
-std::string RegulatoryRequirementEntryContentForm::evidenceRequired() const {
-  return doc().formField(path(), "evidenceRequired");
-}
-void RegulatoryRequirementEntryContentForm::setEvidenceRequired(const std::string& value) {
-  doc().setFormField(path(), "evidenceRequired", value);
 }
 std::string RegulatoryRequirementEntryContentForm::responsibleParty() const {
   return doc().formField(path(), "responsibleParty");
@@ -86054,6 +86042,18 @@ std::string RegulatoryRequirementEntryContentForm::penaltyForNonCompliance() con
 }
 void RegulatoryRequirementEntryContentForm::setPenaltyForNonCompliance(const std::string& value) {
   doc().setFormField(path(), "penaltyForNonCompliance", value);
+}
+std::string RegulatoryRequirementEntryContentForm::applicability() const {
+  return doc().formField(path(), "applicability");
+}
+void RegulatoryRequirementEntryContentForm::setApplicability(const std::string& value) {
+  doc().setFormField(path(), "applicability", value);
+}
+std::string RegulatoryRequirementEntryContentForm::evidenceRequired() const {
+  return doc().formField(path(), "evidenceRequired");
+}
+void RegulatoryRequirementEntryContentForm::setEvidenceRequired(const std::string& value) {
+  doc().setFormField(path(), "evidenceRequired", value);
 }
 
 RelatedDocumentEntryContentForm::RelatedDocumentEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -86307,12 +86307,6 @@ std::string RelevantSectionEntryContentForm::relevance() const {
 void RelevantSectionEntryContentForm::setRelevance(const std::string& value) {
   doc().setFormField(path(), "relevance", value);
 }
-std::string RelevantSectionEntryContentForm::extractSummary() const {
-  return doc().formField(path(), "extractSummary");
-}
-void RelevantSectionEntryContentForm::setExtractSummary(const std::string& value) {
-  doc().setFormField(path(), "extractSummary", value);
-}
 std::optional<bool> RelevantSectionEntryContentForm::complianceRequired() const {
   const std::string v = doc().formField(path(), "complianceRequired");
   if (v.empty()) return std::nullopt;
@@ -86320,6 +86314,12 @@ std::optional<bool> RelevantSectionEntryContentForm::complianceRequired() const 
 }
 void RelevantSectionEntryContentForm::setComplianceRequired(std::optional<bool> value) {
   doc().setFormField(path(), "complianceRequired", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string RelevantSectionEntryContentForm::extractSummary() const {
+  return doc().formField(path(), "extractSummary");
+}
+void RelevantSectionEntryContentForm::setExtractSummary(const std::string& value) {
+  doc().setFormField(path(), "extractSummary", value);
 }
 
 ReliabilityCharacteristicReliabilityContentForm::ReliabilityCharacteristicReliabilityContentForm(som::SpecDocument& doc, std::string path)
@@ -89132,23 +89132,11 @@ std::string RequirementsOverviewRequirementsFormForm::content() const {
 void RequirementsOverviewRequirementsFormForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string RequirementsOverviewRequirementsFormForm::requirementsProcess() const {
-  return doc().formField(path(), "requirementsProcess");
-}
-void RequirementsOverviewRequirementsFormForm::setRequirementsProcess(const std::string& value) {
-  doc().setFormField(path(), "requirementsProcess", value);
-}
 std::string RequirementsOverviewRequirementsFormForm::traceabilityApproach() const {
   return doc().formField(path(), "traceabilityApproach");
 }
 void RequirementsOverviewRequirementsFormForm::setTraceabilityApproach(const std::string& value) {
   doc().setFormField(path(), "traceabilityApproach", value);
-}
-std::string RequirementsOverviewRequirementsFormForm::changeControlProcess() const {
-  return doc().formField(path(), "changeControlProcess");
-}
-void RequirementsOverviewRequirementsFormForm::setChangeControlProcess(const std::string& value) {
-  doc().setFormField(path(), "changeControlProcess", value);
 }
 std::string RequirementsOverviewRequirementsFormForm::prioritizationMethod() const {
   return doc().formField(path(), "prioritizationMethod");
@@ -89162,12 +89150,6 @@ std::string RequirementsOverviewRequirementsFormForm::totalRequirements() const 
 void RequirementsOverviewRequirementsFormForm::setTotalRequirements(const std::string& value) {
   doc().setFormField(path(), "totalRequirements", value);
 }
-std::string RequirementsOverviewRequirementsFormForm::mustHaveCount() const {
-  return doc().formField(path(), "mustHaveCount");
-}
-void RequirementsOverviewRequirementsFormForm::setMustHaveCount(const std::string& value) {
-  doc().setFormField(path(), "mustHaveCount", value);
-}
 std::string RequirementsOverviewRequirementsFormForm::shouldHaveCount() const {
   return doc().formField(path(), "shouldHaveCount");
 }
@@ -89179,6 +89161,24 @@ std::string RequirementsOverviewRequirementsFormForm::couldHaveCount() const {
 }
 void RequirementsOverviewRequirementsFormForm::setCouldHaveCount(const std::string& value) {
   doc().setFormField(path(), "couldHaveCount", value);
+}
+std::string RequirementsOverviewRequirementsFormForm::requirementsProcess() const {
+  return doc().formField(path(), "requirementsProcess");
+}
+void RequirementsOverviewRequirementsFormForm::setRequirementsProcess(const std::string& value) {
+  doc().setFormField(path(), "requirementsProcess", value);
+}
+std::string RequirementsOverviewRequirementsFormForm::changeControlProcess() const {
+  return doc().formField(path(), "changeControlProcess");
+}
+void RequirementsOverviewRequirementsFormForm::setChangeControlProcess(const std::string& value) {
+  doc().setFormField(path(), "changeControlProcess", value);
+}
+std::string RequirementsOverviewRequirementsFormForm::mustHaveCount() const {
+  return doc().formField(path(), "mustHaveCount");
+}
+void RequirementsOverviewRequirementsFormForm::setMustHaveCount(const std::string& value) {
+  doc().setFormField(path(), "mustHaveCount", value);
 }
 
 ResourceAllocationEntryContentForm::ResourceAllocationEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -91253,12 +91253,6 @@ std::string RiskIdentificationContentForm::content() const {
 void RiskIdentificationContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string RiskIdentificationContentForm::description() const {
-  return doc().formField(path(), "description");
-}
-void RiskIdentificationContentForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
-}
 std::string RiskIdentificationContentForm::category() const {
   return doc().formField(path(), "category");
 }
@@ -91270,6 +91264,12 @@ std::string RiskIdentificationContentForm::subcategory() const {
 }
 void RiskIdentificationContentForm::setSubcategory(const std::string& value) {
   doc().setFormField(path(), "subcategory", value);
+}
+std::string RiskIdentificationContentForm::description() const {
+  return doc().formField(path(), "description");
+}
+void RiskIdentificationContentForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
 }
 
 RiskIdentificationSourceDetailsForm::RiskIdentificationSourceDetailsForm(som::SpecDocument& doc, std::string path)
@@ -91679,12 +91679,6 @@ std::string RoleAdjustmentEntryDetailsForm::adjustmentDescription() const {
 void RoleAdjustmentEntryDetailsForm::setAdjustmentDescription(const std::string& value) {
   doc().setFormField(path(), "adjustmentDescription", value);
 }
-std::string RoleAdjustmentEntryDetailsForm::affectedResponsibilities() const {
-  return doc().formField(path(), "affectedResponsibilities");
-}
-void RoleAdjustmentEntryDetailsForm::setAffectedResponsibilities(const std::string& value) {
-  doc().setFormField(path(), "affectedResponsibilities", value);
-}
 std::string RoleAdjustmentEntryDetailsForm::mergedWithRoles() const {
   return doc().formField(path(), "mergedWithRoles");
 }
@@ -91696,6 +91690,12 @@ std::string RoleAdjustmentEntryDetailsForm::splitIntoRoles() const {
 }
 void RoleAdjustmentEntryDetailsForm::setSplitIntoRoles(const std::string& value) {
   doc().setFormField(path(), "splitIntoRoles", value);
+}
+std::string RoleAdjustmentEntryDetailsForm::affectedResponsibilities() const {
+  return doc().formField(path(), "affectedResponsibilities");
+}
+void RoleAdjustmentEntryDetailsForm::setAffectedResponsibilities(const std::string& value) {
+  doc().setFormField(path(), "affectedResponsibilities", value);
 }
 
 RoleAdjustmentEntryGovernanceForm::RoleAdjustmentEntryGovernanceForm(som::SpecDocument& doc, std::string path)
@@ -92986,12 +92986,6 @@ std::string RuntimeEnvironmentNetworkForm::content() const {
 void RuntimeEnvironmentNetworkForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string RuntimeEnvironmentNetworkForm::networkRequirements() const {
-  return doc().formField(path(), "networkRequirements");
-}
-void RuntimeEnvironmentNetworkForm::setNetworkRequirements(const std::string& value) {
-  doc().setFormField(path(), "networkRequirements", value);
-}
 std::string RuntimeEnvironmentNetworkForm::bandwidthRequirements() const {
   return doc().formField(path(), "bandwidthRequirements");
 }
@@ -93003,6 +92997,12 @@ std::string RuntimeEnvironmentNetworkForm::latencyRequirements() const {
 }
 void RuntimeEnvironmentNetworkForm::setLatencyRequirements(const std::string& value) {
   doc().setFormField(path(), "latencyRequirements", value);
+}
+std::string RuntimeEnvironmentNetworkForm::networkRequirements() const {
+  return doc().formField(path(), "networkRequirements");
+}
+void RuntimeEnvironmentNetworkForm::setNetworkRequirements(const std::string& value) {
+  doc().setFormField(path(), "networkRequirements", value);
 }
 
 RuntimeEnvironmentRuntimeNotesForm::RuntimeEnvironmentRuntimeNotesForm(som::SpecDocument& doc, std::string path)
@@ -93076,17 +93076,17 @@ std::string RuntimeEnvironmentVariablesForm::content() const {
 void RuntimeEnvironmentVariablesForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string RuntimeEnvironmentVariablesForm::requiredEnvVariables() const {
-  return doc().formField(path(), "requiredEnvVariables");
-}
-void RuntimeEnvironmentVariablesForm::setRequiredEnvVariables(const std::string& value) {
-  doc().setFormField(path(), "requiredEnvVariables", value);
-}
 std::string RuntimeEnvironmentVariablesForm::optionalEnvVariables() const {
   return doc().formField(path(), "optionalEnvVariables");
 }
 void RuntimeEnvironmentVariablesForm::setOptionalEnvVariables(const std::string& value) {
   doc().setFormField(path(), "optionalEnvVariables", value);
+}
+std::string RuntimeEnvironmentVariablesForm::requiredEnvVariables() const {
+  return doc().formField(path(), "requiredEnvVariables");
+}
+void RuntimeEnvironmentVariablesForm::setRequiredEnvVariables(const std::string& value) {
+  doc().setFormField(path(), "requiredEnvVariables", value);
 }
 
 ScalabilityArchitectureCapacityForm::ScalabilityArchitectureCapacityForm(som::SpecDocument& doc, std::string path)
@@ -93103,17 +93103,17 @@ std::string ScalabilityArchitectureCapacityForm::expectedLoad() const {
 void ScalabilityArchitectureCapacityForm::setExpectedLoad(const std::string& value) {
   doc().setFormField(path(), "expectedLoad", value);
 }
-std::string ScalabilityArchitectureCapacityForm::peakLoad() const {
-  return doc().formField(path(), "peakLoad");
-}
-void ScalabilityArchitectureCapacityForm::setPeakLoad(const std::string& value) {
-  doc().setFormField(path(), "peakLoad", value);
-}
 std::string ScalabilityArchitectureCapacityForm::growthProjection() const {
   return doc().formField(path(), "growthProjection");
 }
 void ScalabilityArchitectureCapacityForm::setGrowthProjection(const std::string& value) {
   doc().setFormField(path(), "growthProjection", value);
+}
+std::string ScalabilityArchitectureCapacityForm::peakLoad() const {
+  return doc().formField(path(), "peakLoad");
+}
+void ScalabilityArchitectureCapacityForm::setPeakLoad(const std::string& value) {
+  doc().setFormField(path(), "peakLoad", value);
 }
 
 ScalabilityArchitectureContentForm::ScalabilityArchitectureContentForm(som::SpecDocument& doc, std::string path)
@@ -94425,12 +94425,6 @@ std::string ScopeItemEntryContentForm::content() const {
 void ScopeItemEntryContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string ScopeItemEntryContentForm::itemDescription() const {
-  return doc().formField(path(), "itemDescription");
-}
-void ScopeItemEntryContentForm::setItemDescription(const std::string& value) {
-  doc().setFormField(path(), "itemDescription", value);
-}
 std::string ScopeItemEntryContentForm::category() const {
   return doc().formField(path(), "category");
 }
@@ -94448,6 +94442,12 @@ std::string ScopeItemEntryContentForm::relatedRequirements() const {
 }
 void ScopeItemEntryContentForm::setRelatedRequirements(const std::string& value) {
   doc().setFormField(path(), "relatedRequirements", value);
+}
+std::string ScopeItemEntryContentForm::itemDescription() const {
+  return doc().formField(path(), "itemDescription");
+}
+void ScopeItemEntryContentForm::setItemDescription(const std::string& value) {
+  doc().setFormField(path(), "itemDescription", value);
 }
 
 ScreenActionEntryBehaviorForm::ScreenActionEntryBehaviorForm(som::SpecDocument& doc, std::string path)
@@ -94542,17 +94542,17 @@ std::string ScreenActionEntryContentForm::owningController() const {
 void ScreenActionEntryContentForm::setOwningController(const std::string& value) {
   doc().setFormField(path(), "owningController", value);
 }
-std::string ScreenActionEntryContentForm::description() const {
-  return doc().formField(path(), "description");
-}
-void ScreenActionEntryContentForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
-}
 std::string ScreenActionEntryContentForm::contextType() const {
   return doc().formField(path(), "contextType");
 }
 void ScreenActionEntryContentForm::setContextType(const std::string& value) {
   doc().setFormField(path(), "contextType", value);
+}
+std::string ScreenActionEntryContentForm::description() const {
+  return doc().formField(path(), "description");
+}
+void ScreenActionEntryContentForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
 }
 
 ScreenActionEntryVisualForm::ScreenActionEntryVisualForm(som::SpecDocument& doc, std::string path)
@@ -94948,17 +94948,17 @@ std::string ScreenElementEntryPresentationForm::content() const {
 void ScreenElementEntryPresentationForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string ScreenElementEntryPresentationForm::styleVariant() const {
-  return doc().formField(path(), "styleVariant");
-}
-void ScreenElementEntryPresentationForm::setStyleVariant(const std::string& value) {
-  doc().setFormField(path(), "styleVariant", value);
-}
 std::string ScreenElementEntryPresentationForm::accessibilityLabel() const {
   return doc().formField(path(), "accessibilityLabel");
 }
 void ScreenElementEntryPresentationForm::setAccessibilityLabel(const std::string& value) {
   doc().setFormField(path(), "accessibilityLabel", value);
+}
+std::string ScreenElementEntryPresentationForm::styleVariant() const {
+  return doc().formField(path(), "styleVariant");
+}
+void ScreenElementEntryPresentationForm::setStyleVariant(const std::string& value) {
+  doc().setFormField(path(), "styleVariant", value);
 }
 std::string ScreenElementEntryPresentationForm::dataBinding() const {
   return doc().formField(path(), "dataBinding");
@@ -95314,6 +95314,12 @@ std::string ScreenEntryPresentationForm::content() const {
 void ScreenEntryPresentationForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
+std::string ScreenEntryPresentationForm::helpTopicId() const {
+  return doc().formField(path(), "helpTopicId");
+}
+void ScreenEntryPresentationForm::setHelpTopicId(const std::string& value) {
+  doc().setFormField(path(), "helpTopicId", value);
+}
 std::string ScreenEntryPresentationForm::pageTitleResource() const {
   return doc().formField(path(), "pageTitleResource");
 }
@@ -95325,12 +95331,6 @@ std::string ScreenEntryPresentationForm::pageIconResource() const {
 }
 void ScreenEntryPresentationForm::setPageIconResource(const std::string& value) {
   doc().setFormField(path(), "pageIconResource", value);
-}
-std::string ScreenEntryPresentationForm::helpTopicId() const {
-  return doc().formField(path(), "helpTopicId");
-}
-void ScreenEntryPresentationForm::setHelpTopicId(const std::string& value) {
-  doc().setFormField(path(), "helpTopicId", value);
 }
 std::string ScreenEntryPresentationForm::layout() const {
   return doc().formField(path(), "layout");
@@ -95755,17 +95755,17 @@ std::string ScreenSectionEntryContentForm::sectionId_() const {
 void ScreenSectionEntryContentForm::setSectionId_(const std::string& value) {
   doc().setFormField(path(), "sectionId", value);
 }
-std::string ScreenSectionEntryContentForm::purpose() const {
-  return doc().formField(path(), "purpose");
-}
-void ScreenSectionEntryContentForm::setPurpose(const std::string& value) {
-  doc().setFormField(path(), "purpose", value);
-}
 std::string ScreenSectionEntryContentForm::sectionType() const {
   return doc().formField(path(), "sectionType");
 }
 void ScreenSectionEntryContentForm::setSectionType(const std::string& value) {
   doc().setFormField(path(), "sectionType", value);
+}
+std::string ScreenSectionEntryContentForm::purpose() const {
+  return doc().formField(path(), "purpose");
+}
+void ScreenSectionEntryContentForm::setPurpose(const std::string& value) {
+  doc().setFormField(path(), "purpose", value);
 }
 
 ScreenSectionEntryLayoutForm::ScreenSectionEntryLayoutForm(som::SpecDocument& doc, std::string path)
@@ -95817,11 +95817,17 @@ std::string ScreenStateEntryContentForm::stateId() const {
 void ScreenStateEntryContentForm::setStateId(const std::string& value) {
   doc().setFormField(path(), "stateId", value);
 }
-std::string ScreenStateEntryContentForm::description() const {
-  return doc().formField(path(), "description");
+std::string ScreenStateEntryContentForm::primaryActionLabel() const {
+  return doc().formField(path(), "primaryActionLabel");
 }
-void ScreenStateEntryContentForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
+void ScreenStateEntryContentForm::setPrimaryActionLabel(const std::string& value) {
+  doc().setFormField(path(), "primaryActionLabel", value);
+}
+std::string ScreenStateEntryContentForm::secondaryActionLabel() const {
+  return doc().formField(path(), "secondaryActionLabel");
+}
+void ScreenStateEntryContentForm::setSecondaryActionLabel(const std::string& value) {
+  doc().setFormField(path(), "secondaryActionLabel", value);
 }
 std::string ScreenStateEntryContentForm::messageResource() const {
   return doc().formField(path(), "messageResource");
@@ -95841,23 +95847,17 @@ std::string ScreenStateEntryContentForm::illustrationResource() const {
 void ScreenStateEntryContentForm::setIllustrationResource(const std::string& value) {
   doc().setFormField(path(), "illustrationResource", value);
 }
-std::string ScreenStateEntryContentForm::primaryActionLabel() const {
-  return doc().formField(path(), "primaryActionLabel");
-}
-void ScreenStateEntryContentForm::setPrimaryActionLabel(const std::string& value) {
-  doc().setFormField(path(), "primaryActionLabel", value);
-}
 std::string ScreenStateEntryContentForm::primaryActionTarget() const {
   return doc().formField(path(), "primaryActionTarget");
 }
 void ScreenStateEntryContentForm::setPrimaryActionTarget(const std::string& value) {
   doc().setFormField(path(), "primaryActionTarget", value);
 }
-std::string ScreenStateEntryContentForm::secondaryActionLabel() const {
-  return doc().formField(path(), "secondaryActionLabel");
+std::string ScreenStateEntryContentForm::description() const {
+  return doc().formField(path(), "description");
 }
-void ScreenStateEntryContentForm::setSecondaryActionLabel(const std::string& value) {
-  doc().setFormField(path(), "secondaryActionLabel", value);
+void ScreenStateEntryContentForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
 }
 
 ScreenTransitionEntryContentForm::ScreenTransitionEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -96048,17 +96048,17 @@ std::string SecurityAuthenticationForm::content() const {
 void SecurityAuthenticationForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string SecurityAuthenticationForm::authenticationMethod() const {
-  return doc().formField(path(), "authenticationMethod");
-}
-void SecurityAuthenticationForm::setAuthenticationMethod(const std::string& value) {
-  doc().setFormField(path(), "authenticationMethod", value);
-}
 std::string SecurityAuthenticationForm::mfaRequirement() const {
   return doc().formField(path(), "mfaRequirement");
 }
 void SecurityAuthenticationForm::setMfaRequirement(const std::string& value) {
   doc().setFormField(path(), "mfaRequirement", value);
+}
+std::string SecurityAuthenticationForm::authenticationMethod() const {
+  return doc().formField(path(), "authenticationMethod");
+}
+void SecurityAuthenticationForm::setAuthenticationMethod(const std::string& value) {
+  doc().setFormField(path(), "authenticationMethod", value);
 }
 std::string SecurityAuthenticationForm::passwordPolicy() const {
   return doc().formField(path(), "passwordPolicy");
@@ -96755,6 +96755,12 @@ std::string SecurityRequirementEntryClassificationForm::content() const {
 void SecurityRequirementEntryClassificationForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
+std::string SecurityRequirementEntryClassificationForm::priority() const {
+  return doc().formField(path(), "priority");
+}
+void SecurityRequirementEntryClassificationForm::setPriority(const std::string& value) {
+  doc().setFormField(path(), "priority", value);
+}
 std::string SecurityRequirementEntryClassificationForm::category() const {
   return doc().formField(path(), "category");
 }
@@ -96766,18 +96772,6 @@ std::string SecurityRequirementEntryClassificationForm::subcategory() const {
 }
 void SecurityRequirementEntryClassificationForm::setSubcategory(const std::string& value) {
   doc().setFormField(path(), "subcategory", value);
-}
-std::string SecurityRequirementEntryClassificationForm::priority() const {
-  return doc().formField(path(), "priority");
-}
-void SecurityRequirementEntryClassificationForm::setPriority(const std::string& value) {
-  doc().setFormField(path(), "priority", value);
-}
-std::string SecurityRequirementEntryClassificationForm::source() const {
-  return doc().formField(path(), "source");
-}
-void SecurityRequirementEntryClassificationForm::setSource(const std::string& value) {
-  doc().setFormField(path(), "source", value);
 }
 std::string SecurityRequirementEntryClassificationForm::rationale() const {
   return doc().formField(path(), "rationale");
@@ -96796,6 +96790,12 @@ std::string SecurityRequirementEntryClassificationForm::dataClassification() con
 }
 void SecurityRequirementEntryClassificationForm::setDataClassification(const std::string& value) {
   doc().setFormField(path(), "dataClassification", value);
+}
+std::string SecurityRequirementEntryClassificationForm::source() const {
+  return doc().formField(path(), "source");
+}
+void SecurityRequirementEntryClassificationForm::setSource(const std::string& value) {
+  doc().setFormField(path(), "source", value);
 }
 
 SecurityRequirementEntryComplianceForm::SecurityRequirementEntryComplianceForm(som::SpecDocument& doc, std::string path)
@@ -97955,11 +97955,11 @@ std::string ServerOperationEntryContentForm::operationName() const {
 void ServerOperationEntryContentForm::setOperationName(const std::string& value) {
   doc().setFormField(path(), "operationName", value);
 }
-std::string ServerOperationEntryContentForm::purpose() const {
-  return doc().formField(path(), "purpose");
+std::string ServerOperationEntryContentForm::descriptionKey() const {
+  return doc().formField(path(), "descriptionKey");
 }
-void ServerOperationEntryContentForm::setPurpose(const std::string& value) {
-  doc().setFormField(path(), "purpose", value);
+void ServerOperationEntryContentForm::setDescriptionKey(const std::string& value) {
+  doc().setFormField(path(), "descriptionKey", value);
 }
 std::string ServerOperationEntryContentForm::primaryDataEntity() const {
   return doc().formField(path(), "primaryDataEntity");
@@ -97967,17 +97967,17 @@ std::string ServerOperationEntryContentForm::primaryDataEntity() const {
 void ServerOperationEntryContentForm::setPrimaryDataEntity(const std::string& value) {
   doc().setFormField(path(), "primaryDataEntity", value);
 }
-std::string ServerOperationEntryContentForm::descriptionKey() const {
-  return doc().formField(path(), "descriptionKey");
-}
-void ServerOperationEntryContentForm::setDescriptionKey(const std::string& value) {
-  doc().setFormField(path(), "descriptionKey", value);
-}
 std::string ServerOperationEntryContentForm::errorCodes() const {
   return doc().formField(path(), "errorCodes");
 }
 void ServerOperationEntryContentForm::setErrorCodes(const std::string& value) {
   doc().setFormField(path(), "errorCodes", value);
+}
+std::string ServerOperationEntryContentForm::purpose() const {
+  return doc().formField(path(), "purpose");
+}
+void ServerOperationEntryContentForm::setPurpose(const std::string& value) {
+  doc().setFormField(path(), "purpose", value);
 }
 
 ServerOperationEntryControlsForm::ServerOperationEntryControlsForm(som::SpecDocument& doc, std::string path)
@@ -100821,17 +100821,17 @@ std::string SoftwareLayerEntryResponsibilitiesForm::purpose() const {
 void SoftwareLayerEntryResponsibilitiesForm::setPurpose(const std::string& value) {
   doc().setFormField(path(), "purpose", value);
 }
-std::string SoftwareLayerEntryResponsibilitiesForm::responsibilities() const {
-  return doc().formField(path(), "responsibilities");
-}
-void SoftwareLayerEntryResponsibilitiesForm::setResponsibilities(const std::string& value) {
-  doc().setFormField(path(), "responsibilities", value);
-}
 std::string SoftwareLayerEntryResponsibilitiesForm::prohibitions() const {
   return doc().formField(path(), "prohibitions");
 }
 void SoftwareLayerEntryResponsibilitiesForm::setProhibitions(const std::string& value) {
   doc().setFormField(path(), "prohibitions", value);
+}
+std::string SoftwareLayerEntryResponsibilitiesForm::responsibilities() const {
+  return doc().formField(path(), "responsibilities");
+}
+void SoftwareLayerEntryResponsibilitiesForm::setResponsibilities(const std::string& value) {
+  doc().setFormField(path(), "responsibilities", value);
 }
 
 SoftwareLayerEntryTechnologyForm::SoftwareLayerEntryTechnologyForm(som::SpecDocument& doc, std::string path)
@@ -101532,12 +101532,6 @@ std::string StageEntryIdentityForm::stageCodename() const {
 void StageEntryIdentityForm::setStageCodename(const std::string& value) {
   doc().setFormField(path(), "stageCodename", value);
 }
-std::string StageEntryIdentityForm::stageDescription() const {
-  return doc().formField(path(), "stageDescription");
-}
-void StageEntryIdentityForm::setStageDescription(const std::string& value) {
-  doc().setFormField(path(), "stageDescription", value);
-}
 std::string StageEntryIdentityForm::businessObjective() const {
   return doc().formField(path(), "businessObjective");
 }
@@ -101549,6 +101543,12 @@ std::string StageEntryIdentityForm::stageType() const {
 }
 void StageEntryIdentityForm::setStageType(const std::string& value) {
   doc().setFormField(path(), "stageType", value);
+}
+std::string StageEntryIdentityForm::stageDescription() const {
+  return doc().formField(path(), "stageDescription");
+}
+void StageEntryIdentityForm::setStageDescription(const std::string& value) {
+  doc().setFormField(path(), "stageDescription", value);
 }
 
 StageEntryMetricsForm::StageEntryMetricsForm(som::SpecDocument& doc, std::string path)
@@ -101598,17 +101598,17 @@ std::string StageEntryQualityForm::content() const {
 void StageEntryQualityForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
+std::string StageEntryQualityForm::acceptanceCriteriaSummary() const {
+  return doc().formField(path(), "acceptanceCriteriaSummary");
+}
+void StageEntryQualityForm::setAcceptanceCriteriaSummary(const std::string& value) {
+  doc().setFormField(path(), "acceptanceCriteriaSummary", value);
+}
 std::string StageEntryQualityForm::entryCriteria() const {
   return doc().formField(path(), "entryCriteria");
 }
 void StageEntryQualityForm::setEntryCriteria(const std::string& value) {
   doc().setFormField(path(), "entryCriteria", value);
-}
-std::string StageEntryQualityForm::exitCriteria() const {
-  return doc().formField(path(), "exitCriteria");
-}
-void StageEntryQualityForm::setExitCriteria(const std::string& value) {
-  doc().setFormField(path(), "exitCriteria", value);
 }
 std::string StageEntryQualityForm::qualityGates() const {
   return doc().formField(path(), "qualityGates");
@@ -101622,17 +101622,17 @@ std::string StageEntryQualityForm::testingStrategy() const {
 void StageEntryQualityForm::setTestingStrategy(const std::string& value) {
   doc().setFormField(path(), "testingStrategy", value);
 }
-std::string StageEntryQualityForm::acceptanceCriteriaSummary() const {
-  return doc().formField(path(), "acceptanceCriteriaSummary");
-}
-void StageEntryQualityForm::setAcceptanceCriteriaSummary(const std::string& value) {
-  doc().setFormField(path(), "acceptanceCriteriaSummary", value);
-}
 std::string StageEntryQualityForm::toleranceLevels() const {
   return doc().formField(path(), "toleranceLevels");
 }
 void StageEntryQualityForm::setToleranceLevels(const std::string& value) {
   doc().setFormField(path(), "toleranceLevels", value);
+}
+std::string StageEntryQualityForm::exitCriteria() const {
+  return doc().formField(path(), "exitCriteria");
+}
+void StageEntryQualityForm::setExitCriteria(const std::string& value) {
+  doc().setFormField(path(), "exitCriteria", value);
 }
 
 StageEntryRiskForm::StageEntryRiskForm(som::SpecDocument& doc, std::string path)
@@ -101676,12 +101676,6 @@ std::string StageEntryScopeForm::content() const {
 void StageEntryScopeForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string StageEntryScopeForm::scopeSummary() const {
-  return doc().formField(path(), "scopeSummary");
-}
-void StageEntryScopeForm::setScopeSummary(const std::string& value) {
-  doc().setFormField(path(), "scopeSummary", value);
-}
 std::string StageEntryScopeForm::includedFeatures() const {
   return doc().formField(path(), "includedFeatures");
 }
@@ -101723,6 +101717,12 @@ std::string StageEntryScopeForm::technicalDebtItems() const {
 }
 void StageEntryScopeForm::setTechnicalDebtItems(const std::string& value) {
   doc().setFormField(path(), "technicalDebtItems", value);
+}
+std::string StageEntryScopeForm::scopeSummary() const {
+  return doc().formField(path(), "scopeSummary");
+}
+void StageEntryScopeForm::setScopeSummary(const std::string& value) {
+  doc().setFormField(path(), "scopeSummary", value);
 }
 
 StageEntryTimelineForm::StageEntryTimelineForm(som::SpecDocument& doc, std::string path)
@@ -103407,12 +103407,6 @@ std::string StagingDependenciesContentForm::content() const {
 void StagingDependenciesContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string StagingDependenciesContentForm::criticalPrerequisites() const {
-  return doc().formField(path(), "criticalPrerequisites");
-}
-void StagingDependenciesContentForm::setCriticalPrerequisites(const std::string& value) {
-  doc().setFormField(path(), "criticalPrerequisites", value);
-}
 std::string StagingDependenciesContentForm::externalDependencies() const {
   return doc().formField(path(), "externalDependencies");
 }
@@ -103430,6 +103424,12 @@ std::string StagingDependenciesContentForm::dependencyRisks() const {
 }
 void StagingDependenciesContentForm::setDependencyRisks(const std::string& value) {
   doc().setFormField(path(), "dependencyRisks", value);
+}
+std::string StagingDependenciesContentForm::criticalPrerequisites() const {
+  return doc().formField(path(), "criticalPrerequisites");
+}
+void StagingDependenciesContentForm::setCriticalPrerequisites(const std::string& value) {
+  doc().setFormField(path(), "criticalPrerequisites", value);
 }
 
 StagingDriversContentForm::StagingDriversContentForm(som::SpecDocument& doc, std::string path)
@@ -103491,17 +103491,17 @@ std::string StagingStrategyApproachSelectionForm::approachDescription() const {
 void StagingStrategyApproachSelectionForm::setApproachDescription(const std::string& value) {
   doc().setFormField(path(), "approachDescription", value);
 }
-std::string StagingStrategyApproachSelectionForm::alternativesConsidered() const {
-  return doc().formField(path(), "alternativesConsidered");
-}
-void StagingStrategyApproachSelectionForm::setAlternativesConsidered(const std::string& value) {
-  doc().setFormField(path(), "alternativesConsidered", value);
-}
 std::string StagingStrategyApproachSelectionForm::selectionCriteria() const {
   return doc().formField(path(), "selectionCriteria");
 }
 void StagingStrategyApproachSelectionForm::setSelectionCriteria(const std::string& value) {
   doc().setFormField(path(), "selectionCriteria", value);
+}
+std::string StagingStrategyApproachSelectionForm::alternativesConsidered() const {
+  return doc().formField(path(), "alternativesConsidered");
+}
+void StagingStrategyApproachSelectionForm::setAlternativesConsidered(const std::string& value) {
+  doc().setFormField(path(), "alternativesConsidered", value);
 }
 
 StagingStrategyCommunicationForm::StagingStrategyCommunicationForm(som::SpecDocument& doc, std::string path)
@@ -103935,18 +103935,6 @@ std::string StakeholderRegisterEntryContentForm::content() const {
 void StakeholderRegisterEntryContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string StakeholderRegisterEntryContentForm::role() const {
-  return doc().formField(path(), "role");
-}
-void StakeholderRegisterEntryContentForm::setRole(const std::string& value) {
-  doc().setFormField(path(), "role", value);
-}
-std::string StakeholderRegisterEntryContentForm::interest() const {
-  return doc().formField(path(), "interest");
-}
-void StakeholderRegisterEntryContentForm::setInterest(const std::string& value) {
-  doc().setFormField(path(), "interest", value);
-}
 std::string StakeholderRegisterEntryContentForm::influence() const {
   return doc().formField(path(), "influence");
 }
@@ -103964,6 +103952,18 @@ std::string StakeholderRegisterEntryContentForm::engagementStrategy() const {
 }
 void StakeholderRegisterEntryContentForm::setEngagementStrategy(const std::string& value) {
   doc().setFormField(path(), "engagementStrategy", value);
+}
+std::string StakeholderRegisterEntryContentForm::role() const {
+  return doc().formField(path(), "role");
+}
+void StakeholderRegisterEntryContentForm::setRole(const std::string& value) {
+  doc().setFormField(path(), "role", value);
+}
+std::string StakeholderRegisterEntryContentForm::interest() const {
+  return doc().formField(path(), "interest");
+}
+void StakeholderRegisterEntryContentForm::setInterest(const std::string& value) {
+  doc().setFormField(path(), "interest", value);
 }
 
 StakeholdersAndGovernanceSummaryForm::StakeholdersAndGovernanceSummaryForm(som::SpecDocument& doc, std::string path)
@@ -104437,12 +104437,6 @@ std::string StrategicAlignmentAlignmentDetailsForm::alignedItStrategy() const {
 void StrategicAlignmentAlignmentDetailsForm::setAlignedItStrategy(const std::string& value) {
   doc().setFormField(path(), "alignedItStrategy", value);
 }
-std::string StrategicAlignmentAlignmentDetailsForm::relatedInitiatives() const {
-  return doc().formField(path(), "relatedInitiatives");
-}
-void StrategicAlignmentAlignmentDetailsForm::setRelatedInitiatives(const std::string& value) {
-  doc().setFormField(path(), "relatedInitiatives", value);
-}
 std::string StrategicAlignmentAlignmentDetailsForm::digitizationContribution() const {
   return doc().formField(path(), "digitizationContribution");
 }
@@ -104472,6 +104466,12 @@ std::string StrategicAlignmentAlignmentDetailsForm::strategicTimingRationale() c
 }
 void StrategicAlignmentAlignmentDetailsForm::setStrategicTimingRationale(const std::string& value) {
   doc().setFormField(path(), "strategicTimingRationale", value);
+}
+std::string StrategicAlignmentAlignmentDetailsForm::relatedInitiatives() const {
+  return doc().formField(path(), "relatedInitiatives");
+}
+void StrategicAlignmentAlignmentDetailsForm::setRelatedInitiatives(const std::string& value) {
+  doc().setFormField(path(), "relatedInitiatives", value);
 }
 
 SubFunctionEntryContentForm::SubFunctionEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -104563,17 +104563,17 @@ std::string SubStageEntryOverviewForm::content() const {
 void SubStageEntryOverviewForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string SubStageEntryOverviewForm::description() const {
-  return doc().formField(path(), "description");
-}
-void SubStageEntryOverviewForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
-}
 std::string SubStageEntryOverviewForm::objective() const {
   return doc().formField(path(), "objective");
 }
 void SubStageEntryOverviewForm::setObjective(const std::string& value) {
   doc().setFormField(path(), "objective", value);
+}
+std::string SubStageEntryOverviewForm::description() const {
+  return doc().formField(path(), "description");
+}
+void SubStageEntryOverviewForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
 }
 
 SubStageEntryScopeForm::SubStageEntryScopeForm(som::SpecDocument& doc, std::string path)
@@ -106188,35 +106188,17 @@ std::string SystemDescriptionDescriptionSummaryForm::deploymentModel() const {
 void SystemDescriptionDescriptionSummaryForm::setDeploymentModel(const std::string& value) {
   doc().setFormField(path(), "deploymentModel", value);
 }
-std::string SystemDescriptionDescriptionSummaryForm::architectureStyle() const {
-  return doc().formField(path(), "architectureStyle");
-}
-void SystemDescriptionDescriptionSummaryForm::setArchitectureStyle(const std::string& value) {
-  doc().setFormField(path(), "architectureStyle", value);
-}
 std::string SystemDescriptionDescriptionSummaryForm::primaryTechnologyStack() const {
   return doc().formField(path(), "primaryTechnologyStack");
 }
 void SystemDescriptionDescriptionSummaryForm::setPrimaryTechnologyStack(const std::string& value) {
   doc().setFormField(path(), "primaryTechnologyStack", value);
 }
-std::string SystemDescriptionDescriptionSummaryForm::interfaceTypes() const {
-  return doc().formField(path(), "interfaceTypes");
-}
-void SystemDescriptionDescriptionSummaryForm::setInterfaceTypes(const std::string& value) {
-  doc().setFormField(path(), "interfaceTypes", value);
-}
 std::string SystemDescriptionDescriptionSummaryForm::dataCharacteristics() const {
   return doc().formField(path(), "dataCharacteristics");
 }
 void SystemDescriptionDescriptionSummaryForm::setDataCharacteristics(const std::string& value) {
   doc().setFormField(path(), "dataCharacteristics", value);
-}
-std::string SystemDescriptionDescriptionSummaryForm::securityClassification() const {
-  return doc().formField(path(), "securityClassification");
-}
-void SystemDescriptionDescriptionSummaryForm::setSecurityClassification(const std::string& value) {
-  doc().setFormField(path(), "securityClassification", value);
 }
 std::string SystemDescriptionDescriptionSummaryForm::availabilityRequirement() const {
   return doc().formField(path(), "availabilityRequirement");
@@ -106229,6 +106211,24 @@ std::string SystemDescriptionDescriptionSummaryForm::scalabilityModel() const {
 }
 void SystemDescriptionDescriptionSummaryForm::setScalabilityModel(const std::string& value) {
   doc().setFormField(path(), "scalabilityModel", value);
+}
+std::string SystemDescriptionDescriptionSummaryForm::architectureStyle() const {
+  return doc().formField(path(), "architectureStyle");
+}
+void SystemDescriptionDescriptionSummaryForm::setArchitectureStyle(const std::string& value) {
+  doc().setFormField(path(), "architectureStyle", value);
+}
+std::string SystemDescriptionDescriptionSummaryForm::interfaceTypes() const {
+  return doc().formField(path(), "interfaceTypes");
+}
+void SystemDescriptionDescriptionSummaryForm::setInterfaceTypes(const std::string& value) {
+  doc().setFormField(path(), "interfaceTypes", value);
+}
+std::string SystemDescriptionDescriptionSummaryForm::securityClassification() const {
+  return doc().formField(path(), "securityClassification");
+}
+void SystemDescriptionDescriptionSummaryForm::setSecurityClassification(const std::string& value) {
+  doc().setFormField(path(), "securityClassification", value);
 }
 std::string SystemDescriptionDescriptionSummaryForm::expectedUserLoad() const {
   return doc().formField(path(), "expectedUserLoad");
@@ -107172,6 +107172,12 @@ std::string SystemQualityGoalsGovernanceContentForm::content() const {
 void SystemQualityGoalsGovernanceContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
+std::string SystemQualityGoalsGovernanceContentForm::qualityOwner() const {
+  return doc().formField(path(), "qualityOwner");
+}
+void SystemQualityGoalsGovernanceContentForm::setQualityOwner(const std::string& value) {
+  doc().setFormField(path(), "qualityOwner", value);
+}
 std::string SystemQualityGoalsGovernanceContentForm::qualityApproach() const {
   return doc().formField(path(), "qualityApproach");
 }
@@ -107183,12 +107189,6 @@ std::string SystemQualityGoalsGovernanceContentForm::qualityStandards() const {
 }
 void SystemQualityGoalsGovernanceContentForm::setQualityStandards(const std::string& value) {
   doc().setFormField(path(), "qualityStandards", value);
-}
-std::string SystemQualityGoalsGovernanceContentForm::qualityOwner() const {
-  return doc().formField(path(), "qualityOwner");
-}
-void SystemQualityGoalsGovernanceContentForm::setQualityOwner(const std::string& value) {
-  doc().setFormField(path(), "qualityOwner", value);
 }
 
 SystemQualityGoalsGovernanceForm::SystemQualityGoalsGovernanceForm(som::SpecDocument& doc, std::string path)
@@ -107418,17 +107418,17 @@ std::string SystemStagePlanCoordinationForm::content() const {
 void SystemStagePlanCoordinationForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string SystemStagePlanCoordinationForm::crossStageDependencySummary() const {
-  return doc().formField(path(), "crossStageDependencySummary");
-}
-void SystemStagePlanCoordinationForm::setCrossStageDependencySummary(const std::string& value) {
-  doc().setFormField(path(), "crossStageDependencySummary", value);
-}
 std::string SystemStagePlanCoordinationForm::crossStageRiskSummary() const {
   return doc().formField(path(), "crossStageRiskSummary");
 }
 void SystemStagePlanCoordinationForm::setCrossStageRiskSummary(const std::string& value) {
   doc().setFormField(path(), "crossStageRiskSummary", value);
+}
+std::string SystemStagePlanCoordinationForm::crossStageDependencySummary() const {
+  return doc().formField(path(), "crossStageDependencySummary");
+}
+void SystemStagePlanCoordinationForm::setCrossStageDependencySummary(const std::string& value) {
+  doc().setFormField(path(), "crossStageDependencySummary", value);
 }
 std::string SystemStagePlanCoordinationForm::regulatoryComplianceConsiderations() const {
   return doc().formField(path(), "regulatoryComplianceConsiderations");
@@ -107544,17 +107544,17 @@ std::string SystemSummaryComplexityForm::overallComplexity() const {
 void SystemSummaryComplexityForm::setOverallComplexity(const std::string& value) {
   doc().setFormField(path(), "overallComplexity", value);
 }
-std::string SystemSummaryComplexityForm::keyRisks() const {
-  return doc().formField(path(), "keyRisks");
-}
-void SystemSummaryComplexityForm::setKeyRisks(const std::string& value) {
-  doc().setFormField(path(), "keyRisks", value);
-}
 std::string SystemSummaryComplexityForm::keyAssumptions() const {
   return doc().formField(path(), "keyAssumptions");
 }
 void SystemSummaryComplexityForm::setKeyAssumptions(const std::string& value) {
   doc().setFormField(path(), "keyAssumptions", value);
+}
+std::string SystemSummaryComplexityForm::keyRisks() const {
+  return doc().formField(path(), "keyRisks");
+}
+void SystemSummaryComplexityForm::setKeyRisks(const std::string& value) {
+  doc().setFormField(path(), "keyRisks", value);
 }
 
 SystemSummaryContentForm::SystemSummaryContentForm(som::SpecDocument& doc, std::string path)
@@ -109222,12 +109222,6 @@ std::string TechnicalGoalEntryMeasurementForm::currentValue() const {
 void TechnicalGoalEntryMeasurementForm::setCurrentValue(const std::string& value) {
   doc().setFormField(path(), "currentValue", value);
 }
-std::string TechnicalGoalEntryMeasurementForm::targetValue() const {
-  return doc().formField(path(), "targetValue");
-}
-void TechnicalGoalEntryMeasurementForm::setTargetValue(const std::string& value) {
-  doc().setFormField(path(), "targetValue", value);
-}
 std::string TechnicalGoalEntryMeasurementForm::measurementMethod() const {
   return doc().formField(path(), "measurementMethod");
 }
@@ -109251,6 +109245,12 @@ std::string TechnicalGoalEntryMeasurementForm::verificationPoint() const {
 }
 void TechnicalGoalEntryMeasurementForm::setVerificationPoint(const std::string& value) {
   doc().setFormField(path(), "verificationPoint", value);
+}
+std::string TechnicalGoalEntryMeasurementForm::targetValue() const {
+  return doc().formField(path(), "targetValue");
+}
+void TechnicalGoalEntryMeasurementForm::setTargetValue(const std::string& value) {
+  doc().setFormField(path(), "targetValue", value);
 }
 
 TechnicalGoalTestCaseEntryContentForm::TechnicalGoalTestCaseEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -109590,11 +109590,11 @@ std::string TechnicalRequirementEntryDetailsForm::content() const {
 void TechnicalRequirementEntryDetailsForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string TechnicalRequirementEntryDetailsForm::description() const {
-  return doc().formField(path(), "description");
+std::string TechnicalRequirementEntryDetailsForm::priority() const {
+  return doc().formField(path(), "priority");
 }
-void TechnicalRequirementEntryDetailsForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
+void TechnicalRequirementEntryDetailsForm::setPriority(const std::string& value) {
+  doc().setFormField(path(), "priority", value);
 }
 std::string TechnicalRequirementEntryDetailsForm::category() const {
   return doc().formField(path(), "category");
@@ -109608,23 +109608,23 @@ std::string TechnicalRequirementEntryDetailsForm::subcategory() const {
 void TechnicalRequirementEntryDetailsForm::setSubcategory(const std::string& value) {
   doc().setFormField(path(), "subcategory", value);
 }
-std::string TechnicalRequirementEntryDetailsForm::priority() const {
-  return doc().formField(path(), "priority");
+std::string TechnicalRequirementEntryDetailsForm::rationale() const {
+  return doc().formField(path(), "rationale");
 }
-void TechnicalRequirementEntryDetailsForm::setPriority(const std::string& value) {
-  doc().setFormField(path(), "priority", value);
+void TechnicalRequirementEntryDetailsForm::setRationale(const std::string& value) {
+  doc().setFormField(path(), "rationale", value);
+}
+std::string TechnicalRequirementEntryDetailsForm::description() const {
+  return doc().formField(path(), "description");
+}
+void TechnicalRequirementEntryDetailsForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
 }
 std::string TechnicalRequirementEntryDetailsForm::source() const {
   return doc().formField(path(), "source");
 }
 void TechnicalRequirementEntryDetailsForm::setSource(const std::string& value) {
   doc().setFormField(path(), "source", value);
-}
-std::string TechnicalRequirementEntryDetailsForm::rationale() const {
-  return doc().formField(path(), "rationale");
-}
-void TechnicalRequirementEntryDetailsForm::setRationale(const std::string& value) {
-  doc().setFormField(path(), "rationale", value);
 }
 
 TechnicalRequirementEntryImpactForm::TechnicalRequirementEntryImpactForm(som::SpecDocument& doc, std::string path)
@@ -112590,12 +112590,6 @@ std::string ToolingContentForm::toolStrategyOverview() const {
 void ToolingContentForm::setToolStrategyOverview(const std::string& value) {
   doc().setFormField(path(), "toolStrategyOverview", value);
 }
-std::string ToolingContentForm::standardToolStackDescription() const {
-  return doc().formField(path(), "standardToolStackDescription");
-}
-void ToolingContentForm::setStandardToolStackDescription(const std::string& value) {
-  doc().setFormField(path(), "standardToolStackDescription", value);
-}
 std::string ToolingContentForm::toolGovernancePolicy() const {
   return doc().formField(path(), "toolGovernancePolicy");
 }
@@ -112607,6 +112601,12 @@ std::string ToolingContentForm::toolApprovalProcess() const {
 }
 void ToolingContentForm::setToolApprovalProcess(const std::string& value) {
   doc().setFormField(path(), "toolApprovalProcess", value);
+}
+std::string ToolingContentForm::standardToolStackDescription() const {
+  return doc().formField(path(), "standardToolStackDescription");
+}
+void ToolingContentForm::setStandardToolStackDescription(const std::string& value) {
+  doc().setFormField(path(), "standardToolStackDescription", value);
 }
 
 ToolingGovernanceForm::ToolingGovernanceForm(som::SpecDocument& doc, std::string path)
@@ -115051,12 +115051,6 @@ std::string TrustBoundaryEntryContentForm::componentsCrossing() const {
 void TrustBoundaryEntryContentForm::setComponentsCrossing(const std::string& value) {
   doc().setFormField(path(), "componentsCrossing", value);
 }
-std::string TrustBoundaryEntryContentForm::protectionMechanisms() const {
-  return doc().formField(path(), "protectionMechanisms");
-}
-void TrustBoundaryEntryContentForm::setProtectionMechanisms(const std::string& value) {
-  doc().setFormField(path(), "protectionMechanisms", value);
-}
 std::string TrustBoundaryEntryContentForm::trustLevel() const {
   return doc().formField(path(), "trustLevel");
 }
@@ -115068,6 +115062,12 @@ std::string TrustBoundaryEntryContentForm::complianceImplications() const {
 }
 void TrustBoundaryEntryContentForm::setComplianceImplications(const std::string& value) {
   doc().setFormField(path(), "complianceImplications", value);
+}
+std::string TrustBoundaryEntryContentForm::protectionMechanisms() const {
+  return doc().formField(path(), "protectionMechanisms");
+}
+void TrustBoundaryEntryContentForm::setProtectionMechanisms(const std::string& value) {
+  doc().setFormField(path(), "protectionMechanisms", value);
 }
 
 TypographyStyleEntryContentForm::TypographyStyleEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -117017,12 +117017,6 @@ std::string UserCategoryDefinitionContentForm::content() const {
 void UserCategoryDefinitionContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string UserCategoryDefinitionContentForm::description() const {
-  return doc().formField(path(), "description");
-}
-void UserCategoryDefinitionContentForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
-}
 std::string UserCategoryDefinitionContentForm::accessLevel() const {
   return doc().formField(path(), "accessLevel");
 }
@@ -117035,6 +117029,12 @@ std::string UserCategoryDefinitionContentForm::estimatedCount() const {
 void UserCategoryDefinitionContentForm::setEstimatedCount(const std::string& value) {
   doc().setFormField(path(), "estimatedCount", value);
 }
+std::string UserCategoryDefinitionContentForm::description() const {
+  return doc().formField(path(), "description");
+}
+void UserCategoryDefinitionContentForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
+}
 
 UserCategoryEntryContentForm::UserCategoryEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -117044,17 +117044,17 @@ std::string UserCategoryEntryContentForm::content() const {
 void UserCategoryEntryContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string UserCategoryEntryContentForm::description() const {
-  return doc().formField(path(), "description");
-}
-void UserCategoryEntryContentForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
-}
 std::string UserCategoryEntryContentForm::userType() const {
   return doc().formField(path(), "userType");
 }
 void UserCategoryEntryContentForm::setUserType(const std::string& value) {
   doc().setFormField(path(), "userType", value);
+}
+std::string UserCategoryEntryContentForm::description() const {
+  return doc().formField(path(), "description");
+}
+void UserCategoryEntryContentForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
 }
 
 UserCategoryEntryImportanceForm::UserCategoryEntryImportanceForm(som::SpecDocument& doc, std::string path)
@@ -117609,17 +117609,17 @@ std::string UserLifecycleTransitionEntryContentForm::toState() const {
 void UserLifecycleTransitionEntryContentForm::setToState(const std::string& value) {
   doc().setFormField(path(), "toState", value);
 }
-std::string UserLifecycleTransitionEntryContentForm::trigger() const {
-  return doc().formField(path(), "trigger");
-}
-void UserLifecycleTransitionEntryContentForm::setTrigger(const std::string& value) {
-  doc().setFormField(path(), "trigger", value);
-}
 std::string UserLifecycleTransitionEntryContentForm::triggerConditions() const {
   return doc().formField(path(), "triggerConditions");
 }
 void UserLifecycleTransitionEntryContentForm::setTriggerConditions(const std::string& value) {
   doc().setFormField(path(), "triggerConditions", value);
+}
+std::string UserLifecycleTransitionEntryContentForm::trigger() const {
+  return doc().formField(path(), "trigger");
+}
+void UserLifecycleTransitionEntryContentForm::setTrigger(const std::string& value) {
+  doc().setFormField(path(), "trigger", value);
 }
 
 UserLifecycleTransitionEntryEffectsForm::UserLifecycleTransitionEntryEffectsForm(som::SpecDocument& doc, std::string path)
@@ -117629,12 +117629,6 @@ std::string UserLifecycleTransitionEntryEffectsForm::content() const {
 }
 void UserLifecycleTransitionEntryEffectsForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
-}
-std::string UserLifecycleTransitionEntryEffectsForm::sideEffects() const {
-  return doc().formField(path(), "sideEffects");
-}
-void UserLifecycleTransitionEntryEffectsForm::setSideEffects(const std::string& value) {
-  doc().setFormField(path(), "sideEffects", value);
 }
 std::string UserLifecycleTransitionEntryEffectsForm::notificationRecipients() const {
   return doc().formField(path(), "notificationRecipients");
@@ -117647,6 +117641,12 @@ std::string UserLifecycleTransitionEntryEffectsForm::notificationChannels() cons
 }
 void UserLifecycleTransitionEntryEffectsForm::setNotificationChannels(const std::string& value) {
   doc().setFormField(path(), "notificationChannels", value);
+}
+std::string UserLifecycleTransitionEntryEffectsForm::sideEffects() const {
+  return doc().formField(path(), "sideEffects");
+}
+void UserLifecycleTransitionEntryEffectsForm::setSideEffects(const std::string& value) {
+  doc().setFormField(path(), "sideEffects", value);
 }
 
 UserLifecycleTransitionsContentForm::UserLifecycleTransitionsContentForm(som::SpecDocument& doc, std::string path)
@@ -118716,6 +118716,12 @@ std::string ValuePropositionValueDetailsForm::valueStatement() const {
 void ValuePropositionValueDetailsForm::setValueStatement(const std::string& value) {
   doc().setFormField(path(), "valueStatement", value);
 }
+std::string ValuePropositionValueDetailsForm::qualitativeBenefits() const {
+  return doc().formField(path(), "qualitativeBenefits");
+}
+void ValuePropositionValueDetailsForm::setQualitativeBenefits(const std::string& value) {
+  doc().setFormField(path(), "qualitativeBenefits", value);
+}
 std::string ValuePropositionValueDetailsForm::primaryBenefits() const {
   return doc().formField(path(), "primaryBenefits");
 }
@@ -118727,12 +118733,6 @@ std::string ValuePropositionValueDetailsForm::quantifiableBenefits() const {
 }
 void ValuePropositionValueDetailsForm::setQuantifiableBenefits(const std::string& value) {
   doc().setFormField(path(), "quantifiableBenefits", value);
-}
-std::string ValuePropositionValueDetailsForm::qualitativeBenefits() const {
-  return doc().formField(path(), "qualitativeBenefits");
-}
-void ValuePropositionValueDetailsForm::setQualitativeBenefits(const std::string& value) {
-  doc().setFormField(path(), "qualitativeBenefits", value);
 }
 
 VersionControlConfigurationBranchingForm::VersionControlConfigurationBranchingForm(som::SpecDocument& doc, std::string path)

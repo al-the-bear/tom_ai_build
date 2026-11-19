@@ -56,7 +56,7 @@
         - sections: `ScreenSections`
           - content
           - items: `ScreenSectionEntry`[]
-            - content @Form(sectionId, purpose, sectionType), layout, behavior
+            - content @Form(sectionId, sectionType, purpose), layout, behavior
             - elements: `ScreenElementEntry`[]
               - content @Form(elementId, elementType), resources, layout, behavior, presentation
               - access: `AuthorizationRequirementSpec`
@@ -81,12 +81,12 @@
         - actions: `ScreenActions`
           - content
           - items: `ScreenActionEntry`[]
-            - content @Form(actionId, actionType, owningController, description, contextType), visual, conditions,
+            - content @Form(actionId, actionType, owningController, contextType, description), visual, conditions,
               behavior
         - states: `ScreenStates`
           - content
           - items: `ScreenStateEntry`[]
-            - content @Form(stateId, description, messageResource, iconResource, illustrationResource, primaryActionLabel, primaryActionTarget, secondaryActionLabel)
+            - content @Form(stateId, primaryActionLabel, secondaryActionLabel, messageResource, iconResource, illustrationResource, primaryActionTarget, description)
         - userCategories: `ScreenUserCategoryEntry`[]
           - content @Form(description, contentVariations)
         - entryPoints: `EntryPointEntry`[]

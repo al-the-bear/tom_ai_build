@@ -178,8 +178,6 @@ from standard organizational project governance procedures.
 @SectionId('STKRE')
 class StakeholderRegisterEntry extends DocSpecsSection {
   @Form([
-    Field('role', String, 'Role', required: true),
-    Field('interest', String, 'Interest (what they care about)'),
     Field(
       'influence',
       ImportanceBand,
@@ -188,6 +186,13 @@ class StakeholderRegisterEntry extends DocSpecsSection {
     ),
     Field('concerns', String, 'Concerns'),
     Field('engagementStrategy', String, 'Engagement Strategy'),
+    Field('role', String, 'Role', required: true, multiParagraph: true),
+    Field(
+      'interest',
+      String,
+      'Interest (what they care about)',
+      multiParagraph: true,
+    ),
   ])
   @override
   @SerializationOrder(0)

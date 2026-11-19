@@ -1838,6 +1838,7 @@ class ScreenEntry extends DocSpecsSection {
       String,
       'Purpose',
       hint: 'Business purpose — what the user accomplishes here',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -1964,19 +1965,6 @@ class ScreenEntry extends DocSpecsSection {
     'The presentation metadata such as title, icon, and layout that defines how a screen appears.',
   )
   @Form([
-    Field(
-      'pageTitleResource',
-      String,
-      'Page Title Resource',
-      hint: 'Message key (MSGKR registry) for the screen title text',
-      refersTo: ['MSGKE.key'],
-    ),
-    Field(
-      'pageIconResource',
-      String,
-      'Page Icon Resource',
-      hint: 'Resource key for the screen icon',
-    ),
     // Why: deliberately no `refersTo` (`tom_specs_model_rules.md` §6.2 "when not to annotate"). Help
     // content is a DOC follow-up — `UserAssistance` sits under
     // `ExperienceDesignFollowUp`, which is not a generation projection root —
@@ -1995,11 +1983,25 @@ class ScreenEntry extends DocSpecsSection {
           'process, not declared in this blueprint',
     ),
     Field(
+      'pageTitleResource',
+      String,
+      'Page Title Resource',
+      hint: 'Message key (MSGKR registry) for the screen title text',
+      refersTo: ['MSGKE.key'],
+    ),
+    Field(
+      'pageIconResource',
+      String,
+      'Page Icon Resource',
+      hint: 'Resource key for the screen icon',
+    ),
+    Field(
       'layout',
       String,
       'Layout',
       hint:
           'Layout description, e.g., Responsive grid — 3 col desktop, 1 col mobile',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(4)
@@ -2150,13 +2152,19 @@ class ScreenSectionEntry extends DocSpecsSection {
           'The symbol the built screen carries for this section — unique '
           'within the screen, e.g. header, filter-bar, main-content',
     ),
-    Field('purpose', String, 'Purpose', hint: 'What this zone contains'),
     Field(
       'sectionType',
       String,
       'Section Type',
       hint:
           'Header/Toolbar/Filter-Bar/Content-Primary/Content-Secondary/Sidebar/Footer/Tab-Panel/Accordion-Panel/Drawer/Action-Bar/Form-Group',
+    ),
+    Field(
+      'purpose',
+      String,
+      'Purpose',
+      hint: 'What this zone contains',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -2430,16 +2438,16 @@ class ScreenElementEntry extends DocSpecsSection {
   )
   @Form([
     Field(
-      'styleVariant',
-      String,
-      'Style Variant',
-      hint: 'Primary/Secondary/Danger/Subtle/Custom',
-    ),
-    Field(
       'accessibilityLabel',
       String,
       'Accessibility Label',
       hint: 'Override for screen readers',
+    ),
+    Field(
+      'styleVariant',
+      String,
+      'Style Variant',
+      hint: 'Primary/Secondary/Danger/Subtle/Custom',
     ),
     Field(
       'dataBinding',
@@ -2458,6 +2466,7 @@ class ScreenElementEntry extends DocSpecsSection {
       String,
       'Design Notes',
       hint: 'Design rationale or open questions',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(5)
@@ -3226,14 +3235,6 @@ class ScreenActionEntry extends DocSpecsSection {
           'the controller class name, e.g. Order',
     ),
     Field(
-      'description',
-      String,
-      'Description',
-      hint:
-          'What the action does — the stated behavior of an action no '
-          'scenario step contributes to',
-    ),
-    Field(
       'contextType',
       String,
       'Context Type',
@@ -3241,6 +3242,15 @@ class ScreenActionEntry extends DocSpecsSection {
       hint:
           'The view-model type the action requires as its context, '
           'e.g. OrderViewModel',
+    ),
+    Field(
+      'description',
+      String,
+      'Description',
+      hint:
+          'What the action does — the stated behavior of an action no '
+          'scenario step contributes to',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -3454,7 +3464,20 @@ class ScreenStateEntry extends DocSpecsSection {
           '(distinct from the entry headline, which names it for people), '
           'e.g. empty-queue',
     ),
-    Field('description', String, 'Description', hint: 'When this state occurs'),
+    Field(
+      'primaryActionLabel',
+      String,
+      'Primary Action Label',
+      hint: 'Message key (MSGKR registry) for recovery action, e.g., Try Again',
+      refersTo: ['MSGKE.key'],
+    ),
+    Field(
+      'secondaryActionLabel',
+      String,
+      'Secondary Action Label',
+      hint: 'Message key (MSGKR registry) for alternative action',
+      refersTo: ['MSGKE.key'],
+    ),
     Field(
       'messageResource',
       String,
@@ -3475,24 +3498,17 @@ class ScreenStateEntry extends DocSpecsSection {
       hint: 'Resource key for state illustration/image',
     ),
     Field(
-      'primaryActionLabel',
-      String,
-      'Primary Action Label',
-      hint: 'Message key (MSGKR registry) for recovery action, e.g., Try Again',
-      refersTo: ['MSGKE.key'],
-    ),
-    Field(
       'primaryActionTarget',
       String,
       'Primary Action Target',
       hint: 'Action or navigation on recovery',
     ),
     Field(
-      'secondaryActionLabel',
+      'description',
       String,
-      'Secondary Action Label',
-      hint: 'Message key (MSGKR registry) for alternative action',
-      refersTo: ['MSGKE.key'],
+      'Description',
+      hint: 'When this state occurs',
+      multiParagraph: true,
     ),
   ])
   @override

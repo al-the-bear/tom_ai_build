@@ -63,12 +63,6 @@ class DeliveryTransitionAndRollout extends DocSpecsSection {
   @DetailedIn(D12TransitionRolloutPlan)
   @Form([
     Field(
-      'rolloutStrategy',
-      String,
-      'Rollout Strategy',
-      hint: 'Big bang, phased, pilot',
-    ),
-    Field(
       'rolloutTimeline',
       String,
       'Rollout Timeline',
@@ -79,6 +73,13 @@ class DeliveryTransitionAndRollout extends DocSpecsSection {
       String,
       'Rollout Regions',
       hint: 'Geographic rollout order',
+    ),
+    Field(
+      'rolloutStrategy',
+      String,
+      'Rollout Strategy',
+      hint: 'Big bang, phased, pilot',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(4)

@@ -45477,12 +45477,6 @@ class AcceptanceProcessDecisionForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Decision Criteria.
-  ///
-  /// How accept/reject/conditional decisions are made
-  String get decisionCriteria => doc.formField(path, 'decisionCriteria') ?? '';
-  set decisionCriteria(String value) => doc.setFormField(path, 'decisionCriteria', value);
-
   /// Acceptable Defect Threshold.
   ///
   /// Maximum open defects by severity to proceed
@@ -45500,6 +45494,12 @@ class AcceptanceProcessDecisionForm extends SomNode {
   /// Conditions that automatically block acceptance
   String get rejectionCriteria => doc.formField(path, 'rejectionCriteria') ?? '';
   set rejectionCriteria(String value) => doc.setFormField(path, 'rejectionCriteria', value);
+
+  /// Decision Criteria.
+  ///
+  /// How accept/reject/conditional decisions are made
+  String get decisionCriteria => doc.formField(path, 'decisionCriteria') ?? '';
+  set decisionCriteria(String value) => doc.setFormField(path, 'decisionCriteria', value);
 }
 
 /// Generated section facade for the `documentation` `@Form` section:
@@ -47307,12 +47307,6 @@ class ActorEntryIdentificationForm extends SomNode {
   String get category => doc.formField(path, 'category') ?? '';
   set category(String value) => doc.setFormField(path, 'category', value);
 
-  /// Description — role purpose.
-  ///
-  /// Explain the actor’s purpose in one or two sentences
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
-
   /// Real World Examples — who fills this role.
   ///
   /// Name concrete job titles or people that fill this role
@@ -47336,6 +47330,12 @@ class ActorEntryIdentificationForm extends SomNode {
   /// Note the locations or regions where actors operate
   String get geographicDistribution => doc.formField(path, 'geographicDistribution') ?? '';
   set geographicDistribution(String value) => doc.setFormField(path, 'geographicDistribution', value);
+
+  /// Description — role purpose.
+  ///
+  /// Explain the actor’s purpose in one or two sentences
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 }
 
 /// Generated section facade for the `interactions` `@Form` section:
@@ -47605,12 +47605,6 @@ class ActorOverviewOverviewForm extends SomNode {
   int? get externalActorCount => somParseInt(doc.formField(path, 'externalActorCount'));
   set externalActorCount(int? value) => doc.setFormField(path, 'externalActorCount', somFormatInt(value));
 
-  /// Actor Identification Approach — how actors were identified.
-  ///
-  /// Describe the method used to discover actors
-  String get actorIdentificationApproach => doc.formField(path, 'actorIdentificationApproach') ?? '';
-  set actorIdentificationApproach(String value) => doc.setFormField(path, 'actorIdentificationApproach', value);
-
   /// Actor Prioritization — which actors are most important.
   ///
   /// State which actors matter most and why
@@ -47622,6 +47616,12 @@ class ActorOverviewOverviewForm extends SomNode {
   /// Explain how actor goals map to business goals
   String get actorGoalAlignment => doc.formField(path, 'actorGoalAlignment') ?? '';
   set actorGoalAlignment(String value) => doc.setFormField(path, 'actorGoalAlignment', value);
+
+  /// Actor Identification Approach — how actors were identified.
+  ///
+  /// Describe the method used to discover actors
+  String get actorIdentificationApproach => doc.formField(path, 'actorIdentificationApproach') ?? '';
+  set actorIdentificationApproach(String value) => doc.setFormField(path, 'actorIdentificationApproach', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -50343,12 +50343,6 @@ class ApplicableRegulationEntryContentForm extends SomNode {
   String get applicability => doc.formField(path, 'applicability') ?? '';
   set applicability(String value) => doc.setFormField(path, 'applicability', value);
 
-  /// Key Requirements (summary of main requirements).
-  ///
-  /// A summary of the main requirements
-  String get keyRequirements => doc.formField(path, 'keyRequirements') ?? '';
-  set keyRequirements(String value) => doc.setFormField(path, 'keyRequirements', value);
-
   /// Compliance Status (Compliant, Partially Compliant, Non-Compliant, To Be Assessed).
   ///
   /// The current compliance status
@@ -50372,6 +50366,12 @@ class ApplicableRegulationEntryContentForm extends SomNode {
   /// Consequences of non-compliance
   String get penalties => doc.formField(path, 'penalties') ?? '';
   set penalties(String value) => doc.setFormField(path, 'penalties', value);
+
+  /// Key Requirements (summary of main requirements).
+  ///
+  /// A summary of the main requirements
+  String get keyRequirements => doc.formField(path, 'keyRequirements') ?? '';
+  set keyRequirements(String value) => doc.setFormField(path, 'keyRequirements', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -51157,6 +51157,12 @@ class ArchitectureComponentEntryPurposeForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
+  /// Not Responsible For.
+  ///
+  /// Explicitly out of scope
+  String get notResponsibleFor => doc.formField(path, 'notResponsibleFor') ?? '';
+  set notResponsibleFor(String value) => doc.setFormField(path, 'notResponsibleFor', value);
+
   /// Purpose.
   ///
   /// What this component does
@@ -51170,12 +51176,6 @@ class ArchitectureComponentEntryPurposeForm extends SomNode {
   /// List of responsibilities
   String get responsibilities => doc.formField(path, 'responsibilities') ?? '';
   set responsibilities(String value) => doc.setFormField(path, 'responsibilities', value);
-
-  /// Not Responsible For.
-  ///
-  /// Explicitly out of scope
-  String get notResponsibleFor => doc.formField(path, 'notResponsibleFor') ?? '';
-  set notResponsibleFor(String value) => doc.setFormField(path, 'notResponsibleFor', value);
 }
 
 /// Generated section facade for the `technical` `@Form` section:
@@ -51223,12 +51223,6 @@ class ArchitectureDecisionRecordConsequencesForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Consequences.
-  ///
-  /// Impact of this decision
-  String get consequences => doc.formField(path, 'consequences') ?? '';
-  set consequences(String value) => doc.setFormField(path, 'consequences', value);
-
   /// Positive Consequences.
   ///
   /// Benefits of this decision
@@ -51252,6 +51246,12 @@ class ArchitectureDecisionRecordConsequencesForm extends SomNode {
   /// Additional decision notes
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
+
+  /// Consequences.
+  ///
+  /// Impact of this decision
+  String get consequences => doc.formField(path, 'consequences') ?? '';
+  set consequences(String value) => doc.setFormField(path, 'consequences', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -51331,14 +51331,6 @@ class ArchitectureDecisionRecordOutcomeForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Decision.
-  ///
-  /// What was decided
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
-  String get decision => doc.formField(path, 'decision') ?? '';
-  set decision(String value) => doc.setFormField(path, 'decision', value);
-
   /// Rationale.
   ///
   /// Why this decision was made
@@ -51358,6 +51350,14 @@ class ArchitectureDecisionRecordOutcomeForm extends SomNode {
   /// Who made this decision
   String get decisionMakers => doc.formField(path, 'decisionMakers') ?? '';
   set decisionMakers(String value) => doc.setFormField(path, 'decisionMakers', value);
+
+  /// Decision.
+  ///
+  /// What was decided
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get decision => doc.formField(path, 'decision') ?? '';
+  set decision(String value) => doc.setFormField(path, 'decision', value);
 }
 
 /// Generated section facade for the `relations` `@Form` section:
@@ -51471,6 +51471,12 @@ class ArchitectureOverviewDriversForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
+  /// Business Drivers.
+  ///
+  /// Business requirements driving the choice
+  String get businessDrivers => doc.formField(path, 'businessDrivers') ?? '';
+  set businessDrivers(String value) => doc.setFormField(path, 'businessDrivers', value);
+
   /// Justification.
   ///
   /// Why this architecture style was chosen
@@ -51478,12 +51484,6 @@ class ArchitectureOverviewDriversForm extends SomNode {
   /// **Required** — a document that leaves this empty fails validation.
   String get justification => doc.formField(path, 'justification') ?? '';
   set justification(String value) => doc.setFormField(path, 'justification', value);
-
-  /// Business Drivers.
-  ///
-  /// Business requirements driving the choice
-  String get businessDrivers => doc.formField(path, 'businessDrivers') ?? '';
-  set businessDrivers(String value) => doc.setFormField(path, 'businessDrivers', value);
 
   /// Technical Drivers.
   ///
@@ -52267,6 +52267,12 @@ class AuthorizationRequirementSpecCustomRequirementForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
+  /// Resource ID.
+  ///
+  /// The resource id passed to the handler, where it needs one
+  String get resourceId => doc.formField(path, 'resourceId') ?? '';
+  set resourceId(String value) => doc.setFormField(path, 'resourceId', value);
+
   /// Handler.
   ///
   /// The registered access handler that decides, by its name in the access-handler catalogue
@@ -52274,12 +52280,6 @@ class AuthorizationRequirementSpecCustomRequirementForm extends SomNode {
   /// **Required** — a document that leaves this empty fails validation.
   String get handler => doc.formField(path, 'handler') ?? '';
   set handler(String value) => doc.setFormField(path, 'handler', value);
-
-  /// Resource ID.
-  ///
-  /// The resource id passed to the handler, where it needs one
-  String get resourceId => doc.formField(path, 'resourceId') ?? '';
-  set resourceId(String value) => doc.setFormField(path, 'resourceId', value);
 
   /// Decision Rule.
   ///
@@ -52399,17 +52399,17 @@ class AuthorizationRoleEntryContentForm extends SomNode {
   String get roleName => doc.formField(path, 'roleName') ?? '';
   set roleName(String value) => doc.setFormField(path, 'roleName', value);
 
-  /// Short description.
-  ///
-  /// Purpose of the role and the access it grants
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
-
   /// Role Category.
   ///
   /// Business | Technical | Administrative | System | Compliance | Custom — classification of the role by function
   String get roleCategory => doc.formField(path, 'roleCategory') ?? '';
   set roleCategory(String value) => doc.setFormField(path, 'roleCategory', value);
+
+  /// Short description.
+  ///
+  /// Purpose of the role and the access it grants
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 }
 
 /// Generated section facade for the `governance` `@Form` section:
@@ -54447,12 +54447,6 @@ class BoundedContextEntryIntegrationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// API Endpoints.
-  ///
-  /// Public API endpoints exposed
-  String get apiEndpoints => doc.formField(path, 'apiEndpoints') ?? '';
-  set apiEndpoints(String value) => doc.setFormField(path, 'apiEndpoints', value);
-
   /// Integration Patterns.
   ///
   /// How this context integrates with others
@@ -54464,6 +54458,12 @@ class BoundedContextEntryIntegrationForm extends SomNode {
   /// Additional context notes
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
+
+  /// API Endpoints.
+  ///
+  /// Public API endpoints exposed
+  String get apiEndpoints => doc.formField(path, 'apiEndpoints') ?? '';
+  set apiEndpoints(String value) => doc.setFormField(path, 'apiEndpoints', value);
 }
 
 /// Generated section facade for the `scope` `@Form` section:
@@ -54479,12 +54479,6 @@ class BoundedContextEntryScopeForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Purpose.
-  ///
-  /// Why this context exists
-  String get purpose => doc.formField(path, 'purpose') ?? '';
-  set purpose(String value) => doc.setFormField(path, 'purpose', value);
-
   /// Included Concepts.
   ///
   /// Domain concepts within this context
@@ -54496,6 +54490,12 @@ class BoundedContextEntryScopeForm extends SomNode {
   /// Domain concepts explicitly outside this context
   String get excludedConcepts => doc.formField(path, 'excludedConcepts') ?? '';
   set excludedConcepts(String value) => doc.setFormField(path, 'excludedConcepts', value);
+
+  /// Purpose.
+  ///
+  /// Why this context exists
+  String get purpose => doc.formField(path, 'purpose') ?? '';
+  set purpose(String value) => doc.setFormField(path, 'purpose', value);
 
   /// Ubiquitous Language.
   ///
@@ -55195,17 +55195,17 @@ class BuildToolchainEntryProfilesForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Build Profiles.
-  ///
-  /// E.g., Debug, Release, Profile, Production
-  String get buildProfiles => doc.formField(path, 'buildProfiles') ?? '';
-  set buildProfiles(String value) => doc.setFormField(path, 'buildProfiles', value);
-
   /// Default Profile.
   ///
   /// Default build profile
   String get defaultProfile => doc.formField(path, 'defaultProfile') ?? '';
   set defaultProfile(String value) => doc.setFormField(path, 'defaultProfile', value);
+
+  /// Build Profiles.
+  ///
+  /// E.g., Debug, Release, Profile, Production
+  String get buildProfiles => doc.formField(path, 'buildProfiles') ?? '';
+  set buildProfiles(String value) => doc.setFormField(path, 'buildProfiles', value);
 }
 
 /// Generated section facade for the `versions` `@Form` section:
@@ -55381,12 +55381,6 @@ class BuildToolsConfigurationScriptsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Build Scripts.
-  ///
-  /// Custom build scripts location
-  String get buildScripts => doc.formField(path, 'buildScripts') ?? '';
-  set buildScripts(String value) => doc.setFormField(path, 'buildScripts', value);
-
   /// Pre-Commit Hooks.
   ///
   /// Pre-commit hook configuration
@@ -55398,6 +55392,12 @@ class BuildToolsConfigurationScriptsForm extends SomNode {
   /// Actions after successful build
   String get postBuildActions => doc.formField(path, 'postBuildActions') ?? '';
   set postBuildActions(String value) => doc.setFormField(path, 'postBuildActions', value);
+
+  /// Build Scripts.
+  ///
+  /// Custom build scripts location
+  String get buildScripts => doc.formField(path, 'buildScripts') ?? '';
+  set buildScripts(String value) => doc.setFormField(path, 'buildScripts', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -55717,14 +55717,6 @@ class BusinessGoalEntryMeasurementForm extends SomNode {
   String get currentValue => doc.formField(path, 'currentValue') ?? '';
   set currentValue(String value) => doc.setFormField(path, 'currentValue', value);
 
-  /// Target Value (desired end state).
-  ///
-  /// Desired end-state value for the metric
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
-  String get targetValue => doc.formField(path, 'targetValue') ?? '';
-  set targetValue(String value) => doc.setFormField(path, 'targetValue', value);
-
   /// Measurement Method (how the metric is captured).
   ///
   /// How the metric is captured or calculated
@@ -55736,6 +55728,14 @@ class BusinessGoalEntryMeasurementForm extends SomNode {
   /// Daily, Weekly, Monthly, or Quarterly
   String get measurementFrequency => doc.formField(path, 'measurementFrequency') ?? '';
   set measurementFrequency(String value) => doc.setFormField(path, 'measurementFrequency', value);
+
+  /// Target Value (desired end state).
+  ///
+  /// Desired end-state value for the metric
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get targetValue => doc.formField(path, 'targetValue') ?? '';
+  set targetValue(String value) => doc.setFormField(path, 'targetValue', value);
 }
 
 /// Generated section facade for the `strategy` `@Form` section:
@@ -60749,14 +60749,6 @@ class CodingStandardEntryRuleDetailsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Rule.
-  ///
-  /// Clear statement of the coding rule
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
-  String get rule => doc.formField(path, 'rule') ?? '';
-  set rule(String value) => doc.setFormField(path, 'rule', value);
-
   /// Rationale.
   ///
   /// Why this rule matters
@@ -60768,6 +60760,14 @@ class CodingStandardEntryRuleDetailsForm extends SomNode {
   /// Good and bad code examples
   String get examples => doc.formField(path, 'examples') ?? '';
   set examples(String value) => doc.setFormField(path, 'examples', value);
+
+  /// Rule.
+  ///
+  /// Clear statement of the coding rule
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get rule => doc.formField(path, 'rule') ?? '';
+  set rule(String value) => doc.setFormField(path, 'rule', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -61537,12 +61537,6 @@ class CommunicationPatternsDataExchangeForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Data Contracts.
-  ///
-  /// API contracts and schemas
-  String get dataContracts => doc.formField(path, 'dataContracts') ?? '';
-  set dataContracts(String value) => doc.setFormField(path, 'dataContracts', value);
-
   /// Schema Evolution.
   ///
   /// How schemas evolve over time
@@ -61554,6 +61548,12 @@ class CommunicationPatternsDataExchangeForm extends SomNode {
   /// Serialization approach
   String get serialization => doc.formField(path, 'serialization') ?? '';
   set serialization(String value) => doc.setFormField(path, 'serialization', value);
+
+  /// Data Contracts.
+  ///
+  /// API contracts and schemas
+  String get dataContracts => doc.formField(path, 'dataContracts') ?? '';
+  set dataContracts(String value) => doc.setFormField(path, 'dataContracts', value);
 }
 
 /// Generated section facade for the `observability` `@Form` section:
@@ -61645,17 +61645,17 @@ class CommunicationPatternsSynchronousForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Synchronous Patterns.
-  ///
-  /// Request-response, Service mesh
-  String get syncPatterns => doc.formField(path, 'syncPatterns') ?? '';
-  set syncPatterns(String value) => doc.setFormField(path, 'syncPatterns', value);
-
   /// API Gateway.
   ///
   /// Central gateway pattern details
   String get apiGateway => doc.formField(path, 'apiGateway') ?? '';
   set apiGateway(String value) => doc.setFormField(path, 'apiGateway', value);
+
+  /// Synchronous Patterns.
+  ///
+  /// Request-response, Service mesh
+  String get syncPatterns => doc.formField(path, 'syncPatterns') ?? '';
+  set syncPatterns(String value) => doc.setFormField(path, 'syncPatterns', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -62767,17 +62767,17 @@ class ComponentEntryVendorForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
+  /// Vendor / Publisher.
+  ///
+  /// Company or organization behind the component
+  String get vendorName => doc.formField(path, 'vendorName') ?? '';
+  set vendorName(String value) => doc.setFormField(path, 'vendorName', value);
+
   /// Version.
   ///
   /// Current version in use or targeted
   String get version => doc.formField(path, 'version') ?? '';
   set version(String value) => doc.setFormField(path, 'version', value);
-
-  /// Business Purpose.
-  ///
-  /// Why this component is needed in business terms
-  String get purpose => doc.formField(path, 'purpose') ?? '';
-  set purpose(String value) => doc.setFormField(path, 'purpose', value);
 
   /// Library.
   ///
@@ -62785,17 +62785,17 @@ class ComponentEntryVendorForm extends SomNode {
   String get libraryRef => doc.formField(path, 'libraryRef') ?? '';
   set libraryRef(String value) => doc.setFormField(path, 'libraryRef', value);
 
-  /// Vendor / Publisher.
-  ///
-  /// Company or organization behind the component
-  String get vendorName => doc.formField(path, 'vendorName') ?? '';
-  set vendorName(String value) => doc.setFormField(path, 'vendorName', value);
-
   /// Vendor Stability Assessment.
   ///
   /// Financial health, market position, acquisition risk
   String get vendorStability => doc.formField(path, 'vendorStability') ?? '';
   set vendorStability(String value) => doc.setFormField(path, 'vendorStability', value);
+
+  /// Business Purpose.
+  ///
+  /// Why this component is needed in business terms
+  String get purpose => doc.formField(path, 'purpose') ?? '';
+  set purpose(String value) => doc.setFormField(path, 'purpose', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -65833,12 +65833,6 @@ class ConstraintRegisterEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Description.
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
-
   /// Type (Technical, Regulatory, Budget, Schedule).
   String get type => doc.formField(path, 'type') ?? '';
   set type(String value) => doc.setFormField(path, 'type', value);
@@ -65850,6 +65844,12 @@ class ConstraintRegisterEntryContentForm extends SomNode {
   /// Impact on the solution.
   String get impact => doc.formField(path, 'impact') ?? '';
   set impact(String value) => doc.setFormField(path, 'impact', value);
+
+  /// Description.
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -68335,12 +68335,6 @@ class DataAttributeEntryIdentityForm extends SomNode {
   String get columnName => doc.formField(path, 'columnName') ?? '';
   set columnName(String value) => doc.setFormField(path, 'columnName', value);
 
-  /// Description.
-  ///
-  /// Clear definition of what this attribute represents
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
-
   /// Business Term.
   ///
   /// Business glossary term this maps to
@@ -68352,6 +68346,12 @@ class DataAttributeEntryIdentityForm extends SomNode {
   /// Comma-separated examples (e.g., "Draft, Confirmed, Shipped")
   String get exampleValues => doc.formField(path, 'exampleValues') ?? '';
   set exampleValues(String value) => doc.setFormField(path, 'exampleValues', value);
+
+  /// Description.
+  ///
+  /// Clear definition of what this attribute represents
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 }
 
 /// Generated section facade for the `migrationLineage` `@Form` section:
@@ -69163,24 +69163,6 @@ class DataEntityEntryIdentityForm extends SomNode {
   String get tableName => doc.formField(path, 'tableName') ?? '';
   set tableName(String value) => doc.setFormField(path, 'tableName', value);
 
-  /// Alias/Abbreviation.
-  ///
-  /// Short alias for diagrams and references (e.g., CUST, ORD)
-  String get entityAlias => doc.formField(path, 'entityAlias') ?? '';
-  set entityAlias(String value) => doc.setFormField(path, 'entityAlias', value);
-
-  /// Description.
-  ///
-  /// Clear definition of what this entity represents
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
-
-  /// Stereotype.
-  ///
-  /// Entity pattern: Entity | ValueObject | Event | View | Bridge. Aggregate-root-ness is not a stereotype here — it is read from aggregateRoot below, which is the only field that states it
-  String get entityStereoType => doc.formField(path, 'entityStereoType') ?? '';
-  set entityStereoType(String value) => doc.setFormField(path, 'entityStereoType', value);
-
   /// Datasource.
   ///
   /// The logical datasource the rows are stored in (e.g. main), when not the solution's default
@@ -69200,6 +69182,24 @@ class DataEntityEntryIdentityForm extends SomNode {
   /// Stored as one of: `tenant`, `system`.
   EntityTenancy? get tenancy => _parseEntityTenancy(doc.formField(path, 'tenancy'));
   set tenancy(EntityTenancy? value) => doc.setFormField(path, 'tenancy', value?.name ?? '');
+
+  /// Alias/Abbreviation.
+  ///
+  /// Short alias for diagrams and references (e.g., CUST, ORD)
+  String get entityAlias => doc.formField(path, 'entityAlias') ?? '';
+  set entityAlias(String value) => doc.setFormField(path, 'entityAlias', value);
+
+  /// Stereotype.
+  ///
+  /// Entity pattern: Entity | ValueObject | Event | View | Bridge. Aggregate-root-ness is not a stereotype here — it is read from aggregateRoot below, which is the only field that states it
+  String get entityStereoType => doc.formField(path, 'entityStereoType') ?? '';
+  set entityStereoType(String value) => doc.setFormField(path, 'entityStereoType', value);
+
+  /// Description.
+  ///
+  /// Clear definition of what this entity represents
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 }
 
 /// Generated section facade for the `lifecyclePolicy` `@Form` section:
@@ -74001,17 +74001,17 @@ class DeliverableEntryIdentityForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Description.
-  ///
-  /// What this deliverable contains and its purpose
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
-
   /// Category.
   ///
   /// Application / Library / Tool / Configuration / Document
   String get category => doc.formField(path, 'category') ?? '';
   set category(String value) => doc.setFormField(path, 'category', value);
+
+  /// Description.
+  ///
+  /// What this deliverable contains and its purpose
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 }
 
 /// Generated section facade for the `legal` `@Form` section:
@@ -74399,12 +74399,6 @@ class DeliveryTransitionAndRolloutLocaleRolloutPlanForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Rollout Strategy.
-  ///
-  /// Big bang, phased, pilot
-  String get rolloutStrategy => doc.formField(path, 'rolloutStrategy') ?? '';
-  set rolloutStrategy(String value) => doc.setFormField(path, 'rolloutStrategy', value);
-
   /// Rollout Timeline.
   ///
   /// High-level rollout schedule
@@ -74416,6 +74410,12 @@ class DeliveryTransitionAndRolloutLocaleRolloutPlanForm extends SomNode {
   /// Geographic rollout order
   String get rolloutRegions => doc.formField(path, 'rolloutRegions') ?? '';
   set rolloutRegions(String value) => doc.setFormField(path, 'rolloutRegions', value);
+
+  /// Rollout Strategy.
+  ///
+  /// Big bang, phased, pilot
+  String get rolloutStrategy => doc.formField(path, 'rolloutStrategy') ?? '';
+  set rolloutStrategy(String value) => doc.setFormField(path, 'rolloutStrategy', value);
 }
 
 /// Generated section facade for the `cache` `@Form` section:
@@ -74899,12 +74899,6 @@ class DependencyRegisterEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Description.
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
-
   /// Type (System, Team, Vendor, Deliverable, Framework).
   String get type => doc.formField(path, 'type') ?? '';
   set type(String value) => doc.setFormField(path, 'type', value);
@@ -74920,6 +74914,12 @@ class DependencyRegisterEntryContentForm extends SomNode {
   /// Status (Open, Confirmed, Resolved, At risk).
   String get status => doc.formField(path, 'status') ?? '';
   set status(String value) => doc.setFormField(path, 'status', value);
+
+  /// Description.
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -75697,12 +75697,6 @@ class DeploymentTargetEntryComplianceForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Compliance Requirements.
-  ///
-  /// Store guidelines, regulatory requirements
-  String get complianceRequirements => doc.formField(path, 'complianceRequirements') ?? '';
-  set complianceRequirements(String value) => doc.setFormField(path, 'complianceRequirements', value);
-
   /// Privacy Requirements.
   ///
   /// Privacy manifest, tracking transparency
@@ -75726,6 +75720,12 @@ class DeploymentTargetEntryComplianceForm extends SomNode {
   /// Additional deployment notes
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
+
+  /// Compliance Requirements.
+  ///
+  /// Store guidelines, regulatory requirements
+  String get complianceRequirements => doc.formField(path, 'complianceRequirements') ?? '';
+  set complianceRequirements(String value) => doc.setFormField(path, 'complianceRequirements', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -75749,15 +75749,15 @@ class DeploymentTargetEntryContentForm extends SomNode {
 
   /// Environment.
   ///
-  /// Development, Staging, Production
-  String get targetEnvironment => doc.formField(path, 'targetEnvironment') ?? '';
-  set targetEnvironment(String value) => doc.setFormField(path, 'targetEnvironment', value);
-
-  /// Environment.
-  ///
   /// The environment (ENVEN-ITEM-…) this entry describes; the environment itself is described in the environment register
   String get environmentRef => doc.formField(path, 'environmentRef') ?? '';
   set environmentRef(String value) => doc.setFormField(path, 'environmentRef', value);
+
+  /// Environment.
+  ///
+  /// Development, Staging, Production
+  String get targetEnvironment => doc.formField(path, 'targetEnvironment') ?? '';
+  set targetEnvironment(String value) => doc.setFormField(path, 'targetEnvironment', value);
 }
 
 /// Generated section facade for the `platform` `@Form` section:
@@ -78587,14 +78587,6 @@ class DocumentRelevantSectionsContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Section Reference (chapter, section, or page number).
-  ///
-  /// Locate the section: chapter, clause, or page number.
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
-  String get sectionReference => doc.formField(path, 'sectionReference') ?? '';
-  set sectionReference(String value) => doc.setFormField(path, 'sectionReference', value);
-
   /// Section Title or Description.
   ///
   /// Title or short description of the section.
@@ -78602,6 +78594,14 @@ class DocumentRelevantSectionsContentForm extends SomNode {
   /// **Required** — a document that leaves this empty fails validation.
   String get sectionTitle => doc.formField(path, 'sectionTitle') ?? '';
   set sectionTitle(String value) => doc.setFormField(path, 'sectionTitle', value);
+
+  /// Section Reference (chapter, section, or page number).
+  ///
+  /// Locate the section: chapter, clause, or page number.
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get sectionReference => doc.formField(path, 'sectionReference') ?? '';
+  set sectionReference(String value) => doc.setFormField(path, 'sectionReference', value);
 
   /// Relevance to Project.
   ///
@@ -79743,12 +79743,6 @@ class EfficiencyVerificationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Load Testing Requirement.
-  ///
-  /// Load test scenarios, thresholds
-  String get loadTestingRequirement => doc.formField(path, 'loadTestingRequirement') ?? '';
-  set loadTestingRequirement(String value) => doc.setFormField(path, 'loadTestingRequirement', value);
-
   /// Performance Profiling.
   ///
   /// APM tools, custom instrumentation
@@ -79760,6 +79754,12 @@ class EfficiencyVerificationForm extends SomNode {
   /// When baseline was established
   String get performanceBaselineDate => doc.formField(path, 'performanceBaselineDate') ?? '';
   set performanceBaselineDate(String value) => doc.setFormField(path, 'performanceBaselineDate', value);
+
+  /// Load Testing Requirement.
+  ///
+  /// Load test scenarios, thresholds
+  String get loadTestingRequirement => doc.formField(path, 'loadTestingRequirement') ?? '';
+  set loadTestingRequirement(String value) => doc.setFormField(path, 'loadTestingRequirement', value);
 
   /// Performance SLA Definition.
   ///
@@ -80277,17 +80277,17 @@ class EntitlementEntryContentForm extends SomNode {
   String get entitlementName => doc.formField(path, 'entitlementName') ?? '';
   set entitlementName(String value) => doc.setFormField(path, 'entitlementName', value);
 
-  /// Short description.
-  ///
-  /// Brief description.
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
-
   /// Access Type.
   ///
   /// Type of access granted.
   String get accessType => doc.formField(path, 'accessType') ?? '';
   set accessType(String value) => doc.setFormField(path, 'accessType', value);
+
+  /// Short description.
+  ///
+  /// Brief description.
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 
   /// Conditions.
   ///
@@ -80543,12 +80543,6 @@ class EntityRelationshipEntryIdentityForm extends SomNode {
   String get relationshipType => doc.formField(path, 'relationshipType') ?? '';
   set relationshipType(String value) => doc.setFormField(path, 'relationshipType', value);
 
-  /// Description.
-  ///
-  /// Business meaning of this relationship
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
-
   /// Business Justification.
   ///
   /// Why this relationship exists from business perspective
@@ -80560,6 +80554,12 @@ class EntityRelationshipEntryIdentityForm extends SomNode {
   /// ForeignKey | JunctionTable | Embedded | Reference
   String get implementationType => doc.formField(path, 'implementationType') ?? '';
   set implementationType(String value) => doc.setFormField(path, 'implementationType', value);
+
+  /// Description.
+  ///
+  /// Business meaning of this relationship
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 }
 
 /// Generated section facade for the `navigation` `@Form` section:
@@ -84015,6 +84015,16 @@ class ExtensionEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
+  /// Return Kind — resume the scenario, or end it.
+  ///
+  /// Where control goes when this branch finishes — back to a named main-scenario step, or nowhere because the use case ends here
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  ///
+  /// Stored as one of: `resumeAtStep`, `endFlow`.
+  FlowReturnPoint? get returnKind => _parseFlowReturnPoint(doc.formField(path, 'returnKind'));
+  set returnKind(FlowReturnPoint? value) => doc.setFormField(path, 'returnKind', value?.name ?? '');
+
   /// Branch Point — main-scenario step.
   ///
   /// The main-scenario step this branch leaves from, as that step's section id (MNSST-STEP-…). The branch is taken instead of that step, so name the step the condition is evaluated before — not the step before it, and not a restated step number.
@@ -84035,27 +84045,11 @@ class ExtensionEntryContentForm extends SomNode {
   String get extensionType => doc.formField(path, 'extensionType') ?? '';
   set extensionType(String value) => doc.setFormField(path, 'extensionType', value);
 
-  /// Description — what happens.
-  ///
-  /// What happens along this extension path
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
-
   /// Outcome — how it ends.
   ///
   /// Result reached when the branch completes
   String get outcome => doc.formField(path, 'outcome') ?? '';
   set outcome(String value) => doc.setFormField(path, 'outcome', value);
-
-  /// Return Kind — resume the scenario, or end it.
-  ///
-  /// Where control goes when this branch finishes — back to a named main-scenario step, or nowhere because the use case ends here
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
-  ///
-  /// Stored as one of: `resumeAtStep`, `endFlow`.
-  FlowReturnPoint? get returnKind => _parseFlowReturnPoint(doc.formField(path, 'returnKind'));
-  set returnKind(FlowReturnPoint? value) => doc.setFormField(path, 'returnKind', value?.name ?? '');
 
   /// Frequency — how often this occurs.
   ///
@@ -84068,6 +84062,12 @@ class ExtensionEntryContentForm extends SomNode {
   /// Impact level for exception/error branches
   String get severity => doc.formField(path, 'severity') ?? '';
   set severity(String value) => doc.setFormField(path, 'severity', value);
+
+  /// Description — what happens.
+  ///
+  /// What happens along this extension path
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 }
 
 /// Generated section facade for the `resumePoint` `@Form` section:
@@ -84221,17 +84221,17 @@ class ExternalActorEntryInteractionForm extends SomNode {
   String get interactionChannel => doc.formField(path, 'interactionChannel') ?? '';
   set interactionChannel(String value) => doc.setFormField(path, 'interactionChannel', value);
 
-  /// Data Exchanged (what information flows to/from this actor).
-  ///
-  /// What information flows to and from this actor
-  String get dataExchanged => doc.formField(path, 'dataExchanged') ?? '';
-  set dataExchanged(String value) => doc.setFormField(path, 'dataExchanged', value);
-
   /// Access Level (Read, Write, Admin, API-only, etc.).
   ///
   /// The level of access this actor has
   String get accessLevel => doc.formField(path, 'accessLevel') ?? '';
   set accessLevel(String value) => doc.setFormField(path, 'accessLevel', value);
+
+  /// Data Exchanged (what information flows to/from this actor).
+  ///
+  /// What information flows to and from this actor
+  String get dataExchanged => doc.formField(path, 'dataExchanged') ?? '';
+  set dataExchanged(String value) => doc.setFormField(path, 'dataExchanged', value);
 }
 
 /// Generated section facade for the `identificationContent` `@Form` section:
@@ -84963,12 +84963,6 @@ class ExternalSystemContextEntryIntegrationForm extends SomNode {
   String get integrationDirection => doc.formField(path, 'integrationDirection') ?? '';
   set integrationDirection(String value) => doc.setFormField(path, 'integrationDirection', value);
 
-  /// Integration Purpose (what business need does this serve).
-  ///
-  /// The business need this integration serves
-  String get integrationPurpose => doc.formField(path, 'integrationPurpose') ?? '';
-  set integrationPurpose(String value) => doc.setFormField(path, 'integrationPurpose', value);
-
   /// Data Exchanged (what data flows between systems).
   ///
   /// What data flows between the systems
@@ -84980,6 +84974,12 @@ class ExternalSystemContextEntryIntegrationForm extends SomNode {
   /// The technical method used for the integration
   String get integrationMethod => doc.formField(path, 'integrationMethod') ?? '';
   set integrationMethod(String value) => doc.setFormField(path, 'integrationMethod', value);
+
+  /// Integration Purpose (what business need does this serve).
+  ///
+  /// The business need this integration serves
+  String get integrationPurpose => doc.formField(path, 'integrationPurpose') ?? '';
+  set integrationPurpose(String value) => doc.setFormField(path, 'integrationPurpose', value);
 }
 
 /// Generated section facade for the `operations` `@Form` section:
@@ -87421,14 +87421,6 @@ class FrameworkRequirementEntryJustificationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Justification.
-  ///
-  /// Reason for selecting this framework
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
-  String get justification => doc.formField(path, 'justification') ?? '';
-  set justification(String value) => doc.setFormField(path, 'justification', value);
-
   /// Alternatives Considered.
   ///
   /// Other frameworks evaluated
@@ -87446,6 +87438,14 @@ class FrameworkRequirementEntryJustificationForm extends SomNode {
   /// Additional framework notes
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
+
+  /// Justification.
+  ///
+  /// Reason for selecting this framework
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get justification => doc.formField(path, 'justification') ?? '';
+  set justification(String value) => doc.setFormField(path, 'justification', value);
 }
 
 /// Generated section facade for the `scope` `@Form` section:
@@ -87467,12 +87467,6 @@ class FrameworkRequirementEntryScopeForm extends SomNode {
   String get usageScope => doc.formField(path, 'usageScope') ?? '';
   set usageScope(String value) => doc.setFormField(path, 'usageScope', value);
 
-  /// Integration Points.
-  ///
-  /// Where this framework integrates in the architecture
-  String get integrationPoints => doc.formField(path, 'integrationPoints') ?? '';
-  set integrationPoints(String value) => doc.setFormField(path, 'integrationPoints', value);
-
   /// Required Plugins/Extensions.
   ///
   /// Mandatory plugins or extensions
@@ -87490,6 +87484,12 @@ class FrameworkRequirementEntryScopeForm extends SomNode {
   /// Framework features that should not be used
   String get excludedFeatures => doc.formField(path, 'excludedFeatures') ?? '';
   set excludedFeatures(String value) => doc.setFormField(path, 'excludedFeatures', value);
+
+  /// Integration Points.
+  ///
+  /// Where this framework integrates in the architecture
+  String get integrationPoints => doc.formField(path, 'integrationPoints') ?? '';
+  set integrationPoints(String value) => doc.setFormField(path, 'integrationPoints', value);
 }
 
 /// Generated section facade for the `support` `@Form` section:
@@ -87945,14 +87945,6 @@ class FunctionalRequirementEntryDetailsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Description (The system shall... detailed statement).
-  ///
-  /// Detailed "the system shall..." statement of the requirement
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
-
   /// Requirement Type (Feature, User Story, Business Rule, Report, Integration, Calculation, Workflow, Notification, Search, Data Entry, Data Display, Data Export, Batch Process).
   ///
   /// Feature, User Story, Business Rule, Report, Integration, etc.
@@ -87964,6 +87956,14 @@ class FunctionalRequirementEntryDetailsForm extends SomNode {
   /// Functional-area grouping for this requirement
   String get category => doc.formField(path, 'category') ?? '';
   set category(String value) => doc.setFormField(path, 'category', value);
+
+  /// Description (The system shall... detailed statement).
+  ///
+  /// Detailed "the system shall..." statement of the requirement
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 }
 
 /// Generated section facade for the `metadata` `@Form` section:
@@ -88057,6 +88057,12 @@ class FunctionalRequirementEntrySourceForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
+  /// Request Date.
+  ///
+  /// Date the requirement was requested
+  String get requestDate => doc.formField(path, 'requestDate') ?? '';
+  set requestDate(String value) => doc.setFormField(path, 'requestDate', value);
+
   /// Source (who requested: stakeholder name, workshop, document).
   ///
   /// Who requested it: stakeholder name, workshop, or document
@@ -88064,12 +88070,6 @@ class FunctionalRequirementEntrySourceForm extends SomNode {
   /// **Required** — a document that leaves this empty fails validation.
   String get source => doc.formField(path, 'source') ?? '';
   set source(String value) => doc.setFormField(path, 'source', value);
-
-  /// Request Date.
-  ///
-  /// Date the requirement was requested
-  String get requestDate => doc.formField(path, 'requestDate') ?? '';
-  set requestDate(String value) => doc.setFormField(path, 'requestDate', value);
 
   /// Rationale (why this requirement is needed).
   ///
@@ -88777,12 +88777,6 @@ class GlossaryEntryContentForm extends SomNode {
   String get term => doc.formField(path, 'term') ?? '';
   set term(String value) => doc.setFormField(path, 'term', value);
 
-  /// Definition.
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
-  String get definition => doc.formField(path, 'definition') ?? '';
-  set definition(String value) => doc.setFormField(path, 'definition', value);
-
   /// Acronym / Abbreviation.
   String get acronym => doc.formField(path, 'acronym') ?? '';
   set acronym(String value) => doc.setFormField(path, 'acronym', value);
@@ -88790,6 +88784,12 @@ class GlossaryEntryContentForm extends SomNode {
   /// See Also (related terms).
   String get seeAlso => doc.formField(path, 'seeAlso') ?? '';
   set seeAlso(String value) => doc.setFormField(path, 'seeAlso', value);
+
+  /// Definition.
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get definition => doc.formField(path, 'definition') ?? '';
+  set definition(String value) => doc.setFormField(path, 'definition', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -92331,12 +92331,6 @@ class IntegrationArchitectureContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Integration Strategy.
-  ///
-  /// Point-to-point, Hub-and-spoke, ESB, API-led
-  String get integrationStrategy => doc.formField(path, 'integrationStrategy') ?? '';
-  set integrationStrategy(String value) => doc.setFormField(path, 'integrationStrategy', value);
-
   /// Integration Patterns.
   ///
   /// Adapters, Facades, Gateways
@@ -92348,6 +92342,12 @@ class IntegrationArchitectureContentForm extends SomNode {
   /// How APIs are managed
   String get apiManagement => doc.formField(path, 'apiManagement') ?? '';
   set apiManagement(String value) => doc.setFormField(path, 'apiManagement', value);
+
+  /// Integration Strategy.
+  ///
+  /// Point-to-point, Hub-and-spoke, ESB, API-led
+  String get integrationStrategy => doc.formField(path, 'integrationStrategy') ?? '';
+  set integrationStrategy(String value) => doc.setFormField(path, 'integrationStrategy', value);
 }
 
 /// Generated section facade for the `data` `@Form` section:
@@ -92459,12 +92459,6 @@ class IntegrationArchitectureSecurityForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Authentication Approach.
-  ///
-  /// How integrations are authenticated
-  String get authenticationApproach => doc.formField(path, 'authenticationApproach') ?? '';
-  set authenticationApproach(String value) => doc.setFormField(path, 'authenticationApproach', value);
-
   /// Authorization Approach.
   ///
   /// How integrations are authorized
@@ -92476,6 +92470,12 @@ class IntegrationArchitectureSecurityForm extends SomNode {
   /// Transport security (TLS, VPN)
   String get secureTransport => doc.formField(path, 'secureTransport') ?? '';
   set secureTransport(String value) => doc.setFormField(path, 'secureTransport', value);
+
+  /// Authentication Approach.
+  ///
+  /// How integrations are authenticated
+  String get authenticationApproach => doc.formField(path, 'authenticationApproach') ?? '';
+  set authenticationApproach(String value) => doc.setFormField(path, 'authenticationApproach', value);
 }
 
 /// Generated section facade for the `systems` `@Form` section:
@@ -92497,17 +92497,17 @@ class IntegrationArchitectureSystemsForm extends SomNode {
   String get externalSystemCount => doc.formField(path, 'externalSystemCount') ?? '';
   set externalSystemCount(String value) => doc.setFormField(path, 'externalSystemCount', value);
 
-  /// Integration Types.
-  ///
-  /// REST, SOAP, File, Database, Events
-  String get integrationTypes => doc.formField(path, 'integrationTypes') ?? '';
-  set integrationTypes(String value) => doc.setFormField(path, 'integrationTypes', value);
-
   /// Real-Time Integrations.
   ///
   /// Integrations requiring real-time sync
   String get realTimeIntegrations => doc.formField(path, 'realTimeIntegrations') ?? '';
   set realTimeIntegrations(String value) => doc.setFormField(path, 'realTimeIntegrations', value);
+
+  /// Integration Types.
+  ///
+  /// REST, SOAP, File, Database, Events
+  String get integrationTypes => doc.formField(path, 'integrationTypes') ?? '';
+  set integrationTypes(String value) => doc.setFormField(path, 'integrationTypes', value);
 }
 
 /// Generated section facade for the `compliance` `@Form` section:
@@ -93635,12 +93635,6 @@ class InteractionPatternEntryDefinitionForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Description.
-  ///
-  /// What this pattern involves
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
-
   /// Use Cases.
   ///
   /// List of use cases that follow this pattern
@@ -93652,6 +93646,12 @@ class InteractionPatternEntryDefinitionForm extends SomNode {
   /// Which user categories use this pattern
   String get userCategories => doc.formField(path, 'userCategories') ?? '';
   set userCategories(String value) => doc.setFormField(path, 'userCategories', value);
+
+  /// Description.
+  ///
+  /// What this pattern involves
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 }
 
 /// Generated section facade for the `trigger` `@Form` section:
@@ -94847,12 +94847,6 @@ class InterfaceTechnicalSpecWebhookSpecForm extends SomNode {
   String get webhookEndpoint => doc.formField(path, 'webhookEndpoint') ?? '';
   set webhookEndpoint(String value) => doc.setFormField(path, 'webhookEndpoint', value);
 
-  /// Event Types Received.
-  ///
-  /// Event types delivered via webhook
-  String get eventTypes => doc.formField(path, 'eventTypes') ?? '';
-  set eventTypes(String value) => doc.setFormField(path, 'eventTypes', value);
-
   /// Signature Verification Method.
   ///
   /// How webhook authenticity is verified
@@ -94870,6 +94864,12 @@ class InterfaceTechnicalSpecWebhookSpecForm extends SomNode {
   /// How duplicate webhook deliveries are handled
   String get idempotencyHandling => doc.formField(path, 'idempotencyHandling') ?? '';
   set idempotencyHandling(String value) => doc.setFormField(path, 'idempotencyHandling', value);
+
+  /// Event Types Received.
+  ///
+  /// Event types delivered via webhook
+  String get eventTypes => doc.formField(path, 'eventTypes') ?? '';
+  set eventTypes(String value) => doc.setFormField(path, 'eventTypes', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -95469,23 +95469,11 @@ class ItLandscapePositionPositionDetailsForm extends SomNode {
   String get portfolioRole => doc.formField(path, 'portfolioRole') ?? '';
   set portfolioRole(String value) => doc.setFormField(path, 'portfolioRole', value);
 
-  /// Replaced Systems (systems this will replace or retire).
-  ///
-  /// Systems this will replace or retire
-  String get replacedSystems => doc.formField(path, 'replacedSystems') ?? '';
-  set replacedSystems(String value) => doc.setFormField(path, 'replacedSystems', value);
-
   /// Complementary Systems (systems this works alongside).
   ///
   /// Systems this works alongside
   String get complementarySystems => doc.formField(path, 'complementarySystems') ?? '';
   set complementarySystems(String value) => doc.setFormField(path, 'complementarySystems', value);
-
-  /// Depends On Systems (systems this requires to operate).
-  ///
-  /// Systems this requires to operate
-  String get dependsOnSystems => doc.formField(path, 'dependsOnSystems') ?? '';
-  set dependsOnSystems(String value) => doc.setFormField(path, 'dependsOnSystems', value);
 
   /// Dependent Systems (systems that will depend on this).
   ///
@@ -95493,17 +95481,29 @@ class ItLandscapePositionPositionDetailsForm extends SomNode {
   String get dependentSystems => doc.formField(path, 'dependentSystems') ?? '';
   set dependentSystems(String value) => doc.setFormField(path, 'dependentSystems', value);
 
-  /// Data Ownership (what master data does this system own).
-  ///
-  /// What master data this system owns
-  String get dataOwnership => doc.formField(path, 'dataOwnership') ?? '';
-  set dataOwnership(String value) => doc.setFormField(path, 'dataOwnership', value);
-
   /// Primary Integration Pattern (API, Event, Batch, Real-time).
   ///
   /// The primary integration pattern used
   String get integrationPattern => doc.formField(path, 'integrationPattern') ?? '';
   set integrationPattern(String value) => doc.setFormField(path, 'integrationPattern', value);
+
+  /// Replaced Systems (systems this will replace or retire).
+  ///
+  /// Systems this will replace or retire
+  String get replacedSystems => doc.formField(path, 'replacedSystems') ?? '';
+  set replacedSystems(String value) => doc.setFormField(path, 'replacedSystems', value);
+
+  /// Depends On Systems (systems this requires to operate).
+  ///
+  /// Systems this requires to operate
+  String get dependsOnSystems => doc.formField(path, 'dependsOnSystems') ?? '';
+  set dependsOnSystems(String value) => doc.setFormField(path, 'dependsOnSystems', value);
+
+  /// Data Ownership (what master data does this system own).
+  ///
+  /// What master data this system owns
+  String get dataOwnership => doc.formField(path, 'dataOwnership') ?? '';
+  set dataOwnership(String value) => doc.setFormField(path, 'dataOwnership', value);
 }
 
 /// Generated section facade for the `access` `@Form` section:
@@ -95519,12 +95519,6 @@ class ItSecurityOperationsAccessForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Privileged Access Management.
-  ///
-  /// PAM solution, just-in-time
-  String get privilegedAccessManagement => doc.formField(path, 'privilegedAccessManagement') ?? '';
-  set privilegedAccessManagement(String value) => doc.setFormField(path, 'privilegedAccessManagement', value);
-
   /// Access Review Frequency.
   ///
   /// Quarterly, annually
@@ -95536,6 +95530,12 @@ class ItSecurityOperationsAccessForm extends SomNode {
   /// What access is logged
   String get accessAuditLogging => doc.formField(path, 'accessAuditLogging') ?? '';
   set accessAuditLogging(String value) => doc.setFormField(path, 'accessAuditLogging', value);
+
+  /// Privileged Access Management.
+  ///
+  /// PAM solution, just-in-time
+  String get privilegedAccessManagement => doc.formField(path, 'privilegedAccessManagement') ?? '';
+  set privilegedAccessManagement(String value) => doc.setFormField(path, 'privilegedAccessManagement', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -97271,17 +97271,17 @@ class LifecycleTransitionEntryTriggerForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Trigger.
-  ///
-  /// What initiates this transition
-  String get trigger => doc.formField(path, 'trigger') ?? '';
-  set trigger(String value) => doc.setFormField(path, 'trigger', value);
-
   /// Trigger Type.
   ///
   /// UserAction | SystemEvent | Timer | ExternalEvent
   String get triggerType => doc.formField(path, 'triggerType') ?? '';
   set triggerType(String value) => doc.setFormField(path, 'triggerType', value);
+
+  /// Trigger.
+  ///
+  /// What initiates this transition
+  String get trigger => doc.formField(path, 'trigger') ?? '';
+  set trigger(String value) => doc.setFormField(path, 'trigger', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -98611,12 +98611,6 @@ class MainScenarioStepEntryContentForm extends SomNode {
   String get dataInvolved => doc.formField(path, 'dataInvolved') ?? '';
   set dataInvolved(String value) => doc.setFormField(path, 'dataInvolved', value);
 
-  /// Business Rule Applied.
-  ///
-  /// The rule enforced at this step, as prose — it may cite a business rule (BIRU-…) or a Project Idea rule (C6.5); not resolved
-  String get businessRuleApplied => doc.formField(path, 'businessRuleApplied') ?? '';
-  set businessRuleApplied(String value) => doc.setFormField(path, 'businessRuleApplied', value);
-
   /// UI Element Used — screen/component.
   ///
   /// Screen or component the actor interacts with
@@ -98634,6 +98628,12 @@ class MainScenarioStepEntryContentForm extends SomNode {
   /// Expected time to complete this step
   String get expectedDuration => doc.formField(path, 'expectedDuration') ?? '';
   set expectedDuration(String value) => doc.setFormField(path, 'expectedDuration', value);
+
+  /// Business Rule Applied.
+  ///
+  /// The rule enforced at this step, as prose — it may cite a business rule (BIRU-…) or a Project Idea rule (C6.5); not resolved
+  String get businessRuleApplied => doc.formField(path, 'businessRuleApplied') ?? '';
+  set businessRuleApplied(String value) => doc.setFormField(path, 'businessRuleApplied', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -100341,17 +100341,17 @@ class MfaCategoryRequirementEntryAuthenticatorsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Allowed Authenticator Types.
-  ///
-  /// TOTP | WebAuthn | FIDO2 | SMS | Push | Passkey — allowed second-factor types
-  String get allowedAuthenticatorTypes => doc.formField(path, 'allowedAuthenticatorTypes') ?? '';
-  set allowedAuthenticatorTypes(String value) => doc.setFormField(path, 'allowedAuthenticatorTypes', value);
-
   /// Phishing Resistance Required.
   ///
   /// Yes | No | Recommended — whether phishing-resistant authenticators are required
   String get phishingResistanceRequired => doc.formField(path, 'phishingResistanceRequired') ?? '';
   set phishingResistanceRequired(String value) => doc.setFormField(path, 'phishingResistanceRequired', value);
+
+  /// Allowed Authenticator Types.
+  ///
+  /// TOTP | WebAuthn | FIDO2 | SMS | Push | Passkey — allowed second-factor types
+  String get allowedAuthenticatorTypes => doc.formField(path, 'allowedAuthenticatorTypes') ?? '';
+  set allowedAuthenticatorTypes(String value) => doc.setFormField(path, 'allowedAuthenticatorTypes', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -102905,12 +102905,6 @@ class ModuleEntryDescriptionForm extends SomNode {
   String get purpose => doc.formField(path, 'purpose') ?? '';
   set purpose(String value) => doc.setFormField(path, 'purpose', value);
 
-  /// Functionality.
-  ///
-  /// Specific features/functions
-  String get functionality => doc.formField(path, 'functionality') ?? '';
-  set functionality(String value) => doc.setFormField(path, 'functionality', value);
-
   /// Public API.
   ///
   /// Key public interfaces/classes
@@ -102922,6 +102916,12 @@ class ModuleEntryDescriptionForm extends SomNode {
   /// Main entry points to the module
   String get entryPoints => doc.formField(path, 'entryPoints') ?? '';
   set entryPoints(String value) => doc.setFormField(path, 'entryPoints', value);
+
+  /// Functionality.
+  ///
+  /// Specific features/functions
+  String get functionality => doc.formField(path, 'functionality') ?? '';
+  set functionality(String value) => doc.setFormField(path, 'functionality', value);
 }
 
 /// Generated section facade for the `ownership` `@Form` section:
@@ -103823,12 +103823,6 @@ class MustPassCriterionEntryDefinitionForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Description.
-  ///
-  /// What must be achieved
-  String get criterionDescription => doc.formField(path, 'criterionDescription') ?? '';
-  set criterionDescription(String value) => doc.setFormField(path, 'criterionDescription', value);
-
   /// Quality Category.
   ///
   /// The ISO/IEC 25010:2023 characteristic the criterion assures
@@ -103842,6 +103836,12 @@ class MustPassCriterionEntryDefinitionForm extends SomNode {
   /// Specific attribute this relates to
   String get qualityAttribute => doc.formField(path, 'qualityAttribute') ?? '';
   set qualityAttribute(String value) => doc.setFormField(path, 'qualityAttribute', value);
+
+  /// Description.
+  ///
+  /// What must be achieved
+  String get criterionDescription => doc.formField(path, 'criterionDescription') ?? '';
+  set criterionDescription(String value) => doc.setFormField(path, 'criterionDescription', value);
 }
 
 /// Generated section facade for the `governance` `@Form` section:
@@ -107371,18 +107371,6 @@ class OpportunityStatementOpportunityDetailsForm extends SomNode {
   String get futureState => doc.formField(path, 'futureState') ?? '';
   set futureState(String value) => doc.setFormField(path, 'futureState', value);
 
-  /// New Capabilities (what becomes possible that wasn't before).
-  ///
-  /// What becomes possible that was not possible before
-  String get newCapabilities => doc.formField(path, 'newCapabilities') ?? '';
-  set newCapabilities(String value) => doc.setFormField(path, 'newCapabilities', value);
-
-  /// Improvements (quantitative and qualitative improvements expected).
-  ///
-  /// Quantitative and qualitative improvements expected
-  String get improvements => doc.formField(path, 'improvements') ?? '';
-  set improvements(String value) => doc.setFormField(path, 'improvements', value);
-
   /// Competitive Advantage (market positioning benefits).
   ///
   /// Market positioning benefits the system provides
@@ -107412,6 +107400,18 @@ class OpportunityStatementOpportunityDetailsForm extends SomNode {
   /// When benefits will start being realized
   String get timeToValue => doc.formField(path, 'timeToValue') ?? '';
   set timeToValue(String value) => doc.setFormField(path, 'timeToValue', value);
+
+  /// New Capabilities (what becomes possible that wasn't before).
+  ///
+  /// What becomes possible that was not possible before
+  String get newCapabilities => doc.formField(path, 'newCapabilities') ?? '';
+  set newCapabilities(String value) => doc.setFormField(path, 'newCapabilities', value);
+
+  /// Improvements (quantitative and qualitative improvements expected).
+  ///
+  /// Quantitative and qualitative improvements expected
+  String get improvements => doc.formField(path, 'improvements') ?? '';
+  set improvements(String value) => doc.setFormField(path, 'improvements', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -108005,6 +108005,16 @@ class OrganizationalRequirementEntryClassificationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
+  /// Priority.
+  ///
+  /// MoSCoW scoping band — what happens if this requirement does not ship.
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  ///
+  /// Stored as one of: `must`, `should`, `could`, `wontThisTime`.
+  Priority? get priority => _parsePriority(doc.formField(path, 'priority'));
+  set priority(Priority? value) => doc.setFormField(path, 'priority', value?.name ?? '');
+
   /// Category (Training, Process Change, Role Change, Support, Communication, Policy, Governance, Culture, Staffing).
   ///
   /// Type of organizational change the requirement entails
@@ -108019,15 +108029,11 @@ class OrganizationalRequirementEntryClassificationForm extends SomNode {
   String get subcategory => doc.formField(path, 'subcategory') ?? '';
   set subcategory(String value) => doc.setFormField(path, 'subcategory', value);
 
-  /// Priority.
+  /// Rationale.
   ///
-  /// MoSCoW scoping band — what happens if this requirement does not ship.
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
-  ///
-  /// Stored as one of: `must`, `should`, `could`, `wontThisTime`.
-  Priority? get priority => _parsePriority(doc.formField(path, 'priority'));
-  set priority(Priority? value) => doc.setFormField(path, 'priority', value?.name ?? '');
+  /// Why this organizational change is needed
+  String get rationale => doc.formField(path, 'rationale') ?? '';
+  set rationale(String value) => doc.setFormField(path, 'rationale', value);
 
   /// Source.
   ///
@@ -108036,12 +108042,6 @@ class OrganizationalRequirementEntryClassificationForm extends SomNode {
   /// **Required** — a document that leaves this empty fails validation.
   String get source => doc.formField(path, 'source') ?? '';
   set source(String value) => doc.setFormField(path, 'source', value);
-
-  /// Rationale.
-  ///
-  /// Why this organizational change is needed
-  String get rationale => doc.formField(path, 'rationale') ?? '';
-  set rationale(String value) => doc.setFormField(path, 'rationale', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -108493,6 +108493,12 @@ class OtherAgreementEntryContentForm extends SomNode {
   String get expirationDate => doc.formField(path, 'expirationDate') ?? '';
   set expirationDate(String value) => doc.setFormField(path, 'expirationDate', value);
 
+  /// Document Location.
+  ///
+  /// Where the signed agreement is stored
+  String get location => doc.formField(path, 'location') ?? '';
+  set location(String value) => doc.setFormField(path, 'location', value);
+
   /// Key Terms.
   ///
   /// Principal terms of the agreement
@@ -108504,12 +108510,6 @@ class OtherAgreementEntryContentForm extends SomNode {
   /// Obligations the agreement imposes
   String get obligations => doc.formField(path, 'obligations') ?? '';
   set obligations(String value) => doc.setFormField(path, 'obligations', value);
-
-  /// Document Location.
-  ///
-  /// Where the signed agreement is stored
-  String get location => doc.formField(path, 'location') ?? '';
-  set location(String value) => doc.setFormField(path, 'location', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -108743,17 +108743,17 @@ class PackageOrganizationStructureForm extends SomNode {
   String get monorepoVsPolyrepo => doc.formField(path, 'monorepoVsPolyrepo') ?? '';
   set monorepoVsPolyrepo(String value) => doc.setFormField(path, 'monorepoVsPolyrepo', value);
 
-  /// Directory Layout.
-  ///
-  /// Top-level directory organization
-  String get directoryLayout => doc.formField(path, 'directoryLayout') ?? '';
-  set directoryLayout(String value) => doc.setFormField(path, 'directoryLayout', value);
-
   /// Feature Grouping.
   ///
   /// How features are grouped in structure
   String get featureGrouping => doc.formField(path, 'featureGrouping') ?? '';
   set featureGrouping(String value) => doc.setFormField(path, 'featureGrouping', value);
+
+  /// Directory Layout.
+  ///
+  /// Top-level directory organization
+  String get directoryLayout => doc.formField(path, 'directoryLayout') ?? '';
+  set directoryLayout(String value) => doc.setFormField(path, 'directoryLayout', value);
 }
 
 /// Generated section facade for the `types` `@Form` section:
@@ -108769,18 +108769,6 @@ class PackageOrganizationTypesForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Core Packages.
-  ///
-  /// Foundation packages required by all
-  String get corePackages => doc.formField(path, 'corePackages') ?? '';
-  set corePackages(String value) => doc.setFormField(path, 'corePackages', value);
-
-  /// Feature Packages.
-  ///
-  /// Business feature packages
-  String get featurePackages => doc.formField(path, 'featurePackages') ?? '';
-  set featurePackages(String value) => doc.setFormField(path, 'featurePackages', value);
-
   /// Shared Packages.
   ///
   /// Shared utility packages
@@ -108792,6 +108780,18 @@ class PackageOrganizationTypesForm extends SomNode {
   /// Platform-specific packages
   String get platformPackages => doc.formField(path, 'platformPackages') ?? '';
   set platformPackages(String value) => doc.setFormField(path, 'platformPackages', value);
+
+  /// Core Packages.
+  ///
+  /// Foundation packages required by all
+  String get corePackages => doc.formField(path, 'corePackages') ?? '';
+  set corePackages(String value) => doc.setFormField(path, 'corePackages', value);
+
+  /// Feature Packages.
+  ///
+  /// Business feature packages
+  String get featurePackages => doc.formField(path, 'featurePackages') ?? '';
+  set featurePackages(String value) => doc.setFormField(path, 'featurePackages', value);
 }
 
 /// Generated section facade for the `classification` `@Form` section:
@@ -109939,12 +109939,6 @@ class PeriodicReviewPolicyContentForm extends SomNode {
   String get privilegedAccountReview => doc.formField(path, 'privilegedAccountReview') ?? '';
   set privilegedAccountReview(String value) => doc.setFormField(path, 'privilegedAccountReview', value);
 
-  /// Reviewers.
-  ///
-  /// Who performs reviews (e.g., manager, security team, CISO)
-  String get reviewers => doc.formField(path, 'reviewers') ?? '';
-  set reviewers(String value) => doc.setFormField(path, 'reviewers', value);
-
   /// Dormant Account Review.
   ///
   /// Review of inactive accounts (e.g., disable after 90 days)
@@ -109962,6 +109956,12 @@ class PeriodicReviewPolicyContentForm extends SomNode {
   /// How review results are documented
   String get reviewDocumentation => doc.formField(path, 'reviewDocumentation') ?? '';
   set reviewDocumentation(String value) => doc.setFormField(path, 'reviewDocumentation', value);
+
+  /// Reviewers.
+  ///
+  /// Who performs reviews (e.g., manager, security team, CISO)
+  String get reviewers => doc.formField(path, 'reviewers') ?? '';
+  set reviewers(String value) => doc.setFormField(path, 'reviewers', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -111423,12 +111423,6 @@ class PortabilityContentForm extends SomNode {
   String get migrationEffortConstraint => doc.formField(path, 'migrationEffortConstraint') ?? '';
   set migrationEffortConstraint(String value) => doc.setFormField(path, 'migrationEffortConstraint', value);
 
-  /// Data Portability.
-  ///
-  /// Export formats, import capabilities
-  String get dataPortability => doc.formField(path, 'dataPortability') ?? '';
-  set dataPortability(String value) => doc.setFormField(path, 'dataPortability', value);
-
   /// Vendor Lock-in Avoidance.
   ///
   /// Standards-based, abstraction layers
@@ -111452,6 +111446,12 @@ class PortabilityContentForm extends SomNode {
   /// Cross-platform testing, compatibility matrix
   String get portabilityVerification => doc.formField(path, 'portabilityVerification') ?? '';
   set portabilityVerification(String value) => doc.setFormField(path, 'portabilityVerification', value);
+
+  /// Data Portability.
+  ///
+  /// Export formats, import capabilities
+  String get dataPortability => doc.formField(path, 'dataPortability') ?? '';
+  set dataPortability(String value) => doc.setFormField(path, 'dataPortability', value);
 }
 
 /// Generated section facade for the `closure` `@Form` section:
@@ -111587,12 +111587,6 @@ class PostconditionsAndGuaranteesContentForm extends SomNode {
   String get minimalGuarantees => doc.formField(path, 'minimalGuarantees') ?? '';
   set minimalGuarantees(String value) => doc.setFormField(path, 'minimalGuarantees', value);
 
-  /// Success Guarantees — true after successful completion.
-  ///
-  /// What holds true only after successful completion
-  String get successGuarantees => doc.formField(path, 'successGuarantees') ?? '';
-  set successGuarantees(String value) => doc.setFormField(path, 'successGuarantees', value);
-
   /// Primary Actor Postcondition — actor state after.
   ///
   /// The primary actor's state once the flow ends
@@ -111611,17 +111605,23 @@ class PostconditionsAndGuaranteesContentForm extends SomNode {
   String get dataPostcondition => doc.formField(path, 'dataPostcondition') ?? '';
   set dataPostcondition(String value) => doc.setFormField(path, 'dataPostcondition', value);
 
-  /// Notifications Generated — who is notified.
-  ///
-  /// Notifications sent and their recipients
-  String get notificationsGenerated => doc.formField(path, 'notificationsGenerated') ?? '';
-  set notificationsGenerated(String value) => doc.setFormField(path, 'notificationsGenerated', value);
-
   /// Audit Trail — what is logged.
   ///
   /// Audit records written for this interaction
   String get auditTrail => doc.formField(path, 'auditTrail') ?? '';
   set auditTrail(String value) => doc.setFormField(path, 'auditTrail', value);
+
+  /// Success Guarantees — true after successful completion.
+  ///
+  /// What holds true only after successful completion
+  String get successGuarantees => doc.formField(path, 'successGuarantees') ?? '';
+  set successGuarantees(String value) => doc.setFormField(path, 'successGuarantees', value);
+
+  /// Notifications Generated — who is notified.
+  ///
+  /// Notifications sent and their recipients
+  String get notificationsGenerated => doc.formField(path, 'notificationsGenerated') ?? '';
+  set notificationsGenerated(String value) => doc.setFormField(path, 'notificationsGenerated', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -111636,12 +111636,6 @@ class PreconditionsAndTriggersContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  /// Preconditions — must be true before.
-  ///
-  /// State assumed true before the interaction starts
-  String get precondition => doc.formField(path, 'precondition') ?? '';
-  set precondition(String value) => doc.setFormField(path, 'precondition', value);
 
   /// Trigger — what initiates this use case.
   ///
@@ -111678,6 +111672,12 @@ class PreconditionsAndTriggersContentForm extends SomNode {
   /// Guard checks performed before the main flow
   String get validationBeforeStart => doc.formField(path, 'validationBeforeStart') ?? '';
   set validationBeforeStart(String value) => doc.setFormField(path, 'validationBeforeStart', value);
+
+  /// Preconditions — must be true before.
+  ///
+  /// State assumed true before the interaction starts
+  String get precondition => doc.formField(path, 'precondition') ?? '';
+  set precondition(String value) => doc.setFormField(path, 'precondition', value);
 }
 
 /// Generated section facade for the `bottomNav` `@Form` section:
@@ -112487,6 +112487,14 @@ class ProblemStatementProblemDetailsForm extends SomNode {
   String get problemSummary => doc.formField(path, 'problemSummary') ?? '';
   set problemSummary(String value) => doc.setFormField(path, 'problemSummary', value);
 
+  /// Impact Severity.
+  ///
+  /// Qualitative impact severity band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get impactSeverity => _parseImportanceBand(doc.formField(path, 'impactSeverity'));
+  set impactSeverity(ImportanceBand? value) => doc.setFormField(path, 'impactSeverity', value?.name ?? '');
+
   /// Current State (describe the AS-IS situation that is problematic).
   ///
   /// Describe the current AS-IS situation that is problematic
@@ -112505,13 +112513,17 @@ class ProblemStatementProblemDetailsForm extends SomNode {
   String get impactDescription => doc.formField(path, 'impactDescription') ?? '';
   set impactDescription(String value) => doc.setFormField(path, 'impactDescription', value);
 
-  /// Impact Severity.
+  /// Urgency (Immediate, Short-term, Medium-term, Long-term).
   ///
-  /// Qualitative impact severity band.
+  /// Immediate / Short-term / Medium-term / Long-term
+  String get urgency => doc.formField(path, 'urgency') ?? '';
+  set urgency(String value) => doc.setFormField(path, 'urgency', value);
+
+  /// Urgency Justification (why this timeline is critical).
   ///
-  /// Stored as one of: `critical`, `high`, `medium`, `low`.
-  ImportanceBand? get impactSeverity => _parseImportanceBand(doc.formField(path, 'impactSeverity'));
-  set impactSeverity(ImportanceBand? value) => doc.setFormField(path, 'impactSeverity', value?.name ?? '');
+  /// Why the stated timeline is critical
+  String get urgencyJustification => doc.formField(path, 'urgencyJustification') ?? '';
+  set urgencyJustification(String value) => doc.setFormField(path, 'urgencyJustification', value);
 
   /// Impact Metrics (quantifiable measures of the problem's cost).
   ///
@@ -112524,18 +112536,6 @@ class ProblemStatementProblemDetailsForm extends SomNode {
   /// Underlying reasons that cause the problem
   String get rootCauses => doc.formField(path, 'rootCauses') ?? '';
   set rootCauses(String value) => doc.setFormField(path, 'rootCauses', value);
-
-  /// Urgency (Immediate, Short-term, Medium-term, Long-term).
-  ///
-  /// Immediate / Short-term / Medium-term / Long-term
-  String get urgency => doc.formField(path, 'urgency') ?? '';
-  set urgency(String value) => doc.setFormField(path, 'urgency', value);
-
-  /// Urgency Justification (why this timeline is critical).
-  ///
-  /// Why the stated timeline is critical
-  String get urgencyJustification => doc.formField(path, 'urgencyJustification') ?? '';
-  set urgencyJustification(String value) => doc.setFormField(path, 'urgencyJustification', value);
 
   /// Consequences of Inaction (what happens if not addressed).
   ///
@@ -112971,12 +112971,6 @@ class ProcessCatalogOverviewForm extends SomNode {
   int? get totalProcessCount => somParseInt(doc.formField(path, 'totalProcessCount'));
   set totalProcessCount(int? value) => doc.setFormField(path, 'totalProcessCount', somFormatInt(value));
 
-  /// Scope Statement — what processes are in scope.
-  ///
-  /// What the catalog does and does not cover
-  String get scopeStatement => doc.formField(path, 'scopeStatement') ?? '';
-  set scopeStatement(String value) => doc.setFormField(path, 'scopeStatement', value);
-
   /// Classification Framework — APQC PCF, custom.
   ///
   /// Framework used to classify processes
@@ -113012,6 +113006,12 @@ class ProcessCatalogOverviewForm extends SomNode {
   /// How process versions are tracked
   String get versioningApproach => doc.formField(path, 'versioningApproach') ?? '';
   set versioningApproach(String value) => doc.setFormField(path, 'versioningApproach', value);
+
+  /// Scope Statement — what processes are in scope.
+  ///
+  /// What the catalog does and does not cover
+  String get scopeStatement => doc.formField(path, 'scopeStatement') ?? '';
+  set scopeStatement(String value) => doc.setFormField(path, 'scopeStatement', value);
 }
 
 /// Generated section facade for the `business` `@Form` section:
@@ -113365,17 +113365,19 @@ class ProcessDesignPrincipleEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
+  /// Priority.
+  ///
+  /// Relative importance of the principle.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
+
   /// Category — efficiency, quality, compliance, user experience.
   ///
   /// The dimension this principle addresses
   String get category => doc.formField(path, 'category') ?? '';
   set category(String value) => doc.setFormField(path, 'category', value);
-
-  /// Statement — the principle statement.
-  ///
-  /// The principle expressed as a directive
-  String get statement => doc.formField(path, 'statement') ?? '';
-  set statement(String value) => doc.setFormField(path, 'statement', value);
 
   /// Rationale — why this principle matters.
   ///
@@ -113401,19 +113403,17 @@ class ProcessDesignPrincipleEntryContentForm extends SomNode {
   String get tradeoffs => doc.formField(path, 'tradeoffs') ?? '';
   set tradeoffs(String value) => doc.setFormField(path, 'tradeoffs', value);
 
-  /// Priority.
-  ///
-  /// Relative importance of the principle.
-  ///
-  /// Stored as one of: `critical`, `high`, `medium`, `low`.
-  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
-  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
-
   /// Applicability — all processes or specific types.
   ///
   /// Which processes the principle applies to
   String get applicability => doc.formField(path, 'applicability') ?? '';
   set applicability(String value) => doc.setFormField(path, 'applicability', value);
+
+  /// Statement — the principle statement.
+  ///
+  /// The principle expressed as a directive
+  String get statement => doc.formField(path, 'statement') ?? '';
+  set statement(String value) => doc.setFormField(path, 'statement', value);
 }
 
 /// Generated section facade for the `overview` `@Form` section:
@@ -113737,12 +113737,6 @@ class ProcessIdentificationDefinitionForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Description — what the process does.
-  ///
-  /// What the process actually does
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
-
   /// Purpose — why the process exists.
   ///
   /// Why the process exists
@@ -113754,6 +113748,12 @@ class ProcessIdentificationDefinitionForm extends SomNode {
   /// Where the process starts and ends
   String get scope => doc.formField(path, 'scope') ?? '';
   set scope(String value) => doc.setFormField(path, 'scope', value);
+
+  /// Description — what the process does.
+  ///
+  /// What the process actually does
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 }
 
 /// Generated section facade for the `governance` `@Form` section:
@@ -114551,12 +114551,6 @@ class ProcessRelationshipEntryContentForm extends SomNode {
   String get relationshipType => doc.formField(path, 'relationshipType') ?? '';
   set relationshipType(String value) => doc.setFormField(path, 'relationshipType', value);
 
-  /// Data Exchanged — what flows between processes.
-  ///
-  /// State what data flows between them
-  String get dataExchanged => doc.formField(path, 'dataExchanged') ?? '';
-  set dataExchanged(String value) => doc.setFormField(path, 'dataExchanged', value);
-
   /// Timing Dependency — must complete before, can run parallel.
   ///
   /// State the timing dependency
@@ -114574,6 +114568,12 @@ class ProcessRelationshipEntryContentForm extends SomNode {
   /// State how critical the relationship is
   String get criticality => doc.formField(path, 'criticality') ?? '';
   set criticality(String value) => doc.setFormField(path, 'criticality', value);
+
+  /// Data Exchanged — what flows between processes.
+  ///
+  /// State what data flows between them
+  String get dataExchanged => doc.formField(path, 'dataExchanged') ?? '';
+  set dataExchanged(String value) => doc.setFormField(path, 'dataExchanged', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -114863,12 +114863,6 @@ class ProcessStepsOverviewContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Use Case Scope — system, organization, subsystem.
-  ///
-  /// State the design scope of the use cases
-  String get useCaseScope => doc.formField(path, 'useCaseScope') ?? '';
-  set useCaseScope(String value) => doc.setFormField(path, 'useCaseScope', value);
-
   /// Primary Actor Focus — main user types.
   ///
   /// Name the main actor types the interactions center on
@@ -114893,6 +114887,18 @@ class ProcessStepsOverviewContentForm extends SomNode {
   String get useCaseNamingConvention => doc.formField(path, 'useCaseNamingConvention') ?? '';
   set useCaseNamingConvention(String value) => doc.setFormField(path, 'useCaseNamingConvention', value);
 
+  /// Notation Standard — Cockburn, Fowler, RUP.
+  ///
+  /// Name the use-case notation standard followed
+  String get notationStandard => doc.formField(path, 'notationStandard') ?? '';
+  set notationStandard(String value) => doc.setFormField(path, 'notationStandard', value);
+
+  /// Use Case Scope — system, organization, subsystem.
+  ///
+  /// State the design scope of the use cases
+  String get useCaseScope => doc.formField(path, 'useCaseScope') ?? '';
+  set useCaseScope(String value) => doc.setFormField(path, 'useCaseScope', value);
+
   /// Traceability Approach — link to TOM, ISC documents.
   ///
   /// Explain how interactions trace to TOM and ISC
@@ -114904,12 +114910,6 @@ class ProcessStepsOverviewContentForm extends SomNode {
   /// Choose the Cockburn detail level applied
   String get detailLevel => doc.formField(path, 'detailLevel') ?? '';
   set detailLevel(String value) => doc.setFormField(path, 'detailLevel', value);
-
-  /// Notation Standard — Cockburn, Fowler, RUP.
-  ///
-  /// Name the use-case notation standard followed
-  String get notationStandard => doc.formField(path, 'notationStandard') ?? '';
-  set notationStandard(String value) => doc.setFormField(path, 'notationStandard', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -115231,17 +115231,17 @@ class ProcessVisionSuccessCriteriaForm extends SomNode {
   String get userSatisfaction => doc.formField(path, 'userSatisfaction') ?? '';
   set userSatisfaction(String value) => doc.setFormField(path, 'userSatisfaction', value);
 
-  /// Business Outcomes — revenue, market share impact.
-  ///
-  /// Expected business-level outcomes
-  String get businessOutcomes => doc.formField(path, 'businessOutcomes') ?? '';
-  set businessOutcomes(String value) => doc.setFormField(path, 'businessOutcomes', value);
-
   /// Measurement Approach — how success is measured.
   ///
   /// How and when success is measured
   String get measurementApproach => doc.formField(path, 'measurementApproach') ?? '';
   set measurementApproach(String value) => doc.setFormField(path, 'measurementApproach', value);
+
+  /// Business Outcomes — revenue, market share impact.
+  ///
+  /// Expected business-level outcomes
+  String get businessOutcomes => doc.formField(path, 'businessOutcomes') ?? '';
+  set businessOutcomes(String value) => doc.setFormField(path, 'businessOutcomes', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -116761,17 +116761,17 @@ class QualityGateAdjustmentDetailsContentForm extends SomNode {
   String get originalCriteria => doc.formField(path, 'originalCriteria') ?? '';
   set originalCriteria(String value) => doc.setFormField(path, 'originalCriteria', value);
 
-  /// Adjusted Criteria.
-  ///
-  /// Modified pass/fail criteria after adjustment
-  String get adjustedCriteria => doc.formField(path, 'adjustedCriteria') ?? '';
-  set adjustedCriteria(String value) => doc.setFormField(path, 'adjustedCriteria', value);
-
   /// Threshold Change.
   ///
   /// How thresholds were modified
   String get criteriaThresholdChange => doc.formField(path, 'criteriaThresholdChange') ?? '';
   set criteriaThresholdChange(String value) => doc.setFormField(path, 'criteriaThresholdChange', value);
+
+  /// Adjusted Criteria.
+  ///
+  /// Modified pass/fail criteria after adjustment
+  String get adjustedCriteria => doc.formField(path, 'adjustedCriteria') ?? '';
+  set adjustedCriteria(String value) => doc.setFormField(path, 'adjustedCriteria', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -117069,18 +117069,6 @@ class QualityGateCheckEntryDefinitionForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Check Description.
-  ///
-  /// Detailed description of check
-  String get checkDescription => doc.formField(path, 'checkDescription') ?? '';
-  set checkDescription(String value) => doc.setFormField(path, 'checkDescription', value);
-
-  /// Check Category.
-  ///
-  /// Category of check
-  String get checkCategory => doc.formField(path, 'checkCategory') ?? '';
-  set checkCategory(String value) => doc.setFormField(path, 'checkCategory', value);
-
   /// Quality Category.
   ///
   /// The ISO/IEC 25010:2023 characteristic the criterion assures
@@ -117088,6 +117076,18 @@ class QualityGateCheckEntryDefinitionForm extends SomNode {
   /// Stored as one of: `functionalSuitability`, `performanceEfficiency`, `compatibility`, `interactionCapability`, `reliability`, `security`, `maintainability`, `flexibility`.
   Iso25010Characteristic? get qualityCategory => _parseIso25010Characteristic(doc.formField(path, 'qualityCategory'));
   set qualityCategory(Iso25010Characteristic? value) => doc.setFormField(path, 'qualityCategory', value?.name ?? '');
+
+  /// Check Category.
+  ///
+  /// Category of check
+  String get checkCategory => doc.formField(path, 'checkCategory') ?? '';
+  set checkCategory(String value) => doc.setFormField(path, 'checkCategory', value);
+
+  /// Check Description.
+  ///
+  /// Detailed description of check
+  String get checkDescription => doc.formField(path, 'checkDescription') ?? '';
+  set checkDescription(String value) => doc.setFormField(path, 'checkDescription', value);
 }
 
 /// Generated section facade for the `execution` `@Form` section:
@@ -118695,12 +118695,6 @@ class RegulatoryComplianceEntryRequirementsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Key Requirements.
-  ///
-  /// Main requirements to meet
-  String get keyRequirements => doc.formField(path, 'keyRequirements') ?? '';
-  set keyRequirements(String value) => doc.setFormField(path, 'keyRequirements', value);
-
   /// Technical Controls.
   ///
   /// Required technical measures
@@ -118718,6 +118712,12 @@ class RegulatoryComplianceEntryRequirementsForm extends SomNode {
   /// Required documentation
   String get documentationRequired => doc.formField(path, 'documentationRequired') ?? '';
   set documentationRequired(String value) => doc.setFormField(path, 'documentationRequired', value);
+
+  /// Key Requirements.
+  ///
+  /// Main requirements to meet
+  String get keyRequirements => doc.formField(path, 'keyRequirements') ?? '';
+  set keyRequirements(String value) => doc.setFormField(path, 'keyRequirements', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -118753,23 +118753,11 @@ class RegulatoryRequirementEntryContentForm extends SomNode {
   String get jurisdiction => doc.formField(path, 'jurisdiction') ?? '';
   set jurisdiction(String value) => doc.setFormField(path, 'jurisdiction', value);
 
-  /// Applicability.
-  ///
-  /// Why and how the regulation applies to this project
-  String get applicability => doc.formField(path, 'applicability') ?? '';
-  set applicability(String value) => doc.setFormField(path, 'applicability', value);
-
   /// Compliance Deadline.
   ///
   /// When compliance must be achieved
   String get complianceDeadline => doc.formField(path, 'complianceDeadline') ?? '';
   set complianceDeadline(String value) => doc.setFormField(path, 'complianceDeadline', value);
-
-  /// Evidence Required.
-  ///
-  /// Proof needed to demonstrate compliance
-  String get evidenceRequired => doc.formField(path, 'evidenceRequired') ?? '';
-  set evidenceRequired(String value) => doc.setFormField(path, 'evidenceRequired', value);
 
   /// Responsible Party.
   ///
@@ -118782,6 +118770,18 @@ class RegulatoryRequirementEntryContentForm extends SomNode {
   /// Consequences of failing to comply
   String get penaltyForNonCompliance => doc.formField(path, 'penaltyForNonCompliance') ?? '';
   set penaltyForNonCompliance(String value) => doc.setFormField(path, 'penaltyForNonCompliance', value);
+
+  /// Applicability.
+  ///
+  /// Why and how the regulation applies to this project
+  String get applicability => doc.formField(path, 'applicability') ?? '';
+  set applicability(String value) => doc.setFormField(path, 'applicability', value);
+
+  /// Evidence Required.
+  ///
+  /// Proof needed to demonstrate compliance
+  String get evidenceRequired => doc.formField(path, 'evidenceRequired') ?? '';
+  set evidenceRequired(String value) => doc.setFormField(path, 'evidenceRequired', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -119073,17 +119073,17 @@ class RelevantSectionEntryContentForm extends SomNode {
   String get relevance => doc.formField(path, 'relevance') ?? '';
   set relevance(String value) => doc.setFormField(path, 'relevance', value);
 
-  /// Summary / Key Extract (brief summary of applicable content).
-  ///
-  /// Brief summary or key extract of the applicable content.
-  String get extractSummary => doc.formField(path, 'extractSummary') ?? '';
-  set extractSummary(String value) => doc.setFormField(path, 'extractSummary', value);
-
   /// Compliance Required (must project comply with this section?).
   ///
   /// True if the project must comply with this section.
   bool? get complianceRequired => somParseBool(doc.formField(path, 'complianceRequired'));
   set complianceRequired(bool? value) => doc.setFormField(path, 'complianceRequired', somFormatBool(value));
+
+  /// Summary / Key Extract (brief summary of applicable content).
+  ///
+  /// Brief summary or key extract of the applicable content.
+  String get extractSummary => doc.formField(path, 'extractSummary') ?? '';
+  set extractSummary(String value) => doc.setFormField(path, 'extractSummary', value);
 }
 
 /// Generated section facade for the `reliabilityContent` `@Form` section:
@@ -122327,23 +122327,11 @@ class RequirementsOverviewRequirementsFormForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Requirements Process (how requirements are elicited and managed).
-  ///
-  /// How requirements are elicited, analysed, and managed
-  String get requirementsProcess => doc.formField(path, 'requirementsProcess') ?? '';
-  set requirementsProcess(String value) => doc.setFormField(path, 'requirementsProcess', value);
-
   /// Traceability Approach (how requirements are linked to goals, tests, code).
   ///
   /// How requirements are linked to goals, tests, and code
   String get traceabilityApproach => doc.formField(path, 'traceabilityApproach') ?? '';
   set traceabilityApproach(String value) => doc.setFormField(path, 'traceabilityApproach', value);
-
-  /// Change Control Process (how requirement changes are handled).
-  ///
-  /// How requirement changes are proposed, reviewed, and approved
-  String get changeControlProcess => doc.formField(path, 'changeControlProcess') ?? '';
-  set changeControlProcess(String value) => doc.setFormField(path, 'changeControlProcess', value);
 
   /// Prioritization Method (MoSCoW, Weighted, etc.).
   ///
@@ -122357,12 +122345,6 @@ class RequirementsOverviewRequirementsFormForm extends SomNode {
   String get totalRequirements => doc.formField(path, 'totalRequirements') ?? '';
   set totalRequirements(String value) => doc.setFormField(path, 'totalRequirements', value);
 
-  /// Must-Have Requirements (estimated).
-  ///
-  /// Estimated count of Must-Have requirements
-  String get mustHaveCount => doc.formField(path, 'mustHaveCount') ?? '';
-  set mustHaveCount(String value) => doc.setFormField(path, 'mustHaveCount', value);
-
   /// Should-Have Requirements (estimated).
   ///
   /// Estimated count of Should-Have requirements
@@ -122374,6 +122356,24 @@ class RequirementsOverviewRequirementsFormForm extends SomNode {
   /// Estimated count of Could-Have requirements
   String get couldHaveCount => doc.formField(path, 'couldHaveCount') ?? '';
   set couldHaveCount(String value) => doc.setFormField(path, 'couldHaveCount', value);
+
+  /// Requirements Process (how requirements are elicited and managed).
+  ///
+  /// How requirements are elicited, analysed, and managed
+  String get requirementsProcess => doc.formField(path, 'requirementsProcess') ?? '';
+  set requirementsProcess(String value) => doc.setFormField(path, 'requirementsProcess', value);
+
+  /// Change Control Process (how requirement changes are handled).
+  ///
+  /// How requirement changes are proposed, reviewed, and approved
+  String get changeControlProcess => doc.formField(path, 'changeControlProcess') ?? '';
+  set changeControlProcess(String value) => doc.setFormField(path, 'changeControlProcess', value);
+
+  /// Must-Have Requirements (estimated).
+  ///
+  /// Estimated count of Must-Have requirements
+  String get mustHaveCount => doc.formField(path, 'mustHaveCount') ?? '';
+  set mustHaveCount(String value) => doc.setFormField(path, 'mustHaveCount', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -124797,12 +124797,6 @@ class RiskIdentificationContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Description — detailed risk event and potential causes.
-  ///
-  /// Detailed description of the risk event and its causes
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
-
   /// Category — Technical, Schedule, Cost, Resource, External, Legal, Organizational.
   ///
   /// Top-level risk category
@@ -124814,6 +124808,12 @@ class RiskIdentificationContentForm extends SomNode {
   /// More specific categorization within the category
   String get subcategory => doc.formField(path, 'subcategory') ?? '';
   set subcategory(String value) => doc.setFormField(path, 'subcategory', value);
+
+  /// Description — detailed risk event and potential causes.
+  ///
+  /// Detailed description of the risk event and its causes
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 }
 
 /// Generated section facade for the `sourceDetails` `@Form` section:
@@ -125291,12 +125291,6 @@ class RoleAdjustmentEntryDetailsForm extends SomNode {
   String get adjustmentDescription => doc.formField(path, 'adjustmentDescription') ?? '';
   set adjustmentDescription(String value) => doc.setFormField(path, 'adjustmentDescription', value);
 
-  /// Affected Responsibilities.
-  ///
-  /// Which responsibilities are impacted by this change
-  String get affectedResponsibilities => doc.formField(path, 'affectedResponsibilities') ?? '';
-  set affectedResponsibilities(String value) => doc.setFormField(path, 'affectedResponsibilities', value);
-
   /// Merged With Roles.
   ///
   /// If merged, which other roles it combines with
@@ -125308,6 +125302,12 @@ class RoleAdjustmentEntryDetailsForm extends SomNode {
   /// If split, names of the resulting roles
   String get splitIntoRoles => doc.formField(path, 'splitIntoRoles') ?? '';
   set splitIntoRoles(String value) => doc.setFormField(path, 'splitIntoRoles', value);
+
+  /// Affected Responsibilities.
+  ///
+  /// Which responsibilities are impacted by this change
+  String get affectedResponsibilities => doc.formField(path, 'affectedResponsibilities') ?? '';
+  set affectedResponsibilities(String value) => doc.setFormField(path, 'affectedResponsibilities', value);
 }
 
 /// Generated section facade for the `governance` `@Form` section:
@@ -126775,12 +126775,6 @@ class RuntimeEnvironmentNetworkForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Network Requirements.
-  ///
-  /// Connectivity requirements
-  String get networkRequirements => doc.formField(path, 'networkRequirements') ?? '';
-  set networkRequirements(String value) => doc.setFormField(path, 'networkRequirements', value);
-
   /// Bandwidth Requirements.
   ///
   /// Minimum bandwidth
@@ -126792,6 +126786,12 @@ class RuntimeEnvironmentNetworkForm extends SomNode {
   /// Maximum acceptable latency
   String get latencyRequirements => doc.formField(path, 'latencyRequirements') ?? '';
   set latencyRequirements(String value) => doc.setFormField(path, 'latencyRequirements', value);
+
+  /// Network Requirements.
+  ///
+  /// Connectivity requirements
+  String get networkRequirements => doc.formField(path, 'networkRequirements') ?? '';
+  set networkRequirements(String value) => doc.setFormField(path, 'networkRequirements', value);
 }
 
 /// Generated section facade for the `runtimeNotes` `@Form` section:
@@ -126885,17 +126885,17 @@ class RuntimeEnvironmentVariablesForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Required Environment Variables.
-  ///
-  /// Mandatory environment variables
-  String get requiredEnvVariables => doc.formField(path, 'requiredEnvVariables') ?? '';
-  set requiredEnvVariables(String value) => doc.setFormField(path, 'requiredEnvVariables', value);
-
   /// Optional Environment Variables.
   ///
   /// Optional configuration variables
   String get optionalEnvVariables => doc.formField(path, 'optionalEnvVariables') ?? '';
   set optionalEnvVariables(String value) => doc.setFormField(path, 'optionalEnvVariables', value);
+
+  /// Required Environment Variables.
+  ///
+  /// Mandatory environment variables
+  String get requiredEnvVariables => doc.formField(path, 'requiredEnvVariables') ?? '';
+  set requiredEnvVariables(String value) => doc.setFormField(path, 'requiredEnvVariables', value);
 }
 
 /// Generated section facade for the `capacity` `@Form` section:
@@ -126917,17 +126917,17 @@ class ScalabilityArchitectureCapacityForm extends SomNode {
   String get expectedLoad => doc.formField(path, 'expectedLoad') ?? '';
   set expectedLoad(String value) => doc.setFormField(path, 'expectedLoad', value);
 
-  /// Peak Load.
-  ///
-  /// Peak load expectations
-  String get peakLoad => doc.formField(path, 'peakLoad') ?? '';
-  set peakLoad(String value) => doc.setFormField(path, 'peakLoad', value);
-
   /// Growth Projection.
   ///
   /// Expected growth over time
   String get growthProjection => doc.formField(path, 'growthProjection') ?? '';
   set growthProjection(String value) => doc.setFormField(path, 'growthProjection', value);
+
+  /// Peak Load.
+  ///
+  /// Peak load expectations
+  String get peakLoad => doc.formField(path, 'peakLoad') ?? '';
+  set peakLoad(String value) => doc.setFormField(path, 'peakLoad', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -128463,14 +128463,6 @@ class ScopeItemEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Item Description.
-  ///
-  /// Describe the feature, process, or system in scope or excluded
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
-  String get itemDescription => doc.formField(path, 'itemDescription') ?? '';
-  set itemDescription(String value) => doc.setFormField(path, 'itemDescription', value);
-
   /// Category (Feature, Process, User Group, System, Data, Geography, etc.).
   ///
   /// Feature, Process, User Group, System, Data, Geography, etc.
@@ -128488,6 +128480,14 @@ class ScopeItemEntryContentForm extends SomNode {
   /// Requirement ids related to this item, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)
   String get relatedRequirements => doc.formField(path, 'relatedRequirements') ?? '';
   set relatedRequirements(String value) => doc.setFormField(path, 'relatedRequirements', value);
+
+  /// Item Description.
+  ///
+  /// Describe the feature, process, or system in scope or excluded
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get itemDescription => doc.formField(path, 'itemDescription') ?? '';
+  set itemDescription(String value) => doc.setFormField(path, 'itemDescription', value);
 }
 
 /// Generated section facade for the `behavior` `@Form` section:
@@ -128601,12 +128601,6 @@ class ScreenActionEntryContentForm extends SomNode {
   String get owningController => doc.formField(path, 'owningController') ?? '';
   set owningController(String value) => doc.setFormField(path, 'owningController', value);
 
-  /// Description.
-  ///
-  /// What the action does — the stated behavior of an action no scenario step contributes to
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
-
   /// Context Type.
   ///
   /// The view-model type the action requires as its context, e.g. OrderViewModel
@@ -128614,6 +128608,12 @@ class ScreenActionEntryContentForm extends SomNode {
   /// **Required** — a document that leaves this empty fails validation.
   String get contextType => doc.formField(path, 'contextType') ?? '';
   set contextType(String value) => doc.setFormField(path, 'contextType', value);
+
+  /// Description.
+  ///
+  /// What the action does — the stated behavior of an action no scenario step contributes to
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 }
 
 /// Generated section facade for the `visual` `@Form` section:
@@ -129077,17 +129077,17 @@ class ScreenElementEntryPresentationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Style Variant.
-  ///
-  /// Primary/Secondary/Danger/Subtle/Custom
-  String get styleVariant => doc.formField(path, 'styleVariant') ?? '';
-  set styleVariant(String value) => doc.setFormField(path, 'styleVariant', value);
-
   /// Accessibility Label.
   ///
   /// Override for screen readers
   String get accessibilityLabel => doc.formField(path, 'accessibilityLabel') ?? '';
   set accessibilityLabel(String value) => doc.setFormField(path, 'accessibilityLabel', value);
+
+  /// Style Variant.
+  ///
+  /// Primary/Secondary/Danger/Subtle/Custom
+  String get styleVariant => doc.formField(path, 'styleVariant') ?? '';
+  set styleVariant(String value) => doc.setFormField(path, 'styleVariant', value);
 
   /// Data Binding.
   ///
@@ -129499,6 +129499,12 @@ class ScreenEntryPresentationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
+  /// Help Topic ID (external).
+  ///
+  /// Topic id in the documentation system — owned by the documentation process, not declared in this blueprint
+  String get helpTopicId => doc.formField(path, 'helpTopicId') ?? '';
+  set helpTopicId(String value) => doc.setFormField(path, 'helpTopicId', value);
+
   /// Page Title Resource.
   ///
   /// Message key (MSGKR registry) for the screen title text
@@ -129510,12 +129516,6 @@ class ScreenEntryPresentationForm extends SomNode {
   /// Resource key for the screen icon
   String get pageIconResource => doc.formField(path, 'pageIconResource') ?? '';
   set pageIconResource(String value) => doc.setFormField(path, 'pageIconResource', value);
-
-  /// Help Topic ID (external).
-  ///
-  /// Topic id in the documentation system — owned by the documentation process, not declared in this blueprint
-  String get helpTopicId => doc.formField(path, 'helpTopicId') ?? '';
-  set helpTopicId(String value) => doc.setFormField(path, 'helpTopicId', value);
 
   /// Layout.
   ///
@@ -130027,17 +130027,17 @@ class ScreenSectionEntryContentForm extends SomNode {
   String get sectionId => doc.formField(path, 'sectionId') ?? '';
   set sectionId(String value) => doc.setFormField(path, 'sectionId', value);
 
-  /// Purpose.
-  ///
-  /// What this zone contains
-  String get purpose => doc.formField(path, 'purpose') ?? '';
-  set purpose(String value) => doc.setFormField(path, 'purpose', value);
-
   /// Section Type.
   ///
   /// Header/Toolbar/Filter-Bar/Content-Primary/Content-Secondary/Sidebar/Footer/Tab-Panel/Accordion-Panel/Drawer/Action-Bar/Form-Group
   String get sectionType => doc.formField(path, 'sectionType') ?? '';
   set sectionType(String value) => doc.setFormField(path, 'sectionType', value);
+
+  /// Purpose.
+  ///
+  /// What this zone contains
+  String get purpose => doc.formField(path, 'purpose') ?? '';
+  set purpose(String value) => doc.setFormField(path, 'purpose', value);
 }
 
 /// Generated section facade for the `layout` `@Form` section:
@@ -130099,11 +130099,17 @@ class ScreenStateEntryContentForm extends SomNode {
   String get stateId => doc.formField(path, 'stateId') ?? '';
   set stateId(String value) => doc.setFormField(path, 'stateId', value);
 
-  /// Description.
+  /// Primary Action Label.
   ///
-  /// When this state occurs
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
+  /// Message key (MSGKR registry) for recovery action, e.g., Try Again
+  String get primaryActionLabel => doc.formField(path, 'primaryActionLabel') ?? '';
+  set primaryActionLabel(String value) => doc.setFormField(path, 'primaryActionLabel', value);
+
+  /// Secondary Action Label.
+  ///
+  /// Message key (MSGKR registry) for alternative action
+  String get secondaryActionLabel => doc.formField(path, 'secondaryActionLabel') ?? '';
+  set secondaryActionLabel(String value) => doc.setFormField(path, 'secondaryActionLabel', value);
 
   /// Message Resource.
   ///
@@ -130123,23 +130129,17 @@ class ScreenStateEntryContentForm extends SomNode {
   String get illustrationResource => doc.formField(path, 'illustrationResource') ?? '';
   set illustrationResource(String value) => doc.setFormField(path, 'illustrationResource', value);
 
-  /// Primary Action Label.
-  ///
-  /// Message key (MSGKR registry) for recovery action, e.g., Try Again
-  String get primaryActionLabel => doc.formField(path, 'primaryActionLabel') ?? '';
-  set primaryActionLabel(String value) => doc.setFormField(path, 'primaryActionLabel', value);
-
   /// Primary Action Target.
   ///
   /// Action or navigation on recovery
   String get primaryActionTarget => doc.formField(path, 'primaryActionTarget') ?? '';
   set primaryActionTarget(String value) => doc.setFormField(path, 'primaryActionTarget', value);
 
-  /// Secondary Action Label.
+  /// Description.
   ///
-  /// Message key (MSGKR registry) for alternative action
-  String get secondaryActionLabel => doc.formField(path, 'secondaryActionLabel') ?? '';
-  set secondaryActionLabel(String value) => doc.setFormField(path, 'secondaryActionLabel', value);
+  /// When this state occurs
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -130381,17 +130381,17 @@ class SecurityAuthenticationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Authentication Method.
-  ///
-  /// OAuth2, SAML, OIDC, MFA
-  String get authenticationMethod => doc.formField(path, 'authenticationMethod') ?? '';
-  set authenticationMethod(String value) => doc.setFormField(path, 'authenticationMethod', value);
-
   /// MFA Requirement.
   ///
   /// All users, privileged users, optional
   String get mfaRequirement => doc.formField(path, 'mfaRequirement') ?? '';
   set mfaRequirement(String value) => doc.setFormField(path, 'mfaRequirement', value);
+
+  /// Authentication Method.
+  ///
+  /// OAuth2, SAML, OIDC, MFA
+  String get authenticationMethod => doc.formField(path, 'authenticationMethod') ?? '';
+  set authenticationMethod(String value) => doc.setFormField(path, 'authenticationMethod', value);
 
   /// Password Policy.
   ///
@@ -131205,6 +131205,16 @@ class SecurityRequirementEntryClassificationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
+  /// Priority.
+  ///
+  /// Qualitative priority band.
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
+
   /// Category (Authentication, Authorization, Data Protection, Encryption, Audit Logging, Input Validation, Session Management, Error Handling, Communication Security, Configuration, Cryptography, Data Retention, Privacy).
   ///
   /// Security domain the requirement falls under
@@ -131218,24 +131228,6 @@ class SecurityRequirementEntryClassificationForm extends SomNode {
   /// More specific aspect within the category
   String get subcategory => doc.formField(path, 'subcategory') ?? '';
   set subcategory(String value) => doc.setFormField(path, 'subcategory', value);
-
-  /// Priority.
-  ///
-  /// Qualitative priority band.
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
-  ///
-  /// Stored as one of: `critical`, `high`, `medium`, `low`.
-  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
-  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
-
-  /// Source.
-  ///
-  /// Stakeholder, standard, or document that originated it
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
-  String get source => doc.formField(path, 'source') ?? '';
-  set source(String value) => doc.setFormField(path, 'source', value);
 
   /// Rationale.
   ///
@@ -131254,6 +131246,14 @@ class SecurityRequirementEntryClassificationForm extends SomNode {
   /// Sensitivity of data the requirement protects
   String get dataClassification => doc.formField(path, 'dataClassification') ?? '';
   set dataClassification(String value) => doc.setFormField(path, 'dataClassification', value);
+
+  /// Source.
+  ///
+  /// Stakeholder, standard, or document that originated it
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get source => doc.formField(path, 'source') ?? '';
+  set source(String value) => doc.setFormField(path, 'source', value);
 }
 
 /// Generated section facade for the `compliance` `@Form` section:
@@ -132607,11 +132607,11 @@ class ServerOperationEntryContentForm extends SomNode {
   String get operationName => doc.formField(path, 'operationName') ?? '';
   set operationName(String value) => doc.setFormField(path, 'operationName', value);
 
-  /// Purpose.
+  /// Description Copy Key.
   ///
-  /// What the operation does, from the caller's point of view
-  String get purpose => doc.formField(path, 'purpose') ?? '';
-  set purpose(String value) => doc.setFormField(path, 'purpose', value);
+  /// MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)
+  String get descriptionKey => doc.formField(path, 'descriptionKey') ?? '';
+  set descriptionKey(String value) => doc.setFormField(path, 'descriptionKey', value);
 
   /// Primary Data Entity.
   ///
@@ -132619,17 +132619,17 @@ class ServerOperationEntryContentForm extends SomNode {
   String get primaryDataEntity => doc.formField(path, 'primaryDataEntity') ?? '';
   set primaryDataEntity(String value) => doc.setFormField(path, 'primaryDataEntity', value);
 
-  /// Description Copy Key.
-  ///
-  /// MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)
-  String get descriptionKey => doc.formField(path, 'descriptionKey') ?? '';
-  set descriptionKey(String value) => doc.setFormField(path, 'descriptionKey', value);
-
   /// Error Codes.
   ///
   /// Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope
   String get errorCodes => doc.formField(path, 'errorCodes') ?? '';
   set errorCodes(String value) => doc.setFormField(path, 'errorCodes', value);
+
+  /// Purpose.
+  ///
+  /// What the operation does, from the caller's point of view
+  String get purpose => doc.formField(path, 'purpose') ?? '';
+  set purpose(String value) => doc.setFormField(path, 'purpose', value);
 }
 
 /// Generated section facade for the `controls` `@Form` section:
@@ -135859,17 +135859,17 @@ class SoftwareLayerEntryResponsibilitiesForm extends SomNode {
   String get purpose => doc.formField(path, 'purpose') ?? '';
   set purpose(String value) => doc.setFormField(path, 'purpose', value);
 
-  /// Key Responsibilities.
-  ///
-  /// Specific functions this layer handles
-  String get responsibilities => doc.formField(path, 'responsibilities') ?? '';
-  set responsibilities(String value) => doc.setFormField(path, 'responsibilities', value);
-
   /// Prohibitions.
   ///
   /// What this layer must NOT do
   String get prohibitions => doc.formField(path, 'prohibitions') ?? '';
   set prohibitions(String value) => doc.setFormField(path, 'prohibitions', value);
+
+  /// Key Responsibilities.
+  ///
+  /// Specific functions this layer handles
+  String get responsibilities => doc.formField(path, 'responsibilities') ?? '';
+  set responsibilities(String value) => doc.setFormField(path, 'responsibilities', value);
 }
 
 /// Generated section facade for the `technology` `@Form` section:
@@ -136645,12 +136645,6 @@ class StageEntryIdentityForm extends SomNode {
   String get stageCodename => doc.formField(path, 'stageCodename') ?? '';
   set stageCodename(String value) => doc.setFormField(path, 'stageCodename', value);
 
-  /// Description.
-  ///
-  /// Brief description of what this stage delivers
-  String get stageDescription => doc.formField(path, 'stageDescription') ?? '';
-  set stageDescription(String value) => doc.setFormField(path, 'stageDescription', value);
-
   /// Business Objective.
   ///
   /// Primary business outcome this stage achieves
@@ -136662,6 +136656,12 @@ class StageEntryIdentityForm extends SomNode {
   /// Foundation / Incremental / Enhancement / Optimization / Migration
   String get stageType => doc.formField(path, 'stageType') ?? '';
   set stageType(String value) => doc.setFormField(path, 'stageType', value);
+
+  /// Description.
+  ///
+  /// Brief description of what this stage delivers
+  String get stageDescription => doc.formField(path, 'stageDescription') ?? '';
+  set stageDescription(String value) => doc.setFormField(path, 'stageDescription', value);
 }
 
 /// Generated section facade for the `metrics` `@Form` section:
@@ -136721,17 +136721,17 @@ class StageEntryQualityForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
+  /// Acceptance Criteria Summary.
+  ///
+  /// High-level criteria for business acceptance
+  String get acceptanceCriteriaSummary => doc.formField(path, 'acceptanceCriteriaSummary') ?? '';
+  set acceptanceCriteriaSummary(String value) => doc.setFormField(path, 'acceptanceCriteriaSummary', value);
+
   /// Entry Criteria.
   ///
   /// Conditions that must be met before the stage can begin
   String get entryCriteria => doc.formField(path, 'entryCriteria') ?? '';
   set entryCriteria(String value) => doc.setFormField(path, 'entryCriteria', value);
-
-  /// Exit Criteria.
-  ///
-  /// Conditions that must be met for stage completion
-  String get exitCriteria => doc.formField(path, 'exitCriteria') ?? '';
-  set exitCriteria(String value) => doc.setFormField(path, 'exitCriteria', value);
 
   /// Quality Gates.
   ///
@@ -136745,17 +136745,17 @@ class StageEntryQualityForm extends SomNode {
   String get testingStrategy => doc.formField(path, 'testingStrategy') ?? '';
   set testingStrategy(String value) => doc.setFormField(path, 'testingStrategy', value);
 
-  /// Acceptance Criteria Summary.
-  ///
-  /// High-level criteria for business acceptance
-  String get acceptanceCriteriaSummary => doc.formField(path, 'acceptanceCriteriaSummary') ?? '';
-  set acceptanceCriteriaSummary(String value) => doc.setFormField(path, 'acceptanceCriteriaSummary', value);
-
   /// Tolerance Levels.
   ///
   /// PRINCE2 tolerances — time, cost, scope, quality
   String get toleranceLevels => doc.formField(path, 'toleranceLevels') ?? '';
   set toleranceLevels(String value) => doc.setFormField(path, 'toleranceLevels', value);
+
+  /// Exit Criteria.
+  ///
+  /// Conditions that must be met for stage completion
+  String get exitCriteria => doc.formField(path, 'exitCriteria') ?? '';
+  set exitCriteria(String value) => doc.setFormField(path, 'exitCriteria', value);
 }
 
 /// Generated section facade for the `risk` `@Form` section:
@@ -136809,12 +136809,6 @@ class StageEntryScopeForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Scope Summary.
-  ///
-  /// High-level summary of features included in this stage
-  String get scopeSummary => doc.formField(path, 'scopeSummary') ?? '';
-  set scopeSummary(String value) => doc.setFormField(path, 'scopeSummary', value);
-
   /// Included Features.
   ///
   /// Key features explicitly included
@@ -136856,6 +136850,12 @@ class StageEntryScopeForm extends SomNode {
   /// Known technical debt to be addressed
   String get technicalDebtItems => doc.formField(path, 'technicalDebtItems') ?? '';
   set technicalDebtItems(String value) => doc.setFormField(path, 'technicalDebtItems', value);
+
+  /// Scope Summary.
+  ///
+  /// High-level summary of features included in this stage
+  String get scopeSummary => doc.formField(path, 'scopeSummary') ?? '';
+  set scopeSummary(String value) => doc.setFormField(path, 'scopeSummary', value);
 }
 
 /// Generated section facade for the `timeline` `@Form` section:
@@ -138833,12 +138833,6 @@ class StagingDependenciesContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Critical Prerequisites.
-  ///
-  /// Prerequisites before staged deployment can begin
-  String get criticalPrerequisites => doc.formField(path, 'criticalPrerequisites') ?? '';
-  set criticalPrerequisites(String value) => doc.setFormField(path, 'criticalPrerequisites', value);
-
   /// External Dependencies.
   ///
   /// Dependencies on external parties
@@ -138856,6 +138850,12 @@ class StagingDependenciesContentForm extends SomNode {
   /// Risks associated with dependencies
   String get dependencyRisks => doc.formField(path, 'dependencyRisks') ?? '';
   set dependencyRisks(String value) => doc.setFormField(path, 'dependencyRisks', value);
+
+  /// Critical Prerequisites.
+  ///
+  /// Prerequisites before staged deployment can begin
+  String get criticalPrerequisites => doc.formField(path, 'criticalPrerequisites') ?? '';
+  set criticalPrerequisites(String value) => doc.setFormField(path, 'criticalPrerequisites', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -138927,17 +138927,17 @@ class StagingStrategyApproachSelectionForm extends SomNode {
   String get approachDescription => doc.formField(path, 'approachDescription') ?? '';
   set approachDescription(String value) => doc.setFormField(path, 'approachDescription', value);
 
-  /// Alternatives Considered.
-  ///
-  /// Other staging approaches evaluated and why rejected
-  String get alternativesConsidered => doc.formField(path, 'alternativesConsidered') ?? '';
-  set alternativesConsidered(String value) => doc.setFormField(path, 'alternativesConsidered', value);
-
   /// Selection Criteria.
   ///
   /// Criteria used to select this approach
   String get selectionCriteria => doc.formField(path, 'selectionCriteria') ?? '';
   set selectionCriteria(String value) => doc.setFormField(path, 'selectionCriteria', value);
+
+  /// Alternatives Considered.
+  ///
+  /// Other staging approaches evaluated and why rejected
+  String get alternativesConsidered => doc.formField(path, 'alternativesConsidered') ?? '';
+  set alternativesConsidered(String value) => doc.setFormField(path, 'alternativesConsidered', value);
 }
 
 /// Generated section facade for the `communication` `@Form` section:
@@ -139441,16 +139441,6 @@ class StakeholderRegisterEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Role.
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
-  String get role => doc.formField(path, 'role') ?? '';
-  set role(String value) => doc.setFormField(path, 'role', value);
-
-  /// Interest (what they care about).
-  String get interest => doc.formField(path, 'interest') ?? '';
-  set interest(String value) => doc.setFormField(path, 'interest', value);
-
   /// Influence.
   ///
   /// Qualitative influence band.
@@ -139466,6 +139456,16 @@ class StakeholderRegisterEntryContentForm extends SomNode {
   /// Engagement Strategy.
   String get engagementStrategy => doc.formField(path, 'engagementStrategy') ?? '';
   set engagementStrategy(String value) => doc.setFormField(path, 'engagementStrategy', value);
+
+  /// Role.
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get role => doc.formField(path, 'role') ?? '';
+  set role(String value) => doc.setFormField(path, 'role', value);
+
+  /// Interest (what they care about).
+  String get interest => doc.formField(path, 'interest') ?? '';
+  set interest(String value) => doc.setFormField(path, 'interest', value);
 }
 
 /// Generated section facade for the `summary` `@Form` section:
@@ -139927,12 +139927,6 @@ class StrategicAlignmentAlignmentDetailsForm extends SomNode {
   String get alignedItStrategy => doc.formField(path, 'alignedItStrategy') ?? '';
   set alignedItStrategy(String value) => doc.setFormField(path, 'alignedItStrategy', value);
 
-  /// Related Initiatives (other projects or programs this connects to).
-  ///
-  /// Other projects or programs this connects to
-  String get relatedInitiatives => doc.formField(path, 'relatedInitiatives') ?? '';
-  set relatedInitiatives(String value) => doc.setFormField(path, 'relatedInitiatives', value);
-
   /// Digitization Contribution (how this advances digital transformation).
   ///
   /// How this advances digital transformation
@@ -139962,6 +139956,12 @@ class StrategicAlignmentAlignmentDetailsForm extends SomNode {
   /// Why now is the right time for this initiative
   String get strategicTimingRationale => doc.formField(path, 'strategicTimingRationale') ?? '';
   set strategicTimingRationale(String value) => doc.setFormField(path, 'strategicTimingRationale', value);
+
+  /// Related Initiatives (other projects or programs this connects to).
+  ///
+  /// Other projects or programs this connects to
+  String get relatedInitiatives => doc.formField(path, 'relatedInitiatives') ?? '';
+  set relatedInitiatives(String value) => doc.setFormField(path, 'relatedInitiatives', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -140073,17 +140073,17 @@ class SubStageEntryOverviewForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Description.
-  ///
-  /// Brief description of this sub-stage or milestone
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
-
   /// Objective.
   ///
   /// What this sub-stage aims to achieve
   String get objective => doc.formField(path, 'objective') ?? '';
   set objective(String value) => doc.setFormField(path, 'objective', value);
+
+  /// Description.
+  ///
+  /// Brief description of this sub-stage or milestone
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 }
 
 /// Generated section facade for the `scope` `@Form` section:
@@ -141869,35 +141869,17 @@ class SystemDescriptionDescriptionSummaryForm extends SomNode {
   String get deploymentModel => doc.formField(path, 'deploymentModel') ?? '';
   set deploymentModel(String value) => doc.setFormField(path, 'deploymentModel', value);
 
-  /// Primary architectural pattern.
-  ///
-  /// Microservices, Monolithic, Serverless, Event-driven, Layered, Modular Monolith, Service-oriented, Peer-to-peer, Client-server
-  String get architectureStyle => doc.formField(path, 'architectureStyle') ?? '';
-  set architectureStyle(String value) => doc.setFormField(path, 'architectureStyle', value);
-
   /// Main technologies and frameworks.
   ///
   /// e.g., Flutter/Dart, Firebase, PostgreSQL
   String get primaryTechnologyStack => doc.formField(path, 'primaryTechnologyStack') ?? '';
   set primaryTechnologyStack(String value) => doc.setFormField(path, 'primaryTechnologyStack', value);
 
-  /// Types of user and system interfaces.
-  ///
-  /// Web UI, Mobile App, Desktop App, REST API, GraphQL API, gRPC API, CLI, Voice Interface, Chat/Bot Interface, Hardware
-  String get interfaceTypes => doc.formField(path, 'interfaceTypes') ?? '';
-  set interfaceTypes(String value) => doc.setFormField(path, 'interfaceTypes', value);
-
   /// Key data handling characteristics.
   ///
   /// e.g., Real-time processing, batch analytics, ACID transactions
   String get dataCharacteristics => doc.formField(path, 'dataCharacteristics') ?? '';
   set dataCharacteristics(String value) => doc.setFormField(path, 'dataCharacteristics', value);
-
-  /// Overall security posture requirement.
-  ///
-  /// Public/Open, Internal Use, Confidential, Highly Confidential, Regulated (HIPAA/GDPR/SOX), Government/Classified
-  String get securityClassification => doc.formField(path, 'securityClassification') ?? '';
-  set securityClassification(String value) => doc.setFormField(path, 'securityClassification', value);
 
   /// Target availability level.
   ///
@@ -141910,6 +141892,24 @@ class SystemDescriptionDescriptionSummaryForm extends SomNode {
   /// Horizontal Auto-scaling, Vertical Scaling, Manual Scaling, Fixed Capacity, Edge Distribution, Federation
   String get scalabilityModel => doc.formField(path, 'scalabilityModel') ?? '';
   set scalabilityModel(String value) => doc.setFormField(path, 'scalabilityModel', value);
+
+  /// Primary architectural pattern.
+  ///
+  /// Microservices, Monolithic, Serverless, Event-driven, Layered, Modular Monolith, Service-oriented, Peer-to-peer, Client-server
+  String get architectureStyle => doc.formField(path, 'architectureStyle') ?? '';
+  set architectureStyle(String value) => doc.setFormField(path, 'architectureStyle', value);
+
+  /// Types of user and system interfaces.
+  ///
+  /// Web UI, Mobile App, Desktop App, REST API, GraphQL API, gRPC API, CLI, Voice Interface, Chat/Bot Interface, Hardware
+  String get interfaceTypes => doc.formField(path, 'interfaceTypes') ?? '';
+  set interfaceTypes(String value) => doc.setFormField(path, 'interfaceTypes', value);
+
+  /// Overall security posture requirement.
+  ///
+  /// Public/Open, Internal Use, Confidential, Highly Confidential, Regulated (HIPAA/GDPR/SOX), Government/Classified
+  String get securityClassification => doc.formField(path, 'securityClassification') ?? '';
+  set securityClassification(String value) => doc.setFormField(path, 'securityClassification', value);
 
   /// Anticipated concurrent user volume.
   ///
@@ -142967,6 +142967,12 @@ class SystemQualityGoalsGovernanceContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
+  /// Quality Owner.
+  ///
+  /// Role accountable for quality outcomes
+  String get qualityOwner => doc.formField(path, 'qualityOwner') ?? '';
+  set qualityOwner(String value) => doc.setFormField(path, 'qualityOwner', value);
+
   /// Quality Approach.
   ///
   /// Overall quality philosophy: proactive, reactive, hybrid
@@ -142978,12 +142984,6 @@ class SystemQualityGoalsGovernanceContentForm extends SomNode {
   /// ISO 25010, ISO 9001, CMMI, industry-specific
   String get qualityStandards => doc.formField(path, 'qualityStandards') ?? '';
   set qualityStandards(String value) => doc.setFormField(path, 'qualityStandards', value);
-
-  /// Quality Owner.
-  ///
-  /// Role accountable for quality outcomes
-  String get qualityOwner => doc.formField(path, 'qualityOwner') ?? '';
-  set qualityOwner(String value) => doc.setFormField(path, 'qualityOwner', value);
 }
 
 /// Generated section facade for the `governance` `@Form` section:
@@ -143257,17 +143257,17 @@ class SystemStagePlanCoordinationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Cross-Stage Dependency Summary.
-  ///
-  /// Key dependencies between stages that affect sequencing
-  String get crossStageDependencySummary => doc.formField(path, 'crossStageDependencySummary') ?? '';
-  set crossStageDependencySummary(String value) => doc.setFormField(path, 'crossStageDependencySummary', value);
-
   /// Cross-Stage Risk Summary.
   ///
   /// Top risks that span multiple stages or affect staging order
   String get crossStageRiskSummary => doc.formField(path, 'crossStageRiskSummary') ?? '';
   set crossStageRiskSummary(String value) => doc.setFormField(path, 'crossStageRiskSummary', value);
+
+  /// Cross-Stage Dependency Summary.
+  ///
+  /// Key dependencies between stages that affect sequencing
+  String get crossStageDependencySummary => doc.formField(path, 'crossStageDependencySummary') ?? '';
+  set crossStageDependencySummary(String value) => doc.setFormField(path, 'crossStageDependencySummary', value);
 
   /// Regulatory/Compliance Considerations.
   ///
@@ -143407,17 +143407,17 @@ class SystemSummaryComplexityForm extends SomNode {
   String get overallComplexity => doc.formField(path, 'overallComplexity') ?? '';
   set overallComplexity(String value) => doc.setFormField(path, 'overallComplexity', value);
 
-  /// Key Risks Summary.
-  ///
-  /// Brief list of top 3 risks
-  String get keyRisks => doc.formField(path, 'keyRisks') ?? '';
-  set keyRisks(String value) => doc.setFormField(path, 'keyRisks', value);
-
   /// Key Assumptions Summary.
   ///
   /// Brief list of critical assumptions
   String get keyAssumptions => doc.formField(path, 'keyAssumptions') ?? '';
   set keyAssumptions(String value) => doc.setFormField(path, 'keyAssumptions', value);
+
+  /// Key Risks Summary.
+  ///
+  /// Brief list of top 3 risks
+  String get keyRisks => doc.formField(path, 'keyRisks') ?? '';
+  set keyRisks(String value) => doc.setFormField(path, 'keyRisks', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -145311,14 +145311,6 @@ class TechnicalGoalEntryMeasurementForm extends SomNode {
   String get currentValue => doc.formField(path, 'currentValue') ?? '';
   set currentValue(String value) => doc.setFormField(path, 'currentValue', value);
 
-  /// Target Value.
-  ///
-  /// Target value to be achieved
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
-  String get targetValue => doc.formField(path, 'targetValue') ?? '';
-  set targetValue(String value) => doc.setFormField(path, 'targetValue', value);
-
   /// Measurement Method (APM, load testing, security scan, etc.).
   ///
   /// APM, load testing, security scan, etc.
@@ -145342,6 +145334,14 @@ class TechnicalGoalEntryMeasurementForm extends SomNode {
   /// When/how verified: unit, integration, acceptance, production monitoring
   String get verificationPoint => doc.formField(path, 'verificationPoint') ?? '';
   set verificationPoint(String value) => doc.setFormField(path, 'verificationPoint', value);
+
+  /// Target Value.
+  ///
+  /// Target value to be achieved
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get targetValue => doc.formField(path, 'targetValue') ?? '';
+  set targetValue(String value) => doc.setFormField(path, 'targetValue', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -145679,13 +145679,15 @@ class TechnicalRequirementEntryDetailsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Description (The system shall... detailed statement).
+  /// Priority.
   ///
-  /// Full requirement statement, e.g., The system shall respond within 100ms
+  /// Qualitative priority band.
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 
   /// Category (Performance, Scalability, Availability, Reliability, Security, Usability, Accessibility, Maintainability, Portability, Interoperability, Compliance, Capacity, Recoverability).
   ///
@@ -145701,15 +145703,19 @@ class TechnicalRequirementEntryDetailsForm extends SomNode {
   String get subcategory => doc.formField(path, 'subcategory') ?? '';
   set subcategory(String value) => doc.setFormField(path, 'subcategory', value);
 
-  /// Priority.
+  /// Rationale.
   ///
-  /// Qualitative priority band.
+  /// Why this requirement is needed
+  String get rationale => doc.formField(path, 'rationale') ?? '';
+  set rationale(String value) => doc.setFormField(path, 'rationale', value);
+
+  /// Description (The system shall... detailed statement).
+  ///
+  /// Full requirement statement, e.g., The system shall respond within 100ms
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  ///
-  /// Stored as one of: `critical`, `high`, `medium`, `low`.
-  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
-  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 
   /// Source (who requested).
   ///
@@ -145718,12 +145724,6 @@ class TechnicalRequirementEntryDetailsForm extends SomNode {
   /// **Required** — a document that leaves this empty fails validation.
   String get source => doc.formField(path, 'source') ?? '';
   set source(String value) => doc.setFormField(path, 'source', value);
-
-  /// Rationale.
-  ///
-  /// Why this requirement is needed
-  String get rationale => doc.formField(path, 'rationale') ?? '';
-  set rationale(String value) => doc.setFormField(path, 'rationale', value);
 }
 
 /// Generated section facade for the `impact` `@Form` section:
@@ -149039,12 +149039,6 @@ class ToolingContentForm extends SomNode {
   String get toolStrategyOverview => doc.formField(path, 'toolStrategyOverview') ?? '';
   set toolStrategyOverview(String value) => doc.setFormField(path, 'toolStrategyOverview', value);
 
-  /// Standard Tool Stack Description.
-  ///
-  /// Summary of the baseline tool stack all teams are expected to use
-  String get standardToolStackDescription => doc.formField(path, 'standardToolStackDescription') ?? '';
-  set standardToolStackDescription(String value) => doc.setFormField(path, 'standardToolStackDescription', value);
-
   /// Tool Governance Policy.
   ///
   /// Who decides on tool adoption, how exceptions are handled, review cadence
@@ -149056,6 +149050,12 @@ class ToolingContentForm extends SomNode {
   /// Workflow for requesting, evaluating, and approving new tools
   String get toolApprovalProcess => doc.formField(path, 'toolApprovalProcess') ?? '';
   set toolApprovalProcess(String value) => doc.setFormField(path, 'toolApprovalProcess', value);
+
+  /// Standard Tool Stack Description.
+  ///
+  /// Summary of the baseline tool stack all teams are expected to use
+  String get standardToolStackDescription => doc.formField(path, 'standardToolStackDescription') ?? '';
+  set standardToolStackDescription(String value) => doc.setFormField(path, 'standardToolStackDescription', value);
 }
 
 /// Generated section facade for the `governance` `@Form` section:
@@ -151749,12 +151749,6 @@ class TrustBoundaryEntryContentForm extends SomNode {
   String get componentsCrossing => doc.formField(path, 'componentsCrossing') ?? '';
   set componentsCrossing(String value) => doc.setFormField(path, 'componentsCrossing', value);
 
-  /// Protection Mechanisms (firewall, encryption, authentication, etc.).
-  ///
-  /// Mechanisms protecting this boundary
-  String get protectionMechanisms => doc.formField(path, 'protectionMechanisms') ?? '';
-  set protectionMechanisms(String value) => doc.setFormField(path, 'protectionMechanisms', value);
-
   /// Trust Level (Untrusted, Semi-trusted, Trusted, Highly Trusted).
   ///
   /// The trust level on the other side of this boundary
@@ -151766,6 +151760,12 @@ class TrustBoundaryEntryContentForm extends SomNode {
   /// Regulatory requirements for crossing this boundary
   String get complianceImplications => doc.formField(path, 'complianceImplications') ?? '';
   set complianceImplications(String value) => doc.setFormField(path, 'complianceImplications', value);
+
+  /// Protection Mechanisms (firewall, encryption, authentication, etc.).
+  ///
+  /// Mechanisms protecting this boundary
+  String get protectionMechanisms => doc.formField(path, 'protectionMechanisms') ?? '';
+  set protectionMechanisms(String value) => doc.setFormField(path, 'protectionMechanisms', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -153999,12 +153999,6 @@ class UserCategoryDefinitionContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Short description.
-  ///
-  /// Brief description of this category.
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
-
   /// Access Level.
   ///
   /// Typical access level for this category.
@@ -154016,6 +154010,12 @@ class UserCategoryDefinitionContentForm extends SomNode {
   /// Estimated number of users in this category.
   String get estimatedCount => doc.formField(path, 'estimatedCount') ?? '';
   set estimatedCount(String value) => doc.setFormField(path, 'estimatedCount', value);
+
+  /// Short description.
+  ///
+  /// Brief description of this category.
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -154031,14 +154031,6 @@ class UserCategoryEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Description (brief summary of this user type).
-  ///
-  /// One- or two-sentence summary of this user type
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
-
   /// User Type (Internal, External, Partner, Customer, Administrator, etc.).
   ///
   /// Internal / External / Partner / Customer / Administrator
@@ -154046,6 +154038,14 @@ class UserCategoryEntryContentForm extends SomNode {
   /// **Required** — a document that leaves this empty fails validation.
   String get userType => doc.formField(path, 'userType') ?? '';
   set userType(String value) => doc.setFormField(path, 'userType', value);
+
+  /// Description (brief summary of this user type).
+  ///
+  /// One- or two-sentence summary of this user type
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 }
 
 /// Generated section facade for the `importance` `@Form` section:
@@ -154649,17 +154649,17 @@ class UserLifecycleTransitionEntryContentForm extends SomNode {
   String get toState => doc.formField(path, 'toState') ?? '';
   set toState(String value) => doc.setFormField(path, 'toState', value);
 
-  /// Trigger.
-  ///
-  /// UserRequest | AdminAction | SystemEvent | ScheduledJob
-  String get trigger => doc.formField(path, 'trigger') ?? '';
-  set trigger(String value) => doc.setFormField(path, 'trigger', value);
-
   /// Trigger Conditions.
   ///
   /// Pre-conditions that must be met for this transition
   String get triggerConditions => doc.formField(path, 'triggerConditions') ?? '';
   set triggerConditions(String value) => doc.setFormField(path, 'triggerConditions', value);
+
+  /// Trigger.
+  ///
+  /// UserRequest | AdminAction | SystemEvent | ScheduledJob
+  String get trigger => doc.formField(path, 'trigger') ?? '';
+  set trigger(String value) => doc.setFormField(path, 'trigger', value);
 }
 
 /// Generated section facade for the `effects` `@Form` section:
@@ -154675,12 +154675,6 @@ class UserLifecycleTransitionEntryEffectsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Side Effects.
-  ///
-  /// Actions performed on transition (revoke tokens, send email, deprovision)
-  String get sideEffects => doc.formField(path, 'sideEffects') ?? '';
-  set sideEffects(String value) => doc.setFormField(path, 'sideEffects', value);
-
   /// Notification Recipients.
   ///
   /// Who is notified (user, admin, manager)
@@ -154692,6 +154686,12 @@ class UserLifecycleTransitionEntryEffectsForm extends SomNode {
   /// Email | SMS | InApp | Webhook
   String get notificationChannels => doc.formField(path, 'notificationChannels') ?? '';
   set notificationChannels(String value) => doc.setFormField(path, 'notificationChannels', value);
+
+  /// Side Effects.
+  ///
+  /// Actions performed on transition (revoke tokens, send email, deprovision)
+  String get sideEffects => doc.formField(path, 'sideEffects') ?? '';
+  set sideEffects(String value) => doc.setFormField(path, 'sideEffects', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -155893,6 +155893,12 @@ class ValuePropositionValueDetailsForm extends SomNode {
   String get valueStatement => doc.formField(path, 'valueStatement') ?? '';
   set valueStatement(String value) => doc.setFormField(path, 'valueStatement', value);
 
+  /// Qualitative Benefits (non-quantifiable but important benefits).
+  ///
+  /// Non-quantifiable but important benefits
+  String get qualitativeBenefits => doc.formField(path, 'qualitativeBenefits') ?? '';
+  set qualitativeBenefits(String value) => doc.setFormField(path, 'qualitativeBenefits', value);
+
   /// Primary Benefits (top 3-5 benefits in priority order).
   ///
   /// Top 3-5 benefits in priority order
@@ -155904,12 +155910,6 @@ class ValuePropositionValueDetailsForm extends SomNode {
   /// Measurable improvements with concrete targets
   String get quantifiableBenefits => doc.formField(path, 'quantifiableBenefits') ?? '';
   set quantifiableBenefits(String value) => doc.setFormField(path, 'quantifiableBenefits', value);
-
-  /// Qualitative Benefits (non-quantifiable but important benefits).
-  ///
-  /// Non-quantifiable but important benefits
-  String get qualitativeBenefits => doc.formField(path, 'qualitativeBenefits') ?? '';
-  set qualitativeBenefits(String value) => doc.setFormField(path, 'qualitativeBenefits', value);
 }
 
 /// Generated section facade for the `branching` `@Form` section:

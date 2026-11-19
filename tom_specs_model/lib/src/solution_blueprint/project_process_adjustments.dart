@@ -298,12 +298,6 @@ class RoleAdjustmentEntry extends DocSpecsSection {
       hint: 'Detailed description of what changed',
     ),
     Field(
-      'affectedResponsibilities',
-      String,
-      'Affected Responsibilities',
-      hint: 'Which responsibilities are impacted by this change',
-    ),
-    Field(
       'mergedWithRoles',
       String,
       'Merged With Roles',
@@ -314,6 +308,13 @@ class RoleAdjustmentEntry extends DocSpecsSection {
       String,
       'Split Into Roles',
       hint: 'If split, names of the resulting roles',
+    ),
+    Field(
+      'affectedResponsibilities',
+      String,
+      'Affected Responsibilities',
+      hint: 'Which responsibilities are impacted by this change',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -399,12 +400,14 @@ class RoleAdjustmentEntry extends DocSpecsSection {
       String,
       'Risk Description',
       hint: 'What could go wrong due to this adjustment',
+      multiParagraph: true,
     ),
     Field(
       'mitigationMeasures',
       String,
       'Mitigation Measures',
       hint: 'How risks from this adjustment are mitigated',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(4)
@@ -770,16 +773,17 @@ class QualityGateAdjustmentDetails extends DocSpecsSection {
       hint: 'Standard pass/fail criteria for this gate',
     ),
     Field(
-      'adjustedCriteria',
-      String,
-      'Adjusted Criteria',
-      hint: 'Modified pass/fail criteria after adjustment',
-    ),
-    Field(
       'criteriaThresholdChange',
       String,
       'Threshold Change',
       hint: 'How thresholds were modified',
+    ),
+    Field(
+      'adjustedCriteria',
+      String,
+      'Adjusted Criteria',
+      hint: 'Modified pass/fail criteria after adjustment',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -1255,14 +1259,6 @@ class Tooling extends DocSpecsSection {
           'preferred vendors, stack alignment',
     ),
     Field(
-      'standardToolStackDescription',
-      String,
-      'Standard Tool Stack Description',
-      hint:
-          'Summary of the baseline tool stack all teams are expected '
-          'to use',
-    ),
-    Field(
       'toolGovernancePolicy',
       String,
       'Tool Governance Policy',
@@ -1275,6 +1271,15 @@ class Tooling extends DocSpecsSection {
       String,
       'Tool Approval Process',
       hint: 'Workflow for requesting, evaluating, and approving new tools',
+    ),
+    Field(
+      'standardToolStackDescription',
+      String,
+      'Standard Tool Stack Description',
+      hint:
+          'Summary of the baseline tool stack all teams are expected '
+          'to use',
+      multiParagraph: true,
     ),
   ])
   @override

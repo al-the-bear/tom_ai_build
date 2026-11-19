@@ -18,7 +18,7 @@
     - userCategories: `AccessUserCategories`
       - content
       - items: `UserCategoryDefinition`[]
-        - content @Form(description, accessLevel, estimatedCount)
+        - content @Form(accessLevel, estimatedCount, description)
     - `UserLifecycle`
       - content, overview @text
       - accountStates: `UserAccountStatesDefinition`
@@ -36,7 +36,7 @@
       - transitions: `UserLifecycleTransitions`
         - content, transitionRulesDescription @text, lifecycleStateDiagram @mermaid
         - items: `UserLifecycleTransitionEntry`[]
-          - content @Form(fromState, toState, trigger, triggerConditions), approval, effects, automation
+          - content @Form(fromState, toState, triggerConditions, trigger), approval, effects, automation
       - selfService: `SelfServiceAccountManagement`
         - content, selfServiceDescription @text
       - serviceAccounts: `ServiceAccountLifecycle`[]
@@ -197,7 +197,7 @@
       - containedRoles: `RoleReferenceEntry`[]
         - content @Form(roleName)
     - [1,] roleDefinitions: `AuthorizationRoleEntry`[]
-      - content @Form(roleName, description, roleCategory), structure, governance, lifecycle, status
+      - content @Form(roleName, roleCategory, description), structure, governance, lifecycle, status
       - responsibilities: `ResponsibilityReferenceEntry`[]
         - content @Form(responsibility, description, scope, criticalityLevel)
       - entitlementReferences: `EntitlementReferenceEntry`[]
@@ -211,7 +211,7 @@
       - typicalHolders: `RoleHolderEntry`[]
         - content @Form(holderDescription, department, organizationalUnit, estimatedCount, assignmentBasis)
     - [1,] entitlements: `EntitlementEntry`[]
-      - content @Form(entitlementName, description, accessType, conditions)
+      - content @Form(entitlementName, accessType, description, conditions)
       - resourceKeyReferences: `ResourceKeyReferenceEntry`[]
         - content @Form(resourceKey)
     - resourceKeys: `ResourceKeyEntry`[]
@@ -327,7 +327,7 @@
   - `ComplianceReporting`
     - content, notes @text
     - periodicReviews: `PeriodicReviewPolicy`
-      - content @Form(accessReviewFrequency, privilegedAccountReview, reviewers, dormantAccountReview, segregationOfDutiesReview, reviewDocumentation),
+      - content @Form(accessReviewFrequency, privilegedAccountReview, dormantAccountReview, segregationOfDutiesReview, reviewDocumentation, reviewers),
         notes @text
     - privilegeUsageReports: `PrivilegeUsageReporting`
       - content @Form(adminActivityReports, privilegeEscalationReports, breakGlassReports, accessPatternReports, reportRecipients, reportFrequency),

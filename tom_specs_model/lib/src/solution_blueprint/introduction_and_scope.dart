@@ -357,16 +357,17 @@ class SystemSummary extends DocSpecsSection {
       hint: 'Low / Medium / High / Very High — based on scope and integrations',
     ),
     Field(
-      'keyRisks',
-      String,
-      'Key Risks Summary',
-      hint: 'Brief list of top 3 risks',
-    ),
-    Field(
       'keyAssumptions',
       String,
       'Key Assumptions Summary',
       hint: 'Brief list of critical assumptions',
+    ),
+    Field(
+      'keyRisks',
+      String,
+      'Key Risks Summary',
+      hint: 'Brief list of top 3 risks',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(4)
@@ -442,40 +443,16 @@ that all stakeholders can refer to.
           'On-premises, Edge/Distributed, Mobile-first, Desktop, Embedded',
     ),
     Field(
-      'architectureStyle',
-      String,
-      'Primary architectural pattern',
-      hint:
-          'Microservices, Monolithic, Serverless, Event-driven, Layered, '
-          'Modular Monolith, Service-oriented, Peer-to-peer, Client-server',
-    ),
-    Field(
       'primaryTechnologyStack',
       String,
       'Main technologies and frameworks',
       hint: 'e.g., Flutter/Dart, Firebase, PostgreSQL',
     ),
     Field(
-      'interfaceTypes',
-      String,
-      'Types of user and system interfaces',
-      hint:
-          'Web UI, Mobile App, Desktop App, REST API, GraphQL API, '
-          'gRPC API, CLI, Voice Interface, Chat/Bot Interface, Hardware',
-    ),
-    Field(
       'dataCharacteristics',
       String,
       'Key data handling characteristics',
       hint: 'e.g., Real-time processing, batch analytics, ACID transactions',
-    ),
-    Field(
-      'securityClassification',
-      String,
-      'Overall security posture requirement',
-      hint:
-          'Public/Open, Internal Use, Confidential, Highly Confidential, '
-          'Regulated (HIPAA/GDPR/SOX), Government/Classified',
     ),
     Field(
       'availabilityRequirement',
@@ -494,24 +471,54 @@ that all stakeholders can refer to.
           'Fixed Capacity, Edge Distribution, Federation',
     ),
     Field(
+      'architectureStyle',
+      String,
+      'Primary architectural pattern',
+      hint:
+          'Microservices, Monolithic, Serverless, Event-driven, Layered, '
+          'Modular Monolith, Service-oriented, Peer-to-peer, Client-server',
+      multiParagraph: true,
+    ),
+    Field(
+      'interfaceTypes',
+      String,
+      'Types of user and system interfaces',
+      hint:
+          'Web UI, Mobile App, Desktop App, REST API, GraphQL API, '
+          'gRPC API, CLI, Voice Interface, Chat/Bot Interface, Hardware',
+      multiParagraph: true,
+    ),
+    Field(
+      'securityClassification',
+      String,
+      'Overall security posture requirement',
+      hint:
+          'Public/Open, Internal Use, Confidential, Highly Confidential, '
+          'Regulated (HIPAA/GDPR/SOX), Government/Classified',
+      multiParagraph: true,
+    ),
+    Field(
       'expectedUserLoad',
       String,
       'Anticipated concurrent user volume',
       hint:
           'Single User, Team (<100), Enterprise (100-1000), '
           'Large Enterprise (1000-10000), Consumer (10000+)',
+      multiParagraph: true,
     ),
     Field(
       'keyDifferentiators',
       String,
       'What makes this system unique',
       hint: 'e.g., AI-powered recommendations, real-time collaboration',
+      multiParagraph: true,
     ),
     Field(
       'criticalCapabilities',
       String,
       'Most important system capabilities',
       hint: 'e.g., Multi-tenant data isolation, offline-first sync',
+      multiParagraph: true,
     ),
   ])
   @ContentType(
@@ -666,6 +673,12 @@ class ProblemStatement extends DocSpecsSection {
       hint: 'State the core problem in a single concise sentence',
     ),
     Field(
+      'impactSeverity',
+      ImportanceBand,
+      'Impact Severity',
+      hint: 'Qualitative impact severity band.',
+    ),
+    Field(
       'currentState',
       String,
       'Current State (describe the AS-IS situation that is problematic)',
@@ -684,24 +697,6 @@ class ProblemStatement extends DocSpecsSection {
       hint: 'Business, financial, and operational impacts of the problem',
     ),
     Field(
-      'impactSeverity',
-      ImportanceBand,
-      'Impact Severity',
-      hint: 'Qualitative impact severity band.',
-    ),
-    Field(
-      'impactMetrics',
-      String,
-      'Impact Metrics (quantifiable measures of the problem\'s cost)',
-      hint: 'Quantifiable measures of the problem\'s cost',
-    ),
-    Field(
-      'rootCauses',
-      String,
-      'Root Causes (underlying reasons for problem)',
-      hint: 'Underlying reasons that cause the problem',
-    ),
-    Field(
       'urgency',
       String,
       'Urgency (Immediate, Short-term, Medium-term, Long-term)',
@@ -714,10 +709,25 @@ class ProblemStatement extends DocSpecsSection {
       hint: 'Why the stated timeline is critical',
     ),
     Field(
+      'impactMetrics',
+      String,
+      'Impact Metrics (quantifiable measures of the problem\'s cost)',
+      hint: 'Quantifiable measures of the problem\'s cost',
+      multiParagraph: true,
+    ),
+    Field(
+      'rootCauses',
+      String,
+      'Root Causes (underlying reasons for problem)',
+      hint: 'Underlying reasons that cause the problem',
+      multiParagraph: true,
+    ),
+    Field(
       'consequencesOfInaction',
       String,
       'Consequences of Inaction (what happens if not addressed)',
       hint: 'What happens if the problem is not addressed',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -783,18 +793,6 @@ class OpportunityStatement extends DocSpecsSection {
       hint: 'Describe the TO-BE situation after implementation',
     ),
     Field(
-      'newCapabilities',
-      String,
-      'New Capabilities (what becomes possible that wasn\'t before)',
-      hint: 'What becomes possible that was not possible before',
-    ),
-    Field(
-      'improvements',
-      String,
-      'Improvements (quantitative and qualitative improvements expected)',
-      hint: 'Quantitative and qualitative improvements expected',
-    ),
-    Field(
       'competitiveAdvantage',
       String,
       'Competitive Advantage (market positioning benefits)',
@@ -823,6 +821,20 @@ class OpportunityStatement extends DocSpecsSection {
       String,
       'Time to Value (when benefits will start being realized)',
       hint: 'When benefits will start being realized',
+    ),
+    Field(
+      'newCapabilities',
+      String,
+      'New Capabilities (what becomes possible that wasn\'t before)',
+      hint: 'What becomes possible that was not possible before',
+      multiParagraph: true,
+    ),
+    Field(
+      'improvements',
+      String,
+      'Improvements (quantitative and qualitative improvements expected)',
+      hint: 'Quantitative and qualitative improvements expected',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -917,6 +929,7 @@ class StakeholderEntry extends DocSpecsSection {
       'Expected Benefits (the scope-framing value this group gains from the '
           'system)',
       hint: 'The scope-framing value this group gains from the system',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -962,22 +975,24 @@ class ValueProposition extends DocSpecsSection {
       hint: 'Concise statement of the value the system delivers',
     ),
     Field(
+      'qualitativeBenefits',
+      String,
+      'Qualitative Benefits (non-quantifiable but important benefits)',
+      hint: 'Non-quantifiable but important benefits',
+    ),
+    Field(
       'primaryBenefits',
       String,
       'Primary Benefits (top 3-5 benefits in priority order)',
       hint: 'Top 3-5 benefits in priority order',
+      multiParagraph: true,
     ),
     Field(
       'quantifiableBenefits',
       String,
       'Quantifiable Benefits (measurable improvements with targets)',
       hint: 'Measurable improvements with concrete targets',
-    ),
-    Field(
-      'qualitativeBenefits',
-      String,
-      'Qualitative Benefits (non-quantifiable but important benefits)',
-      hint: 'Non-quantifiable but important benefits',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -1111,12 +1126,6 @@ class StrategicAlignment extends DocSpecsSection {
       hint: 'How this fits within the IT roadmap',
     ),
     Field(
-      'relatedInitiatives',
-      String,
-      'Related Initiatives (other projects or programs this connects to)',
-      hint: 'Other projects or programs this connects to',
-    ),
-    Field(
       'digitizationContribution',
       String,
       'Digitization Contribution (how this advances digital transformation)',
@@ -1145,6 +1154,13 @@ class StrategicAlignment extends DocSpecsSection {
       String,
       'Strategic Timing (why this is the right time for this initiative)',
       hint: 'Why now is the right time for this initiative',
+    ),
+    Field(
+      'relatedInitiatives',
+      String,
+      'Related Initiatives (other projects or programs this connects to)',
+      hint: 'Other projects or programs this connects to',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -1242,13 +1258,6 @@ class ScopeBoundaries extends DocSpecsSection {
 class ScopeItemEntry extends DocSpecsSection {
   @Form([
     Field(
-      'itemDescription',
-      String,
-      'Item Description',
-      required: true,
-      hint: 'Describe the feature, process, or system in scope or excluded',
-    ),
-    Field(
       'category',
       String,
       'Category (Feature, Process, User Group, System, Data, Geography, etc.)',
@@ -1275,6 +1284,14 @@ class ScopeItemEntry extends DocSpecsSection {
         'ORRQ.@sectionId',
       ],
       multiple: true,
+    ),
+    Field(
+      'itemDescription',
+      String,
+      'Item Description',
+      required: true,
+      hint: 'Describe the feature, process, or system in scope or excluded',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -1502,22 +1519,10 @@ class ItLandscapePosition extends DocSpecsSection {
       hint: 'The strategic role this system plays in the portfolio',
     ),
     Field(
-      'replacedSystems',
-      String,
-      'Replaced Systems (systems this will replace or retire)',
-      hint: 'Systems this will replace or retire',
-    ),
-    Field(
       'complementarySystems',
       String,
       'Complementary Systems (systems this works alongside)',
       hint: 'Systems this works alongside',
-    ),
-    Field(
-      'dependsOnSystems',
-      String,
-      'Depends On Systems (systems this requires to operate)',
-      hint: 'Systems this requires to operate',
     ),
     Field(
       'dependentSystems',
@@ -1526,16 +1531,31 @@ class ItLandscapePosition extends DocSpecsSection {
       hint: 'Systems that will depend on this one',
     ),
     Field(
-      'dataOwnership',
-      String,
-      'Data Ownership (what master data does this system own)',
-      hint: 'What master data this system owns',
-    ),
-    Field(
       'integrationPattern',
       String,
       'Primary Integration Pattern (API, Event, Batch, Real-time)',
       hint: 'The primary integration pattern used',
+    ),
+    Field(
+      'replacedSystems',
+      String,
+      'Replaced Systems (systems this will replace or retire)',
+      hint: 'Systems this will replace or retire',
+      multiParagraph: true,
+    ),
+    Field(
+      'dependsOnSystems',
+      String,
+      'Depends On Systems (systems this requires to operate)',
+      hint: 'Systems this requires to operate',
+      multiParagraph: true,
+    ),
+    Field(
+      'dataOwnership',
+      String,
+      'Data Ownership (what master data does this system own)',
+      hint: 'What master data this system owns',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -1645,16 +1665,17 @@ class ExternalActorEntry extends DocSpecsSection {
       hint: 'The channel through which the interaction occurs',
     ),
     Field(
-      'dataExchanged',
-      String,
-      'Data Exchanged (what information flows to/from this actor)',
-      hint: 'What information flows to and from this actor',
-    ),
-    Field(
       'accessLevel',
       String,
       'Access Level (Read, Write, Admin, API-only, etc.)',
       hint: 'The level of access this actor has',
+    ),
+    Field(
+      'dataExchanged',
+      String,
+      'Data Exchanged (what information flows to/from this actor)',
+      hint: 'What information flows to and from this actor',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -1797,12 +1818,6 @@ class ExternalSystemContextEntry extends DocSpecsSection {
       hint: 'The direction in which data flows for this integration',
     ),
     Field(
-      'integrationPurpose',
-      String,
-      'Integration Purpose (what business need does this serve)',
-      hint: 'The business need this integration serves',
-    ),
-    Field(
       'dataExchanged',
       String,
       'Data Exchanged (what data flows between systems)',
@@ -1814,6 +1829,13 @@ class ExternalSystemContextEntry extends DocSpecsSection {
       'Integration Method (REST API, SOAP, File Transfer, Database, '
           'Message Queue, Event Stream, etc.)',
       hint: 'The technical method used for the integration',
+    ),
+    Field(
+      'integrationPurpose',
+      String,
+      'Integration Purpose (what business need does this serve)',
+      hint: 'The business need this integration serves',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -1968,12 +1990,6 @@ class TrustBoundaryEntry extends DocSpecsSection {
       hint: 'Which parts of the system cross this boundary',
     ),
     Field(
-      'protectionMechanisms',
-      String,
-      'Protection Mechanisms (firewall, encryption, authentication, etc.)',
-      hint: 'Mechanisms protecting this boundary',
-    ),
-    Field(
       'trustLevel',
       String,
       'Trust Level (Untrusted, Semi-trusted, Trusted, Highly Trusted)',
@@ -1984,6 +2000,13 @@ class TrustBoundaryEntry extends DocSpecsSection {
       String,
       'Compliance Implications (regulatory requirements for crossing)',
       hint: 'Regulatory requirements for crossing this boundary',
+    ),
+    Field(
+      'protectionMechanisms',
+      String,
+      'Protection Mechanisms (firewall, encryption, authentication, etc.)',
+      hint: 'Mechanisms protecting this boundary',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -2270,12 +2293,6 @@ class ApplicableRegulationEntry extends DocSpecsSection {
       hint: 'Why this regulation applies to this system',
     ),
     Field(
-      'keyRequirements',
-      String,
-      'Key Requirements (summary of main requirements)',
-      hint: 'A summary of the main requirements',
-    ),
-    Field(
       'complianceStatus',
       String,
       'Compliance Status (Compliant, Partially Compliant, Non-Compliant, '
@@ -2299,6 +2316,13 @@ class ApplicableRegulationEntry extends DocSpecsSection {
       String,
       'Penalties (consequences of non-compliance)',
       hint: 'Consequences of non-compliance',
+    ),
+    Field(
+      'keyRequirements',
+      String,
+      'Key Requirements (summary of main requirements)',
+      hint: 'A summary of the main requirements',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -3911,12 +3935,6 @@ class InteractionPatternEntry extends DocSpecsSection {
   )
   @Form([
     Field(
-      'description',
-      String,
-      'Description',
-      hint: 'What this pattern involves',
-    ),
-    Field(
       'useCases',
       String,
       'Use Cases',
@@ -3927,6 +3945,13 @@ class InteractionPatternEntry extends DocSpecsSection {
       String,
       'Applicable User Categories',
       hint: 'Which user categories use this pattern',
+    ),
+    Field(
+      'description',
+      String,
+      'Description',
+      hint: 'What this pattern involves',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -4762,18 +4787,19 @@ class MultiChannelExperience extends DocSpecsSection {
 class UserCategoryEntry extends DocSpecsSection {
   @Form([
     Field(
-      'description',
-      String,
-      'Description (brief summary of this user type)',
-      required: true,
-      hint: 'One- or two-sentence summary of this user type',
-    ),
-    Field(
       'userType',
       String,
       'User Type (Internal, External, Partner, Customer, Administrator, etc.)',
       required: true,
       hint: 'Internal / External / Partner / Customer / Administrator',
+    ),
+    Field(
+      'description',
+      String,
+      'Description (brief summary of this user type)',
+      required: true,
+      hint: 'One- or two-sentence summary of this user type',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -6117,13 +6143,6 @@ class BusinessGoalEntry extends DocSpecsSection {
       hint: 'Baseline measurement before the project starts',
     ),
     Field(
-      'targetValue',
-      String,
-      'Target Value (desired end state)',
-      required: true,
-      hint: 'Desired end-state value for the metric',
-    ),
-    Field(
       'measurementMethod',
       String,
       'Measurement Method (how the metric is captured)',
@@ -6134,6 +6153,14 @@ class BusinessGoalEntry extends DocSpecsSection {
       String,
       'Measurement Frequency (Daily, Weekly, Monthly, Quarterly)',
       hint: 'Daily, Weekly, Monthly, or Quarterly',
+    ),
+    Field(
+      'targetValue',
+      String,
+      'Target Value (desired end state)',
+      required: true,
+      hint: 'Desired end-state value for the metric',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(2)
@@ -6952,13 +6979,6 @@ class TechnicalGoalEntry extends DocSpecsSection {
       hint: 'Current/baseline value before the project',
     ),
     Field(
-      'targetValue',
-      String,
-      'Target Value',
-      required: true,
-      hint: 'Target value to be achieved',
-    ),
-    Field(
       'measurementMethod',
       String,
       'Measurement Method (APM, load testing, security scan, etc.)',
@@ -6984,6 +7004,14 @@ class TechnicalGoalEntry extends DocSpecsSection {
       hint:
           'When/how verified: unit, integration, acceptance, '
           'production monitoring',
+    ),
+    Field(
+      'targetValue',
+      String,
+      'Target Value',
+      required: true,
+      hint: 'Target value to be achieved',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -8180,22 +8208,10 @@ class RequirementsOverview extends DocSpecsSection {
   @SectionId('RO-REQU')
   @Form([
     Field(
-      'requirementsProcess',
-      String,
-      'Requirements Process (how requirements are elicited and managed)',
-      hint: 'How requirements are elicited, analysed, and managed',
-    ),
-    Field(
       'traceabilityApproach',
       String,
       'Traceability Approach (how requirements are linked to goals, tests, code)',
       hint: 'How requirements are linked to goals, tests, and code',
-    ),
-    Field(
-      'changeControlProcess',
-      String,
-      'Change Control Process (how requirement changes are handled)',
-      hint: 'How requirement changes are proposed, reviewed, and approved',
     ),
     Field(
       'prioritizationMethod',
@@ -8210,12 +8226,6 @@ class RequirementsOverview extends DocSpecsSection {
       hint: 'Estimated total number of requirements',
     ),
     Field(
-      'mustHaveCount',
-      String,
-      'Must-Have Requirements (estimated)',
-      hint: 'Estimated count of Must-Have requirements',
-    ),
-    Field(
       'shouldHaveCount',
       String,
       'Should-Have Requirements (estimated)',
@@ -8226,6 +8236,27 @@ class RequirementsOverview extends DocSpecsSection {
       String,
       'Could-Have Requirements (estimated)',
       hint: 'Estimated count of Could-Have requirements',
+    ),
+    Field(
+      'requirementsProcess',
+      String,
+      'Requirements Process (how requirements are elicited and managed)',
+      hint: 'How requirements are elicited, analysed, and managed',
+      multiParagraph: true,
+    ),
+    Field(
+      'changeControlProcess',
+      String,
+      'Change Control Process (how requirement changes are handled)',
+      hint: 'How requirement changes are proposed, reviewed, and approved',
+      multiParagraph: true,
+    ),
+    Field(
+      'mustHaveCount',
+      String,
+      'Must-Have Requirements (estimated)',
+      hint: 'Estimated count of Must-Have requirements',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -8447,13 +8478,6 @@ class FunctionalRequirementEntry extends DocSpecsSection {
   )
   @Form([
     Field(
-      'description',
-      String,
-      'Description (The system shall... detailed statement)',
-      required: true,
-      hint: 'Detailed "the system shall..." statement of the requirement',
-    ),
-    Field(
       'requirementType',
       String,
       'Requirement Type (Feature, User Story, Business Rule, Report, '
@@ -8466,6 +8490,14 @@ class FunctionalRequirementEntry extends DocSpecsSection {
       String,
       'Category (functional area grouping)',
       hint: 'Functional-area grouping for this requirement',
+    ),
+    Field(
+      'description',
+      String,
+      'Description (The system shall... detailed statement)',
+      required: true,
+      hint: 'Detailed "the system shall..." statement of the requirement',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -8522,23 +8554,25 @@ class FunctionalRequirementEntry extends DocSpecsSection {
   )
   @Form([
     Field(
-      'source',
-      String,
-      'Source (who requested: stakeholder name, workshop, document)',
-      required: true,
-      hint: 'Who requested it: stakeholder name, workshop, or document',
-    ),
-    Field(
       'requestDate',
       String,
       'Request Date',
       hint: 'Date the requirement was requested',
     ),
     Field(
+      'source',
+      String,
+      'Source (who requested: stakeholder name, workshop, document)',
+      required: true,
+      hint: 'Who requested it: stakeholder name, workshop, or document',
+      multiParagraph: true,
+    ),
+    Field(
       'rationale',
       String,
       'Rationale (why this requirement is needed)',
       hint: 'Why this requirement is needed',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(3)
@@ -10424,6 +10458,7 @@ class TechnicalRequirements extends DocSpecsSection {
       'Architecture Drivers (top constraints shaping design)',
       hint:
           'e.g., 99.99% availability, sub-100ms latency, 10k concurrent users',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -10497,13 +10532,11 @@ class TechnicalRequirementEntry extends DocSpecsSection {
   )
   @Form([
     Field(
-      'description',
-      String,
-      'Description (The system shall... detailed statement)',
+      'priority',
+      ImportanceBand,
+      'Priority',
+      hint: 'Qualitative priority band.',
       required: true,
-      hint:
-          'Full requirement statement, e.g., The system shall respond '
-          'within 100ms',
     ),
     Field(
       'category',
@@ -10521,11 +10554,20 @@ class TechnicalRequirementEntry extends DocSpecsSection {
       hint: 'More specific aspect, e.g., response time within Performance',
     ),
     Field(
-      'priority',
-      ImportanceBand,
-      'Priority',
-      hint: 'Qualitative priority band.',
+      'rationale',
+      String,
+      'Rationale',
+      hint: 'Why this requirement is needed',
+    ),
+    Field(
+      'description',
+      String,
+      'Description (The system shall... detailed statement)',
       required: true,
+      hint:
+          'Full requirement statement, e.g., The system shall respond '
+          'within 100ms',
+      multiParagraph: true,
     ),
     Field(
       'source',
@@ -10533,12 +10575,7 @@ class TechnicalRequirementEntry extends DocSpecsSection {
       'Source (who requested)',
       required: true,
       hint: 'Stakeholder, document, or standard that originated it',
-    ),
-    Field(
-      'rationale',
-      String,
-      'Rationale',
-      hint: 'Why this requirement is needed',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -10848,6 +10885,7 @@ class SecurityRequirementEntry extends DocSpecsSection {
       hint:
           'Full requirement statement, e.g., The system shall encrypt '
           'data at rest',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -10866,6 +10904,13 @@ class SecurityRequirementEntry extends DocSpecsSection {
   )
   @Form([
     Field(
+      'priority',
+      ImportanceBand,
+      'Priority',
+      hint: 'Qualitative priority band.',
+      required: true,
+    ),
+    Field(
       'category',
       String,
       'Category (Authentication, Authorization, Data Protection, '
@@ -10880,20 +10925,6 @@ class SecurityRequirementEntry extends DocSpecsSection {
       String,
       'Subcategory',
       hint: 'More specific aspect within the category',
-    ),
-    Field(
-      'priority',
-      ImportanceBand,
-      'Priority',
-      hint: 'Qualitative priority band.',
-      required: true,
-    ),
-    Field(
-      'source',
-      String,
-      'Source',
-      required: true,
-      hint: 'Stakeholder, standard, or document that originated it',
     ),
     Field(
       'rationale',
@@ -10913,6 +10944,14 @@ class SecurityRequirementEntry extends DocSpecsSection {
       'Data Classification Affected (Public, Internal, Confidential, '
           'Restricted, PII, PHI)',
       hint: 'Sensitivity of data the requirement protects',
+    ),
+    Field(
+      'source',
+      String,
+      'Source',
+      required: true,
+      hint: 'Stakeholder, standard, or document that originated it',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -11351,6 +11390,7 @@ class OrganizationalRequirementEntry extends DocSpecsSection {
       'Description (detailed statement)',
       required: true,
       hint: 'Full statement of the organizational change needed',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -11370,6 +11410,15 @@ class OrganizationalRequirementEntry extends DocSpecsSection {
   )
   @Form([
     Field(
+      'priority',
+      Priority,
+      'Priority',
+      required: true,
+      hint:
+          'MoSCoW scoping band — what happens if this requirement does not '
+          'ship.',
+    ),
+    Field(
       'category',
       String,
       'Category (Training, Process Change, Role Change, Support, '
@@ -11384,13 +11433,10 @@ class OrganizationalRequirementEntry extends DocSpecsSection {
       hint: 'More specific aspect within the category',
     ),
     Field(
-      'priority',
-      Priority,
-      'Priority',
-      required: true,
-      hint:
-          'MoSCoW scoping band — what happens if this requirement does not '
-          'ship.',
+      'rationale',
+      String,
+      'Rationale',
+      hint: 'Why this organizational change is needed',
     ),
     Field(
       'source',
@@ -11398,12 +11444,7 @@ class OrganizationalRequirementEntry extends DocSpecsSection {
       'Source',
       required: true,
       hint: 'Stakeholder or document that originated it',
-    ),
-    Field(
-      'rationale',
-      String,
-      'Rationale',
-      hint: 'Why this organizational change is needed',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -15414,12 +15455,6 @@ class InterfaceTechnicalSpec extends DocSpecsSection {
       hint: 'Our endpoint that receives callbacks',
     ),
     Field(
-      'eventTypes',
-      String,
-      'Event Types Received',
-      hint: 'Event types delivered via webhook',
-    ),
-    Field(
       'signatureVerification',
       String,
       'Signature Verification Method',
@@ -15436,6 +15471,13 @@ class InterfaceTechnicalSpec extends DocSpecsSection {
       String,
       'Idempotency Handling',
       hint: 'How duplicate webhook deliveries are handled',
+    ),
+    Field(
+      'eventTypes',
+      String,
+      'Event Types Received',
+      hint: 'Event types delivered via webhook',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(4)
@@ -18766,12 +18808,6 @@ class RiskEntry extends DocSpecsSection {
 class RiskIdentification extends DocSpecsSection {
   @Form([
     Field(
-      'description',
-      String,
-      'Description — detailed risk event and potential causes',
-      hint: 'Detailed description of the risk event and its causes',
-    ),
-    Field(
       'category',
       String,
       'Category — Technical, Schedule, Cost, Resource, External, Legal, Organizational',
@@ -18782,6 +18818,13 @@ class RiskIdentification extends DocSpecsSection {
       String,
       'Subcategory — more specific categorization',
       hint: 'More specific categorization within the category',
+    ),
+    Field(
+      'description',
+      String,
+      'Description — detailed risk event and potential causes',
+      hint: 'Detailed description of the risk event and its causes',
+      multiParagraph: true,
     ),
   ])
   @override

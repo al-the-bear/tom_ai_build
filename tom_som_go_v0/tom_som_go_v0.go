@@ -53456,14 +53456,6 @@ func (x *AcceptanceProcessDecisionForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *AcceptanceProcessDecisionForm) DecisionCriteria() string {
-	return x.Doc().FormFieldOr(x.Path(), "decisionCriteria")
-}
-
-func (x *AcceptanceProcessDecisionForm) SetDecisionCriteria(value string) {
-	x.Doc().SetFormField(x.Path(), "decisionCriteria", value)
-}
-
 func (x *AcceptanceProcessDecisionForm) DefectThreshold() string {
 	return x.Doc().FormFieldOr(x.Path(), "defectThreshold")
 }
@@ -53486,6 +53478,14 @@ func (x *AcceptanceProcessDecisionForm) RejectionCriteria() string {
 
 func (x *AcceptanceProcessDecisionForm) SetRejectionCriteria(value string) {
 	x.Doc().SetFormField(x.Path(), "rejectionCriteria", value)
+}
+
+func (x *AcceptanceProcessDecisionForm) DecisionCriteria() string {
+	return x.Doc().FormFieldOr(x.Path(), "decisionCriteria")
+}
+
+func (x *AcceptanceProcessDecisionForm) SetDecisionCriteria(value string) {
+	x.Doc().SetFormField(x.Path(), "decisionCriteria", value)
 }
 
 // AcceptanceProcessDocumentationForm is the generated section facade for the `documentation` @Form section: its own
@@ -56348,14 +56348,6 @@ func (x *ActorEntryIdentificationForm) SetCategory(value string) {
 	x.Doc().SetFormField(x.Path(), "category", value)
 }
 
-func (x *ActorEntryIdentificationForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
-}
-
-func (x *ActorEntryIdentificationForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
-}
-
 func (x *ActorEntryIdentificationForm) RealWorldExamples() string {
 	return x.Doc().FormFieldOr(x.Path(), "realWorldExamples")
 }
@@ -56386,6 +56378,14 @@ func (x *ActorEntryIdentificationForm) GeographicDistribution() string {
 
 func (x *ActorEntryIdentificationForm) SetGeographicDistribution(value string) {
 	x.Doc().SetFormField(x.Path(), "geographicDistribution", value)
+}
+
+func (x *ActorEntryIdentificationForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *ActorEntryIdentificationForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 // ActorEntryInteractionsForm is the generated section facade for the `interactions` @Form section: its own
@@ -56830,14 +56830,6 @@ func (x *ActorOverviewOverviewForm) SetExternalActorCount(value *int) {
 	x.Doc().SetFormField(x.Path(), "externalActorCount", strconv.Itoa(*value))
 }
 
-func (x *ActorOverviewOverviewForm) ActorIdentificationApproach() string {
-	return x.Doc().FormFieldOr(x.Path(), "actorIdentificationApproach")
-}
-
-func (x *ActorOverviewOverviewForm) SetActorIdentificationApproach(value string) {
-	x.Doc().SetFormField(x.Path(), "actorIdentificationApproach", value)
-}
-
 func (x *ActorOverviewOverviewForm) ActorPrioritization() string {
 	return x.Doc().FormFieldOr(x.Path(), "actorPrioritization")
 }
@@ -56852,6 +56844,14 @@ func (x *ActorOverviewOverviewForm) ActorGoalAlignment() string {
 
 func (x *ActorOverviewOverviewForm) SetActorGoalAlignment(value string) {
 	x.Doc().SetFormField(x.Path(), "actorGoalAlignment", value)
+}
+
+func (x *ActorOverviewOverviewForm) ActorIdentificationApproach() string {
+	return x.Doc().FormFieldOr(x.Path(), "actorIdentificationApproach")
+}
+
+func (x *ActorOverviewOverviewForm) SetActorIdentificationApproach(value string) {
+	x.Doc().SetFormField(x.Path(), "actorIdentificationApproach", value)
 }
 
 // ActorPermissionsContentForm is the generated section facade for the `content` @Form section: its own
@@ -61532,14 +61532,6 @@ func (x *ApplicableRegulationEntryContentForm) SetApplicability(value string) {
 	x.Doc().SetFormField(x.Path(), "applicability", value)
 }
 
-func (x *ApplicableRegulationEntryContentForm) KeyRequirements() string {
-	return x.Doc().FormFieldOr(x.Path(), "keyRequirements")
-}
-
-func (x *ApplicableRegulationEntryContentForm) SetKeyRequirements(value string) {
-	x.Doc().SetFormField(x.Path(), "keyRequirements", value)
-}
-
 func (x *ApplicableRegulationEntryContentForm) ComplianceStatus() string {
 	return x.Doc().FormFieldOr(x.Path(), "complianceStatus")
 }
@@ -61570,6 +61562,14 @@ func (x *ApplicableRegulationEntryContentForm) Penalties() string {
 
 func (x *ApplicableRegulationEntryContentForm) SetPenalties(value string) {
 	x.Doc().SetFormField(x.Path(), "penalties", value)
+}
+
+func (x *ApplicableRegulationEntryContentForm) KeyRequirements() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyRequirements")
+}
+
+func (x *ApplicableRegulationEntryContentForm) SetKeyRequirements(value string) {
+	x.Doc().SetFormField(x.Path(), "keyRequirements", value)
 }
 
 // ApplicationDiagnosticsContentForm is the generated section facade for the `content` @Form section: its own
@@ -63142,6 +63142,14 @@ func (x *ArchitectureComponentEntryPurposeForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
+func (x *ArchitectureComponentEntryPurposeForm) NotResponsibleFor() string {
+	return x.Doc().FormFieldOr(x.Path(), "notResponsibleFor")
+}
+
+func (x *ArchitectureComponentEntryPurposeForm) SetNotResponsibleFor(value string) {
+	x.Doc().SetFormField(x.Path(), "notResponsibleFor", value)
+}
+
 func (x *ArchitectureComponentEntryPurposeForm) Purpose() string {
 	return x.Doc().FormFieldOr(x.Path(), "purpose")
 }
@@ -63156,14 +63164,6 @@ func (x *ArchitectureComponentEntryPurposeForm) Responsibilities() string {
 
 func (x *ArchitectureComponentEntryPurposeForm) SetResponsibilities(value string) {
 	x.Doc().SetFormField(x.Path(), "responsibilities", value)
-}
-
-func (x *ArchitectureComponentEntryPurposeForm) NotResponsibleFor() string {
-	return x.Doc().FormFieldOr(x.Path(), "notResponsibleFor")
-}
-
-func (x *ArchitectureComponentEntryPurposeForm) SetNotResponsibleFor(value string) {
-	x.Doc().SetFormField(x.Path(), "notResponsibleFor", value)
 }
 
 // ArchitectureComponentEntryTechnicalForm is the generated section facade for the `technical` @Form section: its own
@@ -63242,14 +63242,6 @@ func (x *ArchitectureDecisionRecordConsequencesForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ArchitectureDecisionRecordConsequencesForm) Consequences() string {
-	return x.Doc().FormFieldOr(x.Path(), "consequences")
-}
-
-func (x *ArchitectureDecisionRecordConsequencesForm) SetConsequences(value string) {
-	x.Doc().SetFormField(x.Path(), "consequences", value)
-}
-
 func (x *ArchitectureDecisionRecordConsequencesForm) PositiveConsequences() string {
 	return x.Doc().FormFieldOr(x.Path(), "positiveConsequences")
 }
@@ -63280,6 +63272,14 @@ func (x *ArchitectureDecisionRecordConsequencesForm) Notes() string {
 
 func (x *ArchitectureDecisionRecordConsequencesForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+func (x *ArchitectureDecisionRecordConsequencesForm) Consequences() string {
+	return x.Doc().FormFieldOr(x.Path(), "consequences")
+}
+
+func (x *ArchitectureDecisionRecordConsequencesForm) SetConsequences(value string) {
+	x.Doc().SetFormField(x.Path(), "consequences", value)
 }
 
 // ArchitectureDecisionRecordContentForm is the generated section facade for the `content` @Form section: its own
@@ -63400,14 +63400,6 @@ func (x *ArchitectureDecisionRecordOutcomeForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ArchitectureDecisionRecordOutcomeForm) Decision() string {
-	return x.Doc().FormFieldOr(x.Path(), "decision")
-}
-
-func (x *ArchitectureDecisionRecordOutcomeForm) SetDecision(value string) {
-	x.Doc().SetFormField(x.Path(), "decision", value)
-}
-
 func (x *ArchitectureDecisionRecordOutcomeForm) Rationale() string {
 	return x.Doc().FormFieldOr(x.Path(), "rationale")
 }
@@ -63430,6 +63422,14 @@ func (x *ArchitectureDecisionRecordOutcomeForm) DecisionMakers() string {
 
 func (x *ArchitectureDecisionRecordOutcomeForm) SetDecisionMakers(value string) {
 	x.Doc().SetFormField(x.Path(), "decisionMakers", value)
+}
+
+func (x *ArchitectureDecisionRecordOutcomeForm) Decision() string {
+	return x.Doc().FormFieldOr(x.Path(), "decision")
+}
+
+func (x *ArchitectureDecisionRecordOutcomeForm) SetDecision(value string) {
+	x.Doc().SetFormField(x.Path(), "decision", value)
 }
 
 // ArchitectureDecisionRecordRelationsForm is the generated section facade for the `relations` @Form section: its own
@@ -63608,20 +63608,20 @@ func (x *ArchitectureOverviewDriversForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ArchitectureOverviewDriversForm) Justification() string {
-	return x.Doc().FormFieldOr(x.Path(), "justification")
-}
-
-func (x *ArchitectureOverviewDriversForm) SetJustification(value string) {
-	x.Doc().SetFormField(x.Path(), "justification", value)
-}
-
 func (x *ArchitectureOverviewDriversForm) BusinessDrivers() string {
 	return x.Doc().FormFieldOr(x.Path(), "businessDrivers")
 }
 
 func (x *ArchitectureOverviewDriversForm) SetBusinessDrivers(value string) {
 	x.Doc().SetFormField(x.Path(), "businessDrivers", value)
+}
+
+func (x *ArchitectureOverviewDriversForm) Justification() string {
+	return x.Doc().FormFieldOr(x.Path(), "justification")
+}
+
+func (x *ArchitectureOverviewDriversForm) SetJustification(value string) {
+	x.Doc().SetFormField(x.Path(), "justification", value)
 }
 
 func (x *ArchitectureOverviewDriversForm) TechnicalDrivers() string {
@@ -64808,20 +64808,20 @@ func (x *AuthorizationRequirementSpecCustomRequirementForm) SetContent(value str
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *AuthorizationRequirementSpecCustomRequirementForm) Handler() string {
-	return x.Doc().FormFieldOr(x.Path(), "handler")
-}
-
-func (x *AuthorizationRequirementSpecCustomRequirementForm) SetHandler(value string) {
-	x.Doc().SetFormField(x.Path(), "handler", value)
-}
-
 func (x *AuthorizationRequirementSpecCustomRequirementForm) ResourceId() string {
 	return x.Doc().FormFieldOr(x.Path(), "resourceId")
 }
 
 func (x *AuthorizationRequirementSpecCustomRequirementForm) SetResourceId(value string) {
 	x.Doc().SetFormField(x.Path(), "resourceId", value)
+}
+
+func (x *AuthorizationRequirementSpecCustomRequirementForm) Handler() string {
+	return x.Doc().FormFieldOr(x.Path(), "handler")
+}
+
+func (x *AuthorizationRequirementSpecCustomRequirementForm) SetHandler(value string) {
+	x.Doc().SetFormField(x.Path(), "handler", value)
 }
 
 func (x *AuthorizationRequirementSpecCustomRequirementForm) DecisionRule() string {
@@ -65002,20 +65002,20 @@ func (x *AuthorizationRoleEntryContentForm) SetRoleName(value string) {
 	x.Doc().SetFormField(x.Path(), "roleName", value)
 }
 
-func (x *AuthorizationRoleEntryContentForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
-}
-
-func (x *AuthorizationRoleEntryContentForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
-}
-
 func (x *AuthorizationRoleEntryContentForm) RoleCategory() string {
 	return x.Doc().FormFieldOr(x.Path(), "roleCategory")
 }
 
 func (x *AuthorizationRoleEntryContentForm) SetRoleCategory(value string) {
 	x.Doc().SetFormField(x.Path(), "roleCategory", value)
+}
+
+func (x *AuthorizationRoleEntryContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *AuthorizationRoleEntryContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 // AuthorizationRoleEntryGovernanceForm is the generated section facade for the `governance` @Form section: its own
@@ -68470,14 +68470,6 @@ func (x *BoundedContextEntryIntegrationForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *BoundedContextEntryIntegrationForm) ApiEndpoints() string {
-	return x.Doc().FormFieldOr(x.Path(), "apiEndpoints")
-}
-
-func (x *BoundedContextEntryIntegrationForm) SetApiEndpoints(value string) {
-	x.Doc().SetFormField(x.Path(), "apiEndpoints", value)
-}
-
 func (x *BoundedContextEntryIntegrationForm) IntegrationPatterns() string {
 	return x.Doc().FormFieldOr(x.Path(), "integrationPatterns")
 }
@@ -68492,6 +68484,14 @@ func (x *BoundedContextEntryIntegrationForm) Notes() string {
 
 func (x *BoundedContextEntryIntegrationForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+func (x *BoundedContextEntryIntegrationForm) ApiEndpoints() string {
+	return x.Doc().FormFieldOr(x.Path(), "apiEndpoints")
+}
+
+func (x *BoundedContextEntryIntegrationForm) SetApiEndpoints(value string) {
+	x.Doc().SetFormField(x.Path(), "apiEndpoints", value)
 }
 
 // BoundedContextEntryScopeForm is the generated section facade for the `scope` @Form section: its own
@@ -68520,14 +68520,6 @@ func (x *BoundedContextEntryScopeForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *BoundedContextEntryScopeForm) Purpose() string {
-	return x.Doc().FormFieldOr(x.Path(), "purpose")
-}
-
-func (x *BoundedContextEntryScopeForm) SetPurpose(value string) {
-	x.Doc().SetFormField(x.Path(), "purpose", value)
-}
-
 func (x *BoundedContextEntryScopeForm) IncludedConcepts() string {
 	return x.Doc().FormFieldOr(x.Path(), "includedConcepts")
 }
@@ -68542,6 +68534,14 @@ func (x *BoundedContextEntryScopeForm) ExcludedConcepts() string {
 
 func (x *BoundedContextEntryScopeForm) SetExcludedConcepts(value string) {
 	x.Doc().SetFormField(x.Path(), "excludedConcepts", value)
+}
+
+func (x *BoundedContextEntryScopeForm) Purpose() string {
+	return x.Doc().FormFieldOr(x.Path(), "purpose")
+}
+
+func (x *BoundedContextEntryScopeForm) SetPurpose(value string) {
+	x.Doc().SetFormField(x.Path(), "purpose", value)
 }
 
 func (x *BoundedContextEntryScopeForm) UbiquitousLanguage() string {
@@ -69641,20 +69641,20 @@ func (x *BuildToolchainEntryProfilesForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *BuildToolchainEntryProfilesForm) BuildProfiles() string {
-	return x.Doc().FormFieldOr(x.Path(), "buildProfiles")
-}
-
-func (x *BuildToolchainEntryProfilesForm) SetBuildProfiles(value string) {
-	x.Doc().SetFormField(x.Path(), "buildProfiles", value)
-}
-
 func (x *BuildToolchainEntryProfilesForm) DefaultProfile() string {
 	return x.Doc().FormFieldOr(x.Path(), "defaultProfile")
 }
 
 func (x *BuildToolchainEntryProfilesForm) SetDefaultProfile(value string) {
 	x.Doc().SetFormField(x.Path(), "defaultProfile", value)
+}
+
+func (x *BuildToolchainEntryProfilesForm) BuildProfiles() string {
+	return x.Doc().FormFieldOr(x.Path(), "buildProfiles")
+}
+
+func (x *BuildToolchainEntryProfilesForm) SetBuildProfiles(value string) {
+	x.Doc().SetFormField(x.Path(), "buildProfiles", value)
 }
 
 // BuildToolchainEntryVersionsForm is the generated section facade for the `versions` @Form section: its own
@@ -69933,14 +69933,6 @@ func (x *BuildToolsConfigurationScriptsForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *BuildToolsConfigurationScriptsForm) BuildScripts() string {
-	return x.Doc().FormFieldOr(x.Path(), "buildScripts")
-}
-
-func (x *BuildToolsConfigurationScriptsForm) SetBuildScripts(value string) {
-	x.Doc().SetFormField(x.Path(), "buildScripts", value)
-}
-
 func (x *BuildToolsConfigurationScriptsForm) PreCommitHooks() string {
 	return x.Doc().FormFieldOr(x.Path(), "preCommitHooks")
 }
@@ -69955,6 +69947,14 @@ func (x *BuildToolsConfigurationScriptsForm) PostBuildActions() string {
 
 func (x *BuildToolsConfigurationScriptsForm) SetPostBuildActions(value string) {
 	x.Doc().SetFormField(x.Path(), "postBuildActions", value)
+}
+
+func (x *BuildToolsConfigurationScriptsForm) BuildScripts() string {
+	return x.Doc().FormFieldOr(x.Path(), "buildScripts")
+}
+
+func (x *BuildToolsConfigurationScriptsForm) SetBuildScripts(value string) {
+	x.Doc().SetFormField(x.Path(), "buildScripts", value)
 }
 
 // BusinessComponentEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -70441,14 +70441,6 @@ func (x *BusinessGoalEntryMeasurementForm) SetCurrentValue(value string) {
 	x.Doc().SetFormField(x.Path(), "currentValue", value)
 }
 
-func (x *BusinessGoalEntryMeasurementForm) TargetValue() string {
-	return x.Doc().FormFieldOr(x.Path(), "targetValue")
-}
-
-func (x *BusinessGoalEntryMeasurementForm) SetTargetValue(value string) {
-	x.Doc().SetFormField(x.Path(), "targetValue", value)
-}
-
 func (x *BusinessGoalEntryMeasurementForm) MeasurementMethod() string {
 	return x.Doc().FormFieldOr(x.Path(), "measurementMethod")
 }
@@ -70463,6 +70455,14 @@ func (x *BusinessGoalEntryMeasurementForm) MeasurementFrequency() string {
 
 func (x *BusinessGoalEntryMeasurementForm) SetMeasurementFrequency(value string) {
 	x.Doc().SetFormField(x.Path(), "measurementFrequency", value)
+}
+
+func (x *BusinessGoalEntryMeasurementForm) TargetValue() string {
+	return x.Doc().FormFieldOr(x.Path(), "targetValue")
+}
+
+func (x *BusinessGoalEntryMeasurementForm) SetTargetValue(value string) {
+	x.Doc().SetFormField(x.Path(), "targetValue", value)
 }
 
 // BusinessGoalEntryStrategyForm is the generated section facade for the `strategy` @Form section: its own
@@ -78964,14 +78964,6 @@ func (x *CodingStandardEntryRuleDetailsForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *CodingStandardEntryRuleDetailsForm) Rule() string {
-	return x.Doc().FormFieldOr(x.Path(), "rule")
-}
-
-func (x *CodingStandardEntryRuleDetailsForm) SetRule(value string) {
-	x.Doc().SetFormField(x.Path(), "rule", value)
-}
-
 func (x *CodingStandardEntryRuleDetailsForm) Rationale() string {
 	return x.Doc().FormFieldOr(x.Path(), "rationale")
 }
@@ -78986,6 +78978,14 @@ func (x *CodingStandardEntryRuleDetailsForm) Examples() string {
 
 func (x *CodingStandardEntryRuleDetailsForm) SetExamples(value string) {
 	x.Doc().SetFormField(x.Path(), "examples", value)
+}
+
+func (x *CodingStandardEntryRuleDetailsForm) Rule() string {
+	return x.Doc().FormFieldOr(x.Path(), "rule")
+}
+
+func (x *CodingStandardEntryRuleDetailsForm) SetRule(value string) {
+	x.Doc().SetFormField(x.Path(), "rule", value)
 }
 
 // CodingStandardsSectionContentForm is the generated section facade for the `content` @Form section: its own
@@ -80197,14 +80197,6 @@ func (x *CommunicationPatternsDataExchangeForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *CommunicationPatternsDataExchangeForm) DataContracts() string {
-	return x.Doc().FormFieldOr(x.Path(), "dataContracts")
-}
-
-func (x *CommunicationPatternsDataExchangeForm) SetDataContracts(value string) {
-	x.Doc().SetFormField(x.Path(), "dataContracts", value)
-}
-
 func (x *CommunicationPatternsDataExchangeForm) SchemaEvolution() string {
 	return x.Doc().FormFieldOr(x.Path(), "schemaEvolution")
 }
@@ -80219,6 +80211,14 @@ func (x *CommunicationPatternsDataExchangeForm) Serialization() string {
 
 func (x *CommunicationPatternsDataExchangeForm) SetSerialization(value string) {
 	x.Doc().SetFormField(x.Path(), "serialization", value)
+}
+
+func (x *CommunicationPatternsDataExchangeForm) DataContracts() string {
+	return x.Doc().FormFieldOr(x.Path(), "dataContracts")
+}
+
+func (x *CommunicationPatternsDataExchangeForm) SetDataContracts(value string) {
+	x.Doc().SetFormField(x.Path(), "dataContracts", value)
 }
 
 // CommunicationPatternsObservabilityForm is the generated section facade for the `observability` @Form section: its own
@@ -80363,20 +80363,20 @@ func (x *CommunicationPatternsSynchronousForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *CommunicationPatternsSynchronousForm) SyncPatterns() string {
-	return x.Doc().FormFieldOr(x.Path(), "syncPatterns")
-}
-
-func (x *CommunicationPatternsSynchronousForm) SetSyncPatterns(value string) {
-	x.Doc().SetFormField(x.Path(), "syncPatterns", value)
-}
-
 func (x *CommunicationPatternsSynchronousForm) ApiGateway() string {
 	return x.Doc().FormFieldOr(x.Path(), "apiGateway")
 }
 
 func (x *CommunicationPatternsSynchronousForm) SetApiGateway(value string) {
 	x.Doc().SetFormField(x.Path(), "apiGateway", value)
+}
+
+func (x *CommunicationPatternsSynchronousForm) SyncPatterns() string {
+	return x.Doc().FormFieldOr(x.Path(), "syncPatterns")
+}
+
+func (x *CommunicationPatternsSynchronousForm) SetSyncPatterns(value string) {
+	x.Doc().SetFormField(x.Path(), "syncPatterns", value)
 }
 
 // CommunicationToolsRequirementsContentForm is the generated section facade for the `content` @Form section: its own
@@ -82123,20 +82123,20 @@ func (x *ComponentEntryVendorForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
+func (x *ComponentEntryVendorForm) VendorName() string {
+	return x.Doc().FormFieldOr(x.Path(), "vendorName")
+}
+
+func (x *ComponentEntryVendorForm) SetVendorName(value string) {
+	x.Doc().SetFormField(x.Path(), "vendorName", value)
+}
+
 func (x *ComponentEntryVendorForm) Version() string {
 	return x.Doc().FormFieldOr(x.Path(), "version")
 }
 
 func (x *ComponentEntryVendorForm) SetVersion(value string) {
 	x.Doc().SetFormField(x.Path(), "version", value)
-}
-
-func (x *ComponentEntryVendorForm) Purpose() string {
-	return x.Doc().FormFieldOr(x.Path(), "purpose")
-}
-
-func (x *ComponentEntryVendorForm) SetPurpose(value string) {
-	x.Doc().SetFormField(x.Path(), "purpose", value)
 }
 
 func (x *ComponentEntryVendorForm) LibraryRef() string {
@@ -82147,20 +82147,20 @@ func (x *ComponentEntryVendorForm) SetLibraryRef(value string) {
 	x.Doc().SetFormField(x.Path(), "libraryRef", value)
 }
 
-func (x *ComponentEntryVendorForm) VendorName() string {
-	return x.Doc().FormFieldOr(x.Path(), "vendorName")
-}
-
-func (x *ComponentEntryVendorForm) SetVendorName(value string) {
-	x.Doc().SetFormField(x.Path(), "vendorName", value)
-}
-
 func (x *ComponentEntryVendorForm) VendorStability() string {
 	return x.Doc().FormFieldOr(x.Path(), "vendorStability")
 }
 
 func (x *ComponentEntryVendorForm) SetVendorStability(value string) {
 	x.Doc().SetFormField(x.Path(), "vendorStability", value)
+}
+
+func (x *ComponentEntryVendorForm) Purpose() string {
+	return x.Doc().FormFieldOr(x.Path(), "purpose")
+}
+
+func (x *ComponentEntryVendorForm) SetPurpose(value string) {
+	x.Doc().SetFormField(x.Path(), "purpose", value)
 }
 
 // ComponentFamilyEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -87135,14 +87135,6 @@ func (x *ConstraintRegisterEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ConstraintRegisterEntryContentForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
-}
-
-func (x *ConstraintRegisterEntryContentForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
-}
-
 func (x *ConstraintRegisterEntryContentForm) Type() string {
 	return x.Doc().FormFieldOr(x.Path(), "type")
 }
@@ -87165,6 +87157,14 @@ func (x *ConstraintRegisterEntryContentForm) Impact() string {
 
 func (x *ConstraintRegisterEntryContentForm) SetImpact(value string) {
 	x.Doc().SetFormField(x.Path(), "impact", value)
+}
+
+func (x *ConstraintRegisterEntryContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *ConstraintRegisterEntryContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 // ContentScanningPolicyContentForm is the generated section facade for the `content` @Form section: its own
@@ -91313,14 +91313,6 @@ func (x *DataAttributeEntryIdentityForm) SetColumnName(value string) {
 	x.Doc().SetFormField(x.Path(), "columnName", value)
 }
 
-func (x *DataAttributeEntryIdentityForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
-}
-
-func (x *DataAttributeEntryIdentityForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
-}
-
 func (x *DataAttributeEntryIdentityForm) BusinessTerm() string {
 	return x.Doc().FormFieldOr(x.Path(), "businessTerm")
 }
@@ -91335,6 +91327,14 @@ func (x *DataAttributeEntryIdentityForm) ExampleValues() string {
 
 func (x *DataAttributeEntryIdentityForm) SetExampleValues(value string) {
 	x.Doc().SetFormField(x.Path(), "exampleValues", value)
+}
+
+func (x *DataAttributeEntryIdentityForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *DataAttributeEntryIdentityForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 // DataAttributeEntryMigrationLineageForm is the generated section facade for the `migrationLineage` @Form section: its own
@@ -92601,30 +92601,6 @@ func (x *DataEntityEntryIdentityForm) SetTableName(value string) {
 	x.Doc().SetFormField(x.Path(), "tableName", value)
 }
 
-func (x *DataEntityEntryIdentityForm) EntityAlias() string {
-	return x.Doc().FormFieldOr(x.Path(), "entityAlias")
-}
-
-func (x *DataEntityEntryIdentityForm) SetEntityAlias(value string) {
-	x.Doc().SetFormField(x.Path(), "entityAlias", value)
-}
-
-func (x *DataEntityEntryIdentityForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
-}
-
-func (x *DataEntityEntryIdentityForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
-}
-
-func (x *DataEntityEntryIdentityForm) EntityStereoType() string {
-	return x.Doc().FormFieldOr(x.Path(), "entityStereoType")
-}
-
-func (x *DataEntityEntryIdentityForm) SetEntityStereoType(value string) {
-	x.Doc().SetFormField(x.Path(), "entityStereoType", value)
-}
-
 func (x *DataEntityEntryIdentityForm) DataSourceName() string {
 	return x.Doc().FormFieldOr(x.Path(), "dataSourceName")
 }
@@ -92647,6 +92623,30 @@ func (x *DataEntityEntryIdentityForm) Tenancy() EntityTenancy {
 
 func (x *DataEntityEntryIdentityForm) SetTenancy(value EntityTenancy) {
 	x.Doc().SetFormField(x.Path(), "tenancy", string(value))
+}
+
+func (x *DataEntityEntryIdentityForm) EntityAlias() string {
+	return x.Doc().FormFieldOr(x.Path(), "entityAlias")
+}
+
+func (x *DataEntityEntryIdentityForm) SetEntityAlias(value string) {
+	x.Doc().SetFormField(x.Path(), "entityAlias", value)
+}
+
+func (x *DataEntityEntryIdentityForm) EntityStereoType() string {
+	return x.Doc().FormFieldOr(x.Path(), "entityStereoType")
+}
+
+func (x *DataEntityEntryIdentityForm) SetEntityStereoType(value string) {
+	x.Doc().SetFormField(x.Path(), "entityStereoType", value)
+}
+
+func (x *DataEntityEntryIdentityForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *DataEntityEntryIdentityForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 // DataEntityEntryLifecyclePolicyForm is the generated section facade for the `lifecyclePolicy` @Form section: its own
@@ -99954,20 +99954,20 @@ func (x *DeliverableEntryIdentityForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *DeliverableEntryIdentityForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
-}
-
-func (x *DeliverableEntryIdentityForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
-}
-
 func (x *DeliverableEntryIdentityForm) Category() string {
 	return x.Doc().FormFieldOr(x.Path(), "category")
 }
 
 func (x *DeliverableEntryIdentityForm) SetCategory(value string) {
 	x.Doc().SetFormField(x.Path(), "category", value)
+}
+
+func (x *DeliverableEntryIdentityForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *DeliverableEntryIdentityForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 // DeliverableEntryLegalForm is the generated section facade for the `legal` @Form section: its own
@@ -100570,14 +100570,6 @@ func (x *DeliveryTransitionAndRolloutLocaleRolloutPlanForm) SetContent(value str
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *DeliveryTransitionAndRolloutLocaleRolloutPlanForm) RolloutStrategy() string {
-	return x.Doc().FormFieldOr(x.Path(), "rolloutStrategy")
-}
-
-func (x *DeliveryTransitionAndRolloutLocaleRolloutPlanForm) SetRolloutStrategy(value string) {
-	x.Doc().SetFormField(x.Path(), "rolloutStrategy", value)
-}
-
 func (x *DeliveryTransitionAndRolloutLocaleRolloutPlanForm) RolloutTimeline() string {
 	return x.Doc().FormFieldOr(x.Path(), "rolloutTimeline")
 }
@@ -100592,6 +100584,14 @@ func (x *DeliveryTransitionAndRolloutLocaleRolloutPlanForm) RolloutRegions() str
 
 func (x *DeliveryTransitionAndRolloutLocaleRolloutPlanForm) SetRolloutRegions(value string) {
 	x.Doc().SetFormField(x.Path(), "rolloutRegions", value)
+}
+
+func (x *DeliveryTransitionAndRolloutLocaleRolloutPlanForm) RolloutStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "rolloutStrategy")
+}
+
+func (x *DeliveryTransitionAndRolloutLocaleRolloutPlanForm) SetRolloutStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "rolloutStrategy", value)
 }
 
 // DependencyHealthMonitoringCacheForm is the generated section facade for the `cache` @Form section: its own
@@ -101432,14 +101432,6 @@ func (x *DependencyRegisterEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *DependencyRegisterEntryContentForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
-}
-
-func (x *DependencyRegisterEntryContentForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
-}
-
 func (x *DependencyRegisterEntryContentForm) Type() string {
 	return x.Doc().FormFieldOr(x.Path(), "type")
 }
@@ -101470,6 +101462,14 @@ func (x *DependencyRegisterEntryContentForm) Status() string {
 
 func (x *DependencyRegisterEntryContentForm) SetStatus(value string) {
 	x.Doc().SetFormField(x.Path(), "status", value)
+}
+
+func (x *DependencyRegisterEntryContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *DependencyRegisterEntryContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 // DependencyScanningRequirementsContentForm is the generated section facade for the `content` @Form section: its own
@@ -102751,14 +102751,6 @@ func (x *DeploymentTargetEntryComplianceForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *DeploymentTargetEntryComplianceForm) ComplianceRequirements() string {
-	return x.Doc().FormFieldOr(x.Path(), "complianceRequirements")
-}
-
-func (x *DeploymentTargetEntryComplianceForm) SetComplianceRequirements(value string) {
-	x.Doc().SetFormField(x.Path(), "complianceRequirements", value)
-}
-
 func (x *DeploymentTargetEntryComplianceForm) PrivacyRequirements() string {
 	return x.Doc().FormFieldOr(x.Path(), "privacyRequirements")
 }
@@ -102789,6 +102781,14 @@ func (x *DeploymentTargetEntryComplianceForm) Notes() string {
 
 func (x *DeploymentTargetEntryComplianceForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+func (x *DeploymentTargetEntryComplianceForm) ComplianceRequirements() string {
+	return x.Doc().FormFieldOr(x.Path(), "complianceRequirements")
+}
+
+func (x *DeploymentTargetEntryComplianceForm) SetComplianceRequirements(value string) {
+	x.Doc().SetFormField(x.Path(), "complianceRequirements", value)
 }
 
 // DeploymentTargetEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -102825,20 +102825,20 @@ func (x *DeploymentTargetEntryContentForm) SetTargetCategory(value string) {
 	x.Doc().SetFormField(x.Path(), "targetCategory", value)
 }
 
-func (x *DeploymentTargetEntryContentForm) TargetEnvironment() string {
-	return x.Doc().FormFieldOr(x.Path(), "targetEnvironment")
-}
-
-func (x *DeploymentTargetEntryContentForm) SetTargetEnvironment(value string) {
-	x.Doc().SetFormField(x.Path(), "targetEnvironment", value)
-}
-
 func (x *DeploymentTargetEntryContentForm) EnvironmentRef() string {
 	return x.Doc().FormFieldOr(x.Path(), "environmentRef")
 }
 
 func (x *DeploymentTargetEntryContentForm) SetEnvironmentRef(value string) {
 	x.Doc().SetFormField(x.Path(), "environmentRef", value)
+}
+
+func (x *DeploymentTargetEntryContentForm) TargetEnvironment() string {
+	return x.Doc().FormFieldOr(x.Path(), "targetEnvironment")
+}
+
+func (x *DeploymentTargetEntryContentForm) SetTargetEnvironment(value string) {
+	x.Doc().SetFormField(x.Path(), "targetEnvironment", value)
 }
 
 // DeploymentTargetEntryPlatformForm is the generated section facade for the `platform` @Form section: its own
@@ -107529,20 +107529,20 @@ func (x *DocumentRelevantSectionsContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *DocumentRelevantSectionsContentForm) SectionReference() string {
-	return x.Doc().FormFieldOr(x.Path(), "sectionReference")
-}
-
-func (x *DocumentRelevantSectionsContentForm) SetSectionReference(value string) {
-	x.Doc().SetFormField(x.Path(), "sectionReference", value)
-}
-
 func (x *DocumentRelevantSectionsContentForm) SectionTitle() string {
 	return x.Doc().FormFieldOr(x.Path(), "sectionTitle")
 }
 
 func (x *DocumentRelevantSectionsContentForm) SetSectionTitle(value string) {
 	x.Doc().SetFormField(x.Path(), "sectionTitle", value)
+}
+
+func (x *DocumentRelevantSectionsContentForm) SectionReference() string {
+	return x.Doc().FormFieldOr(x.Path(), "sectionReference")
+}
+
+func (x *DocumentRelevantSectionsContentForm) SetSectionReference(value string) {
+	x.Doc().SetFormField(x.Path(), "sectionReference", value)
 }
 
 func (x *DocumentRelevantSectionsContentForm) Relevance() string {
@@ -109399,14 +109399,6 @@ func (x *EfficiencyVerificationForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *EfficiencyVerificationForm) LoadTestingRequirement() string {
-	return x.Doc().FormFieldOr(x.Path(), "loadTestingRequirement")
-}
-
-func (x *EfficiencyVerificationForm) SetLoadTestingRequirement(value string) {
-	x.Doc().SetFormField(x.Path(), "loadTestingRequirement", value)
-}
-
 func (x *EfficiencyVerificationForm) PerformanceProfilingApproach() string {
 	return x.Doc().FormFieldOr(x.Path(), "performanceProfilingApproach")
 }
@@ -109421,6 +109413,14 @@ func (x *EfficiencyVerificationForm) PerformanceBaselineDate() string {
 
 func (x *EfficiencyVerificationForm) SetPerformanceBaselineDate(value string) {
 	x.Doc().SetFormField(x.Path(), "performanceBaselineDate", value)
+}
+
+func (x *EfficiencyVerificationForm) LoadTestingRequirement() string {
+	return x.Doc().FormFieldOr(x.Path(), "loadTestingRequirement")
+}
+
+func (x *EfficiencyVerificationForm) SetLoadTestingRequirement(value string) {
+	x.Doc().SetFormField(x.Path(), "loadTestingRequirement", value)
 }
 
 func (x *EfficiencyVerificationForm) PerformanceSlaDefinition() string {
@@ -110295,20 +110295,20 @@ func (x *EntitlementEntryContentForm) SetEntitlementName(value string) {
 	x.Doc().SetFormField(x.Path(), "entitlementName", value)
 }
 
-func (x *EntitlementEntryContentForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
-}
-
-func (x *EntitlementEntryContentForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
-}
-
 func (x *EntitlementEntryContentForm) AccessType() string {
 	return x.Doc().FormFieldOr(x.Path(), "accessType")
 }
 
 func (x *EntitlementEntryContentForm) SetAccessType(value string) {
 	x.Doc().SetFormField(x.Path(), "accessType", value)
+}
+
+func (x *EntitlementEntryContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *EntitlementEntryContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 func (x *EntitlementEntryContentForm) Conditions() string {
@@ -110691,14 +110691,6 @@ func (x *EntityRelationshipEntryIdentityForm) SetRelationshipType(value string) 
 	x.Doc().SetFormField(x.Path(), "relationshipType", value)
 }
 
-func (x *EntityRelationshipEntryIdentityForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
-}
-
-func (x *EntityRelationshipEntryIdentityForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
-}
-
 func (x *EntityRelationshipEntryIdentityForm) BusinessJustification() string {
 	return x.Doc().FormFieldOr(x.Path(), "businessJustification")
 }
@@ -110713,6 +110705,14 @@ func (x *EntityRelationshipEntryIdentityForm) ImplementationType() string {
 
 func (x *EntityRelationshipEntryIdentityForm) SetImplementationType(value string) {
 	x.Doc().SetFormField(x.Path(), "implementationType", value)
+}
+
+func (x *EntityRelationshipEntryIdentityForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *EntityRelationshipEntryIdentityForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 // EntityRelationshipEntryNavigationForm is the generated section facade for the `navigation` @Form section: its own
@@ -116352,6 +116352,14 @@ func (x *ExtensionEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
+func (x *ExtensionEntryContentForm) ReturnKind() FlowReturnPoint {
+	return parseFlowReturnPoint(x.Doc().FormFieldOr(x.Path(), "returnKind"))
+}
+
+func (x *ExtensionEntryContentForm) SetReturnKind(value FlowReturnPoint) {
+	x.Doc().SetFormField(x.Path(), "returnKind", string(value))
+}
+
 func (x *ExtensionEntryContentForm) BranchPoint() string {
 	return x.Doc().FormFieldOr(x.Path(), "branchPoint")
 }
@@ -116376,28 +116384,12 @@ func (x *ExtensionEntryContentForm) SetExtensionType(value string) {
 	x.Doc().SetFormField(x.Path(), "extensionType", value)
 }
 
-func (x *ExtensionEntryContentForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
-}
-
-func (x *ExtensionEntryContentForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
-}
-
 func (x *ExtensionEntryContentForm) Outcome() string {
 	return x.Doc().FormFieldOr(x.Path(), "outcome")
 }
 
 func (x *ExtensionEntryContentForm) SetOutcome(value string) {
 	x.Doc().SetFormField(x.Path(), "outcome", value)
-}
-
-func (x *ExtensionEntryContentForm) ReturnKind() FlowReturnPoint {
-	return parseFlowReturnPoint(x.Doc().FormFieldOr(x.Path(), "returnKind"))
-}
-
-func (x *ExtensionEntryContentForm) SetReturnKind(value FlowReturnPoint) {
-	x.Doc().SetFormField(x.Path(), "returnKind", string(value))
 }
 
 func (x *ExtensionEntryContentForm) Frequency() string {
@@ -116414,6 +116406,14 @@ func (x *ExtensionEntryContentForm) Severity() string {
 
 func (x *ExtensionEntryContentForm) SetSeverity(value string) {
 	x.Doc().SetFormField(x.Path(), "severity", value)
+}
+
+func (x *ExtensionEntryContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *ExtensionEntryContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 // ExtensionEntryResumePointForm is the generated section facade for the `resumePoint` @Form section: its own
@@ -116650,20 +116650,20 @@ func (x *ExternalActorEntryInteractionForm) SetInteractionChannel(value string) 
 	x.Doc().SetFormField(x.Path(), "interactionChannel", value)
 }
 
-func (x *ExternalActorEntryInteractionForm) DataExchanged() string {
-	return x.Doc().FormFieldOr(x.Path(), "dataExchanged")
-}
-
-func (x *ExternalActorEntryInteractionForm) SetDataExchanged(value string) {
-	x.Doc().SetFormField(x.Path(), "dataExchanged", value)
-}
-
 func (x *ExternalActorEntryInteractionForm) AccessLevel() string {
 	return x.Doc().FormFieldOr(x.Path(), "accessLevel")
 }
 
 func (x *ExternalActorEntryInteractionForm) SetAccessLevel(value string) {
 	x.Doc().SetFormField(x.Path(), "accessLevel", value)
+}
+
+func (x *ExternalActorEntryInteractionForm) DataExchanged() string {
+	return x.Doc().FormFieldOr(x.Path(), "dataExchanged")
+}
+
+func (x *ExternalActorEntryInteractionForm) SetDataExchanged(value string) {
+	x.Doc().SetFormField(x.Path(), "dataExchanged", value)
 }
 
 // ExternalInterfaceEntryIdentificationContentForm is the generated section facade for the `identificationContent` @Form section: its own
@@ -117819,14 +117819,6 @@ func (x *ExternalSystemContextEntryIntegrationForm) SetIntegrationDirection(valu
 	x.Doc().SetFormField(x.Path(), "integrationDirection", value)
 }
 
-func (x *ExternalSystemContextEntryIntegrationForm) IntegrationPurpose() string {
-	return x.Doc().FormFieldOr(x.Path(), "integrationPurpose")
-}
-
-func (x *ExternalSystemContextEntryIntegrationForm) SetIntegrationPurpose(value string) {
-	x.Doc().SetFormField(x.Path(), "integrationPurpose", value)
-}
-
 func (x *ExternalSystemContextEntryIntegrationForm) DataExchanged() string {
 	return x.Doc().FormFieldOr(x.Path(), "dataExchanged")
 }
@@ -117841,6 +117833,14 @@ func (x *ExternalSystemContextEntryIntegrationForm) IntegrationMethod() string {
 
 func (x *ExternalSystemContextEntryIntegrationForm) SetIntegrationMethod(value string) {
 	x.Doc().SetFormField(x.Path(), "integrationMethod", value)
+}
+
+func (x *ExternalSystemContextEntryIntegrationForm) IntegrationPurpose() string {
+	return x.Doc().FormFieldOr(x.Path(), "integrationPurpose")
+}
+
+func (x *ExternalSystemContextEntryIntegrationForm) SetIntegrationPurpose(value string) {
+	x.Doc().SetFormField(x.Path(), "integrationPurpose", value)
 }
 
 // ExternalSystemContextEntryOperationsForm is the generated section facade for the `operations` @Form section: its own
@@ -121839,14 +121839,6 @@ func (x *FrameworkRequirementEntryJustificationForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *FrameworkRequirementEntryJustificationForm) Justification() string {
-	return x.Doc().FormFieldOr(x.Path(), "justification")
-}
-
-func (x *FrameworkRequirementEntryJustificationForm) SetJustification(value string) {
-	x.Doc().SetFormField(x.Path(), "justification", value)
-}
-
 func (x *FrameworkRequirementEntryJustificationForm) AlternativesConsidered() string {
 	return x.Doc().FormFieldOr(x.Path(), "alternativesConsidered")
 }
@@ -121869,6 +121861,14 @@ func (x *FrameworkRequirementEntryJustificationForm) Notes() string {
 
 func (x *FrameworkRequirementEntryJustificationForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+func (x *FrameworkRequirementEntryJustificationForm) Justification() string {
+	return x.Doc().FormFieldOr(x.Path(), "justification")
+}
+
+func (x *FrameworkRequirementEntryJustificationForm) SetJustification(value string) {
+	x.Doc().SetFormField(x.Path(), "justification", value)
 }
 
 // FrameworkRequirementEntryScopeForm is the generated section facade for the `scope` @Form section: its own
@@ -121905,14 +121905,6 @@ func (x *FrameworkRequirementEntryScopeForm) SetUsageScope(value string) {
 	x.Doc().SetFormField(x.Path(), "usageScope", value)
 }
 
-func (x *FrameworkRequirementEntryScopeForm) IntegrationPoints() string {
-	return x.Doc().FormFieldOr(x.Path(), "integrationPoints")
-}
-
-func (x *FrameworkRequirementEntryScopeForm) SetIntegrationPoints(value string) {
-	x.Doc().SetFormField(x.Path(), "integrationPoints", value)
-}
-
 func (x *FrameworkRequirementEntryScopeForm) RequiredPlugins() string {
 	return x.Doc().FormFieldOr(x.Path(), "requiredPlugins")
 }
@@ -121935,6 +121927,14 @@ func (x *FrameworkRequirementEntryScopeForm) ExcludedFeatures() string {
 
 func (x *FrameworkRequirementEntryScopeForm) SetExcludedFeatures(value string) {
 	x.Doc().SetFormField(x.Path(), "excludedFeatures", value)
+}
+
+func (x *FrameworkRequirementEntryScopeForm) IntegrationPoints() string {
+	return x.Doc().FormFieldOr(x.Path(), "integrationPoints")
+}
+
+func (x *FrameworkRequirementEntryScopeForm) SetIntegrationPoints(value string) {
+	x.Doc().SetFormField(x.Path(), "integrationPoints", value)
 }
 
 // FrameworkRequirementEntrySupportForm is the generated section facade for the `support` @Form section: its own
@@ -122627,14 +122627,6 @@ func (x *FunctionalRequirementEntryDetailsForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *FunctionalRequirementEntryDetailsForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
-}
-
-func (x *FunctionalRequirementEntryDetailsForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
-}
-
 func (x *FunctionalRequirementEntryDetailsForm) RequirementType() string {
 	return x.Doc().FormFieldOr(x.Path(), "requirementType")
 }
@@ -122649,6 +122641,14 @@ func (x *FunctionalRequirementEntryDetailsForm) Category() string {
 
 func (x *FunctionalRequirementEntryDetailsForm) SetCategory(value string) {
 	x.Doc().SetFormField(x.Path(), "category", value)
+}
+
+func (x *FunctionalRequirementEntryDetailsForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *FunctionalRequirementEntryDetailsForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 // FunctionalRequirementEntryMetadataForm is the generated section facade for the `metadata` @Form section: its own
@@ -122785,20 +122785,20 @@ func (x *FunctionalRequirementEntrySourceForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *FunctionalRequirementEntrySourceForm) Source() string {
-	return x.Doc().FormFieldOr(x.Path(), "source")
-}
-
-func (x *FunctionalRequirementEntrySourceForm) SetSource(value string) {
-	x.Doc().SetFormField(x.Path(), "source", value)
-}
-
 func (x *FunctionalRequirementEntrySourceForm) RequestDate() string {
 	return x.Doc().FormFieldOr(x.Path(), "requestDate")
 }
 
 func (x *FunctionalRequirementEntrySourceForm) SetRequestDate(value string) {
 	x.Doc().SetFormField(x.Path(), "requestDate", value)
+}
+
+func (x *FunctionalRequirementEntrySourceForm) Source() string {
+	return x.Doc().FormFieldOr(x.Path(), "source")
+}
+
+func (x *FunctionalRequirementEntrySourceForm) SetSource(value string) {
+	x.Doc().SetFormField(x.Path(), "source", value)
 }
 
 func (x *FunctionalRequirementEntrySourceForm) Rationale() string {
@@ -123893,14 +123893,6 @@ func (x *GlossaryEntryContentForm) SetTerm(value string) {
 	x.Doc().SetFormField(x.Path(), "term", value)
 }
 
-func (x *GlossaryEntryContentForm) Definition() string {
-	return x.Doc().FormFieldOr(x.Path(), "definition")
-}
-
-func (x *GlossaryEntryContentForm) SetDefinition(value string) {
-	x.Doc().SetFormField(x.Path(), "definition", value)
-}
-
 func (x *GlossaryEntryContentForm) Acronym() string {
 	return x.Doc().FormFieldOr(x.Path(), "acronym")
 }
@@ -123915,6 +123907,14 @@ func (x *GlossaryEntryContentForm) SeeAlso() string {
 
 func (x *GlossaryEntryContentForm) SetSeeAlso(value string) {
 	x.Doc().SetFormField(x.Path(), "seeAlso", value)
+}
+
+func (x *GlossaryEntryContentForm) Definition() string {
+	return x.Doc().FormFieldOr(x.Path(), "definition")
+}
+
+func (x *GlossaryEntryContentForm) SetDefinition(value string) {
+	x.Doc().SetFormField(x.Path(), "definition", value)
 }
 
 // GoalDependencyEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -129864,14 +129864,6 @@ func (x *IntegrationArchitectureContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *IntegrationArchitectureContentForm) IntegrationStrategy() string {
-	return x.Doc().FormFieldOr(x.Path(), "integrationStrategy")
-}
-
-func (x *IntegrationArchitectureContentForm) SetIntegrationStrategy(value string) {
-	x.Doc().SetFormField(x.Path(), "integrationStrategy", value)
-}
-
 func (x *IntegrationArchitectureContentForm) IntegrationPatterns() string {
 	return x.Doc().FormFieldOr(x.Path(), "integrationPatterns")
 }
@@ -129886,6 +129878,14 @@ func (x *IntegrationArchitectureContentForm) ApiManagement() string {
 
 func (x *IntegrationArchitectureContentForm) SetApiManagement(value string) {
 	x.Doc().SetFormField(x.Path(), "apiManagement", value)
+}
+
+func (x *IntegrationArchitectureContentForm) IntegrationStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "integrationStrategy")
+}
+
+func (x *IntegrationArchitectureContentForm) SetIntegrationStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "integrationStrategy", value)
 }
 
 // IntegrationArchitectureDataForm is the generated section facade for the `data` @Form section: its own
@@ -130064,14 +130064,6 @@ func (x *IntegrationArchitectureSecurityForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *IntegrationArchitectureSecurityForm) AuthenticationApproach() string {
-	return x.Doc().FormFieldOr(x.Path(), "authenticationApproach")
-}
-
-func (x *IntegrationArchitectureSecurityForm) SetAuthenticationApproach(value string) {
-	x.Doc().SetFormField(x.Path(), "authenticationApproach", value)
-}
-
 func (x *IntegrationArchitectureSecurityForm) AuthorizationApproach() string {
 	return x.Doc().FormFieldOr(x.Path(), "authorizationApproach")
 }
@@ -130086,6 +130078,14 @@ func (x *IntegrationArchitectureSecurityForm) SecureTransport() string {
 
 func (x *IntegrationArchitectureSecurityForm) SetSecureTransport(value string) {
 	x.Doc().SetFormField(x.Path(), "secureTransport", value)
+}
+
+func (x *IntegrationArchitectureSecurityForm) AuthenticationApproach() string {
+	return x.Doc().FormFieldOr(x.Path(), "authenticationApproach")
+}
+
+func (x *IntegrationArchitectureSecurityForm) SetAuthenticationApproach(value string) {
+	x.Doc().SetFormField(x.Path(), "authenticationApproach", value)
 }
 
 // IntegrationArchitectureSystemsForm is the generated section facade for the `systems` @Form section: its own
@@ -130122,20 +130122,20 @@ func (x *IntegrationArchitectureSystemsForm) SetExternalSystemCount(value string
 	x.Doc().SetFormField(x.Path(), "externalSystemCount", value)
 }
 
-func (x *IntegrationArchitectureSystemsForm) IntegrationTypes() string {
-	return x.Doc().FormFieldOr(x.Path(), "integrationTypes")
-}
-
-func (x *IntegrationArchitectureSystemsForm) SetIntegrationTypes(value string) {
-	x.Doc().SetFormField(x.Path(), "integrationTypes", value)
-}
-
 func (x *IntegrationArchitectureSystemsForm) RealTimeIntegrations() string {
 	return x.Doc().FormFieldOr(x.Path(), "realTimeIntegrations")
 }
 
 func (x *IntegrationArchitectureSystemsForm) SetRealTimeIntegrations(value string) {
 	x.Doc().SetFormField(x.Path(), "realTimeIntegrations", value)
+}
+
+func (x *IntegrationArchitectureSystemsForm) IntegrationTypes() string {
+	return x.Doc().FormFieldOr(x.Path(), "integrationTypes")
+}
+
+func (x *IntegrationArchitectureSystemsForm) SetIntegrationTypes(value string) {
+	x.Doc().SetFormField(x.Path(), "integrationTypes", value)
 }
 
 // IntegrationConstraintEntryComplianceForm is the generated section facade for the `compliance` @Form section: its own
@@ -131951,14 +131951,6 @@ func (x *InteractionPatternEntryDefinitionForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *InteractionPatternEntryDefinitionForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
-}
-
-func (x *InteractionPatternEntryDefinitionForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
-}
-
 func (x *InteractionPatternEntryDefinitionForm) UseCases() string {
 	return x.Doc().FormFieldOr(x.Path(), "useCases")
 }
@@ -131973,6 +131965,14 @@ func (x *InteractionPatternEntryDefinitionForm) UserCategories() string {
 
 func (x *InteractionPatternEntryDefinitionForm) SetUserCategories(value string) {
 	x.Doc().SetFormField(x.Path(), "userCategories", value)
+}
+
+func (x *InteractionPatternEntryDefinitionForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *InteractionPatternEntryDefinitionForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 // InteractionPatternEntryTriggerForm is the generated section facade for the `trigger` @Form section: its own
@@ -133878,14 +133878,6 @@ func (x *InterfaceTechnicalSpecWebhookSpecForm) SetWebhookEndpoint(value string)
 	x.Doc().SetFormField(x.Path(), "webhookEndpoint", value)
 }
 
-func (x *InterfaceTechnicalSpecWebhookSpecForm) EventTypes() string {
-	return x.Doc().FormFieldOr(x.Path(), "eventTypes")
-}
-
-func (x *InterfaceTechnicalSpecWebhookSpecForm) SetEventTypes(value string) {
-	x.Doc().SetFormField(x.Path(), "eventTypes", value)
-}
-
 func (x *InterfaceTechnicalSpecWebhookSpecForm) SignatureVerification() string {
 	return x.Doc().FormFieldOr(x.Path(), "signatureVerification")
 }
@@ -133908,6 +133900,14 @@ func (x *InterfaceTechnicalSpecWebhookSpecForm) IdempotencyHandling() string {
 
 func (x *InterfaceTechnicalSpecWebhookSpecForm) SetIdempotencyHandling(value string) {
 	x.Doc().SetFormField(x.Path(), "idempotencyHandling", value)
+}
+
+func (x *InterfaceTechnicalSpecWebhookSpecForm) EventTypes() string {
+	return x.Doc().FormFieldOr(x.Path(), "eventTypes")
+}
+
+func (x *InterfaceTechnicalSpecWebhookSpecForm) SetEventTypes(value string) {
+	x.Doc().SetFormField(x.Path(), "eventTypes", value)
 }
 
 // InterfaceTestScenarioEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -134923,28 +134923,12 @@ func (x *ItLandscapePositionPositionDetailsForm) SetPortfolioRole(value string) 
 	x.Doc().SetFormField(x.Path(), "portfolioRole", value)
 }
 
-func (x *ItLandscapePositionPositionDetailsForm) ReplacedSystems() string {
-	return x.Doc().FormFieldOr(x.Path(), "replacedSystems")
-}
-
-func (x *ItLandscapePositionPositionDetailsForm) SetReplacedSystems(value string) {
-	x.Doc().SetFormField(x.Path(), "replacedSystems", value)
-}
-
 func (x *ItLandscapePositionPositionDetailsForm) ComplementarySystems() string {
 	return x.Doc().FormFieldOr(x.Path(), "complementarySystems")
 }
 
 func (x *ItLandscapePositionPositionDetailsForm) SetComplementarySystems(value string) {
 	x.Doc().SetFormField(x.Path(), "complementarySystems", value)
-}
-
-func (x *ItLandscapePositionPositionDetailsForm) DependsOnSystems() string {
-	return x.Doc().FormFieldOr(x.Path(), "dependsOnSystems")
-}
-
-func (x *ItLandscapePositionPositionDetailsForm) SetDependsOnSystems(value string) {
-	x.Doc().SetFormField(x.Path(), "dependsOnSystems", value)
 }
 
 func (x *ItLandscapePositionPositionDetailsForm) DependentSystems() string {
@@ -134955,20 +134939,36 @@ func (x *ItLandscapePositionPositionDetailsForm) SetDependentSystems(value strin
 	x.Doc().SetFormField(x.Path(), "dependentSystems", value)
 }
 
-func (x *ItLandscapePositionPositionDetailsForm) DataOwnership() string {
-	return x.Doc().FormFieldOr(x.Path(), "dataOwnership")
-}
-
-func (x *ItLandscapePositionPositionDetailsForm) SetDataOwnership(value string) {
-	x.Doc().SetFormField(x.Path(), "dataOwnership", value)
-}
-
 func (x *ItLandscapePositionPositionDetailsForm) IntegrationPattern() string {
 	return x.Doc().FormFieldOr(x.Path(), "integrationPattern")
 }
 
 func (x *ItLandscapePositionPositionDetailsForm) SetIntegrationPattern(value string) {
 	x.Doc().SetFormField(x.Path(), "integrationPattern", value)
+}
+
+func (x *ItLandscapePositionPositionDetailsForm) ReplacedSystems() string {
+	return x.Doc().FormFieldOr(x.Path(), "replacedSystems")
+}
+
+func (x *ItLandscapePositionPositionDetailsForm) SetReplacedSystems(value string) {
+	x.Doc().SetFormField(x.Path(), "replacedSystems", value)
+}
+
+func (x *ItLandscapePositionPositionDetailsForm) DependsOnSystems() string {
+	return x.Doc().FormFieldOr(x.Path(), "dependsOnSystems")
+}
+
+func (x *ItLandscapePositionPositionDetailsForm) SetDependsOnSystems(value string) {
+	x.Doc().SetFormField(x.Path(), "dependsOnSystems", value)
+}
+
+func (x *ItLandscapePositionPositionDetailsForm) DataOwnership() string {
+	return x.Doc().FormFieldOr(x.Path(), "dataOwnership")
+}
+
+func (x *ItLandscapePositionPositionDetailsForm) SetDataOwnership(value string) {
+	x.Doc().SetFormField(x.Path(), "dataOwnership", value)
 }
 
 // ItSecurityOperationsAccessForm is the generated section facade for the `access` @Form section: its own
@@ -134997,14 +134997,6 @@ func (x *ItSecurityOperationsAccessForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ItSecurityOperationsAccessForm) PrivilegedAccessManagement() string {
-	return x.Doc().FormFieldOr(x.Path(), "privilegedAccessManagement")
-}
-
-func (x *ItSecurityOperationsAccessForm) SetPrivilegedAccessManagement(value string) {
-	x.Doc().SetFormField(x.Path(), "privilegedAccessManagement", value)
-}
-
 func (x *ItSecurityOperationsAccessForm) AccessReviewFrequency() string {
 	return x.Doc().FormFieldOr(x.Path(), "accessReviewFrequency")
 }
@@ -135019,6 +135011,14 @@ func (x *ItSecurityOperationsAccessForm) AccessAuditLogging() string {
 
 func (x *ItSecurityOperationsAccessForm) SetAccessAuditLogging(value string) {
 	x.Doc().SetFormField(x.Path(), "accessAuditLogging", value)
+}
+
+func (x *ItSecurityOperationsAccessForm) PrivilegedAccessManagement() string {
+	return x.Doc().FormFieldOr(x.Path(), "privilegedAccessManagement")
+}
+
+func (x *ItSecurityOperationsAccessForm) SetPrivilegedAccessManagement(value string) {
+	x.Doc().SetFormField(x.Path(), "privilegedAccessManagement", value)
 }
 
 // ItSecurityOperationsContentForm is the generated section facade for the `content` @Form section: its own
@@ -137716,20 +137716,20 @@ func (x *LifecycleTransitionEntryTriggerForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *LifecycleTransitionEntryTriggerForm) Trigger() string {
-	return x.Doc().FormFieldOr(x.Path(), "trigger")
-}
-
-func (x *LifecycleTransitionEntryTriggerForm) SetTrigger(value string) {
-	x.Doc().SetFormField(x.Path(), "trigger", value)
-}
-
 func (x *LifecycleTransitionEntryTriggerForm) TriggerType() string {
 	return x.Doc().FormFieldOr(x.Path(), "triggerType")
 }
 
 func (x *LifecycleTransitionEntryTriggerForm) SetTriggerType(value string) {
 	x.Doc().SetFormField(x.Path(), "triggerType", value)
+}
+
+func (x *LifecycleTransitionEntryTriggerForm) Trigger() string {
+	return x.Doc().FormFieldOr(x.Path(), "trigger")
+}
+
+func (x *LifecycleTransitionEntryTriggerForm) SetTrigger(value string) {
+	x.Doc().SetFormField(x.Path(), "trigger", value)
 }
 
 // LimitationEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -139912,14 +139912,6 @@ func (x *MainScenarioStepEntryContentForm) SetDataInvolved(value string) {
 	x.Doc().SetFormField(x.Path(), "dataInvolved", value)
 }
 
-func (x *MainScenarioStepEntryContentForm) BusinessRuleApplied() string {
-	return x.Doc().FormFieldOr(x.Path(), "businessRuleApplied")
-}
-
-func (x *MainScenarioStepEntryContentForm) SetBusinessRuleApplied(value string) {
-	x.Doc().SetFormField(x.Path(), "businessRuleApplied", value)
-}
-
 func (x *MainScenarioStepEntryContentForm) UiElementUsed() string {
 	return x.Doc().FormFieldOr(x.Path(), "uiElementUsed")
 }
@@ -139942,6 +139934,14 @@ func (x *MainScenarioStepEntryContentForm) ExpectedDuration() string {
 
 func (x *MainScenarioStepEntryContentForm) SetExpectedDuration(value string) {
 	x.Doc().SetFormField(x.Path(), "expectedDuration", value)
+}
+
+func (x *MainScenarioStepEntryContentForm) BusinessRuleApplied() string {
+	return x.Doc().FormFieldOr(x.Path(), "businessRuleApplied")
+}
+
+func (x *MainScenarioStepEntryContentForm) SetBusinessRuleApplied(value string) {
+	x.Doc().SetFormField(x.Path(), "businessRuleApplied", value)
 }
 
 // MainSuccessScenarioContentForm is the generated section facade for the `content` @Form section: its own
@@ -143042,20 +143042,20 @@ func (x *MfaCategoryRequirementEntryAuthenticatorsForm) SetContent(value string)
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *MfaCategoryRequirementEntryAuthenticatorsForm) AllowedAuthenticatorTypes() string {
-	return x.Doc().FormFieldOr(x.Path(), "allowedAuthenticatorTypes")
-}
-
-func (x *MfaCategoryRequirementEntryAuthenticatorsForm) SetAllowedAuthenticatorTypes(value string) {
-	x.Doc().SetFormField(x.Path(), "allowedAuthenticatorTypes", value)
-}
-
 func (x *MfaCategoryRequirementEntryAuthenticatorsForm) PhishingResistanceRequired() string {
 	return x.Doc().FormFieldOr(x.Path(), "phishingResistanceRequired")
 }
 
 func (x *MfaCategoryRequirementEntryAuthenticatorsForm) SetPhishingResistanceRequired(value string) {
 	x.Doc().SetFormField(x.Path(), "phishingResistanceRequired", value)
+}
+
+func (x *MfaCategoryRequirementEntryAuthenticatorsForm) AllowedAuthenticatorTypes() string {
+	return x.Doc().FormFieldOr(x.Path(), "allowedAuthenticatorTypes")
+}
+
+func (x *MfaCategoryRequirementEntryAuthenticatorsForm) SetAllowedAuthenticatorTypes(value string) {
+	x.Doc().SetFormField(x.Path(), "allowedAuthenticatorTypes", value)
 }
 
 // MfaCategoryRequirementEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -146960,14 +146960,6 @@ func (x *ModuleEntryDescriptionForm) SetPurpose(value string) {
 	x.Doc().SetFormField(x.Path(), "purpose", value)
 }
 
-func (x *ModuleEntryDescriptionForm) Functionality() string {
-	return x.Doc().FormFieldOr(x.Path(), "functionality")
-}
-
-func (x *ModuleEntryDescriptionForm) SetFunctionality(value string) {
-	x.Doc().SetFormField(x.Path(), "functionality", value)
-}
-
 func (x *ModuleEntryDescriptionForm) PublicApi() string {
 	return x.Doc().FormFieldOr(x.Path(), "publicApi")
 }
@@ -146982,6 +146974,14 @@ func (x *ModuleEntryDescriptionForm) EntryPoints() string {
 
 func (x *ModuleEntryDescriptionForm) SetEntryPoints(value string) {
 	x.Doc().SetFormField(x.Path(), "entryPoints", value)
+}
+
+func (x *ModuleEntryDescriptionForm) Functionality() string {
+	return x.Doc().FormFieldOr(x.Path(), "functionality")
+}
+
+func (x *ModuleEntryDescriptionForm) SetFunctionality(value string) {
+	x.Doc().SetFormField(x.Path(), "functionality", value)
 }
 
 // ModuleEntryOwnershipForm is the generated section facade for the `ownership` @Form section: its own
@@ -148471,14 +148471,6 @@ func (x *MustPassCriterionEntryDefinitionForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *MustPassCriterionEntryDefinitionForm) CriterionDescription() string {
-	return x.Doc().FormFieldOr(x.Path(), "criterionDescription")
-}
-
-func (x *MustPassCriterionEntryDefinitionForm) SetCriterionDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "criterionDescription", value)
-}
-
 func (x *MustPassCriterionEntryDefinitionForm) QualityCategory() Iso25010Characteristic {
 	return parseIso25010Characteristic(x.Doc().FormFieldOr(x.Path(), "qualityCategory"))
 }
@@ -148493,6 +148485,14 @@ func (x *MustPassCriterionEntryDefinitionForm) QualityAttribute() string {
 
 func (x *MustPassCriterionEntryDefinitionForm) SetQualityAttribute(value string) {
 	x.Doc().SetFormField(x.Path(), "qualityAttribute", value)
+}
+
+func (x *MustPassCriterionEntryDefinitionForm) CriterionDescription() string {
+	return x.Doc().FormFieldOr(x.Path(), "criterionDescription")
+}
+
+func (x *MustPassCriterionEntryDefinitionForm) SetCriterionDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "criterionDescription", value)
 }
 
 // MustPassCriterionEntryGovernanceForm is the generated section facade for the `governance` @Form section: its own
@@ -154294,22 +154294,6 @@ func (x *OpportunityStatementOpportunityDetailsForm) SetFutureState(value string
 	x.Doc().SetFormField(x.Path(), "futureState", value)
 }
 
-func (x *OpportunityStatementOpportunityDetailsForm) NewCapabilities() string {
-	return x.Doc().FormFieldOr(x.Path(), "newCapabilities")
-}
-
-func (x *OpportunityStatementOpportunityDetailsForm) SetNewCapabilities(value string) {
-	x.Doc().SetFormField(x.Path(), "newCapabilities", value)
-}
-
-func (x *OpportunityStatementOpportunityDetailsForm) Improvements() string {
-	return x.Doc().FormFieldOr(x.Path(), "improvements")
-}
-
-func (x *OpportunityStatementOpportunityDetailsForm) SetImprovements(value string) {
-	x.Doc().SetFormField(x.Path(), "improvements", value)
-}
-
 func (x *OpportunityStatementOpportunityDetailsForm) CompetitiveAdvantage() string {
 	return x.Doc().FormFieldOr(x.Path(), "competitiveAdvantage")
 }
@@ -154348,6 +154332,22 @@ func (x *OpportunityStatementOpportunityDetailsForm) TimeToValue() string {
 
 func (x *OpportunityStatementOpportunityDetailsForm) SetTimeToValue(value string) {
 	x.Doc().SetFormField(x.Path(), "timeToValue", value)
+}
+
+func (x *OpportunityStatementOpportunityDetailsForm) NewCapabilities() string {
+	return x.Doc().FormFieldOr(x.Path(), "newCapabilities")
+}
+
+func (x *OpportunityStatementOpportunityDetailsForm) SetNewCapabilities(value string) {
+	x.Doc().SetFormField(x.Path(), "newCapabilities", value)
+}
+
+func (x *OpportunityStatementOpportunityDetailsForm) Improvements() string {
+	return x.Doc().FormFieldOr(x.Path(), "improvements")
+}
+
+func (x *OpportunityStatementOpportunityDetailsForm) SetImprovements(value string) {
+	x.Doc().SetFormField(x.Path(), "improvements", value)
 }
 
 // OrgChangeRisksContentForm is the generated section facade for the `content` @Form section: its own
@@ -155270,6 +155270,14 @@ func (x *OrganizationalRequirementEntryClassificationForm) SetContent(value stri
 	x.Doc().SetContent(x.Path(), value)
 }
 
+func (x *OrganizationalRequirementEntryClassificationForm) Priority() Priority {
+	return parsePriority(x.Doc().FormFieldOr(x.Path(), "priority"))
+}
+
+func (x *OrganizationalRequirementEntryClassificationForm) SetPriority(value Priority) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
+}
+
 func (x *OrganizationalRequirementEntryClassificationForm) Category() string {
 	return x.Doc().FormFieldOr(x.Path(), "category")
 }
@@ -155286,12 +155294,12 @@ func (x *OrganizationalRequirementEntryClassificationForm) SetSubcategory(value 
 	x.Doc().SetFormField(x.Path(), "subcategory", value)
 }
 
-func (x *OrganizationalRequirementEntryClassificationForm) Priority() Priority {
-	return parsePriority(x.Doc().FormFieldOr(x.Path(), "priority"))
+func (x *OrganizationalRequirementEntryClassificationForm) Rationale() string {
+	return x.Doc().FormFieldOr(x.Path(), "rationale")
 }
 
-func (x *OrganizationalRequirementEntryClassificationForm) SetPriority(value Priority) {
-	x.Doc().SetFormField(x.Path(), "priority", string(value))
+func (x *OrganizationalRequirementEntryClassificationForm) SetRationale(value string) {
+	x.Doc().SetFormField(x.Path(), "rationale", value)
 }
 
 func (x *OrganizationalRequirementEntryClassificationForm) Source() string {
@@ -155300,14 +155308,6 @@ func (x *OrganizationalRequirementEntryClassificationForm) Source() string {
 
 func (x *OrganizationalRequirementEntryClassificationForm) SetSource(value string) {
 	x.Doc().SetFormField(x.Path(), "source", value)
-}
-
-func (x *OrganizationalRequirementEntryClassificationForm) Rationale() string {
-	return x.Doc().FormFieldOr(x.Path(), "rationale")
-}
-
-func (x *OrganizationalRequirementEntryClassificationForm) SetRationale(value string) {
-	x.Doc().SetFormField(x.Path(), "rationale", value)
 }
 
 // OrganizationalRequirementEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -155980,6 +155980,14 @@ func (x *OtherAgreementEntryContentForm) SetExpirationDate(value string) {
 	x.Doc().SetFormField(x.Path(), "expirationDate", value)
 }
 
+func (x *OtherAgreementEntryContentForm) Location() string {
+	return x.Doc().FormFieldOr(x.Path(), "location")
+}
+
+func (x *OtherAgreementEntryContentForm) SetLocation(value string) {
+	x.Doc().SetFormField(x.Path(), "location", value)
+}
+
 func (x *OtherAgreementEntryContentForm) KeyTerms() string {
 	return x.Doc().FormFieldOr(x.Path(), "keyTerms")
 }
@@ -155994,14 +156002,6 @@ func (x *OtherAgreementEntryContentForm) Obligations() string {
 
 func (x *OtherAgreementEntryContentForm) SetObligations(value string) {
 	x.Doc().SetFormField(x.Path(), "obligations", value)
-}
-
-func (x *OtherAgreementEntryContentForm) Location() string {
-	return x.Doc().FormFieldOr(x.Path(), "location")
-}
-
-func (x *OtherAgreementEntryContentForm) SetLocation(value string) {
-	x.Doc().SetFormField(x.Path(), "location", value)
 }
 
 // OutOfScopeEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -156362,20 +156362,20 @@ func (x *PackageOrganizationStructureForm) SetMonorepoVsPolyrepo(value string) {
 	x.Doc().SetFormField(x.Path(), "monorepoVsPolyrepo", value)
 }
 
-func (x *PackageOrganizationStructureForm) DirectoryLayout() string {
-	return x.Doc().FormFieldOr(x.Path(), "directoryLayout")
-}
-
-func (x *PackageOrganizationStructureForm) SetDirectoryLayout(value string) {
-	x.Doc().SetFormField(x.Path(), "directoryLayout", value)
-}
-
 func (x *PackageOrganizationStructureForm) FeatureGrouping() string {
 	return x.Doc().FormFieldOr(x.Path(), "featureGrouping")
 }
 
 func (x *PackageOrganizationStructureForm) SetFeatureGrouping(value string) {
 	x.Doc().SetFormField(x.Path(), "featureGrouping", value)
+}
+
+func (x *PackageOrganizationStructureForm) DirectoryLayout() string {
+	return x.Doc().FormFieldOr(x.Path(), "directoryLayout")
+}
+
+func (x *PackageOrganizationStructureForm) SetDirectoryLayout(value string) {
+	x.Doc().SetFormField(x.Path(), "directoryLayout", value)
 }
 
 // PackageOrganizationTypesForm is the generated section facade for the `types` @Form section: its own
@@ -156404,22 +156404,6 @@ func (x *PackageOrganizationTypesForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *PackageOrganizationTypesForm) CorePackages() string {
-	return x.Doc().FormFieldOr(x.Path(), "corePackages")
-}
-
-func (x *PackageOrganizationTypesForm) SetCorePackages(value string) {
-	x.Doc().SetFormField(x.Path(), "corePackages", value)
-}
-
-func (x *PackageOrganizationTypesForm) FeaturePackages() string {
-	return x.Doc().FormFieldOr(x.Path(), "featurePackages")
-}
-
-func (x *PackageOrganizationTypesForm) SetFeaturePackages(value string) {
-	x.Doc().SetFormField(x.Path(), "featurePackages", value)
-}
-
 func (x *PackageOrganizationTypesForm) SharedPackages() string {
 	return x.Doc().FormFieldOr(x.Path(), "sharedPackages")
 }
@@ -156434,6 +156418,22 @@ func (x *PackageOrganizationTypesForm) PlatformPackages() string {
 
 func (x *PackageOrganizationTypesForm) SetPlatformPackages(value string) {
 	x.Doc().SetFormField(x.Path(), "platformPackages", value)
+}
+
+func (x *PackageOrganizationTypesForm) CorePackages() string {
+	return x.Doc().FormFieldOr(x.Path(), "corePackages")
+}
+
+func (x *PackageOrganizationTypesForm) SetCorePackages(value string) {
+	x.Doc().SetFormField(x.Path(), "corePackages", value)
+}
+
+func (x *PackageOrganizationTypesForm) FeaturePackages() string {
+	return x.Doc().FormFieldOr(x.Path(), "featurePackages")
+}
+
+func (x *PackageOrganizationTypesForm) SetFeaturePackages(value string) {
+	x.Doc().SetFormField(x.Path(), "featurePackages", value)
 }
 
 // PainPointEntryClassificationForm is the generated section facade for the `classification` @Form section: its own
@@ -158212,14 +158212,6 @@ func (x *PeriodicReviewPolicyContentForm) SetPrivilegedAccountReview(value strin
 	x.Doc().SetFormField(x.Path(), "privilegedAccountReview", value)
 }
 
-func (x *PeriodicReviewPolicyContentForm) Reviewers() string {
-	return x.Doc().FormFieldOr(x.Path(), "reviewers")
-}
-
-func (x *PeriodicReviewPolicyContentForm) SetReviewers(value string) {
-	x.Doc().SetFormField(x.Path(), "reviewers", value)
-}
-
 func (x *PeriodicReviewPolicyContentForm) DormantAccountReview() string {
 	return x.Doc().FormFieldOr(x.Path(), "dormantAccountReview")
 }
@@ -158242,6 +158234,14 @@ func (x *PeriodicReviewPolicyContentForm) ReviewDocumentation() string {
 
 func (x *PeriodicReviewPolicyContentForm) SetReviewDocumentation(value string) {
 	x.Doc().SetFormField(x.Path(), "reviewDocumentation", value)
+}
+
+func (x *PeriodicReviewPolicyContentForm) Reviewers() string {
+	return x.Doc().FormFieldOr(x.Path(), "reviewers")
+}
+
+func (x *PeriodicReviewPolicyContentForm) SetReviewers(value string) {
+	x.Doc().SetFormField(x.Path(), "reviewers", value)
 }
 
 // PeripheralEquipmentEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -160774,14 +160774,6 @@ func (x *PortabilityContentForm) SetMigrationEffortConstraint(value string) {
 	x.Doc().SetFormField(x.Path(), "migrationEffortConstraint", value)
 }
 
-func (x *PortabilityContentForm) DataPortability() string {
-	return x.Doc().FormFieldOr(x.Path(), "dataPortability")
-}
-
-func (x *PortabilityContentForm) SetDataPortability(value string) {
-	x.Doc().SetFormField(x.Path(), "dataPortability", value)
-}
-
 func (x *PortabilityContentForm) VendorLockInAvoidance() string {
 	return x.Doc().FormFieldOr(x.Path(), "vendorLockInAvoidance")
 }
@@ -160812,6 +160804,14 @@ func (x *PortabilityContentForm) PortabilityVerification() string {
 
 func (x *PortabilityContentForm) SetPortabilityVerification(value string) {
 	x.Doc().SetFormField(x.Path(), "portabilityVerification", value)
+}
+
+func (x *PortabilityContentForm) DataPortability() string {
+	return x.Doc().FormFieldOr(x.Path(), "dataPortability")
+}
+
+func (x *PortabilityContentForm) SetDataPortability(value string) {
+	x.Doc().SetFormField(x.Path(), "dataPortability", value)
 }
 
 // PostMaintenanceValidationClosureForm is the generated section facade for the `closure` @Form section: its own
@@ -161113,14 +161113,6 @@ func (x *PostconditionsAndGuaranteesContentForm) SetMinimalGuarantees(value stri
 	x.Doc().SetFormField(x.Path(), "minimalGuarantees", value)
 }
 
-func (x *PostconditionsAndGuaranteesContentForm) SuccessGuarantees() string {
-	return x.Doc().FormFieldOr(x.Path(), "successGuarantees")
-}
-
-func (x *PostconditionsAndGuaranteesContentForm) SetSuccessGuarantees(value string) {
-	x.Doc().SetFormField(x.Path(), "successGuarantees", value)
-}
-
 func (x *PostconditionsAndGuaranteesContentForm) PrimaryActorPostcondition() string {
 	return x.Doc().FormFieldOr(x.Path(), "primaryActorPostcondition")
 }
@@ -161145,20 +161137,28 @@ func (x *PostconditionsAndGuaranteesContentForm) SetDataPostcondition(value stri
 	x.Doc().SetFormField(x.Path(), "dataPostcondition", value)
 }
 
-func (x *PostconditionsAndGuaranteesContentForm) NotificationsGenerated() string {
-	return x.Doc().FormFieldOr(x.Path(), "notificationsGenerated")
-}
-
-func (x *PostconditionsAndGuaranteesContentForm) SetNotificationsGenerated(value string) {
-	x.Doc().SetFormField(x.Path(), "notificationsGenerated", value)
-}
-
 func (x *PostconditionsAndGuaranteesContentForm) AuditTrail() string {
 	return x.Doc().FormFieldOr(x.Path(), "auditTrail")
 }
 
 func (x *PostconditionsAndGuaranteesContentForm) SetAuditTrail(value string) {
 	x.Doc().SetFormField(x.Path(), "auditTrail", value)
+}
+
+func (x *PostconditionsAndGuaranteesContentForm) SuccessGuarantees() string {
+	return x.Doc().FormFieldOr(x.Path(), "successGuarantees")
+}
+
+func (x *PostconditionsAndGuaranteesContentForm) SetSuccessGuarantees(value string) {
+	x.Doc().SetFormField(x.Path(), "successGuarantees", value)
+}
+
+func (x *PostconditionsAndGuaranteesContentForm) NotificationsGenerated() string {
+	return x.Doc().FormFieldOr(x.Path(), "notificationsGenerated")
+}
+
+func (x *PostconditionsAndGuaranteesContentForm) SetNotificationsGenerated(value string) {
+	x.Doc().SetFormField(x.Path(), "notificationsGenerated", value)
 }
 
 // PreconditionsAndTriggersContentForm is the generated section facade for the `content` @Form section: its own
@@ -161185,14 +161185,6 @@ func (x *PreconditionsAndTriggersContentForm) Content() string {
 
 func (x *PreconditionsAndTriggersContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *PreconditionsAndTriggersContentForm) Precondition() string {
-	return x.Doc().FormFieldOr(x.Path(), "precondition")
-}
-
-func (x *PreconditionsAndTriggersContentForm) SetPrecondition(value string) {
-	x.Doc().SetFormField(x.Path(), "precondition", value)
 }
 
 func (x *PreconditionsAndTriggersContentForm) Trigger() string {
@@ -161241,6 +161233,14 @@ func (x *PreconditionsAndTriggersContentForm) ValidationBeforeStart() string {
 
 func (x *PreconditionsAndTriggersContentForm) SetValidationBeforeStart(value string) {
 	x.Doc().SetFormField(x.Path(), "validationBeforeStart", value)
+}
+
+func (x *PreconditionsAndTriggersContentForm) Precondition() string {
+	return x.Doc().FormFieldOr(x.Path(), "precondition")
+}
+
+func (x *PreconditionsAndTriggersContentForm) SetPrecondition(value string) {
+	x.Doc().SetFormField(x.Path(), "precondition", value)
 }
 
 // PrimaryNavigationBottomNavForm is the generated section facade for the `bottomNav` @Form section: its own
@@ -162477,6 +162477,14 @@ func (x *ProblemStatementProblemDetailsForm) SetProblemSummary(value string) {
 	x.Doc().SetFormField(x.Path(), "problemSummary", value)
 }
 
+func (x *ProblemStatementProblemDetailsForm) ImpactSeverity() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "impactSeverity"))
+}
+
+func (x *ProblemStatementProblemDetailsForm) SetImpactSeverity(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "impactSeverity", string(value))
+}
+
 func (x *ProblemStatementProblemDetailsForm) CurrentState() string {
 	return x.Doc().FormFieldOr(x.Path(), "currentState")
 }
@@ -162501,12 +162509,20 @@ func (x *ProblemStatementProblemDetailsForm) SetImpactDescription(value string) 
 	x.Doc().SetFormField(x.Path(), "impactDescription", value)
 }
 
-func (x *ProblemStatementProblemDetailsForm) ImpactSeverity() ImportanceBand {
-	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "impactSeverity"))
+func (x *ProblemStatementProblemDetailsForm) Urgency() string {
+	return x.Doc().FormFieldOr(x.Path(), "urgency")
 }
 
-func (x *ProblemStatementProblemDetailsForm) SetImpactSeverity(value ImportanceBand) {
-	x.Doc().SetFormField(x.Path(), "impactSeverity", string(value))
+func (x *ProblemStatementProblemDetailsForm) SetUrgency(value string) {
+	x.Doc().SetFormField(x.Path(), "urgency", value)
+}
+
+func (x *ProblemStatementProblemDetailsForm) UrgencyJustification() string {
+	return x.Doc().FormFieldOr(x.Path(), "urgencyJustification")
+}
+
+func (x *ProblemStatementProblemDetailsForm) SetUrgencyJustification(value string) {
+	x.Doc().SetFormField(x.Path(), "urgencyJustification", value)
 }
 
 func (x *ProblemStatementProblemDetailsForm) ImpactMetrics() string {
@@ -162523,22 +162539,6 @@ func (x *ProblemStatementProblemDetailsForm) RootCauses() string {
 
 func (x *ProblemStatementProblemDetailsForm) SetRootCauses(value string) {
 	x.Doc().SetFormField(x.Path(), "rootCauses", value)
-}
-
-func (x *ProblemStatementProblemDetailsForm) Urgency() string {
-	return x.Doc().FormFieldOr(x.Path(), "urgency")
-}
-
-func (x *ProblemStatementProblemDetailsForm) SetUrgency(value string) {
-	x.Doc().SetFormField(x.Path(), "urgency", value)
-}
-
-func (x *ProblemStatementProblemDetailsForm) UrgencyJustification() string {
-	return x.Doc().FormFieldOr(x.Path(), "urgencyJustification")
-}
-
-func (x *ProblemStatementProblemDetailsForm) SetUrgencyJustification(value string) {
-	x.Doc().SetFormField(x.Path(), "urgencyJustification", value)
 }
 
 func (x *ProblemStatementProblemDetailsForm) ConsequencesOfInaction() string {
@@ -163269,14 +163269,6 @@ func (x *ProcessCatalogOverviewForm) SetTotalProcessCount(value *int) {
 	x.Doc().SetFormField(x.Path(), "totalProcessCount", strconv.Itoa(*value))
 }
 
-func (x *ProcessCatalogOverviewForm) ScopeStatement() string {
-	return x.Doc().FormFieldOr(x.Path(), "scopeStatement")
-}
-
-func (x *ProcessCatalogOverviewForm) SetScopeStatement(value string) {
-	x.Doc().SetFormField(x.Path(), "scopeStatement", value)
-}
-
 func (x *ProcessCatalogOverviewForm) ClassificationFramework() string {
 	return x.Doc().FormFieldOr(x.Path(), "classificationFramework")
 }
@@ -163323,6 +163315,14 @@ func (x *ProcessCatalogOverviewForm) VersioningApproach() string {
 
 func (x *ProcessCatalogOverviewForm) SetVersioningApproach(value string) {
 	x.Doc().SetFormField(x.Path(), "versioningApproach", value)
+}
+
+func (x *ProcessCatalogOverviewForm) ScopeStatement() string {
+	return x.Doc().FormFieldOr(x.Path(), "scopeStatement")
+}
+
+func (x *ProcessCatalogOverviewForm) SetScopeStatement(value string) {
+	x.Doc().SetFormField(x.Path(), "scopeStatement", value)
 }
 
 // ProcessCharacteristicsBusinessForm is the generated section facade for the `business` @Form section: its own
@@ -163863,20 +163863,20 @@ func (x *ProcessDesignPrincipleEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
+func (x *ProcessDesignPrincipleEntryContentForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
+}
+
+func (x *ProcessDesignPrincipleEntryContentForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
+}
+
 func (x *ProcessDesignPrincipleEntryContentForm) Category() string {
 	return x.Doc().FormFieldOr(x.Path(), "category")
 }
 
 func (x *ProcessDesignPrincipleEntryContentForm) SetCategory(value string) {
 	x.Doc().SetFormField(x.Path(), "category", value)
-}
-
-func (x *ProcessDesignPrincipleEntryContentForm) Statement() string {
-	return x.Doc().FormFieldOr(x.Path(), "statement")
-}
-
-func (x *ProcessDesignPrincipleEntryContentForm) SetStatement(value string) {
-	x.Doc().SetFormField(x.Path(), "statement", value)
 }
 
 func (x *ProcessDesignPrincipleEntryContentForm) Rationale() string {
@@ -163911,20 +163911,20 @@ func (x *ProcessDesignPrincipleEntryContentForm) SetTradeoffs(value string) {
 	x.Doc().SetFormField(x.Path(), "tradeoffs", value)
 }
 
-func (x *ProcessDesignPrincipleEntryContentForm) Priority() ImportanceBand {
-	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
-}
-
-func (x *ProcessDesignPrincipleEntryContentForm) SetPriority(value ImportanceBand) {
-	x.Doc().SetFormField(x.Path(), "priority", string(value))
-}
-
 func (x *ProcessDesignPrincipleEntryContentForm) Applicability() string {
 	return x.Doc().FormFieldOr(x.Path(), "applicability")
 }
 
 func (x *ProcessDesignPrincipleEntryContentForm) SetApplicability(value string) {
 	x.Doc().SetFormField(x.Path(), "applicability", value)
+}
+
+func (x *ProcessDesignPrincipleEntryContentForm) Statement() string {
+	return x.Doc().FormFieldOr(x.Path(), "statement")
+}
+
+func (x *ProcessDesignPrincipleEntryContentForm) SetStatement(value string) {
+	x.Doc().SetFormField(x.Path(), "statement", value)
 }
 
 // ProcessDesignPrinciplesOverviewForm is the generated section facade for the `overview` @Form section: its own
@@ -164417,14 +164417,6 @@ func (x *ProcessIdentificationDefinitionForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ProcessIdentificationDefinitionForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
-}
-
-func (x *ProcessIdentificationDefinitionForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
-}
-
 func (x *ProcessIdentificationDefinitionForm) Purpose() string {
 	return x.Doc().FormFieldOr(x.Path(), "purpose")
 }
@@ -164439,6 +164431,14 @@ func (x *ProcessIdentificationDefinitionForm) Scope() string {
 
 func (x *ProcessIdentificationDefinitionForm) SetScope(value string) {
 	x.Doc().SetFormField(x.Path(), "scope", value)
+}
+
+func (x *ProcessIdentificationDefinitionForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *ProcessIdentificationDefinitionForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 // ProcessIdentificationGovernanceForm is the generated section facade for the `governance` @Form section: its own
@@ -165729,14 +165729,6 @@ func (x *ProcessRelationshipEntryContentForm) SetRelationshipType(value string) 
 	x.Doc().SetFormField(x.Path(), "relationshipType", value)
 }
 
-func (x *ProcessRelationshipEntryContentForm) DataExchanged() string {
-	return x.Doc().FormFieldOr(x.Path(), "dataExchanged")
-}
-
-func (x *ProcessRelationshipEntryContentForm) SetDataExchanged(value string) {
-	x.Doc().SetFormField(x.Path(), "dataExchanged", value)
-}
-
 func (x *ProcessRelationshipEntryContentForm) TimingDependency() string {
 	return x.Doc().FormFieldOr(x.Path(), "timingDependency")
 }
@@ -165759,6 +165751,14 @@ func (x *ProcessRelationshipEntryContentForm) Criticality() string {
 
 func (x *ProcessRelationshipEntryContentForm) SetCriticality(value string) {
 	x.Doc().SetFormField(x.Path(), "criticality", value)
+}
+
+func (x *ProcessRelationshipEntryContentForm) DataExchanged() string {
+	return x.Doc().FormFieldOr(x.Path(), "dataExchanged")
+}
+
+func (x *ProcessRelationshipEntryContentForm) SetDataExchanged(value string) {
+	x.Doc().SetFormField(x.Path(), "dataExchanged", value)
 }
 
 // ProcessRoleEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -166253,14 +166253,6 @@ func (x *ProcessStepsOverviewContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ProcessStepsOverviewContentForm) UseCaseScope() string {
-	return x.Doc().FormFieldOr(x.Path(), "useCaseScope")
-}
-
-func (x *ProcessStepsOverviewContentForm) SetUseCaseScope(value string) {
-	x.Doc().SetFormField(x.Path(), "useCaseScope", value)
-}
-
 func (x *ProcessStepsOverviewContentForm) PrimaryActorFocus() string {
 	return x.Doc().FormFieldOr(x.Path(), "primaryActorFocus")
 }
@@ -166293,6 +166285,22 @@ func (x *ProcessStepsOverviewContentForm) SetUseCaseNamingConvention(value strin
 	x.Doc().SetFormField(x.Path(), "useCaseNamingConvention", value)
 }
 
+func (x *ProcessStepsOverviewContentForm) NotationStandard() string {
+	return x.Doc().FormFieldOr(x.Path(), "notationStandard")
+}
+
+func (x *ProcessStepsOverviewContentForm) SetNotationStandard(value string) {
+	x.Doc().SetFormField(x.Path(), "notationStandard", value)
+}
+
+func (x *ProcessStepsOverviewContentForm) UseCaseScope() string {
+	return x.Doc().FormFieldOr(x.Path(), "useCaseScope")
+}
+
+func (x *ProcessStepsOverviewContentForm) SetUseCaseScope(value string) {
+	x.Doc().SetFormField(x.Path(), "useCaseScope", value)
+}
+
 func (x *ProcessStepsOverviewContentForm) TraceabilityApproach() string {
 	return x.Doc().FormFieldOr(x.Path(), "traceabilityApproach")
 }
@@ -166307,14 +166315,6 @@ func (x *ProcessStepsOverviewContentForm) DetailLevel() string {
 
 func (x *ProcessStepsOverviewContentForm) SetDetailLevel(value string) {
 	x.Doc().SetFormField(x.Path(), "detailLevel", value)
-}
-
-func (x *ProcessStepsOverviewContentForm) NotationStandard() string {
-	return x.Doc().FormFieldOr(x.Path(), "notationStandard")
-}
-
-func (x *ProcessStepsOverviewContentForm) SetNotationStandard(value string) {
-	x.Doc().SetFormField(x.Path(), "notationStandard", value)
 }
 
 // ProcessTechnologyContentForm is the generated section facade for the `content` @Form section: its own
@@ -166795,20 +166795,20 @@ func (x *ProcessVisionSuccessCriteriaForm) SetUserSatisfaction(value string) {
 	x.Doc().SetFormField(x.Path(), "userSatisfaction", value)
 }
 
-func (x *ProcessVisionSuccessCriteriaForm) BusinessOutcomes() string {
-	return x.Doc().FormFieldOr(x.Path(), "businessOutcomes")
-}
-
-func (x *ProcessVisionSuccessCriteriaForm) SetBusinessOutcomes(value string) {
-	x.Doc().SetFormField(x.Path(), "businessOutcomes", value)
-}
-
 func (x *ProcessVisionSuccessCriteriaForm) MeasurementApproach() string {
 	return x.Doc().FormFieldOr(x.Path(), "measurementApproach")
 }
 
 func (x *ProcessVisionSuccessCriteriaForm) SetMeasurementApproach(value string) {
 	x.Doc().SetFormField(x.Path(), "measurementApproach", value)
+}
+
+func (x *ProcessVisionSuccessCriteriaForm) BusinessOutcomes() string {
+	return x.Doc().FormFieldOr(x.Path(), "businessOutcomes")
+}
+
+func (x *ProcessVisionSuccessCriteriaForm) SetBusinessOutcomes(value string) {
+	x.Doc().SetFormField(x.Path(), "businessOutcomes", value)
 }
 
 // ProgrammingLanguageEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -169287,20 +169287,20 @@ func (x *QualityGateAdjustmentDetailsContentForm) SetOriginalCriteria(value stri
 	x.Doc().SetFormField(x.Path(), "originalCriteria", value)
 }
 
-func (x *QualityGateAdjustmentDetailsContentForm) AdjustedCriteria() string {
-	return x.Doc().FormFieldOr(x.Path(), "adjustedCriteria")
-}
-
-func (x *QualityGateAdjustmentDetailsContentForm) SetAdjustedCriteria(value string) {
-	x.Doc().SetFormField(x.Path(), "adjustedCriteria", value)
-}
-
 func (x *QualityGateAdjustmentDetailsContentForm) CriteriaThresholdChange() string {
 	return x.Doc().FormFieldOr(x.Path(), "criteriaThresholdChange")
 }
 
 func (x *QualityGateAdjustmentDetailsContentForm) SetCriteriaThresholdChange(value string) {
 	x.Doc().SetFormField(x.Path(), "criteriaThresholdChange", value)
+}
+
+func (x *QualityGateAdjustmentDetailsContentForm) AdjustedCriteria() string {
+	return x.Doc().FormFieldOr(x.Path(), "adjustedCriteria")
+}
+
+func (x *QualityGateAdjustmentDetailsContentForm) SetAdjustedCriteria(value string) {
+	x.Doc().SetFormField(x.Path(), "adjustedCriteria", value)
 }
 
 // QualityGateAdjustmentEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -169816,12 +169816,12 @@ func (x *QualityGateCheckEntryDefinitionForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *QualityGateCheckEntryDefinitionForm) CheckDescription() string {
-	return x.Doc().FormFieldOr(x.Path(), "checkDescription")
+func (x *QualityGateCheckEntryDefinitionForm) QualityCategory() Iso25010Characteristic {
+	return parseIso25010Characteristic(x.Doc().FormFieldOr(x.Path(), "qualityCategory"))
 }
 
-func (x *QualityGateCheckEntryDefinitionForm) SetCheckDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "checkDescription", value)
+func (x *QualityGateCheckEntryDefinitionForm) SetQualityCategory(value Iso25010Characteristic) {
+	x.Doc().SetFormField(x.Path(), "qualityCategory", string(value))
 }
 
 func (x *QualityGateCheckEntryDefinitionForm) CheckCategory() string {
@@ -169832,12 +169832,12 @@ func (x *QualityGateCheckEntryDefinitionForm) SetCheckCategory(value string) {
 	x.Doc().SetFormField(x.Path(), "checkCategory", value)
 }
 
-func (x *QualityGateCheckEntryDefinitionForm) QualityCategory() Iso25010Characteristic {
-	return parseIso25010Characteristic(x.Doc().FormFieldOr(x.Path(), "qualityCategory"))
+func (x *QualityGateCheckEntryDefinitionForm) CheckDescription() string {
+	return x.Doc().FormFieldOr(x.Path(), "checkDescription")
 }
 
-func (x *QualityGateCheckEntryDefinitionForm) SetQualityCategory(value Iso25010Characteristic) {
-	x.Doc().SetFormField(x.Path(), "qualityCategory", string(value))
+func (x *QualityGateCheckEntryDefinitionForm) SetCheckDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "checkDescription", value)
 }
 
 // QualityGateCheckEntryExecutionForm is the generated section facade for the `execution` @Form section: its own
@@ -172351,14 +172351,6 @@ func (x *RegulatoryComplianceEntryRequirementsForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *RegulatoryComplianceEntryRequirementsForm) KeyRequirements() string {
-	return x.Doc().FormFieldOr(x.Path(), "keyRequirements")
-}
-
-func (x *RegulatoryComplianceEntryRequirementsForm) SetKeyRequirements(value string) {
-	x.Doc().SetFormField(x.Path(), "keyRequirements", value)
-}
-
 func (x *RegulatoryComplianceEntryRequirementsForm) TechnicalControls() string {
 	return x.Doc().FormFieldOr(x.Path(), "technicalControls")
 }
@@ -172381,6 +172373,14 @@ func (x *RegulatoryComplianceEntryRequirementsForm) DocumentationRequired() stri
 
 func (x *RegulatoryComplianceEntryRequirementsForm) SetDocumentationRequired(value string) {
 	x.Doc().SetFormField(x.Path(), "documentationRequired", value)
+}
+
+func (x *RegulatoryComplianceEntryRequirementsForm) KeyRequirements() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyRequirements")
+}
+
+func (x *RegulatoryComplianceEntryRequirementsForm) SetKeyRequirements(value string) {
+	x.Doc().SetFormField(x.Path(), "keyRequirements", value)
 }
 
 // RegulatoryRequirementEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -172433,28 +172433,12 @@ func (x *RegulatoryRequirementEntryContentForm) SetJurisdiction(value string) {
 	x.Doc().SetFormField(x.Path(), "jurisdiction", value)
 }
 
-func (x *RegulatoryRequirementEntryContentForm) Applicability() string {
-	return x.Doc().FormFieldOr(x.Path(), "applicability")
-}
-
-func (x *RegulatoryRequirementEntryContentForm) SetApplicability(value string) {
-	x.Doc().SetFormField(x.Path(), "applicability", value)
-}
-
 func (x *RegulatoryRequirementEntryContentForm) ComplianceDeadline() string {
 	return x.Doc().FormFieldOr(x.Path(), "complianceDeadline")
 }
 
 func (x *RegulatoryRequirementEntryContentForm) SetComplianceDeadline(value string) {
 	x.Doc().SetFormField(x.Path(), "complianceDeadline", value)
-}
-
-func (x *RegulatoryRequirementEntryContentForm) EvidenceRequired() string {
-	return x.Doc().FormFieldOr(x.Path(), "evidenceRequired")
-}
-
-func (x *RegulatoryRequirementEntryContentForm) SetEvidenceRequired(value string) {
-	x.Doc().SetFormField(x.Path(), "evidenceRequired", value)
 }
 
 func (x *RegulatoryRequirementEntryContentForm) ResponsibleParty() string {
@@ -172471,6 +172455,22 @@ func (x *RegulatoryRequirementEntryContentForm) PenaltyForNonCompliance() string
 
 func (x *RegulatoryRequirementEntryContentForm) SetPenaltyForNonCompliance(value string) {
 	x.Doc().SetFormField(x.Path(), "penaltyForNonCompliance", value)
+}
+
+func (x *RegulatoryRequirementEntryContentForm) Applicability() string {
+	return x.Doc().FormFieldOr(x.Path(), "applicability")
+}
+
+func (x *RegulatoryRequirementEntryContentForm) SetApplicability(value string) {
+	x.Doc().SetFormField(x.Path(), "applicability", value)
+}
+
+func (x *RegulatoryRequirementEntryContentForm) EvidenceRequired() string {
+	return x.Doc().FormFieldOr(x.Path(), "evidenceRequired")
+}
+
+func (x *RegulatoryRequirementEntryContentForm) SetEvidenceRequired(value string) {
+	x.Doc().SetFormField(x.Path(), "evidenceRequired", value)
 }
 
 // RelatedDocumentEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -172952,14 +172952,6 @@ func (x *RelevantSectionEntryContentForm) SetRelevance(value string) {
 	x.Doc().SetFormField(x.Path(), "relevance", value)
 }
 
-func (x *RelevantSectionEntryContentForm) ExtractSummary() string {
-	return x.Doc().FormFieldOr(x.Path(), "extractSummary")
-}
-
-func (x *RelevantSectionEntryContentForm) SetExtractSummary(value string) {
-	x.Doc().SetFormField(x.Path(), "extractSummary", value)
-}
-
 func (x *RelevantSectionEntryContentForm) ComplianceRequired() *bool {
 	v := x.Doc().FormFieldOr(x.Path(), "complianceRequired")
 	if v == "" {
@@ -172979,6 +172971,14 @@ func (x *RelevantSectionEntryContentForm) SetComplianceRequired(value *bool) {
 	} else {
 		x.Doc().SetFormField(x.Path(), "complianceRequired", "false")
 	}
+}
+
+func (x *RelevantSectionEntryContentForm) ExtractSummary() string {
+	return x.Doc().FormFieldOr(x.Path(), "extractSummary")
+}
+
+func (x *RelevantSectionEntryContentForm) SetExtractSummary(value string) {
+	x.Doc().SetFormField(x.Path(), "extractSummary", value)
 }
 
 // ReliabilityCharacteristicReliabilityContentForm is the generated section facade for the `reliabilityContent` @Form section: its own
@@ -178003,28 +178003,12 @@ func (x *RequirementsOverviewRequirementsFormForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *RequirementsOverviewRequirementsFormForm) RequirementsProcess() string {
-	return x.Doc().FormFieldOr(x.Path(), "requirementsProcess")
-}
-
-func (x *RequirementsOverviewRequirementsFormForm) SetRequirementsProcess(value string) {
-	x.Doc().SetFormField(x.Path(), "requirementsProcess", value)
-}
-
 func (x *RequirementsOverviewRequirementsFormForm) TraceabilityApproach() string {
 	return x.Doc().FormFieldOr(x.Path(), "traceabilityApproach")
 }
 
 func (x *RequirementsOverviewRequirementsFormForm) SetTraceabilityApproach(value string) {
 	x.Doc().SetFormField(x.Path(), "traceabilityApproach", value)
-}
-
-func (x *RequirementsOverviewRequirementsFormForm) ChangeControlProcess() string {
-	return x.Doc().FormFieldOr(x.Path(), "changeControlProcess")
-}
-
-func (x *RequirementsOverviewRequirementsFormForm) SetChangeControlProcess(value string) {
-	x.Doc().SetFormField(x.Path(), "changeControlProcess", value)
 }
 
 func (x *RequirementsOverviewRequirementsFormForm) PrioritizationMethod() string {
@@ -178043,14 +178027,6 @@ func (x *RequirementsOverviewRequirementsFormForm) SetTotalRequirements(value st
 	x.Doc().SetFormField(x.Path(), "totalRequirements", value)
 }
 
-func (x *RequirementsOverviewRequirementsFormForm) MustHaveCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "mustHaveCount")
-}
-
-func (x *RequirementsOverviewRequirementsFormForm) SetMustHaveCount(value string) {
-	x.Doc().SetFormField(x.Path(), "mustHaveCount", value)
-}
-
 func (x *RequirementsOverviewRequirementsFormForm) ShouldHaveCount() string {
 	return x.Doc().FormFieldOr(x.Path(), "shouldHaveCount")
 }
@@ -178065,6 +178041,30 @@ func (x *RequirementsOverviewRequirementsFormForm) CouldHaveCount() string {
 
 func (x *RequirementsOverviewRequirementsFormForm) SetCouldHaveCount(value string) {
 	x.Doc().SetFormField(x.Path(), "couldHaveCount", value)
+}
+
+func (x *RequirementsOverviewRequirementsFormForm) RequirementsProcess() string {
+	return x.Doc().FormFieldOr(x.Path(), "requirementsProcess")
+}
+
+func (x *RequirementsOverviewRequirementsFormForm) SetRequirementsProcess(value string) {
+	x.Doc().SetFormField(x.Path(), "requirementsProcess", value)
+}
+
+func (x *RequirementsOverviewRequirementsFormForm) ChangeControlProcess() string {
+	return x.Doc().FormFieldOr(x.Path(), "changeControlProcess")
+}
+
+func (x *RequirementsOverviewRequirementsFormForm) SetChangeControlProcess(value string) {
+	x.Doc().SetFormField(x.Path(), "changeControlProcess", value)
+}
+
+func (x *RequirementsOverviewRequirementsFormForm) MustHaveCount() string {
+	return x.Doc().FormFieldOr(x.Path(), "mustHaveCount")
+}
+
+func (x *RequirementsOverviewRequirementsFormForm) SetMustHaveCount(value string) {
+	x.Doc().SetFormField(x.Path(), "mustHaveCount", value)
 }
 
 // ResourceAllocationEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -181831,14 +181831,6 @@ func (x *RiskIdentificationContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *RiskIdentificationContentForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
-}
-
-func (x *RiskIdentificationContentForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
-}
-
 func (x *RiskIdentificationContentForm) Category() string {
 	return x.Doc().FormFieldOr(x.Path(), "category")
 }
@@ -181853,6 +181845,14 @@ func (x *RiskIdentificationContentForm) Subcategory() string {
 
 func (x *RiskIdentificationContentForm) SetSubcategory(value string) {
 	x.Doc().SetFormField(x.Path(), "subcategory", value)
+}
+
+func (x *RiskIdentificationContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *RiskIdentificationContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 // RiskIdentificationSourceDetailsForm is the generated section facade for the `sourceDetails` @Form section: its own
@@ -182567,14 +182567,6 @@ func (x *RoleAdjustmentEntryDetailsForm) SetAdjustmentDescription(value string) 
 	x.Doc().SetFormField(x.Path(), "adjustmentDescription", value)
 }
 
-func (x *RoleAdjustmentEntryDetailsForm) AffectedResponsibilities() string {
-	return x.Doc().FormFieldOr(x.Path(), "affectedResponsibilities")
-}
-
-func (x *RoleAdjustmentEntryDetailsForm) SetAffectedResponsibilities(value string) {
-	x.Doc().SetFormField(x.Path(), "affectedResponsibilities", value)
-}
-
 func (x *RoleAdjustmentEntryDetailsForm) MergedWithRoles() string {
 	return x.Doc().FormFieldOr(x.Path(), "mergedWithRoles")
 }
@@ -182589,6 +182581,14 @@ func (x *RoleAdjustmentEntryDetailsForm) SplitIntoRoles() string {
 
 func (x *RoleAdjustmentEntryDetailsForm) SetSplitIntoRoles(value string) {
 	x.Doc().SetFormField(x.Path(), "splitIntoRoles", value)
+}
+
+func (x *RoleAdjustmentEntryDetailsForm) AffectedResponsibilities() string {
+	return x.Doc().FormFieldOr(x.Path(), "affectedResponsibilities")
+}
+
+func (x *RoleAdjustmentEntryDetailsForm) SetAffectedResponsibilities(value string) {
+	x.Doc().SetFormField(x.Path(), "affectedResponsibilities", value)
 }
 
 // RoleAdjustmentEntryGovernanceForm is the generated section facade for the `governance` @Form section: its own
@@ -185044,14 +185044,6 @@ func (x *RuntimeEnvironmentNetworkForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *RuntimeEnvironmentNetworkForm) NetworkRequirements() string {
-	return x.Doc().FormFieldOr(x.Path(), "networkRequirements")
-}
-
-func (x *RuntimeEnvironmentNetworkForm) SetNetworkRequirements(value string) {
-	x.Doc().SetFormField(x.Path(), "networkRequirements", value)
-}
-
 func (x *RuntimeEnvironmentNetworkForm) BandwidthRequirements() string {
 	return x.Doc().FormFieldOr(x.Path(), "bandwidthRequirements")
 }
@@ -185066,6 +185058,14 @@ func (x *RuntimeEnvironmentNetworkForm) LatencyRequirements() string {
 
 func (x *RuntimeEnvironmentNetworkForm) SetLatencyRequirements(value string) {
 	x.Doc().SetFormField(x.Path(), "latencyRequirements", value)
+}
+
+func (x *RuntimeEnvironmentNetworkForm) NetworkRequirements() string {
+	return x.Doc().FormFieldOr(x.Path(), "networkRequirements")
+}
+
+func (x *RuntimeEnvironmentNetworkForm) SetNetworkRequirements(value string) {
+	x.Doc().SetFormField(x.Path(), "networkRequirements", value)
 }
 
 // RuntimeEnvironmentRuntimeNotesForm is the generated section facade for the `runtimeNotes` @Form section: its own
@@ -185220,20 +185220,20 @@ func (x *RuntimeEnvironmentVariablesForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *RuntimeEnvironmentVariablesForm) RequiredEnvVariables() string {
-	return x.Doc().FormFieldOr(x.Path(), "requiredEnvVariables")
-}
-
-func (x *RuntimeEnvironmentVariablesForm) SetRequiredEnvVariables(value string) {
-	x.Doc().SetFormField(x.Path(), "requiredEnvVariables", value)
-}
-
 func (x *RuntimeEnvironmentVariablesForm) OptionalEnvVariables() string {
 	return x.Doc().FormFieldOr(x.Path(), "optionalEnvVariables")
 }
 
 func (x *RuntimeEnvironmentVariablesForm) SetOptionalEnvVariables(value string) {
 	x.Doc().SetFormField(x.Path(), "optionalEnvVariables", value)
+}
+
+func (x *RuntimeEnvironmentVariablesForm) RequiredEnvVariables() string {
+	return x.Doc().FormFieldOr(x.Path(), "requiredEnvVariables")
+}
+
+func (x *RuntimeEnvironmentVariablesForm) SetRequiredEnvVariables(value string) {
+	x.Doc().SetFormField(x.Path(), "requiredEnvVariables", value)
 }
 
 // ScalabilityArchitectureCapacityForm is the generated section facade for the `capacity` @Form section: its own
@@ -185270,20 +185270,20 @@ func (x *ScalabilityArchitectureCapacityForm) SetExpectedLoad(value string) {
 	x.Doc().SetFormField(x.Path(), "expectedLoad", value)
 }
 
-func (x *ScalabilityArchitectureCapacityForm) PeakLoad() string {
-	return x.Doc().FormFieldOr(x.Path(), "peakLoad")
-}
-
-func (x *ScalabilityArchitectureCapacityForm) SetPeakLoad(value string) {
-	x.Doc().SetFormField(x.Path(), "peakLoad", value)
-}
-
 func (x *ScalabilityArchitectureCapacityForm) GrowthProjection() string {
 	return x.Doc().FormFieldOr(x.Path(), "growthProjection")
 }
 
 func (x *ScalabilityArchitectureCapacityForm) SetGrowthProjection(value string) {
 	x.Doc().SetFormField(x.Path(), "growthProjection", value)
+}
+
+func (x *ScalabilityArchitectureCapacityForm) PeakLoad() string {
+	return x.Doc().FormFieldOr(x.Path(), "peakLoad")
+}
+
+func (x *ScalabilityArchitectureCapacityForm) SetPeakLoad(value string) {
+	x.Doc().SetFormField(x.Path(), "peakLoad", value)
 }
 
 // ScalabilityArchitectureContentForm is the generated section facade for the `content` @Form section: its own
@@ -187778,14 +187778,6 @@ func (x *ScopeItemEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ScopeItemEntryContentForm) ItemDescription() string {
-	return x.Doc().FormFieldOr(x.Path(), "itemDescription")
-}
-
-func (x *ScopeItemEntryContentForm) SetItemDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "itemDescription", value)
-}
-
 func (x *ScopeItemEntryContentForm) Category() string {
 	return x.Doc().FormFieldOr(x.Path(), "category")
 }
@@ -187808,6 +187800,14 @@ func (x *ScopeItemEntryContentForm) RelatedRequirements() string {
 
 func (x *ScopeItemEntryContentForm) SetRelatedRequirements(value string) {
 	x.Doc().SetFormField(x.Path(), "relatedRequirements", value)
+}
+
+func (x *ScopeItemEntryContentForm) ItemDescription() string {
+	return x.Doc().FormFieldOr(x.Path(), "itemDescription")
+}
+
+func (x *ScopeItemEntryContentForm) SetItemDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "itemDescription", value)
 }
 
 // ScreenActionEntryBehaviorForm is the generated section facade for the `behavior` @Form section: its own
@@ -187976,20 +187976,20 @@ func (x *ScreenActionEntryContentForm) SetOwningController(value string) {
 	x.Doc().SetFormField(x.Path(), "owningController", value)
 }
 
-func (x *ScreenActionEntryContentForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
-}
-
-func (x *ScreenActionEntryContentForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
-}
-
 func (x *ScreenActionEntryContentForm) ContextType() string {
 	return x.Doc().FormFieldOr(x.Path(), "contextType")
 }
 
 func (x *ScreenActionEntryContentForm) SetContextType(value string) {
 	x.Doc().SetFormField(x.Path(), "contextType", value)
+}
+
+func (x *ScreenActionEntryContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *ScreenActionEntryContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 // ScreenActionEntryVisualForm is the generated section facade for the `visual` @Form section: its own
@@ -188704,20 +188704,20 @@ func (x *ScreenElementEntryPresentationForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ScreenElementEntryPresentationForm) StyleVariant() string {
-	return x.Doc().FormFieldOr(x.Path(), "styleVariant")
-}
-
-func (x *ScreenElementEntryPresentationForm) SetStyleVariant(value string) {
-	x.Doc().SetFormField(x.Path(), "styleVariant", value)
-}
-
 func (x *ScreenElementEntryPresentationForm) AccessibilityLabel() string {
 	return x.Doc().FormFieldOr(x.Path(), "accessibilityLabel")
 }
 
 func (x *ScreenElementEntryPresentationForm) SetAccessibilityLabel(value string) {
 	x.Doc().SetFormField(x.Path(), "accessibilityLabel", value)
+}
+
+func (x *ScreenElementEntryPresentationForm) StyleVariant() string {
+	return x.Doc().FormFieldOr(x.Path(), "styleVariant")
+}
+
+func (x *ScreenElementEntryPresentationForm) SetStyleVariant(value string) {
+	x.Doc().SetFormField(x.Path(), "styleVariant", value)
 }
 
 func (x *ScreenElementEntryPresentationForm) DataBinding() string {
@@ -189388,6 +189388,14 @@ func (x *ScreenEntryPresentationForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
+func (x *ScreenEntryPresentationForm) HelpTopicId() string {
+	return x.Doc().FormFieldOr(x.Path(), "helpTopicId")
+}
+
+func (x *ScreenEntryPresentationForm) SetHelpTopicId(value string) {
+	x.Doc().SetFormField(x.Path(), "helpTopicId", value)
+}
+
 func (x *ScreenEntryPresentationForm) PageTitleResource() string {
 	return x.Doc().FormFieldOr(x.Path(), "pageTitleResource")
 }
@@ -189402,14 +189410,6 @@ func (x *ScreenEntryPresentationForm) PageIconResource() string {
 
 func (x *ScreenEntryPresentationForm) SetPageIconResource(value string) {
 	x.Doc().SetFormField(x.Path(), "pageIconResource", value)
-}
-
-func (x *ScreenEntryPresentationForm) HelpTopicId() string {
-	return x.Doc().FormFieldOr(x.Path(), "helpTopicId")
-}
-
-func (x *ScreenEntryPresentationForm) SetHelpTopicId(value string) {
-	x.Doc().SetFormField(x.Path(), "helpTopicId", value)
 }
 
 func (x *ScreenEntryPresentationForm) Layout() string {
@@ -190186,20 +190186,20 @@ func (x *ScreenSectionEntryContentForm) SetSectionId(value string) {
 	x.Doc().SetFormField(x.Path(), "sectionId", value)
 }
 
-func (x *ScreenSectionEntryContentForm) Purpose() string {
-	return x.Doc().FormFieldOr(x.Path(), "purpose")
-}
-
-func (x *ScreenSectionEntryContentForm) SetPurpose(value string) {
-	x.Doc().SetFormField(x.Path(), "purpose", value)
-}
-
 func (x *ScreenSectionEntryContentForm) SectionType() string {
 	return x.Doc().FormFieldOr(x.Path(), "sectionType")
 }
 
 func (x *ScreenSectionEntryContentForm) SetSectionType(value string) {
 	x.Doc().SetFormField(x.Path(), "sectionType", value)
+}
+
+func (x *ScreenSectionEntryContentForm) Purpose() string {
+	return x.Doc().FormFieldOr(x.Path(), "purpose")
+}
+
+func (x *ScreenSectionEntryContentForm) SetPurpose(value string) {
+	x.Doc().SetFormField(x.Path(), "purpose", value)
 }
 
 // ScreenSectionEntryLayoutForm is the generated section facade for the `layout` @Form section: its own
@@ -190306,12 +190306,20 @@ func (x *ScreenStateEntryContentForm) SetStateId(value string) {
 	x.Doc().SetFormField(x.Path(), "stateId", value)
 }
 
-func (x *ScreenStateEntryContentForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
+func (x *ScreenStateEntryContentForm) PrimaryActionLabel() string {
+	return x.Doc().FormFieldOr(x.Path(), "primaryActionLabel")
 }
 
-func (x *ScreenStateEntryContentForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
+func (x *ScreenStateEntryContentForm) SetPrimaryActionLabel(value string) {
+	x.Doc().SetFormField(x.Path(), "primaryActionLabel", value)
+}
+
+func (x *ScreenStateEntryContentForm) SecondaryActionLabel() string {
+	return x.Doc().FormFieldOr(x.Path(), "secondaryActionLabel")
+}
+
+func (x *ScreenStateEntryContentForm) SetSecondaryActionLabel(value string) {
+	x.Doc().SetFormField(x.Path(), "secondaryActionLabel", value)
 }
 
 func (x *ScreenStateEntryContentForm) MessageResource() string {
@@ -190338,14 +190346,6 @@ func (x *ScreenStateEntryContentForm) SetIllustrationResource(value string) {
 	x.Doc().SetFormField(x.Path(), "illustrationResource", value)
 }
 
-func (x *ScreenStateEntryContentForm) PrimaryActionLabel() string {
-	return x.Doc().FormFieldOr(x.Path(), "primaryActionLabel")
-}
-
-func (x *ScreenStateEntryContentForm) SetPrimaryActionLabel(value string) {
-	x.Doc().SetFormField(x.Path(), "primaryActionLabel", value)
-}
-
 func (x *ScreenStateEntryContentForm) PrimaryActionTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "primaryActionTarget")
 }
@@ -190354,12 +190354,12 @@ func (x *ScreenStateEntryContentForm) SetPrimaryActionTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "primaryActionTarget", value)
 }
 
-func (x *ScreenStateEntryContentForm) SecondaryActionLabel() string {
-	return x.Doc().FormFieldOr(x.Path(), "secondaryActionLabel")
+func (x *ScreenStateEntryContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
 }
 
-func (x *ScreenStateEntryContentForm) SetSecondaryActionLabel(value string) {
-	x.Doc().SetFormField(x.Path(), "secondaryActionLabel", value)
+func (x *ScreenStateEntryContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 // ScreenTransitionEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -190712,20 +190712,20 @@ func (x *SecurityAuthenticationForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *SecurityAuthenticationForm) AuthenticationMethod() string {
-	return x.Doc().FormFieldOr(x.Path(), "authenticationMethod")
-}
-
-func (x *SecurityAuthenticationForm) SetAuthenticationMethod(value string) {
-	x.Doc().SetFormField(x.Path(), "authenticationMethod", value)
-}
-
 func (x *SecurityAuthenticationForm) MfaRequirement() string {
 	return x.Doc().FormFieldOr(x.Path(), "mfaRequirement")
 }
 
 func (x *SecurityAuthenticationForm) SetMfaRequirement(value string) {
 	x.Doc().SetFormField(x.Path(), "mfaRequirement", value)
+}
+
+func (x *SecurityAuthenticationForm) AuthenticationMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "authenticationMethod")
+}
+
+func (x *SecurityAuthenticationForm) SetAuthenticationMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "authenticationMethod", value)
 }
 
 func (x *SecurityAuthenticationForm) PasswordPolicy() string {
@@ -192018,6 +192018,14 @@ func (x *SecurityRequirementEntryClassificationForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
+func (x *SecurityRequirementEntryClassificationForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
+}
+
+func (x *SecurityRequirementEntryClassificationForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
+}
+
 func (x *SecurityRequirementEntryClassificationForm) Category() string {
 	return x.Doc().FormFieldOr(x.Path(), "category")
 }
@@ -192032,22 +192040,6 @@ func (x *SecurityRequirementEntryClassificationForm) Subcategory() string {
 
 func (x *SecurityRequirementEntryClassificationForm) SetSubcategory(value string) {
 	x.Doc().SetFormField(x.Path(), "subcategory", value)
-}
-
-func (x *SecurityRequirementEntryClassificationForm) Priority() ImportanceBand {
-	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
-}
-
-func (x *SecurityRequirementEntryClassificationForm) SetPriority(value ImportanceBand) {
-	x.Doc().SetFormField(x.Path(), "priority", string(value))
-}
-
-func (x *SecurityRequirementEntryClassificationForm) Source() string {
-	return x.Doc().FormFieldOr(x.Path(), "source")
-}
-
-func (x *SecurityRequirementEntryClassificationForm) SetSource(value string) {
-	x.Doc().SetFormField(x.Path(), "source", value)
 }
 
 func (x *SecurityRequirementEntryClassificationForm) Rationale() string {
@@ -192072,6 +192064,14 @@ func (x *SecurityRequirementEntryClassificationForm) DataClassification() string
 
 func (x *SecurityRequirementEntryClassificationForm) SetDataClassification(value string) {
 	x.Doc().SetFormField(x.Path(), "dataClassification", value)
+}
+
+func (x *SecurityRequirementEntryClassificationForm) Source() string {
+	return x.Doc().FormFieldOr(x.Path(), "source")
+}
+
+func (x *SecurityRequirementEntryClassificationForm) SetSource(value string) {
+	x.Doc().SetFormField(x.Path(), "source", value)
 }
 
 // SecurityRequirementEntryComplianceForm is the generated section facade for the `compliance` @Form section: its own
@@ -194181,12 +194181,12 @@ func (x *ServerOperationEntryContentForm) SetOperationName(value string) {
 	x.Doc().SetFormField(x.Path(), "operationName", value)
 }
 
-func (x *ServerOperationEntryContentForm) Purpose() string {
-	return x.Doc().FormFieldOr(x.Path(), "purpose")
+func (x *ServerOperationEntryContentForm) DescriptionKey() string {
+	return x.Doc().FormFieldOr(x.Path(), "descriptionKey")
 }
 
-func (x *ServerOperationEntryContentForm) SetPurpose(value string) {
-	x.Doc().SetFormField(x.Path(), "purpose", value)
+func (x *ServerOperationEntryContentForm) SetDescriptionKey(value string) {
+	x.Doc().SetFormField(x.Path(), "descriptionKey", value)
 }
 
 func (x *ServerOperationEntryContentForm) PrimaryDataEntity() string {
@@ -194197,20 +194197,20 @@ func (x *ServerOperationEntryContentForm) SetPrimaryDataEntity(value string) {
 	x.Doc().SetFormField(x.Path(), "primaryDataEntity", value)
 }
 
-func (x *ServerOperationEntryContentForm) DescriptionKey() string {
-	return x.Doc().FormFieldOr(x.Path(), "descriptionKey")
-}
-
-func (x *ServerOperationEntryContentForm) SetDescriptionKey(value string) {
-	x.Doc().SetFormField(x.Path(), "descriptionKey", value)
-}
-
 func (x *ServerOperationEntryContentForm) ErrorCodes() string {
 	return x.Doc().FormFieldOr(x.Path(), "errorCodes")
 }
 
 func (x *ServerOperationEntryContentForm) SetErrorCodes(value string) {
 	x.Doc().SetFormField(x.Path(), "errorCodes", value)
+}
+
+func (x *ServerOperationEntryContentForm) Purpose() string {
+	return x.Doc().FormFieldOr(x.Path(), "purpose")
+}
+
+func (x *ServerOperationEntryContentForm) SetPurpose(value string) {
+	x.Doc().SetFormField(x.Path(), "purpose", value)
 }
 
 // ServerOperationEntryControlsForm is the generated section facade for the `controls` @Form section: its own
@@ -199289,20 +199289,20 @@ func (x *SoftwareLayerEntryResponsibilitiesForm) SetPurpose(value string) {
 	x.Doc().SetFormField(x.Path(), "purpose", value)
 }
 
-func (x *SoftwareLayerEntryResponsibilitiesForm) Responsibilities() string {
-	return x.Doc().FormFieldOr(x.Path(), "responsibilities")
-}
-
-func (x *SoftwareLayerEntryResponsibilitiesForm) SetResponsibilities(value string) {
-	x.Doc().SetFormField(x.Path(), "responsibilities", value)
-}
-
 func (x *SoftwareLayerEntryResponsibilitiesForm) Prohibitions() string {
 	return x.Doc().FormFieldOr(x.Path(), "prohibitions")
 }
 
 func (x *SoftwareLayerEntryResponsibilitiesForm) SetProhibitions(value string) {
 	x.Doc().SetFormField(x.Path(), "prohibitions", value)
+}
+
+func (x *SoftwareLayerEntryResponsibilitiesForm) Responsibilities() string {
+	return x.Doc().FormFieldOr(x.Path(), "responsibilities")
+}
+
+func (x *SoftwareLayerEntryResponsibilitiesForm) SetResponsibilities(value string) {
+	x.Doc().SetFormField(x.Path(), "responsibilities", value)
 }
 
 // SoftwareLayerEntryTechnologyForm is the generated section facade for the `technology` @Form section: its own
@@ -200531,14 +200531,6 @@ func (x *StageEntryIdentityForm) SetStageCodename(value string) {
 	x.Doc().SetFormField(x.Path(), "stageCodename", value)
 }
 
-func (x *StageEntryIdentityForm) StageDescription() string {
-	return x.Doc().FormFieldOr(x.Path(), "stageDescription")
-}
-
-func (x *StageEntryIdentityForm) SetStageDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "stageDescription", value)
-}
-
 func (x *StageEntryIdentityForm) BusinessObjective() string {
 	return x.Doc().FormFieldOr(x.Path(), "businessObjective")
 }
@@ -200553,6 +200545,14 @@ func (x *StageEntryIdentityForm) StageType() string {
 
 func (x *StageEntryIdentityForm) SetStageType(value string) {
 	x.Doc().SetFormField(x.Path(), "stageType", value)
+}
+
+func (x *StageEntryIdentityForm) StageDescription() string {
+	return x.Doc().FormFieldOr(x.Path(), "stageDescription")
+}
+
+func (x *StageEntryIdentityForm) SetStageDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "stageDescription", value)
 }
 
 // StageEntryMetricsForm is the generated section facade for the `metrics` @Form section: its own
@@ -200647,20 +200647,20 @@ func (x *StageEntryQualityForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
+func (x *StageEntryQualityForm) AcceptanceCriteriaSummary() string {
+	return x.Doc().FormFieldOr(x.Path(), "acceptanceCriteriaSummary")
+}
+
+func (x *StageEntryQualityForm) SetAcceptanceCriteriaSummary(value string) {
+	x.Doc().SetFormField(x.Path(), "acceptanceCriteriaSummary", value)
+}
+
 func (x *StageEntryQualityForm) EntryCriteria() string {
 	return x.Doc().FormFieldOr(x.Path(), "entryCriteria")
 }
 
 func (x *StageEntryQualityForm) SetEntryCriteria(value string) {
 	x.Doc().SetFormField(x.Path(), "entryCriteria", value)
-}
-
-func (x *StageEntryQualityForm) ExitCriteria() string {
-	return x.Doc().FormFieldOr(x.Path(), "exitCriteria")
-}
-
-func (x *StageEntryQualityForm) SetExitCriteria(value string) {
-	x.Doc().SetFormField(x.Path(), "exitCriteria", value)
 }
 
 func (x *StageEntryQualityForm) QualityGates() string {
@@ -200679,20 +200679,20 @@ func (x *StageEntryQualityForm) SetTestingStrategy(value string) {
 	x.Doc().SetFormField(x.Path(), "testingStrategy", value)
 }
 
-func (x *StageEntryQualityForm) AcceptanceCriteriaSummary() string {
-	return x.Doc().FormFieldOr(x.Path(), "acceptanceCriteriaSummary")
-}
-
-func (x *StageEntryQualityForm) SetAcceptanceCriteriaSummary(value string) {
-	x.Doc().SetFormField(x.Path(), "acceptanceCriteriaSummary", value)
-}
-
 func (x *StageEntryQualityForm) ToleranceLevels() string {
 	return x.Doc().FormFieldOr(x.Path(), "toleranceLevels")
 }
 
 func (x *StageEntryQualityForm) SetToleranceLevels(value string) {
 	x.Doc().SetFormField(x.Path(), "toleranceLevels", value)
+}
+
+func (x *StageEntryQualityForm) ExitCriteria() string {
+	return x.Doc().FormFieldOr(x.Path(), "exitCriteria")
+}
+
+func (x *StageEntryQualityForm) SetExitCriteria(value string) {
+	x.Doc().SetFormField(x.Path(), "exitCriteria", value)
 }
 
 // StageEntryRiskForm is the generated section facade for the `risk` @Form section: its own
@@ -200779,14 +200779,6 @@ func (x *StageEntryScopeForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *StageEntryScopeForm) ScopeSummary() string {
-	return x.Doc().FormFieldOr(x.Path(), "scopeSummary")
-}
-
-func (x *StageEntryScopeForm) SetScopeSummary(value string) {
-	x.Doc().SetFormField(x.Path(), "scopeSummary", value)
-}
-
 func (x *StageEntryScopeForm) IncludedFeatures() string {
 	return x.Doc().FormFieldOr(x.Path(), "includedFeatures")
 }
@@ -200841,6 +200833,14 @@ func (x *StageEntryScopeForm) TechnicalDebtItems() string {
 
 func (x *StageEntryScopeForm) SetTechnicalDebtItems(value string) {
 	x.Doc().SetFormField(x.Path(), "technicalDebtItems", value)
+}
+
+func (x *StageEntryScopeForm) ScopeSummary() string {
+	return x.Doc().FormFieldOr(x.Path(), "scopeSummary")
+}
+
+func (x *StageEntryScopeForm) SetScopeSummary(value string) {
+	x.Doc().SetFormField(x.Path(), "scopeSummary", value)
 }
 
 // StageEntryTimelineForm is the generated section facade for the `timeline` @Form section: its own
@@ -203745,14 +203745,6 @@ func (x *StagingDependenciesContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *StagingDependenciesContentForm) CriticalPrerequisites() string {
-	return x.Doc().FormFieldOr(x.Path(), "criticalPrerequisites")
-}
-
-func (x *StagingDependenciesContentForm) SetCriticalPrerequisites(value string) {
-	x.Doc().SetFormField(x.Path(), "criticalPrerequisites", value)
-}
-
 func (x *StagingDependenciesContentForm) ExternalDependencies() string {
 	return x.Doc().FormFieldOr(x.Path(), "externalDependencies")
 }
@@ -203775,6 +203767,14 @@ func (x *StagingDependenciesContentForm) DependencyRisks() string {
 
 func (x *StagingDependenciesContentForm) SetDependencyRisks(value string) {
 	x.Doc().SetFormField(x.Path(), "dependencyRisks", value)
+}
+
+func (x *StagingDependenciesContentForm) CriticalPrerequisites() string {
+	return x.Doc().FormFieldOr(x.Path(), "criticalPrerequisites")
+}
+
+func (x *StagingDependenciesContentForm) SetCriticalPrerequisites(value string) {
+	x.Doc().SetFormField(x.Path(), "criticalPrerequisites", value)
 }
 
 // StagingDriversContentForm is the generated section facade for the `content` @Form section: its own
@@ -203885,20 +203885,20 @@ func (x *StagingStrategyApproachSelectionForm) SetApproachDescription(value stri
 	x.Doc().SetFormField(x.Path(), "approachDescription", value)
 }
 
-func (x *StagingStrategyApproachSelectionForm) AlternativesConsidered() string {
-	return x.Doc().FormFieldOr(x.Path(), "alternativesConsidered")
-}
-
-func (x *StagingStrategyApproachSelectionForm) SetAlternativesConsidered(value string) {
-	x.Doc().SetFormField(x.Path(), "alternativesConsidered", value)
-}
-
 func (x *StagingStrategyApproachSelectionForm) SelectionCriteria() string {
 	return x.Doc().FormFieldOr(x.Path(), "selectionCriteria")
 }
 
 func (x *StagingStrategyApproachSelectionForm) SetSelectionCriteria(value string) {
 	x.Doc().SetFormField(x.Path(), "selectionCriteria", value)
+}
+
+func (x *StagingStrategyApproachSelectionForm) AlternativesConsidered() string {
+	return x.Doc().FormFieldOr(x.Path(), "alternativesConsidered")
+}
+
+func (x *StagingStrategyApproachSelectionForm) SetAlternativesConsidered(value string) {
+	x.Doc().SetFormField(x.Path(), "alternativesConsidered", value)
 }
 
 // StagingStrategyCommunicationForm is the generated section facade for the `communication` @Form section: its own
@@ -204645,22 +204645,6 @@ func (x *StakeholderRegisterEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *StakeholderRegisterEntryContentForm) Role() string {
-	return x.Doc().FormFieldOr(x.Path(), "role")
-}
-
-func (x *StakeholderRegisterEntryContentForm) SetRole(value string) {
-	x.Doc().SetFormField(x.Path(), "role", value)
-}
-
-func (x *StakeholderRegisterEntryContentForm) Interest() string {
-	return x.Doc().FormFieldOr(x.Path(), "interest")
-}
-
-func (x *StakeholderRegisterEntryContentForm) SetInterest(value string) {
-	x.Doc().SetFormField(x.Path(), "interest", value)
-}
-
 func (x *StakeholderRegisterEntryContentForm) Influence() ImportanceBand {
 	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "influence"))
 }
@@ -204683,6 +204667,22 @@ func (x *StakeholderRegisterEntryContentForm) EngagementStrategy() string {
 
 func (x *StakeholderRegisterEntryContentForm) SetEngagementStrategy(value string) {
 	x.Doc().SetFormField(x.Path(), "engagementStrategy", value)
+}
+
+func (x *StakeholderRegisterEntryContentForm) Role() string {
+	return x.Doc().FormFieldOr(x.Path(), "role")
+}
+
+func (x *StakeholderRegisterEntryContentForm) SetRole(value string) {
+	x.Doc().SetFormField(x.Path(), "role", value)
+}
+
+func (x *StakeholderRegisterEntryContentForm) Interest() string {
+	return x.Doc().FormFieldOr(x.Path(), "interest")
+}
+
+func (x *StakeholderRegisterEntryContentForm) SetInterest(value string) {
+	x.Doc().SetFormField(x.Path(), "interest", value)
 }
 
 // StakeholdersAndGovernanceSummaryForm is the generated section facade for the `summary` @Form section: its own
@@ -205626,14 +205626,6 @@ func (x *StrategicAlignmentAlignmentDetailsForm) SetAlignedItStrategy(value stri
 	x.Doc().SetFormField(x.Path(), "alignedItStrategy", value)
 }
 
-func (x *StrategicAlignmentAlignmentDetailsForm) RelatedInitiatives() string {
-	return x.Doc().FormFieldOr(x.Path(), "relatedInitiatives")
-}
-
-func (x *StrategicAlignmentAlignmentDetailsForm) SetRelatedInitiatives(value string) {
-	x.Doc().SetFormField(x.Path(), "relatedInitiatives", value)
-}
-
 func (x *StrategicAlignmentAlignmentDetailsForm) DigitizationContribution() string {
 	return x.Doc().FormFieldOr(x.Path(), "digitizationContribution")
 }
@@ -205672,6 +205664,14 @@ func (x *StrategicAlignmentAlignmentDetailsForm) StrategicTimingRationale() stri
 
 func (x *StrategicAlignmentAlignmentDetailsForm) SetStrategicTimingRationale(value string) {
 	x.Doc().SetFormField(x.Path(), "strategicTimingRationale", value)
+}
+
+func (x *StrategicAlignmentAlignmentDetailsForm) RelatedInitiatives() string {
+	return x.Doc().FormFieldOr(x.Path(), "relatedInitiatives")
+}
+
+func (x *StrategicAlignmentAlignmentDetailsForm) SetRelatedInitiatives(value string) {
+	x.Doc().SetFormField(x.Path(), "relatedInitiatives", value)
 }
 
 // SubFunctionEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -205850,20 +205850,20 @@ func (x *SubStageEntryOverviewForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *SubStageEntryOverviewForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
-}
-
-func (x *SubStageEntryOverviewForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
-}
-
 func (x *SubStageEntryOverviewForm) Objective() string {
 	return x.Doc().FormFieldOr(x.Path(), "objective")
 }
 
 func (x *SubStageEntryOverviewForm) SetObjective(value string) {
 	x.Doc().SetFormField(x.Path(), "objective", value)
+}
+
+func (x *SubStageEntryOverviewForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *SubStageEntryOverviewForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 // SubStageEntryScopeForm is the generated section facade for the `scope` @Form section: its own
@@ -209044,14 +209044,6 @@ func (x *SystemDescriptionDescriptionSummaryForm) SetDeploymentModel(value strin
 	x.Doc().SetFormField(x.Path(), "deploymentModel", value)
 }
 
-func (x *SystemDescriptionDescriptionSummaryForm) ArchitectureStyle() string {
-	return x.Doc().FormFieldOr(x.Path(), "architectureStyle")
-}
-
-func (x *SystemDescriptionDescriptionSummaryForm) SetArchitectureStyle(value string) {
-	x.Doc().SetFormField(x.Path(), "architectureStyle", value)
-}
-
 func (x *SystemDescriptionDescriptionSummaryForm) PrimaryTechnologyStack() string {
 	return x.Doc().FormFieldOr(x.Path(), "primaryTechnologyStack")
 }
@@ -209060,28 +209052,12 @@ func (x *SystemDescriptionDescriptionSummaryForm) SetPrimaryTechnologyStack(valu
 	x.Doc().SetFormField(x.Path(), "primaryTechnologyStack", value)
 }
 
-func (x *SystemDescriptionDescriptionSummaryForm) InterfaceTypes() string {
-	return x.Doc().FormFieldOr(x.Path(), "interfaceTypes")
-}
-
-func (x *SystemDescriptionDescriptionSummaryForm) SetInterfaceTypes(value string) {
-	x.Doc().SetFormField(x.Path(), "interfaceTypes", value)
-}
-
 func (x *SystemDescriptionDescriptionSummaryForm) DataCharacteristics() string {
 	return x.Doc().FormFieldOr(x.Path(), "dataCharacteristics")
 }
 
 func (x *SystemDescriptionDescriptionSummaryForm) SetDataCharacteristics(value string) {
 	x.Doc().SetFormField(x.Path(), "dataCharacteristics", value)
-}
-
-func (x *SystemDescriptionDescriptionSummaryForm) SecurityClassification() string {
-	return x.Doc().FormFieldOr(x.Path(), "securityClassification")
-}
-
-func (x *SystemDescriptionDescriptionSummaryForm) SetSecurityClassification(value string) {
-	x.Doc().SetFormField(x.Path(), "securityClassification", value)
 }
 
 func (x *SystemDescriptionDescriptionSummaryForm) AvailabilityRequirement() string {
@@ -209098,6 +209074,30 @@ func (x *SystemDescriptionDescriptionSummaryForm) ScalabilityModel() string {
 
 func (x *SystemDescriptionDescriptionSummaryForm) SetScalabilityModel(value string) {
 	x.Doc().SetFormField(x.Path(), "scalabilityModel", value)
+}
+
+func (x *SystemDescriptionDescriptionSummaryForm) ArchitectureStyle() string {
+	return x.Doc().FormFieldOr(x.Path(), "architectureStyle")
+}
+
+func (x *SystemDescriptionDescriptionSummaryForm) SetArchitectureStyle(value string) {
+	x.Doc().SetFormField(x.Path(), "architectureStyle", value)
+}
+
+func (x *SystemDescriptionDescriptionSummaryForm) InterfaceTypes() string {
+	return x.Doc().FormFieldOr(x.Path(), "interfaceTypes")
+}
+
+func (x *SystemDescriptionDescriptionSummaryForm) SetInterfaceTypes(value string) {
+	x.Doc().SetFormField(x.Path(), "interfaceTypes", value)
+}
+
+func (x *SystemDescriptionDescriptionSummaryForm) SecurityClassification() string {
+	return x.Doc().FormFieldOr(x.Path(), "securityClassification")
+}
+
+func (x *SystemDescriptionDescriptionSummaryForm) SetSecurityClassification(value string) {
+	x.Doc().SetFormField(x.Path(), "securityClassification", value)
 }
 
 func (x *SystemDescriptionDescriptionSummaryForm) ExpectedUserLoad() string {
@@ -210931,6 +210931,14 @@ func (x *SystemQualityGoalsGovernanceContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
+func (x *SystemQualityGoalsGovernanceContentForm) QualityOwner() string {
+	return x.Doc().FormFieldOr(x.Path(), "qualityOwner")
+}
+
+func (x *SystemQualityGoalsGovernanceContentForm) SetQualityOwner(value string) {
+	x.Doc().SetFormField(x.Path(), "qualityOwner", value)
+}
+
 func (x *SystemQualityGoalsGovernanceContentForm) QualityApproach() string {
 	return x.Doc().FormFieldOr(x.Path(), "qualityApproach")
 }
@@ -210945,14 +210953,6 @@ func (x *SystemQualityGoalsGovernanceContentForm) QualityStandards() string {
 
 func (x *SystemQualityGoalsGovernanceContentForm) SetQualityStandards(value string) {
 	x.Doc().SetFormField(x.Path(), "qualityStandards", value)
-}
-
-func (x *SystemQualityGoalsGovernanceContentForm) QualityOwner() string {
-	return x.Doc().FormFieldOr(x.Path(), "qualityOwner")
-}
-
-func (x *SystemQualityGoalsGovernanceContentForm) SetQualityOwner(value string) {
-	x.Doc().SetFormField(x.Path(), "qualityOwner", value)
 }
 
 // SystemQualityGoalsGovernanceForm is the generated section facade for the `governance` @Form section: its own
@@ -211371,20 +211371,20 @@ func (x *SystemStagePlanCoordinationForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *SystemStagePlanCoordinationForm) CrossStageDependencySummary() string {
-	return x.Doc().FormFieldOr(x.Path(), "crossStageDependencySummary")
-}
-
-func (x *SystemStagePlanCoordinationForm) SetCrossStageDependencySummary(value string) {
-	x.Doc().SetFormField(x.Path(), "crossStageDependencySummary", value)
-}
-
 func (x *SystemStagePlanCoordinationForm) CrossStageRiskSummary() string {
 	return x.Doc().FormFieldOr(x.Path(), "crossStageRiskSummary")
 }
 
 func (x *SystemStagePlanCoordinationForm) SetCrossStageRiskSummary(value string) {
 	x.Doc().SetFormField(x.Path(), "crossStageRiskSummary", value)
+}
+
+func (x *SystemStagePlanCoordinationForm) CrossStageDependencySummary() string {
+	return x.Doc().FormFieldOr(x.Path(), "crossStageDependencySummary")
+}
+
+func (x *SystemStagePlanCoordinationForm) SetCrossStageDependencySummary(value string) {
+	x.Doc().SetFormField(x.Path(), "crossStageDependencySummary", value)
 }
 
 func (x *SystemStagePlanCoordinationForm) RegulatoryComplianceConsiderations() string {
@@ -211595,20 +211595,20 @@ func (x *SystemSummaryComplexityForm) SetOverallComplexity(value string) {
 	x.Doc().SetFormField(x.Path(), "overallComplexity", value)
 }
 
-func (x *SystemSummaryComplexityForm) KeyRisks() string {
-	return x.Doc().FormFieldOr(x.Path(), "keyRisks")
-}
-
-func (x *SystemSummaryComplexityForm) SetKeyRisks(value string) {
-	x.Doc().SetFormField(x.Path(), "keyRisks", value)
-}
-
 func (x *SystemSummaryComplexityForm) KeyAssumptions() string {
 	return x.Doc().FormFieldOr(x.Path(), "keyAssumptions")
 }
 
 func (x *SystemSummaryComplexityForm) SetKeyAssumptions(value string) {
 	x.Doc().SetFormField(x.Path(), "keyAssumptions", value)
+}
+
+func (x *SystemSummaryComplexityForm) KeyRisks() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyRisks")
+}
+
+func (x *SystemSummaryComplexityForm) SetKeyRisks(value string) {
+	x.Doc().SetFormField(x.Path(), "keyRisks", value)
 }
 
 // SystemSummaryContentForm is the generated section facade for the `content` @Form section: its own
@@ -214719,14 +214719,6 @@ func (x *TechnicalGoalEntryMeasurementForm) SetCurrentValue(value string) {
 	x.Doc().SetFormField(x.Path(), "currentValue", value)
 }
 
-func (x *TechnicalGoalEntryMeasurementForm) TargetValue() string {
-	return x.Doc().FormFieldOr(x.Path(), "targetValue")
-}
-
-func (x *TechnicalGoalEntryMeasurementForm) SetTargetValue(value string) {
-	x.Doc().SetFormField(x.Path(), "targetValue", value)
-}
-
 func (x *TechnicalGoalEntryMeasurementForm) MeasurementMethod() string {
 	return x.Doc().FormFieldOr(x.Path(), "measurementMethod")
 }
@@ -214757,6 +214749,14 @@ func (x *TechnicalGoalEntryMeasurementForm) VerificationPoint() string {
 
 func (x *TechnicalGoalEntryMeasurementForm) SetVerificationPoint(value string) {
 	x.Doc().SetFormField(x.Path(), "verificationPoint", value)
+}
+
+func (x *TechnicalGoalEntryMeasurementForm) TargetValue() string {
+	return x.Doc().FormFieldOr(x.Path(), "targetValue")
+}
+
+func (x *TechnicalGoalEntryMeasurementForm) SetTargetValue(value string) {
+	x.Doc().SetFormField(x.Path(), "targetValue", value)
 }
 
 // TechnicalGoalTestCaseEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -215359,12 +215359,12 @@ func (x *TechnicalRequirementEntryDetailsForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *TechnicalRequirementEntryDetailsForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
+func (x *TechnicalRequirementEntryDetailsForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *TechnicalRequirementEntryDetailsForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
+func (x *TechnicalRequirementEntryDetailsForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 func (x *TechnicalRequirementEntryDetailsForm) Category() string {
@@ -215383,12 +215383,20 @@ func (x *TechnicalRequirementEntryDetailsForm) SetSubcategory(value string) {
 	x.Doc().SetFormField(x.Path(), "subcategory", value)
 }
 
-func (x *TechnicalRequirementEntryDetailsForm) Priority() ImportanceBand {
-	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
+func (x *TechnicalRequirementEntryDetailsForm) Rationale() string {
+	return x.Doc().FormFieldOr(x.Path(), "rationale")
 }
 
-func (x *TechnicalRequirementEntryDetailsForm) SetPriority(value ImportanceBand) {
-	x.Doc().SetFormField(x.Path(), "priority", string(value))
+func (x *TechnicalRequirementEntryDetailsForm) SetRationale(value string) {
+	x.Doc().SetFormField(x.Path(), "rationale", value)
+}
+
+func (x *TechnicalRequirementEntryDetailsForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *TechnicalRequirementEntryDetailsForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 func (x *TechnicalRequirementEntryDetailsForm) Source() string {
@@ -215397,14 +215405,6 @@ func (x *TechnicalRequirementEntryDetailsForm) Source() string {
 
 func (x *TechnicalRequirementEntryDetailsForm) SetSource(value string) {
 	x.Doc().SetFormField(x.Path(), "source", value)
-}
-
-func (x *TechnicalRequirementEntryDetailsForm) Rationale() string {
-	return x.Doc().FormFieldOr(x.Path(), "rationale")
-}
-
-func (x *TechnicalRequirementEntryDetailsForm) SetRationale(value string) {
-	x.Doc().SetFormField(x.Path(), "rationale", value)
 }
 
 // TechnicalRequirementEntryImpactForm is the generated section facade for the `impact` @Form section: its own
@@ -220642,14 +220642,6 @@ func (x *ToolingContentForm) SetToolStrategyOverview(value string) {
 	x.Doc().SetFormField(x.Path(), "toolStrategyOverview", value)
 }
 
-func (x *ToolingContentForm) StandardToolStackDescription() string {
-	return x.Doc().FormFieldOr(x.Path(), "standardToolStackDescription")
-}
-
-func (x *ToolingContentForm) SetStandardToolStackDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "standardToolStackDescription", value)
-}
-
 func (x *ToolingContentForm) ToolGovernancePolicy() string {
 	return x.Doc().FormFieldOr(x.Path(), "toolGovernancePolicy")
 }
@@ -220664,6 +220656,14 @@ func (x *ToolingContentForm) ToolApprovalProcess() string {
 
 func (x *ToolingContentForm) SetToolApprovalProcess(value string) {
 	x.Doc().SetFormField(x.Path(), "toolApprovalProcess", value)
+}
+
+func (x *ToolingContentForm) StandardToolStackDescription() string {
+	return x.Doc().FormFieldOr(x.Path(), "standardToolStackDescription")
+}
+
+func (x *ToolingContentForm) SetStandardToolStackDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "standardToolStackDescription", value)
 }
 
 // ToolingGovernanceForm is the generated section facade for the `governance` @Form section: its own
@@ -225062,14 +225062,6 @@ func (x *TrustBoundaryEntryContentForm) SetComponentsCrossing(value string) {
 	x.Doc().SetFormField(x.Path(), "componentsCrossing", value)
 }
 
-func (x *TrustBoundaryEntryContentForm) ProtectionMechanisms() string {
-	return x.Doc().FormFieldOr(x.Path(), "protectionMechanisms")
-}
-
-func (x *TrustBoundaryEntryContentForm) SetProtectionMechanisms(value string) {
-	x.Doc().SetFormField(x.Path(), "protectionMechanisms", value)
-}
-
 func (x *TrustBoundaryEntryContentForm) TrustLevel() string {
 	return x.Doc().FormFieldOr(x.Path(), "trustLevel")
 }
@@ -225084,6 +225076,14 @@ func (x *TrustBoundaryEntryContentForm) ComplianceImplications() string {
 
 func (x *TrustBoundaryEntryContentForm) SetComplianceImplications(value string) {
 	x.Doc().SetFormField(x.Path(), "complianceImplications", value)
+}
+
+func (x *TrustBoundaryEntryContentForm) ProtectionMechanisms() string {
+	return x.Doc().FormFieldOr(x.Path(), "protectionMechanisms")
+}
+
+func (x *TrustBoundaryEntryContentForm) SetProtectionMechanisms(value string) {
+	x.Doc().SetFormField(x.Path(), "protectionMechanisms", value)
 }
 
 // TypographyStyleEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -228487,14 +228487,6 @@ func (x *UserCategoryDefinitionContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *UserCategoryDefinitionContentForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
-}
-
-func (x *UserCategoryDefinitionContentForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
-}
-
 func (x *UserCategoryDefinitionContentForm) AccessLevel() string {
 	return x.Doc().FormFieldOr(x.Path(), "accessLevel")
 }
@@ -228509,6 +228501,14 @@ func (x *UserCategoryDefinitionContentForm) EstimatedCount() string {
 
 func (x *UserCategoryDefinitionContentForm) SetEstimatedCount(value string) {
 	x.Doc().SetFormField(x.Path(), "estimatedCount", value)
+}
+
+func (x *UserCategoryDefinitionContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *UserCategoryDefinitionContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 // UserCategoryEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -228537,20 +228537,20 @@ func (x *UserCategoryEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *UserCategoryEntryContentForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
-}
-
-func (x *UserCategoryEntryContentForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
-}
-
 func (x *UserCategoryEntryContentForm) UserType() string {
 	return x.Doc().FormFieldOr(x.Path(), "userType")
 }
 
 func (x *UserCategoryEntryContentForm) SetUserType(value string) {
 	x.Doc().SetFormField(x.Path(), "userType", value)
+}
+
+func (x *UserCategoryEntryContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *UserCategoryEntryContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 // UserCategoryEntryImportanceForm is the generated section facade for the `importance` @Form section: its own
@@ -229694,20 +229694,20 @@ func (x *UserLifecycleTransitionEntryContentForm) SetToState(value string) {
 	x.Doc().SetFormField(x.Path(), "toState", value)
 }
 
-func (x *UserLifecycleTransitionEntryContentForm) Trigger() string {
-	return x.Doc().FormFieldOr(x.Path(), "trigger")
-}
-
-func (x *UserLifecycleTransitionEntryContentForm) SetTrigger(value string) {
-	x.Doc().SetFormField(x.Path(), "trigger", value)
-}
-
 func (x *UserLifecycleTransitionEntryContentForm) TriggerConditions() string {
 	return x.Doc().FormFieldOr(x.Path(), "triggerConditions")
 }
 
 func (x *UserLifecycleTransitionEntryContentForm) SetTriggerConditions(value string) {
 	x.Doc().SetFormField(x.Path(), "triggerConditions", value)
+}
+
+func (x *UserLifecycleTransitionEntryContentForm) Trigger() string {
+	return x.Doc().FormFieldOr(x.Path(), "trigger")
+}
+
+func (x *UserLifecycleTransitionEntryContentForm) SetTrigger(value string) {
+	x.Doc().SetFormField(x.Path(), "trigger", value)
 }
 
 // UserLifecycleTransitionEntryEffectsForm is the generated section facade for the `effects` @Form section: its own
@@ -229736,14 +229736,6 @@ func (x *UserLifecycleTransitionEntryEffectsForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *UserLifecycleTransitionEntryEffectsForm) SideEffects() string {
-	return x.Doc().FormFieldOr(x.Path(), "sideEffects")
-}
-
-func (x *UserLifecycleTransitionEntryEffectsForm) SetSideEffects(value string) {
-	x.Doc().SetFormField(x.Path(), "sideEffects", value)
-}
-
 func (x *UserLifecycleTransitionEntryEffectsForm) NotificationRecipients() string {
 	return x.Doc().FormFieldOr(x.Path(), "notificationRecipients")
 }
@@ -229758,6 +229750,14 @@ func (x *UserLifecycleTransitionEntryEffectsForm) NotificationChannels() string 
 
 func (x *UserLifecycleTransitionEntryEffectsForm) SetNotificationChannels(value string) {
 	x.Doc().SetFormField(x.Path(), "notificationChannels", value)
+}
+
+func (x *UserLifecycleTransitionEntryEffectsForm) SideEffects() string {
+	return x.Doc().FormFieldOr(x.Path(), "sideEffects")
+}
+
+func (x *UserLifecycleTransitionEntryEffectsForm) SetSideEffects(value string) {
+	x.Doc().SetFormField(x.Path(), "sideEffects", value)
 }
 
 // UserLifecycleTransitionsContentForm is the generated section facade for the `content` @Form section: its own
@@ -231729,6 +231729,14 @@ func (x *ValuePropositionValueDetailsForm) SetValueStatement(value string) {
 	x.Doc().SetFormField(x.Path(), "valueStatement", value)
 }
 
+func (x *ValuePropositionValueDetailsForm) QualitativeBenefits() string {
+	return x.Doc().FormFieldOr(x.Path(), "qualitativeBenefits")
+}
+
+func (x *ValuePropositionValueDetailsForm) SetQualitativeBenefits(value string) {
+	x.Doc().SetFormField(x.Path(), "qualitativeBenefits", value)
+}
+
 func (x *ValuePropositionValueDetailsForm) PrimaryBenefits() string {
 	return x.Doc().FormFieldOr(x.Path(), "primaryBenefits")
 }
@@ -231743,14 +231751,6 @@ func (x *ValuePropositionValueDetailsForm) QuantifiableBenefits() string {
 
 func (x *ValuePropositionValueDetailsForm) SetQuantifiableBenefits(value string) {
 	x.Doc().SetFormField(x.Path(), "quantifiableBenefits", value)
-}
-
-func (x *ValuePropositionValueDetailsForm) QualitativeBenefits() string {
-	return x.Doc().FormFieldOr(x.Path(), "qualitativeBenefits")
-}
-
-func (x *ValuePropositionValueDetailsForm) SetQualitativeBenefits(value string) {
-	x.Doc().SetFormField(x.Path(), "qualitativeBenefits", value)
 }
 
 // VersionControlConfigurationBranchingForm is the generated section facade for the `branching` @Form section: its own

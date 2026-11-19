@@ -410,18 +410,18 @@ class ReferenceDocumentEntry extends DocSpecsSection {
 class DocumentRelevantSections extends DocSpecsSection {
   @Form([
     Field(
-      'sectionReference',
-      String,
-      'Section Reference (chapter, section, or page number)',
-      required: true,
-      hint: 'Locate the section: chapter, clause, or page number.',
-    ),
-    Field(
       'sectionTitle',
       String,
       'Section Title or Description',
       required: true,
       hint: 'Title or short description of the section.',
+    ),
+    Field(
+      'sectionReference',
+      String,
+      'Section Reference (chapter, section, or page number)',
+      required: true,
+      hint: 'Locate the section: chapter, clause, or page number.',
     ),
     Field(
       'relevance',
@@ -434,6 +434,7 @@ class DocumentRelevantSections extends DocSpecsSection {
       String,
       'Summary / Key Extract (brief summary of applicable content)',
       hint: 'Brief summary or key extract of the applicable content.',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -477,16 +478,17 @@ class RelevantSectionEntry extends DocSpecsSection {
       hint: 'Explain how this section applies to the project.',
     ),
     Field(
-      'extractSummary',
-      String,
-      'Summary / Key Extract (brief summary of applicable content)',
-      hint: 'Brief summary or key extract of the applicable content.',
-    ),
-    Field(
       'complianceRequired',
       bool,
       'Compliance Required (must project comply with this section?)',
       hint: 'True if the project must comply with this section.',
+    ),
+    Field(
+      'extractSummary',
+      String,
+      'Summary / Key Extract (brief summary of applicable content)',
+      hint: 'Brief summary or key extract of the applicable content.',
+      multiParagraph: true,
     ),
   ])
   @override

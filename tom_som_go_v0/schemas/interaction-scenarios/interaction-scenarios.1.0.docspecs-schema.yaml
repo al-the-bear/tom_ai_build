@@ -590,20 +590,18 @@ form-types:
         description: Enter how many actors are internal systems
       - fieldname: externalActorCount
         description: Enter how many actors are external systems
-      - fieldname: actorIdentificationApproach
-        description: Describe the method used to discover actors
       - fieldname: actorPrioritization
         description: State which actors matter most and why
       - fieldname: actorGoalAlignment
         description: Explain how actor goals map to business goals
+      - fieldname: actorIdentificationApproach
+        description: Describe the method used to discover actors
   acid-form:
     fields:
       - fieldname: actorType
         description: "State whether the actor is a person, system or scheduled job"
       - fieldname: category
         description: Classify using Cockburn primary/secondary/supporting/offstage
-      - fieldname: description
-        description: Explain the actor’s purpose in one or two sentences
       - fieldname: realWorldExamples
         description: Name concrete job titles or people that fill this role
       - fieldname: organizationalUnit
@@ -612,6 +610,8 @@ form-types:
         description: Estimate the number of individuals in this role
       - fieldname: geographicDistribution
         description: Note the locations or regions where actors operate
+      - fieldname: description
+        description: Explain the actor’s purpose in one or two sentences
   acchus-form:
     fields:
       - fieldname: usageDuration

@@ -95,8 +95,13 @@ class Iso25010CoverageEntry extends DocSpecsSection {
       'ISO/IEC 25010:2023 Characteristic',
       required: true,
     ),
-    Field('addressedBy', String, 'Addressed By (which quality goals / NFRs)'),
-    Field('targetMetric', String, 'Target Metric'),
+    Field(
+      'addressedBy',
+      String,
+      'Addressed By (which quality goals / NFRs)',
+      multiParagraph: true,
+    ),
+    Field('targetMetric', String, 'Target Metric', multiParagraph: true),
   ])
   @override
   @SerializationOrder(0)

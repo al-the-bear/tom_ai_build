@@ -50,22 +50,24 @@ class SystemQualityGoals extends DocSpecsSection {
   @SectionId('SYQG-GOVE')
   @Form([
     Field(
+      'qualityOwner',
+      String,
+      'Quality Owner',
+      hint: 'Role accountable for quality outcomes',
+    ),
+    Field(
       'qualityApproach',
       String,
       'Quality Approach',
       hint: 'Overall quality philosophy: proactive, reactive, hybrid',
+      multiParagraph: true,
     ),
     Field(
       'qualityStandards',
       String,
       'Applicable Quality Standards',
       hint: 'ISO 25010, ISO 9001, CMMI, industry-specific',
-    ),
-    Field(
-      'qualityOwner',
-      String,
-      'Quality Owner',
-      hint: 'Role accountable for quality outcomes',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -1421,6 +1423,7 @@ class CompatibilityCharacteristic extends DocSpecsSection {
       String,
       'Interoperability Standards',
       hint: 'Protocols/formats for exchanging and using information',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -1555,12 +1558,14 @@ class SecurityCharacteristic extends DocSpecsSection {
       String,
       'Security Approach',
       hint: 'Zero-trust, defence-in-depth, least-privilege',
+      multiParagraph: true,
     ),
     Field(
       'securityComplianceTarget',
       String,
       'Security Compliance Target',
       hint: 'ISO 27001, SOC 2, GDPR, sector-specific',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -1708,6 +1713,7 @@ class Efficiency extends DocSpecsSection {
       String,
       'Scalability Model',
       hint: 'Horizontal, vertical, auto-scaling',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -1760,12 +1766,6 @@ class Efficiency extends DocSpecsSection {
   )
   @Form([
     Field(
-      'loadTestingRequirement',
-      String,
-      'Load Testing Requirement',
-      hint: 'Load test scenarios, thresholds',
-    ),
-    Field(
       'performanceProfilingApproach',
       String,
       'Performance Profiling',
@@ -1778,10 +1778,18 @@ class Efficiency extends DocSpecsSection {
       hint: 'When baseline was established',
     ),
     Field(
+      'loadTestingRequirement',
+      String,
+      'Load Testing Requirement',
+      hint: 'Load test scenarios, thresholds',
+      multiParagraph: true,
+    ),
+    Field(
       'performanceSlaDefinition',
       String,
       'Performance SLA Definition',
       hint: 'SLA for performance metrics',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(3)
@@ -1832,12 +1840,6 @@ class Portability extends DocSpecsSection {
       hint: 'Max effort to migrate to new platform',
     ),
     Field(
-      'dataPortability',
-      String,
-      'Data Portability',
-      hint: 'Export formats, import capabilities',
-    ),
-    Field(
       'vendorLockInAvoidance',
       String,
       'Vendor Lock-in Avoidance',
@@ -1862,6 +1864,13 @@ class Portability extends DocSpecsSection {
       String,
       'Portability Verification',
       hint: 'Cross-platform testing, compatibility matrix',
+    ),
+    Field(
+      'dataPortability',
+      String,
+      'Data Portability',
+      hint: 'Export formats, import capabilities',
+      multiParagraph: true,
     ),
   ])
   @override
@@ -2041,28 +2050,31 @@ class Security extends DocSpecsSection {
   ], 'This section captures authentication controls and proof of identity.')
   @Form([
     Field(
-      'authenticationMethod',
-      String,
-      'Authentication Method',
-      hint: 'OAuth2, SAML, OIDC, MFA',
-    ),
-    Field(
       'mfaRequirement',
       String,
       'MFA Requirement',
       hint: 'All users, privileged users, optional',
     ),
     Field(
+      'authenticationMethod',
+      String,
+      'Authentication Method',
+      hint: 'OAuth2, SAML, OIDC, MFA',
+      multiParagraph: true,
+    ),
+    Field(
       'passwordPolicy',
       String,
       'Password Policy',
       hint: 'Complexity, rotation, history',
+      multiParagraph: true,
     ),
     Field(
       'sessionManagement',
       String,
       'Session Management',
       hint: 'Timeout, concurrent sessions',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -2094,6 +2106,7 @@ class Security extends DocSpecsSection {
       String,
       'Privilege Escalation',
       hint: 'Controls to prevent escalation',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(2)
@@ -3195,12 +3208,6 @@ class ItSecurityOperations extends DocSpecsSection {
   ], 'This section defines access protection controls.')
   @Form([
     Field(
-      'privilegedAccessManagement',
-      String,
-      'Privileged Access Management',
-      hint: 'PAM solution, just-in-time',
-    ),
-    Field(
       'accessReviewFrequency',
       String,
       'Access Review Frequency',
@@ -3211,6 +3218,13 @@ class ItSecurityOperations extends DocSpecsSection {
       String,
       'Access Audit Logging',
       hint: 'What access is logged',
+    ),
+    Field(
+      'privilegedAccessManagement',
+      String,
+      'Privileged Access Management',
+      hint: 'PAM solution, just-in-time',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -4676,12 +4690,6 @@ class MustPassCriterionEntry extends DocSpecsSection {
   )
   @Form([
     Field(
-      'criterionDescription',
-      String,
-      'Description',
-      hint: 'What must be achieved',
-    ),
-    Field(
       'qualityCategory',
       Iso25010Characteristic,
       'Quality Category',
@@ -4692,6 +4700,13 @@ class MustPassCriterionEntry extends DocSpecsSection {
       String,
       'Quality Attribute',
       hint: 'Specific attribute this relates to',
+    ),
+    Field(
+      'criterionDescription',
+      String,
+      'Description',
+      hint: 'What must be achieved',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
@@ -4942,17 +4957,18 @@ class QualityGateCheckEntry extends DocSpecsSection {
   ], 'Categorises a check and relates it to a quality category.')
   @Form([
     Field(
-      'checkDescription',
-      String,
-      'Check Description',
-      hint: 'Detailed description of check',
-    ),
-    Field('checkCategory', String, 'Check Category', hint: 'Category of check'),
-    Field(
       'qualityCategory',
       Iso25010Characteristic,
       'Quality Category',
       hint: 'The ISO/IEC 25010:2023 characteristic the criterion assures',
+    ),
+    Field('checkCategory', String, 'Check Category', hint: 'Category of check'),
+    Field(
+      'checkDescription',
+      String,
+      'Check Description',
+      hint: 'Detailed description of check',
+      multiParagraph: true,
     ),
   ])
   @SerializationOrder(1)
