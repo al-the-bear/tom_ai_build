@@ -1447,51 +1447,7 @@ class CodeSpecsExtractor {
    * @returns {CodeSpecsRouting}
    */
   _verdictOf(cls, path) {
-    const code = cls.codeSpecKind;
-    if (code !== null) {
-      return new CodeSpecsRouting({
-        path,
-        className: cls.name,
-        verdict: CodeSpecsRoutingVerdict.FEEDS_CODE,
-        values: code.kinds,
-        note: code.note,
-        declaredAt: cls.name,
-      });
-    }
-    const followUp = cls.followUpKind;
-    if (followUp !== null) {
-      return new CodeSpecsRouting({
-        path,
-        className: cls.name,
-        verdict: CodeSpecsRoutingVerdict.FEEDS_PROCESS,
-        values: followUp.kinds,
-        note: followUp.note,
-        declaredAt: cls.name,
-      });
-    }
-    const none = cls.noArtifact;
-    if (none !== null) {
-      return new CodeSpecsRouting({
-        path,
-        className: cls.name,
-        verdict: CodeSpecsRoutingVerdict.FEEDS_NOTHING,
-        values: [none.reason],
-        note: none.note,
-        declaredAt: cls.name,
-      });
-    }
-    if (cls.hasAnnotation('Document')) {
-      return new CodeSpecsRouting({
-        path,
-        className: cls.name,
-        verdict: CodeSpecsRoutingVerdict.DOCUMENT_ROOT,
-      });
-    }
-    return new CodeSpecsRouting({
-      path,
-      className: cls.name,
-      verdict: CodeSpecsRoutingVerdict.UNROUTED,
-    });
+    return codeSpecsClassRouting(cls, path);
   }
 
   /**
@@ -1503,19 +1459,91 @@ class CodeSpecsExtractor {
    * @returns {?CodeSpecsRouting}
    */
   _fieldRouting(cls, field) {
-    const code = field.codeSpecKind;
-    if (code === null) {
-      return null;
-    }
+    return codeSpecsFieldRouting(cls, field);
+  }
+
+}
+
+/**
+ * The routing verdict of one class node at `path`: `@CodeSpecKind` (feeds
+ * code), `@FollowUpKind` (a process delivers it), `@NoArtifact` (feeds
+ * nothing), a `@Document` root, else unrouted — the verdict
+ * {@link CodeSpecsExtractor#routings} records, shared with the impact walk
+ * (`spec_impact_walk.js`).
+ *
+ * @param {import('./spec_model').SpecClass} cls
+ * @param {string} path
+ * @returns {CodeSpecsRouting}
+ */
+function codeSpecsClassRouting(cls, path) {
+  const code = cls.codeSpecKind;
+  if (code !== null) {
     return new CodeSpecsRouting({
-      path: '',
+      path,
       className: cls.name,
       verdict: CodeSpecsRoutingVerdict.FEEDS_CODE,
       values: code.kinds,
       note: code.note,
-      declaredAt: `${cls.name}.${field.name}`,
+      declaredAt: cls.name,
     });
   }
+  const followUp = cls.followUpKind;
+  if (followUp !== null) {
+    return new CodeSpecsRouting({
+      path,
+      className: cls.name,
+      verdict: CodeSpecsRoutingVerdict.FEEDS_PROCESS,
+      values: followUp.kinds,
+      note: followUp.note,
+      declaredAt: cls.name,
+    });
+  }
+  const none = cls.noArtifact;
+  if (none !== null) {
+    return new CodeSpecsRouting({
+      path,
+      className: cls.name,
+      verdict: CodeSpecsRoutingVerdict.FEEDS_NOTHING,
+      values: [none.reason],
+      note: none.note,
+      declaredAt: cls.name,
+    });
+  }
+  if (cls.hasAnnotation('Document')) {
+    return new CodeSpecsRouting({
+      path,
+      className: cls.name,
+      verdict: CodeSpecsRoutingVerdict.DOCUMENT_ROOT,
+    });
+  }
+  return new CodeSpecsRouting({
+    path,
+    className: cls.name,
+    verdict: CodeSpecsRoutingVerdict.UNROUTED,
+  });
+}
+
+/**
+ * A field-level `@CodeSpecKind`, which overrides its class's routing for that
+ * field alone; `null` when the field carries none.
+ *
+ * @param {import('./spec_model').SpecClass} cls
+ * @param {import('./spec_model').SpecField} field
+ * @returns {?CodeSpecsRouting}
+ */
+function codeSpecsFieldRouting(cls, field) {
+  const code = field.codeSpecKind;
+  if (code === null) {
+    return null;
+  }
+  return new CodeSpecsRouting({
+    path: '',
+    className: cls.name,
+    verdict: CodeSpecsRoutingVerdict.FEEDS_CODE,
+    values: code.kinds,
+    note: code.note,
+    declaredAt: `${cls.name}.${field.name}`,
+  });
 }
 
 // --- reading back: extract files and the gate record -------------------------
@@ -2682,6 +2710,8 @@ module.exports = {
   CodeSpecsExtract,
   CodeSpecsExtractError,
   CodeSpecsExtractor,
+  codeSpecsClassRouting,
+  codeSpecsFieldRouting,
   K_CODESPECS_GATE_RECORD_FILE,
   K_CODESPECS_GATE_RECORD_FORMAT,
   K_CODESPECS_EXTRACT_FILE_SUFFIX,

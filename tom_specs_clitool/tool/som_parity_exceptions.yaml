@@ -51,3 +51,93 @@ exceptions:
       *named* `discriminatorField` ("Is-Success Discriminator"), and a sample's
       field names are indistinguishable by shape from contract tokens. It
       matched Dart's same-named member by coincidence, not by meaning.
+
+  - token: phasesLeftOut
+    planes: [python, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP: the impact walk of the tom_specs change mode
+      (`spec_impact_walk`, `impact_walk_cases.json`) is in the Dart,
+      TypeScript and JavaScript runtimes only, staged by decision (its two
+      callers, the clitool and the extension, run on Dart and TypeScript;
+      JavaScript mirrors TypeScript's exports). The port to the six other
+      runtimes is tspubnondart40_akiq-som-impact-walk-other-runtimes.
+
+  - token: phasesReached
+    planes: [python, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP: the impact walk of the tom_specs change mode
+      (`spec_impact_walk`, `impact_walk_cases.json`) is in the Dart,
+      TypeScript and JavaScript runtimes only, staged by decision (its two
+      callers, the clitool and the extension, run on Dart and TypeScript;
+      JavaScript mirrors TypeScript's exports). The port to the six other
+      runtimes is tspubnondart40_akiq-som-impact-walk-other-runtimes.
+
+  - token: projectIdea
+    planes: [python, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP: the impact walk of the tom_specs change mode
+      (`spec_impact_walk`, `impact_walk_cases.json`) is in the Dart,
+      TypeScript and JavaScript runtimes only, staged by decision (its two
+      callers, the clitool and the extension, run on Dart and TypeScript;
+      JavaScript mirrors TypeScript's exports). The port to the six other
+      runtimes is tspubnondart40_akiq-som-impact-walk-other-runtimes.
+
+  - token: routingDeclaredAt
+    planes: [python, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP: the impact walk of the tom_specs change mode
+      (`spec_impact_walk`, `impact_walk_cases.json`) is in the Dart,
+      TypeScript and JavaScript runtimes only, staged by decision (its two
+      callers, the clitool and the extension, run on Dart and TypeScript;
+      JavaScript mirrors TypeScript's exports). The port to the six other
+      runtimes is tspubnondart40_akiq-som-impact-walk-other-runtimes.
+
+  - token: routingValues
+    planes: [python, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP: the impact walk of the tom_specs change mode
+      (`spec_impact_walk`, `impact_walk_cases.json`) is in the Dart,
+      TypeScript and JavaScript runtimes only, staged by decision (its two
+      callers, the clitool and the extension, run on Dart and TypeScript;
+      JavaScript mirrors TypeScript's exports). The port to the six other
+      runtimes is tspubnondart40_akiq-som-impact-walk-other-runtimes.
+
+  - token: specImpactDocumentFiles
+    planes: [python, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP: the impact walk of the tom_specs change mode
+      (`spec_impact_walk`, `impact_walk_cases.json`) is in the Dart,
+      TypeScript and JavaScript runtimes only, staged by decision (its two
+      callers, the clitool and the extension, run on Dart and TypeScript;
+      JavaScript mirrors TypeScript's exports). The port to the six other
+      runtimes is tspubnondart40_akiq-som-impact-walk-other-runtimes.
+
+  - token: specImpactLevel
+    planes: [python, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP: the impact walk of the tom_specs change mode
+      (`spec_impact_walk`, `impact_walk_cases.json`) is in the Dart,
+      TypeScript and JavaScript runtimes only, staged by decision (its two
+      callers, the clitool and the extension, run on Dart and TypeScript;
+      JavaScript mirrors TypeScript's exports). The port to the six other
+      runtimes is tspubnondart40_akiq-som-impact-walk-other-runtimes.
+
+  - token: specImpactWalk
+    planes: [python, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP: the impact walk of the tom_specs change mode
+      (`spec_impact_walk`, `impact_walk_cases.json`) is in the Dart,
+      TypeScript and JavaScript runtimes only, staged by decision (its two
+      callers, the clitool and the extension, run on Dart and TypeScript;
+      JavaScript mirrors TypeScript's exports). The port to the six other
+      runtimes is tspubnondart40_akiq-som-impact-walk-other-runtimes.
+
+  - token: specImpactWalkMarkdown
+    planes: [python, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP: the impact walk of the tom_specs change mode
+      (`spec_impact_walk`, `impact_walk_cases.json`) is in the Dart,
+      TypeScript and JavaScript runtimes only, staged by decision (its two
+      callers, the clitool and the extension, run on Dart and TypeScript;
+      JavaScript mirrors TypeScript's exports). The port to the six other
+      runtimes is tspubnondart40_akiq-som-impact-walk-other-runtimes.

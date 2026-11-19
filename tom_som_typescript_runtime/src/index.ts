@@ -154,6 +154,8 @@ export {
   CodeSpecsFieldRef,
   CodeSpecsRequiredArgument,
   CodeSpecsCarrier,
+  codeSpecsClassRouting,
+  codeSpecsFieldRouting,
 } from './spec_codespecs_extract';
 // the generation-unit register of a document (SOM §11.2)
 export {
@@ -163,6 +165,18 @@ export {
   specDefaultUnits,
   K_SPEC_STANDARD_EMITTERS,
 } from './spec_generation_units';
+// the impact walk of the change mode (every root and section, the project's level)
+export {
+  SpecImpactRowKind,
+  SpecImpactRow,
+  SpecImpactRootWalk,
+  SpecImpactLevel,
+  specImpactWalk,
+  specImpactLevel,
+  specImpactDocumentFiles,
+  specImpactWalkMarkdown,
+} from './spec_impact_walk';
+export type { SpecImpactRowKindValue, SpecImpactFolder } from './spec_impact_walk';
 // Phase-4 Stage-A gate (codespecs_prompt.md §4, A1–A5)
 export {
   CodeSpecsGate,

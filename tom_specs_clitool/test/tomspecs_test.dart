@@ -14,9 +14,12 @@ import 'package:tom_specs_clitool/src/version.versioner.dart';
 import '../bin/tomspecs.dart';
 
 /// The command names of the TSB-7 table
-/// (`decisions/tsimp1a_clitool_on_tom_build_base.md`), in its order.
+/// (`decisions/tsimp1a_clitool_on_tom_build_base.md`), in its order, with the
+/// commands added since in their place: `spec-impact-walk` (the change mode's
+/// impact walk) after `spec-validate`.
 const _tsb7 = [
   'spec-validate',
+  'spec-impact-walk',
   'spec-render',
   'spec-import-answers',
   'spec-accept-marks',

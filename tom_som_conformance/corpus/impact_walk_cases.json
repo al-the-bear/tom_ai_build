@@ -1,0 +1,1311 @@
+{
+  "description": "The impact walk of the tom_specs change mode (spec_impact_walk): for every document root of the model, in model order, one row per class node (root, complex, section, list item), one per list (with its item count) and, for an empty list of a class element, one template row `<list>/*` with that class's subtree; each row with its section-id chain (a list item by its stored id), class, depth, filled (hasValuesUnder), values (content leaves plus form-field values at or below the path), items, and CodeSpecs routing (the class's; a list: its element class's, or for a list of scalars the field-level @CodeSpecKind, else the owner class's; below a feedsProcess section that section's routing). A class already on the branch is not entered again. A root without a document is walked over an empty one and is `present: false`. level is specImpactLevel over the case's listing, tests and code folders; documentFiles is specImpactDocumentFiles over the listing; markdown is specImpactWalkMarkdown(walk, level). A case's `model` is `model.meta.json` or an inline model; a document is a corpus state file name or an inline state, keyed by root type. Every runtime that carries spec_impact_walk runs every case.",
+  "cases": [
+    {
+      "name": "the shared model: Demo filled from state.json, Sidecar absent",
+      "model": "model.meta.json",
+      "documents": {
+        "Demo": "state.json"
+      },
+      "listing": [],
+      "tests": null,
+      "code": null,
+      "expect": {
+        "walk": [
+          {
+            "type": "Demo",
+            "sectionId": "DEMO",
+            "present": true,
+            "rows": [
+              {
+                "path": "DEMO",
+                "chain": "DEMO",
+                "kind": "root",
+                "className": "Demo",
+                "depth": 0,
+                "filled": true,
+                "values": 48,
+                "items": null,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "form",
+                  "viewState"
+                ],
+                "routingDeclaredAt": "Demo"
+              },
+              {
+                "path": "DEMO/items",
+                "chain": "DEMO > items",
+                "kind": "list",
+                "className": "Item",
+                "depth": 1,
+                "filled": true,
+                "values": 4,
+                "items": 2,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "form"
+                ],
+                "routingDeclaredAt": "Item"
+              },
+              {
+                "path": "DEMO/items-1",
+                "chain": "DEMO > items > items-1",
+                "kind": "item",
+                "className": "Item",
+                "depth": 2,
+                "filled": true,
+                "values": 2,
+                "items": null,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "form"
+                ],
+                "routingDeclaredAt": "Item"
+              },
+              {
+                "path": "DEMO/items-2",
+                "chain": "DEMO > items > items-2",
+                "kind": "item",
+                "className": "Item",
+                "depth": 2,
+                "filled": true,
+                "values": 2,
+                "items": null,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "form"
+                ],
+                "routingDeclaredAt": "Item"
+              },
+              {
+                "path": "DEMO/REF-LST",
+                "chain": "DEMO > REF-LST",
+                "kind": "list",
+                "className": "",
+                "depth": 1,
+                "filled": true,
+                "values": 2,
+                "items": 2,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "form",
+                  "viewState"
+                ],
+                "routingDeclaredAt": "Demo"
+              },
+              {
+                "path": "DEMO/CARD-LST",
+                "chain": "DEMO > CARD-LST",
+                "kind": "list",
+                "className": "Card",
+                "depth": 1,
+                "filled": true,
+                "values": 2,
+                "items": 2,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "viewState"
+                ],
+                "routingDeclaredAt": "Card"
+              },
+              {
+                "path": "DEMO/CARD-LST-1",
+                "chain": "DEMO > CARD-LST > CARD-ALPHA",
+                "kind": "item",
+                "className": "Card",
+                "depth": 2,
+                "filled": true,
+                "values": 1,
+                "items": null,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "viewState"
+                ],
+                "routingDeclaredAt": "Card"
+              },
+              {
+                "path": "DEMO/CARD-LST-2",
+                "chain": "DEMO > CARD-LST > CARD-2",
+                "kind": "item",
+                "className": "Card",
+                "depth": 2,
+                "filled": true,
+                "values": 1,
+                "items": null,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "viewState"
+                ],
+                "routingDeclaredAt": "Card"
+              },
+              {
+                "path": "DEMO/META",
+                "chain": "DEMO > META",
+                "kind": "complex",
+                "className": "Meta",
+                "depth": 1,
+                "filled": true,
+                "values": 5,
+                "items": null,
+                "routing": "feedsNothing",
+                "routingValues": [
+                  "overview"
+                ],
+                "routingDeclaredAt": "Meta"
+              },
+              {
+                "path": "DEMO/META/tags",
+                "chain": "DEMO > META > tags",
+                "kind": "list",
+                "className": "",
+                "depth": 2,
+                "filled": true,
+                "values": 4,
+                "items": 4,
+                "routing": "feedsNothing",
+                "routingValues": [
+                  "overview"
+                ],
+                "routingDeclaredAt": "Meta"
+              },
+              {
+                "path": "DEMO/control",
+                "chain": "DEMO > control",
+                "kind": "complex",
+                "className": "Control",
+                "depth": 1,
+                "filled": true,
+                "values": 2,
+                "items": null,
+                "routing": "feedsProcess",
+                "routingValues": [
+                  "doc"
+                ],
+                "routingDeclaredAt": "Control"
+              },
+              {
+                "path": "DEMO/notes",
+                "chain": "DEMO > notes",
+                "kind": "section",
+                "className": "Notes",
+                "depth": 1,
+                "filled": true,
+                "values": 2,
+                "items": null,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "text"
+                ],
+                "routingDeclaredAt": "Notes"
+              },
+              {
+                "path": "DEMO/MIX",
+                "chain": "DEMO > MIX",
+                "kind": "section",
+                "className": "Mixed",
+                "depth": 1,
+                "filled": true,
+                "values": 6,
+                "items": null,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "text"
+                ],
+                "routingDeclaredAt": "Mixed"
+              },
+              {
+                "path": "DEMO/REG",
+                "chain": "DEMO > REG",
+                "kind": "complex",
+                "className": "Registry",
+                "depth": 1,
+                "filled": false,
+                "values": 0,
+                "items": null,
+                "routing": "feedsNothing",
+                "routingValues": [
+                  "container"
+                ],
+                "routingDeclaredAt": "Registry"
+              },
+              {
+                "path": "DEMO/REG/RGE-LST",
+                "chain": "DEMO > REG > RGE-LST",
+                "kind": "list",
+                "className": "RegistryEntry",
+                "depth": 2,
+                "filled": false,
+                "values": 0,
+                "items": 0,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "dataAccess"
+                ],
+                "routingDeclaredAt": "RegistryEntry"
+              },
+              {
+                "path": "DEMO/REG/RGE-LST/*",
+                "chain": "DEMO > REG > RGE-LST > *",
+                "kind": "template",
+                "className": "RegistryEntry",
+                "depth": 3,
+                "filled": false,
+                "values": 0,
+                "items": null,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "dataAccess"
+                ],
+                "routingDeclaredAt": "RegistryEntry"
+              },
+              {
+                "path": "DEMO/REG/RGE-LST/*/RGN-LST",
+                "chain": "DEMO > REG > RGE-LST > * > RGN-LST",
+                "kind": "list",
+                "className": "EntryNote",
+                "depth": 4,
+                "filled": false,
+                "values": 0,
+                "items": 0,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "dataAccess"
+                ],
+                "routingDeclaredAt": "EntryNote"
+              },
+              {
+                "path": "DEMO/REG/RGE-LST/*/RGN-LST/*",
+                "chain": "DEMO > REG > RGE-LST > * > RGN-LST > *",
+                "kind": "template",
+                "className": "EntryNote",
+                "depth": 5,
+                "filled": false,
+                "values": 0,
+                "items": null,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "dataAccess"
+                ],
+                "routingDeclaredAt": "EntryNote"
+              },
+              {
+                "path": "DEMO/REG/RQE-LST",
+                "chain": "DEMO > REG > RQE-LST",
+                "kind": "list",
+                "className": "RequiredEntry",
+                "depth": 2,
+                "filled": false,
+                "values": 0,
+                "items": 0,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "dataAccess"
+                ],
+                "routingDeclaredAt": "RequiredEntry"
+              },
+              {
+                "path": "DEMO/REG/RQE-LST/*",
+                "chain": "DEMO > REG > RQE-LST > *",
+                "kind": "template",
+                "className": "RequiredEntry",
+                "depth": 3,
+                "filled": false,
+                "values": 0,
+                "items": null,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "dataAccess"
+                ],
+                "routingDeclaredAt": "RequiredEntry"
+              },
+              {
+                "path": "DEMO/REG/RGL-LST",
+                "chain": "DEMO > REG > RGL-LST",
+                "kind": "list",
+                "className": "RegistryLink",
+                "depth": 2,
+                "filled": false,
+                "values": 0,
+                "items": 0,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "dataAccess"
+                ],
+                "routingDeclaredAt": "RegistryLink"
+              },
+              {
+                "path": "DEMO/REG/RGL-LST/*",
+                "chain": "DEMO > REG > RGL-LST > *",
+                "kind": "template",
+                "className": "RegistryLink",
+                "depth": 3,
+                "filled": false,
+                "values": 0,
+                "items": null,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "dataAccess"
+                ],
+                "routingDeclaredAt": "RegistryLink"
+              },
+              {
+                "path": "DEMO/REG/RGA-LST",
+                "chain": "DEMO > REG > RGA-LST",
+                "kind": "list",
+                "className": "RegistryEntry",
+                "depth": 2,
+                "filled": false,
+                "values": 0,
+                "items": 0,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "dataAccess"
+                ],
+                "routingDeclaredAt": "RegistryEntry"
+              },
+              {
+                "path": "DEMO/REG/RGA-LST/*",
+                "chain": "DEMO > REG > RGA-LST > *",
+                "kind": "template",
+                "className": "RegistryEntry",
+                "depth": 3,
+                "filled": false,
+                "values": 0,
+                "items": null,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "dataAccess"
+                ],
+                "routingDeclaredAt": "RegistryEntry"
+              },
+              {
+                "path": "DEMO/REG/RGA-LST/*/RGN-LST",
+                "chain": "DEMO > REG > RGA-LST > * > RGN-LST",
+                "kind": "list",
+                "className": "EntryNote",
+                "depth": 4,
+                "filled": false,
+                "values": 0,
+                "items": 0,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "dataAccess"
+                ],
+                "routingDeclaredAt": "EntryNote"
+              },
+              {
+                "path": "DEMO/REG/RGA-LST/*/RGN-LST/*",
+                "chain": "DEMO > REG > RGA-LST > * > RGN-LST > *",
+                "kind": "template",
+                "className": "EntryNote",
+                "depth": 5,
+                "filled": false,
+                "values": 0,
+                "items": null,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "dataAccess"
+                ],
+                "routingDeclaredAt": "EntryNote"
+              },
+              {
+                "path": "DEMO/REG/CHO",
+                "chain": "DEMO > REG > CHO",
+                "kind": "complex",
+                "className": "Choice",
+                "depth": 2,
+                "filled": false,
+                "values": 0,
+                "items": null,
+                "routing": "feedsNothing",
+                "routingValues": [
+                  "container"
+                ],
+                "routingDeclaredAt": "Choice"
+              },
+              {
+                "path": "DEMO/REG/CHO/CHO-ALP",
+                "chain": "DEMO > REG > CHO > CHO-ALP",
+                "kind": "complex",
+                "className": "ChoicePart",
+                "depth": 3,
+                "filled": false,
+                "values": 0,
+                "items": null,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "text"
+                ],
+                "routingDeclaredAt": "ChoicePart"
+              },
+              {
+                "path": "DEMO/REG/CHO/CHO-AL2",
+                "chain": "DEMO > REG > CHO > CHO-AL2",
+                "kind": "complex",
+                "className": "ChoicePart",
+                "depth": 3,
+                "filled": false,
+                "values": 0,
+                "items": null,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "text"
+                ],
+                "routingDeclaredAt": "ChoicePart"
+              },
+              {
+                "path": "DEMO/REG/CHO/CHO-BET",
+                "chain": "DEMO > REG > CHO > CHO-BET",
+                "kind": "complex",
+                "className": "ChoicePart",
+                "depth": 3,
+                "filled": false,
+                "values": 0,
+                "items": null,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "text"
+                ],
+                "routingDeclaredAt": "ChoicePart"
+              },
+              {
+                "path": "DEMO/REG/CHO/CHO-COM",
+                "chain": "DEMO > REG > CHO > CHO-COM",
+                "kind": "complex",
+                "className": "ChoicePart",
+                "depth": 3,
+                "filled": false,
+                "values": 0,
+                "items": null,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "text"
+                ],
+                "routingDeclaredAt": "ChoicePart"
+              },
+              {
+                "path": "DEMO/DLV-LST",
+                "chain": "DEMO > DLV-LST",
+                "kind": "list",
+                "className": "Deliverable",
+                "depth": 1,
+                "filled": true,
+                "values": 13,
+                "items": 2,
+                "routing": "feedsNothing",
+                "routingValues": [
+                  "generation"
+                ],
+                "routingDeclaredAt": "Deliverable"
+              },
+              {
+                "path": "DEMO/DLV-LST-1",
+                "chain": "DEMO > DLV-LST > DLV-1",
+                "kind": "item",
+                "className": "Deliverable",
+                "depth": 2,
+                "filled": true,
+                "values": 5,
+                "items": null,
+                "routing": "feedsNothing",
+                "routingValues": [
+                  "generation"
+                ],
+                "routingDeclaredAt": "Deliverable"
+              },
+              {
+                "path": "DEMO/DLV-LST-1/DLR-LST",
+                "chain": "DEMO > DLV-LST > DLV-1 > DLR-LST",
+                "kind": "list",
+                "className": "DeliverableRoute",
+                "depth": 3,
+                "filled": true,
+                "values": 2,
+                "items": 1,
+                "routing": "feedsNothing",
+                "routingValues": [
+                  "generation"
+                ],
+                "routingDeclaredAt": "DeliverableRoute"
+              },
+              {
+                "path": "DEMO/DLV-LST-1/DLR-LST-1",
+                "chain": "DEMO > DLV-LST > DLV-1 > DLR-LST > DLR-1",
+                "kind": "item",
+                "className": "DeliverableRoute",
+                "depth": 4,
+                "filled": true,
+                "values": 2,
+                "items": null,
+                "routing": "feedsNothing",
+                "routingValues": [
+                  "generation"
+                ],
+                "routingDeclaredAt": "DeliverableRoute"
+              },
+              {
+                "path": "DEMO/DLV-LST-1/DLE-LST",
+                "chain": "DEMO > DLV-LST > DLV-1 > DLE-LST",
+                "kind": "list",
+                "className": "DeliverableEmitter",
+                "depth": 3,
+                "filled": false,
+                "values": 0,
+                "items": 0,
+                "routing": "feedsNothing",
+                "routingValues": [
+                  "generation"
+                ],
+                "routingDeclaredAt": "DeliverableEmitter"
+              },
+              {
+                "path": "DEMO/DLV-LST-1/DLE-LST/*",
+                "chain": "DEMO > DLV-LST > DLV-1 > DLE-LST > *",
+                "kind": "template",
+                "className": "DeliverableEmitter",
+                "depth": 4,
+                "filled": false,
+                "values": 0,
+                "items": null,
+                "routing": "feedsNothing",
+                "routingValues": [
+                  "generation"
+                ],
+                "routingDeclaredAt": "DeliverableEmitter"
+              },
+              {
+                "path": "DEMO/DLV-LST-2",
+                "chain": "DEMO > DLV-LST > DLV-2",
+                "kind": "item",
+                "className": "Deliverable",
+                "depth": 2,
+                "filled": true,
+                "values": 8,
+                "items": null,
+                "routing": "feedsNothing",
+                "routingValues": [
+                  "generation"
+                ],
+                "routingDeclaredAt": "Deliverable"
+              },
+              {
+                "path": "DEMO/DLV-LST-2/DLR-LST",
+                "chain": "DEMO > DLV-LST > DLV-2 > DLR-LST",
+                "kind": "list",
+                "className": "DeliverableRoute",
+                "depth": 3,
+                "filled": true,
+                "values": 4,
+                "items": 2,
+                "routing": "feedsNothing",
+                "routingValues": [
+                  "generation"
+                ],
+                "routingDeclaredAt": "DeliverableRoute"
+              },
+              {
+                "path": "DEMO/DLV-LST-2/DLR-LST-1",
+                "chain": "DEMO > DLV-LST > DLV-2 > DLR-LST > DLR-1",
+                "kind": "item",
+                "className": "DeliverableRoute",
+                "depth": 4,
+                "filled": true,
+                "values": 2,
+                "items": null,
+                "routing": "feedsNothing",
+                "routingValues": [
+                  "generation"
+                ],
+                "routingDeclaredAt": "DeliverableRoute"
+              },
+              {
+                "path": "DEMO/DLV-LST-2/DLR-LST-2",
+                "chain": "DEMO > DLV-LST > DLV-2 > DLR-LST > DLR-2",
+                "kind": "item",
+                "className": "DeliverableRoute",
+                "depth": 4,
+                "filled": true,
+                "values": 2,
+                "items": null,
+                "routing": "feedsNothing",
+                "routingValues": [
+                  "generation"
+                ],
+                "routingDeclaredAt": "DeliverableRoute"
+              },
+              {
+                "path": "DEMO/DLV-LST-2/DLE-LST",
+                "chain": "DEMO > DLV-LST > DLV-2 > DLE-LST",
+                "kind": "list",
+                "className": "DeliverableEmitter",
+                "depth": 3,
+                "filled": true,
+                "values": 1,
+                "items": 1,
+                "routing": "feedsNothing",
+                "routingValues": [
+                  "generation"
+                ],
+                "routingDeclaredAt": "DeliverableEmitter"
+              },
+              {
+                "path": "DEMO/DLV-LST-2/DLE-LST-1",
+                "chain": "DEMO > DLV-LST > DLV-2 > DLE-LST > DLE-1",
+                "kind": "item",
+                "className": "DeliverableEmitter",
+                "depth": 4,
+                "filled": true,
+                "values": 1,
+                "items": null,
+                "routing": "feedsNothing",
+                "routingValues": [
+                  "generation"
+                ],
+                "routingDeclaredAt": "DeliverableEmitter"
+              }
+            ]
+          },
+          {
+            "type": "Sidecar",
+            "sectionId": "SIDE",
+            "present": false,
+            "rows": [
+              {
+                "path": "SIDE",
+                "chain": "SIDE",
+                "kind": "root",
+                "className": "Sidecar",
+                "depth": 0,
+                "filled": false,
+                "values": 0,
+                "items": null,
+                "routing": "documentRoot",
+                "routingValues": [],
+                "routingDeclaredAt": ""
+              }
+            ]
+          }
+        ],
+        "level": {
+          "documents": [
+            {
+              "type": "Demo",
+              "sectionId": "DEMO",
+              "present": true
+            },
+            {
+              "type": "Sidecar",
+              "sectionId": "SIDE",
+              "present": false
+            }
+          ],
+          "projectIdea": false,
+          "extracts": 0,
+          "gateRecord": false,
+          "ir": 0,
+          "gates": [],
+          "tests": null,
+          "code": null,
+          "phasesReached": [
+            3
+          ],
+          "phasesLeftOut": [
+            1,
+            2,
+            4,
+            5,
+            6
+          ]
+        },
+        "documentFiles": [],
+        "markdown": "# Impact walk\n\nEvery section of every document root, filled or not: the section-id chain, the model class, whether it holds values, and its CodeSpecs routing. A list counts its items; an empty list of sections shows what a new item holds at `<list>/*`.\n\n## DEMO — Demo\n\n43 rows, 23 holding values.\n\n| Section-id chain | Path | Kind | Class | Values | Items | Routing |\n| --- | --- | --- | --- | --- | --- | --- |\n| DEMO | `DEMO` | root | Demo | 48 |  | feedsCode: form, viewState |\n| DEMO > items | `DEMO/items` | list | Item | 4 | 2 | feedsCode: form |\n| DEMO > items > items-1 | `DEMO/items-1` | item | Item | 2 |  | feedsCode: form |\n| DEMO > items > items-2 | `DEMO/items-2` | item | Item | 2 |  | feedsCode: form |\n| DEMO > REF-LST | `DEMO/REF-LST` | list |  | 2 | 2 | feedsCode: form, viewState |\n| DEMO > CARD-LST | `DEMO/CARD-LST` | list | Card | 2 | 2 | feedsCode: viewState |\n| DEMO > CARD-LST > CARD-ALPHA | `DEMO/CARD-LST-1` | item | Card | 1 |  | feedsCode: viewState |\n| DEMO > CARD-LST > CARD-2 | `DEMO/CARD-LST-2` | item | Card | 1 |  | feedsCode: viewState |\n| DEMO > META | `DEMO/META` | complex | Meta | 5 |  | feedsNothing: overview |\n| DEMO > META > tags | `DEMO/META/tags` | list |  | 4 | 4 | feedsNothing: overview |\n| DEMO > control | `DEMO/control` | complex | Control | 2 |  | feedsProcess: doc |\n| DEMO > notes | `DEMO/notes` | section | Notes | 2 |  | feedsCode: text |\n| DEMO > MIX | `DEMO/MIX` | section | Mixed | 6 |  | feedsCode: text |\n| DEMO > REG | `DEMO/REG` | complex | Registry | — |  | feedsNothing: container |\n| DEMO > REG > RGE-LST | `DEMO/REG/RGE-LST` | list | RegistryEntry | — | 0 | feedsCode: dataAccess |\n| DEMO > REG > RGE-LST > * | `DEMO/REG/RGE-LST/*` | template | RegistryEntry | — |  | feedsCode: dataAccess |\n| DEMO > REG > RGE-LST > * > RGN-LST | `DEMO/REG/RGE-LST/*/RGN-LST` | list | EntryNote | — | 0 | feedsCode: dataAccess |\n| DEMO > REG > RGE-LST > * > RGN-LST > * | `DEMO/REG/RGE-LST/*/RGN-LST/*` | template | EntryNote | — |  | feedsCode: dataAccess |\n| DEMO > REG > RQE-LST | `DEMO/REG/RQE-LST` | list | RequiredEntry | — | 0 | feedsCode: dataAccess |\n| DEMO > REG > RQE-LST > * | `DEMO/REG/RQE-LST/*` | template | RequiredEntry | — |  | feedsCode: dataAccess |\n| DEMO > REG > RGL-LST | `DEMO/REG/RGL-LST` | list | RegistryLink | — | 0 | feedsCode: dataAccess |\n| DEMO > REG > RGL-LST > * | `DEMO/REG/RGL-LST/*` | template | RegistryLink | — |  | feedsCode: dataAccess |\n| DEMO > REG > RGA-LST | `DEMO/REG/RGA-LST` | list | RegistryEntry | — | 0 | feedsCode: dataAccess |\n| DEMO > REG > RGA-LST > * | `DEMO/REG/RGA-LST/*` | template | RegistryEntry | — |  | feedsCode: dataAccess |\n| DEMO > REG > RGA-LST > * > RGN-LST | `DEMO/REG/RGA-LST/*/RGN-LST` | list | EntryNote | — | 0 | feedsCode: dataAccess |\n| DEMO > REG > RGA-LST > * > RGN-LST > * | `DEMO/REG/RGA-LST/*/RGN-LST/*` | template | EntryNote | — |  | feedsCode: dataAccess |\n| DEMO > REG > CHO | `DEMO/REG/CHO` | complex | Choice | — |  | feedsNothing: container |\n| DEMO > REG > CHO > CHO-ALP | `DEMO/REG/CHO/CHO-ALP` | complex | ChoicePart | — |  | feedsCode: text |\n| DEMO > REG > CHO > CHO-AL2 | `DEMO/REG/CHO/CHO-AL2` | complex | ChoicePart | — |  | feedsCode: text |\n| DEMO > REG > CHO > CHO-BET | `DEMO/REG/CHO/CHO-BET` | complex | ChoicePart | — |  | feedsCode: text |\n| DEMO > REG > CHO > CHO-COM | `DEMO/REG/CHO/CHO-COM` | complex | ChoicePart | — |  | feedsCode: text |\n| DEMO > DLV-LST | `DEMO/DLV-LST` | list | Deliverable | 13 | 2 | feedsNothing: generation |\n| DEMO > DLV-LST > DLV-1 | `DEMO/DLV-LST-1` | item | Deliverable | 5 |  | feedsNothing: generation |\n| DEMO > DLV-LST > DLV-1 > DLR-LST | `DEMO/DLV-LST-1/DLR-LST` | list | DeliverableRoute | 2 | 1 | feedsNothing: generation |\n| DEMO > DLV-LST > DLV-1 > DLR-LST > DLR-1 | `DEMO/DLV-LST-1/DLR-LST-1` | item | DeliverableRoute | 2 |  | feedsNothing: generation |\n| DEMO > DLV-LST > DLV-1 > DLE-LST | `DEMO/DLV-LST-1/DLE-LST` | list | DeliverableEmitter | — | 0 | feedsNothing: generation |\n| DEMO > DLV-LST > DLV-1 > DLE-LST > * | `DEMO/DLV-LST-1/DLE-LST/*` | template | DeliverableEmitter | — |  | feedsNothing: generation |\n| DEMO > DLV-LST > DLV-2 | `DEMO/DLV-LST-2` | item | Deliverable | 8 |  | feedsNothing: generation |\n| DEMO > DLV-LST > DLV-2 > DLR-LST | `DEMO/DLV-LST-2/DLR-LST` | list | DeliverableRoute | 4 | 2 | feedsNothing: generation |\n| DEMO > DLV-LST > DLV-2 > DLR-LST > DLR-1 | `DEMO/DLV-LST-2/DLR-LST-1` | item | DeliverableRoute | 2 |  | feedsNothing: generation |\n| DEMO > DLV-LST > DLV-2 > DLR-LST > DLR-2 | `DEMO/DLV-LST-2/DLR-LST-2` | item | DeliverableRoute | 2 |  | feedsNothing: generation |\n| DEMO > DLV-LST > DLV-2 > DLE-LST | `DEMO/DLV-LST-2/DLE-LST` | list | DeliverableEmitter | 1 | 1 | feedsNothing: generation |\n| DEMO > DLV-LST > DLV-2 > DLE-LST > DLE-1 | `DEMO/DLV-LST-2/DLE-LST-1` | item | DeliverableEmitter | 1 |  | feedsNothing: generation |\n\n## SIDE — Sidecar (absent)\n\n1 rows, 0 holding values.\n\n| Section-id chain | Path | Kind | Class | Values | Items | Routing |\n| --- | --- | --- | --- | --- | --- | --- |\n| SIDE | `SIDE` | root | Sidecar | — |  | documentRoot |\n\n## Level\n\n- Documents present: DEMO\n- Documents absent: SIDE\n- Project Idea: no\n- CodeSpecs extracts: 0; gate record: no\n- IR Specs: 0\n- Gates: none\n- Tests: not given\n- Code: not given\n- Phases reached: 3; left out by a change: 1, 2, 4, 5, 6 (Phases 7–8 are not visible on disk)\n"
+      }
+    },
+    {
+      "name": "an inline model: process inheritance, a recursion cut, scalar and empty lists, the level",
+      "model": {
+        "metaSchemaVersion": 1,
+        "modelVersion": 1,
+        "modelVersionLabel": "impact-1.0",
+        "classCount": 6,
+        "rootCount": 2,
+        "roots": [
+          {
+            "type": "Plan",
+            "title": "Plan Document",
+            "sectionId": "SBP"
+          },
+          {
+            "type": "Extra",
+            "title": "Extra Document",
+            "sectionId": "EXT"
+          }
+        ],
+        "classes": {
+          "Plan": {
+            "name": "Plan",
+            "sectionId": "SBP",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Plan Document"
+                }
+              },
+              {
+                "name": "SectionId",
+                "arguments": {
+                  "id": "SBP"
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "title",
+                "kind": "content",
+                "sectionId": "TTL"
+              },
+              {
+                "name": "ops",
+                "kind": "complex",
+                "sectionId": "OPS",
+                "type": "Ops"
+              },
+              {
+                "name": "tags",
+                "kind": "list",
+                "sectionId": "TAG-LST",
+                "sectionIdPattern": "TAG-xxx",
+                "elementType": "String",
+                "elementIsComplex": false,
+                "annotations": [
+                  {
+                    "name": "CodeSpecKind",
+                    "arguments": {
+                      "kinds": [
+                        "CodeSpecPart.textCatalogue"
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "parts",
+                "kind": "list",
+                "sectionId": "PRT-LST",
+                "sectionIdPattern": "PRT-xxx",
+                "elementType": "Part",
+                "elementIsComplex": true
+              },
+              {
+                "name": "detail",
+                "kind": "section",
+                "sectionId": "DTL",
+                "type": "Detail"
+              }
+            ]
+          },
+          "Ops": {
+            "name": "Ops",
+            "sectionId": "OPS",
+            "annotations": [
+              {
+                "name": "SectionId",
+                "arguments": {
+                  "id": "OPS"
+                }
+              },
+              {
+                "name": "FollowUpKind",
+                "arguments": {
+                  "processes": [
+                    "FollowUpProcess.ops"
+                  ]
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "runbook",
+                "kind": "content",
+                "sectionId": "RUN"
+              },
+              {
+                "name": "steps",
+                "kind": "list",
+                "sectionId": "STP-LST",
+                "sectionIdPattern": "STP-xxx",
+                "elementType": "Step",
+                "elementIsComplex": true
+              }
+            ]
+          },
+          "Step": {
+            "name": "Step",
+            "sectionId": "STP",
+            "annotations": [
+              {
+                "name": "SectionId",
+                "arguments": {
+                  "id": "STP"
+                }
+              },
+              {
+                "name": "CodeSpecKind",
+                "arguments": {
+                  "kinds": [
+                    "CodeSpecPart.job"
+                  ]
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "content",
+                "kind": "form",
+                "formFields": [
+                  {
+                    "name": "action",
+                    "label": "Action"
+                  },
+                  {
+                    "name": "owner",
+                    "label": "Owner"
+                  }
+                ]
+              },
+              {
+                "name": "again",
+                "kind": "complex",
+                "sectionId": "AGN",
+                "type": "Ops"
+              }
+            ]
+          },
+          "Part": {
+            "name": "Part",
+            "sectionId": "PRT",
+            "annotations": [
+              {
+                "name": "SectionId",
+                "arguments": {
+                  "id": "PRT"
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "label",
+                "kind": "content",
+                "sectionId": "LBL"
+              },
+              {
+                "name": "detail",
+                "kind": "complex",
+                "sectionId": "PDT",
+                "type": "Detail"
+              }
+            ]
+          },
+          "Detail": {
+            "name": "Detail",
+            "sectionId": "DTL",
+            "annotations": [
+              {
+                "name": "SectionId",
+                "arguments": {
+                  "id": "DTL"
+                }
+              },
+              {
+                "name": "NoArtifact",
+                "arguments": {
+                  "reason": "NoArtifactReason.overview"
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "text",
+                "kind": "content",
+                "sectionId": "DTX"
+              }
+            ]
+          },
+          "Extra": {
+            "name": "Extra",
+            "sectionId": "EXT",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Extra Document"
+                }
+              },
+              {
+                "name": "SectionId",
+                "arguments": {
+                  "id": "EXT"
+                }
+              },
+              {
+                "name": "CodeSpecKind",
+                "arguments": {
+                  "kinds": [
+                    "CodeSpecPart.form"
+                  ]
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "note",
+                "kind": "content",
+                "sectionId": "NTE"
+              },
+              {
+                "name": "parts",
+                "kind": "list",
+                "sectionId": "XPT-LST",
+                "sectionIdPattern": "XPT-xxx",
+                "elementType": "Part",
+                "elementIsComplex": true
+              }
+            ]
+          }
+        }
+      },
+      "documents": {
+        "Plan": {
+          "content": {
+            "SBP/TTL": "Release plan",
+            "SBP/OPS/RUN": "Follow the runbook.",
+            "SBP/TAG-LST-1": "alpha",
+            "SBP/TAG-LST-2": "beta"
+          },
+          "forms": {
+            "SBP/OPS/STP-LST-1/content": {
+              "action": "deploy",
+              "owner": "ops"
+            },
+            "SBP/OPS/STP-LST-2/content": {
+              "action": "verify"
+            }
+          },
+          "lists": {
+            "SBP/OPS/STP-LST": {
+              "seq": 2,
+              "items": [
+                "SBP/OPS/STP-LST-1",
+                "SBP/OPS/STP-LST-2"
+              ],
+              "ids": {
+                "SBP/OPS/STP-LST-1": "STP-DEPLOY"
+              }
+            },
+            "SBP/TAG-LST": {
+              "seq": 2,
+              "items": [
+                "SBP/TAG-LST-1",
+                "SBP/TAG-LST-2"
+              ]
+            }
+          }
+        }
+      },
+      "listing": [
+        "phase1_project_idea/project_idea.md",
+        "phase2_solution_blueprint/plan.sbp.docspecs.yaml",
+        "phase2_solution_blueprint/01_Initial Version/plan.sbp.docspecs.yaml",
+        "phase3_detailed_specifications/notes.md",
+        "generated-doc/codespecs_extracts/CE-DB.extract.yaml",
+        "generated-doc/codespecs_extracts/CE-DB.extract.md",
+        "generated-doc/codespecs_extracts/CE-JB.extract.yaml",
+        "generated-doc/codespecs_extracts/gate.verdicts.yaml",
+        "irspecs/CE-DB_data_access.ir.yaml",
+        "gates/G2.checklist.yaml",
+        "quality/evidence/gates/G2_20261104-1943.gate.md",
+        "./README.md"
+      ],
+      "tests": [
+        {
+          "path": "plan_server/test",
+          "present": true
+        }
+      ],
+      "code": [
+        {
+          "path": "plan_server/lib",
+          "present": false
+        }
+      ],
+      "expect": {
+        "walk": [
+          {
+            "type": "Plan",
+            "sectionId": "SBP",
+            "present": true,
+            "rows": [
+              {
+                "path": "SBP",
+                "chain": "SBP",
+                "kind": "root",
+                "className": "Plan",
+                "depth": 0,
+                "filled": true,
+                "values": 7,
+                "items": null,
+                "routing": "documentRoot",
+                "routingValues": [],
+                "routingDeclaredAt": ""
+              },
+              {
+                "path": "SBP/OPS",
+                "chain": "SBP > OPS",
+                "kind": "complex",
+                "className": "Ops",
+                "depth": 1,
+                "filled": true,
+                "values": 4,
+                "items": null,
+                "routing": "feedsProcess",
+                "routingValues": [
+                  "ops"
+                ],
+                "routingDeclaredAt": "Ops"
+              },
+              {
+                "path": "SBP/OPS/STP-LST",
+                "chain": "SBP > OPS > STP-LST",
+                "kind": "list",
+                "className": "Step",
+                "depth": 2,
+                "filled": true,
+                "values": 3,
+                "items": 2,
+                "routing": "feedsProcess",
+                "routingValues": [
+                  "ops"
+                ],
+                "routingDeclaredAt": "Ops"
+              },
+              {
+                "path": "SBP/OPS/STP-LST-1",
+                "chain": "SBP > OPS > STP-LST > STP-DEPLOY",
+                "kind": "item",
+                "className": "Step",
+                "depth": 3,
+                "filled": true,
+                "values": 2,
+                "items": null,
+                "routing": "feedsProcess",
+                "routingValues": [
+                  "ops"
+                ],
+                "routingDeclaredAt": "Ops"
+              },
+              {
+                "path": "SBP/OPS/STP-LST-2",
+                "chain": "SBP > OPS > STP-LST > STP-LST-2",
+                "kind": "item",
+                "className": "Step",
+                "depth": 3,
+                "filled": true,
+                "values": 1,
+                "items": null,
+                "routing": "feedsProcess",
+                "routingValues": [
+                  "ops"
+                ],
+                "routingDeclaredAt": "Ops"
+              },
+              {
+                "path": "SBP/TAG-LST",
+                "chain": "SBP > TAG-LST",
+                "kind": "list",
+                "className": "",
+                "depth": 1,
+                "filled": true,
+                "values": 2,
+                "items": 2,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "textCatalogue"
+                ],
+                "routingDeclaredAt": "Plan.tags"
+              },
+              {
+                "path": "SBP/PRT-LST",
+                "chain": "SBP > PRT-LST",
+                "kind": "list",
+                "className": "Part",
+                "depth": 1,
+                "filled": false,
+                "values": 0,
+                "items": 0,
+                "routing": "unrouted",
+                "routingValues": [],
+                "routingDeclaredAt": ""
+              },
+              {
+                "path": "SBP/PRT-LST/*",
+                "chain": "SBP > PRT-LST > *",
+                "kind": "template",
+                "className": "Part",
+                "depth": 2,
+                "filled": false,
+                "values": 0,
+                "items": null,
+                "routing": "unrouted",
+                "routingValues": [],
+                "routingDeclaredAt": ""
+              },
+              {
+                "path": "SBP/PRT-LST/*/PDT",
+                "chain": "SBP > PRT-LST > * > PDT",
+                "kind": "complex",
+                "className": "Detail",
+                "depth": 3,
+                "filled": false,
+                "values": 0,
+                "items": null,
+                "routing": "feedsNothing",
+                "routingValues": [
+                  "overview"
+                ],
+                "routingDeclaredAt": "Detail"
+              },
+              {
+                "path": "SBP/DTL",
+                "chain": "SBP > DTL",
+                "kind": "section",
+                "className": "Detail",
+                "depth": 1,
+                "filled": false,
+                "values": 0,
+                "items": null,
+                "routing": "feedsNothing",
+                "routingValues": [
+                  "overview"
+                ],
+                "routingDeclaredAt": "Detail"
+              }
+            ]
+          },
+          {
+            "type": "Extra",
+            "sectionId": "EXT",
+            "present": false,
+            "rows": [
+              {
+                "path": "EXT",
+                "chain": "EXT",
+                "kind": "root",
+                "className": "Extra",
+                "depth": 0,
+                "filled": false,
+                "values": 0,
+                "items": null,
+                "routing": "feedsCode",
+                "routingValues": [
+                  "form"
+                ],
+                "routingDeclaredAt": "Extra"
+              },
+              {
+                "path": "EXT/XPT-LST",
+                "chain": "EXT > XPT-LST",
+                "kind": "list",
+                "className": "Part",
+                "depth": 1,
+                "filled": false,
+                "values": 0,
+                "items": 0,
+                "routing": "unrouted",
+                "routingValues": [],
+                "routingDeclaredAt": ""
+              },
+              {
+                "path": "EXT/XPT-LST/*",
+                "chain": "EXT > XPT-LST > *",
+                "kind": "template",
+                "className": "Part",
+                "depth": 2,
+                "filled": false,
+                "values": 0,
+                "items": null,
+                "routing": "unrouted",
+                "routingValues": [],
+                "routingDeclaredAt": ""
+              },
+              {
+                "path": "EXT/XPT-LST/*/PDT",
+                "chain": "EXT > XPT-LST > * > PDT",
+                "kind": "complex",
+                "className": "Detail",
+                "depth": 3,
+                "filled": false,
+                "values": 0,
+                "items": null,
+                "routing": "feedsNothing",
+                "routingValues": [
+                  "overview"
+                ],
+                "routingDeclaredAt": "Detail"
+              }
+            ]
+          }
+        ],
+        "level": {
+          "documents": [
+            {
+              "type": "Plan",
+              "sectionId": "SBP",
+              "present": true
+            },
+            {
+              "type": "Extra",
+              "sectionId": "EXT",
+              "present": false
+            }
+          ],
+          "projectIdea": true,
+          "extracts": 2,
+          "gateRecord": true,
+          "ir": 1,
+          "gates": [
+            "gates/G2.checklist.yaml",
+            "quality/evidence/gates/G2_20261104-1943.gate.md"
+          ],
+          "tests": [
+            {
+              "path": "plan_server/test",
+              "present": true
+            }
+          ],
+          "code": [
+            {
+              "path": "plan_server/lib",
+              "present": false
+            }
+          ],
+          "phasesReached": [
+            1,
+            2,
+            4,
+            5
+          ],
+          "phasesLeftOut": [
+            3,
+            6
+          ]
+        },
+        "documentFiles": [
+          "phase2_solution_blueprint/plan.sbp.docspecs.yaml"
+        ],
+        "markdown": "# Impact walk\n\nEvery section of every document root, filled or not: the section-id chain, the model class, whether it holds values, and its CodeSpecs routing. A list counts its items; an empty list of sections shows what a new item holds at `<list>/*`.\n\n## SBP — Plan\n\n10 rows, 6 holding values.\n\n| Section-id chain | Path | Kind | Class | Values | Items | Routing |\n| --- | --- | --- | --- | --- | --- | --- |\n| SBP | `SBP` | root | Plan | 7 |  | documentRoot |\n| SBP > OPS | `SBP/OPS` | complex | Ops | 4 |  | feedsProcess: ops |\n| SBP > OPS > STP-LST | `SBP/OPS/STP-LST` | list | Step | 3 | 2 | feedsProcess: ops |\n| SBP > OPS > STP-LST > STP-DEPLOY | `SBP/OPS/STP-LST-1` | item | Step | 2 |  | feedsProcess: ops |\n| SBP > OPS > STP-LST > STP-LST-2 | `SBP/OPS/STP-LST-2` | item | Step | 1 |  | feedsProcess: ops |\n| SBP > TAG-LST | `SBP/TAG-LST` | list |  | 2 | 2 | feedsCode: textCatalogue |\n| SBP > PRT-LST | `SBP/PRT-LST` | list | Part | — | 0 | unrouted |\n| SBP > PRT-LST > * | `SBP/PRT-LST/*` | template | Part | — |  | unrouted |\n| SBP > PRT-LST > * > PDT | `SBP/PRT-LST/*/PDT` | complex | Detail | — |  | feedsNothing: overview |\n| SBP > DTL | `SBP/DTL` | section | Detail | — |  | feedsNothing: overview |\n\n## EXT — Extra (absent)\n\n4 rows, 0 holding values.\n\n| Section-id chain | Path | Kind | Class | Values | Items | Routing |\n| --- | --- | --- | --- | --- | --- | --- |\n| EXT | `EXT` | root | Extra | — |  | feedsCode: form |\n| EXT > XPT-LST | `EXT/XPT-LST` | list | Part | — | 0 | unrouted |\n| EXT > XPT-LST > * | `EXT/XPT-LST/*` | template | Part | — |  | unrouted |\n| EXT > XPT-LST > * > PDT | `EXT/XPT-LST/*/PDT` | complex | Detail | — |  | feedsNothing: overview |\n\n## Level\n\n- Documents present: SBP\n- Documents absent: EXT\n- Project Idea: yes\n- CodeSpecs extracts: 2; gate record: yes\n- IR Specs: 1\n- Gates: `gates/G2.checklist.yaml`, `quality/evidence/gates/G2_20261104-1943.gate.md`\n- Tests: `plan_server/test` (present)\n- Code: `plan_server/lib` (absent)\n- Phases reached: 1, 2, 4, 5; left out by a change: 3, 6 (Phases 7–8 are not visible on disk)\n"
+      }
+    }
+  ]
+}

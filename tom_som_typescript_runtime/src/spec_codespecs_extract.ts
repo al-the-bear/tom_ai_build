@@ -186,6 +186,87 @@ export class CodeSpecsRouting {
 }
 
 /**
+ * The routing verdict of one class node at `path`: `@CodeSpecKind` (feeds
+ * code), `@FollowUpKind` (a process delivers it), `@NoArtifact` (feeds
+ * nothing), a `@Document` root, else unrouted — the same verdict
+ * {@link CodeSpecsExtractor.routings} records, shared with the impact walk
+ * (`spec_impact_walk`).
+ */
+export function codeSpecsClassRouting(
+  cls: SpecClass,
+  path: string,
+): CodeSpecsRouting {
+  const code = cls.codeSpecKind;
+  if (code !== null) {
+    return new CodeSpecsRouting({
+      path,
+      className: cls.name,
+      verdict: CodeSpecsRoutingVerdict.FEEDS_CODE,
+      values: code.kinds,
+      note: code.note,
+      declaredAt: cls.name,
+    });
+  }
+  const followUp = cls.followUpKind;
+  if (followUp !== null) {
+    return new CodeSpecsRouting({
+      path,
+      className: cls.name,
+      verdict: CodeSpecsRoutingVerdict.FEEDS_PROCESS,
+      values: followUp.kinds,
+      note: followUp.note,
+      declaredAt: cls.name,
+    });
+  }
+  const none = cls.noArtifact;
+  if (none !== null) {
+    return new CodeSpecsRouting({
+      path,
+      className: cls.name,
+      verdict: CodeSpecsRoutingVerdict.FEEDS_NOTHING,
+      values: [none.reason],
+      note: none.note,
+      declaredAt: cls.name,
+    });
+  }
+  if (cls.hasAnnotation('Document')) {
+    return new CodeSpecsRouting({
+      path,
+      className: cls.name,
+      verdict: CodeSpecsRoutingVerdict.DOCUMENT_ROOT,
+    });
+  }
+  return new CodeSpecsRouting({
+    path,
+    className: cls.name,
+    verdict: CodeSpecsRoutingVerdict.UNROUTED,
+  });
+}
+
+/**
+ * A field-level `@CodeSpecKind`, which overrides its class's routing for that
+ * field alone; `null` when the field carries none.
+ */
+
+export function codeSpecsFieldRouting(
+  cls: SpecClass,
+  field: SpecField,
+): CodeSpecsRouting | null {
+  const code = field.codeSpecKind;
+  if (code === null) {
+    return null;
+  }
+  return new CodeSpecsRouting({
+    path: '',
+    className: cls.name,
+    verdict: CodeSpecsRoutingVerdict.FEEDS_CODE,
+    values: code.kinds,
+    note: code.note,
+    declaredAt: `${cls.name}.${field.name}`,
+  });
+}
+
+/**
  * One extract entry: a single value the specification document stores, with
  * everything needed to trace it back (`codespecs_mapping.md` §1.1.1, "Entry").
  */
@@ -1555,73 +1636,14 @@ export class CodeSpecsExtractor {
    * readers of the same annotations would be two chances to disagree.
    */
   private _verdictOf(cls: SpecClass, path: string): CodeSpecsRouting {
-    const code = cls.codeSpecKind;
-    if (code !== null) {
-      return new CodeSpecsRouting({
-        path,
-        className: cls.name,
-        verdict: CodeSpecsRoutingVerdict.FEEDS_CODE,
-        values: code.kinds,
-        note: code.note,
-        declaredAt: cls.name,
-      });
-    }
-    const followUp = cls.followUpKind;
-    if (followUp !== null) {
-      return new CodeSpecsRouting({
-        path,
-        className: cls.name,
-        verdict: CodeSpecsRoutingVerdict.FEEDS_PROCESS,
-        values: followUp.kinds,
-        note: followUp.note,
-        declaredAt: cls.name,
-      });
-    }
-    const none = cls.noArtifact;
-    if (none !== null) {
-      return new CodeSpecsRouting({
-        path,
-        className: cls.name,
-        verdict: CodeSpecsRoutingVerdict.FEEDS_NOTHING,
-        values: [none.reason],
-        note: none.note,
-        declaredAt: cls.name,
-      });
-    }
-    if (cls.hasAnnotation('Document')) {
-      return new CodeSpecsRouting({
-        path,
-        className: cls.name,
-        verdict: CodeSpecsRoutingVerdict.DOCUMENT_ROOT,
-      });
-    }
-    return new CodeSpecsRouting({
-      path,
-      className: cls.name,
-      verdict: CodeSpecsRoutingVerdict.UNROUTED,
-    });
+    return codeSpecsClassRouting(cls, path);
   }
 
-  /**
-   * A field-level `@CodeSpecKind`, which overrides its class's routing for that
-   * field alone; `null` when the field carries none.
-   */
   private _fieldRouting(
     cls: SpecClass,
     field: SpecField,
   ): CodeSpecsRouting | null {
-    const code = field.codeSpecKind;
-    if (code === null) {
-      return null;
-    }
-    return new CodeSpecsRouting({
-      path: '',
-      className: cls.name,
-      verdict: CodeSpecsRoutingVerdict.FEEDS_CODE,
-      values: code.kinds,
-      note: code.note,
-      declaredAt: `${cls.name}.${field.name}`,
-    });
+    return codeSpecsFieldRouting(cls, field);
   }
 }
 

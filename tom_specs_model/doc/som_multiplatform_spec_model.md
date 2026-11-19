@@ -569,6 +569,22 @@ language mirrors it:
   neither names a unit. It is written only when non-empty, as `units: [..]`
   after `routingNote` in the YAML and a `- units:` line after the routed-by
   line in the Markdown view.
+- `spec_impact_walk.dart` — the **impact walk** of the `tom_specs` change
+  mode (Phase 0, step `impact`): `specImpactWalk(model, documents)` lists every
+  section of every document root of the model, in model order — a root without
+  a document is walked over an empty one — as one row per class node, per list
+  (with its item count) and, for an empty list of a class element, a template
+  row `<list>/*` with that class's subtree; each row with its section-id chain,
+  class, depth, fill state (`hasValuesUnder`), value count and CodeSpecs routing
+  (the extractor's verdict; a list of scalars by its field-level
+  `@CodeSpecKind`; every row below a `feedsProcess` section by that section's).
+  A class already on the branch is not entered again. `specImpactLevel` records
+  the project's level from a listing of its spec root (documents, Project Idea,
+  extracts and gate record, IR, gate files, the test and code folders the caller
+  probed, the phases reached and left out); `specImpactDocumentFiles` gives the
+  current documents of a listing (the `phase*` folders, not their step folders);
+  `specImpactWalkMarkdown` writes the table. In the Dart, TypeScript and
+  JavaScript runtimes (`impact_walk_cases.json`).
 - `spec_generation_units.dart` — the document's **generation-unit register**
   (§11.2): `specGenerationUnits(model, document)` reads every unit — its id,
   kind, path, its mappings (area, mapper) and its emitters (the standards it

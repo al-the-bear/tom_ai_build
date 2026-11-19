@@ -1837,6 +1837,20 @@ void main() {
     }
   });
 
+  group('impact_walk_cases.json (the impact walk of the change mode)', () {
+    final table =
+        jsonDecode(read('impact_walk_cases.json')) as Map<String, dynamic>;
+    for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+      final got = _runImpactWalkCase(read, c);
+      final expected = c['expect'] as Map<String, dynamic>;
+      for (final key in ['walk', 'level', 'documentFiles', 'markdown']) {
+        test('impactWalk: ${c['name']}: $key', () {
+          expect(jsonDecode(jsonEncode(got[key])), expected[key]);
+        });
+      }
+    }
+  });
+
   group('generation_unit_cases.json (the generation-unit register)', () {
     final table =
         jsonDecode(read('generation_unit_cases.json')) as Map<String, dynamic>;
@@ -1853,6 +1867,46 @@ void main() {
       });
     }
   });
+}
+
+/// One case of `impact_walk_cases.json`: [specImpactWalk] over the case's
+/// model (`model.meta.json` or inline) and documents (a corpus state file or an
+/// inline state, keyed by root type), [specImpactLevel] over its listing and
+/// folders, [specImpactDocumentFiles] and [specImpactWalkMarkdown].
+Map<String, Object?> _runImpactWalkCase(
+  String Function(String name) read,
+  Map<String, dynamic> c,
+) {
+  Map<String, dynamic> json(Object? v) => v is String
+      ? jsonDecode(read(v)) as Map<String, dynamic>
+      : (v as Map).cast<String, dynamic>();
+  List<SpecImpactFolder>? folders(Object? v) => v == null
+      ? null
+      : [
+          for (final f in (v as List).cast<Map<String, dynamic>>())
+            SpecImpactFolder(f['path'] as String, f['present'] as bool),
+        ];
+  final model = SpecModel.fromJson(json(c['model']));
+  final documents = <String, SpecDocument>{
+    for (final MapEntry(:key, :value)
+        in (c['documents'] as Map<String, dynamic>).entries)
+      key: SpecDocument()..loadJson(json(value)),
+  };
+  final listing = (c['listing'] as List).cast<String>();
+  final walk = specImpactWalk(model, documents);
+  final level = specImpactLevel(
+    model,
+    walk,
+    listing,
+    folders(c['tests']),
+    folders(c['code']),
+  );
+  return {
+    'walk': [for (final w in walk) w.toJson()],
+    'level': level.toJson(),
+    'documentFiles': specImpactDocumentFiles(listing),
+    'markdown': specImpactWalkMarkdown(walk, level),
+  };
 }
 
 /// One case of `generation_unit_cases.json`: the units [specGenerationUnits]

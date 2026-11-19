@@ -64,6 +64,8 @@ import 'package:tom_specs_clitool/src/commands/gate_spec_tree_duplication.dart'
     as gate_spec_tree_duplication;
 import 'package:tom_specs_clitool/src/commands/gate_todo_citations.dart'
     as gate_todo_citations;
+import 'package:tom_specs_clitool/src/commands/spec_impact_walk.dart'
+    as spec_impact_walk;
 import 'package:tom_specs_clitool/src/commands/codespecs_areas.dart'
     as codespecs_areas;
 import 'package:tom_specs_clitool/src/commands/schema_docspecs.dart'
@@ -254,13 +256,20 @@ TomspecsCommand _check(
   run: (arguments) async => runSpecChecks(arguments),
 );
 
-/// The commands, in the order of the TSB-7 table.
+/// The commands, in the order of the TSB-7 table, with the commands added
+/// since in their place (`spec-impact-walk` after `spec-validate`).
 final List<TomspecsCommand> tomspecsCommands = [
   _tool(
     'spec-validate',
     'Validate a specification document on its three tiers',
     validateSpecParser,
     runValidateSpec,
+  ),
+  _tool(
+    'spec-impact-walk',
+    'Walk every root and section of a specification for a change\'s impact',
+    spec_impact_walk.specImpactWalkParser,
+    spec_impact_walk.runSpecImpactWalk,
   ),
   _check(
     'spec-render',

@@ -109,6 +109,10 @@ const {
   SpecReviewMergeError,
   mergeReviews,
   specGenerationUnits,
+  specImpactWalk,
+  specImpactLevel,
+  specImpactDocumentFiles,
+  specImpactWalkMarkdown,
   specDefaultUnits,
   K_SPEC_STANDARD_EMITTERS,
   somFormatDouble,
@@ -911,6 +915,31 @@ function testListMove(model) {
 // `roundTrip` re-encodes the decoded document with its decoded review pass;
 // `stale` removes the named list items, then asks which review entries no
 // longer resolve.
+// The impact walk of the change mode (`impact_walk_cases.json`): every root
+// and section with its chain, class, fill state and routing, the project's
+// level, the current document files of a listing, and the Markdown table.
+function testImpactWalk() {
+  const table = _readJson('impact_walk_cases.json');
+  for (const c of table.cases) {
+    const model = SpecModel.fromJson(typeof c.model === 'string' ? _readJson(c.model) : c.model);
+    const documents = new Map();
+    for (const [type, state] of Object.entries(c.documents)) {
+      documents.set(type, _documentFromState(typeof state === 'string' ? _readJson(state) : state));
+    }
+    const walk = specImpactWalk(model, documents);
+    const level = specImpactLevel(model, walk, c.listing, c.tests, c.code);
+    const got = {
+      walk: walk.map((w) => w.toJson()),
+      level: level.toJson(),
+      documentFiles: specImpactDocumentFiles(c.listing),
+      markdown: specImpactWalkMarkdown(walk, level),
+    };
+    for (const key of ['walk', 'level', 'documentFiles', 'markdown']) {
+      _check(`impactWalk[${c.name}].${key}`, _deepEqual(got[key], c.expect[key]), _jsonMismatch(got[key], c.expect[key]));
+    }
+  }
+}
+
 // The generation-unit register (SOM §11.2), `generation_unit_cases.json`: the
 // standard emitters, then per case the units the document declares, each
 // unit's mapping per area, the default units per area and the stored section
@@ -2543,6 +2572,7 @@ function main() {
   testAnswers(model);
   testListMove(model);
   testGenerationUnits(model);
+  testImpactWalk();
   testReflection(model);
   testValidation(model);
   testEditor(model);

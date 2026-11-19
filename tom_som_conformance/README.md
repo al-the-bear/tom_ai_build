@@ -696,6 +696,29 @@ pins the register reader over the shared model's register `DEMO/DLV-LST`:
 
 A document without a register declares no units, and a stored override stays
 as it is. Every runtime runs every case.
+##### …and the impact walk of the change mode
+
+[`corpus/impact_walk_cases.json`](corpus/impact_walk_cases.json) pins
+`specImpactWalk`, `specImpactLevel`, `specImpactDocumentFiles` and
+`specImpactWalkMarkdown`, over the shared model with `state.json` and over an
+inline model of its own:
+- every root in model order, a root without a document walked over an empty
+  one and `present: false`;
+- one row per class node, per list (with its item count) and, for an empty
+  list of a class element, a template row `<list>/*` with that class's
+  subtree; a class already on the branch not entered again;
+- each row's section-id chain (a list item by its stored id, else its
+  positional segment), fill state and value count, and CodeSpecs routing — a
+  list of scalars by its field-level `@CodeSpecKind`, every row below a
+  `feedsProcess` section by that section's routing;
+- the level from a listing: the documents present, the Project Idea, extracts
+  and gate record, IR, gate files, the test and code folders given, and the
+  phases reached and left out; the current documents of a listing (the step
+  folders excluded); the Markdown table.
+
+The Dart, TypeScript and JavaScript runtimes run every case; the six others do
+not carry the walk yet.
+
 ##### …and the Stage-A gate over them
 
 [`corpus/codespecs_gate_cases.json`](corpus/codespecs_gate_cases.json) pins

@@ -1348,68 +1348,83 @@ class CodeSpecsExtractor {
   /// the enum prefix, so the codes here are bare whatever spelling the meta
   /// chose. Two readers of the same annotations would be two chances to
   /// disagree.
-  CodeSpecsRouting _verdictOf(SpecClass cls, String path) {
-    final code = cls.codeSpecKind;
-    if (code != null) {
-      return CodeSpecsRouting(
-        path: path,
-        className: cls.name,
-        verdict: CodeSpecsRoutingVerdict.feedsCode,
-        values: code.kinds,
-        note: code.note,
-        declaredAt: cls.name,
-      );
-    }
-    final followUp = cls.followUpKind;
-    if (followUp != null) {
-      return CodeSpecsRouting(
-        path: path,
-        className: cls.name,
-        verdict: CodeSpecsRoutingVerdict.feedsProcess,
-        values: followUp.kinds,
-        note: followUp.note,
-        declaredAt: cls.name,
-      );
-    }
-    final none = cls.noArtifact;
-    if (none != null) {
-      return CodeSpecsRouting(
-        path: path,
-        className: cls.name,
-        verdict: CodeSpecsRoutingVerdict.feedsNothing,
-        values: [none.reason],
-        note: none.note,
-        declaredAt: cls.name,
-      );
-    }
-    if (cls.hasAnnotation('Document')) {
-      return CodeSpecsRouting(
-        path: path,
-        className: cls.name,
-        verdict: CodeSpecsRoutingVerdict.documentRoot,
-      );
-    }
-    return CodeSpecsRouting(
-      path: path,
-      className: cls.name,
-      verdict: CodeSpecsRoutingVerdict.unrouted,
-    );
-  }
+  CodeSpecsRouting _verdictOf(SpecClass cls, String path) =>
+      codeSpecsClassRouting(cls, path);
 
   /// A field-level `@CodeSpecKind`, which overrides its class's routing for
   /// that field alone; `null` when the field carries none.
-  CodeSpecsRouting? _fieldRouting(SpecClass cls, SpecField field) {
-    final code = field.codeSpecKind;
-    if (code == null) return null;
+  CodeSpecsRouting? _fieldRouting(SpecClass cls, SpecField field) =>
+      codeSpecsFieldRouting(cls, field);
+}
+
+// --- routing verdicts ------------------------------------------------------
+
+/// The routing verdict of one class node at [path]: `@CodeSpecKind` (feeds
+/// code), `@FollowUpKind` (a process delivers it), `@NoArtifact` (feeds
+/// nothing), a `@Document` root, else unrouted — the verdict
+/// [CodeSpecsExtractor.routings] records, shared with the impact walk
+/// (`spec_impact_walk.dart`).
+CodeSpecsRouting codeSpecsClassRouting(SpecClass cls, String path) {
+  final code = cls.codeSpecKind;
+  if (code != null) {
     return CodeSpecsRouting(
-      path: '',
+      path: path,
       className: cls.name,
       verdict: CodeSpecsRoutingVerdict.feedsCode,
       values: code.kinds,
       note: code.note,
-      declaredAt: '${cls.name}.${field.name}',
+      declaredAt: cls.name,
     );
   }
+  final followUp = cls.followUpKind;
+  if (followUp != null) {
+    return CodeSpecsRouting(
+      path: path,
+      className: cls.name,
+      verdict: CodeSpecsRoutingVerdict.feedsProcess,
+      values: followUp.kinds,
+      note: followUp.note,
+      declaredAt: cls.name,
+    );
+  }
+  final none = cls.noArtifact;
+  if (none != null) {
+    return CodeSpecsRouting(
+      path: path,
+      className: cls.name,
+      verdict: CodeSpecsRoutingVerdict.feedsNothing,
+      values: [none.reason],
+      note: none.note,
+      declaredAt: cls.name,
+    );
+  }
+  if (cls.hasAnnotation('Document')) {
+    return CodeSpecsRouting(
+      path: path,
+      className: cls.name,
+      verdict: CodeSpecsRoutingVerdict.documentRoot,
+    );
+  }
+  return CodeSpecsRouting(
+    path: path,
+    className: cls.name,
+    verdict: CodeSpecsRoutingVerdict.unrouted,
+  );
+}
+
+/// A field-level `@CodeSpecKind`, which overrides its class's routing for
+/// that field alone; `null` when the field carries none.
+CodeSpecsRouting? codeSpecsFieldRouting(SpecClass cls, SpecField field) {
+  final code = field.codeSpecKind;
+  if (code == null) return null;
+  return CodeSpecsRouting(
+    path: '',
+    className: cls.name,
+    verdict: CodeSpecsRoutingVerdict.feedsCode,
+    values: code.kinds,
+    note: code.note,
+    declaredAt: '${cls.name}.${field.name}',
+  );
 }
 
 // --- shared emission helpers ----------------------------------------------

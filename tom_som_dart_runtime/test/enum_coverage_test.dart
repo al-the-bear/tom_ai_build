@@ -188,6 +188,25 @@ Map<String, String> _wire(
 /// Every enum diffed against a corpus table. **Adding one is one entry.**
 final List<CorpusGuardedEnum> _guarded = [
   CorpusGuardedEnum(
+    enumName: 'SpecImpactRowKind',
+    // The walk writes a row's kind by its JSON spelling.
+    declared: {for (final v in SpecImpactRowKind.values) v.name: v.value},
+    corpusFile: 'impact_walk_cases.json',
+    exercised: (c) => {
+      for (final k
+          in ((c as Map<String, dynamic>)['cases'] as List)
+              .cast<Map<String, dynamic>>())
+        for (final w
+            in ((k['expect'] as Map)['walk'] as List)
+                .cast<Map<String, dynamic>>())
+          for (final r in (w['rows'] as List).cast<Map<String, dynamic>>())
+            r['kind'] as String,
+    },
+    why:
+        'the impact walk of the change mode: every row kind (root, complex, '
+        'section, list, item, template) appears in a walked table',
+  ),
+  CorpusGuardedEnum(
     enumName: 'CodeSpecsGateCheck',
     // The report labels checks as `codespecs_prompt.md` §4 names them.
     declared: {for (final v in CodeSpecsGateCheck.values) v.name: v.label},

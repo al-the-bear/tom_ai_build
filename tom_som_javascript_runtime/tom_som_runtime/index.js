@@ -100,7 +100,19 @@ const {
   CodeSpecsFieldRef,
   CodeSpecsRequiredArgument,
   CodeSpecsCarrier,
+  codeSpecsClassRouting,
+  codeSpecsFieldRouting,
 } = require('./spec_codespecs_extract');
+const {
+  SpecImpactRowKind,
+  SpecImpactRow,
+  SpecImpactRootWalk,
+  SpecImpactLevel,
+  specImpactWalk,
+  specImpactLevel,
+  specImpactDocumentFiles,
+  specImpactWalkMarkdown,
+} = require('./spec_impact_walk');
 const {
   SpecGenerationUnitMapping,
   SpecGenerationUnit,
@@ -338,6 +350,17 @@ module.exports = {
   CodeSpecsFieldRef,
   CodeSpecsRequiredArgument,
   CodeSpecsCarrier,
+  codeSpecsClassRouting,
+  codeSpecsFieldRouting,
+  // the impact walk of the change mode (every root and section, the project's level)
+  SpecImpactRowKind,
+  SpecImpactRow,
+  SpecImpactRootWalk,
+  SpecImpactLevel,
+  specImpactWalk,
+  specImpactLevel,
+  specImpactDocumentFiles,
+  specImpactWalkMarkdown,
   CodeSpecsGate,
   CodeSpecsGateCheck,
   CodeSpecsGateFinding,

@@ -109,6 +109,10 @@ import {
   K_SPEC_STANDARD_EMITTERS,
   specDefaultUnits,
   specGenerationUnits,
+  specImpactWalk,
+  specImpactLevel,
+  specImpactDocumentFiles,
+  specImpactWalkMarkdown,
   somFormatDouble,
   somFormatInt,
   somFormatNum,
@@ -2305,6 +2309,35 @@ function testGenerationUnits(model: SpecModel): void {
   }
 }
 
+// The impact walk of the change mode (`impact_walk_cases.json`): every root
+// and section with its chain, class, fill state and routing, the project's
+// level, the current document files of a listing, and the Markdown table.
+function testImpactWalk(): void {
+  const table = _readJson('impact_walk_cases.json');
+  for (const c of table.cases) {
+    const model = SpecModel.fromJson(typeof c.model === 'string' ? _readJson(c.model) : c.model);
+    const documents = new Map<string, SpecDocument>();
+    for (const [type, state] of Object.entries(c.documents)) {
+      documents.set(type, _documentFromState(typeof state === 'string' ? _readJson(state) : state));
+    }
+    const walk = specImpactWalk(model, documents);
+    const level = specImpactLevel(model, walk, c.listing, c.tests, c.code);
+    const got = {
+      walk: walk.map((w) => w.toJson()),
+      level: level.toJson(),
+      documentFiles: specImpactDocumentFiles(c.listing),
+      markdown: specImpactWalkMarkdown(walk, level),
+    };
+    for (const key of ['walk', 'level', 'documentFiles', 'markdown']) {
+      _check(
+        `impactWalk[${c.name}].${key}`,
+        _deepEqual((got as any)[key], c.expect[key]),
+        _jsonMismatch((got as any)[key], c.expect[key]),
+      );
+    }
+  }
+}
+
 // SOM typed values (`typed_value_cases.json`, decision tspubnondart20 (a)):
 // how an int / double / num field's stored text is read and written back,
 // and whether a text is readable for each type.
@@ -2733,6 +2766,7 @@ export function main(): number {
   testNodeCreationScript(model);
   testGenerationUnits(model);
   testTypedValues();
+  testImpactWalk();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

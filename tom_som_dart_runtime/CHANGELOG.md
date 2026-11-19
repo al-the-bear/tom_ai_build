@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- `spec_impact_walk.dart`: the impact walk of the `tom_specs` change mode — `specImpactWalk`, `specImpactLevel`, `specImpactDocumentFiles`, `specImpactWalkMarkdown` (`impact_walk_cases.json`). The routing verdict is shared with the extractor as `codeSpecsClassRouting` / `codeSpecsFieldRouting`.
 - `markdown` is a standard emitter (`kSpecStandardEmitters`: `openapi`, `jsonschema`,
   `icu`, `asyncapi`, `markdown`): a generation unit may name it, and the
   validator no longer reports it as unknown. It is the IR's Markdown rendering
