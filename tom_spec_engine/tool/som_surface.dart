@@ -18,7 +18,7 @@
 ///
 /// Hashing the surface catches both, at the moment the engine's own suite runs,
 /// which is the gate that already exists. See
-/// `_copilot_guidelines/bridge_regeneration.md`.
+/// `_agent_guidelines/bridge_regeneration.md`.
 ///
 /// ## Why a syntactic parse rather than a file hash
 ///

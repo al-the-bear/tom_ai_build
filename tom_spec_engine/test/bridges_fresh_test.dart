@@ -9,7 +9,7 @@
 //
 // It complements test/som_bridge_freshness_test.dart, which fingerprints the
 // SOM surface but cannot see the other input, the generator itself. See
-// _copilot_guidelines/bridge_regeneration.md, "How staleness is caught".
+// _agent_guidelines/bridge_regeneration.md, "How staleness is caught".
 //
 // When it fails: run `dart run tool/regenerate_bridges.dart` and commit what it
 // changes, stamp included.

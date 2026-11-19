@@ -14,7 +14,7 @@ or an annotation's `note` — is followed, in this order, by:
    `spec_ops.g.dart` registry, the nine `tom_som_*_v0` packages and the stamp,
    [som_regeneration.md](som_regeneration.md));
 2. the SOM D4rt bridges in `tom_spec_engine`, about 20 minutes
-   ([bridge_regeneration.md](../../tom_spec_engine/_copilot_guidelines/bridge_regeneration.md));
+   ([bridge_regeneration.md](../../tom_spec_engine/_agent_guidelines/bridge_regeneration.md));
    a regeneration whose diff is only the `// Generated:` header lines keeps the
    stamp and drops the bridge diff;
 3. the outlines: `tool/regenerate_outlines.sh`;

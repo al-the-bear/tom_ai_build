@@ -43,7 +43,7 @@ upgrade cycle. The tooling that carries it is
   [`doc_specs_specification.md`](../../../../_ai/quests/doc_specs/doc_specs_specification.md).
 - The **CodeSpecs annotation framework and part catalogue** — see
   [`codespecs_mapping.md`](../../tom_core_codespecs/doc/codespecs_mapping.md).
-- **Language-level coding standards** — see `_copilot_guidelines/dart/`.
+- **Language-level coding standards** — see `_agent_guidelines/dart/`.
 
 ### PF-DOC-BAS Basis
 
@@ -1873,11 +1873,11 @@ CodeSpecs is **two documents, split by question**.
 
 | Document | Authority for |
 |----------|---------------|
-| `_copilot_guidelines/test_driven_development.md` | Red-Green-Refactor discipline |
-| `_copilot_guidelines/issue_implementation.md` | The workspace-wide bug and feature workflow that [PF-ISS](#pf-iss-issues-and-bug-fixes) specialises |
-| `_copilot_guidelines/dart/coding_guidelines.md` | Naming, structure, error handling |
-| `_copilot_guidelines/dart/clean_code_principles.md` | DRY, abstractions, code smells |
-| `_copilot_guidelines/dart/unit_tests.md` | Test structure, matchers, mocking |
+| `_agent_guidelines/test_driven_development.md` | Red-Green-Refactor discipline |
+| `_agent_guidelines/issue_implementation.md` | The workspace-wide bug and feature workflow that [PF-ISS](#pf-iss-issues-and-bug-fixes) specialises |
+| `_agent_guidelines/dart/coding_guidelines.md` | Naming, structure, error handling |
+| `_agent_guidelines/dart/clean_code_principles.md` | DRY, abstractions, code smells |
+| `_agent_guidelines/dart/unit_tests.md` | Test structure, matchers, mocking |
 
 ### PF-REF-PLT Platform
 

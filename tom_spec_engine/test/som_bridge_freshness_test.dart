@@ -6,7 +6,7 @@
 /// so their public surface can move out from under the committed bridges. This
 /// suite is the gate that notices.
 ///
-/// See `_copilot_guidelines/bridge_regeneration.md` § "How staleness is caught"
+/// See `_agent_guidelines/bridge_regeneration.md` § "How staleness is caught"
 /// for the rule, and `tool/som_surface.dart` for why the fingerprint is taken
 /// the way it is.
 library;
@@ -68,7 +68,7 @@ void main() {
           '$somSurfaceStampPath. If the regen turns out to be a no-op (only the '
           '`// Generated:` header lines differ), discard the bridge diff with '
           '`git checkout -- lib` and commit the stamp alone.\n'
-          'See _copilot_guidelines/bridge_regeneration.md.',
+          'See _agent_guidelines/bridge_regeneration.md.',
         );
       },
     );

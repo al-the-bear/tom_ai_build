@@ -622,4 +622,4 @@ The `tom_som` API satisfies three obligations this scripting layer depends on:
   in the engine's runtime API) and the engine is `publish_to: none`. This is
   distinct from the analyzer summary cache (`tom_analyzer_shared`), which already
   never caches `path` sources — so the SOM model is analyzed fresh every run
-  regardless. See `_copilot_guidelines/bridge_regeneration.md` in the engine.
+  regardless. See `_agent_guidelines/bridge_regeneration.md` in the engine.

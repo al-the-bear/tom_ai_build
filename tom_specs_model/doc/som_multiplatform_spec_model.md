@@ -260,7 +260,7 @@ stamps a fingerprint of the model source it read into
 which matters more than it sounds, since the meta is lossless: a reworded doc
 comment or a changed annotation `note` is a real change to all nine packages. The
 rule, the fingerprint's deliberate blind spots, and the regeneration procedure are
-in `tom_specs_clitool/_copilot_guidelines/som_regeneration.md`.
+in `tom_specs_clitool/_agent_guidelines/som_regeneration.md`.
 
 ### 5.3 Meta-data file
 

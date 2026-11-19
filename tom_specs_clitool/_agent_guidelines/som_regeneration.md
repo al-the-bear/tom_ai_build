@@ -225,7 +225,7 @@ committed packages from a one-off.
 Regenerating the Dart target also moves `tom_som_dart_v0`'s public surface, which
 the D4rt bridges in `tom_spec_engine` are generated from. `tomspecs :som-generate`
 prints that reminder; see
-[`tom_spec_engine/_copilot_guidelines/bridge_regeneration.md`](../../tom_spec_engine/_copilot_guidelines/bridge_regeneration.md).
+[`tom_spec_engine/_agent_guidelines/bridge_regeneration.md`](../../tom_spec_engine/_agent_guidelines/bridge_regeneration.md).
 
 After regenerating, run the quality gates:
 

@@ -63,14 +63,14 @@ dev_dependencies:
   # of the two SOM packages the bridges are generated from, so
   # `test/som_bridge_freshness_test.dart` can fail when that surface has moved
   # and the bridges have not been regenerated (see
-  # _copilot_guidelines/bridge_regeneration.md § "How staleness is caught").
+  # _agent_guidelines/bridge_regeneration.md § "How staleness is caught").
   # The parse is SYNTACTIC only — no resolution, no dependency graph — which is
   # what keeps a ~10 MB scan to about a second.
   analyzer: ^14.1.0
   crypto: ^3.0.0
   # The D4rt bridge generator that produces the SOM `*.b.dart` binding surface
   # from the `d4rtgen:` block in buildkit.yaml. Used only by
-  # tool/regenerate_bridges.dart — see _copilot_guidelines/bridge_regeneration.md.
+  # tool/regenerate_bridges.dart — see _agent_guidelines/bridge_regeneration.md.
   #
   # Consumed by PATH (not from pub.dev) on purpose. The engine's SOM inputs
   # (tom_som_dart_v0 / tom_som_dart_runtime) are unpublished path siblings under

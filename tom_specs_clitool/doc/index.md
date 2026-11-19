@@ -46,7 +46,7 @@ here cite it rather than restating it
 ## Development documentation
 
 Maintainers of this repository keep development guidelines in the package's
-`_copilot_guidelines/` folder — among them `som_regeneration.md`, the reasoning
+`_agent_guidelines/` folder — among them `som_regeneration.md`, the reasoning
 behind the regeneration discipline. They are not part of the package's
 documentation and are not linked from it: the guidelines ship with neither the
 package nor its published page. What a reader needs about the freshness stamp —

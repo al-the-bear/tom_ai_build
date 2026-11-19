@@ -35,11 +35,11 @@ S14: `_ai/quests/tom_forge/spec_quest_workbench.tom_forge.md`
 S15: `tom_ai/secrets_clients/protocol/protocol.md` and `_ai/quests/tom_core/ideas/tom_secrets_manager/tom_secrets_manager.doc
     RESOLVES tom_ai/secrets_clients/protocol/protocol.md  (file, 111909 bytes)
     RESOLVES _ai/quests/tom_core/ideas/tom_secrets_manager/tom_secrets_manager.docspecs.md  (file, 484709 bytes)
-S16: `_copilot_guidelines/parallel_work.md`
-    RESOLVES _copilot_guidelines/parallel_work.md  (file, 8658 bytes)
-S17: `tom_ai/vscode/tom_vscode_extension/`: its code, `tom_ai/vscode/tom_vscode_extension/_copilot_guidelines/architecture.md
+S16: `_agent_guidelines/parallel_work.md`
+    RESOLVES _agent_guidelines/parallel_work.md  (file, 8658 bytes)
+S17: `tom_ai/vscode/tom_vscode_extension/`: its code, `tom_ai/vscode/tom_vscode_extension/_agent_guidelines/architecture.md
     RESOLVES tom_ai/vscode/tom_vscode_extension/  (dir, 44 entries)
-    RESOLVES tom_ai/vscode/tom_vscode_extension/_copilot_guidelines/architecture.md  (file, 168166 bytes)
+    RESOLVES tom_ai/vscode/tom_vscode_extension/_agent_guidelines/architecture.md  (file, 168166 bytes)
     RESOLVES tom_ai/vscode/tom_vscode_extension/doc/  (dir, 23 entries)
 S18: `_ai/quests/ai_runtime/runtime_split_plan.ai_runtime.md`
     RESOLVES _ai/quests/ai_runtime/runtime_split_plan.ai_runtime.md  (file, 12208 bytes)

@@ -83,7 +83,7 @@ void main() {
         'Regenerate and commit the result together with the stamp:\n'
         '  cd tom_specs_clitool && dart run bin/tomspecs.dart :som-generate\n'
         '\n'
-        'See _copilot_guidelines/som_regeneration.md.',
+        'See _agent_guidelines/som_regeneration.md.',
       );
     });
 

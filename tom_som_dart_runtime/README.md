@@ -185,7 +185,7 @@ cd ../tom_spec_engine && dart run tool/regenerate_bridges.dart
 ```
 
 The engine's test suite fails until this is done — see
-`tom_spec_engine/_copilot_guidelines/bridge_regeneration.md` § "How staleness is
+`tom_spec_engine/_agent_guidelines/bridge_regeneration.md` § "How staleness is
 caught" — but it fails only for whoever next runs *that* suite, which is why the
 regen belongs here, at the point of editing.
 

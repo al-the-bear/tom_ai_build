@@ -15,7 +15,7 @@
 ///
 /// While it could only be produced by its own CLI, it was regenerated only when
 /// the editor's app build (`tomspecs :editor-build`) ran. A model change follows the
-/// regeneration chain in `_copilot_guidelines/som_regeneration.md`, which
+/// regeneration chain in `_agent_guidelines/som_regeneration.md`, which
 /// nothing connected to this artifact, so the registry could sit a whole
 /// campaign behind the model: a campaign that gave 116 section classes a
 /// `content: String?` override left every one of them with no

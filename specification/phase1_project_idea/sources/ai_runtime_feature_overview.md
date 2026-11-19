@@ -106,7 +106,7 @@ The engine of today's VS Code extension as a runtime of its own (§ 4).
   - `root`: the nearest folder above with `.tom/tom_root.yaml`;
   - `aiRoot`: the `_ai` of the workspace folder;
   - `configLayers`: root `.tom/`, then workspace `.tom/`;
-  - `guidelineDirs`: root and workspace `_copilot_guidelines/`.
+  - `guidelineDirs`: root and workspace `_agent_guidelines/`.
 
   It replaces today's scattered `getWorkspaceRoot()` / `WsPaths` rules. The
   code keeps its location in the tree.

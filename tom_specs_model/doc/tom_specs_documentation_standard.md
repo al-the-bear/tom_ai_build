@@ -238,7 +238,7 @@ A package's `doc/` holds **its own** documentation and nothing else:
 |------|-------|
 | `doc/index.md` | The folder's catalogue — one row per file, linking it, saying what it covers. Mandatory once `doc/` holds more than one file. |
 | `doc/<topic>.md` | One file per module or coherent capability. |
-| `doc/api/api_summary_<module>.md` | The hand-written API summary per module (`_copilot_guidelines/dart/api_summary_creation.md`). |
+| `doc/api/api_summary_<module>.md` | The hand-written API summary per module (`_agent_guidelines/dart/api_summary_creation.md`). |
 
 `README.md` and `CHANGELOG.md` stay at the package root and are never moved into
 `doc/`. Test artefacts never go in `doc/` — they belong in `testlog/`, which is
@@ -273,7 +273,7 @@ two different things and a reader unable to tell which tier a file is in.
 
 ### 3.3 The shape of a `doc/` file
 
-`_copilot_guidelines/documentation_guidelines.md` is the authority. Its required
+`_agent_guidelines/documentation_guidelines.md` is the authority. Its required
 order applies unchanged:
 
 1. `# Tom <Module Name> System` (or the module's natural title)

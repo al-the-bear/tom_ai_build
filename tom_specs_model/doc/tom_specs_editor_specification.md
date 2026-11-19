@@ -397,7 +397,7 @@ All four data models first-class (§3.4), persisted as YAML in the spec workspac
 
   | Prefix | Resolves to | Fallback |
   | --- | --- | --- |
-  | `${guidelines-<name>}` | `<workspace>/_copilot_guidelines/<name>.md` | `<workspace>/_guidelines/<name>.md` |
+  | `${guidelines-<name>}` | `<workspace>/_agent_guidelines/<name>.md` | `<workspace>/_guidelines/<name>.md` |
   | `${role-<name>}` | `<workspace>/_ai/roles/<name>.md` | `<workspace>/_ai/roles/<name>/role.md` |
   | `${quest-<type>}` | first `<workspace>/_ai/quests/<quest>/<type>.<quest>.*` | — |
   | `${file-<relpath>}` | `<relpath>` relative to the **`_ai/` folder** | — |

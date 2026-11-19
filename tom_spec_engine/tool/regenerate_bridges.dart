@@ -5,7 +5,7 @@
 /// The bridges are generated here, in the engine plane, NOT in the lean
 /// pure-data `tom_som_dart_runtime` / `tom_som_dart_v0` packages. Run this
 /// whenever the public surface of those SOM packages changes. See
-/// `_copilot_guidelines/bridge_regeneration.md` for the full workflow.
+/// `_agent_guidelines/bridge_regeneration.md` for the full workflow.
 ///
 /// Run from the tom_spec_engine project root:
 ///   dart run tool/regenerate_bridges.dart

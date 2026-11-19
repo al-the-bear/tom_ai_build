@@ -74,7 +74,7 @@ items:
     criterion: Conventions followed
     inspect: Test files, groups and ids follow the workspace convention (`<ID>`, colon, description).
     method: tool
-    how: testkit :baseline — it parses the convention; a test it cannot parse an id from is a finding. Plus the file-naming rule of _copilot_guidelines/dart/unit_tests.md.
+    how: testkit :baseline — it parses the convention; a test it cannot parse an id from is a finding. Plus the file-naming rule of _agent_guidelines/dart/unit_tests.md.
     evidence: Every test without a parsable id and every misnamed file.
     pass: None.
   - id: G5-RED-2

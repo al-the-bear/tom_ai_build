@@ -567,7 +567,7 @@ Future<void> _mainGenerateSom(List<String> arguments) async {
   // `tom_spec_engine` generates its D4rt bridges from exactly that surface.
   // Nothing else prompts that regen, so say it here — at the point of editing —
   // rather than leaving it to whoever next runs the engine's suite and meets the
-  // freshness failure. See tom_spec_engine/_copilot_guidelines/
+  // freshness failure. See tom_spec_engine/_agent_guidelines/
   // bridge_regeneration.md § "How staleness is caught".
   if (config.languages.any((t) => t.language == SomLanguage.dart)) {
     stdout.writeln(
