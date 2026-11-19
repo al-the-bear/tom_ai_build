@@ -10,7 +10,7 @@
 | **Product owner and review team** | alexis, product owner and only reviewer (`USR > USR-TEAM`) |
 | **Sources** | section 1 (`SRC`); the three main ones are kept as snapshots in `sources/` |
 | **Written by** | `agent_spec_author` |
-| **Status** | Question round 2: the 19 answers of round 1 are in the text; 3 questions open (`PQ-20`, `PQ-21`, `PQ-22`) |
+| **Status** | Question round 2: the 19 answers of round 1 and the answers to `PQ-21` and `PQ-22` are in the text; 1 question open (`PQ-23`) |
 | **Next phase** | Phase 2 Solution Blueprint |
 
 The document states the idea as it stands. It is free-form Markdown; the
@@ -38,7 +38,7 @@ they start with `sources/`, which is beside this document.
 | **`G-<n>`** | A generation unit: a package or application the project builds (section 11.2). |
 | **`T<n>`** | A network topology (section 11.1). |
 | **`F<n>`** | A key flow (section 11.1.1). |
-| **`PQ-<n>`** | A question to the product owner, standing after the statement it asks about. `PQ-1` to `PQ-19` are answered and taken into the text; their answers are cited as sources (`PQ-7`) and kept in `01_02_Questions Round/answers.md`. |
+| **`PQ-<n>`** | A question to the product owner, standing after the statement it asks about. `PQ-1` to `PQ-22` are answered and taken into the text (`PQ-20` asked again as `PQ-23`); their answers are cited as sources (`PQ-7`) and kept in `01_02_Questions Round/answers.md`. |
 
 After a statement, its source stands in brackets: the source id and the place
 in it, e.g. `(S1 § 7.3, DQ-2)`. `CQ-n`, `DQ-n` and `WQ-n` are the product
@@ -193,24 +193,12 @@ The hosts of the first version are the VS Code extension, Webforge and Webwork
 ### <!--[USR-TEAM]--> 3.1 Owner and review team
 
 The product owner is the only reviewer. Every document type uses this team;
-no document type has a team of its own. (PQ-1)
+no document type has a team of its own. No e-mail address is stored.
+(PQ-1, PQ-22)
 
 | Member id | Display name | Role | Owner |
 | --- | --- | --- | --- |
-| `alexis` | asked in PQ-22 | product owner | yes |
-
-> **❓ PQ-22 (2026-11-19T18:45+01:00) — Your entry in the review team:** how are you written in the review team of the specification documents?
->
-> **Context.** You answered that you are the owner and the only reviewer: "owner and reviewer am I, alexis". The Solution Blueprint records its review team as a list of members, each with a member id (lowercase letters, digits and `_`), a display name and a role; the owner is marked. The member id is what review marks and answers are signed with; the display name is what the documents show. From your answer I took the member id `alexis` and the role "product owner". The display name was not given.
->
-> **Why I ask.** The first step of the next phase writes this entry into the Blueprint, and review copies are named after the member id.
->
-> - **(a)** Member id `alexis`, display name "Alexis", role "Product owner". No e-mail address is stored.
-> - (b) The same, with another display name or an e-mail address — write them in the answer.
->
-> *Recommendation:* (a).
->
-> **Answer:**
+| `alexis` | Alexis | Product owner | yes |
 
 ## <!--[GLO]--> 4 Glossary
 
@@ -246,7 +234,7 @@ no document type has a team of its own. (PQ-1)
 | Term | Meaning |
 | --- | --- |
 | **team** | A group of **people**: members, owners, invitations, conversations, review sets, and the right to control each other's runtimes. |
-| **agent group** | The set of **runtimes** that work on the same repositories and therefore share one pool of leases, whichever quests they serve and on whichever machines they run; they see each other, exchange messages and publish their endpoints to each other. A team and an agent group are two different things (`TAC > TAC-PEOPLE > TAC-GROUPS`). |
+| **agent group** | The coordination protocol's name for the set of **runtimes** that share one list of leases, see each other as present and can send each other items. It has nothing to do with how a runtime calls its models. Whether it stays a thing of its own beside the team is open (`TAC > TAC-PEOPLE > TAC-GROUPS`). |
 | **participant** | Someone tac knows: a person (user id, e-mail, display name) or a runtime. A runtime names the person it belongs to. |
 | **invitation** | How a person joins a team: an owner creates it for an e-mail address; it carries a one-time password. |
 | **team token** | What a person holds after redeeming an invitation: the proof of membership in one team, sent with every request. |
@@ -671,8 +659,11 @@ it, attaches to it and shows what it does. (S1 § 4, § 5; FO-1)
   always-on machine, is later (`SCO > SCO-LATER`, L-5). (PQ-16, PQ-9;
   `NFR > NFR-TOPO`, T8)
 - **CR.45** Inside a running runtime, a run is unloaded when its last
-  subscriber has gone and nothing is queued in it. (S1 § 6.1, a proposal;
-  asked in PQ-21, which stands in `RT > RT-PROTO`)
+  subscriber has gone and nothing is queued in it. This is an option, not
+  part of the first version unless measurement shows the memory is worth the
+  added complexity: a runtime ends with its host and loads its runs again
+  when the host starts, so a run is not held for long anyway. (S1 § 6.1;
+  PQ-21)
 
 ### <!--[RT-SECRETS]--> 7.9 Secrets
 
@@ -727,35 +718,21 @@ it, attaches to it and shows what it does. (S1 § 4, § 5; FO-1)
 - **CP.7** A conversation is modelled as thread, turn and item: a session
   holds turns, a turn holds items (text, reasoning, tool call, ask, result),
   and an item has started, delta and completed events. A turn can be steered
-  and interrupted. (S1 § 6.1, a proposal; asked in PQ-21)
+  and interrupted. This shape is a proposal, not a decision: the product
+  owner's direction is that the wire follows what the tools and the hosts
+  need, and that the records it carries are worked out as object models
+  from the schemas the workspace already has for the extension (CP.35). The
+  interface specification settles the shape of a conversation on the wire.
+  (S1 § 6.1; PQ-21)
 - **CP.8** Every question the runtime puts to a person has one form, the
   **ask envelope**: a stable id, a kind (question, pick, document, tool
   approval, plan, decision, gate), the allowed responses, an optional schema
   of the response, a declared default and a deadline. The ways an agent asks
   today stay as they are: a review outside a turn, the tool that asks single
   questions, and questions inside a document; the envelope is the one record
-  the runtime sends a host for any of them. (S1 § 6.1, a proposal; asked in
-  PQ-21)
-
-> **❓ PQ-21 (2026-11-19T18:45+01:00) — Three shapes of the runtime's protocol:** do you confirm how the runtime tells a host about a conversation, about a question, and when it lets go of a run?
->
-> **Context.** This asks the earlier question again, in other words. It is **not** about the ways an agent asks you something. Those stay exactly as they are: a review outside a turn, the tool that asks single questions, and questions inside a document. You named them in your answer, and nothing is missing there.
->
-> The question is about the **wire between a runtime and a host**. Today the engine and the views are one program (the VS Code extension), so the engine just calls the view. Once the runtime is a program of its own, a host (Webforge, Webwork, the supervision application) is a separate program that only receives messages. Three things about those messages are so far only proposed:
->
-> 1. **How a conversation arrives.** Today the engine writes a flat trail: one entry after another (text, a tool call, a result). Proposed: the runtime sends a conversation in three levels. A *thread* is a session. A *turn* is one prompt with everything that answers it. An *item* is one piece of a turn: a text, a piece of reasoning, a tool call, a question, a result. Each item is announced when it starts, streamed in pieces, and closed. Example of what a host receives for one prompt: `turn started` → `item started (reasoning)` … `item completed` → `item started (tool call: read file)` → `item completed (result)` → `item started (text)` → `delta "The file…"` → `delta " holds…"` → `item completed` → `turn completed (usage)`. A host can then draw a tool card or a reasoning block without guessing where it begins and ends, and can steer or interrupt a turn by its id.
-> 2. **How a question arrives.** Today each way of asking has its own code path to its own panel. Proposed: whatever the way of asking, the runtime sends the host **one record** with the same fields: an id; a kind (question, pick from a list, a document to answer in, approval of a tool call, approval of a plan, a decision, a gate result); the allowed responses; an optional form of the response; a default, if one was declared; a deadline. Example: your gate decision arrives as `{id, kind: gate, responses: [passed, failed], deadline: none}`, and a tool approval as `{id, kind: tool approval, responses: [allow, deny], default: deny}`. A host needs one inbox and one way to answer instead of seven, and a question can be passed on to another device or person because it is a record.
-> 3. **When a run is let go.** A runtime holds every run of its quest in memory. Proposed: a run that nobody watches (no host is subscribed to it) and that has nothing queued is unloaded, and loaded again from its files when someone opens it or queues something. Example: Webwork has one run per area; the runs of areas you have not opened today cost nothing.
->
-> **Why I ask.** The protocol specification is written from these shapes, and every client library in every language and every UI component is built on them. Changing them later changes all of those.
->
-> - **(a)** **All three as described.**
-> - (b) **The question record and the unloading, but the conversation stays a flat trail** as today. Less to change in the engine; every host then has to work out by itself where a turn and a tool call begin and end, in every language.
-> - (c) **Different** — say which of the three, and how.
->
-> *Recommendation:* (a) — the three levels are what the other agent protocols have settled on, so the UI components and an adapter to those protocols get simpler.
->
-> **Answer:**
+  the runtime sends a host for any of them. Like CP.7 it is a proposal that
+  the interface specification settles, from the object models of CP.35.
+  (S1 § 6.1; PQ-21)
 
 - **CP.9** An ask outlives the process that asked: a pending ask is a stored
   record, the turn can end, and the run resumes when the answer arrives.
@@ -927,6 +904,15 @@ files, and an older runtime does not work on newer files (S1 § 6.7, DQ-9).
   keep working because a host is compatible with several versions of the
   runtime, through the client package and the protocol's backward
   compatibility (CP.25). (PQ-6)
+- **CP.35** (belongs to `RT > RT-PROTO`) The link between a host and its
+  runtime is an API with callbacks in both directions: the host calls the
+  runtime, and a tool an agent calls in the runtime can call straight into
+  the host to trigger what the host has to show or do, in the way the
+  extension's script server lets Dart code call VS Code today. Under it is a
+  wire protocol of JSON structures whose details follow what the tools need.
+  The records it carries (quest, todo, run, queue item, session, question,
+  trail entry and the others) get object models, worked out from the schemas
+  the workspace already has for the extension's files. (PQ-21; CP.10)
 
 ### <!--[RT-PROVIDERS]--> 7.16 Model providers
 
@@ -1188,10 +1174,10 @@ local mode (`LAND > LAND-BUILT`, E-3); this section states what tac is to be.
   **team** (`TAC > TAC-PEOPLE`). (S5 § 3.2; S1 § 7.3, DQ-1)
 
 ___check here___ S1 § 7.1 still says "A team is one agent group"; S1 § 7.3
-(DQ-1) decides that they are two things. This section follows DQ-1. What an
-agent group is, is explained in `TAC > TAC-PEOPLE > TAC-GROUPS`; how a team,
-an agent group and a customer are tied to each other is asked there
-(PQ-20). — `agent_spec_author`
+(DQ-1) decides that they are two things. This section follows DQ-1 and
+describes the protocol as built. Whether the agent group stays a thing of
+its own or the team takes its place is asked in
+`TAC > TAC-PEOPLE > TAC-GROUPS` (PQ-23). — `agent_spec_author`
 
 ### <!--[TAC-COORD]--> 9.2 Coordination between runtimes
 
@@ -1362,8 +1348,8 @@ teams.
   | **team** | people | members, owners, invitations, conversations, review sets, the right to control each other's runtimes |
   | **agent group** | runtimes that coordinate | presence, leases, messages between runtimes, endpoints |
 
-  What an agent group is, compared with a quest, a run and a prompt, and
-  with an example, is in `TAC > TAC-PEOPLE > TAC-GROUPS`.
+  What "agent group" names, and whether it stays a thing of its own, is in
+  `TAC > TAC-PEOPLE > TAC-GROUPS` (PQ-23).
 
 - **CI.2** A person is a member of one team or of several. A person runs
   several runtimes, and those may be in several agent groups. One runtime
@@ -1393,7 +1379,7 @@ teams.
   | change the team's configuration and settings (providers, retention of messages, working trees per repository, escalation times) | no | yes |
   | declare units and infrastructure resources of an agent group | yes | yes |
   | delete the team | no | yes |
-  | create or delete an agent group | open: decided with PQ-20 | open: decided with PQ-20 |
+  | create or delete an agent group | open: decided with PQ-23 | open: decided with PQ-23 |
 
 - **CI.6** A person joins a team by **invitation** (S1 § 7.3, CQ-10, DQ-2):
   1. An owner creates an invitation for an e-mail address.
@@ -1441,76 +1427,47 @@ teams.
 - **CI.15** A team has a configuration that tac keeps and delivers to its
   members' runtimes (`RT > RT-CONFIG`, CS.3 … CS.6). (S1 § 5.5, DQ-11)
 
-#### <!--[TAC-GROUPS]--> 9.4.1 What an agent group is
+#### <!--[TAC-GROUPS]--> 9.4.1 Which runtimes share one list of leases
 
-An agent group answers one question: **which runtimes have to keep out of
-each other's way?**
+___check here___ The term "agent group" comes from the coordination protocol
+as built (`tac/1.0`), and it misleads. It has nothing to do with how a runtime
+works with its models: every runtime calls the model APIs and the agent SDKs
+directly, as the extension does today, each runtime serves one quest, and a
+host with several quests starts several runtimes. Quest files and all other
+AI state are on the machine of the host and are read and written there. None
+of that involves a group. (PQ-20)
 
-- **What is in it.** Runtimes, nothing else. Every runtime that takes part in
-  coordination is in exactly one agent group at a time. A runtime is one
-  running engine: one VS Code window, or one quest opened in Webforge.
-- **What the runtimes of a group share.** They see each other (which runtimes
-  are there, on which machine, for which quest). They take leases from the
-  same pool: when one of them holds a repository, the others see it and wait.
-  They can send each other messages (a todo for another quest, "I am done").
-  They publish their endpoints to each other. A runtime outside the group
-  sees none of this and is not seen.
-- **How it compares with a quest, a run and a prompt.** These are the units
-  of the **work**; an agent group is a unit of **who is working at the same
-  time**.
+What the term names is only this: **a shared list of who holds what.** When
+the window of one quest runs a todo in a repository, another window (of
+another quest, or on another machine) must not write into the same
+repository at the same time. For that, each runtime asks tac for a lease
+before it writes and gives it back afterwards. A lease only helps if the
+other runtimes look at the **same list** of leases. The set of runtimes that
+look at one list is what `tac/1.0` calls an agent group; it also decides
+which runtimes see each other as present and can send each other items.
 
-  | Unit | Is | Example |
-  | --- | --- | --- |
-  | prompt | one request to a model, with its answer | "do todo 4" |
-  | run | one line of work inside a quest: a process position, a queue, its sessions | the run that writes this specification |
-  | quest | one project: its todos, documents, runs | `ai_runtime`, `webwork` |
-  | runtime | the engine that serves one quest while a window or application is open; all runs of that quest are in it | the VS Code window of `ai_runtime` on the MacBook |
-  | **agent group** | every runtime, of whatever quest, on whatever machine, that works on the same repositories | all your windows on all four machines |
+Example: on the MacBook the windows of `webwork` and `ai_runtime` are both
+open, and both change the repository `tom_ai/ai_build`. On another machine
+`webwork` is open too. All three runtimes have to see one list, or the lease
+one of them takes means nothing to the others.
 
-  A quest does not coordinate anything by itself: two quests regularly write
-  to the same repository (the `webwork` quest and the `ai_runtime` quest both
-  change `tom_ai/ai_build`), and one quest is open on two machines. What must
-  not happen is that two runtimes write into the same repository at once,
-  whichever quests they serve. So the lease pool cannot belong to a quest; it
-  belongs to the set of runtimes that share repositories. That set is the
-  agent group.
-- **An example from the fleet.** Today eleven quest windows are open on the
-  MacBook, and the same quests are worked on the three other machines. All of
-  these runtimes would be in one agent group, the one planned as
-  `al-the-bear-fleet`. When the `webwork` window on the MacBook runs a todo in
-  `tom_ai/ai_build`, the `ai_runtime` window on the same machine and a window
-  on another machine see the lease and wait or work elsewhere. There is one
-  agent group because there is one set of repositories everybody shares.
-- **When there would be a second agent group.** When a set of repositories is
-  worked on by other runtimes that never touch yours: a customer's project
-  with its own repositories and its own people. Its runtimes do not need to
-  see your leases, and yours not theirs.
-- **How it differs from a team.** A team is people: who may message whom, who
-  reviews, who may control whose runtime. One person's runtimes are in an
-  agent group; the person is in one or several teams. A team of five people
-  who share repositories has all its members' runtimes in one agent group. A
-  reviewer from the business side is in the team and has no runtime in any
-  agent group.
-- **Today** (`tac/1.0`, as built) an agent group has no owner and is not
-  created by anyone: it comes into being when the first runtime names it,
-  and any runtime that has the service's key and names the group is in it.
-  With a server that serves more than one team, somebody has to be allowed
-  to create a group and to say who may join it. That is the question.
+Until the question below is answered, the document keeps the word "agent
+group" where it describes the protocol as built (`TAC > TAC-COORD`), and the
+last row of the table of rights (CI.5) stays open.
 
-> **❓ PQ-20 (2026-11-19T18:45+01:00) — Who an agent group belongs to:** on a server, who creates an agent group, and which runtimes may join it?
+> **❓ PQ-23 (2026-11-19T19:40+01:00) — Which runtimes share one list of leases:** when one of your windows holds a repository, which other runtimes see that and wait?
 >
-> **Context.** The section above this question explains what an agent group is: the set of runtimes that share repositories and therefore share one pool of leases, across quests and machines. A **team** is people. A **customer** is whoever a server serves (an organisation, or you); the server keeps access keys and quotas per customer. You decided that a team and an agent group are two different things, that "a team has owners; the first is whoever created the team", and you wrote about this question: "I'd say team member can create or delete their own agent groups, but this depends on our definitions."
+> **Context.** Your answer to the earlier question was: "each runtime calls the LLM/direct APIs or the SDK directly, just like VS Code does, no agent groups involved … I don't see any groups of agent here", and: "The sequence with joining a server, then creating a team makes sense to me." You are right about the runtimes: nothing in this question is about how a runtime calls a model. The word "agent group" is the coordination protocol's name for something else: the set of runtimes that share **one list of leases**. A lease is the note "this runtime is writing in this repository now". Two windows only keep out of each other's way if they look at the same list. Example: your `webwork` window and your `ai_runtime` window on the MacBook both change `tom_ai/ai_build`, and `webwork` is also open on another machine; all three must see one list. What has to be decided is which runtimes share a list — and whether that needs a concept of its own, or whether something you already have (the team, the server) is the answer.
 >
-> Three things are not said anywhere: whether an agent group belongs to a customer, to a team or to a person; who creates the first customer on a new server; and which runtimes may join a group.
+> You decided earlier that a quest has a home team and that its runtime acts as a member of that team. So every runtime already belongs to exactly one team.
 >
-> **Why I ask.** The Solution Blueprint has an information model (which records exist and how they point to each other) and a security model (who may call which operation). Both need this. It also decides what the first day on a new server looks like.
+> **Why I ask.** The information model of the Solution Blueprint needs to know whether there is a record for this beside the team, and the security model who may create it. It also decides whether the word "agent group" stays in the product at all.
 >
-> - **(a)** **A group belongs to the customer and is opened to teams; a team's owner creates it.** Whoever installs the server creates the first customer and its first access key from the server's command line. With that key a person creates a team and is its first owner. A team's owner creates an agent group; it belongs to the customer. A team lists the agent groups its members' runtimes may join, and a group may be listed by several teams of the same customer, so two teams that share repositories share the leases on them. A runtime joins a group with its person's token of a team that lists the group. For you: one customer, one team with you in it, one agent group for all your machines.
-> - (b) **As (a), and every member may create agent groups**, as you suggested: a member creates a group, it is listed in that member's team, and the member who created it (or an owner) may delete it. More freedom; a team can end up with several groups over the same repositories, whose runtimes then do not see each other's leases — the one thing a group is for.
-> - (c) **A group belongs to exactly one team.** A team's owner creates its groups, and only that team's members' runtimes join them. Simpler to explain. Two teams working on the same repositories cannot share leases.
-> - (d) **Groups stay as today:** no owner, no creation; any runtime with the customer's key that names a group is in it. Teams only concern messaging and remote control. Nothing to administer; nothing keeps a runtime out of a group.
+> - **(a)** **The team is the list.** All runtimes of a team's members share one list of leases: a runtime uses the list of its quest's home team. There is no separate concept and nothing to create or administer; the word "agent group" disappears from the product, and what the protocol calls a group id is the team. For you: one server, one team, and every window on every machine sees every lease. Cost: two different teams that work on the same repositories do not see each other's leases; they would have to be one team for coordination, or this is added later.
+> - (b) **A list of its own, created by a team's owner and opened to teams.** A separate record (under a clearer name, for example "coordination group") that a team's owner creates; a team names the lists its runtimes use, and two teams can name the same one. Covers two teams on the same repositories from the start; one more thing to create, name and explain, for a case you do not have today.
+> - (c) **The server is the list.** Every runtime connected to a server shares one list, whatever its team. Nothing to set up; on a server with several unrelated teams, every team sees every other team's leases and repository names.
 >
-> *Recommendation:* (a) — a group only works when everyone who writes to a repository is in the same one, so creating one should be a deliberate act of an owner, and it must be possible for two teams to share one.
+> *Recommendation:* (a) — it matches how you described the setup (join a server, create a team), needs no new concept, and (b) can be added later without changing what a single team does.
 >
 > **Answer:**
 
@@ -2210,7 +2167,7 @@ too)
 
 | Id | Source id | Decision | Replaces or completes | Shaped |
 | --- | --- | --- | --- | --- |
-| **D-44** | PQ-1 | The product owner, alexis, is the only reviewer of the specification; no document type has a team of its own. | — | `USR > USR-TEAM` |
+| **D-44** | PQ-1, PQ-22 | The product owner (member id `alexis`, display name Alexis) is the only reviewer of the specification; no document type has a team of its own. | — | `USR > USR-TEAM` |
 | **D-45** | PQ-8 | No fixed order of building: the order that reaches the finished product fastest, with two runs working in parallel. | — | `DEL` |
 | **D-46** | PQ-2, PQ-3 | A run pins the version of its process and takes a changed definition over at a step boundary on confirmation, which is the usual case; a step declares preconditions, which the runtime enforces and the user can override. | — | `RT > RT-RUNS` |
 | **D-47** | PQ-10 | Three backends are in the first delivery; the GitHub backend stays. | — | `TAC > TAC-BACKENDS` |
@@ -2219,10 +2176,11 @@ too)
 | **D-50** | PQ-7 | The client packages of all nine languages are in the first delivery. | — | `CLI > CLI-PACK` |
 | **D-51** | PQ-9 | The supervision application runs on the phone and the tablet in the first version, reached from the internet as well as from the local network or the VPN; a device is paired and gets a key of its own. | CQ-10 in the part that defers the pairing; WQ-1 in the part that defers the server-side runtime | `CLI > CLI-TRC`, `NFR > NFR-TOPO`, `SCO > SCO-LATER`, `TAC > TAC-CRYPT` |
 | **D-52** | PQ-16 | A runtime server on an always-on machine and standalone runtimes are later; a permanent server that hosts one runtime per client, each ending with its client, is part of the model. | — | `RT > RT-INSTALL`, `NFR > NFR-TOPO` |
-| **D-53** | PQ-12 | An owner of a team may do what the table of rights says; who creates and deletes agent groups is still open. | — | `TAC > TAC-PEOPLE` |
+| **D-53** | PQ-12 | An owner of a team may do what the table of rights says; its last row (agent groups) is open with PQ-23. | — | `TAC > TAC-PEOPLE` |
 | **D-54** | PQ-13 | Open (identification) or strict (invitation and team tokens) is a setting of the server, for everyone on it; every access from the internet is strict and that cannot be configured. | D-25 in the part that leaves open where identification is accepted | `TAC > TAC-PEOPLE` |
 | **D-55** | PQ-14 | The whole approach to parallel work is confirmed; a strict mode makes a claim block for the whole todo, and a repository without working trees per run is always in it while a todo executes. | — | `PAR > PAR-APPROACH` |
 | **D-56** | PQ-15 | The new packages are BSD-3; for now they are published only to pub.dev and to the workspace's binaries repository. | — | `NFR` |
+| **D-58** | PQ-21 | The link between a host and its runtime is an API with callbacks in both directions over a wire protocol of JSON structures; its records get object models worked out from the workspace's existing schemas; the shape of a conversation and of a question on the wire is settled in the interface specification; unloading runs is an option, not part of the first version unless measurement warrants it. | — | `RT > RT-PROTO`, `RT > RT-INSTALL` |
 | **D-57** | PQ-17, PQ-18 | Which mapper or generator writes which unit, and which standard descriptions are published, is decided at the start of Phase 4; missing generators are built there. The API documentation of the client packages and hand-written user and programmer's guides are delivered. | — | `NFR > NFR-GEN`, `NFR` |
 
 ## <!--[CON]--> 13 Contradictions

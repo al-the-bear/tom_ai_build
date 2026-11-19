@@ -65,3 +65,11 @@ unblocked" covered by the todos queued, open or done on 2026-11-19?
   and the problems (todo `phasetodosone1`, before this round).
 - New ids: CR.46; CP.31 to CP.34; CK.10 to CK.12; CI.19; O-9; D-44 to D-57;
   X-13, X-14; R-22 to R-24. No id was removed or renumbered.
+
+## After the review of this round
+
+| Question | Answer in short | In the text |
+| --- | --- | --- |
+| PQ-22 | (a) | `USR > USR-TEAM`: member id `alexis`, display name Alexis, role Product owner; D-44 |
+| PQ-21 | an API with callbacks over a JSON wire protocol; object models from the existing schemas; unloading reasonable but perhaps not worth it | CP.35 (new); CP.7 and CP.8 stay proposals for the interface specification; CR.45 an option, not first version; D-58. Not a blocker: detail of the interface specification. |
+| PQ-20 | "I don't see any groups of agent here" — the term was read as groups of agents calling models | the explanation in `TAC > TAC-PEOPLE > TAC-GROUPS` rewritten around what the term names (one shared list of leases); asked again as **PQ-23**, with the team as the recommended answer; the glossary entry rewritten |

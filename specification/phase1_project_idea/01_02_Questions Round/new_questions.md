@@ -57,3 +57,23 @@ The three questions this round puts to the product owner, as they stand in the P
 > *Recommendation:* (a) — a group only works when everyone who writes to a repository is in the same one, so creating one should be a deliberate act of an owner, and it must be possible for two teams to share one.
 >
 > **Answer:**
+
+## Asked after the review of this round
+
+`PQ-20` was answered without a decision (the term "agent group" was read as groups of agents calling models). It is asked again as `PQ-23`, in `TAC > TAC-PEOPLE > TAC-GROUPS`:
+
+> **❓ PQ-23 (2026-11-19T19:40+01:00) — Which runtimes share one list of leases:** when one of your windows holds a repository, which other runtimes see that and wait?
+>
+> **Context.** Your answer to the earlier question was: "each runtime calls the LLM/direct APIs or the SDK directly, just like VS Code does, no agent groups involved … I don't see any groups of agent here", and: "The sequence with joining a server, then creating a team makes sense to me." You are right about the runtimes: nothing in this question is about how a runtime calls a model. The word "agent group" is the coordination protocol's name for something else: the set of runtimes that share **one list of leases**. A lease is the note "this runtime is writing in this repository now". Two windows only keep out of each other's way if they look at the same list. Example: your `webwork` window and your `ai_runtime` window on the MacBook both change `tom_ai/ai_build`, and `webwork` is also open on another machine; all three must see one list. What has to be decided is which runtimes share a list — and whether that needs a concept of its own, or whether something you already have (the team, the server) is the answer.
+>
+> You decided earlier that a quest has a home team and that its runtime acts as a member of that team. So every runtime already belongs to exactly one team.
+>
+> **Why I ask.** The information model of the Solution Blueprint needs to know whether there is a record for this beside the team, and the security model who may create it. It also decides whether the word "agent group" stays in the product at all.
+>
+> - **(a)** **The team is the list.** All runtimes of a team's members share one list of leases: a runtime uses the list of its quest's home team. There is no separate concept and nothing to create or administer; the word "agent group" disappears from the product, and what the protocol calls a group id is the team. For you: one server, one team, and every window on every machine sees every lease. Cost: two different teams that work on the same repositories do not see each other's leases; they would have to be one team for coordination, or this is added later.
+> - (b) **A list of its own, created by a team's owner and opened to teams.** A separate record (under a clearer name, for example "coordination group") that a team's owner creates; a team names the lists its runtimes use, and two teams can name the same one. Covers two teams on the same repositories from the start; one more thing to create, name and explain, for a case you do not have today.
+> - (c) **The server is the list.** Every runtime connected to a server shares one list, whatever its team. Nothing to set up; on a server with several unrelated teams, every team sees every other team's leases and repository names.
+>
+> *Recommendation:* (a) — it matches how you described the setup (join a server, create a team), needs no new concept, and (b) can be added later without changing what a single team does.
+>
+> **Answer:**
