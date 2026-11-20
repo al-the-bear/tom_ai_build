@@ -18,4 +18,4 @@ authority is `tom_specs_project_flow.md` in the `tom_specs_model` package
 
 | Phase | Artifact | State | Gate |
 | --- | --- | --- | --- |
-| 1 | [`project_idea.ai_runtime.md`](phase1_project_idea/project_idea.ai_runtime.md) | Two question rounds; every answer (PQ-1 … PQ-23) is in the text; no question open | G1 run 2 on 2026-11-19: **all nine items pass** — [report](quality/evidence/gates/G1_20261119-2045.gate.md); awaiting the product owner's approval. Run 1 failed ([report](quality/evidence/gates/G1_20261119-1317.gate.md)) |
+| 1 | [`project_idea.ai_runtime.md`](phase1_project_idea/project_idea.ai_runtime.md) | Three question rounds; the answers PQ-1 … PQ-23 are in the text, and it uses the agreed terminology throughout (as change marks, to be reviewed); **ten questions open** (PQ-24 … PQ-33) | G1 run 2 on 2026-11-19 passed all nine items — [report](quality/evidence/gates/G1_20261119-2045.gate.md) — on the document before round 3; to be run again after its answers. Run 1 failed ([report](quality/evidence/gates/G1_20261119-1317.gate.md)) |
