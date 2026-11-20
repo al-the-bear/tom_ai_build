@@ -71,19 +71,7 @@ mom_order
 ORD
 ```
 
-### 5. `DAENT-IDEN` — `DataEntityEntry.identity.description`
-
-- instanceId: `DAENT-ENTI-1`
-- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAENT-IDEN`
-- routed by: `CodeSpecPart.dataAccess` declared on `DataEntityEntry`
-- units: `meridian_codespec_server`
-- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
-
-``` text
-A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.
-```
-
-### 6. `DAENT-IDEN` — `DataEntityEntry.identity.entityStereoType`
+### 5. `DAENT-IDEN` — `DataEntityEntry.identity.entityStereoType`
 
 - instanceId: `DAENT-ENTI-1`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAENT-IDEN`
@@ -93,6 +81,18 @@ A customer order captured from EDI or REST and driven through the lifecycle. Rea
 
 ``` text
 Entity
+```
+
+### 6. `DAENT-IDEN` — `DataEntityEntry.identity.description`
+
+- instanceId: `DAENT-ENTI-1`
+- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAENT-IDEN`
+- routed by: `CodeSpecPart.dataAccess` declared on `DataEntityEntry`
+- units: `meridian_codespec_server`
+- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
+
+``` text
+A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.
 ```
 
 ### 7. `DAENT-CLAS` — `DataEntityEntry.classification.category`
@@ -655,19 +655,7 @@ mom_order_line
 OLN
 ```
 
-### 51. `DAENT-IDEN` — `DataEntityEntry.identity.description`
-
-- instanceId: `DAENT-ENTI-2`
-- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAENT-IDEN`
-- routed by: `CodeSpecPart.dataAccess` declared on `DataEntityEntry`
-- units: `meridian_codespec_server`
-- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
-
-``` text
-A single product/quantity within an order, with a snapshotted price. Realizes FR-02, FR-03, FR-05.
-```
-
-### 52. `DAENT-IDEN` — `DataEntityEntry.identity.entityStereoType`
+### 51. `DAENT-IDEN` — `DataEntityEntry.identity.entityStereoType`
 
 - instanceId: `DAENT-ENTI-2`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAENT-IDEN`
@@ -677,6 +665,18 @@ A single product/quantity within an order, with a snapshotted price. Realizes FR
 
 ``` text
 Entity
+```
+
+### 52. `DAENT-IDEN` — `DataEntityEntry.identity.description`
+
+- instanceId: `DAENT-ENTI-2`
+- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAENT-IDEN`
+- routed by: `CodeSpecPart.dataAccess` declared on `DataEntityEntry`
+- units: `meridian_codespec_server`
+- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
+
+``` text
+A single product/quantity within an order, with a snapshotted price. Realizes FR-02, FR-03, FR-05.
 ```
 
 ### 53. `DAENT-CLAS` — `DataEntityEntry.classification.category`
@@ -1365,19 +1365,7 @@ mom_customer
 CUS
 ```
 
-### 107. `DAENT-IDEN` — `DataEntityEntry.identity.description`
-
-- instanceId: `DAENT-ENTI-3`
-- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAENT-IDEN`
-- routed by: `CodeSpecPart.dataAccess` declared on `DataEntityEntry`
-- units: `meridian_codespec_server`
-- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
-
-``` text
-A wholesale or e-commerce customer that places orders. Realizes FR-01.
-```
-
-### 108. `DAENT-IDEN` — `DataEntityEntry.identity.entityStereoType`
+### 107. `DAENT-IDEN` — `DataEntityEntry.identity.entityStereoType`
 
 - instanceId: `DAENT-ENTI-3`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAENT-IDEN`
@@ -1387,6 +1375,18 @@ A wholesale or e-commerce customer that places orders. Realizes FR-01.
 
 ``` text
 Entity
+```
+
+### 108. `DAENT-IDEN` — `DataEntityEntry.identity.description`
+
+- instanceId: `DAENT-ENTI-3`
+- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAENT-IDEN`
+- routed by: `CodeSpecPart.dataAccess` declared on `DataEntityEntry`
+- units: `meridian_codespec_server`
+- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
+
+``` text
+A wholesale or e-commerce customer that places orders. Realizes FR-01.
 ```
 
 ### 109. `DAENT-CLAS` — `DataEntityEntry.classification.category`
@@ -1807,43 +1807,7 @@ Product
 mom_product
 ```
 
-### 142. `DAENT-IDEN` — `DataEntityEntry.identity.entityAlias`
-
-- instanceId: `DAENT-ENTI-4`
-- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAENT-IDEN`
-- routed by: `CodeSpecPart.dataAccess` declared on `DataEntityEntry`
-- units: `meridian_codespec_server`
-- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
-
-``` text
-PRD
-```
-
-### 143. `DAENT-IDEN` — `DataEntityEntry.identity.description`
-
-- instanceId: `DAENT-ENTI-4`
-- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAENT-IDEN`
-- routed by: `CodeSpecPart.dataAccess` declared on `DataEntityEntry`
-- units: `meridian_codespec_server`
-- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
-
-``` text
-A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.
-```
-
-### 144. `DAENT-IDEN` — `DataEntityEntry.identity.entityStereoType`
-
-- instanceId: `DAENT-ENTI-4`
-- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAENT-IDEN`
-- routed by: `CodeSpecPart.dataAccess` declared on `DataEntityEntry`
-- units: `meridian_codespec_server`
-- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
-
-``` text
-Entity
-```
-
-### 145. `DAENT-IDEN` — `DataEntityEntry.identity.dataSourceName`
+### 142. `DAENT-IDEN` — `DataEntityEntry.identity.dataSourceName`
 
 - instanceId: `DAENT-ENTI-4`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAENT-IDEN`
@@ -1855,7 +1819,7 @@ Entity
 catalog
 ```
 
-### 146. `DAENT-IDEN` — `DataEntityEntry.identity.tenancy`
+### 143. `DAENT-IDEN` — `DataEntityEntry.identity.tenancy`
 
 - instanceId: `DAENT-ENTI-4`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAENT-IDEN`
@@ -1865,6 +1829,42 @@ catalog
 
 ``` text
 system
+```
+
+### 144. `DAENT-IDEN` — `DataEntityEntry.identity.entityAlias`
+
+- instanceId: `DAENT-ENTI-4`
+- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAENT-IDEN`
+- routed by: `CodeSpecPart.dataAccess` declared on `DataEntityEntry`
+- units: `meridian_codespec_server`
+- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
+
+``` text
+PRD
+```
+
+### 145. `DAENT-IDEN` — `DataEntityEntry.identity.entityStereoType`
+
+- instanceId: `DAENT-ENTI-4`
+- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAENT-IDEN`
+- routed by: `CodeSpecPart.dataAccess` declared on `DataEntityEntry`
+- units: `meridian_codespec_server`
+- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
+
+``` text
+Entity
+```
+
+### 146. `DAENT-IDEN` — `DataEntityEntry.identity.description`
+
+- instanceId: `DAENT-ENTI-4`
+- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAENT-IDEN`
+- routed by: `CodeSpecPart.dataAccess` declared on `DataEntityEntry`
+- units: `meridian_codespec_server`
+- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
+
+``` text
+A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.
 ```
 
 ### 147. `DAENT-CLAS` — `DataEntityEntry.classification.category`
@@ -2297,20 +2297,7 @@ The foreign-key relationships binding the ordering core together.
 Composition
 ```
 
-### 181. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.description`
-
-- headline: Order-owns-Lines
-- instanceId: `ENRLE-ITEM-1`
-- path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-1/ENRLE-IDEN`
-- routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
-- units: `meridian_codespec_server`
-- routing note: Foreign-key / association between tables.
-
-``` text
-An order owns one or more order lines.
-```
-
-### 182. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.businessJustification`
+### 181. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.businessJustification`
 
 - headline: Order-owns-Lines
 - instanceId: `ENRLE-ITEM-1`
@@ -2323,7 +2310,7 @@ An order owns one or more order lines.
 Maintains referential integrity across the ordering core.
 ```
 
-### 183. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.implementationType`
+### 182. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.implementationType`
 
 - headline: Order-owns-Lines
 - instanceId: `ENRLE-ITEM-1`
@@ -2334,6 +2321,19 @@ Maintains referential integrity across the ordering core.
 
 ``` text
 Foreign Key
+```
+
+### 183. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.description`
+
+- headline: Order-owns-Lines
+- instanceId: `ENRLE-ITEM-1`
+- path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-1/ENRLE-IDEN`
+- routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
+- units: `meridian_codespec_server`
+- routing note: Foreign-key / association between tables.
+
+``` text
+An order owns one or more order lines.
 ```
 
 ### 184. `ENRLE-CARD` — `EntityRelationshipEntry.cardinality.sourceCardinality`
@@ -2427,20 +2427,7 @@ DAENT-ENTI-2
 Association
 ```
 
-### 191. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.description`
-
-- headline: Order-placed-by-Customer
-- instanceId: `ENRLE-ITEM-2`
-- path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-2/ENRLE-IDEN`
-- routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
-- units: `meridian_codespec_server`
-- routing note: Foreign-key / association between tables.
-
-``` text
-Each order is placed by exactly one customer.
-```
-
-### 192. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.businessJustification`
+### 191. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.businessJustification`
 
 - headline: Order-placed-by-Customer
 - instanceId: `ENRLE-ITEM-2`
@@ -2453,7 +2440,7 @@ Each order is placed by exactly one customer.
 Maintains referential integrity across the ordering core.
 ```
 
-### 193. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.implementationType`
+### 192. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.implementationType`
 
 - headline: Order-placed-by-Customer
 - instanceId: `ENRLE-ITEM-2`
@@ -2464,6 +2451,19 @@ Maintains referential integrity across the ordering core.
 
 ``` text
 Foreign Key
+```
+
+### 193. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.description`
+
+- headline: Order-placed-by-Customer
+- instanceId: `ENRLE-ITEM-2`
+- path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-2/ENRLE-IDEN`
+- routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
+- units: `meridian_codespec_server`
+- routing note: Foreign-key / association between tables.
+
+``` text
+Each order is placed by exactly one customer.
 ```
 
 ### 194. `ENRLE-CARD` — `EntityRelationshipEntry.cardinality.sourceCardinality`
@@ -2557,20 +2557,7 @@ DAENT-ENTI-3
 Association
 ```
 
-### 201. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.description`
-
-- headline: Line-references-Product
-- instanceId: `ENRLE-ITEM-3`
-- path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-3/ENRLE-IDEN`
-- routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
-- units: `meridian_codespec_server`
-- routing note: Foreign-key / association between tables.
-
-``` text
-Each order line references exactly one product.
-```
-
-### 202. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.businessJustification`
+### 201. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.businessJustification`
 
 - headline: Line-references-Product
 - instanceId: `ENRLE-ITEM-3`
@@ -2583,7 +2570,7 @@ Each order line references exactly one product.
 Maintains referential integrity across the ordering core.
 ```
 
-### 203. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.implementationType`
+### 202. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.implementationType`
 
 - headline: Line-references-Product
 - instanceId: `ENRLE-ITEM-3`
@@ -2594,6 +2581,19 @@ Maintains referential integrity across the ordering core.
 
 ``` text
 Foreign Key
+```
+
+### 203. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.description`
+
+- headline: Line-references-Product
+- instanceId: `ENRLE-ITEM-3`
+- path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-3/ENRLE-IDEN`
+- routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
+- units: `meridian_codespec_server`
+- routing note: Foreign-key / association between tables.
+
+``` text
+Each order line references exactly one product.
 ```
 
 ### 204. `ENRLE-CARD` — `EntityRelationshipEntry.cardinality.sourceCardinality`

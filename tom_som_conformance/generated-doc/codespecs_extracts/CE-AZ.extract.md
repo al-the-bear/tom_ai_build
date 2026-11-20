@@ -47,20 +47,7 @@ Human
 Primary
 ```
 
-### 3. `ACID` — `ActorEntry.identification.description`
-
-- headline: ACT-01 Order Clerk
-- instanceId: `ACEN-ACTO-1`
-- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST-1/ACID`
-- routed by: `CodeSpecPart.authorization` declared on `ActorEntry`
-- units: `meridian_codespec_shared`
-- routing note: an actor is the subject of authorization: its permissions seed the role matrix
-
-``` text
-Clears the order work list, amends lines, and cancels orders before dispatch.
-```
-
-### 4. `ACID` — `ActorEntry.identification.organizationalUnit`
+### 3. `ACID` — `ActorEntry.identification.organizationalUnit`
 
 - headline: ACT-01 Order Clerk
 - instanceId: `ACEN-ACTO-1`
@@ -73,7 +60,7 @@ Clears the order work list, amends lines, and cancels orders before dispatch.
 Order Operations
 ```
 
-### 5. `ACID` — `ActorEntry.identification.estimatedCount`
+### 4. `ACID` — `ActorEntry.identification.estimatedCount`
 
 - headline: ACT-01 Order Clerk
 - instanceId: `ACEN-ACTO-1`
@@ -86,7 +73,7 @@ Order Operations
 25
 ```
 
-### 6. `ACID` — `ActorEntry.identification.geographicDistribution`
+### 5. `ACID` — `ActorEntry.identification.geographicDistribution`
 
 - headline: ACT-01 Order Clerk
 - instanceId: `ACEN-ACTO-1`
@@ -97,6 +84,19 @@ Order Operations
 
 ``` text
 Single distribution centre
+```
+
+### 6. `ACID` — `ActorEntry.identification.description`
+
+- headline: ACT-01 Order Clerk
+- instanceId: `ACEN-ACTO-1`
+- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST-1/ACID`
+- routed by: `CodeSpecPart.authorization` declared on `ActorEntry`
+- units: `meridian_codespec_shared`
+- routing note: an actor is the subject of authorization: its permissions seed the role matrix
+
+``` text
+Clears the order work list, amends lines, and cancels orders before dispatch.
 ```
 
 ### 7. `ACID` — `ActorEntry.identification.actorType`
@@ -125,20 +125,7 @@ Human
 Primary
 ```
 
-### 9. `ACID` — `ActorEntry.identification.description`
-
-- headline: ACT-02 Order Supervisor
-- instanceId: `ACEN-ACTO-2`
-- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST-2/ACID`
-- routed by: `CodeSpecPart.authorization` declared on `ActorEntry`
-- units: `meridian_codespec_shared`
-- routing note: an actor is the subject of authorization: its permissions seed the role matrix
-
-``` text
-Reviews orders on Hold and releases them back into the lifecycle.
-```
-
-### 10. `ACID` — `ActorEntry.identification.organizationalUnit`
+### 9. `ACID` — `ActorEntry.identification.organizationalUnit`
 
 - headline: ACT-02 Order Supervisor
 - instanceId: `ACEN-ACTO-2`
@@ -151,7 +138,7 @@ Reviews orders on Hold and releases them back into the lifecycle.
 Order Operations
 ```
 
-### 11. `ACID` — `ActorEntry.identification.estimatedCount`
+### 10. `ACID` — `ActorEntry.identification.estimatedCount`
 
 - headline: ACT-02 Order Supervisor
 - instanceId: `ACEN-ACTO-2`
@@ -164,7 +151,7 @@ Order Operations
 4
 ```
 
-### 12. `ACID` — `ActorEntry.identification.geographicDistribution`
+### 11. `ACID` — `ActorEntry.identification.geographicDistribution`
 
 - headline: ACT-02 Order Supervisor
 - instanceId: `ACEN-ACTO-2`
@@ -175,6 +162,19 @@ Order Operations
 
 ``` text
 Single distribution centre
+```
+
+### 12. `ACID` — `ActorEntry.identification.description`
+
+- headline: ACT-02 Order Supervisor
+- instanceId: `ACEN-ACTO-2`
+- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST-2/ACID`
+- routed by: `CodeSpecPart.authorization` declared on `ActorEntry`
+- units: `meridian_codespec_shared`
+- routing note: an actor is the subject of authorization: its permissions seed the role matrix
+
+``` text
+Reviews orders on Hold and releases them back into the lifecycle.
 ```
 
 ### 13. `ACID` — `ActorEntry.identification.actorType`
@@ -203,20 +203,7 @@ Human
 Supporting
 ```
 
-### 15. `ACID` — `ActorEntry.identification.description`
-
-- headline: ACT-03 Pricing Admin
-- instanceId: `ACEN-ACTO-3`
-- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST-3/ACID`
-- routed by: `CodeSpecPart.authorization` declared on `ActorEntry`
-- units: `meridian_codespec_shared`
-- routing note: an actor is the subject of authorization: its permissions seed the role matrix
-
-``` text
-Maintains the price lists that the synchronous pricing step consumes.
-```
-
-### 16. `ACID` — `ActorEntry.identification.organizationalUnit`
+### 15. `ACID` — `ActorEntry.identification.organizationalUnit`
 
 - headline: ACT-03 Pricing Admin
 - instanceId: `ACEN-ACTO-3`
@@ -229,7 +216,7 @@ Maintains the price lists that the synchronous pricing step consumes.
 Commercial
 ```
 
-### 17. `ACID` — `ActorEntry.identification.estimatedCount`
+### 16. `ACID` — `ActorEntry.identification.estimatedCount`
 
 - headline: ACT-03 Pricing Admin
 - instanceId: `ACEN-ACTO-3`
@@ -242,7 +229,7 @@ Commercial
 3
 ```
 
-### 18. `ACID` — `ActorEntry.identification.geographicDistribution`
+### 17. `ACID` — `ActorEntry.identification.geographicDistribution`
 
 - headline: ACT-03 Pricing Admin
 - instanceId: `ACEN-ACTO-3`
@@ -253,6 +240,19 @@ Commercial
 
 ``` text
 Single distribution centre
+```
+
+### 18. `ACID` — `ActorEntry.identification.description`
+
+- headline: ACT-03 Pricing Admin
+- instanceId: `ACEN-ACTO-3`
+- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST-3/ACID`
+- routed by: `CodeSpecPart.authorization` declared on `ActorEntry`
+- units: `meridian_codespec_shared`
+- routing note: an actor is the subject of authorization: its permissions seed the role matrix
+
+``` text
+Maintains the price lists that the synchronous pricing step consumes.
 ```
 
 ### 19. `ACID` — `ActorEntry.identification.actorType`
@@ -281,20 +281,7 @@ System
 Primary
 ```
 
-### 21. `ACID` — `ActorEntry.identification.description`
-
-- headline: ACT-04 EDI Integration Account
-- instanceId: `ACEN-ACTO-4`
-- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST-4/ACID`
-- routed by: `CodeSpecPart.authorization` declared on `ActorEntry`
-- units: `meridian_codespec_shared`
-- routing note: an actor is the subject of authorization: its permissions seed the role matrix
-
-``` text
-Machine account through which the wholesale EDI adapter submits orders.
-```
-
-### 22. `ACID` — `ActorEntry.identification.organizationalUnit`
+### 21. `ACID` — `ActorEntry.identification.organizationalUnit`
 
 - headline: ACT-04 EDI Integration Account
 - instanceId: `ACEN-ACTO-4`
@@ -307,7 +294,7 @@ Machine account through which the wholesale EDI adapter submits orders.
 Integration
 ```
 
-### 23. `ACID` — `ActorEntry.identification.estimatedCount`
+### 22. `ACID` — `ActorEntry.identification.estimatedCount`
 
 - headline: ACT-04 EDI Integration Account
 - instanceId: `ACEN-ACTO-4`
@@ -320,7 +307,7 @@ Integration
 1
 ```
 
-### 24. `ACID` — `ActorEntry.identification.geographicDistribution`
+### 23. `ACID` — `ActorEntry.identification.geographicDistribution`
 
 - headline: ACT-04 EDI Integration Account
 - instanceId: `ACEN-ACTO-4`
@@ -331,6 +318,19 @@ Integration
 
 ``` text
 Single distribution centre
+```
+
+### 24. `ACID` — `ActorEntry.identification.description`
+
+- headline: ACT-04 EDI Integration Account
+- instanceId: `ACEN-ACTO-4`
+- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST-4/ACID`
+- routed by: `CodeSpecPart.authorization` declared on `ActorEntry`
+- units: `meridian_codespec_shared`
+- routing note: an actor is the subject of authorization: its permissions seed the role matrix
+
+``` text
+Machine account through which the wholesale EDI adapter submits orders.
 ```
 
 ### 25. `DCLSE-IDEN` — `DataClassificationEntry.identity.classificationLevel`
@@ -476,19 +476,7 @@ SharedDatabase_SharedSchema
 Order Clerk
 ```
 
-### 37. `content` — `AuthorizationRoleEntry.content.description`
-
-- headline: Order Clerk
-- instanceId: `AZRO-ROLE-1`
-- path: `SBP/securityAndAccessModel/accessControl/authorization/AZRO-ROLE-LST-1/content`
-- routed by: `CodeSpecPart.authorization` declared on `AuthorizationRoleEntry`
-- units: `meridian_codespec_shared`
-
-``` text
-Works the order queue: captures, amends, and confirms orders.
-```
-
-### 38. `content` — `AuthorizationRoleEntry.content.roleCategory`
+### 37. `content` — `AuthorizationRoleEntry.content.roleCategory`
 
 - headline: Order Clerk
 - instanceId: `AZRO-ROLE-1`
@@ -498,6 +486,18 @@ Works the order queue: captures, amends, and confirms orders.
 
 ``` text
 Business
+```
+
+### 38. `content` — `AuthorizationRoleEntry.content.description`
+
+- headline: Order Clerk
+- instanceId: `AZRO-ROLE-1`
+- path: `SBP/securityAndAccessModel/accessControl/authorization/AZRO-ROLE-LST-1/content`
+- routed by: `CodeSpecPart.authorization` declared on `AuthorizationRoleEntry`
+- units: `meridian_codespec_shared`
+
+``` text
+Works the order queue: captures, amends, and confirms orders.
 ```
 
 ### 39. `ARES` — `AuthorizationRoleEntry.structure.roleScope`
@@ -548,19 +548,7 @@ order.read, order.amend
 Order Supervisor
 ```
 
-### 43. `content` — `AuthorizationRoleEntry.content.description`
-
-- headline: Order Supervisor
-- instanceId: `AZRO-ROLE-2`
-- path: `SBP/securityAndAccessModel/accessControl/authorization/AZRO-ROLE-LST-2/content`
-- routed by: `CodeSpecPart.authorization` declared on `AuthorizationRoleEntry`
-- units: `meridian_codespec_shared`
-
-``` text
-Everything a clerk may do, plus releasing credit and stock holds.
-```
-
-### 44. `content` — `AuthorizationRoleEntry.content.roleCategory`
+### 43. `content` — `AuthorizationRoleEntry.content.roleCategory`
 
 - headline: Order Supervisor
 - instanceId: `AZRO-ROLE-2`
@@ -570,6 +558,18 @@ Everything a clerk may do, plus releasing credit and stock holds.
 
 ``` text
 Business
+```
+
+### 44. `content` — `AuthorizationRoleEntry.content.description`
+
+- headline: Order Supervisor
+- instanceId: `AZRO-ROLE-2`
+- path: `SBP/securityAndAccessModel/accessControl/authorization/AZRO-ROLE-LST-2/content`
+- routed by: `CodeSpecPart.authorization` declared on `AuthorizationRoleEntry`
+- units: `meridian_codespec_shared`
+
+``` text
+Everything a clerk may do, plus releasing credit and stock holds.
 ```
 
 ### 45. `ARES` — `AuthorizationRoleEntry.structure.roleScope`
@@ -620,19 +620,7 @@ order.read, order.amend, order.hold.release
 order.read
 ```
 
-### 49. `content` — `EntitlementEntry.content.description`
-
-- headline: order.read
-- instanceId: `ENT-ENTI-1`
-- path: `SBP/securityAndAccessModel/accessControl/authorization/ENT-ENTI-LST-1/content`
-- routed by: `CodeSpecPart.authorization` declared on `EntitlementEntry`
-- units: `meridian_codespec_shared`
-
-``` text
-See orders in the work list and open their detail.
-```
-
-### 50. `content` — `EntitlementEntry.content.accessType`
+### 49. `content` — `EntitlementEntry.content.accessType`
 
 - headline: order.read
 - instanceId: `ENT-ENTI-1`
@@ -642,6 +630,18 @@ See orders in the work list and open their detail.
 
 ``` text
 Read
+```
+
+### 50. `content` — `EntitlementEntry.content.description`
+
+- headline: order.read
+- instanceId: `ENT-ENTI-1`
+- path: `SBP/securityAndAccessModel/accessControl/authorization/ENT-ENTI-LST-1/content`
+- routed by: `CodeSpecPart.authorization` declared on `EntitlementEntry`
+- units: `meridian_codespec_shared`
+
+``` text
+See orders in the work list and open their detail.
 ```
 
 ### 51. `content` — `EntitlementEntry.content.entitlementName`
@@ -656,19 +656,7 @@ Read
 order.amend
 ```
 
-### 52. `content` — `EntitlementEntry.content.description`
-
-- headline: order.amend
-- instanceId: `ENT-ENTI-2`
-- path: `SBP/securityAndAccessModel/accessControl/authorization/ENT-ENTI-LST-2/content`
-- routed by: `CodeSpecPart.authorization` declared on `EntitlementEntry`
-- units: `meridian_codespec_shared`
-
-``` text
-Change quantities and lines on an order that is not yet dispatched.
-```
-
-### 53. `content` — `EntitlementEntry.content.accessType`
+### 52. `content` — `EntitlementEntry.content.accessType`
 
 - headline: order.amend
 - instanceId: `ENT-ENTI-2`
@@ -678,6 +666,18 @@ Change quantities and lines on an order that is not yet dispatched.
 
 ``` text
 Write
+```
+
+### 53. `content` — `EntitlementEntry.content.description`
+
+- headline: order.amend
+- instanceId: `ENT-ENTI-2`
+- path: `SBP/securityAndAccessModel/accessControl/authorization/ENT-ENTI-LST-2/content`
+- routed by: `CodeSpecPart.authorization` declared on `EntitlementEntry`
+- units: `meridian_codespec_shared`
+
+``` text
+Change quantities and lines on an order that is not yet dispatched.
 ```
 
 ### 54. `content` — `EntitlementEntry.content.entitlementName`
@@ -692,19 +692,7 @@ Write
 order.hold.release
 ```
 
-### 55. `content` — `EntitlementEntry.content.description`
-
-- headline: order.hold.release
-- instanceId: `ENT-ENTI-3`
-- path: `SBP/securityAndAccessModel/accessControl/authorization/ENT-ENTI-LST-3/content`
-- routed by: `CodeSpecPart.authorization` declared on `EntitlementEntry`
-- units: `meridian_codespec_shared`
-
-``` text
-Release a credit or stock hold placed on an order.
-```
-
-### 56. `content` — `EntitlementEntry.content.accessType`
+### 55. `content` — `EntitlementEntry.content.accessType`
 
 - headline: order.hold.release
 - instanceId: `ENT-ENTI-3`
@@ -714,6 +702,18 @@ Release a credit or stock hold placed on an order.
 
 ``` text
 Approve
+```
+
+### 56. `content` — `EntitlementEntry.content.description`
+
+- headline: order.hold.release
+- instanceId: `ENT-ENTI-3`
+- path: `SBP/securityAndAccessModel/accessControl/authorization/ENT-ENTI-LST-3/content`
+- routed by: `CodeSpecPart.authorization` declared on `EntitlementEntry`
+- units: `meridian_codespec_shared`
+
+``` text
+Release a credit or stock hold placed on an order.
 ```
 
 ### 57. `content` — `AuthorizationRequirementSpec.content.requirementKind`

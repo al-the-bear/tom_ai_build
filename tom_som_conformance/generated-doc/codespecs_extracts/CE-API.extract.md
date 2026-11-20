@@ -57,19 +57,7 @@ mom_order
 ORD
 ```
 
-### 4. `DAENT-IDEN` — `DataEntityEntry.identity.description`
-
-- instanceId: `DAENT-ENTI-1`
-- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAENT-IDEN`
-- routed by: `CodeSpecPart.serverApi` declared on `DataEntityEntry`
-- units: `meridian_codespec_shared`
-- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
-
-``` text
-A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.
-```
-
-### 5. `DAENT-IDEN` — `DataEntityEntry.identity.entityStereoType`
+### 4. `DAENT-IDEN` — `DataEntityEntry.identity.entityStereoType`
 
 - instanceId: `DAENT-ENTI-1`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAENT-IDEN`
@@ -79,6 +67,18 @@ A customer order captured from EDI or REST and driven through the lifecycle. Rea
 
 ``` text
 Entity
+```
+
+### 5. `DAENT-IDEN` — `DataEntityEntry.identity.description`
+
+- instanceId: `DAENT-ENTI-1`
+- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAENT-IDEN`
+- routed by: `CodeSpecPart.serverApi` declared on `DataEntityEntry`
+- units: `meridian_codespec_shared`
+- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
+
+``` text
+A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.
 ```
 
 ### 6. `DAENT-CLAS` — `DataEntityEntry.classification.category`
@@ -605,19 +605,7 @@ mom_order_line
 OLN
 ```
 
-### 47. `DAENT-IDEN` — `DataEntityEntry.identity.description`
-
-- instanceId: `DAENT-ENTI-2`
-- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAENT-IDEN`
-- routed by: `CodeSpecPart.serverApi` declared on `DataEntityEntry`
-- units: `meridian_codespec_shared`
-- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
-
-``` text
-A single product/quantity within an order, with a snapshotted price. Realizes FR-02, FR-03, FR-05.
-```
-
-### 48. `DAENT-IDEN` — `DataEntityEntry.identity.entityStereoType`
+### 47. `DAENT-IDEN` — `DataEntityEntry.identity.entityStereoType`
 
 - instanceId: `DAENT-ENTI-2`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAENT-IDEN`
@@ -627,6 +615,18 @@ A single product/quantity within an order, with a snapshotted price. Realizes FR
 
 ``` text
 Entity
+```
+
+### 48. `DAENT-IDEN` — `DataEntityEntry.identity.description`
+
+- instanceId: `DAENT-ENTI-2`
+- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAENT-IDEN`
+- routed by: `CodeSpecPart.serverApi` declared on `DataEntityEntry`
+- units: `meridian_codespec_shared`
+- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
+
+``` text
+A single product/quantity within an order, with a snapshotted price. Realizes FR-02, FR-03, FR-05.
 ```
 
 ### 49. `DAENT-CLAS` — `DataEntityEntry.classification.category`
@@ -1231,19 +1231,7 @@ mom_customer
 CUS
 ```
 
-### 96. `DAENT-IDEN` — `DataEntityEntry.identity.description`
-
-- instanceId: `DAENT-ENTI-3`
-- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAENT-IDEN`
-- routed by: `CodeSpecPart.serverApi` declared on `DataEntityEntry`
-- units: `meridian_codespec_shared`
-- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
-
-``` text
-A wholesale or e-commerce customer that places orders. Realizes FR-01.
-```
-
-### 97. `DAENT-IDEN` — `DataEntityEntry.identity.entityStereoType`
+### 96. `DAENT-IDEN` — `DataEntityEntry.identity.entityStereoType`
 
 - instanceId: `DAENT-ENTI-3`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAENT-IDEN`
@@ -1253,6 +1241,18 @@ A wholesale or e-commerce customer that places orders. Realizes FR-01.
 
 ``` text
 Entity
+```
+
+### 97. `DAENT-IDEN` — `DataEntityEntry.identity.description`
+
+- instanceId: `DAENT-ENTI-3`
+- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAENT-IDEN`
+- routed by: `CodeSpecPart.serverApi` declared on `DataEntityEntry`
+- units: `meridian_codespec_shared`
+- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
+
+``` text
+A wholesale or e-commerce customer that places orders. Realizes FR-01.
 ```
 
 ### 98. `DAENT-CLAS` — `DataEntityEntry.classification.category`
@@ -1637,43 +1637,7 @@ Product
 mom_product
 ```
 
-### 128. `DAENT-IDEN` — `DataEntityEntry.identity.entityAlias`
-
-- instanceId: `DAENT-ENTI-4`
-- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAENT-IDEN`
-- routed by: `CodeSpecPart.serverApi` declared on `DataEntityEntry`
-- units: `meridian_codespec_shared`
-- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
-
-``` text
-PRD
-```
-
-### 129. `DAENT-IDEN` — `DataEntityEntry.identity.description`
-
-- instanceId: `DAENT-ENTI-4`
-- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAENT-IDEN`
-- routed by: `CodeSpecPart.serverApi` declared on `DataEntityEntry`
-- units: `meridian_codespec_shared`
-- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
-
-``` text
-A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.
-```
-
-### 130. `DAENT-IDEN` — `DataEntityEntry.identity.entityStereoType`
-
-- instanceId: `DAENT-ENTI-4`
-- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAENT-IDEN`
-- routed by: `CodeSpecPart.serverApi` declared on `DataEntityEntry`
-- units: `meridian_codespec_shared`
-- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
-
-``` text
-Entity
-```
-
-### 131. `DAENT-IDEN` — `DataEntityEntry.identity.dataSourceName`
+### 128. `DAENT-IDEN` — `DataEntityEntry.identity.dataSourceName`
 
 - instanceId: `DAENT-ENTI-4`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAENT-IDEN`
@@ -1685,7 +1649,7 @@ Entity
 catalog
 ```
 
-### 132. `DAENT-IDEN` — `DataEntityEntry.identity.tenancy`
+### 129. `DAENT-IDEN` — `DataEntityEntry.identity.tenancy`
 
 - instanceId: `DAENT-ENTI-4`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAENT-IDEN`
@@ -1695,6 +1659,42 @@ catalog
 
 ``` text
 system
+```
+
+### 130. `DAENT-IDEN` — `DataEntityEntry.identity.entityAlias`
+
+- instanceId: `DAENT-ENTI-4`
+- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAENT-IDEN`
+- routed by: `CodeSpecPart.serverApi` declared on `DataEntityEntry`
+- units: `meridian_codespec_shared`
+- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
+
+``` text
+PRD
+```
+
+### 131. `DAENT-IDEN` — `DataEntityEntry.identity.entityStereoType`
+
+- instanceId: `DAENT-ENTI-4`
+- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAENT-IDEN`
+- routed by: `CodeSpecPart.serverApi` declared on `DataEntityEntry`
+- units: `meridian_codespec_shared`
+- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
+
+``` text
+Entity
+```
+
+### 132. `DAENT-IDEN` — `DataEntityEntry.identity.description`
+
+- instanceId: `DAENT-ENTI-4`
+- path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAENT-IDEN`
+- routed by: `CodeSpecPart.serverApi` declared on `DataEntityEntry`
+- units: `meridian_codespec_shared`
+- routing note: Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract.
+
+``` text
+A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.
 ```
 
 ### 133. `DAENT-CLAS` — `DataEntityEntry.classification.category`
@@ -2094,7 +2094,7 @@ interaction step that cites the operation.
 amendOrderLine
 ```
 
-### 164. `content` — `ServerOperationEntry.content.purpose`
+### 164. `content` — `ServerOperationEntry.content.descriptionKey`
 
 - headline: Amend Order Line
 - instanceId: `SVOPE-OPER-1`
@@ -2104,7 +2104,7 @@ amendOrderLine
 - routing note: CE-API — the application's own operation surface. Under the codespecs_mapping.md §7 contract the operation name is the sole identifier (no method, no path) and the response is always the CE-ER Result envelope, so only the name, the two typed shapes, the primary written entity, the CE-AZ requirement and the returnable error codes are authored. The request/response member shapes generate into the shared project; the operation itself into the server project (§4.2).
 
 ``` text
-Applies a quantity change to one order line before dispatch, re-pricing and re-reserving only the affected line under optimistic concurrency.
+op.order.amendLine
 ```
 
 ### 165. `content` — `ServerOperationEntry.content.primaryDataEntity`
@@ -2120,20 +2120,7 @@ Applies a quantity change to one order line before dispatch, re-pricing and re-r
 OrderLine
 ```
 
-### 166. `content` — `ServerOperationEntry.content.descriptionKey`
-
-- headline: Amend Order Line
-- instanceId: `SVOPE-OPER-1`
-- path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/content`
-- routed by: `CodeSpecPart.serverApi` declared on `ServerOperationEntry`
-- units: `meridian_codespec_shared`
-- routing note: CE-API — the application's own operation surface. Under the codespecs_mapping.md §7 contract the operation name is the sole identifier (no method, no path) and the response is always the CE-ER Result envelope, so only the name, the two typed shapes, the primary written entity, the CE-AZ requirement and the returnable error codes are authored. The request/response member shapes generate into the shared project; the operation itself into the server project (§4.2).
-
-``` text
-op.order.amendLine
-```
-
-### 167. `content` — `ServerOperationEntry.content.errorCodes`
+### 166. `content` — `ServerOperationEntry.content.errorCodes`
 
 - headline: Amend Order Line
 - instanceId: `SVOPE-OPER-1`
@@ -2144,6 +2131,19 @@ op.order.amendLine
 
 ``` text
 VALIDATION_FAILED, ORDER_ALREADY_DISPATCHED, ORDER_VERSION_CONFLICT
+```
+
+### 167. `content` — `ServerOperationEntry.content.purpose`
+
+- headline: Amend Order Line
+- instanceId: `SVOPE-OPER-1`
+- path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/content`
+- routed by: `CodeSpecPart.serverApi` declared on `ServerOperationEntry`
+- units: `meridian_codespec_shared`
+- routing note: CE-API — the application's own operation surface. Under the codespecs_mapping.md §7 contract the operation name is the sole identifier (no method, no path) and the response is always the CE-ER Result envelope, so only the name, the two typed shapes, the primary written entity, the CE-AZ requirement and the returnable error codes are authored. The request/response member shapes generate into the shared project; the operation itself into the server project (§4.2).
+
+``` text
+Applies a quantity change to one order line before dispatch, re-pricing and re-reserving only the affected line under optimistic concurrency.
 ```
 
 ### 168. `content` — `ServerOperationMemberEntry.content.memberType`
@@ -2510,7 +2510,7 @@ The order version after the amendment, for the next optimistic write.
 fetchOrderWorkList
 ```
 
-### 196. `content` — `ServerOperationEntry.content.purpose`
+### 196. `content` — `ServerOperationEntry.content.descriptionKey`
 
 - headline: Fetch Order Work List
 - instanceId: `SVOPE-OPER-2`
@@ -2520,7 +2520,7 @@ fetchOrderWorkList
 - routing note: CE-API — the application's own operation surface. Under the codespecs_mapping.md §7 contract the operation name is the sole identifier (no method, no path) and the response is always the CE-ER Result envelope, so only the name, the two typed shapes, the primary written entity, the CE-AZ requirement and the returnable error codes are authored. The request/response member shapes generate into the shared project; the operation itself into the server project (§4.2).
 
 ``` text
-Returns one state-filtered page of the order work list in queue order.
+op.order.fetchWorkList
 ```
 
 ### 197. `content` — `ServerOperationEntry.content.primaryDataEntity`
@@ -2536,20 +2536,7 @@ Returns one state-filtered page of the order work list in queue order.
 Order
 ```
 
-### 198. `content` — `ServerOperationEntry.content.descriptionKey`
-
-- headline: Fetch Order Work List
-- instanceId: `SVOPE-OPER-2`
-- path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/content`
-- routed by: `CodeSpecPart.serverApi` declared on `ServerOperationEntry`
-- units: `meridian_codespec_shared`
-- routing note: CE-API — the application's own operation surface. Under the codespecs_mapping.md §7 contract the operation name is the sole identifier (no method, no path) and the response is always the CE-ER Result envelope, so only the name, the two typed shapes, the primary written entity, the CE-AZ requirement and the returnable error codes are authored. The request/response member shapes generate into the shared project; the operation itself into the server project (§4.2).
-
-``` text
-op.order.fetchWorkList
-```
-
-### 199. `content` — `ServerOperationEntry.content.errorCodes`
+### 198. `content` — `ServerOperationEntry.content.errorCodes`
 
 - headline: Fetch Order Work List
 - instanceId: `SVOPE-OPER-2`
@@ -2560,6 +2547,19 @@ op.order.fetchWorkList
 
 ``` text
 VALIDATION_FAILED
+```
+
+### 199. `content` — `ServerOperationEntry.content.purpose`
+
+- headline: Fetch Order Work List
+- instanceId: `SVOPE-OPER-2`
+- path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/content`
+- routed by: `CodeSpecPart.serverApi` declared on `ServerOperationEntry`
+- units: `meridian_codespec_shared`
+- routing note: CE-API — the application's own operation surface. Under the codespecs_mapping.md §7 contract the operation name is the sole identifier (no method, no path) and the response is always the CE-ER Result envelope, so only the name, the two typed shapes, the primary written entity, the CE-AZ requirement and the returnable error codes are authored. The request/response member shapes generate into the shared project; the operation itself into the server project (§4.2).
+
+``` text
+Returns one state-filtered page of the order work list in queue order.
 ```
 
 ### 200. `content` — `ServerOperationMemberEntry.content.memberType`

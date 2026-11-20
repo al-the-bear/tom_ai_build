@@ -98,18 +98,7 @@ User goal
 System
 ```
 
-### 8. `content` — `PreconditionsAndTriggers.content.precondition`
-
-- instanceId: `PRANTR-PREC-1`
-- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/PRANTR-PREC-LST-1/content`
-- routed by: `CodeSpecPart.action` declared on `PreconditionsAndTriggers`
-- routing note: CE-AC/CE-VA — interaction trigger drives the action; pre-start checks are validation rules
-
-``` text
-The submitting Integration account is authenticated and scoped to the wholesale channel.
-```
-
-### 9. `content` — `PreconditionsAndTriggers.content.trigger`
+### 8. `content` — `PreconditionsAndTriggers.content.trigger`
 
 - instanceId: `PRANTR-PREC-1`
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/PRANTR-PREC-LST-1/content`
@@ -120,7 +109,7 @@ The submitting Integration account is authenticated and scoped to the wholesale 
 An EDI 850 purchase order arrives at the wholesale adapter.
 ```
 
-### 10. `content` — `PreconditionsAndTriggers.content.triggerType`
+### 9. `content` — `PreconditionsAndTriggers.content.triggerType`
 
 - instanceId: `PRANTR-PREC-1`
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/PRANTR-PREC-LST-1/content`
@@ -131,7 +120,7 @@ An EDI 850 purchase order arrives at the wholesale adapter.
 External
 ```
 
-### 11. `content` — `PreconditionsAndTriggers.content.triggerSource`
+### 10. `content` — `PreconditionsAndTriggers.content.triggerSource`
 
 - instanceId: `PRANTR-PREC-1`
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/PRANTR-PREC-LST-1/content`
@@ -142,7 +131,7 @@ External
 EDI gateway
 ```
 
-### 12. `content` — `PreconditionsAndTriggers.content.triggerData`
+### 11. `content` — `PreconditionsAndTriggers.content.triggerData`
 
 - instanceId: `PRANTR-PREC-1`
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/PRANTR-PREC-LST-1/content`
@@ -151,6 +140,17 @@ EDI gateway
 
 ``` text
 EDI 850 document
+```
+
+### 12. `content` — `PreconditionsAndTriggers.content.precondition`
+
+- instanceId: `PRANTR-PREC-1`
+- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/PRANTR-PREC-LST-1/content`
+- routed by: `CodeSpecPart.action` declared on `PreconditionsAndTriggers`
+- routing note: CE-AC/CE-VA — interaction trigger drives the action; pre-start checks are validation rules
+
+``` text
+The submitting Integration account is authenticated and scoped to the wholesale channel.
 ```
 
 ### 13. `content` — `PostconditionsAndGuarantees.content.minimalGuarantees`
@@ -164,18 +164,7 @@ EDI 850 document
 Either an Order exists in a well-defined state or the submission is rejected with a reason; no partial order is persisted.
 ```
 
-### 14. `content` — `PostconditionsAndGuarantees.content.successGuarantees`
-
-- instanceId: `POANGU-POST-1`
-- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/POANGU-POST-LST-1/content`
-- routed by: `CodeSpecPart.action` declared on `PostconditionsAndGuarantees`
-- routing note: success and minimal guarantees constrain what an action must leave true
-
-``` text
-The Order is in state Confirmed with priced, reserved lines and a full event history.
-```
-
-### 15. `content` — `PostconditionsAndGuarantees.content.dataPostcondition`
+### 14. `content` — `PostconditionsAndGuarantees.content.dataPostcondition`
 
 - instanceId: `POANGU-POST-1`
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/POANGU-POST-LST-1/content`
@@ -184,6 +173,17 @@ The Order is in state Confirmed with priced, reserved lines and a full event his
 
 ``` text
 Order and OrderLine rows persisted; reservation recorded against Product stock.
+```
+
+### 15. `content` — `PostconditionsAndGuarantees.content.successGuarantees`
+
+- instanceId: `POANGU-POST-1`
+- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/POANGU-POST-LST-1/content`
+- routed by: `CodeSpecPart.action` declared on `PostconditionsAndGuarantees`
+- routing note: success and minimal guarantees constrain what an action must leave true
+
+``` text
+The Order is in state Confirmed with priced, reserved lines and a full event history.
 ```
 
 ### 16. `content` — `MainScenarioStepEntry.content.stepNumber`
@@ -461,7 +461,19 @@ Order
 FR-04 five-minute confirmation
 ```
 
-### 41. `content` — `ExtensionEntry.content.branchPoint`
+### 41. `content` — `ExtensionEntry.content.returnKind`
+
+- headline: 2a Credit limit exceeded
+- instanceId: `EXTEN-EXTE-1`
+- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-1/content`
+- routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
+- routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
+
+``` text
+resumeAtStep
+```
+
+### 42. `content` — `ExtensionEntry.content.branchPoint`
 
 - headline: 2a Credit limit exceeded
 - instanceId: `EXTEN-EXTE-1`
@@ -473,7 +485,7 @@ FR-04 five-minute confirmation
 MNSST-STEP-2
 ```
 
-### 42. `content` — `ExtensionEntry.content.condition`
+### 43. `content` — `ExtensionEntry.content.condition`
 
 - headline: 2a Credit limit exceeded
 - instanceId: `EXTEN-EXTE-1`
@@ -485,7 +497,7 @@ MNSST-STEP-2
 Customer credit limit would be exceeded
 ```
 
-### 43. `content` — `ExtensionEntry.content.extensionType`
+### 44. `content` — `ExtensionEntry.content.extensionType`
 
 - headline: 2a Credit limit exceeded
 - instanceId: `EXTEN-EXTE-1`
@@ -495,18 +507,6 @@ Customer credit limit would be exceeded
 
 ``` text
 Exception
-```
-
-### 44. `content` — `ExtensionEntry.content.description`
-
-- headline: 2a Credit limit exceeded
-- instanceId: `EXTEN-EXTE-1`
-- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-1/content`
-- routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
-- routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
-
-``` text
-Validation detects the order exceeds the customer credit limit.
 ```
 
 ### 45. `content` — `ExtensionEntry.content.outcome`
@@ -521,19 +521,7 @@ Validation detects the order exceeds the customer credit limit.
 Order is placed on Hold for supervisor review (see UC-02).
 ```
 
-### 46. `content` — `ExtensionEntry.content.returnKind`
-
-- headline: 2a Credit limit exceeded
-- instanceId: `EXTEN-EXTE-1`
-- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-1/content`
-- routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
-- routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
-
-``` text
-resumeAtStep
-```
-
-### 47. `content` — `ExtensionEntry.content.severity`
+### 46. `content` — `ExtensionEntry.content.severity`
 
 - headline: 2a Credit limit exceeded
 - instanceId: `EXTEN-EXTE-1`
@@ -543,6 +531,18 @@ resumeAtStep
 
 ``` text
 High
+```
+
+### 47. `content` — `ExtensionEntry.content.description`
+
+- headline: 2a Credit limit exceeded
+- instanceId: `EXTEN-EXTE-1`
+- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-1/content`
+- routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
+- routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
+
+``` text
+Validation detects the order exceeds the customer credit limit.
 ```
 
 ### 48. `EXTEN-RESU` — `ExtensionEntry.resumePoint.resumeStep`
@@ -590,7 +590,19 @@ System places the Order on Hold and emits OrderHeld.
 Order appears in the Hold filter of the work list with reason "Credit exceeded".
 ```
 
-### 52. `content` — `ExtensionEntry.content.branchPoint`
+### 52. `content` — `ExtensionEntry.content.returnKind`
+
+- headline: 4a Insufficient stock
+- instanceId: `EXTEN-EXTE-2`
+- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-2/content`
+- routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
+- routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
+
+``` text
+resumeAtStep
+```
+
+### 53. `content` — `ExtensionEntry.content.branchPoint`
 
 - headline: 4a Insufficient stock
 - instanceId: `EXTEN-EXTE-2`
@@ -602,7 +614,7 @@ Order appears in the Hold filter of the work list with reason "Credit exceeded".
 MNSST-STEP-4
 ```
 
-### 53. `content` — `ExtensionEntry.content.condition`
+### 54. `content` — `ExtensionEntry.content.condition`
 
 - headline: 4a Insufficient stock
 - instanceId: `EXTEN-EXTE-2`
@@ -614,7 +626,7 @@ MNSST-STEP-4
 Insufficient stock for one or more lines
 ```
 
-### 54. `content` — `ExtensionEntry.content.extensionType`
+### 55. `content` — `ExtensionEntry.content.extensionType`
 
 - headline: 4a Insufficient stock
 - instanceId: `EXTEN-EXTE-2`
@@ -624,18 +636,6 @@ Insufficient stock for one or more lines
 
 ``` text
 Exception
-```
-
-### 55. `content` — `ExtensionEntry.content.description`
-
-- headline: 4a Insufficient stock
-- instanceId: `EXTEN-EXTE-2`
-- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-2/content`
-- routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
-- routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
-
-``` text
-Reservation cannot be fully satisfied for a line.
 ```
 
 ### 56. `content` — `ExtensionEntry.content.outcome`
@@ -650,19 +650,7 @@ Reservation cannot be fully satisfied for a line.
 The affected line is placed on Hold; other lines proceed.
 ```
 
-### 57. `content` — `ExtensionEntry.content.returnKind`
-
-- headline: 4a Insufficient stock
-- instanceId: `EXTEN-EXTE-2`
-- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-2/content`
-- routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
-- routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
-
-``` text
-resumeAtStep
-```
-
-### 58. `content` — `ExtensionEntry.content.severity`
+### 57. `content` — `ExtensionEntry.content.severity`
 
 - headline: 4a Insufficient stock
 - instanceId: `EXTEN-EXTE-2`
@@ -672,6 +660,18 @@ resumeAtStep
 
 ``` text
 Medium
+```
+
+### 58. `content` — `ExtensionEntry.content.description`
+
+- headline: 4a Insufficient stock
+- instanceId: `EXTEN-EXTE-2`
+- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-2/content`
+- routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
+- routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
+
+``` text
+Reservation cannot be fully satisfied for a line.
 ```
 
 ### 59. `EXTEN-RESU` — `ExtensionEntry.resumePoint.resumeStep`
@@ -785,18 +785,7 @@ User goal
 System
 ```
 
-### 69. `content` — `PreconditionsAndTriggers.content.precondition`
-
-- instanceId: `PRANTR-PREC-1`
-- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/PRANTR-PREC-LST-1/content`
-- routed by: `CodeSpecPart.action` declared on `PreconditionsAndTriggers`
-- routing note: CE-AC/CE-VA — interaction trigger drives the action; pre-start checks are validation rules
-
-``` text
-An order exists in state Hold and the actor holds the Order Supervisor role.
-```
-
-### 70. `content` — `PreconditionsAndTriggers.content.trigger`
+### 69. `content` — `PreconditionsAndTriggers.content.trigger`
 
 - instanceId: `PRANTR-PREC-1`
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/PRANTR-PREC-LST-1/content`
@@ -807,7 +796,7 @@ An order exists in state Hold and the actor holds the Order Supervisor role.
 Supervisor selects a held order from the work list.
 ```
 
-### 71. `content` — `PreconditionsAndTriggers.content.triggerType`
+### 70. `content` — `PreconditionsAndTriggers.content.triggerType`
 
 - instanceId: `PRANTR-PREC-1`
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/PRANTR-PREC-LST-1/content`
@@ -818,7 +807,7 @@ Supervisor selects a held order from the work list.
 User
 ```
 
-### 72. `content` — `PreconditionsAndTriggers.content.triggerSource`
+### 71. `content` — `PreconditionsAndTriggers.content.triggerSource`
 
 - instanceId: `PRANTR-PREC-1`
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/PRANTR-PREC-LST-1/content`
@@ -829,18 +818,18 @@ User
 Order Work List screen
 ```
 
-### 73. `content` — `PostconditionsAndGuarantees.content.successGuarantees`
+### 72. `content` — `PreconditionsAndTriggers.content.precondition`
 
-- instanceId: `POANGU-POST-1`
-- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/POANGU-POST-LST-1/content`
-- routed by: `CodeSpecPart.action` declared on `PostconditionsAndGuarantees`
-- routing note: success and minimal guarantees constrain what an action must leave true
+- instanceId: `PRANTR-PREC-1`
+- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/PRANTR-PREC-LST-1/content`
+- routed by: `CodeSpecPart.action` declared on `PreconditionsAndTriggers`
+- routing note: CE-AC/CE-VA — interaction trigger drives the action; pre-start checks are validation rules
 
 ``` text
-The order resumes at the transition that placed it on Hold, with the release reason audited.
+An order exists in state Hold and the actor holds the Order Supervisor role.
 ```
 
-### 74. `content` — `PostconditionsAndGuarantees.content.auditTrail`
+### 73. `content` — `PostconditionsAndGuarantees.content.auditTrail`
 
 - instanceId: `POANGU-POST-1`
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/POANGU-POST-LST-1/content`
@@ -849,6 +838,17 @@ The order resumes at the transition that placed it on Hold, with the release rea
 
 ``` text
 Release attributed to the supervisor principal with timestamp and reason.
+```
+
+### 74. `content` — `PostconditionsAndGuarantees.content.successGuarantees`
+
+- instanceId: `POANGU-POST-1`
+- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/POANGU-POST-LST-1/content`
+- routed by: `CodeSpecPart.action` declared on `PostconditionsAndGuarantees`
+- routing note: success and minimal guarantees constrain what an action must leave true
+
+``` text
+The order resumes at the transition that placed it on Hold, with the release reason audited.
 ```
 
 ### 75. `content` — `MainScenarioStepEntry.content.stepNumber`
@@ -1027,18 +1027,7 @@ User goal
 System
 ```
 
-### 91. `content` — `PreconditionsAndTriggers.content.precondition`
-
-- instanceId: `PRANTR-PREC-1`
-- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/PRANTR-PREC-LST-1/content`
-- routed by: `CodeSpecPart.action` declared on `PreconditionsAndTriggers`
-- routing note: CE-AC/CE-VA — interaction trigger drives the action; pre-start checks are validation rules
-
-``` text
-The order is not yet dispatched and the actor holds the Order Clerk role.
-```
-
-### 92. `content` — `PreconditionsAndTriggers.content.trigger`
+### 91. `content` — `PreconditionsAndTriggers.content.trigger`
 
 - instanceId: `PRANTR-PREC-1`
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/PRANTR-PREC-LST-1/content`
@@ -1049,7 +1038,7 @@ The order is not yet dispatched and the actor holds the Order Clerk role.
 Clerk edits a line quantity on the Order Detail screen.
 ```
 
-### 93. `content` — `PreconditionsAndTriggers.content.triggerType`
+### 92. `content` — `PreconditionsAndTriggers.content.triggerType`
 
 - instanceId: `PRANTR-PREC-1`
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/PRANTR-PREC-LST-1/content`
@@ -1060,7 +1049,7 @@ Clerk edits a line quantity on the Order Detail screen.
 User
 ```
 
-### 94. `content` — `PreconditionsAndTriggers.content.triggerSource`
+### 93. `content` — `PreconditionsAndTriggers.content.triggerSource`
 
 - instanceId: `PRANTR-PREC-1`
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/PRANTR-PREC-LST-1/content`
@@ -1071,18 +1060,18 @@ User
 Order Detail screen
 ```
 
-### 95. `content` — `PostconditionsAndGuarantees.content.successGuarantees`
+### 94. `content` — `PreconditionsAndTriggers.content.precondition`
 
-- instanceId: `POANGU-POST-1`
-- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/POANGU-POST-LST-1/content`
-- routed by: `CodeSpecPart.action` declared on `PostconditionsAndGuarantees`
-- routing note: success and minimal guarantees constrain what an action must leave true
+- instanceId: `PRANTR-PREC-1`
+- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/PRANTR-PREC-LST-1/content`
+- routed by: `CodeSpecPart.action` declared on `PreconditionsAndTriggers`
+- routing note: CE-AC/CE-VA — interaction trigger drives the action; pre-start checks are validation rules
 
 ``` text
-The amended line carries a fresh price snapshot and reservation; the amendment is audited.
+The order is not yet dispatched and the actor holds the Order Clerk role.
 ```
 
-### 96. `content` — `PostconditionsAndGuarantees.content.dataPostcondition`
+### 95. `content` — `PostconditionsAndGuarantees.content.dataPostcondition`
 
 - instanceId: `POANGU-POST-1`
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/POANGU-POST-LST-1/content`
@@ -1091,6 +1080,17 @@ The amended line carries a fresh price snapshot and reservation; the amendment i
 
 ``` text
 OrderLine updated; prior values retained in the event history.
+```
+
+### 96. `content` — `PostconditionsAndGuarantees.content.successGuarantees`
+
+- instanceId: `POANGU-POST-1`
+- path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/POANGU-POST-LST-1/content`
+- routed by: `CodeSpecPart.action` declared on `PostconditionsAndGuarantees`
+- routing note: success and minimal guarantees constrain what an action must leave true
+
+``` text
+The amended line carries a fresh price snapshot and reservation; the amendment is audited.
 ```
 
 ### 97. `content` — `MainScenarioStepEntry.content.stepNumber`
@@ -1477,19 +1477,7 @@ Navigate
 Order
 ```
 
-### 131. `content` — `ScreenActionEntry.content.description`
-
-- headline: Open order
-- instanceId: `SCRAC-ITEM-1`
-- path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/actions/SCRAC-ITEM-LST-1/content`
-- routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
-- routing note: CE-AC — an action and its trigger.
-
-``` text
-Opens the selected order's detail screen.
-```
-
-### 132. `content` — `ScreenActionEntry.content.contextType`
+### 131. `content` — `ScreenActionEntry.content.contextType`
 
 - headline: Open order
 - instanceId: `SCRAC-ITEM-1`
@@ -1499,6 +1487,18 @@ Opens the selected order's detail screen.
 
 ``` text
 OrderViewModel
+```
+
+### 132. `content` — `ScreenActionEntry.content.description`
+
+- headline: Open order
+- instanceId: `SCRAC-ITEM-1`
+- path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/actions/SCRAC-ITEM-LST-1/content`
+- routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
+- routing note: CE-AC — an action and its trigger.
+
+``` text
+Opens the selected order's detail screen.
 ```
 
 ### 133. `SAEV` — `ScreenActionEntry.visual.labelResource`
@@ -1573,19 +1573,7 @@ Submit
 Order
 ```
 
-### 139. `content` — `ScreenActionEntry.content.description`
-
-- headline: Amend line
-- instanceId: `SCRAC-ITEM-1`
-- path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-1/content`
-- routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
-- routing note: CE-AC — an action and its trigger.
-
-``` text
-Submits the amended line quantity for revalidation.
-```
-
-### 140. `content` — `ScreenActionEntry.content.contextType`
+### 139. `content` — `ScreenActionEntry.content.contextType`
 
 - headline: Amend line
 - instanceId: `SCRAC-ITEM-1`
@@ -1595,6 +1583,18 @@ Submits the amended line quantity for revalidation.
 
 ``` text
 OrderViewModel
+```
+
+### 140. `content` — `ScreenActionEntry.content.description`
+
+- headline: Amend line
+- instanceId: `SCRAC-ITEM-1`
+- path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-1/content`
+- routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
+- routing note: CE-AC — an action and its trigger.
+
+``` text
+Submits the amended line quantity for revalidation.
 ```
 
 ### 141. `SAEV` — `ScreenActionEntry.visual.labelResource`
@@ -1669,19 +1669,7 @@ Submit
 Order
 ```
 
-### 147. `content` — `ScreenActionEntry.content.description`
-
-- headline: Release hold
-- instanceId: `SCRAC-ITEM-2`
-- path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-2/content`
-- routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
-- routing note: CE-AC — an action and its trigger.
-
-``` text
-Releases the credit hold on the order.
-```
-
-### 148. `content` — `ScreenActionEntry.content.contextType`
+### 147. `content` — `ScreenActionEntry.content.contextType`
 
 - headline: Release hold
 - instanceId: `SCRAC-ITEM-2`
@@ -1691,6 +1679,18 @@ Releases the credit hold on the order.
 
 ``` text
 OrderViewModel
+```
+
+### 148. `content` — `ScreenActionEntry.content.description`
+
+- headline: Release hold
+- instanceId: `SCRAC-ITEM-2`
+- path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-2/content`
+- routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
+- routing note: CE-AC — an action and its trigger.
+
+``` text
+Releases the credit hold on the order.
 ```
 
 ### 149. `SAEV` — `ScreenActionEntry.visual.labelResource`

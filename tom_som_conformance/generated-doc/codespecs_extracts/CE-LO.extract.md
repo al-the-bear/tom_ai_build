@@ -151,20 +151,7 @@ Master-detail
 SCR-01-SEC-1
 ```
 
-### 11. `content` — `ScreenSectionEntry.content.purpose`
-
-- headline: State filter bar
-- instanceId: `SCRSC-ITEM-1`
-- path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-1/content`
-- routed by: `CodeSpecPart.layout` declared on `ScreenSectionEntry`
-- units: `meridian_codespec_client`
-- routing note: CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis).
-
-``` text
-Filter the queue by lifecycle state.
-```
-
-### 12. `content` — `ScreenSectionEntry.content.sectionType`
+### 11. `content` — `ScreenSectionEntry.content.sectionType`
 
 - headline: State filter bar
 - instanceId: `SCRSC-ITEM-1`
@@ -175,6 +162,19 @@ Filter the queue by lifecycle state.
 
 ``` text
 Toolbar
+```
+
+### 12. `content` — `ScreenSectionEntry.content.purpose`
+
+- headline: State filter bar
+- instanceId: `SCRSC-ITEM-1`
+- path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-1/content`
+- routed by: `CodeSpecPart.layout` declared on `ScreenSectionEntry`
+- units: `meridian_codespec_client`
+- routing note: CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis).
+
+``` text
+Filter the queue by lifecycle state.
 ```
 
 ### 13. `SSEL` — `ScreenSectionEntry.layout.layoutDirection`
@@ -216,20 +216,7 @@ Horizontal
 SCR-01-SEC-2
 ```
 
-### 16. `content` — `ScreenSectionEntry.content.purpose`
-
-- headline: Order table
-- instanceId: `SCRSC-ITEM-2`
-- path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-2/content`
-- routed by: `CodeSpecPart.layout` declared on `ScreenSectionEntry`
-- units: `meridian_codespec_client`
-- routing note: CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis).
-
-``` text
-The work list itself, keyboard-navigable for high-volume clerks.
-```
-
-### 17. `content` — `ScreenSectionEntry.content.sectionType`
+### 16. `content` — `ScreenSectionEntry.content.sectionType`
 
 - headline: Order table
 - instanceId: `SCRSC-ITEM-2`
@@ -240,6 +227,19 @@ The work list itself, keyboard-navigable for high-volume clerks.
 
 ``` text
 DataTable
+```
+
+### 17. `content` — `ScreenSectionEntry.content.purpose`
+
+- headline: Order table
+- instanceId: `SCRSC-ITEM-2`
+- path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-2/content`
+- routed by: `CodeSpecPart.layout` declared on `ScreenSectionEntry`
+- units: `meridian_codespec_client`
+- routing note: CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis).
+
+``` text
+The work list itself, keyboard-navigable for high-volume clerks.
 ```
 
 ### 18. `SSEL` — `ScreenSectionEntry.layout.layoutDirection`
@@ -411,20 +411,7 @@ Single column
 SCR-02-SEC-1
 ```
 
-### 31. `content` — `ScreenSectionEntry.content.purpose`
-
-- headline: Lifecycle timeline
-- instanceId: `SCRSC-ITEM-1`
-- path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/sections/SCRSC-ITEM-LST-1/content`
-- routed by: `CodeSpecPart.layout` declared on `ScreenSectionEntry`
-- units: `meridian_codespec_client`
-- routing note: CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis).
-
-``` text
-Show every state transition with its authenticated actor.
-```
-
-### 32. `content` — `ScreenSectionEntry.content.sectionType`
+### 31. `content` — `ScreenSectionEntry.content.sectionType`
 
 - headline: Lifecycle timeline
 - instanceId: `SCRSC-ITEM-1`
@@ -435,6 +422,19 @@ Show every state transition with its authenticated actor.
 
 ``` text
 Timeline
+```
+
+### 32. `content` — `ScreenSectionEntry.content.purpose`
+
+- headline: Lifecycle timeline
+- instanceId: `SCRSC-ITEM-1`
+- path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/sections/SCRSC-ITEM-LST-1/content`
+- routed by: `CodeSpecPart.layout` declared on `ScreenSectionEntry`
+- units: `meridian_codespec_client`
+- routing note: CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis).
+
+``` text
+Show every state transition with its authenticated actor.
 ```
 
 ### 33. `SSEL` — `ScreenSectionEntry.layout.layoutDirection`
@@ -476,20 +476,7 @@ Vertical
 SCR-02-SEC-2
 ```
 
-### 36. `content` — `ScreenSectionEntry.content.purpose`
-
-- headline: Order lines
-- instanceId: `SCRSC-ITEM-2`
-- path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/sections/SCRSC-ITEM-LST-2/content`
-- routed by: `CodeSpecPart.layout` declared on `ScreenSectionEntry`
-- units: `meridian_codespec_client`
-- routing note: CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis).
-
-``` text
-Editable list of lines with price and reservation status.
-```
-
-### 37. `content` — `ScreenSectionEntry.content.sectionType`
+### 36. `content` — `ScreenSectionEntry.content.sectionType`
 
 - headline: Order lines
 - instanceId: `SCRSC-ITEM-2`
@@ -500,6 +487,19 @@ Editable list of lines with price and reservation status.
 
 ``` text
 EditableTable
+```
+
+### 37. `content` — `ScreenSectionEntry.content.purpose`
+
+- headline: Order lines
+- instanceId: `SCRSC-ITEM-2`
+- path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/sections/SCRSC-ITEM-LST-2/content`
+- routed by: `CodeSpecPart.layout` declared on `ScreenSectionEntry`
+- units: `meridian_codespec_client`
+- routing note: CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis).
+
+``` text
+Editable list of lines with price and reservation status.
 ```
 
 ### 38. `SSEL` — `ScreenSectionEntry.layout.layoutDirection`
