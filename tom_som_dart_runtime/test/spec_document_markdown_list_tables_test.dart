@@ -263,7 +263,7 @@ void main() {
 
   group('section tables', () {
     test('ST1: an item whose children are single forms (and a list of form '
-        'items) is one Section | Field | Value table with anchors', () {
+        'items) is one Section | TomSpecField | Value table with anchors', () {
       final doc = SpecDocument();
       final a = doc.addListItem('REQ/ATTR-LST');
       doc
@@ -277,7 +277,7 @@ void main() {
       final md = _render(doc, 'Req');
       expect(
         _body(md, 'ATTR-1'),
-        '| Section | Field | Value |\n'
+        '| Section | TomSpecField | Value |\n'
         '| --- | --- | --- |\n'
         '| <a id="ATTR-IDEN"></a>ATTR-IDEN | ColumnName | name |\n'
         '|  | Description | Display name. |\n'
@@ -297,7 +297,7 @@ void main() {
         ..setFormField('$a/ATTR-IDEN', 'columnName', 'name')
         ..setContent('$a/ATTR-NOTE', 'A free note.');
       final md = _render(doc, 'Req');
-      expect(md, isNot(contains('| Section | Field | Value |')));
+      expect(md, isNot(contains('| Section | TomSpecField | Value |')));
       expect(md, contains('<!--[ATTR-IDEN]--> <a id="ATTR-IDEN"></a>'));
       expect(md, contains('<!--[ATTR-NOTE]--> <a id="ATTR-NOTE"></a>'));
     });
@@ -309,7 +309,7 @@ void main() {
         ..setFormField('$a/ATTR-IDEN', 'columnName', 'name')
         ..setHeadline('$a/ATTR-IDEN', 'The identity');
       final md = _render(doc, 'Req');
-      expect(md, isNot(contains('| Section | Field | Value |')));
+      expect(md, isNot(contains('| Section | TomSpecField | Value |')));
       expect(md, contains('The identity'));
     });
   });

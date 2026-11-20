@@ -20,6 +20,8 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:yaml/yaml.dart';
 
+import 'reading_view_markdown_import_cases.dart';
+
 void main() {
   // The corpus lives next to this package so every language port reads the
   // identical fixtures. `Directory.current` is the package root under `test`.
@@ -54,7 +56,16 @@ void main() {
   final stampCases = _stampCases();
   final editabilityCases = _editabilityCases();
   final markdownImportCases = _markdownImportCases();
-  final markdownApplyCases = _markdownApplyCases(model, mdGolden);
+  final mdTablesGolden = SpecDocumentMarkdown(
+    model,
+    doc,
+    formLayout: SpecFormLayout.tables,
+  ).exportRoot(model.roots.first);
+  final markdownApplyCases = _markdownApplyCases(
+    model,
+    mdGolden,
+    mdTablesGolden,
+  );
   final yamlReviewCases = _yamlReviewCases(model, tree, yamlGolden);
   final docSpecsReplaceCases = _docSpecsReplaceCases();
   final docSpecsCases = _docSpecsCases();
@@ -324,6 +335,16 @@ void main() {
         expect(got, c['expect']);
       });
     }
+    test('the tables golden lands the document the fields golden lands', () {
+      final cases = (table['cases'] as List).cast<Map<String, dynamic>>();
+      final fields = cases.firstWhere(
+        (c) => c['op'] == 'fromMarkdown' && c['readingView'] != true,
+      );
+      final tables = cases.firstWhere(
+        (c) => c['op'] == 'fromMarkdown' && c['readingView'] == true,
+      );
+      expect(tables['expect'], fields['expect']);
+    });
   });
 
   // The `review:` pass is written back by the runtime: a reviewed document
@@ -2072,7 +2093,7 @@ Map<String, dynamic> _buildMeta() => {
   // class, so declaring one would be a lie. The present-`containerRoot`
   // path is covered by `stamp_cases.json` instead.
   'generatedAt': '2026-07-20T08:00:00.000000Z',
-  'classCount': 18,
+  'classCount': 19,
   'rootCount': 2,
   'roots': [
     {
@@ -2431,6 +2452,16 @@ Map<String, dynamic> _buildMeta() => {
           'kind': 'complex',
           'sectionId': 'CHO',
           'type': 'Choice',
+        },
+        // 04a_rdv1: a reference list (SOM §11.5), so the reading view's
+        // reference line (`::: {.refs}`) has a model to resolve against.
+        {
+          'name': 'refs',
+          'kind': 'list',
+          'sectionId': 'RGR-LST',
+          'sectionIdPattern': 'RGR-xxx',
+          'elementType': 'RegistryRef',
+          'elementIsComplex': true,
         },
       ],
     },
@@ -3081,6 +3112,47 @@ Map<String, dynamic> _buildMeta() => {
           'kind': 'list',
           'elementType': 'String',
           'elementIsComplex': false,
+        },
+      ],
+    },
+    // 04a_rdv1: the element of the reference list `RGR-LST` — a `@Reference`
+    // member, one form field `ref` naming a registry entry, as the model's
+    // reference entries are shaped (`BIRURE-RULE-REF`).
+    'RegistryRef': {
+      'name': 'RegistryRef',
+      'sectionId': 'RGR',
+      'annotations': [
+        {
+          'name': 'SectionId',
+          'arguments': {'id': 'RGR'},
+        },
+        {
+          'name': 'CodeSpecKind',
+          'arguments': {
+            'kinds': ['CodeSpecPart.dataAccess'],
+          },
+        },
+      ],
+      'fields': [
+        {
+          'name': 'entryRef',
+          'kind': 'form',
+          'sectionId': 'RGR-REF',
+          'annotations': [
+            {
+              'name': 'SectionId',
+              'arguments': {'id': 'RGR-REF'},
+            },
+            {'name': 'Reference', 'arguments': {}},
+          ],
+          'formFields': [
+            {
+              'name': 'ref',
+              'label': 'Ref',
+              'type': 'String',
+              'refersTo': ['RGE.@sectionId'],
+            },
+          ],
         },
       ],
     },
@@ -5312,6 +5384,7 @@ Map<String, dynamic> _markdownImportCases() {
         codeSpecs: {'DEMO/TTL': 'DemoTitle', 'DEMO/SUM': 'DemoSummary'},
         units: {'DEMO/TTL': 'demo_server'},
       ),
+      ...readingViewMarkdownImportCases,
     ],
   };
 }
@@ -7240,7 +7313,11 @@ Map<String, dynamic> _runMarkdownApplyCase(
 
 /// The `markdown_apply_cases.json` table: expected results computed live, so
 /// `UPDATE_CORPUS` keeps them honest. [golden] is `expected.tomspecs.md`.
-Map<String, dynamic> _markdownApplyCases(SpecModel model, String golden) {
+Map<String, dynamic> _markdownApplyCases(
+  SpecModel model,
+  String golden,
+  String tablesGolden,
+) {
   // A base document holding stale values under the covered root `DEMO` (a
   // value the import does not carry, a headline, a codeSpec, units, a list) and
   // values under another root, which the apply must keep.
@@ -7268,6 +7345,11 @@ Map<String, dynamic> _markdownApplyCases(SpecModel model, String golden) {
   };
   final rejecting =
       '$golden\n## <!--[NOPE]--> Not A Section\n\nText with no home.\n';
+  // The tables golden with one form-table row naming no field (`unknownField`).
+  final tablesRejecting = tablesGolden.replaceFirst(
+    '| TomSpecField | Value |\n| --- | --- |\n',
+    '| TomSpecField | Value |\n| --- | --- |\n| Colour | red |\n',
+  );
   final cases = <Map<String, dynamic>>[
     {
       'name': 'fromMarkdown loads the golden into a fresh document',
@@ -7293,6 +7375,32 @@ Map<String, dynamic> _markdownApplyCases(SpecModel model, String golden) {
       'op': 'apply',
       'base': base,
       'markdown': rejecting,
+      'allowRejections': true,
+    },
+    // 04a_rdv1: the table layout of the same golden lands the same document,
+    // and a table row naming no field is a rejection like any other.
+    {
+      'name':
+          'fromMarkdown loads the tables golden into the document the '
+          'fields golden lands',
+      'readingView': true,
+      'op': 'fromMarkdown',
+      'markdown': tablesGolden,
+    },
+    {
+      'name': 'apply refuses a tables result with an unknownField rejection',
+      'readingView': true,
+      'op': 'apply',
+      'base': base,
+      'markdown': tablesRejecting,
+      'allowRejections': false,
+    },
+    {
+      'name': 'apply with allowRejections lands a tables result',
+      'readingView': true,
+      'op': 'apply',
+      'base': base,
+      'markdown': tablesRejecting,
       'allowRejections': true,
     },
   ];

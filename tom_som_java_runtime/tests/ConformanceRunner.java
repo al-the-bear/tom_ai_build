@@ -500,7 +500,7 @@ public final class ConformanceRunner {
     SpecRoot root = model.roots.get(0);
     check("model.root.sectionId", "DEMO".equals(root.sectionId), String.valueOf(root.sectionId));
     check("model.root.type", "Demo".equals(root.type), String.valueOf(root.type));
-    check("model.classCount", model.classes.size() == 18, String.valueOf(model.classes.size()));
+    check("model.classCount", model.classes.size() == 19, String.valueOf(model.classes.size()));
     SpecClass demo = model.classNamed("Demo");
     check("model.Demo.found", demo != null, "");
     if (demo != null) {
@@ -873,6 +873,11 @@ public final class ConformanceRunner {
     Map<String, Object> table = readJsonObject("markdown_apply_cases.json");
     for (Object caseObj : (List<Object>) table.get("cases")) {
       Map<String, Object> c = (Map<String, Object>) caseObj;
+      // The reading view's table forms (`readingView`) are read by the Dart and
+      // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+      if (Boolean.TRUE.equals(c.get("readingView"))) {
+        continue;
+      }
       Map<String, Object> got = runMarkdownApplyCase(model, c);
       Object expect = c.get("expect");
       check("mdApply[" + c.get("name") + "]", got.equals(expect), jsonMismatch(got, expect));
@@ -1638,6 +1643,11 @@ public final class ConformanceRunner {
     Map<String, Object> table = readJsonObject("markdown_import_cases.json");
     for (Object caseObj : (List<Object>) table.get("cases")) {
       Map<String, Object> c = (Map<String, Object>) caseObj;
+      // The reading view's table forms (`readingView`) are read by the Dart and
+      // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+      if (Boolean.TRUE.equals(c.get("readingView"))) {
+        continue;
+      }
       String name = (String) c.get("name");
       SpecMarkdownResult parsed =
           new SpecDocumentMarkdown(model, new SpecDocument()).parse((String) c.get("markdown"));

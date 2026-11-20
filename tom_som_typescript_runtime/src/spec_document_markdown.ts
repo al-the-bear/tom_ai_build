@@ -68,6 +68,14 @@ export const SpecMarkdownRejectReason = {
   MISSING_VALUE: 'missingValue',
   /** A heading line without a parseable `<!--[id]-->` headline comment. */
   MALFORMED_HEADING: 'malformedHeading',
+  /** A form-table row, a section-table row or a records column names no
+   *  field the form declares. */
+  UNKNOWN_FIELD: 'unknownField',
+  /** A block that breaks the layout grammar: a table without its delimiter
+   *  row or with a row of another cell count, a field given twice, a `refs` /
+   *  `records` div beside other text or item headings or not holding what it
+   *  should, an unclosed `refs` / `records` fence. The message says which. */
+  MALFORMED_BLOCK: 'malformedBlock',
 } as const;
 
 export type SpecMarkdownRejectReasonValue =
@@ -251,6 +259,20 @@ const _ESCAPED_HEADING = /^\\+#/;
 // slot's path relative to its owner, or `.` for the owner itself.
 const _SLOT_MARKER = /^<!-- slot: (\S+) -->$/;
 
+// Reading view (SOM §11.4, §11.5): a value line shaped like a layout table
+// header is escaped with one space on emit, and loses it on parse.
+const _TABLE_HEADER_SHAPED =
+  /^ *\|\s*(?:Section\s*\|\s*)?TomSpecField\s*\|\s*Value\s*\|?\s*$/i;
+const _ESCAPED_TABLE_HEADER =
+  /^ +\|\s*(?:Section\s*\|\s*)?TomSpecField\s*\|\s*Value\s*\|?\s*$/i;
+// A line that starts a table row: `|` after up to three spaces.
+const _TABLE_LINE = /^ {0,3}\|/;
+const _DELIMITER_CELL = /^:?-+:?$/;
+const _LINK_CELL = /^\[[^\]]+\]\([^)]*\)(, \[[^\]]+\]\([^)]*\))*$/;
+const _LINK_TEXT = /\[([^\]]+)\]\([^)]*\)/;
+const _LIST_DIV_OPEN = /^:{3,}\s*(?:\{\.(refs|records)\}|(refs|records))\s*$/;
+const _DIV_CLOSE = /^:{3,}\s*$/;
+
 /**
  * Whether a code field's `value` is written as an inline code span: it is
  * non-empty and on one line. A multi-line value keeps the prose rendering — a
@@ -330,6 +352,14 @@ export class SpecDocumentMarkdown {
    */
   static headlineComment = /^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$/;
   static docspecComment = /^<!--\s*docspec:.*-->\s*$/;
+  /**
+   * A line that reads as the header of a form table or a section table (SOM
+   * §11.4, §11.5): `| TomSpecField | Value |` or
+   * `| Section | TomSpecField | Value |` at column 0, any case; group 1 is
+   * `Section` for a section table. The header alone makes a table layout.
+   */
+  static layoutTableHeader =
+    /^\|\s*(?:(Section)\s*\|\s*)?TomSpecField\s*\|\s*Value\s*\|?\s*$/i;
   private static _codeSpecPattern =
     /codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))/;
   private static _unitsPattern =
@@ -742,6 +772,17 @@ export class SpecDocumentMarkdown {
    *
    * @internal
    */
+  /**
+   * The item class's own form (its class-level `@Form`, a transparent body
+   * slot), or `null` when the class carries none or more than one.
+   */
+  _itemForm(element: SomMetaNode): _NodeRel | null {
+    const forms = this._bodySlots(element).filter(
+      ([s]) => s.kind === SomMetaKind.FORM,
+    );
+    return forms.length === 1 ? forms[0] : null;
+  }
+
   _defaultBodyRel(slots: _NodeRel[]): string {
     for (const [slot, rel] of slots) {
       if (slot.kind !== SomMetaKind.FORM) {
@@ -1073,8 +1114,9 @@ export class SpecDocumentMarkdown {
 
   /**
    * Emit-side value normalisation (SOM §11.3): blank lines are kept as written;
-   * trim leading/trailing blank lines, escape heading-like lines outside
-   * fences. Throws an {@link Error} for an unterminated fence.
+   * trim leading/trailing blank lines, escape heading-like lines and lines
+   * shaped like a layout table header (SOM §11.4) outside fences. Throws an
+   * {@link Error} for an unterminated fence.
    */
   private _prepareValue(value: string, path: string): string {
     let collapsed = value.replace(/^\n+/, '');
@@ -1086,6 +1128,8 @@ export class SpecDocumentMarkdown {
         out.push(line); // SOM §11.3: fences shield their lines.
       } else if (_ESCAPABLE.test(line)) {
         out.push(`\\${line}`);
+      } else if (_TABLE_HEADER_SHAPED.test(line)) {
+        out.push(` ${line}`); // DI-2: a value line is never a layout table.
       } else {
         out.push(line);
       }
@@ -1281,7 +1325,12 @@ class _Parser {
     const id = m[1];
     const codeSpec = SpecDocumentMarkdown.codeSpecOf(m[2]);
     const unitIds = SpecDocumentMarkdown.unitsOf(m[2]);
-    const title = m[3].trim().replace(/<br>/g, '\n');
+    // Reading view (DI-3): an anchor equal to the section id after the id
+    // comment is the renderer's, not part of the title.
+    const title = m[3]
+      .trim()
+      .replace(new RegExp('^<a id="' + _escapeRegExp(id) + '"></a>\\s*'), '')
+      .replace(/<br>/g, '\n');
 
     if (this._stack.length === 0) {
       this._openRoot(level, id, title, codeSpec, unitIds, lineNo);
@@ -1381,16 +1430,30 @@ class _Parser {
     unitIds: string,
     lineNo: number,
   ): void {
-    const listPath = container.path;
+    const [n, storedId] = this._itemIdentity(listNode, id);
+    this._openItem(
+      level, container.path, listNode, n, storedId, title, codeSpec, unitIds,
+      lineNo,
+    );
+  }
+
+  /**
+   * How an item `id` of `listNode` is read, as a heading's, a records row's or
+   * a section-table row's: the item number it names (or `null` for the next
+   * free one) and the id it stores (or `null`). The `<member>-<n>` fallback id
+   * is positional and stores nothing; the `@SectionIdPattern` resolved with a
+   * number names item `<n>` and is stored (SOM §11.6); any other id is the
+   * next item, carrying it (YRD3).
+   */
+  private _itemIdentity(
+    listNode: SomMetaNode,
+    id: string,
+  ): [number | null, string | null] {
     const anon = new RegExp(
       '^' + _escapeRegExp(listNode.memberName || listNode.segment) + '-([0-9]+)$',
     ).exec(id);
     if (anon !== null) {
-      this._openItem(
-        level, listPath, listNode, parseInt(anon[1], 10), null, title,
-        codeSpec, unitIds, lineNo,
-      );
-      return;
+      return [parseInt(anon[1], 10), null];
     }
     const element = listNode.elementNode;
     const pattern =
@@ -1400,42 +1463,17 @@ class _Parser {
         : null) ||
       null;
     if (pattern !== null) {
-      // The pattern with `xxx` as a number parses back as item <n> AND is
-      // stored: the section id is the item's identity and the path only its
-      // position, so an id that happens to equal the positional default must
-      // survive a later move or insert (SOM §11.6).
       const parts = pattern.split('xxx');
       if (parts.length === 2) {
         const numbered = new RegExp(
           '^' + parts.map(_escapeRegExp).join('([0-9]+)') + '$',
         ).exec(id);
         if (numbered !== null) {
-          this._openItem(
-            level,
-            listPath,
-            listNode,
-            parseInt(numbered[1], 10),
-            id,
-            title,
-            codeSpec,
-            unitIds,
-            lineNo,
-          );
-          return;
+          return [parseInt(numbered[1], 10), id];
         }
       }
-      if (_Parser._patternMatches(pattern, id)) {
-        this._openItem(
-          level, listPath, listNode, null, id, title, codeSpec, unitIds, lineNo,
-        );
-        return;
-      }
     }
-    // Any other id under the container is an anonymous next item carrying the
-    // stored id — stored ids round-trip through Markdown too (YRD3).
-    this._openItem(
-      level, listPath, listNode, null, id, title, codeSpec, unitIds, lineNo,
-    );
+    return [null, id];
   }
 
   private _openRoot(
@@ -1496,7 +1534,8 @@ class _Parser {
     codeSpec: string,
     unitIds: string,
     lineNo: number,
-  ): void {
+    push = true,
+  ): string {
     let state = this.lists.get(listPath);
     if (!state) {
       state = new _ListState();
@@ -1522,17 +1561,10 @@ class _Parser {
     if (storedId !== null) {
       state.ids[itemPath] = storedId;
     }
-    this._stack.push(new _Frame(level, listNode.elementNode, itemPath, lineNo));
-  }
-
-  /**
-   * `GOAL-ITEM-xxx` → `^GOAL-ITEM-.+$` — the `@SectionIdPattern` wildcard.
-   */
-  private static _patternMatches(pattern: string, id: string): boolean {
-    const regex = new RegExp(
-      '^' + pattern.split('xxx').map(_escapeRegExp).join('.+') + '$',
-    );
-    return regex.test(id);
+    if (push) {
+      this._stack.push(new _Frame(level, listNode.elementNode, itemPath, lineNo));
+    }
+    return itemPath;
   }
 
   private static _isValueLeaf(kind: SomMetaKindValue): boolean {
@@ -1554,6 +1586,14 @@ class _Parser {
       this._finalizeForm(frame, node, frame.path);
       return;
     }
+    if (node !== null && node.kind === SomMetaKind.LIST) {
+      this._finalizeListBody(frame, node);
+    } else if (
+      node !== null &&
+      (node.kind === SomMetaKind.SECTION || node.kind === SomMetaKind.COMPLEX)
+    ) {
+      this._extractSectionTables(frame, node);
+    }
     const slots = node === null ? [] : this.codec._bodySlots(node);
     if (slots.length === 0) {
       const value = _Parser._restoreValue(frame.body);
@@ -1574,17 +1614,483 @@ class _Parser {
     this._finalizeBodySlots(frame, slots);
   }
 
+  // --- Layout tables (SOM §11.4, §11.5) -------------------------------------
+
+  /** The 1-based source line of `frame`'s body line `i`. */
+  private static _bodyLine(frame: _Frame, i: number): number {
+    return frame.line + 1 + i;
+  }
+
+  /**
+   * The cells of a table row: split on every `|` not preceded by a backslash,
+   * the outer pipes dropped, each cell trimmed; `\|` stays in the cell.
+   */
+  private static _rowCells(line: string): string[] {
+    let t = line.trim();
+    if (t.startsWith('|')) t = t.slice(1);
+    if (t.endsWith('|') && !t.endsWith('\\|')) t = t.slice(0, -1);
+    const cells: string[] = [];
+    let b = '';
+    for (let i = 0; i < t.length; i++) {
+      const c = t[i];
+      if (c === '\\' && i + 1 < t.length && t[i + 1] === '|') {
+        b += '\\|';
+        i++;
+      } else if (c === '|') {
+        cells.push(b.trim());
+        b = '';
+      } else {
+        b += c;
+      }
+    }
+    cells.push(b.trim());
+    return cells;
+  }
+
+  /**
+   * Reads the table whose header is `lines[start]`: the header cells, the body
+   * rows with their line indexes, and the index after the table; a broken
+   * delimiter row or a row of another cell count is a `malformedBlock`.
+   */
+  private _readTable(
+    lines: string[],
+    start: number,
+    lineOf: (k: number) => number,
+    anchor: string,
+  ): { header: string[]; rows: Array<[number, string[]]>; end: number } {
+    let end = start + 1;
+    while (end < lines.length && _TABLE_LINE.test(lines[end])) {
+      end++;
+    }
+    const header = _Parser._rowCells(lines[start]);
+    const delimiter = start + 1 < end ? _Parser._rowCells(lines[start + 1]) : null;
+    const isDelimiter =
+      delimiter !== null && delimiter.every((c) => _DELIMITER_CELL.test(c));
+    if (!isDelimiter || (delimiter as string[]).length !== header.length) {
+      this.rejections.push(
+        new SpecMarkdownRejection(
+          lineOf(start),
+          SpecMarkdownRejectReason.MALFORMED_BLOCK,
+          !isDelimiter
+            ? 'table without its delimiter row'
+            : 'table whose delimiter row does not match its header',
+          anchor,
+        ),
+      );
+      return { header, rows: [], end };
+    }
+    const rows: Array<[number, string[]]> = [];
+    for (let i = start + 2; i < end; i++) {
+      const cells = _Parser._rowCells(lines[i]);
+      if (cells.length !== header.length) {
+        this.rejections.push(
+          new SpecMarkdownRejection(
+            lineOf(i),
+            SpecMarkdownRejectReason.MALFORMED_BLOCK,
+            `table row with ${cells.length} cells, the header has ${header.length}`,
+            anchor,
+          ),
+        );
+        continue;
+      }
+      rows.push([i, cells]);
+    }
+    return { header, rows, end };
+  }
+
+  /**
+   * A cell's value for field `f`: `\|` unescaped, a reference field's links
+   * read as their link texts, a `code` field's code span decoded.
+   */
+  private static _cellValue(cell: string, f: SomFormFieldMeta): string {
+    const text = cell.split('\\|').join('|');
+    if (f.refersTo.length > 0 && !f.code && _LINK_CELL.test(text)) {
+      const texts: string[] = [];
+      const re = new RegExp(_LINK_TEXT.source, 'g');
+      let m: RegExpExecArray | null;
+      while ((m = re.exec(text)) !== null) texts.push(m[1]);
+      return texts.join(', ');
+    }
+    return f.code ? _decodeCodeSpan(text) : text;
+  }
+
+  /** A cell's id with the renderer's anchor (`<a id="X"></a>X`) removed. */
+  private static _cellId(cell: string): string {
+    return cell.replace(/^<a id="[^"]*"><\/a>\s*/, '');
+  }
+
+  /** The fields given so far per form path, for the given-twice rule. */
+  private _given = new Map<string, Set<string>>();
+
+  /**
+   * Whether `field` of the form at `formPath` was given before; reports the
+   * repeat (`malformedBlock`, the first occurrence kept) when it was.
+   */
+  private _givenTwice(formPath: string, field: string, line: number): boolean {
+    let given = this._given.get(formPath);
+    if (given === undefined) {
+      given = new Set();
+      this._given.set(formPath, given);
+    }
+    if (!given.has(field)) {
+      given.add(field);
+      return false;
+    }
+    this.rejections.push(
+      new SpecMarkdownRejection(
+        line,
+        SpecMarkdownRejectReason.MALFORMED_BLOCK,
+        `field "${field}" given twice`,
+        formPath,
+      ),
+    );
+    return true;
+  }
+
+  private _setField(formPath: string, field: string, value: string): void {
+    if (!this.forms[formPath]) {
+      this.forms[formPath] = {};
+    }
+    this.forms[formPath][field] = value;
+  }
+
+  /** Stages one row of a form table (or a section table). */
+  private _stageRow(
+    formPath: string,
+    fields: SomFormFieldMeta[],
+    label: string,
+    cell: string,
+    line: number,
+  ): void {
+    const lower = label.toLowerCase();
+    const f = fields.find((x) => x.name.toLowerCase() === lower);
+    if (f === undefined) {
+      this.rejections.push(
+        new SpecMarkdownRejection(
+          line,
+          SpecMarkdownRejectReason.UNKNOWN_FIELD,
+          `row "${label}" names no field of this form`,
+          formPath,
+        ),
+      );
+      return;
+    }
+    const value = _Parser._cellValue(cell, f);
+    if (!value) return;
+    if (this._givenTwice(formPath, f.name, line)) return;
+    this._setField(formPath, f.name, value);
+  }
+
+  /** Reads and removes every section table of `frame`'s body (SOM §11.5). */
+  private _extractSectionTables(frame: _Frame, node: SomMetaNode): void {
+    const body = frame.body;
+    const fence = new MarkdownFenceTracker();
+    for (let i = 0; i < body.length; i++) {
+      const line = body[i];
+      const h = fence.inFence ? null : SpecDocumentMarkdown.layoutTableHeader.exec(line);
+      if (h === null || h[1] === undefined) {
+        fence.feed(line);
+        continue;
+      }
+      const table = this._readTable(
+        body,
+        i,
+        (k) => _Parser._bodyLine(frame, k),
+        frame.path,
+      );
+      let formPath: string | null = null;
+      let fields: SomFormFieldMeta[] = [];
+      let skip = false;
+      for (const [k, cells] of table.rows) {
+        const section = _Parser._cellId(cells[0]);
+        if (!section && skip) continue;
+        if (section) {
+          const target = this._sectionTableTarget(frame, node, section);
+          skip = target === null;
+          if (target === null) {
+            this.rejections.push(
+              new SpecMarkdownRejection(
+                _Parser._bodyLine(frame, k),
+                SpecMarkdownRejectReason.UNKNOWN_SECTION,
+                `section-table row names no child section of "${frame.path}"`,
+                section,
+              ),
+            );
+            continue;
+          }
+          [formPath, fields] = target;
+        } else if (formPath === null) {
+          this.rejections.push(
+            new SpecMarkdownRejection(
+              _Parser._bodyLine(frame, k),
+              SpecMarkdownRejectReason.UNKNOWN_SECTION,
+              'section-table row names no section',
+              frame.path,
+            ),
+          );
+          continue;
+        }
+        if (skip) continue;
+        this._stageRow(formPath, fields, cells[1], cells[2], _Parser._bodyLine(frame, k));
+      }
+      for (let k = i; k < table.end; k++) {
+        body[k] = '';
+      }
+      i = table.end - 1;
+    }
+  }
+
+  /** The form a section-table `Section` cell names under `node`. */
+  private _sectionTableTarget(
+    frame: _Frame,
+    node: SomMetaNode,
+    section: string,
+  ): [string, SomFormFieldMeta[]] | null {
+    const parts = section.split(/\s*\/\s*/);
+    for (const [child, rel] of this.codec._effectiveChildren(node)) {
+      const childId = this.codec._headingIdOf(child);
+      if (parts.length === 1 && child.kind === SomMetaKind.FORM && childId === section) {
+        return [`${frame.path}/${rel}`, child.form ? child.form.fields : []];
+      }
+      if (parts.length === 2 && child.kind === SomMetaKind.LIST && childId === parts[0]) {
+        const element = child.elementNode;
+        const form = element ? this.codec._itemForm(element) : null;
+        if (form === null) return null;
+        const [n, storedId] = this._itemIdentity(child, parts[1]);
+        const listPath = `${frame.path}/${rel}`;
+        const state = this.lists.get(listPath);
+        const existing = state
+          ? state.items.find(
+              (p) => (state.ids[p] ?? p.slice(listPath.length + 1)) === parts[1],
+            )
+          : undefined;
+        const itemPath =
+          existing !== undefined
+            ? existing
+            : this._openItem(0, listPath, child, n, storedId, '', '', '', frame.line, false);
+        return [`${itemPath}/${form[1]}`, form[0].form ? form[0].form.fields : []];
+      }
+    }
+    return null;
+  }
+
+  // --- List bodies: `refs` and `records` (SOM §11.5) -------------------------
+
+  /** A list container's body: one `refs` or `records` div stands for its items. */
+  private _finalizeListBody(frame: _Frame, listNode: SomMetaNode): void {
+    const body = frame.body;
+    const fence = new MarkdownFenceTracker();
+    for (let i = 0; i < body.length; i++) {
+      const line = body[i];
+      const open = fence.inFence ? null : _LIST_DIV_OPEN.exec(line);
+      if (open === null) {
+        fence.feed(line);
+        continue;
+      }
+      const kind = open[1] !== undefined ? open[1] : open[2];
+      let close = -1;
+      for (let k = i + 1; k < body.length; k++) {
+        if (_DIV_CLOSE.test(body[k])) {
+          close = k;
+          break;
+        }
+      }
+      const reject = (reason: SpecMarkdownRejectReasonValue, message: string): void => {
+        this.rejections.push(
+          new SpecMarkdownRejection(_Parser._bodyLine(frame, i), reason, message, frame.path),
+        );
+      };
+      if (close < 0) {
+        reject(SpecMarkdownRejectReason.MALFORMED_BLOCK, `unclosed ${kind} fence`);
+        return;
+      }
+      let besideText = false;
+      for (let k = 0; k < body.length; k++) {
+        if ((k < i || k > close) && body[k].trim() !== '') besideText = true;
+      }
+      const state = this.lists.get(frame.path);
+      const hasItems = state !== undefined && state.items.length > 0;
+      if (besideText || hasItems) {
+        reject(
+          SpecMarkdownRejectReason.MALFORMED_BLOCK,
+          `a ${kind} div beside ${hasItems ? 'item headings' : 'other text'} in a list container`,
+        );
+        for (let k = i; k <= close; k++) body[k] = '';
+        return;
+      }
+      const inner = body.slice(i + 1, close);
+      if (kind === 'refs') {
+        this._stageReferenceLine(frame, listNode, inner, i);
+      } else {
+        this._stageRecordTable(frame, listNode, inner, i);
+      }
+      for (let k = i; k <= close; k++) body[k] = '';
+      return;
+    }
+  }
+
+  /** The reference field of `element`'s items, with the rel of its form. */
+  private _referenceField(element: SomMetaNode): [string, SomFormFieldMeta] | null {
+    const isRef = (n: SomMetaNode): boolean =>
+      n.kind === SomMetaKind.FORM &&
+      !!n.form &&
+      n.form.fields.length === 1 &&
+      n.form.fields[0].refersTo.length > 0 &&
+      n.extra.some((e) => e.annotation === 'Reference');
+    for (const [slot, rel] of this.codec._bodySlots(element)) {
+      if (isRef(slot)) return [rel, (slot.form as { fields: SomFormFieldMeta[] }).fields[0]];
+    }
+    for (const [child, rel] of this.codec._effectiveChildren(element)) {
+      if (isRef(child)) return [rel, (child.form as { fields: SomFormFieldMeta[] }).fields[0]];
+    }
+    return null;
+  }
+
+  /** A `refs` div: ids split on commas and whitespace, links read as their texts. */
+  private _stageReferenceLine(
+    frame: _Frame,
+    listNode: SomMetaNode,
+    inner: string[],
+    at: number,
+  ): void {
+    const element = listNode.elementNode;
+    const ref = element ? this._referenceField(element) : null;
+    if (ref === null) {
+      this.rejections.push(
+        new SpecMarkdownRejection(
+          _Parser._bodyLine(frame, at),
+          SpecMarkdownRejectReason.MALFORMED_BLOCK,
+          'a refs div in a list whose items are not references',
+          frame.path,
+        ),
+      );
+      return;
+    }
+    const ids = inner
+      .join(' ')
+      .split(/[,\s]+/)
+      .filter((t) => t !== '')
+      .map((t) => {
+        const m = _LINK_TEXT.exec(t);
+        return m !== null ? m[1] : t;
+      });
+    if (ids.length === 0) {
+      this.rejections.push(
+        new SpecMarkdownRejection(
+          _Parser._bodyLine(frame, at),
+          SpecMarkdownRejectReason.MISSING_VALUE,
+          'an empty refs div',
+          frame.path,
+        ),
+      );
+      return;
+    }
+    const pattern =
+      listNode.sectionIdPattern || (element ? element.sectionIdPattern : null) || null;
+    for (let n = 1; n <= ids.length; n++) {
+      const positional = effectiveListItemSectionId(
+        null,
+        pattern,
+        n,
+        listNode.memberName || listNode.segment,
+      );
+      const [number, storedId] = this._itemIdentity(listNode, positional);
+      const itemPath = this._openItem(
+        0, frame.path, listNode, number, storedId, '', '', '', frame.line, false,
+      );
+      const formPath = ref[0] === '.' ? itemPath : `${itemPath}/${ref[0]}`;
+      this._setField(formPath, ref[1].name, ids[n - 1]);
+    }
+  }
+
+  /** A `records` div: one table, `Id` first, `Title` optionally second. */
+  private _stageRecordTable(
+    frame: _Frame,
+    listNode: SomMetaNode,
+    inner: string[],
+    at: number,
+  ): void {
+    const lineOf = (k: number): number => _Parser._bodyLine(frame, at + 1 + k);
+    const reject = (message: string): void => {
+      this.rejections.push(
+        new SpecMarkdownRejection(
+          _Parser._bodyLine(frame, at),
+          SpecMarkdownRejectReason.MALFORMED_BLOCK,
+          message,
+          frame.path,
+        ),
+      );
+    };
+    const start = inner.findIndex((l) => l.trim() !== '');
+    if (start < 0 || !_TABLE_LINE.test(inner[start])) {
+      reject('a records div holding no table');
+      return;
+    }
+    const header = _Parser._rowCells(inner[start]);
+    if (header[0] !== 'Id') {
+      reject('a records table whose first column is not Id');
+      return;
+    }
+    const element = listNode.elementNode;
+    const form = element ? this.codec._itemForm(element) : null;
+    if (form === null) {
+      reject('a records div in a list whose items have no single form');
+      return;
+    }
+    const fields = form[0].form ? form[0].form.fields : [];
+    const withTitle = header.length > 1 && header[1] === 'Title';
+    const columns: SomFormFieldMeta[] = [];
+    for (const label of header.slice(withTitle ? 2 : 1)) {
+      const lower = label.toLowerCase();
+      const f = fields.find((x) => x.name.toLowerCase() === lower);
+      if (f === undefined) {
+        this.rejections.push(
+          new SpecMarkdownRejection(
+            lineOf(start),
+            SpecMarkdownRejectReason.UNKNOWN_FIELD,
+            `records column "${label}" names no field of the items`,
+            frame.path,
+          ),
+        );
+        return;
+      }
+      columns.push(f);
+    }
+    const table = this._readTable(inner, start, lineOf, frame.path);
+    const stem = SpecDocumentMarkdown._itemStemOf(listNode);
+    for (const [k, cells] of table.rows) {
+      const id = _Parser._cellId(cells[0]);
+      const [n, storedId] = this._itemIdentity(listNode, id);
+      const itemPath = this._openItem(
+        0, frame.path, listNode, n, storedId, '', '', '', lineOf(k), false,
+      );
+      if (withTitle) {
+        const title = cells[1].split('\\|').join('|').split('<br>').join('\n');
+        const number = itemPath.slice(frame.path.length + 1);
+        if (title && title !== `${stem} ${number}`) {
+          this.headlines[itemPath] = title;
+        }
+      }
+      const formPath = `${itemPath}/${form[1]}`;
+      for (let c = 0; c < columns.length; c++) {
+        const value = _Parser._cellValue(cells[(withTitle ? 2 : 1) + c], columns[c]);
+        if (!value) continue;
+        this._setField(formPath, columns[c].name, value);
+      }
+    }
+  }
+
   /**
    * Binds a heading's body region against the owner's transparent body slots
-   * (SOM §11.6): `FieldName:` lines matching a transparent form's fields route
-   * to that form (nearest form in slot order, wrapping); a slot marker
-   * (`<!-- slot: <rel> -->`, SOM §11.6) sends the text after it to the named
-   * slot — a content slot, a form's preamble, or the owner itself (`.`) — and
-   * ends any open field. Unmarked text binds to the first content slot; with
-   * no content slot it is a form's **preamble** (SOM §11.4 rule 7) — the
-   * class-level `@Form` on the `content` member, else the first form — which
-   * is where the YAML codec keeps it; only an owner with no slot at all takes
-   * it on its own path.
+   * (SOM §11.6): `FieldName:` lines and form-table rows matching a
+   * transparent form's fields route to that form (nearest form in slot order,
+   * wrapping); a slot marker (`<!-- slot: <rel> -->`, SOM §11.6) sends the
+   * text after it to the named slot — a content slot, a form's preamble, or
+   * the owner itself (`.`) — and ends any open field. Unmarked text binds to
+   * the first content slot; with no content slot it is a form's **preamble**
+   * (SOM §11.4 rule 7) — the class-level `@Form` on the `content` member, else
+   * the first form — which is where the YAML codec keeps it; only an owner
+   * with no slot at all takes it on its own path.
    */
   private _finalizeBodySlots(frame: _Frame, slots: _NodeRel[]): void {
     const formSlots = slots.filter(([s]) => s.kind === SomMetaKind.FORM);
@@ -1611,6 +2117,7 @@ class _Parser {
     let currentField: string | null = null;
     let currentFormPath: string | null = null;
     let currentCode = false;
+    let discard = false;
     let currentLines: string[] = [];
     // Unlabelled text per target path, in the order the targets were opened;
     // a target opened twice gets its parts joined by a blank line.
@@ -1628,17 +2135,15 @@ class _Parser {
     let contentLines = openText(pathOf(defaultRel));
 
     const flush = (): void => {
-      if (currentField !== null && currentFormPath !== null) {
+      if (currentField !== null && currentFormPath !== null && !discard) {
         const restored = _Parser._restoreValue(currentLines);
         const value = currentCode ? _decodeCodeSpan(restored) : restored;
         if (value) {
-          if (!this.forms[currentFormPath]) {
-            this.forms[currentFormPath] = {};
-          }
-          this.forms[currentFormPath][currentField] = value;
+          this._setField(currentFormPath, currentField, value);
         }
       }
       currentLines = [];
+      discard = false;
     };
 
     this._currentFormIdx = 0;
@@ -1661,6 +2166,44 @@ class _Parser {
             continue;
           }
         }
+        const header = SpecDocumentMarkdown.layoutTableHeader.exec(line);
+        if (header !== null && header[1] === undefined && formSlots.length > 0) {
+          // A form table ends the open field (SOM §11.4); its rows bind like
+          // `Field:` labels, each to the nearest form declaring it.
+          flush();
+          currentField = null;
+          currentFormPath = null;
+          const table = this._readTable(
+            frame.body,
+            i,
+            (k) => _Parser._bodyLine(frame, k),
+            frame.path,
+          );
+          for (const [k, cells] of table.rows) {
+            const hit = findField(cells[0]);
+            if (hit === null) {
+              this.rejections.push(
+                new SpecMarkdownRejection(
+                  _Parser._bodyLine(frame, k),
+                  SpecMarkdownRejectReason.UNKNOWN_FIELD,
+                  `row "${cells[0]}" names no field of this form`,
+                  frame.path,
+                ),
+              );
+              continue;
+            }
+            this._currentFormIdx = hit[0];
+            this._stageRow(
+              `${frame.path}/${formSlots[hit[0]][1]}`,
+              [hit[1]],
+              cells[0],
+              cells[1],
+              _Parser._bodyLine(frame, k),
+            );
+          }
+          i = table.end - 1;
+          continue;
+        }
         const m = _FIELD_LABEL.exec(line);
         if (m !== null) {
           const hit = findField(m[1]);
@@ -1670,6 +2213,11 @@ class _Parser {
             currentField = hit[1].name;
             currentCode = hit[1].code;
             currentFormPath = `${frame.path}/${formSlots[hit[0]][1]}`;
+            discard = this._givenTwice(
+              currentFormPath,
+              currentField,
+              _Parser._bodyLine(frame, i),
+            );
             currentLines = [m[2]];
             fence.feed(line);
             continue;
@@ -1703,70 +2251,94 @@ class _Parser {
   }
 
   /**
-   * Parses an id-bearing `@Form` section's body: the preamble text before the
-   * first field label binds to the form's own `content` (SOM §11.4 rule 7);
-   * everything from the first label on binds to the named fields.
+   * Parses an id-bearing `@Form` section's body: `FieldName:` paragraphs and
+   * form-table rows bind to the named fields wherever they stand (SOM §11.4);
+   * the text that belongs to no field — before the first field, or after a
+   * table — is the form's preamble, its own `content` (rule 7).
    */
   private _finalizeForm(frame: _Frame, node: SomMetaNode, path: string): void {
     const form = node.form;
-    const fields = form !== null && form !== undefined ? form.fields : [];
-    const fieldsByLower = new Map<string, string>(
-      fields.map((f) => [f.name.toLowerCase(), f.name]),
-    );
-    const codeFields = new Set<string>(
-      fields.filter((f) => f.code).map((f) => f.name),
+    const declared = form !== null && form !== undefined ? form.fields : [];
+    const fieldsByLower = new Map<string, SomFormFieldMeta>(
+      declared.map((f) => [f.name.toLowerCase(), f]),
     );
     const fence = new MarkdownFenceTracker();
-    let currentField: string | null = null;
+    let currentField: SomFormFieldMeta | null = null;
+    let discard = false;
     let currentLines: string[] = [];
+    // The preamble's parts: the text before the first field, and text a table
+    // interrupts; joined by one blank line.
+    const preambleParts: string[][] = [[]];
 
-    const flush = (_lineNo: number): void => {
-      const restored = _Parser._restoreValue(currentLines);
-      const value =
-        currentField !== null && codeFields.has(currentField)
-          ? _decodeCodeSpan(restored)
-          : restored;
-      if (currentField !== null) {
+    const flush = (): void => {
+      const f = currentField;
+      if (f !== null && !discard) {
+        const restored = _Parser._restoreValue(currentLines);
+        const value = f.code ? _decodeCodeSpan(restored) : restored;
         if (value) {
-          if (!this.forms[path]) {
-            this.forms[path] = {};
-          }
-          this.forms[path][currentField] = value;
+          this._setField(path, f.name, value);
         }
-      } else if (value) {
-        this.content[path] = value;
       }
       currentLines = [];
+      discard = false;
     };
 
     for (let i = 0; i < frame.body.length; i++) {
       const line = frame.body[i];
       if (!fence.inFence) {
+        const header = SpecDocumentMarkdown.layoutTableHeader.exec(line);
+        if (header !== null && header[1] === undefined) {
+          flush();
+          currentField = null;
+          preambleParts.push([]);
+          const table = this._readTable(
+            frame.body,
+            i,
+            (k) => _Parser._bodyLine(frame, k),
+            path,
+          );
+          for (const [k, cells] of table.rows) {
+            this._stageRow(path, declared, cells[0], cells[1], _Parser._bodyLine(frame, k));
+          }
+          i = table.end - 1;
+          continue;
+        }
         const m = _FIELD_LABEL.exec(line);
-        const fieldName =
+        const field =
           m !== null ? fieldsByLower.get(m[1].toLowerCase()) : undefined;
-        if (fieldName !== undefined && m !== null) {
-          flush(frame.line + i);
-          currentField = fieldName;
+        if (field !== undefined && m !== null) {
+          flush();
+          currentField = field;
+          discard = this._givenTwice(path, field.name, _Parser._bodyLine(frame, i));
           currentLines = [m[2]];
           fence.feed(line);
           continue;
         }
       }
       // Continuation: strip the one escape space of a label-shaped line.
+      const target =
+        currentField === null ? preambleParts[preambleParts.length - 1] : currentLines;
       if (!fence.inFence && _CONTINUATION_LABEL.test(line)) {
-        currentLines.push(line.slice(1));
+        target.push(line.slice(1));
       } else {
-        currentLines.push(line);
+        target.push(line);
       }
       fence.feed(line);
     }
-    flush(frame.line + frame.body.length);
+    flush();
+    const value = preambleParts
+      .map((part) => _Parser._restoreValue(part))
+      .filter((v) => v !== '')
+      .join('\n\n');
+    if (value) {
+      this.content[path] = value;
+    }
   }
 
   /**
    * Parse-side value restoration (SOM §11.3): trim leading/trailing blank
-   * lines and unescape `\#`-escaped heading lines outside fences.
+   * lines, unescape `\#`-escaped heading lines and strip the one escape space
+   * of a line shaped like a layout table header (SOM §11.4), outside fences.
    */
   private static _restoreValue(body: string[]): string {
     const fence = new MarkdownFenceTracker();
@@ -1774,6 +2346,8 @@ class _Parser {
     for (const line of body) {
       if (!fence.inFence && _ESCAPED_HEADING.test(line)) {
         out.push(line.slice(1));
+      } else if (!fence.inFence && _ESCAPED_TABLE_HEADER.test(line)) {
+        out.push(line.slice(1)); // DI-2: the emitter's one escape space.
       } else {
         out.push(line);
       }

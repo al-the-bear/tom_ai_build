@@ -184,13 +184,13 @@ static void test_reflection(void) {
                      strcmp(roots[1].type, "Sidecar") == 0,
         "Demo, Sidecar");
 
-  /* The model's order, not sorted: Demo, Registry, ..., Meta. */
+  /* The model's order, not sorted: Demo, Registry, ..., Meta, RegistryRef. */
   const SpecClass *const *classes = spec_reflection_classes(&r, &n);
-  check("classes", n == 18 && strcmp(classes[0]->name, "Demo") == 0 &&
+  check("classes", n == 19 && strcmp(classes[0]->name, "Demo") == 0 &&
                        strcmp(classes[1]->name, "Registry") == 0 &&
                        strcmp(classes[8]->name, "Sidecar") == 0 &&
-                       strcmp(classes[n - 1]->name, "Meta") == 0,
-        "18 classes in the model's order");
+                       strcmp(classes[n - 1]->name, "RegistryRef") == 0,
+        "19 classes in the model's order");
 
   check("class_named", spec_reflection_class_named(&r, "Demo") != NULL, "");
   check("class_named unknown", spec_reflection_class_named(&r, "Nope") == NULL,

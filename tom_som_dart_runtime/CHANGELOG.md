@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- The Markdown parser reads the table layout (SOM §11.4, §11.5): form tables
+  headed `| TomSpecField | Value |` (the header alone makes the table layout;
+  rows bind like `Field:` labels, cells unescaped, code spans decoded,
+  reference links read as their texts), several tables and `Field:` paragraphs
+  in one form, section tables (`| Section | TomSpecField | Value |`) rebuilding
+  child forms and list items, `refs` divs as reference items, `records` divs as
+  items, and heading, `Id` and `Section` anchors equal to the section id. Two
+  rejection reasons join §11.7: `unknownField` and `malformedBlock` (a broken
+  table, a field given twice in either layout, a misplaced or broken `refs` /
+  `records` div). The emitter's `tables` layout writes the `TomSpecField`
+  header, and a value line shaped like a layout header carries one escape space
+  in both layouts.
 - `scanNotation(text, tomSpecs:)` (`spec_notation.dart`): the reading
   notation's scanner. One call per text value returns its fenced divs,
   bracketed spans and citation shapes (`(-> ids)`, `(<- source)`,

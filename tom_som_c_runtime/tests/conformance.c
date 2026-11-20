@@ -231,7 +231,7 @@ static void test_model_meta(Checker *c, const SpecModel *model) {
   check(c, "model.root.type", strcmp(root->type, "Demo") == 0, root->type);
   char cnt[32];
   snprintf(cnt, sizeof(cnt), "%zu", model->classes_len);
-  check(c, "model.classCount", model->classes_len == 18, cnt);
+  check(c, "model.classCount", model->classes_len == 19, cnt);
   const SpecClass *demo = spec_model_class_named(model, "Demo");
   check(c, "model.Demo.found", demo != NULL, "");
   if (demo != NULL) {
@@ -626,6 +626,9 @@ static void test_markdown_apply(Checker *c, const SpecModel *model) {
   size_t n = som_json_array_len(cases);
   for (size_t i = 0; i < n; i++) {
     const SomJson *kase = som_json_array_at(cases, i);
+    /* The reading view's table forms (`readingView`) are read by the Dart and
+     * TypeScript runtimes only until the parity audit (05a_rdv4) ports them. */
+    if (som_json_bool_or(kase, "readingView")) continue;
     const char *name = som_json_str_or(kase, "name");
     const char *op = som_json_str_or(kase, "op");
     const char *markdown = som_json_str_or(kase, "markdown");
@@ -942,6 +945,9 @@ static void test_markdown_import_rejections(Checker *c, const SpecModel *model) 
   size_t n = som_json_array_len(cases);
   for (size_t i = 0; i < n; i++) {
     const SomJson *kase = som_json_array_at(cases, i);
+    /* The reading view's table forms (`readingView`) are read by the Dart and
+     * TypeScript runtimes only until the parity audit (05a_rdv4) ports them. */
+    if (som_json_bool_or(kase, "readingView")) continue;
     const char *name = som_json_str_or(kase, "name");
     const SomJson *want_rejections = som_json_get(kase, "rejections");
     size_t want_n = som_json_array_len(want_rejections);

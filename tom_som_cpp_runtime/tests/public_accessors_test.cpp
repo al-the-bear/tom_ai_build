@@ -87,10 +87,10 @@ void testReflection() {
                      r.roots()[1].type == "Sidecar");
   // The model's order, not sorted.
   const std::vector<const som::SpecClass*> classes = r.classes();
-  check("classes", classes.size() == 18 && classes[0]->name == "Demo" &&
+  check("classes", classes.size() == 19 && classes[0]->name == "Demo" &&
                        classes[1]->name == "Registry" &&
                        classes[8]->name == "Sidecar" &&
-                       classes.back()->name == "Meta");
+                       classes.back()->name == "RegistryRef");
   check("classNamed", r.classNamed("Demo") != nullptr);
   check("classNamed unknown", r.classNamed("Nope") == nullptr);
 

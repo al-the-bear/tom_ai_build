@@ -1272,6 +1272,10 @@ Schema id = kebab-case of the `@Document` name; version = model `major.minor`.
   headline (stored > `@Headline` default > derived,
   `tom_specs_model_rules.md` §8). A heading is one line, so a line break in a
   stored headline is written as `<br>` and read back as a line break.
+- In the `tables` layout (§11.4) every heading carries an HTML anchor for its
+  section id after the comment and its keys: `## <!--[INSC]--> <a id="INSC"></a>
+  Introduction And Scope`, so `#<ID>` links jump in every viewer. Parse removes
+  an anchor equal to the heading's id; any other anchor is part of the title.
 - The heading id is the member's field-level `@SectionId` when present, else
   the target class's `@SectionId`; a member with neither is *transparent*
   (§11.6).
@@ -1415,6 +1419,56 @@ ReviewCount: 3
    span cannot cross a line break. The YAML codec stores the bare value either
    way.
 
+**The table layout.** The emitter's `tables` layout
+(`SpecDocumentMarkdown(formLayout: SpecFormLayout.tables)`, beside the default
+`fields`) writes a form's values that fit a table cell as form tables:
+
+```markdown
+## <!--[DOCO]--> <a id="DOCO"></a> Document Control
+
+| TomSpecField | Value |
+| --- | --- |
+| Version | 1.0 |
+| ApprovedBy | Programme Sponsor |
+
+Summary: The change history,
+over several lines.
+
+| TomSpecField | Value |
+| --- | --- |
+| ReviewCount | 3 |
+```
+
+The declared fields stand in model order; each run of consecutive values that
+fit a cell is one table, every other value a `Field:` paragraph at its place
+(table – text – table). A value fits a cell unless its field is flagged
+`multiParagraph`, or it holds a line break, a Markdown block, `\|` or `<!--`.
+Every heading of the layout carries an HTML anchor for its section id after the
+id comment (§11.2). Parse reads both layouts, and a document may mix them:
+
+9. **A form table** is a GFM table in a form's body region whose header, at
+   column 0, reads `| TomSpecField | Value |` (any case), followed by a
+   delimiter row and the rows (the consecutive lines starting with `|`, up to
+   three spaces before it). The header alone makes the table layout; any other
+   table is content. A row's label resolves exactly as a `Field:` label does
+   (rule 1); a label naming no field is an `unknownField` rejection and the
+   other rows land. A cell is split on every `|` not preceded by a backslash
+   and trimmed; its value has `\|` unescaped, a `code` field's code span
+   decoded (rule 8), and a reference field's links (`[ID](#ID)`, joined by
+   `, `) read as their link texts. An empty cell stages nothing. A table ends
+   the preamble and any open field; text after it that no label claims joins
+   the preamble, one blank line apart. In a region with several forms a row
+   binds like a label, to the nearest form declaring it (§11.6).
+10. **Placement carries no data.** Tables and `Field:` paragraphs may stand in
+    any order and mix freely; a field an author moved or deleted is read
+    where it stands or simply not staged.
+11. **A field given twice** — two rows, a row and a paragraph, or two
+    paragraphs, in either layout — is a `malformedBlock` rejection at the
+    second occurrence (`field "<name>" given twice`); the first is kept.
+12. **A value line shaped like a layout table header** (`| TomSpecField |
+    Value |`, or the section-table header of §11.5) carries one escape space
+    on emit in both layouts, as rule 3 does for labels, and loses it on parse.
+
 ### 11.5 Lists
 
 The container heads; items nest one level deeper:
@@ -1449,6 +1503,64 @@ Remove the nightly batch window.
   stores nothing. A document's Markdown therefore imports to the same memory
   as its YAML only when every pattern-list item in it carries a stored id.
   Lists are never transparent.
+
+The `tables` layout (§11.4) writes three more forms, and parse reads them:
+
+- **A reference line.** A list whose items each hold only their reference id
+  (a `@Reference` member with one `refersTo` field), at their positional ids,
+  is written as one `refs` div in the container's body, the ids as links in
+  list order:
+
+  ```markdown
+  ### <!--[RGR-LST]--> <a id="RGR-LST"></a> Refs
+
+  ::: {.refs}
+  [RGE-ALPHA](#RGE-ALPHA), [RGE-BETA](other.tomspecs.md#RGE-BETA)
+  :::
+  ```
+
+  Parse splits the div's text on commas and whitespace; a link counts as its
+  link text, a bare id as itself. Item *n* is staged with the positional id
+  (stored, as a heading's would be) and its id as the value of the reference
+  field — on the item when the element class is itself the one-field
+  `@Reference` form, else on its reference member. The model decides which.
+  An empty div is a `missingValue` rejection.
+- **A record table.** A list whose items each hold only their one body-region
+  form, all values table cells, is written as one `records` div holding one
+  table: `Id` (with its anchor), `Title` when an item has a stored headline
+  (line breaks as `<br>`), then one column per declared field an item
+  populates. Parse reads each row as one item in row order: its `Id` as a
+  heading id is read (positional, pattern-numbered or stored), its `Title` as
+  a stored headline when it differs from the default title, its cells as the
+  item's form fields, decoded as in a form table. A column naming no field is
+  an `unknownField` rejection at the header and the table is skipped whole.
+- **A section table.** A section whose populated children are all single
+  forms of table cells (or lists of such single-form items) with default
+  headlines is written as one table after its own body, the children's
+  headings omitted:
+
+  ```markdown
+  | Section | TomSpecField | Value |
+  | --- | --- | --- |
+  | <a id="DLR-1"></a>DLR-LST / DLR-1 | Area | CE-NV |
+  |  | Mapping | dart-tom |
+  ```
+
+  A `Section` cell names a child form section by its id, or a list item as
+  `<LIST> / <ITEM>`; an empty cell continues the row above's. Parse rebuilds
+  each child from its rows, a list item's id read as a heading id is; a cell
+  naming no child section is an `unknownSection` rejection and its rows are
+  skipped.
+- A `refs` or `records` div is the container's whole body: beside other text
+  or item headings, holding no table, or with a first column other than `Id`,
+  it is a `malformedBlock` rejection, and so is an unclosed div. In every
+  table a missing delimiter row, or a row of another cell count than the
+  header, is a `malformedBlock` rejection.
+- Parse removes an anchor equal to its section id, in a heading, an `Id` cell
+  or a `Section` cell; any other anchor is text.
+
+With these, `parse(emit(doc))` stages exactly the document's values in both
+layouts, and `emit(parse(emit(doc)))` is byte-identical.
 
 ### 11.6 Transparent (id-less) members
 
@@ -1519,7 +1631,10 @@ Stored list-item ids are **not** among the losses: they round-trip through md
 
 `parse(md, metadataTree)` returns staged values keyed by runtime path plus a
 rejection list: `unknownSection`, `kindMismatch`, `orphanContent`,
-`missingValue`, `malformedHeading`. Nothing is silently dropped: an unplaceable
+`missingValue`, `malformedHeading`, and for the layout grammar of §11.4 and
+§11.5 `unknownField` (a table row or records column naming no declared field)
+and `malformedBlock` (a broken table, a field given twice, a misplaced or
+broken `refs` / `records` div; the message says which). Nothing is silently dropped: an unplaceable
 block is **reported and skipped**, and the rest of the document still imports.
 Each rejection carries its source line, the offending anchor (section path or id,
 absent when there is none), the reason and a human-readable message — pinned
@@ -1530,7 +1645,9 @@ match at this position", "unresolvable parent" and "no such document root".
 `orphanContent` means text before the document root heading — and only that:
 text before a form's first field label is the form's preamble and has a home
 (§11.4 rule 7). `parse(emit(doc))` stages exactly `doc`'s values, and
-`emit(parse(emit(doc)))` is byte-identical.
+`emit(parse(emit(doc)))` is byte-identical. The table layout's cases carry
+`"readingView": true` in both corpus files; the Dart and TypeScript runtimes
+run them, the other seven skip them until they read the table layout.
 
 Applying a parse is a runtime operation, not each caller's own code.
 `SpecDocument.applyMarkdownResult(result, allowRejections)` is a **full

@@ -1,8 +1,9 @@
-// The reading-view trial layout of the Markdown emitter
+// The reading-view layout of the Markdown emitter
 // (`SpecDocumentMarkdown(formLayout: SpecFormLayout.tables)`): form tables
-// between `Field:` paragraphs, and an HTML anchor on every heading. Emit only;
-// the parser that reads it back comes later. The default layout is pinned by
-// the conformance export golden (`expected.tomspecs.md`) and checked here too.
+// between `Field:` paragraphs, and an HTML anchor on every heading. The
+// default layout is pinned by the conformance export golden
+// (`expected.tomspecs.md`) and checked here too; the parse of both layouts is
+// spec_document_markdown_parse_tables_test.dart.
 
 import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
@@ -99,7 +100,7 @@ void main() {
       ..setFormField(_form, 'owner', 'Sales');
     expect(
       _formBody(_render(doc)),
-      '| Field | Value |\n'
+      '| TomSpecField | Value |\n'
       '| --- | --- |\n'
       '| EntityName | Customer |\n'
       '| TableName | customers |\n'
@@ -107,7 +108,7 @@ void main() {
       'Description: A party that places orders.\n'
       'It may hold several accounts.\n'
       '\n'
-      '| Field | Value |\n'
+      '| TomSpecField | Value |\n'
       '| --- | --- |\n'
       '| Owner | Sales |',
     );
@@ -120,13 +121,13 @@ void main() {
       ..setFormField(_form, 'owner', 'Sales');
     expect(
       _formBody(_render(doc)),
-      '| Field | Value |\n'
+      '| TomSpecField | Value |\n'
       '| --- | --- |\n'
       '| EntityName | Customer |\n'
       '\n'
       'Rationale: One short line.\n'
       '\n'
-      '| Field | Value |\n'
+      '| TomSpecField | Value |\n'
       '| --- | --- |\n'
       '| Owner | Sales |',
     );
@@ -137,7 +138,7 @@ void main() {
     final doc = SpecDocument()..setFormField(_form, 'description', long);
     expect(
       _formBody(_render(doc)),
-      '| Field | Value |\n| --- | --- |\n| Description | $long |',
+      '| TomSpecField | Value |\n| --- | --- |\n| Description | $long |',
     );
   });
 
@@ -147,7 +148,7 @@ void main() {
       ..setFormField(_form, 'pattern', r'^(a|b)$');
     expect(
       _formBody(_render(doc)),
-      '| Field | Value |\n'
+      '| TomSpecField | Value |\n'
       '| --- | --- |\n'
       '| EntityName | A \\| B |\n'
       '| Pattern | `^(a\\|b)\$` |',
@@ -167,24 +168,25 @@ void main() {
     expect(body, endsWith('| Owner | Sales |'));
   });
 
-  test('FT6: a content table that would read as the form table is escaped', () {
+  test('FT6: a content line shaped like a layout table header is escaped', () {
     final doc = SpecDocument()
       ..setContent(
         _form,
         'The fields at a glance:\n\n'
+        '| TomSpecField | Value |\n'
+        '| --- | --- |\n'
+        '| Colour | red |\n\n'
         '| Field | Value |\n'
         '| --- | --- |\n'
-        '| Owner | Finance |\n\n'
-        '| Field | Value |\n'
-        '| --- | --- |\n'
-        '| Colour | red |',
+        '| Owner | Finance |',
       )
       ..setFormField(_form, 'owner', 'Sales');
     final body = _formBody(_render(doc));
     final lines = body.split('\n');
-    // The first table names only declared fields: escaped with one space.
-    expect(lines[2], ' | Field | Value |');
-    // The second names an undeclared field, so it cannot be the form table.
+    // The header alone makes a table layout (DI-2), whatever its rows: escaped
+    // with one space.
+    expect(lines[2], ' | TomSpecField | Value |');
+    // Any other header is content as written.
     expect(lines[6], '| Field | Value |');
     expect(body, endsWith('| Owner | Sales |'));
   });

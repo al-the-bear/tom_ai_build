@@ -538,6 +538,14 @@
         "spans": []
       },
       {
+        "path": "DEMO/REG/RGR-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
         "path": "DEMO/DLV-LST",
         "kind": "list",
         "classId": null,
@@ -1306,6 +1314,14 @@
         "spans": []
       },
       {
+        "path": "DEMO/REG/RGR-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
         "path": "DEMO/DLV-LST",
         "kind": "list",
         "classId": null,
@@ -2065,6 +2081,14 @@
         "spans": []
       },
       {
+        "path": "DEMO/REG/RGR-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
         "path": "DEMO/DLV-LST-1/DLE-LST",
         "kind": "list",
         "classId": null,
@@ -2204,6 +2228,14 @@
       {
         "path": "DEMO/REG/CHO/CHO-COM/note",
         "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/RGR-LST",
+        "kind": "list",
         "classId": null,
         "headline": null,
         "snippet": null,
@@ -2790,6 +2822,14 @@
       {
         "path": "DEMO/REG/CHO/CHO-COM/note",
         "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/RGR-LST",
+        "kind": "list",
         "classId": null,
         "headline": null,
         "snippet": null,

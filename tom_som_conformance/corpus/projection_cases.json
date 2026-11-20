@@ -687,6 +687,17 @@
     "hasValue": false
   },
   {
+    "path": "DEMO/REG/RGR-LST",
+    "kind": "list",
+    "classId": null,
+    "sectionId": "RGR-LST",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  },
+  {
     "path": "DEMO/DLV-LST",
     "kind": "list",
     "classId": null,

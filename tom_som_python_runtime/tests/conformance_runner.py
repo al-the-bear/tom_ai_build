@@ -336,7 +336,7 @@ def test_model_meta(model: SpecModel) -> None:
     root = model.roots[0]
     _check("model.root.sectionId", root.section_id == "DEMO", str(root.section_id))
     _check("model.root.type", root.type == "Demo", root.type)
-    _check("model.classCount", len(model.classes) == 18, str(len(model.classes)))
+    _check("model.classCount", len(model.classes) == 19, str(len(model.classes)))
     demo = model.class_named("Demo")
     _check("model.Demo.found", demo is not None)
     if demo is not None:
@@ -512,6 +512,10 @@ def test_markdown_apply(model: SpecModel) -> None:
     covered roots that keeps other roots, and refuses a result with rejections
     unless the caller allows them."""
     for case in _read_json("markdown_apply_cases.json")["cases"]:
+        # The reading view's table forms (``readingView``) are read by the Dart
+        # and TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+        if case.get("readingView"):
+            continue
         name = f"mdApply[{case['name']}]"
         got = _run_markdown_apply_case(model, case)
         _check(name, got == case["expect"],
@@ -527,6 +531,10 @@ def test_markdown_import_rejections(model: SpecModel) -> None:
     rest of the parse fails the second.
     """
     for case in _read_json("markdown_import_cases.json")["cases"]:
+        # The reading view's table forms (``readingView``) are read by the Dart
+        # and TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+        if case.get("readingView"):
+            continue
         name = case["name"]
         parsed = SpecDocumentMarkdown(model, SpecDocument()).parse(case["markdown"])
         got = [

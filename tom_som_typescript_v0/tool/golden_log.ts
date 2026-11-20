@@ -14,6 +14,7 @@ import {
   DocSpecsSchema,
   DocSpecsValidator,
   DocSpecsViolationRule,
+  NotationFindingCode,
   SomMetaKind,
   SomMetaKindValue,
   SomMetaNode,
@@ -399,7 +400,13 @@ function main(): void {
   const invalidMd = fs.readFileSync(DEFAULT_INVALID_SAMPLE_MD, 'utf8');
   const invalidViolations =
     new DocSpecsValidator(demoSchema).validateMarkdown(invalidMd);
-  const vocabulary: string[] = Object.values(DocSpecsViolationRule);
+  // The reading notation's nine rules are reported by the Dart and TypeScript
+  // validators only, until the reading view's parity audit (05a_rdv4) brings
+  // the other seven level; the shared fixture holds no notation, so they are
+  // left out of the vocabulary every generator prints.
+  const notation = new Set<string>(Object.values(NotationFindingCode));
+  const vocabulary: string[] = Object.values(DocSpecsViolationRule).filter(
+    (r) => !notation.has(r));
   const reached = new Set<string>(invalidViolations.map((v) => v.rule));
   if (reached.size !== vocabulary.length) {
     process.stderr.write(

@@ -3,7 +3,7 @@
   "modelVersion": 1,
   "modelVersionLabel": "demo-1.0",
   "generatedAt": "2026-07-20T08:00:00.000000Z",
-  "classCount": 18,
+  "classCount": 19,
   "rootCount": 2,
   "roots": [
     {
@@ -278,6 +278,14 @@
           "kind": "complex",
           "sectionId": "CHO",
           "type": "Choice"
+        },
+        {
+          "name": "refs",
+          "kind": "list",
+          "sectionId": "RGR-LST",
+          "sectionIdPattern": "RGR-xxx",
+          "elementType": "RegistryRef",
+          "elementIsComplex": true
         }
       ]
     },
@@ -1056,6 +1064,55 @@
           "kind": "list",
           "elementType": "String",
           "elementIsComplex": false
+        }
+      ]
+    },
+    "RegistryRef": {
+      "name": "RegistryRef",
+      "sectionId": "RGR",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "RGR"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ]
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "entryRef",
+          "kind": "form",
+          "sectionId": "RGR-REF",
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RGR-REF"
+              }
+            },
+            {
+              "name": "Reference",
+              "arguments": {}
+            }
+          ],
+          "formFields": [
+            {
+              "name": "ref",
+              "label": "Ref",
+              "type": "String",
+              "refersTo": [
+                "RGE.@sectionId"
+              ]
+            }
+          ]
         }
       ]
     }

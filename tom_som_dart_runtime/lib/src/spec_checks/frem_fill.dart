@@ -58,7 +58,7 @@ class FremRevision {
 
 /// What the fill writes into one requirement's `FREM`.
 class FremFill {
-  /// The fill of the requirement [itemSectionId] at document [path].
+  /// The fill of the requirement [itemSectionId], its form at [fremPath].
   const FremFill({
     required this.itemSectionId,
     required this.fremPath,

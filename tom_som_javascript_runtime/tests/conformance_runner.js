@@ -218,7 +218,7 @@ function testModelMeta(model) {
   const root = model.roots[0];
   _check('model.root.sectionId', root.sectionId === 'DEMO', String(root.sectionId));
   _check('model.root.type', root.type === 'Demo', root.type);
-  _check('model.classCount', model.classes.size === 18, String(model.classes.size));
+  _check('model.classCount', model.classes.size === 19, String(model.classes.size));
   const demo = model.classNamed('Demo');
   _check('model.Demo.found', demo !== null);
   if (demo !== null) {
@@ -472,6 +472,9 @@ function _runMarkdownApplyCase(model, c) {
 // of the covered roots, other roots kept, rejections refused unless allowed.
 function testMarkdownApply(model) {
   for (const c of _readJson('markdown_apply_cases.json').cases) {
+    // The reading view's table forms (`readingView`) are read by the Dart and
+    // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+    if (c.readingView) continue;
     const got = _runMarkdownApplyCase(model, c);
     _check(`mdApply[${c.name}]`, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
   }
@@ -1036,6 +1039,9 @@ function testYamlReview(model, tree) {
 // fails the second.
 function testMarkdownImportRejections(model) {
   for (const c of _readJson('markdown_import_cases.json').cases) {
+    // The reading view's table forms (`readingView`) are read by the Dart and
+    // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+    if (c.readingView) continue;
     const parsed = new SpecDocumentMarkdown(model, new SpecDocument()).parse(c.markdown);
     const got = parsed.rejections.map((r) => ({
       line: r.line,

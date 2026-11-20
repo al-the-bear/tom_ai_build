@@ -2357,9 +2357,9 @@ hand.
       - documents: `ReferenceDocumentEntry`[]
         - content @Form(documentId, version), metadata, governance, lifecycle
         - relevantSections: `DocumentRelevantSections`
-          - content @Form(sectionReference, sectionTitle, relevance, extractSummary)
+          - content @Form(sectionTitle, sectionReference, relevance, extractSummary)
           - sections: `RelevantSectionEntry`[]
-            - content @Form(sectionReference, relevance, extractSummary, complianceRequired)
+            - content @Form(sectionReference, relevance, complianceRequired, extractSummary)
         - relationships: `DocumentRelationships`
           - content @description
           - relatedDocuments: `RelatedDocumentEntry`[]

@@ -246,7 +246,7 @@ fn test_model_meta(c: &mut Checker, model: &SpecModel) {
     c.check("model.root.type", root.type_ == "Demo", &root.type_);
     c.check(
         "model.classCount",
-        model.classes.len() == 18,
+        model.classes.len() == 19,
         &model.classes.len().to_string(),
     );
     let demo = model.class_named("Demo");
@@ -771,6 +771,11 @@ fn yaml_to_json(v: &YamlValue) -> Json {
 fn test_markdown_apply(c: &mut Checker, model: &SpecModel) {
     let table = read_json("markdown_apply_cases.json");
     for kase in table.get("cases").and_then(|v| v.as_array()).unwrap_or(&[]) {
+        // The reading view's table forms (`readingView`) are read by the Dart and
+        // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+        if kase.get("readingView").and_then(|v| v.as_bool()) == Some(true) {
+            continue;
+        }
         let name = kase.str_or("name");
         let markdown = kase.str_or("markdown");
         let (refused, rejection_count, document) = if kase.str_or("op") == "fromMarkdown" {
@@ -912,6 +917,11 @@ fn test_yaml_review(c: &mut Checker, model: &SpecModel, tree: &SomMetaTree) {
 fn test_markdown_import_rejections(c: &mut Checker, model: &SpecModel) {
     let table = read_json("markdown_import_cases.json");
     for kase in table.get("cases").and_then(|v| v.as_array()).unwrap_or(&[]) {
+        // The reading view's table forms (`readingView`) are read by the Dart and
+        // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+        if kase.get("readingView").and_then(|v| v.as_bool()) == Some(true) {
+            continue;
+        }
         let name = kase.str_or("name");
         let doc = SpecDocument::new();
         let parsed = SpecDocumentMarkdown::new(model, &doc).parse(&kase.str_or("markdown"));

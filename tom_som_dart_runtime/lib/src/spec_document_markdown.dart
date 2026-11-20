@@ -66,6 +66,16 @@ enum SpecMarkdownRejectReason {
 
   /// A heading line without a parseable `<!--[id]-->` headline comment.
   malformedHeading,
+
+  /// A form-table row, a section-table row or a records column names no field
+  /// the form declares.
+  unknownField,
+
+  /// A block that breaks the layout grammar: a table without its delimiter
+  /// row or with a row of another cell count, a field given twice, a `refs` /
+  /// `records` div beside other text or item headings or not holding what it
+  /// should, an unclosed `refs` / `records` fence. The message says which.
+  malformedBlock,
 }
 
 /// One rejected block in a Markdown import (SOM §11.7). Reported, never silently
@@ -196,11 +206,11 @@ class SpecMarkdownImport {
 /// How the Markdown emitter lays out a form section (reading view, trial).
 ///
 /// [fields] is the SOM §11.4 layout every runtime writes today. [tables] is
-/// the reading-view trial: the declared fields in order, each run of values
-/// that fit a table cell one `| Field | Value |` table, every other value a
-/// `Field:` paragraph at its place, and every heading carrying an HTML anchor
-/// for its section id. Emit only: the parser that reads [tables] back is still
-/// to come, so a [tables] rendition does not yet round-trip.
+/// the reading-view layout: the declared fields in order, each run of values
+/// that fit a table cell one `| TomSpecField | Value |` table, every other
+/// value a `Field:` paragraph at its place, and every heading carrying an HTML
+/// anchor for its section id. [SpecDocumentMarkdown.parse] reads both layouts
+/// (SOM §11.4, §11.5).
 enum SpecFormLayout {
   /// `FieldName: value` groups, one blank line apart (SOM §11.4).
   fields,
@@ -507,11 +517,6 @@ class SpecDocumentMarkdown {
     ];
     final hasForms = formSlots.isNotEmpty;
     final defaultRel = _defaultBodyRel(slots);
-    Set<String> formLabelsOf(List<(SomMetaNode, String)> forms) => {
-      for (final (form, _) in forms)
-        for (final f in form.form?.fields ?? const <SomFormFieldMeta>[])
-          formLabel(f.name).toLowerCase(),
-    };
     var written = false;
 
     void marker(String rel) => b
@@ -523,9 +528,7 @@ class SpecDocumentMarkdown {
       final prepared = _prepareValue(value, valuePath);
       if (prepared.isEmpty) return;
       if (written || rel != defaultRel) marker(rel);
-      final lines = _tables
-          ? _escapeFormTables(prepared, formLabelsOf(formSlots)).split('\n')
-          : prepared.split('\n');
+      final lines = prepared.split('\n');
       for (final line in lines) {
         b.writeln(hasForms && _labelShaped.hasMatch(line) ? ' $line' : line);
       }
@@ -1005,7 +1008,7 @@ class SpecDocumentMarkdown {
 
   /// A section whose populated children are all single forms of table cells
   /// with default headlines (or lists of such single-form items) becomes one
-  /// `| Section | Field | Value |` table after its own body; the children's
+  /// `| Section | TomSpecField | Value |` table after its own body; the children's
   /// headings are not written (DP-part-renditions-4). All or nothing; returns
   /// whether it was written.
   bool _writeSectionTable(StringBuffer b, SomMetaNode node, String path) {
@@ -1074,7 +1077,7 @@ class SpecDocumentMarkdown {
     }
     if (children == 0 || rows.isEmpty) return false;
     b
-      ..writeln('| Section | Field | Value |')
+      ..writeln('| Section | TomSpecField | Value |')
       ..writeln('| --- | --- | --- |');
     for (final row in rows) {
       b.writeln(row);
@@ -1169,14 +1172,12 @@ class SpecDocumentMarkdown {
   }
 
   /// [SpecFormLayout.tables]: the preamble, then the declared fields in model
-  /// order — each run of consecutive cell values one `| Field | Value |`
+  /// order — each run of consecutive cell values one `| TomSpecField | Value |`
   /// table, each paragraph value a `Field:` group at its place (table – text –
-  /// table). Groups are one blank line apart. A content table in the preamble
-  /// or in a paragraph value that would read as this form's table is escaped
-  /// with one leading space (DI-2).
+  /// table). Groups are one blank line apart. A value line that would read as
+  /// a table header is escaped by [_prepareValue].
   void _writeFormTables(StringBuffer b, SomMetaNode node, String path) {
     final declared = node.form?.fields ?? const <SomFormFieldMeta>[];
-    final labels = {for (final f in declared) formLabel(f.name).toLowerCase()};
     final groups = <List<String>>[];
     List<String>? table;
     for (final f in declared) {
@@ -1185,7 +1186,7 @@ class SpecDocumentMarkdown {
       final label = formLabel(f.name);
       if (_isCellValue(f, value)) {
         if (table == null) {
-          table = ['| Field | Value |', '| --- | --- |'];
+          table = ['| TomSpecField | Value |', '| --- | --- |'];
           groups.add(table);
         }
         table.add('| $label | ${_linkedCellText(f, value)} |');
@@ -1194,7 +1195,7 @@ class SpecDocumentMarkdown {
       table = null;
       final lines = f.code && _isInlineCode(value)
           ? [_encodeCodeSpan(value)]
-          : _escapeFormTables(_prepareValue(value, path), labels).split('\n');
+          : _prepareValue(value, path).split('\n');
       groups.add([
         '$label: ${lines.first}',
         for (final line in lines.skip(1))
@@ -1206,7 +1207,7 @@ class SpecDocumentMarkdown {
     if (preamble != null) {
       final prepared = _prepareValue(preamble, path);
       if (prepared.isNotEmpty) {
-        for (final line in _escapeFormTables(prepared, labels).split('\n')) {
+        for (final line in prepared.split('\n')) {
           b.writeln(_labelShaped.hasMatch(line) ? ' $line' : line);
         }
         if (groups.isNotEmpty) b.writeln();
@@ -1249,41 +1250,23 @@ class SpecDocumentMarkdown {
     return text.replaceAll('|', r'\|');
   }
 
-  /// [text] with every table that would read as a form table of the form
-  /// declaring [labels] — header `| Field | Value |`, every body row's first
-  /// cell a declared label — written with one space before its header's
-  /// first `|` (DI-2). Lines inside fenced code are left alone.
-  static String _escapeFormTables(String text, Set<String> labels) {
-    final lines = text.split('\n');
-    final fence = MarkdownFenceTracker();
-    for (var i = 0; i < lines.length; i++) {
-      final line = lines[i];
-      if (!fence.inFence &&
-          _formTableHeader.hasMatch(line) &&
-          i + 1 < lines.length &&
-          _tableSeparator.hasMatch(lines[i + 1])) {
-        var j = i + 2;
-        var rows = 0;
-        var qualifies = true;
-        while (j < lines.length && lines[j].trimLeft().startsWith('|')) {
-          final cells = lines[j].trim().split('|');
-          final first = cells.length > 1 ? cells[1].trim().toLowerCase() : '';
-          if (!labels.contains(first)) qualifies = false;
-          rows++;
-          j++;
-        }
-        if (qualifies && rows > 0) lines[i] = ' $line';
-      }
-      fence.feed(line);
-    }
-    return lines.join('\n');
-  }
-
-  static final RegExp _formTableHeader = RegExp(
-    r'^\|\s*Field\s*\|\s*Value\s*\|\s*$',
+  /// A line that reads as the header of a form table or a section table
+  /// (SOM §11.4, §11.5): `| TomSpecField | Value |` or
+  /// `| Section | TomSpecField | Value |` at column 0, any case; group 1 is
+  /// `Section` for a section table. The header alone makes a table layout, so
+  /// a value line of this shape is escaped with one leading space on emit
+  /// ([_tableHeaderShaped]) and loses it on parse.
+  static final RegExp layoutTableHeader = RegExp(
+    r'^\|\s*(?:(Section)\s*\|\s*)?TomSpecField\s*\|\s*Value\s*\|?\s*$',
     caseSensitive: false,
   );
-  static final RegExp _tableSeparator = RegExp(r'^\s*\|\s*:?-+:?\s*\|');
+
+  /// A value line that would read as a [layoutTableHeader], with any run of
+  /// escape spaces already in front of it (each emit pass adds one more).
+  static final RegExp _tableHeaderShaped = RegExp(
+    r'^ *\|\s*(?:Section\s*\|\s*)?TomSpecField\s*\|\s*Value\s*\|?\s*$',
+    caseSensitive: false,
+  );
 
   /// `## <!--[ID]--> Title` at [depth]. SOM §11.2 is normative — heading level
   /// = 1 + section depth, **uncapped**: deep models (the Solution Blueprint
@@ -1332,8 +1315,9 @@ class SpecDocumentMarkdown {
   }
 
   /// Emit-side value normalisation (SOM §11.3):
-  /// trim leading/trailing blank lines, escape heading-like lines outside
-  /// fences. Throws [ArgumentError] for an unterminated fence.
+  /// trim leading/trailing blank lines, escape heading-like lines and lines
+  /// shaped like a layout table header (SOM §11.4) outside fences. Throws
+  /// [ArgumentError] for an unterminated fence.
   String _prepareValue(String value, String path) {
     final collapsed = value
         .replaceAll(RegExp(r'^\n+'), '')
@@ -1345,6 +1329,8 @@ class SpecDocumentMarkdown {
         out.add(line); // SOM §11.3: fences shield their lines.
       } else if (_escapable.hasMatch(line)) {
         out.add('\\$line');
+      } else if (_tableHeaderShaped.hasMatch(line)) {
+        out.add(' $line'); // DI-2: a value line is never a layout table.
       } else {
         out.add(line);
       }
@@ -1626,7 +1612,13 @@ class _Parser {
     final id = m.group(1)!;
     final codeSpec = SpecDocumentMarkdown.codeSpecOf(m.group(2)!);
     final unitIds = SpecDocumentMarkdown.unitsOf(m.group(2)!);
-    final title = m.group(3)!.trim().replaceAll('<br>', '\n');
+    // Reading view (DI-3): an anchor equal to the section id after the id
+    // comment is the renderer's, not part of the title.
+    final title = m
+        .group(3)!
+        .trim()
+        .replaceFirst(RegExp('^<a id="${RegExp.escape(id)}"></a>\\s*'), '')
+        .replaceAll('<br>', '\n');
 
     if (_stack.isEmpty) {
       _openRoot(level, id, title, codeSpec, unitIds, lineNo);
@@ -1736,25 +1728,32 @@ class _Parser {
     String unitIds,
     int lineNo,
   ) {
-    final listPath = container.path;
+    final (n, storedId) = _itemIdentity(listNode, id);
+    _openItem(
+      level,
+      container.path,
+      listNode,
+      n,
+      storedId,
+      title,
+      codeSpec,
+      unitIds,
+      lineNo,
+    );
+  }
+
+  /// How an item [id] of [listNode] is read, as a heading's, a records row's
+  /// or a section-table row's: the item number it names (or null for the next
+  /// free one) and the id it stores (or null). The `<member>-<n>` fallback id
+  /// is positional and stores nothing; the `@SectionIdPattern` resolved with a
+  /// number names item `<n>` and is stored; any other id is the next item,
+  /// carrying it.
+  (int?, String?) _itemIdentity(SomMetaNode listNode, String id) {
     final anon = RegExp(
       '^${RegExp.escape(listNode.memberName ?? listNode.segment)}'
       '-([0-9]+)\$',
     ).firstMatch(id);
-    if (anon != null) {
-      _openItem(
-        level,
-        listPath,
-        listNode,
-        int.parse(anon.group(1)!),
-        null,
-        title,
-        codeSpec,
-        unitIds,
-        lineNo,
-      );
-      return;
-    }
+    if (anon != null) return (int.parse(anon.group(1)!), null);
     final pattern =
         listNode.sectionIdPattern ?? listNode.elementNode?.sectionIdPattern;
     if (pattern != null) {
@@ -1766,47 +1765,13 @@ class _Parser {
         '^${pattern.split('xxx').map(RegExp.escape).join('([0-9]+)')}\$',
       ).firstMatch(id);
       if (numbered != null && numbered.groupCount == 1) {
-        _openItem(
-          level,
-          listPath,
-          listNode,
-          int.parse(numbered.group(1)!),
-          id,
-          title,
-          codeSpec,
-          unitIds,
-          lineNo,
-        );
-        return;
-      }
-      if (_patternMatches(pattern, id)) {
-        _openItem(
-          level,
-          listPath,
-          listNode,
-          null,
-          id,
-          title,
-          codeSpec,
-          unitIds,
-          lineNo,
-        );
-        return;
+        return (int.parse(numbered.group(1)!), id);
       }
     }
-    // Any other id under the container is an anonymous next item carrying the
-    // stored id (YRD3: stored ids round-trip through md as well as yaml).
-    _openItem(
-      level,
-      listPath,
-      listNode,
-      null,
-      id,
-      title,
-      codeSpec,
-      unitIds,
-      lineNo,
-    );
+    // A pattern-shaped id or any other id under the container is an anonymous
+    // next item carrying the stored id (YRD3: stored ids round-trip through md
+    // as well as yaml).
+    return (null, id);
   }
 
   void _openRoot(
@@ -1858,7 +1823,7 @@ class _Parser {
   /// path number); a stored-id item gets the next free number instead. The
   /// heading [title] is staged as a stored headline when it differs from the
   /// default item title `<stem> <number>` (YRD3).
-  void _openItem(
+  String _openItem(
     int level,
     String listPath,
     SomMetaNode listNode,
@@ -1867,8 +1832,9 @@ class _Parser {
     String title,
     String codeSpec,
     String unitIds,
-    int lineNo,
-  ) {
+    int lineNo, {
+    bool push = true,
+  }) {
     final state = lists.putIfAbsent(listPath, _ListState.new);
     final number = n ?? state.maxN + 1;
     if (number > state.maxN) state.maxN = number;
@@ -1885,15 +1851,12 @@ class _Parser {
     if (codeSpec.isNotEmpty) codeSpecs[itemPath] = codeSpec;
     // SOM §11.2: `units` is staged exactly like codeSpec.
     if (unitIds.isNotEmpty) units[itemPath] = unitIds;
-    _stack.add(
-      _Frame(level: level, node: element, path: itemPath, line: lineNo),
-    );
-  }
-
-  /// `GOAL-ITEM-xxx` → `^GOAL-ITEM-.+$` — the `@SectionIdPattern` wildcard.
-  static bool _patternMatches(String pattern, String id) {
-    final regex = '^${pattern.split('xxx').map(RegExp.escape).join('.+')}\$';
-    return RegExp(regex).hasMatch(id);
+    if (push) {
+      _stack.add(
+        _Frame(level: level, node: element, path: itemPath, line: lineNo),
+      );
+    }
+    return itemPath;
   }
 
   static bool _isValueLeaf(SomMetaKind kind) =>
@@ -1909,6 +1872,13 @@ class _Parser {
     if (node != null && node.kind == SomMetaKind.form) {
       _finalizeForm(frame, node, frame.path);
       return;
+    }
+    if (node != null && node.kind == SomMetaKind.list) {
+      _finalizeListBody(frame, node);
+    } else if (node != null &&
+        (node.kind == SomMetaKind.section ||
+            node.kind == SomMetaKind.complex)) {
+      _extractSectionTables(frame, node);
     }
     final slots = node == null
         ? const <(SomMetaNode, String)>[]
@@ -1932,16 +1902,537 @@ class _Parser {
     _finalizeBodySlots(frame, slots);
   }
 
+  // --- Layout tables (SOM §11.4, §11.5) -------------------------------------
+
+  /// The 1-based source line of [frame]'s body line [i].
+  static int _bodyLine(_Frame frame, int i) => frame.line + 1 + i;
+
+  /// A line that starts a table row: `|` after up to three spaces.
+  static final RegExp _tableLine = RegExp(r'^ {0,3}\|');
+
+  /// The cells of a table row: split on every `|` not preceded by a
+  /// backslash, the outer pipes dropped, each cell trimmed; `\|` stays in the
+  /// cell (unescaped by [_cellValue]).
+  static List<String> _rowCells(String line) {
+    var t = line.trim();
+    if (t.startsWith('|')) t = t.substring(1);
+    if (t.endsWith('|') && !t.endsWith(r'\|')) {
+      t = t.substring(0, t.length - 1);
+    }
+    final cells = <String>[];
+    final b = StringBuffer();
+    for (var i = 0; i < t.length; i++) {
+      final c = t[i];
+      if (c == r'\' && i + 1 < t.length && t[i + 1] == '|') {
+        b.write(r'\|');
+        i++;
+      } else if (c == '|') {
+        cells.add(b.toString().trim());
+        b.clear();
+      } else {
+        b.write(c);
+      }
+    }
+    cells.add(b.toString().trim());
+    return cells;
+  }
+
+  static final RegExp _delimiterCell = RegExp(r'^:?-+:?$');
+
+  /// Reads the table whose header is [lines] line [start]: the header cells,
+  /// the body rows with their line indexes, and the index after the table. A
+  /// missing or mismatched delimiter row is a `malformedBlock` at the header
+  /// and the table yields no rows; a row of another cell count is a
+  /// `malformedBlock` at that row and is left out.
+  ({List<String> header, List<(int, List<String>)> rows, int end})? _readTable(
+    List<String> lines,
+    int start,
+    int Function(int) lineOf,
+    String anchor,
+  ) {
+    var end = start + 1;
+    while (end < lines.length && _tableLine.hasMatch(lines[end])) {
+      end++;
+    }
+    final header = _rowCells(lines[start]);
+    final delimiter = start + 1 < end ? _rowCells(lines[start + 1]) : null;
+    if (delimiter == null ||
+        delimiter.length != header.length ||
+        !delimiter.every(_delimiterCell.hasMatch)) {
+      rejections.add(
+        SpecMarkdownRejection(
+          line: lineOf(start),
+          reason: SpecMarkdownRejectReason.malformedBlock,
+          anchor: anchor,
+          message:
+              delimiter == null || !delimiter.every(_delimiterCell.hasMatch)
+              ? 'table without its delimiter row'
+              : 'table whose delimiter row does not match its header',
+        ),
+      );
+      return (header: header, rows: const [], end: end);
+    }
+    final rows = <(int, List<String>)>[];
+    for (var i = start + 2; i < end; i++) {
+      final cells = _rowCells(lines[i]);
+      if (cells.length != header.length) {
+        rejections.add(
+          SpecMarkdownRejection(
+            line: lineOf(i),
+            reason: SpecMarkdownRejectReason.malformedBlock,
+            anchor: anchor,
+            message:
+                'table row with ${cells.length} cells, the header has '
+                '${header.length}',
+          ),
+        );
+        continue;
+      }
+      rows.add((i, cells));
+    }
+    return (header: header, rows: rows, end: end);
+  }
+
+  static final RegExp _linkCell = RegExp(
+    r'^\[[^\]]+\]\([^)]*\)(, \[[^\]]+\]\([^)]*\))*$',
+  );
+  static final RegExp _linkText = RegExp(r'\[([^\]]+)\]\([^)]*\)');
+
+  /// A cell's value for field [f]: `\|` unescaped, a reference field's links
+  /// read as their link texts, a `code` field's code span decoded (SOM §11.4).
+  static String _cellValue(String cell, SomFormFieldMeta f) {
+    final text = cell.replaceAll(r'\|', '|');
+    if (f.refersTo.isNotEmpty && !f.code && _linkCell.hasMatch(text)) {
+      return [
+        for (final m in _linkText.allMatches(text)) m.group(1)!,
+      ].join(', ');
+    }
+    return f.code ? _decodeCodeSpan(text) : text;
+  }
+
+  /// A cell's id with the renderer's anchor (`<a id="X"></a>X`) removed.
+  static String _cellId(String cell) =>
+      cell.replaceFirst(RegExp(r'^<a id="[^"]*"></a>\s*'), '');
+
+  /// The fields given so far per form path, for the given-twice rule.
+  final Map<String, Set<String>> _given = {};
+
+  /// Whether [field] of the form at [formPath] was given before; reports the
+  /// repeat (`malformedBlock`, the first occurrence kept) when it was, and
+  /// records it otherwise.
+  bool _givenTwice(String formPath, String field, int line) {
+    final given = _given.putIfAbsent(formPath, () => {});
+    if (given.add(field)) return false;
+    rejections.add(
+      SpecMarkdownRejection(
+        line: line,
+        reason: SpecMarkdownRejectReason.malformedBlock,
+        anchor: formPath,
+        message: 'field "$field" given twice',
+      ),
+    );
+    return true;
+  }
+
+  /// Stages one row of a form table (or a section table) for the form at
+  /// [formPath] declaring [fields]: an unknown label is `unknownField`, a
+  /// field given before is `malformedBlock`, an empty value stages nothing.
+  void _stageRow(
+    String formPath,
+    List<SomFormFieldMeta> fields,
+    String label,
+    String cell,
+    int line,
+  ) {
+    final lower = label.toLowerCase();
+    final f = fields.where((x) => x.name.toLowerCase() == lower).firstOrNull;
+    if (f == null) {
+      rejections.add(
+        SpecMarkdownRejection(
+          line: line,
+          reason: SpecMarkdownRejectReason.unknownField,
+          anchor: formPath,
+          message: 'row "$label" names no field of this form',
+        ),
+      );
+      return;
+    }
+    final value = _cellValue(cell, f);
+    if (value.isEmpty) return;
+    if (_givenTwice(formPath, f.name, line)) return;
+    forms.putIfAbsent(formPath, () => {})[f.name] = value;
+  }
+
+  /// Reads and removes every section table of [frame]'s body (SOM §11.5):
+  /// each row's `Section` cell names a child form section, or a list item as
+  /// `<LIST> / <ITEM>`, an empty cell the row above's; its `TomSpecField` and
+  /// `Value` cells are staged as that child's form fields. The table's lines
+  /// are blanked so the rest of the body binds as before.
+  void _extractSectionTables(_Frame frame, SomMetaNode node) {
+    final body = frame.body;
+    final fence = MarkdownFenceTracker();
+    for (var i = 0; i < body.length; i++) {
+      final line = body[i];
+      final h = fence.inFence
+          ? null
+          : SpecDocumentMarkdown.layoutTableHeader.firstMatch(line);
+      if (h == null || h.group(1) == null) {
+        fence.feed(line);
+        continue;
+      }
+      final table = _readTable(
+        body,
+        i,
+        (k) => _bodyLine(frame, k),
+        frame.path,
+      )!;
+      String? formPath;
+      List<SomFormFieldMeta>? fields;
+      var skip = false;
+      for (final (k, cells) in table.rows) {
+        final section = _cellId(cells[0]);
+        if (section.isEmpty && skip) continue; // the rejected section's rows
+        if (section.isNotEmpty) {
+          final target = _sectionTableTarget(frame, node, section);
+          skip = target == null;
+          if (target == null) {
+            rejections.add(
+              SpecMarkdownRejection(
+                line: _bodyLine(frame, k),
+                reason: SpecMarkdownRejectReason.unknownSection,
+                anchor: section,
+                message:
+                    'section-table row names no child section of '
+                    '"${frame.path}"',
+              ),
+            );
+            continue;
+          }
+          (formPath, fields) = target;
+        } else if (formPath == null) {
+          rejections.add(
+            SpecMarkdownRejection(
+              line: _bodyLine(frame, k),
+              reason: SpecMarkdownRejectReason.unknownSection,
+              anchor: frame.path,
+              message: 'section-table row names no section',
+            ),
+          );
+          continue;
+        }
+        if (skip) continue;
+        _stageRow(formPath, fields!, cells[1], cells[2], _bodyLine(frame, k));
+      }
+      for (var k = i; k < table.end; k++) {
+        body[k] = '';
+      }
+      i = table.end - 1;
+    }
+  }
+
+  /// The form a section-table `Section` cell names under [node]: a child form
+  /// section by its heading id, or `<LIST> / <ITEM>` — an item of a child
+  /// list, read as its heading id would be, and its one body-region form.
+  (String, List<SomFormFieldMeta>)? _sectionTableTarget(
+    _Frame frame,
+    SomMetaNode node,
+    String section,
+  ) {
+    final parts = section.split(RegExp(r'\s*/\s*'));
+    for (final (child, rel) in codec._effectiveChildren(node)) {
+      final childId = codec._headingIdOf(child);
+      if (parts.length == 1 &&
+          child.kind == SomMetaKind.form &&
+          childId == section) {
+        return (
+          '${frame.path}/$rel',
+          child.form?.fields ?? const <SomFormFieldMeta>[],
+        );
+      }
+      if (parts.length == 2 &&
+          child.kind == SomMetaKind.list &&
+          childId == parts[0]) {
+        final element = child.elementNode;
+        final form = element == null ? null : codec._itemForm(element);
+        if (form == null) return null;
+        final (n, storedId) = _itemIdentity(child, parts[1]);
+        final listPath = '${frame.path}/$rel';
+        final state = lists[listPath];
+        // A row continuing an item already opened by an earlier row of the
+        // same table names the same item.
+        final existing = state?.items.where(
+          (p) => (state.ids[p] ?? p.substring(listPath.length + 1)) == parts[1],
+        );
+        final itemPath = existing != null && existing.isNotEmpty
+            ? existing.first
+            : _openItem(
+                0,
+                listPath,
+                child,
+                n,
+                storedId,
+                '',
+                '',
+                '',
+                frame.line,
+                push: false,
+              );
+        return (
+          '$itemPath/${form.$2}',
+          form.$1.form?.fields ?? const <SomFormFieldMeta>[],
+        );
+      }
+    }
+    return null;
+  }
+
+  // --- List bodies: `refs` and `records` (SOM §11.5) -------------------------
+
+  static final RegExp _listDivOpen = RegExp(
+    r'^:{3,}\s*(?:\{\.(refs|records)\}|(refs|records))\s*$',
+  );
+  static final RegExp _divClose = RegExp(r'^:{3,}\s*$');
+
+  /// A list container's body: one `refs` div (a reference line) or one
+  /// `records` div (a record table) stands for its items when the container
+  /// has no item headings; the div's lines are then removed from the body.
+  void _finalizeListBody(_Frame frame, SomMetaNode listNode) {
+    final body = frame.body;
+    final fence = MarkdownFenceTracker();
+    for (var i = 0; i < body.length; i++) {
+      final line = body[i];
+      final open = fence.inFence ? null : _listDivOpen.firstMatch(line);
+      if (open == null) {
+        fence.feed(line);
+        continue;
+      }
+      final kind = open.group(1) ?? open.group(2)!;
+      var close = -1;
+      for (var k = i + 1; k < body.length; k++) {
+        if (_divClose.hasMatch(body[k])) {
+          close = k;
+          break;
+        }
+      }
+      void reject(SpecMarkdownRejectReason reason, String message) =>
+          rejections.add(
+            SpecMarkdownRejection(
+              line: _bodyLine(frame, i),
+              reason: reason,
+              anchor: frame.path,
+              message: message,
+            ),
+          );
+      if (close < 0) {
+        reject(SpecMarkdownRejectReason.malformedBlock, 'unclosed $kind fence');
+        return;
+      }
+      final besideText = [
+        for (var k = 0; k < body.length; k++)
+          if ((k < i || k > close) && body[k].trim().isNotEmpty) k,
+      ].isNotEmpty;
+      final hasItems = lists[frame.path]?.items.isNotEmpty ?? false;
+      if (besideText || hasItems) {
+        reject(
+          SpecMarkdownRejectReason.malformedBlock,
+          'a $kind div beside ${hasItems ? 'item headings' : 'other text'} '
+          'in a list container',
+        );
+        for (var k = i; k <= close; k++) {
+          body[k] = '';
+        }
+        return;
+      }
+      final inner = body.sublist(i + 1, close);
+      if (kind == 'refs') {
+        _stageReferenceLine(frame, listNode, inner, i);
+      } else {
+        _stageRecordTable(frame, listNode, inner, i);
+      }
+      for (var k = i; k <= close; k++) {
+        body[k] = '';
+      }
+      return;
+    }
+  }
+
+  /// The reference field of [element]'s items: its own one-field reference
+  /// form when the element class is a `@Reference` section, else its one
+  /// reference member; with the rel of the form below the item.
+  (String, SomFormFieldMeta)? _referenceField(SomMetaNode element) {
+    bool isRef(SomMetaNode n) =>
+        n.kind == SomMetaKind.form &&
+        (n.form?.fields.length ?? 0) == 1 &&
+        n.form!.fields.single.refersTo.isNotEmpty &&
+        n.extra.any((e) => e.annotation == 'Reference');
+    for (final (slot, rel) in codec._bodySlots(element)) {
+      if (isRef(slot)) return (rel, slot.form!.fields.single);
+    }
+    for (final (child, rel) in codec._effectiveChildren(element)) {
+      if (isRef(child)) return (rel, child.form!.fields.single);
+    }
+    return null;
+  }
+
+  /// A `refs` div: its text split on commas and whitespace into ids, an id
+  /// written as a link counting as its link text; item <n> carries the
+  /// positional id and its id as the reference field's value.
+  void _stageReferenceLine(
+    _Frame frame,
+    SomMetaNode listNode,
+    List<String> inner,
+    int at,
+  ) {
+    final element = listNode.elementNode;
+    final ref = element == null ? null : _referenceField(element);
+    if (ref == null) {
+      rejections.add(
+        SpecMarkdownRejection(
+          line: _bodyLine(frame, at),
+          reason: SpecMarkdownRejectReason.malformedBlock,
+          anchor: frame.path,
+          message: 'a refs div in a list whose items are not references',
+        ),
+      );
+      return;
+    }
+    final ids = [
+      for (final token in inner.join(' ').split(RegExp(r'[,\s]+')))
+        if (token.isNotEmpty) _linkText.firstMatch(token)?.group(1) ?? token,
+    ];
+    if (ids.isEmpty) {
+      rejections.add(
+        SpecMarkdownRejection(
+          line: _bodyLine(frame, at),
+          reason: SpecMarkdownRejectReason.missingValue,
+          anchor: frame.path,
+          message: 'an empty refs div',
+        ),
+      );
+      return;
+    }
+    final pattern =
+        listNode.sectionIdPattern ?? listNode.elementNode?.sectionIdPattern;
+    for (var n = 1; n <= ids.length; n++) {
+      final positional = effectiveListItemSectionId(
+        storedId: null,
+        pattern: pattern,
+        position: n,
+        fallbackStem: listNode.memberName ?? listNode.segment,
+      );
+      final (number, storedId) = _itemIdentity(listNode, positional);
+      final itemPath = _openItem(
+        0,
+        frame.path,
+        listNode,
+        number,
+        storedId,
+        '',
+        '',
+        '',
+        frame.line,
+        push: false,
+      );
+      final formPath = ref.$1 == '.' ? itemPath : '$itemPath/${ref.$1}';
+      forms.putIfAbsent(formPath, () => {})[ref.$2.name] = ids[n - 1];
+    }
+  }
+
+  /// A `records` div: one table, `Id` first, `Title` optionally second, then
+  /// labels of the item's form; each row one item in row order.
+  void _stageRecordTable(
+    _Frame frame,
+    SomMetaNode listNode,
+    List<String> inner,
+    int at,
+  ) {
+    int lineOf(int k) => _bodyLine(frame, at + 1 + k);
+    void reject(String message) => rejections.add(
+      SpecMarkdownRejection(
+        line: _bodyLine(frame, at),
+        reason: SpecMarkdownRejectReason.malformedBlock,
+        anchor: frame.path,
+        message: message,
+      ),
+    );
+    final start = inner.indexWhere((l) => l.trim().isNotEmpty);
+    if (start < 0 || !_tableLine.hasMatch(inner[start])) {
+      reject('a records div holding no table');
+      return;
+    }
+    final header = _rowCells(inner[start]);
+    if (header.first != 'Id') {
+      reject('a records table whose first column is not Id');
+      return;
+    }
+    final element = listNode.elementNode;
+    final form = element == null ? null : codec._itemForm(element);
+    if (form == null) {
+      reject('a records div in a list whose items have no single form');
+      return;
+    }
+    final fields = form.$1.form?.fields ?? const <SomFormFieldMeta>[];
+    final withTitle = header.length > 1 && header[1] == 'Title';
+    final columns = <SomFormFieldMeta>[];
+    for (final label in header.skip(withTitle ? 2 : 1)) {
+      final lower = label.toLowerCase();
+      final f = fields.where((x) => x.name.toLowerCase() == lower).firstOrNull;
+      if (f == null) {
+        rejections.add(
+          SpecMarkdownRejection(
+            line: lineOf(start),
+            reason: SpecMarkdownRejectReason.unknownField,
+            anchor: frame.path,
+            message: 'records column "$label" names no field of the items',
+          ),
+        );
+        return;
+      }
+      columns.add(f);
+    }
+    final table = _readTable(inner, start, lineOf, frame.path)!;
+    final stem = SpecDocumentMarkdown._itemStemOf(listNode);
+    for (final (k, cells) in table.rows) {
+      final id = _cellId(cells[0]);
+      final (n, storedId) = _itemIdentity(listNode, id);
+      final itemPath = _openItem(
+        0,
+        frame.path,
+        listNode,
+        n,
+        storedId,
+        '',
+        '',
+        '',
+        lineOf(k),
+        push: false,
+      );
+      if (withTitle) {
+        final title = cells[1].replaceAll(r'\|', '|').replaceAll('<br>', '\n');
+        final number = itemPath.substring(frame.path.length + 1);
+        if (title.isNotEmpty && title != '$stem $number') {
+          headlines[itemPath] = title;
+        }
+      }
+      final formPath = '$itemPath/${form.$2}';
+      for (var c = 0; c < columns.length; c++) {
+        final value = _cellValue(cells[(withTitle ? 2 : 1) + c], columns[c]);
+        if (value.isEmpty) continue;
+        forms.putIfAbsent(formPath, () => {})[columns[c].name] = value;
+      }
+    }
+  }
+
   /// Binds a heading's body region against the owner's transparent body slots
-  /// (SOM §11.6): `FieldName:` lines matching a transparent form's fields route
-  /// to that form (nearest form in slot order, wrapping); a slot marker
-  /// (`<!-- slot: <rel> -->`, SOM §11.6) sends the text after it to the named
-  /// slot — a content slot, a form's preamble, or the owner itself (`.`) — and
-  /// ends any open field. Unmarked text binds to the first content slot; with
-  /// no content slot it is a form's **preamble** (SOM §11.4 rule 7) — the
-  /// class-level `@Form` on the `content` member, else the first form — which
-  /// is where the YAML codec keeps it; only an owner with no slot at all takes
-  /// it on its own path.
+  /// (SOM §11.6): `FieldName:` lines and form-table rows matching a
+  /// transparent form's fields route to that form (nearest form in slot order,
+  /// wrapping); a slot marker (`<!-- slot: <rel> -->`, SOM §11.6) sends the
+  /// text after it to the named slot — a content slot, a form's preamble, or
+  /// the owner itself (`.`) — and ends any open field. Unmarked text binds to
+  /// the first content slot; with no content slot it is a form's **preamble**
+  /// (SOM §11.4 rule 7) — the class-level `@Form` on the `content` member, else
+  /// the first form — which is where the YAML codec keeps it; only an owner
+  /// with no slot at all takes it on its own path.
   void _finalizeBodySlots(_Frame frame, List<(SomMetaNode, String)> slots) {
     final formSlots = [
       for (final s in slots)
@@ -1966,6 +2457,7 @@ class _Parser {
     String? currentField;
     String? currentFormPath;
     var currentCode = false;
+    var discard = false;
     var currentLines = <String>[];
     // Unlabelled text per target path, in the order the targets were opened;
     // a target opened twice gets its parts joined by a blank line.
@@ -1977,7 +2469,7 @@ class _Parser {
     void flush() {
       final field = currentField;
       final formPath = currentFormPath;
-      if (field != null && formPath != null) {
+      if (field != null && formPath != null && !discard) {
         final restored = _restoreValue(currentLines);
         final value = currentCode ? _decodeCodeSpan(restored) : restored;
         if (value.isNotEmpty) {
@@ -1985,6 +2477,7 @@ class _Parser {
         }
       }
       currentLines = <String>[];
+      discard = false;
     }
 
     _currentFormIdx = 0;
@@ -2010,6 +2503,44 @@ class _Parser {
             continue;
           }
         }
+        final header = SpecDocumentMarkdown.layoutTableHeader.firstMatch(line);
+        if (header != null && header.group(1) == null && formSlots.isNotEmpty) {
+          // A form table ends the open field (SOM §11.4); its rows bind like
+          // `Field:` labels, each to the nearest form declaring it.
+          flush();
+          currentField = null;
+          currentFormPath = null;
+          final table = _readTable(
+            frame.body,
+            i,
+            (k) => _bodyLine(frame, k),
+            frame.path,
+          )!;
+          for (final (k, cells) in table.rows) {
+            final hit = findField(cells[0]);
+            if (hit == null) {
+              rejections.add(
+                SpecMarkdownRejection(
+                  line: _bodyLine(frame, k),
+                  reason: SpecMarkdownRejectReason.unknownField,
+                  anchor: frame.path,
+                  message: 'row "${cells[0]}" names no field of this form',
+                ),
+              );
+              continue;
+            }
+            _currentFormIdx = hit.$1;
+            _stageRow(
+              '${frame.path}/${formSlots[hit.$1].$2}',
+              [hit.$2],
+              cells[0],
+              cells[1],
+              _bodyLine(frame, k),
+            );
+          }
+          i = table.end - 1;
+          continue;
+        }
         final m = RegExp(r'^([A-Za-z][A-Za-z0-9_]*): ?(.*)$').firstMatch(line);
         if (m != null) {
           final hit = findField(m.group(1)!);
@@ -2019,6 +2550,11 @@ class _Parser {
             currentField = hit.$2.name;
             currentCode = hit.$2.code;
             currentFormPath = '${frame.path}/${formSlots[hit.$1].$2}';
+            discard = _givenTwice(
+              currentFormPath,
+              currentField,
+              _bodyLine(frame, i),
+            );
             currentLines = [m.group(2)!];
             fence.feed(line);
             continue;
@@ -2055,61 +2591,80 @@ class _Parser {
   /// names across an owner's transparent forms follow emit order.
   int _currentFormIdx = 0;
 
-  /// Parses an id-bearing `@Form` section's body: the preamble text before the
-  /// first field label binds to the form's own `content` (SOM §11.4 rule 7);
-  /// everything from the first label on binds to the named fields.
+  /// Parses an id-bearing `@Form` section's body: `FieldName:` paragraphs and
+  /// form-table rows bind to the named fields wherever they stand (SOM §11.4);
+  /// the text that belongs to no field — before the first field, or after a
+  /// table — is the form's preamble, its own `content` (rule 7).
   void _finalizeForm(_Frame frame, SomMetaNode node, String path) {
-    final fieldsByLower = {
-      for (final f in node.form?.fields ?? const <SomFormFieldMeta>[])
-        f.name.toLowerCase(): f.name,
-    };
-    final codeFields = {
-      for (final f in node.form?.fields ?? const <SomFormFieldMeta>[])
-        if (f.code) f.name,
-    };
+    final declared = node.form?.fields ?? const <SomFormFieldMeta>[];
+    final fieldsByLower = {for (final f in declared) f.name.toLowerCase(): f};
     final fence = MarkdownFenceTracker();
-    String? currentField;
+    SomFormFieldMeta? currentField;
+    var discard = false;
     var currentLines = <String>[];
+    // The preamble's parts: the text before the first field, and text a table
+    // interrupts; joined by one blank line.
+    final preambleParts = <List<String>>[<String>[]];
 
-    void flush(int lineNo) {
-      final restored = _restoreValue(currentLines);
-      final value = codeFields.contains(currentField)
-          ? _decodeCodeSpan(restored)
-          : restored;
-      if (currentField != null) {
+    void flush() {
+      final f = currentField;
+      if (f != null && !discard) {
+        final restored = _restoreValue(currentLines);
+        final value = f.code ? _decodeCodeSpan(restored) : restored;
         if (value.isNotEmpty) {
-          forms.putIfAbsent(path, () => {})[currentField] = value;
+          forms.putIfAbsent(path, () => {})[f.name] = value;
         }
-      } else if (value.isNotEmpty) {
-        content[path] = value;
       }
       currentLines = <String>[];
+      discard = false;
     }
 
     for (var i = 0; i < frame.body.length; i++) {
       final line = frame.body[i];
       if (!fence.inFence) {
+        final header = SpecDocumentMarkdown.layoutTableHeader.firstMatch(line);
+        if (header != null && header.group(1) == null) {
+          flush();
+          currentField = null;
+          preambleParts.add(<String>[]);
+          final table = _readTable(
+            frame.body,
+            i,
+            (k) => _bodyLine(frame, k),
+            path,
+          )!;
+          for (final (k, cells) in table.rows) {
+            _stageRow(path, declared, cells[0], cells[1], _bodyLine(frame, k));
+          }
+          i = table.end - 1;
+          continue;
+        }
         final m = RegExp(r'^([A-Za-z][A-Za-z0-9_]*): ?(.*)$').firstMatch(line);
-        final fieldName = m != null
+        final field = m != null
             ? fieldsByLower[m.group(1)!.toLowerCase()]
             : null;
-        if (fieldName != null) {
-          flush(frame.line + i);
-          currentField = fieldName;
+        if (field != null) {
+          flush();
+          currentField = field;
+          discard = _givenTwice(path, field.name, _bodyLine(frame, i));
           currentLines = [m!.group(2)!];
           fence.feed(line);
           continue;
         }
       }
       // Continuation: strip the one escape space of a label-shaped line.
-      currentLines.add(
+      (currentField == null ? preambleParts.last : currentLines).add(
         !fence.inFence && RegExp(r'^ +[A-Za-z][A-Za-z0-9_]*:').hasMatch(line)
             ? line.substring(1)
             : line,
       );
       fence.feed(line);
     }
-    flush(frame.line + frame.body.length);
+    flush();
+    final value = [
+      for (final part in preambleParts) _restoreValue(part),
+    ].where((v) => v.isNotEmpty).join('\n\n');
+    if (value.isNotEmpty) content[path] = value;
   }
 
   /// The inverse of the emitter's code span (SOM §11.4 rule 8):
@@ -2131,13 +2686,16 @@ class _Parser {
   }
 
   /// Parse-side value restoration (SOM §11.3): trim leading/trailing blank
-  /// lines and unescape `\#`-escaped heading lines outside fences.
+  /// lines, unescape `\#`-escaped heading lines and strip the one escape space
+  /// of a line shaped like a layout table header (SOM §11.4), outside fences.
   static String _restoreValue(List<String> body) {
     final fence = MarkdownFenceTracker();
     final out = <String>[];
     for (final line in body) {
       if (!fence.inFence && RegExp(r'^\\+#').hasMatch(line)) {
         out.add(line.substring(1));
+      } else if (!fence.inFence && _escapedTableHeader.hasMatch(line)) {
+        out.add(line.substring(1)); // DI-2: the emitter's one escape space.
       } else {
         out.add(line);
       }
@@ -2148,6 +2706,13 @@ class _Parser {
         .replaceAll(RegExp(r'^([ \t]*\n)+'), '')
         .replaceAll(RegExp(r'(\n[ \t]*)+$'), '');
   }
+
+  /// A value line shaped like a layout table header, written with the escape
+  /// space(s) the emitter adds.
+  static final RegExp _escapedTableHeader = RegExp(
+    r'^ +\|\s*(?:Section\s*\|\s*)?TomSpecField\s*\|\s*Value\s*\|?\s*$',
+    caseSensitive: false,
+  );
 
   Map<String, Map<String, Object?>> listsJson() => {
     for (final e in lists.entries)

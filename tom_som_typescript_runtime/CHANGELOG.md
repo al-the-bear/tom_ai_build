@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- The Markdown parser reads the table layout (SOM §11.4, §11.5), as the Dart
+  one does: form tables headed `| TomSpecField | Value |`, section tables,
+  `refs` and `records` list bodies, anchors equal to the section id, the
+  rejection reasons `unknownField` and `malformedBlock` (a field given twice in
+  either layout included). A value line shaped like a layout header carries one
+  escape space on emit and loses it on parse.
 - `scanNotation(text, { tomSpecs })` (`spec_notation.ts`): the reading
   notation's scanner, the port of the Dart one: divs, spans and citation shapes
   with kind, attributes, offsets, lines and nesting, and the RN-10 findings

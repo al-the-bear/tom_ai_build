@@ -252,7 +252,7 @@ func testModelMeta(c *checker, model *som.SpecModel) {
 	root := model.Roots[0]
 	c.check("model.root.sectionId", root.SectionID == "DEMO", root.SectionID)
 	c.check("model.root.type", root.Type == "Demo", root.Type)
-	c.check("model.classCount", len(model.Classes) == 18, itoa(len(model.Classes)))
+	c.check("model.classCount", len(model.Classes) == 19, itoa(len(model.Classes)))
 	demo := model.ClassNamed("Demo")
 	c.check("model.Demo.found", demo != nil, "")
 	if demo != nil {
@@ -671,6 +671,7 @@ func testMarkdownMemoryLanding(c *checker, t *testing.T, model *som.SpecModel) {
 type markdownApplyCaseTable struct {
 	Cases []struct {
 		Name            string            `json:"name"`
+		ReadingView     bool              `json:"readingView"`
 		Op              string            `json:"op"`
 		Base            *som.DocumentJson `json:"base"`
 		Markdown        string            `json:"markdown"`
@@ -687,6 +688,11 @@ func testMarkdownApply(c *checker, t *testing.T, model *som.SpecModel) {
 	readJSON(t, "markdown_apply_cases.json", &table)
 	c.check("mdApply.cases", len(table.Cases) > 0, "no cases in markdown_apply_cases.json")
 	for _, mc := range table.Cases {
+		// The reading view's table forms (`readingView`) are read by the Dart and
+		// TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+		if mc.ReadingView {
+			continue
+		}
 		tag := "mdApply[" + mc.Name + "]"
 		var got map[string]interface{}
 		switch mc.Op {
@@ -731,9 +737,10 @@ func testMarkdownApply(c *checker, t *testing.T, model *som.SpecModel) {
 // anchor" as JSON null while the Go port carries "" as that sentinel.
 type markdownImportCaseTable struct {
 	Cases []struct {
-		Name       string `json:"name"`
-		Markdown   string `json:"markdown"`
-		Rejections []struct {
+		Name        string `json:"name"`
+		ReadingView bool   `json:"readingView"`
+		Markdown    string `json:"markdown"`
+		Rejections  []struct {
 			Line    int     `json:"line"`
 			Reason  string  `json:"reason"`
 			Anchor  *string `json:"anchor"`
@@ -756,6 +763,11 @@ func testMarkdownImportRejections(c *checker, t *testing.T, model *som.SpecModel
 	var table markdownImportCaseTable
 	readJSON(t, "markdown_import_cases.json", &table)
 	for _, kase := range table.Cases {
+		// The reading view's table forms (`readingView`) are read by the Dart and
+		// TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+		if kase.ReadingView {
+			continue
+		}
 		name := kase.Name
 		parsed := som.NewSpecDocumentMarkdown(model, som.NewSpecDocument()).Parse(kase.Markdown)
 		c.check("md.reject["+name+"].count",

@@ -586,6 +586,16 @@ source order (a `missingValue` is raised once the parser has moved past the empt
 section's heading). All nine ports agreed on their first run; unlike the version
 tier, this one found no divergence.
 
+**The table layout (SOM §11.4, §11.5).** The cases marked `"readingView": true`
+— in this file and in `markdown_apply_cases.json` — pin the reading view's
+layout grammar: form tables (`| TomSpecField | Value |`), section tables,
+`refs` and `records` list bodies, heading anchors, the field-given-twice rule
+and the two reasons it adds, `unknownField` and `malformedBlock`. The Dart and
+TypeScript runtimes run them; the other seven skip them until the reading
+view's parity audit (`05a_rdv4_akpu-runtime-parity-audit`) ports the grammar.
+`_markdownImportCases` in the Dart conformance test appends them from
+`test/reading_view_markdown_import_cases.dart`, so `UPDATE_CORPUS=1` keeps them.
+
 ##### …and so does the Phase-4 CodeSpecs extract tier
 
 [`corpus/codespecs_extract_cases.json`](corpus/codespecs_extract_cases.json) pins

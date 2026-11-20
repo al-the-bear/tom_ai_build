@@ -171,7 +171,7 @@ static void test_model_meta(Checker& c, const som::SpecModel& model) {
   const som::SpecRoot& root = model.roots[0];
   c.check("model.root.sectionId", root.sectionId == "DEMO", root.sectionId);
   c.check("model.root.type", root.type == "Demo", root.type);
-  c.check("model.classCount", model.classesSize() == 18,
+  c.check("model.classCount", model.classesSize() == 19,
           std::to_string(model.classesSize()));
   const som::SpecClass* demo = model.classNamed("Demo");
   c.check("model.Demo.found", demo != nullptr, "");
@@ -578,6 +578,9 @@ static void test_markdown_import_rejections(Checker& c, const som::SpecModel& mo
   std::size_t n = som::jsonArrayLen(cases);
   for (std::size_t i = 0; i < n; i++) {
     som::JsonRef kase = som::jsonArrayAt(cases, i);
+    // The reading view's table forms (`readingView`) are read by the Dart and
+    // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+    if (som::jsonBoolOr(kase, "readingView")) continue;
     std::string name = som::jsonStrOr(kase, "name");
     som::SpecMarkdownResult result =
         som::markdownParse(model, som::jsonStrOr(kase, "markdown"));
@@ -656,6 +659,9 @@ static void test_markdown_apply(Checker& c, const som::SpecModel& model) {
   c.check("mdApply.cases", n > 0, "no cases in markdown_apply_cases.json");
   for (std::size_t i = 0; i < n; i++) {
     som::JsonRef kase = som::jsonArrayAt(cases, i);
+    // The reading view's table forms (`readingView`) are read by the Dart and
+    // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+    if (som::jsonBoolOr(kase, "readingView")) continue;
     const std::string tag = "mdApply[" + som::jsonStrOr(kase, "name") + "]";
     const std::string markdown = som::jsonStrOr(kase, "markdown");
 
