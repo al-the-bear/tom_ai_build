@@ -87,6 +87,55 @@ void main() {
     expect(_violations(json, 'schema'), isEmpty);
   });
 
+  test('--form-layout tables: the Meridian Blueprint in the table layout is '
+      'clean on all three tiers, read back as well', () async {
+    final md = p.join(_tmp.path, 'meridian.tables.md');
+    _tmp.createSync(recursive: true);
+    final (code, _, err) = await _run([
+      _meridian,
+      '--form-layout',
+      'tables',
+      '--markdown-out',
+      md,
+    ]);
+    expect(code, 0, reason: err);
+    // The rendition holds what the schema tier must read: form tables,
+    // section tables and records list bodies.
+    final text = File(md).readAsStringSync();
+    expect(text, contains('| TomSpecField | Value |'));
+    expect(text, contains('| Section | TomSpecField | Value |'));
+    expect(text, contains('::: {.records}'));
+    final json = await _json([md, '--form-layout', 'tables'], exit: 0);
+    expect(json['passed'], isTrue);
+  });
+
+  test('--form-layout tables: a broken record row in the rendition the '
+      'schema tier judges is a malformedBlock', () async {
+    final doc = SpecDocument.fromFile(
+      _meridian,
+      buildSomMetaTree(somSpecModel, rootType: 'D00SolutionBlueprint'),
+    );
+    final markdown = doc
+        .toMarkdown(
+          somSpecModel,
+          rootType: 'D00SolutionBlueprint',
+          formLayout: SpecFormLayout.tables,
+        )
+        // The first record row gains a cell its header does not have.
+        .replaceFirstMapped(
+          RegExp(r'(::: \{\.records\}\n[^\n]*\n[^\n]*\n[^\n]*)\n'),
+          (m) => '${m[1]} extra |\n',
+        );
+    final violations = DocSpecsValidator(
+      somDocSpecsSchema('solution-blueprint'),
+      tomSpecs: true,
+    ).validateMarkdown(markdown);
+    expect(
+      violations.map((v) => v.rule),
+      contains(DocSpecsViolationRule.malformedBlock),
+    );
+  });
+
   test('decode: a key the model does not have fails, and the other tiers '
       'are reported not run', () async {
     final text = File(_meridian).readAsStringSync().replaceFirst(

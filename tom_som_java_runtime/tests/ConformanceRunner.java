@@ -2221,6 +2221,11 @@ public final class ConformanceRunner {
     List<String> covered = new ArrayList<>();
     for (Object caseObj : readJsonArray("docspecs_cases.json")) {
       Map<String, Object> c = (Map<String, Object>) caseObj;
+      // The reading view's table forms (`readingView`) are read by the Dart and
+      // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+      if (Boolean.TRUE.equals(c.get("readingView"))) {
+        continue;
+      }
       String name = (String) c.get("name");
       List<String> got = new ArrayList<>();
       for (DocSpecsViolation v : validator.validateMarkdown((String) c.get("markdown"))) {

@@ -1440,6 +1440,9 @@ function testDocSpecs() {
   const validator = new DocSpecsValidator(schema);
   const covered = new Set();
   for (const c of _readJson('docspecs_cases.json')) {
+    // The reading view's table forms (`readingView`) are read by the Dart and
+    // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+    if (c.readingView === true) continue;
     const got = validator
       .validateMarkdown(c.markdown)
       .map((v) => [v.rule, v.sectionId, v.line]);

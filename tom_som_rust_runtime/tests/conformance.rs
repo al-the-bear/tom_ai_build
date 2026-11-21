@@ -1107,6 +1107,11 @@ fn test_docspecs(c: &mut Checker) {
     let cases = read_json("docspecs_cases.json");
     let mut covered: Vec<String> = Vec::new();
     for cc in cases.as_array().unwrap() {
+        // The reading view's table forms (`readingView`) are read by the Dart and
+        // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+        if cc.get("readingView").and_then(|v| v.as_bool()) == Some(true) {
+            continue;
+        }
         let name = cc.str_or("name");
         let got: Vec<(String, String, i64)> = validator
             .validate_markdown(&cc.str_or("markdown"))

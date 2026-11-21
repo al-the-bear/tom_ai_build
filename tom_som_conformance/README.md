@@ -391,6 +391,22 @@ view's parity audit (`05a_rdv4_akpu-runtime-parity-audit`) and guards
 `NotationFindingCode` on this table instead; the TypeScript coverage gate counts
 both tables.
 
+##### The reading view's table forms: Dart and TypeScript so far
+
+The validator cases of the reading view's table forms and list bodies (form
+tables, `refs` and `records` divs, section tables, styled-div headings, and the
+`malformedBlock` / `unknownField` findings; SOM §14) are the cases of
+`docspecs_cases.json` that carry `"readingView": true`. They extend
+`docspecs_schema.yaml` with the optional list containers `REFS-LST`,
+`LINK-LST` and `CRIT-LST` and the section `ATTR`, which no other case uses.
+`UPDATE_CORPUS=1` writes them from
+`tom_som_dart_runtime/test/reading_view_docspecs_cases.dart`. The Dart and
+TypeScript runners run them; the other seven skip them until the reading
+view's parity audit (`05a_rdv4_akpu-runtime-parity-audit`) ports them, so the
+rest of the table is still the one all nine pass. The `sample_schema` gate of
+`tool/run_all_suites.sh` validates every sample in the table layout as well
+(`tomspecs :spec-validate --form-layout tables`).
+
 ##### …and so does the editor tier (SOM §9)
 
 `SpecEditor` and the `spec_typed_values` helpers are nine-language for the third

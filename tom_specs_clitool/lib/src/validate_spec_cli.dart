@@ -103,6 +103,15 @@ ArgParser validateSpecParser() => ArgParser()
     'markdown-out',
     help: 'Also write the document\'s markdown rendition to this file.',
   )
+  ..addOption(
+    'form-layout',
+    allowed: ['fields', 'tables'],
+    defaultsTo: 'fields',
+    help:
+        'The layout of the rendition the schema tier judges and '
+        '--markdown-out writes: `fields` (FieldName: lines) or `tables` (the '
+        'reading view\'s form tables and heading anchors).',
+  )
   ..addFlag(
     'json',
     help:
@@ -264,7 +273,14 @@ Future<int> runValidateSpec(
       }
       // Rendered once: the same text the schema tier judges is what
       // `--markdown-out` writes, so a finding's line points into that file.
-      markdown = doc.toMarkdown(specModel, rootType: root.type);
+      final formLayout = SpecFormLayout.values.byName(
+        results.option('form-layout')!,
+      );
+      markdown = doc.toMarkdown(
+        specModel,
+        rootType: root.type,
+        formLayout: formLayout,
+      );
       final out = results.option('markdown-out');
       if (out != null) File(out).writeAsStringSync(markdown);
 
@@ -280,6 +296,7 @@ Future<int> runValidateSpec(
           doc,
           somDocSpecsSchema(schemaId),
           rootType: root.type,
+          formLayout: formLayout,
         )) {
           findings.add(
             SpecValidationFinding(

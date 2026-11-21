@@ -993,6 +993,10 @@ def test_docspecs() -> None:
     validator = DocSpecsValidator(schema)
     covered: set[str] = set()
     for case in _read_json("docspecs_cases.json"):
+        # The reading view's table forms (``readingView``) are read by the Dart
+        # and TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+        if case.get("readingView"):
+            continue
         name = case["name"]
         got = [
             (v.rule.value, v.section_id, v.line)

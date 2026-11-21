@@ -20,6 +20,7 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:yaml/yaml.dart';
 
+import 'reading_view_docspecs_cases.dart';
 import 'reading_view_markdown_import_cases.dart';
 
 void main() {
@@ -1045,6 +1046,18 @@ void main() {
         2,
       );
       expect(schema.formTypes['header-form']!.fields.first.required, isTrue);
+      // The reading view's list containers (04a_rdv2): one item type each,
+      // an always-empty body, and the forms the virtual items fill.
+      expect(schema.sectionTypesByName['refs-lst']!.maxTextLength, 0);
+      expect(
+        schema
+            .sectionTypesByName['crit-lst']!
+            .subsectionTypes['crit-item']!
+            .maxCount,
+        3,
+      );
+      expect(schema.formTypes['ref-form']!.fields, hasLength(1));
+      expect(schema.formTypes['crit-form']!.fields, hasLength(3));
     });
 
     test('cases match the committed rule/sectionId/line expectations', () {
@@ -5772,7 +5785,92 @@ section-types:
         max-count: infinite
       gsum:
         max-count: 1
+  refs-lst:
+    prefix: REFS_LST
+    max-text-length: 0
+    subsection-types:
+      ref-item:
+        min-count: 2
+        max-count: infinite
+  ref-item:
+    prefix: REFS_
+    pattern-check-id:
+      pattern: "^REFS-[0-9]+\$"
+    format: ref-form
+  link-lst:
+    prefix: LINK_LST
+    max-text-length: 0
+    subsection-types:
+      link-item:
+        min-count: 1
+        max-count: infinite
+  link-ref:
+    prefix: LINK_REF
+    format: ref-form
+  link-item:
+    prefix: LINK_
+    subsection-types:
+      link-ref:
+        min-count: 1
+        max-count: 1
+  crit-lst:
+    prefix: CRIT_LST
+    max-text-length: 0
+    subsection-types:
+      crit-item:
+        min-count: 2
+        max-count: 3
+  crit-item:
+    prefix: CRIT_
+    pattern-check-id:
+      pattern: "^CRIT-[0-9]+\$"
+    format: crit-form
+  attr:
+    prefix: ATTR
+    subsection-types:
+      iden:
+        min-count: 1
+        max-count: 1
+      cons-lst:
+        max-count: 1
+  iden:
+    prefix: IDEN
+    format: iden-form
+  cons-lst:
+    prefix: CONS_LST
+    subsection-types:
+      cons-item:
+        min-count: 1
+        max-count: infinite
+  cons-item:
+    prefix: CONS_
+    format: cons-form
 form-types:
+  ref-form:
+    fields:
+      - fieldname: Target
+        required: true
+        pattern-check:
+          pattern: "^[A-Z]"
+  crit-form:
+    fields:
+      - fieldname: Given
+        required: true
+      - fieldname: When
+      - fieldname: Then
+        pattern-check:
+          pattern: "^[a-z]"
+  iden-form:
+    fields:
+      - fieldname: ColumnName
+        required: true
+      - fieldname: Description
+  cons-form:
+    fields:
+      - fieldname: Mandatory
+        required: true
+        pattern-check:
+          pattern: "^(Yes|No)\$"
   header-form:
     fields:
       - fieldname: author
@@ -5796,6 +5894,18 @@ document:
       optional: true
     diag:
       section-type: diag
+      optional: true
+    refs-lst:
+      section-type: refs-lst
+      optional: true
+    link-lst:
+      section-type: link-lst
+      optional: true
+    crit-lst:
+      section-type: crit-lst
+      optional: true
+    attr:
+      section-type: attr
       optional: true
 ''';
 
@@ -6000,16 +6110,22 @@ List<Map<String, Object?>> _docSpecsCases() {
   final validator = DocSpecsValidator(
     DocSpecsSchema.fromYamlText(_docSpecsSchemaYaml),
   );
+  Map<String, Object?> entry(Map<String, String> c, {bool rv = false}) => {
+    'name': c['name'],
+    if (rv) 'readingView': true,
+    'markdown': c['markdown'],
+    'violations': [
+      for (final v in validator.validateMarkdown(c['markdown']!))
+        {'rule': v.rule.name, 'sectionId': v.sectionId, 'line': v.line},
+    ],
+  };
   return [
-    for (final c in _docSpecsMarkdownCases())
-      {
-        'name': c['name'],
-        'markdown': c['markdown'],
-        'violations': [
-          for (final v in validator.validateMarkdown(c['markdown']!))
-            {'rule': v.rule.name, 'sectionId': v.sectionId, 'line': v.line},
-        ],
-      },
+    for (final c in _docSpecsMarkdownCases()) entry(c),
+    // The reading view's table forms and list bodies (04a_rdv2): read by the
+    // Dart and TypeScript validators, skipped by the other seven runners until
+    // the parity audit (05a_rdv4) ports them.
+    for (final c in readingViewDocSpecsCases(_docSpecsValidDoc))
+      entry(c, rv: true),
   ];
 }
 

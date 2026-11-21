@@ -12,6 +12,7 @@ library;
 
 import 'docspecs_validator.dart';
 import 'spec_document.dart';
+import 'spec_document_markdown.dart';
 import 'spec_model.dart';
 
 /// Renders [document] (root [rootType], else its single populated root),
@@ -26,8 +27,13 @@ List<DocSpecsViolation> validateSpecDocument(
   SpecDocument document,
   DocSpecsSchema schema, {
   String? rootType,
+  SpecFormLayout formLayout = SpecFormLayout.fields,
 }) {
-  final rendition = document.toMarkdownWithMap(model, rootType: rootType);
+  final rendition = document.toMarkdownWithMap(
+    model,
+    rootType: rootType,
+    formLayout: formLayout,
+  );
   return [
     for (final v in DocSpecsValidator(
       schema,

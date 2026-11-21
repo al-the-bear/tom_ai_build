@@ -226,5 +226,344 @@
         "line": 20
       }
     ]
+  },
+  {
+    "name": "readingView: form table gives a required field",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\n| TomSpecField | Value |\n| --- | --- |\n| Author | Alice \\| Ann |\n| reviewer | [Bob](people.md#bob) |\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": []
+  },
+  {
+    "name": "readingView: required field missing from table and paragraphs",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\n| TomSpecField | Value |\n| --- | --- |\n| Reviewer | Bob |\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": [
+      {
+        "rule": "missingRequiredField",
+        "sectionId": "D00-HDR",
+        "line": 10
+      }
+    ]
+  },
+  {
+    "name": "readingView: fieldPatternMismatch points at the row",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\n| TomSpecField | Value |\n| --- | --- |\n| Author | Alice |\n| Reviewer | bob |\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": [
+      {
+        "rule": "fieldPatternMismatch",
+        "sectionId": "D00-HDR",
+        "line": 15
+      }
+    ]
+  },
+  {
+    "name": "readingView: form table without its delimiter row",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\n| TomSpecField | Value |\n| Author | Alice |\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": [
+      {
+        "rule": "malformedBlock",
+        "sectionId": "D00-HDR",
+        "line": 12
+      },
+      {
+        "rule": "missingRequiredField",
+        "sectionId": "D00-HDR",
+        "line": 10
+      }
+    ]
+  },
+  {
+    "name": "readingView: a row of another cell count",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\n| TomSpecField | Value |\n| --- | --- |\n| Author | Alice |\n| Reviewer | Bob | x |\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": [
+      {
+        "rule": "malformedBlock",
+        "sectionId": "D00-HDR",
+        "line": 15
+      }
+    ]
+  },
+  {
+    "name": "readingView: a row naming no field",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\n| TomSpecField | Value |\n| --- | --- |\n| Author | Alice |\n| Editor | Carol |\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": [
+      {
+        "rule": "unknownField",
+        "sectionId": "D00-HDR",
+        "line": 15
+      }
+    ]
+  },
+  {
+    "name": "readingView: a field given twice keeps the first",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\n| TomSpecField | Value |\n| --- | --- |\n| Author | Alice |\n| Reviewer | Bob |\n\nReviewer: bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": [
+      {
+        "rule": "malformedBlock",
+        "sectionId": "D00-HDR",
+        "line": 17
+      }
+    ]
+  },
+  {
+    "name": "readingView: refs line below min-count",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n## <!--[REFS-LST]--> References\n\n::: {.refs}\n[GOAL-ITEM-1](#GOAL-ITEM-1)\n:::\n",
+    "violations": [
+      {
+        "rule": "tooFewItems",
+        "sectionId": "REFS-LST",
+        "line": 25
+      }
+    ]
+  },
+  {
+    "name": "readingView: refs container passes max-text-length 0",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n## <!--[REFS-LST]--> References\n\n::: {.refs}\n[GOAL-ITEM-1](#GOAL-ITEM-1), GOAL-ITEM-2\n:::\n",
+    "violations": []
+  },
+  {
+    "name": "readingView: refs into a virtual child section",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n## <!--[LINK-LST]--> Links\n\n::: refs\nGOAL-ITEM-1 goal-item-2\n:::\n",
+    "violations": [
+      {
+        "rule": "fieldPatternMismatch",
+        "sectionId": "LINK-REF",
+        "line": 27
+      }
+    ]
+  },
+  {
+    "name": "readingView: refs div beside other text",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n## <!--[REFS-LST]--> References\n\nStray text.\n\n::: {.refs}\nA, B\n:::\n",
+    "violations": [
+      {
+        "rule": "malformedBlock",
+        "sectionId": "REFS-LST",
+        "line": 29
+      },
+      {
+        "rule": "textLengthOut",
+        "sectionId": "REFS-LST",
+        "line": 25
+      },
+      {
+        "rule": "missingRequiredSection",
+        "sectionId": "REFS-LST",
+        "line": 25
+      }
+    ]
+  },
+  {
+    "name": "readingView: unclosed refs fence",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n## <!--[REFS-LST]--> References\n\n::: {.refs}\nA, B\n",
+    "violations": [
+      {
+        "rule": "malformedBlock",
+        "sectionId": "REFS-LST",
+        "line": 27
+      },
+      {
+        "rule": "textLengthOut",
+        "sectionId": "REFS-LST",
+        "line": 25
+      },
+      {
+        "rule": "missingRequiredSection",
+        "sectionId": "REFS-LST",
+        "line": 25
+      },
+      {
+        "rule": "unclosedDiv",
+        "sectionId": "REFS-LST",
+        "line": 27
+      }
+    ]
+  },
+  {
+    "name": "readingView: records table satisfies min-count",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n## <!--[CRIT-LST]--> Acceptance Criteria\n\n::: {.records}\n| Id | Title | Given | When | Then |\n| --- | --- | --- | --- | --- |\n| <a id=\"CRIT-1\"></a>CRIT-1 | Second admin | a tenant | an invite | both confirm |\n| <a id=\"CRIT-2\"></a>CRIT-2 | | an expired invite | it is opened | ask again |\n:::\n",
+    "violations": []
+  },
+  {
+    "name": "readingView: records row findings",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n## <!--[CRIT-LST]--> Acceptance Criteria\n\n::: {.records}\n| Id | Given | Then |\n| --- | --- | --- |\n| CRIT-X | a tenant | ok |\n| CRIT-2 | | ok |\n| CRIT-3 | a user | Not ok |\n| CRIT-4 | a user | ok |\n:::\n",
+    "violations": [
+      {
+        "rule": "idPatternMismatch",
+        "sectionId": "CRIT-X",
+        "line": 30
+      },
+      {
+        "rule": "missingRequiredField",
+        "sectionId": "CRIT-2",
+        "line": 31
+      },
+      {
+        "rule": "fieldPatternMismatch",
+        "sectionId": "CRIT-3",
+        "line": 32
+      },
+      {
+        "rule": "tooManyItems",
+        "sectionId": "CRIT-LST",
+        "line": 25
+      }
+    ]
+  },
+  {
+    "name": "readingView: records div holding no table",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n## <!--[CRIT-LST]--> Acceptance Criteria\n\n::: {.records}\nCRIT-1, CRIT-2\n:::\n",
+    "violations": [
+      {
+        "rule": "malformedBlock",
+        "sectionId": "CRIT-LST",
+        "line": 27
+      },
+      {
+        "rule": "missingRequiredSection",
+        "sectionId": "CRIT-LST",
+        "line": 25
+      }
+    ]
+  },
+  {
+    "name": "readingView: records table whose first column is not Id",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n## <!--[CRIT-LST]--> Acceptance Criteria\n\n::: {.records}\n| Given | Then |\n| --- | --- |\n| a | b |\n:::\n",
+    "violations": [
+      {
+        "rule": "malformedBlock",
+        "sectionId": "CRIT-LST",
+        "line": 27
+      },
+      {
+        "rule": "missingRequiredSection",
+        "sectionId": "CRIT-LST",
+        "line": 25
+      }
+    ]
+  },
+  {
+    "name": "readingView: records column naming no field",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n## <!--[CRIT-LST]--> Acceptance Criteria\n\n::: {.records}\n| Id | Given | Owner |\n| --- | --- | --- |\n| CRIT-1 | a | b |\n| CRIT-2 | a | b |\n:::\n",
+    "violations": [
+      {
+        "rule": "unknownField",
+        "sectionId": "CRIT-LST",
+        "line": 28
+      },
+      {
+        "rule": "missingRequiredSection",
+        "sectionId": "CRIT-LST",
+        "line": 25
+      }
+    ]
+  },
+  {
+    "name": "readingView: records div beside item headings",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n## <!--[CRIT-LST]--> Acceptance Criteria\n\n::: {.records}\n| Id | Given |\n| --- | --- |\n| CRIT-1 | a |\n:::\n\n### <!--[CRIT-2]--> Criterion\n\nGiven: b\n",
+    "violations": [
+      {
+        "rule": "malformedBlock",
+        "sectionId": "CRIT-LST",
+        "line": 27
+      },
+      {
+        "rule": "tooFewItems",
+        "sectionId": "CRIT-LST",
+        "line": 25
+      }
+    ]
+  },
+  {
+    "name": "readingView: section table with a list item",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n## <!--[ATTR]--> Attribute name\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"IDEN\"></a>IDEN | ColumnName | name |\n| | Description | Display name \\| label. |\n| CONS-LST / <a id=\"CONS-1\"></a>CONS-1 | Mandatory | Yes |\n",
+    "violations": []
+  },
+  {
+    "name": "readingView: section table findings at their rows",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n## <!--[ATTR]--> Attribute name\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| IDEN | Description | Display name. |\n| CONS-LST / CONS-1 | Mandatory | Maybe |\n",
+    "violations": [
+      {
+        "rule": "missingRequiredField",
+        "sectionId": "IDEN",
+        "line": 29
+      },
+      {
+        "rule": "fieldPatternMismatch",
+        "sectionId": "CONS-1",
+        "line": 30
+      }
+    ]
+  },
+  {
+    "name": "readingView: section table cell naming no child",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n## <!--[ATTR]--> Attribute name\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| IDEN | ColumnName | name |\n| GOALS | ColumnName | x |\n| | Description | skipped |\n| NOPE | Description | y |\n",
+    "violations": [
+      {
+        "rule": "unknownSection",
+        "sectionId": "GOALS",
+        "line": 30
+      },
+      {
+        "rule": "unknownSection",
+        "sectionId": "NOPE",
+        "line": 32
+      }
+    ]
+  },
+  {
+    "name": "readingView: rejected block",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n::: {.rejected reason=\"malformedBlock\"}\nOwner: Platform team\n:::\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": [
+      {
+        "rule": "rejectedBlock",
+        "sectionId": "D00-OVR",
+        "line": 10
+      }
+    ]
+  },
+  {
+    "name": "readingView: styled-div headings count at their level",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n<div class=\"heading7\" style=\"margin:1em 0 0.5em;padding-left:0.75em;font-weight:bold\"><!--[GOAL-ITEM-1]--> <a id=\"GOAL-ITEM-1\"></a> Goal &amp; 1</div>\n\nFirst goal.\n\n<div class=\"heading7\" style=\"margin:1em 0 0.5em;padding-left:0.75em;font-weight:bold\"><!--[GOAL-ITEM-B]--> Goal 2</div>\n\nSecond goal.\n",
+    "violations": [
+      {
+        "rule": "idPatternMismatch",
+        "sectionId": "GOAL-ITEM-B",
+        "line": 21
+      }
+    ]
+  },
+  {
+    "name": "readingView: a heading6 div is content",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n<div class=\"heading6\"><!--[GOAL-ITEM-1]--> Goal 1</div>\n\nFirst goal.\n\n<div class=\"heading6\"><!--[GOAL-ITEM-2]--> Goal 2</div>\n\nSecond goal.\n",
+    "violations": [
+      {
+        "rule": "missingRequiredSection",
+        "sectionId": "GOALS",
+        "line": 15
+      }
+    ]
   }
 ]

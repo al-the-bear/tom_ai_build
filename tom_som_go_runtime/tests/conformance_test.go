@@ -910,8 +910,9 @@ type docSpecsViolationCase struct {
 }
 
 type docSpecsCase struct {
-	Name       string                  `json:"name"`
-	Markdown   string                  `json:"markdown"`
+	Name        string                  `json:"name"`
+	ReadingView bool                    `json:"readingView"`
+	Markdown    string                  `json:"markdown"`
 	Violations []docSpecsViolationCase `json:"violations"`
 }
 
@@ -932,6 +933,11 @@ func testDocSpecs(c *checker, t *testing.T) {
 	readJSON(t, "docspecs_cases.json", &cases)
 	covered := map[string]bool{}
 	for _, cc := range cases {
+		// The reading view's table forms (`readingView`) are read by the Dart and
+		// TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+		if cc.ReadingView {
+			continue
+		}
 		var got [][3]string
 		for _, v := range validator.ValidateMarkdown(cc.Markdown) {
 			got = append(got, [3]string{v.Rule, v.SectionID, itoa(v.Line)})

@@ -3105,7 +3105,8 @@ Violation
             formatMismatch | malformedHeading |
             unclosedDiv | strayClosingFence | unclosedSpan |
             divWithoutKind | unknownKind | markAcrossNotation |
-            annotationInsideDiv | divInsideAnnotation | rejectedBlock
+            annotationInsideDiv | divInsideAnnotation | rejectedBlock |
+            malformedBlock | unknownField
   sectionId String?
   path      String?
   line      Int (1-based)
@@ -3129,6 +3130,34 @@ reports `divWithoutKind` and `unknownKind`. `unknownKind` is the one warning
 finding is the line of the fence, bracket or block it is about. Pinned by
 `notation_cases.json`, which the Dart and TypeScript runtimes run; the other
 seven runtimes do not report the notation's rules yet.
+
+The Dart and TypeScript validators also read the reading view's forms (the
+DocSpecs specification's *Form Types* (Form Tables), *List Bodies*, *Section
+Anchors* and *Styled-div headings*), from the schema alone:
+
+- `parse` reads a styled `heading<N>` div (N ≥ 7) as a heading of level N,
+  and drops a heading's own anchor from its title.
+- A form table's rows are form fields as `FieldName:` lines are, each finding
+  on its row's line. A field given twice keeps its first occurrence; the
+  second is `malformedBlock`. A row naming no field is `unknownField`.
+- A `refs` or `records` body becomes virtual item sections of the container's
+  one subsection type before anything is counted, and a section table becomes
+  virtual child sections. `min-count`, `max-count`, `pattern-check-id`,
+  `missingRequiredField` and `fieldPatternMismatch` apply to them unchanged,
+  and their findings point at the div's or the row's line. The container's
+  body counts as empty for `max-text-length: 0`. A value given to a section
+  the schema declares no form for is a body line of it (`<Label>: <value>`),
+  as in the fields layout.
+- The cases of the specification's *Findings in list bodies and tables* are
+  `malformedBlock` (a broken table or row, a misplaced or table-less
+  `records` div, an unclosed `refs` / `records` fence) and `unknownField` (a
+  records column naming no field). A section-table `Section` cell naming no
+  child is `unknownSection`.
+
+Pinned by the `readingView` cases of `docspecs_cases.json`, which the Dart
+and TypeScript runtimes run and the other seven skip.
+`validateSpecDocument(…, formLayout: tables)` (Dart) judges the table
+rendition; `tomspecs :spec-validate --form-layout tables` is its CLI.
 
 `validate` judges Markdown and leaves `path` null. For a SOM document the
 runtime fills it, because a section id repeats across a document (every

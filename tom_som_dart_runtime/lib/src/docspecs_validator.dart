@@ -111,6 +111,18 @@ enum DocSpecsViolationRule {
 
   /// A `rejected` div is present.
   rejectedBlock,
+
+  /// A table, list body or form field is malformed (the DocSpecs
+  /// specification's *Findings in list bodies and tables*): a form, section
+  /// or record table without a matching delimiter row, a row of another cell
+  /// count, a field given twice (the first occurrence kept), a `refs` or
+  /// `records` div beside other text or item headings, a `records` div
+  /// holding no table or one whose first column is not `Id`, an unclosed
+  /// `refs` / `records` fence.
+  malformedBlock,
+
+  /// A form-table row or a record-table column names no field of its form.
+  unknownField,
 }
 
 /// One structured violation (SOM §14): the [rule], the offending [sectionId]
@@ -304,16 +316,19 @@ class DocSpecsDocument {
           }
         }
         final h = SpecDocumentMarkdown.headingLine.firstMatch(trimmed);
-        if (h != null) {
-          final level = h.group(1)!.length;
-          final rest = h.group(2)!.trim();
+        final div = h == null ? _styledDivHeading(trimmed) : null;
+        if (h != null || div != null) {
+          final level = h != null ? h.group(1)!.length : div!.$1;
+          final rest = h != null ? h.group(2)!.trim() : div!.$2.trim();
           final c = SpecDocumentMarkdown.headlineComment.firstMatch(rest);
+          final id = c?.group(1);
           final section = DocSpecsSection(
-            id: c?.group(1),
+            id: id,
             // group(2) is the optional key=value region (codespecs_mapping.md
-            // §9.2 codeSpec); the title is group(3). For a bare heading with no
-            // comment, the whole rest is the title.
-            title: c != null ? c.group(3)!.trim() : rest,
+            // §9.2 codeSpec); the title is group(3), the section's own anchor
+            // removed (Section Anchors). For a bare heading with no comment,
+            // the whole rest is the title.
+            title: c != null ? stripOwnAnchor(c.group(3)!.trim(), id!) : rest,
             level: level,
             line: lineNo,
           );
@@ -340,6 +355,38 @@ class DocSpecsDocument {
       fence.feed(raw);
     }
     return doc;
+  }
+
+  /// A styled-div heading (the DocSpecs specification's *Styled-div
+  /// headings*): a whole line `<div class="heading<N>" …>…</div>` at column
+  /// 0 with N ≥ 7 reads as a heading of level N whose text is the div's inner
+  /// text with `&amp;`, `&lt;`, `&gt;` decoded. Returns (level, text), or
+  /// `null` for any other line — a `heading<N>` div with N ≤ 6 is content.
+  static (int, String)? _styledDivHeading(String line) {
+    final m = _styledDiv.firstMatch(line);
+    if (m == null) return null;
+    final level = int.parse(m.group(1)!);
+    if (level < 7) return null;
+    final text = m
+        .group(2)!
+        .replaceAll('&lt;', '<')
+        .replaceAll('&gt;', '>')
+        .replaceAll('&amp;', '&');
+    return (level, text);
+  }
+
+  static final RegExp _styledDiv = RegExp(
+    r'^<div class="heading([0-9]+)"[^>]*>(.*)</div>$',
+  );
+
+  static final RegExp _anchor = RegExp(r'^<a id="([^"]*)"></a>\s*');
+
+  /// [text] with a leading anchor `<a id="ID"></a>` removed when its id is
+  /// [id] (Section Anchors): the section's own anchor stores nothing. Any
+  /// other anchor is ordinary text and stays.
+  static String stripOwnAnchor(String text, String id) {
+    final m = _anchor.firstMatch(text);
+    return m != null && m.group(1) == id ? text.substring(m.end) : text;
   }
 
   /// Every section with an id, depth-first in source order.
@@ -394,7 +441,8 @@ class DocSpecsDocument {
     final fence = MarkdownFenceTracker();
     for (final line in bodyLines) {
       if (!fence.inFence &&
-          SpecDocumentMarkdown.headingLine.hasMatch(line.trimRight())) {
+          (SpecDocumentMarkdown.headingLine.hasMatch(line.trimRight()) ||
+              _styledDivHeading(line.trimRight()) != null)) {
         throw ArgumentError.value(
           body,
           'body',
@@ -1074,7 +1122,7 @@ class DocSpecsValidator {
         ),
       );
     }
-    _validateDocumentSections(root, v);
+    _validateDocumentSections(_Node.of(root), v);
     _validateNotation(doc, v);
     return v;
   }
@@ -1126,18 +1174,17 @@ class DocSpecsValidator {
   }
 
   /// Root children must occupy `document: sections:` slots; required slots
-  /// must be present.
-  void _validateDocumentSections(
-    DocSpecsSection root,
-    List<DocSpecsViolation> v,
-  ) {
+  /// must be present. A section table in the root's body rebuilds root
+  /// children as virtual sections first.
+  void _validateDocumentSections(_Node root, List<DocSpecsViolation> v) {
+    bool topLevel(DocSpecsSectionType t) =>
+        schema.documentSections.values.any((s) => s.sectionType == t.name);
+    _expandSectionTables(root, topLevel, v);
     final counts = <String, int>{};
     for (final child in root.children) {
       final type = _resolveChild(child, v);
       if (type == null) continue;
-      if (!schema.documentSections.values.any(
-        (s) => s.sectionType == type.name,
-      )) {
+      if (!topLevel(type)) {
         v.add(
           DocSpecsViolation(
             rule: DocSpecsViolationRule.unknownSection,
@@ -1169,10 +1216,9 @@ class DocSpecsValidator {
     }
   }
 
-  DocSpecsSectionType? _resolveChild(
-    DocSpecsSection child,
-    List<DocSpecsViolation> v,
-  ) {
+  DocSpecsSectionType? _resolveChild(_Node child, List<DocSpecsViolation> v) {
+    final given = child.type;
+    if (given != null) return given; // a virtual list item: the schema's type.
     final id = child.id;
     if (id == null) return null; // already reported as malformedHeading.
     final type = schema.resolveSectionType(id);
@@ -1190,7 +1236,7 @@ class DocSpecsValidator {
   }
 
   void _validateSection(
-    DocSpecsSection section,
+    _Node section,
     DocSpecsSectionType type,
     List<DocSpecsViolation> v,
   ) {
@@ -1208,6 +1254,15 @@ class DocSpecsValidator {
         ),
       );
     }
+
+    // List bodies and section tables become virtual sections before anything
+    // is counted or checked (DocSpecs specification, List Bodies).
+    _expandSectionTables(
+      section,
+      (t) => type.subsectionTypes.containsKey(t.name),
+      v,
+    );
+    _expandListBody(section, type, v);
 
     _validateText(section, type, v);
     _validateFormat(section, type, v);
@@ -1272,7 +1327,7 @@ class DocSpecsValidator {
   }
 
   void _validateText(
-    DocSpecsSection section,
+    _Node section,
     DocSpecsSectionType type,
     List<DocSpecsViolation> v,
   ) {
@@ -1280,6 +1335,8 @@ class DocSpecsValidator {
     if (type.format != null && schema.formTypes.containsKey(type.format)) {
       return;
     }
+    // A list body or section table already read is blanked in the body, so
+    // a container written with one counts as empty (`max-text-length: 0`).
     final text = section.text;
     if (type.textRequired && text.isEmpty) {
       v.add(
@@ -1311,21 +1368,24 @@ class DocSpecsValidator {
   }
 
   void _validateFormat(
-    DocSpecsSection section,
+    _Node section,
     DocSpecsSectionType type,
     List<DocSpecsViolation> v,
   ) {
     final format = type.format;
-    if (format == null) return;
-    final form = schema.formTypes[format];
+    final form = format == null ? null : schema.formTypes[format];
     if (form != null) {
       _validateForm(section, form, v);
       return;
     }
+    // Values a section table or list body gave a section the schema declares
+    // no form for are virtual body lines (`<Label>: <value>`), counted in its
+    // text ([_Node.text]) as the `FieldName:` lines of the fields layout are.
+    if (format == null) return;
     // A non-form format (`code`, `mermaid`, …) demands a fenced block.
     final fence = MarkdownFenceTracker();
     var sawFence = false;
-    for (final line in section.bodyLines) {
+    for (final line in section.body) {
       fence.feed(line);
       if (fence.inFence) sawFence = true;
     }
@@ -1347,37 +1407,73 @@ class DocSpecsValidator {
 
   /// Parses the section body in the DocSpecs plain-text form format
   /// (`FieldName: value`, case-insensitive labels, continuation lines) and
-  /// checks required fields + field pattern-checks. Text before the first
+  /// its form tables (`TomSpecField | Value`, one row per field), takes the
+  /// values a section table or list body gave the section, and checks
+  /// required fields + field pattern-checks. Text before the first
   /// recognised label is tolerated here (the binding parse reports it).
+  ///
+  /// A field given twice keeps its first occurrence and reports the second
+  /// (`malformedBlock`): a `Field:` label counts as given even with an empty
+  /// value, a row only with a value. A row naming no field is
+  /// `unknownField`.
   void _validateForm(
-    DocSpecsSection section,
+    _Node section,
     DocSpecsFormType form,
     List<DocSpecsViolation> v,
   ) {
     final byLower = {for (final f in form.fields) f.name.toLowerCase(): f};
-    final values = <String, String>{};
-    final fieldLines = <String, int>{};
+    // Every occurrence as (label, value, line, from a `Field:` label).
+    final occurrences = <(String, String, int, bool)>[];
     final fence = MarkdownFenceTracker();
+    final body = section.body;
     String? current;
+    var currentLine = 0;
     var currentLines = <String>[];
 
     void flush() {
       final field = current;
       if (field == null) return;
-      final text = currentLines.join('\n').trim();
-      if (text.isNotEmpty) values[field] = text;
+      occurrences.add((
+        field,
+        currentLines.join('\n').trim(),
+        currentLine,
+        true,
+      ));
+      current = null;
       currentLines = <String>[];
     }
 
-    for (var i = 0; i < section.bodyLines.length; i++) {
-      final line = section.bodyLines[i];
+    for (var i = 0; i < body.length; i++) {
+      final line = body[i];
       if (!fence.inFence) {
+        final header = SpecDocumentMarkdown.layoutTableHeader.firstMatch(line);
+        if (header != null && header.group(1) == null) {
+          // A form table ends the open field; its rows are fields.
+          flush();
+          final table = _readTable(
+            body,
+            i,
+            (k) => section.bodyStartLine + k,
+            section.id,
+            v,
+          );
+          for (final (k, cells) in table.rows) {
+            occurrences.add((
+              cells[0],
+              _cellValue(cells[1]),
+              section.bodyStartLine + k,
+              false,
+            ));
+          }
+          i = table.end - 1;
+          continue;
+        }
         final m = _fieldLabel.firstMatch(line);
         final field = m != null ? byLower[m.group(1)!.toLowerCase()] : null;
         if (field != null) {
           flush();
           current = field.name;
-          fieldLines[field.name] = section.bodyStartLine + i;
+          currentLine = section.bodyStartLine + i;
           currentLines = [m!.group(2)!];
           fence.feed(line);
           continue;
@@ -1387,6 +1483,49 @@ class DocSpecsValidator {
       fence.feed(line);
     }
     flush();
+    for (final (label, value, line) in section.values) {
+      occurrences.add((label, value, line, false));
+    }
+    // Source order decides which occurrence is the first; values from a
+    // parent's section table stand above the section's own body.
+    final ordered =
+        [for (var k = 0; k < occurrences.length; k++) (k, occurrences[k])]
+          ..sort((a, b) {
+            final byLine = a.$2.$3.compareTo(b.$2.$3);
+            return byLine != 0 ? byLine : a.$1.compareTo(b.$1);
+          });
+
+    final values = <String, String>{};
+    final fieldLines = <String, int>{};
+    final given = <String>{};
+    for (final (_, (label, value, line, fromLabel)) in ordered) {
+      final field = byLower[label.toLowerCase()];
+      if (field == null) {
+        v.add(
+          DocSpecsViolation(
+            rule: DocSpecsViolationRule.unknownField,
+            sectionId: section.id,
+            line: line,
+            message: 'row "$label" names no field of "${form.name}"',
+          ),
+        );
+        continue;
+      }
+      if (!fromLabel && value.isEmpty) continue;
+      if (!given.add(field.name)) {
+        v.add(
+          DocSpecsViolation(
+            rule: DocSpecsViolationRule.malformedBlock,
+            sectionId: section.id,
+            line: line,
+            message: 'field "${field.name}" given twice',
+          ),
+        );
+        continue;
+      }
+      fieldLines[field.name] = line;
+      if (value.isNotEmpty) values[field.name] = value;
+    }
 
     for (final field in form.fields) {
       final value = values[field.name];
@@ -1418,6 +1557,504 @@ class DocSpecsValidator {
         );
       }
     }
+  }
+
+  // --- Tables and list bodies (DocSpecs specification, List Bodies) --------
+
+  /// A line that starts a table row: `|` after up to three spaces.
+  static final RegExp _tableLine = RegExp(r'^ {0,3}\|');
+
+  static final RegExp _delimiterCell = RegExp(r'^:?-+:?$');
+
+  /// The cells of a table row: split on every `|` not preceded by a
+  /// backslash, the outer pipes dropped, each cell trimmed; `\|` stays in the
+  /// cell (unescaped by [_cellValue]).
+  static List<String> _rowCells(String line) {
+    var t = line.trim();
+    if (t.startsWith('|')) t = t.substring(1);
+    if (t.endsWith('|') && !t.endsWith(r'\|')) {
+      t = t.substring(0, t.length - 1);
+    }
+    final cells = <String>[];
+    final b = StringBuffer();
+    for (var i = 0; i < t.length; i++) {
+      final c = t[i];
+      if (c == r'\' && i + 1 < t.length && t[i + 1] == '|') {
+        b.write(r'\|');
+        i++;
+      } else if (c == '|') {
+        cells.add(b.toString().trim());
+        b.clear();
+      } else {
+        b.write(c);
+      }
+    }
+    cells.add(b.toString().trim());
+    return cells;
+  }
+
+  static final RegExp _linkCell = RegExp(
+    r'^\[[^\]]+\]\([^)]*\)(, \[[^\]]+\]\([^)]*\))*$',
+  );
+  static final RegExp _linkText = RegExp(r'\[([^\]]+)\]\([^)]*\)');
+
+  /// A value cell's value: `\|` unescaped, a cell of links read as their
+  /// link texts; an empty cell is no value.
+  static String _cellValue(String cell) {
+    final text = cell.replaceAll(r'\|', '|');
+    if (_linkCell.hasMatch(text)) {
+      return [
+        for (final m in _linkText.allMatches(text)) m.group(1)!,
+      ].join(', ');
+    }
+    return text;
+  }
+
+  /// An `Id` or `Section` cell with its own anchors (`<a id="X"></a>X`)
+  /// removed (Section Anchors): in a `<LIST> / <ITEM>` cell each part's
+  /// anchor, and one before the whole cell naming its item. Any other anchor
+  /// stays and makes the cell name no section.
+  static String _cellId(String cell) {
+    final out = StringBuffer();
+    var pos = 0;
+    for (final m in _cellAnchor.allMatches(cell)) {
+      out.write(cell.substring(pos, m.start));
+      final id = m.group(1)!;
+      final rest = cell.substring(m.end).split(_cellPartSeparator);
+      final own =
+          rest.first.trim() == id || (m.start == 0 && rest.last.trim() == id);
+      if (!own) out.write(m.group(0));
+      pos = m.end;
+    }
+    out.write(cell.substring(pos));
+    return out.toString();
+  }
+
+  static final RegExp _cellAnchor = RegExp(r'<a id="([^"]*)"></a>\s*');
+  static final RegExp _cellPartSeparator = RegExp(r'\s*/\s*');
+
+  /// Reads the table whose header is [lines] line [start]: the header cells,
+  /// the body rows with their line indexes, and the index after the table. A
+  /// missing or mismatched delimiter row is a `malformedBlock` at the header
+  /// and the table yields no rows; a row of another cell count is a
+  /// `malformedBlock` at that row and is left out.
+  ({List<String> header, List<(int, List<String>)> rows, int end}) _readTable(
+    List<String> lines,
+    int start,
+    int Function(int) lineOf,
+    String? sectionId,
+    List<DocSpecsViolation> v,
+  ) {
+    var end = start + 1;
+    while (end < lines.length && _tableLine.hasMatch(lines[end])) {
+      end++;
+    }
+    final header = _rowCells(lines[start]);
+    final delimiter = start + 1 < end ? _rowCells(lines[start + 1]) : null;
+    final delimiterOk =
+        delimiter != null && delimiter.every(_delimiterCell.hasMatch);
+    if (!delimiterOk || delimiter.length != header.length) {
+      v.add(
+        DocSpecsViolation(
+          rule: DocSpecsViolationRule.malformedBlock,
+          sectionId: sectionId,
+          line: lineOf(start),
+          message: delimiterOk
+              ? 'table whose delimiter row does not match its header'
+              : 'table without its delimiter row',
+        ),
+      );
+      return (header: header, rows: const [], end: end);
+    }
+    final rows = <(int, List<String>)>[];
+    for (var i = start + 2; i < end; i++) {
+      final cells = _rowCells(lines[i]);
+      if (cells.length != header.length) {
+        v.add(
+          DocSpecsViolation(
+            rule: DocSpecsViolationRule.malformedBlock,
+            sectionId: sectionId,
+            line: lineOf(i),
+            message:
+                'table row with ${cells.length} cells, the header has '
+                '${header.length}',
+          ),
+        );
+        continue;
+      }
+      rows.add((i, cells));
+    }
+    return (header: header, rows: rows, end: end);
+  }
+
+  /// Reads every section table of [node]'s body (header
+  /// `Section | TomSpecField | Value`): each row's `Section` cell names a
+  /// child — by its id relative to [node], a list item as `<LIST> / <ITEM>`,
+  /// an empty cell the row above's — and its `TomSpecField` / `Value` cells
+  /// become that child's form values. A child without a heading becomes a
+  /// virtual section; one whose id resolves to no type [allowed] under
+  /// [node] is `unknownSection` at the row, and its rows are skipped. The
+  /// table's lines are blanked.
+  void _expandSectionTables(
+    _Node node,
+    bool Function(DocSpecsSectionType) allowed,
+    List<DocSpecsViolation> v,
+  ) {
+    final body = node.body;
+    final fence = MarkdownFenceTracker();
+    for (var i = 0; i < body.length; i++) {
+      final line = body[i];
+      final h = fence.inFence
+          ? null
+          : SpecDocumentMarkdown.layoutTableHeader.firstMatch(line);
+      if (h == null || h.group(1) == null) {
+        fence.feed(line);
+        continue;
+      }
+      int lineOf(int k) => node.bodyStartLine + k;
+      final table = _readTable(body, i, lineOf, node.id, v);
+      _Node? target;
+      var skip = false;
+      for (final (k, cells) in table.rows) {
+        final cell = _cellId(cells[0]);
+        if (cell.isNotEmpty) {
+          target = _sectionTableTarget(node, cell, allowed, lineOf(k));
+          skip = target == null;
+          if (target == null) {
+            v.add(
+              DocSpecsViolation(
+                rule: DocSpecsViolationRule.unknownSection,
+                sectionId: cell,
+                line: lineOf(k),
+                message:
+                    'section-table row names no child section of '
+                    '"${node.id}"',
+              ),
+            );
+            continue;
+          }
+        } else if (skip) {
+          continue; // the rejected child's further rows
+        } else if (target == null) {
+          v.add(
+            DocSpecsViolation(
+              rule: DocSpecsViolationRule.unknownSection,
+              sectionId: node.id,
+              line: lineOf(k),
+              message: 'section-table row names no section',
+            ),
+          );
+          continue;
+        }
+        target.values.add((cells[1], _cellValue(cells[2]), lineOf(k)));
+      }
+      for (var k = i; k < table.end; k++) {
+        body[k] = '';
+      }
+      i = table.end - 1;
+    }
+  }
+
+  /// The child a section-table `Section` cell names under [node]: a child
+  /// section by its id, or `<LIST> / <ITEM>` — an item of a child list. A
+  /// child or item without a heading is created as a virtual section when
+  /// its id resolves to a type allowed where it stands; `null` otherwise.
+  _Node? _sectionTableTarget(
+    _Node node,
+    String cell,
+    bool Function(DocSpecsSectionType) allowed,
+    int line,
+  ) {
+    final parts = cell.split(RegExp(r'\s*/\s*'));
+    if (parts.length > 2) return null;
+    _Node? child(
+      _Node parent,
+      String id,
+      bool Function(DocSpecsSectionType) ok,
+    ) {
+      for (final c in parent.children) {
+        if (c.id == id) return c;
+      }
+      final t = schema.resolveSectionType(id);
+      if (t == null || !ok(t)) return null;
+      final created = _Node.virtual(id, line, null);
+      parent.children.add(created);
+      return created;
+    }
+
+    final first = child(node, parts[0], allowed);
+    if (parts.length == 1 || first == null) return first;
+    final listType = first.type ?? schema.resolveSectionType(parts[0]);
+    if (listType == null) return null;
+    return child(
+      first,
+      parts[1],
+      (t) => listType.subsectionTypes.containsKey(t.name),
+    );
+  }
+
+  static final RegExp _listDivOpen = RegExp(
+    r'^:{3,}\s*(?:\{\.(refs|records)\}|(refs|records))\s*$',
+  );
+  static final RegExp _divClose = RegExp(r'^:{3,}\s*$');
+
+  /// A list container's body: one `refs` div (a reference line) or one
+  /// `records` div (a record table) stands for its items when the container
+  /// has no item heading; the items become virtual sections of the
+  /// container's one subsection type, and the div's lines are blanked.
+  void _expandListBody(
+    _Node node,
+    DocSpecsSectionType type,
+    List<DocSpecsViolation> v,
+  ) {
+    final body = node.body;
+    final fence = MarkdownFenceTracker();
+    for (var i = 0; i < body.length; i++) {
+      final line = body[i];
+      final open = fence.inFence ? null : _listDivOpen.firstMatch(line);
+      if (open == null) {
+        fence.feed(line);
+        continue;
+      }
+      final kind = open.group(1) ?? open.group(2)!;
+      final at = node.bodyStartLine + i;
+      void reject(String message) => v.add(
+        DocSpecsViolation(
+          rule: DocSpecsViolationRule.malformedBlock,
+          sectionId: node.id,
+          line: at,
+          message: message,
+        ),
+      );
+      var close = -1;
+      for (var k = i + 1; k < body.length; k++) {
+        if (_divClose.hasMatch(body[k])) {
+          close = k;
+          break;
+        }
+      }
+      if (close < 0) {
+        reject('unclosed $kind fence'); // its lines stay text
+        return;
+      }
+      final besideText = [
+        for (var k = 0; k < body.length; k++)
+          if ((k < i || k > close) && body[k].trim().isNotEmpty) k,
+      ].isNotEmpty;
+      final hasItems = node.children.isNotEmpty;
+      final inner = body.sublist(i + 1, close);
+      for (var k = i; k <= close; k++) {
+        body[k] = '';
+      }
+      if (besideText || hasItems) {
+        reject(
+          'a $kind div beside ${hasItems ? 'item headings' : 'other text'} '
+          'in a list container',
+        );
+        return;
+      }
+      final itemType = type.subsectionTypes.length == 1
+          ? schema.sectionTypesByName[type.subsectionTypes.keys.single]
+          : null;
+      if (itemType == null) {
+        reject('a $kind div in a section that is not a list container');
+        return;
+      }
+      if (kind == 'refs') {
+        _refsItems(node, itemType, inner, at, reject);
+      } else {
+        _recordItems(node, itemType, inner, at, reject, v);
+      }
+      return;
+    }
+  }
+
+  /// The form an item of [itemType] holds its values in: the type's own form,
+  /// else the form of its one subsection type that has one (the item's
+  /// virtual child then carries the values). With [oneField], only forms of
+  /// exactly one field count.
+  (DocSpecsFormType, DocSpecsSectionType?)? _itemForm(
+    DocSpecsSectionType itemType, {
+    bool oneField = false,
+  }) {
+    bool fits(DocSpecsFormType? f) =>
+        f != null && (!oneField || f.fields.length == 1);
+    final own = schema.formTypes[itemType.format];
+    if (fits(own)) return (own!, null);
+    final candidates = <(DocSpecsFormType, DocSpecsSectionType?)>[];
+    for (final name in itemType.subsectionTypes.keys) {
+      final sub = schema.sectionTypesByName[name];
+      final f = sub == null ? null : schema.formTypes[sub.format];
+      if (fits(f)) candidates.add((f!, sub));
+    }
+    return candidates.length == 1 ? candidates.single : null;
+  }
+
+  /// A virtual item of [itemType] with id [id] at [line], added to [list];
+  /// returns the section its form values go to — the item itself, or its
+  /// virtual child of [childType] (id: the child type's name upper-cased).
+  _Node _addItem(
+    _Node list,
+    DocSpecsSectionType itemType,
+    DocSpecsSectionType? childType,
+    String id,
+    int line,
+  ) {
+    final item = _Node.virtual(id, line, itemType);
+    list.children.add(item);
+    if (childType == null) return item;
+    final child = _Node.virtual(childType.name.toUpperCase(), line, childType);
+    item.children.add(child);
+    return child;
+  }
+
+  /// A `refs` div: its text split on commas and whitespace into ids, a link
+  /// counting as its link text; item <n> gets the positional id (the
+  /// container's id with `-LST` replaced by `-<n>`, else `<id>-<n>`) and
+  /// the virtual body line `<Label>: <id>`.
+  void _refsItems(
+    _Node node,
+    DocSpecsSectionType itemType,
+    List<String> inner,
+    int at,
+    void Function(String) reject,
+  ) {
+    // Without a one-field form in the schema the reference is the item's
+    // virtual body line; nothing in the schema checks it further.
+    final target = _itemForm(itemType, oneField: true);
+    final ids = [
+      for (final token in inner.join(' ').split(RegExp(r'[,\s]+')))
+        if (token.isNotEmpty) _linkText.firstMatch(token)?.group(1) ?? token,
+    ];
+    final container = node.id!;
+    final stem = container.endsWith('-LST')
+        ? container.substring(0, container.length - 4)
+        : container;
+    for (var n = 1; n <= ids.length; n++) {
+      final holder = _addItem(node, itemType, target?.$2, '$stem-$n', at);
+      holder.values.add((target?.$1.fields.single.name ?? '', ids[n - 1], at));
+    }
+  }
+
+  /// A `records` div: one table, `Id` first, `Title` optionally second, then
+  /// field names of the item's form; each row one virtual item in row order.
+  void _recordItems(
+    _Node node,
+    DocSpecsSectionType itemType,
+    List<String> inner,
+    int at,
+    void Function(String) reject,
+    List<DocSpecsViolation> v,
+  ) {
+    int lineOf(int k) => at + 1 + k;
+    final start = inner.indexWhere((l) => l.trim().isNotEmpty);
+    if (start < 0 || !_tableLine.hasMatch(inner[start])) {
+      reject('a records div holding no table');
+      return;
+    }
+    final header = _rowCells(inner[start]);
+    if (header.first != 'Id') {
+      reject('a records table whose first column is not Id');
+      return;
+    }
+    // The item's form in the schema decides the columns; an item type the
+    // schema gives no form takes its columns as virtual body lines unchecked.
+    final target = _itemForm(itemType);
+    final withTitle = header.length > 1 && header[1] == 'Title';
+    final columns = <String>[];
+    for (final label in header.skip(withTitle ? 2 : 1)) {
+      final lower = label.toLowerCase();
+      final f = target == null
+          ? label
+          : target.$1.fields
+                .where((x) => x.name.toLowerCase() == lower)
+                .firstOrNull
+                ?.name;
+      if (f == null) {
+        v.add(
+          DocSpecsViolation(
+            rule: DocSpecsViolationRule.unknownField,
+            sectionId: node.id,
+            line: lineOf(start),
+            message: 'records column "$label" names no field of the items',
+          ),
+        );
+        return;
+      }
+      columns.add(f);
+    }
+    final table = _readTable(inner, start, lineOf, node.id, v);
+    for (final (k, cells) in table.rows) {
+      final holder = _addItem(
+        node,
+        itemType,
+        target?.$2,
+        _cellId(cells[0]),
+        lineOf(k),
+      );
+      for (var c = 0; c < columns.length; c++) {
+        final value = _cellValue(cells[(withTitle ? 2 : 1) + c]);
+        if (value.isEmpty) continue;
+        holder.values.add((columns[c], value, lineOf(k)));
+      }
+    }
+  }
+}
+
+/// A section as the validator walks it: a parsed [DocSpecsSection], or a
+/// virtual one rebuilt from a list body or a section table (the DocSpecs
+/// specification's *List Bodies*). The body is a copy, so blanking a table
+/// or div never touches the parsed document.
+class _Node {
+  _Node({required this.id, required this.line, required this.body, this.type});
+
+  /// The walk's view of a parsed section and its subtree.
+  factory _Node.of(DocSpecsSection s) =>
+      _Node(id: s.id, line: s.line, body: [...s.bodyLines])
+        ..children.addAll(s.children.map(_Node.of));
+
+  /// A virtual section at [line] (its row's or div's), with no body; [type]
+  /// set for a list item, whose type comes from the schema, not its id.
+  factory _Node.virtual(String id, int line, DocSpecsSectionType? type) =>
+      _Node(id: id, line: line, body: [], type: type);
+
+  final String? id;
+
+  /// The heading's line, or the row's or div's line of a virtual section.
+  final int line;
+
+  /// The own body lines; a list body or section table already read is blank.
+  final List<String> body;
+
+  /// The section-type of a virtual list item, given by the schema.
+  final DocSpecsSectionType? type;
+
+  final List<_Node> children = [];
+
+  /// Form values given by a table row or a list body: (label, value, line).
+  final List<(String, String, int)> values = [];
+
+  int get bodyStartLine => line + 1;
+
+  /// The trimmed body text (leading/trailing blank lines removed), after the
+  /// virtual body lines of [values] — the text the same section has in the
+  /// fields layout, where a section without a form in the schema carries its
+  /// values as `FieldName:` lines.
+  String get text {
+    final lines = [
+      for (final (label, value, _) in values)
+        label.isEmpty ? value : '$label: $value',
+      ...body,
+    ];
+    var start = 0;
+    var end = lines.length;
+    while (start < end && lines[start].trim().isEmpty) {
+      start++;
+    }
+    while (end > start && lines[end - 1].trim().isEmpty) {
+      end--;
+    }
+    return lines.sublist(start, end).join('\n');
   }
 }
 

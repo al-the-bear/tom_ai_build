@@ -329,10 +329,16 @@ final List<CorpusGuardedEnum> _guarded = [
     // TypeScript validators only so far; notation_cases.json exercises them
     // (`validatorCases`, and NotationFindingCode below, which they mirror
     // constant for constant) and the other seven runtimes join through the
-    // reading view's parity audit.
+    // reading view's parity audit. `rejectedBlock`, `unclosedDiv` (an
+    // unclosed `refs` fence), `malformedBlock` and `unknownField` are
+    // exercised here by the reading view's cases (`readingView: true`,
+    // 04a_rdv2), which those seven runners skip until the same audit ports
+    // them.
     waived: {
       for (final n in NotationFindingCode.values)
-        n.name: '05a_rdv4_akpu-runtime-parity-audit',
+        if (n != NotationFindingCode.rejectedBlock &&
+            n != NotationFindingCode.unclosedDiv)
+          n.name: '05a_rdv4_akpu-runtime-parity-audit',
     },
     why:
         'a §14 DocSpecs rule that eight runtimes need not implement — the '

@@ -1552,6 +1552,9 @@ function testDocSpecs(): void {
   _check('docspecs.rootSectionId', schema.rootSectionId === 'D00');
   const validator = new DocSpecsValidator(schema);
   const covered = new Set<string>();
+  // The reading view's cases (`readingView`: table forms, list bodies, styled-div
+  // headings) run here as in Dart; the other seven runners skip them until the
+  // parity audit (05a_rdv4) ports them.
   for (const c of _readJson('docspecs_cases.json')) {
     const got = validator
       .validateMarkdown(c.markdown)
