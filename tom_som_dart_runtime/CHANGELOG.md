@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- **Rejected blocks are kept for review** (SOM §11.7, DocSpecs RN-11):
+  `SpecDocument.applyMarkdownResult` with `allowRejections` (and so
+  `SpecDocument.fromMarkdown`) no longer drops a rejected block. It stands as a
+  `rejected` div (`reason`, `line`, `field` / `section` / `kept` where a
+  resolution needs them, `label`) in the text of the section it stood in, else
+  its parent, at its place; the parse result's new `keptContent` holds these
+  values, and an import refusing rejections never reads it. The validator
+  reports each div as `rejectedBlock`; a kept document re-imports clean.
 - The DocSpecs validator reads a `records` table's columns against the item
   type's own form only (the DocSpecs specification, *The record table*); an item
   type with no form of its own takes them as unchecked body lines. It no longer

@@ -584,7 +584,7 @@ function testMarkdownMemoryLanding(model: SpecModel): void {
 // One `markdown_apply_cases.json` case, run exactly as the Dart reference
 // does: `fromMarkdown` loads into a fresh document; `apply` loads `base`,
 // parses with the codec and applies — `refused` when the apply throws.
-function _runMarkdownApplyCase(model: SpecModel, c: any): any {
+function _runMarkdownApplyCase(model: SpecModel, c: any, schema: string | null = null): any {
   const markdown = c.markdown as string;
   if (c.op === 'fromMarkdown') {
     const imported = SpecDocument.fromMarkdown(markdown, model);
@@ -602,19 +602,33 @@ function _runMarkdownApplyCase(model: SpecModel, c: any): any {
   } catch (_) {
     refused = true;
   }
-  return {
+  const got: any = {
     refused,
     rejectionCount: parsed.rejections.length,
     document: document.toJson(),
   };
+  // 04a_rdv4: the validator reports every kept block as `rejectedBlock`
+  // (DocSpecs RN-11), with the document path it stands in.
+  if (c.readingView === true) {
+    got.rejectedBlocks = validateSpecDocument(
+      model,
+      document,
+      DocSpecsSchema.fromYamlText(schema as string),
+      'Demo',
+    )
+      .filter((v) => v.rule === DocSpecsViolationRule.REJECTED_BLOCK)
+      .map((v) => ({ line: v.line, path: v.path }));
+  }
+  return got;
 }
 
 // The one-call Markdown load and the full-overwrite apply (SOM §11.7): the
 // covered root is replaced, other roots kept, and a result with rejections is
 // refused unchanged unless explicitly allowed.
 function testMarkdownApply(model: SpecModel): void {
-  for (const c of _readJson('markdown_apply_cases.json').cases) {
-    const got = _runMarkdownApplyCase(model, c);
+  const table = _readJson('markdown_apply_cases.json');
+  for (const c of table.cases) {
+    const got = _runMarkdownApplyCase(model, c, table.schema ?? null);
     _check(
       `mdApply[${c.name}]`,
       _deepEqual(got, c.expect),

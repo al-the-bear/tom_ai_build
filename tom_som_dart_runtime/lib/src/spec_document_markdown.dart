@@ -143,10 +143,21 @@ class SpecMarkdownResult {
     this.headlines = const {},
     this.codeSpecs = const {},
     this.units = const {},
+    this.keptContent = const {},
   });
 
   /// Content/scalar/enum leaf values (and section body text): path → value.
   final Map<String, String> content;
+
+  /// The rejected blocks kept for review (SOM §11.7, DocSpecs RN-11): for
+  /// every path whose text a rejected block stood in, the value with each such
+  /// block written as a `rejected` div at its place. An import that accepts
+  /// rejections ([SpecDocument.applyMarkdownResult] with `allowRejections`)
+  /// writes these over [content], so nothing written is lost; one that refuses
+  /// them never reads it. An empty value removes the path's text: a list
+  /// container's lines that went into a block its parent holds. Empty for a
+  /// clean parse.
+  final Map<String, String> keptContent;
 
   /// Form values: form path → (field name → value).
   final Map<String, Map<String, String>> forms;
@@ -1341,6 +1352,7 @@ class SpecDocumentMarkdown {
       headlines: p.headlines,
       codeSpecs: p.codeSpecs,
       units: p.units,
+      keptContent: p.keptContent,
     );
   }
 
@@ -1458,6 +1470,141 @@ class _Frame {
   final int line;
   final bool ignored;
   final List<String> body = [];
+
+  /// Rejected blocks to keep in this frame's text (RN-11): the body index
+  /// they stand before, the block, and the end of the body lines it replaces
+  /// (the index itself when it replaces none).
+  final List<(int, _KeptBlock, int)> kept = [];
+
+  /// For an ignored frame: the blocks of its ignored children, kept after its
+  /// own block wherever that lands.
+  final List<_KeptBlock> deferred = [];
+}
+
+/// A rejected block an import that accepts rejections keeps for review
+/// (SOM §11.7, DocSpecs RN-11): the source lines it held and what its
+/// `rejected` div records for a resolution.
+class _KeptBlock {
+  _KeptBlock(this.rejection, this.lines, {this.field, this.section, this.kept});
+
+  final SpecMarkdownRejection rejection;
+
+  /// The source lines of the block, as written.
+  List<String> lines;
+
+  /// The field given twice, or the declared field a near-miss label names.
+  final String? field;
+
+  /// The child section a near-miss section-table cell names.
+  final String? section;
+
+  /// For a field given twice: the path of the form holding the kept value.
+  final String? kept;
+
+  static final RegExp _divOpen = RegExp(
+    r'^ {0,3}:{3,}[ \t]*(?:\{.*\}|[A-Za-z][A-Za-z0-9_-]*)[ \t]*$',
+  );
+  static final RegExp _divClose = RegExp(r'^ {0,3}:{3,}[ \t]*$');
+  static final RegExp _colons = RegExp(r'^ {0,3}(:{3,})');
+
+  /// The block as a `rejected` div: `reason`, `line`, then `field` /
+  /// `section` / `kept` where they apply, then `label` (the report's message,
+  /// its double quotes written as single ones). A fence the block does not
+  /// close, or closes without opening, would pair with the div's own fences,
+  /// so it is written escaped (`\:::`, RN-9); the div's fences are longer than
+  /// any fence inside it, for the eye (RN-7).
+  List<String> div() {
+    final inner = List<String>.of(lines);
+    while (inner.isNotEmpty && inner.first.trim().isEmpty) {
+      inner.removeAt(0);
+    }
+    while (inner.isNotEmpty && inner.last.trim().isEmpty) {
+      inner.removeLast();
+    }
+    final fence = MarkdownFenceTracker();
+    final open = <int>[];
+    final unpaired = <int>{};
+    for (var k = 0; k < inner.length; k++) {
+      final line = inner[k];
+      if (!fence.inFence) {
+        if (_divClose.hasMatch(line)) {
+          if (open.isEmpty) {
+            unpaired.add(k);
+          } else {
+            open.removeLast();
+          }
+        } else if (_divOpen.hasMatch(line)) {
+          open.add(k);
+        }
+      }
+      fence.feed(line);
+    }
+    unpaired.addAll(open);
+    var longest = 0;
+    for (var k = 0; k < inner.length; k++) {
+      if (unpaired.contains(k)) {
+        inner[k] = inner[k].replaceFirstMapped(
+          RegExp(r'^( {0,3}):'),
+          (m) => '${m.group(1)}\\:',
+        );
+        continue;
+      }
+      final run = _colons.firstMatch(inner[k])?.group(1)?.length ?? 0;
+      if (run > longest) longest = run;
+    }
+    final colons = ':' * (longest >= 3 ? longest + 1 : 3);
+    String q(String s) => s.replaceAll('"', "'");
+    final attributes = [
+      'reason="${rejection.reason.name}"',
+      'line="${rejection.line}"',
+      if (field != null) 'field="${q(field!)}"',
+      if (section != null) 'section="${q(section!)}"',
+      if (kept != null) 'kept="${q(kept!)}"',
+      'label="${q(rejection.message)}"',
+    ].join(' ');
+    return ['$colons {.rejected $attributes}', ...inner, colons];
+  }
+}
+
+/// Where the rejected blocks of one frame's body go (RN-11): each content
+/// line list of the frame and the divs written into it, by position.
+class _Keeper {
+  _Keeper(_Frame frame)
+    : _marks = [for (var s = 0; s < frame.kept.length; s++) (frame.kept[s], s)]
+        ..sort(
+          (a, b) => a.$1.$1 != b.$1.$1
+              ? a.$1.$1.compareTo(b.$1.$1)
+              : a.$2.compareTo(b.$2),
+        );
+
+  final List<((int, _KeptBlock, int), int)> _marks;
+  var _next = 0;
+  final _inserts = Map<List<String>, List<(int, List<String>)>>.identity();
+
+  /// Writes [b] into [into] at its current end.
+  void keep(List<String> into, _KeptBlock b) =>
+      _inserts.putIfAbsent(into, () => []).add((into.length, b.div()));
+
+  /// Writes the frame's blocks standing before body index [upTo] (all of
+  /// them for a large [upTo]) into [into].
+  void drain(int upTo, List<String> into) {
+    while (_next < _marks.length && _marks[_next].$1.$1 <= upTo) {
+      keep(into, _marks[_next].$1.$2);
+      _next++;
+    }
+  }
+
+  /// The value of [parts] with the kept divs written in, joined as the parts
+  /// are; null when no part holds one.
+  String? keptValue(List<List<String>> parts) {
+    if (!parts.any(_inserts.containsKey)) return null;
+    return [
+      for (final p in parts)
+        _Parser._restoreValue(
+          _inserts[p] == null ? p : _Parser._merge(p, _inserts[p]!),
+        ),
+    ].where((v) => v.isNotEmpty).join('\n\n');
+  }
 }
 
 /// Per-list bookkeeping while parsing: ordered item paths, stored ids, and the
@@ -1482,11 +1629,160 @@ class _Parser {
   final units = <String, String>{};
   final rejections = <SpecMarkdownRejection>[];
   final rootPrefixes = <String>{};
+  final keptContent = <String, String>{};
+
+  /// The source lines, for the text of a rejected block.
+  List<String> _lines = const [];
+
+  /// Blocks reported by [_reject] and not yet placed.
+  final List<_KeptBlock> _pending = [];
+
+  /// Text before the root heading, kept at the start of the root's text.
+  final List<_KeptBlock> _orphans = [];
+
+  /// Reports [r] and holds its block for an import that keeps rejected
+  /// blocks (RN-11): [lines] are the source lines it held, its own line by
+  /// default.
+  _KeptBlock _reject(
+    SpecMarkdownRejection r, {
+    List<String>? lines,
+    String? field,
+    String? section,
+    String? kept,
+  }) {
+    rejections.add(r);
+    final b = _KeptBlock(
+      r,
+      lines ?? [_lines[r.line - 1]],
+      field: field,
+      section: section,
+      kept: kept,
+    );
+    _pending.add(b);
+    return b;
+  }
+
+  /// The held blocks in source order, the hold emptied.
+  List<_KeptBlock> _takePending() {
+    final out = [for (var s = 0; s < _pending.length; s++) (_pending[s], s)]
+      ..sort(
+        (a, b) => a.$1.rejection.line != b.$1.rejection.line
+            ? a.$1.rejection.line.compareTo(b.$1.rejection.line)
+            : a.$2.compareTo(b.$2),
+      );
+    _pending.clear();
+    return [for (final (b, _) in out) b];
+  }
+
+  /// Places the held blocks before [frame]'s body index [at]; with
+  /// [replaceEnd] they take the place of the body lines up to it.
+  void _markPending(_Frame frame, int at, {int? replaceEnd}) {
+    for (final b in _takePending()) {
+      frame.kept.add((at, b, replaceEnd ?? at));
+    }
+  }
+
+  /// The declared name one edit (or only case and separators) away from
+  /// [label], when exactly one is: what a *Rename to* choice offers (RN-11).
+  static String? _nearMiss(String label, Iterable<String> names) {
+    String norm(String s) => s.toLowerCase().replaceAll(RegExp(r'[\s_-]'), '');
+    final hits = <String>{
+      for (final n in names)
+        if (n != label &&
+            (norm(n) == norm(label) ||
+                _oneEdit(n.toLowerCase(), label.toLowerCase())))
+          n,
+    };
+    return hits.length == 1 ? hits.single : null;
+  }
+
+  /// Whether [a] becomes [b] by at most one insertion, deletion or
+  /// substitution.
+  static bool _oneEdit(String a, String b) {
+    if ((a.length - b.length).abs() > 1) return false;
+    var i = 0;
+    var j = 0;
+    var edits = 0;
+    while (i < a.length && j < b.length) {
+      if (a[i] == b[j]) {
+        i++;
+        j++;
+        continue;
+      }
+      if (++edits > 1) return false;
+      if (a.length > b.length) {
+        i++;
+      } else if (b.length > a.length) {
+        j++;
+      } else {
+        i++;
+        j++;
+      }
+    }
+    return edits + (a.length - i) + (b.length - j) <= 1;
+  }
+
+  /// [part] with the divs of [ins] (position → div lines) written in at
+  /// their positions, a blank line between a div and the text around it; the
+  /// lines at [replaced] positions are left out (a div took their place).
+  static List<String> _merge(
+    List<String> part,
+    List<(int, List<String>)> ins, [
+    Set<int> replaced = const {},
+  ]) {
+    final out = <String>[];
+    var blankDue = false;
+    for (var k = 0; k <= part.length; k++) {
+      for (final (at, div) in ins) {
+        if (at != k) continue;
+        if (out.isNotEmpty && out.last.trim().isNotEmpty) out.add('');
+        out.addAll(div);
+        blankDue = true;
+      }
+      if (k == part.length || replaced.contains(k)) continue;
+      final line = part[k];
+      if (blankDue && line.trim().isNotEmpty) out.add('');
+      blankDue = false;
+      out.add(line);
+    }
+    return out;
+  }
+
+  /// Whether a frame of [node] passes its rejected blocks to its parent: a
+  /// list container, which holds no text, and a scalar or enum value, whose
+  /// text is a typed value (RN-11).
+  static bool _keptInParent(SomMetaNode? node) =>
+      node != null &&
+      (node.kind == SomMetaKind.list ||
+          node.kind == SomMetaKind.scalar ||
+          node.kind == SomMetaKind.enumValue);
+
+  /// An ignored frame's heading and body, with its ignored children's
+  /// blocks after it, go to the text of the nearest section above it that
+  /// was read, after that section's own text (RN-11); with none above (an
+  /// unknown root) nothing holds them and only the report remains.
+  void _keepIgnored(_Frame frame) {
+    final own = rejections.where((r) => r.line == frame.line).lastOrNull;
+    final blocks = [
+      if (own != null) _KeptBlock(own, [_lines[frame.line - 1], ...frame.body]),
+      ...frame.deferred,
+    ];
+    if (_stack.isEmpty || blocks.isEmpty) return;
+    final parent = _stack.last;
+    if (parent.ignored) {
+      parent.deferred.addAll(blocks);
+      return;
+    }
+    for (final b in blocks) {
+      parent.kept.add((parent.body.length, b, parent.body.length));
+    }
+  }
 
   final List<_Frame> _stack = [];
   final _fence = MarkdownFenceTracker();
 
   void run(List<String> lines) {
+    _lines = lines;
     for (var i = 0; i < lines.length; i++) {
       final raw = lines[i];
       final lineNo = i + 1;
@@ -1507,13 +1803,13 @@ class _Parser {
       if (_stack.isNotEmpty) {
         _stack.last.body.add(raw);
       } else if (trimmed.isNotEmpty) {
-        rejections.add(
-          SpecMarkdownRejection(
-            line: lineNo,
-            reason: SpecMarkdownRejectReason.orphanContent,
-            message: 'text before the document root heading',
-          ),
+        final r = SpecMarkdownRejection(
+          line: lineNo,
+          reason: SpecMarkdownRejectReason.orphanContent,
+          message: 'text before the document root heading',
         );
+        rejections.add(r);
+        _orphans.add(_KeptBlock(r, [raw]));
       }
       _fence.feed(raw);
     }
@@ -1733,9 +2029,18 @@ class _Parser {
         if (codeSpec.isNotEmpty) codeSpecs[seg] = codeSpec;
         // SOM §11.2: `units` is staged exactly like codeSpec.
         if (unitIds.isNotEmpty) units[seg] = unitIds;
-        _stack.add(
-          _Frame(level: level, node: tree.root, path: seg, line: lineNo),
+        final frame = _Frame(
+          level: level,
+          node: tree.root,
+          path: seg,
+          line: lineNo,
         );
+        // Text before the root heading is kept at the start of its text.
+        for (final b in _orphans) {
+          frame.kept.add((0, b, 0));
+        }
+        _orphans.clear();
+        _stack.add(frame);
         return;
       }
     }
@@ -1802,7 +2107,10 @@ class _Parser {
   // --- Body finalisation ----------------------------------------------------
 
   void _finalize(_Frame frame) {
-    if (frame.ignored) return;
+    if (frame.ignored) {
+      _keepIgnored(frame);
+      return;
+    }
     final node = frame.node;
     if (node != null && node.kind == SomMetaKind.form) {
       _finalizeForm(frame, node, frame.path);
@@ -1820,6 +2128,30 @@ class _Parser {
         : codec._bodySlots(node);
     if (slots.isEmpty) {
       final value = _restoreValue(frame.body);
+      if (frame.kept.isNotEmpty) {
+        final replaced = {
+          for (final (at, _, end) in frame.kept)
+            for (var k = at; k < end; k++) k,
+        };
+        final parent = _stack.lastOrNull;
+        if (_keptInParent(node) && parent != null) {
+          // A list container (no text of its own, SOM §11.5) or a typed value
+          // has no place for a block: its parent takes them, after its own
+          // text (RN-11); the lines they replace leave this frame's text.
+          final own = _restoreValue(_merge(frame.body, const [], replaced));
+          if (own != value) keptContent[frame.path] = own;
+          for (final (_, b, _) in frame.kept) {
+            parent.kept.add((parent.body.length, b, parent.body.length));
+          }
+        } else {
+          final kept = _restoreValue(
+            _merge(frame.body, [
+              for (final (at, b, _) in frame.kept) (at, b.div()),
+            ], replaced),
+          );
+          if (kept.isNotEmpty) keptContent[frame.path] = kept;
+        }
+      }
       if (value.isNotEmpty) {
         content[frame.path] = value;
       } else if (node != null && _isValueLeaf(node.kind)) {
@@ -1894,7 +2226,7 @@ class _Parser {
     if (delimiter == null ||
         delimiter.length != header.length ||
         !delimiter.every(_delimiterCell.hasMatch)) {
-      rejections.add(
+      _reject(
         SpecMarkdownRejection(
           line: lineOf(start),
           reason: SpecMarkdownRejectReason.malformedBlock,
@@ -1904,6 +2236,7 @@ class _Parser {
               ? 'table without its delimiter row'
               : 'table whose delimiter row does not match its header',
         ),
+        lines: lines.sublist(start, end),
       );
       return (header: header, rows: const [], end: end);
     }
@@ -1911,7 +2244,7 @@ class _Parser {
     for (var i = start + 2; i < end; i++) {
       final cells = _rowCells(lines[i]);
       if (cells.length != header.length) {
-        rejections.add(
+        _reject(
           SpecMarkdownRejection(
             line: lineOf(i),
             reason: SpecMarkdownRejectReason.malformedBlock,
@@ -1920,6 +2253,7 @@ class _Parser {
                 'table row with ${cells.length} cells, the header has '
                 '${header.length}',
           ),
+          lines: [lines[i]],
         );
         continue;
       }
@@ -1954,17 +2288,20 @@ class _Parser {
 
   /// Whether [field] of the form at [formPath] was given before; reports the
   /// repeat (`malformedBlock`, the first occurrence kept) when it was, and
-  /// records it otherwise.
+  /// records it otherwise. The repeat's held block names the field and the
+  /// form holding the kept value (RN-11).
   bool _givenTwice(String formPath, String field, int line) {
     final given = _given.putIfAbsent(formPath, () => {});
     if (given.add(field)) return false;
-    rejections.add(
+    _reject(
       SpecMarkdownRejection(
         line: line,
         reason: SpecMarkdownRejectReason.malformedBlock,
         anchor: formPath,
         message: 'field "$field" given twice',
       ),
+      field: field,
+      kept: formPath,
     );
     return true;
   }
@@ -1982,13 +2319,14 @@ class _Parser {
     final lower = label.toLowerCase();
     final f = fields.where((x) => x.name.toLowerCase() == lower).firstOrNull;
     if (f == null) {
-      rejections.add(
+      _reject(
         SpecMarkdownRejection(
           line: line,
           reason: SpecMarkdownRejectReason.unknownField,
           anchor: formPath,
           message: 'row "$label" names no field of this form',
         ),
+        field: _nearMiss(label, [for (final x in fields) x.name]),
       );
       return;
     }
@@ -2024,14 +2362,19 @@ class _Parser {
       String? formPath;
       List<SomFormFieldMeta>? fields;
       var skip = false;
+      // The rejected section's block: its row and the rows continuing it.
+      _KeptBlock? skipped;
       for (final (k, cells) in table.rows) {
         final section = _cellId(cells[0]);
-        if (section.isEmpty && skip) continue; // the rejected section's rows
+        if (section.isEmpty && skip) {
+          skipped?.lines.add(body[k]); // the rejected section's rows
+          continue;
+        }
         if (section.isNotEmpty) {
           final target = _sectionTableTarget(frame, node, section);
           skip = target == null;
           if (target == null) {
-            rejections.add(
+            skipped = _reject(
               SpecMarkdownRejection(
                 line: _bodyLine(frame, k),
                 reason: SpecMarkdownRejectReason.unknownSection,
@@ -2040,18 +2383,21 @@ class _Parser {
                     'section-table row names no child section of '
                     '"${frame.path}"',
               ),
+              lines: [body[k]],
+              section: _nearSection(node, section),
             );
             continue;
           }
           (formPath, fields) = target;
         } else if (formPath == null) {
-          rejections.add(
+          _reject(
             SpecMarkdownRejection(
               line: _bodyLine(frame, k),
               reason: SpecMarkdownRejectReason.unknownSection,
               anchor: frame.path,
               message: 'section-table row names no section',
             ),
+            lines: [body[k]],
           );
           continue;
         }
@@ -2061,8 +2407,30 @@ class _Parser {
       for (var k = i; k < table.end; k++) {
         body[k] = '';
       }
+      // What the table rejected is kept where the table stood.
+      _markPending(frame, i);
       i = table.end - 1;
     }
+  }
+
+  /// The child a section-table `Section` cell naming none is a near miss of
+  /// (RN-11): a child form section's id, or `<LIST> / <ITEM>` with a near
+  /// list id.
+  String? _nearSection(SomMetaNode node, String section) {
+    final parts = section.split(RegExp(r'\s*/\s*'));
+    final children = codec._effectiveChildren(node);
+    if (parts.length == 1) {
+      return _nearMiss(section, [
+        for (final (c, _) in children)
+          if (c.kind == SomMetaKind.form) codec._headingIdOf(c),
+      ]);
+    }
+    if (parts.length != 2) return null;
+    final list = _nearMiss(parts[0], [
+      for (final (c, _) in children)
+        if (c.kind == SomMetaKind.list) codec._headingIdOf(c),
+    ]);
+    return list == null ? null : '$list / ${parts[1]}';
   }
 
   /// The form a section-table `Section` cell names under [node]: a child form
@@ -2149,19 +2517,31 @@ class _Parser {
           break;
         }
       }
-      void reject(SpecMarkdownRejectReason reason, String message) =>
-          rejections.add(
-            SpecMarkdownRejection(
-              line: _bodyLine(frame, i),
-              reason: reason,
-              anchor: frame.path,
-              message: message,
-            ),
-          );
+      void reject(
+        SpecMarkdownRejectReason reason,
+        String message,
+        List<String> lines,
+      ) => _reject(
+        SpecMarkdownRejection(
+          line: _bodyLine(frame, i),
+          reason: reason,
+          anchor: frame.path,
+          message: message,
+        ),
+        lines: lines,
+      );
       if (close < 0) {
-        reject(SpecMarkdownRejectReason.malformedBlock, 'unclosed $kind fence');
+        // The fence's lines read as text; kept, they are the rejected div
+        // (the container's parent holds it, see _finalize).
+        reject(
+          SpecMarkdownRejectReason.malformedBlock,
+          'unclosed $kind fence',
+          body.sublist(i),
+        );
+        _markPending(frame, i, replaceEnd: body.length);
         return;
       }
+      final divLines = body.sublist(i, close + 1);
       final besideText = [
         for (var k = 0; k < body.length; k++)
           if ((k < i || k > close) && body[k].trim().isNotEmpty) k,
@@ -2172,21 +2552,25 @@ class _Parser {
           SpecMarkdownRejectReason.malformedBlock,
           'a $kind div beside ${hasItems ? 'item headings' : 'other text'} '
           'in a list container',
+          divLines,
         );
         for (var k = i; k <= close; k++) {
           body[k] = '';
         }
+        _markPending(frame, close + 1);
         return;
       }
       final inner = body.sublist(i + 1, close);
       if (kind == 'refs') {
-        _stageReferenceLine(frame, listNode, inner, i);
+        _stageReferenceLine(frame, listNode, inner, i, divLines);
       } else {
-        _stageRecordTable(frame, listNode, inner, i);
+        _stageRecordTable(frame, listNode, inner, i, divLines);
       }
       for (var k = i; k <= close; k++) {
         body[k] = '';
       }
+      // What the div rejected is kept after it.
+      _markPending(frame, close + 1);
       return;
     }
   }
@@ -2217,17 +2601,19 @@ class _Parser {
     SomMetaNode listNode,
     List<String> inner,
     int at,
+    List<String> divLines,
   ) {
     final element = listNode.elementNode;
     final ref = element == null ? null : _referenceField(element);
     if (ref == null) {
-      rejections.add(
+      _reject(
         SpecMarkdownRejection(
           line: _bodyLine(frame, at),
           reason: SpecMarkdownRejectReason.malformedBlock,
           anchor: frame.path,
           message: 'a refs div in a list whose items are not references',
         ),
+        lines: divLines,
       );
       return;
     }
@@ -2236,13 +2622,14 @@ class _Parser {
         if (token.isNotEmpty) _linkText.firstMatch(token)?.group(1) ?? token,
     ];
     if (ids.isEmpty) {
-      rejections.add(
+      _reject(
         SpecMarkdownRejection(
           line: _bodyLine(frame, at),
           reason: SpecMarkdownRejectReason.missingValue,
           anchor: frame.path,
           message: 'an empty refs div',
         ),
+        lines: divLines,
       );
       return;
     }
@@ -2280,15 +2667,17 @@ class _Parser {
     SomMetaNode listNode,
     List<String> inner,
     int at,
+    List<String> divLines,
   ) {
     int lineOf(int k) => _bodyLine(frame, at + 1 + k);
-    void reject(String message) => rejections.add(
+    void reject(String message) => _reject(
       SpecMarkdownRejection(
         line: _bodyLine(frame, at),
         reason: SpecMarkdownRejectReason.malformedBlock,
         anchor: frame.path,
         message: message,
       ),
+      lines: divLines,
     );
     final start = inner.indexWhere((l) => l.trim().isNotEmpty);
     if (start < 0 || !_tableLine.hasMatch(inner[start])) {
@@ -2313,13 +2702,16 @@ class _Parser {
       final lower = label.toLowerCase();
       final f = fields.where((x) => x.name.toLowerCase() == lower).firstOrNull;
       if (f == null) {
-        rejections.add(
+        // The table is skipped whole, so the whole div is kept.
+        _reject(
           SpecMarkdownRejection(
             line: lineOf(start),
             reason: SpecMarkdownRejectReason.unknownField,
             anchor: frame.path,
             message: 'records column "$label" names no field of the items',
           ),
+          lines: divLines,
+          field: _nearMiss(label, [for (final x in fields) x.name]),
         );
         return;
       }
@@ -2400,6 +2792,12 @@ class _Parser {
     var contentTarget = pathOf(defaultRel);
     var contentLines = <String>[];
     textParts.putIfAbsent(contentTarget, () => []).add(contentLines);
+    // Rejected blocks go to the unlabelled text at their place (RN-11); a
+    // field given twice is kept whole, its label line and continuation.
+    final keeper = _Keeper(frame);
+    _KeptBlock? discarded;
+    var discardStart = 0;
+    var at = 0;
 
     void flush() {
       final field = currentField;
@@ -2411,6 +2809,12 @@ class _Parser {
           forms.putIfAbsent(formPath, () => {})[field] = value;
         }
       }
+      final d = discarded;
+      if (discard && d != null) {
+        d.lines = frame.body.sublist(discardStart, at);
+        keeper.keep(contentLines, d);
+        discarded = null;
+      }
       currentLines = <String>[];
       discard = false;
     }
@@ -2418,6 +2822,8 @@ class _Parser {
     _currentFormIdx = 0;
     for (var i = 0; i < frame.body.length; i++) {
       final line = frame.body[i];
+      at = i;
+      keeper.drain(i, contentLines);
       if (!fence.inFence) {
         final marker = _slotMarker.firstMatch(line);
         if (marker != null) {
@@ -2454,13 +2860,20 @@ class _Parser {
           for (final (k, cells) in table.rows) {
             final hit = findField(cells[0]);
             if (hit == null) {
-              rejections.add(
+              _reject(
                 SpecMarkdownRejection(
                   line: _bodyLine(frame, k),
                   reason: SpecMarkdownRejectReason.unknownField,
                   anchor: frame.path,
                   message: 'row "${cells[0]}" names no field of this form',
                 ),
+                lines: [frame.body[k]],
+                field: _nearMiss(cells[0], [
+                  for (final (slot, _) in formSlots)
+                    for (final f
+                        in slot.form?.fields ?? const <SomFormFieldMeta>[])
+                      f.name,
+                ]),
               );
               continue;
             }
@@ -2472,6 +2885,10 @@ class _Parser {
               cells[1],
               _bodyLine(frame, k),
             );
+          }
+          // What the table rejected is kept where the table stood.
+          for (final b in _takePending()) {
+            keeper.keep(contentLines, b);
           }
           i = table.end - 1;
           continue;
@@ -2490,6 +2907,10 @@ class _Parser {
               currentField,
               _bodyLine(frame, i),
             );
+            if (discard) {
+              discarded = _pending.removeLast();
+              discardStart = i;
+            }
             currentLines = [m.group(2)!];
             fence.feed(line);
             continue;
@@ -2508,12 +2929,16 @@ class _Parser {
       );
       fence.feed(line);
     }
+    at = frame.body.length;
     flush();
+    keeper.drain(at, contentLines);
     for (final e in textParts.entries) {
       final value = [
         for (final part in e.value) _restoreValue(part),
       ].where((v) => v.isNotEmpty).join('\n\n');
       if (value.isNotEmpty) content[e.key] = value;
+      final kept = keeper.keptValue(e.value);
+      if (kept != null && kept.isNotEmpty) keptContent[e.key] = kept;
     }
   }
 
@@ -2540,6 +2965,11 @@ class _Parser {
     // The preamble's parts: the text before the first field, and text a table
     // interrupts; joined by one blank line.
     final preambleParts = <List<String>>[<String>[]];
+    // Rejected blocks go to the preamble at their place (RN-11).
+    final keeper = _Keeper(frame);
+    _KeptBlock? discarded;
+    var discardStart = 0;
+    var at = 0;
 
     void flush() {
       final f = currentField;
@@ -2550,12 +2980,20 @@ class _Parser {
           forms.putIfAbsent(path, () => {})[f.name] = value;
         }
       }
+      final d = discarded;
+      if (discard && d != null) {
+        d.lines = frame.body.sublist(discardStart, at);
+        keeper.keep(preambleParts.last, d);
+        discarded = null;
+      }
       currentLines = <String>[];
       discard = false;
     }
 
     for (var i = 0; i < frame.body.length; i++) {
       final line = frame.body[i];
+      at = i;
+      keeper.drain(i, preambleParts.last);
       if (!fence.inFence) {
         final header = SpecDocumentMarkdown.layoutTableHeader.firstMatch(line);
         if (header != null && header.group(1) == null) {
@@ -2571,6 +3009,9 @@ class _Parser {
           for (final (k, cells) in table.rows) {
             _stageRow(path, declared, cells[0], cells[1], _bodyLine(frame, k));
           }
+          for (final b in _takePending()) {
+            keeper.keep(preambleParts.last, b);
+          }
           i = table.end - 1;
           continue;
         }
@@ -2582,6 +3023,10 @@ class _Parser {
           flush();
           currentField = field;
           discard = _givenTwice(path, field.name, _bodyLine(frame, i));
+          if (discard) {
+            discarded = _pending.removeLast();
+            discardStart = i;
+          }
           currentLines = [m!.group(2)!];
           fence.feed(line);
           continue;
@@ -2595,11 +3040,15 @@ class _Parser {
       );
       fence.feed(line);
     }
+    at = frame.body.length;
     flush();
+    keeper.drain(at, preambleParts.last);
     final value = [
       for (final part in preambleParts) _restoreValue(part),
     ].where((v) => v.isNotEmpty).join('\n\n');
     if (value.isNotEmpty) content[path] = value;
+    final kept = keeper.keptValue(preambleParts);
+    if (kept != null && kept.isNotEmpty) keptContent[path] = kept;
   }
 
   /// The inverse of the emitter's code span (SOM §11.4 rule 8):

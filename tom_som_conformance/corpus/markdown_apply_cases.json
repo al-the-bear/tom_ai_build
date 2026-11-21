@@ -1,4 +1,5 @@
 {
+  "schema": "title-format: \"# <!--[DEMO]--> Demo Document\"\nsection-types:\n  ttl:\n    prefix: TTL\n  item:\n    prefix: items_\n    subsection-types:\n      sts:\n        max-count: 1\n  items:\n    prefix: items\n    subsection-types:\n      item:\n        min-count: 1\n        max-count: infinite\n  sts:\n    prefix: STS\n    max-text-length: 4\ndocument:\n  sections:\n    ttl:\n      section-type: ttl\n      optional: true\n    items:\n      section-type: items\n      optional: true\n",
   "cases": [
     {
       "name": "fromMarkdown loads the golden into a fresh document",
@@ -460,7 +461,8 @@
       }
     },
     {
-      "name": "apply with allowRejections lands every accepted block",
+      "name": "apply with allowRejections lands every accepted block and keeps an unknown section as a rejected div in its parent",
+      "readingView": true,
       "op": "apply",
       "base": {
         "content": {
@@ -497,6 +499,7 @@
         "rejectionCount": 1,
         "document": {
           "content": {
+            "DEMO": "::: {.rejected reason=\"unknownSection\" line=\"196\" label=\"section id does not resolve against the schema tree at this position (under 'DEMO')\"}\n## <!--[NOPE]--> Not A Section\n\nText with no home.\n:::",
             "DEMO/CNT": "3",
             "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
             "DEMO/META/OWNR": "alice",
@@ -669,7 +672,13 @@
             "DEMO/notes": "demo_client,demo_server",
             "OTHER/kept": "kept_unit"
           }
-        }
+        },
+        "rejectedBlocks": [
+          {
+            "line": 4,
+            "path": "DEMO"
+          }
+        ]
       }
     },
     {
@@ -917,11 +926,12 @@
             "DEMO/TTL": "stale_unit",
             "OTHER/kept": "kept_unit"
           }
-        }
+        },
+        "rejectedBlocks": []
       }
     },
     {
-      "name": "apply with allowRejections lands a tables result",
+      "name": "apply with allowRejections lands a tables result and keeps the row naming no field as a rejected div",
       "readingView": true,
       "op": "apply",
       "base": {
@@ -959,6 +969,1936 @@
         "rejectionCount": 1,
         "document": {
           "content": {
+            "DEMO/CNT": "3",
+            "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.\n\n::: {.rejected reason=\"unknownField\" line=\"30\" label=\"row 'Colour' names no field of this form\"}\n| Colour | red |\n:::",
+            "DEMO/META/OWNR": "alice",
+            "DEMO/META/tags-1": "on",
+            "DEMO/META/tags-2": "no",
+            "DEMO/META/tags-3": "1:30",
+            "DEMO/META/tags-4": "plain",
+            "DEMO/MIX/content": "_Extrapolated._",
+            "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/PRI": "high",
+            "DEMO/REF-LST-1": "spec §1.2",
+            "DEMO/REF-LST-2": "ADR7",
+            "DEMO/SUM": "Line one\nLine two\n\nLine four",
+            "DEMO/TTL": "Hello",
+            "DEMO/control/CTRL-SUM": "Controlled summary",
+            "DEMO/control/owner": "ctrl-owner",
+            "DEMO/items-1/STS": "open",
+            "DEMO/items-1/label": "First",
+            "DEMO/items-2/STS": "done",
+            "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+            "DEMO/notes/NOTE-BDY": "Section-kind body",
+            "DEMO/notes/remarks": "Wrapper-section text",
+            "OTHER/kept": "another root"
+          },
+          "forms": {
+            "DEMO/CARD-LST-1/content": {
+              "note": "first card"
+            },
+            "DEMO/CARD-LST-2/content": {
+              "note": "second card"
+            },
+            "DEMO/DET": {
+              "active": "true",
+              "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+              "estimate": "8",
+              "owner": "Bob",
+              "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
+              "priority": "high",
+              "weight": "2.5"
+            },
+            "DEMO/DLV-LST-1/DLR-LST-1/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-1/content": {
+              "component": "ARCM-COMP-UI",
+              "kind": "client",
+              "unitId": "demo_client"
+            },
+            "DEMO/DLV-LST-2/DLE-LST-1/content": {
+              "emitter": "openapi"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-1/content": {
+              "area": "CE-DB",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-2/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/content": {
+              "deploymentTarget": "DEPTAR-DEPL-API",
+              "kind": "server",
+              "unitId": "demo_server"
+            },
+            "DEMO/MIX/alt": {
+              "lead": "Bob"
+            },
+            "DEMO/MIX/content": {
+              "lead": "Ada",
+              "risk": "low"
+            }
+          },
+          "lists": {
+            "DEMO/CARD-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/CARD-LST-1",
+                "DEMO/CARD-LST-2"
+              ],
+              "ids": {
+                "DEMO/CARD-LST-1": "CARD-ALPHA",
+                "DEMO/CARD-LST-2": "CARD-2"
+              }
+            },
+            "DEMO/DLV-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-1",
+                "DEMO/DLV-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1": "DLV-1",
+                "DEMO/DLV-LST-2": "DLV-2"
+              }
+            },
+            "DEMO/DLV-LST-1/DLR-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-1/DLR-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLE-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-2/DLE-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLE-LST-1": "DLE-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLR-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-2/DLR-LST-1",
+                "DEMO/DLV-LST-2/DLR-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1",
+                "DEMO/DLV-LST-2/DLR-LST-2": "DLR-2"
+              }
+            },
+            "DEMO/META/tags": {
+              "seq": 4,
+              "items": [
+                "DEMO/META/tags-1",
+                "DEMO/META/tags-2",
+                "DEMO/META/tags-3",
+                "DEMO/META/tags-4"
+              ]
+            },
+            "DEMO/REF-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/REF-LST-1",
+                "DEMO/REF-LST-2"
+              ],
+              "ids": {
+                "DEMO/REF-LST-1": "REF-SPEC",
+                "DEMO/REF-LST-2": "REF-2"
+              }
+            },
+            "DEMO/items": {
+              "seq": 2,
+              "items": [
+                "DEMO/items-1",
+                "DEMO/items-2"
+              ]
+            }
+          },
+          "headlines": {
+            "DEMO/CARD-LST-1": "Alpha Card",
+            "DEMO/DET": "Details & Contacts",
+            "DEMO/MIX": "Mixed\nslots",
+            "DEMO/REF-LST-1": "Reference to the Spec",
+            "DEMO/SUM": "Executive Summary",
+            "DEMO/items": "Work Items",
+            "OTHER/kept": "Kept headline"
+          },
+          "codeSpecs": {
+            "DEMO/TTL": "DemoTitle",
+            "OTHER/kept": "kept.dart"
+          },
+          "units": {
+            "DEMO/TTL": "demo_server",
+            "DEMO/notes": "demo_client,demo_server",
+            "OTHER/kept": "kept_unit"
+          }
+        },
+        "rejectedBlocks": [
+          {
+            "line": 28,
+            "path": "DEMO/DET"
+          }
+        ]
+      }
+    },
+    {
+      "name": "apply with allowRejections keeps a row one edit from a field, naming the field",
+      "readingView": true,
+      "op": "apply",
+      "base": {
+        "content": {
+          "DEMO/TTL": "stale title",
+          "DEMO/stale": "not in the import",
+          "OTHER/kept": "another root"
+        },
+        "headlines": {
+          "DEMO/SUM": "Stale headline",
+          "OTHER/kept": "Kept headline"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "stale.dart",
+          "OTHER/kept": "kept.dart"
+        },
+        "units": {
+          "DEMO/TTL": "stale_unit",
+          "DEMO/SUM": "stale_unit",
+          "OTHER/kept": "kept_unit"
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 9,
+            "items": [
+              "DEMO/CARD-LST-9"
+            ]
+          }
+        }
+      },
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> <a id=\"DEMO\"></a> Demo Document\n\n## <!--[TTL] codeSpec=\"DemoTitle\" units=\"demo_server\"--> <a id=\"TTL\"></a> Document Title\n\nHello\n\n## <!--[SUM]--> <a id=\"SUM\"></a> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> <a id=\"PRI\"></a> Priority\n\nhigh\n\n## <!--[CNT]--> <a id=\"CNT\"></a> Count\n\n3\n\n## <!--[DET]--> <a id=\"DET\"></a> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | Bob |\n| Ownr | Carol |\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\n| TomSpecField | Value |\n| --- | --- |\n| Estimate | 8 |\n| Weight | 2.5 |\n| Active | true |\n| Priority | high |\n| Pattern | `^[a-z0-9](-?[a-z0-9]){1,62}$` |\n\n## <!--[items]--> <a id=\"items\"></a> Work Items\n\n### <!--[items-1]--> <a id=\"items-1\"></a> Task 1\n\nFirst\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\nopen\n\n### <!--[items-2]--> <a id=\"items-2\"></a> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\ndone\n\n## <!--[REF-LST]--> <a id=\"REF-LST\"></a> Refs\n\n### <!--[REF-SPEC]--> <a id=\"REF-SPEC\"></a> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> <a id=\"REF-2\"></a> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> <a id=\"CARD-LST\"></a> Cards\n\n::: {.records}\n| Id | Title | Note |\n| --- | --- | --- |\n| <a id=\"CARD-ALPHA\"></a>CARD-ALPHA | Alpha Card | first card |\n| <a id=\"CARD-2\"></a>CARD-2 |  | second card |\n:::\n\n## <!--[META]--> <a id=\"META\"></a> Meta\n\n### <!--[OWNR]--> <a id=\"OWNR\"></a> Owner\n\nalice\n\n### <!--[tags]--> <a id=\"tags\"></a> Tags\n\n#### <!--[tags-1]--> <a id=\"tags-1\"></a> Tags 1\n\non\n\n#### <!--[tags-2]--> <a id=\"tags-2\"></a> Tags 2\n\nno\n\n#### <!--[tags-3]--> <a id=\"tags-3\"></a> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> <a id=\"tags-4\"></a> Tags 4\n\nplain\n\n## <!--[CTRL]--> <a id=\"CTRL\"></a> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> <a id=\"CTRL-SUM\"></a> Summary\n\nControlled summary\n\n## <!--[NOTE] units=\"demo_client,demo_server\"--> <a id=\"NOTE\"></a> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> <a id=\"NOTE-BDY\"></a> Body\n\nSection-kind body\n\n## <!--[MIX]--> <a id=\"MIX\"></a> Mixed<br>slots\n\n<!-- slot: content -->\n\n_Extrapolated._\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Ada |\n| Risk | low |\n\n<!-- slot: narrative -->\n\nFirst narrative.\n\n\nAfter two blank lines.\n Lead: label-shaped prose\n\n<!-- slot: tail -->\n\nTail text.\n\n<!-- slot: alt -->\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Bob |\n\n## <!--[DLV-LST]--> <a id=\"DLV-LST\"></a> Deliverables\n\n### <!--[DLV-1]--> <a id=\"DLV-1\"></a> Deliverable 1\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_client |\n| Kind | client |\n| Component | ARCM-COMP-UI |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-NV |\n|  | Mapping | dart-tom |\n\n### <!--[DLV-2]--> <a id=\"DLV-2\"></a> Deliverable 2\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_server |\n| Kind | server |\n| DeploymentTarget | DEPTAR-DEPL-API |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-DB |\n|  | Mapping | dart-tom |\n| <a id=\"DLR-2\"></a>DLR-LST / DLR-2 | Area | CE-NV |\n|  | Mapping | dart-tom |\n| <a id=\"DLE-1\"></a>DLE-LST / DLE-1 | Emitter | openapi |\n\n",
+      "allowRejections": true,
+      "expect": {
+        "refused": false,
+        "rejectionCount": 1,
+        "document": {
+          "content": {
+            "DEMO/CNT": "3",
+            "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.\n\n::: {.rejected reason=\"unknownField\" line=\"31\" field=\"owner\" label=\"row 'Ownr' names no field of this form\"}\n| Ownr | Carol |\n:::",
+            "DEMO/META/OWNR": "alice",
+            "DEMO/META/tags-1": "on",
+            "DEMO/META/tags-2": "no",
+            "DEMO/META/tags-3": "1:30",
+            "DEMO/META/tags-4": "plain",
+            "DEMO/MIX/content": "_Extrapolated._",
+            "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/PRI": "high",
+            "DEMO/REF-LST-1": "spec §1.2",
+            "DEMO/REF-LST-2": "ADR7",
+            "DEMO/SUM": "Line one\nLine two\n\nLine four",
+            "DEMO/TTL": "Hello",
+            "DEMO/control/CTRL-SUM": "Controlled summary",
+            "DEMO/control/owner": "ctrl-owner",
+            "DEMO/items-1/STS": "open",
+            "DEMO/items-1/label": "First",
+            "DEMO/items-2/STS": "done",
+            "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+            "DEMO/notes/NOTE-BDY": "Section-kind body",
+            "DEMO/notes/remarks": "Wrapper-section text",
+            "OTHER/kept": "another root"
+          },
+          "forms": {
+            "DEMO/CARD-LST-1/content": {
+              "note": "first card"
+            },
+            "DEMO/CARD-LST-2/content": {
+              "note": "second card"
+            },
+            "DEMO/DET": {
+              "active": "true",
+              "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+              "estimate": "8",
+              "owner": "Bob",
+              "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
+              "priority": "high",
+              "weight": "2.5"
+            },
+            "DEMO/DLV-LST-1/DLR-LST-1/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-1/content": {
+              "component": "ARCM-COMP-UI",
+              "kind": "client",
+              "unitId": "demo_client"
+            },
+            "DEMO/DLV-LST-2/DLE-LST-1/content": {
+              "emitter": "openapi"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-1/content": {
+              "area": "CE-DB",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-2/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/content": {
+              "deploymentTarget": "DEPTAR-DEPL-API",
+              "kind": "server",
+              "unitId": "demo_server"
+            },
+            "DEMO/MIX/alt": {
+              "lead": "Bob"
+            },
+            "DEMO/MIX/content": {
+              "lead": "Ada",
+              "risk": "low"
+            }
+          },
+          "lists": {
+            "DEMO/CARD-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/CARD-LST-1",
+                "DEMO/CARD-LST-2"
+              ],
+              "ids": {
+                "DEMO/CARD-LST-1": "CARD-ALPHA",
+                "DEMO/CARD-LST-2": "CARD-2"
+              }
+            },
+            "DEMO/DLV-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-1",
+                "DEMO/DLV-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1": "DLV-1",
+                "DEMO/DLV-LST-2": "DLV-2"
+              }
+            },
+            "DEMO/DLV-LST-1/DLR-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-1/DLR-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLE-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-2/DLE-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLE-LST-1": "DLE-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLR-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-2/DLR-LST-1",
+                "DEMO/DLV-LST-2/DLR-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1",
+                "DEMO/DLV-LST-2/DLR-LST-2": "DLR-2"
+              }
+            },
+            "DEMO/META/tags": {
+              "seq": 4,
+              "items": [
+                "DEMO/META/tags-1",
+                "DEMO/META/tags-2",
+                "DEMO/META/tags-3",
+                "DEMO/META/tags-4"
+              ]
+            },
+            "DEMO/REF-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/REF-LST-1",
+                "DEMO/REF-LST-2"
+              ],
+              "ids": {
+                "DEMO/REF-LST-1": "REF-SPEC",
+                "DEMO/REF-LST-2": "REF-2"
+              }
+            },
+            "DEMO/items": {
+              "seq": 2,
+              "items": [
+                "DEMO/items-1",
+                "DEMO/items-2"
+              ]
+            }
+          },
+          "headlines": {
+            "DEMO/CARD-LST-1": "Alpha Card",
+            "DEMO/DET": "Details & Contacts",
+            "DEMO/MIX": "Mixed\nslots",
+            "DEMO/REF-LST-1": "Reference to the Spec",
+            "DEMO/SUM": "Executive Summary",
+            "DEMO/items": "Work Items",
+            "OTHER/kept": "Kept headline"
+          },
+          "codeSpecs": {
+            "DEMO/TTL": "DemoTitle",
+            "OTHER/kept": "kept.dart"
+          },
+          "units": {
+            "DEMO/TTL": "demo_server",
+            "DEMO/notes": "demo_client,demo_server",
+            "OTHER/kept": "kept_unit"
+          }
+        },
+        "rejectedBlocks": [
+          {
+            "line": 28,
+            "path": "DEMO/DET"
+          }
+        ]
+      }
+    },
+    {
+      "name": "apply with allowRejections keeps a row giving a field twice, naming the field and the kept form",
+      "readingView": true,
+      "op": "apply",
+      "base": {
+        "content": {
+          "DEMO/TTL": "stale title",
+          "DEMO/stale": "not in the import",
+          "OTHER/kept": "another root"
+        },
+        "headlines": {
+          "DEMO/SUM": "Stale headline",
+          "OTHER/kept": "Kept headline"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "stale.dart",
+          "OTHER/kept": "kept.dart"
+        },
+        "units": {
+          "DEMO/TTL": "stale_unit",
+          "DEMO/SUM": "stale_unit",
+          "OTHER/kept": "kept_unit"
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 9,
+            "items": [
+              "DEMO/CARD-LST-9"
+            ]
+          }
+        }
+      },
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> <a id=\"DEMO\"></a> Demo Document\n\n## <!--[TTL] codeSpec=\"DemoTitle\" units=\"demo_server\"--> <a id=\"TTL\"></a> Document Title\n\nHello\n\n## <!--[SUM]--> <a id=\"SUM\"></a> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> <a id=\"PRI\"></a> Priority\n\nhigh\n\n## <!--[CNT]--> <a id=\"CNT\"></a> Count\n\n3\n\n## <!--[DET]--> <a id=\"DET\"></a> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | Bob |\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\n| TomSpecField | Value |\n| --- | --- |\n| Estimate | 8 |\n| Owner | Carol |\n| Weight | 2.5 |\n| Active | true |\n| Priority | high |\n| Pattern | `^[a-z0-9](-?[a-z0-9]){1,62}$` |\n\n## <!--[items]--> <a id=\"items\"></a> Work Items\n\n### <!--[items-1]--> <a id=\"items-1\"></a> Task 1\n\nFirst\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\nopen\n\n### <!--[items-2]--> <a id=\"items-2\"></a> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\ndone\n\n## <!--[REF-LST]--> <a id=\"REF-LST\"></a> Refs\n\n### <!--[REF-SPEC]--> <a id=\"REF-SPEC\"></a> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> <a id=\"REF-2\"></a> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> <a id=\"CARD-LST\"></a> Cards\n\n::: {.records}\n| Id | Title | Note |\n| --- | --- | --- |\n| <a id=\"CARD-ALPHA\"></a>CARD-ALPHA | Alpha Card | first card |\n| <a id=\"CARD-2\"></a>CARD-2 |  | second card |\n:::\n\n## <!--[META]--> <a id=\"META\"></a> Meta\n\n### <!--[OWNR]--> <a id=\"OWNR\"></a> Owner\n\nalice\n\n### <!--[tags]--> <a id=\"tags\"></a> Tags\n\n#### <!--[tags-1]--> <a id=\"tags-1\"></a> Tags 1\n\non\n\n#### <!--[tags-2]--> <a id=\"tags-2\"></a> Tags 2\n\nno\n\n#### <!--[tags-3]--> <a id=\"tags-3\"></a> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> <a id=\"tags-4\"></a> Tags 4\n\nplain\n\n## <!--[CTRL]--> <a id=\"CTRL\"></a> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> <a id=\"CTRL-SUM\"></a> Summary\n\nControlled summary\n\n## <!--[NOTE] units=\"demo_client,demo_server\"--> <a id=\"NOTE\"></a> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> <a id=\"NOTE-BDY\"></a> Body\n\nSection-kind body\n\n## <!--[MIX]--> <a id=\"MIX\"></a> Mixed<br>slots\n\n<!-- slot: content -->\n\n_Extrapolated._\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Ada |\n| Risk | low |\n\n<!-- slot: narrative -->\n\nFirst narrative.\n\n\nAfter two blank lines.\n Lead: label-shaped prose\n\n<!-- slot: tail -->\n\nTail text.\n\n<!-- slot: alt -->\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Bob |\n\n## <!--[DLV-LST]--> <a id=\"DLV-LST\"></a> Deliverables\n\n### <!--[DLV-1]--> <a id=\"DLV-1\"></a> Deliverable 1\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_client |\n| Kind | client |\n| Component | ARCM-COMP-UI |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-NV |\n|  | Mapping | dart-tom |\n\n### <!--[DLV-2]--> <a id=\"DLV-2\"></a> Deliverable 2\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_server |\n| Kind | server |\n| DeploymentTarget | DEPTAR-DEPL-API |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-DB |\n|  | Mapping | dart-tom |\n| <a id=\"DLR-2\"></a>DLR-LST / DLR-2 | Area | CE-NV |\n|  | Mapping | dart-tom |\n| <a id=\"DLE-1\"></a>DLE-LST / DLE-1 | Emitter | openapi |\n\n",
+      "allowRejections": true,
+      "expect": {
+        "refused": false,
+        "rejectionCount": 1,
+        "document": {
+          "content": {
+            "DEMO/CNT": "3",
+            "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.\n\n::: {.rejected reason=\"malformedBlock\" line=\"39\" field=\"owner\" kept=\"DEMO/DET\" label=\"field 'owner' given twice\"}\n| Owner | Carol |\n:::",
+            "DEMO/META/OWNR": "alice",
+            "DEMO/META/tags-1": "on",
+            "DEMO/META/tags-2": "no",
+            "DEMO/META/tags-3": "1:30",
+            "DEMO/META/tags-4": "plain",
+            "DEMO/MIX/content": "_Extrapolated._",
+            "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/PRI": "high",
+            "DEMO/REF-LST-1": "spec §1.2",
+            "DEMO/REF-LST-2": "ADR7",
+            "DEMO/SUM": "Line one\nLine two\n\nLine four",
+            "DEMO/TTL": "Hello",
+            "DEMO/control/CTRL-SUM": "Controlled summary",
+            "DEMO/control/owner": "ctrl-owner",
+            "DEMO/items-1/STS": "open",
+            "DEMO/items-1/label": "First",
+            "DEMO/items-2/STS": "done",
+            "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+            "DEMO/notes/NOTE-BDY": "Section-kind body",
+            "DEMO/notes/remarks": "Wrapper-section text",
+            "OTHER/kept": "another root"
+          },
+          "forms": {
+            "DEMO/CARD-LST-1/content": {
+              "note": "first card"
+            },
+            "DEMO/CARD-LST-2/content": {
+              "note": "second card"
+            },
+            "DEMO/DET": {
+              "active": "true",
+              "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+              "estimate": "8",
+              "owner": "Bob",
+              "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
+              "priority": "high",
+              "weight": "2.5"
+            },
+            "DEMO/DLV-LST-1/DLR-LST-1/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-1/content": {
+              "component": "ARCM-COMP-UI",
+              "kind": "client",
+              "unitId": "demo_client"
+            },
+            "DEMO/DLV-LST-2/DLE-LST-1/content": {
+              "emitter": "openapi"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-1/content": {
+              "area": "CE-DB",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-2/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/content": {
+              "deploymentTarget": "DEPTAR-DEPL-API",
+              "kind": "server",
+              "unitId": "demo_server"
+            },
+            "DEMO/MIX/alt": {
+              "lead": "Bob"
+            },
+            "DEMO/MIX/content": {
+              "lead": "Ada",
+              "risk": "low"
+            }
+          },
+          "lists": {
+            "DEMO/CARD-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/CARD-LST-1",
+                "DEMO/CARD-LST-2"
+              ],
+              "ids": {
+                "DEMO/CARD-LST-1": "CARD-ALPHA",
+                "DEMO/CARD-LST-2": "CARD-2"
+              }
+            },
+            "DEMO/DLV-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-1",
+                "DEMO/DLV-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1": "DLV-1",
+                "DEMO/DLV-LST-2": "DLV-2"
+              }
+            },
+            "DEMO/DLV-LST-1/DLR-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-1/DLR-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLE-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-2/DLE-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLE-LST-1": "DLE-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLR-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-2/DLR-LST-1",
+                "DEMO/DLV-LST-2/DLR-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1",
+                "DEMO/DLV-LST-2/DLR-LST-2": "DLR-2"
+              }
+            },
+            "DEMO/META/tags": {
+              "seq": 4,
+              "items": [
+                "DEMO/META/tags-1",
+                "DEMO/META/tags-2",
+                "DEMO/META/tags-3",
+                "DEMO/META/tags-4"
+              ]
+            },
+            "DEMO/REF-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/REF-LST-1",
+                "DEMO/REF-LST-2"
+              ],
+              "ids": {
+                "DEMO/REF-LST-1": "REF-SPEC",
+                "DEMO/REF-LST-2": "REF-2"
+              }
+            },
+            "DEMO/items": {
+              "seq": 2,
+              "items": [
+                "DEMO/items-1",
+                "DEMO/items-2"
+              ]
+            }
+          },
+          "headlines": {
+            "DEMO/CARD-LST-1": "Alpha Card",
+            "DEMO/DET": "Details & Contacts",
+            "DEMO/MIX": "Mixed\nslots",
+            "DEMO/REF-LST-1": "Reference to the Spec",
+            "DEMO/SUM": "Executive Summary",
+            "DEMO/items": "Work Items",
+            "OTHER/kept": "Kept headline"
+          },
+          "codeSpecs": {
+            "DEMO/TTL": "DemoTitle",
+            "OTHER/kept": "kept.dart"
+          },
+          "units": {
+            "DEMO/TTL": "demo_server",
+            "DEMO/notes": "demo_client,demo_server",
+            "OTHER/kept": "kept_unit"
+          }
+        },
+        "rejectedBlocks": [
+          {
+            "line": 28,
+            "path": "DEMO/DET"
+          }
+        ]
+      }
+    },
+    {
+      "name": "apply with allowRejections keeps a paragraph giving a field twice whole",
+      "readingView": true,
+      "op": "apply",
+      "base": {
+        "content": {
+          "DEMO/TTL": "stale title",
+          "DEMO/stale": "not in the import",
+          "OTHER/kept": "another root"
+        },
+        "headlines": {
+          "DEMO/SUM": "Stale headline",
+          "OTHER/kept": "Kept headline"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "stale.dart",
+          "OTHER/kept": "kept.dart"
+        },
+        "units": {
+          "DEMO/TTL": "stale_unit",
+          "DEMO/SUM": "stale_unit",
+          "OTHER/kept": "kept_unit"
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 9,
+            "items": [
+              "DEMO/CARD-LST-9"
+            ]
+          }
+        }
+      },
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> <a id=\"DEMO\"></a> Demo Document\n\n## <!--[TTL] codeSpec=\"DemoTitle\" units=\"demo_server\"--> <a id=\"TTL\"></a> Document Title\n\nHello\n\n## <!--[SUM]--> <a id=\"SUM\"></a> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> <a id=\"PRI\"></a> Priority\n\nhigh\n\n## <!--[CNT]--> <a id=\"CNT\"></a> Count\n\n3\n\n## <!--[DET]--> <a id=\"DET\"></a> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | Bob |\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\nContact: carol@example.com\n- second line\n\n| TomSpecField | Value |\n| --- | --- |\n| Estimate | 8 |\n| Weight | 2.5 |\n| Active | true |\n| Priority | high |\n| Pattern | `^[a-z0-9](-?[a-z0-9]){1,62}$` |\n\n## <!--[items]--> <a id=\"items\"></a> Work Items\n\n### <!--[items-1]--> <a id=\"items-1\"></a> Task 1\n\nFirst\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\nopen\n\n### <!--[items-2]--> <a id=\"items-2\"></a> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\ndone\n\n## <!--[REF-LST]--> <a id=\"REF-LST\"></a> Refs\n\n### <!--[REF-SPEC]--> <a id=\"REF-SPEC\"></a> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> <a id=\"REF-2\"></a> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> <a id=\"CARD-LST\"></a> Cards\n\n::: {.records}\n| Id | Title | Note |\n| --- | --- | --- |\n| <a id=\"CARD-ALPHA\"></a>CARD-ALPHA | Alpha Card | first card |\n| <a id=\"CARD-2\"></a>CARD-2 |  | second card |\n:::\n\n## <!--[META]--> <a id=\"META\"></a> Meta\n\n### <!--[OWNR]--> <a id=\"OWNR\"></a> Owner\n\nalice\n\n### <!--[tags]--> <a id=\"tags\"></a> Tags\n\n#### <!--[tags-1]--> <a id=\"tags-1\"></a> Tags 1\n\non\n\n#### <!--[tags-2]--> <a id=\"tags-2\"></a> Tags 2\n\nno\n\n#### <!--[tags-3]--> <a id=\"tags-3\"></a> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> <a id=\"tags-4\"></a> Tags 4\n\nplain\n\n## <!--[CTRL]--> <a id=\"CTRL\"></a> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> <a id=\"CTRL-SUM\"></a> Summary\n\nControlled summary\n\n## <!--[NOTE] units=\"demo_client,demo_server\"--> <a id=\"NOTE\"></a> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> <a id=\"NOTE-BDY\"></a> Body\n\nSection-kind body\n\n## <!--[MIX]--> <a id=\"MIX\"></a> Mixed<br>slots\n\n<!-- slot: content -->\n\n_Extrapolated._\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Ada |\n| Risk | low |\n\n<!-- slot: narrative -->\n\nFirst narrative.\n\n\nAfter two blank lines.\n Lead: label-shaped prose\n\n<!-- slot: tail -->\n\nTail text.\n\n<!-- slot: alt -->\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Bob |\n\n## <!--[DLV-LST]--> <a id=\"DLV-LST\"></a> Deliverables\n\n### <!--[DLV-1]--> <a id=\"DLV-1\"></a> Deliverable 1\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_client |\n| Kind | client |\n| Component | ARCM-COMP-UI |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-NV |\n|  | Mapping | dart-tom |\n\n### <!--[DLV-2]--> <a id=\"DLV-2\"></a> Deliverable 2\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_server |\n| Kind | server |\n| DeploymentTarget | DEPTAR-DEPL-API |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-DB |\n|  | Mapping | dart-tom |\n| <a id=\"DLR-2\"></a>DLR-LST / DLR-2 | Area | CE-NV |\n|  | Mapping | dart-tom |\n| <a id=\"DLE-1\"></a>DLE-LST / DLE-1 | Emitter | openapi |\n\n",
+      "allowRejections": true,
+      "expect": {
+        "refused": false,
+        "rejectionCount": 1,
+        "document": {
+          "content": {
+            "DEMO/CNT": "3",
+            "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.\n\n::: {.rejected reason=\"malformedBlock\" line=\"35\" field=\"contact\" kept=\"DEMO/DET\" label=\"field 'contact' given twice\"}\nContact: carol@example.com\n- second line\n:::",
+            "DEMO/META/OWNR": "alice",
+            "DEMO/META/tags-1": "on",
+            "DEMO/META/tags-2": "no",
+            "DEMO/META/tags-3": "1:30",
+            "DEMO/META/tags-4": "plain",
+            "DEMO/MIX/content": "_Extrapolated._",
+            "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/PRI": "high",
+            "DEMO/REF-LST-1": "spec §1.2",
+            "DEMO/REF-LST-2": "ADR7",
+            "DEMO/SUM": "Line one\nLine two\n\nLine four",
+            "DEMO/TTL": "Hello",
+            "DEMO/control/CTRL-SUM": "Controlled summary",
+            "DEMO/control/owner": "ctrl-owner",
+            "DEMO/items-1/STS": "open",
+            "DEMO/items-1/label": "First",
+            "DEMO/items-2/STS": "done",
+            "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+            "DEMO/notes/NOTE-BDY": "Section-kind body",
+            "DEMO/notes/remarks": "Wrapper-section text",
+            "OTHER/kept": "another root"
+          },
+          "forms": {
+            "DEMO/CARD-LST-1/content": {
+              "note": "first card"
+            },
+            "DEMO/CARD-LST-2/content": {
+              "note": "second card"
+            },
+            "DEMO/DET": {
+              "active": "true",
+              "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+              "estimate": "8",
+              "owner": "Bob",
+              "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
+              "priority": "high",
+              "weight": "2.5"
+            },
+            "DEMO/DLV-LST-1/DLR-LST-1/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-1/content": {
+              "component": "ARCM-COMP-UI",
+              "kind": "client",
+              "unitId": "demo_client"
+            },
+            "DEMO/DLV-LST-2/DLE-LST-1/content": {
+              "emitter": "openapi"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-1/content": {
+              "area": "CE-DB",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-2/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/content": {
+              "deploymentTarget": "DEPTAR-DEPL-API",
+              "kind": "server",
+              "unitId": "demo_server"
+            },
+            "DEMO/MIX/alt": {
+              "lead": "Bob"
+            },
+            "DEMO/MIX/content": {
+              "lead": "Ada",
+              "risk": "low"
+            }
+          },
+          "lists": {
+            "DEMO/CARD-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/CARD-LST-1",
+                "DEMO/CARD-LST-2"
+              ],
+              "ids": {
+                "DEMO/CARD-LST-1": "CARD-ALPHA",
+                "DEMO/CARD-LST-2": "CARD-2"
+              }
+            },
+            "DEMO/DLV-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-1",
+                "DEMO/DLV-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1": "DLV-1",
+                "DEMO/DLV-LST-2": "DLV-2"
+              }
+            },
+            "DEMO/DLV-LST-1/DLR-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-1/DLR-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLE-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-2/DLE-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLE-LST-1": "DLE-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLR-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-2/DLR-LST-1",
+                "DEMO/DLV-LST-2/DLR-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1",
+                "DEMO/DLV-LST-2/DLR-LST-2": "DLR-2"
+              }
+            },
+            "DEMO/META/tags": {
+              "seq": 4,
+              "items": [
+                "DEMO/META/tags-1",
+                "DEMO/META/tags-2",
+                "DEMO/META/tags-3",
+                "DEMO/META/tags-4"
+              ]
+            },
+            "DEMO/REF-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/REF-LST-1",
+                "DEMO/REF-LST-2"
+              ],
+              "ids": {
+                "DEMO/REF-LST-1": "REF-SPEC",
+                "DEMO/REF-LST-2": "REF-2"
+              }
+            },
+            "DEMO/items": {
+              "seq": 2,
+              "items": [
+                "DEMO/items-1",
+                "DEMO/items-2"
+              ]
+            }
+          },
+          "headlines": {
+            "DEMO/CARD-LST-1": "Alpha Card",
+            "DEMO/DET": "Details & Contacts",
+            "DEMO/MIX": "Mixed\nslots",
+            "DEMO/REF-LST-1": "Reference to the Spec",
+            "DEMO/SUM": "Executive Summary",
+            "DEMO/items": "Work Items",
+            "OTHER/kept": "Kept headline"
+          },
+          "codeSpecs": {
+            "DEMO/TTL": "DemoTitle",
+            "OTHER/kept": "kept.dart"
+          },
+          "units": {
+            "DEMO/TTL": "demo_server",
+            "DEMO/notes": "demo_client,demo_server",
+            "OTHER/kept": "kept_unit"
+          }
+        },
+        "rejectedBlocks": [
+          {
+            "line": 28,
+            "path": "DEMO/DET"
+          }
+        ]
+      }
+    },
+    {
+      "name": "apply with allowRejections keeps a table without its delimiter row",
+      "readingView": true,
+      "op": "apply",
+      "base": {
+        "content": {
+          "DEMO/TTL": "stale title",
+          "DEMO/stale": "not in the import",
+          "OTHER/kept": "another root"
+        },
+        "headlines": {
+          "DEMO/SUM": "Stale headline",
+          "OTHER/kept": "Kept headline"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "stale.dart",
+          "OTHER/kept": "kept.dart"
+        },
+        "units": {
+          "DEMO/TTL": "stale_unit",
+          "DEMO/SUM": "stale_unit",
+          "OTHER/kept": "kept_unit"
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 9,
+            "items": [
+              "DEMO/CARD-LST-9"
+            ]
+          }
+        }
+      },
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> <a id=\"DEMO\"></a> Demo Document\n\n## <!--[TTL] codeSpec=\"DemoTitle\" units=\"demo_server\"--> <a id=\"TTL\"></a> Document Title\n\nHello\n\n## <!--[SUM]--> <a id=\"SUM\"></a> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> <a id=\"PRI\"></a> Priority\n\nhigh\n\n## <!--[CNT]--> <a id=\"CNT\"></a> Count\n\n3\n\n## <!--[DET]--> <a id=\"DET\"></a> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\n| TomSpecField | Value |\n| Owner | Bob |\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\n| TomSpecField | Value |\n| --- | --- |\n| Estimate | 8 |\n| Weight | 2.5 |\n| Active | true |\n| Priority | high |\n| Pattern | `^[a-z0-9](-?[a-z0-9]){1,62}$` |\n\n## <!--[items]--> <a id=\"items\"></a> Work Items\n\n### <!--[items-1]--> <a id=\"items-1\"></a> Task 1\n\nFirst\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\nopen\n\n### <!--[items-2]--> <a id=\"items-2\"></a> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\ndone\n\n## <!--[REF-LST]--> <a id=\"REF-LST\"></a> Refs\n\n### <!--[REF-SPEC]--> <a id=\"REF-SPEC\"></a> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> <a id=\"REF-2\"></a> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> <a id=\"CARD-LST\"></a> Cards\n\n::: {.records}\n| Id | Title | Note |\n| --- | --- | --- |\n| <a id=\"CARD-ALPHA\"></a>CARD-ALPHA | Alpha Card | first card |\n| <a id=\"CARD-2\"></a>CARD-2 |  | second card |\n:::\n\n## <!--[META]--> <a id=\"META\"></a> Meta\n\n### <!--[OWNR]--> <a id=\"OWNR\"></a> Owner\n\nalice\n\n### <!--[tags]--> <a id=\"tags\"></a> Tags\n\n#### <!--[tags-1]--> <a id=\"tags-1\"></a> Tags 1\n\non\n\n#### <!--[tags-2]--> <a id=\"tags-2\"></a> Tags 2\n\nno\n\n#### <!--[tags-3]--> <a id=\"tags-3\"></a> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> <a id=\"tags-4\"></a> Tags 4\n\nplain\n\n## <!--[CTRL]--> <a id=\"CTRL\"></a> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> <a id=\"CTRL-SUM\"></a> Summary\n\nControlled summary\n\n## <!--[NOTE] units=\"demo_client,demo_server\"--> <a id=\"NOTE\"></a> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> <a id=\"NOTE-BDY\"></a> Body\n\nSection-kind body\n\n## <!--[MIX]--> <a id=\"MIX\"></a> Mixed<br>slots\n\n<!-- slot: content -->\n\n_Extrapolated._\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Ada |\n| Risk | low |\n\n<!-- slot: narrative -->\n\nFirst narrative.\n\n\nAfter two blank lines.\n Lead: label-shaped prose\n\n<!-- slot: tail -->\n\nTail text.\n\n<!-- slot: alt -->\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Bob |\n\n## <!--[DLV-LST]--> <a id=\"DLV-LST\"></a> Deliverables\n\n### <!--[DLV-1]--> <a id=\"DLV-1\"></a> Deliverable 1\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_client |\n| Kind | client |\n| Component | ARCM-COMP-UI |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-NV |\n|  | Mapping | dart-tom |\n\n### <!--[DLV-2]--> <a id=\"DLV-2\"></a> Deliverable 2\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_server |\n| Kind | server |\n| DeploymentTarget | DEPTAR-DEPL-API |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-DB |\n|  | Mapping | dart-tom |\n| <a id=\"DLR-2\"></a>DLR-LST / DLR-2 | Area | CE-NV |\n|  | Mapping | dart-tom |\n| <a id=\"DLE-1\"></a>DLE-LST / DLE-1 | Emitter | openapi |\n\n",
+      "allowRejections": true,
+      "expect": {
+        "refused": false,
+        "rejectionCount": 1,
+        "document": {
+          "content": {
+            "DEMO/CNT": "3",
+            "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.\n\n::: {.rejected reason=\"malformedBlock\" line=\"28\" label=\"table without its delimiter row\"}\n| TomSpecField | Value |\n| Owner | Bob |\n:::",
+            "DEMO/META/OWNR": "alice",
+            "DEMO/META/tags-1": "on",
+            "DEMO/META/tags-2": "no",
+            "DEMO/META/tags-3": "1:30",
+            "DEMO/META/tags-4": "plain",
+            "DEMO/MIX/content": "_Extrapolated._",
+            "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/PRI": "high",
+            "DEMO/REF-LST-1": "spec §1.2",
+            "DEMO/REF-LST-2": "ADR7",
+            "DEMO/SUM": "Line one\nLine two\n\nLine four",
+            "DEMO/TTL": "Hello",
+            "DEMO/control/CTRL-SUM": "Controlled summary",
+            "DEMO/control/owner": "ctrl-owner",
+            "DEMO/items-1/STS": "open",
+            "DEMO/items-1/label": "First",
+            "DEMO/items-2/STS": "done",
+            "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+            "DEMO/notes/NOTE-BDY": "Section-kind body",
+            "DEMO/notes/remarks": "Wrapper-section text",
+            "OTHER/kept": "another root"
+          },
+          "forms": {
+            "DEMO/CARD-LST-1/content": {
+              "note": "first card"
+            },
+            "DEMO/CARD-LST-2/content": {
+              "note": "second card"
+            },
+            "DEMO/DET": {
+              "active": "true",
+              "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+              "estimate": "8",
+              "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
+              "priority": "high",
+              "weight": "2.5"
+            },
+            "DEMO/DLV-LST-1/DLR-LST-1/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-1/content": {
+              "component": "ARCM-COMP-UI",
+              "kind": "client",
+              "unitId": "demo_client"
+            },
+            "DEMO/DLV-LST-2/DLE-LST-1/content": {
+              "emitter": "openapi"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-1/content": {
+              "area": "CE-DB",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-2/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/content": {
+              "deploymentTarget": "DEPTAR-DEPL-API",
+              "kind": "server",
+              "unitId": "demo_server"
+            },
+            "DEMO/MIX/alt": {
+              "lead": "Bob"
+            },
+            "DEMO/MIX/content": {
+              "lead": "Ada",
+              "risk": "low"
+            }
+          },
+          "lists": {
+            "DEMO/CARD-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/CARD-LST-1",
+                "DEMO/CARD-LST-2"
+              ],
+              "ids": {
+                "DEMO/CARD-LST-1": "CARD-ALPHA",
+                "DEMO/CARD-LST-2": "CARD-2"
+              }
+            },
+            "DEMO/DLV-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-1",
+                "DEMO/DLV-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1": "DLV-1",
+                "DEMO/DLV-LST-2": "DLV-2"
+              }
+            },
+            "DEMO/DLV-LST-1/DLR-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-1/DLR-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLE-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-2/DLE-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLE-LST-1": "DLE-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLR-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-2/DLR-LST-1",
+                "DEMO/DLV-LST-2/DLR-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1",
+                "DEMO/DLV-LST-2/DLR-LST-2": "DLR-2"
+              }
+            },
+            "DEMO/META/tags": {
+              "seq": 4,
+              "items": [
+                "DEMO/META/tags-1",
+                "DEMO/META/tags-2",
+                "DEMO/META/tags-3",
+                "DEMO/META/tags-4"
+              ]
+            },
+            "DEMO/REF-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/REF-LST-1",
+                "DEMO/REF-LST-2"
+              ],
+              "ids": {
+                "DEMO/REF-LST-1": "REF-SPEC",
+                "DEMO/REF-LST-2": "REF-2"
+              }
+            },
+            "DEMO/items": {
+              "seq": 2,
+              "items": [
+                "DEMO/items-1",
+                "DEMO/items-2"
+              ]
+            }
+          },
+          "headlines": {
+            "DEMO/CARD-LST-1": "Alpha Card",
+            "DEMO/DET": "Details & Contacts",
+            "DEMO/MIX": "Mixed\nslots",
+            "DEMO/REF-LST-1": "Reference to the Spec",
+            "DEMO/SUM": "Executive Summary",
+            "DEMO/items": "Work Items",
+            "OTHER/kept": "Kept headline"
+          },
+          "codeSpecs": {
+            "DEMO/TTL": "DemoTitle",
+            "OTHER/kept": "kept.dart"
+          },
+          "units": {
+            "DEMO/TTL": "demo_server",
+            "DEMO/notes": "demo_client,demo_server",
+            "OTHER/kept": "kept_unit"
+          }
+        },
+        "rejectedBlocks": [
+          {
+            "line": 28,
+            "path": "DEMO/DET"
+          }
+        ]
+      }
+    },
+    {
+      "name": "apply with allowRejections keeps a records div whose column names no field in the parent",
+      "readingView": true,
+      "op": "apply",
+      "base": {
+        "content": {
+          "DEMO/TTL": "stale title",
+          "DEMO/stale": "not in the import",
+          "OTHER/kept": "another root"
+        },
+        "headlines": {
+          "DEMO/SUM": "Stale headline",
+          "OTHER/kept": "Kept headline"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "stale.dart",
+          "OTHER/kept": "kept.dart"
+        },
+        "units": {
+          "DEMO/TTL": "stale_unit",
+          "DEMO/SUM": "stale_unit",
+          "OTHER/kept": "kept_unit"
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 9,
+            "items": [
+              "DEMO/CARD-LST-9"
+            ]
+          }
+        }
+      },
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> <a id=\"DEMO\"></a> Demo Document\n\n## <!--[TTL] codeSpec=\"DemoTitle\" units=\"demo_server\"--> <a id=\"TTL\"></a> Document Title\n\nHello\n\n## <!--[SUM]--> <a id=\"SUM\"></a> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> <a id=\"PRI\"></a> Priority\n\nhigh\n\n## <!--[CNT]--> <a id=\"CNT\"></a> Count\n\n3\n\n## <!--[DET]--> <a id=\"DET\"></a> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | Bob |\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\n| TomSpecField | Value |\n| --- | --- |\n| Estimate | 8 |\n| Weight | 2.5 |\n| Active | true |\n| Priority | high |\n| Pattern | `^[a-z0-9](-?[a-z0-9]){1,62}$` |\n\n## <!--[items]--> <a id=\"items\"></a> Work Items\n\n### <!--[items-1]--> <a id=\"items-1\"></a> Task 1\n\nFirst\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\nopen\n\n### <!--[items-2]--> <a id=\"items-2\"></a> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\ndone\n\n## <!--[REF-LST]--> <a id=\"REF-LST\"></a> Refs\n\n### <!--[REF-SPEC]--> <a id=\"REF-SPEC\"></a> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> <a id=\"REF-2\"></a> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> <a id=\"CARD-LST\"></a> Cards\n\n::: {.records}\n| Id | Title | Nte |\n| --- | --- | --- |\n| <a id=\"CARD-ALPHA\"></a>CARD-ALPHA | Alpha Card | first card |\n| <a id=\"CARD-2\"></a>CARD-2 |  | second card |\n:::\n\n## <!--[META]--> <a id=\"META\"></a> Meta\n\n### <!--[OWNR]--> <a id=\"OWNR\"></a> Owner\n\nalice\n\n### <!--[tags]--> <a id=\"tags\"></a> Tags\n\n#### <!--[tags-1]--> <a id=\"tags-1\"></a> Tags 1\n\non\n\n#### <!--[tags-2]--> <a id=\"tags-2\"></a> Tags 2\n\nno\n\n#### <!--[tags-3]--> <a id=\"tags-3\"></a> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> <a id=\"tags-4\"></a> Tags 4\n\nplain\n\n## <!--[CTRL]--> <a id=\"CTRL\"></a> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> <a id=\"CTRL-SUM\"></a> Summary\n\nControlled summary\n\n## <!--[NOTE] units=\"demo_client,demo_server\"--> <a id=\"NOTE\"></a> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> <a id=\"NOTE-BDY\"></a> Body\n\nSection-kind body\n\n## <!--[MIX]--> <a id=\"MIX\"></a> Mixed<br>slots\n\n<!-- slot: content -->\n\n_Extrapolated._\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Ada |\n| Risk | low |\n\n<!-- slot: narrative -->\n\nFirst narrative.\n\n\nAfter two blank lines.\n Lead: label-shaped prose\n\n<!-- slot: tail -->\n\nTail text.\n\n<!-- slot: alt -->\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Bob |\n\n## <!--[DLV-LST]--> <a id=\"DLV-LST\"></a> Deliverables\n\n### <!--[DLV-1]--> <a id=\"DLV-1\"></a> Deliverable 1\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_client |\n| Kind | client |\n| Component | ARCM-COMP-UI |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-NV |\n|  | Mapping | dart-tom |\n\n### <!--[DLV-2]--> <a id=\"DLV-2\"></a> Deliverable 2\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_server |\n| Kind | server |\n| DeploymentTarget | DEPTAR-DEPL-API |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-DB |\n|  | Mapping | dart-tom |\n| <a id=\"DLR-2\"></a>DLR-LST / DLR-2 | Area | CE-NV |\n|  | Mapping | dart-tom |\n| <a id=\"DLE-1\"></a>DLE-LST / DLE-1 | Emitter | openapi |\n\n",
+      "allowRejections": true,
+      "expect": {
+        "refused": false,
+        "rejectionCount": 1,
+        "document": {
+          "content": {
+            "DEMO": ":::: {.rejected reason=\"unknownField\" line=\"76\" field=\"note\" label=\"records column 'Nte' names no field of the items\"}\n::: {.records}\n| Id | Title | Nte |\n| --- | --- | --- |\n| <a id=\"CARD-ALPHA\"></a>CARD-ALPHA | Alpha Card | first card |\n| <a id=\"CARD-2\"></a>CARD-2 |  | second card |\n:::\n::::",
+            "DEMO/CNT": "3",
+            "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+            "DEMO/META/OWNR": "alice",
+            "DEMO/META/tags-1": "on",
+            "DEMO/META/tags-2": "no",
+            "DEMO/META/tags-3": "1:30",
+            "DEMO/META/tags-4": "plain",
+            "DEMO/MIX/content": "_Extrapolated._",
+            "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/PRI": "high",
+            "DEMO/REF-LST-1": "spec §1.2",
+            "DEMO/REF-LST-2": "ADR7",
+            "DEMO/SUM": "Line one\nLine two\n\nLine four",
+            "DEMO/TTL": "Hello",
+            "DEMO/control/CTRL-SUM": "Controlled summary",
+            "DEMO/control/owner": "ctrl-owner",
+            "DEMO/items-1/STS": "open",
+            "DEMO/items-1/label": "First",
+            "DEMO/items-2/STS": "done",
+            "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+            "DEMO/notes/NOTE-BDY": "Section-kind body",
+            "DEMO/notes/remarks": "Wrapper-section text",
+            "OTHER/kept": "another root"
+          },
+          "forms": {
+            "DEMO/DET": {
+              "active": "true",
+              "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+              "estimate": "8",
+              "owner": "Bob",
+              "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
+              "priority": "high",
+              "weight": "2.5"
+            },
+            "DEMO/DLV-LST-1/DLR-LST-1/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-1/content": {
+              "component": "ARCM-COMP-UI",
+              "kind": "client",
+              "unitId": "demo_client"
+            },
+            "DEMO/DLV-LST-2/DLE-LST-1/content": {
+              "emitter": "openapi"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-1/content": {
+              "area": "CE-DB",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-2/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/content": {
+              "deploymentTarget": "DEPTAR-DEPL-API",
+              "kind": "server",
+              "unitId": "demo_server"
+            },
+            "DEMO/MIX/alt": {
+              "lead": "Bob"
+            },
+            "DEMO/MIX/content": {
+              "lead": "Ada",
+              "risk": "low"
+            }
+          },
+          "lists": {
+            "DEMO/DLV-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-1",
+                "DEMO/DLV-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1": "DLV-1",
+                "DEMO/DLV-LST-2": "DLV-2"
+              }
+            },
+            "DEMO/DLV-LST-1/DLR-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-1/DLR-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLE-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-2/DLE-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLE-LST-1": "DLE-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLR-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-2/DLR-LST-1",
+                "DEMO/DLV-LST-2/DLR-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1",
+                "DEMO/DLV-LST-2/DLR-LST-2": "DLR-2"
+              }
+            },
+            "DEMO/META/tags": {
+              "seq": 4,
+              "items": [
+                "DEMO/META/tags-1",
+                "DEMO/META/tags-2",
+                "DEMO/META/tags-3",
+                "DEMO/META/tags-4"
+              ]
+            },
+            "DEMO/REF-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/REF-LST-1",
+                "DEMO/REF-LST-2"
+              ],
+              "ids": {
+                "DEMO/REF-LST-1": "REF-SPEC",
+                "DEMO/REF-LST-2": "REF-2"
+              }
+            },
+            "DEMO/items": {
+              "seq": 2,
+              "items": [
+                "DEMO/items-1",
+                "DEMO/items-2"
+              ]
+            }
+          },
+          "headlines": {
+            "DEMO/DET": "Details & Contacts",
+            "DEMO/MIX": "Mixed\nslots",
+            "DEMO/REF-LST-1": "Reference to the Spec",
+            "DEMO/SUM": "Executive Summary",
+            "DEMO/items": "Work Items",
+            "OTHER/kept": "Kept headline"
+          },
+          "codeSpecs": {
+            "DEMO/TTL": "DemoTitle",
+            "OTHER/kept": "kept.dart"
+          },
+          "units": {
+            "DEMO/TTL": "demo_server",
+            "DEMO/notes": "demo_client,demo_server",
+            "OTHER/kept": "kept_unit"
+          }
+        },
+        "rejectedBlocks": [
+          {
+            "line": 4,
+            "path": "DEMO"
+          }
+        ]
+      }
+    },
+    {
+      "name": "apply with allowRejections keeps a records row with too few cells in the parent",
+      "readingView": true,
+      "op": "apply",
+      "base": {
+        "content": {
+          "DEMO/TTL": "stale title",
+          "DEMO/stale": "not in the import",
+          "OTHER/kept": "another root"
+        },
+        "headlines": {
+          "DEMO/SUM": "Stale headline",
+          "OTHER/kept": "Kept headline"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "stale.dart",
+          "OTHER/kept": "kept.dart"
+        },
+        "units": {
+          "DEMO/TTL": "stale_unit",
+          "DEMO/SUM": "stale_unit",
+          "OTHER/kept": "kept_unit"
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 9,
+            "items": [
+              "DEMO/CARD-LST-9"
+            ]
+          }
+        }
+      },
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> <a id=\"DEMO\"></a> Demo Document\n\n## <!--[TTL] codeSpec=\"DemoTitle\" units=\"demo_server\"--> <a id=\"TTL\"></a> Document Title\n\nHello\n\n## <!--[SUM]--> <a id=\"SUM\"></a> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> <a id=\"PRI\"></a> Priority\n\nhigh\n\n## <!--[CNT]--> <a id=\"CNT\"></a> Count\n\n3\n\n## <!--[DET]--> <a id=\"DET\"></a> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | Bob |\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\n| TomSpecField | Value |\n| --- | --- |\n| Estimate | 8 |\n| Weight | 2.5 |\n| Active | true |\n| Priority | high |\n| Pattern | `^[a-z0-9](-?[a-z0-9]){1,62}$` |\n\n## <!--[items]--> <a id=\"items\"></a> Work Items\n\n### <!--[items-1]--> <a id=\"items-1\"></a> Task 1\n\nFirst\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\nopen\n\n### <!--[items-2]--> <a id=\"items-2\"></a> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\ndone\n\n## <!--[REF-LST]--> <a id=\"REF-LST\"></a> Refs\n\n### <!--[REF-SPEC]--> <a id=\"REF-SPEC\"></a> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> <a id=\"REF-2\"></a> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> <a id=\"CARD-LST\"></a> Cards\n\n::: {.records}\n| Id | Title | Note |\n| --- | --- | --- |\n| <a id=\"CARD-ALPHA\"></a>CARD-ALPHA | Alpha Card | first card |\n| <a id=\"CARD-2\"></a>CARD-2 | second card |\n:::\n\n## <!--[META]--> <a id=\"META\"></a> Meta\n\n### <!--[OWNR]--> <a id=\"OWNR\"></a> Owner\n\nalice\n\n### <!--[tags]--> <a id=\"tags\"></a> Tags\n\n#### <!--[tags-1]--> <a id=\"tags-1\"></a> Tags 1\n\non\n\n#### <!--[tags-2]--> <a id=\"tags-2\"></a> Tags 2\n\nno\n\n#### <!--[tags-3]--> <a id=\"tags-3\"></a> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> <a id=\"tags-4\"></a> Tags 4\n\nplain\n\n## <!--[CTRL]--> <a id=\"CTRL\"></a> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> <a id=\"CTRL-SUM\"></a> Summary\n\nControlled summary\n\n## <!--[NOTE] units=\"demo_client,demo_server\"--> <a id=\"NOTE\"></a> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> <a id=\"NOTE-BDY\"></a> Body\n\nSection-kind body\n\n## <!--[MIX]--> <a id=\"MIX\"></a> Mixed<br>slots\n\n<!-- slot: content -->\n\n_Extrapolated._\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Ada |\n| Risk | low |\n\n<!-- slot: narrative -->\n\nFirst narrative.\n\n\nAfter two blank lines.\n Lead: label-shaped prose\n\n<!-- slot: tail -->\n\nTail text.\n\n<!-- slot: alt -->\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Bob |\n\n## <!--[DLV-LST]--> <a id=\"DLV-LST\"></a> Deliverables\n\n### <!--[DLV-1]--> <a id=\"DLV-1\"></a> Deliverable 1\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_client |\n| Kind | client |\n| Component | ARCM-COMP-UI |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-NV |\n|  | Mapping | dart-tom |\n\n### <!--[DLV-2]--> <a id=\"DLV-2\"></a> Deliverable 2\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_server |\n| Kind | server |\n| DeploymentTarget | DEPTAR-DEPL-API |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-DB |\n|  | Mapping | dart-tom |\n| <a id=\"DLR-2\"></a>DLR-LST / DLR-2 | Area | CE-NV |\n|  | Mapping | dart-tom |\n| <a id=\"DLE-1\"></a>DLE-LST / DLE-1 | Emitter | openapi |\n\n",
+      "allowRejections": true,
+      "expect": {
+        "refused": false,
+        "rejectionCount": 1,
+        "document": {
+          "content": {
+            "DEMO": "::: {.rejected reason=\"malformedBlock\" line=\"79\" label=\"table row with 2 cells, the header has 3\"}\n| <a id=\"CARD-2\"></a>CARD-2 | second card |\n:::",
+            "DEMO/CNT": "3",
+            "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+            "DEMO/META/OWNR": "alice",
+            "DEMO/META/tags-1": "on",
+            "DEMO/META/tags-2": "no",
+            "DEMO/META/tags-3": "1:30",
+            "DEMO/META/tags-4": "plain",
+            "DEMO/MIX/content": "_Extrapolated._",
+            "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/PRI": "high",
+            "DEMO/REF-LST-1": "spec §1.2",
+            "DEMO/REF-LST-2": "ADR7",
+            "DEMO/SUM": "Line one\nLine two\n\nLine four",
+            "DEMO/TTL": "Hello",
+            "DEMO/control/CTRL-SUM": "Controlled summary",
+            "DEMO/control/owner": "ctrl-owner",
+            "DEMO/items-1/STS": "open",
+            "DEMO/items-1/label": "First",
+            "DEMO/items-2/STS": "done",
+            "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+            "DEMO/notes/NOTE-BDY": "Section-kind body",
+            "DEMO/notes/remarks": "Wrapper-section text",
+            "OTHER/kept": "another root"
+          },
+          "forms": {
+            "DEMO/CARD-LST-1/content": {
+              "note": "first card"
+            },
+            "DEMO/DET": {
+              "active": "true",
+              "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+              "estimate": "8",
+              "owner": "Bob",
+              "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
+              "priority": "high",
+              "weight": "2.5"
+            },
+            "DEMO/DLV-LST-1/DLR-LST-1/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-1/content": {
+              "component": "ARCM-COMP-UI",
+              "kind": "client",
+              "unitId": "demo_client"
+            },
+            "DEMO/DLV-LST-2/DLE-LST-1/content": {
+              "emitter": "openapi"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-1/content": {
+              "area": "CE-DB",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-2/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/content": {
+              "deploymentTarget": "DEPTAR-DEPL-API",
+              "kind": "server",
+              "unitId": "demo_server"
+            },
+            "DEMO/MIX/alt": {
+              "lead": "Bob"
+            },
+            "DEMO/MIX/content": {
+              "lead": "Ada",
+              "risk": "low"
+            }
+          },
+          "lists": {
+            "DEMO/CARD-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/CARD-LST-1"
+              ],
+              "ids": {
+                "DEMO/CARD-LST-1": "CARD-ALPHA"
+              }
+            },
+            "DEMO/DLV-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-1",
+                "DEMO/DLV-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1": "DLV-1",
+                "DEMO/DLV-LST-2": "DLV-2"
+              }
+            },
+            "DEMO/DLV-LST-1/DLR-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-1/DLR-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLE-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-2/DLE-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLE-LST-1": "DLE-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLR-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-2/DLR-LST-1",
+                "DEMO/DLV-LST-2/DLR-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1",
+                "DEMO/DLV-LST-2/DLR-LST-2": "DLR-2"
+              }
+            },
+            "DEMO/META/tags": {
+              "seq": 4,
+              "items": [
+                "DEMO/META/tags-1",
+                "DEMO/META/tags-2",
+                "DEMO/META/tags-3",
+                "DEMO/META/tags-4"
+              ]
+            },
+            "DEMO/REF-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/REF-LST-1",
+                "DEMO/REF-LST-2"
+              ],
+              "ids": {
+                "DEMO/REF-LST-1": "REF-SPEC",
+                "DEMO/REF-LST-2": "REF-2"
+              }
+            },
+            "DEMO/items": {
+              "seq": 2,
+              "items": [
+                "DEMO/items-1",
+                "DEMO/items-2"
+              ]
+            }
+          },
+          "headlines": {
+            "DEMO/CARD-LST-1": "Alpha Card",
+            "DEMO/DET": "Details & Contacts",
+            "DEMO/MIX": "Mixed\nslots",
+            "DEMO/REF-LST-1": "Reference to the Spec",
+            "DEMO/SUM": "Executive Summary",
+            "DEMO/items": "Work Items",
+            "OTHER/kept": "Kept headline"
+          },
+          "codeSpecs": {
+            "DEMO/TTL": "DemoTitle",
+            "OTHER/kept": "kept.dart"
+          },
+          "units": {
+            "DEMO/TTL": "demo_server",
+            "DEMO/notes": "demo_client,demo_server",
+            "OTHER/kept": "kept_unit"
+          }
+        },
+        "rejectedBlocks": [
+          {
+            "line": 4,
+            "path": "DEMO"
+          }
+        ]
+      }
+    },
+    {
+      "name": "apply with allowRejections keeps an unclosed records fence escaped in the parent",
+      "readingView": true,
+      "op": "apply",
+      "base": {
+        "content": {
+          "DEMO/TTL": "stale title",
+          "DEMO/stale": "not in the import",
+          "OTHER/kept": "another root"
+        },
+        "headlines": {
+          "DEMO/SUM": "Stale headline",
+          "OTHER/kept": "Kept headline"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "stale.dart",
+          "OTHER/kept": "kept.dart"
+        },
+        "units": {
+          "DEMO/TTL": "stale_unit",
+          "DEMO/SUM": "stale_unit",
+          "OTHER/kept": "kept_unit"
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 9,
+            "items": [
+              "DEMO/CARD-LST-9"
+            ]
+          }
+        }
+      },
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> <a id=\"DEMO\"></a> Demo Document\n\n## <!--[TTL] codeSpec=\"DemoTitle\" units=\"demo_server\"--> <a id=\"TTL\"></a> Document Title\n\nHello\n\n## <!--[SUM]--> <a id=\"SUM\"></a> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> <a id=\"PRI\"></a> Priority\n\nhigh\n\n## <!--[CNT]--> <a id=\"CNT\"></a> Count\n\n3\n\n## <!--[DET]--> <a id=\"DET\"></a> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | Bob |\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\n| TomSpecField | Value |\n| --- | --- |\n| Estimate | 8 |\n| Weight | 2.5 |\n| Active | true |\n| Priority | high |\n| Pattern | `^[a-z0-9](-?[a-z0-9]){1,62}$` |\n\n## <!--[items]--> <a id=\"items\"></a> Work Items\n\n### <!--[items-1]--> <a id=\"items-1\"></a> Task 1\n\nFirst\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\nopen\n\n### <!--[items-2]--> <a id=\"items-2\"></a> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\ndone\n\n## <!--[REF-LST]--> <a id=\"REF-LST\"></a> Refs\n\n### <!--[REF-SPEC]--> <a id=\"REF-SPEC\"></a> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> <a id=\"REF-2\"></a> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> <a id=\"CARD-LST\"></a> Cards\n\n::: {.records}\n| Id | Title | Note |\n| --- | --- | --- |\n| <a id=\"CARD-ALPHA\"></a>CARD-ALPHA | Alpha Card | first card |\n| <a id=\"CARD-2\"></a>CARD-2 |  | second card |\n\n## <!--[META]--> <a id=\"META\"></a> Meta\n\n### <!--[OWNR]--> <a id=\"OWNR\"></a> Owner\n\nalice\n\n### <!--[tags]--> <a id=\"tags\"></a> Tags\n\n#### <!--[tags-1]--> <a id=\"tags-1\"></a> Tags 1\n\non\n\n#### <!--[tags-2]--> <a id=\"tags-2\"></a> Tags 2\n\nno\n\n#### <!--[tags-3]--> <a id=\"tags-3\"></a> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> <a id=\"tags-4\"></a> Tags 4\n\nplain\n\n## <!--[CTRL]--> <a id=\"CTRL\"></a> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> <a id=\"CTRL-SUM\"></a> Summary\n\nControlled summary\n\n## <!--[NOTE] units=\"demo_client,demo_server\"--> <a id=\"NOTE\"></a> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> <a id=\"NOTE-BDY\"></a> Body\n\nSection-kind body\n\n## <!--[MIX]--> <a id=\"MIX\"></a> Mixed<br>slots\n\n<!-- slot: content -->\n\n_Extrapolated._\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Ada |\n| Risk | low |\n\n<!-- slot: narrative -->\n\nFirst narrative.\n\n\nAfter two blank lines.\n Lead: label-shaped prose\n\n<!-- slot: tail -->\n\nTail text.\n\n<!-- slot: alt -->\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Bob |\n\n## <!--[DLV-LST]--> <a id=\"DLV-LST\"></a> Deliverables\n\n### <!--[DLV-1]--> <a id=\"DLV-1\"></a> Deliverable 1\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_client |\n| Kind | client |\n| Component | ARCM-COMP-UI |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-NV |\n|  | Mapping | dart-tom |\n\n### <!--[DLV-2]--> <a id=\"DLV-2\"></a> Deliverable 2\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_server |\n| Kind | server |\n| DeploymentTarget | DEPTAR-DEPL-API |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-DB |\n|  | Mapping | dart-tom |\n| <a id=\"DLR-2\"></a>DLR-LST / DLR-2 | Area | CE-NV |\n|  | Mapping | dart-tom |\n| <a id=\"DLE-1\"></a>DLE-LST / DLE-1 | Emitter | openapi |\n\n",
+      "allowRejections": true,
+      "expect": {
+        "refused": false,
+        "rejectionCount": 1,
+        "document": {
+          "content": {
+            "DEMO": "::: {.rejected reason=\"malformedBlock\" line=\"75\" label=\"unclosed records fence\"}\n\\::: {.records}\n| Id | Title | Note |\n| --- | --- | --- |\n| <a id=\"CARD-ALPHA\"></a>CARD-ALPHA | Alpha Card | first card |\n| <a id=\"CARD-2\"></a>CARD-2 |  | second card |\n:::",
+            "DEMO/CNT": "3",
+            "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+            "DEMO/META/OWNR": "alice",
+            "DEMO/META/tags-1": "on",
+            "DEMO/META/tags-2": "no",
+            "DEMO/META/tags-3": "1:30",
+            "DEMO/META/tags-4": "plain",
+            "DEMO/MIX/content": "_Extrapolated._",
+            "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/PRI": "high",
+            "DEMO/REF-LST-1": "spec §1.2",
+            "DEMO/REF-LST-2": "ADR7",
+            "DEMO/SUM": "Line one\nLine two\n\nLine four",
+            "DEMO/TTL": "Hello",
+            "DEMO/control/CTRL-SUM": "Controlled summary",
+            "DEMO/control/owner": "ctrl-owner",
+            "DEMO/items-1/STS": "open",
+            "DEMO/items-1/label": "First",
+            "DEMO/items-2/STS": "done",
+            "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+            "DEMO/notes/NOTE-BDY": "Section-kind body",
+            "DEMO/notes/remarks": "Wrapper-section text",
+            "OTHER/kept": "another root"
+          },
+          "forms": {
+            "DEMO/DET": {
+              "active": "true",
+              "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+              "estimate": "8",
+              "owner": "Bob",
+              "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
+              "priority": "high",
+              "weight": "2.5"
+            },
+            "DEMO/DLV-LST-1/DLR-LST-1/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-1/content": {
+              "component": "ARCM-COMP-UI",
+              "kind": "client",
+              "unitId": "demo_client"
+            },
+            "DEMO/DLV-LST-2/DLE-LST-1/content": {
+              "emitter": "openapi"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-1/content": {
+              "area": "CE-DB",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-2/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/content": {
+              "deploymentTarget": "DEPTAR-DEPL-API",
+              "kind": "server",
+              "unitId": "demo_server"
+            },
+            "DEMO/MIX/alt": {
+              "lead": "Bob"
+            },
+            "DEMO/MIX/content": {
+              "lead": "Ada",
+              "risk": "low"
+            }
+          },
+          "lists": {
+            "DEMO/DLV-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-1",
+                "DEMO/DLV-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1": "DLV-1",
+                "DEMO/DLV-LST-2": "DLV-2"
+              }
+            },
+            "DEMO/DLV-LST-1/DLR-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-1/DLR-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLE-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-2/DLE-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLE-LST-1": "DLE-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLR-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-2/DLR-LST-1",
+                "DEMO/DLV-LST-2/DLR-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1",
+                "DEMO/DLV-LST-2/DLR-LST-2": "DLR-2"
+              }
+            },
+            "DEMO/META/tags": {
+              "seq": 4,
+              "items": [
+                "DEMO/META/tags-1",
+                "DEMO/META/tags-2",
+                "DEMO/META/tags-3",
+                "DEMO/META/tags-4"
+              ]
+            },
+            "DEMO/REF-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/REF-LST-1",
+                "DEMO/REF-LST-2"
+              ],
+              "ids": {
+                "DEMO/REF-LST-1": "REF-SPEC",
+                "DEMO/REF-LST-2": "REF-2"
+              }
+            },
+            "DEMO/items": {
+              "seq": 2,
+              "items": [
+                "DEMO/items-1",
+                "DEMO/items-2"
+              ]
+            }
+          },
+          "headlines": {
+            "DEMO/DET": "Details & Contacts",
+            "DEMO/MIX": "Mixed\nslots",
+            "DEMO/REF-LST-1": "Reference to the Spec",
+            "DEMO/SUM": "Executive Summary",
+            "DEMO/items": "Work Items",
+            "OTHER/kept": "Kept headline"
+          },
+          "codeSpecs": {
+            "DEMO/TTL": "DemoTitle",
+            "OTHER/kept": "kept.dart"
+          },
+          "units": {
+            "DEMO/TTL": "demo_server",
+            "DEMO/notes": "demo_client,demo_server",
+            "OTHER/kept": "kept_unit"
+          }
+        },
+        "rejectedBlocks": [
+          {
+            "line": 4,
+            "path": "DEMO"
+          }
+        ]
+      }
+    },
+    {
+      "name": "apply with allowRejections keeps a section-table row one edit from a list with its continuation",
+      "readingView": true,
+      "op": "apply",
+      "base": {
+        "content": {
+          "DEMO/TTL": "stale title",
+          "DEMO/stale": "not in the import",
+          "OTHER/kept": "another root"
+        },
+        "headlines": {
+          "DEMO/SUM": "Stale headline",
+          "OTHER/kept": "Kept headline"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "stale.dart",
+          "OTHER/kept": "kept.dart"
+        },
+        "units": {
+          "DEMO/TTL": "stale_unit",
+          "DEMO/SUM": "stale_unit",
+          "OTHER/kept": "kept_unit"
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 9,
+            "items": [
+              "DEMO/CARD-LST-9"
+            ]
+          }
+        }
+      },
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> <a id=\"DEMO\"></a> Demo Document\n\n## <!--[TTL] codeSpec=\"DemoTitle\" units=\"demo_server\"--> <a id=\"TTL\"></a> Document Title\n\nHello\n\n## <!--[SUM]--> <a id=\"SUM\"></a> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> <a id=\"PRI\"></a> Priority\n\nhigh\n\n## <!--[CNT]--> <a id=\"CNT\"></a> Count\n\n3\n\n## <!--[DET]--> <a id=\"DET\"></a> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | Bob |\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\n| TomSpecField | Value |\n| --- | --- |\n| Estimate | 8 |\n| Weight | 2.5 |\n| Active | true |\n| Priority | high |\n| Pattern | `^[a-z0-9](-?[a-z0-9]){1,62}$` |\n\n## <!--[items]--> <a id=\"items\"></a> Work Items\n\n### <!--[items-1]--> <a id=\"items-1\"></a> Task 1\n\nFirst\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\nopen\n\n### <!--[items-2]--> <a id=\"items-2\"></a> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\ndone\n\n## <!--[REF-LST]--> <a id=\"REF-LST\"></a> Refs\n\n### <!--[REF-SPEC]--> <a id=\"REF-SPEC\"></a> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> <a id=\"REF-2\"></a> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> <a id=\"CARD-LST\"></a> Cards\n\n::: {.records}\n| Id | Title | Note |\n| --- | --- | --- |\n| <a id=\"CARD-ALPHA\"></a>CARD-ALPHA | Alpha Card | first card |\n| <a id=\"CARD-2\"></a>CARD-2 |  | second card |\n:::\n\n## <!--[META]--> <a id=\"META\"></a> Meta\n\n### <!--[OWNR]--> <a id=\"OWNR\"></a> Owner\n\nalice\n\n### <!--[tags]--> <a id=\"tags\"></a> Tags\n\n#### <!--[tags-1]--> <a id=\"tags-1\"></a> Tags 1\n\non\n\n#### <!--[tags-2]--> <a id=\"tags-2\"></a> Tags 2\n\nno\n\n#### <!--[tags-3]--> <a id=\"tags-3\"></a> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> <a id=\"tags-4\"></a> Tags 4\n\nplain\n\n## <!--[CTRL]--> <a id=\"CTRL\"></a> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> <a id=\"CTRL-SUM\"></a> Summary\n\nControlled summary\n\n## <!--[NOTE] units=\"demo_client,demo_server\"--> <a id=\"NOTE\"></a> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> <a id=\"NOTE-BDY\"></a> Body\n\nSection-kind body\n\n## <!--[MIX]--> <a id=\"MIX\"></a> Mixed<br>slots\n\n<!-- slot: content -->\n\n_Extrapolated._\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Ada |\n| Risk | low |\n\n<!-- slot: narrative -->\n\nFirst narrative.\n\n\nAfter two blank lines.\n Lead: label-shaped prose\n\n<!-- slot: tail -->\n\nTail text.\n\n<!-- slot: alt -->\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Bob |\n\n## <!--[DLV-LST]--> <a id=\"DLV-LST\"></a> Deliverables\n\n### <!--[DLV-1]--> <a id=\"DLV-1\"></a> Deliverable 1\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_client |\n| Kind | client |\n| Component | ARCM-COMP-UI |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LS / DLR-1 | Area | CE-NV |\n|  | Mapping | dart-tom |\n\n### <!--[DLV-2]--> <a id=\"DLV-2\"></a> Deliverable 2\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_server |\n| Kind | server |\n| DeploymentTarget | DEPTAR-DEPL-API |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-DB |\n|  | Mapping | dart-tom |\n| <a id=\"DLR-2\"></a>DLR-LST / DLR-2 | Area | CE-NV |\n|  | Mapping | dart-tom |\n| <a id=\"DLE-1\"></a>DLE-LST / DLE-1 | Emitter | openapi |\n\n",
+      "allowRejections": true,
+      "expect": {
+        "refused": false,
+        "rejectionCount": 1,
+        "document": {
+          "content": {
+            "DEMO/CNT": "3",
+            "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+            "DEMO/DLV-LST-1/content": "::: {.rejected reason=\"unknownSection\" line=\"163\" section=\"DLR-LST / DLR-1\" label=\"section-table row names no child section of 'DEMO/DLV-LST-1'\"}\n| <a id=\"DLR-1\"></a>DLR-LS / DLR-1 | Area | CE-NV |\n|  | Mapping | dart-tom |\n:::",
+            "DEMO/META/OWNR": "alice",
+            "DEMO/META/tags-1": "on",
+            "DEMO/META/tags-2": "no",
+            "DEMO/META/tags-3": "1:30",
+            "DEMO/META/tags-4": "plain",
+            "DEMO/MIX/content": "_Extrapolated._",
+            "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/PRI": "high",
+            "DEMO/REF-LST-1": "spec §1.2",
+            "DEMO/REF-LST-2": "ADR7",
+            "DEMO/SUM": "Line one\nLine two\n\nLine four",
+            "DEMO/TTL": "Hello",
+            "DEMO/control/CTRL-SUM": "Controlled summary",
+            "DEMO/control/owner": "ctrl-owner",
+            "DEMO/items-1/STS": "open",
+            "DEMO/items-1/label": "First",
+            "DEMO/items-2/STS": "done",
+            "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+            "DEMO/notes/NOTE-BDY": "Section-kind body",
+            "DEMO/notes/remarks": "Wrapper-section text",
+            "OTHER/kept": "another root"
+          },
+          "forms": {
+            "DEMO/CARD-LST-1/content": {
+              "note": "first card"
+            },
+            "DEMO/CARD-LST-2/content": {
+              "note": "second card"
+            },
+            "DEMO/DET": {
+              "active": "true",
+              "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+              "estimate": "8",
+              "owner": "Bob",
+              "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
+              "priority": "high",
+              "weight": "2.5"
+            },
+            "DEMO/DLV-LST-1/content": {
+              "component": "ARCM-COMP-UI",
+              "kind": "client",
+              "unitId": "demo_client"
+            },
+            "DEMO/DLV-LST-2/DLE-LST-1/content": {
+              "emitter": "openapi"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-1/content": {
+              "area": "CE-DB",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-2/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/content": {
+              "deploymentTarget": "DEPTAR-DEPL-API",
+              "kind": "server",
+              "unitId": "demo_server"
+            },
+            "DEMO/MIX/alt": {
+              "lead": "Bob"
+            },
+            "DEMO/MIX/content": {
+              "lead": "Ada",
+              "risk": "low"
+            }
+          },
+          "lists": {
+            "DEMO/CARD-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/CARD-LST-1",
+                "DEMO/CARD-LST-2"
+              ],
+              "ids": {
+                "DEMO/CARD-LST-1": "CARD-ALPHA",
+                "DEMO/CARD-LST-2": "CARD-2"
+              }
+            },
+            "DEMO/DLV-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-1",
+                "DEMO/DLV-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1": "DLV-1",
+                "DEMO/DLV-LST-2": "DLV-2"
+              }
+            },
+            "DEMO/DLV-LST-2/DLE-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-2/DLE-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLE-LST-1": "DLE-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLR-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-2/DLR-LST-1",
+                "DEMO/DLV-LST-2/DLR-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1",
+                "DEMO/DLV-LST-2/DLR-LST-2": "DLR-2"
+              }
+            },
+            "DEMO/META/tags": {
+              "seq": 4,
+              "items": [
+                "DEMO/META/tags-1",
+                "DEMO/META/tags-2",
+                "DEMO/META/tags-3",
+                "DEMO/META/tags-4"
+              ]
+            },
+            "DEMO/REF-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/REF-LST-1",
+                "DEMO/REF-LST-2"
+              ],
+              "ids": {
+                "DEMO/REF-LST-1": "REF-SPEC",
+                "DEMO/REF-LST-2": "REF-2"
+              }
+            },
+            "DEMO/items": {
+              "seq": 2,
+              "items": [
+                "DEMO/items-1",
+                "DEMO/items-2"
+              ]
+            }
+          },
+          "headlines": {
+            "DEMO/CARD-LST-1": "Alpha Card",
+            "DEMO/DET": "Details & Contacts",
+            "DEMO/MIX": "Mixed\nslots",
+            "DEMO/REF-LST-1": "Reference to the Spec",
+            "DEMO/SUM": "Executive Summary",
+            "DEMO/items": "Work Items",
+            "OTHER/kept": "Kept headline"
+          },
+          "codeSpecs": {
+            "DEMO/TTL": "DemoTitle",
+            "OTHER/kept": "kept.dart"
+          },
+          "units": {
+            "DEMO/TTL": "demo_server",
+            "DEMO/notes": "demo_client,demo_server",
+            "OTHER/kept": "kept_unit"
+          }
+        },
+        "rejectedBlocks": [
+          {
+            "line": 155,
+            "path": "DEMO/DLV-LST-1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "apply with allowRejections keeps text before the root heading at the root's start",
+      "readingView": true,
+      "op": "apply",
+      "base": {
+        "content": {
+          "DEMO/TTL": "stale title",
+          "DEMO/stale": "not in the import",
+          "OTHER/kept": "another root"
+        },
+        "headlines": {
+          "DEMO/SUM": "Stale headline",
+          "OTHER/kept": "Kept headline"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "stale.dart",
+          "OTHER/kept": "kept.dart"
+        },
+        "units": {
+          "DEMO/TTL": "stale_unit",
+          "DEMO/SUM": "stale_unit",
+          "OTHER/kept": "kept_unit"
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 9,
+            "items": [
+              "DEMO/CARD-LST-9"
+            ]
+          }
+        }
+      },
+      "markdown": "Stray text.\n\n<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> <a id=\"DEMO\"></a> Demo Document\n\n## <!--[TTL] codeSpec=\"DemoTitle\" units=\"demo_server\"--> <a id=\"TTL\"></a> Document Title\n\nHello\n\n## <!--[SUM]--> <a id=\"SUM\"></a> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> <a id=\"PRI\"></a> Priority\n\nhigh\n\n## <!--[CNT]--> <a id=\"CNT\"></a> Count\n\n3\n\n## <!--[DET]--> <a id=\"DET\"></a> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | Bob |\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\n| TomSpecField | Value |\n| --- | --- |\n| Estimate | 8 |\n| Weight | 2.5 |\n| Active | true |\n| Priority | high |\n| Pattern | `^[a-z0-9](-?[a-z0-9]){1,62}$` |\n\n## <!--[items]--> <a id=\"items\"></a> Work Items\n\n### <!--[items-1]--> <a id=\"items-1\"></a> Task 1\n\nFirst\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\nopen\n\n### <!--[items-2]--> <a id=\"items-2\"></a> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\ndone\n\n## <!--[REF-LST]--> <a id=\"REF-LST\"></a> Refs\n\n### <!--[REF-SPEC]--> <a id=\"REF-SPEC\"></a> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> <a id=\"REF-2\"></a> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> <a id=\"CARD-LST\"></a> Cards\n\n::: {.records}\n| Id | Title | Note |\n| --- | --- | --- |\n| <a id=\"CARD-ALPHA\"></a>CARD-ALPHA | Alpha Card | first card |\n| <a id=\"CARD-2\"></a>CARD-2 |  | second card |\n:::\n\n## <!--[META]--> <a id=\"META\"></a> Meta\n\n### <!--[OWNR]--> <a id=\"OWNR\"></a> Owner\n\nalice\n\n### <!--[tags]--> <a id=\"tags\"></a> Tags\n\n#### <!--[tags-1]--> <a id=\"tags-1\"></a> Tags 1\n\non\n\n#### <!--[tags-2]--> <a id=\"tags-2\"></a> Tags 2\n\nno\n\n#### <!--[tags-3]--> <a id=\"tags-3\"></a> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> <a id=\"tags-4\"></a> Tags 4\n\nplain\n\n## <!--[CTRL]--> <a id=\"CTRL\"></a> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> <a id=\"CTRL-SUM\"></a> Summary\n\nControlled summary\n\n## <!--[NOTE] units=\"demo_client,demo_server\"--> <a id=\"NOTE\"></a> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> <a id=\"NOTE-BDY\"></a> Body\n\nSection-kind body\n\n## <!--[MIX]--> <a id=\"MIX\"></a> Mixed<br>slots\n\n<!-- slot: content -->\n\n_Extrapolated._\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Ada |\n| Risk | low |\n\n<!-- slot: narrative -->\n\nFirst narrative.\n\n\nAfter two blank lines.\n Lead: label-shaped prose\n\n<!-- slot: tail -->\n\nTail text.\n\n<!-- slot: alt -->\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Bob |\n\n## <!--[DLV-LST]--> <a id=\"DLV-LST\"></a> Deliverables\n\n### <!--[DLV-1]--> <a id=\"DLV-1\"></a> Deliverable 1\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_client |\n| Kind | client |\n| Component | ARCM-COMP-UI |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-NV |\n|  | Mapping | dart-tom |\n\n### <!--[DLV-2]--> <a id=\"DLV-2\"></a> Deliverable 2\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_server |\n| Kind | server |\n| DeploymentTarget | DEPTAR-DEPL-API |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-DB |\n|  | Mapping | dart-tom |\n| <a id=\"DLR-2\"></a>DLR-LST / DLR-2 | Area | CE-NV |\n|  | Mapping | dart-tom |\n| <a id=\"DLE-1\"></a>DLE-LST / DLE-1 | Emitter | openapi |\n\n",
+      "allowRejections": true,
+      "expect": {
+        "refused": false,
+        "rejectionCount": 1,
+        "document": {
+          "content": {
+            "DEMO": "::: {.rejected reason=\"orphanContent\" line=\"1\" label=\"text before the document root heading\"}\nStray text.\n:::",
             "DEMO/CNT": "3",
             "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
             "DEMO/META/OWNR": "alice",
@@ -1131,7 +3071,459 @@
             "DEMO/notes": "demo_client,demo_server",
             "OTHER/kept": "kept_unit"
           }
+        },
+        "rejectedBlocks": [
+          {
+            "line": 4,
+            "path": "DEMO"
+          }
+        ]
+      }
+    },
+    {
+      "name": "apply with allowRejections keeps a child heading under a value leaf in its parent",
+      "readingView": true,
+      "op": "apply",
+      "base": {
+        "content": {
+          "DEMO/TTL": "stale title",
+          "DEMO/stale": "not in the import",
+          "OTHER/kept": "another root"
+        },
+        "headlines": {
+          "DEMO/SUM": "Stale headline",
+          "OTHER/kept": "Kept headline"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "stale.dart",
+          "OTHER/kept": "kept.dart"
+        },
+        "units": {
+          "DEMO/TTL": "stale_unit",
+          "DEMO/SUM": "stale_unit",
+          "OTHER/kept": "kept_unit"
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 9,
+            "items": [
+              "DEMO/CARD-LST-9"
+            ]
+          }
         }
+      },
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> <a id=\"DEMO\"></a> Demo Document\n\n## <!--[TTL] codeSpec=\"DemoTitle\" units=\"demo_server\"--> <a id=\"TTL\"></a> Document Title\n\nHello\n\n## <!--[SUM]--> <a id=\"SUM\"></a> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> <a id=\"PRI\"></a> Priority\n\nhigh\n\n### <!--[X]--> Child\n\nchild text\n\n## <!--[CNT]--> <a id=\"CNT\"></a> Count\n\n3\n\n## <!--[DET]--> <a id=\"DET\"></a> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | Bob |\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\n| TomSpecField | Value |\n| --- | --- |\n| Estimate | 8 |\n| Weight | 2.5 |\n| Active | true |\n| Priority | high |\n| Pattern | `^[a-z0-9](-?[a-z0-9]){1,62}$` |\n\n## <!--[items]--> <a id=\"items\"></a> Work Items\n\n### <!--[items-1]--> <a id=\"items-1\"></a> Task 1\n\nFirst\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\nopen\n\n### <!--[items-2]--> <a id=\"items-2\"></a> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\ndone\n\n## <!--[REF-LST]--> <a id=\"REF-LST\"></a> Refs\n\n### <!--[REF-SPEC]--> <a id=\"REF-SPEC\"></a> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> <a id=\"REF-2\"></a> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> <a id=\"CARD-LST\"></a> Cards\n\n::: {.records}\n| Id | Title | Note |\n| --- | --- | --- |\n| <a id=\"CARD-ALPHA\"></a>CARD-ALPHA | Alpha Card | first card |\n| <a id=\"CARD-2\"></a>CARD-2 |  | second card |\n:::\n\n## <!--[META]--> <a id=\"META\"></a> Meta\n\n### <!--[OWNR]--> <a id=\"OWNR\"></a> Owner\n\nalice\n\n### <!--[tags]--> <a id=\"tags\"></a> Tags\n\n#### <!--[tags-1]--> <a id=\"tags-1\"></a> Tags 1\n\non\n\n#### <!--[tags-2]--> <a id=\"tags-2\"></a> Tags 2\n\nno\n\n#### <!--[tags-3]--> <a id=\"tags-3\"></a> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> <a id=\"tags-4\"></a> Tags 4\n\nplain\n\n## <!--[CTRL]--> <a id=\"CTRL\"></a> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> <a id=\"CTRL-SUM\"></a> Summary\n\nControlled summary\n\n## <!--[NOTE] units=\"demo_client,demo_server\"--> <a id=\"NOTE\"></a> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> <a id=\"NOTE-BDY\"></a> Body\n\nSection-kind body\n\n## <!--[MIX]--> <a id=\"MIX\"></a> Mixed<br>slots\n\n<!-- slot: content -->\n\n_Extrapolated._\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Ada |\n| Risk | low |\n\n<!-- slot: narrative -->\n\nFirst narrative.\n\n\nAfter two blank lines.\n Lead: label-shaped prose\n\n<!-- slot: tail -->\n\nTail text.\n\n<!-- slot: alt -->\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Bob |\n\n## <!--[DLV-LST]--> <a id=\"DLV-LST\"></a> Deliverables\n\n### <!--[DLV-1]--> <a id=\"DLV-1\"></a> Deliverable 1\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_client |\n| Kind | client |\n| Component | ARCM-COMP-UI |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-NV |\n|  | Mapping | dart-tom |\n\n### <!--[DLV-2]--> <a id=\"DLV-2\"></a> Deliverable 2\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_server |\n| Kind | server |\n| DeploymentTarget | DEPTAR-DEPL-API |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-DB |\n|  | Mapping | dart-tom |\n| <a id=\"DLR-2\"></a>DLR-LST / DLR-2 | Area | CE-NV |\n|  | Mapping | dart-tom |\n| <a id=\"DLE-1\"></a>DLE-LST / DLE-1 | Emitter | openapi |\n\n",
+      "allowRejections": true,
+      "expect": {
+        "refused": false,
+        "rejectionCount": 1,
+        "document": {
+          "content": {
+            "DEMO": "::: {.rejected reason=\"kindMismatch\" line=\"19\" label=\"child heading under a value-leaf or form section\"}\n### <!--[X]--> Child\n\nchild text\n:::",
+            "DEMO/CNT": "3",
+            "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+            "DEMO/META/OWNR": "alice",
+            "DEMO/META/tags-1": "on",
+            "DEMO/META/tags-2": "no",
+            "DEMO/META/tags-3": "1:30",
+            "DEMO/META/tags-4": "plain",
+            "DEMO/MIX/content": "_Extrapolated._",
+            "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/PRI": "high",
+            "DEMO/REF-LST-1": "spec §1.2",
+            "DEMO/REF-LST-2": "ADR7",
+            "DEMO/SUM": "Line one\nLine two\n\nLine four",
+            "DEMO/TTL": "Hello",
+            "DEMO/control/CTRL-SUM": "Controlled summary",
+            "DEMO/control/owner": "ctrl-owner",
+            "DEMO/items-1/STS": "open",
+            "DEMO/items-1/label": "First",
+            "DEMO/items-2/STS": "done",
+            "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+            "DEMO/notes/NOTE-BDY": "Section-kind body",
+            "DEMO/notes/remarks": "Wrapper-section text",
+            "OTHER/kept": "another root"
+          },
+          "forms": {
+            "DEMO/CARD-LST-1/content": {
+              "note": "first card"
+            },
+            "DEMO/CARD-LST-2/content": {
+              "note": "second card"
+            },
+            "DEMO/DET": {
+              "active": "true",
+              "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+              "estimate": "8",
+              "owner": "Bob",
+              "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
+              "priority": "high",
+              "weight": "2.5"
+            },
+            "DEMO/DLV-LST-1/DLR-LST-1/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-1/content": {
+              "component": "ARCM-COMP-UI",
+              "kind": "client",
+              "unitId": "demo_client"
+            },
+            "DEMO/DLV-LST-2/DLE-LST-1/content": {
+              "emitter": "openapi"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-1/content": {
+              "area": "CE-DB",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-2/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/content": {
+              "deploymentTarget": "DEPTAR-DEPL-API",
+              "kind": "server",
+              "unitId": "demo_server"
+            },
+            "DEMO/MIX/alt": {
+              "lead": "Bob"
+            },
+            "DEMO/MIX/content": {
+              "lead": "Ada",
+              "risk": "low"
+            }
+          },
+          "lists": {
+            "DEMO/CARD-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/CARD-LST-1",
+                "DEMO/CARD-LST-2"
+              ],
+              "ids": {
+                "DEMO/CARD-LST-1": "CARD-ALPHA",
+                "DEMO/CARD-LST-2": "CARD-2"
+              }
+            },
+            "DEMO/DLV-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-1",
+                "DEMO/DLV-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1": "DLV-1",
+                "DEMO/DLV-LST-2": "DLV-2"
+              }
+            },
+            "DEMO/DLV-LST-1/DLR-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-1/DLR-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLE-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-2/DLE-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLE-LST-1": "DLE-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLR-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-2/DLR-LST-1",
+                "DEMO/DLV-LST-2/DLR-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1",
+                "DEMO/DLV-LST-2/DLR-LST-2": "DLR-2"
+              }
+            },
+            "DEMO/META/tags": {
+              "seq": 4,
+              "items": [
+                "DEMO/META/tags-1",
+                "DEMO/META/tags-2",
+                "DEMO/META/tags-3",
+                "DEMO/META/tags-4"
+              ]
+            },
+            "DEMO/REF-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/REF-LST-1",
+                "DEMO/REF-LST-2"
+              ],
+              "ids": {
+                "DEMO/REF-LST-1": "REF-SPEC",
+                "DEMO/REF-LST-2": "REF-2"
+              }
+            },
+            "DEMO/items": {
+              "seq": 2,
+              "items": [
+                "DEMO/items-1",
+                "DEMO/items-2"
+              ]
+            }
+          },
+          "headlines": {
+            "DEMO/CARD-LST-1": "Alpha Card",
+            "DEMO/DET": "Details & Contacts",
+            "DEMO/MIX": "Mixed\nslots",
+            "DEMO/REF-LST-1": "Reference to the Spec",
+            "DEMO/SUM": "Executive Summary",
+            "DEMO/items": "Work Items",
+            "OTHER/kept": "Kept headline"
+          },
+          "codeSpecs": {
+            "DEMO/TTL": "DemoTitle",
+            "OTHER/kept": "kept.dart"
+          },
+          "units": {
+            "DEMO/TTL": "demo_server",
+            "DEMO/notes": "demo_client,demo_server",
+            "OTHER/kept": "kept_unit"
+          }
+        },
+        "rejectedBlocks": [
+          {
+            "line": 4,
+            "path": "DEMO"
+          }
+        ]
+      }
+    },
+    {
+      "name": "apply with allowRejections keeps nested unknown sections in order",
+      "readingView": true,
+      "op": "apply",
+      "base": {
+        "content": {
+          "DEMO/TTL": "stale title",
+          "DEMO/stale": "not in the import",
+          "OTHER/kept": "another root"
+        },
+        "headlines": {
+          "DEMO/SUM": "Stale headline",
+          "OTHER/kept": "Kept headline"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "stale.dart",
+          "OTHER/kept": "kept.dart"
+        },
+        "units": {
+          "DEMO/TTL": "stale_unit",
+          "DEMO/SUM": "stale_unit",
+          "OTHER/kept": "kept_unit"
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 9,
+            "items": [
+              "DEMO/CARD-LST-9"
+            ]
+          }
+        }
+      },
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> <a id=\"DEMO\"></a> Demo Document\n\n## <!--[TTL] codeSpec=\"DemoTitle\" units=\"demo_server\"--> <a id=\"TTL\"></a> Document Title\n\nHello\n\n## <!--[SUM]--> <a id=\"SUM\"></a> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> <a id=\"PRI\"></a> Priority\n\nhigh\n\n## <!--[CNT]--> <a id=\"CNT\"></a> Count\n\n3\n\n## <!--[DET]--> <a id=\"DET\"></a> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | Bob |\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\n| TomSpecField | Value |\n| --- | --- |\n| Estimate | 8 |\n| Weight | 2.5 |\n| Active | true |\n| Priority | high |\n| Pattern | `^[a-z0-9](-?[a-z0-9]){1,62}$` |\n\n## <!--[items]--> <a id=\"items\"></a> Work Items\n\n### <!--[items-1]--> <a id=\"items-1\"></a> Task 1\n\nFirst\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\nopen\n\n### <!--[items-2]--> <a id=\"items-2\"></a> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> <a id=\"STS\"></a> Status\n\ndone\n\n## <!--[REF-LST]--> <a id=\"REF-LST\"></a> Refs\n\n### <!--[REF-SPEC]--> <a id=\"REF-SPEC\"></a> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> <a id=\"REF-2\"></a> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> <a id=\"CARD-LST\"></a> Cards\n\n::: {.records}\n| Id | Title | Note |\n| --- | --- | --- |\n| <a id=\"CARD-ALPHA\"></a>CARD-ALPHA | Alpha Card | first card |\n| <a id=\"CARD-2\"></a>CARD-2 |  | second card |\n:::\n\n## <!--[META]--> <a id=\"META\"></a> Meta\n\n### <!--[OWNR]--> <a id=\"OWNR\"></a> Owner\n\nalice\n\n### <!--[tags]--> <a id=\"tags\"></a> Tags\n\n#### <!--[tags-1]--> <a id=\"tags-1\"></a> Tags 1\n\non\n\n#### <!--[tags-2]--> <a id=\"tags-2\"></a> Tags 2\n\nno\n\n#### <!--[tags-3]--> <a id=\"tags-3\"></a> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> <a id=\"tags-4\"></a> Tags 4\n\nplain\n\n## <!--[CTRL]--> <a id=\"CTRL\"></a> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> <a id=\"CTRL-SUM\"></a> Summary\n\nControlled summary\n\n## <!--[NOTE] units=\"demo_client,demo_server\"--> <a id=\"NOTE\"></a> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> <a id=\"NOTE-BDY\"></a> Body\n\nSection-kind body\n\n## <!--[MIX]--> <a id=\"MIX\"></a> Mixed<br>slots\n\n<!-- slot: content -->\n\n_Extrapolated._\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Ada |\n| Risk | low |\n\n<!-- slot: narrative -->\n\nFirst narrative.\n\n\nAfter two blank lines.\n Lead: label-shaped prose\n\n<!-- slot: tail -->\n\nTail text.\n\n<!-- slot: alt -->\n\n| TomSpecField | Value |\n| --- | --- |\n| Lead | Bob |\n\n## <!--[DLV-LST]--> <a id=\"DLV-LST\"></a> Deliverables\n\n### <!--[DLV-1]--> <a id=\"DLV-1\"></a> Deliverable 1\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_client |\n| Kind | client |\n| Component | ARCM-COMP-UI |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-NV |\n|  | Mapping | dart-tom |\n\n### <!--[DLV-2]--> <a id=\"DLV-2\"></a> Deliverable 2\n\n| TomSpecField | Value |\n| --- | --- |\n| UnitId | demo_server |\n| Kind | server |\n| DeploymentTarget | DEPTAR-DEPL-API |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"DLR-1\"></a>DLR-LST / DLR-1 | Area | CE-DB |\n|  | Mapping | dart-tom |\n| <a id=\"DLR-2\"></a>DLR-LST / DLR-2 | Area | CE-NV |\n|  | Mapping | dart-tom |\n| <a id=\"DLE-1\"></a>DLE-LST / DLE-1 | Emitter | openapi |\n\n\n## <!--[NOPE]--> A\n\nA text\n\n### <!--[NOPE2]--> B\n\nB text\n",
+      "allowRejections": true,
+      "expect": {
+        "refused": false,
+        "rejectionCount": 2,
+        "document": {
+          "content": {
+            "DEMO": "::: {.rejected reason=\"unknownSection\" line=\"183\" label=\"section id does not resolve against the schema tree at this position (under 'DEMO')\"}\n## <!--[NOPE]--> A\n\nA text\n:::\n\n::: {.rejected reason=\"unknownSection\" line=\"187\" label=\"section nested under an unresolvable parent\"}\n### <!--[NOPE2]--> B\n\nB text\n:::",
+            "DEMO/CNT": "3",
+            "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+            "DEMO/META/OWNR": "alice",
+            "DEMO/META/tags-1": "on",
+            "DEMO/META/tags-2": "no",
+            "DEMO/META/tags-3": "1:30",
+            "DEMO/META/tags-4": "plain",
+            "DEMO/MIX/content": "_Extrapolated._",
+            "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/PRI": "high",
+            "DEMO/REF-LST-1": "spec §1.2",
+            "DEMO/REF-LST-2": "ADR7",
+            "DEMO/SUM": "Line one\nLine two\n\nLine four",
+            "DEMO/TTL": "Hello",
+            "DEMO/control/CTRL-SUM": "Controlled summary",
+            "DEMO/control/owner": "ctrl-owner",
+            "DEMO/items-1/STS": "open",
+            "DEMO/items-1/label": "First",
+            "DEMO/items-2/STS": "done",
+            "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+            "DEMO/notes/NOTE-BDY": "Section-kind body",
+            "DEMO/notes/remarks": "Wrapper-section text",
+            "OTHER/kept": "another root"
+          },
+          "forms": {
+            "DEMO/CARD-LST-1/content": {
+              "note": "first card"
+            },
+            "DEMO/CARD-LST-2/content": {
+              "note": "second card"
+            },
+            "DEMO/DET": {
+              "active": "true",
+              "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+              "estimate": "8",
+              "owner": "Bob",
+              "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
+              "priority": "high",
+              "weight": "2.5"
+            },
+            "DEMO/DLV-LST-1/DLR-LST-1/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-1/content": {
+              "component": "ARCM-COMP-UI",
+              "kind": "client",
+              "unitId": "demo_client"
+            },
+            "DEMO/DLV-LST-2/DLE-LST-1/content": {
+              "emitter": "openapi"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-1/content": {
+              "area": "CE-DB",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/DLR-LST-2/content": {
+              "area": "CE-NV",
+              "mapping": "dart-tom"
+            },
+            "DEMO/DLV-LST-2/content": {
+              "deploymentTarget": "DEPTAR-DEPL-API",
+              "kind": "server",
+              "unitId": "demo_server"
+            },
+            "DEMO/MIX/alt": {
+              "lead": "Bob"
+            },
+            "DEMO/MIX/content": {
+              "lead": "Ada",
+              "risk": "low"
+            }
+          },
+          "lists": {
+            "DEMO/CARD-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/CARD-LST-1",
+                "DEMO/CARD-LST-2"
+              ],
+              "ids": {
+                "DEMO/CARD-LST-1": "CARD-ALPHA",
+                "DEMO/CARD-LST-2": "CARD-2"
+              }
+            },
+            "DEMO/DLV-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-1",
+                "DEMO/DLV-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1": "DLV-1",
+                "DEMO/DLV-LST-2": "DLV-2"
+              }
+            },
+            "DEMO/DLV-LST-1/DLR-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-1/DLR-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-1/DLR-LST-1": "DLR-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLE-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/DLV-LST-2/DLE-LST-1"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLE-LST-1": "DLE-1"
+              }
+            },
+            "DEMO/DLV-LST-2/DLR-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/DLV-LST-2/DLR-LST-1",
+                "DEMO/DLV-LST-2/DLR-LST-2"
+              ],
+              "ids": {
+                "DEMO/DLV-LST-2/DLR-LST-1": "DLR-1",
+                "DEMO/DLV-LST-2/DLR-LST-2": "DLR-2"
+              }
+            },
+            "DEMO/META/tags": {
+              "seq": 4,
+              "items": [
+                "DEMO/META/tags-1",
+                "DEMO/META/tags-2",
+                "DEMO/META/tags-3",
+                "DEMO/META/tags-4"
+              ]
+            },
+            "DEMO/REF-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/REF-LST-1",
+                "DEMO/REF-LST-2"
+              ],
+              "ids": {
+                "DEMO/REF-LST-1": "REF-SPEC",
+                "DEMO/REF-LST-2": "REF-2"
+              }
+            },
+            "DEMO/items": {
+              "seq": 2,
+              "items": [
+                "DEMO/items-1",
+                "DEMO/items-2"
+              ]
+            }
+          },
+          "headlines": {
+            "DEMO/CARD-LST-1": "Alpha Card",
+            "DEMO/DET": "Details & Contacts",
+            "DEMO/MIX": "Mixed\nslots",
+            "DEMO/REF-LST-1": "Reference to the Spec",
+            "DEMO/SUM": "Executive Summary",
+            "DEMO/items": "Work Items",
+            "OTHER/kept": "Kept headline"
+          },
+          "codeSpecs": {
+            "DEMO/TTL": "DemoTitle",
+            "OTHER/kept": "kept.dart"
+          },
+          "units": {
+            "DEMO/TTL": "demo_server",
+            "DEMO/notes": "demo_client,demo_server",
+            "OTHER/kept": "kept_unit"
+          }
+        },
+        "rejectedBlocks": [
+          {
+            "line": 4,
+            "path": "DEMO"
+          },
+          {
+            "line": 10,
+            "path": "DEMO"
+          }
+        ]
       }
     }
   ]

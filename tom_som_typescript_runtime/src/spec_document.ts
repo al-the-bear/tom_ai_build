@@ -199,9 +199,10 @@ export class SpecDocument {
    * Loads a SOM-rendered Markdown document (SOM §11.7) into a fresh document
    * in one call: parse, then {@link applyMarkdownResult}.
    *
-   * Blocks the parser rejects are not loaded, and are returned with the
-   * document, so a caller can show them or refuse to save: re-exporting a
-   * document whose source had rejections drops those blocks for good.
+   * Blocks the parser rejects are kept in the document as `rejected` divs
+   * for review (SOM §11.7, DocSpecs RN-11) and returned with it, so a caller
+   * can show them; re-exporting the document writes the divs, which the
+   * validators report as `rejectedBlock` until each is resolved.
    */
   static fromMarkdown(text: string, model: SpecModel): SpecMarkdownImport {
     const document = new SpecDocument();
@@ -218,9 +219,12 @@ export class SpecDocument {
    * roots are left as they are.
    *
    * A result with rejections is refused with an {@link Error} — and the
-   * document left unchanged — unless `allowRejections` is true: the blocks it
-   * rejected would otherwise vanish from a document the caller believes it
-   * imported whole.
+   * document left unchanged — unless `allowRejections` is true. With it, each
+   * rejected block is kept rather than dropped:
+   * {@link SpecMarkdownResult.keptContent} is written over the parsed
+   * content, so the block stands as a `rejected` div in the text of the
+   * section it stood in (else its parent), at its place (SOM §11.7, DocSpecs
+   * RN-11), and nothing written is lost.
    *
    * Store-agnostic on both halves: the purge goes through
    * {@link removeValuesUnder}, which clears every store, and the carry-over is
@@ -264,8 +268,18 @@ export class SpecDocument {
       lists[listPath] = entry;
     }
 
+    const content: Record<string, string> = { ...(held.content || {}), ...result.content };
+    if (allowRejections) {
+      for (const [path, value] of Object.entries(result.keptContent)) {
+        if (value === '') {
+          delete content[path];
+        } else {
+          content[path] = value;
+        }
+      }
+    }
     this.loadJson({
-      content: { ...(held.content || {}), ...result.content },
+      content,
       forms: { ...(held.forms || {}), ...result.forms },
       lists,
       headlines: { ...(held.headlines || {}), ...result.headlines },

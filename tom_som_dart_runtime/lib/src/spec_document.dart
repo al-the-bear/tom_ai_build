@@ -198,9 +198,10 @@ class SpecDocument {
   /// Loads a SOM-rendered Markdown document (SOM §11.7) into a fresh document
   /// in one call: parse, then [applyMarkdownResult].
   ///
-  /// Blocks the parser rejects are not loaded, and are returned with the
-  /// document, so a caller can show them or refuse to save: re-exporting a
-  /// document whose source had rejections drops those blocks for good.
+  /// Blocks the parser rejects are kept in the document as `rejected` divs
+  /// for review (SOM §11.7, DocSpecs RN-11) and returned with it, so a caller
+  /// can show them; re-exporting the document writes the divs, which the
+  /// validators report as `rejectedBlock` until each is resolved.
   static SpecMarkdownImport fromMarkdown(String text, SpecModel model) {
     final document = SpecDocument();
     final result = SpecDocumentMarkdown(model, document).parse(text);
@@ -215,8 +216,11 @@ class SpecDocument {
   /// as they are.
   ///
   /// A result with rejections is refused with a [StateError] unless
-  /// [allowRejections] is true: the blocks it rejected would otherwise vanish
-  /// from a document the caller believes it imported whole.
+  /// [allowRejections] is true. With it, each rejected block is kept rather
+  /// than dropped: [SpecMarkdownResult.keptContent] is written over the
+  /// parsed content, so the block stands as a `rejected` div in the text of
+  /// the section it stood in (else its parent), at its place (SOM §11.7,
+  /// DocSpecs RN-11), and nothing written is lost.
   ///
   /// Store-agnostic on both halves: the purge goes through [removeValuesUnder],
   /// which clears every store, and the carry-over is whatever [toJson] emits.
@@ -264,8 +268,18 @@ class SpecDocument {
       };
     }
 
+    final content = store('content')..addAll(keyed(result.content));
+    if (allowRejections) {
+      for (final e in result.keptContent.entries) {
+        if (e.value.isEmpty) {
+          content.remove(_key(e.key));
+        } else {
+          content[_key(e.key)] = e.value;
+        }
+      }
+    }
     loadJson({
-      'content': store('content')..addAll(keyed(result.content)),
+      'content': content,
       'forms': store('forms')..addAll(keyed(result.forms)),
       'lists': lists,
       'headlines': store('headlines')..addAll(keyed(result.headlines)),

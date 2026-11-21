@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- **Rejected blocks are kept for review** (SOM §11.7, DocSpecs RN-11), as
+  in the Dart runtime: `applyMarkdownResult(result, true)` (and
+  `SpecDocument.fromMarkdown`) keeps every rejected block as a `rejected` div
+  in the text of the section it stood in, else its parent, at its place; the
+  parse result's new `keptContent` holds these values. The validator reports
+  each div as `rejectedBlock`; a kept document re-imports clean.
 - **The Markdown emitter writes the table layout** (SOM §11.4, §11.5), the
   port of the Dart one: a form's cell values as `| TomSpecField | Value |`
   tables between `Field:` paragraphs, a list of single references as a `refs`
@@ -154,6 +160,7 @@
   remove all removes them; `setMarked` keeps them. New: `commentChange`,
   `editMarkComment`, `decideAllMarksText`. A malformed quote is an
   `annotationMalformed` finding.
+
 ## 1.6.2 – 1.7.1
 
 - Team reviews (SOM §11.9.8): `SpecReviewAnnotations` reads attribution

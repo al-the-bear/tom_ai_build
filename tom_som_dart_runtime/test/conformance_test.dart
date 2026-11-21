@@ -341,7 +341,7 @@ void main() {
     for (final raw in table['cases'] as List<dynamic>) {
       final c = raw as Map<String, dynamic>;
       test(c['name'] as String, () {
-        final got = _runMarkdownApplyCase(model, c);
+        final got = _runMarkdownApplyCase(model, c, table['schema'] as String?);
         expect(got, c['expect']);
       });
     }
@@ -7441,8 +7441,9 @@ List<Map<String, dynamic>> _nodeCreationScript(SpecModel model) {
 /// the shape of the case's `expect`.
 Map<String, dynamic> _runMarkdownApplyCase(
   SpecModel model,
-  Map<String, dynamic> c,
-) {
+  Map<String, dynamic> c, [
+  String? schema,
+]) {
   final markdown = c['markdown'] as String;
   if (c['op'] == 'fromMarkdown') {
     final imported = SpecDocument.fromMarkdown(markdown, model);
@@ -7467,6 +7468,19 @@ Map<String, dynamic> _runMarkdownApplyCase(
     'refused': refused,
     'rejectionCount': parsed.rejections.length,
     'document': document.toJson(),
+    // 04a_rdv4: the validator reports every kept block as `rejectedBlock`
+    // (DocSpecs RN-11), with the document path it stands in.
+    if (c['readingView'] == true)
+      'rejectedBlocks': [
+        for (final v in validateSpecDocument(
+          model,
+          document,
+          DocSpecsSchema.fromYamlText(schema!),
+          rootType: 'Demo',
+        ))
+          if (v.rule == DocSpecsViolationRule.rejectedBlock)
+            {'line': v.line, 'path': v.path},
+      ],
   };
 }
 
@@ -7530,8 +7544,14 @@ Map<String, dynamic> _markdownApplyCases(
       'markdown': rejecting,
       'allowRejections': false,
     },
+    // 04a_rdv4: an import accepting rejections keeps every rejected block
+    // as a `rejected` div (DocSpecs RN-11), so this case, which ran before in
+    // every runtime, now holds the kept block and waits for the parity port.
     {
-      'name': 'apply with allowRejections lands every accepted block',
+      'name':
+          'apply with allowRejections lands every accepted block and keeps '
+          'an unknown section as a rejected div in its parent',
+      'readingView': true,
       'op': 'apply',
       'base': base,
       'markdown': rejecting,
@@ -7556,18 +7576,109 @@ Map<String, dynamic> _markdownApplyCases(
       'allowRejections': false,
     },
     {
-      'name': 'apply with allowRejections lands a tables result',
+      'name':
+          'apply with allowRejections lands a tables result and keeps the '
+          'row naming no field as a rejected div',
       'readingView': true,
       'op': 'apply',
       'base': base,
       'markdown': tablesRejecting,
       'allowRejections': true,
     },
+    // 04a_rdv4: one case per kind of rejected block, each kept as a
+    // `rejected` div in the text of the section it stood in (else its
+    // parent), at its place, with the attributes a resolution needs.
+    for (final (name, markdown) in _keptRejectionMarkdowns(tablesGolden))
+      {
+        'name': 'apply with allowRejections keeps $name',
+        'readingView': true,
+        'op': 'apply',
+        'base': base,
+        'markdown': markdown,
+        'allowRejections': true,
+      },
   ];
   for (final c in cases) {
-    c['expect'] = _runMarkdownApplyCase(model, c);
+    c['expect'] = _runMarkdownApplyCase(model, c, _demoDocSpecsSchemaYaml);
   }
-  return {'cases': cases};
+  return {'schema': _demoDocSpecsSchemaYaml, 'cases': cases};
+}
+
+/// The tables golden with one kind of rejected block each (04a_rdv4), named
+/// for the `markdown_apply_cases.json` case keeping it.
+List<(String, String)> _keptRejectionMarkdowns(String golden) {
+  String sub(String from, String to) {
+    if (!golden.contains(from)) {
+      throw StateError('the tables golden has no "$from"');
+    }
+    return golden.replaceFirst(from, to);
+  }
+
+  return [
+    (
+      'a row one edit from a field, naming the field',
+      sub('| Owner | Bob |', '| Owner | Bob |\n| Ownr | Carol |'),
+    ),
+    (
+      'a row giving a field twice, naming the field and the kept form',
+      sub('| Estimate | 8 |', '| Estimate | 8 |\n| Owner | Carol |'),
+    ),
+    (
+      'a paragraph giving a field twice whole',
+      sub(
+        '- backup: alice@example.com\n',
+        '- backup: alice@example.com\nContact: carol@example.com\n'
+            '- second line\n',
+      ),
+    ),
+    (
+      'a table without its delimiter row',
+      sub(
+        '| TomSpecField | Value |\n| --- | --- |\n| Owner | Bob |',
+        '| TomSpecField | Value |\n| Owner | Bob |',
+      ),
+    ),
+    (
+      'a records div whose column names no field in the parent',
+      sub('| Id | Title | Note |', '| Id | Title | Nte |'),
+    ),
+    (
+      'a records row with too few cells in the parent',
+      sub(
+        '| <a id="CARD-2"></a>CARD-2 |  | second card |',
+        '| <a id="CARD-2"></a>CARD-2 | second card |',
+      ),
+    ),
+    (
+      'an unclosed records fence escaped in the parent',
+      sub('| second card |\n:::\n', '| second card |\n'),
+    ),
+    (
+      'a section-table row one edit from a list with its continuation',
+      sub(
+        '| <a id="DLR-1"></a>DLR-LST / DLR-1 | Area | CE-NV |\n'
+            '|  | Mapping | dart-tom |\n\n### <!--[DLV-2]',
+        '| <a id="DLR-1"></a>DLR-LS / DLR-1 | Area | CE-NV |\n'
+            '|  | Mapping | dart-tom |\n\n### <!--[DLV-2]',
+      ),
+    ),
+    (
+      'text before the root heading at the root\'s start',
+      'Stray text.\n\n$golden',
+    ),
+    (
+      'a child heading under a value leaf in its parent',
+      sub(
+        'high\n\n## <!--[CNT]-->',
+        'high\n\n### <!--[X]--> Child\n\nchild text\n\n## <!--[CNT]-->',
+      ),
+    ),
+    (
+      'nested unknown sections in order',
+      '$golden\n## <!--[NOPE]--> A\n\nA text\n\n### <!--[NOPE2]--> B\n\n'
+          'B text\n',
+    ),
+  ];
 }
 
 /// The values the SOM §12.5 plain-scalar case writes (`yaml_review_cases.json`):
@@ -9039,8 +9150,10 @@ Map<String, dynamic> _runListMoveCase(SpecModel model, Map<String, dynamic> c) {
 /// fixture's `items` list, and documents whose rendition repeats the `STS`
 /// section id once per item. Expected heading maps and findings are computed
 /// live; the committed file is what every runtime replays.
-Map<String, dynamic> _docSpecsPathCases(SpecModel model) {
-  const schemaYaml = """title-format: "# <!--[DEMO]--> Demo Document"
+/// A DocSpecs schema for the corpus `Demo` document: two of its sections,
+/// shared by the path cases and the kept-rejection cases (whose findings the
+/// notation tier reports for every section, in the schema or not).
+const _demoDocSpecsSchemaYaml = """title-format: "# <!--[DEMO]--> Demo Document"
 section-types:
   ttl:
     prefix: TTL
@@ -9067,6 +9180,9 @@ document:
       section-type: items
       optional: true
 """;
+
+Map<String, dynamic> _docSpecsPathCases(SpecModel model) {
+  const schemaYaml = _demoDocSpecsSchemaYaml;
   final schema = DocSpecsSchema.fromYamlText(schemaYaml);
   Map<String, dynamic> caseFor(String name, Map<String, Object?> state) {
     final d = SpecDocument()..loadJson(state);

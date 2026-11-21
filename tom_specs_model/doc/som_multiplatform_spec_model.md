@@ -1640,7 +1640,8 @@ rejection list: `unknownSection`, `kindMismatch`, `orphanContent`,
 §11.5 `unknownField` (a table row or records column naming no declared field)
 and `malformedBlock` (a broken table, a field given twice, a misplaced or
 broken `refs` / `records` div; the message says which). Nothing is silently dropped: an unplaceable
-block is **reported and skipped**, and the rest of the document still imports.
+block is **reported and skipped** (an import that allows rejections keeps it
+as a `rejected` div, §11.7), and the rest of the document still imports.
 Each rejection carries its source line, the offending anchor (section path or id,
 absent when there is none), the reason and a human-readable message — pinned
 across the nine ports, together with the document that still landed, by
@@ -1660,11 +1661,44 @@ overwrite of the roots the import covers** (`rootPrefixes`): every value under
 them is removed from every store, then the staged content, forms, lists (with
 their `seq` and stored item ids), headlines and codeSpecs are written; other
 roots are untouched. A result with rejections is refused, and the document left
-unchanged, unless the caller allows them, because the rejected blocks would
-otherwise vanish from a document believed to be imported whole.
-`SpecDocument.fromMarkdown(text, model)` loads a fresh document in one call and
-returns it with the parse report. Both are pinned in every port by
-`markdown_apply_cases.json`. Stored headlines are
+unchanged, unless the caller allows them (`allowRejections`). An import that
+allows them **keeps every rejected block for review** rather than dropping it
+(DocSpecs RN-11): the parse result carries, in `keptContent`, the value of
+every path a rejected block stood in with the block written into it as a
+`rejected` div, and only an import allowing rejections writes these over the
+staged content.
+
+- **Where a block goes.** A block inside a section's body (a row, a table, a
+  field given twice — a `Field:` paragraph kept whole — or a misplaced or
+  broken `refs` / `records` div) goes into that section's unlabelled text
+  (its content, or a form's preamble) at its place, a table's rejected rows
+  after the table. A heading that resolves to nothing goes with its body into
+  its parent's text after the parent's own text, its own unresolvable children
+  after it in order; text before the root heading starts the root's text. A
+  list container (no text of its own, §11.5) and a scalar or enum value (a
+  typed value) pass their blocks to their parent; an unclosed `refs` /
+  `records` fence takes the container's lines along (an empty `keptContent`
+  value removes them). Nothing above an unknown root holds its text, and an
+  empty value section wrote none: there only the report remains.
+- **The div.** `::: {.rejected reason="…" line="…" [field="…"]
+  [section="…"] [kept="…"] label="…"}`: the reason, the source line,
+  `field` for a field given twice (with `kept`, the path of the form holding
+  the kept first value) or the one declared field a row or records column
+  label is a near miss of (the same letters but for case and separators, or
+  one edit away), `section` for the one child a section-table cell is a near
+  miss of, and the message as `label` (its double quotes as single ones). A
+  fence the block leaves unpaired is escaped (`\:::`); the div's fences are
+  longer than any inside it. The resolutions each reason allows are the
+  working document's (part *Parser and DocSpecs*).
+- **Afterwards.** A kept document exports with its divs and imports again
+  without a rejection and to the same document; the validator reports each
+  div as `rejectedBlock` (§14) until it is resolved.
+
+`SpecDocument.fromMarkdown(text, model)` loads a fresh document in one call,
+keeping any rejected blocks, and returns it with the parse report. Both are
+pinned by `markdown_apply_cases.json` (the kept blocks in its `readingView`
+cases, each with the `rejectedBlocks` the validator reports, run by Dart and
+TypeScript until the parity port). Stored headlines are
 staged only when they differ from the effective default, keeping untouched
 documents byte-stable.
 
