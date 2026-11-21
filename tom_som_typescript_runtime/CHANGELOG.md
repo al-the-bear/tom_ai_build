@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- **Stripped renditions** (SOM §11.10), the port of the Dart ones:
+  `stripNotationText(value, options)`,
+  `SpecDocumentStrip.strip(document, options, { model, schema, rootType,
+  source })`, `SpecStripOptions.fromNames`, `SpecReadableHeader` and the
+  result types; `SpecReviewAnnotations.stripped()` is the strip with
+  `drop: [comments]` and strips headlines too. Both runtimes give the same
+  `.readable.md` for `tom_uam.sbp`, byte for byte.
+- `new SpecDocumentMarkdown(model, doc, { headingDivs, readableHeader })`
+  writes styled-div headings below level 6 and the readable header; the parser
+  reads `heading<N>` divs (N ≥ 7), skips the readable header
+  (`SpecMarkdownResult.readableHeader`) and stops at the appendix marker; the
+  DocSpecs validator skips both. `SpecDocument.rootToExport`,
+  `countAnnotationsText`.
+- The Markdown export searches sorted keys instead of scanning every key per
+  list item when it decides a table form.
 - **Rejected blocks are kept for review** (SOM §11.7, DocSpecs RN-11), as
   in the Dart runtime: `applyMarkdownResult(result, true)` (and
   `SpecDocument.fromMarkdown`) keeps every rejected block as a `rejected` div

@@ -44,6 +44,14 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import {
+  SpecDocumentStrip,
+  SpecReadableHeader,
+  SpecReadableSource,
+  SpecStripOptions,
+  SpecStripPiece,
+  SpecStripUsageError,
+  stripNotationText,
+  stripAnnotationsText,
   CodeSpecsAreaCatalog,
   CodeSpecsExtract,
   CodeSpecsExtractError,
@@ -842,6 +850,122 @@ function testAnnotations(model: SpecModel, tree: SomMetaTree): void {
   }
 }
 
+// Stripped renditions (SOM §11.10): `strip_cases.json`, read like Dart's
+// strip_case_runner.dart.
+function _stripOptions(c: any): SpecStripOptions {
+  return SpecStripOptions.fromNames({
+    drop: c.drop ?? [],
+    unmark: c.unmark ?? [],
+    appendix: c.appendix ?? [],
+    appendixReferences: c.appendixReferences === true,
+    headingDivs: c.headingDivs === true,
+  });
+}
+
+function _stripOptionsJson(o: SpecStripOptions): Record<string, unknown> {
+  return {
+    drop: SpecStripOptions.ordered(o.drop),
+    unmark: SpecStripOptions.ordered(o.unmark),
+    appendix: SpecStripOptions.ordered(o.appendix),
+    appendixReferences: o.appendixReferences,
+    headingDivs: o.headingDivs,
+  };
+}
+
+function _unstrip(stripped: string, pieces: SpecStripPiece[]): string {
+  let out = '';
+  let at = 0;
+  for (const p of pieces) {
+    out += stripped.substring(at, p.anchor) + p.removed;
+    at = p.anchor + p.inserted.length;
+  }
+  return out + stripped.substring(at);
+}
+
+function testStripCases(model: SpecModel): void {
+  const table = _readJson('strip_cases.json');
+  const schema = DocSpecsSchema.fromYamlText(_read('docspecs_schema.yaml'));
+  for (const c of table.cases) {
+    const name = `strip[${c.name}]`;
+    try {
+      const r = stripNotationText(c.text, _stripOptions(c));
+      const got = r.toJson();
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+      _check(`${name}.pieces`, _unstrip(r.text, r.pieces) === c.text, 'pieces do not restore');
+      if (Array.isArray(c.drop) && c.drop.length === 1 && c.drop[0] === 'comments') {
+        _check(`${name}.stripAnnotationsText`, r.text === stripAnnotationsText(c.text));
+      }
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
+  for (const c of table.usageCases) {
+    let got: unknown;
+    try {
+      got = _stripOptionsJson(_stripOptions(c));
+    } catch (e) {
+      got = e instanceof SpecStripUsageError ? { error: e.message } : `threw ${String(e)}`;
+    }
+    _check(`strip.usage[${c.name}]`, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+  }
+  for (const c of table.headerCases) {
+    const h = SpecReadableHeader.parse(c.line);
+    let got: unknown = null;
+    if (h !== null) {
+      const o: Record<string, unknown> = _stripOptionsJson(h.options);
+      if (h.source !== null) {
+        o.source = {
+          file: h.source.file,
+          revision: h.source.revision,
+          commit: h.source.commit,
+          dirty: h.source.dirty,
+        };
+      }
+      o.format = h.format();
+      got = o;
+      _check(
+        `strip.header[${c.name}].inverse`,
+        SpecReadableHeader.parse(h.format())!.format() === h.format(),
+      );
+    }
+    _check(`strip.header[${c.name}]`, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+  }
+  for (const c of table.documentCases) {
+    const name = `strip.document[${c.name}]`;
+    try {
+      const doc = new SpecDocument();
+      doc.loadJson(c.state);
+      const withModel = c.model !== false;
+      const src = c.source;
+      const r = SpecDocumentStrip.strip(doc, _stripOptions(c), {
+        model: withModel ? model : null,
+        schema: withModel ? schema : null,
+        rootType: c.rootType ?? null,
+        source:
+          src === undefined
+            ? null
+            : new SpecReadableSource(src.file, src.revision ?? null, src.commit ?? null, src.dirty === true),
+      });
+      const got = {
+        document: r.document.toJson(),
+        kept: r.kept.map((k) => k.ref.toJson()),
+        removedItems: r.removedItems,
+        appendix: r.appendix.map((e) => e.toJson()),
+        dropped: Object.fromEntries(r.dropped),
+        unmarked: Object.fromEntries(r.unmarked),
+        appended: Object.fromEntries(r.appended),
+        marksDropped: r.marksDropped,
+        readableHeader: r.readableHeader,
+        readable: r.readable,
+        findings: r.findings.map((f) => f.kind),
+      };
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
+}
+
 // Team-review annotations (SOM §11.9.8): the scripted cases run like
 // `annotation_cases.json` with the results in their extended form; the
 // `validationCases` run like `validation_cases.json` over the corpus model.
@@ -1108,6 +1232,14 @@ function testMarkdownImportRejections(model: SpecModel): void {
       _deepEqual(landed.toJson(), c.document),
       _jsonMismatch(landed.toJson(), c.document),
     );
+    // A case naming the readable header holds it (SOM §11.1).
+    if (c.readableHeader !== undefined) {
+      _check(
+        `md.reject[${c.name}].readableHeader`,
+        parsed.readableHeader === c.readableHeader,
+        `got ${JSON.stringify(parsed.readableHeader)}`,
+      );
+    }
     // A case naming heading-comment values holds them too (read trimmed).
     for (const key of ['codeSpecs', 'units'] as const) {
       if (c[key] !== undefined) {
@@ -2846,6 +2978,7 @@ export function main(): number {
   testMarkdownApply(model);
   testAssembly();
   testAnnotations(model, tree);
+  testStripCases(model);
   testTeamAnnotations(model, tree);
   testReviewMerge(model);
   testInlineMarks(model, tree);

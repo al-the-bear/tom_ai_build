@@ -14,6 +14,7 @@
  */
 
 import { SpecDocument } from './spec_document';
+import { SpecDocumentStrip, SpecStripOptions } from './spec_document_strip';
 import { SpecValidationCode, SpecValidationError } from './spec_validator';
 
 /**
@@ -2530,6 +2531,15 @@ function _markKeepingChangeComments(current: string, text: string): SpecMarkedCh
 }
 
 /**
+ * How many comment and question blocks and inline marks `value` holds: what
+ * {@link stripAnnotationsText} removes, as a strip's report counts it.
+ */
+export function countAnnotationsText(value: string): number {
+  const p = _parse(value);
+  return p.blocks.length + p.marks.length;
+}
+
+/**
  * `value` without any comment block, question block or inline mark (every mark
  * accepted). Plain quotes and code stay.
  */
@@ -3545,20 +3555,16 @@ export class SpecReviewAnnotations {
   /**
    * A copy of the document without any annotation, for reading. The document
    * itself is unchanged.
+   *
+   * The strip of SOM §11.10 with `drop: [comments]`
+   * ({@link SpecDocumentStrip.strip}): every value is stripped, headlines
+   * included.
    */
   stripped(): SpecDocument {
-    const copy = new SpecDocument();
-    copy.loadJson(JSON.parse(JSON.stringify(this.doc.toJson())));
-    for (const [path, field, text] of this._values()) {
-      const clean = stripAnnotationsText(text);
-      if (clean === text) continue;
-      if (field === null) {
-        copy.setContent(path, clean);
-      } else {
-        copy.setFormField(path, field, clean);
-      }
-    }
-    return copy;
+    return SpecDocumentStrip.strip(
+      this.doc,
+      new SpecStripOptions({ drop: new Set(['comments']) }),
+    ).document;
   }
 
   private _paragraphLastLine(value: string, afterParagraph: number): number {

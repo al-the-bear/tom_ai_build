@@ -219,6 +219,7 @@ export {
   applyInlineMarksText,
   decideAllMarksText,
   stripAnnotationsText,
+  countAnnotationsText,
   SpecMarkedChange,
   markChangeText,
   SpecMarkVote,
@@ -346,6 +347,28 @@ export {
   SpecMarkdownRendition,
 } from './spec_document_markdown';
 export type { SpecMarkdownRejectReasonValue } from './spec_document_markdown';
+
+// stripped renditions (SOM §11.10)
+export {
+  specStripKindNames,
+  specStripNotationKinds,
+  SpecStripUsageError,
+  SpecStripOptions,
+  type SpecStripOptionsInit,
+  SpecReadableSource,
+  SpecReadableHeader,
+  SpecStripPiece,
+  SpecAppendixEntry,
+  SpecStripTextResult,
+  stripNotationText,
+  SpecStripValueRef,
+  SpecStrippedValue,
+  SpecStripKept,
+  SpecStripFinding,
+  SpecStripResult,
+  type SpecDocumentStripOptions,
+  SpecDocumentStrip,
+} from './spec_document_strip';
 
 // docspecs validation (SOM §14)
 export {

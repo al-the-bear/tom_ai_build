@@ -150,6 +150,11 @@ export class SpecMarkdownResult {
    *  path's text: a list container's lines that went into a block its parent
    *  holds. Empty for a clean parse. */
   keptContent: Record<string, string> = {};
+  /** The readable header line of a stripped rendition (SOM §11.1, `<!--
+   *  readable: … -->`), as written, when the text carried one before its
+   *  root heading; null otherwise. The parser skips the line and stages
+   *  nothing from it; {@link SpecReadableHeader.parse} reads it. */
+  readableHeader: string | null = null;
 
   /** Whether the parse was clean (no rejections). */
   get isClean(): boolean {
@@ -288,11 +293,26 @@ const _ID_SHAPE = /^[A-Z][A-Z0-9]*(-[A-Z0-9]+)*$/;
 // table needs two lines, so it is caught by the line break.
 const _BLOCK_START = /^\s*([-*+]\s|\d+[.)]\s|>|```|~~~|:::)/;
 
-/** Every stored key at or below `prefix` in `keys`. */
-function _under(keys: Iterable<string>, prefix: string): string[] {
+/**
+ * The keys of `sorted` at or below `prefix`: a binary search to the first key
+ * not before it, then the run sharing it as a prefix, so a large document is
+ * not scanned once per list item.
+ */
+function _under(sorted: string[], prefix: string): string[] {
+  let lo = 0;
+  let hi = sorted.length;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (sorted[mid] < prefix) {
+      lo = mid + 1;
+    } else {
+      hi = mid;
+    }
+  }
   const out: string[] = [];
-  for (const k of keys) {
-    if (k === prefix || k.startsWith(`${prefix}/`)) {
+  for (let i = lo; i < sorted.length && sorted[i].startsWith(prefix); i++) {
+    const k = sorted[i];
+    if (k.length === prefix.length || k.charCodeAt(prefix.length) === 0x2f) {
       out.push(k);
     }
   }
@@ -312,6 +332,17 @@ export interface SpecDocumentMarkdownOptions {
    * id or type.
    */
   documentFiles?: Record<string, string>;
+  /**
+   * Writes every section deeper than level 6 as a styled-div heading
+   * (`<div class="heading<N>" style="…">…</div>`, SOM §11.2); the parser
+   * reads both forms whatever this says.
+   */
+  headingDivs?: boolean;
+  /**
+   * The readable header line of a stripped rendition, written after the
+   * `docspec` declaration (SOM §11.1); the parser skips it.
+   */
+  readableHeader?: string | null;
 }
 
 /**
@@ -393,6 +424,54 @@ export class SpecDocumentMarkdown {
    */
   static headlineComment = /^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$/;
   static docspecComment = /^<!--\s*docspec:.*-->\s*$/;
+  /** Matches the readable header line of a stripped rendition (SOM §11.1). */
+  static readableComment = /^<!--\s*readable:.*-->$/;
+  /** The line a stripped rendition's appendix begins with (SOM §11.1):
+   *  after a readable header, the parsers stop reading at it. */
+  static appendixMarker = '<!-- readable-appendix -->';
+  /** The fixed start of a styled-div heading's style, up to its indent. */
+  static headingDivStyleStart = 'margin:1em 0 0.5em;padding-left:';
+  /** A styled-div heading line (DocSpecs *Styled-div headings*): group 1 the
+   *  level, group 2 the inner text. A level below 7 is content. */
+  static headingDivLine = /^<div class="heading([0-9]+)"[^>]*>(.*)<\/div>$/;
+
+  /** A styled-div heading's indent at `depth`: `(depth − 6) × 0.75`,
+   *  written without a trailing `.0` (`0.75`, `1.5`, `3`). */
+  static headingDivIndent(depth: number): string {
+    const quarter = (depth - 6) * 3;
+    const whole = Math.floor(quarter / 4);
+    switch (quarter % 4) {
+      case 0:
+        return `${whole}`;
+      case 1:
+        return `${whole}.25`;
+      case 2:
+        return `${whole}.5`;
+      default:
+        return `${whole}.75`;
+    }
+  }
+
+  /** `line` read as a styled-div heading: its level (7 or more) and its
+   *  inner text with `&lt;`, `&gt;` and `&amp;` decoded, or null. */
+  static headingDiv(line: string): [number, string] | null {
+    const m = SpecDocumentMarkdown.headingDivLine.exec(line);
+    if (m === null) return null;
+    const level = parseInt(m[1], 10);
+    if (level < 7) return null;
+    return [
+      level,
+      m[2].replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&'),
+    ];
+  }
+
+  /** Whether `line` would read as a styled-div heading after any run of
+   *  backslashes (SOM §11.3): written `\<div …` as a `#` line is `\#`. */
+  static escapableDiv(line: string): boolean {
+    let k = 0;
+    while (k < line.length && line.charCodeAt(k) === 0x5c) k++;
+    return SpecDocumentMarkdown.headingDiv(line.slice(k).replace(/\s+$/, '')) !== null;
+  }
   /**
    * A line that reads as the header of a form table or a section table (SOM
    * §11.4, §11.5): `| TomSpecField | Value |` or
@@ -410,6 +489,21 @@ export class SpecDocumentMarkdown {
   readonly fileStem: string | null;
   /** See {@link SpecDocumentMarkdownOptions.documentFiles}. */
   readonly documentFiles: Record<string, string>;
+  /** See {@link SpecDocumentMarkdownOptions.headingDivs}. */
+  readonly headingDivs: boolean;
+  /** See {@link SpecDocumentMarkdownOptions.readableHeader}. */
+  readonly readableHeader: string | null;
+  /** The document's keys of one kind, sorted once per export for `_under`. */
+  private _sortedKeys: Map<string, string[]> = new Map();
+
+  private _sorted(kind: string, keys: Iterable<string>): string[] {
+    let s = this._sortedKeys.get(kind);
+    if (s === undefined) {
+      s = Array.from(keys).sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
+      this._sortedKeys.set(kind, s);
+    }
+    return s;
+  }
   /** The root the current export renders (the target of same-document links). */
   private _currentRoot: import('./spec_model').SpecRoot | null = null;
 
@@ -436,6 +530,9 @@ export class SpecDocumentMarkdown {
         ? options.fileStem
         : null;
     this.documentFiles = options.documentFiles || {};
+    this.headingDivs = options.headingDivs === true;
+    this.readableHeader =
+      options.readableHeader === undefined ? null : options.readableHeader;
   }
 
   /**
@@ -722,13 +819,15 @@ export class SpecDocumentMarkdown {
    * matches: heading-like body lines are escaped (SOM §11.3) and fenced ones
    * skipped.
    */
-  private static _emittedHeading = /^#+ <!--\[/;
+  private static _emittedHeading =
+    /^(?:#+ <!--\[|<div class="heading[0-9]+"[^>]*><!--\[)/;
 
   /** The paths of the headings written by the current export, in order. */
   private _headingPaths: string[] = [];
 
   private _exportRoot(root: import('./spec_model').SpecRoot): string {
     this._currentRoot = root;
+    this._sortedKeys.clear();
     const tree = this._treeFor(root.type);
     const node = tree.root;
     const b = new _Buffer();
@@ -736,6 +835,7 @@ export class SpecDocumentMarkdown {
       `<!-- docspec: ${SpecDocumentMarkdown.kebabCase(root.title)}/` +
         `${this.model.modelVersionString} -->`,
     );
+    if (this.readableHeader !== null) b.writeln(this.readableHeader);
     const rootSeg = node.segment;
     this._writeHeading(
       b,
@@ -1057,13 +1157,13 @@ export class SpecDocumentMarkdown {
     allowHeadline: boolean,
   ): boolean {
     const doc = this.document;
-    if (_under(doc.contentPaths, itemPath).length > 0) return false;
-    if (_under(doc.listPaths, itemPath).length > 0) return false;
-    if (_under(doc.unitsPaths, itemPath).length > 0) return false;
-    if (_under(doc.formPaths, itemPath).some((k) => k !== formPath)) {
+    if (_under(this._sorted('content', doc.contentPaths), itemPath).length > 0) return false;
+    if (_under(this._sorted('lists', doc.listPaths), itemPath).length > 0) return false;
+    if (_under(this._sorted('units', doc.unitsPaths), itemPath).length > 0) return false;
+    if (_under(this._sorted('forms', doc.formPaths), itemPath).some((k) => k !== formPath)) {
       return false;
     }
-    for (const h of _under(doc.headlinePaths, itemPath)) {
+    for (const h of _under(this._sorted('headlines', doc.headlinePaths), itemPath)) {
       if (!allowHeadline || h !== itemPath) return false;
     }
     if (this._hasKeys(itemPath) || this._hasKeys(formPath)) return false;
@@ -1127,11 +1227,11 @@ export class SpecDocumentMarkdown {
         return false;
       }
       if (
-        _under(doc.contentPaths, itemPath).length > 0 ||
-        _under(doc.listPaths, itemPath).length > 0 ||
-        _under(doc.unitsPaths, itemPath).length > 0 ||
-        _under(doc.headlinePaths, itemPath).length > 0 ||
-        _under(doc.formPaths, itemPath).some((k) => k !== refPath) ||
+        _under(this._sorted('content', doc.contentPaths), itemPath).length > 0 ||
+        _under(this._sorted('lists', doc.listPaths), itemPath).length > 0 ||
+        _under(this._sorted('units', doc.unitsPaths), itemPath).length > 0 ||
+        _under(this._sorted('headlines', doc.headlinePaths), itemPath).length > 0 ||
+        _under(this._sorted('forms', doc.formPaths), itemPath).some((k) => k !== refPath) ||
         this._hasKeys(itemPath) ||
         this._hasKeys(refPath)
       ) {
@@ -1595,6 +1695,22 @@ export class SpecDocumentMarkdown {
     // A heading is one line: a stored headline's line breaks travel as `<br>`.
     // Reading view (DI-3): the section id as an HTML anchor after the id
     // comment and its keys, so `#<ID>` links jump in every viewer.
+    if (this.headingDivs && depth > 6) {
+      // A styled-div heading (SOM §11.2, DocSpecs *Styled-div headings*): one
+      // line, the title HTML-escaped, the indent growing with the depth.
+      const escaped = title
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\n/g, '<br>');
+      b.writeln(
+        `<div class="heading${depth}" style="${SpecDocumentMarkdown.headingDivStyleStart}` +
+          `${SpecDocumentMarkdown.headingDivIndent(depth)}em;font-weight:bold">` +
+          `<!--[${id}]${code}--> <a id="${id}"></a> ${escaped}</div>`,
+      );
+      b.writeln();
+      return;
+    }
     b.writeln(
       `${'#'.repeat(depth)} <!--[${id}]${code}--> <a id="${id}"></a> ` +
         title.replace(/\n/g, '<br>'),
@@ -1632,7 +1748,7 @@ export class SpecDocumentMarkdown {
     for (const line of collapsed.split('\n')) {
       if (fence.inFence) {
         out.push(line); // SOM §11.3: fences shield their lines.
-      } else if (_ESCAPABLE.test(line)) {
+      } else if (_ESCAPABLE.test(line) || SpecDocumentMarkdown.escapableDiv(line)) {
         out.push(`\\${line}`);
       } else if (_TABLE_HEADER_SHAPED.test(line)) {
         out.push(` ${line}`); // DI-2: a value line is never a layout table.
@@ -1694,6 +1810,7 @@ export class SpecDocumentMarkdown {
     result.rejections = p.rejections;
     result.rootPrefixes = p.rootPrefixes;
     result.keptContent = p.keptContent;
+    result.readableHeader = p.readableHeader;
     return result;
   }
 }
@@ -1898,6 +2015,8 @@ class _Parser {
   units: Record<string, string> = {};
   rejections: SpecMarkdownRejection[] = [];
   rootPrefixes: Set<string> = new Set();
+  /** The readable header line read before the root heading, or null. */
+  readableHeader: string | null = null;
   keptContent: Record<string, string> = {};
   /** The source lines, for the text of a rejected block. */
   private _lines: string[] = [];
@@ -2085,10 +2204,30 @@ class _Parser {
         ) {
           continue; // SOM §11.1 header — informational.
         }
+        if (
+          this._stack.length === 0 &&
+          this.readableHeader === null &&
+          SpecDocumentMarkdown.readableComment.test(trimmed)
+        ) {
+          this.readableHeader = trimmed; // SOM §11.1 readable header — skipped.
+          continue;
+        }
+        if (
+          this.readableHeader !== null &&
+          trimmed === SpecDocumentMarkdown.appendixMarker
+        ) {
+          break; // A stripped rendition's appendix is not the document.
+        }
         const h = SpecDocumentMarkdown.headingLine.exec(trimmed);
         if (h !== null) {
           this._closeTo(h[1].length);
           this._openHeading(h[1].length, h[2], lineNo);
+          continue;
+        }
+        const div = SpecDocumentMarkdown.headingDiv(trimmed);
+        if (div !== null) {
+          this._closeTo(div[0]);
+          this._openHeading(div[0], div[1], lineNo);
           continue;
         }
       }
@@ -3296,7 +3435,11 @@ class _Parser {
     const fence = new MarkdownFenceTracker();
     const out: string[] = [];
     for (const line of body) {
-      if (!fence.inFence && _ESCAPED_HEADING.test(line)) {
+      if (
+        !fence.inFence &&
+        (_ESCAPED_HEADING.test(line) ||
+          (line.startsWith('\\') && SpecDocumentMarkdown.escapableDiv(line)))
+      ) {
         out.push(line.slice(1));
       } else if (!fence.inFence && _ESCAPED_TABLE_HEADER.test(line)) {
         out.push(line.slice(1)); // DI-2: the emitter's one escape space.

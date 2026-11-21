@@ -303,6 +303,7 @@ class DocSpecsDocument {
     final fence = MarkdownFenceTracker();
     final stack = <DocSpecsSection>[];
     final lines = text.split('\n');
+    var readable = false;
     for (var i = 0; i < lines.length; i++) {
       final raw = lines[i];
       final lineNo = i + 1;
@@ -314,6 +315,17 @@ class DocSpecsDocument {
             doc.declaredSchema = d.group(1);
             continue;
           }
+        }
+        // A stripped rendition (SOM §11.1): its readable header stands before
+        // the root heading, and its appendix after the marker is not part of
+        // the document.
+        if (stack.isEmpty &&
+            SpecDocumentMarkdown.readableComment.hasMatch(trimmed)) {
+          readable = true;
+          continue;
+        }
+        if (readable && trimmed == SpecDocumentMarkdown.appendixMarker) {
+          break;
         }
         final h = SpecDocumentMarkdown.headingLine.firstMatch(trimmed);
         final div = h == null ? _styledDivHeading(trimmed) : null;

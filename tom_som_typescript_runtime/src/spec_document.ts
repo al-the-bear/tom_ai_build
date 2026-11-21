@@ -158,6 +158,16 @@ export class SpecDocument {
   }
 
   /**
+   * The root {@link toMarkdown} exports: `rootType`'s, else the document's
+   * single populated root. Throws when the default is ambiguous.
+   */
+  rootToExport(model: SpecModel, rootType?: string | null): SpecRoot {
+    return rootType !== undefined && rootType !== null
+      ? model.rootByType(rootType)
+      : this._singlePopulatedRoot(model);
+  }
+
+  /**
    * The one root under which this document holds any value, for
    * {@link toMarkdown}'s default. Throws when zero or more than one root is
    * populated.

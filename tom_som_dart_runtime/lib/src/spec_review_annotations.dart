@@ -16,6 +16,7 @@ library;
 import 'dart:convert';
 
 import 'spec_document.dart';
+import 'spec_document_strip.dart';
 import 'spec_validator.dart';
 
 /// The kinds of annotation (SOM §11.9): the three of SOM §11.9.1–11.9.3 and the
@@ -2559,6 +2560,13 @@ SpecMarkedChange _markKeepingChangeComments(String current, String text) {
   return SpecMarkedChange(out, exact: result.exact);
 }
 
+/// How many comment and question blocks and inline marks [value] holds: what
+/// [stripAnnotationsText] removes, as a strip's report counts it.
+int countAnnotationsText(String value) {
+  final p = _parse(value);
+  return p.blocks.length + p.marks.length;
+}
+
 /// [value] without any comment block, question block or inline mark (every
 /// mark accepted). Plain quotes and code stay.
 String stripAnnotationsText(String value) {
@@ -3616,19 +3624,14 @@ class SpecReviewAnnotations {
 
   /// A copy of the document without any annotation, for reading. The
   /// document itself is unchanged.
-  SpecDocument stripped() {
-    final copy = SpecDocument()..loadJson(doc.toJson());
-    for (final (path, field, text) in _values()) {
-      final clean = stripAnnotationsText(text);
-      if (clean == text) continue;
-      if (field == null) {
-        copy.setContent(path, clean);
-      } else {
-        copy.setFormField(path, field, clean);
-      }
-    }
-    return copy;
-  }
+  ///
+  /// The strip of SOM §11.10 with `drop: [comments]`
+  /// ([SpecDocumentStrip.strip]): every value is stripped, headlines
+  /// included.
+  SpecDocument stripped() => SpecDocumentStrip.strip(
+    doc,
+    const SpecStripOptions(drop: {'comments'}),
+  ).document;
 
   int _paragraphLastLine(String value, int afterParagraph) {
     if (afterParagraph < 0) return -1;

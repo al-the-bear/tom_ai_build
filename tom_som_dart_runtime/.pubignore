@@ -18,5 +18,9 @@
 # Both build their paths from `Directory.current` plus components rather than
 # from a `../` literal, so the shipped-path scanner cannot see them; a
 # hosted-install simulation is what found them.
+#
+# strip_case_runner.dart is conformance_test.dart's runner of strip_cases.json;
+# nothing else imports it, so it stays behind with it.
 test/conformance_test.dart
 test/enum_coverage_test.dart
+test/strip_case_runner.dart

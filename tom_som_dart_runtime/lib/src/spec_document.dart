@@ -288,6 +288,12 @@ class SpecDocument {
     });
   }
 
+  /// The root [toMarkdown] exports: [rootType]'s, else the document's single
+  /// populated root. Throws [StateError] when the default is ambiguous.
+  SpecRoot rootToExport(SpecModel model, {String? rootType}) => rootType != null
+      ? model.rootByType(rootType)
+      : _singlePopulatedRoot(model);
+
   /// The one root under which this document holds any value, for [toMarkdown]'s
   /// default. Throws [StateError] when zero or more than one root is populated.
   SpecRoot _singlePopulatedRoot(SpecModel model) {

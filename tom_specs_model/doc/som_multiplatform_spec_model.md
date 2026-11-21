@@ -1264,6 +1264,23 @@ Line 1 is the DocSpecs schema declaration comment:
 
 Schema id = kebab-case of the `@Document` name; version = model `major.minor`.
 
+A **stripped rendition** (§11.10, `*.readable.md`) carries a second line, its
+readable header, naming the switches it was made with and its source:
+
+```markdown
+<!-- readable: drop=provenance,trace,comments; unmark=editorial; headings=divs; of=tom_uam.rsp.tomspecs.yaml@3f9c2b1; commit=8e1d2a7+dirty -->
+```
+
+The parts are `drop=`, `unmark=` and `appendix=` (kind names in the order
+`provenance`, `trace`, `editorial`, `aside`, `comments`),
+`appendix-references`, `headings=divs`, `of=<file>[@<revision>]` and
+`commit=<sha>[+dirty]`, each left out when it does not apply
+(`SpecReadableHeader`: `format` and `parse` are inverse). The parser skips the
+line when it stands before the root heading and returns it as the result's
+`readableHeader`; elsewhere it is text. After a readable header, the line
+`<!-- readable-appendix -->` ends the document for the parser and the DocSpecs
+validator alike: what follows is the rendition's appendix (§11.10).
+
 ### 11.2 Headings and section ids
 
 - Every populated section becomes one heading:
@@ -1282,6 +1299,15 @@ Schema id = kebab-case of the `@Document` name; version = model `major.minor`.
 - Heading level = 1 + section depth, **uncapped**. Strict CommonMark renderers
   render `#######`+ as literal text — the machine format is authoritative, not
   the rendering. DocSpecs tooling accepts `#{7,}`.
+- **Styled-div headings** (DocSpecs *Styled-div headings*): with the render
+  option `headingDivs` (a stripped rendition's `headings=divs`), a section
+  deeper than level 6 is written as one line,
+  `<div class="heading7" style="margin:1em 0 0.5em;padding-left:0.75em;font-weight:bold"><!--[ACE-CRIT-1]--> <a id="ACE-CRIT-1"></a> Title</div>`,
+  with blank lines around it. The indent is (N − 6) × 0.75em, written without a
+  trailing `.0`; the title is HTML-escaped (`&amp;`, `&lt;`, `&gt;`) and a line
+  break is `<br>`. The parser reads `heading<N>` with N ≥ 7 as a heading of
+  level N whatever the option says (N ≤ 6 is content), so both forms read back
+  to the same document.
 - Emission is **sparse** (only populated subtrees); sibling order is
   `@SerializationOrder` order.
 - Parse resolves a heading's id against the schema tree *at its nesting
@@ -1339,7 +1365,9 @@ no anchors:
    (any level), trimmed of leading/trailing blank lines.
 2. Embedded markdown (lists, emphasis, tables) is kept verbatim.
 3. Content must not contain headings at column 0 — the emitter escapes a
-   leading `#` as `\#`; the parser unescapes. (The only content escaping rule.)
+   leading `#` as `\#`, and a line that would read as a styled-div heading
+   (§11.2) as `\<div …`; the parser unescapes both. (Together, with the form
+   layout's escape space of §11.4, the only content escaping rule.)
 4. Fenced code blocks pass through verbatim; heading-like lines inside a fence
    are not escaped. An **unterminated** fence therefore shields the remainder of
    the document from heading detection, which no escape can repair, so the
@@ -2783,6 +2811,81 @@ is the time in its header, and the time of its team answer is
 copies (§11.9.9) writes a copy's team answer as the member's individual answer
 with the copy's answer time. A time that is not of the format is not a time: it is read as
 before (an author, a member id) and reported where that reading is a finding.
+
+### 11.10 Stripped renditions
+
+A **stripped rendition** (`*.readable.md`) is a document rendered for readers:
+its secondary prose dropped, unmarked or moved to an appendix. It is written by
+the strip — `stripNotationText(value, options)` for one value,
+`SpecDocumentStrip.strip(document, options)` for a document — in Dart and
+TypeScript first (the other runtimes follow through the conformance corpus);
+`SpecReviewAnnotations.stripped()` is the strip with `drop: [comments]`.
+
+**The switches** (`SpecStripOptions.fromNames`) name kinds: `provenance`,
+`trace`, `editorial`, `aside` (the reading notation's secondary kinds,
+DocSpecs RN-5; a citation shape counts as a span of its kind) and `comments`
+(the review annotations of §11.9). `drop` removes an element with its content,
+`unmark` removes its markers and keeps its content (a citation's arrow and its
+space go: `(-> C2.1)` reads `(C2.1)`), `appendix` moves it into the appendix.
+`all` stands for every kind the list can hold that no other list names
+explicitly (`comments` only in `drop`). A name in two lists, an unknown name,
+`comments` in `unmark` or `appendix`, and appendix references without an
+appendix are usage errors (`SpecStripUsageError`). `refs`, `records`,
+`rejected` and unknown kinds are never secondary: no name touches them (RN-11).
+
+**The order of operations**, per value:
+
+1. With `comments` dropped, `stripAnnotationsText` runs first: every mark is
+   accepted and every comment and question block goes, so a deletion mark
+   around a span removes the span.
+2. The notation, from the outside in: a dropped or moved element goes with
+   everything in it; an unmarked one loses its markers and its children are
+   decided in turn.
+3. Without `comments`, the review marks follow the removals: a mark wholly
+   inside a removed element went with it (counted as `marksDropped`); a mark a
+   removal emptied goes; a substitution that lost one side becomes the
+   insertion or deletion of the side that remains.
+4. Whitespace, in a changed value only: the space before a removed span goes
+   (after it, at the start of a line); a line a removal emptied goes; the
+   blank lines around a removed block collapse to one; no blank line is left
+   at the start or end. A removed div keeps the paragraphs around it apart.
+
+A value whose notation has an error finding (other than `rejectedBlock`) is
+refused and left as it is; the strip reports it.
+
+**The pieces.** Every removal is recorded per value as a `SpecStripPiece`: the
+offset in the stripped text it stands at (`anchor`), its offset in the
+original (`origin`), the text that went (`removed`), the text written in its
+place (`inserted`: a converted mark's delimiters, an appendix reference) and
+what removed it (`labels`: `<kind>:drop`, `<kind>:unmark`, `<kind>:appendix`,
+`comments`, `mark`, `whitespace`). Putting every piece back at its anchor gives
+the original. The comments step's pieces come from a diff by line, then by
+word.
+
+**The document strip** walks content (scalar list items included), form-field
+values and stored headlines. Given the model, it also:
+
+- applies the **emptying rule**: where removing a value's prose would add a
+  finding of the instance tier or, given a schema, the DocSpecs tier (a
+  required form field, a required text, a list's minimum), the value is
+  stripped with the kinds unmarked instead (or left as it was when nothing
+  would remain), and reported as `KEPT (would empty a required value)`;
+- removes a list item the strip left with nothing in it, unless that is a
+  finding;
+- numbers the appendix through the rendition and renders the `.readable.md`:
+  the readable header (§11.1), styled-div headings with `headingDivs`
+  (§11.2), and after `<!-- readable-appendix -->` the appendix `## Notes`, its
+  entries numbered `**[n]**` under the title of the section each came from.
+  With `appendixReferences` the element's place holds
+  `<a id="note-n-ref"></a>[\[n\]](#note-n)` and the entry starts with
+  `<a id="note-n"></a>` and ends with a link back;
+- checks the output: no finding on any tier that the original did not have,
+  and `parse(readable)` staging exactly the stripped values. A strip whose
+  checks fail is not `ok`; its findings say why.
+
+The conformance cases are `strip_cases.json` (one value, the usage errors, the
+readable header, documents over the corpus model) and, for the parser, the
+readable-header and styled-div cases of `markdown_import_cases.json`.
 
 ## 12. The hierarchical `*.tomspecs.yaml` format
 

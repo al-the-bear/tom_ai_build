@@ -1,0 +1,1412 @@
+{
+  "description": "Stripped renditions (SOM §11.10; reading_view part *Stripped renditions and the merge back*). `cases`: stripNotationText(text, options) for one value — `expect` holds the stripped text, the counts per kind, the review marks that went inside a dropped element, the appendix entries (numbered from 1), the pieces (anchor in the stripped text, origin in the input, removed and inserted text, labels) and the codes of the error findings a refused value has. Applying every piece at its anchor gives the input back. A case whose drop list is only `comments` also equals stripAnnotationsText(text). `usageCases`: SpecStripOptions.fromNames — the expanded lists, or the usage error's message. `headerCases`: SpecReadableHeader.parse(line) — the switches, the source and format() of the parse, or null. `documentCases`: SpecDocumentStrip.strip over the corpus model (and docspecs_schema.yaml) unless `model` is false — the stripped document, the values the emptying rule kept, the list items removed, the appendix, the counts, the readable header, the `.readable.md` (null without a model) and the kinds of the validity findings.",
+  "cases": [
+    {
+      "name": "a div that is the whole content",
+      "text": "::: {.provenance}\nFrom the workshop.\n:::",
+      "drop": [
+        "provenance"
+      ],
+      "expect": {
+        "text": "",
+        "dropped": {
+          "provenance": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 0,
+            "origin": 0,
+            "removed": "::: {.provenance}\nFrom the workshop.\n:::",
+            "inserted": "",
+            "labels": [
+              "provenance:drop"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "a div between paragraphs",
+      "text": "Before.\n\n::: {.aside}\nAn aside.\n:::\n\nAfter.",
+      "drop": [
+        "aside"
+      ],
+      "expect": {
+        "text": "Before.\n\nAfter.",
+        "dropped": {
+          "aside": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 8,
+            "origin": 8,
+            "removed": "\n::: {.aside}\nAn aside.\n:::\n",
+            "inserted": "",
+            "labels": [
+              "aside:drop",
+              "whitespace"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "a div right below a paragraph line keeps the paragraphs apart",
+      "text": "Before.\n::: {.aside}\nAn aside.\n:::\nAfter.",
+      "drop": [
+        "aside"
+      ],
+      "expect": {
+        "text": "Before.\n\nAfter.",
+        "dropped": {
+          "aside": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 8,
+            "origin": 8,
+            "removed": "::: {.aside}\nAn aside.\n:::",
+            "inserted": "",
+            "labels": [
+              "aside:drop"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "a span before a full stop",
+      "text": "The limit is ten [as agreed in the workshop]{.editorial}.",
+      "drop": [
+        "editorial"
+      ],
+      "expect": {
+        "text": "The limit is ten.",
+        "dropped": {
+          "editorial": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 16,
+            "origin": 16,
+            "removed": " [as agreed in the workshop]{.editorial}",
+            "inserted": "",
+            "labels": [
+              "editorial:drop"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "adjacent spans",
+      "text": "One [a]{.aside} [b]{.aside}. Two.",
+      "drop": [
+        "aside"
+      ],
+      "expect": {
+        "text": "One. Two.",
+        "dropped": {
+          "aside": 2
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 3,
+            "origin": 3,
+            "removed": " [a]{.aside} [b]{.aside}",
+            "inserted": "",
+            "labels": [
+              "aside:drop"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "a span at the start of a line",
+      "text": "[Note:]{.editorial} the rest stays.",
+      "drop": [
+        "editorial"
+      ],
+      "expect": {
+        "text": "the rest stays.",
+        "dropped": {
+          "editorial": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 0,
+            "origin": 0,
+            "removed": "[Note:]{.editorial} ",
+            "inserted": "",
+            "labels": [
+              "editorial:drop"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "a line that only held a citation",
+      "text": "First line.\n(<- workshop notes)\nSecond line.",
+      "drop": [
+        "provenance"
+      ],
+      "expect": {
+        "text": "First line.\nSecond line.",
+        "dropped": {
+          "provenance": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 12,
+            "origin": 12,
+            "removed": "(<- workshop notes)\n",
+            "inserted": "",
+            "labels": [
+              "provenance:drop",
+              "whitespace"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "a span in a table cell",
+      "text": "| A | B |\n| --- | --- |\n| x [y]{.aside} | z |",
+      "drop": [
+        "aside"
+      ],
+      "expect": {
+        "text": "| A | B |\n| --- | --- |\n| x | z |",
+        "dropped": {
+          "aside": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 27,
+            "origin": 27,
+            "removed": " [y]{.aside}",
+            "inserted": "",
+            "labels": [
+              "aside:drop"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "a span inside an insertion mark",
+      "text": "Text {++added [note]{.aside}++} end.",
+      "drop": [
+        "aside"
+      ],
+      "expect": {
+        "text": "Text {++added++} end.",
+        "dropped": {
+          "aside": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 13,
+            "origin": 13,
+            "removed": " [note]{.aside}",
+            "inserted": "",
+            "labels": [
+              "aside:drop"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "a mark inside a dropped span goes with it, counted",
+      "text": "Text [a {++b++} c]{.aside} end.",
+      "drop": [
+        "aside"
+      ],
+      "expect": {
+        "text": "Text end.",
+        "dropped": {
+          "aside": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 1,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 4,
+            "origin": 4,
+            "removed": " [a {++b++} c]{.aside}",
+            "inserted": "",
+            "labels": [
+              "aside:drop"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "a mark a dropped span leaves empty goes",
+      "text": "Text {++[only]{.aside}++} end.",
+      "drop": [
+        "aside"
+      ],
+      "expect": {
+        "text": "Text end.",
+        "dropped": {
+          "aside": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 4,
+            "origin": 4,
+            "removed": " {++[only]{.aside}++}",
+            "inserted": "",
+            "labels": [
+              "aside:drop",
+              "mark"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "a substitution losing its old side becomes an insertion",
+      "text": "Expires after {~~[thirty]{.aside}~>15~~} minutes.",
+      "drop": [
+        "aside"
+      ],
+      "expect": {
+        "text": "Expires after {++15++} minutes.",
+        "dropped": {
+          "aside": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 15,
+            "origin": 15,
+            "removed": "~~[thirty]{.aside}~>",
+            "inserted": "++",
+            "labels": [
+              "aside:drop",
+              "mark"
+            ]
+          },
+          {
+            "anchor": 19,
+            "origin": 37,
+            "removed": "~~",
+            "inserted": "++",
+            "labels": [
+              "mark"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "a substitution losing its new side becomes a deletion",
+      "text": "Expires after {~~30~>[fifteen]{.aside}~~} minutes.",
+      "drop": [
+        "aside"
+      ],
+      "expect": {
+        "text": "Expires after {--30--} minutes.",
+        "dropped": {
+          "aside": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 15,
+            "origin": 15,
+            "removed": "~~",
+            "inserted": "--",
+            "labels": [
+              "mark"
+            ]
+          },
+          {
+            "anchor": 19,
+            "origin": 19,
+            "removed": "~>[fifteen]{.aside}~~",
+            "inserted": "--",
+            "labels": [
+              "aside:drop",
+              "mark"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "nesting with drop and unmark mixed",
+      "text": "::: {.editorial}\nKept [gone]{.aside} text (-> C2.1).\n:::",
+      "drop": [
+        "aside"
+      ],
+      "unmark": [
+        "editorial",
+        "trace"
+      ],
+      "expect": {
+        "text": "Kept text (C2.1).",
+        "dropped": {
+          "aside": 1
+        },
+        "unmarked": {
+          "editorial": 1,
+          "trace": 1
+        },
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 0,
+            "origin": 0,
+            "removed": "::: {.editorial}\n",
+            "inserted": "",
+            "labels": [
+              "editorial:unmark"
+            ]
+          },
+          {
+            "anchor": 4,
+            "origin": 21,
+            "removed": " [gone]{.aside}",
+            "inserted": "",
+            "labels": [
+              "aside:drop"
+            ]
+          },
+          {
+            "anchor": 11,
+            "origin": 43,
+            "removed": "-> ",
+            "inserted": "",
+            "labels": [
+              "trace:unmark"
+            ]
+          },
+          {
+            "anchor": 17,
+            "origin": 52,
+            "removed": "\n:::",
+            "inserted": "",
+            "labels": [
+              "editorial:unmark"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "a dropped element inside an unmarked one inside a dropped one",
+      "text": "Start.\n\n::: {.provenance}\nOuter [inner [deep]{.aside}]{.editorial}.\n:::\n\nEnd.",
+      "drop": [
+        "provenance"
+      ],
+      "unmark": [
+        "editorial"
+      ],
+      "expect": {
+        "text": "Start.\n\nEnd.",
+        "dropped": {
+          "provenance": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 7,
+            "origin": 7,
+            "removed": "\n::: {.provenance}\nOuter [inner [deep]{.aside}]{.editorial}.\n:::\n",
+            "inserted": "",
+            "labels": [
+              "provenance:drop",
+              "whitespace"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "unmarking a div keeps its content between the paragraphs",
+      "text": "Before.\n\n::: {.editorial}\nInside.\n:::\n\nAfter.",
+      "unmark": [
+        "editorial"
+      ],
+      "expect": {
+        "text": "Before.\n\nInside.\n\nAfter.",
+        "dropped": {},
+        "unmarked": {
+          "editorial": 1
+        },
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 9,
+            "origin": 9,
+            "removed": "::: {.editorial}\n",
+            "inserted": "",
+            "labels": [
+              "editorial:unmark"
+            ]
+          },
+          {
+            "anchor": 16,
+            "origin": 33,
+            "removed": "\n:::",
+            "inserted": "",
+            "labels": [
+              "editorial:unmark"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "fenced code inside a dropped div",
+      "text": "A.\n\n::: {.provenance}\n```\ncode\n:::\n```\n:::\n\nB.",
+      "drop": [
+        "provenance"
+      ],
+      "expect": {
+        "text": "A.\n\nB.",
+        "dropped": {
+          "provenance": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 3,
+            "origin": 3,
+            "removed": "\n::: {.provenance}\n```\ncode\n:::\n```\n:::\n",
+            "inserted": "",
+            "labels": [
+              "provenance:drop",
+              "whitespace"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "an escaped fence is text",
+      "text": "A.\n\n\\::: {.aside}\nnot a div\n\\:::\n\nB [x]{.aside}.",
+      "drop": [
+        "aside"
+      ],
+      "expect": {
+        "text": "A.\n\n\\::: {.aside}\nnot a div\n\\:::\n\nB.",
+        "dropped": {
+          "aside": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 35,
+            "origin": 35,
+            "removed": " [x]{.aside}",
+            "inserted": "",
+            "labels": [
+              "aside:drop"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "an unknown kind is left alone by all",
+      "text": "A [x]{.whatever} b.\n\n::: {.custom}\nKept.\n:::",
+      "drop": [
+        "all"
+      ],
+      "expect": {
+        "text": "A [x]{.whatever} b.\n\n::: {.custom}\nKept.\n:::",
+        "dropped": {},
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [],
+        "refused": []
+      }
+    },
+    {
+      "name": "refs and records are never dropped",
+      "text": "::: {.refs}\nRGE-ALPHA\n:::",
+      "drop": [
+        "all"
+      ],
+      "expect": {
+        "text": "::: {.refs}\nRGE-ALPHA\n:::",
+        "dropped": {},
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [],
+        "refused": []
+      }
+    },
+    {
+      "name": "a kept rejected div under drop all",
+      "text": "Text.\n\n::: {.rejected reason=\"unknownSection\" line=\"9\" label=\"Nope\"}\nOrphan text.\n:::\n\nMore [x]{.aside}.",
+      "drop": [
+        "all"
+      ],
+      "expect": {
+        "text": "Text.\n\n::: {.rejected reason=\"unknownSection\" line=\"9\" label=\"Nope\"}\nOrphan text.\n:::\n\nMore.",
+        "dropped": {
+          "aside": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 91,
+            "origin": 91,
+            "removed": " [x]{.aside}",
+            "inserted": "",
+            "labels": [
+              "aside:drop"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "comments alone give stripped()'s result",
+      "text": "Sessions expire after {~~ 30 ~> 15 ~~} minutes{++ on kiosks ++}.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\nLast paragraph.",
+      "drop": [
+        "comments"
+      ],
+      "expect": {
+        "text": "Sessions expire after 15 minutes on kiosks.\n\nLast paragraph.",
+        "dropped": {
+          "comments": 3
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 22,
+            "origin": 22,
+            "removed": "{~~ 30 ~> ",
+            "inserted": "",
+            "labels": [
+              "comments"
+            ]
+          },
+          {
+            "anchor": 25,
+            "origin": 35,
+            "removed": "~~} ",
+            "inserted": "",
+            "labels": [
+              "comments"
+            ]
+          },
+          {
+            "anchor": 32,
+            "origin": 46,
+            "removed": "{++",
+            "inserted": "",
+            "labels": [
+              "comments"
+            ]
+          },
+          {
+            "anchor": 42,
+            "origin": 59,
+            "removed": " ++}",
+            "inserted": "",
+            "labels": [
+              "comments"
+            ]
+          },
+          {
+            "anchor": 45,
+            "origin": 66,
+            "removed": "> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n",
+            "inserted": "",
+            "labels": [
+              "comments"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "comments first: a deletion mark around a span removes it",
+      "text": "Keep {--[old note]{.aside}--}this.\n\n> ⬆️ **C-1** (Bea): ok",
+      "drop": [
+        "comments",
+        "aside"
+      ],
+      "expect": {
+        "text": "Keep this.",
+        "dropped": {
+          "comments": 2
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 5,
+            "origin": 5,
+            "removed": "{--[old note]{.aside}--}",
+            "inserted": "",
+            "labels": [
+              "comments"
+            ]
+          },
+          {
+            "anchor": 10,
+            "origin": 34,
+            "removed": "\n\n> ⬆️ **C-1** (Bea): ok",
+            "inserted": "",
+            "labels": [
+              "comments"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "all drops every kind and the comments",
+      "text": "Rule [aside]{.aside} (-> C1) (<- notes) [ed]{.editorial}.\n\n::: {.provenance}\nP.\n:::\n\n> ⬆️ **C-2** (Bea): ok",
+      "drop": [
+        "all"
+      ],
+      "expect": {
+        "text": "Rule.",
+        "dropped": {
+          "comments": 1,
+          "aside": 1,
+          "trace": 1,
+          "provenance": 2,
+          "editorial": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 4,
+            "origin": 4,
+            "removed": " [aside]{.aside} (-> C1) (<- notes) [ed]{.editorial}",
+            "inserted": "",
+            "labels": [
+              "aside:drop",
+              "editorial:drop",
+              "provenance:drop",
+              "trace:drop"
+            ]
+          },
+          {
+            "anchor": 5,
+            "origin": 57,
+            "removed": "\n\n::: {.provenance}\nP.\n:::\n\n> ⬆️ **C-2** (Bea): ok",
+            "inserted": "",
+            "labels": [
+              "comments",
+              "provenance:drop",
+              "whitespace"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "unmark all keeps every content",
+      "text": "Rule [aside]{.aside} (-> C1).\n\n::: {.provenance}\nP.\n:::",
+      "unmark": [
+        "all"
+      ],
+      "expect": {
+        "text": "Rule aside (C1).\n\nP.",
+        "dropped": {},
+        "unmarked": {
+          "aside": 1,
+          "trace": 1,
+          "provenance": 1
+        },
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 5,
+            "origin": 5,
+            "removed": "[",
+            "inserted": "",
+            "labels": [
+              "aside:unmark"
+            ]
+          },
+          {
+            "anchor": 10,
+            "origin": 11,
+            "removed": "]{.aside}",
+            "inserted": "",
+            "labels": [
+              "aside:unmark"
+            ]
+          },
+          {
+            "anchor": 12,
+            "origin": 22,
+            "removed": "-> ",
+            "inserted": "",
+            "labels": [
+              "trace:unmark"
+            ]
+          },
+          {
+            "anchor": 18,
+            "origin": 31,
+            "removed": "::: {.provenance}\n",
+            "inserted": "",
+            "labels": [
+              "provenance:unmark"
+            ]
+          },
+          {
+            "anchor": 20,
+            "origin": 51,
+            "removed": "\n:::",
+            "inserted": "",
+            "labels": [
+              "provenance:unmark"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "moved to the appendix without references",
+      "text": "Rule one [because of the law]{.aside}.\n\n::: {.provenance}\nFrom the workshop.\n:::\n\nEnd.",
+      "appendix": [
+        "aside",
+        "provenance"
+      ],
+      "expect": {
+        "text": "Rule one.\n\nEnd.",
+        "dropped": {},
+        "unmarked": {},
+        "appended": {
+          "aside": 1,
+          "provenance": 1
+        },
+        "marksDropped": 0,
+        "appendix": [
+          {
+            "number": 1,
+            "kind": "aside",
+            "text": "because of the law"
+          },
+          {
+            "number": 2,
+            "kind": "provenance",
+            "text": "From the workshop."
+          }
+        ],
+        "pieces": [
+          {
+            "anchor": 8,
+            "origin": 8,
+            "removed": " [because of the law]{.aside}",
+            "inserted": "",
+            "labels": [
+              "aside:appendix"
+            ]
+          },
+          {
+            "anchor": 10,
+            "origin": 39,
+            "removed": "\n::: {.provenance}\nFrom the workshop.\n:::\n",
+            "inserted": "",
+            "labels": [
+              "provenance:appendix",
+              "whitespace"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "moved to the appendix with references",
+      "text": "Rule one [because of the law]{.aside}.\n\n::: {.provenance}\nFrom the workshop (-> C3).\n:::\n\nEnd.",
+      "appendix": [
+        "aside",
+        "provenance"
+      ],
+      "appendixReferences": true,
+      "expect": {
+        "text": "Rule one<a id=\"note-1-ref\"></a>[\\[1\\]](#note-1).\n\n<a id=\"note-2-ref\"></a>[\\[2\\]](#note-2)\n\nEnd.",
+        "dropped": {},
+        "unmarked": {},
+        "appended": {
+          "aside": 1,
+          "provenance": 1
+        },
+        "marksDropped": 0,
+        "appendix": [
+          {
+            "number": 1,
+            "kind": "aside",
+            "text": "because of the law"
+          },
+          {
+            "number": 2,
+            "kind": "provenance",
+            "text": "From the workshop (-> C3)."
+          }
+        ],
+        "pieces": [
+          {
+            "anchor": 8,
+            "origin": 8,
+            "removed": " [because of the law]{.aside}",
+            "inserted": "<a id=\"note-1-ref\"></a>[\\[1\\]](#note-1)",
+            "labels": [
+              "aside:appendix"
+            ]
+          },
+          {
+            "anchor": 50,
+            "origin": 40,
+            "removed": "::: {.provenance}\nFrom the workshop (-> C3).\n:::",
+            "inserted": "<a id=\"note-2-ref\"></a>[\\[2\\]](#note-2)",
+            "labels": [
+              "provenance:appendix"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "a value with a notation error is refused",
+      "text": "Text.\n\n::: {.aside}\nnever closed",
+      "drop": [
+        "aside"
+      ],
+      "expect": {
+        "text": "Text.\n\n::: {.aside}\nnever closed",
+        "dropped": {},
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [],
+        "refused": [
+          "unclosedDiv"
+        ]
+      }
+    }
+  ],
+  "usageCases": [
+    {
+      "name": "all in drop, one kind unmarked",
+      "drop": [
+        "all"
+      ],
+      "unmark": [
+        "editorial"
+      ],
+      "expect": {
+        "drop": [
+          "provenance",
+          "trace",
+          "aside",
+          "comments"
+        ],
+        "unmark": [
+          "editorial"
+        ],
+        "appendix": [],
+        "appendixReferences": false,
+        "headingDivs": false
+      }
+    },
+    {
+      "name": "comma-joined names",
+      "drop": [
+        "provenance,trace"
+      ],
+      "unmark": [
+        "aside"
+      ],
+      "expect": {
+        "drop": [
+          "provenance",
+          "trace"
+        ],
+        "unmark": [
+          "aside"
+        ],
+        "appendix": [],
+        "appendixReferences": false,
+        "headingDivs": false
+      }
+    },
+    {
+      "name": "an unknown name",
+      "drop": [
+        "asides"
+      ],
+      "expect": {
+        "error": "unknown kind name \"asides\" in drop; known names: provenance, trace, editorial, aside, comments, all"
+      }
+    },
+    {
+      "name": "a name in two lists",
+      "drop": [
+        "aside"
+      ],
+      "unmark": [
+        "aside"
+      ],
+      "expect": {
+        "error": "kind name \"aside\" is in both drop and unmark"
+      }
+    },
+    {
+      "name": "comments cannot be unmarked",
+      "unmark": [
+        "comments"
+      ],
+      "expect": {
+        "error": "comments cannot be unmarked: a review annotation has no reading without its markers; drop it or leave it"
+      }
+    },
+    {
+      "name": "comments cannot be moved",
+      "appendix": [
+        "comments"
+      ],
+      "expect": {
+        "error": "comments cannot be moved to the appendix; drop them or leave them"
+      }
+    },
+    {
+      "name": "references without an appendix",
+      "drop": [
+        "aside"
+      ],
+      "appendixReferences": true,
+      "expect": {
+        "error": "appendix references need an appendix: name its kinds"
+      }
+    },
+    {
+      "name": "all in the appendix",
+      "appendix": [
+        "all"
+      ],
+      "appendixReferences": true,
+      "expect": {
+        "drop": [],
+        "unmark": [],
+        "appendix": [
+          "provenance",
+          "trace",
+          "editorial",
+          "aside"
+        ],
+        "appendixReferences": true,
+        "headingDivs": false
+      }
+    }
+  ],
+  "headerCases": [
+    {
+      "name": "every part",
+      "line": "<!-- readable: drop=provenance,trace,comments; unmark=editorial; appendix=aside; appendix-references; headings=divs; of=tom_uam.rsp.tomspecs.yaml@3f9c2b1; commit=8e1d2a7+dirty -->",
+      "expect": {
+        "drop": [
+          "provenance",
+          "trace",
+          "comments"
+        ],
+        "unmark": [
+          "editorial"
+        ],
+        "appendix": [
+          "aside"
+        ],
+        "appendixReferences": true,
+        "headingDivs": true,
+        "source": {
+          "file": "tom_uam.rsp.tomspecs.yaml",
+          "revision": "3f9c2b1",
+          "commit": "8e1d2a7",
+          "dirty": true
+        },
+        "format": "<!-- readable: drop=provenance,trace,comments; unmark=editorial; appendix=aside; appendix-references; headings=divs; of=tom_uam.rsp.tomspecs.yaml@3f9c2b1; commit=8e1d2a7+dirty -->"
+      }
+    },
+    {
+      "name": "no switches",
+      "line": "<!-- readable: -->",
+      "expect": {
+        "drop": [],
+        "unmark": [],
+        "appendix": [],
+        "appendixReferences": false,
+        "headingDivs": false,
+        "format": "<!-- readable: -->"
+      }
+    },
+    {
+      "name": "names in another order are written in the canonical one",
+      "line": "<!-- readable: drop=comments,trace; of=demo.tomspecs.yaml -->",
+      "expect": {
+        "drop": [
+          "trace",
+          "comments"
+        ],
+        "unmark": [],
+        "appendix": [],
+        "appendixReferences": false,
+        "headingDivs": false,
+        "source": {
+          "file": "demo.tomspecs.yaml",
+          "revision": null,
+          "commit": null,
+          "dirty": false
+        },
+        "format": "<!-- readable: drop=trace,comments; of=demo.tomspecs.yaml -->"
+      }
+    },
+    {
+      "name": "an unknown part",
+      "line": "<!-- readable: drop=aside; shout=yes -->",
+      "expect": null
+    },
+    {
+      "name": "an unknown kind",
+      "line": "<!-- readable: drop=asides -->",
+      "expect": null
+    },
+    {
+      "name": "not a readable header",
+      "line": "<!-- docspec: demo-document/1.0 -->",
+      "expect": null
+    }
+  ],
+  "documentCases": [
+    {
+      "name": "the emptying rule keeps a required field, unmarked",
+      "state": {
+        "forms": {
+          "DEMO/DET": {
+            "owner": "[Bob]{.aside}",
+            "contact": "bob@example.com"
+          }
+        },
+        "content": {
+          "DEMO/SUM": "Summary (<- workshop)."
+        }
+      },
+      "drop": [
+        "aside",
+        "provenance"
+      ],
+      "expect": {
+        "document": {
+          "content": {
+            "DEMO/SUM": "Summary."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob"
+            }
+          }
+        },
+        "kept": [
+          {
+            "path": "DEMO/DET",
+            "field": "owner"
+          }
+        ],
+        "removedItems": [],
+        "appendix": [],
+        "dropped": {
+          "provenance": 1
+        },
+        "unmarked": {
+          "aside": 1
+        },
+        "appended": {},
+        "marksDropped": 0,
+        "readableHeader": "<!-- readable: drop=provenance,aside -->",
+        "readable": "<!-- docspec: demo-document/1.0 -->\n<!-- readable: drop=provenance,aside -->\n# <!--[DEMO]--> <a id=\"DEMO\"></a> Demo Document\n\n## <!--[SUM]--> <a id=\"SUM\"></a> Summary\n\nSummary.\n\n## <!--[DET]--> <a id=\"DET\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | Bob |\n| Contact | bob@example.com |\n\n",
+        "findings": []
+      }
+    },
+    {
+      "name": "comments alone, document, as stripped() gives it",
+      "model": false,
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes{++ on kiosks ++}.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\nLast paragraph.",
+          "DEMO/TTL": "> ⬆️ **C-9** (Al): only a comment"
+        },
+        "headlines": {
+          "DEMO/SUM": "Summary {++ and more ++}"
+        }
+      },
+      "drop": [
+        "comments"
+      ],
+      "expect": {
+        "document": {
+          "content": {
+            "DEMO/SUM": "Sessions expire after 15 minutes on kiosks.\n\nLast paragraph."
+          },
+          "headlines": {
+            "DEMO/SUM": "Summary and more"
+          }
+        },
+        "kept": [],
+        "removedItems": [],
+        "appendix": [],
+        "dropped": {
+          "comments": 5
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "readableHeader": "<!-- readable: drop=comments -->",
+        "readable": null,
+        "findings": []
+      }
+    },
+    {
+      "name": "the readable header and the appendix",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Rule [because of the law]{.aside}.",
+          "DEMO/TTL": "Title (<- the brief)"
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob [the lead]{.aside}"
+          }
+        }
+      },
+      "appendix": [
+        "aside",
+        "provenance"
+      ],
+      "appendixReferences": true,
+      "source": {
+        "file": "demo.tomspecs.yaml",
+        "revision": "r7",
+        "commit": "8e1d2a7"
+      },
+      "expect": {
+        "document": {
+          "content": {
+            "DEMO/SUM": "Rule<a id=\"note-2-ref\"></a>[\\[2\\]](#note-2).",
+            "DEMO/TTL": "Title<a id=\"note-1-ref\"></a>[\\[1\\]](#note-1)"
+          },
+          "forms": {
+            "DEMO/DET": {
+              "owner": "Bob<a id=\"note-3-ref\"></a>[\\[3\\]](#note-3)"
+            }
+          }
+        },
+        "kept": [],
+        "removedItems": [],
+        "appendix": [
+          {
+            "number": 1,
+            "kind": "provenance",
+            "text": "(the brief)",
+            "value": {
+              "path": "DEMO/TTL"
+            }
+          },
+          {
+            "number": 2,
+            "kind": "aside",
+            "text": "because of the law",
+            "value": {
+              "path": "DEMO/SUM"
+            }
+          },
+          {
+            "number": 3,
+            "kind": "aside",
+            "text": "the lead",
+            "value": {
+              "path": "DEMO/DET",
+              "field": "owner"
+            }
+          }
+        ],
+        "dropped": {},
+        "unmarked": {},
+        "appended": {
+          "aside": 2,
+          "provenance": 1
+        },
+        "marksDropped": 0,
+        "readableHeader": "<!-- readable: appendix=provenance,aside; appendix-references; of=demo.tomspecs.yaml@r7; commit=8e1d2a7 -->",
+        "readable": "<!-- docspec: demo-document/1.0 -->\n<!-- readable: appendix=provenance,aside; appendix-references; of=demo.tomspecs.yaml@r7; commit=8e1d2a7 -->\n# <!--[DEMO]--> <a id=\"DEMO\"></a> Demo Document\n\n## <!--[TTL]--> <a id=\"TTL\"></a> Document Title\n\nTitle<a id=\"note-1-ref\"></a>[\\[1\\]](#note-1)\n\n## <!--[SUM]--> <a id=\"SUM\"></a> Summary\n\nRule<a id=\"note-2-ref\"></a>[\\[2\\]](#note-2).\n\n## <!--[DET]--> <a id=\"DET\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | Bob<a id=\"note-3-ref\"></a>[\\[3\\]](#note-3) |\n\n<!-- readable-appendix -->\n\n## Notes\n\n### Document Title\n\n<a id=\"note-1\"></a>**[1]** (the brief) [↩](#note-1-ref)\n\n### Summary\n\n<a id=\"note-2\"></a>**[2]** because of the law [↩](#note-2-ref)\n\n### Details\n\n<a id=\"note-3\"></a>**[3]** the lead [↩](#note-3-ref)\n",
+        "findings": []
+      }
+    },
+    {
+      "name": "a list item left with nothing goes",
+      "state": {
+        "content": {
+          "DEMO/items-1/label": "First",
+          "DEMO/items-2/label": "Second",
+          "DEMO/items-3/label": "[Third]{.aside}"
+        },
+        "lists": {
+          "DEMO/items": {
+            "seq": 3,
+            "items": [
+              "DEMO/items-1",
+              "DEMO/items-2",
+              "DEMO/items-3"
+            ]
+          }
+        }
+      },
+      "drop": [
+        "aside"
+      ],
+      "expect": {
+        "document": {
+          "content": {
+            "DEMO/items-1/label": "First",
+            "DEMO/items-2/label": "Second"
+          },
+          "lists": {
+            "DEMO/items": {
+              "seq": 3,
+              "items": [
+                "DEMO/items-1",
+                "DEMO/items-2"
+              ]
+            }
+          }
+        },
+        "kept": [],
+        "removedItems": [
+          "DEMO/items-3"
+        ],
+        "appendix": [],
+        "dropped": {
+          "aside": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "readableHeader": "<!-- readable: drop=aside -->",
+        "readable": "<!-- docspec: demo-document/1.0 -->\n<!-- readable: drop=aside -->\n# <!--[DEMO]--> <a id=\"DEMO\"></a> Demo Document\n\n## <!--[items]--> <a id=\"items\"></a> Items\n\n### <!--[items-1]--> <a id=\"items-1\"></a> Task 1\n\nFirst\n\n### <!--[items-2]--> <a id=\"items-2\"></a> Task 2\n\nSecond\n\n",
+        "findings": []
+      }
+    }
+  ]
+}

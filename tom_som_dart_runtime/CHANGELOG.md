@@ -2,6 +2,28 @@
 
 ## Unreleased
 
+- **Stripped renditions** (SOM §11.10): `stripNotationText(value, options)`
+  strips one value and `SpecDocumentStrip.strip(document, options, model: …)`
+  a document — content, form fields, scalar list items and headlines — with
+  `SpecStripOptions.fromNames(drop:, unmark:, appendix:, appendixReferences:,
+  headingDivs:)` over the kinds `provenance`, `trace`, `editorial`, `aside`,
+  `comments` and `all`. The result holds the stripped copy, the pieces per value
+  anchored in the stripped text, the values the emptying rule kept, the
+  appendix, the counts, the readable header (`SpecReadableHeader`), the
+  `.readable.md` and the validity findings. `SpecReviewAnnotations.stripped()`
+  is the strip with `drop: [comments]` and now strips headlines too.
+- `SpecDocumentMarkdown(…, headingDivs: true)` writes sections deeper than
+  level 6 as styled-div headings, and `readableHeader:` writes a readable
+  header after the `docspec` line (SOM §11.1, §11.2). The parser reads
+  `heading<N>` divs (N ≥ 7) as headings, skips a readable header before the
+  root heading (`SpecMarkdownResult.readableHeader`) and stops at
+  `<!-- readable-appendix -->` after one; a content line shaped like a heading
+  div is written `\<div …`. The DocSpecs validator skips the header and stops at
+  the appendix marker too. `SpecDocument.rootToExport` names the root an export
+  renders; `countAnnotationsText` counts a value's annotations.
+- The Markdown export no longer scans every stored key once per list item when
+  it decides a table form: the keys are sorted once per export and searched.
+  Rendering `tom_uam.sbp` (305,708 lines) went from 120 s to under 1 s.
 - **Rejected blocks are kept for review** (SOM §11.7, DocSpecs RN-11):
   `SpecDocument.applyMarkdownResult` with `allowRejections` (and so
   `SpecDocument.fromMarkdown`) no longer drops a rejected block. It stands as a

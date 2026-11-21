@@ -1,8 +1,9 @@
 // The reading view's Markdown import cases (04a_rdv1, SOM §11.4, §11.5,
 // §11.7): form tables, section tables, `refs` and `records` list bodies,
 // heading anchors, the field-given-twice rule and the `unknownField` /
-// `malformedBlock` rejections. `_markdownImportCases` in conformance_test.dart
-// appends them to `markdown_import_cases.json`; each carries
+// `malformedBlock` rejections; the readable header and appendix marker of a
+// stripped rendition and its styled-div headings (04a_rdv5, SOM §11.1,
+// §11.2). `_markdownImportCases` in conformance_test.dart appends them to `markdown_import_cases.json`; each carries
 // `"readingView": true`, which the runtimes that do not read the table forms
 // yet skip (the reading view's parity audit, 05a_rdv4, ports them).
 //
@@ -563,6 +564,62 @@ const List<Map<String, Object?>> readingViewMarkdownImportCases = [
     ],
     "document": {
       "content": {"DEMO/REG/RGR-LST": "::: {.refs}\nRGE-ALPHA"},
+    },
+  },
+  {
+    "name":
+        "readable header: skipped before the root heading, and the appendix after its marker is not read",
+    "readingView": true,
+    "markdown":
+        "<!-- docspec: demo-document/1.0 -->\n<!-- readable: drop=provenance,trace,comments; unmark=editorial; headings=divs; of=demo.tomspecs.yaml@r7; commit=8e1d2a7+dirty -->\n# <!--[DEMO]--> <a id=\"DEMO\"></a> Demo Document\n\n## <!--[SUM]--> <a id=\"SUM\"></a> Summary\n\nText.\n\n<!-- readable-appendix -->\n\n## Notes\n\n### Summary\n\n**[1]** A note.\n",
+    "readableHeader":
+        "<!-- readable: drop=provenance,trace,comments; unmark=editorial; headings=divs; of=demo.tomspecs.yaml@r7; commit=8e1d2a7+dirty -->",
+    "rejections": [],
+    "document": {
+      "content": {"DEMO/SUM": "Text."},
+    },
+  },
+  {
+    "name":
+        "readable header: elsewhere it is text, and so is the appendix marker without one",
+    "readingView": true,
+    "markdown":
+        "# <!--[DEMO]--> Demo Document\n\n## <!--[SUM]--> Summary\n\n<!-- readable: drop=aside -->\nText.\n\n<!-- readable-appendix -->\n",
+    "readableHeader": null,
+    "rejections": [],
+    "document": {
+      "content": {
+        "DEMO/SUM":
+            "<!-- readable: drop=aside -->\nText.\n\n<!-- readable-appendix -->",
+      },
+    },
+  },
+  {
+    "name":
+        "styled-div headings at levels 7, 12 and 13; a heading6 div and an escaped div are content",
+    "readingView": true,
+    "markdown":
+        "# <!--[DEMO]--> Demo Document\n\n<div class=\"heading7\" style=\"margin:1em 0 0.5em;padding-left:0.75em;font-weight:bold\"><!--[SUM]--> <a id=\"SUM\"></a> Summary &amp; &lt;More&gt;<br>Second</div>\n\nText.\n\n<div class=\"heading6\" style=\"x\">Six</div>\n\n\\<div class=\"heading8\" style=\"x\">Eight</div>\n\n## <!--[REG]--> Registry\n\n<div class=\"heading12\" style=\"margin:1em 0 0.5em;padding-left:4.5em;font-weight:bold\"><!--[RGL-LST]--> <a id=\"RGL-LST\"></a> Links</div>\n\n<div class=\"heading13\" style=\"margin:1em 0 0.5em;padding-left:5.25em;font-weight:bold\"><!--[RGL-1]--> Link 1</div>\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| RGL-DET | EntryId | RGE-ALPHA |\n",
+    "rejections": [],
+    "document": {
+      "content": {
+        "DEMO/SUM":
+            "Text.\n\n<div class=\"heading6\" style=\"x\">Six</div>\n\n<div class=\"heading8\" style=\"x\">Eight</div>",
+      },
+      "forms": {
+        "DEMO/REG/RGL-LST-1/RGL-DET": {"entryId": "RGE-ALPHA"},
+      },
+      "lists": {
+        "DEMO/REG/RGL-LST": {
+          "seq": 1,
+          "items": ["DEMO/REG/RGL-LST-1"],
+          "ids": {"DEMO/REG/RGL-LST-1": "RGL-1"},
+        },
+      },
+      "headlines": {
+        "DEMO/REG/RGL-LST-1": "Link 1",
+        "DEMO/SUM": "Summary & <More>\nSecond",
+      },
     },
   },
 ];

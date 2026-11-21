@@ -196,6 +196,7 @@ export class DocSpecsDocument {
     const fence = new MarkdownFenceTracker();
     const stack: DocSpecsSection[] = [];
     const lines = text.split('\n');
+    let readable = false;
     for (let idx = 0; idx < lines.length; idx += 1) {
       const raw = lines[idx];
       const lineNo = idx + 1;
@@ -208,6 +209,16 @@ export class DocSpecsDocument {
             fence.feed(raw);
             continue;
           }
+        }
+        // A stripped rendition (SOM §11.1): its readable header stands before
+        // the root heading, and its appendix after the marker is not part of
+        // the document.
+        if (stack.length === 0 && SpecDocumentMarkdown.readableComment.test(line)) {
+          readable = true;
+          continue;
+        }
+        if (readable && line === SpecDocumentMarkdown.appendixMarker) {
+          break;
         }
         const m = SpecDocumentMarkdown.headingLine.exec(line);
         const div = m == null ? _styledDivHeading(line) : null;

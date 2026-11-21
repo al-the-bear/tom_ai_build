@@ -144,7 +144,14 @@ class SpecMarkdownResult {
     this.codeSpecs = const {},
     this.units = const {},
     this.keptContent = const {},
+    this.readableHeader,
   });
+
+  /// The readable header line of a stripped rendition (SOM §11.1, `<!--
+  /// readable: … -->`), as written, when the text carried one before its root
+  /// heading; null otherwise. The parser skips the line and stages nothing
+  /// from it; [SpecReadableHeader.parse] reads its switches and source.
+  final String? readableHeader;
 
   /// Content/scalar/enum leaf values (and section body text): path → value.
   final Map<String, String> content;
@@ -233,12 +240,29 @@ class SpecDocumentMarkdown {
   /// links point at: a root's rendition is
   /// `<fileStem>.<root id in lower case>.tomspecs.md` unless [documentFiles]
   /// maps the root (by section id or type) to another file name.
+  ///
+  /// [headingDivs] writes every section deeper than level 6 as a styled-div
+  /// heading (`<div class="heading<N>" style="…">…</div>`, SOM §11.2), the
+  /// form a stripped rendition for stakeholders uses; [parse] reads both
+  /// forms whatever this flag says. [readableHeader], when given, is written
+  /// as the line after the `docspec` declaration (SOM §11.1): the readable
+  /// header of a stripped rendition, which [parse] skips.
   SpecDocumentMarkdown(
     this.model,
     this.document, {
     this.fileStem,
     this.documentFiles = const {},
+    this.headingDivs = false,
+    this.readableHeader,
   });
+
+  /// Whether sections deeper than level 6 are written as styled-div headings
+  /// (SOM §11.2).
+  final bool headingDivs;
+
+  /// The readable header line written after the `docspec` declaration, or
+  /// null for none (SOM §11.1).
+  final String? readableHeader;
 
   /// The stem of the document set's file names (`tom_uam` of
   /// `tom_uam.rsp.tomspecs.md`); null writes `<root id>.tomspecs.md`.
@@ -461,13 +485,16 @@ class SpecDocumentMarkdown {
 
   /// A heading line as [_writeHeading] writes it. Body text never matches:
   /// heading-like body lines are escaped (SOM §11.3) and fenced ones skipped.
-  static final RegExp _emittedHeading = RegExp(r'^#+ <!--\[');
+  static final RegExp _emittedHeading = RegExp(
+    r'^(?:#+ <!--\[|<div class="heading[0-9]+"[^>]*><!--\[)',
+  );
 
   /// The paths of the headings written by the current export, in order.
   final List<String> _headingPaths = [];
 
   String _exportRoot(SpecRoot root) {
     _currentRoot = root;
+    _sortedKeys.clear();
     final tree = _treeFor(root.type);
     final node = tree.root;
     final b = StringBuffer();
@@ -475,6 +502,7 @@ class SpecDocumentMarkdown {
       '<!-- docspec: ${kebabCase(root.title)}/'
       '${model.modelVersionString} -->',
     );
+    if (readableHeader != null) b.writeln(readableHeader);
     final rootSeg = node.segment;
     _writeHeading(
       b,
@@ -773,8 +801,32 @@ class SpecDocumentMarkdown {
   // --- Reading view: reference lines, record tables, section tables --------
 
   /// Every stored key at or below [prefix] in [keys].
-  static Iterable<String> _under(Iterable<String> keys, String prefix) =>
-      keys.where((k) => k == prefix || k.startsWith('$prefix/'));
+  /// The keys of [sorted] at or below [prefix]: a binary search to the first
+  /// key not before it, then the run sharing it as a prefix, so a large
+  /// document is not scanned once per list item.
+  static Iterable<String> _under(List<String> sorted, String prefix) sync* {
+    var lo = 0, hi = sorted.length;
+    while (lo < hi) {
+      final mid = (lo + hi) >> 1;
+      if (sorted[mid].compareTo(prefix) < 0) {
+        lo = mid + 1;
+      } else {
+        hi = mid;
+      }
+    }
+    for (var i = lo; i < sorted.length && sorted[i].startsWith(prefix); i++) {
+      final k = sorted[i];
+      if (k.length == prefix.length || k.codeUnitAt(prefix.length) == 0x2F) {
+        yield k;
+      }
+    }
+  }
+
+  /// The document's keys of one kind, sorted once per export for [_under].
+  final Map<String, List<String>> _sortedKeys = {};
+
+  List<String> _sorted(String kind, Iterable<String> keys) =>
+      _sortedKeys[kind] ??= keys.toList()..sort();
 
   bool _hasKeys(String path) =>
       (document.codeSpec(path)?.isNotEmpty ?? false) ||
@@ -810,13 +862,22 @@ class SpecDocumentMarkdown {
     String formPath, {
     required bool allowHeadline,
   }) {
-    if (_under(document.contentPaths, itemPath).isNotEmpty) return false;
-    if (_under(document.listPaths, itemPath).isNotEmpty) return false;
-    if (_under(document.unitsPaths, itemPath).isNotEmpty) return false;
-    if (_under(document.formPaths, itemPath).any((k) => k != formPath)) {
+    if (_under(_sorted('content', document.contentPaths), itemPath).isNotEmpty)
+      return false;
+    if (_under(_sorted('lists', document.listPaths), itemPath).isNotEmpty)
+      return false;
+    if (_under(_sorted('units', document.unitsPaths), itemPath).isNotEmpty)
+      return false;
+    if (_under(
+      _sorted('forms', document.formPaths),
+      itemPath,
+    ).any((k) => k != formPath)) {
       return false;
     }
-    for (final h in _under(document.headlinePaths, itemPath)) {
+    for (final h in _under(
+      _sorted('headlines', document.headlinePaths),
+      itemPath,
+    )) {
       if (!allowHeadline || h != itemPath) return false;
     }
     if (_hasKeys(itemPath) || _hasKeys(formPath)) return false;
@@ -867,11 +928,20 @@ class SpecDocumentMarkdown {
         fallbackStem: node.memberName ?? node.segment,
       );
       if (stored != null && stored != positional) return false;
-      if (_under(document.contentPaths, itemPath).isNotEmpty ||
-          _under(document.listPaths, itemPath).isNotEmpty ||
-          _under(document.unitsPaths, itemPath).isNotEmpty ||
-          _under(document.headlinePaths, itemPath).isNotEmpty ||
-          _under(document.formPaths, itemPath).any((k) => k != refPath) ||
+      if (_under(
+            _sorted('content', document.contentPaths),
+            itemPath,
+          ).isNotEmpty ||
+          _under(_sorted('lists', document.listPaths), itemPath).isNotEmpty ||
+          _under(_sorted('units', document.unitsPaths), itemPath).isNotEmpty ||
+          _under(
+            _sorted('headlines', document.headlinePaths),
+            itemPath,
+          ).isNotEmpty ||
+          _under(
+            _sorted('forms', document.formPaths),
+            itemPath,
+          ).any((k) => k != refPath) ||
           _hasKeys(itemPath) ||
           _hasKeys(refPath)) {
         return false;
@@ -1243,11 +1313,66 @@ class SpecDocumentMarkdown {
     // A heading is one line: a stored headline's line breaks travel as `<br>`.
     // Reading view (DI-3): the section id as an HTML anchor after the id
     // comment and its keys, so `#<ID>` links jump in every viewer.
+    if (headingDivs && depth > 6) {
+      // A styled-div heading (SOM §11.2, DocSpecs *Styled-div headings*): one
+      // line, the title HTML-escaped, the indent growing with the depth.
+      final escaped = title
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('\n', '<br>');
+      b.writeln(
+        '<div class="heading$depth" style="$headingDivStyleStart'
+        '${headingDivIndent(depth)}em;font-weight:bold">'
+        '<!--[$id]$code--> <a id="$id"></a> $escaped</div>',
+      );
+      b.writeln();
+      return;
+    }
     b.writeln(
       '${'#' * depth} <!--[$id]$code--> <a id="$id"></a> '
       '${title.replaceAll('\n', '<br>')}',
     );
     b.writeln();
+  }
+
+  /// The fixed start of a styled-div heading's style, up to its indent.
+  static const String headingDivStyleStart = 'margin:1em 0 0.5em;padding-left:';
+
+  /// A styled-div heading's indent at [depth]: `(depth − 6) × 0.75`, written
+  /// without a trailing `.0` (`0.75`, `1.5`, `3`).
+  static String headingDivIndent(int depth) {
+    final quarter = (depth - 6) * 3; // in quarters of an em
+    final whole = quarter ~/ 4;
+    return switch (quarter % 4) {
+      0 => '$whole',
+      1 => '$whole.25',
+      2 => '$whole.5',
+      _ => '$whole.75',
+    };
+  }
+
+  /// A styled-div heading line (DocSpecs *Styled-div headings*): group 1 the
+  /// level, group 2 the inner text. A level below 7 is content.
+  static final RegExp headingDivLine = RegExp(
+    r'^<div class="heading([0-9]+)"[^>]*>(.*)</div>$',
+  );
+
+  /// [line] read as a styled-div heading: its level (7 or more) and its inner
+  /// text with `&lt;`, `&gt;` and `&amp;` decoded, or null for any other line.
+  static (int, String)? headingDiv(String line) {
+    final m = headingDivLine.firstMatch(line);
+    if (m == null) return null;
+    final level = int.parse(m.group(1)!);
+    if (level < 7) return null;
+    return (
+      level,
+      m
+          .group(2)!
+          .replaceAll('&lt;', '<')
+          .replaceAll('&gt;', '>')
+          .replaceAll('&amp;', '&'),
+    );
   }
 
   /// Writes [value] as a section body followed by a blank line; no-op for
@@ -1273,7 +1398,7 @@ class SpecDocumentMarkdown {
     for (final line in collapsed.split('\n')) {
       if (fence.inFence) {
         out.add(line); // SOM §11.3: fences shield their lines.
-      } else if (_escapable.hasMatch(line)) {
+      } else if (_escapable.hasMatch(line) || _escapableDiv(line)) {
         out.add('\\$line');
       } else if (_tableHeaderShaped.hasMatch(line)) {
         out.add(' $line'); // DI-2: a value line is never a layout table.
@@ -1311,6 +1436,23 @@ class SpecDocumentMarkdown {
   // A line the emitter must escape: an optional run of backslashes followed by
   // `#` at column 0 (the escape itself must survive the round-trip).
   static final RegExp _escapable = RegExp(r'^\\*#');
+
+  /// Whether [line] would read as a styled-div heading, after any run of
+  /// backslashes (SOM §11.3): written `\<div …` as a `#` line is `\#`.
+  static bool _escapableDiv(String line) {
+    var k = 0;
+    while (k < line.length && line.codeUnitAt(k) == 0x5C) {
+      k++;
+    }
+    return headingDiv(line.substring(k).trimRight()) != null;
+  }
+
+  /// The line that marks where a stripped rendition's appendix begins
+  /// (SOM §11.1): after a readable header, the parsers stop reading at it.
+  static const String appendixMarker = '<!-- readable-appendix -->';
+
+  /// Matches the readable header line of a stripped rendition (SOM §11.1).
+  static final RegExp readableComment = RegExp(r'^<!--\s*readable:.*-->$');
 
   /// Whether a code field's [value] is written as an inline code span: it is
   /// non-empty and on one line. A multi-line value keeps the prose rendering —
@@ -1353,6 +1495,7 @@ class SpecDocumentMarkdown {
       codeSpecs: p.codeSpecs,
       units: p.units,
       keptContent: p.keptContent,
+      readableHeader: p.readableHeader,
     );
   }
 
@@ -1631,6 +1774,9 @@ class _Parser {
   final rootPrefixes = <String>{};
   final keptContent = <String, String>{};
 
+  /// The readable header line read before the root heading, or null.
+  String? readableHeader;
+
   /// The source lines, for the text of a rejected block.
   List<String> _lines = const [];
 
@@ -1793,10 +1939,26 @@ class _Parser {
             SpecDocumentMarkdown.docspecComment.hasMatch(trimmed)) {
           continue; // SOM §11.1 header — informational.
         }
+        if (_stack.isEmpty &&
+            readableHeader == null &&
+            SpecDocumentMarkdown.readableComment.hasMatch(trimmed)) {
+          readableHeader = trimmed; // SOM §11.1 readable header — skipped.
+          continue;
+        }
+        if (readableHeader != null &&
+            trimmed == SpecDocumentMarkdown.appendixMarker) {
+          break; // A stripped rendition's appendix is not the document.
+        }
         final h = SpecDocumentMarkdown.headingLine.firstMatch(trimmed);
         if (h != null) {
           _closeTo(h.group(1)!.length);
           _openHeading(h.group(1)!.length, h.group(2)!, lineNo);
+          continue;
+        }
+        final div = SpecDocumentMarkdown.headingDiv(trimmed);
+        if (div != null) {
+          _closeTo(div.$1);
+          _openHeading(div.$1, div.$2, lineNo);
           continue;
         }
       }
@@ -3076,7 +3238,10 @@ class _Parser {
     final fence = MarkdownFenceTracker();
     final out = <String>[];
     for (final line in body) {
-      if (!fence.inFence && RegExp(r'^\\+#').hasMatch(line)) {
+      if (!fence.inFence &&
+          (RegExp(r'^\\+#').hasMatch(line) ||
+              (line.startsWith(r'\') &&
+                  SpecDocumentMarkdown._escapableDiv(line)))) {
         out.add(line.substring(1));
       } else if (!fence.inFence && _escapedTableHeader.hasMatch(line)) {
         out.add(line.substring(1)); // DI-2: the emitter's one escape space.

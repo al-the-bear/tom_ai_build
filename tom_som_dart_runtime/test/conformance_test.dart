@@ -22,6 +22,7 @@ import 'package:yaml/yaml.dart';
 
 import 'reading_view_docspecs_cases.dart';
 import 'reading_view_markdown_import_cases.dart';
+import 'strip_case_runner.dart';
 
 void main() {
   // The corpus lives next to this package so every language port reads the
@@ -306,6 +307,9 @@ void main() {
           c['rejections'],
           reason: 'rejection report must match §11.7 exactly, in order',
         );
+        if (c.containsKey('readableHeader')) {
+          expect(parsed.readableHeader, c['readableHeader']);
+        }
 
         final landed = SpecDocument()
           ..loadJson({
@@ -1384,6 +1388,52 @@ void main() {
       test('annotations: ${c['name']}', () {
         expect(
           jsonDecode(jsonEncode(_runAnnotationCase(model, tree, c))),
+          c['expect'],
+        );
+      });
+    }
+  });
+
+  // Read, not generated: strip_cases.json is maintained by hand.
+  group('strip_cases.json (stripped renditions, SOM §11.10)', () {
+    final table = jsonDecode(read('strip_cases.json')) as Map<String, dynamic>;
+    final schema = DocSpecsSchema.fromYamlText(read('docspecs_schema.yaml'));
+    for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+      test('strip: ${c['name']}', () {
+        final got = runStripTextCase(c);
+        expect(jsonDecode(jsonEncode(got)), c['expect']);
+        final r = stripNotationText(c['text'] as String, stripCaseOptions(c));
+        expect(unstrip(r.text, r.pieces), c['text'], reason: 'the pieces');
+        if (_listEquals(c['drop'], ['comments'])) {
+          expect(r.text, stripAnnotationsText(c['text'] as String));
+        }
+      });
+    }
+    for (final c
+        in (table['usageCases'] as List).cast<Map<String, dynamic>>()) {
+      test('strip usage: ${c['name']}', () {
+        expect(runStripUsageCase(c), c['expect']);
+      });
+    }
+    for (final c
+        in (table['headerCases'] as List).cast<Map<String, dynamic>>()) {
+      test('readable header: ${c['name']}', () {
+        final got = runStripHeaderCase(c);
+        expect(got, c['expect']);
+        if (got != null) {
+          expect(
+            SpecReadableHeader.parse(got['format']! as String)!.format(),
+            got['format'],
+            reason: 'format and parse are inverse',
+          );
+        }
+      });
+    }
+    for (final c
+        in (table['documentCases'] as List).cast<Map<String, dynamic>>()) {
+      test('strip document: ${c['name']}', () {
+        expect(
+          jsonDecode(jsonEncode(runStripDocumentCase(c, model, schema))),
           c['expect'],
         );
       });
@@ -10753,3 +10803,6 @@ Map<String, Object?> _runAnswerCase(SpecModel model, Map<String, dynamic> c) {
     ),
   };
 }
+
+bool _listEquals(Object? a, List<String> b) =>
+    a is List && a.length == b.length && a.every(b.contains);

@@ -70,9 +70,10 @@ test('every name TS index.ts exports exists here (workspace checkout only)', (t)
 
 /**
  * TS names this runtime does not have yet, each with the todo that ports it.
- * The reading notation's scanner (`spec_notation.ts`) is Dart and TypeScript
- * only until the reading view's parity audit
- * (`05a_rdv4_akpu-runtime-parity-audit`) files its port.
+ * The reading notation's scanner (`spec_notation.ts`) and the strip of
+ * stripped renditions (`spec_document_strip.ts`, SOM §11.10) are Dart and
+ * TypeScript only until the reading view's parity audit
+ * (`05a_rdv4_akpu-runtime-parity-audit`) files their ports.
  */
 const PENDING_PARITY = new Set([
   'registeredNotationKinds',
@@ -82,6 +83,23 @@ const PENDING_PARITY = new Set([
   'NotationFinding',
   'NotationScan',
   'scanNotation',
+  'countAnnotationsText',
+  'specStripKindNames',
+  'specStripNotationKinds',
+  'SpecStripUsageError',
+  'SpecStripOptions',
+  'SpecReadableSource',
+  'SpecReadableHeader',
+  'SpecStripPiece',
+  'SpecAppendixEntry',
+  'SpecStripTextResult',
+  'stripNotationText',
+  'SpecStripValueRef',
+  'SpecStrippedValue',
+  'SpecStripKept',
+  'SpecStripFinding',
+  'SpecStripResult',
+  'SpecDocumentStrip',
 ]);
 
 test('no pending-parity name is here already (the exception ends with its port)', () => {
