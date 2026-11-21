@@ -165,6 +165,7 @@ class _CustomFactory extends DocScannerFactory {
     required String text,
     required Map<String, String> fields,
     List<Section>? sections,
+    int? textLineNumber,
   }) {
     return super.createSection(
       index: index,
@@ -175,6 +176,7 @@ class _CustomFactory extends DocScannerFactory {
       text: text,
       fields: fields,
       sections: sections,
+      textLineNumber: textLineNumber,
     );
   }
 }

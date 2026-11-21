@@ -71,7 +71,7 @@ subclasses — which is exactly how `tom_doc_specs` layers `SpecSection` and
 
 ```yaml
 dependencies:
-  tom_doc_scanner: ^0.1.0
+  tom_doc_scanner: ^0.3.0
 ```
 
 ```bash
@@ -91,11 +91,15 @@ dart pub global activate tom_doc_scanner
 | Feature | Behaviour |
 | ------- | --------- |
 | Headline levels | `#` through any number of `#` — **no upper bound**. Levels beyond 6 are parsed as sections; CommonMark renderers show `#######` as literal text, but for a machine format the tree is authoritative (SOM §11.2) |
+| Styled-div headings | A heading of level 7 or deeper may be written as one HTML line, `<div class="heading7" style="…"><!--[ID]--> Title</div>` (N >= 7, `class` first, the whole line at column 0), so a Markdown preview shows it as a heading; it nests exactly like `#######`. A `heading6` div or a div over several lines is text (DocSpecs specification, *Styled-div headings*) |
+| Fenced code | A `#` line or a heading div inside a fenced code block (backticks or tildes) is text, not a heading |
+| Nesting | A headline's parent is the nearest shallower headline before it, so a skipped level (`####` straight under `##`) nests where it stands |
 | Explicit ids | `## [install] Installation` or `## <!--[install]--> Installation` — the comment form keeps the id out of the rendered preview |
+| Section anchors | A heading's own anchor, `<a id="ID"></a>` naming the heading's id, is removed from its title; an anchor naming another id is title text |
 | Derived ids | Single word → lowercased; otherwise `parent.index` |
 | Headline fields | `key="value"` pairs parsed out of the headline into `Section.fields` |
 | Raw headline | The source line kept verbatim in `Section.rawHeadline` |
-| Section text | Everything between one headline and the next, in `Section.text` |
+| Section text | Everything between one headline and the next, in `Section.text` (trimmed); `Section.textLineNumber` is the file line of its first line |
 
 ### Provenance
 

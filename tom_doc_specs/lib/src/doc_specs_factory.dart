@@ -2,6 +2,9 @@ import 'package:tom_doc_scanner/tom_doc_scanner.dart';
 import 'models/spec_doc.dart';
 import 'models/spec_section.dart';
 import 'models/schema/doc_spec_schema.dart';
+import 'reading/body_reader.dart';
+import 'reading/reading_grammar.dart';
+import 'validation/validation_error.dart';
 
 /// Factory for creating [SpecDoc] and [SpecSection] objects.
 ///
@@ -60,26 +63,43 @@ class DocSpecsFactory extends DocScannerFactory {
     required String text,
     required Map<String, String> fields,
     List<Section>? sections,
+    int? textLineNumber,
   }) {
     // Determine section type by matching ID against prefix (YAML declaration order)
-    String? sectionType;
-    String? format;
-
-    if (schema != null) {
-      for (final entry in schema!.sectionTypes.entries) {
-        final prefix = entry.value.prefix;
-        if (prefix != null &&
-            id.toLowerCase().startsWith(prefix.toLowerCase())) {
-          sectionType = entry.key;
-          format = entry.value.format;
-          break;
-        }
-      }
-    }
+    final schema = this.schema;
+    final sectionType = schema?.resolveSectionType(id);
+    final typeDef = sectionType == null
+        ? null
+        : schema!.sectionTypes[sectionType];
 
     // Parse tags from fields
     final tags =
         fields['tags']?.split(',').map((t) => t.trim()).toList() ?? <String>[];
+
+    // The section's body as the schema reads it: its section tables and its
+    // list body become sections of the tree (DocSpecs specification, List
+    // Bodies), and the fenced-div findings are kept for the validator.
+    var body = ReadBody(
+      text: text,
+      textLineNumber: textLineNumber,
+      sections: sections,
+      findings: const [],
+    );
+    final findings = <ValidationError>[];
+    if (schema != null) {
+      findings.addAll(ReadingGrammar.divFindings(text, textLineNumber, id));
+      if (typeDef != null) {
+        body = BodyReader(schema).read(
+          id: id,
+          type: typeDef,
+          allowed: (t) => typeDef.subsectionTypes?.containsKey(t) ?? false,
+          text: text,
+          textLineNumber: textLineNumber,
+          children: sections,
+        );
+        findings.addAll(body.findings);
+      }
+    }
 
     return SpecSection(
       index: index,
@@ -87,12 +107,14 @@ class DocSpecsFactory extends DocScannerFactory {
       rawHeadline: rawHeadline,
       name: name,
       id: id,
-      text: text,
+      text: body.text,
       fields: fields,
-      sections: sections,
+      sections: body.sections,
+      textLineNumber: body.textLineNumber,
       type: sectionType,
       tags: tags,
-      format: format,
+      format: typeDef?.format,
+      readingFindings: findings,
     );
   }
 
@@ -116,16 +138,43 @@ class DocSpecsFactory extends DocScannerFactory {
     required String workspaceRoot,
     required String projectRoot,
     required int hierarchyDepth,
+    int? textLineNumber,
   }) {
+    // The root's body may hold a section table of its children.
+    final schema = this.schema;
+    var body = ReadBody(
+      text: text,
+      textLineNumber: textLineNumber,
+      sections: sections,
+      findings: const [],
+    );
+    final findings = <ValidationError>[];
+    if (schema != null) {
+      findings.addAll(ReadingGrammar.divFindings(text, textLineNumber, id));
+      final topLevel = {
+        for (final s in schema.document.sections.values) s.sectionType,
+      };
+      body = BodyReader(schema).read(
+        id: id,
+        type: null,
+        allowed: topLevel.contains,
+        text: text,
+        textLineNumber: textLineNumber,
+        children: sections,
+      );
+      findings.addAll(body.findings);
+    }
     return SpecDoc(
       index: index,
       lineNumber: lineNumber,
       rawHeadline: rawHeadline,
       name: name,
       id: id,
-      text: text,
+      text: body.text,
       fields: fields,
-      sections: sections,
+      sections: body.sections,
+      textLineNumber: body.textLineNumber,
+      readingFindings: findings,
       filenameWithPath: filenameWithPath,
       loadTimestamp: loadTimestamp,
       filename: filename,
@@ -138,7 +187,7 @@ class DocSpecsFactory extends DocScannerFactory {
       hierarchyDepth: hierarchyDepth,
       schemaId:
           fields['schema'] ??
-          (schema != null ? '${schema!.id}/${schema!.version}' : ''),
+          (schema != null ? '${schema.id}/${schema.version}' : ''),
       accessKeys: _accessKeys,
       // The factory is constructed with the resolved schema and `DocSpecs`
       // validates iff that schema is non-null, so this is the same condition

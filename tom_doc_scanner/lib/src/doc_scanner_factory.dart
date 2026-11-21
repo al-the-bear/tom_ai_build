@@ -23,6 +23,7 @@ import 'models/section.dart';
 ///     required String text,
 ///     required Map<String, String> fields,
 ///     List<Section>? sections,
+///     int? textLineNumber,
 ///   }) {
 ///     // Custom section creation logic
 ///     return super.createSection(
@@ -34,6 +35,7 @@ import 'models/section.dart';
 ///       text: text,
 ///       fields: fields,
 ///       sections: sections,
+///       textLineNumber: textLineNumber,
 ///     );
 ///   }
 /// }
@@ -57,6 +59,7 @@ class DocScannerFactory {
     required String text,
     required Map<String, String> fields,
     List<Section>? sections,
+    int? textLineNumber,
   }) {
     return Section(
       index: index,
@@ -67,6 +70,7 @@ class DocScannerFactory {
       text: text,
       fields: fields,
       sections: sections,
+      textLineNumber: textLineNumber,
     );
   }
 
@@ -90,6 +94,7 @@ class DocScannerFactory {
     required String workspaceRoot,
     required String projectRoot,
     required int hierarchyDepth,
+    int? textLineNumber,
   }) {
     return Document(
       index: index,
@@ -100,6 +105,7 @@ class DocScannerFactory {
       text: text,
       fields: fields,
       sections: sections,
+      textLineNumber: textLineNumber,
       filenameWithPath: filenameWithPath,
       loadTimestamp: loadTimestamp,
       filename: filename,

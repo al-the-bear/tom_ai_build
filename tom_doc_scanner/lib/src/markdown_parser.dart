@@ -54,6 +54,21 @@ class MarkdownParser {
   /// uncapped), so the grammar is `#{1,}` rather than CommonMark's `#{1,6}`.
   static final _headlinePattern = RegExp(r'^(#{1,})\s+(.*)$');
 
+  /// A heading of level 7 or deeper written as one HTML line (DocSpecs
+  /// specification, *Styled-div headings*): the whole line, at column 0,
+  /// `class` the div's first attribute.
+  static final _styledHeadingPattern = RegExp(
+    r'^<div class="heading(\d+)"[^>]*>(.*)</div>$',
+  );
+
+  /// The opening line of a fenced code block: three or more backticks or
+  /// tildes after up to three spaces.
+  static final _fenceOpenPattern = RegExp(r'^ {0,3}(`{3,}|~{3,})');
+
+  /// A section's own anchor in its title (DocSpecs specification, *Section
+  /// Anchors*).
+  static final _anchorPattern = RegExp(r'<a id="([^"]*)"></a>\s*');
+
   /// Pattern to extract HTML comment with optional content: <!--...-->
   static final _htmlCommentPattern = RegExp(r'<!--\s*(.*?)\s*-->');
 
@@ -69,21 +84,50 @@ class MarkdownParser {
     r'|([^,\s>]+))',
   );
 
+  /// The level and content of [line] when it is a heading: a `#` heading of
+  /// any level, or a styled `heading<N>` div with N >= 7 (its inner text with
+  /// `&amp;`, `&lt;`, `&gt;` decoded). `null` for any other line.
+  static (int, String)? _headingOf(String line) {
+    final hash = _headlinePattern.firstMatch(line);
+    if (hash != null) return (hash.group(1)!.length, hash.group(2)!);
+    final div = _styledHeadingPattern.firstMatch(line);
+    if (div == null) return null;
+    final level = int.parse(div.group(1)!);
+    // A heading<N> div with N <= 6 is content: those levels have `#`.
+    if (level < 7) return null;
+    final inner = div
+        .group(2)!
+        .replaceAll('&lt;', '<')
+        .replaceAll('&gt;', '>')
+        .replaceAll('&amp;', '&');
+    return (level, inner);
+  }
+
+  /// Whether [line] is a heading line (see [_headingOf]).
+  static bool _isHeading(String line) => _headingOf(line) != null;
+
   /// Parses a markdown string and returns parsed headlines with their positions.
+  ///
+  /// A heading is a `#` line of any level or a styled `heading<N>` div
+  /// (N >= 7); lines inside fenced code blocks are never headings.
   static List<(ParsedHeadline, int startLine, int endLine)> parseHeadlines(
     String content,
   ) {
     final lines = content.split('\n');
     final headlines = <(ParsedHeadline, int, int)>[];
+    final fence = FenceTracker();
 
     for (var i = 0; i < lines.length; i++) {
       final line = lines[i];
-      final match = _headlinePattern.firstMatch(line);
+      final wasInFence = fence.inFence;
+      fence.feed(line);
+      if (wasInFence || fence.inFence) continue;
+      final heading = _headingOf(line);
 
-      if (match != null) {
-        final level = match.group(1)!.length;
+      if (heading != null) {
+        final level = heading.$1;
         final fullLine = line.trimRight(); // The complete headline line
-        final headlineContent = match.group(2)!.trim();
+        final headlineContent = heading.$2.trim();
         var headlineText = headlineContent;
         String? explicitId;
         final fields = <String, String>{};
@@ -144,7 +188,7 @@ class MarkdownParser {
         // malformed document, and the more specific placement should decide.
         if (explicitId == null && i + 1 < lines.length) {
           final next = lines[i + 1];
-          if (!_headlinePattern.hasMatch(next)) {
+          if (!_isHeading(next)) {
             final nextComment = _htmlCommentPattern.firstMatch(next);
             if (nextComment != null) {
               final nextContent = nextComment.group(1)!;
@@ -172,6 +216,17 @@ class MarkdownParser {
           headlineText = _removeKeyValuePairs(textOutsideComment);
         } else {
           headlineText = textOutsideComment;
+        }
+
+        // The section's own anchor is removed and stores nothing; any other
+        // anchor is ordinary text.
+        if (explicitId != null) {
+          headlineText = headlineText
+              .replaceAllMapped(
+                _anchorPattern,
+                (m) => m.group(1) == explicitId ? '' : m.group(0)!,
+              )
+              .trim();
         }
 
         headlines.add((
@@ -232,6 +287,17 @@ class MarkdownParser {
     return textLines.join('\n').trim();
   }
 
+  /// The line number (1-based) of the first line of the text [extractText]
+  /// returns for the same arguments: the first non-blank line after the
+  /// headline at [startLine]. `null` when that text is empty.
+  static int? textLineNumber(String content, int startLine, int endLine) {
+    final lines = content.split('\n');
+    for (var i = startLine + 1; i <= endLine && i < lines.length; i++) {
+      if (lines[i].trim().isNotEmpty) return i + 1;
+    }
+    return null;
+  }
+
   /// Generates an ID from headline text.
   ///
   /// Rules:
@@ -263,5 +329,51 @@ class MarkdownParser {
   ) {
     if (headlines.isEmpty) return 0;
     return headlines.map((h) => h.$1.level).reduce((a, b) => a > b ? a : b);
+  }
+}
+
+/// Tracks whether a run of Markdown lines is inside a fenced code block
+/// (CommonMark: three or more backticks or tildes after up to three spaces;
+/// the closing fence uses the same character, at least as many, and nothing
+/// else). Feed every line in order; [inFence] then tells whether the line
+/// just fed opened or continues a block (a closing line reads `false`).
+class FenceTracker {
+  String? _char;
+  int _length = 0;
+  bool _inFence = false;
+
+  /// Whether the last line fed is inside a fenced block (its opening line
+  /// included, its closing line not).
+  bool get inFence => _inFence;
+
+  /// Feeds the next [line].
+  void feed(String line) {
+    final open = MarkdownParser._fenceOpenPattern.firstMatch(line);
+    if (_char == null) {
+      if (open == null) {
+        _inFence = false;
+        return;
+      }
+      final run = open.group(1)!;
+      // A backtick fence's info string may not contain a backtick.
+      if (run[0] == '`' && line.substring(open.end).contains('`')) {
+        _inFence = false;
+        return;
+      }
+      _char = run[0];
+      _length = run.length;
+      _inFence = true;
+      return;
+    }
+    final run = open?.group(1);
+    if (run != null &&
+        run[0] == _char &&
+        run.length >= _length &&
+        line.substring(open!.end).trim().isEmpty) {
+      _char = null;
+      _inFence = false;
+      return;
+    }
+    _inFence = true;
   }
 }

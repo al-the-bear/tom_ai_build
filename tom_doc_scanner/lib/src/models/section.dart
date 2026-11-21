@@ -71,6 +71,15 @@ class Section {
   /// Null if this section has no subsections.
   final List<Section>? sections;
 
+  /// The line number (1-based) of the first line of [text]: the first
+  /// non-blank line after the headline. `null` when [text] is empty or the
+  /// section was not read from a file.
+  ///
+  /// [text] is trimmed, so this is what maps a line of [text] back to its
+  /// line in the file: line `k` (0-based) of `text.split('\n')` is file line
+  /// `textLineNumber + k`.
+  final int? textLineNumber;
+
   /// Creates a new section.
   const Section({
     required this.index,
@@ -81,6 +90,7 @@ class Section {
     required this.text,
     this.fields = const {},
     this.sections,
+    this.textLineNumber,
   });
 
   /// Creates a Section from a JSON map.
@@ -100,6 +110,7 @@ class Section {
                 .map((s) => Section.fromJson(s as Map<String, dynamic>))
                 .toList()
           : null,
+      textLineNumber: json['textLineNumber'] as int?,
     );
   }
 
@@ -115,6 +126,7 @@ class Section {
       if (fields.isNotEmpty) 'fields': fields,
       if (sections != null)
         'sections': sections!.map((s) => s.toJson()).toList(),
+      if (textLineNumber != null) 'textLineNumber': textLineNumber,
     };
   }
 

@@ -53,6 +53,48 @@ class DocSpecSchema {
   /// Full schema ID with version (e.g., "quest-overview/1.0").
   String get fullId => '$id/$version';
 
+  /// The name of the section type [id] resolves to: the first type, in
+  /// declaration order, whose prefix [prefixMatches] the id; `null` when
+  /// none does.
+  String? resolveSectionType(String id) {
+    for (final entry in sectionTypes.entries) {
+      final prefix = entry.value.prefix;
+      if (prefix != null && prefixMatches(id, prefix)) return entry.key;
+    }
+    return null;
+  }
+
+  /// Whether section [id] starts with [prefix] (DocSpecs specification,
+  /// *Section Type Resolution*, step 2): the id with every run of
+  /// non-alphanumeric characters replaced by `_` must start with the prefix,
+  /// so `D00-OVR` matches `D00_OVR`. The raw id matching counts too, so a
+  /// prefix written for the id as it stands (`REQ__` for `REQ__1`, whose
+  /// underscore run the replacement shortens) keeps resolving; and the
+  /// comparison ignores case, as tom_doc_specs always has (the
+  /// specification's match is case-sensitive).
+  static bool prefixMatches(String id, String prefix) {
+    final p = prefix.toLowerCase();
+    final raw = id.toLowerCase();
+    return raw.replaceAll(_nonAlphanumericRun, '_').startsWith(p) ||
+        raw.startsWith(p);
+  }
+
+  static final RegExp _nonAlphanumericRun = RegExp('[^A-Za-z0-9]+');
+
+  /// The form type a section type's `format:` names: the form type of that
+  /// name, else (for a name ending in `-form`) the one without the suffix;
+  /// `null` for a format that names no form type.
+  FormTypeDef? formTypeFor(String? format) {
+    if (format == null) return null;
+    final forms = formTypes;
+    if (forms == null) return null;
+    final own = forms[format];
+    if (own != null) return own;
+    return format.endsWith('-form')
+        ? forms[format.substring(0, format.length - 5)]
+        : null;
+  }
+
   /// Schema ID with version in filename format (e.g., "quest-overview-1.0").
   String get filenameId => '$id-$version';
 

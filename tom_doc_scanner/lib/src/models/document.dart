@@ -54,6 +54,7 @@ class Document extends Section {
     required super.fields,
     required super.text,
     super.sections,
+    super.textLineNumber,
     required this.filenameWithPath,
     required this.loadTimestamp,
     required this.filename,
@@ -83,6 +84,7 @@ class Document extends Section {
                 .map((s) => Section.fromJson(s as Map<String, dynamic>))
                 .toList()
           : null,
+      textLineNumber: json['textLineNumber'] as int?,
       filenameWithPath: json['filenameWithPath'] as String,
       loadTimestamp: json['loadTimestamp'] as String,
       filename: json['filename'] as String,

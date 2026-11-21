@@ -70,7 +70,7 @@ Every entry point comes in an async and a `Sync` form.
 
 ```yaml
 dependencies:
-  tom_doc_specs: ^0.1.0
+  tom_doc_specs: ^0.4.0
 ```
 
 ```bash
@@ -90,7 +90,7 @@ dart pub global activate tom_doc_specs
 | Feature | Behaviour |
 | ------- | --------- |
 | Schema declaration | `<!-- schema=id/version -->` in the document's first headline |
-| Section types | Named types, each claiming sections by an id `prefix`, matched in YAML declaration order |
+| Section types | Named types, each claiming sections by an id `prefix`, matched in YAML declaration order against the id with every run of non-alphanumeric characters replaced by `_` (`D00-OVR` matches `D00_OVR`), case-insensitively; the raw id matching counts too |
 | Document structure | Which sections are required, their order, which are `optional: true` |
 | Access keys | `access-key: overview` gives a section a stable lookup name independent of its id |
 | Resolution | By id from `.tom/docspecs-schema/`, walking up from the document, then `~/.tom/docspecs-schema/` |
@@ -102,7 +102,7 @@ dart pub global activate tom_doc_specs
 | Feature | Behaviour |
 | ------- | --------- |
 | `SpecDoc` | A `Document` with `schemaId`, `validationErrors`, `isValid` and `wasValidated` |
-| `SpecSection` | A `Section` with its resolved `type`, `tags`, `format`, `formFields` and `preamble` |
+| `SpecSection` | A `Section` with its resolved `type`, `tags`, `format`, `formFields` and `preamble`; `formEntries` lists every value with its line, `isVirtual` marks a list item or child that has no heading of its own |
 | By id or access key | `doc['note-001']` and `doc['overview']` both reach the same section |
 | By type | `doc.getSpecSectionType('requirement').getAll()` — every section of a type, anywhere in the document |
 | By tag | `doc.getSectionsByTag('priority')`, optionally narrowed to one type |
@@ -113,7 +113,9 @@ dart pub global activate tom_doc_specs
 | Feature | Behaviour |
 | ------- | --------- |
 | Structural validation | Missing required sections, unknown sections, wrong order, id/type mismatches, missing form fields |
-| Error detail | `ValidationError` carries a category, the offending section and a remedy line |
+| Reading forms | The forms the DocSpecs specification lets a document use instead of headings and `Fieldname:` lines, read into the same tree: **form tables** (`\| TomSpecField \| Value \|` or `\| DocSpecsField \| Value \|`, one row per field), **`refs` bodies** (`::: {.refs}` — a list container's items as a line of references), **`records` bodies** (`::: {.records}` — the items as a table, `Id` first, `Title` optional, then form fields) and **section tables** (`\| Section \| TomSpecField \| Value \|` — the children's values in the parent's body); list items and children without a heading become virtual sections |
+| Reading findings | Broken tables and divs are reported with a `code` on `ValidationError`: `malformedBlock`, `unknownField`, `unknownSection`, and of the fenced divs `unclosedDiv`, `strayClosingFence`, `rejectedBlock`; a field's pattern finding points at the row or line that gave it |
+| Error detail | `ValidationError` carries a category, the offending section, its line, a remedy line and, for the findings the specification names, a `code` |
 | Checked vs clean | `wasValidated` is `false` when no schema could be resolved, so an unchecked document cannot pass for a valid one |
 | AI validation | `validateAsync` runs the schema's prose rules through an `AiValidator` you implement; the sync `validate` never calls it |
 | Prompt expansion | `PromptExpander` fills `${...}` placeholders in a schema's prompts from the document, before the prompt is handed over |

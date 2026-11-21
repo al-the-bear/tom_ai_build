@@ -1,0 +1,133 @@
+# The reading forms of the DocSpecs specification: form tables, list bodies
+# (`refs`, `records`), section tables, styled-div headings and section
+# anchors. Used by test/reading_forms_test.dart.
+section-types:
+  overview:
+    prefix: OVR
+    text-required: true
+  header:
+    prefix: HDR
+    format: header-form
+  goal-item:
+    prefix: GOAL_ITEM_
+  goals:
+    prefix: GOALS
+    subsection-types:
+      goal-item:
+        min-count: 1
+  crit-lst:
+    prefix: CRIT_LST
+    max-text-length: 0
+    subsection-types:
+      crit-item:
+        min-count: 2
+        max-count: 3
+  crit-item:
+    prefix: CRIT_
+    pattern-check-id:
+      pattern: "^CRIT-[0-9]+$"
+      error-message: "Format: CRIT-<n>"
+    format: crit-form
+  refs-lst:
+    prefix: REFS_LST
+    max-text-length: 0
+    subsection-types:
+      ref-item:
+        min-count: 2
+  ref-item:
+    prefix: REFS_
+    format: ref-form
+  link-lst:
+    prefix: LINK_LST
+    max-text-length: 0
+    subsection-types:
+      link-item:
+        min-count: 1
+  link-ref:
+    prefix: LINK_REF
+    format: ref-form
+  link-item:
+    prefix: LINK_
+    subsection-types:
+      link-ref:
+        min-count: 1
+        max-count: 1
+  attr:
+    prefix: ATTR
+    subsection-types:
+      iden:
+        min-count: 1
+        max-count: 1
+      cons-lst:
+        max-count: 1
+  iden:
+    prefix: IDEN
+    format: iden-form
+  cons-lst:
+    prefix: CONS_LST
+    subsection-types:
+      cons-item:
+        min-count: 1
+  cons-item:
+    prefix: CONS_
+    format: cons-form
+form-types:
+  header-form:
+    fields:
+      - fieldname: Author
+        required: true
+      - fieldname: Reviewer
+        pattern-check:
+          pattern: "^[A-Z]"
+          error-message: Reviewer starts with an uppercase letter
+      - fieldname: Description
+  crit-form:
+    fields:
+      - fieldname: Given
+        required: true
+      - fieldname: When
+      - fieldname: Then
+        pattern-check:
+          pattern: "^[a-z]"
+          error-message: Then starts with a lowercase letter
+  ref-form:
+    fields:
+      - fieldname: Target
+        required: true
+        pattern-check:
+          pattern: "^[A-Z]"
+          error-message: Target starts with an uppercase letter
+  iden-form:
+    fields:
+      - fieldname: ColumnName
+        required: true
+      - fieldname: Description
+  cons-form:
+    fields:
+      - fieldname: Mandatory
+        required: true
+        pattern-check:
+          pattern: "^(Yes|No)$"
+          error-message: Mandatory is Yes or No
+document:
+  sections:
+    overview:
+      section-type: overview
+    header:
+      section-type: header
+      optional: true
+    goals:
+      section-type: goals
+      optional: true
+    crit-lst:
+      section-type: crit-lst
+      optional: true
+    refs-lst:
+      section-type: refs-lst
+      optional: true
+    link-lst:
+      section-type: link-lst
+      optional: true
+    attr:
+      section-type: attr
+      optional: true

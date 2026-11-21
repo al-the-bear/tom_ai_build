@@ -12,12 +12,19 @@ class ValidationError {
   /// Error category for grouping.
   final ValidationErrorCategory category;
 
+  /// The finding's code as the DocSpecs specification names it
+  /// (`malformedBlock`, `unknownField`, `unknownSection`, `unclosedDiv`,
+  /// `strayClosingFence`, `rejectedBlock`), for the findings the
+  /// specification gives a code; `null` for the others.
+  final String? code;
+
   /// Creates a new ValidationError.
   const ValidationError({
     required this.message,
     this.lineNumber,
     this.sectionId,
     this.category = ValidationErrorCategory.general,
+    this.code,
   });
 
   @override
@@ -73,4 +80,7 @@ enum ValidationErrorCategory {
 
   /// AI validation errors.
   aiValidation,
+
+  /// Reading-notation errors (fenced divs, DocSpecs specification RN-10).
+  notation,
 }

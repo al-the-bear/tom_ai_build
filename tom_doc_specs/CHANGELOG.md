@@ -1,5 +1,42 @@
 # Changelog
 
+## 0.4.0
+
+Reads the reading forms of the DocSpecs specification (02b_rdv1, 02b_rdv2),
+so the renditions TomSpecs writes read back into the same tree as their
+`Fieldname:` / heading form. Requires `tom_doc_scanner` 0.3.0 (styled-div
+headings, section anchors, fenced code, `textLineNumber`).
+
+- **Form tables.** `| TomSpecField | Value |` or `| DocSpecsField | Value |`
+  (any case) at column 0, one row per field, give a form-formatted section its
+  fields beside or instead of `Fieldname:` lines. `\|` is a literal pipe, a
+  cell of links reads as the link texts, an empty cell is no value, a table in
+  fenced code is content, and a layout header written with one leading space is
+  content with the space removed. The first occurrence of a field wins; the
+  later one is a `malformedBlock`. Two `Fieldname:` lines of one field keep
+  the later one, unreported, as before.
+- **`refs` and `records` bodies** in a list container and **section tables**
+  (`| Section | TomSpecField | Value |`, also in the document's root body)
+  become virtual sections of the tree (`SpecSection.isVirtual`, their values in
+  `SpecSection.virtualValues`); the div or table is removed from the
+  container's text, so `max-text-length: 0` holds.
+- **Findings with a code.** `ValidationError.code` names the finding as the
+  specification does: `malformedBlock` (broken table, misplaced or unclosed
+  list-body div, field given twice), `unknownField` (a row or records column
+  naming no field), `unknownSection` (a section-table row naming no child),
+  and the fenced-div findings `unclosedDiv`, `strayClosingFence`,
+  `rejectedBlock` (category `notation`).
+- **Lines.** A form field's pattern finding points at the row or
+  `Fieldname:` line that gave the value (`SpecSection.fieldLine`).
+- **Prefix matching follows the specification**: the id with every run of
+  non-alphanumeric characters replaced by `_` (`D00-OVR` matches prefix
+  `D00_OVR`); the raw id still matches, and the match still ignores case
+  (`DocSpecSchema.resolveSectionType`, `DocSpecSchema.prefixMatches`).
+- **Fix:** a section with no children at all now owes its subsection
+  `min-count`s; it used to pass.
+- Text checks count the values a section was given as its virtual body lines
+  (`SpecSection.contentText`).
+
 ## 0.3.1
 
 - **Review annotations stay out of form fields** (SOM §11.9.4). A comment

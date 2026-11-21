@@ -1,4 +1,5 @@
 import 'package:tom_doc_scanner/tom_doc_scanner.dart';
+import '../validation/validation_error.dart';
 import 'spec_section.dart';
 import 'spec_section_type.dart';
 
@@ -46,6 +47,11 @@ class SpecDoc extends Document {
   /// and a caller that branches on it alone is branching on nothing.
   final bool wasValidated;
 
+  /// Findings made while the root's body was read into the tree (its section
+  /// table, its fenced divs); the validator reports them, as it reports
+  /// [SpecSection.readingFindings].
+  final List<ValidationError> readingFindings;
+
   /// Section name to access-key mappings from schema.
   final Map<String, String> _accessKeys;
 
@@ -62,6 +68,7 @@ class SpecDoc extends Document {
     required super.text,
     super.fields = const {},
     super.sections,
+    super.textLineNumber,
     required super.filenameWithPath,
     required super.loadTimestamp,
     required super.filename,
@@ -76,7 +83,9 @@ class SpecDoc extends Document {
     List<String>? validationErrors,
     Map<String, String>? accessKeys,
     this.wasValidated = false,
+    List<ValidationError>? readingFindings,
   }) : validationErrors = validationErrors ?? [],
+       readingFindings = List.unmodifiable(readingFindings ?? const []),
        _accessKeys = accessKeys ?? const {};
 
   /// Creates a SpecDoc from a base Document with additional properties.
@@ -96,6 +105,7 @@ class SpecDoc extends Document {
       text: document.text,
       fields: document.fields,
       sections: document.sections,
+      textLineNumber: document.textLineNumber,
       filenameWithPath: document.filenameWithPath,
       loadTimestamp: document.loadTimestamp,
       filename: document.filename,
@@ -130,6 +140,7 @@ class SpecDoc extends Document {
                 .map((s) => SpecSection.fromJson(s as Map<String, dynamic>))
                 .toList()
           : null,
+      textLineNumber: json['textLineNumber'] as int?,
       filenameWithPath: json['filenameWithPath'] as String,
       loadTimestamp: json['loadTimestamp'] as String,
       filename: json['filename'] as String,

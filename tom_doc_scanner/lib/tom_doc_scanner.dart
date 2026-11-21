@@ -15,7 +15,8 @@ library;
 
 export 'src/doc_scanner.dart' show DocScanner;
 export 'src/doc_scanner_factory.dart' show DocScannerFactory;
-export 'src/markdown_parser.dart' show ParsedHeadline, MarkdownParser;
+export 'src/markdown_parser.dart'
+    show ParsedHeadline, MarkdownParser, FenceTracker;
 export 'src/models/document.dart' show Document;
 export 'src/models/document_folder.dart' show DocumentFolder;
 export 'src/models/section.dart' show Section;

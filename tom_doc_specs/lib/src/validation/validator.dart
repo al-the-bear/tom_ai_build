@@ -90,8 +90,23 @@ class DocSpecsValidator {
     // 17. Validate subsection positions
     errors.addAll(_validateSubsectionPositions(doc));
 
+    // 18. Report what reading the bodies into the tree found (list bodies,
+    //     section tables, fenced divs)
+    errors.addAll(_readingFindings(doc, allSections));
+
     return errors;
   }
+
+  /// The findings the factory made while it read the document's bodies.
+  List<ValidationError> _readingFindings(
+    Document doc,
+    List<_SectionInfo> sections,
+  ) => [
+    if (doc is SpecDoc) ...doc.readingFindings,
+    for (final info in sections)
+      if (info.section is SpecSection)
+        ...(info.section as SpecSection).readingFindings,
+  ];
 
   /// Validates a document asynchronously, including AI validation.
   ///
@@ -274,17 +289,7 @@ class DocSpecsValidator {
       // Check if section has a type (for SpecSection)
       if (section is SpecSection && section.type == null) {
         // Try to match against prefixes
-        var matched = false;
-        for (final entry in schema.sectionTypes.entries) {
-          final prefix = entry.value.prefix;
-          if (prefix != null &&
-              id.toLowerCase().startsWith(prefix.toLowerCase())) {
-            matched = true;
-            break;
-          }
-        }
-
-        if (!matched) {
+        if (schema.resolveSectionType(id) == null) {
           final prefixes = schema.sectionTypes.entries
               .where((e) => e.value.prefix != null)
               .map((e) => "'${e.value.prefix}' (${e.key})")
@@ -472,11 +477,12 @@ class DocSpecsValidator {
     for (final info in sections) {
       if (info.section is SpecSection) {
         final section = info.section as SpecSection;
-        if (section.type != null && section.sections != null) {
+        // A section without children still owes its min-counts.
+        if (section.type != null) {
           final typeDef = schema.sectionTypes[section.type];
           if (typeDef?.subsectionTypes != null) {
             final childCounts = <String, int>{};
-            for (final child in section.sections!) {
+            for (final child in section.sections ?? const <Section>[]) {
               if (child is SpecSection && child.type != null) {
                 childCounts[child.type!] = (childCounts[child.type!] ?? 0) + 1;
               }
@@ -606,7 +612,9 @@ class DocSpecsValidator {
         if (section.type != null) {
           final typeDef = schema.sectionTypes[section.type];
           if (typeDef != null) {
-            final text = section.text;
+            // Values a section table or list body gave the section count as
+            // its virtual body lines.
+            final text = section.contentText;
 
             // text-required — skip for container sections that have
             // subsections, since their content lives in children.
@@ -705,7 +713,7 @@ class DocSpecsValidator {
             final pattern = typeDef!.patternCheckText!;
             final regex = RegExp(pattern.pattern, caseSensitive: false);
 
-            if (!regex.hasMatch(section.text)) {
+            if (!regex.hasMatch(section.contentText)) {
               errors.add(
                 ValidationError(
                   message:
@@ -830,6 +838,41 @@ class DocSpecsValidator {
       );
     }
 
+    // Broken form tables, rows naming no field, fields given twice
+    // (DocSpecs specification, Form Tables).
+    errors.addAll(section.formTableFindings);
+    final declared = {
+      for (final field in formType.fields) field.fieldname.toLowerCase(),
+    };
+    for (final entry in section.formEntries) {
+      if (entry.source == FormEntrySource.label || entry.label.isEmpty) {
+        continue;
+      }
+      if (!declared.contains(entry.label.toLowerCase())) {
+        errors.add(
+          ValidationError(
+            message:
+                'row "${entry.label}" names no field of "${formType.name}"',
+            lineNumber: entry.line ?? section.lineNumber,
+            sectionId: section.id,
+            category: ValidationErrorCategory.format,
+            code: 'unknownField',
+          ),
+        );
+      }
+    }
+    for (final entry in section.duplicateEntries) {
+      errors.add(
+        ValidationError(
+          message: 'field "${entry.label}" given twice',
+          lineNumber: entry.line ?? section.lineNumber,
+          sectionId: section.id,
+          category: ValidationErrorCategory.format,
+          code: 'malformedBlock',
+        ),
+      );
+    }
+
     // Check required fields (from form text only)
     for (final field in formType.fields) {
       if (field.required == true) {
@@ -858,7 +901,9 @@ class DocSpecsValidator {
               ValidationError(
                 message:
                     "Field '${field.fieldname}' value '$value' does not match pattern: ${field.patternCheck!.errorMessage}",
-                lineNumber: section.lineNumber,
+                // The line of the row or `Fieldname:` line that gave it.
+                lineNumber:
+                    section.fieldLine(field.fieldname) ?? section.lineNumber,
                 sectionId: section.id,
                 category: ValidationErrorCategory.format,
               ),

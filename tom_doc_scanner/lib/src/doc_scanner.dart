@@ -215,7 +215,7 @@ class DocScanner {
     // Create document (the root section)
     final docName = _extractDocumentName(headlines, filename);
     final docId = _extractDocumentId(headlines, filename);
-    final docText = _extractDocumentText(content, headlines);
+    final (docText, docTextLine) = _extractDocumentText(content, headlines);
     final docLineNumber = headlines.isNotEmpty
         ? headlines.first.$1.lineNumber
         : 1;
@@ -231,6 +231,7 @@ class DocScanner {
       text: docText,
       fields: docFields,
       sections: sections.isNotEmpty ? sections : null,
+      textLineNumber: docTextLine,
       filenameWithPath: absolutePath,
       loadTimestamp: DateTime.now().toIso8601String(),
       filename: filename,
@@ -331,8 +332,8 @@ class DocScanner {
   /// Builds a tree of sections from parsed headlines.
   ///
   /// If the document starts with a level 1 headline, that becomes the Document
-  /// and subsections start at level 2. Otherwise, all top-level headlines
-  /// become sections.
+  /// and the headlines after it are its sections. Otherwise, all top-level
+  /// headlines become sections.
   static List<Section> _buildSectionTree(
     String content,
     List<(ParsedHeadline, int, int)> headlines,
@@ -342,130 +343,91 @@ class DocScanner {
     if (headlines.isEmpty) return [];
 
     // Check if document has a level 1 headline at the start
-    final hasDocHeadline =
-        headlines.isNotEmpty && headlines.first.$1.level == 1;
-
-    if (hasDocHeadline) {
-      // Skip the first headline (it's the document title)
-      // Build sections starting from level 2
-      final remainingHeadlines = headlines.sublist(1);
-      if (remainingHeadlines.isEmpty) return [];
-
-      final docId =
-          headlines.first.$1.explicitId ??
-          MarkdownParser.generateId(headlines.first.$1.text, null, 0);
-
-      // Find the minimum level in remaining headlines
-      final minLevel = remainingHeadlines
-          .map((h) => h.$1.level)
-          .reduce((a, b) => a < b ? a : b);
-
-      return _buildSectionsAtLevel(
+    final hasDocHeadline = headlines.first.$1.level == 1;
+    if (!hasDocHeadline) {
+      return _buildSections(
         content,
-        remainingHeadlines,
+        headlines,
         0,
-        minLevel,
-        docId,
-        filename,
+        headlines.length,
+        null,
         factory,
       );
     }
 
-    // No level 1 headline - build from minimum level found
-    final minLevel = headlines
-        .map((h) => h.$1.level)
-        .reduce((a, b) => a < b ? a : b);
-
-    return _buildSectionsAtLevel(
+    // Skip the first headline (it's the document title)
+    final docId =
+        headlines.first.$1.explicitId ??
+        MarkdownParser.generateId(headlines.first.$1.text, null, 0);
+    return _buildSections(
       content,
       headlines,
-      0,
-      minLevel,
-      null,
-      filename,
+      1,
+      headlines.length,
+      docId,
       factory,
     );
   }
 
-  /// Recursively builds sections at a specific level.
-  static List<Section> _buildSectionsAtLevel(
+  /// Builds the sections of the headlines `[start, end)`, all of which lie
+  /// below one parent ([parentId]).
+  ///
+  /// A headline's subsections are the headlines after it up to the next one
+  /// of its own level or shallower, so a headline's parent is the nearest
+  /// shallower headline before it — a skipped level (a `####` straight under
+  /// a `##`, a styled `heading7` div under a `##`) nests where it stands
+  /// instead of being lost. A section's text is its own body: the lines up to
+  /// the next headline of any level.
+  static List<Section> _buildSections(
     String content,
     List<(ParsedHeadline, int, int)> headlines,
-    int startIndex,
-    int targetLevel,
+    int start,
+    int end,
     String? parentId,
-    String filename,
     DocScannerFactory factory,
   ) {
     final sections = <Section>[];
     var sectionIndex = 0;
+    var i = start;
 
-    for (var i = startIndex; i < headlines.length; i++) {
+    while (i < end) {
       final (headline, startLine, endLine) = headlines[i];
-
-      if (headline.level < targetLevel) {
-        // We've moved up to a higher level, stop
-        break;
+      var next = i + 1;
+      while (next < end && headlines[next].$1.level > headline.level) {
+        next++;
       }
+      final id =
+          headline.explicitId ??
+          MarkdownParser.generateId(headline.text, parentId, sectionIndex);
+      final subsections = _buildSections(
+        content,
+        headlines,
+        i + 1,
+        next,
+        id,
+        factory,
+      );
 
-      if (headline.level == targetLevel) {
-        // This is a section at our target level
-        final id =
-            headline.explicitId ??
-            MarkdownParser.generateId(headline.text, parentId, sectionIndex);
-
-        // Find subsections
-        final subsections = _buildSectionsAtLevel(
-          content,
-          headlines,
-          i + 1,
-          targetLevel + 1,
-          id,
-          filename,
-          factory,
-        );
-
-        // Calculate text end line (before next sibling or parent)
-        var textEndLine = endLine;
-        for (var j = i + 1; j < headlines.length; j++) {
-          if (headlines[j].$1.level <= targetLevel) {
-            textEndLine = headlines[j].$2 - 1;
-            break;
-          }
-        }
-
-        // If there are subsections, text ends before the first subsection
-        if (subsections.isNotEmpty) {
-          // Find the first subsection's start line
-          for (var j = i + 1; j < headlines.length; j++) {
-            if (headlines[j].$1.level == targetLevel + 1) {
-              textEndLine = headlines[j].$2 - 1;
-              break;
-            }
-          }
-        }
-
-        final text = MarkdownParser.extractText(
-          content,
-          startLine,
-          textEndLine,
-        );
-
-        sections.add(
-          factory.createSection(
-            index: sectionIndex,
-            lineNumber: headline.lineNumber,
-            rawHeadline: headline.rawHeadline,
-            name: headline.text,
-            id: id,
-            text: text,
-            fields: headline.fields,
-            sections: subsections.isNotEmpty ? subsections : null,
+      sections.add(
+        factory.createSection(
+          index: sectionIndex,
+          lineNumber: headline.lineNumber,
+          rawHeadline: headline.rawHeadline,
+          name: headline.text,
+          id: id,
+          text: MarkdownParser.extractText(content, startLine, endLine),
+          fields: headline.fields,
+          sections: subsections.isNotEmpty ? subsections : null,
+          textLineNumber: MarkdownParser.textLineNumber(
+            content,
+            startLine,
+            endLine,
           ),
-        );
+        ),
+      );
 
-        sectionIndex++;
-      }
+      sectionIndex++;
+      i = next;
     }
 
     return sections;
@@ -499,37 +461,32 @@ class DocScanner {
     return path.basenameWithoutExtension(filename).toLowerCase();
   }
 
-  /// Extracts the document-level text (before first subsection).
-  static String _extractDocumentText(
+  /// Extracts the document-level text (before first subsection) and the line
+  /// number of its first line.
+  static (String, int?) _extractDocumentText(
     String content,
     List<(ParsedHeadline, int, int)> headlines,
   ) {
-    if (headlines.isEmpty) {
-      return content.trim();
-    }
+    (String, int?) between(int startLine, int endLine) => (
+      MarkdownParser.extractText(content, startLine, endLine),
+      MarkdownParser.textLineNumber(content, startLine, endLine),
+    );
+
+    final lastLine = content.split('\n').length - 1;
+    if (headlines.isEmpty) return between(-1, lastLine);
 
     // If first headline is level 1, get text between it and next headline
     if (headlines.first.$1.level == 1) {
-      if (headlines.length == 1) {
-        return MarkdownParser.extractText(
-          content,
-          headlines.first.$2,
-          content.split('\n').length - 1,
-        );
-      }
-      return MarkdownParser.extractText(
-        content,
+      return between(
         headlines.first.$2,
-        headlines[1].$2 - 1,
+        headlines.length == 1 ? lastLine : headlines[1].$2 - 1,
       );
     }
 
     // Get text before first headline
-    if (headlines.first.$2 > 0) {
-      return MarkdownParser.extractText(content, -1, headlines.first.$2 - 1);
-    }
+    if (headlines.first.$2 > 0) return between(-1, headlines.first.$2 - 1);
 
-    return '';
+    return ('', null);
   }
 
   /// Extracts the raw headline for the document.
