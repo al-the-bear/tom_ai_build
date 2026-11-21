@@ -1547,10 +1547,11 @@ export class DocSpecsValidator {
   }
 
   /**
-   * The form an item of `itemType` holds its values in: the type's own form,
-   * else the form of its one subsection type that has one (the item's virtual
-   * child then carries the values). With `oneField`, only forms of exactly one
-   * field count.
+   * The form a `refs` item of `itemType` holds its reference in: the type's
+   * own form, else the form of its one subsection type that has one (the
+   * item's virtual child then carries the value). With `oneField`, only forms
+   * of exactly one field count. A record table reads the type's own form only
+   * ({@link _recordItems}).
    */
   private _itemForm(
     itemType: DocSpecsSectionType,
@@ -1644,9 +1645,16 @@ export class DocSpecsValidator {
       reject('a records table whose first column is not Id');
       return;
     }
-    // The item's form in the schema decides the columns; an item type the
-    // schema gives no form takes its columns as virtual body lines unchecked.
-    const target = this._itemForm(itemType);
+    // The item type's own form decides the columns; an item type the schema
+    // gives no form of its own takes its columns as virtual body lines
+    // unchecked. A record's cells are the item's own body lines (DocSpecs
+    // specification, *The record table*): unlike a `refs` reference they never
+    // go to a child's form, whose fields may have nothing to do with the
+    // item's body form, which the schema need not carry.
+    const own =
+      itemType.format != null ? this.schema.formTypes[itemType.format] : undefined;
+    const target: [DocSpecsFormType, DocSpecsSectionType | null] | null =
+      own !== undefined ? [own, null] : null;
     const withTitle = header.length > 1 && header[1] === 'Title';
     const columns: string[] = [];
     for (const label of header.slice(withTitle ? 2 : 1)) {

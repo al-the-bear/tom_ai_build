@@ -1,6 +1,7 @@
-// The reading-view trial layout, part 2 (`formLayout: SpecFormLayout.tables`):
-// reference lines, record tables and section tables, each all-or-nothing with
-// its fallback, and the anchors they carry. Emit only.
+// The list and section forms of the Markdown emitter (SOM §11.5): reference
+// lines, record tables and section tables, each all-or-nothing with its
+// fallback, and the anchors they carry. Their parse is
+// spec_document_markdown_parse_tables_test.dart.
 
 import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
@@ -128,13 +129,11 @@ final SpecModel _model = SpecModel.fromJson(_modelJson());
 String _render(
   SpecDocument doc,
   String rootType, {
-  SpecFormLayout layout = SpecFormLayout.tables,
   String? stem = 'demo',
   Map<String, String> files = const {},
 }) => SpecDocumentMarkdown(
   _model,
   doc,
-  formLayout: layout,
   fileStem: stem,
   documentFiles: files,
 ).exportRoot(_model.roots.firstWhere((r) => r.type == rootType));
@@ -325,17 +324,5 @@ void main() {
       md,
       contains('| Ref | [ENT-CUSTOMER](demo.inf.tomspecs.md#ENT-CUSTOMER) |'),
     );
-  });
-
-  test('FL2: the fields default writes none of the list and section forms', () {
-    final doc = SpecDocument();
-    addRefs(doc, 'REQ/REFE-ENTI-LST', ['ENT-CUSTOMER']);
-    final r1 = doc.addListItem('REQ/RULE-LST');
-    doc.setFormField('$r1/content', 'statement', 'One');
-    final md = _render(doc, 'Req', layout: SpecFormLayout.fields);
-    expect(md, isNot(contains(':::')));
-    expect(md, isNot(contains('<a id=')));
-    expect(md, contains('Ref: ENT-CUSTOMER'));
-    expect(md, contains('Statement: One'));
   });
 }

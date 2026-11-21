@@ -172,7 +172,9 @@ The runner reproduces every golden byte-for-byte and exercises the same cases as
 the Dart/Python/Java/JavaScript runners: model meta-data load, `state.json`
 round-trip, YAML encode/decode, Markdown export/round-trip, the
 **Markdown→memory landing** check (the `md.land.*` shared contract — parsing
-`expected.tomspecs.md` lands the same memory as the YAML route), reflection resolution,
+`expected.tables.md`, the table layout this runtime emits, or
+`expected.tomspecs.md`, the older `Field:` lines, lands the same memory as the
+YAML route), reflection resolution,
 validation, the imperative operations script, and the **Phase-4 CodeSpecs
 extract** tier (routing verdicts, the per-area extracts with their YAML and
 Markdown goldens, and the `ROUTE-TOTAL` error cases).

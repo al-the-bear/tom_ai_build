@@ -512,10 +512,17 @@ fn test_yaml_decode_round_trip(c: &mut Checker, tree: &SomMetaTree) {
 
 // --- markdown conformance (SOM §11) -----------------------------------------
 
+// The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
+// Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
+// The reading view's parity audit (05a_rdv4_akpu-runtime-parity-audit) brings this runtime to tables.
+#[allow(dead_code)]
+const EMITTED_LAYOUT: &str = "fields";
+const EXPORT_GOLDEN: &str = "expected.tomspecs.md";
+
 fn test_markdown_export(c: &mut Checker, model: &SpecModel) {
     let state = DocumentJson::from_json(&read_json("state.json"));
     let doc = doc_from_state(&state);
-    let expected = read_corpus("expected.tomspecs.md");
+    let expected = read_corpus(EXPORT_GOLDEN);
     match SpecDocumentMarkdown::new(model, &doc).export_root(&model.roots[0]) {
         Ok(actual) => c.check(
             "md.export",
@@ -527,7 +534,7 @@ fn test_markdown_export(c: &mut Checker, model: &SpecModel) {
 }
 
 fn test_markdown_round_trip(c: &mut Checker, model: &SpecModel) {
-    let golden = read_corpus("expected.tomspecs.md");
+    let golden = read_corpus(EXPORT_GOLDEN);
     let state = DocumentJson::from_json(&read_json("state.json"));
     let doc = doc_from_state(&state);
     let parsed = SpecDocumentMarkdown::new(model, &doc).parse(&golden);
@@ -559,7 +566,7 @@ fn test_markdown_round_trip(c: &mut Checker, model: &SpecModel) {
 // reproduce `state.json` (the YAML-route memory) exactly, proving both formats
 // converge on one in-memory document (SOM §8).
 fn test_markdown_memory_landing(c: &mut Checker, model: &SpecModel) {
-    let golden = read_corpus("expected.tomspecs.md");
+    let golden = read_corpus(EXPORT_GOLDEN);
     let canonical = DocumentJson::from_json(&read_json("state.json"));
     let imported = SpecDocument::from_markdown(&golden, model);
     c.check(

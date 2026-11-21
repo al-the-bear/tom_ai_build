@@ -203,22 +203,6 @@ class SpecMarkdownImport {
   List<SpecMarkdownRejection> get rejections => result.rejections;
 }
 
-/// How the Markdown emitter lays out a form section (reading view, trial).
-///
-/// [fields] is the SOM §11.4 layout every runtime writes today. [tables] is
-/// the reading-view layout: the declared fields in order, each run of values
-/// that fit a table cell one `| TomSpecField | Value |` table, every other
-/// value a `Field:` paragraph at its place, and every heading carrying an HTML
-/// anchor for its section id. [SpecDocumentMarkdown.parse] reads both layouts
-/// (SOM §11.4, §11.5).
-enum SpecFormLayout {
-  /// `FieldName: value` groups, one blank line apart (SOM §11.4).
-  fields,
-
-  /// Form tables between `Field:` paragraphs, and heading anchors.
-  tables,
-}
-
 /// Codec binding a [SpecModel] and a concrete [SpecDocument] to the DocSpecs
 /// Markdown import/export format (SOM §11).
 class SpecDocumentMarkdown {
@@ -229,17 +213,18 @@ class SpecDocumentMarkdown {
   /// nesting position. Neither is copied — the codec holds live references, so
   /// later mutations are visible; only the per-root metadata trees are cached.
   ///
-  /// [formLayout] chooses how forms are emitted (default
-  /// [SpecFormLayout.fields], today's format); it does not affect [parse].
+  /// The emitter writes the reading-view layout (SOM §11.4, §11.5): form
+  /// tables between `Field:` paragraphs, reference lines, record tables,
+  /// section tables and an HTML anchor in every heading. [parse] reads it and
+  /// the older layout of `Field:` lines alike.
   ///
   /// [fileStem] and [documentFiles] name the files cross-document reference
-  /// links point at (tables layout only): a root's rendition is
+  /// links point at: a root's rendition is
   /// `<fileStem>.<root id in lower case>.tomspecs.md` unless [documentFiles]
   /// maps the root (by section id or type) to another file name.
   SpecDocumentMarkdown(
     this.model,
     this.document, {
-    this.formLayout = SpecFormLayout.fields,
     this.fileStem,
     this.documentFiles = const {},
   });
@@ -255,12 +240,6 @@ class SpecDocumentMarkdown {
 
   /// The root the current export renders (the target of same-document links).
   SpecRoot? _currentRoot;
-
-  /// How the emitter lays out forms; [SpecFormLayout.tables] also writes a
-  /// heading anchor on every heading. Parsing is unaffected.
-  final SpecFormLayout formLayout;
-
-  bool get _tables => formLayout == SpecFormLayout.tables;
 
   /// The schema side of the codec: supplies the root types, section ids and
   /// member kinds every heading is checked against. A heading id unknown to
@@ -633,7 +612,7 @@ class SpecDocumentMarkdown {
             units: document.units(path),
           );
           _writeSectionBody(b, child, path);
-          if (!_tables || !_writeSectionTable(b, child, path)) {
+          if (!_writeSectionTable(b, child, path)) {
             _writeChildren(b, child, path, depth + 1);
           }
         case SomMetaKind.list:
@@ -676,9 +655,8 @@ class SpecDocumentMarkdown {
     // populated scalar list gets meaningful per-item headings (YRC5).
     final stem = _itemStemOf(node);
     final pattern = node.sectionIdPattern ?? node.elementNode?.sectionIdPattern;
-    if (_tables &&
-        (_writeReferenceLine(b, node, items, pattern) ||
-            _writeRecordTable(b, node, items, pattern))) {
+    if (_writeReferenceLine(b, node, items, pattern) ||
+        _writeRecordTable(b, node, items, pattern)) {
       return;
     }
     for (var i = 0; i < items.length; i++) {
@@ -713,8 +691,7 @@ class SpecDocumentMarkdown {
         _writeBody(b, document.content(itemPath) ?? '', itemPath);
       } else {
         _writeSectionBody(b, element, itemPath);
-        if (!element.recursive &&
-            !(_tables && _writeSectionTable(b, element, itemPath))) {
+        if (!element.recursive && !_writeSectionTable(b, element, itemPath)) {
           _writeChildren(b, element, itemPath, depth + 2);
         }
       }
@@ -774,53 +751,12 @@ class SpecDocumentMarkdown {
     return _undeclaredFormFields(node, path).isNotEmpty;
   }
 
-  /// Writes a `@Form` section body: the preamble content (when set) followed by
-  /// one `FieldName: value` group per populated field (SOM §11.4), consecutive
-  /// groups separated by one blank line. Throws [ArgumentError] when the form
-  /// holds a field the model does not declare.
+  /// Writes a `@Form` section body as [_writeFormTables] lays it out (SOM
+  /// §11.4). Throws [ArgumentError] when the form holds a field the model does
+  /// not declare.
   void _writeForm(StringBuffer b, SomMetaNode node, String path) {
     _checkFormDeclared(node, path);
-    if (_tables) {
-      _writeFormTables(b, node, path);
-      return;
-    }
-    final fields = StringBuffer();
-    for (final f in node.form?.fields ?? const <SomFormFieldMeta>[]) {
-      final value = document.formField(path, f.name);
-      if (value == null) continue;
-      // SOM §11.4 rule 2: one blank line between consecutive field groups, so
-      // a markdown viewer renders each field as its own paragraph (and a list
-      // ending a value cannot swallow the next label as a lazy continuation).
-      // Parse trims each value's trailing blank lines, so it is lossless.
-      if (fields.isNotEmpty) fields.writeln();
-      // SOM §11.4 rule 8: a single-line code value is written as
-      // an inline code span, so markdown leaves it literal (`](` is not a link).
-      final lines = f.code && _isInlineCode(value)
-          ? [_encodeCodeSpan(value)]
-          : _prepareValue(value, path).split('\n');
-      fields.writeln('${formLabel(f.name)}: ${lines.first}');
-      for (final line in lines.skip(1)) {
-        // SOM §11.4 generalised: any continuation line that could be mistaken
-        // for a field-label line gains one leading space; parse strips it.
-        fields.writeln(_labelShaped.hasMatch(line) ? ' $line' : line);
-      }
-    }
-
-    final preamble = document.content(path);
-    if (preamble != null) {
-      final prepared = _prepareValue(preamble, path);
-      if (prepared.isNotEmpty) {
-        // Every preamble line gets the same label-shaped escape a continuation
-        // line gets: the parser reaches a field label before it knows which
-        // text is preamble, so a `Word:` line at column 0 would mis-split.
-        for (final line in prepared.split('\n')) {
-          b.writeln(_labelShaped.hasMatch(line) ? ' $line' : line);
-        }
-        if (fields.isNotEmpty) b.writeln();
-      }
-    }
-    b.write(fields);
-    b.writeln();
+    _writeFormTables(b, node, path);
   }
 
   // --- Reading view: reference lines, record tables, section tables --------
@@ -1171,8 +1107,8 @@ class SpecDocumentMarkdown {
     return stem == null || stem.isEmpty ? name : '$stem.$name';
   }
 
-  /// [SpecFormLayout.tables]: the preamble, then the declared fields in model
-  /// order — each run of consecutive cell values one `| TomSpecField | Value |`
+  /// The form layout (SOM §11.4): the preamble, then the declared fields in
+  /// model order — each run of consecutive cell values one `| TomSpecField | Value |`
   /// table, each paragraph value a `Field:` group at its place (table – text –
   /// table). Groups are one blank line apart. A value line that would read as
   /// a table header is escaped by [_prepareValue].
@@ -1296,9 +1232,8 @@ class SpecDocumentMarkdown {
     // A heading is one line: a stored headline's line breaks travel as `<br>`.
     // Reading view (DI-3): the section id as an HTML anchor after the id
     // comment and its keys, so `#<ID>` links jump in every viewer.
-    final anchor = _tables ? '<a id="$id"></a> ' : '';
     b.writeln(
-      '${'#' * depth} <!--[$id]$code--> $anchor'
+      '${'#' * depth} <!--[$id]$code--> <a id="$id"></a> '
       '${title.replaceAll('\n', '<br>')}',
     );
     b.writeln();

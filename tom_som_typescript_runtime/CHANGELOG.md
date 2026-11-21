@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- **The Markdown emitter writes the table layout** (SOM §11.4, §11.5), the
+  port of the Dart one: a form's cell values as `| TomSpecField | Value |`
+  tables between `Field:` paragraphs, a list of single references as a `refs`
+  div of links, a list of single-form items as a `records` table, a section of
+  single-form children as a `| Section | TomSpecField | Value |` table, a
+  `refersTo` value as a link, and `<a id="<ID>"></a>` in every heading. The
+  `Field:`-line layout is no longer emitted; the parser still reads it.
+  `new SpecDocumentMarkdown(model, doc, { fileStem, documentFiles })` names the
+  files cross-document links point at. The export golden is
+  `expected.tables.md`.
+- The DocSpecs validator reads a `records` table's columns against the item
+  type's own form only, as the Dart one does; it no longer falls back to a
+  child's one-field form (the redirection only a `refs` reference takes).
+- `npm test` runs every test file of `tests/` (`run_all_tests.ts`), not only
+  the conformance runner.
 - The Markdown parser reads the table layout (SOM §11.4, §11.5), as the Dart
   one does: form tables headed `| TomSpecField | Value |`, section tables,
   `refs` and `records` list bodies, anchors equal to the section id, the

@@ -196,12 +196,12 @@ function testExportFormat(): void {
   _check('export.docspec.prefix', first.startsWith('<!-- docspec: demo-document/'), first);
   _check('export.docspec.suffix', first.endsWith('-->'), first);
 
-  _check('export.heading.root', md.includes('# <!--[D00]--> Demo Document'));
-  _check('export.heading.overview', md.includes('## <!--[D00-OVR]--> Overview'));
-  _check('export.heading.status', md.includes('## <!--[D00-ST]--> Status'));
-  _check('export.heading.header', md.includes('## <!--[D00-HDR]--> Header'));
-  _check('export.heading.meta', md.includes('## <!--[D00-MET]--> Meta'));
-  _check('export.heading.note', md.includes('### <!--[D00-MET-NOTE]--> Note'));
+  _check('export.heading.root', md.includes('# <!--[D00]--> <a id="D00"></a> Demo Document'));
+  _check('export.heading.overview', md.includes('## <!--[D00-OVR]--> <a id="D00-OVR"></a> Overview'));
+  _check('export.heading.status', md.includes('## <!--[D00-ST]--> <a id="D00-ST"></a> Status'));
+  _check('export.heading.header', md.includes('## <!--[D00-HDR]--> <a id="D00-HDR"></a> Header'));
+  _check('export.heading.meta', md.includes('## <!--[D00-MET]--> <a id="D00-MET"></a> Meta'));
+  _check('export.heading.note', md.includes('### <!--[D00-MET-NOTE]--> <a id="D00-MET-NOTE"></a> Note'));
 
   _check('export.content.plain', md.includes('An overview paragraph.\nWith two lines.'));
   _check(
@@ -211,15 +211,15 @@ function testExportFormat(): void {
   _check('export.content.noFieldAnchor', !md.includes('<!-- field:'));
   _check('export.content.noPathHeading', !md.includes('D00/D00-OVR'));
 
-  _check('export.form.sparse.author', md.includes('Author: Ada Lovelace'));
+  _check('export.form.sparse.author', md.includes('| Author | Ada Lovelace |'));
   _check('export.form.sparse.noReviewer', !md.includes('Reviewer'));
 
   // The list container heads (SOM §11.2): `D00-ITM` at the owner's child level,
   // its numbered items one level below it, item fields one deeper.
-  _check('export.item.container', md.includes('## <!--[D00-ITM]--> Items'));
-  _check('export.item.1', md.includes('### <!--[items-1]--> Demo Item 1'));
-  _check('export.item.2', md.includes('### <!--[items-2]--> Demo Item 2'));
-  _check('export.item.label', md.includes('#### <!--[D01-LBL]--> Label'));
+  _check('export.item.container', md.includes('## <!--[D00-ITM]--> <a id="D00-ITM"></a> Items'));
+  _check('export.item.1', md.includes('### <!--[items-1]--> <a id="items-1"></a> Demo Item 1'));
+  _check('export.item.2', md.includes('### <!--[items-2]--> <a id="items-2"></a> Demo Item 2'));
+  _check('export.item.label', md.includes('#### <!--[D01-LBL]--> <a id="D01-LBL"></a> Label'));
 
   _check('export.noSchemaDescription', !md.includes('A demo document.'));
 }
@@ -231,8 +231,8 @@ function testExportStoredItemId(): void {
   const md = _export(doc);
   // YRD3: a stored id IS the item's md heading id (positional only as
   // fallback), one level below the `-LST` container heading.
-  _check('export.storedId.container', md.includes('## <!--[D00-ITM]--> Items'), md);
-  _check('export.storedId.heading', md.includes('### <!--[D01-CUSTOM]--> Demo Item 1'), md);
+  _check('export.storedId.container', md.includes('## <!--[D00-ITM]--> <a id="D00-ITM"></a> Items'), md);
+  _check('export.storedId.heading', md.includes('### <!--[D01-CUSTOM]--> <a id="D01-CUSTOM"></a> Demo Item 1'), md);
   _check('export.storedId.noPositional', !md.includes('items-1'), md);
 }
 
@@ -430,7 +430,10 @@ function testFormPreambleEmits(): void {
   const md = _export(doc);
   _check(
     'formPre.emitOrder',
-    md.includes('why this header exists\n\nAuthor: Ada Lovelace\n'),
+    md.includes(
+      'why this header exists\n\n| TomSpecField | Value |\n| --- | --- |\n' +
+        '| Author | Ada Lovelace |\n',
+    ),
     md,
   );
 }
@@ -636,11 +639,11 @@ function testCodeSpecRidesInHeadlineComment(): void {
   // comment as the section id, next to (before) the derived title.
   _check(
     'codeSpec.md.inHeading',
-    md.includes(`## <!--[D00-OVR] codeSpec="${_CODE_SPEC}"--> Overview`),
+    md.includes(`## <!--[D00-OVR] codeSpec="${_CODE_SPEC}"--> <a id="D00-OVR"></a> Overview`),
     md,
   );
   // A sibling heading with no codeSpec is untouched — no key emitted.
-  _check('codeSpec.md.siblingUntouched', md.includes('## <!--[D00-ST]--> Status'), md);
+  _check('codeSpec.md.siblingUntouched', md.includes('## <!--[D00-ST]--> <a id="D00-ST"></a> Status'), md);
 }
 
 function testCodeSpecParsedBackOut(): void {

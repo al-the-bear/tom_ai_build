@@ -1,8 +1,9 @@
-// The parse of both Markdown layouts (SOM §11.4, §11.5): `parse(emit(doc))`
+// The parse of the Markdown layout (SOM §11.4, §11.5): `parse(emit(doc))`
 // stages exactly the document's values and `emit(parse(emit(doc)))` is
-// byte-identical, for `SpecFormLayout.fields` and `SpecFormLayout.tables` —
-// form tables, section tables, a record table and a reference line included.
-// The single forms and their rejections are pinned case by case in the
+// byte-identical — form tables, section tables, a record table and a
+// reference line included; and the older `Field:`-line layout, which is no
+// longer emitted, parses to the same document (the two corpus goldens). The
+// single forms and their rejections are pinned case by case in the
 // conformance corpus (`markdown_import_cases.json`, the `readingView` cases).
 
 import 'dart:convert';
@@ -12,7 +13,10 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
 void main() {
-  final corpus = '${Directory.current.path}/../tom_som_conformance/corpus';
+  // Copies of the conformance corpus files, kept inside this package because
+  // `test/` ships (tom_som_conformance/tool/check_corpus_copies.dart holds
+  // them equal to the originals).
+  const corpus = 'test/fixtures/corpus';
   final model = SpecModel.fromJson(
     jsonDecode(File('$corpus/model.meta.json').readAsStringSync())
         as Map<String, dynamic>,
@@ -37,11 +41,8 @@ void main() {
     return doc;
   }
 
-  String emit(SpecDocument doc, SpecFormLayout layout) => SpecDocumentMarkdown(
-    model,
-    doc,
-    formLayout: layout,
-  ).exportRoot(model.roots.first);
+  String emit(SpecDocument doc) =>
+      SpecDocumentMarkdown(model, doc).exportRoot(model.roots.first);
 
   SpecDocument landed(SpecMarkdownResult p) => SpecDocument()
     ..loadJson({
@@ -53,29 +54,41 @@ void main() {
       'units': p.units,
     });
 
-  for (final layout in SpecFormLayout.values) {
-    test('PT1 ${layout.name}: parse(emit(doc)) stages exactly the values', () {
-      final doc = document();
-      final markdown = emit(doc, layout);
+  test('PT1: parse(emit(doc)) stages exactly the values', () {
+    final doc = document();
+    final markdown = emit(doc);
+    final parsed = SpecDocumentMarkdown(model, SpecDocument()).parse(markdown);
+    expect(parsed.rejections, isEmpty);
+    expect(landed(parsed).toJson(), doc.toJson());
+  });
+
+  test('PT2: emit(parse(emit(doc))) is byte-identical', () {
+    final markdown = emit(document());
+    final again = landed(
+      SpecDocumentMarkdown(model, SpecDocument()).parse(markdown),
+    );
+    expect(emit(again), markdown);
+  });
+
+  test('PT4: the Field:-line golden and the tables golden parse to the same '
+      'document, the corpus state', () {
+    final state = SpecDocument()
+      ..loadJson(
+        jsonDecode(File('$corpus/state.json').readAsStringSync())
+            as Map<String, dynamic>,
+      );
+    for (final name in ['expected.tomspecs.md', 'expected.tables.md']) {
       final parsed = SpecDocumentMarkdown(
         model,
         SpecDocument(),
-      ).parse(markdown);
-      expect(parsed.rejections, isEmpty);
-      expect(landed(parsed).toJson(), doc.toJson());
-    });
+      ).parse(File('$corpus/$name').readAsStringSync());
+      expect(parsed.rejections, isEmpty, reason: name);
+      expect(landed(parsed).toJson(), state.toJson(), reason: name);
+    }
+  });
 
-    test('PT2 ${layout.name}: emit(parse(emit(doc))) is byte-identical', () {
-      final markdown = emit(document(), layout);
-      final again = landed(
-        SpecDocumentMarkdown(model, SpecDocument()).parse(markdown),
-      );
-      expect(emit(again, layout), markdown);
-    });
-  }
-
-  test('PT3 the tables layout writes every form it can read back', () {
-    final markdown = emit(document(), SpecFormLayout.tables);
+  test('PT3 the layout writes every form it can read back', () {
+    final markdown = emit(document());
     expect(markdown, contains('| TomSpecField | Value |'));
     expect(markdown, contains('| Section | TomSpecField | Value |'));
     expect(markdown, contains('::: {.records}'));

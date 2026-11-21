@@ -474,6 +474,18 @@
     ]
   },
   {
+    "name": "readingView: records cells are the item's own body lines, never a child's form",
+    "readingView": true,
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n## <!--[LINK-LST]--> Links\n\n::: {.records}\n| Id | Note |\n| --- | --- |\n| <a id=\"LINK-1\"></a>LINK-1 | the first link |\n:::\n",
+    "violations": [
+      {
+        "rule": "missingRequiredSection",
+        "sectionId": "LINK-1",
+        "line": 30
+      }
+    ]
+  },
+  {
     "name": "readingView: records div beside item headings",
     "readingView": true,
     "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n## <!--[CRIT-LST]--> Acceptance Criteria\n\n::: {.records}\n| Id | Given |\n| --- | --- |\n| CRIT-1 | a |\n:::\n\n### <!--[CRIT-2]--> Criterion\n\nGiven: b\n",

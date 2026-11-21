@@ -17,8 +17,7 @@ dart run tom_specs_clitool:tomspecs :spec-validate doc.tomspecs.yaml --json
 |--------|---------|
 | `--root <type or section id>` | The document root. Default: detected — the key under `document:` in a YAML file (`SBP D00SolutionBlueprint`), the id of the title heading in a markdown rendition (`# <!--[SBP]--> …`). Every one of the fourteen roots is accepted. |
 | `--assembled-out <file>` | Write the assembled document as a `*.tomspecs.yaml` — with one input, that document re-encoded. |
-| `--markdown-out <file>` | Also write the document's markdown rendition — the text the schema tier checks. |
-| `--form-layout fields\|tables` | The layout of that rendition: `fields` (`FieldName:` lines, the default) or `tables` (the reading view's form tables and heading anchors). The schema tier judges the layout chosen. |
+| `--markdown-out <file>` | Also write the document's markdown rendition — the text the schema tier checks, in the table layout (SOM §11.4, §11.5). |
 | `--json` | One JSON report on stdout instead of the text report. |
 
 Exit codes: `0` all three tiers clean, `1` at least one finding, `2` bad usage

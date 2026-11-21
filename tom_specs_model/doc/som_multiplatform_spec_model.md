@@ -1351,7 +1351,10 @@ no anchors:
 
 ### 11.4 Form sections
 
-`@Form` content uses the DocSpecs plain-text form format:
+`@Form` content uses the DocSpecs plain-text form format — the `Field:` lines
+of rules 1–8, which every parse reads, and the table layout of rules 9–12,
+which the Dart and TypeScript emitters write (the other seven runtimes write
+`Field:` lines until the reading view's parity audit brings them to tables):
 
 ```markdown
 ## <!--[DOCO]--> Document Control
@@ -1419,9 +1422,9 @@ ReviewCount: 3
    span cannot cross a line break. The YAML codec stores the bare value either
    way.
 
-**The table layout.** The emitter's `tables` layout
-(`SpecDocumentMarkdown(formLayout: SpecFormLayout.tables)`, beside the default
-`fields`) writes a form's values that fit a table cell as form tables:
+**The table layout.** The emitter writes a form's values that fit a table cell
+as form tables (Dart and TypeScript; there is no option to write the `Field:`
+lines alone):
 
 ```markdown
 ## <!--[DOCO]--> <a id="DOCO"></a> Document Control
@@ -1504,7 +1507,7 @@ Remove the nightly batch window.
   as its YAML only when every pattern-list item in it carries a stored id.
   Lists are never transparent.
 
-The `tables` layout (§11.4) writes three more forms, and parse reads them:
+The table layout (§11.4) writes three more forms, and parse reads them:
 
 - **A reference line.** A list whose items each hold only their reference id
   (a `@Reference` member with one `refersTo` field), at their positional ids,
@@ -1559,8 +1562,10 @@ The `tables` layout (§11.4) writes three more forms, and parse reads them:
 - Parse removes an anchor equal to its section id, in a heading, an `Id` cell
   or a `Section` cell; any other anchor is text.
 
-With these, `parse(emit(doc))` stages exactly the document's values in both
-layouts, and `emit(parse(emit(doc)))` is byte-identical.
+With these, `parse(emit(doc))` stages exactly the document's values, and
+`emit(parse(emit(doc)))` is byte-identical; a rendition in the `Field:`-line
+layout parses to the same document as its table rendition (the conformance
+goldens `expected.tomspecs.md` and `expected.tables.md`).
 
 ### 11.6 Transparent (id-less) members
 
@@ -3147,7 +3152,7 @@ Anchors* and *Styled-div headings*), from the schema alone:
   and their findings point at the div's or the row's line. The container's
   body counts as empty for `max-text-length: 0`. A value given to a section
   the schema declares no form for is a body line of it (`<Label>: <value>`),
-  as in the fields layout.
+  as in the `Field:`-line layout.
 - The cases of the specification's *Findings in list bodies and tables* are
   `malformedBlock` (a broken table or row, a misplaced or table-less
   `records` div, an unclosed `refs` / `records` fence) and `unknownField` (a
@@ -3156,8 +3161,8 @@ Anchors* and *Styled-div headings*), from the schema alone:
 
 Pinned by the `readingView` cases of `docspecs_cases.json`, which the Dart
 and TypeScript runtimes run and the other seven skip.
-`validateSpecDocument(…, formLayout: tables)` (Dart) judges the table
-rendition; `tomspecs :spec-validate --form-layout tables` is its CLI.
+`validateSpecDocument` (Dart, TypeScript) judges the table rendition, the one
+the emitter writes; `tomspecs :spec-validate` is its CLI.
 
 `validate` judges Markdown and leaves `path` null. For a SOM document the
 runtime fills it, because a section id repeats across a document (every

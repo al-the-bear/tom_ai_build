@@ -117,9 +117,19 @@ detail is one file away.
 `corpus/` holds the language-agnostic expectation tables every port replays: the
 document cases, the schema, the reflection, validation, query, cursor,
 node-creation, editability, operations, pattern, projection, section-id,
-serialization-order and CodeSpecs-extract tables, plus the two expected
-renderings (`expected.tomspecs.md`, `expected.tomspecs.yaml`) and the shared
-`model.meta.json`.
+serialization-order and CodeSpecs-extract tables, plus the expected
+renderings (`expected.tables.md`, `expected.tomspecs.md`,
+`expected.tomspecs.yaml`) and the shared `model.meta.json`. Of the two
+Markdown goldens, each runner states the layout it emits and is held to that
+one: `expected.tables.md` is the table layout (Dart, TypeScript),
+`expected.tomspecs.md` the `Field:`-line layout (the other seven, until the
+reading view's parity audit brings them to tables). Dart and TypeScript parse
+both to the same document. `UPDATE_CORPUS=1` writes `expected.tables.md` only:
+no runtime that emits tables can write the `Field:` golden, so it stays as
+committed, and so do the `Field:`-layout `expect` entries of
+`answer_cases.json` and `codespecs_gate_cases.json`, whose cases render a
+document and report its lines — a case carries `expectTables` beside `expect`
+where the table layout's lines differ.
 
 `samples/` holds the shared documents the golden generators read, and `golden/`
 holds the nine per-language logs they write. **`golden/` is generated output** —

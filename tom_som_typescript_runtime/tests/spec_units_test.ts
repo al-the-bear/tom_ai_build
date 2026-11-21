@@ -184,11 +184,11 @@ function testMarkdown(): void {
   _check(
     'md.emit.afterCodeSpec',
     md.includes(
-      '## <!--[TTL] codeSpec="DemoTitle" units="u_a,u_b"--> Document Title\n',
+      '## <!--[TTL] codeSpec="DemoTitle" units="u_a,u_b"--> <a id="TTL"></a> Document Title\n',
     ),
     md,
   );
-  _check('md.emit.alone', md.includes('## <!--[SUM] units="u_a"--> Summary\n'), md);
+  _check('md.emit.alone', md.includes('## <!--[SUM] units="u_a"--> <a id="SUM"></a> Summary\n'), md);
 
   const text =
     '# <!--[DEMO] units=u_root--> Demo Document\n\n' +

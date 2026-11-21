@@ -24,7 +24,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "npm run build && node dist/tests/conformance_runner.js",
+    "test": "npm run build && node dist/tests/run_all_tests.js",
     "conformance": "node dist/tests/conformance_runner.js",
     "prepack": "npm run build"
   },

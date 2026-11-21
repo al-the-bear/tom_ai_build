@@ -515,11 +515,17 @@ static void test_yaml_review(Checker& c, const som::SpecModel& model,
   }
 }
 
+// The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
+// Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
+// The reading view's parity audit (05a_rdv4_akpu-runtime-parity-audit) brings this runtime to tables.
+[[maybe_unused]] static const char* const kEmittedLayout = "fields";
+static const char* const kExportGolden = "expected.tomspecs.md";
+
 static void test_markdown_export(Checker& c, const som::SpecModel& model) {
   som::JsonPtr sj = read_json("state.json");
   som::DocumentJson state = som::documentJsonFromJson(sj);
   som::SpecDocument doc = doc_from_state(state);
-  std::string expected = read_corpus("expected.tomspecs.md");
+  std::string expected = read_corpus(kExportGolden);
   std::string actual = som::markdownExportRoot(model, doc, model.roots[0]);
   c.check("md.export", actual == expected,
           byte_diff("md.export", actual, expected));
@@ -535,7 +541,7 @@ static std::string rej_str(const som::SpecMarkdownResult& r) {
 }
 
 static void test_markdown_round_trip(Checker& c, const som::SpecModel& model) {
-  std::string expected = read_corpus("expected.tomspecs.md");
+  std::string expected = read_corpus(kExportGolden);
   som::SpecMarkdownResult result = som::markdownParse(model, expected);
   c.check("md.parse.clean", result.isClean(), rej_str(result));
   som::SpecDocument applied;
@@ -553,7 +559,7 @@ static void test_markdown_round_trip(Checker& c, const som::SpecModel& model) {
 }
 
 static void test_markdown_memory_landing(Checker& c, const som::SpecModel& model) {
-  std::string expected_md = read_corpus("expected.tomspecs.md");
+  std::string expected_md = read_corpus(kExportGolden);
   som::JsonPtr sj = read_json("state.json");
   som::DocumentJson canonical = som::documentJsonFromJson(sj);
   som::SpecMarkdownImport imported =

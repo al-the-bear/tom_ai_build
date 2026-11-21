@@ -172,39 +172,20 @@ class SpecDocument {
   /// it has any value beneath its segment ([hasValuesUnder]). Throws
   /// [StateError] when the default is ambiguous — zero populated roots, or more
   /// than one — so the caller names the [rootType] explicitly.
-  ///
-  /// [formLayout] chooses the layout of forms ([SpecFormLayout.fields] by
-  /// default; [SpecFormLayout.tables] is the reading view's trial layout).
-  String toMarkdown(
-    SpecModel model, {
-    String? rootType,
-    SpecFormLayout formLayout = SpecFormLayout.fields,
-  }) {
+  String toMarkdown(SpecModel model, {String? rootType}) {
     final root = rootType != null
         ? model.rootByType(rootType)
         : _singlePopulatedRoot(model);
-    return SpecDocumentMarkdown(
-      model,
-      this,
-      formLayout: formLayout,
-    ).exportRoot(root);
+    return SpecDocumentMarkdown(model, this).exportRoot(root);
   }
 
   /// [toMarkdown], plus the document path behind every heading
   /// ([SpecDocumentMarkdown.exportRootWithMap]).
-  SpecMarkdownRendition toMarkdownWithMap(
-    SpecModel model, {
-    String? rootType,
-    SpecFormLayout formLayout = SpecFormLayout.fields,
-  }) {
+  SpecMarkdownRendition toMarkdownWithMap(SpecModel model, {String? rootType}) {
     final root = rootType != null
         ? model.rootByType(rootType)
         : _singlePopulatedRoot(model);
-    return SpecDocumentMarkdown(
-      model,
-      this,
-      formLayout: formLayout,
-    ).exportRootWithMap(root);
+    return SpecDocumentMarkdown(model, this).exportRootWithMap(root);
   }
 
   /// Assembles one document from [fragments] — name → document, in order —

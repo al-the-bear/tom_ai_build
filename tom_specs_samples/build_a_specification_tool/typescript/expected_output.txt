@@ -20,8 +20,8 @@ THE TWO VERSION STAMPS. They answer different questions and a tool
 that checks one for the other will accept a file it cannot read:
   modelVersion      = 1  — WHICH MODEL this snapshot describes
   metaSchemaVersion = 1  — the FILE FORMAT the snapshot itself is written in
-  modelVersionLabel = 1.12.0+38.64a42c53
-  generatedAt       = 2026-11-14T14:21:16.518390Z
+  modelVersionLabel = 1.12.2+40.07412a22
+  generatedAt       = 2026-11-19T19:46:28.366317Z
 
 A tool reads `metaSchemaVersion` to decide whether it can parse the
 file at all, and `modelVersion` to decide whether the documents it
@@ -50,12 +50,12 @@ FIELDS of D00SolutionBlueprint (15 total, first 4):
 FORM SLOTS of DataEntityEntry.identity (section id DAENT-IDEN):
   entityName       Entity Name
   tableName        Physical Table Name
-  entityAlias      Alias/Abbreviation
-  description      Description
-  entityStereoType Stereotype
   dataSourceName   Datasource
   schemaName       Schema
   tenancy          Tenancy
+  entityAlias      Alias/Abbreviation
+  entityStereoType Stereotype
+  description      Description
 
 ANNOTATIONS the meta carries — the model's own metadata, exported
 into the snapshot and therefore visible in ALL NINE language
@@ -183,7 +183,7 @@ runs BOTH.
 THE FIXTURE, both tiers:
   instance tier : 1 error(s)
   document tier : 1 violation(s)
-    line 40: missingRequiredField [DAENT-CLAS] required form field "aggregateRoot" of "daent-clas-fo…
+    line 41: missingRequiredField [DAENT-CLAS] required form field "aggregateRoot" of "daent-clas-fo…
 
 A DELIBERATELY BROKEN COPY — one path the model does not have, one
 form slot the form does not declare:
@@ -194,10 +194,13 @@ form slot the form does not declare:
 THE CLOSED VERDICT SETS. Both are enums, so a tool switches over
 them exhaustively rather than matching on message text:
   SpecValidationCode  (21): danglingPath, kindMismatch, unknownFormField, minItems, oneOfCaseMismatch, danglingReference, enumValueUnknown, countMismatch, valueTypeMismatch, derivedValueMismatch, missingRequiredField, multipleReferences, annotationMisplaced, annotationMalformed, duplicateAnnotationId, unknownUnit, unitsUnrouted, duplicateUnitId, unitBuildsNothing, unitAreaMalformed, unitEmitterUnknown
-  DocSpecsViolationRule (11):
+  DocSpecsViolationRule (22):
     unknownSection, missingRequiredSection, idPatternMismatch, tooFewItems
     tooManyItems, missingRequiredField, fieldPatternMismatch, textRequired
-    textLengthOut, formatMismatch, malformedHeading
+    textLengthOut, formatMismatch, malformedHeading, unclosedDiv
+    strayClosingFence, unclosedSpan, divWithoutKind, unknownKind
+    markAcrossNotation, annotationInsideDiv, divInsideAnnotation, rejectedBlock
+    malformedBlock, unknownField
 
 ==========================================================================
 5. A tool: the completeness report

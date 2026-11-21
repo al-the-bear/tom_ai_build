@@ -43,10 +43,18 @@ void main() {
     tree: tree,
     modelVersion: stamp,
   );
+  // The export golden: the layout this runtime emits, the table layout (SOM
+  // §11.4, §11.5), held in `expected.tables.md`.
   final mdGolden = SpecDocumentMarkdown(
     model,
     doc,
   ).exportRoot(model.roots.first);
+  // The `Field:`-line golden: no runtime that emits tables can write it, so it
+  // is never regenerated here. It stays as the parse-only fixture of the older
+  // layout, and the runtimes that still emit `Field:` lines are held to it.
+  final mdFieldsGolden = File(
+    '${corpusDir.path}/expected.tomspecs.md',
+  ).readAsStringSync();
 
   final reflectionCases = _reflectionCases(model);
   final validationCases = _validationCases(model);
@@ -57,15 +65,10 @@ void main() {
   final stampCases = _stampCases();
   final editabilityCases = _editabilityCases();
   final markdownImportCases = _markdownImportCases();
-  final mdTablesGolden = SpecDocumentMarkdown(
-    model,
-    doc,
-    formLayout: SpecFormLayout.tables,
-  ).exportRoot(model.roots.first);
   final markdownApplyCases = _markdownApplyCases(
     model,
+    mdFieldsGolden,
     mdGolden,
-    mdTablesGolden,
   );
   final yamlReviewCases = _yamlReviewCases(model, tree, yamlGolden);
   final docSpecsReplaceCases = _docSpecsReplaceCases();
@@ -78,10 +81,11 @@ void main() {
   final assemblyCases = _assemblyCases(state);
   final listMoveCases = _listMoveCases(model, state);
   final docSpecsPathCases = _docSpecsPathCases(model);
-  final codeSpecsGateCases = _codeSpecsGateCases(
-    meta,
-    state,
-    codeSpecsExtractCases,
+  final codeSpecsGateCases = _withFieldsExpect(
+    corpusDir,
+    'codespecs_gate_cases.json',
+    _codeSpecsGateCases(meta, state, codeSpecsExtractCases),
+    update: update,
   );
   final cursorScript = _cursorScript(model);
   final nodeCreationCases = _nodeCreationCases(model);
@@ -89,7 +93,12 @@ void main() {
   final annotationCases = _annotationCases(model, tree);
   final inlineMarkCases = _inlineMarkCases(model, tree);
   final changeMarkCases = _changeMarkCases(model, tree);
-  final answerCases = _answerCases(model);
+  final answerCases = _withFieldsExpect(
+    corpusDir,
+    'answer_cases.json',
+    _answerCases(model),
+    update: update,
+  );
 
   setUpAll(() {
     if (!update) return;
@@ -100,7 +109,7 @@ void main() {
     write('model.meta.json', '${enc.convert(meta)}\n');
     write('state.json', '${enc.convert(state)}\n');
     write('expected.tomspecs.yaml', yamlGolden);
-    write('expected.tomspecs.md', mdGolden);
+    write('expected.tables.md', mdGolden);
     write('reflection_cases.json', '${enc.convert(reflectionCases)}\n');
     write('validation_cases.json', '${enc.convert(validationCases)}\n');
     write('operations_cases.json', '${enc.convert(operationsCases)}\n');
@@ -440,15 +449,46 @@ void main() {
     );
   });
 
-  test('Markdown export is byte-stable against the committed golden', () {
+  // The layout this runtime emits: `tables` (SOM §11.4, §11.5). Its export
+  // golden is `expected.tables.md`; `expected.tomspecs.md`, the `Field:`-line
+  // layout, is parsed only.
+  const emittedLayout = 'tables';
+  const exportGolden = 'expected.$emittedLayout.md';
+
+  test('Markdown export is byte-stable against the committed golden '
+      '($emittedLayout layout)', () {
     expect(
       SpecDocumentMarkdown(model, doc).exportRoot(model.roots.first),
-      read('expected.tomspecs.md'),
+      read(exportGolden),
     );
   });
 
+  test(
+    'Markdown parse of the Field:-line golden exports the tables golden',
+    () {
+      final parsed = SpecDocumentMarkdown(
+        model,
+        SpecDocument(),
+      ).parse(read('expected.tomspecs.md'));
+      expect(parsed.rejections, isEmpty, reason: parsed.rejections.join('\n'));
+      final reDoc = SpecDocument()
+        ..loadJson({
+          'content': parsed.content,
+          'forms': parsed.forms,
+          'lists': parsed.lists,
+          'headlines': parsed.headlines,
+          'codeSpecs': parsed.codeSpecs,
+          'units': parsed.units,
+        });
+      expect(
+        SpecDocumentMarkdown(model, reDoc).exportRoot(model.roots.first),
+        read(exportGolden),
+      );
+    },
+  );
+
   test('Markdown parse→memory→export is clean and byte-stable', () {
-    final golden = read('expected.tomspecs.md');
+    final golden = read(exportGolden);
     final parsed = SpecDocumentMarkdown(model, doc).parse(golden);
     expect(parsed.rejections, isEmpty, reason: parsed.rejections.join('\n'));
     final reDoc = SpecDocument()
@@ -474,20 +514,20 @@ void main() {
   // on one in-memory document (SOM §8 "both routes land in the same memory
   // representation"). Every language port asserts the same against this corpus.
   test('Markdown route lands in the shared memory representation', () {
-    final golden = read('expected.tomspecs.md');
     final canonical = jsonDecode(read('state.json')) as Map<String, dynamic>;
-    final imported = SpecDocument.fromMarkdown(golden, model);
-    expect(
-      imported.rejections,
-      isEmpty,
-      reason: imported.rejections.join('\n'),
-    );
-    final landed = imported.document;
-    expect(
-      landed.toJson(),
-      canonical,
-      reason: 'Markdown→memory must equal the canonical state.json memory',
-    );
+    for (final name in ['expected.tables.md', 'expected.tomspecs.md']) {
+      final imported = SpecDocument.fromMarkdown(read(name), model);
+      expect(
+        imported.rejections,
+        isEmpty,
+        reason: '$name: ${imported.rejections.join('\n')}',
+      );
+      expect(
+        imported.document.toJson(),
+        canonical,
+        reason: '$name: Markdown→memory must equal the canonical state.json',
+      );
+    }
   });
 
   // SOM §11.2 list-container contract (DRA1/DRA2): every list heads its own
@@ -1223,7 +1263,10 @@ void main() {
         : jsonDecode(read('answer_cases.json')) as Map<String, dynamic>;
     for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
       test('answers: ${c['name']}', () {
-        expect(jsonDecode(jsonEncode(_runAnswerCase(model, c))), c['expect']);
+        expect(
+          jsonDecode(jsonEncode(_runAnswerCase(model, c))),
+          _expectFor(emittedLayout, c),
+        );
       });
     }
   });
@@ -1454,7 +1497,7 @@ void main() {
       test('gate: ${c['name']}', () {
         expect(
           jsonDecode(jsonEncode(_runGateCase(table, c, meta))),
-          c['expect'],
+          _expectFor(emittedLayout, c),
         );
       });
     }
@@ -7428,7 +7471,8 @@ Map<String, dynamic> _runMarkdownApplyCase(
 }
 
 /// The `markdown_apply_cases.json` table: expected results computed live, so
-/// `UPDATE_CORPUS` keeps them honest. [golden] is `expected.tomspecs.md`.
+/// `UPDATE_CORPUS` keeps them honest. [golden] is `expected.tomspecs.md`, the
+/// `Field:`-line layout, and [tablesGolden] `expected.tables.md`.
 Map<String, dynamic> _markdownApplyCases(
   SpecModel model,
   String golden,
@@ -10419,6 +10463,86 @@ Map<String, dynamic> _changeMarkCases(SpecModel model, SomMetaTree tree) {
 // ---------------------------------------------------------------------------
 // answer_cases.json — a review round's answers as answers.md (SOM §11.9.7).
 // ---------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------
+// Layout-dependent expectations: the cases whose runtime renders a document
+// itself and reports rendition lines (answer_cases.json,
+// codespecs_gate_cases.json).
+// ---------------------------------------------------------------------------
+
+/// The expectation of case [c] for a runtime emitting [layout]: `expectTables`
+/// when the case has one and the runtime emits tables, else `expect`.
+Object? _expectFor(String layout, Map<String, dynamic> c) =>
+    layout == 'tables' && c.containsKey('expectTables')
+    ? c['expectTables']
+    : c['expect'];
+
+/// [table] (computed by this runtime, which emits the table layout) with every
+/// case's `expect` taken from the committed [fileName]: that is the
+/// expectation of the `Field:`-line layout, which the runtimes still emitting
+/// it are held to and which no runtime emitting tables can recompute. The
+/// computed expectation is written as `expectTables` when it differs.
+///
+/// A case is matched by name; its inputs (every key but `expect` and
+/// `expectTables`) must be unchanged, and a case the committed file does not
+/// hold has no `Field:`-line expectation — both throw, so a frozen
+/// expectation never goes stale silently. Without [update] [table] is
+/// returned as computed (the tests read the committed file then).
+Map<String, dynamic> _withFieldsExpect(
+  Directory corpusDir,
+  String fileName,
+  Map<String, dynamic> table, {
+  required bool update,
+}) {
+  if (!update) return table;
+  final committed =
+      jsonDecode(File('${corpusDir.path}/$fileName').readAsStringSync())
+          as Map<String, dynamic>;
+  final byName = {
+    for (final c in (committed['cases'] as List).cast<Map<String, dynamic>>())
+      c['name'] as String: c,
+  };
+  Map<String, dynamic> inputs(Map<String, dynamic> c) =>
+      jsonDecode(
+            jsonEncode({
+              for (final e in c.entries)
+                if (e.key != 'expect' && e.key != 'expectTables')
+                  e.key: e.value,
+            }),
+          )
+          as Map<String, dynamic>;
+  final cases = <Map<String, dynamic>>[];
+  for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+    final name = c['name'] as String;
+    final old = byName[name];
+    if (old == null) {
+      throw StateError(
+        '$fileName: case "$name" is new, and its expectation in the Field:-line '
+        'layout cannot be computed by a runtime that emits tables. Write its '
+        '`expect` by a runtime that still emits Field: lines (or wait until '
+        'every runtime emits tables, 05a_rdv4_akpu-runtime-parity-audit).',
+      );
+    }
+    if (jsonEncode(inputs(old)) != jsonEncode(inputs(c))) {
+      throw StateError(
+        '$fileName: the inputs of case "$name" changed, so its committed '
+        'Field:-line `expect` no longer holds. Recompute it by a runtime that '
+        'still emits Field: lines.',
+      );
+    }
+    final tables = jsonDecode(jsonEncode(c['expect']));
+    final fields = old['expect'];
+    cases.add({
+      for (final e in c.entries)
+        if (e.key == 'expect') ...{
+          'expect': fields,
+          if (jsonEncode(tables) != jsonEncode(fields)) 'expectTables': tables,
+        } else
+          e.key: e.value,
+    });
+  }
+  return {...table, 'cases': cases};
+}
 
 Map<String, dynamic> _answerCases(SpecModel model) {
   final a = _annotationState();

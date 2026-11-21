@@ -30,6 +30,11 @@ const List<(String, String)> _copies = [
     '../tom_som_dart_runtime/test/fixtures/corpus/expected.tomspecs.md',
     'expected.tomspecs.md',
   ),
+  (
+    '../tom_som_dart_runtime/test/fixtures/corpus/expected.tables.md',
+    'expected.tables.md',
+  ),
+  ('../tom_som_dart_runtime/test/fixtures/corpus/state.json', 'state.json'),
 ];
 
 void main(List<String> args) {

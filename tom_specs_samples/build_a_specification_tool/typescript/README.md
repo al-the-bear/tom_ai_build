@@ -31,10 +31,13 @@ npm start
 
 ## What you should see
 
-Five numbered sections; every number is the Dart sample's. The text is in this
-port's own [`expected_output.txt`](expected_output.txt) — the JavaScript port's
-text — because it differs from the Dart sample's in three places, each where the
-Dart text names a Dart-only surface:
+Five numbered sections; every number is the Dart sample's but one line number.
+The text is in this port's own [`expected_output.txt`](expected_output.txt)
+because it differs from the Dart sample's in three places, each where the Dart
+text names a Dart-only surface, and in the line of section 4's schema finding:
+this port renders the document in the table layout (SOM §11.4), and the Dart
+sample, built against the published `tom_som_dart_runtime`, in the `Field:`
+lines until the release that carries the table layout:
 
 * the fixture function is `authorFixture` (no leading underscore);
 * the annotation display semantics (`kRenderedAnnotations`) are in the Dart

@@ -426,10 +426,25 @@ function testBindDocspecsMarkdown(): void {
   const model = SpecModel.fromJson(
     JSON.parse(fs.readFileSync(path.join(corpus, 'model.meta.json'), 'utf8')),
   );
-  const md = fs.readFileSync(path.join(corpus, 'expected.tomspecs.md'), 'utf8');
-  const result = bindDocspecsMarkdown(model, new SpecDocument(), md);
-  _check('bind.clean', result.isClean, result.rejections.map((r) => String(r)).join('; '));
-  _check('bind.appliedCount', result.appliedCount > 0, String(result.appliedCount));
+  // Both layouts bind: the table layout every emit writes and the older
+  // `Field:` lines.
+  for (const [label, file] of [
+    ['tables', 'expected.tables.md'],
+    ['fields', 'expected.tomspecs.md'],
+  ]) {
+    const md = fs.readFileSync(path.join(corpus, file), 'utf8');
+    const result = bindDocspecsMarkdown(model, new SpecDocument(), md);
+    _check(
+      `bind.${label}.clean`,
+      result.isClean,
+      result.rejections.map((r) => String(r)).join('; '),
+    );
+    _check(
+      `bind.${label}.appliedCount`,
+      result.appliedCount > 0,
+      String(result.appliedCount),
+    );
+  }
 }
 
 // --- acceptance: emitted sample vs generated schema ----------------------------

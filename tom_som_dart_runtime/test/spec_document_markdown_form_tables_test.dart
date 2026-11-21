@@ -1,8 +1,7 @@
-// The reading-view layout of the Markdown emitter
-// (`SpecDocumentMarkdown(formLayout: SpecFormLayout.tables)`): form tables
-// between `Field:` paragraphs, and an HTML anchor on every heading. The
-// default layout is pinned by the conformance export golden
-// (`expected.tomspecs.md`) and checked here too; the parse of both layouts is
+// The form layout of the Markdown emitter (SOM §11.4): form tables between
+// `Field:` paragraphs, and an HTML anchor on every heading. The whole layout
+// is pinned by the conformance export golden (`expected.tables.md`); the parse
+// of it and of the older `Field:`-line layout is
 // spec_document_markdown_parse_tables_test.dart.
 
 import 'package:test/test.dart';
@@ -63,16 +62,9 @@ Map<String, dynamic> _modelJson() => {
 
 const String _form = 'TRI/TRI-ENT';
 
-String _render(
-  SpecDocument doc, {
-  SpecFormLayout layout = SpecFormLayout.tables,
-}) {
+String _render(SpecDocument doc) {
   final model = SpecModel.fromJson(_modelJson());
-  return SpecDocumentMarkdown(
-    model,
-    doc,
-    formLayout: layout,
-  ).exportRoot(model.roots.single);
+  return SpecDocumentMarkdown(model, doc).exportRoot(model.roots.single);
 }
 
 /// The form section's body: the lines after its heading up to the next one.
@@ -207,18 +199,33 @@ void main() {
     expect(md, contains('### <!--[TRI-ITM-1]--> <a id="TRI-ITM-1"></a> '));
   });
 
-  test('FT8: the default layout writes Field: lines and no anchors', () {
+  test('FT8: the Field: lines of the older layout parse to the values the '
+      'table holds', () {
     final doc = SpecDocument()
       ..setFormField(_form, 'entityName', 'Customer')
       ..setFormField(_form, 'owner', 'Sales');
-    final md = _render(doc, layout: SpecFormLayout.fields);
-    expect(_formBody(md), 'EntityName: Customer\n\nOwner: Sales');
-    expect(md, isNot(contains('<a id=')));
-    final model = SpecModel.fromJson(_modelJson());
+    final md = _render(doc);
     expect(
-      SpecDocumentMarkdown(model, doc).exportRoot(model.roots.single),
-      md,
-      reason: 'fields is the default',
+      _formBody(md),
+      '| TomSpecField | Value |\n| --- | --- |\n'
+      '| EntityName | Customer |\n| Owner | Sales |',
     );
+    final model = SpecModel.fromJson(_modelJson());
+    final codec = SpecDocumentMarkdown(model, SpecDocument());
+    final fromTables = codec.parse(md);
+    final fromFields = codec.parse(
+      md.replaceFirst(
+        '| TomSpecField | Value |\n| --- | --- |\n'
+            '| EntityName | Customer |\n| Owner | Sales |',
+        'EntityName: Customer\n\nOwner: Sales',
+      ),
+    );
+    expect(fromTables.rejections, isEmpty);
+    expect(fromFields.rejections, isEmpty);
+    expect(fromFields.forms, fromTables.forms);
+    expect(fromTables.forms[_form], {
+      'entityName': 'Customer',
+      'owner': 'Sales',
+    });
   });
 }

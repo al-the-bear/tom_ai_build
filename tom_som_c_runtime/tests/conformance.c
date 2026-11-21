@@ -527,6 +527,12 @@ static void test_yaml_decode_round_trip(Checker *c, const SomMetaTree *tree) {
   free(expected);
 }
 
+/* The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
+ * Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
+ * The reading view's parity audit (05a_rdv4_akpu-runtime-parity-audit) brings this runtime to tables. */
+#define EMITTED_LAYOUT "fields"
+#define EXPORT_GOLDEN "expected.tomspecs.md"
+
 /* Markdown conformance (md.export / md.parse.* / md.land.*). */
 static void test_markdown_export(Checker *c, const SpecModel *model) {
   SomJson *sj = read_json("state.json");
@@ -534,7 +540,7 @@ static void test_markdown_export(Checker *c, const SpecModel *model) {
   document_json_from_json(sj, &state);
   SpecDocument doc;
   doc_from_state(&doc, &state);
-  char *expected = read_corpus("expected.tomspecs.md");
+  char *expected = read_corpus(EXPORT_GOLDEN);
   char *actual = spec_markdown_export_root(model, &doc, &model->roots[0], NULL);
   char *d = byte_diff("md.export", actual, expected);
   check(c, "md.export", strcmp(actual, expected) == 0, d);
@@ -559,7 +565,7 @@ static char *rej_str(const SpecMarkdownResult *r) {
 }
 
 static void test_markdown_round_trip(Checker *c, const SpecModel *model) {
-  char *expected = read_corpus("expected.tomspecs.md");
+  char *expected = read_corpus(EXPORT_GOLDEN);
   SpecMarkdownResult result;
   spec_markdown_parse(model, expected, &result);
   char *rs = rej_str(&result);
@@ -590,7 +596,7 @@ static void test_markdown_round_trip(Checker *c, const SpecModel *model) {
 }
 
 static void test_markdown_memory_landing(Checker *c, const SpecModel *model) {
-  char *expected_md = read_corpus("expected.tomspecs.md");
+  char *expected_md = read_corpus(EXPORT_GOLDEN);
   SomJson *sj = read_json("state.json");
   DocumentJson canonical;
   document_json_from_json(sj, &canonical);

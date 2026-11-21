@@ -230,21 +230,17 @@ run_gate sample_validate dart "$ROOT/tom_som_dart_v0" dart run tool/validate_sam
 # four such kinds stayed hidden until a project tripped over them, because the
 # only schema-checked document reached part of the model. `tomspecs :spec-validate` runs
 # all three tiers on one document, so the decode and instance verdicts are
-# re-confirmed here on the clitool's own path. The committed markdown
-# rendition of a document is imported and held to the same three tiers, so the
-# round trip yaml → md → document stays the identity it is specified to be.
+# re-confirmed here on the clitool's own path. A YAML document is rendered in
+# the table layout (form tables, section tables, list bodies) for the schema
+# tier. The committed markdown rendition of a document is imported and held to
+# the same three tiers, so the round trip yaml → md → document stays the
+# identity it is specified to be.
 run_gate sample_schema dart "$ROOT/tom_specs_clitool" bash -c '
   status=0
   for f in ../tom_som_conformance/samples/*.tomspecs.yaml \
            ../tom_som_dart_v0/documents/*.tomspecs.yaml \
            ../tom_som_dart_v0/documents/*.md; do
     dart run bin/tomspecs.dart :spec-validate "$f" || status=1
-  done
-  # The table form of the reading view (04a_rdv2): the same documents with
-  # form tables, section tables and list bodies, judged by the schema tier.
-  for f in ../tom_som_conformance/samples/*.tomspecs.yaml \
-           ../tom_som_dart_v0/documents/*.tomspecs.yaml; do
-    dart run bin/tomspecs.dart :spec-validate "$f" --form-layout tables || status=1
   done
   exit $status'
 

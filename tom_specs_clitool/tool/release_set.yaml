@@ -170,7 +170,9 @@ unpublished_drift:
     and its nine DocSpecs validator rules; 04a_rdv1 (2026-11-20): the parser
     reads the table layout (form and section tables headed TomSpecField, refs
     and records list bodies, anchors), the rejection reasons unknownField and
-    malformedBlock; ships with the next chain release.
+    malformedBlock; 04a_rdv3 (2026-11-21): the table layout is the only one
+    emitted (`SpecFormLayout` and `formLayout` removed before any release
+    carried them); ships with the next chain release.
   tom_specs_core: >-
     tsbin7 (2026-11-18): the README, doc/annotations.md and the
     @SerializationOrder doc comment name the tomspecs commands (documentation

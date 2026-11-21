@@ -489,6 +489,52 @@
             "findings": []
           }
         ]
+      },
+      "expectTables": {
+        "passed": false,
+        "results": [
+          {
+            "check": "A1",
+            "ran": true,
+            "notRunReason": null,
+            "findings": [
+              {
+                "code": "unknownSection",
+                "location": "MIX",
+                "message": "line 122: section id \"MIX\" resolves to no section-type of the schema"
+              },
+              {
+                "code": "unknownSection",
+                "location": "DLV-LST",
+                "message": "line 151: section id \"DLV-LST\" resolves to no section-type of the schema"
+              }
+            ]
+          },
+          {
+            "check": "A2",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A3",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A4",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A5",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          }
+        ]
       }
     },
     {
@@ -1031,6 +1077,64 @@
             "findings": []
           }
         ]
+      },
+      "expectTables": {
+        "passed": false,
+        "results": [
+          {
+            "check": "A1",
+            "ran": true,
+            "notRunReason": null,
+            "findings": [
+              {
+                "code": "unknownSection",
+                "location": "MIX",
+                "message": "line 118: section id \"MIX\" resolves to no section-type of the schema"
+              },
+              {
+                "code": "unknownSection",
+                "location": "DLV-LST",
+                "message": "line 147: section id \"DLV-LST\" resolves to no section-type of the schema"
+              }
+            ]
+          },
+          {
+            "check": "A2",
+            "ran": true,
+            "notRunReason": null,
+            "findings": [
+              {
+                "code": "missingRequiredField",
+                "location": "DEMO/DET",
+                "message": "form field \"owner\" is required on Demo.details but empty"
+              }
+            ]
+          },
+          {
+            "check": "A3",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A4",
+            "ran": true,
+            "notRunReason": null,
+            "findings": [
+              {
+                "code": "missingSource",
+                "location": "DEMO",
+                "message": "@CsForm.owner (CE-FM) is required, and its source Demo.details.owner is empty here"
+              }
+            ]
+          },
+          {
+            "check": "A5",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          }
+        ]
       }
     },
     {
@@ -1222,6 +1326,58 @@
                 "code": "unknownSection",
                 "location": "DLV-LST",
                 "message": "line 146: section id \"DLV-LST\" resolves to no section-type of the schema"
+              }
+            ]
+          },
+          {
+            "check": "A2",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A3",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A4",
+            "ran": true,
+            "notRunReason": null,
+            "findings": [
+              {
+                "code": "missingSource",
+                "location": "DEMO/items-2",
+                "message": "@CsElement.kind (CE-FM) is required, and its source Item.label is empty here"
+              }
+            ]
+          },
+          {
+            "check": "A5",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          }
+        ]
+      },
+      "expectTables": {
+        "passed": false,
+        "results": [
+          {
+            "check": "A1",
+            "ran": true,
+            "notRunReason": null,
+            "findings": [
+              {
+                "code": "unknownSection",
+                "location": "MIX",
+                "message": "line 119: section id \"MIX\" resolves to no section-type of the schema"
+              },
+              {
+                "code": "unknownSection",
+                "location": "DLV-LST",
+                "message": "line 148: section id \"DLV-LST\" resolves to no section-type of the schema"
               }
             ]
           },
@@ -1448,6 +1604,58 @@
                 "code": "unknownSection",
                 "location": "DLV-LST",
                 "message": "line 149: section id \"DLV-LST\" resolves to no section-type of the schema"
+              }
+            ]
+          },
+          {
+            "check": "A2",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A3",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A4",
+            "ran": true,
+            "notRunReason": null,
+            "findings": [
+              {
+                "code": "unresolvedReference",
+                "location": "DEMO",
+                "message": "Demo.details.priority names `low`, which no Demo.priority in this document carries — @CsColumn.domainEnum (CE-FM) has nothing to resolve against"
+              }
+            ]
+          },
+          {
+            "check": "A5",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          }
+        ]
+      },
+      "expectTables": {
+        "passed": false,
+        "results": [
+          {
+            "check": "A1",
+            "ran": true,
+            "notRunReason": null,
+            "findings": [
+              {
+                "code": "unknownSection",
+                "location": "MIX",
+                "message": "line 122: section id \"MIX\" resolves to no section-type of the schema"
+              },
+              {
+                "code": "unknownSection",
+                "location": "DLV-LST",
+                "message": "line 151: section id \"DLV-LST\" resolves to no section-type of the schema"
               }
             ]
           },
@@ -1775,6 +1983,58 @@
             ]
           }
         ]
+      },
+      "expectTables": {
+        "passed": false,
+        "results": [
+          {
+            "check": "A1",
+            "ran": true,
+            "notRunReason": null,
+            "findings": [
+              {
+                "code": "unknownSection",
+                "location": "MIX",
+                "message": "line 122: section id \"MIX\" resolves to no section-type of the schema"
+              },
+              {
+                "code": "unknownSection",
+                "location": "DLV-LST",
+                "message": "line 151: section id \"DLV-LST\" resolves to no section-type of the schema"
+              }
+            ]
+          },
+          {
+            "check": "A2",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A3",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A4",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A5",
+            "ran": true,
+            "notRunReason": null,
+            "findings": [
+              {
+                "code": "missingCarrier",
+                "location": "Item.reviewer",
+                "message": "the model no longer offers Item.reviewer (fixture) — a project with that structured fact would have to write prose again"
+              }
+            ]
+          }
+        ]
       }
     },
     {
@@ -1968,6 +2228,52 @@
                 "code": "unknownSection",
                 "location": "DLV-LST",
                 "message": "line 149: section id \"DLV-LST\" resolves to no section-type of the schema"
+              }
+            ]
+          },
+          {
+            "check": "A2",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A3",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A4",
+            "ran": false,
+            "notRunReason": "the catalogue carries no gate tables (written before `codespecs_prompt.md` §4.4/§4.5 were transcribed)",
+            "findings": []
+          },
+          {
+            "check": "A5",
+            "ran": false,
+            "notRunReason": "the catalogue carries no gate tables (written before `codespecs_prompt.md` §4.4/§4.5 were transcribed)",
+            "findings": []
+          }
+        ]
+      },
+      "expectTables": {
+        "passed": false,
+        "results": [
+          {
+            "check": "A1",
+            "ran": true,
+            "notRunReason": null,
+            "findings": [
+              {
+                "code": "unknownSection",
+                "location": "MIX",
+                "message": "line 122: section id \"MIX\" resolves to no section-type of the schema"
+              },
+              {
+                "code": "unknownSection",
+                "location": "DLV-LST",
+                "message": "line 151: section id \"DLV-LST\" resolves to no section-type of the schema"
               }
             ]
           },

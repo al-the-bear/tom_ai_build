@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- The DocSpecs validator reads a `records` table's columns against the item
+  type's own form only (the DocSpecs specification, *The record table*); an item
+  type with no form of its own takes them as unchecked body lines. It no longer
+  falls back to a child's one-field form, the redirection only a `refs`
+  reference takes, which reported every records table of an item with a body
+  form and one reference child (`GOLDE-ITEM-LST` of the Solution Blueprint) as
+  `unknownField`.
 - The Markdown parser reads the table layout (SOM §11.4, §11.5): form tables
   headed `| TomSpecField | Value |` (the header alone makes the table layout;
   rows bind like `Field:` labels, cells unescaped, code spans decoded,
@@ -26,18 +33,20 @@
   (`DocSpecsViolation.isWarning`) that `SbpValidation.isClean` does not count.
   `validateSpecDocument` and `SpecRootDefinition.validate` validate as a
   TomSpecs rendition. Pinned by `notation_cases.json`.
-- `SpecDocumentMarkdown(..., formLayout: SpecFormLayout.tables)`: the reading-view
-  trial layout, emit only. A form's declared fields in order, each run of values
-  that fit a cell one `| Field | Value |` table, a `multiParagraph` field or a
-  value that cannot be a cell a `Field:` paragraph at its place; a content table
-  that would read as the form table escaped with one leading space; every
-  heading carries `<a id="<ID>"></a>`. The default `SpecFormLayout.fields` is
-  unchanged.
-- `SpecFormLayout.tables` also writes the list and section forms, each all or
+- **The Markdown emitter writes the reading-view layout** (SOM §11.4, §11.5);
+  the `Field:`-line layout is no longer emitted, and the parser still reads it.
+  A form's declared fields in order, each run of values that fit a cell one
+  `| TomSpecField | Value |` table, a `multiParagraph` field or a value that
+  cannot be a cell a `Field:` paragraph at its place; a content table that
+  would read as the form table escaped with one leading space; every heading
+  carries `<a id="<ID>"></a>`. `SpecDocument.toMarkdown`, `toMarkdownWithMap`
+  and `validateSpecDocument` write it too; the conformance golden of this
+  layout is `expected.tables.md`.
+- The emitter also writes the list and section forms, each all or
   nothing: a list of single references as one `refs` div of links, a list of
   single-form items as one `records` table (`Id` with its anchor, `Title` when
   an item has a stored headline), and a section whose children are single
-  forms as one `| Section | Field | Value |` table. A `refersTo` value in a table
+  forms as one `| Section | TomSpecField | Value |` table. A `refersTo` value in a table
   cell is a link `[ID](<stem>.<root id>.tomspecs.md#ID)`, or `[ID](#ID)` within
   the document (`fileStem`, `documentFiles`).
 - `FormFieldSpec.multiParagraph` and `SomFormFieldMeta.multiParagraph`, read from

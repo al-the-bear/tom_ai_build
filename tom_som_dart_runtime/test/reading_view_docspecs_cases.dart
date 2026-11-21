@@ -161,6 +161,21 @@ List<Map<String, String>> readingViewDocSpecsCases(String validDoc) {
         ':::\n',
       ),
     ),
+    // A record's cells are the item's own body lines: `link-item` has no form
+    // of its own, so `Note` is read unchecked and not against the one-field
+    // form of its child `link-ref`, which a `refs` reference would fill (the
+    // DocSpecs specification, *The record table*). The child stays required.
+    c(
+      'readingView: records cells are the item\'s own body lines, never a '
+      'child\'s form',
+      append(
+        '\n## <!--[LINK-LST]--> Links\n\n'
+        '::: {.records}\n'
+        '| Id | Note |\n| --- | --- |\n'
+        '| <a id="LINK-1"></a>LINK-1 | the first link |\n'
+        ':::\n',
+      ),
+    ),
     c(
       'readingView: records div beside item headings',
       append(

@@ -310,9 +310,10 @@ void main() {
     });
 
     test('IMP-3.2: a form-field edit is still refused', () {
+      expect(rendition, contains('| Category | Functional |'));
       final edited = rendition.replaceFirst(
-        'Category: Functional',
-        'Category: Non-functional',
+        '| Category | Functional |',
+        '| Category | Non-functional |',
       );
       final plan = importer.plan(edited);
 

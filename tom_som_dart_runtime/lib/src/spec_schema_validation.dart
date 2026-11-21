@@ -27,13 +27,8 @@ List<DocSpecsViolation> validateSpecDocument(
   SpecDocument document,
   DocSpecsSchema schema, {
   String? rootType,
-  SpecFormLayout formLayout = SpecFormLayout.fields,
 }) {
-  final rendition = document.toMarkdownWithMap(
-    model,
-    rootType: rootType,
-    formLayout: formLayout,
-  );
+  final rendition = document.toMarkdownWithMap(model, rootType: rootType);
   return [
     for (final v in DocSpecsValidator(
       schema,

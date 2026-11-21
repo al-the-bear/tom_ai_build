@@ -342,6 +342,7 @@ export {
   SpecMarkdownImport,
   MarkdownFenceTracker,
   SpecDocumentMarkdown,
+  type SpecDocumentMarkdownOptions,
   SpecMarkdownRendition,
 } from './spec_document_markdown';
 export type { SpecMarkdownRejectReasonValue } from './spec_document_markdown';

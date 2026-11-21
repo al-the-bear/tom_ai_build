@@ -43,5 +43,9 @@ Variant A passing the gate and producing 27 extracts (3 populated), variant B
 rejected with six findings. The text is in this port's own
 [`expected_output.txt`](expected_output.txt): stages 1 and 2 and variant B are
 the Dart sample's lines, and stages 3 and 4 are replaced by the note above.
+One line number of variant B differs (`line 89` for the Dart sample's
+`line 82`): this port renders the document in the table layout (SOM §11.4),
+and the Dart sample, built against the published `tom_som_dart_runtime`, in
+the `Field:` lines until the release that carries the table layout.
 The 54 extract files in `build/codespecs_extracts/` are byte for byte the ones
 the Dart sample writes.

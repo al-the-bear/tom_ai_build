@@ -430,16 +430,23 @@ def test_yaml_review(model: SpecModel, tree) -> None:
             _check(name, got == case["expect"], _json_mismatch(got, case["expect"]))
 
 
+# The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
+# Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
+# The reading view's parity audit (05a_rdv4_akpu-runtime-parity-audit) brings this runtime to tables.
+EMITTED_LAYOUT = "fields"
+EXPORT_GOLDEN = "expected.tomspecs.md"
+
+
 def test_markdown_export(model: SpecModel) -> None:
     doc = _document_from_state(_read_json("state.json"))
-    expected = _read("expected.tomspecs.md")
+    expected = _read(EXPORT_GOLDEN)
     actual = SpecDocumentMarkdown(model, doc).export_root(model.roots[0])
     _check("md.export", actual == expected,
            _byte_diff("md.export", actual, expected))
 
 
 def test_markdown_round_trip(model: SpecModel) -> None:
-    golden = _read("expected.tomspecs.md")
+    golden = _read(EXPORT_GOLDEN)
     doc = _document_from_state(_read_json("state.json"))
     parsed = SpecDocumentMarkdown(model, doc).parse(golden)
     _check("md.parse.clean", not parsed.rejections,
@@ -468,7 +475,7 @@ def test_markdown_lands_in_shared_memory(model: SpecModel) -> None:
     """Markdown/YAML convergence: parsing ``expected.tomspecs.md`` and applying it must
     reproduce ``state.json`` (the YAML-route memory) exactly, proving both
     formats converge on one in-memory document (SOM §8)."""
-    golden = _read("expected.tomspecs.md")
+    golden = _read(EXPORT_GOLDEN)
     canonical = _read_json("state.json")
     imported = SpecDocument.from_markdown(golden, model)
     _check("md.land.clean", not imported.rejections,

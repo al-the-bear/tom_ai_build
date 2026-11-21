@@ -404,8 +404,8 @@ tables, `refs` and `records` divs, section tables, styled-div headings, and the
 TypeScript runners run them; the other seven skip them until the reading
 view's parity audit (`05a_rdv4_akpu-runtime-parity-audit`) ports them, so the
 rest of the table is still the one all nine pass. The `sample_schema` gate of
-`tool/run_all_suites.sh` validates every sample in the table layout as well
-(`tomspecs :spec-validate --form-layout tables`).
+`tool/run_all_suites.sh` validates every sample in the table layout, the one
+`tomspecs :spec-validate` renders.
 
 ##### …and so does the editor tier (SOM §9)
 
@@ -560,8 +560,11 @@ totality outright.
 [`corpus/markdown_import_cases.json`](corpus/markdown_import_cases.json) pins what
 a Markdown import does with a block it **cannot** place. It arrived after the same
 trap as the tier above: `SpecMarkdownRejectReason` was declared in all nine
-runtimes and asked about by nothing, because [`expected.tomspecs.md`](corpus/expected.tomspecs.md)
-is a byte-golden of a *successful* export and the three markdown tiers all assert
+runtimes and asked about by nothing, because the export goldens
+([`expected.tables.md`](corpus/expected.tables.md), the table layout Dart and
+TypeScript emit, and [`expected.tomspecs.md`](corpus/expected.tomspecs.md), the
+`Field:` lines the other seven emit; each runner states its layout) are
+byte-goldens of a *successful* export and the three markdown tiers all assert
 `isClean()`. The failure that hid behind that is the worst one SOM §11.7 exists to
 prevent — a port that silently **drops** an unplaceable block is
 indistinguishable from one that never met it.

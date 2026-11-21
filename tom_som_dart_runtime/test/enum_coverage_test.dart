@@ -573,17 +573,6 @@ final List<ExemptEnum> _exempt = [
         'is the stronger statement — a constant added to either alone fails.',
   ),
   ExemptEnum(
-    enumName: 'SpecFormLayout',
-    reason: ExemptionReason.dartOnly,
-    note:
-        'The reading-view trial switch of the Markdown emitter (fields | '
-        'tables), emit-only and Dart-only for now; pinned by '
-        'test/spec_document_markdown_form_tables_test.dart. '
-        '04a_rdv3_akpu-tables-default-verification brings the TypeScript emit '
-        'and the two goldens, and 05a_rdv4_akpu-runtime-parity-audit the '
-        'other seven runtimes; the corpus table comes with the goldens.',
-  ),
-  ExemptEnum(
     enumName: 'SpecChipRole',
     reason: ExemptionReason.presentation,
     note:

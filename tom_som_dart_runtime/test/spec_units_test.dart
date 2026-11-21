@@ -131,10 +131,13 @@ void main() {
         md,
         contains(
           '## <!--[TTL] codeSpec="DemoTitle" units="u_a,u_b"--> '
-          'Document Title\n',
+          '<a id="TTL"></a> Document Title\n',
         ),
       );
-      expect(md, contains('## <!--[SUM] units="u_a"--> Summary\n'));
+      expect(
+        md,
+        contains('## <!--[SUM] units="u_a"--> <a id="SUM"></a> Summary\n'),
+      );
     });
 
     test('parses units in every quoting, beside or without codeSpec', () {

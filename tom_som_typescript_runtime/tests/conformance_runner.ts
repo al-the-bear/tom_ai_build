@@ -473,15 +473,59 @@ function testYamlReview(model: SpecModel, tree: SomMetaTree): void {
   }
 }
 
+// The layout this runtime emits: `tables` (SOM §11.4, §11.5). Its export
+// golden is `expected.tables.md`; `expected.tomspecs.md`, the `Field:`-line
+// layout, is parsed only.
+const EMITTED_LAYOUT = 'tables';
+const EXPORT_GOLDEN = `expected.${EMITTED_LAYOUT}.md`;
+
+/**
+ * The expectation of case `c` for this runtime's layout: `expectTables` when
+ * the case has one (its renditions' lines differ by layout), else `expect`.
+ */
+function _expectFor(c: any): any {
+  return EMITTED_LAYOUT === 'tables' && 'expectTables' in c
+    ? c.expectTables
+    : c.expect;
+}
+
 function testMarkdownExport(model: SpecModel): void {
   const doc = _documentFromState(_readJson('state.json'));
-  const expected = _read('expected.tomspecs.md');
+  const expected = _read(EXPORT_GOLDEN);
   const actual = new SpecDocumentMarkdown(model, doc).exportRoot(model.roots[0]);
   _check('md.export', actual === expected, _byteDiff('md.export', actual, expected));
 }
 
+// The `Field:`-line golden parses to the document the tables golden renders.
+function testMarkdownFieldsGolden(model: SpecModel): void {
+  const parsed = new SpecDocumentMarkdown(model, new SpecDocument()).parse(
+    _read('expected.tomspecs.md'),
+  );
+  _check(
+    'md.fields.parse.clean',
+    parsed.rejections.length === 0,
+    parsed.rejections.map((r) => String(r)).join('; '),
+  );
+  const reDoc = new SpecDocument();
+  reDoc.loadJson({
+    content: parsed.content,
+    forms: parsed.forms,
+    lists: parsed.lists,
+    headlines: parsed.headlines,
+    codeSpecs: parsed.codeSpecs,
+    units: parsed.units,
+  });
+  const expected = _read(EXPORT_GOLDEN);
+  const actual = new SpecDocumentMarkdown(model, reDoc).exportRoot(model.roots[0]);
+  _check(
+    'md.fields.reexport',
+    actual === expected,
+    _byteDiff('md.fields.reexport', actual, expected),
+  );
+}
+
 function testMarkdownRoundTrip(model: SpecModel): void {
-  const golden = _read('expected.tomspecs.md');
+  const golden = _read(EXPORT_GOLDEN);
   const doc = _documentFromState(_readJson('state.json'));
   const parsed = new SpecDocumentMarkdown(model, doc).parse(golden);
   _check(
@@ -512,24 +556,29 @@ function testMarkdownRoundTrip(model: SpecModel): void {
   _check('md.parse.reexport', actual === golden, _byteDiff('md.parse.reexport', actual, golden));
 }
 
-// Markdown/YAML convergence: parsing `expected.tomspecs.md` and applying it must
-// reproduce `state.json` (the YAML-route memory) exactly, proving both formats
-// converge on one in-memory document (SOM §8).
+// Markdown/YAML convergence: parsing either golden (`expected.tables.md`,
+// `expected.tomspecs.md`) and applying it must reproduce `state.json` (the
+// YAML-route memory) exactly, proving both formats converge on one in-memory
+// document (SOM §8).
 function testMarkdownMemoryLanding(model: SpecModel): void {
-  const golden = _read('expected.tomspecs.md');
   const canonical = _readJson('state.json');
-  const imported = SpecDocument.fromMarkdown(golden, model);
-  _check(
-    'md.land.clean',
-    imported.rejections.length === 0,
-    imported.rejections.map((r) => String(r)).join('; '),
-  );
-  const landed = imported.document;
-  _check(
-    'md.land.memory',
-    _deepEqual(landed.toJson(), canonical),
-    _jsonMismatch(landed.toJson(), canonical),
-  );
+  for (const [label, file] of [
+    ['tables', 'expected.tables.md'],
+    ['fields', 'expected.tomspecs.md'],
+  ]) {
+    const imported = SpecDocument.fromMarkdown(_read(file), model);
+    _check(
+      `md.land.${label}.clean`,
+      imported.rejections.length === 0,
+      imported.rejections.map((r) => String(r)).join('; '),
+    );
+    const landed = imported.document;
+    _check(
+      `md.land.${label}.memory`,
+      _deepEqual(landed.toJson(), canonical),
+      _jsonMismatch(landed.toJson(), canonical),
+    );
+  }
 }
 
 // One `markdown_apply_cases.json` case, run exactly as the Dart reference
@@ -952,15 +1001,16 @@ function testAnswers(model: SpecModel): void {
     const name = `answers[${c.name}]`;
     try {
       const got = _runAnswerCase(model, c);
+      const want = _expectFor(c);
       _check(
         `${name}.extracts`,
-        _deepEqual(got.extracts, c.expect.extracts),
-        _jsonMismatch(got.extracts, c.expect.extracts),
+        _deepEqual(got.extracts, want.extracts),
+        _jsonMismatch(got.extracts, want.extracts),
       );
       _check(
         `${name}.markdown`,
-        got.markdown === c.expect.markdown,
-        _byteDiff(name, got.markdown, c.expect.markdown),
+        got.markdown === want.markdown,
+        _byteDiff(name, got.markdown, want.markdown),
       );
     } catch (e) {
       _check(name, false, `threw ${String(e)}`);
@@ -2753,7 +2803,7 @@ function testCodeSpecsGate(meta: any): void {
           })),
         })),
       };
-      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+      _check(name, _deepEqual(got, _expectFor(c)), _jsonMismatch(got, _expectFor(c)));
     } catch (e) {
       _check(name, false, `threw ${String(e)}`);
     }
@@ -2775,6 +2825,7 @@ export function main(): number {
   testYamlDecodeRoundTrip(tree);
   testYamlReview(model, tree);
   testMarkdownExport(model);
+  testMarkdownFieldsGolden(model);
   testMarkdownRoundTrip(model);
   testMarkdownMemoryLanding(model);
   testMarkdownImportRejections(model);

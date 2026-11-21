@@ -169,12 +169,18 @@ void main() {
       'headings carry the id as a headline comment plus a readable title',
       () {
         final md = _export(_populated());
-        expect(md, contains('# <!--[D00]--> Demo Document'));
-        expect(md, contains('## <!--[D00-OVR]--> Overview'));
-        expect(md, contains('## <!--[D00-ST]--> Status'));
-        expect(md, contains('## <!--[D00-HDR]--> Header'));
-        expect(md, contains('## <!--[D00-MET]--> Meta'));
-        expect(md, contains('### <!--[D00-MET-NOTE]--> Note'));
+        expect(md, contains('# <!--[D00]--> <a id="D00"></a> Demo Document'));
+        expect(
+          md,
+          contains('## <!--[D00-OVR]--> <a id="D00-OVR"></a> Overview'),
+        );
+        expect(md, contains('## <!--[D00-ST]--> <a id="D00-ST"></a> Status'));
+        expect(md, contains('## <!--[D00-HDR]--> <a id="D00-HDR"></a> Header'));
+        expect(md, contains('## <!--[D00-MET]--> <a id="D00-MET"></a> Meta'));
+        expect(
+          md,
+          contains('### <!--[D00-MET-NOTE]--> <a id="D00-MET-NOTE"></a> Note'),
+        );
       },
     );
 
@@ -192,9 +198,9 @@ void main() {
       },
     );
 
-    test('form sections use FieldName: value plain-text lines, sparse', () {
+    test('form sections use form-table rows, sparse', () {
       final md = _export(_populated());
-      expect(md, contains('Author: Ada Lovelace'));
+      expect(md, contains('| Author | Ada Lovelace |'));
       // Empty fields (the reviewer form field) are not emitted.
       expect(md, isNot(contains('Reviewer')));
     });
@@ -205,10 +211,19 @@ void main() {
         final md = _export(_populated());
         // The list container heads (SOM §11.2): `D00-ITM` at the owner's child
         // level, its numbered items one level below it, item fields one deeper.
-        expect(md, contains('## <!--[D00-ITM]--> Items'));
-        expect(md, contains('### <!--[items-1]--> Demo Item 1'));
-        expect(md, contains('### <!--[items-2]--> Demo Item 2'));
-        expect(md, contains('#### <!--[D01-LBL]--> Label'));
+        expect(md, contains('## <!--[D00-ITM]--> <a id="D00-ITM"></a> Items'));
+        expect(
+          md,
+          contains('### <!--[items-1]--> <a id="items-1"></a> Demo Item 1'),
+        );
+        expect(
+          md,
+          contains('### <!--[items-2]--> <a id="items-2"></a> Demo Item 2'),
+        );
+        expect(
+          md,
+          contains('#### <!--[D01-LBL]--> <a id="D01-LBL"></a> Label'),
+        );
       },
     );
 
@@ -216,11 +231,20 @@ void main() {
         'the String element type (YRC5)', () {
       final md = _export(_populated());
       // The `-LST` container heading uses the Title-Cased member name.
-      expect(md, contains('## <!--[D00-TAG-LST]--> Tags'));
+      expect(
+        md,
+        contains('## <!--[D00-TAG-LST]--> <a id="D00-TAG-LST"></a> Tags'),
+      );
       // Item stem is the field name ("Tags N"), never the element `typeName`
       // ("String N") — the shape-6 heading defect this change fixes.
-      expect(md, contains('### <!--[D00-TAG-1]--> Tags 1'));
-      expect(md, contains('### <!--[D00-TAG-2]--> Tags 2'));
+      expect(
+        md,
+        contains('### <!--[D00-TAG-1]--> <a id="D00-TAG-1"></a> Tags 1'),
+      );
+      expect(
+        md,
+        contains('### <!--[D00-TAG-2]--> <a id="D00-TAG-2"></a> Tags 2'),
+      );
       expect(md, isNot(contains('String 1')));
       expect(md, isNot(contains('String 2')));
       // The scalar item values render as the item body.
@@ -245,8 +269,11 @@ void main() {
       // YRD3: the stored id (`D01-CUSTOM` — an override, or equally an AA1
       // generated id) is the md heading id; the anonymous positional id is
       // only the fallback for items WITHOUT a stored id.
-      expect(md, contains('## <!--[D00-ITM]--> Items'));
-      expect(md, contains('### <!--[D01-CUSTOM]--> Demo Item 1'));
+      expect(md, contains('## <!--[D00-ITM]--> <a id="D00-ITM"></a> Items'));
+      expect(
+        md,
+        contains('### <!--[D01-CUSTOM]--> <a id="D01-CUSTOM"></a> Demo Item 1'),
+      );
       expect(md, isNot(contains('items-1')));
     });
 
@@ -480,23 +507,24 @@ void main() {
   });
 
   group('form field separation (SOM §11.4 rule 2)', () {
-    test('consecutive form fields are separated by one blank line', () {
+    test('consecutive cell values are rows of one form table', () {
       final doc = SpecDocument()
         ..setFormField('D00/D00-HDR', 'author', 'Ada Lovelace')
         ..setFormField('D00/D00-HDR', 'reviewer', 'Grace Hopper');
       expect(
         _export(doc),
         contains(
-          '## <!--[D00-HDR]--> Header\n\n'
-          'Author: Ada Lovelace\n\nReviewer: Grace Hopper\n\n',
+          '## <!--[D00-HDR]--> <a id="D00-HDR"></a> Header\n\n'
+          '| TomSpecField | Value |\n| --- | --- |\n'
+          '| Author | Ada Lovelace |\n| Reviewer | Grace Hopper |\n\n',
         ),
       );
     });
 
     test('a single field has no separator of its own', () {
       final md = _export(_populated());
-      expect(md, contains('Author: Ada Lovelace\n\n## '));
-      expect(md, isNot(contains('Author: Ada Lovelace\n\n\n')));
+      expect(md, contains('| Author | Ada Lovelace |\n\n## '));
+      expect(md, isNot(contains('| Author | Ada Lovelace |\n\n\n')));
     });
 
     test('a markdown list ending a value round-trips, separator and all', () {
@@ -514,7 +542,8 @@ void main() {
         md1,
         contains(
           'Author: Ada Lovelace\n- first analyst\n'
-          '- Reviewer: a list item, not the field\n\nReviewer: Grace Hopper\n',
+          '- Reviewer: a list item, not the field\n\n'
+          '| TomSpecField | Value |\n| --- | --- |\n| Reviewer | Grace Hopper |\n',
         ),
       );
 
@@ -535,7 +564,8 @@ void main() {
       expect(
         md1,
         contains(
-          'Author: Ada Lovelace\n\nsecond paragraph\n\nReviewer: Grace Hopper\n',
+          'Author: Ada Lovelace\n\nsecond paragraph\n\n'
+          '| TomSpecField | Value |\n| --- | --- |\n| Reviewer | Grace Hopper |\n',
         ),
       );
       final (reloaded, report) = _reload(md1);
@@ -545,7 +575,7 @@ void main() {
     });
 
     test('the legacy layout (no blank line between fields) still parses, and '
-        're-emits in the separated layout', () {
+        're-emits in the table layout', () {
       const legacy =
           '# <!--[D00]--> Demo Document\n\n'
           '## <!--[D00-HDR]--> Header\n\n'
@@ -562,7 +592,8 @@ void main() {
       expect(
         _export(reloaded),
         contains(
-          'Author: Ada Lovelace\n- first analyst\n\nReviewer: Grace Hopper\n',
+          'Author: Ada Lovelace\n- first analyst\n\n'
+          '| TomSpecField | Value |\n| --- | --- |\n| Reviewer | Grace Hopper |\n',
         ),
       );
     });
@@ -585,14 +616,16 @@ void main() {
     );
 
     test(
-      'the preamble is emitted above the field lines, blank-line separated',
+      'the preamble is emitted above the form table, blank-line separated',
       () {
         final doc = SpecDocument()
           ..setContent('D00/D00-HDR', 'why this header exists')
           ..setFormField('D00/D00-HDR', 'author', 'Ada Lovelace');
         expect(
           _export(doc),
-          contains('why this header exists\n\nAuthor: Ada Lovelace\n'),
+          contains(
+            'why this header exists\n\n| TomSpecField | Value |\n| --- | --- |\n| Author | Ada Lovelace |\n',
+          ),
         );
       },
     );
@@ -1016,18 +1049,30 @@ document:
 
     test('@Headline default renders instead of the derived member title', () {
       final md = export(populated());
-      expect(md, contains('## <!--[H00-OVR]--> Executive Overview'));
+      expect(
+        md,
+        contains('## <!--[H00-OVR]--> <a id="H00-OVR"></a> Executive Overview'),
+      );
       // Unannotated sibling keeps the titleCase(memberName) derivation.
-      expect(md, contains('## <!--[H00-PLN]--> Plain'));
+      expect(md, contains('## <!--[H00-PLN]--> <a id="H00-PLN"></a> Plain'));
       // List container + element-class @Headline drive container and stem.
-      expect(md, contains('## <!--[H00-ITM]--> Tracked Items'));
-      expect(md, contains('### <!--[items-1]--> Work Item 1'));
+      expect(
+        md,
+        contains('## <!--[H00-ITM]--> <a id="H00-ITM"></a> Tracked Items'),
+      );
+      expect(
+        md,
+        contains('### <!--[items-1]--> <a id="items-1"></a> Work Item 1'),
+      );
     });
 
     test('a stored headline wins over the @Headline default', () {
       final doc = populated()..setHeadline('H00/H00-OVR', 'Custom Overview');
       final md = export(doc);
-      expect(md, contains('## <!--[H00-OVR]--> Custom Overview'));
+      expect(
+        md,
+        contains('## <!--[H00-OVR]--> <a id="H00-OVR"></a> Custom Overview'),
+      );
       expect(md, isNot(contains('Executive Overview')));
     });
 
@@ -1039,8 +1084,8 @@ document:
       expect(report.headlines, isEmpty, reason: report.headlines.toString());
       // A custom title in the md IS staged as a stored headline.
       final custom = md.replaceFirst(
-        '## <!--[H00-OVR]--> Executive Overview',
-        '## <!--[H00-OVR]--> Renamed Overview',
+        '## <!--[H00-OVR]--> <a id="H00-OVR"></a> Executive Overview',
+        '## <!--[H00-OVR]--> <a id="H00-OVR"></a> Renamed Overview',
       );
       final report2 = SpecDocumentMarkdown(
         model(),
@@ -1071,11 +1116,11 @@ document:
         md,
         contains(
           '## <!--[H00-OVR] codeSpec="CsOrder,CsOrder.total,'
-          'CsOrderRepository"--> Executive Overview',
+          'CsOrderRepository"--> <a id="H00-OVR"></a> Executive Overview',
         ),
       );
       // Untouched sections stay byte-stable (no empty codeSpec attribute).
-      expect(md, contains('## <!--[H00-PLN]--> Plain'));
+      expect(md, contains('## <!--[H00-PLN]--> <a id="H00-PLN"></a> Plain'));
     });
 
     test('csmb1: codeSpec is parsed back out of the headline comment', () {

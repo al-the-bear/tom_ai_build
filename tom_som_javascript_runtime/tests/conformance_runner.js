@@ -382,15 +382,21 @@ function testYamlDecodeRoundTrip(tree) {
   _check('yaml.decode.reencode', actual === expected, _byteDiff('yaml.decode.reencode', actual, expected));
 }
 
+// The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
+// Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
+// The reading view's parity audit (05a_rdv4_akpu-runtime-parity-audit) brings this runtime to tables.
+const EMITTED_LAYOUT = 'fields';
+const EXPORT_GOLDEN = 'expected.tomspecs.md';
+
 function testMarkdownExport(model) {
   const doc = _documentFromState(_readJson('state.json'));
-  const expected = _read('expected.tomspecs.md');
+  const expected = _read(EXPORT_GOLDEN);
   const actual = new SpecDocumentMarkdown(model, doc).exportRoot(model.roots[0]);
   _check('md.export', actual === expected, _byteDiff('md.export', actual, expected));
 }
 
 function testMarkdownRoundTrip(model) {
-  const golden = _read('expected.tomspecs.md');
+  const golden = _read(EXPORT_GOLDEN);
   const doc = _documentFromState(_readJson('state.json'));
   const parsed = new SpecDocumentMarkdown(model, doc).parse(golden);
   _check(
@@ -425,7 +431,7 @@ function testMarkdownRoundTrip(model) {
 // reproduce `state.json` (the YAML-route memory) exactly, proving both formats
 // converge on one in-memory document (SOM §8).
 function testMarkdownMemoryLanding(model) {
-  const golden = _read('expected.tomspecs.md');
+  const golden = _read(EXPORT_GOLDEN);
   const canonical = _readJson('state.json');
   const imported = SpecDocument.fromMarkdown(golden, model);
   _check(

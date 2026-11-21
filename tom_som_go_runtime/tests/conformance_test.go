@@ -601,11 +601,19 @@ func typedReview(v interface{}) interface{} {
 
 // --- markdown conformance (SOM §11) -----------------------------------------
 
+// The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
+// Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
+// The reading view's parity audit (05a_rdv4_akpu-runtime-parity-audit) brings this runtime to tables.
+const (
+	emittedLayout = "fields"
+	exportGolden  = "expected.tomspecs.md"
+)
+
 func testMarkdownExport(c *checker, t *testing.T, model *som.SpecModel) {
 	var state som.DocumentJson
 	readJSON(t, "state.json", &state)
 	doc := docFromState(&state)
-	expected := readCorpus(t, "expected.tomspecs.md")
+	expected := readCorpus(t, exportGolden)
 	actual, err := som.NewSpecDocumentMarkdown(model, doc).ExportRoot(model.Roots[0])
 	if err != nil {
 		c.check("md.export", false, err.Error())
@@ -615,7 +623,7 @@ func testMarkdownExport(c *checker, t *testing.T, model *som.SpecModel) {
 }
 
 func testMarkdownRoundTrip(c *checker, t *testing.T, model *som.SpecModel) {
-	golden := readCorpus(t, "expected.tomspecs.md")
+	golden := readCorpus(t, exportGolden)
 	var state som.DocumentJson
 	readJSON(t, "state.json", &state)
 	doc := docFromState(&state)
@@ -649,7 +657,7 @@ func testMarkdownRoundTrip(c *checker, t *testing.T, model *som.SpecModel) {
 // reproduce `state.json` (the YAML-route memory) exactly, proving both formats
 // converge on one in-memory document (SOM §8).
 func testMarkdownMemoryLanding(c *checker, t *testing.T, model *som.SpecModel) {
-	golden := readCorpus(t, "expected.tomspecs.md")
+	golden := readCorpus(t, exportGolden)
 	var canonical som.DocumentJson
 	readJSON(t, "state.json", &canonical)
 	imported, err := som.SpecDocumentFromMarkdown(golden, model)

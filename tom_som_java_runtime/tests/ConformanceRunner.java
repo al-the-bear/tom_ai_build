@@ -806,9 +806,15 @@ public final class ConformanceRunner {
 
   // --- markdown conformance (SOM §11) -------------------------------------
 
+  // The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
+  // Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
+  // The reading view's parity audit (05a_rdv4_akpu-runtime-parity-audit) brings this runtime to tables.
+  static final String EMITTED_LAYOUT = "fields";
+  static final String EXPORT_GOLDEN = "expected.tomspecs.md";
+
   private static void testMarkdownExport(SpecModel model) throws IOException {
     SpecDocument doc = documentFromState(readJsonObject("state.json"));
-    String expected = read("expected.tomspecs.md");
+    String expected = read(EXPORT_GOLDEN);
     String actual;
     try {
       actual = new SpecDocumentMarkdown(model, doc).exportRoot(model.roots.get(0));
@@ -820,7 +826,7 @@ public final class ConformanceRunner {
   }
 
   private static void testMarkdownRoundTrip(SpecModel model) throws IOException {
-    String golden = read("expected.tomspecs.md");
+    String golden = read(EXPORT_GOLDEN);
     SpecDocument doc = documentFromState(readJsonObject("state.json"));
     SpecMarkdownResult parsed = new SpecDocumentMarkdown(model, doc).parse(golden);
     check("md.parse.clean", parsed.rejections.isEmpty(), rejDetail(parsed));
@@ -851,7 +857,7 @@ public final class ConformanceRunner {
    * formats converge on one in-memory document (SOM §8).
    */
   private static void testMarkdownMemoryLanding(SpecModel model) throws IOException {
-    String golden = read("expected.tomspecs.md");
+    String golden = read(EXPORT_GOLDEN);
     Map<String, Object> canonical = readJsonObject("state.json");
     SpecMarkdownImport imported = SpecDocument.fromMarkdown(golden, model);
     check("md.land.clean", imported.rejections().isEmpty(), rejDetail(imported.result));

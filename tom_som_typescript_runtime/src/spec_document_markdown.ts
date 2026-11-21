@@ -272,6 +272,38 @@ const _LINK_CELL = /^\[[^\]]+\]\([^)]*\)(, \[[^\]]+\]\([^)]*\))*$/;
 const _LINK_TEXT = /\[([^\]]+)\]\([^)]*\)/;
 const _LIST_DIV_OPEN = /^:{3,}\s*(?:\{\.(refs|records)\}|(refs|records))\s*$/;
 const _DIV_CLOSE = /^:{3,}\s*$/;
+// A section id as a reference holds it: upper-case segments joined by `-`.
+const _ID_SHAPE = /^[A-Z][A-Z0-9]*(-[A-Z0-9]+)*$/;
+// A one-line value that Markdown reads as a block: a list item, a block quote
+// (review comment and question blocks among them), a fence or a fenced div. A
+// table needs two lines, so it is caught by the line break.
+const _BLOCK_START = /^\s*([-*+]\s|\d+[.)]\s|>|```|~~~|:::)/;
+
+/** Every stored key at or below `prefix` in `keys`. */
+function _under(keys: Iterable<string>, prefix: string): string[] {
+  const out: string[] = [];
+  for (const k of keys) {
+    if (k === prefix || k.startsWith(`${prefix}/`)) {
+      out.push(k);
+    }
+  }
+  return out;
+}
+
+/** Options of {@link SpecDocumentMarkdown}. */
+export interface SpecDocumentMarkdownOptions {
+  /**
+   * The stem of the document set's file names (`tom_uam` of
+   * `tom_uam.rsp.tomspecs.md`); absent writes `<root id>.tomspecs.md`.
+   */
+  fileStem?: string | null;
+  /**
+   * File names for roots that do not follow the
+   * `<fileStem>.<root id>.tomspecs.md` convention, keyed by the root's section
+   * id or type.
+   */
+  documentFiles?: Record<string, string>;
+}
 
 /**
  * Whether a code field's `value` is written as an inline code span: it is
@@ -365,9 +397,36 @@ export class SpecDocumentMarkdown {
   private static _unitsPattern =
     /(?:^|\s)units=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))/;
 
-  constructor(model: SpecModel, document: SpecDocument) {
+  /** See {@link SpecDocumentMarkdownOptions.fileStem}. */
+  readonly fileStem: string | null;
+  /** See {@link SpecDocumentMarkdownOptions.documentFiles}. */
+  readonly documentFiles: Record<string, string>;
+  /** The root the current export renders (the target of same-document links). */
+  private _currentRoot: import('./spec_model').SpecRoot | null = null;
+
+  /**
+   * The emitter writes the reading-view layout (SOM §11.4, §11.5): form tables
+   * between `Field:` paragraphs, reference lines, record tables, section
+   * tables and an HTML anchor in every heading. {@link parse} reads it and the
+   * older layout of `Field:` lines alike.
+   *
+   * `options.fileStem` and `options.documentFiles` name the files
+   * cross-document reference links point at: a root's rendition is
+   * `<fileStem>.<root id in lower case>.tomspecs.md` unless `documentFiles`
+   * maps the root (by section id or type) to another file name.
+   */
+  constructor(
+    model: SpecModel,
+    document: SpecDocument,
+    options: SpecDocumentMarkdownOptions = {},
+  ) {
     this.model = model;
     this.document = document;
+    this.fileStem =
+      options.fileStem !== undefined && options.fileStem !== null
+        ? options.fileStem
+        : null;
+    this.documentFiles = options.documentFiles || {};
   }
 
   /**
@@ -660,6 +719,7 @@ export class SpecDocumentMarkdown {
   private _headingPaths: string[] = [];
 
   private _exportRoot(root: import('./spec_model').SpecRoot): string {
+    this._currentRoot = root;
     const tree = this._treeFor(root.type);
     const node = tree.root;
     const b = new _Buffer();
@@ -853,7 +913,9 @@ export class SpecDocumentMarkdown {
           this.document.units(path),
         );
         this._writeSectionBody(b, child, path);
-        this._writeChildren(b, child, path, depth + 1);
+        if (!this._writeSectionTable(b, child, path)) {
+          this._writeChildren(b, child, path, depth + 1);
+        }
       } else if (kind === SomMetaKind.LIST) {
         this._writeListItems(b, child, path, depth);
       }
@@ -900,6 +962,12 @@ export class SpecDocumentMarkdown {
         ? element.sectionIdPattern
         : null) ||
       null;
+    if (
+      this._writeReferenceLine(b, node, items, pattern) ||
+      this._writeRecordTable(b, node, items, pattern)
+    ) {
+      return;
+    }
     for (let i = 0; i < items.length; i++) {
       const itemPath = items[i];
       const pos = i + 1;
@@ -928,11 +996,421 @@ export class SpecDocumentMarkdown {
         this._writeBody(b, this.document.content(itemPath) || '', itemPath);
       } else {
         this._writeSectionBody(b, element, itemPath);
-        if (!element.recursive) {
+        if (
+          !element.recursive &&
+          !this._writeSectionTable(b, element, itemPath)
+        ) {
           this._writeChildren(b, element, itemPath, depth + 2);
         }
       }
     }
+  }
+
+  // --- Reading view: reference lines, record tables, section tables --------
+
+  private _hasKeys(path: string): boolean {
+    const codeSpec = this.document.codeSpec(path);
+    const units = this.document.units(path);
+    return (
+      (codeSpec !== null && codeSpec !== undefined && codeSpec !== '') ||
+      (units !== null && units !== undefined && units !== '')
+    );
+  }
+
+  /**
+   * The id of item `pos` (1-based) of `node` at `itemPath`, as its heading
+   * carries it.
+   */
+  private _itemId(
+    node: SomMetaNode,
+    itemPath: string,
+    pos: number,
+    pattern: string | null,
+  ): string {
+    return effectiveListItemSectionId(
+      this.document.itemSectionId(itemPath),
+      pattern,
+      pos,
+      node.memberName || node.segment,
+    );
+  }
+
+  /**
+   * Whether the item at `itemPath` holds values only in its form at
+   * `formPath`, all of them table cells: no preamble, no other content, form
+   * or list, no `codeSpec` / `units`, no headline other than the item's own
+   * when `allowHeadline`.
+   */
+  private _isFormOnlyItem(
+    form: SomMetaNode,
+    itemPath: string,
+    formPath: string,
+    allowHeadline: boolean,
+  ): boolean {
+    const doc = this.document;
+    if (_under(doc.contentPaths, itemPath).length > 0) return false;
+    if (_under(doc.listPaths, itemPath).length > 0) return false;
+    if (_under(doc.unitsPaths, itemPath).length > 0) return false;
+    if (_under(doc.formPaths, itemPath).some((k) => k !== formPath)) {
+      return false;
+    }
+    for (const h of _under(doc.headlinePaths, itemPath)) {
+      if (!allowHeadline || h !== itemPath) return false;
+    }
+    if (this._hasKeys(itemPath) || this._hasKeys(formPath)) return false;
+    if (this._undeclaredFormFields(form, formPath).length > 0) return false;
+    let any = false;
+    for (const f of form.form !== null && form.form !== undefined
+      ? form.form.fields
+      : []) {
+      const value = doc.formField(formPath, f.name);
+      if (value === null) continue;
+      if (!SpecDocumentMarkdown._isCellValue(f, value)) return false;
+      any = true;
+    }
+    return any;
+  }
+
+  /**
+   * A list whose every item holds only one reference id becomes one `refs`
+   * div of links in list order (BP-11). All or nothing; returns whether it was
+   * written.
+   */
+  private _writeReferenceLine(
+    b: _Buffer,
+    node: SomMetaNode,
+    items: string[],
+    pattern: string | null,
+  ): boolean {
+    const element = node.elementNode;
+    if (element === null || element === undefined || element.recursive) {
+      return false;
+    }
+    let ref: _NodeRel | null = null;
+    for (const [child, rel] of this._effectiveChildren(element)) {
+      const fields =
+        child.form !== null && child.form !== undefined ? child.form.fields : [];
+      if (
+        child.kind === SomMetaKind.FORM &&
+        fields.length === 1 &&
+        fields[0].refersTo.length > 0 &&
+        child.extra.some((e) => e.annotation === 'Reference')
+      ) {
+        ref = [child, rel];
+        break;
+      }
+    }
+    if (ref === null) return false;
+    const field = ref[0].form!.fields[0];
+    const doc = this.document;
+    const links: string[] = [];
+    for (let i = 0; i < items.length; i++) {
+      const itemPath = items[i];
+      const refPath = `${itemPath}/${ref[1]}`;
+      const stored = doc.itemSectionId(itemPath);
+      const positional = effectiveListItemSectionId(
+        null,
+        pattern,
+        i + 1,
+        node.memberName || node.segment,
+      );
+      if (stored !== null && stored !== undefined && stored !== positional) {
+        return false;
+      }
+      if (
+        _under(doc.contentPaths, itemPath).length > 0 ||
+        _under(doc.listPaths, itemPath).length > 0 ||
+        _under(doc.unitsPaths, itemPath).length > 0 ||
+        _under(doc.headlinePaths, itemPath).length > 0 ||
+        _under(doc.formPaths, itemPath).some((k) => k !== refPath) ||
+        this._hasKeys(itemPath) ||
+        this._hasKeys(refPath)
+      ) {
+        return false;
+      }
+      const names = [...doc.formFieldNames(refPath)];
+      if (names.length !== 1 || names[0] !== field.name) return false;
+      const id = (doc.formField(refPath, field.name) || '').trim();
+      if (!_ID_SHAPE.test(id)) return false;
+      links.push(this._link(field, id) || id);
+    }
+    b.writeln('::: {.refs}');
+    b.writeln(links.join(', '));
+    b.writeln(':::');
+    b.writeln();
+    return true;
+  }
+
+  /**
+   * A list whose every item is one form of table cells becomes a `records`
+   * div with one table: `Id` (with its anchor), `Title` when any item has a
+   * stored headline, one column per declared field any item populates
+   * (BP-11). All or nothing; returns whether it was written.
+   */
+  private _writeRecordTable(
+    b: _Buffer,
+    node: SomMetaNode,
+    items: string[],
+    pattern: string | null,
+  ): boolean {
+    const element = node.elementNode;
+    if (element === null || element === undefined || element.recursive) {
+      return false;
+    }
+    const formSlot = this._itemForm(element);
+    if (formSlot === null) return false;
+    const [form, rel] = formSlot;
+    for (const itemPath of items) {
+      if (!this._isFormOnlyItem(form, itemPath, `${itemPath}/${rel}`, true)) {
+        return false;
+      }
+    }
+    const doc = this.document;
+    const declared =
+      form.form !== null && form.form !== undefined ? form.form.fields : [];
+    const columns = declared.filter((f) =>
+      items.some((i) => doc.formField(`${i}/${rel}`, f.name) !== null),
+    );
+    const withTitle = items.some((i) => doc.headline(i) !== null);
+    const header = [
+      'Id',
+      ...(withTitle ? ['Title'] : []),
+      ...columns.map((f) => SpecDocumentMarkdown.formLabel(f.name)),
+    ];
+    b.writeln('::: {.records}');
+    b.writeln(`| ${header.join(' | ')} |`);
+    b.writeln(`| ${header.map(() => '---').join(' | ')} |`);
+    for (let i = 0; i < items.length; i++) {
+      const itemPath = items[i];
+      const id = this._itemId(node, itemPath, i + 1, pattern);
+      const cells = [`<a id="${id}"></a>${id}`];
+      if (withTitle) {
+        cells.push(
+          (doc.headline(itemPath) || '')
+            .replace(/\n/g, '<br>')
+            .replace(/\|/g, '\\|'),
+        );
+      }
+      for (const f of columns) {
+        const v = doc.formField(`${itemPath}/${rel}`, f.name);
+        cells.push(v === null ? '' : this._linkedCellText(f, v));
+      }
+      b.writeln(`| ${cells.join(' | ')} |`);
+    }
+    b.writeln(':::');
+    b.writeln();
+    return true;
+  }
+
+  /**
+   * A section whose populated children are all single forms of table cells
+   * with default headlines (or lists of such single-form items) becomes one
+   * `| Section | TomSpecField | Value |` table after its own body; the
+   * children's headings are not written (DP-part-renditions-4). All or
+   * nothing; returns whether it was written.
+   */
+  private _writeSectionTable(
+    b: _Buffer,
+    node: SomMetaNode,
+    path: string,
+  ): boolean {
+    const doc = this.document;
+    const rows: string[] = [];
+    let children = 0;
+    const addRows = (
+      sectionCell: string,
+      form: SomMetaNode,
+      formPath: string,
+    ): void => {
+      let first = true;
+      for (const f of form.form !== null && form.form !== undefined
+        ? form.form.fields
+        : []) {
+        const value = doc.formField(formPath, f.name);
+        if (value === null) continue;
+        rows.push(
+          `| ${first ? sectionCell : ''} | ` +
+            `${SpecDocumentMarkdown.formLabel(f.name)} | ` +
+            `${this._linkedCellText(f, value)} |`,
+        );
+        first = false;
+      }
+    };
+
+    for (const [child, rel] of this._effectiveChildren(node)) {
+      const childPath = `${path}/${rel}`;
+      if (!doc.hasValuesUnder(childPath)) continue;
+      children++;
+      const childId = this._headingIdOf(child);
+      if (child.kind === SomMetaKind.FORM) {
+        if (!this._isFormOnlyItem(child, childPath, childPath, false)) {
+          return false;
+        }
+        addRows(`<a id="${childId}"></a>${childId}`, child, childPath);
+      } else if (child.kind === SomMetaKind.LIST) {
+        const element = child.elementNode;
+        if (element === null || element === undefined || element.recursive) {
+          return false;
+        }
+        if (doc.headline(childPath) !== null || this._hasKeys(childPath)) {
+          return false;
+        }
+        const formSlot = this._itemForm(element);
+        if (formSlot === null) return false;
+        const [form, rel2] = formSlot;
+        const items = doc.listItems(childPath);
+        const pattern = child.sectionIdPattern || element.sectionIdPattern || null;
+        for (let i = 0; i < items.length; i++) {
+          const itemPath = items[i];
+          if (
+            !this._isFormOnlyItem(form, itemPath, `${itemPath}/${rel2}`, false)
+          ) {
+            return false;
+          }
+          const itemId = this._itemId(child, itemPath, i + 1, pattern);
+          addRows(
+            `<a id="${itemId}"></a>${childId} / ${itemId}`,
+            form,
+            `${itemPath}/${rel2}`,
+          );
+        }
+      } else {
+        return false;
+      }
+    }
+    if (children === 0 || rows.length === 0) return false;
+    b.writeln('| Section | TomSpecField | Value |');
+    b.writeln('| --- | --- | --- |');
+    for (const row of rows) {
+      b.writeln(row);
+    }
+    b.writeln();
+    return true;
+  }
+
+  /**
+   * `value` as a table cell, every reference id of a `refersTo` field written
+   * as a link to its section (reading view, DI-14).
+   */
+  private _linkedCellText(f: SomFormFieldMeta, value: string): string {
+    if (f.refersTo.length === 0 || f.code) {
+      return SpecDocumentMarkdown._cellText(f, value);
+    }
+    const ids = value.split(',').map((v) => v.trim());
+    if (ids.length === 0 || !ids.every((id) => _ID_SHAPE.test(id))) {
+      return SpecDocumentMarkdown._cellText(f, value);
+    }
+    const links = ids.map((id) => this._link(f, id));
+    if (links.some((l) => l === null)) {
+      return SpecDocumentMarkdown._cellText(f, value);
+    }
+    return links.join(', ');
+  }
+
+  /**
+   * `[ID](<file>#ID)` for a reference id of form field `f`, `[ID](#ID)` when
+   * the target lives in the document being rendered; `null` when no target of
+   * `f` names a section id (`<SECTIONID>.@sectionId`), which has no anchor.
+   */
+  private _link(f: SomFormFieldMeta, id: string): string | null {
+    const classIds = f.refersTo
+      .filter((t) => t.endsWith('.@sectionId'))
+      .map((t) => t.substring(0, t.length - 11));
+    if (classIds.length === 0) return null;
+    const current = this._currentRoot;
+    for (const classId of classIds) {
+      const className = this._classBySectionId(classId);
+      if (
+        className !== null &&
+        current !== null &&
+        this._reachedBy(current).has(className)
+      ) {
+        return `[${id}](#${id})`;
+      }
+    }
+    const file = this._fileFor(this._classBySectionId(classIds[0]));
+    return file === null ? `[${id}](#${id})` : `[${id}](${file}#${id})`;
+  }
+
+  private _classBySectionId(sectionId: string): string | null {
+    for (const c of this.model.classes.values()) {
+      if (c.sectionId === sectionId) return c.name;
+    }
+    return null;
+  }
+
+  private _reach = new Map<string, Set<string>>();
+
+  /** The class names the meta tree of `root` reaches. */
+  private _reachedBy(root: import('./spec_model').SpecRoot): Set<string> {
+    let names = this._reach.get(root.type);
+    if (names !== undefined) return names;
+    const found = new Set<string>();
+    const walk = (n: SomMetaNode): void => {
+      found.add(n.className);
+      if (n.recursive) return;
+      for (const c of n.children) {
+        walk(c);
+      }
+      const e = n.elementNode;
+      if (e !== null && e !== undefined) walk(e);
+    };
+    walk(this._treeFor(root.type).root);
+    names = found;
+    this._reach.set(root.type, names);
+    return names;
+  }
+
+  /**
+   * The rendition file of the root a reference to `className` points into:
+   * the root other than the current one that reaches the class, the most
+   * specific (fewest classes) first, so a detailed document wins over a
+   * projection such as the Solution Blueprint.
+   */
+  private _fileFor(className: string | null): string | null {
+    if (className === null) return null;
+    const currentType =
+      this._currentRoot !== null ? this._currentRoot.type : null;
+    const candidates = this.model.roots
+      .filter(
+        (r) => r.type !== currentType && this._reachedBy(r).has(className),
+      )
+      .sort((a, b) => this._reachedBy(a).size - this._reachedBy(b).size);
+    if (candidates.length === 0) return null;
+    const root = candidates[0];
+    const id = root.sectionId !== null ? root.sectionId : root.type;
+    const mapped =
+      this.documentFiles[id] !== undefined
+        ? this.documentFiles[id]
+        : this.documentFiles[root.type];
+    if (mapped !== undefined) return mapped;
+    const stem = this.fileStem;
+    const name = `${id.toLowerCase()}.tomspecs.md`;
+    return stem === null || stem === '' ? name : `${stem}.${name}`;
+  }
+
+  /**
+   * Whether `value` of form field `f` is written as a table row (reading
+   * view, part *What the model says about reading*): not when the model flags
+   * the field `multiParagraph`, nor when the value holds a line break, is a
+   * block of Markdown, holds a backslash directly before `|`, or holds
+   * `<!--`. There is no length limit.
+   */
+  private static _isCellValue(f: SomFormFieldMeta, value: string): boolean {
+    if (f.multiParagraph) return false;
+    if (value.includes('\n') || value.includes('\\|')) return false;
+    if (value.includes('<!--')) return false;
+    return !_BLOCK_START.test(value);
+  }
+
+  /**
+   * The table cell for `value`: a `code: true` value as its inline code span,
+   * every `|` written `\|`.
+   */
+  private static _cellText(f: SomFormFieldMeta, value: string): string {
+    const text =
+      f.code && _isInlineCode(value) ? _encodeCodeSpan(value) : value;
+    return text.replace(/\|/g, '\\|');
   }
 
   /**
@@ -1005,40 +1483,49 @@ export class SpecDocumentMarkdown {
   }
 
   /**
-   * Writes a `@Form` section body: the preamble content (when set) followed by
-   * one `FieldName: value` group per populated field (SOM §11.4), consecutive
-   * groups separated by one blank line. Throws when the form holds a field the
-   * model does not declare.
+   * Writes a `@Form` section body (SOM §11.4): the preamble, then the
+   * declared fields in model order — each run of consecutive cell values one
+   * `| TomSpecField | Value |` table, each paragraph value a `Field:` group at
+   * its place (table – text – table). Groups are one blank line apart. A value
+   * line that would read as a table header is escaped by
+   * {@link _prepareValue}. Throws when the form holds a field the model does
+   * not declare.
    */
   private _writeForm(b: _Buffer, node: SomMetaNode, path: string): void {
     this._checkFormDeclared(node, path);
     const fields =
       node.form !== null && node.form !== undefined ? node.form.fields : [];
-    const fieldBuf = new _Buffer();
+    const groups: string[][] = [];
+    let table: string[] | null = null;
     for (const f of fields) {
       const value = this.document.formField(path, f.name);
       if (value === null) {
         continue;
       }
-      // SOM §11.4 rule 2: one blank line between consecutive field groups, so
-      // a markdown viewer renders each field as its own paragraph (and a list
-      // ending a value cannot swallow the next label as a lazy continuation).
-      // Parse trims each value's trailing blank lines, so it is lossless.
-      if (fieldBuf.toString() !== '') {
-        fieldBuf.writeln();
+      const label = SpecDocumentMarkdown.formLabel(f.name);
+      if (SpecDocumentMarkdown._isCellValue(f, value)) {
+        if (table === null) {
+          table = ['| TomSpecField | Value |', '| --- | --- |'];
+          groups.push(table);
+        }
+        table.push(`| ${label} | ${this._linkedCellText(f, value)} |`);
+        continue;
       }
+      table = null;
       // SOM §11.4 rule 8: a single-line code value is written as an inline
       // code span, so markdown leaves it literal (`](` is not a link).
       const lines =
         f.code && _isInlineCode(value)
           ? [_encodeCodeSpan(value)]
           : this._prepareValue(value, path).split('\n');
-      fieldBuf.writeln(`${SpecDocumentMarkdown.formLabel(f.name)}: ${lines[0]}`);
-      for (const line of lines.slice(1)) {
-        // SOM §11.4 generalised: any continuation line that could be mistaken
-        // for a field-label line gains one leading space; parse strips it.
-        fieldBuf.writeln(_LABEL_SHAPED.test(line) ? ` ${line}` : line);
-      }
+      groups.push([
+        `${label}: ${lines[0]}`,
+        // Any continuation line that could be mistaken for a field-label line
+        // gains one leading space; parse strips it.
+        ...lines
+          .slice(1)
+          .map((line) => (_LABEL_SHAPED.test(line) ? ` ${line}` : line)),
+      ]);
     }
 
     const preamble = this.document.content(path);
@@ -1051,12 +1538,19 @@ export class SpecDocumentMarkdown {
         for (const line of prepared.split('\n')) {
           b.writeln(_LABEL_SHAPED.test(line) ? ` ${line}` : line);
         }
-        if (fieldBuf.toString() !== '') {
+        if (groups.length > 0) {
           b.writeln();
         }
       }
     }
-    b.write(fieldBuf.toString());
+    for (let i = 0; i < groups.length; i++) {
+      if (i > 0) {
+        b.writeln();
+      }
+      for (const line of groups[i]) {
+        b.writeln(line);
+      }
+    }
     b.writeln();
   }
 
@@ -1090,8 +1584,11 @@ export class SpecDocumentMarkdown {
       code += ` units="${units}"`;
     }
     // A heading is one line: a stored headline's line breaks travel as `<br>`.
+    // Reading view (DI-3): the section id as an HTML anchor after the id
+    // comment and its keys, so `#<ID>` links jump in every viewer.
     b.writeln(
-      `${'#'.repeat(depth)} <!--[${id}]${code}--> ${title.replace(/\n/g, '<br>')}`,
+      `${'#'.repeat(depth)} <!--[${id}]${code}--> <a id="${id}"></a> ` +
+        title.replace(/\n/g, '<br>'),
     );
     b.writeln();
   }
