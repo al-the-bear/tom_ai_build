@@ -1,0 +1,1091 @@
+{
+  "description": "The merge back of an edited stripped rendition onto its document of record (SOM §11.10; the reading view's part *Stripped renditions and the merge back*). Maintained by hand. valueCases: `original` stripped with the switches (`drop`, `unmark`, `appendix`, `appendixReferences`), each `[find, replace]` of `edits` applied to the stripped text (each find occurs once), and `expect` the toJson of mergeStrippedValue(original, stripped, edited, pieces): `text` (null on a conflict), `restored` (pieces put back), `placed` (`at` in the merged text, `removed`) and `conflicts` (`code`, `removed`). documentCases: `state` stripped over the corpus model and schema with the switches and `source` into a readable rendition, the `edits` applied to it, and SpecStripMerge.merge of that onto `current` (else `state`) with `currentRevision`, `options` (switches given beside the header), `base` (given by hand) and `commits` (what the header's commit loads); `expect` is `exitCode`, `stale`, the merged `document` (null when nothing may be written) and the `report` lines, or `error` for a usage error.",
+  "valueCases": [
+    {
+      "name": "an unchanged value",
+      "original": "Rule [because of the law]{.aside} applies (-> C2.1).",
+      "drop": [
+        "aside",
+        "trace"
+      ],
+      "edits": [],
+      "expect": {
+        "text": "Rule [because of the law]{.aside} applies (-> C2.1).",
+        "restored": 2,
+        "placed": [],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "an edit away from every anchor",
+      "original": "First sentence. Second (-> C2.1) part.",
+      "drop": [
+        "trace"
+      ],
+      "edits": [
+        [
+          "First",
+          "Initial"
+        ]
+      ],
+      "expect": {
+        "text": "Initial sentence. Second (-> C2.1) part.",
+        "restored": 1,
+        "placed": [],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "an edit next to a span anchor is placed after the edited run",
+      "original": "The rate is high (-> C2.1).",
+      "drop": [
+        "trace"
+      ],
+      "edits": [
+        [
+          "high",
+          "rising"
+        ]
+      ],
+      "expect": {
+        "text": "The rate is rising (-> C2.1).",
+        "restored": 1,
+        "placed": [
+          {
+            "at": 18,
+            "removed": " (-> C2.1)"
+          }
+        ],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "an insertion before a span anchor leaves its neighbours unchanged",
+      "original": "The rate is high (-> C2.1).",
+      "drop": [
+        "trace"
+      ],
+      "edits": [
+        [
+          "high",
+          "very high"
+        ]
+      ],
+      "expect": {
+        "text": "The rate is very high (-> C2.1).",
+        "restored": 1,
+        "placed": [],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "an edit inside an unmarked range",
+      "original": "A [quick brown]{.aside} fox.",
+      "unmark": [
+        "aside"
+      ],
+      "edits": [
+        [
+          "brown",
+          "red"
+        ]
+      ],
+      "expect": {
+        "text": "A [quick red]{.aside} fox.",
+        "restored": 2,
+        "placed": [],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "an unmarked range rewritten whole stays wrapped",
+      "original": "A [quick brown]{.aside} fox.",
+      "unmark": [
+        "aside"
+      ],
+      "edits": [
+        [
+          "quick brown",
+          "slow"
+        ]
+      ],
+      "expect": {
+        "text": "A [slow]{.aside} fox.",
+        "restored": 2,
+        "placed": [],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "the first word of an unmarked range deleted",
+      "original": "A [quick brown]{.aside} fox.",
+      "unmark": [
+        "aside"
+      ],
+      "edits": [
+        [
+          "quick ",
+          ""
+        ]
+      ],
+      "expect": {
+        "text": "A [brown]{.aside} fox.",
+        "restored": 2,
+        "placed": [],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "the last word of an unmarked range deleted",
+      "original": "A [quick brown]{.aside} fox.",
+      "unmark": [
+        "aside"
+      ],
+      "edits": [
+        [
+          " brown",
+          ""
+        ]
+      ],
+      "expect": {
+        "text": "A [quick]{.aside} fox.",
+        "restored": 2,
+        "placed": [],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "an insertion at the end of an unmarked range goes inside it",
+      "original": "A [quick]{.aside} fox.",
+      "unmark": [
+        "aside"
+      ],
+      "edits": [
+        [
+          "quick",
+          "quick brown"
+        ]
+      ],
+      "expect": {
+        "text": "A [quick brown]{.aside} fox.",
+        "restored": 2,
+        "placed": [],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "an edit crossing an unmarked boundary is a conflict",
+      "original": "A [quick brown]{.aside} fox jumps.",
+      "unmark": [
+        "aside"
+      ],
+      "edits": [
+        [
+          "brown fox",
+          "animal"
+        ]
+      ],
+      "expect": {
+        "text": null,
+        "restored": 0,
+        "placed": [],
+        "conflicts": [
+          {
+            "code": "crossesBoundary",
+            "removed": "]{.aside}"
+          }
+        ]
+      }
+    },
+    {
+      "name": "an unmarked div wraps its edited content again",
+      "original": "P1.\n\n::: {.aside}\nContent here.\n:::\n\nP2.",
+      "unmark": [
+        "aside"
+      ],
+      "edits": [
+        [
+          "Content here.",
+          "Changed content."
+        ]
+      ],
+      "expect": {
+        "text": "P1.\n\n::: {.aside}\nChanged content.\n:::\n\nP2.",
+        "restored": 2,
+        "placed": [],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "an unmarked citation keeps its arrow on an edited id",
+      "original": "See (-> C2.1) here.",
+      "unmark": [
+        "trace"
+      ],
+      "edits": [
+        [
+          "C2.1",
+          "C3"
+        ]
+      ],
+      "expect": {
+        "text": "See (-> C3) here.",
+        "restored": 1,
+        "placed": [],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "a removed paragraph with a block anchored before it",
+      "original": "One.\n\n::: {.aside}\nAn aside.\n:::\n\nTwo.\n\nThree.",
+      "drop": [
+        "aside"
+      ],
+      "edits": [
+        [
+          "Two.\n\n",
+          ""
+        ]
+      ],
+      "expect": {
+        "text": "One.\n\n::: {.aside}\nAn aside.\n:::\n\nThree.",
+        "restored": 1,
+        "placed": [],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "a block stays between the paragraphs when the one before is edited",
+      "original": "Before.\n\n::: {.aside}\nAn aside.\n:::\n\nAfter.",
+      "drop": [
+        "aside"
+      ],
+      "edits": [
+        [
+          "Before.",
+          "Earlier text."
+        ]
+      ],
+      "expect": {
+        "text": "Earlier text.\n\n::: {.aside}\nAn aside.\n:::\n\nAfter.",
+        "restored": 1,
+        "placed": [],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "a block stays between the paragraphs when the one after is edited",
+      "original": "Before.\n\n::: {.aside}\nAn aside.\n:::\n\nAfter.",
+      "drop": [
+        "aside"
+      ],
+      "edits": [
+        [
+          "After.",
+          "Later text."
+        ]
+      ],
+      "expect": {
+        "text": "Before.\n\n::: {.aside}\nAn aside.\n:::\n\nLater text.",
+        "restored": 1,
+        "placed": [],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "a block before the only paragraph, removed, goes to the start",
+      "original": "::: {.provenance}\nFrom the workshop.\n:::\n\nOld text.",
+      "drop": [
+        "provenance"
+      ],
+      "edits": [
+        [
+          "Old text.",
+          ""
+        ]
+      ],
+      "expect": {
+        "text": "::: {.provenance}\nFrom the workshop.\n:::",
+        "restored": 1,
+        "placed": [],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "text written into a value the strip emptied follows its block",
+      "original": "::: {.provenance}\nFrom the workshop.\n:::",
+      "drop": [
+        "provenance"
+      ],
+      "edits": [
+        [
+          "",
+          "New text."
+        ]
+      ],
+      "expect": {
+        "text": "::: {.provenance}\nFrom the workshop.\n:::\n\nNew text.",
+        "restored": 1,
+        "placed": [],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "an edit removing the sentence that held a span is a conflict",
+      "original": "Keep this. Gone here (-> C1). Tail.",
+      "drop": [
+        "trace"
+      ],
+      "edits": [
+        [
+          " Gone here.",
+          ""
+        ]
+      ],
+      "expect": {
+        "text": null,
+        "restored": 0,
+        "placed": [],
+        "conflicts": [
+          {
+            "code": "sentenceRemoved",
+            "removed": " (-> C1)"
+          }
+        ]
+      }
+    },
+    {
+      "name": "an accepted insertion mark wraps the edited text again",
+      "original": "A {++new++} word.",
+      "drop": [
+        "comments"
+      ],
+      "edits": [
+        [
+          "new",
+          "newer"
+        ]
+      ],
+      "expect": {
+        "text": "A {++newer++} word.",
+        "restored": 2,
+        "placed": [],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "a substitution keeps its rejected side around the edited text",
+      "original": "A {~~old~>new~~} word.",
+      "drop": [
+        "comments"
+      ],
+      "edits": [
+        [
+          "new",
+          "newest"
+        ]
+      ],
+      "expect": {
+        "text": "A {~~old~>newest~~} word.",
+        "restored": 2,
+        "placed": [],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "a dropped comment goes after the edited word",
+      "original": "A word{>>remark<<} here.",
+      "drop": [
+        "comments"
+      ],
+      "edits": [
+        [
+          "word",
+          "term"
+        ]
+      ],
+      "expect": {
+        "text": "A term{>>remark<<} here.",
+        "restored": 1,
+        "placed": [
+          {
+            "at": 6,
+            "removed": "{>>remark<<}"
+          }
+        ],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "an appendix reference is replaced by its element again",
+      "original": "Text [an aside]{.aside} more.",
+      "appendix": [
+        "aside"
+      ],
+      "appendixReferences": true,
+      "edits": [
+        [
+          "Text",
+          "The text"
+        ]
+      ],
+      "expect": {
+        "text": "The text [an aside]{.aside} more.",
+        "restored": 1,
+        "placed": [],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "an edited appendix reference is a conflict",
+      "original": "Text [an aside]{.aside} more.",
+      "appendix": [
+        "aside"
+      ],
+      "appendixReferences": true,
+      "edits": [
+        [
+          "[\\[1\\]](#note-1)",
+          ""
+        ]
+      ],
+      "expect": {
+        "text": null,
+        "restored": 0,
+        "placed": [],
+        "conflicts": [
+          {
+            "code": "stripTextEdited",
+            "removed": " [an aside]{.aside}"
+          }
+        ]
+      }
+    }
+  ],
+  "documentCases": [
+    {
+      "name": "nothing changed merges nothing",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Rule [because of the law]{.aside}."
+        }
+      },
+      "drop": [
+        "aside"
+      ],
+      "edits": [],
+      "expect": {
+        "exitCode": 0,
+        "stale": false,
+        "document": {
+          "content": {
+            "DEMO/SUM": "Rule [because of the law]{.aside}."
+          }
+        },
+        "report": []
+      }
+    },
+    {
+      "name": "an edited value with a placed citation",
+      "state": {
+        "content": {
+          "DEMO/SUM": "The rate is high (-> C2.1). It stays."
+        }
+      },
+      "drop": [
+        "trace"
+      ],
+      "edits": [
+        [
+          "The rate is high.",
+          "The rate is rising."
+        ]
+      ],
+      "expect": {
+        "exitCode": 0,
+        "stale": false,
+        "document": {
+          "content": {
+            "DEMO/SUM": "The rate is rising (-> C2.1). It stays."
+          }
+        },
+        "report": [
+          "MERGED DEMO/SUM — 1 pieces put back",
+          "PLACED DEMO/SUM — check"
+        ]
+      }
+    },
+    {
+      "name": "a filled-in empty field",
+      "state": {
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob (<- workshop)"
+          }
+        }
+      },
+      "drop": [
+        "provenance"
+      ],
+      "edits": [
+        [
+          "| Owner | Bob |",
+          "| Owner | Bob |\n| Contact | bob@example.com |"
+        ]
+      ],
+      "expect": {
+        "exitCode": 0,
+        "stale": false,
+        "document": {
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob (<- workshop)"
+            }
+          }
+        },
+        "report": [
+          "MERGED DEMO/DET / contact — 0 pieces put back"
+        ]
+      }
+    },
+    {
+      "name": "a changed table cell replaces its form field",
+      "state": {
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob [the lead]{.aside}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "drop": [
+        "aside"
+      ],
+      "edits": [
+        [
+          "| Contact | bob@example.com |",
+          "| Contact | robert@example.com |"
+        ]
+      ],
+      "expect": {
+        "exitCode": 0,
+        "stale": false,
+        "document": {
+          "forms": {
+            "DEMO/DET": {
+              "contact": "robert@example.com",
+              "owner": "Bob [the lead]{.aside}"
+            }
+          }
+        },
+        "report": [
+          "MERGED DEMO/DET / contact — 0 pieces put back"
+        ]
+      }
+    },
+    {
+      "name": "a headline change",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Rule [because of the law]{.aside}."
+        }
+      },
+      "drop": [
+        "aside"
+      ],
+      "edits": [
+        [
+          "<a id=\"SUM\"></a> Summary",
+          "<a id=\"SUM\"></a> Short summary"
+        ]
+      ],
+      "expect": {
+        "exitCode": 0,
+        "stale": false,
+        "document": {
+          "content": {
+            "DEMO/SUM": "Rule [because of the law]{.aside}."
+          },
+          "headlines": {
+            "DEMO/SUM": "Short summary"
+          }
+        },
+        "report": [
+          "MERGED DEMO/SUM (headline) — 0 pieces put back"
+        ]
+      }
+    },
+    {
+      "name": "a list item the strip emptied stays in the record",
+      "state": {
+        "content": {
+          "DEMO/items-1/label": "First",
+          "DEMO/items-2/label": "Second",
+          "DEMO/items-3/label": "[Third]{.aside}"
+        },
+        "lists": {
+          "DEMO/items": {
+            "seq": 3,
+            "items": [
+              "DEMO/items-1",
+              "DEMO/items-2",
+              "DEMO/items-3"
+            ]
+          }
+        }
+      },
+      "drop": [
+        "aside"
+      ],
+      "edits": [
+        [
+          "\nSecond",
+          "\nSecond item"
+        ]
+      ],
+      "expect": {
+        "exitCode": 0,
+        "stale": false,
+        "document": {
+          "content": {
+            "DEMO/items-1/label": "First",
+            "DEMO/items-2/label": "Second item",
+            "DEMO/items-3/label": "[Third]{.aside}"
+          },
+          "lists": {
+            "DEMO/items": {
+              "seq": 3,
+              "items": [
+                "DEMO/items-1",
+                "DEMO/items-2",
+                "DEMO/items-3"
+              ]
+            }
+          }
+        },
+        "report": [
+          "MERGED DEMO/items-2/label — 0 pieces put back"
+        ]
+      }
+    },
+    {
+      "name": "the appendix is no part of the merge",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Rule [because of the law]{.aside}."
+        }
+      },
+      "appendix": [
+        "aside"
+      ],
+      "appendixReferences": true,
+      "source": {
+        "file": "demo.tomspecs.yaml",
+        "revision": "r7",
+        "commit": "8e1d2a7"
+      },
+      "currentRevision": "r7",
+      "edits": [
+        [
+          "\nRule<a",
+          "\nThe rule<a"
+        ],
+        [
+          "**[1]** because of the law",
+          "**[1]** because of a law"
+        ]
+      ],
+      "expect": {
+        "exitCode": 0,
+        "stale": false,
+        "document": {
+          "content": {
+            "DEMO/SUM": "The rule [because of the law]{.aside}."
+          }
+        },
+        "report": [
+          "MERGED DEMO/SUM — 1 pieces put back"
+        ]
+      }
+    },
+    {
+      "name": "a stale original merged three ways from the header's commit",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Rule (-> C2.1) holds.",
+          "DEMO/TTL": "Title"
+        }
+      },
+      "current": {
+        "content": {
+          "DEMO/SUM": "Rule (-> C2.1) holds.",
+          "DEMO/TTL": "New title (<- the brief)"
+        }
+      },
+      "drop": [
+        "trace",
+        "provenance"
+      ],
+      "source": {
+        "file": "demo.tomspecs.yaml",
+        "revision": "r1",
+        "commit": "c0ffee1"
+      },
+      "currentRevision": "r2",
+      "commits": {
+        "c0ffee1": {
+          "content": {
+            "DEMO/SUM": "Rule (-> C2.1) holds.",
+            "DEMO/TTL": "Title"
+          }
+        }
+      },
+      "edits": [
+        [
+          "Rule holds.",
+          "Rule applies."
+        ]
+      ],
+      "expect": {
+        "exitCode": 0,
+        "stale": true,
+        "document": {
+          "content": {
+            "DEMO/SUM": "Rule (-> C2.1) applies.",
+            "DEMO/TTL": "New title (<- the brief)"
+          }
+        },
+        "report": [
+          "MERGED DEMO/SUM — 1 pieces put back"
+        ]
+      }
+    },
+    {
+      "name": "a stale original without a commit or a base is refused",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Rule (-> C2.1) holds."
+        }
+      },
+      "current": {
+        "content": {
+          "DEMO/SUM": "Rule (-> C2.1) holds.",
+          "DEMO/TTL": "New title"
+        }
+      },
+      "drop": [
+        "trace"
+      ],
+      "source": {
+        "file": "demo.tomspecs.yaml",
+        "revision": "r1"
+      },
+      "currentRevision": "r2",
+      "edits": [
+        [
+          "Rule holds.",
+          "Rule applies."
+        ]
+      ],
+      "expect": {
+        "exitCode": 1,
+        "stale": true,
+        "document": null,
+        "report": [
+          "REFUSED (document) — the original moved since the export (revision r1 then, r2 now) and there is no base: the header names no commit; give the original as it was at the export"
+        ]
+      }
+    },
+    {
+      "name": "a stale original with a dirty commit is refused without a base",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Rule (-> C2.1) holds."
+        }
+      },
+      "current": {
+        "content": {
+          "DEMO/SUM": "Rule (-> C2.1) holds.",
+          "DEMO/TTL": "New title"
+        }
+      },
+      "drop": [
+        "trace"
+      ],
+      "source": {
+        "file": "demo.tomspecs.yaml",
+        "revision": "r1",
+        "commit": "c0ffee1",
+        "dirty": true
+      },
+      "currentRevision": "r2",
+      "commits": {
+        "c0ffee1": {
+          "content": {
+            "DEMO/SUM": "Rule (-> C2.1) holds."
+          }
+        }
+      },
+      "edits": [
+        [
+          "Rule holds.",
+          "Rule applies."
+        ]
+      ],
+      "expect": {
+        "exitCode": 1,
+        "stale": true,
+        "document": null,
+        "report": [
+          "REFUSED (document) — the original moved since the export (revision r1 then, r2 now) and there is no base: the header names a dirty commit; give the original as it was at the export"
+        ]
+      }
+    },
+    {
+      "name": "a stale original merged three ways from a given base",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Rule (-> C2.1) holds."
+        }
+      },
+      "current": {
+        "content": {
+          "DEMO/SUM": "Rule (-> C2.1) holds.",
+          "DEMO/TTL": "New title"
+        }
+      },
+      "drop": [
+        "trace"
+      ],
+      "source": {
+        "file": "demo.tomspecs.yaml",
+        "revision": "r1",
+        "commit": "c0ffee1",
+        "dirty": true
+      },
+      "currentRevision": "r2",
+      "base": {
+        "content": {
+          "DEMO/SUM": "Rule (-> C2.1) holds."
+        }
+      },
+      "edits": [
+        [
+          "Rule holds.",
+          "Rule applies."
+        ]
+      ],
+      "expect": {
+        "exitCode": 0,
+        "stale": true,
+        "document": {
+          "content": {
+            "DEMO/SUM": "Rule (-> C2.1) applies.",
+            "DEMO/TTL": "New title"
+          }
+        },
+        "report": [
+          "MERGED DEMO/SUM — 1 pieces put back"
+        ]
+      }
+    },
+    {
+      "name": "a value changed on both sides is a conflict",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Rule (-> C2.1) holds."
+        }
+      },
+      "current": {
+        "content": {
+          "DEMO/SUM": "Rule (-> C2.1) holds firmly."
+        }
+      },
+      "drop": [
+        "trace"
+      ],
+      "source": {
+        "file": "demo.tomspecs.yaml",
+        "revision": "r1",
+        "commit": "c0ffee1"
+      },
+      "currentRevision": "r2",
+      "commits": {
+        "c0ffee1": {
+          "content": {
+            "DEMO/SUM": "Rule (-> C2.1) holds."
+          }
+        }
+      },
+      "edits": [
+        [
+          "Rule holds.",
+          "Rule applies."
+        ]
+      ],
+      "expect": {
+        "exitCode": 1,
+        "stale": true,
+        "document": null,
+        "report": [
+          "CONFLICT DEMO/SUM — the value changed in the original since the export, and in the rendition",
+          "  O: «Rule (-> C2.1) holds firmly.»",
+          "  B: «Rule holds.»",
+          "  E: «Rule applies.»"
+        ]
+      }
+    },
+    {
+      "name": "a section added is refused",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Rule [because of the law]{.aside}."
+        }
+      },
+      "drop": [
+        "aside"
+      ],
+      "edits": [
+        [
+          "# <!--[DEMO]--> <a id=\"DEMO\"></a> Demo Document\n",
+          "# <!--[DEMO]--> <a id=\"DEMO\"></a> Demo Document\n\n## <!--[TTL]--> <a id=\"TTL\"></a> Document Title\n\nA title\n"
+        ]
+      ],
+      "expect": {
+        "exitCode": 1,
+        "stale": false,
+        "document": null,
+        "report": [
+          "REFUSED DEMO/TTL — a section added"
+        ]
+      }
+    },
+    {
+      "name": "a list item removed is refused",
+      "state": {
+        "content": {
+          "DEMO/items-1/label": "First",
+          "DEMO/items-2/label": "Second (-> C1)",
+          "DEMO/items-3/label": "Third"
+        },
+        "lists": {
+          "DEMO/items": {
+            "seq": 3,
+            "items": [
+              "DEMO/items-1",
+              "DEMO/items-2",
+              "DEMO/items-3"
+            ]
+          }
+        }
+      },
+      "drop": [
+        "trace"
+      ],
+      "edits": [
+        [
+          "### <!--[items-2]--> <a id=\"items-2\"></a> Task 2\n\nSecond\n\n",
+          ""
+        ]
+      ],
+      "expect": {
+        "exitCode": 1,
+        "stale": false,
+        "document": null,
+        "report": [
+          "REFUSED DEMO/items/items-2 — a section removed",
+          "REFUSED DEMO/items — list items added, removed, moved or renamed"
+        ]
+      }
+    },
+    {
+      "name": "switches that disagree with the header are a usage error",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Rule [because of the law]{.aside}."
+        }
+      },
+      "drop": [
+        "aside"
+      ],
+      "options": {
+        "drop": [
+          "trace"
+        ]
+      },
+      "edits": [
+        [
+          "\nRule.",
+          "\nThe rule."
+        ]
+      ],
+      "expect": {
+        "error": "the switches given (drop=trace) disagree with the readable header (drop=aside)"
+      }
+    },
+    {
+      "name": "a rendition without its header needs the switches",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Rule [because of the law]{.aside}."
+        }
+      },
+      "drop": [
+        "aside"
+      ],
+      "edits": [
+        [
+          "<!-- readable: drop=aside -->\n",
+          ""
+        ],
+        [
+          "\nRule.",
+          "\nThe rule."
+        ]
+      ],
+      "expect": {
+        "error": "the rendition has no readable header: name the switches it was stripped with"
+      }
+    },
+    {
+      "name": "switches stand in for a missing header",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Rule [because of the law]{.aside}."
+        }
+      },
+      "drop": [
+        "aside"
+      ],
+      "options": {
+        "drop": [
+          "aside"
+        ]
+      },
+      "edits": [
+        [
+          "<!-- readable: drop=aside -->\n",
+          ""
+        ],
+        [
+          "\nRule.",
+          "\nThe rule."
+        ]
+      ],
+      "expect": {
+        "exitCode": 0,
+        "stale": false,
+        "document": {
+          "content": {
+            "DEMO/SUM": "The rule [because of the law]{.aside}."
+          }
+        },
+        "report": [
+          "MERGED DEMO/SUM — 1 pieces put back",
+          "PLACED DEMO/SUM — check"
+        ]
+      }
+    }
+  ]
+}

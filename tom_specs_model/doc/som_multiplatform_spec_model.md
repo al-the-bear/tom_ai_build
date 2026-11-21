@@ -2887,6 +2887,67 @@ The conformance cases are `strip_cases.json` (one value, the usage errors, the
 readable header, documents over the corpus model) and, for the parser, the
 readable-header and styled-div cases of `markdown_import_cases.json`.
 
+**The merge back** brings a reader's corrections in an edited stripped
+rendition back into the document of record, every piece the strip removed put
+back: `mergeStrippedValue(o, b, e, pieces)` for one value and
+`SpecStripMerge.merge(original, edited, model: …)` for a document, in Dart and
+TypeScript first. For each value there are three texts: **O** the original's
+value, **B** O stripped with the rendition's switches, **E** the value as
+edited. When E equals B, O stays byte for byte. Otherwise B is diffed against
+E (by line, then by word inside changed lines) and each piece goes back where
+the diff moves its anchor:
+
+- **between unchanged neighbours**, exactly there;
+- **a block** (a removed div, a line a removal emptied, a comment or question
+  block) goes back between the same paragraphs: before a paragraph the reader
+  removed it goes after the preceding one, else at the start of the value; it
+  keeps the distance it had from the text around it in O (a blank line, or
+  none);
+- **an unmarked element's markers**, and an accepted mark's delimiters with
+  its rejected side, wrap their mapped range again, any edit inside it
+  included (an insertion right at a marker goes inside); an edit across the
+  range's start or end is a conflict. Whitespace an edit removed at the
+  boundary counts on the side that keeps the edit inside: `quick brown fox` to
+  `quick fox` removes `brown ` or ` brown` alike;
+- **any other span or mark** goes after the edited run and is reported
+  `PLACED <value> — check`; when the edit removed the whole sentence holding
+  its gap, a conflict;
+- **a piece with text in its place** (a converted mark's delimiters, an
+  appendix reference) replaces it only while that text is unchanged;
+- whitespace the strip normalised away is not put back next to an edit.
+
+A merged value with a notation error or a malformed review annotation that
+neither O nor E has is a conflict. The conflict codes are `crossesBoundary`,
+`sentenceRemoved`, `stripTextEdited`, `unplaceable`, `notation`,
+`annotations`, `changedBothSides`, `notStrippedBack` and `newFinding`.
+
+The document merge takes its switches from the readable header; switches given
+beside it must agree with it, or stand in for a missing one (else a
+`SpecStripUsageError`). It strips the original again and matches every value of
+the rendition to it by section-id path; a headline and a form field (a table
+cell) are values like content, and a value written into a section the rendition
+shows is added. **Structural edits are refused**: a section or list item added,
+removed or moved, a changed id, `codeSpec` or `units`, and a rendition the
+parser rejects. A **stale original** — the header's revision differs from the
+current one — is merged three ways from its state at the export: a base given
+by hand, else what the caller loads for the header's commit
+(`SpecStripMerge.gitShowFile` reads `git show <commit>:<path>`; a `+dirty`
+commit is no base). The reader's changes against the stripped base go onto the
+current original, a value changed on both sides is a conflict, and without a
+base the merge is refused, naming both revisions. The merge is all or nothing:
+with a conflict or refusal no document is returned. Before one is, it is
+verified — it differs from the original in exactly the merged values, stripping
+it gives back the edited values, and no tier finds what it did not find in the
+original. The report has one `MERGED <value> — n pieces put back` line per
+value with its `PLACED` lines, each conflict as `CONFLICT <value> — <reason>`
+with the O / B / E excerpts and the piece, then the refusals as
+`REFUSED <path> — <reason>`; the exit code is `0` merged or nothing to merge,
+`1` conflicts or refusals.
+
+The conformance cases are `strip_merge_cases.json`: values (original, switches,
+edits, the merge or its conflicts) and documents over the corpus model (the
+rendition, the edits, the merged document and the report).
+
 ## 12. The hierarchical `*.tomspecs.yaml` format
 
 One nested YAML tree whose indentation mirrors the document structure.

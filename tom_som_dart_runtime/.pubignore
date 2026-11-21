@@ -19,8 +19,11 @@
 # from a `../` literal, so the shipped-path scanner cannot see them; a
 # hosted-install simulation is what found them.
 #
-# strip_case_runner.dart is conformance_test.dart's runner of strip_cases.json;
-# nothing else imports it, so it stays behind with it.
+# strip_case_runner.dart is conformance_test.dart's runner of strip_cases.json
+# and strip_merge_cases.json, so it stays behind with it, and so does
+# spec_document_merge_test.dart: its subject is every case of strip_cases.json
+# (each merged back unchanged and with a paragraph added).
 test/conformance_test.dart
 test/enum_coverage_test.dart
 test/strip_case_runner.dart
+test/spec_document_merge_test.dart

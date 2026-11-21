@@ -16,6 +16,8 @@
 /// what a merge of an edited rendition back onto the original needs.
 library;
 
+import 'dart:io';
+import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'docspecs_validator.dart';
@@ -24,9 +26,11 @@ import 'spec_document_markdown.dart';
 import 'spec_model.dart';
 import 'spec_notation.dart';
 import 'spec_review_annotations.dart'
-    show countAnnotationsText, stripAnnotationsText;
+    show annotationIssuesText, countAnnotationsText, stripAnnotationsText;
 import 'spec_schema_validation.dart';
 import 'spec_validator.dart';
+
+part 'spec_document_merge.dart';
 
 /// The kind names a strip takes, in the order a report and the readable header
 /// list them; `all` is shorthand for every name a list can hold.

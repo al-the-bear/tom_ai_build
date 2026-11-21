@@ -219,3 +219,63 @@ exceptions:
       only; the reading view's parity audit
       (`05a_rdv4_akpu-runtime-parity-audit`) files the seven ports.
       `strip_cases.json` is the corpus they will run.
+
+  - token: crossesBoundary
+    planes: [python, javascript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The merge back of an edited stripped rendition (SOM §11.10:
+      mergeStrippedValue, SpecStripMerge.merge with its currentRevision, the
+      result's exitCode and the conflict codes; 04a_rdv6) is in the Dart and
+      TypeScript runtimes only, after the strip; the reading view's parity
+      audit (`05a_rdv4_akpu-runtime-parity-audit`) files the seven ports.
+      `strip_merge_cases.json` is the corpus they will run.
+
+  - token: currentRevision
+    planes: [python, javascript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The merge back of an edited stripped rendition (SOM §11.10:
+      mergeStrippedValue, SpecStripMerge.merge with its currentRevision, the
+      result's exitCode and the conflict codes; 04a_rdv6) is in the Dart and
+      TypeScript runtimes only, after the strip; the reading view's parity
+      audit (`05a_rdv4_akpu-runtime-parity-audit`) files the seven ports.
+      `strip_merge_cases.json` is the corpus they will run.
+
+  - token: exitCode
+    planes: [python, javascript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The merge back of an edited stripped rendition (SOM §11.10:
+      mergeStrippedValue, SpecStripMerge.merge with its currentRevision, the
+      result's exitCode and the conflict codes; 04a_rdv6) is in the Dart and
+      TypeScript runtimes only, after the strip; the reading view's parity
+      audit (`05a_rdv4_akpu-runtime-parity-audit`) files the seven ports.
+      `strip_merge_cases.json` is the corpus they will run.
+
+  - token: mergeStrippedValue
+    planes: [python, javascript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The merge back of an edited stripped rendition (SOM §11.10:
+      mergeStrippedValue, SpecStripMerge.merge with its currentRevision, the
+      result's exitCode and the conflict codes; 04a_rdv6) is in the Dart and
+      TypeScript runtimes only, after the strip; the reading view's parity
+      audit (`05a_rdv4_akpu-runtime-parity-audit`) files the seven ports.
+      `strip_merge_cases.json` is the corpus they will run.
+
+  - token: sentenceRemoved
+    planes: [python, javascript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The merge back of an edited stripped rendition (SOM §11.10:
+      mergeStrippedValue, SpecStripMerge.merge with its currentRevision, the
+      result's exitCode and the conflict codes; 04a_rdv6) is in the Dart and
+      TypeScript runtimes only, after the strip; the reading view's parity
+      audit (`05a_rdv4_akpu-runtime-parity-audit`) files the seven ports.
+      `strip_merge_cases.json` is the corpus they will run.
+
+  - token: stripTextEdited
+    planes: [python, javascript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The merge back of an edited stripped rendition (SOM §11.10:
+      mergeStrippedValue, SpecStripMerge.merge with its currentRevision, the
+      result's exitCode and the conflict codes; 04a_rdv6) is in the Dart and
+      TypeScript runtimes only, after the strip; the reading view's parity
+      audit (`05a_rdv4_akpu-runtime-parity-audit`) files the seven ports.
+      `strip_merge_cases.json` is the corpus they will run.

@@ -2540,6 +2540,15 @@ export function countAnnotationsText(value: string): number {
 }
 
 /**
+ * The malformed review annotations of `value` (SOM §11.9.3), one message each;
+ * empty when every block and mark is well formed. What a merge back (SOM
+ * §11.10) checks a merged value against.
+ */
+export function annotationIssuesText(value: string): string[] {
+  return [..._parse(value).malformed];
+}
+
+/**
  * `value` without any comment block, question block or inline mark (every mark
  * accepted). Plain quotes and code stay.
  */

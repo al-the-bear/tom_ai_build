@@ -70,6 +70,94 @@ Map<String, Object?>? runStripHeaderCase(Map<String, dynamic> c) {
   };
 }
 
+/// [text] with each `[find, replace]` of [edits] applied; each `find` must
+/// occur exactly once (an empty `find` fills an empty text).
+String applyCaseEdits(String text, List<dynamic>? edits) {
+  var out = text;
+  for (final e in edits ?? const []) {
+    final find = (e as List)[0] as String, replace = e[1] as String;
+    if (find.isEmpty) {
+      if (out.isNotEmpty) throw StateError('an empty find needs an empty text');
+      out = replace;
+      continue;
+    }
+    final at = out.indexOf(find);
+    if (at < 0 || out.indexOf(find, at + 1) >= 0) {
+      throw StateError('the edit "$find" does not occur exactly once');
+    }
+    out = out.replaceRange(at, at + find.length, replace);
+  }
+  return out;
+}
+
+SpecReadableSource? _caseSource(Map<String, dynamic> c) {
+  final src = c['source'] as Map?;
+  return src == null
+      ? null
+      : SpecReadableSource(
+          file: src['file'] as String,
+          revision: src['revision'] as String?,
+          commit: src['commit'] as String?,
+          dirty: src['dirty'] as bool? ?? false,
+        );
+}
+
+/// A `strip_merge_cases.json` `valueCases` entry: the original stripped with
+/// the case's switches, the edits applied to the stripped text, and the
+/// merge of that onto the original.
+Map<String, Object?> runStripMergeValueCase(Map<String, dynamic> c) {
+  final o = c['original'] as String;
+  final s = stripNotationText(o, stripCaseOptions(c));
+  final e = applyCaseEdits(s.text, c['edits'] as List?);
+  return mergeStrippedValue(o, s.text, e, s.pieces).toJson();
+}
+
+/// A `strip_merge_cases.json` `documentCases` entry: `state` stripped (with
+/// the case's switches and `source`) into a readable rendition, the edits
+/// applied to it, and the merge of that onto `current` (else `state`); `base`
+/// is given by hand and `commits` is what the header's commit loads.
+/// `options` names switches given beside the header. A usage error gives
+/// `{error}`.
+Map<String, Object?> runStripMergeDocumentCase(
+  Map<String, dynamic> c,
+  SpecModel model,
+  DocSpecsSchema schema,
+) {
+  SpecDocument doc(Object? json) => SpecDocument()..loadJson(json! as Map);
+  final state = doc(c['state']);
+  final readable = SpecDocumentStrip.strip(
+    state,
+    stripCaseOptions(c),
+    model: model,
+    schema: schema,
+    source: _caseSource(c),
+  ).readable!;
+  final edited = applyCaseEdits(readable, c['edits'] as List?);
+  final given = c['options'] as Map<String, dynamic>?;
+  final commits = (c['commits'] as Map?) ?? const {};
+  try {
+    final r = SpecStripMerge.merge(
+      c['current'] == null ? state : doc(c['current']),
+      edited,
+      model: model,
+      schema: schema,
+      options: given == null ? null : stripCaseOptions(given),
+      currentRevision: c['currentRevision'] as String?,
+      base: c['base'] == null ? null : doc(c['base']),
+      loadBase: (s) =>
+          commits[s.commit] == null ? null : doc(commits[s.commit]),
+    );
+    return {
+      'exitCode': r.exitCode,
+      'stale': r.stale,
+      'document': r.document?.toJson(),
+      'report': r.report,
+    };
+  } on SpecStripUsageError catch (e) {
+    return {'error': e.message};
+  }
+}
+
 /// A `documentCases` entry: the document strip, over [model] and [schema]
 /// unless the case says `model: false`.
 Map<String, Object?> runStripDocumentCase(

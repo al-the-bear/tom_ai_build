@@ -1628,3 +1628,27 @@ function _findMarks(t: string): _MarkAt[] {
   }
   return out;
 }
+
+/**
+ * The strip's internals the merge back (`spec_document_merge.ts`, SOM
+ * §11.10) works with; not part of the package's public surface.
+ * @internal
+ */
+export const _stripInternals = {
+  KEEP: _KEEP,
+  DEL: _DEL,
+  INS: _INS,
+  diff: _diff,
+  lines: _lines,
+  myers: _myers,
+  findMarks: _findMarks,
+  valueRefs: (doc: SpecDocument): SpecStripValueRef[] => SpecDocumentStrip['_valueRefs'](doc),
+  tierFindings: (
+    model: SpecModel,
+    schema: DocSpecsSchema | null,
+    rootType: string | null,
+    doc: SpecDocument,
+  ): Map<string, string> => SpecDocumentStrip['_tierFindings'](model, schema, rootType, doc),
+};
+
+export type { _Op as _StripOp };

@@ -1440,6 +1440,28 @@ void main() {
     }
   });
 
+  // Read, not generated: strip_merge_cases.json is maintained by hand.
+  group('strip_merge_cases.json (the merge back, SOM §11.10)', () {
+    final table =
+        jsonDecode(read('strip_merge_cases.json')) as Map<String, dynamic>;
+    final schema = DocSpecsSchema.fromYamlText(read('docspecs_schema.yaml'));
+    for (final c
+        in (table['valueCases'] as List).cast<Map<String, dynamic>>()) {
+      test('merge value: ${c['name']}', () {
+        expect(jsonDecode(jsonEncode(runStripMergeValueCase(c))), c['expect']);
+      });
+    }
+    for (final c
+        in (table['documentCases'] as List).cast<Map<String, dynamic>>()) {
+      test('merge document: ${c['name']}', () {
+        expect(
+          jsonDecode(jsonEncode(runStripMergeDocumentCase(c, model, schema))),
+          c['expect'],
+        );
+      });
+    }
+  });
+
   // Read, not generated: these two files are not written by UPDATE_CORPUS.
   group('team_annotation_cases.json (team reviews, SOM §11.9.8)', () {
     final table =

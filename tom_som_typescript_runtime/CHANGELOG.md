@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- **The merge back** (SOM §11.10), the port of the Dart one:
+  `mergeStrippedValue(o, b, e, pieces)`, `SpecStripMerge.merge(original,
+  edited, { model, schema, options, currentRevision, base, loadBase })`,
+  `SpecStripMerge.gitShowFile` and the result types; `annotationIssuesText`.
+  Both runtimes pass `strip_merge_cases.json`.
 - **Stripped renditions** (SOM §11.10), the port of the Dart ones:
   `stripNotationText(value, options)`,
   `SpecDocumentStrip.strip(document, options, { model, schema, rootType,

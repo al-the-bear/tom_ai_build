@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 32 files
-// Generated: 2026-11-21T17:21:43.107646 by tom_d4rt_generator 1.67.0
+// Generated: 2026-11-21T18:20:21.703614 by tom_d4rt_generator 1.67.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -186,6 +186,13 @@ class SomRuntimeBridge {
       _createSpecStripFindingBridge(),
       _createSpecStripResultBridge(),
       _createSpecDocumentStripBridge(),
+      _createSpecStripMergePlacedBridge(),
+      _createSpecStripMergeConflictBridge(),
+      _createSpecStripValueMergeBridge(),
+      _createSpecStripMergedValueBridge(),
+      _createSpecStripMergeRefusalBridge(),
+      _createSpecStripMergeResultBridge(),
+      _createSpecStripMergeBridge(),
       _createSpecYamlFormatExceptionBridge(),
       _createSpecYamlContentsBridge(),
       _createSpecDocumentYamlBridge(),
@@ -343,6 +350,13 @@ class SomRuntimeBridge {
       'SpecStripFinding': _createSpecStripFindingBridge,
       'SpecStripResult': _createSpecStripResultBridge,
       'SpecDocumentStrip': _createSpecDocumentStripBridge,
+      'SpecStripMergePlaced': _createSpecStripMergePlacedBridge,
+      'SpecStripMergeConflict': _createSpecStripMergeConflictBridge,
+      'SpecStripValueMerge': _createSpecStripValueMergeBridge,
+      'SpecStripMergedValue': _createSpecStripMergedValueBridge,
+      'SpecStripMergeRefusal': _createSpecStripMergeRefusalBridge,
+      'SpecStripMergeResult': _createSpecStripMergeResultBridge,
+      'SpecStripMerge': _createSpecStripMergeBridge,
       'SpecYamlFormatException': _createSpecYamlFormatExceptionBridge,
       'SpecYamlContents': _createSpecYamlContentsBridge,
       'SpecDocumentYaml': _createSpecDocumentYamlBridge,
@@ -508,6 +522,13 @@ class SomRuntimeBridge {
       'SpecStripFinding': $tom_som_dart_runtime_11.SpecStripFinding,
       'SpecStripResult': $tom_som_dart_runtime_11.SpecStripResult,
       'SpecDocumentStrip': $tom_som_dart_runtime_11.SpecDocumentStrip,
+      'SpecStripMergePlaced': $tom_som_dart_runtime_11.SpecStripMergePlaced,
+      'SpecStripMergeConflict': $tom_som_dart_runtime_11.SpecStripMergeConflict,
+      'SpecStripValueMerge': $tom_som_dart_runtime_11.SpecStripValueMerge,
+      'SpecStripMergedValue': $tom_som_dart_runtime_11.SpecStripMergedValue,
+      'SpecStripMergeRefusal': $tom_som_dart_runtime_11.SpecStripMergeRefusal,
+      'SpecStripMergeResult': $tom_som_dart_runtime_11.SpecStripMergeResult,
+      'SpecStripMerge': $tom_som_dart_runtime_11.SpecStripMerge,
       'SpecYamlFormatException':
           $tom_som_dart_runtime_12.SpecYamlFormatException,
       'SpecYamlContents': $tom_som_dart_runtime_12.SpecYamlContents,
@@ -760,6 +781,20 @@ class SomRuntimeBridge {
       'SpecStripResult':
           'package:tom_som_dart_runtime/src/spec_document_strip.dart',
       'SpecDocumentStrip':
+          'package:tom_som_dart_runtime/src/spec_document_strip.dart',
+      'SpecStripMergePlaced':
+          'package:tom_som_dart_runtime/src/spec_document_strip.dart',
+      'SpecStripMergeConflict':
+          'package:tom_som_dart_runtime/src/spec_document_strip.dart',
+      'SpecStripValueMerge':
+          'package:tom_som_dart_runtime/src/spec_document_strip.dart',
+      'SpecStripMergedValue':
+          'package:tom_som_dart_runtime/src/spec_document_strip.dart',
+      'SpecStripMergeRefusal':
+          'package:tom_som_dart_runtime/src/spec_document_strip.dart',
+      'SpecStripMergeResult':
+          'package:tom_som_dart_runtime/src/spec_document_strip.dart',
+      'SpecStripMerge':
           'package:tom_som_dart_runtime/src/spec_document_strip.dart',
       'SpecYamlFormatException':
           'package:tom_som_dart_runtime/src/spec_document_yaml.dart',
@@ -2031,6 +2066,16 @@ class SomRuntimeBridge {
         );
         return $tom_som_dart_runtime_25.countAnnotationsText(value);
       },
+      'annotationIssuesText': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'annotationIssuesText');
+        final value = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'value',
+          'annotationIssuesText',
+        );
+        return $tom_som_dart_runtime_25.annotationIssuesText(value);
+      },
       'stripAnnotationsText': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'stripAnnotationsText');
         final value = D4.getRequiredArg<String>(
@@ -2483,6 +2528,46 @@ class SomRuntimeBridge {
               'stripNotationText',
             );
         return $tom_som_dart_runtime_11.stripNotationText(value, options);
+      },
+      'specStripMergeLabel': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'specStripMergeLabel');
+        final ref = D4
+            .getRequiredArg<$tom_som_dart_runtime_11.SpecStripValueRef>(
+              positional,
+              0,
+              'ref',
+              'specStripMergeLabel',
+            );
+        return $tom_som_dart_runtime_11.specStripMergeLabel(ref);
+      },
+      'mergeStrippedValue': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 4, 'mergeStrippedValue');
+        final o = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'o',
+          'mergeStrippedValue',
+        );
+        final b = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'b',
+          'mergeStrippedValue',
+        );
+        final e = D4.getRequiredArg<String>(
+          positional,
+          2,
+          'e',
+          'mergeStrippedValue',
+        );
+        final pieces = D4
+            .getRequiredArg<List<$tom_som_dart_runtime_11.SpecStripPiece>>(
+              positional,
+              3,
+              'pieces',
+              'mergeStrippedValue',
+            );
+        return $tom_som_dart_runtime_11.mergeStrippedValue(o, b, e, pieces);
       },
       'isPlainYamlScalar': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'isPlainYamlScalar');
@@ -2955,6 +3040,8 @@ class SomRuntimeBridge {
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'countAnnotationsText':
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
+      'annotationIssuesText':
+          'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'stripAnnotationsText':
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'markChangeText':
@@ -3006,6 +3093,10 @@ class SomRuntimeBridge {
       'assembleSpecDocuments':
           'package:tom_som_dart_runtime/src/spec_document_assembly.dart',
       'stripNotationText':
+          'package:tom_som_dart_runtime/src/spec_document_strip.dart',
+      'specStripMergeLabel':
+          'package:tom_som_dart_runtime/src/spec_document_strip.dart',
+      'mergeStrippedValue':
           'package:tom_som_dart_runtime/src/spec_document_strip.dart',
       'isPlainYamlScalar':
           'package:tom_som_dart_runtime/src/spec_document_yaml.dart',
@@ -3081,6 +3172,7 @@ class SomRuntimeBridge {
       'decideAllMarksText':
           'String decideAllMarksText(String value, {required bool accept})',
       'countAnnotationsText': 'int countAnnotationsText(String value)',
+      'annotationIssuesText': 'List<String> annotationIssuesText(String value)',
       'stripAnnotationsText': 'String stripAnnotationsText(String value)',
       'markChangeText':
           'SpecMarkedChange markChangeText(String oldValue, String newValue)',
@@ -3127,6 +3219,10 @@ class SomRuntimeBridge {
           'SpecDocumentAssembly assembleSpecDocuments(Map<String, SpecDocument> fragments)',
       'stripNotationText':
           'SpecStripTextResult stripNotationText(String value, SpecStripOptions options)',
+      'specStripMergeLabel':
+          'String specStripMergeLabel(SpecStripValueRef ref)',
+      'mergeStrippedValue':
+          'SpecStripValueMerge mergeStrippedValue(String o, String b, String e, List<SpecStripPiece> pieces)',
       'isPlainYamlScalar': 'bool isPlainYamlScalar(String value)',
       'buildSomMetaTree':
           'SomMetaTree buildSomMetaTree(SpecModel model, {String? rootType})',
@@ -8644,6 +8740,30 @@ BridgedClass _createSpecReviewMergeResultBridge() {
             return $tom_som_dart_runtime_26.SpecReviewMergeResult<
               $tom_som_dart_runtime_11.SpecStripKept
             >(merged, report);
+          case $tom_som_dart_runtime_11.SpecStripMerge _:
+            return $tom_som_dart_runtime_26.SpecReviewMergeResult<
+              $tom_som_dart_runtime_11.SpecStripMerge
+            >(merged, report);
+          case $tom_som_dart_runtime_11.SpecStripMergeConflict _:
+            return $tom_som_dart_runtime_26.SpecReviewMergeResult<
+              $tom_som_dart_runtime_11.SpecStripMergeConflict
+            >(merged, report);
+          case $tom_som_dart_runtime_11.SpecStripMergePlaced _:
+            return $tom_som_dart_runtime_26.SpecReviewMergeResult<
+              $tom_som_dart_runtime_11.SpecStripMergePlaced
+            >(merged, report);
+          case $tom_som_dart_runtime_11.SpecStripMergeRefusal _:
+            return $tom_som_dart_runtime_26.SpecReviewMergeResult<
+              $tom_som_dart_runtime_11.SpecStripMergeRefusal
+            >(merged, report);
+          case $tom_som_dart_runtime_11.SpecStripMergeResult _:
+            return $tom_som_dart_runtime_26.SpecReviewMergeResult<
+              $tom_som_dart_runtime_11.SpecStripMergeResult
+            >(merged, report);
+          case $tom_som_dart_runtime_11.SpecStripMergedValue _:
+            return $tom_som_dart_runtime_26.SpecReviewMergeResult<
+              $tom_som_dart_runtime_11.SpecStripMergedValue
+            >(merged, report);
           case $tom_som_dart_runtime_11.SpecStripOptions _:
             return $tom_som_dart_runtime_26.SpecReviewMergeResult<
               $tom_som_dart_runtime_11.SpecStripOptions
@@ -8659,6 +8779,10 @@ BridgedClass _createSpecReviewMergeResultBridge() {
           case $tom_som_dart_runtime_11.SpecStripTextResult _:
             return $tom_som_dart_runtime_26.SpecReviewMergeResult<
               $tom_som_dart_runtime_11.SpecStripTextResult
+            >(merged, report);
+          case $tom_som_dart_runtime_11.SpecStripValueMerge _:
+            return $tom_som_dart_runtime_26.SpecReviewMergeResult<
+              $tom_som_dart_runtime_11.SpecStripValueMerge
             >(merged, report);
           case $tom_som_dart_runtime_11.SpecStripValueRef _:
             return $tom_som_dart_runtime_26.SpecReviewMergeResult<
@@ -15646,6 +15770,755 @@ BridgedClass _createSpecDocumentStripBridge() {
     staticMethodSignatures: {
       'strip':
           'SpecStripResult strip(SpecDocument document, SpecStripOptions options, {SpecModel? model, DocSpecsSchema? schema, String? rootType, String? fileStem, Map<String, String> documentFiles = const {}, SpecReadableSource? source})',
+    },
+  );
+}
+
+// =============================================================================
+// SpecStripMergePlaced Bridge
+// =============================================================================
+
+BridgedClass _createSpecStripMergePlacedBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_11.SpecStripMergePlaced,
+    name: 'SpecStripMergePlaced',
+    isAssignable: (v) => v is $tom_som_dart_runtime_11.SpecStripMergePlaced,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'SpecStripMergePlaced');
+        final piece = D4
+            .getRequiredArg<$tom_som_dart_runtime_11.SpecStripPiece>(
+              positional,
+              0,
+              'piece',
+              'SpecStripMergePlaced',
+            );
+        final at = D4.getRequiredArg<int>(
+          positional,
+          1,
+          'at',
+          'SpecStripMergePlaced',
+        );
+        return $tom_som_dart_runtime_11.SpecStripMergePlaced(piece, at);
+      },
+    },
+    getters: {
+      'piece': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergePlaced>(
+            target,
+            'SpecStripMergePlaced',
+          )
+          .piece,
+      'at': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergePlaced>(
+            target,
+            'SpecStripMergePlaced',
+          )
+          .at,
+    },
+    methods: {
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_11.SpecStripMergePlaced>(
+              target,
+              'SpecStripMergePlaced',
+            );
+        return t.toJson();
+      },
+    },
+    constructorSignatures: {
+      '': 'const SpecStripMergePlaced(SpecStripPiece piece, int at)',
+    },
+    methodSignatures: {'toJson': 'Map<String, Object?> toJson()'},
+    getterSignatures: {'piece': 'SpecStripPiece get piece', 'at': 'int get at'},
+  );
+}
+
+// =============================================================================
+// SpecStripMergeConflict Bridge
+// =============================================================================
+
+BridgedClass _createSpecStripMergeConflictBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_11.SpecStripMergeConflict,
+    name: 'SpecStripMergeConflict',
+    isAssignable: (v) => v is $tom_som_dart_runtime_11.SpecStripMergeConflict,
+    constructors: {
+      '': (visitor, positional, named) {
+        final code = D4.getRequiredNamedArg<String>(
+          named,
+          'code',
+          'SpecStripMergeConflict',
+        );
+        final message = D4.getRequiredNamedArg<String>(
+          named,
+          'message',
+          'SpecStripMergeConflict',
+        );
+        final ref = D4
+            .getOptionalNamedArg<$tom_som_dart_runtime_11.SpecStripValueRef?>(
+              named,
+              'ref',
+            );
+        final piece = D4
+            .getOptionalNamedArg<$tom_som_dart_runtime_11.SpecStripPiece?>(
+              named,
+              'piece',
+            );
+        final excerptO = D4.getNamedArgWithDefault<String>(
+          named,
+          'excerptO',
+          '',
+        );
+        final excerptB = D4.getNamedArgWithDefault<String>(
+          named,
+          'excerptB',
+          '',
+        );
+        final excerptE = D4.getNamedArgWithDefault<String>(
+          named,
+          'excerptE',
+          '',
+        );
+        return $tom_som_dart_runtime_11.SpecStripMergeConflict(
+          code: code,
+          message: message,
+          ref: ref,
+          piece: piece,
+          excerptO: excerptO,
+          excerptB: excerptB,
+          excerptE: excerptE,
+        );
+      },
+    },
+    getters: {
+      'code': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeConflict>(
+            target,
+            'SpecStripMergeConflict',
+          )
+          .code,
+      'message': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeConflict>(
+            target,
+            'SpecStripMergeConflict',
+          )
+          .message,
+      'ref': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeConflict>(
+            target,
+            'SpecStripMergeConflict',
+          )
+          .ref,
+      'piece': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeConflict>(
+            target,
+            'SpecStripMergeConflict',
+          )
+          .piece,
+      'excerptO': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeConflict>(
+            target,
+            'SpecStripMergeConflict',
+          )
+          .excerptO,
+      'excerptB': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeConflict>(
+            target,
+            'SpecStripMergeConflict',
+          )
+          .excerptB,
+      'excerptE': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeConflict>(
+            target,
+            'SpecStripMergeConflict',
+          )
+          .excerptE,
+      'reportLines': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeConflict>(
+            target,
+            'SpecStripMergeConflict',
+          )
+          .reportLines,
+    },
+    methods: {
+      'about': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeConflict>(
+              target,
+              'SpecStripMergeConflict',
+            );
+        D4.requireMinArgs(positional, 1, 'about');
+        final value = D4
+            .getRequiredArg<$tom_som_dart_runtime_11.SpecStripValueRef>(
+              positional,
+              0,
+              'value',
+              'about',
+            );
+        return t.about(value);
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeConflict>(
+              target,
+              'SpecStripMergeConflict',
+            );
+        return t.toJson();
+      },
+    },
+    constructorSignatures: {
+      '': 'const SpecStripMergeConflict({required String code, required String message, SpecStripValueRef? ref, SpecStripPiece? piece, String excerptO = \'\', String excerptB = \'\', String excerptE = \'\'})',
+    },
+    methodSignatures: {
+      'about': 'SpecStripMergeConflict about(SpecStripValueRef value)',
+      'toJson': 'Map<String, Object?> toJson()',
+    },
+    getterSignatures: {
+      'code': 'String get code',
+      'message': 'String get message',
+      'ref': 'SpecStripValueRef? get ref',
+      'piece': 'SpecStripPiece? get piece',
+      'excerptO': 'String get excerptO',
+      'excerptB': 'String get excerptB',
+      'excerptE': 'String get excerptE',
+      'reportLines': 'List<String> get reportLines',
+    },
+  );
+}
+
+// =============================================================================
+// SpecStripValueMerge Bridge
+// =============================================================================
+
+BridgedClass _createSpecStripValueMergeBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_11.SpecStripValueMerge,
+    name: 'SpecStripValueMerge',
+    isAssignable: (v) => v is $tom_som_dart_runtime_11.SpecStripValueMerge,
+    constructors: {
+      '': (visitor, positional, named) {
+        final text = D4.getRequiredNamedArg<String?>(
+          named,
+          'text',
+          'SpecStripValueMerge',
+        );
+        final restored = D4.getRequiredNamedArg<int>(
+          named,
+          'restored',
+          'SpecStripValueMerge',
+        );
+        if (!named.containsKey('placed') || named['placed'] == null) {
+          throw ArgumentError(
+            'SpecStripValueMerge: Missing required named argument "placed"',
+          );
+        }
+        final placed = D4
+            .coerceList<$tom_som_dart_runtime_11.SpecStripMergePlaced>(
+              named['placed'],
+              'placed',
+            );
+        if (!named.containsKey('conflicts') || named['conflicts'] == null) {
+          throw ArgumentError(
+            'SpecStripValueMerge: Missing required named argument "conflicts"',
+          );
+        }
+        final conflicts = D4
+            .coerceList<$tom_som_dart_runtime_11.SpecStripMergeConflict>(
+              named['conflicts'],
+              'conflicts',
+            );
+        return $tom_som_dart_runtime_11.SpecStripValueMerge(
+          text: text,
+          restored: restored,
+          placed: placed,
+          conflicts: conflicts,
+        );
+      },
+    },
+    getters: {
+      'text': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripValueMerge>(
+            target,
+            'SpecStripValueMerge',
+          )
+          .text,
+      'restored': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripValueMerge>(
+            target,
+            'SpecStripValueMerge',
+          )
+          .restored,
+      'placed': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripValueMerge>(
+            target,
+            'SpecStripValueMerge',
+          )
+          .placed,
+      'conflicts': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripValueMerge>(
+            target,
+            'SpecStripValueMerge',
+          )
+          .conflicts,
+      'ok': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripValueMerge>(
+            target,
+            'SpecStripValueMerge',
+          )
+          .ok,
+    },
+    methods: {
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_11.SpecStripValueMerge>(
+              target,
+              'SpecStripValueMerge',
+            );
+        return t.toJson();
+      },
+    },
+    constructorSignatures: {
+      '': 'const SpecStripValueMerge({required String? text, required int restored, required List<SpecStripMergePlaced> placed, required List<SpecStripMergeConflict> conflicts})',
+    },
+    methodSignatures: {'toJson': 'Map<String, Object?> toJson()'},
+    getterSignatures: {
+      'text': 'String? get text',
+      'restored': 'int get restored',
+      'placed': 'List<SpecStripMergePlaced> get placed',
+      'conflicts': 'List<SpecStripMergeConflict> get conflicts',
+      'ok': 'bool get ok',
+    },
+  );
+}
+
+// =============================================================================
+// SpecStripMergedValue Bridge
+// =============================================================================
+
+BridgedClass _createSpecStripMergedValueBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_11.SpecStripMergedValue,
+    name: 'SpecStripMergedValue',
+    isAssignable: (v) => v is $tom_som_dart_runtime_11.SpecStripMergedValue,
+    constructors: {
+      '': (visitor, positional, named) {
+        final ref = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_11.SpecStripValueRef>(
+              named,
+              'ref',
+              'SpecStripMergedValue',
+            );
+        final text = D4.getRequiredNamedArg<String>(
+          named,
+          'text',
+          'SpecStripMergedValue',
+        );
+        final restored = D4.getRequiredNamedArg<int>(
+          named,
+          'restored',
+          'SpecStripMergedValue',
+        );
+        if (!named.containsKey('placed') || named['placed'] == null) {
+          throw ArgumentError(
+            'SpecStripMergedValue: Missing required named argument "placed"',
+          );
+        }
+        final placed = D4
+            .coerceList<$tom_som_dart_runtime_11.SpecStripMergePlaced>(
+              named['placed'],
+              'placed',
+            );
+        return $tom_som_dart_runtime_11.SpecStripMergedValue(
+          ref: ref,
+          text: text,
+          restored: restored,
+          placed: placed,
+        );
+      },
+    },
+    getters: {
+      'ref': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergedValue>(
+            target,
+            'SpecStripMergedValue',
+          )
+          .ref,
+      'text': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergedValue>(
+            target,
+            'SpecStripMergedValue',
+          )
+          .text,
+      'restored': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergedValue>(
+            target,
+            'SpecStripMergedValue',
+          )
+          .restored,
+      'placed': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergedValue>(
+            target,
+            'SpecStripMergedValue',
+          )
+          .placed,
+    },
+    constructorSignatures: {
+      '': 'const SpecStripMergedValue({required SpecStripValueRef ref, required String text, required int restored, required List<SpecStripMergePlaced> placed})',
+    },
+    getterSignatures: {
+      'ref': 'SpecStripValueRef get ref',
+      'text': 'String get text',
+      'restored': 'int get restored',
+      'placed': 'List<SpecStripMergePlaced> get placed',
+    },
+  );
+}
+
+// =============================================================================
+// SpecStripMergeRefusal Bridge
+// =============================================================================
+
+BridgedClass _createSpecStripMergeRefusalBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_11.SpecStripMergeRefusal,
+    name: 'SpecStripMergeRefusal',
+    isAssignable: (v) => v is $tom_som_dart_runtime_11.SpecStripMergeRefusal,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 3, 'SpecStripMergeRefusal');
+        final code = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'code',
+          'SpecStripMergeRefusal',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'SpecStripMergeRefusal',
+        );
+        final message = D4.getRequiredArg<String>(
+          positional,
+          2,
+          'message',
+          'SpecStripMergeRefusal',
+        );
+        return $tom_som_dart_runtime_11.SpecStripMergeRefusal(
+          code,
+          path,
+          message,
+        );
+      },
+    },
+    getters: {
+      'code': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeRefusal>(
+            target,
+            'SpecStripMergeRefusal',
+          )
+          .code,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeRefusal>(
+            target,
+            'SpecStripMergeRefusal',
+          )
+          .path,
+      'message': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeRefusal>(
+            target,
+            'SpecStripMergeRefusal',
+          )
+          .message,
+      'reportLine': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeRefusal>(
+            target,
+            'SpecStripMergeRefusal',
+          )
+          .reportLine,
+    },
+    methods: {
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeRefusal>(
+              target,
+              'SpecStripMergeRefusal',
+            );
+        return t.toJson();
+      },
+    },
+    constructorSignatures: {
+      '': 'const SpecStripMergeRefusal(String code, String path, String message)',
+    },
+    methodSignatures: {'toJson': 'Map<String, Object?> toJson()'},
+    getterSignatures: {
+      'code': 'String get code',
+      'path': 'String get path',
+      'message': 'String get message',
+      'reportLine': 'String get reportLine',
+    },
+  );
+}
+
+// =============================================================================
+// SpecStripMergeResult Bridge
+// =============================================================================
+
+BridgedClass _createSpecStripMergeResultBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_11.SpecStripMergeResult,
+    name: 'SpecStripMergeResult',
+    isAssignable: (v) => v is $tom_som_dart_runtime_11.SpecStripMergeResult,
+    constructors: {
+      '': (visitor, positional, named) {
+        final document = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_8.SpecDocument?>(
+              named,
+              'document',
+              'SpecStripMergeResult',
+            );
+        final options = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_11.SpecStripOptions>(
+              named,
+              'options',
+              'SpecStripMergeResult',
+            );
+        final stale = D4.getRequiredNamedArg<bool>(
+          named,
+          'stale',
+          'SpecStripMergeResult',
+        );
+        if (!named.containsKey('merged') || named['merged'] == null) {
+          throw ArgumentError(
+            'SpecStripMergeResult: Missing required named argument "merged"',
+          );
+        }
+        final merged = D4
+            .coerceList<$tom_som_dart_runtime_11.SpecStripMergedValue>(
+              named['merged'],
+              'merged',
+            );
+        if (!named.containsKey('conflicts') || named['conflicts'] == null) {
+          throw ArgumentError(
+            'SpecStripMergeResult: Missing required named argument "conflicts"',
+          );
+        }
+        final conflicts = D4
+            .coerceList<$tom_som_dart_runtime_11.SpecStripMergeConflict>(
+              named['conflicts'],
+              'conflicts',
+            );
+        if (!named.containsKey('refusals') || named['refusals'] == null) {
+          throw ArgumentError(
+            'SpecStripMergeResult: Missing required named argument "refusals"',
+          );
+        }
+        final refusals = D4
+            .coerceList<$tom_som_dart_runtime_11.SpecStripMergeRefusal>(
+              named['refusals'],
+              'refusals',
+            );
+        return $tom_som_dart_runtime_11.SpecStripMergeResult(
+          document: document,
+          options: options,
+          stale: stale,
+          merged: merged,
+          conflicts: conflicts,
+          refusals: refusals,
+        );
+      },
+    },
+    getters: {
+      'document': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeResult>(
+            target,
+            'SpecStripMergeResult',
+          )
+          .document,
+      'options': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeResult>(
+            target,
+            'SpecStripMergeResult',
+          )
+          .options,
+      'stale': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeResult>(
+            target,
+            'SpecStripMergeResult',
+          )
+          .stale,
+      'merged': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeResult>(
+            target,
+            'SpecStripMergeResult',
+          )
+          .merged,
+      'conflicts': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeResult>(
+            target,
+            'SpecStripMergeResult',
+          )
+          .conflicts,
+      'refusals': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeResult>(
+            target,
+            'SpecStripMergeResult',
+          )
+          .refusals,
+      'ok': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeResult>(
+            target,
+            'SpecStripMergeResult',
+          )
+          .ok,
+      'exitCode': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeResult>(
+            target,
+            'SpecStripMergeResult',
+          )
+          .exitCode,
+      'report': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecStripMergeResult>(
+            target,
+            'SpecStripMergeResult',
+          )
+          .report,
+    },
+    constructorSignatures: {
+      '': 'const SpecStripMergeResult({required SpecDocument? document, required SpecStripOptions options, required bool stale, required List<SpecStripMergedValue> merged, required List<SpecStripMergeConflict> conflicts, required List<SpecStripMergeRefusal> refusals})',
+    },
+    getterSignatures: {
+      'document': 'SpecDocument? get document',
+      'options': 'SpecStripOptions get options',
+      'stale': 'bool get stale',
+      'merged': 'List<SpecStripMergedValue> get merged',
+      'conflicts': 'List<SpecStripMergeConflict> get conflicts',
+      'refusals': 'List<SpecStripMergeRefusal> get refusals',
+      'ok': 'bool get ok',
+      'exitCode': 'int get exitCode',
+      'report': 'List<String> get report',
+    },
+  );
+}
+
+// =============================================================================
+// SpecStripMerge Bridge
+// =============================================================================
+
+BridgedClass _createSpecStripMergeBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_11.SpecStripMerge,
+    name: 'SpecStripMerge',
+    isAssignable: (v) => v is $tom_som_dart_runtime_11.SpecStripMerge,
+    isAbstract: true,
+    constructors: {},
+    staticMethods: {
+      'merge': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'merge');
+        final original = D4
+            .getRequiredArg<$tom_som_dart_runtime_8.SpecDocument>(
+              positional,
+              0,
+              'original',
+              'merge',
+            );
+        final edited = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'edited',
+          'merge',
+        );
+        final model = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_19.SpecModel>(
+              named,
+              'model',
+              'merge',
+            );
+        final schema = D4
+            .getOptionalNamedArg<$tom_som_dart_runtime_1.DocSpecsSchema?>(
+              named,
+              'schema',
+            );
+        final rootType = D4.getOptionalNamedArg<String?>(named, 'rootType');
+        final options = D4
+            .getOptionalNamedArg<$tom_som_dart_runtime_11.SpecStripOptions?>(
+              named,
+              'options',
+            );
+        final currentRevision = D4.getOptionalNamedArg<String?>(
+          named,
+          'currentRevision',
+        );
+        final base = D4
+            .getOptionalNamedArg<$tom_som_dart_runtime_8.SpecDocument?>(
+              named,
+              'base',
+            );
+        final loadBaseRaw = named['loadBase'];
+        final loadBase = loadBaseRaw == null
+            ? null
+            : (($tom_som_dart_runtime_11.SpecReadableSource p0) {
+                    return D4.extractBridgedArg<
+                          $tom_som_dart_runtime_8.SpecDocument?
+                        >(
+                          D4.callInterpreterCallback(visitor!, loadBaseRaw, [
+                            p0,
+                          ]),
+                          'callback',
+                          visitor,
+                        )
+                        as $tom_som_dart_runtime_8.SpecDocument?;
+                  })
+                  as $tom_som_dart_runtime_8.SpecDocument? Function(
+                    $tom_som_dart_runtime_11.SpecReadableSource,
+                  );
+        final fileStem = D4.getOptionalNamedArg<String?>(named, 'fileStem');
+        final documentFiles =
+            named.containsKey('documentFiles') && named['documentFiles'] != null
+            ? D4.coerceMap<String, String>(
+                named['documentFiles'],
+                'documentFiles',
+              )
+            : const <String, String>{};
+        return $tom_som_dart_runtime_11.SpecStripMerge.merge(
+          original,
+          edited,
+          model: model,
+          schema: schema,
+          rootType: rootType,
+          options: options,
+          currentRevision: currentRevision,
+          base: base,
+          loadBase: loadBase,
+          fileStem: fileStem,
+          documentFiles: documentFiles,
+        );
+      },
+      'gitShowFile': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'gitShowFile');
+        final commit = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'commit',
+          'gitShowFile',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'gitShowFile',
+        );
+        return $tom_som_dart_runtime_11.SpecStripMerge.gitShowFile(
+          commit,
+          path,
+        );
+      },
+    },
+    staticMethodSignatures: {
+      'merge':
+          'SpecStripMergeResult merge(SpecDocument original, String edited, {required SpecModel model, DocSpecsSchema? schema, String? rootType, SpecStripOptions? options, String? currentRevision, SpecDocument? base, SpecDocument? Function(SpecReadableSource source)? loadBase, String? fileStem, Map<String, String> documentFiles = const {}})',
+      'gitShowFile': 'String? gitShowFile(String commit, String path)',
     },
   );
 }

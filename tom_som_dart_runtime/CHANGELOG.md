@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- **The merge back** (SOM §11.10): `mergeStrippedValue(o, b, e, pieces)`
+  merges the edited text of one value back onto its original, every piece the
+  strip removed put back where the diff of the stripped text against the edit
+  moves its anchor (`SpecStripValueMerge` with the text, the pieces put back,
+  the `PLACED` ones and the conflicts); `SpecStripMerge.merge(original,
+  edited, model: …)` merges an edited `.readable.md` onto its document: the
+  switches from the readable header, values matched by path, structural edits
+  refused, a stale original merged three ways from a given `base` or the
+  header's commit (`loadBase`, `SpecStripMerge.gitShowFile`), all or nothing,
+  verified before the document is returned (`SpecStripMergeResult` with the
+  report and exit code). `annotationIssuesText(value)` lists a value's
+  malformed review annotations.
 - **Stripped renditions** (SOM §11.10): `stripNotationText(value, options)`
   strips one value and `SpecDocumentStrip.strip(document, options, model: …)`
   a document — content, form fields, scalar list items and headlines — with

@@ -219,6 +219,7 @@ export {
   applyInlineMarksText,
   decideAllMarksText,
   stripAnnotationsText,
+  annotationIssuesText,
   countAnnotationsText,
   SpecMarkedChange,
   markChangeText,
@@ -369,6 +370,20 @@ export {
   type SpecDocumentStripOptions,
   SpecDocumentStrip,
 } from './spec_document_strip';
+
+// the merge back (SOM §11.10)
+export {
+  SpecStripMergePlaced,
+  SpecStripMergeConflict,
+  SpecStripValueMerge,
+  specStripMergeLabel,
+  mergeStrippedValue,
+  SpecStripMergedValue,
+  SpecStripMergeRefusal,
+  SpecStripMergeResult,
+  type SpecStripMergeOptions,
+  SpecStripMerge,
+} from './spec_document_merge';
 
 // docspecs validation (SOM §14)
 export {

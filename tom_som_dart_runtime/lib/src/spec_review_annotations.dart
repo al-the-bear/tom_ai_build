@@ -2567,6 +2567,12 @@ int countAnnotationsText(String value) {
   return p.blocks.length + p.marks.length;
 }
 
+/// The malformed review annotations of [value] (SOM §11.9.3), one message
+/// each; empty when every block and mark is well formed. What a merge back
+/// (SOM §11.10) checks a merged value against.
+List<String> annotationIssuesText(String value) =>
+    List.unmodifiable(_parse(value).malformed);
+
 /// [value] without any comment block, question block or inline mark (every
 /// mark accepted). Plain quotes and code stay.
 String stripAnnotationsText(String value) {
