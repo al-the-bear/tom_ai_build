@@ -665,21 +665,53 @@ String? _patternProblem(SecondaryChange c, String text) {
   return null;
 }
 
-/// The ids of the parenthesised runs of [run], in order.
+/// The contents of the top-level parenthesised groups of [s] when [s] is one
+/// or more balanced groups separated by single spaces, else null.
+List<String>? _groupsOf(String s) {
+  final groups = <String>[];
+  var i = 0;
+  while (true) {
+    if (i >= s.length || s[i] != '(') return null;
+    var depth = 0;
+    var j = i;
+    for (; j < s.length; j++) {
+      if (s[j] == '(') depth++;
+      if (s[j] == ')' && --depth == 0) break;
+    }
+    if (j >= s.length || j == i + 1) return null;
+    groups.add(s.substring(i + 1, j));
+    i = j + 1;
+    if (i == s.length) return groups;
+    if (s[i] != ' ') return null;
+    i++;
+  }
+}
+
+/// The items of the parenthesised runs of [run], in order: each an id, or an
+/// id with the option taken (`DQ-115 (b)`).
 List<String> _idsOf(String run) => [
-  for (final m in RegExp(r'\(([^()]*)\)').allMatches(run))
-    ...m.group(1)!.split(RegExp(r',\s*')),
+  for (final g in _groupsOf(run) ?? const <String>[])
+    ...g.split(RegExp(r',\s*')),
 ];
 
 /// [s] itself when it is one or more parenthesised runs separated by single
 /// spaces, else an empty string.
-String _runsOf(String s) =>
-    RegExp(r'^\([^()]+\)(?: \([^()]+\))*$').hasMatch(s) ? s : '';
+String _runsOf(String s) => _groupsOf(s) == null ? '' : s;
 
 final RegExp _idShape = RegExp(r'^([A-Z][A-Za-z]*)-?\d+(?:\.\d+)*[a-z]?$');
 
-bool _knownId(String id) {
-  final m = _idShape.firstMatch(id);
+/// A decision cited with the option taken: an id, one space, `(<letter>)`
+/// (DocSpecs RN-3).
+final RegExp _optionTaken = RegExp(r'^(.+) \([a-z]\)$');
+
+/// [item] without the option taken it carries, if any.
+String _bareId(String item) {
+  final m = _optionTaken.firstMatch(item);
+  return m != null && _idShape.hasMatch(m.group(1)!) ? m.group(1)! : item;
+}
+
+bool _knownId(String item) {
+  final m = _idShape.firstMatch(_bareId(item));
   return m != null && secondaryIdFamilies.contains(m.group(1));
 }
 
@@ -891,12 +923,12 @@ class _Collector {
           continue;
         }
         final items = inner.split(RegExp(r',\s*'));
-        final shaped = items.every((i) => _idShape.hasMatch(i));
+        final shaped = items.every((i) => _idShape.hasMatch(_bareId(i)));
         final known = items.every(_knownId);
         final mentions = _knownFamilyToken.hasMatch(inner);
         if (shaped && !known) {
           for (final i in items) {
-            final f = _idShape.firstMatch(i)!.group(1)!;
+            final f = _idShape.firstMatch(_bareId(i))!.group(1)!;
             if (!secondaryIdFamilies.contains(f)) {
               unknownFamilies[f] = (unknownFamilies[f] ?? 0) + 1;
             }

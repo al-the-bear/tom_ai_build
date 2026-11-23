@@ -46,6 +46,8 @@ document:
 
         Worded (Project Idea 1.1, C1.2) and (from RC-4) and (FR-51, BQ-557, `SCJOB-X`).
 
+        Decided as asked (DQ-115 (b)), merged (RC-176, DQ-186 (a)) (FR-60), unspaced (DQ-157(a)) and two letters (DQ-1 (ab)).
+
         In code `(FR-1)` stays.
 
         ```mermaid
@@ -126,6 +128,13 @@ void main() {
       expect(v, contains('a list (-> FR-07, BQ-405).'));
     });
 
+    test('T1: a decision cited with the option taken', () {
+      final v = _value(r, 'DOCTL');
+      expect(v, contains('Decided as asked (-> DQ-115 (b)), merged'));
+      expect(v, contains('merged (-> RC-176, DQ-186 (a), FR-60), unspaced'));
+      expect(v, contains('unspaced (DQ-157(a)) and two letters (DQ-1 (ab)).'));
+    });
+
     test('T1: in a table cell beside text, and inside a review mark', () {
       final v = _value(r, 'DOCTL');
       expect(v, contains('| by this (-> FR-9) |'));
@@ -193,7 +202,12 @@ void main() {
       final c = r.candidatesOf(SecondaryKind.trace);
       expect(
         [for (final x in c.where((x) => x.reason == 'worded')) x.text],
-        ['(Project Idea 1.1, C1.2)', '(from RC-4)'],
+        [
+          '(Project Idea 1.1, C1.2)',
+          '(from RC-4)',
+          '(DQ-157(a))',
+          '(DQ-1 (ab))',
+        ],
       );
       expect(
         [for (final x in c.where((x) => x.reason == 'codeSpanInRun')) x.text],

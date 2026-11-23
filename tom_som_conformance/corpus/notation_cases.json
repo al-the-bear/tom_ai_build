@@ -435,6 +435,32 @@
       "findings": []
     },
     {
+      "name": "trace citation whose ids carry the option taken",
+      "text": "The setup wizard asks for the key (-> DQ-115 (b), RC-176, DQ-186 (a)).",
+      "tomSpecs": false,
+      "elements": [
+        {
+          "type": "citation",
+          "kind": "trace",
+          "classes": [
+            "trace"
+          ],
+          "id": null,
+          "attributes": {},
+          "shape": "->",
+          "start": 34,
+          "end": 69,
+          "line": 1,
+          "endLine": 1,
+          "closed": true,
+          "source": "(-> DQ-115 (b), RC-176, DQ-186 (a))",
+          "content": "DQ-115 (b), RC-176, DQ-186 (a)",
+          "children": []
+        }
+      ],
+      "findings": []
+    },
+    {
       "name": "shapes that are no citation",
       "text": "(->C2.1) ( -> C2.1) (SHA-256) (-> ) (<- unclosed",
       "tomSpecs": false,

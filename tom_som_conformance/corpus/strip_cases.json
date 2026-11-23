@@ -207,6 +207,64 @@
       }
     },
     {
+      "name": "unmark a trace citation whose ids carry the option taken",
+      "text": "The wizard asks for the key (-> DQ-115 (b), RC-176, DQ-186 (a)).",
+      "unmark": [
+        "trace"
+      ],
+      "expect": {
+        "text": "The wizard asks for the key (DQ-115 (b), RC-176, DQ-186 (a)).",
+        "dropped": {},
+        "unmarked": {
+          "trace": 1
+        },
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 29,
+            "origin": 29,
+            "removed": "-> ",
+            "inserted": "",
+            "labels": [
+              "trace:unmark"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "drop a trace citation whose ids carry the option taken",
+      "text": "The wizard asks for the key (-> DQ-115 (b), RC-176, DQ-186 (a)).",
+      "drop": [
+        "trace"
+      ],
+      "expect": {
+        "text": "The wizard asks for the key.",
+        "dropped": {
+          "trace": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 27,
+            "origin": 27,
+            "removed": " (-> DQ-115 (b), RC-176, DQ-186 (a))",
+            "inserted": "",
+            "labels": [
+              "trace:drop"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
       "name": "a span in a table cell",
       "text": "| A | B |\n| --- | --- |\n| x [y]{.aside} | z |",
       "drop": [

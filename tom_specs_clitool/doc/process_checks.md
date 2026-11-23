@@ -228,8 +228,10 @@ afterwards with `:spec-render`, which the report names.
 | `references` (R1) | a code span `` `A > … > B` `` whose ids are sections of the document | `[B](#B)` |
 
 An id is a family prefix, an optional `-`, a number, optional `.number` parts and
-an optional letter. The families are `FR`, `C`, `BQ`, `RC`, `D`, `N`, `SR`, `UC`,
-`TR`, `TD`, `DQ`, `G`, `CL`, `OR`, `X`, `S`, `PR`, `AC`.
+an optional letter; a decision's id may carry the option taken, one space and
+the option's letter in parentheses: `(DQ-115 (b))` → `(-> DQ-115 (b))`. The
+families are `FR`, `C`, `BQ`, `RC`, `D`, `N`, `SR`, `UC`, `TR`, `TD`, `DQ`, `G`,
+`CL`, `OR`, `X`, `S`, `PR`, `AC`.
 
 **What it never marks**, and how the report names it:
 
@@ -241,7 +243,7 @@ an optional letter. The families are `FR`, `C`, `BQ`, `RC`, `D`, `N`, `SR`, `UC`
   extended where one is missing);
 - a run directly after `see`, `per`, `under` or `cf.` (candidate
   `afterPreposition`): there the citation is the sentence's object;
-- a worded run, `(Project Idea 1.1, C1.2)`, `(DQ-115 (b))` (candidate `worded`),
+- a worded run, `(Project Idea 1.1, C1.2)`, `(DQ-157(a))` (candidate `worded`),
   and a run holding a code span (candidate `codeSpanInRun`);
 - a provenance note followed by more text in its paragraph (candidate
   `moreText`) or quoted in a code span (skip `inCodeSpan`);
