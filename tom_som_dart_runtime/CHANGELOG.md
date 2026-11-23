@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+- **The links between places are displayed** (`tom_specs_model_rules.md`
+  §9.7): `SyncedWith`, `SummaryOf`, `DerivedFrom` and `ExtractsLinks` join
+  `kRenderedAnnotations`, and `linkChips(node)` gives a node's chips —
+  `sync→ <document>`, `summary→ <list>`, `derived ← <source>`,
+  `extracts <field>` (one per use) — which `fieldChips` appends. The showcase
+  fixture (`spec_display_fixture.dart`) carries the four, a repeated
+  `@ExtractsLinks` included.
+
 ## 1.12.2
 
 - **A wrapped paragraph is one table cell** (SOM §11.4 rule 13): a form-field

@@ -253,6 +253,7 @@ Every annotation the export emits reaches the screen:
 | Identity and headline | `@Document`, `@SectionId`, `@SectionIdPattern`, `@Headline` | Root rail; grey badges on the row; quoted secondary label |
 | Shape | `@Form` (and the `Field` qualifier `multiParagraph`), `@ContentType`, `@Min`, `@ContentHelp` | Form panel under the row, a `¶ paragraphs` chip on a multi-paragraph field; the row's type label; the row's doc line |
 | Hand-offs and taxonomies | `@MapsTo`, `@DetailedIn`, `@CodeSpecKind`, `@FollowUpKind`, `@NoArtifact`, `@CodeSpecsProjection` | `maps→` / `detail→` chips (also the cut anchors); part, process and `na:` verdict chips; projection badge |
+| Links between places (`tom_specs_model_rules.md` §9.7) | `@SyncedWith`, `@SummaryOf`, `@DerivedFrom`, `@ExtractsLinks` | `sync→ <document>`, `summary→ <list>`, `derived ← <source>`, `extracts <field>` chips (one per `@ExtractsLinks`) on the field row, and on the class row for a class-level `@SyncedWith`; the tooltip carries the places, relation, filter or mode |
 | Closed choices | `@OneOf`, `@Case` | The choice group node with discriminator coverage; `case:` chips on the alternatives |
 | Markers, notes, provenance | `@Unused`, `@Comment`, `@Reference`, `@StandardReferences`, `@SerializationOrder` | Struck-through label plus `unused` chip; inline `←` note; a collapsed `refs` panel; `#n` badge behind the toolbar toggle |
 

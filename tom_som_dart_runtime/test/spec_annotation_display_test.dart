@@ -321,6 +321,90 @@ void main() {
     });
   });
 
+  group('linkChips', () {
+    test('AD24: each link annotation names the other end of its link '
+        '[2026-11-23] (OK)', () {
+      final field = _field(
+        'f',
+        annotations: [
+          _ann('SyncedWith', {
+            'document': 'D04RequirementsSpecification',
+            'detailOnly': ['REQDEP'],
+            'heldHere': <String>[],
+            'relations': [
+              {
+                'place': 'RETRAR.relatedScreens',
+                'relation': 'LinkRelation.subset',
+              },
+            ],
+          }),
+          _ann('SummaryOf', {
+            'detail': 'FRE-REQU-LST',
+            'match': 'KREQ.reqRef',
+            'relation': 'LinkRelation.subset',
+          }),
+          _ann('DerivedFrom', {
+            'kind': 'DerivationKind.rows',
+            'source': './RQDEP',
+            'where': 'RQDEP.dependencyType=conflict',
+            'take': ['RQDEP-RELA-REF.ref'],
+          }),
+          _ann('ExtractsLinks', {
+            'from': ['FRED.description'],
+            'ref': 'RQDEP-RELA-REF.ref',
+            'mode': 'ExtractMode.generate',
+          }),
+          _ann('ExtractsLinks', {
+            'from': ['FREC.constraints'],
+            'ref': 'RQDEP-RELA-REF.ref',
+            'mode': 'ExtractMode.warn',
+            'note': 'BP-9: an id in the constraints without a row.',
+          }),
+        ],
+      );
+      final chips = linkChips(field);
+      expect(chips.map((c) => c.label), [
+        'sync→ D04RequirementsSpecification',
+        'summary→ FRE-REQU-LST',
+        'derived ← ./RQDEP',
+        'extracts RQDEP-RELA-REF.ref',
+        'extracts RQDEP-RELA-REF.ref',
+      ]);
+      expect(chips.first.role, SpecChipRole.handoff);
+      expect(chips.skip(1).map((c) => c.role).toSet(), {
+        SpecChipRole.structural,
+      });
+      expect(
+        chips[0].tooltip,
+        contains(
+          'only D04RequirementsSpecification '
+          'carries REQDEP',
+        ),
+      );
+      expect(chips[0].tooltip, contains('RETRAR.relatedScreens subset'));
+      expect(chips[1].tooltip, contains('matched by KREQ.reqRef (subset)'));
+      expect(chips[2].tooltip, contains('Derived (rows) from ./RQDEP'));
+      expect(chips[3].tooltip, isNot(contains('reported')));
+      expect(chips[4].tooltip, 'BP-9: an id in the constraints without a row.');
+    });
+
+    test('AD25: a field row shows its link chips after its kind chips '
+        '[2026-11-23] (OK)', () {
+      final field = _field(
+        'f',
+        annotations: [
+          _ann('CodeSpecKind', {'kinds': <String>[]}),
+          _ann('DerivedFrom', {'kind': 'DerivationKind.copy', 'source': 'X.y'}),
+        ],
+      );
+      expect(fieldChips(field).map((c) => c.label), [
+        'cs:none',
+        'derived ← X.y',
+      ]);
+      expect(linkChips(_field('plain')), isEmpty);
+    });
+  });
+
   group('coverage contract', () {
     test('AD22: every chip constant names a role its label matches '
         '[2026-07-28] (OK)', () {
@@ -335,6 +419,15 @@ void main() {
       expect(kRenderedAnnotations, contains('FollowUpKind'));
       expect(kRenderedAnnotations, contains('SectionIdPattern'));
       expect(kRenderedAnnotations, contains('SerializationOrder'));
+      expect(
+        kRenderedAnnotations,
+        containsAll([
+          'SyncedWith',
+          'SummaryOf',
+          'DerivedFrom',
+          'ExtractsLinks',
+        ]),
+      );
     });
   });
 }

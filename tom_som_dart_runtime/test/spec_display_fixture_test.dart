@@ -112,4 +112,18 @@ void main() {
     // thing `@NoArtifact` exists to deny.
     expect(fieldChips(overview).map((c) => c.label), ['na:overview']);
   });
+
+  test('DF9: the fixture carries the links between places, each as a chip '
+      'on its own row', () {
+    final labels = expectedShowcaseChipLabels(model);
+    expect(labels, contains('sync→ $kShowcaseSyncedDocument'));
+    expect(labels, contains('summary→ $kShowcaseSummaryDetail'));
+    expect(labels, contains('derived ← $kShowcaseDerivedSource'));
+    expect(labels, contains('extracts $kShowcaseExtractsRef'));
+
+    final doc = model.classNamed('ShowcaseDoc')!;
+    final links = doc.fields.firstWhere((f) => f.name == 'itemLinks');
+    // `@ExtractsLinks` is repeatable: two uses, two chips.
+    expect(linkChips(links), hasLength(2));
+  });
 }

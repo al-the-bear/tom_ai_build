@@ -54,14 +54,28 @@ const String kShowcaseNoArtifactNote =
     'Introduces the items below; every fact '
     'is stated in SHW-ITM.N.';
 
+/// The document the fixture's `@SyncedWith` row is kept in sync with.
+const String kShowcaseSyncedDocument = 'OtherDoc';
+
+/// The detail list the fixture's `@SummaryOf` row summarises.
+const String kShowcaseSummaryDetail = 'SHW-ITM-LST';
+
+/// The source the fixture's `@DerivedFrom` row is derived from.
+const String kShowcaseDerivedSource = './SHW-ITM';
+
+/// The reference field the fixture's `@ExtractsLinks` rows write found ids to.
+const String kShowcaseExtractsRef = 'SHW-LNK.ref';
+
 /// A class graph exercising every annotation the display layer renders.
 ///
 /// One root, `ShowcaseDoc`, marked `@CodeSpecsProjection` so the projection
 /// marker has a home. Its fields spread the three `@CodeSpecKind` states, both
 /// `@FollowUpKind` states, the `@NoArtifact` verdict, `@Unused`, `@Comment`,
 /// `@Headline`, `@Reference`,
-/// `@StandardReferences`, `@SectionIdPattern` and `@SerializationOrder` across
-/// separate rows so no row's rendering can mask another's.
+/// `@StandardReferences`, `@SectionIdPattern`, `@SerializationOrder` and the
+/// links between places (`@SyncedWith`, `@SummaryOf`, `@DerivedFrom`, a
+/// repeated `@ExtractsLinks`) across separate rows so no row's rendering can
+/// mask another's.
 Map<String, dynamic> kAnnotationShowcaseJson() => {
   'modelVersion': 1,
   'roots': [
@@ -225,6 +239,85 @@ Map<String, dynamic> kAnnotationShowcaseJson() => {
             {
               'name': 'Min',
               'arguments': {'count': 1},
+            },
+          ],
+        },
+        {
+          // A form member kept in sync with another document on its own,
+          // the member-level use of `@SyncedWith`.
+          'name': 'localeRollout',
+          'kind': 'scalar',
+          'type': 'String',
+          'sectionId': 'SHW-LOC',
+          'annotations': [
+            {
+              'name': 'SyncedWith',
+              'arguments': {
+                'document': kShowcaseSyncedDocument,
+                'detailOnly': <String>[],
+                'heldHere': ['SHW-LOC.rolloutRegions'],
+                'relations': <Object?>[],
+              },
+            },
+          ],
+        },
+        {
+          'name': 'keyItems',
+          'kind': 'list',
+          'elementType': 'ShowcaseItem',
+          'elementIsComplex': true,
+          'annotations': [
+            {
+              'name': 'SummaryOf',
+              'arguments': {
+                'detail': kShowcaseSummaryDetail,
+                'relation': 'LinkRelation.subset',
+                'repeats': <String, Object?>{},
+              },
+            },
+          ],
+        },
+        {
+          'name': 'itemDigest',
+          'kind': 'scalar',
+          'type': 'String',
+          'sectionId': 'SHW-DIG',
+          'annotations': [
+            {
+              'name': 'DerivedFrom',
+              'arguments': {
+                'kind': 'DerivationKind.rows',
+                'source': kShowcaseDerivedSource,
+                'take': ['SHW-ITM.@headline'],
+                'map': <String, Object?>{},
+              },
+            },
+          ],
+        },
+        {
+          // Two uses on one list: rows written, and rows only reported.
+          'name': 'itemLinks',
+          'kind': 'list',
+          'elementType': 'ShowcaseItem',
+          'elementIsComplex': true,
+          'annotations': [
+            {
+              'name': 'ExtractsLinks',
+              'arguments': {
+                'from': ['SHW-OVR.@content'],
+                'ref': kShowcaseExtractsRef,
+                'set': <String, Object?>{},
+                'mode': 'ExtractMode.generate',
+              },
+            },
+            {
+              'name': 'ExtractsLinks',
+              'arguments': {
+                'from': ['SHW-DIG.@content'],
+                'ref': kShowcaseExtractsRef,
+                'set': <String, Object?>{},
+                'mode': 'ExtractMode.warn',
+              },
             },
           ],
         },

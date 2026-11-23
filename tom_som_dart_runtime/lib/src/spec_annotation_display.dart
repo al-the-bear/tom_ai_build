@@ -107,6 +107,11 @@ const Set<String> kRenderedAnnotations = {
   // Hand-offs and taxonomies.
   'MapsTo', // `maps→` chip
   'DetailedIn', // `detail→` chip
+  // Links between places (`tom_specs_model_rules.md` §9.7), see [linkChips].
+  'SyncedWith', // `sync→` chip
+  'SummaryOf', // `summary→` chip
+  'DerivedFrom', // `derived ←` chip
+  'ExtractsLinks', // `extracts` chip, one per use
   'CodeSpecKind', // part chips
   'FollowUpKind', // process chips
   'NoArtifact', // the "feeds nothing" verdict chip
@@ -177,7 +182,8 @@ enum SpecChipRole {
   /// A closed choice whose discriminator field cannot be resolved.
   choiceBroken,
 
-  /// A hand-off marker (`@MapsTo` / `@DetailedIn`) — clickable in both apps.
+  /// A hand-off marker naming another document: `@MapsTo` and `@DetailedIn`
+  /// (clickable in both apps on a class row), `@SyncedWith`.
   handoff,
 
   /// Structural notes the tree itself makes (recursion, cut points).
@@ -396,7 +402,99 @@ List<SpecChip> caseChips(SpecField field) => [
 List<SpecChip> fieldChips(SpecField field) => [
   ...caseChips(field),
   ...kindChips(field.codeSpecKind, field.followUpKind, field.noArtifact),
+  ...linkChips(field),
 ];
+
+/// The chips of the links between places a node states
+/// (`tom_specs_model_rules.md` §9.7): `sync→ <document>` for `@SyncedWith`,
+/// `summary→ <list>` for `@SummaryOf`, `derived ← <source>` for
+/// `@DerivedFrom` and `extracts <field>` for each `@ExtractsLinks`.
+///
+/// One chip per annotation, in source order — `@ExtractsLinks` is repeatable,
+/// and two uses on one list (rows written, rows only reported) are two
+/// statements. The chip names the other end of the link; the tooltip carries
+/// the rest of the annotation (its places, relation, filter, mode), or the
+/// author's `note` where there is one.
+List<SpecChip> linkChips(AnnotatedSpecNode node) => [
+  for (final a in node.annotations)
+    if (_linkChip(a) case final chip?) chip,
+];
+
+SpecChip? _linkChip(SpecAnnotation a) {
+  String? text(String key) => a.argument(key) as String?;
+  List<String> list(String key) =>
+      (a.argument(key) as List?)?.whereType<String>().toList() ?? const [];
+  String bare(String key) => _bareValue(a.argument(key));
+
+  final note = text('note');
+  switch (a.name) {
+    case 'SyncedWith':
+      final doc = text('document') ?? '?';
+      final relations = [
+        for (final r in (a.argument('relations') as List?) ?? const [])
+          if (r is Map) '${r['place']} ${_bareValue(r['relation'])}',
+      ];
+      return SpecChip(
+        'sync→ $doc',
+        SpecChipRole.handoff,
+        tooltip:
+            note ??
+            [
+              'Kept in sync with $doc: every value both documents hold agrees',
+              if (list('detailOnly').isNotEmpty)
+                'only $doc carries ${list('detailOnly').join(', ')}',
+              if (list('heldHere').isNotEmpty)
+                'held here: ${list('heldHere').join(', ')}',
+              if (relations.isNotEmpty) relations.join(', '),
+            ].join('; '),
+      );
+    case 'SummaryOf':
+      final detail = text('detail') ?? '?';
+      final doc = text('document');
+      final match = text('match');
+      return SpecChip(
+        'summary→ $detail',
+        SpecChipRole.structural,
+        tooltip:
+            note ??
+            'Summarises $detail${doc == null ? '' : ' of $doc'}, '
+                '${match == null ? 'matched by section id' : 'matched by $match'}'
+                ' (${bare('relation').isEmpty ? 'subset' : bare('relation')})',
+      );
+    case 'DerivedFrom':
+      final source = text('source') ?? '?';
+      final where = text('where');
+      final take = list('take');
+      return SpecChip(
+        'derived ← $source',
+        SpecChipRole.structural,
+        tooltip:
+            note ??
+            [
+              'Derived (${bare('kind')}) from $source',
+              if (where != null) 'rows where $where',
+              if (take.isNotEmpty) 'taking ${take.join(', ')}',
+            ].join(', '),
+      );
+    case 'ExtractsLinks':
+      final ref = text('ref') ?? '?';
+      return SpecChip(
+        'extracts $ref',
+        SpecChipRole.structural,
+        tooltip:
+            note ??
+            'Link rows for the ids named in ${list('from').join(', ')}, '
+                'found ids written to $ref'
+                '${bare('mode') == 'warn' ? ' — reported, not written' : ''}',
+      );
+  }
+  return null;
+}
+
+String _bareValue(Object? v) {
+  final s = v is String ? v : '';
+  return s.substring(s.lastIndexOf('.') + 1);
+}
 
 /// The chips a closed-choice group header carries: how much of the
 /// discriminator's value set the alternatives cover, which values they miss,

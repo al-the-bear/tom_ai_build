@@ -38,7 +38,6 @@ Inline review controls shown on every tree node, immediately behind its
 It is a node rather than a chip on each alternative because exclusivity is a
 Key attached to the single navigation-target row for `ensureVisible`.
 Layout: an **edit** button (scope dot + pencil — opens the flags/comment
-Loads entries from disk if the file exists. Safe to call once at startup.
 Number of non-empty review entries currently held.
 Off by default: nearly five thousand members carry one, so showing them
 One-line summary of the comment and checked boxes, shown behind the
@@ -48,7 +47,6 @@ Render a `recursive` marker (this class re-enters an ancestor type).
 Renders a single [_Chip], clickable when it carries an `onTap`.
 Renders all fields of a `@Form` content section so they are visible at once.
 Renders the structure tree for a single document root.
-Resolves the review file location. Honors `TOM_SPECS_REVIEW_FILE`; falls
 Returns the entry for [path], creating an empty one if absent. The
 Returns the entry for [path], or `null` if none has been recorded.
 Reveal `@SerializationOrder` ordinals in the tree.
@@ -109,13 +107,11 @@ never ask. Lives on the scope — and therefore above the tree — so it keeps
 nodes on that chain auto-expand and the endpoint is tagged with
 reached through this field is on the chain iff its name is also in
 returned object is *not* yet stored — call [update] to persist edits.
-reviewed node) and the guarantee that nothing is lost on crash is worth more
 separates them from the common sections that apply to every case, and the
 standards it derives from, and what it cross-references in the model.
 statement about the *set*: nesting the alternatives one level in is what
 straight through to the store (which persists immediately).
 structural path `<formPath>/<fieldName>`, so the reviewer can comment on and
-synchronously after each mutation — the data set is small (one entry per
 text area, and is independently reviewable through its own `§content` path.
 the live [ReviewEntry] for [path] and update when the store changes.
 the merged row must state the field's mapping when it has one and fall

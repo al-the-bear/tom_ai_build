@@ -121,6 +121,10 @@ unpublished_drift:
     annotations (SyncedWith, ListRelation, SummaryOf, DerivedFrom, InverseOf,
     ExtractsLinks, their enums) and the Field qualifiers derivedFrom,
     inverseOf and summaryOf; no model class uses them yet.
+  tom_som_dart_runtime: >-
+    section automation in progress — 02_sau4 (2026-11-23): the link
+    annotations in kRenderedAnnotations, linkChips in fieldChips, the four in
+    the showcase fixture.
   tom_specs_model: >-
     section automation in progress — 02_sau1 (2026-11-23):
     doc/tom_specs_model_meta_schema.md describes nested annotation values, maps

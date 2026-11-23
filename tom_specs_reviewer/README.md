@@ -113,6 +113,7 @@ passing unseen.
 | Identity and headline | `@Document` (the root rail), `@SectionId` and `@SectionIdPattern` (badges on the row), `@Headline` (quoted secondary label) |
 | Shape | `@Form` (the form panel under the row; a field declared `multiParagraph` carries a `¶ paragraphs` chip), `@ContentType` and `@Min` (the row's type label), `@ContentHelp` (the row's doc line) |
 | Hand-offs and taxonomies | `@MapsTo` and `@DetailedIn` (`maps→` / `detail→` chips, and the anchors the two cut toggles act on); the three routing verdicts `@CodeSpecKind`, `@FollowUpKind` and `@NoArtifact` (part / process / `na:<reason>` chips); `@CodeSpecsProjection` (the projection badge) |
+| Links between places | `@SyncedWith` (`sync→ <document>`), `@SummaryOf` (`summary→ <list>`), `@DerivedFrom` (`derived ← <source>`) and `@ExtractsLinks` (`extracts <field>`, once per use) — chips on the field row, and on the class row for a class-level `@SyncedWith` beside its `@DetailedIn`; the tooltip carries the rest of the annotation |
 | Closed choices | `@OneOf` (the choice group node) and `@Case` (`case:` chips on its alternatives) |
 | Markers, notes and provenance | `@Unused` (struck-through label plus an `unused` chip), `@Comment` (inline `←` note), `@Reference` and `@StandardReferences` (behind a `refs` chip — thousands of fields carry standards, and inlining them would bury the structure), `@SerializationOrder` (a `#n` badge, behind the toolbar toggle) |
 
