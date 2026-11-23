@@ -1,6 +1,8 @@
 // The markdown codec round-trips whole documents exactly (SOM §11.6, §11.7):
 // parsing a document's own rendition stages every value at the path it came
-// from, so `fromMarkdown(toMarkdown(doc))` equals `doc` through `toJson`.
+// from, so `fromMarkdown(toMarkdown(doc))` equals `doc` through `toJson` — a
+// form field that is one paragraph wrapped over lines, written in its table
+// cell on one line, comes back joined (SOM §11.4 rule 13).
 //
 // The corpus pins each rule on a small fixture; this holds the rules to real
 // documents, where they meet in combinations no fixture lists. MRT-1 covers the
@@ -43,7 +45,9 @@ void _expectRoundTrip(SpecModel model, String yamlPath) {
     final g = (got[store] as Map?) ?? const {};
     final differing = [
       for (final k in {...w.keys, ...g.keys})
-        if (jsonEncode(w[k]) != jsonEncode(g[k])) k,
+        if (jsonEncode(w[k]) != jsonEncode(g[k]) &&
+            !(store == 'forms' && _sameFormJoined(w[k], g[k])))
+          k,
     ];
     expect(
       differing,
@@ -53,6 +57,22 @@ void _expectRoundTrip(SpecModel model, String yamlPath) {
           '(${differing.length}, first: ${differing.take(3).join(', ')})',
     );
   }
+}
+
+/// Whether the form fields [got] are [want]'s, each field equal or its
+/// wrapped paragraph joined (SOM §11.4 rule 13).
+bool _sameFormJoined(Object? want, Object? got) {
+  if (want is! Map || got is! Map) return false;
+  if (want.length != got.length) return false;
+  for (final MapEntry(:key, :value) in want.entries) {
+    final g = got[key];
+    if (g == value) continue;
+    if (value is! String ||
+        SpecDocumentMarkdown.wrappedParagraphJoined(value) != g) {
+      return false;
+    }
+  }
+  return true;
 }
 
 void main() {

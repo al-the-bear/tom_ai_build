@@ -302,8 +302,10 @@ inputs fewer than they take.
 | `:spec-validate` | Validate a specification document on its three tiers | `--root` `--assembled-out` `--markdown-out` `--json` |
 | `:spec-impact-walk` | Walk every root and section of a specification for a change's impact | `--spec-root` `--file` `--root` `--tests` `--code` `--out` `--json` |
 | `:spec-render` | Validate a document and write its Markdown rendition | — |
+| `:spec-readable` | Write a readable rendition, or merge an edited one back | `--drop` `--unmark` `--appendix` `--appendix-references` `--heading-divs` `--merge-onto` `--base` `--write` |
 | `:spec-import-answers` | Import the answers typed into a rendition into the document's YAML | `--dry-run` `--allow-other-edits` |
 | `:spec-accept-marks` | Accept every inline change mark of a document in place | `--under` `--write` |
+| `:spec-mark-secondary` | Write the secondary prose of a document in the reading notation | `--under` `--kinds` `--reflow` `--all` `--write` |
 | `:spec-required-fields` | Check required form fields and typed values | — |
 | `:spec-question-register` | Check a question index against the document's question blocks | `--write` `--spec-root` |
 | `:spec-feature-register` | Check that every functional requirement is linked by one feature | — |
