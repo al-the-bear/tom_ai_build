@@ -12175,6 +12175,13 @@ TranslationProcess d12_transition_rollout_plan_translation_process(const D12Tran
   free(path);
   return out;
 }
+LocaleRolloutPlan d12_transition_rollout_plan_locale_rollout_plan(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "localeRolloutPlan");
+  LocaleRolloutPlan out;
+  locale_rollout_plan_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 UserDocumentationRequirements d12_transition_rollout_plan_user_documentation(const D12TransitionRolloutPlan *self) {
   char *path = spec_path_join(self->node.path, "userDocumentation");
   UserDocumentationRequirements out;
@@ -15138,10 +15145,10 @@ LocalizationTranslationProcess delivery_transition_and_rollout_localization_tran
   free(path);
   return out;
 }
-DeliveryTransitionAndRolloutLocaleRolloutPlanForm delivery_transition_and_rollout_locale_rollout_plan(const DeliveryTransitionAndRollout *self) {
-  char *path = spec_path_join(self->node.path, "LOCRP");
-  DeliveryTransitionAndRolloutLocaleRolloutPlanForm out;
-  delivery_transition_and_rollout_locale_rollout_plan_form_init(&out, self->node.doc, path);
+LocaleRolloutPlan delivery_transition_and_rollout_locale_rollout_plan(const DeliveryTransitionAndRollout *self) {
+  char *path = spec_path_join(self->node.path, "localeRolloutPlan");
+  LocaleRolloutPlan out;
+  locale_rollout_plan_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -25639,6 +25646,24 @@ LocaleHandlingRequirementsContentForm locale_handling_requirements_content(const
   char *path = spec_path_join(self->node.path, "content");
   LocaleHandlingRequirementsContentForm out;
   locale_handling_requirements_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void locale_rollout_plan_init(LocaleRolloutPlan *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void locale_rollout_plan_free(LocaleRolloutPlan *self) {
+  som_node_free(&self->node);
+}
+int locale_rollout_plan_can_have_content(const LocaleRolloutPlan *self) {
+  (void)self;
+  return 0;
+}
+LocaleRolloutPlanContentForm locale_rollout_plan_content(const LocaleRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  LocaleRolloutPlanContentForm out;
+  locale_rollout_plan_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -83569,41 +83594,6 @@ void delivery_acceptance_criterion_entry_verification_form_set_evidence_required
   spec_document_set_form_field(self->node.doc, self->node.path, "evidenceRequired", value);
 }
 
-void delivery_transition_and_rollout_locale_rollout_plan_form_init(DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void delivery_transition_and_rollout_locale_rollout_plan_form_free(DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self) {
-  som_node_free(&self->node);
-}
-char *delivery_transition_and_rollout_locale_rollout_plan_form_content(const DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self) {
-  const char *v = spec_document_content(self->node.doc, self->node.path);
-  return som_strdup(v != NULL ? v : "");
-}
-void delivery_transition_and_rollout_locale_rollout_plan_form_set_content(DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self, const char *value) {
-  spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *delivery_transition_and_rollout_locale_rollout_plan_form_rollout_timeline(const DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "rolloutTimeline");
-  return som_strdup(v != NULL ? v : "");
-}
-void delivery_transition_and_rollout_locale_rollout_plan_form_set_rollout_timeline(DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "rolloutTimeline", value);
-}
-char *delivery_transition_and_rollout_locale_rollout_plan_form_rollout_regions(const DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "rolloutRegions");
-  return som_strdup(v != NULL ? v : "");
-}
-void delivery_transition_and_rollout_locale_rollout_plan_form_set_rollout_regions(DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "rolloutRegions", value);
-}
-char *delivery_transition_and_rollout_locale_rollout_plan_form_rollout_strategy(const DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "rolloutStrategy");
-  return som_strdup(v != NULL ? v : "");
-}
-void delivery_transition_and_rollout_locale_rollout_plan_form_set_rollout_strategy(DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "rolloutStrategy", value);
-}
-
 void dependency_health_monitoring_cache_form_init(DependencyHealthMonitoringCacheForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -109210,6 +109200,41 @@ char *locale_handling_requirements_content_form_locale_fallback_chain(const Loca
 }
 void locale_handling_requirements_content_form_set_locale_fallback_chain(LocaleHandlingRequirementsContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "localeFallbackChain", value);
+}
+
+void locale_rollout_plan_content_form_init(LocaleRolloutPlanContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void locale_rollout_plan_content_form_free(LocaleRolloutPlanContentForm *self) {
+  som_node_free(&self->node);
+}
+char *locale_rollout_plan_content_form_content(const LocaleRolloutPlanContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void locale_rollout_plan_content_form_set_content(LocaleRolloutPlanContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *locale_rollout_plan_content_form_rollout_timeline(const LocaleRolloutPlanContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "rolloutTimeline");
+  return som_strdup(v != NULL ? v : "");
+}
+void locale_rollout_plan_content_form_set_rollout_timeline(LocaleRolloutPlanContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "rolloutTimeline", value);
+}
+char *locale_rollout_plan_content_form_rollout_regions(const LocaleRolloutPlanContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "rolloutRegions");
+  return som_strdup(v != NULL ? v : "");
+}
+void locale_rollout_plan_content_form_set_rollout_regions(LocaleRolloutPlanContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "rolloutRegions", value);
+}
+char *locale_rollout_plan_content_form_rollout_strategy(const LocaleRolloutPlanContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "rolloutStrategy");
+  return som_strdup(v != NULL ? v : "");
+}
+void locale_rollout_plan_content_form_set_rollout_strategy(LocaleRolloutPlanContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "rolloutStrategy", value);
 }
 
 void localization_process_deployment_form_init(LocalizationProcessDeploymentForm *self, SpecDocument *doc, const char *path) {

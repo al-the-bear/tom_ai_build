@@ -35,7 +35,8 @@
 //     `@NoArtifact(generation)` whose form declares `unitId` or `area`, SOM
 //     §11.2 validation phase 8) also gets what that phase demands: an entry
 //     its `deploymentTarget` (a reference, resolved like any other), a
-//     mapping an area code (`CE-DB`) for its `area`;
+//     mapping an area code (`CE-DB`) for its `area`, an emitter entry a
+//     standard emitter (`openapi`) for its `emitter`;
 //   * a `@OneOf` container whose discriminator is required emits one case per
 //     instance — a list one item per case, a single container the next case
 //     at each encounter — so every case subsection is still instantiated;
@@ -256,7 +257,9 @@ void main(List<String> args) {
           ff,
           chosen: isDiscriminator
               ? chosenCase
-              : (generation && name == 'area' ? 'CE-DB' : null),
+              : (generation && name == 'area'
+                    ? 'CE-DB'
+                    : (generation && name == 'emitter' ? 'openapi' : null)),
         );
         if (isDiscriminator && value.isEmpty) continue;
         out.writeln('$pad  $name: ${jsonEncode(value)}');

@@ -5511,7 +5511,7 @@ function _mc_BusinessObjectModel(s: Set<string>): SomMetaNode[] {
       contentHelp: "Add one entry per business object.",
       docComment: "7.2.1. Object Catalog — contains 1+× Business Object.",
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["Domain-Driven Design — aggregates/entities/value objects", "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"], "connotation": "The business objects that make up the domain model."})],
-      elementNode: _cx("BusinessObjectEntry", s, _mc_BusinessObjectEntry, (r, c) => new SomMetaNode({className: "BusinessObjectEntry", classSectionId: "BJOEN", kind: SomMetaKind.COMPLEX, typeName: "BusinessObjectEntry", docComment: "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.", classDocComment: "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.", recursive: r, children: c}))}),
+      elementNode: _cx("BusinessObjectEntry", s, _mc_BusinessObjectEntry, (r, c) => new SomMetaNode({className: "BusinessObjectEntry", classSectionId: "BJOEN", kind: SomMetaKind.COMPLEX, typeName: "BusinessObjectEntry", docComment: "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.", classDocComment: "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.", detailedIn: "D03InformationModel", recursive: r, children: c}))}),
      new SomMetaNode({
       className: "BusinessObjectModel",
       memberName: "objectDiagram",
@@ -11953,7 +11953,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
       serializationOrder: 4,
       min: 1,
       docComment: "Entity inventory (list).",
-      elementNode: _cx("DataEntityEntry", s, _mc_DataEntityEntry, (r, c) => new SomMetaNode({className: "DataEntityEntry", classSectionId: "DAENT", kind: SomMetaKind.COMPLEX, typeName: "DataEntityEntry", docComment: "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.", classDocComment: "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.", recursive: r, children: c}))}),
+      elementNode: _cx("DataEntityEntry", s, _mc_DataEntityEntry, (r, c) => new SomMetaNode({className: "DataEntityEntry", classSectionId: "DAENT", kind: SomMetaKind.COMPLEX, typeName: "DataEntityEntry", docComment: "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.", classDocComment: "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.", detailedIn: "D03InformationModel", recursive: r, children: c}))}),
      _cx("EntityRelationships", s, _mc_EntityRelationships,
       (r, c) => new SomMetaNode({
         className: "EntityRelationships",
@@ -11998,7 +11998,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
       serializationOrder: 8,
       min: 1,
       docComment: "Business object catalog (list).",
-      elementNode: _cx("BusinessObjectEntry", s, _mc_BusinessObjectEntry, (r, c) => new SomMetaNode({className: "BusinessObjectEntry", classSectionId: "BJOEN", kind: SomMetaKind.COMPLEX, typeName: "BusinessObjectEntry", docComment: "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.", classDocComment: "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.", recursive: r, children: c}))}),
+      elementNode: _cx("BusinessObjectEntry", s, _mc_BusinessObjectEntry, (r, c) => new SomMetaNode({className: "BusinessObjectEntry", classSectionId: "BJOEN", kind: SomMetaKind.COMPLEX, typeName: "BusinessObjectEntry", docComment: "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.", classDocComment: "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.", detailedIn: "D03InformationModel", recursive: r, children: c}))}),
      new SomMetaNode({
       className: "D03InformationModel",
       memberName: "objectDiagram",
@@ -12016,7 +12016,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
       typeName: "FunctionEntry",
       serializationOrder: 10,
       docComment: "Function decomposition (list).",
-      elementNode: _cx("FunctionEntry", s, _mc_FunctionEntry, (r, c) => new SomMetaNode({className: "FunctionEntry", classSectionId: "FUNCT", kind: SomMetaKind.COMPLEX, typeName: "FunctionEntry", docComment: "A function entry (form).\n\nBusiness function specification in the functional decomposition.", classDocComment: "A function entry (form).\n\nBusiness function specification in the functional decomposition.", recursive: r, children: c}))}),
+      elementNode: _cx("FunctionEntry", s, _mc_FunctionEntry, (r, c) => new SomMetaNode({className: "FunctionEntry", classSectionId: "FUNCT", kind: SomMetaKind.COMPLEX, typeName: "FunctionEntry", docComment: "A function entry (form).\n\nBusiness function specification in the functional decomposition.", classDocComment: "A function entry (form).\n\nBusiness function specification in the functional decomposition.", detailedIn: "D03InformationModel", recursive: r, children: c}))}),
      new SomMetaNode({
       className: "D03InformationModel",
       memberName: "functionToDataMatrix",
@@ -12026,7 +12026,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
       typeName: "FunctionDataMatrixEntry",
       serializationOrder: 11,
       docComment: "Function-to-data matrix (list).",
-      elementNode: _cx("FunctionDataMatrixEntry", s, _mc_FunctionDataMatrixEntry, (r, c) => new SomMetaNode({className: "FunctionDataMatrixEntry", classSectionId: "FNDMX", kind: SomMetaKind.COMPLEX, typeName: "FunctionDataMatrixEntry", docComment: "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.", classDocComment: "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.", recursive: r, children: c}))}),
+      elementNode: _cx("FunctionDataMatrixEntry", s, _mc_FunctionDataMatrixEntry, (r, c) => new SomMetaNode({className: "FunctionDataMatrixEntry", classSectionId: "FNDMX", kind: SomMetaKind.COMPLEX, typeName: "FunctionDataMatrixEntry", docComment: "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.", classDocComment: "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.", detailedIn: "D03InformationModel", recursive: r, children: c}))}),
      new SomMetaNode({
       className: "D03InformationModel",
       memberName: "businessRules",
@@ -12037,7 +12037,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
       serializationOrder: 12,
       min: 1,
       docComment: "Business rules catalog (list).",
-      elementNode: _cx("BusinessRuleEntry", s, _mc_BusinessRuleEntry, (r, c) => new SomMetaNode({className: "BusinessRuleEntry", classSectionId: "BIRU", kind: SomMetaKind.COMPLEX, typeName: "BusinessRuleEntry", docComment: "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.", classDocComment: "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.", recursive: r, children: c}))}),
+      elementNode: _cx("BusinessRuleEntry", s, _mc_BusinessRuleEntry, (r, c) => new SomMetaNode({className: "BusinessRuleEntry", classSectionId: "BIRU", kind: SomMetaKind.COMPLEX, typeName: "BusinessRuleEntry", docComment: "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.", classDocComment: "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.", detailedIn: "D03InformationModel", recursive: r, children: c}))}),
      _cx("DataDictionary", s, _mc_DataDictionary,
       (r, c) => new SomMetaNode({
         className: "DataDictionary",
@@ -12087,6 +12087,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
         serializationOrder: 16,
         docComment: "Domain enum registry — the closed value sets the data model relies on\n(`domainEnum` home + closed-choice discriminator source, csmb3).",
         classDocComment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
+        detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
      _cx("ErrorCodeRegistry", s, _mc_ErrorCodeRegistry,
@@ -12099,6 +12100,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
         serializationOrder: 17,
         docComment: "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).",
         classDocComment: "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.",
+        detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
      _cx("ResultEnvelope", s, _mc_ResultEnvelope,
@@ -12111,6 +12113,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
         serializationOrder: 18,
         docComment: "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe success-or-error `Result` envelope; CE-ER home. Realised per\napplication in `<app>_codespec_shared` — a response envelope is\napplication domain, so no framework type backs it (csmb5).",
         classDocComment: "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the result/error envelope authored per application in\n`<app>_codespec_shared` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.",
+        detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
      _cx("MessageKeyRegistry", s, _mc_MessageKeyRegistry,
@@ -12123,6 +12126,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
         serializationOrder: 19,
         docComment: "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).",
         classDocComment: "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.",
+        detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
      _cx("ServerOperationRegistry", s, _mc_ServerOperationRegistry,
@@ -12135,6 +12139,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
         serializationOrder: 20,
         docComment: "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.",
         classDocComment: "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).",
+        detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
      _cx("SchemaVersioningAndMigration", s, _mc_SchemaVersioningAndMigration,
@@ -12147,6 +12152,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
         serializationOrder: 21,
         docComment: "Schema versioning and migration — the CE-MG home: the versioning policy,\nthe data source / schema targets, and the ordered artifact set that\nestablishes and evolves the schema.\n\nProjected here because the artifact chain must converge on the entity and\nattribute model this document owns.",
         classDocComment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.",
+        detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
   ];
@@ -12965,6 +12971,7 @@ function _mc_D08SecurityAccessSpecification(s: Set<string>): SomMetaNode[] {
         serializationOrder: 12,
         docComment: "Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.",
         classDocComment: "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.",
+        detailedIn: "D08SecurityAccessSpecification",
         recursive: r,
         children: c})),
   ];
@@ -13083,6 +13090,8 @@ function _mc_D09ExperienceDesignSpecification(s: Set<string>): SomMetaNode[] {
         serializationOrder: 8,
         docComment: "Report definitions — the CE-RP report projections over the domain model.",
         classDocComment: "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).",
+        mapsTo: "D09ExperienceDesignSpecification",
+        detailedIn: "D09ExperienceDesignSpecification",
         recursive: r,
         children: c})),
      _cx("ErrorHandling", s, _mc_ErrorHandling,
@@ -13580,7 +13589,7 @@ function _mc_D11DeliveryRoadmap(s: Set<string>): SomMetaNode[] {
       serializationOrder: 6,
       min: 1,
       docComment: "Stages (list).",
-      elementNode: _cx("StageEntry", s, _mc_StageEntry, (r, c) => new SomMetaNode({className: "StageEntry", classSectionId: "STAGE", kind: SomMetaKind.COMPLEX, typeName: "StageEntry", docComment: "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.", classDocComment: "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.", recursive: r, children: c}))}),
+      elementNode: _cx("StageEntry", s, _mc_StageEntry, (r, c) => new SomMetaNode({className: "StageEntry", classSectionId: "STAGE", kind: SomMetaKind.COMPLEX, typeName: "StageEntry", docComment: "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.", classDocComment: "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.", detailedIn: "D11DeliveryRoadmap", recursive: r, children: c}))}),
      _cx("FeaturePrioritization", s, _mc_FeaturePrioritization,
       (r, c) => new SomMetaNode({
         className: "FeaturePrioritization",
@@ -13737,6 +13746,20 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         detailedIn: "D12TransitionRolloutPlan",
         recursive: r,
         children: c})),
+     _cx("LocaleRolloutPlan", s, _mc_LocaleRolloutPlan,
+      (r, c) => new SomMetaNode({
+        className: "LocaleRolloutPlan",
+        memberName: "localeRolloutPlan",
+        classSectionId: "LOCRP",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "LocaleRolloutPlan",
+        serializationOrder: 6,
+        docComment: "Multi-language rollout plan: the locales' rollout by region and time.",
+        classDocComment: "Multi-language rollout plan.\n\nThe rollout sequencing of the supported locales by region and time: which\nlanguages are delivered with which release, in which geographic order, and\nby which strategy. Detailed in the Transition & Rollout Plan beside the\nlocalization and translation processes.",
+        mapsTo: "D12TransitionRolloutPlan",
+        detailedIn: "D12TransitionRolloutPlan",
+        recursive: r,
+        children: c})),
      _cx("UserDocumentationRequirements", s, _mc_UserDocumentationRequirements,
       (r, c) => new SomMetaNode({
         className: "UserDocumentationRequirements",
@@ -13744,7 +13767,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "DOANTR",
         kind: SomMetaKind.COMPLEX,
         typeName: "UserDocumentationRequirements",
-        serializationOrder: 6,
+        serializationOrder: 7,
         docComment: "User documentation requirements (doc half of the former DOANTR;\nsplit in L34C-7).",
         classDocComment: "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9\n`InformationForUseRequirements` (`IFUR`) while physically staying in this\nfile alongside its `DATD`/`DATL` sub-forms and the shared `TextSection`.\nRetains `DOANTR` + the shared `TRP-DOC` D12 detail subsection.",
         mapsTo: "D12TransitionRolloutPlan",
@@ -13758,7 +13781,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "TRMAT",
         kind: SomMetaKind.COMPLEX,
         typeName: "TrainingDeliverableRequirements",
-        serializationOrder: 7,
+        serializationOrder: 8,
         docComment: "Training deliverable requirements (training half of the former DOANTR;\nsplit in L34C-7).",
         classDocComment: "10.12.3b. Training Deliverable Requirements.\n\nEnd-user training materials and module catalogue. The training half of the\nformer `DocumentationAndTraining` (`DOANTR`); split from its documentation\nhalf in L34C-7 (SR-29). Logically re-homed under SBP.9\n`TrainingEnablementRequirements` (`TREQ`) while physically staying in this\nfile. Maps to D12 under the existing training detail subsection `TRP-TRN`\n(shared with SBP.15 `RolloutTrainingMaterial`), grouping all training\ncontent in one D12 subsection rather than fragmenting it across a new id.",
         mapsTo: "D12TransitionRolloutPlan",
@@ -13772,7 +13795,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "RLTPLN",
         kind: SomMetaKind.COMPLEX,
         typeName: "RolloutPlan",
-        serializationOrder: 8,
+        serializationOrder: 9,
         docComment: "Rollout plan.",
         classDocComment: "15.1. Rollout Plan.\n\nGeographic and/or user-group rollout plan covering rollout-plan\ncontent: the sequencing of sites, countries, business units, and user\ncohorts across the go-live waves.",
         detailedIn: "D12TransitionRolloutPlan",
@@ -13785,7 +13808,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "MIGPLN",
         kind: SomMetaKind.COMPLEX,
         typeName: "MigrationPlan",
-        serializationOrder: 9,
+        serializationOrder: 10,
         docComment: "Migration plan.",
         classDocComment: "15.2. Migration Plan.\n\nEnd-to-end system migration plan covering migration-plan content:\ndata, configuration, integration, and user migration from the current\nlandscape to the target.\n\nThis is the rollout/cutover *runbook* (execution). The staged-migration\n*strategy* (phasing, sequencing, data-migration approach) is owned by\n`DataMigrationStrategy` (`DRM`); reference it rather than restating the\nstrategy here.",
         detailedIn: "D12TransitionRolloutPlan",
@@ -13798,7 +13821,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "USRMAN",
         kind: SomMetaKind.COMPLEX,
         typeName: "UserManual",
-        serializationOrder: 10,
+        serializationOrder: 11,
         docComment: "User manuals.\n\nOne whole-catalog content section; collapsed from `List<UserManual>`\n(L34C-12 SR-57).",
         classDocComment: "15.3. User Manuals.\n\nEnd-user documentation deliverables covering user-manual content.\n\nThis is the *execution* side of user documentation. The documentation\n*requirements* (deliverables, formats, platforms, versioning,\nlocalization) are owned by SBP.9 `InformationForUseRequirements`\n(`IFUR`); reference them via the shared `TRP-DOC` detail link rather\nthan restating the requirements here.",
         detailedIn: "D12TransitionRolloutPlan",
@@ -13811,7 +13834,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "RLTTM",
         kind: SomMetaKind.COMPLEX,
         typeName: "RolloutTrainingMaterial",
-        serializationOrder: 11,
+        serializationOrder: 12,
         docComment: "Training materials.\n\nOne whole-catalog content section; collapsed from\n`List<RolloutTrainingMaterial>` (L34C-12 SR-57).",
         classDocComment: "15.4. Training Materials.\n\nTraining deliverables covering training-material content.\n\nThis is the *execution* side of training. The training *requirements*\n(audiences, competency outcomes, certification, ongoing enablement) are\nowned by SBP.9 `TrainingEnablementRequirements` (`TREQ`); reference them\nvia the shared `TRP-TRN` detail link rather than restating the\nrequirements here.",
         detailedIn: "D12TransitionRolloutPlan",
@@ -13824,7 +13847,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "PLTPLN",
         kind: SomMetaKind.COMPLEX,
         typeName: "PilotPlan",
-        serializationOrder: 12,
+        serializationOrder: 13,
         docComment: "Pilot plan.",
         classDocComment: "15.5. Pilot Plan.\n\nPilot scope, cohort selection, success criteria, and exit decision rules.",
         detailedIn: "D12TransitionRolloutPlan",
@@ -13837,7 +13860,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "CUTPRC",
         kind: SomMetaKind.COMPLEX,
         typeName: "CutoverProcedure",
-        serializationOrder: 13,
+        serializationOrder: 14,
         docComment: "Cutover procedures.\n\nOne whole-catalog content section; collapsed from `List<CutoverProcedure>`\n(L34C-12 SR-57).",
         classDocComment: "15.6. Cutover Procedures.\n\nDetailed cutover runbook for go-live. Minute-by-minute procedure\ncovering the transition from current operation to the target system.",
         detailedIn: "D12TransitionRolloutPlan",
@@ -13850,7 +13873,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "KNTFR",
         kind: SomMetaKind.COMPLEX,
         typeName: "KnowledgeTransfer",
-        serializationOrder: 14,
+        serializationOrder: 15,
         docComment: "Knowledge transfer.",
         classDocComment: "15.7. Knowledge Transfer.\n\nHandover from delivery team to operations. Covers handover-agreement\ncontent.",
         detailedIn: "D12TransitionRolloutPlan",
@@ -13863,7 +13886,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "WRTSP",
         kind: SomMetaKind.COMPLEX,
         typeName: "WarrantyAndSupport",
-        serializationOrder: 15,
+        serializationOrder: 16,
         docComment: "Warranty and support.",
         classDocComment: "15.8. Warranty and Support.\n\nPost-acceptance warranty period terms and support arrangements. Covers\nwarranty content and feeds the TRP top-level on the same topic.",
         detailedIn: "D12TransitionRolloutPlan",
@@ -13906,6 +13929,7 @@ function _mc_D13CodeSpecsProjection(s: Set<string>): SomMetaNode[] {
         comment: "locus: shared — domainEnum (member kind)",
         docComment: "Domain enum registry — the closed value sets, shared by client & server.\n\n`domainEnum` is a **member kind, not a part** (`codespecs_mapping.md`\n§4.1): each enum is authored once here and realised as a plain Dart `enum`\nmarked `@CsEnum`, placed in the shared project iff a shared contract type\nreferences it — which is what this registry's shared locus assumes —\notherwise in the project of the part that introduces it.",
         classDocComment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
+        detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
      _cx("ErrorCodeRegistry", s, _mc_ErrorCodeRegistry,
@@ -13919,6 +13943,7 @@ function _mc_D13CodeSpecsProjection(s: Set<string>): SomMetaNode[] {
         comment: "locus: shared — CE-ER",
         docComment: "Error code registry — CE-ER shared error-code vocabulary.",
         classDocComment: "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.",
+        detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
      _cx("ResultEnvelope", s, _mc_ResultEnvelope,
@@ -13932,6 +13957,7 @@ function _mc_D13CodeSpecsProjection(s: Set<string>): SomMetaNode[] {
         comment: "locus: shared — CE-ER",
         docComment: "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe shared success-or-error envelope: success payload **or** structured\nerror (code, message, field-level details).",
         classDocComment: "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the result/error envelope authored per application in\n`<app>_codespec_shared` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.",
+        detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
      _cx("MessageKeyRegistry", s, _mc_MessageKeyRegistry,
@@ -13945,6 +13971,7 @@ function _mc_D13CodeSpecsProjection(s: Set<string>): SomMetaNode[] {
         comment: "locus: shared — CE-TX",
         docComment: "Message key registry — CE-TX author-copy-once keys, shared.",
         classDocComment: "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.",
+        detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
      _cx("NotificationModel", s, _mc_NotificationModel,
@@ -14040,6 +14067,8 @@ function _mc_D13CodeSpecsProjection(s: Set<string>): SomMetaNode[] {
         comment: "locus: server — CE-RP",
         docComment: "Report definitions — CE-RP grouped projections over the domain model.\n\nThe definition is where the report runs, so the subtree's locus is the\nserver. Its shared half — the result envelope and the parameter shapes the\nclient reads — is **derived from this same subtree** rather than authored\nin a second SOM section, so it needs no separate shared-locus entry; the\ngeneric `ResultEnvelope` above covers the CE-ER contract it rides on. The\nenvironment-wide print and export *settings* are CE-CF, not CE-RP, and are\nthe sibling entry below.",
         classDocComment: "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).",
+        mapsTo: "D09ExperienceDesignSpecification",
+        detailedIn: "D09ExperienceDesignSpecification",
         recursive: r,
         children: c})),
      _cx("PrintAndExportLayout", s, _mc_PrintAndExportLayout,
@@ -14068,6 +14097,7 @@ function _mc_D13CodeSpecsProjection(s: Set<string>): SomMetaNode[] {
         comment: "locus: server — CE-MG",
         docComment: "Schema versioning and migration — CE-MG migration artifacts.\n\nThe artifacts ship with the server project because that is where the\nmigration engine runs them (`codespecs_mapping.md` §4.2). The subtree\nsupplies all three inputs the `@CsMigration` declaration needs: `MIGTG`\ngives the data source / schema directory placement, `SCMST.artifactKind`\nthe artifact kind, and `SCMST.environments` the filename environment tag.\nThe artifact *filenames* are authored, not derived — a\n`codespecs_mapping.md` §5.23 string exemption — so they are not part of\nthe generated surface.\n\nThe subtree sits beside `dataModel` above for a reason: the cumulative\neffect of a schema's artifacts must converge on the CE-DB model that entry\ngenerates, and that convergence is a validator check over both.",
         classDocComment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.",
+        detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
      _cx("ServerOperationRegistry", s, _mc_ServerOperationRegistry,
@@ -14081,6 +14111,7 @@ function _mc_D13CodeSpecsProjection(s: Set<string>): SomMetaNode[] {
         comment: "locus: shared(CE-API contract)+server(CE-API operations)",
         docComment: "Server operation registry — the application's **own** CE-API surface.\n\nThe one subtree that declares what the system answers. It spans two loci\nbecause a CE-API operation generates two halves (`codespecs_mapping.md`\n§4.2): the **operation catalogue and the request/response types** are\nshared — the client cites an operation and depends on its shapes — while\nthe **operation itself** lands on the owning service unit in the server\nproject. Which service unit that is follows from each operation's primary\nwritten data entity (`codespecs_mapping.md` §5.17), so ownership is\nderived here rather than declared.\n\nThe external-interface inventory (EXIN, D07 IIS) is deliberately **not**\nreachable from this projection: it describes third-party interfaces the\nsystem talks to, not the surface the system generates.",
         classDocComment: "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).",
+        detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
      _cx("ProcessStepsAndActorInteractions", s, _mc_ProcessStepsAndActorInteractions,
@@ -15461,7 +15492,7 @@ function _mc_DataModel(s: Set<string>): SomMetaNode[] {
       contentHelp: "Add one entry per data entity.",
       docComment: "7.1.1. Entity Overview — contains 1+× Data Entity.",
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ER modeling (Chen / Barker notation)", "DAMA-DMBOK2 — data management body of knowledge"], "connotation": "The data entities that make up the logical data model."})],
-      elementNode: _cx("DataEntityEntry", s, _mc_DataEntityEntry, (r, c) => new SomMetaNode({className: "DataEntityEntry", classSectionId: "DAENT", kind: SomMetaKind.COMPLEX, typeName: "DataEntityEntry", docComment: "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.", classDocComment: "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.", recursive: r, children: c}))}),
+      elementNode: _cx("DataEntityEntry", s, _mc_DataEntityEntry, (r, c) => new SomMetaNode({className: "DataEntityEntry", classSectionId: "DAENT", kind: SomMetaKind.COMPLEX, typeName: "DataEntityEntry", docComment: "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.", classDocComment: "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.", detailedIn: "D03InformationModel", recursive: r, children: c}))}),
      _cx("EntityRelationships", s, _mc_EntityRelationships,
       (r, c) => new SomMetaNode({
         className: "EntityRelationships",
@@ -17198,16 +17229,20 @@ function _mc_DeliveryTransitionAndRollout(s: Set<string>): SomMetaNode[] {
         classDocComment: "Localization & Translation execution processes.\n\nBundles the localization and translation *workflow* concerns re-homed from\nthe former `MultiLanguageSupport` cluster (their requirement counterparts\nlive in SBP.9 `LocalizationTranslationRequirements`).",
         recursive: r,
         children: c})),
-     new SomMetaNode({
-      className: "DeliveryTransitionAndRollout",
-      memberName: "localeRolloutPlan",
-      sectionId: "LOCRP",
-      kind: SomMetaKind.FORM,
-      typeName: "String",
-      serializationOrder: 4,
-      docComment: "Multi-language rollout sequencing by region and time (re-homed from MLAR).",
-      form: new SomFormMeta([new SomFormFieldMeta({name: "rolloutTimeline", typeName: "String", description: "Rollout Timeline", hint: "High-level rollout schedule", order: 0}), new SomFormFieldMeta({name: "rolloutRegions", typeName: "String", description: "Rollout Regions", hint: "Geographic rollout order", order: 1}), new SomFormFieldMeta({name: "rolloutStrategy", typeName: "String", description: "Rollout Strategy", hint: "Big bang, phased, pilot", order: 2, multiParagraph: true})]),
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 3166 — country and region codes define the geographic rollout order", "ISO 8601 — the standard representation for the rollout timeline and schedule"], "connotation": "The rollout strategy, timeline, and regional sequencing for locale availability."})]}),
+     _cx("LocaleRolloutPlan", s, _mc_LocaleRolloutPlan,
+      (r, c) => new SomMetaNode({
+        className: "LocaleRolloutPlan",
+        memberName: "localeRolloutPlan",
+        classSectionId: "LOCRP",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "LocaleRolloutPlan",
+        serializationOrder: 4,
+        docComment: "Multi-language rollout sequencing by region and time (re-homed from MLAR).",
+        classDocComment: "Multi-language rollout plan.\n\nThe rollout sequencing of the supported locales by region and time: which\nlanguages are delivered with which release, in which geographic order, and\nby which strategy. Detailed in the Transition & Rollout Plan beside the\nlocalization and translation processes.",
+        mapsTo: "D12TransitionRolloutPlan",
+        detailedIn: "D12TransitionRolloutPlan",
+        recursive: r,
+        children: c})),
   ];
 }
 
@@ -21825,6 +21860,8 @@ function _mc_ExperienceAndInterfaceDesign(s: Set<string>): SomMetaNode[] {
         serializationOrder: 2,
         docComment: "10.2. Report Definitions — the CE-RP CodeSpecs subtree.",
         classDocComment: "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).",
+        mapsTo: "D09ExperienceDesignSpecification",
+        detailedIn: "D09ExperienceDesignSpecification",
         recursive: r,
         children: c})),
      _cx("ExperienceDesignFollowUp", s, _mc_ExperienceDesignFollowUp,
@@ -24206,7 +24243,7 @@ function _mc_FunctionModel(s: Set<string>): SomMetaNode[] {
       contentHelp: "Add one entry per function.",
       docComment: "7.3.1. Function Decomposition — contains 0+× Function.",
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["Structured Analysis (DeMarco/Yourdon) — functional decomposition", "IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements"], "connotation": "The business functions the system provides, decomposed hierarchically."})],
-      elementNode: _cx("FunctionEntry", s, _mc_FunctionEntry, (r, c) => new SomMetaNode({className: "FunctionEntry", classSectionId: "FUNCT", kind: SomMetaKind.COMPLEX, typeName: "FunctionEntry", docComment: "A function entry (form).\n\nBusiness function specification in the functional decomposition.", classDocComment: "A function entry (form).\n\nBusiness function specification in the functional decomposition.", recursive: r, children: c}))}),
+      elementNode: _cx("FunctionEntry", s, _mc_FunctionEntry, (r, c) => new SomMetaNode({className: "FunctionEntry", classSectionId: "FUNCT", kind: SomMetaKind.COMPLEX, typeName: "FunctionEntry", docComment: "A function entry (form).\n\nBusiness function specification in the functional decomposition.", classDocComment: "A function entry (form).\n\nBusiness function specification in the functional decomposition.", detailedIn: "D03InformationModel", recursive: r, children: c}))}),
      new SomMetaNode({
       className: "FunctionModel",
       memberName: "matrixEntries",
@@ -24218,7 +24255,7 @@ function _mc_FunctionModel(s: Set<string>): SomMetaNode[] {
       contentHelp: "Add one entry per function/data matrix mapping.",
       docComment: "7.3.2. Function-to-Data Matrix Entries — contains 0+× MatrixEntry.",
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["CRUD matrix — function/data interaction mapping"], "connotation": "The rows of the CRUD matrix mapping each function to the data entities it accesses."})],
-      elementNode: _cx("FunctionDataMatrixEntry", s, _mc_FunctionDataMatrixEntry, (r, c) => new SomMetaNode({className: "FunctionDataMatrixEntry", classSectionId: "FNDMX", kind: SomMetaKind.COMPLEX, typeName: "FunctionDataMatrixEntry", docComment: "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.", classDocComment: "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.", recursive: r, children: c}))}),
+      elementNode: _cx("FunctionDataMatrixEntry", s, _mc_FunctionDataMatrixEntry, (r, c) => new SomMetaNode({className: "FunctionDataMatrixEntry", classSectionId: "FNDMX", kind: SomMetaKind.COMPLEX, typeName: "FunctionDataMatrixEntry", docComment: "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.", classDocComment: "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.", detailedIn: "D03InformationModel", recursive: r, children: c}))}),
      new SomMetaNode({
       className: "FunctionModel",
       memberName: "businessRules",
@@ -24231,7 +24268,7 @@ function _mc_FunctionModel(s: Set<string>): SomMetaNode[] {
       contentHelp: "Add one entry per business rule.",
       docComment: "7.3.3. Business Rules — contains 1+× Business Rule.",
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["SBVR — business rule statements", "IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements"], "connotation": "The business rules that govern the behaviour of the system."})],
-      elementNode: _cx("BusinessRuleEntry", s, _mc_BusinessRuleEntry, (r, c) => new SomMetaNode({className: "BusinessRuleEntry", classSectionId: "BIRU", kind: SomMetaKind.COMPLEX, typeName: "BusinessRuleEntry", docComment: "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.", classDocComment: "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.", recursive: r, children: c}))}),
+      elementNode: _cx("BusinessRuleEntry", s, _mc_BusinessRuleEntry, (r, c) => new SomMetaNode({className: "BusinessRuleEntry", classSectionId: "BIRU", kind: SomMetaKind.COMPLEX, typeName: "BusinessRuleEntry", docComment: "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.", classDocComment: "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.", detailedIn: "D03InformationModel", recursive: r, children: c}))}),
   ];
 }
 
@@ -26103,6 +26140,7 @@ function _mc_InformationAndDataModel(s: Set<string>): SomMetaNode[] {
         serializationOrder: 4,
         docComment: "7.4. Schema Versioning and Migration.",
         classDocComment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.",
+        detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
      _cx("DomainEnumRegistry", s, _mc_DomainEnumRegistry,
@@ -26115,6 +26153,7 @@ function _mc_InformationAndDataModel(s: Set<string>): SomMetaNode[] {
         serializationOrder: 5,
         docComment: "7.5. Domain Enum Registry.",
         classDocComment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
+        detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
      _cx("ErrorCodeRegistry", s, _mc_ErrorCodeRegistry,
@@ -26127,6 +26166,7 @@ function _mc_InformationAndDataModel(s: Set<string>): SomMetaNode[] {
         serializationOrder: 6,
         docComment: "7.6. Error Code Registry.",
         classDocComment: "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.",
+        detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
      _cx("ResultEnvelope", s, _mc_ResultEnvelope,
@@ -26139,6 +26179,7 @@ function _mc_InformationAndDataModel(s: Set<string>): SomMetaNode[] {
         serializationOrder: 7,
         docComment: "7.7. Result Envelope.",
         classDocComment: "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the result/error envelope authored per application in\n`<app>_codespec_shared` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.",
+        detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
      _cx("MessageKeyRegistry", s, _mc_MessageKeyRegistry,
@@ -26151,6 +26192,7 @@ function _mc_InformationAndDataModel(s: Set<string>): SomMetaNode[] {
         serializationOrder: 8,
         docComment: "7.8. Message Key Registry.",
         classDocComment: "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.",
+        detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
      _cx("ServerOperationRegistry", s, _mc_ServerOperationRegistry,
@@ -26163,6 +26205,7 @@ function _mc_InformationAndDataModel(s: Set<string>): SomMetaNode[] {
         serializationOrder: 9,
         docComment: "7.9. Server Operation Registry.\n\nThe system's **own** operation surface (CE-API): one entry per operation\nthe server answers, with its request/response members, the data entity it\nprimarily writes, and its authorization requirement.",
         classDocComment: "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).",
+        detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
      _cx("DataModelFollowUp", s, _mc_DataModelFollowUp,
@@ -29358,6 +29401,19 @@ function _mc_LocaleHandlingRequirements(s: Set<string>): SomMetaNode[] {
       serializationOrder: 0,
       docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.",
       form: new SomFormMeta([new SomFormFieldMeta({name: "localeFormat", typeName: "String", description: "Locale Format", hint: "BCP 47, ISO 639-1, custom", order: 0}), new SomFormFieldMeta({name: "countryVariants", typeName: "String", description: "Country Variants", hint: "en-US vs en-GB, de-DE vs de-AT", order: 1}), new SomFormFieldMeta({name: "localeDetection", typeName: "String", description: "Locale Detection", hint: "Browser, OS, user setting, geo-IP", order: 2}), new SomFormFieldMeta({name: "localeFallbackChain", typeName: "String", description: "Locale Fallback Chain", hint: "Fallback order when locale not available", order: 3})])}),
+  ];
+}
+
+function _mc_LocaleRolloutPlan(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "LocaleRolloutPlan",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "rolloutTimeline", typeName: "String", description: "Rollout Timeline", hint: "High-level rollout schedule", order: 0}), new SomFormFieldMeta({name: "rolloutRegions", typeName: "String", description: "Rollout Regions", hint: "Geographic rollout order", order: 1}), new SomFormFieldMeta({name: "rolloutStrategy", typeName: "String", description: "Rollout Strategy", hint: "Big bang, phased, pilot", order: 2, multiParagraph: true})])}),
   ];
 }
 
@@ -45832,6 +45888,7 @@ function _mc_SecurityOperationsFollowUp(s: Set<string>): SomMetaNode[] {
         serializationOrder: 2,
         docComment: "9.3.2. Compliance Reporting.",
         classDocComment: "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.",
+        detailedIn: "D08SecurityAccessSpecification",
         recursive: r,
         children: c})),
   ];
@@ -51882,7 +51939,7 @@ function _mc_SystemStagePlan(s: Set<string>): SomMetaNode[] {
       serializationOrder: 6,
       min: 1,
       docComment: "13.3. Stages — contains 1+× Stage.",
-      elementNode: _cx("StageEntry", s, _mc_StageEntry, (r, c) => new SomMetaNode({className: "StageEntry", classSectionId: "STAGE", kind: SomMetaKind.COMPLEX, typeName: "StageEntry", docComment: "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.", classDocComment: "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.", recursive: r, children: c}))}),
+      elementNode: _cx("StageEntry", s, _mc_StageEntry, (r, c) => new SomMetaNode({className: "StageEntry", classSectionId: "STAGE", kind: SomMetaKind.COMPLEX, typeName: "StageEntry", docComment: "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.", classDocComment: "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.", detailedIn: "D11DeliveryRoadmap", recursive: r, children: c}))}),
      _cx("FeaturePrioritization", s, _mc_FeaturePrioritization,
       (r, c) => new SomMetaNode({
         className: "FeaturePrioritization",
@@ -65453,6 +65510,10 @@ export class D12TransitionRolloutPlan$Nav extends SomMetaRef {
     return new TranslationProcess$Nav(this.tree, this.path + "/translationProcess");
   }
 
+  get localeRolloutPlan(): LocaleRolloutPlan$Nav {
+    return new LocaleRolloutPlan$Nav(this.tree, this.path + "/localeRolloutPlan");
+  }
+
   get userDocumentation(): UserDocumentationRequirements$Nav {
     return new UserDocumentationRequirements$Nav(this.tree, this.path + "/userDocumentation");
   }
@@ -67075,8 +67136,8 @@ export class DeliveryTransitionAndRollout$Nav extends SomMetaRef {
     return new LocalizationTranslationProcess$Nav(this.tree, this.path + "/localizationTranslationProcess");
   }
 
-  get localeRolloutPlan(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/LOCRP");
+  get localeRolloutPlan(): LocaleRolloutPlan$Nav {
+    return new LocaleRolloutPlan$Nav(this.tree, this.path + "/localeRolloutPlan");
   }
 }
 
@@ -73019,6 +73080,16 @@ export class LocalDevelopmentSetup$Nav extends SomMetaRef {
 // metadata node. Past a recursive re-entry `.path` chains remain valid
 // document positions while `.meta` throws (the metadata tree ends there).
 export class LocaleHandlingRequirements$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+}
+
+// Dot-notation accessors of `LocaleRolloutPlan` (SOM §8). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class LocaleRolloutPlan$Nav extends SomMetaRef {
   get content(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/content");
   }
@@ -94550,10 +94621,6 @@ export class D00SolutionBlueprint$Id extends SomMetaRef {
 
   get TVE_VEND_LST(): SomListMetaRef<TranslationVendorEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TVE-VEND-LST", (t: SomMetaTree, p: string) => new TranslationVendorEntry$Id(t, p));
-  }
-
-  get LOCRP(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/deliveryTransitionAndRollout/LOCRP");
   }
 }
 

@@ -1,3 +1,23 @@
+## 1.12.3
+
+- `localeRolloutPlan` (`LOCRP`) is a class, `LocaleRolloutPlan`, with its form
+  as its own `content` form; `DeliveryTransitionAndRollout` and the Transition
+  & Rollout Plan root both hold it, so its `@DetailedIn(D12TransitionRolloutPlan)`
+  has a partner. A document writes the section's fields under `content:` now;
+  documents holding `LOCRP` are migrated by moving its fields there.
+- `@DetailedIn` on the 14 Phase 3 top-level sections that had none:
+  `DataEntityEntry`, `BusinessObjectEntry`, `FunctionEntry`,
+  `FunctionDataMatrixEntry`, `BusinessRuleEntry` and the six registries
+  (`DomainEnumRegistry`, `ErrorCodeRegistry`, `ResultEnvelope`,
+  `MessageKeyRegistry`, `ServerOperationRegistry`,
+  `SchemaVersioningAndMigration`) to the Information Model,
+  `ComplianceReporting` to the Security & Access Specification,
+  `ReportDefinitions` (with its `@MapsTo`) to the Experience Design
+  Specification, `StageEntry` to the Delivery Roadmap: 132 pairs, every
+  top-level section of a Phase 3 document a pair.
+- `tom_specs_model_rules.md` §10.1 states the Blueprint's level and lists the
+  132 pairs with their place and `detailOnly`.
+
 ## 1.12.2
 
 - SOM §11.4 rule 13: a form-field value that is one paragraph wrapped over

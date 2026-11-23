@@ -703,6 +703,8 @@ to pixel-perfect designs with exact typography and spacing.
 )
 @SectionId('REDF')
 @CodeSpecKind([CodeSpecPart.reporting], note: 'the report definitions')
+@MapsTo(D09ExperienceDesignSpecification)
+@DetailedIn(D09ExperienceDesignSpecification)
 class ReportDefinitions extends DocSpecsSection {
   @ContentType(
     'description',

@@ -5701,6 +5701,9 @@ LocalizationProcess D12TransitionRolloutPlan::localizationProcess() const {
 TranslationProcess D12TransitionRolloutPlan::translationProcess() const {
   return TranslationProcess(doc(), som::joinPath(path(), "translationProcess"));
 }
+LocaleRolloutPlan D12TransitionRolloutPlan::localeRolloutPlan() const {
+  return LocaleRolloutPlan(doc(), som::joinPath(path(), "localeRolloutPlan"));
+}
 UserDocumentationRequirements D12TransitionRolloutPlan::userDocumentation() const {
   return UserDocumentationRequirements(doc(), som::joinPath(path(), "userDocumentation"));
 }
@@ -6893,8 +6896,8 @@ SystemRollout DeliveryTransitionAndRollout::systemRollout() const {
 LocalizationTranslationProcess DeliveryTransitionAndRollout::localizationTranslationProcess() const {
   return LocalizationTranslationProcess(doc(), som::joinPath(path(), "localizationTranslationProcess"));
 }
-DeliveryTransitionAndRolloutLocaleRolloutPlanForm DeliveryTransitionAndRollout::localeRolloutPlan() const {
-  return DeliveryTransitionAndRolloutLocaleRolloutPlanForm(doc(), som::joinPath(path(), "LOCRP"));
+LocaleRolloutPlan DeliveryTransitionAndRollout::localeRolloutPlan() const {
+  return LocaleRolloutPlan(doc(), som::joinPath(path(), "localeRolloutPlan"));
 }
 
 DependenciesAndIntegrations::DependenciesAndIntegrations(som::SpecDocument& doc, std::string path)
@@ -11008,6 +11011,12 @@ LocaleHandlingRequirements::LocaleHandlingRequirements(som::SpecDocument& doc, s
     : som::SomNode(doc, std::move(path)) {}
 LocaleHandlingRequirementsContentForm LocaleHandlingRequirements::content() const {
   return LocaleHandlingRequirementsContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+LocaleRolloutPlan::LocaleRolloutPlan(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+LocaleRolloutPlanContentForm LocaleRolloutPlan::content() const {
+  return LocaleRolloutPlanContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 LocalizationProcess::LocalizationProcess(som::SpecDocument& doc, std::string path)
@@ -46870,33 +46879,6 @@ void DeliveryAcceptanceCriterionEntryVerificationForm::setEvidenceRequired(const
   doc().setFormField(path(), "evidenceRequired", value);
 }
 
-DeliveryTransitionAndRolloutLocaleRolloutPlanForm::DeliveryTransitionAndRolloutLocaleRolloutPlanForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string DeliveryTransitionAndRolloutLocaleRolloutPlanForm::content() const {
-  return doc().content(path());
-}
-void DeliveryTransitionAndRolloutLocaleRolloutPlanForm::setContent(const std::string& value) {
-  doc().setContent(path(), value);
-}
-std::string DeliveryTransitionAndRolloutLocaleRolloutPlanForm::rolloutTimeline() const {
-  return doc().formField(path(), "rolloutTimeline");
-}
-void DeliveryTransitionAndRolloutLocaleRolloutPlanForm::setRolloutTimeline(const std::string& value) {
-  doc().setFormField(path(), "rolloutTimeline", value);
-}
-std::string DeliveryTransitionAndRolloutLocaleRolloutPlanForm::rolloutRegions() const {
-  return doc().formField(path(), "rolloutRegions");
-}
-void DeliveryTransitionAndRolloutLocaleRolloutPlanForm::setRolloutRegions(const std::string& value) {
-  doc().setFormField(path(), "rolloutRegions", value);
-}
-std::string DeliveryTransitionAndRolloutLocaleRolloutPlanForm::rolloutStrategy() const {
-  return doc().formField(path(), "rolloutStrategy");
-}
-void DeliveryTransitionAndRolloutLocaleRolloutPlanForm::setRolloutStrategy(const std::string& value) {
-  doc().setFormField(path(), "rolloutStrategy", value);
-}
-
 DependencyHealthMonitoringCacheForm::DependencyHealthMonitoringCacheForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string DependencyHealthMonitoringCacheForm::content() const {
@@ -67304,6 +67286,33 @@ std::string LocaleHandlingRequirementsContentForm::localeFallbackChain() const {
 }
 void LocaleHandlingRequirementsContentForm::setLocaleFallbackChain(const std::string& value) {
   doc().setFormField(path(), "localeFallbackChain", value);
+}
+
+LocaleRolloutPlanContentForm::LocaleRolloutPlanContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string LocaleRolloutPlanContentForm::content() const {
+  return doc().content(path());
+}
+void LocaleRolloutPlanContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string LocaleRolloutPlanContentForm::rolloutTimeline() const {
+  return doc().formField(path(), "rolloutTimeline");
+}
+void LocaleRolloutPlanContentForm::setRolloutTimeline(const std::string& value) {
+  doc().setFormField(path(), "rolloutTimeline", value);
+}
+std::string LocaleRolloutPlanContentForm::rolloutRegions() const {
+  return doc().formField(path(), "rolloutRegions");
+}
+void LocaleRolloutPlanContentForm::setRolloutRegions(const std::string& value) {
+  doc().setFormField(path(), "rolloutRegions", value);
+}
+std::string LocaleRolloutPlanContentForm::rolloutStrategy() const {
+  return doc().formField(path(), "rolloutStrategy");
+}
+void LocaleRolloutPlanContentForm::setRolloutStrategy(const std::string& value) {
+  doc().setFormField(path(), "rolloutStrategy", value);
 }
 
 LocalizationProcessDeploymentForm::LocalizationProcessDeploymentForm(som::SpecDocument& doc, std::string path)

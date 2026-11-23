@@ -11537,6 +11537,9 @@ class D12TransitionRolloutPlan extends SomNode {
   /// Translation process.
   TranslationProcess get translationProcess => TranslationProcess(doc, '$path/translationProcess');
 
+  /// Multi-language rollout plan: the locales' rollout by region and time.
+  LocaleRolloutPlan get localeRolloutPlan => LocaleRolloutPlan(doc, '$path/localeRolloutPlan');
+
   /// User documentation requirements (doc half of the former DOANTR;
   /// split in L34C-7).
   UserDocumentationRequirements get userDocumentation => UserDocumentationRequirements(doc, '$path/userDocumentation');
@@ -14130,7 +14133,7 @@ class DeliveryTransitionAndRollout extends SomNode {
   LocalizationTranslationProcess get localizationTranslationProcess => LocalizationTranslationProcess(doc, '$path/localizationTranslationProcess');
 
   /// Multi-language rollout sequencing by region and time (re-homed from MLAR).
-  DeliveryTransitionAndRolloutLocaleRolloutPlanForm get localeRolloutPlan => DeliveryTransitionAndRolloutLocaleRolloutPlanForm(doc, '$path/LOCRP');
+  LocaleRolloutPlan get localeRolloutPlan => LocaleRolloutPlan(doc, '$path/localeRolloutPlan');
 }
 
 /// 1.1.3. Dependencies and Integrations.
@@ -23199,6 +23202,26 @@ class LocaleHandlingRequirements extends SomNode {
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in the section's `form`.
   LocaleHandlingRequirementsContentForm get content => LocaleHandlingRequirementsContentForm(doc, '$path/content');
+}
+
+/// Multi-language rollout plan.
+/// 
+/// The rollout sequencing of the supported locales by region and time: which
+/// languages are delivered with which release, in which geographic order, and
+/// by which strategy. Detailed in the Transition & Rollout Plan beside the
+/// localization and translation processes.
+class LocaleRolloutPlan extends SomNode {
+  /// Names the `LocaleRolloutPlan` section at [path] inside [doc].
+  ///
+  /// Constructing a facade node neither allocates storage nor validates —
+  /// it only names a path, so a node may be built for a section the
+  /// document does not yet carry.
+  LocaleRolloutPlan(super.doc, super.path);
+
+  /// The section's body content. For a `@Form`-annotated member this is the
+  /// form's **preamble** — the free text before the first field line (SOM
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
+  LocaleRolloutPlanContentForm get content => LocaleRolloutPlanContentForm(doc, '$path/content');
 }
 
 /// 10.12.1. Localization Process.
@@ -74386,38 +74409,6 @@ class DeliveryAcceptanceCriterionEntryVerificationForm extends SomNode {
   set evidenceRequired(String value) => doc.setFormField(path, 'evidenceRequired', value);
 }
 
-/// Generated section facade for the `localeRolloutPlan` `@Form` section:
-/// its own `content` text followed by one typed member per form field.
-class DeliveryTransitionAndRolloutLocaleRolloutPlanForm extends SomNode {
-  /// Names the `localeRolloutPlan` form section at [path] inside [doc].
-  DeliveryTransitionAndRolloutLocaleRolloutPlanForm(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  /// The section's own free-text content, before the form fields.
-  String get content => doc.content(path) ?? '';
-  set content(String value) => doc.setContent(path, value);
-
-  /// Rollout Timeline.
-  ///
-  /// High-level rollout schedule
-  String get rolloutTimeline => doc.formField(path, 'rolloutTimeline') ?? '';
-  set rolloutTimeline(String value) => doc.setFormField(path, 'rolloutTimeline', value);
-
-  /// Rollout Regions.
-  ///
-  /// Geographic rollout order
-  String get rolloutRegions => doc.formField(path, 'rolloutRegions') ?? '';
-  set rolloutRegions(String value) => doc.setFormField(path, 'rolloutRegions', value);
-
-  /// Rollout Strategy.
-  ///
-  /// Big bang, phased, pilot
-  String get rolloutStrategy => doc.formField(path, 'rolloutStrategy') ?? '';
-  set rolloutStrategy(String value) => doc.setFormField(path, 'rolloutStrategy', value);
-}
-
 /// Generated section facade for the `cache` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class DependencyHealthMonitoringCacheForm extends SomNode {
@@ -97698,6 +97689,38 @@ class LocaleHandlingRequirementsContentForm extends SomNode {
   /// Fallback order when locale not available
   String get localeFallbackChain => doc.formField(path, 'localeFallbackChain') ?? '';
   set localeFallbackChain(String value) => doc.setFormField(path, 'localeFallbackChain', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class LocaleRolloutPlanContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  LocaleRolloutPlanContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Rollout Timeline.
+  ///
+  /// High-level rollout schedule
+  String get rolloutTimeline => doc.formField(path, 'rolloutTimeline') ?? '';
+  set rolloutTimeline(String value) => doc.setFormField(path, 'rolloutTimeline', value);
+
+  /// Rollout Regions.
+  ///
+  /// Geographic rollout order
+  String get rolloutRegions => doc.formField(path, 'rolloutRegions') ?? '';
+  set rolloutRegions(String value) => doc.setFormField(path, 'rolloutRegions', value);
+
+  /// Rollout Strategy.
+  ///
+  /// Big bang, phased, pilot
+  String get rolloutStrategy => doc.formField(path, 'rolloutStrategy') ?? '';
+  set rolloutStrategy(String value) => doc.setFormField(path, 'rolloutStrategy', value);
 }
 
 /// Generated section facade for the `deployment` `@Form` section:

@@ -658,6 +658,7 @@ static SomMetaNode **meta_children_limitation_entry(SomStrList *stack, size_t *l
 static SomMetaNode **meta_children_load_profile_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_local_development_setup(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_locale_handling_requirements(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_locale_rollout_plan(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_localization_process(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_localization_translation_process(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_localization_translation_requirements(SomStrList *stack, size_t *len);
@@ -2662,6 +2663,7 @@ static void meta_build_d12_transition_rollout_plan_revision_history(SomMetaNode 
 static void meta_build_d12_transition_rollout_plan_revision_history_elem(SomMetaNode *n);
 static void meta_build_d12_transition_rollout_plan_localization_process(SomMetaNode *n);
 static void meta_build_d12_transition_rollout_plan_translation_process(SomMetaNode *n);
+static void meta_build_d12_transition_rollout_plan_locale_rollout_plan(SomMetaNode *n);
 static void meta_build_d12_transition_rollout_plan_user_documentation(SomMetaNode *n);
 static void meta_build_d12_transition_rollout_plan_training_deliverables(SomMetaNode *n);
 static void meta_build_d12_transition_rollout_plan_rollout_plan(SomMetaNode *n);
@@ -4171,6 +4173,7 @@ static void meta_build_local_development_setup_running(SomMetaNode *n);
 static void meta_build_local_development_setup_testing(SomMetaNode *n);
 static void meta_build_local_development_setup_troubleshooting(SomMetaNode *n);
 static void meta_build_locale_handling_requirements_content(SomMetaNode *n);
+static void meta_build_locale_rollout_plan_content(SomMetaNode *n);
 static void meta_build_localization_process_content(SomMetaNode *n);
 static void meta_build_localization_process_localization_process_content(SomMetaNode *n);
 static void meta_build_localization_process_review(SomMetaNode *n);
@@ -26767,6 +26770,7 @@ static void meta_build_business_object_model_objects_elem(SomMetaNode *n) {
   meta_set(&n->type_name, "BusinessObjectEntry");
   meta_set(&n->doc_comment, "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.");
   meta_set(&n->class_doc_comment, "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_business_object_model_object_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessObjectModel");
@@ -42634,6 +42638,7 @@ static void meta_build_d03_information_model_entities_elem(SomMetaNode *n) {
   meta_set(&n->type_name, "DataEntityEntry");
   meta_set(&n->doc_comment, "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.");
   meta_set(&n->class_doc_comment, "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_d03_information_model_entity_relationships(SomMetaNode *n) {
   meta_set(&n->class_name, "EntityRelationships");
@@ -42691,6 +42696,7 @@ static void meta_build_d03_information_model_object_catalog_elem(SomMetaNode *n)
   meta_set(&n->type_name, "BusinessObjectEntry");
   meta_set(&n->doc_comment, "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.");
   meta_set(&n->class_doc_comment, "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_d03_information_model_object_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "D03InformationModel");
@@ -42722,6 +42728,7 @@ static void meta_build_d03_information_model_function_decomposition_elem(SomMeta
   meta_set(&n->type_name, "FunctionEntry");
   meta_set(&n->doc_comment, "A function entry (form).\n\nBusiness function specification in the functional decomposition.");
   meta_set(&n->class_doc_comment, "A function entry (form).\n\nBusiness function specification in the functional decomposition.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_d03_information_model_function_to_data_matrix(SomMetaNode *n) {
   meta_set(&n->class_name, "D03InformationModel");
@@ -42741,6 +42748,7 @@ static void meta_build_d03_information_model_function_to_data_matrix_elem(SomMet
   meta_set(&n->type_name, "FunctionDataMatrixEntry");
   meta_set(&n->doc_comment, "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.");
   meta_set(&n->class_doc_comment, "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_d03_information_model_business_rules(SomMetaNode *n) {
   meta_set(&n->class_name, "D03InformationModel");
@@ -42762,6 +42770,7 @@ static void meta_build_d03_information_model_business_rules_elem(SomMetaNode *n)
   meta_set(&n->type_name, "BusinessRuleEntry");
   meta_set(&n->doc_comment, "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.");
   meta_set(&n->class_doc_comment, "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_d03_information_model_data_dictionary(SomMetaNode *n) {
   meta_set(&n->class_name, "DataDictionary");
@@ -42809,6 +42818,7 @@ static void meta_build_d03_information_model_domain_enum_registry(SomMetaNode *n
   n->serialization_order = 16;
   meta_set(&n->doc_comment, "Domain enum registry — the closed value sets the data model relies on\n(`domainEnum` home + closed-choice discriminator source, csmb3).");
   meta_set(&n->class_doc_comment, "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_d03_information_model_error_code_registry(SomMetaNode *n) {
   meta_set(&n->class_name, "ErrorCodeRegistry");
@@ -42820,6 +42830,7 @@ static void meta_build_d03_information_model_error_code_registry(SomMetaNode *n)
   n->serialization_order = 17;
   meta_set(&n->doc_comment, "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).");
   meta_set(&n->class_doc_comment, "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_d03_information_model_result_envelope(SomMetaNode *n) {
   meta_set(&n->class_name, "ResultEnvelope");
@@ -42831,6 +42842,7 @@ static void meta_build_d03_information_model_result_envelope(SomMetaNode *n) {
   n->serialization_order = 18;
   meta_set(&n->doc_comment, "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe success-or-error `Result` envelope; CE-ER home. Realised per\napplication in `<app>_codespec_shared` — a response envelope is\napplication domain, so no framework type backs it (csmb5).");
   meta_set(&n->class_doc_comment, "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the result/error envelope authored per application in\n`<app>_codespec_shared` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_d03_information_model_message_key_registry(SomMetaNode *n) {
   meta_set(&n->class_name, "MessageKeyRegistry");
@@ -42842,6 +42854,7 @@ static void meta_build_d03_information_model_message_key_registry(SomMetaNode *n
   n->serialization_order = 19;
   meta_set(&n->doc_comment, "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).");
   meta_set(&n->class_doc_comment, "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_d03_information_model_server_operation_registry(SomMetaNode *n) {
   meta_set(&n->class_name, "ServerOperationRegistry");
@@ -42853,6 +42866,7 @@ static void meta_build_d03_information_model_server_operation_registry(SomMetaNo
   n->serialization_order = 20;
   meta_set(&n->doc_comment, "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.");
   meta_set(&n->class_doc_comment, "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_d03_information_model_schema_versioning_and_migration(SomMetaNode *n) {
   meta_set(&n->class_name, "SchemaVersioningAndMigration");
@@ -42864,6 +42878,7 @@ static void meta_build_d03_information_model_schema_versioning_and_migration(Som
   n->serialization_order = 21;
   meta_set(&n->doc_comment, "Schema versioning and migration — the CE-MG home: the versioning policy,\nthe data source / schema targets, and the ordered artifact set that\nestablishes and evolves the schema.\n\nProjected here because the artifact chain must converge on the entity and\nattribute model this document owns.");
   meta_set(&n->class_doc_comment, "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_d04_requirements_specification_content(SomMetaNode *n) {
   meta_set(&n->class_name, "D04RequirementsSpecification");
@@ -43742,6 +43757,7 @@ static void meta_build_d08_security_access_specification_compliance_reporting(So
   n->serialization_order = 12;
   meta_set(&n->doc_comment, "Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.");
   meta_set(&n->class_doc_comment, "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.");
+  meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
 }
 static void meta_build_d09_experience_design_specification_content(SomMetaNode *n) {
   meta_set(&n->class_name, "D09ExperienceDesignSpecification");
@@ -43864,6 +43880,8 @@ static void meta_build_d09_experience_design_specification_report_definitions(So
   n->serialization_order = 8;
   meta_set(&n->doc_comment, "Report definitions — the CE-RP report projections over the domain model.");
   meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).");
+  meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
+  meta_set(&n->detailed_in, "D09ExperienceDesignSpecification");
 }
 static void meta_build_d09_experience_design_specification_error_handling(SomMetaNode *n) {
   meta_set(&n->class_name, "ErrorHandling");
@@ -44359,6 +44377,7 @@ static void meta_build_d11_delivery_roadmap_stages_elem(SomMetaNode *n) {
   meta_set(&n->type_name, "StageEntry");
   meta_set(&n->doc_comment, "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.");
   meta_set(&n->class_doc_comment, "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.");
+  meta_set(&n->detailed_in, "D11DeliveryRoadmap");
 }
 static void meta_build_d11_delivery_roadmap_feature_prioritization(SomMetaNode *n) {
   meta_set(&n->class_name, "FeaturePrioritization");
@@ -44517,6 +44536,19 @@ static void meta_build_d12_transition_rollout_plan_translation_process(SomMetaNo
   meta_set(&n->maps_to, "D12TransitionRolloutPlan");
   meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
 }
+static void meta_build_d12_transition_rollout_plan_locale_rollout_plan(SomMetaNode *n) {
+  meta_set(&n->class_name, "LocaleRolloutPlan");
+  meta_set(&n->member_name, "localeRolloutPlan");
+  meta_set(&n->class_section_id, "LOCRP");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "LocaleRolloutPlan");
+  n->has_serialization_order = 1;
+  n->serialization_order = 6;
+  meta_set(&n->doc_comment, "Multi-language rollout plan: the locales' rollout by region and time.");
+  meta_set(&n->class_doc_comment, "Multi-language rollout plan.\n\nThe rollout sequencing of the supported locales by region and time: which\nlanguages are delivered with which release, in which geographic order, and\nby which strategy. Detailed in the Transition & Rollout Plan beside the\nlocalization and translation processes.");
+  meta_set(&n->maps_to, "D12TransitionRolloutPlan");
+  meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
+}
 static void meta_build_d12_transition_rollout_plan_user_documentation(SomMetaNode *n) {
   meta_set(&n->class_name, "UserDocumentationRequirements");
   meta_set(&n->member_name, "userDocumentation");
@@ -44524,7 +44556,7 @@ static void meta_build_d12_transition_rollout_plan_user_documentation(SomMetaNod
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UserDocumentationRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "User documentation requirements (doc half of the former DOANTR;\nsplit in L34C-7).");
   meta_set(&n->class_doc_comment, "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9\n`InformationForUseRequirements` (`IFUR`) while physically staying in this\nfile alongside its `DATD`/`DATL` sub-forms and the shared `TextSection`.\nRetains `DOANTR` + the shared `TRP-DOC` D12 detail subsection.");
   meta_set(&n->maps_to, "D12TransitionRolloutPlan");
@@ -44537,7 +44569,7 @@ static void meta_build_d12_transition_rollout_plan_training_deliverables(SomMeta
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TrainingDeliverableRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "Training deliverable requirements (training half of the former DOANTR;\nsplit in L34C-7).");
   meta_set(&n->class_doc_comment, "10.12.3b. Training Deliverable Requirements.\n\nEnd-user training materials and module catalogue. The training half of the\nformer `DocumentationAndTraining` (`DOANTR`); split from its documentation\nhalf in L34C-7 (SR-29). Logically re-homed under SBP.9\n`TrainingEnablementRequirements` (`TREQ`) while physically staying in this\nfile. Maps to D12 under the existing training detail subsection `TRP-TRN`\n(shared with SBP.15 `RolloutTrainingMaterial`), grouping all training\ncontent in one D12 subsection rather than fragmenting it across a new id.");
   meta_set(&n->maps_to, "D12TransitionRolloutPlan");
@@ -44550,7 +44582,7 @@ static void meta_build_d12_transition_rollout_plan_rollout_plan(SomMetaNode *n) 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "RolloutPlan");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "Rollout plan.");
   meta_set(&n->class_doc_comment, "15.1. Rollout Plan.\n\nGeographic and/or user-group rollout plan covering rollout-plan\ncontent: the sequencing of sites, countries, business units, and user\ncohorts across the go-live waves.");
   meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
@@ -44562,7 +44594,7 @@ static void meta_build_d12_transition_rollout_plan_migration_plan(SomMetaNode *n
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "MigrationPlan");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "Migration plan.");
   meta_set(&n->class_doc_comment, "15.2. Migration Plan.\n\nEnd-to-end system migration plan covering migration-plan content:\ndata, configuration, integration, and user migration from the current\nlandscape to the target.\n\nThis is the rollout/cutover *runbook* (execution). The staged-migration\n*strategy* (phasing, sequencing, data-migration approach) is owned by\n`DataMigrationStrategy` (`DRM`); reference it rather than restating the\nstrategy here.");
   meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
@@ -44574,7 +44606,7 @@ static void meta_build_d12_transition_rollout_plan_user_manuals(SomMetaNode *n) 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UserManual");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 11;
   meta_set(&n->doc_comment, "User manuals.\n\nOne whole-catalog content section; collapsed from `List<UserManual>`\n(L34C-12 SR-57).");
   meta_set(&n->class_doc_comment, "15.3. User Manuals.\n\nEnd-user documentation deliverables covering user-manual content.\n\nThis is the *execution* side of user documentation. The documentation\n*requirements* (deliverables, formats, platforms, versioning,\nlocalization) are owned by SBP.9 `InformationForUseRequirements`\n(`IFUR`); reference them via the shared `TRP-DOC` detail link rather\nthan restating the requirements here.");
   meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
@@ -44586,7 +44618,7 @@ static void meta_build_d12_transition_rollout_plan_training_materials(SomMetaNod
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "RolloutTrainingMaterial");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 12;
   meta_set(&n->doc_comment, "Training materials.\n\nOne whole-catalog content section; collapsed from\n`List<RolloutTrainingMaterial>` (L34C-12 SR-57).");
   meta_set(&n->class_doc_comment, "15.4. Training Materials.\n\nTraining deliverables covering training-material content.\n\nThis is the *execution* side of training. The training *requirements*\n(audiences, competency outcomes, certification, ongoing enablement) are\nowned by SBP.9 `TrainingEnablementRequirements` (`TREQ`); reference them\nvia the shared `TRP-TRN` detail link rather than restating the\nrequirements here.");
   meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
@@ -44598,7 +44630,7 @@ static void meta_build_d12_transition_rollout_plan_pilot_plan(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "PilotPlan");
   n->has_serialization_order = 1;
-  n->serialization_order = 12;
+  n->serialization_order = 13;
   meta_set(&n->doc_comment, "Pilot plan.");
   meta_set(&n->class_doc_comment, "15.5. Pilot Plan.\n\nPilot scope, cohort selection, success criteria, and exit decision rules.");
   meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
@@ -44610,7 +44642,7 @@ static void meta_build_d12_transition_rollout_plan_cutover_procedures(SomMetaNod
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "CutoverProcedure");
   n->has_serialization_order = 1;
-  n->serialization_order = 13;
+  n->serialization_order = 14;
   meta_set(&n->doc_comment, "Cutover procedures.\n\nOne whole-catalog content section; collapsed from `List<CutoverProcedure>`\n(L34C-12 SR-57).");
   meta_set(&n->class_doc_comment, "15.6. Cutover Procedures.\n\nDetailed cutover runbook for go-live. Minute-by-minute procedure\ncovering the transition from current operation to the target system.");
   meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
@@ -44622,7 +44654,7 @@ static void meta_build_d12_transition_rollout_plan_knowledge_transfer(SomMetaNod
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "KnowledgeTransfer");
   n->has_serialization_order = 1;
-  n->serialization_order = 14;
+  n->serialization_order = 15;
   meta_set(&n->doc_comment, "Knowledge transfer.");
   meta_set(&n->class_doc_comment, "15.7. Knowledge Transfer.\n\nHandover from delivery team to operations. Covers handover-agreement\ncontent.");
   meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
@@ -44634,7 +44666,7 @@ static void meta_build_d12_transition_rollout_plan_warranty_and_support(SomMetaN
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "WarrantyAndSupport");
   n->has_serialization_order = 1;
-  n->serialization_order = 15;
+  n->serialization_order = 16;
   meta_set(&n->doc_comment, "Warranty and support.");
   meta_set(&n->class_doc_comment, "15.8. Warranty and Support.\n\nPost-acceptance warranty period terms and support arrangements. Covers\nwarranty content and feeds the TRP top-level on the same topic.");
   meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
@@ -44674,6 +44706,7 @@ static void meta_build_d13_code_specs_projection_domain_enum_registry(SomMetaNod
   meta_set(&n->comment, "locus: shared — domainEnum (member kind)");
   meta_set(&n->doc_comment, "Domain enum registry — the closed value sets, shared by client & server.\n\n`domainEnum` is a **member kind, not a part** (`codespecs_mapping.md`\n§4.1): each enum is authored once here and realised as a plain Dart `enum`\nmarked `@CsEnum`, placed in the shared project iff a shared contract type\nreferences it — which is what this registry's shared locus assumes —\notherwise in the project of the part that introduces it.");
   meta_set(&n->class_doc_comment, "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_d13_code_specs_projection_error_code_registry(SomMetaNode *n) {
   meta_set(&n->class_name, "ErrorCodeRegistry");
@@ -44686,6 +44719,7 @@ static void meta_build_d13_code_specs_projection_error_code_registry(SomMetaNode
   meta_set(&n->comment, "locus: shared — CE-ER");
   meta_set(&n->doc_comment, "Error code registry — CE-ER shared error-code vocabulary.");
   meta_set(&n->class_doc_comment, "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_d13_code_specs_projection_result_envelope(SomMetaNode *n) {
   meta_set(&n->class_name, "ResultEnvelope");
@@ -44698,6 +44732,7 @@ static void meta_build_d13_code_specs_projection_result_envelope(SomMetaNode *n)
   meta_set(&n->comment, "locus: shared — CE-ER");
   meta_set(&n->doc_comment, "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe shared success-or-error envelope: success payload **or** structured\nerror (code, message, field-level details).");
   meta_set(&n->class_doc_comment, "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the result/error envelope authored per application in\n`<app>_codespec_shared` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_d13_code_specs_projection_message_key_registry(SomMetaNode *n) {
   meta_set(&n->class_name, "MessageKeyRegistry");
@@ -44710,6 +44745,7 @@ static void meta_build_d13_code_specs_projection_message_key_registry(SomMetaNod
   meta_set(&n->comment, "locus: shared — CE-TX");
   meta_set(&n->doc_comment, "Message key registry — CE-TX author-copy-once keys, shared.");
   meta_set(&n->class_doc_comment, "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_d13_code_specs_projection_notification_model(SomMetaNode *n) {
   meta_set(&n->class_name, "NotificationModel");
@@ -44798,6 +44834,8 @@ static void meta_build_d13_code_specs_projection_report_definitions(SomMetaNode 
   meta_set(&n->comment, "locus: server — CE-RP");
   meta_set(&n->doc_comment, "Report definitions — CE-RP grouped projections over the domain model.\n\nThe definition is where the report runs, so the subtree's locus is the\nserver. Its shared half — the result envelope and the parameter shapes the\nclient reads — is **derived from this same subtree** rather than authored\nin a second SOM section, so it needs no separate shared-locus entry; the\ngeneric `ResultEnvelope` above covers the CE-ER contract it rides on. The\nenvironment-wide print and export *settings* are CE-CF, not CE-RP, and are\nthe sibling entry below.");
   meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).");
+  meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
+  meta_set(&n->detailed_in, "D09ExperienceDesignSpecification");
 }
 static void meta_build_d13_code_specs_projection_print_and_export_layout(SomMetaNode *n) {
   meta_set(&n->class_name, "PrintAndExportLayout");
@@ -44824,6 +44862,7 @@ static void meta_build_d13_code_specs_projection_schema_versioning_and_migration
   meta_set(&n->comment, "locus: server — CE-MG");
   meta_set(&n->doc_comment, "Schema versioning and migration — CE-MG migration artifacts.\n\nThe artifacts ship with the server project because that is where the\nmigration engine runs them (`codespecs_mapping.md` §4.2). The subtree\nsupplies all three inputs the `@CsMigration` declaration needs: `MIGTG`\ngives the data source / schema directory placement, `SCMST.artifactKind`\nthe artifact kind, and `SCMST.environments` the filename environment tag.\nThe artifact *filenames* are authored, not derived — a\n`codespecs_mapping.md` §5.23 string exemption — so they are not part of\nthe generated surface.\n\nThe subtree sits beside `dataModel` above for a reason: the cumulative\neffect of a schema's artifacts must converge on the CE-DB model that entry\ngenerates, and that convergence is a validator check over both.");
   meta_set(&n->class_doc_comment, "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_d13_code_specs_projection_server_operation_registry(SomMetaNode *n) {
   meta_set(&n->class_name, "ServerOperationRegistry");
@@ -44836,6 +44875,7 @@ static void meta_build_d13_code_specs_projection_server_operation_registry(SomMe
   meta_set(&n->comment, "locus: shared(CE-API contract)+server(CE-API operations)");
   meta_set(&n->doc_comment, "Server operation registry — the application's **own** CE-API surface.\n\nThe one subtree that declares what the system answers. It spans two loci\nbecause a CE-API operation generates two halves (`codespecs_mapping.md`\n§4.2): the **operation catalogue and the request/response types** are\nshared — the client cites an operation and depends on its shapes — while\nthe **operation itself** lands on the owning service unit in the server\nproject. Which service unit that is follows from each operation's primary\nwritten data entity (`codespecs_mapping.md` §5.17), so ownership is\nderived here rather than declared.\n\nThe external-interface inventory (EXIN, D07 IIS) is deliberately **not**\nreachable from this projection: it describes third-party interfaces the\nsystem talks to, not the surface the system generates.");
   meta_set(&n->class_doc_comment, "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_d13_code_specs_projection_process_steps_and_actor_interactions(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessStepsAndActorInteractions");
@@ -49018,6 +49058,7 @@ static void meta_build_data_model_entities_elem(SomMetaNode *n) {
   meta_set(&n->type_name, "DataEntityEntry");
   meta_set(&n->doc_comment, "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.");
   meta_set(&n->class_doc_comment, "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_data_model_entity_relationships(SomMetaNode *n) {
   meta_set(&n->class_name, "EntityRelationships");
@@ -53681,39 +53722,17 @@ static void meta_build_delivery_transition_and_rollout_localization_translation_
   meta_set(&n->class_doc_comment, "Localization & Translation execution processes.\n\nBundles the localization and translation *workflow* concerns re-homed from\nthe former `MultiLanguageSupport` cluster (their requirement counterparts\nlive in SBP.9 `LocalizationTranslationRequirements`).");
 }
 static void meta_build_delivery_transition_and_rollout_locale_rollout_plan(SomMetaNode *n) {
-  meta_set(&n->class_name, "DeliveryTransitionAndRollout");
+  meta_set(&n->class_name, "LocaleRolloutPlan");
   meta_set(&n->member_name, "localeRolloutPlan");
-  meta_set(&n->section_id, "LOCRP");
-  n->kind = SOM_META_KIND_FORM;
-  meta_set(&n->type_name, "String");
+  meta_set(&n->class_section_id, "LOCRP");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "LocaleRolloutPlan");
   n->has_serialization_order = 1;
   n->serialization_order = 4;
   meta_set(&n->doc_comment, "Multi-language rollout sequencing by region and time (re-homed from MLAR).");
-  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("rolloutTimeline");
-  n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Rollout Timeline");
-  n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("High-level rollout schedule");
-  n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("rolloutRegions");
-  n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Rollout Regions");
-  n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Geographic rollout order");
-  n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("rolloutStrategy");
-  n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Rollout Strategy");
-  n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Big bang, phased, pilot");
-  n->form->fields[2].order = 2;
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
-  n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 3166 — country and region codes define the geographic rollout order\",\"ISO 8601 — the standard representation for the rollout timeline and schedule\"],\"connotation\":\"The rollout strategy, timeline, and regional sequencing for locale availability.\"}", NULL);
+  meta_set(&n->class_doc_comment, "Multi-language rollout plan.\n\nThe rollout sequencing of the supported locales by region and time: which\nlanguages are delivered with which release, in which geographic order, and\nby which strategy. Detailed in the Transition & Rollout Plan beside the\nlocalization and translation processes.");
+  meta_set(&n->maps_to, "D12TransitionRolloutPlan");
+  meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
 }
 static void meta_build_dependencies_and_integrations_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DependenciesAndIntegrations");
@@ -65317,6 +65336,8 @@ static void meta_build_experience_and_interface_design_report_definitions(SomMet
   n->serialization_order = 2;
   meta_set(&n->doc_comment, "10.2. Report Definitions — the CE-RP CodeSpecs subtree.");
   meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).");
+  meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
+  meta_set(&n->detailed_in, "D09ExperienceDesignSpecification");
 }
 static void meta_build_experience_and_interface_design_design_follow_up(SomMetaNode *n) {
   meta_set(&n->class_name, "ExperienceDesignFollowUp");
@@ -71471,6 +71492,7 @@ static void meta_build_function_model_functions_elem(SomMetaNode *n) {
   meta_set(&n->type_name, "FunctionEntry");
   meta_set(&n->doc_comment, "A function entry (form).\n\nBusiness function specification in the functional decomposition.");
   meta_set(&n->class_doc_comment, "A function entry (form).\n\nBusiness function specification in the functional decomposition.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_function_model_matrix_entries(SomMetaNode *n) {
   meta_set(&n->class_name, "FunctionModel");
@@ -71495,6 +71517,7 @@ static void meta_build_function_model_matrix_entries_elem(SomMetaNode *n) {
   meta_set(&n->type_name, "FunctionDataMatrixEntry");
   meta_set(&n->doc_comment, "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.");
   meta_set(&n->class_doc_comment, "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_function_model_business_rules(SomMetaNode *n) {
   meta_set(&n->class_name, "FunctionModel");
@@ -71521,6 +71544,7 @@ static void meta_build_function_model_business_rules_elem(SomMetaNode *n) {
   meta_set(&n->type_name, "BusinessRuleEntry");
   meta_set(&n->doc_comment, "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.");
   meta_set(&n->class_doc_comment, "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_functional_completeness_content(SomMetaNode *n) {
   meta_set(&n->class_name, "FunctionalCompleteness");
@@ -76231,6 +76255,7 @@ static void meta_build_information_and_data_model_schema_versioning_and_migratio
   n->serialization_order = 4;
   meta_set(&n->doc_comment, "7.4. Schema Versioning and Migration.");
   meta_set(&n->class_doc_comment, "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_information_and_data_model_domain_enum_registry(SomMetaNode *n) {
   meta_set(&n->class_name, "DomainEnumRegistry");
@@ -76242,6 +76267,7 @@ static void meta_build_information_and_data_model_domain_enum_registry(SomMetaNo
   n->serialization_order = 5;
   meta_set(&n->doc_comment, "7.5. Domain Enum Registry.");
   meta_set(&n->class_doc_comment, "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_information_and_data_model_error_code_registry(SomMetaNode *n) {
   meta_set(&n->class_name, "ErrorCodeRegistry");
@@ -76253,6 +76279,7 @@ static void meta_build_information_and_data_model_error_code_registry(SomMetaNod
   n->serialization_order = 6;
   meta_set(&n->doc_comment, "7.6. Error Code Registry.");
   meta_set(&n->class_doc_comment, "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_information_and_data_model_result_envelope(SomMetaNode *n) {
   meta_set(&n->class_name, "ResultEnvelope");
@@ -76264,6 +76291,7 @@ static void meta_build_information_and_data_model_result_envelope(SomMetaNode *n
   n->serialization_order = 7;
   meta_set(&n->doc_comment, "7.7. Result Envelope.");
   meta_set(&n->class_doc_comment, "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the result/error envelope authored per application in\n`<app>_codespec_shared` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_information_and_data_model_message_key_registry(SomMetaNode *n) {
   meta_set(&n->class_name, "MessageKeyRegistry");
@@ -76275,6 +76303,7 @@ static void meta_build_information_and_data_model_message_key_registry(SomMetaNo
   n->serialization_order = 8;
   meta_set(&n->doc_comment, "7.8. Message Key Registry.");
   meta_set(&n->class_doc_comment, "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_information_and_data_model_server_operation_registry(SomMetaNode *n) {
   meta_set(&n->class_name, "ServerOperationRegistry");
@@ -76286,6 +76315,7 @@ static void meta_build_information_and_data_model_server_operation_registry(SomM
   n->serialization_order = 9;
   meta_set(&n->doc_comment, "7.9. Server Operation Registry.\n\nThe system's **own** operation surface (CE-API): one entry per operation\nthe server answers, with its request/response members, the data entity it\nprimarily writes, and its authorization requirement.");
   meta_set(&n->class_doc_comment, "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).");
+  meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_information_and_data_model_data_model_follow_up(SomMetaNode *n) {
   meta_set(&n->class_name, "DataModelFollowUp");
@@ -84699,6 +84729,36 @@ static void meta_build_locale_handling_requirements_content(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Fallback order when locale not available");
   n->form->fields[3].order = 3;
+}
+static void meta_build_locale_rollout_plan_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "LocaleRolloutPlan");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("rolloutTimeline");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Rollout Timeline");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("High-level rollout schedule");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("rolloutRegions");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Rollout Regions");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Geographic rollout order");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("rolloutStrategy");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Rollout Strategy");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Big bang, phased, pilot");
+  n->form->fields[2].order = 2;
 }
 static void meta_build_localization_process_content(SomMetaNode *n) {
   meta_set(&n->class_name, "LocalizationProcess");
@@ -129450,6 +129510,7 @@ static void meta_build_security_operations_follow_up_compliance_reporting(SomMet
   n->serialization_order = 2;
   meta_set(&n->doc_comment, "9.3.2. Compliance Reporting.");
   meta_set(&n->class_doc_comment, "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.");
+  meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
 }
 static void meta_build_security_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityRequirementEntry");
@@ -145673,6 +145734,7 @@ static void meta_build_system_stage_plan_stages_elem(SomMetaNode *n) {
   meta_set(&n->type_name, "StageEntry");
   meta_set(&n->doc_comment, "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.");
   meta_set(&n->class_doc_comment, "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.");
+  meta_set(&n->detailed_in, "D11DeliveryRoadmap");
 }
 static void meta_build_system_stage_plan_feature_prioritization(SomMetaNode *n) {
   meta_set(&n->class_name, "FeaturePrioritization");
@@ -172027,6 +172089,7 @@ static SomMetaNode **meta_children_d12_transition_rollout_plan(SomStrList *stack
   }
   meta_push(&arr, len, &cap, meta_cx("LocalizationProcess", stack, meta_children_localization_process, meta_build_d12_transition_rollout_plan_localization_process));
   meta_push(&arr, len, &cap, meta_cx("TranslationProcess", stack, meta_children_translation_process, meta_build_d12_transition_rollout_plan_translation_process));
+  meta_push(&arr, len, &cap, meta_cx("LocaleRolloutPlan", stack, meta_children_locale_rollout_plan, meta_build_d12_transition_rollout_plan_locale_rollout_plan));
   meta_push(&arr, len, &cap, meta_cx("UserDocumentationRequirements", stack, meta_children_user_documentation_requirements, meta_build_d12_transition_rollout_plan_user_documentation));
   meta_push(&arr, len, &cap, meta_cx("TrainingDeliverableRequirements", stack, meta_children_training_deliverable_requirements, meta_build_d12_transition_rollout_plan_training_deliverables));
   meta_push(&arr, len, &cap, meta_cx("RolloutPlan", stack, meta_children_rollout_plan, meta_build_d12_transition_rollout_plan_rollout_plan));
@@ -173853,11 +173916,7 @@ static SomMetaNode **meta_children_delivery_transition_and_rollout(SomStrList *s
   meta_push(&arr, len, &cap, meta_cx("SystemStagePlan", stack, meta_children_system_stage_plan, meta_build_delivery_transition_and_rollout_system_stage_plan));
   meta_push(&arr, len, &cap, meta_cx("SystemRollout", stack, meta_children_system_rollout, meta_build_delivery_transition_and_rollout_system_rollout));
   meta_push(&arr, len, &cap, meta_cx("LocalizationTranslationProcess", stack, meta_children_localization_translation_process, meta_build_delivery_transition_and_rollout_localization_translation_process));
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_delivery_transition_and_rollout_locale_rollout_plan(n);
-    meta_push(&arr, len, &cap, n);
-  }
+  meta_push(&arr, len, &cap, meta_cx("LocaleRolloutPlan", stack, meta_children_locale_rollout_plan, meta_build_delivery_transition_and_rollout_locale_rollout_plan));
   return arr;
 }
 
@@ -180678,6 +180737,19 @@ static SomMetaNode **meta_children_locale_handling_requirements(SomStrList *stac
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_locale_handling_requirements_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_locale_rollout_plan(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_locale_rollout_plan_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -206855,6 +206927,13 @@ som_nav_translation_process d12_transition_rollout_plan_nav_translation_process(
   free(path);
   return out;
 }
+som_nav_locale_rollout_plan d12_transition_rollout_plan_nav_locale_rollout_plan(som_nav_d12_transition_rollout_plan x) {
+  som_nav_locale_rollout_plan out;
+  char *path = spec_path_join(x.ref.path, "localeRolloutPlan");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
 som_nav_user_documentation_requirements d12_transition_rollout_plan_nav_user_documentation(som_nav_d12_transition_rollout_plan x) {
   som_nav_user_documentation_requirements out;
   char *path = spec_path_join(x.ref.path, "userDocumentation");
@@ -208990,10 +209069,10 @@ som_nav_localization_translation_process delivery_transition_and_rollout_nav_loc
   free(path);
   return out;
 }
-SomMetaRef delivery_transition_and_rollout_nav_locale_rollout_plan(som_nav_delivery_transition_and_rollout x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "LOCRP");
-  som_meta_ref_init(&out, x.ref.tree, path);
+som_nav_locale_rollout_plan delivery_transition_and_rollout_nav_locale_rollout_plan(som_nav_delivery_transition_and_rollout x) {
+  som_nav_locale_rollout_plan out;
+  char *path = spec_path_join(x.ref.path, "localeRolloutPlan");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -216418,6 +216497,13 @@ SomMetaRef local_development_setup_nav_troubleshooting(som_nav_local_development
   return out;
 }
 SomMetaRef locale_handling_requirements_nav_content(som_nav_locale_handling_requirements x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef locale_rollout_plan_nav_content(som_nav_locale_rollout_plan x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -246137,13 +246223,6 @@ SomListMetaRef d00_solution_blueprint_id_tve_vend_lst(som_id_d00_solution_bluepr
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TVE-VEND-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_translation_vendor_entry);
-  free(path);
-  return out;
-}
-SomMetaRef d00_solution_blueprint_id_locrp(som_id_d00_solution_blueprint x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "deliveryTransitionAndRollout/LOCRP");
-  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }

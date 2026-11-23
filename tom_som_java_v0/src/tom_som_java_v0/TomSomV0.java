@@ -12978,6 +12978,11 @@ public final class TomSomV0 {
       return new TranslationProcess(doc, path + "/translationProcess");
     }
 
+    // Multi-language rollout plan: the locales' rollout by region and time.
+    public LocaleRolloutPlan localeRolloutPlan() {
+      return new LocaleRolloutPlan(doc, path + "/localeRolloutPlan");
+    }
+
     // User documentation requirements (doc half of the former DOANTR;
     // split in L34C-7).
     public UserDocumentationRequirements userDocumentation() {
@@ -15853,8 +15858,8 @@ public final class TomSomV0 {
     }
 
     // Multi-language rollout sequencing by region and time (re-homed from MLAR).
-    public DeliveryTransitionAndRolloutLocaleRolloutPlanForm localeRolloutPlan() {
-      return new DeliveryTransitionAndRolloutLocaleRolloutPlanForm(doc, path + "/LOCRP");
+    public LocaleRolloutPlan localeRolloutPlan() {
+      return new LocaleRolloutPlan(doc, path + "/localeRolloutPlan");
     }
   }
 
@@ -25337,6 +25342,25 @@ public final class TomSomV0 {
     // §11.4 rule 7); the field values themselves live in the section's `form`.
     public LocaleHandlingRequirementsContentForm content() {
       return new LocaleHandlingRequirementsContentForm(doc, path + "/content");
+    }
+  }
+
+  // Multi-language rollout plan.
+  //
+  // The rollout sequencing of the supported locales by region and time: which
+  // languages are delivered with which release, in which geographic order, and
+  // by which strategy. Detailed in the Transition & Rollout Plan beside the
+  // localization and translation processes.
+  public static final class LocaleRolloutPlan extends SomNode {
+    public LocaleRolloutPlan(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in the section's `form`.
+    public LocaleRolloutPlanContentForm content() {
+      return new LocaleRolloutPlanContentForm(doc, path + "/content");
     }
   }
 
@@ -92954,55 +92978,6 @@ public final class TomSomV0 {
     }
   }
 
-  // Generated section facade for the `localeRolloutPlan` @Form section: its own content
-  // text followed by one typed member per form field.
-  public static final class DeliveryTransitionAndRolloutLocaleRolloutPlanForm extends SomNode {
-    public DeliveryTransitionAndRolloutLocaleRolloutPlanForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path);
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path, value);
-    }
-
-    public String rolloutTimeline() {
-      String v = doc.formField(path, "rolloutTimeline");
-      return v == null ? "" : v;
-    }
-
-    public void rolloutTimeline(String value) {
-      doc.setFormField(path, "rolloutTimeline", value);
-    }
-
-    public String rolloutRegions() {
-      String v = doc.formField(path, "rolloutRegions");
-      return v == null ? "" : v;
-    }
-
-    public void rolloutRegions(String value) {
-      doc.setFormField(path, "rolloutRegions", value);
-    }
-
-    public String rolloutStrategy() {
-      String v = doc.formField(path, "rolloutStrategy");
-      return v == null ? "" : v;
-    }
-
-    public void rolloutStrategy(String value) {
-      doc.setFormField(path, "rolloutStrategy", value);
-    }
-  }
-
   // Generated section facade for the `cache` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class DependencyHealthMonitoringCacheForm extends SomNode {
@@ -128443,6 +128418,55 @@ public final class TomSomV0 {
 
     public void localeFallbackChain(String value) {
       doc.setFormField(path, "localeFallbackChain", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class LocaleRolloutPlanContentForm extends SomNode {
+    public LocaleRolloutPlanContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String rolloutTimeline() {
+      String v = doc.formField(path, "rolloutTimeline");
+      return v == null ? "" : v;
+    }
+
+    public void rolloutTimeline(String value) {
+      doc.setFormField(path, "rolloutTimeline", value);
+    }
+
+    public String rolloutRegions() {
+      String v = doc.formField(path, "rolloutRegions");
+      return v == null ? "" : v;
+    }
+
+    public void rolloutRegions(String value) {
+      doc.setFormField(path, "rolloutRegions", value);
+    }
+
+    public String rolloutStrategy() {
+      String v = doc.formField(path, "rolloutStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void rolloutStrategy(String value) {
+      doc.setFormField(path, "rolloutStrategy", value);
     }
   }
 

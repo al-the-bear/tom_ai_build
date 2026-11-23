@@ -2887,7 +2887,7 @@
       - characteristics: `Iso25010CoverageEntry`[]
         - content @Form(characteristic, addressedBy, targetMetric)
   - `DeliveryTransitionAndRollout`
-    - content, localeRolloutPlan
+    - content
     - `SystemStagePlan`
       - content @Form(totalStagesPlanned, stagingPhilosophy, parallelismApproach), timeline, coordination, readiness
       - strategy: `StagingStrategy`
@@ -3027,3 +3027,5 @@
         - content, translationProcessContent, workflow, quality, terminology, ongoing, translationNarrative @text
         - vendors: `TranslationVendorEntry`[]
           - content @Form(vendorType, languages, specializations, turnaroundTime, qualityRating, contactInfo)
+    - `LocaleRolloutPlan`
+      - content @Form(rolloutTimeline, rolloutRegions, rolloutStrategy)

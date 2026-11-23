@@ -20,8 +20,8 @@ THE TWO VERSION STAMPS. They answer different questions and a tool
 that checks one for the other will accept a file it cannot read:
   modelVersion      = 1  — WHICH MODEL this snapshot describes
   metaSchemaVersion = 1  — the FILE FORMAT the snapshot itself is written in
-  modelVersionLabel = 1.12.2+40.07412a22
-  generatedAt       = 2026-11-19T19:46:28.366317Z
+  modelVersionLabel = 1.12.3+41.c13e1608
+  generatedAt       = 2026-11-23T19:29:11.382343Z
 
 A tool reads `metaSchemaVersion` to decide whether it can parse the
 file at all, and `modelVersion` to decide whether the documents it
@@ -30,7 +30,7 @@ build label for humans — never branch on it.
 
 SNAPSHOT CHECK (`spec_model_check_stamp`), against a fixed clock:
   age                 : 3 days (aged: false)
-  classes  declared/actual : 1273/1273  disagrees: false
+  classes  declared/actual : 1274/1274  disagrees: false
   roots    declared/actual : 14/14  disagrees: false
   Declared-vs-actual is not redundant: the declared value is what
   the exporter recorded, the actual value is what survived to the
@@ -38,7 +38,7 @@ SNAPSHOT CHECK (`spec_model_check_stamp`), against a fixed clock:
 
 SHAPE:
   document roots : 14
-  classes        : 1273
+  classes        : 1274
   container root : DocSpecsProject — the one true tree root, which is not itself a document
 
 FIELDS of D00SolutionBlueprint (15 total, first 4):

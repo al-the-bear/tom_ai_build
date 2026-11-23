@@ -1907,6 +1907,7 @@ typedef struct { SomNode node; } LimitationEntry;
 typedef struct { SomNode node; } LoadProfileRequirements;
 typedef struct { SomNode node; } LocalDevelopmentSetup;
 typedef struct { SomNode node; } LocaleHandlingRequirements;
+typedef struct { SomNode node; } LocaleRolloutPlan;
 typedef struct { SomNode node; } LocalizationProcess;
 typedef struct { SomNode node; } LocalizationTranslationProcess;
 typedef struct { SomNode node; } LocalizationTranslationRequirements;
@@ -3319,7 +3320,6 @@ typedef struct { SomNode node; } DeliveryAcceptanceCriterionEntryOwnershipForm;
 typedef struct { SomNode node; } DeliveryAcceptanceCriterionEntryStatusForm;
 typedef struct { SomNode node; } DeliveryAcceptanceCriterionEntryTraceabilityForm;
 typedef struct { SomNode node; } DeliveryAcceptanceCriterionEntryVerificationForm;
-typedef struct { SomNode node; } DeliveryTransitionAndRolloutLocaleRolloutPlanForm;
 typedef struct { SomNode node; } DependencyHealthMonitoringCacheForm;
 typedef struct { SomNode node; } DependencyHealthMonitoringContentForm;
 typedef struct { SomNode node; } DependencyHealthMonitoringExternalForm;
@@ -3937,6 +3937,7 @@ typedef struct { SomNode node; } LocalDevelopmentSetupTestingForm;
 typedef struct { SomNode node; } LocalDevelopmentSetupTroubleshootingForm;
 typedef struct { SomNode node; } LocalDevelopmentSetupWorkflowForm;
 typedef struct { SomNode node; } LocaleHandlingRequirementsContentForm;
+typedef struct { SomNode node; } LocaleRolloutPlanContentForm;
 typedef struct { SomNode node; } LocalizationProcessDeploymentForm;
 typedef struct { SomNode node; } LocalizationProcessFormattingForm;
 typedef struct { SomNode node; } LocalizationProcessLocalizationProcessContentForm;
@@ -11534,6 +11535,8 @@ SomList d12_transition_rollout_plan_revision_history(const D12TransitionRolloutP
 LocalizationProcess d12_transition_rollout_plan_localization_process(const D12TransitionRolloutPlan *self);
 // Translation process.
 TranslationProcess d12_transition_rollout_plan_translation_process(const D12TransitionRolloutPlan *self);
+// Multi-language rollout plan: the locales' rollout by region and time.
+LocaleRolloutPlan d12_transition_rollout_plan_locale_rollout_plan(const D12TransitionRolloutPlan *self);
 // User documentation requirements (doc half of the former DOANTR;
 // split in L34C-7).
 UserDocumentationRequirements d12_transition_rollout_plan_user_documentation(const D12TransitionRolloutPlan *self);
@@ -13305,7 +13308,7 @@ SystemRollout delivery_transition_and_rollout_system_rollout(const DeliveryTrans
 // live in SBP.9).
 LocalizationTranslationProcess delivery_transition_and_rollout_localization_translation_process(const DeliveryTransitionAndRollout *self);
 // Multi-language rollout sequencing by region and time (re-homed from MLAR).
-DeliveryTransitionAndRolloutLocaleRolloutPlanForm delivery_transition_and_rollout_locale_rollout_plan(const DeliveryTransitionAndRollout *self);
+LocaleRolloutPlan delivery_transition_and_rollout_locale_rollout_plan(const DeliveryTransitionAndRollout *self);
 
 // 1.1.3. Dependencies and Integrations.
 //
@@ -19025,6 +19028,22 @@ int locale_handling_requirements_can_have_content(const LocaleHandlingRequiremen
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in the section's `form`.
 LocaleHandlingRequirementsContentForm locale_handling_requirements_content(const LocaleHandlingRequirements *self);
+
+// Multi-language rollout plan.
+//
+// The rollout sequencing of the supported locales by region and time: which
+// languages are delivered with which release, in which geographic order, and
+// by which strategy. Detailed in the Transition & Rollout Plan beside the
+// localization and translation processes.
+// Binds a LocaleRolloutPlan facade to a document and a path (path copied).
+void locale_rollout_plan_init(LocaleRolloutPlan *self, SpecDocument *doc, const char *path);
+void locale_rollout_plan_free(LocaleRolloutPlan *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int locale_rollout_plan_can_have_content(const LocaleRolloutPlan *self);
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in the section's `form`.
+LocaleRolloutPlanContentForm locale_rollout_plan_content(const LocaleRolloutPlan *self);
 
 // 10.12.1. Localization Process.
 //
@@ -44306,19 +44325,6 @@ void delivery_acceptance_criterion_entry_verification_form_set_measurement_tool(
 char *delivery_acceptance_criterion_entry_verification_form_evidence_required(const DeliveryAcceptanceCriterionEntryVerificationForm *self);
 void delivery_acceptance_criterion_entry_verification_form_set_evidence_required(DeliveryAcceptanceCriterionEntryVerificationForm *self, const char *value);
 
-// DeliveryTransitionAndRolloutLocaleRolloutPlanForm is the generated section facade for the `localeRolloutPlan` @Form section: its own `content` text followed by one typed member per form field.
-void delivery_transition_and_rollout_locale_rollout_plan_form_init(DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self, SpecDocument *doc, const char *path);
-void delivery_transition_and_rollout_locale_rollout_plan_form_free(DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self);
-// The section's own free-text content, before the form fields (owned).
-char *delivery_transition_and_rollout_locale_rollout_plan_form_content(const DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self);
-void delivery_transition_and_rollout_locale_rollout_plan_form_set_content(DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self, const char *value);
-char *delivery_transition_and_rollout_locale_rollout_plan_form_rollout_timeline(const DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self);
-void delivery_transition_and_rollout_locale_rollout_plan_form_set_rollout_timeline(DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self, const char *value);
-char *delivery_transition_and_rollout_locale_rollout_plan_form_rollout_regions(const DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self);
-void delivery_transition_and_rollout_locale_rollout_plan_form_set_rollout_regions(DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self, const char *value);
-char *delivery_transition_and_rollout_locale_rollout_plan_form_rollout_strategy(const DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self);
-void delivery_transition_and_rollout_locale_rollout_plan_form_set_rollout_strategy(DeliveryTransitionAndRolloutLocaleRolloutPlanForm *self, const char *value);
-
 // DependencyHealthMonitoringCacheForm is the generated section facade for the `cache` @Form section: its own `content` text followed by one typed member per form field.
 void dependency_health_monitoring_cache_form_init(DependencyHealthMonitoringCacheForm *self, SpecDocument *doc, const char *path);
 void dependency_health_monitoring_cache_form_free(DependencyHealthMonitoringCacheForm *self);
@@ -53461,6 +53467,19 @@ char *locale_handling_requirements_content_form_locale_detection(const LocaleHan
 void locale_handling_requirements_content_form_set_locale_detection(LocaleHandlingRequirementsContentForm *self, const char *value);
 char *locale_handling_requirements_content_form_locale_fallback_chain(const LocaleHandlingRequirementsContentForm *self);
 void locale_handling_requirements_content_form_set_locale_fallback_chain(LocaleHandlingRequirementsContentForm *self, const char *value);
+
+// LocaleRolloutPlanContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void locale_rollout_plan_content_form_init(LocaleRolloutPlanContentForm *self, SpecDocument *doc, const char *path);
+void locale_rollout_plan_content_form_free(LocaleRolloutPlanContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *locale_rollout_plan_content_form_content(const LocaleRolloutPlanContentForm *self);
+void locale_rollout_plan_content_form_set_content(LocaleRolloutPlanContentForm *self, const char *value);
+char *locale_rollout_plan_content_form_rollout_timeline(const LocaleRolloutPlanContentForm *self);
+void locale_rollout_plan_content_form_set_rollout_timeline(LocaleRolloutPlanContentForm *self, const char *value);
+char *locale_rollout_plan_content_form_rollout_regions(const LocaleRolloutPlanContentForm *self);
+void locale_rollout_plan_content_form_set_rollout_regions(LocaleRolloutPlanContentForm *self, const char *value);
+char *locale_rollout_plan_content_form_rollout_strategy(const LocaleRolloutPlanContentForm *self);
+void locale_rollout_plan_content_form_set_rollout_strategy(LocaleRolloutPlanContentForm *self, const char *value);
 
 // LocalizationProcessDeploymentForm is the generated section facade for the `deployment` @Form section: its own `content` text followed by one typed member per form field.
 void localization_process_deployment_form_init(LocalizationProcessDeploymentForm *self, SpecDocument *doc, const char *path);

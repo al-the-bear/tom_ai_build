@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 3 files
-// Generated: 2026-11-23T16:44:51.254244 by tom_d4rt_generator 1.67.0
+// Generated: 2026-11-23T20:31:12.612979 by tom_d4rt_generator 1.67.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -626,6 +626,7 @@ class SomV0Bridge {
       _createLoadProfileRequirementsBridge(),
       _createLocalDevelopmentSetupBridge(),
       _createLocaleHandlingRequirementsBridge(),
+      _createLocaleRolloutPlanBridge(),
       _createLocalizationProcessBridge(),
       _createLocalizationTranslationProcessBridge(),
       _createLocalizationTranslationRequirementsBridge(),
@@ -2038,7 +2039,6 @@ class SomV0Bridge {
       _createDeliveryAcceptanceCriterionEntryStatusFormBridge(),
       _createDeliveryAcceptanceCriterionEntryTraceabilityFormBridge(),
       _createDeliveryAcceptanceCriterionEntryVerificationFormBridge(),
-      _createDeliveryTransitionAndRolloutLocaleRolloutPlanFormBridge(),
       _createDependencyHealthMonitoringCacheFormBridge(),
       _createDependencyHealthMonitoringContentFormBridge(),
       _createDependencyHealthMonitoringExternalFormBridge(),
@@ -2656,6 +2656,7 @@ class SomV0Bridge {
       _createLocalDevelopmentSetupTroubleshootingFormBridge(),
       _createLocalDevelopmentSetupWorkflowFormBridge(),
       _createLocaleHandlingRequirementsContentFormBridge(),
+      _createLocaleRolloutPlanContentFormBridge(),
       _createLocalizationProcessDeploymentFormBridge(),
       _createLocalizationProcessFormattingFormBridge(),
       _createLocalizationProcessLocalizationProcessContentFormBridge(),
@@ -4750,6 +4751,7 @@ class SomV0Bridge {
       _createLoadProfileRequirements$NavBridge(),
       _createLocalDevelopmentSetup$NavBridge(),
       _createLocaleHandlingRequirements$NavBridge(),
+      _createLocaleRolloutPlan$NavBridge(),
       _createLocalizationProcess$NavBridge(),
       _createLocalizationTranslationProcess$NavBridge(),
       _createLocalizationTranslationRequirements$NavBridge(),
@@ -6623,6 +6625,7 @@ class SomV0Bridge {
       'LoadProfileRequirements': _createLoadProfileRequirementsBridge,
       'LocalDevelopmentSetup': _createLocalDevelopmentSetupBridge,
       'LocaleHandlingRequirements': _createLocaleHandlingRequirementsBridge,
+      'LocaleRolloutPlan': _createLocaleRolloutPlanBridge,
       'LocalizationProcess': _createLocalizationProcessBridge,
       'LocalizationTranslationProcess':
           _createLocalizationTranslationProcessBridge,
@@ -8717,8 +8720,6 @@ class SomV0Bridge {
           _createDeliveryAcceptanceCriterionEntryTraceabilityFormBridge,
       'DeliveryAcceptanceCriterionEntryVerificationForm':
           _createDeliveryAcceptanceCriterionEntryVerificationFormBridge,
-      'DeliveryTransitionAndRolloutLocaleRolloutPlanForm':
-          _createDeliveryTransitionAndRolloutLocaleRolloutPlanFormBridge,
       'DependencyHealthMonitoringCacheForm':
           _createDependencyHealthMonitoringCacheFormBridge,
       'DependencyHealthMonitoringContentForm':
@@ -9880,6 +9881,7 @@ class SomV0Bridge {
           _createLocalDevelopmentSetupWorkflowFormBridge,
       'LocaleHandlingRequirementsContentForm':
           _createLocaleHandlingRequirementsContentFormBridge,
+      'LocaleRolloutPlanContentForm': _createLocaleRolloutPlanContentFormBridge,
       'LocalizationProcessDeploymentForm':
           _createLocalizationProcessDeploymentFormBridge,
       'LocalizationProcessFormattingForm':
@@ -13322,6 +13324,7 @@ class SomV0Bridge {
       'LocalDevelopmentSetup\$Nav': _createLocalDevelopmentSetup$NavBridge,
       'LocaleHandlingRequirements\$Nav':
           _createLocaleHandlingRequirements$NavBridge,
+      'LocaleRolloutPlan\$Nav': _createLocaleRolloutPlan$NavBridge,
       'LocalizationProcess\$Nav': _createLocalizationProcess$NavBridge,
       'LocalizationTranslationProcess\$Nav':
           _createLocalizationTranslationProcess$NavBridge,
@@ -15576,6 +15579,7 @@ class SomV0Bridge {
       'LocalDevelopmentSetup': $tom_som_dart_v0_1.LocalDevelopmentSetup,
       'LocaleHandlingRequirements':
           $tom_som_dart_v0_1.LocaleHandlingRequirements,
+      'LocaleRolloutPlan': $tom_som_dart_v0_1.LocaleRolloutPlan,
       'LocalizationProcess': $tom_som_dart_v0_1.LocalizationProcess,
       'LocalizationTranslationProcess':
           $tom_som_dart_v0_1.LocalizationTranslationProcess,
@@ -17809,8 +17813,6 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.DeliveryAcceptanceCriterionEntryTraceabilityForm,
       'DeliveryAcceptanceCriterionEntryVerificationForm':
           $tom_som_dart_v0_1.DeliveryAcceptanceCriterionEntryVerificationForm,
-      'DeliveryTransitionAndRolloutLocaleRolloutPlanForm':
-          $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm,
       'DependencyHealthMonitoringCacheForm':
           $tom_som_dart_v0_1.DependencyHealthMonitoringCacheForm,
       'DependencyHealthMonitoringContentForm':
@@ -19021,6 +19023,8 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.LocalDevelopmentSetupWorkflowForm,
       'LocaleHandlingRequirementsContentForm':
           $tom_som_dart_v0_1.LocaleHandlingRequirementsContentForm,
+      'LocaleRolloutPlanContentForm':
+          $tom_som_dart_v0_1.LocaleRolloutPlanContentForm,
       'LocalizationProcessDeploymentForm':
           $tom_som_dart_v0_1.LocalizationProcessDeploymentForm,
       'LocalizationProcessFormattingForm':
@@ -22800,6 +22804,7 @@ class SomV0Bridge {
           $tom_som_dart_v0_2.LocalDevelopmentSetup$Nav,
       'LocaleHandlingRequirements\$Nav':
           $tom_som_dart_v0_2.LocaleHandlingRequirements$Nav,
+      'LocaleRolloutPlan\$Nav': $tom_som_dart_v0_2.LocaleRolloutPlan$Nav,
       'LocalizationProcess\$Nav': $tom_som_dart_v0_2.LocalizationProcess$Nav,
       'LocalizationTranslationProcess\$Nav':
           $tom_som_dart_v0_2.LocalizationTranslationProcess$Nav,
@@ -25360,6 +25365,7 @@ class SomV0Bridge {
       'LocalDevelopmentSetup': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'LocaleHandlingRequirements':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'LocaleRolloutPlan': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'LocalizationProcess': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'LocalizationTranslationProcess':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -27692,8 +27698,6 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'DeliveryAcceptanceCriterionEntryVerificationForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
-      'DeliveryTransitionAndRolloutLocaleRolloutPlanForm':
-          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'DependencyHealthMonitoringCacheForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'DependencyHealthMonitoringContentForm':
@@ -28918,6 +28922,8 @@ class SomV0Bridge {
       'LocalDevelopmentSetupWorkflowForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'LocaleHandlingRequirementsContentForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'LocaleRolloutPlanContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'LocalizationProcessDeploymentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -32999,6 +33005,8 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'LocaleHandlingRequirements\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'LocaleRolloutPlan\$Nav':
+          'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'LocalizationProcess\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'LocalizationTranslationProcess\$Nav':
@@ -35923,6 +35931,7 @@ class SomV0Bridge {
       'LoadProfileRequirements': ['SomNode'],
       'LocalDevelopmentSetup': ['SomNode'],
       'LocaleHandlingRequirements': ['SomNode'],
+      'LocaleRolloutPlan': ['SomNode'],
       'LocalizationProcess': ['SomNode'],
       'LocalizationTranslationProcess': ['SomNode'],
       'LocalizationTranslationRequirements': ['SomNode'],
@@ -37335,7 +37344,6 @@ class SomV0Bridge {
       'DeliveryAcceptanceCriterionEntryStatusForm': ['SomNode'],
       'DeliveryAcceptanceCriterionEntryTraceabilityForm': ['SomNode'],
       'DeliveryAcceptanceCriterionEntryVerificationForm': ['SomNode'],
-      'DeliveryTransitionAndRolloutLocaleRolloutPlanForm': ['SomNode'],
       'DependencyHealthMonitoringCacheForm': ['SomNode'],
       'DependencyHealthMonitoringContentForm': ['SomNode'],
       'DependencyHealthMonitoringExternalForm': ['SomNode'],
@@ -37959,6 +37967,7 @@ class SomV0Bridge {
       'LocalDevelopmentSetupTroubleshootingForm': ['SomNode'],
       'LocalDevelopmentSetupWorkflowForm': ['SomNode'],
       'LocaleHandlingRequirementsContentForm': ['SomNode'],
+      'LocaleRolloutPlanContentForm': ['SomNode'],
       'LocalizationProcessDeploymentForm': ['SomNode'],
       'LocalizationProcessFormattingForm': ['SomNode'],
       'LocalizationProcessLocalizationProcessContentForm': ['SomNode'],
@@ -40054,6 +40063,7 @@ class SomV0Bridge {
       'LoadProfileRequirements\$Nav': ['SomMetaRef'],
       'LocalDevelopmentSetup\$Nav': ['SomMetaRef'],
       'LocaleHandlingRequirements\$Nav': ['SomMetaRef'],
+      'LocaleRolloutPlan\$Nav': ['SomMetaRef'],
       'LocalizationProcess\$Nav': ['SomMetaRef'],
       'LocalizationTranslationProcess\$Nav': ['SomMetaRef'],
       'LocalizationTranslationRequirements\$Nav': ['SomMetaRef'],
@@ -88552,6 +88562,12 @@ BridgedClass _createD12TransitionRolloutPlanBridge() {
             'D12TransitionRolloutPlan',
           )
           .translationProcess,
+      'localeRolloutPlan': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D12TransitionRolloutPlan>(
+            target,
+            'D12TransitionRolloutPlan',
+          )
+          .localeRolloutPlan,
       'userDocumentation': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.D12TransitionRolloutPlan>(
             target,
@@ -88757,6 +88773,7 @@ BridgedClass _createD12TransitionRolloutPlanBridge() {
       'revisionHistory': 'SomList<RevisionEntry> get revisionHistory',
       'localizationProcess': 'LocalizationProcess get localizationProcess',
       'translationProcess': 'TranslationProcess get translationProcess',
+      'localeRolloutPlan': 'LocaleRolloutPlan get localeRolloutPlan',
       'userDocumentation':
           'UserDocumentationRequirements get userDocumentation',
       'trainingDeliverables':
@@ -100586,8 +100603,7 @@ BridgedClass _createDeliveryTransitionAndRolloutBridge() {
       'systemRollout': 'SystemRollout get systemRollout',
       'localizationTranslationProcess':
           'LocalizationTranslationProcess get localizationTranslationProcess',
-      'localeRolloutPlan':
-          'DeliveryTransitionAndRolloutLocaleRolloutPlanForm get localeRolloutPlan',
+      'localeRolloutPlan': 'LocaleRolloutPlan get localeRolloutPlan',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -147123,6 +147139,155 @@ BridgedClass _createLocaleHandlingRequirementsBridge() {
     },
     getterSignatures: {
       'content': 'LocaleHandlingRequirementsContentForm get content',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      'canHaveContent': 'bool get canHaveContent',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+      '\$units': 'String? get \$units',
+    },
+    setterSignatures: {
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+      '\$units': 'set \$units(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// LocaleRolloutPlan Bridge
+// =============================================================================
+
+BridgedClass _createLocaleRolloutPlanBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.LocaleRolloutPlan,
+    name: 'LocaleRolloutPlan',
+    isAssignable: (v) => v is $tom_som_dart_v0_1.LocaleRolloutPlan,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'LocaleRolloutPlan');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'LocaleRolloutPlan',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'LocaleRolloutPlan',
+        );
+        return $tom_som_dart_v0_1.LocaleRolloutPlan(doc, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlan>(
+            target,
+            'LocaleRolloutPlan',
+          )
+          .content,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlan>(
+            target,
+            'LocaleRolloutPlan',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlan>(
+            target,
+            'LocaleRolloutPlan',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlan>(
+            target,
+            'LocaleRolloutPlan',
+          )
+          .isEmpty,
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlan>(
+            target,
+            'LocaleRolloutPlan',
+          )
+          .canHaveContent,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlan>(
+            target,
+            'LocaleRolloutPlan',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlan>(
+            target,
+            'LocaleRolloutPlan',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlan>(
+            target,
+            'LocaleRolloutPlan',
+          )
+          .$codeSpec,
+      '\$units': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlan>(
+            target,
+            'LocaleRolloutPlan',
+          )
+          .$units,
+    },
+    setters: {
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlan>(
+                target,
+                'LocaleRolloutPlan',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlan>(
+                target,
+                'LocaleRolloutPlan',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlan>(
+                target,
+                'LocaleRolloutPlan',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+      '\$units': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlan>(
+                target,
+                'LocaleRolloutPlan',
+              )
+              .$units = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$units',
+          ),
+    },
+    constructorSignatures: {
+      '': 'LocaleRolloutPlan(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'content': 'LocaleRolloutPlanContentForm get content',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -428037,209 +428202,6 @@ BridgedClass _createDeliveryAcceptanceCriterionEntryVerificationFormBridge() {
 }
 
 // =============================================================================
-// DeliveryTransitionAndRolloutLocaleRolloutPlanForm Bridge
-// =============================================================================
-
-BridgedClass _createDeliveryTransitionAndRolloutLocaleRolloutPlanFormBridge() {
-  return BridgedClass(
-    nativeType:
-        $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm,
-    name: 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm',
-    isAssignable: (v) =>
-        v is $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm,
-    hierarchyDepth: 1,
-    constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(
-          positional,
-          2,
-          'DeliveryTransitionAndRolloutLocaleRolloutPlanForm',
-        );
-        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
-          positional,
-          0,
-          'doc',
-          'DeliveryTransitionAndRolloutLocaleRolloutPlanForm',
-        );
-        final path = D4.getRequiredArg<String>(
-          positional,
-          1,
-          'path',
-          'DeliveryTransitionAndRolloutLocaleRolloutPlanForm',
-        );
-        return $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm(
-          doc,
-          path,
-        );
-      },
-    },
-    getters: {
-      'canHaveContent': (visitor, target) => D4
-          .validateTarget<
-            $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm
-          >(target, 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm')
-          .canHaveContent,
-      'content': (visitor, target) => D4
-          .validateTarget<
-            $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm
-          >(target, 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm')
-          .content,
-      'rolloutTimeline': (visitor, target) => D4
-          .validateTarget<
-            $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm
-          >(target, 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm')
-          .rolloutTimeline,
-      'rolloutRegions': (visitor, target) => D4
-          .validateTarget<
-            $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm
-          >(target, 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm')
-          .rolloutRegions,
-      'rolloutStrategy': (visitor, target) => D4
-          .validateTarget<
-            $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm
-          >(target, 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm')
-          .rolloutStrategy,
-      'doc': (visitor, target) => D4
-          .validateTarget<
-            $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm
-          >(target, 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm')
-          .doc,
-      'path': (visitor, target) => D4
-          .validateTarget<
-            $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm
-          >(target, 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm')
-          .path,
-      'isEmpty': (visitor, target) => D4
-          .validateTarget<
-            $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm
-          >(target, 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm')
-          .isEmpty,
-      '\$sectionId': (visitor, target) => D4
-          .validateTarget<
-            $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm
-          >(target, 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm')
-          .$sectionId,
-      '\$headline': (visitor, target) => D4
-          .validateTarget<
-            $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm
-          >(target, 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm')
-          .$headline,
-      '\$codeSpec': (visitor, target) => D4
-          .validateTarget<
-            $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm
-          >(target, 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm')
-          .$codeSpec,
-      '\$units': (visitor, target) => D4
-          .validateTarget<
-            $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm
-          >(target, 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm')
-          .$units,
-    },
-    setters: {
-      'content': (visitor, target, value) =>
-          D4
-              .validateTarget<
-                $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm
-              >(target, 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm')
-              .content = D4.extractBridgedArg<String>(
-            value,
-            'content',
-          ),
-      'rolloutTimeline': (visitor, target, value) =>
-          D4
-              .validateTarget<
-                $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm
-              >(target, 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm')
-              .rolloutTimeline = D4.extractBridgedArg<String>(
-            value,
-            'rolloutTimeline',
-          ),
-      'rolloutRegions': (visitor, target, value) =>
-          D4
-              .validateTarget<
-                $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm
-              >(target, 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm')
-              .rolloutRegions = D4.extractBridgedArg<String>(
-            value,
-            'rolloutRegions',
-          ),
-      'rolloutStrategy': (visitor, target, value) =>
-          D4
-              .validateTarget<
-                $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm
-              >(target, 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm')
-              .rolloutStrategy = D4.extractBridgedArg<String>(
-            value,
-            'rolloutStrategy',
-          ),
-      '\$sectionId': (visitor, target, value) =>
-          D4
-              .validateTarget<
-                $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm
-              >(target, 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm')
-              .$sectionId = D4.extractBridgedArg<String>(
-            value,
-            '\$sectionId',
-          ),
-      '\$headline': (visitor, target, value) =>
-          D4
-              .validateTarget<
-                $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm
-              >(target, 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm')
-              .$headline = D4.extractBridgedArgOrNull<String>(
-            value,
-            '\$headline',
-          ),
-      '\$codeSpec': (visitor, target, value) =>
-          D4
-              .validateTarget<
-                $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm
-              >(target, 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm')
-              .$codeSpec = D4.extractBridgedArgOrNull<String>(
-            value,
-            '\$codeSpec',
-          ),
-      '\$units': (visitor, target, value) =>
-          D4
-              .validateTarget<
-                $tom_som_dart_v0_1.DeliveryTransitionAndRolloutLocaleRolloutPlanForm
-              >(target, 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm')
-              .$units = D4.extractBridgedArgOrNull<String>(
-            value,
-            '\$units',
-          ),
-    },
-    constructorSignatures: {
-      '': 'DeliveryTransitionAndRolloutLocaleRolloutPlanForm(SpecDocument doc, String path)',
-    },
-    getterSignatures: {
-      'canHaveContent': 'bool get canHaveContent',
-      'content': 'String get content',
-      'rolloutTimeline': 'String get rolloutTimeline',
-      'rolloutRegions': 'String get rolloutRegions',
-      'rolloutStrategy': 'String get rolloutStrategy',
-      'doc': 'SpecDocument get doc',
-      'path': 'String get path',
-      'isEmpty': 'bool get isEmpty',
-      '\$sectionId': 'String? get \$sectionId',
-      '\$headline': 'String? get \$headline',
-      '\$codeSpec': 'String? get \$codeSpec',
-      '\$units': 'String? get \$units',
-    },
-    setterSignatures: {
-      'content': 'set content(String value)',
-      'rolloutTimeline': 'set rolloutTimeline(String value)',
-      'rolloutRegions': 'set rolloutRegions(String value)',
-      'rolloutStrategy': 'set rolloutStrategy(String value)',
-      '\$sectionId': 'set \$sectionId(String value)',
-      '\$headline': 'set \$headline(String? value)',
-      '\$codeSpec': 'set \$codeSpec(String? value)',
-      '\$units': 'set \$units(String? value)',
-    },
-  );
-}
-
-// =============================================================================
 // DependencyHealthMonitoringCacheForm Bridge
 // =============================================================================
 
@@ -564283,6 +564245,220 @@ BridgedClass _createLocaleHandlingRequirementsContentFormBridge() {
       'countryVariants': 'set countryVariants(String value)',
       'localeDetection': 'set localeDetection(String value)',
       'localeFallbackChain': 'set localeFallbackChain(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+      '\$units': 'set \$units(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// LocaleRolloutPlanContentForm Bridge
+// =============================================================================
+
+BridgedClass _createLocaleRolloutPlanContentFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.LocaleRolloutPlanContentForm,
+    name: 'LocaleRolloutPlanContentForm',
+    isAssignable: (v) => v is $tom_som_dart_v0_1.LocaleRolloutPlanContentForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'LocaleRolloutPlanContentForm');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'LocaleRolloutPlanContentForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'LocaleRolloutPlanContentForm',
+        );
+        return $tom_som_dart_v0_1.LocaleRolloutPlanContentForm(doc, path);
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlanContentForm>(
+            target,
+            'LocaleRolloutPlanContentForm',
+          )
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlanContentForm>(
+            target,
+            'LocaleRolloutPlanContentForm',
+          )
+          .content,
+      'rolloutTimeline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlanContentForm>(
+            target,
+            'LocaleRolloutPlanContentForm',
+          )
+          .rolloutTimeline,
+      'rolloutRegions': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlanContentForm>(
+            target,
+            'LocaleRolloutPlanContentForm',
+          )
+          .rolloutRegions,
+      'rolloutStrategy': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlanContentForm>(
+            target,
+            'LocaleRolloutPlanContentForm',
+          )
+          .rolloutStrategy,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlanContentForm>(
+            target,
+            'LocaleRolloutPlanContentForm',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlanContentForm>(
+            target,
+            'LocaleRolloutPlanContentForm',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlanContentForm>(
+            target,
+            'LocaleRolloutPlanContentForm',
+          )
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlanContentForm>(
+            target,
+            'LocaleRolloutPlanContentForm',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlanContentForm>(
+            target,
+            'LocaleRolloutPlanContentForm',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlanContentForm>(
+            target,
+            'LocaleRolloutPlanContentForm',
+          )
+          .$codeSpec,
+      '\$units': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlanContentForm>(
+            target,
+            'LocaleRolloutPlanContentForm',
+          )
+          .$units,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlanContentForm>(
+                target,
+                'LocaleRolloutPlanContentForm',
+              )
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'rolloutTimeline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlanContentForm>(
+                target,
+                'LocaleRolloutPlanContentForm',
+              )
+              .rolloutTimeline = D4.extractBridgedArg<String>(
+            value,
+            'rolloutTimeline',
+          ),
+      'rolloutRegions': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlanContentForm>(
+                target,
+                'LocaleRolloutPlanContentForm',
+              )
+              .rolloutRegions = D4.extractBridgedArg<String>(
+            value,
+            'rolloutRegions',
+          ),
+      'rolloutStrategy': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlanContentForm>(
+                target,
+                'LocaleRolloutPlanContentForm',
+              )
+              .rolloutStrategy = D4.extractBridgedArg<String>(
+            value,
+            'rolloutStrategy',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlanContentForm>(
+                target,
+                'LocaleRolloutPlanContentForm',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlanContentForm>(
+                target,
+                'LocaleRolloutPlanContentForm',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlanContentForm>(
+                target,
+                'LocaleRolloutPlanContentForm',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+      '\$units': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.LocaleRolloutPlanContentForm>(
+                target,
+                'LocaleRolloutPlanContentForm',
+              )
+              .$units = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$units',
+          ),
+    },
+    constructorSignatures: {
+      '': 'LocaleRolloutPlanContentForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'rolloutTimeline': 'String get rolloutTimeline',
+      'rolloutRegions': 'String get rolloutRegions',
+      'rolloutStrategy': 'String get rolloutStrategy',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+      '\$units': 'String? get \$units',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'rolloutTimeline': 'set rolloutTimeline(String value)',
+      'rolloutRegions': 'set rolloutRegions(String value)',
+      'rolloutStrategy': 'set rolloutStrategy(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -930125,6 +930301,12 @@ BridgedClass _createD12TransitionRolloutPlan$NavBridge() {
             'D12TransitionRolloutPlan\$Nav',
           )
           .translationProcess,
+      'localeRolloutPlan': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D12TransitionRolloutPlan$Nav>(
+            target,
+            'D12TransitionRolloutPlan\$Nav',
+          )
+          .localeRolloutPlan,
       'userDocumentation': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D12TransitionRolloutPlan$Nav>(
             target,
@@ -930215,6 +930397,7 @@ BridgedClass _createD12TransitionRolloutPlan$NavBridge() {
           'SomListMetaRef<RevisionEntry\$Nav> get revisionHistory',
       'localizationProcess': 'LocalizationProcess\$Nav get localizationProcess',
       'translationProcess': 'TranslationProcess\$Nav get translationProcess',
+      'localeRolloutPlan': 'LocaleRolloutPlan\$Nav get localeRolloutPlan',
       'userDocumentation':
           'UserDocumentationRequirements\$Nav get userDocumentation',
       'trainingDeliverables':
@@ -936295,7 +936478,7 @@ BridgedClass _createDeliveryTransitionAndRollout$NavBridge() {
       'systemRollout': 'SystemRollout\$Nav get systemRollout',
       'localizationTranslationProcess':
           'LocalizationTranslationProcess\$Nav get localizationTranslationProcess',
-      'localeRolloutPlan': 'SomMetaRef get localeRolloutPlan',
+      'localeRolloutPlan': 'LocaleRolloutPlan\$Nav get localeRolloutPlan',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -960090,6 +960273,72 @@ BridgedClass _createLocaleHandlingRequirements$NavBridge() {
     },
     constructorSignatures: {
       '': 'LocaleHandlingRequirements\$Nav(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'content': 'SomMetaRef get content',
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
+// LocaleRolloutPlan$Nav Bridge
+// =============================================================================
+
+BridgedClass _createLocaleRolloutPlan$NavBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.LocaleRolloutPlan$Nav,
+    name: 'LocaleRolloutPlan\$Nav',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.LocaleRolloutPlan$Nav,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'LocaleRolloutPlan\$Nav');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'LocaleRolloutPlan\$Nav',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'LocaleRolloutPlan\$Nav',
+        );
+        return $tom_som_dart_v0_2.LocaleRolloutPlan$Nav(tree, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.LocaleRolloutPlan$Nav>(
+            target,
+            'LocaleRolloutPlan\$Nav',
+          )
+          .content,
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.LocaleRolloutPlan$Nav>(
+            target,
+            'LocaleRolloutPlan\$Nav',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.LocaleRolloutPlan$Nav>(
+            target,
+            'LocaleRolloutPlan\$Nav',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.LocaleRolloutPlan$Nav>(
+            target,
+            'LocaleRolloutPlan\$Nav',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'LocaleRolloutPlan\$Nav(SomMetaTree tree, String path)',
     },
     getterSignatures: {
       'content': 'SomMetaRef get content',
@@ -1034129,12 +1034378,6 @@ BridgedClass _createD00SolutionBlueprint$IdBridge() {
             'D00SolutionBlueprint\$Id',
           )
           .TVE_VEND_LST,
-      'LOCRP': (visitor, target) => D4
-          .validateTarget<$tom_som_dart_v0_2.D00SolutionBlueprint$Id>(
-            target,
-            'D00SolutionBlueprint\$Id',
-          )
-          .LOCRP,
       'tree': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D00SolutionBlueprint$Id>(
             target,
@@ -1035768,7 +1036011,6 @@ BridgedClass _createD00SolutionBlueprint$IdBridge() {
       'TRPRON': 'SomMetaRef get TRPRON',
       'TVE_VEND_LST':
           'SomListMetaRef<TranslationVendorEntry\$Id> get TVE_VEND_LST',
-      'LOCRP': 'SomMetaRef get LOCRP',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',

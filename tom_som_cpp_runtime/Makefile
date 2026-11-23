@@ -10,7 +10,7 @@
 # VERSION is the TomSpecs model version. It is realigned by the packaging hook
 # (`tomspecs :som-generate`, tom_specs_clitool) so the runtime, the generated facade,
 # and the emitted pkg-config file all agree on one version.
-VERSION := 1.12.2
+VERSION := 1.12.3
 
 CXX      ?= g++
 AR       ?= ar

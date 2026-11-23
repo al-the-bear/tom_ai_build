@@ -51,16 +51,38 @@ class DeliveryTransitionAndRollout extends DocSpecsSection {
       LocalizationTranslationProcess();
 
   /// Multi-language rollout sequencing by region and time (re-homed from MLAR).
-  @SectionId('LOCRP')
-  @StandardReferences(
-    [
-      'ISO 3166 — country and region codes define the geographic rollout order',
-      'ISO 8601 — the standard representation for the rollout timeline and schedule',
-    ],
-    'The rollout strategy, timeline, and regional sequencing for locale availability.',
-  )
-  @MapsTo(D12TransitionRolloutPlan)
-  @DetailedIn(D12TransitionRolloutPlan)
+  @SerializationOrder(4)
+  LocaleRolloutPlan localeRolloutPlan = LocaleRolloutPlan();
+}
+
+/// Multi-language rollout plan.
+///
+/// The rollout sequencing of the supported locales by region and time: which
+/// languages are delivered with which release, in which geographic order, and
+/// by which strategy. Detailed in the Transition & Rollout Plan beside the
+/// localization and translation processes.
+@StandardReferences(
+  [
+    'ISO 3166 — country and region codes define the geographic rollout order',
+    'ISO 8601 — the standard representation for the rollout timeline and schedule',
+  ],
+  'The rollout strategy, timeline, and regional sequencing for locale availability.',
+)
+@SectionId('LOCRP')
+@MapsTo(D12TransitionRolloutPlan)
+@DetailedIn(D12TransitionRolloutPlan)
+@FollowUpKind(
+  [
+    FollowUpProcess.mig,
+    FollowUpProcess.ops,
+    FollowUpProcess.org,
+    FollowUpProcess.l10n,
+  ],
+  note:
+      'follow-up material under DeliveryTransitionAndRollout in the SBP; '
+      'reached here directly by a detail-document path',
+)
+class LocaleRolloutPlan extends DocSpecsSection {
   @Form([
     Field(
       'rolloutTimeline',
@@ -82,8 +104,9 @@ class DeliveryTransitionAndRollout extends DocSpecsSection {
       multiParagraph: true,
     ),
   ])
-  @SerializationOrder(4)
-  DocSpecsSection? localeRolloutPlan;
+  @override
+  @SerializationOrder(0)
+  String? content;
 }
 
 /// Localization & Translation execution processes.

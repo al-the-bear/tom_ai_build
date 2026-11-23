@@ -173,6 +173,9 @@ section-types:
   kntfr:
     prefix: KNTFR
     description: Knowledge transfer.
+  locrp:
+    prefix: LOCRP
+    description: "Multi-language rollout plan: the locales' rollout by region and time."
   rlttm:
     prefix: RLTTM
     description: Training materials.
@@ -370,6 +373,9 @@ document:
       optional: true
     trpr:
       section-type: trpr
+      optional: true
+    locrp:
+      section-type: locrp
       optional: true
     doantr:
       section-type: doantr

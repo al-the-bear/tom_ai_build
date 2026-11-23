@@ -10987,6 +10987,12 @@ void registerSpecOps() {
             sectionId: 'TRPR',
           ),
           SpecSlot.node(
+            () => n.localeRolloutPlan,
+            (v) => n.localeRolloutPlan = v as LocaleRolloutPlan,
+            label: 'localeRolloutPlan',
+            sectionId: 'LOCRP',
+          ),
+          SpecSlot.node(
             () => n.userDocumentation,
             (v) => n.userDocumentation = v as UserDocumentationRequirements,
             label: 'userDocumentation',
@@ -11058,6 +11064,7 @@ void registerSpecOps() {
           ..revisionHistory = n.revisionHistory
           ..localizationProcess = n.localizationProcess
           ..translationProcess = n.translationProcess
+          ..localeRolloutPlan = n.localeRolloutPlan
           ..userDocumentation = n.userDocumentation
           ..trainingDeliverables = n.trainingDeliverables
           ..rolloutPlan = n.rolloutPlan
@@ -11081,6 +11088,7 @@ void registerSpecOps() {
             .deliveryTransitionAndRollout
             .localizationTranslationProcess
             .translationProcess;
+        n.localeRolloutPlan = b.deliveryTransitionAndRollout.localeRolloutPlan;
         n.userDocumentation = b
             .requirements
             .requirementsFollowUp
@@ -13726,7 +13734,7 @@ void registerSpecOps() {
           ),
           SpecSlot.node(
             () => n.localeRolloutPlan,
-            (v) => n.localeRolloutPlan = v as DocSpecsSection?,
+            (v) => n.localeRolloutPlan = v as LocaleRolloutPlan,
             label: 'localeRolloutPlan',
             sectionId: 'LOCRP',
           ),
@@ -23381,6 +23389,17 @@ void registerSpecOps() {
         return LocaleHandlingRequirements()..content = n.content;
       },
       yamlScalar: (o) => (o as LocaleHandlingRequirements).content,
+    ),
+  );
+  SpecRegistry.register(
+    LocaleRolloutPlan,
+    SpecClassOps(
+      slots: (o) => const [],
+      cloneShallow: (o) {
+        final n = o as LocaleRolloutPlan;
+        return LocaleRolloutPlan()..content = n.content;
+      },
+      yamlScalar: (o) => (o as LocaleRolloutPlan).content,
     ),
   );
   SpecRegistry.register(

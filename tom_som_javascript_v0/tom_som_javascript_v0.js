@@ -12140,6 +12140,11 @@ class D12TransitionRolloutPlan extends SomNode {
     return new TranslationProcess(this.doc, this.path + "/translationProcess");
   }
 
+  // Multi-language rollout plan: the locales' rollout by region and time.
+  get localeRolloutPlan() {
+    return new LocaleRolloutPlan(this.doc, this.path + "/localeRolloutPlan");
+  }
+
   // User documentation requirements (doc half of the former DOANTR;
   // split in L34C-7).
   get userDocumentation() {
@@ -14985,7 +14990,7 @@ class DeliveryTransitionAndRollout extends SomNode {
 
   // Multi-language rollout sequencing by region and time (re-homed from MLAR).
   get localeRolloutPlan() {
-    return new DeliveryTransitionAndRolloutLocaleRolloutPlanForm(this.doc, this.path + "/LOCRP");
+    return new LocaleRolloutPlan(this.doc, this.path + "/localeRolloutPlan");
   }
 }
 
@@ -24403,6 +24408,25 @@ class LocaleHandlingRequirements extends SomNode {
   // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content() {
     return new LocaleHandlingRequirementsContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Multi-language rollout plan.
+//
+// The rollout sequencing of the supported locales by region and time: which
+// languages are delivered with which release, in which geographic order, and
+// by which strategy. Detailed in the Transition & Rollout Plan beside the
+// localization and translation processes.
+class LocaleRolloutPlan extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
+  get content() {
+    return new LocaleRolloutPlanContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -86645,49 +86669,6 @@ class DeliveryAcceptanceCriterionEntryVerificationForm extends SomNode {
   }
 }
 
-// Generated section facade for the `localeRolloutPlan` @Form section: its own content text followed by one typed member per form field.
-class DeliveryTransitionAndRolloutLocaleRolloutPlanForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path) || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path, value);
-  }
-
-  get rolloutTimeline() {
-    return this.doc.formField(this.path, "rolloutTimeline") || '';
-  }
-
-  set rolloutTimeline(value) {
-    this.doc.setFormField(this.path, "rolloutTimeline", value);
-  }
-
-  get rolloutRegions() {
-    return this.doc.formField(this.path, "rolloutRegions") || '';
-  }
-
-  set rolloutRegions(value) {
-    this.doc.setFormField(this.path, "rolloutRegions", value);
-  }
-
-  get rolloutStrategy() {
-    return this.doc.formField(this.path, "rolloutStrategy") || '';
-  }
-
-  set rolloutStrategy(value) {
-    this.doc.setFormField(this.path, "rolloutStrategy", value);
-  }
-}
-
 // Generated section facade for the `cache` @Form section: its own content text followed by one typed member per form field.
 class DependencyHealthMonitoringCacheForm extends SomNode {
   constructor(doc, path) {
@@ -117896,6 +117877,49 @@ class LocaleHandlingRequirementsContentForm extends SomNode {
 
   set localeFallbackChain(value) {
     this.doc.setFormField(this.path, "localeFallbackChain", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class LocaleRolloutPlanContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get rolloutTimeline() {
+    return this.doc.formField(this.path, "rolloutTimeline") || '';
+  }
+
+  set rolloutTimeline(value) {
+    this.doc.setFormField(this.path, "rolloutTimeline", value);
+  }
+
+  get rolloutRegions() {
+    return this.doc.formField(this.path, "rolloutRegions") || '';
+  }
+
+  set rolloutRegions(value) {
+    this.doc.setFormField(this.path, "rolloutRegions", value);
+  }
+
+  get rolloutStrategy() {
+    return this.doc.formField(this.path, "rolloutStrategy") || '';
+  }
+
+  set rolloutStrategy(value) {
+    this.doc.setFormField(this.path, "rolloutStrategy", value);
   }
 }
 
@@ -199173,6 +199197,7 @@ module.exports = {
   LoadProfileRequirements,
   LocalDevelopmentSetup,
   LocaleHandlingRequirements,
+  LocaleRolloutPlan,
   LocalizationProcess,
   LocalizationTranslationProcess,
   LocalizationTranslationRequirements,
@@ -200585,7 +200610,6 @@ module.exports = {
   DeliveryAcceptanceCriterionEntryStatusForm,
   DeliveryAcceptanceCriterionEntryTraceabilityForm,
   DeliveryAcceptanceCriterionEntryVerificationForm,
-  DeliveryTransitionAndRolloutLocaleRolloutPlanForm,
   DependencyHealthMonitoringCacheForm,
   DependencyHealthMonitoringContentForm,
   DependencyHealthMonitoringExternalForm,
@@ -201203,6 +201227,7 @@ module.exports = {
   LocalDevelopmentSetupTroubleshootingForm,
   LocalDevelopmentSetupWorkflowForm,
   LocaleHandlingRequirementsContentForm,
+  LocaleRolloutPlanContentForm,
   LocalizationProcessDeploymentForm,
   LocalizationProcessFormattingForm,
   LocalizationProcessLocalizationProcessContentForm,

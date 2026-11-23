@@ -1865,6 +1865,7 @@ class StageSummaryDependencies extends DocSpecsSection {
       'follow-up material under DeliveryTransitionAndRollout in the SBP; '
       'reached here directly by a detail-document path',
 )
+@DetailedIn(D11DeliveryRoadmap)
 class StageEntry extends DocSpecsSection {
   @Form([
     Field(

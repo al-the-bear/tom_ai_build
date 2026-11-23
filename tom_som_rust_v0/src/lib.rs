@@ -18041,6 +18041,11 @@ impl D12TransitionRolloutPlan {
         TranslationProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "translationProcess"))
     }
 
+    /// Multi-language rollout plan: the locales' rollout by region and time.
+    pub fn locale_rollout_plan(&self) -> LocaleRolloutPlan {
+        LocaleRolloutPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "localeRolloutPlan"))
+    }
+
     /// User documentation requirements (doc half of the former DOANTR;
     /// split in L34C-7).
     pub fn user_documentation(&self) -> UserDocumentationRequirements {
@@ -21755,8 +21760,8 @@ impl DeliveryTransitionAndRollout {
     }
 
     /// Multi-language rollout sequencing by region and time (re-homed from MLAR).
-    pub fn locale_rollout_plan(&self) -> DeliveryTransitionAndRolloutLocaleRolloutPlanForm {
-        DeliveryTransitionAndRolloutLocaleRolloutPlanForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "LOCRP"))
+    pub fn locale_rollout_plan(&self) -> LocaleRolloutPlan {
+        LocaleRolloutPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "localeRolloutPlan"))
     }
 }
 
@@ -34685,6 +34690,37 @@ impl LocaleHandlingRequirements {
     /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> LocaleHandlingRequirementsContentForm {
         LocaleHandlingRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Multi-language rollout plan.
+///
+/// The rollout sequencing of the supported locales by region and time: which
+/// languages are delivered with which release, in which geographic order, and
+/// by which strategy. Detailed in the Transition & Rollout Plan beside the
+/// localization and translation processes.
+pub struct LocaleRolloutPlan {
+    pub node: som::SomNode,
+}
+
+impl LocaleRolloutPlan {
+    /// Binds a LocaleRolloutPlan facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> LocaleRolloutPlan {
+        LocaleRolloutPlan { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    /// The section's body content. For a `@Form`-annotated member this is the
+    /// form's **preamble** — the free text before the first field line (SOM
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
+    pub fn content(&self) -> LocaleRolloutPlanContentForm {
+        LocaleRolloutPlanContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -117138,63 +117174,6 @@ impl DeliveryAcceptanceCriterionEntryVerificationForm {
     }
 }
 
-/// DeliveryTransitionAndRolloutLocaleRolloutPlanForm is the generated section facade for the `localeRolloutPlan` @Form section: its own
-/// content text followed by one typed member per form field.
-pub struct DeliveryTransitionAndRolloutLocaleRolloutPlanForm {
-    pub node: som::SomNode,
-}
-
-impl DeliveryTransitionAndRolloutLocaleRolloutPlanForm {
-    /// Binds a DeliveryTransitionAndRolloutLocaleRolloutPlanForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DeliveryTransitionAndRolloutLocaleRolloutPlanForm {
-        DeliveryTransitionAndRolloutLocaleRolloutPlanForm { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (SOM §21) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    /// The section's own free-text content, before the form fields.
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(self.node.path())
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn rollout_timeline(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "rolloutTimeline")
-    }
-
-    pub fn set_rollout_timeline(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "rolloutTimeline", value);
-    }
-
-    pub fn rollout_regions(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "rolloutRegions")
-    }
-
-    pub fn set_rollout_regions(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "rolloutRegions", value);
-    }
-
-    pub fn rollout_strategy(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "rolloutStrategy")
-    }
-
-    pub fn set_rollout_strategy(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "rolloutStrategy", value);
-    }
-}
-
 /// DependencyHealthMonitoringCacheForm is the generated section facade for the `cache` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct DependencyHealthMonitoringCacheForm {
@@ -157825,6 +157804,63 @@ impl LocaleHandlingRequirementsContentForm {
     pub fn set_locale_fallback_chain(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "localeFallbackChain", value);
+    }
+}
+
+/// LocaleRolloutPlanContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct LocaleRolloutPlanContentForm {
+    pub node: som::SomNode,
+}
+
+impl LocaleRolloutPlanContentForm {
+    /// Binds a LocaleRolloutPlanContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> LocaleRolloutPlanContentForm {
+        LocaleRolloutPlanContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn rollout_timeline(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rolloutTimeline")
+    }
+
+    pub fn set_rollout_timeline(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rolloutTimeline", value);
+    }
+
+    pub fn rollout_regions(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rolloutRegions")
+    }
+
+    pub fn set_rollout_regions(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rolloutRegions", value);
+    }
+
+    pub fn rollout_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rolloutStrategy")
+    }
+
+    pub fn set_rollout_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rolloutStrategy", value);
     }
 }
 

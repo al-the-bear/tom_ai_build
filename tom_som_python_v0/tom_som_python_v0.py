@@ -11603,6 +11603,11 @@ class D12TransitionRolloutPlan(SomNode):
     def translationProcess(self):
         return TranslationProcess(self.doc, f"{self.path}/translationProcess")
 
+    # Multi-language rollout plan: the locales' rollout by region and time.
+    @property
+    def localeRolloutPlan(self):
+        return LocaleRolloutPlan(self.doc, f"{self.path}/localeRolloutPlan")
+
     # User documentation requirements (doc half of the former DOANTR;
     # split in L34C-7).
     @property
@@ -14345,7 +14350,7 @@ class DeliveryTransitionAndRollout(SomNode):
     # Multi-language rollout sequencing by region and time (re-homed from MLAR).
     @property
     def localeRolloutPlan(self):
-        return DeliveryTransitionAndRolloutLocaleRolloutPlanForm(self.doc, f"{self.path}/LOCRP")
+        return LocaleRolloutPlan(self.doc, f"{self.path}/localeRolloutPlan")
 
 class DependenciesAndIntegrations(SomNode):
     """1.1.3. Dependencies and Integrations.
@@ -23357,6 +23362,24 @@ class LocaleHandlingRequirements(SomNode):
     @property
     def content(self):
         return LocaleHandlingRequirementsContentForm(self.doc, f"{self.path}/content")
+
+class LocaleRolloutPlan(SomNode):
+    """Multi-language rollout plan.
+    
+    The rollout sequencing of the supported locales by region and time: which
+    languages are delivered with which release, in which geographic order, and
+    by which strategy. Detailed in the Transition & Rollout Plan beside the
+    localization and translation processes.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    # The section's body content. For a `@Form`-annotated member this is the
+    # form's **preamble** — the free text before the first field line (SOM
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
+    @property
+    def content(self):
+        return LocaleRolloutPlanContentForm(self.doc, f"{self.path}/content")
 
 class LocalizationProcess(SomNode):
     """10.12.1. Localization Process.
@@ -83359,47 +83382,6 @@ class DeliveryAcceptanceCriterionEntryVerificationForm(SomNode):
     def evidenceRequired(self, value):
         self.doc.set_form_field(self.path, "evidenceRequired", value)
 
-class DeliveryTransitionAndRolloutLocaleRolloutPlanForm(SomNode):
-    """Generated section facade for the `localeRolloutPlan` @Form section: its own content text followed by one typed member per form field."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self) -> str:
-        return self.doc.content(self.path) or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(self.path, value)
-
-    @property
-    def rolloutTimeline(self) -> str:
-        return self.doc.form_field(self.path, "rolloutTimeline") or ""
-
-    @rolloutTimeline.setter
-    def rolloutTimeline(self, value):
-        self.doc.set_form_field(self.path, "rolloutTimeline", value)
-
-    @property
-    def rolloutRegions(self) -> str:
-        return self.doc.form_field(self.path, "rolloutRegions") or ""
-
-    @rolloutRegions.setter
-    def rolloutRegions(self, value):
-        self.doc.set_form_field(self.path, "rolloutRegions", value)
-
-    @property
-    def rolloutStrategy(self) -> str:
-        return self.doc.form_field(self.path, "rolloutStrategy") or ""
-
-    @rolloutStrategy.setter
-    def rolloutStrategy(self, value):
-        self.doc.set_form_field(self.path, "rolloutStrategy", value)
-
 class DependencyHealthMonitoringCacheForm(SomNode):
     """Generated section facade for the `cache` @Form section: its own content text followed by one typed member per form field."""
 
@@ -113591,6 +113573,47 @@ class LocaleHandlingRequirementsContentForm(SomNode):
     @localeFallbackChain.setter
     def localeFallbackChain(self, value):
         self.doc.set_form_field(self.path, "localeFallbackChain", value)
+
+class LocaleRolloutPlanContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def rolloutTimeline(self) -> str:
+        return self.doc.form_field(self.path, "rolloutTimeline") or ""
+
+    @rolloutTimeline.setter
+    def rolloutTimeline(self, value):
+        self.doc.set_form_field(self.path, "rolloutTimeline", value)
+
+    @property
+    def rolloutRegions(self) -> str:
+        return self.doc.form_field(self.path, "rolloutRegions") or ""
+
+    @rolloutRegions.setter
+    def rolloutRegions(self, value):
+        self.doc.set_form_field(self.path, "rolloutRegions", value)
+
+    @property
+    def rolloutStrategy(self) -> str:
+        return self.doc.form_field(self.path, "rolloutStrategy") or ""
+
+    @rolloutStrategy.setter
+    def rolloutStrategy(self, value):
+        self.doc.set_form_field(self.path, "rolloutStrategy", value)
 
 class LocalizationProcessDeploymentForm(SomNode):
     """Generated section facade for the `deployment` @Form section: its own content text followed by one typed member per form field."""

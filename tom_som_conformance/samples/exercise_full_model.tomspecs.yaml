@@ -54,8 +54,8 @@ document:
             DORESE relevantSections:
               content:
                 content: Exercise form preamble.
-                sectionReference: "Exercise value."
                 sectionTitle: "Exercise value."
+                sectionReference: "Exercise value."
               RESEEN-SECT-LST sections:
                 RESEEN-SECT-1:
                   content:
@@ -307,8 +307,8 @@ document:
           UCE-USER-1:
             content:
               content: Exercise form preamble.
-              description: "Exercise value."
               userType: "Exercise value."
+              description: "Exercise value."
             UCEU usage:
               content: Exercise form preamble.
             UCEI importance:
@@ -855,9 +855,9 @@ document:
                 status: "draft"
               TRED details:
                 content: Exercise form preamble.
-                description: "Exercise value."
-                category: "Exercise value."
                 priority: "critical"
+                category: "Exercise value."
+                description: "Exercise value."
                 source: "Exercise value."
               TREM measurement:
                 content: Exercise form preamble.
@@ -882,8 +882,8 @@ document:
                 description: "Exercise value."
               SEREENCL classification:
                 content: Exercise form preamble.
-                category: "Exercise value."
                 priority: "critical"
+                category: "Exercise value."
                 source: "Exercise value."
               SEREENCO compliance:
                 content: Exercise form preamble.
@@ -917,8 +917,8 @@ document:
                 description: "Exercise value."
               OREC classification:
                 content: Exercise form preamble.
-                category: "Exercise value."
                 priority: "must"
+                category: "Exercise value."
                 source: "Exercise value."
               OREI impact:
                 content: Exercise form preamble.
@@ -3385,8 +3385,8 @@ document:
                   EXTEN-EXTE-1:
                     content:
                       content: Exercise form preamble.
-                      branchPoint: "MNSST-STEP-1"
                       returnKind: "resumeAtStep"
+                      branchPoint: "MNSST-STEP-1"
                     EXTEN-RESU resumePoint:
                       content: Exercise form preamble.
                       resumeStep: "MNSST-STEP-1"
@@ -4149,6 +4149,11 @@ document:
                       content: Exercise form preamble.
                       area: "CE-DB"
                       mapping: "Exercise value."
+                GEEMI-EMIT-LST emitters:
+                  GEEMI-EMIT-1:
+                    content:
+                      content: Exercise form preamble.
+                      emitter: "openapi"
             COMPAT communicationPatterns:
               content:
                 content: Exercise form preamble.
@@ -4225,8 +4230,8 @@ document:
                   context: "Exercise value."
                 ADRO outcome:
                   content: Exercise form preamble.
-                  decision: "Exercise value."
                   rationale: "Exercise value."
+                  decision: "Exercise value."
                 ARDERECO consequences:
                   content: Exercise form preamble.
                 ADRR relations:
@@ -10092,4 +10097,5 @@ document:
               content:
                 content: Exercise form preamble.
       LOCRP localeRolloutPlan:
-        content: Exercise form preamble.
+        content:
+          content: Exercise form preamble.

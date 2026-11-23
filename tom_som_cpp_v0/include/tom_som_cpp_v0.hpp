@@ -2007,6 +2007,7 @@ class LimitationEntry;
 class LoadProfileRequirements;
 class LocalDevelopmentSetup;
 class LocaleHandlingRequirements;
+class LocaleRolloutPlan;
 class LocalizationProcess;
 class LocalizationTranslationProcess;
 class LocalizationTranslationRequirements;
@@ -3419,7 +3420,6 @@ class DeliveryAcceptanceCriterionEntryOwnershipForm;
 class DeliveryAcceptanceCriterionEntryStatusForm;
 class DeliveryAcceptanceCriterionEntryTraceabilityForm;
 class DeliveryAcceptanceCriterionEntryVerificationForm;
-class DeliveryTransitionAndRolloutLocaleRolloutPlanForm;
 class DependencyHealthMonitoringCacheForm;
 class DependencyHealthMonitoringContentForm;
 class DependencyHealthMonitoringExternalForm;
@@ -4037,6 +4037,7 @@ class LocalDevelopmentSetupTestingForm;
 class LocalDevelopmentSetupTroubleshootingForm;
 class LocalDevelopmentSetupWorkflowForm;
 class LocaleHandlingRequirementsContentForm;
+class LocaleRolloutPlanContentForm;
 class LocalizationProcessDeploymentForm;
 class LocalizationProcessFormattingForm;
 class LocalizationProcessLocalizationProcessContentForm;
@@ -11713,6 +11714,8 @@ class D12TransitionRolloutPlan : public som::SomNode {
   LocalizationProcess localizationProcess() const;
   // Translation process.
   TranslationProcess translationProcess() const;
+  // Multi-language rollout plan: the locales' rollout by region and time.
+  LocaleRolloutPlan localeRolloutPlan() const;
   // User documentation requirements (doc half of the former DOANTR;
   // split in L34C-7).
   UserDocumentationRequirements userDocumentation() const;
@@ -13505,7 +13508,7 @@ class DeliveryTransitionAndRollout : public som::SomNode {
   // live in SBP.9).
   LocalizationTranslationProcess localizationTranslationProcess() const;
   // Multi-language rollout sequencing by region and time (re-homed from MLAR).
-  DeliveryTransitionAndRolloutLocaleRolloutPlanForm localeRolloutPlan() const;
+  LocaleRolloutPlan localeRolloutPlan() const;
   // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -19304,6 +19307,21 @@ class LocaleHandlingRequirements : public som::SomNode {
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in the section's `form`.
   LocaleHandlingRequirementsContentForm content() const;
+};
+
+// Multi-language rollout plan.
+//
+// The rollout sequencing of the supported locales by region and time: which
+// languages are delivered with which release, in which geographic order, and
+// by which strategy. Detailed in the Transition & Rollout Plan beside the
+// localization and translation processes.
+class LocaleRolloutPlan : public som::SomNode {
+ public:
+  LocaleRolloutPlan(som::SpecDocument& doc, std::string path);
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
+  LocaleRolloutPlanContentForm content() const;
 };
 
 // 10.12.1. Localization Process.
@@ -47058,22 +47076,6 @@ class DeliveryAcceptanceCriterionEntryVerificationForm : public som::SomNode {
   void setEvidenceRequired(const std::string& value);
 };
 
-// Generated section facade for the `localeRolloutPlan` @Form section: its own `content` text followed by one typed member per form field.
-class DeliveryTransitionAndRolloutLocaleRolloutPlanForm : public som::SomNode {
- public:
-  DeliveryTransitionAndRolloutLocaleRolloutPlanForm(som::SpecDocument& doc, std::string path);
-  bool canHaveContent() const override { return true; }
-  // The section's own free-text content, before the form fields.
-  std::string content() const;
-  void setContent(const std::string& value);
-  std::string rolloutTimeline() const;
-  void setRolloutTimeline(const std::string& value);
-  std::string rolloutRegions() const;
-  void setRolloutRegions(const std::string& value);
-  std::string rolloutStrategy() const;
-  void setRolloutStrategy(const std::string& value);
-};
-
 // Generated section facade for the `cache` @Form section: its own `content` text followed by one typed member per form field.
 class DependencyHealthMonitoringCacheForm : public som::SomNode {
  public:
@@ -58066,6 +58068,22 @@ class LocaleHandlingRequirementsContentForm : public som::SomNode {
   void setLocaleDetection(const std::string& value);
   std::string localeFallbackChain() const;
   void setLocaleFallbackChain(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class LocaleRolloutPlanContentForm : public som::SomNode {
+ public:
+  LocaleRolloutPlanContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string rolloutTimeline() const;
+  void setRolloutTimeline(const std::string& value);
+  std::string rolloutRegions() const;
+  void setRolloutRegions(const std::string& value);
+  std::string rolloutStrategy() const;
+  void setRolloutStrategy(const std::string& value);
 };
 
 // Generated section facade for the `deployment` @Form section: its own `content` text followed by one typed member per form field.

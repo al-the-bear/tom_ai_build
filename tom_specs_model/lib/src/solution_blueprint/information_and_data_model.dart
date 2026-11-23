@@ -690,6 +690,7 @@ class EntityFollowUpEntry extends DocSpecsSection {
       'CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), '
       'which is why the entity facts reach the CE-API extract.',
 )
+@DetailedIn(D03InformationModel)
 class DataEntityEntry extends DocSpecsSection {
   @ContentHelp(
     'Narrative for this data entity — what it represents in the business, '
@@ -2844,6 +2845,7 @@ Domain-Driven Design patterns for rich domain modeling.
 )
 @SectionId('BJOEN')
 @CodeSpecKind([CodeSpecPart.viewState])
+@DetailedIn(D03InformationModel)
 class BusinessObjectEntry extends DocSpecsSection {
   @ContentHelp(
     'Narrative for this business object — its role in the domain, beyond '
@@ -3932,6 +3934,7 @@ class FunctionModel extends DocSpecsSection {
 )
 @SectionId('FUNCT')
 @CodeSpecKind([CodeSpecPart.serviceUnit])
+@DetailedIn(D03InformationModel)
 class FunctionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4084,6 +4087,7 @@ class SubFunctionEntry extends DocSpecsSection {
       'Function×data CRUD matrix → feeds CE-SU owned-entity/operation '
       'derivation.',
 )
+@DetailedIn(D03InformationModel)
 class FunctionDataMatrixEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4146,6 +4150,7 @@ class FunctionDataMatrixEntry extends DocSpecsSection {
 @CodeSpecKind([
   CodeSpecPart.validation,
 ], note: 'Business rule → validation (field/form rule).')
+@DetailedIn(D03InformationModel)
 class BusinessRuleEntry extends DocSpecsSection {
   @ContentHelp(
     'Narrative for this business rule — the intent behind it, beyond the '
@@ -5196,6 +5201,7 @@ class RelationshipAttributeEntry extends DocSpecsSection {
       'directory placement; SCMST.artifactKind supplies CsMigrationKind and '
       'SCMST.environments the filename environment tag.',
 )
+@DetailedIn(D03InformationModel)
 class SchemaVersioningAndMigration extends DocSpecsSection {
   @ContentHelp('''
 Describe how the database schema is versioned and how schema changes are
@@ -5602,6 +5608,7 @@ Author the further change as a new entry with the next version.
 )
 @SectionId('DOMEN')
 @CodeSpecKind([CodeSpecPart.domainEnum], note: 'the registry of domain enums')
+@DetailedIn(D03InformationModel)
 class DomainEnumRegistry extends DocSpecsSection {
   @ContentHelp('''
 Catalogue the domain enums — the closed value sets the data model relies on
@@ -5776,6 +5783,7 @@ class DomainEnumValueEntry extends DocSpecsSection {
 )
 @SectionId('ERCRG')
 @CodeSpecKind([CodeSpecPart.errorResult], note: 'the registry of error codes')
+@DetailedIn(D03InformationModel)
 class ErrorCodeRegistry extends DocSpecsSection {
   @ContentHelp('''
 Catalogue the shared application error codes. Add one entry per code; each
@@ -5916,6 +5924,7 @@ class ErrorCodeEntry extends DocSpecsSection {
       'application in <app>_codespec_shared; no framework counterpart '
       '(csmb4).',
 )
+@DetailedIn(D03InformationModel)
 class ResultEnvelope extends DocSpecsSection {
   @Form([
     Field(
@@ -6058,6 +6067,7 @@ class ResultFieldDetailEntry extends DocSpecsSection {
 )
 @SectionId('MSGKR')
 @CodeSpecKind([CodeSpecPart.text], note: 'the registry of message keys')
+@DetailedIn(D03InformationModel)
 class MessageKeyRegistry extends DocSpecsSection {
   @ContentHelp('''
 Catalogue the user-facing copy as message keys. Add one entry per key; each key
@@ -6252,6 +6262,7 @@ class MessageLocaleVariantEntry extends DocSpecsSection {
 @CodeSpecKind([
   CodeSpecPart.serverApi,
 ], note: 'the registry of server operations')
+@DetailedIn(D03InformationModel)
 class ServerOperationRegistry extends DocSpecsSection {
   @ContentHelp('''
 Catalogue the operations the system itself answers. Add one entry per

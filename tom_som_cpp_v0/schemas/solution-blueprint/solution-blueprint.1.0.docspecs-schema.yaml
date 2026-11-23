@@ -18023,7 +18023,6 @@ section-types:
     description: Inputs and validation behavior.
   locrp:
     prefix: LOCRP
-    format: locrp-form
     description: Multi-language rollout sequencing by region and time (re-homed from MLAR).
   lprpt:
     prefix: LPRPT
@@ -48729,14 +48728,6 @@ form-types:
         description: CI/CD integration for translations
       - fieldname: translationMemoryMaintenance
         description: How translation memory is maintained
-  locrp-form:
-    fields:
-      - fieldname: rolloutTimeline
-        description: High-level rollout schedule
-      - fieldname: rolloutRegions
-        description: Geographic rollout order
-      - fieldname: rolloutStrategy
-        description: "Big bang, phased, pilot"
 document:
   sections:
     doctl:

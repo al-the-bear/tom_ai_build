@@ -115,7 +115,7 @@ unpublished_drift:
     docspecs_annotation_mapping.dart; the 14 schemas unchanged.
     02_sau3: the static validator checks the link vocabulary (§10.2
     invariants SYNC-PLACE … EXTRACT-LINK, lib/src/link_invariants.dart);
-    SHARED-COVER warns on the 118 @DetailedIn.
+    SHARED-COVER warns on the 132 @DetailedIn.
   tom_specs_core: >-
     section automation in progress — 02_sau2 (2026-11-23): the link
     annotations (SyncedWith, ListRelation, SummaryOf, DerivedFrom, InverseOf,
@@ -124,7 +124,10 @@ unpublished_drift:
   tom_som_dart_runtime: >-
     section automation in progress — 02_sau4 (2026-11-23): the link
     annotations in kRenderedAnnotations, linkChips in fieldChips, the four in
-    the showcase fixture.
+    the showcase fixture. 02_sau5: version 1.12.3 with the model.
+  tom_som_dart_v0: >-
+    section automation in progress — 02_sau5 (2026-11-23): regenerated for
+    model 1.12.3 (LocaleRolloutPlan, 14 more @DetailedIn).
   tom_specs_model: >-
     section automation in progress — 02_sau1 (2026-11-23):
     doc/tom_specs_model_meta_schema.md describes nested annotation values, maps
@@ -132,6 +135,8 @@ unpublished_drift:
     02_sau2: tom_specs_model_rules.md §9.7 (the link annotations, places,
     rules) and §6.2.2 (`|` alternatives in countOf).
     02_sau3: §10.2 lists the ten invariants of the link vocabulary.
+    02_sau5: 1.12.3 — LOCRP a class (LocaleRolloutPlan) the TRP holds, 14 more
+    @DetailedIn (132 pairs), §10.1 the table of pairs.
 
 published_from:
   tom_specs_core: {version: '0.5.2', commit: '0f5d4c23'}

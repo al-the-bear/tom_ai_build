@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-11-19T19:46:28.366317Z",
+  "generatedAt": "2026-11-23T19:29:11.382343Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.12.2+40.07412a22",
-  "classCount": 1273,
+  "modelVersionLabel": "1.12.3+41.c13e1608",
+  "classCount": 1274,
   "rootCount": 14,
-  "modelHash": "4f9d7d20d910b9c0e2d3d58d22941ec1ca6fa52d1c722b5f842bf1a88a600b61",
+  "modelHash": "8953c89348b681e1291e48abb3e2a4e7eaab9da696bd5bb8ad088f507120b568",
   "containerRoot": "DocSpecsProject",
   "roots": [
     {
@@ -27988,6 +27988,7 @@
       "name": "BusinessObjectEntry",
       "sectionId": "BJOEN",
       "doc": "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.",
+      "detailedIn": "D03InformationModel",
       "standardReferences": {
         "standards": [
           "Domain-Driven Design — aggregates/entities/value objects",
@@ -28018,6 +28019,12 @@
             "kinds": [
               "CodeSpecPart.viewState"
             ]
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D03InformationModel"
           }
         }
       ],
@@ -29577,6 +29584,7 @@
       "name": "BusinessRuleEntry",
       "sectionId": "BIRU",
       "doc": "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.",
+      "detailedIn": "D03InformationModel",
       "standardReferences": {
         "standards": [
           "SBVR — business rule statements",
@@ -29608,6 +29616,12 @@
               "CodeSpecPart.validation"
             ],
             "note": "Business rule → validation (field/form rule)."
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D03InformationModel"
           }
         }
       ],
@@ -44931,6 +44945,7 @@
       "name": "ComplianceReporting",
       "sectionId": "COMREP",
       "doc": "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.",
+      "detailedIn": "D08SecurityAccessSpecification",
       "standardReferences": {
         "standards": [
           "ISO/IEC 27001:2022 — control A.5.36 compliance with policies and standards",
@@ -44965,6 +44980,12 @@
           "name": "SectionId",
           "arguments": {
             "id": "COMREP"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D08SecurityAccessSpecification"
           }
         }
       ],
@@ -63630,9 +63651,9 @@
           "type": "TranslationProcess"
         },
         {
-          "name": "userDocumentation",
+          "name": "localeRolloutPlan",
           "kind": "complex",
-          "doc": "User documentation requirements (doc half of the former DOANTR;\nsplit in L34C-7).",
+          "doc": "Multi-language rollout plan: the locales' rollout by region and time.",
           "serializationOrder": 6,
           "annotations": [
             {
@@ -63642,12 +63663,12 @@
               }
             }
           ],
-          "type": "UserDocumentationRequirements"
+          "type": "LocaleRolloutPlan"
         },
         {
-          "name": "trainingDeliverables",
+          "name": "userDocumentation",
           "kind": "complex",
-          "doc": "Training deliverable requirements (training half of the former DOANTR;\nsplit in L34C-7).",
+          "doc": "User documentation requirements (doc half of the former DOANTR;\nsplit in L34C-7).",
           "serializationOrder": 7,
           "annotations": [
             {
@@ -63657,12 +63678,12 @@
               }
             }
           ],
-          "type": "TrainingDeliverableRequirements"
+          "type": "UserDocumentationRequirements"
         },
         {
-          "name": "rolloutPlan",
+          "name": "trainingDeliverables",
           "kind": "complex",
-          "doc": "Rollout plan.",
+          "doc": "Training deliverable requirements (training half of the former DOANTR;\nsplit in L34C-7).",
           "serializationOrder": 8,
           "annotations": [
             {
@@ -63672,12 +63693,12 @@
               }
             }
           ],
-          "type": "RolloutPlan"
+          "type": "TrainingDeliverableRequirements"
         },
         {
-          "name": "migrationPlan",
+          "name": "rolloutPlan",
           "kind": "complex",
-          "doc": "Migration plan.",
+          "doc": "Rollout plan.",
           "serializationOrder": 9,
           "annotations": [
             {
@@ -63687,12 +63708,12 @@
               }
             }
           ],
-          "type": "MigrationPlan"
+          "type": "RolloutPlan"
         },
         {
-          "name": "userManuals",
+          "name": "migrationPlan",
           "kind": "complex",
-          "doc": "User manuals.\n\nOne whole-catalog content section; collapsed from `List<UserManual>`\n(L34C-12 SR-57).",
+          "doc": "Migration plan.",
           "serializationOrder": 10,
           "annotations": [
             {
@@ -63702,12 +63723,12 @@
               }
             }
           ],
-          "type": "UserManual"
+          "type": "MigrationPlan"
         },
         {
-          "name": "trainingMaterials",
+          "name": "userManuals",
           "kind": "complex",
-          "doc": "Training materials.\n\nOne whole-catalog content section; collapsed from\n`List<RolloutTrainingMaterial>` (L34C-12 SR-57).",
+          "doc": "User manuals.\n\nOne whole-catalog content section; collapsed from `List<UserManual>`\n(L34C-12 SR-57).",
           "serializationOrder": 11,
           "annotations": [
             {
@@ -63717,12 +63738,12 @@
               }
             }
           ],
-          "type": "RolloutTrainingMaterial"
+          "type": "UserManual"
         },
         {
-          "name": "pilotPlan",
+          "name": "trainingMaterials",
           "kind": "complex",
-          "doc": "Pilot plan.",
+          "doc": "Training materials.\n\nOne whole-catalog content section; collapsed from\n`List<RolloutTrainingMaterial>` (L34C-12 SR-57).",
           "serializationOrder": 12,
           "annotations": [
             {
@@ -63732,12 +63753,12 @@
               }
             }
           ],
-          "type": "PilotPlan"
+          "type": "RolloutTrainingMaterial"
         },
         {
-          "name": "cutoverProcedures",
+          "name": "pilotPlan",
           "kind": "complex",
-          "doc": "Cutover procedures.\n\nOne whole-catalog content section; collapsed from `List<CutoverProcedure>`\n(L34C-12 SR-57).",
+          "doc": "Pilot plan.",
           "serializationOrder": 13,
           "annotations": [
             {
@@ -63747,12 +63768,12 @@
               }
             }
           ],
-          "type": "CutoverProcedure"
+          "type": "PilotPlan"
         },
         {
-          "name": "knowledgeTransfer",
+          "name": "cutoverProcedures",
           "kind": "complex",
-          "doc": "Knowledge transfer.",
+          "doc": "Cutover procedures.\n\nOne whole-catalog content section; collapsed from `List<CutoverProcedure>`\n(L34C-12 SR-57).",
           "serializationOrder": 14,
           "annotations": [
             {
@@ -63762,18 +63783,33 @@
               }
             }
           ],
-          "type": "KnowledgeTransfer"
+          "type": "CutoverProcedure"
         },
         {
-          "name": "warrantyAndSupport",
+          "name": "knowledgeTransfer",
           "kind": "complex",
-          "doc": "Warranty and support.",
+          "doc": "Knowledge transfer.",
           "serializationOrder": 15,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 15
+              }
+            }
+          ],
+          "type": "KnowledgeTransfer"
+        },
+        {
+          "name": "warrantyAndSupport",
+          "kind": "complex",
+          "doc": "Warranty and support.",
+          "serializationOrder": 16,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 16
               }
             }
           ],
@@ -68098,6 +68134,7 @@
       "name": "DataEntityEntry",
       "sectionId": "DAENT",
       "doc": "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.",
+      "detailedIn": "D03InformationModel",
       "standardReferences": {
         "standards": [
           "ER modeling (Chen / Barker notation)",
@@ -68133,6 +68170,12 @@
               "CodeSpecPart.serverApi"
             ],
             "note": "Entity + attributes → CE-DB table/columns; the aggregate fields in DAENT-CLAS → the CE-SU unit boundary and its ownership key (codespecs_mapping.md §5.1). An entity a server-operation member is typed by (SVOPM.dataEntity) also crosses the wire as the shared CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), which is why the entity facts reach the CE-API extract."
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D03InformationModel"
           }
         }
       ],
@@ -81622,52 +81665,10 @@
         },
         {
           "name": "localeRolloutPlan",
-          "kind": "form",
+          "kind": "complex",
           "doc": "Multi-language rollout sequencing by region and time (re-homed from MLAR).",
-          "sectionId": "LOCRP",
-          "standardReferences": {
-            "standards": [
-              "ISO 3166 — country and region codes define the geographic rollout order",
-              "ISO 8601 — the standard representation for the rollout timeline and schedule"
-            ],
-            "connotation": "The rollout strategy, timeline, and regional sequencing for locale availability."
-          },
           "serializationOrder": 4,
           "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "LOCRP"
-              }
-            },
-            {
-              "name": "StandardReferences",
-              "arguments": {
-                "standards": [
-                  "ISO 3166 — country and region codes define the geographic rollout order",
-                  "ISO 8601 — the standard representation for the rollout timeline and schedule"
-                ],
-                "connotation": "The rollout strategy, timeline, and regional sequencing for locale availability."
-              }
-            },
-            {
-              "name": "MapsTo",
-              "arguments": {
-                "documentClass": "D12TransitionRolloutPlan"
-              }
-            },
-            {
-              "name": "DetailedIn",
-              "arguments": {
-                "documentClass": "D12TransitionRolloutPlan"
-              }
-            },
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -81675,30 +81676,7 @@
               }
             }
           ],
-          "formFields": [
-            {
-              "name": "rolloutTimeline",
-              "label": "Rollout Timeline",
-              "hint": "High-level rollout schedule",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "rolloutRegions",
-              "label": "Rollout Regions",
-              "hint": "Geographic rollout order",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "rolloutStrategy",
-              "label": "Rollout Strategy",
-              "hint": "Big bang, phased, pilot",
-              "type": "String",
-              "required": false,
-              "multiParagraph": true
-            }
-          ]
+          "type": "LocaleRolloutPlan"
         }
       ]
     },
@@ -94821,6 +94799,7 @@
       "name": "DomainEnumRegistry",
       "sectionId": "DOMEN",
       "doc": "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
+      "detailedIn": "D03InformationModel",
       "standardReferences": {
         "standards": [
           "ISO/IEC 11179 — metadata registries / value-domain enumerations",
@@ -94852,6 +94831,12 @@
               "CodeSpecPart.domainEnum"
             ],
             "note": "the registry of domain enums"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D03InformationModel"
           }
         }
       ],
@@ -102004,6 +101989,7 @@
       "name": "ErrorCodeRegistry",
       "sectionId": "ERCRG",
       "doc": "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.",
+      "detailedIn": "D03InformationModel",
       "standardReferences": {
         "standards": [
           "ISO/IEC 11179 — metadata registries / value-domain enumerations",
@@ -102035,6 +102021,12 @@
               "CodeSpecPart.errorResult"
             ],
             "note": "the registry of error codes"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D03InformationModel"
           }
         }
       ],
@@ -117045,6 +117037,7 @@
       "name": "FunctionDataMatrixEntry",
       "sectionId": "FNDMX",
       "doc": "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.",
+      "detailedIn": "D03InformationModel",
       "standardReferences": {
         "standards": [
           "CRUD matrix — function/data interaction mapping"
@@ -117074,6 +117067,12 @@
               "CodeSpecPart.serviceUnit"
             ],
             "note": "Function×data CRUD matrix → feeds CE-SU owned-entity/operation derivation."
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D03InformationModel"
           }
         }
       ],
@@ -117154,6 +117153,7 @@
       "name": "FunctionEntry",
       "sectionId": "FUNCT",
       "doc": "A function entry (form).\n\nBusiness function specification in the functional decomposition.",
+      "detailedIn": "D03InformationModel",
       "standardReferences": {
         "standards": [
           "Structured Analysis (DeMarco/Yourdon) — functional decomposition",
@@ -117184,6 +117184,12 @@
             "kinds": [
               "CodeSpecPart.serviceUnit"
             ]
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D03InformationModel"
           }
         }
       ],
@@ -144914,6 +144920,108 @@
         }
       ]
     },
+    "LocaleRolloutPlan": {
+      "name": "LocaleRolloutPlan",
+      "sectionId": "LOCRP",
+      "doc": "Multi-language rollout plan.\n\nThe rollout sequencing of the supported locales by region and time: which\nlanguages are delivered with which release, in which geographic order, and\nby which strategy. Detailed in the Transition & Rollout Plan beside the\nlocalization and translation processes.",
+      "mapsTo": "D12TransitionRolloutPlan",
+      "detailedIn": "D12TransitionRolloutPlan",
+      "standardReferences": {
+        "standards": [
+          "ISO 3166 — country and region codes define the geographic rollout order",
+          "ISO 8601 — the standard representation for the rollout timeline and schedule"
+        ],
+        "connotation": "The rollout strategy, timeline, and regional sequencing for locale availability."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 3166 — country and region codes define the geographic rollout order",
+              "ISO 8601 — the standard representation for the rollout timeline and schedule"
+            ],
+            "connotation": "The rollout strategy, timeline, and regional sequencing for locale availability."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "LOCRP"
+          }
+        },
+        {
+          "name": "MapsTo",
+          "arguments": {
+            "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "rolloutTimeline",
+              "label": "Rollout Timeline",
+              "hint": "High-level rollout schedule",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "rolloutRegions",
+              "label": "Rollout Regions",
+              "hint": "Geographic rollout order",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "rolloutStrategy",
+              "label": "Rollout Strategy",
+              "hint": "Big bang, phased, pilot",
+              "type": "String",
+              "required": false,
+              "multiParagraph": true
+            }
+          ]
+        }
+      ]
+    },
     "LocalizationProcess": {
       "name": "LocalizationProcess",
       "sectionId": "LOPR",
@@ -150520,6 +150628,7 @@
       "name": "MessageKeyRegistry",
       "sectionId": "MSGKR",
       "doc": "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.",
+      "detailedIn": "D03InformationModel",
       "standardReferences": {
         "standards": [
           "ISO/IEC 11179 — metadata registries / data element definitions",
@@ -150553,6 +150662,12 @@
               "CodeSpecPart.text"
             ],
             "note": "the registry of message keys"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D03InformationModel"
           }
         }
       ],
@@ -205036,6 +205151,8 @@
       "name": "ReportDefinitions",
       "sectionId": "REDF",
       "doc": "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).",
+      "mapsTo": "D09ExperienceDesignSpecification",
+      "detailedIn": "D09ExperienceDesignSpecification",
       "standardReferences": {
         "standards": [
           "ISO/IEC/IEEE 26514:2022 — designs and develops report information for use",
@@ -205067,6 +205184,18 @@
               "CodeSpecPart.reporting"
             ],
             "note": "the report definitions"
+          }
+        },
+        {
+          "name": "MapsTo",
+          "arguments": {
+            "documentClass": "D09ExperienceDesignSpecification"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D09ExperienceDesignSpecification"
           }
         }
       ],
@@ -213958,6 +214087,7 @@
       "name": "ResultEnvelope",
       "sectionId": "RSLTE",
       "doc": "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the result/error envelope authored per application in\n`<app>_codespec_shared` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.",
+      "detailedIn": "D03InformationModel",
       "standardReferences": {
         "standards": [
           "ISO/IEC/IEEE 42010 — architecture description (interface contracts)",
@@ -213989,6 +214119,12 @@
               "CodeSpecPart.errorResult"
             ],
             "note": "CE-ER — the canonical codespecs_mapping.md §7 Result/ErrorResult envelope: a success arm or a structured error arm carrying a code (from the error-code registry), field-level details, and retryable/severity. Realised per application in <app>_codespec_shared; no framework counterpart (csmb4)."
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D03InformationModel"
           }
         }
       ],
@@ -226380,6 +226516,7 @@
       "name": "SchemaVersioningAndMigration",
       "sectionId": "SCHMG",
       "doc": "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.",
+      "detailedIn": "D03InformationModel",
       "standardReferences": {
         "standards": [
           "DAMA-DMBOK2 — data management body of knowledge",
@@ -226411,6 +226548,12 @@
               "CodeSpecPart.schemaMigration"
             ],
             "note": "CE-MG — schema migration artifacts derived from the data model evolution: @CsMigration-marked SQL files (initial DDL, base/seed data, iteration scripts), server locus, built on the tom_core_server migration engine (TomDbMigrations, mapping doc codespecs_mapping.md §5.27). MIGTG supplies the datasource/schema directory placement; SCMST.artifactKind supplies CsMigrationKind and SCMST.environments the filename environment tag."
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D03InformationModel"
           }
         }
       ],
@@ -239287,6 +239430,7 @@
       "name": "ServerOperationRegistry",
       "sectionId": "SVOPR",
       "doc": "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).",
+      "detailedIn": "D03InformationModel",
       "standardReferences": {
         "standards": [
           "ISO/IEC/IEEE 42010 — architecture description (interface contracts)",
@@ -239318,6 +239462,12 @@
               "CodeSpecPart.serverApi"
             ],
             "note": "the registry of server operations"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D03InformationModel"
           }
         }
       ],
@@ -248488,6 +248638,7 @@
       "name": "StageEntry",
       "sectionId": "STAGE",
       "doc": "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.",
+      "detailedIn": "D11DeliveryRoadmap",
       "annotations": [
         {
           "name": "SectionId",
@@ -248505,6 +248656,12 @@
               "FollowUpProcess.l10n"
             ],
             "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D11DeliveryRoadmap"
           }
         }
       ],

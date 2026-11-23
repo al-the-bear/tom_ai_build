@@ -1,6 +1,6 @@
 /// D12 — Transition & Rollout Plan.
 ///
-/// Phase 3 DocSpec root class. Aggregates 11 top-level sections projected
+/// Phase 3 DocSpec root class. Aggregates 13 top-level sections projected
 /// from the Solution Blueprint localization, translation, and
 /// documentation sections plus the system-rollout-concept subtree.
 library;
@@ -74,58 +74,62 @@ class D12TransitionRolloutPlan extends DocSpecsSection {
   @SerializationOrder(5)
   TranslationProcess translationProcess = TranslationProcess();
 
+  /// Multi-language rollout plan: the locales' rollout by region and time.
+  @SerializationOrder(6)
+  LocaleRolloutPlan localeRolloutPlan = LocaleRolloutPlan();
+
   /// User documentation requirements (doc half of the former DOANTR;
   /// split in L34C-7).
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   UserDocumentationRequirements userDocumentation =
       UserDocumentationRequirements();
 
   /// Training deliverable requirements (training half of the former DOANTR;
   /// split in L34C-7).
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   TrainingDeliverableRequirements trainingDeliverables =
       TrainingDeliverableRequirements();
 
   // ─── System Rollout Concept (flattened) ──────────────────────────────────
 
   /// Rollout plan.
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   RolloutPlan rolloutPlan = RolloutPlan();
 
   /// Migration plan.
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   MigrationPlan migrationPlan = MigrationPlan();
 
   /// User manuals.
   ///
   /// One whole-catalog content section; collapsed from `List<UserManual>`
   /// (L34C-12 SR-57).
-  @SerializationOrder(10)
+  @SerializationOrder(11)
   UserManual userManuals = UserManual();
 
   /// Training materials.
   ///
   /// One whole-catalog content section; collapsed from
   /// `List<RolloutTrainingMaterial>` (L34C-12 SR-57).
-  @SerializationOrder(11)
+  @SerializationOrder(12)
   RolloutTrainingMaterial trainingMaterials = RolloutTrainingMaterial();
 
   /// Pilot plan.
-  @SerializationOrder(12)
+  @SerializationOrder(13)
   PilotPlan pilotPlan = PilotPlan();
 
   /// Cutover procedures.
   ///
   /// One whole-catalog content section; collapsed from `List<CutoverProcedure>`
   /// (L34C-12 SR-57).
-  @SerializationOrder(13)
+  @SerializationOrder(14)
   CutoverProcedure cutoverProcedures = CutoverProcedure();
 
   /// Knowledge transfer.
-  @SerializationOrder(14)
+  @SerializationOrder(15)
   KnowledgeTransfer knowledgeTransfer = KnowledgeTransfer();
 
   /// Warranty and support.
-  @SerializationOrder(15)
+  @SerializationOrder(16)
   WarrantyAndSupport warrantyAndSupport = WarrantyAndSupport();
 }

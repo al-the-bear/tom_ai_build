@@ -18,7 +18,7 @@
   `SHARED-ANCHOR`, `SUMMARY-LINK`, `DERIVE-SOURCE`, `DERIVE-ACYCLIC`,
   `INVERSE-PAIR` and `EXTRACT-LINK`, with one place resolver
   (`lib/src/link_invariants.dart`). `SHARED-COVER` is a warning, once per
-  `@DetailedIn` without a `@SyncedWith` beside it (118 on the model today).
+  `@DetailedIn` without a `@SyncedWith` beside it (132 on the model today).
 
 ## 0.18.0
 

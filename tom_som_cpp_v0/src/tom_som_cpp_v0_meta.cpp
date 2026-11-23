@@ -636,6 +636,7 @@ void buildLimitationEntryChildren(som::SomMetaNode& parent, std::vector<std::str
 void buildLoadProfileRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildLocalDevelopmentSetupChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildLocaleHandlingRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildLocaleRolloutPlanChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildLocalizationProcessChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildLocalizationTranslationProcessChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildLocalizationTranslationRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -10149,6 +10150,7 @@ void buildBusinessObjectModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.typeName = "BusinessObjectEntry";
         n.docComment = "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.";
         n.classDocComment = "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.";
+        n.detailedIn = "D03InformationModel";
       },
       buildBusinessObjectEntryChildren);
     parent.addChild(std::move(ln));
@@ -20535,6 +20537,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.typeName = "DataEntityEntry";
         n.docComment = "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.";
         n.classDocComment = "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.";
+        n.detailedIn = "D03InformationModel";
       },
       buildDataEntityEntryChildren);
     parent.addChild(std::move(ln));
@@ -20606,6 +20609,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.typeName = "BusinessObjectEntry";
         n.docComment = "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.";
         n.classDocComment = "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.";
+        n.detailedIn = "D03InformationModel";
       },
       buildBusinessObjectEntryChildren);
     parent.addChild(std::move(ln));
@@ -20641,6 +20645,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.typeName = "FunctionEntry";
         n.docComment = "A function entry (form).\n\nBusiness function specification in the functional decomposition.";
         n.classDocComment = "A function entry (form).\n\nBusiness function specification in the functional decomposition.";
+        n.detailedIn = "D03InformationModel";
       },
       buildFunctionEntryChildren);
     parent.addChild(std::move(ln));
@@ -20664,6 +20669,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.typeName = "FunctionDataMatrixEntry";
         n.docComment = "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.";
         n.classDocComment = "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.";
+        n.detailedIn = "D03InformationModel";
       },
       buildFunctionDataMatrixEntryChildren);
     parent.addChild(std::move(ln));
@@ -20689,6 +20695,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.typeName = "BusinessRuleEntry";
         n.docComment = "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.";
         n.classDocComment = "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.";
+        n.detailedIn = "D03InformationModel";
       },
       buildBusinessRuleEntryChildren);
     parent.addChild(std::move(ln));
@@ -20756,6 +20763,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.serializationOrder = 16;
         n.docComment = "Domain enum registry — the closed value sets the data model relies on\n(`domainEnum` home + closed-choice discriminator source, csmb3).";
         n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
+        n.detailedIn = "D03InformationModel";
       },
       buildDomainEnumRegistryChildren);
     parent.addChild(std::move(n));
@@ -20772,6 +20780,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.serializationOrder = 17;
         n.docComment = "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).";
         n.classDocComment = "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.";
+        n.detailedIn = "D03InformationModel";
       },
       buildErrorCodeRegistryChildren);
     parent.addChild(std::move(n));
@@ -20788,6 +20797,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.serializationOrder = 18;
         n.docComment = "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe success-or-error `Result` envelope; CE-ER home. Realised per\napplication in `<app>_codespec_shared` — a response envelope is\napplication domain, so no framework type backs it (csmb5).";
         n.classDocComment = "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the result/error envelope authored per application in\n`<app>_codespec_shared` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.";
+        n.detailedIn = "D03InformationModel";
       },
       buildResultEnvelopeChildren);
     parent.addChild(std::move(n));
@@ -20804,6 +20814,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.serializationOrder = 19;
         n.docComment = "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).";
         n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.";
+        n.detailedIn = "D03InformationModel";
       },
       buildMessageKeyRegistryChildren);
     parent.addChild(std::move(n));
@@ -20820,6 +20831,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.serializationOrder = 20;
         n.docComment = "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.";
         n.classDocComment = "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).";
+        n.detailedIn = "D03InformationModel";
       },
       buildServerOperationRegistryChildren);
     parent.addChild(std::move(n));
@@ -20836,6 +20848,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.serializationOrder = 21;
         n.docComment = "Schema versioning and migration — the CE-MG home: the versioning policy,\nthe data source / schema targets, and the ordered artifact set that\nestablishes and evolves the schema.\n\nProjected here because the artifact chain must converge on the entity and\nattribute model this document owns.";
         n.classDocComment = "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.";
+        n.detailedIn = "D03InformationModel";
       },
       buildSchemaVersioningAndMigrationChildren);
     parent.addChild(std::move(n));
@@ -21999,6 +22012,7 @@ void buildD08SecurityAccessSpecificationChildren(som::SomMetaNode& parent, std::
         n.serializationOrder = 12;
         n.docComment = "Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.";
         n.classDocComment = "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.";
+        n.detailedIn = "D08SecurityAccessSpecification";
       },
       buildComplianceReportingChildren);
     parent.addChild(std::move(n));
@@ -22160,6 +22174,8 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.serializationOrder = 8;
         n.docComment = "Report definitions — the CE-RP report projections over the domain model.";
         n.classDocComment = "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).";
+        n.mapsTo = "D09ExperienceDesignSpecification";
+        n.detailedIn = "D09ExperienceDesignSpecification";
       },
       buildReportDefinitionsChildren);
     parent.addChild(std::move(n));
@@ -22832,6 +22848,7 @@ void buildD11DeliveryRoadmapChildren(som::SomMetaNode& parent, std::vector<std::
         n.typeName = "StageEntry";
         n.docComment = "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.";
         n.classDocComment = "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.";
+        n.detailedIn = "D11DeliveryRoadmap";
       },
       buildStageEntryChildren);
     parent.addChild(std::move(ln));
@@ -23048,6 +23065,24 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
     parent.addChild(std::move(n));
   }
   {
+    auto n = metaCx("LocaleRolloutPlan", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "LocaleRolloutPlan";
+        n.memberName = "localeRolloutPlan";
+        n.classSectionId = "LOCRP";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "LocaleRolloutPlan";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 6;
+        n.docComment = "Multi-language rollout plan: the locales' rollout by region and time.";
+        n.classDocComment = "Multi-language rollout plan.\n\nThe rollout sequencing of the supported locales by region and time: which\nlanguages are delivered with which release, in which geographic order, and\nby which strategy. Detailed in the Transition & Rollout Plan beside the\nlocalization and translation processes.";
+        n.mapsTo = "D12TransitionRolloutPlan";
+        n.detailedIn = "D12TransitionRolloutPlan";
+      },
+      buildLocaleRolloutPlanChildren);
+    parent.addChild(std::move(n));
+  }
+  {
     auto n = metaCx("UserDocumentationRequirements", stack,
       [](som::SomMetaNode& n) {
         n.className = "UserDocumentationRequirements";
@@ -23056,7 +23091,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "UserDocumentationRequirements";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 6;
+        n.serializationOrder = 7;
         n.docComment = "User documentation requirements (doc half of the former DOANTR;\nsplit in L34C-7).";
         n.classDocComment = "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9\n`InformationForUseRequirements` (`IFUR`) while physically staying in this\nfile alongside its `DATD`/`DATL` sub-forms and the shared `TextSection`.\nRetains `DOANTR` + the shared `TRP-DOC` D12 detail subsection.";
         n.mapsTo = "D12TransitionRolloutPlan";
@@ -23074,7 +23109,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "TrainingDeliverableRequirements";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 7;
+        n.serializationOrder = 8;
         n.docComment = "Training deliverable requirements (training half of the former DOANTR;\nsplit in L34C-7).";
         n.classDocComment = "10.12.3b. Training Deliverable Requirements.\n\nEnd-user training materials and module catalogue. The training half of the\nformer `DocumentationAndTraining` (`DOANTR`); split from its documentation\nhalf in L34C-7 (SR-29). Logically re-homed under SBP.9\n`TrainingEnablementRequirements` (`TREQ`) while physically staying in this\nfile. Maps to D12 under the existing training detail subsection `TRP-TRN`\n(shared with SBP.15 `RolloutTrainingMaterial`), grouping all training\ncontent in one D12 subsection rather than fragmenting it across a new id.";
         n.mapsTo = "D12TransitionRolloutPlan";
@@ -23092,7 +23127,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "RolloutPlan";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 8;
+        n.serializationOrder = 9;
         n.docComment = "Rollout plan.";
         n.classDocComment = "15.1. Rollout Plan.\n\nGeographic and/or user-group rollout plan covering rollout-plan\ncontent: the sequencing of sites, countries, business units, and user\ncohorts across the go-live waves.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -23109,7 +23144,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "MigrationPlan";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 9;
+        n.serializationOrder = 10;
         n.docComment = "Migration plan.";
         n.classDocComment = "15.2. Migration Plan.\n\nEnd-to-end system migration plan covering migration-plan content:\ndata, configuration, integration, and user migration from the current\nlandscape to the target.\n\nThis is the rollout/cutover *runbook* (execution). The staged-migration\n*strategy* (phasing, sequencing, data-migration approach) is owned by\n`DataMigrationStrategy` (`DRM`); reference it rather than restating the\nstrategy here.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -23126,7 +23161,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "UserManual";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 10;
+        n.serializationOrder = 11;
         n.docComment = "User manuals.\n\nOne whole-catalog content section; collapsed from `List<UserManual>`\n(L34C-12 SR-57).";
         n.classDocComment = "15.3. User Manuals.\n\nEnd-user documentation deliverables covering user-manual content.\n\nThis is the *execution* side of user documentation. The documentation\n*requirements* (deliverables, formats, platforms, versioning,\nlocalization) are owned by SBP.9 `InformationForUseRequirements`\n(`IFUR`); reference them via the shared `TRP-DOC` detail link rather\nthan restating the requirements here.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -23143,7 +23178,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "RolloutTrainingMaterial";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 11;
+        n.serializationOrder = 12;
         n.docComment = "Training materials.\n\nOne whole-catalog content section; collapsed from\n`List<RolloutTrainingMaterial>` (L34C-12 SR-57).";
         n.classDocComment = "15.4. Training Materials.\n\nTraining deliverables covering training-material content.\n\nThis is the *execution* side of training. The training *requirements*\n(audiences, competency outcomes, certification, ongoing enablement) are\nowned by SBP.9 `TrainingEnablementRequirements` (`TREQ`); reference them\nvia the shared `TRP-TRN` detail link rather than restating the\nrequirements here.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -23160,7 +23195,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "PilotPlan";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 12;
+        n.serializationOrder = 13;
         n.docComment = "Pilot plan.";
         n.classDocComment = "15.5. Pilot Plan.\n\nPilot scope, cohort selection, success criteria, and exit decision rules.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -23177,7 +23212,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "CutoverProcedure";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 13;
+        n.serializationOrder = 14;
         n.docComment = "Cutover procedures.\n\nOne whole-catalog content section; collapsed from `List<CutoverProcedure>`\n(L34C-12 SR-57).";
         n.classDocComment = "15.6. Cutover Procedures.\n\nDetailed cutover runbook for go-live. Minute-by-minute procedure\ncovering the transition from current operation to the target system.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -23194,7 +23229,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "KnowledgeTransfer";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 14;
+        n.serializationOrder = 15;
         n.docComment = "Knowledge transfer.";
         n.classDocComment = "15.7. Knowledge Transfer.\n\nHandover from delivery team to operations. Covers handover-agreement\ncontent.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -23211,7 +23246,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "WarrantyAndSupport";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 15;
+        n.serializationOrder = 16;
         n.docComment = "Warranty and support.";
         n.classDocComment = "15.8. Warranty and Support.\n\nPost-acceptance warranty period terms and support arrangements. Covers\nwarranty content and feeds the TRP top-level on the same topic.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -23264,6 +23299,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.comment = "locus: shared — domainEnum (member kind)";
         n.docComment = "Domain enum registry — the closed value sets, shared by client & server.\n\n`domainEnum` is a **member kind, not a part** (`codespecs_mapping.md`\n§4.1): each enum is authored once here and realised as a plain Dart `enum`\nmarked `@CsEnum`, placed in the shared project iff a shared contract type\nreferences it — which is what this registry's shared locus assumes —\notherwise in the project of the part that introduces it.";
         n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
+        n.detailedIn = "D03InformationModel";
       },
       buildDomainEnumRegistryChildren);
     parent.addChild(std::move(n));
@@ -23281,6 +23317,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.comment = "locus: shared — CE-ER";
         n.docComment = "Error code registry — CE-ER shared error-code vocabulary.";
         n.classDocComment = "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.";
+        n.detailedIn = "D03InformationModel";
       },
       buildErrorCodeRegistryChildren);
     parent.addChild(std::move(n));
@@ -23298,6 +23335,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.comment = "locus: shared — CE-ER";
         n.docComment = "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe shared success-or-error envelope: success payload **or** structured\nerror (code, message, field-level details).";
         n.classDocComment = "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the result/error envelope authored per application in\n`<app>_codespec_shared` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.";
+        n.detailedIn = "D03InformationModel";
       },
       buildResultEnvelopeChildren);
     parent.addChild(std::move(n));
@@ -23315,6 +23353,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.comment = "locus: shared — CE-TX";
         n.docComment = "Message key registry — CE-TX author-copy-once keys, shared.";
         n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.";
+        n.detailedIn = "D03InformationModel";
       },
       buildMessageKeyRegistryChildren);
     parent.addChild(std::move(n));
@@ -23438,6 +23477,8 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.comment = "locus: server — CE-RP";
         n.docComment = "Report definitions — CE-RP grouped projections over the domain model.\n\nThe definition is where the report runs, so the subtree's locus is the\nserver. Its shared half — the result envelope and the parameter shapes the\nclient reads — is **derived from this same subtree** rather than authored\nin a second SOM section, so it needs no separate shared-locus entry; the\ngeneric `ResultEnvelope` above covers the CE-ER contract it rides on. The\nenvironment-wide print and export *settings* are CE-CF, not CE-RP, and are\nthe sibling entry below.";
         n.classDocComment = "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).";
+        n.mapsTo = "D09ExperienceDesignSpecification";
+        n.detailedIn = "D09ExperienceDesignSpecification";
       },
       buildReportDefinitionsChildren);
     parent.addChild(std::move(n));
@@ -23474,6 +23515,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.comment = "locus: server — CE-MG";
         n.docComment = "Schema versioning and migration — CE-MG migration artifacts.\n\nThe artifacts ship with the server project because that is where the\nmigration engine runs them (`codespecs_mapping.md` §4.2). The subtree\nsupplies all three inputs the `@CsMigration` declaration needs: `MIGTG`\ngives the data source / schema directory placement, `SCMST.artifactKind`\nthe artifact kind, and `SCMST.environments` the filename environment tag.\nThe artifact *filenames* are authored, not derived — a\n`codespecs_mapping.md` §5.23 string exemption — so they are not part of\nthe generated surface.\n\nThe subtree sits beside `dataModel` above for a reason: the cumulative\neffect of a schema's artifacts must converge on the CE-DB model that entry\ngenerates, and that convergence is a validator check over both.";
         n.classDocComment = "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.";
+        n.detailedIn = "D03InformationModel";
       },
       buildSchemaVersioningAndMigrationChildren);
     parent.addChild(std::move(n));
@@ -23491,6 +23533,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.comment = "locus: shared(CE-API contract)+server(CE-API operations)";
         n.docComment = "Server operation registry — the application's **own** CE-API surface.\n\nThe one subtree that declares what the system answers. It spans two loci\nbecause a CE-API operation generates two halves (`codespecs_mapping.md`\n§4.2): the **operation catalogue and the request/response types** are\nshared — the client cites an operation and depends on its shapes — while\nthe **operation itself** lands on the owning service unit in the server\nproject. Which service unit that is follows from each operation's primary\nwritten data entity (`codespecs_mapping.md` §5.17), so ownership is\nderived here rather than declared.\n\nThe external-interface inventory (EXIN, D07 IIS) is deliberately **not**\nreachable from this projection: it describes third-party interfaces the\nsystem talks to, not the surface the system generates.";
         n.classDocComment = "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).";
+        n.detailedIn = "D03InformationModel";
       },
       buildServerOperationRegistryChildren);
     parent.addChild(std::move(n));
@@ -25854,6 +25897,7 @@ void buildDataModelChildren(som::SomMetaNode& parent, std::vector<std::string>& 
         n.typeName = "DataEntityEntry";
         n.docComment = "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.";
         n.classDocComment = "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.";
+        n.detailedIn = "D03InformationModel";
       },
       buildDataEntityEntryChildren);
     parent.addChild(std::move(ln));
@@ -28644,20 +28688,21 @@ void buildDeliveryTransitionAndRolloutChildren(som::SomMetaNode& parent, std::ve
     parent.addChild(std::move(n));
   }
   {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "DeliveryTransitionAndRollout";
-    (*n).memberName = "localeRolloutPlan";
-    (*n).sectionId = "LOCRP";
-    (*n).kind = som::kSomMetaKindForm;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 4;
-    (*n).docComment = "Multi-language rollout sequencing by region and time (re-homed from MLAR).";
-    (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"rolloutTimeline", "String", "Rollout Timeline", false, "High-level rollout schedule", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"rolloutRegions", "String", "Rollout Regions", false, "Geographic rollout order", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"rolloutStrategy", "String", "Rollout Strategy", false, "Big bang, phased, pilot", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 3166 — country and region codes define the geographic rollout order\",\"ISO 8601 — the standard representation for the rollout timeline and schedule\"],\"connotation\":\"The rollout strategy, timeline, and regional sequencing for locale availability.\"}", nullptr)});
+    auto n = metaCx("LocaleRolloutPlan", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "LocaleRolloutPlan";
+        n.memberName = "localeRolloutPlan";
+        n.classSectionId = "LOCRP";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "LocaleRolloutPlan";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 4;
+        n.docComment = "Multi-language rollout sequencing by region and time (re-homed from MLAR).";
+        n.classDocComment = "Multi-language rollout plan.\n\nThe rollout sequencing of the supported locales by region and time: which\nlanguages are delivered with which release, in which geographic order, and\nby which strategy. Detailed in the Transition & Rollout Plan beside the\nlocalization and translation processes.";
+        n.mapsTo = "D12TransitionRolloutPlan";
+        n.detailedIn = "D12TransitionRolloutPlan";
+      },
+      buildLocaleRolloutPlanChildren);
     parent.addChild(std::move(n));
   }
 }
@@ -35866,6 +35911,8 @@ void buildExperienceAndInterfaceDesignChildren(som::SomMetaNode& parent, std::ve
         n.serializationOrder = 2;
         n.docComment = "10.2. Report Definitions — the CE-RP CodeSpecs subtree.";
         n.classDocComment = "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).";
+        n.mapsTo = "D09ExperienceDesignSpecification";
+        n.detailedIn = "D09ExperienceDesignSpecification";
       },
       buildReportDefinitionsChildren);
     parent.addChild(std::move(n));
@@ -39666,6 +39713,7 @@ void buildFunctionModelChildren(som::SomMetaNode& parent, std::vector<std::strin
         n.typeName = "FunctionEntry";
         n.docComment = "A function entry (form).\n\nBusiness function specification in the functional decomposition.";
         n.classDocComment = "A function entry (form).\n\nBusiness function specification in the functional decomposition.";
+        n.detailedIn = "D03InformationModel";
       },
       buildFunctionEntryChildren);
     parent.addChild(std::move(ln));
@@ -39691,6 +39739,7 @@ void buildFunctionModelChildren(som::SomMetaNode& parent, std::vector<std::strin
         n.typeName = "FunctionDataMatrixEntry";
         n.docComment = "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.";
         n.classDocComment = "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.";
+        n.detailedIn = "D03InformationModel";
       },
       buildFunctionDataMatrixEntryChildren);
     parent.addChild(std::move(ln));
@@ -39718,6 +39767,7 @@ void buildFunctionModelChildren(som::SomMetaNode& parent, std::vector<std::strin
         n.typeName = "BusinessRuleEntry";
         n.docComment = "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.";
         n.classDocComment = "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.";
+        n.detailedIn = "D03InformationModel";
       },
       buildBusinessRuleEntryChildren);
     parent.addChild(std::move(ln));
@@ -42691,6 +42741,7 @@ void buildInformationAndDataModelChildren(som::SomMetaNode& parent, std::vector<
         n.serializationOrder = 4;
         n.docComment = "7.4. Schema Versioning and Migration.";
         n.classDocComment = "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.";
+        n.detailedIn = "D03InformationModel";
       },
       buildSchemaVersioningAndMigrationChildren);
     parent.addChild(std::move(n));
@@ -42707,6 +42758,7 @@ void buildInformationAndDataModelChildren(som::SomMetaNode& parent, std::vector<
         n.serializationOrder = 5;
         n.docComment = "7.5. Domain Enum Registry.";
         n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
+        n.detailedIn = "D03InformationModel";
       },
       buildDomainEnumRegistryChildren);
     parent.addChild(std::move(n));
@@ -42723,6 +42775,7 @@ void buildInformationAndDataModelChildren(som::SomMetaNode& parent, std::vector<
         n.serializationOrder = 6;
         n.docComment = "7.6. Error Code Registry.";
         n.classDocComment = "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.";
+        n.detailedIn = "D03InformationModel";
       },
       buildErrorCodeRegistryChildren);
     parent.addChild(std::move(n));
@@ -42739,6 +42792,7 @@ void buildInformationAndDataModelChildren(som::SomMetaNode& parent, std::vector<
         n.serializationOrder = 7;
         n.docComment = "7.7. Result Envelope.";
         n.classDocComment = "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the result/error envelope authored per application in\n`<app>_codespec_shared` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.";
+        n.detailedIn = "D03InformationModel";
       },
       buildResultEnvelopeChildren);
     parent.addChild(std::move(n));
@@ -42755,6 +42809,7 @@ void buildInformationAndDataModelChildren(som::SomMetaNode& parent, std::vector<
         n.serializationOrder = 8;
         n.docComment = "7.8. Message Key Registry.";
         n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.";
+        n.detailedIn = "D03InformationModel";
       },
       buildMessageKeyRegistryChildren);
     parent.addChild(std::move(n));
@@ -42771,6 +42826,7 @@ void buildInformationAndDataModelChildren(som::SomMetaNode& parent, std::vector<
         n.serializationOrder = 9;
         n.docComment = "7.9. Server Operation Registry.\n\nThe system's **own** operation surface (CE-API): one entry per operation\nthe server answers, with its request/response members, the data entity it\nprimarily writes, and its authorization requirement.";
         n.classDocComment = "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).";
+        n.detailedIn = "D03InformationModel";
       },
       buildServerOperationRegistryChildren);
     parent.addChild(std::move(n));
@@ -47946,6 +48002,25 @@ void buildLocaleHandlingRequirementsChildren(som::SomMetaNode& parent, std::vect
     (*n).form->fields.push_back(som::SomFormFieldMeta{"countryVariants", "String", "Country Variants", false, "en-US vs en-GB, de-DE vs de-AT", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"localeDetection", "String", "Locale Detection", false, "Browser, OS, user setting, geo-IP", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"localeFallbackChain", "String", "Locale Fallback Chain", false, "Fallback order when locale not available", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    parent.addChild(std::move(n));
+  }
+}
+
+void buildLocaleRolloutPlanChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "LocaleRolloutPlan";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rolloutTimeline", "String", "Rollout Timeline", false, "High-level rollout schedule", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rolloutRegions", "String", "Rollout Regions", false, "Geographic rollout order", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rolloutStrategy", "String", "Rollout Strategy", false, "Big bang, phased, pilot", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
 }
@@ -74912,6 +74987,7 @@ void buildSecurityOperationsFollowUpChildren(som::SomMetaNode& parent, std::vect
         n.serializationOrder = 2;
         n.docComment = "9.3.2. Compliance Reporting.";
         n.classDocComment = "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.";
+        n.detailedIn = "D08SecurityAccessSpecification";
       },
       buildComplianceReportingChildren);
     parent.addChild(std::move(n));
@@ -84769,6 +84845,7 @@ void buildSystemStagePlanChildren(som::SomMetaNode& parent, std::vector<std::str
         n.typeName = "StageEntry";
         n.docComment = "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.";
         n.classDocComment = "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.";
+        n.detailedIn = "D11DeliveryRoadmap";
       },
       buildStageEntryChildren);
     parent.addChild(std::move(ln));
@@ -103749,6 +103826,9 @@ NavLocalizationProcess navD12TransitionRolloutPlan_localizationProcess(NavD12Tra
 NavTranslationProcess navD12TransitionRolloutPlan_translationProcess(NavD12TransitionRolloutPlan x) {
   return NavTranslationProcess{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "translationProcess"))};
 }
+NavLocaleRolloutPlan navD12TransitionRolloutPlan_localeRolloutPlan(NavD12TransitionRolloutPlan x) {
+  return NavLocaleRolloutPlan{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "localeRolloutPlan"))};
+}
 NavUserDocumentationRequirements navD12TransitionRolloutPlan_userDocumentation(NavD12TransitionRolloutPlan x) {
   return NavUserDocumentationRequirements{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "userDocumentation"))};
 }
@@ -104664,8 +104744,8 @@ NavSystemRollout navDeliveryTransitionAndRollout_systemRollout(NavDeliveryTransi
 NavLocalizationTranslationProcess navDeliveryTransitionAndRollout_localizationTranslationProcess(NavDeliveryTransitionAndRollout x) {
   return NavLocalizationTranslationProcess{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "localizationTranslationProcess"))};
 }
-som::SomMetaRef navDeliveryTransitionAndRollout_localeRolloutPlan(NavDeliveryTransitionAndRollout x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "LOCRP"));
+NavLocaleRolloutPlan navDeliveryTransitionAndRollout_localeRolloutPlan(NavDeliveryTransitionAndRollout x) {
+  return NavLocaleRolloutPlan{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "localeRolloutPlan"))};
 }
 som::SomMetaRef navDependenciesAndIntegrations_content(NavDependenciesAndIntegrations x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -107848,6 +107928,9 @@ som::SomMetaRef navLocalDevelopmentSetup_troubleshooting(NavLocalDevelopmentSetu
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "LODESETR"));
 }
 som::SomMetaRef navLocaleHandlingRequirements_content(NavLocaleHandlingRequirements x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomMetaRef navLocaleRolloutPlan_content(NavLocaleRolloutPlan x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navLocalizationProcess_content(NavLocalizationProcess x) {
@@ -120585,9 +120668,6 @@ som::SomMetaRef idD00SolutionBlueprint_TRPRON(IdD00SolutionBlueprint x) {
 }
 som::SomListMetaRef idD00SolutionBlueprint_TVE_VEND_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TVE-VEND-LST"), metaIdFactoryTranslationVendorEntry);
-}
-som::SomMetaRef idD00SolutionBlueprint_LOCRP(IdD00SolutionBlueprint x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "deliveryTransitionAndRollout/LOCRP"));
 }
 som::SomListMetaRef idD01CurrentLandscapeAssessment_RVMEM_MEMB_LST(IdD01CurrentLandscapeAssessment x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam/RVMEM-MEMB-LST"), metaIdFactoryReviewTeamMember);

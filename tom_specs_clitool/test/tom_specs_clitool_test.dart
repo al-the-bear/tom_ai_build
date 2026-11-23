@@ -130,8 +130,8 @@ void main() {
       ];
       expect(linkErrors, isEmpty, reason: linkErrors.join('\n'));
 
-      // One warning per @DetailedIn — on a class, or on a form member
-      // (LOCRP) — until its @SyncedWith is written beside it.
+      // One warning per @DetailedIn — on a class, or on a form member —
+      // until its @SyncedWith is written beside it.
       bool open(List<AnnotationData> annotations) =>
           annotations.any((a) => a.name == 'DetailedIn') &&
           !annotations.any((a) => a.name == 'SyncedWith');
@@ -146,7 +146,7 @@ void main() {
           .where((w) => w.contains('§10.2 SHARED-COVER:'))
           .toList();
       expect(cover, hasLength(detailed));
-      expect(detailed, 118, reason: 'the model carries 118 @DetailedIn');
+      expect(detailed, 132, reason: 'the model carries 132 @DetailedIn');
     });
 
     test(

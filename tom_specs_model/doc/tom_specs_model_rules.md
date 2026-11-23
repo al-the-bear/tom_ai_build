@@ -1790,7 +1790,163 @@ The 12 Phase 3 documents derive from the SBP, and that derivation is encoded:
 - **`@MapsTo`** records that a target-document section maps back to an SBP
   section (the shallowest SBP class whose whole subtree flows to one document).
 - **`@DetailedIn`** records that an SBP section is elaborated in a downstream
-  document; it must sit under an ancestor carrying `@MapsTo`.
+  document; the section itself or an ancestor carries `@MapsTo` of that
+  document (invariant `DETAIL-ANCHOR`).
+
+**The Blueprint's level.** A `@DetailedIn` section is where the Blueprint's
+level ends: the Blueprint carries the section and what lies above it, and the
+section's subsections are the Phase 3 document's detail. Every `@DetailedIn`
+class is a top-level section of its Phase 3 document, and every top-level
+section of a Phase 3 document (besides its own header, review team and revision
+history) is a `@DetailedIn` class of that document: a Phase 3 document is the
+set of its pairs. The Blueprint may go deeper where it has a reason — a section
+both documents hold is common and kept in sync in full (§9.7) — so a pair's
+`@SyncedWith(detailOnly: [...])` names only the exceptions: places below a
+section the Blueprint holds that only the Phase 3 document carries. Only the
+four requirement pairs have them. The holder of every pair is the Phase 3
+document. A `@DetailedIn` on the element class of a list (`CUOPME`, `DAENT`,
+`STAGE`, …) makes each element a section of the Phase 3 document.
+`AcceptanceCriteriaList` (`ACRITL`) is reached at two places on each side and
+lies inside `AcceptanceCriteriaSummary` (`ACCRSU`), a pair of its own; its
+positions pair by their path (invariant `SHARED-ANCHOR`), and `ACCRSU`'s
+`@SyncedWith` leaves it to the inner pair.
+
+The 132 pairs, by document and by their place in the Blueprint:
+
+| Section | Class | Document | Level in the Blueprint | `detailOnly` |
+| --- | --- | --- | --- | --- |
+| `CUBUPR` | CurrentBusinessProcesses | CLA | `currentLandscape/currentBusinessProcesses` | — |
+| `CUDALA` | CurrentDataLandscape | CLA | `currentLandscape/currentDataLandscape` | — |
+| `CUSTRI` | CurrentStateRiskAssessment | CLA | `currentLandscape/currentStateRisks` | — |
+| `ESLAN` | ExistingSystemsLandscape | CLA | `currentLandscape/existingSystemsLandscape` | — |
+| `CUOPME` | CurrentOperationalMetric | CLA | `currentLandscape/operationalMetrics[]` | — |
+| `PPAG` | PainPointsAndGaps | CLA | `currentLandscape/painPointsAndGaps` | — |
+| `MIGCON` | MigrationConsiderations | CLA | `introductionAndScope/systemsToReplace/migrationConsiderations` | — |
+| `RI` | ReplacementInventory | CLA | `introductionAndScope/systemsToReplace/replacementInventory` | — |
+| `CRPRAN` | CrossProcessAnalysis | TOM | `targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/crossProcessAnalysis` | — |
+| `PDPRI` | ProcessDesignPrinciples | TOM | `targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/designPrinciples` | — |
+| `DEPRWO` | DetailedProcessWorkflow | TOM | `targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/detailedWorkflows[]` | — |
+| `PREXHA` | ProcessExceptionHandling | TOM | `targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/exceptionHandling` | — |
+| `PRIMSU` | ProcessImprovementSummary | TOM | `targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/improvementSummary` | — |
+| `PRCAT` | ProcessCatalog | TOM | `targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processCatalog` | — |
+| `PMAK` | ProcessMetric | TOM | `targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processMetricsAndKpis[]` | — |
+| `PROVDI` | ProcessOverviewDiagram | TOM | `targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processOverviewDiagram` | — |
+| `PR` | ProcessRelationships | TOM | `targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processRelationships` | — |
+| `PRVIZ` | ProcessVision | TOM | `targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processVision` | — |
+| `BJOEN` | BusinessObjectEntry | IFM | `informationAndDataModel/businessObjectModel/objects[]` | — |
+| `DATCL` | DataClassification | IFM | `informationAndDataModel/dataModel/dataClassification` | — |
+| `DADI` | DataDictionary | IFM | `informationAndDataModel/dataModel/dataDictionary` | — |
+| `DAENT` | DataEntityEntry | IFM | `informationAndDataModel/dataModel/entities[]` | — |
+| `ENREL` | EntityRelationships | IFM | `informationAndDataModel/dataModel/entityRelationships` | — |
+| `INCO` | IntegrityConstraints | IFM | `informationAndDataModel/dataModel/integrityConstraints` | — |
+| `VACO` | ValidationConstraints | IFM | `informationAndDataModel/dataModel/validationConstraints` | — |
+| `DOMEN` | DomainEnumRegistry | IFM | `informationAndDataModel/domainEnumRegistry` | — |
+| `ERCRG` | ErrorCodeRegistry | IFM | `informationAndDataModel/errorCodeRegistry` | — |
+| `BIRU` | BusinessRuleEntry | IFM | `informationAndDataModel/functionModel/businessRules[]` | — |
+| `FUNCT` | FunctionEntry | IFM | `informationAndDataModel/functionModel/functions[]` | — |
+| `FNDMX` | FunctionDataMatrixEntry | IFM | `informationAndDataModel/functionModel/matrixEntries[]` | — |
+| `MSGKR` | MessageKeyRegistry | IFM | `informationAndDataModel/messageKeyRegistry` | — |
+| `RSLTE` | ResultEnvelope | IFM | `informationAndDataModel/resultEnvelope` | — |
+| `SCHMG` | SchemaVersioningAndMigration | IFM | `informationAndDataModel/schemaVersioningAndMigration` | — |
+| `SVOPR` | ServerOperationRegistry | IFM | `informationAndDataModel/serverOperationRegistry` | — |
+| `FR` | FunctionalRequirements | RSP | `introductionAndScope/requirements/functionalRequirements` | `REQDEP`, `RBR`, `RETECA`, `RETRAR.relatedTestCases`, `FREM`, `FREC.assumptions`, `FREC.conflictsWith`, `FRED.requirementType`, `FREV.fitCriterion`, `RT-TRAC.relatedGoals` |
+| `OR` | OrganizationalRequirements | RSP | `introductionAndScope/requirements/organizationalRequirements` | `REQDEP`, `ORIP` |
+| `REQCOV` | RequirementCoverage | RSP | `introductionAndScope/requirements/requirementCoverage` | — |
+| `RERE` | RequirementRelationships | RSP | `introductionAndScope/requirements/requirementRelationships[]` | — |
+| `SR1` | SecurityRequirements | RSP | `introductionAndScope/requirements/securityRequirements` | `REQDEP`, `RETRAR.relatedTestCases` |
+| `TR1` | TechnicalRequirements | RSP | `introductionAndScope/requirements/technicalRequirements` | `REQDEP`, `RETRAR.relatedTestCases` |
+| `ACOV` | ActorOverview | ISC | `targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview` | — |
+| `ACREDI` | ActorRelationshipDiagram | ISC | `targetOperatingModelConcept/processStepsAndActorInteractions/actorRelationshipDiagram` | — |
+| `ETETS` | EndToEndTestScenario | ISC | `targetOperatingModelConcept/processStepsAndActorInteractions/endToEndTestScenarios[]` | — |
+| `INCA` | InteractionCatalog | ISC | `targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog` | — |
+| `KESC` | KeyScenarios | ISC | `targetOperatingModelConcept/processStepsAndActorInteractions/keyScenarios` | — |
+| `PRSTOV` | ProcessStepsOverview | ISC | `targetOperatingModelConcept/processStepsAndActorInteractions/overview` | — |
+| `USCATR` | UseCaseTraceability | ISC | `targetOperatingModelConcept/processStepsAndActorInteractions/useCaseTraceability` | — |
+| `TEEN` | TechnicalEnvironment | ATS | `introductionAndScope/operatingEnvironment/technicalEnvironment` | — |
+| `TRAREQ` | TranslationRequirements | ATS | `requirements/requirementsFollowUp/localizationTranslation/translationRequirements` | — |
+| `COMP` | ComponentsAndDependencies | ATS | `solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse` | — |
+| `BTREQ` | BasicTechnicalRequirements | ATS | `solutionArchitectureAndTechnology/technicalFramework/basicRequirements` | — |
+| `COMREQ` | CommunicationRequirements | ATS | `solutionArchitectureAndTechnology/technicalFramework/communication` | — |
+| `HR` | HardwareRequirements | ATS | `solutionArchitectureAndTechnology/technicalFramework/hardware` | — |
+| `OPRE` | OperationsRequirements | ATS | `solutionArchitectureAndTechnology/technicalFramework/operations` | — |
+| `TSR` | TechnicalSecurityRequirements | ATS | `solutionArchitectureAndTechnology/technicalFramework/security` | — |
+| `SDR` | SoftwareDesignRequirements | ATS | `solutionArchitectureAndTechnology/technicalFramework/softwareDesign` | — |
+| `SSR` | StandardSoftwareRequirements | ATS | `solutionArchitectureAndTechnology/technicalFramework/standardSoftware` | — |
+| `SYARSP` | SystemArchitectureSpec | ATS | `solutionArchitectureAndTechnology/technicalFramework/systemArchitecture` | — |
+| `SOAM` | SystemOperationAndMonitoring | ATS | `solutionArchitectureAndTechnology/technicalFramework/systemOperation` | — |
+| `BOAS` | BoundaryAssumptions | IIS | `introductionAndScope/systemBoundaries/assumptions` | — |
+| `BOINPA` | BoundaryInteractionPatterns | IIS | `introductionAndScope/systemBoundaries/boundaryInteractionPatterns[]` | — |
+| `CBEH` | CrossBoundaryErrorHandling | IIS | `introductionAndScope/systemBoundaries/crossBoundaryErrorHandling` | — |
+| `EXIN` | ExternalInterfaces | IIS | `introductionAndScope/systemBoundaries/externalInterfaces` | — |
+| `INDEAN` | InteractionDependencyAnalysis | IIS | `introductionAndScope/systemBoundaries/interactionDependencyAnalysis` | — |
+| `INTES1` | InteractionTestingStrategy | IIS | `introductionAndScope/systemBoundaries/interactionTestingStrategy` | — |
+| `MIIN` | MigrationInteractions | IIS | `introductionAndScope/systemBoundaries/migrationInteractions[]` | — |
+| `CBOC` | CrossBoundaryOperationalConsiderations | IIS | `introductionAndScope/systemBoundaries/operationalConsiderations[]` | — |
+| `OUOFSC` | OutOfScope | IIS | `introductionAndScope/systemBoundaries/outOfScope` | — |
+| `SYLAIN` | SystemLandscapeInventory | IIS | `introductionAndScope/systemBoundaries/systemLandscapeInventory` | — |
+| `IDAUT` | IdentificationAndAuthentication | SAS | `securityAndAccessModel/accessControl/authentication` | — |
+| `USAU` | UserAuthorization | SAS | `securityAndAccessModel/accessControl/authorization` | — |
+| `RESPRO` | ResourceProtection | SAS | `securityAndAccessModel/accessControl/resourceProtection` | — |
+| `ROMA` | RoleMatrix | SAS | `securityAndAccessModel/accessControl/roleMatrix` | — |
+| `USMGT` | UserManagement | SAS | `securityAndAccessModel/accessControl/userManagement` | — |
+| `AUANLO` | AuditAndLogging | SAS | `securityAndAccessModel/auditAndLogging` | — |
+| `CF` | ComplianceFramework | SAS | `securityAndAccessModel/compliance/complianceFramework` | — |
+| `COMREP` | ComplianceReporting | SAS | `securityAndAccessModel/securityOperations/complianceReporting` | — |
+| `SEDAEN` | SensitiveDataEncryption | SAS | `securityAndAccessModel/securityOperations/encryption` | — |
+| `ACCESS` | Accessibility | XDS | `experienceAndInterfaceDesign/designFollowUp/accessibility` | — |
+| `DEVIZ` | DesignVision | XDS | `experienceAndInterfaceDesign/designFollowUp/designVision` | — |
+| `PRLA` | PrintAndExportLayout | XDS | `experienceAndInterfaceDesign/designFollowUp/printLayout` | — |
+| `PROTOT` | Prototype | XDS | `experienceAndInterfaceDesign/designFollowUp/prototype` | — |
+| `USAS` | UserAssistance | XDS | `experienceAndInterfaceDesign/designFollowUp/userAssistance` | — |
+| `WIANMO` | WireframesAndMockups | XDS | `experienceAndInterfaceDesign/designFollowUp/wireframesAndMockups` | — |
+| `ERHACO` | ErrorHandling | XDS | `experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling` | — |
+| `REDE` | ResponsiveDesign | XDS | `experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign` | — |
+| `SCFLST` | ScreenFlowStructure | XDS | `experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow` | — |
+| `SCRDZ` | ScreenDescriptions | XDS | `experienceAndInterfaceDesign/experienceCodeSpecs/screens` | — |
+| `UICO` | UiComponents | XDS | `experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents` | — |
+| `LACOSE` | LanguageCountrySelection | XDS | `experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection` | — |
+| `REDF` | ReportDefinitions | XDS | `experienceAndInterfaceDesign/reportDefinitions` | — |
+| `ACPR1` | AcceptanceProcess | QAP | `qualityAndAcceptanceModel/deliveryAcceptance/acceptancePlan/acceptanceProcess` | — |
+| `DERE` | DefectResolution | QAP | `qualityAndAcceptanceModel/deliveryAcceptance/acceptancePlan/defectResolution` | — |
+| `SIOFPR` | SignOffProcess | QAP | `qualityAndAcceptanceModel/deliveryAcceptance/acceptancePlan/signOffProcess` | — |
+| `USACTE` | UserAcceptanceTesting | QAP | `qualityAndAcceptanceModel/deliveryAcceptance/acceptancePlan/userAcceptanceTesting` | — |
+| `WATE` | WarrantyTerms | QAP | `qualityAndAcceptanceModel/deliveryAcceptance/acceptancePlan/warranty` | — |
+| `ACCRSU` | AcceptanceCriteriaSummary | QAP | `qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria` | — |
+| `ACRITL` | AcceptanceCriteriaList | QAP | `qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/detailedCriteria` and `qualityAndAcceptanceModel/deliveryAcceptance/acceptancePlan/acceptanceCriteria` | — |
+| `CMPT` | CompatibilityCharacteristic | QAP | `qualityAndAcceptanceModel/systemQualityGoals/compatibility` | — |
+| `DOQUCR` | DocumentationQualityCriteria | QAP | `qualityAndAcceptanceModel/systemQualityGoals/documentationQuality` | — |
+| `FLXC` | FlexibilityCharacteristic | QAP | `qualityAndAcceptanceModel/systemQualityGoals/flexibility` | — |
+| `QLFWK` | QualityFramework | QAP | `qualityAndAcceptanceModel/systemQualityGoals/framework` | — |
+| `FNSU` | FunctionalSuitabilityCharacteristic | QAP | `qualityAndAcceptanceModel/systemQualityGoals/functionalSuitability` | — |
+| `INCP` | InteractionCapabilityCharacteristic | QAP | `qualityAndAcceptanceModel/systemQualityGoals/interactionCapability` | — |
+| `MNTC` | MaintainabilityCharacteristic | QAP | `qualityAndAcceptanceModel/systemQualityGoals/maintainability` | — |
+| `PEEF` | PerformanceEfficiencyCharacteristic | QAP | `qualityAndAcceptanceModel/systemQualityGoals/performanceEfficiency` | — |
+| `QUPR` | QualityPrioritization | QAP | `qualityAndAcceptanceModel/systemQualityGoals/prioritization` | — |
+| `RELC` | ReliabilityCharacteristic | QAP | `qualityAndAcceptanceModel/systemQualityGoals/reliability` | — |
+| `SECC` | SecurityCharacteristic | QAP | `qualityAndAcceptanceModel/systemQualityGoals/security` | — |
+| `TEST` | TestStrategy | QAP | `qualityAndAcceptanceModel/systemQualityGoals/testStrategy` | — |
+| `DAMIST` | DataMigrationStrategy | DRM | `deliveryTransitionAndRollout/systemStagePlan/dataMigration` | — |
+| `FEPR` | FeaturePrioritization | DRM | `deliveryTransitionAndRollout/systemStagePlan/featurePrioritization` | — |
+| `DEPO` | DecisionPoints | DRM | `deliveryTransitionAndRollout/systemStagePlan/governance/decisionPoints` | — |
+| `PHGARE` | PhaseGateReviews | DRM | `deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews` | — |
+| `INDEFL` | InitialDevelopmentFlow | DRM | `deliveryTransitionAndRollout/systemStagePlan/initialDevelopmentFlow` | — |
+| `STAGOV` | StageOverview | DRM | `deliveryTransitionAndRollout/systemStagePlan/stageOverview` | — |
+| `STAGE` | StageEntry | DRM | `deliveryTransitionAndRollout/systemStagePlan/stages[]` | — |
+| `STAGST` | StagingStrategy | DRM | `deliveryTransitionAndRollout/systemStagePlan/strategy` | — |
+| `UPCYFR` | UpgradeCycleFramework | DRM | `deliveryTransitionAndRollout/systemStagePlan/upgradeCycleFramework` | — |
+| `LOCRP` | LocaleRolloutPlan | TRP | `deliveryTransitionAndRollout/localeRolloutPlan` | — |
+| `LOPR` | LocalizationProcess | TRP | `deliveryTransitionAndRollout/localizationTranslationProcess/localizationProcess` | — |
+| `TRPR` | TranslationProcess | TRP | `deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess` | — |
+| `CUTPRC` | CutoverProcedure | TRP | `deliveryTransitionAndRollout/systemRollout/cutoverProcedures` | — |
+| `KNTFR` | KnowledgeTransfer | TRP | `deliveryTransitionAndRollout/systemRollout/knowledgeTransfer` | — |
+| `MIGPLN` | MigrationPlan | TRP | `deliveryTransitionAndRollout/systemRollout/migrationPlan` | — |
+| `PLTPLN` | PilotPlan | TRP | `deliveryTransitionAndRollout/systemRollout/pilotPlan` | — |
+| `RLTPLN` | RolloutPlan | TRP | `deliveryTransitionAndRollout/systemRollout/rolloutPlan` | — |
+| `RLTTM` | RolloutTrainingMaterial | TRP | `deliveryTransitionAndRollout/systemRollout/trainingMaterials` | — |
+| `USRMAN` | UserManual | TRP | `deliveryTransitionAndRollout/systemRollout/userManuals` | — |
+| `WRTSP` | WarrantyAndSupport | TRP | `deliveryTransitionAndRollout/systemRollout/warrantyAndSupport` | — |
+| `DOANTR` | UserDocumentationRequirements | TRP | `requirements/requirementsFollowUp/informationForUse/userDocumentation` | — |
+| `TRMAT` | TrainingDeliverableRequirements | TRP | `requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables` | — |
 
 ### 10.2 The mechanical structural invariants
 
@@ -2007,7 +2163,7 @@ enforceable rather than aspirational.
     on the class or on the form member that carries it. A **warning**, like
     `DETAIL-PRESENT`, so the model generates while the syncs are written: until
     then the warning lists each section whose shared places are not declared
-    yet (118 on the model today).
+    yet (132 on the model today).
 21. **`SHARED-ONE-HOLDER`** — **One holder per place** — a class reached
     beneath two class-level `@SyncedWith` sections towards two different
     documents (a class reused under two seeds, which `PURE-PROJECTION` allows;

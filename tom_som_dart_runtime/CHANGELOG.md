@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 1.12.3
+
+- Version follows the TomSpecs model 1.12.3.
 
 - **The links between places are displayed** (`tom_specs_model_rules.md`
   §9.7): `SyncedWith`, `SummaryOf`, `DerivedFrom` and `ExtractsLinks` join

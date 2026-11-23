@@ -13546,6 +13546,11 @@ func (x *D12TransitionRolloutPlan) TranslationProcess() *TranslationProcess {
 	return NewTranslationProcess(x.Doc(), x.Path()+"/translationProcess")
 }
 
+// Multi-language rollout plan: the locales' rollout by region and time.
+func (x *D12TransitionRolloutPlan) LocaleRolloutPlan() *LocaleRolloutPlan {
+	return NewLocaleRolloutPlan(x.Doc(), x.Path()+"/localeRolloutPlan")
+}
+
 // User documentation requirements (doc half of the former DOANTR;
 // split in L34C-7).
 func (x *D12TransitionRolloutPlan) UserDocumentation() *UserDocumentationRequirements {
@@ -16682,8 +16687,8 @@ func (x *DeliveryTransitionAndRollout) LocalizationTranslationProcess() *Localiz
 }
 
 // Multi-language rollout sequencing by region and time (re-homed from MLAR).
-func (x *DeliveryTransitionAndRollout) LocaleRolloutPlan() *DeliveryTransitionAndRolloutLocaleRolloutPlanForm {
-	return NewDeliveryTransitionAndRolloutLocaleRolloutPlanForm(x.Doc(), x.Path()+"/LOCRP")
+func (x *DeliveryTransitionAndRollout) LocaleRolloutPlan() *LocaleRolloutPlan {
+	return NewLocaleRolloutPlan(x.Doc(), x.Path()+"/localeRolloutPlan")
 }
 
 // 1.1.3. Dependencies and Integrations.
@@ -27218,6 +27223,28 @@ func NewLocaleHandlingRequirements(doc *som.SpecDocument, path string) *LocaleHa
 // §11.4 rule 7); the field values themselves live in the section's `form`.
 func (x *LocaleHandlingRequirements) Content() *LocaleHandlingRequirementsContentForm {
 	return NewLocaleHandlingRequirementsContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// Multi-language rollout plan.
+//
+// The rollout sequencing of the supported locales by region and time: which
+// languages are delivered with which release, in which geographic order, and
+// by which strategy. Detailed in the Transition & Rollout Plan beside the
+// localization and translation processes.
+type LocaleRolloutPlan struct {
+	som.SomNode
+}
+
+// NewLocaleRolloutPlan binds a LocaleRolloutPlan facade to a document and a path.
+func NewLocaleRolloutPlan(doc *som.SpecDocument, path string) *LocaleRolloutPlan {
+	return &LocaleRolloutPlan{SomNode: som.NewSomNode(doc, path)}
+}
+
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in the section's `form`.
+func (x *LocaleRolloutPlan) Content() *LocaleRolloutPlanContentForm {
+	return NewLocaleRolloutPlanContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // 10.12.1. Localization Process.
@@ -100544,56 +100571,6 @@ func (x *DeliveryAcceptanceCriterionEntryVerificationForm) SetEvidenceRequired(v
 	x.Doc().SetFormField(x.Path(), "evidenceRequired", value)
 }
 
-// DeliveryTransitionAndRolloutLocaleRolloutPlanForm is the generated section facade for the `localeRolloutPlan` @Form section: its own
-// content text followed by one typed member per form field.
-type DeliveryTransitionAndRolloutLocaleRolloutPlanForm struct {
-	som.SomNode
-}
-
-// NewDeliveryTransitionAndRolloutLocaleRolloutPlanForm binds a DeliveryTransitionAndRolloutLocaleRolloutPlanForm facade to a document and a path.
-func NewDeliveryTransitionAndRolloutLocaleRolloutPlanForm(doc *som.SpecDocument, path string) *DeliveryTransitionAndRolloutLocaleRolloutPlanForm {
-	return &DeliveryTransitionAndRolloutLocaleRolloutPlanForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this @Form section holds body text before its
-// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *DeliveryTransitionAndRolloutLocaleRolloutPlanForm) CanHaveContent() bool {
-	return true
-}
-
-// Content is the section's own free-text content, before the form fields.
-func (x *DeliveryTransitionAndRolloutLocaleRolloutPlanForm) Content() string {
-	return x.Doc().ContentOr(x.Path())
-}
-
-func (x *DeliveryTransitionAndRolloutLocaleRolloutPlanForm) SetContent(value string) {
-	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *DeliveryTransitionAndRolloutLocaleRolloutPlanForm) RolloutTimeline() string {
-	return x.Doc().FormFieldOr(x.Path(), "rolloutTimeline")
-}
-
-func (x *DeliveryTransitionAndRolloutLocaleRolloutPlanForm) SetRolloutTimeline(value string) {
-	x.Doc().SetFormField(x.Path(), "rolloutTimeline", value)
-}
-
-func (x *DeliveryTransitionAndRolloutLocaleRolloutPlanForm) RolloutRegions() string {
-	return x.Doc().FormFieldOr(x.Path(), "rolloutRegions")
-}
-
-func (x *DeliveryTransitionAndRolloutLocaleRolloutPlanForm) SetRolloutRegions(value string) {
-	x.Doc().SetFormField(x.Path(), "rolloutRegions", value)
-}
-
-func (x *DeliveryTransitionAndRolloutLocaleRolloutPlanForm) RolloutStrategy() string {
-	return x.Doc().FormFieldOr(x.Path(), "rolloutStrategy")
-}
-
-func (x *DeliveryTransitionAndRolloutLocaleRolloutPlanForm) SetRolloutStrategy(value string) {
-	x.Doc().SetFormField(x.Path(), "rolloutStrategy", value)
-}
-
 // DependencyHealthMonitoringCacheForm is the generated section facade for the `cache` @Form section: its own
 // content text followed by one typed member per form field.
 type DependencyHealthMonitoringCacheForm struct {
@@ -138383,6 +138360,56 @@ func (x *LocaleHandlingRequirementsContentForm) LocaleFallbackChain() string {
 
 func (x *LocaleHandlingRequirementsContentForm) SetLocaleFallbackChain(value string) {
 	x.Doc().SetFormField(x.Path(), "localeFallbackChain", value)
+}
+
+// LocaleRolloutPlanContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type LocaleRolloutPlanContentForm struct {
+	som.SomNode
+}
+
+// NewLocaleRolloutPlanContentForm binds a LocaleRolloutPlanContentForm facade to a document and a path.
+func NewLocaleRolloutPlanContentForm(doc *som.SpecDocument, path string) *LocaleRolloutPlanContentForm {
+	return &LocaleRolloutPlanContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *LocaleRolloutPlanContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *LocaleRolloutPlanContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *LocaleRolloutPlanContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *LocaleRolloutPlanContentForm) RolloutTimeline() string {
+	return x.Doc().FormFieldOr(x.Path(), "rolloutTimeline")
+}
+
+func (x *LocaleRolloutPlanContentForm) SetRolloutTimeline(value string) {
+	x.Doc().SetFormField(x.Path(), "rolloutTimeline", value)
+}
+
+func (x *LocaleRolloutPlanContentForm) RolloutRegions() string {
+	return x.Doc().FormFieldOr(x.Path(), "rolloutRegions")
+}
+
+func (x *LocaleRolloutPlanContentForm) SetRolloutRegions(value string) {
+	x.Doc().SetFormField(x.Path(), "rolloutRegions", value)
+}
+
+func (x *LocaleRolloutPlanContentForm) RolloutStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "rolloutStrategy")
+}
+
+func (x *LocaleRolloutPlanContentForm) SetRolloutStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "rolloutStrategy", value)
 }
 
 // LocalizationProcessDeploymentForm is the generated section facade for the `deployment` @Form section: its own

@@ -14913,6 +14913,7 @@ class LogRetentionPolicy extends DocSpecsSection {
       'compliance process. Both, because the same four sections feed both.',
 )
 @SectionId('COMREP')
+@DetailedIn(D08SecurityAccessSpecification)
 class ComplianceReporting extends DocSpecsSection {
   @ContentHelp('''
 Define compliance reporting requirements to satisfy regulatory audits and

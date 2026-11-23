@@ -3,7 +3,7 @@ module github.com/al-the-bear/tom_ai_build/tom_specs_samples/build_a_specificati
 go 1.21
 
 require (
-	github.com/al-the-bear/tom_ai_build/tom_som_go_runtime v1.12.2
+	github.com/al-the-bear/tom_ai_build/tom_som_go_runtime v1.12.3
 	github.com/al-the-bear/tom_ai_build/tom_som_go_v0 v1.12.0
 )
 
