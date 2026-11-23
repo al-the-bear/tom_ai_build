@@ -86,7 +86,7 @@ void main() {
       ..setFormField(
         _form,
         'description',
-        'A party that places orders.\n'
+        'A party that places orders.  \n'
             'It may hold several accounts.',
       )
       ..setFormField(_form, 'owner', 'Sales');
@@ -97,7 +97,7 @@ void main() {
       '| EntityName | Customer |\n'
       '| TableName | customers |\n'
       '\n'
-      'Description: A party that places orders.\n'
+      'Description: A party that places orders.  \n'
       'It may hold several accounts.\n'
       '\n'
       '| TomSpecField | Value |\n'
@@ -145,6 +145,45 @@ void main() {
       '| EntityName | A \\| B |\n'
       '| Pattern | `^(a\\|b)\$` |',
     );
+  });
+
+  test('FT1b: one paragraph wrapped over lines is one row, joined', () {
+    final doc = SpecDocument()
+      ..setFormField(_form, 'entityName', 'Customer')
+      ..setFormField(
+        _form,
+        'description',
+        'A party that places orders.\n'
+            'It may hold several accounts.',
+      )
+      ..setFormField(_form, 'owner', 'Sales');
+    expect(
+      _formBody(_render(doc)),
+      '| TomSpecField | Value |\n'
+      '| --- | --- |\n'
+      '| EntityName | Customer |\n'
+      '| Description | A party that places orders. It may hold several '
+      'accounts. |\n'
+      '| Owner | Sales |',
+    );
+  });
+
+  test('FT1c: a wrapped value with a block line or a hard break stays a '
+      'paragraph', () {
+    for (final value in [
+      'Orders:\n- one\n- two',
+      'A quote\n> follows',
+      'A title\n===',
+      'Hard  \nbreak',
+      'Hard\\\nbreak',
+      ' indented\nline',
+      'A row\n| a | b |',
+    ]) {
+      final doc = SpecDocument()
+        ..setFormField(_form, 'description', value)
+        ..setFormField(_form, 'owner', 'Sales');
+      expect(_formBody(_render(doc)), contains('Description: '), reason: value);
+    }
   });
 
   test('FT5: values that cannot be a cell are paragraphs at their place', () {

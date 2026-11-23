@@ -294,6 +294,13 @@ const _ID_SHAPE = /^[A-Z][A-Z0-9]*(-[A-Z0-9]+)*$/;
 const _BLOCK_START = /^\s*([-*+]\s|\d+[.)]\s|>|```|~~~|:::)/;
 
 /**
+ * A line that is a block of its own, or would make the line above one, beyond
+ * `_BLOCK_START`: a table row, an ATX heading, a setext underline or a
+ * thematic break, an HTML block.
+ */
+const _WRAPPED_LINE_BLOCK = /^(?:\||#{1,6}(?:\s|$)|=+$|(?:[-*_]\s*){3,}$|<)/;
+
+/**
  * The keys of `sorted` at or below `prefix`: a binary search to the first key
  * not before it, then the run sharing it as a prefix, so a large document is
  * not scanned once per list item.
@@ -1405,6 +1412,7 @@ export class SpecDocumentMarkdown {
     if (f.refersTo.length === 0 || f.code) {
       return SpecDocumentMarkdown._cellText(f, value);
     }
+    value = SpecDocumentMarkdown.wrappedParagraphJoined(value) ?? value;
     const ids = value.split(',').map((v) => v.trim());
     if (ids.length === 0 || !ids.every((id) => _ID_SHAPE.test(id))) {
       return SpecDocumentMarkdown._cellText(f, value);
@@ -1501,15 +1509,47 @@ export class SpecDocumentMarkdown {
   /**
    * Whether `value` of form field `f` is written as a table row (reading
    * view, part *What the model says about reading*): not when the model flags
-   * the field `multiParagraph`, nor when the value holds a line break, is a
-   * block of Markdown, holds a backslash directly before `|`, or holds
-   * `<!--`. There is no length limit.
+   * the field `multiParagraph`, nor when the value holds a line break other
+   * than the soft breaks of one wrapped paragraph (`wrappedParagraphJoined`;
+   * a `code` value keeps every line break), is a block of Markdown, holds a
+   * backslash directly before `|`, or holds `<!--`. There is no length limit.
    */
   private static _isCellValue(f: SomFormFieldMeta, value: string): boolean {
     if (f.multiParagraph) return false;
-    if (value.includes('\n') || value.includes('\\|')) return false;
-    if (value.includes('<!--')) return false;
+    if (value.includes('\\|') || value.includes('<!--')) return false;
+    if (
+      value.includes('\n') &&
+      (f.code || SpecDocumentMarkdown.wrappedParagraphJoined(value) === null)
+    ) {
+      return false;
+    }
     return !_BLOCK_START.test(value);
+  }
+
+  /**
+   * `value` on one line when it is one paragraph wrapped over several lines
+   * — no blank line, and no line that Markdown reads as a block or a block's
+   * start (a list item, a quote, a fence, a fenced div, a table row, a
+   * heading, a setext underline or a thematic break), that ends in a hard
+   * break (a trailing backslash or spaces) or that starts with a space: its
+   * soft line breaks, which Markdown reads as spaces, become spaces (SOM
+   * §11.4). Null for any other value, a one-line value among them.
+   */
+  static wrappedParagraphJoined(value: string): string | null {
+    if (!value.includes('\n')) return null;
+    const lines = value.split('\n');
+    for (const l of lines) {
+      if (
+        l === '' ||
+        l !== l.trim() ||
+        l.endsWith('\\') ||
+        _BLOCK_START.test(l) ||
+        _WRAPPED_LINE_BLOCK.test(l)
+      ) {
+        return null;
+      }
+    }
+    return lines.join(' ');
   }
 
   /**
@@ -1517,6 +1557,7 @@ export class SpecDocumentMarkdown {
    * every `|` written `\|`.
    */
   private static _cellText(f: SomFormFieldMeta, value: string): string {
+    value = SpecDocumentMarkdown.wrappedParagraphJoined(value) ?? value;
     const text =
       f.code && _isInlineCode(value) ? _encodeCodeSpan(value) : value;
     return text.replace(/\|/g, '\\|');

@@ -489,7 +489,9 @@ void main() {
           ..setFormField(
             'D00/D00-HDR',
             'author',
-            'Ada Lovelace\nNote: also a mathematician\nplain line',
+            // A hard break keeps it a paragraph (a wrapped paragraph would
+            // be one table cell, SOM §11.4).
+            'Ada Lovelace  \nNote: also a mathematician\nplain line',
           );
         final md1 = _export(doc);
         // The label-shaped continuation is space-escaped on emit.
@@ -499,7 +501,7 @@ void main() {
         expect(report.isClean, isTrue, reason: report.rejections.toString());
         expect(
           reloaded.formField('D00/D00-HDR', 'author'),
-          'Ada Lovelace\nNote: also a mathematician\nplain line',
+          'Ada Lovelace  \nNote: also a mathematician\nplain line',
         );
         expect(_export(reloaded), md1);
       },

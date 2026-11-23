@@ -1131,6 +1131,65 @@
           "PLACED DEMO/SUM — check"
         ]
       }
+    },
+    {
+      "name": "a wrapped one-paragraph value written in its cell on one line is no edit",
+      "state": {
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob, and Alice\nwhen Bob is away"
+          }
+        }
+      },
+      "drop": [
+        "provenance"
+      ],
+      "edits": [],
+      "expect": {
+        "exitCode": 0,
+        "stale": false,
+        "document": {
+          "forms": {
+            "DEMO/DET": {
+              "owner": "Bob, and Alice\nwhen Bob is away"
+            }
+          }
+        },
+        "report": []
+      }
+    },
+    {
+      "name": "an edit of a wrapped one-paragraph value merges its joined text",
+      "state": {
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob, and Alice\nwhen Bob is away"
+          }
+        }
+      },
+      "drop": [
+        "provenance"
+      ],
+      "edits": [
+        [
+          "when Bob is away",
+          "when Bob is ill"
+        ]
+      ],
+      "expect": {
+        "exitCode": 0,
+        "stale": false,
+        "document": {
+          "forms": {
+            "DEMO/DET": {
+              "owner": "Bob, and Alice when Bob is ill"
+            }
+          }
+        },
+        "report": [
+          "MERGED DEMO/DET / owner — 0 pieces put back"
+        ]
+      }
     }
   ]
 }

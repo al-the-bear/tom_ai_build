@@ -384,7 +384,9 @@ function testRoundTripLabelShapedContinuation(): void {
   doc.setFormField(
     'D00/D00-HDR',
     'author',
-    'Ada Lovelace\nNote: also a mathematician\nplain line',
+    // A hard break keeps it a paragraph (a wrapped paragraph would be one
+    // table cell, SOM §11.4).
+    'Ada Lovelace  \nNote: also a mathematician\nplain line',
   );
   const md1 = _export(doc);
   // The label-shaped continuation is space-escaped on emit.
@@ -395,7 +397,7 @@ function testRoundTripLabelShapedContinuation(): void {
   _check(
     'formCont.value',
     reloaded.formField('D00/D00-HDR', 'author') ===
-      'Ada Lovelace\nNote: also a mathematician\nplain line',
+      'Ada Lovelace  \nNote: also a mathematician\nplain line',
     JSON.stringify(reloaded.formField('D00/D00-HDR', 'author')),
   );
   _check('formCont.byteStable', _export(reloaded) === md1);

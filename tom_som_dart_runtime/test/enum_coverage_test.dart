@@ -534,6 +534,15 @@ final List<ExemptEnum> _exempt = [
         'test/spec_checks/project_idea_coverage_test.dart.',
   ),
   ExemptEnum(
+    enumName: 'SecondaryKind',
+    reason: ExemptionReason.processCheck,
+    note:
+        'The four patterns of the marker tool in spec_checks.dart '
+        '(provenance, trace, editorial, references); a Dart-only process '
+        'check, pinned by tom_specs_clitool\'s '
+        'test/spec_checks/mark_secondary_test.dart.',
+  ),
+  ExemptEnum(
     enumName: 'ValueRole',
     reason: ExemptionReason.processCheck,
     note:

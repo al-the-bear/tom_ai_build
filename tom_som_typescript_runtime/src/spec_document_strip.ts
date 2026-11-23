@@ -889,6 +889,15 @@ export class SpecDocumentStrip {
       const keys = Array.from(new Set([...want.keys(), ...got.keys()])).sort(_cmp);
       for (const k of keys) {
         if (!inRoot(k) || want.get(k) === got.get(k)) continue;
+        // A wrapped paragraph written in a table cell reads back on one line
+        // (SOM §11.4).
+        const wk = want.get(k);
+        if (
+          wk !== undefined &&
+          SpecDocumentMarkdown.wrappedParagraphJoined(wk) === got.get(k)
+        ) {
+          continue;
+        }
         const g = got.get(k);
         const w = want.get(k);
         findings.push(

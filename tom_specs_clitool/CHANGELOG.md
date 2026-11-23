@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- `tomspecs :spec-mark-secondary <doc> [--under] [--kinds] [--reflow]
+  [--all] [--write]`: the marker tool, writing a document's secondary prose in
+  the reading notation in place (process_checks.md, *Marking secondary
+  prose*).
+- `tomspecs :spec-readable <doc> [<out.readable.md>] [-drop:…] [-unmark:…]
+  [-appendix:…] [--appendix-references] [--heading-divs]` writes a readable
+  rendition, and `--merge-onto <doc> <edited.readable.md> [--base] [--write]`
+  merges an edited one back (process_checks.md, *Readable renditions and the
+  merge back*).
 - `bin/tomspecs.dart` is the package's only entrypoint: every tool is a
   `tomspecs` command (README, "The `tomspecs` binary"), and the old `bin/`
   entrypoints are removed. The run functions and option parsers are in

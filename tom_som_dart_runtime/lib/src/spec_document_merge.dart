@@ -788,7 +788,12 @@ abstract final class SpecStripMerge {
     final conflicts = <SpecStripMergeConflict>[];
     for (final ref in refs) {
       final bText = ref.read(bDoc), eText = ref.read(eDoc);
-      if (bText == eText) continue;
+      // A wrapped paragraph written in a table cell reads back on one line
+      // (SOM §11.4): that alone is no edit.
+      if (bText == eText ||
+          SpecDocumentMarkdown.wrappedParagraphJoined(bText) == eText) {
+        continue;
+      }
       if (refusals.any((r) => r.path == ref.path)) continue;
       // A value whose section came or went with a refused edit is that edit.
       if (refusals.isNotEmpty &&

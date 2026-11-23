@@ -252,11 +252,23 @@ void main() {
       final r1 = doc.addListItem('REQ/RULE-LST');
       doc.setFormField('$r1/content', 'statement', 'One line');
       final r2 = doc.addListItem('REQ/RULE-LST');
-      doc.setFormField('$r2/content', 'statement', 'Two\nlines');
+      doc.setFormField('$r2/content', 'statement', 'Two\n- lines');
       final md = _render(doc, 'Req');
       expect(md, isNot(contains('::: {.records}')));
       expect(md, contains('<!--[RULE-1]--> <a id="RULE-1"></a>'));
-      expect(md, contains('Statement: Two\nlines'));
+      expect(md, contains('Statement: Two\n- lines'));
+    });
+
+    test('RT3b: one paragraph wrapped over lines is a cell, joined', () {
+      final doc = SpecDocument();
+      final r1 = doc.addListItem('REQ/RULE-LST');
+      doc.setFormField('$r1/content', 'statement', 'One line');
+      final r2 = doc.addListItem('REQ/RULE-LST');
+      doc.setFormField('$r2/content', 'statement', 'Two\nlines');
+      expect(
+        _body(_render(doc, 'Req'), 'RULE-LST'),
+        contains('| <a id="RULE-2"></a>RULE-2 | Two lines |'),
+      );
     });
   });
 

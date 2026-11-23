@@ -1,5 +1,8 @@
 ## 1.12.2
 
+- SOM §11.4 rule 13: a form-field value that is one paragraph wrapped over
+  several lines is written in its table cell on one line, and stored joined on
+  the next import. No model change.
 - `multiParagraph: true` on the 170 form fields whose values hold paragraphs or
   blocks in Tom UAM's documents and the samples (reading view, the approved
   `field_order_proposal.md`), and their forms reordered: identifying and

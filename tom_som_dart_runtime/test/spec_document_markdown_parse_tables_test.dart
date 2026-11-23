@@ -1,6 +1,7 @@
 // The parse of the Markdown layout (SOM §11.4, §11.5): `parse(emit(doc))`
-// stages exactly the document's values and `emit(parse(emit(doc)))` is
-// byte-identical — form tables, section tables, a record table and a
+// stages exactly the document's values (a wrapped one-paragraph value written
+// in a table cell with its soft line breaks read as spaces, PT5) and
+// `emit(parse(emit(doc)))` is byte-identical — form tables, section tables, a record table and a
 // reference line included; and the older `Field:`-line layout, which is no
 // longer emitted, parses to the same document (the two corpus goldens). The
 // single forms and their rejections are pinned case by case in the
@@ -85,6 +86,39 @@ void main() {
       expect(parsed.rejections, isEmpty, reason: name);
       expect(landed(parsed).toJson(), state.toJson(), reason: name);
     }
+  });
+
+  test('PT5: a wrapped one-paragraph value is written in its cell joined; '
+      'the parse keeps the joined line, the older layout the line breaks', () {
+    final doc = document()
+      ..setFormField('DEMO/DET', 'owner', 'Bob, and Alice\nwhen Bob is away');
+    final markdown = emit(doc);
+    expect(markdown, contains('| Owner | Bob, and Alice when Bob is away |'));
+    final parsed = SpecDocumentMarkdown(model, SpecDocument()).parse(markdown);
+    expect(parsed.rejections, isEmpty);
+    // parse(emit(doc)) stages the document's values, the soft line breaks of
+    // the wrapped value read as spaces (SOM §11.4) ...
+    final joined = document()
+      ..setFormField('DEMO/DET', 'owner', 'Bob, and Alice when Bob is away');
+    expect(landed(parsed).toJson(), joined.toJson());
+    // ... and emit(parse(emit(doc))) is byte-identical.
+    expect(emit(landed(parsed)), markdown);
+    // The older `Field:`-line layout keeps the line breaks.
+    final older = File('$corpus/expected.tomspecs.md')
+        .readAsStringSync()
+        .replaceFirst(
+          '\nOwner: Bob\n',
+          '\nOwner: Bob, and Alice\nwhen Bob is away\n',
+        );
+    final olderParsed = SpecDocumentMarkdown(
+      model,
+      SpecDocument(),
+    ).parse(older);
+    expect(olderParsed.rejections, isEmpty);
+    expect(
+      landed(olderParsed).formField('DEMO/DET', 'owner'),
+      'Bob, and Alice\nwhen Bob is away',
+    );
   });
 
   test('PT3 the layout writes every form it can read back', () {

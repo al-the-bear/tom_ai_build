@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- **A wrapped paragraph is one table cell** (SOM §11.4 rule 13), the port
+  of the Dart rule: `SpecDocumentMarkdown.wrappedParagraphJoined(value)`, the
+  joined cell, and the strip's read-back and the merge back counting a value
+  differing only by these breaks as unchanged.
 - **The merge back** (SOM §11.10), the port of the Dart one:
   `mergeStrippedValue(o, b, e, pieces)`, `SpecStripMerge.merge(original,
   edited, { model, schema, options, currentRevision, base, loadBase })`,

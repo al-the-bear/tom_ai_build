@@ -1110,6 +1110,7 @@ class SpecDocumentMarkdown {
   /// written as a link to its section (reading view, DI-14).
   String _linkedCellText(SomFormFieldMeta f, String value) {
     if (f.refersTo.isEmpty || f.code) return _cellText(f, value);
+    value = wrappedParagraphJoined(value) ?? value;
     final ids = value.split(',').map((v) => v.trim()).toList();
     if (ids.isEmpty || !ids.every(_idShape.hasMatch)) {
       return _cellText(f, value);
@@ -1241,15 +1242,48 @@ class SpecDocumentMarkdown {
 
   /// Whether [value] of form field [f] is written as a table row (reading
   /// view, part *What the model says about reading*): not when the model flags
-  /// the field `multiParagraph`, nor when the value holds a line break, is a
-  /// block of Markdown, holds a backslash directly before `|`, or holds
-  /// `<!--`. There is no length limit.
+  /// the field `multiParagraph`, nor when the value holds a line break other
+  /// than the soft breaks of one wrapped paragraph ([wrappedParagraphJoined];
+  /// a `code` value keeps every line break), is a block of Markdown, holds a
+  /// backslash directly before `|`, or holds `<!--`. There is no length limit.
   static bool _isCellValue(SomFormFieldMeta f, String value) {
     if (f.multiParagraph) return false;
-    if (value.contains('\n') || value.contains('\\|')) return false;
-    if (value.contains('<!--')) return false;
+    if (value.contains('\\|') || value.contains('<!--')) return false;
+    if (value.contains('\n') &&
+        (f.code || wrappedParagraphJoined(value) == null)) {
+      return false;
+    }
     return !_blockStart.hasMatch(value);
   }
+
+  /// [value] on one line when it is one paragraph wrapped over several lines
+  /// — no blank line, and no line that Markdown reads as a block or a block's
+  /// start (a list item, a quote, a fence, a fenced div, a table row, a
+  /// heading, a setext underline or a thematic break), that ends in a hard
+  /// break (a trailing backslash or spaces) or that starts with a space: its
+  /// soft line breaks, which Markdown reads as spaces, become spaces (SOM
+  /// §11.4). Null for any other value, a one-line value among them.
+  static String? wrappedParagraphJoined(String value) {
+    if (!value.contains('\n')) return null;
+    final lines = value.split('\n');
+    for (final l in lines) {
+      if (l.isEmpty ||
+          l != l.trim() ||
+          l.endsWith(r'\') ||
+          _blockStart.hasMatch(l) ||
+          _wrappedLineBlock.hasMatch(l)) {
+        return null;
+      }
+    }
+    return lines.join(' ');
+  }
+
+  /// A line that is a block of its own, or would make the line above one,
+  /// beyond [_blockStart]: a table row, an ATX heading, a setext underline
+  /// or a thematic break, an HTML block.
+  static final RegExp _wrappedLineBlock = RegExp(
+    r'^(?:\||#{1,6}(?:\s|$)|=+$|(?:[-*_]\s*){3,}$|<)',
+  );
 
   /// A one-line value that Markdown reads as a block: a list item, a block
   /// quote (review comment and question blocks among them), a fence or a
@@ -1261,6 +1295,7 @@ class SpecDocumentMarkdown {
   /// The table cell for [value]: a `code: true` value as its inline code
   /// span, every `|` written `\|`.
   static String _cellText(SomFormFieldMeta f, String value) {
+    value = wrappedParagraphJoined(value) ?? value;
     final text = f.code && _isInlineCode(value)
         ? _encodeCodeSpan(value)
         : value;

@@ -648,7 +648,14 @@ export class SpecStripMerge {
     for (const ref of refs) {
       const bText = ref.read(bDoc);
       const eText = ref.read(eDoc);
-      if (bText === eText) continue;
+      // A wrapped paragraph written in a table cell reads back on one line
+      // (SOM §11.4): that alone is no edit.
+      if (
+        bText === eText ||
+        SpecDocumentMarkdown.wrappedParagraphJoined(bText) === eText
+      ) {
+        continue;
+      }
       if (refusals.some((r) => r.path === ref.path)) continue;
       // A value whose section came or went with a refused edit is that edit.
       if (refusals.length > 0 && (!bDoc.hasValuesUnder(ref.path) || !eDoc.hasValuesUnder(ref.path))) {

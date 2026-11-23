@@ -1462,8 +1462,9 @@ lines alone):
 | Version | 1.0 |
 | ApprovedBy | Programme Sponsor |
 
-Summary: The change history,
-over several lines.
+Summary: The changes:
+- the first release
+- the second release
 
 | TomSpecField | Value |
 | --- | --- |
@@ -1473,7 +1474,8 @@ over several lines.
 The declared fields stand in model order; each run of consecutive values that
 fit a cell is one table, every other value a `Field:` paragraph at its place
 (table – text – table). A value fits a cell unless its field is flagged
-`multiParagraph`, or it holds a line break, a Markdown block, `\|` or `<!--`.
+`multiParagraph`, or it holds a Markdown block, `\|` or `<!--`, or a line break
+other than the soft breaks of one wrapped paragraph (rule 13).
 Every heading of the layout carries an HTML anchor for its section id after the
 id comment (§11.2). Parse reads both layouts, and a document may mix them:
 
@@ -1499,6 +1501,21 @@ id comment (§11.2). Parse reads both layouts, and a document may mix them:
 12. **A value line shaped like a layout table header** (`| TomSpecField |
     Value |`, or the section-table header of §11.5) carries one escape space
     on emit in both layouts, as rule 3 does for labels, and loses it on parse.
+13. **A wrapped paragraph is one cell.** A value that is one paragraph wrapped
+    over several lines fits a cell: no blank line, and no line that is a
+    Markdown block or starts one (a list item, a quote, a fence, a fenced
+    div, a table row, a heading, a setext underline, a thematic break, an
+    HTML block), that ends in a hard break (trailing spaces or a backslash)
+    or that starts with a space. Its soft line breaks, which Markdown reads
+    as spaces, are written as spaces, and parse stages the joined line. The
+    breaks are not in the rendition, so `parse(emit(doc))` stages such a
+    value joined, and an import stores it joined; the YAML changes on the
+    first import, and `emit(parse(emit(doc)))` is byte-identical. A `code`
+    field keeps every line break, and the `Field:` layout keeps them all. A
+    check that compares a parsed rendition with the stored document counts a
+    value that differs only by these breaks as unchanged: the strip's
+    read-back and the merge back (§11.10); the answer import parses both
+    sides.
 
 ### 11.5 Lists
 
@@ -1590,7 +1607,8 @@ The table layout (§11.4) writes three more forms, and parse reads them:
 - Parse removes an anchor equal to its section id, in a heading, an `Id` cell
   or a `Section` cell; any other anchor is text.
 
-With these, `parse(emit(doc))` stages exactly the document's values, and
+With these, `parse(emit(doc))` stages exactly the document's values (a wrapped
+one-paragraph value written in a table cell joined, §11.4 rule 13), and
 `emit(parse(emit(doc)))` is byte-identical; a rendition in the `Field:`-line
 layout parses to the same document as its table rendition (the conformance
 goldens `expected.tomspecs.md` and `expected.tables.md`).
@@ -1678,7 +1696,8 @@ reason is one classification with several causes: `unknownSection` covers "no
 match at this position", "unresolvable parent" and "no such document root".
 `orphanContent` means text before the document root heading — and only that:
 text before a form's first field label is the form's preamble and has a home
-(§11.4 rule 7). `parse(emit(doc))` stages exactly `doc`'s values, and
+(§11.4 rule 7). `parse(emit(doc))` stages exactly `doc`'s values (a wrapped
+one-paragraph value in a table cell joined, §11.4 rule 13), and
 `emit(parse(emit(doc)))` is byte-identical. The table layout's cases carry
 `"readingView": true` in both corpus files; the Dart and TypeScript runtimes
 run them, the other seven skip them until they read the table layout.

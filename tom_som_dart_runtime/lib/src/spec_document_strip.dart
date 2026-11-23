@@ -1076,6 +1076,13 @@ abstract final class SpecDocumentStrip {
     ) {
       for (final k in {...want.keys, ...got.keys}.toList()..sort()) {
         if (!inRoot(k) || want[k] == got[k]) continue;
+        // A wrapped paragraph written in a table cell reads back on one line
+        // (SOM §11.4).
+        final w = want[k];
+        if (w != null &&
+            SpecDocumentMarkdown.wrappedParagraphJoined(w) == got[k]) {
+          continue;
+        }
         findings.add(
           SpecStripFinding(
             'parse',

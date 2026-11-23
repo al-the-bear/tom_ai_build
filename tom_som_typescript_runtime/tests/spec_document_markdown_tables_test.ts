@@ -113,7 +113,7 @@ function testFormTables(): void {
     doc.setFormField(
       _FORM,
       'description',
-      'A party that places orders.\nIt may hold several accounts.',
+      'A party that places orders.  \nIt may hold several accounts.',
     );
     doc.setFormField(_FORM, 'owner', 'Sales');
     _equal(
@@ -121,10 +121,43 @@ function testFormTables(): void {
       _body(_renderForm(doc), 'TRI-ENT'),
       '| TomSpecField | Value |\n| --- | --- |\n' +
         '| EntityName | Customer |\n| TableName | customers |\n\n' +
-        'Description: A party that places orders.\n' +
+        'Description: A party that places orders.  \n' +
         'It may hold several accounts.\n\n' +
         '| TomSpecField | Value |\n| --- | --- |\n| Owner | Sales |',
     );
+  }
+  {
+    const doc = new SpecDocument();
+    doc.setFormField(_FORM, 'entityName', 'Customer');
+    doc.setFormField(
+      _FORM,
+      'description',
+      'A party that places orders.\nIt may hold several accounts.',
+    );
+    doc.setFormField(_FORM, 'owner', 'Sales');
+    _equal(
+      'FT1b a wrapped paragraph is one row, joined',
+      _body(_renderForm(doc), 'TRI-ENT'),
+      '| TomSpecField | Value |\n| --- | --- |\n' +
+        '| EntityName | Customer |\n' +
+        '| Description | A party that places orders. It may hold several accounts. |\n' +
+        '| Owner | Sales |',
+    );
+  }
+  for (const value of [
+    'Orders:\n- one\n- two',
+    'A quote\n> follows',
+    'A title\n===',
+    'Hard  \nbreak',
+    'Hard\\\nbreak',
+    ' indented\nline',
+    'A row\n| a | b |',
+  ]) {
+    const doc = new SpecDocument();
+    doc.setFormField(_FORM, 'description', value);
+    doc.setFormField(_FORM, 'owner', 'Sales');
+    const body = _body(_renderForm(doc), 'TRI-ENT');
+    _check(`FT1c stays a paragraph: ${JSON.stringify(value)}`, body.includes('Description: '), body);
   }
   {
     const doc = new SpecDocument();
@@ -231,6 +264,42 @@ function testFormTables(): void {
       'FT8 values',
       JSON.stringify(fromTables.forms[_FORM]),
       JSON.stringify({ entityName: 'Customer', owner: 'Sales' }),
+    );
+  }
+  {
+    // PT5: a wrapped one-paragraph value is written in its cell joined; the
+    // parse keeps the joined line (SOM §11.4), emit(parse(emit(doc))) is
+    // byte-identical, and the older Field:-line layout keeps the line breaks.
+    const doc = new SpecDocument();
+    doc.setFormField(_FORM, 'entityName', 'Customer');
+    doc.setFormField(_FORM, 'owner', 'Sales,\nwith Support on weekends');
+    const md = _renderForm(doc);
+    const codec = new SpecDocumentMarkdown(
+      SpecModel.fromJson(_formModelJson),
+      new SpecDocument(),
+    );
+    const parsed = codec.parse(md);
+    _check('PT5 clean', parsed.rejections.length === 0);
+    _equal(
+      'PT5 joined value',
+      JSON.stringify(parsed.forms[_FORM]),
+      JSON.stringify({ entityName: 'Customer', owner: 'Sales, with Support on weekends' }),
+    );
+    const again = new SpecDocument();
+    again.setFormField(_FORM, 'entityName', 'Customer');
+    again.setFormField(_FORM, 'owner', parsed.forms[_FORM]['owner']);
+    _equal('PT5 byte-identical', _renderForm(again), md);
+    const older = codec.parse(
+      md.replace(
+        '| TomSpecField | Value |\n| --- | --- |\n' +
+          '| EntityName | Customer |\n| Owner | Sales, with Support on weekends |',
+        'EntityName: Customer\n\nOwner: Sales,\nwith Support on weekends',
+      ),
+    );
+    _equal(
+      'PT5 older layout keeps the line break',
+      JSON.stringify(older.forms[_FORM]),
+      JSON.stringify({ entityName: 'Customer', owner: 'Sales,\nwith Support on weekends' }),
     );
   }
 }
@@ -448,11 +517,24 @@ function testRecordTables(): void {
     const r1 = doc.addListItem('REQ/RULE-LST');
     doc.setFormField(`${r1}/content`, 'statement', 'One line');
     const r2 = doc.addListItem('REQ/RULE-LST');
-    doc.setFormField(`${r2}/content`, 'statement', 'Two\nlines');
+    doc.setFormField(`${r2}/content`, 'statement', 'Two\n- lines');
     const md = _render(doc, 'Req');
     _check('RT3 no records div', !md.includes('::: {.records}'), md);
     _check('RT3 item heading', md.includes('<!--[RULE-1]--> <a id="RULE-1"></a>'), md);
-    _check('RT3 paragraph', md.includes('Statement: Two\nlines'), md);
+    _check('RT3 paragraph', md.includes('Statement: Two\n- lines'), md);
+  }
+  {
+    const doc = new SpecDocument();
+    const r1 = doc.addListItem('REQ/RULE-LST');
+    doc.setFormField(`${r1}/content`, 'statement', 'One line');
+    const r2 = doc.addListItem('REQ/RULE-LST');
+    doc.setFormField(`${r2}/content`, 'statement', 'Two\nlines');
+    const md = _render(doc, 'Req');
+    _check(
+      'RT3b a wrapped paragraph is a cell, joined',
+      md.includes('| <a id="RULE-2"></a>RULE-2 | Two lines |'),
+      md,
+    );
   }
 }
 

@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- **A wrapped paragraph is one table cell** (SOM §11.4 rule 13): a form-field
+  value that is one paragraph wrapped over several lines (no blank line, no
+  block line, no hard break) is written in its table cell on one line, its
+  soft line breaks as spaces, and parse stages the joined line; such a value
+  is stored joined on the next import. `SpecDocumentMarkdown.
+  wrappedParagraphJoined(value)` gives the joined text, or null. The strip's
+  read-back and `SpecStripMerge.merge` count a value differing only by these
+  breaks as unchanged.
+- **The marker tool** (`package:tom_som_dart_runtime/spec_checks.dart`):
+  `markSecondaryInPlace(yamlText, tree, kinds:, reflow:, under:)` writes a
+  document's secondary prose in the reading notation in place — provenance
+  notes, trace citations, the provenance-notes preamble, section references —
+  with the candidates, skips and unknown id families it reports, verified
+  before it is returned (`verifyMarkSecondary`). `locateAllValues` also
+  locates form fields and headlines.
 - **The merge back** (SOM §11.10): `mergeStrippedValue(o, b, e, pieces)`
   merges the edited text of one value back onto its original, every piece the
   strip removed put back where the diff of the stripped text against the edit
