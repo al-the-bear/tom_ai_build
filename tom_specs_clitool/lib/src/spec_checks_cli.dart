@@ -7,9 +7,12 @@
 // `--spec-root`), never from beside the tool. The output lines are the
 // checks' own report formats, and the exit code is 0 when clean, 1 on
 // findings, 2 on a usage error.
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:crypto/crypto.dart';
+import 'package:path/path.dart' as p;
 import 'package:tom_som_dart_runtime/spec_checks.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0_model.dart';
@@ -20,6 +23,7 @@ import 'validate_spec_cli.dart' show resolveSpecDocumentRoot, specSchemaIdFor;
 /// The `tomspecs` command each check id runs as.
 const Map<String, String> specCheckCommandNames = {
   'validate': 'spec-render',
+  'render': 'spec-readable',
   'import-answers': 'spec-import-answers',
   'accept-marks': 'spec-accept-marks',
   'required-fields': 'spec-required-fields',
@@ -44,6 +48,13 @@ const Map<String, String> specChecksCommands = {
   'validate':
       'validate <doc.tomspecs.yaml> [<rendition.tomspecs.md>] — decode, schema and '
       'instance tiers; writes the markdown rendition when a path is given',
+  'render':
+      'render <doc.tomspecs.yaml> [<out.readable.md>] [-drop:<names>] '
+      '[-unmark:<names>] [-appendix:<names>] [--appendix-references] '
+      '[--heading-divs] | --merge-onto <doc.tomspecs.yaml> '
+      '<edited.readable.md> [--base <file>] [switches] [--write] — a readable '
+      'rendition (to the path or stdout), or the merge of an edited one back '
+      'onto the document (a dry run without --write)',
   'import-answers':
       'import-answers [--dry-run] [--allow-other-edits] <doc.tomspecs.yaml> '
       '<rendition.tomspecs.md> — the answers typed into the rendition, into the YAML',
@@ -122,6 +133,7 @@ int runSpecChecks(List<String> arguments, {IOSink? out, IOSink? err}) {
   try {
     return switch (command) {
       'validate' => _validate(args, o, e),
+      'render' => _render(args, o, e),
       'import-answers' => _importAnswers(args, o, e),
       'accept-marks' => _acceptMarks(args, o, e),
       'required-fields' => _requiredFields(args, o, e),
@@ -253,6 +265,412 @@ int _validate(List<String> args, IOSink o, IOSink e) {
   final v = type.validate(doc, markdown: markdown);
   _report(v, o, e);
   return v.isClean ? 0 : 1;
+}
+
+// --- render ------------------------------------------------------------------
+
+/// The `render` check: the readable rendition of a document, or, with
+/// `--merge-onto`, the merge of an edited one back onto it (SOM §11.10).
+int _render(List<String> args, IOSink o, IOSink e) {
+  final mergeOnto = _option(args, '--merge-onto');
+  final base = _option(args, '--base');
+  final write = _flag(args, '--write');
+  final headingDivs = _flag(args, '--heading-divs');
+  final appendixReferences = _flag(args, '--appendix-references');
+  final drop = _kindSwitch(args, 'drop');
+  final unmark = _kindSwitch(args, 'unmark');
+  final appendix = _kindSwitch(args, 'appendix');
+  for (final a in args) {
+    if (a.startsWith('-')) throw _Usage('unknown switch `$a`');
+  }
+  SpecStripOptions? options;
+  if (drop != null ||
+      unmark != null ||
+      appendix != null ||
+      headingDivs ||
+      appendixReferences) {
+    try {
+      options = SpecStripOptions.fromNames(
+        drop: drop ?? const [],
+        unmark: unmark ?? const [],
+        appendix: appendix ?? const [],
+        appendixReferences: appendixReferences,
+        headingDivs: headingDivs,
+      );
+    } on SpecStripUsageError catch (x) {
+      throw _Usage(x.message);
+    }
+  }
+  if (mergeOnto != null) {
+    if (args.length != 1) {
+      throw _Usage('--merge-onto takes the document and one edited rendition');
+    }
+    return _renderMerge(mergeOnto, args.single, base, options, write, o, e);
+  }
+  if (base != null) throw _Usage('--base belongs to --merge-onto');
+  if (write) throw _Usage('--write belongs to --merge-onto');
+  if (args.isEmpty || args.length > 2) throw _Usage();
+  return _renderReadable(
+    args[0],
+    args.length == 2 ? args[1] : null,
+    options ?? const SpecStripOptions(),
+    o,
+    e,
+  );
+}
+
+/// Removes every `-<name>:<names>`, `--<name>=<names>` and
+/// `--<name> <names>` from [args] and returns the names given, or null when
+/// the switch is not there.
+List<String>? _kindSwitch(List<String> args, String name) {
+  List<String>? found;
+  for (var i = 0; i < args.length;) {
+    final a = args[i];
+    String? value;
+    var take = 1;
+    if (a.startsWith('-$name:')) {
+      value = a.substring(name.length + 2);
+    } else if (a.startsWith('--$name=')) {
+      value = a.substring(name.length + 3);
+    } else if (a == '--$name') {
+      if (i + 1 >= args.length) throw _Usage('--$name needs kind names');
+      value = args[i + 1];
+      take = 2;
+    }
+    if (value == null) {
+      i++;
+      continue;
+    }
+    if (value.trim().isEmpty) throw _Usage('-$name: needs kind names');
+    (found ??= []).add(value);
+    args.removeRange(i, i + take);
+  }
+  return found;
+}
+
+/// The rendition `<doc>.tomspecs.md` beside [yamlPath], or null when the
+/// document is not named `<doc>.tomspecs.yaml`.
+String? _ownRendition(String yamlPath) {
+  const suffix = '.tomspecs.yaml';
+  if (!yamlPath.endsWith(suffix)) return null;
+  return '${yamlPath.substring(0, yamlPath.length - suffix.length)}'
+      '.tomspecs.md';
+}
+
+/// The revision of a document's text: the content hash the spec tools pass
+/// as `expectedRevision` (sha256 of its UTF-8 bytes, hex).
+String specDocumentRevision(String text) =>
+    sha256.convert(utf8.encode(text)).toString();
+
+/// The source of the document at [path] for a readable header: its name,
+/// the revision of [text], and the commit that last changed it (`+dirty`
+/// when the file differs from it), when it is in a git repository.
+SpecReadableSource _readableSource(String path, String text) {
+  final file = File(path).absolute;
+  String? commit;
+  var dirty = false;
+  try {
+    final log = Process.runSync('git', [
+      'log',
+      '-1',
+      '--format=%H',
+      '--',
+      p.basename(file.path),
+    ], workingDirectory: file.parent.path);
+    final sha = '${log.stdout}'.trim();
+    if (log.exitCode == 0 &&
+        sha.length == 40 &&
+        RegExp(r'^[0-9a-f]+').stringMatch(sha) == sha) {
+      commit = sha;
+      final status = Process.runSync('git', [
+        'status',
+        '--porcelain',
+        '--',
+        p.basename(file.path),
+      ], workingDirectory: file.parent.path);
+      dirty = status.exitCode != 0 || '${status.stdout}'.trim().isNotEmpty;
+    }
+  } on ProcessException {
+    commit = null;
+  }
+  return SpecReadableSource(
+    file: p.basename(path),
+    revision: specDocumentRevision(text),
+    commit: commit,
+    dirty: dirty,
+  );
+}
+
+int _renderReadable(
+  String yamlPath,
+  String? outPath,
+  SpecStripOptions options,
+  IOSink o,
+  IOSink e,
+) {
+  if (outPath != null) {
+    final out = p.normalize(File(outPath).absolute.path);
+    final own = _ownRendition(yamlPath);
+    if (out == p.normalize(File(yamlPath).absolute.path)) {
+      throw _Usage('the rendition would overwrite the document itself');
+    }
+    if (own != null && out == p.normalize(File(own).absolute.path)) {
+      throw _Usage(
+        "the rendition would overwrite the document's own rendition $own; "
+        'name a <doc>.readable.md',
+      );
+    }
+  }
+  final text = _read(yamlPath);
+  final SpecRootDefinition type;
+  final SpecDocument doc;
+  try {
+    type = _definitionOf(text);
+    doc = type.decode(text);
+  } on Exception catch (x) {
+    e.writeln('DECODE FAILED: $x');
+    return 1;
+  } on ArgumentError catch (x) {
+    e.writeln('DECODE FAILED: ${x.message}');
+    return 1;
+  }
+  final strip = SpecDocumentStrip.strip(
+    doc,
+    options,
+    model: type.model,
+    schema: type.schema,
+    rootType: type.rootType,
+    source: _readableSource(yamlPath, text),
+  );
+  // Without an output file the rendition is stdout, so the report goes to
+  // stderr.
+  final report = outPath == null ? e : o;
+  final readable = strip.readable;
+  if (readable == null) {
+    for (final f in strip.findings) {
+      e.writeln('FINDING   $f');
+    }
+    e.writeln('RENDER FAILED: no rendition — nothing written');
+    return 1;
+  }
+  if (outPath == null) {
+    o.write(readable);
+  } else {
+    File(outPath).writeAsStringSync(readable);
+  }
+  report.writeln(strip.readableHeader);
+  for (final line in strip.report) {
+    report.writeln('stripped  $line');
+  }
+  for (final f in strip.findings) {
+    e.writeln('FINDING   $f');
+  }
+  report.writeln(
+    'readable  ${outPath ?? 'stdout'} — ${strip.values.length} value(s) '
+    'changed, ${strip.kept.length} kept, ${strip.findings.length} finding(s)',
+  );
+  return strip.ok ? 0 : 1;
+}
+
+int _renderMerge(
+  String yamlPath,
+  String editedPath,
+  String? basePath,
+  SpecStripOptions? options,
+  bool write,
+  IOSink o,
+  IOSink e,
+) {
+  final text = _read(yamlPath);
+  final edited = _read(editedPath);
+  final baseText = basePath == null ? null : _read(basePath);
+  final SpecRootDefinition type;
+  final SpecYamlContents decoded;
+  SpecDocument? base;
+  try {
+    type = _definitionOf(text);
+    decoded = SpecDocumentYaml.decode(text, type.tree);
+    if (baseText != null) base = type.decode(baseText);
+  } on Exception catch (x) {
+    e.writeln('DECODE FAILED: $x');
+    return 1;
+  } on ArgumentError catch (x) {
+    e.writeln('DECODE FAILED: ${x.message}');
+    return 1;
+  }
+  final SpecStripMergeResult result;
+  try {
+    result = SpecStripMerge.merge(
+      decoded.document,
+      edited,
+      model: type.model,
+      schema: type.schema,
+      rootType: type.rootType,
+      options: options,
+      currentRevision: specDocumentRevision(text),
+      base: base,
+      loadBase: (source) {
+        final commit = source.commit;
+        if (commit == null) return null;
+        final then = SpecStripMerge.gitShowFile(commit, yamlPath);
+        if (then == null) return null;
+        try {
+          return type.decode(then);
+        } on Exception {
+          return null;
+        } on ArgumentError {
+          return null;
+        }
+      },
+    );
+  } on SpecStripUsageError catch (x) {
+    throw _Usage(x.message);
+  }
+  for (final line in result.report) {
+    (line.startsWith('MERGED') || line.startsWith('PLACED') ? o : e).writeln(
+      line,
+    );
+  }
+  final placed = result.merged.fold<int>(0, (n, m) => n + m.placed.length);
+  o.writeln(
+    'merge     ${result.merged.length} value(s), $placed placed, '
+    '${result.conflicts.length} conflict(s), ${result.refusals.length} '
+    'refusal(s)${result.stale ? ' — three-way, the original moved since '
+              'the export' : ''}',
+  );
+  final merged = result.document;
+  if (!result.ok || merged == null) {
+    o.writeln('merge     nothing written');
+    return 1;
+  }
+  if (result.merged.isEmpty) {
+    o.writeln('merge     nothing to merge');
+    return 0;
+  }
+  final MergedYaml newYaml;
+  try {
+    newYaml = mergedYaml(text, type.tree, decoded, merged, result.merged);
+  } on MergedYamlVerificationException catch (x) {
+    e.writeln('VERIFY    $x — nothing written');
+    return 1;
+  }
+  o.writeln(
+    'yaml      ${newYaml.inPlace ? '${result.merged.length} block scalar(s) '
+              'rewritten in place' : 're-encoded (${newYaml.reason})'}',
+  );
+  if (!write) {
+    o.writeln('dry run   nothing written');
+    return 0;
+  }
+  // The staged write: a sibling file, read back, then renamed over the
+  // document, so the document is never half written.
+  final stage = File('$yamlPath.render.stage')..writeAsStringSync(newYaml.text);
+  if (stage.readAsStringSync() != newYaml.text) {
+    stage.deleteSync();
+    e.writeln('VERIFY    the staged file did not read back — nothing written');
+    return 1;
+  }
+  stage.renameSync(yamlPath);
+  o.writeln('written   $yamlPath');
+  final rendition = _ownRendition(yamlPath);
+  if (rendition != null) {
+    final String markdown;
+    try {
+      markdown = type.render(type.decode(newYaml.text));
+    } on SbpRenderException catch (x) {
+      e.writeln('RENDER FAILED: $x');
+      return 1;
+    }
+    File(rendition).writeAsStringSync(markdown);
+    o.writeln('rendition $rendition');
+  }
+  return 0;
+}
+
+/// The YAML text a merge writes, and how it was made.
+class MergedYaml {
+  /// [text], rewritten in place when [inPlace], else re-encoded for
+  /// [reason].
+  const MergedYaml(this.text, {required this.inPlace, this.reason});
+
+  /// The document's new YAML text.
+  final String text;
+
+  /// Whether only the merged values' block scalars changed.
+  final bool inPlace;
+
+  /// Why the document had to be re-encoded, when it was.
+  final String? reason;
+}
+
+/// Thrown when the written YAML does not decode to the merged document.
+class MergedYamlVerificationException implements Exception {
+  /// The failure, with [message].
+  MergedYamlVerificationException(this.message);
+
+  /// What differs.
+  final String message;
+
+  @override
+  String toString() => message;
+}
+
+/// The YAML of [merged]: [yamlText] with the block scalar of each value in
+/// [values] rewritten in place (only those lines change), or, when one of
+/// them has no block scalar in the encoder's shape (a value the reader
+/// filled in, an older layout), the whole document re-encoded with the
+/// model version and review of [decoded]. Either way the text is decoded
+/// again and must give [merged], else [MergedYamlVerificationException].
+MergedYaml mergedYaml(
+  String yamlText,
+  SomMetaTree tree,
+  SpecYamlContents decoded,
+  SpecDocument merged,
+  List<SpecStripMergedValue> values,
+) {
+  String? reason;
+  String? text;
+  try {
+    final located = locateAllValues(yamlText, tree);
+    final edits = <ValueEdit>[];
+    for (final v in values) {
+      final ref = v.ref;
+      final field = ref.field;
+      final ValueLocation? location;
+      if (ref.headline) {
+        location = located.headlines[ref.path];
+      } else if (field != null) {
+        location = (located.formFields[ref.path] ?? const {})[field];
+      } else {
+        location = located.content[ref.path];
+      }
+      if (location == null) {
+        throw YamlRewriteException(
+          ref.label,
+          'the document holds no such value yet',
+        );
+      }
+      edits.add(ValueEdit(location, v.text));
+    }
+    text = rewriteValues(yamlText, edits);
+  } on YamlRewriteException catch (x) {
+    reason = x.toString();
+  } on SpecYamlFormatException catch (x) {
+    reason = x.toString();
+  }
+  text ??= SpecDocumentYaml.encode(
+    document: merged,
+    tree: tree,
+    modelVersion: decoded.modelVersion,
+    review: decoded.review,
+  );
+  final again = SpecDocumentYaml.decode(text, tree);
+  if (jsonEncode(again.document.toJson()) != jsonEncode(merged.toJson())) {
+    throw MergedYamlVerificationException(
+      'the written YAML does not decode to the merged document',
+    );
+  }
+  return MergedYaml(text, inPlace: reason == null, reason: reason);
 }
 
 int _importAnswers(List<String> args, IOSink o, IOSink e) {

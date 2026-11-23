@@ -796,7 +796,13 @@ abstract final class SpecStripMerge {
         continue;
       }
       final o = ref.read(origin);
-      if (stale && ref.read(original) != o) {
+      final r = mergeStrippedValue(o, bText, eText, pieces[ref] ?? const []);
+      final now = ref.read(original);
+      if (stale && now != o) {
+        // The edit is already in the moved original (the same rendition
+        // merged before): nothing to do for this value.
+        if (r.ok && r.text == now) continue;
+        final at = _firstDifference(bText, eText);
         conflicts.add(
           SpecStripMergeConflict(
             code: 'changedBothSides',
@@ -804,14 +810,13 @@ abstract final class SpecStripMerge {
                 'the value changed in the original since the export, '
                 'and in the rendition',
             ref: ref,
-            excerptO: _excerpt(ref.read(original), 0),
-            excerptB: _excerpt(bText, 0),
-            excerptE: _excerpt(eText, 0),
+            excerptO: _excerpt(now, _firstDifference(o, now)),
+            excerptB: _excerpt(bText, at),
+            excerptE: _excerpt(eText, at),
           ),
         );
         continue;
       }
-      final r = mergeStrippedValue(o, bText, eText, pieces[ref] ?? const []);
       if (!r.ok) {
         conflicts.addAll([for (final c in r.conflicts) c.about(ref)]);
         continue;
@@ -1343,6 +1348,16 @@ String _excerpt(String s, int at) {
   final a = math.max(0, math.min(at, s.length) - 30);
   final z = math.min(s.length, at + 30);
   return _visible(s.substring(a, z));
+}
+
+/// The first offset at which [a] and [b] differ (the shorter length when
+/// one is a prefix of the other).
+int _firstDifference(String a, String b) {
+  final n = math.min(a.length, b.length);
+  for (var i = 0; i < n; i++) {
+    if (a.codeUnitAt(i) != b.codeUnitAt(i)) return i;
+  }
+  return n;
 }
 
 String _visible(String s) => '«${s.replaceAll('\n', '⏎')}»';

@@ -937,6 +937,51 @@
       }
     },
     {
+      "name": "a rendition merged again onto the original it was merged into changes nothing",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Rule (-> C2.1) holds."
+        }
+      },
+      "current": {
+        "content": {
+          "DEMO/SUM": "Rule (-> C2.1) applies."
+        }
+      },
+      "drop": [
+        "trace"
+      ],
+      "source": {
+        "file": "demo.tomspecs.yaml",
+        "revision": "r1",
+        "commit": "c0ffee1"
+      },
+      "currentRevision": "r2",
+      "commits": {
+        "c0ffee1": {
+          "content": {
+            "DEMO/SUM": "Rule (-> C2.1) holds."
+          }
+        }
+      },
+      "edits": [
+        [
+          "Rule holds.",
+          "Rule applies."
+        ]
+      ],
+      "expect": {
+        "exitCode": 0,
+        "stale": true,
+        "document": {
+          "content": {
+            "DEMO/SUM": "Rule (-> C2.1) applies."
+          }
+        },
+        "report": []
+      }
+    },
+    {
       "name": "a section added is refused",
       "state": {
         "content": {

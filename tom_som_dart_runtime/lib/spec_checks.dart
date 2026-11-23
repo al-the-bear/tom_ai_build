@@ -83,6 +83,11 @@ export 'src/spec_checks/sbp_answer_import.dart'
 export 'src/spec_checks/sbp_validation.dart'
     show SbpRenderException, SbpValidation, SpecRootDefinition;
 export 'src/spec_checks/sbp_yaml_locator.dart'
-    show ValueLocation, ValueRole, locateValues;
+    show
+        ValueLocation,
+        ValueLocations,
+        ValueRole,
+        locateAllValues,
+        locateValues;
 export 'src/spec_checks/sbp_yaml_writer.dart'
     show ValueEdit, YamlRewriteException, rewriteValues;

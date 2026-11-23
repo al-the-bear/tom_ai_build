@@ -277,6 +277,57 @@ final List<TomspecsCommand> tomspecsCommands = [
     'Validate a document and write its Markdown rendition',
   ),
   _check(
+    'spec-readable',
+    'render',
+    'Write a readable rendition, or merge an edited one back',
+    options: const [
+      OptionDefinition.option(
+        name: 'drop',
+        description:
+            'Kinds dropped with their text (provenance, trace, editorial, '
+            'aside, comments, all); also -drop:<names>.',
+        valueName: 'names',
+      ),
+      OptionDefinition.option(
+        name: 'unmark',
+        description:
+            'Kinds whose markers go and whose text stays; also '
+            '-unmark:<names>.',
+        valueName: 'names',
+      ),
+      OptionDefinition.option(
+        name: 'appendix',
+        description:
+            'Kinds moved into the appendix Notes; also -appendix:<names>.',
+        valueName: 'names',
+      ),
+      OptionDefinition.flag(
+        name: 'appendix-references',
+        description: 'Leave a link [n] to each appendix entry.',
+      ),
+      OptionDefinition.flag(
+        name: 'heading-divs',
+        description: 'Write sections below level 6 as styled divs.',
+      ),
+      OptionDefinition.option(
+        name: 'merge-onto',
+        description:
+            'Merge the edited rendition given back onto this document.',
+        valueName: 'doc.tomspecs.yaml',
+      ),
+      OptionDefinition.option(
+        name: 'base',
+        description: 'The document as it was at the export (a stale merge).',
+        valueName: 'file',
+      ),
+      OptionDefinition.flag(
+        name: 'write',
+        description:
+            'Write the merged document and its rendition (else a dry run).',
+      ),
+    ],
+  ),
+  _check(
     'spec-import-answers',
     'import-answers',
     "Import the answers typed into a rendition into the document's YAML",
@@ -643,8 +694,37 @@ Future<int> runTomspecs(
     output: out ?? ConsoleMarkdownSink(stdout),
     errorOutput: err ?? stderr,
   );
-  final result = await runner.run(arguments);
+  final result = await runner.run(readableSwitches(arguments));
   return result.exitCode;
+}
+
+/// [arguments] with the kind switches of `:spec-readable` written as the
+/// reading view spells them — `-drop:<names>`, `-unmark:<names>`,
+/// `-appendix:<names>` — turned into its options `--drop=<names>` …, so the
+/// command-line parser does not read them as bundled short flags. Several of
+/// one kind within one command are joined by commas.
+List<String> readableSwitches(List<String> arguments) {
+  final out = <String>[];
+  var seen = <String, int>{};
+  final kind = RegExp(r'^-(drop|unmark|appendix):');
+  for (final a in arguments) {
+    if (a.startsWith(':')) seen = {};
+    final m = kind.firstMatch(a);
+    if (m == null) {
+      out.add(a);
+      continue;
+    }
+    final name = m.group(1)!;
+    final names = a.substring(m.end);
+    final at = seen[name];
+    if (at == null) {
+      seen[name] = out.length;
+      out.add('--$name=$names');
+    } else {
+      out[at] = '${out[at]},$names';
+    }
+  }
+  return out;
 }
 
 Future<void> main(List<String> arguments) async {

@@ -60,7 +60,37 @@ class ValueLocation {
 ///
 /// Throws [SpecYamlFormatException] when a key fits no member — the same
 /// condition on which the decoder fails.
-Map<String, ValueLocation> locateValues(String yamlText, SomMetaTree tree) {
+Map<String, ValueLocation> locateValues(String yamlText, SomMetaTree tree) =>
+    locateAllValues(yamlText, tree).content;
+
+/// Every text value's location in a v2 document's YAML text: the content
+/// values of [locateValues], the form fields and the stored headlines.
+class ValueLocations {
+  /// The three maps.
+  const ValueLocations({
+    required this.content,
+    required this.formFields,
+    required this.headlines,
+  });
+
+  /// Every content value, keyed by document path.
+  final Map<String, ValueLocation> content;
+
+  /// Every form field, keyed by the form's document path, then by field
+  /// name.
+  final Map<String, Map<String, ValueLocation>> formFields;
+
+  /// Every stored headline (the literal `headline` key), keyed by the
+  /// document path of its section, form, list or item.
+  final Map<String, ValueLocation> headlines;
+}
+
+/// Walks a v2 document's YAML text and returns the location of every text
+/// value the decoder stores: content, form fields and headlines.
+///
+/// Throws [SpecYamlFormatException] when a key fits no member — the same
+/// condition on which the decoder fails.
+ValueLocations locateAllValues(String yamlText, SomMetaTree tree) {
   final root = loadYamlNode(yamlText);
   final docPass = _mapping(root, 'the file')['document'];
   final walker = _Walker(tree);
@@ -73,7 +103,11 @@ Map<String, ValueLocation> locateValues(String yamlText, SomMetaTree tree) {
     _idOf(rootKey.value),
     rootEntry.value,
   );
-  return walker.locations;
+  return ValueLocations(
+    content: walker.locations,
+    formFields: walker.formFields,
+    headlines: walker.headlines,
+  );
 }
 
 YamlMap _mapping(Object? node, String where) {
@@ -100,6 +134,10 @@ class _Walker {
 
   final Map<String, ValueLocation> locations = {};
 
+  final Map<String, Map<String, ValueLocation>> formFields = {};
+
+  final Map<String, ValueLocation> headlines = {};
+
   void walkMapping(
     SomMetaNode node,
     String path,
@@ -116,6 +154,14 @@ class _Walker {
         _walkChild(child, specPathJoin(path, child.segment), childIds, entry);
       } else if (name == 'content') {
         _record(path, childIds, ValueRole.narrative, key, entry.value);
+      } else if (name == 'headline') {
+        headlines[path] = _location(
+          path,
+          childIds,
+          ValueRole.scalar,
+          key,
+          entry.value,
+        );
       }
     }
   }
@@ -141,7 +187,7 @@ class _Walker {
       case SomMetaKind.enumValue:
         _scalarNode(path, idPath, ValueRole.scalar, key, entry.value);
       case SomMetaKind.form:
-        _walkForm(path, idPath, entry.value);
+        _walkForm(child, path, idPath, entry.value);
       case SomMetaKind.section:
       case SomMetaKind.complex:
         walkMapping(child, path, idPath, entry.value);
@@ -172,9 +218,10 @@ class _Walker {
         inner.value,
       );
     }
+    _headline(path, idPath, value);
   }
 
-  void _walkForm(String path, String idPath, YamlNode value) {
+  void _walkForm(SomMetaNode node, String path, String idPath, YamlNode value) {
     if (value is! YamlMap) return;
     final preamble = _contentEntry(value);
     if (preamble != null) {
@@ -185,6 +232,44 @@ class _Walker {
         preamble.key as YamlNode,
         preamble.value,
       );
+    }
+    final meta = node.form;
+    for (final e in value.nodes.entries) {
+      final key = e.key as YamlNode;
+      final name = '${key.value}';
+      if (meta?.fieldNamed(name) != null) {
+        (formFields[path] ??= {})[name] = _location(
+          path,
+          '$idPath > $name',
+          ValueRole.scalar,
+          key,
+          e.value,
+        );
+      } else if (name == 'headline') {
+        headlines[path] = _location(
+          path,
+          '$idPath > headline',
+          ValueRole.scalar,
+          key,
+          e.value,
+        );
+      }
+    }
+  }
+
+  /// Records the literal `headline` key of [map], if it has one.
+  void _headline(String path, String idPath, YamlMap map) {
+    for (final e in map.nodes.entries) {
+      final key = e.key as YamlNode;
+      if ('${key.value}' == 'headline') {
+        headlines[path] = _location(
+          path,
+          '$idPath > headline',
+          ValueRole.scalar,
+          key,
+          e.value,
+        );
+      }
     }
   }
 
@@ -203,7 +288,17 @@ class _Walker {
     for (final entry in items.nodes.entries) {
       final key = entry.key as YamlNode;
       final name = '${key.value}';
-      if (name == 'headline' || name == 'codeSpec') continue;
+      if (name == 'headline') {
+        headlines[path] = _location(
+          path,
+          '$idPath > headline',
+          ValueRole.scalar,
+          key,
+          entry.value,
+        );
+        continue;
+      }
+      if (name == 'codeSpec' || name == 'units') continue;
       final itemPath = _scratch.addListItem(
         path,
         sectionId: anonymous.hasMatch(name) ? null : name,
@@ -225,7 +320,17 @@ class _Walker {
     YamlNode key,
     YamlNode value,
   ) {
-    locations[path] = ValueLocation(
+    locations[path] = _location(path, idPath, role, key, value);
+  }
+
+  ValueLocation _location(
+    String path,
+    String idPath,
+    ValueRole role,
+    YamlNode key,
+    YamlNode value,
+  ) {
+    return ValueLocation(
       path: path,
       idPath: idPath,
       role: role,

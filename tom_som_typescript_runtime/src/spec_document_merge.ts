@@ -655,21 +655,26 @@ export class SpecStripMerge {
         continue;
       }
       const o = ref.read(origin);
-      if (stale && ref.read(original) !== o) {
+      const r = mergeStrippedValue(o, bText, eText, pieces.get(_refKey(ref)) ?? []);
+      const now = ref.read(original);
+      if (stale && now !== o) {
+        // The edit is already in the moved original (the same rendition
+        // merged before): nothing to do for this value.
+        if (r.ok && r.text === now) continue;
+        const at = _firstDifference(bText, eText);
         conflicts.push(
           new SpecStripMergeConflict(
             'changedBothSides',
             'the value changed in the original since the export, and in the rendition',
             ref,
             null,
-            _excerpt(ref.read(original), 0),
-            _excerpt(bText, 0),
-            _excerpt(eText, 0),
+            _excerpt(now, _firstDifference(o, now)),
+            _excerpt(bText, at),
+            _excerpt(eText, at),
           ),
         );
         continue;
       }
-      const r = mergeStrippedValue(o, bText, eText, pieces.get(_refKey(ref)) ?? []);
       if (!r.ok) {
         for (const c of r.conflicts) conflicts.push(c.about(ref));
         continue;
@@ -1090,6 +1095,15 @@ function _excerpt(s: string, at: number): string {
   const a = Math.max(0, Math.min(at, s.length) - 30);
   const z = Math.min(s.length, at + 30);
   return _visible(s.substring(a, z));
+}
+
+/** The first offset at which `a` and `b` differ (the shorter length when one is a prefix of the other). */
+function _firstDifference(a: string, b: string): number {
+  const n = Math.min(a.length, b.length);
+  for (let i = 0; i < n; i++) {
+    if (a.charCodeAt(i) !== b.charCodeAt(i)) return i;
+  }
+  return n;
 }
 
 function _visible(s: string): string {

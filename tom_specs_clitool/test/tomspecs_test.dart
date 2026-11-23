@@ -16,12 +16,14 @@ import '../bin/tomspecs.dart';
 /// The command names of the TSB-7 table
 /// (`decisions/tsimp1a_clitool_on_tom_build_base.md`), in its order, with the
 /// commands added since in their place: `spec-impact-walk` (the change mode's
-/// impact walk) after `spec-validate`, `spec-fill-frem` (FREM from git)
-/// after `spec-coverage`.
+/// impact walk) after `spec-validate`, `spec-readable` (the readable
+/// rendition and its merge back) after `spec-render`, `spec-fill-frem` (FREM
+/// from git) after `spec-coverage`.
 const _tsb7 = [
   'spec-validate',
   'spec-impact-walk',
   'spec-render',
+  'spec-readable',
   'spec-import-answers',
   'spec-accept-marks',
   'spec-required-fields',
@@ -270,6 +272,38 @@ void main() {
         );
       },
     );
+
+    test(':spec-readable: -drop:<names> and its kin reach the check as '
+        'options, one kind joined across switches', () async {
+      expect(
+        readableSwitches([
+          ':spec-readable',
+          'd.tomspecs.yaml',
+          '-drop:trace',
+          '-drop:comments',
+          '-unmark:provenance',
+          '--heading-divs',
+        ]),
+        [
+          ':spec-readable',
+          'd.tomspecs.yaml',
+          '--drop=trace,comments',
+          '--unmark=provenance',
+          '--heading-divs',
+        ],
+      );
+      final args = await argumentsOf([
+        ':spec-readable',
+        'd.tomspecs.yaml',
+        'd.readable.md',
+        '-drop:all',
+        '--heading-divs',
+      ]);
+      expect(args, contains('d.tomspecs.yaml'));
+      expect(args, contains('d.readable.md'));
+      expect(args.join(' '), contains('all'));
+      expect(args, contains('--heading-divs'));
+    });
 
     test('a flag, a repeated option, and a value equal to the tool default '
         'left to the tool', () async {

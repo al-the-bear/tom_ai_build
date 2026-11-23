@@ -647,14 +647,14 @@ packages:
       path: "../tom_doc_scanner"
       relative: true
     source: path
-    version: "0.2.1"
+    version: "0.3.0"
   tom_doc_specs:
     dependency: "direct main"
     description:
       path: "../tom_doc_specs"
       relative: true
     source: path
-    version: "0.3.1"
+    version: "0.4.0"
   tom_som_dart_runtime:
     dependency: "direct main"
     description:
