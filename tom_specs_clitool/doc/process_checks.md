@@ -19,7 +19,7 @@ package folder does the same.
 | Check | Arguments | What it answers |
 |-------|-----------|-----------------|
 | `:spec-render` | `<doc.tomspecs.yaml> [<rendition.md>]` | Decode, DocSpecs schema and instance tiers; with a second path also writes the markdown rendition. Findings go to stderr, the summaries to stdout. |
-| `:spec-readable` | `<doc.tomspecs.yaml> [<out.readable.md>] [-drop:<names>] [-unmark:<names>] [-appendix:<names>] [--appendix-references] [--heading-divs]` or `--merge-onto <doc.tomspecs.yaml> <edited.readable.md> [--base <file>] [switches] [--write]` | Writes a readable rendition with the chosen kinds dropped, unmarked or moved to an appendix, or merges an edited one back onto the document; see [Readable renditions and the merge back](#readable-renditions-and-the-merge-back). |
+| `:spec-readable` | `<doc.tomspecs.yaml> [<out.readable.md>] [-drop:<names>] [-unmark:<names>] [-appendix:<names>] [--appendix-references] [--heading-divs]` or `--merge-onto <doc.tomspecs.yaml> <edited.readable.md> [--base <file>] [switches] [--write]` | Writes a readable rendition with the chosen kinds dropped, unmarked or moved to an appendix, or merges an edited one back onto the document; see [Readable renditions and the merge back](#readable-renditions-and-the-merge-back); `tom_md_export` turns it into a PDF or an HTML page ([Exporting it as PDF or HTML](#exporting-it-as-pdf-or-html)). |
 | `:spec-import-answers` | `[--dry-run] [--allow-other-edits] <doc.tomspecs.yaml> <rendition.md>` | Imports the answers typed into the rendition into the YAML, in place and verified, then validates and regenerates the rendition. A rendition that differs in more than answers is refused (exit 2). An answer keeps the label it was written with: `**Answer:**`, or the owner's `**Answer (<time>):**`. |
 | `:spec-accept-marks` | `<doc.tomspecs.yaml> [--under <ID>/<ID>] [--write]` | Accepts every inline change mark in place, keeping the file's layout, and checks every value against the runtime's `acceptAllMarks` before `--write` writes. `--under` limits it to one section (the section ids of the YAML keys). For a document too large for a whole-file re-encode. |
 | `:spec-mark-secondary` | `<doc.tomspecs.yaml> [--under <ID>/<ID>] [--kinds provenance,trace,editorial,references] [--reflow] [--all] [--write]` | Writes the secondary prose (provenance notes, trace citations, the provenance-notes preamble, section references) in the reading notation, in place; a dry run without `--write`. See [Marking secondary prose](#marking-secondary-prose). |
@@ -130,6 +130,36 @@ finding (the emptying rule), and a summary line. Without an output path the
 report goes to stderr, so stdout holds the rendition alone. Writing over the
 document or over its own `<doc>.tomspecs.md` is a usage error: the readable
 rendition is a separate file, by convention `<doc>.readable.md`.
+
+### Exporting it as PDF or HTML
+
+A stakeholder gets a PDF or an HTML page, made in two commands: the readable
+rendition with the stakeholder preset, then the export of the package
+[tom_md_export](../../tom_md_export/README.md), which reads it as it stands and
+adds nothing:
+
+```text
+tomspecs :spec-readable <doc>.tomspecs.yaml <spec-root>/exports/<doc>.readable.md -drop:all --heading-divs
+dart run tom_md_export:md_export <spec-root>/exports/<doc>.readable.md -o <spec-root>/exports/<doc>.pdf
+dart run tom_md_export:md_export <spec-root>/exports/<doc>.readable.md -o <spec-root>/exports/<doc>.html
+```
+
+`-drop:all` drops the four secondary kinds and the review annotations;
+`--heading-divs` writes the headings below level six as styled divs, which both
+exports turn into headings. Other switch sets are the reader's choice:
+`-unmark:` keeps the notes as plain text, every kind kept shows each in its
+style (smaller and muted in the PDF, a collapsed `<details>` in the HTML).
+
+The PDF is set by Typst, the HTML by the MD Browser's own renderer in Node; how
+to get Typst and what the export needs is in the package's README. Tom UAM's
+Information Model (about 146,000 lines readable) takes about 22 seconds to PDF
+and 14 seconds to HTML.
+
+**Where an export is written:** where the caller names it. The documented place
+is `<spec-root>/exports/`, which the project gitignores: an export is rebuilt
+from the document of record whenever it is needed (the readable header names
+the source and its commit), and the user decides which exports to archive. A
+person starts it, or an agent asked to; nothing runs it on its own.
 
 ### Merging it back
 

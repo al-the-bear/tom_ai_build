@@ -3,7 +3,7 @@ description: >-
   Exports Markdown carrying the reading notation (fenced divs, bracketed spans,
   citation shapes) to PDF through Typst. General Markdown; in TomSpecs its input
   is a readable rendition.
-version: 0.1.0
+version: 0.2.0
 publish_to: none
 
 repository: https://github.com/al-the-bear/tom_ai_build

@@ -47,6 +47,12 @@ graph TD
 | <a id="ACE-1"></a>ACE-1 | A tenant administrator with a very long description of the situation | The administrator acts | The result is recorded and audited |
 :::
 
+::: {.records}
+| Id | Title | Given | When | Then | Verification | Priority |
+| --- | --- | --- | --- | --- | --- | --- |
+| ACE-2 | A wide record table | A record table with seven columns, each holding text long enough to wrap | the export lays it out | it wraps in a smaller font instead of running off the page | Inspection of the PDF and the HTML page | must |
+:::
+
 | Section | TomSpecField | Value |
 | --- | --- | --- |
 | RT-TRAC | RelatedGoals | [TEXT](#TEXT) |

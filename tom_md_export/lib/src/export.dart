@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 
+import 'html_export.dart';
 import 'kind_styles.dart';
 import 'md_reader.dart';
 import 'typst_emitter.dart';
@@ -15,6 +16,7 @@ class ExportOptions {
   /// Options; see the fields.
   const ExportOptions({
     this.kindStylesFile,
+    this.kindCssFile,
     this.notation = true,
     this.outline = true,
     this.documentNames = const {},
@@ -22,6 +24,10 @@ class ExportOptions {
 
   /// A Typst file replacing the built-in kind styles (`--kind-styles`).
   final String? kindStylesFile;
+
+  /// A CSS file replacing the built-in kinds stylesheet of the HTML export
+  /// (`--kind-css`).
+  final String? kindCssFile;
 
   /// False reads the notation as text (`--no-kind-styles`).
   final bool notation;
@@ -34,6 +40,28 @@ class ExportOptions {
   final Set<String> documentNames;
 }
 
+/// The names under which [markdown] links to itself: [extra], its own file
+/// [name], and — for a readable rendition, which names its document of
+/// record in its header (`<!-- readable: …; of=<doc>.tomspecs.yaml; … -->`) —
+/// that document's `.tomspecs.md` and `.readable.md` renditions.
+Set<String> documentNamesOf(
+  String markdown, {
+  String? name,
+  Set<String> extra = const {},
+}) {
+  final names = {...extra, ?name};
+  final of = RegExp(
+    r'<!-- readable:[^>]*\bof=([^;@ >]+)',
+  ).firstMatch(markdown)?.group(1);
+  if (of != null) {
+    final stem = of.replaceFirst(RegExp(r'\.tomspecs\.(yaml|md)$'), '');
+    names
+      ..add('$stem.tomspecs.md')
+      ..add('$stem.readable.md');
+  }
+  return names;
+}
+
 /// The Typst source for [markdown]; [name] is the input's file name, which
 /// links within the document may use.
 String markdownToTypst(
@@ -44,19 +72,11 @@ String markdownToTypst(
   final styles = options.kindStylesFile == null
       ? builtInKindStyles
       : File(options.kindStylesFile!).readAsStringSync();
-  final names = {...options.documentNames, ?name};
-  // A readable rendition names its document of record in its header
-  // (`<!-- readable: …; of=<doc>.tomspecs.yaml; … -->`); links to that
-  // document's renditions are links within this one.
-  final of = RegExp(
-    r'<!-- readable:[^>]*\bof=([^;@ >]+)',
-  ).firstMatch(markdown)?.group(1);
-  if (of != null) {
-    final stem = of.replaceFirst(RegExp(r'\.tomspecs\.(yaml|md)$'), '');
-    names
-      ..add('$stem.tomspecs.md')
-      ..add('$stem.readable.md');
-  }
+  final names = documentNamesOf(
+    markdown,
+    name: name,
+    extra: options.documentNames,
+  );
   final blocks = MarkdownReader(notation: options.notation).parse(markdown);
   return TypstEmitter(
     TypstOptions(
@@ -124,4 +144,35 @@ Future<ExportResult> exportMarkdownFile(
     exitCode: r.exitCode,
     errors: r.errors,
   );
+}
+
+/// Exports the Markdown file [input] to the HTML file [output] (default:
+/// beside the input with `.html`) with [exporter] — the MD Browser's renderer
+/// in Node. The page carries its stylesheet: the base style and the kinds
+/// stylesheet (or [ExportOptions.kindCssFile]); with the notation read as
+/// text, no kinds stylesheet.
+Future<({int exitCode, String errors, String output})> exportMarkdownFileToHtml(
+  String input, {
+  String? output,
+  ExportOptions options = const ExportOptions(),
+  required HtmlExporter exporter,
+}) async {
+  final html = output ?? '${p.withoutExtension(input)}.html';
+  final kindCss = !options.notation
+      ? ''
+      : options.kindCssFile == null
+      ? htmlKindCss
+      : File(options.kindCssFile!).readAsStringSync();
+  final r = await exporter.render(
+    input,
+    html,
+    css: '$htmlBaseCss$kindCss',
+    notation: options.notation,
+    documentNames: documentNamesOf(
+      File(input).readAsStringSync(),
+      name: p.basename(input),
+      extra: options.documentNames,
+    ),
+  );
+  return (exitCode: r.exitCode, errors: r.errors, output: html);
 }

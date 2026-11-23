@@ -220,6 +220,8 @@ class TypstEmitter {
           _ => 'left',
         },
     ];
+    final size = n >= wideTableColumns ? '7.5pt' : '9pt';
+    b.writeln('#[#set text(size: $size);');
     b.writeln('#table(');
     b.writeln('  columns: (${columns.join(', ')}${n == 1 ? ',' : ''}),');
     b.writeln('  align: (${aligns.join(', ')}${n == 1 ? ',' : ''}),');
@@ -229,7 +231,7 @@ class TypstEmitter {
     for (final row in t.rows) {
       b.writeln('  ${[for (final c in row) '[${_inlines(c)}]'].join(', ')},');
     }
-    b.writeln(');');
+    b.writeln(')];');
   }
 
   // --------------------------------------------------------------------------

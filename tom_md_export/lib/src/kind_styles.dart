@@ -15,6 +15,10 @@ const Set<String> knownKinds = {
   'rejected',
 };
 
+/// A table with this many columns or more is wide: set in a smaller font in
+/// the PDF, and marked `tm-wide` (a smaller font) in the HTML.
+const int wideTableColumns = 5;
+
 /// The secondary kinds: their text is set smaller and muted.
 const Set<String> secondaryKinds = {
   'provenance',
@@ -24,7 +28,9 @@ const Set<String> secondaryKinds = {
 };
 
 /// The document setup written before the content: the page, the text, the
-/// headings, links, tables, code and quotes.
+/// headings, links, tables, code and quotes. A table's font size is the
+/// emitter's: 9pt, and 7.5pt for a wide table ([wideTableColumns] columns or
+/// more), which wraps rather than running off the page.
 const String documentSetup = r'''
 #set page(paper: "a4", margin: (x: 2cm, y: 2.2cm), numbering: "1")
 #set text(size: 10pt, lang: "en")
@@ -37,7 +43,7 @@ const String documentSetup = r'''
 #show heading: it => if it.level > 3 { block(above: 1.2em, below: 0.6em, text(size: 10.5pt, weight: "bold", it.body)) } else { it }
 #show link: set text(fill: rgb("#1a5fb4"))
 #set table(stroke: 0.5pt + luma(180), inset: (x: 5pt, y: 4pt))
-#show table: set text(size: 9pt, hyphenate: true)
+#show table: set text(hyphenate: true)
 #show table.cell.where(y: 0): set text(weight: "bold")
 #show raw.where(block: true): block.with(fill: luma(246), inset: 7pt, radius: 3pt, width: 100%)
 #show raw: set text(size: 8.5pt)

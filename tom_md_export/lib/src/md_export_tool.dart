@@ -1,5 +1,5 @@
 /// The `md_export` tool on `tom_build_base`: one command, a Markdown file in,
-/// a PDF out.
+/// a PDF or an HTML page out.
 library;
 
 import 'dart:io';
@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:tom_build_base/tom_build_base_v2.dart';
 
 import 'export.dart';
+import 'html_export.dart';
 import 'typst_runner.dart';
 import 'version.versioner.dart';
 
@@ -15,8 +16,34 @@ const mdExportOptions = <OptionDefinition>[
   OptionDefinition.option(
     name: 'output',
     abbr: 'o',
-    description: 'The PDF to write (default: the input with .pdf)',
+    description:
+        'The file to write (default: the input with .pdf or .html); an .html '
+        'output selects the HTML export',
     valueName: 'file',
+  ),
+  OptionDefinition.option(
+    name: 'format',
+    description: 'pdf (through Typst) or html (the MD Browser renderer)',
+    allowedValues: ['pdf', 'html'],
+    valueName: 'format',
+  ),
+  OptionDefinition.option(
+    name: 'kind-css',
+    description:
+        'A CSS file in place of the built-in kinds stylesheet of the HTML export',
+    valueName: 'file',
+  ),
+  OptionDefinition.option(
+    name: 'node',
+    description: 'The node binary for the HTML export (default: node on PATH)',
+    valueName: 'path',
+  ),
+  OptionDefinition.option(
+    name: 'md-browser',
+    description:
+        'The tom_vscode_extension checkout whose MD Browser renders the HTML '
+        '(default: \$TOM_VSCODE_EXTENSION, else found in the workspace)',
+    valueName: 'dir',
   ),
   OptionDefinition.option(
     name: 'kind-styles',
@@ -59,18 +86,23 @@ const mdExportOptions = <OptionDefinition>[
 const _help = r'''
 md_export reads Markdown carrying the reading notation (DocSpecs Reading
 Notation: fenced divs, bracketed spans, citation shapes) and writes a PDF
-through Typst. In TomSpecs its input is a readable rendition
-(`tomspecs :spec-readable`); it never strips anything itself.
+through Typst, or an HTML page through the MD Browser's renderer. In TomSpecs
+its input is a readable rendition (`tomspecs :spec-readable`); it never strips
+anything itself.
 
 Typst (Apache-2.0) is one binary: md_export takes it from the binaries layer
-($TOM_BINARY_PATH/<platform>/typst), else from PATH, else --typst.
+($TOM_BINARY_PATH/<platform>/typst), else from PATH, else --typst. The HTML
+export runs marked and the MD Browser's blocks.js from the tom_vscode_extension
+checkout in Node.
 
-Exit codes: 0 written; 1 Typst failed or was not found; 2 usage error.''';
+Exit codes: 0 written; 1 Typst, Node or the MD Browser failed or was not found;
+2 usage error.''';
 
 /// The `md_export` tool.
 final mdExportTool = ToolDefinition(
   name: 'md_export',
-  description: 'Markdown with the reading notation to PDF through Typst',
+  description:
+      'Markdown with the reading notation to PDF through Typst, or to HTML',
   version: TomMdExportVersionInfo.version,
   versionString: 'md_export ${TomMdExportVersionInfo.versionMedium}',
   mode: ToolMode.singleCommand,
@@ -144,11 +176,47 @@ class MdExportExecutor extends CommandExecutor {
     if (styles != null && !File(styles).existsSync()) {
       return _failure('no kind styles file $styles', 2);
     }
+    final css = o['kind-css'] as String?;
+    if (css != null && !File(css).existsSync()) {
+      return _failure('no kind CSS file $css', 2);
+    }
+    final output = o['output'] as String?;
+    final format =
+        o['format'] as String? ??
+        (output != null && output.toLowerCase().endsWith('.html')
+            ? 'html'
+            : 'pdf');
     final options = ExportOptions(
       kindStylesFile: styles,
+      kindCssFile: css,
       notation: !noStyles,
       outline: o['no-outline'] != true,
     );
+    if (format == 'html') {
+      final HtmlExporter exporter;
+      try {
+        exporter = await HtmlExporter.find(
+          node: o['node'] as String?,
+          extension: o['md-browser'] as String?,
+        );
+      } on HtmlExportUnavailable catch (e) {
+        return _failure(e.message, 1);
+      }
+      final r = await exportMarkdownFileToHtml(
+        input,
+        output: output,
+        options: options,
+        exporter: exporter,
+      );
+      if (r.exitCode != 0) {
+        return _failure(
+          'the HTML export failed (${r.exitCode})\n${r.errors}',
+          1,
+        );
+      }
+      (out ?? stdout).writeln('html  ${r.output}');
+      return const ToolResult.success();
+    }
     final typOnly = o['typ-only'] == true;
     TypstCompiler? compiler;
     if (!typOnly) {
@@ -160,7 +228,7 @@ class MdExportExecutor extends CommandExecutor {
     }
     final result = await exportMarkdownFile(
       input,
-      output: o['output'] as String?,
+      output: output,
       options: options,
       compiler: compiler,
       keepTypst: o['keep-typ'] == true,

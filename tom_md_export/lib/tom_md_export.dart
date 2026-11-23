@@ -7,6 +7,7 @@
 library;
 
 export 'src/export.dart';
+export 'src/html_export.dart';
 export 'src/kind_styles.dart';
 export 'src/md_nodes.dart';
 export 'src/md_reader.dart';
