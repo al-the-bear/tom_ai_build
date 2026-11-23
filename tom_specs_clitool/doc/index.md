@@ -15,7 +15,7 @@ here cite it rather than restating it
 | [generating.md](generating.md) | The canonical `tomspecs :som-generate` run and its five phases, reading its output, stamping serialization order (and the two numbers that do not mean what they look like), the ad-hoc entry points, and the freshness stamp |
 | [inspecting_the_model.md](inspecting_the_model.md) | The outliner, the JSON exporter and the summary builder: running them, **reading an outline's notation**, and refreshing the two committed assets |
 | [validating_a_document.md](validating_a_document.md) | `tomspecs :spec-validate`: checking a project's `*.tomspecs.yaml` or rendered `*.tomspecs.md` on the three tiers (decode, DocSpecs schema, instance), reading its report, and the `--json` shape |
-| [process_checks.md](process_checks.md) | the `tomspecs :spec-*` commands: the process checks a project runs at a gate (answer import, mark acceptance, required fields, registers, coverage, authorization) and the project data they read from `<spec-root>/checks/` |
+| [process_checks.md](process_checks.md) | the `tomspecs :spec-*` commands: the process checks a project runs at a gate (the rendition, readable renditions and their merge back, secondary prose marked, answer import, mark acceptance, required fields, registers, coverage, authorization) and the project data they read from `<spec-root>/checks/` |
 | [gates.md](gates.md) | The three citation gates, the release-closure walker and the CodeSpecs validator: running each, **reading a citation failure**, and why the scan sets are closed |
 
 ## API reference

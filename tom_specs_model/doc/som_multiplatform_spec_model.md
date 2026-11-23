@@ -1376,13 +1376,26 @@ no anchors:
    markdown export refuses.
 5. Blank lines inside a value are kept as written, runs included (as in
    §12.4); only leading and trailing blank lines are trimmed.
+6. **The reading notation.** A value may carry the reading notation: fenced
+   divs, bracketed spans and citation shapes, as the DocSpecs specification's
+   *Reading Notation* defines them (RN-1 to RN-13). The codec keeps it byte for
+   byte in content, form preambles and form-field values, in both form layouts
+   and in the YAML (§12), and reads none of it as structure: a div opened in a
+   value closes in it (RN-7), and in a form a line inside a div that matches a
+   declared label still starts a field, so text of that shape carries the §11.4
+   rule-3 escape space. The divs the codec writes itself are the list bodies
+   `refs` and `records` (§11.5) and the `rejected` blocks of an import (§11.7).
+   A value holding a div is a Markdown block and is written as a `Field:`
+   paragraph, never as a table cell; a span may stand in a cell (§11.4). The
+   notation's findings are the DocSpecs validator's (§14, RN-10), and the strip
+   removes its secondary kinds (§11.10).
 
 ### 11.4 Form sections
 
 `@Form` content uses the DocSpecs plain-text form format — the `Field:` lines
 of rules 1–8, which every parse reads, and the table layout of rules 9–12,
 which the Dart and TypeScript emitters write (the other seven runtimes write
-`Field:` lines until the reading view's parity audit brings them to tables):
+the `Field:` lines):
 
 ```markdown
 ## <!--[DOCO]--> Document Control
@@ -1476,6 +1489,16 @@ fit a cell is one table, every other value a `Field:` paragraph at its place
 (table – text – table). A value fits a cell unless its field is flagged
 `multiParagraph`, or it holds a Markdown block, `\|` or `<!--`, or a line break
 other than the soft breaks of one wrapped paragraph (rule 13).
+A cell holds the value on one line (a wrapped paragraph joined, rule 13) with
+every `|` written `\|`, and a `code` field's single-line value as its code span
+(rule 8). A reference field — one whose `refersTo` names a section id — whose
+value is a comma-separated run of section ids is written as links joined by
+`, `: `[ID](#ID)` when the document being rendered reaches the target class,
+else `[ID](<file>#ID)`, `<file>` being the rendition of the other root that
+reaches it, the most specific (fewest classes) first: the render option
+`documentFiles` names it by the root's section id, else it is
+`<fileStem>.<root id in lower case>.tomspecs.md` (without a `fileStem`, the
+name alone). Any other value of the field is written as text.
 Every heading of the layout carries an HTML anchor for its section id after the
 id comment (§11.2). Parse reads both layouts, and a document may mix them:
 
@@ -1557,7 +1580,8 @@ The table layout (§11.4) writes three more forms, and parse reads them:
 - **A reference line.** A list whose items each hold only their reference id
   (a `@Reference` member with one `refersTo` field), at their positional ids,
   is written as one `refs` div in the container's body, the ids as links in
-  list order:
+  list order (linked as a reference field's cell is, §11.4; an id whose field
+  names no section-id target is written bare):
 
   ```markdown
   ### <!--[RGR-LST]--> <a id="RGR-LST"></a> Refs
@@ -1685,9 +1709,10 @@ rejection list: `unknownSection`, `kindMismatch`, `orphanContent`,
 `missingValue`, `malformedHeading`, and for the layout grammar of §11.4 and
 §11.5 `unknownField` (a table row or records column naming no declared field)
 and `malformedBlock` (a broken table, a field given twice, a misplaced or
-broken `refs` / `records` div; the message says which). Nothing is silently dropped: an unplaceable
-block is **reported and skipped** (an import that allows rejections keeps it
-as a `rejected` div, §11.7), and the rest of the document still imports.
+broken `refs` / `records` div; the message says which). Nothing is silently
+dropped: an unplaceable block is **reported and skipped** (an import that
+allows rejections keeps it as a `rejected` div, below), and the rest of the
+document still imports.
 Each rejection carries its source line, the offending anchor (section path or id,
 absent when there is none), the reason and a human-readable message — pinned
 across the nine ports, together with the document that still landed, by
@@ -1745,7 +1770,7 @@ staged content.
 keeping any rejected blocks, and returns it with the parse report. Both are
 pinned by `markdown_apply_cases.json` (the kept blocks in its `readingView`
 cases, each with the `rejectedBlocks` the validator reports, run by Dart and
-TypeScript until the parity port). Stored headlines are
+TypeScript). Stored headlines are
 staged only when they differ from the effective default, keeping untouched
 documents byte-stable.
 
@@ -1782,6 +1807,42 @@ Version: 1.0
 ApprovedBy: Programme Sponsor
 
 ReviewCount: 3
+```
+
+The same document in the table layout, as the Dart and TypeScript emitters
+write it (§11.2 anchors, §11.4 form table):
+
+```markdown
+<!-- docspec: demo-document/1.0 -->
+# <!--[DEMO]--> <a id="DEMO"></a> Demo Document
+
+Preamble of the demo document.
+
+## <!--[INSC]--> <a id="INSC"></a> Introduction And Scope
+
+The demo system covers order capture and pricing.
+
+### <!--[GOAL]--> <a id="GOAL"></a> Goals
+
+Primary goals of the demo programme.
+
+#### <!--[GOAL-ITEM-LST]--> <a id="GOAL-ITEM-LST"></a> Entries
+
+##### <!--[GOAL-ITEM-1]--> <a id="GOAL-ITEM-1"></a> Goal 1
+
+Cut median confirmation time below five minutes.
+
+##### <!--[GOAL-ITEM-2]--> <a id="GOAL-ITEM-2"></a> Goal 2
+
+Remove the nightly batch window.
+
+## <!--[DOCO]--> <a id="DOCO"></a> Document Control
+
+| TomSpecField | Value |
+| --- | --- |
+| Version | 1.0 |
+| ApprovedBy | Programme Sponsor |
+| ReviewCount | 3 |
 ```
 
 ### 11.9 Annotations in content
