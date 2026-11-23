@@ -324,9 +324,10 @@ packages:
   tom_doc_scanner:
     dependency: "direct main"
     description:
-      path: "../tom_doc_scanner"
-      relative: true
-    source: path
+      name: tom_doc_scanner
+      sha256: "778d3a2c0823a3c6c6215bf16ccb37bdcfe249568c877807f601ad241aba9396"
+      url: "https://pub.dev"
+    source: hosted
     version: "0.3.0"
   typed_data:
     dependency: transitive
