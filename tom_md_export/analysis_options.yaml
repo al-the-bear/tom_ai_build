@@ -1,0 +1,7 @@
+include: package:lints/recommended.yaml
+
+linter:
+  rules:
+    # Every public member is documented: the lint makes `dart analyze` the
+    # ratchet rather than a later coverage sweep.
+    public_member_api_docs: true

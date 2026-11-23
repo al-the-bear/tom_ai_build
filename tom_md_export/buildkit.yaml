@@ -1,0 +1,9 @@
+# yaml-language-server: $schema=../../../../../../../.tom/json-schema/buildkit/buildkit.schema.json
+# tom_md_export — build configuration.
+#
+# The `md_export` binary (bin/md_export.dart) reports this package's version
+# and build with `md_export --version`, from the versioner stamp below.
+versioner:
+  # → TomMdExportVersionInfo (lib/src/version.versioner.dart)
+  variable-prefix: tomMdExport
+  includeGitCommit: true
