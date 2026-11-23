@@ -1,7 +1,7 @@
 /// The reading forms of the DocSpecs specification as tom_doc_specs reads
 /// them: form tables (*Form Types*, Form Tables), `refs` / `records` list
 /// bodies and section tables (*List Bodies*), styled-div headings, section
-/// anchors, the fenced-div findings of the reading notation (RN-10) and the
+/// anchors, the reading-notation findings of every document (RN-10) and the
 /// prefix match of *Section Type Resolution*.
 ///
 /// Each finding is written `<code or category>|<section>|<line>`; a finding
@@ -570,7 +570,171 @@ void main() {
     });
   });
 
+  group('span and annotation findings', () {
+    /// A document whose `GOALS` section holds [body], then a goal.
+    String goals(String body) => doc(
+      '## <!--[GOALS]--> Goals\n\n$body\n'
+      '### <!--[GOAL-ITEM-1]--> Goal\n\nA goal.\n',
+    );
+
+    test('unclosedSpan at the line its braces open', () {
+      final md = goals(
+        'The limit is 150 EUR [per order]{.aside label="scope".\n'
+        '\n'
+        'A span [opened]{.aside\n'
+        '\n'
+        'closes in no other paragraph}.\n'
+        '\n'
+        '| Field | Value |\n'
+        '| --- | --- |\n'
+        '| Format | `json` [or `yaml \\| toml`]{.aside |\n',
+      );
+      expect(findings(md), [
+        'unclosedSpan|GOALS|${at(md, 'The limit is')}',
+        'unclosedSpan|GOALS|${at(md, 'A span [opened]')}',
+        'unclosedSpan|GOALS|${at(md, '| Format |')}',
+      ]);
+    });
+
+    test('closed spans, wrapped spans and quoted braces pass', () {
+      final md = goals(
+        'The token lives 15 minutes [as the review\n'
+        'asked in March]{.aside label="a } in a value"}.\n'
+        '\n'
+        '[outer [inner]{.trace} text]{.aside} and a [link](x.md).\n'
+        '\n'
+        '| Field | Value |\n'
+        '| --- | --- |\n'
+        '| Format | `json` [or `yaml \\| toml` on request]{.aside} |\n',
+      );
+      expect(findings(md), isEmpty);
+    });
+
+    test('markAcrossNotation at the line the mark opens', () {
+      final md = goals(
+        'Backed by [the review {++of March]{.aside} and April++}.\n'
+        '\n'
+        'A {--deleted [part--} of a span]{.aside}.\n'
+        '\n'
+        'Rights apply to the subtree (-> C2.1{++, C2.4)\n'
+        'and more++}.\n',
+      );
+      expect(findings(md), [
+        'markAcrossNotation|GOALS|${at(md, 'Backed by')}',
+        'markAcrossNotation|GOALS|${at(md, 'A {--deleted')}',
+        'markAcrossNotation|GOALS|${at(md, 'Rights apply')}',
+      ]);
+    });
+
+    test('marks inside and around spans and citations pass', () {
+      final md = goals(
+        'The subtree inherits the rights (-> {++C2.1, ++}C2.4).\n'
+        'Rights scoped to a node apply to its subtree{++ (-> C2.1)++}.\n'
+        'An [aside {~~with~>without~~} change]{.aside} and '
+        '{==[a span]{.aside}==}{>>why?<<}.\n'
+        '\n'
+        '::: {.editorial}\n'
+        'Marks inside a {++div++} pass.\n'
+        ':::\n',
+      );
+      expect(findings(md), isEmpty);
+    });
+
+    test('annotationInsideDiv and divInsideAnnotation', () {
+      final md = goals(
+        '::: {.editorial}\n'
+        '> ⬆️ **C-12** (alice, 2026-11-19T10:05+01:00): Is this still true?\n'
+        ':::\n'
+        '\n'
+        '::: aside\n'
+        '> **❓ BQ-1 — Scope:** per order or per day?\n'
+        '>\n'
+        '> **Answer:**\n'
+        ':::\n'
+        '\n'
+        '> ⬆️ **C-13** (alice, 2026-11-19T10:06+01:00): Move this note?\n'
+        '> ::: {.aside}\n'
+        '> A note.\n'
+        '> :::\n',
+      );
+      expect(findings(md), [
+        'annotationInsideDiv|GOALS|${at(md, '**C-12**')}',
+        'annotationInsideDiv|GOALS|${at(md, '**❓ BQ-1')}',
+        'divInsideAnnotation|GOALS|${at(md, '> ::: {.aside}')}',
+      ]);
+    });
+
+    test('annotations beside a div and a div in a plain quote pass', () {
+      final md = goals(
+        '> ⬆️ **C-12** (alice): Is this still true?\n'
+        '\n'
+        '::: {.editorial}\n'
+        'The note.\n'
+        ':::\n'
+        '\n'
+        '> **❓ BQ-1 — Scope:** per order or per day?\n'
+        '>\n'
+        '> **Answer:**\n'
+        '\n'
+        '> A plain quotation.\n'
+        '> ::: {.aside}\n'
+        '> Quoted.\n'
+        '> :::\n',
+      );
+      expect(findings(md), isEmpty);
+    });
+
+    test('escapes, code spans and fenced code keep text from being '
+        'notation (RN-7, RN-8, RN-9)', () {
+      final md = goals(
+        '\\::: is how the notation opens a block.\n'
+        '\n'
+        '\\:::\n'
+        '\n'
+        'The array [0]\\{.x is not a span, nor is [text] {.aside or '
+        '\\[x]{.aside.\n'
+        '\n'
+        'Write `[x]{.aside` or ``a `{++` [b]{.c``, and `{++[a]{.x} b++}`.\n'
+        '\n'
+        'Backed by [the review \\{++of March]{.aside} and April++}.\n'
+        '\n'
+        '```markdown\n'
+        '[x]{.aside\n'
+        'Backed by [the review {++of March]{.aside} and April++}.\n'
+        '::: {.editorial}\n'
+        '> ⬆️ **C-1** (alice): inside code\n'
+        '```\n',
+      );
+      expect(findings(md), isEmpty);
+    });
+
+    test('the findings come with category notation', () {
+      final d = scan(goals('A span [opened]{.aside\n'));
+      final errors = DocSpecsValidator(schema: schema).validate(d);
+      expect(errors.map((e) => e.category), [ValidationErrorCategory.notation]);
+    });
+  });
+
   group('prefix matching', () {
+    test('an empty prefix is the catch-all type, declared last', () {
+      final catchAll = DocSpecSchema.fromYaml(
+        {
+          'section-types': {
+            'goal': {'prefix': 'GOAL'},
+            'content': {'prefix': ''},
+          },
+        },
+        id: 'catch-all',
+        version: '1.0',
+      );
+      expect(catchAll.resolveSectionType('GOAL-1'), 'goal');
+      expect(catchAll.resolveSectionType('ANYTHING-ELSE'), 'content');
+      expect(
+        () => SectionTypeDef.fromYaml('bad', {'prefix': 'a-b'}),
+        throwsFormatException,
+      );
+    });
+
     test('a dashed id matches an underscore prefix, the raw id still '
         'counts', () {
       expect(DocSpecSchema.prefixMatches('D00-OVR', 'D00_OVR'), isTrue);

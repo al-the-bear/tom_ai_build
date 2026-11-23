@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.4.1
+
+- **The rest of the reading-notation findings every document has** (DocSpecs
+  specification RN-10, RN-12), category `notation`, each at its line:
+  `unclosedSpan` (span braces opened after `]` that do not close in the
+  paragraph, a table row counting as its own paragraph), `markAcrossNotation`
+  (an inline review mark opening inside a span or citation shape and closing
+  outside it, or the reverse), `annotationInsideDiv` (a comment or question
+  block inside a div) and `divInsideAnnotation` (a div inside such a block).
+  Code spans, fenced code and backslash escapes (`\:::`, `]\{.`) are text
+  (RN-8, RN-9).
+- **The catch-all section type** `prefix: ""` loads (it was refused as
+  holding invalid characters) and matches every id, as *Section Type
+  Resolution* says.
+
 ## 0.4.0
 
 Reads the reading forms of the DocSpecs specification (02b_rdv1, 02b_rdv2),

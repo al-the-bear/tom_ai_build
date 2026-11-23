@@ -1,6 +1,6 @@
 /// The line grammar of the DocSpecs specification's reading forms: form and
 /// section tables (*Form Types*, *List Bodies*), the `refs` / `records` divs
-/// and the fenced-div findings of the reading notation (RN-1, RN-10).
+/// and the findings of the reading notation every document has (RN-10).
 ///
 /// Only what the forms share lives here; `SpecSection` reads form tables and
 /// `BodyReader` the list bodies and section tables with it.
@@ -194,13 +194,37 @@ abstract final class ReadingGrammar {
     code: 'malformedBlock',
   );
 
-  /// The fenced-div findings of a section's own body [text] (RN-10, the
-  /// codes of every document that concern divs): `unclosedDiv` for an
-  /// opening fence with no closing fence before the next heading,
-  /// `strayClosingFence` for a closing fence with no open div,
-  /// `rejectedBlock` for a `rejected` div. Fenced code is skipped.
-  /// [firstLine] is the file line of the text's first line.
-  static List<ValidationError> divFindings(
+  /// A blockquote line that starts a review annotation (SOM §11.9): a
+  /// comment block (`> ⬆️ …`, the marker with or without U+FE0F) or a
+  /// question block (`> **❓ …`).
+  static bool isAnnotationStart(String line) {
+    final t = line.trimLeft();
+    if (!t.startsWith('>')) return false;
+    var inner = t.substring(1);
+    if (inner.startsWith(' ')) inner = inner.substring(1);
+    return inner.startsWith('⬆') || inner.startsWith('**❓');
+  }
+
+  static final RegExp _quotePrefix = RegExp(r'^ {0,3}>');
+  static final RegExp _quoteMarkers = RegExp(r'^(?: {0,3}> ?)+');
+
+  /// The reading-notation findings of a section's own body [text] that hold
+  /// for every document (RN-10):
+  ///
+  /// - `unclosedDiv` — an opening fence with no closing fence before the
+  ///   next heading; `strayClosingFence` — a closing fence with no open div;
+  ///   `rejectedBlock` — a `rejected` div;
+  /// - `annotationInsideDiv` — a comment or question block inside a div;
+  ///   `divInsideAnnotation` — a div fence inside such a block (RN-12);
+  /// - `unclosedSpan` — span braces opened after `]` that do not close in
+  ///   the paragraph; `markAcrossNotation` — an inline review mark crossing
+  ///   the boundary of a span or citation shape (RN-12).
+  ///
+  /// Fenced code and code spans are literal (RN-8); backslash escapes
+  /// (`\:::`, `]\{.`, RN-9) are text. [firstLine] is the file line of the
+  /// text's first line. The block findings come first, in line order, then
+  /// the inline ones, in line order.
+  static List<ValidationError> notationFindings(
     String text,
     int? firstLine,
     String? sectionId,
@@ -219,12 +243,79 @@ abstract final class ReadingGrammar {
     final lines = text.split('\n');
     final fence = FenceTracker();
     final open = <int>[];
+    // The paragraphs the inline checks read, as (first line index, lines).
+    final paragraphs = <(int, List<String>)>[];
+    int? paragraphStart;
+    var paragraphLines = <String>[];
+    void endParagraph() {
+      if (paragraphStart != null) {
+        paragraphs.add((paragraphStart!, paragraphLines));
+      }
+      paragraphStart = null;
+      paragraphLines = <String>[];
+    }
+
+    void addToParagraph(int k, String line) {
+      paragraphStart ??= k;
+      paragraphLines.add(line);
+    }
+
+    var inQuote = false; // inside any blockquote
+    var inAnnotation = false; // inside a comment or question block
     for (var k = 0; k < lines.length; k++) {
       final line = lines[k];
       final wasInFence = fence.inFence;
       fence.feed(line);
-      if (wasInFence || fence.inFence) continue;
+      if (wasInFence || fence.inFence) {
+        endParagraph();
+        continue;
+      }
+      if (_quotePrefix.hasMatch(line)) {
+        final startsAnnotation = isAnnotationStart(line);
+        if (!inQuote || startsAnnotation) endParagraph();
+        inQuote = true;
+        if (startsAnnotation) {
+          inAnnotation = true;
+          if (open.isNotEmpty) {
+            findings.add(
+              finding(
+                'annotationInsideDiv',
+                k,
+                'a review annotation block stands inside a div; place it '
+                    'before or after the div',
+              ),
+            );
+          }
+        }
+        final inner = line.replaceFirst(_quoteMarkers, '');
+        final opensDiv = _divOpen.hasMatch(inner);
+        if (opensDiv || _divClose.hasMatch(inner)) {
+          endParagraph();
+          if (opensDiv && inAnnotation) {
+            findings.add(
+              finding(
+                'divInsideAnnotation',
+                k,
+                'a div stands inside a review annotation block; place it '
+                    'outside the block',
+              ),
+            );
+          }
+        } else if (inner.trim().isEmpty) {
+          endParagraph();
+        } else {
+          addToParagraph(k, inner);
+        }
+        continue;
+      }
+      if (inQuote) endParagraph();
+      inQuote = inAnnotation = false;
+      if (line.trim().isEmpty) {
+        endParagraph();
+        continue;
+      }
       if (_divClose.hasMatch(line)) {
+        endParagraph();
         if (open.isEmpty) {
           findings.add(
             finding('strayClosingFence', k, 'a closing fence has no open div'),
@@ -235,22 +326,33 @@ abstract final class ReadingGrammar {
         continue;
       }
       final m = _divOpen.firstMatch(line);
-      if (m == null) continue;
-      open.add(k);
-      final attributes = m.group(1)!;
-      final rejected = attributes.startsWith('{')
-          ? _rejectedClass.hasMatch(attributes)
-          : attributes == 'rejected';
-      if (rejected) {
-        findings.add(
-          finding(
-            'rejectedBlock',
-            k,
-            'a rejected block is present; resolve it and remove the div',
-          ),
-        );
+      if (m != null) {
+        endParagraph();
+        open.add(k);
+        final attributes = m.group(1)!;
+        final rejected = attributes.startsWith('{')
+            ? _rejectedClass.hasMatch(attributes)
+            : attributes == 'rejected';
+        if (rejected) {
+          findings.add(
+            finding(
+              'rejectedBlock',
+              k,
+              'a rejected block is present; resolve it and remove the div',
+            ),
+          );
+        }
+        continue;
       }
+      // A table row is one line: a cell holds spans only (RN-7).
+      if (tableLine.hasMatch(line)) {
+        endParagraph();
+        paragraphs.add((k, [line]));
+        continue;
+      }
+      addToParagraph(k, line);
     }
+    endParagraph();
     for (final k in open) {
       findings.add(
         finding(
@@ -260,6 +362,181 @@ abstract final class ReadingGrammar {
         ),
       );
     }
+    for (final (first, paragraph) in paragraphs) {
+      for (final (offset, code, message) in _inlineFindings(paragraph)) {
+        findings.add(finding(code, first + offset, message));
+      }
+    }
     return findings;
+  }
+
+  /// The inline review marks (SOM §11.9.3): opener and closer.
+  static const _marks = [
+    ('{++', '++}'),
+    ('{--', '--}'),
+    ('{~~', '~~}'),
+    ('{==', '==}'),
+    ('{>>', '<<}'),
+  ];
+
+  /// The citation shapes (RN-3): `(` with the arrow and one space.
+  static const _citationOpeners = ['(-> ', '(<- ', '(<~ '];
+
+  /// The characters a CommonMark backslash escapes.
+  static const _asciiPunctuation = '!"#\$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
+
+  /// The `unclosedSpan` and `markAcrossNotation` findings of one paragraph,
+  /// each as (line offset in the paragraph, code, message).
+  static List<(int, String, String)> _inlineFindings(List<String> lines) {
+    final text = lines.join('\n');
+    final n = text.length;
+    int lineAt(int pos) => '\n'.allMatches(text.substring(0, pos)).length;
+
+    // Literal characters: code spans (RN-8) and backslash escapes (RN-9).
+    final literal = List<bool>.filled(n, false);
+    for (var i = 0; i < n; i++) {
+      final c = text[i];
+      if (c == r'\' && i + 1 < n && _asciiPunctuation.contains(text[i + 1])) {
+        literal[i] = literal[i + 1] = true;
+        i++;
+        continue;
+      }
+      if (c != '`') continue;
+      var run = 1;
+      while (i + run < n && text[i + run] == '`') {
+        run++;
+      }
+      final close = _backtickRun(text, i + run, run);
+      if (close == -1) {
+        i += run - 1; // unmatched backticks are text
+        continue;
+      }
+      for (var j = i; j < close + run; j++) {
+        literal[j] = true;
+      }
+      i = close + run - 1;
+    }
+    bool at(int i, String token) {
+      if (!text.startsWith(token, i)) return false;
+      for (var j = i; j < i + token.length; j++) {
+        if (literal[j]) return false;
+      }
+      return true;
+    }
+
+    int find(String token, int from) {
+      for (var i = from; i + token.length <= n; i++) {
+        if (at(i, token)) return i;
+      }
+      return -1;
+    }
+
+    final out = <(int, String, String)>[];
+
+    // The inline marks, as [start, end) ranges.
+    final marks = <(int, int)>[];
+    for (var i = 0; i < n; i++) {
+      for (final (opener, closer) in _marks) {
+        if (!at(i, opener)) continue;
+        final close = find(closer, i + opener.length);
+        if (close != -1) {
+          marks.add((i, close + closer.length));
+          i = close + closer.length - 1;
+        }
+        break;
+      }
+    }
+    bool isMarkOpener(int i) => _marks.any((m) => at(i, m.$1));
+
+    // The spans and citation shapes, as [start, end) ranges.
+    final notation = <(int, int)>[];
+    final brackets = <int>[];
+    for (var i = 0; i < n; i++) {
+      if (literal[i]) continue;
+      final c = text[i];
+      if (c == '[') {
+        brackets.add(i);
+      } else if (c == ']' && brackets.isNotEmpty) {
+        final start = brackets.removeLast();
+        if (at(i + 1, '{') && !isMarkOpener(i + 1)) {
+          final close = _braceClose(text, literal, i + 2);
+          if (close == -1) {
+            out.add((
+              lineAt(i + 1),
+              'unclosedSpan',
+              "a span's attribute braces do not close in the paragraph",
+            ));
+          } else {
+            notation.add((start, close + 1));
+          }
+        }
+      } else if (_citationOpeners.any((o) => at(i, o))) {
+        var depth = 0;
+        for (var j = i; j < n; j++) {
+          if (literal[j]) continue;
+          if (text[j] == '(') depth++;
+          if (text[j] == ')' && --depth == 0) {
+            notation.add((i, j + 1));
+            break;
+          }
+        }
+      }
+    }
+
+    for (final (ms, me) in marks) {
+      final crosses = notation.any(
+        (r) =>
+            (ms > r.$1 && ms < r.$2 && me > r.$2) ||
+            (ms < r.$1 && me > r.$1 && me < r.$2),
+      );
+      if (crosses) {
+        out.add((
+          lineAt(ms),
+          'markAcrossNotation',
+          'an inline review mark opens inside a span or citation and closes '
+              'outside it, or the reverse',
+        ));
+      }
+    }
+    out.sort((a, b) => a.$1.compareTo(b.$1));
+    return out;
+  }
+
+  /// The start of the next run of exactly [length] backticks from [from];
+  /// -1 when there is none.
+  static int _backtickRun(String text, int from, int length) {
+    var i = from;
+    while (i < text.length) {
+      if (text[i] != '`') {
+        i++;
+        continue;
+      }
+      var end = i;
+      while (end < text.length && text[end] == '`') {
+        end++;
+      }
+      if (end - i == length) return i;
+      i = end;
+    }
+    return -1;
+  }
+
+  /// The index of the `}` closing span braces whose content starts at
+  /// [from]; a `}` inside a quoted attribute value does not close them. -1
+  /// when they do not close.
+  static int _braceClose(String text, List<bool> literal, int from) {
+    String? quote;
+    for (var i = from; i < text.length; i++) {
+      if (literal[i]) continue;
+      final c = text[i];
+      if (quote != null) {
+        if (c == quote) quote = null;
+      } else if (c == '"') {
+        quote = c;
+      } else if (c == '}') {
+        return i;
+      }
+    }
+    return -1;
   }
 }

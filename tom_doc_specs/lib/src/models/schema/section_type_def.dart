@@ -148,9 +148,11 @@ class SectionTypeDef {
 
   /// Creates a SectionTypeDef from a YAML map.
   factory SectionTypeDef.fromYaml(String name, Map<String, dynamic> yaml) {
-    // Validate prefix characters (letters, digits, underscores only)
+    // Validate prefix characters (letters, digits, underscores only); the
+    // empty prefix is the catch-all type, which matches every id (DocSpecs
+    // specification, Section Type Resolution).
     final prefix = yaml['prefix'] as String?;
-    if (prefix != null && !RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(prefix)) {
+    if (prefix != null && !RegExp(r'^[a-zA-Z0-9_]*$').hasMatch(prefix)) {
       throw FormatException(
         "Section type '$name': prefix '$prefix' contains invalid characters. "
         'Only letters, digits, and underscores are allowed.',

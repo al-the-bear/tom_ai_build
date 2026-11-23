@@ -412,7 +412,7 @@ class SpecSection extends Section {
       }
       // A review annotation after the first field is not field text: it ends
       // the current field and is set aside (SOM §11.9.4).
-      if (foundFirstField && quoted && _isAnnotationStart(line)) {
+      if (foundFirstField && quoted && ReadingGrammar.isAnnotationStart(line)) {
         flushField();
         block = StringBuffer(line);
         continue;
@@ -489,13 +489,6 @@ class SpecSection extends Section {
     _fieldLines = fieldLines;
     final preambleText = preambleBuffer.toString().trim();
     _preamble = preambleText.isEmpty ? null : preambleText;
-  }
-
-  /// Whether [line] opens a comment block or a question block.
-  static bool _isAnnotationStart(String line) {
-    var inner = line.trimLeft().substring(1);
-    if (inner.startsWith(' ')) inner = inner.substring(1);
-    return inner.startsWith('\u2B06') || inner.startsWith('**\u2753');
   }
 
   @override

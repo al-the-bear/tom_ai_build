@@ -78,7 +78,7 @@ class DocSpecsFactory extends DocScannerFactory {
 
     // The section's body as the schema reads it: its section tables and its
     // list body become sections of the tree (DocSpecs specification, List
-    // Bodies), and the fenced-div findings are kept for the validator.
+    // Bodies), and the reading-notation findings are kept for the validator.
     var body = ReadBody(
       text: text,
       textLineNumber: textLineNumber,
@@ -87,7 +87,9 @@ class DocSpecsFactory extends DocScannerFactory {
     );
     final findings = <ValidationError>[];
     if (schema != null) {
-      findings.addAll(ReadingGrammar.divFindings(text, textLineNumber, id));
+      findings.addAll(
+        ReadingGrammar.notationFindings(text, textLineNumber, id),
+      );
       if (typeDef != null) {
         body = BodyReader(schema).read(
           id: id,
@@ -150,7 +152,9 @@ class DocSpecsFactory extends DocScannerFactory {
     );
     final findings = <ValidationError>[];
     if (schema != null) {
-      findings.addAll(ReadingGrammar.divFindings(text, textLineNumber, id));
+      findings.addAll(
+        ReadingGrammar.notationFindings(text, textLineNumber, id),
+      );
       final topLevel = {
         for (final s in schema.document.sections.values) s.sectionType,
       };
