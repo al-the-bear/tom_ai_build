@@ -108,7 +108,7 @@ dart pub get
 | --- | --- | --- |
 | Class-tree outlines | `tomspecs :model-outline` | A compact outline of the model from any of the 14 document roots, or from the container root |
 | Class-graph export | `tomspecs :model-json` | `spec_model.json` — the resolved graph the editor and reviewer apps browse |
-| Static validation | `SpecModelValidator` (`lib/src/validator.dart`) | Field-type rules, `@ContentType` compatibility, cycle detection, the `content: String?` override, and all seventeen `tom_specs_model_rules.md` §10.2 structural invariants |
+| Static validation | `SpecModelValidator` (`lib/src/validator.dart`) | Field-type rules, `@ContentType` compatibility, cycle detection, the `content: String?` override, and all twenty-seven `tom_specs_model_rules.md` §10.2 structural invariants, the link-vocabulary ones in `lib/src/link_invariants.dart` |
 
 ### Gates
 
@@ -828,7 +828,7 @@ tom_specs_clitool
 | [som_generator_config.md](../tom_specs_model/doc/som_generator_config.md) | The `tom-spec-object-model` config block — languages, output roots, version label, document roots |
 | [som_toolchains.md](../tom_specs_model/doc/som_toolchains.md) | The per-language build and verify toolchains, and running the Dart host with no installed SDK |
 | [tom_specs_model_meta_schema.md](../tom_specs_model/doc/tom_specs_model_meta_schema.md) | The on-disk schema of the emitted `spec_model.meta.json`, its two version stamps, and the committed-asset refresh procedure |
-| [tom_specs_model_rules.md](../tom_specs_model/doc/tom_specs_model_rules.md) | The model-authoring rules, the seventeen structural invariants the validator enforces, and the outliner |
+| [tom_specs_model_rules.md](../tom_specs_model/doc/tom_specs_model_rules.md) | The model-authoring rules, the twenty-seven structural invariants the validator enforces, and the outliner |
 | [codespecs_derivation_contract.md](../tom_core_codespecs/doc/codespecs_derivation_contract.md) | What `tomspecs :codespecs-validate` checks, and why each corroborating input is needed |
 | [codespecs_mapping.md](../tom_core_codespecs/doc/codespecs_mapping.md) | The parts catalogue `tomspecs :codespecs-areas` transcribes |
 

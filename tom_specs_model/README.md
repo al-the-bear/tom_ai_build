@@ -184,7 +184,7 @@ A section is a class extending `DocSpecsSection`, annotated with the
 [`tom_specs_core`](../tom_specs_core) vocabulary. What each annotation means,
 and which ones a given section must carry, is decided by
 [`tom_specs_model_rules.md`](doc/tom_specs_model_rules.md) — in particular its
-field-type rules (`tom_specs_model_rules.md` §6.1) and the seventeen structural
+field-type rules (`tom_specs_model_rules.md` §6.1) and the twenty-seven structural
 invariants the validator enforces (`tom_specs_model_rules.md` §10.2).
 
 Two mechanical steps follow every model edit, in this order:

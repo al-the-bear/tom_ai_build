@@ -1,11 +1,12 @@
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import 'link_invariants.dart';
 import 'model_reader.dart';
 
 /// The document section every structural-invariant tag cites.
 ///
 /// Named once so the tags stay short and a future renumbering of the rules
-/// document is a one-line change rather than 27 — the tests match on the
+/// document is a one-line change rather than dozens — the tests match on the
 /// expanded text, so they follow automatically.
 const String _invariants = 'tom_specs_model_rules.md §10.2';
 
@@ -1099,6 +1100,48 @@ void _validateStructuralInvariants(
       '(tom_specs_model_rules.md §10.2 invariant REACHABLE)',
     );
   }
+
+  // --- Steps 13–22: the links between places (`tom_specs_model_rules.md`
+  // §9.7). The annotations name places by the grammar `refersTo` uses; one
+  // shared resolver ([LinkInvariants]) holds every place to a section that
+  // exists, is unambiguous and fits its link. A model that carries none of
+  // them is silent except for `SHARED-COVER`, the warning that lists the
+  // `@DetailedIn` sections whose shared places are not declared yet.
+  final links = LinkInvariants(
+    classes,
+    documentClasses,
+    (root) => _findReachableTypes(classes, root),
+  );
+
+  // --- Step 13 — `tom_specs_model_rules.md` §10.2 invariant SYNC-PLACE: @SyncedWith places
+  links.checkSyncPlaces(errors);
+
+  // --- Step 14 — `tom_specs_model_rules.md` §10.2 invariant SYNC-ANCHOR: @SyncedWith beside @DetailedIn
+  links.checkSyncAnchors(errors);
+
+  // --- Step 15 — `tom_specs_model_rules.md` §10.2 invariant SHARED-COVER: @DetailedIn without @SyncedWith
+  links.checkSharedCover(warnings);
+
+  // --- Step 16 — `tom_specs_model_rules.md` §10.2 invariant SHARED-ONE-HOLDER: one holder per place
+  links.checkSharedOneHolder(errors);
+
+  // --- Step 17 — `tom_specs_model_rules.md` §10.2 invariant SHARED-ANCHOR: anchor positions pair
+  links.checkSharedAnchors(errors, sbpRoot);
+
+  // --- Step 18 — `tom_specs_model_rules.md` §10.2 invariant SUMMARY-LINK: @SummaryOf / summaryOf:
+  links.checkSummaryLinks(errors);
+
+  // --- Step 19 — `tom_specs_model_rules.md` §10.2 invariant DERIVE-SOURCE: @DerivedFrom / derivedFrom:
+  links.checkDeriveSources(errors);
+
+  // --- Step 20 — `tom_specs_model_rules.md` §10.2 invariant DERIVE-ACYCLIC: no derivation reads itself
+  links.checkDeriveAcyclic(errors);
+
+  // --- Step 21 — `tom_specs_model_rules.md` §10.2 invariant INVERSE-PAIR: inverseOf: both ends
+  links.checkInversePairs(errors);
+
+  // --- Step 22 — `tom_specs_model_rules.md` §10.2 invariant EXTRACT-LINK: @ExtractsLinks rows
+  links.checkExtractLinks(errors);
 }
 
 /// The `CodeSpecPart` values with no generated surface — reserved so a section

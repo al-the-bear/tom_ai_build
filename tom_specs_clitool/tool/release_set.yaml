@@ -113,6 +113,9 @@ unpublished_drift:
     derivedFrom, inverseOf and summaryOf; the regenerated metas are unchanged.
     02_sau2: the link annotations bound as model-only traceability in
     docspecs_annotation_mapping.dart; the 14 schemas unchanged.
+    02_sau3: the static validator checks the link vocabulary (§10.2
+    invariants SYNC-PLACE … EXTRACT-LINK, lib/src/link_invariants.dart);
+    SHARED-COVER warns on the 118 @DetailedIn.
   tom_specs_core: >-
     section automation in progress — 02_sau2 (2026-11-23): the link
     annotations (SyncedWith, ListRelation, SummaryOf, DerivedFrom, InverseOf,
@@ -124,6 +127,7 @@ unpublished_drift:
     and the three new formFields[] keys. No model change.
     02_sau2: tom_specs_model_rules.md §9.7 (the link annotations, places,
     rules) and §6.2.2 (`|` alternatives in countOf).
+    02_sau3: §10.2 lists the ten invariants of the link vocabulary.
 
 published_from:
   tom_specs_core: {version: '0.5.2', commit: '0f5d4c23'}

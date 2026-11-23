@@ -1,4 +1,4 @@
-/// The gate over `tom_specs_model_rules.md` §10.2 — the seventeen mechanical
+/// The gate over `tom_specs_model_rules.md` §10.2 — the twenty-seven mechanical
 /// structural invariants — and everything that cites them.
 ///
 /// That section of `tom_specs_model_rules.md` states three meta-rules: a

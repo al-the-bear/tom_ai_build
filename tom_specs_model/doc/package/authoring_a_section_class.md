@@ -4,7 +4,7 @@ This guide covers writing a model class in Dart: the shape a class must have,
 the member types the tooling recognises, what has to be stamped afterwards, and
 the checks that will reject a class that gets it wrong. It is the **package
 tier** — how to use this package's code. The *rules* it obeys — which member
-must carry which annotation, the field-classification table, the seventeen
+must carry which annotation, the field-classification table, the twenty-seven
 structural invariants — belong to
 [`tom_specs_model_rules.md`](../tom_specs_model_rules.md) and are cited, never
 repeated.

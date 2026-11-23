@@ -1694,8 +1694,9 @@ annotations are written into the meta like `@CodeSpecKind`
   annotation. Written `./<…>`, it resolves beneath the nearest list element
   above the annotated member (the requirement a dependency row belongs to).
   Where one section id is reachable twice in that subtree, the place is a
-  `/`-joined path from the annotated class (`FRE/REQDEP/RQDEP.description`);
-  an ambiguous short form is an error.
+  `/`-joined path from the annotated class (`FRE/REQDEP/RQDEP.description`):
+  its segments name every section on the way except the scope's own root and
+  the `-LST` containers. An ambiguous short form is an error.
 - **Filters** (`where:`) use `countOf`'s grammar,
   `<SECTIONID>.<field>=<value>`, with alternatives joined by `|`
   (`RQDEP.dependencyType=conflict|bidirectional`, §6.2.2).
@@ -1773,6 +1774,11 @@ annotations are written into the meta like `@CodeSpecKind`
   document's own sources; when the sources are shared, the derived values agree
   by construction.
 
+The static validator holds the annotations to these rules before anything is
+generated: invariants `SYNC-PLACE`, `SYNC-ANCHOR`, `SHARED-COVER`,
+`SHARED-ONE-HOLDER`, `SHARED-ANCHOR`, `SUMMARY-LINK`, `DERIVE-SOURCE`,
+`DERIVE-ACYCLIC`, `INVERSE-PAIR` and `EXTRACT-LINK` (§10.2).
+
 ## 10. Traceability and structural invariants
 
 ### 10.1 Traceability annotations
@@ -1838,8 +1844,10 @@ enforceable rather than aspirational.
 4. **`ID-COVER`** — **`@SectionId` coverage** — every reachable class carries
    one, *except* classes reached only through a `@SectionIdPattern` subtree
    (transitive exemption). This one is reported as a **warning**, not an error:
-   it is a completeness signal, so a model with a gap still validates. Every
-   other invariant in this list is an error.
+   it is a completeness signal, so a model with a gap still validates. The
+   other warnings are `DETAIL-PRESENT`, `NO-WRAPPER`, `SHARED-COVER` and the
+   parts of `REFERS-TO`, `PART-ROUTED` and `CLOSED-CHOICE` their entries name;
+   everything else in this list is an error.
 5. **`DETAIL-ANCHOR`** — **`@DetailedIn` ⇒ ancestor `@MapsTo`**.
 6. **`DETAIL-PRESENT`** — **Per-`@Document` detail presence** — a target document reached by no
    `@DetailedIn` at all has nothing to project, so its root is an empty
@@ -1977,6 +1985,85 @@ enforceable rather than aspirational.
     `CodeSpecsExtractor._walk` at runtime — and where they could differ the
     runtime is the authority, because it is the walk the extraction run performs
     (`codespecs_prompt.md` §4.3).
+
+18. **`SYNC-PLACE`** — **The places of a `@SyncedWith`** (§9.7) — every place
+    in `detailOnly`, `heldHere` and `relations` resolves, unambiguously, in the
+    annotated section's subtree (the class's, or the form member's) to a form
+    field, a section or form, a heading, a section's text or a `-LST`
+    container; `@sectionId` is never synced, since it is how elements are
+    matched. A place found at two positions is written as a `/` path, whose
+    segments name every section on the way except the scope's own root and the
+    `-LST` containers. A relation other than `equal` stands only on a list or a
+    `multiple` reference field, and its `where` names a field of the list's
+    element class (of the referred entry class, on a reference field), an
+    enum's values among its constants. A place is named once per
+    `@SyncedWith`.
+19. **`SYNC-ANCHOR`** — **What a `@SyncedWith` is anchored to** — it names a
+    `@Document` class; beside a `@DetailedIn` (on the class, or on the member
+    that carries both) it names the same document; without one, the section's
+    class is reachable from that document's root and from at least one other
+    root.
+20. **`SHARED-COVER`** — **Every `@DetailedIn` has a `@SyncedWith` beside it**,
+    on the class or on the form member that carries it. A **warning**, like
+    `DETAIL-PRESENT`, so the model generates while the syncs are written: until
+    then the warning lists each section whose shared places are not declared
+    yet (118 on the model today).
+21. **`SHARED-ONE-HOLDER`** — **One holder per place** — a class reached
+    beneath two class-level `@SyncedWith` sections towards two different
+    documents (a class reused under two seeds, which `PURE-PROJECTION` allows;
+    a nested `@SyncedWith` ends the subtree above it, being a pair of its own)
+    would be held by both documents; each of its places — every section's
+    headline and text and every form field — must be listed in the `heldHere`
+    of one of the two, a whole section or list covering what lies beneath it.
+22. **`SHARED-ANCHOR`** — **Anchor positions pair** — a class anchored to a
+    document by a class-level `@DetailedIn` or `@SyncedWith` is found beneath
+    `D00SolutionBlueprint` and beneath that document's root; its positions on
+    the two sides must match one to one, keyed by the nearest enclosing anchor
+    of the same document and the member path below it, with at most one
+    position on each side that no anchor encloses. A class the two sides reach
+    a different number of times, or by different paths, cannot be paired, and
+    the runtime's sync could not tell its copies apart. A side that does not
+    reach the class at all is left to the other invariants.
+23. **`SUMMARY-LINK`** — **A summary and its detail list** — the `detail` of a
+    `@SummaryOf` is a `-LST` container of sections that the named `document`
+    reaches (with no document, one root reaches it together with the
+    summary). On a list, `match` is a `refersTo` field of the summary element
+    whose targets name the detail element class, and every `repeats` pair
+    resolves, the summary place in the summary element and the detail place in
+    the detail element, both holding one type of value. As the `summaryOf:`
+    qualifier it stands on a `multiple` reference field naming the detail
+    element class, with no `match` and no `repeats`. The summary element may be
+    of the detail element's own class.
+24. **`DERIVE-SOURCE`** — **What a derivation reads** — the `source` of a
+    `@DerivedFrom` (or `derivedFrom:`) resolves: a `./` place beneath the list
+    element nearest above the derived place, any other place by its section id
+    from a root that also reaches the derived place. `copy` reads one value;
+    `rows` and `lookup` read a list of sections or a list element. `where`
+    names a field of the row (an enum's values among its constants); `take`
+    places are values of the row; `key` (of the row) and `by` (of this element)
+    hold one type; `map` builds a derived list, each element place from a row
+    place of the same type. The taken values fit the target: one reference
+    place into a `multiple` reference field, text places into a `String`
+    field or a section, one place of its type into any other field. A derived
+    field is not `required`, and carries one of `derivedFrom`, `countOf`,
+    `productOf` and `rankOf`.
+25. **`DERIVE-ACYCLIC`** — **No derivation reads what it writes** — over every
+    derived place (`derivedFrom`, `@DerivedFrom`, and the `productOf` and
+    `rankOf` operands), no derivation reads, directly or through other derived
+    places, the place it writes; reading a whole section or list reads every
+    derived place beneath it.
+26. **`INVERSE-PAIR`** — **The two ends of a link** — an `inverseOf:` stands on
+    a `refersTo` field. Each other end it names is a `refersTo` field (found by
+    its form's section id); this field refers to the other end's entry class,
+    the other end refers to this one's, and the other end lists this field in
+    its own `inverseOf` — a one-sided declaration is an error. `symmetric`
+    (`@self`) stands alone, on a field whose `refersTo` names its own entry
+    class, and a `where` names fields of that entry.
+27. **`EXTRACT-LINK`** — **Link rows from text** — `@ExtractsLinks` stands on a
+    list of link rows. Each `from` place is a text value resolving beneath a
+    list element nearest above the annotated list (at least one of them, when
+    there are several); `ref` is a `refersTo` field of the row; every `set` key
+    is a form field of the row, its value a constant when the field is an enum.
 
 **Deliberately not an invariant:** *"a `@CodeSpecKind`-bearing class must itself
 be reachable from the generation projection."* The model has 64 counterexamples

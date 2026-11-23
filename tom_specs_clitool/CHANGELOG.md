@@ -11,6 +11,14 @@
 - The exporter writes the form-field keys `derivedFrom`, `inverseOf` and
   `summaryOf` after `rankOf` (`FormFieldInfo` gains them), enum values as bare
   constant names. The regenerated metas of the current model are unchanged.
+- The static validator checks the link vocabulary of `tom_specs_core`
+  (`@SyncedWith`, `@SummaryOf`, `@DerivedFrom`, `inverseOf:`,
+  `@ExtractsLinks`): `tom_specs_model_rules.md` §10.2 invariants
+  `SYNC-PLACE`, `SYNC-ANCHOR`, `SHARED-COVER`, `SHARED-ONE-HOLDER`,
+  `SHARED-ANCHOR`, `SUMMARY-LINK`, `DERIVE-SOURCE`, `DERIVE-ACYCLIC`,
+  `INVERSE-PAIR` and `EXTRACT-LINK`, with one place resolver
+  (`lib/src/link_invariants.dart`). `SHARED-COVER` is a warning, once per
+  `@DetailedIn` without a `@SyncedWith` beside it (118 on the model today).
 
 ## 0.18.0
 

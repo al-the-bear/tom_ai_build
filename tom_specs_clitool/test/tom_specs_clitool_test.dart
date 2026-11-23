@@ -110,6 +110,45 @@ void main() {
       },
     );
 
+    test('tom_specs_model_rules.md §10.2: the link invariants hold on the '
+        'real model, SHARED-COVER warning once per @DetailedIn', () {
+      const ids = [
+        'SYNC-PLACE',
+        'SYNC-ANCHOR',
+        'SHARED-ONE-HOLDER',
+        'SHARED-ANCHOR',
+        'SUMMARY-LINK',
+        'DERIVE-SOURCE',
+        'DERIVE-ACYCLIC',
+        'INVERSE-PAIR',
+        'EXTRACT-LINK',
+      ];
+      final result = validateStructuralInvariants(classes);
+      final linkErrors = [
+        for (final e in result.errors)
+          if (ids.any((id) => e.contains('§10.2 $id:'))) e,
+      ];
+      expect(linkErrors, isEmpty, reason: linkErrors.join('\n'));
+
+      // One warning per @DetailedIn — on a class, or on a form member
+      // (LOCRP) — until its @SyncedWith is written beside it.
+      bool open(List<AnnotationData> annotations) =>
+          annotations.any((a) => a.name == 'DetailedIn') &&
+          !annotations.any((a) => a.name == 'SyncedWith');
+      final detailed = [
+        for (final c in classes.values) ...[
+          if (open(c.annotations)) c.name,
+          for (final f in c.fields)
+            if (open(f.annotations)) '${c.name}.${f.name}',
+        ],
+      ].length;
+      final cover = result.warnings
+          .where((w) => w.contains('§10.2 SHARED-COVER:'))
+          .toList();
+      expect(cover, hasLength(detailed));
+      expect(detailed, 118, reason: 'the model carries 118 @DetailedIn');
+    });
+
     test(
       'tom_specs_model_rules.md §10.2: @SectionId coverage is complete from every one of the 14 roots '
       '(dsa5 CS-02) — including D00SolutionBlueprint and the container',
