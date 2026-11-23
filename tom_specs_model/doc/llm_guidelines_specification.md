@@ -391,6 +391,18 @@ main() async {
    through the document API so it is logged, reviewable, and undoable.
 6. **Return structured results.** Prefer `main()` returning a summary map over
    printing prose.
+7. **Secondary prose is written in the reading notation.** Text a reader may
+   skip without losing a requirement — where a statement came from, the ids it
+   rests on, notes for authors — is marked as the DocSpecs specification's
+   [Reading Notation](../../../../_ai/quests/doc_specs/doc_specs_specification.md#reading-notation)
+   states it (RN-1 … RN-13): a citation shape at the end of a clause, `(-> FR-12)`
+   for ids that back it, `(<- <source>)` for text taken from a source and
+   `(<~ <source>)` for text extrapolated from one; `::: {.editorial}` or
+   `::: {.provenance}` around a block; `[text]{.aside}` inline. A value a script
+   writes keeps the notation byte for byte, a reference to a section stays a link
+   (`[SCBND](#SCBND)`), never a citation, and review annotations (question and
+   comment blocks, change marks) are not notation. When in doubt, text stays
+   unmarked: a marked content sentence disappears from every stripped rendition.
 
 ---
 

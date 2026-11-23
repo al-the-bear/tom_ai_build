@@ -137,6 +137,8 @@ unpublished_drift:
     02_sau3: §10.2 lists the ten invariants of the link vocabulary.
     02_sau5: 1.12.3 — LOCRP a class (LocaleRolloutPlan) the TRP holds, 14 more
     @DetailedIn (132 pairs), §10.1 the table of pairs.
+    05a_rdv1: llm_guidelines_specification.md constraint 7, the reading
+    notation for secondary prose.
 
 published_from:
   tom_specs_core: {version: '0.5.2', commit: '0f5d4c23'}
