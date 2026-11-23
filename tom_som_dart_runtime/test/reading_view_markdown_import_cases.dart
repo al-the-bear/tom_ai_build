@@ -5,7 +5,8 @@
 // stripped rendition and its styled-div headings (04a_rdv5, SOM §11.1,
 // §11.2). `_markdownImportCases` in conformance_test.dart appends them to `markdown_import_cases.json`; each carries
 // `"readingView": true`, which the runtimes that do not read the table forms
-// yet skip (the reading view's parity audit, 05a_rdv4, ports them).
+// yet skip (their ports are tspubnondart56..62, and 91..97 for the readable
+// header and the styled-div headings; runtime_parity.md § Reading view).
 //
 // Expected values were computed by the Dart parser and checked by hand
 // against the grammar of the reading view's part *Parser and DocSpecs*.

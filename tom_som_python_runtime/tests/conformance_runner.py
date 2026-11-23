@@ -432,7 +432,7 @@ def test_yaml_review(model: SpecModel, tree) -> None:
 
 # The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
 # Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
-# The reading view's parity audit (05a_rdv4_akpu-runtime-parity-audit) brings this runtime to tables.
+# The emitter port tspubnondart70 (runtime_parity.md § Reading view) brings this runtime to tables.
 EMITTED_LAYOUT = "fields"
 EXPORT_GOLDEN = "expected.tomspecs.md"
 
@@ -520,7 +520,7 @@ def test_markdown_apply(model: SpecModel) -> None:
     unless the caller allows them."""
     for case in _read_json("markdown_apply_cases.json")["cases"]:
         # The reading view's table forms (``readingView``) are read by the Dart
-        # and TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+        # and TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
         if case.get("readingView"):
             continue
         name = f"mdApply[{case['name']}]"
@@ -539,7 +539,7 @@ def test_markdown_import_rejections(model: SpecModel) -> None:
     """
     for case in _read_json("markdown_import_cases.json")["cases"]:
         # The reading view's table forms (``readingView``) are read by the Dart
-        # and TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+        # and TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
         if case.get("readingView"):
             continue
         name = case["name"]
@@ -1001,7 +1001,7 @@ def test_docspecs() -> None:
     covered: set[str] = set()
     for case in _read_json("docspecs_cases.json"):
         # The reading view's table forms (``readingView``) are read by the Dart
-        # and TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+        # and TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
         if case.get("readingView"):
             continue
         name = case["name"]

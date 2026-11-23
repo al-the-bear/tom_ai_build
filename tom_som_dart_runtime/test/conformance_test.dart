@@ -6238,7 +6238,7 @@ List<Map<String, Object?>> _docSpecsCases() {
     for (final c in _docSpecsMarkdownCases()) entry(c),
     // The reading view's table forms and list bodies (04a_rdv2): read by the
     // Dart and TypeScript validators, skipped by the other seven runners until
-    // the parity audit (05a_rdv4) ports them.
+    // their ports (tspubnondart63..69, runtime_parity.md § Reading view).
     for (final c in readingViewDocSpecsCases(_docSpecsValidDoc))
       entry(c, rv: true),
   ];
@@ -10708,7 +10708,7 @@ Map<String, dynamic> _withFieldsExpect(
         '$fileName: case "$name" is new, and its expectation in the Field:-line '
         'layout cannot be computed by a runtime that emits tables. Write its '
         '`expect` by a runtime that still emits Field: lines (or wait until '
-        'every runtime emits tables, 05a_rdv4_akpu-runtime-parity-audit).',
+        'every runtime emits tables, tspubnondart70..76).',
       );
     }
     if (jsonEncode(inputs(old)) != jsonEncode(inputs(c))) {

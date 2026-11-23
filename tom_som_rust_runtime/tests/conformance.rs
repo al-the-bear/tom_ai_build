@@ -514,7 +514,7 @@ fn test_yaml_decode_round_trip(c: &mut Checker, tree: &SomMetaTree) {
 
 // The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
 // Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
-// The reading view's parity audit (05a_rdv4_akpu-runtime-parity-audit) brings this runtime to tables.
+// The emitter port tspubnondart73 (runtime_parity.md § Reading view) brings this runtime to tables.
 #[allow(dead_code)]
 const EMITTED_LAYOUT: &str = "fields";
 const EXPORT_GOLDEN: &str = "expected.tomspecs.md";
@@ -779,7 +779,7 @@ fn test_markdown_apply(c: &mut Checker, model: &SpecModel) {
     let table = read_json("markdown_apply_cases.json");
     for kase in table.get("cases").and_then(|v| v.as_array()).unwrap_or(&[]) {
         // The reading view's table forms (`readingView`) are read by the Dart and
-        // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+        // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
         if kase.get("readingView").and_then(|v| v.as_bool()) == Some(true) {
             continue;
         }
@@ -925,7 +925,7 @@ fn test_markdown_import_rejections(c: &mut Checker, model: &SpecModel) {
     let table = read_json("markdown_import_cases.json");
     for kase in table.get("cases").and_then(|v| v.as_array()).unwrap_or(&[]) {
         // The reading view's table forms (`readingView`) are read by the Dart and
-        // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+        // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
         if kase.get("readingView").and_then(|v| v.as_bool()) == Some(true) {
             continue;
         }
@@ -1115,7 +1115,7 @@ fn test_docspecs(c: &mut Checker) {
     let mut covered: Vec<String> = Vec::new();
     for cc in cases.as_array().unwrap() {
         // The reading view's table forms (`readingView`) are read by the Dart and
-        // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+        // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
         if cc.get("readingView").and_then(|v| v.as_bool()) == Some(true) {
             continue;
         }

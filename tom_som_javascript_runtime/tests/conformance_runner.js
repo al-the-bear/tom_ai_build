@@ -384,7 +384,7 @@ function testYamlDecodeRoundTrip(tree) {
 
 // The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
 // Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
-// The reading view's parity audit (05a_rdv4_akpu-runtime-parity-audit) brings this runtime to tables.
+// The emitter port tspubnondart71 (runtime_parity.md § Reading view) brings this runtime to tables.
 const EMITTED_LAYOUT = 'fields';
 const EXPORT_GOLDEN = 'expected.tomspecs.md';
 
@@ -479,7 +479,7 @@ function _runMarkdownApplyCase(model, c) {
 function testMarkdownApply(model) {
   for (const c of _readJson('markdown_apply_cases.json').cases) {
     // The reading view's table forms (`readingView`) are read by the Dart and
-    // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+    // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
     if (c.readingView) continue;
     const got = _runMarkdownApplyCase(model, c);
     _check(`mdApply[${c.name}]`, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
@@ -1046,7 +1046,7 @@ function testYamlReview(model, tree) {
 function testMarkdownImportRejections(model) {
   for (const c of _readJson('markdown_import_cases.json').cases) {
     // The reading view's table forms (`readingView`) are read by the Dart and
-    // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+    // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
     if (c.readingView) continue;
     const parsed = new SpecDocumentMarkdown(model, new SpecDocument()).parse(c.markdown);
     const got = parsed.rejections.map((r) => ({
@@ -1447,7 +1447,7 @@ function testDocSpecs() {
   const covered = new Set();
   for (const c of _readJson('docspecs_cases.json')) {
     // The reading view's table forms (`readingView`) are read by the Dart and
-    // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+    // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
     if (c.readingView === true) continue;
     const got = validator
       .validateMarkdown(c.markdown)

@@ -603,7 +603,7 @@ func typedReview(v interface{}) interface{} {
 
 // The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
 // Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
-// The reading view's parity audit (05a_rdv4_akpu-runtime-parity-audit) brings this runtime to tables.
+// The emitter port tspubnondart72 (runtime_parity.md § Reading view) brings this runtime to tables.
 const (
 	emittedLayout = "fields"
 	exportGolden  = "expected.tomspecs.md"
@@ -697,7 +697,7 @@ func testMarkdownApply(c *checker, t *testing.T, model *som.SpecModel) {
 	c.check("mdApply.cases", len(table.Cases) > 0, "no cases in markdown_apply_cases.json")
 	for _, mc := range table.Cases {
 		// The reading view's table forms (`readingView`) are read by the Dart and
-		// TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+		// TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
 		if mc.ReadingView {
 			continue
 		}
@@ -772,7 +772,7 @@ func testMarkdownImportRejections(c *checker, t *testing.T, model *som.SpecModel
 	readJSON(t, "markdown_import_cases.json", &table)
 	for _, kase := range table.Cases {
 		// The reading view's table forms (`readingView`) are read by the Dart and
-		// TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+		// TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
 		if kase.ReadingView {
 			continue
 		}
@@ -942,7 +942,7 @@ func testDocSpecs(c *checker, t *testing.T) {
 	covered := map[string]bool{}
 	for _, cc := range cases {
 		// The reading view's table forms (`readingView`) are read by the Dart and
-		// TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+		// TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
 		if cc.ReadingView {
 			continue
 		}

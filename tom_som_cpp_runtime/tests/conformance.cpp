@@ -517,7 +517,7 @@ static void test_yaml_review(Checker& c, const som::SpecModel& model,
 
 // The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
 // Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
-// The reading view's parity audit (05a_rdv4_akpu-runtime-parity-audit) brings this runtime to tables.
+// The emitter port tspubnondart76 (runtime_parity.md § Reading view) brings this runtime to tables.
 [[maybe_unused]] static const char* const kEmittedLayout = "fields";
 static const char* const kExportGolden = "expected.tomspecs.md";
 
@@ -585,7 +585,7 @@ static void test_markdown_import_rejections(Checker& c, const som::SpecModel& mo
   for (std::size_t i = 0; i < n; i++) {
     som::JsonRef kase = som::jsonArrayAt(cases, i);
     // The reading view's table forms (`readingView`) are read by the Dart and
-    // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+    // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
     if (som::jsonBoolOr(kase, "readingView")) continue;
     std::string name = som::jsonStrOr(kase, "name");
     som::SpecMarkdownResult result =
@@ -666,7 +666,7 @@ static void test_markdown_apply(Checker& c, const som::SpecModel& model) {
   for (std::size_t i = 0; i < n; i++) {
     som::JsonRef kase = som::jsonArrayAt(cases, i);
     // The reading view's table forms (`readingView`) are read by the Dart and
-    // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+    // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
     if (som::jsonBoolOr(kase, "readingView")) continue;
     const std::string tag = "mdApply[" + som::jsonStrOr(kase, "name") + "]";
     const std::string markdown = som::jsonStrOr(kase, "markdown");
@@ -1277,7 +1277,7 @@ static void test_docspecs(Checker& c) {
   for (std::size_t i = 0; i < n; i++) {
     som::JsonRef cc = som::jsonArrayAt(cases, i);
     // The reading view's table forms (`readingView`) are read by the Dart and
-    // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+    // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
     if (som::jsonBoolOr(cc, "readingView")) continue;
     std::string name = som::jsonStrOr(cc, "name");
 

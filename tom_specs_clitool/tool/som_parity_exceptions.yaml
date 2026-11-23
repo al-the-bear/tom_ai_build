@@ -56,81 +56,82 @@ exceptions:
     planes: [python, javascript, java, go, rust, c, cpp]
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
-      rules (03a_rdv1) are in the Dart and TypeScript runtimes only; the reading
-      view's parity audit (`05a_rdv4_akpu-runtime-parity-audit`) files the
-      seven ports. `notation_cases.json` is the corpus they will run.
+      rules (03a_rdv1) are in the Dart and TypeScript runtimes only; their ports
+      are the todos `tspubnondart49`..`55`, one per runtime (`runtime_parity.md`
+      § Reading view). `notation_cases.json` is the corpus they will run.
 
   - token: divInsideAnnotation
     planes: [python, javascript, java, go, rust, c, cpp]
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
-      rules (03a_rdv1) are in the Dart and TypeScript runtimes only; the reading
-      view's parity audit (`05a_rdv4_akpu-runtime-parity-audit`) files the
-      seven ports. `notation_cases.json` is the corpus they will run.
+      rules (03a_rdv1) are in the Dart and TypeScript runtimes only; their ports
+      are the todos `tspubnondart49`..`55`, one per runtime (`runtime_parity.md`
+      § Reading view). `notation_cases.json` is the corpus they will run.
 
   - token: divWithoutKind
     planes: [python, javascript, java, go, rust, c, cpp]
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
-      rules (03a_rdv1) are in the Dart and TypeScript runtimes only; the reading
-      view's parity audit (`05a_rdv4_akpu-runtime-parity-audit`) files the
-      seven ports. `notation_cases.json` is the corpus they will run.
+      rules (03a_rdv1) are in the Dart and TypeScript runtimes only; their ports
+      are the todos `tspubnondart49`..`55`, one per runtime (`runtime_parity.md`
+      § Reading view). `notation_cases.json` is the corpus they will run.
 
   - token: markAcrossNotation
     planes: [python, javascript, java, go, rust, c, cpp]
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
-      rules (03a_rdv1) are in the Dart and TypeScript runtimes only; the reading
-      view's parity audit (`05a_rdv4_akpu-runtime-parity-audit`) files the
-      seven ports. `notation_cases.json` is the corpus they will run.
+      rules (03a_rdv1) are in the Dart and TypeScript runtimes only; their ports
+      are the todos `tspubnondart49`..`55`, one per runtime (`runtime_parity.md`
+      § Reading view). `notation_cases.json` is the corpus they will run.
 
   - token: rejectedBlock
     planes: [python, javascript, java, go, rust, c, cpp]
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
-      rules (03a_rdv1) are in the Dart and TypeScript runtimes only; the reading
-      view's parity audit (`05a_rdv4_akpu-runtime-parity-audit`) files the
-      seven ports. `notation_cases.json` is the corpus they will run.
+      rules (03a_rdv1) are in the Dart and TypeScript runtimes only; their ports
+      are the todos `tspubnondart49`..`55` and `63`..`69`, one per runtime
+      (`runtime_parity.md` § Reading view). `notation_cases.json` is the corpus
+      they will run.
 
   - token: scanNotation
     planes: [python, javascript, java, go, rust, c, cpp]
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
-      rules (03a_rdv1) are in the Dart and TypeScript runtimes only; the reading
-      view's parity audit (`05a_rdv4_akpu-runtime-parity-audit`) files the
-      seven ports. `notation_cases.json` is the corpus they will run.
+      rules (03a_rdv1) are in the Dart and TypeScript runtimes only; their ports
+      are the todos `tspubnondart49`..`55`, one per runtime (`runtime_parity.md`
+      § Reading view). `notation_cases.json` is the corpus they will run.
 
   - token: strayClosingFence
     planes: [python, javascript, java, go, rust, c, cpp]
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
-      rules (03a_rdv1) are in the Dart and TypeScript runtimes only; the reading
-      view's parity audit (`05a_rdv4_akpu-runtime-parity-audit`) files the
-      seven ports. `notation_cases.json` is the corpus they will run.
+      rules (03a_rdv1) are in the Dart and TypeScript runtimes only; their ports
+      are the todos `tspubnondart49`..`55`, one per runtime (`runtime_parity.md`
+      § Reading view). `notation_cases.json` is the corpus they will run.
 
   - token: unclosedDiv
     planes: [python, javascript, java, go, rust, c, cpp]
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
-      rules (03a_rdv1) are in the Dart and TypeScript runtimes only; the reading
-      view's parity audit (`05a_rdv4_akpu-runtime-parity-audit`) files the
-      seven ports. `notation_cases.json` is the corpus they will run.
+      rules (03a_rdv1) are in the Dart and TypeScript runtimes only; their ports
+      are the todos `tspubnondart49`..`55`, one per runtime (`runtime_parity.md`
+      § Reading view). `notation_cases.json` is the corpus they will run.
 
   - token: unclosedSpan
     planes: [python, javascript, java, go, rust, c, cpp]
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
-      rules (03a_rdv1) are in the Dart and TypeScript runtimes only; the reading
-      view's parity audit (`05a_rdv4_akpu-runtime-parity-audit`) files the
-      seven ports. `notation_cases.json` is the corpus they will run.
+      rules (03a_rdv1) are in the Dart and TypeScript runtimes only; their ports
+      are the todos `tspubnondart49`..`55`, one per runtime (`runtime_parity.md`
+      § Reading view). `notation_cases.json` is the corpus they will run.
 
   - token: unknownKind
     planes: [python, javascript, java, go, rust, c, cpp]
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
-      rules (03a_rdv1) are in the Dart and TypeScript runtimes only; the reading
-      view's parity audit (`05a_rdv4_akpu-runtime-parity-audit`) files the
-      seven ports. `notation_cases.json` is the corpus they will run.
+      rules (03a_rdv1) are in the Dart and TypeScript runtimes only; their ports
+      are the todos `tspubnondart49`..`55`, one per runtime (`runtime_parity.md`
+      § Reading view). `notation_cases.json` is the corpus they will run.
 
   - token: malformedBlock
     planes: [python, javascript, java, go, rust, c, cpp]
@@ -138,8 +139,8 @@ exceptions:
       KNOWN GAP. The Markdown parser's table layout and its two rejection
       reasons (04a_rdv1, SOM §11.4, §11.5, §11.7) are in the Dart and TypeScript
       runtimes only; their corpus cases carry `"readingView": true`, which the
-      other seven skip until the reading view's parity audit
-      (`05a_rdv4_akpu-runtime-parity-audit`) files the ports.
+      other seven skip until their ports are the todos `tspubnondart56`..`69`,
+      one per runtime (`runtime_parity.md` § Reading view).
 
   - token: unknownField
     planes: [python, javascript, java, go, rust, c, cpp]
@@ -147,78 +148,78 @@ exceptions:
       KNOWN GAP. The Markdown parser's table layout and its two rejection
       reasons (04a_rdv1, SOM §11.4, §11.5, §11.7) are in the Dart and TypeScript
       runtimes only; their corpus cases carry `"readingView": true`, which the
-      other seven skip until the reading view's parity audit
-      (`05a_rdv4_akpu-runtime-parity-audit`) files the ports.
+      other seven skip until their ports are the todos `tspubnondart56`..`69`,
+      one per runtime (`runtime_parity.md` § Reading view).
 
   - token: appendixReferences
     planes: [python, javascript, java, go, rust, c, cpp]
     reason: >-
-      KNOWN GAP. The strip of stripped renditions (SOM §11.10: stripNotationText,
-      SpecDocumentStrip, SpecStripOptions.fromNames, the readable header, the
-      styled-div headings; 04a_rdv5) is in the Dart and TypeScript runtimes
-      only; the reading view's parity audit
-      (`05a_rdv4_akpu-runtime-parity-audit`) files the seven ports.
-      `strip_cases.json` is the corpus they will run.
+      KNOWN GAP. The strip of stripped renditions (SOM §11.10:
+      stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
+      readable header, the styled-div headings; 04a_rdv5) is in the Dart and
+      TypeScript runtimes only; their ports are the todos
+      `tspubnondart84`..`97`, one per runtime (`runtime_parity.md` § Reading
+      view). `strip_cases.json` is the corpus they will run.
 
   - token: fromNames
     planes: [python, javascript, java, go, rust, c, cpp]
     reason: >-
-      KNOWN GAP. The strip of stripped renditions (SOM §11.10: stripNotationText,
-      SpecDocumentStrip, SpecStripOptions.fromNames, the readable header, the
-      styled-div headings; 04a_rdv5) is in the Dart and TypeScript runtimes
-      only; the reading view's parity audit
-      (`05a_rdv4_akpu-runtime-parity-audit`) files the seven ports.
-      `strip_cases.json` is the corpus they will run.
+      KNOWN GAP. The strip of stripped renditions (SOM §11.10:
+      stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
+      readable header, the styled-div headings; 04a_rdv5) is in the Dart and
+      TypeScript runtimes only; their ports are the todos
+      `tspubnondart84`..`97`, one per runtime (`runtime_parity.md` § Reading
+      view). `strip_cases.json` is the corpus they will run.
 
   - token: headingDivs
     planes: [python, javascript, java, go, rust, c, cpp]
     reason: >-
-      KNOWN GAP. The strip of stripped renditions (SOM §11.10: stripNotationText,
-      SpecDocumentStrip, SpecStripOptions.fromNames, the readable header, the
-      styled-div headings; 04a_rdv5) is in the Dart and TypeScript runtimes
-      only; the reading view's parity audit
-      (`05a_rdv4_akpu-runtime-parity-audit`) files the seven ports.
-      `strip_cases.json` is the corpus they will run.
+      KNOWN GAP. The strip of stripped renditions (SOM §11.10:
+      stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
+      readable header, the styled-div headings; 04a_rdv5) is in the Dart and
+      TypeScript runtimes only; their ports are the todos
+      `tspubnondart84`..`97`, one per runtime (`runtime_parity.md` § Reading
+      view). `strip_cases.json` is the corpus they will run.
 
   - token: marksDropped
     planes: [python, javascript, java, go, rust, c, cpp]
     reason: >-
-      KNOWN GAP. The strip of stripped renditions (SOM §11.10: stripNotationText,
-      SpecDocumentStrip, SpecStripOptions.fromNames, the readable header, the
-      styled-div headings; 04a_rdv5) is in the Dart and TypeScript runtimes
-      only; the reading view's parity audit
-      (`05a_rdv4_akpu-runtime-parity-audit`) files the seven ports.
-      `strip_cases.json` is the corpus they will run.
+      KNOWN GAP. The strip of stripped renditions (SOM §11.10:
+      stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
+      readable header, the styled-div headings; 04a_rdv5) is in the Dart and
+      TypeScript runtimes only; their ports are the todos
+      `tspubnondart84`..`97`, one per runtime (`runtime_parity.md` § Reading
+      view). `strip_cases.json` is the corpus they will run.
 
   - token: readableHeader
     planes: [python, javascript, java, go, rust, c, cpp]
     reason: >-
-      KNOWN GAP. The strip of stripped renditions (SOM §11.10: stripNotationText,
-      SpecDocumentStrip, SpecStripOptions.fromNames, the readable header, the
-      styled-div headings; 04a_rdv5) is in the Dart and TypeScript runtimes
-      only; the reading view's parity audit
-      (`05a_rdv4_akpu-runtime-parity-audit`) files the seven ports.
-      `strip_cases.json` is the corpus they will run.
+      KNOWN GAP. The strip of stripped renditions (SOM §11.10:
+      stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
+      readable header, the styled-div headings; 04a_rdv5) is in the Dart and
+      TypeScript runtimes only; their ports are the todos
+      `tspubnondart84`..`97`, one per runtime (`runtime_parity.md` § Reading
+      view). `strip_cases.json` is the corpus they will run.
 
   - token: removedItems
     planes: [python, javascript, java, go, rust, c, cpp]
     reason: >-
-      KNOWN GAP. The strip of stripped renditions (SOM §11.10: stripNotationText,
-      SpecDocumentStrip, SpecStripOptions.fromNames, the readable header, the
-      styled-div headings; 04a_rdv5) is in the Dart and TypeScript runtimes
-      only; the reading view's parity audit
-      (`05a_rdv4_akpu-runtime-parity-audit`) files the seven ports.
-      `strip_cases.json` is the corpus they will run.
+      KNOWN GAP. The strip of stripped renditions (SOM §11.10:
+      stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
+      readable header, the styled-div headings; 04a_rdv5) is in the Dart and
+      TypeScript runtimes only; their ports are the todos
+      `tspubnondart84`..`97`, one per runtime (`runtime_parity.md` § Reading
+      view). `strip_cases.json` is the corpus they will run.
 
   - token: stripNotationText
     planes: [python, javascript, java, go, rust, c, cpp]
     reason: >-
-      KNOWN GAP. The strip of stripped renditions (SOM §11.10: stripNotationText,
-      SpecDocumentStrip, SpecStripOptions.fromNames, the readable header, the
-      styled-div headings; 04a_rdv5) is in the Dart and TypeScript runtimes
-      only; the reading view's parity audit
-      (`05a_rdv4_akpu-runtime-parity-audit`) files the seven ports.
-      `strip_cases.json` is the corpus they will run.
+      KNOWN GAP. The strip of stripped renditions (SOM §11.10:
+      stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
+      readable header, the styled-div headings; 04a_rdv5) is in the Dart and
+      TypeScript runtimes only; their ports are the todos
+      `tspubnondart84`..`97`, one per runtime (`runtime_parity.md` § Reading
+      view). `strip_cases.json` is the corpus they will run.
 
   - token: crossesBoundary
     planes: [python, javascript, java, go, rust, c, cpp]
@@ -226,9 +227,9 @@ exceptions:
       KNOWN GAP. The merge back of an edited stripped rendition (SOM §11.10:
       mergeStrippedValue, SpecStripMerge.merge with its currentRevision, the
       result's exitCode and the conflict codes; 04a_rdv6) is in the Dart and
-      TypeScript runtimes only, after the strip; the reading view's parity
-      audit (`05a_rdv4_akpu-runtime-parity-audit`) files the seven ports.
-      `strip_merge_cases.json` is the corpus they will run.
+      TypeScript runtimes only, after the strip; their ports are the todos
+      `tspubnondart98`..`104`, one per runtime (`runtime_parity.md` § Reading
+      view). `strip_merge_cases.json` is the corpus they will run.
 
   - token: currentRevision
     planes: [python, javascript, java, go, rust, c, cpp]
@@ -236,9 +237,9 @@ exceptions:
       KNOWN GAP. The merge back of an edited stripped rendition (SOM §11.10:
       mergeStrippedValue, SpecStripMerge.merge with its currentRevision, the
       result's exitCode and the conflict codes; 04a_rdv6) is in the Dart and
-      TypeScript runtimes only, after the strip; the reading view's parity
-      audit (`05a_rdv4_akpu-runtime-parity-audit`) files the seven ports.
-      `strip_merge_cases.json` is the corpus they will run.
+      TypeScript runtimes only, after the strip; their ports are the todos
+      `tspubnondart98`..`104`, one per runtime (`runtime_parity.md` § Reading
+      view). `strip_merge_cases.json` is the corpus they will run.
 
   - token: exitCode
     planes: [python, javascript, java, go, rust, c, cpp]
@@ -246,9 +247,9 @@ exceptions:
       KNOWN GAP. The merge back of an edited stripped rendition (SOM §11.10:
       mergeStrippedValue, SpecStripMerge.merge with its currentRevision, the
       result's exitCode and the conflict codes; 04a_rdv6) is in the Dart and
-      TypeScript runtimes only, after the strip; the reading view's parity
-      audit (`05a_rdv4_akpu-runtime-parity-audit`) files the seven ports.
-      `strip_merge_cases.json` is the corpus they will run.
+      TypeScript runtimes only, after the strip; their ports are the todos
+      `tspubnondart98`..`104`, one per runtime (`runtime_parity.md` § Reading
+      view). `strip_merge_cases.json` is the corpus they will run.
 
   - token: mergeStrippedValue
     planes: [python, javascript, java, go, rust, c, cpp]
@@ -256,9 +257,9 @@ exceptions:
       KNOWN GAP. The merge back of an edited stripped rendition (SOM §11.10:
       mergeStrippedValue, SpecStripMerge.merge with its currentRevision, the
       result's exitCode and the conflict codes; 04a_rdv6) is in the Dart and
-      TypeScript runtimes only, after the strip; the reading view's parity
-      audit (`05a_rdv4_akpu-runtime-parity-audit`) files the seven ports.
-      `strip_merge_cases.json` is the corpus they will run.
+      TypeScript runtimes only, after the strip; their ports are the todos
+      `tspubnondart98`..`104`, one per runtime (`runtime_parity.md` § Reading
+      view). `strip_merge_cases.json` is the corpus they will run.
 
   - token: sentenceRemoved
     planes: [python, javascript, java, go, rust, c, cpp]
@@ -266,9 +267,9 @@ exceptions:
       KNOWN GAP. The merge back of an edited stripped rendition (SOM §11.10:
       mergeStrippedValue, SpecStripMerge.merge with its currentRevision, the
       result's exitCode and the conflict codes; 04a_rdv6) is in the Dart and
-      TypeScript runtimes only, after the strip; the reading view's parity
-      audit (`05a_rdv4_akpu-runtime-parity-audit`) files the seven ports.
-      `strip_merge_cases.json` is the corpus they will run.
+      TypeScript runtimes only, after the strip; their ports are the todos
+      `tspubnondart98`..`104`, one per runtime (`runtime_parity.md` § Reading
+      view). `strip_merge_cases.json` is the corpus they will run.
 
   - token: stripTextEdited
     planes: [python, javascript, java, go, rust, c, cpp]
@@ -276,6 +277,6 @@ exceptions:
       KNOWN GAP. The merge back of an edited stripped rendition (SOM §11.10:
       mergeStrippedValue, SpecStripMerge.merge with its currentRevision, the
       result's exitCode and the conflict codes; 04a_rdv6) is in the Dart and
-      TypeScript runtimes only, after the strip; the reading view's parity
-      audit (`05a_rdv4_akpu-runtime-parity-audit`) files the seven ports.
-      `strip_merge_cases.json` is the corpus they will run.
+      TypeScript runtimes only, after the strip; their ports are the todos
+      `tspubnondart98`..`104`, one per runtime (`runtime_parity.md` § Reading
+      view). `strip_merge_cases.json` is the corpus they will run.

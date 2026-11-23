@@ -808,7 +808,7 @@ public final class ConformanceRunner {
 
   // The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
   // Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
-  // The reading view's parity audit (05a_rdv4_akpu-runtime-parity-audit) brings this runtime to tables.
+  // The emitter port tspubnondart74 (runtime_parity.md § Reading view) brings this runtime to tables.
   static final String EMITTED_LAYOUT = "fields";
   static final String EXPORT_GOLDEN = "expected.tomspecs.md";
 
@@ -880,7 +880,7 @@ public final class ConformanceRunner {
     for (Object caseObj : (List<Object>) table.get("cases")) {
       Map<String, Object> c = (Map<String, Object>) caseObj;
       // The reading view's table forms (`readingView`) are read by the Dart and
-      // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+      // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
       if (Boolean.TRUE.equals(c.get("readingView"))) {
         continue;
       }
@@ -1650,7 +1650,7 @@ public final class ConformanceRunner {
     for (Object caseObj : (List<Object>) table.get("cases")) {
       Map<String, Object> c = (Map<String, Object>) caseObj;
       // The reading view's table forms (`readingView`) are read by the Dart and
-      // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+      // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
       if (Boolean.TRUE.equals(c.get("readingView"))) {
         continue;
       }
@@ -2228,7 +2228,7 @@ public final class ConformanceRunner {
     for (Object caseObj : readJsonArray("docspecs_cases.json")) {
       Map<String, Object> c = (Map<String, Object>) caseObj;
       // The reading view's table forms (`readingView`) are read by the Dart and
-      // TypeScript runtimes only until the parity audit (05a_rdv4) ports them.
+      // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
       if (Boolean.TRUE.equals(c.get("readingView"))) {
         continue;
       }

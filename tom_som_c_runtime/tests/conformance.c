@@ -529,7 +529,7 @@ static void test_yaml_decode_round_trip(Checker *c, const SomMetaTree *tree) {
 
 /* The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
  * Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
- * The reading view's parity audit (05a_rdv4_akpu-runtime-parity-audit) brings this runtime to tables. */
+ * The emitter port tspubnondart75 (runtime_parity.md § Reading view) brings this runtime to tables. */
 #define EMITTED_LAYOUT "fields"
 #define EXPORT_GOLDEN "expected.tomspecs.md"
 
@@ -633,7 +633,7 @@ static void test_markdown_apply(Checker *c, const SpecModel *model) {
   for (size_t i = 0; i < n; i++) {
     const SomJson *kase = som_json_array_at(cases, i);
     /* The reading view's table forms (`readingView`) are read by the Dart and
-     * TypeScript runtimes only until the parity audit (05a_rdv4) ports them. */
+     * TypeScript runtimes only until their ports (runtime_parity.md § Reading view). */
     if (som_json_bool_or(kase, "readingView")) continue;
     const char *name = som_json_str_or(kase, "name");
     const char *op = som_json_str_or(kase, "op");
@@ -952,7 +952,7 @@ static void test_markdown_import_rejections(Checker *c, const SpecModel *model) 
   for (size_t i = 0; i < n; i++) {
     const SomJson *kase = som_json_array_at(cases, i);
     /* The reading view's table forms (`readingView`) are read by the Dart and
-     * TypeScript runtimes only until the parity audit (05a_rdv4) ports them. */
+     * TypeScript runtimes only until their ports (runtime_parity.md § Reading view). */
     if (som_json_bool_or(kase, "readingView")) continue;
     const char *name = som_json_str_or(kase, "name");
     const SomJson *want_rejections = som_json_get(kase, "rejections");
@@ -1851,7 +1851,7 @@ static void test_docspecs(Checker *c) {
   for (size_t i = 0; i < n; i++) {
     const SomJson *cc = som_json_array_at(cases, i);
     /* The reading view's table forms (`readingView`) are read by the Dart and
-     * TypeScript runtimes only until the parity audit (05a_rdv4) ports them. */
+     * TypeScript runtimes only until their ports (runtime_parity.md § Reading view). */
     if (som_json_bool_or(cc, "readingView")) continue;
     const char *name = som_json_str_or(cc, "name");
 

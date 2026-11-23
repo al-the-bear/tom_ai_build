@@ -6,8 +6,8 @@
 // findings. `_docSpecsCases` in conformance_test.dart appends them to
 // `docspecs_cases.json` with their violations computed by the Dart validator;
 // each carries `"readingView": true`, which the runtimes that do not read the
-// table forms yet skip (the reading view's parity audit, 05a_rdv4, ports
-// them). TypeScript runs them.
+// table forms yet skip (their ports are tspubnondart63..69,
+// runtime_parity.md § Reading view). TypeScript runs them.
 //
 // Each case is a minimal edit of the clean demo document, so the reported
 // lines are legible against it. The expected violations were checked by hand

@@ -328,17 +328,18 @@ final List<CorpusGuardedEnum> _guarded = [
     // The reading notation's nine rules are reported by the Dart and
     // TypeScript validators only so far; notation_cases.json exercises them
     // (`validatorCases`, and NotationFindingCode below, which they mirror
-    // constant for constant) and the other seven runtimes join through the
-    // reading view's parity audit. `rejectedBlock`, `unclosedDiv` (an
-    // unclosed `refs` fence), `malformedBlock` and `unknownField` are
+    // constant for constant) and the other seven runtimes join through their
+    // scanner ports (tspubnondart49..55; the last of them, for C++, adds the
+    // nine rules to `docspecs_cases.json` and ends this waiver).
+    // `rejectedBlock`, `unclosedDiv` (an unclosed `refs` fence), `malformedBlock` and `unknownField` are
     // exercised here by the reading view's cases (`readingView: true`,
-    // 04a_rdv2), which those seven runners skip until the same audit ports
-    // them.
+    // 04a_rdv2), which those seven runners skip until their validator ports
+    // (tspubnondart63..69).
     waived: {
       for (final n in NotationFindingCode.values)
         if (n != NotationFindingCode.rejectedBlock &&
             n != NotationFindingCode.unclosedDiv)
-          n.name: '05a_rdv4_akpu-runtime-parity-audit',
+          n.name: 'tspubnondart55_akww-cpp-notation-scanner',
     },
     why:
         'a §14 DocSpecs rule that eight runtimes need not implement — the '

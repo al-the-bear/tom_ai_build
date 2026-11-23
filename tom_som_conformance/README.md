@@ -386,8 +386,8 @@ runtimes. They have a table of their own,
   TomSpecs renditions, with the expected `rule` / `sectionId` / `line` triples.
 
 The table is hand-maintained (`UPDATE_CORPUS=1` does not write it). The Dart
-enum guard waives the nine rules on `docspecs_cases.json` against the reading
-view's parity audit (`05a_rdv4_akpu-runtime-parity-audit`) and guards
+enum guard waives the nine rules on `docspecs_cases.json` until the notation
+scanner ports (`tspubnondart49`..`55`, `runtime_parity.md` § Reading view) and guards
 `NotationFindingCode` on this table instead; the TypeScript coverage gate counts
 both tables.
 
@@ -401,8 +401,8 @@ tables, `refs` and `records` divs, section tables, styled-div headings, and the
 `LINK-LST` and `CRIT-LST` and the section `ATTR`, which no other case uses.
 `UPDATE_CORPUS=1` writes them from
 `tom_som_dart_runtime/test/reading_view_docspecs_cases.dart`. The Dart and
-TypeScript runners run them; the other seven skip them until the reading
-view's parity audit (`05a_rdv4_akpu-runtime-parity-audit`) ports them, so the
+TypeScript runners run them; the other seven skip them until the validator
+ports (`tspubnondart63`..`69`, `runtime_parity.md` § Reading view) land, so the
 rest of the table is still the one all nine pass. The `sample_schema` gate of
 `tool/run_all_suites.sh` validates every sample in the table layout, the one
 `tomspecs :spec-validate` renders.
@@ -610,8 +610,8 @@ tier, this one found no divergence.
 layout grammar: form tables (`| TomSpecField | Value |`), section tables,
 `refs` and `records` list bodies, heading anchors, the field-given-twice rule
 and the two reasons it adds, `unknownField` and `malformedBlock`. The Dart and
-TypeScript runtimes run them; the other seven skip them until the reading
-view's parity audit (`05a_rdv4_akpu-runtime-parity-audit`) ports the grammar.
+TypeScript runtimes run them; the other seven skip them until the parser
+ports (`tspubnondart56`..`62`, `runtime_parity.md` § Reading view) land.
 `_markdownImportCases` in the Dart conformance test appends them from
 `test/reading_view_markdown_import_cases.dart`, so `UPDATE_CORPUS=1` keeps them.
 
