@@ -15,8 +15,8 @@ environment:
 dependencies:
   # Co-developed siblings, resolved by path locally via pubspec_overrides.yaml
   # (excluded from publish); the published package uses the hosted constraints.
-  tom_som_dart_runtime: ^1.6.1
-  tom_specs_core: ^0.5.0
+  tom_som_dart_runtime: ^1.12.2
+  tom_specs_core: ^0.5.2
 
 dev_dependencies:
   lints: ^6.0.0

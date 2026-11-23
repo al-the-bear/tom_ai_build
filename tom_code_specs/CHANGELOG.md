@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.19.1
+
+- Documentation: the checks are named by their `tomspecs` command
+  (`tomspecs :codespecs-validate`). No code change.
+
 ## 0.19.0
 
 - `@CsCompletion(rule, {fact, value, note})`: the record of an authored

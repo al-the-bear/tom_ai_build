@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.12.2
 
 - **A wrapped paragraph is one table cell** (SOM §11.4 rule 13): a form-field
   value that is one paragraph wrapped over several lines (no blank line, no

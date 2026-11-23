@@ -1,10 +1,10 @@
 # Changelog
 
-## Unreleased
+## 0.5.2
 
 - `Field.multiParagraph`: a field whose values hold paragraphs or blocks. The
   markdown rendition writes such a value as a `Field:` paragraph, never as a
-  row of the form table. No field carries it yet.
+  row of the form table. The model flags 170 fields with it (tom_specs_model 1.12.2).
 
 ## 0.5.1
 

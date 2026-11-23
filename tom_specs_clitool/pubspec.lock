@@ -675,7 +675,7 @@ packages:
       path: "../tom_specs_core"
       relative: true
     source: path
-    version: "0.5.1"
+    version: "0.5.2"
   typed_data:
     dependency: transitive
     description:

@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.12.2
 
 - **A wrapped paragraph is one table cell** (SOM §11.4 rule 13), the port
   of the Dart rule: `SpecDocumentMarkdown.wrappedParagraphJoined(value)`, the

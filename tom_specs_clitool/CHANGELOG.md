@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.18.0
 
 - `tomspecs :spec-mark-secondary <doc> [--under] [--kinds] [--reflow]
   [--all] [--write]`: the marker tool, writing a document's secondary prose in

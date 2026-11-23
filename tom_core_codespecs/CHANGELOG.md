@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.14.1
+
+- Documentation: `irspecs_ir.md` describes the IR as Phase 4's product, its
+  descriptive file names (`<CE-CODE>_<canonical id>.ir.yaml`), the Markdown
+  rendering and the JSON export; the documents name the `tomspecs` commands
+  and the `*.tomspecs.yaml` / `*.tomspecs.md` document names. No code change.
+
 ## 0.14.0
 
 - `codespecs_derivation_contract.md`: §2.10, the register of authored
