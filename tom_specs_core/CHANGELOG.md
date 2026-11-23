@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+- The link annotations of section automation (`tom_specs_model_rules.md`
+  §9.7): `@SyncedWith` with `ListRelation` and the enum `LinkRelation`,
+  `@SummaryOf`, `@DerivedFrom` (`.copy`, `.rows`, `.lookup`) with
+  `DerivationKind`, `InverseOf` (with `.symmetric`), and `@ExtractsLinks` with
+  `ExtractMode`. `Field` gains the qualifiers `derivedFrom`, `inverseOf` and
+  `summaryOf`. No model class uses them yet.
+- `countOf`'s filter grammar documents `|` alternatives; the runtimes do not
+  split them in `countOf` yet.
+
 ## 0.5.2
 
 - `Field.multiParagraph`: a field whose values hold paragraphs or blocks. The

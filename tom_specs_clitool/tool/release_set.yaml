@@ -111,10 +111,19 @@ unpublished_drift:
     writes maps and tom_specs_core value objects in the annotations block, stops
     on an unserializable argument, and the exporter writes the form-field keys
     derivedFrom, inverseOf and summaryOf; the regenerated metas are unchanged.
+    02_sau2: the link annotations bound as model-only traceability in
+    docspecs_annotation_mapping.dart; the 14 schemas unchanged.
+  tom_specs_core: >-
+    section automation in progress — 02_sau2 (2026-11-23): the link
+    annotations (SyncedWith, ListRelation, SummaryOf, DerivedFrom, InverseOf,
+    ExtractsLinks, their enums) and the Field qualifiers derivedFrom,
+    inverseOf and summaryOf; no model class uses them yet.
   tom_specs_model: >-
     section automation in progress — 02_sau1 (2026-11-23):
     doc/tom_specs_model_meta_schema.md describes nested annotation values, maps
     and the three new formFields[] keys. No model change.
+    02_sau2: tom_specs_model_rules.md §9.7 (the link annotations, places,
+    rules) and §6.2.2 (`|` alternatives in countOf).
 
 published_from:
   tom_specs_core: {version: '0.5.2', commit: '0f5d4c23'}

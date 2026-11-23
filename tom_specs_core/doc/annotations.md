@@ -17,13 +17,14 @@ and are cited here, never repeated.
 - [Quick Start](#quick-start)
 - [Core Components](#core-components)
   - [Annotations are plain const classes](#annotations-are-plain-const-classes)
-  - [The five families](#the-five-families)
+  - [The six families](#the-six-families)
 - [Giving a section an identity](#giving-a-section-an-identity)
 - [Declaring what a section holds](#declaring-what-a-section-holds)
 - [Constraining a value](#constraining-a-value)
 - [Discriminated subsection groups](#discriminated-subsection-groups)
 - [Tracing a section to its document](#tracing-a-section-to-its-document)
 - [Routing a section to an artifact](#routing-a-section-to-an-artifact)
+- [Linking places](#linking-places)
 - [Pinning serialization order](#pinning-serialization-order)
 - [Error Handling](#error-handling)
 - [Best Practices](#best-practices)
@@ -37,8 +38,9 @@ generator, the nine SOM emitters, and the structural validator. Applying an
 annotation is therefore a statement to those readers, and the cost of getting it
 wrong is paid at generation time, not at run time.
 
-The library carries **34 annotation classes** (35 types, since `@Form` comes
-with its `Field` element) and **3 closed enums**. The catalogue is a live
+The library carries **38 annotation classes**, three value classes that are
+not annotations (`@Form`'s `Field` element, `@SyncedWith`'s `ListRelation`, and
+`InverseOf`, the value of a `Field` qualifier) and **6 closed enums**. The catalogue is a live
 surface rather than a document: every class under `lib/src/annotations/` must
 name a destination in `tom_specs_clitool`'s `docspecs_annotation_mapping.dart`,
 and every declared schema key must actually be emitted — so an annotation added
@@ -130,7 +132,7 @@ true
 The last line is worth noticing: because they are `const`, two identical
 annotations are the same object, so annotations cost nothing to apply.
 
-### The five families
+### The six families
 
 | Family | Answers | Members |
 |--------|---------|---------|
@@ -139,6 +141,7 @@ annotations are the same object, so annotations cost nothing to apply.
 | Constraints | *What is a valid value?* | `@Min`, `@Max`, `@MinLength`, `@MaxLength`, `@MaxDepth`, `@AllowedTags`, `@PatternCheck`, `@PatternCheckId`, `@ValidationPrompt`, `@OneOf`, `@Case` |
 | Cross-reference & traceability | *What else does it point at?* | `@Reference`, `@AccessKey`, `@ForEach`, `@MapsTo`, `@DetailedIn`, `@StandardReferences` |
 | Artifact routing | *What does it produce?* | `@CodeSpecKind`, `@FollowUpKind`, `@NoArtifact`, `@CodeSpecsProjection` |
+| Links between places | *Which places must stay equal, derived or linked?* | `@SyncedWith` / `ListRelation`, `@SummaryOf`, `@DerivedFrom`, `@ExtractsLinks`, `InverseOf` |
 
 The rest of this guide is organised by the question, not by the family.
 
@@ -423,6 +426,35 @@ active rather than deferred.
 `@CodeSpecsProjection()` is a marker for one class: the `@Document` root that is
 the CodeSpecs generation projection. It exempts that document from the
 detail-count check *only*, and relaxes nothing else.
+
+## Linking places
+
+Some facts stand at two places: in the Solution Blueprint and in the Phase 3
+document that details it, in a summary and its detail list, at both ends of a
+link, or in a value computed from rows. Five declarations say which places
+those are, so the runtimes can check them, derive them and carry them across:
+
+- **`@SyncedWith(T, …)`** on a class (or a form member) — the section is kept
+  in sync with the section of the same id in document `T`; `detailOnly`,
+  `heldHere` and `relations` (each a `ListRelation`) refine what is compared and
+  who holds it.
+- **`@SummaryOf(detail, …)`** on a list, or `summaryOf:` on a multi-valued
+  reference field — the place summarizes the detail list `detail`.
+- **`@DerivedFrom.copy` / `.rows` / `.lookup`** on a section or list, or
+  `derivedFrom:` on a field — the value is derived from other places.
+- **`inverseOf: InverseOf([...])`** on a reference field — one end of a link
+  stored at both ends; `InverseOf.symmetric()` when the field is its own
+  inverse.
+- **`@ExtractsLinks(from: …, ref: …)`** on a list of link rows, repeatable —
+  the rows follow the ids named in text.
+
+Every place is written in one grammar (`<FORMSECTIONID>.<field>`,
+`<SECTIONID>.@headline`, `<LIST-ID>`, `./…`, a `/` path), and filters take `|`
+alternatives. The grammar, the shapes and the rules — every value both
+documents hold agrees, the holder wins even when empty, `subset` elements may
+be added, ids are never changed, a derived place is never shared — are
+`tom_specs_model_rules.md` §9.7. All five are model-only `traceability`: they
+reach the runtimes through the meta and add no schema key.
 
 ## Pinning serialization order
 

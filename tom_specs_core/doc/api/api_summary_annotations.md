@@ -55,15 +55,27 @@ member *must* carry which annotation, see
     - [FollowUpKind](#followupkind)
     - [NoArtifact](#noartifact)
     - [CodeSpecsProjection](#codespecsprojection)
+  - [Links between places](#links-between-places)
+    - [SyncedWith](#syncedwith)
+    - [ListRelation](#listrelation)
+    - [SummaryOf](#summaryof)
+    - [DerivedFrom](#derivedfrom)
+    - [InverseOf](#inverseof)
+    - [ExtractsLinks](#extractslinks)
 - [Enums](#enums)
   - [CodeSpecPart](#codespecpart)
   - [FollowUpProcess](#followupprocess)
   - [NoArtifactReason](#noartifactreason)
+  - [LinkRelation](#linkrelation)
+  - [DerivationKind](#derivationkind)
+  - [ExtractMode](#extractmode)
 
 ## Overview
 
-The module declares **34 annotation classes** across five families, the `Field`
-element of `@Form` (a value class, not an annotation), and **3 closed enums**.
+The module declares **38 annotation classes** across six families, three value
+classes that are not annotations — the `Field` element of `@Form`, the
+`ListRelation` of `@SyncedWith` and the `InverseOf` of the `Field` qualifier
+`inverseOf:` — and **6 closed enums**.
 Every class is `const`-constructible, so applying an annotation allocates
 nothing: two identical annotations are the same object.
 
@@ -74,6 +86,7 @@ nothing: two identical annotations are the same object.
 | Constraints & validation | `@Min`, `@Max`, `@MinLength`, `@MaxLength`, `@MaxDepth`, `@AllowedTags`, `@PatternCheck`, `@PatternCheckId`, `@ValidationPrompt`, `@OneOf`, `@Case` |
 | Cross-reference & traceability | `@Reference`, `@AccessKey`, `@ForEach`, `@MapsTo`, `@DetailedIn`, `@StandardReferences` |
 | Artifact routing | `@CodeSpecKind`, `@FollowUpKind`, `@NoArtifact`, `@CodeSpecsProjection` |
+| Links between places | `@SyncedWith` (+ its `ListRelation`), `@SummaryOf`, `@DerivedFrom`, `@ExtractsLinks`, and `InverseOf`; `SummaryOf`, `DerivedFrom` and `InverseOf` are also the values of the `Field` qualifiers `summaryOf:`, `derivedFrom:` and `inverseOf:` |
 
 ## Class Hierarchy
 
@@ -115,15 +128,25 @@ Object
 │   │   ├── MapsTo
 │   │   ├── DetailedIn
 │   │   └── StandardReferences
-│   └── Artifact routing
+│   ├── Artifact routing
 │   │   ├── CodeSpecKind
 │   │   ├── FollowUpKind
 │   │   ├── NoArtifact
 │   │   └── CodeSpecsProjection
+│   └── Links between places
+│       ├── SyncedWith
+│       ├── ListRelation  (value of SyncedWith.relations, not an annotation)
+│       ├── SummaryOf
+│       ├── DerivedFrom
+│       ├── InverseOf  (value of Field.inverseOf, not an annotation)
+│       └── ExtractsLinks
 └── (enums)
     ├── CodeSpecPart
     ├── FollowUpProcess
-    └── NoArtifactReason
+    ├── NoArtifactReason
+    ├── LinkRelation
+    ├── DerivationKind
+    └── ExtractMode
 ```
 
 The flat shape is deliberate: an annotation that extended another would let a
@@ -304,6 +327,9 @@ const Field(
   String? rankOf,
   bool code = false,
   bool multiParagraph = false,
+  DerivedFrom? derivedFrom,
+  InverseOf? inverseOf,
+  SummaryOf? summaryOf,
 });
 ```
 
@@ -323,6 +349,9 @@ const Field(
 | `rankOf` | `String?` | The field of the same form this field ranks by, highest first, over every instance of the form in the document. |
 | `code` | `bool` | Whether the value is code rather than prose, so the markdown rendition writes it as an inline code span. |
 | `multiParagraph` | `bool` | Whether the values hold paragraphs or blocks, so the markdown rendition writes them as a `Field:` paragraph, never as a form-table row. |
+| `derivedFrom` | `DerivedFrom?` | Where the value is derived from; `deriveFields` writes it. At most one of `derivedFrom`, `countOf`, `productOf`, `rankOf`. |
+| `inverseOf` | `InverseOf?` | The other ends of a link this reference field is one end of. |
+| `summaryOf` | `SummaryOf?` | The detail list this multi-valued reference field summarizes. |
 
 #### ContentHelp
 
@@ -793,6 +822,179 @@ Marks a `@Document` root as the **CodeSpecs generation projection**.
 const CodeSpecsProjection();
 ```
 
+### Links between places
+
+The annotations that state which places of the model are kept equal, derived
+or linked (`tom_specs_model_rules.md` §9.7). They are model-only
+`traceability`: written into the meta, read by the runtimes, no schema key.
+
+#### SyncedWith
+
+Declares that the annotated section is kept in sync with the section of the same id in `document`.
+
+**Target:** Class, or a form member
+
+##### Constructors
+
+```dart
+const SyncedWith(
+  Type document, {
+  List<String> detailOnly = const [],
+  List<String> heldHere = const [],
+  List<ListRelation> relations = const [],
+  String? note,
+});
+```
+
+##### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `document` | `Type` | The `@Document` root class of the other document. |
+| `detailOnly` | `List<String>` | The places below this section only the other document carries. |
+| `heldHere` | `List<String>` | The places whose value this document holds. |
+| `relations` | `List<ListRelation>` | The lists and multi-valued reference fields whose relation is not `equal`. |
+| `note` | `String?` | Free text for the reader of the model. |
+
+#### ListRelation
+
+How the elements of a list relate on the two sides of a `@SyncedWith`.
+
+**Target:** Not an annotation — a value of `SyncedWith.relations`
+
+##### Constructors
+
+```dart
+const ListRelation(String place, LinkRelation relation, {String? where});
+```
+
+##### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `place` | `String` | The list or multi-valued reference field. |
+| `relation` | `LinkRelation` | How the annotated side's elements relate to the other side's. |
+| `where` | `String?` | Only the elements matching this filter are compared. |
+
+#### SummaryOf
+
+Declares that the annotated list (or reference field) summarizes a detailed list.
+
+**Target:** Member; also the value of `Field.summaryOf`
+
+##### Constructors
+
+```dart
+const SummaryOf(
+  String detail, {
+  Type? document,
+  String? match,
+  LinkRelation relation = LinkRelation.subset,
+  Map<String, String> repeats = const {},
+  String? note,
+});
+```
+
+##### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `detail` | `String` | The detailed list, `<LIST-ID>`. |
+| `document` | `Type?` | The document holding `detail`; null: this document. |
+| `match` | `String?` | The field of a summary element naming its detail element. |
+| `relation` | `LinkRelation` | How the summary's elements relate to the detail's; `subset` by default. |
+| `repeats` | `Map<String, String>` | Summary place → detail place for every value the summary repeats. |
+| `note` | `String?` | Free text for the reader of the model. |
+
+#### DerivedFrom
+
+Declares that the annotated place's value is derived from other places of its document.
+
+**Target:** Member (section or list); also the value of `Field.derivedFrom`
+
+##### Constructors
+
+```dart
+const DerivedFrom.copy(String source, {String? note});
+const DerivedFrom.rows(
+  String source, {
+  String? where,
+  List<String> take = const [],
+  Map<String, String> map = const {},
+  String? note,
+});
+const DerivedFrom.lookup(
+  String source, {
+  required String key,
+  required String by,
+  required List<String> take,
+  String? note,
+});
+```
+
+##### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `kind` | `DerivationKind` | Which of the three shapes the derivation takes. |
+| `source` | `String` | `copy`: the place copied; `rows` / `lookup`: the rows read. |
+| `where` | `String?` | `rows`: which rows count, in the filter grammar. |
+| `take` | `List<String>` | `rows` / `lookup`: the row places collected. |
+| `key` | `String?` | `lookup`: the row field compared with `by`. |
+| `by` | `String?` | `lookup`: the field of this element holding the key. |
+| `map` | `Map<String, String>` | For a list member: target element place ← row place. |
+| `note` | `String?` | Free text for the reader of the model. |
+
+In `lookup`, when several rows match, the last in list order wins.
+
+#### InverseOf
+
+Declares that a reference field is one end of a link stored at both ends.
+
+**Target:** Not an annotation — the value of `Field.inverseOf`
+
+##### Constructors
+
+```dart
+const InverseOf(List<String> fields, {String? where});
+const InverseOf.symmetric({String? where});
+```
+
+##### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `fields` | `List<String>` | The other ends, `<FORMSECTIONID>.<field>`; `['@self']` for the symmetric form. |
+| `where` | `String?` | Only the values (or rows) matching this filter have an inverse. |
+
+#### ExtractsLinks
+
+Declares that the annotated list of link rows is kept in step with the ids named in text places.
+
+**Target:** Member (a list of link rows); repeatable
+
+##### Constructors
+
+```dart
+const ExtractsLinks({
+  required List<String> from,
+  required String ref,
+  Map<String, String> set = const {},
+  ExtractMode mode = ExtractMode.generate,
+  String? note,
+});
+```
+
+##### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `from` | `List<String>` | The text places searched for ids. |
+| `ref` | `String` | The row's `refersTo` field that receives a found id. |
+| `set` | `Map<String, String>` | The values every generated row gets. |
+| `mode` | `ExtractMode` | Whether missing rows are written or only reported. |
+| `note` | `String?` | Free text for the reader of the model. |
+
 ## Enums
 
 ### CodeSpecPart
@@ -813,3 +1015,20 @@ Why a section is deliberately routed to neither CodeSpecs nor a follow-up proces
 
 **Values (4):** `container`, `overview`, `view`, `generation`
 
+### LinkRelation
+
+How the elements of the annotated place relate to those of the other place, read from the annotated side.
+
+**Values (3):** `equal`, `subset`, `superset`
+
+### DerivationKind
+
+The three shapes a derived value takes.
+
+**Values (3):** `copy`, `rows`, `lookup`
+
+### ExtractMode
+
+What `deriveFields` does with an id an `@ExtractsLinks` finds in text.
+
+**Values (2):** `generate`, `warn`

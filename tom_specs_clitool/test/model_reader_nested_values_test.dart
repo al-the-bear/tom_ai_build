@@ -12,7 +12,11 @@
 //   class, the member and the argument;
 // - NV-5 the exporter writes `derivedFrom`, `inverseOf` and `summaryOf` after
 //   `rankOf`, each only when stated, and the meta validator's round trip
-//   holds with them.
+//   holds with them;
+// - NV-6 the link annotations of `tom_specs_core` (`@SyncedWith` with its
+//   `ListRelation`s, a repeated `@ExtractsLinks`) and the three `Field`
+//   qualifiers read from a model: enums qualified in the annotations block,
+//   bare in the curated keys.
 //
 // The reader cases run on a throwaway package under the workspace's ztmp/,
 // resolved against the sibling `tom_specs_core`.
@@ -175,6 +179,90 @@ class NestedBad {}
             .having((x) => x.argument, 'argument', 'value.a'),
       ),
     );
+  });
+
+  test('NV-6: the link annotations and the Field qualifiers of '
+      'tom_specs_core, read from a model', () async {
+    final r = await _read(scratch, '''
+import 'package:tom_specs_core/tom_specs_core.dart';
+
+@Document(name: 'Other')
+class Other {}
+
+@SyncedWith(Other,
+    detailOnly: ['REQDEP'],
+    relations: [ListRelation('RETRAR.relatedScreens', LinkRelation.subset)])
+class Synced {
+  @ExtractsLinks(from: ['FRED.description'], ref: 'RQDEP-RELA-REF.ref',
+      set: {'RQDEP.dependencyType': 'namedInText'})
+  @ExtractsLinks(from: ['FREC.constraints'], ref: 'RQDEP-RELA-REF.ref',
+      mode: ExtractMode.warn)
+  List<String> rows = [];
+
+  @Form([
+    Field('conflictsWith', String, 'Conflicts with',
+        multiple: true,
+        derivedFrom: DerivedFrom.rows('./RQDEP',
+            where: 'RQDEP.dependencyType=conflict|bidirectional',
+            take: ['RQDEP-RELA-REF.ref'])),
+    Field('ref', String, 'Ref', inverseOf: InverseOf.symmetric()),
+    Field('screens', String, 'Screens',
+        multiple: true,
+        summaryOf: SummaryOf('SCRTEN-SCRE-LST', document: Other)),
+    Field('version', String, 'Version',
+        derivedFrom: DerivedFrom.lookup('RVENT', key: 'RVENT.version',
+            by: 'DOCHD.version', take: ['RVENT.date'])),
+  ])
+  String? content;
+}
+''');
+    expect(_args(r, 'Synced', 'SyncedWith'), {
+      'document': 'Other',
+      'detailOnly': ['REQDEP'],
+      'heldHere': <Object?>[],
+      'relations': [
+        {'place': 'RETRAR.relatedScreens', 'relation': 'LinkRelation.subset'},
+      ],
+    });
+    final rows = r.classes['Synced']!.fields.firstWhere(
+      (f) => f.name == 'rows',
+    );
+    final extracts = [
+      for (final a in rows.annotations)
+        if (a.name == 'ExtractsLinks') a.arguments,
+    ];
+    expect(extracts, hasLength(2), reason: 'repeated, in source order');
+    expect(extracts.first['set'], {'RQDEP.dependencyType': 'namedInText'});
+    expect(extracts.last['mode'], 'ExtractMode.warn');
+    final form = r.classes['Synced']!.fields
+        .firstWhere((f) => f.name == 'content')
+        .formFields;
+    final by = {for (final f in form) f.name: f};
+    expect(by['conflictsWith']!.derivedFrom, {
+      'kind': 'rows',
+      'source': './RQDEP',
+      'where': 'RQDEP.dependencyType=conflict|bidirectional',
+      'take': ['RQDEP-RELA-REF.ref'],
+      'map': <String, Object?>{},
+    });
+    expect(by['ref']!.inverseOf, {
+      'fields': ['@self'],
+    });
+    expect(by['screens']!.summaryOf, {
+      'detail': 'SCRTEN-SCRE-LST',
+      'document': 'Other',
+      'relation': 'subset',
+      'repeats': <String, Object?>{},
+    });
+    expect(by['version']!.derivedFrom, {
+      'kind': 'lookup',
+      'source': 'RVENT',
+      'take': ['RVENT.date'],
+      'key': 'RVENT.version',
+      'by': 'DOCHD.version',
+      'map': <String, Object?>{},
+    });
+    expect(by['conflictsWith']!.inverseOf, isNull);
   });
 
   group('NV-5: the three form-field keys', () {

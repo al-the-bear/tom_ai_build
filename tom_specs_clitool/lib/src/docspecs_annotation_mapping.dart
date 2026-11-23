@@ -480,6 +480,68 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
         'constraint on the document.',
   ),
 
+  // --- Links between places (section automation) ---------------------------
+  /// A section kept in sync with the section of the same id in another
+  /// document. It relates two documents, so neither schema is the place to
+  /// state it.
+  DocSpecsAnnotationBinding(
+    'SyncedWith',
+    modelOnly: ModelOnlyReason.traceability,
+    note:
+        'Keeps a section in sync with the section of the same id in another '
+        'document — a relation between two documents, read by the runtimes\' '
+        'sync and backfill, not a property of either schema.',
+  ),
+
+  /// The relation of a list on the two sides of a `@SyncedWith`; a value
+  /// object inside it, with the same destination.
+  DocSpecsAnnotationBinding(
+    'ListRelation',
+    modelOnly: ModelOnlyReason.traceability,
+    note:
+        'A value object of `@SyncedWith.relations`: how a list relates on '
+        'the two sides of a sync. Carried in the annotation, no schema key.',
+  ),
+
+  /// A list or reference field summarizing a detail list. A relation between
+  /// two places, possibly in two documents.
+  DocSpecsAnnotationBinding(
+    'SummaryOf',
+    modelOnly: ModelOnlyReason.traceability,
+    note:
+        'Binds a summary list (or reference field) to the detail list it '
+        'summarizes — a link between places, read by the runtimes, not a '
+        'constraint the schema states.',
+  ),
+
+  /// A value derived from other places of the document; the derivation
+  /// operation writes it.
+  DocSpecsAnnotationBinding(
+    'DerivedFrom',
+    modelOnly: ModelOnlyReason.traceability,
+    note:
+        'States where a value is derived from; `deriveFields` writes it and '
+        'the runtimes hold the stored value to it. No schema key.',
+  ),
+
+  /// One end of a link stored at both ends; a `Field` qualifier's value class.
+  DocSpecsAnnotationBinding(
+    'InverseOf',
+    modelOnly: ModelOnlyReason.traceability,
+    note:
+        'The value class of the `Field` qualifier `inverseOf:`: names the other '
+        'end of a two-way link, checked by the runtimes\' link checks.',
+  ),
+
+  /// Link rows kept in step with the ids named in text places.
+  DocSpecsAnnotationBinding(
+    'ExtractsLinks',
+    modelOnly: ModelOnlyReason.traceability,
+    note:
+        'Keeps a list of link rows in step with the ids named in text places '
+        '(`deriveFields` writes or reports the rows). No schema key.',
+  ),
+
   // --- DocSpecs ↔ CodeSpecs link --------------------------------------------
   /// The type-level DocSpecs to CodeSpecs link: which kinds of code element
   /// every section of this type must be realised as in Phase 4. A statement
@@ -555,9 +617,10 @@ class DocSpecsFieldQualifierBinding {
   final String note;
 }
 
-/// The `Field` qualifiers that only shape how a value is written. They govern
-/// the generated renditions in all nine runtimes, not what a document must
-/// contain, so no schema key holds them.
+/// The `Field` qualifiers that are model-only: those that only shape how a
+/// value is written (they govern the generated renditions in all nine
+/// runtimes, not what a document must contain), and the section-automation
+/// qualifiers that link a field to other places. No schema key holds them.
 const List<DocSpecsFieldQualifierBinding> docSpecsFieldQualifierBindings = [
   DocSpecsFieldQualifierBinding(
     'code',
@@ -566,6 +629,27 @@ const List<DocSpecsFieldQualifierBinding> docSpecsFieldQualifierBindings = [
         'The value is code: every markdown codec writes it as an inline code '
         'span and unwraps it on import (SOM §11.4 rule 8). Exported as '
         '`code: true` on the meta form field.',
+  ),
+  DocSpecsFieldQualifierBinding(
+    'derivedFrom',
+    modelOnly: ModelOnlyReason.traceability,
+    note:
+        'The value is derived from other places (`DerivedFrom`); exported as '
+        'the `derivedFrom` key of the meta form field, read by `deriveFields`.',
+  ),
+  DocSpecsFieldQualifierBinding(
+    'inverseOf',
+    modelOnly: ModelOnlyReason.traceability,
+    note:
+        'The reference field is one end of a two-way link (`InverseOf`); '
+        'exported as the `inverseOf` key of the meta form field.',
+  ),
+  DocSpecsFieldQualifierBinding(
+    'summaryOf',
+    modelOnly: ModelOnlyReason.traceability,
+    note:
+        'The multi-valued reference field summarizes a detail list '
+        '(`SummaryOf`); exported as the `summaryOf` key of the meta form field.',
   ),
   DocSpecsFieldQualifierBinding(
     'multiParagraph',

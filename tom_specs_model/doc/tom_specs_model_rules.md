@@ -846,6 +846,13 @@ Field('mustHaveFunctional', String, '…', countOf: ['FRE.priority=must']),
   class carrying that section id — or `<SECTIONID>.<formField>=<value>`, only
   the entries one of whose own form members holds that value. The stated
   number must equal the **sum** over the elements.
+- **Alternatives.** A filter's value may list alternatives joined by `|`
+  (`FRE.priority=must|should`): an entry counts when its field holds any of
+  them. The grammar is the one the link annotations' `where:` filters use
+  (§9.7). The runtimes do not split `|` in `countOf` yet, and a runtime that
+  does not would read the whole string as one value and report a wrong
+  `countMismatch`; so the model writes `|` only in `where:` until all nine
+  runtimes split it here too.
 - **Scope.** A target written `./<SECTIONID>…` counts only the entries beneath
   the section that holds the form, so a use case's `stepCount` counts its own
   steps (`countOf: ['./MNSST']`) rather than every step in the document.
@@ -1455,6 +1462,13 @@ reach for each, and states the mapping semantics of each.
 
 **Traceability:** `@MapsTo`, `@DetailedIn`, `@StandardReferences`.
 
+**Links between places (section automation, §9.7):** `@SyncedWith` with its
+`ListRelation` values and the enum `LinkRelation`, `@SummaryOf`,
+`@DerivedFrom` (with `DerivationKind`), `@ExtractsLinks` (with `ExtractMode`),
+and `InverseOf` — the value classes of the `Field` qualifiers `summaryOf:`,
+`derivedFrom:` and `inverseOf:`. They state which places of the model are kept
+equal, derived or linked, so the runtimes can keep them so.
+
 **CodeSpecs link:** `@CodeSpecKind(List<CodeSpecPart>)` — the general,
 type-level DocSpecs→CodeSpecs mapping on a SOM section class; and
 `@CodeSpecsProjection()` — marks a generation-projection `@Document` (§2.5).
@@ -1487,8 +1501,10 @@ emitter id (`openapi`, `jsonschema`, `icu`, `asyncapi`, `markdown`; `irspecs_ir.
 **Form-field qualifiers** (named parameters of `Field`, not annotations):
 `required`, `hint`, `refersTo` and `multiple` (§6.2), `countOf` (§6.2.2),
 `code` and `multiParagraph` (§6.2.3 and the subsection after it), `productOf`
-and `rankOf` (§6.2.4). `code` and `multiParagraph` only shape how a value is
-written and are model-only (`docSpecsFieldQualifierBindings`).
+and `rankOf` (§6.2.4), `derivedFrom`, `inverseOf` and `summaryOf` (§9.7).
+`code` and `multiParagraph` only shape how a value is written, and the three
+link qualifiers relate a field to other places; all five are model-only
+(`docSpecsFieldQualifierBindings`).
 
 Two authoring notes with model-wide consequences:
 
@@ -1515,6 +1531,11 @@ Two authoring notes with model-wide consequences:
 | `@MapsTo(Type)` | class | Seed node of a Phase 3 DocSpec in the master model — the whole subtree flows to that document. |
 | `@DetailedIn(Type)` | class | Promoted to a top-level entry of a Phase 3 DocSpec; must have a `@MapsTo` ancestor (§10.2). |
 | `@StandardReferences(standards, connotation)` | class or field | Public-standard provenance + meaning; carried in the meta-data. |
+| `@SyncedWith(Type, detailOnly:, heldHere:, relations:)` | class, or a form member | The section is kept in sync with the section of the same id in the other document (§9.7). |
+| `@SummaryOf(detail, document:, match:, relation:, repeats:)` | list field; `Field.summaryOf` | The list (or reference field) summarizes the detail list `detail` (§9.7). |
+| `@DerivedFrom.copy` / `.rows` / `.lookup` | section or list field; `Field.derivedFrom` | The value is derived from other places of the document (§9.7). |
+| `InverseOf(fields)` / `InverseOf.symmetric()` | `Field.inverseOf` | The reference field is one end of a link stored at both ends (§9.7). |
+| `@ExtractsLinks(from:, ref:, set:, mode:)` | list field of link rows, repeatable | The rows are kept in step with the ids named in text places (§9.7). |
 | `@Prefix`, `@PatternCheckId`, `@PatternCheck`, `@TextRequired`, `@MinLength`, `@MaxLength`, `@MaxDepth`, `@AllowedTags`, `@ValidationPrompt`, `@Position`, `@ForEach`, `@AccessKey` | various | Validation/schema constraints; captured into the meta tree's generic `extra` list and mapped by the schema generator (§9.5). |
 
 ### 9.3 Visible vs schema-only
@@ -1644,6 +1665,113 @@ SOM §10.2: text that the emitter renders into generated source *is* read, so
 this constraint follows the text, not the carrier.
 
 ---
+
+### 9.7 Links between places
+
+Some facts stand at two places: in the Solution Blueprint and in the Phase 3
+document that details it, in a summary list and its detail list, at both ends
+of a link, or in a value computed from rows. The link annotations of
+`tom_specs_core` state which places those are and how they relate, so the
+runtimes can keep them so (check them, derive them, carry them across). The
+annotations are written into the meta like `@CodeSpecKind`
+(`tom_specs_model_meta_schema.md`) and are model-only `traceability`
+(§9.5).
+
+**Places.** Every link annotation names places with one grammar, the one
+`refersTo` and `productOf` use:
+
+- **A form field:** `<FORMSECTIONID>.<field>` — the form addressed by its
+  section id: the class id for a class's own content form (`FRE.status`), the
+  inline sub-section id for a form member (`RETRAR.relatedScreens`,
+  `RQDEP-RELA-REF.ref`).
+- **A whole form:** `<FORMSECTIONID>`.
+- **A heading:** `<SECTIONID>.@headline` — the section's stored headline.
+- **A section's text:** `<SECTIONID>.@content` — its own `content`.
+- **A list:** `<LIST-ID>` — the `-LST` container; its elements are matched by
+  their stored section ids.
+- **A registry id:** `<SECTIONID>.@sectionId`, as in `refersTo`.
+- **Scope.** A place resolves inside the subtree of the class that carries the
+  annotation. Written `./<…>`, it resolves beneath the nearest list element
+  above the annotated member (the requirement a dependency row belongs to).
+  Where one section id is reachable twice in that subtree, the place is a
+  `/`-joined path from the annotated class (`FRE/REQDEP/RQDEP.description`);
+  an ambiguous short form is an error.
+- **Filters** (`where:`) use `countOf`'s grammar,
+  `<SECTIONID>.<field>=<value>`, with alternatives joined by `|`
+  (`RQDEP.dependencyType=conflict|bidirectional`, §6.2.2).
+
+**The vocabulary.**
+
+| Link | On a class | On a member (section or list) | In a `@Form` `Field` |
+| --- | --- | --- | --- |
+| A section in sync with another document | `@SyncedWith(…)`, beside `@DetailedIn` or alone | on a form member | — |
+| A summary of a detail list | — | `@SummaryOf` on the summary list | `summaryOf:` on a multi-valued `refersTo` field |
+| A derived value | — | `@DerivedFrom` on a section or list | `derivedFrom:` |
+| The two ends of one link | — | — | `inverseOf:` (needs `refersTo`) |
+| Link rows from text | — | `@ExtractsLinks` on a list of link rows, repeatable | — |
+
+- **`@SyncedWith(document, {detailOnly, heldHere, relations, note})`** — the
+  annotated section is kept in sync with the section of the same id in
+  `document`. `detailOnly` names the places below this section only the other
+  document carries (beyond what `@DetailedIn` cuts); `heldHere` the places
+  whose value this document holds (all others are held by `document`);
+  `relations` the lists and multi-valued reference fields whose relation is
+  not `equal`, each a `ListRelation(place, relation, {where})`.
+- **`LinkRelation`** — how the elements of the annotated place relate to the
+  other place's, read from the annotated side: `equal`, `subset` (the
+  annotated side may hold fewer) or `superset` (it may hold more). A relation
+  other than `equal` stands only on a list or a `multiple` reference field.
+- **`@SummaryOf(detail, {document, match, relation, repeats, note})`** — the
+  annotated list (or reference field) summarizes the list `detail` of
+  `document` (this document when null). `match` is the field of a summary
+  element naming its detail element (null: the summary element carries the
+  detail element's own section id); `relation` defaults to `subset`, since a
+  summary shows a selection; `repeats` maps summary places to the detail
+  places whose values the summary repeats. A summary carries content: its
+  elements say what each entry is about, and may be of the detail list's own
+  class.
+- **`@DerivedFrom`** — the value is derived, in one of three shapes
+  (`DerivationKind`): `copy(source)` (another place's value); `rows(source,
+  {where, take, map})` (the places `take` of the rows of `source` matching
+  `where`; on a list member `map` builds one element per row); `lookup(source,
+  {key, by, take})` (the places `take` of the row whose field `key` equals
+  this element's `by`; when several rows match, the last in list order wins).
+  One `take` into a multi-valued reference field writes the ids
+  comma-separated; several into a text field write one line per row, the
+  values joined by ` — `. A field carries at most one of `derivedFrom`,
+  `countOf`, `productOf` and `rankOf`.
+- **`InverseOf(fields, {where})`** — the reference field is one end of a link
+  stored at both ends; `fields` names the other ends, one per registry of the
+  field's `refersTo` that has a field pointing back. `InverseOf.symmetric()`
+  stores the link on both entries in the same field. Both ends declare it,
+  each naming the other.
+- **`@ExtractsLinks({from, ref, set, mode, note})`** — the annotated list of
+  link rows is kept in step with the ids named in the text places `from`: a
+  found id gets a row whose `ref` holds it, with the values `set`;
+  `ExtractMode.generate` writes missing rows, `ExtractMode.warn` only reports
+  them. An id is found by exact match of a registered section id; the
+  element's own id is skipped; an id that already has a row gets no second
+  one; only rows whose `set` values match are touched.
+
+**The rules.**
+
+- **Every value both documents hold agrees**, status included.
+- **The holder's value wins, also when it is empty.** Under `@SyncedWith` the
+  other document holds every shared place unless this one names it in
+  `heldHere`; a value or an element the holder emptied or removed was removed
+  deliberately.
+- **Under `subset`, elements may be added:** an element only on the other side
+  is reported as one that may be added, never carried in; an element only on
+  the annotated side is a finding. With `where:` the relation applies to the
+  matching elements only.
+- **Ids are never changed.** Elements are matched by stored section id; an id
+  is never changed or reused once assigned, and a rename is one global rename
+  across every document of the project, refused when the new id exists
+  already.
+- **A derived place is never shared.** A field carrying `derivedFrom`,
+  `countOf`, `productOf` or `rankOf` is computed in each document from that
+  document's own sources; when the sources are shared, the derived values agree
+  by construction.
 
 ## 10. Traceability and structural invariants
 

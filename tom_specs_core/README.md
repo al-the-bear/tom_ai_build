@@ -41,7 +41,7 @@ logic, and depended on by the model, by the tooling that reads the model, and by
 
 The package defines two things and no runtime logic:
 
-1. **Annotations** (`lib/src/annotations/`) — 34 const classes carrying the
+1. **Annotations** (`lib/src/annotations/`) — 38 annotation classes and three value classes carrying the
    metadata the model classes declare. They are read by the analyzer at
    generation time, never reflected at runtime; a released program never loads
    this package to *ask* an annotation anything.
@@ -157,7 +157,7 @@ annotation here without deciding where it lands fails a test.
 | --- | --- | --- | --- |
 | `@ContentType` | `ContentType(String type, String description)` | M | Declares the format of a `String? content` field on a non-section class. (Section base types bake this in — see above.) |
 | `@Form` | `Form(List<Field> fields)` | M | Collapses a form class's scalar fields into a single annotation on `content`. |
-| `Field` | `Field(String name, Type type, String description, {bool required, String? hint, List<String> refersTo, List<String> countOf, bool multiple, List<String> productOf, String? rankOf, bool code, bool multiParagraph})` | — | One form field: its name, scalar type (`String`/`int`/`double`/enum), description, requiredness, and author hint. `refersTo` names the registry an id value is drawn from, and `multiple` lets it hold several ids comma-separated (otherwise a list is `multipleReferences`); `countOf` names the entries a count value counts (`<SECTIONID>` or `<SECTIONID>.<formField>=<value>`, summed; `./` counts only beneath the section holding the form), which the instance tier holds to the document as `countMismatch`; `productOf` and `rankOf` state a value derived from other fields (a product, a rank by score), held as `derivedValueMismatch`; `code` writes the value as an inline code span; `multiParagraph` marks a value holding paragraphs or blocks, which the markdown rendition writes as a `Field:` paragraph rather than a form-table row. |
+| `Field` | `Field(String name, Type type, String description, {bool required, String? hint, List<String> refersTo, List<String> countOf, bool multiple, List<String> productOf, String? rankOf, bool code, bool multiParagraph, DerivedFrom? derivedFrom, InverseOf? inverseOf, SummaryOf? summaryOf})` | — | One form field: its name, scalar type (`String`/`int`/`double`/enum), description, requiredness, and author hint. `refersTo` names the registry an id value is drawn from, and `multiple` lets it hold several ids comma-separated (otherwise a list is `multipleReferences`); `countOf` names the entries a count value counts (`<SECTIONID>` or `<SECTIONID>.<formField>=<value>`, summed; `./` counts only beneath the section holding the form), which the instance tier holds to the document as `countMismatch`; `productOf` and `rankOf` state a value derived from other fields (a product, a rank by score), held as `derivedValueMismatch`; `code` writes the value as an inline code span; `multiParagraph` marks a value holding paragraphs or blocks, which the markdown rendition writes as a `Field:` paragraph rather than a form-table row; `derivedFrom`, `inverseOf` and `summaryOf` link the field to other places (see *Links between places*). |
 | `@ContentHelp` | `ContentHelp(String guidance)` | C, M | Actionable "how to fill this in" guidance for authors/AI. |
 | `@Headline` | `Headline(String text)` | C, M | Predefined DEFAULT headline for a fixed-meaning section: editor prefill + render fallback. Precedence: stored headline > `@Headline` default > name derivation; a member-level annotation wins over the target class's. (YRD4) |
 | `@TextRequired` | `TextRequired()` | C, M | The section's text content is the primary deliverable; empty is invalid. |
@@ -214,6 +214,29 @@ in [`tom_code_specs`](../tom_code_specs).
 | `@FollowUpKind` | `FollowUpKind(List<FollowUpProcess> processes, {String? note})` | C | The follow-up counterpart of `@CodeSpecKind`: tags a SOM follow-up subtree root (the descriptive, no-`@CodeSpecKind` content isolated by the Band-F splits) with the downstream **process(es)** it feeds. **List-valued** — a subtree can feed several processes. The kind enum is `FollowUpProcess` — the extensible taxonomy from `codespecs_mapping.md` §8.3: `doc` (documentation), `trn` (training), `org` (organisation), `ops` (operations), `cap` (capacity/data volume), `cmp` (compliance), `mig` (migration), `l10n` (localization), plus `acc` (acceptance/quality, added for SBP.14). Like `@CodeSpecKind`, it annotates SOM model classes and adds no classes to the graph; exported losslessly via the generic `annotations` block. |
 | `@NoArtifact` | `NoArtifact(NoArtifactReason reason, {String? note})` | C | The **third routing verdict**, completing the pair above: the section feeds neither a CodeSpecs part nor a follow-up process. Mutually exclusive with both, and — unlike them — **single-valued**, because a section feeds several parts or processes at once but is unrouted for one reason. The reason enum is `NoArtifactReason`, a closed four: `container` (a grouping node whose children carry every routable fact), `overview` (prose restating material a routed section specifies normatively; `note` names where), `view` (a derived re-presentation — a diagram, a traceability matrix, a cross-reference index — which a generator could produce but never consume), `generation` (read by the CodeSpecs generator to decide where what it emits goes — the generation-unit register). Its purpose is to make "produces nothing" a *recorded decision* rather than an omission, which is what lets `tom_specs_model_rules.md` §10.2 invariant `ROUTE-TOTAL` demand one of the three verdicts on every reachable section. |
 | `@CodeSpecsProjection` | `CodeSpecsProjection()` | C | Marks a `@Document` root as the **CodeSpecs generation projection** (`D13CodeSpecsProjection`, `@SectionId('CGP')`). Such a projection is `@CodeSpecKind`-driven, not `@DetailedIn`-driven — the single-valued `@DetailedIn`/`@MapsTo` pair is already spent on each section's Phase-3 document — so this marker exempts the document from the `tom_specs_model_rules.md` §10.2 detail-count check **only**. It does *not* relax the pure-projection invariant (the projection must still reach only types present in the `D00SolutionBlueprint` tree). |
+
+#### Links between places (section automation)
+
+The annotations that state which places of the model are kept equal, derived or
+linked, so the runtimes can keep them so. Every place is written in one grammar:
+`<FORMSECTIONID>.<field>`, `<FORMSECTIONID>`, `<SECTIONID>.@headline`,
+`<SECTIONID>.@content`, `<LIST-ID>`, `<SECTIONID>.@sectionId`, `./…` beneath the
+nearest list element, a `/` path where a short form is ambiguous; filters
+(`where:`) are `<SECTIONID>.<field>=<value>` with alternatives joined by `|`.
+All are model-only `traceability`: written into the meta, no schema key. The
+rules they carry are `tom_specs_model_rules.md` §9.7.
+
+| Annotation | Signature | Target | Purpose |
+| --- | --- | --- | --- |
+| `@SyncedWith` | `SyncedWith(Type document, {List<String> detailOnly, List<String> heldHere, List<ListRelation> relations, String? note})` | C, M | The section is kept in sync with the section of the same id in `document`: every value both hold agrees, the holder's value wins (also when empty), `detailOnly` names the places only the other document carries, `heldHere` the places this one holds. Stands beside the `@DetailedIn` naming the same document, or alone; on a form member where the synced section is one. |
+| `ListRelation` | `ListRelation(String place, LinkRelation relation, {String? where})` | — | A value of `SyncedWith.relations`, not an annotation: how a list or multi-valued reference field relates on the two sides, optionally for the elements matching `where` only. |
+| `@SummaryOf` | `SummaryOf(String detail, {Type? document, String? match, LinkRelation relation, Map<String, String> repeats, String? note})` | M; `Field.summaryOf` | The list (or multi-valued reference field) summarizes the list `detail` of `document` (this one when null); `match` names the detail element, `relation` defaults to `subset`, `repeats` maps the values the summary repeats to the detail's. |
+| `@DerivedFrom` | `DerivedFrom.copy(String source, {String? note})`, `DerivedFrom.rows(String source, {String? where, List<String> take, Map<String, String> map, String? note})`, `DerivedFrom.lookup(String source, {required String key, required String by, required List<String> take, String? note})` | M; `Field.derivedFrom` | The value is derived from other places: another place's value (`copy`), places collected from the rows matching `where` (`rows`), or the places of the row whose `key` equals this element's `by` (`lookup`; when several rows match, the last in list order wins). `deriveFields` writes it. A field carries at most one of `derivedFrom`, `countOf`, `productOf`, `rankOf`; a derived place is never shared between documents. |
+| `InverseOf` | `InverseOf(List<String> fields, {String? where})`, `InverseOf.symmetric({String? where})` | `Field.inverseOf` | The value of the `Field` qualifier `inverseOf:`, not an annotation: the reference field is one end of a link stored at both ends, `fields` the other ends; `symmetric` for a field that is its own inverse. Both ends declare it. |
+| `@ExtractsLinks` | `ExtractsLinks({required List<String> from, required String ref, Map<String, String> set, ExtractMode mode, String? note})` | M, repeatable | The list of link rows is kept in step with the ids named in the text places `from`: a found id gets a row whose `ref` holds it, with the values `set`; `ExtractMode.generate` writes missing rows, `warn` only reports them. |
+
+The enums: `LinkRelation` (`equal`, `subset`, `superset`), `DerivationKind`
+(`copy`, `rows`, `lookup`), `ExtractMode` (`generate`, `warn`).
 
 ## Quick start
 
@@ -311,7 +334,7 @@ here.
 
 ```
 tom_specs_core                      (zero dependencies, no runtime logic)
-├── lib/src/annotations/            34 const classes — pure metadata
+├── lib/src/annotations/            41 const classes — pure metadata
 │     read by the Dart analyzer at generation time, never reflected at runtime
 └── lib/src/sections/               11 section base types
       DocSpecsSection + 10 content-typed leaves, instantiated by the model

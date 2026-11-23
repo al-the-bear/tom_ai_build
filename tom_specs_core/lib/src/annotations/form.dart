@@ -1,3 +1,7 @@
+import 'derived_from.dart';
+import 'inverse_of.dart';
+import 'summary_of.dart';
+
 /// Declares the form fields for a section whose content is structured as
 /// name-value pairs (one per line).
 ///
@@ -102,7 +106,11 @@ class Field {
   /// only the entries one of whose own forms (a form member of the entry
   /// class) holds `<value>` in that form field. The count is the **sum** over
   /// the elements, so `['TERQ', 'SECRQ']` counts technical and security
-  /// requirements together. A target written `./<SECTIONID>…` counts only the
+  /// requirements together. A `<value>` may list alternatives joined by `|`
+  /// (`FRE.priority=must|should`), the filter grammar the link annotations
+  /// share; the runtimes do not split `|` in `countOf` yet, so the model writes
+  /// it in a `where:` filter only until they do. A target written
+  /// `./<SECTIONID>…` counts only the
   /// entries beneath the section that holds this form — a use case's own
   /// steps rather than every step in the document. Like [refersTo], a target
   /// the document's root cannot reach is skipped rather than reported, and an
@@ -168,6 +176,24 @@ class Field {
   /// text as one written in a cell.
   final bool multiParagraph;
 
+  /// Declares that this field's value is **derived** from other places of
+  /// its document (`DerivedFrom.copy`, `.rows` or `.lookup`), so
+  /// `deriveFields` writes it and a stored value that disagrees is a finding.
+  /// A field carries at most one of [derivedFrom], [countOf], [productOf] and
+  /// [rankOf].
+  final DerivedFrom? derivedFrom;
+
+  /// Declares that this reference field is **one end of a link stored at both
+  /// ends** (`InverseOf`, or `InverseOf.symmetric` for a field that is its own
+  /// inverse): every id it holds is answered by an id pointing back. Needs
+  /// [refersTo].
+  final InverseOf? inverseOf;
+
+  /// Declares that this multi-valued reference field **summarizes** a detail
+  /// list (`SummaryOf`): its ids name elements of that one list, in the
+  /// relation the qualifier states. Needs [refersTo] and [multiple].
+  final SummaryOf? summaryOf;
+
   /// Declares a form field called [name] holding a value of [type].
   ///
   /// The three positional arguments are the ones every field has; the named
@@ -186,5 +212,8 @@ class Field {
     this.rankOf,
     this.code = false,
     this.multiParagraph = false,
+    this.derivedFrom,
+    this.inverseOf,
+    this.summaryOf,
   });
 }
