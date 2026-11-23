@@ -26,6 +26,7 @@ const Map<String, String> specCheckCommandNames = {
   'render': 'spec-readable',
   'import-answers': 'spec-import-answers',
   'accept-marks': 'spec-accept-marks',
+  'mark-secondary': 'spec-mark-secondary',
   'required-fields': 'spec-required-fields',
   'question-register': 'spec-question-register',
   'feature-register': 'spec-feature-register',
@@ -61,6 +62,11 @@ const Map<String, String> specChecksCommands = {
   'accept-marks':
       'accept-marks <doc.tomspecs.yaml> [--under <ID>/<ID>] [--write] — every '
       'inline change mark accepted in place',
+  'mark-secondary':
+      'mark-secondary <doc.tomspecs.yaml> [--under <ID>/<ID>] '
+      '[--kinds provenance,trace,editorial,references] [--reflow] [--all] '
+      '[--write] — writes the secondary prose in the reading notation, in '
+      'place (a dry run without --write)',
   'required-fields':
       'required-fields <doc.tomspecs.yaml> — required form fields filled, '
       'int / bool / enum values typed',
@@ -136,6 +142,7 @@ int runSpecChecks(List<String> arguments, {IOSink? out, IOSink? err}) {
       'render' => _render(args, o, e),
       'import-answers' => _importAnswers(args, o, e),
       'accept-marks' => _acceptMarks(args, o, e),
+      'mark-secondary' => _markSecondary(args, o, e),
       'required-fields' => _requiredFields(args, o, e),
       'question-register' => _questionRegister(args, specRoot, o, e),
       'feature-register' => _featureRegister(args, o, e),
@@ -779,6 +786,138 @@ int _acceptMarks(List<String> args, IOSink o, IOSink e) {
     o.writeln('written');
   }
   return r.verified ? 0 : 1;
+}
+
+/// The `mark-secondary` check: the secondary prose of a document written in
+/// the reading notation, in place.
+int _markSecondary(List<String> args, IOSink o, IOSink e) {
+  final under = _option(args, '--under');
+  final kindNames = _option(args, '--kinds');
+  final reflow = _flag(args, '--reflow');
+  final all = _flag(args, '--all');
+  final write = _flag(args, '--write');
+  for (final a in args) {
+    if (a.startsWith('-')) throw _Usage('unknown switch `$a`');
+  }
+  if (args.length != 1) throw _Usage();
+  final kinds = <SecondaryKind>{};
+  if (kindNames != null) {
+    for (final n in kindNames.split(',')) {
+      final k = secondaryKindNamed(n.trim());
+      if (k == null) {
+        throw _Usage(
+          'unknown kind `$n`; the kinds are '
+          '${SecondaryKind.values.map((k) => k.name).join(', ')}',
+        );
+      }
+      kinds.add(k);
+    }
+  } else if (!reflow) {
+    kinds.addAll(SecondaryKind.values);
+  }
+  final path = args.single;
+  final text = _read(path);
+  final MarkSecondaryResult r;
+  try {
+    r = markSecondaryInPlace(
+      text,
+      _definitionOf(text).tree,
+      kinds: kinds,
+      reflow: reflow,
+      under: under,
+    );
+  } on SecondarySectionNotFound catch (x) {
+    throw _Usage('$x');
+  }
+  writeMarkSecondaryReport(r, kinds, o, all: all);
+  if (!r.verified) {
+    for (final f in r.failures) {
+      e.writeln('VERIFY    $f');
+    }
+    o.writeln('verify    FAILED — nothing written');
+    return 1;
+  }
+  if (r.changedValues == 0) {
+    o.writeln('nothing   to mark');
+    return 0;
+  }
+  o.writeln('verify    OK');
+  if (!write) {
+    o.writeln(
+      'dry run   nothing written — ${r.changedValues} value(s) would change',
+    );
+    return 1;
+  }
+  final stage = File('$path.mark-secondary.stage')..writeAsStringSync(r.text);
+  if (stage.readAsStringSync() != r.text) {
+    stage.deleteSync();
+    e.writeln('VERIFY    the staged file did not read back — nothing written');
+    return 1;
+  }
+  stage.renameSync(path);
+  o.writeln('written   $path — ${r.changedValues} value(s)');
+  o.writeln(
+    'rendition regenerate it: tomspecs :spec-render $path <rendition.tomspecs.md>',
+  );
+  return 0;
+}
+
+/// Writes the report of a `mark-secondary` run to [o]: per kind the marked
+/// count, the candidates and the skips by reason; the changes with a
+/// before/after excerpt (ten per kind unless [all]); every candidate; the id
+/// families not in the list; the reflowed values.
+void writeMarkSecondaryReport(
+  MarkSecondaryResult r,
+  Set<SecondaryKind> kinds,
+  IOSink o, {
+  bool all = false,
+}) {
+  for (final k in SecondaryKind.values) {
+    if (!kinds.contains(k)) continue;
+    final skips = r.skips[k]!;
+    final skipText = skips.isEmpty
+        ? 'none'
+        : [for (final s in skips.entries) '${s.key} ${s.value}'].join(', ');
+    o.writeln(
+      '${k.name.padRight(11)} ${r.changesOf(k).length} marked, '
+      '${r.candidatesOf(k).length} candidate(s), skipped: $skipText',
+    );
+  }
+  for (final k in SecondaryKind.values) {
+    final changes = r.changesOf(k);
+    final shown = all ? changes : changes.take(10);
+    for (final c in shown) {
+      o.writeln('CHANGE    ${k.name} ${c.value} (line ${c.line})');
+      o.writeln('  before  ${c.before}');
+      o.writeln('  after   ${c.after}');
+    }
+    if (!all && changes.length > 10) {
+      o.writeln(
+        '          … ${changes.length - 10} more ${k.name} change(s) (--all '
+        'lists them)',
+      );
+    }
+  }
+  for (final c in r.candidates) {
+    o.writeln(
+      'CANDIDATE ${c.kind.name} ${c.reason} ${c.value} (line ${c.line}): '
+      '${c.text.replaceAll('\n', '⏎')}',
+    );
+  }
+  if (r.unknownFamilies.isNotEmpty) {
+    final families = r.unknownFamilies.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
+    o.writeln(
+      'families  not in the list: '
+      '${[for (final f in families) '${f.key} ${f.value}'].join(', ')}',
+    );
+  }
+  for (final f in r.reflows) {
+    o.writeln('REFLOW    ${f.value} (line ${f.line}): ${f.lines} lines joined');
+  }
+  if (r.reflows.isNotEmpty) {
+    o.writeln('reflow    ${r.reflows.length} value(s)');
+  }
 }
 
 int _requiredFields(List<String> args, IOSink o, IOSink e) {

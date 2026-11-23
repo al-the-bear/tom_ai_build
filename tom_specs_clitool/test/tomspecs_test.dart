@@ -17,7 +17,8 @@ import '../bin/tomspecs.dart';
 /// (`decisions/tsimp1a_clitool_on_tom_build_base.md`), in its order, with the
 /// commands added since in their place: `spec-impact-walk` (the change mode's
 /// impact walk) after `spec-validate`, `spec-readable` (the readable
-/// rendition and its merge back) after `spec-render`, `spec-fill-frem` (FREM
+/// rendition and its merge back) after `spec-render`, `spec-mark-secondary`
+/// (the marker tool) after `spec-accept-marks`, `spec-fill-frem` (FREM
 /// from git) after `spec-coverage`.
 const _tsb7 = [
   'spec-validate',
@@ -26,6 +27,7 @@ const _tsb7 = [
   'spec-readable',
   'spec-import-answers',
   'spec-accept-marks',
+  'spec-mark-secondary',
   'spec-required-fields',
   'spec-question-register',
   'spec-feature-register',

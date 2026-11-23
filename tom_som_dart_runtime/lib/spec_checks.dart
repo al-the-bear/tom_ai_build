@@ -46,6 +46,24 @@ export 'src/spec_checks/frem_fill.dart'
         fremSectionId,
         planFremFill,
         revisionListSectionId;
+export 'src/spec_checks/mark_secondary.dart'
+    show
+        MarkSecondaryResult,
+        SecondaryCandidate,
+        SecondaryChange,
+        SecondaryEdit,
+        SecondaryKind,
+        SecondaryReflow,
+        SecondarySectionNotFound,
+        SecondaryValueRewrite,
+        applySecondaryEdits,
+        markSecondaryInPlace,
+        reflowText,
+        rewriteSecondaryValues,
+        secondaryIdFamilies,
+        secondaryKindNamed,
+        undoSecondaryEdits,
+        verifyMarkSecondary;
 export 'src/spec_checks/marks_in_place.dart'
     show MarksInPlaceResult, MarksSectionNotFound, acceptMarksInPlace;
 export 'src/spec_checks/project_idea_coverage.dart'

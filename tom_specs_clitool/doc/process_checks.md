@@ -22,6 +22,7 @@ package folder does the same.
 | `:spec-readable` | `<doc.tomspecs.yaml> [<out.readable.md>] [-drop:<names>] [-unmark:<names>] [-appendix:<names>] [--appendix-references] [--heading-divs]` or `--merge-onto <doc.tomspecs.yaml> <edited.readable.md> [--base <file>] [switches] [--write]` | Writes a readable rendition with the chosen kinds dropped, unmarked or moved to an appendix, or merges an edited one back onto the document; see [Readable renditions and the merge back](#readable-renditions-and-the-merge-back). |
 | `:spec-import-answers` | `[--dry-run] [--allow-other-edits] <doc.tomspecs.yaml> <rendition.md>` | Imports the answers typed into the rendition into the YAML, in place and verified, then validates and regenerates the rendition. A rendition that differs in more than answers is refused (exit 2). An answer keeps the label it was written with: `**Answer:**`, or the owner's `**Answer (<time>):**`. |
 | `:spec-accept-marks` | `<doc.tomspecs.yaml> [--under <ID>/<ID>] [--write]` | Accepts every inline change mark in place, keeping the file's layout, and checks every value against the runtime's `acceptAllMarks` before `--write` writes. `--under` limits it to one section (the section ids of the YAML keys). For a document too large for a whole-file re-encode. |
+| `:spec-mark-secondary` | `<doc.tomspecs.yaml> [--under <ID>/<ID>] [--kinds provenance,trace,editorial,references] [--reflow] [--all] [--write]` | Writes the secondary prose (provenance notes, trace citations, the provenance-notes preamble, section references) in the reading notation, in place; a dry run without `--write`. See [Marking secondary prose](#marking-secondary-prose). |
 | `:spec-required-fields` | `<doc.tomspecs.yaml>` | Every form holds the fields the model marks required; its int, bool and enum fields hold values of their type. |
 | `:spec-question-register` | `<doc.tomspecs.yaml> <index.md> [--write]` | A question index file against the document's question blocks; `--write` rewrites its status counts, the sentence below them and the id range. |
 | `:spec-feature-register` | `<sbp.tomspecs.yaml>` | Every functional requirement linked by exactly one feature; every linked id and prototype feature resolving; the stated total matching. |
@@ -167,6 +168,82 @@ wherever the rendition is merged.
 
 Exit codes: `0` merged, or nothing to merge; `1` conflicts or refusals (nothing
 written), or a rendition that could not be made; `2` usage.
+
+## Marking secondary prose
+
+`:spec-mark-secondary` (the check `mark-secondary`) writes a document's
+secondary prose in the reading notation (the DocSpecs specification's *Reading
+Notation*), so that every rendition, the MD Browser and `:spec-readable` can fold
+or drop it. It is run once per document, when the document is brought into the
+new layout; text written afterwards is marked by its author.
+
+```text
+tomspecs :spec-mark-secondary <doc.tomspecs.yaml> [--under <ID>/<ID>]
+         [--kinds provenance,trace,editorial,references] [--reflow] [--all] [--write]
+```
+
+It works on the YAML in place, like `:spec-accept-marks`: only the block scalars
+it changes are rewritten, and every other byte of the file stays. A one-line
+scalar it changes becomes a `|2-` block scalar. The rendition is regenerated
+afterwards with `:spec-render`, which the report names.
+
+**The patterns** are fixed rules of the tool, with no project file:
+
+| Kind | Pattern | Becomes |
+|------|---------|---------|
+| `provenance` (P1) | a paragraph whose whole text is `_Extrapolated — see <target>._`, `<target>` a path or a round reference | `(<~ <target>)` |
+| `trace` (T1) | a parenthesised run of ids, `(FR-12)`, `(FR-07, BQ-405)`, every id of a family in the list below, standing after text in its value | `(-> FR-07, BQ-405)`; runs separated by single spaces become one: `(FR-54) (C16.3)` → `(-> FR-54, C16.3)` |
+| `editorial` (E1) | a paragraph of the document root's own content that opens with `**The provenance notes.**` | the paragraph in a `::: {.editorial}` div |
+| `references` (R1) | ``(`<doc>.md`, `A > … > B`)`` | `[B](<doc>.tomspecs.md#B)` |
+| `references` (R1) | a code span `` `A > … > B` `` whose ids are sections of the document | `[B](#B)` |
+
+An id is a family prefix, an optional `-`, a number, optional `.number` parts and
+an optional letter. The families are `FR`, `C`, `BQ`, `RC`, `D`, `N`, `SR`, `UC`,
+`TR`, `TD`, `DQ`, `G`, `CL`, `OR`, `X`, `S`, `PR`, `AC`.
+
+**What it never marks**, and how the report names it:
+
+- a run that is the whole value of a form field or a list item (skip
+  `wholeValue`) or a whole table cell (skip `wholeCell`), or that has no text
+  before it (skip `noTextBefore`): there the ids are the content;
+- a run with an id of another family: `(SHA-256)`, `(RS256, ES256)` (skip
+  `unknownFamily`; the families are listed with their counts, so the list can be
+  extended where one is missing);
+- a run directly after `see`, `per`, `under` or `cf.` (candidate
+  `afterPreposition`): there the citation is the sentence's object;
+- a worded run, `(Project Idea 1.1, C1.2)`, `(DQ-115 (b))` (candidate `worded`),
+  and a run holding a code span (candidate `codeSpanInRun`);
+- a provenance note followed by more text in its paragraph (candidate
+  `moreText`) or quoted in a code span (skip `inCodeSpan`);
+- another bold-led paragraph of the root's content (candidate `boldLed`);
+- a section path naming an id the document does not have (candidate
+  `noSuchSection`);
+- anything in a headline, a code span or fenced code (skip `inCode`), a question
+  or comment block, or text already inside a div, a span or a citation (skip
+  `alreadyMarked`; a reference there is skip `protected`), so a second run
+  marks nothing new.
+
+`--kinds` applies only the patterns named (default all four); `--under` limits
+the run to the values under a section-id path (the ids of the YAML keys, each
+nested in the one before). `--reflow` joins the soft-wrapped lines of
+one-paragraph values (no blank line, list, table, quote, fence or hard break
+inside); given alone it only reflows, given with `--kinds` it does both.
+
+**The report** gives per kind the number marked, the candidates and the skips by
+reason; each change with its section-id path, its YAML line and a before/after
+excerpt (ten per kind; `--all` lists every one); every candidate; the id families
+not in the list; and every reflowed value.
+
+**Before anything is written**, every changed value is verified: undoing the
+run's edits gives back the stored value byte for byte, each edit is the one its
+pattern makes, a reflow changed only line breaks, and the value has no notation
+finding it did not have. The rewritten YAML must decode to the document with
+exactly the changed values changed. Any failure is named (`VERIFY`) and nothing is
+written. With `--write` the file goes through a staged sibling
+`<doc>.mark-secondary.stage`, read back and renamed over the document.
+
+Exit codes: `0` nothing to mark, or written; `1` changes proposed (a dry run), or
+the verification failed; `2` usage.
 
 ## The project's data: `<spec-root>/checks/`
 

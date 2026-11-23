@@ -357,6 +357,37 @@ final List<TomspecsCommand> tomspecsCommands = [
     ],
   ),
   _check(
+    'spec-mark-secondary',
+    'mark-secondary',
+    'Write the secondary prose of a document in the reading notation',
+    options: const [
+      OptionDefinition.option(
+        name: 'under',
+        description: 'Only the values under this path (<ID>/<ID>).',
+        valueName: 'path',
+      ),
+      OptionDefinition.option(
+        name: 'kinds',
+        description:
+            'The patterns applied: provenance, trace, editorial, references '
+            '(default all four; with --reflow alone, none).',
+        valueName: 'names',
+      ),
+      OptionDefinition.flag(
+        name: 'reflow',
+        description: 'Join the soft-wrapped lines of one-paragraph values.',
+      ),
+      OptionDefinition.flag(
+        name: 'all',
+        description: 'List every change (else ten per kind).',
+      ),
+      OptionDefinition.flag(
+        name: 'write',
+        description: 'Write the document (else a dry run).',
+      ),
+    ],
+  ),
+  _check(
     'spec-required-fields',
     'required-fields',
     'Check required form fields and typed values',
