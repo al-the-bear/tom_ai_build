@@ -596,7 +596,7 @@ void _validateStructuralInvariants(
 
     // Collect traceability annotations — arguments['documentClass'] holds the
     // target doc class name as a String (extracted by ModelReader after the
-    // Type-extraction fix in _extractDartValue).
+    // Type-extraction fix in _serialize, model_reader.dart).
     for (final anno in cls.annotations) {
       final docType = anno.arguments['documentClass'] as String?;
       if (docType == null) continue;

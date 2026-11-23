@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+- The model reader writes a map argument as a JSON object and a constant object
+  of a `tom_specs_core` class as a JSON object of its fields (declaration
+  order, nulls left out, defaults written), enum values qualified;
+  `@Form`'s `fields` stays the empty list. An argument it cannot write stops
+  the generation (`UnserializableAnnotationArgument`, naming the class, the
+  member and the argument) instead of vanishing from the meta.
+- The exporter writes the form-field keys `derivedFrom`, `inverseOf` and
+  `summaryOf` after `rankOf` (`FormFieldInfo` gains them), enum values as bare
+  constant names. The regenerated metas of the current model are unchanged.
+
 ## 0.18.0
 
 - `tomspecs :spec-mark-secondary <doc> [--under] [--kinds] [--reflow]

@@ -105,7 +105,16 @@ workspace_prefixes:
 # `.pubignore`d: it records this workspace's releases, which a consumer of the
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
-unpublished_drift: {}
+unpublished_drift:
+  tom_specs_clitool: >-
+    section automation in progress — 02_sau1 (2026-11-23): the model reader
+    writes maps and tom_specs_core value objects in the annotations block, stops
+    on an unserializable argument, and the exporter writes the form-field keys
+    derivedFrom, inverseOf and summaryOf; the regenerated metas are unchanged.
+  tom_specs_model: >-
+    section automation in progress — 02_sau1 (2026-11-23):
+    doc/tom_specs_model_meta_schema.md describes nested annotation values, maps
+    and the three new formFields[] keys. No model change.
 
 published_from:
   tom_specs_core: {version: '0.5.2', commit: '0f5d4c23'}

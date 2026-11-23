@@ -122,6 +122,9 @@ FormFieldInfo({
   this.rankOf = '',
   this.code = false,
   this.multiParagraph = false,
+  this.derivedFrom,
+  this.inverseOf,
+  this.summaryOf,
 });
 ```
 
@@ -136,6 +139,34 @@ FormFieldInfo({
 | `hint` | `String` | Optional hint text guiding valid values/formats for this form field. |
 | `enumValues` | `List<String>` | Enum constant names when [typeName] is a model enum (YRD7); empty for non-enum field types. |
 | `refersTo` | `List<String>` | The registry key(s) this field's value is an id drawn from, each `<SECTIONID>.<formFieldName>` (csrb3). |
+| `derivedFrom` | `Map<String, Object?>?` | `Field.derivedFrom`: `{kind, source, where?, take?, key?, by?, map?, note?}`, enum values bare; null when not stated. |
+| `inverseOf` | `Map<String, Object?>?` | `Field.inverseOf`: `{fields: [...], where?}`; null when not stated. |
+| `summaryOf` | `Map<String, Object?>?` | `Field.summaryOf`: `{detail, document?, match?, relation, repeats?, note?}`; null when not stated. |
+
+### UnserializableAnnotationArgument
+
+Thrown by `ModelReader.analyzePackage` when an annotation argument cannot be written into the meta (an object of a class outside `tom_specs_core`, a map with a non-string key); the generation stops instead of losing the argument.
+
+#### Constructors
+```dart
+const UnserializableAnnotationArgument({
+  required this.className,
+  required this.member,
+  required this.annotation,
+  required this.argument,
+  required this.reason,
+});
+```
+
+#### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `className` | `String` | The class the annotation stands in. |
+| `member` | `String` | The member it stands on; the class name for a class annotation, `<member>/<field>` for a form-field qualifier. |
+| `annotation` | `String` | The annotation's class name (`Field` for a form-field qualifier). |
+| `argument` | `String` | The argument, a dotted path into nested values. |
+| `reason` | `String` | What the reader found there. |
 
 ### ModelField
 

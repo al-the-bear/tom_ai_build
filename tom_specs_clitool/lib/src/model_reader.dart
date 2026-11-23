@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
@@ -124,6 +125,22 @@ class FormFieldInfo {
   /// in `tom_specs_core`.
   final bool multiParagraph;
 
+  /// Where the field's value is derived from (`Field.derivedFrom`): the
+  /// qualifier's fields in declaration order, `{kind, source, where?, take?,
+  /// key?, by?, map?, note?}`, enum values as their bare constant names. Null
+  /// when the field states none.
+  final Map<String, Object?>? derivedFrom;
+
+  /// The fields this field's value is the inverse of (`Field.inverseOf`),
+  /// `{fields: [...], where?}`; `fields: ["@self"]` is the symmetric form.
+  /// Null when the field states none.
+  final Map<String, Object?>? inverseOf;
+
+  /// The detail list this field's value summarizes (`Field.summaryOf`),
+  /// `{detail, document?, match?, relation, repeats?, note?}`, `document` as
+  /// the class name. Null when the field states none.
+  final Map<String, Object?>? summaryOf;
+
   /// [name] and [typeName] are required — a slot without either is not
   /// addressable and not parseable. Every remaining property defaults to
   /// its *empty* value (`''` / `const []`) rather than null, so consumers
@@ -144,7 +161,54 @@ class FormFieldInfo {
     this.rankOf = '',
     this.code = false,
     this.multiParagraph = false,
+    this.derivedFrom,
+    this.inverseOf,
+    this.summaryOf,
   });
+}
+
+/// An annotation argument the model reader cannot write into the meta. The
+/// run stops: an argument that vanished from the meta would leave every
+/// runtime without it, with nothing to show it was ever there.
+class UnserializableAnnotationArgument implements Exception {
+  /// The argument [argument] of annotation [annotation] on [member] of class
+  /// [className] (a class annotation names the class as its member), and why.
+  const UnserializableAnnotationArgument({
+    required this.className,
+    required this.member,
+    required this.annotation,
+    required this.argument,
+    required this.reason,
+  });
+
+  /// The class the annotation stands in.
+  final String className;
+
+  /// The member the annotation stands on; the class name for a class
+  /// annotation.
+  final String member;
+
+  /// The annotation's class name (`SyncedWith`, `Field` for a form-field
+  /// qualifier).
+  final String annotation;
+
+  /// The argument, a dotted path into nested values (`relations.place`).
+  final String argument;
+
+  /// What the reader found there.
+  final String reason;
+
+  @override
+  String toString() =>
+      'cannot serialize @$annotation(${argument.split('.').first}) on '
+      '$className.$member: $argument — $reason';
+}
+
+/// Thrown inside the value serializer, before the location is known.
+class _Unserializable implements Exception {
+  _Unserializable(this.path, this.reason);
+  final String path;
+  final String reason;
 }
 
 /// A resolved field from a model class.
@@ -610,7 +674,11 @@ class ModelReader {
     final className = element.name ?? '';
     if (className.isEmpty) return;
 
-    final classAnnotations = _readAnnotations(element.metadata);
+    final classAnnotations = _readAnnotations(
+      element.metadata,
+      className: className,
+      member: className,
+    );
     final fields = <ModelField>[];
 
     for (final field in element.fields) {
@@ -621,11 +689,19 @@ class ModelReader {
       if (fieldName.isEmpty) continue;
 
       final fieldType = field.type;
-      final fieldAnnotations = _readAnnotations(field.metadata);
+      final fieldAnnotations = _readAnnotations(
+        field.metadata,
+        className: className,
+        member: fieldName,
+      );
 
       // Extract @Form fields if present
       final formFields = fieldAnnotations.any((a) => a.name == 'Form')
-          ? _extractFormFields(field.metadata)
+          ? _extractFormFields(
+              field.metadata,
+              className: className,
+              member: fieldName,
+            )
           : const <FormFieldInfo>[];
 
       fields.add(
@@ -645,7 +721,11 @@ class ModelReader {
       annotations: classAnnotations,
       docComment: _cleanDocComment(element.documentationComment),
       formFields: classAnnotations.any((a) => a.name == 'Form')
-          ? _extractFormFields(element.metadata)
+          ? _extractFormFields(
+              element.metadata,
+              className: className,
+              member: className,
+            )
           : const <FormFieldInfo>[],
       extendsDocSpecsSection: _extendsDocSpecsSection(element),
     );
@@ -867,7 +947,14 @@ class ModelReader {
     return [];
   }
 
-  List<AnnotationData> _readAnnotations(Metadata metadata) {
+  /// The annotations of [metadata], each with its arguments serialized
+  /// ([_serialize]); [className] and [member] name the place for the error an
+  /// unserializable argument raises ([UnserializableAnnotationArgument]).
+  List<AnnotationData> _readAnnotations(
+    Metadata metadata, {
+    required String className,
+    required String member,
+  }) {
     final result = <AnnotationData>[];
     for (final annotation in metadata.annotations) {
       final element = annotation.element;
@@ -893,9 +980,24 @@ class ModelReader {
             }
             final fieldValue = value.getField(fieldName);
             if (fieldValue != null && !fieldValue.isNull) {
-              final dartValue = _extractDartValue(fieldValue);
-              if (dartValue != null) {
-                arguments[fieldName] = dartValue;
+              // `@Form`'s fields are carried in full as `formFields[]`; the
+              // lossless entry keeps the empty list it has always written,
+              // so the meta (and `modelHash`) does not carry them twice.
+              if (name == 'Form' && fieldName == 'fields') {
+                arguments[fieldName] = const <Object?>[];
+                continue;
+              }
+              try {
+                final dartValue = _serialize(fieldValue, fieldName);
+                if (dartValue != null) arguments[fieldName] = dartValue;
+              } on _Unserializable catch (x) {
+                throw UnserializableAnnotationArgument(
+                  className: className,
+                  member: member,
+                  annotation: name,
+                  argument: x.path,
+                  reason: x.reason,
+                );
               }
             }
           }
@@ -907,9 +1009,27 @@ class ModelReader {
     return result;
   }
 
-  Object? _extractDartValue(dynamic obj) {
-    // DartObject
-    if (obj.hasKnownValue != true) return null;
+  /// [obj], a constant value, as a JSON value: a string, number or boolean
+  /// as itself; a `Type` as its class name (`@MapsTo(InformationModel)`); an
+  /// enum constant as `EnumType.constant` (`CodeSpecPart.dataAccess`), or its
+  /// bare name when [qualifiedEnums] is false (a curated `formFields[]` key);
+  /// a list as a list (null elements left out); a map as a JSON object with
+  /// string keys; a constant object of a class declared in `tom_specs_core` as
+  /// a JSON object of its fields in declaration order, null fields left out
+  /// and default values written. Null for a null value.
+  ///
+  /// Anything else throws [_Unserializable] with [path], the dotted path of
+  /// the argument: the caller turns it into a hard error of the run, because
+  /// an argument the meta silently lost would reach no runtime.
+  Object? _serialize(
+    DartObject obj,
+    String path, {
+    bool qualifiedEnums = true,
+  }) {
+    if (obj.isNull) return null;
+    if (obj.hasKnownValue != true) {
+      throw _Unserializable(path, 'its value is not known at compile time');
+    }
 
     final stringVal = obj.toStringValue();
     if (stringVal != null) return stringVal;
@@ -923,41 +1043,117 @@ class ModelReader {
     final doubleVal = obj.toDoubleValue();
     if (doubleVal != null) return doubleVal;
 
-    // Try type value — handles Type arguments such as @MapsTo(InformationModel)
-    // and @DetailedIn(ArchitectureTechnologySpecification).
+    // A Type argument, e.g. @MapsTo(InformationModel), as its class name.
     final typeVal = obj.toTypeValue();
-    if (typeVal != null && typeVal is InterfaceType) {
-      return typeVal.element.name ?? '';
+    if (typeVal != null) {
+      if (typeVal is InterfaceType) return typeVal.element.name ?? '';
+      throw _Unserializable(path, 'a type that is not a class ($typeVal)');
     }
 
-    // Try enum constant — handles enum-valued arguments such as
-    // @CodeSpecKind(CodeSpecPart.dataAccess). Returned as the qualified
-    // `EnumType.constant` so the exported model is self-describing without an
-    // analyzer. The constant's `index` field maps into the declaration-ordered
-    // enum values.
-    final enumType = obj.type;
-    if (enumType is InterfaceType && _isEnumType(enumType)) {
+    // An enum constant, e.g. @CodeSpecKind(CodeSpecPart.dataAccess): the
+    // constant's `index` maps into the declaration-ordered enum values.
+    final type = obj.type;
+    if (type is InterfaceType && _isEnumType(type)) {
       final index = obj.getField('index')?.toIntValue();
-      final values = _getEnumValues(enumType);
+      final values = _getEnumValues(type);
       if (index != null && index >= 0 && index < values.length) {
-        return '${enumType.element.name ?? ''}.${values[index]}';
+        return qualifiedEnums
+            ? '${type.element.name ?? ''}.${values[index]}'
+            : values[index];
       }
+      throw _Unserializable(path, 'an enum constant without its index');
     }
 
-    // Try list
     final listVal = obj.toListValue();
     if (listVal != null) {
-      return listVal
-          .map((e) => _extractDartValue(e))
-          .where((e) => e != null)
-          .toList();
+      return [
+        for (final e in listVal)
+          ?_serialize(e, path, qualifiedEnums: qualifiedEnums),
+      ];
     }
 
-    return null;
+    final mapVal = obj.toMapValue();
+    if (mapVal != null) {
+      final out = <String, Object?>{};
+      for (final MapEntry(:key, :value) in mapVal.entries) {
+        final k = key == null
+            ? null
+            : _serialize(key, path, qualifiedEnums: qualifiedEnums);
+        if (k is! String) {
+          throw _Unserializable(path, 'a map key that is not a string ($k)');
+        }
+        out[k] = value == null
+            ? null
+            : _serialize(value, '$path.$k', qualifiedEnums: qualifiedEnums);
+      }
+      return out;
+    }
+
+    // A constant object of a tom_specs_core class (a ListRelation, a Field
+    // qualifier): its fields in declaration order.
+    if (type is InterfaceType && _isTomSpecsCoreClass(type)) {
+      final out = <String, Object?>{};
+      for (final field in type.element.fields) {
+        final fieldName = field.name;
+        if (fieldName == null || field.isStatic || field.isEnumConstant) {
+          continue;
+        }
+        final v = obj.getField(fieldName);
+        if (v == null || v.isNull) continue;
+        final serialized = _serialize(
+          v,
+          '$path.$fieldName',
+          qualifiedEnums: qualifiedEnums,
+        );
+        if (serialized != null) out[fieldName] = serialized;
+      }
+      return out;
+    }
+
+    throw _Unserializable(
+      path,
+      type is InterfaceType
+          ? 'a ${type.element.name} object, a class not declared in '
+                'tom_specs_core'
+          : 'a value of type $type',
+    );
+  }
+
+  /// Whether [type] is a class declared in `package:tom_specs_core`.
+  static bool _isTomSpecsCoreClass(InterfaceType type) =>
+      type.element.library.uri.toString().startsWith('package:tom_specs_core/');
+
+  /// The `Field` qualifier [name] of [item] as a curated `formFields[]` value
+  /// (enum values bare), or null when the field states none.
+  Map<String, Object?>? _qualifier(
+    DartObject item,
+    String name, {
+    required String className,
+    required String member,
+  }) {
+    final v = item.getField(name);
+    if (v == null || v.isNull) return null;
+    try {
+      final serialized = _serialize(v, name, qualifiedEnums: false);
+      if (serialized is Map<String, Object?>) return serialized;
+      throw _Unserializable(name, 'not an object ($serialized)');
+    } on _Unserializable catch (x) {
+      throw UnserializableAnnotationArgument(
+        className: className,
+        member: member,
+        annotation: 'Field',
+        argument: x.path,
+        reason: x.reason,
+      );
+    }
   }
 
   /// Extracts [FormFieldInfo] entries from a `@Form([Field(...)])` annotation.
-  List<FormFieldInfo> _extractFormFields(Metadata metadata) {
+  List<FormFieldInfo> _extractFormFields(
+    Metadata metadata, {
+    required String className,
+    required String member,
+  }) {
     for (final annotation in metadata.annotations) {
       final element = annotation.element;
       if (element is! ConstructorElement) continue;
@@ -1009,6 +1205,25 @@ class ModelReader {
         final code = item.getField('code')?.toBoolValue() ?? false;
         final multiParagraph =
             item.getField('multiParagraph')?.toBoolValue() ?? false;
+        final where = (className: className, member: '$member/$name');
+        final derivedFrom = _qualifier(
+          item,
+          'derivedFrom',
+          className: where.className,
+          member: where.member,
+        );
+        final inverseOf = _qualifier(
+          item,
+          'inverseOf',
+          className: where.className,
+          member: where.member,
+        );
+        final summaryOf = _qualifier(
+          item,
+          'summaryOf',
+          className: where.className,
+          member: where.member,
+        );
 
         // Extract type name from the Type literal; resolve enum constant
         // names right here (YRD7) so downstream consumers need no analyzer.
@@ -1040,6 +1255,9 @@ class ModelReader {
             rankOf: rankOf,
             code: code,
             multiParagraph: multiParagraph,
+            derivedFrom: derivedFrom,
+            inverseOf: inverseOf,
+            summaryOf: summaryOf,
           ),
         );
       }

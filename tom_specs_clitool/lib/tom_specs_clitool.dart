@@ -27,6 +27,7 @@ export 'src/model_reader.dart'
         ModelEnum,
         AnnotationData,
         FormFieldInfo,
+        UnserializableAnnotationArgument,
         findContainerRoot,
         isPrimitiveTypeName,
         modelPrimitiveTypeNames;

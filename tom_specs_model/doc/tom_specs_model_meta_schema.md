@@ -171,6 +171,35 @@ The curated keys (`sectionId`, `mapsTo`, `detailedIn`, `help`, …) are a
 redundant projection of the `annotations` block, kept for the editor tree; the
 `annotations` block is the lossless source the generic runtime reads.
 
+**How an argument is written in an `annotations` block.** Each argument of the
+annotation's constant value is written under its field name; a null argument
+is left out. A value is written as:
+
+- a string, number or boolean as itself;
+- a `Type` as its class name (`@MapsTo(InformationModel)` →
+  `"InformationModel"`);
+- an enum constant **qualified**, `EnumType.constant`
+  (`"CodeSpecPart.validation"`); a runtime strips the prefix where it wants the
+  bare name;
+- a list as a JSON array, in source order;
+- a map as a JSON object with string keys;
+- a constant object of a class declared in `tom_specs_core` (a value object such
+  as a relation inside a link annotation) as a JSON object of its fields, in
+  declaration order: a null field is left out, a field holding its default is
+  written.
+
+These nest: an annotation such as `@SyncedWith` writes its relations as a list
+of objects, `{"relations": [{"place": "…", "relation": "LinkRelation.subset"}]}`.
+An annotation used twice on one member is two entries, in source order.
+
+`@Form`'s `fields` argument is the one exception: it is written as an empty
+list, because the form fields are carried in full as the field's
+`formFields[]`. Any other argument the generator cannot write this way (an
+object of a class outside `tom_specs_core`, a map with a non-string key) stops
+the generation with the class, the member and the argument named
+(`UnserializableAnnotationArgument`), so no argument can be missing from the
+meta without a trace.
+
 ### `fields[]` entry
 
 Always carries `name` and a render `kind` (`list`, `form`, `section`,
@@ -212,7 +241,9 @@ the same rule the DocSpecs schema generator applies when it gives the section
 an `<id>-form` format. Each entry always carries `name`, `label`
 (the declared description, else the field name split on PascalCase), `type` (the
 Dart type name) and `required`; `hint`, `enumValues`, `refersTo` and `countOf`
-are omitted when empty, and `code` and `multiParagraph` are omitted when `false`.
+are omitted when empty, `code` and `multiParagraph` are omitted when `false`,
+and `derivedFrom`, `inverseOf` and `summaryOf` are omitted when the field states
+none.
 
 `enumValues` lists the constant names when `type` is a model enum, so a runtime
 can validate and convert a value without the analyzer. `enumValueDocs` is its
@@ -260,6 +291,40 @@ names the form field of the same form the value **ranks by**, highest first
 (`Field.rankOf`). Both are checked by the instance tier as
 `derivedValueMismatch` (SOM §9). As with `refersTo`, a target outside the document's scope is
 skipped, and an empty value is not checked.
+
+`derivedFrom`, `inverseOf` and `summaryOf` state that the field's value is
+**held to other places** of the document set, for section automation. Each is
+the `Field` qualifier written as a JSON object of its fields in declaration
+order, a null field left out; an enum value inside it is the **bare** constant
+name (`rows`, `subset`), as in `enumValues`, not the qualified form of an
+`annotations` block. They are written after `rankOf`:
+
+- `derivedFrom` — `{kind, source, where?, take?, key?, by?, map?, note?}`: the
+  value is derived from other places of its document. `kind` is `copy` (the
+  value of the place `source`), `rows` (the places `take` collected from the
+  rows of `source` that match the filter `where`; `map`, a JSON object, maps a
+  list member's element places to row places) or `lookup` (the places `take` of
+  the one row of `source` whose field `key` equals this element's `by`). Read by
+  the derivation operation `deriveFields`, which writes the value; the static
+  validator's `DERIVE-SOURCE` checks that every place resolves.
+- `inverseOf` — `{fields: [...], where?}`: the field is one end of a link
+  stored at both ends, `fields` naming the reference fields at the other end
+  (`fields: ["@self"]` is the symmetric form, a field that is its own inverse;
+  `where` limits it to the rows that match). Read by the link checks of the
+  document-set validation, which report an end the other does not answer; the
+  static validator's `INVERSE-PAIR` checks that both ends declare each other.
+- `summaryOf` — `{detail, document?, match?, relation, repeats?, note?}`: the
+  field's ids summarize the detail list `detail`, in the document whose root
+  class `document` names (this document when absent); `match` is the field
+  that names the detail element, `relation` how the summary's set stands to
+  the detail's (`subset` by default), `repeats` a JSON object of the places the
+  summary repeats. Read by the document-set validation and `deriveFields`,
+  which keep the summary and its detail in step; the static validator's
+  `SUMMARY-LINK` checks the places.
+
+A null field is left out, and a field holding its default (an empty `take`,
+`map` or `repeats`) is written. The qualifiers are optional keys, so
+`metaSchemaVersion` stays `1`: a runtime that does not read them ignores them.
 
 `code: true` states that the field's value is **code, not prose**
 (`Field.code`). Consumers use it in the markdown codec, which writes a

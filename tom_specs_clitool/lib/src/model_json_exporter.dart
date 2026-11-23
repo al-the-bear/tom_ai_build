@@ -233,6 +233,12 @@ class ModelJsonExporter {
                 // every runtime's instance tier (derivedValueMismatch).
                 if (ff.productOf.isNotEmpty) 'productOf': ff.productOf,
                 if (ff.rankOf.isNotEmpty) 'rankOf': ff.rankOf,
+                // Section automation: the value is derived from, the inverse
+                // of, or a summary of other places; each the qualifier's
+                // fields, enum values as their bare constant names.
+                if (ff.derivedFrom != null) 'derivedFrom': ff.derivedFrom,
+                if (ff.inverseOf != null) 'inverseOf': ff.inverseOf,
+                if (ff.summaryOf != null) 'summaryOf': ff.summaryOf,
                 // The value is code, not prose: every markdown codec writes it
                 // as a code span and unwraps it on import (SOM §11.4).
                 if (ff.code) 'code': true,
