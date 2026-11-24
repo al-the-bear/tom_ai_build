@@ -1984,8 +1984,8 @@ The 132 pairs, by document and by their place in the Blueprint:
 
 **The pairs written so far.** A pair whose `@SyncedWith` is not written yet
 carries what the `@DetailedIn` level implies, and the validator warns once for
-it (invariant `SHARED-COVER`). The 72 pairs of the CLA, the TOM, the IFM, the
-ISC, the ATS, the IIS and the SAS carry a plain `@SyncedWith(<Document>)`: no
+it (invariant `SHARED-COVER`). The 85 pairs of the CLA, the TOM, the IFM, the
+ISC, the ATS, the IIS, the SAS and the XDS carry a plain `@SyncedWith(<Document>)`: no
 `detailOnly`, nothing held in the Blueprint, every list `equal` (an element the
 Blueprint lacks is backfilled); a prose-only pair shares its `@content`.
 The six requirement pairs of the RSP (`FR`,
@@ -2213,13 +2213,17 @@ enforceable rather than aspirational.
     `DETAIL-PRESENT`, so the model generates while the syncs are written: until
     then the warning lists each section whose shared places are not declared
     yet (132 on the model today).
-21. **`SHARED-ONE-HOLDER`** — **One holder per place** — a class reached
-    beneath two class-level `@SyncedWith` sections towards two different
-    documents (a class reused under two seeds, which `PURE-PROJECTION` allows;
-    a nested `@SyncedWith` ends the subtree above it, being a pair of its own)
-    would be held by both documents; each of its places — every section's
-    headline and text and every form field — must be listed in the `heldHere`
-    of one of the two, a whole section or list covering what lies beneath it.
+21. **`SHARED-ONE-HOLDER`** — **One holder per place** — a place is an
+    instance, found by its path from the document root, and belongs to the
+    pair of the nearest synced anchor above it (a nested `@SyncedWith` ends
+    the subtree above it, being a pair of its own). A class type reused
+    beneath pairs of two documents (which `PURE-PROJECTION` allows: the access
+    requirement `AZREQ` of the XDS screens and of the IFM operations) is two
+    sets of places, each held by its own pair's document. Two holders arise
+    where one class carries class-level `@SyncedWith` towards two different
+    documents: then each place beneath it — every section's headline and text
+    and every form field — must be listed in the `heldHere` of one of the two,
+    a whole section or list covering what lies beneath it.
 22. **`SHARED-ANCHOR`** — **Anchor positions pair** — a class anchored to a
     document by a class-level `@DetailedIn` or `@SyncedWith` is found beneath
     `D00SolutionBlueprint` and beneath that document's root; its positions on

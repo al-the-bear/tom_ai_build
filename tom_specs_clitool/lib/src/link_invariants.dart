@@ -735,9 +735,14 @@ class LinkInvariants {
     };
   }
 
-  /// Invariant `SHARED-ONE-HOLDER`: a place beneath two `@SyncedWith`
-  /// sections towards two different documents has one holder — one of them
-  /// lists it in `heldHere`.
+  /// Invariant `SHARED-ONE-HOLDER`: a place has one holder. A place is an
+  /// instance, found by its path from the document root, and belongs to the
+  /// pair of the nearest synced anchor above it; a nested pair is a pair of
+  /// its own. A class type reused beneath two pairs (`PURE-PROJECTION` allows
+  /// it) is two sets of places, each held by its own pair's document. Two
+  /// holders arise only where one anchor carries `@SyncedWith` towards two
+  /// different documents: then every place beneath it is listed in the
+  /// `heldHere` of one of them.
   void checkSharedOneHolder(List<String> errors) {
     final seeds = [
       for (final site in _syncSites)
@@ -747,14 +752,11 @@ class LinkInvariants {
     for (var i = 0; i < seeds.length; i++) {
       for (var j = i + 1; j < seeds.length; j++) {
         final a = seeds[i], b = seeds[j];
+        if (a.cls.name != b.cls.name) continue;
         final docA = a.anno.arguments['document'];
         final docB = b.anno.arguments['document'];
         if (docA == docB) continue;
-        final shared = _seedSubtree(
-          a.cls.name,
-          seedNames,
-        ).intersection(_seedSubtree(b.cls.name, seedNames)).toList()..sort();
-        if (shared.isEmpty) continue;
+        final shared = _seedSubtree(a.cls.name, seedNames).toList()..sort();
         final held = <String>{};
         for (final s in [a, b]) {
           final scope = _syncScope(s.cls, null);
@@ -770,12 +772,11 @@ class LinkInvariants {
         ];
         if (open.isEmpty) continue;
         errors.add(
-          '$_invariants SHARED-ONE-HOLDER: ${a.cls.name} (@SyncedWith($docA)) '
-          'and ${b.cls.name} (@SyncedWith($docB)) both reach '
-          '${shared.join(', ')}; ${open.length} of its places would be held '
-          'by both documents (${open.take(5).join(', ')}'
-          '${open.length > 5 ? ', …' : ''}) — list them in the heldHere of '
-          'one of the two',
+          '$_invariants SHARED-ONE-HOLDER: ${a.cls.name} carries '
+          '@SyncedWith($docA) and @SyncedWith($docB); ${open.length} of the '
+          'places beneath it would be held by both documents '
+          '(${open.take(5).join(', ')}${open.length > 5 ? ', …' : ''}) — list '
+          'them in the heldHere of one of the two',
         );
       }
     }

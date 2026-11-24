@@ -404,7 +404,8 @@ void main() {
   });
 
   group('SHARED-ONE-HOLDER', () {
-    test('a section beneath two syncs towards two documents is an error', () {
+    test('a class reused beneath pairs of two documents is two sets of '
+        'places, each with its own holder', () {
       final found = _findings(
         _model(
           frAnnotations: [_synced('D04Spec')],
@@ -412,18 +413,29 @@ void main() {
         ),
         'SHARED-ONE-HOLDER',
       );
+      expect(found, isEmpty, reason: found.join('\n'));
+    });
+
+    test('one anchor synced towards two documents is an error', () {
+      final found = _findings(
+        _model(frAnnotations: [_synced('D04Spec'), _synced('D05Spec')]),
+        'SHARED-ONE-HOLDER',
+      );
       expect(found, hasLength(1));
-      expect(found.single, contains('both reach SharedNote'));
-      expect(found.single, contains('SharedNote:SHN.text'));
+      expect(
+        found.single,
+        contains('carries @SyncedWith(D04Spec) and @SyncedWith(D05Spec)'),
+      );
+      expect(found.single, contains('would be held by both documents'));
     });
 
     test('held here by one of them, it has one holder', () {
       final found = _findings(
         _model(
           frAnnotations: [
-            _synced('D04Spec', heldHere: ['FR/SHN']),
+            _synced('D04Spec', heldHere: ['FR']),
+            _synced('D05Spec'),
           ],
-          scnAnnotations: [_synced('D05Spec')],
         ),
         'SHARED-ONE-HOLDER',
       );

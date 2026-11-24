@@ -705,6 +705,7 @@ to pixel-perfect designs with exact typography and spacing.
 @CodeSpecKind([CodeSpecPart.reporting], note: 'the report definitions')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@SyncedWith(D09ExperienceDesignSpecification)
 class ReportDefinitions extends DocSpecsSection {
   @ContentType(
     'description',
@@ -944,6 +945,7 @@ class AuthorizationComplianceFollowUp extends DocSpecsSection {
 @SectionId('DEVIZ')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@SyncedWith(D09ExperienceDesignSpecification)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:
@@ -1700,6 +1702,7 @@ class PersonaScenarioEntry extends DocSpecsSection {
 @SectionId('SCRDZ')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@SyncedWith(D09ExperienceDesignSpecification)
 @NoArtifact(
   NoArtifactReason.container,
   note: 'grouping node over the screen inventory and its entries',
@@ -1878,8 +1881,10 @@ class ScreenEntry extends DocSpecsSection {
       'Route Pattern',
       hint:
           'Route ID (SCRTEN registry) this screen is reached by — the path '
-          'itself is declared once in the screen route map',
+          'itself is declared once in the screen route map, whose entry names '
+          'this screen back in its screenId',
       refersTo: ['SCRTEN.routeId'],
+      inverseOf: InverseOf(['SCRTEN.screenId']),
     ),
   ])
   @SerializationOrder(1)
@@ -3739,6 +3744,7 @@ Overall content organization and navigation structure.
 @SectionId('SCFLST')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@SyncedWith(D09ExperienceDesignSpecification)
 @CodeSpecKind([CodeSpecPart.navigation], note: 'the flows between screens')
 class ScreenFlowStructure extends DocSpecsSection {
   @ContentHelp('''
@@ -3835,6 +3841,14 @@ specification must name a route ID declared here.
   @SectionId('SCRTEN-ROUT-LST')
   @SectionIdPattern('SCRTEN-ROUT-xxx')
   @ContentHelp('Add one entry per addressable route.')
+  @SummaryOf(
+    'SCREN-ITEM-LST',
+    match: 'SCRTEN.screenId',
+    relation: LinkRelation.subset,
+    note:
+        'every route renders a screen of the inventory; a screen without a '
+        'route (a dialog) is allowed',
+  )
   @SerializationOrder(2)
   List<ScreenRouteEntry> routes = [];
 
@@ -3904,8 +3918,10 @@ class ScreenRouteEntry extends DocSpecsSection {
       String,
       'Screen ID',
       hint:
-          'The screen this route renders — a screen section id (SCREN-ITEM-…)',
+          'The screen this route renders — a screen section id (SCREN-ITEM-…); '
+          'the screen names this route back in its routePattern',
       refersTo: ['SCREN.@sectionId'],
+      inverseOf: InverseOf(['SCECL.routePattern']),
     ),
     Field(
       'routeParameters',
@@ -5772,6 +5788,7 @@ class NavigationGuardEntry extends DocSpecsSection {
 @SectionId('PRLA')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@SyncedWith(D09ExperienceDesignSpecification)
 @CodeSpecKind(
   [CodeSpecPart.serverConfiguration],
   note:
@@ -9211,6 +9228,7 @@ class ExportTemplateEntry extends DocSpecsSection {
 @SectionId('ERHACO')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@SyncedWith(D09ExperienceDesignSpecification)
 @CodeSpecKind(
   [CodeSpecPart.errorResult],
   note:
@@ -10438,6 +10456,7 @@ class RecoveryScenarioEntry extends DocSpecsSection {
 @SectionId('USAS')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@SyncedWith(D09ExperienceDesignSpecification)
 @CodeSpecKind(
   [CodeSpecPart.text],
   note:
@@ -11452,6 +11471,7 @@ class SupportAccess extends DocSpecsSection {
 @SectionId('ACCESS')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@SyncedWith(D09ExperienceDesignSpecification)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:
@@ -12093,6 +12113,7 @@ class AccessibilityCheckEntry extends DocSpecsSection {
 @SectionId('REDE')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@SyncedWith(D09ExperienceDesignSpecification)
 @CodeSpecKind(
   [CodeSpecPart.layout],
   note:
@@ -12686,6 +12707,7 @@ class ResponsiveScreenRuleEntry extends DocSpecsSection {
 @SectionId('UICO')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@SyncedWith(D09ExperienceDesignSpecification)
 @CodeSpecKind(
   [CodeSpecPart.screenElement],
   note:
@@ -15606,6 +15628,7 @@ class TrainingModuleEntry extends DocSpecsSection {
 @SectionId('LACOSE')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@SyncedWith(D09ExperienceDesignSpecification)
 @FollowUpKind(
   [FollowUpProcess.l10n],
   note:
@@ -16135,6 +16158,7 @@ class SupportedLocaleEntry extends DocSpecsSection {
 @SectionId('PROTOT')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@SyncedWith(D09ExperienceDesignSpecification)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:
@@ -17175,6 +17199,7 @@ class ThrowawayPrototype extends DocSpecsSection {
 @SectionId('WIANMO')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@SyncedWith(D09ExperienceDesignSpecification)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:
