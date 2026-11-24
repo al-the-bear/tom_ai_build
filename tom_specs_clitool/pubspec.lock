@@ -653,10 +653,10 @@ packages:
     dependency: "direct main"
     description:
       name: tom_doc_specs
-      sha256: e551a0fbea24f3783392984019e9eb4bf0d6d03dd21796612c060db576620249
+      sha256: c102d8071f2ac2ea817a9da19c2f7c56f37a914acf682a2bc1be239dcdb73038
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.1"
+    version: "0.4.2"
   tom_som_dart_runtime:
     dependency: "direct main"
     description:

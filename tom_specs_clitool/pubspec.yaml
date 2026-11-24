@@ -47,7 +47,7 @@ dependencies:
   # Co-developed release-set siblings, resolved by path locally via
   # pubspec_overrides.yaml (excluded from publish); the published package uses
   # these hosted constraints.
-  tom_doc_specs: ^0.4.1
+  tom_doc_specs: ^0.4.2
   # The generic SOM runtime the Dart emitter targets — the emitter drives its
   # SpecModel and the generated code extends its SomNode/SomList facade base.
   tom_som_dart_runtime: ^1.12.2

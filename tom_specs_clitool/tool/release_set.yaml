@@ -183,7 +183,7 @@ unpublished_drift:
 published_from:
   tom_specs_core: {version: '0.5.2', commit: '0f5d4c23'}
   tom_doc_scanner: {version: '0.3.0', commit: '0f5d4c23'}
-  tom_doc_specs: {version: '0.4.1', commit: 'fe8291d9'}
+  tom_doc_specs: {version: '0.4.2', commit: 'f445e096'}
   tom_som_dart_runtime: {version: '1.12.2', commit: '0f5d4c23'}
   tom_som_dart_v0: {version: '1.12.2', commit: '0f5d4c23'}
   tom_specs_model: {version: '1.12.2', commit: '0f5d4c23'}
