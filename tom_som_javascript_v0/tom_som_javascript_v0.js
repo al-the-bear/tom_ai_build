@@ -66,6 +66,32 @@ function _parseActionTriggerKind(token) {
   return null;
 }
 
+// Generated enum for `ActorKind` values.
+const ActorKind = Object.freeze({
+  // A person using the system.
+  "human": "human",
+  // A system of the same organisation, inside the boundary the solution is
+  // built within.
+  "internalSystem": "internalSystem",
+  // A system of another organisation, outside that boundary.
+  "externalSystem": "externalSystem",
+  // A time-triggered actor: a scheduled job or timer.
+  "scheduled": "scheduled",
+});
+
+// Parses a stored token into a ActorKind value, or null.
+function _parseActorKind(token) {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(ActorKind)) {
+    if (value === token) {
+      return value;
+    }
+  }
+  return null;
+}
+
 // Generated enum for `AlertSeverity` values.
 const AlertSeverity = Object.freeze({
   // Someone acts now: the service, or a promise it makes, is broken.
@@ -1112,6 +1138,44 @@ function _parseReportFilterValueKind(token) {
   return null;
 }
 
+// Generated enum for `RequirementDependencyType` values.
+const RequirementDependencyType = Object.freeze({
+  // The far end must be met before this requirement can be: it is needed
+  // first. Collected in an organizational requirement's `OREP.dependencies`.
+  "prerequisite": "prerequisite",
+  // The two requirements depend on each other; the row stands at both ends.
+  "bidirectional": "bidirectional",
+  // The far end is this requirement's parent: this requirement details part
+  // of it.
+  "parentChild": "parentChild",
+  // The two requirements cannot both be met as stated; the row stands at both
+  // ends and both `FREC.conflictsWith` derive from it.
+  "conflict": "conflict",
+  // This requirement refines the far end: it states it more precisely
+  // without changing what it asks for.
+  "refinement": "refinement",
+  // The far end sets a limit on how this requirement may be implemented.
+  // Collected, with the row's description, in `FREC.constrainedBy` and
+  // `TREC.constrainedBy`.
+  "constrainedBy": "constrainedBy",
+  // The far end is named in this requirement's description and has no row of
+  // another kind: the row `deriveFields` writes for an id found there.
+  "namedInText": "namedInText",
+});
+
+// Parses a stored token into a RequirementDependencyType value, or null.
+function _parseRequirementDependencyType(token) {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(RequirementDependencyType)) {
+    if (value === token) {
+      return value;
+    }
+  }
+  return null;
+}
+
 // Generated enum for `RoleMembershipSource` values.
 const RoleMembershipSource = Object.freeze({
   // Holders are assigned to the role directly.
@@ -1882,9 +1946,10 @@ class AcceptanceCriteriaSummary extends SomNode {
 
   // Canonical, enumerated acceptance criteria (SR-54 explicit link).
   //
-  // The single source of truth for the full set of traceable acceptance
-  // criteria; this summary references — rather than duplicates — it. The same
-  // [AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.
+  // A copy of the acceptance criteria the acceptance plan holds (the QAP-CRI
+  // seed; in the Quality & Acceptance Plan its root's acceptance criteria):
+  // it is not edited here — `deriveFields` writes it from the holder, and
+  // the rendition marks it as a copy (S1, `@SameAs`).
   get detailedCriteria() {
     return new AcceptanceCriteriaList(this.doc, this.path + "/detailedCriteria");
   }
@@ -3798,6 +3863,11 @@ class ArchitectureComponentEntry extends SomNode {
 }
 
 // Architecture Decision Record (ADR) entry.
+//
+// Links: `ADRR.relatedDecisions` names `ARDE` entries, stored on both
+// (`InverseOf.symmetric`); `ADRR.supersedes` names `ARDE`, answered by
+// `ADRR.supersededBy` at the other end; `ADRR.supersededBy` names `ARDE`,
+// answered by `ADRR.supersedes` at the other end.
 class ArchitectureDecisionRecord extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -3866,6 +3936,9 @@ class ArchitectureOverview extends SomNode {
 }
 
 // Architecture principle entry.
+//
+// Links: `ARPRENGO.relatedPrinciples` names `ARPR` entries, stored on both
+// (`InverseOf.symmetric`).
 class ArchitecturePrincipleEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -5865,6 +5938,8 @@ class BusinessObjectAttributeEntry extends SomNode {
 // Comprehensive business object specification following domain-driven design
 // patterns. Business objects represent key domain concepts with behavior,
 // state, and business rules.
+//
+// Links: `BJOEN-DOMA.relatedObjects` names `BJOEN`, one-way.
 class BusinessObjectEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -8948,6 +9023,9 @@ class ComponentRiskAssessment extends SomNode {
 //
 // Documents one component risk: category, probability, impact, detection
 // methods, mitigation strategy and status, residual risk, and ownership.
+//
+// Links: `CORIENGO.relatedRisks` is stored on both entries
+// (`InverseOf.symmetric`).
 class ComponentRiskEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -10296,6 +10374,15 @@ class CurrentStateRiskAssessment extends SomNode {
 //
 // Detailed documentation of a single workflow within a business process.
 // Includes triggers, steps, actors, inputs, outputs, and timing.
+//
+// The workflow's own inputs, outputs and business rules
+// (`WOINEN-INPU-LST`, `WOOUEN-OUTP-LST`, `WOBURU-BUSI-LST`) are independent
+// of the same lists on its steps, not a superset of them: a workflow input
+// enters the workflow from outside, while a step's inputs also include what
+// earlier steps produced; a workflow output leaves it, while a step's outputs
+// include intermediate results; a workflow-level rule governs the whole
+// workflow, a step's rule that step only. Neither side is derived from the
+// other.
 class CurrentWorkflowEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -10427,7 +10514,7 @@ class CutoverProcedure extends SomNode {
 // per the public-standards order of the `@StandardReferences` below.
 class D00SolutionBlueprint extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.12";
+  static MODEL_VERSION = "1.13";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10557,7 +10644,7 @@ class D00SolutionBlueprint extends SomNode {
 // and the inventory / migration plan for the systems being replaced.
 class D01CurrentLandscapeAssessment extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.12";
+  static MODEL_VERSION = "1.13";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10674,7 +10761,7 @@ class D01CurrentLandscapeAssessment extends SomNode {
 // cross-process analysis, exception handling, and KPIs.
 class D02TargetOperatingModel extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.12";
+  static MODEL_VERSION = "1.13";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10802,7 +10889,7 @@ class D02TargetOperatingModel extends SomNode {
 // integrity constraints.
 class D03InformationModel extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.12";
+  static MODEL_VERSION = "1.13";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10994,7 +11081,7 @@ class D03InformationModel extends SomNode {
 // and coverage analysis.
 class D04RequirementsSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.12";
+  static MODEL_VERSION = "1.13";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11114,7 +11201,7 @@ class D04RequirementsSpecification extends SomNode {
 // and traceability.
 class D05InteractionScenarios extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.12";
+  static MODEL_VERSION = "1.13";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11227,7 +11314,7 @@ class D05InteractionScenarios extends SomNode {
 // and translation handling.
 class D06ArchitectureTechnologySpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.12";
+  static MODEL_VERSION = "1.13";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11364,7 +11451,7 @@ class D06ArchitectureTechnologySpecification extends SomNode {
 // migration, operational concerns, and cross-boundary error handling.
 class D07IntegrationInterfaceSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.12";
+  static MODEL_VERSION = "1.13";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11492,7 +11579,7 @@ class D07IntegrationInterfaceSpecification extends SomNode {
 // compliance framework.
 class D08SecurityAccessSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.12";
+  static MODEL_VERSION = "1.13";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11622,7 +11709,7 @@ class D08SecurityAccessSpecification extends SomNode {
 // mockups.
 class D09ExperienceDesignSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.12";
+  static MODEL_VERSION = "1.13";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11765,7 +11852,7 @@ class D09ExperienceDesignSpecification extends SomNode {
 // Full quality plan combining quality goals and the acceptance plan.
 class D10QualityAcceptancePlan extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.12";
+  static MODEL_VERSION = "1.13";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11938,7 +12025,7 @@ class D10QualityAcceptancePlan extends SomNode {
 // framework.
 class D11DeliveryRoadmap extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.12";
+  static MODEL_VERSION = "1.13";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -12061,7 +12148,7 @@ class D11DeliveryRoadmap extends SomNode {
 // transfer, and warranty/support.
 class D12TransitionRolloutPlan extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.12";
+  static MODEL_VERSION = "1.13";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -12214,7 +12301,7 @@ class D12TransitionRolloutPlan extends SomNode {
 // models, the process-step interactions, and the client-side experience seed.
 class D13CodeSpecsProjection extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.12";
+  static MODEL_VERSION = "1.13";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -13114,6 +13201,8 @@ class DataDuplicationEntry extends SomNode {
 // to be adjusted: business-process cohesion sometimes merges two aggregates
 // into one unit or splits one across two, and stating that per entity keeps
 // even the exception readable. Empty means no adjustment.
+//
+// Links: `DAENT-RELA.parentEntities` names `DAENT.entityName`, one-way.
 class DataEntityEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -15502,6 +15591,9 @@ class DesignFoundationEntry extends SomNode {
 // A design goal entry (form).
 //
 // Each goal represents a measurable UI objective with success criteria.
+//
+// Links: `DGOEN.relatedPrinciples` names `DPEN`, answered by
+// `DPEN.relatedGoals` at the other end.
 class DesignGoalEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -15551,6 +15643,9 @@ class DesignGoals extends SomNode {
 }
 
 // Design pattern entry — a specific design pattern to be used.
+//
+// Links: `DEPAENCO.relatedPatterns` names `DSPT` entries, stored on both
+// (`InverseOf.symmetric`).
 class DesignPatternEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -15662,6 +15757,9 @@ class DesignPatternsAndStandards extends SomNode {
 // A design principle entry (form).
 //
 // Each principle guides UI decisions with rationale and examples.
+//
+// Links: `DPEN.relatedGoals` names `DGOEN`, answered by
+// `DGOEN.relatedPrinciples` at the other end.
 class DesignPrincipleEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -16269,6 +16367,11 @@ class DistributionList extends SomNode {
 //
 // Detailed information about a distribution list recipient including
 // their role, contact information, preferences, and access levels.
+// The full distribution (`FUDI`) holds the recipients; the executive-summary
+// list and a custom group's members are selections of it: there
+// `recipientRef` names the full-distribution recipient an entry is (a
+// `DSRC-ITEM-…` section id of `FUDI`) and the entry's other values repeat
+// that recipient's. In the full distribution `recipientRef` stays empty.
 class DistributionRecipientEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -16489,6 +16592,11 @@ class DocumentControl extends SomNode {
 // Standard document header present at the top of every TomSpecs document.
 //
 // All fields are optional strings representing the document's form fields.
+// The revision history is the holder of the document's version, date and
+// author: the header shows those of its newest revision entry (`RVENT`, the
+// last of the list, which is ordered newest last), derived from each
+// document's own history. A document without a revision entry derives
+// nothing. The id, the project and the status are the header's own.
 //
 // A leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share
 // an unchanged header by identity and `cloneShallow` needs no child handling.
@@ -17032,6 +17140,9 @@ class DomainOverview extends SomNode {
 }
 
 // A domain process entry (form).
+//
+// Links: `DPEF.relatedProcesses` names `DOPREN` entries, stored on both
+// (`InverseOf.symmetric`).
 class DomainProcessEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -17100,6 +17211,9 @@ class DomainProcesses extends SomNode {
 }
 
 // A domain term entry (form).
+//
+// Links: `DTE.relatedTerms` names `DTE` entries, stored on both
+// (`InverseOf.symmetric`).
 class DomainTermEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -18810,6 +18924,8 @@ class ExportFieldMappingEntry extends SomNode {
 }
 
 // An export format entry (form).
+//
+// Links: `EXID.relatedDataEntities` names `DAENT.entityName`, one-way.
 class ExportFormatEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -19500,7 +19616,9 @@ class FamilyComponentRef extends SomNode {
 // 13.4.4. Feature Dependencies.
 //
 // Cross-feature dependencies affecting staging order, critical path
-// analysis, and delivery sequencing.
+// analysis, and delivery sequencing. The rows are the holder of every
+// feature dependency: each feature's `FEDEIN.dependsOnFeatures` and
+// `blocksFeatures` are derived from them.
 class FeatureDependencies extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -19792,7 +19910,9 @@ class FeatureStageMapping extends SomNode {
     return new FeatureStageMappingContentForm(this.doc, this.path + "/content");
   }
 
-  // Stage assignment details.
+  // The phase within its stage the feature is delivered in. The stage
+  // itself is the feature's (`FESTAS.targetStage`), reached through
+  // [content]'s `featureId`; the matrix does not restate it.
   get assignment() {
     return new FeatureStageMappingAssignmentForm(this.doc, this.path + "/FSMA");
   }
@@ -20294,6 +20414,8 @@ class FunctionDataMatrixEntry extends SomNode {
 // A function entry (form).
 //
 // Business function specification in the functional decomposition.
+//
+// Links: `FUNCT.parentFunction` names `FUNCT`, one-way.
 class FunctionEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -20621,6 +20743,10 @@ class FunctionalSuitabilityCharacteristic extends SomNode {
 // Documents a specific gap between current capabilities and business needs:
 // category, severity, quantified cost, stakeholders, compliance drivers,
 // workarounds, resolution approach, and success criteria.
+//
+// Links: `GAENDI.relatedPainPoints` names `PAPE`, answered by
+// `PAPOR1.relatedGaps` at the other end; `GAENRE.dependsOnGaps` names `GAPE`,
+// one-way.
 class GapEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -22631,6 +22757,10 @@ class InteractionDependencyAnalysis extends SomNode {
 //
 // Comprehensive interaction definition following Cockburn's fully dressed
 // use case template. Seeds the ISC (Interaction Scenarios) document.
+//
+// Links: `UCSC.relatedUseCases` names `INEN`, one-way; `INTR.relatedUseCase`
+// names `INEN`, one-way; `INTR.relatedTestCases` names `TSSC`, `RQTSC`,
+// one-way.
 class InteractionEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -23344,15 +23474,19 @@ class IpOwnershipEntry extends SomNode {
   }
 }
 
-// ISO/IEC 25010:2023 product-quality cross-map (derived).
+// ISO/IEC 25010:2023 product-quality cross-map.
 //
-// A *derived* view over the canonical quality spine: the eight
+// A coverage view over the canonical quality spine: the eight
 // `*Characteristic` classes under [SystemQualityGoals] are the single source
 // of truth for the taxonomy (L34C-8); this cross-map does not re-declare it.
-// Each entry references one of those characteristics (via the closed
-// [Iso25010Characteristic] enum) and records which quality goals / NFRs
-// address it and the target metric — so coverage of any 25010:2023
-// characteristic (e.g. compatibility, flexibility) cannot be silently missed.
+// Each entry names one of those characteristics (via the closed
+// [Iso25010Characteristic] enum) and records, as authored text, which
+// quality goals / NFRs address it and the target metric. Nothing in it is
+// derived: the characteristics are eight sections, not the rows of one
+// list, and what addresses each is the author's statement. That every
+// characteristic has its entry is a process check, so coverage of any
+// 25010:2023 characteristic (e.g. compatibility, flexibility) cannot be
+// silently missed.
 class Iso25010Coverage extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -23696,6 +23830,9 @@ class KeyCompromiseRecoveryPolicy extends SomNode {
 }
 
 // A key concept entry (form).
+//
+// Links: `KECON.relatedConcepts` names `KECON` entries, stored on both
+// (`InverseOf.symmetric`).
 class KeyConceptEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -25895,6 +26032,10 @@ class MigrationResources extends SomNode {
 // Detailed migration risk documentation following enterprise risk
 // management practices. Captures full risk lifecycle from identification
 // through resolution.
+//
+// Links: `MIRIR1.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,
+// one-way; `MIRIR1.relatedDecisions` names `ARDE`, one-way;
+// `MIRIR1.relatedRisks` is stored on both entries (`InverseOf.symmetric`).
 class MigrationRiskEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -26733,6 +26874,8 @@ class MustPassCriteria extends SomNode {
 }
 
 // A must-pass criterion entry (form).
+//
+// Links: `MPCEG.dependsOnCriteria` names `MSTPCR`, one-way.
 class MustPassCriterionEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -28834,6 +28977,11 @@ class PainPointGapCorrelationEntry extends SomNode {
 }
 
 // Relationships for pain point.
+//
+// Links: `PAPOR1.relatedGaps` names `GAPE`, answered by
+// `GAENDI.relatedPainPoints` at the other end; `PAPOR1.dependsOn` names
+// `PAPE`, one-way; `PAPOR1.relatedPainPoints` is stored on both entries
+// (`InverseOf.symmetric`).
 class PainPointRelationships extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -29614,6 +29762,9 @@ class PilotPlan extends SomNode {
 }
 
 // Pipeline job entry.
+//
+// Links: `PJE.parentStage` names `PSE`, one-way; `PJED.dependsOn` names `PJE`,
+// one-way.
 class PipelineJobEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -30677,6 +30828,11 @@ class ProcessMetricCategory extends SomNode {
 // A process metric entry (form).
 //
 // A single measurable metric with current value and measurement details.
+// The class serves a process's own metric list and the key metrics
+// (`PME-KEYM-LST`), which summarize the processes' metrics: a key metric's
+// `metricRef` names the metric it is (a `PME-METR-…` section id) and its
+// other values repeat that metric's; in a process's own list `metricRef`
+// stays empty.
 class ProcessMetricEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -31642,6 +31798,8 @@ class Prototype extends SomNode {
 }
 
 // A prototype feature entry.
+//
+// Links: `PFE.relatedGoals` names `PGE`, one-way.
 class PrototypeFeatureEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -31658,6 +31816,9 @@ class PrototypeFeatureEntry extends SomNode {
 // 10.13.2. Selected Feature Subset.
 //
 // Features included in the prototype.
+//
+// Links: `PFSS.includedFeatures` names `PFE`, one-way; `PFSS.excludedFeatures`
+// names `PFE`, one-way.
 class PrototypeFeatureSubset extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -31708,6 +31869,8 @@ class PrototypeFeatureSubset extends SomNode {
 }
 
 // A prototype goal entry.
+//
+// Links: `PGE.relatedRisks` names `RISENT`, one-way.
 class PrototypeGoalEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -31896,6 +32059,9 @@ class QualityAndAcceptanceModel extends SomNode {
 //
 // Defines a quality category with its attributes, weight, and relationship
 // to other categories.
+//
+// Links: `QCARL.relatedCategories` names `QCATE` entries, stored on both
+// (`InverseOf.symmetric`); `QCARL.parentCategory` names `QCATE`, one-way.
 class QualityCategoryEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -32512,6 +32678,10 @@ class RedirectHandlingPolicy extends SomNode {
 //
 // Detailed metadata for a single referenced document including
 // identification, classification, status, and applicability.
+//
+// Links: `RDEL.supersedes` names `RFDOC`, answered by `RDEL.supersededBy` at
+// the other end; `RDEL.supersededBy` names `RFDOC`, answered by
+// `RDEL.supersedes` at the other end.
 class ReferenceDocumentEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -33219,6 +33389,10 @@ class ReportDistributionEntry extends SomNode {
 }
 
 // A report entry (form).
+//
+// Links: `REID.relatedBusinessProcesses` names `BPREN`, one-way;
+// `REID.relatedUseCases` names `INEN`, one-way; `REID.relatedDataEntities`
+// names `DAENT.entityName`, one-way.
 class ReportEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -33634,7 +33808,14 @@ class RequirementDataRequirements extends SomNode {
 
 // 4.3.1.n.5. Dependencies.
 //
-// Dependencies this requirement has on other requirements.
+// Dependencies this requirement has on other requirements. Each dependency
+// is one row, stored once, on the requirement it applies to: a directional
+// dependency (prerequisite, parent-child, refinement, constrained by) is not
+// written again as its converse on the other requirement, which reaches it
+// through navigation. A conflict and a bidirectional dependency stand at both
+// ends. The rows are the holder of every dependency; the requirement's
+// `constrainedBy`, `conflictsWith` and `OREP.dependencies` are derived from
+// them.
 class RequirementDependencies extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -33676,10 +33857,11 @@ class RequirementDependencyEntry extends SomNode {
 
   // The other requirement in this dependency, named by section id.
   //
-  // The row states the *kind* of relation — prerequisite, bidirectional,
-  // parent-child, conflict, refinement — and this names its far end; the
-  // requirement that owns the entry is always the near end, so neither half
-  // is readable alone. Expect another requirement of this document there. A
+  // The row states the *kind* of relation ([RequirementDependencyType]) and
+  // this names its far end; the requirement that owns the entry is always the
+  // near end, so neither half is readable alone. A conflict or bidirectional
+  // row is answered by a row of the same kind on the far end
+  // (`InverseOf.symmetric`); a directional row has no converse row. Expect another requirement of this document there. A
   // dependency on something that is not itself a requirement is a constraint
   // and belongs with the assumptions and constraints instead.
   //
@@ -33809,6 +33991,8 @@ class RequirementTestCases extends SomNode {
 // 4.3.1.n.6. Traceability.
 //
 // Traceability links to goals, use cases, processes, and other artifacts.
+//
+// Links: `RETRAR.relatedDocuments` names `RFDOC`, one-way.
 class RequirementTraceability extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -34227,6 +34411,8 @@ class ResponsibilityContacts extends SomNode {
 }
 
 // Detailed responsibility entry (form).
+//
+// Links: `RSPDT.relatedProcesses` names `BPREN`, one-way.
 class ResponsibilityDetailEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -34999,6 +35185,10 @@ class RiskMonitoring extends SomNode {
 }
 
 // Relationships to other risks, assumptions, and project elements.
+//
+// Links: `RR.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,
+// one-way; `RR.relatedRisks` names `RISENT` entries, stored on both
+// (`InverseOf.symmetric`); `RR.relatedAssumptions` names `ASMRE`, one-way.
 class RiskRelationships extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -35348,6 +35538,9 @@ class RoleHolderEntry extends SomNode {
 //
 // Defines a specific parent-child inheritance relationship between two roles,
 // including what is inherited and any restrictions.
+//
+// Links: `RLINH.parentRole` names `AZRO.roleName`, one-way; `RLINH.childRole`
+// names `AZRO.roleName`, one-way.
 class RoleInheritanceRuleEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -36553,6 +36746,9 @@ class ScreenElementFieldSpec extends SomNode {
 //
 // Comprehensive specification of a single application screen, covering
 // identity, purpose, authorization, layout, elements, and behavior.
+//
+// Links: `SCETR.relatedBusinessProcesses` names `BPREN`, one-way;
+// `SCETR.relatedUseCases` names `INEN`, one-way.
 class ScreenEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -39383,6 +39579,8 @@ class StageDependencies extends SomNode {
 // entry/exit criteria, assigned resources, quality gates, and a
 // deployment plan. Draws from PMBOK phase-gate discipline, SAFe PI
 // planning, and PRINCE2 stage boundary management.
+//
+// Links: `STSC.includedFeatures` names `FPE`, one-way.
 class StageEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -40031,6 +40229,8 @@ class StagingStrategy extends SomNode {
 // Keeps only the scope-framing identity + benefit. Role, interest, influence,
 // concerns and engagement strategy are owned by the canonical SBP.4
 // `StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).
+// [content]'s `stakeholderRef` names that register entry (a
+// `STKRE-STAK-…` section id).
 class StakeholderEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -40674,6 +40874,8 @@ class SuccessCriterionEntry extends SomNode {
 }
 
 // Relationships for success criterion.
+//
+// Links: `SUCRRE.relatedGoals` names `BGE`, one-way.
 class SuccessCriterionRelationships extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -43510,6 +43712,8 @@ class TestLevelEntry extends SomNode {
 // process, or acceptance criterion. Includes full traceability, preconditions,
 // execution metadata, and pass/fail criteria per ISTQB and IEEE 829
 // Level Test Case / Level Test Procedure structures.
+//
+// Links: `TESCTR.designRef` names `SCREN`, one-way.
 class TestScenarioEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -45094,6 +45298,8 @@ class UatTestCycleEntry extends SomNode {
 // Individual step within a test scenario. Captures the action, input data,
 // expected result, and pass criteria at fine-grained level per IEEE 829
 // Level Test Procedure structure.
+//
+// Links: `UATSST.uiScreenRef` names `SCREN`, one-way.
 class UatTestStepEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -47019,6 +47225,8 @@ class WarrantyServiceLevels extends SomNode {
 //
 // Post-acceptance warranty terms: duration, scope, service levels,
 // exclusions, and transition to standard support.
+//
+// Links: `WACO.coveredDeliverables` names `DLVEN`, one-way.
 class WarrantyTerms extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -47473,6 +47681,11 @@ class WorkflowStepSystem extends SomNode {
 }
 
 // Summary entry for a single workflow.
+//
+// [content]'s `workflowRef` names the workflow the row summarizes (a
+// `CUWF-WORK-…` section id of the same process); the row's type, frequency
+// and step counts repeat that workflow's own, whose counts are counted over
+// its steps.
 class WorkflowSummaryEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -50310,6 +50523,14 @@ class ActorEntryIdentificationForm extends SomNode {
 
   set actorType(value) {
     this.doc.setFormField(this.path, "actorType", value);
+  }
+
+  get actorKind() {
+    return this.doc.formField(this.path, "actorKind") || '';
+  }
+
+  set actorKind(value) {
+    this.doc.setFormField(this.path, "actorKind", value);
   }
 
   get category() {
@@ -77241,6 +77462,33 @@ class CurrentWorkflowEntryContentForm extends SomNode {
   set criticality(value) {
     this.doc.setFormField(this.path, "criticality", value);
   }
+
+  get stepCount() {
+    const v = this.doc.formField(this.path, "stepCount");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set stepCount(value) {
+    this.doc.setFormField(this.path, "stepCount", value == null ? '' : String(value));
+  }
+
+  get manualStepCount() {
+    const v = this.doc.formField(this.path, "manualStepCount");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set manualStepCount(value) {
+    this.doc.setFormField(this.path, "manualStepCount", value == null ? '' : String(value));
+  }
+
+  get errorProneStepCount() {
+    const v = this.doc.formField(this.path, "errorProneStepCount");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set errorProneStepCount(value) {
+    this.doc.setFormField(this.path, "errorProneStepCount", value == null ? '' : String(value));
+  }
 }
 
 // Generated section facade for the `timing` @Form section: its own content text followed by one typed member per form field.
@@ -91486,6 +91734,14 @@ class DistributionRecipientEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
+  get recipientRef() {
+    return this.doc.formField(this.path, "recipientRef") || '';
+  }
+
+  set recipientRef(value) {
+    this.doc.setFormField(this.path, "recipientRef", value);
+  }
+
   get role() {
     return this.doc.formField(this.path, "role") || '';
   }
@@ -104718,6 +104974,14 @@ class FunctionalRequirementEntryConstraintsForm extends SomNode {
     this.doc.setFormField(this.path, "constraints", value);
   }
 
+  get constrainedBy() {
+    return this.doc.formField(this.path, "constrainedBy") || '';
+  }
+
+  set constrainedBy(value) {
+    this.doc.setFormField(this.path, "constrainedBy", value);
+  }
+
   get conflictsWith() {
     return this.doc.formField(this.path, "conflictsWith") || '';
   }
@@ -112013,6 +112277,14 @@ class InteractionEntryIdentificationForm extends SomNode {
 
   set goalLevel(value) {
     this.doc.setFormField(this.path, "goalLevel", value);
+  }
+
+  get priority() {
+    return this.doc.formField(this.path, "priority") || '';
+  }
+
+  set priority(value) {
+    this.doc.setFormField(this.path, "priority", value);
   }
 
   get designScope() {
@@ -140061,6 +140333,14 @@ class ProcessMetricEntryContentForm extends SomNode {
 
   set content(value) {
     this.doc.setContent(this.path, value);
+  }
+
+  get metricRef() {
+    return this.doc.formField(this.path, "metricRef") || '';
+  }
+
+  set metricRef(value) {
+    this.doc.setFormField(this.path, "metricRef", value);
   }
 
   get metricCategory() {
@@ -170704,6 +170984,14 @@ class StageMigrationRiskEntryContentForm extends SomNode {
   set riskCategory(value) {
     this.doc.setFormField(this.path, "riskCategory", value);
   }
+
+  get riskRating() {
+    return this.doc.formField(this.path, "riskRating") || '';
+  }
+
+  set riskRating(value) {
+    this.doc.setFormField(this.path, "riskRating", value);
+  }
 }
 
 // Generated section facade for the `contingency` @Form section: its own content text followed by one typed member per form field.
@@ -172400,6 +172688,14 @@ class StageSummaryEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
+  get stageRef() {
+    return this.doc.formField(this.path, "stageRef") || '';
+  }
+
+  set stageRef(value) {
+    this.doc.setFormField(this.path, "stageRef", value);
+  }
+
   get stageNumber() {
     return this.doc.formField(this.path, "stageNumber") || '';
   }
@@ -173508,6 +173804,14 @@ class StakeholderEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
+  get stakeholderRef() {
+    return this.doc.formField(this.path, "stakeholderRef") || '';
+  }
+
+  set stakeholderRef(value) {
+    this.doc.setFormField(this.path, "stakeholderRef", value);
+  }
+
   get stakeholderType() {
     return this.doc.formField(this.path, "stakeholderType") || '';
   }
@@ -173541,6 +173845,14 @@ class StakeholderRegisterEntryContentForm extends SomNode {
 
   set content(value) {
     this.doc.setContent(this.path, value);
+  }
+
+  get stakeholderType() {
+    return this.doc.formField(this.path, "stakeholderType") || '';
+  }
+
+  set stakeholderType(value) {
+    this.doc.setFormField(this.path, "stakeholderType", value);
   }
 
   get influence() {
@@ -181969,6 +182281,14 @@ class TechnicalRequirementEntryConstraintsForm extends SomNode {
 
   set constraints(value) {
     this.doc.setFormField(this.path, "constraints", value);
+  }
+
+  get constrainedBy() {
+    return this.doc.formField(this.path, "constrainedBy") || '';
+  }
+
+  set constrainedBy(value) {
+    this.doc.setFormField(this.path, "constrainedBy", value);
   }
 }
 
@@ -197930,6 +198250,14 @@ class WorkflowSummaryEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
+  get workflowRef() {
+    return this.doc.formField(this.path, "workflowRef") || '';
+  }
+
+  set workflowRef(value) {
+    this.doc.setFormField(this.path, "workflowRef", value);
+  }
+
   get workflowType() {
     return this.doc.formField(this.path, "workflowType") || '';
   }
@@ -198556,6 +198884,7 @@ module.exports = {
   // Metadata trees + dot-notation / ID-tree access surfaces (SOM §8).
   ..._meta,
   ActionTriggerKind,
+  ActorKind,
   AlertSeverity,
   AuthorizationRequirementKind,
   BasicAuthorizationRequirementKind,
@@ -198585,6 +198914,7 @@ module.exports = {
   ProtocolFeatureKind,
   ReportColumnKind,
   ReportFilterValueKind,
+  RequirementDependencyType,
   RoleMembershipSource,
   ScheduledJobTrigger,
   ScreenElementFieldKind,

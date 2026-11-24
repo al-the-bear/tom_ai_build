@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: current-landscape-assessment/1.12
+# Schema: current-landscape-assessment/1.13
 
 title-format: "# <!--[CLA]--> Current Landscape Assessment"
 section-types:
@@ -2991,7 +2991,7 @@ form-types:
       - fieldname: validationStatus
         description: Identified / Confirmed / Quantified / Accepted
       - fieldname: relatedPainPoints
-        description: References to pain point entries that stem from this gap
+        description: "Pain points that stem from this gap — pain point section ids (PAPE-ITEM-…), comma-separated; each names this gap back in its relatedGaps"
   gaenwo-form:
     fields:
       - fieldname: interimWorkaround
@@ -3009,7 +3009,7 @@ form-types:
       - fieldname: successCriteria
         description: Measurable criteria that confirm the gap is closed
       - fieldname: dependsOnGaps
-        description: "Other gaps that must be resolved first, by name or ID"
+        description: "Other gaps that must be resolved first — gap section ids (GAPE-ITEM-…), comma-separated"
   dalasu-form:
     fields:
       - fieldname: totalDataSources
@@ -3867,9 +3867,9 @@ form-types:
       - fieldname: relatedIssues
         description: "Issue ids from the project issue tracker — owned by the tracker, not declared in this blueprint"
       - fieldname: relatedRequirements
-        description: Requirements impacted by risk
+        description: "Requirements impacted by the risk — requirement section ids, comma-separated"
       - fieldname: relatedDecisions
-        description: Decisions affecting this risk
+        description: "Decisions affecting this risk — architecture decision section ids (ARDE-DECI-…), comma-separated"
       - fieldname: dependencyChain
         description: Other risks this depends on
   mirihi-form:

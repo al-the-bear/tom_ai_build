@@ -427,6 +427,8 @@ document:
               ACID identification:
                 actorType: |2-
                   Human
+                actorKind: |2-
+                  human
                 category: |2-
                   Primary
                 description: |2-
@@ -444,6 +446,8 @@ document:
               ACID identification:
                 actorType: |2-
                   Human
+                actorKind: |2-
+                  human
                 category: |2-
                   Primary
                 description: |2-
@@ -461,6 +465,8 @@ document:
               ACID identification:
                 actorType: |2-
                   System
+                actorKind: |2-
+                  internalSystem
                 category: |2-
                   Supporting
                 description: |2-

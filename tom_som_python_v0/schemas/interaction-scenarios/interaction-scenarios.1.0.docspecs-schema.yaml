@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: interaction-scenarios/1.12
+# Schema: interaction-scenarios/1.13
 
 title-format: "# <!--[ISC]--> Interaction Scenarios"
 section-types:
@@ -600,6 +600,8 @@ form-types:
     fields:
       - fieldname: actorType
         description: "State whether the actor is a person, system or scheduled job"
+      - fieldname: actorKind
+        description: "Human, internal system, external system or scheduled — the kind the actor overview counts by"
       - fieldname: category
         description: Classify using Cockburn primary/secondary/supporting/offstage
       - fieldname: realWorldExamples
@@ -715,6 +717,8 @@ form-types:
         description: Other actors or systems that contribute
       - fieldname: goalLevel
         description: "Cockburn level: + summary, ! user goal, - subfunction"
+      - fieldname: priority
+        description: MoSCoW band of this interaction — the interaction overview counts by it
       - fieldname: designScope
         description: "Boundary in view: organization, system, subsystem, component"
   ucsc-form:
@@ -734,7 +738,7 @@ form-types:
       - fieldname: constraint
         description: Limitations bounding how the use case may work
       - fieldname: relatedUseCases
-        description: Use cases this one includes or extends
+        description: "Use cases (interactions) this one includes or extends — interaction section ids (INEN-INTE-…), comma-separated"
   exten-resu-form:
     fields:
       - fieldname: resumeStep
@@ -777,7 +781,7 @@ form-types:
       - fieldname: relatedProcess
         description: The business process this interaction realizes — a section id (BPREN-PROC-…)
       - fieldname: relatedRequirements
-        description: "Requirement ids satisfied here, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)"
+        description: "Requirement ids satisfied here, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…); a functional, technical or security requirement names this interaction back in its RT-TRAC.relatedUseCases"
       - fieldname: relatedUseCase
         description: "Use cases of the Interaction Scenarios document, as text (e.g. UC-23) — another document's ids, not resolved in the Blueprint"
       - fieldname: relatedDataEntities
@@ -789,7 +793,7 @@ form-types:
       - fieldname: relatedIntegrations
         description: "Integrations touched, comma-separated — external interface section ids (EIE-INTE-…)"
       - fieldname: relatedTestCases
-        description: TC-xxx test cases covering this
+        description: "Test cases covering this interaction — test scenario or requirement test case section ids (TSSC-TEST-… / RQTSC-TEST-…), comma-separated"
   inpr-form:
     fields:
       - fieldname: mustHaveInteractions

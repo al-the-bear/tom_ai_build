@@ -459,4 +459,29 @@ void main() {
       expect(() => nested.itemPath(1), throwsStateError);
     });
   });
+
+  test('somMetaNodeDiff compares annotation-argument maps by their entries, '
+      'whatever their type arguments', () {
+    SomMetaNode node(Map<String, Object?> args) => SomMetaNode(
+      className: 'Holder',
+      kind: SomMetaKind.section,
+      typeName: 'Holder',
+      extra: [SomMetaExtra(annotation: 'SummaryOf', args: args)],
+    );
+    // The generated facade writes an empty `const {}` (a Map<dynamic,
+    // dynamic>); the meta JSON reads back a Map<String, dynamic>.
+    final generated = node({'repeats': const {}, 'detail': 'X'});
+    final fromJson = node({'repeats': <String, dynamic>{}, 'detail': 'X'});
+    expect(somMetaNodeDiff(generated, fromJson), isNull);
+    expect(
+      somMetaNodeDiff(
+        generated,
+        node({
+          'repeats': {'a': 'b'},
+          'detail': 'X',
+        }),
+      ),
+      contains('extra annotation SummaryOf differs'),
+    );
+  });
 }

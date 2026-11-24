@@ -2484,7 +2484,7 @@ tag says *how many*, and only where the model constrains it:
         - stakeholders: `StakeholdersAndBeneficiaries`
           - content @description
           - [1,] primaryStakeholders: `StakeholderEntry`[]
-            - content @Form(stakeholderType, expectedBenefits)
+            - content @Form(stakeholderRef, stakeholderType, expectedBenefits)
 ```
 
 `stakeholders` is one section; `primaryStakeholders` is a section whose items are

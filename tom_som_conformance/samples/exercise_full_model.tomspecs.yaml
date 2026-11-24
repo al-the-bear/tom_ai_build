@@ -820,7 +820,7 @@ document:
                   RQDEP-ITEM-1:
                     content:
                       content: Exercise form preamble.
-                      dependencyType: "Exercise value."
+                      dependencyType: "prerequisite"
                     RQDEP-RELA-REF relatedRequirement:
                       content: Exercise form preamble.
               RT traceability:
@@ -7376,8 +7376,8 @@ document:
               RLINH-INHE-1:
                 content:
                   content: Exercise form preamble.
-                  parentRole: "Exercise value."
-                  childRole: "Exercise value."
+                  parentRole: "exercise-azro-rolename"
+                  childRole: "exercise-azro-rolename"
             RLCMB-COMB-LST combinationConstraints:
               RLCMB-COMB-1:
                 content:
@@ -9507,7 +9507,6 @@ document:
       SSPL systemStagePlan:
         content:
           content: Exercise form preamble.
-          totalStagesPlanned: "Exercise value."
         SSPTM timeline:
           content: Exercise form preamble.
         SSPCO coordination:
@@ -9558,7 +9557,6 @@ document:
         STAGOV stageOverview:
           content:
             content: Exercise form preamble.
-            numberOfStages: "Exercise value."
           SGOVM metrics:
             content: Exercise form preamble.
           SGOVBS baseline:
@@ -9810,7 +9808,6 @@ document:
           MISC scope:
             content: Exercise form preamble.
             dataLandscapeOverview: "Exercise value."
-            totalSourceSystems: "Exercise value."
           MISY-SYST-LST systems:
             MISY-SYST-1:
               content:
@@ -9855,7 +9852,6 @@ document:
           MIPH migrationPhases:
             content:
               content: Exercise form preamble.
-              totalPhases: "Exercise value."
               phaseExecutionModel: "Exercise value."
             phaseOverview:
               content: Exercise text.
@@ -9903,7 +9899,6 @@ document:
           STMIRI migrationRisks:
             content:
               content: Exercise form preamble.
-              totalIdentifiedRisks: "Exercise value."
             riskSummary:
               content: Exercise text.
             STGMRS-ITEM-LST items:

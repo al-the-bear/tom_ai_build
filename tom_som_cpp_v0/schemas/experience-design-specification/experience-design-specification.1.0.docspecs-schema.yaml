@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: experience-design-specification/1.12
+# Schema: experience-design-specification/1.13
 
 title-format: "# <!--[XDS]--> Experience Design Specification"
 section-types:
@@ -3051,7 +3051,7 @@ form-types:
       - fieldname: parentScreenId
         description: "The parent screen, if this is a sub-screen or drill-down — a screen section id (SCREN-ITEM-…)"
       - fieldname: routePattern
-        description: Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map
+        description: "Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map, whose entry names this screen back in its screenId"
   azreq-role-form:
     fields:
       - fieldname: roles
@@ -3115,11 +3115,11 @@ form-types:
   scetr-form:
     fields:
       - fieldname: relatedUseCases
-        description: ISC references this screen serves
+        description: "Use cases (interactions) this screen serves — interaction section ids (INEN-INTE-…), comma-separated"
       - fieldname: relatedRequirements
-        description: "Requirement ids this screen satisfies, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)"
+        description: "Requirement ids this screen satisfies, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…); a functional, technical or security requirement names this screen back in its RETRAR.relatedScreens"
       - fieldname: relatedBusinessProcesses
-        description: TOM references where this screen appears
+        description: "Business processes where this screen appears — process section ids (BPREN-PROC-…), comma-separated"
       - fieldname: dataEntities
         description: IFM entity references displayed/edited
       - fieldname: primaryAction
@@ -3577,7 +3577,7 @@ form-types:
       - fieldname: description
         description: Business purpose of this export
       - fieldname: relatedDataEntities
-        description: IFM entity references included in export
+        description: "Data entities included in the export — entity names declared in the entity registry (DAENT), comma-separated"
       - fieldname: dataSource
         description: Data source or query reference
       - fieldname: dataScope
@@ -3755,11 +3755,11 @@ form-types:
       - fieldname: reportCategory
         description: Operational / Analytical / Compliance / Financial / Audit
       - fieldname: relatedUseCases
-        description: ISC references this report serves
+        description: "Use cases (interactions) this report serves — interaction section ids (INEN-INTE-…), comma-separated"
       - fieldname: relatedBusinessProcesses
-        description: TOM references where this report is used
+        description: "Business processes where this report is used — process section ids (BPREN-PROC-…), comma-separated"
       - fieldname: relatedDataEntities
-        description: IFM entity references used as data sources
+        description: "Data entities used as data sources — entity names declared in the entity registry (DAENT), comma-separated"
       - fieldname: exportOperation
         description: The server operation that produces or exports this report — its operationName (SVOPE)
       - fieldname: displayScreen
@@ -5281,9 +5281,9 @@ form-types:
   pfss-form:
     fields:
       - fieldname: includedFeatures
-        description: Features in prototype
+        description: "Features in the prototype — prototype feature section ids (PFE-FEAT-…), comma-separated"
       - fieldname: excludedFeatures
-        description: Features not in prototype
+        description: "Features not in the prototype — prototype feature section ids (PFE-FEAT-…), comma-separated"
       - fieldname: partialFeatures
         description: Features partially implemented
   pfsf-form:

@@ -29,7 +29,7 @@
       timelineDiagram @mermaid-gantt, resourceAllocationDiagram @mermaid-gantt,
       budgetDistributionDiagram @mermaid-flow, dependencyMap @mermaid-flow
     - [1,] stageSummaries: `StageSummaryEntry`[]
-      - content @Form(stageNumber, scopeSummary), identity, timeline, scope, quality, status
+      - content @Form(stageRef, stageNumber, scopeSummary), identity, timeline, scope, quality, status
       - resources: `StageSummaryResources`[]
         - content @Form(teamSize, keyRoles, estimatedBudget, budgetPercentOfTotal, externalCostPercent)
       - dependencies: `StageSummaryDependencies`[]
@@ -97,8 +97,8 @@
       - content @Form(totalIdentifiedRisks, criticalRiskCount, topRiskSummary, riskAssessmentMethodology, riskTolerancePolicy, riskReviewFrequency, riskRegisterOwner, lastRiskReviewDate, overallMigrationRiskRating),
         riskSummary @text
       - [1,] items: `StageMigrationRiskEntry`[]
-        - content @Form(riskCategory), identity, probabilityImpact, mitigation, contingency, monitoring, ownership,
-          residual, status
+        - content @Form(riskCategory, riskRating), identity, probabilityImpact, mitigation, contingency, monitoring,
+          ownership, residual, status
   - gateCriteria: `PhaseGateReviews`
     - content @Form(gateNamingConvention, totalGateCount, gateReviewDuration, gateReviewFormat), preparation, outcomes,
       gateReviewNarrative @text

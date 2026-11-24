@@ -4586,12 +4586,12 @@ class AcceptanceCriteriaSummary extends DocSpecsSection {
   /// seed; in the Quality & Acceptance Plan its root's acceptance criteria):
   /// it is not edited here — `deriveFields` writes it from the holder, and
   /// the rendition marks it as a copy (S1, `@SameAs`).
-  @SerializationOrder(5)
   @SameAs(
     note:
         'S1: the acceptance plan holds the acceptance criteria; the summary '
         'carries their copy.',
   )
+  @SerializationOrder(5)
   AcceptanceCriteriaList detailedCriteria = AcceptanceCriteriaList();
 
   /// Acceptance test summary.

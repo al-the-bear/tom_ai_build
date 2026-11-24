@@ -20,6 +20,16 @@ char *parse_action_trigger_kind(const char *token) {
   return som_strdup("");
 }
 
+char *parse_actor_kind(const char *token) {
+  if (strcmp(token, ACTOR_KIND_HUMAN) == 0 ||
+      strcmp(token, ACTOR_KIND_INTERNAL_SYSTEM) == 0 ||
+      strcmp(token, ACTOR_KIND_EXTERNAL_SYSTEM) == 0 ||
+      strcmp(token, ACTOR_KIND_SCHEDULED) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
 char *parse_alert_severity(const char *token) {
   if (strcmp(token, ALERT_SEVERITY_CRITICAL) == 0 ||
       strcmp(token, ALERT_SEVERITY_WARNING) == 0 ||
@@ -333,6 +343,19 @@ char *parse_report_filter_value_kind(const char *token) {
       strcmp(token, REPORT_FILTER_VALUE_KIND_BOOLEAN) == 0 ||
       strcmp(token, REPORT_FILTER_VALUE_KIND_ENUMERATION) == 0 ||
       strcmp(token, REPORT_FILTER_VALUE_KIND_ENTITY_REF) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_requirement_dependency_type(const char *token) {
+  if (strcmp(token, REQUIREMENT_DEPENDENCY_TYPE_PREREQUISITE) == 0 ||
+      strcmp(token, REQUIREMENT_DEPENDENCY_TYPE_BIDIRECTIONAL) == 0 ||
+      strcmp(token, REQUIREMENT_DEPENDENCY_TYPE_PARENT_CHILD) == 0 ||
+      strcmp(token, REQUIREMENT_DEPENDENCY_TYPE_CONFLICT) == 0 ||
+      strcmp(token, REQUIREMENT_DEPENDENCY_TYPE_REFINEMENT) == 0 ||
+      strcmp(token, REQUIREMENT_DEPENDENCY_TYPE_CONSTRAINED_BY) == 0 ||
+      strcmp(token, REQUIREMENT_DEPENDENCY_TYPE_NAMED_IN_TEXT) == 0) {
     return som_strdup(token);
   }
   return som_strdup("");
@@ -53733,6 +53756,13 @@ char *actor_entry_identification_form_actor_type(const ActorEntryIdentificationF
 void actor_entry_identification_form_set_actor_type(ActorEntryIdentificationForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "actorType", value);
 }
+char *actor_entry_identification_form_actor_kind(const ActorEntryIdentificationForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "actorKind");
+  return som_strdup(v != NULL ? v : "");
+}
+void actor_entry_identification_form_set_actor_kind(ActorEntryIdentificationForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "actorKind", value);
+}
 char *actor_entry_identification_form_category(const ActorEntryIdentificationForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "category");
   return som_strdup(v != NULL ? v : "");
@@ -75813,6 +75843,33 @@ char *current_workflow_entry_content_form_criticality(const CurrentWorkflowEntry
 void current_workflow_entry_content_form_set_criticality(CurrentWorkflowEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "criticality", value);
 }
+long current_workflow_entry_content_form_step_count(const CurrentWorkflowEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "stepCount");
+  return (v != NULL && *v) ? atol(v) : 0;
+}
+void current_workflow_entry_content_form_set_step_count(CurrentWorkflowEntryContentForm *self, long value) {
+  char buf[32];
+  snprintf(buf, sizeof(buf), "%ld", value);
+  spec_document_set_form_field(self->node.doc, self->node.path, "stepCount", buf);
+}
+long current_workflow_entry_content_form_manual_step_count(const CurrentWorkflowEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "manualStepCount");
+  return (v != NULL && *v) ? atol(v) : 0;
+}
+void current_workflow_entry_content_form_set_manual_step_count(CurrentWorkflowEntryContentForm *self, long value) {
+  char buf[32];
+  snprintf(buf, sizeof(buf), "%ld", value);
+  spec_document_set_form_field(self->node.doc, self->node.path, "manualStepCount", buf);
+}
+long current_workflow_entry_content_form_error_prone_step_count(const CurrentWorkflowEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "errorProneStepCount");
+  return (v != NULL && *v) ? atol(v) : 0;
+}
+void current_workflow_entry_content_form_set_error_prone_step_count(CurrentWorkflowEntryContentForm *self, long value) {
+  char buf[32];
+  snprintf(buf, sizeof(buf), "%ld", value);
+  spec_document_set_form_field(self->node.doc, self->node.path, "errorProneStepCount", buf);
+}
 
 void current_workflow_entry_timing_form_init(CurrentWorkflowEntryTimingForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -87514,6 +87571,13 @@ char *distribution_recipient_entry_content_form_content(const DistributionRecipi
 void distribution_recipient_entry_content_form_set_content(DistributionRecipientEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
+char *distribution_recipient_entry_content_form_recipient_ref(const DistributionRecipientEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "recipientRef");
+  return som_strdup(v != NULL ? v : "");
+}
+void distribution_recipient_entry_content_form_set_recipient_ref(DistributionRecipientEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "recipientRef", value);
+}
 char *distribution_recipient_entry_content_form_role(const DistributionRecipientEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "role");
   return som_strdup(v != NULL ? v : "");
@@ -98393,6 +98457,13 @@ char *functional_requirement_entry_constraints_form_constraints(const Functional
 void functional_requirement_entry_constraints_form_set_constraints(FunctionalRequirementEntryConstraintsForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "constraints", value);
 }
+char *functional_requirement_entry_constraints_form_constrained_by(const FunctionalRequirementEntryConstraintsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "constrainedBy");
+  return som_strdup(v != NULL ? v : "");
+}
+void functional_requirement_entry_constraints_form_set_constrained_by(FunctionalRequirementEntryConstraintsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "constrainedBy", value);
+}
 char *functional_requirement_entry_constraints_form_conflicts_with(const FunctionalRequirementEntryConstraintsForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "conflictsWith");
   return som_strdup(v != NULL ? v : "");
@@ -104378,6 +104449,13 @@ char *interaction_entry_identification_form_goal_level(const InteractionEntryIde
 }
 void interaction_entry_identification_form_set_goal_level(InteractionEntryIdentificationForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "goalLevel", value);
+}
+char *interaction_entry_identification_form_priority(const InteractionEntryIdentificationForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "priority");
+  return som_strdup(v != NULL ? v : "");
+}
+void interaction_entry_identification_form_set_priority(InteractionEntryIdentificationForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "priority", value);
 }
 char *interaction_entry_identification_form_design_scope(const InteractionEntryIdentificationForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "designScope");
@@ -127509,6 +127587,13 @@ char *process_metric_entry_content_form_content(const ProcessMetricEntryContentF
 }
 void process_metric_entry_content_form_set_content(ProcessMetricEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *process_metric_entry_content_form_metric_ref(const ProcessMetricEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "metricRef");
+  return som_strdup(v != NULL ? v : "");
+}
+void process_metric_entry_content_form_set_metric_ref(ProcessMetricEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "metricRef", value);
 }
 char *process_metric_entry_content_form_metric_category(const ProcessMetricEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "metricCategory");
@@ -152811,6 +152896,13 @@ char *stage_migration_risk_entry_content_form_risk_category(const StageMigration
 void stage_migration_risk_entry_content_form_set_risk_category(StageMigrationRiskEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "riskCategory", value);
 }
+char *stage_migration_risk_entry_content_form_risk_rating(const StageMigrationRiskEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "riskRating");
+  return som_strdup(v != NULL ? v : "");
+}
+void stage_migration_risk_entry_content_form_set_risk_rating(StageMigrationRiskEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "riskRating", value);
+}
 
 void stage_migration_risk_entry_contingency_form_init(StageMigrationRiskEntryContingencyForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -154218,6 +154310,13 @@ char *stage_summary_entry_content_form_content(const StageSummaryEntryContentFor
 void stage_summary_entry_content_form_set_content(StageSummaryEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
+char *stage_summary_entry_content_form_stage_ref(const StageSummaryEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "stageRef");
+  return som_strdup(v != NULL ? v : "");
+}
+void stage_summary_entry_content_form_set_stage_ref(StageSummaryEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "stageRef", value);
+}
 char *stage_summary_entry_content_form_stage_number(const StageSummaryEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "stageNumber");
   return som_strdup(v != NULL ? v : "");
@@ -155135,6 +155234,13 @@ char *stakeholder_entry_content_form_content(const StakeholderEntryContentForm *
 void stakeholder_entry_content_form_set_content(StakeholderEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
+char *stakeholder_entry_content_form_stakeholder_ref(const StakeholderEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "stakeholderRef");
+  return som_strdup(v != NULL ? v : "");
+}
+void stakeholder_entry_content_form_set_stakeholder_ref(StakeholderEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "stakeholderRef", value);
+}
 char *stakeholder_entry_content_form_stakeholder_type(const StakeholderEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "stakeholderType");
   return som_strdup(v != NULL ? v : "");
@@ -155162,6 +155268,13 @@ char *stakeholder_register_entry_content_form_content(const StakeholderRegisterE
 }
 void stakeholder_register_entry_content_form_set_content(StakeholderRegisterEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *stakeholder_register_entry_content_form_stakeholder_type(const StakeholderRegisterEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "stakeholderType");
+  return som_strdup(v != NULL ? v : "");
+}
+void stakeholder_register_entry_content_form_set_stakeholder_type(StakeholderRegisterEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "stakeholderType", value);
 }
 char *stakeholder_register_entry_content_form_influence(const StakeholderRegisterEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "influence");
@@ -162137,6 +162250,13 @@ char *technical_requirement_entry_constraints_form_constraints(const TechnicalRe
 }
 void technical_requirement_entry_constraints_form_set_constraints(TechnicalRequirementEntryConstraintsForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "constraints", value);
+}
+char *technical_requirement_entry_constraints_form_constrained_by(const TechnicalRequirementEntryConstraintsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "constrainedBy");
+  return som_strdup(v != NULL ? v : "");
+}
+void technical_requirement_entry_constraints_form_set_constrained_by(TechnicalRequirementEntryConstraintsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "constrainedBy", value);
 }
 
 void technical_requirement_entry_content_form_init(TechnicalRequirementEntryContentForm *self, SpecDocument *doc, const char *path) {
@@ -175308,6 +175428,13 @@ char *workflow_summary_entry_content_form_content(const WorkflowSummaryEntryCont
 }
 void workflow_summary_entry_content_form_set_content(WorkflowSummaryEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *workflow_summary_entry_content_form_workflow_ref(const WorkflowSummaryEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "workflowRef");
+  return som_strdup(v != NULL ? v : "");
+}
+void workflow_summary_entry_content_form_set_workflow_ref(WorkflowSummaryEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "workflowRef", value);
 }
 char *workflow_summary_entry_content_form_workflow_type(const WorkflowSummaryEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "workflowType");

@@ -40,6 +40,20 @@
 // parse_action_trigger_kind returns the token (owned) when it is a known ActionTriggerKind value, else "".
 char *parse_action_trigger_kind(const char *token);
 
+// Generated enum tokens for `ActorKind` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// A person using the system.
+#define ACTOR_KIND_HUMAN "human"
+// A system of the same organisation, inside the boundary the solution is
+// built within.
+#define ACTOR_KIND_INTERNAL_SYSTEM "internalSystem"
+// A system of another organisation, outside that boundary.
+#define ACTOR_KIND_EXTERNAL_SYSTEM "externalSystem"
+// A time-triggered actor: a scheduled job or timer.
+#define ACTOR_KIND_SCHEDULED "scheduled"
+// parse_actor_kind returns the token (owned) when it is a known ActorKind value, else "".
+char *parse_actor_kind(const char *token);
+
 // Generated enum tokens for `AlertSeverity` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 // Someone acts now: the service, or a promise it makes, is broken.
@@ -738,6 +752,32 @@ char *parse_report_column_kind(const char *token);
 // parse_report_filter_value_kind returns the token (owned) when it is a known ReportFilterValueKind value, else "".
 char *parse_report_filter_value_kind(const char *token);
 
+// Generated enum tokens for `RequirementDependencyType` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// The far end must be met before this requirement can be: it is needed
+// first. Collected in an organizational requirement's `OREP.dependencies`.
+#define REQUIREMENT_DEPENDENCY_TYPE_PREREQUISITE "prerequisite"
+// The two requirements depend on each other; the row stands at both ends.
+#define REQUIREMENT_DEPENDENCY_TYPE_BIDIRECTIONAL "bidirectional"
+// The far end is this requirement's parent: this requirement details part
+// of it.
+#define REQUIREMENT_DEPENDENCY_TYPE_PARENT_CHILD "parentChild"
+// The two requirements cannot both be met as stated; the row stands at both
+// ends and both `FREC.conflictsWith` derive from it.
+#define REQUIREMENT_DEPENDENCY_TYPE_CONFLICT "conflict"
+// This requirement refines the far end: it states it more precisely
+// without changing what it asks for.
+#define REQUIREMENT_DEPENDENCY_TYPE_REFINEMENT "refinement"
+// The far end sets a limit on how this requirement may be implemented.
+// Collected, with the row's description, in `FREC.constrainedBy` and
+// `TREC.constrainedBy`.
+#define REQUIREMENT_DEPENDENCY_TYPE_CONSTRAINED_BY "constrainedBy"
+// The far end is named in this requirement's description and has no row of
+// another kind: the row `deriveFields` writes for an id found there.
+#define REQUIREMENT_DEPENDENCY_TYPE_NAMED_IN_TEXT "namedInText"
+// parse_requirement_dependency_type returns the token (owned) when it is a known RequirementDependencyType value, else "".
+char *parse_requirement_dependency_type(const char *token);
+
 // Generated enum tokens for `RoleMembershipSource` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 // Holders are assigned to the role directly.
@@ -1278,33 +1318,33 @@ char *parse_translation_review_status(const char *token);
 char *parse_user_attribute_placement(const char *token);
 
 // D00_SOLUTION_BLUEPRINT_MODEL_VERSION is the model version the D00SolutionBlueprint object model was generated against (SOM §4.2).
-#define D00_SOLUTION_BLUEPRINT_MODEL_VERSION "1.12"
+#define D00_SOLUTION_BLUEPRINT_MODEL_VERSION "1.13"
 // D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version the D01CurrentLandscapeAssessment object model was generated against (SOM §4.2).
-#define D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION "1.12"
+#define D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION "1.13"
 // D02_TARGET_OPERATING_MODEL_MODEL_VERSION is the model version the D02TargetOperatingModel object model was generated against (SOM §4.2).
-#define D02_TARGET_OPERATING_MODEL_MODEL_VERSION "1.12"
+#define D02_TARGET_OPERATING_MODEL_MODEL_VERSION "1.13"
 // D03_INFORMATION_MODEL_MODEL_VERSION is the model version the D03InformationModel object model was generated against (SOM §4.2).
-#define D03_INFORMATION_MODEL_MODEL_VERSION "1.12"
+#define D03_INFORMATION_MODEL_MODEL_VERSION "1.13"
 // D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version the D04RequirementsSpecification object model was generated against (SOM §4.2).
-#define D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION "1.12"
+#define D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION "1.13"
 // D05_INTERACTION_SCENARIOS_MODEL_VERSION is the model version the D05InteractionScenarios object model was generated against (SOM §4.2).
-#define D05_INTERACTION_SCENARIOS_MODEL_VERSION "1.12"
+#define D05_INTERACTION_SCENARIOS_MODEL_VERSION "1.13"
 // D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version the D06ArchitectureTechnologySpecification object model was generated against (SOM §4.2).
-#define D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION "1.12"
+#define D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION "1.13"
 // D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version the D07IntegrationInterfaceSpecification object model was generated against (SOM §4.2).
-#define D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION "1.12"
+#define D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION "1.13"
 // D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version the D08SecurityAccessSpecification object model was generated against (SOM §4.2).
-#define D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION "1.12"
+#define D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION "1.13"
 // D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version the D09ExperienceDesignSpecification object model was generated against (SOM §4.2).
-#define D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION "1.12"
+#define D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION "1.13"
 // D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version the D10QualityAcceptancePlan object model was generated against (SOM §4.2).
-#define D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION "1.12"
+#define D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION "1.13"
 // D11_DELIVERY_ROADMAP_MODEL_VERSION is the model version the D11DeliveryRoadmap object model was generated against (SOM §4.2).
-#define D11_DELIVERY_ROADMAP_MODEL_VERSION "1.12"
+#define D11_DELIVERY_ROADMAP_MODEL_VERSION "1.13"
 // D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version the D12TransitionRolloutPlan object model was generated against (SOM §4.2).
-#define D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION "1.12"
+#define D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION "1.13"
 // D13_CODE_SPECS_PROJECTION_MODEL_VERSION is the model version the D13CodeSpecsProjection object model was generated against (SOM §4.2).
-#define D13_CODE_SPECS_PROJECTION_MODEL_VERSION "1.12"
+#define D13_CODE_SPECS_PROJECTION_MODEL_VERSION "1.13"
 
 // Typed facade structs — each binds a node (document + path).
 typedef struct { SomNode node; } AcceptanceCriteriaList;
@@ -5484,9 +5524,10 @@ MustPassCriteria acceptance_criteria_summary_must_pass_criteria(const Acceptance
 QualityGateChecklist acceptance_criteria_summary_quality_gate_checklist(const AcceptanceCriteriaSummary *self);
 // Canonical, enumerated acceptance criteria (SR-54 explicit link).
 //
-// The single source of truth for the full set of traceable acceptance
-// criteria; this summary references — rather than duplicates — it. The same
-// [AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.
+// A copy of the acceptance criteria the acceptance plan holds (the QAP-CRI
+// seed; in the Quality & Acceptance Plan its root's acceptance criteria):
+// it is not edited here — `deriveFields` writes it from the holder, and
+// the rendition marks it as a copy (S1, `@SameAs`).
 AcceptanceCriteriaList acceptance_criteria_summary_detailed_criteria(const AcceptanceCriteriaSummary *self);
 // Acceptance test summary.
 // (skipped: acceptanceTestSummary has no target type)
@@ -6668,6 +6709,11 @@ ArchitectureComponentEntryTechnicalForm architecture_component_entry_technical(c
 ArchitectureComponentEntryOwnershipForm architecture_component_entry_ownership(const ArchitectureComponentEntry *self);
 
 // Architecture Decision Record (ADR) entry.
+//
+// Links: `ADRR.relatedDecisions` names `ARDE` entries, stored on both
+// (`InverseOf.symmetric`); `ADRR.supersedes` names `ARDE`, answered by
+// `ADRR.supersededBy` at the other end; `ADRR.supersededBy` names `ARDE`,
+// answered by `ADRR.supersedes` at the other end.
 // Binds a ArchitectureDecisionRecord facade to a document and a path (path copied).
 void architecture_decision_record_init(ArchitectureDecisionRecord *self, SpecDocument *doc, const char *path);
 void architecture_decision_record_free(ArchitectureDecisionRecord *self);
@@ -6706,6 +6752,9 @@ ArchitectureOverviewEvolutionForm architecture_overview_evolution(const Architec
 ArchitectureOverviewComplianceForm architecture_overview_compliance(const ArchitectureOverview *self);
 
 // Architecture principle entry.
+//
+// Links: `ARPRENGO.relatedPrinciples` names `ARPR` entries, stored on both
+// (`InverseOf.symmetric`).
 // Binds a ArchitecturePrincipleEntry facade to a document and a path (path copied).
 void architecture_principle_entry_init(ArchitecturePrincipleEntry *self, SpecDocument *doc, const char *path);
 void architecture_principle_entry_free(ArchitecturePrincipleEntry *self);
@@ -7883,6 +7932,8 @@ BusinessObjectAttributeEntryGovernanceForm business_object_attribute_entry_gover
 // Comprehensive business object specification following domain-driven design
 // patterns. Business objects represent key domain concepts with behavior,
 // state, and business rules.
+//
+// Links: `BJOEN-DOMA.relatedObjects` names `BJOEN`, one-way.
 // Binds a BusinessObjectEntry facade to a document and a path (path copied).
 void business_object_entry_init(BusinessObjectEntry *self, SpecDocument *doc, const char *path);
 void business_object_entry_free(BusinessObjectEntry *self);
@@ -9744,6 +9795,9 @@ ContingencyPlans component_risk_assessment_contingency_plans(const ComponentRisk
 //
 // Documents one component risk: category, probability, impact, detection
 // methods, mitigation strategy and status, residual risk, and ownership.
+//
+// Links: `CORIENGO.relatedRisks` is stored on both entries
+// (`InverseOf.symmetric`).
 // Binds a ComponentRiskEntry facade to a document and a path (path copied).
 void component_risk_entry_init(ComponentRiskEntry *self, SpecDocument *doc, const char *path);
 void component_risk_entry_free(ComponentRiskEntry *self);
@@ -10524,6 +10578,15 @@ void current_state_risk_assessment_set_content(CurrentStateRiskAssessment *self,
 //
 // Detailed documentation of a single workflow within a business process.
 // Includes triggers, steps, actors, inputs, outputs, and timing.
+//
+// The workflow's own inputs, outputs and business rules
+// (`WOINEN-INPU-LST`, `WOOUEN-OUTP-LST`, `WOBURU-BUSI-LST`) are independent
+// of the same lists on its steps, not a superset of them: a workflow input
+// enters the workflow from outside, while a step's inputs also include what
+// earlier steps produced; a workflow output leaves it, while a step's outputs
+// include intermediate results; a workflow-level rule governs the whole
+// workflow, a step's rule that step only. Neither side is derived from the
+// other.
 // Binds a CurrentWorkflowEntry facade to a document and a path (path copied).
 void current_workflow_entry_init(CurrentWorkflowEntry *self, SpecDocument *doc, const char *path);
 void current_workflow_entry_free(CurrentWorkflowEntry *self);
@@ -12203,6 +12266,8 @@ DataDuplicationEntryGovernanceForm data_duplication_entry_governance(const DataD
 // to be adjusted: business-process cohesion sometimes merges two aggregates
 // into one unit or splits one across two, and stating that per entity keeps
 // even the exception readable. Empty means no adjustment.
+//
+// Links: `DAENT-RELA.parentEntities` names `DAENT.entityName`, one-way.
 // Binds a DataEntityEntry facade to a document and a path (path copied).
 void data_entity_entry_init(DataEntityEntry *self, SpecDocument *doc, const char *path);
 void data_entity_entry_free(DataEntityEntry *self);
@@ -13593,6 +13658,9 @@ DesignFoundationEntryContentForm design_foundation_entry_content(const DesignFou
 // A design goal entry (form).
 //
 // Each goal represents a measurable UI objective with success criteria.
+//
+// Links: `DGOEN.relatedPrinciples` names `DPEN`, answered by
+// `DPEN.relatedGoals` at the other end.
 // Binds a DesignGoalEntry facade to a document and a path (path copied).
 void design_goal_entry_init(DesignGoalEntry *self, SpecDocument *doc, const char *path);
 void design_goal_entry_free(DesignGoalEntry *self);
@@ -13624,6 +13692,9 @@ void design_goals_set_content(DesignGoals *self, const char *value);
 SomList design_goals_items(const DesignGoals *self);
 
 // Design pattern entry — a specific design pattern to be used.
+//
+// Links: `DEPAENCO.relatedPatterns` names `DSPT` entries, stored on both
+// (`InverseOf.symmetric`).
 // Binds a DesignPatternEntry facade to a document and a path (path copied).
 void design_pattern_entry_init(DesignPatternEntry *self, SpecDocument *doc, const char *path);
 void design_pattern_entry_free(DesignPatternEntry *self);
@@ -13684,6 +13755,9 @@ TestingStandards design_patterns_and_standards_testing_standards(const DesignPat
 // A design principle entry (form).
 //
 // Each principle guides UI decisions with rationale and examples.
+//
+// Links: `DPEN.relatedGoals` names `DGOEN`, answered by
+// `DGOEN.relatedPrinciples` at the other end.
 // Binds a DesignPrincipleEntry facade to a document and a path (path copied).
 void design_principle_entry_init(DesignPrincipleEntry *self, SpecDocument *doc, const char *path);
 void design_principle_entry_free(DesignPrincipleEntry *self);
@@ -14037,6 +14111,11 @@ SomList distribution_list_custom_groups(const DistributionList *self);
 //
 // Detailed information about a distribution list recipient including
 // their role, contact information, preferences, and access levels.
+// The full distribution (`FUDI`) holds the recipients; the executive-summary
+// list and a custom group's members are selections of it: there
+// `recipientRef` names the full-distribution recipient an entry is (a
+// `DSRC-ITEM-…` section id of `FUDI`) and the entry's other values repeat
+// that recipient's. In the full distribution `recipientRef` stays empty.
 // Binds a DistributionRecipientEntry facade to a document and a path (path copied).
 void distribution_recipient_entry_init(DistributionRecipientEntry *self, SpecDocument *doc, const char *path);
 void distribution_recipient_entry_free(DistributionRecipientEntry *self);
@@ -14169,6 +14248,11 @@ ReferenceDocuments document_control_reference_documents(const DocumentControl *s
 // Standard document header present at the top of every TomSpecs document.
 //
 // All fields are optional strings representing the document's form fields.
+// The revision history is the holder of the document's version, date and
+// author: the header shows those of its newest revision entry (`RVENT`, the
+// last of the list, which is ordered newest last), derived from each
+// document's own history. A document without a revision entry derives
+// nothing. The id, the project and the status are the header's own.
 //
 // A leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share
 // an unchanged header by identity and `cloneShallow` needs no child handling.
@@ -14512,6 +14596,9 @@ void domain_overview_set_content(DomainOverview *self, const char *value);
 DomainOverviewDomainDetailsForm domain_overview_domain_details(const DomainOverview *self);
 
 // A domain process entry (form).
+//
+// Links: `DPEF.relatedProcesses` names `DOPREN` entries, stored on both
+// (`InverseOf.symmetric`).
 // Binds a DomainProcessEntry facade to a document and a path (path copied).
 void domain_process_entry_init(DomainProcessEntry *self, SpecDocument *doc, const char *path);
 void domain_process_entry_free(DomainProcessEntry *self);
@@ -14550,6 +14637,9 @@ void domain_processes_set_process_overview_diagram(DomainProcesses *self, const 
 SomList domain_processes_processes(const DomainProcesses *self);
 
 // A domain term entry (form).
+//
+// Links: `DTE.relatedTerms` names `DTE` entries, stored on both
+// (`InverseOf.symmetric`).
 // Binds a DomainTermEntry facade to a document and a path (path copied).
 void domain_term_entry_init(DomainTermEntry *self, SpecDocument *doc, const char *path);
 void domain_term_entry_free(DomainTermEntry *self);
@@ -15609,6 +15699,8 @@ ExportFieldMappingEntryInclusionForm export_field_mapping_entry_inclusion(const 
 ExportFieldMappingEntryLayoutForm export_field_mapping_entry_layout(const ExportFieldMappingEntry *self);
 
 // An export format entry (form).
+//
+// Links: `EXID.relatedDataEntities` names `DAENT.entityName`, one-way.
 // Binds a ExportFormatEntry facade to a document and a path (path copied).
 void export_format_entry_init(ExportFormatEntry *self, SpecDocument *doc, const char *path);
 void export_format_entry_free(ExportFormatEntry *self);
@@ -16025,7 +16117,9 @@ FamilyComponentRefContentForm family_component_ref_content(const FamilyComponent
 // 13.4.4. Feature Dependencies.
 //
 // Cross-feature dependencies affecting staging order, critical path
-// analysis, and delivery sequencing.
+// analysis, and delivery sequencing. The rows are the holder of every
+// feature dependency: each feature's `FEDEIN.dependsOnFeatures` and
+// `blocksFeatures` are derived from them.
 // Binds a FeatureDependencies facade to a document and a path (path copied).
 void feature_dependencies_init(FeatureDependencies *self, SpecDocument *doc, const char *path);
 void feature_dependencies_free(FeatureDependencies *self);
@@ -16210,7 +16304,9 @@ int feature_stage_mapping_can_have_content(const FeatureStageMapping *self);
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in the section's `form`.
 FeatureStageMappingContentForm feature_stage_mapping_content(const FeatureStageMapping *self);
-// Stage assignment details.
+// The phase within its stage the feature is delivered in. The stage
+// itself is the feature's (`FESTAS.targetStage`), reached through
+// [content]'s `featureId`; the matrix does not restate it.
 FeatureStageMappingAssignmentForm feature_stage_mapping_assignment(const FeatureStageMapping *self);
 // Readiness and confidence.
 FeatureStageMappingReadinessForm feature_stage_mapping_readiness(const FeatureStageMapping *self);
@@ -16529,6 +16625,8 @@ FunctionDataMatrixEntryContentForm function_data_matrix_entry_content(const Func
 // A function entry (form).
 //
 // Business function specification in the functional decomposition.
+//
+// Links: `FUNCT.parentFunction` names `FUNCT`, one-way.
 // Binds a FunctionEntry facade to a document and a path (path copied).
 void function_entry_init(FunctionEntry *self, SpecDocument *doc, const char *path);
 void function_entry_free(FunctionEntry *self);
@@ -16727,6 +16825,10 @@ Correctness functional_suitability_characteristic_correctness(const FunctionalSu
 // Documents a specific gap between current capabilities and business needs:
 // category, severity, quantified cost, stakeholders, compliance drivers,
 // workarounds, resolution approach, and success criteria.
+//
+// Links: `GAENDI.relatedPainPoints` names `PAPE`, answered by
+// `PAPOR1.relatedGaps` at the other end; `GAENRE.dependsOnGaps` names `GAPE`,
+// one-way.
 // Binds a GapEntry facade to a document and a path (path copied).
 void gap_entry_init(GapEntry *self, SpecDocument *doc, const char *path);
 void gap_entry_free(GapEntry *self);
@@ -17963,6 +18065,10 @@ void interaction_dependency_analysis_set_content(InteractionDependencyAnalysis *
 //
 // Comprehensive interaction definition following Cockburn's fully dressed
 // use case template. Seeds the ISC (Interaction Scenarios) document.
+//
+// Links: `UCSC.relatedUseCases` names `INEN`, one-way; `INTR.relatedUseCase`
+// names `INEN`, one-way; `INTR.relatedTestCases` names `TSSC`, `RQTSC`,
+// one-way.
 // Binds a InteractionEntry facade to a document and a path (path copied).
 void interaction_entry_init(InteractionEntry *self, SpecDocument *doc, const char *path);
 void interaction_entry_free(InteractionEntry *self);
@@ -18389,15 +18495,19 @@ int ip_ownership_entry_can_have_content(const IpOwnershipEntry *self);
 // §11.4 rule 7); the field values themselves live in the section's `form`.
 IpOwnershipEntryContentForm ip_ownership_entry_content(const IpOwnershipEntry *self);
 
-// ISO/IEC 25010:2023 product-quality cross-map (derived).
+// ISO/IEC 25010:2023 product-quality cross-map.
 //
-// A *derived* view over the canonical quality spine: the eight
+// A coverage view over the canonical quality spine: the eight
 // `*Characteristic` classes under [SystemQualityGoals] are the single source
 // of truth for the taxonomy (L34C-8); this cross-map does not re-declare it.
-// Each entry references one of those characteristics (via the closed
-// [Iso25010Characteristic] enum) and records which quality goals / NFRs
-// address it and the target metric — so coverage of any 25010:2023
-// characteristic (e.g. compatibility, flexibility) cannot be silently missed.
+// Each entry names one of those characteristics (via the closed
+// [Iso25010Characteristic] enum) and records, as authored text, which
+// quality goals / NFRs address it and the target metric. Nothing in it is
+// derived: the characteristics are eight sections, not the rows of one
+// list, and what addresses each is the author's statement. That every
+// characteristic has its entry is a process check, so coverage of any
+// 25010:2023 characteristic (e.g. compatibility, flexibility) cannot be
+// silently missed.
 // Binds a Iso25010Coverage facade to a document and a path (path copied).
 void iso25010_coverage_init(Iso25010Coverage *self, SpecDocument *doc, const char *path);
 void iso25010_coverage_free(Iso25010Coverage *self);
@@ -18598,6 +18708,9 @@ KeyCompromiseRecoveryPolicyContentForm key_compromise_recovery_policy_content(co
 // (skipped: notes has no target type)
 
 // A key concept entry (form).
+//
+// Links: `KECON.relatedConcepts` names `KECON` entries, stored on both
+// (`InverseOf.symmetric`).
 // Binds a KeyConceptEntry facade to a document and a path (path copied).
 void key_concept_entry_init(KeyConceptEntry *self, SpecDocument *doc, const char *path);
 void key_concept_entry_free(KeyConceptEntry *self);
@@ -19972,6 +20085,10 @@ MigrationResourcesContentForm migration_resources_content(const MigrationResourc
 // Detailed migration risk documentation following enterprise risk
 // management practices. Captures full risk lifecycle from identification
 // through resolution.
+//
+// Links: `MIRIR1.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,
+// one-way; `MIRIR1.relatedDecisions` names `ARDE`, one-way;
+// `MIRIR1.relatedRisks` is stored on both entries (`InverseOf.symmetric`).
 // Binds a MigrationRiskEntry facade to a document and a path (path copied).
 void migration_risk_entry_init(MigrationRiskEntry *self, SpecDocument *doc, const char *path);
 void migration_risk_entry_free(MigrationRiskEntry *self);
@@ -20461,6 +20578,8 @@ MustPassCriteriaMustPassOverviewContentForm must_pass_criteria_must_pass_overvie
 SomList must_pass_criteria_items(const MustPassCriteria *self);
 
 // A must-pass criterion entry (form).
+//
+// Links: `MPCEG.dependsOnCriteria` names `MSTPCR`, one-way.
 // Binds a MustPassCriterionEntry facade to a document and a path (path copied).
 void must_pass_criterion_entry_init(MustPassCriterionEntry *self, SpecDocument *doc, const char *path);
 void must_pass_criterion_entry_free(MustPassCriterionEntry *self);
@@ -21670,6 +21789,11 @@ int pain_point_gap_correlation_entry_can_have_content(const PainPointGapCorrelat
 PainPointGapCorrelationEntryContentForm pain_point_gap_correlation_entry_content(const PainPointGapCorrelationEntry *self);
 
 // Relationships for pain point.
+//
+// Links: `PAPOR1.relatedGaps` names `GAPE`, answered by
+// `GAENDI.relatedPainPoints` at the other end; `PAPOR1.dependsOn` names
+// `PAPE`, one-way; `PAPOR1.relatedPainPoints` is stored on both entries
+// (`InverseOf.symmetric`).
 // Binds a PainPointRelationships facade to a document and a path (path copied).
 void pain_point_relationships_init(PainPointRelationships *self, SpecDocument *doc, const char *path);
 void pain_point_relationships_free(PainPointRelationships *self);
@@ -22153,6 +22277,9 @@ char *pilot_plan_content(const PilotPlan *self);
 void pilot_plan_set_content(PilotPlan *self, const char *value);
 
 // Pipeline job entry.
+//
+// Links: `PJE.parentStage` names `PSE`, one-way; `PJED.dependsOn` names `PJE`,
+// one-way.
 // Binds a PipelineJobEntry facade to a document and a path (path copied).
 void pipeline_job_entry_init(PipelineJobEntry *self, SpecDocument *doc, const char *path);
 void pipeline_job_entry_free(PipelineJobEntry *self);
@@ -22787,6 +22914,11 @@ SomList process_metric_category_metrics(const ProcessMetricCategory *self);
 // A process metric entry (form).
 //
 // A single measurable metric with current value and measurement details.
+// The class serves a process's own metric list and the key metrics
+// (`PME-KEYM-LST`), which summarize the processes' metrics: a key metric's
+// `metricRef` names the metric it is (a `PME-METR-…` section id) and its
+// other values repeat that metric's; in a process's own list `metricRef`
+// stays empty.
 // Binds a ProcessMetricEntry facade to a document and a path (path copied).
 void process_metric_entry_init(ProcessMetricEntry *self, SpecDocument *doc, const char *path);
 void process_metric_entry_free(ProcessMetricEntry *self);
@@ -23346,6 +23478,8 @@ PrototypeType prototype_prototype_type(const Prototype *self);
 // (skipped: prototypeSchedule has no target type)
 
 // A prototype feature entry.
+//
+// Links: `PFE.relatedGoals` names `PGE`, one-way.
 // Binds a PrototypeFeatureEntry facade to a document and a path (path copied).
 void prototype_feature_entry_init(PrototypeFeatureEntry *self, SpecDocument *doc, const char *path);
 void prototype_feature_entry_free(PrototypeFeatureEntry *self);
@@ -23359,6 +23493,9 @@ PrototypeFeatureEntryContentForm prototype_feature_entry_content(const Prototype
 // 10.13.2. Selected Feature Subset.
 //
 // Features included in the prototype.
+//
+// Links: `PFSS.includedFeatures` names `PFE`, one-way; `PFSS.excludedFeatures`
+// names `PFE`, one-way.
 // Binds a PrototypeFeatureSubset facade to a document and a path (path copied).
 void prototype_feature_subset_init(PrototypeFeatureSubset *self, SpecDocument *doc, const char *path);
 void prototype_feature_subset_free(PrototypeFeatureSubset *self);
@@ -23385,6 +23522,8 @@ PrototypeFeatureSubsetFidelityForm prototype_feature_subset_fidelity(const Proto
 SomList prototype_feature_subset_features(const PrototypeFeatureSubset *self);
 
 // A prototype goal entry.
+//
+// Links: `PGE.relatedRisks` names `RISENT`, one-way.
 // Binds a PrototypeGoalEntry facade to a document and a path (path copied).
 void prototype_goal_entry_init(PrototypeGoalEntry *self, SpecDocument *doc, const char *path);
 void prototype_goal_entry_free(PrototypeGoalEntry *self);
@@ -23490,6 +23629,9 @@ Iso25010Coverage quality_and_acceptance_model_iso25010_coverage(const QualityAnd
 //
 // Defines a quality category with its attributes, weight, and relationship
 // to other categories.
+//
+// Links: `QCARL.relatedCategories` names `QCATE` entries, stored on both
+// (`InverseOf.symmetric`); `QCARL.parentCategory` names `QCATE`, one-way.
 // Binds a QualityCategoryEntry facade to a document and a path (path copied).
 void quality_category_entry_init(QualityCategoryEntry *self, SpecDocument *doc, const char *path);
 void quality_category_entry_free(QualityCategoryEntry *self);
@@ -23864,6 +24006,10 @@ RedirectHandlingPolicyContentForm redirect_handling_policy_content(const Redirec
 //
 // Detailed metadata for a single referenced document including
 // identification, classification, status, and applicability.
+//
+// Links: `RDEL.supersedes` names `RFDOC`, answered by `RDEL.supersededBy` at
+// the other end; `RDEL.supersededBy` names `RFDOC`, answered by
+// `RDEL.supersedes` at the other end.
 // Binds a ReferenceDocumentEntry facade to a document and a path (path copied).
 void reference_document_entry_init(ReferenceDocumentEntry *self, SpecDocument *doc, const char *path);
 void reference_document_entry_free(ReferenceDocumentEntry *self);
@@ -24302,6 +24448,10 @@ ReportDistributionEntryContentSettingsForm report_distribution_entry_content_set
 ReportDistributionEntryDeliveryForm report_distribution_entry_delivery(const ReportDistributionEntry *self);
 
 // A report entry (form).
+//
+// Links: `REID.relatedBusinessProcesses` names `BPREN`, one-way;
+// `REID.relatedUseCases` names `INEN`, one-way; `REID.relatedDataEntities`
+// names `DAENT.entityName`, one-way.
 // Binds a ReportEntry facade to a document and a path (path copied).
 void report_entry_init(ReportEntry *self, SpecDocument *doc, const char *path);
 void report_entry_free(ReportEntry *self);
@@ -24543,7 +24693,14 @@ SomList requirement_data_requirements_entities(const RequirementDataRequirements
 
 // 4.3.1.n.5. Dependencies.
 //
-// Dependencies this requirement has on other requirements.
+// Dependencies this requirement has on other requirements. Each dependency
+// is one row, stored once, on the requirement it applies to: a directional
+// dependency (prerequisite, parent-child, refinement, constrained by) is not
+// written again as its converse on the other requirement, which reaches it
+// through navigation. A conflict and a bidirectional dependency stand at both
+// ends. The rows are the holder of every dependency; the requirement's
+// `constrainedBy`, `conflictsWith` and `OREP.dependencies` are derived from
+// them.
 // Binds a RequirementDependencies facade to a document and a path (path copied).
 void requirement_dependencies_init(RequirementDependencies *self, SpecDocument *doc, const char *path);
 void requirement_dependencies_free(RequirementDependencies *self);
@@ -24570,10 +24727,11 @@ int requirement_dependency_entry_can_have_content(const RequirementDependencyEnt
 RequirementDependencyEntryContentForm requirement_dependency_entry_content(const RequirementDependencyEntry *self);
 // The other requirement in this dependency, named by section id.
 //
-// The row states the *kind* of relation — prerequisite, bidirectional,
-// parent-child, conflict, refinement — and this names its far end; the
-// requirement that owns the entry is always the near end, so neither half
-// is readable alone. Expect another requirement of this document there. A
+// The row states the *kind* of relation ([RequirementDependencyType]) and
+// this names its far end; the requirement that owns the entry is always the
+// near end, so neither half is readable alone. A conflict or bidirectional
+// row is answered by a row of the same kind on the far end
+// (`InverseOf.symmetric`); a directional row has no converse row. Expect another requirement of this document there. A
 // dependency on something that is not itself a requirement is a constraint
 // and belongs with the assumptions and constraints instead.
 //
@@ -24661,6 +24819,8 @@ SomList requirement_test_cases_test_cases(const RequirementTestCases *self);
 // 4.3.1.n.6. Traceability.
 //
 // Traceability links to goals, use cases, processes, and other artifacts.
+//
+// Links: `RETRAR.relatedDocuments` names `RFDOC`, one-way.
 // Binds a RequirementTraceability facade to a document and a path (path copied).
 void requirement_traceability_init(RequirementTraceability *self, SpecDocument *doc, const char *path);
 void requirement_traceability_free(RequirementTraceability *self);
@@ -24909,6 +25069,8 @@ int responsibility_contacts_can_have_content(const ResponsibilityContacts *self)
 ResponsibilityContactsContentForm responsibility_contacts_content(const ResponsibilityContacts *self);
 
 // Detailed responsibility entry (form).
+//
+// Links: `RSPDT.relatedProcesses` names `BPREN`, one-way.
 // Binds a ResponsibilityDetailEntry facade to a document and a path (path copied).
 void responsibility_detail_entry_init(ResponsibilityDetailEntry *self, SpecDocument *doc, const char *path);
 void responsibility_detail_entry_free(ResponsibilityDetailEntry *self);
@@ -25386,6 +25548,10 @@ RiskMonitoringTrendDetailsForm risk_monitoring_trend_details(const RiskMonitorin
 RiskMonitoringClosureForm risk_monitoring_closure(const RiskMonitoring *self);
 
 // Relationships to other risks, assumptions, and project elements.
+//
+// Links: `RR.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,
+// one-way; `RR.relatedRisks` names `RISENT` entries, stored on both
+// (`InverseOf.symmetric`); `RR.relatedAssumptions` names `ASMRE`, one-way.
 // Binds a RiskRelationships facade to a document and a path (path copied).
 void risk_relationships_init(RiskRelationships *self, SpecDocument *doc, const char *path);
 void risk_relationships_free(RiskRelationships *self);
@@ -25617,6 +25783,9 @@ RoleHolderEntryContentForm role_holder_entry_content(const RoleHolderEntry *self
 //
 // Defines a specific parent-child inheritance relationship between two roles,
 // including what is inherited and any restrictions.
+//
+// Links: `RLINH.parentRole` names `AZRO.roleName`, one-way; `RLINH.childRole`
+// names `AZRO.roleName`, one-way.
 // Binds a RoleInheritanceRuleEntry facade to a document and a path (path copied).
 void role_inheritance_rule_entry_init(RoleInheritanceRuleEntry *self, SpecDocument *doc, const char *path);
 void role_inheritance_rule_entry_free(RoleInheritanceRuleEntry *self);
@@ -26404,6 +26573,9 @@ ScreenElementFieldSpecFileOptionsForm screen_element_field_spec_file_options(con
 //
 // Comprehensive specification of a single application screen, covering
 // identity, purpose, authorization, layout, elements, and behavior.
+//
+// Links: `SCETR.relatedBusinessProcesses` names `BPREN`, one-way;
+// `SCETR.relatedUseCases` names `INEN`, one-way.
 // Binds a ScreenEntry facade to a document and a path (path copied).
 void screen_entry_init(ScreenEntry *self, SpecDocument *doc, const char *path);
 void screen_entry_free(ScreenEntry *self);
@@ -28126,6 +28298,8 @@ StageDependenciesContentForm stage_dependencies_content(const StageDependencies 
 // entry/exit criteria, assigned resources, quality gates, and a
 // deployment plan. Draws from PMBOK phase-gate discipline, SAFe PI
 // planning, and PRINCE2 stage boundary management.
+//
+// Links: `STSC.includedFeatures` names `FPE`, one-way.
 // Binds a StageEntry facade to a document and a path (path copied).
 void stage_entry_init(StageEntry *self, SpecDocument *doc, const char *path);
 void stage_entry_free(StageEntry *self);
@@ -28508,6 +28682,8 @@ SomList staging_strategy_constraints(const StagingStrategy *self);
 // Keeps only the scope-framing identity + benefit. Role, interest, influence,
 // concerns and engagement strategy are owned by the canonical SBP.4
 // `StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).
+// [content]'s `stakeholderRef` names that register entry (a
+// `STKRE-STAK-…` section id).
 // Binds a StakeholderEntry facade to a document and a path (path copied).
 void stakeholder_entry_init(StakeholderEntry *self, SpecDocument *doc, const char *path);
 void stakeholder_entry_free(StakeholderEntry *self);
@@ -28879,6 +29055,8 @@ SomList success_criterion_entry_relationships(const SuccessCriterionEntry *self)
 SuccessCriterionEntryStatusForm success_criterion_entry_status(const SuccessCriterionEntry *self);
 
 // Relationships for success criterion.
+//
+// Links: `SUCRRE.relatedGoals` names `BGE`, one-way.
 // Binds a SuccessCriterionRelationships facade to a document and a path (path copied).
 void success_criterion_relationships_init(SuccessCriterionRelationships *self, SpecDocument *doc, const char *path);
 void success_criterion_relationships_free(SuccessCriterionRelationships *self);
@@ -30527,6 +30705,8 @@ TestLevelEntryContentForm test_level_entry_content(const TestLevelEntry *self);
 // process, or acceptance criterion. Includes full traceability, preconditions,
 // execution metadata, and pass/fail criteria per ISTQB and IEEE 829
 // Level Test Case / Level Test Procedure structures.
+//
+// Links: `TESCTR.designRef` names `SCREN`, one-way.
 // Binds a TestScenarioEntry facade to a document and a path (path copied).
 void test_scenario_entry_init(TestScenarioEntry *self, SpecDocument *doc, const char *path);
 void test_scenario_entry_free(TestScenarioEntry *self);
@@ -31468,6 +31648,8 @@ UatTestCycleEntryExecutionForm uat_test_cycle_entry_execution(const UatTestCycle
 // Individual step within a test scenario. Captures the action, input data,
 // expected result, and pass criteria at fine-grained level per IEEE 829
 // Level Test Procedure structure.
+//
+// Links: `UATSST.uiScreenRef` names `SCREN`, one-way.
 // Binds a UatTestStepEntry facade to a document and a path (path copied).
 void uat_test_step_entry_init(UatTestStepEntry *self, SpecDocument *doc, const char *path);
 void uat_test_step_entry_free(UatTestStepEntry *self);
@@ -32579,6 +32761,8 @@ WarrantyServiceLevelsContentForm warranty_service_levels_content(const WarrantyS
 //
 // Post-acceptance warranty terms: duration, scope, service levels,
 // exclusions, and transition to standard support.
+//
+// Links: `WACO.coveredDeliverables` names `DLVEN`, one-way.
 // Binds a WarrantyTerms facade to a document and a path (path copied).
 void warranty_terms_init(WarrantyTerms *self, SpecDocument *doc, const char *path);
 void warranty_terms_free(WarrantyTerms *self);
@@ -32863,6 +33047,11 @@ char *workflow_step_system_name(const WorkflowStepSystem *self);
 void workflow_step_system_set_name(WorkflowStepSystem *self, const char *value);
 
 // Summary entry for a single workflow.
+//
+// [content]'s `workflowRef` names the workflow the row summarizes (a
+// `CUWF-WORK-…` section id of the same process); the row's type, frequency
+// and step counts repeat that workflow's own, whose counts are counted over
+// its steps.
 // Binds a WorkflowSummaryEntry facade to a document and a path (path copied).
 void workflow_summary_entry_init(WorkflowSummaryEntry *self, SpecDocument *doc, const char *path);
 void workflow_summary_entry_free(WorkflowSummaryEntry *self);
@@ -33732,6 +33921,8 @@ char *actor_entry_identification_form_content(const ActorEntryIdentificationForm
 void actor_entry_identification_form_set_content(ActorEntryIdentificationForm *self, const char *value);
 char *actor_entry_identification_form_actor_type(const ActorEntryIdentificationForm *self);
 void actor_entry_identification_form_set_actor_type(ActorEntryIdentificationForm *self, const char *value);
+char *actor_entry_identification_form_actor_kind(const ActorEntryIdentificationForm *self);
+void actor_entry_identification_form_set_actor_kind(ActorEntryIdentificationForm *self, const char *value);
 char *actor_entry_identification_form_category(const ActorEntryIdentificationForm *self);
 void actor_entry_identification_form_set_category(ActorEntryIdentificationForm *self, const char *value);
 char *actor_entry_identification_form_real_world_examples(const ActorEntryIdentificationForm *self);
@@ -41574,6 +41765,12 @@ char *current_workflow_entry_content_form_average_volume(const CurrentWorkflowEn
 void current_workflow_entry_content_form_set_average_volume(CurrentWorkflowEntryContentForm *self, const char *value);
 char *current_workflow_entry_content_form_criticality(const CurrentWorkflowEntryContentForm *self);
 void current_workflow_entry_content_form_set_criticality(CurrentWorkflowEntryContentForm *self, const char *value);
+long current_workflow_entry_content_form_step_count(const CurrentWorkflowEntryContentForm *self);
+void current_workflow_entry_content_form_set_step_count(CurrentWorkflowEntryContentForm *self, long value);
+long current_workflow_entry_content_form_manual_step_count(const CurrentWorkflowEntryContentForm *self);
+void current_workflow_entry_content_form_set_manual_step_count(CurrentWorkflowEntryContentForm *self, long value);
+long current_workflow_entry_content_form_error_prone_step_count(const CurrentWorkflowEntryContentForm *self);
+void current_workflow_entry_content_form_set_error_prone_step_count(CurrentWorkflowEntryContentForm *self, long value);
 
 // CurrentWorkflowEntryTimingForm is the generated section facade for the `timing` @Form section: its own `content` text followed by one typed member per form field.
 void current_workflow_entry_timing_form_init(CurrentWorkflowEntryTimingForm *self, SpecDocument *doc, const char *path);
@@ -45757,6 +45954,8 @@ void distribution_recipient_entry_content_form_free(DistributionRecipientEntryCo
 // The section's own free-text content, before the form fields (owned).
 char *distribution_recipient_entry_content_form_content(const DistributionRecipientEntryContentForm *self);
 void distribution_recipient_entry_content_form_set_content(DistributionRecipientEntryContentForm *self, const char *value);
+char *distribution_recipient_entry_content_form_recipient_ref(const DistributionRecipientEntryContentForm *self);
+void distribution_recipient_entry_content_form_set_recipient_ref(DistributionRecipientEntryContentForm *self, const char *value);
 char *distribution_recipient_entry_content_form_role(const DistributionRecipientEntryContentForm *self);
 void distribution_recipient_entry_content_form_set_role(DistributionRecipientEntryContentForm *self, const char *value);
 char *distribution_recipient_entry_content_form_organization(const DistributionRecipientEntryContentForm *self);
@@ -49605,6 +49804,8 @@ char *functional_requirement_entry_constraints_form_assumptions(const Functional
 void functional_requirement_entry_constraints_form_set_assumptions(FunctionalRequirementEntryConstraintsForm *self, const char *value);
 char *functional_requirement_entry_constraints_form_constraints(const FunctionalRequirementEntryConstraintsForm *self);
 void functional_requirement_entry_constraints_form_set_constraints(FunctionalRequirementEntryConstraintsForm *self, const char *value);
+char *functional_requirement_entry_constraints_form_constrained_by(const FunctionalRequirementEntryConstraintsForm *self);
+void functional_requirement_entry_constraints_form_set_constrained_by(FunctionalRequirementEntryConstraintsForm *self, const char *value);
 char *functional_requirement_entry_constraints_form_conflicts_with(const FunctionalRequirementEntryConstraintsForm *self);
 void functional_requirement_entry_constraints_form_set_conflicts_with(FunctionalRequirementEntryConstraintsForm *self, const char *value);
 
@@ -51752,6 +51953,8 @@ char *interaction_entry_identification_form_supporting_actors(const InteractionE
 void interaction_entry_identification_form_set_supporting_actors(InteractionEntryIdentificationForm *self, const char *value);
 char *interaction_entry_identification_form_goal_level(const InteractionEntryIdentificationForm *self);
 void interaction_entry_identification_form_set_goal_level(InteractionEntryIdentificationForm *self, const char *value);
+char *interaction_entry_identification_form_priority(const InteractionEntryIdentificationForm *self);
+void interaction_entry_identification_form_set_priority(InteractionEntryIdentificationForm *self, const char *value);
 char *interaction_entry_identification_form_design_scope(const InteractionEntryIdentificationForm *self);
 void interaction_entry_identification_form_set_design_scope(InteractionEntryIdentificationForm *self, const char *value);
 
@@ -59879,6 +60082,8 @@ void process_metric_entry_content_form_free(ProcessMetricEntryContentForm *self)
 // The section's own free-text content, before the form fields (owned).
 char *process_metric_entry_content_form_content(const ProcessMetricEntryContentForm *self);
 void process_metric_entry_content_form_set_content(ProcessMetricEntryContentForm *self, const char *value);
+char *process_metric_entry_content_form_metric_ref(const ProcessMetricEntryContentForm *self);
+void process_metric_entry_content_form_set_metric_ref(ProcessMetricEntryContentForm *self, const char *value);
 char *process_metric_entry_content_form_metric_category(const ProcessMetricEntryContentForm *self);
 void process_metric_entry_content_form_set_metric_category(ProcessMetricEntryContentForm *self, const char *value);
 char *process_metric_entry_content_form_current_value(const ProcessMetricEntryContentForm *self);
@@ -68826,6 +69031,8 @@ char *stage_migration_risk_entry_content_form_content(const StageMigrationRiskEn
 void stage_migration_risk_entry_content_form_set_content(StageMigrationRiskEntryContentForm *self, const char *value);
 char *stage_migration_risk_entry_content_form_risk_category(const StageMigrationRiskEntryContentForm *self);
 void stage_migration_risk_entry_content_form_set_risk_category(StageMigrationRiskEntryContentForm *self, const char *value);
+char *stage_migration_risk_entry_content_form_risk_rating(const StageMigrationRiskEntryContentForm *self);
+void stage_migration_risk_entry_content_form_set_risk_rating(StageMigrationRiskEntryContentForm *self, const char *value);
 
 // StageMigrationRiskEntryContingencyForm is the generated section facade for the `contingency` @Form section: its own `content` text followed by one typed member per form field.
 void stage_migration_risk_entry_contingency_form_init(StageMigrationRiskEntryContingencyForm *self, SpecDocument *doc, const char *path);
@@ -69315,6 +69522,8 @@ void stage_summary_entry_content_form_free(StageSummaryEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *stage_summary_entry_content_form_content(const StageSummaryEntryContentForm *self);
 void stage_summary_entry_content_form_set_content(StageSummaryEntryContentForm *self, const char *value);
+char *stage_summary_entry_content_form_stage_ref(const StageSummaryEntryContentForm *self);
+void stage_summary_entry_content_form_set_stage_ref(StageSummaryEntryContentForm *self, const char *value);
 char *stage_summary_entry_content_form_stage_number(const StageSummaryEntryContentForm *self);
 void stage_summary_entry_content_form_set_stage_number(StageSummaryEntryContentForm *self, const char *value);
 char *stage_summary_entry_content_form_scope_summary(const StageSummaryEntryContentForm *self);
@@ -69637,6 +69846,8 @@ void stakeholder_entry_content_form_free(StakeholderEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *stakeholder_entry_content_form_content(const StakeholderEntryContentForm *self);
 void stakeholder_entry_content_form_set_content(StakeholderEntryContentForm *self, const char *value);
+char *stakeholder_entry_content_form_stakeholder_ref(const StakeholderEntryContentForm *self);
+void stakeholder_entry_content_form_set_stakeholder_ref(StakeholderEntryContentForm *self, const char *value);
 char *stakeholder_entry_content_form_stakeholder_type(const StakeholderEntryContentForm *self);
 void stakeholder_entry_content_form_set_stakeholder_type(StakeholderEntryContentForm *self, const char *value);
 char *stakeholder_entry_content_form_expected_benefits(const StakeholderEntryContentForm *self);
@@ -69648,6 +69859,8 @@ void stakeholder_register_entry_content_form_free(StakeholderRegisterEntryConten
 // The section's own free-text content, before the form fields (owned).
 char *stakeholder_register_entry_content_form_content(const StakeholderRegisterEntryContentForm *self);
 void stakeholder_register_entry_content_form_set_content(StakeholderRegisterEntryContentForm *self, const char *value);
+char *stakeholder_register_entry_content_form_stakeholder_type(const StakeholderRegisterEntryContentForm *self);
+void stakeholder_register_entry_content_form_set_stakeholder_type(StakeholderRegisterEntryContentForm *self, const char *value);
 char *stakeholder_register_entry_content_form_influence(const StakeholderRegisterEntryContentForm *self);
 void stakeholder_register_entry_content_form_set_influence(StakeholderRegisterEntryContentForm *self, const char *value);
 char *stakeholder_register_entry_content_form_concerns(const StakeholderRegisterEntryContentForm *self);
@@ -72079,6 +72292,8 @@ char *technical_requirement_entry_constraints_form_assumptions(const TechnicalRe
 void technical_requirement_entry_constraints_form_set_assumptions(TechnicalRequirementEntryConstraintsForm *self, const char *value);
 char *technical_requirement_entry_constraints_form_constraints(const TechnicalRequirementEntryConstraintsForm *self);
 void technical_requirement_entry_constraints_form_set_constraints(TechnicalRequirementEntryConstraintsForm *self, const char *value);
+char *technical_requirement_entry_constraints_form_constrained_by(const TechnicalRequirementEntryConstraintsForm *self);
+void technical_requirement_entry_constraints_form_set_constrained_by(TechnicalRequirementEntryConstraintsForm *self, const char *value);
 
 // TechnicalRequirementEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void technical_requirement_entry_content_form_init(TechnicalRequirementEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -76696,6 +76911,8 @@ void workflow_summary_entry_content_form_free(WorkflowSummaryEntryContentForm *s
 // The section's own free-text content, before the form fields (owned).
 char *workflow_summary_entry_content_form_content(const WorkflowSummaryEntryContentForm *self);
 void workflow_summary_entry_content_form_set_content(WorkflowSummaryEntryContentForm *self, const char *value);
+char *workflow_summary_entry_content_form_workflow_ref(const WorkflowSummaryEntryContentForm *self);
+void workflow_summary_entry_content_form_set_workflow_ref(WorkflowSummaryEntryContentForm *self, const char *value);
 char *workflow_summary_entry_content_form_workflow_type(const WorkflowSummaryEntryContentForm *self);
 void workflow_summary_entry_content_form_set_workflow_type(WorkflowSummaryEntryContentForm *self, const char *value);
 char *workflow_summary_entry_content_form_frequency(const WorkflowSummaryEntryContentForm *self);

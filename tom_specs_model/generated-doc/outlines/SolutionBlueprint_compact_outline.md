@@ -42,9 +42,9 @@
         - stakeholders: `StakeholdersAndBeneficiaries`
           - content @description
           - [1,] primaryStakeholders: `StakeholderEntry`[]
-            - content @Form(stakeholderType, expectedBenefits)
+            - content @Form(stakeholderRef, stakeholderType, expectedBenefits)
           - secondaryStakeholders: `StakeholderEntry`[]
-            - content @Form(stakeholderType, expectedBenefits)
+            - content @Form(stakeholderRef, stakeholderType, expectedBenefits)
         - `ValueProposition`
           - content, valueDetails @text, benefits, returnProfile
           - kpis: `String`[]
@@ -371,7 +371,7 @@
         - groupSummary: `DistributionGroupSummary`
           - content @Form(recipientCount, internalCount, externalCount, primaryLanguage, distributionFrequency)
         - items: `DistributionRecipientEntry`[]
-          - content @Form(role, organization), contact, access, subscription, backup
+          - content @Form(recipientRef, role, organization), contact, access, subscription, backup
           - preferences: `DistributionRecipientPreferences`[]
             - content @Form(distributionMethod, preferredFormat, preferredLanguage, digestPreference, notificationPreference)
       - executiveSummary: `ExecutiveSummaryDistribution`
@@ -379,13 +379,13 @@
         - groupSummary: `DistributionGroupSummary`
           - content @Form(recipientCount, internalCount, externalCount, primaryLanguage, distributionFrequency)
         - items: `DistributionRecipientEntry`[]
-          - content @Form(role, organization), contact, access, subscription, backup
+          - content @Form(recipientRef, role, organization), contact, access, subscription, backup
           - preferences: `DistributionRecipientPreferences`[]
             - content @Form(distributionMethod, preferredFormat, preferredLanguage, digestPreference, notificationPreference)
       - customGroups: `CustomDistributionGroup`[]
         - content @Form(purpose, informationScope, frequency, primaryChannel)
         - members: `DistributionRecipientEntry`[]
-          - content @Form(role, organization), contact, access, subscription, backup
+          - content @Form(recipientRef, role, organization), contact, access, subscription, backup
           - preferences: `DistributionRecipientPreferences`[]
             - content @Form(distributionMethod, preferredFormat, preferredLanguage, digestPreference, notificationPreference)
     - `ChangeProcedure`
@@ -445,7 +445,7 @@
       - otherAgreements: `OtherAgreementEntry`[]
         - content @Form(agreementType, parties, effectiveDate, expirationDate, location, keyTerms, obligations)
     - stakeholderRegister: `StakeholderRegisterEntry`[]
-      - content @Form(influence, concerns, engagementStrategy, role, interest)
+      - content @Form(stakeholderType, influence, concerns, engagementStrategy, role, interest)
     - `ReviewTeam`
       - content
       - members: `ReviewTeamMember`[]

@@ -694,6 +694,8 @@ document:
               ACID identification:
                 actorType: |2-
                   Human
+                actorKind: |2-
+                  human
                 category: |2-
                   Primary
                 organizationalUnit: |2-
@@ -710,6 +712,8 @@ document:
               ACID identification:
                 actorType: |2-
                   Human
+                actorKind: |2-
+                  human
                 category: |2-
                   Primary
                 organizationalUnit: |2-
@@ -726,6 +730,8 @@ document:
               ACID identification:
                 actorType: |2-
                   Human
+                actorKind: |2-
+                  human
                 category: |2-
                   Supporting
                 organizationalUnit: |2-
@@ -742,6 +748,8 @@ document:
               ACID identification:
                 actorType: |2-
                   System
+                actorKind: |2-
+                  internalSystem
                 category: |2-
                   Primary
                 organizationalUnit: |2-
@@ -2657,7 +2665,7 @@ document:
                       Order Clerk, Order Supervisor
                 SCETR traceability:
                   relatedUseCases: |2-
-                    UC-01, UC-02
+                    INEN-INTE-UC-01, INEN-INTE-UC-02
                   relatedRequirements: |2-
                     FRE-REQU-ORDER-CAPTURE, FRE-REQU-CONFIRM-SLA, FRE-REQU-HOLD-RELEASE
                   dataEntities: |2-
@@ -2807,7 +2815,7 @@ document:
                       Order Clerk, Order Supervisor
                 SCETR traceability:
                   relatedUseCases: |2-
-                    UC-02, UC-03
+                    INEN-INTE-UC-02, INEN-INTE-UC-03
                   relatedRequirements: |2-
                     FRE-REQU-AMEND-CANCEL, FRE-REQU-HOLD-RELEASE
                   dataEntities: |2-

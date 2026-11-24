@@ -12497,9 +12497,13 @@ static void meta_build_acceptance_criteria_summary_detailed_criteria(SomMetaNode
   meta_set(&n->type_name, "AcceptanceCriteriaList");
   n->has_serialization_order = 1;
   n->serialization_order = 5;
-  meta_set(&n->doc_comment, "Canonical, enumerated acceptance criteria (SR-54 explicit link).\n\nThe single source of truth for the full set of traceable acceptance\ncriteria; this summary references — rather than duplicates — it. The same\n[AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.");
+  meta_set(&n->doc_comment, "Canonical, enumerated acceptance criteria (SR-54 explicit link).\n\nA copy of the acceptance criteria the acceptance plan holds (the QAP-CRI\nseed; in the Quality & Acceptance Plan its root's acceptance criteria):\nit is not edited here — `deriveFields` writes it from the holder, and\nthe rendition marks it as a copy (S1, `@SameAs`).");
   meta_set(&n->class_doc_comment, "14.2.1. Acceptance Criteria.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("SameAs");
+  n->extra[0].args = som_json_parse("{\"note\":\"S1: the acceptance plan holds the acceptance criteria; the summary carries their copy.\"}", NULL);
 }
 static void meta_build_acceptance_criteria_summary_acceptance_test_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "AcceptanceCriteriaSummary");
@@ -12662,7 +12666,7 @@ static void meta_build_acceptance_plan_warranty(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 6;
   meta_set(&n->doc_comment, "14.2.6. Warranty.");
-  meta_set(&n->class_doc_comment, "14.2.6. Warranty.\n\nPost-acceptance warranty terms: duration, scope, service levels,\nexclusions, and transition to standard support.");
+  meta_set(&n->class_doc_comment, "14.2.6. Warranty.\n\nPost-acceptance warranty terms: duration, scope, service levels,\nexclusions, and transition to standard support.\n\nLinks: `WACO.coveredDeliverables` names `DLVEN`, one-way.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
 }
 static void meta_build_acceptance_process_content(SomMetaNode *n) {
@@ -15053,50 +15057,62 @@ static void meta_build_actor_entry_identification(SomMetaNode *n) {
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Actor identification.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 7;
-  n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 8;
+  n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("actorType");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Actor Type — human user, system, external system, scheduled");
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("State whether the actor is a person, system or scheduled job");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("category");
-  n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Category — primary, secondary, supporting, offstage");
+  n->form->fields[1].name = som_strdup("actorKind");
+  n->form->fields[1].type_name = som_strdup("ActorKind");
+  n->form->fields[1].description = som_strdup("Actor Kind");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Classify using Cockburn primary/secondary/supporting/offstage");
+  n->form->fields[1].hint = som_strdup("Human, internal system, external system or scheduled — the kind the actor overview counts by");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("realWorldExamples");
+  n->form->fields[1].enum_values_len = 4;
+  n->form->fields[1].enum_values = (char **)calloc(4, sizeof(char *));
+  n->form->fields[1].enum_values[0] = som_strdup("human");
+  n->form->fields[1].enum_values[1] = som_strdup("internalSystem");
+  n->form->fields[1].enum_values[2] = som_strdup("externalSystem");
+  n->form->fields[1].enum_values[3] = som_strdup("scheduled");
+  n->form->fields[2].name = som_strdup("category");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Real World Examples — who fills this role");
+  n->form->fields[2].description = som_strdup("Category — primary, secondary, supporting, offstage");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Name concrete job titles or people that fill this role");
+  n->form->fields[2].hint = som_strdup("Classify using Cockburn primary/secondary/supporting/offstage");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("organizationalUnit");
+  n->form->fields[3].name = som_strdup("realWorldExamples");
   n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Organizational Unit — department or team");
+  n->form->fields[3].description = som_strdup("Real World Examples — who fills this role");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Identify the department or team the actor belongs to");
+  n->form->fields[3].hint = som_strdup("Name concrete job titles or people that fill this role");
   n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("estimatedCount");
+  n->form->fields[4].name = som_strdup("organizationalUnit");
   n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Estimated Count — how many users in this role");
+  n->form->fields[4].description = som_strdup("Organizational Unit — department or team");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Estimate the number of individuals in this role");
+  n->form->fields[4].hint = som_strdup("Identify the department or team the actor belongs to");
   n->form->fields[4].order = 4;
-  n->form->fields[5].name = som_strdup("geographicDistribution");
+  n->form->fields[5].name = som_strdup("estimatedCount");
   n->form->fields[5].type_name = som_strdup("String");
-  n->form->fields[5].description = som_strdup("Geographic Distribution — where actors are located");
+  n->form->fields[5].description = som_strdup("Estimated Count — how many users in this role");
   n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("Note the locations or regions where actors operate");
+  n->form->fields[5].hint = som_strdup("Estimate the number of individuals in this role");
   n->form->fields[5].order = 5;
-  n->form->fields[6].name = som_strdup("description");
+  n->form->fields[6].name = som_strdup("geographicDistribution");
   n->form->fields[6].type_name = som_strdup("String");
-  n->form->fields[6].description = som_strdup("Description — role purpose");
+  n->form->fields[6].description = som_strdup("Geographic Distribution — where actors are located");
   n->form->fields[6].required = 0;
-  n->form->fields[6].hint = som_strdup("Explain the actor’s purpose in one or two sentences");
+  n->form->fields[6].hint = som_strdup("Note the locations or regions where actors operate");
   n->form->fields[6].order = 6;
+  n->form->fields[7].name = som_strdup("description");
+  n->form->fields[7].type_name = som_strdup("String");
+  n->form->fields[7].description = som_strdup("Description — role purpose");
+  n->form->fields[7].required = 0;
+  n->form->fields[7].hint = som_strdup("Explain the actor’s purpose in one or two sentences");
+  n->form->fields[7].order = 7;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -19824,20 +19840,29 @@ static void meta_build_architecture_decision_record_relations(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Related Decisions");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Other ADRs related to this one");
+  n->form->fields[0].hint = som_strdup("Other decisions related to this one — architecture decision section ids (ARDE-DECI-…), comma-separated; each names this decision back");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("ARDE.@sectionId");
   n->form->fields[1].name = som_strdup("supersedes");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Supersedes");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Previous decisions this supersedes");
+  n->form->fields[1].hint = som_strdup("Previous decisions this one supersedes — architecture decision section ids, comma-separated; each names this decision in its supersededBy");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("ARDE.@sectionId");
   n->form->fields[2].name = som_strdup("supersededBy");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Superseded By");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Decision that supersedes this one");
+  n->form->fields[2].hint = som_strdup("The decision that supersedes this one — an architecture decision section id; it names this decision in its supersedes");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("ARDE.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -20118,8 +20143,11 @@ static void meta_build_architecture_principle_entry_governance(SomMetaNode *n) {
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Related Principles");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Other principles that relate to this one");
+  n->form->fields[4].hint = som_strdup("Other principles related to this one — architecture principle section ids (ARPR-PRIN-…), comma-separated; each names this principle back");
   n->form->fields[4].order = 4;
+  n->form->fields[4].refers_to_len = 1;
+  n->form->fields[4].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[4].refers_to[0] = som_strdup("ARPR.@sectionId");
   n->form->fields[5].name = som_strdup("notes");
   n->form->fields[5].type_name = som_strdup("String");
   n->form->fields[5].description = som_strdup("Notes");
@@ -20176,8 +20204,8 @@ static void meta_build_architecture_style_principles_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "ARPR");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ArchitecturePrincipleEntry");
-  meta_set(&n->doc_comment, "Architecture principle entry.");
-  meta_set(&n->class_doc_comment, "Architecture principle entry.");
+  meta_set(&n->doc_comment, "Architecture principle entry.\n\nLinks: `ARPRENGO.relatedPrinciples` names `ARPR` entries, stored on both\n(`InverseOf.symmetric`).");
+  meta_set(&n->class_doc_comment, "Architecture principle entry.\n\nLinks: `ARPRENGO.relatedPrinciples` names `ARPR` entries, stored on both\n(`InverseOf.symmetric`).");
 }
 static void meta_build_architecture_style_component_organization(SomMetaNode *n) {
   meta_set(&n->class_name, "ComponentOrganization");
@@ -20314,8 +20342,8 @@ static void meta_build_architecture_style_decision_records_elem(SomMetaNode *n) 
   meta_set(&n->class_section_id, "ARDE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ArchitectureDecisionRecord");
-  meta_set(&n->doc_comment, "Architecture Decision Record (ADR) entry.");
-  meta_set(&n->class_doc_comment, "Architecture Decision Record (ADR) entry.");
+  meta_set(&n->doc_comment, "Architecture Decision Record (ADR) entry.\n\nLinks: `ADRR.relatedDecisions` names `ARDE` entries, stored on both\n(`InverseOf.symmetric`); `ADRR.supersedes` names `ARDE`, answered by\n`ADRR.supersededBy` at the other end; `ADRR.supersededBy` names `ARDE`,\nanswered by `ADRR.supersedes` at the other end.");
+  meta_set(&n->class_doc_comment, "Architecture Decision Record (ADR) entry.\n\nLinks: `ADRR.relatedDecisions` names `ARDE` entries, stored on both\n(`InverseOf.symmetric`); `ADRR.supersedes` names `ARDE`, answered by\n`ADRR.supersededBy` at the other end; `ADRR.supersededBy` names `ARDE`,\nanswered by `ADRR.supersedes` at the other end.");
 }
 static void meta_build_assumption_constraint_dependency_register_content(SomMetaNode *n) {
   meta_set(&n->class_name, "AssumptionConstraintDependencyRegister");
@@ -26451,8 +26479,11 @@ static void meta_build_business_object_entry_domain_context(SomMetaNode *n) {
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Related Objects");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Key related business objects");
+  n->form->fields[4].hint = som_strdup("Key related business objects — business object section ids (BJOEN-OBJE-…), comma-separated");
   n->form->fields[4].order = 4;
+  n->form->fields[4].refers_to_len = 1;
+  n->form->fields[4].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[4].refers_to[0] = som_strdup("BJOEN.@sectionId");
 }
 static void meta_build_business_object_entry_lifecycle_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessObjectEntry");
@@ -26768,8 +26799,8 @@ static void meta_build_business_object_model_objects_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "BJOEN");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "BusinessObjectEntry");
-  meta_set(&n->doc_comment, "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.");
-  meta_set(&n->class_doc_comment, "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.");
+  meta_set(&n->doc_comment, "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.\n\nLinks: `BJOEN-DOMA.relatedObjects` names `BJOEN`, one-way.");
+  meta_set(&n->class_doc_comment, "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.\n\nLinks: `BJOEN-DOMA.relatedObjects` names `BJOEN`, one-way.");
   meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_business_object_model_object_diagram(SomMetaNode *n) {
@@ -30741,8 +30772,8 @@ static void meta_build_ci_cd_pipeline_configuration_jobs_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "PJE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "PipelineJobEntry");
-  meta_set(&n->doc_comment, "Pipeline job entry.");
-  meta_set(&n->class_doc_comment, "Pipeline job entry.");
+  meta_set(&n->doc_comment, "Pipeline job entry.\n\nLinks: `PJE.parentStage` names `PSE`, one-way; `PJED.dependsOn` names `PJE`,\none-way.");
+  meta_set(&n->class_doc_comment, "Pipeline job entry.\n\nLinks: `PJE.parentStage` names `PSE`, one-way; `PJED.dependsOn` names `PJE`,\none-way.");
 }
 static void meta_build_ci_cd_pipeline_configuration_environments(SomMetaNode *n) {
   meta_set(&n->class_name, "CiCdPipelineConfiguration");
@@ -37346,8 +37377,8 @@ static void meta_build_component_risk_assessment_risks_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "CMRS");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ComponentRiskEntry");
-  meta_set(&n->doc_comment, "A component risk entry (form).\n\nDocuments one component risk: category, probability, impact, detection\nmethods, mitigation strategy and status, residual risk, and ownership.");
-  meta_set(&n->class_doc_comment, "A component risk entry (form).\n\nDocuments one component risk: category, probability, impact, detection\nmethods, mitigation strategy and status, residual risk, and ownership.");
+  meta_set(&n->doc_comment, "A component risk entry (form).\n\nDocuments one component risk: category, probability, impact, detection\nmethods, mitigation strategy and status, residual risk, and ownership.\n\nLinks: `CORIENGO.relatedRisks` is stored on both entries\n(`InverseOf.symmetric`).");
+  meta_set(&n->class_doc_comment, "A component risk entry (form).\n\nDocuments one component risk: category, probability, impact, detection\nmethods, mitigation strategy and status, residual risk, and ownership.\n\nLinks: `CORIENGO.relatedRisks` is stored on both entries\n(`InverseOf.symmetric`).");
 }
 static void meta_build_component_risk_assessment_contingency_plans(SomMetaNode *n) {
   meta_set(&n->class_name, "ContingencyPlans");
@@ -41626,8 +41657,8 @@ static void meta_build_current_workflow_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 5;
-  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 8;
+  n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("workflowId");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Workflow ID (internal identifier)");
@@ -41658,6 +41689,24 @@ static void meta_build_current_workflow_entry_content(SomMetaNode *n) {
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("");
   n->form->fields[4].order = 4;
+  n->form->fields[5].name = som_strdup("stepCount");
+  n->form->fields[5].type_name = som_strdup("int");
+  n->form->fields[5].description = som_strdup("Number of Steps");
+  n->form->fields[5].required = 0;
+  n->form->fields[5].hint = som_strdup("The number of the workflow's steps (WSE-STEP-LST)");
+  n->form->fields[5].order = 5;
+  n->form->fields[6].name = som_strdup("manualStepCount");
+  n->form->fields[6].type_name = som_strdup("int");
+  n->form->fields[6].description = som_strdup("Manual Steps");
+  n->form->fields[6].required = 0;
+  n->form->fields[6].hint = som_strdup("The number of its steps marked manual");
+  n->form->fields[6].order = 6;
+  n->form->fields[7].name = som_strdup("errorProneStepCount");
+  n->form->fields[7].type_name = som_strdup("int");
+  n->form->fields[7].description = som_strdup("Error-Prone Steps");
+  n->form->fields[7].required = 0;
+  n->form->fields[7].hint = som_strdup("The number of its steps marked error-prone");
+  n->form->fields[7].order = 7;
 }
 static void meta_build_current_workflow_entry_workflow_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentWorkflowEntry");
@@ -41945,18 +41994,20 @@ static void meta_build_custom_distribution_group_members(SomMetaNode *n) {
   n->serialization_order = 1;
   meta_set(&n->content_help, "Add one entry per recipient in this group, capturing their role, contact information, preferences, and access levels.");
   meta_set(&n->doc_comment, "Group members.");
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"PMBOK — communications management (stakeholder communication & distribution)\"],\"connotation\":\"The set of recipients belonging to this custom distribution group.\"}", NULL);
+  n->extra[1].annotation = som_strdup("SummaryOf");
+  n->extra[1].args = som_json_parse("{\"detail\":\"FUDI/DSRC-ITEM-LST\",\"match\":\"DSRC.recipientRef\",\"relation\":\"LinkRelation.subset\",\"repeats\":{},\"note\":\"a custom group's members are a selection of the full distribution; a member repeats the values of the recipient it names\"}", NULL);
 }
 static void meta_build_custom_distribution_group_members_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "DistributionRecipientEntry");
   meta_set(&n->class_section_id, "DSRC");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DistributionRecipientEntry");
-  meta_set(&n->doc_comment, "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.");
-  meta_set(&n->class_doc_comment, "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.");
+  meta_set(&n->doc_comment, "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.\nThe full distribution (`FUDI`) holds the recipients; the executive-summary\nlist and a custom group's members are selections of it: there\n`recipientRef` names the full-distribution recipient an entry is (a\n`DSRC-ITEM-…` section id of `FUDI`) and the entry's other values repeat\nthat recipient's. In the full distribution `recipientRef` stays empty.");
+  meta_set(&n->class_doc_comment, "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.\nThe full distribution (`FUDI`) holds the recipients; the executive-summary\nlist and a custom group's members are selections of it: there\n`recipientRef` names the full-distribution recipient an entry is (a\n`DSRC-ITEM-…` section id of `FUDI`) and the entry's other values repeat\nthat recipient's. In the full distribution `recipientRef` stays empty.");
 }
 static void meta_build_custom_metric_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "CustomMetricEntry");
@@ -42223,7 +42274,7 @@ static void meta_build_d01_current_landscape_assessment_header(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
-  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
+  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
 }
 static void meta_build_d01_current_landscape_assessment_review_team(SomMetaNode *n) {
   meta_set(&n->class_name, "ReviewTeam");
@@ -42386,7 +42437,7 @@ static void meta_build_d02_target_operating_model_header(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
-  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
+  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
 }
 static void meta_build_d02_target_operating_model_review_team(SomMetaNode *n) {
   meta_set(&n->class_name, "ReviewTeam");
@@ -42581,7 +42632,7 @@ static void meta_build_d03_information_model_header(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
-  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
+  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
 }
 static void meta_build_d03_information_model_review_team(SomMetaNode *n) {
   meta_set(&n->class_name, "ReviewTeam");
@@ -42636,8 +42687,8 @@ static void meta_build_d03_information_model_entities_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "DAENT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DataEntityEntry");
-  meta_set(&n->doc_comment, "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.");
-  meta_set(&n->class_doc_comment, "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.");
+  meta_set(&n->doc_comment, "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.\n\nLinks: `DAENT-RELA.parentEntities` names `DAENT.entityName`, one-way.");
+  meta_set(&n->class_doc_comment, "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.\n\nLinks: `DAENT-RELA.parentEntities` names `DAENT.entityName`, one-way.");
   meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_d03_information_model_entity_relationships(SomMetaNode *n) {
@@ -42694,8 +42745,8 @@ static void meta_build_d03_information_model_object_catalog_elem(SomMetaNode *n)
   meta_set(&n->class_section_id, "BJOEN");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "BusinessObjectEntry");
-  meta_set(&n->doc_comment, "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.");
-  meta_set(&n->class_doc_comment, "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.");
+  meta_set(&n->doc_comment, "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.\n\nLinks: `BJOEN-DOMA.relatedObjects` names `BJOEN`, one-way.");
+  meta_set(&n->class_doc_comment, "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.\n\nLinks: `BJOEN-DOMA.relatedObjects` names `BJOEN`, one-way.");
   meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_d03_information_model_object_diagram(SomMetaNode *n) {
@@ -42726,8 +42777,8 @@ static void meta_build_d03_information_model_function_decomposition_elem(SomMeta
   meta_set(&n->class_section_id, "FUNCT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "FunctionEntry");
-  meta_set(&n->doc_comment, "A function entry (form).\n\nBusiness function specification in the functional decomposition.");
-  meta_set(&n->class_doc_comment, "A function entry (form).\n\nBusiness function specification in the functional decomposition.");
+  meta_set(&n->doc_comment, "A function entry (form).\n\nBusiness function specification in the functional decomposition.\n\nLinks: `FUNCT.parentFunction` names `FUNCT`, one-way.");
+  meta_set(&n->class_doc_comment, "A function entry (form).\n\nBusiness function specification in the functional decomposition.\n\nLinks: `FUNCT.parentFunction` names `FUNCT`, one-way.");
   meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_d03_information_model_function_to_data_matrix(SomMetaNode *n) {
@@ -42902,7 +42953,7 @@ static void meta_build_d04_requirements_specification_header(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
-  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
+  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
 }
 static void meta_build_d04_requirements_specification_review_team(SomMetaNode *n) {
   meta_set(&n->class_name, "ReviewTeam");
@@ -43054,7 +43105,7 @@ static void meta_build_d05_interaction_scenarios_header(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
-  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
+  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
 }
 static void meta_build_d05_interaction_scenarios_review_team(SomMetaNode *n) {
   meta_set(&n->class_name, "ReviewTeam");
@@ -43205,7 +43256,7 @@ static void meta_build_d06_architecture_technology_specification_header(SomMetaN
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
-  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
+  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
 }
 static void meta_build_d06_architecture_technology_specification_review_team(SomMetaNode *n) {
   meta_set(&n->class_name, "ReviewTeam");
@@ -43411,7 +43462,7 @@ static void meta_build_d07_integration_interface_specification_header(SomMetaNod
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
-  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
+  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
 }
 static void meta_build_d07_integration_interface_specification_review_team(SomMetaNode *n) {
   meta_set(&n->class_name, "ReviewTeam");
@@ -43614,7 +43665,7 @@ static void meta_build_d08_security_access_specification_header(SomMetaNode *n) 
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
-  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
+  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
 }
 static void meta_build_d08_security_access_specification_review_team(SomMetaNode *n) {
   meta_set(&n->class_name, "ReviewTeam");
@@ -43781,7 +43832,7 @@ static void meta_build_d09_experience_design_specification_header(SomMetaNode *n
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
-  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
+  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
 }
 static void meta_build_d09_experience_design_specification_review_team(SomMetaNode *n) {
   meta_set(&n->class_name, "ReviewTeam");
@@ -44009,7 +44060,7 @@ static void meta_build_d10_quality_acceptance_plan_header(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
-  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
+  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
 }
 static void meta_build_d10_quality_acceptance_plan_review_team(SomMetaNode *n) {
   meta_set(&n->class_name, "ReviewTeam");
@@ -44271,7 +44322,7 @@ static void meta_build_d10_quality_acceptance_plan_warranty(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 22;
   meta_set(&n->doc_comment, "Warranty terms.");
-  meta_set(&n->class_doc_comment, "14.2.6. Warranty.\n\nPost-acceptance warranty terms: duration, scope, service levels,\nexclusions, and transition to standard support.");
+  meta_set(&n->class_doc_comment, "14.2.6. Warranty.\n\nPost-acceptance warranty terms: duration, scope, service levels,\nexclusions, and transition to standard support.\n\nLinks: `WACO.coveredDeliverables` names `DLVEN`, one-way.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
 }
 static void meta_build_d11_delivery_roadmap_content(SomMetaNode *n) {
@@ -44296,7 +44347,7 @@ static void meta_build_d11_delivery_roadmap_header(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
-  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
+  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
 }
 static void meta_build_d11_delivery_roadmap_review_team(SomMetaNode *n) {
   meta_set(&n->class_name, "ReviewTeam");
@@ -44375,8 +44426,8 @@ static void meta_build_d11_delivery_roadmap_stages_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "STAGE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "StageEntry");
-  meta_set(&n->doc_comment, "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.");
-  meta_set(&n->class_doc_comment, "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.");
+  meta_set(&n->doc_comment, "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.\n\nLinks: `STSC.includedFeatures` names `FPE`, one-way.");
+  meta_set(&n->class_doc_comment, "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.\n\nLinks: `STSC.includedFeatures` names `FPE`, one-way.");
   meta_set(&n->detailed_in, "D11DeliveryRoadmap");
 }
 static void meta_build_d11_delivery_roadmap_feature_prioritization(SomMetaNode *n) {
@@ -44473,7 +44524,7 @@ static void meta_build_d12_transition_rollout_plan_header(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
-  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
+  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
 }
 static void meta_build_d12_transition_rollout_plan_review_team(SomMetaNode *n) {
   meta_set(&n->class_name, "ReviewTeam");
@@ -44693,7 +44744,7 @@ static void meta_build_d13_code_specs_projection_header(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
-  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
+  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
 }
 static void meta_build_d13_code_specs_projection_domain_enum_registry(SomMetaNode *n) {
   meta_set(&n->class_name, "DomainEnumRegistry");
@@ -47093,8 +47144,11 @@ static void meta_build_data_entity_entry_relationship_summary(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Parent Entities");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Entities this depends on (e.g., Order depends on Customer)");
+  n->form->fields[0].hint = som_strdup("Entities this depends on (e.g., Order depends on Customer) — entity names declared in the entity registry (DAENT), comma-separated");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("DAENT.entityName");
   n->form->fields[1].name = som_strdup("childEntities");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Child Entities");
@@ -48504,7 +48558,7 @@ static void meta_build_data_migration_strategy_scope(SomMetaNode *n) {
   n->form->fields[1].name = som_strdup("totalSourceSystems");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Total Source Systems");
-  n->form->fields[1].required = 1;
+  n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Number of source systems involved");
   n->form->fields[1].order = 1;
   n->form->fields[2].name = som_strdup("totalDataVolume");
@@ -49056,8 +49110,8 @@ static void meta_build_data_model_entities_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "DAENT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DataEntityEntry");
-  meta_set(&n->doc_comment, "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.");
-  meta_set(&n->class_doc_comment, "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.");
+  meta_set(&n->doc_comment, "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.\n\nLinks: `DAENT-RELA.parentEntities` names `DAENT.entityName`, one-way.");
+  meta_set(&n->class_doc_comment, "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.\n\nLinks: `DAENT-RELA.parentEntities` names `DAENT.entityName`, one-way.");
   meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_data_model_entity_relationships(SomMetaNode *n) {
@@ -53511,7 +53565,7 @@ static void meta_build_delivery_acceptance_criterion_entry_traceability(SomMetaN
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Test Scenario Reference");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("The UAT scenarios that validate this criterion — test scenario section ids (TSSC-TEST-…), comma-separated");
+  n->form->fields[2].hint = som_strdup("The UAT scenarios that validate this criterion — test scenario section ids (TSSC-TEST-…), comma-separated; each scenario names this criterion back in its acceptanceCriterionRef");
   n->form->fields[2].order = 2;
   n->form->fields[2].refers_to_len = 1;
   n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
@@ -55758,8 +55812,11 @@ static void meta_build_design_goal_entry_content(SomMetaNode *n) {
   n->form->fields[5].type_name = som_strdup("String");
   n->form->fields[5].description = som_strdup("Related Principles");
   n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("Design principles that support this goal");
+  n->form->fields[5].hint = som_strdup("Design principles that support this goal — design principle section ids (DPEN-ITEM-…), comma-separated; each names this goal back");
   n->form->fields[5].order = 5;
+  n->form->fields[5].refers_to_len = 1;
+  n->form->fields[5].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[5].refers_to[0] = som_strdup("DPEN.@sectionId");
 }
 static void meta_build_design_goals_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DesignGoals");
@@ -55807,8 +55864,8 @@ static void meta_build_design_goals_items_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "DGOEN");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DesignGoalEntry");
-  meta_set(&n->doc_comment, "A design goal entry (form).\n\nEach goal represents a measurable UI objective with success criteria.");
-  meta_set(&n->class_doc_comment, "A design goal entry (form).\n\nEach goal represents a measurable UI objective with success criteria.");
+  meta_set(&n->doc_comment, "A design goal entry (form).\n\nEach goal represents a measurable UI objective with success criteria.\n\nLinks: `DGOEN.relatedPrinciples` names `DPEN`, answered by\n`DPEN.relatedGoals` at the other end.");
+  meta_set(&n->class_doc_comment, "A design goal entry (form).\n\nEach goal represents a measurable UI objective with success criteria.\n\nLinks: `DGOEN.relatedPrinciples` names `DPEN`, answered by\n`DPEN.relatedGoals` at the other end.");
 }
 static void meta_build_design_pattern_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DesignPatternEntry");
@@ -55961,8 +56018,11 @@ static void meta_build_design_pattern_entry_context(SomMetaNode *n) {
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Related Patterns");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Other patterns commonly used with this one");
+  n->form->fields[1].hint = som_strdup("Other patterns commonly used with this one — design pattern section ids (DSPT-DESI-…), comma-separated; each names this pattern back");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("DSPT.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -56049,8 +56109,8 @@ static void meta_build_design_patterns_and_standards_design_patterns_elem(SomMet
   meta_set(&n->class_section_id, "DSPT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DesignPatternEntry");
-  meta_set(&n->doc_comment, "Design pattern entry — a specific design pattern to be used.");
-  meta_set(&n->class_doc_comment, "Design pattern entry — a specific design pattern to be used.");
+  meta_set(&n->doc_comment, "Design pattern entry — a specific design pattern to be used.\n\nLinks: `DEPAENCO.relatedPatterns` names `DSPT` entries, stored on both\n(`InverseOf.symmetric`).");
+  meta_set(&n->class_doc_comment, "Design pattern entry — a specific design pattern to be used.\n\nLinks: `DEPAENCO.relatedPatterns` names `DSPT` entries, stored on both\n(`InverseOf.symmetric`).");
 }
 static void meta_build_design_patterns_and_standards_coding_standards(SomMetaNode *n) {
   meta_set(&n->class_name, "DesignPatternsAndStandards");
@@ -56219,8 +56279,11 @@ static void meta_build_design_principle_entry_content(SomMetaNode *n) {
   n->form->fields[6].type_name = som_strdup("String");
   n->form->fields[6].description = som_strdup("Related Goals");
   n->form->fields[6].required = 0;
-  n->form->fields[6].hint = som_strdup("Design goals this principle supports");
+  n->form->fields[6].hint = som_strdup("Design goals this principle supports — design goal section ids (DGOEN-ITEM-…), comma-separated; each names this principle back");
   n->form->fields[6].order = 6;
+  n->form->fields[6].refers_to_len = 1;
+  n->form->fields[6].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[6].refers_to[0] = som_strdup("DGOEN.@sectionId");
 }
 static void meta_build_design_principles_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DesignPrinciples");
@@ -56268,8 +56331,8 @@ static void meta_build_design_principles_items_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "DPEN");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DesignPrincipleEntry");
-  meta_set(&n->doc_comment, "A design principle entry (form).\n\nEach principle guides UI decisions with rationale and examples.");
-  meta_set(&n->class_doc_comment, "A design principle entry (form).\n\nEach principle guides UI decisions with rationale and examples.");
+  meta_set(&n->doc_comment, "A design principle entry (form).\n\nEach principle guides UI decisions with rationale and examples.\n\nLinks: `DPEN.relatedGoals` names `DGOEN`, answered by\n`DGOEN.relatedPrinciples` at the other end.");
+  meta_set(&n->class_doc_comment, "A design principle entry (form).\n\nEach principle guides UI decisions with rationale and examples.\n\nLinks: `DPEN.relatedGoals` names `DGOEN`, answered by\n`DGOEN.relatedPrinciples` at the other end.");
 }
 static void meta_build_design_vision_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DesignVision");
@@ -58135,20 +58198,29 @@ static void meta_build_distribution_recipient_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 2;
-  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("role");
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("recipientRef");
   n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Role");
+  n->form->fields[0].description = som_strdup("Recipient");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Project or organizational role");
+  n->form->fields[0].hint = som_strdup("Only in the executive-summary list and a custom group's members: the full-distribution recipient this entry is — a recipient section id (DSRC-ITEM-… of the full distribution), whose values this entry repeats; empty in the full distribution");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("organization");
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("DSRC.@sectionId");
+  n->form->fields[1].name = som_strdup("role");
   n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Organization");
+  n->form->fields[1].description = som_strdup("Role");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Department or company");
+  n->form->fields[1].hint = som_strdup("Project or organizational role");
   n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("organization");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Organization");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Department or company");
+  n->form->fields[2].order = 2;
 }
 static void meta_build_distribution_recipient_entry_contact(SomMetaNode *n) {
   meta_set(&n->class_name, "DistributionRecipientEntry");
@@ -58939,7 +59011,7 @@ static void meta_build_document_control_header(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Document header form (id, project, version, date, author, status).");
-  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
+  meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.");
 }
 static void meta_build_document_control_revision_history(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentControl");
@@ -59027,19 +59099,19 @@ static void meta_build_document_header_content(SomMetaNode *n) {
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Version");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("");
+  n->form->fields[2].hint = som_strdup("Derived from the newest revision entry; add a revision, not this field.");
   n->form->fields[2].order = 2;
   n->form->fields[3].name = som_strdup("date");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Date");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("");
+  n->form->fields[3].hint = som_strdup("Derived from the newest revision entry; add a revision, not this field.");
   n->form->fields[3].order = 3;
   n->form->fields[4].name = som_strdup("author");
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Author");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("");
+  n->form->fields[4].hint = som_strdup("Derived from the newest revision entry; add a revision, not this field.");
   n->form->fields[4].order = 4;
   n->form->fields[5].name = som_strdup("status");
   n->form->fields[5].type_name = som_strdup("String");
@@ -60401,8 +60473,11 @@ static void meta_build_domain_process_entry_flow(SomMetaNode *n) {
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Related Processes (processes that interact with this one)");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Other processes that interact with this one");
+  n->form->fields[3].hint = som_strdup("Other domain processes that interact with this one — domain process section ids (DOPREN-PROC-…), comma-separated; each names this process back");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("DOPREN.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -60509,8 +60584,8 @@ static void meta_build_domain_processes_processes_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "DOPREN");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DomainProcessEntry");
-  meta_set(&n->doc_comment, "A domain process entry (form).");
-  meta_set(&n->class_doc_comment, "A domain process entry (form).");
+  meta_set(&n->doc_comment, "A domain process entry (form).\n\nLinks: `DPEF.relatedProcesses` names `DOPREN` entries, stored on both\n(`InverseOf.symmetric`).");
+  meta_set(&n->class_doc_comment, "A domain process entry (form).\n\nLinks: `DPEF.relatedProcesses` names `DOPREN` entries, stored on both\n(`InverseOf.symmetric`).");
 }
 static void meta_build_domain_term_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DomainTermEntry");
@@ -60557,8 +60632,11 @@ static void meta_build_domain_term_entry_content(SomMetaNode *n) {
   n->form->fields[5].type_name = som_strdup("String");
   n->form->fields[5].description = som_strdup("Related Terms (linked concepts)");
   n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("Other terms or concepts linked to this one");
+  n->form->fields[5].hint = som_strdup("Other terms linked to this one — term section ids (DTE-TERM-…), comma-separated; each names this term back");
   n->form->fields[5].order = 5;
+  n->form->fields[5].refers_to_len = 1;
+  n->form->fields[5].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[5].refers_to[0] = som_strdup("DTE.@sectionId");
   n->form->fields[6].name = som_strdup("category");
   n->form->fields[6].type_name = som_strdup("String");
   n->form->fields[6].description = som_strdup("Category (Entity, Process, Role, Metric, Status, etc.)");
@@ -60613,8 +60691,8 @@ static void meta_build_domain_vocabulary_terms_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "DTE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DomainTermEntry");
-  meta_set(&n->doc_comment, "A domain term entry (form).");
-  meta_set(&n->class_doc_comment, "A domain term entry (form).");
+  meta_set(&n->doc_comment, "A domain term entry (form).\n\nLinks: `DTE.relatedTerms` names `DTE` entries, stored on both\n(`InverseOf.symmetric`).");
+  meta_set(&n->class_doc_comment, "A domain term entry (form).\n\nLinks: `DTE.relatedTerms` names `DTE` entries, stored on both\n(`InverseOf.symmetric`).");
 }
 static void meta_build_efficiency_content(SomMetaNode *n) {
   meta_set(&n->class_name, "Efficiency");
@@ -64692,18 +64770,20 @@ static void meta_build_executive_summary_distribution_items(SomMetaNode *n) {
   n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per executive-summary recipient, capturing their role, contact information, preferences, and access levels.");
   meta_set(&n->doc_comment, "Contains 0+× DistributionRecipient.");
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"PMBOK — communications management (stakeholder communication & distribution)\"],\"connotation\":\"The set of recipients in the executive-summary distribution group.\"}", NULL);
+  n->extra[1].annotation = som_strdup("SummaryOf");
+  n->extra[1].args = som_json_parse("{\"detail\":\"FUDI/DSRC-ITEM-LST\",\"match\":\"DSRC.recipientRef\",\"relation\":\"LinkRelation.subset\",\"repeats\":{},\"note\":\"the executive recipients are a selection of the full distribution; an entry repeats the values of the recipient it names\"}", NULL);
 }
 static void meta_build_executive_summary_distribution_items_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "DistributionRecipientEntry");
   meta_set(&n->class_section_id, "DSRC");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DistributionRecipientEntry");
-  meta_set(&n->doc_comment, "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.");
-  meta_set(&n->class_doc_comment, "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.");
+  meta_set(&n->doc_comment, "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.\nThe full distribution (`FUDI`) holds the recipients; the executive-summary\nlist and a custom group's members are selections of it: there\n`recipientRef` names the full-distribution recipient an entry is (a\n`DSRC-ITEM-…` section id of `FUDI`) and the entry's other values repeat\nthat recipient's. In the full distribution `recipientRef` stays empty.");
+  meta_set(&n->class_doc_comment, "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.\nThe full distribution (`FUDI`) holds the recipients; the executive-summary\nlist and a custom group's members are selections of it: there\n`recipientRef` names the full-distribution recipient an entry is (a\n`DSRC-ITEM-…` section id of `FUDI`) and the entry's other values repeat\nthat recipient's. In the full distribution `recipientRef` stays empty.");
 }
 static void meta_build_existing_system_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ExistingSystemEntry");
@@ -65958,8 +66038,11 @@ static void meta_build_export_format_entry_identity(SomMetaNode *n) {
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Related Data Entities");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("IFM entity references included in export");
+  n->form->fields[1].hint = som_strdup("Data entities included in the export — entity names declared in the entity registry (DAENT), comma-separated");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("DAENT.entityName");
   n->form->fields[2].name = som_strdup("dataSource");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Data Source");
@@ -68828,7 +68911,7 @@ static void meta_build_feature_prioritization_feature_dependencies(SomMetaNode *
   n->has_serialization_order = 1;
   n->serialization_order = 11;
   meta_set(&n->doc_comment, "13.4.4. Feature Dependencies.");
-  meta_set(&n->class_doc_comment, "13.4.4. Feature Dependencies.\n\nCross-feature dependencies affecting staging order, critical path\nanalysis, and delivery sequencing.");
+  meta_set(&n->class_doc_comment, "13.4.4. Feature Dependencies.\n\nCross-feature dependencies affecting staging order, critical path\nanalysis, and delivery sequencing. The rows are the holder of every\nfeature dependency: each feature's `FEDEIN.dependsOnFeatures` and\n`blocksFeatures` are derived from them.");
 }
 static void meta_build_feature_priority_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "FeaturePriorityEntry");
@@ -69195,7 +69278,7 @@ static void meta_build_feature_priority_entry_dependencies(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Depends on Features");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Features this requires — feature section ids (FPE-ITEM-…), comma-separated");
+  n->form->fields[0].hint = som_strdup("Derived from the feature dependency rows (FDE) whose source is this feature: the features it requires; edit the rows, not this field. Each names this feature back in its blocksFeatures.");
   n->form->fields[0].order = 0;
   n->form->fields[0].refers_to_len = 1;
   n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
@@ -69204,7 +69287,7 @@ static void meta_build_feature_priority_entry_dependencies(SomMetaNode *n) {
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Blocks Features");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Features blocked until this completes — feature section ids (FPE-ITEM-…), comma-separated");
+  n->form->fields[1].hint = som_strdup("Derived from the feature dependency rows (FDE) whose target is this feature: the features blocked until it completes; edit the rows, not this field. Each names this feature back in its dependsOnFeatures.");
   n->form->fields[1].order = 1;
   n->form->fields[1].refers_to_len = 1;
   n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
@@ -69450,7 +69533,7 @@ static void meta_build_feature_stage_mapping_assignment(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
-  meta_set(&n->doc_comment, "Stage assignment details.");
+  meta_set(&n->doc_comment, "The phase within its stage the feature is delivered in. The stage\nitself is the feature's (`FESTAS.targetStage`), reached through\n[content]'s `featureId`; the matrix does not restate it.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -69463,7 +69546,7 @@ static void meta_build_feature_stage_mapping_assignment(SomMetaNode *n) {
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing\",\"ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management\"],\"connotation\":\"Captures the target stage, stage phase, and fallback stage assigned to a feature.\"}", NULL);
+  n->extra[0].args = som_json_parse("{\"standards\":[\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing\",\"ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management\"],\"connotation\":\"Captures the phase within its stage a feature is delivered in; the stage itself is held by the feature.\"}", NULL);
 }
 static void meta_build_feature_stage_mapping_readiness(SomMetaNode *n) {
   meta_set(&n->class_name, "FeatureStageMapping");
@@ -69651,10 +69734,12 @@ static void meta_build_feature_stage_matrix_items(SomMetaNode *n) {
   n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per feature-stage mapping.");
   meta_set(&n->doc_comment, "Contains 0+× FeatureStageMapping.");
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing\",\"ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management\"],\"connotation\":\"Holds the collection of feature-to-stage mapping entries that make up the matrix.\"}", NULL);
+  n->extra[1].annotation = som_strdup("SummaryOf");
+  n->extra[1].args = som_json_parse("{\"detail\":\"FPE-ITEM-LST\",\"match\":\"FSM.featureId\",\"relation\":\"LinkRelation.equal\",\"repeats\":{},\"note\":\"the matrix maps every feature of the priority register\"}", NULL);
 }
 static void meta_build_feature_stage_matrix_items_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "FeatureStageMapping");
@@ -71172,8 +71257,8 @@ static void meta_build_full_distribution_items_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "DSRC");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DistributionRecipientEntry");
-  meta_set(&n->doc_comment, "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.");
-  meta_set(&n->class_doc_comment, "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.");
+  meta_set(&n->doc_comment, "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.\nThe full distribution (`FUDI`) holds the recipients; the executive-summary\nlist and a custom group's members are selections of it: there\n`recipientRef` names the full-distribution recipient an entry is (a\n`DSRC-ITEM-…` section id of `FUDI`) and the entry's other values repeat\nthat recipient's. In the full distribution `recipientRef` stays empty.");
+  meta_set(&n->class_doc_comment, "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.\nThe full distribution (`FUDI`) holds the recipients; the executive-summary\nlist and a custom group's members are selections of it: there\n`recipientRef` names the full-distribution recipient an entry is (a\n`DSRC-ITEM-…` section id of `FUDI`) and the entry's other values repeat\nthat recipient's. In the full distribution `recipientRef` stays empty.");
 }
 static void meta_build_function_data_matrix_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "FunctionDataMatrixEntry");
@@ -71250,8 +71335,11 @@ static void meta_build_function_entry_content(SomMetaNode *n) {
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Parent Function");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Parent function in hierarchy");
+  n->form->fields[1].hint = som_strdup("The parent function in the hierarchy — a function section id (FUNCT-FUNC-…)");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("FUNCT.@sectionId");
 }
 static void meta_build_function_entry_classification(SomMetaNode *n) {
   meta_set(&n->class_name, "FunctionEntry");
@@ -71490,8 +71578,8 @@ static void meta_build_function_model_functions_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "FUNCT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "FunctionEntry");
-  meta_set(&n->doc_comment, "A function entry (form).\n\nBusiness function specification in the functional decomposition.");
-  meta_set(&n->class_doc_comment, "A function entry (form).\n\nBusiness function specification in the functional decomposition.");
+  meta_set(&n->doc_comment, "A function entry (form).\n\nBusiness function specification in the functional decomposition.\n\nLinks: `FUNCT.parentFunction` names `FUNCT`, one-way.");
+  meta_set(&n->class_doc_comment, "A function entry (form).\n\nBusiness function specification in the functional decomposition.\n\nLinks: `FUNCT.parentFunction` names `FUNCT`, one-way.");
   meta_set(&n->detailed_in, "D03InformationModel");
 }
 static void meta_build_function_model_matrix_entries(SomMetaNode *n) {
@@ -71825,8 +71913,8 @@ static void meta_build_functional_requirement_entry_constraints(SomMetaNode *n) 
   n->serialization_order = 5;
   meta_set(&n->doc_comment, "Assumptions and constraints.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("assumptions");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Assumptions (conditions assumed to be true)");
@@ -71837,14 +71925,26 @@ static void meta_build_functional_requirement_entry_constraints(SomMetaNode *n) 
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Constraints (limitations on implementation)");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Limitations on how the requirement may be implemented");
+  n->form->fields[1].hint = som_strdup("Limitations on how this requirement may be implemented. A limit set by another requirement is a dependency row of type constrainedBy (shown in Constrained By).");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("conflictsWith");
+  n->form->fields[2].name = som_strdup("constrainedBy");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Conflicts With (IDs of conflicting requirements)");
+  n->form->fields[2].description = som_strdup("Constrained By (limits set by other requirements)");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("IDs of requirements this one conflicts with");
+  n->form->fields[2].hint = som_strdup("Derived from the dependency rows of type constrainedBy, one line per row; edit the rows, not this field.");
   n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("conflictsWith");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Conflicts With (IDs of conflicting requirements)");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("Derived from the dependency rows of type conflict: the ids of the requirements this one conflicts with; edit the rows, not this field.");
+  n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 4;
+  n->form->fields[3].refers_to = (char **)calloc(4, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("FRE.@sectionId");
+  n->form->fields[3].refers_to[1] = som_strdup("TERQ.@sectionId");
+  n->form->fields[3].refers_to[2] = som_strdup("SECRQ.@sectionId");
+  n->form->fields[3].refers_to[3] = som_strdup("ORRQ.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -71938,7 +72038,7 @@ static void meta_build_functional_requirement_entry_dependencies(SomMetaNode *n)
   n->has_serialization_order = 1;
   n->serialization_order = 11;
   meta_set(&n->doc_comment, "4.3.1.n.5. Dependencies.");
-  meta_set(&n->class_doc_comment, "4.3.1.n.5. Dependencies.\n\nDependencies this requirement has on other requirements.");
+  meta_set(&n->class_doc_comment, "4.3.1.n.5. Dependencies.\n\nDependencies this requirement has on other requirements. Each dependency\nis one row, stored once, on the requirement it applies to: a directional\ndependency (prerequisite, parent-child, refinement, constrained by) is not\nwritten again as its converse on the other requirement, which reaches it\nthrough navigation. A conflict and a bidirectional dependency stand at both\nends. The rows are the holder of every dependency; the requirement's\n`constrainedBy`, `conflictsWith` and `OREP.dependencies` are derived from\nthem.");
 }
 static void meta_build_functional_requirement_entry_traceability(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementTraceability");
@@ -71949,7 +72049,7 @@ static void meta_build_functional_requirement_entry_traceability(SomMetaNode *n)
   n->has_serialization_order = 1;
   n->serialization_order = 12;
   meta_set(&n->doc_comment, "4.3.1.n.6. Traceability.");
-  meta_set(&n->class_doc_comment, "4.3.1.n.6. Traceability.\n\nTraceability links to goals, use cases, processes, and other artifacts.");
+  meta_set(&n->class_doc_comment, "4.3.1.n.6. Traceability.\n\nTraceability links to goals, use cases, processes, and other artifacts.\n\nLinks: `RETRAR.relatedDocuments` names `RFDOC`, one-way.");
 }
 static void meta_build_functional_requirement_entry_test_cases(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementTestCases");
@@ -72337,8 +72437,11 @@ static void meta_build_gap_entry_discovery(SomMetaNode *n) {
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Related Pain Points");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("References to pain point entries that stem from this gap");
+  n->form->fields[4].hint = som_strdup("Pain points that stem from this gap — pain point section ids (PAPE-ITEM-…), comma-separated; each names this gap back in its relatedGaps");
   n->form->fields[4].order = 4;
+  n->form->fields[4].refers_to_len = 1;
+  n->form->fields[4].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[4].refers_to[0] = som_strdup("PAPE.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -72413,8 +72516,11 @@ static void meta_build_gap_entry_resolution(SomMetaNode *n) {
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Depends on Other Gaps");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Other gaps that must be resolved first, by name or ID");
+  n->form->fields[3].hint = som_strdup("Other gaps that must be resolved first — gap section ids (GAPE-ITEM-…), comma-separated");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("GAPE.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -78333,8 +78439,8 @@ static void meta_build_interaction_catalog_interactions_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "INEN");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InteractionEntry");
-  meta_set(&n->doc_comment, "An interaction entry.\n\nComprehensive interaction definition following Cockburn's fully dressed\nuse case template. Seeds the ISC (Interaction Scenarios) document.");
-  meta_set(&n->class_doc_comment, "An interaction entry.\n\nComprehensive interaction definition following Cockburn's fully dressed\nuse case template. Seeds the ISC (Interaction Scenarios) document.");
+  meta_set(&n->doc_comment, "An interaction entry.\n\nComprehensive interaction definition following Cockburn's fully dressed\nuse case template. Seeds the ISC (Interaction Scenarios) document.\n\nLinks: `UCSC.relatedUseCases` names `INEN`, one-way; `INTR.relatedUseCase`\nnames `INEN`, one-way; `INTR.relatedTestCases` names `TSSC`, `RQTSC`,\none-way.");
+  meta_set(&n->class_doc_comment, "An interaction entry.\n\nComprehensive interaction definition following Cockburn's fully dressed\nuse case template. Seeds the ISC (Interaction Scenarios) document.\n\nLinks: `UCSC.relatedUseCases` names `INEN`, one-way; `INTR.relatedUseCase`\nnames `INEN`, one-way; `INTR.relatedTestCases` names `TSSC`, `RQTSC`,\none-way.");
 }
 static void meta_build_interaction_catalog_prioritization(SomMetaNode *n) {
   meta_set(&n->class_name, "InteractionCatalog");
@@ -78717,8 +78823,8 @@ static void meta_build_interaction_entry_identification(SomMetaNode *n) {
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Interaction identification (use case header).");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 8;
-  n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 9;
+  n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("useCaseName");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Use Case Name — active verb goal phrase");
@@ -78764,12 +78870,24 @@ static void meta_build_interaction_entry_identification(SomMetaNode *n) {
   n->form->fields[6].required = 0;
   n->form->fields[6].hint = som_strdup("Cockburn level: + summary, ! user goal, - subfunction");
   n->form->fields[6].order = 6;
-  n->form->fields[7].name = som_strdup("designScope");
-  n->form->fields[7].type_name = som_strdup("String");
-  n->form->fields[7].description = som_strdup("Design Scope — organization, system, subsystem, component");
+  n->form->fields[7].name = som_strdup("priority");
+  n->form->fields[7].type_name = som_strdup("Priority");
+  n->form->fields[7].description = som_strdup("Priority");
   n->form->fields[7].required = 0;
-  n->form->fields[7].hint = som_strdup("Boundary in view: organization, system, subsystem, component");
+  n->form->fields[7].hint = som_strdup("MoSCoW band of this interaction — the interaction overview counts by it");
   n->form->fields[7].order = 7;
+  n->form->fields[7].enum_values_len = 4;
+  n->form->fields[7].enum_values = (char **)calloc(4, sizeof(char *));
+  n->form->fields[7].enum_values[0] = som_strdup("must");
+  n->form->fields[7].enum_values[1] = som_strdup("should");
+  n->form->fields[7].enum_values[2] = som_strdup("could");
+  n->form->fields[7].enum_values[3] = som_strdup("wontThisTime");
+  n->form->fields[8].name = som_strdup("designScope");
+  n->form->fields[8].type_name = som_strdup("String");
+  n->form->fields[8].description = som_strdup("Design Scope — organization, system, subsystem, component");
+  n->form->fields[8].required = 0;
+  n->form->fields[8].hint = som_strdup("Boundary in view: organization, system, subsystem, component");
+  n->form->fields[8].order = 8;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -78833,8 +78951,11 @@ static void meta_build_interaction_entry_scope_context(SomMetaNode *n) {
   n->form->fields[7].type_name = som_strdup("String");
   n->form->fields[7].description = som_strdup("Related Use Cases — includes, extends");
   n->form->fields[7].required = 0;
-  n->form->fields[7].hint = som_strdup("Use cases this one includes or extends");
+  n->form->fields[7].hint = som_strdup("Use cases (interactions) this one includes or extends — interaction section ids (INEN-INTE-…), comma-separated");
   n->form->fields[7].order = 7;
+  n->form->fields[7].refers_to_len = 1;
+  n->form->fields[7].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[7].refers_to[0] = som_strdup("INEN.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -79136,7 +79257,7 @@ static void meta_build_interaction_entry_traceability(SomMetaNode *n) {
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Related Requirements");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Requirement ids satisfied here, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)");
+  n->form->fields[1].hint = som_strdup("Requirement ids satisfied here, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…); a functional, technical or security requirement names this interaction back in its RT-TRAC.relatedUseCases");
   n->form->fields[1].order = 1;
   n->form->fields[1].refers_to_len = 4;
   n->form->fields[1].refers_to = (char **)calloc(4, sizeof(char *));
@@ -79150,6 +79271,9 @@ static void meta_build_interaction_entry_traceability(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Use cases of the Interaction Scenarios document, as text (e.g. UC-23) — another document's ids, not resolved in the Blueprint");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("INEN.@sectionId");
   n->form->fields[3].name = som_strdup("relatedDataEntities");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Related Data Entities — entity names");
@@ -79190,8 +79314,12 @@ static void meta_build_interaction_entry_traceability(SomMetaNode *n) {
   n->form->fields[7].type_name = som_strdup("String");
   n->form->fields[7].description = som_strdup("Related Test Cases — TC-xxx");
   n->form->fields[7].required = 0;
-  n->form->fields[7].hint = som_strdup("TC-xxx test cases covering this");
+  n->form->fields[7].hint = som_strdup("Test cases covering this interaction — test scenario or requirement test case section ids (TSSC-TEST-… / RQTSC-TEST-…), comma-separated");
   n->form->fields[7].order = 7;
+  n->form->fields[7].refers_to_len = 2;
+  n->form->fields[7].refers_to = (char **)calloc(2, sizeof(char *));
+  n->form->fields[7].refers_to[0] = som_strdup("TSSC.@sectionId");
+  n->form->fields[7].refers_to[1] = som_strdup("RQTSC.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -81514,7 +81642,7 @@ static void meta_build_iso25010_coverage_content(SomMetaNode *n) {
   n->serialization_order = 0;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
-  n->content_type->description = som_strdup("Summarize how the quality goals cover the eight ISO/IEC 25010:2023 characteristics. The taxonomy itself is owned by the SystemQualityGoals characteristic spine; this is a derived coverage view, not a second copy of the taxonomy.");
+  n->content_type->description = som_strdup("Summarize how the quality goals cover the eight ISO/IEC 25010:2023 characteristics. The taxonomy itself is owned by the SystemQualityGoals characteristic spine; this is a coverage view, not a second copy of the taxonomy.");
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.");
 }
 static void meta_build_iso25010_coverage_characteristics(SomMetaNode *n) {
@@ -82675,8 +82803,11 @@ static void meta_build_key_concept_entry_content(SomMetaNode *n) {
   n->form->fields[6].type_name = som_strdup("String");
   n->form->fields[6].description = som_strdup("Related Concepts (other concepts this relates to)");
   n->form->fields[6].required = 0;
-  n->form->fields[6].hint = som_strdup("Other concepts this one relates to");
+  n->form->fields[6].hint = som_strdup("Other concepts this one relates to — concept section ids (KECON-CONC-…), comma-separated; each names this concept back");
   n->form->fields[6].order = 6;
+  n->form->fields[6].refers_to_len = 1;
+  n->form->fields[6].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[6].refers_to[0] = som_strdup("KECON.@sectionId");
   n->form->fields[7].name = som_strdup("businessRules");
   n->form->fields[7].type_name = som_strdup("String");
   n->form->fields[7].description = som_strdup("Business Rules (rules that govern this concept)");
@@ -82764,8 +82895,8 @@ static void meta_build_key_concepts_concepts_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "KECON");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "KeyConceptEntry");
-  meta_set(&n->doc_comment, "A key concept entry (form).");
-  meta_set(&n->class_doc_comment, "A key concept entry (form).");
+  meta_set(&n->doc_comment, "A key concept entry (form).\n\nLinks: `KECON.relatedConcepts` names `KECON` entries, stored on both\n(`InverseOf.symmetric`).");
+  meta_set(&n->class_doc_comment, "A key concept entry (form).\n\nLinks: `KECON.relatedConcepts` names `KECON` entries, stored on both\n(`InverseOf.symmetric`).");
 }
 static void meta_build_key_escrow_and_backup_policy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "KeyEscrowAndBackupPolicy");
@@ -89358,7 +89489,7 @@ static void meta_build_migration_phases_content(SomMetaNode *n) {
   n->form->fields[0].name = som_strdup("totalPhases");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Total Phases");
-  n->form->fields[0].required = 1;
+  n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Number of distinct migration phases — e.g. 5 phases covering 3 source systems");
   n->form->fields[0].order = 0;
   n->form->fields[1].name = som_strdup("phaseExecutionModel");
@@ -90091,14 +90222,23 @@ static void meta_build_migration_risk_entry_related(SomMetaNode *n) {
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Related Requirements");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Requirements impacted by risk");
+  n->form->fields[2].hint = som_strdup("Requirements impacted by the risk — requirement section ids, comma-separated");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 4;
+  n->form->fields[2].refers_to = (char **)calloc(4, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("FRE.@sectionId");
+  n->form->fields[2].refers_to[1] = som_strdup("TERQ.@sectionId");
+  n->form->fields[2].refers_to[2] = som_strdup("SECRQ.@sectionId");
+  n->form->fields[2].refers_to[3] = som_strdup("ORRQ.@sectionId");
   n->form->fields[3].name = som_strdup("relatedDecisions");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Related Decisions");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Decisions affecting this risk");
+  n->form->fields[3].hint = som_strdup("Decisions affecting this risk — architecture decision section ids (ARDE-DECI-…), comma-separated");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("ARDE.@sectionId");
   n->form->fields[4].name = som_strdup("dependencyChain");
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Dependency Chain");
@@ -90565,8 +90705,8 @@ static void meta_build_migration_risks_items_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "MGRSK");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "MigrationRiskEntry");
-  meta_set(&n->doc_comment, "A migration risk entry (form).\n\nDetailed migration risk documentation following enterprise risk\nmanagement practices. Captures full risk lifecycle from identification\nthrough resolution.");
-  meta_set(&n->class_doc_comment, "A migration risk entry (form).\n\nDetailed migration risk documentation following enterprise risk\nmanagement practices. Captures full risk lifecycle from identification\nthrough resolution.");
+  meta_set(&n->doc_comment, "A migration risk entry (form).\n\nDetailed migration risk documentation following enterprise risk\nmanagement practices. Captures full risk lifecycle from identification\nthrough resolution.\n\nLinks: `MIRIR1.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,\none-way; `MIRIR1.relatedDecisions` names `ARDE`, one-way;\n`MIRIR1.relatedRisks` is stored on both entries (`InverseOf.symmetric`).");
+  meta_set(&n->class_doc_comment, "A migration risk entry (form).\n\nDetailed migration risk documentation following enterprise risk\nmanagement practices. Captures full risk lifecycle from identification\nthrough resolution.\n\nLinks: `MIRIR1.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,\none-way; `MIRIR1.relatedDecisions` names `ARDE`, one-way;\n`MIRIR1.relatedRisks` is stored on both entries (`InverseOf.symmetric`).");
 }
 static void meta_build_migration_stakeholders_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MigrationStakeholders");
@@ -92655,8 +92795,8 @@ static void meta_build_must_pass_criteria_items_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "MSTPCR");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "MustPassCriterionEntry");
-  meta_set(&n->doc_comment, "A must-pass criterion entry (form).");
-  meta_set(&n->class_doc_comment, "A must-pass criterion entry (form).");
+  meta_set(&n->doc_comment, "A must-pass criterion entry (form).\n\nLinks: `MPCEG.dependsOnCriteria` names `MSTPCR`, one-way.");
+  meta_set(&n->class_doc_comment, "A must-pass criterion entry (form).\n\nLinks: `MPCEG.dependsOnCriteria` names `MSTPCR`, one-way.");
 }
 static void meta_build_must_pass_criterion_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MustPassCriterionEntry");
@@ -92802,8 +92942,11 @@ static void meta_build_must_pass_criterion_entry_governance(SomMetaNode *n) {
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Depends On");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Other criteria this depends on");
+  n->form->fields[3].hint = som_strdup("Other must-pass criteria this depends on — criterion section ids (MSTPCR-ITEM-…), comma-separated");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("MSTPCR.@sectionId");
   n->form->fields[4].name = som_strdup("blockedByCriteria");
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Blocked By");
@@ -95595,8 +95738,8 @@ static void meta_build_new_role_responsibilities_primary_responsibilities_elem(S
   meta_set(&n->class_section_id, "RSPDT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ResponsibilityDetailEntry");
-  meta_set(&n->doc_comment, "Detailed responsibility entry (form).");
-  meta_set(&n->class_doc_comment, "Detailed responsibility entry (form).");
+  meta_set(&n->doc_comment, "Detailed responsibility entry (form).\n\nLinks: `RSPDT.relatedProcesses` names `BPREN`, one-way.");
+  meta_set(&n->class_doc_comment, "Detailed responsibility entry (form).\n\nLinks: `RSPDT.relatedProcesses` names `BPREN`, one-way.");
 }
 static void meta_build_new_role_responsibilities_secondary_responsibilities(SomMetaNode *n) {
   meta_set(&n->class_name, "NewRoleResponsibilities");
@@ -95619,8 +95762,8 @@ static void meta_build_new_role_responsibilities_secondary_responsibilities_elem
   meta_set(&n->class_section_id, "RSPDT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ResponsibilityDetailEntry");
-  meta_set(&n->doc_comment, "Detailed responsibility entry (form).");
-  meta_set(&n->class_doc_comment, "Detailed responsibility entry (form).");
+  meta_set(&n->doc_comment, "Detailed responsibility entry (form).\n\nLinks: `RSPDT.relatedProcesses` names `BPREN`, one-way.");
+  meta_set(&n->class_doc_comment, "Detailed responsibility entry (form).\n\nLinks: `RSPDT.relatedProcesses` names `BPREN`, one-way.");
 }
 static void meta_build_new_role_responsibilities_decision_authority(SomMetaNode *n) {
   meta_set(&n->class_name, "NewRoleResponsibilities");
@@ -98669,8 +98812,14 @@ static void meta_build_organizational_requirement_entry_planning(SomMetaNode *n)
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Dependencies (other changes needed first)");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Other changes that must happen first");
+  n->form->fields[1].hint = som_strdup("Derived from the dependency rows of type prerequisite: the ids of the requirements that must be met first; edit the rows, not this field. A change that is not a requirement (a reorganisation, a contract) belongs in the dependency register (ACRG › DEPRE-DEPS-LST).");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 4;
+  n->form->fields[1].refers_to = (char **)calloc(4, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("FRE.@sectionId");
+  n->form->fields[1].refers_to[1] = som_strdup("TERQ.@sectionId");
+  n->form->fields[1].refers_to[2] = som_strdup("SECRQ.@sectionId");
+  n->form->fields[1].refers_to[3] = som_strdup("ORRQ.@sectionId");
   n->form->fields[2].name = som_strdup("owner");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Change Owner");
@@ -98737,7 +98886,7 @@ static void meta_build_organizational_requirement_entry_dependencies(SomMetaNode
   n->has_serialization_order = 1;
   n->serialization_order = 6;
   meta_set(&n->doc_comment, "4.3.4.n.3. Dependencies.");
-  meta_set(&n->class_doc_comment, "4.3.1.n.5. Dependencies.\n\nDependencies this requirement has on other requirements.");
+  meta_set(&n->class_doc_comment, "4.3.1.n.5. Dependencies.\n\nDependencies this requirement has on other requirements. Each dependency\nis one row, stored once, on the requirement it applies to: a directional\ndependency (prerequisite, parent-child, refinement, constrained by) is not\nwritten again as its converse on the other requirement, which reaches it\nthrough navigation. A conflict and a bidirectional dependency stand at both\nends. The rows are the holder of every dependency; the requirement's\n`constrainedBy`, `conflictsWith` and `OREP.dependencies` are derived from\nthem.");
 }
 static void meta_build_organizational_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "OrganizationalRequirements");
@@ -99941,8 +100090,8 @@ static void meta_build_pain_point_entry_relationships_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "PAPOR1");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "PainPointRelationships");
-  meta_set(&n->doc_comment, "Relationships for pain point.");
-  meta_set(&n->class_doc_comment, "Relationships for pain point.");
+  meta_set(&n->doc_comment, "Relationships for pain point.\n\nLinks: `PAPOR1.relatedGaps` names `GAPE`, answered by\n`GAENDI.relatedPainPoints` at the other end; `PAPOR1.dependsOn` names\n`PAPE`, one-way; `PAPOR1.relatedPainPoints` is stored on both entries\n(`InverseOf.symmetric`).");
+  meta_set(&n->class_doc_comment, "Relationships for pain point.\n\nLinks: `PAPOR1.relatedGaps` names `GAPE`, answered by\n`GAENDI.relatedPainPoints` at the other end; `PAPOR1.dependsOn` names\n`PAPE`, one-way; `PAPOR1.relatedPainPoints` is stored on both entries\n(`InverseOf.symmetric`).");
 }
 static void meta_build_pain_point_gap_correlation_content(SomMetaNode *n) {
   meta_set(&n->class_name, "PainPointGapCorrelation");
@@ -100068,14 +100217,20 @@ static void meta_build_pain_point_relationships_content(SomMetaNode *n) {
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Related Gaps");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Gap entries that this pain point stems from");
+  n->form->fields[1].hint = som_strdup("Gaps this pain point stems from — gap section ids (GAPE-ITEM-…), comma-separated; each gap names this pain point back in its relatedPainPoints");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("GAPE.@sectionId");
   n->form->fields[2].name = som_strdup("dependsOn");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Depends On");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Other pain points that must be resolved first");
+  n->form->fields[2].hint = som_strdup("Other pain points that must be resolved first — pain point section ids (PAPE-ITEM-…), comma-separated");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("PAPE.@sectionId");
 }
 static void meta_build_pain_points_and_gaps_content(SomMetaNode *n) {
   meta_set(&n->class_name, "PainPointsAndGaps");
@@ -100248,8 +100403,8 @@ static void meta_build_pain_points_and_gaps_gaps_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "GAPE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "GapEntry");
-  meta_set(&n->doc_comment, "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.");
-  meta_set(&n->class_doc_comment, "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.");
+  meta_set(&n->doc_comment, "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.\n\nLinks: `GAENDI.relatedPainPoints` names `PAPE`, answered by\n`PAPOR1.relatedGaps` at the other end; `GAENRE.dependsOnGaps` names `GAPE`,\none-way.");
+  meta_set(&n->class_doc_comment, "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.\n\nLinks: `GAENDI.relatedPainPoints` names `PAPE`, answered by\n`PAPOR1.relatedGaps` at the other end; `GAENRE.dependsOnGaps` names `GAPE`,\none-way.");
 }
 static void meta_build_pain_points_and_gaps_pain_point_gap_correlation(SomMetaNode *n) {
   meta_set(&n->class_name, "PainPointGapCorrelation");
@@ -102574,8 +102729,11 @@ static void meta_build_pipeline_job_entry_content(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Parent Stage");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Stage this job belongs to");
+  n->form->fields[0].hint = som_strdup("The pipeline stage this job belongs to — a pipeline stage section id (PSE-…)");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("PSE.@sectionId");
   n->form->fields[1].name = som_strdup("description");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Description");
@@ -102669,8 +102827,11 @@ static void meta_build_pipeline_job_entry_dependencies(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Depends On");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Other jobs this depends on");
+  n->form->fields[0].hint = som_strdup("Other jobs this depends on — pipeline job section ids (PJE-JOBS-…), comma-separated");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("PJE.@sectionId");
   n->form->fields[1].name = som_strdup("services");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Services");
@@ -103852,8 +104013,8 @@ static void meta_build_print_and_export_layout_export_formats_elem(SomMetaNode *
   meta_set(&n->class_section_id, "EFE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ExportFormatEntry");
-  meta_set(&n->doc_comment, "An export format entry (form).");
-  meta_set(&n->class_doc_comment, "An export format entry (form).");
+  meta_set(&n->doc_comment, "An export format entry (form).\n\nLinks: `EXID.relatedDataEntities` names `DAENT.entityName`, one-way.");
+  meta_set(&n->class_doc_comment, "An export format entry (form).\n\nLinks: `EXID.relatedDataEntities` names `DAENT.entityName`, one-way.");
 }
 static void meta_build_print_and_export_layout_export_templates(SomMetaNode *n) {
   meta_set(&n->class_name, "PrintAndExportLayout");
@@ -106561,8 +106722,8 @@ static void meta_build_process_metric_category_metrics_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "PME");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessMetricEntry");
-  meta_set(&n->doc_comment, "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.");
-  meta_set(&n->class_doc_comment, "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.");
+  meta_set(&n->doc_comment, "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.\nThe class serves a process's own metric list and the key metrics\n(`PME-KEYM-LST`), which summarize the processes' metrics: a key metric's\n`metricRef` names the metric it is (a `PME-METR-…` section id) and its\nother values repeat that metric's; in a process's own list `metricRef`\nstays empty.");
+  meta_set(&n->class_doc_comment, "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.\nThe class serves a process's own metric list and the key metrics\n(`PME-KEYM-LST`), which summarize the processes' metrics: a key metric's\n`metricRef` names the metric it is (a `PME-METR-…` section id) and its\nother values repeat that metric's; in a process's own list `metricRef`\nstays empty.");
 }
 static void meta_build_process_metric_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessMetricEntry");
@@ -106573,26 +106734,35 @@ static void meta_build_process_metric_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("metricCategory");
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("metricRef");
   n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Category (e.g., Efficiency, Quality, Volume, Cost)");
+  n->form->fields[0].description = som_strdup("Metric");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Only for metrics listed on their own — a metric listed inside a metric category takes that category and leaves this empty");
+  n->form->fields[0].hint = som_strdup("Only in a key metric: the process metric it names — a metric section id (PME-METR-…), whose values the key metric repeats; empty in a process's own metric list");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("currentValue");
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("PME.@sectionId");
+  n->form->fields[1].name = som_strdup("metricCategory");
   n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Current Value");
+  n->form->fields[1].description = som_strdup("Category (e.g., Efficiency, Quality, Volume, Cost)");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("");
+  n->form->fields[1].hint = som_strdup("Only for metrics listed on their own — a metric listed inside a metric category takes that category and leaves this empty");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("unit");
+  n->form->fields[2].name = som_strdup("currentValue");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Unit");
+  n->form->fields[2].description = som_strdup("Current Value");
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("");
   n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("unit");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Unit");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("");
+  n->form->fields[3].order = 3;
 }
 static void meta_build_process_metric_entry_measurement(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessMetricEntry");
@@ -106863,8 +107033,8 @@ static void meta_build_process_metrics_items_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "PME");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessMetricEntry");
-  meta_set(&n->doc_comment, "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.");
-  meta_set(&n->class_doc_comment, "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.");
+  meta_set(&n->doc_comment, "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.\nThe class serves a process's own metric list and the key metrics\n(`PME-KEYM-LST`), which summarize the processes' metrics: a key metric's\n`metricRef` names the metric it is (a `PME-METR-…` section id) and its\nother values repeat that metric's; in a process's own list `metricRef`\nstays empty.");
+  meta_set(&n->class_doc_comment, "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.\nThe class serves a process's own metric list and the key metrics\n(`PME-KEYM-LST`), which summarize the processes' metrics: a key metric's\n`metricRef` names the metric it is (a `PME-METR-…` section id) and its\nother values repeat that metric's; in a process's own list `metricRef`\nstays empty.");
 }
 static void meta_build_process_metrics_baseline_table(SomMetaNode *n) {
   meta_set(&n->class_name, "MetricsBaselineTable");
@@ -107267,18 +107437,20 @@ static void meta_build_process_performance_summary_key_metrics(SomMetaNode *n) {
   n->serialization_order = 1;
   meta_set(&n->content_help, "Add the most important metrics that characterize overall process performance at a glance.");
   meta_set(&n->doc_comment, "Key metrics summary.");
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 §10 — current-state analysis (key performance metrics)\"],\"connotation\":\"The headline metrics chosen to summarize current process performance.\"}", NULL);
+  n->extra[1].annotation = som_strdup("SummaryOf");
+  n->extra[1].args = som_json_parse("{\"detail\":\"PME-METR-LST\",\"match\":\"PME.metricRef\",\"relation\":\"LinkRelation.subset\",\"repeats\":{},\"note\":\"the key metrics are a selection of the processes' metrics; a key metric repeats the values of the metric it names\"}", NULL);
 }
 static void meta_build_process_performance_summary_key_metrics_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessMetricEntry");
   meta_set(&n->class_section_id, "PME");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessMetricEntry");
-  meta_set(&n->doc_comment, "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.");
-  meta_set(&n->class_doc_comment, "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.");
+  meta_set(&n->doc_comment, "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.\nThe class serves a process's own metric list and the key metrics\n(`PME-KEYM-LST`), which summarize the processes' metrics: a key metric's\n`metricRef` names the metric it is (a `PME-METR-…` section id) and its\nother values repeat that metric's; in a process's own list `metricRef`\nstays empty.");
+  meta_set(&n->class_doc_comment, "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.\nThe class serves a process's own metric list and the key metrics\n(`PME-KEYM-LST`), which summarize the processes' metrics: a key metric's\n`metricRef` names the metric it is (a `PME-METR-…` section id) and its\nother values repeat that metric's; in a process's own list `metricRef`\nstays empty.");
 }
 static void meta_build_process_relationship_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessRelationshipEntry");
@@ -109392,7 +109564,7 @@ static void meta_build_prototype_feature_subset(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 7;
   meta_set(&n->doc_comment, "10.13.2. Selected Feature Subset.");
-  meta_set(&n->class_doc_comment, "10.13.2. Selected Feature Subset.\n\nFeatures included in the prototype.");
+  meta_set(&n->class_doc_comment, "10.13.2. Selected Feature Subset.\n\nFeatures included in the prototype.\n\nLinks: `PFSS.includedFeatures` names `PFE`, one-way; `PFSS.excludedFeatures`\nnames `PFE`, one-way.");
 }
 static void meta_build_prototype_prototype_type(SomMetaNode *n) {
   meta_set(&n->class_name, "PrototypeType");
@@ -109467,8 +109639,11 @@ static void meta_build_prototype_feature_entry_content(SomMetaNode *n) {
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Related Goals");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Prototype goals this addresses");
+  n->form->fields[4].hint = som_strdup("Prototype goals this feature addresses — prototype goal section ids (PGE-GOAL-…), comma-separated");
   n->form->fields[4].order = 4;
+  n->form->fields[4].refers_to_len = 1;
+  n->form->fields[4].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[4].refers_to[0] = som_strdup("PGE.@sectionId");
   n->form->fields[5].name = som_strdup("implementationNotes");
   n->form->fields[5].type_name = som_strdup("String");
   n->form->fields[5].description = som_strdup("Implementation Notes");
@@ -109548,14 +109723,20 @@ static void meta_build_prototype_feature_subset_scope(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Included Features");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Features in prototype");
+  n->form->fields[0].hint = som_strdup("Features in the prototype — prototype feature section ids (PFE-FEAT-…), comma-separated");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("PFE.@sectionId");
   n->form->fields[1].name = som_strdup("excludedFeatures");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Excluded Features");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Features not in prototype");
+  n->form->fields[1].hint = som_strdup("Features not in the prototype — prototype feature section ids (PFE-FEAT-…), comma-separated");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("PFE.@sectionId");
   n->form->fields[2].name = som_strdup("partialFeatures");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Partial Features");
@@ -109647,8 +109828,8 @@ static void meta_build_prototype_feature_subset_features_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "PFE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "PrototypeFeatureEntry");
-  meta_set(&n->doc_comment, "A prototype feature entry.");
-  meta_set(&n->class_doc_comment, "A prototype feature entry.");
+  meta_set(&n->doc_comment, "A prototype feature entry.\n\nLinks: `PFE.relatedGoals` names `PGE`, one-way.");
+  meta_set(&n->class_doc_comment, "A prototype feature entry.\n\nLinks: `PFE.relatedGoals` names `PGE`, one-way.");
 }
 static void meta_build_prototype_goal_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "PrototypeGoalEntry");
@@ -109695,8 +109876,11 @@ static void meta_build_prototype_goal_entry_content(SomMetaNode *n) {
   n->form->fields[5].type_name = som_strdup("String");
   n->form->fields[5].description = som_strdup("Related Risks");
   n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("Risks this goal addresses");
+  n->form->fields[5].hint = som_strdup("Risks this goal addresses — risk section ids (RISENT-…), comma-separated");
   n->form->fields[5].order = 5;
+  n->form->fields[5].refers_to_len = 1;
+  n->form->fields[5].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[5].refers_to[0] = som_strdup("RISENT.@sectionId");
   n->form->fields[6].name = som_strdup("stakeholders");
   n->form->fields[6].type_name = som_strdup("String");
   n->form->fields[6].description = som_strdup("Stakeholders");
@@ -109863,8 +110047,8 @@ static void meta_build_prototype_goals_goals_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "PGE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "PrototypeGoalEntry");
-  meta_set(&n->doc_comment, "A prototype goal entry.");
-  meta_set(&n->class_doc_comment, "A prototype goal entry.");
+  meta_set(&n->doc_comment, "A prototype goal entry.\n\nLinks: `PGE.relatedRisks` names `RISENT`, one-way.");
+  meta_set(&n->class_doc_comment, "A prototype goal entry.\n\nLinks: `PGE.relatedRisks` names `RISENT`, one-way.");
 }
 static void meta_build_prototype_type_content(SomMetaNode *n) {
   meta_set(&n->class_name, "PrototypeType");
@@ -110188,7 +110372,7 @@ static void meta_build_quality_and_acceptance_model_iso25010_coverage(SomMetaNod
   n->has_serialization_order = 1;
   n->serialization_order = 3;
   meta_set(&n->doc_comment, "ISO/IEC 25010:2023 product-quality cross-map — the IP-6 completeness\naddition, as the library doc states.");
-  meta_set(&n->class_doc_comment, "ISO/IEC 25010:2023 product-quality cross-map (derived).\n\nA *derived* view over the canonical quality spine: the eight\n`*Characteristic` classes under [SystemQualityGoals] are the single source\nof truth for the taxonomy (L34C-8); this cross-map does not re-declare it.\nEach entry references one of those characteristics (via the closed\n[Iso25010Characteristic] enum) and records which quality goals / NFRs\naddress it and the target metric — so coverage of any 25010:2023\ncharacteristic (e.g. compatibility, flexibility) cannot be silently missed.");
+  meta_set(&n->class_doc_comment, "ISO/IEC 25010:2023 product-quality cross-map.\n\nA coverage view over the canonical quality spine: the eight\n`*Characteristic` classes under [SystemQualityGoals] are the single source\nof truth for the taxonomy (L34C-8); this cross-map does not re-declare it.\nEach entry names one of those characteristics (via the closed\n[Iso25010Characteristic] enum) and records, as authored text, which\nquality goals / NFRs address it and the target metric. Nothing in it is\nderived: the characteristics are eight sections, not the rows of one\nlist, and what addresses each is the author's statement. That every\ncharacteristic has its entry is a process check, so coverage of any\n25010:2023 characteristic (e.g. compatibility, flexibility) cannot be\nsilently missed.");
 }
 static void meta_build_quality_category_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "QualityCategoryEntry");
@@ -110271,14 +110455,20 @@ static void meta_build_quality_category_entry_relationships(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Parent Category");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Higher-level category if hierarchical");
+  n->form->fields[0].hint = som_strdup("The higher-level category, if hierarchical — a quality category section id");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("QCATE.@sectionId");
   n->form->fields[1].name = som_strdup("relatedCategories");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Related Categories");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Categories that interact with this one");
+  n->form->fields[1].hint = som_strdup("Categories that interact with this one — quality category section ids (QCATE-QUAL-…), comma-separated; each names this category back");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("QCATE.@sectionId");
   n->form->fields[2].name = som_strdup("conflictingCategories");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Conflicting Categories");
@@ -110587,8 +110777,8 @@ static void meta_build_quality_framework_quality_categories_elem(SomMetaNode *n)
   meta_set(&n->class_section_id, "QCATE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "QualityCategoryEntry");
-  meta_set(&n->doc_comment, "A quality category entry (form).\n\nDefines a quality category with its attributes, weight, and relationship\nto other categories.");
-  meta_set(&n->class_doc_comment, "A quality category entry (form).\n\nDefines a quality category with its attributes, weight, and relationship\nto other categories.");
+  meta_set(&n->doc_comment, "A quality category entry (form).\n\nDefines a quality category with its attributes, weight, and relationship\nto other categories.\n\nLinks: `QCARL.relatedCategories` names `QCATE` entries, stored on both\n(`InverseOf.symmetric`); `QCARL.parentCategory` names `QCATE`, one-way.");
+  meta_set(&n->class_doc_comment, "A quality category entry (form).\n\nDefines a quality category with its attributes, weight, and relationship\nto other categories.\n\nLinks: `QCARL.relatedCategories` names `QCATE` entries, stored on both\n(`InverseOf.symmetric`); `QCARL.parentCategory` names `QCATE`, one-way.");
 }
 static void meta_build_quality_framework_category_dependencies(SomMetaNode *n) {
   meta_set(&n->class_name, "QualityFramework");
@@ -112643,14 +112833,20 @@ static void meta_build_reference_document_entry_lifecycle(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Supersedes Document (if replacing older doc)");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Older document this one replaces, if any.");
+  n->form->fields[0].hint = som_strdup("The older document this one replaces, if any — a reference document section id; it names this document in its supersededBy");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("RFDOC.@sectionId");
   n->form->fields[1].name = som_strdup("supersededBy");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Superseded By (if this doc is deprecated)");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Newer document that replaces this one, if deprecated.");
+  n->form->fields[1].hint = som_strdup("The newer document that replaces this one, if deprecated — a reference document section id; it names this document in its supersedes");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("RFDOC.@sectionId");
   n->form->fields[2].name = som_strdup("language");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Language");
@@ -112729,8 +112925,8 @@ static void meta_build_reference_documents_documents_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "RFDOC");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ReferenceDocumentEntry");
-  meta_set(&n->doc_comment, "A reference document entry (form).\n\nDetailed metadata for a single referenced document including\nidentification, classification, status, and applicability.");
-  meta_set(&n->class_doc_comment, "A reference document entry (form).\n\nDetailed metadata for a single referenced document including\nidentification, classification, status, and applicability.");
+  meta_set(&n->doc_comment, "A reference document entry (form).\n\nDetailed metadata for a single referenced document including\nidentification, classification, status, and applicability.\n\nLinks: `RDEL.supersedes` names `RFDOC`, answered by `RDEL.supersededBy` at\nthe other end; `RDEL.supersededBy` names `RFDOC`, answered by\n`RDEL.supersedes` at the other end.");
+  meta_set(&n->class_doc_comment, "A reference document entry (form).\n\nDetailed metadata for a single referenced document including\nidentification, classification, status, and applicability.\n\nLinks: `RDEL.supersedes` names `RFDOC`, answered by `RDEL.supersededBy` at\nthe other end; `RDEL.supersededBy` names `RFDOC`, answered by\n`RDEL.supersedes` at the other end.");
 }
 static void meta_build_regulatory_audit_support_content(SomMetaNode *n) {
   meta_set(&n->class_name, "RegulatoryAuditSupport");
@@ -114888,8 +115084,8 @@ static void meta_build_report_definitions_reports_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "REPENT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ReportEntry");
-  meta_set(&n->doc_comment, "A report entry (form).");
-  meta_set(&n->class_doc_comment, "A report entry (form).");
+  meta_set(&n->doc_comment, "A report entry (form).\n\nLinks: `REID.relatedBusinessProcesses` names `BPREN`, one-way;\n`REID.relatedUseCases` names `INEN`, one-way; `REID.relatedDataEntities`\nnames `DAENT.entityName`, one-way.");
+  meta_set(&n->class_doc_comment, "A report entry (form).\n\nLinks: `REID.relatedBusinessProcesses` names `BPREN`, one-way;\n`REID.relatedUseCases` names `INEN`, one-way; `REID.relatedDataEntities`\nnames `DAENT.entityName`, one-way.");
 }
 static void meta_build_report_distribution_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ReportDistributionEntry");
@@ -115120,20 +115316,29 @@ static void meta_build_report_entry_identity(SomMetaNode *n) {
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Related Use Cases");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("ISC references this report serves");
+  n->form->fields[2].hint = som_strdup("Use cases (interactions) this report serves — interaction section ids (INEN-INTE-…), comma-separated");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("INEN.@sectionId");
   n->form->fields[3].name = som_strdup("relatedBusinessProcesses");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Related Business Processes");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("TOM references where this report is used");
+  n->form->fields[3].hint = som_strdup("Business processes where this report is used — process section ids (BPREN-PROC-…), comma-separated");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("BPREN.@sectionId");
   n->form->fields[4].name = som_strdup("relatedDataEntities");
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Related Data Entities");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("IFM entity references used as data sources");
+  n->form->fields[4].hint = som_strdup("Data entities used as data sources — entity names declared in the entity registry (DAENT), comma-separated");
   n->form->fields[4].order = 4;
+  n->form->fields[4].refers_to_len = 1;
+  n->form->fields[4].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[4].refers_to[0] = som_strdup("DAENT.entityName");
   n->form->fields[5].name = som_strdup("exportOperation");
   n->form->fields[5].type_name = som_strdup("String");
   n->form->fields[5].description = som_strdup("Export Operation");
@@ -116916,10 +117121,14 @@ static void meta_build_requirement_dependencies_items(SomMetaNode *n) {
   n->serialization_order = 1;
   meta_set(&n->content_help, "Add one entry per dependency on another requirement.");
   meta_set(&n->doc_comment, "Dependency entries — contains 0+× RequirementDependencyEntry.");
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra_len = 3;
+  n->extra = (SomMetaExtra *)calloc(3, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148 §5.2 — requirement dependencies\"],\"connotation\":\"The list of individual dependency entries linking this requirement to others.\"}", NULL);
+  n->extra[1].annotation = som_strdup("ExtractsLinks");
+  n->extra[1].args = som_json_parse("{\"from\":[\"FRED.description\"],\"ref\":\"RQDEP-RELA-REF.ref\",\"set\":{\"RQDEP.dependencyType\":\"namedInText\"},\"mode\":\"ExtractMode.generate\",\"note\":\"a requirement named in the description gets a row of its own; an id that already has a row of any type gets none\"}", NULL);
+  n->extra[2].annotation = som_strdup("ExtractsLinks");
+  n->extra[2].args = som_json_parse("{\"from\":[\"FREC.constraints\",\"TREC.constraints\"],\"ref\":\"RQDEP-RELA-REF.ref\",\"set\":{\"RQDEP.dependencyType\":\"constrainedBy\"},\"mode\":\"ExtractMode.warn\",\"note\":\"a requirement named in the constraints text without its row is reported: the limit it sets is a constrainedBy row; an id that has its row is a reference to it and is not reported\"}", NULL);
 }
 static void meta_build_requirement_dependencies_items_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementDependencyEntry");
@@ -116941,11 +117150,20 @@ static void meta_build_requirement_dependency_entry_content(SomMetaNode *n) {
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("dependencyType");
-  n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Dependency Type (Prerequisite, Bidirectional, Parent-Child, Conflict, Refinement)");
+  n->form->fields[0].type_name = som_strdup("RequirementDependencyType");
+  n->form->fields[0].description = som_strdup("Dependency Type");
   n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("Prerequisite, Bidirectional, Parent-Child, Conflict, or Refinement");
+  n->form->fields[0].hint = som_strdup("prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy or namedInText; a directional kind is stored once, on the requirement it applies to");
   n->form->fields[0].order = 0;
+  n->form->fields[0].enum_values_len = 7;
+  n->form->fields[0].enum_values = (char **)calloc(7, sizeof(char *));
+  n->form->fields[0].enum_values[0] = som_strdup("prerequisite");
+  n->form->fields[0].enum_values[1] = som_strdup("bidirectional");
+  n->form->fields[0].enum_values[2] = som_strdup("parentChild");
+  n->form->fields[0].enum_values[3] = som_strdup("conflict");
+  n->form->fields[0].enum_values[4] = som_strdup("refinement");
+  n->form->fields[0].enum_values[5] = som_strdup("constrainedBy");
+  n->form->fields[0].enum_values[6] = som_strdup("namedInText");
   n->form->fields[1].name = som_strdup("description");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Description");
@@ -116967,7 +117185,7 @@ static void meta_build_requirement_dependency_entry_related_requirement(SomMetaN
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
-  meta_set(&n->doc_comment, "The other requirement in this dependency, named by section id.\n\nThe row states the *kind* of relation — prerequisite, bidirectional,\nparent-child, conflict, refinement — and this names its far end; the\nrequirement that owns the entry is always the near end, so neither half\nis readable alone. Expect another requirement of this document there. A\ndependency on something that is not itself a requirement is a constraint\nand belongs with the assumptions and constraints instead.\n\nThe reference stores a section id and is never followed in traversal\n(`tom_specs_model_rules.md` §9.2), which is what allows a requirement\ngraph containing cycles — a conflict pair is one — without making the\ndocument unwalkable.");
+  meta_set(&n->doc_comment, "The other requirement in this dependency, named by section id.\n\nThe row states the *kind* of relation ([RequirementDependencyType]) and\nthis names its far end; the requirement that owns the entry is always the\nnear end, so neither half is readable alone. A conflict or bidirectional\nrow is answered by a row of the same kind on the far end\n(`InverseOf.symmetric`); a directional row has no converse row. Expect another requirement of this document there. A\ndependency on something that is not itself a requirement is a constraint\nand belongs with the assumptions and constraints instead.\n\nThe reference stores a section id and is never followed in traversal\n(`tom_specs_model_rules.md` §9.2), which is what allows a requirement\ngraph containing cycles — a conflict pair is one — without making the\ndocument unwalkable.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -117357,7 +117575,7 @@ static void meta_build_requirement_traceability_traceability_form(SomMetaNode *n
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Related Use Cases (IDs)");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Related interactions — interaction section ids (INEN-INTE-…), comma-separated");
+  n->form->fields[1].hint = som_strdup("Related interactions — interaction section ids (INEN-INTE-…), comma-separated; each interaction names this requirement back in its INTR.relatedRequirements");
   n->form->fields[1].order = 1;
   n->form->fields[1].refers_to_len = 1;
   n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
@@ -117394,14 +117612,20 @@ static void meta_build_requirement_traceability_artifacts(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Related UI Screens/Views");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("UI screens or views related to this requirement");
+  n->form->fields[0].hint = som_strdup("UI screens or views related to this requirement — screen section ids (SCREN-…), comma-separated; each screen names this requirement back in its SCETR.relatedRequirements");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("SCREN.@sectionId");
   n->form->fields[1].name = som_strdup("relatedDataEntities");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Related Data Entities");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Data entities related to this requirement");
+  n->form->fields[1].hint = som_strdup("Data entities related to this requirement — entity names declared in the entity registry (DAENT), comma-separated");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("DAENT.entityName");
   n->form->fields[2].name = som_strdup("relatedTestCases");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Related Test Cases (IDs)");
@@ -117416,8 +117640,11 @@ static void meta_build_requirement_traceability_artifacts(SomMetaNode *n) {
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Related Documents or Artifacts");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Related documents or other artifacts");
+  n->form->fields[3].hint = som_strdup("Related documents — reference document section ids (RFDOC-DOCU-…), comma-separated");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("RFDOC.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -117722,19 +117949,19 @@ static void meta_build_requirements_overview_requirements_form(SomMetaNode *n) {
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Total Requirements Expected (estimated count)");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Estimated total number of requirements");
+  n->form->fields[2].hint = som_strdup("The number of requirements (functional, technical, security, organizational). Counted from the requirement lists once they exist; until then an estimate.");
   n->form->fields[2].order = 2;
   n->form->fields[3].name = som_strdup("shouldHaveCount");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Should-Have Requirements (estimated)");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Estimated count of Should-Have requirements");
+  n->form->fields[3].hint = som_strdup("The number of Should-Have requirements (functional and organizational, by priority). Counted from the requirement lists once they exist; until then an estimate.");
   n->form->fields[3].order = 3;
   n->form->fields[4].name = som_strdup("couldHaveCount");
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Could-Have Requirements (estimated)");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Estimated count of Could-Have requirements");
+  n->form->fields[4].hint = som_strdup("The number of Could-Have requirements (functional and organizational, by priority). Counted from the requirement lists once they exist; until then an estimate.");
   n->form->fields[4].order = 4;
   n->form->fields[5].name = som_strdup("requirementsProcess");
   n->form->fields[5].type_name = som_strdup("String");
@@ -117752,7 +117979,7 @@ static void meta_build_requirements_overview_requirements_form(SomMetaNode *n) {
   n->form->fields[7].type_name = som_strdup("String");
   n->form->fields[7].description = som_strdup("Must-Have Requirements (estimated)");
   n->form->fields[7].required = 0;
-  n->form->fields[7].hint = som_strdup("Estimated count of Must-Have requirements");
+  n->form->fields[7].hint = som_strdup("The number of Must-Have requirements (functional and organizational, by priority). Counted from the requirement lists once they exist; until then an estimate.");
   n->form->fields[7].order = 7;
 }
 static void meta_build_requirements_overview_traceability_matrix(SomMetaNode *n) {
@@ -118394,8 +118621,11 @@ static void meta_build_responsibility_detail_entry_content(SomMetaNode *n) {
   n->form->fields[6].type_name = som_strdup("String");
   n->form->fields[6].description = som_strdup("Related Processes — business processes involved");
   n->form->fields[6].required = 0;
-  n->form->fields[6].hint = som_strdup("Business processes this duty touches");
+  n->form->fields[6].hint = som_strdup("Business processes this duty touches — process section ids (BPREN-PROC-…), comma-separated");
   n->form->fields[6].order = 6;
+  n->form->fields[6].refers_to_len = 1;
+  n->form->fields[6].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[6].refers_to[0] = som_strdup("BPREN.@sectionId");
   n->form->fields[7].name = som_strdup("toolsUsed");
   n->form->fields[7].type_name = som_strdup("String");
   n->form->fields[7].description = som_strdup("Tools Used — systems/applications");
@@ -120885,8 +121115,8 @@ static void meta_build_risk_entry_relationships_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "RR");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "RiskRelationships");
-  meta_set(&n->doc_comment, "Relationships to other risks, assumptions, and project elements.");
-  meta_set(&n->class_doc_comment, "Relationships to other risks, assumptions, and project elements.");
+  meta_set(&n->doc_comment, "Relationships to other risks, assumptions, and project elements.\n\nLinks: `RR.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,\none-way; `RR.relatedRisks` names `RISENT` entries, stored on both\n(`InverseOf.symmetric`); `RR.relatedAssumptions` names `ASMRE`, one-way.");
+  meta_set(&n->class_doc_comment, "Relationships to other risks, assumptions, and project elements.\n\nLinks: `RR.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,\none-way; `RR.relatedRisks` names `RISENT` entries, stored on both\n(`InverseOf.symmetric`); `RR.relatedAssumptions` names `ASMRE`, one-way.");
 }
 static void meta_build_risk_identification_content(SomMetaNode *n) {
   meta_set(&n->class_name, "RiskIdentification");
@@ -121115,14 +121345,20 @@ static void meta_build_risk_relationships_content(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Related Risks — other risks that are related or dependent");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Other risks related to or dependent on this one");
+  n->form->fields[0].hint = som_strdup("Other risks related to this one — risk section ids (RISENT-…), comma-separated; each names this risk back");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("RISENT.@sectionId");
   n->form->fields[1].name = som_strdup("relatedAssumptions");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Related Assumptions — assumptions that could affect this risk");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Assumptions that could affect this risk");
+  n->form->fields[1].hint = som_strdup("Assumptions that could affect this risk — assumption register section ids (ASMRE-ASMP-…), comma-separated");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("ASMRE.@sectionId");
   n->form->fields[2].name = som_strdup("relatedIssues");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Related Issues (external tracker) — issues arising from this risk");
@@ -121133,8 +121369,14 @@ static void meta_build_risk_relationships_content(SomMetaNode *n) {
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Related Requirements — requirements affected");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Requirements affected by this risk");
+  n->form->fields[3].hint = som_strdup("Requirements affected by this risk — requirement section ids (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…), comma-separated");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 4;
+  n->form->fields[3].refers_to = (char **)calloc(4, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("FRE.@sectionId");
+  n->form->fields[3].refers_to[1] = som_strdup("TERQ.@sectionId");
+  n->form->fields[3].refers_to[2] = som_strdup("SECRQ.@sectionId");
+  n->form->fields[3].refers_to[3] = som_strdup("ORRQ.@sectionId");
   n->form->fields[4].name = som_strdup("affectedComponents");
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Affected Components — system components or modules");
@@ -122074,8 +122316,8 @@ static void meta_build_role_hierarchy_inheritance_rules_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "RLINH");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "RoleInheritanceRuleEntry");
-  meta_set(&n->doc_comment, "A role inheritance rule entry (form).\n\nDefines a specific parent-child inheritance relationship between two roles,\nincluding what is inherited and any restrictions.");
-  meta_set(&n->class_doc_comment, "A role inheritance rule entry (form).\n\nDefines a specific parent-child inheritance relationship between two roles,\nincluding what is inherited and any restrictions.");
+  meta_set(&n->doc_comment, "A role inheritance rule entry (form).\n\nDefines a specific parent-child inheritance relationship between two roles,\nincluding what is inherited and any restrictions.\n\nLinks: `RLINH.parentRole` names `AZRO.roleName`, one-way; `RLINH.childRole`\nnames `AZRO.roleName`, one-way.");
+  meta_set(&n->class_doc_comment, "A role inheritance rule entry (form).\n\nDefines a specific parent-child inheritance relationship between two roles,\nincluding what is inherited and any restrictions.\n\nLinks: `RLINH.parentRole` names `AZRO.roleName`, one-way; `RLINH.childRole`\nnames `AZRO.roleName`, one-way.");
 }
 static void meta_build_role_hierarchy_combination_constraints(SomMetaNode *n) {
   meta_set(&n->class_name, "RoleHierarchy");
@@ -122290,14 +122532,20 @@ static void meta_build_role_inheritance_rule_entry_content(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Parent Role");
   n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("Name of the parent role whose permissions are inherited");
+  n->form->fields[0].hint = som_strdup("Name of the parent role whose permissions are inherited — a roleName of the role registry (AZRO)");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("AZRO.roleName");
   n->form->fields[1].name = som_strdup("childRole");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Child Role");
   n->form->fields[1].required = 1;
-  n->form->fields[1].hint = som_strdup("Name of the child role that inherits permissions");
+  n->form->fields[1].hint = som_strdup("Name of the child role that inherits permissions — a roleName of the role registry (AZRO)");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("AZRO.roleName");
   n->form->fields[2].name = som_strdup("inheritanceType");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Inheritance Type");
@@ -126711,7 +126959,7 @@ static void meta_build_screen_entry_classification(SomMetaNode *n) {
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Route Pattern");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map");
+  n->form->fields[2].hint = som_strdup("Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map, whose entry names this screen back in its screenId");
   n->form->fields[2].order = 2;
   n->form->fields[2].refers_to_len = 1;
   n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
@@ -126748,13 +126996,16 @@ static void meta_build_screen_entry_traceability(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Related Use Cases");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("ISC references this screen serves");
+  n->form->fields[0].hint = som_strdup("Use cases (interactions) this screen serves — interaction section ids (INEN-INTE-…), comma-separated");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("INEN.@sectionId");
   n->form->fields[1].name = som_strdup("relatedRequirements");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Related Requirements");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Requirement ids this screen satisfies, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)");
+  n->form->fields[1].hint = som_strdup("Requirement ids this screen satisfies, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…); a functional, technical or security requirement names this screen back in its RETRAR.relatedScreens");
   n->form->fields[1].order = 1;
   n->form->fields[1].refers_to_len = 4;
   n->form->fields[1].refers_to = (char **)calloc(4, sizeof(char *));
@@ -126766,8 +127017,11 @@ static void meta_build_screen_entry_traceability(SomMetaNode *n) {
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Related Business Processes");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("TOM references where this screen appears");
+  n->form->fields[2].hint = som_strdup("Business processes where this screen appears — process section ids (BPREN-PROC-…), comma-separated");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("BPREN.@sectionId");
   n->form->fields[3].name = som_strdup("dataEntities");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Data Entities");
@@ -127459,8 +127713,8 @@ static void meta_build_screen_inventory_items_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "SCREN");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ScreenEntry");
-  meta_set(&n->doc_comment, "A screen entry (form).\n\nComprehensive specification of a single application screen, covering\nidentity, purpose, authorization, layout, elements, and behavior.");
-  meta_set(&n->class_doc_comment, "A screen entry (form).\n\nComprehensive specification of a single application screen, covering\nidentity, purpose, authorization, layout, elements, and behavior.");
+  meta_set(&n->doc_comment, "A screen entry (form).\n\nComprehensive specification of a single application screen, covering\nidentity, purpose, authorization, layout, elements, and behavior.\n\nLinks: `SCETR.relatedBusinessProcesses` names `BPREN`, one-way;\n`SCETR.relatedUseCases` names `INEN`, one-way.");
+  meta_set(&n->class_doc_comment, "A screen entry (form).\n\nComprehensive specification of a single application screen, covering\nidentity, purpose, authorization, layout, elements, and behavior.\n\nLinks: `SCETR.relatedBusinessProcesses` names `BPREN`, one-way;\n`SCETR.relatedUseCases` names `INEN`, one-way.");
 }
 static void meta_build_screen_responsive_rule_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenResponsiveRuleEntry");
@@ -127531,7 +127785,7 @@ static void meta_build_screen_route_entry_content(SomMetaNode *n) {
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Screen ID");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("The screen this route renders — a screen section id (SCREN-ITEM-…)");
+  n->form->fields[2].hint = som_strdup("The screen this route renders — a screen section id (SCREN-ITEM-…); the screen names this route back in its routePattern");
   n->form->fields[2].order = 2;
   n->form->fields[2].refers_to_len = 1;
   n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
@@ -127579,10 +127833,12 @@ static void meta_build_screen_route_map_routes(SomMetaNode *n) {
   n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per addressable route.");
   meta_set(&n->doc_comment, "Contains 0+× ScreenRouteEntry.");
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-151:2008 — addressable content units and the conceptual structure of the application\"],\"connotation\":\"The registry of addressable application routes, each identified by a stable route ID.\"}", NULL);
+  n->extra[1].annotation = som_strdup("SummaryOf");
+  n->extra[1].args = som_json_parse("{\"detail\":\"SCREN-ITEM-LST\",\"match\":\"SCRTEN.screenId\",\"relation\":\"LinkRelation.subset\",\"repeats\":{},\"note\":\"every route renders a screen of the inventory; a screen without a route (a dialog) is allowed\"}", NULL);
 }
 static void meta_build_screen_route_map_routes_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenRouteEntry");
@@ -129752,7 +130008,7 @@ static void meta_build_security_requirement_entry_dependencies(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 7;
   meta_set(&n->doc_comment, "4.3.3.n.3. Dependencies.");
-  meta_set(&n->class_doc_comment, "4.3.1.n.5. Dependencies.\n\nDependencies this requirement has on other requirements.");
+  meta_set(&n->class_doc_comment, "4.3.1.n.5. Dependencies.\n\nDependencies this requirement has on other requirements. Each dependency\nis one row, stored once, on the requirement it applies to: a directional\ndependency (prerequisite, parent-child, refinement, constrained by) is not\nwritten again as its converse on the other requirement, which reaches it\nthrough navigation. A conflict and a bidirectional dependency stand at both\nends. The rows are the holder of every dependency; the requirement's\n`constrainedBy`, `conflictsWith` and `OREP.dependencies` are derived from\nthem.");
 }
 static void meta_build_security_requirement_entry_traceability(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementTraceability");
@@ -129763,7 +130019,7 @@ static void meta_build_security_requirement_entry_traceability(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 8;
   meta_set(&n->doc_comment, "4.3.3.n.4. Traceability.");
-  meta_set(&n->class_doc_comment, "4.3.1.n.6. Traceability.\n\nTraceability links to goals, use cases, processes, and other artifacts.");
+  meta_set(&n->class_doc_comment, "4.3.1.n.6. Traceability.\n\nTraceability links to goals, use cases, processes, and other artifacts.\n\nLinks: `RETRAR.relatedDocuments` names `RFDOC`, one-way.");
 }
 static void meta_build_security_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityRequirements");
@@ -136228,8 +136484,11 @@ static void meta_build_stage_entry_scope(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Included Features");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Key features explicitly included");
+  n->form->fields[0].hint = som_strdup("Key features explicitly included — feature section ids (FPE-ITEM-…), comma-separated");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("FPE.@sectionId");
   n->form->fields[1].name = som_strdup("excludedDeferred");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Excluded/Deferred Items");
@@ -136966,14 +137225,26 @@ static void meta_build_stage_migration_risk_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 1;
-  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("riskCategory");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Risk Category");
   n->form->fields[0].required = 1;
   n->form->fields[0].hint = som_strdup("DataLoss / DataCorruption / DowntimeOverrun / SecurityBreach");
   n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("riskRating");
+  n->form->fields[1].type_name = som_strdup("ImportanceBand");
+  n->form->fields[1].description = som_strdup("Risk Rating");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("The band the risk is rated in after scoring — the stage migration risks count the critical and high ones");
+  n->form->fields[1].order = 1;
+  n->form->fields[1].enum_values_len = 4;
+  n->form->fields[1].enum_values = (char **)calloc(4, sizeof(char *));
+  n->form->fields[1].enum_values[0] = som_strdup("critical");
+  n->form->fields[1].enum_values[1] = som_strdup("high");
+  n->form->fields[1].enum_values[2] = som_strdup("medium");
+  n->form->fields[1].enum_values[3] = som_strdup("low");
 }
 static void meta_build_stage_migration_risk_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "StageMigrationRiskEntry");
@@ -137321,7 +137592,7 @@ static void meta_build_stage_migration_risks_content(SomMetaNode *n) {
   n->form->fields[0].name = som_strdup("totalIdentifiedRisks");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Total Identified Risks");
-  n->form->fields[0].required = 1;
+  n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Number of migration-specific risks — e.g. 18 risks across 5 categories");
   n->form->fields[0].order = 0;
   n->form->fields[1].name = som_strdup("criticalRiskCount");
@@ -137432,7 +137703,7 @@ static void meta_build_stage_overview_content(SomMetaNode *n) {
   n->form->fields[0].name = som_strdup("numberOfStages");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Number of Stages");
-  n->form->fields[0].required = 1;
+  n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Total number of major stages in the plan, e.g. 4");
   n->form->fields[0].order = 0;
   n->form->fields[1].name = som_strdup("totalDurationMonths");
@@ -138104,10 +138375,12 @@ static void meta_build_stage_overview_stage_summaries(SomMetaNode *n) {
   n->min = 1;
   meta_set(&n->content_help, "Add one entry per stage summary.");
   meta_set(&n->doc_comment, "13.2.1. Stage Summary — contains 1+× Stage\nSummary Entry.");
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates\",\"PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls\"],\"connotation\":\"Holds one summary entry per stage giving an at-a-glance identification, timeline, scope, and status view across the full staging plan.\"}", NULL);
+  n->extra[1].annotation = som_strdup("SummaryOf");
+  n->extra[1].args = som_json_parse("{\"detail\":\"STAGE-STAG-LST\",\"match\":\"STAGSE.stageRef\",\"relation\":\"LinkRelation.equal\",\"repeats\":{\"STAGSE.stageNumber\":\"STAGE.stageNumber\",\"STAGSE.scopeSummary\":\"STSC.scopeSummary\",\"STSUID.stageCodename\":\"STID.stageCodename\",\"STSUTI.plannedStartDate\":\"STTI.plannedStartDate\",\"STSUTI.plannedEndDate\":\"STTI.plannedEndDate\",\"STSUSC.featureCount\":\"STSC.featureCount\",\"STSUSC.storyPointEstimate\":\"STSC.storyPointEstimate\",\"STSUST.currentStatus\":\"STAGE.currentStatus\"},\"note\":\"one summary row per stage; the row repeats the values its stage holds, which the stage holds\"}", NULL);
 }
 static void meta_build_stage_overview_stage_summaries_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "StageSummaryEntry");
@@ -138476,20 +138749,29 @@ static void meta_build_stage_summary_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 2;
-  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("stageNumber");
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("stageRef");
   n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Stage Number");
-  n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("1, 2, 3… — sequential stage number");
+  n->form->fields[0].description = som_strdup("Stage");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("The stage this row summarizes — a stage section id (STAGE-STAG-…); the values the row repeats are the stage's");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("scopeSummary");
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("STAGE.@sectionId");
+  n->form->fields[1].name = som_strdup("stageNumber");
   n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Scope Summary");
+  n->form->fields[1].description = som_strdup("Stage Number");
   n->form->fields[1].required = 1;
-  n->form->fields[1].hint = som_strdup("One-line summary of what this stage delivers");
+  n->form->fields[1].hint = som_strdup("1, 2, 3… — sequential stage number");
   n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("scopeSummary");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Scope Summary");
+  n->form->fields[2].required = 1;
+  n->form->fields[2].hint = som_strdup("One-line summary of what this stage delivers");
+  n->form->fields[2].order = 2;
 }
 static void meta_build_stage_summary_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "StageSummaryEntry");
@@ -138687,7 +138969,7 @@ static void meta_build_stage_summary_entry_status(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Current Status");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("NotStarted / InPlanning / InProgress / Completed");
+  n->form->fields[0].hint = som_strdup("The stage's current status, repeated from it: Planned / Active / Completed / OnHold / Cancelled");
   n->form->fields[0].order = 0;
   n->form->fields[1].name = som_strdup("percentComplete");
   n->form->fields[1].type_name = som_strdup("String");
@@ -139479,20 +139761,29 @@ static void meta_build_stakeholder_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 2;
-  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("stakeholderType");
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("stakeholderRef");
   n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.)");
+  n->form->fields[0].description = som_strdup("Register Entry");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Sponsor, User, Customer, Partner, Regulator, etc.");
+  n->form->fields[0].hint = som_strdup("The stakeholder register entry this stakeholder is — a section id (STKRE-STAK-…); role, interest, influence and engagement are held there");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("expectedBenefits");
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("STKRE.@sectionId");
+  n->form->fields[1].name = som_strdup("stakeholderType");
   n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Expected Benefits (the scope-framing value this group gains from the system)");
+  n->form->fields[1].description = som_strdup("Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.)");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("The scope-framing value this group gains from the system");
+  n->form->fields[1].hint = som_strdup("Repeated from the register entry stakeholderRef names, which holds it");
   n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("expectedBenefits");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Expected Benefits (the scope-framing value this group gains from the system)");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("The scope-framing value this group gains from the system");
+  n->form->fields[2].order = 2;
 }
 static void meta_build_stakeholder_register_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "StakeholderRegisterEntry");
@@ -139503,44 +139794,50 @@ static void meta_build_stakeholder_register_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 5;
-  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("influence");
-  n->form->fields[0].type_name = som_strdup("ImportanceBand");
-  n->form->fields[0].description = som_strdup("Influence");
+  n->form->fields_len = 6;
+  n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("stakeholderType");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.)");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Qualitative influence band.");
+  n->form->fields[0].hint = som_strdup("Sponsor, User, Customer, Partner, Regulator, etc.; the scope stakeholders naming this entry repeat it");
   n->form->fields[0].order = 0;
-  n->form->fields[0].enum_values_len = 4;
-  n->form->fields[0].enum_values = (char **)calloc(4, sizeof(char *));
-  n->form->fields[0].enum_values[0] = som_strdup("critical");
-  n->form->fields[0].enum_values[1] = som_strdup("high");
-  n->form->fields[0].enum_values[2] = som_strdup("medium");
-  n->form->fields[0].enum_values[3] = som_strdup("low");
-  n->form->fields[1].name = som_strdup("concerns");
-  n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Concerns");
+  n->form->fields[1].name = som_strdup("influence");
+  n->form->fields[1].type_name = som_strdup("ImportanceBand");
+  n->form->fields[1].description = som_strdup("Influence");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("");
+  n->form->fields[1].hint = som_strdup("Qualitative influence band.");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("engagementStrategy");
+  n->form->fields[1].enum_values_len = 4;
+  n->form->fields[1].enum_values = (char **)calloc(4, sizeof(char *));
+  n->form->fields[1].enum_values[0] = som_strdup("critical");
+  n->form->fields[1].enum_values[1] = som_strdup("high");
+  n->form->fields[1].enum_values[2] = som_strdup("medium");
+  n->form->fields[1].enum_values[3] = som_strdup("low");
+  n->form->fields[2].name = som_strdup("concerns");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Engagement Strategy");
+  n->form->fields[2].description = som_strdup("Concerns");
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("role");
+  n->form->fields[3].name = som_strdup("engagementStrategy");
   n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Role");
-  n->form->fields[3].required = 1;
+  n->form->fields[3].description = som_strdup("Engagement Strategy");
+  n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("");
   n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("interest");
+  n->form->fields[4].name = som_strdup("role");
   n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Interest (what they care about)");
-  n->form->fields[4].required = 0;
+  n->form->fields[4].description = som_strdup("Role");
+  n->form->fields[4].required = 1;
   n->form->fields[4].hint = som_strdup("");
   n->form->fields[4].order = 4;
+  n->form->fields[5].name = som_strdup("interest");
+  n->form->fields[5].type_name = som_strdup("String");
+  n->form->fields[5].description = som_strdup("Interest (what they care about)");
+  n->form->fields[5].required = 0;
+  n->form->fields[5].hint = som_strdup("");
+  n->form->fields[5].order = 5;
 }
 static void meta_build_stakeholders_and_beneficiaries_content(SomMetaNode *n) {
   meta_set(&n->class_name, "StakeholdersAndBeneficiaries");
@@ -139567,18 +139864,20 @@ static void meta_build_stakeholders_and_beneficiaries_primary_stakeholders(SomMe
   n->min = 1;
   meta_set(&n->content_help, "Add one entry per primary stakeholder or group, framed by the benefit they gain. Primary stakeholders are those directly affected.");
   meta_set(&n->doc_comment, "Primary stakeholders — contains 1+× StakeholderEntry (benefits lens).");
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 §10.43 — stakeholder list/map/personas\"],\"connotation\":\"The set of primary stakeholders directly affected by the system, framed by the benefit each gains.\"}", NULL);
+  n->extra[1].annotation = som_strdup("SummaryOf");
+  n->extra[1].args = som_json_parse("{\"detail\":\"STKRE-STAK-LST\",\"match\":\"STKNT.stakeholderRef\",\"relation\":\"LinkRelation.subset\",\"repeats\":{\"STKNT.stakeholderType\":\"STKRE.stakeholderType\"},\"note\":\"the primary stakeholders are a selection of the stakeholder register, framed by their benefit; the type is the register's\"}", NULL);
 }
 static void meta_build_stakeholders_and_beneficiaries_primary_stakeholders_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "StakeholderEntry");
   meta_set(&n->class_section_id, "STKNT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "StakeholderEntry");
-  meta_set(&n->doc_comment, "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n`StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).");
-  meta_set(&n->class_doc_comment, "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n`StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).");
+  meta_set(&n->doc_comment, "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n`StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).\n[content]'s `stakeholderRef` names that register entry (a\n`STKRE-STAK-…` section id).");
+  meta_set(&n->class_doc_comment, "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n`StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).\n[content]'s `stakeholderRef` names that register entry (a\n`STKRE-STAK-…` section id).");
 }
 static void meta_build_stakeholders_and_beneficiaries_secondary_stakeholders(SomMetaNode *n) {
   meta_set(&n->class_name, "StakeholdersAndBeneficiaries");
@@ -139591,18 +139890,20 @@ static void meta_build_stakeholders_and_beneficiaries_secondary_stakeholders(Som
   n->serialization_order = 2;
   meta_set(&n->content_help, "Secondary stakeholders are indirectly affected by the system.");
   meta_set(&n->doc_comment, "Secondary stakeholders — contains 0+× StakeholderEntry (benefits lens).");
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 §10.43 — stakeholder list/map/personas\"],\"connotation\":\"The set of secondary stakeholders indirectly affected by the system, framed by the benefit each gains.\"}", NULL);
+  n->extra[1].annotation = som_strdup("SummaryOf");
+  n->extra[1].args = som_json_parse("{\"detail\":\"STKRE-STAK-LST\",\"match\":\"STKNT.stakeholderRef\",\"relation\":\"LinkRelation.subset\",\"repeats\":{\"STKNT.stakeholderType\":\"STKRE.stakeholderType\"},\"note\":\"the secondary stakeholders are a selection of the stakeholder register, framed by their benefit; the type is the register's\"}", NULL);
 }
 static void meta_build_stakeholders_and_beneficiaries_secondary_stakeholders_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "StakeholderEntry");
   meta_set(&n->class_section_id, "STKNT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "StakeholderEntry");
-  meta_set(&n->doc_comment, "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n`StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).");
-  meta_set(&n->class_doc_comment, "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n`StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).");
+  meta_set(&n->doc_comment, "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n`StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).\n[content]'s `stakeholderRef` names that register entry (a\n`STKRE-STAK-…` section id).");
+  meta_set(&n->class_doc_comment, "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n`StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).\n[content]'s `stakeholderRef` names that register entry (a\n`STKRE-STAK-…` section id).");
 }
 static void meta_build_stakeholders_and_governance_content(SomMetaNode *n) {
   meta_set(&n->class_name, "StakeholdersAndGovernance");
@@ -141406,8 +141707,8 @@ static void meta_build_success_criterion_entry_relationships_elem(SomMetaNode *n
   meta_set(&n->class_section_id, "SUCRRE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SuccessCriterionRelationships");
-  meta_set(&n->doc_comment, "Relationships for success criterion.");
-  meta_set(&n->class_doc_comment, "Relationships for success criterion.");
+  meta_set(&n->doc_comment, "Relationships for success criterion.\n\nLinks: `SUCRRE.relatedGoals` names `BGE`, one-way.");
+  meta_set(&n->class_doc_comment, "Relationships for success criterion.\n\nLinks: `SUCRRE.relatedGoals` names `BGE`, one-way.");
 }
 static void meta_build_success_criterion_entry_status(SomMetaNode *n) {
   meta_set(&n->class_name, "SuccessCriterionEntry");
@@ -141473,6 +141774,9 @@ static void meta_build_success_criterion_relationships_content(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Related business goals — business goal section ids (BGE-GOAL-…), comma-separated");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("BGE.@sectionId");
   n->form->fields[1].name = som_strdup("relatedRequirements");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Related Requirements");
@@ -145557,7 +145861,7 @@ static void meta_build_system_stage_plan_content(SomMetaNode *n) {
   n->form->fields[0].name = som_strdup("totalStagesPlanned");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Total Stages Planned");
-  n->form->fields[0].required = 1;
+  n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Number of major stages in the rollout plan");
   n->form->fields[0].order = 0;
   n->form->fields[1].name = som_strdup("stagingPhilosophy");
@@ -145732,8 +146036,8 @@ static void meta_build_system_stage_plan_stages_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "STAGE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "StageEntry");
-  meta_set(&n->doc_comment, "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.");
-  meta_set(&n->class_doc_comment, "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.");
+  meta_set(&n->doc_comment, "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.\n\nLinks: `STSC.includedFeatures` names `FPE`, one-way.");
+  meta_set(&n->class_doc_comment, "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.\n\nLinks: `STSC.includedFeatures` names `FPE`, one-way.");
   meta_set(&n->detailed_in, "D11DeliveryRoadmap");
 }
 static void meta_build_system_stage_plan_feature_prioritization(SomMetaNode *n) {
@@ -149367,8 +149671,8 @@ static void meta_build_technical_requirement_entry_constraints(SomMetaNode *n) {
   n->serialization_order = 5;
   meta_set(&n->doc_comment, "Assumptions and constraints.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 2;
-  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("assumptions");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Assumptions");
@@ -149379,8 +149683,14 @@ static void meta_build_technical_requirement_entry_constraints(SomMetaNode *n) {
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Constraints");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Limits or boundaries that apply, e.g., fixed infrastructure");
+  n->form->fields[1].hint = som_strdup("Limits on how this requirement may be implemented, e.g. fixed infrastructure. A limit set by another requirement is a dependency row of type constrainedBy (shown in Constrained By).");
   n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("constrainedBy");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Constrained By (limits set by other requirements)");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Derived from the dependency rows of type constrainedBy, one line per row; edit the rows, not this field.");
+  n->form->fields[2].order = 2;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -149406,7 +149716,7 @@ static void meta_build_technical_requirement_entry_dependencies(SomMetaNode *n) 
   n->has_serialization_order = 1;
   n->serialization_order = 7;
   meta_set(&n->doc_comment, "4.3.2.n.2. Dependencies.");
-  meta_set(&n->class_doc_comment, "4.3.1.n.5. Dependencies.\n\nDependencies this requirement has on other requirements.");
+  meta_set(&n->class_doc_comment, "4.3.1.n.5. Dependencies.\n\nDependencies this requirement has on other requirements. Each dependency\nis one row, stored once, on the requirement it applies to: a directional\ndependency (prerequisite, parent-child, refinement, constrained by) is not\nwritten again as its converse on the other requirement, which reaches it\nthrough navigation. A conflict and a bidirectional dependency stand at both\nends. The rows are the holder of every dependency; the requirement's\n`constrainedBy`, `conflictsWith` and `OREP.dependencies` are derived from\nthem.");
 }
 static void meta_build_technical_requirement_entry_traceability(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementTraceability");
@@ -149417,7 +149727,7 @@ static void meta_build_technical_requirement_entry_traceability(SomMetaNode *n) 
   n->has_serialization_order = 1;
   n->serialization_order = 8;
   meta_set(&n->doc_comment, "4.3.2.n.3. Traceability.");
-  meta_set(&n->class_doc_comment, "4.3.1.n.6. Traceability.\n\nTraceability links to goals, use cases, processes, and other artifacts.");
+  meta_set(&n->class_doc_comment, "4.3.1.n.6. Traceability.\n\nTraceability links to goals, use cases, processes, and other artifacts.\n\nLinks: `RETRAR.relatedDocuments` names `RFDOC`, one-way.");
 }
 static void meta_build_technical_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnicalRequirements");
@@ -150459,7 +150769,7 @@ static void meta_build_test_scenario_entry_traceability(SomMetaNode *n) {
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Acceptance Criterion Reference");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("The linked acceptance criterion — a delivery acceptance criterion section id (DACEN-ITEM-…)");
+  n->form->fields[2].hint = som_strdup("The linked acceptance criterion — a delivery acceptance criterion section id (DACEN-ITEM-…); the criterion names this scenario back in its testScenarioRef");
   n->form->fields[2].order = 2;
   n->form->fields[2].refers_to_len = 1;
   n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
@@ -150468,8 +150778,11 @@ static void meta_build_test_scenario_entry_traceability(SomMetaNode *n) {
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Design / Screen Reference");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("UI screens or mockup references");
+  n->form->fields[3].hint = som_strdup("Screens the scenario runs on — screen section ids (SCREN-ITEM-…), comma-separated");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("SCREN.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -150646,8 +150959,8 @@ static void meta_build_test_scenario_entry_test_steps_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "UATSST");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UatTestStepEntry");
-  meta_set(&n->doc_comment, "A UAT test step entry.\n\nIndividual step within a test scenario. Captures the action, input data,\nexpected result, and pass criteria at fine-grained level per IEEE 829\nLevel Test Procedure structure.");
-  meta_set(&n->class_doc_comment, "A UAT test step entry.\n\nIndividual step within a test scenario. Captures the action, input data,\nexpected result, and pass criteria at fine-grained level per IEEE 829\nLevel Test Procedure structure.");
+  meta_set(&n->doc_comment, "A UAT test step entry.\n\nIndividual step within a test scenario. Captures the action, input data,\nexpected result, and pass criteria at fine-grained level per IEEE 829\nLevel Test Procedure structure.\n\nLinks: `UATSST.uiScreenRef` names `SCREN`, one-way.");
+  meta_set(&n->class_doc_comment, "A UAT test step entry.\n\nIndividual step within a test scenario. Captures the action, input data,\nexpected result, and pass criteria at fine-grained level per IEEE 829\nLevel Test Procedure structure.\n\nLinks: `UATSST.uiScreenRef` names `SCREN`, one-way.");
 }
 static void meta_build_test_scenario_notes_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TestScenarioNotes");
@@ -157004,8 +157317,11 @@ static void meta_build_uat_test_step_entry_content(SomMetaNode *n) {
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("UI Screen Reference");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Screen or page where this step is performed");
+  n->form->fields[4].hint = som_strdup("The screen where this step is performed — a screen section id (SCREN-ITEM-…)");
   n->form->fields[4].order = 4;
+  n->form->fields[4].refers_to_len = 1;
+  n->form->fields[4].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[4].refers_to[0] = som_strdup("SCREN.@sectionId");
   n->form->fields[5].name = som_strdup("passCriteria");
   n->form->fields[5].type_name = som_strdup("String");
   n->form->fields[5].description = som_strdup("Pass Criteria");
@@ -158954,8 +159270,8 @@ static void meta_build_user_acceptance_testing_test_scenarios_elem(SomMetaNode *
   meta_set(&n->class_section_id, "TSSC");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TestScenarioEntry");
-  meta_set(&n->doc_comment, "A test scenario entry (form).\n\nRepresents a business-level test case covering a user journey, business\nprocess, or acceptance criterion. Includes full traceability, preconditions,\nexecution metadata, and pass/fail criteria per ISTQB and IEEE 829\nLevel Test Case / Level Test Procedure structures.");
-  meta_set(&n->class_doc_comment, "A test scenario entry (form).\n\nRepresents a business-level test case covering a user journey, business\nprocess, or acceptance criterion. Includes full traceability, preconditions,\nexecution metadata, and pass/fail criteria per ISTQB and IEEE 829\nLevel Test Case / Level Test Procedure structures.");
+  meta_set(&n->doc_comment, "A test scenario entry (form).\n\nRepresents a business-level test case covering a user journey, business\nprocess, or acceptance criterion. Includes full traceability, preconditions,\nexecution metadata, and pass/fail criteria per ISTQB and IEEE 829\nLevel Test Case / Level Test Procedure structures.\n\nLinks: `TESCTR.designRef` names `SCREN`, one-way.");
+  meta_set(&n->class_doc_comment, "A test scenario entry (form).\n\nRepresents a business-level test case covering a user journey, business\nprocess, or acceptance criterion. Includes full traceability, preconditions,\nexecution metadata, and pass/fail criteria per ISTQB and IEEE 829\nLevel Test Case / Level Test Procedure structures.\n\nLinks: `TESCTR.designRef` names `SCREN`, one-way.");
 }
 static void meta_build_user_access_permissions_content(SomMetaNode *n) {
   meta_set(&n->class_name, "UserAccessPermissions");
@@ -163517,8 +163833,11 @@ static void meta_build_warranty_terms_coverage(SomMetaNode *n) {
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Covered Deliverables");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Which deliverables are under warranty");
+  n->form->fields[1].hint = som_strdup("Deliverables under warranty — deliverable section ids (DLVEN-…), comma-separated");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("DLVEN.@sectionId");
   n->form->fields[2].name = som_strdup("environmentsCovered");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Environments Covered");
@@ -164262,8 +164581,8 @@ static void meta_build_workflow_descriptions_workflows_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "CUWF");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "CurrentWorkflowEntry");
-  meta_set(&n->doc_comment, "A current workflow entry (form).\n\nDetailed documentation of a single workflow within a business process.\nIncludes triggers, steps, actors, inputs, outputs, and timing.");
-  meta_set(&n->class_doc_comment, "A current workflow entry (form).\n\nDetailed documentation of a single workflow within a business process.\nIncludes triggers, steps, actors, inputs, outputs, and timing.");
+  meta_set(&n->doc_comment, "A current workflow entry (form).\n\nDetailed documentation of a single workflow within a business process.\nIncludes triggers, steps, actors, inputs, outputs, and timing.\n\nThe workflow's own inputs, outputs and business rules\n(`WOINEN-INPU-LST`, `WOOUEN-OUTP-LST`, `WOBURU-BUSI-LST`) are independent\nof the same lists on its steps, not a superset of them: a workflow input\nenters the workflow from outside, while a step's inputs also include what\nearlier steps produced; a workflow output leaves it, while a step's outputs\ninclude intermediate results; a workflow-level rule governs the whole\nworkflow, a step's rule that step only. Neither side is derived from the\nother.");
+  meta_set(&n->class_doc_comment, "A current workflow entry (form).\n\nDetailed documentation of a single workflow within a business process.\nIncludes triggers, steps, actors, inputs, outputs, and timing.\n\nThe workflow's own inputs, outputs and business rules\n(`WOINEN-INPU-LST`, `WOOUEN-OUTP-LST`, `WOBURU-BUSI-LST`) are independent\nof the same lists on its steps, not a superset of them: a workflow input\nenters the workflow from outside, while a step's inputs also include what\nearlier steps produced; a workflow output leaves it, while a step's outputs\ninclude intermediate results; a workflow-level rule governs the whole\nworkflow, a step's rule that step only. Neither side is derived from the\nother.");
 }
 static void meta_build_workflow_exception_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "WorkflowExceptionEntry");
@@ -164673,56 +164992,65 @@ static void meta_build_workflow_summary_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 8;
-  n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("workflowType");
+  n->form->fields_len = 9;
+  n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("workflowRef");
   n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Type");
+  n->form->fields[0].description = som_strdup("Workflow");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("");
+  n->form->fields[0].hint = som_strdup("The workflow this row summarizes — a workflow section id (CUWF-WORK-…) of the same process; its type and frequency are repeated from it");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("frequency");
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("CUWF.@sectionId");
+  n->form->fields[1].name = som_strdup("workflowType");
   n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Frequency");
+  n->form->fields[1].description = som_strdup("Type");
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("averageCycleTime");
+  n->form->fields[2].name = som_strdup("frequency");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Average Cycle Time");
+  n->form->fields[2].description = som_strdup("Frequency");
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("stepCount");
-  n->form->fields[3].type_name = som_strdup("int");
-  n->form->fields[3].description = som_strdup("Number of Steps");
+  n->form->fields[3].name = som_strdup("averageCycleTime");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Average Cycle Time");
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("");
   n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("manualStepCount");
+  n->form->fields[4].name = som_strdup("stepCount");
   n->form->fields[4].type_name = som_strdup("int");
-  n->form->fields[4].description = som_strdup("Manual Steps");
+  n->form->fields[4].description = som_strdup("Number of Steps");
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("");
   n->form->fields[4].order = 4;
-  n->form->fields[5].name = som_strdup("errorProneStepCount");
+  n->form->fields[5].name = som_strdup("manualStepCount");
   n->form->fields[5].type_name = som_strdup("int");
-  n->form->fields[5].description = som_strdup("Error-Prone Steps");
+  n->form->fields[5].description = som_strdup("Manual Steps");
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("");
   n->form->fields[5].order = 5;
-  n->form->fields[6].name = som_strdup("primaryActors");
-  n->form->fields[6].type_name = som_strdup("String");
-  n->form->fields[6].description = som_strdup("Primary Actors");
+  n->form->fields[6].name = som_strdup("errorProneStepCount");
+  n->form->fields[6].type_name = som_strdup("int");
+  n->form->fields[6].description = som_strdup("Error-Prone Steps");
   n->form->fields[6].required = 0;
   n->form->fields[6].hint = som_strdup("");
   n->form->fields[6].order = 6;
-  n->form->fields[7].name = som_strdup("automationPotential");
+  n->form->fields[7].name = som_strdup("primaryActors");
   n->form->fields[7].type_name = som_strdup("String");
-  n->form->fields[7].description = som_strdup("Automation Potential");
+  n->form->fields[7].description = som_strdup("Primary Actors");
   n->form->fields[7].required = 0;
   n->form->fields[7].hint = som_strdup("");
   n->form->fields[7].order = 7;
+  n->form->fields[8].name = som_strdup("automationPotential");
+  n->form->fields[8].type_name = som_strdup("String");
+  n->form->fields[8].description = som_strdup("Automation Potential");
+  n->form->fields[8].required = 0;
+  n->form->fields[8].hint = som_strdup("");
+  n->form->fields[8].order = 8;
 }
 static void meta_build_workflow_summary_table_content(SomMetaNode *n) {
   meta_set(&n->class_name, "WorkflowSummaryTable");
@@ -164777,18 +165105,20 @@ static void meta_build_workflow_summary_table_entries(SomMetaNode *n) {
   n->serialization_order = 1;
   meta_set(&n->content_help, "Add one summary row per workflow capturing its type, frequency, cycle time, step counts, actors, and automation potential.");
   meta_set(&n->doc_comment, "Summary entries per workflow.");
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 §10 — current-state analysis (workflow summary entry)\"],\"connotation\":\"The per-workflow rows of the summary table.\"}", NULL);
+  n->extra[1].annotation = som_strdup("SummaryOf");
+  n->extra[1].args = som_json_parse("{\"detail\":\"CUWF-WORK-LST\",\"match\":\"WOSUEN.workflowRef\",\"relation\":\"LinkRelation.equal\",\"repeats\":{\"WOSUEN.workflowType\":\"CUWF.workflowType\",\"WOSUEN.frequency\":\"CUWF.frequency\",\"WOSUEN.stepCount\":\"CUWF.stepCount\",\"WOSUEN.manualStepCount\":\"CUWF.manualStepCount\",\"WOSUEN.errorProneStepCount\":\"CUWF.errorProneStepCount\"},\"note\":\"one summary row per workflow of the process; the row repeats the workflow's type, frequency and step counts, which the workflow holds\"}", NULL);
 }
 static void meta_build_workflow_summary_table_entries_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "WorkflowSummaryEntry");
   meta_set(&n->class_section_id, "WOSUEN");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "WorkflowSummaryEntry");
-  meta_set(&n->doc_comment, "Summary entry for a single workflow.");
-  meta_set(&n->class_doc_comment, "Summary entry for a single workflow.");
+  meta_set(&n->doc_comment, "Summary entry for a single workflow.\n\n[content]'s `workflowRef` names the workflow the row summarizes (a\n`CUWF-WORK-…` section id of the same process); the row's type, frequency\nand step counts repeat that workflow's own, whose counts are counted over\nits steps.");
+  meta_set(&n->class_doc_comment, "Summary entry for a single workflow.\n\n[content]'s `workflowRef` names the workflow the row summarizes (a\n`CUWF-WORK-…` section id of the same process); the row's type, frequency\nand step counts repeat that workflow's own, whose counts are counted over\nits steps.");
 }
 static void meta_build_workflow_trigger_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "WorkflowTriggerEntry");

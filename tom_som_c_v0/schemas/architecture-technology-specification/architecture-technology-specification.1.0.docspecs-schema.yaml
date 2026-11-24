@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: architecture-technology-specification/1.12
+# Schema: architecture-technology-specification/1.13
 
 title-format: "# <!--[ATS]--> Architecture & Technology Specification"
 section-types:
@@ -9105,7 +9105,7 @@ form-types:
       - fieldname: exceptions
         description: Allowed exceptions to this principle
       - fieldname: relatedPrinciples
-        description: Other principles that relate to this one
+        description: "Other principles related to this one — architecture principle section ids (ARPR-PRIN-…), comma-separated; each names this principle back"
       - fieldname: notes
         description: Additional principle notes
   coorla-form:
@@ -9425,11 +9425,11 @@ form-types:
   adrr-form:
     fields:
       - fieldname: relatedDecisions
-        description: Other ADRs related to this one
+        description: "Other decisions related to this one — architecture decision section ids (ARDE-DECI-…), comma-separated; each names this decision back"
       - fieldname: supersedes
-        description: Previous decisions this supersedes
+        description: "Previous decisions this one supersedes — architecture decision section ids, comma-separated; each names this decision in its supersededBy"
       - fieldname: supersededBy
-        description: Decision that supersedes this one
+        description: The decision that supersedes this one — an architecture decision section id; it names this decision in its supersedes
   dpea-form:
     fields:
       - fieldname: applicability
@@ -9457,7 +9457,7 @@ form-types:
       - fieldname: usageScope
         description: Where in the architecture this pattern applies
       - fieldname: relatedPatterns
-        description: Other patterns commonly used with this one
+        description: "Other patterns commonly used with this one — design pattern section ids (DSPT-DESI-…), comma-separated; each names this pattern back"
   dpee-form:
     fields:
       - fieldname: enforcementLevel
@@ -10251,7 +10251,7 @@ form-types:
   pjed-form:
     fields:
       - fieldname: dependsOn
-        description: Other jobs this depends on
+        description: "Other jobs this depends on — pipeline job section ids (PJE-JOBS-…), comma-separated"
       - fieldname: services
         description: "Required services (DB, cache)"
       - fieldname: caching

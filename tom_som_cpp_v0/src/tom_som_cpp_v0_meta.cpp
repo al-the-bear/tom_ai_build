@@ -1441,9 +1441,10 @@ void buildAcceptanceCriteriaSummaryChildren(som::SomMetaNode& parent, std::vecto
         n.typeName = "AcceptanceCriteriaList";
         n.hasSerializationOrder = true;
         n.serializationOrder = 5;
-        n.docComment = "Canonical, enumerated acceptance criteria (SR-54 explicit link).\n\nThe single source of truth for the full set of traceable acceptance\ncriteria; this summary references — rather than duplicates — it. The same\n[AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.";
+        n.docComment = "Canonical, enumerated acceptance criteria (SR-54 explicit link).\n\nA copy of the acceptance criteria the acceptance plan holds (the QAP-CRI\nseed; in the Quality & Acceptance Plan its root's acceptance criteria):\nit is not edited here — `deriveFields` writes it from the holder, and\nthe rendition marks it as a copy (S1, `@SameAs`).";
         n.classDocComment = "14.2.1. Acceptance Criteria.";
         n.detailedIn = "D10QualityAcceptancePlan";
+        n.extra.push_back(som::SomMetaExtra{"SameAs", som::jsonParse("{\"note\":\"S1: the acceptance plan holds the acceptance criteria; the summary carries their copy.\"}", nullptr)});
       },
       buildAcceptanceCriteriaListChildren);
     parent.addChild(std::move(n));
@@ -1597,7 +1598,7 @@ void buildAcceptancePlanChildren(som::SomMetaNode& parent, std::vector<std::stri
         n.hasSerializationOrder = true;
         n.serializationOrder = 6;
         n.docComment = "14.2.6. Warranty.";
-        n.classDocComment = "14.2.6. Warranty.\n\nPost-acceptance warranty terms: duration, scope, service levels,\nexclusions, and transition to standard support.";
+        n.classDocComment = "14.2.6. Warranty.\n\nPost-acceptance warranty terms: duration, scope, service levels,\nexclusions, and transition to standard support.\n\nLinks: `WACO.coveredDeliverables` names `DLVEN`, one-way.";
         n.detailedIn = "D10QualityAcceptancePlan";
       },
       buildWarrantyTermsChildren);
@@ -2995,12 +2996,13 @@ void buildActorEntryChildren(som::SomMetaNode& parent, std::vector<std::string>&
     (*n).docComment = "Actor identification.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"actorType", "String", "Actor Type — human user, system, external system, scheduled", false, "State whether the actor is a person, system or scheduled job", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category — primary, secondary, supporting, offstage", false, "Classify using Cockburn primary/secondary/supporting/offstage", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"realWorldExamples", "String", "Real World Examples — who fills this role", false, "Name concrete job titles or people that fill this role", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"organizationalUnit", "String", "Organizational Unit — department or team", false, "Identify the department or team the actor belongs to", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"estimatedCount", "String", "Estimated Count — how many users in this role", false, "Estimate the number of individuals in this role", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"geographicDistribution", "String", "Geographic Distribution — where actors are located", false, "Note the locations or regions where actors operate", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description — role purpose", false, "Explain the actor’s purpose in one or two sentences", 6, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"actorKind", "ActorKind", "Actor Kind", false, "Human, internal system, external system or scheduled — the kind the actor overview counts by", 1, std::vector<std::string>{"human", "internalSystem", "externalSystem", "scheduled"}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category — primary, secondary, supporting, offstage", false, "Classify using Cockburn primary/secondary/supporting/offstage", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"realWorldExamples", "String", "Real World Examples — who fills this role", false, "Name concrete job titles or people that fill this role", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"organizationalUnit", "String", "Organizational Unit — department or team", false, "Identify the department or team the actor belongs to", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"estimatedCount", "String", "Estimated Count — how many users in this role", false, "Estimate the number of individuals in this role", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"geographicDistribution", "String", "Geographic Distribution — where actors are located", false, "Note the locations or regions where actors operate", 6, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description — role purpose", false, "Explain the actor’s purpose in one or two sentences", 7, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships\",\"BABOK v3 — stakeholder & actor analysis\"],\"connotation\":\"Uniquely identifies and classifies an actor, capturing type, category and real-world population.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -5477,9 +5479,9 @@ void buildArchitectureDecisionRecordChildren(som::SomMetaNode& parent, std::vect
     (*n).serializationOrder = 4;
     (*n).docComment = "Related decision links.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDecisions", "String", "Related Decisions", false, "Other ADRs related to this one", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"supersedes", "String", "Supersedes", false, "Previous decisions this supersedes", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"supersededBy", "String", "Superseded By", false, "Decision that supersedes this one", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDecisions", "String", "Related Decisions", false, "Other decisions related to this one — architecture decision section ids (ARDE-DECI-…), comma-separated; each names this decision back", 0, std::vector<std::string>{}, std::vector<std::string>{"ARDE.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"supersedes", "String", "Supersedes", false, "Previous decisions this one supersedes — architecture decision section ids, comma-separated; each names this decision in its supersededBy", 1, std::vector<std::string>{}, std::vector<std::string>{"ARDE.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"supersededBy", "String", "Superseded By", false, "The decision that supersedes this one — an architecture decision section id; it names this decision in its supersedes", 2, std::vector<std::string>{}, std::vector<std::string>{"ARDE.@sectionId"}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ADR (Architecture Decision Records) — decision capture\",\"ISO/IEC/IEEE 42010 — architecture description\"],\"connotation\":\"The links between an architecture decision and related, superseded, or superseding decisions.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -5621,7 +5623,7 @@ void buildArchitecturePrincipleEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).form->fields.push_back(som::SomFormFieldMeta{"enforcementMechanism", "String", "Enforcement Mechanism", false, "How compliance is ensured (review, linting, etc.)", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"applicableScope", "String", "Applicable Scope", false, "Where this principle applies", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"exceptions", "String", "Exceptions", false, "Allowed exceptions to this principle", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedPrinciples", "String", "Related Principles", false, "Other principles that relate to this one", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedPrinciples", "String", "Related Principles", false, "Other principles related to this one — architecture principle section ids (ARPR-PRIN-…), comma-separated; each names this principle back", 4, std::vector<std::string>{}, std::vector<std::string>{"ARPR.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional principle notes", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 42010 — architecture description\",\"ISO/IEC 25010 — architectural quality attributes\"],\"connotation\":\"The enforcement level, mechanism, and applicable scope of this architecture principle.\"}", nullptr)});
     parent.addChild(std::move(n));
@@ -5677,8 +5679,8 @@ void buildArchitectureStyleChildren(som::SomMetaNode& parent, std::vector<std::s
         n.classSectionId = "ARPR";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ArchitecturePrincipleEntry";
-        n.docComment = "Architecture principle entry.";
-        n.classDocComment = "Architecture principle entry.";
+        n.docComment = "Architecture principle entry.\n\nLinks: `ARPRENGO.relatedPrinciples` names `ARPR` entries, stored on both\n(`InverseOf.symmetric`).";
+        n.classDocComment = "Architecture principle entry.\n\nLinks: `ARPRENGO.relatedPrinciples` names `ARPR` entries, stored on both\n(`InverseOf.symmetric`).";
       },
       buildArchitecturePrincipleEntryChildren);
     parent.addChild(std::move(ln));
@@ -5848,8 +5850,8 @@ void buildArchitectureStyleChildren(som::SomMetaNode& parent, std::vector<std::s
         n.classSectionId = "ARDE";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ArchitectureDecisionRecord";
-        n.docComment = "Architecture Decision Record (ADR) entry.";
-        n.classDocComment = "Architecture Decision Record (ADR) entry.";
+        n.docComment = "Architecture Decision Record (ADR) entry.\n\nLinks: `ADRR.relatedDecisions` names `ARDE` entries, stored on both\n(`InverseOf.symmetric`); `ADRR.supersedes` names `ARDE`, answered by\n`ADRR.supersededBy` at the other end; `ADRR.supersededBy` names `ARDE`,\nanswered by `ADRR.supersedes` at the other end.";
+        n.classDocComment = "Architecture Decision Record (ADR) entry.\n\nLinks: `ADRR.relatedDecisions` names `ARDE` entries, stored on both\n(`InverseOf.symmetric`); `ADRR.supersedes` names `ARDE`, answered by\n`ADRR.supersededBy` at the other end; `ADRR.supersededBy` names `ARDE`,\nanswered by `ADRR.supersedes` at the other end.";
       },
       buildArchitectureDecisionRecordChildren);
     parent.addChild(std::move(ln));
@@ -9872,7 +9874,7 @@ void buildBusinessObjectEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).form->fields.push_back(som::SomFormFieldMeta{"owningDomain", "String", "Owning Domain", false, "Business domain responsible for this object", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"domainExpert", "String", "Domain Expert", false, "Business expert who defines this object", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"ubiquitousLanguageTerm", "String", "Ubiquitous Language Term", false, "How this is referred to in the ubiquitous language", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedObjects", "String", "Related Objects", false, "Key related business objects", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedObjects", "String", "Related Objects", false, "Key related business objects — business object section ids (BJOEN-OBJE-…), comma-separated", 4, std::vector<std::string>{}, std::vector<std::string>{"BJOEN.@sectionId"}, false});
     parent.addChild(std::move(n));
   }
   {
@@ -10148,8 +10150,8 @@ void buildBusinessObjectModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.classSectionId = "BJOEN";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "BusinessObjectEntry";
-        n.docComment = "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.";
-        n.classDocComment = "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.";
+        n.docComment = "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.\n\nLinks: `BJOEN-DOMA.relatedObjects` names `BJOEN`, one-way.";
+        n.classDocComment = "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.\n\nLinks: `BJOEN-DOMA.relatedObjects` names `BJOEN`, one-way.";
         n.detailedIn = "D03InformationModel";
       },
       buildBusinessObjectEntryChildren);
@@ -12806,8 +12808,8 @@ void buildCiCdPipelineConfigurationChildren(som::SomMetaNode& parent, std::vecto
         n.classSectionId = "PJE";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "PipelineJobEntry";
-        n.docComment = "Pipeline job entry.";
-        n.classDocComment = "Pipeline job entry.";
+        n.docComment = "Pipeline job entry.\n\nLinks: `PJE.parentStage` names `PSE`, one-way; `PJED.dependsOn` names `PJE`,\none-way.";
+        n.classDocComment = "Pipeline job entry.\n\nLinks: `PJE.parentStage` names `PSE`, one-way; `PJED.dependsOn` names `PJE`,\none-way.";
       },
       buildPipelineJobEntryChildren);
     parent.addChild(std::move(ln));
@@ -16714,8 +16716,8 @@ void buildComponentRiskAssessmentChildren(som::SomMetaNode& parent, std::vector<
         n.classSectionId = "CMRS";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ComponentRiskEntry";
-        n.docComment = "A component risk entry (form).\n\nDocuments one component risk: category, probability, impact, detection\nmethods, mitigation strategy and status, residual risk, and ownership.";
-        n.classDocComment = "A component risk entry (form).\n\nDocuments one component risk: category, probability, impact, detection\nmethods, mitigation strategy and status, residual risk, and ownership.";
+        n.docComment = "A component risk entry (form).\n\nDocuments one component risk: category, probability, impact, detection\nmethods, mitigation strategy and status, residual risk, and ownership.\n\nLinks: `CORIENGO.relatedRisks` is stored on both entries\n(`InverseOf.symmetric`).";
+        n.classDocComment = "A component risk entry (form).\n\nDocuments one component risk: category, probability, impact, detection\nmethods, mitigation strategy and status, residual risk, and ownership.\n\nLinks: `CORIENGO.relatedRisks` is stored on both entries\n(`InverseOf.symmetric`).";
       },
       buildComponentRiskEntryChildren);
     parent.addChild(std::move(ln));
@@ -19423,6 +19425,9 @@ void buildCurrentWorkflowEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).form->fields.push_back(som::SomFormFieldMeta{"frequency", "String", "Execution Frequency", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"averageVolume", "String", "Average Volume per period", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"criticality", "String", "Business Criticality", false, "", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stepCount", "int", "Number of Steps", false, "The number of the workflow's steps (WSE-STEP-LST)", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"manualStepCount", "int", "Manual Steps", false, "The number of its steps marked manual", 6, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"errorProneStepCount", "int", "Error-Prone Steps", false, "The number of its steps marked error-prone", 7, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
   {
@@ -19674,14 +19679,15 @@ void buildCustomDistributionGroupChildren(som::SomMetaNode& parent, std::vector<
     (*ln).contentHelp = "Add one entry per recipient in this group, capturing their role, contact information, preferences, and access levels.";
     (*ln).docComment = "Group members.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK — communications management (stakeholder communication & distribution)\"],\"connotation\":\"The set of recipients belonging to this custom distribution group.\"}", nullptr)});
+    (*ln).extra.push_back(som::SomMetaExtra{"SummaryOf", som::jsonParse("{\"detail\":\"FUDI/DSRC-ITEM-LST\",\"match\":\"DSRC.recipientRef\",\"relation\":\"LinkRelation.subset\",\"repeats\":{},\"note\":\"a custom group's members are a selection of the full distribution; a member repeats the values of the recipient it names\"}", nullptr)});
     ln->elementNode = metaCx("DistributionRecipientEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "DistributionRecipientEntry";
         n.classSectionId = "DSRC";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DistributionRecipientEntry";
-        n.docComment = "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.";
-        n.classDocComment = "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.";
+        n.docComment = "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.\nThe full distribution (`FUDI`) holds the recipients; the executive-summary\nlist and a custom group's members are selections of it: there\n`recipientRef` names the full-distribution recipient an entry is (a\n`DSRC-ITEM-…` section id of `FUDI`) and the entry's other values repeat\nthat recipient's. In the full distribution `recipientRef` stays empty.";
+        n.classDocComment = "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.\nThe full distribution (`FUDI`) holds the recipients; the executive-summary\nlist and a custom group's members are selections of it: there\n`recipientRef` names the full-distribution recipient an entry is (a\n`DSRC-ITEM-…` section id of `FUDI`) and the entry's other values repeat\nthat recipient's. In the full distribution `recipientRef` stays empty.";
       },
       buildDistributionRecipientEntryChildren);
     parent.addChild(std::move(ln));
@@ -19997,7 +20003,7 @@ void buildD01CurrentLandscapeAssessmentChildren(som::SomMetaNode& parent, std::v
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "Standard TomSpecs document header.";
-        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
+        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
       },
       buildDocumentHeaderChildren);
     parent.addChild(std::move(n));
@@ -20213,7 +20219,7 @@ void buildD02TargetOperatingModelChildren(som::SomMetaNode& parent, std::vector<
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "Standard TomSpecs document header.";
-        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
+        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
       },
       buildDocumentHeaderChildren);
     parent.addChild(std::move(n));
@@ -20470,7 +20476,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "Standard TomSpecs document header.";
-        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
+        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
       },
       buildDocumentHeaderChildren);
     parent.addChild(std::move(n));
@@ -20535,8 +20541,8 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.classSectionId = "DAENT";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DataEntityEntry";
-        n.docComment = "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.";
-        n.classDocComment = "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.";
+        n.docComment = "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.\n\nLinks: `DAENT-RELA.parentEntities` names `DAENT.entityName`, one-way.";
+        n.classDocComment = "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.\n\nLinks: `DAENT-RELA.parentEntities` names `DAENT.entityName`, one-way.";
         n.detailedIn = "D03InformationModel";
       },
       buildDataEntityEntryChildren);
@@ -20607,8 +20613,8 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.classSectionId = "BJOEN";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "BusinessObjectEntry";
-        n.docComment = "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.";
-        n.classDocComment = "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.";
+        n.docComment = "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.\n\nLinks: `BJOEN-DOMA.relatedObjects` names `BJOEN`, one-way.";
+        n.classDocComment = "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.\n\nLinks: `BJOEN-DOMA.relatedObjects` names `BJOEN`, one-way.";
         n.detailedIn = "D03InformationModel";
       },
       buildBusinessObjectEntryChildren);
@@ -20643,8 +20649,8 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.classSectionId = "FUNCT";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "FunctionEntry";
-        n.docComment = "A function entry (form).\n\nBusiness function specification in the functional decomposition.";
-        n.classDocComment = "A function entry (form).\n\nBusiness function specification in the functional decomposition.";
+        n.docComment = "A function entry (form).\n\nBusiness function specification in the functional decomposition.\n\nLinks: `FUNCT.parentFunction` names `FUNCT`, one-way.";
+        n.classDocComment = "A function entry (form).\n\nBusiness function specification in the functional decomposition.\n\nLinks: `FUNCT.parentFunction` names `FUNCT`, one-way.";
         n.detailedIn = "D03InformationModel";
       },
       buildFunctionEntryChildren);
@@ -20880,7 +20886,7 @@ void buildD04RequirementsSpecificationChildren(som::SomMetaNode& parent, std::ve
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "Standard TomSpecs document header.";
-        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
+        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
       },
       buildDocumentHeaderChildren);
     parent.addChild(std::move(n));
@@ -21075,7 +21081,7 @@ void buildD05InteractionScenariosChildren(som::SomMetaNode& parent, std::vector<
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "Standard TomSpecs document header.";
-        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
+        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
       },
       buildDocumentHeaderChildren);
     parent.addChild(std::move(n));
@@ -21274,7 +21280,7 @@ void buildD06ArchitectureTechnologySpecificationChildren(som::SomMetaNode& paren
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "Standard TomSpecs document header.";
-        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
+        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
       },
       buildDocumentHeaderChildren);
     parent.addChild(std::move(n));
@@ -21554,7 +21560,7 @@ void buildD07IntegrationInterfaceSpecificationChildren(som::SomMetaNode& parent,
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "Standard TomSpecs document header.";
-        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
+        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
       },
       buildDocumentHeaderChildren);
     parent.addChild(std::move(n));
@@ -21818,7 +21824,7 @@ void buildD08SecurityAccessSpecificationChildren(som::SomMetaNode& parent, std::
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "Standard TomSpecs document header.";
-        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
+        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
       },
       buildDocumentHeaderChildren);
     parent.addChild(std::move(n));
@@ -22044,7 +22050,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "Standard TomSpecs document header.";
-        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
+        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
       },
       buildDocumentHeaderChildren);
     parent.addChild(std::move(n));
@@ -22351,7 +22357,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "Standard TomSpecs document header.";
-        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
+        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
       },
       buildDocumentHeaderChildren);
     parent.addChild(std::move(n));
@@ -22714,7 +22720,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.hasSerializationOrder = true;
         n.serializationOrder = 22;
         n.docComment = "Warranty terms.";
-        n.classDocComment = "14.2.6. Warranty.\n\nPost-acceptance warranty terms: duration, scope, service levels,\nexclusions, and transition to standard support.";
+        n.classDocComment = "14.2.6. Warranty.\n\nPost-acceptance warranty terms: duration, scope, service levels,\nexclusions, and transition to standard support.\n\nLinks: `WACO.coveredDeliverables` names `DLVEN`, one-way.";
         n.detailedIn = "D10QualityAcceptancePlan";
       },
       buildWarrantyTermsChildren);
@@ -22747,7 +22753,7 @@ void buildD11DeliveryRoadmapChildren(som::SomMetaNode& parent, std::vector<std::
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "Standard TomSpecs document header.";
-        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
+        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
       },
       buildDocumentHeaderChildren);
     parent.addChild(std::move(n));
@@ -22846,8 +22852,8 @@ void buildD11DeliveryRoadmapChildren(som::SomMetaNode& parent, std::vector<std::
         n.classSectionId = "STAGE";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "StageEntry";
-        n.docComment = "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.";
-        n.classDocComment = "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.";
+        n.docComment = "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.\n\nLinks: `STSC.includedFeatures` names `FPE`, one-way.";
+        n.classDocComment = "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.\n\nLinks: `STSC.includedFeatures` names `FPE`, one-way.";
         n.detailedIn = "D11DeliveryRoadmap";
       },
       buildStageEntryChildren);
@@ -22982,7 +22988,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "Standard TomSpecs document header.";
-        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
+        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
       },
       buildDocumentHeaderChildren);
     parent.addChild(std::move(n));
@@ -23281,7 +23287,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "Standard TomSpecs document header.";
-        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
+        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
       },
       buildDocumentHeaderChildren);
     parent.addChild(std::move(n));
@@ -24713,7 +24719,7 @@ void buildDataEntityEntryChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).serializationOrder = 4;
     (*n).docComment = "The entity's relationships as seen from this entity — a digest, not the\nauthority.\n\nThe authored relationship is [EntityRelationshipEntry], which states each\none once with its cardinality, referential integrity and navigation. This\nband exists so a reader of a single entity can see what it depends on\nwithout assembling that list in their head. The consequence is that it\nmust never be the only place a relationship appears: anything recorded\nhere and nowhere else is invisible to every consumer that reads the\nrelationship entries, and stale content here is a documentation defect\nrather than a model change.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"parentEntities", "String", "Parent Entities", false, "Entities this depends on (e.g., Order depends on Customer)", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"parentEntities", "String", "Parent Entities", false, "Entities this depends on (e.g., Order depends on Customer) — entity names declared in the entity registry (DAENT), comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{"DAENT.entityName"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"childEntities", "String", "Child Entities", false, "Entities that depend on this (e.g., OrderItem depends on Order)", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"referencedEntities", "String", "Referenced Entities", false, "Lookup/reference entities used (e.g., OrderStatus, PaymentMethod)", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"crossDomainRelationships", "String", "Cross-Domain Relationships", false, "Relationships that cross bounded context boundaries", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
@@ -25568,7 +25574,7 @@ void buildDataMigrationStrategyChildren(som::SomMetaNode& parent, std::vector<st
     (*n).docComment = "Scope and data landscape.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dataLandscapeOverview", "String", "Data Landscape Overview", true, "High-level description of the data ecosystem", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"totalSourceSystems", "String", "Total Source Systems", true, "Number of source systems involved", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"totalSourceSystems", "String", "Total Source Systems", false, "Number of source systems involved", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"totalDataVolume", "String", "Total Data Volume", false, "Aggregate data volume across all sources", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"totalEntitiesInScope", "String", "Total Entities in Scope", false, "Number of distinct data entities/tables to migrate", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dataClassificationSummary", "String", "Data Classification Summary", false, "Breakdown by classification — Public, Internal, Confidential", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
@@ -25895,8 +25901,8 @@ void buildDataModelChildren(som::SomMetaNode& parent, std::vector<std::string>& 
         n.classSectionId = "DAENT";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DataEntityEntry";
-        n.docComment = "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.";
-        n.classDocComment = "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.";
+        n.docComment = "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.\n\nLinks: `DAENT-RELA.parentEntities` names `DAENT.entityName`, one-way.";
+        n.classDocComment = "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.\n\nLinks: `DAENT-RELA.parentEntities` names `DAENT.entityName`, one-way.";
         n.detailedIn = "D03InformationModel";
       },
       buildDataEntityEntryChildren);
@@ -28455,7 +28461,7 @@ void buildDeliveryAcceptanceCriterionEntryChildren(som::SomMetaNode& parent, std
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"requirementRef", "String", "Requirement Reference", false, "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"deliverableRef", "String", "Deliverable Reference", false, "The linked deliverables — deliverable section ids (DLVEN-ITEM-…), comma-separated", 1, std::vector<std::string>{}, std::vector<std::string>{"DLVEN.@sectionId"}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"testScenarioRef", "String", "Test Scenario Reference", false, "The UAT scenarios that validate this criterion — test scenario section ids (TSSC-TEST-…), comma-separated", 2, std::vector<std::string>{}, std::vector<std::string>{"TSSC.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"testScenarioRef", "String", "Test Scenario Reference", false, "The UAT scenarios that validate this criterion — test scenario section ids (TSSC-TEST-…), comma-separated; each scenario names this criterion back in its acceptanceCriterionRef", 2, std::vector<std::string>{}, std::vector<std::string>{"TSSC.@sectionId"}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability between test items, requirements, and acceptance criteria\",\"IEEE 829-2008 — the standard for software and system test documentation defines traceability references in acceptance-test documents\"],\"connotation\":\"Captures the requirement, deliverable, and test-scenario references that trace an acceptance criterion.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -29882,7 +29888,7 @@ void buildDesignGoalEntryChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", false, "Usability/Performance/Accessibility/Aesthetics/Engagement", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"measurementCriteria", "String", "Measurement Criteria", false, "How we verify goal achievement", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"targetMetric", "String", "Target Metric", false, "Quantifiable target if applicable", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedPrinciples", "String", "Related Principles", false, "Design principles that support this goal", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedPrinciples", "String", "Related Principles", false, "Design principles that support this goal — design principle section ids (DPEN-ITEM-…), comma-separated; each names this goal back", 5, std::vector<std::string>{}, std::vector<std::string>{"DPEN.@sectionId"}, false});
     parent.addChild(std::move(n));
   }
 }
@@ -29932,8 +29938,8 @@ void buildDesignGoalsChildren(som::SomMetaNode& parent, std::vector<std::string>
         n.classSectionId = "DGOEN";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DesignGoalEntry";
-        n.docComment = "A design goal entry (form).\n\nEach goal represents a measurable UI objective with success criteria.";
-        n.classDocComment = "A design goal entry (form).\n\nEach goal represents a measurable UI objective with success criteria.";
+        n.docComment = "A design goal entry (form).\n\nEach goal represents a measurable UI objective with success criteria.\n\nLinks: `DGOEN.relatedPrinciples` names `DPEN`, answered by\n`DPEN.relatedGoals` at the other end.";
+        n.classDocComment = "A design goal entry (form).\n\nEach goal represents a measurable UI objective with success criteria.\n\nLinks: `DGOEN.relatedPrinciples` names `DPEN`, answered by\n`DPEN.relatedGoals` at the other end.";
       },
       buildDesignGoalEntryChildren);
     parent.addChild(std::move(ln));
@@ -30019,7 +30025,7 @@ void buildDesignPatternEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).docComment = "Architectural context.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"usageScope", "String", "Usage Scope", false, "Where in the architecture this pattern applies", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedPatterns", "String", "Related Patterns", false, "Other patterns commonly used with this one", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedPatterns", "String", "Related Patterns", false, "Other patterns commonly used with this one — design pattern section ids (DSPT-DESI-…), comma-separated; each names this pattern back", 1, std::vector<std::string>{}, std::vector<std::string>{"DSPT.@sectionId"}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"POSA — patterns of software architecture\",\"GoF design patterns — reusable OO design\"],\"connotation\":\"Describes where a design pattern applies in the architecture and related patterns.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -30087,8 +30093,8 @@ void buildDesignPatternsAndStandardsChildren(som::SomMetaNode& parent, std::vect
         n.classSectionId = "DSPT";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DesignPatternEntry";
-        n.docComment = "Design pattern entry — a specific design pattern to be used.";
-        n.classDocComment = "Design pattern entry — a specific design pattern to be used.";
+        n.docComment = "Design pattern entry — a specific design pattern to be used.\n\nLinks: `DEPAENCO.relatedPatterns` names `DSPT` entries, stored on both\n(`InverseOf.symmetric`).";
+        n.classDocComment = "Design pattern entry — a specific design pattern to be used.\n\nLinks: `DEPAENCO.relatedPatterns` names `DSPT` entries, stored on both\n(`InverseOf.symmetric`).";
       },
       buildDesignPatternEntryChildren);
     parent.addChild(std::move(ln));
@@ -30252,7 +30258,7 @@ void buildDesignPrincipleEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).form->fields.push_back(som::SomFormFieldMeta{"examples", "String", "Examples", false, "How the principle manifests in the UI", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"exceptions", "String", "Exceptions", false, "When deviation is acceptable", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sourceReference", "String", "Source Reference", false, "Design system or external reference", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedGoals", "String", "Related Goals", false, "Design goals this principle supports", 6, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedGoals", "String", "Related Goals", false, "Design goals this principle supports — design goal section ids (DGOEN-ITEM-…), comma-separated; each names this principle back", 6, std::vector<std::string>{}, std::vector<std::string>{"DGOEN.@sectionId"}, false});
     parent.addChild(std::move(n));
   }
 }
@@ -30302,8 +30308,8 @@ void buildDesignPrinciplesChildren(som::SomMetaNode& parent, std::vector<std::st
         n.classSectionId = "DPEN";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DesignPrincipleEntry";
-        n.docComment = "A design principle entry (form).\n\nEach principle guides UI decisions with rationale and examples.";
-        n.classDocComment = "A design principle entry (form).\n\nEach principle guides UI decisions with rationale and examples.";
+        n.docComment = "A design principle entry (form).\n\nEach principle guides UI decisions with rationale and examples.\n\nLinks: `DPEN.relatedGoals` names `DGOEN`, answered by\n`DGOEN.relatedPrinciples` at the other end.";
+        n.classDocComment = "A design principle entry (form).\n\nEach principle guides UI decisions with rationale and examples.\n\nLinks: `DPEN.relatedGoals` names `DGOEN`, answered by\n`DGOEN.relatedPrinciples` at the other end.";
       },
       buildDesignPrincipleEntryChildren);
     parent.addChild(std::move(ln));
@@ -31506,8 +31512,9 @@ void buildDistributionRecipientEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).serializationOrder = 0;
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"role", "String", "Role", false, "Project or organizational role", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"organization", "String", "Organization", false, "Department or company", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"recipientRef", "String", "Recipient", false, "Only in the executive-summary list and a custom group's members: the full-distribution recipient this entry is — a recipient section id (DSRC-ITEM-… of the full distribution), whose values this entry repeats; empty in the full distribution", 0, std::vector<std::string>{}, std::vector<std::string>{"DSRC.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"role", "String", "Role", false, "Project or organizational role", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"organization", "String", "Organization", false, "Department or company", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
   {
@@ -31931,7 +31938,7 @@ void buildDocumentControlChildren(som::SomMetaNode& parent, std::vector<std::str
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "Document header form (id, project, version, date, author, status).";
-        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
+        n.classDocComment = "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\nThe revision history is the holder of the document's version, date and\nauthor: the header shows those of its newest revision entry (`RVENT`, the\nlast of the list, which is ordered newest last), derived from each\ndocument's own history. A document without a revision entry derives\nnothing. The id, the project and the status are the header's own.\n\nA leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and `cloneShallow` needs no child handling.";
       },
       buildDocumentHeaderChildren);
     parent.addChild(std::move(n));
@@ -32018,9 +32025,9 @@ void buildDocumentHeaderChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"documentId", "String", "Document Id", false, "", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"project", "String", "Project", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"version", "String", "Version", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"date", "String", "Date", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"author", "String", "Author", false, "", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"version", "String", "Version", false, "Derived from the newest revision entry; add a revision, not this field.", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"date", "String", "Date", false, "Derived from the newest revision entry; add a revision, not this field.", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"author", "String", "Author", false, "Derived from the newest revision entry; add a revision, not this field.", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Current status", false, "", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
@@ -32936,7 +32943,7 @@ void buildDomainProcessEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).form->fields.push_back(som::SomFormFieldMeta{"inputs", "String", "Inputs (what data/artifacts are needed)", false, "Data or artifacts this process needs as input", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"outputs", "String", "Outputs (what is produced)", false, "What this process produces", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"participants", "String", "Participants (roles/actors involved)", false, "Roles or actors involved in this process", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedProcesses", "String", "Related Processes (processes that interact with this one)", false, "Other processes that interact with this one", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedProcesses", "String", "Related Processes (processes that interact with this one)", false, "Other domain processes that interact with this one — domain process section ids (DOPREN-PROC-…), comma-separated; each names this process back", 3, std::vector<std::string>{}, std::vector<std::string>{"DOPREN.@sectionId"}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"BABOK v3 §10.35 — process modelling\",\"ISO/IEC/IEEE 29148 §6 — business process context\"],\"connotation\":\"The inputs, outputs, participants, and related processes that make up a domain process's flow.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -33019,8 +33026,8 @@ void buildDomainProcessesChildren(som::SomMetaNode& parent, std::vector<std::str
         n.classSectionId = "DOPREN";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DomainProcessEntry";
-        n.docComment = "A domain process entry (form).";
-        n.classDocComment = "A domain process entry (form).";
+        n.docComment = "A domain process entry (form).\n\nLinks: `DPEF.relatedProcesses` names `DOPREN` entries, stored on both\n(`InverseOf.symmetric`).";
+        n.classDocComment = "A domain process entry (form).\n\nLinks: `DPEF.relatedProcesses` names `DOPREN` entries, stored on both\n(`InverseOf.symmetric`).";
       },
       buildDomainProcessEntryChildren);
     parent.addChild(std::move(ln));
@@ -33044,7 +33051,7 @@ void buildDomainTermEntryChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).form->fields.push_back(som::SomFormFieldMeta{"synonyms", "String", "Synonyms (alternative terms sometimes used)", false, "Alternative terms sometimes used for the same concept", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"antiPatterns", "String", "Anti-Patterns (terms to avoid, incorrect usage)", false, "Terms to avoid or incorrect usages of this term", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"examples", "String", "Examples (usage examples)", false, "Concrete examples of the term in use", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedTerms", "String", "Related Terms (linked concepts)", false, "Other terms or concepts linked to this one", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedTerms", "String", "Related Terms (linked concepts)", false, "Other terms linked to this one — term section ids (DTE-TERM-…), comma-separated; each names this term back", 5, std::vector<std::string>{}, std::vector<std::string>{"DTE.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category (Entity, Process, Role, Metric, Status, etc.)", false, "Entity / Process / Role / Metric / Status, etc.", 6, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"source", "String", "Source (where this definition comes from: industry, company, etc.)", false, "Where this definition originates (industry, company, etc.)", 7, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"abbreviation", "String", "Abbreviation (if commonly abbreviated)", false, "Common abbreviation for the term, if any", 8, std::vector<std::string>{}, std::vector<std::string>{}, false});
@@ -33086,8 +33093,8 @@ void buildDomainVocabularyChildren(som::SomMetaNode& parent, std::vector<std::st
         n.classSectionId = "DTE";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DomainTermEntry";
-        n.docComment = "A domain term entry (form).";
-        n.classDocComment = "A domain term entry (form).";
+        n.docComment = "A domain term entry (form).\n\nLinks: `DTE.relatedTerms` names `DTE` entries, stored on both\n(`InverseOf.symmetric`).";
+        n.classDocComment = "A domain term entry (form).\n\nLinks: `DTE.relatedTerms` names `DTE` entries, stored on both\n(`InverseOf.symmetric`).";
       },
       buildDomainTermEntryChildren);
     parent.addChild(std::move(ln));
@@ -35569,14 +35576,15 @@ void buildExecutiveSummaryDistributionChildren(som::SomMetaNode& parent, std::ve
     (*ln).contentHelp = "Add one entry per executive-summary recipient, capturing their role, contact information, preferences, and access levels.";
     (*ln).docComment = "Contains 0+× DistributionRecipient.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK — communications management (stakeholder communication & distribution)\"],\"connotation\":\"The set of recipients in the executive-summary distribution group.\"}", nullptr)});
+    (*ln).extra.push_back(som::SomMetaExtra{"SummaryOf", som::jsonParse("{\"detail\":\"FUDI/DSRC-ITEM-LST\",\"match\":\"DSRC.recipientRef\",\"relation\":\"LinkRelation.subset\",\"repeats\":{},\"note\":\"the executive recipients are a selection of the full distribution; an entry repeats the values of the recipient it names\"}", nullptr)});
     ln->elementNode = metaCx("DistributionRecipientEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "DistributionRecipientEntry";
         n.classSectionId = "DSRC";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DistributionRecipientEntry";
-        n.docComment = "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.";
-        n.classDocComment = "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.";
+        n.docComment = "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.\nThe full distribution (`FUDI`) holds the recipients; the executive-summary\nlist and a custom group's members are selections of it: there\n`recipientRef` names the full-distribution recipient an entry is (a\n`DSRC-ITEM-…` section id of `FUDI`) and the entry's other values repeat\nthat recipient's. In the full distribution `recipientRef` stays empty.";
+        n.classDocComment = "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.\nThe full distribution (`FUDI`) holds the recipients; the executive-summary\nlist and a custom group's members are selections of it: there\n`recipientRef` names the full-distribution recipient an entry is (a\n`DSRC-ITEM-…` section id of `FUDI`) and the entry's other values repeat\nthat recipient's. In the full distribution `recipientRef` stays empty.";
       },
       buildDistributionRecipientEntryChildren);
     parent.addChild(std::move(ln));
@@ -36439,7 +36447,7 @@ void buildExportFormatEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).docComment = "Identity and data source.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Business purpose of this export", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDataEntities", "String", "Related Data Entities", false, "IFM entity references included in export", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDataEntities", "String", "Related Data Entities", false, "Data entities included in the export — entity names declared in the entity registry (DAENT), comma-separated", 1, std::vector<std::string>{}, std::vector<std::string>{"DAENT.entityName"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dataSource", "String", "Data Source", false, "Data source or query reference", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dataScope", "String", "Data Scope", false, "Scope of exported data", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010:2023 — functional appropriateness ensures the exported data source matches the intended task\",\"ISO/IEC 11179 — a data element is identified and described by its source and scope metadata\"],\"connotation\":\"Identity and data-source metadata describing the purpose, related entities, and scope of an export.\"}", nullptr)});
@@ -38276,7 +38284,7 @@ void buildFeaturePrioritizationChildren(som::SomMetaNode& parent, std::vector<st
         n.hasSerializationOrder = true;
         n.serializationOrder = 11;
         n.docComment = "13.4.4. Feature Dependencies.";
-        n.classDocComment = "13.4.4. Feature Dependencies.\n\nCross-feature dependencies affecting staging order, critical path\nanalysis, and delivery sequencing.";
+        n.classDocComment = "13.4.4. Feature Dependencies.\n\nCross-feature dependencies affecting staging order, critical path\nanalysis, and delivery sequencing. The rows are the holder of every\nfeature dependency: each feature's `FEDEIN.dependsOnFeatures` and\n`blocksFeatures` are derived from them.";
       },
       buildFeatureDependenciesChildren);
     parent.addChild(std::move(n));
@@ -38414,8 +38422,8 @@ void buildFeaturePriorityEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).serializationOrder = 6;
     (*n).docComment = "Dependencies.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOnFeatures", "String", "Depends on Features", false, "Features this requires — feature section ids (FPE-ITEM-…), comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.@sectionId"}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"blocksFeatures", "String", "Blocks Features", false, "Features blocked until this completes — feature section ids (FPE-ITEM-…), comma-separated", 1, std::vector<std::string>{}, std::vector<std::string>{"FPE.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOnFeatures", "String", "Depends on Features", false, "Derived from the feature dependency rows (FDE) whose source is this feature: the features it requires; edit the rows, not this field. Each names this feature back in its blocksFeatures.", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"blocksFeatures", "String", "Blocks Features", false, "Derived from the feature dependency rows (FDE) whose target is this feature: the features blocked until it completes; edit the rows, not this field. Each names this feature back in its dependsOnFeatures.", 1, std::vector<std::string>{}, std::vector<std::string>{"FPE.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"externalDependencies", "String", "External Dependencies", false, "External systems, APIs, vendors, or approvals", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyCriticalPath", "String", "On Dependency Critical Path", false, "Yes / No", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management\",\"ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management\"],\"connotation\":\"Captures which features a priority entry depends on or blocks, its external dependencies, and critical-path membership.\"}", nullptr)});
@@ -38555,10 +38563,10 @@ void buildFeatureStageMappingChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
-    (*n).docComment = "Stage assignment details.";
+    (*n).docComment = "The phase within its stage the feature is delivered in. The stage\nitself is the feature's (`FESTAS.targetStage`), reached through\n[content]'s `featureId`; the matrix does not restate it.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"stagePhase", "String", "Stage Phase", false, "Sub-phase within the stage — Alpha / Beta / GA / Full rollout", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing\",\"ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management\"],\"connotation\":\"Captures the target stage, stage phase, and fallback stage assigned to a feature.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing\",\"ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management\"],\"connotation\":\"Captures the phase within its stage a feature is delivered in; the stage itself is held by the feature.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
   {
@@ -38659,6 +38667,7 @@ void buildFeatureStageMatrixChildren(som::SomMetaNode& parent, std::vector<std::
     (*ln).contentHelp = "Add one entry per feature-stage mapping.";
     (*ln).docComment = "Contains 0+× FeatureStageMapping.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing\",\"ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management\"],\"connotation\":\"Holds the collection of feature-to-stage mapping entries that make up the matrix.\"}", nullptr)});
+    (*ln).extra.push_back(som::SomMetaExtra{"SummaryOf", som::jsonParse("{\"detail\":\"FPE-ITEM-LST\",\"match\":\"FSM.featureId\",\"relation\":\"LinkRelation.equal\",\"repeats\":{},\"note\":\"the matrix maps every feature of the priority register\"}", nullptr)});
     ln->elementNode = metaCx("FeatureStageMapping", stack,
       [](som::SomMetaNode& n) {
         n.className = "FeatureStageMapping";
@@ -39522,8 +39531,8 @@ void buildFullDistributionChildren(som::SomMetaNode& parent, std::vector<std::st
         n.classSectionId = "DSRC";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DistributionRecipientEntry";
-        n.docComment = "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.";
-        n.classDocComment = "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.";
+        n.docComment = "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.\nThe full distribution (`FUDI`) holds the recipients; the executive-summary\nlist and a custom group's members are selections of it: there\n`recipientRef` names the full-distribution recipient an entry is (a\n`DSRC-ITEM-…` section id of `FUDI`) and the entry's other values repeat\nthat recipient's. In the full distribution `recipientRef` stays empty.";
+        n.classDocComment = "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.\nThe full distribution (`FUDI`) holds the recipients; the executive-summary\nlist and a custom group's members are selections of it: there\n`recipientRef` names the full-distribution recipient an entry is (a\n`DSRC-ITEM-…` section id of `FUDI`) and the entry's other values repeat\nthat recipient's. In the full distribution `recipientRef` stays empty.";
       },
       buildDistributionRecipientEntryChildren);
     parent.addChild(std::move(ln));
@@ -39564,7 +39573,7 @@ void buildFunctionEntryChildren(som::SomMetaNode& parent, std::vector<std::strin
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What this function accomplishes", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"parentFunction", "String", "Parent Function", false, "Parent function in hierarchy", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"parentFunction", "String", "Parent Function", false, "The parent function in the hierarchy — a function section id (FUNCT-FUNC-…)", 1, std::vector<std::string>{}, std::vector<std::string>{"FUNCT.@sectionId"}, false});
     parent.addChild(std::move(n));
   }
   {
@@ -39711,8 +39720,8 @@ void buildFunctionModelChildren(som::SomMetaNode& parent, std::vector<std::strin
         n.classSectionId = "FUNCT";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "FunctionEntry";
-        n.docComment = "A function entry (form).\n\nBusiness function specification in the functional decomposition.";
-        n.classDocComment = "A function entry (form).\n\nBusiness function specification in the functional decomposition.";
+        n.docComment = "A function entry (form).\n\nBusiness function specification in the functional decomposition.\n\nLinks: `FUNCT.parentFunction` names `FUNCT`, one-way.";
+        n.classDocComment = "A function entry (form).\n\nBusiness function specification in the functional decomposition.\n\nLinks: `FUNCT.parentFunction` names `FUNCT`, one-way.";
         n.detailedIn = "D03InformationModel";
       },
       buildFunctionEntryChildren);
@@ -39906,8 +39915,9 @@ void buildFunctionalRequirementEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).docComment = "Assumptions and constraints.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"assumptions", "String", "Assumptions (conditions assumed to be true)", false, "Conditions assumed to be true for this requirement", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"constraints", "String", "Constraints (limitations on implementation)", false, "Limitations on how the requirement may be implemented", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"conflictsWith", "String", "Conflicts With (IDs of conflicting requirements)", false, "IDs of requirements this one conflicts with", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"constraints", "String", "Constraints (limitations on implementation)", false, "Limitations on how this requirement may be implemented. A limit set by another requirement is a dependency row of type constrainedBy (shown in Constrained By).", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"constrainedBy", "String", "Constrained By (limits set by other requirements)", false, "Derived from the dependency rows of type constrainedBy, one line per row; edit the rows, not this field.", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"conflictsWith", "String", "Conflicts With (IDs of conflicting requirements)", false, "Derived from the dependency rows of type conflict: the ids of the requirements this one conflicts with; edit the rows, not this field.", 3, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §9.5 — functional requirements\"],\"connotation\":\"The assumptions a functional requirement relies on, the constraints it must respect, and the other requirements it conflicts with.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -40003,7 +40013,7 @@ void buildFunctionalRequirementEntryChildren(som::SomMetaNode& parent, std::vect
         n.hasSerializationOrder = true;
         n.serializationOrder = 11;
         n.docComment = "4.3.1.n.5. Dependencies.";
-        n.classDocComment = "4.3.1.n.5. Dependencies.\n\nDependencies this requirement has on other requirements.";
+        n.classDocComment = "4.3.1.n.5. Dependencies.\n\nDependencies this requirement has on other requirements. Each dependency\nis one row, stored once, on the requirement it applies to: a directional\ndependency (prerequisite, parent-child, refinement, constrained by) is not\nwritten again as its converse on the other requirement, which reaches it\nthrough navigation. A conflict and a bidirectional dependency stand at both\nends. The rows are the holder of every dependency; the requirement's\n`constrainedBy`, `conflictsWith` and `OREP.dependencies` are derived from\nthem.";
       },
       buildRequirementDependenciesChildren);
     parent.addChild(std::move(n));
@@ -40019,7 +40029,7 @@ void buildFunctionalRequirementEntryChildren(som::SomMetaNode& parent, std::vect
         n.hasSerializationOrder = true;
         n.serializationOrder = 12;
         n.docComment = "4.3.1.n.6. Traceability.";
-        n.classDocComment = "4.3.1.n.6. Traceability.\n\nTraceability links to goals, use cases, processes, and other artifacts.";
+        n.classDocComment = "4.3.1.n.6. Traceability.\n\nTraceability links to goals, use cases, processes, and other artifacts.\n\nLinks: `RETRAR.relatedDocuments` names `RFDOC`, one-way.";
       },
       buildRequirementTraceabilityChildren);
     parent.addChild(std::move(n));
@@ -40291,7 +40301,7 @@ void buildGapEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& s
     (*n).form->fields.push_back(som::SomFormFieldMeta{"discoveryMethod", "String", "Discovery Method", false, "Audit / UserFeedback / Incident / ProcessReview / Benchmarking / RegulatoryChange", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"gapAge", "String", "Gap Age", false, "How long this gap has been known, e.g. Since 2023-Q2, 18 months", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"validationStatus", "String", "Validation Status", false, "Identified / Confirmed / Quantified / Accepted", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedPainPoints", "String", "Related Pain Points", false, "References to pain point entries that stem from this gap", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedPainPoints", "String", "Related Pain Points", false, "Pain points that stem from this gap — pain point section ids (PAPE-ITEM-…), comma-separated; each names this gap back in its relatedGaps", 4, std::vector<std::string>{}, std::vector<std::string>{"PAPE.@sectionId"}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"BABOK v3 §6 — gap analysis (gap discovery, drivers & validation)\"],\"connotation\":\"How this gap was found and confirmed — its compliance driver, discovery method, age, validation status, and links to related pain points.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -40326,7 +40336,7 @@ void buildGapEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& s
     (*n).form->fields.push_back(som::SomFormFieldMeta{"proposedResolution", "String", "Proposed Resolution", false, "High-level approach to closing the gap", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"expectedTimeline", "String", "Expected Resolution Timeline", false, "Target timeframe, e.g. Phase 1 — Q3 2026, 6-9 months", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"successCriteria", "String", "Success Criteria", false, "Measurable criteria that confirm the gap is closed", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOnGaps", "String", "Depends on Other Gaps", false, "Other gaps that must be resolved first, by name or ID", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOnGaps", "String", "Depends on Other Gaps", false, "Other gaps that must be resolved first — gap section ids (GAPE-ITEM-…), comma-separated", 3, std::vector<std::string>{}, std::vector<std::string>{"GAPE.@sectionId"}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"BABOK v3 §6 — gap analysis (closing the gap toward the desired state)\"],\"connotation\":\"The proposed path from this gap to the desired state — approach, timeline, success criteria, and dependencies on other gaps.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -44024,8 +44034,8 @@ void buildInteractionCatalogChildren(som::SomMetaNode& parent, std::vector<std::
         n.classSectionId = "INEN";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "InteractionEntry";
-        n.docComment = "An interaction entry.\n\nComprehensive interaction definition following Cockburn's fully dressed\nuse case template. Seeds the ISC (Interaction Scenarios) document.";
-        n.classDocComment = "An interaction entry.\n\nComprehensive interaction definition following Cockburn's fully dressed\nuse case template. Seeds the ISC (Interaction Scenarios) document.";
+        n.docComment = "An interaction entry.\n\nComprehensive interaction definition following Cockburn's fully dressed\nuse case template. Seeds the ISC (Interaction Scenarios) document.\n\nLinks: `UCSC.relatedUseCases` names `INEN`, one-way; `INTR.relatedUseCase`\nnames `INEN`, one-way; `INTR.relatedTestCases` names `TSSC`, `RQTSC`,\none-way.";
+        n.classDocComment = "An interaction entry.\n\nComprehensive interaction definition following Cockburn's fully dressed\nuse case template. Seeds the ISC (Interaction Scenarios) document.\n\nLinks: `UCSC.relatedUseCases` names `INEN`, one-way; `INTR.relatedUseCase`\nnames `INEN`, one-way; `INTR.relatedTestCases` names `TSSC`, `RQTSC`,\none-way.";
       },
       buildInteractionEntryChildren);
     parent.addChild(std::move(ln));
@@ -44239,7 +44249,8 @@ void buildInteractionEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).form->fields.push_back(som::SomFormFieldMeta{"primaryActor", "String", "Primary Actor — who initiates", false, "The actor with the goal who starts the interaction", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"supportingActors", "String", "Supporting Actors — who else participates", false, "Other actors or systems that contribute", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"goalLevel", "String", "Goal Level — summary (+), user goal (!), subfunction (-)", false, "Cockburn level: + summary, ! user goal, - subfunction", 6, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"designScope", "String", "Design Scope — organization, system, subsystem, component", false, "Boundary in view: organization, system, subsystem, component", 7, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "Priority", "Priority", false, "MoSCoW band of this interaction — the interaction overview counts by it", 7, std::vector<std::string>{"must", "should", "could", "wontThisTime"}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"designScope", "String", "Design Scope — organization, system, subsystem, component", false, "Boundary in view: organization, system, subsystem, component", 8, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Cockburn — Writing Effective Use Cases: use-case identity & scope\",\"UML 2.5.1 (ISO/IEC 19505) — use cases\"],\"connotation\":\"Identifies a use case by id, name, actors, goal level and design scope — its header attributes.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -44261,7 +44272,7 @@ void buildInteractionEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).form->fields.push_back(som::SomFormFieldMeta{"assumption", "String", "Assumptions — what is assumed true", false, "Facts assumed true but not verified in the flow", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dependency", "String", "Dependencies — what this depends on", false, "External systems or use cases this relies on", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"constraint", "String", "Constraints — limitations", false, "Limitations bounding how the use case may work", 6, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedUseCases", "String", "Related Use Cases — includes, extends", false, "Use cases this one includes or extends", 7, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedUseCases", "String", "Related Use Cases — includes, extends", false, "Use cases (interactions) this one includes or extends — interaction section ids (INEN-INTE-…), comma-separated", 7, std::vector<std::string>{}, std::vector<std::string>{"INEN.@sectionId"}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Cockburn — Writing Effective Use Cases: scope, level and context\",\"UML 2.5.1 (ISO/IEC 19505) — use cases\"],\"connotation\":\"Sets the boundary, level and surrounding context — assumptions, dependencies and related use cases — for this interaction.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -44492,13 +44503,13 @@ void buildInteractionEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).docComment = "Related elements and traceability.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedProcess", "String", "Related Process", false, "The business process this interaction realizes — a section id (BPREN-PROC-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"BPREN.@sectionId"}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements", false, "Requirement ids satisfied here, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 1, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedUseCase", "String", "Related Use Case", false, "Use cases of the Interaction Scenarios document, as text (e.g. UC-23) — another document's ids, not resolved in the Blueprint", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements", false, "Requirement ids satisfied here, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…); a functional, technical or security requirement names this interaction back in its RT-TRAC.relatedUseCases", 1, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedUseCase", "String", "Related Use Case", false, "Use cases of the Interaction Scenarios document, as text (e.g. UC-23) — another document's ids, not resolved in the Blueprint", 2, std::vector<std::string>{}, std::vector<std::string>{"INEN.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDataEntities", "String", "Related Data Entities — entity names", false, "Data entities read or written, comma-separated — each an entity name declared in the entity registry (DAENT)", 3, std::vector<std::string>{}, std::vector<std::string>{"DAENT.entityName"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedBusinessObjects", "String", "Related Business Objects", false, "Business objects involved, comma-separated — business object section ids (BJOEN-OBJE-…)", 4, std::vector<std::string>{}, std::vector<std::string>{"BJOEN.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedBusinessRules", "String", "Related Business Rules", false, "Business rules referenced, comma-separated — business rule section ids (BIRU-BUSI-…)", 5, std::vector<std::string>{}, std::vector<std::string>{"BIRU.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedIntegrations", "String", "Related Integrations", false, "Integrations touched, comma-separated — external interface section ids (EIE-INTE-…)", 6, std::vector<std::string>{}, std::vector<std::string>{"EIE.@sectionId"}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedTestCases", "String", "Related Test Cases — TC-xxx", false, "TC-xxx test cases covering this", 7, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedTestCases", "String", "Related Test Cases — TC-xxx", false, "Test cases covering this interaction — test scenario or requirement test case section ids (TSSC-TEST-… / RQTSC-TEST-…), comma-separated", 7, std::vector<std::string>{}, std::vector<std::string>{"TSSC.@sectionId", "RQTSC.@sectionId"}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements\",\"BABOK v3 — use cases & scenarios\"],\"connotation\":\"Traces the interaction to related processes, requirements, data, business objects, rules, integrations and test cases.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -45869,7 +45880,7 @@ void buildIso25010CoverageChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"description", "Summarize how the quality goals cover the eight ISO/IEC 25010:2023 characteristics. The taxonomy itself is owned by the SystemQualityGoals characteristic spine; this is a derived coverage view, not a second copy of the taxonomy."};
+    (*n).contentType = som::SomContentTypeMeta{"description", "Summarize how the quality goals cover the eight ISO/IEC 25010:2023 characteristics. The taxonomy itself is owned by the SystemQualityGoals characteristic spine; this is a coverage view, not a second copy of the taxonomy."};
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
     parent.addChild(std::move(n));
   }
@@ -46601,7 +46612,7 @@ void buildKeyConceptEntryChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).form->fields.push_back(som::SomFormFieldMeta{"identifiedBy", "String", "Identified By (what uniquely identifies instances)", false, "What uniquely identifies instances of this concept", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"lifecycle", "String", "Lifecycle (how instances are created, modified, archived)", false, "How instances are created, modified, and archived", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"ownedBy", "String", "Owned By (which business function owns this concept)", false, "Which business function owns this concept", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedConcepts", "String", "Related Concepts (other concepts this relates to)", false, "Other concepts this one relates to", 6, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedConcepts", "String", "Related Concepts (other concepts this relates to)", false, "Other concepts this one relates to — concept section ids (KECON-CONC-…), comma-separated; each names this concept back", 6, std::vector<std::string>{}, std::vector<std::string>{"KECON.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"businessRules", "String", "Business Rules (rules that govern this concept)", false, "Business rules that govern this concept", 7, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"volumeEstimate", "String", "Volume Estimate (expected number of instances)", false, "Expected number of instances of this concept", 8, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
@@ -46681,8 +46692,8 @@ void buildKeyConceptsChildren(som::SomMetaNode& parent, std::vector<std::string>
         n.classSectionId = "KECON";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "KeyConceptEntry";
-        n.docComment = "A key concept entry (form).";
-        n.classDocComment = "A key concept entry (form).";
+        n.docComment = "A key concept entry (form).\n\nLinks: `KECON.relatedConcepts` names `KECON` entries, stored on both\n(`InverseOf.symmetric`).";
+        n.classDocComment = "A key concept entry (form).\n\nLinks: `KECON.relatedConcepts` names `KECON` entries, stored on both\n(`InverseOf.symmetric`).";
       },
       buildKeyConceptEntryChildren);
     parent.addChild(std::move(ln));
@@ -50721,7 +50732,7 @@ void buildMigrationPhasesChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).serializationOrder = 0;
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"totalPhases", "String", "Total Phases", true, "Number of distinct migration phases — e.g. 5 phases covering 3 source systems", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"totalPhases", "String", "Total Phases", false, "Number of distinct migration phases — e.g. 5 phases covering 3 source systems", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"phaseExecutionModel", "String", "Phase Execution Model", true, "Sequential / Overlapping / Parallel / WaterfallWithinAgileAcross — how phases relate temporally", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"longestPhase", "String", "Longest Phase", false, "Phase with longest duration and its expected timeframe — e.g. Phase 2 (ERP data): 6 weeks", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"criticalPathPhases", "String", "Critical Path Phases", false, "Phases on the critical path that determine overall migration timeline", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
@@ -51034,8 +51045,8 @@ void buildMigrationRiskEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRisks", "String", "Related Risks", false, "Correlated migration risks — risk section ids (MGRSK-ITEM-… / SYMIRI-RISK-…), comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{"MGRSK.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedIssues", "String", "Related Issues (external)", false, "Issue ids from the project issue tracker — owned by the tracker, not declared in this blueprint", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements", false, "Requirements impacted by risk", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDecisions", "String", "Related Decisions", false, "Decisions affecting this risk", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements", false, "Requirements impacted by the risk — requirement section ids, comma-separated", 2, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDecisions", "String", "Related Decisions", false, "Decisions affecting this risk — architecture decision section ids (ARDE-DECI-…), comma-separated", 3, std::vector<std::string>{}, std::vector<std::string>{"ARDE.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyChain", "String", "Dependency Chain", false, "Other risks this depends on", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 31000 — risk management (migration risk)\",\"PMBOK — schedule / risk / cost management\"],\"connotation\":\"Captures the relationships between this migration risk and other risks, issues, requirements, decisions, and dependency chains.\"}", nullptr)});
     parent.addChild(std::move(n));
@@ -51351,8 +51362,8 @@ void buildMigrationRisksChildren(som::SomMetaNode& parent, std::vector<std::stri
         n.classSectionId = "MGRSK";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "MigrationRiskEntry";
-        n.docComment = "A migration risk entry (form).\n\nDetailed migration risk documentation following enterprise risk\nmanagement practices. Captures full risk lifecycle from identification\nthrough resolution.";
-        n.classDocComment = "A migration risk entry (form).\n\nDetailed migration risk documentation following enterprise risk\nmanagement practices. Captures full risk lifecycle from identification\nthrough resolution.";
+        n.docComment = "A migration risk entry (form).\n\nDetailed migration risk documentation following enterprise risk\nmanagement practices. Captures full risk lifecycle from identification\nthrough resolution.\n\nLinks: `MIRIR1.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,\none-way; `MIRIR1.relatedDecisions` names `ARDE`, one-way;\n`MIRIR1.relatedRisks` is stored on both entries (`InverseOf.symmetric`).";
+        n.classDocComment = "A migration risk entry (form).\n\nDetailed migration risk documentation following enterprise risk\nmanagement practices. Captures full risk lifecycle from identification\nthrough resolution.\n\nLinks: `MIRIR1.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,\none-way; `MIRIR1.relatedDecisions` names `ARDE`, one-way;\n`MIRIR1.relatedRisks` is stored on both entries (`InverseOf.symmetric`).";
       },
       buildMigrationRiskEntryChildren);
     parent.addChild(std::move(ln));
@@ -52668,8 +52679,8 @@ void buildMustPassCriteriaChildren(som::SomMetaNode& parent, std::vector<std::st
         n.classSectionId = "MSTPCR";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "MustPassCriterionEntry";
-        n.docComment = "A must-pass criterion entry (form).";
-        n.classDocComment = "A must-pass criterion entry (form).";
+        n.docComment = "A must-pass criterion entry (form).\n\nLinks: `MPCEG.dependsOnCriteria` names `MSTPCR`, one-way.";
+        n.classDocComment = "A must-pass criterion entry (form).\n\nLinks: `MPCEG.dependsOnCriteria` names `MSTPCR`, one-way.";
       },
       buildMustPassCriterionEntryChildren);
     parent.addChild(std::move(ln));
@@ -52741,7 +52752,7 @@ void buildMustPassCriterionEntryChildren(som::SomMetaNode& parent, std::vector<s
     (*n).form->fields.push_back(som::SomFormFieldMeta{"responsibleParty", "String", "Responsible Party", false, "Who is responsible for verification", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"reviewerParty", "String", "Reviewer Party", false, "Who reviews the evidence", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"approverParty", "String", "Approver Party", false, "Who approves the result", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOnCriteria", "String", "Depends On", false, "Other criteria this depends on", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOnCriteria", "String", "Depends On", false, "Other must-pass criteria this depends on — criterion section ids (MSTPCR-ITEM-…), comma-separated", 3, std::vector<std::string>{}, std::vector<std::string>{"MSTPCR.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"blockedByCriteria", "String", "Blocked By", false, "Criteria that block this", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29119 — responsibility for performing, reviewing, and approving verification is assigned\"],\"connotation\":\"Captures who is responsible for performing, reviewing, and approving verification of the criterion.\"}", nullptr)});
     parent.addChild(std::move(n));
@@ -54466,8 +54477,8 @@ void buildNewRoleResponsibilitiesChildren(som::SomMetaNode& parent, std::vector<
         n.classSectionId = "RSPDT";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ResponsibilityDetailEntry";
-        n.docComment = "Detailed responsibility entry (form).";
-        n.classDocComment = "Detailed responsibility entry (form).";
+        n.docComment = "Detailed responsibility entry (form).\n\nLinks: `RSPDT.relatedProcesses` names `BPREN`, one-way.";
+        n.classDocComment = "Detailed responsibility entry (form).\n\nLinks: `RSPDT.relatedProcesses` names `BPREN`, one-way.";
       },
       buildResponsibilityDetailEntryChildren);
     parent.addChild(std::move(ln));
@@ -54491,8 +54502,8 @@ void buildNewRoleResponsibilitiesChildren(som::SomMetaNode& parent, std::vector<
         n.classSectionId = "RSPDT";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ResponsibilityDetailEntry";
-        n.docComment = "Detailed responsibility entry (form).";
-        n.classDocComment = "Detailed responsibility entry (form).";
+        n.docComment = "Detailed responsibility entry (form).\n\nLinks: `RSPDT.relatedProcesses` names `BPREN`, one-way.";
+        n.classDocComment = "Detailed responsibility entry (form).\n\nLinks: `RSPDT.relatedProcesses` names `BPREN`, one-way.";
       },
       buildResponsibilityDetailEntryChildren);
     parent.addChild(std::move(ln));
@@ -56387,7 +56398,7 @@ void buildOrganizationalRequirementEntryChildren(som::SomMetaNode& parent, std::
     (*n).docComment = "Planning, ownership, and success tracking.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"timeline", "String", "Timeline (when change must occur)", false, "When the change must be completed", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencies", "String", "Dependencies (other changes needed first)", false, "Other changes that must happen first", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencies", "String", "Dependencies (other changes needed first)", false, "Derived from the dependency rows of type prerequisite: the ids of the requirements that must be met first; edit the rows, not this field. A change that is not a requirement (a reorganisation, a contract) belongs in the dependency register (ACRG › DEPRE-DEPS-LST).", 1, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"owner", "String", "Change Owner", false, "Person or role accountable for the change", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sponsor", "String", "Executive Sponsor", false, "Leadership sponsor backing the change", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"successCriteria", "String", "Success Criteria", false, "How success of the change is defined", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
@@ -56439,7 +56450,7 @@ void buildOrganizationalRequirementEntryChildren(som::SomMetaNode& parent, std::
         n.hasSerializationOrder = true;
         n.serializationOrder = 6;
         n.docComment = "4.3.4.n.3. Dependencies.";
-        n.classDocComment = "4.3.1.n.5. Dependencies.\n\nDependencies this requirement has on other requirements.";
+        n.classDocComment = "4.3.1.n.5. Dependencies.\n\nDependencies this requirement has on other requirements. Each dependency\nis one row, stored once, on the requirement it applies to: a directional\ndependency (prerequisite, parent-child, refinement, constrained by) is not\nwritten again as its converse on the other requirement, which reaches it\nthrough navigation. A conflict and a bidirectional dependency stand at both\nends. The rows are the holder of every dependency; the requirement's\n`constrainedBy`, `conflictsWith` and `OREP.dependencies` are derived from\nthem.";
       },
       buildRequirementDependenciesChildren);
     parent.addChild(std::move(n));
@@ -57159,8 +57170,8 @@ void buildPainPointEntryChildren(som::SomMetaNode& parent, std::vector<std::stri
         n.classSectionId = "PAPOR1";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "PainPointRelationships";
-        n.docComment = "Relationships for pain point.";
-        n.classDocComment = "Relationships for pain point.";
+        n.docComment = "Relationships for pain point.\n\nLinks: `PAPOR1.relatedGaps` names `GAPE`, answered by\n`GAENDI.relatedPainPoints` at the other end; `PAPOR1.dependsOn` names\n`PAPE`, one-way; `PAPOR1.relatedPainPoints` is stored on both entries\n(`InverseOf.symmetric`).";
+        n.classDocComment = "Relationships for pain point.\n\nLinks: `PAPOR1.relatedGaps` names `GAPE`, answered by\n`GAENDI.relatedPainPoints` at the other end; `PAPOR1.dependsOn` names\n`PAPE`, one-way; `PAPOR1.relatedPainPoints` is stored on both entries\n(`InverseOf.symmetric`).";
       },
       buildPainPointRelationshipsChildren);
     parent.addChild(std::move(ln));
@@ -57257,8 +57268,8 @@ void buildPainPointRelationshipsChildren(som::SomMetaNode& parent, std::vector<s
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedPainPoints", "String", "Related Pain Points", false, "Related pain points — pain point section ids (PAPE-ITEM-…), comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{"PAPE.@sectionId"}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedGaps", "String", "Related Gaps", false, "Gap entries that this pain point stems from", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOn", "String", "Depends On", false, "Other pain points that must be resolved first", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedGaps", "String", "Related Gaps", false, "Gaps this pain point stems from — gap section ids (GAPE-ITEM-…), comma-separated; each gap names this pain point back in its relatedPainPoints", 1, std::vector<std::string>{}, std::vector<std::string>{"GAPE.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOn", "String", "Depends On", false, "Other pain points that must be resolved first — pain point section ids (PAPE-ITEM-…), comma-separated", 2, std::vector<std::string>{}, std::vector<std::string>{"PAPE.@sectionId"}, false});
     parent.addChild(std::move(n));
   }
 }
@@ -57395,8 +57406,8 @@ void buildPainPointsAndGapsChildren(som::SomMetaNode& parent, std::vector<std::s
         n.classSectionId = "GAPE";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "GapEntry";
-        n.docComment = "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.";
-        n.classDocComment = "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.";
+        n.docComment = "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.\n\nLinks: `GAENDI.relatedPainPoints` names `PAPE`, answered by\n`PAPOR1.relatedGaps` at the other end; `GAENRE.dependsOnGaps` names `GAPE`,\none-way.";
+        n.classDocComment = "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.\n\nLinks: `GAENDI.relatedPainPoints` names `PAPE`, answered by\n`PAPOR1.relatedGaps` at the other end; `GAENRE.dependsOnGaps` names `GAPE`,\none-way.";
       },
       buildGapEntryChildren);
     parent.addChild(std::move(ln));
@@ -58780,7 +58791,7 @@ void buildPipelineJobEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).serializationOrder = 0;
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"parentStage", "String", "Parent Stage", false, "Stage this job belongs to", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"parentStage", "String", "Parent Stage", false, "The pipeline stage this job belongs to — a pipeline stage section id (PSE-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"PSE.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What this job does", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
@@ -58829,7 +58840,7 @@ void buildPipelineJobEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).serializationOrder = 3;
     (*n).docComment = "Job dependencies.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOn", "String", "Depends On", false, "Other jobs this depends on", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOn", "String", "Depends On", false, "Other jobs this depends on — pipeline job section ids (PJE-JOBS-…), comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{"PJE.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"services", "String", "Services", false, "Required services (DB, cache)", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"caching", "String", "Caching", false, "Cache configuration", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"CI/CD — continuous integration / delivery pipelines\",\"Twelve-Factor App — cloud-native methodology\"],\"connotation\":\"Captures pipeline job dependencies including upstream jobs, backing services, and caching.\"}", nullptr)});
@@ -59501,8 +59512,8 @@ void buildPrintAndExportLayoutChildren(som::SomMetaNode& parent, std::vector<std
         n.classSectionId = "EFE";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ExportFormatEntry";
-        n.docComment = "An export format entry (form).";
-        n.classDocComment = "An export format entry (form).";
+        n.docComment = "An export format entry (form).\n\nLinks: `EXID.relatedDataEntities` names `DAENT.entityName`, one-way.";
+        n.classDocComment = "An export format entry (form).\n\nLinks: `EXID.relatedDataEntities` names `DAENT.entityName`, one-way.";
       },
       buildExportFormatEntryChildren);
     parent.addChild(std::move(ln));
@@ -61011,8 +61022,8 @@ void buildProcessMetricCategoryChildren(som::SomMetaNode& parent, std::vector<st
         n.classSectionId = "PME";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ProcessMetricEntry";
-        n.docComment = "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.";
-        n.classDocComment = "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.";
+        n.docComment = "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.\nThe class serves a process's own metric list and the key metrics\n(`PME-KEYM-LST`), which summarize the processes' metrics: a key metric's\n`metricRef` names the metric it is (a `PME-METR-…` section id) and its\nother values repeat that metric's; in a process's own list `metricRef`\nstays empty.";
+        n.classDocComment = "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.\nThe class serves a process's own metric list and the key metrics\n(`PME-KEYM-LST`), which summarize the processes' metrics: a key metric's\n`metricRef` names the metric it is (a `PME-METR-…` section id) and its\nother values repeat that metric's; in a process's own list `metricRef`\nstays empty.";
       },
       buildProcessMetricEntryChildren);
     parent.addChild(std::move(ln));
@@ -61031,9 +61042,10 @@ void buildProcessMetricEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).serializationOrder = 0;
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"metricCategory", "String", "Category (e.g., Efficiency, Quality, Volume, Cost)", false, "Only for metrics listed on their own — a metric listed inside a metric category takes that category and leaves this empty", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"currentValue", "String", "Current Value", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"unit", "String", "Unit", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"metricRef", "String", "Metric", false, "Only in a key metric: the process metric it names — a metric section id (PME-METR-…), whose values the key metric repeats; empty in a process's own metric list", 0, std::vector<std::string>{}, std::vector<std::string>{"PME.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"metricCategory", "String", "Category (e.g., Efficiency, Quality, Volume, Cost)", false, "Only for metrics listed on their own — a metric listed inside a metric category takes that category and leaves this empty", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"currentValue", "String", "Current Value", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"unit", "String", "Unit", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
   {
@@ -61269,8 +61281,8 @@ void buildProcessMetricsChildren(som::SomMetaNode& parent, std::vector<std::stri
         n.classSectionId = "PME";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ProcessMetricEntry";
-        n.docComment = "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.";
-        n.classDocComment = "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.";
+        n.docComment = "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.\nThe class serves a process's own metric list and the key metrics\n(`PME-KEYM-LST`), which summarize the processes' metrics: a key metric's\n`metricRef` names the metric it is (a `PME-METR-…` section id) and its\nother values repeat that metric's; in a process's own list `metricRef`\nstays empty.";
+        n.classDocComment = "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.\nThe class serves a process's own metric list and the key metrics\n(`PME-KEYM-LST`), which summarize the processes' metrics: a key metric's\n`metricRef` names the metric it is (a `PME-METR-…` section id) and its\nother values repeat that metric's; in a process's own list `metricRef`\nstays empty.";
       },
       buildProcessMetricEntryChildren);
     parent.addChild(std::move(ln));
@@ -61552,14 +61564,15 @@ void buildProcessPerformanceSummaryChildren(som::SomMetaNode& parent, std::vecto
     (*ln).contentHelp = "Add the most important metrics that characterize overall process performance at a glance.";
     (*ln).docComment = "Key metrics summary.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"BABOK v3 §10 — current-state analysis (key performance metrics)\"],\"connotation\":\"The headline metrics chosen to summarize current process performance.\"}", nullptr)});
+    (*ln).extra.push_back(som::SomMetaExtra{"SummaryOf", som::jsonParse("{\"detail\":\"PME-METR-LST\",\"match\":\"PME.metricRef\",\"relation\":\"LinkRelation.subset\",\"repeats\":{},\"note\":\"the key metrics are a selection of the processes' metrics; a key metric repeats the values of the metric it names\"}", nullptr)});
     ln->elementNode = metaCx("ProcessMetricEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "ProcessMetricEntry";
         n.classSectionId = "PME";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ProcessMetricEntry";
-        n.docComment = "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.";
-        n.classDocComment = "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.";
+        n.docComment = "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.\nThe class serves a process's own metric list and the key metrics\n(`PME-KEYM-LST`), which summarize the processes' metrics: a key metric's\n`metricRef` names the metric it is (a `PME-METR-…` section id) and its\nother values repeat that metric's; in a process's own list `metricRef`\nstays empty.";
+        n.classDocComment = "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.\nThe class serves a process's own metric list and the key metrics\n(`PME-KEYM-LST`), which summarize the processes' metrics: a key metric's\n`metricRef` names the metric it is (a `PME-METR-…` section id) and its\nother values repeat that metric's; in a process's own list `metricRef`\nstays empty.";
       },
       buildProcessMetricEntryChildren);
     parent.addChild(std::move(ln));
@@ -63044,7 +63057,7 @@ void buildPrototypeChildren(som::SomMetaNode& parent, std::vector<std::string>& 
         n.hasSerializationOrder = true;
         n.serializationOrder = 7;
         n.docComment = "10.13.2. Selected Feature Subset.";
-        n.classDocComment = "10.13.2. Selected Feature Subset.\n\nFeatures included in the prototype.";
+        n.classDocComment = "10.13.2. Selected Feature Subset.\n\nFeatures included in the prototype.\n\nLinks: `PFSS.includedFeatures` names `PFE`, one-way; `PFSS.excludedFeatures`\nnames `PFE`, one-way.";
       },
       buildPrototypeFeatureSubsetChildren);
     parent.addChild(std::move(n));
@@ -63096,7 +63109,7 @@ void buildPrototypeFeatureEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).form->fields.push_back(som::SomFormFieldMeta{"inclusionReason", "String", "Inclusion Reason", false, "Why this feature is included", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"fidelityLevel", "ImportanceBand", "Fidelity Level", false, "Qualitative fidelity band.", 2, std::vector<std::string>{"critical", "high", "medium", "low"}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"completenessLevel", "String", "Completeness Level", false, "Full, partial, stub", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedGoals", "String", "Related Goals", false, "Prototype goals this addresses", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedGoals", "String", "Related Goals", false, "Prototype goals this feature addresses — prototype goal section ids (PGE-GOAL-…), comma-separated", 4, std::vector<std::string>{}, std::vector<std::string>{"PGE.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"implementationNotes", "String", "Implementation Notes", false, "Notes on how the feature is built in the prototype", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"knownLimitations", "String", "Known Limitations", false, "Known limitations of the prototyped feature", 6, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
@@ -63145,8 +63158,8 @@ void buildPrototypeFeatureSubsetChildren(som::SomMetaNode& parent, std::vector<s
     (*n).serializationOrder = 2;
     (*n).docComment = "Included and excluded feature scope.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"includedFeatures", "String", "Included Features", false, "Features in prototype", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"excludedFeatures", "String", "Excluded Features", false, "Features not in prototype", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"includedFeatures", "String", "Included Features", false, "Features in the prototype — prototype feature section ids (PFE-FEAT-…), comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{"PFE.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"excludedFeatures", "String", "Excluded Features", false, "Features not in the prototype — prototype feature section ids (PFE-FEAT-…), comma-separated", 1, std::vector<std::string>{}, std::vector<std::string>{"PFE.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"partialFeatures", "String", "Partial Features", false, "Features partially implemented", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-210:2019 — the scope of the prototype is bounded by stating which features are included, excluded, or partial\"],\"connotation\":\"The included, excluded, and partially implemented features of the prototype.\"}", nullptr)});
     parent.addChild(std::move(n));
@@ -63200,8 +63213,8 @@ void buildPrototypeFeatureSubsetChildren(som::SomMetaNode& parent, std::vector<s
         n.classSectionId = "PFE";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "PrototypeFeatureEntry";
-        n.docComment = "A prototype feature entry.";
-        n.classDocComment = "A prototype feature entry.";
+        n.docComment = "A prototype feature entry.\n\nLinks: `PFE.relatedGoals` names `PGE`, one-way.";
+        n.classDocComment = "A prototype feature entry.\n\nLinks: `PFE.relatedGoals` names `PGE`, one-way.";
       },
       buildPrototypeFeatureEntryChildren);
     parent.addChild(std::move(ln));
@@ -63225,7 +63238,7 @@ void buildPrototypeGoalEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).form->fields.push_back(som::SomFormFieldMeta{"validationMethod", "String", "Validation Method", false, "How goal is validated", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"successMetric", "String", "Success Metric", false, "How success is measured", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority", false, "Must-have, should-have, nice-to-have", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRisks", "String", "Related Risks", false, "Risks this goal addresses", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRisks", "String", "Related Risks", false, "Risks this goal addresses — risk section ids (RISENT-…), comma-separated", 5, std::vector<std::string>{}, std::vector<std::string>{"RISENT.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"stakeholders", "String", "Stakeholders", false, "Stakeholders interested in this goal", 6, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
@@ -63328,8 +63341,8 @@ void buildPrototypeGoalsChildren(som::SomMetaNode& parent, std::vector<std::stri
         n.classSectionId = "PGE";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "PrototypeGoalEntry";
-        n.docComment = "A prototype goal entry.";
-        n.classDocComment = "A prototype goal entry.";
+        n.docComment = "A prototype goal entry.\n\nLinks: `PGE.relatedRisks` names `RISENT`, one-way.";
+        n.classDocComment = "A prototype goal entry.\n\nLinks: `PGE.relatedRisks` names `RISENT`, one-way.";
       },
       buildPrototypeGoalEntryChildren);
     parent.addChild(std::move(ln));
@@ -63566,7 +63579,7 @@ void buildQualityAndAcceptanceModelChildren(som::SomMetaNode& parent, std::vecto
         n.hasSerializationOrder = true;
         n.serializationOrder = 3;
         n.docComment = "ISO/IEC 25010:2023 product-quality cross-map — the IP-6 completeness\naddition, as the library doc states.";
-        n.classDocComment = "ISO/IEC 25010:2023 product-quality cross-map (derived).\n\nA *derived* view over the canonical quality spine: the eight\n`*Characteristic` classes under [SystemQualityGoals] are the single source\nof truth for the taxonomy (L34C-8); this cross-map does not re-declare it.\nEach entry references one of those characteristics (via the closed\n[Iso25010Characteristic] enum) and records which quality goals / NFRs\naddress it and the target metric — so coverage of any 25010:2023\ncharacteristic (e.g. compatibility, flexibility) cannot be silently missed.";
+        n.classDocComment = "ISO/IEC 25010:2023 product-quality cross-map.\n\nA coverage view over the canonical quality spine: the eight\n`*Characteristic` classes under [SystemQualityGoals] are the single source\nof truth for the taxonomy (L34C-8); this cross-map does not re-declare it.\nEach entry names one of those characteristics (via the closed\n[Iso25010Characteristic] enum) and records, as authored text, which\nquality goals / NFRs address it and the target metric. Nothing in it is\nderived: the characteristics are eight sections, not the rows of one\nlist, and what addresses each is the author's statement. That every\ncharacteristic has its entry is a process check, so coverage of any\n25010:2023 characteristic (e.g. compatibility, flexibility) cannot be\nsilently missed.";
       },
       buildIso25010CoverageChildren);
     parent.addChild(std::move(n));
@@ -63617,8 +63630,8 @@ void buildQualityCategoryEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).serializationOrder = 2;
     (*n).docComment = "Category relationships.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"parentCategory", "String", "Parent Category", false, "Higher-level category if hierarchical", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedCategories", "String", "Related Categories", false, "Categories that interact with this one", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"parentCategory", "String", "Parent Category", false, "The higher-level category, if hierarchical — a quality category section id", 0, std::vector<std::string>{}, std::vector<std::string>{"QCATE.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedCategories", "String", "Related Categories", false, "Categories that interact with this one — quality category section ids (QCATE-QUAL-…), comma-separated; each names this category back", 1, std::vector<std::string>{}, std::vector<std::string>{"QCATE.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"conflictingCategories", "String", "Conflicting Categories", false, "Categories that may trade off against this", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010:2023 — the relevance of each quality characteristic to the system is justified against the stated needs and context of use\"],\"connotation\":\"Captures how this quality category relates to and depends on other categories.\"}", nullptr)});
     parent.addChild(std::move(n));
@@ -63801,8 +63814,8 @@ void buildQualityFrameworkChildren(som::SomMetaNode& parent, std::vector<std::st
         n.classSectionId = "QCATE";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "QualityCategoryEntry";
-        n.docComment = "A quality category entry (form).\n\nDefines a quality category with its attributes, weight, and relationship\nto other categories.";
-        n.classDocComment = "A quality category entry (form).\n\nDefines a quality category with its attributes, weight, and relationship\nto other categories.";
+        n.docComment = "A quality category entry (form).\n\nDefines a quality category with its attributes, weight, and relationship\nto other categories.\n\nLinks: `QCARL.relatedCategories` names `QCATE` entries, stored on both\n(`InverseOf.symmetric`); `QCARL.parentCategory` names `QCATE`, one-way.";
+        n.classDocComment = "A quality category entry (form).\n\nDefines a quality category with its attributes, weight, and relationship\nto other categories.\n\nLinks: `QCARL.relatedCategories` names `QCATE` entries, stored on both\n(`InverseOf.symmetric`); `QCARL.parentCategory` names `QCATE`, one-way.";
       },
       buildQualityCategoryEntryChildren);
     parent.addChild(std::move(ln));
@@ -64902,8 +64915,8 @@ void buildReferenceDocumentEntryChildren(som::SomMetaNode& parent, std::vector<s
     (*n).serializationOrder = 3;
     (*n).docComment = "Lifecycle and usage details.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"supersedes", "String", "Supersedes Document (if replacing older doc)", false, "Older document this one replaces, if any.", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"supersededBy", "String", "Superseded By (if this doc is deprecated)", false, "Newer document that replaces this one, if deprecated.", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"supersedes", "String", "Supersedes Document (if replacing older doc)", false, "The older document this one replaces, if any — a reference document section id; it names this document in its supersededBy", 0, std::vector<std::string>{}, std::vector<std::string>{"RFDOC.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"supersededBy", "String", "Superseded By (if this doc is deprecated)", false, "The newer document that replaces this one, if deprecated — a reference document section id; it names this document in its supersedes", 1, std::vector<std::string>{}, std::vector<std::string>{"RFDOC.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"language", "String", "Language", false, "Primary language of the document (ISO 639 code or name).", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"format", "String", "Format (PDF, Word, HTML, Confluence, etc.)", false, "File or publication format of the document.", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Additional Notes", false, "Any further notes about the document's lifecycle or usage.", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
@@ -64976,8 +64989,8 @@ void buildReferenceDocumentsChildren(som::SomMetaNode& parent, std::vector<std::
         n.classSectionId = "RFDOC";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ReferenceDocumentEntry";
-        n.docComment = "A reference document entry (form).\n\nDetailed metadata for a single referenced document including\nidentification, classification, status, and applicability.";
-        n.classDocComment = "A reference document entry (form).\n\nDetailed metadata for a single referenced document including\nidentification, classification, status, and applicability.";
+        n.docComment = "A reference document entry (form).\n\nDetailed metadata for a single referenced document including\nidentification, classification, status, and applicability.\n\nLinks: `RDEL.supersedes` names `RFDOC`, answered by `RDEL.supersededBy` at\nthe other end; `RDEL.supersededBy` names `RFDOC`, answered by\n`RDEL.supersedes` at the other end.";
+        n.classDocComment = "A reference document entry (form).\n\nDetailed metadata for a single referenced document including\nidentification, classification, status, and applicability.\n\nLinks: `RDEL.supersedes` names `RFDOC`, answered by `RDEL.supersededBy` at\nthe other end; `RDEL.supersededBy` names `RFDOC`, answered by\n`RDEL.supersedes` at the other end.";
       },
       buildReferenceDocumentEntryChildren);
     parent.addChild(std::move(ln));
@@ -66195,8 +66208,8 @@ void buildReportDefinitionsChildren(som::SomMetaNode& parent, std::vector<std::s
         n.classSectionId = "REPENT";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ReportEntry";
-        n.docComment = "A report entry (form).";
-        n.classDocComment = "A report entry (form).";
+        n.docComment = "A report entry (form).\n\nLinks: `REID.relatedBusinessProcesses` names `BPREN`, one-way;\n`REID.relatedUseCases` names `INEN`, one-way; `REID.relatedDataEntities`\nnames `DAENT.entityName`, one-way.";
+        n.classDocComment = "A report entry (form).\n\nLinks: `REID.relatedBusinessProcesses` names `BPREN`, one-way;\n`REID.relatedUseCases` names `INEN`, one-way; `REID.relatedDataEntities`\nnames `DAENT.entityName`, one-way.";
       },
       buildReportEntryChildren);
     parent.addChild(std::move(ln));
@@ -66308,9 +66321,9 @@ void buildReportEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Business purpose and summary of the report", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"reportCategory", "String", "Report Category", false, "Operational / Analytical / Compliance / Financial / Audit", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedUseCases", "String", "Related Use Cases", false, "ISC references this report serves", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedBusinessProcesses", "String", "Related Business Processes", false, "TOM references where this report is used", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDataEntities", "String", "Related Data Entities", false, "IFM entity references used as data sources", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedUseCases", "String", "Related Use Cases", false, "Use cases (interactions) this report serves — interaction section ids (INEN-INTE-…), comma-separated", 2, std::vector<std::string>{}, std::vector<std::string>{"INEN.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedBusinessProcesses", "String", "Related Business Processes", false, "Business processes where this report is used — process section ids (BPREN-PROC-…), comma-separated", 3, std::vector<std::string>{}, std::vector<std::string>{"BPREN.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDataEntities", "String", "Related Data Entities", false, "Data entities used as data sources — entity names declared in the entity registry (DAENT), comma-separated", 4, std::vector<std::string>{}, std::vector<std::string>{"DAENT.entityName"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"exportOperation", "String", "Export Operation", false, "The server operation that produces or exports this report — its operationName (SVOPE)", 5, std::vector<std::string>{}, std::vector<std::string>{"SVOPE.operationName"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"displayScreen", "String", "Display Screen", false, "The screen that shows this report — a screen section id (SCREN-…)", 6, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId"}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 26514:2022 — identifies and describes information for use as a report\",\"ISO/IEC/IEEE 29148:2018 — traces the report to the requirements it satisfies\"],\"connotation\":\"Identity and context describing the report purpose category and related references.\"}", nullptr)});
@@ -67317,6 +67330,8 @@ void buildRequirementDependenciesChildren(som::SomMetaNode& parent, std::vector<
     (*ln).contentHelp = "Add one entry per dependency on another requirement.";
     (*ln).docComment = "Dependency entries — contains 0+× RequirementDependencyEntry.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §5.2 — requirement dependencies\"],\"connotation\":\"The list of individual dependency entries linking this requirement to others.\"}", nullptr)});
+    (*ln).extra.push_back(som::SomMetaExtra{"ExtractsLinks", som::jsonParse("{\"from\":[\"FRED.description\"],\"ref\":\"RQDEP-RELA-REF.ref\",\"set\":{\"RQDEP.dependencyType\":\"namedInText\"},\"mode\":\"ExtractMode.generate\",\"note\":\"a requirement named in the description gets a row of its own; an id that already has a row of any type gets none\"}", nullptr)});
+    (*ln).extra.push_back(som::SomMetaExtra{"ExtractsLinks", som::jsonParse("{\"from\":[\"FREC.constraints\",\"TREC.constraints\"],\"ref\":\"RQDEP-RELA-REF.ref\",\"set\":{\"RQDEP.dependencyType\":\"constrainedBy\"},\"mode\":\"ExtractMode.warn\",\"note\":\"a requirement named in the constraints text without its row is reported: the limit it sets is a constrainedBy row; an id that has its row is a reference to it and is not reported\"}", nullptr)});
     ln->elementNode = metaCx("RequirementDependencyEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "RequirementDependencyEntry";
@@ -67343,7 +67358,7 @@ void buildRequirementDependencyEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).serializationOrder = 0;
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyType", "String", "Dependency Type (Prerequisite, Bidirectional, Parent-Child, Conflict, Refinement)", true, "Prerequisite, Bidirectional, Parent-Child, Conflict, or Refinement", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyType", "RequirementDependencyType", "Dependency Type", true, "prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy or namedInText; a directional kind is stored once, on the requirement it applies to", 0, std::vector<std::string>{"prerequisite", "bidirectional", "parentChild", "conflict", "refinement", "constrainedBy", "namedInText"}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Description of the dependency", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"impact", "String", "Impact (what happens if dependency not met)", false, "What happens if the dependency is not met", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
@@ -67357,7 +67372,7 @@ void buildRequirementDependencyEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
-    (*n).docComment = "The other requirement in this dependency, named by section id.\n\nThe row states the *kind* of relation — prerequisite, bidirectional,\nparent-child, conflict, refinement — and this names its far end; the\nrequirement that owns the entry is always the near end, so neither half\nis readable alone. Expect another requirement of this document there. A\ndependency on something that is not itself a requirement is a constraint\nand belongs with the assumptions and constraints instead.\n\nThe reference stores a section id and is never followed in traversal\n(`tom_specs_model_rules.md` §9.2), which is what allows a requirement\ngraph containing cycles — a conflict pair is one — without making the\ndocument unwalkable.";
+    (*n).docComment = "The other requirement in this dependency, named by section id.\n\nThe row states the *kind* of relation ([RequirementDependencyType]) and\nthis names its far end; the requirement that owns the entry is always the\nnear end, so neither half is readable alone. A conflict or bidirectional\nrow is answered by a row of the same kind on the far end\n(`InverseOf.symmetric`); a directional row has no converse row. Expect another requirement of this document there. A\ndependency on something that is not itself a requirement is a constraint\nand belongs with the assumptions and constraints instead.\n\nThe reference stores a section id and is never followed in traversal\n(`tom_specs_model_rules.md` §9.2), which is what allows a requirement\ngraph containing cycles — a conflict pair is one — without making the\ndocument unwalkable.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"ref", "String", "Related Requirement", false, "Section id of the requirement (`FRE`, `TERQ`, `SECRQ` or `ORRQ`)", 0, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}, false});
     (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Related Requirement\"}", nullptr)});
@@ -67576,7 +67591,7 @@ void buildRequirementTraceabilityChildren(som::SomMetaNode& parent, std::vector<
     (*n).docComment = "Traceability links form.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedGoals", "String", "Related Business Goals (IDs)", false, "IDs of related business goals", 0, std::vector<std::string>{}, std::vector<std::string>{"BGE.@sectionId"}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedUseCases", "String", "Related Use Cases (IDs)", false, "Related interactions — interaction section ids (INEN-INTE-…), comma-separated", 1, std::vector<std::string>{}, std::vector<std::string>{"INEN.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedUseCases", "String", "Related Use Cases (IDs)", false, "Related interactions — interaction section ids (INEN-INTE-…), comma-separated; each interaction names this requirement back in its INTR.relatedRequirements", 1, std::vector<std::string>{}, std::vector<std::string>{"INEN.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedProcesses", "String", "Related Business Processes (IDs)", false, "Related business processes — process section ids (BPREN-PROC-…), comma-separated", 2, std::vector<std::string>{}, std::vector<std::string>{"BPREN.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedUserStories", "String", "Related User Stories (if Agile)", false, "Related user stories, if using Agile", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
@@ -67592,10 +67607,10 @@ void buildRequirementTraceabilityChildren(som::SomMetaNode& parent, std::vector<
     (*n).serializationOrder = 2;
     (*n).docComment = "Linked artifacts and test coverage references.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedScreens", "String", "Related UI Screens/Views", false, "UI screens or views related to this requirement", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDataEntities", "String", "Related Data Entities", false, "Data entities related to this requirement", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedScreens", "String", "Related UI Screens/Views", false, "UI screens or views related to this requirement — screen section ids (SCREN-…), comma-separated; each screen names this requirement back in its SCETR.relatedRequirements", 0, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDataEntities", "String", "Related Data Entities", false, "Data entities related to this requirement — entity names declared in the entity registry (DAENT), comma-separated", 1, std::vector<std::string>{}, std::vector<std::string>{"DAENT.entityName"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedTestCases", "String", "Related Test Cases (IDs)", false, "Test cases covering this requirement — test case section ids (RQTSC-TEST-… / TEGOTS-ITEM-…), comma-separated", 2, std::vector<std::string>{}, std::vector<std::string>{"RQTSC.@sectionId", "TEGOTS.@sectionId"}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDocuments", "String", "Related Documents or Artifacts", false, "Related documents or other artifacts", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDocuments", "String", "Related Documents or Artifacts", false, "Related documents — reference document section ids (RFDOC-DOCU-…), comma-separated", 3, std::vector<std::string>{}, std::vector<std::string>{"RFDOC.@sectionId"}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §5.2.8 — requirements traceability\"],\"connotation\":\"The artifacts a requirement is linked to — UI screens, data entities, test cases, and related documents — for coverage and traceability.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -67875,12 +67890,12 @@ void buildRequirementsOverviewChildren(som::SomMetaNode& parent, std::vector<std
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"traceabilityApproach", "String", "Traceability Approach (how requirements are linked to goals, tests, code)", false, "How requirements are linked to goals, tests, and code", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"prioritizationMethod", "String", "Prioritization Method (MoSCoW, Weighted, etc.)", false, "MoSCoW, weighted scoring, or other prioritisation scheme", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"totalRequirements", "String", "Total Requirements Expected (estimated count)", false, "Estimated total number of requirements", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"shouldHaveCount", "String", "Should-Have Requirements (estimated)", false, "Estimated count of Should-Have requirements", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"couldHaveCount", "String", "Could-Have Requirements (estimated)", false, "Estimated count of Could-Have requirements", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"totalRequirements", "String", "Total Requirements Expected (estimated count)", false, "The number of requirements (functional, technical, security, organizational). Counted from the requirement lists once they exist; until then an estimate.", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"shouldHaveCount", "String", "Should-Have Requirements (estimated)", false, "The number of Should-Have requirements (functional and organizational, by priority). Counted from the requirement lists once they exist; until then an estimate.", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"couldHaveCount", "String", "Could-Have Requirements (estimated)", false, "The number of Could-Have requirements (functional and organizational, by priority). Counted from the requirement lists once they exist; until then an estimate.", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"requirementsProcess", "String", "Requirements Process (how requirements are elicited and managed)", false, "How requirements are elicited, analysed, and managed", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"changeControlProcess", "String", "Change Control Process (how requirement changes are handled)", false, "How requirement changes are proposed, reviewed, and approved", 6, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"mustHaveCount", "String", "Must-Have Requirements (estimated)", false, "Estimated count of Must-Have requirements", 7, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"mustHaveCount", "String", "Must-Have Requirements (estimated)", false, "The number of Must-Have requirements (functional and organizational, by priority). Counted from the requirement lists once they exist; until then an estimate.", 7, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
   {
@@ -68306,7 +68321,7 @@ void buildResponsibilityDetailEntryChildren(som::SomMetaNode& parent, std::vecto
     (*n).form->fields.push_back(som::SomFormFieldMeta{"frequency", "String", "Frequency — daily, weekly, monthly, ad-hoc", false, "How often the duty is performed", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"deliverables", "String", "Deliverables — outputs expected", false, "Tangible outputs the duty produces", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"qualityStandards", "String", "Quality Standards — success criteria", false, "Criteria that define success", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedProcesses", "String", "Related Processes — business processes involved", false, "Business processes this duty touches", 6, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedProcesses", "String", "Related Processes — business processes involved", false, "Business processes this duty touches — process section ids (BPREN-PROC-…), comma-separated", 6, std::vector<std::string>{}, std::vector<std::string>{"BPREN.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"toolsUsed", "String", "Tools Used — systems/applications", false, "Systems or applications used", 7, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
@@ -69845,8 +69860,8 @@ void buildRiskEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& 
         n.classSectionId = "RR";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "RiskRelationships";
-        n.docComment = "Relationships to other risks, assumptions, and project elements.";
-        n.classDocComment = "Relationships to other risks, assumptions, and project elements.";
+        n.docComment = "Relationships to other risks, assumptions, and project elements.\n\nLinks: `RR.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,\none-way; `RR.relatedRisks` names `RISENT` entries, stored on both\n(`InverseOf.symmetric`); `RR.relatedAssumptions` names `ASMRE`, one-way.";
+        n.classDocComment = "Relationships to other risks, assumptions, and project elements.\n\nLinks: `RR.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,\none-way; `RR.relatedRisks` names `RISENT` entries, stored on both\n(`InverseOf.symmetric`); `RR.relatedAssumptions` names `ASMRE`, one-way.";
       },
       buildRiskRelationshipsChildren);
     parent.addChild(std::move(ln));
@@ -69973,10 +69988,10 @@ void buildRiskRelationshipsChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).serializationOrder = 0;
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRisks", "String", "Related Risks — other risks that are related or dependent", false, "Other risks related to or dependent on this one", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedAssumptions", "String", "Related Assumptions — assumptions that could affect this risk", false, "Assumptions that could affect this risk", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRisks", "String", "Related Risks — other risks that are related or dependent", false, "Other risks related to this one — risk section ids (RISENT-…), comma-separated; each names this risk back", 0, std::vector<std::string>{}, std::vector<std::string>{"RISENT.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedAssumptions", "String", "Related Assumptions — assumptions that could affect this risk", false, "Assumptions that could affect this risk — assumption register section ids (ASMRE-ASMP-…), comma-separated", 1, std::vector<std::string>{}, std::vector<std::string>{"ASMRE.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedIssues", "String", "Related Issues (external tracker) — issues arising from this risk", false, "Issues arising from this risk, named or cited by their tracker id — the issue log is owned outside this blueprint", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements — requirements affected", false, "Requirements affected by this risk", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements — requirements affected", false, "Requirements affected by this risk — requirement section ids (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…), comma-separated", 3, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"affectedComponents", "String", "Affected Components — system components or modules", false, "System components or modules affected", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"affectedStakeholders", "String", "Affected Stakeholders — groups impacted if risk occurs", false, "Stakeholder groups impacted if the risk occurs", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"externalDependencies", "String", "External Dependencies — external factors related to risk", false, "External factors related to the risk", 6, std::vector<std::string>{}, std::vector<std::string>{}, false});
@@ -70460,8 +70475,8 @@ void buildRoleHierarchyChildren(som::SomMetaNode& parent, std::vector<std::strin
         n.classSectionId = "RLINH";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "RoleInheritanceRuleEntry";
-        n.docComment = "A role inheritance rule entry (form).\n\nDefines a specific parent-child inheritance relationship between two roles,\nincluding what is inherited and any restrictions.";
-        n.classDocComment = "A role inheritance rule entry (form).\n\nDefines a specific parent-child inheritance relationship between two roles,\nincluding what is inherited and any restrictions.";
+        n.docComment = "A role inheritance rule entry (form).\n\nDefines a specific parent-child inheritance relationship between two roles,\nincluding what is inherited and any restrictions.\n\nLinks: `RLINH.parentRole` names `AZRO.roleName`, one-way; `RLINH.childRole`\nnames `AZRO.roleName`, one-way.";
+        n.classDocComment = "A role inheritance rule entry (form).\n\nDefines a specific parent-child inheritance relationship between two roles,\nincluding what is inherited and any restrictions.\n\nLinks: `RLINH.parentRole` names `AZRO.roleName`, one-way; `RLINH.childRole`\nnames `AZRO.roleName`, one-way.";
       },
       buildRoleInheritanceRuleEntryChildren);
     parent.addChild(std::move(ln));
@@ -70618,8 +70633,8 @@ void buildRoleInheritanceRuleEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).serializationOrder = 0;
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"parentRole", "String", "Parent Role", true, "Name of the parent role whose permissions are inherited", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"childRole", "String", "Child Role", true, "Name of the child role that inherits permissions", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"parentRole", "String", "Parent Role", true, "Name of the parent role whose permissions are inherited — a roleName of the role registry (AZRO)", 0, std::vector<std::string>{}, std::vector<std::string>{"AZRO.roleName"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"childRole", "String", "Child Role", true, "Name of the child role that inherits permissions — a roleName of the role registry (AZRO)", 1, std::vector<std::string>{}, std::vector<std::string>{"AZRO.roleName"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"inheritanceType", "String", "Inheritance Type", false, "Full | PermissionsOnly | ResponsibilitiesOnly | Selective — what aspects of the parent role are inherited", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"excludedPermissions", "String", "Excluded Permissions", false, "Comma-separated permission keys explicitly excluded from inheritance (e.g. user.delete, config.manage)", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"additionalConditions", "String", "Additional Conditions", false, "Conditions under which this inheritance is active (e.g. same-department, same-tenant, business-hours)", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
@@ -72992,7 +73007,7 @@ void buildScreenEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"screenCategory", "String", "Screen Category", false, "List/Detail/Form/Dashboard/Settings/Wizard/Dialog/Report/Landing", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"parentScreenId", "String", "Parent Screen ID", false, "The parent screen, if this is a sub-screen or drill-down — a screen section id (SCREN-ITEM-…)", 1, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId"}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"routePattern", "String", "Route Pattern", false, "Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map", 2, std::vector<std::string>{}, std::vector<std::string>{"SCRTEN.routeId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"routePattern", "String", "Route Pattern", false, "Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map, whose entry names this screen back in its screenId", 2, std::vector<std::string>{}, std::vector<std::string>{"SCRTEN.routeId"}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-151:2008 — navigation structure and routing within the user interface\",\"ISO 9241-112:2017 — categorisation of information for structured presentation\"],\"connotation\":\"The classification and routing metadata that categorises a screen and locates it in the navigation structure.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -73023,9 +73038,9 @@ void buildScreenEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*n).serializationOrder = 3;
     (*n).docComment = "Traceability metadata.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedUseCases", "String", "Related Use Cases", false, "ISC references this screen serves", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements", false, "Requirement ids this screen satisfies, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 1, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedBusinessProcesses", "String", "Related Business Processes", false, "TOM references where this screen appears", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedUseCases", "String", "Related Use Cases", false, "Use cases (interactions) this screen serves — interaction section ids (INEN-INTE-…), comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{"INEN.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements", false, "Requirement ids this screen satisfies, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…); a functional, technical or security requirement names this screen back in its RETRAR.relatedScreens", 1, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedBusinessProcesses", "String", "Related Business Processes", false, "Business processes where this screen appears — process section ids (BPREN-PROC-…), comma-separated", 2, std::vector<std::string>{}, std::vector<std::string>{"BPREN.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dataEntities", "String", "Data Entities", false, "IFM entity references displayed/edited", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"primaryAction", "String", "Primary Action", false, "Main user action on this screen", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"serverOperations", "String", "Server Operations", false, "The server operations this screen calls, comma-separated — operationNames in the operation registry (SVOPE)", 5, std::vector<std::string>{}, std::vector<std::string>{"SVOPE.operationName"}, false});
@@ -73503,8 +73518,8 @@ void buildScreenInventoryChildren(som::SomMetaNode& parent, std::vector<std::str
         n.classSectionId = "SCREN";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ScreenEntry";
-        n.docComment = "A screen entry (form).\n\nComprehensive specification of a single application screen, covering\nidentity, purpose, authorization, layout, elements, and behavior.";
-        n.classDocComment = "A screen entry (form).\n\nComprehensive specification of a single application screen, covering\nidentity, purpose, authorization, layout, elements, and behavior.";
+        n.docComment = "A screen entry (form).\n\nComprehensive specification of a single application screen, covering\nidentity, purpose, authorization, layout, elements, and behavior.\n\nLinks: `SCETR.relatedBusinessProcesses` names `BPREN`, one-way;\n`SCETR.relatedUseCases` names `INEN`, one-way.";
+        n.classDocComment = "A screen entry (form).\n\nComprehensive specification of a single application screen, covering\nidentity, purpose, authorization, layout, elements, and behavior.\n\nLinks: `SCETR.relatedBusinessProcesses` names `BPREN`, one-way;\n`SCETR.relatedUseCases` names `INEN`, one-way.";
       },
       buildScreenEntryChildren);
     parent.addChild(std::move(ln));
@@ -73546,7 +73561,7 @@ void buildScreenRouteEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"routeId", "String", "Route ID", true, "Stable identifier referenced by every navigation target, e.g., order-edit", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"routePath", "String", "Route Path", false, "URL path pattern, e.g., /orders/:id/edit — presentation only, never used as a reference", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"screenId", "String", "Screen ID", false, "The screen this route renders — a screen section id (SCREN-ITEM-…)", 2, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"screenId", "String", "Screen ID", false, "The screen this route renders — a screen section id (SCREN-ITEM-…); the screen names this route back in its routePattern", 2, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"routeParameters", "String", "Route Parameters", false, "Comma-separated parameter names carried by the route, e.g., orderId,mode", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
@@ -73591,6 +73606,7 @@ void buildScreenRouteMapChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*ln).contentHelp = "Add one entry per addressable route.";
     (*ln).docComment = "Contains 0+× ScreenRouteEntry.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-151:2008 — addressable content units and the conceptual structure of the application\"],\"connotation\":\"The registry of addressable application routes, each identified by a stable route ID.\"}", nullptr)});
+    (*ln).extra.push_back(som::SomMetaExtra{"SummaryOf", som::jsonParse("{\"detail\":\"SCREN-ITEM-LST\",\"match\":\"SCRTEN.screenId\",\"relation\":\"LinkRelation.subset\",\"repeats\":{},\"note\":\"every route renders a screen of the inventory; a screen without a route (a dialog) is allowed\"}", nullptr)});
     ln->elementNode = metaCx("ScreenRouteEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "ScreenRouteEntry";
@@ -75125,7 +75141,7 @@ void buildSecurityRequirementEntryChildren(som::SomMetaNode& parent, std::vector
         n.hasSerializationOrder = true;
         n.serializationOrder = 7;
         n.docComment = "4.3.3.n.3. Dependencies.";
-        n.classDocComment = "4.3.1.n.5. Dependencies.\n\nDependencies this requirement has on other requirements.";
+        n.classDocComment = "4.3.1.n.5. Dependencies.\n\nDependencies this requirement has on other requirements. Each dependency\nis one row, stored once, on the requirement it applies to: a directional\ndependency (prerequisite, parent-child, refinement, constrained by) is not\nwritten again as its converse on the other requirement, which reaches it\nthrough navigation. A conflict and a bidirectional dependency stand at both\nends. The rows are the holder of every dependency; the requirement's\n`constrainedBy`, `conflictsWith` and `OREP.dependencies` are derived from\nthem.";
       },
       buildRequirementDependenciesChildren);
     parent.addChild(std::move(n));
@@ -75141,7 +75157,7 @@ void buildSecurityRequirementEntryChildren(som::SomMetaNode& parent, std::vector
         n.hasSerializationOrder = true;
         n.serializationOrder = 8;
         n.docComment = "4.3.3.n.4. Traceability.";
-        n.classDocComment = "4.3.1.n.6. Traceability.\n\nTraceability links to goals, use cases, processes, and other artifacts.";
+        n.classDocComment = "4.3.1.n.6. Traceability.\n\nTraceability links to goals, use cases, processes, and other artifacts.\n\nLinks: `RETRAR.relatedDocuments` names `RFDOC`, one-way.";
       },
       buildRequirementTraceabilityChildren);
     parent.addChild(std::move(n));
@@ -78780,7 +78796,7 @@ void buildStageEntryChildren(som::SomMetaNode& parent, std::vector<std::string>&
     (*n).serializationOrder = 3;
     (*n).docComment = "Scope and features.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"includedFeatures", "String", "Included Features", false, "Key features explicitly included", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"includedFeatures", "String", "Included Features", false, "Key features explicitly included — feature section ids (FPE-ITEM-…), comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"excludedDeferred", "String", "Excluded/Deferred Items", false, "Features explicitly excluded and deferred", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"mvpScope", "String", "MVP Scope", false, "Minimum viable scope if schedule compression is needed", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"stretchGoals", "String", "Stretch Goals", false, "Additional scope if the stage runs ahead of schedule", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
@@ -79240,6 +79256,7 @@ void buildStageMigrationRiskEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"riskCategory", "String", "Risk Category", true, "DataLoss / DataCorruption / DowntimeOverrun / SecurityBreach", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskRating", "ImportanceBand", "Risk Rating", false, "The band the risk is rated in after scoring — the stage migration risks count the critical and high ones", 1, std::vector<std::string>{"critical", "high", "medium", "low"}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
   {
@@ -79394,7 +79411,7 @@ void buildStageMigrationRisksChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).serializationOrder = 0;
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"totalIdentifiedRisks", "String", "Total Identified Risks", true, "Number of migration-specific risks — e.g. 18 risks across 5 categories", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"totalIdentifiedRisks", "String", "Total Identified Risks", false, "Number of migration-specific risks — e.g. 18 risks across 5 categories", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"criticalRiskCount", "String", "Critical Risk Count", false, "Number of risks rated Critical or High — requiring active mitigation", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"topRiskSummary", "String", "Top Risk Summary", false, "Brief summary of highest-priority risks — e.g. data loss during cutover, downtime overrun, PII exposure", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"riskAssessmentMethodology", "String", "Risk Assessment Methodology", false, "QuantitativeMatrix / QualitativeScale / BowtieAnalysis / FMEA / Custom — how risks are scored", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
@@ -79458,7 +79475,7 @@ void buildStageOverviewChildren(som::SomMetaNode& parent, std::vector<std::strin
     (*n).serializationOrder = 0;
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"numberOfStages", "String", "Number of Stages", true, "Total number of major stages in the plan, e.g. 4", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"numberOfStages", "String", "Number of Stages", false, "Total number of major stages in the plan, e.g. 4", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"totalDurationMonths", "String", "Total Duration", false, "End-to-end planned duration from first stage start to last stage completion, e.g. 18 months", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"totalBudgetAllocation", "String", "Total Budget Allocation", false, "Aggregate budget across all stages including contingency, e.g. EUR 2.4M", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
@@ -79704,6 +79721,7 @@ void buildStageOverviewChildren(som::SomMetaNode& parent, std::vector<std::strin
     (*ln).contentHelp = "Add one entry per stage summary.";
     (*ln).docComment = "13.2.1. Stage Summary — contains 1+× Stage\nSummary Entry.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates\",\"PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls\"],\"connotation\":\"Holds one summary entry per stage giving an at-a-glance identification, timeline, scope, and status view across the full staging plan.\"}", nullptr)});
+    (*ln).extra.push_back(som::SomMetaExtra{"SummaryOf", som::jsonParse("{\"detail\":\"STAGE-STAG-LST\",\"match\":\"STAGSE.stageRef\",\"relation\":\"LinkRelation.equal\",\"repeats\":{\"STAGSE.stageNumber\":\"STAGE.stageNumber\",\"STAGSE.scopeSummary\":\"STSC.scopeSummary\",\"STSUID.stageCodename\":\"STID.stageCodename\",\"STSUTI.plannedStartDate\":\"STTI.plannedStartDate\",\"STSUTI.plannedEndDate\":\"STTI.plannedEndDate\",\"STSUSC.featureCount\":\"STSC.featureCount\",\"STSUSC.storyPointEstimate\":\"STSC.storyPointEstimate\",\"STSUST.currentStatus\":\"STAGE.currentStatus\"},\"note\":\"one summary row per stage; the row repeats the values its stage holds, which the stage holds\"}", nullptr)});
     ln->elementNode = metaCx("StageSummaryEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "StageSummaryEntry";
@@ -79929,8 +79947,9 @@ void buildStageSummaryEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).serializationOrder = 0;
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"stageNumber", "String", "Stage Number", true, "1, 2, 3… — sequential stage number", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"scopeSummary", "String", "Scope Summary", true, "One-line summary of what this stage delivers", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stageRef", "String", "Stage", false, "The stage this row summarizes — a stage section id (STAGE-STAG-…); the values the row repeats are the stage's", 0, std::vector<std::string>{}, std::vector<std::string>{"STAGE.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stageNumber", "String", "Stage Number", true, "1, 2, 3… — sequential stage number", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"scopeSummary", "String", "Scope Summary", true, "One-line summary of what this stage delivers", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
   {
@@ -80057,7 +80076,7 @@ void buildStageSummaryEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).serializationOrder = 7;
     (*n).docComment = "Status.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"currentStatus", "String", "Current Status", false, "NotStarted / InPlanning / InProgress / Completed", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"currentStatus", "String", "Current Status", false, "The stage's current status, repeated from it: Planned / Active / Completed / OnHold / Cancelled", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"percentComplete", "String", "Percent Complete", false, "Completion percentage", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"statusComment", "String", "Status Comment", false, "Brief comment on current status", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"trafficLightStatus", "String", "Traffic Light Status", false, "Green / Amber / Red", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
@@ -80456,8 +80475,9 @@ void buildStakeholderEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).serializationOrder = 0;
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"stakeholderType", "String", "Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.)", false, "Sponsor, User, Customer, Partner, Regulator, etc.", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"expectedBenefits", "String", "Expected Benefits (the scope-framing value this group gains from the system)", false, "The scope-framing value this group gains from the system", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stakeholderRef", "String", "Register Entry", false, "The stakeholder register entry this stakeholder is — a section id (STKRE-STAK-…); role, interest, influence and engagement are held there", 0, std::vector<std::string>{}, std::vector<std::string>{"STKRE.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stakeholderType", "String", "Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.)", false, "Repeated from the register entry stakeholderRef names, which holds it", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"expectedBenefits", "String", "Expected Benefits (the scope-framing value this group gains from the system)", false, "The scope-framing value this group gains from the system", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
 }
@@ -80474,11 +80494,12 @@ void buildStakeholderRegisterEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).serializationOrder = 0;
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"influence", "ImportanceBand", "Influence", false, "Qualitative influence band.", 0, std::vector<std::string>{"critical", "high", "medium", "low"}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"concerns", "String", "Concerns", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"engagementStrategy", "String", "Engagement Strategy", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"role", "String", "Role", true, "", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"interest", "String", "Interest (what they care about)", false, "", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stakeholderType", "String", "Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.)", false, "Sponsor, User, Customer, Partner, Regulator, etc.; the scope stakeholders naming this entry repeat it", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"influence", "ImportanceBand", "Influence", false, "Qualitative influence band.", 1, std::vector<std::string>{"critical", "high", "medium", "low"}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"concerns", "String", "Concerns", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"engagementStrategy", "String", "Engagement Strategy", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"role", "String", "Role", true, "", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"interest", "String", "Interest (what they care about)", false, "", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
 }
@@ -80511,14 +80532,15 @@ void buildStakeholdersAndBeneficiariesChildren(som::SomMetaNode& parent, std::ve
     (*ln).contentHelp = "Add one entry per primary stakeholder or group, framed by the benefit they gain. Primary stakeholders are those directly affected.";
     (*ln).docComment = "Primary stakeholders — contains 1+× StakeholderEntry (benefits lens).";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"BABOK v3 §10.43 — stakeholder list/map/personas\"],\"connotation\":\"The set of primary stakeholders directly affected by the system, framed by the benefit each gains.\"}", nullptr)});
+    (*ln).extra.push_back(som::SomMetaExtra{"SummaryOf", som::jsonParse("{\"detail\":\"STKRE-STAK-LST\",\"match\":\"STKNT.stakeholderRef\",\"relation\":\"LinkRelation.subset\",\"repeats\":{\"STKNT.stakeholderType\":\"STKRE.stakeholderType\"},\"note\":\"the primary stakeholders are a selection of the stakeholder register, framed by their benefit; the type is the register's\"}", nullptr)});
     ln->elementNode = metaCx("StakeholderEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "StakeholderEntry";
         n.classSectionId = "STKNT";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "StakeholderEntry";
-        n.docComment = "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n`StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).";
-        n.classDocComment = "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n`StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).";
+        n.docComment = "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n`StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).\n[content]'s `stakeholderRef` names that register entry (a\n`STKRE-STAK-…` section id).";
+        n.classDocComment = "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n`StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).\n[content]'s `stakeholderRef` names that register entry (a\n`STKRE-STAK-…` section id).";
       },
       buildStakeholderEntryChildren);
     parent.addChild(std::move(ln));
@@ -80536,14 +80558,15 @@ void buildStakeholdersAndBeneficiariesChildren(som::SomMetaNode& parent, std::ve
     (*ln).contentHelp = "Secondary stakeholders are indirectly affected by the system.";
     (*ln).docComment = "Secondary stakeholders — contains 0+× StakeholderEntry (benefits lens).";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"BABOK v3 §10.43 — stakeholder list/map/personas\"],\"connotation\":\"The set of secondary stakeholders indirectly affected by the system, framed by the benefit each gains.\"}", nullptr)});
+    (*ln).extra.push_back(som::SomMetaExtra{"SummaryOf", som::jsonParse("{\"detail\":\"STKRE-STAK-LST\",\"match\":\"STKNT.stakeholderRef\",\"relation\":\"LinkRelation.subset\",\"repeats\":{\"STKNT.stakeholderType\":\"STKRE.stakeholderType\"},\"note\":\"the secondary stakeholders are a selection of the stakeholder register, framed by their benefit; the type is the register's\"}", nullptr)});
     ln->elementNode = metaCx("StakeholderEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "StakeholderEntry";
         n.classSectionId = "STKNT";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "StakeholderEntry";
-        n.docComment = "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n`StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).";
-        n.classDocComment = "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n`StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).";
+        n.docComment = "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n`StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).\n[content]'s `stakeholderRef` names that register entry (a\n`STKRE-STAK-…` section id).";
+        n.classDocComment = "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n`StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).\n[content]'s `stakeholderRef` names that register entry (a\n`STKRE-STAK-…` section id).";
       },
       buildStakeholderEntryChildren);
     parent.addChild(std::move(ln));
@@ -81772,8 +81795,8 @@ void buildSuccessCriterionEntryChildren(som::SomMetaNode& parent, std::vector<st
         n.classSectionId = "SUCRRE";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "SuccessCriterionRelationships";
-        n.docComment = "Relationships for success criterion.";
-        n.classDocComment = "Relationships for success criterion.";
+        n.docComment = "Relationships for success criterion.\n\nLinks: `SUCRRE.relatedGoals` names `BGE`, one-way.";
+        n.classDocComment = "Relationships for success criterion.\n\nLinks: `SUCRRE.relatedGoals` names `BGE`, one-way.";
       },
       buildSuccessCriterionRelationshipsChildren);
     parent.addChild(std::move(ln));
@@ -81811,7 +81834,7 @@ void buildSuccessCriterionRelationshipsChildren(som::SomMetaNode& parent, std::v
     (*n).serializationOrder = 0;
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedGoals", "String", "Related Goals", false, "Related business goals — business goal section ids (BGE-GOAL-…), comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedGoals", "String", "Related Goals", false, "Related business goals — business goal section ids (BGE-GOAL-…), comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{"BGE.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements", false, "Requirement ids that contribute to this criterion, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 1, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencies", "String", "Dependencies", false, "Other criteria this depends on", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"stakeholders", "String", "Key Stakeholders", false, "Who cares most about this criterion", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
@@ -84735,7 +84758,7 @@ void buildSystemStagePlanChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).serializationOrder = 0;
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"totalStagesPlanned", "String", "Total Stages Planned", true, "Number of major stages in the rollout plan", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"totalStagesPlanned", "String", "Total Stages Planned", false, "Number of major stages in the rollout plan", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"stagingPhilosophy", "String", "Overall Staging Philosophy", false, "BigBang / PhasedByFunction / PhasedByGeography / PhasedByUserGroup / Incremental / Hybrid", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"parallelismApproach", "String", "Parallelism Approach", false, "Sequential / PartialOverlap / FullyParallel — whether stages can overlap in execution", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
@@ -84843,8 +84866,8 @@ void buildSystemStagePlanChildren(som::SomMetaNode& parent, std::vector<std::str
         n.classSectionId = "STAGE";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "StageEntry";
-        n.docComment = "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.";
-        n.classDocComment = "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.";
+        n.docComment = "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.\n\nLinks: `STSC.includedFeatures` names `FPE`, one-way.";
+        n.classDocComment = "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.\n\nLinks: `STSC.includedFeatures` names `FPE`, one-way.";
         n.detailedIn = "D11DeliveryRoadmap";
       },
       buildStageEntryChildren);
@@ -87301,7 +87324,8 @@ void buildTechnicalRequirementEntryChildren(som::SomMetaNode& parent, std::vecto
     (*n).docComment = "Assumptions and constraints.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"assumptions", "String", "Assumptions", false, "Conditions assumed true for the requirement to hold", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"constraints", "String", "Constraints", false, "Limits or boundaries that apply, e.g., fixed infrastructure", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"constraints", "String", "Constraints", false, "Limits on how this requirement may be implemented, e.g. fixed infrastructure. A limit set by another requirement is a dependency row of type constrainedBy (shown in Constrained By).", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"constrainedBy", "String", "Constrained By (limits set by other requirements)", false, "Derived from the dependency rows of type constrainedBy, one line per row; edit the rows, not this field.", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §9.6 — performance & quality requirements\",\"ISO/IEC 25010 — product quality\"],\"connotation\":\"The assumptions the requirement relies on and the constraints it imposes or operates under.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -87332,7 +87356,7 @@ void buildTechnicalRequirementEntryChildren(som::SomMetaNode& parent, std::vecto
         n.hasSerializationOrder = true;
         n.serializationOrder = 7;
         n.docComment = "4.3.2.n.2. Dependencies.";
-        n.classDocComment = "4.3.1.n.5. Dependencies.\n\nDependencies this requirement has on other requirements.";
+        n.classDocComment = "4.3.1.n.5. Dependencies.\n\nDependencies this requirement has on other requirements. Each dependency\nis one row, stored once, on the requirement it applies to: a directional\ndependency (prerequisite, parent-child, refinement, constrained by) is not\nwritten again as its converse on the other requirement, which reaches it\nthrough navigation. A conflict and a bidirectional dependency stand at both\nends. The rows are the holder of every dependency; the requirement's\n`constrainedBy`, `conflictsWith` and `OREP.dependencies` are derived from\nthem.";
       },
       buildRequirementDependenciesChildren);
     parent.addChild(std::move(n));
@@ -87348,7 +87372,7 @@ void buildTechnicalRequirementEntryChildren(som::SomMetaNode& parent, std::vecto
         n.hasSerializationOrder = true;
         n.serializationOrder = 8;
         n.docComment = "4.3.2.n.3. Traceability.";
-        n.classDocComment = "4.3.1.n.6. Traceability.\n\nTraceability links to goals, use cases, processes, and other artifacts.";
+        n.classDocComment = "4.3.1.n.6. Traceability.\n\nTraceability links to goals, use cases, processes, and other artifacts.\n\nLinks: `RETRAR.relatedDocuments` names `RFDOC`, one-way.";
       },
       buildRequirementTraceabilityChildren);
     parent.addChild(std::move(n));
@@ -87985,8 +88009,8 @@ void buildTestScenarioEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"requirementRef", "String", "Requirement Reference", false, "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"useCaseRef", "String", "Use Case Reference", false, "The related interactions — interaction section ids (INEN-INTE-…), comma-separated", 1, std::vector<std::string>{}, std::vector<std::string>{"INEN.@sectionId"}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"acceptanceCriterionRef", "String", "Acceptance Criterion Reference", false, "The linked acceptance criterion — a delivery acceptance criterion section id (DACEN-ITEM-…)", 2, std::vector<std::string>{}, std::vector<std::string>{"DACEN.@sectionId"}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"designRef", "String", "Design / Screen Reference", false, "UI screens or mockup references", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"acceptanceCriterionRef", "String", "Acceptance Criterion Reference", false, "The linked acceptance criterion — a delivery acceptance criterion section id (DACEN-ITEM-…); the criterion names this scenario back in its testScenarioRef", 2, std::vector<std::string>{}, std::vector<std::string>{"DACEN.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"designRef", "String", "Design / Screen Reference", false, "Screens the scenario runs on — screen section ids (SCREN-ITEM-…), comma-separated", 3, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId"}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability of test cases to requirements and acceptance criteria\",\"ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the validation process linking tests to requirements\"],\"connotation\":\"Links an acceptance test scenario to its requirements, use cases, acceptance criteria, and design references.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -88088,8 +88112,8 @@ void buildTestScenarioEntryChildren(som::SomMetaNode& parent, std::vector<std::s
         n.classSectionId = "UATSST";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "UatTestStepEntry";
-        n.docComment = "A UAT test step entry.\n\nIndividual step within a test scenario. Captures the action, input data,\nexpected result, and pass criteria at fine-grained level per IEEE 829\nLevel Test Procedure structure.";
-        n.classDocComment = "A UAT test step entry.\n\nIndividual step within a test scenario. Captures the action, input data,\nexpected result, and pass criteria at fine-grained level per IEEE 829\nLevel Test Procedure structure.";
+        n.docComment = "A UAT test step entry.\n\nIndividual step within a test scenario. Captures the action, input data,\nexpected result, and pass criteria at fine-grained level per IEEE 829\nLevel Test Procedure structure.\n\nLinks: `UATSST.uiScreenRef` names `SCREN`, one-way.";
+        n.classDocComment = "A UAT test step entry.\n\nIndividual step within a test scenario. Captures the action, input data,\nexpected result, and pass criteria at fine-grained level per IEEE 829\nLevel Test Procedure structure.\n\nLinks: `UATSST.uiScreenRef` names `SCREN`, one-way.";
       },
       buildUatTestStepEntryChildren);
     parent.addChild(std::move(ln));
@@ -91445,7 +91469,7 @@ void buildUatTestStepEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).form->fields.push_back(som::SomFormFieldMeta{"action", "String", "Action", false, "What the tester does — e.g. \"Navigate to Invoice screen and select order\"", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"inputData", "String", "Input Data", false, "Specific data to enter — e.g. \"Amount: 500.00, Currency: EUR\"", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"expectedResult", "String", "Expected Result", false, "What should happen — e.g. \"Invoice generated with correct line items\"", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"uiScreenRef", "String", "UI Screen Reference", false, "Screen or page where this step is performed", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"uiScreenRef", "String", "UI Screen Reference", false, "The screen where this step is performed — a screen section id (SCREN-ITEM-…)", 4, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"passCriteria", "String", "Pass Criteria", false, "How to determine if this individual step passed", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Clarification, timing notes, or alternative paths", 6, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
@@ -92527,8 +92551,8 @@ void buildUserAcceptanceTestingChildren(som::SomMetaNode& parent, std::vector<st
         n.classSectionId = "TSSC";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "TestScenarioEntry";
-        n.docComment = "A test scenario entry (form).\n\nRepresents a business-level test case covering a user journey, business\nprocess, or acceptance criterion. Includes full traceability, preconditions,\nexecution metadata, and pass/fail criteria per ISTQB and IEEE 829\nLevel Test Case / Level Test Procedure structures.";
-        n.classDocComment = "A test scenario entry (form).\n\nRepresents a business-level test case covering a user journey, business\nprocess, or acceptance criterion. Includes full traceability, preconditions,\nexecution metadata, and pass/fail criteria per ISTQB and IEEE 829\nLevel Test Case / Level Test Procedure structures.";
+        n.docComment = "A test scenario entry (form).\n\nRepresents a business-level test case covering a user journey, business\nprocess, or acceptance criterion. Includes full traceability, preconditions,\nexecution metadata, and pass/fail criteria per ISTQB and IEEE 829\nLevel Test Case / Level Test Procedure structures.\n\nLinks: `TESCTR.designRef` names `SCREN`, one-way.";
+        n.classDocComment = "A test scenario entry (form).\n\nRepresents a business-level test case covering a user journey, business\nprocess, or acceptance criterion. Includes full traceability, preconditions,\nexecution metadata, and pass/fail criteria per ISTQB and IEEE 829\nLevel Test Case / Level Test Procedure structures.\n\nLinks: `TESCTR.designRef` names `SCREN`, one-way.";
       },
       buildTestScenarioEntryChildren);
     parent.addChild(std::move(ln));
@@ -95529,7 +95553,7 @@ void buildWarrantyTermsChildren(som::SomMetaNode& parent, std::vector<std::strin
     (*n).docComment = "Scope of coverage.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"exclusions", "String", "Exclusions", false, "What is NOT covered: new features, user errors", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"coveredDeliverables", "String", "Covered Deliverables", false, "Which deliverables are under warranty", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"coveredDeliverables", "String", "Covered Deliverables", false, "Deliverables under warranty — deliverable section ids (DLVEN-…), comma-separated", 1, std::vector<std::string>{}, std::vector<std::string>{"DLVEN.@sectionId"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"environmentsCovered", "String", "Environments Covered", false, "Production only, or also staging/UAT", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty scope and coverage boundaries\",\"ITIL 4 2019 — the service management framework defines warranty coverage and support scope\"],\"connotation\":\"Captures the scope of warranty coverage including exclusions, covered deliverables, and environments under warranty.\"}", nullptr)});
     parent.addChild(std::move(n));
@@ -96017,8 +96041,8 @@ void buildWorkflowDescriptionsChildren(som::SomMetaNode& parent, std::vector<std
         n.classSectionId = "CUWF";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "CurrentWorkflowEntry";
-        n.docComment = "A current workflow entry (form).\n\nDetailed documentation of a single workflow within a business process.\nIncludes triggers, steps, actors, inputs, outputs, and timing.";
-        n.classDocComment = "A current workflow entry (form).\n\nDetailed documentation of a single workflow within a business process.\nIncludes triggers, steps, actors, inputs, outputs, and timing.";
+        n.docComment = "A current workflow entry (form).\n\nDetailed documentation of a single workflow within a business process.\nIncludes triggers, steps, actors, inputs, outputs, and timing.\n\nThe workflow's own inputs, outputs and business rules\n(`WOINEN-INPU-LST`, `WOOUEN-OUTP-LST`, `WOBURU-BUSI-LST`) are independent\nof the same lists on its steps, not a superset of them: a workflow input\nenters the workflow from outside, while a step's inputs also include what\nearlier steps produced; a workflow output leaves it, while a step's outputs\ninclude intermediate results; a workflow-level rule governs the whole\nworkflow, a step's rule that step only. Neither side is derived from the\nother.";
+        n.classDocComment = "A current workflow entry (form).\n\nDetailed documentation of a single workflow within a business process.\nIncludes triggers, steps, actors, inputs, outputs, and timing.\n\nThe workflow's own inputs, outputs and business rules\n(`WOINEN-INPU-LST`, `WOOUEN-OUTP-LST`, `WOBURU-BUSI-LST`) are independent\nof the same lists on its steps, not a superset of them: a workflow input\nenters the workflow from outside, while a step's inputs also include what\nearlier steps produced; a workflow output leaves it, while a step's outputs\ninclude intermediate results; a workflow-level rule governs the whole\nworkflow, a step's rule that step only. Neither side is derived from the\nother.";
       },
       buildCurrentWorkflowEntryChildren);
     parent.addChild(std::move(ln));
@@ -96338,14 +96362,15 @@ void buildWorkflowSummaryEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).serializationOrder = 0;
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"workflowType", "String", "Type", false, "", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"frequency", "String", "Frequency", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"averageCycleTime", "String", "Average Cycle Time", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"stepCount", "int", "Number of Steps", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"manualStepCount", "int", "Manual Steps", false, "", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"errorProneStepCount", "int", "Error-Prone Steps", false, "", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"primaryActors", "String", "Primary Actors", false, "", 6, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"automationPotential", "String", "Automation Potential", false, "", 7, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"workflowRef", "String", "Workflow", false, "The workflow this row summarizes — a workflow section id (CUWF-WORK-…) of the same process; its type and frequency are repeated from it", 0, std::vector<std::string>{}, std::vector<std::string>{"CUWF.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"workflowType", "String", "Type", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"frequency", "String", "Frequency", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"averageCycleTime", "String", "Average Cycle Time", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stepCount", "int", "Number of Steps", false, "", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"manualStepCount", "int", "Manual Steps", false, "", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"errorProneStepCount", "int", "Error-Prone Steps", false, "", 6, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"primaryActors", "String", "Primary Actors", false, "", 7, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"automationPotential", "String", "Automation Potential", false, "", 8, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
 }
@@ -96381,14 +96406,15 @@ void buildWorkflowSummaryTableChildren(som::SomMetaNode& parent, std::vector<std
     (*ln).contentHelp = "Add one summary row per workflow capturing its type, frequency, cycle time, step counts, actors, and automation potential.";
     (*ln).docComment = "Summary entries per workflow.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"BABOK v3 §10 — current-state analysis (workflow summary entry)\"],\"connotation\":\"The per-workflow rows of the summary table.\"}", nullptr)});
+    (*ln).extra.push_back(som::SomMetaExtra{"SummaryOf", som::jsonParse("{\"detail\":\"CUWF-WORK-LST\",\"match\":\"WOSUEN.workflowRef\",\"relation\":\"LinkRelation.equal\",\"repeats\":{\"WOSUEN.workflowType\":\"CUWF.workflowType\",\"WOSUEN.frequency\":\"CUWF.frequency\",\"WOSUEN.stepCount\":\"CUWF.stepCount\",\"WOSUEN.manualStepCount\":\"CUWF.manualStepCount\",\"WOSUEN.errorProneStepCount\":\"CUWF.errorProneStepCount\"},\"note\":\"one summary row per workflow of the process; the row repeats the workflow's type, frequency and step counts, which the workflow holds\"}", nullptr)});
     ln->elementNode = metaCx("WorkflowSummaryEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "WorkflowSummaryEntry";
         n.classSectionId = "WOSUEN";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "WorkflowSummaryEntry";
-        n.docComment = "Summary entry for a single workflow.";
-        n.classDocComment = "Summary entry for a single workflow.";
+        n.docComment = "Summary entry for a single workflow.\n\n[content]'s `workflowRef` names the workflow the row summarizes (a\n`CUWF-WORK-…` section id of the same process); the row's type, frequency\nand step counts repeat that workflow's own, whose counts are counted over\nits steps.";
+        n.classDocComment = "Summary entry for a single workflow.\n\n[content]'s `workflowRef` names the workflow the row summarizes (a\n`CUWF-WORK-…` section id of the same process); the row's type, frequency\nand step counts repeat that workflow's own, whose counts are counted over\nits steps.";
       },
       buildWorkflowSummaryEntryChildren);
     parent.addChild(std::move(ln));

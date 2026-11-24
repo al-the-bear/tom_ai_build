@@ -20,7 +20,7 @@ import (
 // Version is the semantic version of this generated facade module, matching the
 // object-model version it was generated against (vMAJOR.MINOR.PATCH). It is the
 // in-source counterpart of the VCS tag used to pin the module (SOM §4.2).
-const Version = "v1.12.0"
+const Version = "v1.13.0"
 
 // ActionTriggerKind is the generated named type for `ActionTriggerKind` values. Its underlying type is
 // `string` and its value IS the stored token, byte-identical across every
@@ -65,6 +65,35 @@ func parseActionTriggerKind(token string) ActionTriggerKind {
 	switch ActionTriggerKind(token) {
 	case ActionTriggerKindUserGesture, ActionTriggerKindInFormEvent, ActionTriggerKindLifecycle, ActionTriggerKindServerEvent, ActionTriggerKindCondition:
 		return ActionTriggerKind(token)
+	}
+	return ""
+}
+
+// ActorKind is the generated named type for `ActorKind` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type ActorKind string
+
+const (
+	// A person using the system.
+	ActorKindHuman ActorKind = "human"
+	// A system of the same organisation, inside the boundary the solution is
+	// built within.
+	ActorKindInternalSystem ActorKind = "internalSystem"
+	// A system of another organisation, outside that boundary.
+	ActorKindExternalSystem ActorKind = "externalSystem"
+	// A time-triggered actor: a scheduled job or timer.
+	ActorKindScheduled ActorKind = "scheduled"
+)
+
+// parseActorKind returns the ActorKind whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseActorKind(token string) ActorKind {
+	switch ActorKind(token) {
+	case ActorKindHuman, ActorKindInternalSystem, ActorKindExternalSystem, ActorKindScheduled:
+		return ActorKind(token)
 	}
 	return ""
 }
@@ -1202,6 +1231,47 @@ func parseReportFilterValueKind(token string) ReportFilterValueKind {
 	return ""
 }
 
+// RequirementDependencyType is the generated named type for `RequirementDependencyType` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type RequirementDependencyType string
+
+const (
+	// The far end must be met before this requirement can be: it is needed
+	// first. Collected in an organizational requirement's `OREP.dependencies`.
+	RequirementDependencyTypePrerequisite RequirementDependencyType = "prerequisite"
+	// The two requirements depend on each other; the row stands at both ends.
+	RequirementDependencyTypeBidirectional RequirementDependencyType = "bidirectional"
+	// The far end is this requirement's parent: this requirement details part
+	// of it.
+	RequirementDependencyTypeParentChild RequirementDependencyType = "parentChild"
+	// The two requirements cannot both be met as stated; the row stands at both
+	// ends and both `FREC.conflictsWith` derive from it.
+	RequirementDependencyTypeConflict RequirementDependencyType = "conflict"
+	// This requirement refines the far end: it states it more precisely
+	// without changing what it asks for.
+	RequirementDependencyTypeRefinement RequirementDependencyType = "refinement"
+	// The far end sets a limit on how this requirement may be implemented.
+	// Collected, with the row's description, in `FREC.constrainedBy` and
+	// `TREC.constrainedBy`.
+	RequirementDependencyTypeConstrainedBy RequirementDependencyType = "constrainedBy"
+	// The far end is named in this requirement's description and has no row of
+	// another kind: the row `deriveFields` writes for an id found there.
+	RequirementDependencyTypeNamedInText RequirementDependencyType = "namedInText"
+)
+
+// parseRequirementDependencyType returns the RequirementDependencyType whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseRequirementDependencyType(token string) RequirementDependencyType {
+	switch RequirementDependencyType(token) {
+	case RequirementDependencyTypePrerequisite, RequirementDependencyTypeBidirectional, RequirementDependencyTypeParentChild, RequirementDependencyTypeConflict, RequirementDependencyTypeRefinement, RequirementDependencyTypeConstrainedBy, RequirementDependencyTypeNamedInText:
+		return RequirementDependencyType(token)
+	}
+	return ""
+}
+
 // RoleMembershipSource is the generated named type for `RoleMembershipSource` values. Its underlying type is
 // `string` and its value IS the stored token, byte-identical across every
 // language port, so documents stay cross-compatible while an accessor can still
@@ -2019,9 +2089,10 @@ func (x *AcceptanceCriteriaSummary) QualityGateChecklist() *QualityGateChecklist
 
 // Canonical, enumerated acceptance criteria (SR-54 explicit link).
 //
-// The single source of truth for the full set of traceable acceptance
-// criteria; this summary references — rather than duplicates — it. The same
-// [AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.
+// A copy of the acceptance criteria the acceptance plan holds (the QAP-CRI
+// seed; in the Quality & Acceptance Plan its root's acceptance criteria):
+// it is not edited here — `deriveFields` writes it from the holder, and
+// the rendition marks it as a copy (S1, `@SameAs`).
 func (x *AcceptanceCriteriaSummary) DetailedCriteria() *AcceptanceCriteriaList {
 	return NewAcceptanceCriteriaList(x.Doc(), x.Path()+"/detailedCriteria")
 }
@@ -4116,6 +4187,11 @@ func (x *ArchitectureComponentEntry) Ownership() *ArchitectureComponentEntryOwne
 }
 
 // Architecture Decision Record (ADR) entry.
+//
+// Links: `ADRR.relatedDecisions` names `ARDE` entries, stored on both
+// (`InverseOf.symmetric`); `ADRR.supersedes` names `ARDE`, answered by
+// `ADRR.supersededBy` at the other end; `ADRR.supersededBy` names `ARDE`,
+// answered by `ADRR.supersedes` at the other end.
 type ArchitectureDecisionRecord struct {
 	som.SomNode
 }
@@ -4190,6 +4266,9 @@ func (x *ArchitectureOverview) Compliance() *ArchitectureOverviewComplianceForm 
 }
 
 // Architecture principle entry.
+//
+// Links: `ARPRENGO.relatedPrinciples` names `ARPR` entries, stored on both
+// (`InverseOf.symmetric`).
 type ArchitecturePrincipleEntry struct {
 	som.SomNode
 }
@@ -6407,6 +6486,8 @@ func (x *BusinessObjectAttributeEntry) Governance() *BusinessObjectAttributeEntr
 // Comprehensive business object specification following domain-driven design
 // patterns. Business objects represent key domain concepts with behavior,
 // state, and business rules.
+//
+// Links: `BJOEN-DOMA.relatedObjects` names `BJOEN`, one-way.
 type BusinessObjectEntry struct {
 	som.SomNode
 }
@@ -9872,6 +9953,9 @@ func (x *ComponentRiskAssessment) ContingencyPlans() *ContingencyPlans {
 //
 // Documents one component risk: category, probability, impact, detection
 // methods, mitigation strategy and status, residual risk, and ownership.
+//
+// Links: `CORIENGO.relatedRisks` is stored on both entries
+// (`InverseOf.symmetric`).
 type ComponentRiskEntry struct {
 	som.SomNode
 }
@@ -11365,6 +11449,15 @@ func (x *CurrentStateRiskAssessment) SetContent(value string) {
 //
 // Detailed documentation of a single workflow within a business process.
 // Includes triggers, steps, actors, inputs, outputs, and timing.
+//
+// The workflow's own inputs, outputs and business rules
+// (`WOINEN-INPU-LST`, `WOOUEN-OUTP-LST`, `WOBURU-BUSI-LST`) are independent
+// of the same lists on its steps, not a superset of them: a workflow input
+// enters the workflow from outside, while a step's inputs also include what
+// earlier steps produced; a workflow output leaves it, while a step's outputs
+// include intermediate results; a workflow-level rule governs the whole
+// workflow, a step's rule that step only. Neither side is derived from the
+// other.
 type CurrentWorkflowEntry struct {
 	som.SomNode
 }
@@ -11528,7 +11621,7 @@ type D00SolutionBlueprint struct {
 
 // D00SolutionBlueprintModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D00SolutionBlueprintModelVersion = "1.12"
+const D00SolutionBlueprintModelVersion = "1.13"
 
 // NewD00SolutionBlueprint creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11678,7 +11771,7 @@ type D01CurrentLandscapeAssessment struct {
 
 // D01CurrentLandscapeAssessmentModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D01CurrentLandscapeAssessmentModelVersion = "1.12"
+const D01CurrentLandscapeAssessmentModelVersion = "1.13"
 
 // NewD01CurrentLandscapeAssessment creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11819,7 +11912,7 @@ type D02TargetOperatingModel struct {
 
 // D02TargetOperatingModelModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D02TargetOperatingModelModelVersion = "1.12"
+const D02TargetOperatingModelModelVersion = "1.13"
 
 // NewD02TargetOperatingModel creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11973,7 +12066,7 @@ type D03InformationModel struct {
 
 // D03InformationModelModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D03InformationModelModelVersion = "1.12"
+const D03InformationModelModelVersion = "1.13"
 
 // NewD03InformationModel creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12193,7 +12286,7 @@ type D04RequirementsSpecification struct {
 
 // D04RequirementsSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D04RequirementsSpecificationModelVersion = "1.12"
+const D04RequirementsSpecificationModelVersion = "1.13"
 
 // NewD04RequirementsSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12337,7 +12430,7 @@ type D05InteractionScenarios struct {
 
 // D05InteractionScenariosModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D05InteractionScenariosModelVersion = "1.12"
+const D05InteractionScenariosModelVersion = "1.13"
 
 // NewD05InteractionScenarios creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12474,7 +12567,7 @@ type D06ArchitectureTechnologySpecification struct {
 
 // D06ArchitectureTechnologySpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D06ArchitectureTechnologySpecificationModelVersion = "1.12"
+const D06ArchitectureTechnologySpecificationModelVersion = "1.13"
 
 // NewD06ArchitectureTechnologySpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12633,7 +12726,7 @@ type D07IntegrationInterfaceSpecification struct {
 
 // D07IntegrationInterfaceSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D07IntegrationInterfaceSpecificationModelVersion = "1.12"
+const D07IntegrationInterfaceSpecificationModelVersion = "1.13"
 
 // NewD07IntegrationInterfaceSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12789,7 +12882,7 @@ type D08SecurityAccessSpecification struct {
 
 // D08SecurityAccessSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D08SecurityAccessSpecificationModelVersion = "1.12"
+const D08SecurityAccessSpecificationModelVersion = "1.13"
 
 // NewD08SecurityAccessSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12941,7 +13034,7 @@ type D09ExperienceDesignSpecification struct {
 
 // D09ExperienceDesignSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D09ExperienceDesignSpecificationModelVersion = "1.12"
+const D09ExperienceDesignSpecificationModelVersion = "1.13"
 
 // NewD09ExperienceDesignSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -13106,7 +13199,7 @@ type D10QualityAcceptancePlan struct {
 
 // D10QualityAcceptancePlanModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D10QualityAcceptancePlanModelVersion = "1.12"
+const D10QualityAcceptancePlanModelVersion = "1.13"
 
 // NewD10QualityAcceptancePlan creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -13301,7 +13394,7 @@ type D11DeliveryRoadmap struct {
 
 // D11DeliveryRoadmapModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D11DeliveryRoadmapModelVersion = "1.12"
+const D11DeliveryRoadmapModelVersion = "1.13"
 
 // NewD11DeliveryRoadmap creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -13448,7 +13541,7 @@ type D12TransitionRolloutPlan struct {
 
 // D12TransitionRolloutPlanModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D12TransitionRolloutPlanModelVersion = "1.12"
+const D12TransitionRolloutPlanModelVersion = "1.13"
 
 // NewD12TransitionRolloutPlan creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -13623,7 +13716,7 @@ type D13CodeSpecsProjection struct {
 
 // D13CodeSpecsProjectionModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D13CodeSpecsProjectionModelVersion = "1.12"
+const D13CodeSpecsProjectionModelVersion = "1.13"
 
 // NewD13CodeSpecsProjection creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -14602,6 +14695,8 @@ func (x *DataDuplicationEntry) Governance() *DataDuplicationEntryGovernanceForm 
 // to be adjusted: business-process cohesion sometimes merges two aggregates
 // into one unit or splits one across two, and stating that per entity keeps
 // even the exception readable. Empty means no adjustment.
+//
+// Links: `DAENT-RELA.parentEntities` names `DAENT.entityName`, one-way.
 type DataEntityEntry struct {
 	som.SomNode
 }
@@ -17245,6 +17340,9 @@ func (x *DesignFoundationEntry) Content() *DesignFoundationEntryContentForm {
 // A design goal entry (form).
 //
 // Each goal represents a measurable UI objective with success criteria.
+//
+// Links: `DGOEN.relatedPrinciples` names `DPEN`, answered by
+// `DPEN.relatedGoals` at the other end.
 type DesignGoalEntry struct {
 	som.SomNode
 }
@@ -17302,6 +17400,9 @@ func (x *DesignGoals) Items() *som.SomList[*DesignGoalEntry] {
 }
 
 // Design pattern entry — a specific design pattern to be used.
+//
+// Links: `DEPAENCO.relatedPatterns` names `DSPT` entries, stored on both
+// (`InverseOf.symmetric`).
 type DesignPatternEntry struct {
 	som.SomNode
 }
@@ -17427,6 +17528,9 @@ func (x *DesignPatternsAndStandards) TestingStandards() *TestingStandards {
 // A design principle entry (form).
 //
 // Each principle guides UI decisions with rationale and examples.
+//
+// Links: `DPEN.relatedGoals` names `DGOEN`, answered by
+// `DGOEN.relatedPrinciples` at the other end.
 type DesignPrincipleEntry struct {
 	som.SomNode
 }
@@ -18104,6 +18208,11 @@ func (x *DistributionList) CustomGroups() *som.SomList[*CustomDistributionGroup]
 //
 // Detailed information about a distribution list recipient including
 // their role, contact information, preferences, and access levels.
+// The full distribution (`FUDI`) holds the recipients; the executive-summary
+// list and a custom group's members are selections of it: there
+// `recipientRef` names the full-distribution recipient an entry is (a
+// `DSRC-ITEM-…` section id of `FUDI`) and the entry's other values repeat
+// that recipient's. In the full distribution `recipientRef` stays empty.
 type DistributionRecipientEntry struct {
 	som.SomNode
 }
@@ -18347,6 +18456,11 @@ func (x *DocumentControl) ReferenceDocuments() *ReferenceDocuments {
 // Standard document header present at the top of every TomSpecs document.
 //
 // All fields are optional strings representing the document's form fields.
+// The revision history is the holder of the document's version, date and
+// author: the header shows those of its newest revision entry (`RVENT`, the
+// last of the list, which is ordered newest last), derived from each
+// document's own history. A document without a revision entry derives
+// nothing. The id, the project and the status are the header's own.
 //
 // A leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share
 // an unchanged header by identity and `cloneShallow` needs no child handling.
@@ -18976,6 +19090,9 @@ func (x *DomainOverview) DomainDetails() *DomainOverviewDomainDetailsForm {
 }
 
 // A domain process entry (form).
+//
+// Links: `DPEF.relatedProcesses` names `DOPREN` entries, stored on both
+// (`InverseOf.symmetric`).
 type DomainProcessEntry struct {
 	som.SomNode
 }
@@ -19052,6 +19169,9 @@ func (x *DomainProcesses) Processes() *som.SomList[*DomainProcessEntry] {
 }
 
 // A domain term entry (form).
+//
+// Links: `DTE.relatedTerms` names `DTE` entries, stored on both
+// (`InverseOf.symmetric`).
 type DomainTermEntry struct {
 	som.SomNode
 }
@@ -20952,6 +21072,8 @@ func (x *ExportFieldMappingEntry) Layout() *ExportFieldMappingEntryLayoutForm {
 }
 
 // An export format entry (form).
+//
+// Links: `EXID.relatedDataEntities` names `DAENT.entityName`, one-way.
 type ExportFormatEntry struct {
 	som.SomNode
 }
@@ -21722,7 +21844,9 @@ func (x *FamilyComponentRef) Content() *FamilyComponentRefContentForm {
 // 13.4.4. Feature Dependencies.
 //
 // Cross-feature dependencies affecting staging order, critical path
-// analysis, and delivery sequencing.
+// analysis, and delivery sequencing. The rows are the holder of every
+// feature dependency: each feature's `FEDEIN.dependsOnFeatures` and
+// `blocksFeatures` are derived from them.
 type FeatureDependencies struct {
 	som.SomNode
 }
@@ -22043,7 +22167,9 @@ func (x *FeatureStageMapping) Content() *FeatureStageMappingContentForm {
 	return NewFeatureStageMappingContentForm(x.Doc(), x.Path()+"/content")
 }
 
-// Stage assignment details.
+// The phase within its stage the feature is delivered in. The stage
+// itself is the feature's (`FESTAS.targetStage`), reached through
+// [content]'s `featureId`; the matrix does not restate it.
 func (x *FeatureStageMapping) Assignment() *FeatureStageMappingAssignmentForm {
 	return NewFeatureStageMappingAssignmentForm(x.Doc(), x.Path()+"/FSMA")
 }
@@ -22591,6 +22717,8 @@ func (x *FunctionDataMatrixEntry) Content() *FunctionDataMatrixEntryContentForm 
 // A function entry (form).
 //
 // Business function specification in the functional decomposition.
+//
+// Links: `FUNCT.parentFunction` names `FUNCT`, one-way.
 type FunctionEntry struct {
 	som.SomNode
 }
@@ -22951,6 +23079,10 @@ func (x *FunctionalSuitabilityCharacteristic) Correctness() *Correctness {
 // Documents a specific gap between current capabilities and business needs:
 // category, severity, quantified cost, stakeholders, compliance drivers,
 // workarounds, resolution approach, and success criteria.
+//
+// Links: `GAENDI.relatedPainPoints` names `PAPE`, answered by
+// `PAPOR1.relatedGaps` at the other end; `GAENRE.dependsOnGaps` names `GAPE`,
+// one-way.
 type GapEntry struct {
 	som.SomNode
 }
@@ -25225,6 +25357,10 @@ func (x *InteractionDependencyAnalysis) SetContent(value string) {
 //
 // Comprehensive interaction definition following Cockburn's fully dressed
 // use case template. Seeds the ISC (Interaction Scenarios) document.
+//
+// Links: `UCSC.relatedUseCases` names `INEN`, one-way; `INTR.relatedUseCase`
+// names `INEN`, one-way; `INTR.relatedTestCases` names `TSSC`, `RQTSC`,
+// one-way.
 type InteractionEntry struct {
 	som.SomNode
 }
@@ -26040,15 +26176,19 @@ func (x *IpOwnershipEntry) Content() *IpOwnershipEntryContentForm {
 	return NewIpOwnershipEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
-// ISO/IEC 25010:2023 product-quality cross-map (derived).
+// ISO/IEC 25010:2023 product-quality cross-map.
 //
-// A *derived* view over the canonical quality spine: the eight
+// A coverage view over the canonical quality spine: the eight
 // `*Characteristic` classes under [SystemQualityGoals] are the single source
 // of truth for the taxonomy (L34C-8); this cross-map does not re-declare it.
-// Each entry references one of those characteristics (via the closed
-// [Iso25010Characteristic] enum) and records which quality goals / NFRs
-// address it and the target metric — so coverage of any 25010:2023
-// characteristic (e.g. compatibility, flexibility) cannot be silently missed.
+// Each entry names one of those characteristics (via the closed
+// [Iso25010Characteristic] enum) and records, as authored text, which
+// quality goals / NFRs address it and the target metric. Nothing in it is
+// derived: the characteristics are eight sections, not the rows of one
+// list, and what addresses each is the author's statement. That every
+// characteristic has its entry is a process check, so coverage of any
+// 25010:2023 characteristic (e.g. compatibility, flexibility) cannot be
+// silently missed.
 type Iso25010Coverage struct {
 	som.SomNode
 }
@@ -26434,6 +26574,9 @@ func (x *KeyCompromiseRecoveryPolicy) Content() *KeyCompromiseRecoveryPolicyCont
 // (skipped: notes has no target type)
 
 // A key concept entry (form).
+//
+// Links: `KECON.relatedConcepts` names `KECON` entries, stored on both
+// (`InverseOf.symmetric`).
 type KeyConceptEntry struct {
 	som.SomNode
 }
@@ -28865,6 +29008,10 @@ func (x *MigrationResources) Content() *MigrationResourcesContentForm {
 // Detailed migration risk documentation following enterprise risk
 // management practices. Captures full risk lifecycle from identification
 // through resolution.
+//
+// Links: `MIRIR1.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,
+// one-way; `MIRIR1.relatedDecisions` names `ARDE`, one-way;
+// `MIRIR1.relatedRisks` is stored on both entries (`InverseOf.symmetric`).
 type MigrationRiskEntry struct {
 	som.SomNode
 }
@@ -29775,6 +29922,8 @@ func (x *MustPassCriteria) Items() *som.SomList[*MustPassCriterionEntry] {
 }
 
 // A must-pass criterion entry (form).
+//
+// Links: `MPCEG.dependsOnCriteria` names `MSTPCR`, one-way.
 type MustPassCriterionEntry struct {
 	som.SomNode
 }
@@ -32123,6 +32272,11 @@ func (x *PainPointGapCorrelationEntry) Content() *PainPointGapCorrelationEntryCo
 }
 
 // Relationships for pain point.
+//
+// Links: `PAPOR1.relatedGaps` names `GAPE`, answered by
+// `GAENDI.relatedPainPoints` at the other end; `PAPOR1.dependsOn` names
+// `PAPE`, one-way; `PAPOR1.relatedPainPoints` is stored on both entries
+// (`InverseOf.symmetric`).
 type PainPointRelationships struct {
 	som.SomNode
 }
@@ -32990,6 +33144,9 @@ func (x *PilotPlan) SetContent(value string) {
 }
 
 // Pipeline job entry.
+//
+// Links: `PJE.parentStage` names `PSE`, one-way; `PJED.dependsOn` names `PJE`,
+// one-way.
 type PipelineJobEntry struct {
 	som.SomNode
 }
@@ -34220,6 +34377,11 @@ func (x *ProcessMetricCategory) Metrics() *som.SomList[*ProcessMetricEntry] {
 // A process metric entry (form).
 //
 // A single measurable metric with current value and measurement details.
+// The class serves a process's own metric list and the key metrics
+// (`PME-KEYM-LST`), which summarize the processes' metrics: a key metric's
+// `metricRef` names the metric it is (a `PME-METR-…` section id) and its
+// other values repeat that metric's; in a process's own list `metricRef`
+// stays empty.
 type ProcessMetricEntry struct {
 	som.SomNode
 }
@@ -35330,6 +35492,8 @@ func (x *Prototype) PrototypeType() *PrototypeType {
 // (skipped: prototypeSchedule has no target type)
 
 // A prototype feature entry.
+//
+// Links: `PFE.relatedGoals` names `PGE`, one-way.
 type PrototypeFeatureEntry struct {
 	som.SomNode
 }
@@ -35349,6 +35513,9 @@ func (x *PrototypeFeatureEntry) Content() *PrototypeFeatureEntryContentForm {
 // 10.13.2. Selected Feature Subset.
 //
 // Features included in the prototype.
+//
+// Links: `PFSS.includedFeatures` names `PFE`, one-way; `PFSS.excludedFeatures`
+// names `PFE`, one-way.
 type PrototypeFeatureSubset struct {
 	som.SomNode
 }
@@ -35404,6 +35571,8 @@ func (x *PrototypeFeatureSubset) Features() *som.SomList[*PrototypeFeatureEntry]
 }
 
 // A prototype goal entry.
+//
+// Links: `PGE.relatedRisks` names `RISENT`, one-way.
 type PrototypeGoalEntry struct {
 	som.SomNode
 }
@@ -35613,6 +35782,9 @@ func (x *QualityAndAcceptanceModel) Iso25010Coverage() *Iso25010Coverage {
 //
 // Defines a quality category with its attributes, weight, and relationship
 // to other categories.
+//
+// Links: `QCARL.relatedCategories` names `QCATE` entries, stored on both
+// (`InverseOf.symmetric`); `QCARL.parentCategory` names `QCATE`, one-way.
 type QualityCategoryEntry struct {
 	som.SomNode
 }
@@ -36292,6 +36464,10 @@ func (x *RedirectHandlingPolicy) Content() *RedirectHandlingPolicyContentForm {
 //
 // Detailed metadata for a single referenced document including
 // identification, classification, status, and applicability.
+//
+// Links: `RDEL.supersedes` names `RFDOC`, answered by `RDEL.supersededBy` at
+// the other end; `RDEL.supersededBy` names `RFDOC`, answered by
+// `RDEL.supersedes` at the other end.
 type ReferenceDocumentEntry struct {
 	som.SomNode
 }
@@ -37082,6 +37258,10 @@ func (x *ReportDistributionEntry) Delivery() *ReportDistributionEntryDeliveryFor
 }
 
 // A report entry (form).
+//
+// Links: `REID.relatedBusinessProcesses` names `BPREN`, one-way;
+// `REID.relatedUseCases` names `INEN`, one-way; `REID.relatedDataEntities`
+// names `DAENT.entityName`, one-way.
 type ReportEntry struct {
 	som.SomNode
 }
@@ -37555,7 +37735,14 @@ func (x *RequirementDataRequirements) Entities() *som.SomList[*DataEntityReferen
 
 // 4.3.1.n.5. Dependencies.
 //
-// Dependencies this requirement has on other requirements.
+// Dependencies this requirement has on other requirements. Each dependency
+// is one row, stored once, on the requirement it applies to: a directional
+// dependency (prerequisite, parent-child, refinement, constrained by) is not
+// written again as its converse on the other requirement, which reaches it
+// through navigation. A conflict and a bidirectional dependency stand at both
+// ends. The rows are the holder of every dependency; the requirement's
+// `constrainedBy`, `conflictsWith` and `OREP.dependencies` are derived from
+// them.
 type RequirementDependencies struct {
 	som.SomNode
 }
@@ -37608,10 +37795,11 @@ func (x *RequirementDependencyEntry) Content() *RequirementDependencyEntryConten
 
 // The other requirement in this dependency, named by section id.
 //
-// The row states the *kind* of relation — prerequisite, bidirectional,
-// parent-child, conflict, refinement — and this names its far end; the
-// requirement that owns the entry is always the near end, so neither half
-// is readable alone. Expect another requirement of this document there. A
+// The row states the *kind* of relation ([RequirementDependencyType]) and
+// this names its far end; the requirement that owns the entry is always the
+// near end, so neither half is readable alone. A conflict or bidirectional
+// row is answered by a row of the same kind on the far end
+// (`InverseOf.symmetric`); a directional row has no converse row. Expect another requirement of this document there. A
 // dependency on something that is not itself a requirement is a constraint
 // and belongs with the assumptions and constraints instead.
 //
@@ -37760,6 +37948,8 @@ func (x *RequirementTestCases) TestCases() *som.SomList[*RequirementTestCaseEntr
 // 4.3.1.n.6. Traceability.
 //
 // Traceability links to goals, use cases, processes, and other artifacts.
+//
+// Links: `RETRAR.relatedDocuments` names `RFDOC`, one-way.
 type RequirementTraceability struct {
 	som.SomNode
 }
@@ -38237,6 +38427,8 @@ func (x *ResponsibilityContacts) Content() *ResponsibilityContactsContentForm {
 }
 
 // Detailed responsibility entry (form).
+//
+// Links: `RSPDT.relatedProcesses` names `BPREN`, one-way.
 type ResponsibilityDetailEntry struct {
 	som.SomNode
 }
@@ -39116,6 +39308,10 @@ func (x *RiskMonitoring) Closure() *RiskMonitoringClosureForm {
 }
 
 // Relationships to other risks, assumptions, and project elements.
+//
+// Links: `RR.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,
+// one-way; `RR.relatedRisks` names `RISENT` entries, stored on both
+// (`InverseOf.symmetric`); `RR.relatedAssumptions` names `ASMRE`, one-way.
 type RiskRelationships struct {
 	som.SomNode
 }
@@ -39514,6 +39710,9 @@ func (x *RoleHolderEntry) Content() *RoleHolderEntryContentForm {
 //
 // Defines a specific parent-child inheritance relationship between two roles,
 // including what is inherited and any restrictions.
+//
+// Links: `RLINH.parentRole` names `AZRO.roleName`, one-way; `RLINH.childRole`
+// names `AZRO.roleName`, one-way.
 type RoleInheritanceRuleEntry struct {
 	som.SomNode
 }
@@ -40858,6 +41057,9 @@ func (x *ScreenElementFieldSpec) FileOptions() *ScreenElementFieldSpecFileOption
 //
 // Comprehensive specification of a single application screen, covering
 // identity, purpose, authorization, layout, elements, and behavior.
+//
+// Links: `SCETR.relatedBusinessProcesses` names `BPREN`, one-way;
+// `SCETR.relatedUseCases` names `INEN`, one-way.
 type ScreenEntry struct {
 	som.SomNode
 }
@@ -43986,6 +44188,8 @@ func (x *StageDependencies) Content() *StageDependenciesContentForm {
 // entry/exit criteria, assigned resources, quality gates, and a
 // deployment plan. Draws from PMBOK phase-gate discipline, SAFe PI
 // planning, and PRINCE2 stage boundary management.
+//
+// Links: `STSC.includedFeatures` names `FPE`, one-way.
 type StageEntry struct {
 	som.SomNode
 }
@@ -44681,6 +44885,8 @@ func (x *StagingStrategy) Constraints() *som.SomList[*som.SomScalar] {
 // Keeps only the scope-framing identity + benefit. Role, interest, influence,
 // concerns and engagement strategy are owned by the canonical SBP.4
 // `StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).
+// [content]'s `stakeholderRef` names that register entry (a
+// `STKRE-STAK-…` section id).
 type StakeholderEntry struct {
 	som.SomNode
 }
@@ -45415,6 +45621,8 @@ func (x *SuccessCriterionEntry) Status() *SuccessCriterionEntryStatusForm {
 }
 
 // Relationships for success criterion.
+//
+// Links: `SUCRRE.relatedGoals` names `BGE`, one-way.
 type SuccessCriterionRelationships struct {
 	som.SomNode
 }
@@ -48563,6 +48771,8 @@ func (x *TestLevelEntry) Content() *TestLevelEntryContentForm {
 // process, or acceptance criterion. Includes full traceability, preconditions,
 // execution metadata, and pass/fail criteria per ISTQB and IEEE 829
 // Level Test Case / Level Test Procedure structures.
+//
+// Links: `TESCTR.designRef` names `SCREN`, one-way.
 type TestScenarioEntry struct {
 	som.SomNode
 }
@@ -50341,6 +50551,8 @@ func (x *UatTestCycleEntry) Execution() *UatTestCycleEntryExecutionForm {
 // Individual step within a test scenario. Captures the action, input data,
 // expected result, and pass criteria at fine-grained level per IEEE 829
 // Level Test Procedure structure.
+//
+// Links: `UATSST.uiScreenRef` names `SCREN`, one-way.
 type UatTestStepEntry struct {
 	som.SomNode
 }
@@ -52498,6 +52710,8 @@ func (x *WarrantyServiceLevels) Content() *WarrantyServiceLevelsContentForm {
 //
 // Post-acceptance warranty terms: duration, scope, service levels,
 // exclusions, and transition to standard support.
+//
+// Links: `WACO.coveredDeliverables` names `DLVEN`, one-way.
 type WarrantyTerms struct {
 	som.SomNode
 }
@@ -53024,6 +53238,11 @@ func (x *WorkflowStepSystem) SetName(value string) {
 }
 
 // Summary entry for a single workflow.
+//
+// [content]'s `workflowRef` names the workflow the row summarizes (a
+// `CUWF-WORK-…` section id of the same process); the row's type, frequency
+// and step counts repeat that workflow's own, whose counts are counted over
+// its steps.
 type WorkflowSummaryEntry struct {
 	som.SomNode
 }
@@ -56365,6 +56584,14 @@ func (x *ActorEntryIdentificationForm) ActorType() string {
 
 func (x *ActorEntryIdentificationForm) SetActorType(value string) {
 	x.Doc().SetFormField(x.Path(), "actorType", value)
+}
+
+func (x *ActorEntryIdentificationForm) ActorKind() ActorKind {
+	return parseActorKind(x.Doc().FormFieldOr(x.Path(), "actorKind"))
+}
+
+func (x *ActorEntryIdentificationForm) SetActorKind(value ActorKind) {
+	x.Doc().SetFormField(x.Path(), "actorKind", string(value))
 }
 
 func (x *ActorEntryIdentificationForm) Category() string {
@@ -89575,6 +89802,66 @@ func (x *CurrentWorkflowEntryContentForm) SetCriticality(value string) {
 	x.Doc().SetFormField(x.Path(), "criticality", value)
 }
 
+func (x *CurrentWorkflowEntryContentForm) StepCount() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "stepCount")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *CurrentWorkflowEntryContentForm) SetStepCount(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "stepCount", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "stepCount", strconv.Itoa(*value))
+}
+
+func (x *CurrentWorkflowEntryContentForm) ManualStepCount() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "manualStepCount")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *CurrentWorkflowEntryContentForm) SetManualStepCount(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "manualStepCount", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "manualStepCount", strconv.Itoa(*value))
+}
+
+func (x *CurrentWorkflowEntryContentForm) ErrorProneStepCount() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "errorProneStepCount")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *CurrentWorkflowEntryContentForm) SetErrorProneStepCount(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "errorProneStepCount", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "errorProneStepCount", strconv.Itoa(*value))
+}
+
 // CurrentWorkflowEntryTimingForm is the generated section facade for the `timing` @Form section: its own
 // content text followed by one typed member per form field.
 type CurrentWorkflowEntryTimingForm struct {
@@ -106492,6 +106779,14 @@ func (x *DistributionRecipientEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
+func (x *DistributionRecipientEntryContentForm) RecipientRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "recipientRef")
+}
+
+func (x *DistributionRecipientEntryContentForm) SetRecipientRef(value string) {
+	x.Doc().SetFormField(x.Path(), "recipientRef", value)
+}
+
 func (x *DistributionRecipientEntryContentForm) Role() string {
 	return x.Doc().FormFieldOr(x.Path(), "role")
 }
@@ -122536,6 +122831,14 @@ func (x *FunctionalRequirementEntryConstraintsForm) SetConstraints(value string)
 	x.Doc().SetFormField(x.Path(), "constraints", value)
 }
 
+func (x *FunctionalRequirementEntryConstraintsForm) ConstrainedBy() string {
+	return x.Doc().FormFieldOr(x.Path(), "constrainedBy")
+}
+
+func (x *FunctionalRequirementEntryConstraintsForm) SetConstrainedBy(value string) {
+	x.Doc().SetFormField(x.Path(), "constrainedBy", value)
+}
+
 func (x *FunctionalRequirementEntryConstraintsForm) ConflictsWith() string {
 	return x.Doc().FormFieldOr(x.Path(), "conflictsWith")
 }
@@ -131456,6 +131759,14 @@ func (x *InteractionEntryIdentificationForm) GoalLevel() string {
 
 func (x *InteractionEntryIdentificationForm) SetGoalLevel(value string) {
 	x.Doc().SetFormField(x.Path(), "goalLevel", value)
+}
+
+func (x *InteractionEntryIdentificationForm) Priority() Priority {
+	return parsePriority(x.Doc().FormFieldOr(x.Path(), "priority"))
+}
+
+func (x *InteractionEntryIdentificationForm) SetPriority(value Priority) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 func (x *InteractionEntryIdentificationForm) DesignScope() string {
@@ -165164,6 +165475,14 @@ func (x *ProcessMetricEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
+func (x *ProcessMetricEntryContentForm) MetricRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "metricRef")
+}
+
+func (x *ProcessMetricEntryContentForm) SetMetricRef(value string) {
+	x.Doc().SetFormField(x.Path(), "metricRef", value)
+}
+
 func (x *ProcessMetricEntryContentForm) MetricCategory() string {
 	return x.Doc().FormFieldOr(x.Path(), "metricCategory")
 }
@@ -177352,12 +177671,12 @@ func (x *RequirementDependencyEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *RequirementDependencyEntryContentForm) DependencyType() string {
-	return x.Doc().FormFieldOr(x.Path(), "dependencyType")
+func (x *RequirementDependencyEntryContentForm) DependencyType() RequirementDependencyType {
+	return parseRequirementDependencyType(x.Doc().FormFieldOr(x.Path(), "dependencyType"))
 }
 
-func (x *RequirementDependencyEntryContentForm) SetDependencyType(value string) {
-	x.Doc().SetFormField(x.Path(), "dependencyType", value)
+func (x *RequirementDependencyEntryContentForm) SetDependencyType(value RequirementDependencyType) {
+	x.Doc().SetFormField(x.Path(), "dependencyType", string(value))
 }
 
 func (x *RequirementDependencyEntryContentForm) Description() string {
@@ -201484,6 +201803,14 @@ func (x *StageMigrationRiskEntryContentForm) SetRiskCategory(value string) {
 	x.Doc().SetFormField(x.Path(), "riskCategory", value)
 }
 
+func (x *StageMigrationRiskEntryContentForm) RiskRating() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "riskRating"))
+}
+
+func (x *StageMigrationRiskEntryContentForm) SetRiskRating(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "riskRating", string(value))
+}
+
 // StageMigrationRiskEntryContingencyForm is the generated section facade for the `contingency` @Form section: its own
 // content text followed by one typed member per form field.
 type StageMigrationRiskEntryContingencyForm struct {
@@ -203382,6 +203709,14 @@ func (x *StageSummaryEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
+func (x *StageSummaryEntryContentForm) StageRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "stageRef")
+}
+
+func (x *StageSummaryEntryContentForm) SetStageRef(value string) {
+	x.Doc().SetFormField(x.Path(), "stageRef", value)
+}
+
 func (x *StageSummaryEntryContentForm) StageNumber() string {
 	return x.Doc().FormFieldOr(x.Path(), "stageNumber")
 }
@@ -204630,6 +204965,14 @@ func (x *StakeholderEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
+func (x *StakeholderEntryContentForm) StakeholderRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "stakeholderRef")
+}
+
+func (x *StakeholderEntryContentForm) SetStakeholderRef(value string) {
+	x.Doc().SetFormField(x.Path(), "stakeholderRef", value)
+}
+
 func (x *StakeholderEntryContentForm) StakeholderType() string {
 	return x.Doc().FormFieldOr(x.Path(), "stakeholderType")
 }
@@ -204670,6 +205013,14 @@ func (x *StakeholderRegisterEntryContentForm) Content() string {
 
 func (x *StakeholderRegisterEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *StakeholderRegisterEntryContentForm) StakeholderType() string {
+	return x.Doc().FormFieldOr(x.Path(), "stakeholderType")
+}
+
+func (x *StakeholderRegisterEntryContentForm) SetStakeholderType(value string) {
+	x.Doc().SetFormField(x.Path(), "stakeholderType", value)
 }
 
 func (x *StakeholderRegisterEntryContentForm) Influence() ImportanceBand {
@@ -215324,6 +215675,14 @@ func (x *TechnicalRequirementEntryConstraintsForm) Constraints() string {
 
 func (x *TechnicalRequirementEntryConstraintsForm) SetConstraints(value string) {
 	x.Doc().SetFormField(x.Path(), "constraints", value)
+}
+
+func (x *TechnicalRequirementEntryConstraintsForm) ConstrainedBy() string {
+	return x.Doc().FormFieldOr(x.Path(), "constrainedBy")
+}
+
+func (x *TechnicalRequirementEntryConstraintsForm) SetConstrainedBy(value string) {
+	x.Doc().SetFormField(x.Path(), "constrainedBy", value)
 }
 
 // TechnicalRequirementEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -234387,6 +234746,14 @@ func (x *WorkflowSummaryEntryContentForm) Content() string {
 
 func (x *WorkflowSummaryEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *WorkflowSummaryEntryContentForm) WorkflowRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "workflowRef")
+}
+
+func (x *WorkflowSummaryEntryContentForm) SetWorkflowRef(value string) {
+	x.Doc().SetFormField(x.Path(), "workflowRef", value)
 }
 
 func (x *WorkflowSummaryEntryContentForm) WorkflowType() string {

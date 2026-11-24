@@ -1,4 +1,4 @@
-<!-- docspec: solution-blueprint/1.12 -->
+<!-- docspec: solution-blueprint/1.13 -->
 # <!--[SBP]--> Solution Blueprint
 
 Solution Blueprint for the **Meridian Order Management (MOM)** programme.
@@ -717,6 +717,8 @@ ExternalActorCount: 0
 
 ActorType: Human
 
+ActorKind: human
+
 Category: Primary
 
 OrganizationalUnit: Order Operations
@@ -732,6 +734,8 @@ Description: Clears the order work list, amends lines, and cancels orders before
 ####### <!--[ACID]--> Identification
 
 ActorType: Human
+
+ActorKind: human
 
 Category: Primary
 
@@ -749,6 +753,8 @@ Description: Reviews orders on Hold and releases them back into the lifecycle.
 
 ActorType: Human
 
+ActorKind: human
+
 Category: Supporting
 
 OrganizationalUnit: Commercial
@@ -764,6 +770,8 @@ Description: Maintains the price lists that the synchronous pricing step consume
 ####### <!--[ACID]--> Identification
 
 ActorType: System
+
+ActorKind: internalSystem
 
 Category: Primary
 
@@ -2687,7 +2695,7 @@ Roles: Order Clerk, Order Supervisor
 
 ######## <!--[SCETR]--> Traceability
 
-RelatedUseCases: UC-01, UC-02
+RelatedUseCases: INEN-INTE-UC-01, INEN-INTE-UC-02
 
 RelatedRequirements: FRE-REQU-ORDER-CAPTURE, FRE-REQU-CONFIRM-SLA, FRE-REQU-HOLD-RELEASE
 
@@ -2839,7 +2847,7 @@ Roles: Order Clerk, Order Supervisor
 
 ######## <!--[SCETR]--> Traceability
 
-RelatedUseCases: UC-02, UC-03
+RelatedUseCases: INEN-INTE-UC-02, INEN-INTE-UC-03
 
 RelatedRequirements: FRE-REQU-AMEND-CANCEL, FRE-REQU-HOLD-RELEASE
 

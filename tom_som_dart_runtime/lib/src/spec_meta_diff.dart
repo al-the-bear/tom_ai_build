@@ -146,7 +146,7 @@ bool _listEq(List<Object?> a, List<Object?> b) {
   return true;
 }
 
-bool _mapEq(Map<String, Object?> a, Map<String, Object?> b) {
+bool _mapEq(Map<Object?, Object?> a, Map<Object?, Object?> b) {
   if (a.length != b.length) return false;
   for (final e in a.entries) {
     if (!b.containsKey(e.key) || !_valueEq(e.value, b[e.key])) return false;
@@ -154,10 +154,12 @@ bool _mapEq(Map<String, Object?> a, Map<String, Object?> b) {
   return true;
 }
 
+/// Structural equality. Any map is compared by its entries, whatever its type
+/// arguments: an empty `const {}` in generated source is a
+/// `Map<dynamic, dynamic>`, the same value read from the meta a
+/// `Map<String, dynamic>`, and `==` on two maps is identity.
 bool _valueEq(Object? a, Object? b) {
   if (a is List && b is List) return _listEq(a, b);
-  if (a is Map<String, Object?> && b is Map<String, Object?>) {
-    return _mapEq(a, b);
-  }
+  if (a is Map && b is Map) return _mapEq(a, b);
   return a == b;
 }

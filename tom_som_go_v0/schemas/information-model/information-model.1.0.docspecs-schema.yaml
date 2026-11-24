@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: information-model/1.12
+# Schema: information-model/1.13
 
 title-format: "# <!--[IFM]--> Information Model"
 section-types:
@@ -1361,7 +1361,7 @@ form-types:
   daent-rela-form:
     fields:
       - fieldname: parentEntities
-        description: "Entities this depends on (e.g., Order depends on Customer)"
+        description: "Entities this depends on (e.g., Order depends on Customer) — entity names declared in the entity registry (DAENT), comma-separated"
       - fieldname: childEntities
         description: "Entities that depend on this (e.g., OrderItem depends on Order)"
       - fieldname: referencedEntities
@@ -1634,7 +1634,7 @@ form-types:
       - fieldname: ubiquitousLanguageTerm
         description: How this is referred to in the ubiquitous language
       - fieldname: relatedObjects
-        description: Key related business objects
+        description: "Key related business objects — business object section ids (BJOEN-OBJE-…), comma-separated"
   bjoen-life-form:
     fields:
       - fieldname: keyStates

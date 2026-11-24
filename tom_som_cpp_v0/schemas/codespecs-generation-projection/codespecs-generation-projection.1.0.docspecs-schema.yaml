@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: codespecs-generation-projection/1.12
+# Schema: codespecs-generation-projection/1.13
 
 title-format: "# <!--[CGP]--> CodeSpecs Generation Projection"
 section-types:
@@ -13125,7 +13125,7 @@ form-types:
   daent-rela-form:
     fields:
       - fieldname: parentEntities
-        description: "Entities this depends on (e.g., Order depends on Customer)"
+        description: "Entities this depends on (e.g., Order depends on Customer) — entity names declared in the entity registry (DAENT), comma-separated"
       - fieldname: childEntities
         description: "Entities that depend on this (e.g., OrderItem depends on Order)"
       - fieldname: referencedEntities
@@ -13733,7 +13733,7 @@ form-types:
       - fieldname: exceptions
         description: Allowed exceptions to this principle
       - fieldname: relatedPrinciples
-        description: Other principles that relate to this one
+        description: "Other principles related to this one — architecture principle section ids (ARPR-PRIN-…), comma-separated; each names this principle back"
       - fieldname: notes
         description: Additional principle notes
   coorla-form:
@@ -14053,11 +14053,11 @@ form-types:
   adrr-form:
     fields:
       - fieldname: relatedDecisions
-        description: Other ADRs related to this one
+        description: "Other decisions related to this one — architecture decision section ids (ARDE-DECI-…), comma-separated; each names this decision back"
       - fieldname: supersedes
-        description: Previous decisions this supersedes
+        description: "Previous decisions this one supersedes — architecture decision section ids, comma-separated; each names this decision in its supersededBy"
       - fieldname: supersededBy
-        description: Decision that supersedes this one
+        description: The decision that supersedes this one — an architecture decision section id; it names this decision in its supersedes
   dpea-form:
     fields:
       - fieldname: applicability
@@ -14085,7 +14085,7 @@ form-types:
       - fieldname: usageScope
         description: Where in the architecture this pattern applies
       - fieldname: relatedPatterns
-        description: Other patterns commonly used with this one
+        description: "Other patterns commonly used with this one — design pattern section ids (DSPT-DESI-…), comma-separated; each names this pattern back"
   dpee-form:
     fields:
       - fieldname: enforcementLevel
@@ -14879,7 +14879,7 @@ form-types:
   pjed-form:
     fields:
       - fieldname: dependsOn
-        description: Other jobs this depends on
+        description: "Other jobs this depends on — pipeline job section ids (PJE-JOBS-…), comma-separated"
       - fieldname: services
         description: "Required services (DB, cache)"
       - fieldname: caching
@@ -22654,11 +22654,11 @@ form-types:
       - fieldname: reportCategory
         description: Operational / Analytical / Compliance / Financial / Audit
       - fieldname: relatedUseCases
-        description: ISC references this report serves
+        description: "Use cases (interactions) this report serves — interaction section ids (INEN-INTE-…), comma-separated"
       - fieldname: relatedBusinessProcesses
-        description: TOM references where this report is used
+        description: "Business processes where this report is used — process section ids (BPREN-PROC-…), comma-separated"
       - fieldname: relatedDataEntities
-        description: IFM entity references used as data sources
+        description: "Data entities used as data sources — entity names declared in the entity registry (DAENT), comma-separated"
       - fieldname: exportOperation
         description: The server operation that produces or exports this report — its operationName (SVOPE)
       - fieldname: displayScreen
@@ -23246,7 +23246,7 @@ form-types:
       - fieldname: description
         description: Business purpose of this export
       - fieldname: relatedDataEntities
-        description: IFM entity references included in export
+        description: "Data entities included in the export — entity names declared in the entity registry (DAENT), comma-separated"
       - fieldname: dataSource
         description: Data source or query reference
       - fieldname: dataScope
@@ -23478,6 +23478,8 @@ form-types:
     fields:
       - fieldname: actorType
         description: "State whether the actor is a person, system or scheduled job"
+      - fieldname: actorKind
+        description: "Human, internal system, external system or scheduled — the kind the actor overview counts by"
       - fieldname: category
         description: Classify using Cockburn primary/secondary/supporting/offstage
       - fieldname: realWorldExamples
@@ -23593,6 +23595,8 @@ form-types:
         description: Other actors or systems that contribute
       - fieldname: goalLevel
         description: "Cockburn level: + summary, ! user goal, - subfunction"
+      - fieldname: priority
+        description: MoSCoW band of this interaction — the interaction overview counts by it
       - fieldname: designScope
         description: "Boundary in view: organization, system, subsystem, component"
   ucsc-form:
@@ -23612,7 +23616,7 @@ form-types:
       - fieldname: constraint
         description: Limitations bounding how the use case may work
       - fieldname: relatedUseCases
-        description: Use cases this one includes or extends
+        description: "Use cases (interactions) this one includes or extends — interaction section ids (INEN-INTE-…), comma-separated"
   exten-resu-form:
     fields:
       - fieldname: resumeStep
@@ -23655,7 +23659,7 @@ form-types:
       - fieldname: relatedProcess
         description: The business process this interaction realizes — a section id (BPREN-PROC-…)
       - fieldname: relatedRequirements
-        description: "Requirement ids satisfied here, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)"
+        description: "Requirement ids satisfied here, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…); a functional, technical or security requirement names this interaction back in its RT-TRAC.relatedUseCases"
       - fieldname: relatedUseCase
         description: "Use cases of the Interaction Scenarios document, as text (e.g. UC-23) — another document's ids, not resolved in the Blueprint"
       - fieldname: relatedDataEntities
@@ -23667,7 +23671,7 @@ form-types:
       - fieldname: relatedIntegrations
         description: "Integrations touched, comma-separated — external interface section ids (EIE-INTE-…)"
       - fieldname: relatedTestCases
-        description: TC-xxx test cases covering this
+        description: "Test cases covering this interaction — test scenario or requirement test case section ids (TSSC-TEST-… / RQTSC-TEST-…), comma-separated"
   inpr-form:
     fields:
       - fieldname: mustHaveInteractions
@@ -23808,15 +23812,15 @@ form-types:
       - fieldname: parentScreenId
         description: "The parent screen, if this is a sub-screen or drill-down — a screen section id (SCREN-ITEM-…)"
       - fieldname: routePattern
-        description: Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map
+        description: "Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map, whose entry names this screen back in its screenId"
   scetr-form:
     fields:
       - fieldname: relatedUseCases
-        description: ISC references this screen serves
+        description: "Use cases (interactions) this screen serves — interaction section ids (INEN-INTE-…), comma-separated"
       - fieldname: relatedRequirements
-        description: "Requirement ids this screen satisfies, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)"
+        description: "Requirement ids this screen satisfies, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…); a functional, technical or security requirement names this screen back in its RETRAR.relatedScreens"
       - fieldname: relatedBusinessProcesses
-        description: TOM references where this screen appears
+        description: "Business processes where this screen appears — process section ids (BPREN-PROC-…), comma-separated"
       - fieldname: dataEntities
         description: IFM entity references displayed/edited
       - fieldname: primaryAction

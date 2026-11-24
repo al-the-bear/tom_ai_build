@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: quality-acceptance-plan/1.12
+# Schema: quality-acceptance-plan/1.13
 
 title-format: "# <!--[QAP]--> Quality & Acceptance Plan"
 section-types:
@@ -1382,9 +1382,9 @@ form-types:
   qcarl-form:
     fields:
       - fieldname: parentCategory
-        description: Higher-level category if hierarchical
+        description: "The higher-level category, if hierarchical — a quality category section id"
       - fieldname: relatedCategories
-        description: Categories that interact with this one
+        description: "Categories that interact with this one — quality category section ids (QCATE-QUAL-…), comma-separated; each names this category back"
       - fieldname: conflictingCategories
         description: Categories that may trade off against this
   qcagv-form:
@@ -2079,7 +2079,7 @@ form-types:
       - fieldname: approverParty
         description: Who approves the result
       - fieldname: dependsOnCriteria
-        description: Other criteria this depends on
+        description: "Other must-pass criteria this depends on — criterion section ids (MSTPCR-ITEM-…), comma-separated"
       - fieldname: blockedByCriteria
         description: Criteria that block this
   mpces-form:
@@ -2174,7 +2174,7 @@ form-types:
       - fieldname: deliverableRef
         description: "The linked deliverables — deliverable section ids (DLVEN-ITEM-…), comma-separated"
       - fieldname: testScenarioRef
-        description: "The UAT scenarios that validate this criterion — test scenario section ids (TSSC-TEST-…), comma-separated"
+        description: "The UAT scenarios that validate this criterion — test scenario section ids (TSSC-TEST-…), comma-separated; each scenario names this criterion back in its acceptanceCriterionRef"
   daceow-form:
     fields:
       - fieldname: verifier
@@ -2414,9 +2414,9 @@ form-types:
       - fieldname: useCaseRef
         description: "The related interactions — interaction section ids (INEN-INTE-…), comma-separated"
       - fieldname: acceptanceCriterionRef
-        description: The linked acceptance criterion — a delivery acceptance criterion section id (DACEN-ITEM-…)
+        description: The linked acceptance criterion — a delivery acceptance criterion section id (DACEN-ITEM-…); the criterion names this scenario back in its testScenarioRef
       - fieldname: designRef
-        description: UI screens or mockup references
+        description: "Screens the scenario runs on — screen section ids (SCREN-ITEM-…), comma-separated"
   tescse-form:
     fields:
       - fieldname: preconditions
@@ -2542,7 +2542,7 @@ form-types:
       - fieldname: exclusions
         description: "What is NOT covered: new features, user errors"
       - fieldname: coveredDeliverables
-        description: Which deliverables are under warranty
+        description: "Deliverables under warranty — deliverable section ids (DLVEN-…), comma-separated"
       - fieldname: environmentsCovered
         description: "Production only, or also staging/UAT"
   wapr-form:

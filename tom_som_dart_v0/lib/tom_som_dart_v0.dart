@@ -2,7 +2,7 @@
 // ignore_for_file: type=lint, unused_import, document_ignores
 
 /// The generated typed object model for the TomSpecs specification documents
-/// (`v0`), model version `1.12`.
+/// (`v0`), model version `1.13`.
 ///
 /// **Generated — do not edit.** Regenerate with `tomspecs :som-generate`; a hand
 /// edit is overwritten by the next run. The generator is
@@ -65,6 +65,31 @@ enum ActionTriggerKind {
 ActionTriggerKind? _parseActionTriggerKind(String? token) {
   if (token == null || token.isEmpty) return null;
   for (final v in ActionTriggerKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `ActorKind` values.
+enum ActorKind {
+  /// A person using the system.
+  human,
+
+  /// A system of the same organisation, inside the boundary the solution is
+  /// built within.
+  internalSystem,
+
+  /// A system of another organisation, outside that boundary.
+  externalSystem,
+
+  /// A time-triggered actor: a scheduled job or timer.
+  scheduled;
+}
+
+/// Parses a stored token into a [ActorKind], or `null`.
+ActorKind? _parseActorKind(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in ActorKind.values) {
     if (v.name == token) return v;
   }
   return null;
@@ -1115,6 +1140,46 @@ ReportFilterValueKind? _parseReportFilterValueKind(String? token) {
   return null;
 }
 
+/// Generated enum for `RequirementDependencyType` values.
+enum RequirementDependencyType {
+  /// The far end must be met before this requirement can be: it is needed
+  /// first. Collected in an organizational requirement's `OREP.dependencies`.
+  prerequisite,
+
+  /// The two requirements depend on each other; the row stands at both ends.
+  bidirectional,
+
+  /// The far end is this requirement's parent: this requirement details part
+  /// of it.
+  parentChild,
+
+  /// The two requirements cannot both be met as stated; the row stands at both
+  /// ends and both `FREC.conflictsWith` derive from it.
+  conflict,
+
+  /// This requirement refines the far end: it states it more precisely
+  /// without changing what it asks for.
+  refinement,
+
+  /// The far end sets a limit on how this requirement may be implemented.
+  /// Collected, with the row's description, in `FREC.constrainedBy` and
+  /// `TREC.constrainedBy`.
+  constrainedBy,
+
+  /// The far end is named in this requirement's description and has no row of
+  /// another kind: the row `deriveFields` writes for an id found there.
+  namedInText;
+}
+
+/// Parses a stored token into a [RequirementDependencyType], or `null`.
+RequirementDependencyType? _parseRequirementDependencyType(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in RequirementDependencyType.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
 /// Generated enum for `RoleMembershipSource` values.
 enum RoleMembershipSource {
   /// Holders are assigned to the role directly.
@@ -1915,9 +1980,10 @@ class AcceptanceCriteriaSummary extends SomNode {
 
   /// Canonical, enumerated acceptance criteria (SR-54 explicit link).
   /// 
-  /// The single source of truth for the full set of traceable acceptance
-  /// criteria; this summary references — rather than duplicates — it. The same
-  /// [AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.
+  /// A copy of the acceptance criteria the acceptance plan holds (the QAP-CRI
+  /// seed; in the Quality & Acceptance Plan its root's acceptance criteria):
+  /// it is not edited here — `deriveFields` writes it from the holder, and
+  /// the rendition marks it as a copy (S1, `@SameAs`).
   AcceptanceCriteriaList get detailedCriteria => AcceptanceCriteriaList(doc, '$path/detailedCriteria');
 
   /// Acceptance test summary.
@@ -3753,6 +3819,11 @@ class ArchitectureComponentEntry extends SomNode {
 }
 
 /// Architecture Decision Record (ADR) entry.
+/// 
+/// Links: `ADRR.relatedDecisions` names `ARDE` entries, stored on both
+/// (`InverseOf.symmetric`); `ADRR.supersedes` names `ARDE`, answered by
+/// `ADRR.supersededBy` at the other end; `ADRR.supersededBy` names `ARDE`,
+/// answered by `ADRR.supersedes` at the other end.
 class ArchitectureDecisionRecord extends SomNode {
   /// Names the `ArchitectureDecisionRecord` section at [path] inside [doc].
   ///
@@ -3807,6 +3878,9 @@ class ArchitectureOverview extends SomNode {
 }
 
 /// Architecture principle entry.
+/// 
+/// Links: `ARPRENGO.relatedPrinciples` names `ARPR` entries, stored on both
+/// (`InverseOf.symmetric`).
 class ArchitecturePrincipleEntry extends SomNode {
   /// Names the `ArchitecturePrincipleEntry` section at [path] inside [doc].
   ///
@@ -5840,6 +5914,8 @@ class BusinessObjectAttributeEntry extends SomNode {
 /// Comprehensive business object specification following domain-driven design
 /// patterns. Business objects represent key domain concepts with behavior,
 /// state, and business rules.
+/// 
+/// Links: `BJOEN-DOMA.relatedObjects` names `BJOEN`, one-way.
 class BusinessObjectEntry extends SomNode {
   /// Names the `BusinessObjectEntry` section at [path] inside [doc].
   ///
@@ -8834,6 +8910,9 @@ class ComponentRiskAssessment extends SomNode {
 /// 
 /// Documents one component risk: category, probability, impact, detection
 /// methods, mitigation strategy and status, residual risk, and ownership.
+/// 
+/// Links: `CORIENGO.relatedRisks` is stored on both entries
+/// (`InverseOf.symmetric`).
 class ComponentRiskEntry extends SomNode {
   /// Names the `ComponentRiskEntry` section at [path] inside [doc].
   ///
@@ -10107,6 +10186,15 @@ class CurrentStateRiskAssessment extends SomNode {
 /// 
 /// Detailed documentation of a single workflow within a business process.
 /// Includes triggers, steps, actors, inputs, outputs, and timing.
+/// 
+/// The workflow's own inputs, outputs and business rules
+/// (`WOINEN-INPU-LST`, `WOOUEN-OUTP-LST`, `WOBURU-BUSI-LST`) are independent
+/// of the same lists on its steps, not a superset of them: a workflow input
+/// enters the workflow from outside, while a step's inputs also include what
+/// earlier steps produced; a workflow output leaves it, while a step's outputs
+/// include intermediate results; a workflow-level rule governs the whole
+/// workflow, a step's rule that step only. Neither side is derived from the
+/// other.
 ///
 /// **Authoring guidance.** Document each workflow with enough detail to understand the current state and identify improvement opportunities. Include swim-lane diagrams for complex workflows with multiple actors.
 class CurrentWorkflowEntry extends SomNode {
@@ -10244,7 +10332,7 @@ class CutoverProcedure extends SomNode {
 /// per the public-standards order of the `@StandardReferences` below.
 class D00SolutionBlueprint extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.12';
+  static const String modelVersion = '1.13';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10337,7 +10425,7 @@ class D00SolutionBlueprint extends SomNode {
 /// and the inventory / migration plan for the systems being replaced.
 class D01CurrentLandscapeAssessment extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.12';
+  static const String modelVersion = '1.13';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10427,7 +10515,7 @@ class D01CurrentLandscapeAssessment extends SomNode {
 /// cross-process analysis, exception handling, and KPIs.
 class D02TargetOperatingModel extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.12';
+  static const String modelVersion = '1.13';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10524,7 +10612,7 @@ class D02TargetOperatingModel extends SomNode {
 /// integrity constraints.
 class D03InformationModel extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.12';
+  static const String modelVersion = '1.13';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10669,7 +10757,7 @@ class D03InformationModel extends SomNode {
 /// and coverage analysis.
 class D04RequirementsSpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.12';
+  static const String modelVersion = '1.13';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10761,7 +10849,7 @@ class D04RequirementsSpecification extends SomNode {
 /// and traceability.
 class D05InteractionScenarios extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.12';
+  static const String modelVersion = '1.13';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10849,7 +10937,7 @@ class D05InteractionScenarios extends SomNode {
 /// and translation handling.
 class D06ArchitectureTechnologySpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.12';
+  static const String modelVersion = '1.13';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10951,7 +11039,7 @@ class D06ArchitectureTechnologySpecification extends SomNode {
 /// migration, operational concerns, and cross-boundary error handling.
 class D07IntegrationInterfaceSpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.12';
+  static const String modelVersion = '1.13';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -11048,7 +11136,7 @@ class D07IntegrationInterfaceSpecification extends SomNode {
 /// compliance framework.
 class D08SecurityAccessSpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.12';
+  static const String modelVersion = '1.13';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -11149,7 +11237,7 @@ class D08SecurityAccessSpecification extends SomNode {
 /// mockups.
 class D09ExperienceDesignSpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.12';
+  static const String modelVersion = '1.13';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -11255,7 +11343,7 @@ class D09ExperienceDesignSpecification extends SomNode {
 /// Full quality plan combining quality goals and the acceptance plan.
 class D10QualityAcceptancePlan extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.12';
+  static const String modelVersion = '1.13';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -11379,7 +11467,7 @@ class D10QualityAcceptancePlan extends SomNode {
 /// framework.
 class D11DeliveryRoadmap extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.12';
+  static const String modelVersion = '1.13';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -11473,7 +11561,7 @@ class D11DeliveryRoadmap extends SomNode {
 /// transfer, and warranty/support.
 class D12TransitionRolloutPlan extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.12';
+  static const String modelVersion = '1.13';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -11589,7 +11677,7 @@ class D12TransitionRolloutPlan extends SomNode {
 /// models, the process-step interactions, and the client-side experience seed.
 class D13CodeSpecsProjection extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.12';
+  static const String modelVersion = '1.13';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -12392,6 +12480,8 @@ class DataDuplicationEntry extends SomNode {
 /// to be adjusted: business-process cohesion sometimes merges two aggregates
 /// into one unit or splits one across two, and stating that per entity keeps
 /// even the exception readable. Empty means no adjustment.
+/// 
+/// Links: `DAENT-RELA.parentEntities` names `DAENT.entityName`, one-way.
 class DataEntityEntry extends SomNode {
   /// Names the `DataEntityEntry` section at [path] inside [doc].
   ///
@@ -14595,6 +14685,9 @@ class DesignFoundationEntry extends SomNode {
 /// A design goal entry (form).
 /// 
 /// Each goal represents a measurable UI objective with success criteria.
+/// 
+/// Links: `DGOEN.relatedPrinciples` names `DPEN`, answered by
+/// `DPEN.relatedGoals` at the other end.
 class DesignGoalEntry extends SomNode {
   /// Names the `DesignGoalEntry` section at [path] inside [doc].
   ///
@@ -14661,6 +14754,9 @@ class DesignGoals extends SomNode {
 }
 
 /// Design pattern entry — a specific design pattern to be used.
+/// 
+/// Links: `DEPAENCO.relatedPatterns` names `DSPT` entries, stored on both
+/// (`InverseOf.symmetric`).
 class DesignPatternEntry extends SomNode {
   /// Names the `DesignPatternEntry` section at [path] inside [doc].
   ///
@@ -14793,6 +14889,9 @@ class DesignPatternsAndStandards extends SomNode {
 /// A design principle entry (form).
 /// 
 /// Each principle guides UI decisions with rationale and examples.
+/// 
+/// Links: `DPEN.relatedGoals` names `DGOEN`, answered by
+/// `DGOEN.relatedPrinciples` at the other end.
 class DesignPrincipleEntry extends SomNode {
   /// Names the `DesignPrincipleEntry` section at [path] inside [doc].
   ///
@@ -15412,6 +15511,11 @@ class DistributionList extends SomNode {
 /// 
 /// Detailed information about a distribution list recipient including
 /// their role, contact information, preferences, and access levels.
+/// The full distribution (`FUDI`) holds the recipients; the executive-summary
+/// list and a custom group's members are selections of it: there
+/// `recipientRef` names the full-distribution recipient an entry is (a
+/// `DSRC-ITEM-…` section id of `FUDI`) and the entry's other values repeat
+/// that recipient's. In the full distribution `recipientRef` stays empty.
 class DistributionRecipientEntry extends SomNode {
   /// Names the `DistributionRecipientEntry` section at [path] inside [doc].
   ///
@@ -15601,6 +15705,11 @@ class DocumentControl extends SomNode {
 /// Standard document header present at the top of every TomSpecs document.
 /// 
 /// All fields are optional strings representing the document's form fields.
+/// The revision history is the holder of the document's version, date and
+/// author: the header shows those of its newest revision entry (`RVENT`, the
+/// last of the list, which is ordered newest last), derived from each
+/// document's own history. A document without a revision entry derives
+/// nothing. The id, the project and the status are the header's own.
 /// 
 /// A leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share
 /// an unchanged header by identity and `cloneShallow` needs no child handling.
@@ -16114,6 +16223,9 @@ class DomainOverview extends SomNode {
 }
 
 /// A domain process entry (form).
+/// 
+/// Links: `DPEF.relatedProcesses` names `DOPREN` entries, stored on both
+/// (`InverseOf.symmetric`).
 class DomainProcessEntry extends SomNode {
   /// Names the `DomainProcessEntry` section at [path] inside [doc].
   ///
@@ -16175,6 +16287,9 @@ class DomainProcesses extends SomNode {
 }
 
 /// A domain term entry (form).
+/// 
+/// Links: `DTE.relatedTerms` names `DTE` entries, stored on both
+/// (`InverseOf.symmetric`).
 class DomainTermEntry extends SomNode {
   /// Names the `DomainTermEntry` section at [path] inside [doc].
   ///
@@ -17809,6 +17924,8 @@ class ExportFieldMappingEntry extends SomNode {
 }
 
 /// An export format entry (form).
+/// 
+/// Links: `EXID.relatedDataEntities` names `DAENT.entityName`, one-way.
 class ExportFormatEntry extends SomNode {
   /// Names the `ExportFormatEntry` section at [path] inside [doc].
   ///
@@ -18456,7 +18573,9 @@ class FamilyComponentRef extends SomNode {
 /// 13.4.4. Feature Dependencies.
 /// 
 /// Cross-feature dependencies affecting staging order, critical path
-/// analysis, and delivery sequencing.
+/// analysis, and delivery sequencing. The rows are the holder of every
+/// feature dependency: each feature's `FEDEIN.dependsOnFeatures` and
+/// `blocksFeatures` are derived from them.
 class FeatureDependencies extends SomNode {
   /// Names the `FeatureDependencies` section at [path] inside [doc].
   ///
@@ -18712,7 +18831,9 @@ class FeatureStageMapping extends SomNode {
   /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FeatureStageMappingContentForm get content => FeatureStageMappingContentForm(doc, '$path/content');
 
-  /// Stage assignment details.
+  /// The phase within its stage the feature is delivered in. The stage
+  /// itself is the feature's (`FESTAS.targetStage`), reached through
+  /// [content]'s `featureId`; the matrix does not restate it.
   FeatureStageMappingAssignmentForm get assignment => FeatureStageMappingAssignmentForm(doc, '$path/FSMA');
 
   /// Readiness and confidence.
@@ -19205,6 +19326,8 @@ class FunctionDataMatrixEntry extends SomNode {
 /// A function entry (form).
 /// 
 /// Business function specification in the functional decomposition.
+/// 
+/// Links: `FUNCT.parentFunction` names `FUNCT`, one-way.
 class FunctionEntry extends SomNode {
   /// Names the `FunctionEntry` section at [path] inside [doc].
   ///
@@ -19489,6 +19612,10 @@ class FunctionalSuitabilityCharacteristic extends SomNode {
 /// Documents a specific gap between current capabilities and business needs:
 /// category, severity, quantified cost, stakeholders, compliance drivers,
 /// workarounds, resolution approach, and success criteria.
+/// 
+/// Links: `GAENDI.relatedPainPoints` names `PAPE`, answered by
+/// `PAPOR1.relatedGaps` at the other end; `GAENRE.dependsOnGaps` names `GAPE`,
+/// one-way.
 class GapEntry extends SomNode {
   /// Names the `GapEntry` section at [path] inside [doc].
   ///
@@ -21476,6 +21603,10 @@ class InteractionDependencyAnalysis extends SomNode {
 /// 
 /// Comprehensive interaction definition following Cockburn's fully dressed
 /// use case template. Seeds the ISC (Interaction Scenarios) document.
+/// 
+/// Links: `UCSC.relatedUseCases` names `INEN`, one-way; `INTR.relatedUseCase`
+/// names `INEN`, one-way; `INTR.relatedTestCases` names `TSSC`, `RQTSC`,
+/// one-way.
 class InteractionEntry extends SomNode {
   /// Names the `InteractionEntry` section at [path] inside [doc].
   ///
@@ -22115,15 +22246,19 @@ class IpOwnershipEntry extends SomNode {
   IpOwnershipEntryContentForm get content => IpOwnershipEntryContentForm(doc, '$path/content');
 }
 
-/// ISO/IEC 25010:2023 product-quality cross-map (derived).
+/// ISO/IEC 25010:2023 product-quality cross-map.
 /// 
-/// A *derived* view over the canonical quality spine: the eight
+/// A coverage view over the canonical quality spine: the eight
 /// `*Characteristic` classes under [SystemQualityGoals] are the single source
 /// of truth for the taxonomy (L34C-8); this cross-map does not re-declare it.
-/// Each entry references one of those characteristics (via the closed
-/// [Iso25010Characteristic] enum) and records which quality goals / NFRs
-/// address it and the target metric — so coverage of any 25010:2023
-/// characteristic (e.g. compatibility, flexibility) cannot be silently missed.
+/// Each entry names one of those characteristics (via the closed
+/// [Iso25010Characteristic] enum) and records, as authored text, which
+/// quality goals / NFRs address it and the target metric. Nothing in it is
+/// derived: the characteristics are eight sections, not the rows of one
+/// list, and what addresses each is the author's statement. That every
+/// characteristic has its entry is a process check, so coverage of any
+/// 25010:2023 characteristic (e.g. compatibility, flexibility) cannot be
+/// silently missed.
 class Iso25010Coverage extends SomNode {
   /// Names the `Iso25010Coverage` section at [path] inside [doc].
   ///
@@ -22472,6 +22607,9 @@ class KeyCompromiseRecoveryPolicy extends SomNode {
 }
 
 /// A key concept entry (form).
+/// 
+/// Links: `KECON.relatedConcepts` names `KECON` entries, stored on both
+/// (`InverseOf.symmetric`).
 class KeyConceptEntry extends SomNode {
   /// Names the `KeyConceptEntry` section at [path] inside [doc].
   ///
@@ -24627,6 +24765,10 @@ class MigrationResources extends SomNode {
 /// Detailed migration risk documentation following enterprise risk
 /// management practices. Captures full risk lifecycle from identification
 /// through resolution.
+/// 
+/// Links: `MIRIR1.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,
+/// one-way; `MIRIR1.relatedDecisions` names `ARDE`, one-way;
+/// `MIRIR1.relatedRisks` is stored on both entries (`InverseOf.symmetric`).
 class MigrationRiskEntry extends SomNode {
   /// Names the `MigrationRiskEntry` section at [path] inside [doc].
   ///
@@ -25403,6 +25545,8 @@ class MustPassCriteria extends SomNode {
 }
 
 /// A must-pass criterion entry (form).
+/// 
+/// Links: `MPCEG.dependsOnCriteria` names `MSTPCR`, one-way.
 class MustPassCriterionEntry extends SomNode {
   /// Names the `MustPassCriterionEntry` section at [path] inside [doc].
   ///
@@ -27366,6 +27510,11 @@ class PainPointGapCorrelationEntry extends SomNode {
 }
 
 /// Relationships for pain point.
+/// 
+/// Links: `PAPOR1.relatedGaps` names `GAPE`, answered by
+/// `GAENDI.relatedPainPoints` at the other end; `PAPOR1.dependsOn` names
+/// `PAPE`, one-way; `PAPOR1.relatedPainPoints` is stored on both entries
+/// (`InverseOf.symmetric`).
 class PainPointRelationships extends SomNode {
   /// Names the `PainPointRelationships` section at [path] inside [doc].
   ///
@@ -28158,6 +28307,9 @@ class PilotPlan extends SomNode {
 }
 
 /// Pipeline job entry.
+/// 
+/// Links: `PJE.parentStage` names `PSE`, one-way; `PJED.dependsOn` names `PJE`,
+/// one-way.
 class PipelineJobEntry extends SomNode {
   /// Names the `PipelineJobEntry` section at [path] inside [doc].
   ///
@@ -29171,6 +29323,11 @@ class ProcessMetricCategory extends SomNode {
 /// A process metric entry (form).
 /// 
 /// A single measurable metric with current value and measurement details.
+/// The class serves a process's own metric list and the key metrics
+/// (`PME-KEYM-LST`), which summarize the processes' metrics: a key metric's
+/// `metricRef` names the metric it is (a `PME-METR-…` section id) and its
+/// other values repeat that metric's; in a process's own list `metricRef`
+/// stays empty.
 ///
 /// **Authoring guidance.** Define each metric clearly with current baseline values, measurement methodology, and target values if known.
 class ProcessMetricEntry extends SomNode {
@@ -30113,6 +30270,8 @@ class Prototype extends SomNode {
 }
 
 /// A prototype feature entry.
+/// 
+/// Links: `PFE.relatedGoals` names `PGE`, one-way.
 class PrototypeFeatureEntry extends SomNode {
   /// Names the `PrototypeFeatureEntry` section at [path] inside [doc].
   ///
@@ -30130,6 +30289,9 @@ class PrototypeFeatureEntry extends SomNode {
 /// 10.13.2. Selected Feature Subset.
 /// 
 /// Features included in the prototype.
+/// 
+/// Links: `PFSS.includedFeatures` names `PFE`, one-way; `PFSS.excludedFeatures`
+/// names `PFE`, one-way.
 class PrototypeFeatureSubset extends SomNode {
   /// Names the `PrototypeFeatureSubset` section at [path] inside [doc].
   ///
@@ -30171,6 +30333,8 @@ class PrototypeFeatureSubset extends SomNode {
 }
 
 /// A prototype goal entry.
+/// 
+/// Links: `PGE.relatedRisks` names `RISENT`, one-way.
 class PrototypeGoalEntry extends SomNode {
   /// Names the `PrototypeGoalEntry` section at [path] inside [doc].
   ///
@@ -30326,6 +30490,9 @@ class QualityAndAcceptanceModel extends SomNode {
 /// 
 /// Defines a quality category with its attributes, weight, and relationship
 /// to other categories.
+/// 
+/// Links: `QCARL.relatedCategories` names `QCATE` entries, stored on both
+/// (`InverseOf.symmetric`); `QCARL.parentCategory` names `QCATE`, one-way.
 class QualityCategoryEntry extends SomNode {
   /// Names the `QualityCategoryEntry` section at [path] inside [doc].
   ///
@@ -30876,6 +31043,10 @@ class RedirectHandlingPolicy extends SomNode {
 /// 
 /// Detailed metadata for a single referenced document including
 /// identification, classification, status, and applicability.
+/// 
+/// Links: `RDEL.supersedes` names `RFDOC`, answered by `RDEL.supersededBy` at
+/// the other end; `RDEL.supersededBy` names `RFDOC`, answered by
+/// `RDEL.supersedes` at the other end.
 class ReferenceDocumentEntry extends SomNode {
   /// Names the `ReferenceDocumentEntry` section at [path] inside [doc].
   ///
@@ -31504,6 +31675,10 @@ class ReportDistributionEntry extends SomNode {
 }
 
 /// A report entry (form).
+/// 
+/// Links: `REID.relatedBusinessProcesses` names `BPREN`, one-way;
+/// `REID.relatedUseCases` names `INEN`, one-way; `REID.relatedDataEntities`
+/// names `DAENT.entityName`, one-way.
 class ReportEntry extends SomNode {
   /// Names the `ReportEntry` section at [path] inside [doc].
   ///
@@ -31865,7 +32040,14 @@ class RequirementDataRequirements extends SomNode {
 
 /// 4.3.1.n.5. Dependencies.
 /// 
-/// Dependencies this requirement has on other requirements.
+/// Dependencies this requirement has on other requirements. Each dependency
+/// is one row, stored once, on the requirement it applies to: a directional
+/// dependency (prerequisite, parent-child, refinement, constrained by) is not
+/// written again as its converse on the other requirement, which reaches it
+/// through navigation. A conflict and a bidirectional dependency stand at both
+/// ends. The rows are the holder of every dependency; the requirement's
+/// `constrainedBy`, `conflictsWith` and `OREP.dependencies` are derived from
+/// them.
 ///
 /// **Authoring guidance.** Identify requirements that must be implemented before or alongside this requirement.
 class RequirementDependencies extends SomNode {
@@ -31907,10 +32089,11 @@ class RequirementDependencyEntry extends SomNode {
 
   /// The other requirement in this dependency, named by section id.
   /// 
-  /// The row states the *kind* of relation — prerequisite, bidirectional,
-  /// parent-child, conflict, refinement — and this names its far end; the
-  /// requirement that owns the entry is always the near end, so neither half
-  /// is readable alone. Expect another requirement of this document there. A
+  /// The row states the *kind* of relation ([RequirementDependencyType]) and
+  /// this names its far end; the requirement that owns the entry is always the
+  /// near end, so neither half is readable alone. A conflict or bidirectional
+  /// row is answered by a row of the same kind on the far end
+  /// (`InverseOf.symmetric`); a directional row has no converse row. Expect another requirement of this document there. A
   /// dependency on something that is not itself a requirement is a constraint
   /// and belongs with the assumptions and constraints instead.
   /// 
@@ -32041,6 +32224,8 @@ class RequirementTestCases extends SomNode {
 /// 4.3.1.n.6. Traceability.
 /// 
 /// Traceability links to goals, use cases, processes, and other artifacts.
+/// 
+/// Links: `RETRAR.relatedDocuments` names `RFDOC`, one-way.
 ///
 /// **Authoring guidance.** Document traceability links to maintain visibility of requirements throughout the project lifecycle.
 class RequirementTraceability extends SomNode {
@@ -32433,6 +32618,8 @@ class ResponsibilityContacts extends SomNode {
 }
 
 /// Detailed responsibility entry (form).
+/// 
+/// Links: `RSPDT.relatedProcesses` names `BPREN`, one-way.
 class ResponsibilityDetailEntry extends SomNode {
   /// Names the `ResponsibilityDetailEntry` section at [path] inside [doc].
   ///
@@ -33170,6 +33357,10 @@ class RiskMonitoring extends SomNode {
 }
 
 /// Relationships to other risks, assumptions, and project elements.
+/// 
+/// Links: `RR.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,
+/// one-way; `RR.relatedRisks` names `RISENT` entries, stored on both
+/// (`InverseOf.symmetric`); `RR.relatedAssumptions` names `ASMRE`, one-way.
 class RiskRelationships extends SomNode {
   /// Names the `RiskRelationships` section at [path] inside [doc].
   ///
@@ -33529,6 +33720,9 @@ class RoleHolderEntry extends SomNode {
 /// 
 /// Defines a specific parent-child inheritance relationship between two roles,
 /// including what is inherited and any restrictions.
+/// 
+/// Links: `RLINH.parentRole` names `AZRO.roleName`, one-way; `RLINH.childRole`
+/// names `AZRO.roleName`, one-way.
 class RoleInheritanceRuleEntry extends SomNode {
   /// Names the `RoleInheritanceRuleEntry` section at [path] inside [doc].
   ///
@@ -34749,6 +34943,9 @@ class ScreenElementFieldSpec extends SomNode {
 /// 
 /// Comprehensive specification of a single application screen, covering
 /// identity, purpose, authorization, layout, elements, and behavior.
+/// 
+/// Links: `SCETR.relatedBusinessProcesses` names `BPREN`, one-way;
+/// `SCETR.relatedUseCases` names `INEN`, one-way.
 class ScreenEntry extends SomNode {
   /// Names the `ScreenEntry` section at [path] inside [doc].
   ///
@@ -37605,6 +37802,8 @@ class StageDependencies extends SomNode {
 /// entry/exit criteria, assigned resources, quality gates, and a
 /// deployment plan. Draws from PMBOK phase-gate discipline, SAFe PI
 /// planning, and PRINCE2 stage boundary management.
+/// 
+/// Links: `STSC.includedFeatures` names `FPE`, one-way.
 class StageEntry extends SomNode {
   /// Names the `StageEntry` section at [path] inside [doc].
   ///
@@ -38148,6 +38347,8 @@ class StagingStrategy extends SomNode {
 /// Keeps only the scope-framing identity + benefit. Role, interest, influence,
 /// concerns and engagement strategy are owned by the canonical SBP.4
 /// `StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).
+/// [content]'s `stakeholderRef` names that register entry (a
+/// `STKRE-STAK-…` section id).
 class StakeholderEntry extends SomNode {
   /// Names the `StakeholderEntry` section at [path] inside [doc].
   ///
@@ -38802,6 +39003,8 @@ class SuccessCriterionEntry extends SomNode {
 }
 
 /// Relationships for success criterion.
+/// 
+/// Links: `SUCRRE.relatedGoals` names `BGE`, one-way.
 class SuccessCriterionRelationships extends SomNode {
   /// Names the `SuccessCriterionRelationships` section at [path] inside [doc].
   ///
@@ -41486,6 +41689,8 @@ class TestLevelEntry extends SomNode {
 /// process, or acceptance criterion. Includes full traceability, preconditions,
 /// execution metadata, and pass/fail criteria per ISTQB and IEEE 829
 /// Level Test Case / Level Test Procedure structures.
+/// 
+/// Links: `TESCTR.designRef` names `SCREN`, one-way.
 class TestScenarioEntry extends SomNode {
   /// Names the `TestScenarioEntry` section at [path] inside [doc].
   ///
@@ -42876,6 +43081,8 @@ class UatTestCycleEntry extends SomNode {
 /// Individual step within a test scenario. Captures the action, input data,
 /// expected result, and pass criteria at fine-grained level per IEEE 829
 /// Level Test Procedure structure.
+/// 
+/// Links: `UATSST.uiScreenRef` names `SCREN`, one-way.
 class UatTestStepEntry extends SomNode {
   /// Names the `UatTestStepEntry` section at [path] inside [doc].
   ///
@@ -44726,6 +44933,8 @@ class WarrantyServiceLevels extends SomNode {
 /// 
 /// Post-acceptance warranty terms: duration, scope, service levels,
 /// exclusions, and transition to standard support.
+/// 
+/// Links: `WACO.coveredDeliverables` names `DLVEN`, one-way.
 class WarrantyTerms extends SomNode {
   /// Names the `WarrantyTerms` section at [path] inside [doc].
   ///
@@ -45168,6 +45377,11 @@ class WorkflowStepSystem extends SomNode {
 }
 
 /// Summary entry for a single workflow.
+/// 
+/// [content]'s `workflowRef` names the workflow the row summarizes (a
+/// `CUWF-WORK-…` section id of the same process); the row's type, frequency
+/// and step counts repeat that workflow's own, whose counts are counted over
+/// its steps.
 class WorkflowSummaryEntry extends SomNode {
   /// Names the `WorkflowSummaryEntry` section at [path] inside [doc].
   ///
@@ -47323,6 +47537,14 @@ class ActorEntryIdentificationForm extends SomNode {
   /// State whether the actor is a person, system or scheduled job
   String get actorType => doc.formField(path, 'actorType') ?? '';
   set actorType(String value) => doc.setFormField(path, 'actorType', value);
+
+  /// Actor Kind.
+  ///
+  /// Human, internal system, external system or scheduled — the kind the actor overview counts by
+  ///
+  /// Stored as one of: `human`, `internalSystem`, `externalSystem`, `scheduled`.
+  ActorKind? get actorKind => _parseActorKind(doc.formField(path, 'actorKind'));
+  set actorKind(ActorKind? value) => doc.setFormField(path, 'actorKind', value?.name ?? '');
 
   /// Category — primary, secondary, supporting, offstage.
   ///
@@ -51398,19 +51620,19 @@ class ArchitectureDecisionRecordRelationsForm extends SomNode {
 
   /// Related Decisions.
   ///
-  /// Other ADRs related to this one
+  /// Other decisions related to this one — architecture decision section ids (ARDE-DECI-…), comma-separated; each names this decision back
   String get relatedDecisions => doc.formField(path, 'relatedDecisions') ?? '';
   set relatedDecisions(String value) => doc.setFormField(path, 'relatedDecisions', value);
 
   /// Supersedes.
   ///
-  /// Previous decisions this supersedes
+  /// Previous decisions this one supersedes — architecture decision section ids, comma-separated; each names this decision in its supersededBy
   String get supersedes => doc.formField(path, 'supersedes') ?? '';
   set supersedes(String value) => doc.setFormField(path, 'supersedes', value);
 
   /// Superseded By.
   ///
-  /// Decision that supersedes this one
+  /// The decision that supersedes this one — an architecture decision section id; it names this decision in its supersedes
   String get supersededBy => doc.formField(path, 'supersededBy') ?? '';
   set supersededBy(String value) => doc.setFormField(path, 'supersededBy', value);
 }
@@ -51652,7 +51874,7 @@ class ArchitecturePrincipleEntryGovernanceForm extends SomNode {
 
   /// Related Principles.
   ///
-  /// Other principles that relate to this one
+  /// Other principles related to this one — architecture principle section ids (ARPR-PRIN-…), comma-separated; each names this principle back
   String get relatedPrinciples => doc.formField(path, 'relatedPrinciples') ?? '';
   set relatedPrinciples(String value) => doc.setFormField(path, 'relatedPrinciples', value);
 
@@ -56120,7 +56342,7 @@ class BusinessObjectEntryDomainContextForm extends SomNode {
 
   /// Related Objects.
   ///
-  /// Key related business objects
+  /// Key related business objects — business object section ids (BJOEN-OBJE-…), comma-separated
   String get relatedObjects => doc.formField(path, 'relatedObjects') ?? '';
   set relatedObjects(String value) => doc.setFormField(path, 'relatedObjects', value);
 }
@@ -67299,6 +67521,24 @@ class CurrentWorkflowEntryContentForm extends SomNode {
   /// Business Criticality.
   String get criticality => doc.formField(path, 'criticality') ?? '';
   set criticality(String value) => doc.setFormField(path, 'criticality', value);
+
+  /// Number of Steps.
+  ///
+  /// The number of the workflow's steps (WSE-STEP-LST)
+  int? get stepCount => somParseInt(doc.formField(path, 'stepCount'));
+  set stepCount(int? value) => doc.setFormField(path, 'stepCount', somFormatInt(value));
+
+  /// Manual Steps.
+  ///
+  /// The number of its steps marked manual
+  int? get manualStepCount => somParseInt(doc.formField(path, 'manualStepCount'));
+  set manualStepCount(int? value) => doc.setFormField(path, 'manualStepCount', somFormatInt(value));
+
+  /// Error-Prone Steps.
+  ///
+  /// The number of its steps marked error-prone
+  int? get errorProneStepCount => somParseInt(doc.formField(path, 'errorProneStepCount'));
+  set errorProneStepCount(int? value) => doc.setFormField(path, 'errorProneStepCount', somFormatInt(value));
 }
 
 /// Generated section facade for the `timing` `@Form` section:
@@ -69302,7 +69542,7 @@ class DataEntityEntryRelationshipSummaryForm extends SomNode {
 
   /// Parent Entities.
   ///
-  /// Entities this depends on (e.g., Order depends on Customer)
+  /// Entities this depends on (e.g., Order depends on Customer) — entity names declared in the entity registry (DAENT), comma-separated
   String get parentEntities => doc.formField(path, 'parentEntities') ?? '';
   set parentEntities(String value) => doc.setFormField(path, 'parentEntities', value);
 
@@ -70673,8 +70913,6 @@ class DataMigrationStrategyScopeForm extends SomNode {
   /// Total Source Systems.
   ///
   /// Number of source systems involved
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
   String get totalSourceSystems => doc.formField(path, 'totalSourceSystems') ?? '';
   set totalSourceSystems(String value) => doc.setFormField(path, 'totalSourceSystems', value);
 
@@ -74360,7 +74598,7 @@ class DeliveryAcceptanceCriterionEntryTraceabilityForm extends SomNode {
 
   /// Test Scenario Reference.
   ///
-  /// The UAT scenarios that validate this criterion — test scenario section ids (TSSC-TEST-…), comma-separated
+  /// The UAT scenarios that validate this criterion — test scenario section ids (TSSC-TEST-…), comma-separated; each scenario names this criterion back in its acceptanceCriterionRef
   String get testScenarioRef => doc.formField(path, 'testScenarioRef') ?? '';
   set testScenarioRef(String value) => doc.setFormField(path, 'testScenarioRef', value);
 }
@@ -76124,7 +76362,7 @@ class DesignGoalEntryContentForm extends SomNode {
 
   /// Related Principles.
   ///
-  /// Design principles that support this goal
+  /// Design principles that support this goal — design principle section ids (DPEN-ITEM-…), comma-separated; each names this goal back
   String get relatedPrinciples => doc.formField(path, 'relatedPrinciples') ?? '';
   set relatedPrinciples(String value) => doc.setFormField(path, 'relatedPrinciples', value);
 }
@@ -76212,7 +76450,7 @@ class DesignPatternEntryContextForm extends SomNode {
 
   /// Related Patterns.
   ///
-  /// Other patterns commonly used with this one
+  /// Other patterns commonly used with this one — design pattern section ids (DSPT-DESI-…), comma-separated; each names this pattern back
   String get relatedPatterns => doc.formField(path, 'relatedPatterns') ?? '';
   set relatedPatterns(String value) => doc.setFormField(path, 'relatedPatterns', value);
 }
@@ -76364,7 +76602,7 @@ class DesignPrincipleEntryContentForm extends SomNode {
 
   /// Related Goals.
   ///
-  /// Design goals this principle supports
+  /// Design goals this principle supports — design goal section ids (DGOEN-ITEM-…), comma-separated; each names this principle back
   String get relatedGoals => doc.formField(path, 'relatedGoals') ?? '';
   set relatedGoals(String value) => doc.setFormField(path, 'relatedGoals', value);
 }
@@ -77962,6 +78200,12 @@ class DistributionRecipientEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
+  /// Recipient.
+  ///
+  /// Only in the executive-summary list and a custom group's members: the full-distribution recipient this entry is — a recipient section id (DSRC-ITEM-… of the full distribution), whose values this entry repeats; empty in the full distribution
+  String get recipientRef => doc.formField(path, 'recipientRef') ?? '';
+  set recipientRef(String value) => doc.setFormField(path, 'recipientRef', value);
+
   /// Role.
   ///
   /// Project or organizational role
@@ -78549,14 +78793,20 @@ class DocumentHeaderContentForm extends SomNode {
   set project(String value) => doc.setFormField(path, 'project', value);
 
   /// Version.
+  ///
+  /// Derived from the newest revision entry; add a revision, not this field.
   String get version => doc.formField(path, 'version') ?? '';
   set version(String value) => doc.setFormField(path, 'version', value);
 
   /// Date.
+  ///
+  /// Derived from the newest revision entry; add a revision, not this field.
   String get date => doc.formField(path, 'date') ?? '';
   set date(String value) => doc.setFormField(path, 'date', value);
 
   /// Author.
+  ///
+  /// Derived from the newest revision entry; add a revision, not this field.
   String get author => doc.formField(path, 'author') ?? '';
   set author(String value) => doc.setFormField(path, 'author', value);
 
@@ -79504,7 +79754,7 @@ class DomainProcessEntryFlowForm extends SomNode {
 
   /// Related Processes (processes that interact with this one).
   ///
-  /// Other processes that interact with this one
+  /// Other domain processes that interact with this one — domain process section ids (DOPREN-PROC-…), comma-separated; each names this process back
   String get relatedProcesses => doc.formField(path, 'relatedProcesses') ?? '';
   set relatedProcesses(String value) => doc.setFormField(path, 'relatedProcesses', value);
 }
@@ -79596,7 +79846,7 @@ class DomainTermEntryContentForm extends SomNode {
 
   /// Related Terms (linked concepts).
   ///
-  /// Other terms or concepts linked to this one
+  /// Other terms linked to this one — term section ids (DTE-TERM-…), comma-separated; each names this term back
   String get relatedTerms => doc.formField(path, 'relatedTerms') ?? '';
   set relatedTerms(String value) => doc.setFormField(path, 'relatedTerms', value);
 
@@ -83696,7 +83946,7 @@ class ExportFormatEntryIdentityForm extends SomNode {
 
   /// Related Data Entities.
   ///
-  /// IFM entity references included in export
+  /// Data entities included in the export — entity names declared in the entity registry (DAENT), comma-separated
   String get relatedDataEntities => doc.formField(path, 'relatedDataEntities') ?? '';
   set relatedDataEntities(String value) => doc.setFormField(path, 'relatedDataEntities', value);
 
@@ -85768,13 +86018,13 @@ class FeaturePriorityEntryDependenciesForm extends SomNode {
 
   /// Depends on Features.
   ///
-  /// Features this requires — feature section ids (FPE-ITEM-…), comma-separated
+  /// Derived from the feature dependency rows (FDE) whose source is this feature: the features it requires; edit the rows, not this field. Each names this feature back in its blocksFeatures.
   String get dependsOnFeatures => doc.formField(path, 'dependsOnFeatures') ?? '';
   set dependsOnFeatures(String value) => doc.setFormField(path, 'dependsOnFeatures', value);
 
   /// Blocks Features.
   ///
-  /// Features blocked until this completes — feature section ids (FPE-ITEM-…), comma-separated
+  /// Derived from the feature dependency rows (FDE) whose target is this feature: the features blocked until it completes; edit the rows, not this field. Each names this feature back in its dependsOnFeatures.
   String get blocksFeatures => doc.formField(path, 'blocksFeatures') ?? '';
   set blocksFeatures(String value) => doc.setFormField(path, 'blocksFeatures', value);
 
@@ -87658,7 +87908,7 @@ class FunctionEntryContentForm extends SomNode {
 
   /// Parent Function.
   ///
-  /// Parent function in hierarchy
+  /// The parent function in the hierarchy — a function section id (FUNCT-FUNC-…)
   String get parentFunction => doc.formField(path, 'parentFunction') ?? '';
   set parentFunction(String value) => doc.setFormField(path, 'parentFunction', value);
 }
@@ -87888,13 +88138,19 @@ class FunctionalRequirementEntryConstraintsForm extends SomNode {
 
   /// Constraints (limitations on implementation).
   ///
-  /// Limitations on how the requirement may be implemented
+  /// Limitations on how this requirement may be implemented. A limit set by another requirement is a dependency row of type constrainedBy (shown in Constrained By).
   String get constraints => doc.formField(path, 'constraints') ?? '';
   set constraints(String value) => doc.setFormField(path, 'constraints', value);
 
+  /// Constrained By (limits set by other requirements).
+  ///
+  /// Derived from the dependency rows of type constrainedBy, one line per row; edit the rows, not this field.
+  String get constrainedBy => doc.formField(path, 'constrainedBy') ?? '';
+  set constrainedBy(String value) => doc.setFormField(path, 'constrainedBy', value);
+
   /// Conflicts With (IDs of conflicting requirements).
   ///
-  /// IDs of requirements this one conflicts with
+  /// Derived from the dependency rows of type conflict: the ids of the requirements this one conflicts with; edit the rows, not this field.
   String get conflictsWith => doc.formField(path, 'conflictsWith') ?? '';
   set conflictsWith(String value) => doc.setFormField(path, 'conflictsWith', value);
 }
@@ -88350,7 +88606,7 @@ class GapEntryDiscoveryForm extends SomNode {
 
   /// Related Pain Points.
   ///
-  /// References to pain point entries that stem from this gap
+  /// Pain points that stem from this gap — pain point section ids (PAPE-ITEM-…), comma-separated; each names this gap back in its relatedGaps
   String get relatedPainPoints => doc.formField(path, 'relatedPainPoints') ?? '';
   set relatedPainPoints(String value) => doc.setFormField(path, 'relatedPainPoints', value);
 }
@@ -88388,7 +88644,7 @@ class GapEntryResolutionForm extends SomNode {
 
   /// Depends on Other Gaps.
   ///
-  /// Other gaps that must be resolved first, by name or ID
+  /// Other gaps that must be resolved first — gap section ids (GAPE-ITEM-…), comma-separated
   String get dependsOnGaps => doc.formField(path, 'dependsOnGaps') ?? '';
   set dependsOnGaps(String value) => doc.setFormField(path, 'dependsOnGaps', value);
 }
@@ -93310,6 +93566,14 @@ class InteractionEntryIdentificationForm extends SomNode {
   String get goalLevel => doc.formField(path, 'goalLevel') ?? '';
   set goalLevel(String value) => doc.setFormField(path, 'goalLevel', value);
 
+  /// Priority.
+  ///
+  /// MoSCoW band of this interaction — the interaction overview counts by it
+  ///
+  /// Stored as one of: `must`, `should`, `could`, `wontThisTime`.
+  Priority? get priority => _parsePriority(doc.formField(path, 'priority'));
+  set priority(Priority? value) => doc.setFormField(path, 'priority', value?.name ?? '');
+
   /// Design Scope — organization, system, subsystem, component.
   ///
   /// Boundary in view: organization, system, subsystem, component
@@ -93430,7 +93694,7 @@ class InteractionEntryScopeContextForm extends SomNode {
 
   /// Related Use Cases — includes, extends.
   ///
-  /// Use cases this one includes or extends
+  /// Use cases (interactions) this one includes or extends — interaction section ids (INEN-INTE-…), comma-separated
   String get relatedUseCases => doc.formField(path, 'relatedUseCases') ?? '';
   set relatedUseCases(String value) => doc.setFormField(path, 'relatedUseCases', value);
 }
@@ -93512,7 +93776,7 @@ class InteractionEntryTraceabilityForm extends SomNode {
 
   /// Related Requirements.
   ///
-  /// Requirement ids satisfied here, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)
+  /// Requirement ids satisfied here, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…); a functional, technical or security requirement names this interaction back in its RT-TRAC.relatedUseCases
   String get relatedRequirements => doc.formField(path, 'relatedRequirements') ?? '';
   set relatedRequirements(String value) => doc.setFormField(path, 'relatedRequirements', value);
 
@@ -93548,7 +93812,7 @@ class InteractionEntryTraceabilityForm extends SomNode {
 
   /// Related Test Cases — TC-xxx.
   ///
-  /// TC-xxx test cases covering this
+  /// Test cases covering this interaction — test scenario or requirement test case section ids (TSSC-TEST-… / RQTSC-TEST-…), comma-separated
   String get relatedTestCases => doc.formField(path, 'relatedTestCases') ?? '';
   set relatedTestCases(String value) => doc.setFormField(path, 'relatedTestCases', value);
 }
@@ -96248,7 +96512,7 @@ class KeyConceptEntryContentForm extends SomNode {
 
   /// Related Concepts (other concepts this relates to).
   ///
-  /// Other concepts this one relates to
+  /// Other concepts this one relates to — concept section ids (KECON-CONC-…), comma-separated; each names this concept back
   String get relatedConcepts => doc.formField(path, 'relatedConcepts') ?? '';
   set relatedConcepts(String value) => doc.setFormField(path, 'relatedConcepts', value);
 
@@ -101367,8 +101631,6 @@ class MigrationPhasesContentForm extends SomNode {
   /// Total Phases.
   ///
   /// Number of distinct migration phases — e.g. 5 phases covering 3 source systems
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
   String get totalPhases => doc.formField(path, 'totalPhases') ?? '';
   set totalPhases(String value) => doc.setFormField(path, 'totalPhases', value);
 
@@ -101952,13 +102214,13 @@ class MigrationRiskEntryRelatedForm extends SomNode {
 
   /// Related Requirements.
   ///
-  /// Requirements impacted by risk
+  /// Requirements impacted by the risk — requirement section ids, comma-separated
   String get relatedRequirements => doc.formField(path, 'relatedRequirements') ?? '';
   set relatedRequirements(String value) => doc.setFormField(path, 'relatedRequirements', value);
 
   /// Related Decisions.
   ///
-  /// Decisions affecting this risk
+  /// Decisions affecting this risk — architecture decision section ids (ARDE-DECI-…), comma-separated
   String get relatedDecisions => doc.formField(path, 'relatedDecisions') ?? '';
   set relatedDecisions(String value) => doc.setFormField(path, 'relatedDecisions', value);
 
@@ -103900,7 +104162,7 @@ class MustPassCriterionEntryGovernanceForm extends SomNode {
 
   /// Depends On.
   ///
-  /// Other criteria this depends on
+  /// Other must-pass criteria this depends on — criterion section ids (MSTPCR-ITEM-…), comma-separated
   String get dependsOnCriteria => doc.formField(path, 'dependsOnCriteria') ?? '';
   set dependsOnCriteria(String value) => doc.setFormField(path, 'dependsOnCriteria', value);
 
@@ -108158,7 +108420,7 @@ class OrganizationalRequirementEntryPlanningForm extends SomNode {
 
   /// Dependencies (other changes needed first).
   ///
-  /// Other changes that must happen first
+  /// Derived from the dependency rows of type prerequisite: the ids of the requirements that must be met first; edit the rows, not this field. A change that is not a requirement (a reorganisation, a contract) belongs in the dependency register (ACRG › DEPRE-DEPS-LST).
   String get dependencies => doc.formField(path, 'dependencies') ?? '';
   set dependencies(String value) => doc.setFormField(path, 'dependencies', value);
 
@@ -109180,13 +109442,13 @@ class PainPointRelationshipsContentForm extends SomNode {
 
   /// Related Gaps.
   ///
-  /// Gap entries that this pain point stems from
+  /// Gaps this pain point stems from — gap section ids (GAPE-ITEM-…), comma-separated; each gap names this pain point back in its relatedPainPoints
   String get relatedGaps => doc.formField(path, 'relatedGaps') ?? '';
   set relatedGaps(String value) => doc.setFormField(path, 'relatedGaps', value);
 
   /// Depends On.
   ///
-  /// Other pain points that must be resolved first
+  /// Other pain points that must be resolved first — pain point section ids (PAPE-ITEM-…), comma-separated
   String get dependsOn => doc.formField(path, 'dependsOn') ?? '';
   set dependsOn(String value) => doc.setFormField(path, 'dependsOn', value);
 }
@@ -111066,7 +111328,7 @@ class PipelineJobEntryContentForm extends SomNode {
 
   /// Parent Stage.
   ///
-  /// Stage this job belongs to
+  /// The pipeline stage this job belongs to — a pipeline stage section id (PSE-…)
   String get parentStage => doc.formField(path, 'parentStage') ?? '';
   set parentStage(String value) => doc.setFormField(path, 'parentStage', value);
 
@@ -111092,7 +111354,7 @@ class PipelineJobEntryDependenciesForm extends SomNode {
 
   /// Depends On.
   ///
-  /// Other jobs this depends on
+  /// Other jobs this depends on — pipeline job section ids (PJE-JOBS-…), comma-separated
   String get dependsOn => doc.formField(path, 'dependsOn') ?? '';
   set dependsOn(String value) => doc.setFormField(path, 'dependsOn', value);
 
@@ -114234,6 +114496,12 @@ class ProcessMetricEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
+  /// Metric.
+  ///
+  /// Only in a key metric: the process metric it names — a metric section id (PME-METR-…), whose values the key metric repeats; empty in a process's own metric list
+  String get metricRef => doc.formField(path, 'metricRef') ?? '';
+  set metricRef(String value) => doc.setFormField(path, 'metricRef', value);
+
   /// Category (e.g., Efficiency, Quality, Volume, Cost).
   ///
   /// Only for metrics listed on their own — a metric listed inside a metric category takes that category and leaves this empty
@@ -115806,7 +116074,7 @@ class PrototypeFeatureEntryContentForm extends SomNode {
 
   /// Related Goals.
   ///
-  /// Prototype goals this addresses
+  /// Prototype goals this feature addresses — prototype goal section ids (PGE-GOAL-…), comma-separated
   String get relatedGoals => doc.formField(path, 'relatedGoals') ?? '';
   set relatedGoals(String value) => doc.setFormField(path, 'relatedGoals', value);
 
@@ -115916,13 +116184,13 @@ class PrototypeFeatureSubsetScopeForm extends SomNode {
 
   /// Included Features.
   ///
-  /// Features in prototype
+  /// Features in the prototype — prototype feature section ids (PFE-FEAT-…), comma-separated
   String get includedFeatures => doc.formField(path, 'includedFeatures') ?? '';
   set includedFeatures(String value) => doc.setFormField(path, 'includedFeatures', value);
 
   /// Excluded Features.
   ///
-  /// Features not in prototype
+  /// Features not in the prototype — prototype feature section ids (PFE-FEAT-…), comma-separated
   String get excludedFeatures => doc.formField(path, 'excludedFeatures') ?? '';
   set excludedFeatures(String value) => doc.setFormField(path, 'excludedFeatures', value);
 
@@ -115980,7 +116248,7 @@ class PrototypeGoalEntryContentForm extends SomNode {
 
   /// Related Risks.
   ///
-  /// Risks this goal addresses
+  /// Risks this goal addresses — risk section ids (RISENT-…), comma-separated
   String get relatedRisks => doc.formField(path, 'relatedRisks') ?? '';
   set relatedRisks(String value) => doc.setFormField(path, 'relatedRisks', value);
 
@@ -116596,13 +116864,13 @@ class QualityCategoryEntryRelationshipsForm extends SomNode {
 
   /// Parent Category.
   ///
-  /// Higher-level category if hierarchical
+  /// The higher-level category, if hierarchical — a quality category section id
   String get parentCategory => doc.formField(path, 'parentCategory') ?? '';
   set parentCategory(String value) => doc.setFormField(path, 'parentCategory', value);
 
   /// Related Categories.
   ///
-  /// Categories that interact with this one
+  /// Categories that interact with this one — quality category section ids (QCATE-QUAL-…), comma-separated; each names this category back
   String get relatedCategories => doc.formField(path, 'relatedCategories') ?? '';
   set relatedCategories(String value) => doc.setFormField(path, 'relatedCategories', value);
 
@@ -118444,13 +118712,13 @@ class ReferenceDocumentEntryLifecycleForm extends SomNode {
 
   /// Supersedes Document (if replacing older doc).
   ///
-  /// Older document this one replaces, if any.
+  /// The older document this one replaces, if any — a reference document section id; it names this document in its supersededBy
   String get supersedes => doc.formField(path, 'supersedes') ?? '';
   set supersedes(String value) => doc.setFormField(path, 'supersedes', value);
 
   /// Superseded By (if this doc is deprecated).
   ///
-  /// Newer document that replaces this one, if deprecated.
+  /// The newer document that replaces this one, if deprecated — a reference document section id; it names this document in its supersedes
   String get supersededBy => doc.formField(path, 'supersededBy') ?? '';
   set supersededBy(String value) => doc.setFormField(path, 'supersededBy', value);
 
@@ -120708,19 +120976,19 @@ class ReportEntryIdentityForm extends SomNode {
 
   /// Related Use Cases.
   ///
-  /// ISC references this report serves
+  /// Use cases (interactions) this report serves — interaction section ids (INEN-INTE-…), comma-separated
   String get relatedUseCases => doc.formField(path, 'relatedUseCases') ?? '';
   set relatedUseCases(String value) => doc.setFormField(path, 'relatedUseCases', value);
 
   /// Related Business Processes.
   ///
-  /// TOM references where this report is used
+  /// Business processes where this report is used — process section ids (BPREN-PROC-…), comma-separated
   String get relatedBusinessProcesses => doc.formField(path, 'relatedBusinessProcesses') ?? '';
   set relatedBusinessProcesses(String value) => doc.setFormField(path, 'relatedBusinessProcesses', value);
 
   /// Related Data Entities.
   ///
-  /// IFM entity references used as data sources
+  /// Data entities used as data sources — entity names declared in the entity registry (DAENT), comma-separated
   String get relatedDataEntities => doc.formField(path, 'relatedDataEntities') ?? '';
   set relatedDataEntities(String value) => doc.setFormField(path, 'relatedDataEntities', value);
 
@@ -121892,13 +122160,15 @@ class RequirementDependencyEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Dependency Type (Prerequisite, Bidirectional, Parent-Child, Conflict, Refinement).
+  /// Dependency Type.
   ///
-  /// Prerequisite, Bidirectional, Parent-Child, Conflict, or Refinement
+  /// prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy or namedInText; a directional kind is stored once, on the requirement it applies to
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  String get dependencyType => doc.formField(path, 'dependencyType') ?? '';
-  set dependencyType(String value) => doc.setFormField(path, 'dependencyType', value);
+  ///
+  /// Stored as one of: `prerequisite`, `bidirectional`, `parentChild`, `conflict`, `refinement`, `constrainedBy`, `namedInText`.
+  RequirementDependencyType? get dependencyType => _parseRequirementDependencyType(doc.formField(path, 'dependencyType'));
+  set dependencyType(RequirementDependencyType? value) => doc.setFormField(path, 'dependencyType', value?.name ?? '');
 
   /// Description.
   ///
@@ -122200,13 +122470,13 @@ class RequirementTraceabilityArtifactsForm extends SomNode {
 
   /// Related UI Screens/Views.
   ///
-  /// UI screens or views related to this requirement
+  /// UI screens or views related to this requirement — screen section ids (SCREN-…), comma-separated; each screen names this requirement back in its SCETR.relatedRequirements
   String get relatedScreens => doc.formField(path, 'relatedScreens') ?? '';
   set relatedScreens(String value) => doc.setFormField(path, 'relatedScreens', value);
 
   /// Related Data Entities.
   ///
-  /// Data entities related to this requirement
+  /// Data entities related to this requirement — entity names declared in the entity registry (DAENT), comma-separated
   String get relatedDataEntities => doc.formField(path, 'relatedDataEntities') ?? '';
   set relatedDataEntities(String value) => doc.setFormField(path, 'relatedDataEntities', value);
 
@@ -122218,7 +122488,7 @@ class RequirementTraceabilityArtifactsForm extends SomNode {
 
   /// Related Documents or Artifacts.
   ///
-  /// Related documents or other artifacts
+  /// Related documents — reference document section ids (RFDOC-DOCU-…), comma-separated
   String get relatedDocuments => doc.formField(path, 'relatedDocuments') ?? '';
   set relatedDocuments(String value) => doc.setFormField(path, 'relatedDocuments', value);
 }
@@ -122276,7 +122546,7 @@ class RequirementTraceabilityTraceabilityFormForm extends SomNode {
 
   /// Related Use Cases (IDs).
   ///
-  /// Related interactions — interaction section ids (INEN-INTE-…), comma-separated
+  /// Related interactions — interaction section ids (INEN-INTE-…), comma-separated; each interaction names this requirement back in its INTR.relatedRequirements
   String get relatedUseCases => doc.formField(path, 'relatedUseCases') ?? '';
   set relatedUseCases(String value) => doc.setFormField(path, 'relatedUseCases', value);
 
@@ -122364,19 +122634,19 @@ class RequirementsOverviewRequirementsFormForm extends SomNode {
 
   /// Total Requirements Expected (estimated count).
   ///
-  /// Estimated total number of requirements
+  /// The number of requirements (functional, technical, security, organizational). Counted from the requirement lists once they exist; until then an estimate.
   String get totalRequirements => doc.formField(path, 'totalRequirements') ?? '';
   set totalRequirements(String value) => doc.setFormField(path, 'totalRequirements', value);
 
   /// Should-Have Requirements (estimated).
   ///
-  /// Estimated count of Should-Have requirements
+  /// The number of Should-Have requirements (functional and organizational, by priority). Counted from the requirement lists once they exist; until then an estimate.
   String get shouldHaveCount => doc.formField(path, 'shouldHaveCount') ?? '';
   set shouldHaveCount(String value) => doc.setFormField(path, 'shouldHaveCount', value);
 
   /// Could-Have Requirements (estimated).
   ///
-  /// Estimated count of Could-Have requirements
+  /// The number of Could-Have requirements (functional and organizational, by priority). Counted from the requirement lists once they exist; until then an estimate.
   String get couldHaveCount => doc.formField(path, 'couldHaveCount') ?? '';
   set couldHaveCount(String value) => doc.setFormField(path, 'couldHaveCount', value);
 
@@ -122394,7 +122664,7 @@ class RequirementsOverviewRequirementsFormForm extends SomNode {
 
   /// Must-Have Requirements (estimated).
   ///
-  /// Estimated count of Must-Have requirements
+  /// The number of Must-Have requirements (functional and organizational, by priority). Counted from the requirement lists once they exist; until then an estimate.
   String get mustHaveCount => doc.formField(path, 'mustHaveCount') ?? '';
   set mustHaveCount(String value) => doc.setFormField(path, 'mustHaveCount', value);
 }
@@ -122898,7 +123168,7 @@ class ResponsibilityDetailEntryContentForm extends SomNode {
 
   /// Related Processes — business processes involved.
   ///
-  /// Business processes this duty touches
+  /// Business processes this duty touches — process section ids (BPREN-PROC-…), comma-separated
   String get relatedProcesses => doc.formField(path, 'relatedProcesses') ?? '';
   set relatedProcesses(String value) => doc.setFormField(path, 'relatedProcesses', value);
 
@@ -125000,13 +125270,13 @@ class RiskRelationshipsContentForm extends SomNode {
 
   /// Related Risks — other risks that are related or dependent.
   ///
-  /// Other risks related to or dependent on this one
+  /// Other risks related to this one — risk section ids (RISENT-…), comma-separated; each names this risk back
   String get relatedRisks => doc.formField(path, 'relatedRisks') ?? '';
   set relatedRisks(String value) => doc.setFormField(path, 'relatedRisks', value);
 
   /// Related Assumptions — assumptions that could affect this risk.
   ///
-  /// Assumptions that could affect this risk
+  /// Assumptions that could affect this risk — assumption register section ids (ASMRE-ASMP-…), comma-separated
   String get relatedAssumptions => doc.formField(path, 'relatedAssumptions') ?? '';
   set relatedAssumptions(String value) => doc.setFormField(path, 'relatedAssumptions', value);
 
@@ -125018,7 +125288,7 @@ class RiskRelationshipsContentForm extends SomNode {
 
   /// Related Requirements — requirements affected.
   ///
-  /// Requirements affected by this risk
+  /// Requirements affected by this risk — requirement section ids (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…), comma-separated
   String get relatedRequirements => doc.formField(path, 'relatedRequirements') ?? '';
   set relatedRequirements(String value) => doc.setFormField(path, 'relatedRequirements', value);
 
@@ -125918,7 +126188,7 @@ class RoleInheritanceRuleEntryContentForm extends SomNode {
 
   /// Parent Role.
   ///
-  /// Name of the parent role whose permissions are inherited
+  /// Name of the parent role whose permissions are inherited — a roleName of the role registry (AZRO)
   ///
   /// **Required** — a document that leaves this empty fails validation.
   String get parentRole => doc.formField(path, 'parentRole') ?? '';
@@ -125926,7 +126196,7 @@ class RoleInheritanceRuleEntryContentForm extends SomNode {
 
   /// Child Role.
   ///
-  /// Name of the child role that inherits permissions
+  /// Name of the child role that inherits permissions — a roleName of the role registry (AZRO)
   ///
   /// **Required** — a document that leaves this empty fails validation.
   String get childRole => doc.formField(path, 'childRole') ?? '';
@@ -129484,7 +129754,7 @@ class ScreenEntryClassificationForm extends SomNode {
 
   /// Route Pattern.
   ///
-  /// Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map
+  /// Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map, whose entry names this screen back in its screenId
   String get routePattern => doc.formField(path, 'routePattern') ?? '';
   set routePattern(String value) => doc.setFormField(path, 'routePattern', value);
 }
@@ -129562,19 +129832,19 @@ class ScreenEntryTraceabilityForm extends SomNode {
 
   /// Related Use Cases.
   ///
-  /// ISC references this screen serves
+  /// Use cases (interactions) this screen serves — interaction section ids (INEN-INTE-…), comma-separated
   String get relatedUseCases => doc.formField(path, 'relatedUseCases') ?? '';
   set relatedUseCases(String value) => doc.setFormField(path, 'relatedUseCases', value);
 
   /// Related Requirements.
   ///
-  /// Requirement ids this screen satisfies, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)
+  /// Requirement ids this screen satisfies, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…); a functional, technical or security requirement names this screen back in its RETRAR.relatedScreens
   String get relatedRequirements => doc.formField(path, 'relatedRequirements') ?? '';
   set relatedRequirements(String value) => doc.setFormField(path, 'relatedRequirements', value);
 
   /// Related Business Processes.
   ///
-  /// TOM references where this screen appears
+  /// Business processes where this screen appears — process section ids (BPREN-PROC-…), comma-separated
   String get relatedBusinessProcesses => doc.formField(path, 'relatedBusinessProcesses') ?? '';
   set relatedBusinessProcesses(String value) => doc.setFormField(path, 'relatedBusinessProcesses', value);
 
@@ -129986,7 +130256,7 @@ class ScreenRouteEntryContentForm extends SomNode {
 
   /// Screen ID.
   ///
-  /// The screen this route renders — a screen section id (SCREN-ITEM-…)
+  /// The screen this route renders — a screen section id (SCREN-ITEM-…); the screen names this route back in its routePattern
   String get screenId => doc.formField(path, 'screenId') ?? '';
   set screenId(String value) => doc.setFormField(path, 'screenId', value);
 
@@ -136834,7 +137104,7 @@ class StageEntryScopeForm extends SomNode {
 
   /// Included Features.
   ///
-  /// Key features explicitly included
+  /// Key features explicitly included — feature section ids (FPE-ITEM-…), comma-separated
   String get includedFeatures => doc.formField(path, 'includedFeatures') ?? '';
   set includedFeatures(String value) => doc.setFormField(path, 'includedFeatures', value);
 
@@ -137293,6 +137563,14 @@ class StageMigrationRiskEntryContentForm extends SomNode {
   /// **Required** — a document that leaves this empty fails validation.
   String get riskCategory => doc.formField(path, 'riskCategory') ?? '';
   set riskCategory(String value) => doc.setFormField(path, 'riskCategory', value);
+
+  /// Risk Rating.
+  ///
+  /// The band the risk is rated in after scoring — the stage migration risks count the critical and high ones
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get riskRating => _parseImportanceBand(doc.formField(path, 'riskRating'));
+  set riskRating(ImportanceBand? value) => doc.setFormField(path, 'riskRating', value?.name ?? '');
 }
 
 /// Generated section facade for the `contingency` `@Form` section:
@@ -137605,8 +137883,6 @@ class StageMigrationRisksContentForm extends SomNode {
   /// Total Identified Risks.
   ///
   /// Number of migration-specific risks — e.g. 18 risks across 5 categories
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
   String get totalIdentifiedRisks => doc.formField(path, 'totalIdentifiedRisks') ?? '';
   set totalIdentifiedRisks(String value) => doc.setFormField(path, 'totalIdentifiedRisks', value);
 
@@ -137877,8 +138153,6 @@ class StageOverviewContentForm extends SomNode {
   /// Number of Stages.
   ///
   /// Total number of major stages in the plan, e.g. 4
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
   String get numberOfStages => doc.formField(path, 'numberOfStages') ?? '';
   set numberOfStages(String value) => doc.setFormField(path, 'numberOfStages', value);
 
@@ -138598,6 +138872,12 @@ class StageSummaryEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
+  /// Stage.
+  ///
+  /// The stage this row summarizes — a stage section id (STAGE-STAG-…); the values the row repeats are the stage's
+  String get stageRef => doc.formField(path, 'stageRef') ?? '';
+  set stageRef(String value) => doc.setFormField(path, 'stageRef', value);
+
   /// Stage Number.
   ///
   /// 1, 2, 3… — sequential stage number
@@ -138732,7 +139012,7 @@ class StageSummaryEntryStatusForm extends SomNode {
 
   /// Current Status.
   ///
-  /// NotStarted / InPlanning / InProgress / Completed
+  /// The stage's current status, repeated from it: Planned / Active / Completed / OnHold / Cancelled
   String get currentStatus => doc.formField(path, 'currentStatus') ?? '';
   set currentStatus(String value) => doc.setFormField(path, 'currentStatus', value);
 
@@ -139438,9 +139718,15 @@ class StakeholderEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
+  /// Register Entry.
+  ///
+  /// The stakeholder register entry this stakeholder is — a section id (STKRE-STAK-…); role, interest, influence and engagement are held there
+  String get stakeholderRef => doc.formField(path, 'stakeholderRef') ?? '';
+  set stakeholderRef(String value) => doc.setFormField(path, 'stakeholderRef', value);
+
   /// Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.).
   ///
-  /// Sponsor, User, Customer, Partner, Regulator, etc.
+  /// Repeated from the register entry stakeholderRef names, which holds it
   String get stakeholderType => doc.formField(path, 'stakeholderType') ?? '';
   set stakeholderType(String value) => doc.setFormField(path, 'stakeholderType', value);
 
@@ -139463,6 +139749,12 @@ class StakeholderRegisterEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
+
+  /// Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.).
+  ///
+  /// Sponsor, User, Customer, Partner, Regulator, etc.; the scope stakeholders naming this entry repeat it
+  String get stakeholderType => doc.formField(path, 'stakeholderType') ?? '';
+  set stakeholderType(String value) => doc.setFormField(path, 'stakeholderType', value);
 
   /// Influence.
   ///
@@ -143249,8 +143541,6 @@ class SystemStagePlanContentForm extends SomNode {
   /// Total Stages Planned.
   ///
   /// Number of major stages in the rollout plan
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
   String get totalStagesPlanned => doc.formField(path, 'totalStagesPlanned') ?? '';
   set totalStagesPlanned(String value) => doc.setFormField(path, 'totalStagesPlanned', value);
 
@@ -145660,9 +145950,15 @@ class TechnicalRequirementEntryConstraintsForm extends SomNode {
 
   /// Constraints.
   ///
-  /// Limits or boundaries that apply, e.g., fixed infrastructure
+  /// Limits on how this requirement may be implemented, e.g. fixed infrastructure. A limit set by another requirement is a dependency row of type constrainedBy (shown in Constrained By).
   String get constraints => doc.formField(path, 'constraints') ?? '';
   set constraints(String value) => doc.setFormField(path, 'constraints', value);
+
+  /// Constrained By (limits set by other requirements).
+  ///
+  /// Derived from the dependency rows of type constrainedBy, one line per row; edit the rows, not this field.
+  String get constrainedBy => doc.formField(path, 'constrainedBy') ?? '';
+  set constrainedBy(String value) => doc.setFormField(path, 'constrainedBy', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -146768,13 +147064,13 @@ class TestScenarioEntryTraceabilityForm extends SomNode {
 
   /// Acceptance Criterion Reference.
   ///
-  /// The linked acceptance criterion — a delivery acceptance criterion section id (DACEN-ITEM-…)
+  /// The linked acceptance criterion — a delivery acceptance criterion section id (DACEN-ITEM-…); the criterion names this scenario back in its testScenarioRef
   String get acceptanceCriterionRef => doc.formField(path, 'acceptanceCriterionRef') ?? '';
   set acceptanceCriterionRef(String value) => doc.setFormField(path, 'acceptanceCriterionRef', value);
 
   /// Design / Screen Reference.
   ///
-  /// UI screens or mockup references
+  /// Screens the scenario runs on — screen section ids (SCREN-ITEM-…), comma-separated
   String get designRef => doc.formField(path, 'designRef') ?? '';
   set designRef(String value) => doc.setFormField(path, 'designRef', value);
 }
@@ -152052,7 +152348,7 @@ class UatTestStepEntryContentForm extends SomNode {
 
   /// UI Screen Reference.
   ///
-  /// Screen or page where this step is performed
+  /// The screen where this step is performed — a screen section id (SCREN-ITEM-…)
   String get uiScreenRef => doc.formField(path, 'uiScreenRef') ?? '';
   set uiScreenRef(String value) => doc.setFormField(path, 'uiScreenRef', value);
 
@@ -156756,7 +157052,7 @@ class WarrantyTermsCoverageForm extends SomNode {
 
   /// Covered Deliverables.
   ///
-  /// Which deliverables are under warranty
+  /// Deliverables under warranty — deliverable section ids (DLVEN-…), comma-separated
   String get coveredDeliverables => doc.formField(path, 'coveredDeliverables') ?? '';
   set coveredDeliverables(String value) => doc.setFormField(path, 'coveredDeliverables', value);
 
@@ -157447,6 +157743,12 @@ class WorkflowSummaryEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
+
+  /// Workflow.
+  ///
+  /// The workflow this row summarizes — a workflow section id (CUWF-WORK-…) of the same process; its type and frequency are repeated from it
+  String get workflowRef => doc.formField(path, 'workflowRef') ?? '';
+  set workflowRef(String value) => doc.setFormField(path, 'workflowRef', value);
 
   /// Type.
   String get workflowType => doc.formField(path, 'workflowType') ?? '';

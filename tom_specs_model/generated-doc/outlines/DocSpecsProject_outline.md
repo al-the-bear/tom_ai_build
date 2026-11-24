@@ -43,9 +43,9 @@
           - stakeholders: `StakeholdersAndBeneficiaries`
             - content @description
             - [1,] primaryStakeholders: `StakeholderEntry`[]
-              - content @Form(stakeholderType, expectedBenefits)
+              - content @Form(stakeholderRef, stakeholderType, expectedBenefits)
             - secondaryStakeholders: `StakeholderEntry`[]
-              - content @Form(stakeholderType, expectedBenefits)
+              - content @Form(stakeholderRef, stakeholderType, expectedBenefits)
           - `ValueProposition`
             - content, valueDetails @text, benefits, returnProfile
             - kpis: `String`[]
@@ -583,7 +583,7 @@
           - groupSummary: `DistributionGroupSummary`
             - content @Form(recipientCount, internalCount, externalCount, primaryLanguage, distributionFrequency)
           - items: `DistributionRecipientEntry`[]
-            - content @Form(role, organization), contact, access, subscription, backup
+            - content @Form(recipientRef, role, organization), contact, access, subscription, backup
             - preferences: `DistributionRecipientPreferences`[]
               - content @Form(distributionMethod, preferredFormat, preferredLanguage, digestPreference, notificationPreference)
         - executiveSummary: `ExecutiveSummaryDistribution`
@@ -591,13 +591,13 @@
           - groupSummary: `DistributionGroupSummary`
             - content @Form(recipientCount, internalCount, externalCount, primaryLanguage, distributionFrequency)
           - items: `DistributionRecipientEntry`[]
-            - content @Form(role, organization), contact, access, subscription, backup
+            - content @Form(recipientRef, role, organization), contact, access, subscription, backup
             - preferences: `DistributionRecipientPreferences`[]
               - content @Form(distributionMethod, preferredFormat, preferredLanguage, digestPreference, notificationPreference)
         - customGroups: `CustomDistributionGroup`[]
           - content @Form(purpose, informationScope, frequency, primaryChannel)
           - members: `DistributionRecipientEntry`[]
-            - content @Form(role, organization), contact, access, subscription, backup
+            - content @Form(recipientRef, role, organization), contact, access, subscription, backup
             - preferences: `DistributionRecipientPreferences`[]
               - content @Form(distributionMethod, preferredFormat, preferredLanguage, digestPreference, notificationPreference)
       - `ChangeProcedure`
@@ -657,7 +657,7 @@
         - otherAgreements: `OtherAgreementEntry`[]
           - content @Form(agreementType, parties, effectiveDate, expirationDate, location, keyTerms, obligations)
       - stakeholderRegister: `StakeholderRegisterEntry`[]
-        - content @Form(influence, concerns, engagementStrategy, role, interest)
+        - content @Form(stakeholderType, influence, concerns, engagementStrategy, role, interest)
       - `ReviewTeam`
         - content
         - members: `ReviewTeamMember`[]
@@ -720,7 +720,7 @@
         - performanceSummary: `ProcessPerformanceSummary` ← (High-level summary of process performance)
           - content @Form(overallMaturity, automationLevel, manualStepsCount, errorProneStepsCount, bottleneckCount, duplicatedEffortAreas, complianceGaps, estimatedAnnualWaste)
           - keyMetrics: `ProcessMetricEntry`[]
-            - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+            - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
         - [1,] processes: `CurrentBusinessProcess`[]
           - content @Form(processOwner, processCategory, processScope, processMaturity), processContext
           - `WorkflowDescriptions`
@@ -728,9 +728,10 @@
             - summaryTable: `WorkflowSummaryTable` ← (Quick reference summary of all workflows)
               - content @Form(totalWorkflows, primaryWorkflows, exceptionWorkflows, averageCycleTime, automationPotential)
               - entries: `WorkflowSummaryEntry`[]
-                - content @Form(workflowType, frequency, averageCycleTime, stepCount, manualStepCount, errorProneStepCount, primaryActors, automationPotential)
+                - content @Form(workflowRef, workflowType, frequency, averageCycleTime, stepCount, manualStepCount, errorProneStepCount, primaryActors, automationPotential)
             - [1,] workflows: `CurrentWorkflowEntry`[]
-              - content @Form(workflowId, workflowType, frequency, averageVolume, criticality), workflowDiagram, timing
+              - content @Form(workflowId, workflowType, frequency, averageVolume, criticality, stepCount, manualStepCount, errorProneStepCount),
+                workflowDiagram, timing
               - triggers: `WorkflowTriggers`
                 - content @description
                 - triggers: `WorkflowTriggerEntry`[]
@@ -769,25 +770,25 @@
             - efficiencyMetrics: `ProcessMetricCategory`[] ← (Throughput, cycle times, utilization)
               - content @description
               - metrics: `ProcessMetricEntry`[]
-                - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+                - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
             - qualityMetrics: `ProcessMetricCategory`[] ← (Error rates, defect rates, rework rates)
               - content @description
               - metrics: `ProcessMetricEntry`[]
-                - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+                - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
             - volumeMetrics: `ProcessMetricCategory`[] ← (Transaction counts, throughput volumes)
               - content @description
               - metrics: `ProcessMetricEntry`[]
-                - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+                - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
             - costMetrics: `ProcessMetricCategory`[] ← (Cost per transaction, resource costs)
               - content @description
               - metrics: `ProcessMetricEntry`[]
-                - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+                - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
             - manualInterventionMetrics: `ProcessMetricCategory`[] ← (Manual steps, human intervention frequency)
               - content @description
               - metrics: `ProcessMetricEntry`[]
-                - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+                - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
             - items: `ProcessMetricEntry`[]
-              - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+              - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
             - baselineTable: `MetricsBaselineTable` ← (Summary table for baseline tracking)
               - content @description
               - entries: `MetricsBaselineEntry`[]
@@ -2925,7 +2926,7 @@
             stageSummaryNarrative @text, timelineDiagram @mermaid-gantt, resourceAllocationDiagram @mermaid-gantt,
             budgetDistributionDiagram @mermaid-flow, dependencyMap @mermaid-flow
           - [1,] stageSummaries: `StageSummaryEntry`[]
-            - content @Form(stageNumber, scopeSummary), identity, timeline, scope, quality, status
+            - content @Form(stageRef, stageNumber, scopeSummary), identity, timeline, scope, quality, status
             - resources: `StageSummaryResources`[]
               - content @Form(teamSize, keyRoles, estimatedBudget, budgetPercentOfTotal, externalCostPercent)
             - dependencies: `StageSummaryDependencies`[]
@@ -2993,8 +2994,8 @@
             - content @Form(totalIdentifiedRisks, criticalRiskCount, topRiskSummary, riskAssessmentMethodology, riskTolerancePolicy, riskReviewFrequency, riskRegisterOwner, lastRiskReviewDate, overallMigrationRiskRating),
               riskSummary @text
             - [1,] items: `StageMigrationRiskEntry`[]
-              - content @Form(riskCategory), identity, probabilityImpact, mitigation, contingency, monitoring,
-                ownership, residual, status
+              - content @Form(riskCategory, riskRating), identity, probabilityImpact, mitigation, contingency,
+                monitoring, ownership, residual, status
         - governance: `StageGovernance`
           - content @Form(governanceModel, governanceFramework, decisionMakingModel), model, authority, escalation,
             cadence, compliance, metrics, transition, governanceNarrative @text
@@ -3892,7 +3893,7 @@
       - performanceSummary: `ProcessPerformanceSummary` ← (High-level summary of process performance)
         - content @Form(overallMaturity, automationLevel, manualStepsCount, errorProneStepsCount, bottleneckCount, duplicatedEffortAreas, complianceGaps, estimatedAnnualWaste)
         - keyMetrics: `ProcessMetricEntry`[]
-          - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+          - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
       - [1,] processes: `CurrentBusinessProcess`[]
         - content @Form(processOwner, processCategory, processScope, processMaturity), processContext
         - `WorkflowDescriptions`
@@ -3900,9 +3901,10 @@
           - summaryTable: `WorkflowSummaryTable` ← (Quick reference summary of all workflows)
             - content @Form(totalWorkflows, primaryWorkflows, exceptionWorkflows, averageCycleTime, automationPotential)
             - entries: `WorkflowSummaryEntry`[]
-              - content @Form(workflowType, frequency, averageCycleTime, stepCount, manualStepCount, errorProneStepCount, primaryActors, automationPotential)
+              - content @Form(workflowRef, workflowType, frequency, averageCycleTime, stepCount, manualStepCount, errorProneStepCount, primaryActors, automationPotential)
           - [1,] workflows: `CurrentWorkflowEntry`[]
-            - content @Form(workflowId, workflowType, frequency, averageVolume, criticality), workflowDiagram, timing
+            - content @Form(workflowId, workflowType, frequency, averageVolume, criticality, stepCount, manualStepCount, errorProneStepCount),
+              workflowDiagram, timing
             - triggers: `WorkflowTriggers`
               - content @description
               - triggers: `WorkflowTriggerEntry`[]
@@ -3941,25 +3943,25 @@
           - efficiencyMetrics: `ProcessMetricCategory`[] ← (Throughput, cycle times, utilization)
             - content @description
             - metrics: `ProcessMetricEntry`[]
-              - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+              - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
           - qualityMetrics: `ProcessMetricCategory`[] ← (Error rates, defect rates, rework rates)
             - content @description
             - metrics: `ProcessMetricEntry`[]
-              - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+              - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
           - volumeMetrics: `ProcessMetricCategory`[] ← (Transaction counts, throughput volumes)
             - content @description
             - metrics: `ProcessMetricEntry`[]
-              - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+              - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
           - costMetrics: `ProcessMetricCategory`[] ← (Cost per transaction, resource costs)
             - content @description
             - metrics: `ProcessMetricEntry`[]
-              - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+              - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
           - manualInterventionMetrics: `ProcessMetricCategory`[] ← (Manual steps, human intervention frequency)
             - content @description
             - metrics: `ProcessMetricEntry`[]
-              - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+              - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
           - items: `ProcessMetricEntry`[]
-            - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+            - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
           - baselineTable: `MetricsBaselineTable` ← (Summary table for baseline tracking)
             - content @description
             - entries: `MetricsBaselineEntry`[]
@@ -4148,7 +4150,7 @@
         timelineDiagram @mermaid-gantt, resourceAllocationDiagram @mermaid-gantt,
         budgetDistributionDiagram @mermaid-flow, dependencyMap @mermaid-flow
       - [1,] stageSummaries: `StageSummaryEntry`[]
-        - content @Form(stageNumber, scopeSummary), identity, timeline, scope, quality, status
+        - content @Form(stageRef, stageNumber, scopeSummary), identity, timeline, scope, quality, status
         - resources: `StageSummaryResources`[]
           - content @Form(teamSize, keyRoles, estimatedBudget, budgetPercentOfTotal, externalCostPercent)
         - dependencies: `StageSummaryDependencies`[]
@@ -4216,8 +4218,8 @@
         - content @Form(totalIdentifiedRisks, criticalRiskCount, topRiskSummary, riskAssessmentMethodology, riskTolerancePolicy, riskReviewFrequency, riskRegisterOwner, lastRiskReviewDate, overallMigrationRiskRating),
           riskSummary @text
         - [1,] items: `StageMigrationRiskEntry`[]
-          - content @Form(riskCategory), identity, probabilityImpact, mitigation, contingency, monitoring, ownership,
-            residual, status
+          - content @Form(riskCategory, riskRating), identity, probabilityImpact, mitigation, contingency, monitoring,
+            ownership, residual, status
     - gateCriteria: `PhaseGateReviews`
       - content @Form(gateNamingConvention, totalGateCount, gateReviewDuration, gateReviewFormat), preparation,
         outcomes, gateReviewNarrative @text

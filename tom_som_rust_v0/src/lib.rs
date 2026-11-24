@@ -134,6 +134,69 @@ pub fn parse_action_trigger_kind(token: &str) -> String {
     }
 }
 
+/// Generated enum constants for `ActorKind` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// A person using the system.
+pub const ACTOR_KIND_HUMAN: &str = "human";
+/// A system of the same organisation, inside the boundary the solution is
+/// built within.
+pub const ACTOR_KIND_INTERNAL_SYSTEM: &str = "internalSystem";
+/// A system of another organisation, outside that boundary.
+pub const ACTOR_KIND_EXTERNAL_SYSTEM: &str = "externalSystem";
+/// A time-triggered actor: a scheduled job or timer.
+pub const ACTOR_KIND_SCHEDULED: &str = "scheduled";
+
+/// ActorKind is the generated enum for `ActorKind` values.
+///
+/// The stored token is what [ActorKind::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum ActorKind {
+    /// A person using the system.
+    Human,
+    /// A system of the same organisation, inside the boundary the solution is
+    /// built within.
+    InternalSystem,
+    /// A system of another organisation, outside that boundary.
+    ExternalSystem,
+    /// A time-triggered actor: a scheduled job or timer.
+    Scheduled,
+}
+
+impl ActorKind {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ActorKind::Human => "human",
+            ActorKind::InternalSystem => "internalSystem",
+            ActorKind::ExternalSystem => "externalSystem",
+            ActorKind::Scheduled => "scheduled",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "human" => Some(ActorKind::Human),
+            "internalSystem" => Some(ActorKind::InternalSystem),
+            "externalSystem" => Some(ActorKind::ExternalSystem),
+            "scheduled" => Some(ActorKind::Scheduled),
+            _ => None,
+        }
+    }
+}
+
+/// parse_actor_kind returns token when it is a known ActorKind value, else "".
+pub fn parse_actor_kind(token: &str) -> String {
+    match token {
+        ACTOR_KIND_HUMAN | ACTOR_KIND_INTERNAL_SYSTEM | ACTOR_KIND_EXTERNAL_SYSTEM | ACTOR_KIND_SCHEDULED => token.to_string(),
+        _ => String::new(),
+    }
+}
+
 /// Generated enum constants for `AlertSeverity` values. The stored token is byte-
 /// identical across every language port, so documents stay cross-compatible.
 /// Someone acts now: the service, or a promise it makes, is broken.
@@ -2601,6 +2664,99 @@ pub fn parse_report_filter_value_kind(token: &str) -> String {
     }
 }
 
+/// Generated enum constants for `RequirementDependencyType` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// The far end must be met before this requirement can be: it is needed
+/// first. Collected in an organizational requirement's `OREP.dependencies`.
+pub const REQUIREMENT_DEPENDENCY_TYPE_PREREQUISITE: &str = "prerequisite";
+/// The two requirements depend on each other; the row stands at both ends.
+pub const REQUIREMENT_DEPENDENCY_TYPE_BIDIRECTIONAL: &str = "bidirectional";
+/// The far end is this requirement's parent: this requirement details part
+/// of it.
+pub const REQUIREMENT_DEPENDENCY_TYPE_PARENT_CHILD: &str = "parentChild";
+/// The two requirements cannot both be met as stated; the row stands at both
+/// ends and both `FREC.conflictsWith` derive from it.
+pub const REQUIREMENT_DEPENDENCY_TYPE_CONFLICT: &str = "conflict";
+/// This requirement refines the far end: it states it more precisely
+/// without changing what it asks for.
+pub const REQUIREMENT_DEPENDENCY_TYPE_REFINEMENT: &str = "refinement";
+/// The far end sets a limit on how this requirement may be implemented.
+/// Collected, with the row's description, in `FREC.constrainedBy` and
+/// `TREC.constrainedBy`.
+pub const REQUIREMENT_DEPENDENCY_TYPE_CONSTRAINED_BY: &str = "constrainedBy";
+/// The far end is named in this requirement's description and has no row of
+/// another kind: the row `deriveFields` writes for an id found there.
+pub const REQUIREMENT_DEPENDENCY_TYPE_NAMED_IN_TEXT: &str = "namedInText";
+
+/// RequirementDependencyType is the generated enum for `RequirementDependencyType` values.
+///
+/// The stored token is what [RequirementDependencyType::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum RequirementDependencyType {
+    /// The far end must be met before this requirement can be: it is needed
+    /// first. Collected in an organizational requirement's `OREP.dependencies`.
+    Prerequisite,
+    /// The two requirements depend on each other; the row stands at both ends.
+    Bidirectional,
+    /// The far end is this requirement's parent: this requirement details part
+    /// of it.
+    ParentChild,
+    /// The two requirements cannot both be met as stated; the row stands at both
+    /// ends and both `FREC.conflictsWith` derive from it.
+    Conflict,
+    /// This requirement refines the far end: it states it more precisely
+    /// without changing what it asks for.
+    Refinement,
+    /// The far end sets a limit on how this requirement may be implemented.
+    /// Collected, with the row's description, in `FREC.constrainedBy` and
+    /// `TREC.constrainedBy`.
+    ConstrainedBy,
+    /// The far end is named in this requirement's description and has no row of
+    /// another kind: the row `deriveFields` writes for an id found there.
+    NamedInText,
+}
+
+impl RequirementDependencyType {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            RequirementDependencyType::Prerequisite => "prerequisite",
+            RequirementDependencyType::Bidirectional => "bidirectional",
+            RequirementDependencyType::ParentChild => "parentChild",
+            RequirementDependencyType::Conflict => "conflict",
+            RequirementDependencyType::Refinement => "refinement",
+            RequirementDependencyType::ConstrainedBy => "constrainedBy",
+            RequirementDependencyType::NamedInText => "namedInText",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "prerequisite" => Some(RequirementDependencyType::Prerequisite),
+            "bidirectional" => Some(RequirementDependencyType::Bidirectional),
+            "parentChild" => Some(RequirementDependencyType::ParentChild),
+            "conflict" => Some(RequirementDependencyType::Conflict),
+            "refinement" => Some(RequirementDependencyType::Refinement),
+            "constrainedBy" => Some(RequirementDependencyType::ConstrainedBy),
+            "namedInText" => Some(RequirementDependencyType::NamedInText),
+            _ => None,
+        }
+    }
+}
+
+/// parse_requirement_dependency_type returns token when it is a known RequirementDependencyType value, else "".
+pub fn parse_requirement_dependency_type(token: &str) -> String {
+    match token {
+        REQUIREMENT_DEPENDENCY_TYPE_PREREQUISITE | REQUIREMENT_DEPENDENCY_TYPE_BIDIRECTIONAL | REQUIREMENT_DEPENDENCY_TYPE_PARENT_CHILD | REQUIREMENT_DEPENDENCY_TYPE_CONFLICT | REQUIREMENT_DEPENDENCY_TYPE_REFINEMENT | REQUIREMENT_DEPENDENCY_TYPE_CONSTRAINED_BY | REQUIREMENT_DEPENDENCY_TYPE_NAMED_IN_TEXT => token.to_string(),
+        _ => String::new(),
+    }
+}
+
 /// Generated enum constants for `RoleMembershipSource` values. The stored token is byte-
 /// identical across every language port, so documents stay cross-compatible.
 /// Holders are assigned to the role directly.
@@ -4295,9 +4451,10 @@ impl AcceptanceCriteriaSummary {
 
     /// Canonical, enumerated acceptance criteria (SR-54 explicit link).
     ///
-    /// The single source of truth for the full set of traceable acceptance
-    /// criteria; this summary references — rather than duplicates — it. The same
-    /// [AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.
+    /// A copy of the acceptance criteria the acceptance plan holds (the QAP-CRI
+    /// seed; in the Quality & Acceptance Plan its root's acceptance criteria):
+    /// it is not edited here — `deriveFields` writes it from the holder, and
+    /// the rendition marks it as a copy (S1, `@SameAs`).
     pub fn detailed_criteria(&self) -> AcceptanceCriteriaList {
         AcceptanceCriteriaList::new(self.node.doc(), format!("{}/{}", self.node.path(), "detailedCriteria"))
     }
@@ -6928,6 +7085,11 @@ impl ArchitectureComponentEntry {
 }
 
 /// Architecture Decision Record (ADR) entry.
+///
+/// Links: `ADRR.relatedDecisions` names `ARDE` entries, stored on both
+/// (`InverseOf.symmetric`); `ADRR.supersedes` names `ARDE`, answered by
+/// `ADRR.supersededBy` at the other end; `ADRR.supersededBy` names `ARDE`,
+/// answered by `ADRR.supersedes` at the other end.
 pub struct ArchitectureDecisionRecord {
     pub node: som::SomNode,
 }
@@ -7020,6 +7182,9 @@ impl ArchitectureOverview {
 }
 
 /// Architecture principle entry.
+///
+/// Links: `ARPRENGO.relatedPrinciples` names `ARPR` entries, stored on both
+/// (`InverseOf.symmetric`).
 pub struct ArchitecturePrincipleEntry {
     pub node: som::SomNode,
 }
@@ -9706,6 +9871,8 @@ impl BusinessObjectAttributeEntry {
 /// Comprehensive business object specification following domain-driven design
 /// patterns. Business objects represent key domain concepts with behavior,
 /// state, and business rules.
+///
+/// Links: `BJOEN-DOMA.relatedObjects` names `BJOEN`, one-way.
 pub struct BusinessObjectEntry {
     pub node: som::SomNode,
 }
@@ -13985,6 +14152,9 @@ impl ComponentRiskAssessment {
 ///
 /// Documents one component risk: category, probability, impact, detection
 /// methods, mitigation strategy and status, residual risk, and ownership.
+///
+/// Links: `CORIENGO.relatedRisks` is stored on both entries
+/// (`InverseOf.symmetric`).
 pub struct ComponentRiskEntry {
     pub node: som::SomNode,
 }
@@ -15794,6 +15964,15 @@ impl CurrentStateRiskAssessment {
 ///
 /// Detailed documentation of a single workflow within a business process.
 /// Includes triggers, steps, actors, inputs, outputs, and timing.
+///
+/// The workflow's own inputs, outputs and business rules
+/// (`WOINEN-INPU-LST`, `WOOUEN-OUTP-LST`, `WOBURU-BUSI-LST`) are independent
+/// of the same lists on its steps, not a superset of them: a workflow input
+/// enters the workflow from outside, while a step's inputs also include what
+/// earlier steps produced; a workflow output leaves it, while a step's outputs
+/// include intermediate results; a workflow-level rule governs the whole
+/// workflow, a step's rule that step only. Neither side is derived from the
+/// other.
 pub struct CurrentWorkflowEntry {
     pub node: som::SomNode,
 }
@@ -16009,7 +16188,7 @@ pub struct D00SolutionBlueprint {
 }
 
 /// D00_SOLUTION_BLUEPRINT_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D00_SOLUTION_BLUEPRINT_MODEL_VERSION: &str = "1.12";
+pub const D00_SOLUTION_BLUEPRINT_MODEL_VERSION: &str = "1.13";
 
 impl D00SolutionBlueprint {
     /// Creates the typed facade at the document root and verifies the
@@ -16154,7 +16333,7 @@ pub struct D01CurrentLandscapeAssessment {
 }
 
 /// D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION: &str = "1.12";
+pub const D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION: &str = "1.13";
 
 impl D01CurrentLandscapeAssessment {
     /// Creates the typed facade at the document root and verifies the
@@ -16296,7 +16475,7 @@ pub struct D02TargetOperatingModel {
 }
 
 /// D02_TARGET_OPERATING_MODEL_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D02_TARGET_OPERATING_MODEL_MODEL_VERSION: &str = "1.12";
+pub const D02_TARGET_OPERATING_MODEL_MODEL_VERSION: &str = "1.13";
 
 impl D02TargetOperatingModel {
     /// Creates the typed facade at the document root and verifies the
@@ -16454,7 +16633,7 @@ pub struct D03InformationModel {
 }
 
 /// D03_INFORMATION_MODEL_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D03_INFORMATION_MODEL_MODEL_VERSION: &str = "1.12";
+pub const D03_INFORMATION_MODEL_MODEL_VERSION: &str = "1.13";
 
 impl D03InformationModel {
     /// Creates the typed facade at the document root and verifies the
@@ -16687,7 +16866,7 @@ pub struct D04RequirementsSpecification {
 }
 
 /// D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION: &str = "1.12";
+pub const D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION: &str = "1.13";
 
 impl D04RequirementsSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -16833,7 +17012,7 @@ pub struct D05InteractionScenarios {
 }
 
 /// D05_INTERACTION_SCENARIOS_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D05_INTERACTION_SCENARIOS_MODEL_VERSION: &str = "1.12";
+pub const D05_INTERACTION_SCENARIOS_MODEL_VERSION: &str = "1.13";
 
 impl D05InteractionScenarios {
     /// Creates the typed facade at the document root and verifies the
@@ -16971,7 +17150,7 @@ pub struct D06ArchitectureTechnologySpecification {
 }
 
 /// D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION: &str = "1.12";
+pub const D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION: &str = "1.13";
 
 impl D06ArchitectureTechnologySpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -17128,7 +17307,7 @@ pub struct D07IntegrationInterfaceSpecification {
 }
 
 /// D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION: &str = "1.12";
+pub const D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION: &str = "1.13";
 
 impl D07IntegrationInterfaceSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -17291,7 +17470,7 @@ pub struct D08SecurityAccessSpecification {
 }
 
 /// D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION: &str = "1.12";
+pub const D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION: &str = "1.13";
 
 impl D08SecurityAccessSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -17441,7 +17620,7 @@ pub struct D09ExperienceDesignSpecification {
 }
 
 /// D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION: &str = "1.12";
+pub const D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION: &str = "1.13";
 
 impl D09ExperienceDesignSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -17604,7 +17783,7 @@ pub struct D10QualityAcceptancePlan {
 }
 
 /// D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION: &str = "1.12";
+pub const D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION: &str = "1.13";
 
 impl D10QualityAcceptancePlan {
     /// Creates the typed facade at the document root and verifies the
@@ -17797,7 +17976,7 @@ pub struct D11DeliveryRoadmap {
 }
 
 /// D11_DELIVERY_ROADMAP_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D11_DELIVERY_ROADMAP_MODEL_VERSION: &str = "1.12";
+pub const D11_DELIVERY_ROADMAP_MODEL_VERSION: &str = "1.13";
 
 impl D11DeliveryRoadmap {
     /// Creates the typed facade at the document root and verifies the
@@ -17945,7 +18124,7 @@ pub struct D12TransitionRolloutPlan {
 }
 
 /// D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION: &str = "1.12";
+pub const D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION: &str = "1.13";
 
 impl D12TransitionRolloutPlan {
     /// Creates the typed facade at the document root and verifies the
@@ -18118,7 +18297,7 @@ pub struct D13CodeSpecsProjection {
 }
 
 /// D13_CODE_SPECS_PROJECTION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D13_CODE_SPECS_PROJECTION_MODEL_VERSION: &str = "1.12";
+pub const D13_CODE_SPECS_PROJECTION_MODEL_VERSION: &str = "1.13";
 
 impl D13CodeSpecsProjection {
     /// Creates the typed facade at the document root and verifies the
@@ -19222,6 +19401,8 @@ impl DataDuplicationEntry {
 /// to be adjusted: business-process cohesion sometimes merges two aggregates
 /// into one unit or splits one across two, and stating that per entity keeps
 /// even the exception readable. Empty means no adjustment.
+///
+/// Links: `DAENT-RELA.parentEntities` names `DAENT.entityName`, one-way.
 pub struct DataEntityEntry {
     pub node: som::SomNode,
 }
@@ -22431,6 +22612,9 @@ impl DesignFoundationEntry {
 /// A design goal entry (form).
 ///
 /// Each goal represents a measurable UI objective with success criteria.
+///
+/// Links: `DGOEN.relatedPrinciples` names `DPEN`, answered by
+/// `DPEN.relatedGoals` at the other end.
 pub struct DesignGoalEntry {
     pub node: som::SomNode,
 }
@@ -22504,6 +22688,9 @@ impl DesignGoals {
 }
 
 /// Design pattern entry — a specific design pattern to be used.
+///
+/// Links: `DEPAENCO.relatedPatterns` names `DSPT` entries, stored on both
+/// (`InverseOf.symmetric`).
 pub struct DesignPatternEntry {
     pub node: som::SomNode,
 }
@@ -22654,6 +22841,9 @@ impl DesignPatternsAndStandards {
 /// A design principle entry (form).
 ///
 /// Each principle guides UI decisions with rationale and examples.
+///
+/// Links: `DPEN.relatedGoals` names `DGOEN`, answered by
+/// `DGOEN.relatedPrinciples` at the other end.
 pub struct DesignPrincipleEntry {
     pub node: som::SomNode,
 }
@@ -23475,6 +23665,11 @@ impl DistributionList {
 ///
 /// Detailed information about a distribution list recipient including
 /// their role, contact information, preferences, and access levels.
+/// The full distribution (`FUDI`) holds the recipients; the executive-summary
+/// list and a custom group's members are selections of it: there
+/// `recipientRef` names the full-distribution recipient an entry is (a
+/// `DSRC-ITEM-…` section id of `FUDI`) and the entry's other values repeat
+/// that recipient's. In the full distribution `recipientRef` stays empty.
 pub struct DistributionRecipientEntry {
     pub node: som::SomNode,
 }
@@ -23785,6 +23980,11 @@ impl DocumentControl {
 /// Standard document header present at the top of every TomSpecs document.
 ///
 /// All fields are optional strings representing the document's form fields.
+/// The revision history is the holder of the document's version, date and
+/// author: the header shows those of its newest revision entry (`RVENT`, the
+/// last of the list, which is ordered newest last), derived from each
+/// document's own history. A document without a revision entry derives
+/// nothing. The id, the project and the status are the header's own.
 ///
 /// A leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share
 /// an unchanged header by identity and `cloneShallow` needs no child handling.
@@ -24566,6 +24766,9 @@ impl DomainOverview {
 }
 
 /// A domain process entry (form).
+///
+/// Links: `DPEF.relatedProcesses` names `DOPREN` entries, stored on both
+/// (`InverseOf.symmetric`).
 pub struct DomainProcessEntry {
     pub node: som::SomNode,
 }
@@ -24659,6 +24862,9 @@ impl DomainProcesses {
 }
 
 /// A domain term entry (form).
+///
+/// Links: `DTE.relatedTerms` names `DTE` entries, stored on both
+/// (`InverseOf.symmetric`).
 pub struct DomainTermEntry {
     pub node: som::SomNode,
 }
@@ -26919,6 +27125,8 @@ impl ExportFieldMappingEntry {
 }
 
 /// An export format entry (form).
+///
+/// Links: `EXID.relatedDataEntities` names `DAENT.entityName`, one-way.
 pub struct ExportFormatEntry {
     pub node: som::SomNode,
 }
@@ -27855,7 +28063,9 @@ impl FamilyComponentRef {
 /// 13.4.4. Feature Dependencies.
 ///
 /// Cross-feature dependencies affecting staging order, critical path
-/// analysis, and delivery sequencing.
+/// analysis, and delivery sequencing. The rows are the holder of every
+/// feature dependency: each feature's `FEDEIN.dependsOnFeatures` and
+/// `blocksFeatures` are derived from them.
 pub struct FeatureDependencies {
     pub node: som::SomNode,
 }
@@ -28259,7 +28469,9 @@ impl FeatureStageMapping {
         FeatureStageMappingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
-    /// Stage assignment details.
+    /// The phase within its stage the feature is delivered in. The stage
+    /// itself is the feature's (`FESTAS.targetStage`), reached through
+    /// [content]'s `featureId`; the matrix does not restate it.
     pub fn assignment(&self) -> FeatureStageMappingAssignmentForm {
         FeatureStageMappingAssignmentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "FSMA"))
     }
@@ -28955,6 +29167,8 @@ impl FunctionDataMatrixEntry {
 /// A function entry (form).
 ///
 /// Business function specification in the functional decomposition.
+///
+/// Links: `FUNCT.parentFunction` names `FUNCT`, one-way.
 pub struct FunctionEntry {
     pub node: som::SomNode,
 }
@@ -29381,6 +29595,10 @@ impl FunctionalSuitabilityCharacteristic {
 /// Documents a specific gap between current capabilities and business needs:
 /// category, severity, quantified cost, stakeholders, compliance drivers,
 /// workarounds, resolution approach, and success criteria.
+///
+/// Links: `GAENDI.relatedPainPoints` names `PAPE`, answered by
+/// `PAPOR1.relatedGaps` at the other end; `GAENRE.dependsOnGaps` names `GAPE`,
+/// one-way.
 pub struct GapEntry {
     pub node: som::SomNode,
 }
@@ -32201,6 +32419,10 @@ impl InteractionDependencyAnalysis {
 ///
 /// Comprehensive interaction definition following Cockburn's fully dressed
 /// use case template. Seeds the ISC (Interaction Scenarios) document.
+///
+/// Links: `UCSC.relatedUseCases` names `INEN`, one-way; `INTR.relatedUseCase`
+/// names `INEN`, one-way; `INTR.relatedTestCases` names `TSSC`, `RQTSC`,
+/// one-way.
 pub struct InteractionEntry {
     pub node: som::SomNode,
 }
@@ -33235,15 +33457,19 @@ impl IpOwnershipEntry {
     }
 }
 
-/// ISO/IEC 25010:2023 product-quality cross-map (derived).
+/// ISO/IEC 25010:2023 product-quality cross-map.
 ///
-/// A *derived* view over the canonical quality spine: the eight
+/// A coverage view over the canonical quality spine: the eight
 /// `*Characteristic` classes under [SystemQualityGoals] are the single source
 /// of truth for the taxonomy (L34C-8); this cross-map does not re-declare it.
-/// Each entry references one of those characteristics (via the closed
-/// [Iso25010Characteristic] enum) and records which quality goals / NFRs
-/// address it and the target metric — so coverage of any 25010:2023
-/// characteristic (e.g. compatibility, flexibility) cannot be silently missed.
+/// Each entry names one of those characteristics (via the closed
+/// [Iso25010Characteristic] enum) and records, as authored text, which
+/// quality goals / NFRs address it and the target metric. Nothing in it is
+/// derived: the characteristics are eight sections, not the rows of one
+/// list, and what addresses each is the author's statement. That every
+/// characteristic has its entry is a process check, so coverage of any
+/// 25010:2023 characteristic (e.g. compatibility, flexibility) cannot be
+/// silently missed.
 pub struct Iso25010Coverage {
     pub node: som::SomNode,
 }
@@ -33714,6 +33940,9 @@ impl KeyCompromiseRecoveryPolicy {
 }
 
 /// A key concept entry (form).
+///
+/// Links: `KECON.relatedConcepts` names `KECON` entries, stored on both
+/// (`InverseOf.symmetric`).
 pub struct KeyConceptEntry {
     pub node: som::SomNode,
 }
@@ -36727,6 +36956,10 @@ impl MigrationResources {
 /// Detailed migration risk documentation following enterprise risk
 /// management practices. Captures full risk lifecycle from identification
 /// through resolution.
+///
+/// Links: `MIRIR1.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,
+/// one-way; `MIRIR1.relatedDecisions` names `ARDE`, one-way;
+/// `MIRIR1.relatedRisks` is stored on both entries (`InverseOf.symmetric`).
 pub struct MigrationRiskEntry {
     pub node: som::SomNode,
 }
@@ -37818,6 +38051,8 @@ impl MustPassCriteria {
 }
 
 /// A must-pass criterion entry (form).
+///
+/// Links: `MPCEG.dependsOnCriteria` names `MSTPCR`, one-way.
 pub struct MustPassCriterionEntry {
     pub node: som::SomNode,
 }
@@ -40660,6 +40895,11 @@ impl PainPointGapCorrelationEntry {
 }
 
 /// Relationships for pain point.
+///
+/// Links: `PAPOR1.relatedGaps` names `GAPE`, answered by
+/// `GAENDI.relatedPainPoints` at the other end; `PAPOR1.dependsOn` names
+/// `PAPE`, one-way; `PAPOR1.relatedPainPoints` is stored on both entries
+/// (`InverseOf.symmetric`).
 pub struct PainPointRelationships {
     pub node: som::SomNode,
 }
@@ -41758,6 +41998,9 @@ impl PilotPlan {
 }
 
 /// Pipeline job entry.
+///
+/// Links: `PJE.parentStage` names `PSE`, one-way; `PJED.dependsOn` names `PJE`,
+/// one-way.
 pub struct PipelineJobEntry {
     pub node: som::SomNode,
 }
@@ -43315,6 +43558,11 @@ impl ProcessMetricCategory {
 /// A process metric entry (form).
 ///
 /// A single measurable metric with current value and measurement details.
+/// The class serves a process's own metric list and the key metrics
+/// (`PME-KEYM-LST`), which summarize the processes' metrics: a key metric's
+/// `metricRef` names the metric it is (a `PME-METR-…` section id) and its
+/// other values repeat that metric's; in a process's own list `metricRef`
+/// stays empty.
 pub struct ProcessMetricEntry {
     pub node: som::SomNode,
 }
@@ -44683,6 +44931,8 @@ impl Prototype {
 }
 
 /// A prototype feature entry.
+///
+/// Links: `PFE.relatedGoals` names `PGE`, one-way.
 pub struct PrototypeFeatureEntry {
     pub node: som::SomNode,
 }
@@ -44711,6 +44961,9 @@ impl PrototypeFeatureEntry {
 /// 10.13.2. Selected Feature Subset.
 ///
 /// Features included in the prototype.
+///
+/// Links: `PFSS.includedFeatures` names `PFE`, one-way; `PFSS.excludedFeatures`
+/// names `PFE`, one-way.
 pub struct PrototypeFeatureSubset {
     pub node: som::SomNode,
 }
@@ -44773,6 +45026,8 @@ impl PrototypeFeatureSubset {
 }
 
 /// A prototype goal entry.
+///
+/// Links: `PGE.relatedRisks` names `RISENT`, one-way.
 pub struct PrototypeGoalEntry {
     pub node: som::SomNode,
 }
@@ -45015,6 +45270,9 @@ impl QualityAndAcceptanceModel {
 ///
 /// Defines a quality category with its attributes, weight, and relationship
 /// to other categories.
+///
+/// Links: `QCARL.relatedCategories` names `QCATE` entries, stored on both
+/// (`InverseOf.symmetric`); `QCARL.parentCategory` names `QCATE`, one-way.
 pub struct QualityCategoryEntry {
     pub node: som::SomNode,
 }
@@ -45859,6 +46117,10 @@ impl RedirectHandlingPolicy {
 ///
 /// Detailed metadata for a single referenced document including
 /// identification, classification, status, and applicability.
+///
+/// Links: `RDEL.supersedes` names `RFDOC`, answered by `RDEL.supersededBy` at
+/// the other end; `RDEL.supersededBy` names `RFDOC`, answered by
+/// `RDEL.supersedes` at the other end.
 pub struct ReferenceDocumentEntry {
     pub node: som::SomNode,
 }
@@ -46847,6 +47109,10 @@ impl ReportDistributionEntry {
 }
 
 /// A report entry (form).
+///
+/// Links: `REID.relatedBusinessProcesses` names `BPREN`, one-way;
+/// `REID.relatedUseCases` names `INEN`, one-way; `REID.relatedDataEntities`
+/// names `DAENT.entityName`, one-way.
 pub struct ReportEntry {
     pub node: som::SomNode,
 }
@@ -47420,7 +47686,14 @@ impl RequirementDataRequirements {
 
 /// 4.3.1.n.5. Dependencies.
 ///
-/// Dependencies this requirement has on other requirements.
+/// Dependencies this requirement has on other requirements. Each dependency
+/// is one row, stored once, on the requirement it applies to: a directional
+/// dependency (prerequisite, parent-child, refinement, constrained by) is not
+/// written again as its converse on the other requirement, which reaches it
+/// through navigation. A conflict and a bidirectional dependency stand at both
+/// ends. The rows are the holder of every dependency; the requirement's
+/// `constrainedBy`, `conflictsWith` and `OREP.dependencies` are derived from
+/// them.
 pub struct RequirementDependencies {
     pub node: som::SomNode,
 }
@@ -47488,10 +47761,11 @@ impl RequirementDependencyEntry {
 
     /// The other requirement in this dependency, named by section id.
     ///
-    /// The row states the *kind* of relation — prerequisite, bidirectional,
-    /// parent-child, conflict, refinement — and this names its far end; the
-    /// requirement that owns the entry is always the near end, so neither half
-    /// is readable alone. Expect another requirement of this document there. A
+    /// The row states the *kind* of relation ([RequirementDependencyType]) and
+    /// this names its far end; the requirement that owns the entry is always the
+    /// near end, so neither half is readable alone. A conflict or bidirectional
+    /// row is answered by a row of the same kind on the far end
+    /// (`InverseOf.symmetric`); a directional row has no converse row. Expect another requirement of this document there. A
     /// dependency on something that is not itself a requirement is a constraint
     /// and belongs with the assumptions and constraints instead.
     ///
@@ -47673,6 +47947,8 @@ impl RequirementTestCases {
 /// 4.3.1.n.6. Traceability.
 ///
 /// Traceability links to goals, use cases, processes, and other artifacts.
+///
+/// Links: `RETRAR.relatedDocuments` names `RFDOC`, one-way.
 pub struct RequirementTraceability {
     pub node: som::SomNode,
 }
@@ -48252,6 +48528,8 @@ impl ResponsibilityContacts {
 }
 
 /// Detailed responsibility entry (form).
+///
+/// Links: `RSPDT.relatedProcesses` names `BPREN`, one-way.
 pub struct ResponsibilityDetailEntry {
     pub node: som::SomNode,
 }
@@ -49368,6 +49646,10 @@ impl RiskMonitoring {
 }
 
 /// Relationships to other risks, assumptions, and project elements.
+///
+/// Links: `RR.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,
+/// one-way; `RR.relatedRisks` names `RISENT` entries, stored on both
+/// (`InverseOf.symmetric`); `RR.relatedAssumptions` names `ASMRE`, one-way.
 pub struct RiskRelationships {
     pub node: som::SomNode,
 }
@@ -49884,6 +50166,9 @@ impl RoleHolderEntry {
 ///
 /// Defines a specific parent-child inheritance relationship between two roles,
 /// including what is inherited and any restrictions.
+///
+/// Links: `RLINH.parentRole` names `AZRO.roleName`, one-way; `RLINH.childRole`
+/// names `AZRO.roleName`, one-way.
 pub struct RoleInheritanceRuleEntry {
     pub node: som::SomNode,
 }
@@ -51524,6 +51809,9 @@ impl ScreenElementFieldSpec {
 ///
 /// Comprehensive specification of a single application screen, covering
 /// identity, purpose, authorization, layout, elements, and behavior.
+///
+/// Links: `SCETR.relatedBusinessProcesses` names `BPREN`, one-way;
+/// `SCETR.relatedUseCases` names `INEN`, one-way.
 pub struct ScreenEntry {
     pub node: som::SomNode,
 }
@@ -55326,6 +55614,8 @@ impl StageDependencies {
 /// entry/exit criteria, assigned resources, quality gates, and a
 /// deployment plan. Draws from PMBOK phase-gate discipline, SAFe PI
 /// planning, and PRINCE2 stage boundary management.
+///
+/// Links: `STSC.includedFeatures` names `FPE`, one-way.
 pub struct StageEntry {
     pub node: som::SomNode,
 }
@@ -56195,6 +56485,8 @@ impl StagingStrategy {
 /// Keeps only the scope-framing identity + benefit. Role, interest, influence,
 /// concerns and engagement strategy are owned by the canonical SBP.4
 /// `StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).
+/// [content]'s `stakeholderRef` names that register entry (a
+/// `STKRE-STAK-…` section id).
 pub struct StakeholderEntry {
     pub node: som::SomNode,
 }
@@ -57093,6 +57385,8 @@ impl SuccessCriterionEntry {
 }
 
 /// Relationships for success criterion.
+///
+/// Links: `SUCRRE.relatedGoals` names `BGE`, one-way.
 pub struct SuccessCriterionRelationships {
     pub node: som::SomNode,
 }
@@ -60889,6 +61183,8 @@ impl TestLevelEntry {
 /// process, or acceptance criterion. Includes full traceability, preconditions,
 /// execution metadata, and pass/fail criteria per ISTQB and IEEE 829
 /// Level Test Case / Level Test Procedure structures.
+///
+/// Links: `TESCTR.designRef` names `SCREN`, one-way.
 pub struct TestScenarioEntry {
     pub node: som::SomNode,
 }
@@ -63102,6 +63398,8 @@ impl UatTestCycleEntry {
 /// Individual step within a test scenario. Captures the action, input data,
 /// expected result, and pass criteria at fine-grained level per IEEE 829
 /// Level Test Procedure structure.
+///
+/// Links: `UATSST.uiScreenRef` names `SCREN`, one-way.
 pub struct UatTestStepEntry {
     pub node: som::SomNode,
 }
@@ -65688,6 +65986,8 @@ impl WarrantyServiceLevels {
 ///
 /// Post-acceptance warranty terms: duration, scope, service levels,
 /// exclusions, and transition to standard support.
+///
+/// Links: `WACO.coveredDeliverables` names `DLVEN`, one-way.
 pub struct WarrantyTerms {
     pub node: som::SomNode,
 }
@@ -66360,6 +66660,11 @@ impl WorkflowStepSystem {
 }
 
 /// Summary entry for a single workflow.
+///
+/// [content]'s `workflowRef` names the workflow the row summarizes (a
+/// `CUWF-WORK-…` section id of the same process); the row's type, frequency
+/// and step counts repeat that workflow's own, whose counts are counted over
+/// its steps.
 pub struct WorkflowSummaryEntry {
     pub node: som::SomNode,
 }
@@ -70010,6 +70315,16 @@ impl ActorEntryIdentificationForm {
     pub fn set_actor_type(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "actorType", value);
+    }
+
+    pub fn actor_kind(&self) -> Option<ActorKind> {
+        ActorKind::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "actorKind"))
+    }
+
+    pub fn set_actor_kind(&self, value: Option<ActorKind>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "actorKind", text);
     }
 
     pub fn category(&self) -> String {
@@ -104998,6 +105313,39 @@ impl CurrentWorkflowEntryContentForm {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "criticality", value);
     }
+
+    pub fn step_count(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "stepCount");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_step_count(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "stepCount", &text);
+    }
+
+    pub fn manual_step_count(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "manualStepCount");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_manual_step_count(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "manualStepCount", &text);
+    }
+
+    pub fn error_prone_step_count(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "errorProneStepCount");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_error_prone_step_count(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "errorProneStepCount", &text);
+    }
 }
 
 /// CurrentWorkflowEntryTimingForm is the generated section facade for the `timing` @Form section: its own
@@ -123528,6 +123876,15 @@ impl DistributionRecipientEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
+    pub fn recipient_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "recipientRef")
+    }
+
+    pub fn set_recipient_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "recipientRef", value);
+    }
+
     pub fn role(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "role")
     }
@@ -140663,6 +141020,15 @@ impl FunctionalRequirementEntryConstraintsForm {
         self.node.doc().borrow_mut().set_form_field(&path, "constraints", value);
     }
 
+    pub fn constrained_by(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "constrainedBy")
+    }
+
+    pub fn set_constrained_by(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "constrainedBy", value);
+    }
+
     pub fn conflicts_with(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "conflictsWith")
     }
@@ -150211,6 +150577,16 @@ impl InteractionEntryIdentificationForm {
     pub fn set_goal_level(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "goalLevel", value);
+    }
+
+    pub fn priority(&self) -> Option<Priority> {
+        Priority::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
+    }
+
+    pub fn set_priority(&self, value: Option<Priority>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 
     pub fn design_scope(&self) -> String {
@@ -186394,6 +186770,15 @@ impl ProcessMetricEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
+    pub fn metric_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "metricRef")
+    }
+
+    pub fn set_metric_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "metricRef", value);
+    }
+
     pub fn metric_category(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "metricCategory")
     }
@@ -199650,13 +200035,14 @@ impl RequirementDependencyEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn dependency_type(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "dependencyType")
+    pub fn dependency_type(&self) -> Option<RequirementDependencyType> {
+        RequirementDependencyType::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "dependencyType"))
     }
 
-    pub fn set_dependency_type(&self, value: &str) {
+    pub fn set_dependency_type(&self, value: Option<RequirementDependencyType>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "dependencyType", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "dependencyType", text);
     }
 
     pub fn description(&self) -> String {
@@ -226096,6 +226482,16 @@ impl StageMigrationRiskEntryContentForm {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "riskCategory", value);
     }
+
+    pub fn risk_rating(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "riskRating"))
+    }
+
+    pub fn set_risk_rating(&self, value: Option<ImportanceBand>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "riskRating", text);
+    }
 }
 
 /// StageMigrationRiskEntryContingencyForm is the generated section facade for the `contingency` @Form section: its own
@@ -228264,6 +228660,15 @@ impl StageSummaryEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
+    pub fn stage_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "stageRef")
+    }
+
+    pub fn set_stage_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "stageRef", value);
+    }
+
     pub fn stage_number(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "stageNumber")
     }
@@ -229686,6 +230091,15 @@ impl StakeholderEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
+    pub fn stakeholder_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "stakeholderRef")
+    }
+
+    pub fn set_stakeholder_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "stakeholderRef", value);
+    }
+
     pub fn stakeholder_type(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "stakeholderType")
     }
@@ -229732,6 +230146,15 @@ impl StakeholderRegisterEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn stakeholder_type(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "stakeholderType")
+    }
+
+    pub fn set_stakeholder_type(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "stakeholderType", value);
     }
 
     pub fn influence(&self) -> Option<ImportanceBand> {
@@ -240648,6 +241071,15 @@ impl TechnicalRequirementEntryConstraintsForm {
     pub fn set_constraints(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "constraints", value);
+    }
+
+    pub fn constrained_by(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "constrainedBy")
+    }
+
+    pub fn set_constrained_by(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "constrainedBy", value);
     }
 }
 
@@ -261189,6 +261621,15 @@ impl WorkflowSummaryEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn workflow_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "workflowRef")
+    }
+
+    pub fn set_workflow_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "workflowRef", value);
     }
 
     pub fn workflow_type(&self) -> String {

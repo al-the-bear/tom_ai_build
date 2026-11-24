@@ -1,3 +1,27 @@
+## 1.13.0
+
+Section automation, the model step: the link vocabulary of `tom_specs_core`
+(`tom_specs_model_rules.md` §9.7) written into the model.
+
+- Requirements: `RequirementDependencyType` (an enum) for
+  `RQDEP.dependencyType`, the `constrainedBy` part, `FREC.conflictsWith` and
+  `OREP.dependencies` derived from the dependency rows, `@ExtractsLinks`, the
+  symmetric dependency reference, and the document header's version, date and
+  author derived from the newest revision entry (`DerivedFrom.lookup`).
+- `@SyncedWith` on all 132 Blueprint / Phase 3 pairs, with the `detailOnly`
+  lists of §10.1.
+- Summaries (`@SummaryOf`) S2–S8 with their new match members
+  (`STAGSE.stageRef`, `PME.metricRef`, `DSRC.recipientRef`,
+  `WOSUEN.workflowRef`, `STKNT.stakeholderRef`, `STKRE.stakeholderType`);
+  S1 as `@SameAs` on `ACCRSU.detailedCriteria`; the feature dependencies
+  derived from their rows (`DerivedFrom.rows`).
+- `refersTo` / `multiple` on the link fields, the inverses I1–I9 and the
+  symmetric related lists (`inverseOf`); `RLINH.childRole` added.
+- `countOf` on 64 count fields, `RO-REQU`'s counts included (their hints say
+  the count replaces the estimate); `required` dropped from five derived
+  counts. New members for counts whose condition no field stated:
+  `ACEN.actorKind` (enum `ActorKind`), `INEN.priority`, `STGMRS.riskRating`.
+
 ## 1.12.3
 
 - `localeRolloutPlan` (`LOCRP`) is a class, `LocaleRolloutPlan`, with its form

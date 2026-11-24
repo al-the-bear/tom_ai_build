@@ -123,6 +123,10 @@ unpublished_drift:
     key and by like lookup (DIR-7). 03_sau8: @SummaryOf's detail may be a /
     path (DIR-8). 03_sau9: an inverse end belongs to every list element it
     lies beneath (a link row's field to the entry holding the row).
+    03_sau11: tool/model_surface.stamp.json restamped for model 1.13.0;
+    BCK-4.2 and IMP-4.1 hold Tom UAM's real Blueprint to what its migration
+    has reached (sauvoc5_akxp-uam-blueprint-clean-assertions), the outline
+    excerpt in tom_specs_model_rules.md re-cut.
   tom_specs_core: >-
     section automation in progress — 02_sau2 (2026-11-23): the link
     annotations (SyncedWith, ListRelation, SummaryOf, DerivedFrom, InverseOf,
@@ -136,10 +140,15 @@ unpublished_drift:
     annotations in kRenderedAnnotations, linkChips in fieldChips, the four in
     the showcase fixture. 02_sau5: version 1.12.3 with the model. 05a_rdv6:
     the marker's T1 reads a decision cited with the option taken, `(DQ-115
-    (b))` (DocSpecs RN-3).
+    (b))` (DocSpecs RN-3). 03_sau11: somMetaNodeDiff compares any two maps
+    by their entries (an empty const {} against a decoded map was identity).
   tom_som_dart_v0: >-
     section automation in progress — 02_sau5 (2026-11-23): regenerated for
-    model 1.12.3 (LocaleRolloutPlan, 14 more @DetailedIn).
+    model 1.12.3 (LocaleRolloutPlan, 14 more @DetailedIn). 03_sau11:
+    regenerated for model 1.13.0 (the link annotations and qualifiers of the
+    model step 03_sau1..10, constrainedBy, RequirementDependencyType,
+    ActorKind and the new members); the Meridian document gives its actors
+    an actorKind and cites use cases by section id.
   tom_specs_model: >-
     section automation in progress — 02_sau1 (2026-11-23):
     doc/tom_specs_model_meta_schema.md describes nested annotation values, maps
@@ -168,8 +177,8 @@ unpublished_drift:
     fields, the inverses I6..I9 and the symmetric related lists; 03_sau10:
     countOf on 64 count fields (the RO-REQU hints updated, required dropped
     from five), the new members ACEN.actorKind (enum ActorKind),
-    INEN.priority and STGMRS.riskRating (DIR-13); not regenerated until
-    03_sau11.
+    INEN.priority and STGMRS.riskRating (DIR-13). 03_sau11: 1.13.0, the
+    SerializationOrder restamp, spec_ops.g.dart, the outlines regenerated.
 
 published_from:
   tom_specs_core: {version: '0.5.2', commit: '0f5d4c23'}

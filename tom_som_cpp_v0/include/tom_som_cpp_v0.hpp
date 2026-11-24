@@ -46,6 +46,23 @@ struct ActionTriggerKind {
   ActionTriggerKind() = delete;
 };
 
+// Generated enum tokens for `ActorKind` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+struct ActorKind {
+  // A person using the system.
+  static constexpr const char* human = "human";
+  // A system of the same organisation, inside the boundary the solution is
+  // built within.
+  static constexpr const char* internalSystem = "internalSystem";
+  // A system of another organisation, outside that boundary.
+  static constexpr const char* externalSystem = "externalSystem";
+  // A time-triggered actor: a scheduled job or timer.
+  static constexpr const char* scheduled = "scheduled";
+  // Returns the token when it is a known ActorKind value, else std::nullopt.
+  static std::optional<std::string> parse(const std::string& token);
+  ActorKind() = delete;
+};
+
 // Generated enum tokens for `AlertSeverity` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 struct AlertSeverity {
@@ -829,6 +846,35 @@ struct ReportFilterValueKind {
   // Returns the token when it is a known ReportFilterValueKind value, else std::nullopt.
   static std::optional<std::string> parse(const std::string& token);
   ReportFilterValueKind() = delete;
+};
+
+// Generated enum tokens for `RequirementDependencyType` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+struct RequirementDependencyType {
+  // The far end must be met before this requirement can be: it is needed
+  // first. Collected in an organizational requirement's `OREP.dependencies`.
+  static constexpr const char* prerequisite = "prerequisite";
+  // The two requirements depend on each other; the row stands at both ends.
+  static constexpr const char* bidirectional = "bidirectional";
+  // The far end is this requirement's parent: this requirement details part
+  // of it.
+  static constexpr const char* parentChild = "parentChild";
+  // The two requirements cannot both be met as stated; the row stands at both
+  // ends and both `FREC.conflictsWith` derive from it.
+  static constexpr const char* conflict = "conflict";
+  // This requirement refines the far end: it states it more precisely
+  // without changing what it asks for.
+  static constexpr const char* refinement = "refinement";
+  // The far end sets a limit on how this requirement may be implemented.
+  // Collected, with the row's description, in `FREC.constrainedBy` and
+  // `TREC.constrainedBy`.
+  static constexpr const char* constrainedBy = "constrainedBy";
+  // The far end is named in this requirement's description and has no row of
+  // another kind: the row `deriveFields` writes for an id found there.
+  static constexpr const char* namedInText = "namedInText";
+  // Returns the token when it is a known RequirementDependencyType value, else std::nullopt.
+  static std::optional<std::string> parse(const std::string& token);
+  RequirementDependencyType() = delete;
 };
 
 // Generated enum tokens for `RoleMembershipSource` values. The stored token is byte-
@@ -5585,9 +5631,10 @@ class AcceptanceCriteriaSummary : public som::SomNode {
   QualityGateChecklist qualityGateChecklist() const;
   // Canonical, enumerated acceptance criteria (SR-54 explicit link).
   //
-  // The single source of truth for the full set of traceable acceptance
-  // criteria; this summary references — rather than duplicates — it. The same
-  // [AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.
+  // A copy of the acceptance criteria the acceptance plan holds (the QAP-CRI
+  // seed; in the Quality & Acceptance Plan its root's acceptance criteria):
+  // it is not edited here — `deriveFields` writes it from the holder, and
+  // the rendition marks it as a copy (S1, `@SameAs`).
   AcceptanceCriteriaList detailedCriteria() const;
   // Acceptance test summary.
   // (skipped: acceptanceTestSummary has no target type)
@@ -6764,6 +6811,11 @@ class ArchitectureComponentEntry : public som::SomNode {
 };
 
 // Architecture Decision Record (ADR) entry.
+//
+// Links: `ADRR.relatedDecisions` names `ARDE` entries, stored on both
+// (`InverseOf.symmetric`); `ADRR.supersedes` names `ARDE`, answered by
+// `ADRR.supersededBy` at the other end; `ADRR.supersededBy` names `ARDE`,
+// answered by `ADRR.supersedes` at the other end.
 class ArchitectureDecisionRecord : public som::SomNode {
  public:
   ArchitectureDecisionRecord(som::SpecDocument& doc, std::string path);
@@ -6800,6 +6852,9 @@ class ArchitectureOverview : public som::SomNode {
 };
 
 // Architecture principle entry.
+//
+// Links: `ARPRENGO.relatedPrinciples` names `ARPR` entries, stored on both
+// (`InverseOf.symmetric`).
 class ArchitecturePrincipleEntry : public som::SomNode {
  public:
   ArchitecturePrincipleEntry(som::SpecDocument& doc, std::string path);
@@ -7995,6 +8050,8 @@ class BusinessObjectAttributeEntry : public som::SomNode {
 // Comprehensive business object specification following domain-driven design
 // patterns. Business objects represent key domain concepts with behavior,
 // state, and business rules.
+//
+// Links: `BJOEN-DOMA.relatedObjects` names `BJOEN`, one-way.
 class BusinessObjectEntry : public som::SomNode {
  public:
   BusinessObjectEntry(som::SpecDocument& doc, std::string path);
@@ -9868,6 +9925,9 @@ class ComponentRiskAssessment : public som::SomNode {
 //
 // Documents one component risk: category, probability, impact, detection
 // methods, mitigation strategy and status, residual risk, and ownership.
+//
+// Links: `CORIENGO.relatedRisks` is stored on both entries
+// (`InverseOf.symmetric`).
 class ComponentRiskEntry : public som::SomNode {
  public:
   ComponentRiskEntry(som::SpecDocument& doc, std::string path);
@@ -10669,6 +10729,15 @@ class CurrentStateRiskAssessment : public som::SomNode {
 //
 // Detailed documentation of a single workflow within a business process.
 // Includes triggers, steps, actors, inputs, outputs, and timing.
+//
+// The workflow's own inputs, outputs and business rules
+// (`WOINEN-INPU-LST`, `WOOUEN-OUTP-LST`, `WOBURU-BUSI-LST`) are independent
+// of the same lists on its steps, not a superset of them: a workflow input
+// enters the workflow from outside, while a step's inputs also include what
+// earlier steps produced; a workflow output leaves it, while a step's outputs
+// include intermediate results; a workflow-level rule governs the whole
+// workflow, a step's rule that step only. Neither side is derived from the
+// other.
 class CurrentWorkflowEntry : public som::SomNode {
  public:
   CurrentWorkflowEntry(som::SpecDocument& doc, std::string path);
@@ -10753,7 +10822,7 @@ class CutoverProcedure : public som::SomNode {
 class D00SolutionBlueprint : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.12";
+  static constexpr const char* kModelVersion = "1.13";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10822,7 +10891,7 @@ class D00SolutionBlueprint : public som::SomNode {
 class D01CurrentLandscapeAssessment : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.12";
+  static constexpr const char* kModelVersion = "1.13";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10889,7 +10958,7 @@ class D01CurrentLandscapeAssessment : public som::SomNode {
 class D02TargetOperatingModel : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.12";
+  static constexpr const char* kModelVersion = "1.13";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10962,7 +11031,7 @@ class D02TargetOperatingModel : public som::SomNode {
 class D03InformationModel : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.12";
+  static constexpr const char* kModelVersion = "1.13";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11078,7 +11147,7 @@ class D03InformationModel : public som::SomNode {
 class D04RequirementsSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.12";
+  static constexpr const char* kModelVersion = "1.13";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11148,7 +11217,7 @@ class D04RequirementsSpecification : public som::SomNode {
 class D05InteractionScenarios : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.12";
+  static constexpr const char* kModelVersion = "1.13";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11214,7 +11283,7 @@ class D05InteractionScenarios : public som::SomNode {
 class D06ArchitectureTechnologySpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.12";
+  static constexpr const char* kModelVersion = "1.13";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11288,7 +11357,7 @@ class D06ArchitectureTechnologySpecification : public som::SomNode {
 class D07IntegrationInterfaceSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.12";
+  static constexpr const char* kModelVersion = "1.13";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11362,7 +11431,7 @@ class D07IntegrationInterfaceSpecification : public som::SomNode {
 class D08SecurityAccessSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.12";
+  static constexpr const char* kModelVersion = "1.13";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11438,7 +11507,7 @@ class D08SecurityAccessSpecification : public som::SomNode {
 class D09ExperienceDesignSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.12";
+  static constexpr const char* kModelVersion = "1.13";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11515,7 +11584,7 @@ class D09ExperienceDesignSpecification : public som::SomNode {
 class D10QualityAcceptancePlan : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.12";
+  static constexpr const char* kModelVersion = "1.13";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11604,7 +11673,7 @@ class D10QualityAcceptancePlan : public som::SomNode {
 class D11DeliveryRoadmap : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.12";
+  static constexpr const char* kModelVersion = "1.13";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11674,7 +11743,7 @@ class D11DeliveryRoadmap : public som::SomNode {
 class D12TransitionRolloutPlan : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.12";
+  static constexpr const char* kModelVersion = "1.13";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11761,7 +11830,7 @@ class D12TransitionRolloutPlan : public som::SomNode {
 class D13CodeSpecsProjection : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.12";
+  static constexpr const char* kModelVersion = "1.13";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -12395,6 +12464,8 @@ class DataDuplicationEntry : public som::SomNode {
 // to be adjusted: business-process cohesion sometimes merges two aggregates
 // into one unit or splits one across two, and stating that per entity keeps
 // even the exception readable. Empty means no adjustment.
+//
+// Links: `DAENT-RELA.parentEntities` names `DAENT.entityName`, one-way.
 class DataEntityEntry : public som::SomNode {
  public:
   DataEntityEntry(som::SpecDocument& doc, std::string path);
@@ -13796,6 +13867,9 @@ class DesignFoundationEntry : public som::SomNode {
 // A design goal entry (form).
 //
 // Each goal represents a measurable UI objective with success criteria.
+//
+// Links: `DGOEN.relatedPrinciples` names `DPEN`, answered by
+// `DPEN.relatedGoals` at the other end.
 class DesignGoalEntry : public som::SomNode {
  public:
   DesignGoalEntry(som::SpecDocument& doc, std::string path);
@@ -13829,6 +13903,9 @@ class DesignGoals : public som::SomNode {
 };
 
 // Design pattern entry — a specific design pattern to be used.
+//
+// Links: `DEPAENCO.relatedPatterns` names `DSPT` entries, stored on both
+// (`InverseOf.symmetric`).
 class DesignPatternEntry : public som::SomNode {
  public:
   DesignPatternEntry(som::SpecDocument& doc, std::string path);
@@ -13891,6 +13968,9 @@ class DesignPatternsAndStandards : public som::SomNode {
 // A design principle entry (form).
 //
 // Each principle guides UI decisions with rationale and examples.
+//
+// Links: `DPEN.relatedGoals` names `DGOEN`, answered by
+// `DGOEN.relatedPrinciples` at the other end.
 class DesignPrincipleEntry : public som::SomNode {
  public:
   DesignPrincipleEntry(som::SpecDocument& doc, std::string path);
@@ -14250,6 +14330,11 @@ class DistributionList : public som::SomNode {
 //
 // Detailed information about a distribution list recipient including
 // their role, contact information, preferences, and access levels.
+// The full distribution (`FUDI`) holds the recipients; the executive-summary
+// list and a custom group's members are selections of it: there
+// `recipientRef` names the full-distribution recipient an entry is (a
+// `DSRC-ITEM-…` section id of `FUDI`) and the entry's other values repeat
+// that recipient's. In the full distribution `recipientRef` stays empty.
 class DistributionRecipientEntry : public som::SomNode {
  public:
   DistributionRecipientEntry(som::SpecDocument& doc, std::string path);
@@ -14379,6 +14464,11 @@ class DocumentControl : public som::SomNode {
 // Standard document header present at the top of every TomSpecs document.
 //
 // All fields are optional strings representing the document's form fields.
+// The revision history is the holder of the document's version, date and
+// author: the header shows those of its newest revision entry (`RVENT`, the
+// last of the list, which is ordered newest last), derived from each
+// document's own history. A document without a revision entry derives
+// nothing. The id, the project and the status are the header's own.
 //
 // A leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share
 // an unchanged header by identity and `cloneShallow` needs no child handling.
@@ -14736,6 +14826,9 @@ class DomainOverview : public som::SomNode {
 };
 
 // A domain process entry (form).
+//
+// Links: `DPEF.relatedProcesses` names `DOPREN` entries, stored on both
+// (`InverseOf.symmetric`).
 class DomainProcessEntry : public som::SomNode {
  public:
   DomainProcessEntry(som::SpecDocument& doc, std::string path);
@@ -14776,6 +14869,9 @@ class DomainProcesses : public som::SomNode {
 };
 
 // A domain term entry (form).
+//
+// Links: `DTE.relatedTerms` names `DTE` entries, stored on both
+// (`InverseOf.symmetric`).
 class DomainTermEntry : public som::SomNode {
  public:
   DomainTermEntry(som::SpecDocument& doc, std::string path);
@@ -15865,6 +15961,8 @@ class ExportFieldMappingEntry : public som::SomNode {
 };
 
 // An export format entry (form).
+//
+// Links: `EXID.relatedDataEntities` names `DAENT.entityName`, one-way.
 class ExportFormatEntry : public som::SomNode {
  public:
   ExportFormatEntry(som::SpecDocument& doc, std::string path);
@@ -16287,7 +16385,9 @@ class FamilyComponentRef : public som::SomNode {
 // 13.4.4. Feature Dependencies.
 //
 // Cross-feature dependencies affecting staging order, critical path
-// analysis, and delivery sequencing.
+// analysis, and delivery sequencing. The rows are the holder of every
+// feature dependency: each feature's `FEDEIN.dependsOnFeatures` and
+// `blocksFeatures` are derived from them.
 class FeatureDependencies : public som::SomNode {
  public:
   FeatureDependencies(som::SpecDocument& doc, std::string path);
@@ -16463,7 +16563,9 @@ class FeatureStageMapping : public som::SomNode {
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in the section's `form`.
   FeatureStageMappingContentForm content() const;
-  // Stage assignment details.
+  // The phase within its stage the feature is delivered in. The stage
+  // itself is the feature's (`FESTAS.targetStage`), reached through
+  // [content]'s `featureId`; the matrix does not restate it.
   FeatureStageMappingAssignmentForm assignment() const;
   // Readiness and confidence.
   FeatureStageMappingReadinessForm readiness() const;
@@ -16778,6 +16880,8 @@ class FunctionDataMatrixEntry : public som::SomNode {
 // A function entry (form).
 //
 // Business function specification in the functional decomposition.
+//
+// Links: `FUNCT.parentFunction` names `FUNCT`, one-way.
 class FunctionEntry : public som::SomNode {
  public:
   FunctionEntry(som::SpecDocument& doc, std::string path);
@@ -16981,6 +17085,10 @@ class FunctionalSuitabilityCharacteristic : public som::SomNode {
 // Documents a specific gap between current capabilities and business needs:
 // category, severity, quantified cost, stakeholders, compliance drivers,
 // workarounds, resolution approach, and success criteria.
+//
+// Links: `GAENDI.relatedPainPoints` names `PAPE`, answered by
+// `PAPOR1.relatedGaps` at the other end; `GAENRE.dependsOnGaps` names `GAPE`,
+// one-way.
 class GapEntry : public som::SomNode {
  public:
   GapEntry(som::SpecDocument& doc, std::string path);
@@ -18233,6 +18341,10 @@ class InteractionDependencyAnalysis : public som::SomNode {
 //
 // Comprehensive interaction definition following Cockburn's fully dressed
 // use case template. Seeds the ISC (Interaction Scenarios) document.
+//
+// Links: `UCSC.relatedUseCases` names `INEN`, one-way; `INTR.relatedUseCase`
+// names `INEN`, one-way; `INTR.relatedTestCases` names `TSSC`, `RQTSC`,
+// one-way.
 class InteractionEntry : public som::SomNode {
  public:
   InteractionEntry(som::SpecDocument& doc, std::string path);
@@ -18657,15 +18769,19 @@ class IpOwnershipEntry : public som::SomNode {
   IpOwnershipEntryContentForm content() const;
 };
 
-// ISO/IEC 25010:2023 product-quality cross-map (derived).
+// ISO/IEC 25010:2023 product-quality cross-map.
 //
-// A *derived* view over the canonical quality spine: the eight
+// A coverage view over the canonical quality spine: the eight
 // `*Characteristic` classes under [SystemQualityGoals] are the single source
 // of truth for the taxonomy (L34C-8); this cross-map does not re-declare it.
-// Each entry references one of those characteristics (via the closed
-// [Iso25010Characteristic] enum) and records which quality goals / NFRs
-// address it and the target metric — so coverage of any 25010:2023
-// characteristic (e.g. compatibility, flexibility) cannot be silently missed.
+// Each entry names one of those characteristics (via the closed
+// [Iso25010Characteristic] enum) and records, as authored text, which
+// quality goals / NFRs address it and the target metric. Nothing in it is
+// derived: the characteristics are eight sections, not the rows of one
+// list, and what addresses each is the author's statement. That every
+// characteristic has its entry is a process check, so coverage of any
+// 25010:2023 characteristic (e.g. compatibility, flexibility) cannot be
+// silently missed.
 class Iso25010Coverage : public som::SomNode {
  public:
   Iso25010Coverage(som::SpecDocument& doc, std::string path);
@@ -18872,6 +18988,9 @@ class KeyCompromiseRecoveryPolicy : public som::SomNode {
 };
 
 // A key concept entry (form).
+//
+// Links: `KECON.relatedConcepts` names `KECON` entries, stored on both
+// (`InverseOf.symmetric`).
 class KeyConceptEntry : public som::SomNode {
  public:
   KeyConceptEntry(som::SpecDocument& doc, std::string path);
@@ -20258,6 +20377,10 @@ class MigrationResources : public som::SomNode {
 // Detailed migration risk documentation following enterprise risk
 // management practices. Captures full risk lifecycle from identification
 // through resolution.
+//
+// Links: `MIRIR1.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,
+// one-way; `MIRIR1.relatedDecisions` names `ARDE`, one-way;
+// `MIRIR1.relatedRisks` is stored on both entries (`InverseOf.symmetric`).
 class MigrationRiskEntry : public som::SomNode {
  public:
   MigrationRiskEntry(som::SpecDocument& doc, std::string path);
@@ -20755,6 +20878,8 @@ class MustPassCriteria : public som::SomNode {
 };
 
 // A must-pass criterion entry (form).
+//
+// Links: `MPCEG.dependsOnCriteria` names `MSTPCR`, one-way.
 class MustPassCriterionEntry : public som::SomNode {
  public:
   MustPassCriterionEntry(som::SpecDocument& doc, std::string path);
@@ -21999,6 +22124,11 @@ class PainPointGapCorrelationEntry : public som::SomNode {
 };
 
 // Relationships for pain point.
+//
+// Links: `PAPOR1.relatedGaps` names `GAPE`, answered by
+// `GAENDI.relatedPainPoints` at the other end; `PAPOR1.dependsOn` names
+// `PAPE`, one-way; `PAPOR1.relatedPainPoints` is stored on both entries
+// (`InverseOf.symmetric`).
 class PainPointRelationships : public som::SomNode {
  public:
   PainPointRelationships(som::SpecDocument& doc, std::string path);
@@ -22483,6 +22613,9 @@ class PilotPlan : public som::SomNode {
 };
 
 // Pipeline job entry.
+//
+// Links: `PJE.parentStage` names `PSE`, one-way; `PJED.dependsOn` names `PJE`,
+// one-way.
 class PipelineJobEntry : public som::SomNode {
  public:
   PipelineJobEntry(som::SpecDocument& doc, std::string path);
@@ -23132,6 +23265,11 @@ class ProcessMetricCategory : public som::SomNode {
 // A process metric entry (form).
 //
 // A single measurable metric with current value and measurement details.
+// The class serves a process's own metric list and the key metrics
+// (`PME-KEYM-LST`), which summarize the processes' metrics: a key metric's
+// `metricRef` names the metric it is (a `PME-METR-…` section id) and its
+// other values repeat that metric's; in a process's own list `metricRef`
+// stays empty.
 class ProcessMetricEntry : public som::SomNode {
  public:
   ProcessMetricEntry(som::SpecDocument& doc, std::string path);
@@ -23718,6 +23856,8 @@ class Prototype : public som::SomNode {
 };
 
 // A prototype feature entry.
+//
+// Links: `PFE.relatedGoals` names `PGE`, one-way.
 class PrototypeFeatureEntry : public som::SomNode {
  public:
   PrototypeFeatureEntry(som::SpecDocument& doc, std::string path);
@@ -23730,6 +23870,9 @@ class PrototypeFeatureEntry : public som::SomNode {
 // 10.13.2. Selected Feature Subset.
 //
 // Features included in the prototype.
+//
+// Links: `PFSS.includedFeatures` names `PFE`, one-way; `PFSS.excludedFeatures`
+// names `PFE`, one-way.
 class PrototypeFeatureSubset : public som::SomNode {
  public:
   PrototypeFeatureSubset(som::SpecDocument& doc, std::string path);
@@ -23759,6 +23902,8 @@ class PrototypeFeatureSubset : public som::SomNode {
 };
 
 // A prototype goal entry.
+//
+// Links: `PGE.relatedRisks` names `RISENT`, one-way.
 class PrototypeGoalEntry : public som::SomNode {
  public:
   PrototypeGoalEntry(som::SpecDocument& doc, std::string path);
@@ -23871,6 +24016,9 @@ class QualityAndAcceptanceModel : public som::SomNode {
 //
 // Defines a quality category with its attributes, weight, and relationship
 // to other categories.
+//
+// Links: `QCARL.relatedCategories` names `QCATE` entries, stored on both
+// (`InverseOf.symmetric`); `QCARL.parentCategory` names `QCATE`, one-way.
 class QualityCategoryEntry : public som::SomNode {
  public:
   QualityCategoryEntry(som::SpecDocument& doc, std::string path);
@@ -24246,6 +24394,10 @@ class RedirectHandlingPolicy : public som::SomNode {
 //
 // Detailed metadata for a single referenced document including
 // identification, classification, status, and applicability.
+//
+// Links: `RDEL.supersedes` names `RFDOC`, answered by `RDEL.supersededBy` at
+// the other end; `RDEL.supersededBy` names `RFDOC`, answered by
+// `RDEL.supersedes` at the other end.
 class ReferenceDocumentEntry : public som::SomNode {
  public:
   ReferenceDocumentEntry(som::SpecDocument& doc, std::string path);
@@ -24685,6 +24837,10 @@ class ReportDistributionEntry : public som::SomNode {
 };
 
 // A report entry (form).
+//
+// Links: `REID.relatedBusinessProcesses` names `BPREN`, one-way;
+// `REID.relatedUseCases` names `INEN`, one-way; `REID.relatedDataEntities`
+// names `DAENT.entityName`, one-way.
 class ReportEntry : public som::SomNode {
  public:
   ReportEntry(som::SpecDocument& doc, std::string path);
@@ -24932,7 +25088,14 @@ class RequirementDataRequirements : public som::SomNode {
 
 // 4.3.1.n.5. Dependencies.
 //
-// Dependencies this requirement has on other requirements.
+// Dependencies this requirement has on other requirements. Each dependency
+// is one row, stored once, on the requirement it applies to: a directional
+// dependency (prerequisite, parent-child, refinement, constrained by) is not
+// written again as its converse on the other requirement, which reaches it
+// through navigation. A conflict and a bidirectional dependency stand at both
+// ends. The rows are the holder of every dependency; the requirement's
+// `constrainedBy`, `conflictsWith` and `OREP.dependencies` are derived from
+// them.
 class RequirementDependencies : public som::SomNode {
  public:
   RequirementDependencies(som::SpecDocument& doc, std::string path);
@@ -24960,10 +25123,11 @@ class RequirementDependencyEntry : public som::SomNode {
   RequirementDependencyEntryContentForm content() const;
   // The other requirement in this dependency, named by section id.
   //
-  // The row states the *kind* of relation — prerequisite, bidirectional,
-  // parent-child, conflict, refinement — and this names its far end; the
-  // requirement that owns the entry is always the near end, so neither half
-  // is readable alone. Expect another requirement of this document there. A
+  // The row states the *kind* of relation ([RequirementDependencyType]) and
+  // this names its far end; the requirement that owns the entry is always the
+  // near end, so neither half is readable alone. A conflict or bidirectional
+  // row is answered by a row of the same kind on the far end
+  // (`InverseOf.symmetric`); a directional row has no converse row. Expect another requirement of this document there. A
   // dependency on something that is not itself a requirement is a constraint
   // and belongs with the assumptions and constraints instead.
   //
@@ -25056,6 +25220,8 @@ class RequirementTestCases : public som::SomNode {
 // 4.3.1.n.6. Traceability.
 //
 // Traceability links to goals, use cases, processes, and other artifacts.
+//
+// Links: `RETRAR.relatedDocuments` names `RFDOC`, one-way.
 class RequirementTraceability : public som::SomNode {
  public:
   RequirementTraceability(som::SpecDocument& doc, std::string path);
@@ -25315,6 +25481,8 @@ class ResponsibilityContacts : public som::SomNode {
 };
 
 // Detailed responsibility entry (form).
+//
+// Links: `RSPDT.relatedProcesses` names `BPREN`, one-way.
 class ResponsibilityDetailEntry : public som::SomNode {
  public:
   ResponsibilityDetailEntry(som::SpecDocument& doc, std::string path);
@@ -25791,6 +25959,10 @@ class RiskMonitoring : public som::SomNode {
 };
 
 // Relationships to other risks, assumptions, and project elements.
+//
+// Links: `RR.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,
+// one-way; `RR.relatedRisks` names `RISENT` entries, stored on both
+// (`InverseOf.symmetric`); `RR.relatedAssumptions` names `ASMRE`, one-way.
 class RiskRelationships : public som::SomNode {
  public:
   RiskRelationships(som::SpecDocument& doc, std::string path);
@@ -26021,6 +26193,9 @@ class RoleHolderEntry : public som::SomNode {
 //
 // Defines a specific parent-child inheritance relationship between two roles,
 // including what is inherited and any restrictions.
+//
+// Links: `RLINH.parentRole` names `AZRO.roleName`, one-way; `RLINH.childRole`
+// names `AZRO.roleName`, one-way.
 class RoleInheritanceRuleEntry : public som::SomNode {
  public:
   RoleInheritanceRuleEntry(som::SpecDocument& doc, std::string path);
@@ -26807,6 +26982,9 @@ class ScreenElementFieldSpec : public som::SomNode {
 //
 // Comprehensive specification of a single application screen, covering
 // identity, purpose, authorization, layout, elements, and behavior.
+//
+// Links: `SCETR.relatedBusinessProcesses` names `BPREN`, one-way;
+// `SCETR.relatedUseCases` names `INEN`, one-way.
 class ScreenEntry : public som::SomNode {
  public:
   ScreenEntry(som::SpecDocument& doc, std::string path);
@@ -28553,6 +28731,8 @@ class StageDependencies : public som::SomNode {
 // entry/exit criteria, assigned resources, quality gates, and a
 // deployment plan. Draws from PMBOK phase-gate discipline, SAFe PI
 // planning, and PRINCE2 stage boundary management.
+//
+// Links: `STSC.includedFeatures` names `FPE`, one-way.
 class StageEntry : public som::SomNode {
  public:
   StageEntry(som::SpecDocument& doc, std::string path);
@@ -28920,6 +29100,8 @@ class StagingStrategy : public som::SomNode {
 // Keeps only the scope-framing identity + benefit. Role, interest, influence,
 // concerns and engagement strategy are owned by the canonical SBP.4
 // `StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).
+// [content]'s `stakeholderRef` names that register entry (a
+// `STKRE-STAK-…` section id).
 class StakeholderEntry : public som::SomNode {
  public:
   StakeholderEntry(som::SpecDocument& doc, std::string path);
@@ -29306,6 +29488,8 @@ class SuccessCriterionEntry : public som::SomNode {
 };
 
 // Relationships for success criterion.
+//
+// Links: `SUCRRE.relatedGoals` names `BGE`, one-way.
 class SuccessCriterionRelationships : public som::SomNode {
  public:
   SuccessCriterionRelationships(som::SpecDocument& doc, std::string path);
@@ -30993,6 +31177,8 @@ class TestLevelEntry : public som::SomNode {
 // process, or acceptance criterion. Includes full traceability, preconditions,
 // execution metadata, and pass/fail criteria per ISTQB and IEEE 829
 // Level Test Case / Level Test Procedure structures.
+//
+// Links: `TESCTR.designRef` names `SCREN`, one-way.
 class TestScenarioEntry : public som::SomNode {
  public:
   TestScenarioEntry(som::SpecDocument& doc, std::string path);
@@ -31944,6 +32130,8 @@ class UatTestCycleEntry : public som::SomNode {
 // Individual step within a test scenario. Captures the action, input data,
 // expected result, and pass criteria at fine-grained level per IEEE 829
 // Level Test Procedure structure.
+//
+// Links: `UATSST.uiScreenRef` names `SCREN`, one-way.
 class UatTestStepEntry : public som::SomNode {
  public:
   UatTestStepEntry(som::SpecDocument& doc, std::string path);
@@ -33101,6 +33289,8 @@ class WarrantyServiceLevels : public som::SomNode {
 //
 // Post-acceptance warranty terms: duration, scope, service levels,
 // exclusions, and transition to standard support.
+//
+// Links: `WACO.coveredDeliverables` names `DLVEN`, one-way.
 class WarrantyTerms : public som::SomNode {
  public:
   WarrantyTerms(som::SpecDocument& doc, std::string path);
@@ -33393,6 +33583,11 @@ class WorkflowStepSystem : public som::SomNode {
 };
 
 // Summary entry for a single workflow.
+//
+// [content]'s `workflowRef` names the workflow the row summarizes (a
+// `CUWF-WORK-…` section id of the same process); the row's type, frequency
+// and step counts repeat that workflow's own, whose counts are counted over
+// its steps.
 class WorkflowSummaryEntry : public som::SomNode {
  public:
   WorkflowSummaryEntry(som::SpecDocument& doc, std::string path);
@@ -34394,6 +34589,8 @@ class ActorEntryIdentificationForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string actorType() const;
   void setActorType(const std::string& value);
+  std::string actorKind() const;
+  void setActorKind(const std::string& value);
   std::string category() const;
   void setCategory(const std::string& value);
   std::string realWorldExamples() const;
@@ -43790,6 +43987,12 @@ class CurrentWorkflowEntryContentForm : public som::SomNode {
   void setAverageVolume(const std::string& value);
   std::string criticality() const;
   void setCriticality(const std::string& value);
+  std::optional<long> stepCount() const;
+  void setStepCount(std::optional<long> value);
+  std::optional<long> manualStepCount() const;
+  void setManualStepCount(std::optional<long> value);
+  std::optional<long> errorProneStepCount() const;
+  void setErrorProneStepCount(std::optional<long> value);
 };
 
 // Generated section facade for the `timing` @Form section: its own `content` text followed by one typed member per form field.
@@ -48822,6 +49025,8 @@ class DistributionRecipientEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
+  std::string recipientRef() const;
+  void setRecipientRef(const std::string& value);
   std::string role() const;
   void setRole(const std::string& value);
   std::string organization() const;
@@ -53420,6 +53625,8 @@ class FunctionalRequirementEntryConstraintsForm : public som::SomNode {
   void setAssumptions(const std::string& value);
   std::string constraints() const;
   void setConstraints(const std::string& value);
+  std::string constrainedBy() const;
+  void setConstrainedBy(const std::string& value);
   std::string conflictsWith() const;
   void setConflictsWith(const std::string& value);
 };
@@ -56014,6 +56221,8 @@ class InteractionEntryIdentificationForm : public som::SomNode {
   void setSupportingActors(const std::string& value);
   std::string goalLevel() const;
   void setGoalLevel(const std::string& value);
+  std::string priority() const;
+  void setPriority(const std::string& value);
   std::string designScope() const;
   void setDesignScope(const std::string& value);
 };
@@ -65686,6 +65895,8 @@ class ProcessMetricEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
+  std::string metricRef() const;
+  void setMetricRef(const std::string& value);
   std::string metricCategory() const;
   void setMetricCategory(const std::string& value);
   std::string currentValue() const;
@@ -76394,6 +76605,8 @@ class StageMigrationRiskEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string riskCategory() const;
   void setRiskCategory(const std::string& value);
+  std::string riskRating() const;
+  void setRiskRating(const std::string& value);
 };
 
 // Generated section facade for the `contingency` @Form section: its own `content` text followed by one typed member per form field.
@@ -76970,6 +77183,8 @@ class StageSummaryEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
+  std::string stageRef() const;
+  void setStageRef(const std::string& value);
   std::string stageNumber() const;
   void setStageNumber(const std::string& value);
   std::string scopeSummary() const;
@@ -77352,6 +77567,8 @@ class StakeholderEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
+  std::string stakeholderRef() const;
+  void setStakeholderRef(const std::string& value);
   std::string stakeholderType() const;
   void setStakeholderType(const std::string& value);
   std::string expectedBenefits() const;
@@ -77366,6 +77583,8 @@ class StakeholderRegisterEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
+  std::string stakeholderType() const;
+  void setStakeholderType(const std::string& value);
   std::string influence() const;
   void setInfluence(const std::string& value);
   std::string concerns() const;
@@ -80262,6 +80481,8 @@ class TechnicalRequirementEntryConstraintsForm : public som::SomNode {
   void setAssumptions(const std::string& value);
   std::string constraints() const;
   void setConstraints(const std::string& value);
+  std::string constrainedBy() const;
+  void setConstrainedBy(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -85746,6 +85967,8 @@ class WorkflowSummaryEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
+  std::string workflowRef() const;
+  void setWorkflowRef(const std::string& value);
   std::string workflowType() const;
   void setWorkflowType(const std::string& value);
   std::string frequency() const;

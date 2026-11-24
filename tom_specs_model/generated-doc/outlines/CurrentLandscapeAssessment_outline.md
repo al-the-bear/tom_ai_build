@@ -65,7 +65,7 @@
     - performanceSummary: `ProcessPerformanceSummary` ← (High-level summary of process performance)
       - content @Form(overallMaturity, automationLevel, manualStepsCount, errorProneStepsCount, bottleneckCount, duplicatedEffortAreas, complianceGaps, estimatedAnnualWaste)
       - keyMetrics: `ProcessMetricEntry`[]
-        - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+        - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
     - [1,] processes: `CurrentBusinessProcess`[]
       - content @Form(processOwner, processCategory, processScope, processMaturity), processContext
       - `WorkflowDescriptions`
@@ -73,9 +73,10 @@
         - summaryTable: `WorkflowSummaryTable` ← (Quick reference summary of all workflows)
           - content @Form(totalWorkflows, primaryWorkflows, exceptionWorkflows, averageCycleTime, automationPotential)
           - entries: `WorkflowSummaryEntry`[]
-            - content @Form(workflowType, frequency, averageCycleTime, stepCount, manualStepCount, errorProneStepCount, primaryActors, automationPotential)
+            - content @Form(workflowRef, workflowType, frequency, averageCycleTime, stepCount, manualStepCount, errorProneStepCount, primaryActors, automationPotential)
         - [1,] workflows: `CurrentWorkflowEntry`[]
-          - content @Form(workflowId, workflowType, frequency, averageVolume, criticality), workflowDiagram, timing
+          - content @Form(workflowId, workflowType, frequency, averageVolume, criticality, stepCount, manualStepCount, errorProneStepCount),
+            workflowDiagram, timing
           - triggers: `WorkflowTriggers`
             - content @description
             - triggers: `WorkflowTriggerEntry`[]
@@ -114,25 +115,25 @@
         - efficiencyMetrics: `ProcessMetricCategory`[] ← (Throughput, cycle times, utilization)
           - content @description
           - metrics: `ProcessMetricEntry`[]
-            - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+            - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
         - qualityMetrics: `ProcessMetricCategory`[] ← (Error rates, defect rates, rework rates)
           - content @description
           - metrics: `ProcessMetricEntry`[]
-            - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+            - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
         - volumeMetrics: `ProcessMetricCategory`[] ← (Transaction counts, throughput volumes)
           - content @description
           - metrics: `ProcessMetricEntry`[]
-            - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+            - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
         - costMetrics: `ProcessMetricCategory`[] ← (Cost per transaction, resource costs)
           - content @description
           - metrics: `ProcessMetricEntry`[]
-            - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+            - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
         - manualInterventionMetrics: `ProcessMetricCategory`[] ← (Manual steps, human intervention frequency)
           - content @description
           - metrics: `ProcessMetricEntry`[]
-            - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+            - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
         - items: `ProcessMetricEntry`[]
-          - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
+          - content @Form(metricRef, metricCategory, currentValue, unit), measurement, targets, processReference
         - baselineTable: `MetricsBaselineTable` ← (Summary table for baseline tracking)
           - content @description
           - entries: `MetricsBaselineEntry`[]

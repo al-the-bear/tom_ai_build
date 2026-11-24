@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: delivery-roadmap/1.12
+# Schema: delivery-roadmap/1.13
 
 title-format: "# <!--[DRM]--> Delivery Roadmap"
 section-types:
@@ -1129,7 +1129,7 @@ section-types:
   fsma:
     prefix: FSMA
     format: fsma-form
-    description: Stage assignment details.
+    description: The phase within its stage the feature is delivered in. The stage
   fsmd:
     prefix: FSMD
     format: fsmd-form
@@ -1607,7 +1607,7 @@ form-types:
   stsust-form:
     fields:
       - fieldname: currentStatus
-        description: NotStarted / InPlanning / InProgress / Completed
+        description: "The stage's current status, repeated from it: Planned / Active / Completed / OnHold / Cancelled"
       - fieldname: percentComplete
         description: Completion percentage
       - fieldname: statusComment
@@ -1647,7 +1647,7 @@ form-types:
   stsc-form:
     fields:
       - fieldname: includedFeatures
-        description: Key features explicitly included
+        description: "Key features explicitly included — feature section ids (FPE-ITEM-…), comma-separated"
       - fieldname: excludedDeferred
         description: Features explicitly excluded and deferred
       - fieldname: mvpScope
@@ -1929,9 +1929,9 @@ form-types:
   fedein-form:
     fields:
       - fieldname: dependsOnFeatures
-        description: "Features this requires — feature section ids (FPE-ITEM-…), comma-separated"
+        description: "Derived from the feature dependency rows (FDE) whose source is this feature: the features it requires; edit the rows, not this field. Each names this feature back in its blocksFeatures."
       - fieldname: blocksFeatures
-        description: "Features blocked until this completes — feature section ids (FPE-ITEM-…), comma-separated"
+        description: "Derived from the feature dependency rows (FDE) whose target is this feature: the features blocked until it completes; edit the rows, not this field. Each names this feature back in its dependsOnFeatures."
       - fieldname: externalDependencies
         description: "External systems, APIs, vendors, or approvals"
       - fieldname: dependencyCriticalPath
@@ -2027,7 +2027,6 @@ form-types:
         required: true
         description: High-level description of the data ecosystem
       - fieldname: totalSourceSystems
-        required: true
         description: Number of source systems involved
       - fieldname: totalDataVolume
         description: Aggregate data volume across all sources

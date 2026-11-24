@@ -72,6 +72,46 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated enum for `ActorKind` values.
+  public enum ActorKind {
+    /**
+     * A person using the system.
+     */
+    human("human"),
+    /**
+     * A system of the same organisation, inside the boundary the solution is
+     * built within.
+     */
+    internalSystem("internalSystem"),
+    /**
+     * A system of another organisation, outside that boundary.
+     */
+    externalSystem("externalSystem"),
+    /**
+     * A time-triggered actor: a scheduled job or timer.
+     */
+    scheduled("scheduled");
+
+    public final String token;
+
+    ActorKind(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a ActorKind, or null.
+    public static ActorKind parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (ActorKind v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
   // Generated enum for `AlertSeverity` values.
   public enum AlertSeverity {
     /**
@@ -1580,6 +1620,64 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated enum for `RequirementDependencyType` values.
+  public enum RequirementDependencyType {
+    /**
+     * The far end must be met before this requirement can be: it is needed
+     * first. Collected in an organizational requirement's `OREP.dependencies`.
+     */
+    prerequisite("prerequisite"),
+    /**
+     * The two requirements depend on each other; the row stands at both ends.
+     */
+    bidirectional("bidirectional"),
+    /**
+     * The far end is this requirement's parent: this requirement details part
+     * of it.
+     */
+    parentChild("parentChild"),
+    /**
+     * The two requirements cannot both be met as stated; the row stands at both
+     * ends and both `FREC.conflictsWith` derive from it.
+     */
+    conflict("conflict"),
+    /**
+     * This requirement refines the far end: it states it more precisely
+     * without changing what it asks for.
+     */
+    refinement("refinement"),
+    /**
+     * The far end sets a limit on how this requirement may be implemented.
+     * Collected, with the row's description, in `FREC.constrainedBy` and
+     * `TREC.constrainedBy`.
+     */
+    constrainedBy("constrainedBy"),
+    /**
+     * The far end is named in this requirement's description and has no row of
+     * another kind: the row `deriveFields` writes for an id found there.
+     */
+    namedInText("namedInText");
+
+    public final String token;
+
+    RequirementDependencyType(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a RequirementDependencyType, or null.
+    public static RequirementDependencyType parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (RequirementDependencyType v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
   // Generated enum for `RoleMembershipSource` values.
   public enum RoleMembershipSource {
     /**
@@ -2608,9 +2706,10 @@ public final class TomSomV0 {
 
     // Canonical, enumerated acceptance criteria (SR-54 explicit link).
     //
-    // The single source of truth for the full set of traceable acceptance
-    // criteria; this summary references — rather than duplicates — it. The same
-    // [AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.
+    // A copy of the acceptance criteria the acceptance plan holds (the QAP-CRI
+    // seed; in the Quality & Acceptance Plan its root's acceptance criteria):
+    // it is not edited here — `deriveFields` writes it from the holder, and
+    // the rendition marks it as a copy (S1, `@SameAs`).
     public AcceptanceCriteriaList detailedCriteria() {
       return new AcceptanceCriteriaList(doc, path + "/detailedCriteria");
     }
@@ -4497,6 +4596,11 @@ public final class TomSomV0 {
   }
 
   // Architecture Decision Record (ADR) entry.
+  //
+  // Links: `ADRR.relatedDecisions` names `ARDE` entries, stored on both
+  // (`InverseOf.symmetric`); `ADRR.supersedes` names `ARDE`, answered by
+  // `ADRR.supersededBy` at the other end; `ADRR.supersededBy` names `ARDE`,
+  // answered by `ADRR.supersedes` at the other end.
   public static final class ArchitectureDecisionRecord extends SomNode {
     public ArchitectureDecisionRecord(SpecDocument doc, String path) {
       super(doc, path);
@@ -4565,6 +4669,9 @@ public final class TomSomV0 {
   }
 
   // Architecture principle entry.
+  //
+  // Links: `ARPRENGO.relatedPrinciples` names `ARPR` entries, stored on both
+  // (`InverseOf.symmetric`).
   public static final class ArchitecturePrincipleEntry extends SomNode {
     public ArchitecturePrincipleEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -6573,6 +6680,8 @@ public final class TomSomV0 {
   // Comprehensive business object specification following domain-driven design
   // patterns. Business objects represent key domain concepts with behavior,
   // state, and business rules.
+  //
+  // Links: `BJOEN-DOMA.relatedObjects` names `BJOEN`, one-way.
   public static final class BusinessObjectEntry extends SomNode {
     public BusinessObjectEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -9669,6 +9778,9 @@ public final class TomSomV0 {
   //
   // Documents one component risk: category, probability, impact, detection
   // methods, mitigation strategy and status, residual risk, and ownership.
+  //
+  // Links: `CORIENGO.relatedRisks` is stored on both entries
+  // (`InverseOf.symmetric`).
   public static final class ComponentRiskEntry extends SomNode {
     public ComponentRiskEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -11030,6 +11142,15 @@ public final class TomSomV0 {
   //
   // Detailed documentation of a single workflow within a business process.
   // Includes triggers, steps, actors, inputs, outputs, and timing.
+  //
+  // The workflow's own inputs, outputs and business rules
+  // (`WOINEN-INPU-LST`, `WOOUEN-OUTP-LST`, `WOBURU-BUSI-LST`) are independent
+  // of the same lists on its steps, not a superset of them: a workflow input
+  // enters the workflow from outside, while a step's inputs also include what
+  // earlier steps produced; a workflow output leaves it, while a step's outputs
+  // include intermediate results; a workflow-level rule governs the whole
+  // workflow, a step's rule that step only. Neither side is derived from the
+  // other.
   public static final class CurrentWorkflowEntry extends SomNode {
     public CurrentWorkflowEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -11164,7 +11285,7 @@ public final class TomSomV0 {
   // per the public-standards order of the `@StandardReferences` below.
   public static final class D00SolutionBlueprint extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.12";
+    public static final String MODEL_VERSION = "1.13";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11302,7 +11423,7 @@ public final class TomSomV0 {
   // and the inventory / migration plan for the systems being replaced.
   public static final class D01CurrentLandscapeAssessment extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.12";
+    public static final String MODEL_VERSION = "1.13";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11427,7 +11548,7 @@ public final class TomSomV0 {
   // cross-process analysis, exception handling, and KPIs.
   public static final class D02TargetOperatingModel extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.12";
+    public static final String MODEL_VERSION = "1.13";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11563,7 +11684,7 @@ public final class TomSomV0 {
   // integrity constraints.
   public static final class D03InformationModel extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.12";
+    public static final String MODEL_VERSION = "1.13";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11759,7 +11880,7 @@ public final class TomSomV0 {
   // and coverage analysis.
   public static final class D04RequirementsSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.12";
+    public static final String MODEL_VERSION = "1.13";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11888,7 +12009,7 @@ public final class TomSomV0 {
   // and traceability.
   public static final class D05InteractionScenarios extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.12";
+    public static final String MODEL_VERSION = "1.13";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12009,7 +12130,7 @@ public final class TomSomV0 {
   // and translation handling.
   public static final class D06ArchitectureTechnologySpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.12";
+    public static final String MODEL_VERSION = "1.13";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12154,7 +12275,7 @@ public final class TomSomV0 {
   // migration, operational concerns, and cross-boundary error handling.
   public static final class D07IntegrationInterfaceSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.12";
+    public static final String MODEL_VERSION = "1.13";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12290,7 +12411,7 @@ public final class TomSomV0 {
   // compliance framework.
   public static final class D08SecurityAccessSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.12";
+    public static final String MODEL_VERSION = "1.13";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12428,7 +12549,7 @@ public final class TomSomV0 {
   // mockups.
   public static final class D09ExperienceDesignSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.12";
+    public static final String MODEL_VERSION = "1.13";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12579,7 +12700,7 @@ public final class TomSomV0 {
   // Full quality plan combining quality goals and the acceptance plan.
   public static final class D10QualityAcceptancePlan extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.12";
+    public static final String MODEL_VERSION = "1.13";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12760,7 +12881,7 @@ public final class TomSomV0 {
   // framework.
   public static final class D11DeliveryRoadmap extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.12";
+    public static final String MODEL_VERSION = "1.13";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12891,7 +13012,7 @@ public final class TomSomV0 {
   // transfer, and warranty/support.
   public static final class D12TransitionRolloutPlan extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.12";
+    public static final String MODEL_VERSION = "1.13";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -13052,7 +13173,7 @@ public final class TomSomV0 {
   // models, the process-step interactions, and the client-side experience seed.
   public static final class D13CodeSpecsProjection extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.12";
+    public static final String MODEL_VERSION = "1.13";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -13967,6 +14088,8 @@ public final class TomSomV0 {
   // to be adjusted: business-process cohesion sometimes merges two aggregates
   // into one unit or splits one across two, and stating that per entity keeps
   // even the exception readable. Empty means no adjustment.
+  //
+  // Links: `DAENT-RELA.parentEntities` names `DAENT.entityName`, one-way.
   public static final class DataEntityEntry extends SomNode {
     public DataEntityEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -16376,6 +16499,9 @@ public final class TomSomV0 {
   // A design goal entry (form).
   //
   // Each goal represents a measurable UI objective with success criteria.
+  //
+  // Links: `DGOEN.relatedPrinciples` names `DPEN`, answered by
+  // `DPEN.relatedGoals` at the other end.
   public static final class DesignGoalEntry extends SomNode {
     public DesignGoalEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -16425,6 +16551,9 @@ public final class TomSomV0 {
   }
 
   // Design pattern entry — a specific design pattern to be used.
+  //
+  // Links: `DEPAENCO.relatedPatterns` names `DSPT` entries, stored on both
+  // (`InverseOf.symmetric`).
   public static final class DesignPatternEntry extends SomNode {
     public DesignPatternEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -16536,6 +16665,9 @@ public final class TomSomV0 {
   // A design principle entry (form).
   //
   // Each principle guides UI decisions with rationale and examples.
+  //
+  // Links: `DPEN.relatedGoals` names `DGOEN`, answered by
+  // `DGOEN.relatedPrinciples` at the other end.
   public static final class DesignPrincipleEntry extends SomNode {
     public DesignPrincipleEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -17151,6 +17283,11 @@ public final class TomSomV0 {
   //
   // Detailed information about a distribution list recipient including
   // their role, contact information, preferences, and access levels.
+  // The full distribution (`FUDI`) holds the recipients; the executive-summary
+  // list and a custom group's members are selections of it: there
+  // `recipientRef` names the full-distribution recipient an entry is (a
+  // `DSRC-ITEM-…` section id of `FUDI`) and the entry's other values repeat
+  // that recipient's. In the full distribution `recipientRef` stays empty.
   public static final class DistributionRecipientEntry extends SomNode {
     public DistributionRecipientEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -17367,6 +17504,11 @@ public final class TomSomV0 {
   // Standard document header present at the top of every TomSpecs document.
   //
   // All fields are optional strings representing the document's form fields.
+  // The revision history is the holder of the document's version, date and
+  // author: the header shows those of its newest revision entry (`RVENT`, the
+  // last of the list, which is ordered newest last), derived from each
+  // document's own history. A document without a revision entry derives
+  // nothing. The id, the project and the status are the header's own.
   //
   // A leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share
   // an unchanged header by identity and `cloneShallow` needs no child handling.
@@ -17927,6 +18069,9 @@ public final class TomSomV0 {
   }
 
   // A domain process entry (form).
+  //
+  // Links: `DPEF.relatedProcesses` names `DOPREN` entries, stored on both
+  // (`InverseOf.symmetric`).
   public static final class DomainProcessEntry extends SomNode {
     public DomainProcessEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -17996,6 +18141,9 @@ public final class TomSomV0 {
   }
 
   // A domain term entry (form).
+  //
+  // Links: `DTE.relatedTerms` names `DTE` entries, stored on both
+  // (`InverseOf.symmetric`).
   public static final class DomainTermEntry extends SomNode {
     public DomainTermEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -19722,6 +19870,8 @@ public final class TomSomV0 {
   }
 
   // An export format entry (form).
+  //
+  // Links: `EXID.relatedDataEntities` names `DAENT.entityName`, one-way.
   public static final class ExportFormatEntry extends SomNode {
     public ExportFormatEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -20417,7 +20567,9 @@ public final class TomSomV0 {
   // 13.4.4. Feature Dependencies.
   //
   // Cross-feature dependencies affecting staging order, critical path
-  // analysis, and delivery sequencing.
+  // analysis, and delivery sequencing. The rows are the holder of every
+  // feature dependency: each feature's `FEDEIN.dependsOnFeatures` and
+  // `blocksFeatures` are derived from them.
   public static final class FeatureDependencies extends SomNode {
     public FeatureDependencies(SpecDocument doc, String path) {
       super(doc, path);
@@ -20705,7 +20857,9 @@ public final class TomSomV0 {
       return new FeatureStageMappingContentForm(doc, path + "/content");
     }
 
-    // Stage assignment details.
+    // The phase within its stage the feature is delivered in. The stage
+    // itself is the feature's (`FESTAS.targetStage`), reached through
+    // [content]'s `featureId`; the matrix does not restate it.
     public FeatureStageMappingAssignmentForm assignment() {
       return new FeatureStageMappingAssignmentForm(doc, path + "/FSMA");
     }
@@ -21197,6 +21351,8 @@ public final class TomSomV0 {
   // A function entry (form).
   //
   // Business function specification in the functional decomposition.
+  //
+  // Links: `FUNCT.parentFunction` names `FUNCT`, one-way.
   public static final class FunctionEntry extends SomNode {
     public FunctionEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -21524,6 +21680,10 @@ public final class TomSomV0 {
   // Documents a specific gap between current capabilities and business needs:
   // category, severity, quantified cost, stakeholders, compliance drivers,
   // workarounds, resolution approach, and success criteria.
+  //
+  // Links: `GAENDI.relatedPainPoints` names `PAPE`, answered by
+  // `PAPOR1.relatedGaps` at the other end; `GAENRE.dependsOnGaps` names `GAPE`,
+  // one-way.
   public static final class GapEntry extends SomNode {
     public GapEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -23561,6 +23721,10 @@ public final class TomSomV0 {
   //
   // Comprehensive interaction definition following Cockburn's fully dressed
   // use case template. Seeds the ISC (Interaction Scenarios) document.
+  //
+  // Links: `UCSC.relatedUseCases` names `INEN`, one-way; `INTR.relatedUseCase`
+  // names `INEN`, one-way; `INTR.relatedTestCases` names `TSSC`, `RQTSC`,
+  // one-way.
   public static final class InteractionEntry extends SomNode {
     public InteractionEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -24281,15 +24445,19 @@ public final class TomSomV0 {
     }
   }
 
-  // ISO/IEC 25010:2023 product-quality cross-map (derived).
+  // ISO/IEC 25010:2023 product-quality cross-map.
   //
-  // A *derived* view over the canonical quality spine: the eight
+  // A coverage view over the canonical quality spine: the eight
   // `*Characteristic` classes under [SystemQualityGoals] are the single source
   // of truth for the taxonomy (L34C-8); this cross-map does not re-declare it.
-  // Each entry references one of those characteristics (via the closed
-  // [Iso25010Characteristic] enum) and records which quality goals / NFRs
-  // address it and the target metric — so coverage of any 25010:2023
-  // characteristic (e.g. compatibility, flexibility) cannot be silently missed.
+  // Each entry names one of those characteristics (via the closed
+  // [Iso25010Characteristic] enum) and records, as authored text, which
+  // quality goals / NFRs address it and the target metric. Nothing in it is
+  // derived: the characteristics are eight sections, not the rows of one
+  // list, and what addresses each is the author's statement. That every
+  // characteristic has its entry is a process check, so coverage of any
+  // 25010:2023 characteristic (e.g. compatibility, flexibility) cannot be
+  // silently missed.
   public static final class Iso25010Coverage extends SomNode {
     public Iso25010Coverage(SpecDocument doc, String path) {
       super(doc, path);
@@ -24635,6 +24803,9 @@ public final class TomSomV0 {
   }
 
   // A key concept entry (form).
+  //
+  // Links: `KECON.relatedConcepts` names `KECON` entries, stored on both
+  // (`InverseOf.symmetric`).
   public static final class KeyConceptEntry extends SomNode {
     public KeyConceptEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -26817,6 +26988,10 @@ public final class TomSomV0 {
   // Detailed migration risk documentation following enterprise risk
   // management practices. Captures full risk lifecycle from identification
   // through resolution.
+  //
+  // Links: `MIRIR1.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,
+  // one-way; `MIRIR1.relatedDecisions` names `ARDE`, one-way;
+  // `MIRIR1.relatedRisks` is stored on both entries (`InverseOf.symmetric`).
   public static final class MigrationRiskEntry extends SomNode {
     public MigrationRiskEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -27643,6 +27818,8 @@ public final class TomSomV0 {
   }
 
   // A must-pass criterion entry (form).
+  //
+  // Links: `MPCEG.dependsOnCriteria` names `MSTPCR`, one-way.
   public static final class MustPassCriterionEntry extends SomNode {
     public MustPassCriterionEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -29761,6 +29938,11 @@ public final class TomSomV0 {
   }
 
   // Relationships for pain point.
+  //
+  // Links: `PAPOR1.relatedGaps` names `GAPE`, answered by
+  // `GAENDI.relatedPainPoints` at the other end; `PAPOR1.dependsOn` names
+  // `PAPE`, one-way; `PAPOR1.relatedPainPoints` is stored on both entries
+  // (`InverseOf.symmetric`).
   public static final class PainPointRelationships extends SomNode {
     public PainPointRelationships(SpecDocument doc, String path) {
       super(doc, path);
@@ -30535,6 +30717,9 @@ public final class TomSomV0 {
   }
 
   // Pipeline job entry.
+  //
+  // Links: `PJE.parentStage` names `PSE`, one-way; `PJED.dependsOn` names `PJE`,
+  // one-way.
   public static final class PipelineJobEntry extends SomNode {
     public PipelineJobEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -31618,6 +31803,11 @@ public final class TomSomV0 {
   // A process metric entry (form).
   //
   // A single measurable metric with current value and measurement details.
+  // The class serves a process's own metric list and the key metrics
+  // (`PME-KEYM-LST`), which summarize the processes' metrics: a key metric's
+  // `metricRef` names the metric it is (a `PME-METR-…` section id) and its
+  // other values repeat that metric's; in a process's own list `metricRef`
+  // stays empty.
   public static final class ProcessMetricEntry extends SomNode {
     public ProcessMetricEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -32598,6 +32788,8 @@ public final class TomSomV0 {
   }
 
   // A prototype feature entry.
+  //
+  // Links: `PFE.relatedGoals` names `PGE`, one-way.
   public static final class PrototypeFeatureEntry extends SomNode {
     public PrototypeFeatureEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -32614,6 +32806,9 @@ public final class TomSomV0 {
   // 10.13.2. Selected Feature Subset.
   //
   // Features included in the prototype.
+  //
+  // Links: `PFSS.includedFeatures` names `PFE`, one-way; `PFSS.excludedFeatures`
+  // names `PFE`, one-way.
   public static final class PrototypeFeatureSubset extends SomNode {
     public PrototypeFeatureSubset(SpecDocument doc, String path) {
       super(doc, path);
@@ -32664,6 +32859,8 @@ public final class TomSomV0 {
   }
 
   // A prototype goal entry.
+  //
+  // Links: `PGE.relatedRisks` names `RISENT`, one-way.
   public static final class PrototypeGoalEntry extends SomNode {
     public PrototypeGoalEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -32856,6 +33053,9 @@ public final class TomSomV0 {
   //
   // Defines a quality category with its attributes, weight, and relationship
   // to other categories.
+  //
+  // Links: `QCARL.relatedCategories` names `QCATE` entries, stored on both
+  // (`InverseOf.symmetric`); `QCARL.parentCategory` names `QCATE`, one-way.
   public static final class QualityCategoryEntry extends SomNode {
     public QualityCategoryEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -33467,6 +33667,10 @@ public final class TomSomV0 {
   //
   // Detailed metadata for a single referenced document including
   // identification, classification, status, and applicability.
+  //
+  // Links: `RDEL.supersedes` names `RFDOC`, answered by `RDEL.supersededBy` at
+  // the other end; `RDEL.supersededBy` names `RFDOC`, answered by
+  // `RDEL.supersedes` at the other end.
   public static final class ReferenceDocumentEntry extends SomNode {
     public ReferenceDocumentEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -34174,6 +34378,10 @@ public final class TomSomV0 {
   }
 
   // A report entry (form).
+  //
+  // Links: `REID.relatedBusinessProcesses` names `BPREN`, one-way;
+  // `REID.relatedUseCases` names `INEN`, one-way; `REID.relatedDataEntities`
+  // names `DAENT.entityName`, one-way.
   public static final class ReportEntry extends SomNode {
     public ReportEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -34597,7 +34805,14 @@ public final class TomSomV0 {
 
   // 4.3.1.n.5. Dependencies.
   //
-  // Dependencies this requirement has on other requirements.
+  // Dependencies this requirement has on other requirements. Each dependency
+  // is one row, stored once, on the requirement it applies to: a directional
+  // dependency (prerequisite, parent-child, refinement, constrained by) is not
+  // written again as its converse on the other requirement, which reaches it
+  // through navigation. A conflict and a bidirectional dependency stand at both
+  // ends. The rows are the holder of every dependency; the requirement's
+  // `constrainedBy`, `conflictsWith` and `OREP.dependencies` are derived from
+  // them.
   public static final class RequirementDependencies extends SomNode {
     public RequirementDependencies(SpecDocument doc, String path) {
       super(doc, path);
@@ -34641,10 +34856,11 @@ public final class TomSomV0 {
 
     // The other requirement in this dependency, named by section id.
     //
-    // The row states the *kind* of relation — prerequisite, bidirectional,
-    // parent-child, conflict, refinement — and this names its far end; the
-    // requirement that owns the entry is always the near end, so neither half
-    // is readable alone. Expect another requirement of this document there. A
+    // The row states the *kind* of relation ([RequirementDependencyType]) and
+    // this names its far end; the requirement that owns the entry is always the
+    // near end, so neither half is readable alone. A conflict or bidirectional
+    // row is answered by a row of the same kind on the far end
+    // (`InverseOf.symmetric`); a directional row has no converse row. Expect another requirement of this document there. A
     // dependency on something that is not itself a requirement is a constraint
     // and belongs with the assumptions and constraints instead.
     //
@@ -34778,6 +34994,8 @@ public final class TomSomV0 {
   // 4.3.1.n.6. Traceability.
   //
   // Traceability links to goals, use cases, processes, and other artifacts.
+  //
+  // Links: `RETRAR.relatedDocuments` names `RFDOC`, one-way.
   public static final class RequirementTraceability extends SomNode {
     public RequirementTraceability(SpecDocument doc, String path) {
       super(doc, path);
@@ -35211,6 +35429,8 @@ public final class TomSomV0 {
   }
 
   // Detailed responsibility entry (form).
+  //
+  // Links: `RSPDT.relatedProcesses` names `BPREN`, one-way.
   public static final class ResponsibilityDetailEntry extends SomNode {
     public ResponsibilityDetailEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -35987,6 +36207,10 @@ public final class TomSomV0 {
   }
 
   // Relationships to other risks, assumptions, and project elements.
+  //
+  // Links: `RR.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,
+  // one-way; `RR.relatedRisks` names `RISENT` entries, stored on both
+  // (`InverseOf.symmetric`); `RR.relatedAssumptions` names `ASMRE`, one-way.
   public static final class RiskRelationships extends SomNode {
     public RiskRelationships(SpecDocument doc, String path) {
       super(doc, path);
@@ -36337,6 +36561,9 @@ public final class TomSomV0 {
   //
   // Defines a specific parent-child inheritance relationship between two roles,
   // including what is inherited and any restrictions.
+  //
+  // Links: `RLINH.parentRole` names `AZRO.roleName`, one-way; `RLINH.childRole`
+  // names `AZRO.roleName`, one-way.
   public static final class RoleInheritanceRuleEntry extends SomNode {
     public RoleInheritanceRuleEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -37556,6 +37783,9 @@ public final class TomSomV0 {
   //
   // Comprehensive specification of a single application screen, covering
   // identity, purpose, authorization, layout, elements, and behavior.
+  //
+  // Links: `SCETR.relatedBusinessProcesses` names `BPREN`, one-way;
+  // `SCETR.relatedUseCases` names `INEN`, one-way.
   public static final class ScreenEntry extends SomNode {
     public ScreenEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -40388,6 +40618,8 @@ public final class TomSomV0 {
   // entry/exit criteria, assigned resources, quality gates, and a
   // deployment plan. Draws from PMBOK phase-gate discipline, SAFe PI
   // planning, and PRINCE2 stage boundary management.
+  //
+  // Links: `STSC.includedFeatures` names `FPE`, one-way.
   public static final class StageEntry extends SomNode {
     public StageEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -41012,6 +41244,8 @@ public final class TomSomV0 {
   // Keeps only the scope-framing identity + benefit. Role, interest, influence,
   // concerns and engagement strategy are owned by the canonical SBP.4
   // `StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).
+  // [content]'s `stakeholderRef` names that register entry (a
+  // `STKRE-STAK-…` section id).
   public static final class StakeholderEntry extends SomNode {
     public StakeholderEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -41671,6 +41905,8 @@ public final class TomSomV0 {
   }
 
   // Relationships for success criterion.
+  //
+  // Links: `SUCRRE.relatedGoals` names `BGE`, one-way.
   public static final class SuccessCriterionRelationships extends SomNode {
     public SuccessCriterionRelationships(SpecDocument doc, String path) {
       super(doc, path);
@@ -44516,6 +44752,8 @@ public final class TomSomV0 {
   // process, or acceptance criterion. Includes full traceability, preconditions,
   // execution metadata, and pass/fail criteria per ISTQB and IEEE 829
   // Level Test Case / Level Test Procedure structures.
+  //
+  // Links: `TESCTR.designRef` names `SCREN`, one-way.
   public static final class TestScenarioEntry extends SomNode {
     public TestScenarioEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -46104,6 +46342,8 @@ public final class TomSomV0 {
   // Individual step within a test scenario. Captures the action, input data,
   // expected result, and pass criteria at fine-grained level per IEEE 829
   // Level Test Procedure structure.
+  //
+  // Links: `UATSST.uiScreenRef` names `SCREN`, one-way.
   public static final class UatTestStepEntry extends SomNode {
     public UatTestStepEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -48050,6 +48290,8 @@ public final class TomSomV0 {
   //
   // Post-acceptance warranty terms: duration, scope, service levels,
   // exclusions, and transition to standard support.
+  //
+  // Links: `WACO.coveredDeliverables` names `DLVEN`, one-way.
   public static final class WarrantyTerms extends SomNode {
     public WarrantyTerms(SpecDocument doc, String path) {
       super(doc, path);
@@ -48510,6 +48752,11 @@ public final class TomSomV0 {
   }
 
   // Summary entry for a single workflow.
+  //
+  // [content]'s `workflowRef` names the workflow the row summarizes (a
+  // `CUWF-WORK-…` section id of the same process); the row's type, frequency
+  // and step counts repeat that workflow's own, whose counts are counted over
+  // its steps.
   public static final class WorkflowSummaryEntry extends SomNode {
     public WorkflowSummaryEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -51708,6 +51955,14 @@ public final class TomSomV0 {
 
     public void actorType(String value) {
       doc.setFormField(path, "actorType", value);
+    }
+
+    public ActorKind actorKind() {
+      return ActorKind.parse(doc.formField(path, "actorKind"));
+    }
+
+    public void setActorKind(ActorKind value) {
+      doc.setFormField(path, "actorKind", value == null ? "" : value.token);
     }
 
     public String category() {
@@ -82274,6 +82529,36 @@ public final class TomSomV0 {
     public void criticality(String value) {
       doc.setFormField(path, "criticality", value);
     }
+
+    public Integer stepCount() {
+      String v = doc.formField(path, "stepCount");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void stepCount(Integer value) {
+      doc.setFormField(path, "stepCount", value == null ? "" : String.valueOf(value));
+    }
+
+    public Integer manualStepCount() {
+      String v = doc.formField(path, "manualStepCount");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void manualStepCount(Integer value) {
+      doc.setFormField(path, "manualStepCount", value == null ? "" : String.valueOf(value));
+    }
+
+    public Integer errorProneStepCount() {
+      String v = doc.formField(path, "errorProneStepCount");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void errorProneStepCount(Integer value) {
+      doc.setFormField(path, "errorProneStepCount", value == null ? "" : String.valueOf(value));
+    }
   }
 
   // Generated section facade for the `timing` @Form section: its own content
@@ -98457,6 +98742,15 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
+    public String recipientRef() {
+      String v = doc.formField(path, "recipientRef");
+      return v == null ? "" : v;
+    }
+
+    public void recipientRef(String value) {
+      doc.setFormField(path, "recipientRef", value);
+    }
+
     public String role() {
       String v = doc.formField(path, "role");
       return v == null ? "" : v;
@@ -113474,6 +113768,15 @@ public final class TomSomV0 {
       doc.setFormField(path, "constraints", value);
     }
 
+    public String constrainedBy() {
+      String v = doc.formField(path, "constrainedBy");
+      return v == null ? "" : v;
+    }
+
+    public void constrainedBy(String value) {
+      doc.setFormField(path, "constrainedBy", value);
+    }
+
     public String conflictsWith() {
       String v = doc.formField(path, "conflictsWith");
       return v == null ? "" : v;
@@ -121756,6 +122059,14 @@ public final class TomSomV0 {
 
     public void goalLevel(String value) {
       doc.setFormField(path, "goalLevel", value);
+    }
+
+    public Priority priority() {
+      return Priority.parse(doc.formField(path, "priority"));
+    }
+
+    public void setPriority(Priority value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
 
     public String designScope() {
@@ -153580,6 +153891,15 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
+    public String metricRef() {
+      String v = doc.formField(path, "metricRef");
+      return v == null ? "" : v;
+    }
+
+    public void metricRef(String value) {
+      doc.setFormField(path, "metricRef", value);
+    }
+
     public String metricCategory() {
       String v = doc.formField(path, "metricCategory");
       return v == null ? "" : v;
@@ -165219,13 +165539,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String dependencyType() {
-      String v = doc.formField(path, "dependencyType");
-      return v == null ? "" : v;
+    public RequirementDependencyType dependencyType() {
+      return RequirementDependencyType.parse(doc.formField(path, "dependencyType"));
     }
 
-    public void dependencyType(String value) {
-      doc.setFormField(path, "dependencyType", value);
+    public void setDependencyType(RequirementDependencyType value) {
+      doc.setFormField(path, "dependencyType", value == null ? "" : value.token);
     }
 
     public String description() {
@@ -188353,6 +188672,14 @@ public final class TomSomV0 {
     public void riskCategory(String value) {
       doc.setFormField(path, "riskCategory", value);
     }
+
+    public ImportanceBand riskRating() {
+      return ImportanceBand.parse(doc.formField(path, "riskRating"));
+    }
+
+    public void setRiskRating(ImportanceBand value) {
+      doc.setFormField(path, "riskRating", value == null ? "" : value.token);
+    }
   }
 
   // Generated section facade for the `contingency` @Form section: its own content
@@ -190269,6 +190596,15 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
+    public String stageRef() {
+      String v = doc.formField(path, "stageRef");
+      return v == null ? "" : v;
+    }
+
+    public void stageRef(String value) {
+      doc.setFormField(path, "stageRef", value);
+    }
+
     public String stageNumber() {
       String v = doc.formField(path, "stageNumber");
       return v == null ? "" : v;
@@ -191525,6 +191861,15 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
+    public String stakeholderRef() {
+      String v = doc.formField(path, "stakeholderRef");
+      return v == null ? "" : v;
+    }
+
+    public void stakeholderRef(String value) {
+      doc.setFormField(path, "stakeholderRef", value);
+    }
+
     public String stakeholderType() {
       String v = doc.formField(path, "stakeholderType");
       return v == null ? "" : v;
@@ -191563,6 +191908,15 @@ public final class TomSomV0 {
 
     public void content(String value) {
       doc.setContent(path, value);
+    }
+
+    public String stakeholderType() {
+      String v = doc.formField(path, "stakeholderType");
+      return v == null ? "" : v;
+    }
+
+    public void stakeholderType(String value) {
+      doc.setFormField(path, "stakeholderType", value);
     }
 
     public ImportanceBand influence() {
@@ -201118,6 +201472,15 @@ public final class TomSomV0 {
 
     public void constraints(String value) {
       doc.setFormField(path, "constraints", value);
+    }
+
+    public String constrainedBy() {
+      String v = doc.formField(path, "constrainedBy");
+      return v == null ? "" : v;
+    }
+
+    public void constrainedBy(String value) {
+      doc.setFormField(path, "constrainedBy", value);
     }
   }
 
@@ -219227,6 +219590,15 @@ public final class TomSomV0 {
 
     public void content(String value) {
       doc.setContent(path, value);
+    }
+
+    public String workflowRef() {
+      String v = doc.formField(path, "workflowRef");
+      return v == null ? "" : v;
+    }
+
+    public void workflowRef(String value) {
+      doc.setFormField(path, "workflowRef", value);
     }
 
     public String workflowType() {
