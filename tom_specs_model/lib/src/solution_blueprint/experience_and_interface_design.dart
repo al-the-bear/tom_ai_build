@@ -1053,6 +1053,9 @@ accessibility goals → semantic labels and focus management.
 /// A design goal entry (form).
 ///
 /// Each goal represents a measurable UI objective with success criteria.
+///
+/// Links: `DGOEN.relatedPrinciples` names `DPEN`, answered by
+/// `DPEN.relatedGoals` at the other end.
 @StandardReferences([
   'ISO 9241-11:2018 — usability objectives are stated as measurable effectiveness and efficiency targets',
   'ISO 9241-210:2019 — human-centred design sets measurable usability goals',
@@ -1094,7 +1097,13 @@ class DesignGoalEntry extends DocSpecsSection {
       'relatedPrinciples',
       String,
       'Related Principles',
-      hint: 'Design principles that support this goal',
+      hint:
+          'Design principles that support this goal — design principle '
+          'section ids (DPEN-ITEM-…), comma-separated; each names this goal '
+          'back',
+      refersTo: ['DPEN.@sectionId'],
+      multiple: true,
+      inverseOf: InverseOf(['DPEN.relatedGoals']),
     ),
   ])
   @override
@@ -1167,6 +1176,9 @@ Principles configure shared behaviors:
 /// A design principle entry (form).
 ///
 /// Each principle guides UI decisions with rationale and examples.
+///
+/// Links: `DPEN.relatedGoals` names `DGOEN`, answered by
+/// `DGOEN.relatedPrinciples` at the other end.
 @StandardReferences(
   [
     'ISO 9241-110:2020 — interaction principles such as suitability for the task and conformity with user expectations',
@@ -1212,7 +1224,12 @@ class DesignPrincipleEntry extends DocSpecsSection {
       'relatedGoals',
       String,
       'Related Goals',
-      hint: 'Design goals this principle supports',
+      hint:
+          'Design goals this principle supports — design goal section ids '
+          '(DGOEN-ITEM-…), comma-separated; each names this principle back',
+      refersTo: ['DGOEN.@sectionId'],
+      multiple: true,
+      inverseOf: InverseOf(['DGOEN.relatedPrinciples']),
     ),
   ])
   @override
@@ -1824,6 +1841,9 @@ Screens generate TomScaffold configurations with:
 ///
 /// Comprehensive specification of a single application screen, covering
 /// identity, purpose, authorization, layout, elements, and behavior.
+///
+/// Links: `SCETR.relatedBusinessProcesses` names `BPREN`, one-way;
+/// `SCETR.relatedUseCases` names `INEN`, one-way.
 @StandardReferences(
   [
     'ISO 9241-151:2008 — the content objects and structure of a single interface screen',
@@ -1913,7 +1933,11 @@ class ScreenEntry extends DocSpecsSection {
       'relatedUseCases',
       String,
       'Related Use Cases',
-      hint: 'ISC references this screen serves',
+      hint:
+          'Use cases (interactions) this screen serves — interaction section '
+          'ids (INEN-INTE-…), comma-separated',
+      refersTo: ['INEN.@sectionId'],
+      multiple: true,
     ),
     Field(
       'relatedRequirements',
@@ -1937,7 +1961,11 @@ class ScreenEntry extends DocSpecsSection {
       'relatedBusinessProcesses',
       String,
       'Related Business Processes',
-      hint: 'TOM references where this screen appears',
+      hint:
+          'Business processes where this screen appears — process section ids '
+          '(BPREN-PROC-…), comma-separated',
+      refersTo: ['BPREN.@sectionId'],
+      multiple: true,
     ),
     Field(
       'dataEntities',
@@ -6077,6 +6105,10 @@ class PrintAndExportLayout extends DocSpecsSection {
 // ---------------------------------------------------------------------------
 
 /// A report entry (form).
+///
+/// Links: `REID.relatedBusinessProcesses` names `BPREN`, one-way;
+/// `REID.relatedUseCases` names `INEN`, one-way; `REID.relatedDataEntities`
+/// names `DAENT.entityName`, one-way.
 @StandardReferences(
   [
     'ISO/IEC/IEEE 26514:2022 — designs and develops information for use as a report',
@@ -6135,19 +6167,31 @@ class ReportEntry extends DocSpecsSection {
       'relatedUseCases',
       String,
       'Related Use Cases',
-      hint: 'ISC references this report serves',
+      hint:
+          'Use cases (interactions) this report serves — interaction section '
+          'ids (INEN-INTE-…), comma-separated',
+      refersTo: ['INEN.@sectionId'],
+      multiple: true,
     ),
     Field(
       'relatedBusinessProcesses',
       String,
       'Related Business Processes',
-      hint: 'TOM references where this report is used',
+      hint:
+          'Business processes where this report is used — process section ids '
+          '(BPREN-PROC-…), comma-separated',
+      refersTo: ['BPREN.@sectionId'],
+      multiple: true,
     ),
     Field(
       'relatedDataEntities',
       String,
       'Related Data Entities',
-      hint: 'IFM entity references used as data sources',
+      hint:
+          'Data entities used as data sources — entity names declared in the '
+          'entity registry (DAENT), comma-separated',
+      refersTo: ['DAENT.entityName'],
+      multiple: true,
     ),
     Field(
       'exportOperation',
@@ -8355,6 +8399,8 @@ class ReportRecipientEntry extends DocSpecsSection {
 // ---------------------------------------------------------------------------
 
 /// An export format entry (form).
+///
+/// Links: `EXID.relatedDataEntities` names `DAENT.entityName`, one-way.
 @StandardReferences(
   [
     'IETF RFC 4180 — the comma-separated format defines a common interchange for tabular data',
@@ -8406,7 +8452,11 @@ class ExportFormatEntry extends DocSpecsSection {
       'relatedDataEntities',
       String,
       'Related Data Entities',
-      hint: 'IFM entity references included in export',
+      hint:
+          'Data entities included in the export — entity names declared in '
+          'the entity registry (DAENT), comma-separated',
+      refersTo: ['DAENT.entityName'],
+      multiple: true,
     ),
     Field(
       'dataSource',
@@ -16456,6 +16506,8 @@ class PrototypeGoals extends DocSpecsSection {
 }
 
 /// A prototype goal entry.
+///
+/// Links: `PGE.relatedRisks` names `RISENT`, one-way.
 @StandardReferences(
   [
     'ISO 9241-210:2019 — each prototyping goal is described with a validation method and success measure',
@@ -16500,7 +16552,11 @@ class PrototypeGoalEntry extends DocSpecsSection {
       'relatedRisks',
       String,
       'Related Risks',
-      hint: 'Risks this goal addresses',
+      hint:
+          'Risks this goal addresses — risk section ids (RISENT-…), '
+          'comma-separated',
+      refersTo: ['RISENT.@sectionId'],
+      multiple: true,
     ),
     Field(
       'stakeholders',
@@ -16517,6 +16573,9 @@ class PrototypeGoalEntry extends DocSpecsSection {
 /// 10.13.2. Selected Feature Subset.
 ///
 /// Features included in the prototype.
+///
+/// Links: `PFSS.includedFeatures` names `PFE`, one-way; `PFSS.excludedFeatures`
+/// names `PFE`, one-way.
 @StandardReferences([
   'ISO 9241-210:2019 — a representative subset of features is prototyped so the riskiest and most valuable parts are evaluated first',
 ], 'The set of features selected for inclusion in the prototype.')
@@ -16578,13 +16637,21 @@ class PrototypeFeatureSubset extends DocSpecsSection {
       'includedFeatures',
       String,
       'Included Features',
-      hint: 'Features in prototype',
+      hint:
+          'Features in the prototype — prototype feature section ids '
+          '(PFE-FEAT-…), comma-separated',
+      refersTo: ['PFE.@sectionId'],
+      multiple: true,
     ),
     Field(
       'excludedFeatures',
       String,
       'Excluded Features',
-      hint: 'Features not in prototype',
+      hint:
+          'Features not in the prototype — prototype feature section ids '
+          '(PFE-FEAT-…), comma-separated',
+      refersTo: ['PFE.@sectionId'],
+      multiple: true,
     ),
     Field(
       'partialFeatures',
@@ -16644,6 +16711,8 @@ class PrototypeFeatureSubset extends DocSpecsSection {
 }
 
 /// A prototype feature entry.
+///
+/// Links: `PFE.relatedGoals` names `PGE`, one-way.
 @StandardReferences([
   'ISO 9241-210:2019 — each prototyped feature is described with its inclusion reason, fidelity, and completeness',
 ], 'A single prototype-feature entry with fidelity and completeness details.')
@@ -16688,7 +16757,11 @@ class PrototypeFeatureEntry extends DocSpecsSection {
       'relatedGoals',
       String,
       'Related Goals',
-      hint: 'Prototype goals this addresses',
+      hint:
+          'Prototype goals this feature addresses — prototype goal section '
+          'ids (PGE-GOAL-…), comma-separated',
+      refersTo: ['PGE.@sectionId'],
+      multiple: true,
     ),
     Field(
       'implementationNotes',

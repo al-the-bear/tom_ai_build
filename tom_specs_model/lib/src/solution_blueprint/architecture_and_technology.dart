@@ -2029,6 +2029,9 @@ class ArchitectureOverview extends DocSpecsSection {
 }
 
 /// Architecture principle entry.
+///
+/// Links: `ARPRENGO.relatedPrinciples` names `ARPR` entries, stored on both
+/// (`InverseOf.symmetric`).
 @StandardReferences([
   'ISO/IEC/IEEE 42010 — architecture description',
   'ISO/IEC 25010 — architectural quality attributes',
@@ -2119,7 +2122,13 @@ class ArchitecturePrincipleEntry extends DocSpecsSection {
       'relatedPrinciples',
       String,
       'Related Principles',
-      hint: 'Other principles that relate to this one',
+      hint:
+          'Other principles related to this one — architecture principle '
+          'section ids (ARPR-PRIN-…), comma-separated; each names this '
+          'principle back',
+      refersTo: ['ARPR.@sectionId'],
+      multiple: true,
+      inverseOf: InverseOf.symmetric(),
     ),
     Field('notes', String, 'Notes', hint: 'Additional principle notes'),
   ])
@@ -3589,6 +3598,11 @@ class DeploymentTopology extends DocSpecsSection {
 }
 
 /// Architecture Decision Record (ADR) entry.
+///
+/// Links: `ADRR.relatedDecisions` names `ARDE` entries, stored on both
+/// (`InverseOf.symmetric`); `ADRR.supersedes` names `ARDE`, answered by
+/// `ADRR.supersededBy` at the other end; `ADRR.supersededBy` names `ARDE`,
+/// answered by `ADRR.supersedes` at the other end.
 @StandardReferences(
   [
     'ADR (Architecture Decision Records) — decision capture',
@@ -3746,19 +3760,35 @@ class ArchitectureDecisionRecord extends DocSpecsSection {
       'relatedDecisions',
       String,
       'Related Decisions',
-      hint: 'Other ADRs related to this one',
+      hint:
+          'Other decisions related to this one — architecture decision '
+          'section ids (ARDE-DECI-…), comma-separated; each names this '
+          'decision back',
+      refersTo: ['ARDE.@sectionId'],
+      multiple: true,
+      inverseOf: InverseOf.symmetric(),
     ),
     Field(
       'supersedes',
       String,
       'Supersedes',
-      hint: 'Previous decisions this supersedes',
+      hint:
+          'Previous decisions this one supersedes — architecture decision '
+          'section ids, comma-separated; each names this decision in its '
+          'supersededBy',
+      refersTo: ['ARDE.@sectionId'],
+      multiple: true,
+      inverseOf: InverseOf(['ADRR.supersededBy']),
     ),
     Field(
       'supersededBy',
       String,
       'Superseded By',
-      hint: 'Decision that supersedes this one',
+      hint:
+          'The decision that supersedes this one — an architecture decision '
+          'section id; it names this decision in its supersedes',
+      refersTo: ['ARDE.@sectionId'],
+      inverseOf: InverseOf(['ADRR.supersedes']),
     ),
   ])
   @SerializationOrder(4)
@@ -3905,6 +3935,9 @@ Provide an overview of the design patterns and standards approach.
 }
 
 /// Design pattern entry — a specific design pattern to be used.
+///
+/// Links: `DEPAENCO.relatedPatterns` names `DSPT` entries, stored on both
+/// (`InverseOf.symmetric`).
 @StandardReferences([
   'GoF design patterns — reusable OO design',
   'POSA — patterns of software architecture',
@@ -4042,7 +4075,13 @@ class DesignPatternEntry extends DocSpecsSection {
       'relatedPatterns',
       String,
       'Related Patterns',
-      hint: 'Other patterns commonly used with this one',
+      hint:
+          'Other patterns commonly used with this one — design pattern '
+          'section ids (DSPT-DESI-…), comma-separated; each names this '
+          'pattern back',
+      refersTo: ['DSPT.@sectionId'],
+      multiple: true,
+      inverseOf: InverseOf.symmetric(),
     ),
   ])
   @SerializationOrder(4)
@@ -8055,6 +8094,9 @@ class PipelineStageEntry extends DocSpecsSection {
 }
 
 /// Pipeline job entry.
+///
+/// Links: `PJE.parentStage` names `PSE`, one-way; `PJED.dependsOn` names `PJE`,
+/// one-way.
 @StandardReferences(
   [
     'CI/CD — continuous integration / delivery pipelines',
@@ -8069,7 +8111,10 @@ class PipelineJobEntry extends DocSpecsSection {
       'parentStage',
       String,
       'Parent Stage',
-      hint: 'Stage this job belongs to',
+      hint:
+          'The pipeline stage this job belongs to — a pipeline stage section '
+          'id (PSE-…)',
+      refersTo: ['PSE.@sectionId'],
     ),
     Field('description', String, 'Description', hint: 'What this job does'),
   ])
@@ -8142,7 +8187,11 @@ class PipelineJobEntry extends DocSpecsSection {
       'dependsOn',
       String,
       'Depends On',
-      hint: 'Other jobs this depends on',
+      hint:
+          'Other jobs this depends on — pipeline job section ids '
+          '(PJE-JOBS-…), comma-separated',
+      refersTo: ['PJE.@sectionId'],
+      multiple: true,
     ),
     Field(
       'services',

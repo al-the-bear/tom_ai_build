@@ -121,7 +121,8 @@ unpublished_drift:
     reads the last row; SHARED-COVER warns on the 126 pairs left. 03_sau5:
     SHARED-ONE-HOLDER reads places as instances (DIR-4). 03_sau7: rows takes
     key and by like lookup (DIR-7). 03_sau8: @SummaryOf's detail may be a /
-    path (DIR-8).
+    path (DIR-8). 03_sau9: an inverse end belongs to every list element it
+    lies beneath (a link row's field to the entry holding the row).
   tom_specs_core: >-
     section automation in progress — 02_sau2 (2026-11-23): the link
     annotations (SyncedWith, ListRelation, SummaryOf, DerivedFrom, InverseOf,
@@ -163,7 +164,9 @@ unpublished_drift:
     dependencies derived from their rows (D7) and I3; 03_sau8: the summaries
     S2, S3, S5, S8 (new members PME.metricRef, DSRC.recipientRef,
     WOSUEN.workflowRef, STKNT.stakeholderRef, STKRE.stakeholderType, the
-    CUWF step counts), D9 and D5 documented; not regenerated until 03_sau11.
+    CUWF step counts), D9 and D5 documented; 03_sau9: refersTo on the link
+    fields, the inverses I6..I9 and the symmetric related lists; not
+    regenerated until 03_sau11.
 
 published_from:
   tom_specs_core: {version: '0.5.2', commit: '0f5d4c23'}

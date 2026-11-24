@@ -1866,6 +1866,8 @@ class UatTestCycleEntry extends DocSpecsSection {
 /// process, or acceptance criterion. Includes full traceability, preconditions,
 /// execution metadata, and pass/fail criteria per ISTQB and IEEE 829
 /// Level Test Case / Level Test Procedure structures.
+///
+/// Links: `TESCTR.designRef` names `SCREN`, one-way.
 @StandardReferences(
   [
     'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-scenario and test-case structures',
@@ -2008,7 +2010,11 @@ class TestScenarioEntry extends DocSpecsSection {
       'designRef',
       String,
       'Design / Screen Reference',
-      hint: 'UI screens or mockup references',
+      hint:
+          'Screens the scenario runs on — screen section ids (SCREN-ITEM-…), '
+          'comma-separated',
+      refersTo: ['SCREN.@sectionId'],
+      multiple: true,
     ),
   ])
   @SerializationOrder(3)
@@ -2190,6 +2196,8 @@ class TestScenarioNotes extends DocSpecsSection {
 /// Individual step within a test scenario. Captures the action, input data,
 /// expected result, and pass criteria at fine-grained level per IEEE 829
 /// Level Test Procedure structure.
+///
+/// Links: `UATSST.uiScreenRef` names `SCREN`, one-way.
 @StandardReferences(
   [
     'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-procedure and test-step structures',
@@ -2231,7 +2239,10 @@ class UatTestStepEntry extends DocSpecsSection {
       'uiScreenRef',
       String,
       'UI Screen Reference',
-      hint: 'Screen or page where this step is performed',
+      hint:
+          'The screen where this step is performed — a screen section id '
+          '(SCREN-ITEM-…)',
+      refersTo: ['SCREN.@sectionId'],
     ),
     Field(
       'passCriteria',
@@ -2754,6 +2765,8 @@ class SignOffProcess extends DocSpecsSection {
 ///
 /// Post-acceptance warranty terms: duration, scope, service levels,
 /// exclusions, and transition to standard support.
+///
+/// Links: `WACO.coveredDeliverables` names `DLVEN`, one-way.
 @StandardReferences(
   [
     'ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty, support, and problem management',
@@ -2843,7 +2856,11 @@ class WarrantyTerms extends DocSpecsSection {
       'coveredDeliverables',
       String,
       'Covered Deliverables',
-      hint: 'Which deliverables are under warranty',
+      hint:
+          'Deliverables under warranty — deliverable section ids (DLVEN-…), '
+          'comma-separated',
+      refersTo: ['DLVEN.@sectionId'],
+      multiple: true,
     ),
     Field(
       'environmentsCovered',

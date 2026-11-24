@@ -4266,6 +4266,11 @@ class PainPointEntry extends DocSpecsSection {
 }
 
 /// Relationships for pain point.
+///
+/// Links: `PAPOR1.relatedGaps` names `GAPE`, answered by
+/// `GAENDI.relatedPainPoints` at the other end; `PAPOR1.dependsOn` names
+/// `PAPE`, one-way; `PAPOR1.relatedPainPoints` is stored on both entries
+/// (`InverseOf.symmetric`).
 @StandardReferences(
   ['BABOK v3 §10 — current-state analysis (relationships among problems)'],
   'A single link from this pain point to another pain point, a gap, or a '
@@ -4283,18 +4288,29 @@ class PainPointRelationships extends DocSpecsSection {
           'comma-separated',
       refersTo: ['PAPE.@sectionId'],
       multiple: true,
+      inverseOf: InverseOf.symmetric(),
     ),
     Field(
       'relatedGaps',
       String,
       'Related Gaps',
-      hint: 'Gap entries that this pain point stems from',
+      hint:
+          'Gaps this pain point stems from — gap section ids (GAPE-ITEM-…), '
+          'comma-separated; each gap names this pain point back in its '
+          'relatedPainPoints',
+      refersTo: ['GAPE.@sectionId'],
+      multiple: true,
+      inverseOf: InverseOf(['GAENDI.relatedPainPoints']),
     ),
     Field(
       'dependsOn',
       String,
       'Depends On',
-      hint: 'Other pain points that must be resolved first',
+      hint:
+          'Other pain points that must be resolved first — pain point section '
+          'ids (PAPE-ITEM-…), comma-separated',
+      refersTo: ['PAPE.@sectionId'],
+      multiple: true,
     ),
   ])
   @override
@@ -4403,6 +4419,10 @@ class PainPointGapCorrelationEntry extends DocSpecsSection {
 /// Documents a specific gap between current capabilities and business needs:
 /// category, severity, quantified cost, stakeholders, compliance drivers,
 /// workarounds, resolution approach, and success criteria.
+///
+/// Links: `GAENDI.relatedPainPoints` names `PAPE`, answered by
+/// `PAPOR1.relatedGaps` at the other end; `GAENRE.dependsOnGaps` names `GAPE`,
+/// one-way.
 @StandardReferences(
   ['BABOK v3 §6 — gap analysis (single capability gap)'],
   'One fully documented capability gap — its category, severity, impact, '
@@ -4516,7 +4536,13 @@ class GapEntry extends DocSpecsSection {
       'relatedPainPoints',
       String,
       'Related Pain Points',
-      hint: 'References to pain point entries that stem from this gap',
+      hint:
+          'Pain points that stem from this gap — pain point section ids '
+          '(PAPE-ITEM-…), comma-separated; each names this gap back in its '
+          'relatedGaps',
+      refersTo: ['PAPE.@sectionId'],
+      multiple: true,
+      inverseOf: InverseOf(['PAPOR1.relatedGaps']),
     ),
   ])
   @SerializationOrder(2)
@@ -4583,7 +4609,11 @@ class GapEntry extends DocSpecsSection {
       'dependsOnGaps',
       String,
       'Depends on Other Gaps',
-      hint: 'Other gaps that must be resolved first, by name or ID',
+      hint:
+          'Other gaps that must be resolved first — gap section ids '
+          '(GAPE-ITEM-…), comma-separated',
+      refersTo: ['GAPE.@sectionId'],
+      multiple: true,
     ),
   ])
   @SerializationOrder(4)

@@ -10642,6 +10642,9 @@ class RoleHierarchyPolicy extends DocSpecsSection {
 ///
 /// Defines a specific parent-child inheritance relationship between two roles,
 /// including what is inherited and any restrictions.
+///
+/// Links: `RLINH.parentRole` names `AZRO.roleName`, one-way; `RLINH.childRole`
+/// names `AZRO.roleName`, one-way.
 @StandardReferences([
   'NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance',
 ], 'Defines one parent-child inheritance relationship between two roles.')
@@ -10654,14 +10657,20 @@ class RoleInheritanceRuleEntry extends DocSpecsSection {
       String,
       'Parent Role',
       required: true,
-      hint: 'Name of the parent role whose permissions are inherited',
+      hint:
+          'Name of the parent role whose permissions are inherited — a '
+          'roleName of the role registry (AZRO)',
+      refersTo: ['AZRO.roleName'],
     ),
     Field(
       'childRole',
       String,
       'Child Role',
       required: true,
-      hint: 'Name of the child role that inherits permissions',
+      hint:
+          'Name of the child role that inherits permissions — a roleName of '
+          'the role registry (AZRO)',
+      refersTo: ['AZRO.roleName'],
     ),
     Field(
       'inheritanceType',

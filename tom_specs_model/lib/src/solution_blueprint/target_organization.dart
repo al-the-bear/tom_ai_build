@@ -3736,6 +3736,8 @@ class NewRoleResponsibilities extends DocSpecsSection {
 }
 
 /// Detailed responsibility entry (form).
+///
+/// Links: `RSPDT.relatedProcesses` names `BPREN`, one-way.
 @StandardReferences(
   [
     'O*NET — task statements (tasks, deliverables)',
@@ -3788,7 +3790,11 @@ class ResponsibilityDetailEntry extends DocSpecsSection {
       'relatedProcesses',
       String,
       'Related Processes — business processes involved',
-      hint: 'Business processes this duty touches',
+      hint:
+          'Business processes this duty touches — process section ids '
+          '(BPREN-PROC-…), comma-separated',
+      refersTo: ['BPREN.@sectionId'],
+      multiple: true,
     ),
     Field(
       'toolsUsed',

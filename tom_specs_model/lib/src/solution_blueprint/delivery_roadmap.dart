@@ -1884,6 +1884,8 @@ class StageSummaryDependencies extends DocSpecsSection {
 /// entry/exit criteria, assigned resources, quality gates, and a
 /// deployment plan. Draws from PMBOK phase-gate discipline, SAFe PI
 /// planning, and PRINCE2 stage boundary management.
+///
+/// Links: `STSC.includedFeatures` names `FPE`, one-way.
 @SectionId('STAGE')
 @FollowUpKind(
   [
@@ -2021,7 +2023,11 @@ class StageEntry extends DocSpecsSection {
       'includedFeatures',
       String,
       'Included Features',
-      hint: 'Key features explicitly included',
+      hint:
+          'Key features explicitly included — feature section ids '
+          '(FPE-ITEM-…), comma-separated',
+      refersTo: ['FPE.@sectionId'],
+      multiple: true,
     ),
     Field(
       'excludedDeferred',

@@ -98,6 +98,7 @@ Map<String, ModelClass> _model({
   Map<String, Object?>? relatedRequirementsInverse,
   Map<String, Object?>? traceScreensInverse,
   Map<String, Object?>? dependencyInverse,
+  List<FormFieldInfo> depForm = const [],
   bool sbpReachesFrTwice = false,
   List<AnnotationData> frNoteAnnotations = const [],
   List<AnnotationData> reqNoteAnnotations = const [],
@@ -210,6 +211,7 @@ Map<String, ModelClass> _model({
             enumValues: const ['conflict', 'bidirectional', 'namedInText'],
           ),
           _text('description'),
+          ...depForm,
         ]),
         // A `@Reference` member, as in the model: a place of the row whose
         // target is never followed.
@@ -820,6 +822,30 @@ void main() {
           ],
         ),
         'DERIVE-SOURCE',
+      );
+      expect(found, isEmpty, reason: found.join('\n'));
+    });
+  });
+
+  group('INVERSE-PAIR, a link row', () {
+    test('a field of a link row pairs with an end naming the entry that '
+        'holds the row', () {
+      final found = _findings(
+        _model(
+          depForm: [
+            _ref(
+              'screens',
+              ['SCR.@sectionId'],
+              inverseOf: {
+                'fields': ['SCR.relatedRequirements'],
+              },
+            ),
+          ],
+          relatedRequirementsInverse: {
+            'fields': ['RQDEP.screens'],
+          },
+        ),
+        'INVERSE-PAIR',
       );
       expect(found, isEmpty, reason: found.join('\n'));
     });

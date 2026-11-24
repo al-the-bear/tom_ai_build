@@ -4103,6 +4103,10 @@ following Cockburn's fully dressed use case template.
 ///
 /// Comprehensive interaction definition following Cockburn's fully dressed
 /// use case template. Seeds the ISC (Interaction Scenarios) document.
+///
+/// Links: `UCSC.relatedUseCases` names `INEN`, one-way; `INTR.relatedUseCase`
+/// names `INEN`, one-way; `INTR.relatedTestCases` names `TSSC`, `RQTSC`,
+/// one-way.
 @StandardReferences(
   [
     'Cockburn — Writing Effective Use Cases: fully dressed use-case template',
@@ -4248,7 +4252,11 @@ class InteractionEntry extends DocSpecsSection {
       'relatedUseCases',
       String,
       'Related Use Cases — includes, extends',
-      hint: 'Use cases this one includes or extends',
+      hint:
+          'Use cases (interactions) this one includes or extends — '
+          'interaction section ids (INEN-INTE-…), comma-separated',
+      refersTo: ['INEN.@sectionId'],
+      multiple: true,
     ),
   ])
   @SerializationOrder(2)
@@ -4495,6 +4503,7 @@ class InteractionEntry extends DocSpecsSection {
       hint:
           'Use cases of the Interaction Scenarios document, as text (e.g. '
           'UC-23) — another document\'s ids, not resolved in the Blueprint',
+      refersTo: ['INEN.@sectionId'],
     ),
     Field(
       'relatedDataEntities',
@@ -4536,7 +4545,12 @@ class InteractionEntry extends DocSpecsSection {
       'relatedTestCases',
       String,
       'Related Test Cases — TC-xxx',
-      hint: 'TC-xxx test cases covering this',
+      hint:
+          'Test cases covering this interaction — test scenario or '
+          'requirement test case section ids (TSSC-TEST-… / RQTSC-TEST-…), '
+          'comma-separated',
+      refersTo: ['TSSC.@sectionId', 'RQTSC.@sectionId'],
+      multiple: true,
     ),
   ])
   @SerializationOrder(13)

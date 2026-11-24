@@ -2574,6 +2574,9 @@ class DomainVocabulary extends DocSpecsSection {
 }
 
 /// A domain term entry (form).
+///
+/// Links: `DTE.relatedTerms` names `DTE` entries, stored on both
+/// (`InverseOf.symmetric`).
 @StandardReferences([
   'Domain-Driven Design — ubiquitous language',
   'ISO/IEC/IEEE 24765 — vocabulary/terms',
@@ -2617,7 +2620,12 @@ class DomainTermEntry extends DocSpecsSection {
       'relatedTerms',
       String,
       'Related Terms (linked concepts)',
-      hint: 'Other terms or concepts linked to this one',
+      hint:
+          'Other terms linked to this one — term section ids (DTE-TERM-…), '
+          'comma-separated; each names this term back',
+      refersTo: ['DTE.@sectionId'],
+      multiple: true,
+      inverseOf: InverseOf.symmetric(),
     ),
     Field(
       'category',
@@ -2700,6 +2708,9 @@ class KeyConcepts extends DocSpecsSection {
 }
 
 /// A key concept entry (form).
+///
+/// Links: `KECON.relatedConcepts` names `KECON` entries, stored on both
+/// (`InverseOf.symmetric`).
 @StandardReferences(
   [
     'Domain-Driven Design — domain model concepts',
@@ -2753,7 +2764,12 @@ class KeyConceptEntry extends DocSpecsSection {
       'relatedConcepts',
       String,
       'Related Concepts (other concepts this relates to)',
-      hint: 'Other concepts this one relates to',
+      hint:
+          'Other concepts this one relates to — concept section ids '
+          '(KECON-CONC-…), comma-separated; each names this concept back',
+      refersTo: ['KECON.@sectionId'],
+      multiple: true,
+      inverseOf: InverseOf.symmetric(),
     ),
     Field(
       'businessRules',
@@ -3133,6 +3149,9 @@ class DomainProcesses extends DocSpecsSection {
 }
 
 /// A domain process entry (form).
+///
+/// Links: `DPEF.relatedProcesses` names `DOPREN` entries, stored on both
+/// (`InverseOf.symmetric`).
 @StandardReferences(
   [
     'BABOK v3 §10.35 — process modelling',
@@ -3201,7 +3220,13 @@ class DomainProcessEntry extends DocSpecsSection {
       'relatedProcesses',
       String,
       'Related Processes (processes that interact with this one)',
-      hint: 'Other processes that interact with this one',
+      hint:
+          'Other domain processes that interact with this one — domain '
+          'process section ids (DOPREN-PROC-…), comma-separated; each names '
+          'this process back',
+      refersTo: ['DOPREN.@sectionId'],
+      multiple: true,
+      inverseOf: InverseOf.symmetric(),
     ),
   ])
   @SerializationOrder(1)
@@ -8146,6 +8171,8 @@ class SuccessCriterionEntry extends DocSpecsSection {
 }
 
 /// Relationships for success criterion.
+///
+/// Links: `SUCRRE.relatedGoals` names `BGE`, one-way.
 @StandardReferences(
   ['ISO/IEC/IEEE 29148 §5.2.8 — requirements traceability'],
   'A single relationship entry tracing this criterion to related goals, '
@@ -8161,6 +8188,8 @@ class SuccessCriterionRelationships extends DocSpecsSection {
       hint:
           'Related business goals — business goal section ids (BGE-GOAL-…), '
           'comma-separated',
+      refersTo: ['BGE.@sectionId'],
+      multiple: true,
     ),
     Field(
       'relatedRequirements',
@@ -10209,6 +10238,8 @@ class RequirementDependencyEntry extends DocSpecsSection {
 /// 4.3.1.n.6. Traceability.
 ///
 /// Traceability links to goals, use cases, processes, and other artifacts.
+///
+/// Links: `RETRAR.relatedDocuments` names `RFDOC`, one-way.
 @StandardReferences(
   ['ISO/IEC/IEEE 29148 §5.2.8 — requirements traceability'],
   'The traceability links of a requirement to goals, use cases, processes, '
@@ -10322,7 +10353,11 @@ class RequirementTraceability extends DocSpecsSection {
       'relatedDocuments',
       String,
       'Related Documents or Artifacts',
-      hint: 'Related documents or other artifacts',
+      hint:
+          'Related documents — reference document section ids (RFDOC-DOCU-…), '
+          'comma-separated',
+      refersTo: ['RFDOC.@sectionId'],
+      multiple: true,
     ),
   ])
   @SerializationOrder(2)
@@ -14401,6 +14436,10 @@ class MigrationRisks extends DocSpecsSection {
 /// Detailed migration risk documentation following enterprise risk
 /// management practices. Captures full risk lifecycle from identification
 /// through resolution.
+///
+/// Links: `MIRIR1.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,
+/// one-way; `MIRIR1.relatedDecisions` names `ARDE`, one-way;
+/// `MIRIR1.relatedRisks` is stored on both entries (`InverseOf.symmetric`).
 @StandardReferences(
   [
     'ISO 31000 — risk management (migration risk)',
@@ -14900,6 +14939,7 @@ class MigrationRiskEntry extends DocSpecsSection {
           'SYMIRI-RISK-…), comma-separated',
       refersTo: ['MGRSK.@sectionId'],
       multiple: true,
+      inverseOf: InverseOf.symmetric(),
     ),
     // Why: deliberately no `refersTo` (`tom_specs_model_rules.md` §6.2 "when not to annotate"). An issue is
     // a risk that has materialised, tracked in the project's issue log — live
@@ -14923,13 +14963,26 @@ class MigrationRiskEntry extends DocSpecsSection {
       'relatedRequirements',
       String,
       'Related Requirements',
-      hint: 'Requirements impacted by risk',
+      hint:
+          'Requirements impacted by the risk — requirement section ids, '
+          'comma-separated',
+      refersTo: [
+        'FRE.@sectionId',
+        'TERQ.@sectionId',
+        'SECRQ.@sectionId',
+        'ORRQ.@sectionId',
+      ],
+      multiple: true,
     ),
     Field(
       'relatedDecisions',
       String,
       'Related Decisions',
-      hint: 'Decisions affecting this risk',
+      hint:
+          'Decisions affecting this risk — architecture decision section ids '
+          '(ARDE-DECI-…), comma-separated',
+      refersTo: ['ARDE.@sectionId'],
+      multiple: true,
     ),
     Field(
       'dependencyChain',
@@ -19434,6 +19487,10 @@ class RiskBusinessImpact extends DocSpecsSection {
 }
 
 /// Relationships to other risks, assumptions, and project elements.
+///
+/// Links: `RR.relatedRequirements` names `FRE`, `TERQ`, `SECRQ`, `ORRQ`,
+/// one-way; `RR.relatedRisks` names `RISENT` entries, stored on both
+/// (`InverseOf.symmetric`); `RR.relatedAssumptions` names `ASMRE`, one-way.
 @StandardReferences(
   [
     'ISO 31000:2018 — risk management',
@@ -19448,13 +19505,22 @@ class RiskRelationships extends DocSpecsSection {
       'relatedRisks',
       String,
       'Related Risks — other risks that are related or dependent',
-      hint: 'Other risks related to or dependent on this one',
+      hint:
+          'Other risks related to this one — risk section ids (RISENT-…), '
+          'comma-separated; each names this risk back',
+      refersTo: ['RISENT.@sectionId'],
+      multiple: true,
+      inverseOf: InverseOf.symmetric(),
     ),
     Field(
       'relatedAssumptions',
       String,
       'Related Assumptions — assumptions that could affect this risk',
-      hint: 'Assumptions that could affect this risk',
+      hint:
+          'Assumptions that could affect this risk — assumption register '
+          'section ids (ASMRE-ASMP-…), comma-separated',
+      refersTo: ['ASMRE.@sectionId'],
+      multiple: true,
     ),
     // Why: deliberately no `refersTo` (`tom_specs_model_rules.md` §6.2 "when not to annotate") — same
     // reason as the migration risk register's "related issues" field: an issue
@@ -19475,7 +19541,17 @@ class RiskRelationships extends DocSpecsSection {
       'relatedRequirements',
       String,
       'Related Requirements — requirements affected',
-      hint: 'Requirements affected by this risk',
+      hint:
+          'Requirements affected by this risk — requirement section ids '
+          '(FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…), '
+          'comma-separated',
+      refersTo: [
+        'FRE.@sectionId',
+        'TERQ.@sectionId',
+        'SECRQ.@sectionId',
+        'ORRQ.@sectionId',
+      ],
+      multiple: true,
     ),
     Field(
       'affectedComponents',

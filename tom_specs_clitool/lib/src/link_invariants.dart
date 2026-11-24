@@ -389,18 +389,11 @@ class LinkInvariants {
     return id != null && refersTo.any((t) => t.split('.').first == id);
   }
 
-  /// The entry classes of a form on [className]: the list elements nearest
-  /// above it, itself when it is one. A form on a section below its entry
-  /// (`RT-TRAC` under a requirement) belongs to that entry, which is what the
-  /// other end of a link names.
-  Set<String> _entryClasses(String className) {
-    final near = _nearestListElements(className);
-    return near.isEmpty ? {className} : near;
-  }
-
-  /// Every list element [className] lies beneath, itself included: a link
-  /// row (`RQDEP`) belongs to the entry that holds its list (the requirement),
-  /// which is what a symmetric link's ids name.
+  /// Every list element [className] lies beneath, itself included: the
+  /// entries an end of a link belongs to. A form on a section below its entry
+  /// (`RT-TRAC` under a requirement) belongs to that entry, and a link row
+  /// (`RQDEP`, `PAPOR1`) to the entry that holds its list (the requirement,
+  /// the pain point), which is what the other end of the link names.
   Set<String> _enclosingEntries(String className) {
     final out = <String>{};
     final queue = [className];
@@ -1554,7 +1547,7 @@ class LinkInvariants {
           fail('other end "$end" is no refersTo field');
           continue;
         }
-        final theirs = _entryClasses(r.node.owner);
+        final theirs = _enclosingEntries(r.node.owner);
         if (!_namesAny(s.field.refersTo, theirs)) {
           fail(
             'its refersTo (${s.field.refersTo.join(', ')}) does not name '
@@ -1562,7 +1555,7 @@ class LinkInvariants {
             '"$end"',
           );
         }
-        final mine = _entryClasses(s.cls.name);
+        final mine = _enclosingEntries(s.cls.name);
         if (!_namesAny(other.refersTo, mine)) {
           fail(
             '"$end" refers to ${other.refersTo.join(', ')}, not to '

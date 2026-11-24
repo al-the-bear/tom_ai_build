@@ -232,6 +232,10 @@ class ReferenceDocuments extends DocSpecsSection {
 ///
 /// Detailed metadata for a single referenced document including
 /// identification, classification, status, and applicability.
+///
+/// Links: `RDEL.supersedes` names `RFDOC`, answered by `RDEL.supersededBy` at
+/// the other end; `RDEL.supersededBy` names `RFDOC`, answered by
+/// `RDEL.supersedes` at the other end.
 @StandardReferences(
   ['ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)'],
   'A single referenced document with its identification, classification, '
@@ -361,13 +365,22 @@ class ReferenceDocumentEntry extends DocSpecsSection {
       'supersedes',
       String,
       'Supersedes Document (if replacing older doc)',
-      hint: 'Older document this one replaces, if any.',
+      hint:
+          'The older document this one replaces, if any — a reference '
+          'document section id; it names this document in its supersededBy',
+      refersTo: ['RFDOC.@sectionId'],
+      inverseOf: InverseOf(['RDEL.supersededBy']),
     ),
     Field(
       'supersededBy',
       String,
       'Superseded By (if this doc is deprecated)',
-      hint: 'Newer document that replaces this one, if deprecated.',
+      hint:
+          'The newer document that replaces this one, if deprecated — a '
+          'reference document section id; it names this document in its '
+          'supersedes',
+      refersTo: ['RFDOC.@sectionId'],
+      inverseOf: InverseOf(['RDEL.supersedes']),
     ),
     Field(
       'language',

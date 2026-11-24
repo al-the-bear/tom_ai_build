@@ -671,6 +671,8 @@ class EntityFollowUpEntry extends DocSpecsSection {
 /// to be adjusted: business-process cohesion sometimes merges two aggregates
 /// into one unit or splits one across two, and stating that per entity keeps
 /// even the exception readable. Empty means no adjustment.
+///
+/// Links: `DAENT-RELA.parentEntities` names `DAENT.entityName`, one-way.
 @StandardReferences(
   [
     'ER modeling (Chen / Barker notation)',
@@ -964,7 +966,12 @@ class DataEntityEntry extends DocSpecsSection {
       'parentEntities',
       String,
       'Parent Entities',
-      hint: 'Entities this depends on (e.g., Order depends on Customer)',
+      hint:
+          'Entities this depends on (e.g., Order depends on Customer) — '
+          'entity names declared in the entity registry (DAENT), '
+          'comma-separated',
+      refersTo: ['DAENT.entityName'],
+      multiple: true,
     ),
     Field(
       'childEntities',
@@ -2839,6 +2846,8 @@ Domain-Driven Design patterns for rich domain modeling.
 /// Comprehensive business object specification following domain-driven design
 /// patterns. Business objects represent key domain concepts with behavior,
 /// state, and business rules.
+///
+/// Links: `BJOEN-DOMA.relatedObjects` names `BJOEN`, one-way.
 @StandardReferences(
   [
     'Domain-Driven Design — aggregates/entities/value objects',
@@ -2952,7 +2961,11 @@ class BusinessObjectEntry extends DocSpecsSection {
       'relatedObjects',
       String,
       'Related Objects',
-      hint: 'Key related business objects',
+      hint:
+          'Key related business objects — business object section ids '
+          '(BJOEN-OBJE-…), comma-separated',
+      refersTo: ['BJOEN.@sectionId'],
+      multiple: true,
     ),
   ])
   @SerializationOrder(2)
@@ -3929,6 +3942,8 @@ class FunctionModel extends DocSpecsSection {
 /// A function entry (form).
 ///
 /// Business function specification in the functional decomposition.
+///
+/// Links: `FUNCT.parentFunction` names `FUNCT`, one-way.
 @StandardReferences(
   [
     'Structured Analysis (DeMarco/Yourdon) — functional decomposition',
@@ -3952,7 +3967,10 @@ class FunctionEntry extends DocSpecsSection {
       'parentFunction',
       String,
       'Parent Function',
-      hint: 'Parent function in hierarchy',
+      hint:
+          'The parent function in the hierarchy — a function section id '
+          '(FUNCT-FUNC-…)',
+      refersTo: ['FUNCT.@sectionId'],
     ),
   ])
   @override

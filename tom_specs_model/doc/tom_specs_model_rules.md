@@ -1769,12 +1769,13 @@ annotations are written into the meta like `@CodeSpecKind`
   stored at both ends; `fields` names the other ends, one per registry of the
   field's `refersTo` that has a field pointing back. `InverseOf.symmetric()`
   stores the link on both entries in the same field. Both ends declare it,
-  each naming the other. An end belongs to its **entry**, the list element
-  nearest above its form: `RT-TRAC.relatedUseCases` to the requirement that
-  holds `RT`, which is what `INTR.relatedRequirements` names. A symmetric link
-  row (`RQDEP-RELA-REF.ref`) names the entry that holds its list: a
-  conflict row on requirement A naming B is answered by a conflict row on B
-  naming A.
+  each naming the other. An end belongs to its **entries**, the list
+  elements it lies beneath: `RT-TRAC.relatedUseCases` to the requirement that
+  holds `RT`, which is what `INTR.relatedRequirements` names; a field of a
+  link row (`PAPOR1.relatedGaps`) to the pain point that holds the row, which
+  is what `GAENDI.relatedPainPoints` names. A symmetric link row
+  (`RQDEP-RELA-REF.ref`) names the entry that holds its list: a conflict row
+  on requirement A naming B is answered by a conflict row on B naming A.
 - **`@ExtractsLinks({from, ref, set, mode, note})`** — the annotated list of
   link rows is kept in step with the ids named in the text places `from`: a
   found id gets a row whose `ref` holds it, with the values `set`;
@@ -2290,11 +2291,13 @@ enforceable rather than aspirational.
     derived place beneath it.
 26. **`INVERSE-PAIR`** — **The two ends of a link** — an `inverseOf:` stands on
     a `refersTo` field. Each other end it names is a `refersTo` field (found by
-    its form's section id); this field refers to the other end's entry class,
-    the other end refers to this one's, and the other end lists this field in
-    its own `inverseOf` — a one-sided declaration is an error. `symmetric`
-    (`@self`) stands alone, on a field whose `refersTo` names its own entry
-    class, and a `where` names fields of that entry.
+    its form's section id); this field refers to one of the other end's entry
+    classes (the list elements its form lies beneath: the entry itself, or the
+    entry holding a link row), the other end refers to one of this one's, and
+    the other end lists this field in its own `inverseOf` — a one-sided
+    declaration is an error. `symmetric` (`@self`) stands alone, on a field
+    whose `refersTo` names one of its own entry classes, and a `where` names
+    fields of that entry.
 27. **`EXTRACT-LINK`** — **Link rows from text** — `@ExtractsLinks` stands on a
     list of link rows. Each `from` place is a text value resolving beneath a
     list element nearest above the annotated list (at least one of them, when

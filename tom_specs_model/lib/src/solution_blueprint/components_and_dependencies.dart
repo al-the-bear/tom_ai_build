@@ -2335,6 +2335,9 @@ class ContingencyPlanEntry extends DocSpecsSection {
 ///
 /// Documents one component risk: category, probability, impact, detection
 /// methods, mitigation strategy and status, residual risk, and ownership.
+///
+/// Links: `CORIENGO.relatedRisks` is stored on both entries
+/// (`InverseOf.symmetric`).
 @StandardReferences(
   [
     'ISO 31000:2018 — the risk management guidelines define principles and a process for identifying, assessing, and treating risk',
@@ -2531,6 +2534,7 @@ class ComponentRiskEntry extends DocSpecsSection {
           '(CMRS-RISK-…), comma-separated',
       refersTo: ['CMRS.@sectionId'],
       multiple: true,
+      inverseOf: InverseOf.symmetric(),
     ),
     Field(
       'acceptanceCriteria',

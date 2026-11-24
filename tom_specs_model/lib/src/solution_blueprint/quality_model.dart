@@ -538,6 +538,9 @@ class QualityFramework extends DocSpecsSection {
 ///
 /// Defines a quality category with its attributes, weight, and relationship
 /// to other categories.
+///
+/// Links: `QCARL.relatedCategories` names `QCATE` entries, stored on both
+/// (`InverseOf.symmetric`); `QCARL.parentCategory` names `QCATE`, one-way.
 @StandardReferences(
   [
     'ISO/IEC 25010:2023 — each quality category groups related quality characteristics against which requirements are defined and evaluated',
@@ -608,13 +611,21 @@ class QualityCategoryEntry extends DocSpecsSection {
       'parentCategory',
       String,
       'Parent Category',
-      hint: 'Higher-level category if hierarchical',
+      hint:
+          'The higher-level category, if hierarchical — a quality category '
+          'section id',
+      refersTo: ['QCATE.@sectionId'],
     ),
     Field(
       'relatedCategories',
       String,
       'Related Categories',
-      hint: 'Categories that interact with this one',
+      hint:
+          'Categories that interact with this one — quality category section '
+          'ids (QCATE-QUAL-…), comma-separated; each names this category back',
+      refersTo: ['QCATE.@sectionId'],
+      multiple: true,
+      inverseOf: InverseOf.symmetric(),
     ),
     Field(
       'conflictingCategories',
@@ -4677,6 +4688,8 @@ class MustPassCriteria extends DocSpecsSection {
 }
 
 /// A must-pass criterion entry (form).
+///
+/// Links: `MPCEG.dependsOnCriteria` names `MSTPCR`, one-way.
 @StandardReferences(
   [
     'ISO/IEC/IEEE 29119 — each criterion defines the condition to be met and the method used to verify it',
@@ -4805,7 +4818,11 @@ class MustPassCriterionEntry extends DocSpecsSection {
       'dependsOnCriteria',
       String,
       'Depends On',
-      hint: 'Other criteria this depends on',
+      hint:
+          'Other must-pass criteria this depends on — criterion section ids '
+          '(MSTPCR-ITEM-…), comma-separated',
+      refersTo: ['MSTPCR.@sectionId'],
+      multiple: true,
     ),
     Field(
       'blockedByCriteria',
