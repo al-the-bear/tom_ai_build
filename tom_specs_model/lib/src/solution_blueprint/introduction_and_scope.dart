@@ -8282,19 +8282,25 @@ class RequirementsOverview extends DocSpecsSection {
       'totalRequirements',
       String,
       'Total Requirements Expected (estimated count)',
-      hint: 'Estimated total number of requirements',
+      hint:
+          'The number of requirements (functional, technical, security, organizational). Counted from the requirement lists once they exist; until then an estimate.',
+      countOf: ['FRE', 'TERQ', 'SECRQ', 'ORRQ'],
     ),
     Field(
       'shouldHaveCount',
       String,
       'Should-Have Requirements (estimated)',
-      hint: 'Estimated count of Should-Have requirements',
+      hint:
+          'The number of Should-Have requirements (functional and organizational, by priority). Counted from the requirement lists once they exist; until then an estimate.',
+      countOf: ['FRE.priority=should', 'ORRQ.priority=should'],
     ),
     Field(
       'couldHaveCount',
       String,
       'Could-Have Requirements (estimated)',
-      hint: 'Estimated count of Could-Have requirements',
+      hint:
+          'The number of Could-Have requirements (functional and organizational, by priority). Counted from the requirement lists once they exist; until then an estimate.',
+      countOf: ['FRE.priority=could', 'ORRQ.priority=could'],
     ),
     Field(
       'requirementsProcess',
@@ -8314,8 +8320,10 @@ class RequirementsOverview extends DocSpecsSection {
       'mustHaveCount',
       String,
       'Must-Have Requirements (estimated)',
-      hint: 'Estimated count of Must-Have requirements',
+      hint:
+          'The number of Must-Have requirements (functional and organizational, by priority). Counted from the requirement lists once they exist; until then an estimate.',
       multiParagraph: true,
+      countOf: ['FRE.priority=must', 'ORRQ.priority=must'],
     ),
   ])
   @SerializationOrder(1)
@@ -17700,6 +17708,7 @@ class FunctionalResponsibilities extends DocSpecsSection {
       int,
       'Total Function Count',
       hint: 'Number of functional areas with assigned responsibilities',
+      countOf: ['RE'],
     ),
     Field(
       'unassignedAreas',

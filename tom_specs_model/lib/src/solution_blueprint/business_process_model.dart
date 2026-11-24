@@ -16,6 +16,27 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 import '../document_stubs.dart';
 import '../common/enums.dart';
 
+/// What kind of actor an [ActorEntry] is, and on which side of the system
+/// boundary it stands.
+///
+/// The actor overview counts its actors by this kind, so it is a closed choice
+/// rather than free text: a count can only be checked against a value every
+/// entry states the same way.
+enum ActorKind {
+  /// A person using the system.
+  human,
+
+  /// A system of the same organisation, inside the boundary the solution is
+  /// built within.
+  internalSystem,
+
+  /// A system of another organisation, outside that boundary.
+  externalSystem,
+
+  /// A time-triggered actor: a scheduled job or timer.
+  scheduled,
+}
+
 /// Where control goes when a branch flow finishes ([ExtensionEntry],
 /// [AlternativeFlowEntry]).
 ///
@@ -619,6 +640,7 @@ class ProcessCatalog extends DocSpecsSection {
       int,
       'Total Process Count',
       hint: 'Number of processes in the catalog',
+      countOf: ['BPREN'],
     ),
     Field(
       'classificationFramework',
@@ -3295,24 +3317,28 @@ modeling conventions with Cockburn-style goal and scope annotations.
       int,
       'Total Actor Count',
       hint: 'Enter the total number of actors',
+      countOf: ['ACEN'],
     ),
     Field(
       'humanActorCount',
       int,
       'Human Actor Count',
       hint: 'Enter how many actors are human users',
+      countOf: ['ACEN.actorKind=human'],
     ),
     Field(
       'systemActorCount',
       int,
       'System Actor Count',
       hint: 'Enter how many actors are internal systems',
+      countOf: ['ACEN.actorKind=internalSystem'],
     ),
     Field(
       'externalActorCount',
       int,
       'External Actor Count',
       hint: 'Enter how many actors are external systems',
+      countOf: ['ACEN.actorKind=externalSystem'],
     ),
     Field(
       'actorPrioritization',
@@ -3442,6 +3468,14 @@ class ActorEntry extends DocSpecsSection {
       String,
       'Actor Type — human user, system, external system, scheduled',
       hint: 'State whether the actor is a person, system or scheduled job',
+    ),
+    Field(
+      'actorKind',
+      ActorKind,
+      'Actor Kind',
+      hint:
+          'Human, internal system, external system or scheduled — the kind '
+          'the actor overview counts by',
     ),
     Field(
       'category',
@@ -3982,24 +4016,28 @@ following Cockburn's fully dressed use case template.
       int,
       'Total Interaction Count',
       hint: 'Count of all documented interactions',
+      countOf: ['INEN'],
     ),
     Field(
       'highPriorityCount',
       int,
       'High Priority Count',
       hint: 'Number of must-have interactions',
+      countOf: ['INEN.priority=must'],
     ),
     Field(
       'mediumPriorityCount',
       int,
       'Medium Priority Count',
       hint: 'Number of should-have interactions',
+      countOf: ['INEN.priority=should'],
     ),
     Field(
       'lowPriorityCount',
       int,
       'Low Priority Count',
       hint: 'Number of could-have interactions',
+      countOf: ['INEN.priority=could'],
     ),
     Field(
       'coverageStatement',
@@ -4184,6 +4222,14 @@ class InteractionEntry extends DocSpecsSection {
       String,
       'Goal Level — summary (+), user goal (!), subfunction (-)',
       hint: 'Cockburn level: + summary, ! user goal, - subfunction',
+    ),
+    Field(
+      'priority',
+      Priority,
+      'Priority',
+      hint:
+          'MoSCoW band of this interaction — the interaction overview counts '
+          'by it',
     ),
     Field(
       'designScope',
@@ -5543,6 +5589,7 @@ and places their first order."
       int,
       'Total Scenario Count',
       hint: 'Number of scenarios documented',
+      countOf: ['SCNRY'],
     ),
     Field(
       'scenarioCoverage',

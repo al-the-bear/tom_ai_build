@@ -2589,6 +2589,7 @@ class JobDescriptionsAndStaffing extends DocSpecsSection {
       String,
       'Total Role Impact — summary of new/changed/removed roles',
       hint: 'Summary count of new, changed, and removed roles',
+      countOf: ['NRE', 'CHAROL', 'REMROL'],
     ),
     Field(
       'totalFteChange',

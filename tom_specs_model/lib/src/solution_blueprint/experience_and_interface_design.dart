@@ -11182,7 +11182,13 @@ class FeatureTourEntry extends DocSpecsSection {
       'Trigger Condition',
       hint: 'When tour is shown',
     ),
-    Field('stepCount', int, 'Step Count', hint: 'Number of steps in the tour'),
+    Field(
+      'stepCount',
+      int,
+      'Step Count',
+      hint: 'Number of steps in the tour',
+      countOf: ['./TURST'],
+    ),
     Field(
       'estimatedDuration',
       String,
@@ -13350,6 +13356,7 @@ class ComponentFamilyEntry extends DocSpecsSection {
       int,
       'Component Count',
       hint: 'Number of components in the family',
+      countOf: ['./FAMREF'],
     ),
     Field(
       'sharedPatterns',

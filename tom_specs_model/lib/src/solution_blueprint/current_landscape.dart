@@ -1981,7 +1981,12 @@ class CurrentBusinessProcesses extends DocSpecsSection {
 @SectionId('PRSCSU')
 class ProcessScopeSummary extends DocSpecsSection {
   @Form([
-    Field('totalProcessesIdentified', int, 'Total Processes Identified'),
+    Field(
+      'totalProcessesIdentified',
+      int,
+      'Total Processes Identified',
+      countOf: ['PRSCEN'],
+    ),
     Field('processesInScope', int, 'Processes In Scope'),
     Field('processesOutOfScope', int, 'Processes Out of Scope'),
     Field(
@@ -3597,30 +3602,35 @@ and technical capabilities. Highlight interdependencies between pain points.
       int,
       'Total Pain Points',
       hint: 'Total number of documented pain points across all categories',
+      countOf: ['PAPE'],
     ),
     Field(
       'criticalCount',
       int,
       'Critical Count',
       hint: 'Number of pain points rated as critical severity',
+      countOf: ['PAPE.severity=critical'],
     ),
     Field(
       'highCount',
       int,
       'High Severity Count',
       hint: 'Number of pain points rated as high severity',
+      countOf: ['PAPE.severity=high'],
     ),
     Field(
       'mediumCount',
       int,
       'Medium Severity Count',
       hint: 'Number of pain points rated as medium severity',
+      countOf: ['PAPE.severity=medium'],
     ),
     Field(
       'lowCount',
       int,
       'Low Severity Count',
       hint: 'Number of pain points rated as low severity',
+      countOf: ['PAPE.severity=low'],
     ),
     Field(
       'totalEstimatedAnnualCost',
@@ -4690,6 +4700,7 @@ to the organization. Highlight critical data dependencies and risks.
       int,
       'Total Data Sources',
       hint: 'Number of distinct data sources/stores',
+      countOf: ['DASR'],
     ),
     Field(
       'totalDataVolume',
@@ -5608,6 +5619,7 @@ of duplication, its causes, impacts, and any ongoing deduplication efforts.
       int,
       'Number of Known Duplications',
       hint: 'Count of documented duplication cases',
+      countOf: ['DADU'],
     ),
     Field(
       'storageWasteEstimate',
@@ -5835,6 +5847,7 @@ the ownership model, roles and responsibilities, and any gaps in accountability.
       int,
       'Total Data Domains',
       hint: 'Number of defined data domains',
+      countOf: ['DAOWEN'],
     ),
     Field(
       'assignedOwnershipPercentage',
@@ -6970,6 +6983,7 @@ architecture, major data flows, technologies used, and integration challenges.
       int,
       'Total Integration Points',
       hint: 'Number of distinct data integration points',
+      countOf: ['DAIN'],
     ),
     Field(
       'integrationArchitecture',
@@ -7278,6 +7292,7 @@ approach.
       int,
       'Total Master Data Domains',
       hint: 'Number of defined master data domains',
+      countOf: ['MSDDO'],
     ),
     Field(
       'goldenRecordCoverage',

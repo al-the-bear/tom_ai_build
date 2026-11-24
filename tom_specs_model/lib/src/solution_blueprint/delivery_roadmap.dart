@@ -28,7 +28,7 @@ class SystemStagePlan extends DocSpecsSection {
       String,
       'Total Stages Planned',
       hint: 'Number of major stages in the rollout plan',
-      required: true,
+      countOf: ['STAGE'],
     ),
     Field(
       'stagingPhilosophy',
@@ -885,7 +885,7 @@ class StageOverview extends DocSpecsSection {
       String,
       'Number of Stages',
       hint: 'Total number of major stages in the plan, e.g. 4',
-      required: true,
+      countOf: ['STAGE'],
     ),
     Field(
       'totalDurationMonths',
@@ -1062,6 +1062,7 @@ class StageOverview extends DocSpecsSection {
       String,
       'Cross-Stage Dependency Count',
       hint: 'Total number of dependencies between stages, e.g. 12 dependencies',
+      countOf: ['FDE.crossStageDependency=true'],
     ),
     Field(
       'highRiskDependencies',
@@ -2922,6 +2923,7 @@ class FeaturePrioritization extends DocSpecsSection {
       String,
       'Total Features in Backlog',
       hint: 'Total feature count across all priority tiers',
+      countOf: ['FPE'],
     ),
     Field(
       'featuresFullyPrioritized',
@@ -3029,24 +3031,28 @@ class MoscowAnalysis extends DocSpecsSection {
       String,
       'Must-Have Count',
       hint: 'Number of Must-have features',
+      countOf: ['FPE.moscowTier=must'],
     ),
     Field(
       'shouldHaveCount',
       String,
       'Should-Have Count',
       hint: 'Number of Should-have features',
+      countOf: ['FPE.moscowTier=should'],
     ),
     Field(
       'couldHaveCount',
       String,
       'Could-Have Count',
       hint: 'Number of Could-have features',
+      countOf: ['FPE.moscowTier=could'],
     ),
     Field(
       'wontHaveCount',
       String,
       'Won\'t-Have Count',
       hint: 'Number of Won\'t-have features',
+      countOf: ['FPE.moscowTier=wontThisTime'],
     ),
     Field(
       'mustHaveEffortPercentage',
@@ -3274,6 +3280,7 @@ class FeatureStageMatrix extends DocSpecsSection {
       String,
       'Total Mapped Features',
       hint: 'Number of features mapped to stages',
+      countOf: ['FSM'],
     ),
     Field(
       'unmappedFeatures',
@@ -3294,6 +3301,7 @@ class FeatureStageMatrix extends DocSpecsSection {
       String,
       'Cross-Stage Dependency Count',
       hint: 'Feature dependencies crossing stage boundaries',
+      countOf: ['FDE.crossStageDependency=true'],
     ),
     Field(
       'matrixLastUpdated',
@@ -3522,6 +3530,7 @@ class FeaturePriorityRegister extends DocSpecsSection {
       String,
       'Total Registered Features',
       hint: 'Total number of features in the register',
+      countOf: ['FPE'],
     ),
     Field(
       'registerLastUpdated',
@@ -4421,7 +4430,7 @@ class DataMigrationStrategy extends DocSpecsSection {
       String,
       'Total Source Systems',
       hint: 'Number of source systems involved',
-      required: true,
+      countOf: ['MISY'],
     ),
     Field(
       'totalDataVolume',
@@ -5041,7 +5050,7 @@ class MigrationPhases extends DocSpecsSection {
       hint:
           'Number of distinct migration phases — e.g. 5 phases '
           'covering 3 source systems',
-      required: true,
+      countOf: ['MGPHS'],
     ),
     Field(
       'phaseExecutionModel',
@@ -5750,7 +5759,7 @@ class StageMigrationRisks extends DocSpecsSection {
       hint:
           'Number of migration-specific risks — e.g. 18 risks '
           'across 5 categories',
-      required: true,
+      countOf: ['STGMRS'],
     ),
     Field(
       'criticalRiskCount',
@@ -5759,6 +5768,7 @@ class StageMigrationRisks extends DocSpecsSection {
       hint:
           'Number of risks rated Critical or High — requiring '
           'active mitigation',
+      countOf: ['STGMRS.riskRating=critical', 'STGMRS.riskRating=high'],
     ),
     Field(
       'topRiskSummary',
@@ -5868,6 +5878,14 @@ class StageMigrationRiskEntry extends DocSpecsSection {
       'Risk Category',
       hint: 'DataLoss / DataCorruption / DowntimeOverrun / SecurityBreach',
       required: true,
+    ),
+    Field(
+      'riskRating',
+      ImportanceBand,
+      'Risk Rating',
+      hint:
+          'The band the risk is rated in after scoring — the stage migration '
+          'risks count the critical and high ones',
     ),
   ])
   @override
@@ -6510,6 +6528,7 @@ class PhaseGateReviews extends DocSpecsSection {
       String,
       'Total Gate Count',
       hint: 'Number of formal gates in the stage plan',
+      countOf: ['PHGREV'],
     ),
     Field(
       'gateReviewDuration',
@@ -7084,6 +7103,7 @@ class DecisionPoints extends DocSpecsSection {
       String,
       'Total Decision Points',
       hint: 'Number of formal decision points defined',
+      countOf: ['DPE'],
     ),
     Field(
       'decisionRecordingMethod',

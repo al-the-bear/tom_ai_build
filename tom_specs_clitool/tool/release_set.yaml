@@ -165,8 +165,11 @@ unpublished_drift:
     S2, S3, S5, S8 (new members PME.metricRef, DSRC.recipientRef,
     WOSUEN.workflowRef, STKNT.stakeholderRef, STKRE.stakeholderType, the
     CUWF step counts), D9 and D5 documented; 03_sau9: refersTo on the link
-    fields, the inverses I6..I9 and the symmetric related lists; not
-    regenerated until 03_sau11.
+    fields, the inverses I6..I9 and the symmetric related lists; 03_sau10:
+    countOf on 64 count fields (the RO-REQU hints updated, required dropped
+    from five), the new members ACEN.actorKind (enum ActorKind),
+    INEN.priority and STGMRS.riskRating (DIR-13); not regenerated until
+    03_sau11.
 
 published_from:
   tom_specs_core: {version: '0.5.2', commit: '0f5d4c23'}
