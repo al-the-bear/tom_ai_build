@@ -807,7 +807,22 @@ path the value is stored at, or the problem) and the filter grammar
 (`filters`: parsed, resolved, matched against stored values), malformed texts
 included.
 
-Both files are written by the Dart runtime's
+[`corpus/link_validation_cases.json`](corpus/link_validation_cases.json) pins
+`validateLinks` over one Blueprint of that model: a base document in which
+every link holds, and one case per finding, each the base with one edit — a
+derived copy, row collection, lookup, derived list and repeated value out of
+step, a lookup with no row and with two, a duplicated link row, a symmetric
+and a one-way link not named back, an id named in a generate-mode and a
+warn-mode text without its row, a stale generated row, a summary naming no
+detail element (a row and a field), naming one twice, or leaving one out under
+`equal`, a `@SameAs` copy differing from its holder and lacking one of its
+elements, and a value holding a pending change. Each case is `{name, intent,
+state, errors, instanceErrors}`: `errors` are `validateLinks`' findings,
+`instanceErrors` the instance tier's for the same document, which is where a
+`countOf` with `|` drifting is reported. Findings are `{path, code}`; messages
+are not compared.
+
+The files are written by the Dart runtime's
 `test/section_link_conformance_test.dart` under `UPDATE_CORPUS=1`; every case
 carries a hand-written `intent` the test checks, and the expectations were read
 by hand when the table landed. The other eight runners do not read these

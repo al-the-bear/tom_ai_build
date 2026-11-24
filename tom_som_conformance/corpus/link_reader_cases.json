@@ -163,6 +163,16 @@
             }
           },
           {
+            "class": "Criterion",
+            "field": "content",
+            "formField": "relatedRequirements",
+            "inverseOf": {
+              "fields": [
+                "REQT.relatedCriteria"
+              ]
+            }
+          },
+          {
             "class": "Link",
             "field": "ref",
             "formField": "ref",
@@ -210,6 +220,26 @@
               "fields": [
                 "SCRN.relatedRequirements"
               ]
+            }
+          },
+          {
+            "class": "Requirement",
+            "field": "trace",
+            "formField": "relatedCriteria",
+            "inverseOf": {
+              "fields": [
+                "CRITE.relatedRequirements"
+              ]
+            }
+          },
+          {
+            "class": "Requirements",
+            "field": "summary",
+            "formField": "allRequirements",
+            "summaryOf": {
+              "detail": "REQ-ITEM-LST",
+              "relation": "equal",
+              "repeats": {}
             }
           },
           {

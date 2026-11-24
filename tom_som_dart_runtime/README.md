@@ -92,6 +92,7 @@ and how to pin.
 | `spec_typed_values.dart` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
 | `spec_editor.dart` | The generic meta-model-driven modification API (`SpecEditor`, YRD7) — typed edits over any path, without a generated facade. |
 | `spec_validator.dart` | Validates a document's values against the model (`validateDocument`). |
+| `spec_links_validator.dart` | The link checks of one document (`validateLinks`, `tom_specs_model_rules.md` §9.7): derived values against their sources, summaries against their detail lists, each end of a link against the other, ids named in a text against the link rows, a `@SameAs` copy against its holder; values read with pending marks rejected, and listed. |
 | `spec_text_pattern.dart` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime. |
 | `spec_query.dart` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection. |
 | `spec_node_creation.dart` | The constrained node-creation gate (`checkAddNode`, `SpecNodeCreator`) — a document may only grow in ways the model permits. |
@@ -231,6 +232,7 @@ dart analyze
 | `SpecEditor` | Typed edits over any path, driven by the meta-model rather than by generated classes. |
 | `SpecNodeCreator` | The creation gate — a document may only grow in ways the model permits. |
 | `validateDocument` | The instance tier: a filled document's values checked against the model. |
+| `validateLinks` | The link checks of one document, reported like the instance tier. |
 | `SpecDocumentYaml` | Byte-stable `*.tomspecs.yaml` encode/decode. |
 | `SpecDocumentMarkdown` | DocSpecs-conform Markdown export, parse and round-trip. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |

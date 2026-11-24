@@ -59,6 +59,7 @@ anything that computes the path rather than knowing it.
 | `SpecReflection` | Resolves and enumerates paths against the model **without reading values** |
 | `SpecPlace` / `SpecPlaceFilter` | Parse and resolve the places and filters the link annotations name |
 | `SpecValidator` / `validateDocument` | The instance tier: a filled document's values checked against the model |
+| `validateLinks` | The link checks of one document: derived values, summaries, both ends of a link, link rows, `@SameAs` copies |
 | the YAML and Markdown codecs | `*.tomspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages |
 | the editing-facade bases | What the generated `tom_som_dart_v0` types extend |
 
@@ -150,6 +151,17 @@ A place that does not resolve throws a `SpecPlaceException` whose `problem`
 says why (`ambiguous`, `unresolved`, `noSuchField`, …). `specSameAsBindings`
 lists every `@SameAs` copy of a document root with the position that holds
 its values.
+
+`validateLinks(model, doc)` holds a document's values to those links and
+answers `SpecValidationError`s like `validateDocument`, sorted by path: a
+derived value its sources do not give (`derivedValueMismatch`), a lookup
+without exactly one row (`derivedLookupMiss`), a link not named back
+(`inverseMissing`), an id named in a text without its row
+(`extractedLinkMissing`) or a generated row the text no longer names
+(`extractedLinkStale`), a summary out of step with its detail list, and a
+`@SameAs` copy edited apart from its holder (`sameAsMismatch`). A value with
+pending change marks is read with every mark rejected and listed as
+`linkValuePending`.
 
 ## When to prefer the generic path
 

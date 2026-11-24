@@ -56,6 +56,7 @@ class CorpusGuardedEnum {
     required this.exercised,
     required this.why,
     this.waived = const {},
+    this.moreCorpora = const {},
   });
 
   /// The Dart enum's name, as written in `lib/` — the key totality matches on.
@@ -93,6 +94,12 @@ class CorpusGuardedEnum {
   /// it, and ECG3 fails the moment the constant becomes exercised — so it
   /// cannot outlive its cause.
   final Map<String, String> waived;
+
+  /// Further tables the same enum is exercised by, each with its own
+  /// extractor (the tables differ in shape): `SpecValidationCode` is reported
+  /// by the instance tier (`validation_cases.json`) and by the link checks
+  /// (`link_validation_cases.json`).
+  final Map<String, Set<String> Function(dynamic corpus)> moreCorpora;
 
   /// What a missing case would let through. Quoted in the failure message,
   /// because the person reading that message is deciding whether to write the
@@ -311,6 +318,18 @@ final List<CorpusGuardedEnum> _guarded = [
       for (final k in (c as List).cast<Map<String, dynamic>>())
         for (final e in (k['errors'] as List).cast<Map<String, dynamic>>())
           e['code'] as String,
+    },
+    moreCorpora: {
+      'link_validation_cases.json': (c) => {
+        for (final k
+            in ((c as Map<String, dynamic>)['cases'] as List)
+                .cast<Map<String, dynamic>>())
+          for (final e in [
+            ...(k['errors'] as List),
+            ...(k['instanceErrors'] as List),
+          ])
+            (e as Map)['code'] as String,
+      },
     },
     why:
         'an instance-tier check that eight runtimes need not implement, while '
@@ -649,6 +668,13 @@ void main() {
   dynamic corpus(String name) =>
       jsonDecode(File('${corpusDir.path}/$name').readAsStringSync());
 
+  // Every token a guarded enum's tables exercise, its main table and the
+  // further ones together.
+  Set<String> exercisedBy(CorpusGuardedEnum g) => {
+    ...g.exercised(corpus(g.corpusFile)),
+    for (final e in g.moreCorpora.entries) ...e.value(corpus(e.key)),
+  };
+
   test('ECG1: every enum in lib/ is corpus-guarded or explicitly exempt '
       '[2026-08-09]', () {
     // Deliberately a source parse rather than reflection, for the reason the
@@ -707,7 +733,7 @@ void main() {
   group('ECG2: every guarded constant has a corpus case [2026-08-09]', () {
     for (final g in _guarded) {
       test(g.enumName, () {
-        final exercised = g.exercised(corpus(g.corpusFile));
+        final exercised = exercisedBy(g);
         final uncovered = g.declared.entries
             .where((e) => !exercised.contains(e.value))
             .where((e) => !g.waived.containsKey(e.key))
@@ -732,7 +758,7 @@ void main() {
     // tests, which is the goal state.
     for (final g in _guarded.where((g) => g.waived.isNotEmpty)) {
       test(g.enumName, () {
-        final exercised = g.exercised(corpus(g.corpusFile));
+        final exercised = exercisedBy(g);
         final stale = g.waived.keys.where(
           (n) => exercised.contains(g.declared[n]),
         );
@@ -792,9 +818,7 @@ void main() {
         // constants, and ECG2 alone would report that as *missing coverage* —
         // pointing at the enum instead of at the extractor.
         final tokens = g.declared.values.toSet();
-        final unknown = g
-            .exercised(corpus(g.corpusFile))
-            .where((t) => !tokens.contains(t));
+        final unknown = exercisedBy(g).where((t) => !tokens.contains(t));
         expect(
           unknown,
           isEmpty,

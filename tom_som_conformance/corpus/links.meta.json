@@ -257,6 +257,20 @@
               "countOf": [
                 "REQ.status=approved|done"
               ]
+            },
+            {
+              "name": "allRequirements",
+              "label": "AllRequirements",
+              "type": "String",
+              "refersTo": [
+                "REQ.@sectionId"
+              ],
+              "multiple": true,
+              "summaryOf": {
+                "detail": "REQ-ITEM-LST",
+                "relation": "equal",
+                "repeats": {}
+              }
             }
           ]
         },
@@ -450,6 +464,20 @@
               "inverseOf": {
                 "fields": [
                   "SCRN.relatedRequirements"
+                ]
+              }
+            },
+            {
+              "name": "relatedCriteria",
+              "label": "RelatedCriteria",
+              "type": "String",
+              "refersTo": [
+                "CRITE.@sectionId"
+              ],
+              "multiple": true,
+              "inverseOf": {
+                "fields": [
+                  "CRITE.relatedRequirements"
                 ]
               }
             }
@@ -791,6 +819,20 @@
               "name": "text",
               "label": "Text",
               "type": "String"
+            },
+            {
+              "name": "relatedRequirements",
+              "label": "RelatedRequirements",
+              "type": "String",
+              "refersTo": [
+                "REQ.@sectionId"
+              ],
+              "multiple": true,
+              "inverseOf": {
+                "fields": [
+                  "REQT.relatedCriteria"
+                ]
+              }
             }
           ]
         }

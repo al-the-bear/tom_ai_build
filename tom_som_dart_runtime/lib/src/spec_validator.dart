@@ -75,6 +75,10 @@ enum SpecValidationCode {
   /// a value the fields it is derived from do not give, or no number at all
   /// (uamtc10). A risk score kept by hand drifts the first time probability or
   /// impact changes and the score does not.
+  ///
+  /// The link checks (`validateLinks`) report it too: a value or list derived
+  /// by `@DerivedFrom` / `derivedFrom:` that its sources do not give, and a
+  /// value a `@SummaryOf` row repeats that its detail element does not hold.
   derivedValueMismatch,
 
   /// A form the document holds leaves a `required` field empty (uamtc16).
@@ -130,6 +134,47 @@ enum SpecValidationCode {
   /// A generation-unit emitter names no standard emitter
   /// ([kSpecStandardEmitters]: `openapi`, `jsonschema`, `icu`, `asyncapi`, `markdown`).
   unitEmitterUnknown,
+
+  // The link checks of one document (`validateLinks`,
+  // `tom_specs_model_rules.md` §9.7). A stored derived value its sources do
+  // not give is reported as [derivedValueMismatch] above.
+
+  /// A `@DerivedFrom.lookup` finds no row for its key, or more than one.
+  derivedLookupMiss,
+
+  /// Two link rows beneath one element name the same id with the same type
+  /// (the values `@ExtractsLinks` sets); reported at the second.
+  duplicateLinkRow,
+
+  /// A link names an entry whose other end (`inverseOf`) does not name it
+  /// back, or a symmetric row has no counterpart on the entry it names. An end
+  /// whose registry the document does not hold is skipped.
+  inverseMissing,
+
+  /// An id named in an `@ExtractsLinks` text has no row. An id that has a row
+  /// of any type is a reference to it and is not reported.
+  extractedLinkMissing,
+
+  /// A generated row (its `@ExtractsLinks` `set` values match) names an id
+  /// the text no longer names.
+  extractedLinkStale,
+
+  /// A summary row (`@SummaryOf`) names no element of its detail list.
+  summaryNotInDetail,
+
+  /// Under `relation: equal`, a detail element no summary row names.
+  detailNotInSummary,
+
+  /// Two summary rows name one detail element; reported at the second.
+  summaryDuplicate,
+
+  /// A `@SameAs` copy holds a value its holder does not (or lacks one it
+  /// holds): the two positions of the section were edited apart.
+  sameAsMismatch,
+
+  /// A value a link check reads holds pending change marks. It is read with
+  /// every mark rejected (the reviewed state) and listed for the user.
+  linkValuePending,
 }
 
 /// One problem found while validating a document.

@@ -11,6 +11,12 @@
 ///   loading unchanged, and `textCases` for the place grammar ([SpecPlace])
 ///   and the filter ([SpecPlaceFilter]), malformed ones included.
 ///
+/// * `link_validation_cases.json` — `validateLinks` over one Blueprint of the
+///   fixture: a base document in which every link holds, and one case per
+///   finding, each the base with one edit; every case also records the
+///   instance tier (`validateDocument`), which is where a `countOf` with `|`
+///   is checked.
+///
 /// Each case carries a hand-written `intent`: what it exists to show. A run
 /// checks that the intent holds in the expectation, so a case that silently
 /// stops showing it fails even though Dart reproduces its own output.
@@ -57,6 +63,45 @@
 ///   trimmed stored values against the alternatives, malformed texts (no `=`,
 ///   an empty alternative, a `/` path, no id) refused; `REQ.nope=x` is
 ///   `noSuchField`. Correct.
+/// * **fixture additions for the link validation table** — the one-way
+///   inverse pair `REQT.relatedCriteria` ↔ `CRITE.relatedRequirements` and the
+///   `equal` field summary `REQS-SUM.allRequirements` read back as written
+///   (bare `equal`, empty `repeats`). Correct.
+///
+/// ## Manual review of `link_validation_cases.json` (DP-part-conformance-1)
+///
+/// Reviewed 2026-11-24 against the intents and part-operations section 2:
+///
+/// * **the clean base** reports nothing, on either tier: REQ-EXPORT's text
+///   names REQ-PURGE, which it has a conflict row for (an id with a row of
+///   any type is a reference, DP-part-cleanup-7); the screen overview and the
+///   focus screens summarise another document and are skipped; the relatedScreens
+///   end names a registry the Blueprint does not hold and is skipped. A derived
+///   value left empty is not reported (deriveFields writes it). Correct.
+/// * **derivedValueMismatch** — the copy (`REQAB`), the collected conflict ids
+///   (`REQC`), the looked-up version (`content`), the derived prerequisite list
+///   (`PRE-ITEM-LST`) and a repeated summary title, each at the place holding
+///   the stored value. Correct.
+/// * **derivedLookupMiss** — REQ-PURGE with its revision removed, REQ-EXPORT
+///   with two; the stored version is then not compared. Correct.
+/// * **duplicateLinkRow** at the second `namedInText` row naming REQ-IMPORT;
+///   **inverseMissing** at REQ-EXPORT's conflict row once REQ-PURGE's is gone,
+///   and at REQ-EXPORT's `REQT` once the criterion no longer names it back
+///   (cleared in holder and copy, so no copy finding). Correct.
+/// * **extractedLinkMissing** at the link list of REQ-IMPORT, once from the
+///   generate-mode description and once from the warn-mode constraints;
+///   **extractedLinkStale** at the generated row whose id the text dropped.
+///   Correct.
+/// * **summaryNotInDetail** for a row and for the field summary naming
+///   REQ-GONE — the instance tier reports the same id as a dangling reference,
+///   as it should; **summaryDuplicate** at the second key row;
+///   **detailNotInSummary** at REQ-PURGE, which the `equal` field summary
+///   leaves out. Correct.
+/// * **sameAsMismatch** at the copy's differing criterion text, and once — not
+///   per field — for a criterion the copy lacks. Correct.
+/// * **countMismatch** (instance tier) for `settled: 3` against approved|done;
+///   **linkValuePending** at a description holding a pending change, read with
+///   the mark rejected, so nothing else moves. Correct.
 library;
 
 import 'dart:convert';
@@ -72,6 +117,7 @@ void main() {
   final update = Platform.environment['UPDATE_CORPUS'] == '1';
   final meta = buildLinksMeta();
   final readerCases = buildLinkReaderCases(meta);
+  final validationCases = buildLinkValidationCases(meta);
 
   String encode(Object? json) =>
       '${const JsonEncoder.withIndent('  ').convert(json)}\n';
@@ -82,6 +128,9 @@ void main() {
     File(
       '${corpusDir.path}/link_reader_cases.json',
     ).writeAsStringSync(encode(readerCases));
+    File(
+      '${corpusDir.path}/link_validation_cases.json',
+    ).writeAsStringSync(encode(validationCases));
   });
 
   Object? onDisk(String name) =>
@@ -158,6 +207,81 @@ void main() {
           );
         }
       }
+    });
+  });
+
+  group('link validation', () {
+    test(
+      'LVC1: link_validation_cases.json is the table the builder writes',
+      () {
+        expect(
+          onDisk('link_validation_cases.json'),
+          jsonDecode(jsonEncode(validationCases)),
+        );
+      },
+    );
+
+    test('LVC2: the table on disk is reproduced from its own inputs', () {
+      final model = SpecModel.fromJson(
+        onDisk('links.meta.json') as Map<String, dynamic>,
+      );
+      final table =
+          onDisk('link_validation_cases.json') as Map<String, dynamic>;
+      for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+        final got = linkValidationCase(model, c['state'] as Map);
+        expect(got['errors'], c['errors'], reason: c['name'] as String);
+        expect(
+          got['instanceErrors'],
+          c['instanceErrors'],
+          reason: c['name'] as String,
+        );
+      }
+    });
+
+    test('LVC3: every case shows its intent', () {
+      for (final c
+          in (validationCases['cases'] as List).cast<Map<String, dynamic>>()) {
+        final codes = {
+          for (final e in [
+            ...(c['errors'] as List),
+            ...(c['instanceErrors'] as List),
+          ])
+            (e as Map)['code'] as String,
+        };
+        for (final token in (c['intent'] as List).cast<String>()) {
+          if (token == 'clean') {
+            expect(codes, isEmpty, reason: '${c['name']}: intent "clean"');
+          } else {
+            expect(
+              codes,
+              contains(token),
+              reason: '${c['name']}: intent "$token"',
+            );
+          }
+        }
+      }
+    });
+
+    test('LVC4: every link code has a provoking case', () {
+      final provoked = {
+        for (final c in (validationCases['cases'] as List))
+          for (final e in ((c as Map)['errors'] as List))
+            (e as Map)['code'] as String,
+      };
+      const linkCodes = [
+        SpecValidationCode.derivedValueMismatch,
+        SpecValidationCode.derivedLookupMiss,
+        SpecValidationCode.duplicateLinkRow,
+        SpecValidationCode.inverseMissing,
+        SpecValidationCode.extractedLinkMissing,
+        SpecValidationCode.extractedLinkStale,
+        SpecValidationCode.summaryNotInDetail,
+        SpecValidationCode.detailNotInSummary,
+        SpecValidationCode.summaryDuplicate,
+        SpecValidationCode.sameAsMismatch,
+        SpecValidationCode.linkValuePending,
+      ];
+      expect(provoked, containsAll(linkCodes.map((c) => c.name)));
     });
   });
 
@@ -713,6 +837,287 @@ Map<String, dynamic> _olderMeta() => {
 };
 
 // ---------------------------------------------------------------------------
+// The table `link_validation_cases.json`
+// ---------------------------------------------------------------------------
+
+/// One validation case: [state] loaded, then `validateLinks` and the instance
+/// tier, each finding as `{path, code}`.
+Map<String, Object?> linkValidationCase(
+  SpecModel model,
+  Map<dynamic, dynamic> state,
+) {
+  final doc = SpecDocument()..loadJson(state);
+  List<Map<String, String>> pairs(List<SpecValidationError> errors) => [
+    for (final e in errors) {'path': e.path, 'code': e.code.name},
+  ];
+  return {
+    'errors': pairs(validateLinks(model, doc)),
+    'instanceErrors': pairs(validateDocument(model, doc)),
+  };
+}
+
+/// The paths of the base Blueprint.
+const _req = 'BLU/requirements';
+const _reqList = '$_req/REQ-ITEM-LST';
+const _ra = '$_reqList-1';
+const _rb = '$_reqList-2';
+const _rc = '$_reqList-3';
+const _holder = 'BLU/acceptance/criteria/CRIT-ITEM-LST';
+const _copy = 'BLU/criteriaSummary/criteria/CRIT-ITEM-LST';
+
+/// The base Blueprint of the link validation cases: every link of the fixture
+/// holds. Three requirements (`REQ-EXPORT`, `REQ-IMPORT`, `REQ-PURGE`) with
+/// their link rows, revisions, a key requirement, the full-list summary, the
+/// acceptance criteria and their `@SameAs` copy, and two cross-document
+/// references (a screen overview row, the focus screens) that `validateLinks`
+/// leaves to the document set.
+SpecDocument _baseBlueprint() {
+  final d = SpecDocument();
+  void form(String path, Map<String, String> values) =>
+      values.forEach((k, v) => d.setFormField(path, k, v));
+  String row(String list, String type, String ref, [String? id]) {
+    final r = d.addListItem(list, sectionId: id);
+    form('$r/content', {'linkType': type});
+    form('$r/LNK-REF', {'ref': ref});
+    return r;
+  }
+
+  form('$_req/REQS-SUM', {
+    'total': '3',
+    'settled': '2',
+    'allRequirements': 'REQ-EXPORT, REQ-IMPORT, REQ-PURGE',
+  });
+  for (final (id, title, status, version) in [
+    ('REQ-EXPORT', 'Export presets', 'approved', '1.1'),
+    ('REQ-IMPORT', 'Import', 'done', '1.0'),
+    ('REQ-PURGE', 'Purge', 'draft', '0.9'),
+  ]) {
+    final item = d.addListItem(_reqList, sectionId: id);
+    d.setHeadline(item, title);
+    form('$item/content', {'status': status, 'lastVersion': version});
+  }
+  // REQ-EXPORT names REQ-IMPORT (its generated row) and REQ-PURGE, which it
+  // has a conflict row for: an id with a row of another type is a reference
+  // and not reported (DP-part-cleanup-7).
+  const exportText =
+      'Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.';
+  form('$_ra/content', {'owner': 'ana'});
+  form('$_ra/REQD', {'description': exportText});
+  d.setContent('$_ra/REQAB', exportText);
+  form('$_ra/REQC', {'conflictsWith': 'REQ-PURGE'});
+  form('$_ra/REQT', {
+    'relatedScreens': 'SCRN-LOGIN',
+    'relatedCriteria': 'CRIT-SPEED',
+  });
+  row('$_ra/LNK-ITEM-LST', 'namedInText', 'REQ-IMPORT');
+  row('$_ra/LNK-ITEM-LST', 'conflict', 'REQ-PURGE');
+
+  form('$_rb/REQD', {'description': 'Imports files.'});
+  form('$_rb/REQC', {'constraints': 'Bounded by REQ-PURGE.'});
+  row('$_rb/LNK-ITEM-LST', 'constrainedBy', 'REQ-PURGE');
+
+  form('$_rc/REQD', {'description': 'Purges old data.'});
+  form('$_rc/REQC', {'conflictsWith': 'REQ-EXPORT'});
+  row('$_rc/LNK-ITEM-LST', 'conflict', 'REQ-EXPORT');
+  row('$_rc/LNK-ITEM-LST', 'prerequisite', 'REQ-IMPORT');
+  final pre = d.addListItem('$_rc/PRE-ITEM-LST');
+  form('$pre/content', {'ref': 'REQ-IMPORT'});
+
+  for (final (ref, version) in [
+    ('REQ-EXPORT', '1.1'),
+    ('REQ-IMPORT', '1.0'),
+    ('REQ-PURGE', '0.9'),
+  ]) {
+    final r = d.addListItem('BLU/REV-ITEM-LST');
+    form('$r/content', {'requirementRef': ref, 'version': version});
+  }
+  final key = d.addListItem('$_req/keyRequirements/KEY-ITEM-LST');
+  form('$key/content', {
+    'requirementRef': 'REQ-EXPORT',
+    'title': 'Export presets',
+  });
+
+  form('BLU/acceptance/content', {'owner': 'quality team'});
+  d.setContent('BLU/criteriaSummary/content', 'The criteria at a glance.');
+  for (final list in [_holder, _copy]) {
+    for (final (id, kind, text, refs) in [
+      ('CRIT-SPEED', 'functional', 'Exports finish in 5 s.', 'REQ-EXPORT'),
+      ('CRIT-AUDIT', 'quality', 'Every purge is logged.', ''),
+    ]) {
+      final c = d.addListItem(list, sectionId: id);
+      form('$c/content', {
+        'kind': kind,
+        'text': text,
+        if (refs.isNotEmpty) 'relatedRequirements': refs,
+      });
+    }
+  }
+  final ovr = d.addListItem('BLU/screenOverview/OVR-ITEM-LST');
+  form('$ovr/content', {'screenRef': 'SCRN-UNKNOWN'});
+  form('BLU/FOC', {'focusScreens': 'SCRN-NOWHERE'});
+  return d;
+}
+
+/// The table `link_validation_cases.json`, its expectations computed live.
+Map<String, Object?> buildLinkValidationCases(Map<String, dynamic> meta) {
+  final model = SpecModel.fromJson(meta);
+  Map<String, Object?> kase(
+    String name,
+    List<String> intent, [
+    void Function(SpecDocument d)? edit,
+  ]) {
+    final d = _baseBlueprint();
+    edit?.call(d);
+    final state = d.toJson();
+    return {
+      'name': name,
+      'intent': intent,
+      'state': state,
+      ...linkValidationCase(model, state),
+    };
+  }
+
+  return {
+    'model': 'links.meta.json',
+    'cases': [
+      kase(
+        'a clean Blueprint: every link holds; an id with a row of another '
+        'type, a summary of another document and an end whose registry the '
+        'document does not hold are not reported',
+        ['clean'],
+      ),
+      kase('a derived value not written yet is not reported', [
+        'clean',
+      ], (d) => d.setContent('$_ra/REQAB', '')),
+      kase('a copy differing from its source', [
+        'derivedValueMismatch',
+      ], (d) => d.setContent('$_ra/REQAB', 'Exports use other formats.')),
+      kase('collected rows differing from the field', [
+        'derivedValueMismatch',
+      ], (d) => d.setFormField('$_ra/REQC', 'conflictsWith', 'REQ-IMPORT')),
+      kase('a looked-up value differing', [
+        'derivedValueMismatch',
+      ], (d) => d.setFormField('$_ra/content', 'lastVersion', '1.0')),
+      kase(
+        'a derived list differing from its rows',
+        ['derivedValueMismatch'],
+        (d) =>
+            d.setFormField('$_rc/PRE-ITEM-LST-1/content', 'ref', 'REQ-EXPORT'),
+      ),
+      kase(
+        'a summary row repeating a value its detail element does not hold',
+        ['derivedValueMismatch'],
+        (d) => d.setFormField(
+          '$_req/keyRequirements/KEY-ITEM-LST-1/content',
+          'title',
+          'Presets',
+        ),
+      ),
+      kase('a lookup finding no row', [
+        'derivedLookupMiss',
+      ], (d) => d.removeListItem('BLU/REV-ITEM-LST-3')),
+      kase('a lookup finding two rows', ['derivedLookupMiss'], (d) {
+        final r = d.addListItem('BLU/REV-ITEM-LST');
+        d.setFormField('$r/content', 'requirementRef', 'REQ-EXPORT');
+        d.setFormField('$r/content', 'version', '1.2');
+      }),
+      kase('a link row twice', ['duplicateLinkRow'], (d) {
+        final r = d.addListItem('$_ra/LNK-ITEM-LST');
+        d.setFormField('$r/content', 'linkType', 'namedInText');
+        d.setFormField('$r/LNK-REF', 'ref', 'REQ-IMPORT');
+      }),
+      kase('a symmetric row without its counterpart', ['inverseMissing'], (d) {
+        d.removeListItem('$_rc/LNK-ITEM-LST-1');
+        d.setFormField('$_rc/REQC', 'conflictsWith', '');
+      }),
+      kase('a one-way link not named back', ['inverseMissing'], (d) {
+        for (final list in [_holder, _copy]) {
+          d.setFormField('$list-1/content', 'relatedRequirements', '');
+        }
+      }),
+      kase(
+        'an id named in a generate-mode text without a row',
+        ['extractedLinkMissing'],
+        (d) => d.setFormField(
+          '$_rb/REQD',
+          'description',
+          'Imports files for REQ-EXPORT.',
+        ),
+      ),
+      kase(
+        'an id named in a warn-mode text without a row',
+        ['extractedLinkMissing'],
+        (d) => d.setFormField(
+          '$_rb/REQC',
+          'constraints',
+          'Bounded by REQ-PURGE and REQ-EXPORT.',
+        ),
+      ),
+      kase('a generated row the text no longer names', ['extractedLinkStale'], (
+        d,
+      ) {
+        const text = 'Exports never run with REQ-PURGE.';
+        d.setFormField('$_ra/REQD', 'description', text);
+        d.setContent('$_ra/REQAB', text);
+      }),
+      kase(
+        'a summary row naming no element of the detail list',
+        ['summaryNotInDetail'],
+        (d) => d.setFormField(
+          '$_req/keyRequirements/KEY-ITEM-LST-1/content',
+          'requirementRef',
+          'REQ-GONE',
+        ),
+      ),
+      kase(
+        'a summary field naming no element of the detail list',
+        ['summaryNotInDetail'],
+        (d) => d.setFormField(
+          '$_req/REQS-SUM',
+          'allRequirements',
+          'REQ-EXPORT, REQ-IMPORT, REQ-PURGE, REQ-GONE',
+        ),
+      ),
+      kase('two summary rows naming one element', ['summaryDuplicate'], (d) {
+        final k = d.addListItem('$_req/keyRequirements/KEY-ITEM-LST');
+        d.setFormField('$k/content', 'requirementRef', 'REQ-EXPORT');
+        d.setFormField('$k/content', 'title', 'Export presets');
+      }),
+      kase(
+        'an element missing from an equal summary',
+        ['detailNotInSummary'],
+        (d) => d.setFormField(
+          '$_req/REQS-SUM',
+          'allRequirements',
+          'REQ-EXPORT, REQ-IMPORT',
+        ),
+      ),
+      kase(
+        'a copy edited apart from its holder',
+        ['sameAsMismatch'],
+        (d) => d.setFormField('$_copy-2/content', 'text', 'Purges are logged.'),
+      ),
+      kase('a copy missing an element of its holder', [
+        'sameAsMismatch',
+      ], (d) => d.removeListItem('$_copy-2')),
+      kase('a count over alternatives drifting (the instance tier)', [
+        'countMismatch',
+      ], (d) => d.setFormField('$_req/REQS-SUM', 'settled', '3')),
+      kase(
+        'a source holding a pending change, read with the mark rejected',
+        ['linkValuePending'],
+        (d) => d.setFormField(
+          '$_ra/REQD',
+          'description',
+          'Exports use the formats of REQ-IMPORT and never run with '
+              '{~~REQ-PURGE~>nothing~~}.',
+        ),
+      ),
+    ],
+  };
+}
+
+// ---------------------------------------------------------------------------
 // The fixture model `links.meta.json` (part-conformance, section 1)
 // ---------------------------------------------------------------------------
 
@@ -803,6 +1208,15 @@ Map<String, dynamic> buildLinksMeta() {
           _ff('settled', 'int', {
             'countOf': ['REQ.status=approved|done'],
           }),
+          _ff('allRequirements', 'String', {
+            'refersTo': ['REQ.@sectionId'],
+            'multiple': true,
+            'summaryOf': {
+              'detail': 'REQ-ITEM-LST',
+              'relation': 'equal',
+              'repeats': <String, String>{},
+            },
+          }),
         ]),
         _list('items', 'REQ-ITEM-LST', 'REQ-xxx', 'Requirement'),
         _complex('keyRequirements', 'KeyRequirements'),
@@ -883,6 +1297,13 @@ Map<String, dynamic> buildLinksMeta() {
           'multiple': true,
           'inverseOf': {
             'fields': ['SCRN.relatedRequirements'],
+          },
+        }),
+        _ff('relatedCriteria', 'String', {
+          'refersTo': ['CRITE.@sectionId'],
+          'multiple': true,
+          'inverseOf': {
+            'fields': ['CRITE.relatedRequirements'],
           },
         }),
       ]),
@@ -1023,6 +1444,13 @@ Map<String, dynamic> buildLinksMeta() {
           'enumValues': ['functional', 'quality', 'legal'],
         }),
         _ff('text', 'String'),
+        _ff('relatedRequirements', 'String', {
+          'refersTo': ['REQ.@sectionId'],
+          'multiple': true,
+          'inverseOf': {
+            'fields': ['REQT.relatedCriteria'],
+          },
+        }),
       ]),
     ]),
     'CriteriaSummary': _cls('CriteriaSummary', 'CSUM', [
