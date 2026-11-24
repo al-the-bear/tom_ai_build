@@ -200,6 +200,7 @@ TOM (Target Operating Model) document.
 )
 @SectionId('PRVIZ')
 @DetailedIn(D02TargetOperatingModel)
+@SyncedWith(D02TargetOperatingModel)
 @FollowUpKind(
   [FollowUpProcess.org, FollowUpProcess.ops],
   note:
@@ -445,6 +446,7 @@ class ExpectedImprovements extends DocSpecsSection {
 )
 @SectionId('PDPRI')
 @DetailedIn(D02TargetOperatingModel)
+@SyncedWith(D02TargetOperatingModel)
 @FollowUpKind(
   [FollowUpProcess.org, FollowUpProcess.ops],
   note:
@@ -587,6 +589,7 @@ class ProcessDesignPrincipleEntry extends DocSpecsSection {
 )
 @SectionId('PRCAT')
 @DetailedIn(D02TargetOperatingModel)
+@SyncedWith(D02TargetOperatingModel)
 @FollowUpKind(
   [FollowUpProcess.org, FollowUpProcess.ops],
   note:
@@ -2392,6 +2395,7 @@ class ProcessExceptionEntry extends DocSpecsSection {
 )
 @SectionId('PROVDI')
 @DetailedIn(D02TargetOperatingModel)
+@SyncedWith(D02TargetOperatingModel)
 @FollowUpKind(
   [FollowUpProcess.org, FollowUpProcess.ops],
   note:
@@ -2476,6 +2480,7 @@ class ProcessOverviewDiagram extends DocSpecsSection {
 )
 @SectionId('PRIMSU')
 @DetailedIn(D02TargetOperatingModel)
+@SyncedWith(D02TargetOperatingModel)
 @FollowUpKind(
   [FollowUpProcess.org, FollowUpProcess.ops],
   note:
@@ -2709,6 +2714,7 @@ class ProcessImprovementEntry extends DocSpecsSection {
 )
 @SectionId('PR')
 @DetailedIn(D02TargetOperatingModel)
+@SyncedWith(D02TargetOperatingModel)
 @FollowUpKind(
   [FollowUpProcess.org, FollowUpProcess.ops],
   note:
@@ -3068,6 +3074,7 @@ class ActorRelationshipDiagram extends DocSpecsSection {
 ], 'Captures the step-by-step target workflow for a single catalogued process.')
 @SectionId('DEPRWO')
 @DetailedIn(D02TargetOperatingModel)
+@SyncedWith(D02TargetOperatingModel)
 @CodeSpecKind(
   [CodeSpecPart.workflow],
   note:
@@ -3113,6 +3120,7 @@ actor responsibility.
 )
 @SectionId('CRPRAN')
 @DetailedIn(D02TargetOperatingModel)
+@SyncedWith(D02TargetOperatingModel)
 @FollowUpKind(
   [FollowUpProcess.org, FollowUpProcess.ops],
   note:
@@ -3153,6 +3161,7 @@ exchanged, synchronization points, and conflicts.
 )
 @SectionId('PREXHA')
 @DetailedIn(D02TargetOperatingModel)
+@SyncedWith(D02TargetOperatingModel)
 @FollowUpKind(
   [FollowUpProcess.org, FollowUpProcess.ops],
   note:
@@ -6264,6 +6273,7 @@ class AlternativeStepEntry extends DocSpecsSection {
 )
 @SectionId('PMAK')
 @DetailedIn(D02TargetOperatingModel)
+@SyncedWith(D02TargetOperatingModel)
 @FollowUpKind(
   [FollowUpProcess.org, FollowUpProcess.ops],
   note:

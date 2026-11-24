@@ -149,7 +149,8 @@ unpublished_drift:
     (RequirementDependencyType, constrainedBy, the derived conflictsWith and
     OREP.dependencies, @ExtractsLinks, the symmetric RQDEP ref, the header
     derived from the newest revision, @SyncedWith on FR, OR, SR1, TR1, REQCOV,
-    RERE, I1 and I5); not regenerated until 03_sau11.
+    RERE, I1 and I5); 03_sau2: @SyncedWith on the 34 CLA, TOM and IFM pairs;
+    not regenerated until 03_sau11.
 
 published_from:
   tom_specs_core: {version: '0.5.2', commit: '0f5d4c23'}

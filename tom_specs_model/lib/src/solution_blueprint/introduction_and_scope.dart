@@ -11978,6 +11978,7 @@ class SystemsToReplace extends DocSpecsSection {
 )
 @SectionId('RI')
 @DetailedIn(D01CurrentLandscapeAssessment)
+@SyncedWith(D01CurrentLandscapeAssessment)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:
@@ -13752,6 +13753,7 @@ class SystemKnowledgeTransfer extends DocSpecsSection {
 )
 @SectionId('MIGCON')
 @DetailedIn(D01CurrentLandscapeAssessment)
+@SyncedWith(D01CurrentLandscapeAssessment)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:

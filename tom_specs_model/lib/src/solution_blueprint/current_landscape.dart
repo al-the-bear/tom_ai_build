@@ -95,6 +95,7 @@ document alongside the systems-to-replace inventory.
 )
 @SectionId('ESLAN')
 @DetailedIn(D01CurrentLandscapeAssessment)
+@SyncedWith(D01CurrentLandscapeAssessment)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:
@@ -1902,6 +1903,7 @@ class SystemIntegrationEntry extends DocSpecsSection {
 )
 @SectionId('CUBUPR')
 @DetailedIn(D01CurrentLandscapeAssessment)
+@SyncedWith(D01CurrentLandscapeAssessment)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:
@@ -3454,6 +3456,7 @@ class ProcessMetricEntry extends DocSpecsSection {
 )
 @SectionId('PPAG')
 @DetailedIn(D01CurrentLandscapeAssessment)
+@SyncedWith(D01CurrentLandscapeAssessment)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:
@@ -4524,6 +4527,7 @@ class GapEntry extends DocSpecsSection {
 )
 @SectionId('CUDALA')
 @DetailedIn(D01CurrentLandscapeAssessment)
+@SyncedWith(D01CurrentLandscapeAssessment)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:
@@ -7368,6 +7372,7 @@ class MasterDataDomainEntry extends DocSpecsSection {
 )
 @SectionId('CUOPME')
 @DetailedIn(D01CurrentLandscapeAssessment)
+@SyncedWith(D01CurrentLandscapeAssessment)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:
@@ -7413,6 +7418,7 @@ replacement underperforms the baseline).
 )
 @SectionId('CUSTRI')
 @DetailedIn(D01CurrentLandscapeAssessment)
+@SyncedWith(D01CurrentLandscapeAssessment)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:
