@@ -168,6 +168,20 @@
 /// * **unmarkable** (added with `deriveFields`) — a description whose copy
 ///   differs inside fenced code, in the Blueprint and in Detail: one
 ///   `unmarkable` finding per document, resolution `agent`. Correct.
+/// * **the real model** (DP-part-conformance-3) — the cut of Tom UAM
+///   (`uam_requirements_cut.json`: `FRE-REQU-TENANT-LIFECYCLE` and
+///   `FRE-REQU-TENANT-FEATURES` in the Blueprint and the Requirements
+///   Specification, checked by hand against both source documents) agrees:
+///   no finding, the five RSP pairs the cut does not hold (`TR1`, `SR1`,
+///   `OR`, `RERE`, `REQCOV`) not started; the document findings are the
+///   references the cut leaves pointing outside it. The cut in Tom UAM's
+///   shapes: the status drift (`proposed` / `approved`, backfill), the
+///   category only the Blueprint fills (`sharedValueOnlyInBlueprint`), the
+///   second requirement only in the RSP (`sharedElementMissing`),
+///   `relatedScreens` broken on both sides under `subset` (`SCREN-ITEM-OLD`
+///   only in the Blueprint, `SCREN-ITEM-NEW` an `info` the RSP may add), and
+///   no finding for the description differing in trailing whitespace only.
+///   Correct.
 ///
 /// ## Manual review of `derive_cases.json` (DP-part-conformance-1)
 ///
@@ -234,6 +248,13 @@
 /// * **a pair not started** (added with `prefill`) — Detail without criteria:
 ///   the set reports `CRIT` in `notStartedPairs`, no finding; backfill writes
 ///   nothing for it, the Blueprint's criteria kept. Correct.
+/// * **the real model** (DP-part-conformance-3) — the cut in Tom UAM's
+///   shapes backfilled: status `approved`, the category cleared,
+///   `SCREN-ITEM-OLD` removed from `relatedScreens`, `FRE-REQU-LST-2` added
+///   with its stored id, one revision entry (`RVENT-REVS-LST-1`) with the
+///   header's version, date and author and the inverse `conflictsWith`
+///   re-derived; `SCREN-ITEM-NEW` left (`mayBeAdded`); the second run writes
+///   nothing and the report after it is clean. Correct.
 ///
 /// ## Manual review of `prefill_cases.json` (DP-part-conformance-1)
 ///
@@ -1856,6 +1877,7 @@ bool _prefillIntentHolds(String token, Map<String, dynamic> c) {
 /// shows idempotence), or its refusal; then the set's report after it, and
 /// the documents as the set holds them after both runs.
 Map<String, Object?> backfillCase(SpecModel model, Map<String, dynamic> c) {
+  model = _modelOf(model, c);
   final set = SpecDocumentSet(model, _documentsFrom(c['documents'] as List));
   final pairs = (c['pairs'] as List?)?.cast<String>().toSet();
   Map<String, Object?> run() {
@@ -1900,12 +1922,14 @@ Map<String, Object?> buildBackfillCases(Map<String, dynamic> meta) {
     List<String>? pairs,
     String? path,
     bool dryRun = false,
+    bool som = false,
   }) {
-    final docs = _baseSet();
+    final docs = som ? _uamCut() : _baseSet();
     edit?.call(docs);
     final c = <String, dynamic>{
       'name': name,
       'intent': intent,
+      if (som) 'model': 'som',
       if (pairs != null) 'pairs': pairs,
       if (path != null) 'path': path,
       if (dryRun) 'dryRun': true,
@@ -1930,6 +1954,21 @@ Map<String, Object?> buildBackfillCases(Map<String, dynamic> meta) {
   return {
     'model': 'links.meta.json',
     'cases': [
+      kase(
+        'the real model: the cut of Tom UAM\'s requirements in its shapes '
+        'is brought level with the RSP, a revision entry naming FRE',
+        [
+          'value',
+          'elementAdded',
+          'revision',
+          'derived',
+          'mayBeAdded',
+          'idempotent',
+          'cleanAfter',
+        ],
+        _uamShapes,
+        som: true,
+      ),
       kase('a set that agrees: nothing written, no revision entry', [
         'nothing',
       ], null),
@@ -2213,8 +2252,77 @@ Map<String, Object?> setConstructionCase(
   }
 }
 
+/// The real model (`tom_som_dart_v0/meta/`), which a case naming
+/// `"model": "som"` runs against.
+final SpecModel _som = SpecModel.fromJson(
+  jsonDecode(
+        File(
+          '${Directory.current.path}/../tom_som_dart_v0/meta/spec_model.meta.json',
+        ).readAsStringSync(),
+      )
+      as Map<String, dynamic>,
+);
+
+/// The model a case runs against: the fixture, or the real one.
+SpecModel _modelOf(SpecModel fixture, Map<String, dynamic> c) =>
+    c['model'] == 'som' ? _som : fixture;
+
+/// The cut of Tom UAM's requirements in the corpus
+/// (`uam_requirements_cut.json`): the Blueprint's and the Requirements
+/// Specification's two functional requirements, as stores.
+Map<String, SpecDocument> _uamCut() {
+  final cut =
+      jsonDecode(
+            File(
+              '${Directory.current.path}/../tom_som_conformance/corpus/'
+              'uam_requirements_cut.json',
+            ).readAsStringSync(),
+          )
+          as Map<String, dynamic>;
+  return {
+    'tom_uam.sbp.tomspecs.yaml': SpecDocument()
+      ..loadJson(cut['blueprint'] as Map),
+    'tom_uam.rsp.tomspecs.yaml': SpecDocument()..loadJson(cut['rsp'] as Map),
+  };
+}
+
+const _uamFr = 'SBP/introductionAndScope/requirements/functionalRequirements';
+
+/// The cut in Tom UAM's measured shapes (part-operations, Context): a status
+/// drifted between the two (the 95), a requirement only in the Requirements
+/// Specification, `relatedScreens` broken on both sides under `subset` (the
+/// 12), a value only the Blueprint fills (the 17), and a drift in
+/// whitespace only.
+void _uamShapes(Map<String, SpecDocument> d) {
+  final bp = d['tom_uam.sbp.tomspecs.yaml']!;
+  final rsp = d['tom_uam.rsp.tomspecs.yaml']!;
+  const item = '$_uamFr/FRE-REQU-LST-1';
+  const rspItem = 'RSP/functionalRequirements/FRE-REQU-LST-1';
+  bp.setFormField('$item/content', 'status', 'proposed');
+  bp.removeListItem('$_uamFr/FRE-REQU-LST-2');
+  final screens = bp.formField('$item/traceability/RETRAR', 'relatedScreens')!;
+  bp.setFormField(
+    '$item/traceability/RETRAR',
+    'relatedScreens',
+    '$screens, SCREN-ITEM-OLD',
+  );
+  rsp.setFormField(
+    '$rspItem/traceability/RETRAR',
+    'relatedScreens',
+    '${rsp.formField('$rspItem/traceability/RETRAR', 'relatedScreens')}, '
+        'SCREN-ITEM-NEW',
+  );
+  rsp.setFormField('$rspItem/FRED', 'category', '');
+  bp.setFormField(
+    '$item/FRED',
+    'description',
+    '${bp.formField('$item/FRED', 'description')}  ',
+  );
+}
+
 /// One report case: `syncReport` over the documents, optionally scoped.
 Map<String, Object?> setReportCase(SpecModel model, Map<String, dynamic> c) {
+  model = _modelOf(model, c);
   final set = SpecDocumentSet(model, _documentsFrom(c['documents'] as List));
   final pairs = (c['pairs'] as List?)?.cast<String>().toSet();
   return syncReport(set, pairs: pairs).toJson();
@@ -2610,6 +2718,42 @@ Map<String, Object?> buildDocumentSetCases(Map<String, dynamic> meta) {
           d['detail']!.setFormField('$_det-1/content', 'status', 'done');
         },
       ),
+      for (final (name, intent, shaped) in [
+        (
+          'the real model: a cut of Tom UAM\'s requirements and their RSP '
+              'counterpart agrees',
+          ['clean'],
+          false,
+        ),
+        (
+          'the real model: the cut in Tom UAM\'s shapes — a status drift, a '
+              'requirement only in the RSP, relatedScreens broken on both '
+              'sides under subset, a value only the Blueprint fills, a '
+              'drift in whitespace only',
+          [
+            'sharedValueDiffers',
+            'sharedElementMissing',
+            'sharedElementMayBeAdded',
+            'sharedElementOnlyInBlueprint',
+            'sharedValueOnlyInBlueprint',
+          ],
+          true,
+        ),
+      ])
+        () {
+          final docs = _uamCut();
+          if (shaped) _uamShapes(docs);
+          final c = <String, dynamic>{
+            'name': name,
+            'intent': intent,
+            'model': 'som',
+            'documents': _documentsJson(docs),
+          };
+          return {
+            ...c,
+            'expect': setReportCase(model, jsonDecode(jsonEncode(c))),
+          };
+        }(),
     ],
     'renames': [
       rename(

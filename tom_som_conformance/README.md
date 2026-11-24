@@ -786,7 +786,13 @@ holds, a value that resolves to nothing); A5 with a carrier the model lacks;
 and a catalogue written before the gate tables, which runs neither A4 nor A5.
 A check that does not run is reported as such, and the gate does not pass.
 
-##### …and the links between places (`tom_specs_model_rules.md` §9.7)
+##### …and so does the document set (`tom_specs_model_rules.md` §9.7)
+
+Six tables pin the links and the operations over a document set:
+`link_reader_cases.json`, `link_validation_cases.json`,
+`document_set_cases.json`, `derive_cases.json`, `backfill_cases.json` and
+`prefill_cases.json`, each described below. All but the real-model cases run
+over the fixture model `corpus/links.meta.json`.
 
 The link vocabulary has a model of its own,
 [`corpus/links.meta.json`](corpus/links.meta.json): the shared
@@ -825,15 +831,16 @@ are not compared.
 [`corpus/document_set_cases.json`](corpus/document_set_cases.json) pins
 `SpecDocumentSet`, `syncReport` and `renameId` over a set of three documents
 of the same model (`blueprint`, `detail`, `screens`) that agree everywhere:
-- `construction`: the set built — its pairs, its roots and the roots with no
+
+* `construction`: the set built — its pairs, its roots and the roots with no
   document yet — from documents or from fragments, and every refusal, the
   last over an inline model whose synced class is reached twice;
-- `reports`: the base set with one edit each, one case per finding of the
+* `reports`: the base set with one edit each, one case per finding of the
   set and per comparison rule (trimmed text, `2` and `2.0` in a double, list
   order ignored), a missing document as `notStarted`, the `pairs` filter and
   the order of findings; each expectation is the report's `toJson()`, its
   per-document findings included;
-- `renames`: an id renamed in every document, and a rename onto an id that
+* `renames`: an id renamed in every document, and a rename onto an id that
   exists, refused.
 
 [`corpus/derive_cases.json`](corpus/derive_cases.json) pins `deriveFields`
@@ -866,6 +873,25 @@ anchor holds a value, the `pairs` filter (the unwritten pair then reported as
 not started), and the two refusals. Each case runs `prefill` twice and
 records the set's report after it.
 
+A case naming `"model": "som"` runs over the real model
+(`tom_som_dart_v0/meta/`) instead of the fixture, so the operations are held
+to the model's own pairs as well as to the fixture's.
+[`corpus/uam_requirements_cut.json`](corpus/uam_requirements_cut.json) is
+their input: a cut of Tom UAM's specification, the functional requirements
+`FRE-REQU-TENANT-LIFECYCLE` and `FRE-REQU-TENANT-FEATURES` of its Blueprint
+and their counterparts in its Requirements Specification, everything else of
+both documents left out and their review annotations removed. It was checked
+by hand against both source documents. `document_set_cases.json` reports the
+cut as it is (it agrees; the pairs it does not hold are not started) and the
+cut edited into the shapes Tom UAM's specification showed — a status drifted
+between the two, a requirement only in the Requirements Specification,
+`relatedScreens` broken on both sides under `subset`, a value only the
+Blueprint holds, and a drift in whitespace only, which raises no finding.
+`backfill_cases.json` brings the edited cut level. The cut is a stored document
+like the samples: the tables load it through the runtime on every run, so a
+model change it no longer fits fails them, and it is then edited like any
+other document of the model.
+
 The files are written by the Dart runtime's
 `test/section_link_conformance_test.dart` under `UPDATE_CORPUS=1`; every case
 carries a hand-written `intent` the test checks, and the expectations were read
@@ -878,6 +904,25 @@ and headlines under review (SOM §11.9.3) — written as marks, read as their ol
 value by the typed reads and the instance tier until decided, a headline
 listed under `@headline`. They sit under a key of their own so the eight
 runners, which read `cases`, are not held to them before their port.
+
+Each of the six tables is proven load-bearing with
+[`tool/parity_gate.sh`](tool/parity_gate.sh) over `dart_runtime`, the one
+runner that reads them (2026-11-24, every run `GATE PASSED`: the suite went
+red on the mutated expectation and the corpus was restored):
+
+<!-- markdownlint-disable MD013 -->
+| Table | `--from` (matched once) | `--to` |
+| ----- | ----------------------- | ------ |
+| `link_reader_cases.json` | `"holder": "BLU/acceptance/criteria"` | `"holder": "BLU/criteriaSummary/criteria"` |
+| `link_validation_cases.json` | `"code": "duplicateLinkRow"` | `"code": "linkRowMissing"` |
+| `document_set_cases.json` | `"value": "proposed"` (the real-model status drift) | `"value": "approved"` |
+| `derive_cases.json` | `"code": "countMismatch"` | `"code": "derivedValueMismatch"` |
+| `backfill_cases.json` | `"kind": "elementAdded",(?=\s*"path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2")` (the real-model case) | `"kind": "value",` |
+| `prefill_cases.json` | `(?<="filledPairs": \[\n {12})"REQS"(?=,\s*"CRIT"\s*\])` | `"ACC"` |
+<!-- markdownlint-enable MD013 -->
+
+`--to` is replaced literally (no `$1`), so a mutation that has to keep
+surrounding whitespace names it with lookarounds, as the last two do.
 
 ##### Proving a table is load-bearing: `tool/parity_gate.sh`
 
