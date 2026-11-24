@@ -179,6 +179,14 @@ from standard organizational project governance procedures.
 class StakeholderRegisterEntry extends DocSpecsSection {
   @Form([
     Field(
+      'stakeholderType',
+      String,
+      'Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.)',
+      hint:
+          'Sponsor, User, Customer, Partner, Regulator, etc.; the scope '
+          'stakeholders naming this entry repeat it',
+    ),
+    Field(
       'influence',
       ImportanceBand,
       'Influence',

@@ -2200,6 +2200,13 @@ class ProcessPerformanceSummary extends DocSpecsSection {
   ], 'The headline metrics chosen to summarize current process performance.')
   @SectionId('PME-KEYM-LST')
   @SectionIdPattern('PME-KEYM-xxx')
+  @SummaryOf(
+    'PME-METR-LST',
+    match: 'PME.metricRef',
+    note:
+        'the key metrics are a selection of the processes\' metrics; a key '
+        'metric repeats the values of the metric it names',
+  )
   @ContentHelp(
     'Add the most important metrics that characterize overall '
     'process performance at a glance.',
@@ -2461,11 +2468,32 @@ class WorkflowSummaryTable extends DocSpecsSection {
     'Add one summary row per workflow capturing its type, '
     'frequency, cycle time, step counts, actors, and automation potential.',
   )
+  @SummaryOf(
+    'CUWF-WORK-LST',
+    match: 'WOSUEN.workflowRef',
+    relation: LinkRelation.equal,
+    repeats: {
+      'WOSUEN.workflowType': 'CUWF.workflowType',
+      'WOSUEN.frequency': 'CUWF.frequency',
+      'WOSUEN.stepCount': 'CUWF.stepCount',
+      'WOSUEN.manualStepCount': 'CUWF.manualStepCount',
+      'WOSUEN.errorProneStepCount': 'CUWF.errorProneStepCount',
+    },
+    note:
+        'one summary row per workflow of the process; the row repeats the '
+        'workflow\'s type, frequency and step counts, which the workflow '
+        'holds',
+  )
   @SerializationOrder(1)
   List<WorkflowSummaryEntry> entries = [];
 }
 
 /// Summary entry for a single workflow.
+///
+/// [content]'s `workflowRef` names the workflow the row summarizes (a
+/// `CUWF-WORK-…` section id of the same process); the row's type, frequency
+/// and step counts repeat that workflow's own, whose counts are counted over
+/// its steps.
 @StandardReferences(
   ['BABOK v3 §10 — current-state analysis (workflow summary entry)'],
   'A one-line summary of a single workflow: its type, frequency, cycle time, '
@@ -2474,6 +2502,16 @@ class WorkflowSummaryTable extends DocSpecsSection {
 @SectionId('WOSUEN')
 class WorkflowSummaryEntry extends DocSpecsSection {
   @Form([
+    Field(
+      'workflowRef',
+      String,
+      'Workflow',
+      hint:
+          'The workflow this row summarizes — a workflow section id '
+          '(CUWF-WORK-…) of the same process; its type and frequency are '
+          'repeated from it',
+      refersTo: ['CUWF.@sectionId'],
+    ),
     Field('workflowType', String, 'Type'),
     Field('frequency', String, 'Frequency'),
     Field('averageCycleTime', String, 'Average Cycle Time'),
@@ -2492,6 +2530,15 @@ class WorkflowSummaryEntry extends DocSpecsSection {
 ///
 /// Detailed documentation of a single workflow within a business process.
 /// Includes triggers, steps, actors, inputs, outputs, and timing.
+///
+/// The workflow's own inputs, outputs and business rules
+/// (`WOINEN-INPU-LST`, `WOOUEN-OUTP-LST`, `WOBURU-BUSI-LST`) are independent
+/// of the same lists on its steps, not a superset of them: a workflow input
+/// enters the workflow from outside, while a step's inputs also include what
+/// earlier steps produced; a workflow output leaves it, while a step's outputs
+/// include intermediate results; a workflow-level rule governs the whole
+/// workflow, a step's rule that step only. Neither side is derived from the
+/// other.
 @StandardReferences(
   [
     'BABOK v3 §10 — current-state analysis (as-is workflow model)',
@@ -2525,6 +2572,27 @@ class CurrentWorkflowEntry extends DocSpecsSection {
     Field('frequency', String, 'Execution Frequency'),
     Field('averageVolume', String, 'Average Volume per period'),
     Field('criticality', String, 'Business Criticality'),
+    Field(
+      'stepCount',
+      int,
+      'Number of Steps',
+      hint: 'The number of the workflow\'s steps (WSE-STEP-LST)',
+      countOf: ['./WSE'],
+    ),
+    Field(
+      'manualStepCount',
+      int,
+      'Manual Steps',
+      hint: 'The number of its steps marked manual',
+      countOf: ['./WSE.isManual=true'],
+    ),
+    Field(
+      'errorProneStepCount',
+      int,
+      'Error-Prone Steps',
+      hint: 'The number of its steps marked error-prone',
+      countOf: ['./WSE.isErrorProne=true'],
+    ),
   ])
   @override
   @SerializationOrder(0)
@@ -3346,6 +3414,11 @@ class ProcessMetricCategory extends DocSpecsSection {
 /// A process metric entry (form).
 ///
 /// A single measurable metric with current value and measurement details.
+/// The class serves a process's own metric list and the key metrics
+/// (`PME-KEYM-LST`), which summarize the processes' metrics: a key metric's
+/// `metricRef` names the metric it is (a `PME-METR-…` section id) and its
+/// other values repeat that metric's; in a process's own list `metricRef`
+/// stays empty.
 @StandardReferences(
   ['BABOK v3 §10 — current-state analysis (performance metric)'],
   'A single measurable process metric: its current value and unit, how it is '
@@ -3358,6 +3431,16 @@ class ProcessMetricCategory extends DocSpecsSection {
 @SectionId('PME')
 class ProcessMetricEntry extends DocSpecsSection {
   @Form([
+    Field(
+      'metricRef',
+      String,
+      'Metric',
+      hint:
+          'Only in a key metric: the process metric it names — a metric '
+          'section id (PME-METR-…), whose values the key metric repeats; '
+          'empty in a process\'s own metric list',
+      refersTo: ['PME.@sectionId'],
+    ),
     Field(
       'metricCategory',
       String,

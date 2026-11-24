@@ -901,7 +901,7 @@ const SummaryOf(
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `detail` | `String` | The detailed list, `<LIST-ID>`. |
+| `detail` | `String` | The detailed list, `<LIST-ID>`, or a `/` path from a section of the model where the id is reached at several places (`FUDI/DSRC-ITEM-LST`). |
 | `document` | `Type?` | The document holding `detail`; null: this document. |
 | `match` | `String?` | The field of a summary element naming its detail element. |
 | `relation` | `LinkRelation` | How the summary's elements relate to the detail's; `subset` by default. |

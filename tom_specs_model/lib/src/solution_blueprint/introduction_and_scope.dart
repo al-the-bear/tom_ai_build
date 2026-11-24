@@ -883,6 +883,14 @@ class StakeholdersAndBeneficiaries extends DocSpecsSection {
   )
   @SectionId('STKNT-PRIM-LST')
   @SectionIdPattern('STKNT-PRIM-xxx')
+  @SummaryOf(
+    'STKRE-STAK-LST',
+    match: 'STKNT.stakeholderRef',
+    repeats: {'STKNT.stakeholderType': 'STKRE.stakeholderType'},
+    note:
+        'the primary stakeholders are a selection of the stakeholder '
+        'register, framed by their benefit; the type is the register\'s',
+  )
   @Min(1)
   @ContentHelp(
     'Add one entry per primary stakeholder or group, framed by the '
@@ -899,6 +907,14 @@ class StakeholdersAndBeneficiaries extends DocSpecsSection {
   )
   @SectionId('STKNT-SECO-LST')
   @SectionIdPattern('STKNT-SECO-xxx')
+  @SummaryOf(
+    'STKRE-STAK-LST',
+    match: 'STKNT.stakeholderRef',
+    repeats: {'STKNT.stakeholderType': 'STKRE.stakeholderType'},
+    note:
+        'the secondary stakeholders are a selection of the stakeholder '
+        'register, framed by their benefit; the type is the register\'s',
+  )
   @ContentHelp('Secondary stakeholders are indirectly affected by the system.')
   @SerializationOrder(2)
   List<StakeholderEntry> secondaryStakeholders = [];
@@ -909,6 +925,8 @@ class StakeholdersAndBeneficiaries extends DocSpecsSection {
 /// Keeps only the scope-framing identity + benefit. Role, interest, influence,
 /// concerns and engagement strategy are owned by the canonical SBP.4
 /// `StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).
+/// [content]'s `stakeholderRef` names that register entry (a
+/// `STKRE-STAK-…` section id).
 @StandardReferences(
   ['BABOK v3 §10.43 — stakeholder list/map/personas'],
   'A single stakeholder or beneficiary, identified by name/type and the '
@@ -918,10 +936,22 @@ class StakeholdersAndBeneficiaries extends DocSpecsSection {
 class StakeholderEntry extends DocSpecsSection {
   @Form([
     Field(
+      'stakeholderRef',
+      String,
+      'Register Entry',
+      hint:
+          'The stakeholder register entry this stakeholder is — a section id '
+          '(STKRE-STAK-…); role, interest, influence and engagement are held '
+          'there',
+      refersTo: ['STKRE.@sectionId'],
+    ),
+    Field(
       'stakeholderType',
       String,
       'Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.)',
-      hint: 'Sponsor, User, Customer, Partner, Regulator, etc.',
+      hint:
+          'Repeated from the register entry stakeholderRef names, which holds '
+          'it',
     ),
     Field(
       'expectedBenefits',

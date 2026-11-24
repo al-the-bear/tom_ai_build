@@ -489,6 +489,38 @@ void main() {
       expect(found, isEmpty, reason: found.join('\n'));
     });
 
+    test('a detail written as a / path from a section of the model', () {
+      final found = _findings(
+        _model(
+          keyReqsAnnotations: [
+            AnnotationData('SummaryOf', {
+              'detail': 'FR/FRE-REQU-LST',
+              'match': 'KREQ.reqRef',
+              'relation': 'LinkRelation.subset',
+            }),
+          ],
+        ),
+        'SUMMARY-LINK',
+      );
+      expect(found, isEmpty, reason: found.join('\n'));
+    });
+
+    test('a / path starting at no section is an error', () {
+      final found = _findings(
+        _model(
+          keyReqsAnnotations: [
+            AnnotationData('SummaryOf', {
+              'detail': 'NOPE/FRE-REQU-LST',
+              'match': 'KREQ.reqRef',
+            }),
+          ],
+        ),
+        'SUMMARY-LINK',
+      );
+      expect(found, hasLength(1), reason: found.join('\n'));
+      expect(found.single, contains('detail "NOPE/FRE-REQU-LST"'));
+    });
+
     test('a detail that is no list, a match without refersTo, repeats of '
         'two types and a summaryOf: on a single reference are errors', () {
       final found = _findings(

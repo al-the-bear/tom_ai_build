@@ -1180,6 +1180,13 @@ class CustomDistributionGroup extends DocSpecsSection {
   ], 'The set of recipients belonging to this custom distribution group.')
   @SectionId('DSRC-MEMB-LST')
   @SectionIdPattern('DSRC-MEMB-xxx')
+  @SummaryOf(
+    'FUDI/DSRC-ITEM-LST',
+    match: 'DSRC.recipientRef',
+    note:
+        'a custom group\'s members are a selection of the full '
+        'distribution; a member repeats the values of the recipient it names',
+  )
   @ContentHelp(
     'Add one entry per recipient in this group, capturing their '
     'role, contact information, preferences, and access levels.',
@@ -1258,6 +1265,13 @@ high-level progress updates without operational details.
   ], 'The set of recipients in the executive-summary distribution group.')
   @SectionId('DSRC-ITEM-LST')
   @SectionIdPattern('DSRC-ITEM-xxx')
+  @SummaryOf(
+    'FUDI/DSRC-ITEM-LST',
+    match: 'DSRC.recipientRef',
+    note:
+        'the executive recipients are a selection of the full distribution; '
+        'an entry repeats the values of the recipient it names',
+  )
   @ContentHelp(
     'Add one entry per executive-summary recipient, capturing their '
     'role, contact information, preferences, and access levels.',
@@ -1317,6 +1331,11 @@ class DistributionGroupSummary extends DocSpecsSection {
 ///
 /// Detailed information about a distribution list recipient including
 /// their role, contact information, preferences, and access levels.
+/// The full distribution (`FUDI`) holds the recipients; the executive-summary
+/// list and a custom group's members are selections of it: there
+/// `recipientRef` names the full-distribution recipient an entry is (a
+/// `DSRC-ITEM-…` section id of `FUDI`) and the entry's other values repeat
+/// that recipient's. In the full distribution `recipientRef` stays empty.
 @StandardReferences(
   [
     'PMBOK — communications management (stakeholder communication & distribution)',
@@ -1327,6 +1346,17 @@ class DistributionGroupSummary extends DocSpecsSection {
 @SectionId('DSRC')
 class DistributionRecipientEntry extends DocSpecsSection {
   @Form([
+    Field(
+      'recipientRef',
+      String,
+      'Recipient',
+      hint:
+          'Only in the executive-summary list and a custom group\'s members: '
+          'the full-distribution recipient this entry is — a recipient '
+          'section id (DSRC-ITEM-… of the full distribution), whose values '
+          'this entry repeats; empty in the full distribution',
+      refersTo: ['DSRC.@sectionId'],
+    ),
     Field('role', String, 'Role', hint: 'Project or organizational role'),
     Field(
       'organization',

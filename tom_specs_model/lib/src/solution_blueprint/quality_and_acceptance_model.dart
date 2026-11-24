@@ -40,18 +40,22 @@ class QualityAndAcceptanceModel extends DocSpecsSection {
   Iso25010Coverage iso25010Coverage = Iso25010Coverage();
 }
 
-/// ISO/IEC 25010:2023 product-quality cross-map (derived).
+/// ISO/IEC 25010:2023 product-quality cross-map.
 ///
-/// A *derived* view over the canonical quality spine: the eight
+/// A coverage view over the canonical quality spine: the eight
 /// `*Characteristic` classes under [SystemQualityGoals] are the single source
 /// of truth for the taxonomy (L34C-8); this cross-map does not re-declare it.
-/// Each entry references one of those characteristics (via the closed
-/// [Iso25010Characteristic] enum) and records which quality goals / NFRs
-/// address it and the target metric — so coverage of any 25010:2023
-/// characteristic (e.g. compatibility, flexibility) cannot be silently missed.
+/// Each entry names one of those characteristics (via the closed
+/// [Iso25010Characteristic] enum) and records, as authored text, which
+/// quality goals / NFRs address it and the target metric. Nothing in it is
+/// derived: the characteristics are eight sections, not the rows of one
+/// list, and what addresses each is the author's statement. That every
+/// characteristic has its entry is a process check, so coverage of any
+/// 25010:2023 characteristic (e.g. compatibility, flexibility) cannot be
+/// silently missed.
 @StandardReferences(
   ['ISO/IEC 25010:2023 — product quality model'],
-  'A derived coverage view mapping the quality goals onto the eight ISO/IEC '
+  'A coverage view mapping the quality goals onto the eight ISO/IEC '
   '25010:2023 product-quality characteristics.',
 )
 @SectionId('I25CV')
@@ -60,8 +64,8 @@ class Iso25010Coverage extends DocSpecsSection {
     'description',
     'Summarize how the quality goals cover the '
         'eight ISO/IEC 25010:2023 characteristics. The taxonomy itself is owned '
-        'by the SystemQualityGoals characteristic spine; this is a derived '
-        'coverage view, not a second copy of the taxonomy.',
+        'by the SystemQualityGoals characteristic spine; this is a coverage '
+        'view, not a second copy of the taxonomy.',
   )
   @override
   @SerializationOrder(0)

@@ -1727,13 +1727,18 @@ annotations are written into the meta like `@CodeSpecKind`
   other than `equal` stands only on a list or a `multiple` reference field.
 - **`@SummaryOf(detail, {document, match, relation, repeats, note})`** — the
   annotated list (or reference field) summarizes the list `detail` of
-  `document` (this document when null). `match` is the field of a summary
-  element naming its detail element (null: the summary element carries the
-  detail element's own section id); `relation` defaults to `subset`, since a
-  summary shows a selection; `repeats` maps summary places to the detail
-  places whose values the summary repeats. A summary carries content: its
-  elements say what each entry is about, and may be of the detail list's own
-  class.
+  `document` (this document when null); where the list's id is reached at
+  several places, `detail` is a `/` path from a section of the model
+  (`FUDI/DSRC-ITEM-LST`, the full distribution's recipients). `match` is the
+  field of a summary element naming its detail element (null: the summary
+  element carries the detail element's own section id, which a list item can
+  only where both lists share their id prefix); `relation` defaults to
+  `subset`, since a summary shows a selection; `repeats` maps summary places
+  to the detail places whose values the summary repeats. A summary carries
+  content: its elements say what each entry is about, and may be of the
+  detail list's own class — then every value the summary element fills,
+  its `match` field aside, repeats the detail element's (the key metrics'
+  `PME.metricRef`, the selected recipients' `DSRC.recipientRef`).
 - **`@SameAs({holder, note})`** — the annotated section member holds a copy
   of the section of the same class the same document holds at another
   position, the **holder**. `holder` names it by the section ids of its path
@@ -2256,8 +2261,8 @@ enforceable rather than aspirational.
     the runtime's sync could not tell its copies apart. A side that does not
     reach the class at all is left to the other invariants.
 23. **`SUMMARY-LINK`** — **A summary and its detail list** — the `detail` of a
-    `@SummaryOf` is a `-LST` container of sections that the named `document`
-    reaches (with no document, one root reaches it together with the
+    `@SummaryOf` (its id, or a `/` path from a section of the model) is a
+    `-LST` container of sections that the named `document` reaches (with no document, one root reaches it together with the
     summary). On a list, `match` is a `refersTo` field of the summary element
     whose targets name the detail element class, and every `repeats` pair
     resolves, the summary place in the summary element and the detail place in

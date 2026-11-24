@@ -16,7 +16,9 @@ import 'list_relation.dart';
 /// List<ScreenOverviewEntry> screenOverview = [];
 /// ```
 class SummaryOf {
-  /// The detailed list: `<LIST-ID>`.
+  /// The detailed list: `<LIST-ID>`, or a `/` path from a section of the
+  /// model where the list's id is reached at several places
+  /// (`FUDI/DSRC-ITEM-LST`).
   final String detail;
 
   /// The document holding [detail]: its `@Document` root class; null: this

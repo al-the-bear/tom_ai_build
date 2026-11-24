@@ -905,7 +905,31 @@ class LinkInvariants {
         fail('document "$document" is no @Document class');
         return;
       }
-      final r = _resolveGlobal(detail, withinRoot: document as String?);
+      // A `/` path names one position of a list id reached at several:
+      // its first segment is a section of the model, the rest resolves
+      // beneath that section's class (`FUDI/DSRC-ITEM-LST`).
+      final _Resolution r;
+      if (detail.contains('/')) {
+        final slash = detail.indexOf('/');
+        final head = _resolveGlobal(
+          detail.substring(0, slash),
+          withinRoot: document as String?,
+        );
+        final scopeClass = head.ok
+            ? (head.node.isList
+                  ? head.node.elementType
+                  : head.node.type ?? head.node.owner)
+            : null;
+        r = scopeClass == null
+            ? _Resolution.error(
+                head.ok
+                    ? 'starts at no section holding a class'
+                    : head.problem!,
+              )
+            : _resolveIn(detail.substring(slash + 1), _subtree(scopeClass));
+      } else {
+        r = _resolveGlobal(detail, withinRoot: document as String?);
+      }
       if (!r.ok) {
         fail('detail "$detail" ${r.problem}');
         return;

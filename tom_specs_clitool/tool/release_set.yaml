@@ -120,14 +120,16 @@ unpublished_drift:
     the list element above a form as its entry, a lookup without key and by
     reads the last row; SHARED-COVER warns on the 126 pairs left. 03_sau5:
     SHARED-ONE-HOLDER reads places as instances (DIR-4). 03_sau7: rows takes
-    key and by like lookup (DIR-7).
+    key and by like lookup (DIR-7). 03_sau8: @SummaryOf's detail may be a /
+    path (DIR-8).
   tom_specs_core: >-
     section automation in progress — 02_sau2 (2026-11-23): the link
     annotations (SyncedWith, ListRelation, SummaryOf, DerivedFrom, InverseOf,
     ExtractsLinks, their enums) and the Field qualifiers derivedFrom,
     inverseOf and summaryOf; no model class uses them yet. 03_sau1:
     DerivedFrom.lookup takes key and by both or neither (neither: the last
-    row). 03_sau7: DerivedFrom.rows takes key and by too.
+    row). 03_sau7: DerivedFrom.rows takes key and by too. 03_sau8:
+    SummaryOf's detail may be a / path.
   tom_som_dart_runtime: >-
     section automation in progress — 02_sau4 (2026-11-23): the link
     annotations in kRenderedAnnotations, linkChips in fieldChips, the four in
@@ -158,8 +160,10 @@ unpublished_drift:
     pairs and the inverse DACET.testScenarioRef / TESCTR.acceptanceCriterionRef
     (I2); 03_sau7: on the 22 DRM and TRP pairs, the stage summary (S4, the new
     member STAGSE.stageRef), the feature-stage matrix (S6), the feature
-    dependencies derived from their rows (D7) and I3; not regenerated until
-    03_sau11.
+    dependencies derived from their rows (D7) and I3; 03_sau8: the summaries
+    S2, S3, S5, S8 (new members PME.metricRef, DSRC.recipientRef,
+    WOSUEN.workflowRef, STKNT.stakeholderRef, STKRE.stakeholderType, the
+    CUWF step counts), D9 and D5 documented; not regenerated until 03_sau11.
 
 published_from:
   tom_specs_core: {version: '0.5.2', commit: '0f5d4c23'}
