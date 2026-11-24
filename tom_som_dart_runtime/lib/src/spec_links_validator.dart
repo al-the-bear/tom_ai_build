@@ -14,9 +14,11 @@ import 'spec_document.dart';
 import 'spec_model.dart';
 import 'spec_place.dart';
 import 'spec_reflection.dart';
-import 'spec_review_annotations.dart' show applyInlineMarksText;
+import 'spec_review_annotations.dart';
 import 'spec_section_id.dart';
 import 'spec_validator.dart';
+
+part 'spec_derive_fields.dart';
 
 /// Runs the link checks of [doc] against [model]; the findings sorted by
 /// path, then by code.
@@ -42,11 +44,20 @@ class _Instance {
 }
 
 class _LinkValidator {
-  _LinkValidator(this.model, this.doc) : refl = SpecReflection(model);
+  _LinkValidator(this.model, this.doc, {this.readProposed = false})
+    : refl = SpecReflection(model);
 
   final SpecModel model;
   final SpecDocument doc;
   final SpecReflection refl;
+
+  /// Read values with their pending marks accepted (the proposal), as
+  /// `deriveFields` does in a document under review, instead of the reviewed
+  /// state; no value is then listed as pending.
+  final bool readProposed;
+
+  /// What `deriveFields` would write for each finding, collected beside it.
+  final List<_Fix> fixes = [];
   final List<SpecValidationError> errors = [];
   final Set<String> _reported = {};
   final Set<String> _pending = {};
@@ -138,6 +149,7 @@ class _LinkValidator {
   /// listed once.
   String _reviewed(String? raw, String path, String what) {
     if (raw == null) return '';
+    if (readProposed) return applyInlineMarksText(raw, accept: true).trim();
     final rejected = applyInlineMarksText(raw, accept: false);
     if (applyInlineMarksText(raw, accept: true) != rejected &&
         _pending.add('$path $what')) {
@@ -377,6 +389,9 @@ class _LinkValidator {
       final have = t.field == null
           ? _contentValue(t.path)
           : _formValue(t.path, t.field!);
+      if (!_sameValue(have, want, t.spec)) {
+        fixes.add(_Fix.set(2, t.path, t.field, want));
+      }
       if (have.isEmpty) continue; // not derived yet: deriveFields writes it
       if (!_sameValue(have, want, t.spec)) {
         report(
@@ -484,9 +499,23 @@ class _LinkValidator {
   void _checkDerivedList(_Instance i, String listPath, SpecDerivation d) {
     if (d.kind != 'rows' || d.map.isEmpty) return;
     final elements = doc.listItems(listPath);
-    if (elements.isEmpty) return; // not derived yet
     final rows = _rows(d, i.path, i.root);
     if (rows == null) return; // the source is not in this document
+    final wanted = [
+      for (final row in rows)
+        {for (final e in d.map.entries) e.key: _placeValue(e.value, row)},
+    ];
+    final current = [
+      for (final el in elements)
+        {for (final e in d.map.entries) e.key: _placeValue(e.key, el)},
+    ];
+    String key(Map<String, String> t) =>
+        [for (final k in d.map.keys) t[k]].join(' | ');
+    if (([for (final t in wanted) key(t)]..sort()).join('\n') !=
+        ([for (final t in current) key(t)]..sort()).join('\n')) {
+      fixes.add(_Fix.list(listPath, wanted));
+    }
+    if (elements.isEmpty) return; // not derived yet
     String tuple(Iterable<String> values) => values.join(' | ');
     final want = [
       for (final row in rows)
@@ -579,6 +608,9 @@ class _LinkValidator {
       if (mp.length != 1 || tp.length != 1) continue;
       final have = _value(mine, mp.single);
       final want = _value(theirs, tp.single);
+      if (have != want) {
+        fixes.add(_Fix.set(2, mp.single, _fieldOf(mine), want));
+      }
       if (have.isEmpty) continue; // not repeated yet: deriveFields writes it
       if (have != want) {
         report(
@@ -701,6 +733,7 @@ class _LinkValidator {
       var resolved = false;
       var namesBack = false;
       String? aId;
+      (String, String)? writable;
       for (final end in inv.fields) {
         final r = _at(end, bPath);
         if (r == null || r.formField == null) continue;
@@ -713,9 +746,14 @@ class _LinkValidator {
             .firstOrNull;
         if (aId == null) continue;
         resolved = true;
-        for (final p in _expand(r.path)) {
+        final ends = _expand(r.path);
+        if (ends.isNotEmpty) writable ??= (ends.first, r.field!);
+        for (final p in ends) {
           if (_ids(_formValue(p, r.field!)).contains(aId)) namesBack = true;
         }
+      }
+      if (resolved && !namesBack && writable != null) {
+        fixes.add(_Fix.append(writable.$1, writable.$2, aId!));
       }
       if (resolved && !namesBack) {
         report(
@@ -777,6 +815,21 @@ class _LinkValidator {
         return _ids(_formValue(p, ff.name)).contains(aId);
       });
       if (!counterpart) {
+        final star = rel.indexOf('-*');
+        if (star > 0) {
+          final list = '$bPath${rel.substring(0, star)}';
+          final below = rel.substring(star + 3);
+          fixes.add(
+            _Fix.addRow(1, list, {
+              '$below#${ff.name}': aId,
+              if (filter?.field != null)
+                for (final p in _ownForms(row))
+                  if (doc.formField(p, filter!.field!) != null)
+                    '${p.substring(row.length + 1)}#${filter.field}':
+                        _formValue(p, filter.field!),
+            }),
+          );
+        }
         report(
           SpecValidationCode.inverseMissing,
           form,
@@ -798,6 +851,12 @@ class _LinkValidator {
     final rows = doc.listItems(listPath);
     final element = _nearestItem(i.path);
     final own = element == null ? null : _itemId(element);
+
+    // A link row holding no value at all (what accepting the marked removal
+    // of a row leaves) is removed.
+    for (final row in rows) {
+      if (!_holdsValue(row)) fixes.add(_Fix.removeRow(row, empty: true));
+    }
 
     // The ids each row names, and its type (the values `set` writes).
     final setKeys = {for (final e in all) ...e.set.keys}.toList()..sort();
@@ -851,6 +910,16 @@ class _LinkValidator {
       textIds.addAll(found);
       for (final id in found) {
         if (rowed.contains(id)) continue;
+        if (e.mode == 'generate') {
+          final values = <String, String>{};
+          for (final entry in {e.ref: id, ...e.set}.entries) {
+            final r = _at(entry.key, '$listPath-0');
+            if (r == null || r.field == null) continue;
+            final rel = r.path.substring('$listPath-0'.length + 1);
+            values['$rel#${r.field}'] = entry.value;
+          }
+          fixes.add(_Fix.addRow(1, listPath, values));
+        }
         report(
           SpecValidationCode.extractedLinkMissing,
           listPath,
@@ -881,6 +950,7 @@ class _LinkValidator {
         if (!generated) continue;
         for (final id in named[row]!) {
           if (!mine.contains(id)) {
+            fixes.add(_Fix.removeRow(row));
             report(
               SpecValidationCode.extractedLinkStale,
               row,
@@ -932,7 +1002,9 @@ class _LinkValidator {
       final holders = _expand(b.holderPath!);
       if (copies.length != holders.length) continue;
       for (var k = 0; k < copies.length; k++) {
-        _compareSubtrees(copies[k], holders[k]);
+        if (_compareSubtrees(copies[k], holders[k])) {
+          fixes.add(_Fix.copy(copies[k], holders[k]));
+        }
       }
     }
   }
@@ -981,7 +1053,8 @@ class _LinkValidator {
     return out;
   }
 
-  void _compareSubtrees(String copy, String holder) {
+  /// Reports every difference of [copy] from [holder]; whether there is one.
+  bool _compareSubtrees(String copy, String holder) {
     final mine = _subtree(copy);
     final theirs = _subtree(holder);
     final keys = {...mine.keys, ...theirs.keys}.toList()..sort();
@@ -998,9 +1071,11 @@ class _LinkValidator {
           oneSided.any((o) => rel == o || rel.startsWith('$o/'));
     }
 
+    var differs = false;
     for (final k in keys) {
       final a = mine[k], b = theirs[k];
       if (a?.value == b?.value || beneath(k)) continue;
+      differs = true;
       final what = k.startsWith('i:')
           ? 'element ${(a ?? b)!.value}'
           : k.startsWith('h:')
@@ -1015,5 +1090,64 @@ class _LinkValidator {
         '"${a?.value ?? ''}", the holder "${b?.value ?? ''}"',
       );
     }
+    return differs;
+  }
+
+  // -------------------------------------------------------------------------
+  // Helpers of the fixes
+  // -------------------------------------------------------------------------
+
+  /// The field a resolved value place names for a write: the form field, the
+  /// headline's reserved field, or null for content.
+  static String? _fieldOf(SpecPlaceResolution r) => switch (r.kind) {
+    SpecPlaceKind.formField => r.field,
+    SpecPlaceKind.headline => kSpecHeadlineField,
+    _ => null,
+  };
+
+  /// The forms directly beneath [row] (`<row>/<member>`).
+  List<String> _ownForms(String row) => [
+    for (final p in doc.formPaths)
+      if (p.startsWith('$row/') && !p.substring(row.length + 1).contains('/'))
+        p,
+  ];
+
+  /// Every path at or above a value the document holds (marks included);
+  /// a headline counts for the sections above its own.
+  Set<String>? _valued;
+
+  /// Whether anything beneath [path] holds a value (marks included).
+  bool _holdsValue(String path) {
+    final valued = _valued ??= () {
+      final out = <String>{};
+      void up(String p, {bool self = true}) {
+        var cur = self
+            ? p
+            : (p.contains('/') ? p.substring(0, p.lastIndexOf('/')) : '');
+        while (cur.isNotEmpty && out.add(cur)) {
+          final slash = cur.lastIndexOf('/');
+          cur = slash < 0 ? '' : cur.substring(0, slash);
+        }
+      }
+
+      for (final p in doc.contentPaths) {
+        if ((doc.content(p) ?? '').trim().isNotEmpty) up(p);
+      }
+      for (final p in doc.formPaths) {
+        if (doc
+            .formFieldNames(p)
+            .any((f) => (doc.formField(p, f) ?? '').trim().isNotEmpty)) {
+          up(p);
+        }
+      }
+      for (final p in doc.headlinePaths) {
+        if ((doc.headline(p) ?? '').isNotEmpty) up(p, self: false);
+      }
+      for (final l in doc.listPaths) {
+        if (doc.listItems(l).isNotEmpty) up(l);
+      }
+      return out;
+    }();
+    return valued.contains(path);
   }
 }

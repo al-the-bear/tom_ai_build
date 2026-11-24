@@ -22,6 +22,11 @@
 ///   refusal — the last over an inline model), one report case per finding of
 ///   the set and per comparison rule, scoping, and the global rename.
 ///
+/// * `derive_cases.json` — `deriveFields`: each step, plain and under review
+///   (marked), a dry run, what it leaves unresolved; every case run twice, the
+///   second run's result the proof of idempotence, with both tiers' findings
+///   on the document after it.
+///
 /// Each case carries a hand-written `intent`: what it exists to show. A run
 /// checks that the intent holds in the expectation, so a case that silently
 /// stops showing it fails even though Dart reproduces its own output.
@@ -152,6 +157,44 @@
 ///   references (link rows, a revision, the prerequisite, the summary field)
 ///   and the texts naming it; the set is clean after it. A rename onto
 ///   `REQ-PURGE` is refused, naming the two documents that hold it. Correct.
+/// * **unmarkable** (added with `deriveFields`) — a description whose copy
+///   differs inside fenced code, in the Blueprint and in Detail: one
+///   `unmarkable` finding per document, resolution `agent`. Correct.
+///
+/// ## Manual review of `derive_cases.json` (DP-part-conformance-1)
+///
+/// Reviewed 2026-11-24 against the intents and part-operations section 5:
+///
+/// * **the base Blueprint** (every derived place filled, `REQAB` of all three
+///   requirements included) writes nothing; the `relatedScreens` end, whose
+///   screens the document does not hold, is not written. Correct.
+/// * **step 1** — REQ-PURGE's missing conflict row added back (`conflict`,
+///   naming REQ-EXPORT), and step 2 then deriving its `conflictsWith`; the
+///   criterion's missing `relatedRequirements` written back, and step 2
+///   copying it into the `@SameAs` copy; a row added for REQ-EXPORT named in
+///   REQ-IMPORT's description (`namedInText`), the description's copy
+///   following; the stale `namedInText` row of REQ-EXPORT removed, its copy
+///   re-derived; a link row with no value removed. Each leaves the document
+///   clean on both tiers, and a second run writes nothing. Correct.
+/// * **step 2** — the copy (`REQAB`), the collected conflict ids, the
+///   looked-up version, the prerequisite list (one element added for the
+///   prerequisite row), the key row's repeated title and the `@SameAs` copy
+///   (the holder's element added with its section id, the copy's own element
+///   removed, a differing text rewritten). Correct.
+/// * **step 3** — `total` 3, `settled` 2 (approved | done), the products
+///   weight × effort written as doubles (`6.0`, `3.0`, `4.0`) and the ranks by
+///   score, highest first. Correct.
+/// * **unresolved** — REQ-PURGE's lookup without its revision row
+///   (`derivedLookupMiss`), nothing written for it. Correct.
+/// * **dry run** — the same changes answered, the given document unchanged
+///   (its second run answers them again). Correct.
+/// * **under review** — every value written as a mark attributed to
+///   `agent_spec_author`: insertions for empty places, a substitution for
+///   the rewritten copy text, typed values (`{~~ 3 ~> 2 ~~}`, `{++ 6.0 ++}`)
+///   alike; a removed row's values proposed for deletion, the row kept;
+///   a change inside fenced code left `unmarkable` while the rest is written.
+///   The findings after a marked run are those of the reviewed state (the
+///   marks pending), as they should be; a second run writes nothing. Correct.
 library;
 
 import 'dart:convert';
@@ -169,6 +212,7 @@ void main() {
   final readerCases = buildLinkReaderCases(meta);
   final validationCases = buildLinkValidationCases(meta);
   final setCases = buildDocumentSetCases(meta);
+  final deriveCases = buildDeriveCases(meta);
 
   String encode(Object? json) =>
       '${const JsonEncoder.withIndent('  ').convert(json)}\n';
@@ -185,6 +229,9 @@ void main() {
     File(
       '${corpusDir.path}/document_set_cases.json',
     ).writeAsStringSync(encode(setCases));
+    File(
+      '${corpusDir.path}/derive_cases.json',
+    ).writeAsStringSync(encode(deriveCases));
   });
 
   Object? onDisk(String name) =>
@@ -336,6 +383,40 @@ void main() {
         SpecValidationCode.linkValuePending,
       ];
       expect(provoked, containsAll(linkCodes.map((c) => c.name)));
+    });
+  });
+
+  group('deriveFields', () {
+    test('DRC1: derive_cases.json is the table the builder writes', () {
+      expect(onDisk('derive_cases.json'), jsonDecode(jsonEncode(deriveCases)));
+    });
+
+    test('DRC2: the table on disk is reproduced from its own inputs', () {
+      final model = SpecModel.fromJson(
+        onDisk('links.meta.json') as Map<String, dynamic>,
+      );
+      final table = onDisk('derive_cases.json') as Map<String, dynamic>;
+      for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+        expect(
+          jsonDecode(jsonEncode(deriveCase(model, c))),
+          c['expect'],
+          reason: c['name'] as String,
+        );
+      }
+    });
+
+    test('DRC3: every case shows its intent', () {
+      for (final c
+          in (jsonDecode(jsonEncode(deriveCases))['cases'] as List)
+              .cast<Map<String, dynamic>>()) {
+        for (final token in (c['intent'] as List).cast<String>()) {
+          expect(
+            _deriveIntentHolds(token, c),
+            isTrue,
+            reason: '${c['name']}: intent "$token"',
+          );
+        }
+      }
     });
   });
 
@@ -1041,10 +1122,12 @@ SpecDocument _baseBlueprint() {
   row('$_ra/LNK-ITEM-LST', 'conflict', 'REQ-PURGE');
 
   form('$_rb/REQD', {'description': 'Imports files.'});
+  d.setContent('$_rb/REQAB', 'Imports files.');
   form('$_rb/REQC', {'constraints': 'Bounded by REQ-PURGE.'});
   row('$_rb/LNK-ITEM-LST', 'constrainedBy', 'REQ-PURGE');
 
   form('$_rc/REQD', {'description': 'Purges old data.'});
+  d.setContent('$_rc/REQAB', 'Purges old data.');
   form('$_rc/REQC', {'conflictsWith': 'REQ-EXPORT'});
   row('$_rc/LNK-ITEM-LST', 'conflict', 'REQ-EXPORT');
   row('$_rc/LNK-ITEM-LST', 'prerequisite', 'REQ-IMPORT');
@@ -1242,6 +1325,234 @@ Map<String, Object?> buildLinkValidationCases(Map<String, dynamic> meta) {
         ),
       ),
     ],
+  };
+}
+
+// ---------------------------------------------------------------------------
+// The table `derive_cases.json`
+// ---------------------------------------------------------------------------
+
+/// One derive case: `deriveFields` run twice on the case's document (the
+/// second run shows idempotence), each as its result, then the findings of
+/// both tiers on the document after it, and the given document after both
+/// runs (unchanged on a dry run).
+Map<String, Object?> deriveCase(SpecModel model, Map<String, dynamic> c) {
+  final doc = SpecDocument()..loadJson(c['state'] as Map);
+  SpecDeriveResult run() => deriveFields(
+    model,
+    doc,
+    marked: c['marked'] as bool? ?? true,
+    author: c['author'] as String?,
+    at: c['at'] as String?,
+    dryRun: c['dryRun'] as bool? ?? false,
+  );
+  final first = run();
+  final second = run();
+  List<Map<String, String>> pairs(List<SpecValidationError> errors) => [
+    for (final e in errors) {'path': e.path, 'code': e.code.name},
+  ];
+  return {
+    'first': first.toJson(),
+    'second': second.toJson(),
+    'findingsAfter': pairs([
+      ...validateLinks(model, second.document),
+      ...validateDocument(model, second.document),
+    ]),
+    'given': doc.toJson(),
+  };
+}
+
+/// The table `derive_cases.json`, its expectations computed live.
+Map<String, Object?> buildDeriveCases(Map<String, dynamic> meta) {
+  final model = SpecModel.fromJson(meta);
+  const author = 'agent_spec_author';
+  const at = '2026-11-24T10:00+01:00';
+
+  Map<String, Object?> kase(
+    String name,
+    List<String> intent,
+    void Function(SpecDocument d)? edit, {
+    bool marked = false,
+    bool dryRun = false,
+  }) {
+    final d = _baseBlueprint();
+    edit?.call(d);
+    final c = <String, dynamic>{
+      'name': name,
+      'intent': intent,
+      'marked': marked,
+      if (marked) 'author': author,
+      if (marked) 'at': at,
+      if (dryRun) 'dryRun': true,
+      'state': d.toJson(),
+    };
+    return {...c, 'expect': deriveCase(model, jsonDecode(jsonEncode(c)))};
+  }
+
+  void clearDerived(SpecDocument d) {
+    d.setContent('$_ra/REQAB', '');
+    d.setFormField('$_ra/REQC', 'conflictsWith', '');
+    d.setFormField('$_ra/content', 'lastVersion', '');
+    d.setFormField('$_req/keyRequirements/KEY-ITEM-LST-1/content', 'title', '');
+    d.removeListItem('$_rc/PRE-ITEM-LST-1');
+    d.setFormField('$_copy-1/content', 'text', 'An old copy.');
+    d.removeListItem('$_copy-2');
+    // An element only the copy holds goes.
+    final extra = d.addListItem(_copy, sectionId: 'CRIT-EXTRA');
+    d.setFormField('$extra/content', 'text', 'Not in the holder.');
+  }
+
+  void scores(SpecDocument d) {
+    for (final (item, weight, effort) in [
+      (_ra, '2', '3'),
+      (_rb, '1.5', '2'),
+      (_rc, '4', '1'),
+    ]) {
+      d.setFormField('$item/content', 'weight', weight);
+      d.setFormField('$item/content', 'effort', effort);
+    }
+  }
+
+  return {
+    'model': 'links.meta.json',
+    'cases': [
+      kase(
+        'a document whose derived places hold: nothing is written, and the '
+        'end whose registry the document does not hold is not written',
+        ['nothing', 'clean'],
+        null,
+      ),
+      kase(
+        'step 1: a missing symmetric row restored, step 2 deriving from it',
+        ['step1', 'rowAdded', 'step2', 'clean', 'idempotent'],
+        (d) {
+          d.removeListItem('$_rc/LNK-ITEM-LST-1');
+          d.setFormField('$_rc/REQC', 'conflictsWith', '');
+        },
+      ),
+      kase(
+        'step 1: a one-way end written back, step 2 copying it into the '
+        '@SameAs copy',
+        ['step1', 'step2', 'clean', 'idempotent'],
+        (d) {
+          for (final list in [_holder, _copy]) {
+            d.setFormField('$list-1/content', 'relatedRequirements', '');
+          }
+        },
+      ),
+      kase(
+        'step 1: a row added for an id named in a generate-mode text',
+        ['step1', 'rowAdded', 'clean', 'idempotent'],
+        (d) => d.setFormField(
+          '$_rb/REQD',
+          'description',
+          'Imports files for REQ-EXPORT.',
+        ),
+      ),
+      kase(
+        'step 1: a stale generated row removed, step 2 re-deriving the copy '
+        'of the text',
+        ['step1', 'rowRemoved', 'step2', 'clean', 'idempotent'],
+        (d) => d.setFormField(
+          '$_ra/REQD',
+          'description',
+          'Exports never run with REQ-PURGE.',
+        ),
+      ),
+      kase('a link row left with no value is removed', [
+        'rowRemoved',
+        'clean',
+        'idempotent',
+      ], (d) => d.addListItem('$_ra/LNK-ITEM-LST')),
+      kase(
+        'step 2: a copy, collected rows, a lookup, a derived list, a repeated '
+        'value and a @SameAs copy written',
+        ['step2', 'rowAdded', 'rowRemoved', 'clean', 'idempotent'],
+        clearDerived,
+      ),
+      kase(
+        'step 3: counts, products and ranks written',
+        ['step3', 'clean', 'idempotent'],
+        (d) {
+          scores(d);
+          d.setFormField('$_req/REQS-SUM', 'total', '');
+          d.setFormField('$_req/REQS-SUM', 'settled', '3');
+        },
+      ),
+      kase('a lookup without its row is left unresolved', [
+        'derivedLookupMiss',
+      ], (d) => d.removeListItem('BLU/REV-ITEM-LST-3')),
+      kase(
+        'a dry run writes nothing and answers the same changes',
+        ['step2', 'unchanged'],
+        clearDerived,
+        dryRun: true,
+      ),
+      kase(
+        'under review: every derived value written as marks, typed values '
+        'and the copy included; a second run writes nothing',
+        ['marked', 'step2', 'rowAdded', 'idempotent'],
+        clearDerived,
+        marked: true,
+      ),
+      kase(
+        'under review: counts, products and ranks as typed marks',
+        ['marked', 'step3', 'idempotent'],
+        (d) {
+          scores(d);
+          d.setFormField('$_req/REQS-SUM', 'settled', '3');
+        },
+        marked: true,
+      ),
+      kase(
+        'under review: a stale row proposed for deletion, not removed',
+        ['marked', 'rowRemoved', 'idempotent'],
+        (d) {
+          const text = 'Exports never run with REQ-PURGE.';
+          d.setFormField('$_ra/REQD', 'description', text);
+          d.setContent('$_ra/REQAB', text);
+        },
+        marked: true,
+      ),
+      kase(
+        'under review: a change inside fenced code cannot be marked and is '
+        'left unmarkable',
+        ['unmarkable'],
+        (d) {
+          const text = 'Exports run:\n\n```\nexport --all\n```';
+          d.setFormField('$_ra/REQD', 'description', text);
+          d.setContent('$_ra/REQAB', 'Exports run:\n\n```\nexport --some\n```');
+        },
+        marked: true,
+      ),
+    ],
+  };
+}
+
+/// Whether the derive-case intent [token] holds in [e].
+bool _deriveIntentHolds(String token, Map<String, dynamic> c) {
+  final e = c['expect'] as Map<String, dynamic>;
+  final first = e['first'] as Map<String, dynamic>;
+  final second = e['second'] as Map<String, dynamic>;
+  final changes = (first['changes'] as List).cast<Map<String, dynamic>>();
+  bool unresolved(String code) =>
+      (first['unresolved'] as List).any((u) => (u as Map)['code'] == code);
+  return switch (token) {
+    'nothing' => changes.isEmpty,
+    'step1' => changes.any((x) => x['step'] == 1),
+    'step2' => changes.any((x) => x['step'] == 2),
+    'step3' => changes.any((x) => x['step'] == 3),
+    'rowAdded' => changes.any((x) => x['kind'] == 'rowAdded'),
+    'rowRemoved' => changes.any((x) => x['kind'] == 'rowRemoved'),
+    'marked' => changes.any((x) => (x['new'] as String).contains('{')),
+    'clean' => (e['findingsAfter'] as List).isEmpty,
+    'idempotent' =>
+      (second['changes'] as List).isEmpty &&
+          jsonEncode(second['document']) == jsonEncode(first['document']),
+    'unchanged' => jsonEncode(e['given']) == jsonEncode(c['state']),
+    'unmarkable' => unresolved('unmarkable'),
+    'derivedLookupMiss' => unresolved('derivedLookupMiss'),
+    _ => throw StateError('unknown intent token "$token"'),
   };
 }
 
@@ -1717,6 +2028,21 @@ Map<String, Object?> buildDocumentSetCases(Map<String, dynamic> meta) {
         pairs: ['REQS'],
       ),
       report(
+        'a derived change that cannot be marked is left for the agent',
+        ['unmarkable', 'agent'],
+        (d) {
+          const text = 'Exports run:\n\n```\nexport --all\n```';
+          const stale = 'Exports run:\n\n```\nexport --some\n```';
+          for (final (doc, item) in [
+            (d['blueprint']!, _ra),
+            (d['detail']!, '$_det-1'),
+          ]) {
+            doc.setFormField('$item/REQD', 'description', text);
+            doc.setContent('$item/REQAB', stale);
+          }
+        },
+      ),
+      report(
         'findings of several pairs, in pair order',
         ['sharedValueDiffers', 'sharedElementMissing'],
         (d) {
@@ -1924,6 +2250,11 @@ Map<String, dynamic> buildLinksMeta() {
         }),
         _ff('owner', 'String'),
         _ff('weight', 'double'),
+        _ff('effort', 'int'),
+        _ff('score', 'double', {
+          'productOf': ['weight', 'effort'],
+        }),
+        _ff('rank', 'int', {'rankOf': 'score'}),
         _ff('lastVersion', 'String', {
           'derivedFrom': {
             'kind': 'lookup',

@@ -761,7 +761,7 @@ by path:
 | `missingRequiredField` | 2 | a form the document holds — a class-level form or a form declared on a section member, in a list item or not — that leaves a `required` field empty; an absent form is absence and is not reported |
 | `minItems` | 3 | a populated list below its `@Min` item count |
 | `oneOfCaseMismatch` | 4 | a populated `@Case` subsection the chosen `@OneOf` discriminator does not select, or two selected-and-populated subsections in one container |
-| `danglingReference` | 5 | a `refersTo` value naming an id no entry of its target registries declares in this document |
+| `danglingReference` | 5 | a `refersTo` value naming an id no entry of its target registries declares in this document (a reference holding inline marks read as its old value, §11.9.3) |
 | `multipleReferences` | 5 | a reference field without `multiple` holding a comma-separated list of ids (each id is resolved as well) |
 | `countMismatch` | 6 | a `countOf` value (`tom_specs_model_rules.md` §6.2.2) that is not a whole number, or not the number of entries the document holds |
 | `derivedValueMismatch` | 7 | a `productOf` value that is not a number or not the product of its operands, or a `rankOf` value that is not a rank 1 to n used once, or ranks below an entry scoring lower (`tom_specs_model_rules.md` §6.2.4) |
@@ -2085,6 +2085,9 @@ marks).
   type cannot read, or an enum name the enum does not declare, is therefore
   reported (`valueTypeMismatch`, `enumValueUnknown`) only once it is
   accepted.
+- **References too.** A reference field's value (`refersTo`) is read the same
+  way: a reference proposed for deletion or replacement resolves as the old
+  id until decided.
 - **Decided like text.** Accepting writes the new value, rejecting restores
   the old one; the decisions, the listing and accept all / reject all treat a
   typed value like any other.

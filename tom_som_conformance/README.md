@@ -836,6 +836,19 @@ of the same model (`blueprint`, `detail`, `screens`) that agree everywhere:
 - `renames`: an id renamed in every document, and a rename onto an id that
   exists, refused.
 
+[`corpus/derive_cases.json`](corpus/derive_cases.json) pins `deriveFields`
+over the same Blueprint: each of its three steps alone and reading the one
+before (a restored conflict row feeding its `conflictsWith`, an end written
+back reaching the `@SameAs` copy), a row added for an id named in a text, a
+stale generated row and an empty link row removed, every derived value and
+list, the counts, products and ranks, a lookup left unresolved, a dry run, and
+the same under review (marked) — the stale row proposed for deletion, a change
+inside fenced code left `unmarkable`. Each case `{name, intent, marked,
+author, at, dryRun, state}` runs `deriveFields` twice: `expect.first` and
+`expect.second` are the two results (changes, unresolved, the document), the
+second proving idempotence; `findingsAfter` the findings of both tiers on the
+document after it, and `given` the document handed in, after both runs.
+
 The files are written by the Dart runtime's
 `test/section_link_conformance_test.dart` under `UPDATE_CORPUS=1`; every case
 carries a hand-written `intent` the test checks, and the expectations were read

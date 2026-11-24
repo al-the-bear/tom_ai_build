@@ -675,7 +675,10 @@ SpecSyncReport syncReport(SpecDocumentSet set, {Set<String>? pairs}) {
     index++;
   }
   c.crossChecks(pairs, index);
-  if (pairs == null) c.pendingScan(index + 1);
+  if (pairs == null) {
+    c.pendingScan(index + 1);
+    c.unmarkableScan(index + 2);
+  }
   c.out.sort((a, b) {
     final i = a.order.compareTo(b.order);
     if (i != 0) return i;
@@ -1283,6 +1286,37 @@ class _SetCheck {
         if (doc.formField(p, field) != null)
           _reviewed(doc.formField(p, field)!),
     ];
+  }
+
+  // --- unmarkable derived changes -------------------------------------------
+
+  /// Every change `deriveFields` would write in a document under review that
+  /// cannot be marked exactly: left for the agent.
+  void unmarkableScan(int order) {
+    for (final name in set.names) {
+      final doc = set[name]!;
+      final root = refl.rootSegment(
+        refl.model.roots.firstWhere((r) => r.type == set.rootOf(name)),
+      );
+      final derived = deriveFields(set.model, doc, dryRun: true);
+      for (final u in derived.unresolved) {
+        if (u.code != SpecValidationCode.unmarkable) continue;
+        final p = SpecSyncPlace(document: name, root: root, path: u.path);
+        add(
+          order,
+          '$name ${u.path}',
+          SpecSyncFinding(
+            code: SpecSyncCode.unmarkable,
+            pair: '',
+            blueprint: p,
+            detail: p,
+            holder: SpecSyncHolder.detail,
+            resolution: SpecSyncResolution.agent,
+            message: '${u.message} (in $name)',
+          ),
+        );
+      }
+    }
   }
 
   // --- pending marks --------------------------------------------------------

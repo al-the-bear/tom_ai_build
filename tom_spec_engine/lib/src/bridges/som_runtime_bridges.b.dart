@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 35 files
-// Generated: 2026-11-24T19:20:58.445929 by tom_d4rt_generator 1.67.0
+// Generated: 2026-11-24T19:52:29.420838 by tom_d4rt_generator 1.67.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -244,6 +244,8 @@ class SomRuntimeBridge {
       _createNotationScanBridge(),
       _createSpecCreationErrorBridge(),
       _createSpecNodeCreatorBridge(),
+      _createSpecDeriveChangeBridge(),
+      _createSpecDeriveResultBridge(),
       _createSpecPlaceExceptionBridge(),
       _createSpecPlaceBridge(),
       _createSpecPlaceResolutionBridge(),
@@ -429,6 +431,8 @@ class SomRuntimeBridge {
       'NotationScan': _createNotationScanBridge,
       'SpecCreationError': _createSpecCreationErrorBridge,
       'SpecNodeCreator': _createSpecNodeCreatorBridge,
+      'SpecDeriveChange': _createSpecDeriveChangeBridge,
+      'SpecDeriveResult': _createSpecDeriveResultBridge,
       'SpecPlaceException': _createSpecPlaceExceptionBridge,
       'SpecPlace': _createSpecPlaceBridge,
       'SpecPlaceResolution': _createSpecPlaceResolutionBridge,
@@ -623,6 +627,8 @@ class SomRuntimeBridge {
       'NotationScan': $tom_som_dart_runtime_23.NotationScan,
       'SpecCreationError': $tom_som_dart_runtime_22.SpecCreationError,
       'SpecNodeCreator': $tom_som_dart_runtime_22.SpecNodeCreator,
+      'SpecDeriveChange': $tom_som_dart_runtime_17.SpecDeriveChange,
+      'SpecDeriveResult': $tom_som_dart_runtime_17.SpecDeriveResult,
       'SpecPlaceException': $tom_som_dart_runtime_25.SpecPlaceException,
       'SpecPlace': $tom_som_dart_runtime_25.SpecPlace,
       'SpecPlaceResolution': $tom_som_dart_runtime_25.SpecPlaceResolution,
@@ -922,6 +928,10 @@ class SomRuntimeBridge {
           'package:tom_som_dart_runtime/src/spec_node_creation.dart',
       'SpecNodeCreator':
           'package:tom_som_dart_runtime/src/spec_node_creation.dart',
+      'SpecDeriveChange':
+          'package:tom_som_dart_runtime/src/spec_links_validator.dart',
+      'SpecDeriveResult':
+          'package:tom_som_dart_runtime/src/spec_links_validator.dart',
       'SpecPlaceException': 'package:tom_som_dart_runtime/src/spec_place.dart',
       'SpecPlace': 'package:tom_som_dart_runtime/src/spec_place.dart',
       'SpecPlaceResolution': 'package:tom_som_dart_runtime/src/spec_place.dart',
@@ -2971,6 +2981,33 @@ class SomRuntimeBridge {
         );
         return $tom_som_dart_runtime_17.validateLinks(model, doc);
       },
+      'deriveFields': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'deriveFields');
+        final model = D4.getRequiredArg<$tom_som_dart_runtime_21.SpecModel>(
+          positional,
+          0,
+          'model',
+          'deriveFields',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_8.SpecDocument>(
+          positional,
+          1,
+          'doc',
+          'deriveFields',
+        );
+        final marked = D4.getNamedArgWithDefault<bool>(named, 'marked', true);
+        final author = D4.getOptionalNamedArg<String?>(named, 'author');
+        final at = D4.getOptionalNamedArg<String?>(named, 'at');
+        final dryRun = D4.getNamedArgWithDefault<bool>(named, 'dryRun', false);
+        return $tom_som_dart_runtime_17.deriveFields(
+          model,
+          doc,
+          marked: marked,
+          author: author,
+          at: at,
+          dryRun: dryRun,
+        );
+      },
       'specSameAsBindings': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'specSameAsBindings');
         final refl = D4.getRequiredArg<$tom_som_dart_runtime_27.SpecReflection>(
@@ -3287,6 +3324,31 @@ class SomRuntimeBridge {
         );
         return $tom_som_dart_runtime_35.validateDocument(model, doc);
       },
+      'specDerivedNumbers': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'specDerivedNumbers');
+        final model = D4.getRequiredArg<$tom_som_dart_runtime_21.SpecModel>(
+          positional,
+          0,
+          'model',
+          'specDerivedNumbers',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_8.SpecDocument>(
+          positional,
+          1,
+          'doc',
+          'specDerivedNumbers',
+        );
+        final readProposed = D4.getNamedArgWithDefault<bool>(
+          named,
+          'readProposed',
+          false,
+        );
+        return $tom_som_dart_runtime_35.specDerivedNumbers(
+          model,
+          doc,
+          readProposed: readProposed,
+        );
+      },
     };
   }
 
@@ -3401,6 +3463,8 @@ class SomRuntimeBridge {
           'package:tom_som_dart_runtime/src/spec_paths.dart',
       'validateLinks':
           'package:tom_som_dart_runtime/src/spec_links_validator.dart',
+      'deriveFields':
+          'package:tom_som_dart_runtime/src/spec_links_validator.dart',
       'specSameAsBindings': 'package:tom_som_dart_runtime/src/spec_place.dart',
       'specSectionPositions':
           'package:tom_som_dart_runtime/src/spec_place.dart',
@@ -3438,6 +3502,8 @@ class SomRuntimeBridge {
       'somIsTypedField':
           'package:tom_som_dart_runtime/src/spec_typed_values.dart',
       'validateDocument':
+          'package:tom_som_dart_runtime/src/spec_validator.dart',
+      'specDerivedNumbers':
           'package:tom_som_dart_runtime/src/spec_validator.dart',
     };
   }
@@ -3541,6 +3607,8 @@ class SomRuntimeBridge {
           '({String base, int seq})? splitListItemSegment(String segment)',
       'validateLinks':
           'List<SpecValidationError> validateLinks(SpecModel model, SpecDocument doc)',
+      'deriveFields':
+          'SpecDeriveResult deriveFields(SpecModel model, SpecDocument doc, {bool marked = true, String? author, String? at, bool dryRun = false})',
       'specSameAsBindings':
           'List<SpecSameAsBinding> specSameAsBindings(SpecReflection refl, String rootType)',
       'specSectionPositions':
@@ -3573,6 +3641,8 @@ class SomRuntimeBridge {
           'bool somIsTypedField(String? typeName, List<String> enumValues)',
       'validateDocument':
           'List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc)',
+      'specDerivedNumbers':
+          'List<({String field, String path, String value})> specDerivedNumbers(SpecModel model, SpecDocument doc, {bool readProposed = false})',
     };
   }
 
@@ -8852,6 +8922,14 @@ BridgedClass _createSpecReviewMergeResultBridge() {
           case $tom_som_dart_runtime_21.SpecDerivation _:
             return $tom_som_dart_runtime_29.SpecReviewMergeResult<
               $tom_som_dart_runtime_21.SpecDerivation
+            >(merged, report);
+          case $tom_som_dart_runtime_17.SpecDeriveChange _:
+            return $tom_som_dart_runtime_29.SpecReviewMergeResult<
+              $tom_som_dart_runtime_17.SpecDeriveChange
+            >(merged, report);
+          case $tom_som_dart_runtime_17.SpecDeriveResult _:
+            return $tom_som_dart_runtime_29.SpecReviewMergeResult<
+              $tom_som_dart_runtime_17.SpecDeriveResult
             >(merged, report);
           case $tom_som_dart_runtime_8.SpecDocument _:
             return $tom_som_dart_runtime_29.SpecReviewMergeResult<
@@ -22717,6 +22795,200 @@ BridgedClass _createSpecNodeCreatorBridge() {
     getterSignatures: {
       'model': 'SpecModel get model',
       'document': 'SpecDocument get document',
+    },
+  );
+}
+
+// =============================================================================
+// SpecDeriveChange Bridge
+// =============================================================================
+
+BridgedClass _createSpecDeriveChangeBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_17.SpecDeriveChange,
+    name: 'SpecDeriveChange',
+    isAssignable: (v) => v is $tom_som_dart_runtime_17.SpecDeriveChange,
+    constructors: {
+      '': (visitor, positional, named) {
+        final step = D4.getRequiredNamedArg<int>(
+          named,
+          'step',
+          'SpecDeriveChange',
+        );
+        final kind = D4.getRequiredNamedArg<String>(
+          named,
+          'kind',
+          'SpecDeriveChange',
+        );
+        final path = D4.getRequiredNamedArg<String>(
+          named,
+          'path',
+          'SpecDeriveChange',
+        );
+        final field = D4.getOptionalNamedArg<String?>(named, 'field');
+        final oldValue = D4.getNamedArgWithDefault<String>(
+          named,
+          'oldValue',
+          '',
+        );
+        final newValue = D4.getNamedArgWithDefault<String>(
+          named,
+          'newValue',
+          '',
+        );
+        return $tom_som_dart_runtime_17.SpecDeriveChange(
+          step: step,
+          kind: kind,
+          path: path,
+          field: field,
+          oldValue: oldValue,
+          newValue: newValue,
+        );
+      },
+    },
+    getters: {
+      'step': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_17.SpecDeriveChange>(
+            target,
+            'SpecDeriveChange',
+          )
+          .step,
+      'kind': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_17.SpecDeriveChange>(
+            target,
+            'SpecDeriveChange',
+          )
+          .kind,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_17.SpecDeriveChange>(
+            target,
+            'SpecDeriveChange',
+          )
+          .path,
+      'field': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_17.SpecDeriveChange>(
+            target,
+            'SpecDeriveChange',
+          )
+          .field,
+      'oldValue': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_17.SpecDeriveChange>(
+            target,
+            'SpecDeriveChange',
+          )
+          .oldValue,
+      'newValue': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_17.SpecDeriveChange>(
+            target,
+            'SpecDeriveChange',
+          )
+          .newValue,
+    },
+    methods: {
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_17.SpecDeriveChange>(
+          target,
+          'SpecDeriveChange',
+        );
+        return t.toJson();
+      },
+    },
+    constructorSignatures: {
+      '': 'const SpecDeriveChange({required int step, required String kind, required String path, String? field, String oldValue = \'\', String newValue = \'\'})',
+    },
+    methodSignatures: {'toJson': 'Map<String, Object?> toJson()'},
+    getterSignatures: {
+      'step': 'int get step',
+      'kind': 'String get kind',
+      'path': 'String get path',
+      'field': 'String? get field',
+      'oldValue': 'String get oldValue',
+      'newValue': 'String get newValue',
+    },
+  );
+}
+
+// =============================================================================
+// SpecDeriveResult Bridge
+// =============================================================================
+
+BridgedClass _createSpecDeriveResultBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_17.SpecDeriveResult,
+    name: 'SpecDeriveResult',
+    isAssignable: (v) => v is $tom_som_dart_runtime_17.SpecDeriveResult,
+    constructors: {
+      '': (visitor, positional, named) {
+        final document = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_8.SpecDocument>(
+              named,
+              'document',
+              'SpecDeriveResult',
+            );
+        if (!named.containsKey('changes') || named['changes'] == null) {
+          throw ArgumentError(
+            'SpecDeriveResult: Missing required named argument "changes"',
+          );
+        }
+        final changes = D4
+            .coerceList<$tom_som_dart_runtime_17.SpecDeriveChange>(
+              named['changes'],
+              'changes',
+            );
+        if (!named.containsKey('unresolved') || named['unresolved'] == null) {
+          throw ArgumentError(
+            'SpecDeriveResult: Missing required named argument "unresolved"',
+          );
+        }
+        final unresolved = D4
+            .coerceList<$tom_som_dart_runtime_35.SpecValidationError>(
+              named['unresolved'],
+              'unresolved',
+            );
+        return $tom_som_dart_runtime_17.SpecDeriveResult(
+          document: document,
+          changes: changes,
+          unresolved: unresolved,
+        );
+      },
+    },
+    getters: {
+      'document': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_17.SpecDeriveResult>(
+            target,
+            'SpecDeriveResult',
+          )
+          .document,
+      'changes': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_17.SpecDeriveResult>(
+            target,
+            'SpecDeriveResult',
+          )
+          .changes,
+      'unresolved': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_17.SpecDeriveResult>(
+            target,
+            'SpecDeriveResult',
+          )
+          .unresolved,
+    },
+    methods: {
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_17.SpecDeriveResult>(
+          target,
+          'SpecDeriveResult',
+        );
+        return t.toJson();
+      },
+    },
+    constructorSignatures: {
+      '': 'const SpecDeriveResult({required SpecDocument document, required List<SpecDeriveChange> changes, required List<SpecValidationError> unresolved})',
+    },
+    methodSignatures: {'toJson': 'Map<String, Object?> toJson()'},
+    getterSignatures: {
+      'document': 'SpecDocument get document',
+      'changes': 'List<SpecDeriveChange> get changes',
+      'unresolved': 'List<SpecValidationError> get unresolved',
     },
   );
 }

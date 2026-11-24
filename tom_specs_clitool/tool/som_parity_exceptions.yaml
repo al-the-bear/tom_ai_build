@@ -741,3 +741,43 @@ exceptions:
       by decision (idea section_automation, DP-part-conformance-4); its ports
       are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: deriveFields
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. `deriveFields` (the derived places of one document written,
+      plain or as marks; `tom_specs_model_rules.md` §9.7) is in the Dart runtime
+      only, built first by decision (idea section_automation,
+      DP-part-conformance-4); its ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `derive_cases.json` is the corpus they will run.
+
+  - token: dryRun
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. `deriveFields` (the derived places of one document written,
+      plain or as marks; `tom_specs_model_rules.md` §9.7) is in the Dart runtime
+      only, built first by decision (idea section_automation,
+      DP-part-conformance-4); its ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `derive_cases.json` is the corpus they will run.
+
+  - token: rowAdded
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. `deriveFields` (the derived places of one document written,
+      plain or as marks; `tom_specs_model_rules.md` §9.7) is in the Dart runtime
+      only, built first by decision (idea section_automation,
+      DP-part-conformance-4); its ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `derive_cases.json` is the corpus they will run.
+
+  - token: rowRemoved
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. `deriveFields` (the derived places of one document written,
+      plain or as marks; `tom_specs_model_rules.md` §9.7) is in the Dart runtime
+      only, built first by decision (idea section_automation,
+      DP-part-conformance-4); its ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `derive_cases.json` is the corpus they will run.

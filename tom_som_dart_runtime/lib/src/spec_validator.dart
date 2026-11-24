@@ -175,6 +175,11 @@ enum SpecValidationCode {
   /// A value a link check reads holds pending change marks. It is read with
   /// every mark rejected (the reviewed state) and listed for the user.
   linkValuePending,
+
+  /// A change `deriveFields` would write in a document under review that
+  /// cannot be marked exactly (a difference inside fenced code, SOM §11.9.3);
+  /// it is left as it was, for the agent.
+  unmarkable,
 }
 
 /// One problem found while validating a document.
@@ -591,7 +596,7 @@ List<SpecValidationError> _validateReferenceInstances(
     final sectionId = form.cls.sectionId;
     if (sectionId == null || sectionId.isEmpty) continue;
     for (final ff in form.field.formFields) {
-      final value = doc.formField(form.path, ff.name);
+      final value = _typedValue(doc.formField(form.path, ff.name), ff);
       if (value == null || value.trim().isEmpty) continue;
       declared
           .putIfAbsent('$sectionId.${ff.name}', () => <String>{})
@@ -629,7 +634,7 @@ List<SpecValidationError> _validateReferenceInstances(
   for (final form in forms) {
     for (final ff in form.field.formFields) {
       if (ff.refersTo.isEmpty) continue;
-      final value = doc.formField(form.path, ff.name);
+      final value = _typedValue(doc.formField(form.path, ff.name), ff);
       if (value == null || value.trim().isEmpty) continue;
 
       // One id, unless the field says it holds several. Decidable without the
@@ -1255,7 +1260,171 @@ SpecValidationError _dangling(String path) => SpecValidationError(
 );
 
 /// A form field's value as the instance tier reads it: a typed value (an
-/// enum, `int`, `double`, `num`, `bool`) holding inline marks reads as its old
-/// value (SOM §11.9.3); any other value as stored.
+/// enum, `int`, `double`, `num`, `bool`) or a reference (`refersTo`) holding
+/// inline marks reads as its old value (SOM §11.9.3); any other value as
+/// stored.
 String? _typedValue(String? raw, FormFieldSpec spec) =>
-    somIsTypedField(spec.type, spec.enumValues) ? somTypedReading(raw) : raw;
+    somIsTypedField(spec.type, spec.enumValues) || spec.refersTo.isNotEmpty
+    ? somTypedReading(raw)
+    : raw;
+
+/// The value every derived number of [doc] should hold, by the rules the
+/// instance tier checks (`countOf`, `productOf`, `rankOf`): one entry per form
+/// field whose value is decidable, whether it is filled or not. With
+/// [readProposed], values holding pending marks are read with the marks
+/// accepted (the proposal `deriveFields` writes in a document under review),
+/// else with them rejected. `deriveFields` writes these (step 3).
+List<({String path, String field, String value})> specDerivedNumbers(
+  SpecModel model,
+  SpecDocument doc, {
+  bool readProposed = false,
+}) {
+  final refl = SpecReflection(model);
+  final forms = _resolvedForms(refl, doc);
+  String? read(String path, FormFieldSpec ff) {
+    final raw = doc.formField(path, ff.name);
+    if (raw == null || !raw.contains('{')) return raw?.trim();
+    return applyInlineMarksText(raw, accept: readProposed).trim();
+  }
+
+  final out = <({String path, String field, String value})>[];
+
+  // countOf.
+  final scope = _registryScope(refl, doc);
+  final entriesById = <String, List<String>>{};
+  for (final listPath in doc.listPaths.toList()..sort()) {
+    for (final item in doc.listItems(listPath)) {
+      final id = refl.resolve(item)?.targetClass?.sectionId;
+      if (id == null || id.isEmpty) continue;
+      (entriesById[id] ??= []).add(item);
+    }
+  }
+  final valuesByItem = <String, Map<String, Set<String>>>{};
+  for (final path in doc.formPaths) {
+    final slash = path.lastIndexOf('/');
+    if (slash <= 0) continue;
+    final res = refl.resolve(path);
+    if (res == null || res.field == null) continue;
+    for (final ff in res.field!.formFields) {
+      final v = read(path, ff);
+      if (v == null || v.isEmpty) continue;
+      ((valuesByItem[path.substring(0, slash)] ??= {})[ff.name] ??= {}).add(v);
+    }
+  }
+  for (final form in forms) {
+    final owner = form.path.substring(0, form.path.lastIndexOf('/'));
+    for (final ff in form.field.formFields) {
+      if (ff.countOf.isEmpty) continue;
+      final targets = [for (final t in ff.countOf) SpecPlaceFilter.tryParse(t)];
+      if (!targets.every(
+        (t) => t != null && scope.contains(_registrySectionId(t.sectionId)),
+      )) {
+        continue;
+      }
+      var counted = 0;
+      for (final t in targets) {
+        for (final item in entriesById[t!.sectionId] ?? const <String>[]) {
+          if (t.scoped && !item.startsWith('$owner/')) continue;
+          if (t.field != null &&
+              !t.matches(valuesByItem[item]?[t.field] ?? const <String>{})) {
+            continue;
+          }
+          counted++;
+        }
+      }
+      out.add((path: form.path, field: ff.name, value: '$counted'));
+    }
+  }
+
+  // productOf, then rankOf over the products just derived.
+  final numberPattern = RegExp(r'^-?[0-9]+(\.[0-9]+)?$');
+  final products = <String, double>{};
+  FormFieldSpec? specAt(String path, String name) {
+    final res = refl.resolve(path);
+    if (res == null || res.kind != SpecNodeKind.form) return null;
+    for (final ff in res.field?.formFields ?? const <FormFieldSpec>[]) {
+      if (ff.name == name) return ff;
+    }
+    return null;
+  }
+
+  double? numberOf(String path, FormFieldSpec spec) {
+    final derived = products['$path#${spec.name}'];
+    if (derived != null) return derived;
+    final v = read(path, spec);
+    if (v == null || v.isEmpty) return null;
+    if (spec.enumValues.isNotEmpty) {
+      final i = spec.enumValues.indexOf(v);
+      return i < 0 ? null : (i + 1).toDouble();
+    }
+    return numberPattern.hasMatch(v) ? double.parse(v) : null;
+  }
+
+  for (final form in forms) {
+    final owner = form.path.substring(0, form.path.lastIndexOf('/'));
+    for (final ff in form.field.formFields) {
+      if (ff.productOf.isEmpty) continue;
+      double? product = 1;
+      for (final operand in ff.productOf) {
+        final dot = operand.indexOf('.');
+        final path = dot < 0
+            ? form.path
+            : '$owner/${operand.substring(0, dot)}';
+        final name = dot < 0 ? operand : operand.substring(dot + 1);
+        final spec = specAt(path, name);
+        final n = spec == null ? null : numberOf(path, spec);
+        if (n == null) {
+          product = null;
+          break;
+        }
+        product = product! * n;
+      }
+      if (product == null) continue;
+      products['${form.path}#${ff.name}'] = product;
+      // Written as the field's type writes it (`3.0` in a double).
+      final text = switch (somScalarBase(ff.type)) {
+        'double' => somFormatDouble(product),
+        'int' when product == product.roundToDouble() => '${product.round()}',
+        _ => _formatNumber(product),
+      };
+      out.add((path: form.path, field: ff.name, value: text));
+    }
+  }
+  final groups =
+      <String, List<({String path, String name, double score, int? had})>>{};
+  for (final form in forms) {
+    for (final ff in form.field.formFields) {
+      final by = ff.rankOf;
+      if (by == null) continue;
+      final scoreSpec = specAt(form.path, by);
+      final score = scoreSpec == null ? null : numberOf(form.path, scoreSpec);
+      if (score == null) continue;
+      final had = int.tryParse(read(form.path, ff) ?? '');
+      (groups['${form.cls.name}#${form.field.name}#${ff.name}'] ??= []).add((
+        path: form.path,
+        name: ff.name,
+        score: score,
+        had: had,
+      ));
+    }
+  }
+  for (final group in groups.values) {
+    // Highest score first; equal scores keep the order their ranks give
+    // (the rule leaves it open), then path order.
+    final ordered = group.toList()
+      ..sort((a, b) {
+        final s = b.score.compareTo(a.score);
+        if (s != 0) return s;
+        final r = (a.had ?? 1 << 30).compareTo(b.had ?? 1 << 30);
+        return r != 0 ? r : a.path.compareTo(b.path);
+      });
+    for (var i = 0; i < ordered.length; i++) {
+      out.add((
+        path: ordered[i].path,
+        field: ordered[i].name,
+        value: '${i + 1}',
+      ));
+    }
+  }
+  return out;
+}

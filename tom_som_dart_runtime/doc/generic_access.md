@@ -165,6 +165,23 @@ without exactly one row (`derivedLookupMiss`), a link not named back
 pending change marks is read with every mark rejected and listed as
 `linkValuePending`.
 
+`deriveFields(model, doc)` writes what those checks find derivable, in three
+steps, each reading the one before: the missing link ends and generated rows
+(stale generated rows removed), then the derived values, repeats and
+`@SameAs` copies, then the counts, products and ranks. By default it writes
+inline marks for review (`marked: true`, with `author` and `at`); `marked:
+false` writes plain values, `dryRun: true` works on a copy. A second run
+right after the first writes nothing. Its `SpecDeriveResult` lists every
+change and what it left unresolved: a change it cannot mark exactly
+(`unmarkable`) and a lookup without exactly one row (`derivedLookupMiss`).
+
+```dart
+final result = deriveFields(model, doc, author: 'agent_spec_author');
+for (final c in result.changes) {
+  print('step ${c.step} ${c.kind} ${c.path} ${c.field ?? ''}');
+}
+```
+
 ## A project's documents side by side
 
 `SpecDocumentSet(model, {name: document})` reads a project's documents one

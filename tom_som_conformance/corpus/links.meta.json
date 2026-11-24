@@ -395,6 +395,26 @@
               "type": "double"
             },
             {
+              "name": "effort",
+              "label": "Effort",
+              "type": "int"
+            },
+            {
+              "name": "score",
+              "label": "Score",
+              "type": "double",
+              "productOf": [
+                "weight",
+                "effort"
+              ]
+            },
+            {
+              "name": "rank",
+              "label": "Rank",
+              "type": "int",
+              "rankOf": "score"
+            },
+            {
               "name": "lastVersion",
               "label": "LastVersion",
               "type": "String",

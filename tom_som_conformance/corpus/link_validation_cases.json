@@ -9,7 +9,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -229,7 +231,9 @@
       ],
       "state": {
         "content": {
-          "BLU/criteriaSummary/content": "The criteria at a glance."
+          "BLU/criteriaSummary/content": "The criteria at a glance.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -450,7 +454,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use other formats."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use other formats.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -676,7 +682,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -902,7 +910,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -1128,7 +1138,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -1354,7 +1366,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -1580,7 +1594,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -1801,7 +1817,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -2032,7 +2050,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -2265,7 +2285,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -2481,7 +2503,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -2705,7 +2729,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -2919,6 +2945,10 @@
         {
           "path": "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST",
           "code": "extractedLinkMissing"
+        },
+        {
+          "path": "BLU/requirements/REQ-ITEM-LST-2/REQAB",
+          "code": "derivedValueMismatch"
         }
       ],
       "instanceErrors": []
@@ -2931,7 +2961,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -3157,7 +3189,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -3383,7 +3417,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -3614,7 +3650,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -3845,7 +3883,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -4076,7 +4116,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -4302,7 +4344,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -4528,7 +4572,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -4748,7 +4794,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {
@@ -4974,7 +5022,9 @@
       "state": {
         "content": {
           "BLU/criteriaSummary/content": "The criteria at a glance.",
-          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
         },
         "forms": {
           "BLU/FOC": {

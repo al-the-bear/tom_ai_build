@@ -320,6 +320,14 @@ final List<CorpusGuardedEnum> _guarded = [
           e['code'] as String,
     },
     moreCorpora: {
+      'derive_cases.json': (c) => {
+        for (final k
+            in ((c as Map<String, dynamic>)['cases'] as List)
+                .cast<Map<String, dynamic>>())
+          for (final u
+              in (((k['expect'] as Map)['first'] as Map)['unresolved'] as List))
+            (u as Map)['code'] as String,
+      },
       'link_validation_cases.json': (c) => {
         for (final k
             in ((c as Map<String, dynamic>)['cases'] as List)
@@ -518,7 +526,6 @@ final List<CorpusGuardedEnum> _guarded = [
                 .cast<Map<String, dynamic>>())
           f['code'] as String,
     },
-    waived: {'unmarkable': '04_sau5_akrk-dart-derive-fields'},
     why:
         'a finding of the document set one port reports and another does '
         'not would let a Blueprint drift from its documents unseen',
@@ -536,7 +543,7 @@ final List<CorpusGuardedEnum> _guarded = [
                 .cast<Map<String, dynamic>>())
           f['resolution'] as String,
     },
-    waived: {'deriveFields': '04_sau5_akrk-dart-derive-fields'},
+    waived: {'deriveFields': 'sauvoc7_akxt-derivefields-sync-resolution'},
     why:
         'the resolution decides which operation may write a finding away; a '
         'port that resolves an agent finding by backfill overwrites a '
