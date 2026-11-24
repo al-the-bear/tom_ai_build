@@ -15821,6 +15821,7 @@ class LanguageCountrySelection extends DocSpecsSection {
 @SectionId('TRAREQ')
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
+@SyncedWith(D06ArchitectureTechnologySpecification)
 @CodeSpecKind(
   [CodeSpecPart.text],
   note:

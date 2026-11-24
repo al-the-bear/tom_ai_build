@@ -26,6 +26,7 @@ import '../document_stubs.dart';
 @Comment('Seeds → ATS')
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
+@SyncedWith(D06ArchitectureTechnologySpecification)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:

@@ -1984,8 +1984,8 @@ The 132 pairs, by document and by their place in the Blueprint:
 
 **The pairs written so far.** A pair whose `@SyncedWith` is not written yet
 carries what the `@DetailedIn` level implies, and the validator warns once for
-it (invariant `SHARED-COVER`). The 60 pairs of the CLA, the TOM, the IFM, the
-ISC, the IIS and the SAS carry a plain `@SyncedWith(<Document>)`: no
+it (invariant `SHARED-COVER`). The 72 pairs of the CLA, the TOM, the IFM, the
+ISC, the ATS, the IIS and the SAS carry a plain `@SyncedWith(<Document>)`: no
 `detailOnly`, nothing held in the Blueprint, every list `equal` (an element the
 Blueprint lacks is backfilled); a prose-only pair shares its `@content`.
 The six requirement pairs of the RSP (`FR`,
