@@ -2920,6 +2920,7 @@ postconditions in the ISC (Interaction Scenarios) document.
 )
 @SectionId('PRSTOV')
 @DetailedIn(D05InteractionScenarios)
+@SyncedWith(D05InteractionScenarios)
 @NoArtifact(
   NoArtifactReason.overview,
   note:
@@ -2996,6 +2997,7 @@ class ProcessStepsOverview extends DocSpecsSection {
 )
 @SectionId('ACREDI')
 @DetailedIn(D05InteractionScenarios)
+@SyncedWith(D05InteractionScenarios)
 @NoArtifact(
   NoArtifactReason.view,
   note:
@@ -3205,6 +3207,7 @@ process recovery.
 )
 @SectionId('ETETS')
 @DetailedIn(D05InteractionScenarios)
+@SyncedWith(D05InteractionScenarios)
 @FollowUpKind(
   [FollowUpProcess.acc],
   note:
@@ -3248,6 +3251,7 @@ Feeds BQP test strategy and the Phase 5 test derivation step.
 )
 @SectionId('ACOV')
 @DetailedIn(D05InteractionScenarios)
+@SyncedWith(D05InteractionScenarios)
 @NoArtifact(
   NoArtifactReason.overview,
   note: 'introduces the actor entries below; every actor fact is in ACEN',
@@ -3931,6 +3935,7 @@ class ActorPermissions extends DocSpecsSection {
 )
 @SectionId('INCA')
 @DetailedIn(D05InteractionScenarios)
+@SyncedWith(D05InteractionScenarios)
 @CodeSpecKind([
   CodeSpecPart.action,
 ], note: 'each catalogued interaction seeds a client action')
@@ -5479,6 +5484,7 @@ class InteractionBusinessRules extends DocSpecsSection {
 )
 @SectionId('KESC')
 @DetailedIn(D05InteractionScenarios)
+@SyncedWith(D05InteractionScenarios)
 @CodeSpecKind([CodeSpecPart.action], note: 'scenario steps seed client actions')
 class KeyScenarios extends DocSpecsSection {
   @ContentHelp('''
@@ -6313,6 +6319,7 @@ How each business process is measured for success once in production.
 )
 @SectionId('USCATR')
 @DetailedIn(D05InteractionScenarios)
+@SyncedWith(D05InteractionScenarios)
 @NoArtifact(
   NoArtifactReason.view,
   note:

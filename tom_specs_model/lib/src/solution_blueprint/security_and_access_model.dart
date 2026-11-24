@@ -222,6 +222,7 @@ class SecurityComplianceFollowUp extends DocSpecsSection {
 )
 @SectionId('USMGT')
 @DetailedIn(D08SecurityAccessSpecification)
+@SyncedWith(D08SecurityAccessSpecification)
 @CodeSpecKind(
   [CodeSpecPart.identity],
   note:
@@ -1795,6 +1796,7 @@ class UserAttributeEntry extends DocSpecsSection {
 )
 @SectionId('IDAUT')
 @DetailedIn(D08SecurityAccessSpecification)
+@SyncedWith(D08SecurityAccessSpecification)
 @CodeSpecKind([CodeSpecPart.authentication])
 class IdentificationAndAuthentication extends DocSpecsSection {
   @ContentHelp('''
@@ -6920,6 +6922,7 @@ class SessionLifecycleMonitoring extends DocSpecsSection {
 )
 @SectionId('RESPRO')
 @DetailedIn(D08SecurityAccessSpecification)
+@SyncedWith(D08SecurityAccessSpecification)
 @CodeSpecKind([CodeSpecPart.authorization])
 class ResourceProtection extends DocSpecsSection {
   @ContentHelp('''
@@ -10278,6 +10281,7 @@ class PermissionEvaluationBehavior extends DocSpecsSection {
 )
 @SectionId('USAU')
 @DetailedIn(D08SecurityAccessSpecification)
+@SyncedWith(D08SecurityAccessSpecification)
 @CodeSpecKind([CodeSpecPart.authorization])
 class UserAuthorization extends DocSpecsSection {
   @ContentHelp('''
@@ -12259,6 +12263,7 @@ class ResourceKeyEntry extends DocSpecsSection {
 )
 @SectionId('SEDAEN')
 @DetailedIn(D08SecurityAccessSpecification)
+@SyncedWith(D08SecurityAccessSpecification)
 @CodeSpecKind([CodeSpecPart.serverConfiguration])
 class SensitiveDataEncryption extends DocSpecsSection {
   @ContentHelp('''
@@ -13954,6 +13959,7 @@ class KeyCompromiseRecoveryPolicy extends DocSpecsSection {
 )
 @SectionId('AUANLO')
 @DetailedIn(D08SecurityAccessSpecification)
+@SyncedWith(D08SecurityAccessSpecification)
 @CodeSpecKind(
   [CodeSpecPart.auditLog, CodeSpecPart.serverConfiguration],
   note:
@@ -14914,6 +14920,7 @@ class LogRetentionPolicy extends DocSpecsSection {
 )
 @SectionId('COMREP')
 @DetailedIn(D08SecurityAccessSpecification)
+@SyncedWith(D08SecurityAccessSpecification)
 class ComplianceReporting extends DocSpecsSection {
   @ContentHelp('''
 Define compliance reporting requirements to satisfy regulatory audits and
@@ -15252,6 +15259,7 @@ class RegulatoryAuditSupport extends DocSpecsSection {
 )
 @SectionId('ROMA')
 @DetailedIn(D08SecurityAccessSpecification)
+@SyncedWith(D08SecurityAccessSpecification)
 @CodeSpecKind([CodeSpecPart.authorization])
 class RoleMatrix extends DocSpecsSection {
   @ContentHelp('''
@@ -15292,6 +15300,7 @@ authorization model; this section captures the concrete assignment.
 )
 @SectionId('CF')
 @DetailedIn(D08SecurityAccessSpecification)
+@SyncedWith(D08SecurityAccessSpecification)
 @FollowUpKind(
   [FollowUpProcess.cmp],
   note:

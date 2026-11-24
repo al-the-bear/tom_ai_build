@@ -15153,6 +15153,7 @@ class SystemBoundaries extends DocSpecsSection {
 )
 @SectionId('EXIN')
 @DetailedIn(D07IntegrationInterfaceSpecification)
+@SyncedWith(D07IntegrationInterfaceSpecification)
 @NoArtifact(
   NoArtifactReason.container,
   note:
@@ -16728,6 +16729,7 @@ class InterfaceTestScenarioEntry extends DocSpecsSection {
 )
 @SectionId('OUOFSC')
 @DetailedIn(D07IntegrationInterfaceSpecification)
+@SyncedWith(D07IntegrationInterfaceSpecification)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:
@@ -16902,6 +16904,7 @@ class OutOfScopeEntry extends DocSpecsSection {
 )
 @SectionId('BOAS')
 @DetailedIn(D07IntegrationInterfaceSpecification)
+@SyncedWith(D07IntegrationInterfaceSpecification)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:
@@ -19482,6 +19485,7 @@ class RiskRelationships extends DocSpecsSection {
 /// Complete external-system inventory covering IIS-LAN-INV content.
 @SectionId('SYLAIN')
 @DetailedIn(D07IntegrationInterfaceSpecification)
+@SyncedWith(D07IntegrationInterfaceSpecification)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:
@@ -19519,6 +19523,7 @@ organization's landscape.
 /// existing intra-system `InteractionPatterns` class.
 @SectionId('BOINPA')
 @DetailedIn(D07IntegrationInterfaceSpecification)
+@SyncedWith(D07IntegrationInterfaceSpecification)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:
@@ -19555,6 +19560,7 @@ within the target system.
 /// Covers IIS-TST.
 @SectionId('INTES1')
 @DetailedIn(D07IntegrationInterfaceSpecification)
+@SyncedWith(D07IntegrationInterfaceSpecification)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:
@@ -19590,6 +19596,7 @@ broader system-wide test strategy.
 /// dependencies. Covers IIS-DEP.
 @SectionId('INDEAN')
 @DetailedIn(D07IntegrationInterfaceSpecification)
+@SyncedWith(D07IntegrationInterfaceSpecification)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:
@@ -19626,6 +19633,7 @@ which of them lie on the critical path of user-facing flows.
 /// Systems to Replace inventory. Covers IIS-MIG.
 @SectionId('MIIN')
 @DetailedIn(D07IntegrationInterfaceSpecification)
+@SyncedWith(D07IntegrationInterfaceSpecification)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:
@@ -19747,6 +19755,7 @@ falls through.
 /// inside individual interface entries.
 @SectionId('CBOC')
 @DetailedIn(D07IntegrationInterfaceSpecification)
+@SyncedWith(D07IntegrationInterfaceSpecification)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:
@@ -19781,6 +19790,7 @@ than being specific to one partner.
 /// Distinct from per-interface error handling.
 @SectionId('CBEH')
 @DetailedIn(D07IntegrationInterfaceSpecification)
+@SyncedWith(D07IntegrationInterfaceSpecification)
 @CodeSpecKind(
   [CodeSpecPart.errorResult],
   note:
