@@ -37,7 +37,20 @@ class DocSpecsFactory extends DocScannerFactory {
   ///
   /// If [schema] is provided, section types will be resolved by prefix
   /// matching in YAML declaration order.
-  DocSpecsFactory({this.schema}) : _accessKeys = _extractAccessKeys(schema);
+  ///
+  /// [missingSchemaId] and [schemaSearchFolders] are given to every document
+  /// it creates: the schema id that was looked for and not found, and where.
+  DocSpecsFactory({
+    this.schema,
+    this.missingSchemaId,
+    this.schemaSearchFolders = const [],
+  }) : _accessKeys = _extractAccessKeys(schema);
+
+  /// The schema id that was declared or given and not found, if any.
+  final String? missingSchemaId;
+
+  /// The folders searched for [missingSchemaId].
+  final List<String> schemaSearchFolders;
 
   /// Extracts access keys from the schema's document structure.
   static Map<String, String> _extractAccessKeys(DocSpecSchema? schema) {
@@ -197,6 +210,8 @@ class DocSpecsFactory extends DocScannerFactory {
       // validates iff that schema is non-null, so this is the same condition
       // read once rather than two that can drift.
       wasValidated: schema != null,
+      missingSchemaId: missingSchemaId,
+      schemaSearchFolders: schemaSearchFolders,
     );
   }
 }

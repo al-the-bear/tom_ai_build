@@ -43,9 +43,11 @@ into a plain `Document` / `Section` tree. This package adds three things on top:
 
 - **A schema.** A `*.docspecs-schema.yaml` file declares `section-types` (each
   with an id `prefix`) and a `document` structure naming which sections must
-  appear, in what order, and which are optional. Schemas are resolved by id from
-  `.tom/docspecs-schema/` folders, walking up from the document to the workspace
-  root and then to `~/.tom/docspecs-schema/`.
+  appear, in what order (a section declared `position: any` may stand
+  anywhere), and which are optional. Schemas are resolved by id from
+  `.tom/docspecs-schema/` folders, walking up from the document to the Tom root
+  (the folder holding `.tom/tom_root.yaml`; without one, the workspace root)
+  and then to `~/.tom/docspecs-schema/`.
 - **Typed nodes.** A `DocSpecsFactory` is handed to the scanner, so the scan
   comes back as `SpecDoc` / `SpecSection` — each section's `type` resolved by
   matching its id against the schema's prefixes, with its `tags`, `format` and
@@ -93,7 +95,7 @@ dart pub global activate tom_doc_specs
 | Section types | Named types, each claiming sections by an id `prefix`, matched in YAML declaration order against the id with every run of non-alphanumeric characters replaced by `_` (`D00-OVR` matches `D00_OVR`), case-insensitively; the raw id matching counts too |
 | Document structure | Which sections are required, their order, which are `optional: true` |
 | Access keys | `access-key: overview` gives a section a stable lookup name independent of its id |
-| Resolution | By id from `.tom/docspecs-schema/`, walking up from the document, then `~/.tom/docspecs-schema/` |
+| Resolution | By id from `.tom/docspecs-schema/`, walking up from the document to the Tom root, then `~/.tom/docspecs-schema/`; `SchemaResolver.searchFolders` lists the folders in that order |
 | Versions | `id-1.0.docspecs-schema.yaml`; the highest matching version wins when resolving by type |
 | Expansion | `[[key]]` references inside a schema are expanded by `SchemaExpander` before use |
 
@@ -116,7 +118,7 @@ dart pub global activate tom_doc_specs
 | Reading forms | The forms the DocSpecs specification lets a document use instead of headings and `Fieldname:` lines, read into the same tree: **form tables** (`\| TomSpecField \| Value \|` or `\| DocSpecsField \| Value \|`, one row per field), **`refs` bodies** (`::: {.refs}` — a list container's items as a line of references), **`records` bodies** (`::: {.records}` — the items as a table, `Id` first, `Title` optional, then form fields) and **section tables** (`\| Section \| TomSpecField \| Value \|` — the children's values in the parent's body); list items and children without a heading become virtual sections |
 | Reading findings | Broken tables and reading notation are reported with a `code` on `ValidationError`: `malformedBlock`, `unknownField`, `unknownSection`, and of the reading notation (category `notation`) `unclosedDiv`, `strayClosingFence`, `unclosedSpan`, `markAcrossNotation`, `annotationInsideDiv`, `divInsideAnnotation`, `rejectedBlock`; a field's pattern finding points at the row or line that gave it |
 | Error detail | `ValidationError` carries a category, the offending section, its line, a remedy line and, for the findings the specification names, a `code` |
-| Checked vs clean | `wasValidated` is `false` when no schema could be resolved, so an unchecked document cannot pass for a valid one |
+| Checked vs clean | `wasValidated` is `false` when no schema could be resolved, so an unchecked document cannot pass for a valid one; `missingSchemaId` and `schemaSearchFolders` tell a declared schema that was not found from none declared |
 | AI validation | `validateAsync` runs the schema's prose rules through an `AiValidator` you implement; the sync `validate` never calls it |
 | Prompt expansion | `PromptExpander` fills `${...}` placeholders in a schema's prompts from the document, before the prompt is handed over |
 | Skeletons | `DocSpecsSkeletonGenerator.generate(schema)` emits an empty conforming document |

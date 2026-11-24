@@ -127,6 +127,64 @@ This is a valid document.
       );
     });
 
+    test('a declared schema that is not found reports `!`, the folders '
+        'searched and exit code 2', () async {
+      final doc = File(p.join(fixtureDir.path, 'missing_schema.md'))
+        ..writeAsStringSync(
+          '<!-- docspec: nowhere/9.9 -->\n# <!--[doc]--> Missing\n\n'
+          '## <!--[note-1]--> Overview\n\nText.\n',
+        );
+
+      final result = await runCli(['validate', doc.path]);
+      final out = result.stdout.toString();
+
+      expect(out, contains('! '));
+      expect(out, contains("Schema 'nowhere/9.9' not found"));
+      expect(out, contains(p.join(fixtureDir.path, '.tom', 'docspecs-schema')));
+      expect(out, isNot(contains('No schema declared')));
+      expect(out, contains('1 schema not found'));
+      expect(result.exitCode, 2);
+    });
+
+    test("the Tom root's schema is found from any working directory", () async {
+      final tree = Directory.systemTemp.createTempSync('docspecs_cli_root');
+      addTearDown(() => tree.deleteSync(recursive: true));
+      final root = tree.path;
+      File(p.join(root, '.tom', 'tom_root.yaml'))
+        ..createSync(recursive: true)
+        ..writeAsStringSync('root: true\n');
+      File(
+          p.join(
+            root,
+            '.tom',
+            'docspecs-schema',
+            'probe',
+            'probe.1.0.docspecs-schema.yaml',
+          ),
+        )
+        ..createSync(recursive: true)
+        ..writeAsStringSync('''
+section-types:
+  note:
+    prefix: note
+document:
+  sections:
+    overview:
+      section-type: note
+''');
+      final doc = File(p.join(root, 'ws', 'project', 'doc.md'))
+        ..createSync(recursive: true)
+        ..writeAsStringSync(
+          '<!-- docspec: probe/1.0 -->\n# <!--[doc]--> Probe\n\n'
+          '## <!--[note-1]--> Overview\n\nText.\n',
+        );
+
+      // Run from the package, a folder outside the document's tree.
+      final result = await runCli(['validate', doc.path]);
+      expect(result.stdout.toString(), contains('\u2713 '));
+      expect(result.exitCode, 0);
+    });
+
     test('scan command produces JSON output', () async {
       final result = await runCli([
         'scan',

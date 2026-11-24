@@ -91,8 +91,20 @@ class DocSpecs {
       );
     }
 
-    // Create factory with schema
-    final factory = DocSpecsFactory(schema: schema);
+    // Create factory with schema; a declared schema that was not found is
+    // recorded with where it was looked for.
+    final missing = effectiveSchemaId != null && schema == null;
+    final factory = DocSpecsFactory(
+      schema: schema,
+      missingSchemaId: missing ? effectiveSchemaId : null,
+      schemaSearchFolders: missing
+          ? SchemaResolver.searchFolders(
+              documentPath: absolutePath,
+              workspaceRoot: wsRoot,
+              schemaFolder: schemaFolder,
+            )
+          : const [],
+    );
 
     // Scan document using DocScanner
     final doc = await DocScanner.scanDocument(
@@ -144,8 +156,20 @@ class DocSpecs {
       );
     }
 
-    // Create factory with schema
-    final factory = DocSpecsFactory(schema: schema);
+    // Create factory with schema; a declared schema that was not found is
+    // recorded with where it was looked for.
+    final missing = effectiveSchemaId != null && schema == null;
+    final factory = DocSpecsFactory(
+      schema: schema,
+      missingSchemaId: missing ? effectiveSchemaId : null,
+      schemaSearchFolders: missing
+          ? SchemaResolver.searchFolders(
+              documentPath: absolutePath,
+              workspaceRoot: wsRoot,
+              schemaFolder: schemaFolder,
+            )
+          : const [],
+    );
 
     // Scan document using DocScanner
     final doc = DocScanner.scanDocumentSync(

@@ -43,9 +43,20 @@ class SpecDoc extends Document {
   /// like a pass and is not one.
   ///
   /// `false` when no schema could be resolved: the document declared none and
-  /// no `schemaId` was passed. In that state [isValid] carries no information
+  /// no `schemaId` was passed, or the declared one was not found
+  /// ([missingSchemaId]). In that state [isValid] carries no information
   /// and a caller that branches on it alone is branching on nothing.
   final bool wasValidated;
+
+  /// The schema id the document declared, or the caller passed, that none of
+  /// the [schemaSearchFolders] holds; `null` when the schema was found or
+  /// none was declared. A document with a missing schema is not validated
+  /// ([wasValidated] is `false`), for another reason than one declaring none.
+  final String? missingSchemaId;
+
+  /// The folders searched for [missingSchemaId], in search order; empty when
+  /// the schema was found or none was declared.
+  final List<String> schemaSearchFolders;
 
   /// Findings made while the root's body was read into the tree (its section
   /// table, its fenced divs); the validator reports them, as it reports
@@ -83,8 +94,11 @@ class SpecDoc extends Document {
     List<String>? validationErrors,
     Map<String, String>? accessKeys,
     this.wasValidated = false,
+    this.missingSchemaId,
+    List<String> schemaSearchFolders = const [],
     List<ValidationError>? readingFindings,
   }) : validationErrors = validationErrors ?? [],
+       schemaSearchFolders = List.unmodifiable(schemaSearchFolders),
        readingFindings = List.unmodifiable(readingFindings ?? const []),
        _accessKeys = accessKeys ?? const {};
 
@@ -95,6 +109,8 @@ class SpecDoc extends Document {
     List<String>? validationErrors,
     Map<String, String>? accessKeys,
     bool wasValidated = false,
+    String? missingSchemaId,
+    List<String> schemaSearchFolders = const [],
   }) {
     return SpecDoc(
       index: document.index,
@@ -120,6 +136,8 @@ class SpecDoc extends Document {
       validationErrors: validationErrors,
       accessKeys: accessKeys,
       wasValidated: wasValidated,
+      missingSchemaId: missingSchemaId,
+      schemaSearchFolders: schemaSearchFolders,
     );
   }
 
@@ -159,6 +177,10 @@ class SpecDoc extends Document {
           ? Map<String, String>.from(json['accessKeys'] as Map)
           : null,
       wasValidated: json['wasValidated'] as bool? ?? false,
+      missingSchemaId: json['missingSchemaId'] as String?,
+      schemaSearchFolders: json['schemaSearchFolders'] != null
+          ? List<String>.from(json['schemaSearchFolders'] as List)
+          : const [],
     );
   }
 
@@ -308,6 +330,9 @@ class SpecDoc extends Document {
       ...super.toJson(),
       'schemaId': schemaId,
       'wasValidated': wasValidated,
+      if (missingSchemaId != null) 'missingSchemaId': missingSchemaId,
+      if (schemaSearchFolders.isNotEmpty)
+        'schemaSearchFolders': schemaSearchFolders,
       if (validationErrors.isNotEmpty) 'validationErrors': validationErrors,
       if (_accessKeys.isNotEmpty) 'accessKeys': _accessKeys,
     };

@@ -24,7 +24,8 @@ import 'package:tom_doc_specs/tom_doc_specs.dart';
 ///   0 - Success (every document that could be validated was valid; a document
 ///       declaring no schema is reported as `?` and is not an error)
 ///   1 - Validation errors found
-///   2 - Schema not found
+///   2 - A declared schema was not found (and no validation errors: 1 wins);
+///       such a document is reported as `!` with the folders searched
 ///   3 - File not found
 Future<void> main(List<String> arguments) async {
   if (arguments.isEmpty) {
@@ -54,9 +55,6 @@ Future<void> main(List<String> arguments) async {
         stderr.writeln('Use: validate, scan, or list-schemas');
         exit(1);
     }
-  } on _SchemaNotFoundException catch (e) {
-    stderr.writeln('Error: ${e.message}');
-    exit(2);
   } on _FileNotFoundException catch (e) {
     stderr.writeln('Error: ${e.message}');
     exit(3);
@@ -64,12 +62,6 @@ Future<void> main(List<String> arguments) async {
     stderr.writeln('Error: $e');
     exit(1);
   }
-}
-
-/// Custom exception for schema not found.
-class _SchemaNotFoundException implements Exception {
-  final String message;
-  _SchemaNotFoundException(this.message);
 }
 
 /// Custom exception for file not found.
@@ -176,6 +168,7 @@ Future<void> _validate(_Args args) async {
   var validCount = 0;
   var invalidCount = 0;
   var unvalidatedCount = 0;
+  var missingSchemaCount = 0;
 
   for (final filePath in files) {
     try {
@@ -184,7 +177,22 @@ Future<void> _validate(_Args args) async {
         schemaId: args.schema,
       );
 
-      if (!doc.wasValidated) {
+      final missingSchema = doc.missingSchemaId;
+      if (missingSchema != null) {
+        // Declared but not found: a different failure from declaring none,
+        // and the folders searched are what the reader needs to fix it.
+        missingSchemaCount++;
+        if (!args.quiet) {
+          print('! ${_relativePath(filePath)}');
+          print(
+            "    Schema '$missingSchema' not found — nothing was validated. "
+            'Searched:',
+          );
+          for (final folder in doc.schemaSearchFolders) {
+            print('      $folder');
+          }
+        }
+      } else if (!doc.wasValidated) {
         // Nothing was checked, so nothing passed. Printing `✓` here is the
         // failure this branch exists to prevent: the document declared no
         // schema and none was given, so `isValid` is vacuously true and says
@@ -217,8 +225,6 @@ Future<void> _validate(_Args args) async {
           }
         }
       }
-    } on _SchemaNotFoundException {
-      rethrow;
     } catch (e) {
       invalidCount++;
       hasErrors = true;
@@ -234,7 +240,12 @@ Future<void> _validate(_Args args) async {
     final unvalidated = unvalidatedCount > 0
         ? ', $unvalidatedCount not validated'
         : '';
-    print('Results: $validCount valid, $invalidCount invalid$unvalidated');
+    final missing = missingSchemaCount > 0
+        ? ', $missingSchemaCount schema not found'
+        : '';
+    print(
+      'Results: $validCount valid, $invalidCount invalid$missing$unvalidated',
+    );
     if (unvalidatedCount > 0) {
       // Said plainly, because "0 invalid" beside a row of unchecked documents
       // is exactly how an unvalidated tree passes for a validated one.
@@ -247,6 +258,9 @@ Future<void> _validate(_Args args) async {
 
   if (hasErrors) {
     exit(1);
+  }
+  if (missingSchemaCount > 0) {
+    exit(2);
   }
 }
 
@@ -282,8 +296,6 @@ Future<void> _scan(_Args args) async {
       if (!args.quiet) {
         print('Scanned: ${_relativePath(filePath)}');
       }
-    } on _SchemaNotFoundException {
-      rethrow;
     } catch (e) {
       if (!args.quiet) {
         stderr.writeln('Error scanning ${_relativePath(filePath)}: $e');
@@ -577,9 +589,9 @@ Examples:
   docspecs list-schemas
 
 Exit Codes:
-  0 - Success (all documents valid)
+  0 - Success (every validated document valid; `?` = declares no schema)
   1 - Validation errors found
-  2 - Schema not found
+  2 - A declared schema was not found (`!`, with the folders searched)
   3 - File not found
 ''');
 }

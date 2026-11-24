@@ -387,14 +387,20 @@ class DocSpecsValidator {
 
     // Check section order by matching resolved types to expected order.
     // Use a consumed-index to handle types that appear multiple times
-    // (e.g. 'overview' for both 'title' and 'overview' entries).
+    // (e.g. 'overview' for both 'title' and 'overview' entries). A type
+    // declared `position: any` stands anywhere and is left out of the order.
+    final anywhere = {
+      for (final d in docSections.values)
+        if (d.anyPosition) d.sectionType,
+    };
     final expectedTypeOrder = docSections.values
-        .map((d) => d.sectionType)
+        .map((d) => d.anyPosition ? null : d.sectionType)
         .toList();
     var lastIndex = -1;
 
     for (final section in doc.sections!) {
       if (section is! SpecSection || section.type == null) continue;
+      if (anywhere.contains(section.type)) continue;
       // Find the first occurrence of this type at or after lastIndex.
       var expectedIdx = -1;
       for (

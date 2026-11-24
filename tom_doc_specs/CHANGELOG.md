@@ -14,6 +14,19 @@
 - **The catch-all section type** `prefix: ""` loads (it was refused as
   holding invalid characters) and matches every id, as *Section Type
   Resolution* says.
+- **Schemas are found from the Tom root.** The local schema search walks up
+  from the document to the folder holding `.tom/tom_root.yaml` whatever the
+  workspace root (by default the working directory) is; without a Tom root it
+  stops at the workspace root as before. `SchemaResolver.findTomRoot`,
+  `localSchemaFolders` and `searchFolders` answer where it looks.
+- **A declared schema that is not found is reported as such.**
+  `SpecDoc.missingSchemaId` and `SpecDoc.schemaSearchFolders` (also in JSON);
+  `docspecs validate` marks the document `!`, names the schema and the
+  folders searched, counts it as `schema not found` and exits with 2 when no
+  document has findings (it said `No schema declared` before).
+- **`position: any` on a document section** (`relative` is the default): the
+  section may stand anywhere among the top-level sections and the order check
+  leaves it out. Any other value is refused when the schema loads.
 
 ## 0.4.0
 

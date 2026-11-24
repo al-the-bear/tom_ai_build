@@ -129,9 +129,11 @@ class SchemaResolver {
   ///
   /// Search order:
   /// 1. [schemaFolder] if provided (direct path to a docspecs-schema folder)
-  /// 2. Local `.tom/docspecs-schema/` folders (walk up from [documentPath])
+  /// 2. Local `.tom/docspecs-schema/` folders, walking up from
+  ///    [documentPath] to the Tom root ([localSchemaFolders])
   /// 3. User schemas in `~/.tom/docspecs-schema/`
-  /// 4. Built-in schemas (placeholder)
+  ///
+  /// [searchFolders] answers the same folders in the same order.
   ///
   /// The [schemaId] can be:
   /// - Full ID with version: `quest-overview-1.0`
@@ -143,28 +145,14 @@ class SchemaResolver {
     String? schemaFolder,
   }) async {
     final normalized = _normalizeSchemaId(schemaId);
-
-    // Search explicit schema folder first
-    if (schemaFolder != null) {
-      final schemaPath = await _findSchemaInFolder(schemaFolder, normalized);
+    for (final folder in searchFolders(
+      documentPath: documentPath,
+      workspaceRoot: workspaceRoot,
+      schemaFolder: schemaFolder,
+    )) {
+      final schemaPath = await _findSchemaInFolder(folder, normalized);
       if (schemaPath != null) return SchemaLoader.load(schemaPath);
     }
-
-    // Search local folders
-    if (documentPath != null) {
-      final localSchema = await _searchLocalFolders(
-        normalized,
-        documentPath,
-        workspaceRoot,
-      );
-      if (localSchema != null) return localSchema;
-    }
-
-    // Search user folder
-    final userSchema = await _searchUserFolder(normalized);
-    if (userSchema != null) return userSchema;
-
-    // Built-in schemas (placeholder)
     return null;
   }
 
@@ -176,30 +164,84 @@ class SchemaResolver {
     String? schemaFolder,
   }) {
     final normalized = _normalizeSchemaId(schemaId);
-
-    // Search explicit schema folder first
-    if (schemaFolder != null) {
-      final schemaPath = _findSchemaInFolderSync(schemaFolder, normalized);
+    for (final folder in searchFolders(
+      documentPath: documentPath,
+      workspaceRoot: workspaceRoot,
+      schemaFolder: schemaFolder,
+    )) {
+      final schemaPath = _findSchemaInFolderSync(folder, normalized);
       if (schemaPath != null) return SchemaLoader.loadSync(schemaPath);
     }
-
-    // Search local folders
-    if (documentPath != null) {
-      final localSchema = _searchLocalFoldersSync(
-        normalized,
-        documentPath,
-        workspaceRoot,
-      );
-      if (localSchema != null) return localSchema;
-    }
-
-    // Search user folder
-    final userSchema = _searchUserFolderSync(normalized);
-    if (userSchema != null) return userSchema;
-
-    // Built-in schemas (placeholder)
     return null;
   }
+
+  /// The marker file of a Tom root: the folder holding `.tom/tom_root.yaml`.
+  static const tomRootMarker = '.tom/tom_root.yaml';
+
+  /// The Tom root at or above [folder]: the nearest folder holding
+  /// [tomRootMarker]; `null` when there is none.
+  static String? findTomRoot(String folder) {
+    var current = path.normalize(path.absolute(folder));
+    while (true) {
+      if (File(path.join(current, '.tom', 'tom_root.yaml')).existsSync()) {
+        return current;
+      }
+      final parent = path.dirname(current);
+      if (parent == current) return null;
+      current = parent;
+    }
+  }
+
+  /// The local `.tom/docspecs-schema/` folders for a document, nearest
+  /// first: one per folder from the document's own up to the highest of the
+  /// Tom root ([findTomRoot], so the root's schemas are found whatever
+  /// [workspaceRoot] is) and [workspaceRoot] (when it lies above the
+  /// document); the file system root when neither is above it.
+  static List<String> localSchemaFolders(
+    String documentPath,
+    String? workspaceRoot,
+  ) {
+    final start = path.normalize(path.absolute(path.dirname(documentPath)));
+    bool above(String folder) =>
+        path.equals(folder, start) || path.isWithin(folder, start);
+    String? top = findTomRoot(start);
+    if (workspaceRoot != null) {
+      final ws = path.normalize(path.absolute(workspaceRoot));
+      if (above(ws) && (top == null || path.isWithin(ws, top))) top = ws;
+    }
+    final folders = <String>[];
+    var current = start;
+    while (true) {
+      folders.add(path.join(current, '.tom', 'docspecs-schema'));
+      if (top != null && path.equals(current, top)) break;
+      final parent = path.dirname(current);
+      if (parent == current) break;
+      current = parent;
+    }
+    return folders;
+  }
+
+  /// The user schema folder, `~/.tom/docspecs-schema/`; `null` without a
+  /// home directory.
+  static String? userSchemaFolder() {
+    final home =
+        Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
+    return home == null ? null : path.join(home, '.tom', 'docspecs-schema');
+  }
+
+  /// The folders [resolve] searches for a schema, in its order: [schemaFolder],
+  /// the [localSchemaFolders] of [documentPath], the [userSchemaFolder].
+  /// What a caller reports when no schema was found.
+  static List<String> searchFolders({
+    String? documentPath,
+    String? workspaceRoot,
+    String? schemaFolder,
+  }) => [
+    ?schemaFolder,
+    if (documentPath != null)
+      ...localSchemaFolders(documentPath, workspaceRoot),
+    ?userSchemaFolder(),
+  ];
 
   /// Normalizes schema ID to filename format (e.g., "quest-overview-1.0").
   static String _normalizeSchemaId(String schemaId) {
@@ -226,7 +268,8 @@ class SchemaResolver {
   ///
   /// Search order:
   /// 1. [schemaFolder] if provided (direct path to a docspecs-schema folder)
-  /// 2. Local `.tom/docspecs-schema/` folders (walk up from [documentPath])
+  /// 2. Local `.tom/docspecs-schema/` folders (walk up from [documentPath]
+  ///    to the Tom root)
   /// 3. Workspace root `.tom/docspecs-schema/`
   /// 4. User folder `~/.tom/docspecs-schema/`
   ///
@@ -389,21 +432,13 @@ class SchemaResolver {
     String? workspaceRoot,
     String? requestedVersion,
   ) async {
-    var currentDir = path.dirname(documentPath);
-    final stopAt = workspaceRoot ?? path.rootPrefix(documentPath);
-
-    while (currentDir.length >= stopAt.length) {
-      final schemaDir = path.join(currentDir, '.tom', 'docspecs-schema');
+    for (final schemaDir in localSchemaFolders(documentPath, workspaceRoot)) {
       final result = await _findSchemaByTypeInFolder(
         schemaDir,
         type,
         requestedVersion,
       );
       if (result != null) return result;
-
-      final parent = path.dirname(currentDir);
-      if (parent == currentDir) break;
-      currentDir = parent;
     }
     return null;
   }
@@ -414,21 +449,13 @@ class SchemaResolver {
     String? workspaceRoot,
     String? requestedVersion,
   ) {
-    var currentDir = path.dirname(documentPath);
-    final stopAt = workspaceRoot ?? path.rootPrefix(documentPath);
-
-    while (currentDir.length >= stopAt.length) {
-      final schemaDir = path.join(currentDir, '.tom', 'docspecs-schema');
+    for (final schemaDir in localSchemaFolders(documentPath, workspaceRoot)) {
       final result = _findSchemaByTypeInFolderSync(
         schemaDir,
         type,
         requestedVersion,
       );
       if (result != null) return result;
-
-      final parent = path.dirname(currentDir);
-      if (parent == currentDir) break;
-      currentDir = parent;
     }
     return null;
   }
@@ -553,88 +580,6 @@ class SchemaResolver {
       if (va != vb) return va.compareTo(vb);
     }
     return 0;
-  }
-
-  /// Searches local `.tom/docspecs-schema/` folders walking up from document path.
-  static Future<DocSpecSchema?> _searchLocalFolders(
-    String schemaId,
-    String documentPath,
-    String? workspaceRoot,
-  ) async {
-    var currentDir = path.dirname(documentPath);
-    final stopAt = workspaceRoot ?? path.rootPrefix(documentPath);
-
-    while (currentDir.length >= stopAt.length) {
-      final schemaPath = await _findSchemaInFolder(
-        path.join(currentDir, '.tom', 'docspecs-schema'),
-        schemaId,
-      );
-      if (schemaPath != null) {
-        return SchemaLoader.load(schemaPath);
-      }
-
-      final parent = path.dirname(currentDir);
-      if (parent == currentDir) break;
-      currentDir = parent;
-    }
-
-    return null;
-  }
-
-  /// Searches local folders synchronously.
-  static DocSpecSchema? _searchLocalFoldersSync(
-    String schemaId,
-    String documentPath,
-    String? workspaceRoot,
-  ) {
-    var currentDir = path.dirname(documentPath);
-    final stopAt = workspaceRoot ?? path.rootPrefix(documentPath);
-
-    while (currentDir.length >= stopAt.length) {
-      final schemaPath = _findSchemaInFolderSync(
-        path.join(currentDir, '.tom', 'docspecs-schema'),
-        schemaId,
-      );
-      if (schemaPath != null) {
-        return SchemaLoader.loadSync(schemaPath);
-      }
-
-      final parent = path.dirname(currentDir);
-      if (parent == currentDir) break;
-      currentDir = parent;
-    }
-
-    return null;
-  }
-
-  /// Searches the user schema folder.
-  static Future<DocSpecSchema?> _searchUserFolder(String schemaId) async {
-    final home =
-        Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
-    if (home == null) return null;
-
-    final userSchemaDir = path.join(home, '.tom', 'docspecs-schema');
-    final schemaPath = await _findSchemaInFolder(userSchemaDir, schemaId);
-    if (schemaPath != null) {
-      return SchemaLoader.load(schemaPath);
-    }
-
-    return null;
-  }
-
-  /// Searches user folder synchronously.
-  static DocSpecSchema? _searchUserFolderSync(String schemaId) {
-    final home =
-        Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
-    if (home == null) return null;
-
-    final userSchemaDir = path.join(home, '.tom', 'docspecs-schema');
-    final schemaPath = _findSchemaInFolderSync(userSchemaDir, schemaId);
-    if (schemaPath != null) {
-      return SchemaLoader.loadSync(schemaPath);
-    }
-
-    return null;
   }
 
   /// Finds a schema file in a folder (checks both direct and subfolder).
@@ -778,21 +723,16 @@ class SchemaDiscovery {
     String documentPath,
     String? workspaceRoot,
   ) async {
-    var currentDir = path.dirname(documentPath);
-    final stopAt = workspaceRoot ?? path.rootPrefix(documentPath);
-
-    while (currentDir.length >= stopAt.length) {
-      final schemaDir = path.join(currentDir, '.tom', 'docspecs-schema');
+    for (final schemaDir in SchemaResolver.localSchemaFolders(
+      documentPath,
+      workspaceRoot,
+    )) {
       final temp = <SchemaInfo>[];
       await _discoverInFolder(temp, schemaDir, SchemaSource.local);
 
       for (final info in temp) {
         schemas.putIfAbsent(info.fullId, () => info);
       }
-
-      final parent = path.dirname(currentDir);
-      if (parent == currentDir) break;
-      currentDir = parent;
     }
   }
 
@@ -801,21 +741,16 @@ class SchemaDiscovery {
     String documentPath,
     String? workspaceRoot,
   ) {
-    var currentDir = path.dirname(documentPath);
-    final stopAt = workspaceRoot ?? path.rootPrefix(documentPath);
-
-    while (currentDir.length >= stopAt.length) {
-      final schemaDir = path.join(currentDir, '.tom', 'docspecs-schema');
+    for (final schemaDir in SchemaResolver.localSchemaFolders(
+      documentPath,
+      workspaceRoot,
+    )) {
       final temp = <SchemaInfo>[];
       _discoverInFolderSync(temp, schemaDir, SchemaSource.local);
 
       for (final info in temp) {
         schemas.putIfAbsent(info.fullId, () => info);
       }
-
-      final parent = path.dirname(currentDir);
-      if (parent == currentDir) break;
-      currentDir = parent;
     }
   }
 

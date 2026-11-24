@@ -43,6 +43,17 @@ class SectionDef {
   /// Link to registry section for generating subsections.
   final ForEachDef? forEach;
 
+  /// Position constraint among the document's top-level sections:
+  /// `relative` (the default: in the order of `document.sections`) or `any`
+  /// (anywhere; the order check skips it).
+  final String? position;
+
+  /// The position values a document section may take.
+  static const positions = {'relative', 'any'};
+
+  /// Whether this section may stand anywhere among the top-level sections.
+  bool get anyPosition => position == 'any';
+
   /// Creates a new SectionDef.
   const SectionDef({
     required this.sectionType,
@@ -51,10 +62,19 @@ class SectionDef {
     this.validationPrompt,
     this.subsectionValidationPrompt,
     this.forEach,
+    this.position,
   });
 
-  /// Creates a SectionDef from a YAML map.
+  /// Creates a SectionDef from a YAML map. A `position` other than
+  /// [positions] is a [FormatException].
   factory SectionDef.fromYaml(Map<String, dynamic> yaml) {
+    final position = yaml['position'] as String?;
+    if (position != null && !positions.contains(position)) {
+      throw FormatException(
+        "Document section of type '${yaml['section-type']}': position "
+        "'$position' is not one of ${positions.join(', ')}.",
+      );
+    }
     ForEachDef? forEach;
     if (yaml['for-each'] != null) {
       forEach = ForEachDef.fromYaml(yaml['for-each'] as Map<String, dynamic>);
@@ -68,6 +88,7 @@ class SectionDef {
       subsectionValidationPrompt:
           yaml['subsection-validation-prompt'] as String?,
       forEach: forEach,
+      position: position,
     );
   }
 
@@ -81,6 +102,7 @@ class SectionDef {
       if (subsectionValidationPrompt != null)
         'subsection-validation-prompt': subsectionValidationPrompt,
       if (forEach != null) 'for-each': forEach!.toYaml(),
+      if (position != null) 'position': position,
     };
   }
 }

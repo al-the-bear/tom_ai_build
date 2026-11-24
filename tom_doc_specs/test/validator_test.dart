@@ -334,6 +334,92 @@ void main() {
     });
   });
 
+  group('document structure - position any', () {
+    DocSpecSchema schemaWith({String? notesPosition}) => makeSchema(
+      sectionTypes: {
+        'intro': const SectionTypeDef(name: 'intro', prefix: 'intro'),
+        'body': const SectionTypeDef(name: 'body', prefix: 'body'),
+        'notes': const SectionTypeDef(name: 'notes', prefix: ''),
+      },
+      document: DocumentStructure(
+        sections: {
+          'introduction': const SectionDef(sectionType: 'intro'),
+          'body': const SectionDef(sectionType: 'body'),
+          'notes': SectionDef(
+            sectionType: 'notes',
+            optional: true,
+            position: notesPosition,
+          ),
+        },
+      ),
+    );
+
+    // notes first, between and last: only the last place is its declared
+    // position.
+    SpecDoc notesEverywhere() => makeDocument(
+      sections: [
+        makeSection(id: 'files', type: 'notes', lineNumber: 3),
+        makeSection(id: 'intro-1', type: 'intro', index: 1, lineNumber: 5),
+        makeSection(id: 'open', type: 'notes', index: 2, lineNumber: 10),
+        makeSection(id: 'body-main', type: 'body', index: 3, lineNumber: 15),
+        makeSection(id: 'later', type: 'notes', index: 4, lineNumber: 20),
+      ],
+    );
+
+    List<String> orderFindings(DocSpecSchema schema) => [
+      for (final e in DocSpecsValidator(
+        schema: schema,
+      ).validate(notesEverywhere()))
+        if (e.message.contains('out of order')) e.sectionId!,
+    ];
+
+    test('a relative section out of its place is out of order', () {
+      expect(orderFindings(schemaWith()), ['intro-1', 'body-main']);
+      expect(orderFindings(schemaWith(notesPosition: 'relative')), [
+        'intro-1',
+        'body-main',
+      ]);
+    });
+
+    test('a `position: any` section stands anywhere and keeps the others '
+        'in order', () {
+      expect(orderFindings(schemaWith(notesPosition: 'any')), isEmpty);
+
+      final swapped = makeDocument(
+        sections: [
+          makeSection(id: 'open', type: 'notes', lineNumber: 3),
+          makeSection(id: 'body-main', type: 'body', index: 1, lineNumber: 5),
+          makeSection(id: 'intro-1', type: 'intro', index: 2, lineNumber: 9),
+        ],
+      );
+      final errors = DocSpecsValidator(
+        schema: schemaWith(notesPosition: 'any'),
+      ).validate(swapped);
+      expect(
+        [
+          for (final e in errors)
+            if (e.message.contains('out of order')) e.sectionId,
+        ],
+        ['intro-1'],
+      );
+    });
+
+    test('position loads from YAML, round-trips, and only relative / any '
+        'are accepted', () {
+      final def = SectionDef.fromYaml({
+        'section-type': 'notes',
+        'position': 'any',
+      });
+      expect(def.anyPosition, isTrue);
+      expect(def.toYaml()['position'], 'any');
+      expect(SectionDef.fromYaml({'section-type': 'x'}).anyPosition, isFalse);
+      expect(
+        () => SectionDef.fromYaml({'section-type': 'x', 'position': 'last'}),
+        throwsFormatException,
+      );
+    });
+  });
+
   // ---------------------------------------------------------------------------
   // 3. Schema declaration
   // ---------------------------------------------------------------------------
