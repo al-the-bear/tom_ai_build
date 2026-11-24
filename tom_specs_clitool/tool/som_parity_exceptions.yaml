@@ -280,3 +280,171 @@ exceptions:
       TypeScript runtimes only, after the strip; their ports are the todos
       `tspubnondart98`..`104`, one per runtime (`runtime_parity.md` § Reading
       view). `strip_merge_cases.json` is the corpus they will run.
+
+  - token: syncedWith
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The typed readers of the link vocabulary and the place and
+      filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
+      SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
+      SpecPlaceFilter, SpecPlaceProblem; 04_sau1_akrk-dart-link-readers-fixture)
+      are in the Dart runtime only, built first by decision (idea
+      section_automation, DP-part-conformance-4); their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `link_reader_cases.json` is the corpus they will run.
+
+  - token: detailOnly
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The typed readers of the link vocabulary and the place and
+      filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
+      SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
+      SpecPlaceFilter, SpecPlaceProblem; 04_sau1_akrk-dart-link-readers-fixture)
+      are in the Dart runtime only, built first by decision (idea
+      section_automation, DP-part-conformance-4); their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `link_reader_cases.json` is the corpus they will run.
+
+  - token: heldHere
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The typed readers of the link vocabulary and the place and
+      filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
+      SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
+      SpecPlaceFilter, SpecPlaceProblem; 04_sau1_akrk-dart-link-readers-fixture)
+      are in the Dart runtime only, built first by decision (idea
+      section_automation, DP-part-conformance-4); their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `link_reader_cases.json` is the corpus they will run.
+
+  - token: summaryOf
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The typed readers of the link vocabulary and the place and
+      filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
+      SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
+      SpecPlaceFilter, SpecPlaceProblem; 04_sau1_akrk-dart-link-readers-fixture)
+      are in the Dart runtime only, built first by decision (idea
+      section_automation, DP-part-conformance-4); their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `link_reader_cases.json` is the corpus they will run.
+
+  - token: derivedFrom
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The typed readers of the link vocabulary and the place and
+      filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
+      SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
+      SpecPlaceFilter, SpecPlaceProblem; 04_sau1_akrk-dart-link-readers-fixture)
+      are in the Dart runtime only, built first by decision (idea
+      section_automation, DP-part-conformance-4); their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `link_reader_cases.json` is the corpus they will run.
+
+  - token: inverseOf
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The typed readers of the link vocabulary and the place and
+      filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
+      SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
+      SpecPlaceFilter, SpecPlaceProblem; 04_sau1_akrk-dart-link-readers-fixture)
+      are in the Dart runtime only, built first by decision (idea
+      section_automation, DP-part-conformance-4); their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `link_reader_cases.json` is the corpus they will run.
+
+  - token: extractsLinks
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The typed readers of the link vocabulary and the place and
+      filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
+      SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
+      SpecPlaceFilter, SpecPlaceProblem; 04_sau1_akrk-dart-link-readers-fixture)
+      are in the Dart runtime only, built first by decision (idea
+      section_automation, DP-part-conformance-4); their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `link_reader_cases.json` is the corpus they will run.
+
+  - token: sameAs
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The typed readers of the link vocabulary and the place and
+      filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
+      SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
+      SpecPlaceFilter, SpecPlaceProblem; 04_sau1_akrk-dart-link-readers-fixture)
+      are in the Dart runtime only, built first by decision (idea
+      section_automation, DP-part-conformance-4); their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `link_reader_cases.json` is the corpus they will run.
+
+  - token: anchorUnresolved
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The typed readers of the link vocabulary and the place and
+      filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
+      SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
+      SpecPlaceFilter, SpecPlaceProblem; 04_sau1_akrk-dart-link-readers-fixture)
+      are in the Dart runtime only, built first by decision (idea
+      section_automation, DP-part-conformance-4); their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `link_reader_cases.json` is the corpus they will run.
+
+  - token: notScoped
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The typed readers of the link vocabulary and the place and
+      filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
+      SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
+      SpecPlaceFilter, SpecPlaceProblem; 04_sau1_akrk-dart-link-readers-fixture)
+      are in the Dart runtime only, built first by decision (idea
+      section_automation, DP-part-conformance-4); their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `link_reader_cases.json` is the corpus they will run.
+
+  - token: noSuchField
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The typed readers of the link vocabulary and the place and
+      filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
+      SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
+      SpecPlaceFilter, SpecPlaceProblem; 04_sau1_akrk-dart-link-readers-fixture)
+      are in the Dart runtime only, built first by decision (idea
+      section_automation, DP-part-conformance-4); their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `link_reader_cases.json` is the corpus they will run.
+
+  - token: noContent
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The typed readers of the link vocabulary and the place and
+      filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
+      SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
+      SpecPlaceFilter, SpecPlaceProblem; 04_sau1_akrk-dart-link-readers-fixture)
+      are in the Dart runtime only, built first by decision (idea
+      section_automation, DP-part-conformance-4); their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `link_reader_cases.json` is the corpus they will run.
+
+  - token: notListElement
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The typed readers of the link vocabulary and the place and
+      filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
+      SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
+      SpecPlaceFilter, SpecPlaceProblem; 04_sau1_akrk-dart-link-readers-fixture)
+      are in the Dart runtime only, built first by decision (idea
+      section_automation, DP-part-conformance-4); their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `link_reader_cases.json` is the corpus they will run.
+
+  - token: reservedSlot
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The typed readers of the link vocabulary and the place and
+      filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
+      SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
+      SpecPlaceFilter, SpecPlaceProblem; 04_sau1_akrk-dart-link-readers-fixture)
+      are in the Dart runtime only, built first by decision (idea
+      section_automation, DP-part-conformance-4); their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `link_reader_cases.json` is the corpus they will run.

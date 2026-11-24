@@ -786,6 +786,34 @@ holds, a value that resolves to nothing); A5 with a carrier the model lacks;
 and a catalogue written before the gate tables, which runs neither A4 nor A5.
 A check that does not run is reported as such, and the gate does not pass.
 
+##### …and the links between places (`tom_specs_model_rules.md` §9.7)
+
+The link vocabulary has a model of its own,
+[`corpus/links.meta.json`](corpus/links.meta.json): the shared
+`model.meta.json` has no `@DetailedIn` and one populated root, and a second
+document pair added to it would move every table built on it. It holds each
+link construct once — a Blueprint (`BLU`), two documents based on it (`DET`,
+`SCR`), a CodeSpecs projection (`PRJ`), class syncs with relations, summaries
+in one document and across two, the three derivation shapes and a derived
+list, both kinds of inverse, a repeated `@ExtractsLinks`, a `@SameAs` copy and
+a `countOf` with `|`.
+
+[`corpus/link_reader_cases.json`](corpus/link_reader_cases.json) pins the
+typed readers of the links over it — every class sync, member link and
+form-field qualifier read back, the holder of each `@SameAs` copy, and an
+older meta without the links loading unchanged — plus `textCases` for the
+place grammar (`places`: parsed, then resolved under an anchor to the document
+path the value is stored at, or the problem) and the filter grammar
+(`filters`: parsed, resolved, matched against stored values), malformed texts
+included.
+
+Both files are written by the Dart runtime's
+`test/section_link_conformance_test.dart` under `UPDATE_CORPUS=1`; every case
+carries a hand-written `intent` the test checks, and the expectations were read
+by hand when the table landed. The other eight runners do not read these
+tables yet: each takes them on with its port todo of the section automation
+idea.
+
 ##### Proving a table is load-bearing: `tool/parity_gate.sh`
 
 Nine green suites do not show that nine runners read a table, and check counts

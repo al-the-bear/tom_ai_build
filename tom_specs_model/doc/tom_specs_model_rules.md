@@ -849,10 +849,10 @@ Field('mustHaveFunctional', String, '…', countOf: ['FRE.priority=must']),
 - **Alternatives.** A filter's value may list alternatives joined by `|`
   (`FRE.priority=must|should`): an entry counts when its field holds any of
   them. The grammar is the one the link annotations' `where:` filters use
-  (§9.7). The runtimes do not split `|` in `countOf` yet, and a runtime that
-  does not would read the whole string as one value and report a wrong
-  `countMismatch`; so the model writes `|` only in `where:` until all nine
-  runtimes split it here too.
+  (§9.7). The Dart runtime splits `|` in `countOf` (`SpecPlaceFilter`); the
+  other eight do not yet, and a runtime that does not would read the whole
+  string as one value and report a wrong `countMismatch`; so the model writes
+  `|` only in `where:` until all nine runtimes split it here too.
 - **Scope.** A target written `./<SECTIONID>…` counts only the entries beneath
   the section that holds the form, so a use case's `stepCount` counts its own
   steps (`countOf: ['./MNSST']`) rather than every step in the document.

@@ -1,0 +1,934 @@
+{
+  "metaSchemaVersion": 1,
+  "modelVersion": 1,
+  "modelVersionLabel": "links-1.0",
+  "generatedAt": "2026-11-24T08:00:00.000000Z",
+  "classCount": 18,
+  "rootCount": 4,
+  "roots": [
+    {
+      "type": "Blueprint",
+      "title": "Blueprint",
+      "sectionId": "BLU"
+    },
+    {
+      "type": "Detail",
+      "title": "Detail",
+      "sectionId": "DET"
+    },
+    {
+      "type": "Screens",
+      "title": "Screens",
+      "sectionId": "SCR"
+    },
+    {
+      "type": "Projection",
+      "title": "Projection",
+      "sectionId": "PRJ"
+    }
+  ],
+  "classes": {
+    "Blueprint": {
+      "name": "Blueprint",
+      "sectionId": "BLU",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "BLU"
+          }
+        },
+        {
+          "name": "Document",
+          "arguments": {
+            "name": "Blueprint",
+            "description": "The overview every other document starts from."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "requirements",
+          "kind": "complex",
+          "type": "Requirements"
+        },
+        {
+          "name": "acceptance",
+          "kind": "complex",
+          "type": "Acceptance"
+        },
+        {
+          "name": "criteriaSummary",
+          "kind": "complex",
+          "type": "CriteriaSummary"
+        },
+        {
+          "name": "screenOverview",
+          "kind": "complex",
+          "type": "ScreenOverview"
+        },
+        {
+          "name": "focus",
+          "kind": "form",
+          "sectionId": "FOC",
+          "formFields": [
+            {
+              "name": "focusScreens",
+              "label": "FocusScreens",
+              "type": "String",
+              "refersTo": [
+                "SCRN.@sectionId"
+              ],
+              "multiple": true,
+              "summaryOf": {
+                "detail": "SCRN-ITEM-LST",
+                "document": "Screens",
+                "relation": "subset",
+                "repeats": {}
+              }
+            }
+          ]
+        },
+        {
+          "name": "revisions",
+          "kind": "list",
+          "sectionId": "REV-ITEM-LST",
+          "sectionIdPattern": "REV-xxx",
+          "elementType": "Revision",
+          "elementIsComplex": true
+        }
+      ]
+    },
+    "Detail": {
+      "name": "Detail",
+      "sectionId": "DET",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "DET"
+          }
+        },
+        {
+          "name": "Document",
+          "arguments": {
+            "name": "Detail",
+            "description": "The requirements in detail (the RSP role).",
+            "basedOn": [
+              "Blueprint"
+            ]
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "requirements",
+          "kind": "complex",
+          "type": "Requirements"
+        },
+        {
+          "name": "criteria",
+          "kind": "complex",
+          "type": "Criteria"
+        }
+      ]
+    },
+    "Screens": {
+      "name": "Screens",
+      "sectionId": "SCR",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SCR"
+          }
+        },
+        {
+          "name": "Document",
+          "arguments": {
+            "name": "Screens",
+            "description": "The screens in detail (the XDS role).",
+            "basedOn": [
+              "Blueprint"
+            ]
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "screens",
+          "kind": "list",
+          "sectionId": "SCRN-ITEM-LST",
+          "sectionIdPattern": "SCRN-xxx",
+          "elementType": "Screen",
+          "elementIsComplex": true
+        },
+        {
+          "name": "acceptance",
+          "kind": "complex",
+          "type": "Acceptance"
+        }
+      ]
+    },
+    "Projection": {
+      "name": "Projection",
+      "sectionId": "PRJ",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "PRJ"
+          }
+        },
+        {
+          "name": "Document",
+          "arguments": {
+            "name": "Projection",
+            "description": "A CodeSpecs projection, refused by the set."
+          }
+        },
+        {
+          "name": "CodeSpecsProjection",
+          "arguments": {}
+        }
+      ],
+      "fields": [
+        {
+          "name": "requirements",
+          "kind": "complex",
+          "type": "Requirements"
+        }
+      ]
+    },
+    "Requirements": {
+      "name": "Requirements",
+      "sectionId": "REQS",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "REQS"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "target": "Detail"
+          }
+        },
+        {
+          "name": "SyncedWith",
+          "arguments": {
+            "document": "Detail",
+            "detailOnly": [
+              "REQX"
+            ],
+            "heldHere": [
+              "REQ.owner"
+            ],
+            "relations": [
+              {
+                "place": "REQT.relatedScreens",
+                "relation": "LinkRelation.subset"
+              }
+            ],
+            "note": "the requirements of the Blueprint are those of Detail"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "summary",
+          "kind": "form",
+          "sectionId": "REQS-SUM",
+          "formFields": [
+            {
+              "name": "total",
+              "label": "Total",
+              "type": "int",
+              "countOf": [
+                "REQ"
+              ]
+            },
+            {
+              "name": "settled",
+              "label": "Settled",
+              "type": "int",
+              "countOf": [
+                "REQ.status=approved|done"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "items",
+          "kind": "list",
+          "sectionId": "REQ-ITEM-LST",
+          "sectionIdPattern": "REQ-xxx",
+          "elementType": "Requirement",
+          "elementIsComplex": true
+        },
+        {
+          "name": "keyRequirements",
+          "kind": "complex",
+          "type": "KeyRequirements"
+        }
+      ]
+    },
+    "KeyRequirements": {
+      "name": "KeyRequirements",
+      "sectionId": "KEYS",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "KEYS"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "items",
+          "kind": "list",
+          "sectionId": "KEY-ITEM-LST",
+          "sectionIdPattern": "KEY-xxx",
+          "elementType": "KeyRequirement",
+          "elementIsComplex": true,
+          "annotations": [
+            {
+              "name": "SummaryOf",
+              "arguments": {
+                "detail": "REQ-ITEM-LST",
+                "match": "KEY.requirementRef",
+                "relation": "LinkRelation.subset",
+                "repeats": {
+                  "KEY.title": "REQ.@headline"
+                },
+                "note": "the key requirements are a selection of the full list"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "KeyRequirement": {
+      "name": "KeyRequirement",
+      "sectionId": "KEY",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "KEY"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "formFields": [
+            {
+              "name": "requirementRef",
+              "label": "RequirementRef",
+              "type": "String",
+              "refersTo": [
+                "REQ.@sectionId"
+              ]
+            },
+            {
+              "name": "title",
+              "label": "Title",
+              "type": "String"
+            }
+          ]
+        }
+      ]
+    },
+    "Requirement": {
+      "name": "Requirement",
+      "sectionId": "REQ",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "REQ"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "formFields": [
+            {
+              "name": "status",
+              "label": "Status",
+              "type": "RequirementStatus",
+              "enumValues": [
+                "draft",
+                "approved",
+                "done"
+              ]
+            },
+            {
+              "name": "owner",
+              "label": "Owner",
+              "type": "String"
+            },
+            {
+              "name": "lastVersion",
+              "label": "LastVersion",
+              "type": "String",
+              "derivedFrom": {
+                "kind": "lookup",
+                "source": "REV",
+                "take": [
+                  "REV.version"
+                ],
+                "key": "REV.requirementRef",
+                "by": "REQ.@sectionId",
+                "map": {}
+              }
+            }
+          ]
+        },
+        {
+          "name": "details",
+          "kind": "form",
+          "sectionId": "REQD",
+          "formFields": [
+            {
+              "name": "description",
+              "label": "Description",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "constraints",
+          "kind": "form",
+          "sectionId": "REQC",
+          "formFields": [
+            {
+              "name": "constraints",
+              "label": "Constraints",
+              "type": "String"
+            },
+            {
+              "name": "conflictsWith",
+              "label": "ConflictsWith",
+              "type": "String",
+              "refersTo": [
+                "REQ.@sectionId"
+              ],
+              "multiple": true,
+              "derivedFrom": {
+                "kind": "rows",
+                "source": "./LNK",
+                "where": "LNK.linkType=conflict",
+                "take": [
+                  "LNK-REF.ref"
+                ],
+                "map": {}
+              }
+            }
+          ]
+        },
+        {
+          "name": "trace",
+          "kind": "form",
+          "sectionId": "REQT",
+          "formFields": [
+            {
+              "name": "relatedScreens",
+              "label": "RelatedScreens",
+              "type": "String",
+              "refersTo": [
+                "SCRN.@sectionId"
+              ],
+              "multiple": true,
+              "inverseOf": {
+                "fields": [
+                  "SCRN.relatedRequirements"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "rationale",
+          "kind": "form",
+          "sectionId": "REQX",
+          "formFields": [
+            {
+              "name": "rationale",
+              "label": "Rationale",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "abstract",
+          "kind": "content",
+          "sectionId": "REQAB",
+          "contentType": "markdown",
+          "annotations": [
+            {
+              "name": "DerivedFrom",
+              "arguments": {
+                "kind": "DerivationKind.copy",
+                "source": "REQD.description",
+                "take": [],
+                "map": {}
+              }
+            }
+          ]
+        },
+        {
+          "name": "links",
+          "kind": "list",
+          "sectionId": "LNK-ITEM-LST",
+          "sectionIdPattern": "LNK-xxx",
+          "elementType": "Link",
+          "elementIsComplex": true,
+          "annotations": [
+            {
+              "name": "ExtractsLinks",
+              "arguments": {
+                "from": [
+                  "REQD.description"
+                ],
+                "ref": "LNK-REF.ref",
+                "set": {
+                  "LNK.linkType": "namedInText"
+                },
+                "mode": "ExtractMode.generate"
+              }
+            },
+            {
+              "name": "ExtractsLinks",
+              "arguments": {
+                "from": [
+                  "REQC.constraints"
+                ],
+                "ref": "LNK-REF.ref",
+                "set": {
+                  "LNK.linkType": "constrainedBy"
+                },
+                "mode": "ExtractMode.warn",
+                "note": "an id in the constraints text without its row is reported"
+              }
+            }
+          ]
+        },
+        {
+          "name": "prerequisites",
+          "kind": "list",
+          "sectionId": "PRE-ITEM-LST",
+          "sectionIdPattern": "PRE-xxx",
+          "elementType": "Prerequisite",
+          "elementIsComplex": true,
+          "annotations": [
+            {
+              "name": "DerivedFrom",
+              "arguments": {
+                "kind": "DerivationKind.rows",
+                "source": "./LNK",
+                "where": "LNK.linkType=prerequisite",
+                "take": [],
+                "map": {
+                  "PRE.ref": "LNK-REF.ref"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "Link": {
+      "name": "Link",
+      "sectionId": "LNK",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "LNK"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "formFields": [
+            {
+              "name": "linkType",
+              "label": "LinkType",
+              "type": "LinkType",
+              "enumValues": [
+                "prerequisite",
+                "conflict",
+                "namedInText",
+                "constrainedBy"
+              ]
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "ref",
+          "kind": "form",
+          "sectionId": "LNK-REF",
+          "annotations": [
+            {
+              "name": "Reference",
+              "arguments": {
+                "description": "the requirement linked"
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "ref",
+              "label": "Ref",
+              "type": "String",
+              "refersTo": [
+                "REQ.@sectionId"
+              ],
+              "inverseOf": {
+                "fields": [
+                  "@self"
+                ],
+                "where": "LNK.linkType=conflict"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "Prerequisite": {
+      "name": "Prerequisite",
+      "sectionId": "PRE",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "PRE"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "formFields": [
+            {
+              "name": "ref",
+              "label": "Ref",
+              "type": "String",
+              "refersTo": [
+                "REQ.@sectionId"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "Revision": {
+      "name": "Revision",
+      "sectionId": "REV",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "REV"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "formFields": [
+            {
+              "name": "requirementRef",
+              "label": "RequirementRef",
+              "type": "String",
+              "refersTo": [
+                "REQ.@sectionId"
+              ]
+            },
+            {
+              "name": "version",
+              "label": "Version",
+              "type": "String"
+            }
+          ]
+        }
+      ]
+    },
+    "Acceptance": {
+      "name": "Acceptance",
+      "sectionId": "ACC",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "ACC"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "target": "Screens"
+          }
+        },
+        {
+          "name": "SyncedWith",
+          "arguments": {
+            "document": "Screens",
+            "detailOnly": [
+              "CRIT"
+            ],
+            "heldHere": [],
+            "relations": []
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "formFields": [
+            {
+              "name": "owner",
+              "label": "Owner",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "criteria",
+          "kind": "complex",
+          "type": "Criteria"
+        }
+      ]
+    },
+    "Criteria": {
+      "name": "Criteria",
+      "sectionId": "CRIT",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "CRIT"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "target": "Detail"
+          }
+        },
+        {
+          "name": "SyncedWith",
+          "arguments": {
+            "document": "Detail",
+            "detailOnly": [],
+            "heldHere": [],
+            "relations": [
+              {
+                "place": "CRIT-ITEM-LST",
+                "relation": "LinkRelation.subset",
+                "where": "CRITE.kind=functional|quality"
+              }
+            ]
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "items",
+          "kind": "list",
+          "sectionId": "CRIT-ITEM-LST",
+          "sectionIdPattern": "CRITE-xxx",
+          "elementType": "Criterion",
+          "elementIsComplex": true
+        }
+      ]
+    },
+    "Criterion": {
+      "name": "Criterion",
+      "sectionId": "CRITE",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "CRITE"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "formFields": [
+            {
+              "name": "kind",
+              "label": "Kind",
+              "type": "CriterionKind",
+              "enumValues": [
+                "functional",
+                "quality",
+                "legal"
+              ]
+            },
+            {
+              "name": "text",
+              "label": "Text",
+              "type": "String"
+            }
+          ]
+        }
+      ]
+    },
+    "CriteriaSummary": {
+      "name": "CriteriaSummary",
+      "sectionId": "CSUM",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "CSUM"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "contentType": "markdown"
+        },
+        {
+          "name": "criteria",
+          "kind": "complex",
+          "type": "Criteria",
+          "annotations": [
+            {
+              "name": "SameAs",
+              "arguments": {
+                "holder": "ACC/CRIT",
+                "note": "the acceptance holds the criteria; this is their copy"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "ScreenOverview": {
+      "name": "ScreenOverview",
+      "sectionId": "SOV",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SOV"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "rows",
+          "kind": "list",
+          "sectionId": "OVR-ITEM-LST",
+          "sectionIdPattern": "OVR-xxx",
+          "elementType": "OverviewRow",
+          "elementIsComplex": true,
+          "annotations": [
+            {
+              "name": "SummaryOf",
+              "arguments": {
+                "detail": "SCRN-ITEM-LST",
+                "document": "Screens",
+                "match": "OVR.screenRef",
+                "relation": "LinkRelation.equal",
+                "repeats": {}
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "OverviewRow": {
+      "name": "OverviewRow",
+      "sectionId": "OVR",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "OVR"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "formFields": [
+            {
+              "name": "screenRef",
+              "label": "ScreenRef",
+              "type": "String",
+              "refersTo": [
+                "SCRN.@sectionId"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "Screen": {
+      "name": "Screen",
+      "sectionId": "SCRN",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SCRN"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "formFields": [
+            {
+              "name": "purpose",
+              "label": "Purpose",
+              "type": "String"
+            },
+            {
+              "name": "relatedRequirements",
+              "label": "RelatedRequirements",
+              "type": "String",
+              "refersTo": [
+                "REQ.@sectionId"
+              ],
+              "multiple": true,
+              "inverseOf": {
+                "fields": [
+                  "REQT.relatedScreens"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -17,6 +17,7 @@ this guide cites it and never restates it. The typed half is
 - [Core Components](#core-components)
 - [Driving a document by path](#driving-a-document-by-path)
 - [The model as data](#the-model-as-data)
+- [The links of the model](#the-links-of-the-model)
 - [When to prefer the generic path](#when-to-prefer-the-generic-path)
 - [Building and testing](#building-and-testing)
 - [The API reference](#the-api-reference)
@@ -56,6 +57,7 @@ anything that computes the path rather than knowing it.
 | `SpecDocument` | The sparse, path-keyed store of content, form and list values |
 | `SpecModel` | The exported class graph — roots, classes, fields, annotations |
 | `SpecReflection` | Resolves and enumerates paths against the model **without reading values** |
+| `SpecPlace` / `SpecPlaceFilter` | Parse and resolve the places and filters the link annotations name |
 | `SpecValidator` / `validateDocument` | The instance tier: a filled document's values checked against the model |
 | the YAML and Markdown codecs | `*.tomspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages |
 | the editing-facade bases | What the generated `tom_som_dart_v0` types extend |
@@ -117,6 +119,37 @@ print('kind=\${res.kind.name}  valueLeaf=\${res.isValueLeaf}');
 This is the surface that makes generic editing safe rather than blind: before
 writing to a path you can ask whether the model has one, what kind of node it
 is, and whether it is a value leaf.
+
+## The links of the model
+
+The link annotations (`tom_specs_model_rules.md` §9.7) are read as typed values
+on every class and field — `syncedWith`, `summaryOf`, `derivedFrom`,
+`extractsLinks` (a list, in source order) and `sameAs` — and on every form
+field as the qualifiers `derivedFrom`, `inverseOf` and `summaryOf`. Each is
+`null` (or empty) when the model states none, so a meta written before the
+links existed reads the same. Enum constants come bare (`subset`, `rows`).
+
+The places they name resolve under an anchor, the section the annotation
+stands on, to the document path the value is stored at; list items below the
+anchor read `<list>-*`:
+
+```dart
+final sync = model.classes['FunctionalRequirements']!.syncedWith;
+print(sync?.document); // D04RequirementsSpecification
+
+const fr = 'SBP/introductionAndScope/requirements/functionalRequirements';
+final place = SpecPlace.parse('FRED.description').resolve(reflection, fr);
+print('${place.kind.name} ${place.path} ${place.field}');
+// formField SBP/…/functionalRequirements/FRE-REQU-LST-*/FRED description
+
+final filter = SpecPlaceFilter.parse('RQDEP.dependencyType=conflict|bidirectional');
+print(filter.matches(['conflict'])); // true
+```
+
+A place that does not resolve throws a `SpecPlaceException` whose `problem`
+says why (`ambiguous`, `unresolved`, `noSuchField`, …). `specSameAsBindings`
+lists every `@SameAs` copy of a document root with the position that holds
+its values.
 
 ## When to prefer the generic path
 

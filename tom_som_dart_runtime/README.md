@@ -87,6 +87,7 @@ and how to pin.
 | `spec_model.dart` | The meta-data loader — the exported class graph (`SpecModel`, `SpecRoot`, `SpecClass`, `SpecField`, …). |
 | `spec_meta.dart`, `spec_meta_bridge.dart`, `spec_meta_diff.dart` | The metadata tree (`SomMetaNode`, `SomMetaTree`, `buildSomMetaTree`) and its comparison (`SOM §7`). |
 | `spec_reflection.dart` | Value-free enumeration + path resolution (`SpecReflection`, `SpecResolution`, `SpecNodeKind`). |
+| `spec_place.dart` | The places and filters the link annotations name (`tom_specs_model_rules.md` §9.7): `SpecPlace` parses `FRED.description`, `FRE.@headline`, `./RQDEP`, a `/` path, and resolves it under an anchor to the document path its value is stored at; `SpecPlaceFilter` parses `X`, `./X`, `X.f=a\|b` (what `countOf` and every `where:` read); `specSameAsBindings` finds the holder of each `@SameAs` copy. The typed readers of the links themselves (`syncedWith`, `summaryOf`, `derivedFrom`, `extractsLinks`, `sameAs`, and the form-field qualifiers) are in `spec_model.dart`. |
 | `spec_document.dart` | A sparse in-memory document — values keyed by section path. |
 | `spec_typed_values.dart` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
 | `spec_editor.dart` | The generic meta-model-driven modification API (`SpecEditor`, YRD7) — typed edits over any path, without a generated facade. |
@@ -226,6 +227,7 @@ dart analyze
 | `SpecDocument` | The sparse, path-keyed store of a document's content, form and list values. |
 | `SpecModel` | The exported class graph — roots, classes, fields, annotations. |
 | `SpecReflection` | Resolves and enumerates paths against the model without reading values. |
+| `SpecPlace` / `SpecPlaceFilter` | The link vocabulary's places and filters, parsed and resolved under an anchor. |
 | `SpecEditor` | Typed edits over any path, driven by the meta-model rather than by generated classes. |
 | `SpecNodeCreator` | The creation gate — a document may only grow in ways the model permits. |
 | `validateDocument` | The instance tier: a filled document's values checked against the model. |

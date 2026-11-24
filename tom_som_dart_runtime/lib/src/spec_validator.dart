@@ -13,6 +13,7 @@ import 'spec_document.dart';
 import 'spec_generation_units.dart' show kSpecStandardEmitters;
 import 'spec_model.dart';
 import 'spec_paths.dart';
+import 'spec_place.dart';
 import 'spec_reflection.dart';
 import 'spec_section_id.dart';
 import 'spec_typed_values.dart';
@@ -645,10 +646,12 @@ List<SpecValidationError> _validateReferenceInstances(
 /// An **entry** is a list item whose element class carries `@SectionId(X)`.
 /// A target `X` counts every such entry; `X.f=v` counts only the entries one of
 /// whose own forms — a form member of the entry, at `<item>/<member>` — holds
-/// `v` in form field `f`. The count is the sum over the targets. As with the
-/// reference check, a target whose section id the document's root cannot
-/// reach makes the field undecidable here, so it is skipped rather than
-/// reported, and an empty value is completeness, not a count.
+/// `v` in form field `f`, and `X.f=a|b` those holding either alternative. A
+/// target is read as a [SpecPlaceFilter]. The count is the sum over the
+/// targets. As with the reference check, a target whose section id the
+/// document's root cannot reach — or that is no filter at all — makes the
+/// field undecidable here, so it is skipped rather than reported, and an
+/// empty value is completeness, not a count.
 List<SpecValidationError> _validateCountInstances(
   SpecReflection refl,
   SpecDocument doc,
@@ -687,21 +690,17 @@ List<SpecValidationError> _validateCountInstances(
 
   // A target written `./…` counts only the entries beneath [owner], the
   // section holding the form; any other target counts the whole document.
-  int countTarget(String target, String owner) {
-    final scoped = target.startsWith('./');
-    if (scoped) target = target.substring(2);
-    bool inScope(String item) => !scoped || item.startsWith('$owner/');
-    final dot = target.indexOf('.');
-    if (dot < 0) {
-      return (entriesById[target] ?? const <String>[]).where(inScope).length;
-    }
-    final id = target.substring(0, dot);
-    final eq = target.indexOf('=', dot);
-    final field = target.substring(dot + 1, eq < 0 ? target.length : eq);
-    final value = eq < 0 ? '' : target.substring(eq + 1);
-    return (entriesById[id] ?? const <String>[])
+  // `X.f=a|b` counts the entries whose `f` holds one of the alternatives.
+  int countTarget(SpecPlaceFilter target, String owner) {
+    bool inScope(String item) => !target.scoped || item.startsWith('$owner/');
+    final field = target.field;
+    return (entriesById[target.sectionId] ?? const <String>[])
         .where(inScope)
-        .where((item) => valuesByItem[item]?[field]?.contains(value) ?? false)
+        .where(
+          (item) =>
+              field == null ||
+              target.matches(valuesByItem[item]?[field] ?? const <String>{}),
+        )
         .length;
   }
 
@@ -711,16 +710,19 @@ List<SpecValidationError> _validateCountInstances(
       if (ff.countOf.isEmpty) continue;
       final stated = doc.formField(form.path, ff.name)?.trim();
       if (stated == null || stated.isEmpty) continue;
-      if (!ff.countOf.every(
-        (t) => scope.contains(_registrySectionId(_countTargetId(t))),
+      // A target that is no filter, or whose entries the root cannot reach,
+      // makes the count undecidable here: skipped, never reported.
+      final targets = [for (final t in ff.countOf) SpecPlaceFilter.tryParse(t)];
+      if (!targets.every(
+        (t) => t != null && scope.contains(_registrySectionId(t.sectionId)),
       )) {
         continue;
       }
       final owner = form.path.substring(0, form.path.lastIndexOf('/'));
-      final counted = ff.countOf
-          .map((t) => countTarget(t, owner))
+      final counted = targets
+          .map((t) => countTarget(t!, owner))
           .fold(0, (a, b) => a + b);
-      final targets = ff.countOf.join(' + ');
+      final written = ff.countOf.join(' + ');
       if (!RegExp(r'^[0-9]+$').hasMatch(stated)) {
         errors.add(
           SpecValidationError(
@@ -728,7 +730,7 @@ List<SpecValidationError> _validateCountInstances(
             code: SpecValidationCode.countMismatch,
             message:
                 'form field "${ff.name}" states "$stated", which is not a whole '
-                'number — it counts $targets, of which the document holds '
+                'number — it counts $written, of which the document holds '
                 '$counted',
           ),
         );
@@ -739,7 +741,7 @@ List<SpecValidationError> _validateCountInstances(
             code: SpecValidationCode.countMismatch,
             message:
                 'form field "${ff.name}" states $stated, but the document '
-                'holds $counted (counting $targets)',
+                'holds $counted (counting $written)',
           ),
         );
       }
@@ -1119,14 +1121,6 @@ double _pow10(int exponent) {
 
 String _formatNumber(double v) =>
     v == v.roundToDouble() ? v.toInt().toString() : v.toString();
-
-/// The section id of a `countOf` target — the part before any `.field=value`,
-/// without the `./` scope prefix.
-String _countTargetId(String target) {
-  if (target.startsWith('./')) target = target.substring(2);
-  final dot = target.indexOf('.');
-  return dot < 0 ? target : target.substring(0, dot);
-}
 
 /// Every form instance in [doc] with its field and the class it sits on, in
 /// path order — the shape both the reference and the count check sweep.

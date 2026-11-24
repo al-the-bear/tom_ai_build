@@ -453,6 +453,40 @@ final List<CorpusGuardedEnum> _guarded = [
         'resolvers could disagree about it undetected',
   ),
   CorpusGuardedEnum(
+    enumName: 'SpecPlaceKind',
+    declared: _wire(SpecPlaceKind.values),
+    corpusFile: 'link_reader_cases.json',
+    exercised: (c) => {
+      for (final group in ['places', 'filters'])
+        for (final k
+            in (((c as Map<String, dynamic>)['textCases'] as Map)[group]
+                    as List)
+                .cast<Map<String, dynamic>>())
+          if ((k['expect'] as Map)['resolved'] case final Map r)
+            r['kind'] as String,
+    },
+    why:
+        'what a link place names — a field, a heading, a list, a registry id '
+        '— decides where every link operation reads and writes, so nine place '
+        'resolvers must agree on it',
+  ),
+  CorpusGuardedEnum(
+    enumName: 'SpecPlaceProblem',
+    declared: _wire(SpecPlaceProblem.values),
+    corpusFile: 'link_reader_cases.json',
+    exercised: (c) => {
+      for (final group in ['places', 'filters'])
+        for (final k
+            in (((c as Map<String, dynamic>)['textCases'] as Map)[group]
+                    as List)
+                .cast<Map<String, dynamic>>())
+          if ((k['expect'] as Map)['problem'] case final String p) p,
+    },
+    why:
+        'a place that does not resolve is a model error a port must refuse '
+        'for the same reason, never resolve to something else',
+  ),
+  CorpusGuardedEnum(
     enumName: 'SomEditability',
     declared: _wire(SomEditability.values),
     corpusFile: 'editability_cases.json',
@@ -569,6 +603,15 @@ final List<ExemptEnum> _exempt = [
     note:
         'The same matcher\'s quantifier taxonomy, private for the same '
         'reason and pinned by the same spans in query_cases.json.',
+  ),
+  ExemptEnum(
+    enumName: '_Shape',
+    reason: ExemptionReason.internal,
+    note:
+        'The shape of a position in spec_place.dart\'s subtree walk (section, '
+        'list, form, content), private to the library. Only the public '
+        'SpecPlaceKind a resolution answers leaves it, and that is what '
+        'link_reader_cases.json pins.',
   ),
   ExemptEnum(
     enumName: 'SomMetaKind',

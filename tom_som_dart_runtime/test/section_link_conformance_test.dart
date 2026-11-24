@@ -1,0 +1,1179 @@
+/// The section-link conformance tables (idea `section_automation`,
+/// part-conformance): the link fixture model `corpus/links.meta.json` and the
+/// tables built over it, written by the live runtime under `UPDATE_CORPUS=1`
+/// and checked on every other run.
+///
+/// Tables so far:
+///
+/// * `link_reader_cases.json` — the typed readers of the link annotations
+///   (`syncedWith`, `summaryOf`, `derivedFrom`, `extractsLinks`, `sameAs`, the
+///   form-field qualifiers), the `@SameAs` holder of each copy, an older meta
+///   loading unchanged, and `textCases` for the place grammar ([SpecPlace])
+///   and the filter ([SpecPlaceFilter]), malformed ones included.
+///
+/// Each case carries a hand-written `intent`: what it exists to show. A run
+/// checks that the intent holds in the expectation, so a case that silently
+/// stops showing it fails even though Dart reproduces its own output.
+///
+/// ## Manual review of the generated expectations (DP-part-conformance-1)
+///
+/// Reviewed 2026-11-24, case by case, against the intents and the decisions
+/// of `section_automation.docspecs.md` (part-vocabulary, part-meta,
+/// part-operations section 1, part-conformance section 1):
+///
+/// * **fixture meta read back** — every class sync (`Acceptance` → Screens,
+///   `Criteria` and `Requirements` → Detail) has its document as a class name,
+///   `detailOnly` / `heldHere` as written and each relation with its prefix
+///   stripped (`subset`, the `where` with its `|` kept); `Criteria`'s relation
+///   is the only one with a filter. Member links: `KeyRequirements.items`
+///   (`subset`, match `KEY.requirementRef`, one repeat),
+///   `ScreenOverview.rows` (`document: Screens`, `equal`), `Requirement.links`
+///   with two `@ExtractsLinks` in source order (`generate`, then `warn`), the
+///   member `@DerivedFrom.copy` on `abstract` and `.rows` with its `map` on
+///   `prerequisites`, `CriteriaSummary.criteria` with its `@SameAs` holder.
+///   Form-field qualifiers: `conflictsWith` (`rows`, `where`, `take`),
+///   `lastVersion` (`lookup`, `key` / `by`), `relatedScreens` and
+///   `relatedRequirements` naming each other, the symmetric `LNK-REF.ref`
+///   (`@self`, `where`), `focusScreens` (`summaryOf` across documents, its
+///   default relation written). Defaults are written where the annotation
+///   has one (`relation`, `mode`, empty `repeats` / `map` / `take`), nulls
+///   left out. The one binding: Blueprint's `criteriaSummary/criteria` copy
+///   held by `acceptance/criteria`; Detail and Screens reach `Criteria` once
+///   and have no copy. Correct.
+/// * **older meta** — a meta with an unknown annotation and an unknown
+///   form-field key, and none of the link keys, loads; every reader answers
+///   absent. Correct (part-meta: an older meta loads unchanged).
+/// * **places** — each resolved path is the document path where the value is
+///   stored: a form field in its form (`…/content` for a class's own form,
+///   `…/REQD` for a form member), a headline and a section id at the list
+///   item, the list at its container, list items below the anchor as `-*`,
+///   items at and above it as written. `./` resolves beneath the nearest list
+///   element at or above the anchor; a `/` path names every section on the
+///   way but `-LST` containers and the scope's own id. Every problem appears
+///   once with the case that should provoke it: `CRITE.text` from the
+///   Blueprint root is `ambiguous` (the copy and its holder), from
+///   `acceptance` it resolves. Correct.
+/// * **filters** — parsed parts, the entries' place, `matches` comparing
+///   trimmed stored values against the alternatives, malformed texts (no `=`,
+///   an empty alternative, a `/` path, no id) refused; `REQ.nope=x` is
+///   `noSuchField`. Correct.
+library;
+
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:test/test.dart';
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
+
+void main() {
+  final corpusDir = Directory(
+    '${Directory.current.path}/../tom_som_conformance/corpus',
+  );
+  final update = Platform.environment['UPDATE_CORPUS'] == '1';
+  final meta = buildLinksMeta();
+  final readerCases = buildLinkReaderCases(meta);
+
+  String encode(Object? json) =>
+      '${const JsonEncoder.withIndent('  ').convert(json)}\n';
+
+  setUpAll(() {
+    if (!update) return;
+    File('${corpusDir.path}/links.meta.json').writeAsStringSync(encode(meta));
+    File(
+      '${corpusDir.path}/link_reader_cases.json',
+    ).writeAsStringSync(encode(readerCases));
+  });
+
+  Object? onDisk(String name) =>
+      jsonDecode(File('${corpusDir.path}/$name').readAsStringSync());
+
+  group('corpus files', () {
+    test('LRC1: links.meta.json is the fixture the builder writes', () {
+      expect(onDisk('links.meta.json'), jsonDecode(jsonEncode(meta)));
+    });
+
+    test('LRC2: link_reader_cases.json is the table the builder writes', () {
+      expect(
+        onDisk('link_reader_cases.json'),
+        jsonDecode(jsonEncode(readerCases)),
+      );
+    });
+
+    test('LRC3: the table on disk is reproduced from its own inputs', () {
+      // What a runner of another language does: read the inputs of each case
+      // from the files and compare its own results with `expect`.
+      final diskMeta = onDisk('links.meta.json') as Map<String, dynamic>;
+      final table = onDisk('link_reader_cases.json') as Map<String, dynamic>;
+      for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+        final m = c['model'] == 'links.meta.json'
+            ? diskMeta
+            : c['meta'] as Map<String, dynamic>;
+        expect(
+          jsonDecode(jsonEncode(linkReadBack(SpecModel.fromJson(m)))),
+          c['expect'],
+          reason: c['name'] as String,
+        );
+      }
+      final refl = SpecReflection(SpecModel.fromJson(diskMeta));
+      final text = table['textCases'] as Map<String, dynamic>;
+      for (final c in (text['places'] as List).cast<Map<String, dynamic>>()) {
+        expect(
+          jsonDecode(jsonEncode(placeCase(refl, c))),
+          c['expect'],
+          reason: c['name'] as String,
+        );
+      }
+      for (final c in (text['filters'] as List).cast<Map<String, dynamic>>()) {
+        expect(
+          jsonDecode(jsonEncode(filterCase(refl, c))),
+          c['expect'],
+          reason: c['name'] as String,
+        );
+      }
+    });
+
+    test('LRC4: every case shows its intent', () {
+      for (final c
+          in (readerCases['cases'] as List).cast<Map<String, dynamic>>()) {
+        final expectation = c['expect'] as Map<String, dynamic>;
+        for (final token in (c['intent'] as List).cast<String>()) {
+          expect(
+            _readerIntentHolds(token, expectation),
+            isTrue,
+            reason: '${c['name']}: intent "$token"',
+          );
+        }
+      }
+      final text = readerCases['textCases'] as Map<String, dynamic>;
+      for (final c in [
+        ...(text['places'] as List).cast<Map<String, dynamic>>(),
+        ...(text['filters'] as List).cast<Map<String, dynamic>>(),
+      ]) {
+        final shown = _tokens(c['expect']);
+        for (final token in (c['intent'] as List).cast<String>()) {
+          expect(
+            shown,
+            contains(token),
+            reason: '${c['name']}: intent "$token"',
+          );
+        }
+      }
+    });
+  });
+
+  group('readers', () {
+    final model = SpecModel.fromJson(meta);
+
+    test('LR1: the class sync is read with its relations', () {
+      final sync = model.classes['Requirements']!.syncedWith!;
+      expect(sync.document, 'Detail');
+      expect(sync.detailOnly, ['REQX']);
+      expect(sync.heldHere, ['REQ.owner']);
+      expect(sync.relations.single.relation, 'subset');
+      expect(
+        model.classes['Criteria']!.syncedWith!.relations.single.where,
+        'CRITE.kind=functional|quality',
+      );
+      expect(model.classes['Blueprint']!.syncedWith, isNull);
+    });
+
+    test('LR2: member links and the repeated @ExtractsLinks', () {
+      final req = model.classes['Requirement']!;
+      final links = req.fieldNamed('links')!.extractsLinks;
+      expect(links.map((e) => e.mode), ['generate', 'warn']);
+      expect(links.first.set, {'LNK.linkType': 'namedInText'});
+      expect(req.fieldNamed('abstract')!.derivedFrom!.kind, 'copy');
+      expect(req.fieldNamed('prerequisites')!.derivedFrom!.map, {
+        'PRE.ref': 'LNK-REF.ref',
+      });
+      expect(req.fieldNamed('links')!.summaryOf, isNull);
+    });
+
+    test('LR3: the form-field qualifiers', () {
+      FormFieldSpec ff(String cls, String field, String name) => model
+          .classes[cls]!
+          .fieldNamed(field)!
+          .formFields
+          .firstWhere((f) => f.name == name);
+      expect(
+        ff('Requirement', 'constraints', 'conflictsWith').derivedFrom!.where,
+        'LNK.linkType=conflict',
+      );
+      expect(ff('Link', 'ref', 'ref').inverseOf!.symmetric, isTrue);
+      expect(
+        ff('Requirement', 'trace', 'relatedScreens').inverseOf!.symmetric,
+        isFalse,
+      );
+      expect(
+        ff('Blueprint', 'focus', 'focusScreens').summaryOf!.document,
+        'Screens',
+      );
+    });
+
+    test('LR4: the real model — S1 has one holder in each document', () {
+      final real = SpecModel.fromJson(
+        jsonDecode(
+              File(
+                '${Directory.current.path}/../tom_som_dart_v0/meta/'
+                'spec_model.meta.json',
+              ).readAsStringSync(),
+            )
+            as Map<String, dynamic>,
+      );
+      final refl = SpecReflection(real);
+      for (final root in ['D00SolutionBlueprint', 'D10QualityAcceptancePlan']) {
+        final bindings = specSameAsBindings(refl, root);
+        expect(bindings, hasLength(1), reason: root);
+        expect(bindings.single.className, 'AcceptanceCriteriaList');
+        expect(bindings.single.problem, isNull, reason: root);
+        expect(bindings.single.copyPath, endsWith('/detailedCriteria'));
+      }
+    });
+  });
+
+  group('countOf reads the filter', () {
+    final model = SpecModel.fromJson(meta);
+    const reqs = 'BLU/requirements';
+
+    SpecDocument doc(String settled, {String total = '3'}) {
+      final d = SpecDocument();
+      for (final status in ['approved', 'done', 'draft']) {
+        final item = d.addListItem('$reqs/REQ-ITEM-LST');
+        d.setFormField('$item/content', 'status', status);
+      }
+      d.setFormField('$reqs/REQS-SUM', 'total', total);
+      d.setFormField('$reqs/REQS-SUM', 'settled', settled);
+      return d;
+    }
+
+    List<String> counts(SpecDocument d) => [
+      for (final e in validateDocument(model, d))
+        if (e.code == SpecValidationCode.countMismatch) e.path,
+    ];
+
+    test('CO1: `|` counts the entries holding either alternative', () {
+      expect(counts(doc('2')), isEmpty);
+    });
+
+    test('CO2: a count that disagrees with the alternatives is reported', () {
+      expect(counts(doc('3')), ['$reqs/REQS-SUM']);
+      expect(counts(doc('2', total: '2')), ['$reqs/REQS-SUM']);
+    });
+  });
+}
+
+// ---------------------------------------------------------------------------
+// The evaluation a runner of every language performs
+// ---------------------------------------------------------------------------
+
+/// What the readers return for [model], in canonical JSON: every class sync,
+/// every member link, every form-field qualifier, and the `@SameAs` bindings
+/// per root. Classes by name, fields and form fields in declaration order.
+Map<String, Object?> linkReadBack(SpecModel model) {
+  final names = model.classes.keys.toList()..sort();
+  return {
+    'classes': [
+      for (final n in names)
+        if (model.classes[n]!.syncedWith != null)
+          {'class': n, 'syncedWith': model.classes[n]!.syncedWith!.toJson()},
+    ],
+    'fields': [
+      for (final n in names)
+        for (final f in model.classes[n]!.fields)
+          if (f.syncedWith != null ||
+              f.summaryOf != null ||
+              f.derivedFrom != null ||
+              f.extractsLinks.isNotEmpty ||
+              f.sameAs != null)
+            {
+              'class': n,
+              'field': f.name,
+              if (f.syncedWith != null) 'syncedWith': f.syncedWith!.toJson(),
+              if (f.summaryOf != null) 'summaryOf': f.summaryOf!.toJson(),
+              if (f.derivedFrom != null) 'derivedFrom': f.derivedFrom!.toJson(),
+              if (f.extractsLinks.isNotEmpty)
+                'extractsLinks': [for (final e in f.extractsLinks) e.toJson()],
+              if (f.sameAs != null) 'sameAs': f.sameAs!.toJson(),
+            },
+    ],
+    'formFields': [
+      for (final n in names)
+        for (final f in model.classes[n]!.fields)
+          for (final ff in f.formFields)
+            if (ff.derivedFrom != null ||
+                ff.inverseOf != null ||
+                ff.summaryOf != null)
+              {
+                'class': n,
+                'field': f.name,
+                'formField': ff.name,
+                if (ff.derivedFrom != null)
+                  'derivedFrom': ff.derivedFrom!.toJson(),
+                if (ff.inverseOf != null) 'inverseOf': ff.inverseOf!.toJson(),
+                if (ff.summaryOf != null) 'summaryOf': ff.summaryOf!.toJson(),
+              },
+    ],
+    'sameAsBindings': [
+      for (final r in model.roots)
+        for (final b in specSameAsBindings(SpecReflection(model), r.type))
+          b.toJson(),
+    ],
+    'classCount': model.classes.length,
+  };
+}
+
+/// One place case: the text parsed, then resolved under `anchor` when given.
+Map<String, Object?> placeCase(SpecReflection refl, Map<String, dynamic> c) {
+  final text = c['text'] as String;
+  final place = SpecPlace.tryParse(text);
+  if (place == null) return {'problem': SpecPlaceProblem.malformed.name};
+  final anchor = c['anchor'] as String?;
+  if (anchor == null) return {'parsed': place.toJson()};
+  try {
+    return {
+      'parsed': place.toJson(),
+      'resolved': place.resolve(refl, anchor).toJson(),
+    };
+  } on SpecPlaceException catch (e) {
+    return {'parsed': place.toJson(), 'problem': e.problem.name};
+  }
+}
+
+/// One filter case: the text parsed, resolved under `anchor` when given, and
+/// matched against `stored` when given.
+Map<String, Object?> filterCase(SpecReflection refl, Map<String, dynamic> c) {
+  final text = c['text'] as String;
+  final filter = SpecPlaceFilter.tryParse(text);
+  if (filter == null) return {'problem': SpecPlaceProblem.malformed.name};
+  final out = <String, Object?>{'parsed': filter.toJson()};
+  final stored = c['stored'] as List?;
+  if (stored != null) out['matches'] = filter.matches(stored.cast<String>());
+  final anchor = c['anchor'] as String?;
+  if (anchor != null) {
+    try {
+      out['resolved'] = filter.resolve(refl, anchor).toJson();
+    } on SpecPlaceException catch (e) {
+      out['problem'] = e.problem.name;
+    }
+  }
+  return out;
+}
+
+// ---------------------------------------------------------------------------
+// The intents
+// ---------------------------------------------------------------------------
+
+/// Whether the reader-case intent [token] holds in [e].
+bool _readerIntentHolds(String token, Map<String, dynamic> e) {
+  List<Map<String, dynamic>> rows(String key) =>
+      (e[key] as List).cast<Map<String, dynamic>>();
+  bool fieldHas(String key) => rows('fields').any((r) => r.containsKey(key));
+  bool formHas(String key) => rows('formFields').any((r) => r.containsKey(key));
+  return switch (token) {
+    'syncedWith' => rows('classes').isNotEmpty,
+    'syncRelationWhere' => rows('classes').any(
+      (r) => ((r['syncedWith'] as Map)['relations'] as List).any(
+        (x) => (x as Map).containsKey('where'),
+      ),
+    ),
+    'summaryOf' => fieldHas('summaryOf'),
+    'summaryOfDocument' => rows(
+      'fields',
+    ).any((r) => (r['summaryOf'] as Map?)?.containsKey('document') ?? false),
+    'derivedFrom' => fieldHas('derivedFrom'),
+    'extractsLinksRepeated' => rows(
+      'fields',
+    ).any((r) => ((r['extractsLinks'] as List?)?.length ?? 0) > 1),
+    'sameAs' => fieldHas('sameAs'),
+    'formDerivedFrom' => formHas('derivedFrom'),
+    'formInverseOf' => formHas('inverseOf'),
+    'formSymmetric' => rows('formFields').any(
+      (r) =>
+          ((r['inverseOf'] as Map?)?['fields'] as List?)?.contains('@self') ??
+          false,
+    ),
+    'formSummaryOf' => formHas('summaryOf'),
+    'sameAsHolder' => rows(
+      'sameAsBindings',
+    ).any((r) => r.containsKey('holder')),
+    'loadsUnchanged' =>
+      (e['classCount'] as int) > 0 &&
+          rows('classes').isEmpty &&
+          rows('fields').isEmpty &&
+          rows('formFields').isEmpty &&
+          rows('sameAsBindings').isEmpty,
+    _ => throw StateError('unknown intent token "$token"'),
+  };
+}
+
+/// Every string a text case's expectation shows: kinds, problems, and
+/// `matches` / `noMatch`.
+Set<String> _tokens(Object? e) {
+  final out = <String>{};
+  void walk(Object? v, [String? key]) {
+    if (v is Map) {
+      v.forEach((k, x) => walk(x, k as String));
+    } else if (v is List) {
+      v.forEach(walk);
+    } else if (key == 'matches' && v is bool) {
+      out.add(v ? 'matches' : 'noMatch');
+    } else if (v is String && (key == 'kind' || key == 'problem')) {
+      out.add(v);
+    }
+  }
+
+  walk(e);
+  return out;
+}
+
+// ---------------------------------------------------------------------------
+// The cases
+// ---------------------------------------------------------------------------
+
+/// The table `link_reader_cases.json`, its expectations computed live.
+Map<String, Object?> buildLinkReaderCases(Map<String, dynamic> meta) {
+  final model = SpecModel.fromJson(meta);
+  final refl = SpecReflection(model);
+  final older = _olderMeta();
+
+  Map<String, Object?> place(
+    String name,
+    List<String> intent,
+    String text, [
+    String? anchor,
+  ]) {
+    final c = <String, dynamic>{
+      'name': name,
+      'intent': intent,
+      'text': text,
+      if (anchor != null) 'anchor': anchor,
+    };
+    return {...c, 'expect': placeCase(refl, c)};
+  }
+
+  Map<String, Object?> filter(
+    String name,
+    List<String> intent,
+    String text, {
+    String? anchor,
+    List<String>? stored,
+  }) {
+    final c = <String, dynamic>{
+      'name': name,
+      'intent': intent,
+      'text': text,
+      if (anchor != null) 'anchor': anchor,
+      if (stored != null) 'stored': stored,
+    };
+    return {...c, 'expect': filterCase(refl, c)};
+  }
+
+  const blu = 'BLU';
+  const reqs = 'BLU/requirements';
+  const item = 'BLU/requirements/REQ-ITEM-LST-1';
+
+  return {
+    'model': 'links.meta.json',
+    'cases': [
+      {
+        'name': 'the fixture meta read back',
+        'intent': [
+          'syncedWith',
+          'syncRelationWhere',
+          'summaryOf',
+          'summaryOfDocument',
+          'derivedFrom',
+          'extractsLinksRepeated',
+          'sameAs',
+          'formDerivedFrom',
+          'formInverseOf',
+          'formSymmetric',
+          'formSummaryOf',
+          'sameAsHolder',
+        ],
+        'model': 'links.meta.json',
+        'expect': linkReadBack(model),
+      },
+      {
+        'name': 'an older meta without the link keys loads unchanged',
+        'intent': ['loadsUnchanged'],
+        'meta': older,
+        'expect': linkReadBack(SpecModel.fromJson(older)),
+      },
+    ],
+    'textCases': {
+      'places': [
+        place(
+          'a form field of a form member',
+          ['formField'],
+          'REQD.description',
+          reqs,
+        ),
+        place(
+          "a form field of a class's own form",
+          ['formField'],
+          'REQ.status',
+          reqs,
+        ),
+        place('a whole form member', ['form'], 'REQD', reqs),
+        place('a heading', ['headline'], 'REQ.@headline', reqs),
+        place('a list', ['list'], 'REQ-ITEM-LST', blu),
+        place('a section', ['section'], 'REQS', blu),
+        place('a registry id', ['sectionId'], 'REQ.@sectionId', reqs),
+        place('a content member', ['content'], 'REQAB', reqs),
+        place(
+          '@content of a narrative section',
+          ['content'],
+          'CSUM.@content',
+          blu,
+        ),
+        place(
+          'a ./ place beneath the list element of the anchor',
+          ['formField'],
+          './LNK.linkType',
+          item,
+        ),
+        place(
+          'a ./ place resolves beneath the nearest list element only',
+          ['unresolved'],
+          './REQD.description',
+          '$item/LNK-ITEM-LST-1',
+        ),
+        place('a / path', ['formField'], 'REQ/LNK.description', reqs),
+        place(
+          'a / path naming the copy',
+          ['formField'],
+          'CSUM/CRIT/CRITE.text',
+          blu,
+        ),
+        place(
+          'one id reached twice is ambiguous',
+          ['ambiguous'],
+          'CRITE.text',
+          blu,
+        ),
+        place(
+          'the same id under one of the two positions',
+          ['formField'],
+          'CRITE.text',
+          'BLU/acceptance',
+        ),
+        place(
+          'an id the scope does not reach',
+          ['unresolved'],
+          'SCRN.purpose',
+          blu,
+        ),
+        place(
+          'a / path skipping a section',
+          ['unresolved'],
+          'REQS/LNK.description',
+          blu,
+        ),
+        place('no such form field', ['noSuchField'], 'REQ.nope', reqs),
+        place(
+          '@content of a form section',
+          ['noContent'],
+          'REQ.@content',
+          reqs,
+        ),
+        place(
+          '@sectionId of no list element',
+          ['notListElement'],
+          'REQS.@sectionId',
+          blu,
+        ),
+        place('a reserved slot', ['reservedSlot'], 'REQ.@title', reqs),
+        place(
+          './ with no list element at or above',
+          ['notScoped'],
+          './LNK',
+          reqs,
+        ),
+        place(
+          'an anchor that resolves to no section',
+          ['anchorUnresolved'],
+          'REQ.status',
+          'BLU/nowhere',
+        ),
+        place('parsed only', [], 'FRE/REQDEP/RQDEP.description'),
+        place('empty', ['malformed'], ''),
+        place('a bare ./', ['malformed'], './'),
+        place('an empty slot', ['malformed'], 'REQ.'),
+        place('two dots', ['malformed'], 'REQ.status.x'),
+        place('an id starting with a hyphen', ['malformed'], '-REQ.status'),
+        place('an empty / segment', ['malformed'], 'REQ//LNK'),
+      ],
+      'filters': [
+        filter('every entry', ['section'], 'REQ', anchor: blu),
+        filter('a ./ entry', ['section'], './LNK', anchor: item),
+        filter(
+          'one value',
+          ['section', 'matches'],
+          'REQ.status=approved',
+          anchor: reqs,
+          stored: ['approved'],
+        ),
+        filter(
+          'alternatives, the stored value trimmed',
+          ['matches'],
+          'REQ.status=approved|done',
+          stored: [' done '],
+        ),
+        filter(
+          'alternatives, none stored',
+          ['noMatch'],
+          'REQ.status=approved|done',
+          stored: ['draft'],
+        ),
+        filter(
+          'alternatives, nothing stored',
+          ['noMatch'],
+          'REQ.status=approved|done',
+          stored: [],
+        ),
+        filter(
+          'without a field every entry matches',
+          ['matches'],
+          'REQ',
+          stored: [],
+        ),
+        filter(
+          'a scoped filter with alternatives',
+          ['section'],
+          './LNK.linkType=conflict|namedInText',
+          anchor: item,
+        ),
+        filter(
+          'no such form field',
+          ['noSuchField'],
+          'REQ.nope=x',
+          anchor: reqs,
+        ),
+        filter(
+          './ with no list element at or above',
+          ['notScoped'],
+          './LNK',
+          anchor: reqs,
+        ),
+        filter('a field without a value', ['malformed'], 'REQ.status'),
+        filter('an empty value', ['malformed'], 'REQ.status='),
+        filter('an empty trailing alternative', [
+          'malformed',
+        ], 'REQ.status=approved|'),
+        filter('an empty leading alternative', [
+          'malformed',
+        ], 'REQ.status=|approved'),
+        filter('a / path', ['malformed'], 'REQ/LNK.linkType=conflict'),
+        filter('no id', ['malformed'], '.status=x'),
+        filter('a bare ./', ['malformed'], './'),
+      ],
+    },
+  };
+}
+
+/// An older meta: none of the link annotations or keys, an annotation and a
+/// form-field key no reader knows.
+Map<String, dynamic> _olderMeta() => {
+  'metaSchemaVersion': 1,
+  'modelVersion': 1,
+  'modelVersionLabel': 'links-older-1.0',
+  'generatedAt': '2026-11-24T08:00:00.000000Z',
+  'classCount': 2,
+  'rootCount': 1,
+  'roots': [
+    {'type': 'Old', 'title': 'Old Document', 'sectionId': 'OLD'},
+  ],
+  'classes': {
+    'Old': _cls(
+      'Old',
+      'OLD',
+      [_list('entries', 'ENT-LST', 'ENT-xxx', 'OldEntry')],
+      annotations: [
+        _a('Document', {'name': 'Old Document', 'description': 'older'}),
+        _a('DetailedIn', {'target': 'Old'}),
+      ],
+    ),
+    'OldEntry': _cls(
+      'OldEntry',
+      'ENT',
+      [
+        _form('content', null, [
+          _ff('ref', 'String', {
+            'refersTo': ['ENT.@sectionId'],
+            'futureKey': {'kind': 'something'},
+          }),
+        ]),
+      ],
+      annotations: [
+        _a('FutureLink', {'place': 'ENT.ref', 'relation': 'Future.kind'}),
+      ],
+    ),
+  },
+};
+
+// ---------------------------------------------------------------------------
+// The fixture model `links.meta.json` (part-conformance, section 1)
+// ---------------------------------------------------------------------------
+
+/// The link fixture model: a Blueprint (`BLU`), two Phase 3 roots based on it
+/// (`DET`, `SCR`) and a projection root (`PRJ`), holding each construct of the
+/// link vocabulary once, in the meta shapes of part-meta.
+Map<String, dynamic> buildLinksMeta() {
+  final classes = <String, dynamic>{
+    'Blueprint': _cls(
+      'Blueprint',
+      'BLU',
+      [
+        _complex('requirements', 'Requirements'),
+        _complex('acceptance', 'Acceptance'),
+        _complex('criteriaSummary', 'CriteriaSummary'),
+        _complex('screenOverview', 'ScreenOverview'),
+        _form('focus', 'FOC', [
+          _ff('focusScreens', 'String', {
+            'refersTo': ['SCRN.@sectionId'],
+            'multiple': true,
+            'summaryOf': {
+              'detail': 'SCRN-ITEM-LST',
+              'document': 'Screens',
+              'relation': 'subset',
+              'repeats': <String, String>{},
+            },
+          }),
+        ]),
+        _list('revisions', 'REV-ITEM-LST', 'REV-xxx', 'Revision'),
+      ],
+      annotations: [
+        _a('Document', {
+          'name': 'Blueprint',
+          'description': 'The overview every other document starts from.',
+        }),
+      ],
+    ),
+    'Detail': _cls(
+      'Detail',
+      'DET',
+      [
+        _complex('requirements', 'Requirements'),
+        _complex('criteria', 'Criteria'),
+      ],
+      annotations: [
+        _a('Document', {
+          'name': 'Detail',
+          'description': 'The requirements in detail (the RSP role).',
+          'basedOn': ['Blueprint'],
+        }),
+      ],
+    ),
+    'Screens': _cls(
+      'Screens',
+      'SCR',
+      [
+        _list('screens', 'SCRN-ITEM-LST', 'SCRN-xxx', 'Screen'),
+        _complex('acceptance', 'Acceptance'),
+      ],
+      annotations: [
+        _a('Document', {
+          'name': 'Screens',
+          'description': 'The screens in detail (the XDS role).',
+          'basedOn': ['Blueprint'],
+        }),
+      ],
+    ),
+    'Projection': _cls(
+      'Projection',
+      'PRJ',
+      [_complex('requirements', 'Requirements')],
+      annotations: [
+        _a('Document', {
+          'name': 'Projection',
+          'description': 'A CodeSpecs projection, refused by the set.',
+        }),
+        _a('CodeSpecsProjection', {}),
+      ],
+    ),
+    'Requirements': _cls(
+      'Requirements',
+      'REQS',
+      [
+        _form('summary', 'REQS-SUM', [
+          _ff('total', 'int', {
+            'countOf': ['REQ'],
+          }),
+          _ff('settled', 'int', {
+            'countOf': ['REQ.status=approved|done'],
+          }),
+        ]),
+        _list('items', 'REQ-ITEM-LST', 'REQ-xxx', 'Requirement'),
+        _complex('keyRequirements', 'KeyRequirements'),
+      ],
+      annotations: [
+        _a('DetailedIn', {'target': 'Detail'}),
+        _a('SyncedWith', {
+          'document': 'Detail',
+          'detailOnly': ['REQX'],
+          'heldHere': ['REQ.owner'],
+          'relations': [
+            {'place': 'REQT.relatedScreens', 'relation': 'LinkRelation.subset'},
+          ],
+          'note': 'the requirements of the Blueprint are those of Detail',
+        }),
+      ],
+    ),
+    'KeyRequirements': _cls('KeyRequirements', 'KEYS', [
+      _list(
+        'items',
+        'KEY-ITEM-LST',
+        'KEY-xxx',
+        'KeyRequirement',
+        annotations: [
+          _a('SummaryOf', {
+            'detail': 'REQ-ITEM-LST',
+            'match': 'KEY.requirementRef',
+            'relation': 'LinkRelation.subset',
+            'repeats': {'KEY.title': 'REQ.@headline'},
+            'note': 'the key requirements are a selection of the full list',
+          }),
+        ],
+      ),
+    ]),
+    'KeyRequirement': _cls('KeyRequirement', 'KEY', [
+      _form('content', null, [
+        _ff('requirementRef', 'String', {
+          'refersTo': ['REQ.@sectionId'],
+        }),
+        _ff('title', 'String'),
+      ]),
+    ]),
+    'Requirement': _cls('Requirement', 'REQ', [
+      _form('content', null, [
+        _ff('status', 'RequirementStatus', {
+          'enumValues': ['draft', 'approved', 'done'],
+        }),
+        _ff('owner', 'String'),
+        _ff('lastVersion', 'String', {
+          'derivedFrom': {
+            'kind': 'lookup',
+            'source': 'REV',
+            'take': ['REV.version'],
+            'key': 'REV.requirementRef',
+            'by': 'REQ.@sectionId',
+            'map': <String, String>{},
+          },
+        }),
+      ]),
+      _form('details', 'REQD', [_ff('description', 'String')]),
+      _form('constraints', 'REQC', [
+        _ff('constraints', 'String'),
+        _ff('conflictsWith', 'String', {
+          'refersTo': ['REQ.@sectionId'],
+          'multiple': true,
+          'derivedFrom': {
+            'kind': 'rows',
+            'source': './LNK',
+            'where': 'LNK.linkType=conflict',
+            'take': ['LNK-REF.ref'],
+            'map': <String, String>{},
+          },
+        }),
+      ]),
+      _form('trace', 'REQT', [
+        _ff('relatedScreens', 'String', {
+          'refersTo': ['SCRN.@sectionId'],
+          'multiple': true,
+          'inverseOf': {
+            'fields': ['SCRN.relatedRequirements'],
+          },
+        }),
+      ]),
+      _form('rationale', 'REQX', [_ff('rationale', 'String')]),
+      _content(
+        'abstract',
+        'REQAB',
+        annotations: [
+          _a('DerivedFrom', {
+            'kind': 'DerivationKind.copy',
+            'source': 'REQD.description',
+            'take': <String>[],
+            'map': <String, String>{},
+          }),
+        ],
+      ),
+      _list(
+        'links',
+        'LNK-ITEM-LST',
+        'LNK-xxx',
+        'Link',
+        annotations: [
+          _a('ExtractsLinks', {
+            'from': ['REQD.description'],
+            'ref': 'LNK-REF.ref',
+            'set': {'LNK.linkType': 'namedInText'},
+            'mode': 'ExtractMode.generate',
+          }),
+          _a('ExtractsLinks', {
+            'from': ['REQC.constraints'],
+            'ref': 'LNK-REF.ref',
+            'set': {'LNK.linkType': 'constrainedBy'},
+            'mode': 'ExtractMode.warn',
+            'note': 'an id in the constraints text without its row is reported',
+          }),
+        ],
+      ),
+      _list(
+        'prerequisites',
+        'PRE-ITEM-LST',
+        'PRE-xxx',
+        'Prerequisite',
+        annotations: [
+          _a('DerivedFrom', {
+            'kind': 'DerivationKind.rows',
+            'source': './LNK',
+            'where': 'LNK.linkType=prerequisite',
+            'take': <String>[],
+            'map': {'PRE.ref': 'LNK-REF.ref'},
+          }),
+        ],
+      ),
+    ]),
+    'Link': _cls('Link', 'LNK', [
+      _form('content', null, [
+        _ff('linkType', 'LinkType', {
+          'enumValues': [
+            'prerequisite',
+            'conflict',
+            'namedInText',
+            'constrainedBy',
+          ],
+        }),
+        _ff('description', 'String'),
+      ]),
+      _form(
+        'ref',
+        'LNK-REF',
+        [
+          _ff('ref', 'String', {
+            'refersTo': ['REQ.@sectionId'],
+            'inverseOf': {
+              'fields': ['@self'],
+              'where': 'LNK.linkType=conflict',
+            },
+          }),
+        ],
+        annotations: [
+          _a('Reference', {'description': 'the requirement linked'}),
+        ],
+      ),
+    ]),
+    'Prerequisite': _cls('Prerequisite', 'PRE', [
+      _form('content', null, [
+        _ff('ref', 'String', {
+          'refersTo': ['REQ.@sectionId'],
+        }),
+      ]),
+    ]),
+    'Revision': _cls('Revision', 'REV', [
+      _form('content', null, [
+        _ff('requirementRef', 'String', {
+          'refersTo': ['REQ.@sectionId'],
+        }),
+        _ff('version', 'String'),
+      ]),
+    ]),
+    'Acceptance': _cls(
+      'Acceptance',
+      'ACC',
+      [
+        _form('content', null, [_ff('owner', 'String')]),
+        _complex('criteria', 'Criteria'),
+      ],
+      annotations: [
+        _a('DetailedIn', {'target': 'Screens'}),
+        _a('SyncedWith', {
+          'document': 'Screens',
+          'detailOnly': ['CRIT'],
+          'heldHere': <String>[],
+          'relations': <Object?>[],
+        }),
+      ],
+    ),
+    'Criteria': _cls(
+      'Criteria',
+      'CRIT',
+      [_list('items', 'CRIT-ITEM-LST', 'CRITE-xxx', 'Criterion')],
+      annotations: [
+        _a('DetailedIn', {'target': 'Detail'}),
+        _a('SyncedWith', {
+          'document': 'Detail',
+          'detailOnly': <String>[],
+          'heldHere': <String>[],
+          'relations': [
+            {
+              'place': 'CRIT-ITEM-LST',
+              'relation': 'LinkRelation.subset',
+              'where': 'CRITE.kind=functional|quality',
+            },
+          ],
+        }),
+      ],
+    ),
+    'Criterion': _cls('Criterion', 'CRITE', [
+      _form('content', null, [
+        _ff('kind', 'CriterionKind', {
+          'enumValues': ['functional', 'quality', 'legal'],
+        }),
+        _ff('text', 'String'),
+      ]),
+    ]),
+    'CriteriaSummary': _cls('CriteriaSummary', 'CSUM', [
+      _content('content', null),
+      _complex(
+        'criteria',
+        'Criteria',
+        annotations: [
+          _a('SameAs', {
+            'holder': 'ACC/CRIT',
+            'note': 'the acceptance holds the criteria; this is their copy',
+          }),
+        ],
+      ),
+    ]),
+    'ScreenOverview': _cls('ScreenOverview', 'SOV', [
+      _list(
+        'rows',
+        'OVR-ITEM-LST',
+        'OVR-xxx',
+        'OverviewRow',
+        annotations: [
+          _a('SummaryOf', {
+            'detail': 'SCRN-ITEM-LST',
+            'document': 'Screens',
+            'match': 'OVR.screenRef',
+            'relation': 'LinkRelation.equal',
+            'repeats': <String, String>{},
+          }),
+        ],
+      ),
+    ]),
+    'OverviewRow': _cls('OverviewRow', 'OVR', [
+      _form('content', null, [
+        _ff('screenRef', 'String', {
+          'refersTo': ['SCRN.@sectionId'],
+        }),
+      ]),
+    ]),
+    'Screen': _cls('Screen', 'SCRN', [
+      _form('content', null, [
+        _ff('purpose', 'String'),
+        _ff('relatedRequirements', 'String', {
+          'refersTo': ['REQ.@sectionId'],
+          'multiple': true,
+          'inverseOf': {
+            'fields': ['REQT.relatedScreens'],
+          },
+        }),
+      ]),
+    ]),
+  };
+  return {
+    'metaSchemaVersion': 1,
+    'modelVersion': 1,
+    'modelVersionLabel': 'links-1.0',
+    'generatedAt': '2026-11-24T08:00:00.000000Z',
+    'classCount': classes.length,
+    'rootCount': 4,
+    'roots': [
+      for (final r in [
+        ('Blueprint', 'BLU'),
+        ('Detail', 'DET'),
+        ('Screens', 'SCR'),
+        ('Projection', 'PRJ'),
+      ])
+        {'type': r.$1, 'title': r.$1, 'sectionId': r.$2},
+    ],
+    'classes': classes,
+  };
+}
+
+Map<String, dynamic> _a(String name, Map<String, Object?> arguments) => {
+  'name': name,
+  'arguments': arguments,
+};
+
+Map<String, dynamic> _cls(
+  String name,
+  String id,
+  List<Map<String, dynamic>> fields, {
+  List<Map<String, dynamic>> annotations = const [],
+}) => {
+  'name': name,
+  'sectionId': id,
+  'annotations': [
+    _a('SectionId', {'id': id}),
+    ...annotations,
+  ],
+  'fields': fields,
+};
+
+Map<String, dynamic> _form(
+  String name,
+  String? id,
+  List<Map<String, dynamic>> formFields, {
+  List<Map<String, dynamic>> annotations = const [],
+}) => {
+  'name': name,
+  'kind': 'form',
+  if (id != null) 'sectionId': id,
+  if (annotations.isNotEmpty) 'annotations': annotations,
+  'formFields': formFields,
+};
+
+Map<String, dynamic> _ff(
+  String name,
+  String type, [
+  Map<String, Object?> extra = const {},
+]) => {
+  'name': name,
+  'label': name[0].toUpperCase() + name.substring(1),
+  'type': type,
+  ...extra,
+};
+
+Map<String, dynamic> _content(
+  String name,
+  String? id, {
+  List<Map<String, dynamic>> annotations = const [],
+}) => {
+  'name': name,
+  'kind': 'content',
+  if (id != null) 'sectionId': id,
+  'contentType': 'markdown',
+  if (annotations.isNotEmpty) 'annotations': annotations,
+};
+
+Map<String, dynamic> _list(
+  String name,
+  String id,
+  String pattern,
+  String element, {
+  List<Map<String, dynamic>> annotations = const [],
+}) => {
+  'name': name,
+  'kind': 'list',
+  'sectionId': id,
+  'sectionIdPattern': pattern,
+  'elementType': element,
+  'elementIsComplex': true,
+  if (annotations.isNotEmpty) 'annotations': annotations,
+};
+
+Map<String, dynamic> _complex(
+  String name,
+  String type, {
+  List<Map<String, dynamic>> annotations = const [],
+}) => {
+  'name': name,
+  'kind': 'complex',
+  'type': type,
+  if (annotations.isNotEmpty) 'annotations': annotations,
+};

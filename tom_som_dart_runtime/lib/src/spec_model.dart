@@ -230,6 +230,18 @@ class FormFieldSpec {
   /// paragraph, never as a row of the form table.
   final bool multiParagraph;
 
+  /// The derivation this field's value follows (`Field.derivedFrom`,
+  /// `tom_specs_model_rules.md` §9.7), or `null` when it states none.
+  final SpecDerivation? derivedFrom;
+
+  /// The other ends of the link this reference field is one end of
+  /// (`Field.inverseOf`), or `null` when it states none.
+  final SpecInverseOf? inverseOf;
+
+  /// The detailed list this multi-valued reference field summarises
+  /// (`Field.summaryOf`), or `null` when it states none.
+  final SpecSummaryOf? summaryOf;
+
   /// Only [name], [label] and [type] are required — the three a form line
   /// cannot be written without. Everything else defaults to the "nothing was
   /// declared" state: no [hint], not [required], and empty [enumValues] /
@@ -249,6 +261,9 @@ class FormFieldSpec {
     this.rankOf,
     this.code = false,
     this.multiParagraph = false,
+    this.derivedFrom,
+    this.inverseOf,
+    this.summaryOf,
   });
 
   /// Reads one `formFields[]` entry
@@ -279,6 +294,15 @@ class FormFieldSpec {
     rankOf: j['rankOf'] as String?,
     code: j['code'] as bool? ?? false,
     multiParagraph: j['multiParagraph'] as bool? ?? false,
+    derivedFrom: j['derivedFrom'] is Map
+        ? SpecDerivation.fromArguments(_objectMap(j['derivedFrom']))
+        : null,
+    inverseOf: j['inverseOf'] is Map
+        ? SpecInverseOf.fromArguments(_objectMap(j['inverseOf']))
+        : null,
+    summaryOf: j['summaryOf'] is Map
+        ? SpecSummaryOf.fromArguments(_objectMap(j['summaryOf']))
+        : null,
   );
 }
 
@@ -381,6 +405,343 @@ String _stripEnumPrefix(String raw) {
   final dot = raw.lastIndexOf('.');
   return dot < 0 ? raw : raw.substring(dot + 1);
 }
+
+// ---------------------------------------------------------------------------
+// The link vocabulary (`tom_specs_model_rules.md` §9.7)
+// ---------------------------------------------------------------------------
+//
+// Typed readers of the link annotations, read from the lossless `annotations`
+// block (member and class annotations) or from the curated `formFields[]` keys
+// (the `Field` qualifiers). They follow [KindLink]: an enum constant is read
+// with its type prefix stripped (`LinkRelation.subset` → `subset`), a key the
+// reader does not know is ignored, and an absent key takes the annotation's
+// default — so a meta written before a key existed loads unchanged.
+
+/// The relation of the elements of a list on two sides of a link, as the
+/// annotated side reads it (`ListRelation`, `tom_specs_model_rules.md` §9.7).
+class SpecListRelation {
+  /// The list or multi-valued reference field the relation is about.
+  final String place;
+
+  /// `equal`, `subset` or `superset` (the `LinkRelation` constant name).
+  final String relation;
+
+  /// The filter selecting the elements the relation applies to, or `null`
+  /// for all of them (the [SpecPlaceFilter] grammar).
+  final String? where;
+
+  /// The three parts of a `ListRelation`.
+  const SpecListRelation({
+    required this.place,
+    required this.relation,
+    this.where,
+  });
+
+  /// Reads one `relations[]` entry of a `@SyncedWith`.
+  factory SpecListRelation.fromArguments(Map<String, Object?> a) =>
+      SpecListRelation(
+        place: a['place']?.toString() ?? '',
+        relation: _stripEnumPrefix(a['relation']?.toString() ?? 'equal'),
+        where: a['where'] as String?,
+      );
+
+  /// The canonical JSON form, keys in declaration order, null left out.
+  Map<String, Object?> toJson() => {
+    'place': place,
+    'relation': relation,
+    if (where != null) 'where': where,
+  };
+}
+
+/// `@SyncedWith(document, {detailOnly, heldHere, relations, note})`: the
+/// annotated section is kept in sync with the section of the same id in
+/// [document] (`tom_specs_model_rules.md` §9.7).
+class SpecSync {
+  /// The other document's root class name.
+  final String document;
+
+  /// The places only [document] carries.
+  final List<String> detailOnly;
+
+  /// The places whose value this document holds.
+  final List<String> heldHere;
+
+  /// The lists whose relation is not `equal`.
+  final List<SpecListRelation> relations;
+
+  /// The annotation's free-text note.
+  final String? note;
+
+  /// Constructing a sync is the statement that the annotation is present; the
+  /// lists default to empty as the annotation's do.
+  const SpecSync({
+    required this.document,
+    this.detailOnly = const [],
+    this.heldHere = const [],
+    this.relations = const [],
+    this.note,
+  });
+
+  /// Reads the sync out of [annotation].
+  factory SpecSync.fromAnnotation(SpecAnnotation annotation) {
+    final a = annotation.arguments;
+    return SpecSync(
+      document: a['document']?.toString() ?? '',
+      detailOnly: _stringList(a['detailOnly']),
+      heldHere: _stringList(a['heldHere']),
+      relations: [
+        for (final r in (a['relations'] as List?) ?? const [])
+          if (r is Map) SpecListRelation.fromArguments(_objectMap(r)),
+      ],
+      note: a['note'] as String?,
+    );
+  }
+
+  /// The canonical JSON form, keys in declaration order, null left out.
+  Map<String, Object?> toJson() => {
+    'document': document,
+    'detailOnly': detailOnly,
+    'heldHere': heldHere,
+    'relations': [for (final r in relations) r.toJson()],
+    if (note != null) 'note': note,
+  };
+}
+
+/// `@SummaryOf` on a member, or the `summaryOf:` qualifier of a form field:
+/// the annotated list or reference field summarises a detailed list (`tom_specs_model_rules.md` §9.7).
+class SpecSummaryOf {
+  /// The detailed list, `<LIST-ID>` (a `/` path where needed).
+  final String detail;
+
+  /// The root class name of the document holding [detail]; `null`: this one.
+  final String? document;
+
+  /// The summary element's field naming its detail element; `null`: the
+  /// summary element carries the detail element's own section id.
+  final String? match;
+
+  /// `equal`, `subset` (the default) or `superset`.
+  final String relation;
+
+  /// Summary place → detail place for every value the summary repeats.
+  final Map<String, String> repeats;
+
+  /// The annotation's free-text note.
+  final String? note;
+
+  /// [relation] defaults to `subset`, as the annotation's does.
+  const SpecSummaryOf({
+    required this.detail,
+    this.document,
+    this.match,
+    this.relation = 'subset',
+    this.repeats = const {},
+    this.note,
+  });
+
+  /// Reads the arguments of a `SummaryOf` (annotation or qualifier).
+  factory SpecSummaryOf.fromArguments(Map<String, Object?> a) => SpecSummaryOf(
+    detail: a['detail']?.toString() ?? '',
+    document: a['document'] as String?,
+    match: a['match'] as String?,
+    relation: _stripEnumPrefix(a['relation']?.toString() ?? 'subset'),
+    repeats: _stringMap(a['repeats']),
+    note: a['note'] as String?,
+  );
+
+  /// The canonical JSON form, keys in declaration order, null left out.
+  Map<String, Object?> toJson() => {
+    'detail': detail,
+    if (document != null) 'document': document,
+    if (match != null) 'match': match,
+    'relation': relation,
+    'repeats': repeats,
+    if (note != null) 'note': note,
+  };
+}
+
+/// `@DerivedFrom` on a member, or the `derivedFrom:` qualifier of a form
+/// field: the value is derived from other places (`tom_specs_model_rules.md` §9.7).
+class SpecDerivation {
+  /// `copy`, `rows` or `lookup` (the `DerivationKind` constant name).
+  final String kind;
+
+  /// copy: the place copied; rows / lookup: the rows read.
+  final String source;
+
+  /// rows: which rows count (the [SpecPlaceFilter] grammar).
+  final String? where;
+
+  /// rows / lookup: the row places collected.
+  final List<String> take;
+
+  /// rows / lookup: the row field compared with this element's [by].
+  final String? key;
+
+  /// rows / lookup: this element's field holding the key.
+  final String? by;
+
+  /// For a list member: target element place ← row place.
+  final Map<String, String> map;
+
+  /// The annotation's free-text note.
+  final String? note;
+
+  /// [kind] and [source] are required, the rest default as the annotation's.
+  const SpecDerivation({
+    required this.kind,
+    required this.source,
+    this.where,
+    this.take = const [],
+    this.key,
+    this.by,
+    this.map = const {},
+    this.note,
+  });
+
+  /// Reads the arguments of a `DerivedFrom` (annotation or qualifier).
+  factory SpecDerivation.fromArguments(Map<String, Object?> a) =>
+      SpecDerivation(
+        kind: _stripEnumPrefix(a['kind']?.toString() ?? 'copy'),
+        source: a['source']?.toString() ?? '',
+        where: a['where'] as String?,
+        take: _stringList(a['take']),
+        key: a['key'] as String?,
+        by: a['by'] as String?,
+        map: _stringMap(a['map']),
+        note: a['note'] as String?,
+      );
+
+  /// The canonical JSON form, keys in declaration order, null left out.
+  Map<String, Object?> toJson() => {
+    'kind': kind,
+    'source': source,
+    if (where != null) 'where': where,
+    'take': take,
+    if (key != null) 'key': key,
+    if (by != null) 'by': by,
+    'map': map,
+    if (note != null) 'note': note,
+  };
+}
+
+/// The `inverseOf:` qualifier of a reference form field: the other ends of
+/// the link (`tom_specs_model_rules.md` §9.7).
+class SpecInverseOf {
+  /// The other ends, `<FORMSECTIONID>.<field>`; `['@self']` for the
+  /// symmetric form.
+  final List<String> fields;
+
+  /// Only values (or rows) matching this filter have an inverse.
+  final String? where;
+
+  /// Both parts of an `InverseOf`.
+  const SpecInverseOf({this.fields = const [], this.where});
+
+  /// Reads the `inverseOf` key of a `formFields[]` entry.
+  factory SpecInverseOf.fromArguments(Map<String, Object?> a) => SpecInverseOf(
+    fields: _stringList(a['fields']),
+    where: a['where'] as String?,
+  );
+
+  /// Whether the link is stored on both entries in the same field
+  /// (`InverseOf.symmetric`).
+  bool get symmetric => fields.length == 1 && fields.single == '@self';
+
+  /// The canonical JSON form, null left out.
+  Map<String, Object?> toJson() => {
+    'fields': fields,
+    if (where != null) 'where': where,
+  };
+}
+
+/// `@ExtractsLinks` on a list of link rows: ids named in text get rows
+/// (`tom_specs_model_rules.md` §9.7). A member may carry it more than once.
+class SpecExtractsLinks {
+  /// The text places searched for ids.
+  final List<String> from;
+
+  /// The row's `refersTo` field receiving a found id.
+  final String ref;
+
+  /// The values every generated row gets.
+  final Map<String, String> set;
+
+  /// `generate` (the default) or `warn` (the `ExtractMode` constant name).
+  final String mode;
+
+  /// The annotation's free-text note.
+  final String? note;
+
+  /// [mode] defaults to `generate`, as the annotation's does.
+  const SpecExtractsLinks({
+    this.from = const [],
+    required this.ref,
+    this.set = const {},
+    this.mode = 'generate',
+    this.note,
+  });
+
+  /// Reads one `ExtractsLinks` annotation.
+  factory SpecExtractsLinks.fromAnnotation(SpecAnnotation annotation) {
+    final a = annotation.arguments;
+    return SpecExtractsLinks(
+      from: _stringList(a['from']),
+      ref: a['ref']?.toString() ?? '',
+      set: _stringMap(a['set']),
+      mode: _stripEnumPrefix(a['mode']?.toString() ?? 'generate'),
+      note: a['note'] as String?,
+    );
+  }
+
+  /// The canonical JSON form, keys in declaration order, null left out.
+  Map<String, Object?> toJson() => {
+    'from': from,
+    'ref': ref,
+    'set': set,
+    'mode': mode,
+    if (note != null) 'note': note,
+  };
+}
+
+/// `@SameAs({holder, note})` on a section member: the member holds a copy of
+/// the section the same document holds at another position, the holder
+/// (`tom_specs_model_rules.md` §9.7). [specSameAsBindings] finds the holder per document.
+class SpecSameAs {
+  /// The holder's section-id path, its last ids as far as needed
+  /// (`ACPLN/ACRITL`); `null`: the one other position of the class.
+  final String? holder;
+
+  /// The annotation's free-text note.
+  final String? note;
+
+  /// Both optional, as the annotation's are.
+  const SpecSameAs({this.holder, this.note});
+
+  /// Reads the copy out of [annotation].
+  factory SpecSameAs.fromAnnotation(SpecAnnotation annotation) => SpecSameAs(
+    holder: annotation.argument('holder') as String?,
+    note: annotation.argument('note') as String?,
+  );
+
+  /// The canonical JSON form, null left out.
+  Map<String, Object?> toJson() => {
+    if (holder != null) 'holder': holder,
+    if (note != null) 'note': note,
+  };
+}
+
+/// A JSON list read as strings; anything else as empty.
+List<String> _stringList(Object? raw) => raw is List
+    ? [
+        for (final e in raw)
+          if (e != null) e.toString(),
+      ]
+    : const [];
+
+/// A JSON object read with string keys; anything else as empty.
+Map<String, Object?> _objectMap(Object? raw) =>
+    raw is Map ? {for (final e in raw.entries) '${e.key}': e.value} : const {};
 
 /// The provenance recorded by `@StandardReferences(standards, connotation)`:
 /// which public standard(s) a section or field derives from, and what the
@@ -486,6 +847,39 @@ mixin AnnotatedSpecNode {
   NoArtifactLink? get noArtifact {
     final a = annotation('NoArtifact');
     return a == null ? null : NoArtifactLink.fromAnnotation(a);
+  }
+
+  /// The `@SyncedWith` sync, or `null` when this node carries none — a
+  /// `@DetailedIn` without one is "not declared yet", not "nothing shared".
+  SpecSync? get syncedWith {
+    final a = annotation('SyncedWith');
+    return a == null ? null : SpecSync.fromAnnotation(a);
+  }
+
+  /// The `@SummaryOf` link of this member, or `null` when it carries none.
+  SpecSummaryOf? get summaryOf {
+    final a = annotation('SummaryOf');
+    return a == null ? null : SpecSummaryOf.fromArguments(a.arguments);
+  }
+
+  /// The `@DerivedFrom` derivation of this member, or `null` when it carries
+  /// none.
+  SpecDerivation? get derivedFrom {
+    final a = annotation('DerivedFrom');
+    return a == null ? null : SpecDerivation.fromArguments(a.arguments);
+  }
+
+  /// Every `@ExtractsLinks` of this member, in source order; empty when it
+  /// carries none.
+  List<SpecExtractsLinks> get extractsLinks => [
+    for (final a in annotationsNamed('ExtractsLinks'))
+      SpecExtractsLinks.fromAnnotation(a),
+  ];
+
+  /// The `@SameAs` copy of this member, or `null` when it carries none.
+  SpecSameAs? get sameAs {
+    final a = annotation('SameAs');
+    return a == null ? null : SpecSameAs.fromAnnotation(a);
   }
 
   KindLink? _link(String name, String listArgument) {

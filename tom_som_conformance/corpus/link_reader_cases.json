@@ -1,0 +1,1130 @@
+{
+  "model": "links.meta.json",
+  "cases": [
+    {
+      "name": "the fixture meta read back",
+      "intent": [
+        "syncedWith",
+        "syncRelationWhere",
+        "summaryOf",
+        "summaryOfDocument",
+        "derivedFrom",
+        "extractsLinksRepeated",
+        "sameAs",
+        "formDerivedFrom",
+        "formInverseOf",
+        "formSymmetric",
+        "formSummaryOf",
+        "sameAsHolder"
+      ],
+      "model": "links.meta.json",
+      "expect": {
+        "classes": [
+          {
+            "class": "Acceptance",
+            "syncedWith": {
+              "document": "Screens",
+              "detailOnly": [
+                "CRIT"
+              ],
+              "heldHere": [],
+              "relations": []
+            }
+          },
+          {
+            "class": "Criteria",
+            "syncedWith": {
+              "document": "Detail",
+              "detailOnly": [],
+              "heldHere": [],
+              "relations": [
+                {
+                  "place": "CRIT-ITEM-LST",
+                  "relation": "subset",
+                  "where": "CRITE.kind=functional|quality"
+                }
+              ]
+            }
+          },
+          {
+            "class": "Requirements",
+            "syncedWith": {
+              "document": "Detail",
+              "detailOnly": [
+                "REQX"
+              ],
+              "heldHere": [
+                "REQ.owner"
+              ],
+              "relations": [
+                {
+                  "place": "REQT.relatedScreens",
+                  "relation": "subset"
+                }
+              ],
+              "note": "the requirements of the Blueprint are those of Detail"
+            }
+          }
+        ],
+        "fields": [
+          {
+            "class": "CriteriaSummary",
+            "field": "criteria",
+            "sameAs": {
+              "holder": "ACC/CRIT",
+              "note": "the acceptance holds the criteria; this is their copy"
+            }
+          },
+          {
+            "class": "KeyRequirements",
+            "field": "items",
+            "summaryOf": {
+              "detail": "REQ-ITEM-LST",
+              "match": "KEY.requirementRef",
+              "relation": "subset",
+              "repeats": {
+                "KEY.title": "REQ.@headline"
+              },
+              "note": "the key requirements are a selection of the full list"
+            }
+          },
+          {
+            "class": "Requirement",
+            "field": "abstract",
+            "derivedFrom": {
+              "kind": "copy",
+              "source": "REQD.description",
+              "take": [],
+              "map": {}
+            }
+          },
+          {
+            "class": "Requirement",
+            "field": "links",
+            "extractsLinks": [
+              {
+                "from": [
+                  "REQD.description"
+                ],
+                "ref": "LNK-REF.ref",
+                "set": {
+                  "LNK.linkType": "namedInText"
+                },
+                "mode": "generate"
+              },
+              {
+                "from": [
+                  "REQC.constraints"
+                ],
+                "ref": "LNK-REF.ref",
+                "set": {
+                  "LNK.linkType": "constrainedBy"
+                },
+                "mode": "warn",
+                "note": "an id in the constraints text without its row is reported"
+              }
+            ]
+          },
+          {
+            "class": "Requirement",
+            "field": "prerequisites",
+            "derivedFrom": {
+              "kind": "rows",
+              "source": "./LNK",
+              "where": "LNK.linkType=prerequisite",
+              "take": [],
+              "map": {
+                "PRE.ref": "LNK-REF.ref"
+              }
+            }
+          },
+          {
+            "class": "ScreenOverview",
+            "field": "rows",
+            "summaryOf": {
+              "detail": "SCRN-ITEM-LST",
+              "document": "Screens",
+              "match": "OVR.screenRef",
+              "relation": "equal",
+              "repeats": {}
+            }
+          }
+        ],
+        "formFields": [
+          {
+            "class": "Blueprint",
+            "field": "focus",
+            "formField": "focusScreens",
+            "summaryOf": {
+              "detail": "SCRN-ITEM-LST",
+              "document": "Screens",
+              "relation": "subset",
+              "repeats": {}
+            }
+          },
+          {
+            "class": "Link",
+            "field": "ref",
+            "formField": "ref",
+            "inverseOf": {
+              "fields": [
+                "@self"
+              ],
+              "where": "LNK.linkType=conflict"
+            }
+          },
+          {
+            "class": "Requirement",
+            "field": "content",
+            "formField": "lastVersion",
+            "derivedFrom": {
+              "kind": "lookup",
+              "source": "REV",
+              "take": [
+                "REV.version"
+              ],
+              "key": "REV.requirementRef",
+              "by": "REQ.@sectionId",
+              "map": {}
+            }
+          },
+          {
+            "class": "Requirement",
+            "field": "constraints",
+            "formField": "conflictsWith",
+            "derivedFrom": {
+              "kind": "rows",
+              "source": "./LNK",
+              "where": "LNK.linkType=conflict",
+              "take": [
+                "LNK-REF.ref"
+              ],
+              "map": {}
+            }
+          },
+          {
+            "class": "Requirement",
+            "field": "trace",
+            "formField": "relatedScreens",
+            "inverseOf": {
+              "fields": [
+                "SCRN.relatedRequirements"
+              ]
+            }
+          },
+          {
+            "class": "Screen",
+            "field": "content",
+            "formField": "relatedRequirements",
+            "inverseOf": {
+              "fields": [
+                "REQT.relatedScreens"
+              ]
+            }
+          }
+        ],
+        "sameAsBindings": [
+          {
+            "root": "Blueprint",
+            "className": "Criteria",
+            "copy": "BLU/criteriaSummary/criteria",
+            "holder": "BLU/acceptance/criteria"
+          }
+        ],
+        "classCount": 18
+      }
+    },
+    {
+      "name": "an older meta without the link keys loads unchanged",
+      "intent": [
+        "loadsUnchanged"
+      ],
+      "meta": {
+        "metaSchemaVersion": 1,
+        "modelVersion": 1,
+        "modelVersionLabel": "links-older-1.0",
+        "generatedAt": "2026-11-24T08:00:00.000000Z",
+        "classCount": 2,
+        "rootCount": 1,
+        "roots": [
+          {
+            "type": "Old",
+            "title": "Old Document",
+            "sectionId": "OLD"
+          }
+        ],
+        "classes": {
+          "Old": {
+            "name": "Old",
+            "sectionId": "OLD",
+            "annotations": [
+              {
+                "name": "SectionId",
+                "arguments": {
+                  "id": "OLD"
+                }
+              },
+              {
+                "name": "Document",
+                "arguments": {
+                  "name": "Old Document",
+                  "description": "older"
+                }
+              },
+              {
+                "name": "DetailedIn",
+                "arguments": {
+                  "target": "Old"
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "entries",
+                "kind": "list",
+                "sectionId": "ENT-LST",
+                "sectionIdPattern": "ENT-xxx",
+                "elementType": "OldEntry",
+                "elementIsComplex": true
+              }
+            ]
+          },
+          "OldEntry": {
+            "name": "OldEntry",
+            "sectionId": "ENT",
+            "annotations": [
+              {
+                "name": "SectionId",
+                "arguments": {
+                  "id": "ENT"
+                }
+              },
+              {
+                "name": "FutureLink",
+                "arguments": {
+                  "place": "ENT.ref",
+                  "relation": "Future.kind"
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "content",
+                "kind": "form",
+                "formFields": [
+                  {
+                    "name": "ref",
+                    "label": "Ref",
+                    "type": "String",
+                    "refersTo": [
+                      "ENT.@sectionId"
+                    ],
+                    "futureKey": {
+                      "kind": "something"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "expect": {
+        "classes": [],
+        "fields": [],
+        "formFields": [],
+        "sameAsBindings": [],
+        "classCount": 2
+      }
+    }
+  ],
+  "textCases": {
+    "places": [
+      {
+        "name": "a form field of a form member",
+        "intent": [
+          "formField"
+        ],
+        "text": "REQD.description",
+        "anchor": "BLU/requirements",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [],
+            "sectionId": "REQD",
+            "slot": "description"
+          },
+          "resolved": {
+            "kind": "formField",
+            "path": "BLU/requirements/REQ-ITEM-LST-*/REQD",
+            "field": "description"
+          }
+        }
+      },
+      {
+        "name": "a form field of a class's own form",
+        "intent": [
+          "formField"
+        ],
+        "text": "REQ.status",
+        "anchor": "BLU/requirements",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [],
+            "sectionId": "REQ",
+            "slot": "status"
+          },
+          "resolved": {
+            "kind": "formField",
+            "path": "BLU/requirements/REQ-ITEM-LST-*/content",
+            "field": "status"
+          }
+        }
+      },
+      {
+        "name": "a whole form member",
+        "intent": [
+          "form"
+        ],
+        "text": "REQD",
+        "anchor": "BLU/requirements",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [],
+            "sectionId": "REQD"
+          },
+          "resolved": {
+            "kind": "form",
+            "path": "BLU/requirements/REQ-ITEM-LST-*/REQD"
+          }
+        }
+      },
+      {
+        "name": "a heading",
+        "intent": [
+          "headline"
+        ],
+        "text": "REQ.@headline",
+        "anchor": "BLU/requirements",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [],
+            "sectionId": "REQ",
+            "slot": "@headline"
+          },
+          "resolved": {
+            "kind": "headline",
+            "path": "BLU/requirements/REQ-ITEM-LST-*"
+          }
+        }
+      },
+      {
+        "name": "a list",
+        "intent": [
+          "list"
+        ],
+        "text": "REQ-ITEM-LST",
+        "anchor": "BLU",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [],
+            "sectionId": "REQ-ITEM-LST"
+          },
+          "resolved": {
+            "kind": "list",
+            "path": "BLU/requirements/REQ-ITEM-LST"
+          }
+        }
+      },
+      {
+        "name": "a section",
+        "intent": [
+          "section"
+        ],
+        "text": "REQS",
+        "anchor": "BLU",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [],
+            "sectionId": "REQS"
+          },
+          "resolved": {
+            "kind": "section",
+            "path": "BLU/requirements"
+          }
+        }
+      },
+      {
+        "name": "a registry id",
+        "intent": [
+          "sectionId"
+        ],
+        "text": "REQ.@sectionId",
+        "anchor": "BLU/requirements",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [],
+            "sectionId": "REQ",
+            "slot": "@sectionId"
+          },
+          "resolved": {
+            "kind": "sectionId",
+            "path": "BLU/requirements/REQ-ITEM-LST-*"
+          }
+        }
+      },
+      {
+        "name": "a content member",
+        "intent": [
+          "content"
+        ],
+        "text": "REQAB",
+        "anchor": "BLU/requirements",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [],
+            "sectionId": "REQAB"
+          },
+          "resolved": {
+            "kind": "content",
+            "path": "BLU/requirements/REQ-ITEM-LST-*/REQAB"
+          }
+        }
+      },
+      {
+        "name": "@content of a narrative section",
+        "intent": [
+          "content"
+        ],
+        "text": "CSUM.@content",
+        "anchor": "BLU",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [],
+            "sectionId": "CSUM",
+            "slot": "@content"
+          },
+          "resolved": {
+            "kind": "content",
+            "path": "BLU/criteriaSummary/content"
+          }
+        }
+      },
+      {
+        "name": "a ./ place beneath the list element of the anchor",
+        "intent": [
+          "formField"
+        ],
+        "text": "./LNK.linkType",
+        "anchor": "BLU/requirements/REQ-ITEM-LST-1",
+        "expect": {
+          "parsed": {
+            "scoped": true,
+            "prefix": [],
+            "sectionId": "LNK",
+            "slot": "linkType"
+          },
+          "resolved": {
+            "kind": "formField",
+            "path": "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-*/content",
+            "field": "linkType"
+          }
+        }
+      },
+      {
+        "name": "a ./ place resolves beneath the nearest list element only",
+        "intent": [
+          "unresolved"
+        ],
+        "text": "./REQD.description",
+        "anchor": "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1",
+        "expect": {
+          "parsed": {
+            "scoped": true,
+            "prefix": [],
+            "sectionId": "REQD",
+            "slot": "description"
+          },
+          "problem": "unresolved"
+        }
+      },
+      {
+        "name": "a / path",
+        "intent": [
+          "formField"
+        ],
+        "text": "REQ/LNK.description",
+        "anchor": "BLU/requirements",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [
+              "REQ"
+            ],
+            "sectionId": "LNK",
+            "slot": "description"
+          },
+          "resolved": {
+            "kind": "formField",
+            "path": "BLU/requirements/REQ-ITEM-LST-*/LNK-ITEM-LST-*/content",
+            "field": "description"
+          }
+        }
+      },
+      {
+        "name": "a / path naming the copy",
+        "intent": [
+          "formField"
+        ],
+        "text": "CSUM/CRIT/CRITE.text",
+        "anchor": "BLU",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [
+              "CSUM",
+              "CRIT"
+            ],
+            "sectionId": "CRITE",
+            "slot": "text"
+          },
+          "resolved": {
+            "kind": "formField",
+            "path": "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-*/content",
+            "field": "text"
+          }
+        }
+      },
+      {
+        "name": "one id reached twice is ambiguous",
+        "intent": [
+          "ambiguous"
+        ],
+        "text": "CRITE.text",
+        "anchor": "BLU",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [],
+            "sectionId": "CRITE",
+            "slot": "text"
+          },
+          "problem": "ambiguous"
+        }
+      },
+      {
+        "name": "the same id under one of the two positions",
+        "intent": [
+          "formField"
+        ],
+        "text": "CRITE.text",
+        "anchor": "BLU/acceptance",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [],
+            "sectionId": "CRITE",
+            "slot": "text"
+          },
+          "resolved": {
+            "kind": "formField",
+            "path": "BLU/acceptance/criteria/CRIT-ITEM-LST-*/content",
+            "field": "text"
+          }
+        }
+      },
+      {
+        "name": "an id the scope does not reach",
+        "intent": [
+          "unresolved"
+        ],
+        "text": "SCRN.purpose",
+        "anchor": "BLU",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [],
+            "sectionId": "SCRN",
+            "slot": "purpose"
+          },
+          "problem": "unresolved"
+        }
+      },
+      {
+        "name": "a / path skipping a section",
+        "intent": [
+          "unresolved"
+        ],
+        "text": "REQS/LNK.description",
+        "anchor": "BLU",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [
+              "REQS"
+            ],
+            "sectionId": "LNK",
+            "slot": "description"
+          },
+          "problem": "unresolved"
+        }
+      },
+      {
+        "name": "no such form field",
+        "intent": [
+          "noSuchField"
+        ],
+        "text": "REQ.nope",
+        "anchor": "BLU/requirements",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [],
+            "sectionId": "REQ",
+            "slot": "nope"
+          },
+          "problem": "noSuchField"
+        }
+      },
+      {
+        "name": "@content of a form section",
+        "intent": [
+          "noContent"
+        ],
+        "text": "REQ.@content",
+        "anchor": "BLU/requirements",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [],
+            "sectionId": "REQ",
+            "slot": "@content"
+          },
+          "problem": "noContent"
+        }
+      },
+      {
+        "name": "@sectionId of no list element",
+        "intent": [
+          "notListElement"
+        ],
+        "text": "REQS.@sectionId",
+        "anchor": "BLU",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [],
+            "sectionId": "REQS",
+            "slot": "@sectionId"
+          },
+          "problem": "notListElement"
+        }
+      },
+      {
+        "name": "a reserved slot",
+        "intent": [
+          "reservedSlot"
+        ],
+        "text": "REQ.@title",
+        "anchor": "BLU/requirements",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [],
+            "sectionId": "REQ",
+            "slot": "@title"
+          },
+          "problem": "reservedSlot"
+        }
+      },
+      {
+        "name": "./ with no list element at or above",
+        "intent": [
+          "notScoped"
+        ],
+        "text": "./LNK",
+        "anchor": "BLU/requirements",
+        "expect": {
+          "parsed": {
+            "scoped": true,
+            "prefix": [],
+            "sectionId": "LNK"
+          },
+          "problem": "notScoped"
+        }
+      },
+      {
+        "name": "an anchor that resolves to no section",
+        "intent": [
+          "anchorUnresolved"
+        ],
+        "text": "REQ.status",
+        "anchor": "BLU/nowhere",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [],
+            "sectionId": "REQ",
+            "slot": "status"
+          },
+          "problem": "anchorUnresolved"
+        }
+      },
+      {
+        "name": "parsed only",
+        "intent": [],
+        "text": "FRE/REQDEP/RQDEP.description",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "prefix": [
+              "FRE",
+              "REQDEP"
+            ],
+            "sectionId": "RQDEP",
+            "slot": "description"
+          }
+        }
+      },
+      {
+        "name": "empty",
+        "intent": [
+          "malformed"
+        ],
+        "text": "",
+        "expect": {
+          "problem": "malformed"
+        }
+      },
+      {
+        "name": "a bare ./",
+        "intent": [
+          "malformed"
+        ],
+        "text": "./",
+        "expect": {
+          "problem": "malformed"
+        }
+      },
+      {
+        "name": "an empty slot",
+        "intent": [
+          "malformed"
+        ],
+        "text": "REQ.",
+        "expect": {
+          "problem": "malformed"
+        }
+      },
+      {
+        "name": "two dots",
+        "intent": [
+          "malformed"
+        ],
+        "text": "REQ.status.x",
+        "expect": {
+          "problem": "malformed"
+        }
+      },
+      {
+        "name": "an id starting with a hyphen",
+        "intent": [
+          "malformed"
+        ],
+        "text": "-REQ.status",
+        "expect": {
+          "problem": "malformed"
+        }
+      },
+      {
+        "name": "an empty / segment",
+        "intent": [
+          "malformed"
+        ],
+        "text": "REQ//LNK",
+        "expect": {
+          "problem": "malformed"
+        }
+      }
+    ],
+    "filters": [
+      {
+        "name": "every entry",
+        "intent": [
+          "section"
+        ],
+        "text": "REQ",
+        "anchor": "BLU",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "sectionId": "REQ"
+          },
+          "resolved": {
+            "kind": "section",
+            "path": "BLU/requirements/REQ-ITEM-LST-*"
+          }
+        }
+      },
+      {
+        "name": "a ./ entry",
+        "intent": [
+          "section"
+        ],
+        "text": "./LNK",
+        "anchor": "BLU/requirements/REQ-ITEM-LST-1",
+        "expect": {
+          "parsed": {
+            "scoped": true,
+            "sectionId": "LNK"
+          },
+          "resolved": {
+            "kind": "section",
+            "path": "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-*"
+          }
+        }
+      },
+      {
+        "name": "one value",
+        "intent": [
+          "section",
+          "matches"
+        ],
+        "text": "REQ.status=approved",
+        "anchor": "BLU/requirements",
+        "stored": [
+          "approved"
+        ],
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "sectionId": "REQ",
+            "field": "status",
+            "values": [
+              "approved"
+            ]
+          },
+          "matches": true,
+          "resolved": {
+            "kind": "section",
+            "path": "BLU/requirements/REQ-ITEM-LST-*"
+          }
+        }
+      },
+      {
+        "name": "alternatives, the stored value trimmed",
+        "intent": [
+          "matches"
+        ],
+        "text": "REQ.status=approved|done",
+        "stored": [
+          " done "
+        ],
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "sectionId": "REQ",
+            "field": "status",
+            "values": [
+              "approved",
+              "done"
+            ]
+          },
+          "matches": true
+        }
+      },
+      {
+        "name": "alternatives, none stored",
+        "intent": [
+          "noMatch"
+        ],
+        "text": "REQ.status=approved|done",
+        "stored": [
+          "draft"
+        ],
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "sectionId": "REQ",
+            "field": "status",
+            "values": [
+              "approved",
+              "done"
+            ]
+          },
+          "matches": false
+        }
+      },
+      {
+        "name": "alternatives, nothing stored",
+        "intent": [
+          "noMatch"
+        ],
+        "text": "REQ.status=approved|done",
+        "stored": [],
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "sectionId": "REQ",
+            "field": "status",
+            "values": [
+              "approved",
+              "done"
+            ]
+          },
+          "matches": false
+        }
+      },
+      {
+        "name": "without a field every entry matches",
+        "intent": [
+          "matches"
+        ],
+        "text": "REQ",
+        "stored": [],
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "sectionId": "REQ"
+          },
+          "matches": true
+        }
+      },
+      {
+        "name": "a scoped filter with alternatives",
+        "intent": [
+          "section"
+        ],
+        "text": "./LNK.linkType=conflict|namedInText",
+        "anchor": "BLU/requirements/REQ-ITEM-LST-1",
+        "expect": {
+          "parsed": {
+            "scoped": true,
+            "sectionId": "LNK",
+            "field": "linkType",
+            "values": [
+              "conflict",
+              "namedInText"
+            ]
+          },
+          "resolved": {
+            "kind": "section",
+            "path": "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-*"
+          }
+        }
+      },
+      {
+        "name": "no such form field",
+        "intent": [
+          "noSuchField"
+        ],
+        "text": "REQ.nope=x",
+        "anchor": "BLU/requirements",
+        "expect": {
+          "parsed": {
+            "scoped": false,
+            "sectionId": "REQ",
+            "field": "nope",
+            "values": [
+              "x"
+            ]
+          },
+          "problem": "noSuchField"
+        }
+      },
+      {
+        "name": "./ with no list element at or above",
+        "intent": [
+          "notScoped"
+        ],
+        "text": "./LNK",
+        "anchor": "BLU/requirements",
+        "expect": {
+          "parsed": {
+            "scoped": true,
+            "sectionId": "LNK"
+          },
+          "problem": "notScoped"
+        }
+      },
+      {
+        "name": "a field without a value",
+        "intent": [
+          "malformed"
+        ],
+        "text": "REQ.status",
+        "expect": {
+          "problem": "malformed"
+        }
+      },
+      {
+        "name": "an empty value",
+        "intent": [
+          "malformed"
+        ],
+        "text": "REQ.status=",
+        "expect": {
+          "problem": "malformed"
+        }
+      },
+      {
+        "name": "an empty trailing alternative",
+        "intent": [
+          "malformed"
+        ],
+        "text": "REQ.status=approved|",
+        "expect": {
+          "problem": "malformed"
+        }
+      },
+      {
+        "name": "an empty leading alternative",
+        "intent": [
+          "malformed"
+        ],
+        "text": "REQ.status=|approved",
+        "expect": {
+          "problem": "malformed"
+        }
+      },
+      {
+        "name": "a / path",
+        "intent": [
+          "malformed"
+        ],
+        "text": "REQ/LNK.linkType=conflict",
+        "expect": {
+          "problem": "malformed"
+        }
+      },
+      {
+        "name": "no id",
+        "intent": [
+          "malformed"
+        ],
+        "text": ".status=x",
+        "expect": {
+          "problem": "malformed"
+        }
+      },
+      {
+        "name": "a bare ./",
+        "intent": [
+          "malformed"
+        ],
+        "text": "./",
+        "expect": {
+          "problem": "malformed"
+        }
+      }
+    ]
+  }
+}
