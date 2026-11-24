@@ -1543,20 +1543,21 @@ local mode (`LAND > LAND-BUILT`, E-3); this section states what tac is to be.
 **Presence and discovery**
 
 - **CA.3** A runtime registers with its team: its id, its kind, its
-  machine, its workspace, the quests it serves (none for a runtime without a
+  machine, its workspace, the {~~quests~>quest~~} it serves (none for a runtime without a
   quest), the repositories it coordinates with the state of their clones,
   and the person it belongs to. The repositories are what the runtime says
   about itself, for the answer to who works where (`PAR > PAR-APPROACH`,
   CW.13, CW.16); they are not a list tac gives leases from (CA.42).
-  (S5 § 3.3; S1 § 7.3; PQ-23)
+  (S5 § 3.3; S1 § 7.3; PQ-23{++; CR.6++})
+  {++The Solution Blueprint settles what identifies a runtime: who generates its id and from what, and what a restarted runtime presents to find its leases (CA.8).++}
 - **CA.4** A runtime is present while it holds its connection to the
   service. The service computes presence; no tac client writes it. (S5 § 3.3,
-  § 5.2)
+  § 5.2) {++This is stated for the local backend and the tac server; who computes presence on the GitHub backend, where no service stands between the machines, is open (PQ-47).++}
 - **CA.5** A runtime keeps its current state with its registration — per
-  quest and run the process position, the number of open asks, of queue
-  items needing attention and of reviews waiting, and the state of its queue
+  {--quest and --}run the process position, the number of open asks, of queue
+  items needing attention and of reviews waiting, {~~and the state of its queue~>the run's state as CR.23 names it (which run waits or is held, for what — an ask, a lease, a secret, a time, a blocked todo — and since when; CP.23), and the executions under way~~}
   — so a tac client that connects late shows the right picture at once.
-  (S5 § 3.3)
+  (S5 § 3.3{++; PQ-24; S23: vscimpb123++})
 - **CA.6** Any team runtime can list the team runtimes with their
   presence and state. One quest may have several runtimes. (S5 § 3.3, § 5.2)
 - **CA.7** Runtimes find each other through tac and nowhere else: on one
@@ -1566,33 +1567,33 @@ local mode (`LAND > LAND-BUILT`, E-3); this section states what tac is to be.
 **Who holds a lease**
 
 - **CA.8** The runtime holds a lease, for the item it executes in one of its
-  runs; the lease names the runtime's quest, the run, the item, the machine
-  and the workspace. That identity outlives the runtime process: after a
-  restart or a window reload the new process finds its leases unchanged. The
-  word "session" is not used for this; a session is a conversation.
-  (S5 § 3.4, § 4.3; S21, TQ-3)
+  runs; the lease names {~~the runtime's quest, the run, the item, the machine
+  and the workspace~>its holder: the runtime, the quest, the run, the item, the machine and the workspace. tac keeps no record of the holder beside the lease~~}. That identity outlives the runtime process: after a
+  restart or a window reload the new process finds its leases unchanged{++, by the names on them++}.{-- The
+  word "session" is not used for this; a session is a conversation.--}
+  (S5 § 3.4, § 4.3; S21, TQ-3{++; PQ-27++})
 
 **Leases, resources and fencing tokens**
 
-- **CA.9** A lease is held on resources of two kinds, for now: a whole
+- **CA.9** A lease is held on {~~resources of two kinds, for now: a whole
   repository, and a part of a repository described by a pattern of paths
   (CA.41). The protocol as built has two more kinds, a declared
   infrastructure resource (something that is not a set of files in one
   repository, such as publishing a package) and a folder of the `_ai` state;
-  they are not used for now. (S5 § 3.5 … § 3.7; S6, part-claims; PQ-23)
+  they are not used for now.~>resources. A resource's name starts with a prefix that says its kind; for now there is one, `git:`, for a whole repository or a part of a repository described by a pattern of paths (CA.41). Further prefixes are added as further kinds of resource are needed. What the protocol as built has beyond this is listed in E-19.~~} (S5 § 3.5 … § 3.7; S6, part-claims; PQ-23{++; PQ-31++})
 - **CA.10** A repository is named by its identity at its repository server,
   never by a path on a machine, so the same repository is the same resource
   on every machine, whatever folder its clone lies in. The name is
-  `<owner>/<repository>` when the team has one repository server, and in
-  full (`github.com/<owner>/<repository>`) when it has several; a runtime
-  derives it from the clone's remote. (S5 § 3.5; S21, TQ-8)
-- **CA.11** Two resources **overlap** when they name the same repository and
+  {~~`<owner>/<repository>`~>`git:<owner>/<repository>`~~} when the team has one repository server, and in
+  full ({~~`github.com/<owner>/<repository>`~>`git:<server>/<owner>/<repository>`, for example `git:github.com/al-the-bear/tom_ai_build`~~}) when it has several; {++a part of a repository is `git:<owner>/<repository>#<pattern>`, for example `git:al-the-bear/tom_ai_build#tom_ai_runtime/**`;++} a runtime
+  derives {++the repository's ++}{~~it~>name~~} from the clone's remote. (S5 § 3.5; S21, TQ-8{++; PQ-31++}) {++The details of the grammar — a name without a prefix from existing todos, a document of a quest in a multi-quest repository, one written form for every prefixed notation of the document — are open (PQ-45).++}
+- **CA.11** Two {++`git:` ++}resources **overlap** when they name the same repository and
   one is the whole repository, or when they name parts of one repository
-  whose patterns can match the same path. A lease is **exclusive** or
+  whose patterns can match the same path{++; resources with different prefixes never overlap++}. A lease is **exclusive** or
   **shared**: tac gives no exclusive lease on a resource that overlaps a
   leased one, and no lease at all on one that overlaps an exclusively leased
   one. Resources overlap only within one team.
-  (S5 § 3.5, § 3.7; PQ-23; CA.42)
+  (S5 § 3.5, § 3.7; PQ-23; CA.42{++; PQ-31++}) {++By this rule the exclusive lease that worktree mode takes on the whole repository for the integration step (`PAR > PAR-APPROACH`, CW.5; F8) can never be given while another execution holds a shared lease on a part of it; the lease rules are open (PQ-46).++}
 - **CA.12** A **claim** is the attempt to get leases: it is answered with
   leases on all the resources it names, or with none. When one is held, the
   answer names the holders. (S5 § 4.1, § 6.2; S6,
@@ -1604,18 +1605,19 @@ local mode (`LAND > LAND-BUILT`, E-3); this section states what tac is to be.
 - **CA.14** Every lease given on a resource carries a **fencing token**, a number
   that only grows per resource. Freeing a lease raises the tokens of its
   resources. A holder whose lease was freed finds out at its next check, and
-  a write it still attempts with its old token is refused. (S5 § 3.8, § 4.2)
+  a write it still attempts with its old token is refused. (S5 § 3.8, § 4.2) {++Who checks the token at the integration step's push, which goes to a repository server that knows no token, and how that push is refused, is open (PQ-46).++}
+  {++The Solution Blueprint settles: how often a lease is renewed; how long a claim waits and whether it times out; in which order waiting claims are served, and whether an exclusive claim can starve while shared leases keep coming; what a runtime does when its lease was freed under it; and what becomes of the leases of a runtime that ends in the middle of an execution.++}
 - **CA.15** Times that decide about leases and presence are the service's
   clock, never a tac client's, so a machine with a wrong clock can neither keep
-  a lease fresh nor make one go stale. (S5 § 4.4)
+  a lease fresh nor make one go stale. (S5 § 4.4) {++Stated, like CA.4, for the local backend and the tac server; whose clock decides on the GitHub backend is open (PQ-47).++}
 - **CA.16** Resources are not declared anywhere beforehand: a part of a
   repository exists for tac from the moment it is claimed until its lease is
-  released (CA.42). The declared units and infrastructure resources of
-  the protocol as built (record names of `tac/1.0`) are not needed for that. (PQ-23)
-- **CA.17** Todo state and journals are not claimed: todo files, the files
+  released (CA.42).{-- The declared units and infrastructure resources of
+  the protocol as built (record names of `tac/1.0`) are not needed for that.--} (PQ-23{++; E-19++})
+- **CA.17** Todo state and journals are not claimed: {~~todo files, the files
   of questions, decisions and progress, the session history and the process
   state are written by many sessions at once, by design. A runtime claims an
-  `_ai` folder for a todo only when the todo names one. (S6, part-claims)
+  `_ai` folder for a todo only when the todo names one.~>the todo files, the process state and the progress file are written by many sessions at once, by design, and the per-host files — sessions, the trail, the journal of asks and answers — are each written by one host. A runtime claims a part of the `_ai` state's repository for a todo only when the todo names it among its resources (for example `git:al-the-bear/tom_agent_state#quests/ai_runtime/specification/**`); todo state and journals are never named. The files of a repository quest are named by the quest's own repository; how a document of a quest in a multi-quest repository is named is open (PQ-45).~~} (S6, part-claims{++; PQ-31; S22 § 2.2, § 3.2++})
 
 > **❓ PQ-31 (2026-11-20T15:15+01:00) — claiming a folder of the `_ai` state:** When a todo names a folder of the `_ai` state, what does its runtime claim: a part of a repository like any other, or nothing?
 >
@@ -1643,14 +1645,15 @@ local mode (`LAND > LAND-BUILT`, E-3); this section states what tac is to be.
   connected at the time and is not stored. A **command** is stored for 7
   days with a delivery state per target quest; the first runtime of that
   quest that acknowledges it takes it, with the outcome taken, refused (with
-  a reason) or filed. (S5 § 3.9, § 5.6)
+  a reason) or filed. {++Until a run there takes it, it waits at the sender and is shown there with what it waits for (`PAR > PAR-CROSS`, CW.19).++} (S5 § 3.9, § 5.6)
+  {++The Solution Blueprint settles what happens to a command nobody took within its 7 days.++}
 - **CA.20** The notifications runtimes send each other: the process position
   moved; something worth telling the user; an ask started or stopped
   waiting; a queue item needs attention; a review waits; a todo was created,
   started, completed, blocked or unblocked; a runtime came online or went
-  offline; a session started or ended; a lease is waited for or was
+  offline; {~~a session started or ended~>an execution started or ended~~}; a lease is waited for or was
   released. A released lease wakes the runtimes that wait for it. (S6,
-  part-messages)
+  part-messages{++; PQ-27++})
 
 > **❓ PQ-27 (2026-11-20T15:05+01:00) — what becomes of the "session" record of `tac/1.0`:** Does tac keep a record of its own for whoever holds leases, and what replaces the three places where the Project Idea still says "session" for it?
 >
@@ -1715,30 +1718,33 @@ local mode (`LAND > LAND-BUILT`, E-3); this section states what tac is to be.
 
   | Backend | For | What it offers |
   | --- | --- | --- |
-  | **local** | one machine and one user | everything except accounts and quotas; the service is started by the first tac client that needs it and runs once per machine and user |
-  | **GitHub** | one user's machines | leases, sessions and endpoints as refs in a coordination repository; no messages across machines — messages go through each machine's local service |
+  | **local** | one machine and one user{++; it works on that machine only++} | everything except accounts and quotas; the service is started by the first tac client that needs it and runs once per machine and user |
+  | **GitHub** | {~~one user's machines~>one user's machines, or a simple team of several members~~} | {~~leases, sessions and endpoints~>leases and endpoints~~} as refs in a coordination repository; no messages across machines — messages go through each machine's local service |
   | **tac server** | a team, or several | everything, independent of git: accounts, access keys, quotas, an administration interface |
 
-  All three are part of the first delivery. On the GitHub backend a user
+  All three are part of the first {~~delivery~>version~~}. {~~On the GitHub backend a user
   without a tac server coordinates leases across machines; messaging, documents
-  and reviews across machines need the tac server. (PQ-10)
+  and reviews across machines need the tac server.~>On the GitHub backend a team — a user's personal team across that user's machines, or a simple team of several members — shares leases and endpoints through the coordination repository.~~} (PQ-10{++; PQ-29++})
+  {++Without a tac server nothing else travels between machines: no commands between runtimes, and so no item or walk sent to a run on another machine (CW.20), no blockers or done notifications across machines (CW.21, CW.23); no ask routed to another device or to the next person in its chain (CP.17, CP.18); no todo offers (CW.26, CA.44); no messaging, documents or review exchange (`TAC > TAC-CONV`, `TAC > TAC-DOCS`, `TAC > TAC-REVIEW`); no reminders (CM.4). What else a team on the GitHub backend has, capability by capability, is open (PQ-47).++}
+  {++The GitHub backend's credential is named by a secret reference like every other (`RT > RT-SECRETS`, CS.7) and has rights on the coordination repository only, never on the whole account. A coordination repository created for a team is created private and with GitHub Actions switched off. The fleet plans its coordination repository `al-the-bear/tom_coordination` with a fine-grained token per machine, scoped to that one repository and kept in an environment variable the backend reads, which is the `env:` form of CS.7, marked as not secure (S27: al_the_bear `14_loose_wslayout-4_akto-coordination-repo-and-tokens`, planned).++}
 
 - **CA.27** The tac server is the full tac server from the start: accounts, access
   keys kept as salted hashes, quotas per account, the administration
   interface. An **account** is whoever the tac server serves, an organisation or
-  a single person (the protocol as built says "customer"); it has several
+  a single person{-- (the protocol as built says "customer")--}; it has several
   teams and many users. A small team's tac server is the same tac server with one
   account.
-  (S1 § 7.2, CQ-9; S5 § 3.1, § 3.12)
+  (S1 § 7.2, CQ-9; S5 § 3.1, § 3.12{++; E-19++})
 - **CA.28** The tac server runs long, without the idle stop of the local
   service, with the same store and configuration. Encryption in transit ends
   at a reverse proxy in front of it; the service itself stays without
-  dependencies. It answers tac clients in a browser (cross-origin requests; in a
-  browser the access key travels as the WebSocket subprotocol). (S1 § 7.10;
-  S5 § 9)
+  dependencies. It {~~answers~>can answer~~} tac clients in a browser (cross-origin requests; in a
+  browser the access key travels as the WebSocket subprotocol){++: a capability kept for services that use tac directly later (`SCO > SCO-LATER`, L-12); no application of the first version uses it, since every application reaches tac through its runtime (`TAC > TAC-PEOPLE`, CI.4)++}. (S1 § 7.10;
+  S5 § 9{++; PQ-30++})
+  {++The fleet's plan for its tac server on the always-on machine differs: a service run from that machine's clone, reachable on the VPN only (bound to its VPN address), under a system user of its own, its keys in an environment file outside the repository. The plan was written before the accounts and the relay and is rewritten against CA.27 … CA.30 (`RISK > RISK-DEPS`, R-20). A reverse proxy with certificates for HTTP and WebSocket exists on that machine. (S27: al_the_bear `14_loose_wslayout-6_akto-coordination-server-on-bigbeast`, planned; `tsmfleet3`, `tsmfleet9`, completed)++}
 - **CA.29** A quota never blocks giving something back: releasing a lease,
-  deregistering, closing a session, acknowledging a command, withdrawing an
-  endpoint, or renewing a lease already held. (S5 § 3.12)
+  deregistering, {--closing a session, --}acknowledging a command, withdrawing an
+  endpoint, or renewing a lease already held. (S5 § 3.12{++; PQ-27++})
 - **CA.30** The **relay** is part of the tac server. It carries TAC and MCP for
   machines that are not on the VPN and only forwards. A machine
   authenticates to it with a key per runtime that an owner of the team
@@ -1749,11 +1755,11 @@ local mode (`LAND > LAND-BUILT`, E-3); this section states what tac is to be.
   (S1 § 7.2; S2 § 5, FO-9; S4; PQ-9, PQ-13)
 - **CA.31** With coordination switched off (`mode: off`, the default)
   nothing is coordinated and everything works as it does without tac.
-  (S1 § 7.2; S6, IDEA-6)
+  (S1 § 7.2; S6, IDEA-6) {++What "off" switches off, while machine-wide state is routed through the local tac service (`RT > RT-MACHINE`, CR.38) and every runtime registers with it (CA.34), what the local tac service is, and whether messaging can be on while coordination is off, is open (PQ-48).++}
 - **CA.32** When the backend cannot be reached, nothing falls back on its
-  own: the queues of the team runtimes stop after their current todo, and the tac client
+  own: {~~the queues of the team runtimes stop after their current todo~>the runs of the team runtimes are held after their current item~~}, and the tac client
   recovers by itself when the backend is back. Working locally meanwhile is
-  an emergency step a user confirms twice. (S6, BP-7)
+  an emergency step a user confirms twice. (S6, BP-7) {++Whether this holds for a runtime that takes no claims, such as Webwork's own AI, is open (PQ-48).++}
 - **CA.33** A team's coordination moves from one backend to another by a
   migration that carries its token counters and undelivered commands.
   (S5 § 3.11, § 5.8)

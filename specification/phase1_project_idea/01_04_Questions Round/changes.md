@@ -608,3 +608,133 @@ None beyond S22 … S27. Cited as the other parts cite them: `(S23: <todo id>)`,
     stays until QT-19.
   - `ABOUT > ABOUT-READ`: the ranges of `CL` (to CL.12), `CU` (to CU.17) and `SC` (to SC-31).
     CL.12, CU.16 and CU.17 stand where they belong by content.
+
+## `p1s1r4-6` — `TAC-JOBS`, `TAC-COORD`, `TAC-BACKENDS`
+
+Marks written: 34 additions, 15 substitutions, 5 deletions. No new item; every change is in
+CA.3 … CA.32. Questions written: **PQ-45** (QT-8, at CA.10), **PQ-46** (QT-13, at CA.11),
+**PQ-47** (QT-5, at CA.26), **PQ-48** (QT-17, at CA.31). PQ-24 … PQ-33 are left in place.
+
+### Rows of the work list
+
+| Finding | Ruling | Done | Items changed or added |
+| --- | --- | --- | --- |
+| AN-16 | apply | applied | CA.20 ("an execution started or ended"), CA.26 GitHub row ("leases and endpoints"), CA.29 ("closing a session" removed) |
+| AN-17 | apply | applied | CA.8 (the list of what a lease names, no record of the holder, a restarted runtime finds its leases by the names on them; the sentence about the word "session" removed); CA.5 (the executions under way). X-11, CA.36, SC-28, CU.6, `GLO` holder: other parts |
+| AN-21 | ask QT-4 (`p1s1r4-7`) | text until answered | CA.30 and CA.23 unchanged; "relay" names the tac server's relay only |
+| AN-29 | apply | applied | CA.26 GitHub row "one user's machines, or a simple team of several members"; the paragraph under the table |
+| AN-30 | ask QT-5 | **PQ-47** | CA.26: the list of what does not travel without a tac server, with the pointer |
+| AN-35 | apply | applied | CA.28 ("can answer" tac clients in a browser: a capability kept for L-12, used by no application of the first version, CI.4) |
+| AN-39 | apply | applied | CA.17 as PQ-31 (a) words it, with the prefix; CA.9 (one prefix, `git:`, further prefixes added as needed; the `tac/1.0` kinds moved to E-19) |
+| AN-40 | apply | applied | CA.10 (the three forms with `git:` and both examples), CA.11 ("`git:` resources"; resources with different prefixes never overlap). CA.41, CA.42, `GLO`, D-59, D-60, X-15: other parts |
+| AN-42 | ask QT-8 | **PQ-45** | — |
+| IC-1 | ask QT-13 | **PQ-46** | CA.11: a sentence that by its rule the integration step's exclusive lease can never be given while shared leases are held, and that the lease rules are open |
+| IC-7 | ask QT-13 | **PQ-46** | CA.14: who checks the token at the push is open |
+| IC-8 | ask QT-5 | **PQ-47** | CA.4 and CA.15: stated for the local backend and the tac server |
+| IC-10 | apply | applied | CA.3 ("the quest it serves"), CA.5 ("per run") |
+| IC-15 | apply | applied | CA.8 (one list: the runtime, the quest, the run, the item, the machine, the workspace — the triage's list, without the person IC-15 also proposed) |
+| IC-16 | ask QT-17 | **PQ-48** | CA.31: the pointer |
+| GA-3 | apply | applied | CA.14: the line of what the Solution Blueprint settles about renewal, waiting claims, starvation, a lease freed under a runtime, and a runtime that ends mid-execution |
+| GA-5 | ask QT-17 | **PQ-48** | — (the question covers installation, crash, version check and the hand-over between files and service) |
+| GA-7 | apply | applied | CA.3: the line of what the Solution Blueprint settles about a runtime's identity |
+| ST-3 | apply | applied | CA.8, CA.9, CA.16, CA.27 lose their sentences on what `tac/1.0` has and refer to E-19 (written by `p1s1r4-2`); "first delivery" in CA.26 reads "first version" (ST-8's wording). The `TAC` lead-in has no history sentence left in this part |
+| ID-2 | ask QT-13 | **PQ-46** | the matrix is the recommended option |
+| ID-4 | ask QT-8 | **PQ-45** | the one written form is the recommended option |
+| ID-5 | ask QT-5 | **PQ-47** | the capability table is the recommended option |
+| A-7 | apply | applied | CA.17: never claimed are the todo files, the process state and the progress file (many writers) and the per-host files (sessions, trail, journal of asks and answers); "the files of questions, decisions" goes |
+| Q-14 | ask QT-8 | **PQ-45** | CA.17: the example stays a classic quest in the `_ai` state's repository; a repository quest's files are named by its own repository; the multi-quest case is open |
+| AB-15 | apply | applied | CA.26: the credential is a secret reference (CS.7) with rights on the coordination repository only; the fleet's plan (`al-the-bear/tom_coordination`, a fine-grained token per machine in an environment variable, the `env:` form) |
+| WW-6 | ask QT-17 | **PQ-48** | CA.31 and CA.32: pointers. Webwork's need (cached history, outbox) is recorded in `TAC > TAC-WEBWORK` by `p1s1r4-7` |
+| WW-8 | ask QT-14 (`p1s1r4-7`) | text until answered | CA.23 keeps "the endpoints it serves" |
+
+### Findings that also reach this part
+
+| Finding | Done here |
+| --- | --- |
+| AN-5 (QT-1, PQ-39) | CA.13 unchanged: leases are held for as long as the item is executed |
+| AN-6, VX-15, ID-6, VX-PQ24 | CA.5: the run's state as CR.23 names it, which run waits or is held, for what and since when (CP.23) |
+| AN-8 | CA.17's example stays a classic quest (Q-14's ruling) |
+| AN-15 | CA.25 stands; CA.28 as AN-35 |
+| AN-32 | CA.4, CA.15 (IC-8); CA.26 (AN-29); CA.32 unchanged except the wording below; CA.33, CA.34 unchanged (members and identities in a migration are part of QT-6, `p1s1r4-7`) |
+| AN-41 (QT-8) | covered by PQ-45 (point 1, names without a prefix); CA.3's repositories keep their wording |
+| IC-2 | CA.26 does not describe the integration queue per backend; PQ-47's table has a row for it (QT-13 / QT-5) |
+| IC-4, GA-14 | CA.19: the waiting at the sender in CW.19's words, and the line for a command nobody took in 7 days |
+| IC-12, GA-6, TF-6 (QT-16) | CA.6 keeps "One quest may have several runtimes" |
+| IC-18, IC-19, ID-3, GA-12, ID-8 (QT-4, QT-14) | CA.23, CA.24, CA.27, CA.28, CA.30 keep their text beyond the changes above |
+| IC-22 | CA.27 unchanged (L-11 says what is later) |
+| GA-9, AB-14 (QT-13) | covered by PQ-46: a failed integration step, and a fleet reconcile known to tac |
+| GA-18 | nothing in this part |
+| GA-19, ST-7, ST-15, ST-16 (QT-21) | nothing changed; the structure is `p1s1r4-11`'s |
+| ST-8 | CA.26 "first version" |
+| ST-9, AN-18 (QT-19) | nothing changed |
+| VX-14 | nothing in CA.20 (the notification classes are CP.4's) |
+| A-3, A-6 | CA.17 names the per-host files and the journal of asks and answers |
+| Q-12 | CA.26: a coordination repository is created private, with GitHub Actions switched off |
+| AB-16 | CA.28: the fleet's plan for its tac server where it differs (VPN only, from a clone, own system user, keys in an environment file), rewritten against CA.27 … CA.30; R-20 is `p1s1r4-10`'s |
+| AB-17 | nothing in this part beyond CA.32's wording; the risk is `p1s1r4-10`'s |
+| WW-7 (QT-15) | CA.5 unchanged beyond the run state |
+| TF-3 | nothing in this part |
+
+### Done otherwise than the row says
+
+- **CA.32** was not in the work list: on the read-through its subject "the queues … stop" broke
+  triage § 1.1 (the subject of a waiting rule is the run; a run whose next item is not executed
+  "is held"). It reads "the runs of the team runtimes are held after their current item".
+- **IC-15:** the triage's list of what a lease names is used, without the person that IC-15 also
+  proposed; CA.3 registers the person with the runtime, so the lease reaches it through the
+  runtime.
+- **PQ-46** includes GA-9 and AB-14 (QT-13's other findings, both from `p1s1r4-8`'s rows), so that
+  the lease rules are settled by one answer.
+
+### Obligations changed
+
+- CA.3: a runtime registers one quest (or none), not several (IC-10; CR.6).
+- CA.5: the state is reported per run, as CR.23's states, with what a run waits for and since
+  when (PQ-24 (b)).
+- CA.8: tac keeps no record of the holder beside the lease; a restarted runtime finds its leases by
+  the names on them (PQ-27 (a)).
+- CA.9, CA.10, CA.11: resource names carry the prefix `git:`; resources with different prefixes
+  never overlap (PQ-31).
+- CA.17: what is never claimed is the todo files, the process state, the progress file and the
+  per-host files; a part of the `_ai` state's repository is claimed only when the todo names it
+  (PQ-31 (a); S22 § 2.2).
+- CA.20: the notification is "an execution started or ended" (PQ-27 (a)).
+- CA.26: the GitHub backend serves simple teams of several members besides the personal team; the
+  local backend works on one machine only; the GitHub backend's credential is a secret reference
+  with rights on the coordination repository only; a coordination repository is created private
+  with Actions off (PQ-29; AB-15; Q-12).
+- CA.28: answering tac clients in a browser is a capability no application of the first version
+  uses (PQ-30).
+- CA.29: "closing a session" is no longer among what a quota never blocks (PQ-27 (a)).
+- CA.32: the runs are held, not the queues stopped (PQ-24 (b), triage § 1.1).
+
+### Sources needed
+
+None new. Cited: S22 (§ 2.2, § 3.2), S23 (`vscimpb123`), S27 (al_the_bear
+`14_loose_wslayout-4_akto-coordination-repo-and-tokens`, `14_loose_wslayout-6_akto-coordination-server-on-bigbeast`;
+`tsmfleet3`, `tsmfleet9`), all in `SRC`.
+
+### For other parts
+
+- **`p1s1r4-2`**: E-3 keeps its parenthesis (it describes what is built, AN-17); CA.8, CA.9,
+  CA.16 and CA.27 now refer to E-19.
+- **`p1s1r4-3`**: CR.35 (a quest's list of resources) writes names with `git:` (AN-40, PQ-31);
+  CR.38 is quoted in PQ-48 (what "coordination off" means).
+- **`p1s1r4-7`**
+  - CA.36: `tac/2.0` has no record for the holder of leases (AN-17, PQ-27 (a)).
+  - CA.39: the personal team is the local backend's and the single-member case of the GitHub
+    backend, which also serves simple teams of several members (AN-32).
+  - CA.41 and CA.42: the names and examples with `git:` (`git:al-the-bear/tom_ai_build`,
+    `git:al-the-bear/tom_ai_build#tom_ai_runtime/**`); overlap among `git:` names only (AN-40).
+  - QT-6 (members and owners on the GitHub backend) can refer to PQ-47 for what such a team has.
+- **`p1s1r4-8`**: CW.5, CW.6 and F8's lease are quoted in PQ-46; CW.7 and CW.24 write resource
+  names with `git:`; PQ-46 includes GA-9 and AB-14.
+- **`p1s1r4-9`**: T1 is quoted in PQ-48; T4 gets the variant "a team on the GitHub backend" with
+  what PQ-47 leaves open; N-12 follows CA.32's wording ("the runs are held"); N-26 follows CA.28
+  (a capability no application of the first version uses).
+- **`p1s1r4-10`**: X-11 reads "for leases and endpoints" and follows AN-29 (the GitHub backend
+  serves teams of several members); D-47 follows AN-29; X-15 says "one prefix for now"; D-59 and
+  D-60 write resource names with `git:`; R-20 can cite CA.28 for the fleet's tac server plan.
+- **`p1s1r4-11`**: `GLO` holder adds the quest, the machine and the workspace (IC-15); `GLO`
+  resource, resource name and overlap carry the `git:` prefix and "resources with different
+  prefixes never overlap"; the terminology document (S21) the same.
