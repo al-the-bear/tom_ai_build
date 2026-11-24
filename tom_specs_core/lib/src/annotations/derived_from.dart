@@ -49,12 +49,14 @@ class DerivedFrom {
   /// collected.
   final List<String> take;
 
-  /// [DerivationKind.lookup]: the row field compared with [by]; null with
-  /// [by] null: every row matches, so the last row is read.
+  /// [DerivationKind.rows] and [DerivationKind.lookup]: the row field
+  /// compared with [by]; only the rows whose [key] equals this element's [by]
+  /// count. Null with [by] null: every row counts (a lookup then reads the
+  /// last row).
   final String? key;
 
-  /// [DerivationKind.lookup]: the field of this element holding the key; null
-  /// with [key] null.
+  /// [DerivationKind.rows] and [DerivationKind.lookup]: the field of this
+  /// element holding the key; null with [key] null.
   final String? by;
 
   /// For a list member: target element place ← row place.
@@ -74,15 +76,27 @@ class DerivedFrom {
 
   /// The value collects the places [take] from the rows of [source] that match
   /// [where]; on a list member, [map] builds one element per row.
+  ///
+  /// With [key] and [by] (both or neither), only the rows whose field [key]
+  /// equals this element's field [by] count: the rows of one list shared by
+  /// all elements that belong to this element (a feature's dependencies):
+  ///
+  /// ```dart
+  /// Field('dependsOnFeatures', String, 'Depends on Features',
+  ///     refersTo: ['FPE.@sectionId'], multiple: true,
+  ///     derivedFrom: DerivedFrom.rows('FDE',
+  ///         key: 'FDE.sourceFeatureId', by: 'FPE.@sectionId',
+  ///         take: ['FDE.targetFeatureId']))
+  /// ```
   const DerivedFrom.rows(
     this.source, {
     this.where,
+    this.key,
+    this.by,
     this.take = const [],
     this.map = const {},
     this.note,
-  }) : kind = DerivationKind.rows,
-       key = null,
-       by = null;
+  }) : kind = DerivationKind.rows;
 
   /// The value is read from the row of [source] whose field [key] equals this
   /// element's field [by]: the places [take] of that row. When several rows

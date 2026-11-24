@@ -1196,14 +1196,18 @@ class LinkInvariants {
           reads.add(r);
         }
       }
-      if (kind == 'lookup') {
+      // rows and lookup alike: key and by select the rows of this element.
+      {
         final k = args['key'], by = args['by'];
         final kr = k is String ? _resolveIn(k, rowScope) : null;
         final br = by is String ? _resolveIn(by, ownerScope) : null;
         if (kr == null && br == null) {
           // Neither: every row matches, the last row is read.
         } else if (kr == null || br == null) {
-          fail('lookup names a key and a by, or neither (the last row)');
+          fail(
+            '$kind names a key and a by, or neither'
+            '${kind == 'lookup' ? ' (the last row)' : ' (every row)'}',
+          );
         } else if (!kr.ok) {
           fail('key "$k" ${kr.problem}');
         } else if (!br.ok) {

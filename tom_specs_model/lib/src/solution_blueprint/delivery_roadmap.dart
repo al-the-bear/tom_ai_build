@@ -203,6 +203,7 @@ class SystemStagePlan extends DocSpecsSection {
 )
 @SectionId('STAGST')
 @DetailedIn(D11DeliveryRoadmap)
+@SyncedWith(D11DeliveryRoadmap)
 @FollowUpKind(
   [
     FollowUpProcess.mig,
@@ -865,6 +866,7 @@ class StagingDependencies extends DocSpecsSection {
 )
 @SectionId('STAGOV')
 @DetailedIn(D11DeliveryRoadmap)
+@SyncedWith(D11DeliveryRoadmap)
 @FollowUpKind(
   [
     FollowUpProcess.mig,
@@ -1520,6 +1522,24 @@ class StageOverview extends DocSpecsSection {
   @SectionIdPattern('STAGSE-STAG-xxx')
   @Min(1)
   @ContentHelp('Add one entry per stage summary.')
+  @SummaryOf(
+    'STAGE-STAG-LST',
+    match: 'STAGSE.stageRef',
+    relation: LinkRelation.equal,
+    repeats: {
+      'STAGSE.stageNumber': 'STAGE.stageNumber',
+      'STAGSE.scopeSummary': 'STSC.scopeSummary',
+      'STSUID.stageCodename': 'STID.stageCodename',
+      'STSUTI.plannedStartDate': 'STTI.plannedStartDate',
+      'STSUTI.plannedEndDate': 'STTI.plannedEndDate',
+      'STSUSC.featureCount': 'STSC.featureCount',
+      'STSUSC.storyPointEstimate': 'STSC.storyPointEstimate',
+      'STSUST.currentStatus': 'STAGE.currentStatus',
+    },
+    note:
+        'one summary row per stage; the row repeats the values its stage '
+        'holds, which the stage holds',
+  )
   @SerializationOrder(12)
   List<StageSummaryEntry> stageSummaries = [];
 
@@ -1583,6 +1603,15 @@ class StageOverview extends DocSpecsSection {
 @SectionId('STAGSE')
 class StageSummaryEntry extends DocSpecsSection {
   @Form([
+    Field(
+      'stageRef',
+      String,
+      'Stage',
+      hint:
+          'The stage this row summarizes — a stage section id (STAGE-STAG-…); '
+          'the values the row repeats are the stage\'s',
+      refersTo: ['STAGE.@sectionId'],
+    ),
     Field(
       'stageNumber',
       String,
@@ -1741,7 +1770,9 @@ class StageSummaryEntry extends DocSpecsSection {
       'currentStatus',
       String,
       'Current Status',
-      hint: 'NotStarted / InPlanning / InProgress / Completed',
+      hint:
+          'The stage\'s current status, repeated from it: Planned / Active / '
+          'Completed / OnHold / Cancelled',
     ),
     Field(
       'percentComplete',
@@ -1866,6 +1897,7 @@ class StageSummaryDependencies extends DocSpecsSection {
       'reached here directly by a detail-document path',
 )
 @DetailedIn(D11DeliveryRoadmap)
+@SyncedWith(D11DeliveryRoadmap)
 class StageEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -2689,6 +2721,7 @@ class StageSuccessCriterionEntry extends DocSpecsSection {
 )
 @SectionId('FEPR')
 @DetailedIn(D11DeliveryRoadmap)
+@SyncedWith(D11DeliveryRoadmap)
 @FollowUpKind(
   [
     FollowUpProcess.mig,
@@ -3294,6 +3327,12 @@ class FeatureStageMatrix extends DocSpecsSection {
   @SectionId('FSM-ITEM-LST')
   @SectionIdPattern('FSM-ITEM-xxx')
   @ContentHelp('Add one entry per feature-stage mapping.')
+  @SummaryOf(
+    'FPE-ITEM-LST',
+    match: 'FSM.featureId',
+    relation: LinkRelation.equal,
+    note: 'the matrix maps every feature of the priority register',
+  )
   @SerializationOrder(2)
   List<FeatureStageMapping> items = [];
 }
@@ -3327,14 +3366,16 @@ class FeatureStageMapping extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
-  /// Stage assignment details.
+  /// The phase within its stage the feature is delivered in. The stage
+  /// itself is the feature's (`FESTAS.targetStage`), reached through
+  /// [content]'s `featureId`; the matrix does not restate it.
   @SectionId('FSMA')
   @StandardReferences(
     [
       'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing',
       'ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management',
     ],
-    'Captures the target stage, stage phase, and fallback stage assigned to a feature.',
+    'Captures the phase within its stage a feature is delivered in; the stage itself is held by the feature.',
   )
   @Form([
     Field(
@@ -3842,20 +3883,37 @@ class FeaturePriorityEntry extends DocSpecsSection {
       String,
       'Depends on Features',
       hint:
-          'Features this requires — feature section ids (FPE-ITEM-…), '
-          'comma-separated',
+          'Derived from the feature dependency rows (FDE) whose source is '
+          'this feature: the features it requires; edit the rows, not this '
+          'field. Each names this feature back in its blocksFeatures.',
       refersTo: ['FPE.@sectionId'],
       multiple: true,
+      derivedFrom: DerivedFrom.rows(
+        'FDE',
+        key: 'FDE.sourceFeatureId',
+        by: 'FPE.@sectionId',
+        take: ['FDE.targetFeatureId'],
+      ),
+      inverseOf: InverseOf(['FEDEIN.blocksFeatures']),
     ),
     Field(
       'blocksFeatures',
       String,
       'Blocks Features',
       hint:
-          'Features blocked until this completes — feature section ids '
-          '(FPE-ITEM-…), comma-separated',
+          'Derived from the feature dependency rows (FDE) whose target is '
+          'this feature: the features blocked until it completes; edit the '
+          'rows, not this field. Each names this feature back in its '
+          'dependsOnFeatures.',
       refersTo: ['FPE.@sectionId'],
       multiple: true,
+      derivedFrom: DerivedFrom.rows(
+        'FDE',
+        key: 'FDE.targetFeatureId',
+        by: 'FPE.@sectionId',
+        take: ['FDE.sourceFeatureId'],
+      ),
+      inverseOf: InverseOf(['FEDEIN.dependsOnFeatures']),
     ),
     Field(
       'externalDependencies',
@@ -4066,7 +4124,9 @@ class FeatureStakeholders extends DocSpecsSection {
 /// 13.4.4. Feature Dependencies.
 ///
 /// Cross-feature dependencies affecting staging order, critical path
-/// analysis, and delivery sequencing.
+/// analysis, and delivery sequencing. The rows are the holder of every
+/// feature dependency: each feature's `FEDEIN.dependsOnFeatures` and
+/// `blocksFeatures` are derived from them.
 @StandardReferences(
   [
     'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management',
@@ -4266,6 +4326,7 @@ class FeatureDependencyEntry extends DocSpecsSection {
 )
 @SectionId('DAMIST')
 @DetailedIn(D11DeliveryRoadmap)
+@SyncedWith(D11DeliveryRoadmap)
 @FollowUpKind(
   [
     FollowUpProcess.mig,
@@ -6416,6 +6477,7 @@ class StageGovernance extends DocSpecsSection {
 )
 @SectionId('PHGARE')
 @DetailedIn(D11DeliveryRoadmap)
+@SyncedWith(D11DeliveryRoadmap)
 @FollowUpKind(
   [
     FollowUpProcess.mig,
@@ -6996,6 +7058,7 @@ class ReviewCriterionEntry extends DocSpecsSection {
 )
 @SectionId('DEPO')
 @DetailedIn(D11DeliveryRoadmap)
+@SyncedWith(D11DeliveryRoadmap)
 @FollowUpKind(
   [
     FollowUpProcess.mig,
@@ -7588,6 +7651,7 @@ class DecisionOptionEntry extends DocSpecsSection {
 )
 @SectionId('INDEFL')
 @DetailedIn(D11DeliveryRoadmap)
+@SyncedWith(D11DeliveryRoadmap)
 @FollowUpKind(
   [
     FollowUpProcess.mig,
@@ -7635,6 +7699,7 @@ dependencies, parallel work streams, and synchronization points.
 )
 @SectionId('UPCYFR')
 @DetailedIn(D11DeliveryRoadmap)
+@SyncedWith(D11DeliveryRoadmap)
 @FollowUpKind(
   [
     FollowUpProcess.mig,

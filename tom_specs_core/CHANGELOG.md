@@ -9,7 +9,8 @@
   `ExtractMode`. `Field` gains the qualifiers `derivedFrom`, `inverseOf` and
   `summaryOf`. `DerivedFrom.lookup` takes `key` and `by` both or neither;
   without them the value is read from the last row (the header from the newest
-  revision entry).
+  revision entry). `DerivedFrom.rows` takes `key` and `by` too: only the rows
+  whose `key` equals this element's `by` count.
 - `countOf`'s filter grammar documents `|` alternatives; the runtimes do not
   split them in `countOf` yet.
 

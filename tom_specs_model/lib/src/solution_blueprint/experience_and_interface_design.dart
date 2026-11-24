@@ -14858,6 +14858,7 @@ class LocaleHandlingRequirements extends DocSpecsSection {
 @SectionId('LOPR')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
+@SyncedWith(D12TransitionRolloutPlan)
 @FollowUpKind(
   [
     FollowUpProcess.mig,
@@ -15044,6 +15045,7 @@ class LocalizationProcess extends DocSpecsSection {
 @SectionId('TRPR')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
+@SyncedWith(D12TransitionRolloutPlan)
 @FollowUpKind(
   [
     FollowUpProcess.mig,
@@ -15307,6 +15309,7 @@ class TranslationVendorEntry extends DocSpecsSection {
 @SectionId('DOANTR')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
+@SyncedWith(D12TransitionRolloutPlan)
 @FollowUpKind(
   [FollowUpProcess.l10n, FollowUpProcess.doc, FollowUpProcess.trn],
   note:
@@ -15455,6 +15458,7 @@ class UserDocumentationRequirements extends DocSpecsSection {
 @SectionId('TRMAT')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
+@SyncedWith(D12TransitionRolloutPlan)
 @FollowUpKind(
   [FollowUpProcess.l10n, FollowUpProcess.doc, FollowUpProcess.trn],
   note:

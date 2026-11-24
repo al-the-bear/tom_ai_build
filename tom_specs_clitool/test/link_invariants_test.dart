@@ -699,6 +699,50 @@ void main() {
     });
   });
 
+  group('DERIVE-SOURCE, the rows of this element', () {
+    test('rows with key and by: the rows naming this element', () {
+      final found = _findings(
+        _model(
+          reqForm: [
+            _text(
+              'keyTitles',
+              derivedFrom: {
+                'kind': 'rows',
+                'source': 'KREQ',
+                'key': 'KREQ.reqRef',
+                'by': 'FRE.@sectionId',
+                'take': ['KREQ.title'],
+              },
+            ),
+          ],
+        ),
+        'DERIVE-SOURCE',
+      );
+      expect(found, isEmpty, reason: found.join('\n'));
+    });
+
+    test('rows naming a by without a key is an error', () {
+      final found = _findings(
+        _model(
+          reqForm: [
+            _text(
+              'keyTitles',
+              derivedFrom: {
+                'kind': 'rows',
+                'source': 'KREQ',
+                'by': 'FRE.@sectionId',
+                'take': ['KREQ.title'],
+              },
+            ),
+          ],
+        ),
+        'DERIVE-SOURCE',
+      );
+      expect(found, hasLength(1), reason: found.join('\n'));
+      expect(found.single, contains('rows names a key and a by, or neither'));
+    });
+  });
+
   group('INVERSE-PAIR, entries above the form', () {
     test('a link form on a section below its entry pairs with the entry; a '
         'symmetric link row names the entry holding its list', () {

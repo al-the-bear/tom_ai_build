@@ -1734,8 +1734,10 @@ annotations are written into the meta like `@CodeSpecKind`
   class.
 - **`@DerivedFrom`** — the value is derived, in one of three shapes
   (`DerivationKind`): `copy(source)` (another place's value); `rows(source,
-  {where, take, map})` (the places `take` of the rows of `source` matching
-  `where`; on a list member `map` builds one element per row); `lookup(source,
+  {where, key, by, take, map})` (the places `take` of the rows of `source`
+  matching `where` and, with `key` and `by`, whose field `key` equals this
+  element's `by` — the rows of a list shared by all elements that belong to
+  this one; on a list member `map` builds one element per row); `lookup(source,
   {key, by, take})` (the places `take` of the row whose field `key` equals
   this element's `by`; when several rows match, the last in list order wins;
   without `key` and `by` every row matches, so the last row is read).
@@ -1984,10 +1986,10 @@ The 132 pairs, by document and by their place in the Blueprint:
 | `DOANTR` | UserDocumentationRequirements | TRP | `requirements/requirementsFollowUp/informationForUse/userDocumentation` | — |
 | `TRMAT` | TrainingDeliverableRequirements | TRP | `requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables` | — |
 
-**The pairs written so far.** A pair whose `@SyncedWith` is not written yet
-carries what the `@DetailedIn` level implies, and the validator warns once for
-it (invariant `SHARED-COVER`). The 104 pairs of the CLA, the TOM, the IFM, the
-ISC, the ATS, the IIS, the SAS, the XDS and the QAP carry a plain `@SyncedWith(<Document>)`: no
+**The pairs written.** Every pair carries its `@SyncedWith` (a pair without
+one would carry what the `@DetailedIn` level implies, and the validator warns
+once for it, invariant `SHARED-COVER`). The 126 pairs outside the requirements
+carry a plain `@SyncedWith(<Document>)`: no
 `detailOnly`, nothing held in the Blueprint, every list `equal` (an element the
 Blueprint lacks is backfilled); a prose-only pair shares its `@content`.
 The six requirement pairs of the RSP (`FR`,

@@ -119,14 +119,15 @@ unpublished_drift:
     is a place of its class (its target still not walked), INVERSE-PAIR takes
     the list element above a form as its entry, a lookup without key and by
     reads the last row; SHARED-COVER warns on the 126 pairs left. 03_sau5:
-    SHARED-ONE-HOLDER reads places as instances (DIR-4).
+    SHARED-ONE-HOLDER reads places as instances (DIR-4). 03_sau7: rows takes
+    key and by like lookup (DIR-7).
   tom_specs_core: >-
     section automation in progress — 02_sau2 (2026-11-23): the link
     annotations (SyncedWith, ListRelation, SummaryOf, DerivedFrom, InverseOf,
     ExtractsLinks, their enums) and the Field qualifiers derivedFrom,
     inverseOf and summaryOf; no model class uses them yet. 03_sau1:
     DerivedFrom.lookup takes key and by both or neither (neither: the last
-    row).
+    row). 03_sau7: DerivedFrom.rows takes key and by too.
   tom_som_dart_runtime: >-
     section automation in progress — 02_sau4 (2026-11-23): the link
     annotations in kRenderedAnnotations, linkChips in fieldChips, the four in
@@ -155,7 +156,10 @@ unpublished_drift:
     03_sau5: on the 13 XDS pairs, the route map's @SummaryOf (S7) and the
     inverse SCECL.routePattern / SCRTEN.screenId (I4); 03_sau6: on the 19 QAP
     pairs and the inverse DACET.testScenarioRef / TESCTR.acceptanceCriterionRef
-    (I2); not regenerated until 03_sau11.
+    (I2); 03_sau7: on the 22 DRM and TRP pairs, the stage summary (S4, the new
+    member STAGSE.stageRef), the feature-stage matrix (S6), the feature
+    dependencies derived from their rows (D7) and I3; not regenerated until
+    03_sau11.
 
 published_from:
   tom_specs_core: {version: '0.5.2', commit: '0f5d4c23'}

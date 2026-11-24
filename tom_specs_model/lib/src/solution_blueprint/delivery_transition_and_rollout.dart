@@ -71,6 +71,7 @@ class DeliveryTransitionAndRollout extends DocSpecsSection {
 @SectionId('LOCRP')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
+@SyncedWith(D12TransitionRolloutPlan)
 @FollowUpKind(
   [
     FollowUpProcess.mig,

@@ -97,6 +97,7 @@ localization, translation, and documentation subtrees.
 )
 @SectionId('RLTPLN')
 @DetailedIn(D12TransitionRolloutPlan)
+@SyncedWith(D12TransitionRolloutPlan)
 @FollowUpKind(
   [
     FollowUpProcess.mig,
@@ -149,6 +150,7 @@ pre-go-live to production.
 )
 @SectionId('MIGPLN')
 @DetailedIn(D12TransitionRolloutPlan)
+@SyncedWith(D12TransitionRolloutPlan)
 @FollowUpKind(
   [
     FollowUpProcess.mig,
@@ -201,6 +203,7 @@ mapping. Focuses on the execution plan.
 )
 @SectionId('USRMAN')
 @DetailedIn(D12TransitionRolloutPlan)
+@SyncedWith(D12TransitionRolloutPlan)
 @FollowUpKind(
   [
     FollowUpProcess.mig,
@@ -254,6 +257,7 @@ the help-concept section).
 )
 @SectionId('RLTTM')
 @DetailedIn(D12TransitionRolloutPlan)
+@SyncedWith(D12TransitionRolloutPlan)
 @FollowUpKind(
   [
     FollowUpProcess.mig,
@@ -300,6 +304,7 @@ captures the catalog of training modules.
 )
 @SectionId('PLTPLN')
 @DetailedIn(D12TransitionRolloutPlan)
+@SyncedWith(D12TransitionRolloutPlan)
 @FollowUpKind(
   [
     FollowUpProcess.mig,
@@ -347,6 +352,7 @@ success is measured, and the decision gate that authorizes rollout.
 )
 @SectionId('CUTPRC')
 @DetailedIn(D12TransitionRolloutPlan)
+@SyncedWith(D12TransitionRolloutPlan)
 @FollowUpKind(
   [
     FollowUpProcess.mig,
@@ -395,6 +401,7 @@ waves — and than the Migration Plan — which covers data execution.
 )
 @SectionId('KNTFR')
 @DetailedIn(D12TransitionRolloutPlan)
+@SyncedWith(D12TransitionRolloutPlan)
 @FollowUpKind(
   [
     FollowUpProcess.mig,
@@ -440,6 +447,7 @@ Formal handover of system knowledge to operations and support teams.
 )
 @SectionId('WRTSP')
 @DetailedIn(D12TransitionRolloutPlan)
+@SyncedWith(D12TransitionRolloutPlan)
 @FollowUpKind(
   [
     FollowUpProcess.mig,
