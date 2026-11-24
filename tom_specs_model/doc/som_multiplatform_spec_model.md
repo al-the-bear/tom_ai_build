@@ -756,8 +756,8 @@ by path:
 | `danglingPath` | 1 | a set path that resolves to no model node |
 | `kindMismatch` | 1 | a value stored at a node whose kind cannot hold one |
 | `unknownFormField` | 2 | a form sub-key naming no field of that form |
-| `valueTypeMismatch` | 1, 2 | a typed field (`int`, `double`, `num`, `bool`) — a scalar leaf or a form field — holding text its type cannot read; a `countOf`, `productOf` or `rankOf` field is left to its own check |
-| `enumValueUnknown` | 2 | a form field whose model type is an enum holding a token the enum does not declare |
+| `valueTypeMismatch` | 1, 2 | a typed field (`int`, `double`, `num`, `bool`) — a scalar leaf or a form field — holding text its type cannot read; a `countOf`, `productOf` or `rankOf` field is left to its own check. A typed value holding inline marks is read as its old value (§11.9.3), here and in every check of a typed value |
+| `enumValueUnknown` | 2 | a form field whose model type is an enum holding a token the enum does not declare (a marked value read as its old value) |
 | `missingRequiredField` | 2 | a form the document holds — a class-level form or a form declared on a section member, in a list item or not — that leaves a `required` field empty; an absent form is absence and is not reported |
 | `minItems` | 3 | a populated list below its `@Min` item count |
 | `oneOfCaseMismatch` | 4 | a populated `@Case` subsection the chosen `@OneOf` discriminator does not select, or two selected-and-populated subsections in one container |
@@ -2070,6 +2070,36 @@ its closing one in the same paragraph is a finding. Marks may stand anywhere in
 prose: in narrative text, in a form's preamble, inside a form field's value,
 and inside annotation blocks. In a field value they are part of the value.
 
+**Typed values and headlines.** Two kinds of value that are not prose take
+marks too: a **typed value** — an enum, `int`, `double`, `num` or `bool`, in a
+form field or a scalar leaf — and a section's stored **headline**. They are
+how a change to a status, a count or a title is put up for review
+(`deriveFields` writes them in a document under review; `backfill` writes no
+marks).
+
+- **Read as the old value.** Until its marks are decided, a typed value reads
+  as its old value, every mark rejected: the typed accessors and the instance
+  tier (§9) see that value, never the markup. `{~~ high ~> low ~~}` in an enum
+  field reads as `high`; `{~~ 8 ~> 13 ~~}` in an `int` reads as `8`, and
+  `{++ 5 ++}` where the value was empty reads as no value. A new value its
+  type cannot read, or an enum name the enum does not declare, is therefore
+  reported (`valueTypeMismatch`, `enumValueUnknown`) only once it is
+  accepted.
+- **Decided like text.** Accepting writes the new value, rejecting restores
+  the old one; the decisions, the listing and accept all / reject all treat a
+  typed value like any other.
+- **Written like text.** `setMarked` and `markAgainst` write a typed value as
+  marks like text; a value that is one token becomes one substitution
+  (`{~~ 2.5 ~> 3.75 ~~}`), or an insertion where it was empty.
+- **Headlines.** In the review operations a headline is the value of the
+  reserved field `@headline` of its section's path, as the place grammar
+  names it (`tom_specs_model_rules.md` §9.7): `setMarked(path, '@headline',
+  text)` marks it, and the listing reports its marks with `field: @headline`.
+  A headline is one line: it takes inline marks only, and a comment or question
+  block written into it is refused. A headline is a value of the listing, the
+  decisions and the revision only while it holds an inline mark, so a
+  document without marked headlines keeps the revision it had.
+
 **Comments on changes.** A comment about a change has to stay understandable
 after the change is decided, so it carries the change with it. A **change
 comment** is a comment mark whose text starts with a **quote** of the change:
@@ -2269,7 +2299,8 @@ Mark ids are stable for one **revision**: FNV-1a 64-bit over the UTF-8 of
 every value in document order (path, NUL, field or empty, NUL, text, NUL),
 written as 16 hex digits. Any change to a value changes it. A decision call
 carries the revision its ids came from and is refused when the document has
-changed since. Cases: `corpus/inline_mark_cases.json`.
+changed since. Cases: `corpus/inline_mark_cases.json`; the typed values and
+headlines in its `typedCases` and in those of `corpus/change_mark_cases.json`.
 
 #### 11.9.4 Placement
 
@@ -2334,7 +2365,8 @@ Two choices of the API are part of the contract:
   line within its value, because the nine runtimes count characters in
   different units.
 - **Document order is fixed.** Values are visited as content paths sorted,
-  then form paths sorted with their field names sorted.
+  then form paths sorted with their field names sorted, then the headlines
+  holding an inline mark, by path (§11.9.3).
 
 **Annotation API (annot2):**
 

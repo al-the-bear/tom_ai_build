@@ -2378,6 +2378,12 @@ String _markReplacement(_Mark m, bool accept) => switch (m.kind) {
   SpecMarkKind.comment => '',
 };
 
+/// The reserved field name under which a headline is a value of the review
+/// operations ([SpecReviewAnnotations.setMarked], the mark listing, the
+/// decisions): a headline takes inline marks (SOM §11.9.3), named as the place
+/// grammar names it (`<SECTIONID>.@headline`).
+const String kSpecHeadlineField = '@headline';
+
 /// [value] with every inline mark accepted ([accept]) or rejected, and every
 /// highlight and comment mark removed, by the rules of SOM §11.9.3. Marks in
 /// code and malformed marks stay as written.
@@ -2827,7 +2833,11 @@ class SpecReviewAnnotations {
       ? normalizeReviewTime(at)
       : (clock?.call() ?? systemReviewTime());
 
-  /// Every value as (path, field or null, text), in document order.
+  /// Every value as (path, field or null, text), in document order: content,
+  /// form fields, then the headlines that hold an inline mark, under the
+  /// reserved field [kSpecHeadlineField] (SOM §11.9.3). A headline without a
+  /// mark is no value here, so a document's revision is what it was before
+  /// headlines could be marked.
   List<(String, String?, String)> _values() {
     final out = <(String, String?, String)>[];
     for (final path in doc.contentPaths.toList()..sort()) {
@@ -2838,17 +2848,39 @@ class SpecReviewAnnotations {
         out.add((path, f, doc.formField(path, f) ?? ''));
       }
     }
+    for (final path in doc.headlinePaths.toList()..sort()) {
+      final text = doc.headline(path) ?? '';
+      if (text.contains('{') && _parse(text).marks.isNotEmpty) {
+        out.add((path, kSpecHeadlineField, text));
+      }
+    }
     return out;
   }
 
   String _get(String path, String? field) =>
-      (field == null ? doc.content(path) : doc.formField(path, field)) ?? '';
+      (field == kSpecHeadlineField
+          ? doc.headline(path)
+          : field == null
+          ? doc.content(path)
+          : doc.formField(path, field)) ??
+      '';
 
   void _set(String path, String? field, String value) {
-    if (field == null) {
+    if (field == kSpecHeadlineField) {
+      doc.setHeadline(path, value);
+    } else if (field == null) {
       doc.setContent(path, value);
     } else {
       doc.setFormField(path, field, value);
+    }
+  }
+
+  /// A headline is one line: it takes inline marks, never a block.
+  void _refuseBlockIn(String? field) {
+    if (field == kSpecHeadlineField) {
+      throw SpecReviewAnnotationError(
+        'a headline takes inline marks only, not a comment or question block',
+      );
     }
   }
 
@@ -2954,6 +2986,7 @@ class SpecReviewAnnotations {
   }) {
     final time = _time(at);
     final cid = id ?? nextCommentId();
+    _refuseBlockIn(field);
     final value = _get(path, field);
     final end = _paragraphLastLine(value, afterParagraph);
     _set(
@@ -2984,6 +3017,7 @@ class SpecReviewAnnotations {
     String? at,
   }) {
     final time = _time(at);
+    _refuseBlockIn(field);
     final value = _get(path, field);
     final end = _paragraphLastLine(value, afterParagraph);
     _set(

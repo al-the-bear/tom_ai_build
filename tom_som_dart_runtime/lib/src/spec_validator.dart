@@ -289,7 +289,7 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
         continue;
       }
       if (spec.enumValues.isEmpty) {
-        final text = doc.formField(path, name);
+        final text = _typedValue(doc.formField(path, name), spec);
         // A stated count (`countOf`) is checked by `countMismatch`, which
         // already reports text that is no whole number; one finding is enough.
         if (spec.countOf.isEmpty &&
@@ -308,7 +308,7 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
         }
         continue;
       }
-      final value = doc.formField(path, name);
+      final value = _typedValue(doc.formField(path, name), spec);
       // Absence is not a bad value: an empty field is what every other tier
       // reads as "not set", and reporting it here would make a half-filled
       // document unloadable rather than incomplete.
@@ -336,7 +336,7 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
         : '$owner.${res.field!.name}';
     for (final ff in res.field!.formFields) {
       if (!ff.required) continue;
-      final value = doc.formField(path, ff.name)?.trim();
+      final value = _typedValue(doc.formField(path, ff.name), ff)?.trim();
       if (value == null || value.isEmpty) {
         errors.add(
           SpecValidationError(
@@ -482,9 +482,9 @@ List<SpecValidationError> _validateOneOfInstances(
       }
     }
     if (formHolder == null) continue; // static tier flagged the mismatch
-    final chosen = doc.formField(
-      '$path/${refl.fieldSegment(formHolder)}',
-      discriminator,
+    // The discriminator is an enum: under review it reads as its old value.
+    final chosen = somTypedReading(
+      doc.formField('$path/${refl.fieldSegment(formHolder)}', discriminator),
     );
     if (chosen == null || chosen.isEmpty) continue; // no case chosen yet
 
@@ -727,7 +727,7 @@ List<SpecValidationError> _validateCountInstances(
     final res = refl.resolve(path);
     if (res == null || res.field == null) continue;
     for (final ff in res.field!.formFields) {
-      final v = doc.formField(path, ff.name)?.trim();
+      final v = _typedValue(doc.formField(path, ff.name), ff)?.trim();
       if (v == null || v.isEmpty) continue;
       ((valuesByItem[owner] ??= {})[ff.name] ??= {}).add(v);
     }
@@ -753,7 +753,7 @@ List<SpecValidationError> _validateCountInstances(
   for (final form in forms) {
     for (final ff in form.field.formFields) {
       if (ff.countOf.isEmpty) continue;
-      final stated = doc.formField(form.path, ff.name)?.trim();
+      final stated = _typedValue(doc.formField(form.path, ff.name), ff)?.trim();
       if (stated == null || stated.isEmpty) continue;
       // A target that is no filter, or whose entries the root cannot reach,
       // makes the count undecidable here: skipped, never reported.
@@ -831,7 +831,7 @@ List<SpecValidationError> _validateDerivedValues(
   // The number a filled form field contributes, or null when it is empty or
   // unreadable.
   double? numberOf(String formPath, FormFieldSpec spec) {
-    final v = doc.formField(formPath, spec.name)?.trim();
+    final v = _typedValue(doc.formField(formPath, spec.name), spec)?.trim();
     if (v == null || v.isEmpty) return null;
     if (spec.enumValues.isNotEmpty) {
       final i = spec.enumValues.indexOf(v);
@@ -860,7 +860,10 @@ List<SpecValidationError> _validateDerivedValues(
     final owner = form.path.substring(0, form.path.lastIndexOf('/'));
     for (final ff in form.field.formFields) {
       if (ff.productOf.isNotEmpty) {
-        final stated = doc.formField(form.path, ff.name)?.trim();
+        final stated = _typedValue(
+          doc.formField(form.path, ff.name),
+          ff,
+        )?.trim();
         if (stated != null && stated.isNotEmpty) {
           double? product = 1;
           for (final operand in ff.productOf) {
@@ -908,7 +911,10 @@ List<SpecValidationError> _validateDerivedValues(
       }
       final by = ff.rankOf;
       if (by != null) {
-        final stated = doc.formField(form.path, ff.name)?.trim();
+        final stated = _typedValue(
+          doc.formField(form.path, ff.name),
+          ff,
+        )?.trim();
         final scoreSpec = specAt(form.path, by);
         final score = scoreSpec == null ? null : numberOf(form.path, scoreSpec);
         if (stated != null && stated.isNotEmpty && score != null) {
@@ -1247,3 +1253,9 @@ SpecValidationError _dangling(String path) => SpecValidationError(
   code: SpecValidationCode.danglingPath,
   message: 'path does not resolve to any model node',
 );
+
+/// A form field's value as the instance tier reads it: a typed value (an
+/// enum, `int`, `double`, `num`, `bool`) holding inline marks reads as its old
+/// value (SOM §11.9.3); any other value as stored.
+String? _typedValue(String? raw, FormFieldSpec spec) =>
+    somIsTypedField(spec.type, spec.enumValues) ? somTypedReading(raw) : raw;

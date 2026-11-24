@@ -2327,5 +2327,486 @@
         }
       }
     }
+  ],
+  "typedCases": [
+    {
+      "name": "an enum value under review reads as its old value until accepted",
+      "state": {
+        "forms": {
+          "DEMO/DET": {
+            "priority": "{~~ high ~> low ~~}",
+            "owner": "Bob"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "typedRead",
+          "path": "DEMO/DET",
+          "field": "priority"
+        },
+        {
+          "op": "validate"
+        },
+        {
+          "op": "listMarks"
+        },
+        {
+          "op": "acceptAll"
+        },
+        {
+          "op": "typedRead",
+          "path": "DEMO/DET",
+          "field": "priority"
+        }
+      ],
+      "expect": {
+        "results": [
+          "high",
+          [],
+          [
+            {
+              "id": "M-1",
+              "path": "DEMO/DET",
+              "field": "priority",
+              "line": 0,
+              "markKind": "substitution",
+              "oldText": "high",
+              "newText": "low",
+              "comment": null,
+              "markup": "{~~ high ~> low ~~}",
+              "context": "{~~ high ~> low ~~}"
+            }
+          ],
+          {
+            "applied": [
+              {
+                "id": "M-1",
+                "path": "DEMO/DET",
+                "field": "priority",
+                "line": 0,
+                "markKind": "substitution",
+                "decision": "accept",
+                "markup": "{~~ high ~> low ~~}",
+                "result": "low"
+              }
+            ],
+            "malformed": []
+          },
+          "low"
+        ],
+        "state": {
+          "forms": {
+            "DEMO/DET": {
+              "owner": "Bob",
+              "priority": "low"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "an int value under review, rejected",
+      "state": {
+        "forms": {
+          "DEMO/DET": {
+            "estimate": "{~~ 8 ~> 13 ~~}",
+            "owner": "Bob"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "typedRead",
+          "path": "DEMO/DET",
+          "field": "estimate"
+        },
+        {
+          "op": "rejectAll"
+        },
+        {
+          "op": "typedRead",
+          "path": "DEMO/DET",
+          "field": "estimate"
+        }
+      ],
+      "expect": {
+        "results": [
+          8,
+          {
+            "applied": [
+              {
+                "id": "M-1",
+                "path": "DEMO/DET",
+                "field": "estimate",
+                "line": 0,
+                "markKind": "substitution",
+                "decision": "reject",
+                "markup": "{~~ 8 ~> 13 ~~}",
+                "result": "8"
+              }
+            ],
+            "malformed": []
+          },
+          8
+        ],
+        "state": {
+          "forms": {
+            "DEMO/DET": {
+              "estimate": "8",
+              "owner": "Bob"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "a double value under review, decided by id",
+      "state": {
+        "forms": {
+          "DEMO/DET": {
+            "weight": "{~~ 2.5 ~> 3.75 ~~}",
+            "owner": "Bob"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "typedRead",
+          "path": "DEMO/DET",
+          "field": "weight"
+        },
+        {
+          "op": "decideMarks",
+          "decisions": {
+            "M-1": "accept"
+          },
+          "revision": "@current"
+        },
+        {
+          "op": "typedRead",
+          "path": "DEMO/DET",
+          "field": "weight"
+        }
+      ],
+      "expect": {
+        "results": [
+          2.5,
+          {
+            "applied": [
+              {
+                "id": "M-1",
+                "path": "DEMO/DET",
+                "field": "weight",
+                "line": 0,
+                "markKind": "substitution",
+                "decision": "accept",
+                "markup": "{~~ 2.5 ~> 3.75 ~~}",
+                "result": "3.75"
+              }
+            ],
+            "malformed": []
+          },
+          3.75
+        ],
+        "state": {
+          "forms": {
+            "DEMO/DET": {
+              "owner": "Bob",
+              "weight": "3.75"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "an int scalar under review reads as its old value",
+      "state": {
+        "content": {
+          "DEMO/CNT": "{~~ 3 ~> 4 ~~}"
+        }
+      },
+      "ops": [
+        {
+          "op": "typedRead",
+          "path": "DEMO/CNT"
+        },
+        {
+          "op": "validate"
+        }
+      ],
+      "expect": {
+        "results": [
+          3,
+          []
+        ],
+        "state": {
+          "content": {
+            "DEMO/CNT": "{~~ 3 ~> 4 ~~}"
+          }
+        }
+      }
+    },
+    {
+      "name": "a change to an unreadable int is found only once accepted",
+      "state": {
+        "forms": {
+          "DEMO/DET": {
+            "estimate": "{~~ 8 ~> lots ~~}",
+            "owner": "Bob"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "validate"
+        },
+        {
+          "op": "acceptAll"
+        },
+        {
+          "op": "validate"
+        }
+      ],
+      "expect": {
+        "results": [
+          [],
+          {
+            "applied": [
+              {
+                "id": "M-1",
+                "path": "DEMO/DET",
+                "field": "estimate",
+                "line": 0,
+                "markKind": "substitution",
+                "decision": "accept",
+                "markup": "{~~ 8 ~> lots ~~}",
+                "result": "lots"
+              }
+            ],
+            "malformed": []
+          },
+          [
+            {
+              "path": "DEMO/DET",
+              "code": "valueTypeMismatch"
+            }
+          ]
+        ],
+        "state": {
+          "forms": {
+            "DEMO/DET": {
+              "estimate": "lots",
+              "owner": "Bob"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "a change to an undeclared enum name is found only once accepted",
+      "state": {
+        "forms": {
+          "DEMO/DET": {
+            "priority": "{~~ high ~> urgent ~~}",
+            "owner": "Bob"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "validate"
+        },
+        {
+          "op": "acceptAll"
+        },
+        {
+          "op": "validate"
+        }
+      ],
+      "expect": {
+        "results": [
+          [],
+          {
+            "applied": [
+              {
+                "id": "M-1",
+                "path": "DEMO/DET",
+                "field": "priority",
+                "line": 0,
+                "markKind": "substitution",
+                "decision": "accept",
+                "markup": "{~~ high ~> urgent ~~}",
+                "result": "urgent"
+              }
+            ],
+            "malformed": []
+          },
+          [
+            {
+              "path": "DEMO/DET",
+              "code": "enumValueUnknown"
+            }
+          ]
+        ],
+        "state": {
+          "forms": {
+            "DEMO/DET": {
+              "owner": "Bob",
+              "priority": "urgent"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "a headline under review: listed, part of the revision, round-tripped, accepted",
+      "state": {
+        "content": {
+          "DEMO/SUM": "The summary."
+        },
+        "headlines": {
+          "DEMO/SUM": "Executive {~~ Summary ~> Overview ~~}"
+        }
+      },
+      "ops": [
+        {
+          "op": "listMarks"
+        },
+        {
+          "op": "revision"
+        },
+        {
+          "op": "roundTrip"
+        },
+        {
+          "op": "acceptAll"
+        },
+        {
+          "op": "listMarks"
+        }
+      ],
+      "expect": {
+        "results": [
+          [
+            {
+              "id": "M-1",
+              "path": "DEMO/SUM",
+              "field": "@headline",
+              "line": 0,
+              "markKind": "substitution",
+              "oldText": "Summary",
+              "newText": "Overview",
+              "comment": null,
+              "markup": "{~~ Summary ~> Overview ~~}",
+              "context": "Executive {~~ Summary ~> Overview ~~}"
+            }
+          ],
+          "d3daf11ca5e284f5",
+          {
+            "yaml": true,
+            "markdown": true
+          },
+          {
+            "applied": [
+              {
+                "id": "M-1",
+                "path": "DEMO/SUM",
+                "field": "@headline",
+                "line": 0,
+                "markKind": "substitution",
+                "decision": "accept",
+                "markup": "{~~ Summary ~> Overview ~~}",
+                "result": "Overview"
+              }
+            ],
+            "malformed": []
+          },
+          []
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "The summary."
+          },
+          "headlines": {
+            "DEMO/SUM": "Executive Overview"
+          }
+        }
+      }
+    },
+    {
+      "name": "a headline without marks is no review value",
+      "state": {
+        "headlines": {
+          "DEMO/SUM": "Executive Summary"
+        }
+      },
+      "ops": [
+        {
+          "op": "listMarks"
+        },
+        {
+          "op": "revision"
+        }
+      ],
+      "expect": {
+        "results": [
+          [],
+          "cbf29ce484222325"
+        ],
+        "state": {
+          "headlines": {
+            "DEMO/SUM": "Executive Summary"
+          }
+        }
+      }
+    },
+    {
+      "name": "a headline takes no comment block",
+      "state": {
+        "headlines": {
+          "DEMO/SUM": "Executive {++ Board ++} Summary"
+        }
+      },
+      "ops": [
+        {
+          "op": "insertComment",
+          "path": "DEMO/SUM",
+          "field": "@headline",
+          "afterParagraph": 0,
+          "text": "why?"
+        },
+        {
+          "op": "rejectAll"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "error": true
+          },
+          {
+            "applied": [
+              {
+                "id": "M-1",
+                "path": "DEMO/SUM",
+                "field": "@headline",
+                "line": 0,
+                "markKind": "insertion",
+                "decision": "reject",
+                "markup": "{++ Board ++}",
+                "result": ""
+              }
+            ],
+            "malformed": []
+          }
+        ],
+        "state": {
+          "headlines": {
+            "DEMO/SUM": "Executive Summary"
+          }
+        }
+      }
+    }
   ]
 }

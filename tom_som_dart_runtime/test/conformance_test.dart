@@ -1292,6 +1292,15 @@ void main() {
         }
       });
     }
+    for (final c
+        in (table['typedCases'] as List).cast<Map<String, dynamic>>()) {
+      test('typed change: ${c['name']}', () {
+        expect(
+          jsonDecode(jsonEncode(_runAnnotationCase(model, tree, c))),
+          c['expect'],
+        );
+      });
+    }
     for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
       test('change: ${c['name']}', () {
         expect(
@@ -1368,6 +1377,15 @@ void main() {
         expect(decideAllMarksText(text, accept: true), c['accept']);
         expect(decideAllMarksText(text, accept: false), c['reject']);
         expect(applyInlineMarksText(text, accept: true), c['removed']);
+      });
+    }
+    for (final c
+        in (table['typedCases'] as List).cast<Map<String, dynamic>>()) {
+      test('typed marks: ${c['name']}', () {
+        expect(
+          jsonDecode(jsonEncode(_runAnnotationCase(model, tree, c))),
+          c['expect'],
+        );
       });
     }
     for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
@@ -10125,6 +10143,14 @@ Map<String, Object?> _runAnnotationCase(
                     jsonEncode(doc.toJson()),
           };
         }(),
+        // The instance tier's findings as `{path, code}`: a marked typed
+        // value is read as its old value (SOM §11.9.3).
+        'validate' => [
+          for (final e in validateDocument(model, doc))
+            {'path': e.path, 'code': e.code.name},
+        ],
+        // The typed reading of one value, as the typed accessors read it.
+        'typedRead' => _typedRead(model, doc, op),
         final other => throw StateError('unknown annotation op $other'),
       });
     } on SpecReviewAnnotationError {
@@ -10132,6 +10158,29 @@ Map<String, Object?> _runAnnotationCase(
     }
   }
   return {'results': results, 'state': doc.toJson()};
+}
+
+/// The typed reading of the value at `path` / `field`: an enum by its name,
+/// `int`, `double`, `num` and `bool` as numbers and booleans, null when the
+/// text reads as nothing — with any inline mark rejected (its old value).
+Object? _typedRead(SpecModel model, SpecDocument doc, Map<String, dynamic> op) {
+  final path = op['path'] as String;
+  final field = op['field'] as String?;
+  final res = SpecReflection(model).resolve(path);
+  final spec = field == null
+      ? null
+      : res?.field?.formFields.where((f) => f.name == field).firstOrNull;
+  final raw = field == null ? doc.content(path) : doc.formField(path, field);
+  final type = somScalarBase(spec?.type ?? res?.field?.type);
+  final values = spec?.enumValues ?? res?.field?.enumValues ?? const [];
+  if (values.isNotEmpty) return somParseEnumName(raw, values);
+  return switch (type) {
+    'int' => somParseInt(raw),
+    'double' => somParseDouble(raw),
+    'num' => somParseNum(raw),
+    'bool' => somParseBool(raw),
+    _ => somTypedReading(raw),
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -10532,10 +10581,144 @@ Map<String, dynamic> _inlineMarkCases(SpecModel model, SomMetaTree tree) {
   for (final c in cases) {
     c['expect'] = _runAnnotationCase(model, tree, c);
   }
+  // Typed values and headlines under review (SOM §11.9.3): a marked typed
+  // value reads as its old value — to the typed accessors and to the
+  // instance tier — until it is accepted. Read only by the runtimes that
+  // carry the typed marks.
+  final typedCases = <Map<String, dynamic>>[
+    {
+      'name':
+          'an enum value under review reads as its old value until accepted',
+      'state': {
+        'forms': {
+          'DEMO/DET': {'priority': '{~~ high ~> low ~~}', 'owner': 'Bob'},
+        },
+      },
+      'ops': [
+        {'op': 'typedRead', 'path': 'DEMO/DET', 'field': 'priority'},
+        {'op': 'validate'},
+        {'op': 'listMarks'},
+        {'op': 'acceptAll'},
+        {'op': 'typedRead', 'path': 'DEMO/DET', 'field': 'priority'},
+      ],
+    },
+    {
+      'name': 'an int value under review, rejected',
+      'state': {
+        'forms': {
+          'DEMO/DET': {'estimate': '{~~ 8 ~> 13 ~~}', 'owner': 'Bob'},
+        },
+      },
+      'ops': [
+        {'op': 'typedRead', 'path': 'DEMO/DET', 'field': 'estimate'},
+        {'op': 'rejectAll'},
+        {'op': 'typedRead', 'path': 'DEMO/DET', 'field': 'estimate'},
+      ],
+    },
+    {
+      'name': 'a double value under review, decided by id',
+      'state': {
+        'forms': {
+          'DEMO/DET': {'weight': '{~~ 2.5 ~> 3.75 ~~}', 'owner': 'Bob'},
+        },
+      },
+      'ops': [
+        {'op': 'typedRead', 'path': 'DEMO/DET', 'field': 'weight'},
+        {
+          'op': 'decideMarks',
+          'decisions': {'M-1': 'accept'},
+          'revision': '@current',
+        },
+        {'op': 'typedRead', 'path': 'DEMO/DET', 'field': 'weight'},
+      ],
+    },
+    {
+      'name': 'an int scalar under review reads as its old value',
+      'state': {
+        'content': {'DEMO/CNT': '{~~ 3 ~> 4 ~~}'},
+      },
+      'ops': [
+        {'op': 'typedRead', 'path': 'DEMO/CNT'},
+        {'op': 'validate'},
+      ],
+    },
+    {
+      'name': 'a change to an unreadable int is found only once accepted',
+      'state': {
+        'forms': {
+          'DEMO/DET': {'estimate': '{~~ 8 ~> lots ~~}', 'owner': 'Bob'},
+        },
+      },
+      'ops': [
+        {'op': 'validate'},
+        {'op': 'acceptAll'},
+        {'op': 'validate'},
+      ],
+    },
+    {
+      'name': 'a change to an undeclared enum name is found only once accepted',
+      'state': {
+        'forms': {
+          'DEMO/DET': {'priority': '{~~ high ~> urgent ~~}', 'owner': 'Bob'},
+        },
+      },
+      'ops': [
+        {'op': 'validate'},
+        {'op': 'acceptAll'},
+        {'op': 'validate'},
+      ],
+    },
+    {
+      'name':
+          'a headline under review: listed, part of the revision, '
+          'round-tripped, accepted',
+      'state': {
+        'content': {'DEMO/SUM': 'The summary.'},
+        'headlines': {'DEMO/SUM': 'Executive {~~ Summary ~> Overview ~~}'},
+      },
+      'ops': [
+        {'op': 'listMarks'},
+        {'op': 'revision'},
+        {'op': 'roundTrip'},
+        {'op': 'acceptAll'},
+        {'op': 'listMarks'},
+      ],
+    },
+    {
+      'name': 'a headline without marks is no review value',
+      'state': {
+        'headlines': {'DEMO/SUM': 'Executive Summary'},
+      },
+      'ops': [
+        {'op': 'listMarks'},
+        {'op': 'revision'},
+      ],
+    },
+    {
+      'name': 'a headline takes no comment block',
+      'state': {
+        'headlines': {'DEMO/SUM': 'Executive {++ Board ++} Summary'},
+      },
+      'ops': [
+        {
+          'op': 'insertComment',
+          'path': 'DEMO/SUM',
+          'field': kSpecHeadlineField,
+          'afterParagraph': 0,
+          'text': 'why?',
+        },
+        {'op': 'rejectAll'},
+      ],
+    },
+  ];
+  for (final c in typedCases) {
+    c['expect'] = _runAnnotationCase(model, tree, c);
+  }
   return {
     'textCases': textCases,
     'changeCommentTextCases': changeCommentTextCases,
     'cases': cases,
+    'typedCases': typedCases,
   };
 }
 
@@ -10693,7 +10876,109 @@ Map<String, dynamic> _changeMarkCases(SpecModel model, SomMetaTree tree) {
   for (final c in cases) {
     c['expect'] = _runAnnotationCase(model, tree, c);
   }
-  return {'textCases': textCases, 'cases': cases};
+  // Typed values and headlines (SOM §11.9.3): written as marks like text, a
+  // typed value as one whole-value change. Read only by the runtimes that
+  // carry the typed marks (the other eight take them on with their port of
+  // the section automation surface).
+  final typed = <String, Object?>{
+    'forms': {
+      'DEMO/DET': {'estimate': '8', 'weight': '2.5', 'priority': 'high'},
+    },
+    'headlines': {'DEMO/SUM': 'Executive Summary'},
+  };
+  final typedCases = <Map<String, dynamic>>[
+    {
+      'name': 'an enum value marked: one substitution',
+      'state': typed,
+      'ops': [
+        {
+          'op': 'setMarked',
+          'path': 'DEMO/DET',
+          'field': 'priority',
+          'text': 'low',
+        },
+        {'op': 'listMarks'},
+      ],
+    },
+    {
+      'name': 'an int value marked, and marked again from its original',
+      'state': typed,
+      'ops': [
+        {
+          'op': 'setMarked',
+          'path': 'DEMO/DET',
+          'field': 'estimate',
+          'text': '13',
+        },
+        {
+          'op': 'setMarked',
+          'path': 'DEMO/DET',
+          'field': 'estimate',
+          'text': '21',
+        },
+      ],
+    },
+    {
+      'name': 'a double value marked',
+      'state': typed,
+      'ops': [
+        {
+          'op': 'setMarked',
+          'path': 'DEMO/DET',
+          'field': 'weight',
+          'text': '3.75',
+        },
+      ],
+    },
+    {
+      'name': 'a typed value set where none was: an insertion',
+      'state': {
+        'forms': {
+          'DEMO/DET': {'owner': 'Bob'},
+        },
+      },
+      'ops': [
+        {
+          'op': 'setMarked',
+          'path': 'DEMO/DET',
+          'field': 'estimate',
+          'text': '5',
+        },
+        {'op': 'rejectAll'},
+      ],
+    },
+    {
+      'name': 'a headline marked, listed under @headline',
+      'state': typed,
+      'ops': [
+        {
+          'op': 'setMarked',
+          'path': 'DEMO/SUM',
+          'field': kSpecHeadlineField,
+          'text': 'Management Summary',
+          'author': 'alexis',
+        },
+        {'op': 'listMarks'},
+      ],
+    },
+    {
+      'name': 'a headline marked against an earlier version',
+      'state': typed,
+      'ops': [
+        {
+          'op': 'markAgainst',
+          'path': 'DEMO/SUM',
+          'field': kSpecHeadlineField,
+          'earlier': 'Summary',
+        },
+        {'op': 'rejectAll'},
+      ],
+    },
+  ];
+  for (final c in typedCases) {
+    c['expect'] = _runAnnotationCase(model, tree, c);
+  }
+  return {'textCases': textCases, 'cases': cases, 'typedCases': typedCases};
 }
 
 // ---------------------------------------------------------------------------

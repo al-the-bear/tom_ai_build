@@ -841,7 +841,13 @@ The files are written by the Dart runtime's
 carries a hand-written `intent` the test checks, and the expectations were read
 by hand when the table landed. The other eight runners do not read these
 tables yet: each takes them on with its port todo of the section automation
-idea.
+idea. The same holds for the `typedCases` of
+[`corpus/inline_mark_cases.json`](corpus/inline_mark_cases.json) and
+[`corpus/change_mark_cases.json`](corpus/change_mark_cases.json): typed values
+and headlines under review (SOM §11.9.3) — written as marks, read as their old
+value by the typed reads and the instance tier until decided, a headline
+listed under `@headline`. They sit under a key of their own so the eight
+runners, which read `cases`, are not held to them before their port.
 
 ##### Proving a table is load-bearing: `tool/parity_gate.sh`
 

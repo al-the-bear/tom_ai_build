@@ -492,5 +492,338 @@
         }
       }
     }
+  ],
+  "typedCases": [
+    {
+      "name": "an enum value marked: one substitution",
+      "state": {
+        "forms": {
+          "DEMO/DET": {
+            "estimate": "8",
+            "weight": "2.5",
+            "priority": "high"
+          }
+        },
+        "headlines": {
+          "DEMO/SUM": "Executive Summary"
+        }
+      },
+      "ops": [
+        {
+          "op": "setMarked",
+          "path": "DEMO/DET",
+          "field": "priority",
+          "text": "low"
+        },
+        {
+          "op": "listMarks"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "text": "{~~ high ~> low ~~}{@2026-11-07T14:05+01:00}",
+            "exact": true
+          },
+          [
+            {
+              "id": "M-1",
+              "path": "DEMO/DET",
+              "field": "priority",
+              "line": 0,
+              "markKind": "substitution",
+              "oldText": "high",
+              "newText": "low",
+              "comment": null,
+              "markup": "{~~ high ~> low ~~}{@2026-11-07T14:05+01:00}",
+              "context": "{~~ high ~> low ~~}{@2026-11-07T14:05+01:00}",
+              "changedAt": "2026-11-07T14:05+01:00"
+            }
+          ]
+        ],
+        "state": {
+          "forms": {
+            "DEMO/DET": {
+              "estimate": "8",
+              "priority": "{~~ high ~> low ~~}{@2026-11-07T14:05+01:00}",
+              "weight": "2.5"
+            }
+          },
+          "headlines": {
+            "DEMO/SUM": "Executive Summary"
+          }
+        }
+      }
+    },
+    {
+      "name": "an int value marked, and marked again from its original",
+      "state": {
+        "forms": {
+          "DEMO/DET": {
+            "estimate": "8",
+            "weight": "2.5",
+            "priority": "high"
+          }
+        },
+        "headlines": {
+          "DEMO/SUM": "Executive Summary"
+        }
+      },
+      "ops": [
+        {
+          "op": "setMarked",
+          "path": "DEMO/DET",
+          "field": "estimate",
+          "text": "13"
+        },
+        {
+          "op": "setMarked",
+          "path": "DEMO/DET",
+          "field": "estimate",
+          "text": "21"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "text": "{~~ 8 ~> 13 ~~}{@2026-11-07T14:05+01:00}",
+            "exact": true
+          },
+          {
+            "text": "{~~ 8 ~> 21 ~~}{@2026-11-07T14:05+01:00}",
+            "exact": true
+          }
+        ],
+        "state": {
+          "forms": {
+            "DEMO/DET": {
+              "estimate": "{~~ 8 ~> 21 ~~}{@2026-11-07T14:05+01:00}",
+              "priority": "high",
+              "weight": "2.5"
+            }
+          },
+          "headlines": {
+            "DEMO/SUM": "Executive Summary"
+          }
+        }
+      }
+    },
+    {
+      "name": "a double value marked",
+      "state": {
+        "forms": {
+          "DEMO/DET": {
+            "estimate": "8",
+            "weight": "2.5",
+            "priority": "high"
+          }
+        },
+        "headlines": {
+          "DEMO/SUM": "Executive Summary"
+        }
+      },
+      "ops": [
+        {
+          "op": "setMarked",
+          "path": "DEMO/DET",
+          "field": "weight",
+          "text": "3.75"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "text": "{~~ 2.5 ~> 3.75 ~~}{@2026-11-07T14:05+01:00}",
+            "exact": true
+          }
+        ],
+        "state": {
+          "forms": {
+            "DEMO/DET": {
+              "estimate": "8",
+              "priority": "high",
+              "weight": "{~~ 2.5 ~> 3.75 ~~}{@2026-11-07T14:05+01:00}"
+            }
+          },
+          "headlines": {
+            "DEMO/SUM": "Executive Summary"
+          }
+        }
+      }
+    },
+    {
+      "name": "a typed value set where none was: an insertion",
+      "state": {
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "setMarked",
+          "path": "DEMO/DET",
+          "field": "estimate",
+          "text": "5"
+        },
+        {
+          "op": "rejectAll"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "text": "{++ 5 ++}{@2026-11-07T14:05+01:00}",
+            "exact": true
+          },
+          {
+            "applied": [
+              {
+                "id": "M-1",
+                "path": "DEMO/DET",
+                "field": "estimate",
+                "line": 0,
+                "markKind": "insertion",
+                "decision": "reject",
+                "markup": "{++ 5 ++}{@2026-11-07T14:05+01:00}",
+                "result": ""
+              }
+            ],
+            "malformed": []
+          }
+        ],
+        "state": {
+          "forms": {
+            "DEMO/DET": {
+              "owner": "Bob"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "a headline marked, listed under @headline",
+      "state": {
+        "forms": {
+          "DEMO/DET": {
+            "estimate": "8",
+            "weight": "2.5",
+            "priority": "high"
+          }
+        },
+        "headlines": {
+          "DEMO/SUM": "Executive Summary"
+        }
+      },
+      "ops": [
+        {
+          "op": "setMarked",
+          "path": "DEMO/SUM",
+          "field": "@headline",
+          "text": "Management Summary",
+          "author": "alexis"
+        },
+        {
+          "op": "listMarks"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "text": "{~~ Executive ~> Management ~~}{@alexis 2026-11-07T14:05+01:00} Summary",
+            "exact": true
+          },
+          [
+            {
+              "id": "M-1",
+              "path": "DEMO/SUM",
+              "field": "@headline",
+              "line": 0,
+              "markKind": "substitution",
+              "oldText": "Executive",
+              "newText": "Management",
+              "comment": null,
+              "markup": "{~~ Executive ~> Management ~~}{@alexis 2026-11-07T14:05+01:00}",
+              "context": "{~~ Executive ~> Management ~~}{@alexis 2026-11-07T14:05+01:00} Summary",
+              "changedAt": "2026-11-07T14:05+01:00"
+            }
+          ]
+        ],
+        "state": {
+          "forms": {
+            "DEMO/DET": {
+              "estimate": "8",
+              "priority": "high",
+              "weight": "2.5"
+            }
+          },
+          "headlines": {
+            "DEMO/SUM": "{~~ Executive ~> Management ~~}{@alexis 2026-11-07T14:05+01:00} Summary"
+          }
+        }
+      }
+    },
+    {
+      "name": "a headline marked against an earlier version",
+      "state": {
+        "forms": {
+          "DEMO/DET": {
+            "estimate": "8",
+            "weight": "2.5",
+            "priority": "high"
+          }
+        },
+        "headlines": {
+          "DEMO/SUM": "Executive Summary"
+        }
+      },
+      "ops": [
+        {
+          "op": "markAgainst",
+          "path": "DEMO/SUM",
+          "field": "@headline",
+          "earlier": "Summary"
+        },
+        {
+          "op": "rejectAll"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "text": "{++ Executive ++}{@2026-11-07T14:05+01:00} Summary",
+            "exact": true
+          },
+          {
+            "applied": [
+              {
+                "id": "M-1",
+                "path": "DEMO/SUM",
+                "field": "@headline",
+                "line": 0,
+                "markKind": "insertion",
+                "decision": "reject",
+                "markup": "{++ Executive ++}{@2026-11-07T14:05+01:00}",
+                "result": ""
+              }
+            ],
+            "malformed": []
+          }
+        ],
+        "state": {
+          "forms": {
+            "DEMO/DET": {
+              "estimate": "8",
+              "priority": "high",
+              "weight": "2.5"
+            }
+          },
+          "headlines": {
+            "DEMO/SUM": "Summary"
+          }
+        }
+      }
+    }
   ]
 }

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 35 files
-// Generated: 2026-11-24T18:34:55.825373 by tom_d4rt_generator 1.67.0
+// Generated: 2026-11-24T19:20:58.445929 by tom_d4rt_generator 1.67.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -1555,6 +1555,22 @@ class SomRuntimeBridge {
 
     if (include == null ||
         include(
+          'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kSpecHeadlineField',
+          $tom_som_dart_runtime_28.kSpecHeadlineField,
+          importPath,
+          sourceUri:
+              'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kSpecHeadlineField": $e');
+      }
+    }
+    if (include == null ||
+        include(
           'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
         )) {
       try {
@@ -3091,6 +3107,16 @@ class SomRuntimeBridge {
           rootType: rootType,
         );
       },
+      'somTypedReading': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'somTypedReading');
+        final raw = D4.getRequiredArg<String?>(
+          positional,
+          0,
+          'raw',
+          'somTypedReading',
+        );
+        return $tom_som_dart_runtime_34.somTypedReading(raw);
+      },
       'somParseInt': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'somParseInt');
         final raw = D4.getRequiredArg<String?>(
@@ -3228,6 +3254,22 @@ class SomRuntimeBridge {
           'somTypedTextReadable',
         );
         return $tom_som_dart_runtime_34.somTypedTextReadable(typeName, raw);
+      },
+      'somIsTypedField': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'somIsTypedField');
+        final typeName = D4.getRequiredArg<String?>(
+          positional,
+          0,
+          'typeName',
+          'somIsTypedField',
+        );
+        final enumValues = D4.getRequiredArg<List<String>>(
+          positional,
+          1,
+          'enumValues',
+          'somIsTypedField',
+        );
+        return $tom_som_dart_runtime_34.somIsTypedField(typeName, enumValues);
       },
       'validateDocument': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'validateDocument');
@@ -3372,6 +3414,8 @@ class SomRuntimeBridge {
           'package:tom_som_dart_runtime/src/spec_section_id.dart',
       'validateSpecDocument':
           'package:tom_som_dart_runtime/src/spec_schema_validation.dart',
+      'somTypedReading':
+          'package:tom_som_dart_runtime/src/spec_typed_values.dart',
       'somParseInt': 'package:tom_som_dart_runtime/src/spec_typed_values.dart',
       'somFormatInt': 'package:tom_som_dart_runtime/src/spec_typed_values.dart',
       'somParseDouble':
@@ -3390,6 +3434,8 @@ class SomRuntimeBridge {
       'somScalarBase':
           'package:tom_som_dart_runtime/src/spec_typed_values.dart',
       'somTypedTextReadable':
+          'package:tom_som_dart_runtime/src/spec_typed_values.dart',
+      'somIsTypedField':
           'package:tom_som_dart_runtime/src/spec_typed_values.dart',
       'validateDocument':
           'package:tom_som_dart_runtime/src/spec_validator.dart',
@@ -3507,6 +3553,7 @@ class SomRuntimeBridge {
           'String generateListItemSectionId(String pattern, DateTime date, Iterable<String> existingIds)',
       'validateSpecDocument':
           'List<DocSpecsViolation> validateSpecDocument(SpecModel model, SpecDocument document, DocSpecsSchema schema, {String? rootType})',
+      'somTypedReading': 'String? somTypedReading(String? raw)',
       'somParseInt': 'int? somParseInt(String? raw)',
       'somFormatInt': 'String somFormatInt(int? value)',
       'somParseDouble': 'double? somParseDouble(String? raw)',
@@ -3522,6 +3569,8 @@ class SomRuntimeBridge {
       'somScalarBase': 'String? somScalarBase(String? typeName)',
       'somTypedTextReadable':
           'bool somTypedTextReadable(String? typeName, String? raw)',
+      'somIsTypedField':
+          'bool somIsTypedField(String? typeName, List<String> enumValues)',
       'validateDocument':
           'List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc)',
     };

@@ -31,10 +31,28 @@
 ///     layer validates against the field's `enumValues` domain, the generated
 ///     facade converts name ⇄ native constant.
 ///
+///   * a typed value holding inline marks (SOM §11.9.3, a change under review:
+///     `{~~ 30 ~> 15 ~~}`) reads as its **old** value, every mark rejected,
+///     until the marks are decided ([somTypedReading]).
+///
 /// All nine runtimes carry these helpers, and the conventions above are
 /// replayed against each of them by
 /// `tom_som_conformance/corpus/editor_cases.json`.
 library;
+
+import 'spec_review_annotations.dart' show applyInlineMarksText;
+
+/// The reading of a typed value under review: [raw] with every inline mark
+/// rejected (its old value), trimmed; [raw] itself when it holds no mark.
+///
+/// A typed value marked as a change (SOM §11.9.3) is the old value until the
+/// change is accepted: the parsers below, the validator and every typed read
+/// see that value, never the markup.
+String? somTypedReading(String? raw) {
+  if (raw == null || !raw.contains('{')) return raw;
+  final old = applyInlineMarksText(raw, accept: false);
+  return old == raw ? raw : old.trim();
+}
 
 /// A decimal integer literal: an optional sign and digits.
 final RegExp _intText = RegExp(r'^[+-]?[0-9]+$');
@@ -49,6 +67,7 @@ final RegExp _floatText = RegExp(
 ///
 /// The text is trimmed; only an optional sign and decimal digits are read.
 int? somParseInt(String? raw) {
+  raw = somTypedReading(raw);
   if (raw == null || raw.isEmpty) return null;
   final text = raw.trim();
   return _intText.hasMatch(text) ? int.tryParse(text) : null;
@@ -62,6 +81,7 @@ String somFormatInt(int? value) => value?.toString() ?? '';
 /// The text is trimmed; only a decimal or exponent literal is read — `NaN`,
 /// `Infinity` and hexadecimal text are refused.
 double? somParseDouble(String? raw) {
+  raw = somTypedReading(raw);
   if (raw == null || raw.isEmpty) return null;
   final text = raw.trim();
   return _floatText.hasMatch(text) ? _finite(double.tryParse(text)) : null;
@@ -77,6 +97,7 @@ String somFormatDouble(double? value) => value?.toString() ?? '';
 /// The text is trimmed; it reads as an `int` when it is an integer literal,
 /// else as a `double` by [somParseDouble]'s grammar.
 num? somParseNum(String? raw) {
+  raw = somTypedReading(raw);
   if (raw == null || raw.isEmpty) return null;
   final text = raw.trim();
   if (_intText.hasMatch(text)) {
@@ -90,6 +111,7 @@ String somFormatNum(num? value) => value?.toString() ?? '';
 
 /// Parses a stored string as `bool` — exactly `true`/`false`, else `null`.
 bool? somParseBool(String? raw) {
+  raw = somTypedReading(raw);
   if (raw == 'true') return true;
   if (raw == 'false') return false;
   return null;
@@ -102,8 +124,10 @@ String somFormatBool(bool? value) => value?.toString() ?? '';
 /// field's `enumValues` domain). Returns `null` when absent or not in the
 /// domain — a stale/foreign name reads as unset rather than throwing, the
 /// same forgiveness the other parsers extend to malformed numbers.
-String? somParseEnumName(String? raw, List<String> values) =>
-    (raw != null && values.contains(raw)) ? raw : null;
+String? somParseEnumName(String? raw, List<String> values) {
+  final name = somTypedReading(raw);
+  return (name != null && values.contains(name)) ? name : null;
+}
 
 /// Validates an enum constant [name] against [values] before storing.
 ///
@@ -141,6 +165,7 @@ String? somScalarBase(String? typeName) {
 /// the setters refuse to store one, and the typed reads throw on one — so
 /// text a typed field cannot read is never silently read as unset.
 bool somTypedTextReadable(String? typeName, String? raw) {
+  raw = somTypedReading(raw);
   if (raw == null || raw.isEmpty) return true;
   switch (somScalarBase(typeName)) {
     case 'int':
@@ -155,6 +180,12 @@ bool somTypedTextReadable(String? typeName, String? raw) {
       return true;
   }
 }
+
+/// Whether a form field holds a typed value: an enum, or `int`, `double`,
+/// `num` or `bool` — the values that read as their old value while marked.
+bool somIsTypedField(String? typeName, List<String> enumValues) =>
+    enumValues.isNotEmpty ||
+    const {'int', 'double', 'num', 'bool'}.contains(somScalarBase(typeName));
 
 /// [value] when it is finite, else `null`: a literal that overflows (`1e400`)
 /// is no value, as `NaN` and `Infinity` are not (a specification value is

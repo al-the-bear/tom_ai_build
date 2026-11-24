@@ -166,6 +166,29 @@ final r = markChangeText(
 print(r.text); // Sessions expire after {~~ 30 ~> 15 ~~} minutes.
 ```
 
+### Typed values and headlines
+
+A typed value (an enum, `int`, `double`, `num`, `bool`) and a section's
+headline take marks like text (SOM §11.9.3). A headline is addressed by the
+reserved field `kSpecHeadlineField` (`@headline`):
+
+```dart
+final api = SpecReviewAnnotations(doc);
+api.setMarked(path: 'SBP/introductionAndScope', field: 'status', text: 'approved');
+api.setMarked(
+  path: 'SBP/introductionAndScope',
+  field: kSpecHeadlineField,
+  text: 'Introduction and scope',
+);
+```
+
+Until decided, a marked typed value reads as its old value: the typed parsers
+(`somParseInt`, `somParseEnumName`, … through `somTypedReading`), the typed
+facades and `validateDocument` all see the value with every mark rejected. A
+headline takes inline marks only; `insertComment` and `insertQuestion` refuse
+`@headline`. A headline holding no mark is not a review value, so it adds
+nothing to `revision()`.
+
 ## Comments on changes
 
 A change comment is a comment mark that starts with a quote of the change it
