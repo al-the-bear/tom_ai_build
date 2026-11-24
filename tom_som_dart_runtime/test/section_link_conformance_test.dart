@@ -31,6 +31,10 @@
 ///   resolution written as a plain value, what it leaves and why, the refusal
 ///   of a set under review, a dry run and scoping; every case run twice.
 ///
+/// * `prefill_cases.json` — `prefill`: a Phase 3 document created from the
+///   Blueprint, its derived places derived, a pair skipped because its anchor
+///   holds a value, the `pairs` filter, the refusals; every case run twice.
+///
 /// Each case carries a hand-written `intent`: what it exists to show. A run
 /// checks that the intent holds in the expectation, so a case that silently
 /// stops showing it fails even though Dart reproduces its own output.
@@ -227,6 +231,35 @@
 ///   criterion is added (its `@SameAs` copy derived), the status left;
 ///   scoped to `BLU/requirements`, only the status. Every write case's second
 ///   run writes nothing. Correct.
+/// * **a pair not started** (added with `prefill`) — Detail without criteria:
+///   the set reports `CRIT` in `notStartedPairs`, no finding; backfill writes
+///   nothing for it, the Blueprint's criteria kept. Correct.
+///
+/// ## Manual review of `prefill_cases.json` (DP-part-conformance-1)
+///
+/// Reviewed 2026-11-24 against the intents and part-operations section 5:
+///
+/// * **a new Detail** — `REQS` and `CRIT` filled: the three requirements
+///   with their stored ids, headlines, forms and link rows (an anonymous row
+///   stored under the id it had, `LNK-1`), the key row, the criteria; the
+///   derived places not copied but derived after it (the copies `REQAB`, the
+///   conflict ids, the prerequisite list, the key row's title, the counts
+///   3 and 2), the lookup with no revision rows left out; no front matter;
+///   the document clean, the set agreeing. The second run fills nothing,
+///   both pairs skipped, nothing derived. Correct.
+/// * **a new Screens** — `ACC` filled with the acceptance's owner only: the
+///   criteria under it are detailOnly for Screens and a pair of Detail. The
+///   set then reports the Blueprint's screen overview and focus naming a
+///   screen the new document does not hold (`crossSummaryMismatch`, the
+///   agent's). Correct.
+/// * **skipped** — Detail holding its requirements and no criteria: `REQS`
+///   skipped, `CRIT` filled. Correct.
+/// * **the pairs filter** — only `CRIT` in a new Detail; the requirements,
+///   unwritten, are a pair not started, so the set reports no finding for
+///   them; the criterion's reference to REQ-EXPORT dangles in Detail until
+///   its requirements are written. Correct.
+/// * **refused** — no Blueprint (`noBlueprint`), the Blueprint's own root
+///   (`unknownRoot`). Correct.
 library;
 
 import 'dart:convert';
@@ -246,6 +279,7 @@ void main() {
   final setCases = buildDocumentSetCases(meta);
   final deriveCases = buildDeriveCases(meta);
   final backfillCases = buildBackfillCases(meta);
+  final prefillCases = buildPrefillCases(meta);
 
   String encode(Object? json) =>
       '${const JsonEncoder.withIndent('  ').convert(json)}\n';
@@ -268,6 +302,9 @@ void main() {
     File(
       '${corpusDir.path}/backfill_cases.json',
     ).writeAsStringSync(encode(backfillCases));
+    File(
+      '${corpusDir.path}/prefill_cases.json',
+    ).writeAsStringSync(encode(prefillCases));
   });
 
   Object? onDisk(String name) =>
@@ -419,6 +456,43 @@ void main() {
         SpecValidationCode.linkValuePending,
       ];
       expect(provoked, containsAll(linkCodes.map((c) => c.name)));
+    });
+  });
+
+  group('prefill', () {
+    test('PFC1: prefill_cases.json is the table the builder writes', () {
+      expect(
+        onDisk('prefill_cases.json'),
+        jsonDecode(jsonEncode(prefillCases)),
+      );
+    });
+
+    test('PFC2: the table on disk is reproduced from its own inputs', () {
+      final model = SpecModel.fromJson(
+        onDisk('links.meta.json') as Map<String, dynamic>,
+      );
+      final table = onDisk('prefill_cases.json') as Map<String, dynamic>;
+      for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+        expect(
+          jsonDecode(jsonEncode(prefillCase(model, c))),
+          c['expect'],
+          reason: c['name'] as String,
+        );
+      }
+    });
+
+    test('PFC3: every case shows its intent', () {
+      for (final c
+          in (jsonDecode(jsonEncode(prefillCases))['cases'] as List)
+              .cast<Map<String, dynamic>>()) {
+        for (final token in (c['intent'] as List).cast<String>()) {
+          expect(
+            _prefillIntentHolds(token, c),
+            isTrue,
+            reason: '${c['name']}: intent "$token"',
+          );
+        }
+      }
     });
   });
 
@@ -1637,6 +1711,144 @@ bool _deriveIntentHolds(String token, Map<String, dynamic> c) {
 }
 
 // ---------------------------------------------------------------------------
+// The table `prefill_cases.json`
+// ---------------------------------------------------------------------------
+
+/// One prefill case: `prefill` run twice for the case's root (the second run
+/// writes nothing), or its refusal; then the set's report after it.
+Map<String, Object?> prefillCase(SpecModel model, Map<String, dynamic> c) {
+  final set = SpecDocumentSet(model, _documentsFrom(c['documents'] as List));
+  final pairs = (c['pairs'] as List?)?.cast<String>().toSet();
+  Map<String, Object?> run() {
+    try {
+      return prefill(
+        set,
+        c['root'] as String,
+        name: c['name_'] as String?,
+        pairs: pairs,
+      ).toJson();
+    } on SpecPrefillError catch (e) {
+      return {'refused': e.code};
+    }
+  }
+
+  final first = run();
+  final second = run();
+  final after = syncReport(set);
+  return {
+    'first': first,
+    'second': second,
+    'reportAfter': {
+      'countsByCode': [
+        for (final e in after.countsByCode().entries) [e.key, e.value],
+      ],
+      'notStartedPairs': after.notStartedPairs,
+    },
+  };
+}
+
+/// The table `prefill_cases.json`, its expectations computed live.
+Map<String, Object?> buildPrefillCases(Map<String, dynamic> meta) {
+  final model = SpecModel.fromJson(meta);
+
+  Map<String, Object?> kase(
+    String name,
+    List<String> intent,
+    String root,
+    Map<String, SpecDocument> Function(Map<String, SpecDocument> base) pick, {
+    String? docName,
+    List<String>? pairs,
+  }) {
+    final c = <String, dynamic>{
+      'name': name,
+      'intent': intent,
+      'root': root,
+      if (docName != null) 'name_': docName,
+      if (pairs != null) 'pairs': pairs,
+      'documents': _documentsJson(pick(_baseSet())),
+    };
+    return {...c, 'expect': prefillCase(model, jsonDecode(jsonEncode(c)))};
+  }
+
+  return {
+    'model': 'links.meta.json',
+    'cases': [
+      kase(
+        'a new Detail document from the Blueprint: its pairs copied with the '
+            'elements\' stored ids, the derived places derived, the front matter '
+            'left empty, the set agreeing after it',
+        ['created', 'filled', 'derived', 'idempotent', 'agrees'],
+        'DET',
+        (b) => {'blueprint': b['blueprint']!, 'screens': b['screens']!},
+        docName: 'detail',
+      ),
+      kase(
+        'a new Screens document: the acceptance copied, the criteria beneath '
+            'it (detailOnly there, and a pair of Detail) not',
+        ['created', 'filled', 'idempotent'],
+        'SCR',
+        (b) => {'blueprint': b['blueprint']!, 'detail': b['detail']!},
+        docName: 'screens',
+      ),
+      kase(
+        'a pair whose anchor holds a value is skipped, the other filled',
+        ['filled', 'skipped', 'idempotent'],
+        'DET',
+        (b) {
+          final det = b['detail']!;
+          det.removeValuesUnder('DET/criteria');
+          return b;
+        },
+      ),
+      kase(
+        'the pairs filter: only the criteria; the requirements, not written, '
+            'are a pair not started',
+        ['created', 'filled', 'idempotent', 'agrees'],
+        'DET',
+        (b) => {'blueprint': b['blueprint']!},
+        docName: 'detail',
+        pairs: ['CRIT'],
+      ),
+      kase(
+        'a set without the Blueprint is refused',
+        ['noBlueprint'],
+        'DET',
+        (b) => {'screens': b['screens']!},
+      ),
+      kase(
+        'the Blueprint\'s own root is refused',
+        ['unknownRoot'],
+        'BLU',
+        (b) => {'blueprint': b['blueprint']!},
+      ),
+    ],
+  };
+}
+
+/// Whether the prefill-case intent [token] holds in case [c].
+bool _prefillIntentHolds(String token, Map<String, dynamic> c) {
+  final e = c['expect'] as Map<String, dynamic>;
+  final first = e['first'] as Map<String, dynamic>;
+  final second = e['second'] as Map<String, dynamic>;
+  return switch (token) {
+    'created' => first['created'] == true,
+    'filled' => (first['filledPairs'] as List? ?? const []).isNotEmpty,
+    'skipped' => (first['skippedPairs'] as List? ?? const []).isNotEmpty,
+    'derived' =>
+      ((first['derived'] as Map?)?['changes'] as List? ?? const []).isNotEmpty,
+    'idempotent' =>
+      (second['filledPairs'] as List).isEmpty &&
+          ((second['derived'] as Map)['changes'] as List).isEmpty &&
+          jsonEncode(second['document']) == jsonEncode(first['document']),
+    'agrees' => ((e['reportAfter'] as Map)['countsByCode'] as List).every(
+      (x) => !'${(x as List)[0]}'.startsWith('shared'),
+    ),
+    'noBlueprint' || 'unknownRoot' => first['refused'] == token,
+    _ => throw StateError('unknown intent token "$token"'),
+  };
+}
+
+// ---------------------------------------------------------------------------
 // The table `backfill_cases.json`
 // ---------------------------------------------------------------------------
 
@@ -1816,6 +2028,12 @@ Map<String, Object?> buildBackfillCases(Map<String, dynamic> meta) {
           'relatedRequirements',
           '',
         ),
+      ),
+      kase(
+        'a pair the Phase 3 document has not written yet leaves the Blueprint '
+        'as it is',
+        ['nothing'],
+        (d) => d['detail']!.removeValuesUnder('DET/criteria'),
       ),
       kase(
         'a set holding an inline mark is refused, the place named',
@@ -2348,6 +2566,12 @@ Map<String, Object?> buildDocumentSetCases(Map<String, dynamic> meta) {
         'notStarted',
       ], (d) => d.remove('screens')),
       report(
+        'a pair the Phase 3 document has not written yet is not started, '
+        'never findings',
+        ['notStartedPairs', 'clean'],
+        (d) => d['detail']!.removeValuesUnder('DET/criteria'),
+      ),
+      report(
         'scoped to one pair, a finding of another pair is left out',
         ['clean'],
         (d) => d['detail']!.setFormField('$_det-1/content', 'status', 'done'),
@@ -2416,6 +2640,7 @@ Set<String> _setTokens(Map<String, dynamic> e) {
   if (e['findings'] != null) {
     if (e['clean'] == true) out.add('clean');
     if ((e['notStarted'] as List).isNotEmpty) out.add('notStarted');
+    if ((e['notStartedPairs'] as List).isNotEmpty) out.add('notStartedPairs');
     for (final f in (e['findings'] as List).cast<Map<String, dynamic>>()) {
       out
         ..add(f['code'] as String)

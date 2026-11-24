@@ -821,3 +821,58 @@ exceptions:
       DP-part-conformance-4); its ports are the todos
       `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `backfill_cases.json` is the corpus they will run.
+
+  - token: filledPairs
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. `prefill` (a Phase 3 document started from the Blueprint) and
+      the document set's not-started pairs (`tom_specs_model_rules.md` §9.7)
+      are in the Dart runtime only, built first by decision (idea
+      section_automation, DP-part-conformance-4); their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `prefill_cases.json` and `document_set_cases.json` are the
+      corpus they will run.
+
+  - token: noBlueprint
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. `prefill` (a Phase 3 document started from the Blueprint) and
+      the document set's not-started pairs (`tom_specs_model_rules.md` §9.7)
+      are in the Dart runtime only, built first by decision (idea
+      section_automation, DP-part-conformance-4); their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `prefill_cases.json` and `document_set_cases.json` are the
+      corpus they will run.
+
+  - token: notStartedPairs
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. `prefill` (a Phase 3 document started from the Blueprint) and
+      the document set's not-started pairs (`tom_specs_model_rules.md` §9.7)
+      are in the Dart runtime only, built first by decision (idea
+      section_automation, DP-part-conformance-4); their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `prefill_cases.json` and `document_set_cases.json` are the
+      corpus they will run.
+
+  - token: skippedPairs
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. `prefill` (a Phase 3 document started from the Blueprint) and
+      the document set's not-started pairs (`tom_specs_model_rules.md` §9.7)
+      are in the Dart runtime only, built first by decision (idea
+      section_automation, DP-part-conformance-4); their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `prefill_cases.json` and `document_set_cases.json` are the
+      corpus they will run.
+
+  - token: unknownRoot
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. `prefill` (a Phase 3 document started from the Blueprint) and
+      the document set's not-started pairs (`tom_specs_model_rules.md` §9.7)
+      are in the Dart runtime only, built first by decision (idea
+      section_automation, DP-part-conformance-4); their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `prefill_cases.json` and `document_set_cases.json` are the
+      corpus they will run.

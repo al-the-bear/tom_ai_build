@@ -3448,6 +3448,7 @@
           ]
         ],
         "notStarted": [],
+        "notStartedPairs": [],
         "countsByCode": [],
         "countsByResolution": [],
         "clean": true
@@ -3936,6 +3937,7 @@
           ]
         ],
         "notStarted": [],
+        "notStartedPairs": [],
         "countsByCode": [
           [
             "sharedValueDiffers",
@@ -4435,6 +4437,7 @@
           ]
         ],
         "notStarted": [],
+        "notStartedPairs": [],
         "countsByCode": [
           [
             "sharedValueDiffers",
@@ -4934,6 +4937,7 @@
           ]
         ],
         "notStarted": [],
+        "notStartedPairs": [],
         "countsByCode": [
           [
             "sharedValueMissing",
@@ -5433,6 +5437,7 @@
           ]
         ],
         "notStarted": [],
+        "notStartedPairs": [],
         "countsByCode": [
           [
             "sharedValueOnlyInBlueprint",
@@ -5944,6 +5949,7 @@
           ]
         ],
         "notStarted": [],
+        "notStartedPairs": [],
         "countsByCode": [
           [
             "sharedElementMissing",
@@ -6444,6 +6450,7 @@
           ]
         ],
         "notStarted": [],
+        "notStartedPairs": [],
         "countsByCode": [
           [
             "sharedElementOnlyInBlueprint",
@@ -6945,6 +6952,7 @@
           ]
         ],
         "notStarted": [],
+        "notStartedPairs": [],
         "countsByCode": [
           [
             "sharedElementMayBeAdded",
@@ -7445,6 +7453,7 @@
           ]
         ],
         "notStarted": [],
+        "notStartedPairs": [],
         "countsByCode": [
           [
             "sharedElementMissing",
@@ -7943,6 +7952,7 @@
           ]
         ],
         "notStarted": [],
+        "notStartedPairs": [],
         "countsByCode": [
           [
             "sharedElementMayBeAdded",
@@ -8441,6 +8451,7 @@
           ]
         ],
         "notStarted": [],
+        "notStartedPairs": [],
         "countsByCode": [
           [
             "sharedElementOnlyInBlueprint",
@@ -8941,6 +8952,7 @@
           ]
         ],
         "notStarted": [],
+        "notStartedPairs": [],
         "countsByCode": [
           [
             "crossSummaryMismatch",
@@ -9438,6 +9450,7 @@
           ]
         ],
         "notStarted": [],
+        "notStartedPairs": [],
         "countsByCode": [
           [
             "crossSummaryMismatch",
@@ -9935,6 +9948,7 @@
           ]
         ],
         "notStarted": [],
+        "notStartedPairs": [],
         "countsByCode": [
           [
             "crossInverseMissing",
@@ -10439,6 +10453,7 @@
           ]
         ],
         "notStarted": [],
+        "notStartedPairs": [],
         "countsByCode": [
           [
             "pendingReview",
@@ -10913,6 +10928,7 @@
           ]
         ],
         "notStarted": [],
+        "notStartedPairs": [],
         "countsByCode": [],
         "countsByResolution": [],
         "clean": true
@@ -11334,6 +11350,460 @@
         ],
         "notStarted": [
           "Screens"
+        ],
+        "notStartedPairs": [],
+        "countsByCode": [],
+        "countsByResolution": [],
+        "clean": true
+      }
+    },
+    {
+      "name": "a pair the Phase 3 document has not written yet is not started, never findings",
+      "intent": [
+        "notStartedPairs",
+        "clean"
+      ],
+      "documents": [
+        [
+          "blueprint",
+          {
+            "content": {
+              "BLU/criteriaSummary/content": "The criteria at a glance.",
+              "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+              "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+              "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
+            },
+            "forms": {
+              "BLU/FOC": {
+                "focusScreens": "SCRN-LOGIN"
+              },
+              "BLU/REV-ITEM-LST-1/content": {
+                "requirementRef": "REQ-EXPORT",
+                "version": "1.1"
+              },
+              "BLU/REV-ITEM-LST-2/content": {
+                "requirementRef": "REQ-IMPORT",
+                "version": "1.0"
+              },
+              "BLU/REV-ITEM-LST-3/content": {
+                "requirementRef": "REQ-PURGE",
+                "version": "0.9"
+              },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
+              "BLU/acceptance/content": {
+                "owner": "quality team"
+              },
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-1/content": {
+                "kind": "functional",
+                "relatedRequirements": "REQ-EXPORT",
+                "text": "Exports finish in 5 s."
+              },
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-2/content": {
+                "kind": "quality",
+                "text": "Every purge is logged."
+              },
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1/content": {
+                "kind": "functional",
+                "relatedRequirements": "REQ-EXPORT",
+                "text": "Exports finish in 5 s."
+              },
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2/content": {
+                "kind": "quality",
+                "text": "Every purge is logged."
+              },
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/LNK-REF": {
+                "ref": "REQ-IMPORT"
+              },
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/content": {
+                "linkType": "namedInText"
+              },
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/LNK-REF": {
+                "ref": "REQ-PURGE"
+              },
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/content": {
+                "linkType": "conflict"
+              },
+              "BLU/requirements/REQ-ITEM-LST-1/REQC": {
+                "conflictsWith": "REQ-PURGE"
+              },
+              "BLU/requirements/REQ-ITEM-LST-1/REQD": {
+                "description": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+              },
+              "BLU/requirements/REQ-ITEM-LST-1/REQT": {
+                "relatedCriteria": "CRIT-SPEED",
+                "relatedScreens": "SCRN-LOGIN"
+              },
+              "BLU/requirements/REQ-ITEM-LST-1/content": {
+                "lastVersion": "1.1",
+                "owner": "ana",
+                "status": "approved",
+                "weight": "2"
+              },
+              "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/LNK-REF": {
+                "ref": "REQ-PURGE"
+              },
+              "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/content": {
+                "linkType": "constrainedBy"
+              },
+              "BLU/requirements/REQ-ITEM-LST-2/REQC": {
+                "constraints": "Bounded by REQ-PURGE."
+              },
+              "BLU/requirements/REQ-ITEM-LST-2/REQD": {
+                "description": "Imports files."
+              },
+              "BLU/requirements/REQ-ITEM-LST-2/content": {
+                "lastVersion": "1.0",
+                "status": "done"
+              },
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/LNK-REF": {
+                "ref": "REQ-EXPORT"
+              },
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/content": {
+                "linkType": "conflict"
+              },
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/LNK-REF": {
+                "ref": "REQ-IMPORT"
+              },
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/content": {
+                "linkType": "prerequisite"
+              },
+              "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1/content": {
+                "ref": "REQ-IMPORT"
+              },
+              "BLU/requirements/REQ-ITEM-LST-3/REQC": {
+                "conflictsWith": "REQ-EXPORT"
+              },
+              "BLU/requirements/REQ-ITEM-LST-3/REQD": {
+                "description": "Purges old data."
+              },
+              "BLU/requirements/REQ-ITEM-LST-3/content": {
+                "lastVersion": "0.9",
+                "status": "draft"
+              },
+              "BLU/requirements/REQS-SUM": {
+                "allRequirements": "REQ-EXPORT, REQ-IMPORT, REQ-PURGE",
+                "settled": "2",
+                "total": "3"
+              },
+              "BLU/requirements/keyRequirements/KEY-ITEM-LST-1/content": {
+                "requirementRef": "REQ-EXPORT",
+                "title": "Export presets"
+              },
+              "BLU/screenOverview/OVR-ITEM-LST-1/content": {
+                "screenRef": "SCRN-LOGIN"
+              }
+            },
+            "lists": {
+              "BLU/REV-ITEM-LST": {
+                "seq": 3,
+                "items": [
+                  "BLU/REV-ITEM-LST-1",
+                  "BLU/REV-ITEM-LST-2",
+                  "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
+                ]
+              },
+              "BLU/acceptance/criteria/CRIT-ITEM-LST": {
+                "seq": 2,
+                "items": [
+                  "BLU/acceptance/criteria/CRIT-ITEM-LST-1",
+                  "BLU/acceptance/criteria/CRIT-ITEM-LST-2"
+                ],
+                "ids": {
+                  "BLU/acceptance/criteria/CRIT-ITEM-LST-1": "CRIT-SPEED",
+                  "BLU/acceptance/criteria/CRIT-ITEM-LST-2": "CRIT-AUDIT"
+                }
+              },
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST": {
+                "seq": 2,
+                "items": [
+                  "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1",
+                  "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2"
+                ],
+                "ids": {
+                  "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1": "CRIT-SPEED",
+                  "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2": "CRIT-AUDIT"
+                }
+              },
+              "BLU/requirements/REQ-ITEM-LST": {
+                "seq": 3,
+                "items": [
+                  "BLU/requirements/REQ-ITEM-LST-1",
+                  "BLU/requirements/REQ-ITEM-LST-2",
+                  "BLU/requirements/REQ-ITEM-LST-3"
+                ],
+                "ids": {
+                  "BLU/requirements/REQ-ITEM-LST-1": "REQ-EXPORT",
+                  "BLU/requirements/REQ-ITEM-LST-2": "REQ-IMPORT",
+                  "BLU/requirements/REQ-ITEM-LST-3": "REQ-PURGE"
+                }
+              },
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST": {
+                "seq": 2,
+                "items": [
+                  "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1",
+                  "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2"
+                ]
+              },
+              "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1"
+                ]
+              },
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST": {
+                "seq": 2,
+                "items": [
+                  "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1",
+                  "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2"
+                ]
+              },
+              "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1"
+                ]
+              },
+              "BLU/requirements/keyRequirements/KEY-ITEM-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/requirements/keyRequirements/KEY-ITEM-LST-1"
+                ]
+              },
+              "BLU/screenOverview/OVR-ITEM-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/screenOverview/OVR-ITEM-LST-1"
+                ]
+              }
+            },
+            "headlines": {
+              "BLU/requirements/REQ-ITEM-LST-1": "Export presets",
+              "BLU/requirements/REQ-ITEM-LST-2": "Import",
+              "BLU/requirements/REQ-ITEM-LST-3": "Purge"
+            }
+          }
+        ],
+        [
+          "detail",
+          {
+            "content": {
+              "DET/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+              "DET/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+              "DET/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
+            },
+            "forms": {
+              "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/LNK-REF": {
+                "ref": "REQ-IMPORT"
+              },
+              "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/content": {
+                "linkType": "namedInText"
+              },
+              "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/LNK-REF": {
+                "ref": "REQ-PURGE"
+              },
+              "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/content": {
+                "linkType": "conflict"
+              },
+              "DET/requirements/REQ-ITEM-LST-1/REQC": {
+                "conflictsWith": "REQ-PURGE"
+              },
+              "DET/requirements/REQ-ITEM-LST-1/REQD": {
+                "description": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+              },
+              "DET/requirements/REQ-ITEM-LST-1/REQT": {
+                "relatedCriteria": "CRIT-SPEED",
+                "relatedScreens": "SCRN-LOGIN"
+              },
+              "DET/requirements/REQ-ITEM-LST-1/REQX": {
+                "rationale": "Presets save the export settings once."
+              },
+              "DET/requirements/REQ-ITEM-LST-1/content": {
+                "lastVersion": "1.1",
+                "owner": "ana",
+                "status": "approved",
+                "weight": "2"
+              },
+              "DET/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/LNK-REF": {
+                "ref": "REQ-PURGE"
+              },
+              "DET/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/content": {
+                "linkType": "constrainedBy"
+              },
+              "DET/requirements/REQ-ITEM-LST-2/REQC": {
+                "constraints": "Bounded by REQ-PURGE."
+              },
+              "DET/requirements/REQ-ITEM-LST-2/REQD": {
+                "description": "Imports files."
+              },
+              "DET/requirements/REQ-ITEM-LST-2/content": {
+                "lastVersion": "1.0",
+                "status": "done"
+              },
+              "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/LNK-REF": {
+                "ref": "REQ-EXPORT"
+              },
+              "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/content": {
+                "linkType": "conflict"
+              },
+              "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/LNK-REF": {
+                "ref": "REQ-IMPORT"
+              },
+              "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/content": {
+                "linkType": "prerequisite"
+              },
+              "DET/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1/content": {
+                "ref": "REQ-IMPORT"
+              },
+              "DET/requirements/REQ-ITEM-LST-3/REQC": {
+                "conflictsWith": "REQ-EXPORT"
+              },
+              "DET/requirements/REQ-ITEM-LST-3/REQD": {
+                "description": "Purges old data."
+              },
+              "DET/requirements/REQ-ITEM-LST-3/content": {
+                "lastVersion": "0.9",
+                "status": "draft"
+              },
+              "DET/requirements/REQS-SUM": {
+                "allRequirements": "REQ-EXPORT, REQ-IMPORT, REQ-PURGE",
+                "settled": "2",
+                "total": "3"
+              },
+              "DET/requirements/keyRequirements/KEY-ITEM-LST-1/content": {
+                "requirementRef": "REQ-EXPORT",
+                "title": "Export presets"
+              }
+            },
+            "lists": {
+              "DET/requirements/REQ-ITEM-LST": {
+                "seq": 3,
+                "items": [
+                  "DET/requirements/REQ-ITEM-LST-1",
+                  "DET/requirements/REQ-ITEM-LST-2",
+                  "DET/requirements/REQ-ITEM-LST-3"
+                ],
+                "ids": {
+                  "DET/requirements/REQ-ITEM-LST-1": "REQ-EXPORT",
+                  "DET/requirements/REQ-ITEM-LST-2": "REQ-IMPORT",
+                  "DET/requirements/REQ-ITEM-LST-3": "REQ-PURGE"
+                }
+              },
+              "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST": {
+                "seq": 2,
+                "items": [
+                  "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1",
+                  "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2"
+                ]
+              },
+              "DET/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST": {
+                "seq": 1,
+                "items": [
+                  "DET/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1"
+                ]
+              },
+              "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST": {
+                "seq": 2,
+                "items": [
+                  "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1",
+                  "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2"
+                ]
+              },
+              "DET/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST": {
+                "seq": 1,
+                "items": [
+                  "DET/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1"
+                ]
+              },
+              "DET/requirements/keyRequirements/KEY-ITEM-LST": {
+                "seq": 1,
+                "items": [
+                  "DET/requirements/keyRequirements/KEY-ITEM-LST-1"
+                ]
+              }
+            },
+            "headlines": {
+              "DET/requirements/REQ-ITEM-LST-1": "Export presets",
+              "DET/requirements/REQ-ITEM-LST-2": "Import",
+              "DET/requirements/REQ-ITEM-LST-3": "Purge"
+            }
+          }
+        ],
+        [
+          "screens",
+          {
+            "forms": {
+              "SCR/SCRN-ITEM-LST-1/content": {
+                "purpose": "Sign in.",
+                "relatedRequirements": "REQ-EXPORT"
+              },
+              "SCR/acceptance/content": {
+                "owner": "quality team"
+              },
+              "SCR/acceptance/criteria/CRIT-ITEM-LST-1/content": {
+                "text": "Every screen is reachable by key."
+              }
+            },
+            "lists": {
+              "SCR/SCRN-ITEM-LST": {
+                "seq": 1,
+                "items": [
+                  "SCR/SCRN-ITEM-LST-1"
+                ],
+                "ids": {
+                  "SCR/SCRN-ITEM-LST-1": "SCRN-LOGIN"
+                }
+              },
+              "SCR/acceptance/criteria/CRIT-ITEM-LST": {
+                "seq": 1,
+                "items": [
+                  "SCR/acceptance/criteria/CRIT-ITEM-LST-1"
+                ],
+                "ids": {
+                  "SCR/acceptance/criteria/CRIT-ITEM-LST-1": "CRIT-UX"
+                }
+              }
+            },
+            "headlines": {
+              "SCR/SCRN-ITEM-LST-1": "Login"
+            }
+          }
+        ]
+      ],
+      "expect": {
+        "findings": [],
+        "documentFindings": [
+          [
+            "blueprint",
+            []
+          ],
+          [
+            "detail",
+            [
+              {
+                "path": "DET/requirements/REQ-ITEM-LST-1/REQT",
+                "code": "danglingReference"
+              }
+            ]
+          ],
+          [
+            "screens",
+            []
+          ]
+        ],
+        "notStarted": [],
+        "notStartedPairs": [
+          "CRIT"
         ],
         "countsByCode": [],
         "countsByResolution": [],
@@ -11802,6 +12272,7 @@
           ]
         ],
         "notStarted": [],
+        "notStartedPairs": [],
         "countsByCode": [],
         "countsByResolution": [],
         "clean": true
@@ -12293,6 +12764,7 @@
           ]
         ],
         "notStarted": [],
+        "notStartedPairs": [],
         "countsByCode": [
           [
             "sharedValueDiffers",
@@ -12825,6 +13297,7 @@
           ]
         ],
         "notStarted": [],
+        "notStartedPairs": [],
         "countsByCode": [
           [
             "unmarkable",
@@ -13349,6 +13822,7 @@
           ]
         ],
         "notStarted": [],
+        "notStartedPairs": [],
         "countsByCode": [
           [
             "sharedValueDiffers",

@@ -22,6 +22,7 @@ import 'spec_section_id.dart';
 import 'spec_validator.dart';
 
 part 'spec_backfill.dart';
+part 'spec_prefill.dart';
 
 // ---------------------------------------------------------------------------
 // The vocabulary of the set
@@ -620,11 +621,16 @@ class SpecSyncReport {
   /// The Phase 3 roots with no document yet.
   final List<String> notStarted;
 
+  /// The pairs (by section id) whose Phase 3 document exists but holds
+  /// nothing beneath the pair's anchor: not started, like a missing document.
+  final List<String> notStartedPairs;
+
   /// The parts of a report; [syncReport] builds it.
   const SpecSyncReport({
     required this.findings,
     required this.documentFindings,
     required this.notStarted,
+    this.notStartedPairs = const [],
   });
 
   /// Findings per code, `info` entries included, in code order.
@@ -657,6 +663,7 @@ class SpecSyncReport {
         ],
     ],
     'notStarted': notStarted,
+    'notStartedPairs': notStartedPairs,
     'countsByCode': [
       for (final e in countsByCode().entries) [e.key, e.value],
     ],
@@ -701,6 +708,7 @@ SpecSyncReport syncReport(SpecDocumentSet set, {Set<String>? pairs}) {
         ],
     },
     notStarted: set.missingRoots,
+    notStartedPairs: c.notStartedPairs,
   );
 }
 
@@ -747,6 +755,10 @@ class _SetCheck {
   final SpecDocumentSet set;
   final SpecReflection refl;
   final List<_Ordered> out = [];
+
+  /// The pairs whose Phase 3 document exists but holds nothing beneath the
+  /// pair's anchor.
+  final List<String> notStartedPairs = [];
 
   void add(int order, String key, SpecSyncFinding f, {_Side? b, _Side? d}) =>
       out.add(_Ordered(order, key, f, b: b, d: d));
@@ -1037,6 +1049,13 @@ class _SetCheck {
     final dtAnchors = {
       for (final a in _expand(dt, pair.detailAnchor)) _anchorKey(dt, a): a,
     };
+    // A pair the Phase 3 document has not written yet is not started, never
+    // findings: it is what prefill fills, and backfill must not take its
+    // emptiness for removals.
+    if (!dtAnchors.values.any(dt.hasValuesUnder)) {
+      notStartedPairs.add(pair.sectionId);
+      return;
+    }
     for (final k in {...bpAnchors.keys, ...dtAnchors.keys}) {
       final ba = bpAnchors[k], da = dtAnchors[k];
       if (ba == null || da == null) continue; // the outer list reports it

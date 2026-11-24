@@ -859,6 +859,13 @@ refusal of a set holding a mark or a comment block, a dry run, and `pairs` /
 `expect.second`, the second proving idempotence), then records the set's
 report after it and the documents as the set holds them.
 
+[`corpus/prefill_cases.json`](corpus/prefill_cases.json) pins `prefill`:
+a new Detail and a new Screens document from the Blueprint (stored ids kept,
+derived places derived, front matter left empty), a pair skipped because its
+anchor holds a value, the `pairs` filter (the unwritten pair then reported as
+not started), and the two refusals. Each case runs `prefill` twice and
+records the set's report after it.
+
 The files are written by the Dart runtime's
 `test/section_link_conformance_test.dart` under `UPDATE_CORPUS=1`; every case
 carries a hand-written `intent` the test checks, and the expectations were read

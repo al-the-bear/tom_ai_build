@@ -219,6 +219,15 @@ in `SpecBackfillResult.left` with the reason, writes only the Blueprint, and
 adds one entry to its revision history when it changed anything. `dryRun`
 writes a copy; `pairs` and `path` scope it; a second run writes nothing.
 
+`prefill(set, 'RSP')` starts a Phase 3 document from the Blueprint, once:
+it creates the document when the set has none, copies each pair's values,
+elements (with their section ids) and headlines outside `detailOnly` as
+plain values, skips a pair whose anchor already holds anything, and derives
+the document's derived places. Its `SpecPrefillResult` lists the pairs filled
+and skipped and the document's findings after it, the agent's work list. A
+pair a document has not written yet is reported by `syncReport` in
+`notStartedPairs`, never as findings.
+
 `renameId(set, from, to)` renames a section id in every document at once —
 the element and every value naming it — and is refused (`SpecRenameError`)
 when an element of any document already carries `to`.
