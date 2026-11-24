@@ -8333,6 +8333,25 @@ class RequirementsOverview extends DocSpecsSection {
   'identified and traceable to goals and use cases.',
 )
 @DetailedIn(D04RequirementsSpecification)
+@SyncedWith(
+  D04RequirementsSpecification,
+  detailOnly: [
+    'REQDEP',
+    'RBR',
+    'RETECA',
+    'RETRAR.relatedTestCases',
+    'FREM',
+    'FREC.assumptions',
+    'FREC.conflictsWith',
+    'FRED.requirementType',
+    'FREV.fitCriterion',
+    'RT-TRAC.relatedGoals',
+  ],
+  relations: [
+    ListRelation('RETRAR.relatedScreens', LinkRelation.subset),
+    ListRelation('RETRAR.relatedDataEntities', LinkRelation.subset),
+  ],
+)
 @ContentHelp(
   'Functional requirements describe system capabilities, behaviors, '
   'and features. Use clear, testable language. Each requirement should '
@@ -8626,13 +8645,44 @@ class FunctionalRequirementEntry extends DocSpecsSection {
       'constraints',
       String,
       'Constraints (limitations on implementation)',
-      hint: 'Limitations on how the requirement may be implemented',
+      hint:
+          'Limitations on how this requirement may be implemented. A limit '
+          'set by another requirement is a dependency row of type '
+          'constrainedBy (shown in Constrained By).',
+    ),
+    Field(
+      'constrainedBy',
+      String,
+      'Constrained By (limits set by other requirements)',
+      hint:
+          'Derived from the dependency rows of type constrainedBy, one line '
+          'per row; edit the rows, not this field.',
+      derivedFrom: DerivedFrom.rows(
+        './RQDEP',
+        where: 'RQDEP.dependencyType=constrainedBy',
+        take: ['RQDEP-RELA-REF.ref', 'RQDEP.description'],
+      ),
     ),
     Field(
       'conflictsWith',
       String,
       'Conflicts With (IDs of conflicting requirements)',
-      hint: 'IDs of requirements this one conflicts with',
+      hint:
+          'Derived from the dependency rows of type conflict: the ids of the '
+          'requirements this one conflicts with; edit the rows, not this '
+          'field.',
+      refersTo: [
+        'FRE.@sectionId',
+        'TERQ.@sectionId',
+        'SECRQ.@sectionId',
+        'ORRQ.@sectionId',
+      ],
+      multiple: true,
+      derivedFrom: DerivedFrom.rows(
+        './RQDEP',
+        where: 'RQDEP.dependencyType=conflict',
+        take: ['RQDEP-RELA-REF.ref'],
+      ),
     ),
   ])
   @SerializationOrder(5)
@@ -9942,9 +9992,53 @@ class ScreenBehaviorEntry extends DocSpecsSection {
   String? content;
 }
 
+/// The kind of a requirement dependency row (`RQDEP.dependencyType`).
+///
+/// A row is stored on the requirement it applies to, its near end; the
+/// reference names the far end. A directional kind is stored once, on that
+/// requirement, and its converse ("required by", "constrains") is not written:
+/// navigation shows it from the far end. [bidirectional] and [conflict] hold
+/// on both requirements alike, so their row is stored at both ends.
+enum RequirementDependencyType {
+  /// The far end must be met before this requirement can be: it is needed
+  /// first. Collected in an organizational requirement's `OREP.dependencies`.
+  prerequisite,
+
+  /// The two requirements depend on each other; the row stands at both ends.
+  bidirectional,
+
+  /// The far end is this requirement's parent: this requirement details part
+  /// of it.
+  parentChild,
+
+  /// The two requirements cannot both be met as stated; the row stands at both
+  /// ends and both `FREC.conflictsWith` derive from it.
+  conflict,
+
+  /// This requirement refines the far end: it states it more precisely
+  /// without changing what it asks for.
+  refinement,
+
+  /// The far end sets a limit on how this requirement may be implemented.
+  /// Collected, with the row's description, in `FREC.constrainedBy` and
+  /// `TREC.constrainedBy`.
+  constrainedBy,
+
+  /// The far end is named in this requirement's description and has no row of
+  /// another kind: the row `deriveFields` writes for an id found there.
+  namedInText,
+}
+
 /// 4.3.1.n.5. Dependencies.
 ///
-/// Dependencies this requirement has on other requirements.
+/// Dependencies this requirement has on other requirements. Each dependency
+/// is one row, stored once, on the requirement it applies to: a directional
+/// dependency (prerequisite, parent-child, refinement, constrained by) is not
+/// written again as its converse on the other requirement, which reaches it
+/// through navigation. A conflict and a bidirectional dependency stand at both
+/// ends. The rows are the holder of every dependency; the requirement's
+/// `constrainedBy`, `conflictsWith` and `OREP.dependencies` are derived from
+/// them.
 @StandardReferences(
   ['ISO/IEC/IEEE 29148 §5.2 — requirement dependencies'],
   'The dependencies this requirement has on other requirements — what must be '
@@ -9980,6 +10074,24 @@ class RequirementDependencies extends DocSpecsSection {
   @SectionId('RQDEP-ITEM-LST')
   @SectionIdPattern('RQDEP-ITEM-xxx')
   @ContentHelp('Add one entry per dependency on another requirement.')
+  @ExtractsLinks(
+    from: ['FRED.description'],
+    ref: 'RQDEP-RELA-REF.ref',
+    set: {'RQDEP.dependencyType': 'namedInText'},
+    note:
+        'a requirement named in the description gets a row of its own; an '
+        'id that already has a row of any type gets none',
+  )
+  @ExtractsLinks(
+    from: ['FREC.constraints', 'TREC.constraints'],
+    ref: 'RQDEP-RELA-REF.ref',
+    set: {'RQDEP.dependencyType': 'constrainedBy'},
+    mode: ExtractMode.warn,
+    note:
+        'a requirement named in the constraints text without its row is '
+        'reported: the limit it sets is a constrainedBy row; an id that has '
+        'its row is a reference to it and is not reported',
+  )
   @SerializationOrder(1)
   List<RequirementDependencyEntry> items = [];
 }
@@ -9994,20 +10106,21 @@ class RequirementDependencies extends DocSpecsSection {
 @NoArtifact(
   NoArtifactReason.view,
   note:
-      'a link row re-presenting a dependency already declared on the two '
-      'requirement entries it names',
+      'a link row between two requirement entries: the holder of the '
+      'dependency, from which the requirement fields constrainedBy, '
+      'conflictsWith and OREP.dependencies are derived',
 )
 class RequirementDependencyEntry extends DocSpecsSection {
   @Form([
     Field(
       'dependencyType',
-      String,
-      'Dependency Type (Prerequisite, Bidirectional, Parent-Child, '
-          'Conflict, Refinement)',
+      RequirementDependencyType,
+      'Dependency Type',
       required: true,
       hint:
-          'Prerequisite, Bidirectional, Parent-Child, Conflict, or '
-          'Refinement',
+          'prerequisite, bidirectional, parentChild, conflict, refinement, '
+          'constrainedBy or namedInText; a directional kind is stored once, '
+          'on the requirement it applies to',
     ),
     Field(
       'description',
@@ -10028,10 +10141,11 @@ class RequirementDependencyEntry extends DocSpecsSection {
 
   /// The other requirement in this dependency, named by section id.
   ///
-  /// The row states the *kind* of relation — prerequisite, bidirectional,
-  /// parent-child, conflict, refinement — and this names its far end; the
-  /// requirement that owns the entry is always the near end, so neither half
-  /// is readable alone. Expect another requirement of this document there. A
+  /// The row states the *kind* of relation ([RequirementDependencyType]) and
+  /// this names its far end; the requirement that owns the entry is always the
+  /// near end, so neither half is readable alone. A conflict or bidirectional
+  /// row is answered by a row of the same kind on the far end
+  /// (`InverseOf.symmetric`); a directional row has no converse row. Expect another requirement of this document there. A
   /// dependency on something that is not itself a requirement is a constraint
   /// and belongs with the assumptions and constraints instead.
   ///
@@ -10053,6 +10167,9 @@ class RequirementDependencyEntry extends DocSpecsSection {
         'SECRQ.@sectionId',
         'ORRQ.@sectionId',
       ],
+      inverseOf: InverseOf.symmetric(
+        where: 'RQDEP.dependencyType=conflict|bidirectional',
+      ),
     ),
   ])
   @SerializationOrder(1)
@@ -10105,9 +10222,11 @@ class RequirementTraceability extends DocSpecsSection {
       'Related Use Cases (IDs)',
       hint:
           'Related interactions — interaction section ids (INEN-INTE-…), '
-          'comma-separated',
+          'comma-separated; each interaction names this requirement back in '
+          'its INTR.relatedRequirements',
       refersTo: ['INEN.@sectionId'],
       multiple: true,
+      inverseOf: InverseOf(['INTR.relatedRequirements']),
     ),
     Field(
       'relatedProcesses',
@@ -10141,13 +10260,23 @@ class RequirementTraceability extends DocSpecsSection {
       'relatedScreens',
       String,
       'Related UI Screens/Views',
-      hint: 'UI screens or views related to this requirement',
+      hint:
+          'UI screens or views related to this requirement — screen section '
+          'ids (SCREN-…), comma-separated; each screen names this requirement '
+          'back in its SCETR.relatedRequirements',
+      refersTo: ['SCREN.@sectionId'],
+      multiple: true,
+      inverseOf: InverseOf(['SCETR.relatedRequirements']),
     ),
     Field(
       'relatedDataEntities',
       String,
       'Related Data Entities',
-      hint: 'Data entities related to this requirement',
+      hint:
+          'Data entities related to this requirement — entity names declared '
+          'in the entity registry (DAENT), comma-separated',
+      refersTo: ['DAENT.entityName'],
+      multiple: true,
     ),
     Field(
       'relatedTestCases',
@@ -10392,6 +10521,14 @@ class RequirementTestCaseEntry extends DocSpecsSection {
   'and standards compliance.',
 )
 @DetailedIn(D04RequirementsSpecification)
+@SyncedWith(
+  D04RequirementsSpecification,
+  detailOnly: ['REQDEP', 'RETRAR.relatedTestCases'],
+  relations: [
+    ListRelation('RETRAR.relatedScreens', LinkRelation.subset),
+    ListRelation('RETRAR.relatedDataEntities', LinkRelation.subset),
+  ],
+)
 @ContentHelp(
   'Technical requirements describe non-functional aspects and '
   'constraints. Each should be measurable and testable. Common categories: '
@@ -10720,7 +10857,23 @@ class TechnicalRequirementEntry extends DocSpecsSection {
       'constraints',
       String,
       'Constraints',
-      hint: 'Limits or boundaries that apply, e.g., fixed infrastructure',
+      hint:
+          'Limits on how this requirement may be implemented, e.g. fixed '
+          'infrastructure. A limit set by another requirement is a dependency '
+          'row of type constrainedBy (shown in Constrained By).',
+    ),
+    Field(
+      'constrainedBy',
+      String,
+      'Constrained By (limits set by other requirements)',
+      hint:
+          'Derived from the dependency rows of type constrainedBy, one line '
+          'per row; edit the rows, not this field.',
+      derivedFrom: DerivedFrom.rows(
+        './RQDEP',
+        where: 'RQDEP.dependencyType=constrainedBy',
+        take: ['RQDEP-RELA-REF.ref', 'RQDEP.description'],
+      ),
     ),
   ])
   @SerializationOrder(5)
@@ -10759,6 +10912,14 @@ class TechnicalRequirementEntry extends DocSpecsSection {
   'authentication, authorization, audit, and compliance needs for the system.',
 )
 @DetailedIn(D04RequirementsSpecification)
+@SyncedWith(
+  D04RequirementsSpecification,
+  detailOnly: ['REQDEP', 'RETRAR.relatedTestCases'],
+  relations: [
+    ListRelation('RETRAR.relatedScreens', LinkRelation.subset),
+    ListRelation('RETRAR.relatedDataEntities', LinkRelation.subset),
+  ],
+)
 @ContentHelp(
   'Security requirements protect confidentiality, integrity, '
   'and availability of information. Include authentication, authorization, '
@@ -11266,6 +11427,7 @@ class SecurityControlEntry extends DocSpecsSection {
   'processes, training, or support needed for the system to succeed.',
 )
 @DetailedIn(D04RequirementsSpecification)
+@SyncedWith(D04RequirementsSpecification, detailOnly: ['REQDEP', 'ORIP'])
 @ContentHelp(
   'Organizational requirements describe non-technical changes '
   'needed for system success: training, process changes, role changes, '
@@ -11518,7 +11680,24 @@ class OrganizationalRequirementEntry extends DocSpecsSection {
       'dependencies',
       String,
       'Dependencies (other changes needed first)',
-      hint: 'Other changes that must happen first',
+      hint:
+          'Derived from the dependency rows of type prerequisite: the ids of '
+          'the requirements that must be met first; edit the rows, not this '
+          'field. A change that is not a requirement (a reorganisation, a '
+          'contract) belongs in the dependency register (ACRG › '
+          'DEPRE-DEPS-LST).',
+      refersTo: [
+        'FRE.@sectionId',
+        'TERQ.@sectionId',
+        'SECRQ.@sectionId',
+        'ORRQ.@sectionId',
+      ],
+      multiple: true,
+      derivedFrom: DerivedFrom.rows(
+        './RQDEP',
+        where: 'RQDEP.dependencyType=prerequisite',
+        take: ['RQDEP-RELA-REF.ref'],
+      ),
     ),
     Field(
       'owner',
@@ -19488,6 +19667,7 @@ dual-write bridges, reconciliation feeds, freeze/replay mechanisms.
 )
 @SectionId('RERE')
 @DetailedIn(D04RequirementsSpecification)
+@SyncedWith(D04RequirementsSpecification)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:
@@ -19530,6 +19710,7 @@ FUN/TEC/SEC/ORG into a network.
 )
 @SectionId('REQCOV')
 @DetailedIn(D04RequirementsSpecification)
+@SyncedWith(D04RequirementsSpecification)
 @FollowUpKind(
   [FollowUpProcess.doc],
   note:

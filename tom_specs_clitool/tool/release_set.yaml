@@ -115,12 +115,17 @@ unpublished_drift:
     docspecs_annotation_mapping.dart; the 14 schemas unchanged.
     02_sau3: the static validator checks the link vocabulary (§10.2
     invariants SYNC-PLACE … EXTRACT-LINK, lib/src/link_invariants.dart);
-    SHARED-COVER warns on the 132 @DetailedIn.
+    SHARED-COVER warns on the 132 @DetailedIn. 03_sau1: a @Reference member
+    is a place of its class (its target still not walked), INVERSE-PAIR takes
+    the list element above a form as its entry, a lookup without key and by
+    reads the last row; SHARED-COVER warns on the 126 pairs left.
   tom_specs_core: >-
     section automation in progress — 02_sau2 (2026-11-23): the link
     annotations (SyncedWith, ListRelation, SummaryOf, DerivedFrom, InverseOf,
     ExtractsLinks, their enums) and the Field qualifiers derivedFrom,
-    inverseOf and summaryOf; no model class uses them yet.
+    inverseOf and summaryOf; no model class uses them yet. 03_sau1:
+    DerivedFrom.lookup takes key and by both or neither (neither: the last
+    row).
   tom_som_dart_runtime: >-
     section automation in progress — 02_sau4 (2026-11-23): the link
     annotations in kRenderedAnnotations, linkChips in fieldChips, the four in
@@ -140,7 +145,11 @@ unpublished_drift:
     02_sau5: 1.12.3 — LOCRP a class (LocaleRolloutPlan) the TRP holds, 14 more
     @DetailedIn (132 pairs), §10.1 the table of pairs.
     05a_rdv1: llm_guidelines_specification.md constraint 7, the reading
-    notation for secondary prose.
+    notation for secondary prose. 03_sau1: the requirement clean-up and pairs
+    (RequirementDependencyType, constrainedBy, the derived conflictsWith and
+    OREP.dependencies, @ExtractsLinks, the symmetric RQDEP ref, the header
+    derived from the newest revision, @SyncedWith on FR, OR, SR1, TR1, REQCOV,
+    RERE, I1 and I5); not regenerated until 03_sau11.
 
 published_from:
   tom_specs_core: {version: '0.5.2', commit: '0f5d4c23'}

@@ -7,7 +7,9 @@
   `@SummaryOf`, `@DerivedFrom` (`.copy`, `.rows`, `.lookup`) with
   `DerivationKind`, `InverseOf` (with `.symmetric`), and `@ExtractsLinks` with
   `ExtractMode`. `Field` gains the qualifiers `derivedFrom`, `inverseOf` and
-  `summaryOf`. No model class uses them yet.
+  `summaryOf`. `DerivedFrom.lookup` takes `key` and `by` both or neither;
+  without them the value is read from the last row (the header from the newest
+  revision entry).
 - `countOf`'s filter grammar documents `|` alternatives; the runtimes do not
   split them in `countOf` yet.
 

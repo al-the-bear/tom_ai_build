@@ -26,15 +26,19 @@ ModelField _content(List<FormFieldInfo> form) => ModelField(
   formFields: form,
 );
 
-ModelField _formMember(String name, String id, List<FormFieldInfo> form) =>
-    ModelField(
-      name: name,
-      typeName: 'DocSpecsSection?',
-      isNullable: true,
-      isContentSection: true,
-      annotations: [_id(id)],
-      formFields: form,
-    );
+ModelField _formMember(
+  String name,
+  String id,
+  List<FormFieldInfo> form, [
+  List<AnnotationData> more = const [],
+]) => ModelField(
+  name: name,
+  typeName: 'DocSpecsSection?',
+  isNullable: true,
+  isContentSection: true,
+  annotations: [_id(id), ...more],
+  formFields: form,
+);
 
 ModelField _complex(String name, String type) =>
     ModelField(name: name, typeName: type);
@@ -89,6 +93,8 @@ Map<String, ModelClass> _model({
   List<FormFieldInfo> kreqForm = const [],
   Map<String, Object?>? relatedScreensInverse,
   Map<String, Object?>? relatedRequirementsInverse,
+  Map<String, Object?>? traceScreensInverse,
+  Map<String, Object?>? dependencyInverse,
   bool sbpReachesFrTwice = false,
 }) {
   ModelClass cls(
@@ -170,7 +176,20 @@ Map<String, ModelClass> _model({
         ]),
         _formMember('constraints', 'FREC', [_text('constraints'), ...frecForm]),
         _list('dependencies', 'Dep', 'RQDEP-ITEM-LST', depsAnnotations),
+        _complex('traceability', 'Trace'),
         _complex('note', 'SharedNote'),
+      ],
+    ),
+    // A section below the requirement holding a link form (`RT` / `RETRAR`):
+    // its entry is the requirement above it.
+    'Trace': cls(
+      'Trace',
+      [_id('RT')],
+      [
+        _content(const []),
+        _formMember('artifacts', 'RETR', [
+          _ref('screens', ['SCR.@sectionId'], inverseOf: traceScreensInverse),
+        ]),
       ],
     ),
     'Dep': cls(
@@ -185,9 +204,23 @@ Map<String, ModelClass> _model({
           ),
           _text('description'),
         ]),
-        _formMember('relatedRequirement', 'RQDEP-RELA-REF', [
-          _ref('ref', ['FRE.@sectionId'], multiple: false),
-        ]),
+        // A `@Reference` member, as in the model: a place of the row whose
+        // target is never followed.
+        _formMember(
+          'relatedRequirement',
+          'RQDEP-RELA-REF',
+          [
+            _ref(
+              'ref',
+              ['FRE.@sectionId'],
+              multiple: false,
+              inverseOf: dependencyInverse,
+            ),
+          ],
+          [
+            AnnotationData('Reference', {'label': 'Related Requirement'}),
+          ],
+        ),
       ],
     ),
     'KeyReq': cls(
@@ -609,6 +642,91 @@ void main() {
       expect(found, hasLength(2), reason: found.join('\n'));
       expect(found[0], contains('does not list FRE.relatedScreens'));
       expect(found[1], contains('symmetric needs a refersTo naming its own'));
+    });
+  });
+
+  group('DERIVE-SOURCE, a lookup of the last row', () {
+    test('a lookup without key and by reads the last row', () {
+      final found = _findings(
+        _model(
+          frecForm: [
+            _text(
+              'lastDependency',
+              derivedFrom: {
+                'kind': 'lookup',
+                'source': './RQDEP',
+                'take': ['RQDEP.description'],
+              },
+            ),
+          ],
+        ),
+        'DERIVE-SOURCE',
+      );
+      expect(found, isEmpty, reason: found.join('\n'));
+    });
+
+    test('a lookup naming a key without a by is an error', () {
+      final found = _findings(
+        _model(
+          frecForm: [
+            _text(
+              'lastDependency',
+              derivedFrom: {
+                'kind': 'lookup',
+                'source': './RQDEP',
+                'key': 'RQDEP.description',
+                'take': ['RQDEP.description'],
+              },
+            ),
+          ],
+        ),
+        'DERIVE-SOURCE',
+      );
+      expect(found, hasLength(1), reason: found.join('\n'));
+      expect(found.single, contains('a key and a by, or neither'));
+    });
+  });
+
+  group('INVERSE-PAIR, entries above the form', () {
+    test('a link form on a section below its entry pairs with the entry; a '
+        'symmetric link row names the entry holding its list', () {
+      final found = _findings(
+        _model(
+          traceScreensInverse: {
+            'fields': ['SCR.relatedRequirements'],
+          },
+          relatedRequirementsInverse: {
+            'fields': ['RETR.screens'],
+          },
+          dependencyInverse: {
+            'fields': ['@self'],
+            'where': 'RQDEP.dependencyType=conflict|bidirectional',
+          },
+        ),
+        'INVERSE-PAIR',
+      );
+      expect(found, isEmpty, reason: found.join('\n'));
+    });
+
+    test('the reference row is a place, its target is not walked', () {
+      final found = _findings(
+        _model(
+          frecForm: [
+            _ref(
+              'conflictsWith',
+              ['FRE.@sectionId'],
+              derivedFrom: {
+                'kind': 'rows',
+                'source': './RQDEP',
+                'where': 'RQDEP.dependencyType=conflict',
+                'take': ['RQDEP-RELA-REF.ref'],
+              },
+            ),
+          ],
+        ),
+        'DERIVE-SOURCE',
+      );
+      expect(found, isEmpty, reason: found.join('\n'));
     });
   });
 

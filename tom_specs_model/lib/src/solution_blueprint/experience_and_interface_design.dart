@@ -1917,7 +1917,8 @@ class ScreenEntry extends DocSpecsSection {
       hint:
           'Requirement ids this screen satisfies, comma-separated — each is '
           'a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / '
-          'ORRQ-REQU-…)',
+          'ORRQ-REQU-…); a functional, technical or security requirement '
+          'names this screen back in its RETRAR.relatedScreens',
       refersTo: [
         'FRE.@sectionId',
         'TERQ.@sectionId',
@@ -1925,6 +1926,7 @@ class ScreenEntry extends DocSpecsSection {
         'ORRQ.@sectionId',
       ],
       multiple: true,
+      inverseOf: InverseOf(['RETRAR.relatedScreens']),
     ),
     Field(
       'relatedBusinessProcesses',

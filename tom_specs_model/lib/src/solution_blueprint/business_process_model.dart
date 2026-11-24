@@ -4463,7 +4463,8 @@ class InteractionEntry extends DocSpecsSection {
       hint:
           'Requirement ids satisfied here, comma-separated — each is a '
           'requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / '
-          'ORRQ-REQU-…)',
+          'ORRQ-REQU-…); a functional, technical or security requirement '
+          'names this interaction back in its RT-TRAC.relatedUseCases',
       refersTo: [
         'FRE.@sectionId',
         'TERQ.@sectionId',
@@ -4471,6 +4472,7 @@ class InteractionEntry extends DocSpecsSection {
         'ORRQ.@sectionId',
       ],
       multiple: true,
+      inverseOf: InverseOf(['RT-TRAC.relatedUseCases']),
     ),
     Field(
       'relatedUseCase',

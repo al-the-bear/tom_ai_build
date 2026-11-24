@@ -304,7 +304,8 @@ name (`rows`, `subset`), as in `enumValues`, not the qualified form of an
   value of the place `source`), `rows` (the places `take` collected from the
   rows of `source` that match the filter `where`; `map`, a JSON object, maps a
   list member's element places to row places) or `lookup` (the places `take` of
-  the one row of `source` whose field `key` equals this element's `by`). Read by
+  the row of `source` whose field `key` equals this element's `by`, the last
+  in list order when several match; without `key` and `by`, the last row). Read by
   the derivation operation `deriveFields`, which writes the value; the static
   validator's `DERIVE-SOURCE` checks that every place resolves.
 - `inverseOf` — `{fields: [...], where?}`: the field is one end of a link

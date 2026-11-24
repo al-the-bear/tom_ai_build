@@ -49,10 +49,12 @@ class DerivedFrom {
   /// collected.
   final List<String> take;
 
-  /// [DerivationKind.lookup]: the row field compared with [by].
+  /// [DerivationKind.lookup]: the row field compared with [by]; null with
+  /// [by] null: every row matches, so the last row is read.
   final String? key;
 
-  /// [DerivationKind.lookup]: the field of this element holding the key.
+  /// [DerivationKind.lookup]: the field of this element holding the key; null
+  /// with [key] null.
   final String? by;
 
   /// For a list member: target element place ← row place.
@@ -84,11 +86,20 @@ class DerivedFrom {
 
   /// The value is read from the row of [source] whose field [key] equals this
   /// element's field [by]: the places [take] of that row. When several rows
-  /// match, the last in list order wins.
+  /// match, the last in list order wins; without [key] and [by] every row
+  /// matches, so the value is read from the last row (the header's version
+  /// from the newest revision entry):
+  ///
+  /// ```dart
+  /// Field('version', String, 'Version',
+  ///     derivedFrom: DerivedFrom.lookup('RVENT', take: ['RVENT.version']))
+  /// ```
+  ///
+  /// [key] and [by] are given both or neither.
   const DerivedFrom.lookup(
     this.source, {
-    required String this.key,
-    required String this.by,
+    this.key,
+    this.by,
     required this.take,
     this.note,
   }) : kind = DerivationKind.lookup,

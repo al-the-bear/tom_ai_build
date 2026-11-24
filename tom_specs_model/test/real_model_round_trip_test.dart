@@ -59,7 +59,7 @@ void main() {
         638,
         reason: 'the fixture must exercise the whole reachable model',
       );
-      expect(filler.formSections, 304);
+      expect(filler.formSections, 305);
       expect(written.split('\n').length, greaterThan(3000));
 
       final reloaded = SpecDocumentYaml.decode(written, treeFor(_sbp));

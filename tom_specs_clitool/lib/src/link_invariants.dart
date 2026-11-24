@@ -80,9 +80,15 @@ class LinkInvariants {
         );
       }
       for (final field in cls.fields) {
-        if (field.getAnnotation('Reference') != null) continue;
+        // A `@Reference` member stores its target's id in its own form: the
+        // member is a place of this class (`RQDEP-RELA-REF.ref`), but its
+        // target is never followed (tom_specs_model_rules.md §9.2), so it adds no
+        // child.
+        final isReference = field.getAnnotation('Reference') != null;
         String? child;
-        if (field.isList && field.listElementIsComplex) {
+        if (isReference) {
+          // no child: the reference is not traversed
+        } else if (field.isList && field.listElementIsComplex) {
           child = field.listElementTypeName;
           if (child != null) _listElements.add(child);
         } else if (field.isComplex) {
@@ -153,7 +159,6 @@ class LinkInvariants {
         out.add(_Occ(n, here));
       }
       for (final field in cls.fields) {
-        if (field.getAnnotation('Reference') != null) continue;
         final member = _nodesOf[className]!
             .where((n) => n.member == field.name)
             .firstOrNull;
@@ -162,6 +167,8 @@ class LinkInvariants {
           below = [...here, member.id];
           out.add(_Occ(member, below));
         }
+        // A `@Reference` member is a place; its target is not walked.
+        if (field.getAnnotation('Reference') != null) continue;
         if (field.isList && field.listElementIsComplex) {
           final el = field.listElementTypeName;
           if (el != null) walk(el, below, onPath);
@@ -380,6 +387,33 @@ class LinkInvariants {
     final id = _classId[entryClass];
     return id != null && refersTo.any((t) => t.split('.').first == id);
   }
+
+  /// The entry classes of a form on [className]: the list elements nearest
+  /// above it, itself when it is one. A form on a section below its entry
+  /// (`RT-TRAC` under a requirement) belongs to that entry, which is what the
+  /// other end of a link names.
+  Set<String> _entryClasses(String className) {
+    final near = _nearestListElements(className);
+    return near.isEmpty ? {className} : near;
+  }
+
+  /// Every list element [className] lies beneath, itself included: a link
+  /// row (`RQDEP`) belongs to the entry that holds its list (the requirement),
+  /// which is what a symmetric link's ids name.
+  Set<String> _enclosingEntries(String className) {
+    final out = <String>{};
+    final queue = [className];
+    while (queue.isNotEmpty) {
+      final c = queue.removeLast();
+      for (final e in _nearestListElements(c)) {
+        if (out.add(e)) queue.addAll(_parents[e] ?? const {});
+      }
+    }
+    return out.isEmpty ? {className} : out;
+  }
+
+  bool _namesAny(List<String> refersTo, Set<String> classes) =>
+      classes.any((c) => _namesClass(refersTo, c));
 
   /// Checks a filter `<place>=<value>[|<value>…]` against [occs]; returns the
   /// problem or null.
@@ -1165,8 +1199,10 @@ class LinkInvariants {
         final k = args['key'], by = args['by'];
         final kr = k is String ? _resolveIn(k, rowScope) : null;
         final br = by is String ? _resolveIn(by, ownerScope) : null;
-        if (kr == null || br == null) {
-          fail('lookup names a key and a by');
+        if (kr == null && br == null) {
+          // Neither: every row matches, the last row is read.
+        } else if (kr == null || br == null) {
+          fail('lookup names a key and a by, or neither (the last row)');
         } else if (!kr.ok) {
           fail('key "$k" ${kr.problem}');
         } else if (!br.ok) {
@@ -1334,10 +1370,14 @@ class LinkInvariants {
       if (ends.contains('@self')) {
         if (ends.length != 1) {
           fail('@self (symmetric) stands alone');
-        } else if (!_namesClass(s.field.refersTo, s.cls.name)) {
+        } else if (!_namesAny(
+          s.field.refersTo,
+          _enclosingEntries(s.cls.name),
+        )) {
           fail(
             'symmetric needs a refersTo naming its own entry class '
-            '${s.cls.name}, not ${s.field.refersTo.join(', ')}',
+            '(${(_enclosingEntries(s.cls.name).toList()..sort()).join(', ')}), '
+            'not ${s.field.refersTo.join(', ')}',
           );
         }
         continue;
@@ -1354,16 +1394,19 @@ class LinkInvariants {
           fail('other end "$end" is no refersTo field');
           continue;
         }
-        if (!_namesClass(s.field.refersTo, r.node.owner)) {
+        final theirs = _entryClasses(r.node.owner);
+        if (!_namesAny(s.field.refersTo, theirs)) {
           fail(
             'its refersTo (${s.field.refersTo.join(', ')}) does not name '
-            '${r.node.owner}, the entry class of "$end"',
+            '${(theirs.toList()..sort()).join(', ')}, the entry class of '
+            '"$end"',
           );
         }
-        if (!_namesClass(other.refersTo, s.cls.name)) {
+        final mine = _entryClasses(s.cls.name);
+        if (!_namesAny(other.refersTo, mine)) {
           fail(
             '"$end" refers to ${other.refersTo.join(', ')}, not to '
-            '${s.cls.name}',
+            '${(mine.toList()..sort()).join(', ')}',
           );
         }
         final back = _strings(other.inverseOf?['fields']);

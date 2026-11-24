@@ -1683,7 +1683,8 @@ annotations are written into the meta like `@CodeSpecKind`
 - **A form field:** `<FORMSECTIONID>.<field>` — the form addressed by its
   section id: the class id for a class's own content form (`FRE.status`), the
   inline sub-section id for a form member (`RETRAR.relatedScreens`,
-  `RQDEP-RELA-REF.ref`).
+  `RQDEP-RELA-REF.ref`). A `@Reference` member's form is a place of its own
+  class like any other form member; its target is never followed (§9.2).
 - **A whole form:** `<FORMSECTIONID>`.
 - **A heading:** `<SECTIONID>.@headline` — the section's stored headline.
 - **A section's text:** `<SECTIONID>.@content` — its own `content`.
@@ -1736,7 +1737,8 @@ annotations are written into the meta like `@CodeSpecKind`
   {where, take, map})` (the places `take` of the rows of `source` matching
   `where`; on a list member `map` builds one element per row); `lookup(source,
   {key, by, take})` (the places `take` of the row whose field `key` equals
-  this element's `by`; when several rows match, the last in list order wins).
+  this element's `by`; when several rows match, the last in list order wins;
+  without `key` and `by` every row matches, so the last row is read).
   One `take` into a multi-valued reference field writes the ids
   comma-separated; several into a text field write one line per row, the
   values joined by ` — `. A field carries at most one of `derivedFrom`,
@@ -1745,7 +1747,12 @@ annotations are written into the meta like `@CodeSpecKind`
   stored at both ends; `fields` names the other ends, one per registry of the
   field's `refersTo` that has a field pointing back. `InverseOf.symmetric()`
   stores the link on both entries in the same field. Both ends declare it,
-  each naming the other.
+  each naming the other. An end belongs to its **entry**, the list element
+  nearest above its form: `RT-TRAC.relatedUseCases` to the requirement that
+  holds `RT`, which is what `INTR.relatedRequirements` names. A symmetric link
+  row (`RQDEP-RELA-REF.ref`) names the entry that holds its list: a
+  conflict row on requirement A naming B is answered by a conflict row on B
+  naming A.
 - **`@ExtractsLinks({from, ref, set, mode, note})`** — the annotated list of
   link rows is kept in step with the ids named in the text places `from`: a
   found id gets a row whose `ref` holds it, with the values `set`;
@@ -1773,6 +1780,33 @@ annotations are written into the meta like `@CodeSpecKind`
   `countOf`, `productOf` or `rankOf` is computed in each document from that
   document's own sources; when the sources are shared, the derived values agree
   by construction.
+
+**Where each requirement fact is held.** The requirement entries (`FRE`,
+`TERQ`, `SECRQ`, `ORRQ`) show how a fact written at two places gets one holder:
+
+| Fact | Held in | Derived or linked place |
+| --- | --- | --- |
+| A dependency on another requirement, its kind and description | the requirement's dependency rows `REQDEP` › `RQDEP` (`dependencyType` the enum `RequirementDependencyType`, the far end in `RQDEP-RELA-REF.ref`) | — |
+| A limit another requirement sets | the rows of type `constrainedBy` | `FREC.constrainedBy`, `TREC.constrainedBy`: `derivedFrom: DerivedFrom.rows('./RQDEP', where: 'RQDEP.dependencyType=constrainedBy', take: ['RQDEP-RELA-REF.ref', 'RQDEP.description'])`, one line `<ref> — <description>` per row |
+| The requirement's own implementation limits | `FREC.constraints`, `TREC.constraints` | — (an id named there without its row is reported, `@ExtractsLinks` in `warn` mode) |
+| A conflict | the rows of type `conflict`, at both ends (`InverseOf.symmetric`) | `FREC.conflictsWith`: the ids of the conflict rows |
+| What must be met first | the rows of type `prerequisite` | `OREP.dependencies`: the ids of the prerequisite rows; a change that is not a requirement belongs in the Blueprint's dependency register (`ACRG` › `DEPRE-DEPS-LST`) |
+| A requirement named in the description | the rows of type `namedInText` | written by `deriveFields` from `FRED.description` (`@ExtractsLinks`, `generate`) |
+| A use case or screen the requirement serves | both ends: `RT-TRAC.relatedUseCases` ↔ `INTR.relatedRequirements`, `RETRAR.relatedScreens` ↔ `SCETR.relatedRequirements` (`inverseOf`) | — |
+| Which revision last changed the requirement | `FREM` (stored, filled from git) | — |
+
+The document header follows the same rule: its `version`, `date` and `author`
+(`DOCHD`) are held by the revision history and derived from its newest entry,
+`derivedFrom: DerivedFrom.lookup('RVENT', take: ['RVENT.version'])` (a lookup
+without `key` and `by` reads the last row), in every document from its own
+history; `documentId`, `project` and `status` are the header's own.
+
+A directional dependency (prerequisite, parent-child, refinement, constrained
+by) is stored once, on the requirement it applies to; its converse ("required
+by", "constrains") is not written as a row on the other requirement, which
+reaches it through navigation. A conflict and a bidirectional dependency stand
+at both ends. The derived fields are not `required`: a requirement without rows
+is valid with them empty.
 
 The static validator holds the annotations to these rules before anything is
 generated: invariants `SYNC-PLACE`, `SYNC-ANCHOR`, `SHARED-COVER`,
@@ -1947,6 +1981,17 @@ The 132 pairs, by document and by their place in the Blueprint:
 | `WRTSP` | WarrantyAndSupport | TRP | `deliveryTransitionAndRollout/systemRollout/warrantyAndSupport` | — |
 | `DOANTR` | UserDocumentationRequirements | TRP | `requirements/requirementsFollowUp/informationForUse/userDocumentation` | — |
 | `TRMAT` | TrainingDeliverableRequirements | TRP | `requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables` | — |
+
+**The pairs written so far.** A pair whose `@SyncedWith` is not written yet
+carries what the `@DetailedIn` level implies, and the validator warns once for
+it (invariant `SHARED-COVER`). The six requirement pairs of the RSP (`FR`,
+`OR`, `SR1`, `TR1`, `REQCOV`, `RERE`) carry theirs: the `detailOnly` of the
+table above, and in `FR`, `SR1` and `TR1` the relation `subset` on
+`RETRAR.relatedScreens` and `RETRAR.relatedDataEntities` (the Blueprint names a
+selection of the screens and entities the RSP names). The derived fields of
+these pairs (`FREC.constrainedBy`, `FREC.conflictsWith`, `TREC.constrainedBy`,
+`OREP.dependencies`) are never shared: each document derives them from its own
+rows (§9.7).
 
 ### 10.2 The mechanical structural invariants
 

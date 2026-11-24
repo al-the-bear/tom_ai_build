@@ -146,7 +146,21 @@ void main() {
           .where((w) => w.contains('§10.2 SHARED-COVER:'))
           .toList();
       expect(cover, hasLength(detailed));
-      expect(detailed, 132, reason: 'the model carries 132 @DetailedIn');
+      bool pair(List<AnnotationData> annotations) =>
+          annotations.any((a) => a.name == 'DetailedIn');
+      final pairs = [
+        for (final c in classes.values) ...[
+          if (pair(c.annotations)) c.name,
+          for (final f in c.fields)
+            if (pair(f.annotations)) '${c.name}.${f.name}',
+        ],
+      ].length;
+      expect(pairs, 132, reason: 'the model carries 132 @DetailedIn');
+      expect(
+        pairs - detailed,
+        greaterThanOrEqualTo(6),
+        reason: 'the six requirement pairs carry their @SyncedWith',
+      );
     });
 
     test(
