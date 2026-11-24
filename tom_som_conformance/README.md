@@ -822,6 +822,20 @@ state, errors, instanceErrors}`: `errors` are `validateLinks`' findings,
 `countOf` with `|` drifting is reported. Findings are `{path, code}`; messages
 are not compared.
 
+[`corpus/document_set_cases.json`](corpus/document_set_cases.json) pins
+`SpecDocumentSet`, `syncReport` and `renameId` over a set of three documents
+of the same model (`blueprint`, `detail`, `screens`) that agree everywhere:
+- `construction`: the set built — its pairs, its roots and the roots with no
+  document yet — from documents or from fragments, and every refusal, the
+  last over an inline model whose synced class is reached twice;
+- `reports`: the base set with one edit each, one case per finding of the
+  set and per comparison rule (trimmed text, `2` and `2.0` in a double, list
+  order ignored), a missing document as `notStarted`, the `pairs` filter and
+  the order of findings; each expectation is the report's `toJson()`, its
+  per-document findings included;
+- `renames`: an id renamed in every document, and a rename onto an id that
+  exists, refused.
+
 The files are written by the Dart runtime's
 `test/section_link_conformance_test.dart` under `UPDATE_CORPUS=1`; every case
 carries a hand-written `intent` the test checks, and the expectations were read

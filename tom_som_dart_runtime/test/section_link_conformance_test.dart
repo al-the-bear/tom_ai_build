@@ -17,6 +17,11 @@
 ///   instance tier (`validateDocument`), which is where a `countOf` with `|`
 ///   is checked.
 ///
+/// * `document_set_cases.json` — `SpecDocumentSet`, `syncReport` and
+///   `renameId`: the set's construction (its pairs, its missing roots, every
+///   refusal — the last over an inline model), one report case per finding of
+///   the set and per comparison rule, scoping, and the global rename.
+///
 /// Each case carries a hand-written `intent`: what it exists to show. A run
 /// checks that the intent holds in the expectation, so a case that silently
 /// stops showing it fails even though Dart reproduces its own output.
@@ -102,6 +107,51 @@
 /// * **countMismatch** (instance tier) for `settled: 3` against approved|done;
 ///   **linkValuePending** at a description holding a pending change, read with
 ///   the mark rejected, so nothing else moves. Correct.
+/// * The base gained a `weight` and names the one screen of the base set
+///   (`SCRN-LOGIN`) in its overview and focus, so the document-set table can
+///   reuse it; every case above reads the same after it.
+///
+/// ## Manual review of `document_set_cases.json` (DP-part-conformance-1)
+///
+/// Reviewed 2026-11-24 against the intents and part-operations sections 3–4:
+///
+/// * **construction** — the base set's three pairs (`REQS` and `CRIT` with
+///   Detail, `ACC` with Screens), `CRIT` paired at the acceptance's criteria,
+///   not at the summary's `@SameAs` copy; without Screens its root is missing
+///   and the pairs stay; two Blueprint fragments assembled under the first
+///   fragment's name; the refusals `sameRoot` (both documents named),
+///   `noRoot`, `twoRoots`, `projection`, `overlap` (both fragments) and
+///   `unpairable` (the inline model's `Part`, reached twice). Correct.
+/// * **the base set** is clean: Detail's rationale (detailOnly `REQX`), the
+///   criteria under the Screens' acceptance (detailOnly `CRIT`), the derived
+///   `lastVersion` and counts, and the copy are not compared. Correct.
+/// * **values** — a status differing (`backfill`, held by Detail); the owner,
+///   which the Blueprint holds (`heldHere`), differing (`agent`, holder
+///   `blueprint`); a description the Blueprint lacks (`sharedValueMissing`)
+///   and one Detail emptied (`sharedValueOnlyInBlueprint`), each side naming
+///   the field. Correct.
+/// * **elements** — a requirement only in Detail (`sharedElementMissing`,
+///   the Blueprint side the list it goes in), with Detail's own count and
+///   equal summary moving in its document findings; a key row only in the
+///   Blueprint; under the criteria's `subset` with `where`, a quality
+///   criterion only in Detail may be added (`info`, the report clean) and a
+///   legal one, outside the filter, is held to equal; the `subset` reference
+///   field `relatedScreens` one screen more in Detail (`info`) and one only in
+///   the Blueprint (`sharedElementOnlyInBlueprint`). Correct.
+/// * **across documents** — a screen the Blueprint's `equal` overview leaves
+///   out, a focus screen the Screens document lacks (`crossSummaryMismatch`),
+///   and a requirement in Detail naming a screen that does not name it back
+///   (`crossInverseMissing`, read from Detail, the requirements' own
+///   document, never twice from the Blueprint). Correct.
+/// * **rules** — a pending mark listed as `pendingReview` (`info`, clean) with
+///   Detail's own `linkValuePending` beside; trimmed text, `2` / `2.0` in a
+///   double and reordered criteria agree; Screens missing is `notStarted`;
+///   scoping to `CRIT` drops a `REQS` finding, scoping to `REQS` keeps it;
+///   findings of two pairs come in pair order. Correct.
+/// * **renameId** — `REQ-IMPORT` renamed in both documents: the element, the
+///   references (link rows, a revision, the prerequisite, the summary field)
+///   and the texts naming it; the set is clean after it. A rename onto
+///   `REQ-PURGE` is refused, naming the two documents that hold it. Correct.
 library;
 
 import 'dart:convert';
@@ -118,6 +168,7 @@ void main() {
   final meta = buildLinksMeta();
   final readerCases = buildLinkReaderCases(meta);
   final validationCases = buildLinkValidationCases(meta);
+  final setCases = buildDocumentSetCases(meta);
 
   String encode(Object? json) =>
       '${const JsonEncoder.withIndent('  ').convert(json)}\n';
@@ -131,6 +182,9 @@ void main() {
     File(
       '${corpusDir.path}/link_validation_cases.json',
     ).writeAsStringSync(encode(validationCases));
+    File(
+      '${corpusDir.path}/document_set_cases.json',
+    ).writeAsStringSync(encode(setCases));
   });
 
   Object? onDisk(String name) =>
@@ -282,6 +336,80 @@ void main() {
         SpecValidationCode.linkValuePending,
       ];
       expect(provoked, containsAll(linkCodes.map((c) => c.name)));
+    });
+  });
+
+  group('document set', () {
+    test('DSC1: document_set_cases.json is the table the builder writes', () {
+      expect(
+        onDisk('document_set_cases.json'),
+        jsonDecode(jsonEncode(setCases)),
+      );
+    });
+
+    test('DSC2: the table on disk is reproduced from its own inputs', () {
+      final model = SpecModel.fromJson(
+        onDisk('links.meta.json') as Map<String, dynamic>,
+      );
+      final table = onDisk('document_set_cases.json') as Map<String, dynamic>;
+      for (final c
+          in (table['construction'] as List).cast<Map<String, dynamic>>()) {
+        final m = c['meta'] == null
+            ? model
+            : SpecModel.fromJson(c['meta'] as Map<String, dynamic>);
+        expect(
+          jsonDecode(jsonEncode(setConstructionCase(m, c))),
+          c['expect'],
+          reason: c['name'] as String,
+        );
+      }
+      for (final c in (table['reports'] as List).cast<Map<String, dynamic>>()) {
+        expect(
+          jsonDecode(jsonEncode(setReportCase(model, c))),
+          c['expect'],
+          reason: c['name'] as String,
+        );
+      }
+      for (final c in (table['renames'] as List).cast<Map<String, dynamic>>()) {
+        expect(
+          jsonDecode(jsonEncode(setRenameCase(model, c))),
+          c['expect'],
+          reason: c['name'] as String,
+        );
+      }
+    });
+
+    test('DSC3: every case shows its intent', () {
+      for (final group in ['construction', 'reports', 'renames']) {
+        for (final c
+            in (setCases[group] as List).cast<Map<String, dynamic>>()) {
+          final shown = _setTokens(
+            jsonDecode(jsonEncode(c['expect'])) as Map<String, dynamic>,
+          );
+          for (final token in (c['intent'] as List).cast<String>()) {
+            expect(
+              shown,
+              contains(token),
+              reason: '${c['name']}: intent "$token"',
+            );
+          }
+        }
+      }
+    });
+
+    test('DSC4: the real model pairs every synced class', () {
+      final real = SpecModel.fromJson(
+        jsonDecode(
+              File(
+                '${Directory.current.path}/../tom_som_dart_v0/meta/'
+                'spec_model.meta.json',
+              ).readAsStringSync(),
+            )
+            as Map<String, dynamic>,
+      );
+      final set = SpecDocumentSet(real, const {});
+      expect(set.blueprintRoot, 'D00SolutionBlueprint');
+      expect(set.pairs, hasLength(132));
     });
   });
 
@@ -901,7 +1029,7 @@ SpecDocument _baseBlueprint() {
   // and not reported (DP-part-cleanup-7).
   const exportText =
       'Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.';
-  form('$_ra/content', {'owner': 'ana'});
+  form('$_ra/content', {'owner': 'ana', 'weight': '2'});
   form('$_ra/REQD', {'description': exportText});
   d.setContent('$_ra/REQAB', exportText);
   form('$_ra/REQC', {'conflictsWith': 'REQ-PURGE'});
@@ -953,8 +1081,8 @@ SpecDocument _baseBlueprint() {
     }
   }
   final ovr = d.addListItem('BLU/screenOverview/OVR-ITEM-LST');
-  form('$ovr/content', {'screenRef': 'SCRN-UNKNOWN'});
-  form('BLU/FOC', {'focusScreens': 'SCRN-NOWHERE'});
+  form('$ovr/content', {'screenRef': 'SCRN-LOGIN'});
+  form('BLU/FOC', {'focusScreens': 'SCRN-LOGIN'});
   return d;
 }
 
@@ -1118,6 +1246,536 @@ Map<String, Object?> buildLinkValidationCases(Map<String, dynamic> meta) {
 }
 
 // ---------------------------------------------------------------------------
+// The table `document_set_cases.json`
+// ---------------------------------------------------------------------------
+
+/// [into] gains every value of [from] beneath [src], moved beneath [dst].
+void _copyTree(SpecDocument from, String src, SpecDocument into, String dst) {
+  String move(String path) => path == src
+      ? dst
+      : path.startsWith('$src/')
+      ? '$dst${path.substring(src.length)}'
+      : path;
+  bool under(String path) => path == src || path.startsWith('$src/');
+  final a = from.toJson();
+  final b = into.toJson();
+  for (final store in ['content', 'forms', 'headlines']) {
+    final target = <String, Object?>{
+      ...?(b[store] as Map?)?.cast<String, Object?>(),
+    };
+    (a[store] as Map? ?? {}).forEach((k, v) {
+      if (under(k as String)) target[move(k)] = v;
+    });
+    if (target.isNotEmpty) b[store] = target;
+  }
+  final lists = <String, Object?>{
+    ...?(b['lists'] as Map?)?.cast<String, Object?>(),
+  };
+  (a['lists'] as Map? ?? {}).forEach((k, v) {
+    if (!under(k as String)) return;
+    final l = v as Map;
+    lists[move(k)] = {
+      'seq': l['seq'],
+      'items': [for (final i in l['items'] as List) move(i as String)],
+      if (l['ids'] != null)
+        'ids': {
+          for (final e in (l['ids'] as Map).entries)
+            move(e.key as String): e.value,
+        },
+    };
+  });
+  if (lists.isNotEmpty) b['lists'] = lists;
+  into.loadJson(b);
+}
+
+/// The base set: the Blueprint of the validation table, the Detail
+/// document holding its requirements and criteria, and the Screens document
+/// holding the one screen the Blueprint names and the acceptance. Every
+/// shared place agrees; the places only Detail and Screens carry
+/// (`detailOnly`) differ, and are not compared.
+Map<String, SpecDocument> _baseSet() {
+  final blu = _baseBlueprint();
+  final det = SpecDocument();
+  _copyTree(blu, 'BLU/requirements', det, 'DET/requirements');
+  _copyTree(blu, 'BLU/acceptance/criteria', det, 'DET/criteria');
+  // Only Detail carries a requirement's rationale (detailOnly REQX).
+  det.setFormField(
+    'DET/requirements/REQ-ITEM-LST-1/REQX',
+    'rationale',
+    'Presets save the export settings once.',
+  );
+  final scr = SpecDocument();
+  final screen = scr.addListItem('SCR/SCRN-ITEM-LST', sectionId: 'SCRN-LOGIN');
+  scr.setHeadline(screen, 'Login');
+  scr.setFormField('$screen/content', 'purpose', 'Sign in.');
+  scr.setFormField('$screen/content', 'relatedRequirements', 'REQ-EXPORT');
+  scr.setFormField('SCR/acceptance/content', 'owner', 'quality team');
+  // The criteria under the Screens' acceptance are detailOnly there.
+  final c = scr.addListItem(
+    'SCR/acceptance/criteria/CRIT-ITEM-LST',
+    sectionId: 'CRIT-UX',
+  );
+  scr.setFormField('$c/content', 'text', 'Every screen is reachable by key.');
+  return {'blueprint': blu, 'detail': det, 'screens': scr};
+}
+
+/// The canonical form of a set's documents: `[[name, state], …]`.
+List<Object?> _documentsJson(Map<String, SpecDocument> docs) => [
+  for (final e in docs.entries) [e.key, e.value.toJson()],
+];
+
+Map<String, SpecDocument> _documentsFrom(List<dynamic> json) => {
+  for (final e in json)
+    (e as List)[0] as String: SpecDocument()..loadJson(e[1] as Map),
+};
+
+/// One construction case: the set built (from fragments when [fragments]),
+/// answered as its pairs and roots, or the refusal.
+Map<String, Object?> setConstructionCase(
+  SpecModel model,
+  Map<String, dynamic> c,
+) {
+  final docs = _documentsFrom(c['documents'] as List);
+  try {
+    final set = c['fragments'] == true
+        ? SpecDocumentSet.fromFragments(model, docs)
+        : SpecDocumentSet(model, docs);
+    return {
+      'blueprintRoot': set.blueprintRoot,
+      'names': set.names,
+      'roots': set.roots.toList(),
+      'missingRoots': set.missingRoots,
+      'pairs': [for (final p in set.pairs) p.toJson()],
+    };
+  } on SpecDocumentSetError catch (e) {
+    return {'refused': e.toJson()};
+  }
+}
+
+/// One report case: `syncReport` over the documents, optionally scoped.
+Map<String, Object?> setReportCase(SpecModel model, Map<String, dynamic> c) {
+  final set = SpecDocumentSet(model, _documentsFrom(c['documents'] as List));
+  final pairs = (c['pairs'] as List?)?.cast<String>().toSet();
+  return syncReport(set, pairs: pairs).toJson();
+}
+
+/// One rename case: `renameId`, answered as its changes and the report after
+/// it, or the documents that refused it.
+Map<String, Object?> setRenameCase(SpecModel model, Map<String, dynamic> c) {
+  final set = SpecDocumentSet(model, _documentsFrom(c['documents'] as List));
+  try {
+    final changes = renameId(set, c['from'] as String, c['to'] as String);
+    final after = syncReport(set);
+    return {
+      'changes': [for (final x in changes) x.toJson()],
+      'cleanAfter': after.clean,
+      'findingsAfter': after.findings.where((f) => !f.isInfo).length,
+    };
+  } on SpecRenameError catch (e) {
+    return {'refused': e.documents};
+  }
+}
+
+/// A small inline model whose synced class is reached twice in the
+/// Blueprint and once in its document: the positions cannot be paired.
+Map<String, dynamic> _unpairableMeta() => {
+  'metaSchemaVersion': 1,
+  'modelVersion': 1,
+  'modelVersionLabel': 'links-unpairable-1.0',
+  'generatedAt': '2026-11-24T08:00:00.000000Z',
+  'classCount': 3,
+  'rootCount': 2,
+  'roots': [
+    {'type': 'Mini', 'title': 'Mini', 'sectionId': 'MINI'},
+    {'type': 'MiniDetail', 'title': 'Mini Detail', 'sectionId': 'MDET'},
+  ],
+  'classes': {
+    'Mini': _cls(
+      'Mini',
+      'MINI',
+      [_complex('first', 'Part'), _complex('second', 'Part')],
+      annotations: [
+        _a('Document', {'name': 'Mini', 'description': 'two positions'}),
+      ],
+    ),
+    'MiniDetail': _cls(
+      'MiniDetail',
+      'MDET',
+      [_complex('part', 'Part')],
+      annotations: [
+        _a('Document', {
+          'name': 'Mini Detail',
+          'description': 'one position',
+          'basedOn': ['Mini'],
+        }),
+      ],
+    ),
+    'Part': _cls(
+      'Part',
+      'PART',
+      [
+        _form('content', null, [_ff('note', 'String')]),
+      ],
+      annotations: [
+        _a('DetailedIn', {'target': 'MiniDetail'}),
+        _a('SyncedWith', {
+          'document': 'MiniDetail',
+          'detailOnly': <String>[],
+          'heldHere': <String>[],
+          'relations': <Object?>[],
+        }),
+      ],
+    ),
+  },
+};
+
+const _det = 'DET/requirements/REQ-ITEM-LST';
+
+/// The table `document_set_cases.json`, its expectations computed live.
+Map<String, Object?> buildDocumentSetCases(Map<String, dynamic> meta) {
+  final model = SpecModel.fromJson(meta);
+
+  Map<String, Object?> construct(
+    String name,
+    List<String> intent,
+    Map<String, SpecDocument> docs, {
+    bool fragments = false,
+    Map<String, dynamic>? inline,
+  }) {
+    final c = <String, dynamic>{
+      'name': name,
+      'intent': intent,
+      if (inline != null) 'meta': inline,
+      if (fragments) 'fragments': true,
+      'documents': _documentsJson(docs),
+    };
+    final m = inline == null ? model : SpecModel.fromJson(inline);
+    return {...c, 'expect': setConstructionCase(m, jsonDecode(jsonEncode(c)))};
+  }
+
+  Map<String, Object?> report(
+    String name,
+    List<String> intent,
+    void Function(Map<String, SpecDocument> docs)? edit, {
+    List<String>? pairs,
+  }) {
+    final docs = _baseSet();
+    edit?.call(docs);
+    final c = <String, dynamic>{
+      'name': name,
+      'intent': intent,
+      if (pairs != null) 'pairs': pairs,
+      'documents': _documentsJson(docs),
+    };
+    return {...c, 'expect': setReportCase(model, jsonDecode(jsonEncode(c)))};
+  }
+
+  Map<String, Object?> rename(
+    String name,
+    List<String> intent,
+    String from,
+    String to,
+  ) {
+    final c = <String, dynamic>{
+      'name': name,
+      'intent': intent,
+      'from': from,
+      'to': to,
+      'documents': _documentsJson(_baseSet()),
+    };
+    return {...c, 'expect': setRenameCase(model, jsonDecode(jsonEncode(c)))};
+  }
+
+  final base = _baseSet();
+  SpecDocument part(SpecDocument d, String keep) {
+    final j = d.toJson();
+    bool k(String p) => p == keep || p.startsWith('$keep/');
+    for (final store in ['content', 'forms', 'headlines']) {
+      (j[store] as Map?)?.removeWhere((key, _) => !k(key as String));
+    }
+    (j['lists'] as Map?)?.removeWhere((key, _) => !k(key as String));
+    return SpecDocument()..loadJson(j);
+  }
+
+  final projection = SpecDocument()
+    ..setFormField('PRJ/requirements/REQS-SUM', 'total', '0');
+  final twoRoots = _baseBlueprint()
+    ..setFormField('DET/requirements/REQS-SUM', 'total', '0');
+  final overlapA = part(_baseBlueprint(), 'BLU/requirements');
+  final overlapB = part(_baseBlueprint(), 'BLU/requirements');
+  final mini = SpecDocument()..setFormField('MINI/first/content', 'note', 'a');
+
+  return {
+    'model': 'links.meta.json',
+    'construction': [
+      construct('the base set: three documents, the pairs computed', [
+        'built',
+      ], base),
+      construct(
+        'without the Screens document: its root is missing, not a finding',
+        ['missingRoots'],
+        {'blueprint': base['blueprint']!, 'detail': base['detail']!},
+      ),
+      construct(
+        'fragments of one root assembled into one document',
+        ['built'],
+        {
+          'blueprint-requirements': part(_baseBlueprint(), 'BLU/requirements'),
+          'blueprint-acceptance': part(_baseBlueprint(), 'BLU/acceptance'),
+          'detail': base['detail']!,
+        },
+        fragments: true,
+      ),
+      construct(
+        'two documents of one root',
+        ['sameRoot'],
+        {'a': _baseBlueprint(), 'b': _baseBlueprint()},
+      ),
+      construct(
+        'a document with no root',
+        ['noRoot'],
+        {'blueprint': base['blueprint']!, 'empty': SpecDocument()},
+      ),
+      construct('a document with two roots', ['twoRoots'], {'both': twoRoots}),
+      construct(
+        'the CodeSpecs projection',
+        ['projection'],
+        {'blueprint': base['blueprint']!, 'projection': projection},
+      ),
+      construct(
+        'fragments of one root that overlap',
+        ['overlap'],
+        {'one': overlapA, 'two': overlapB},
+        fragments: true,
+      ),
+      construct(
+        'a synced class whose positions cannot be paired',
+        ['unpairable'],
+        {'mini': mini},
+        inline: _unpairableMeta(),
+      ),
+    ],
+    'reports': [
+      report(
+        'the base set agrees: detailOnly places, derived places and the '
+        '@SameAs copy are not compared',
+        ['clean'],
+        null,
+      ),
+      report('an enum value differs', [
+        'sharedValueDiffers',
+      ], (d) => d['detail']!.setFormField('$_det-1/content', 'status', 'done')),
+      report(
+        'a value the Blueprint holds (heldHere) differs: the agent corrects '
+        'the Phase 3 document',
+        ['sharedValueDiffers', 'agent'],
+        (d) => d['detail']!.setFormField('$_det-1/content', 'owner', 'bo'),
+      ),
+      report('a value the Blueprint leaves empty', [
+        'sharedValueMissing',
+      ], (d) => d['blueprint']!.setFormField('$_rb/REQD', 'description', '')),
+      report('a value the Phase 3 document emptied', [
+        'sharedValueOnlyInBlueprint',
+      ], (d) => d['detail']!.setFormField('$_det-3/REQD', 'description', '')),
+      report(
+        'an element only in the Phase 3 document (equal), its counts and '
+        'summary moving in its own findings',
+        ['sharedElementMissing', 'countMismatch', 'detailNotInSummary'],
+        (d) {
+          final x = d['detail']!.addListItem(
+            'DET/requirements/REQ-ITEM-LST',
+            sectionId: 'REQ-PRESETS',
+          );
+          d['detail']!.setFormField('$x/content', 'status', 'draft');
+        },
+      ),
+      report(
+        'an element only in the Blueprint (equal)',
+        ['sharedElementOnlyInBlueprint'],
+        (d) {
+          final k = d['blueprint']!.addListItem(
+            '$_req/keyRequirements/KEY-ITEM-LST',
+          );
+          d['blueprint']!.setFormField(
+            '$k/content',
+            'requirementRef',
+            'REQ-IMPORT',
+          );
+          d['blueprint']!.setFormField('$k/content', 'title', 'Import');
+        },
+      ),
+      report(
+        'under subset, a matching element only in the Phase 3 document may '
+        'be added; the report stays clean',
+        ['sharedElementMayBeAdded', 'clean'],
+        (d) {
+          final c = d['detail']!.addListItem(
+            'DET/criteria/CRIT-ITEM-LST',
+            sectionId: 'CRIT-NEW',
+          );
+          d['detail']!.setFormField('$c/content', 'kind', 'quality');
+        },
+      ),
+      report(
+        'under subset with where, an element outside the filter is held to '
+        'equal',
+        ['sharedElementMissing'],
+        (d) {
+          final c = d['detail']!.addListItem(
+            'DET/criteria/CRIT-ITEM-LST',
+            sectionId: 'CRIT-LEGAL',
+          );
+          d['detail']!.setFormField('$c/content', 'kind', 'legal');
+        },
+      ),
+      report(
+        'a subset reference field naming one more screen in the Phase 3 '
+        'document',
+        ['sharedElementMayBeAdded'],
+        (d) => d['detail']!.setFormField(
+          '$_det-1/REQT',
+          'relatedScreens',
+          'SCRN-LOGIN, SCRN-HOME',
+        ),
+      ),
+      report(
+        'a subset reference field naming a screen only in the Blueprint',
+        ['sharedElementOnlyInBlueprint'],
+        (d) => d['blueprint']!.setFormField(
+          '$_ra/REQT',
+          'relatedScreens',
+          'SCRN-LOGIN, SCRN-OLD',
+        ),
+      ),
+      report(
+        'a summary of another document leaving out an element (equal)',
+        ['crossSummaryMismatch'],
+        (d) {
+          final x = d['screens']!.addListItem(
+            'SCR/SCRN-ITEM-LST',
+            sectionId: 'SCRN-HOME',
+          );
+          d['screens']!.setFormField('$x/content', 'purpose', 'Start.');
+        },
+      ),
+      report(
+        'a summary field naming no element of the other document',
+        ['crossSummaryMismatch'],
+        (d) => d['blueprint']!.setFormField(
+          'BLU/FOC',
+          'focusScreens',
+          'SCRN-LOGIN, SCRN-GONE',
+        ),
+      ),
+      report(
+        'a link across two documents not named back',
+        ['crossInverseMissing'],
+        (d) => d['screens']!.setFormField(
+          'SCR/SCRN-ITEM-LST-1/content',
+          'relatedRequirements',
+          '',
+        ),
+      ),
+      report(
+        'a value holding a pending change is listed; the report stays clean',
+        ['pendingReview', 'clean'],
+        (d) => d['detail']!.setFormField(
+          '$_det-2/REQD',
+          'description',
+          'Imports {++all ++}files.',
+        ),
+      ),
+      report(
+        'the comparison rules: text trimmed, 2 and 2.0 in a double, list '
+        'order ignored',
+        ['clean'],
+        (d) {
+          final det = d['detail']!;
+          det.setFormField('$_det-2/REQD', 'description', '  Imports files. ');
+          det.setFormField('$_det-1/content', 'weight', '2.0');
+          // The criteria in the other order.
+          final j = det.toJson();
+          final lists = j['lists'] as Map;
+          final crit = lists['DET/criteria/CRIT-ITEM-LST'] as Map;
+          crit['items'] = (crit['items'] as List).reversed.toList();
+          det.loadJson(j);
+        },
+      ),
+      report('a document not started yet', [
+        'notStarted',
+      ], (d) => d.remove('screens')),
+      report(
+        'scoped to one pair, a finding of another pair is left out',
+        ['clean'],
+        (d) => d['detail']!.setFormField('$_det-1/content', 'status', 'done'),
+        pairs: ['CRIT'],
+      ),
+      report(
+        'scoped to its own pair, the finding is reported',
+        ['sharedValueDiffers'],
+        (d) => d['detail']!.setFormField('$_det-1/content', 'status', 'done'),
+        pairs: ['REQS'],
+      ),
+      report(
+        'findings of several pairs, in pair order',
+        ['sharedValueDiffers', 'sharedElementMissing'],
+        (d) {
+          final c = d['detail']!.addListItem(
+            'DET/criteria/CRIT-ITEM-LST',
+            sectionId: 'CRIT-LEGAL',
+          );
+          d['detail']!.setFormField('$c/content', 'kind', 'legal');
+          d['detail']!.setFormField('$_det-1/content', 'status', 'done');
+        },
+      ),
+    ],
+    'renames': [
+      rename(
+        'an id renamed in every document at once',
+        ['renamed'],
+        'REQ-IMPORT',
+        'REQ-INGEST',
+      ),
+      rename(
+        'a rename onto an id that exists is refused',
+        ['refused'],
+        'REQ-IMPORT',
+        'REQ-PURGE',
+      ),
+    ],
+  };
+}
+
+/// Every token a set case's expectation shows, for its intent.
+Set<String> _setTokens(Map<String, dynamic> e) {
+  final out = <String>{};
+  if (e['refused'] is Map) out.add((e['refused'] as Map)['refusal'] as String);
+  if (e['refused'] is List) out.add('refused');
+  if (e['pairs'] != null && e['refused'] == null) {
+    out.add('built');
+    if ((e['missingRoots'] as List).isNotEmpty) out.add('missingRoots');
+  }
+  if (e['findings'] != null) {
+    if (e['clean'] == true) out.add('clean');
+    if ((e['notStarted'] as List).isNotEmpty) out.add('notStarted');
+    for (final f in (e['findings'] as List).cast<Map<String, dynamic>>()) {
+      out
+        ..add(f['code'] as String)
+        ..add(f['resolution'] as String);
+    }
+    for (final d in e['documentFindings'] as List) {
+      for (final x in (d as List)[1] as List) {
+        out.add((x as Map)['code'] as String);
+      }
+    }
+  }
+  if (e['changes'] != null && (e['changes'] as List).isNotEmpty) {
+    out.add('renamed');
+  }
+  return out;
+}
+
+// ---------------------------------------------------------------------------
 // The fixture model `links.meta.json` (part-conformance, section 1)
 // ---------------------------------------------------------------------------
 
@@ -1265,6 +1923,7 @@ Map<String, dynamic> buildLinksMeta() {
           'enumValues': ['draft', 'approved', 'done'],
         }),
         _ff('owner', 'String'),
+        _ff('weight', 'double'),
         _ff('lastVersion', 'String', {
           'derivedFrom': {
             'kind': 'lookup',

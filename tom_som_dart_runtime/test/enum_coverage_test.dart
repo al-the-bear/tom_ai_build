@@ -506,6 +506,74 @@ final List<CorpusGuardedEnum> _guarded = [
         'for the same reason, never resolve to something else',
   ),
   CorpusGuardedEnum(
+    enumName: 'SpecSyncCode',
+    declared: _wire(SpecSyncCode.values),
+    corpusFile: 'document_set_cases.json',
+    exercised: (c) => {
+      for (final k
+          in ((c as Map<String, dynamic>)['reports'] as List)
+              .cast<Map<String, dynamic>>())
+        for (final f
+            in ((k['expect'] as Map)['findings'] as List)
+                .cast<Map<String, dynamic>>())
+          f['code'] as String,
+    },
+    waived: {'unmarkable': '04_sau5_akrk-dart-derive-fields'},
+    why:
+        'a finding of the document set one port reports and another does '
+        'not would let a Blueprint drift from its documents unseen',
+  ),
+  CorpusGuardedEnum(
+    enumName: 'SpecSyncResolution',
+    declared: _wire(SpecSyncResolution.values),
+    corpusFile: 'document_set_cases.json',
+    exercised: (c) => {
+      for (final k
+          in ((c as Map<String, dynamic>)['reports'] as List)
+              .cast<Map<String, dynamic>>())
+        for (final f
+            in ((k['expect'] as Map)['findings'] as List)
+                .cast<Map<String, dynamic>>())
+          f['resolution'] as String,
+    },
+    waived: {'deriveFields': '04_sau5_akrk-dart-derive-fields'},
+    why:
+        'the resolution decides which operation may write a finding away; a '
+        'port that resolves an agent finding by backfill overwrites a '
+        'decision',
+  ),
+  CorpusGuardedEnum(
+    enumName: 'SpecSyncHolder',
+    declared: _wire(SpecSyncHolder.values),
+    corpusFile: 'document_set_cases.json',
+    exercised: (c) => {
+      for (final k
+          in ((c as Map<String, dynamic>)['reports'] as List)
+              .cast<Map<String, dynamic>>())
+        for (final f
+            in ((k['expect'] as Map)['findings'] as List)
+                .cast<Map<String, dynamic>>())
+          f['holder'] as String,
+    },
+    why:
+        'which document holds a shared value decides the direction backfill writes',
+  ),
+  CorpusGuardedEnum(
+    enumName: 'SpecDocumentSetRefusal',
+    declared: _wire(SpecDocumentSetRefusal.values),
+    corpusFile: 'document_set_cases.json',
+    exercised: (c) => {
+      for (final k
+          in ((c as Map<String, dynamic>)['construction'] as List)
+              .cast<Map<String, dynamic>>())
+        if ((k['expect'] as Map)['refused'] case final Map r)
+          r['refusal'] as String,
+    },
+    why:
+        'a set a port builds where another refuses it validates documents '
+        'that are no set',
+  ),
+  CorpusGuardedEnum(
     enumName: 'SomEditability',
     declared: _wire(SomEditability.values),
     corpusFile: 'editability_cases.json',

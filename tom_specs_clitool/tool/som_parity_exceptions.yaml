@@ -543,3 +543,201 @@ exceptions:
       first by decision (idea section_automation, DP-part-conformance-4); their
       ports are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `link_validation_cases.json` is the corpus they will run.
+
+  - token: blueprintRoot
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: countsByCode
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: countsByResolution
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: crossInverseMissing
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: crossSummaryMismatch
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: detailRoot
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: documentFindings
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: missingRoots
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: noRoot
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: notStarted
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: pendingMarks
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: pendingReview
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: renameId
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: sameRoot
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: sharedElementMayBeAdded
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: sharedElementMissing
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: sharedElementOnlyInBlueprint
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: sharedValueDiffers
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: sharedValueMissing
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: sharedValueOnlyInBlueprint
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: syncReport
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.
+
+  - token: twoRoots
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
+      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      by decision (idea section_automation, DP-part-conformance-4); its ports
+      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      one per runtime. `document_set_cases.json` is the corpus they will run.

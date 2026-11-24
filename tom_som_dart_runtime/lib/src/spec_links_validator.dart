@@ -166,8 +166,16 @@ class _LinkValidator {
   String _headlineValue(String path) =>
       _reviewed(doc.headline(path), path, 'the headline');
 
+  final Map<String, String> _itemIds = {};
+  final Map<String, bool> _items = {};
+  Map<String, List<String>>? _formsByOwner;
+  final Map<String, Map<String, String>> _entriesCache = {};
+
   /// The effective section id of the list item at [itemPath].
-  String _itemId(String itemPath) {
+  String _itemId(String itemPath) =>
+      _itemIds.putIfAbsent(itemPath, () => _computeItemId(itemPath));
+
+  String _computeItemId(String itemPath) {
     final stored = doc.itemSectionId(itemPath);
     if (stored != null) return stored;
     final dash = itemPath.lastIndexOf('-');
@@ -182,8 +190,10 @@ class _LinkValidator {
     );
   }
 
-  bool _isItem(String path) =>
-      refl.resolve(path)?.kind == SpecNodeKind.listItemComplex;
+  bool _isItem(String path) => _items.putIfAbsent(
+    path,
+    () => refl.resolve(path)?.kind == SpecNodeKind.listItemComplex,
+  );
 
   /// The value a resolved place holds at its concrete [path].
   String _value(SpecPlaceResolution r, String path) => switch (r.kind) {
@@ -256,13 +266,20 @@ class _LinkValidator {
   }
 
   /// The values a row's own forms (`<row>/<member>`) hold in [field].
-  List<String> _ownValues(String row, String field) => [
-    for (final p in doc.formPaths)
-      if (p.startsWith('$row/') &&
-          !p.substring(row.length + 1).contains('/') &&
-          doc.formField(p, field) != null)
-        _formValue(p, field),
-  ];
+  List<String> _ownValues(String row, String field) {
+    final index = _formsByOwner ??= () {
+      final out = <String, List<String>>{};
+      for (final p in doc.formPaths) {
+        final slash = p.lastIndexOf('/');
+        if (slash > 0) (out[p.substring(0, slash)] ??= []).add(p);
+      }
+      return out;
+    }();
+    return [
+      for (final p in index[row] ?? const <String>[])
+        if (doc.formField(p, field) != null) _formValue(p, field),
+    ];
+  }
 
   bool _passes(String? where, String row) {
     if (where == null) return true;
@@ -388,10 +405,11 @@ class _LinkValidator {
     return norm(a) == norm(b);
   }
 
-  /// The rows a `rows` / `lookup` derivation reads, in document order.
-  List<String> _rows(SpecDerivation d, String anchor, String root) {
+  /// The rows a `rows` / `lookup` derivation reads, in document order; null
+  /// when the document's root does not reach the source (undecidable here).
+  List<String>? _rows(SpecDerivation d, String anchor, String root) {
     final src = _global(d.source, root, anchor);
-    if (src == null) return const [];
+    if (src == null) return null;
     final keyBy = d.key != null && d.by != null;
     final byValue = keyBy ? _placeValue(d.by!, anchor) : null;
     return [
@@ -426,6 +444,7 @@ class _LinkValidator {
         return paths.length == 1 ? _value(src, paths.single) : null;
       case 'rows':
         final rows = _rows(d, anchor, root);
+        if (rows == null) return null;
         if (spec != null && spec.multiple) {
           return [
             for (final row in rows)
@@ -440,6 +459,7 @@ class _LinkValidator {
         ].where((s) => s.isNotEmpty).join('\n');
       case 'lookup':
         final rows = _rows(d, anchor, root);
+        if (rows == null) return null;
         final keyBy = d.key != null && d.by != null;
         if (keyBy && rows.length != 1) {
           report(
@@ -465,9 +485,11 @@ class _LinkValidator {
     if (d.kind != 'rows' || d.map.isEmpty) return;
     final elements = doc.listItems(listPath);
     if (elements.isEmpty) return; // not derived yet
+    final rows = _rows(d, i.path, i.root);
+    if (rows == null) return; // the source is not in this document
     String tuple(Iterable<String> values) => values.join(' | ');
     final want = [
-      for (final row in _rows(d, i.path, i.root))
+      for (final row in rows)
         tuple([for (final e in d.map.entries) _placeValue(e.value, row)]),
     ]..sort();
     final have = [
@@ -615,7 +637,10 @@ class _LinkValidator {
   /// The entries a reference field names, by its `refersTo` registries: id
   /// → item path. An entry of `<X>.@sectionId` is named by its section id,
   /// one of `<X>.<field>` by the value its own forms hold in that field.
-  Map<String, String> _entries(List<String> refersTo) {
+  Map<String, String> _entries(List<String> refersTo) => _entriesCache
+      .putIfAbsent(refersTo.join(','), () => _computeEntries(refersTo));
+
+  Map<String, String> _computeEntries(List<String> refersTo) {
     final out = <String, String>{};
     for (final list in doc.listPaths.toList()..sort()) {
       for (final item in doc.listItems(list)) {
@@ -923,7 +948,11 @@ class _LinkValidator {
       var at = root;
       for (final seg in rel.split('/')) {
         at = '$at/$seg';
-        out.add(_isItem(at) ? '[${_itemId(at)}]' : seg);
+        out.add(
+          _isItem(at)
+              ? '${seg.substring(0, seg.lastIndexOf('-'))}[${_itemId(at)}]'
+              : seg,
+        );
       }
       return out.join('/');
     }

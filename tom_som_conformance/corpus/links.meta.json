@@ -390,6 +390,11 @@
               "type": "String"
             },
             {
+              "name": "weight",
+              "label": "Weight",
+              "type": "double"
+            },
+            {
               "name": "lastVersion",
               "label": "LastVersion",
               "type": "String",

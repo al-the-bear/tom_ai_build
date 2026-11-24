@@ -18,6 +18,7 @@ this guide cites it and never restates it. The typed half is
 - [Driving a document by path](#driving-a-document-by-path)
 - [The model as data](#the-model-as-data)
 - [The links of the model](#the-links-of-the-model)
+- [A project's documents side by side](#a-projects-documents-side-by-side)
 - [When to prefer the generic path](#when-to-prefer-the-generic-path)
 - [Building and testing](#building-and-testing)
 - [The API reference](#the-api-reference)
@@ -60,6 +61,7 @@ anything that computes the path rather than knowing it.
 | `SpecPlace` / `SpecPlaceFilter` | Parse and resolve the places and filters the link annotations name |
 | `SpecValidator` / `validateDocument` | The instance tier: a filled document's values checked against the model |
 | `validateLinks` | The link checks of one document: derived values, summaries, both ends of a link, link rows, `@SameAs` copies |
+| `SpecDocumentSet` / `syncReport` / `renameId` | A project's documents side by side: what each Phase 3 document shares with the Blueprint, and one id renamed everywhere |
 | the YAML and Markdown codecs | `*.tomspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages |
 | the editing-facade bases | What the generated `tom_som_dart_v0` types extend |
 
@@ -162,6 +164,37 @@ without exactly one row (`derivedLookupMiss`), a link not named back
 `@SameAs` copy edited apart from its holder (`sameAsMismatch`). A value with
 pending change marks is read with every mark rejected and listed as
 `linkValuePending`.
+
+## A project's documents side by side
+
+`SpecDocumentSet(model, {name: document})` reads a project's documents one
+per root, never assembled into one: each keeps its own registry, and every
+finding names the document a place is in. `SpecDocumentSet.load(model, files)`
+reads YAML and SOM Markdown files, assembling the fragments of one root. A set
+is refused (`SpecDocumentSetError`) for two documents of one root, a document
+with no root or two, the CodeSpecs projection, overlapping fragments, and a
+model whose synced positions cannot be paired.
+
+Its `pairs` are the classes kept in sync between the Blueprint and a Phase 3
+document (`@SyncedWith`, `@DetailedIn`), each with its anchor in both roots.
+`syncReport(set)` compares every shared place of every pair and answers a
+`SpecSyncReport`: the findings (each with both places, the side holding the
+value and its resolution — `backfill`, `agent` or `info`), each document's own
+findings, the roots with no document yet, and the counts. `clean` is true when
+nothing but `info` is left.
+
+```dart
+final set = SpecDocumentSet.load(model, [
+  'tom_uam.sbp.tomspecs.yaml',
+  'tom_uam.rsp.tomspecs.yaml',
+]);
+final report = syncReport(set);
+print(report.countsByCode()); // e.g. {sharedValueDiffers: 3, pendingReview: 1}
+```
+
+`renameId(set, from, to)` renames a section id in every document at once —
+the element and every value naming it — and is refused (`SpecRenameError`)
+when an element of any document already carries `to`.
 
 ## When to prefer the generic path
 

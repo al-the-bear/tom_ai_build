@@ -557,6 +557,61 @@ List<SpecSameAsBinding> specSameAsBindings(
   return out;
 }
 
+/// One position of a section in a document root: a class reached there (its
+/// own node), or a member of a class that carries a section id of its own.
+class SpecSectionPosition {
+  /// The document path, list items written `<list>-*`.
+  final String path;
+
+  /// The class reached ([member] null), or the class the member belongs to.
+  final String className;
+
+  /// The section ids from the root to here, this position's own last.
+  final List<String> sectionIds;
+
+  /// For a class position, the member it is reached through (null at the
+  /// root); for a member position, the member itself.
+  final SpecField? member;
+
+  /// Whether this is a member position (a form, list, content or section
+  /// member with its own section id) rather than a class reached.
+  final bool isMember;
+
+  /// The parts of a position; [specSectionPositions] builds them.
+  const SpecSectionPosition({
+    required this.path,
+    required this.className,
+    required this.sectionIds,
+    required this.isMember,
+    this.member,
+  });
+}
+
+/// Every section position of the document root [rootType], in walk order: a
+/// class reached again on its own path is not descended into, and a
+/// `@Reference` member's target is not walked.
+List<SpecSectionPosition> specSectionPositions(
+  SpecReflection refl,
+  String rootType,
+) {
+  final root = refl.model.roots.where((r) => r.type == rootType).firstOrNull;
+  final cls = refl.classNamed(rootType);
+  if (root == null || cls == null) return const [];
+  return [
+    for (final p in _positions(
+      refl,
+      _Scope(refl.rootSegment(root), cls, false),
+    ))
+      SpecSectionPosition(
+        path: p.node.path,
+        className: p.node.className,
+        sectionIds: p.ids,
+        member: p.member,
+        isMember: !p.node.ownNode,
+      ),
+  ];
+}
+
 // ---------------------------------------------------------------------------
 // The positions of a subtree
 // ---------------------------------------------------------------------------
