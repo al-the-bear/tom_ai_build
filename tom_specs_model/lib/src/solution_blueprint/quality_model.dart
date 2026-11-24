@@ -4571,10 +4571,16 @@ class AcceptanceCriteriaSummary extends DocSpecsSection {
 
   /// Canonical, enumerated acceptance criteria (SR-54 explicit link).
   ///
-  /// The single source of truth for the full set of traceable acceptance
-  /// criteria; this summary references — rather than duplicates — it. The same
-  /// [AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.
+  /// A copy of the acceptance criteria the acceptance plan holds (the QAP-CRI
+  /// seed; in the Quality & Acceptance Plan its root's acceptance criteria):
+  /// it is not edited here — `deriveFields` writes it from the holder, and
+  /// the rendition marks it as a copy (S1, `@SameAs`).
   @SerializationOrder(5)
+  @SameAs(
+    note:
+        'S1: the acceptance plan holds the acceptance criteria; the summary '
+        'carries their copy.',
+  )
   AcceptanceCriteriaList detailedCriteria = AcceptanceCriteriaList();
 
   /// Acceptance test summary.

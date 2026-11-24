@@ -36,6 +36,7 @@ export 'section_id.dart';
 export 'section_id_pattern.dart';
 export 'serialization_order.dart';
 export 'standard_references.dart';
+export 'same_as.dart';
 export 'summary_of.dart';
 export 'synced_with.dart';
 export 'text_required.dart';

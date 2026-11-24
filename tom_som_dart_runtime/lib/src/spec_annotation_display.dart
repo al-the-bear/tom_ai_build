@@ -110,6 +110,7 @@ const Set<String> kRenderedAnnotations = {
   // Links between places (`tom_specs_model_rules.md` §9.7), see [linkChips].
   'SyncedWith', // `sync→` chip
   'SummaryOf', // `summary→` chip
+  'SameAs', // `copy ←` chip
   'DerivedFrom', // `derived ←` chip
   'ExtractsLinks', // `extracts` chip, one per use
   'CodeSpecKind', // part chips
@@ -407,8 +408,9 @@ List<SpecChip> fieldChips(SpecField field) => [
 
 /// The chips of the links between places a node states
 /// (`tom_specs_model_rules.md` §9.7): `sync→ <document>` for `@SyncedWith`,
-/// `summary→ <list>` for `@SummaryOf`, `derived ← <source>` for
-/// `@DerivedFrom` and `extracts <field>` for each `@ExtractsLinks`.
+/// `summary→ <list>` for `@SummaryOf`, `copy ← <holder>` for `@SameAs`,
+/// `derived ← <source>` for `@DerivedFrom` and `extracts <field>` for each
+/// `@ExtractsLinks`.
 ///
 /// One chip per annotation, in source order — `@ExtractsLinks` is repeatable,
 /// and two uses on one list (rows written, rows only reported) are two
@@ -460,6 +462,17 @@ SpecChip? _linkChip(SpecAnnotation a) {
             'Summarises $detail${doc == null ? '' : ' of $doc'}, '
                 '${match == null ? 'matched by section id' : 'matched by $match'}'
                 ' (${bare('relation').isEmpty ? 'subset' : bare('relation')})',
+      );
+    case 'SameAs':
+      final holder = text('holder');
+      return SpecChip(
+        'copy ← ${holder ?? 'its holder'}',
+        SpecChipRole.structural,
+        tooltip:
+            note ??
+            'A copy of the section the document holds '
+                '${holder == null ? 'at its one other position' : 'at $holder'}'
+                '; edited there, never here',
       );
     case 'DerivedFrom':
       final source = text('source') ?? '?';

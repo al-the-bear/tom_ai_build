@@ -514,6 +514,18 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
         'constraint the schema states.',
   ),
 
+  /// A section member holding a copy of a section the same document holds at
+  /// another position. A relation between two places of one document.
+  DocSpecsAnnotationBinding(
+    'SameAs',
+    modelOnly: ModelOnlyReason.traceability,
+    note:
+        'Binds a copy of a section to its holder position in the same '
+        'document — a link between places, read by the runtimes '
+        '(deriveFields, the copy marker of the rendition), not a constraint '
+        'the schema states.',
+  ),
+
   /// A value derived from other places of the document; the derivation
   /// operation writes it.
   DocSpecsAnnotationBinding(

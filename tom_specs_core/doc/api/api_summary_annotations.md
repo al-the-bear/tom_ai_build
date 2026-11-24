@@ -59,6 +59,7 @@ member *must* carry which annotation, see
     - [SyncedWith](#syncedwith)
     - [ListRelation](#listrelation)
     - [SummaryOf](#summaryof)
+    - [SameAs](#sameas)
     - [DerivedFrom](#derivedfrom)
     - [InverseOf](#inverseof)
     - [ExtractsLinks](#extractslinks)
@@ -86,7 +87,7 @@ nothing: two identical annotations are the same object.
 | Constraints & validation | `@Min`, `@Max`, `@MinLength`, `@MaxLength`, `@MaxDepth`, `@AllowedTags`, `@PatternCheck`, `@PatternCheckId`, `@ValidationPrompt`, `@OneOf`, `@Case` |
 | Cross-reference & traceability | `@Reference`, `@AccessKey`, `@ForEach`, `@MapsTo`, `@DetailedIn`, `@StandardReferences` |
 | Artifact routing | `@CodeSpecKind`, `@FollowUpKind`, `@NoArtifact`, `@CodeSpecsProjection` |
-| Links between places | `@SyncedWith` (+ its `ListRelation`), `@SummaryOf`, `@DerivedFrom`, `@ExtractsLinks`, and `InverseOf`; `SummaryOf`, `DerivedFrom` and `InverseOf` are also the values of the `Field` qualifiers `summaryOf:`, `derivedFrom:` and `inverseOf:` |
+| Links between places | `@SyncedWith` (+ its `ListRelation`), `@SummaryOf`, `@SameAs`, `@DerivedFrom`, `@ExtractsLinks`, and `InverseOf`; `SummaryOf`, `DerivedFrom` and `InverseOf` are also the values of the `Field` qualifiers `summaryOf:`, `derivedFrom:` and `inverseOf:` |
 
 ## Class Hierarchy
 
@@ -137,6 +138,7 @@ Object
 │       ├── SyncedWith
 │       ├── ListRelation  (value of SyncedWith.relations, not an annotation)
 │       ├── SummaryOf
+│       ├── SameAs
 │       ├── DerivedFrom
 │       ├── InverseOf  (value of Field.inverseOf, not an annotation)
 │       └── ExtractsLinks
@@ -906,6 +908,25 @@ const SummaryOf(
 | `repeats` | `Map<String, String>` | Summary place → detail place for every value the summary repeats. |
 | `note` | `String?` | Free text for the reader of the model. |
 
+#### SameAs
+
+Declares that the annotated section member holds a copy of a section the same document holds at another position, the holder: the section of the same class there. The holder's values win; the copy is written from it (`deriveFields`) and marked as a copy in the rendition, never edited where it stands.
+
+**Target:** Member holding one section
+
+##### Constructors
+
+```dart
+const SameAs({String? holder, String? note});
+```
+
+##### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `holder` | `String?` | The holder position: the section ids of its path from the document root, `/`-joined, its last ids as far as needed (`ACPLN/ACRITL`); null: the one other position of the member's class in each document reaching it. |
+| `note` | `String?` | Free text for the reader of the model. |
+
 #### DerivedFrom
 
 Declares that the annotated place's value is derived from other places of its document.
@@ -919,14 +940,16 @@ const DerivedFrom.copy(String source, {String? note});
 const DerivedFrom.rows(
   String source, {
   String? where,
+  String? key,
+  String? by,
   List<String> take = const [],
   Map<String, String> map = const {},
   String? note,
 });
 const DerivedFrom.lookup(
   String source, {
-  required String key,
-  required String by,
+  String? key,
+  String? by,
   required List<String> take,
   String? note,
 });
@@ -940,12 +963,12 @@ const DerivedFrom.lookup(
 | `source` | `String` | `copy`: the place copied; `rows` / `lookup`: the rows read. |
 | `where` | `String?` | `rows`: which rows count, in the filter grammar. |
 | `take` | `List<String>` | `rows` / `lookup`: the row places collected. |
-| `key` | `String?` | `lookup`: the row field compared with `by`. |
-| `by` | `String?` | `lookup`: the field of this element holding the key. |
+| `key` | `String?` | `rows` / `lookup`: the row field compared with `by` (both or neither). |
+| `by` | `String?` | `rows` / `lookup`: the field of this element holding the key. |
 | `map` | `Map<String, String>` | For a list member: target element place ← row place. |
 | `note` | `String?` | Free text for the reader of the model. |
 
-In `lookup`, when several rows match, the last in list order wins.
+In `lookup`, when several rows match, the last in list order wins; without `key` and `by` every row matches, so the last row is read. In `rows`, `key` and `by` keep the rows that belong to this element.
 
 #### InverseOf
 

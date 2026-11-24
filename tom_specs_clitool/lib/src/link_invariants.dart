@@ -1,12 +1,13 @@
 /// The static invariants of the link vocabulary (`tom_specs_model_rules.md`
-/// §9.7 and §10.2): `@SyncedWith`, `@SummaryOf`, `@DerivedFrom`,
+/// §9.7 and §10.2): `@SyncedWith`, `@SummaryOf`, `@SameAs`, `@DerivedFrom`,
 /// `InverseOf` and `@ExtractsLinks` name *places* in the model, and these
 /// checks hold every place to something that exists, is unambiguous and fits
 /// the link it takes part in.
 ///
 /// `validator.dart` runs one step per invariant (`SYNC-PLACE`, `SYNC-ANCHOR`,
 /// `SHARED-COVER`, `SHARED-ONE-HOLDER`, `SHARED-ANCHOR`, `SUMMARY-LINK`,
-/// `DERIVE-SOURCE`, `DERIVE-ACYCLIC`, `INVERSE-PAIR`, `EXTRACT-LINK`); this
+/// `DERIVE-SOURCE`, `DERIVE-ACYCLIC`, `INVERSE-PAIR`, `EXTRACT-LINK`,
+/// `SAME-AS`); this
 /// library holds the place resolver they share and the checks themselves.
 library;
 
@@ -1012,6 +1013,136 @@ class LinkInvariants {
   }
 
   // -------------------------------------------------------------------------
+  // SAME-AS
+  // -------------------------------------------------------------------------
+
+  /// Invariant `SAME-AS`: a `@SameAs` stands on a member holding one section
+  /// (not a list, not a value) whose class has a section id. In every
+  /// `@Document` root that reaches the member, its holder is one position of
+  /// the same class that is no copy itself: the position the `holder` path
+  /// names (its last section ids), or, with no `holder`, the one other
+  /// position of the class that root reaches. A copy and its holder are not
+  /// nested in each other.
+  void checkSameAs(List<String> errors) {
+    for (final site in _memberSites('SameAs')) {
+      final where = '@SameAs on ${_site(site.cls, site.member)}';
+      void fail(String what) =>
+          errors.add('$_invariants SAME-AS: $where — $what');
+      final m = site.member;
+      if (m.isList || !m.isComplex) {
+        fail('@SameAs stands on a member holding one section');
+        continue;
+      }
+      final type = m.typeName.replaceAll('?', '');
+      if (_classId[type] == null) {
+        fail('its type $type carries no @SectionId');
+        continue;
+      }
+      final holderArg = site.anno.arguments['holder'];
+      final holder = holderArg is String && holderArg.isNotEmpty
+          ? holderArg.split('/')
+          : null;
+      for (final root in _rootsReaching(site.cls.name)) {
+        final positions = _positionsOf(root, type);
+        final copies = positions
+            .where(
+              (p) => p.isCopy && p.owner == site.cls.name && p.member == m.name,
+            )
+            .toList();
+        if (copies.isEmpty) continue;
+        final candidates = positions.where((p) => !p.isCopy).toList();
+        final named = holder == null
+            ? candidates
+            : candidates.where((p) => _endsWith(p.ids, holder)).toList();
+        String show(Iterable<_Position> ps) =>
+            ps.map((p) => p.ids.join('/')).join('; ');
+        if (named.length != 1) {
+          final what = holder == null
+              ? 'names no holder, and $root reaches $type at '
+                    '${candidates.length} other positions '
+                    '(${show(candidates)}) — name one with holder'
+              : 'holder "${holder.join('/')}" names ${named.length} positions '
+                    'of $type beneath $root (${show(named)}), not one';
+          fail(what);
+          continue;
+        }
+        if (holder != null &&
+            positions.any((p) => p.isCopy && _endsWith(p.ids, holder))) {
+          fail('holder "${holder.join('/')}" names a copy beneath $root');
+          continue;
+        }
+        final h = named.single;
+        for (final c in copies) {
+          if (_startsWith(c.members, h.members) ||
+              _startsWith(h.members, c.members)) {
+            fail(
+              'the copy (${c.ids.join('/')}) and its holder '
+              '(${h.ids.join('/')}) are nested in each other beneath $root',
+            );
+          }
+        }
+      }
+    }
+  }
+
+  /// Every position of [type] beneath [root]: the member path to it, the
+  /// section ids along it, and whether the member reaching it is a
+  /// `@SameAs` copy. `@Reference` members are not followed; a cycle is cut.
+  List<_Position> _positionsOf(String root, String type) {
+    final out = <_Position>[];
+    void walk(
+      String c,
+      List<String> members,
+      List<String> ids,
+      Set<String> on,
+    ) {
+      if (!on.add(c)) return;
+      for (final f in classes[c]?.fields ?? const <ModelField>[]) {
+        if (f.getAnnotation('Reference') != null) continue;
+        String? child;
+        if (f.isList && f.listElementIsComplex) {
+          child = f.listElementTypeName;
+        } else if (f.isComplex) {
+          child = f.typeName.replaceAll('?', '');
+        }
+        if (child == null || !_reach(child).contains(type)) continue;
+        final nextIds = [...ids];
+        final fid = f.getAnnotation('SectionId')?.arguments['id'];
+        if (fid is String && fid.isNotEmpty) nextIds.add(fid);
+        final cid = _classId[child];
+        if (cid != null && (nextIds.isEmpty || nextIds.last != cid)) {
+          nextIds.add(cid);
+        }
+        final nextMembers = [...members, '$c.${f.name}'];
+        if (child == type && !f.isList) {
+          out.add(
+            _Position(
+              owner: c,
+              member: f.name,
+              members: nextMembers,
+              ids: nextIds,
+              isCopy: f.getAnnotation('SameAs') != null,
+            ),
+          );
+        }
+        walk(child, nextMembers, nextIds, on);
+      }
+      on.remove(c);
+    }
+
+    walk(root, const [], const [], {});
+    return out;
+  }
+
+  static bool _endsWith(List<String> ids, List<String> tail) =>
+      ids.length >= tail.length &&
+      _holdsInOrder(ids.sublist(ids.length - tail.length), tail);
+
+  static bool _startsWith(List<String> path, List<String> head) =>
+      path.length >= head.length &&
+      _holdsInOrder(path.sublist(0, head.length), head);
+
+  // -------------------------------------------------------------------------
   // DERIVE-SOURCE and DERIVE-ACYCLIC
   // -------------------------------------------------------------------------
 
@@ -1603,4 +1734,25 @@ class _Derivation {
   final String label;
   final List<_Resolution> reads;
   final Set<String> readKeys;
+}
+
+/// A position of a section class beneath a document root (invariant
+/// `SAME-AS`): the member reaching it, the member path (`Owner.member`
+/// per edge) and the section ids along it.
+class _Position {
+  _Position({
+    required this.owner,
+    required this.member,
+    required this.members,
+    required this.ids,
+    required this.isCopy,
+  });
+
+  final String owner;
+  final String member;
+  final List<String> members;
+  final List<String> ids;
+
+  /// The member reaching it carries `@SameAs`.
+  final bool isCopy;
 }

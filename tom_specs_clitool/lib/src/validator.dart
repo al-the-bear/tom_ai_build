@@ -1142,6 +1142,9 @@ void _validateStructuralInvariants(
 
   // --- Step 22 — `tom_specs_model_rules.md` §10.2 invariant EXTRACT-LINK: @ExtractsLinks rows
   links.checkExtractLinks(errors);
+
+  // --- Step 23 — `tom_specs_model_rules.md` §10.2 invariant SAME-AS: a section reached twice, one holder
+  links.checkSameAs(errors);
 }
 
 /// The `CodeSpecPart` values with no generated surface — reserved so a section

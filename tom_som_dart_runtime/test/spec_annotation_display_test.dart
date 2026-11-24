@@ -424,6 +424,7 @@ void main() {
         containsAll([
           'SyncedWith',
           'SummaryOf',
+          'SameAs',
           'DerivedFrom',
           'ExtractsLinks',
         ]),

@@ -118,6 +118,7 @@ void main() {
     final labels = expectedShowcaseChipLabels(model);
     expect(labels, contains('sync→ $kShowcaseSyncedDocument'));
     expect(labels, contains('summary→ $kShowcaseSummaryDetail'));
+    expect(labels, contains('copy ← $kShowcaseSameAsHolder'));
     expect(labels, contains('derived ← $kShowcaseDerivedSource'));
     expect(labels, contains('extracts $kShowcaseExtractsRef'));
 

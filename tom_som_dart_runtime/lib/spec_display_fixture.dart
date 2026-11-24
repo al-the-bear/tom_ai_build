@@ -60,6 +60,9 @@ const String kShowcaseSyncedDocument = 'OtherDoc';
 /// The detail list the fixture's `@SummaryOf` row summarises.
 const String kShowcaseSummaryDetail = 'SHW-ITM-LST';
 
+/// The holder the fixture's `@SameAs` row is a copy of.
+const String kShowcaseSameAsHolder = 'SHW-ITM';
+
 /// The source the fixture's `@DerivedFrom` row is derived from.
 const String kShowcaseDerivedSource = './SHW-ITM';
 
@@ -73,7 +76,7 @@ const String kShowcaseExtractsRef = 'SHW-LNK.ref';
 /// `@FollowUpKind` states, the `@NoArtifact` verdict, `@Unused`, `@Comment`,
 /// `@Headline`, `@Reference`,
 /// `@StandardReferences`, `@SectionIdPattern`, `@SerializationOrder` and the
-/// links between places (`@SyncedWith`, `@SummaryOf`, `@DerivedFrom`, a
+/// links between places (`@SyncedWith`, `@SummaryOf`, `@SameAs`, `@DerivedFrom`, a
 /// repeated `@ExtractsLinks`) across separate rows so no row's rendering can
 /// mask another's.
 Map<String, dynamic> kAnnotationShowcaseJson() => {
@@ -326,6 +329,19 @@ Map<String, dynamic> kAnnotationShowcaseJson() => {
           'kind': 'complex',
           'type': 'HandoffSection',
           'sectionId': 'SHW-HND',
+        },
+        {
+          // A copy of a section the document holds at another position.
+          'name': 'itemCopy',
+          'kind': 'complex',
+          'type': 'ShowcaseItem',
+          'sectionId': 'SHW-ICP',
+          'annotations': [
+            {
+              'name': 'SameAs',
+              'arguments': {'holder': kShowcaseSameAsHolder},
+            },
+          ],
         },
         {
           'name': 'choice',

@@ -1,7 +1,7 @@
 // The static invariants of the link vocabulary (`tom_specs_model_rules.md`
 // §9.7, §10.2 invariants SYNC-PLACE, SYNC-ANCHOR, SHARED-COVER,
 // SHARED-ONE-HOLDER, SHARED-ANCHOR, SUMMARY-LINK, DERIVE-SOURCE,
-// DERIVE-ACYCLIC, INVERSE-PAIR, EXTRACT-LINK), each held by a model that
+// DERIVE-ACYCLIC, INVERSE-PAIR, EXTRACT-LINK, SAME-AS), each held by a model that
 // breaks it and one that keeps it.
 //
 // The fixture is one small model in the shape the idea section_automation
@@ -40,8 +40,11 @@ ModelField _formMember(
   formFields: form,
 );
 
-ModelField _complex(String name, String type) =>
-    ModelField(name: name, typeName: type);
+ModelField _complex(
+  String name,
+  String type, [
+  List<AnnotationData> annotations = const [],
+]) => ModelField(name: name, typeName: type, annotations: annotations);
 
 ModelField _list(
   String name,
@@ -96,6 +99,10 @@ Map<String, ModelClass> _model({
   Map<String, Object?>? traceScreensInverse,
   Map<String, Object?>? dependencyInverse,
   bool sbpReachesFrTwice = false,
+  List<AnnotationData> frNoteAnnotations = const [],
+  List<AnnotationData> reqNoteAnnotations = const [],
+  List<AnnotationData> scnNoteAnnotations = const [],
+  List<AnnotationData> itemsAnnotations = const [],
 }) {
   ModelClass cls(
     String name,
@@ -144,9 +151,9 @@ Map<String, ModelClass> _model({
       ],
       [
         _content(const []),
-        _list('items', 'Req', 'FRE-REQU-LST'),
+        _list('items', 'Req', 'FRE-REQU-LST', itemsAnnotations),
         _list('keyRequirements', 'KeyReq', 'KREQ-ITEM-LST', keyReqsAnnotations),
-        _complex('note', 'SharedNote'),
+        _complex('note', 'SharedNote', frNoteAnnotations),
       ],
     ),
     'Scenarios': cls(
@@ -157,7 +164,7 @@ Map<String, ModelClass> _model({
         AnnotationData('DetailedIn', {'documentClass': 'D05Spec'}),
         ...scnAnnotations,
       ],
-      [_content(const []), _complex('note', 'SharedNote')],
+      [_content(const []), _complex('note', 'SharedNote', scnNoteAnnotations)],
     ),
     'Req': cls(
       'Req',
@@ -177,7 +184,7 @@ Map<String, ModelClass> _model({
         _formMember('constraints', 'FREC', [_text('constraints'), ...frecForm]),
         _list('dependencies', 'Dep', 'RQDEP-ITEM-LST', depsAnnotations),
         _complex('traceability', 'Trace'),
-        _complex('note', 'SharedNote'),
+        _complex('note', 'SharedNote', reqNoteAnnotations),
       ],
     ),
     // A section below the requirement holding a link form (`RT` / `RETRAR`):
@@ -282,7 +289,7 @@ void main() {
     final link = [
       for (final e in result.errors)
         if (RegExp(
-          r'§10\.2 (SYNC|SHARED|SUMMARY|DERIVE|INVERSE|EXTRACT)-',
+          r'§10\.2 (SYNC|SHARED|SUMMARY|DERIVE|INVERSE|EXTRACT|SAME)-',
         ).hasMatch(e))
           e,
     ];
@@ -850,6 +857,65 @@ void main() {
       expect(found[1], contains('is no refersTo field'));
       expect(found[2], contains('"whatever"'));
       expect(found[3], contains('stands on a list of link rows'));
+    });
+  });
+
+  group('SAME-AS', () {
+    AnnotationData sameAs([String? holder]) =>
+        AnnotationData('SameAs', {'holder': ?holder});
+
+    test('a copy whose holder the path names, in every root reaching it', () {
+      // The Blueprint reaches the note at FR, at each requirement and at SCN;
+      // the Requirements Specification at FR and at each requirement.
+      final found = _findings(
+        _model(reqNoteAnnotations: [sameAs('FR/SHN')]),
+        'SAME-AS',
+      );
+      expect(found, isEmpty, reason: found.join('\n'));
+    });
+
+    test('no holder named while a root reaches the class at two other '
+        'positions', () {
+      final found = _findings(
+        _model(reqNoteAnnotations: [sameAs()]),
+        'SAME-AS',
+      );
+      expect(found, hasLength(1));
+      expect(found.single, contains('names no holder'));
+      expect(found.single, contains('D00SolutionBlueprint'));
+    });
+
+    test('a root that reaches no other position of the class', () {
+      // The Scenarios document reaches the note at SCN only.
+      final found = _findings(
+        _model(scnNoteAnnotations: [sameAs()]),
+        'SAME-AS',
+      );
+      expect(
+        found.any((f) => f.contains('D05Spec reaches SharedNote at 0 other')),
+        isTrue,
+        reason: found.join('\n'),
+      );
+    });
+
+    test('a holder that is a copy itself names no position', () {
+      final found = _findings(
+        _model(
+          frNoteAnnotations: [sameAs('SCN/SHN')],
+          reqNoteAnnotations: [sameAs('FR/SHN')],
+        ),
+        'SAME-AS',
+      );
+      expect(
+        found.any((f) => f.contains('"FR/SHN" names 0')),
+        isTrue,
+        reason: found.join('\n'),
+      );
+    });
+
+    test('@SameAs on a list', () {
+      final found = _findings(_model(itemsAnnotations: [sameAs()]), 'SAME-AS');
+      expect(found.single, contains('a member holding one section'));
     });
   });
 }

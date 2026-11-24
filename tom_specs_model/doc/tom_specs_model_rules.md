@@ -1463,7 +1463,7 @@ reach for each, and states the mapping semantics of each.
 **Traceability:** `@MapsTo`, `@DetailedIn`, `@StandardReferences`.
 
 **Links between places (section automation, §9.7):** `@SyncedWith` with its
-`ListRelation` values and the enum `LinkRelation`, `@SummaryOf`,
+`ListRelation` values and the enum `LinkRelation`, `@SummaryOf`, `@SameAs`,
 `@DerivedFrom` (with `DerivationKind`), `@ExtractsLinks` (with `ExtractMode`),
 and `InverseOf` — the value classes of the `Field` qualifiers `summaryOf:`,
 `derivedFrom:` and `inverseOf:`. They state which places of the model are kept
@@ -1533,6 +1533,7 @@ Two authoring notes with model-wide consequences:
 | `@StandardReferences(standards, connotation)` | class or field | Public-standard provenance + meaning; carried in the meta-data. |
 | `@SyncedWith(Type, detailOnly:, heldHere:, relations:)` | class, or a form member | The section is kept in sync with the section of the same id in the other document (§9.7). |
 | `@SummaryOf(detail, document:, match:, relation:, repeats:)` | list field; `Field.summaryOf` | The list (or reference field) summarizes the detail list `detail` (§9.7). |
+| `@SameAs(holder:)` | section field | The section is a copy of the section of the same class the document holds at the holder position (§9.7). |
 | `@DerivedFrom.copy` / `.rows` / `.lookup` | section or list field; `Field.derivedFrom` | The value is derived from other places of the document (§9.7). |
 | `InverseOf(fields)` / `InverseOf.symmetric()` | `Field.inverseOf` | The reference field is one end of a link stored at both ends (§9.7). |
 | `@ExtractsLinks(from:, ref:, set:, mode:)` | list field of link rows, repeatable | The rows are kept in step with the ids named in text places (§9.7). |
@@ -1708,6 +1709,7 @@ annotations are written into the meta like `@CodeSpecKind`
 | --- | --- | --- | --- |
 | A section in sync with another document | `@SyncedWith(…)`, beside `@DetailedIn` or alone | on a form member | — |
 | A summary of a detail list | — | `@SummaryOf` on the summary list | `summaryOf:` on a multi-valued `refersTo` field |
+| A section reached twice in one document | — | `@SameAs` on the copy's section member | — |
 | A derived value | — | `@DerivedFrom` on a section or list | `derivedFrom:` |
 | The two ends of one link | — | — | `inverseOf:` (needs `refersTo`) |
 | Link rows from text | — | `@ExtractsLinks` on a list of link rows, repeatable | — |
@@ -1732,6 +1734,19 @@ annotations are written into the meta like `@CodeSpecKind`
   places whose values the summary repeats. A summary carries content: its
   elements say what each entry is about, and may be of the detail list's own
   class.
+- **`@SameAs({holder, note})`** — the annotated section member holds a copy
+  of the section of the same class the same document holds at another
+  position, the **holder**. `holder` names it by the section ids of its path
+  from the document root, its last ids as far as needed (`ACPLN/ACRITL`);
+  null when every document reaching the member reaches the class at one other
+  position only, which is then the holder. The two positions always agree,
+  the holder's values winning; the copy is not edited where it stands:
+  `deriveFields` writes it from the holder, the validator reports a copy that
+  differs, and the Markdown rendition marks the copy, so the MD Browser shows
+  it read-only and leads to the holder (or edits both through `tomspecs`).
+  Example: the acceptance criteria (`ACRITL`) inside their summary
+  (`ACCRSU.detailedCriteria`) are a copy of those under the acceptance plan
+  (in the Quality & Acceptance Plan, the root's acceptance criteria).
 - **`@DerivedFrom`** — the value is derived, in one of three shapes
   (`DerivationKind`): `copy(source)` (another place's value); `rows(source,
   {where, key, by, take, map})` (the places `take` of the rows of `source`
@@ -1778,6 +1793,9 @@ annotations are written into the meta like `@CodeSpecKind`
   is never changed or reused once assigned, and a rename is one global rename
   across every document of the project, refused when the new id exists
   already.
+- **A section reached twice agrees with itself.** Under `@SameAs` the holder
+  position holds every value of the section; the copy repeats it and is
+  written only from it.
 - **A derived place is never shared.** A field carrying `derivedFrom`,
   `countOf`, `productOf` or `rankOf` is computed in each document from that
   document's own sources; when the sources are shared, the derived values agree
@@ -1813,7 +1831,7 @@ is valid with them empty.
 The static validator holds the annotations to these rules before anything is
 generated: invariants `SYNC-PLACE`, `SYNC-ANCHOR`, `SHARED-COVER`,
 `SHARED-ONE-HOLDER`, `SHARED-ANCHOR`, `SUMMARY-LINK`, `DERIVE-SOURCE`,
-`DERIVE-ACYCLIC`, `INVERSE-PAIR` and `EXTRACT-LINK` (§10.2).
+`DERIVE-ACYCLIC`, `INVERSE-PAIR`, `EXTRACT-LINK` and `SAME-AS` (§10.2).
 
 ## 10. Traceability and structural invariants
 
@@ -2277,6 +2295,13 @@ enforceable rather than aspirational.
     list element nearest above the annotated list (at least one of them, when
     there are several); `ref` is a `refersTo` field of the row; every `set` key
     is a form field of the row, its value a constant when the field is an enum.
+28. **`SAME-AS`** — **A section reached twice in one document** — `@SameAs`
+    stands on a member holding one section (not a list, not a value) whose
+    class carries a `@SectionId`. In every `@Document` root that reaches the
+    member, its holder is one position of the same class that is no copy
+    itself: the position whose section-id path ends with `holder`, or, with
+    no `holder`, the one other position of the class that root reaches. A copy
+    and its holder are not nested in each other.
 
 **Deliberately not an invariant:** *"a `@CodeSpecKind`-bearing class must itself
 be reachable from the generation projection."* The model has 64 counterexamples
