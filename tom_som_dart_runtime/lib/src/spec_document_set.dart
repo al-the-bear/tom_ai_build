@@ -17,9 +17,11 @@ import 'spec_meta_bridge.dart';
 import 'spec_model.dart';
 import 'spec_place.dart';
 import 'spec_reflection.dart';
-import 'spec_review_annotations.dart' show applyInlineMarksText;
+import 'spec_review_annotations.dart';
 import 'spec_section_id.dart';
 import 'spec_validator.dart';
+
+part 'spec_backfill.dart';
 
 // ---------------------------------------------------------------------------
 // The vocabulary of the set
@@ -707,10 +709,13 @@ SpecSyncReport syncReport(SpecDocumentSet set, {Set<String>? pairs}) {
 // ---------------------------------------------------------------------------
 
 class _Ordered {
-  _Ordered(this.order, this.key, this.finding);
+  _Ordered(this.order, this.key, this.finding, {this.b, this.d});
   final int order;
   final String key;
   final SpecSyncFinding finding;
+
+  /// For a finding of a pair, the two sides compared (what backfill reads).
+  final _Side? b, d;
 }
 
 /// One value of a subtree, keyed for comparison.
@@ -743,8 +748,8 @@ class _SetCheck {
   final SpecReflection refl;
   final List<_Ordered> out = [];
 
-  void add(int order, String key, SpecSyncFinding f) =>
-      out.add(_Ordered(order, key, f));
+  void add(int order, String key, SpecSyncFinding f, {_Side? b, _Side? d}) =>
+      out.add(_Ordered(order, key, f, b: b, d: d));
 
   String _rootSeg(String type) =>
       refl.rootSegment(refl.model.roots.firstWhere((r) => r.type == type));
@@ -896,6 +901,20 @@ class _SetCheck {
     bool under(String p) => p == anchor || p.startsWith('$anchor/');
     bool out_(String p) => p != anchor && _underAny(p, excluded);
 
+    // The values a summary row repeats are derived from its detail element
+    // (`@SummaryOf` repeats): never shared, like every derived place.
+    for (final list in doc.listPaths) {
+      if (!under(list)) continue;
+      final repeats = refl.resolve(list)?.field?.summaryOf?.repeats;
+      if (repeats == null || repeats.isEmpty) continue;
+      for (final item in doc.listItems(list)) {
+        final r = _places(doc, repeats.keys, item);
+        excluded.addAll(r.prefixes);
+        skip.fields.addAll(r.fields);
+        skip.headlines.addAll(r.headlines);
+      }
+    }
+
     side.items[''] = anchor;
     for (final list in doc.listPaths) {
       if (!under(list) || out_(list)) continue;
@@ -947,7 +966,7 @@ class _SetCheck {
       final raw = doc.headline(p) ?? '';
       side.values['h:${_key(doc, anchor, p)}'] = _Value(
         p,
-        null,
+        kSpecHeadlineField,
         _reviewed(raw),
         _isPending(raw),
         null,
@@ -1129,6 +1148,8 @@ class _SetCheck {
                   : SpecSyncResolution.backfill),
           message: message,
         ),
+        b: b,
+        d: d,
       );
     }
 

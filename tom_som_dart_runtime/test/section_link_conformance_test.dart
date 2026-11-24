@@ -27,6 +27,10 @@
 ///   second run's result the proof of idempotence, with both tiers' findings
 ///   on the document after it.
 ///
+/// * `backfill_cases.json` — `backfill` over the document set: each
+///   resolution written as a plain value, what it leaves and why, the refusal
+///   of a set under review, a dry run and scoping; every case run twice.
+///
 /// Each case carries a hand-written `intent`: what it exists to show. A run
 /// checks that the intent holds in the expectation, so a case that silently
 /// stops showing it fails even though Dart reproduces its own output.
@@ -195,6 +199,34 @@
 ///   a change inside fenced code left `unmarkable` while the rest is written.
 ///   The findings after a marked run are those of the reviewed state (the
 ///   marks pending), as they should be; a second run writes nothing. Correct.
+///
+/// ## Manual review of `backfill_cases.json` (DP-part-conformance-1)
+///
+/// Reviewed 2026-11-24 against the intents and part-operations section 5:
+///
+/// * **a set that agrees** writes nothing and adds no revision entry.
+/// * **values** — a differing status written as Detail's (`done`), plainly,
+///   with one revision entry (version 1.0 → 1.1, the pair `REQS` named); a
+///   typed weight and a headline written, the key row repeating the headline
+///   re-derived (a summary's repeated value is derived, never shared, so the
+///   second run writes nothing); a description the Blueprint lacked filled;
+///   one Detail emptied cleared, its derived copy following. Correct.
+/// * **elements** — REQ-PRESETS, only in Detail, added with its stored id
+///   after REQ-EXPORT (its preceding neighbour in Detail), its headline,
+///   status and description carried and its detailOnly rationale not, the
+///   derived total moving to 4; a key row only in the Blueprint removed; an
+///   id only the Blueprint names in the subset `relatedScreens` removed from
+///   it. Correct.
+/// * **left** — the heldHere owner (`heldHere`), the subset criterion and
+///   screen that may be added (`mayBeAdded`), the link across two documents
+///   (`agent`): nothing written for any of them. Correct.
+/// * **refused** — an inline mark in Detail and a comment block in the
+///   Blueprint: `setHasMarks`, each place named, nothing written. Correct.
+/// * **dry run and scope** — a dry run answers the change and the revision
+///   entry while the set stays as it was; scoped to `CRIT`, only the legal
+///   criterion is added (its `@SameAs` copy derived), the status left;
+///   scoped to `BLU/requirements`, only the status. Every write case's second
+///   run writes nothing. Correct.
 library;
 
 import 'dart:convert';
@@ -213,6 +245,7 @@ void main() {
   final validationCases = buildLinkValidationCases(meta);
   final setCases = buildDocumentSetCases(meta);
   final deriveCases = buildDeriveCases(meta);
+  final backfillCases = buildBackfillCases(meta);
 
   String encode(Object? json) =>
       '${const JsonEncoder.withIndent('  ').convert(json)}\n';
@@ -232,6 +265,9 @@ void main() {
     File(
       '${corpusDir.path}/derive_cases.json',
     ).writeAsStringSync(encode(deriveCases));
+    File(
+      '${corpusDir.path}/backfill_cases.json',
+    ).writeAsStringSync(encode(backfillCases));
   });
 
   Object? onDisk(String name) =>
@@ -383,6 +419,43 @@ void main() {
         SpecValidationCode.linkValuePending,
       ];
       expect(provoked, containsAll(linkCodes.map((c) => c.name)));
+    });
+  });
+
+  group('backfill', () {
+    test('BFC1: backfill_cases.json is the table the builder writes', () {
+      expect(
+        onDisk('backfill_cases.json'),
+        jsonDecode(jsonEncode(backfillCases)),
+      );
+    });
+
+    test('BFC2: the table on disk is reproduced from its own inputs', () {
+      final model = SpecModel.fromJson(
+        onDisk('links.meta.json') as Map<String, dynamic>,
+      );
+      final table = onDisk('backfill_cases.json') as Map<String, dynamic>;
+      for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+        expect(
+          jsonDecode(jsonEncode(backfillCase(model, c))),
+          c['expect'],
+          reason: c['name'] as String,
+        );
+      }
+    });
+
+    test('BFC3: every case shows its intent', () {
+      for (final c
+          in (jsonDecode(jsonEncode(backfillCases))['cases'] as List)
+              .cast<Map<String, dynamic>>()) {
+        for (final token in (c['intent'] as List).cast<String>()) {
+          expect(
+            _backfillIntentHolds(token, c),
+            isTrue,
+            reason: '${c['name']}: intent "$token"',
+          );
+        }
+      }
     });
   });
 
@@ -1166,6 +1239,13 @@ SpecDocument _baseBlueprint() {
   final ovr = d.addListItem('BLU/screenOverview/OVR-ITEM-LST');
   form('$ovr/content', {'screenRef': 'SCRN-LOGIN'});
   form('BLU/FOC', {'focusScreens': 'SCRN-LOGIN'});
+  final rev = d.addListItem('BLU/RVENT-REVS-LST');
+  form('$rev/content', {
+    'version': '1.0',
+    'date': '2026-11-01',
+    'author': 'ana',
+    'summary': 'First version.',
+  });
   return d;
 }
 
@@ -1552,6 +1632,258 @@ bool _deriveIntentHolds(String token, Map<String, dynamic> c) {
     'unchanged' => jsonEncode(e['given']) == jsonEncode(c['state']),
     'unmarkable' => unresolved('unmarkable'),
     'derivedLookupMiss' => unresolved('derivedLookupMiss'),
+    _ => throw StateError('unknown intent token "$token"'),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// The table `backfill_cases.json`
+// ---------------------------------------------------------------------------
+
+/// One backfill case: `backfill` run twice on the case's set (the second run
+/// shows idempotence), or its refusal; then the set's report after it, and
+/// the documents as the set holds them after both runs.
+Map<String, Object?> backfillCase(SpecModel model, Map<String, dynamic> c) {
+  final set = SpecDocumentSet(model, _documentsFrom(c['documents'] as List));
+  final pairs = (c['pairs'] as List?)?.cast<String>().toSet();
+  Map<String, Object?> run() {
+    try {
+      return backfill(
+        set,
+        pairs: pairs,
+        path: c['path'] as String?,
+        dryRun: c['dryRun'] as bool? ?? false,
+        author: c['author'] as String?,
+        date: c['date'] as String?,
+      ).toJson();
+    } on SpecBackfillError catch (e) {
+      return {'refused': e.toJson()};
+    }
+  }
+
+  final first = run();
+  final second = run();
+  final after = syncReport(set);
+  return {
+    'first': first,
+    'second': second,
+    'reportAfter': {
+      'countsByCode': [
+        for (final e in after.countsByCode().entries) [e.key, e.value],
+      ],
+      'clean': after.clean,
+    },
+    'given': _documentsJson({for (final n in set.names) n: set[n]!}),
+  };
+}
+
+/// The table `backfill_cases.json`, its expectations computed live.
+Map<String, Object?> buildBackfillCases(Map<String, dynamic> meta) {
+  final model = SpecModel.fromJson(meta);
+
+  Map<String, Object?> kase(
+    String name,
+    List<String> intent,
+    void Function(Map<String, SpecDocument> docs)? edit, {
+    List<String>? pairs,
+    String? path,
+    bool dryRun = false,
+  }) {
+    final docs = _baseSet();
+    edit?.call(docs);
+    final c = <String, dynamic>{
+      'name': name,
+      'intent': intent,
+      if (pairs != null) 'pairs': pairs,
+      if (path != null) 'path': path,
+      if (dryRun) 'dryRun': true,
+      'author': 'agent_spec_author',
+      'date': '2026-11-24',
+      'documents': _documentsJson(docs),
+    };
+    return {...c, 'expect': backfillCase(model, jsonDecode(jsonEncode(c)))};
+  }
+
+  void statusDone(Map<String, SpecDocument> d) =>
+      d['detail']!.setFormField('$_det-1/content', 'status', 'done');
+  void legalCriterion(Map<String, SpecDocument> d) {
+    final c = d['detail']!.addListItem(
+      'DET/criteria/CRIT-ITEM-LST',
+      sectionId: 'CRIT-LEGAL',
+    );
+    d['detail']!.setFormField('$c/content', 'kind', 'legal');
+    d['detail']!.setFormField('$c/content', 'text', 'Data stays in the EU.');
+  }
+
+  return {
+    'model': 'links.meta.json',
+    'cases': [
+      kase('a set that agrees: nothing written, no revision entry', [
+        'nothing',
+      ], null),
+      kase(
+        'a differing enum value: the Phase 3 value written, plainly, with a '
+        'revision entry naming the pair',
+        ['value', 'revision', 'idempotent', 'cleanAfter'],
+        statusDone,
+      ),
+      kase(
+        'a typed value and a headline the Phase 3 document changed',
+        ['value', 'idempotent', 'cleanAfter'],
+        (d) {
+          d['detail']!.setFormField('$_det-1/content', 'weight', '2.5');
+          d['detail']!.setHeadline('$_det-1', 'Export presets and profiles');
+        },
+      ),
+      kase('a value the Blueprint leaves empty is filled', [
+        'value',
+        'idempotent',
+        'cleanAfter',
+      ], (d) => d['blueprint']!.setFormField('$_rb/REQD', 'description', '')),
+      kase('a value the Phase 3 document emptied is cleared in the Blueprint', [
+        'value',
+        'idempotent',
+        'cleanAfter',
+      ], (d) => d['detail']!.setFormField('$_det-3/REQD', 'description', '')),
+      kase(
+        'an element only in the Phase 3 document is added after its nearest '
+        'preceding neighbour, with its shared values and its stored id; its '
+        'detailOnly rationale stays behind; the derived count follows',
+        ['elementAdded', 'derived', 'idempotent'],
+        (d) {
+          final det = d['detail']!;
+          final x = det.addListItem(
+            'DET/requirements/REQ-ITEM-LST',
+            sectionId: 'REQ-PRESETS',
+          );
+          det.setHeadline(x, 'Presets');
+          det.setFormField('$x/content', 'status', 'draft');
+          det.setFormField('$x/REQD', 'description', 'Presets are kept.');
+          det.setFormField('$x/REQX', 'rationale', 'Only in Detail.');
+          det.moveListItem(model, x, 1);
+        },
+      ),
+      kase(
+        'an element only in the Blueprint is removed',
+        ['elementRemoved', 'idempotent', 'cleanAfter'],
+        (d) {
+          final k = d['blueprint']!.addListItem(
+            '$_req/keyRequirements/KEY-ITEM-LST',
+          );
+          d['blueprint']!.setFormField(
+            '$k/content',
+            'requirementRef',
+            'REQ-IMPORT',
+          );
+          d['blueprint']!.setFormField('$k/content', 'title', 'Import');
+        },
+      ),
+      kase(
+        'an id only the Blueprint names in a subset reference field is '
+        'removed from it',
+        ['value', 'idempotent', 'cleanAfter'],
+        (d) => d['blueprint']!.setFormField(
+          '$_ra/REQT',
+          'relatedScreens',
+          'SCRN-LOGIN, SCRN-OLD',
+        ),
+      ),
+      kase('a heldHere value the documents disagree on is left for the agent', [
+        'heldHere',
+        'nothing',
+      ], (d) => d['detail']!.setFormField('$_det-1/content', 'owner', 'bo')),
+      kase(
+        'under subset, elements that may be added are left',
+        ['mayBeAdded', 'nothing'],
+        (d) {
+          final c = d['detail']!.addListItem(
+            'DET/criteria/CRIT-ITEM-LST',
+            sectionId: 'CRIT-NEW',
+          );
+          d['detail']!.setFormField('$c/content', 'kind', 'quality');
+          d['detail']!.setFormField(
+            '$_det-1/REQT',
+            'relatedScreens',
+            'SCRN-LOGIN, SCRN-HOME',
+          );
+        },
+      ),
+      kase(
+        'a finding across two documents is left for the agent',
+        ['agent', 'nothing'],
+        (d) => d['screens']!.setFormField(
+          'SCR/SCRN-ITEM-LST-1/content',
+          'relatedRequirements',
+          '',
+        ),
+      ),
+      kase(
+        'a set holding an inline mark is refused, the place named',
+        ['setHasMarks'],
+        (d) => d['detail']!.setFormField(
+          '$_det-2/REQD',
+          'description',
+          'Imports {++all ++}files.',
+        ),
+      ),
+      kase(
+        'a set holding a comment block is refused',
+        ['setHasMarks'],
+        (d) => d['blueprint']!.setFormField(
+          '$_rc/REQD',
+          'description',
+          'Purges old data.\n\n> ⬆️ **C-1** (ana): which data?',
+        ),
+      ),
+      kase(
+        'a dry run writes a copy: the set unchanged, the same changes '
+        'answered',
+        ['value', 'unchanged'],
+        statusDone,
+        dryRun: true,
+      ),
+      kase(
+        'scoped to one pair, another pair\'s finding is left alone',
+        ['elementAdded'],
+        (d) {
+          statusDone(d);
+          legalCriterion(d);
+        },
+        pairs: ['CRIT'],
+      ),
+      kase('scoped to a path, only the places beneath it', ['value'], (d) {
+        statusDone(d);
+        legalCriterion(d);
+      }, path: 'BLU/requirements'),
+    ],
+  };
+}
+
+/// Whether the backfill-case intent [token] holds in case [c].
+bool _backfillIntentHolds(String token, Map<String, dynamic> c) {
+  final e = c['expect'] as Map<String, dynamic>;
+  final first = e['first'] as Map<String, dynamic>;
+  final second = e['second'] as Map<String, dynamic>;
+  final changes = (first['changes'] as List? ?? const [])
+      .cast<Map<String, dynamic>>();
+  final left = (first['left'] as List? ?? const [])
+      .cast<Map<String, dynamic>>();
+  return switch (token) {
+    'nothing' => first['refused'] == null && changes.isEmpty,
+    'value' ||
+    'elementAdded' ||
+    'elementRemoved' ||
+    'revision' ||
+    'derived' => changes.any((x) => x['kind'] == token),
+    'heldHere' ||
+    'mayBeAdded' ||
+    'agent' => left.any((x) => x['reason'] == token),
+    'setHasMarks' =>
+      (first['refused'] as Map?)?['code'] == 'setHasMarks' &&
+          ((first['refused'] as Map)['places'] as List).isNotEmpty,
+    'idempotent' => (second['changes'] as List).isEmpty,
+    'unchanged' => jsonEncode(e['given']) == jsonEncode(c['documents']),
+    'cleanAfter' => (e['reportAfter'] as Map)['clean'] == true,
     _ => throw StateError('unknown intent token "$token"'),
   };
 }
@@ -2131,6 +2463,12 @@ Map<String, dynamic> buildLinksMeta() {
           }),
         ]),
         _list('revisions', 'REV-ITEM-LST', 'REV-xxx', 'Revision'),
+        _list(
+          'revisionHistory',
+          'RVENT-REVS-LST',
+          'RVENT-REVS-xxx',
+          'RevisionEntry',
+        ),
       ],
       annotations: [
         _a('Document', {
@@ -2381,6 +2719,14 @@ Map<String, dynamic> buildLinksMeta() {
         _ff('ref', 'String', {
           'refersTo': ['REQ.@sectionId'],
         }),
+      ]),
+    ]),
+    'RevisionEntry': _cls('RevisionEntry', 'RVENT', [
+      _form('content', null, [
+        _ff('version', 'String'),
+        _ff('date', 'String'),
+        _ff('author', 'String'),
+        _ff('summary', 'String'),
       ]),
     ]),
     'Revision': _cls('Revision', 'REV', [

@@ -209,6 +209,16 @@ final report = syncReport(set);
 print(report.countsByCode()); // e.g. {sharedValueDiffers: 3, pendingReview: 1}
 ```
 
+`backfill(set)` then carries what each Phase 3 document holds into the
+Blueprint, as plain values: every finding whose resolution is `backfill`
+(a differing, missing or emptied value; an element only in the Phase 3
+document, added after its neighbour with its section id; an element only in
+the Blueprint, removed). It refuses a set holding any inline mark or comment
+block (`SpecBackfillError`, `setHasMarks`, the places named), leaves the rest
+in `SpecBackfillResult.left` with the reason, writes only the Blueprint, and
+adds one entry to its revision history when it changed anything. `dryRun`
+writes a copy; `pairs` and `path` scope it; a second run writes nothing.
+
 `renameId(set, from, to)` renames a section id in every document at once —
 the element and every value naming it — and is refused (`SpecRenameError`)
 when an element of any document already carries `to`.

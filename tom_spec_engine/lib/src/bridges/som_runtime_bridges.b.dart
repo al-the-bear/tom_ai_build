@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 35 files
-// Generated: 2026-11-24T19:52:29.420838 by tom_d4rt_generator 1.67.0
+// Generated: 2026-11-24T20:51:28.459282 by tom_d4rt_generator 1.67.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -187,6 +187,10 @@ class SomRuntimeBridge {
       _createSpecSyncReportBridge(),
       _createSpecRenameErrorBridge(),
       _createSpecRenameChangeBridge(),
+      _createSpecBackfillErrorBridge(),
+      _createSpecBackfillChangeBridge(),
+      _createSpecBackfillLeftBridge(),
+      _createSpecBackfillResultBridge(),
       _createSpecStripUsageErrorBridge(),
       _createSpecStripOptionsBridge(),
       _createSpecReadableSourceBridge(),
@@ -374,6 +378,10 @@ class SomRuntimeBridge {
       'SpecSyncReport': _createSpecSyncReportBridge,
       'SpecRenameError': _createSpecRenameErrorBridge,
       'SpecRenameChange': _createSpecRenameChangeBridge,
+      'SpecBackfillError': _createSpecBackfillErrorBridge,
+      'SpecBackfillChange': _createSpecBackfillChangeBridge,
+      'SpecBackfillLeft': _createSpecBackfillLeftBridge,
+      'SpecBackfillResult': _createSpecBackfillResultBridge,
       'SpecStripUsageError': _createSpecStripUsageErrorBridge,
       'SpecStripOptions': _createSpecStripOptionsBridge,
       'SpecReadableSource': _createSpecReadableSourceBridge,
@@ -569,6 +577,10 @@ class SomRuntimeBridge {
       'SpecSyncReport': $tom_som_dart_runtime_11.SpecSyncReport,
       'SpecRenameError': $tom_som_dart_runtime_11.SpecRenameError,
       'SpecRenameChange': $tom_som_dart_runtime_11.SpecRenameChange,
+      'SpecBackfillError': $tom_som_dart_runtime_11.SpecBackfillError,
+      'SpecBackfillChange': $tom_som_dart_runtime_11.SpecBackfillChange,
+      'SpecBackfillLeft': $tom_som_dart_runtime_11.SpecBackfillLeft,
+      'SpecBackfillResult': $tom_som_dart_runtime_11.SpecBackfillResult,
       'SpecStripUsageError': $tom_som_dart_runtime_12.SpecStripUsageError,
       'SpecStripOptions': $tom_som_dart_runtime_12.SpecStripOptions,
       'SpecReadableSource': $tom_som_dart_runtime_12.SpecReadableSource,
@@ -846,6 +858,14 @@ class SomRuntimeBridge {
           'package:tom_som_dart_runtime/src/spec_document_set.dart',
       'SpecRenameChange':
           'package:tom_som_dart_runtime/src/spec_document_set.dart',
+      'SpecBackfillError':
+          'package:tom_som_dart_runtime/src/spec_document_set.dart',
+      'SpecBackfillChange':
+          'package:tom_som_dart_runtime/src/spec_document_set.dart',
+      'SpecBackfillLeft':
+          'package:tom_som_dart_runtime/src/spec_document_set.dart',
+      'SpecBackfillResult':
+          'package:tom_som_dart_runtime/src/spec_document_set.dart',
       'SpecStripUsageError':
           'package:tom_som_dart_runtime/src/spec_document_strip.dart',
       'SpecStripOptions':
@@ -979,6 +999,7 @@ class SomRuntimeBridge {
       'SomVersionException': ['Exception'],
       'SpecDocumentSetError': ['Exception'],
       'SpecRenameError': ['Exception'],
+      'SpecBackfillError': ['Exception'],
       'SpecStripUsageError': ['Exception'],
       'SpecYamlFormatException': ['Exception'],
       'SomListMetaRef': ['SomMetaRef'],
@@ -2728,6 +2749,28 @@ class SomRuntimeBridge {
         final to = D4.getRequiredArg<String>(positional, 2, 'to', 'renameId');
         return $tom_som_dart_runtime_11.renameId(set, from, to);
       },
+      'backfill': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'backfill');
+        final set = D4.getRequiredArg<$tom_som_dart_runtime_11.SpecDocumentSet>(
+          positional,
+          0,
+          'set',
+          'backfill',
+        );
+        final pairs = D4.getOptionalNamedArg<Set<String>?>(named, 'pairs');
+        final path = D4.getOptionalNamedArg<String?>(named, 'path');
+        final dryRun = D4.getNamedArgWithDefault<bool>(named, 'dryRun', false);
+        final author = D4.getOptionalNamedArg<String?>(named, 'author');
+        final date = D4.getOptionalNamedArg<String?>(named, 'date');
+        return $tom_som_dart_runtime_11.backfill(
+          set,
+          pairs: pairs,
+          path: path,
+          dryRun: dryRun,
+          author: author,
+          date: date,
+        );
+      },
       'stripNotationText': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'stripNotationText');
         final value = D4.getRequiredArg<String>(
@@ -3438,6 +3481,7 @@ class SomRuntimeBridge {
           'package:tom_som_dart_runtime/src/spec_document_assembly.dart',
       'syncReport': 'package:tom_som_dart_runtime/src/spec_document_set.dart',
       'renameId': 'package:tom_som_dart_runtime/src/spec_document_set.dart',
+      'backfill': 'package:tom_som_dart_runtime/src/spec_document_set.dart',
       'stripNotationText':
           'package:tom_som_dart_runtime/src/spec_document_strip.dart',
       'specStripMergeLabel':
@@ -3581,6 +3625,8 @@ class SomRuntimeBridge {
           'SpecSyncReport syncReport(SpecDocumentSet set, {Set<String>? pairs})',
       'renameId':
           'List<SpecRenameChange> renameId(SpecDocumentSet set, String from, String to)',
+      'backfill':
+          'SpecBackfillResult backfill(SpecDocumentSet set, {Set<String>? pairs, String? path, bool dryRun = false, String? author, String? date})',
       'stripNotationText':
           'SpecStripTextResult stripNotationText(String value, SpecStripOptions options)',
       'specStripMergeLabel':
@@ -8623,6 +8669,10 @@ BridgedClass _createSpecReviewMergeResultBridge() {
             return $tom_som_dart_runtime_29.SpecReviewMergeResult<
               $tom_som_dart_runtime_2.SomVersionException
             >(merged, report);
+          case $tom_som_dart_runtime_11.SpecBackfillError _:
+            return $tom_som_dart_runtime_29.SpecReviewMergeResult<
+              $tom_som_dart_runtime_11.SpecBackfillError
+            >(merged, report);
           case $tom_som_dart_runtime_21.SpecClass _:
             return $tom_som_dart_runtime_29.SpecReviewMergeResult<
               $tom_som_dart_runtime_21.SpecClass
@@ -8906,6 +8956,18 @@ BridgedClass _createSpecReviewMergeResultBridge() {
           case $tom_som_dart_runtime_9.SpecAssemblyOverlap _:
             return $tom_som_dart_runtime_29.SpecReviewMergeResult<
               $tom_som_dart_runtime_9.SpecAssemblyOverlap
+            >(merged, report);
+          case $tom_som_dart_runtime_11.SpecBackfillChange _:
+            return $tom_som_dart_runtime_29.SpecReviewMergeResult<
+              $tom_som_dart_runtime_11.SpecBackfillChange
+            >(merged, report);
+          case $tom_som_dart_runtime_11.SpecBackfillLeft _:
+            return $tom_som_dart_runtime_29.SpecReviewMergeResult<
+              $tom_som_dart_runtime_11.SpecBackfillLeft
+            >(merged, report);
+          case $tom_som_dart_runtime_11.SpecBackfillResult _:
+            return $tom_som_dart_runtime_29.SpecReviewMergeResult<
+              $tom_som_dart_runtime_11.SpecBackfillResult
             >(merged, report);
           case $tom_som_dart_runtime_3.SpecChip _:
             return $tom_som_dart_runtime_29.SpecReviewMergeResult<
@@ -15896,6 +15958,355 @@ BridgedClass _createSpecRenameChangeBridge() {
       'kind': 'String get kind',
       'oldValue': 'String get oldValue',
       'newValue': 'String get newValue',
+    },
+  );
+}
+
+// =============================================================================
+// SpecBackfillError Bridge
+// =============================================================================
+
+BridgedClass _createSpecBackfillErrorBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_11.SpecBackfillError,
+    name: 'SpecBackfillError',
+    isAssignable: (v) => v is $tom_som_dart_runtime_11.SpecBackfillError,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 3, 'SpecBackfillError');
+        final code = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'code',
+          'SpecBackfillError',
+        );
+        if (positional.length <= 1) {
+          throw ArgumentError(
+            'SpecBackfillError: Missing required argument "places" at position 1',
+          );
+        }
+        final places = D4.coerceList<$tom_som_dart_runtime_11.SpecSyncPlace>(
+          positional[1],
+          'places',
+        );
+        final message = D4.getRequiredArg<String>(
+          positional,
+          2,
+          'message',
+          'SpecBackfillError',
+        );
+        return $tom_som_dart_runtime_11.SpecBackfillError(
+          code,
+          places,
+          message,
+        );
+      },
+    },
+    getters: {
+      'code': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecBackfillError>(
+            target,
+            'SpecBackfillError',
+          )
+          .code,
+      'places': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecBackfillError>(
+            target,
+            'SpecBackfillError',
+          )
+          .places,
+      'message': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecBackfillError>(
+            target,
+            'SpecBackfillError',
+          )
+          .message,
+    },
+    methods: {
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_11.SpecBackfillError>(
+          target,
+          'SpecBackfillError',
+        );
+        return t.toJson();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_11.SpecBackfillError>(
+          target,
+          'SpecBackfillError',
+        );
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const SpecBackfillError(String code, List<SpecSyncPlace> places, String message)',
+    },
+    methodSignatures: {
+      'toJson': 'Map<String, Object?> toJson()',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'code': 'String get code',
+      'places': 'List<SpecSyncPlace> get places',
+      'message': 'String get message',
+    },
+  );
+}
+
+// =============================================================================
+// SpecBackfillChange Bridge
+// =============================================================================
+
+BridgedClass _createSpecBackfillChangeBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_11.SpecBackfillChange,
+    name: 'SpecBackfillChange',
+    isAssignable: (v) => v is $tom_som_dart_runtime_11.SpecBackfillChange,
+    constructors: {
+      '': (visitor, positional, named) {
+        final pair = D4.getRequiredNamedArg<String>(
+          named,
+          'pair',
+          'SpecBackfillChange',
+        );
+        final kind = D4.getRequiredNamedArg<String>(
+          named,
+          'kind',
+          'SpecBackfillChange',
+        );
+        final path = D4.getRequiredNamedArg<String>(
+          named,
+          'path',
+          'SpecBackfillChange',
+        );
+        final field = D4.getOptionalNamedArg<String?>(named, 'field');
+        final oldValue = D4.getNamedArgWithDefault<String>(
+          named,
+          'oldValue',
+          '',
+        );
+        final newValue = D4.getNamedArgWithDefault<String>(
+          named,
+          'newValue',
+          '',
+        );
+        return $tom_som_dart_runtime_11.SpecBackfillChange(
+          pair: pair,
+          kind: kind,
+          path: path,
+          field: field,
+          oldValue: oldValue,
+          newValue: newValue,
+        );
+      },
+    },
+    getters: {
+      'pair': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecBackfillChange>(
+            target,
+            'SpecBackfillChange',
+          )
+          .pair,
+      'kind': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecBackfillChange>(
+            target,
+            'SpecBackfillChange',
+          )
+          .kind,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecBackfillChange>(
+            target,
+            'SpecBackfillChange',
+          )
+          .path,
+      'field': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecBackfillChange>(
+            target,
+            'SpecBackfillChange',
+          )
+          .field,
+      'oldValue': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecBackfillChange>(
+            target,
+            'SpecBackfillChange',
+          )
+          .oldValue,
+      'newValue': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecBackfillChange>(
+            target,
+            'SpecBackfillChange',
+          )
+          .newValue,
+    },
+    methods: {
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_11.SpecBackfillChange>(
+              target,
+              'SpecBackfillChange',
+            );
+        return t.toJson();
+      },
+    },
+    constructorSignatures: {
+      '': 'const SpecBackfillChange({required String pair, required String kind, required String path, String? field, String oldValue = \'\', String newValue = \'\'})',
+    },
+    methodSignatures: {'toJson': 'Map<String, Object?> toJson()'},
+    getterSignatures: {
+      'pair': 'String get pair',
+      'kind': 'String get kind',
+      'path': 'String get path',
+      'field': 'String? get field',
+      'oldValue': 'String get oldValue',
+      'newValue': 'String get newValue',
+    },
+  );
+}
+
+// =============================================================================
+// SpecBackfillLeft Bridge
+// =============================================================================
+
+BridgedClass _createSpecBackfillLeftBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_11.SpecBackfillLeft,
+    name: 'SpecBackfillLeft',
+    isAssignable: (v) => v is $tom_som_dart_runtime_11.SpecBackfillLeft,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'SpecBackfillLeft');
+        final finding = D4
+            .getRequiredArg<$tom_som_dart_runtime_11.SpecSyncFinding>(
+              positional,
+              0,
+              'finding',
+              'SpecBackfillLeft',
+            );
+        final reason = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'reason',
+          'SpecBackfillLeft',
+        );
+        return $tom_som_dart_runtime_11.SpecBackfillLeft(finding, reason);
+      },
+    },
+    getters: {
+      'finding': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecBackfillLeft>(
+            target,
+            'SpecBackfillLeft',
+          )
+          .finding,
+      'reason': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecBackfillLeft>(
+            target,
+            'SpecBackfillLeft',
+          )
+          .reason,
+    },
+    methods: {
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_11.SpecBackfillLeft>(
+          target,
+          'SpecBackfillLeft',
+        );
+        return t.toJson();
+      },
+    },
+    constructorSignatures: {
+      '': 'const SpecBackfillLeft(SpecSyncFinding finding, String reason)',
+    },
+    methodSignatures: {'toJson': 'Map<String, Object?> toJson()'},
+    getterSignatures: {
+      'finding': 'SpecSyncFinding get finding',
+      'reason': 'String get reason',
+    },
+  );
+}
+
+// =============================================================================
+// SpecBackfillResult Bridge
+// =============================================================================
+
+BridgedClass _createSpecBackfillResultBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_11.SpecBackfillResult,
+    name: 'SpecBackfillResult',
+    isAssignable: (v) => v is $tom_som_dart_runtime_11.SpecBackfillResult,
+    constructors: {
+      '': (visitor, positional, named) {
+        final blueprint = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_8.SpecDocument>(
+              named,
+              'blueprint',
+              'SpecBackfillResult',
+            );
+        if (!named.containsKey('changes') || named['changes'] == null) {
+          throw ArgumentError(
+            'SpecBackfillResult: Missing required named argument "changes"',
+          );
+        }
+        final changes = D4
+            .coerceList<$tom_som_dart_runtime_11.SpecBackfillChange>(
+              named['changes'],
+              'changes',
+            );
+        if (!named.containsKey('left') || named['left'] == null) {
+          throw ArgumentError(
+            'SpecBackfillResult: Missing required named argument "left"',
+          );
+        }
+        final left = D4.coerceList<$tom_som_dart_runtime_11.SpecBackfillLeft>(
+          named['left'],
+          'left',
+        );
+        return $tom_som_dart_runtime_11.SpecBackfillResult(
+          blueprint: blueprint,
+          changes: changes,
+          left: left,
+        );
+      },
+    },
+    getters: {
+      'blueprint': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecBackfillResult>(
+            target,
+            'SpecBackfillResult',
+          )
+          .blueprint,
+      'changes': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecBackfillResult>(
+            target,
+            'SpecBackfillResult',
+          )
+          .changes,
+      'left': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_11.SpecBackfillResult>(
+            target,
+            'SpecBackfillResult',
+          )
+          .left,
+    },
+    methods: {
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_11.SpecBackfillResult>(
+              target,
+              'SpecBackfillResult',
+            );
+        return t.toJson();
+      },
+    },
+    constructorSignatures: {
+      '': 'const SpecBackfillResult({required SpecDocument blueprint, required List<SpecBackfillChange> changes, required List<SpecBackfillLeft> left})',
+    },
+    methodSignatures: {'toJson': 'Map<String, Object?> toJson()'},
+    getterSignatures: {
+      'blueprint': 'SpecDocument get blueprint',
+      'changes': 'List<SpecBackfillChange> get changes',
+      'left': 'List<SpecBackfillLeft> get left',
     },
   );
 }

@@ -781,3 +781,43 @@ exceptions:
       DP-part-conformance-4); its ports are the todos
       `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `derive_cases.json` is the corpus they will run.
+
+  - token: elementAdded
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. `backfill` (the Phase 3 documents' accepted end state carried
+      into the Blueprint; `tom_specs_model_rules.md` §9.7) is in the Dart
+      runtime only, built first by decision (idea section_automation,
+      DP-part-conformance-4); its ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `backfill_cases.json` is the corpus they will run.
+
+  - token: elementRemoved
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. `backfill` (the Phase 3 documents' accepted end state carried
+      into the Blueprint; `tom_specs_model_rules.md` §9.7) is in the Dart
+      runtime only, built first by decision (idea section_automation,
+      DP-part-conformance-4); its ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `backfill_cases.json` is the corpus they will run.
+
+  - token: mayBeAdded
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. `backfill` (the Phase 3 documents' accepted end state carried
+      into the Blueprint; `tom_specs_model_rules.md` §9.7) is in the Dart
+      runtime only, built first by decision (idea section_automation,
+      DP-part-conformance-4); its ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `backfill_cases.json` is the corpus they will run.
+
+  - token: setHasMarks
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. `backfill` (the Phase 3 documents' accepted end state carried
+      into the Blueprint; `tom_specs_model_rules.md` §9.7) is in the Dart
+      runtime only, built first by decision (idea section_automation,
+      DP-part-conformance-4); its ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `backfill_cases.json` is the corpus they will run.

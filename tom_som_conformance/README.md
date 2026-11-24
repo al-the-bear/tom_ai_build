@@ -849,6 +849,16 @@ author, at, dryRun, state}` runs `deriveFields` twice: `expect.first` and
 second proving idempotence; `findingsAfter` the findings of both tiers on the
 document after it, and `given` the document handed in, after both runs.
 
+[`corpus/backfill_cases.json`](corpus/backfill_cases.json) pins `backfill`
+over the set of `document_set_cases.json`: each resolution it writes (a value
+differing, missing or emptied, typed and a headline included; an element
+added after its neighbour; an element and a reference id removed), each
+finding it leaves with its reason (`heldHere`, `mayBeAdded`, `agent`), the
+refusal of a set holding a mark or a comment block, a dry run, and `pairs` /
+`path` scoping. Each case runs `backfill` twice (`expect.first`,
+`expect.second`, the second proving idempotence), then records the set's
+report after it and the documents as the set holds them.
+
 The files are written by the Dart runtime's
 `test/section_link_conformance_test.dart` under `UPDATE_CORPUS=1`; every case
 carries a hand-written `intent` the test checks, and the expectations were read

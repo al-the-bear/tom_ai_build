@@ -3,7 +3,7 @@
   "modelVersion": 1,
   "modelVersionLabel": "links-1.0",
   "generatedAt": "2026-11-24T08:00:00.000000Z",
-  "classCount": 18,
+  "classCount": 19,
   "rootCount": 4,
   "roots": [
     {
@@ -95,6 +95,14 @@
           "sectionId": "REV-ITEM-LST",
           "sectionIdPattern": "REV-xxx",
           "elementType": "Revision",
+          "elementIsComplex": true
+        },
+        {
+          "name": "revisionHistory",
+          "kind": "list",
+          "sectionId": "RVENT-REVS-LST",
+          "sectionIdPattern": "RVENT-REVS-xxx",
+          "elementType": "RevisionEntry",
           "elementIsComplex": true
         }
       ]
@@ -686,6 +694,46 @@
               "refersTo": [
                 "REQ.@sectionId"
               ]
+            }
+          ]
+        }
+      ]
+    },
+    "RevisionEntry": {
+      "name": "RevisionEntry",
+      "sectionId": "RVENT",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "RVENT"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "formFields": [
+            {
+              "name": "version",
+              "label": "Version",
+              "type": "String"
+            },
+            {
+              "name": "date",
+              "label": "Date",
+              "type": "String"
+            },
+            {
+              "name": "author",
+              "label": "Author",
+              "type": "String"
+            },
+            {
+              "name": "summary",
+              "label": "Summary",
+              "type": "String"
             }
           ]
         }

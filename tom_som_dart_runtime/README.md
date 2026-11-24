@@ -95,6 +95,7 @@ and how to pin.
 | `spec_links_validator.dart` | The link checks of one document (`validateLinks`, `tom_specs_model_rules.md` §9.7): derived values against their sources, summaries against their detail lists, each end of a link against the other, ids named in a text against the link rows, a `@SameAs` copy against its holder; values read with pending marks rejected, and listed. |
 | `spec_derive_fields.dart` | `deriveFields` (a part of `spec_links_validator.dart`): writes the derived places of one document in three steps — link ends and rows, derived values with `@SummaryOf` repeats and `@SameAs` copies, then counts, products and ranks — plainly or, in a document under review, as inline marks; idempotent, with a dry run, and what it cannot write (`unmarkable`, `derivedLookupMiss`) left unresolved. |
 | `spec_document_set.dart` | A project's documents read side by side, one per root (`SpecDocumentSet`: fragments assembled, the refusals named, the anchor pairs computed from `@SyncedWith` / `@DetailedIn`); `syncReport` compares every shared place of each pair (elements by section id, text trimmed, typed values as their type reads them, list order ignored) and the links across two documents, and lists every value holding pending marks; `renameId` renames an id in every document at once. |
+| `spec_backfill.dart` | `backfill` (a part of `spec_document_set.dart`): carries the accepted end state of the Phase 3 documents into the Blueprint as plain values — differing and missing values written, emptied ones cleared, missing elements added after their neighbour, Blueprint-only elements removed — leaving `detailOnly`, `heldHere` conflicts, `subset` additions and cross-document findings with their reasons; refuses a set under review (`setHasMarks`); one revision entry per run that changed anything; idempotent, with a dry run and `pairs` / `path` scoping. |
 | `spec_text_pattern.dart` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime. |
 | `spec_query.dart` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection. |
 | `spec_node_creation.dart` | The constrained node-creation gate (`checkAddNode`, `SpecNodeCreator`) — a document may only grow in ways the model permits. |
@@ -237,6 +238,7 @@ dart analyze
 | `validateLinks` | The link checks of one document, reported like the instance tier. |
 | `deriveFields` | Writes the derived places of one document, plain or as marks. |
 | `SpecDocumentSet` / `syncReport` | The documents of a project side by side, and the validation of what they share. |
+| `backfill` | Carries the Phase 3 documents' accepted end state into the Blueprint. |
 | `SpecDocumentYaml` | Byte-stable `*.tomspecs.yaml` encode/decode. |
 | `SpecDocumentMarkdown` | DocSpecs-conform Markdown export, parse and round-trip. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |

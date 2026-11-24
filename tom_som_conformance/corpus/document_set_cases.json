@@ -32,6 +32,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -142,6 +148,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -500,6 +512,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -610,6 +628,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -1313,6 +1337,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -1423,6 +1453,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -1531,6 +1567,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -1641,6 +1683,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -1766,6 +1814,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -1876,6 +1930,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -2004,6 +2064,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -2117,6 +2183,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -2241,6 +2313,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -2351,6 +2429,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -2936,6 +3020,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -3046,6 +3136,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -3388,6 +3484,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -3498,6 +3600,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -3875,6 +3983,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -3985,6 +4099,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -4361,6 +4481,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -4468,6 +4594,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -4848,6 +4980,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -4958,6 +5096,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -5337,6 +5481,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -5447,6 +5597,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -5834,6 +5990,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -5948,6 +6110,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -6323,6 +6491,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -6433,6 +6607,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -6811,6 +6991,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -6921,6 +7107,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -7299,6 +7491,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -7409,6 +7607,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -7785,6 +7989,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -7895,6 +8105,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -8271,6 +8487,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -8381,6 +8603,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -8759,6 +8987,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -8869,6 +9103,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -9244,6 +9484,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -9354,6 +9600,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -9730,6 +9982,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -9840,6 +10098,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -10221,6 +10485,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -10331,6 +10601,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -10673,6 +10949,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -10783,6 +11065,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -11086,6 +11374,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -11196,6 +11490,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -11541,6 +11841,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -11651,6 +11957,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -12028,6 +12340,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -12138,6 +12456,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -12548,6 +12872,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -12658,6 +12988,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -13067,6 +13403,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -13177,6 +13519,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
@@ -13622,6 +13970,12 @@
                 "requirementRef": "REQ-PURGE",
                 "version": "0.9"
               },
+              "BLU/RVENT-REVS-LST-1/content": {
+                "author": "ana",
+                "date": "2026-11-01",
+                "summary": "First version.",
+                "version": "1.0"
+              },
               "BLU/acceptance/content": {
                 "owner": "quality team"
               },
@@ -13732,6 +14086,12 @@
                   "BLU/REV-ITEM-LST-1",
                   "BLU/REV-ITEM-LST-2",
                   "BLU/REV-ITEM-LST-3"
+                ]
+              },
+              "BLU/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "BLU/RVENT-REVS-LST-1"
                 ]
               },
               "BLU/acceptance/criteria/CRIT-ITEM-LST": {
