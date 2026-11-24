@@ -333,6 +333,7 @@ class SystemQualityGoals extends DocSpecsSection {
 )
 @SectionId('QLFWK')
 @DetailedIn(D10QualityAcceptancePlan)
+@SyncedWith(D10QualityAcceptancePlan)
 @FollowUpKind(
   [FollowUpProcess.acc],
   note:
@@ -715,6 +716,7 @@ class QualityCategoryEntry extends DocSpecsSection {
 )
 @SectionId('FNSU')
 @DetailedIn(D10QualityAcceptancePlan)
+@SyncedWith(D10QualityAcceptancePlan)
 @FollowUpKind(
   [FollowUpProcess.acc],
   note:
@@ -799,6 +801,7 @@ class FunctionalSuitabilityCharacteristic extends DocSpecsSection {
 )
 @SectionId('INCP')
 @DetailedIn(D10QualityAcceptancePlan)
+@SyncedWith(D10QualityAcceptancePlan)
 @FollowUpKind(
   [FollowUpProcess.acc],
   note:
@@ -1293,6 +1296,7 @@ class Correctness extends DocSpecsSection {
 )
 @SectionId('PEEF')
 @DetailedIn(D10QualityAcceptancePlan)
+@SyncedWith(D10QualityAcceptancePlan)
 @FollowUpKind(
   [FollowUpProcess.acc],
   note:
@@ -1385,6 +1389,7 @@ class PerformanceEfficiencyCharacteristic extends DocSpecsSection {
 )
 @SectionId('CMPT')
 @DetailedIn(D10QualityAcceptancePlan)
+@SyncedWith(D10QualityAcceptancePlan)
 @FollowUpKind(
   [FollowUpProcess.acc],
   note:
@@ -1449,6 +1454,7 @@ class CompatibilityCharacteristic extends DocSpecsSection {
 )
 @SectionId('FLXC')
 @DetailedIn(D10QualityAcceptancePlan)
+@SyncedWith(D10QualityAcceptancePlan)
 @FollowUpKind(
   [FollowUpProcess.acc],
   note:
@@ -1524,6 +1530,7 @@ class FlexibilityCharacteristic extends DocSpecsSection {
 )
 @SectionId('SECC')
 @DetailedIn(D10QualityAcceptancePlan)
+@SyncedWith(D10QualityAcceptancePlan)
 @FollowUpKind(
   [FollowUpProcess.acc],
   note:
@@ -1601,6 +1608,7 @@ class SecurityCharacteristic extends DocSpecsSection {
 )
 @SectionId('MNTC')
 @DetailedIn(D10QualityAcceptancePlan)
+@SyncedWith(D10QualityAcceptancePlan)
 @FollowUpKind(
   [FollowUpProcess.acc],
   note:
@@ -2502,6 +2510,7 @@ class Reliability extends DocSpecsSection {
 ], 'This section describes the reliability characteristic of the solution.')
 @SectionId('RELC')
 @DetailedIn(D10QualityAcceptancePlan)
+@SyncedWith(D10QualityAcceptancePlan)
 @FollowUpKind(
   [FollowUpProcess.acc],
   note:
@@ -3356,6 +3365,7 @@ class ItSecurityOperations extends DocSpecsSection {
 )
 @SectionId('DOQUCR')
 @DetailedIn(D10QualityAcceptancePlan)
+@SyncedWith(D10QualityAcceptancePlan)
 @FollowUpKind(
   [FollowUpProcess.acc],
   note:
@@ -3935,6 +3945,7 @@ class DocChangeability extends DocSpecsSection {
 )
 @SectionId('QUPR')
 @DetailedIn(D10QualityAcceptancePlan)
+@SyncedWith(D10QualityAcceptancePlan)
 @FollowUpKind(
   [FollowUpProcess.acc],
   note:
@@ -4464,6 +4475,7 @@ class TradeOffDecisionEntry extends DocSpecsSection {
 )
 @SectionId('ACCRSU')
 @DetailedIn(D10QualityAcceptancePlan)
+@SyncedWith(D10QualityAcceptancePlan)
 @FollowUpKind(
   [FollowUpProcess.acc],
   note:
@@ -5108,6 +5120,7 @@ class QualityGateCheckEntry extends DocSpecsSection {
 ], 'Defines the overall testing approach, levels, and coverage for the project.')
 @SectionId('TEST')
 @DetailedIn(D10QualityAcceptancePlan)
+@SyncedWith(D10QualityAcceptancePlan)
 @FollowUpKind(
   [FollowUpProcess.acc],
   note:

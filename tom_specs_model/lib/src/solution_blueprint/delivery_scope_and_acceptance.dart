@@ -616,6 +616,7 @@ All criteria must be objectively measurable and verifiable.
 )
 @SectionId('ACRITL')
 @DetailedIn(D10QualityAcceptancePlan)
+@SyncedWith(D10QualityAcceptancePlan)
 @FollowUpKind(
   [FollowUpProcess.acc],
   note:
@@ -795,9 +796,11 @@ class DeliveryAcceptanceCriterionEntry extends DocSpecsSection {
       'Test Scenario Reference',
       hint:
           'The UAT scenarios that validate this criterion — test scenario '
-          'section ids (TSSC-TEST-…), comma-separated',
+          'section ids (TSSC-TEST-…), comma-separated; each scenario names '
+          'this criterion back in its acceptanceCriterionRef',
       refersTo: ['TSSC.@sectionId'],
       multiple: true,
+      inverseOf: InverseOf(['TESCTR.acceptanceCriterionRef']),
     ),
   ])
   @SerializationOrder(3)
@@ -870,6 +873,7 @@ class DeliveryAcceptanceCriterionEntry extends DocSpecsSection {
 )
 @SectionId('ACPR1')
 @DetailedIn(D10QualityAcceptancePlan)
+@SyncedWith(D10QualityAcceptancePlan)
 @FollowUpKind(
   [FollowUpProcess.acc],
   note:
@@ -1256,6 +1260,7 @@ class AcceptanceStepEntry extends DocSpecsSection {
 )
 @SectionId('USACTE')
 @DetailedIn(D10QualityAcceptancePlan)
+@SyncedWith(D10QualityAcceptancePlan)
 @FollowUpKind(
   [FollowUpProcess.acc],
   note:
@@ -1993,8 +1998,11 @@ class TestScenarioEntry extends DocSpecsSection {
       String,
       'Acceptance Criterion Reference',
       hint:
-          'The linked acceptance criterion — a delivery acceptance criterion section id (DACEN-ITEM-…)',
+          'The linked acceptance criterion — a delivery acceptance criterion '
+          'section id (DACEN-ITEM-…); the criterion names this scenario back '
+          'in its testScenarioRef',
       refersTo: ['DACEN.@sectionId'],
+      inverseOf: InverseOf(['DACET.testScenarioRef']),
     ),
     Field(
       'designRef',
@@ -2261,6 +2269,7 @@ class UatTestStepEntry extends DocSpecsSection {
 )
 @SectionId('DERE')
 @DetailedIn(D10QualityAcceptancePlan)
+@SyncedWith(D10QualityAcceptancePlan)
 @FollowUpKind(
   [FollowUpProcess.acc],
   note:
@@ -2500,6 +2509,7 @@ class DefectResolution extends DocSpecsSection {
 )
 @SectionId('SIOFPR')
 @DetailedIn(D10QualityAcceptancePlan)
+@SyncedWith(D10QualityAcceptancePlan)
 @FollowUpKind(
   [FollowUpProcess.acc],
   note:
@@ -2753,6 +2763,7 @@ class SignOffProcess extends DocSpecsSection {
 )
 @SectionId('WATE')
 @DetailedIn(D10QualityAcceptancePlan)
+@SyncedWith(D10QualityAcceptancePlan)
 @FollowUpKind(
   [FollowUpProcess.acc],
   note:

@@ -1843,7 +1843,9 @@ document. A `@DetailedIn` on the element class of a list (`CUOPME`, `DAENT`,
 `AcceptanceCriteriaList` (`ACRITL`) is reached at two places on each side and
 lies inside `AcceptanceCriteriaSummary` (`ACCRSU`), a pair of its own; its
 positions pair by their path (invariant `SHARED-ANCHOR`), and `ACCRSU`'s
-`@SyncedWith` leaves it to the inner pair.
+`@SyncedWith` leaves it to the inner pair. That its two positions in one
+document hold the same values is not stated yet: the link vocabulary has no
+annotation for a section reached twice in one document.
 
 The 132 pairs, by document and by their place in the Blueprint:
 
@@ -1984,8 +1986,8 @@ The 132 pairs, by document and by their place in the Blueprint:
 
 **The pairs written so far.** A pair whose `@SyncedWith` is not written yet
 carries what the `@DetailedIn` level implies, and the validator warns once for
-it (invariant `SHARED-COVER`). The 85 pairs of the CLA, the TOM, the IFM, the
-ISC, the ATS, the IIS, the SAS and the XDS carry a plain `@SyncedWith(<Document>)`: no
+it (invariant `SHARED-COVER`). The 104 pairs of the CLA, the TOM, the IFM, the
+ISC, the ATS, the IIS, the SAS, the XDS and the QAP carry a plain `@SyncedWith(<Document>)`: no
 `detailOnly`, nothing held in the Blueprint, every list `equal` (an element the
 Blueprint lacks is backfilled); a prose-only pair shares its `@content`.
 The six requirement pairs of the RSP (`FR`,
