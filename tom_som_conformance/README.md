@@ -326,16 +326,16 @@ proves it.
 
 ##### …and so does the DocSpecs tier (SOM §14)
 
-The SOM §14 DocSpecs tier is a **second, separate** rule vocabulary — the eleven
+The SOM §14 DocSpecs tier is a **second, separate** rule vocabulary — the thirteen
 `DocSpecsViolationRule` constants, not the instance tier's
 `SpecValidationCode` — and it is nine-language for the same reason. Its corpus
 is a pair:
 
 | File | Role |
 | ---- | ---- |
-| [`corpus/docspecs_schema.yaml`](corpus/docspecs_schema.yaml) | The shared schema **input** — one schema whose features exist to provoke all eleven rules (a `max-text-length`, a `min-count: 2` container, a required form field with a pattern check, …). |
+| [`corpus/docspecs_schema.yaml`](corpus/docspecs_schema.yaml) | The shared schema **input** — one schema whose features exist to provoke all thirteen rules (a `max-text-length`, a `min-count: 2` container, a required form field with a pattern check, …). |
 | [`corpus/docspecs_cases.json`](corpus/docspecs_cases.json) | One case per rule: the invalid markdown plus the `rule` / `sectionId` / `line` triples the reference produces. |
-| [`samples/invalid_demo_document.tomspecs.md`](samples/invalid_demo_document.tomspecs.md) | The golden tier's counterpart to the cases file — one document violating all eleven rules at once, against the *same* schema. Read only by the nine golden generators, not by the runtime runners. |
+| [`samples/invalid_demo_document.tomspecs.md`](samples/invalid_demo_document.tomspecs.md) | The golden tier's counterpart to the cases file — one document violating all thirteen rules at once, against the *same* schema. Read only by the nine golden generators, not by the runtime runners. |
 
 Three things about the table are deliberate:
 

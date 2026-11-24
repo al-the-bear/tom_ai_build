@@ -374,7 +374,7 @@ function testValidateTooManyItems() {
   const md =
     `${_VALID_DOC}\n` +
     '### <!--[GSUM]--> Summary\n\nOne.\n\n' +
-    '### <!--[GSUM]--> Summary\n\nTwo.\n';
+    '### <!--[GSUM-2]--> Summary\n\nTwo.\n';
   const v = _validate(md);
   _check('validate.tooMany.count', v.length === 1, _detail(v));
   if (v.length > 0) {
@@ -471,6 +471,72 @@ function testDr7Acceptance() {
   );
 }
 
+// --- order and id paths -------------------------------------------------------
+
+function testOrderOutOfOrder() {
+  const md =
+    _VALID_DOC.replace('## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n', '') +
+    '\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n';
+  const v = _validate(md);
+  const got = v.map((x) => `${x.rule}|${x.sectionId}`);
+  _check('order.outOfOrder', _listEqual(got, ['sectionOutOfOrder|D00-OVR']), _detail(v));
+  _check('order.outOfOrder.enum',
+    DocSpecsViolationRule.SECTION_OUT_OF_ORDER === 'sectionOutOfOrder');
+}
+
+function testOrderPositionAny() {
+  const schema = DocSpecsSchema.fromYamlText(
+    _SCHEMA_YAML.replace('form-types:', '  note:\n    prefix: NOTE\nform-types:') +
+      '    note:\n      section-type: note\n      optional: true\n' +
+      '      position: any\n',
+  );
+  _check('order.any.anyPosition', schema.documentSections.note.anyPosition === true);
+  _check('order.any.relativeDefault', schema.documentSections.goals.position === 'relative');
+  const md =
+    _VALID_DOC.replace(
+      '## <!--[D00-OVR]--> Overview\n',
+      '## <!--[NOTE-1]--> Note\n\nFirst.\n\n## <!--[D00-OVR]--> Overview\n',
+    ) + '\n## <!--[NOTE-2]--> Note\n\nLast.\n';
+  const v = new DocSpecsValidator(schema).validateMarkdown(md);
+  _check('order.any.valid', v.length === 0, _detail(v));
+}
+
+function testOrderBadPositionRefused() {
+  let threw = false;
+  try {
+    DocSpecsSchema.fromYamlText(
+      _SCHEMA_YAML.replace(
+        '      section-type: diag\n',
+        '      section-type: diag\n      position: last\n',
+      ),
+    );
+  } catch (e) {
+    threw = true;
+  }
+  _check('order.badPosition.refused', threw);
+}
+
+function testDuplicateIdPath() {
+  const md = `${_VALID_DOC}\n### <!--[GOAL-ITEM-2]--> Goal 2 again\n\nThird.\n`;
+  const v = _validate(md);
+  const got = v.map((x) => `${x.rule}|${x.sectionId}|${x.line}`);
+  _check('idPath.duplicate', _listEqual(got, ['duplicateIdPath|GOAL-ITEM-2|25']), _detail(v));
+}
+
+function testSameIdUnderTwoParents() {
+  const schema = DocSpecsSchema.fromYamlText(
+    _SCHEMA_YAML.replace(
+      'form-types:',
+      '  note:\n    prefix: NOTE\n    subsection-types:\n      gsum:\n        max-count: 1\nform-types:',
+    ) + '    note:\n      section-type: note\n      optional: true\n',
+  );
+  const md =
+    `${_VALID_DOC}\n### <!--[GSUM]--> Summary\n\nOne.\n` +
+    '\n## <!--[NOTE-1]--> Note\n\n### <!--[GSUM]--> Summary\n\nTwo.\n';
+  const v = new DocSpecsValidator(schema).validateMarkdown(md);
+  _check('idPath.twoParents.valid', v.length === 0, _detail(v));
+}
+
 function main() {
   testParseTree();
   testParseFenceShield();
@@ -490,6 +556,11 @@ function main() {
   testValidateFormatMismatch();
   testValidateRootMismatch();
   testValidateNeverFailFast();
+  testOrderOutOfOrder();
+  testOrderPositionAny();
+  testOrderBadPositionRefused();
+  testDuplicateIdPath();
+  testSameIdUnderTwoParents();
   testBindDocspecsMarkdown();
   testDr7Acceptance();
 

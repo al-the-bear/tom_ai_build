@@ -22,6 +22,8 @@ public final class DocSpecsViolation {
   public static final String RULE_TEXT_LENGTH_OUT = "textLengthOut";
   public static final String RULE_FORMAT_MISMATCH = "formatMismatch";
   public static final String RULE_MALFORMED_HEADING = "malformedHeading";
+  public static final String RULE_SECTION_OUT_OF_ORDER = "sectionOutOfOrder";
+  public static final String RULE_DUPLICATE_ID_PATH = "duplicateIdPath";
 
   /**
    * The complete §14 vocabulary, in declaration order — the enumerable form of
@@ -41,6 +43,8 @@ public final class DocSpecsViolation {
     RULE_TEXT_LENGTH_OUT,
     RULE_FORMAT_MISMATCH,
     RULE_MALFORMED_HEADING,
+    RULE_SECTION_OUT_OF_ORDER,
+    RULE_DUPLICATE_ID_PATH,
   };
 
   public final String rule;

@@ -375,6 +375,15 @@ void main() {
 
     test('a relative section out of its place is out of order', () {
       expect(orderFindings(schemaWith()), ['intro-1', 'body-main']);
+      expect(
+        {
+          for (final e in DocSpecsValidator(
+            schema: schemaWith(),
+          ).validate(notesEverywhere()))
+            if (e.message.contains('out of order')) e.code,
+        },
+        {'sectionOutOfOrder'},
+      );
       expect(orderFindings(schemaWith(notesPosition: 'relative')), [
         'intro-1',
         'body-main',
@@ -539,7 +548,7 @@ void main() {
       expect(errorsOf(errors, ValidationErrorCategory.sectionId), isEmpty);
     });
 
-    test('reports duplicate IDs in nested sections', () {
+    test('the same id under different parents is a different id path', () {
       final schema = makeSchema();
       final doc = makeDocument(
         sections: [
@@ -553,7 +562,44 @@ void main() {
       );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
-      expect(errorsOf(errors, ValidationErrorCategory.sectionId), isNotEmpty);
+      expect(errorsOf(errors, ValidationErrorCategory.sectionId), isEmpty);
+    });
+
+    test('a nested sibling repeated is a duplicateIdPath, its descendants '
+        'are not reported again', () {
+      final schema = makeSchema();
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'parent',
+            lineNumber: 5,
+            sections: [
+              makeSection(id: 'child-001', lineNumber: 10),
+              makeSection(
+                id: 'child-001',
+                lineNumber: 20,
+                index: 1,
+                sections: [makeSection(id: 'grandchild', lineNumber: 25)],
+              ),
+            ],
+          ),
+          makeSection(
+            id: 'other',
+            lineNumber: 30,
+            index: 1,
+            sections: [makeSection(id: 'grandchild', lineNumber: 35)],
+          ),
+        ],
+      );
+
+      final errors = errorsOf(
+        DocSpecsValidator(schema: schema).validate(doc),
+        ValidationErrorCategory.sectionId,
+      );
+      expect(
+        [for (final e in errors) (e.code, e.sectionId, e.lineNumber)],
+        [('duplicateIdPath', 'child-001', 20)],
+      );
     });
   });
 

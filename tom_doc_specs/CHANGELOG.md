@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.4.2
+
+- **Unique id paths instead of unique ids** (DocSpecs specification,
+  Validation Rules 3). Two sections may share an id under different parents;
+  a section whose id repeats an earlier sibling's is reported, with
+  `ValidationError.code` `duplicateIdPath`, and its descendants are not
+  reported again. Before, any id repeated anywhere in the document was a
+  duplicate.
+- **The order finding has a code**, `sectionOutOfOrder`, the same as the SOM
+  runtimes' DocSpecs validator reports.
+
 ## 0.4.1
 
 - **The rest of the reading-notation findings every document has** (DocSpecs

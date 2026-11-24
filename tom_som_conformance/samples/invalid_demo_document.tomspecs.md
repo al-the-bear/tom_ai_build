@@ -44,3 +44,7 @@ Body.
 ## Heading with no headline comment
 
 Body.
+
+## <!--[D00-OVR-2]--> Overview again, after the other sections
+
+Out of the order of the document sections.

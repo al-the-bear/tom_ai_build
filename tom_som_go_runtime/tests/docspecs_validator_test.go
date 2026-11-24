@@ -358,7 +358,7 @@ func TestDocspecsValidateTextRequired(t *testing.T) {
 func TestDocspecsValidateTooManyItems(t *testing.T) {
 	md := dvValidDoc + "\n" +
 		"### <!--[GSUM]--> Summary\n\nOne.\n\n" +
-		"### <!--[GSUM]--> Summary\n\nTwo.\n"
+		"### <!--[GSUM-2]--> Summary\n\nTwo.\n"
 	v := dvValidate(t, md)
 	mdCheck(t, "validate.tooMany.count", len(v) == 1, dvDetail(v))
 	if len(v) > 0 {
@@ -413,6 +413,75 @@ func TestDocspecsValidateNeverFailFast(t *testing.T) {
 	sort.Strings(want)
 	mdCheck(t, "validate.neverFailFast", dvListEqual(got, want),
 		strings.Join(got, ",")+" != "+strings.Join(want, ","))
+}
+
+// --- order and id paths -------------------------------------------------------
+
+func dvSchemaFrom(t *testing.T, yaml string) *som.DocSpecsSchema {
+	t.Helper()
+	schema, err := som.DocSpecsSchemaFromYamlText(yaml)
+	if err != nil {
+		t.Fatalf("DocSpecsSchemaFromYamlText: %v", err)
+	}
+	return schema
+}
+
+func TestDocspecsValidateSectionOutOfOrder(t *testing.T) {
+	overview := "## <!--[D00-OVR]--> Overview\n\nSome overview text.\n"
+	md := strings.Replace(dvValidDoc, overview+"\n", "", 1) + "\n" + overview
+	v := dvValidate(t, md)
+	mdCheck(t, "order.outOfOrder.count", len(v) == 1, dvDetail(v))
+	if len(v) > 0 {
+		mdCheck(t, "order.outOfOrder.rule",
+			v[0].Rule == som.DocSpecsRuleSectionOutOfOrder, v[0].String())
+		mdCheck(t, "order.outOfOrder.id", v[0].SectionID == "D00-OVR", v[0].SectionID)
+	}
+}
+
+func TestDocspecsValidatePositionAnyAnywhere(t *testing.T) {
+	schema := dvSchemaFrom(t, strings.Replace(dvSchemaYaml, "form-types:",
+		"  note:\n    prefix: NOTE\nform-types:", 1)+
+		"    note:\n      section-type: note\n      optional: true\n"+
+		"      position: any\n")
+	mdCheck(t, "order.any.anyPosition", schema.DocumentSections["note"].AnyPosition())
+	mdCheck(t, "order.any.relativeDefault",
+		schema.DocumentSections["goals"].Position == "relative",
+		schema.DocumentSections["goals"].Position)
+	md := strings.Replace(dvValidDoc, "## <!--[D00-OVR]--> Overview\n",
+		"## <!--[NOTE-1]--> Note\n\nFirst.\n\n## <!--[D00-OVR]--> Overview\n", 1) +
+		"\n## <!--[NOTE-2]--> Note\n\nLast.\n"
+	v := som.NewDocSpecsValidator(schema).ValidateMarkdown(md)
+	mdCheck(t, "order.any.valid", len(v) == 0, dvDetail(v))
+}
+
+func TestDocspecsSchemaRefusesUnknownPosition(t *testing.T) {
+	_, err := som.DocSpecsSchemaFromYamlText(strings.Replace(dvSchemaYaml,
+		"      section-type: diag\n",
+		"      section-type: diag\n      position: last\n", 1))
+	mdCheck(t, "order.position.refused", err != nil)
+}
+
+func TestDocspecsValidateDuplicateIDPath(t *testing.T) {
+	md := dvValidDoc + "\n### <!--[GOAL-ITEM-2]--> Goal 2 again\n\nThird.\n"
+	v := dvValidate(t, md)
+	mdCheck(t, "idPath.duplicate.count", len(v) == 1, dvDetail(v))
+	if len(v) > 0 {
+		mdCheck(t, "idPath.duplicate.rule",
+			v[0].Rule == som.DocSpecsRuleDuplicateIDPath, v[0].String())
+		mdCheck(t, "idPath.duplicate.id", v[0].SectionID == "GOAL-ITEM-2", v[0].SectionID)
+		mdCheck(t, "idPath.duplicate.line", v[0].Line == 25, fmt.Sprintf("%d", v[0].Line))
+	}
+}
+
+func TestDocspecsValidateSameIDUnderTwoParents(t *testing.T) {
+	schema := dvSchemaFrom(t, strings.Replace(dvSchemaYaml, "form-types:",
+		"  note:\n    prefix: NOTE\n    subsection-types:\n      gsum:\n"+
+			"        max-count: 1\nform-types:", 1)+
+		"    note:\n      section-type: note\n      optional: true\n")
+	md := dvValidDoc + "\n### <!--[GSUM]--> Summary\n\nOne.\n" +
+		"\n## <!--[NOTE-1]--> Note\n\n### <!--[GSUM]--> Summary\n\nTwo.\n"
+	v := som.NewDocSpecsValidator(schema).ValidateMarkdown(md)
+	mdCheck(t, "idPath.twoParents.valid", len(v) == 0, dvDetail(v))
 }
 
 // --- BindDocspecsMarkdown ------------------------------------------------------

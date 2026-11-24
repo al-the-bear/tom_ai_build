@@ -3386,6 +3386,7 @@ Violation
             tooFewItems | tooManyItems | missingRequiredField |
             fieldPatternMismatch | textRequired | textLengthOut |
             formatMismatch | malformedHeading |
+            sectionOutOfOrder | duplicateIdPath |
             unclosedDiv | strayClosingFence | unclosedSpan |
             divWithoutKind | unknownKind | markAcrossNotation |
             annotationInsideDiv | divInsideAnnotation | rejectedBlock |
@@ -3400,7 +3401,24 @@ Violation
 the list holds no error. The Dart implementation's rule/section/line triples are the
 golden reference.
 
-The last nine rules are the reading notation's findings, as the DocSpecs
+Two rules are about the document's shape as a whole, as the DocSpecs
+specification's *Validation Rules* 3 and 5 state them:
+
+- `sectionOutOfOrder`: the root's children follow the order of the schema's
+  `document: sections:`. A child stands at the first slot of its type at or
+  after the last slot taken, else at the first slot of its type; a slot
+  before the last one taken is the finding, at the child's heading. A slot
+  declared `position: any` (`relative` is the default; any other value is
+  refused when the schema loads) is left out: its sections stand anywhere.
+- `duplicateIdPath`: the id path of a section (the ids from the root down to
+  it) is unique. A section whose id repeats an earlier sibling's is the
+  finding, at its heading; its descendants repeat paths only through it and
+  are not reported again. The same id under two different parents is valid.
+  Reported after every other rule, depth-first in source order.
+
+Every runtime reports both. Pinned by `docspecs_cases.json`.
+
+The nine rules from `unclosedDiv` to `rejectedBlock` are the reading notation's findings, as the DocSpecs
 specification's *Reading Notation* section (RN-10) names them. The runtime's
 notation scanner (`scanNotation(text, tomSpecs)`, Dart and TypeScript) reads
 one text value: its fenced divs, bracketed spans and citation shapes, with

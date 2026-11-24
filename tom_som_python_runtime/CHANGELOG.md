@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- **Section order and unique id paths in the DocSpecs validator** (SOM §14,
+  the DocSpecs specification's Validation Rules 3 and 5): two new rules,
+  `sectionOutOfOrder` (the root's children follow `document: sections:`; a
+  slot declared `position: any`, new on the schema's document sections, stands
+  anywhere, and any other `position` is refused at load) and `duplicateIdPath`
+  (a section whose id repeats an earlier sibling's; the same id under two
+  parents is valid). The conformance corpus covers both.
+
 - SOM documents are named `*.tomspecs.yaml` / `*.tomspecs.md`: the YAML encoder's
   header line names `*.tomspecs.yaml`, and the impact walk discovers
   `*.tomspecs.yaml` documents in a spec root's `phase*` folders.

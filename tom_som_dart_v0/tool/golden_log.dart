@@ -395,11 +395,14 @@ void main(List<String> args) {
   // The reading notation's nine rules are reported by the Dart and TypeScript
   // validators only, until the reading view's parity audit (05a_rdv4) brings
   // the other seven level; the shared fixture holds no notation, so they are
-  // left out of the vocabulary every generator prints.
+  // left out of the vocabulary every generator prints. So are the reading
+  // view's two findings (`malformedBlock`, `unknownField`; SOM §14), reported
+  // by the same two validators only and reached by no plain-layout document.
   final notation = {for (final n in NotationFindingCode.values) n.name};
+  const readingView = {'malformedBlock', 'unknownField'};
   final vocabulary = [
     for (final r in DocSpecsViolationRule.values)
-      if (!notation.contains(r.name)) r.name,
+      if (!notation.contains(r.name) && !readingView.contains(r.name)) r.name,
   ];
   final reached = <String>{for (final v in invalidViolations) v.rule.name};
   if (reached.length != vocabulary.length) {

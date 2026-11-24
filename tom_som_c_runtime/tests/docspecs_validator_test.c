@@ -586,7 +586,7 @@ static void TestDocspecsValidateTooManyItems(void) {
   char *md = cat2(dvValidDoc,
                   "\n"
                   "### <!--[GSUM]--> Summary\n\nOne.\n\n"
-                  "### <!--[GSUM]--> Summary\n\nTwo.\n");
+                  "### <!--[GSUM-2]--> Summary\n\nTwo.\n");
   DocSpecsViolationList v;
   docspecs_violation_list_init(&v);
   dvValidate(md, &v);
@@ -792,6 +792,144 @@ static void TestDocspecsDr7Acceptance(void) {
   free(metaText);
 }
 
+/* ---- order and id paths -------------------------------------------------- */
+
+/* dvSchemaFrom — loads `yaml` (owned by the caller) or fatally aborts. */
+static DocSpecsSchema *dvSchemaFrom(const char *yaml) {
+  DocSpecsSchema *schema = NULL;
+  char *err = NULL;
+  if (!docspecs_schema_from_yaml_text(yaml, &schema, &err))
+    fatal("DocSpecsSchemaFromYamlText", err);
+  return schema;
+}
+
+static void TestDocspecsValidateSectionOutOfOrder(void) {
+  const char *overview = "## <!--[D00-OVR]--> Overview\n\nSome overview text.\n";
+  char *ovr_blank = cat2(overview, "\n");
+  char *without = str_replace_first(dvValidDoc, ovr_blank, "");
+  char *tail = cat2("\n", overview);
+  char *md = cat2(without, tail);
+  DocSpecsViolationList v;
+  docspecs_violation_list_init(&v);
+  dvValidate(md, &v);
+  char *det = dvDetail(&v);
+  mdCheck("order.outOfOrder.count", v.len == 1, det);
+  free(det);
+  if (v.len > 0) {
+    char *vs = docspecs_violation_string(&v.items[0]);
+    mdCheck("order.outOfOrder.rule",
+            str_eq(v.items[0].rule, DOCSPECS_RULE_SECTION_OUT_OF_ORDER), vs);
+    free(vs);
+    mdCheck("order.outOfOrder.id", str_eq(v.items[0].section_id, "D00-OVR"),
+            v.items[0].section_id);
+  }
+  docspecs_violation_list_free(&v);
+  free(md);
+  free(tail);
+  free(without);
+  free(ovr_blank);
+}
+
+static void TestDocspecsValidatePositionAny(void) {
+  char *types = str_replace_first(dvSchemaYaml, "form-types:",
+                                  "  note:\n    prefix: NOTE\nform-types:");
+  char *yaml = cat2(types,
+                    "    note:\n      section-type: note\n      optional: true\n"
+                    "      position: any\n");
+  DocSpecsSchema *schema = dvSchemaFrom(yaml);
+  const DocSpecsDocumentSection *note =
+      docspecs_schema_document_section(schema, "note");
+  mdCheck("order.any.note",
+          note != NULL && docspecs_document_section_any_position(note),
+          note != NULL ? note->position : "(no slot)");
+  const DocSpecsDocumentSection *goals =
+      docspecs_schema_document_section(schema, "goals");
+  mdCheck("order.any.goalsRelative",
+          goals != NULL && str_eq(goals->position, DOCSPECS_POSITION_RELATIVE) &&
+              !docspecs_document_section_any_position(goals),
+          goals != NULL ? goals->position : "(no slot)");
+  char *front = str_replace_first(
+      dvValidDoc, "## <!--[D00-OVR]--> Overview\n",
+      "## <!--[NOTE-1]--> Note\n\nFirst.\n\n## <!--[D00-OVR]--> Overview\n");
+  char *md = cat2(front, "\n## <!--[NOTE-2]--> Note\n\nLast.\n");
+  DocSpecsValidator val = docspecs_validator_new(schema);
+  DocSpecsViolationList v;
+  docspecs_violation_list_init(&v);
+  docspecs_validator_validate_markdown(&val, md, &v);
+  char *det = dvDetail(&v);
+  mdCheck("order.any.valid", v.len == 0, det);
+  free(det);
+  docspecs_violation_list_free(&v);
+  docspecs_schema_free(schema);
+  free(md);
+  free(front);
+  free(yaml);
+  free(types);
+}
+
+static void TestDocspecsSchemaRefusesUnknownPosition(void) {
+  char *yaml = str_replace_first(dvSchemaYaml, "      section-type: diag\n",
+                                 "      section-type: diag\n"
+                                 "      position: last\n");
+  DocSpecsSchema *schema = NULL;
+  char *err = NULL;
+  int ok = docspecs_schema_from_yaml_text(yaml, &schema, &err);
+  mdCheck("order.position.refused", !ok && schema == NULL, "loaded");
+  mdCheck("order.position.message", err != NULL && contains(err, "last"),
+          err != NULL ? err : "(no message)");
+  free(err);
+  docspecs_schema_free(schema);
+  free(yaml);
+}
+
+static void TestDocspecsValidateDuplicateIdPath(void) {
+  char *md = cat2(dvValidDoc, "\n### <!--[GOAL-ITEM-2]--> Goal 2 again\n\nThird.\n");
+  DocSpecsViolationList v;
+  docspecs_violation_list_init(&v);
+  dvValidate(md, &v);
+  char *det = dvDetail(&v);
+  mdCheck("idPath.duplicate.count", v.len == 1, det);
+  free(det);
+  if (v.len > 0) {
+    char *vs = docspecs_violation_string(&v.items[0]);
+    mdCheck("idPath.duplicate.rule",
+            str_eq(v.items[0].rule, DOCSPECS_RULE_DUPLICATE_ID_PATH), vs);
+    free(vs);
+    mdCheck("idPath.duplicate.id", str_eq(v.items[0].section_id, "GOAL-ITEM-2"),
+            v.items[0].section_id);
+    char *line = itoa_owned(v.items[0].line);
+    mdCheck("idPath.duplicate.line", v.items[0].line == 25, line);
+    free(line);
+  }
+  docspecs_violation_list_free(&v);
+  free(md);
+}
+
+static void TestDocspecsValidateSameIdUnderTwoParents(void) {
+  char *types = str_replace_first(
+      dvSchemaYaml, "form-types:",
+      "  note:\n    prefix: NOTE\n    subsection-types:\n      gsum:\n"
+      "        max-count: 1\nform-types:");
+  char *yaml =
+      cat2(types, "    note:\n      section-type: note\n      optional: true\n");
+  DocSpecsSchema *schema = dvSchemaFrom(yaml);
+  char *md = cat2(dvValidDoc,
+                  "\n### <!--[GSUM]--> Summary\n\nOne.\n"
+                  "\n## <!--[NOTE-1]--> Note\n\n### <!--[GSUM]--> Summary\n\nTwo.\n");
+  DocSpecsValidator val = docspecs_validator_new(schema);
+  DocSpecsViolationList v;
+  docspecs_violation_list_init(&v);
+  docspecs_validator_validate_markdown(&val, md, &v);
+  char *det = dvDetail(&v);
+  mdCheck("idPath.twoParents.valid", v.len == 0, det);
+  free(det);
+  docspecs_violation_list_free(&v);
+  docspecs_schema_free(schema);
+  free(md);
+  free(yaml);
+  free(types);
+}
+
 int main(void) {
   TestDocspecsParseTree();
   TestDocspecsParseFenceShield();
@@ -811,6 +949,11 @@ int main(void) {
   TestDocspecsValidateFormatMismatch();
   TestDocspecsValidateRootMismatch();
   TestDocspecsValidateNeverFailFast();
+  TestDocspecsValidateSectionOutOfOrder();
+  TestDocspecsValidatePositionAny();
+  TestDocspecsSchemaRefusesUnknownPosition();
+  TestDocspecsValidateDuplicateIdPath();
+  TestDocspecsValidateSameIdUnderTwoParents();
   TestDocspecsBindDocspecsMarkdown();
   TestDocspecsDr7Acceptance();
 

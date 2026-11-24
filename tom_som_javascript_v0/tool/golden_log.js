@@ -34,7 +34,7 @@ const DEFAULT_SCHEMA = path.resolve(
 // The deliberately-invalid companion fixture and the hand-authored demo schema
 // it is written against (the same schema the runtime conformance corpus uses).
 // The generated SBP schema cannot stand in for it: it declares no
-// `pattern-check:` and no `text-required:`, so two of the eleven rules are
+// `pattern-check:` and no `text-required:`, so two of the thirteen rules are
 // unreachable against it whatever the document says.
 const DEFAULT_INVALID_SAMPLE_MD = path.resolve(
   _PROJECT, '..', 'tom_som_conformance', 'samples',
@@ -388,7 +388,7 @@ function main() {
   // per-violation emission, and with it every rule spelling, under the
   // byte-identity comparison.
   //
-  // The fixture reaches each of the eleven rules exactly once, and the
+  // The fixture reaches each of the thirteen rules exactly once, and the
   // generator asserts that rather than merely reporting it: a rule added to the
   // vocabulary later without a matching fixture section aborts all nine
   // generators instead of going quietly unexercised. ---

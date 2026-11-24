@@ -77,6 +77,14 @@ enum DocSpecsViolationRule {
   /// A heading line without a parseable `<!--[SECTION-ID]-->` comment.
   malformedHeading,
 
+  /// A root child stands before a `document: sections:` slot taken earlier
+  /// (the slots' order; a `position: any` slot's type stands anywhere).
+  sectionOutOfOrder,
+
+  /// A section's id repeats an earlier sibling's, so its id path (the ids
+  /// from the root down to it) is not unique.
+  duplicateIdPath,
+
   // The reading notation's findings (DocSpecs specification, Reading
   // Notation RN-10), reported by [scanNotation] per value: a section's own
   // body, and in a TomSpecs rendition each form field's value apart.
@@ -708,7 +716,14 @@ class DocSpecsDocumentSection {
   /// so a slot's requiredness is always an explicit statement. The loader
   /// supplies `false` — required — when the YAML says nothing, matching
   /// SOM §13, where a top-level section is listed because `@Min` ≥ 1.
-  DocSpecsDocumentSection({required this.sectionType, required this.optional});
+  DocSpecsDocumentSection({
+    required this.sectionType,
+    required this.optional,
+    this.position = 'relative',
+  });
+
+  /// The [position] values a document section may take.
+  static const positions = ['relative', 'any'];
 
   /// The [DocSpecsSectionType.name] backing this slot.
   ///
@@ -724,6 +739,14 @@ class DocSpecsDocumentSection {
   /// root, not per missing heading. Note the counting is by section-type, so
   /// two slots backed by the same type are both satisfied by one occurrence.
   final bool optional;
+
+  /// `relative` (the default: in the order of `document: sections:`) or
+  /// `any` (anywhere among the root's children; the order check leaves it
+  /// out).
+  final String position;
+
+  /// Whether the section may stand anywhere among the root's children.
+  bool get anyPosition => position == 'any';
 }
 
 /// A loaded `*.docspecs-schema.yaml` (the schema-generator output format , SOM §13): the
@@ -993,11 +1016,21 @@ class DocSpecsSchema {
         if (sections is! Map) continue;
         for (final s in sections.entries) {
           final v = s.value;
+          final position = v is Map && v['position'] != null
+              ? '${v['position']}'
+              : 'relative';
+          if (!DocSpecsDocumentSection.positions.contains(position)) {
+            throw FormatException(
+              'document section "${s.key}": position "$position" is not one '
+              'of relative, any',
+            );
+          }
           schema.documentSections['${s.key}'] = DocSpecsDocumentSection(
             sectionType: v is Map
                 ? '${v['section-type'] ?? s.key}'
                 : '${s.key}',
             optional: v is Map && v['optional'] == true,
+            position: position,
           );
         }
       } else if (k != 'name' && k != 'description') {
@@ -1136,7 +1169,40 @@ class DocSpecsValidator {
     }
     _validateDocumentSections(_Node.of(root), v);
     _validateNotation(doc, v);
+    _validateIdPaths(doc.sections, v);
     return v;
+  }
+
+  /// Every section's id path (the ids from the root down to it) is unique: a
+  /// section whose id repeats an earlier sibling's is a
+  /// [DocSpecsViolationRule.duplicateIdPath]. Its descendants repeat paths
+  /// only through it and are not reported again. Sections without an id are
+  /// skipped (already [DocSpecsViolationRule.malformedHeading]).
+  /// Depth-first, source order.
+  void _validateIdPaths(
+    List<DocSpecsSection> sections,
+    List<DocSpecsViolation> v,
+  ) {
+    final seen = <String>{};
+    for (final s in sections) {
+      final id = s.id;
+      if (id != null) {
+        if (!seen.add(id)) {
+          v.add(
+            DocSpecsViolation(
+              rule: DocSpecsViolationRule.duplicateIdPath,
+              sectionId: id,
+              line: s.line,
+              message:
+                  'section id "$id" repeats a sibling\'s id, so its id path '
+                  'is not unique',
+            ),
+          );
+          continue;
+        }
+      }
+      _validateIdPaths(s.children, v);
+    }
   }
 
   /// The reading notation of every section's own body: one value per
@@ -1185,13 +1251,21 @@ class DocSpecsValidator {
     return values;
   }
 
-  /// Root children must occupy `document: sections:` slots; required slots
-  /// must be present. A section table in the root's body rebuilds root
-  /// children as virtual sections first.
+  /// Root children must occupy `document: sections:` slots, in their order
+  /// (a `position: any` slot's type stands anywhere); required slots must be
+  /// present. A section table in the root's body rebuilds root children as
+  /// virtual sections first.
   void _validateDocumentSections(_Node root, List<DocSpecsViolation> v) {
     bool topLevel(DocSpecsSectionType t) =>
         schema.documentSections.values.any((s) => s.sectionType == t.name);
     _expandSectionTables(root, topLevel, v);
+    final slots = schema.documentSections.values.toList();
+    final anywhere = {
+      for (final s in slots)
+        if (s.anyPosition) s.sectionType,
+    };
+    final order = [for (final s in slots) s.anyPosition ? null : s.sectionType];
+    var lastIndex = -1;
     final counts = <String, int>{};
     for (final child in root.children) {
       final type = _resolveChild(child, v);
@@ -1208,6 +1282,9 @@ class DocSpecsValidator {
           ),
         );
         continue;
+      }
+      if (!anywhere.contains(type.name)) {
+        lastIndex = _checkOrder(child, type.name, order, lastIndex, v);
       }
       counts[type.name] = (counts[type.name] ?? 0) + 1;
       _validateSection(child, type, v);
@@ -1226,6 +1303,43 @@ class DocSpecsValidator {
         );
       }
     }
+  }
+
+  /// The order check of one root child: its slot is the first of its type at
+  /// or after the last slot taken, else the first of its type anywhere; a
+  /// slot before the last one taken is
+  /// [DocSpecsViolationRule.sectionOutOfOrder]. Answers the last slot taken
+  /// afterwards.
+  static int _checkOrder(
+    _Node child,
+    String typeName,
+    List<String?> order,
+    int lastIndex,
+    List<DocSpecsViolation> v,
+  ) {
+    var index = -1;
+    for (var i = lastIndex < 0 ? 0 : lastIndex; i < order.length; i++) {
+      if (order[i] == typeName) {
+        index = i;
+        break;
+      }
+    }
+    if (index == -1) index = order.indexOf(typeName);
+    if (index == -1) return lastIndex;
+    if (index < lastIndex) {
+      v.add(
+        DocSpecsViolation(
+          rule: DocSpecsViolationRule.sectionOutOfOrder,
+          sectionId: child.id,
+          line: child.line,
+          message:
+              'section "${child.id}" (type "$typeName") stands out of the '
+              'order of the document sections',
+        ),
+      );
+      return lastIndex;
+    }
+    return index;
   }
 
   DocSpecsSectionType? _resolveChild(_Node child, List<DocSpecsViolation> v) {

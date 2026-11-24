@@ -276,7 +276,7 @@ document:
       final md =
           '$_validDoc\n'
           '### <!--[GSUM]--> Summary\n\nOne.\n\n'
-          '### <!--[GSUM]--> Summary\n\nTwo.\n';
+          '### <!--[GSUM-2]--> Summary\n\nTwo.\n';
       final v = _validate(md);
       expect(v, hasLength(1));
       expect(v.single.rule, DocSpecsViolationRule.tooManyItems);
@@ -314,6 +314,69 @@ document:
         DocSpecsViolationRule.fieldPatternMismatch,
         DocSpecsViolationRule.idPatternMismatch,
       });
+    });
+  });
+
+  group('order and id paths', () {
+    test('a root child before a slot taken earlier → sectionOutOfOrder', () {
+      final md =
+          _validDoc.replaceFirst(
+            '## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n',
+            '',
+          ) +
+          '\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n';
+      final v = _validate(md);
+      expect(
+        [for (final x in v) (x.rule, x.sectionId)],
+        [(DocSpecsViolationRule.sectionOutOfOrder, 'D00-OVR')],
+      );
+    });
+
+    test('a position: any slot stands anywhere; the rest keeps its order', () {
+      final schema = DocSpecsSchema.fromYamlText(
+        '${_schemaYaml.replaceFirst('form-types:', '  note:\n    prefix: NOTE\nform-types:')}'
+        '    note:\n      section-type: note\n      optional: true\n'
+        '      position: any\n',
+      );
+      expect(schema.documentSections['note']!.anyPosition, isTrue);
+      expect(schema.documentSections['goals']!.position, 'relative');
+      final md =
+          _validDoc.replaceFirst(
+            '## <!--[D00-OVR]--> Overview\n',
+            '## <!--[NOTE-1]--> Note\n\nFirst.\n\n## <!--[D00-OVR]--> Overview\n',
+          ) +
+          '\n## <!--[NOTE-2]--> Note\n\nLast.\n';
+      expect(DocSpecsValidator(schema).validateMarkdown(md), isEmpty);
+    });
+
+    test('a position other than relative or any is refused at load', () {
+      expect(
+        () => DocSpecsSchema.fromYamlText(
+          '${_schemaYaml.replaceFirst('      section-type: diag\n', '      section-type: diag\n      position: last\n')}',
+        ),
+        throwsFormatException,
+      );
+    });
+
+    test('a sibling with the same id → duplicateIdPath, once', () {
+      final md =
+          '$_validDoc\n### <!--[GOAL-ITEM-2]--> Goal 2 again\n\nThird.\n';
+      final v = _validate(md);
+      expect(
+        [for (final x in v) (x.rule, x.sectionId, x.line)],
+        [(DocSpecsViolationRule.duplicateIdPath, 'GOAL-ITEM-2', 25)],
+      );
+    });
+
+    test('the same id under two parents is a different id path', () {
+      final schema = DocSpecsSchema.fromYamlText(
+        '${_schemaYaml.replaceFirst('form-types:', '  note:\n    prefix: NOTE\n    subsection-types:\n      gsum:\n        max-count: 1\nform-types:')}'
+        '    note:\n      section-type: note\n      optional: true\n',
+      );
+      final md =
+          '$_validDoc\n### <!--[GSUM]--> Summary\n\nOne.\n'
+          '\n## <!--[NOTE-1]--> Note\n\n### <!--[GSUM]--> Summary\n\nTwo.\n';
+      expect(DocSpecsValidator(schema).validateMarkdown(md), isEmpty);
     });
   });
 

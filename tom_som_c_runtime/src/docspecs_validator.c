@@ -20,6 +20,8 @@ const char *const DOCSPECS_ALL_RULES[DOCSPECS_ALL_RULES_COUNT] = {
     DOCSPECS_RULE_TEXT_LENGTH_OUT,
     DOCSPECS_RULE_FORMAT_MISMATCH,
     DOCSPECS_RULE_MALFORMED_HEADING,
+    DOCSPECS_RULE_SECTION_OUT_OF_ORDER,
+    DOCSPECS_RULE_DUPLICATE_ID_PATH,
 };
 
 /* ---- small helpers ------------------------------------------------------- */
@@ -1124,9 +1126,14 @@ static void load_form_types(DocSpecsSchema *s, const YamlValue *node) {
   }
 }
 
-static void load_document(DocSpecsSchema *s, const YamlValue *node) {
+/* load_document: loads the `document:` block. Returns 0 (with an owned
+ * message to `*err` when non-NULL) when a section's `position` is not
+ * `relative` / `any`; the slots loaded so far stay in `s` for
+ * docspecs_schema_free. */
+static int load_document(DocSpecsSchema *s, const YamlValue *node,
+                         char **err) {
   if (node == NULL || node->type != YAML_MAP) {
-    return;
+    return 1;
   }
   for (size_t ki = 0; ki < node->as.map.len; ki++) {
     const char *k = node->as.map.entries[ki].key;
@@ -1140,12 +1147,28 @@ static void load_document(DocSpecsSchema *s, const YamlValue *node) {
         const YamlValue *s_raw = v->as.map.entries[si].value;
         char *section_type = som_strdup(s_key);
         int optional = 0;
+        char *position = som_strdup(DOCSPECS_POSITION_RELATIVE);
         if (s_raw != NULL && s_raw->type == YAML_MAP) {
           if (yaml_get(s_raw, "section-type") != NULL) {
             free(section_type);
             section_type = yaml_scalar_string(yaml_get(s_raw, "section-type"));
           }
           optional = dv_is_true(yaml_get(s_raw, "optional"));
+          const YamlValue *p = yaml_get(s_raw, "position");
+          if (p != NULL && p->type != YAML_NULL) {
+            free(position);
+            position = yaml_scalar_string(p);
+            if (strcmp(position, DOCSPECS_POSITION_RELATIVE) != 0 &&
+                strcmp(position, DOCSPECS_POSITION_ANY) != 0) {
+              if (err != NULL) {
+                *err = vcat("document section \"", s_key, "\": position \"",
+                            position, "\" is not one of relative, any", NULL);
+              }
+              free(position);
+              free(section_type);
+              return 0;
+            }
+          }
         }
         s->document_sections = realloc(
             s->document_sections,
@@ -1155,11 +1178,18 @@ static void load_document(DocSpecsSchema *s, const YamlValue *node) {
         ds->key = som_strdup(s_key);
         ds->section_type = section_type;
         ds->optional = optional;
+        ds->position = position;
       }
     } else if (strcmp(k, "name") != 0 && strcmp(k, "description") != 0) {
       schema_warn(s, vcat("unsupported document key \"", k, "\" ignored", NULL));
     }
   }
+  return 1;
+}
+
+int docspecs_document_section_any_position(const DocSpecsDocumentSection *ds) {
+  return ds->position != NULL &&
+         strcmp(ds->position, DOCSPECS_POSITION_ANY) == 0;
 }
 
 int docspecs_schema_from_yaml_text(const char *text, DocSpecsSchema **out,
@@ -1196,7 +1226,11 @@ int docspecs_schema_from_yaml_text(const char *text, DocSpecsSchema **out,
     } else if (strcmp(k, "form-types") == 0) {
       load_form_types(schema, v);
     } else if (strcmp(k, "document") == 0) {
-      load_document(schema, v);
+      if (!load_document(schema, v, err)) {
+        yaml_value_free(data);
+        docspecs_schema_free(schema);
+        return 0;
+      }
     } else if (strcmp(k, "schema") == 0 || strcmp(k, "version") == 0 ||
                strcmp(k, "name") == 0 || strcmp(k, "description") == 0) {
       /* informational keys — accepted, unused */
@@ -1245,6 +1279,7 @@ void docspecs_schema_free(DocSpecsSchema *s) {
   for (size_t i = 0; i < s->document_sections_len; i++) {
     free(s->document_sections[i].key);
     free(s->document_sections[i].section_type);
+    free(s->document_sections[i].position);
   }
   free(s->document_sections);
   som_strlist_free(&s->warnings);
@@ -1663,11 +1698,57 @@ static void validate_section(const DocSpecsValidator *val,
   count_map_free(&counts);
 }
 
+/* check_order: the order check of one root child. `order` holds the slots'
+ * section types in slot order, NULL for a `position: any` slot. The child's
+ * slot is the first of its type at or after the last slot taken, else the
+ * first of its type anywhere; a slot before the last one taken is
+ * sectionOutOfOrder. Answers the last slot taken afterwards. */
+static long check_order(const DocSpecsSection *child, const char *type_name,
+                        const char *const *order, size_t order_len,
+                        long last_index, DocSpecsViolationList *v) {
+  long index = -1;
+  for (size_t i = last_index > 0 ? (size_t)last_index : 0; i < order_len;
+       i++) {
+    if (order[i] != NULL && strcmp(order[i], type_name) == 0) {
+      index = (long)i;
+      break;
+    }
+  }
+  if (index == -1) {
+    for (size_t i = 0; i < order_len; i++) {
+      if (order[i] != NULL && strcmp(order[i], type_name) == 0) {
+        index = (long)i;
+        break;
+      }
+    }
+  }
+  if (index == -1) {
+    return last_index;
+  }
+  if (index < last_index) {
+    dv_push(v, DOCSPECS_RULE_SECTION_OUT_OF_ORDER, child->line,
+            vcat("section \"", child->id, "\" (type \"", type_name,
+                 "\") stands out of the order of the document sections", NULL),
+            child->id, "");
+    return last_index;
+  }
+  return index;
+}
+
 static void validate_document_sections(const DocSpecsValidator *val,
                                        const DocSpecsSection *root,
                                        DocSpecsViolationList *v) {
   CountMap counts;
   count_map_init(&counts);
+  size_t slots_len = val->schema->document_sections_len;
+  const char **order =
+      slots_len > 0 ? calloc(slots_len, sizeof(const char *)) : NULL;
+  for (size_t si = 0; si < slots_len; si++) {
+    const DocSpecsDocumentSection *slot = &val->schema->document_sections[si];
+    order[si] =
+        docspecs_document_section_any_position(slot) ? NULL : slot->section_type;
+  }
+  long last_index = -1;
   for (size_t i = 0; i < root->children_len; i++) {
     const DocSpecsSection *child = root->children[i];
     const DocSpecsSectionType *t = resolve_child(val, child, v);
@@ -1690,9 +1771,23 @@ static void validate_document_sections(const DocSpecsValidator *val,
               child->id, "");
       continue;
     }
+    /* a type in the set of `position: any` slot types stands anywhere */
+    int anywhere = 0;
+    for (size_t si = 0; si < slots_len; si++) {
+      const DocSpecsDocumentSection *slot = &val->schema->document_sections[si];
+      if (docspecs_document_section_any_position(slot) &&
+          strcmp(slot->section_type, t->name) == 0) {
+        anywhere = 1;
+        break;
+      }
+    }
+    if (!anywhere) {
+      last_index = check_order(child, t->name, order, slots_len, last_index, v);
+    }
     count_map_inc(&counts, t->name);
     validate_section(val, child, t, v);
   }
+  free(order);
   for (size_t si = 0; si < val->schema->document_sections_len; si++) {
     const DocSpecsDocumentSection *slot = &val->schema->document_sections[si];
     if (!slot->optional && count_map_get(&counts, slot->section_type) == 0) {
@@ -1703,6 +1798,37 @@ static void validate_document_sections(const DocSpecsValidator *val,
     }
   }
   count_map_free(&counts);
+}
+
+/* validate_id_paths: every section's id path (the ids from the root down to
+ * it) is unique: a section whose id repeats an earlier sibling's is a
+ * duplicateIdPath. Its descendants repeat paths only through it and are not
+ * reported again. Sections without an id are skipped (already
+ * malformedHeading) but their children are walked. Depth-first, source
+ * order. */
+static void validate_id_paths(DocSpecsSection *const *sections, size_t len,
+                              DocSpecsViolationList *v) {
+  for (size_t i = 0; i < len; i++) {
+    const DocSpecsSection *s = sections[i];
+    if (s->id[0] != '\0') {
+      int seen = 0;
+      for (size_t j = 0; j < i; j++) {
+        if (strcmp(sections[j]->id, s->id) == 0) {
+          seen = 1;
+          break;
+        }
+      }
+      if (seen) {
+        dv_push(v, DOCSPECS_RULE_DUPLICATE_ID_PATH, s->line,
+                vcat("section id \"", s->id,
+                     "\" repeats a sibling's id, so its id path is not unique",
+                     NULL),
+                s->id, "");
+        continue;
+      }
+    }
+    validate_id_paths(s->children, s->children_len, v);
+  }
 }
 
 void docspecs_validator_validate(const DocSpecsValidator *val,
@@ -1736,6 +1862,7 @@ void docspecs_validator_validate(const DocSpecsValidator *val,
             "");
   }
   validate_document_sections(val, root, out);
+  validate_id_paths(doc->sections, doc->sections_len, out);
 }
 
 /* ---- bind ---------------------------------------------------------------- */

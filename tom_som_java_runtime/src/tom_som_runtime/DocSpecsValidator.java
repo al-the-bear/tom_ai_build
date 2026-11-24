@@ -65,7 +65,36 @@ public final class DocSpecsValidator {
               extra.id));
     }
     validateDocumentSections(root, v);
+    validateIdPaths(doc.sections, v);
     return v;
+  }
+
+  /**
+   * Every section's id path (the ids from the root down to it) is unique: a
+   * section whose id repeats an earlier sibling's is a {@code duplicateIdPath}.
+   * Its descendants repeat paths only through it and are not reported again.
+   * Sections without an id are skipped (already {@code malformedHeading}).
+   * Depth-first, source order.
+   */
+  private void validateIdPaths(List<DocSpecsSection> sections, List<DocSpecsViolation> v) {
+    Set<String> seen = new HashSet<>();
+    for (DocSpecsSection s : sections) {
+      if (s.id != null) {
+        if (seen.contains(s.id)) {
+          v.add(
+              new DocSpecsViolation(
+                  DocSpecsViolation.RULE_DUPLICATE_ID_PATH,
+                  s.line,
+                  "section id \""
+                      + s.id
+                      + "\" repeats a sibling's id, so its id path is not unique",
+                  s.id));
+          continue;
+        }
+        seen.add(s.id);
+      }
+      validateIdPaths(s.children, v);
+    }
   }
 
   private DocSpecsSectionType resolveChild(DocSpecsSection section, List<DocSpecsViolation> v) {
@@ -88,9 +117,18 @@ public final class DocSpecsValidator {
     // Occurrences per section-type name.
     Map<String, Integer> counts = new HashMap<>();
     Set<String> slotTypes = new HashSet<>();
+    // Slot types that may stand anywhere, and the slot order (null for an
+    // any-position slot) the order check reads.
+    Set<String> anywhere = new HashSet<>();
+    List<String> order = new ArrayList<>();
     for (DocSpecsDocumentSection slot : schema.documentSections.values()) {
       slotTypes.add(slot.sectionType);
+      if (slot.anyPosition()) {
+        anywhere.add(slot.sectionType);
+      }
+      order.add(slot.anyPosition() ? null : slot.sectionType);
     }
+    int lastIndex = -1;
     for (DocSpecsSection child : root.children) {
       DocSpecsSectionType t = resolveChild(child, v);
       if (t == null) {
@@ -104,6 +142,9 @@ public final class DocSpecsValidator {
                 "section-type \"" + t.name + "\" is not a top-level document section",
                 child.id));
         continue;
+      }
+      if (!anywhere.contains(t.name)) {
+        lastIndex = checkOrder(child, t.name, order, lastIndex, v);
       }
       counts.merge(t.name, 1, Integer::sum);
       validateSection(child, t, v);
@@ -124,6 +165,47 @@ public final class DocSpecsValidator {
                 slotKey));
       }
     }
+  }
+
+  /**
+   * The order check of one root child: its slot is the first of its type at or
+   * after the last slot taken, else the first of its type anywhere; a slot
+   * before the last one taken is {@code sectionOutOfOrder}. Answers the last
+   * slot taken afterwards.
+   */
+  private static int checkOrder(
+      DocSpecsSection child,
+      String typeName,
+      List<String> order,
+      int lastIndex,
+      List<DocSpecsViolation> v) {
+    int index = -1;
+    for (int i = Math.max(lastIndex, 0); i < order.size(); i++) {
+      if (typeName.equals(order.get(i))) {
+        index = i;
+        break;
+      }
+    }
+    if (index == -1) {
+      index = order.indexOf(typeName);
+    }
+    if (index == -1) {
+      return lastIndex;
+    }
+    if (index < lastIndex) {
+      v.add(
+          new DocSpecsViolation(
+              DocSpecsViolation.RULE_SECTION_OUT_OF_ORDER,
+              child.line,
+              "section \""
+                  + child.id
+                  + "\" (type \""
+                  + typeName
+                  + "\") stands out of the order of the document sections",
+              child.id));
+      return lastIndex;
+    }
+    return index;
   }
 
   private void validateSection(

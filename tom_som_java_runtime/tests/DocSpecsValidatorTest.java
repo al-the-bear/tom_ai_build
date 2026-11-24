@@ -441,7 +441,7 @@ public final class DocSpecsValidatorTest {
         VALID_DOC
             + "\n"
             + "### <!--[GSUM]--> Summary\n\nOne.\n\n"
-            + "### <!--[GSUM]--> Summary\n\nTwo.\n";
+            + "### <!--[GSUM-2]--> Summary\n\nTwo.\n";
     List<DocSpecsViolation> v = validate(md);
     check("validate.tooMany.count", v.size() == 1, detail(v));
     if (!v.isEmpty()) {
@@ -568,6 +568,90 @@ public final class DocSpecsValidatorTest {
     check("dr7.violationsEmpty", violations.isEmpty(), detail.toString());
   }
 
+  // --- order and id paths ------------------------------------------------------
+
+  private static List<String> ruleIds(List<DocSpecsViolation> v, boolean withLine) {
+    List<String> out = new ArrayList<>();
+    for (DocSpecsViolation x : v) {
+      out.add(x.rule + "|" + x.sectionId + (withLine ? "|" + x.line : ""));
+    }
+    return out;
+  }
+
+  private static void testOrderSectionOutOfOrder() {
+    String md =
+        replaceFirst(VALID_DOC, "## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n", "")
+            + "\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n";
+    List<DocSpecsViolation> v = validate(md);
+    check(
+        "order.outOfOrder",
+        ruleIds(v, false)
+            .equals(List.of(DocSpecsViolation.RULE_SECTION_OUT_OF_ORDER + "|D00-OVR")),
+        detail(v));
+  }
+
+  private static void testOrderPositionAny() {
+    DocSpecsSchema schema =
+        DocSpecsSchema.fromYamlText(
+            replaceFirst(SCHEMA_YAML, "form-types:", "  note:\n    prefix: NOTE\nform-types:")
+                + "    note:\n      section-type: note\n      optional: true\n"
+                + "      position: any\n");
+    check("order.any.anyPosition", schema.documentSections.get("note").anyPosition());
+    check(
+        "order.any.goalsRelative",
+        "relative".equals(schema.documentSections.get("goals").position),
+        schema.documentSections.get("goals").position);
+    String md =
+        replaceFirst(
+                VALID_DOC,
+                "## <!--[D00-OVR]--> Overview\n",
+                "## <!--[NOTE-1]--> Note\n\nFirst.\n\n## <!--[D00-OVR]--> Overview\n")
+            + "\n## <!--[NOTE-2]--> Note\n\nLast.\n";
+    List<DocSpecsViolation> v = new DocSpecsValidator(schema).validateMarkdown(md);
+    check("order.any.valid", v.isEmpty(), detail(v));
+  }
+
+  private static void testOrderBadPositionRefused() {
+    boolean threw = false;
+    try {
+      DocSpecsSchema.fromYamlText(
+          replaceFirst(
+              SCHEMA_YAML,
+              "      section-type: diag\n",
+              "      section-type: diag\n      position: last\n"));
+    } catch (IllegalStateException e) {
+      threw = true;
+    }
+    check("order.badPosition.refused", threw);
+  }
+
+  private static void testDuplicateIdPath() {
+    String md = VALID_DOC + "\n### <!--[GOAL-ITEM-2]--> Goal 2 again\n\nThird.\n";
+    List<DocSpecsViolation> v = validate(md);
+    check(
+        "idPath.duplicate",
+        ruleIds(v, true)
+            .equals(List.of(DocSpecsViolation.RULE_DUPLICATE_ID_PATH + "|GOAL-ITEM-2|25")),
+        detail(v));
+  }
+
+  private static void testSameIdUnderTwoParents() {
+    DocSpecsSchema schema =
+        DocSpecsSchema.fromYamlText(
+            replaceFirst(
+                    SCHEMA_YAML,
+                    "form-types:",
+                    "  note:\n    prefix: NOTE\n    subsection-types:\n      gsum:\n"
+                        + "        max-count: 1\nform-types:")
+                + "    note:\n      section-type: note\n      optional: true\n");
+    String md =
+        VALID_DOC
+            + "\n### <!--[GSUM]--> Summary\n\nOne.\n"
+            + "\n## <!--[NOTE-1]--> Note\n\n### <!--[GSUM]--> Summary\n\nTwo.\n";
+    List<DocSpecsViolation> v = new DocSpecsValidator(schema).validateMarkdown(md);
+    check("idPath.differentParents.valid", v.isEmpty(), detail(v));
+  }
+
   // --- harness ----------------------------------------------------------------
 
   public static void main(String[] args) throws IOException {
@@ -589,6 +673,11 @@ public final class DocSpecsValidatorTest {
     testValidateFormatMismatch();
     testValidateRootMismatch();
     testValidateNeverFailFast();
+    testOrderSectionOutOfOrder();
+    testOrderPositionAny();
+    testOrderBadPositionRefused();
+    testDuplicateIdPath();
+    testSameIdUnderTwoParents();
     testBindDocspecsMarkdown();
     testDr7Acceptance();
 

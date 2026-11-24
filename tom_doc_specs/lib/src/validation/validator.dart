@@ -311,27 +311,43 @@ class DocSpecsValidator {
     return errors;
   }
 
-  /// Validates unique section IDs.
+  /// Validates unique id paths (DocSpecs specification, Validation Rules 3):
+  /// the ids from the root down to a section are unique, so two sections may
+  /// share an id under different parents, never as siblings. A section whose
+  /// id repeats an earlier sibling's is a `duplicateIdPath`; its descendants
+  /// repeat paths only through it and are not reported again. [sections] is
+  /// depth-first, each section before its children.
   List<ValidationError> _validateUniqueSectionIds(List<_SectionInfo> sections) {
     final errors = <ValidationError>[];
-    final seenIds = <String, int>{}; // id -> first line number
+    // Per parent (by identity; null for the top level): id -> first line.
+    final seen = Map<Section?, Map<String, int>>.identity();
+    final skipped = Set<Section>.identity();
 
     for (final info in sections) {
-      final id = info.section.id;
-      final lineNumber = info.section.lineNumber;
-
-      if (seenIds.containsKey(id)) {
+      final section = info.section;
+      final parent = info.parent;
+      if (parent != null && skipped.contains(parent)) {
+        skipped.add(section);
+        continue;
+      }
+      final id = section.id;
+      final siblings = seen.putIfAbsent(parent, () => <String, int>{});
+      final first = siblings[id];
+      if (first != null) {
+        skipped.add(section);
         errors.add(
           ValidationError(
             message:
-                "Duplicate section ID '$id' (first occurrence at line ${seenIds[id]})",
-            lineNumber: lineNumber,
+                "Duplicate section id path: '$id' repeats the id of a sibling "
+                '(first occurrence at line $first)',
+            lineNumber: section.lineNumber,
             sectionId: id,
             category: ValidationErrorCategory.sectionId,
+            code: 'duplicateIdPath',
           ),
         );
       } else {
-        seenIds[id] = lineNumber;
+        siblings[id] = section.lineNumber;
       }
     }
 
@@ -425,6 +441,7 @@ class DocSpecsValidator {
               lineNumber: section.lineNumber,
               sectionId: section.id,
               category: ValidationErrorCategory.structure,
+              code: 'sectionOutOfOrder',
             ),
           );
         } else {

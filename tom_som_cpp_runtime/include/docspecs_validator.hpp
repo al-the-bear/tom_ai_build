@@ -52,6 +52,9 @@ inline constexpr const char* kDocSpecsRuleTextRequired = "textRequired";
 inline constexpr const char* kDocSpecsRuleTextLengthOut = "textLengthOut";
 inline constexpr const char* kDocSpecsRuleFormatMismatch = "formatMismatch";
 inline constexpr const char* kDocSpecsRuleMalformedHeading = "malformedHeading";
+inline constexpr const char* kDocSpecsRuleSectionOutOfOrder =
+    "sectionOutOfOrder";
+inline constexpr const char* kDocSpecsRuleDuplicateIdPath = "duplicateIdPath";
 
 /* The complete §14 vocabulary, in declaration order — the enumerable form of
  * what Dart gets for free from its enum. The conformance runner diffs it
@@ -69,6 +72,8 @@ inline constexpr const char* kDocSpecsAllRules[] = {
     kDocSpecsRuleTextLengthOut,
     kDocSpecsRuleFormatMismatch,
     kDocSpecsRuleMalformedHeading,
+    kDocSpecsRuleSectionOutOfOrder,
+    kDocSpecsRuleDuplicateIdPath,
 };
 
 /* ---- violation ----------------------------------------------------------- */
@@ -193,12 +198,22 @@ struct DocSpecsFormType {
   std::vector<DocSpecsFormField> fields;
 };
 
-/* One `document.sections` slot of a schema. */
+/* One `document.sections` slot of a schema: the backing section-type, whether
+ * the slot is optional, and its `position` — `relative` (the default: in the
+ * order of `document: sections:`) or `any` (anywhere among the root's
+ * children; the order check leaves it out). */
 struct DocSpecsDocumentSection {
   std::string key;          // the slot key
   std::string sectionType;
   bool optional = false;
+  std::string position = "relative";  // one of kDocSpecsPositions
+
+  /* Whether the section may stand anywhere among the root's children. */
+  bool anyPosition() const { return position == "any"; }
 };
+
+/* The `position` values a document section may take. */
+inline constexpr const char* kDocSpecsPositions[] = {"relative", "any"};
 
 /* A loaded `*.docspecs-schema.yaml` schema. */
 struct DocSpecsSchema {
@@ -221,7 +236,8 @@ struct DocSpecsSchema {
   const DocSpecsSectionType* resolveSectionType(const std::string& id) const;
 };
 
-/* Loads a schema from YAML text. Unknown keys warn; a non-map root returns
+/* Loads a schema from YAML text. Unknown keys warn; a non-map root, or a
+ * document section whose `position` is neither `relative` nor `any`, returns
  * std::nullopt (writing a message to `*err` when non-null). */
 std::optional<DocSpecsSchema> docspecsSchemaFromYamlText(const std::string& text,
                                                          std::string* err);

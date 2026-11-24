@@ -4,6 +4,8 @@
 #include "docspecs_validator.hpp"
 
 #include <cstddef>
+#include <optional>
+#include <set>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -554,9 +556,11 @@ void loadFormTypes(DocSpecsSchema& s, const YamlRef& node) {
   }
 }
 
-void loadDocument(DocSpecsSchema& s, const YamlRef& node) {
+/* Loads `document:`. Answers false (with `*err`) for a malformed schema: a
+ * document section whose `position` is not one of kDocSpecsPositions. */
+bool loadDocument(DocSpecsSchema& s, const YamlRef& node, std::string* err) {
   if (node == nullptr || node->type != YamlType::Map) {
-    return;
+    return true;
   }
   for (const auto& kv : node->map) {
     const std::string& k = kv.first;
@@ -576,6 +580,23 @@ void loadDocument(DocSpecsSchema& s, const YamlRef& node) {
             ds.sectionType = yamlScalarString(yamlGet(sRaw, "section-type"));
           }
           ds.optional = dvIsTrue(yamlGet(sRaw, "optional"));
+          if (yamlGet(sRaw, "position") != nullptr) {
+            ds.position = yamlScalarString(yamlGet(sRaw, "position"));
+            bool known = false;
+            for (const char* p : kDocSpecsPositions) {
+              if (ds.position == p) {
+                known = true;
+                break;
+              }
+            }
+            if (!known) {
+              if (err != nullptr) {
+                *err = "document section \"" + sKey + "\": position \"" +
+                       ds.position + "\" is not one of relative, any";
+              }
+              return false;
+            }
+          }
         }
         s.documentSections.push_back(std::move(ds));
       }
@@ -583,6 +604,7 @@ void loadDocument(DocSpecsSchema& s, const YamlRef& node) {
       s.warnings.push_back("unsupported document key \"" + k + "\" ignored");
     }
   }
+  return true;
 }
 
 /* ---- validator internals ------------------------------------------------- */
@@ -968,7 +990,9 @@ std::optional<DocSpecsSchema> docspecsSchemaFromYamlText(const std::string& text
     } else if (k == "form-types") {
       loadFormTypes(schema, v);
     } else if (k == "document") {
-      loadDocument(schema, v);
+      if (!loadDocument(schema, v, err)) {
+        return std::nullopt;
+      }
     } else if (k == "schema" || k == "version" || k == "name" ||
                k == "description") {
       // informational keys — accepted, unused
@@ -1215,9 +1239,85 @@ void validateSection(const DocSpecsSchema& schema, const DocSpecsSection& sectio
   }
 }
 
+/* The order check of one root child: its slot is the first of its type at or
+ * after the last slot taken, else the first of its type anywhere; a slot
+ * before the last one taken is sectionOutOfOrder. Answers the last slot taken
+ * afterwards. `order` holds the slot types in slot order, std::nullopt for a
+ * `position: any` slot. */
+int checkOrder(const DocSpecsSection& child, const std::string& typeName,
+               const std::vector<std::optional<std::string>>& order,
+               int lastIndex, std::vector<DocSpecsViolation>& v) {
+  int n = static_cast<int>(order.size());
+  int index = -1;
+  for (int i = lastIndex > 0 ? lastIndex : 0; i < n; i++) {
+    if (order[i] == typeName) {
+      index = i;
+      break;
+    }
+  }
+  if (index == -1) {
+    for (int i = 0; i < n; i++) {
+      if (order[i] == typeName) {
+        index = i;
+        break;
+      }
+    }
+  }
+  if (index == -1) {
+    return lastIndex;
+  }
+  if (index < lastIndex) {
+    dvPush(v, kDocSpecsRuleSectionOutOfOrder, child.line,
+           "section \"" + child.id + "\" (type \"" + typeName +
+               "\") stands out of the order of the document sections",
+           child.id, "");
+    return lastIndex;
+  }
+  return index;
+}
+
+/* Every section's id path (the ids from the root down to it) is unique: a
+ * section whose id repeats an earlier sibling's is a duplicateIdPath. Its
+ * descendants repeat paths only through it and are not reported again.
+ * Sections without an id are skipped (already malformedHeading), their
+ * children walked. Depth-first, source order. */
+void validateIdPaths(
+    const std::vector<std::unique_ptr<DocSpecsSection>>& sections,
+    std::vector<DocSpecsViolation>& v) {
+  std::set<std::string> seen;
+  for (const auto& sPtr : sections) {
+    const DocSpecsSection& s = *sPtr;
+    if (!s.id.empty()) {
+      if (seen.count(s.id) != 0) {
+        dvPush(v, kDocSpecsRuleDuplicateIdPath, s.line,
+               "section id \"" + s.id +
+                   "\" repeats a sibling's id, so its id path is not unique",
+               s.id, "");
+        continue;
+      }
+      seen.insert(s.id);
+    }
+    validateIdPaths(s.children, v);
+  }
+}
+
+/* Root children must occupy `document: sections:` slots, in their order (a
+ * `position: any` slot's type stands anywhere); required slots must be
+ * present. */
 void validateDocumentSections(const DocSpecsSchema& schema,
                               const DocSpecsSection& root,
                               std::vector<DocSpecsViolation>& v) {
+  std::set<std::string> anywhere;
+  std::vector<std::optional<std::string>> order;
+  for (const auto& slot : schema.documentSections) {
+    if (slot.anyPosition()) {
+      anywhere.insert(slot.sectionType);
+      order.push_back(std::nullopt);
+    } else {
+      order.push_back(slot.sectionType);
+    }
+  }
+  int lastIndex = -1;
   CountMap counts;
   for (const auto& childPtr : root.children) {
     const DocSpecsSection& child = *childPtr;
@@ -1238,6 +1338,9 @@ void validateDocumentSections(const DocSpecsSchema& schema,
                  "\" is not a top-level document section",
              child.id, "");
       continue;
+    }
+    if (anywhere.count(t->name) == 0) {
+      lastIndex = checkOrder(child, t->name, order, lastIndex, v);
     }
     counts.inc(t->name);
     validateSection(schema, child, *t, v);
@@ -1285,6 +1388,7 @@ void DocSpecsValidator::validate(const DocSpecsDocument& doc,
            "unexpected additional top-level section", extra.id, "");
   }
   validateDocumentSections(*schema_, root, out);
+  validateIdPaths(doc.sections, out);
 }
 
 /* ---- bind ---------------------------------------------------------------- */

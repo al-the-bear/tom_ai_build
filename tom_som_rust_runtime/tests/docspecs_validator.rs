@@ -17,11 +17,12 @@ use tom_som_rust_runtime::spec_meta_bridge::build_som_meta_tree;
 use tom_som_rust_runtime::spec_model::SpecModel;
 use tom_som_rust_runtime::{
     bind_docspecs_markdown, parse_docspecs_document, DocSpecsSchema, DocSpecsSection,
-    DocSpecsValidator, DocSpecsViolation, DOCSPECS_RULE_FIELD_PATTERN_MISMATCH,
-    DOCSPECS_RULE_FORMAT_MISMATCH, DOCSPECS_RULE_ID_PATTERN_MISMATCH,
-    DOCSPECS_RULE_MALFORMED_HEADING, DOCSPECS_RULE_MISSING_REQUIRED_FIELD,
-    DOCSPECS_RULE_MISSING_REQUIRED_SECTION, DOCSPECS_RULE_TEXT_REQUIRED,
-    DOCSPECS_RULE_TOO_MANY_ITEMS, DOCSPECS_RULE_UNKNOWN_SECTION,
+    DocSpecsValidator, DocSpecsViolation, DOCSPECS_RULE_DUPLICATE_ID_PATH,
+    DOCSPECS_RULE_FIELD_PATTERN_MISMATCH, DOCSPECS_RULE_FORMAT_MISMATCH,
+    DOCSPECS_RULE_ID_PATTERN_MISMATCH, DOCSPECS_RULE_MALFORMED_HEADING,
+    DOCSPECS_RULE_MISSING_REQUIRED_FIELD, DOCSPECS_RULE_MISSING_REQUIRED_SECTION,
+    DOCSPECS_RULE_SECTION_OUT_OF_ORDER, DOCSPECS_RULE_TEXT_REQUIRED, DOCSPECS_RULE_TOO_MANY_ITEMS,
+    DOCSPECS_RULE_UNKNOWN_SECTION,
 };
 
 struct Checker {
@@ -526,7 +527,7 @@ fn test_docspecs_validate_text_required(c: &mut Checker) {
 
 fn test_docspecs_validate_too_many_items(c: &mut Checker) {
     let md = format!(
-        "{}\n### <!--[GSUM]--> Summary\n\nOne.\n\n### <!--[GSUM]--> Summary\n\nTwo.\n",
+        "{}\n### <!--[GSUM]--> Summary\n\nOne.\n\n### <!--[GSUM-2]--> Summary\n\nTwo.\n",
         DV_VALID_DOC
     );
     let v = dv_validate(&md);
@@ -590,6 +591,118 @@ fn test_docspecs_validate_never_fail_fast(c: &mut Checker) {
         got == want,
         &format!("{} != {}", got.join(","), want.join(",")),
     );
+}
+
+// --- order and id paths --------------------------------------------------------
+
+fn dv_rule_ids(v: &[DocSpecsViolation]) -> Vec<(String, String)> {
+    v.iter()
+        .map(|x| (x.rule.clone(), x.section_id.clone()))
+        .collect()
+}
+
+fn test_docspecs_section_out_of_order(c: &mut Checker) {
+    let md = format!(
+        "{}\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n",
+        DV_VALID_DOC.replacen(
+            "## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n",
+            "",
+            1
+        )
+    );
+    let v = dv_validate(&md);
+    c.check(
+        "order.outOfOrder",
+        dv_rule_ids(&v)
+            == vec![(
+                DOCSPECS_RULE_SECTION_OUT_OF_ORDER.to_string(),
+                "D00-OVR".to_string(),
+            )],
+        &dv_detail(&v),
+    );
+}
+
+fn test_docspecs_position_any(c: &mut Checker) {
+    let yaml = format!(
+        "{}    note:\n      section-type: note\n      optional: true\n      position: any\n",
+        DV_SCHEMA_YAML.replacen("form-types:", "  note:\n    prefix: NOTE\nform-types:", 1)
+    );
+    let schema = DocSpecsSchema::from_yaml_text(&yaml).expect("from_yaml_text");
+    c.check(
+        "order.anyPosition",
+        schema.document_section("note").map(|s| s.any_position()) == Some(true),
+        "",
+    );
+    c.check(
+        "order.relativeDefault",
+        schema
+            .document_section("goals")
+            .map(|s| s.position.as_str())
+            == Some("relative"),
+        "",
+    );
+    let md = format!(
+        "{}\n## <!--[NOTE-2]--> Note\n\nLast.\n",
+        DV_VALID_DOC.replacen(
+            "## <!--[D00-OVR]--> Overview\n",
+            "## <!--[NOTE-1]--> Note\n\nFirst.\n\n## <!--[D00-OVR]--> Overview\n",
+            1
+        )
+    );
+    let v = DocSpecsValidator::new(schema).validate_markdown(&md);
+    c.check("order.anyPositionValid", v.is_empty(), &dv_detail(&v));
+}
+
+fn test_docspecs_position_refused(c: &mut Checker) {
+    let yaml = DV_SCHEMA_YAML.replacen(
+        "      section-type: diag\n",
+        "      section-type: diag\n      position: last\n",
+        1,
+    );
+    c.check(
+        "order.positionRefused",
+        DocSpecsSchema::from_yaml_text(&yaml).is_err(),
+        "",
+    );
+}
+
+fn test_docspecs_duplicate_id_path(c: &mut Checker) {
+    let md = format!(
+        "{}\n### <!--[GOAL-ITEM-2]--> Goal 2 again\n\nThird.\n",
+        DV_VALID_DOC
+    );
+    let v = dv_validate(&md);
+    let got: Vec<(String, String, usize)> = v
+        .iter()
+        .map(|x| (x.rule.clone(), x.section_id.clone(), x.line))
+        .collect();
+    c.check(
+        "idPath.duplicate",
+        got == vec![(
+            DOCSPECS_RULE_DUPLICATE_ID_PATH.to_string(),
+            "GOAL-ITEM-2".to_string(),
+            25,
+        )],
+        &dv_detail(&v),
+    );
+}
+
+fn test_docspecs_same_id_under_two_parents(c: &mut Checker) {
+    let yaml = format!(
+        "{}    note:\n      section-type: note\n      optional: true\n",
+        DV_SCHEMA_YAML.replacen(
+            "form-types:",
+            "  note:\n    prefix: NOTE\n    subsection-types:\n      gsum:\n        max-count: 1\nform-types:",
+            1
+        )
+    );
+    let schema = DocSpecsSchema::from_yaml_text(&yaml).expect("from_yaml_text");
+    let md = format!(
+        "{}\n### <!--[GSUM]--> Summary\n\nOne.\n\n## <!--[NOTE-1]--> Note\n\n### <!--[GSUM]--> Summary\n\nTwo.\n",
+        DV_VALID_DOC
+    );
+    let v = DocSpecsValidator::new(schema).validate_markdown(&md);
+    c.check("idPath.twoParentsValid", v.is_empty(), &dv_detail(&v));
 }
 
 // --- bind_docspecs_markdown ----------------------------------------------------
@@ -699,6 +812,11 @@ fn docspecs_validator() {
     test_docspecs_validate_format_mismatch(&mut c);
     test_docspecs_validate_root_mismatch(&mut c);
     test_docspecs_validate_never_fail_fast(&mut c);
+    test_docspecs_section_out_of_order(&mut c);
+    test_docspecs_position_any(&mut c);
+    test_docspecs_position_refused(&mut c);
+    test_docspecs_duplicate_id_path(&mut c);
+    test_docspecs_same_id_under_two_parents(&mut c);
     test_docspecs_bind_docspecs_markdown(&mut c);
     test_docspecs_dr7_acceptance(&mut c);
     c.finish();

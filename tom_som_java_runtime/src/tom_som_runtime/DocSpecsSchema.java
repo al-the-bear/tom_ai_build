@@ -261,6 +261,7 @@ public final class DocSpecsSchema {
           String sKey = sEntry.getKey();
           String sectionType = sKey;
           boolean optional = false;
+          String position = DocSpecsDocumentSection.POSITION_RELATIVE;
           Map<String, Object> sRaw = asMap(sEntry.getValue());
           if (sRaw != null) {
             if (sRaw.containsKey("section-type")) {
@@ -268,8 +269,22 @@ public final class DocSpecsSchema {
               sectionType = st == null ? "" : st;
             }
             optional = isTrue(sRaw.get("optional"));
+            Object p = sRaw.get("position");
+            if (p != null) {
+              position = String.valueOf(p);
+              if (!position.equals(DocSpecsDocumentSection.POSITION_RELATIVE)
+                  && !position.equals(DocSpecsDocumentSection.POSITION_ANY)) {
+                throw new IllegalStateException(
+                    "document section \""
+                        + sKey
+                        + "\": position \""
+                        + position
+                        + "\" is not one of relative, any");
+              }
+            }
           }
-          documentSections.put(sKey, new DocSpecsDocumentSection(sectionType, optional));
+          documentSections.put(
+              sKey, new DocSpecsDocumentSection(sectionType, optional, position));
         }
       } else if (!k.equals("name") && !k.equals("description")) {
         warnings.add("unsupported document key \"" + k + "\" ignored");

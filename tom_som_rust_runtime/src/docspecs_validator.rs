@@ -56,12 +56,18 @@ pub const DOCSPECS_RULE_TEXT_LENGTH_OUT: &str = "textLengthOut";
 pub const DOCSPECS_RULE_FORMAT_MISMATCH: &str = "formatMismatch";
 /// A heading without a `<!--[SECTION-ID]-->` headline comment.
 pub const DOCSPECS_RULE_MALFORMED_HEADING: &str = "malformedHeading";
+/// A root child stands before a `document: sections:` slot taken earlier (the
+/// slots' order; a `position: any` slot's type stands anywhere).
+pub const DOCSPECS_RULE_SECTION_OUT_OF_ORDER: &str = "sectionOutOfOrder";
+/// A section's id repeats an earlier sibling's, so its id path (the ids from
+/// the root down to it) is not unique.
+pub const DOCSPECS_RULE_DUPLICATE_ID_PATH: &str = "duplicateIdPath";
 
 /// The complete §14 vocabulary, in declaration order — the enumerable form of
 /// what Dart gets for free from its enum. The conformance runner diffs it
 /// against the rules the shared corpus exercises, so a rule added here without
 /// a corpus case fails the suite instead of going unnoticed.
-pub const DOCSPECS_ALL_RULES: [&str; 11] = [
+pub const DOCSPECS_ALL_RULES: [&str; 13] = [
     DOCSPECS_RULE_UNKNOWN_SECTION,
     DOCSPECS_RULE_MISSING_REQUIRED_SECTION,
     DOCSPECS_RULE_ID_PATTERN_MISMATCH,
@@ -73,6 +79,8 @@ pub const DOCSPECS_ALL_RULES: [&str; 11] = [
     DOCSPECS_RULE_TEXT_LENGTH_OUT,
     DOCSPECS_RULE_FORMAT_MISMATCH,
     DOCSPECS_RULE_MALFORMED_HEADING,
+    DOCSPECS_RULE_SECTION_OUT_OF_ORDER,
+    DOCSPECS_RULE_DUPLICATE_ID_PATH,
 ];
 
 /// One validation finding.
@@ -475,10 +483,34 @@ pub struct DocSpecsFormType {
 }
 
 /// One `document.sections` slot of a schema.
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone)]
 pub struct DocSpecsDocumentSection {
     pub section_type: String,
     pub optional: bool,
+    /// `relative` (the default: in the order of `document: sections:`) or
+    /// `any` (anywhere among the root's children; the order check leaves it
+    /// out).
+    pub position: String,
+}
+
+impl Default for DocSpecsDocumentSection {
+    fn default() -> Self {
+        DocSpecsDocumentSection {
+            section_type: String::new(),
+            optional: false,
+            position: "relative".to_string(),
+        }
+    }
+}
+
+impl DocSpecsDocumentSection {
+    /// The [`position`](Self::position) values a document section may take.
+    pub const POSITIONS: [&'static str; 2] = ["relative", "any"];
+
+    /// Whether the section may stand anywhere among the root's children.
+    pub fn any_position(&self) -> bool {
+        self.position == "any"
+    }
 }
 
 /// Accepts a plain-scalar `"true"` string — the bundled yaml parser keeps
@@ -579,7 +611,7 @@ impl DocSpecsSchema {
                 "title-format" => schema.title_format = dv_str(Some(v)),
                 "section-types" => schema.load_section_types(v),
                 "form-types" => schema.load_form_types(v),
-                "document" => schema.load_document(v),
+                "document" => schema.load_document(v)?,
                 "schema" | "version" | "name" | "description" => {
                     // informational keys — accepted, unused
                 }
@@ -694,10 +726,12 @@ impl DocSpecsSchema {
         }
     }
 
-    fn load_document(&mut self, node: &YamlValue) {
+    /// Loads `document:`; a slot `position` other than `relative` / `any` is
+    /// an error (the other ports' throw).
+    fn load_document(&mut self, node: &YamlValue) -> Result<(), String> {
         let m = match node.as_map() {
             Some(m) => m,
-            None => return,
+            None => return Ok(()),
         };
         for (k, v) in m.iter() {
             if k == "sections" {
@@ -708,17 +742,29 @@ impl DocSpecsSchema {
                 for (s_key, s_v) in sections.iter() {
                     let mut section_type = s_key.clone();
                     let mut optional = false;
+                    let mut position = "relative".to_string();
                     if let Some(s_raw) = s_v.as_map() {
                         if s_raw.has("section-type") {
                             section_type = dv_str(s_raw.get("section-type"));
                         }
                         optional = dv_is_true(s_raw.get("optional"));
+                        if s_raw.has("position") {
+                            position = dv_str(s_raw.get("position"));
+                            if !DocSpecsDocumentSection::POSITIONS.contains(&position.as_str()) {
+                                return Err(format!(
+                                    "document section \"{}\": position \"{}\" is not one of \
+                                     relative, any",
+                                    s_key, position
+                                ));
+                            }
+                        }
                     }
                     self.document_sections.push((
                         s_key.clone(),
                         DocSpecsDocumentSection {
                             section_type,
                             optional,
+                            position,
                         },
                     ));
                 }
@@ -727,6 +773,7 @@ impl DocSpecsSchema {
                     .push(format!("unsupported document key \"{}\" ignored", k));
             }
         }
+        Ok(())
     }
 
     /// Resolves a section id to its section-type by first-startsWith prefix
@@ -806,7 +853,70 @@ impl DocSpecsValidator {
             });
         }
         self.validate_document_sections(root, &mut v);
+        Self::validate_id_paths(&doc.sections, &mut v);
         v
+    }
+
+    /// Every section's id path (the ids from the root down to it) is unique:
+    /// a section whose id repeats an earlier sibling's is a
+    /// [`DOCSPECS_RULE_DUPLICATE_ID_PATH`]. Its descendants repeat paths only
+    /// through it and are not reported again. Sections without an id are
+    /// skipped (already [`DOCSPECS_RULE_MALFORMED_HEADING`]); their children
+    /// are walked. Depth-first, source order.
+    fn validate_id_paths(sections: &[DocSpecsSection], v: &mut Vec<DocSpecsViolation>) {
+        let mut seen: HashSet<&str> = HashSet::new();
+        for s in sections {
+            if !s.id.is_empty() && !seen.insert(s.id.as_str()) {
+                v.push(DocSpecsViolation {
+                    rule: DOCSPECS_RULE_DUPLICATE_ID_PATH.to_string(),
+                    line: s.line,
+                    message: format!(
+                        "section id \"{}\" repeats a sibling's id, so its id path is not unique",
+                        s.id
+                    ),
+                    section_id: s.id.clone(),
+                    path: String::new(),
+                });
+                continue;
+            }
+            Self::validate_id_paths(&s.children, v);
+        }
+    }
+
+    /// The order check of one root child: its slot is the first of its type
+    /// at or after the last slot taken, else the first of its type anywhere;
+    /// a slot before the last one taken is
+    /// [`DOCSPECS_RULE_SECTION_OUT_OF_ORDER`]. Answers the last slot taken
+    /// afterwards (`-1` before any).
+    fn check_order(
+        child: &DocSpecsSection,
+        type_name: &str,
+        order: &[Option<&str>],
+        last_index: i64,
+        v: &mut Vec<DocSpecsViolation>,
+    ) -> i64 {
+        let start = last_index.max(0) as usize;
+        let index = (start..order.len())
+            .find(|&i| order[i] == Some(type_name))
+            .or_else(|| order.iter().position(|t| *t == Some(type_name)));
+        let index = match index {
+            Some(i) => i as i64,
+            None => return last_index,
+        };
+        if index < last_index {
+            v.push(DocSpecsViolation {
+                rule: DOCSPECS_RULE_SECTION_OUT_OF_ORDER.to_string(),
+                line: child.line,
+                message: format!(
+                    "section \"{}\" (type \"{}\") stands out of the order of the document sections",
+                    child.id, type_name
+                ),
+                section_id: child.id.clone(),
+                path: String::new(),
+            });
+            return last_index;
+        }
+        index
     }
 
     fn resolve_child<'s>(
@@ -842,6 +952,28 @@ impl DocSpecsValidator {
             .iter()
             .map(|(_, slot)| slot.section_type.as_str())
             .collect();
+        // The slots' order (a `position: any` slot as `None`) and the types
+        // that may stand anywhere.
+        let anywhere: HashSet<&str> = self
+            .schema
+            .document_sections
+            .iter()
+            .filter(|(_, slot)| slot.any_position())
+            .map(|(_, slot)| slot.section_type.as_str())
+            .collect();
+        let order: Vec<Option<&str>> = self
+            .schema
+            .document_sections
+            .iter()
+            .map(|(_, slot)| {
+                if slot.any_position() {
+                    None
+                } else {
+                    Some(slot.section_type.as_str())
+                }
+            })
+            .collect();
+        let mut last_index: i64 = -1;
         for child in &root.children {
             let t = match self.resolve_child(child, v) {
                 Some(t) => t,
@@ -859,6 +991,9 @@ impl DocSpecsValidator {
                     path: String::new(),
                 });
                 continue;
+            }
+            if !anywhere.contains(t.name.as_str()) {
+                last_index = Self::check_order(child, t.name.as_str(), &order, last_index, v);
             }
             *counts.entry(t.name.as_str()).or_insert(0) += 1;
             self.validate_section(child, t, v);

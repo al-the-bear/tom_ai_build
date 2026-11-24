@@ -376,7 +376,7 @@ def test_validate_too_many_items() -> None:
     md = (
         f"{_VALID_DOC}\n"
         "### <!--[GSUM]--> Summary\n\nOne.\n\n"
-        "### <!--[GSUM]--> Summary\n\nTwo.\n"
+        "### <!--[GSUM-2]--> Summary\n\nTwo.\n"
     )
     v = _validate(md)
     _check("validate.tooMany.count", len(v) == 1, _detail(v))
@@ -384,6 +384,70 @@ def test_validate_too_many_items() -> None:
         _check("validate.tooMany.rule",
                v[0].rule == DocSpecsViolationRule.TOO_MANY_ITEMS, str(v[0]))
         _check("validate.tooMany.msg", "gsum" in v[0].message, v[0].message)
+
+
+def _with_note(position: str = "", gsum: bool = False) -> DocSpecsSchema:
+    """The test schema plus a ``note`` type and slot (optionally
+    ``position``, optionally holding a ``gsum``)."""
+    note_type = "  note:\n    prefix: NOTE\n"
+    if gsum:
+        note_type += "    subsection-types:\n      gsum:\n        max-count: 1\n"
+    slot = "    note:\n      section-type: note\n      optional: true\n"
+    if position:
+        slot += f"      position: {position}\n"
+    return DocSpecsSchema.from_yaml_text(
+        _SCHEMA_YAML.replace("form-types:", note_type + "form-types:") + slot
+    )
+
+
+def test_validate_section_out_of_order() -> None:
+    md = _VALID_DOC.replace(
+        "## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n", ""
+    ) + "\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n"
+    v = _validate(md)
+    got = [(x.rule, x.section_id) for x in v]
+    _check(
+        "validate.order.outOfOrder",
+        got == [(DocSpecsViolationRule.SECTION_OUT_OF_ORDER, "D00-OVR")],
+        _detail(v),
+    )
+
+
+def test_validate_position_any() -> None:
+    schema = _with_note("any")
+    _check("schema.position.any", schema.document_sections["note"].any_position)
+    _check(
+        "schema.position.default",
+        schema.document_sections["goals"].position == "relative",
+    )
+    md = _VALID_DOC.replace(
+        "## <!--[D00-OVR]--> Overview\n",
+        "## <!--[NOTE-1]--> Note\n\nFirst.\n\n## <!--[D00-OVR]--> Overview\n",
+    ) + "\n## <!--[NOTE-2]--> Note\n\nLast.\n"
+    v = DocSpecsValidator(schema).validate_markdown(md)
+    _check("validate.order.positionAny", v == [], _detail(v))
+    try:
+        _with_note("last")
+        _check("schema.position.refused", False, "position: last loaded")
+    except ValueError:
+        _check("schema.position.refused", True)
+
+
+def test_validate_duplicate_id_path() -> None:
+    md = f"{_VALID_DOC}\n### <!--[GOAL-ITEM-2]--> Goal 2 again\n\nThird.\n"
+    v = _validate(md)
+    got = [(x.rule, x.section_id, x.line) for x in v]
+    _check(
+        "validate.idPath.duplicate",
+        got == [(DocSpecsViolationRule.DUPLICATE_ID_PATH, "GOAL-ITEM-2", 25)],
+        _detail(v),
+    )
+    md = (
+        f"{_VALID_DOC}\n### <!--[GSUM]--> Summary\n\nOne.\n"
+        "\n## <!--[NOTE-1]--> Note\n\n### <!--[GSUM]--> Summary\n\nTwo.\n"
+    )
+    v = DocSpecsValidator(_with_note(gsum=True)).validate_markdown(md)
+    _check("validate.idPath.differentParents", v == [], _detail(v))
 
 
 def test_validate_format_mismatch() -> None:
@@ -496,6 +560,9 @@ def main() -> int:
     test_validate_field_pattern_mismatch()
     test_validate_text_required()
     test_validate_too_many_items()
+    test_validate_section_out_of_order()
+    test_validate_position_any()
+    test_validate_duplicate_id_path()
     test_validate_format_mismatch()
     test_validate_root_mismatch()
     test_validate_never_fail_fast()

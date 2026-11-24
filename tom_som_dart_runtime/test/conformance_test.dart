@@ -5849,7 +5849,7 @@ Map<String, dynamic> _serializationOrderCase() {
 
 /// The corpus schema for the DocSpecs tier — hand-authored in the
 /// schema-generator output shape (SOM §13), deliberately small and shaped so a
-/// single schema can provoke every one of the eleven SOM §14 rules.
+/// single schema can provoke every one of the thirteen SOM §14 rules.
 ///
 /// It is a *fixture input*, not a golden: the ports load this exact YAML and
 /// must reach the same verdicts on the same markdown. The `pattern-check-id`
@@ -5862,8 +5862,11 @@ Map<String, dynamic> _serializationOrderCase() {
 /// `subsection-types` cardinality — `goals`/`goal-item` min 1 for
 /// missingRequiredSection, `steps`/`step` min 2 for tooFewItems, `gsum` max 1
 /// for tooManyItems — a form-type with a required field and a field
-/// pattern-check (missingRequiredField, fieldPatternMismatch), and a non-form
-/// `format` (formatMismatch, alongside the `title-format` root-id check).
+/// pattern-check (missingRequiredField, fieldPatternMismatch), a non-form
+/// `format` (formatMismatch, alongside the `title-format` root-id check), the
+/// order of `document: sections:` (sectionOutOfOrder) and a `position: any`
+/// slot, `note`, whose sections stand anywhere and may hold a `gsum` too, so
+/// one id can repeat under two parents (duplicateIdPath only for siblings).
 const _docSpecsSchemaYaml = '''
 title-format: "# <!--[D00]--> Demo Document"
 section-types:
@@ -5960,6 +5963,11 @@ section-types:
   cons-item:
     prefix: CONS_
     format: cons-form
+  note:
+    prefix: NOTE
+    subsection-types:
+      gsum:
+        max-count: 1
 form-types:
   ref-form:
     fields:
@@ -6022,6 +6030,10 @@ document:
     attr:
       section-type: attr
       optional: true
+    note:
+      section-type: note
+      optional: true
+      position: any
 ''';
 
 /// The clean document every violation case is a minimal edit of. Keeping one
@@ -6054,7 +6066,7 @@ Second goal.
 ''';
 
 /// The hand-authored markdown inputs, one per named case. Every one of the
-/// eleven SOM §14 rules is provoked by at least one of these; the final case
+/// thirteen SOM §14 rules is provoked by at least one of these; the final case
 /// provokes three at once, pinning the "never fail-fast" contract as a
 /// cross-language obligation rather than a Dart-only unit test.
 List<Map<String, String>> _docSpecsMarkdownCases() {
@@ -6136,7 +6148,43 @@ List<Map<String, String>> _docSpecsMarkdownCases() {
     c(
       'tooManyItems',
       '$_docSpecsValidDoc\n### <!--[GSUM]--> Summary\n\nOne.\n'
-          '\n### <!--[GSUM]--> Summary\n\nTwo.\n',
+          '\n### <!--[GSUM-2]--> Summary\n\nTwo.\n',
+    ),
+    // The root's children follow the order of `document: sections:`.
+    c(
+      'sectionOutOfOrder',
+      '${_docSpecsValidDoc.replaceFirst('## <!--[D00-HDR]--> Header\n\n'
+              'Author: Alice\nReviewer: Bob\n\n', '')}'
+          '\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n',
+    ),
+    // ...except a `position: any` slot's sections, which stand anywhere.
+    c(
+      'positionAny-anywhere-valid',
+      _docSpecsValidDoc
+          .replaceFirst(
+            '## <!--[D00-OVR]--> Overview\n',
+            '## <!--[NOTE-1]--> First note\n\nBefore the overview.\n\n'
+                '## <!--[D00-OVR]--> Overview\n',
+          )
+          .replaceFirst(
+            '## <!--[GOALS]--> Goals\n',
+            '## <!--[NOTE-2]--> Second note\n\nBetween.\n\n'
+                '## <!--[GOALS]--> Goals\n',
+          ),
+    ),
+    // An id path is unique: a sibling's id repeated is a finding (its
+    // descendants are not reported again)...
+    c(
+      'duplicateIdPath',
+      '$_docSpecsValidDoc\n### <!--[GOAL-ITEM-2]--> Goal 2 again\n\nThird.\n'
+          '\n## <!--[NOTE-1]--> Note\n\n### <!--[GSUM]--> Summary\n\nOne.\n'
+          '\n## <!--[NOTE-1]--> Note\n\n### <!--[GSUM]--> Summary\n\nTwo.\n',
+    ),
+    // ...the same id under two parents is not.
+    c(
+      'repeatedIdUnderDifferentParents-valid',
+      '$_docSpecsValidDoc\n### <!--[GSUM]--> Summary\n\nOne.\n'
+          '\n## <!--[NOTE-1]--> Note\n\n### <!--[GSUM]--> Summary\n\nTwo.\n',
     ),
     c(
       'missingRequiredField',

@@ -88,7 +88,7 @@
   },
   {
     "name": "tooManyItems",
-    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n### <!--[GSUM]--> Summary\n\nOne.\n\n### <!--[GSUM]--> Summary\n\nTwo.\n",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n### <!--[GSUM]--> Summary\n\nOne.\n\n### <!--[GSUM-2]--> Summary\n\nTwo.\n",
     "violations": [
       {
         "rule": "tooManyItems",
@@ -96,6 +96,43 @@
         "line": 15
       }
     ]
+  },
+  {
+    "name": "sectionOutOfOrder",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n",
+    "violations": [
+      {
+        "rule": "sectionOutOfOrder",
+        "sectionId": "D00-HDR",
+        "line": 20
+      }
+    ]
+  },
+  {
+    "name": "positionAny-anywhere-valid",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[NOTE-1]--> First note\n\nBefore the overview.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[NOTE-2]--> Second note\n\nBetween.\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": []
+  },
+  {
+    "name": "duplicateIdPath",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2 again\n\nThird.\n\n## <!--[NOTE-1]--> Note\n\n### <!--[GSUM]--> Summary\n\nOne.\n\n## <!--[NOTE-1]--> Note\n\n### <!--[GSUM]--> Summary\n\nTwo.\n",
+    "violations": [
+      {
+        "rule": "duplicateIdPath",
+        "sectionId": "GOAL-ITEM-2",
+        "line": 25
+      },
+      {
+        "rule": "duplicateIdPath",
+        "sectionId": "NOTE-1",
+        "line": 35
+      }
+    ]
+  },
+  {
+    "name": "repeatedIdUnderDifferentParents-valid",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n### <!--[GSUM]--> Summary\n\nOne.\n\n## <!--[NOTE-1]--> Note\n\n### <!--[GSUM]--> Summary\n\nTwo.\n",
+    "violations": []
   },
   {
     "name": "missingRequiredField",

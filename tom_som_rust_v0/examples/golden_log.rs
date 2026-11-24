@@ -489,7 +489,7 @@ fn main() {
     // This section puts the per-violation emission, and with it every rule
     // spelling, under the byte-identity comparison.
     //
-    // The fixture reaches each of the eleven rules exactly once, and the
+    // The fixture reaches each of the thirteen rules exactly once, and the
     // generator asserts that rather than merely reporting it: a rule added to the
     // vocabulary later without a matching fixture section aborts all nine
     // generators instead of going quietly unexercised. ---

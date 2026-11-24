@@ -485,7 +485,7 @@ void TestDocspecsValidateTooManyItems() {
   std::string md = std::string(dvValidDoc) +
                    "\n"
                    "### <!--[GSUM]--> Summary\n\nOne.\n\n"
-                   "### <!--[GSUM]--> Summary\n\nTwo.\n";
+                   "### <!--[GSUM-2]--> Summary\n\nTwo.\n";
   std::vector<som::DocSpecsViolation> v;
   dvValidate(md, v);
   mdCheck("validate.tooMany.count", v.size() == 1, dvDetail(v));
@@ -562,6 +562,101 @@ void TestDocspecsValidateNeverFailFast() {
 }
 
 /* --- BindDocspecsMarkdown -------------------------------------------------- */
+
+/* --- order and id paths ---------------------------------------------------- */
+
+void TestDocspecsValidateSectionOutOfOrder() {
+  std::string md =
+      strReplaceFirst(dvValidDoc,
+                      "## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n",
+                      "") +
+      "\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n";
+  std::vector<som::DocSpecsViolation> v;
+  dvValidate(md, v);
+  mdCheck("validate.outOfOrder.count", v.size() == 1, dvDetail(v));
+  if (!v.empty()) {
+    mdCheck("validate.outOfOrder.rule",
+            v[0].rule == som::kDocSpecsRuleSectionOutOfOrder, v[0].display());
+    mdCheck("validate.outOfOrder.id", v[0].sectionId == "D00-OVR",
+            v[0].sectionId);
+  }
+}
+
+void TestDocspecsValidatePositionAny() {
+  std::string yaml =
+      strReplaceFirst(dvSchemaYaml, "form-types:",
+                      "  note:\n    prefix: NOTE\nform-types:") +
+      "    note:\n      section-type: note\n      optional: true\n"
+      "      position: any\n";
+  std::string err;
+  auto schema = som::docspecsSchemaFromYamlText(yaml, &err);
+  mdCheck("positionAny.load", schema.has_value(), err);
+  if (!schema.has_value()) {
+    return;
+  }
+  const som::DocSpecsDocumentSection* note = schema->documentSection("note");
+  mdCheck("positionAny.note", note != nullptr && note->anyPosition());
+  const som::DocSpecsDocumentSection* goals = schema->documentSection("goals");
+  mdCheck("positionAny.goalsRelative",
+          goals != nullptr && goals->position == "relative");
+  std::string md =
+      strReplaceFirst(dvValidDoc, "## <!--[D00-OVR]--> Overview\n",
+                      "## <!--[NOTE-1]--> Note\n\nFirst.\n\n"
+                      "## <!--[D00-OVR]--> Overview\n") +
+      "\n## <!--[NOTE-2]--> Note\n\nLast.\n";
+  som::DocSpecsValidator val(*schema);
+  std::vector<som::DocSpecsViolation> v;
+  val.validateMarkdown(md, v);
+  mdCheck("positionAny.valid", v.empty(), dvDetail(v));
+}
+
+void TestDocspecsSchemaPositionRefused() {
+  std::string yaml =
+      strReplaceFirst(dvSchemaYaml, "      section-type: diag\n",
+                      "      section-type: diag\n      position: last\n");
+  std::string err;
+  auto schema = som::docspecsSchemaFromYamlText(yaml, &err);
+  mdCheck("positionRefused.nullopt", !schema.has_value());
+  mdCheck("positionRefused.err", contains(err, "position"), err);
+}
+
+void TestDocspecsValidateDuplicateIdPath() {
+  std::string md = std::string(dvValidDoc) +
+                   "\n### <!--[GOAL-ITEM-2]--> Goal 2 again\n\nThird.\n";
+  std::vector<som::DocSpecsViolation> v;
+  dvValidate(md, v);
+  mdCheck("validate.duplicateIdPath.count", v.size() == 1, dvDetail(v));
+  if (!v.empty()) {
+    mdCheck("validate.duplicateIdPath.rule",
+            v[0].rule == som::kDocSpecsRuleDuplicateIdPath, v[0].display());
+    mdCheck("validate.duplicateIdPath.id", v[0].sectionId == "GOAL-ITEM-2",
+            v[0].sectionId);
+    mdCheck("validate.duplicateIdPath.line", v[0].line == 25,
+            v[0].display());
+  }
+}
+
+void TestDocspecsValidateSameIdUnderTwoParents() {
+  std::string yaml =
+      strReplaceFirst(dvSchemaYaml, "form-types:",
+                      "  note:\n    prefix: NOTE\n    subsection-types:\n"
+                      "      gsum:\n        max-count: 1\nform-types:") +
+      "    note:\n      section-type: note\n      optional: true\n";
+  std::string err;
+  auto schema = som::docspecsSchemaFromYamlText(yaml, &err);
+  mdCheck("sameIdTwoParents.load", schema.has_value(), err);
+  if (!schema.has_value()) {
+    return;
+  }
+  std::string md = std::string(dvValidDoc) +
+                   "\n### <!--[GSUM]--> Summary\n\nOne.\n"
+                   "\n## <!--[NOTE-1]--> Note\n\n### <!--[GSUM]--> Summary\n"
+                   "\nTwo.\n";
+  som::DocSpecsValidator val(*schema);
+  std::vector<som::DocSpecsViolation> v;
+  val.validateMarkdown(md, v);
+  mdCheck("sameIdTwoParents.valid", v.empty(), dvDetail(v));
+}
 
 void TestDocspecsBindDocspecsMarkdown() {
   std::string modelText = readFile(std::string(DV_SIBLINGS) +
@@ -657,6 +752,11 @@ int main() {
   TestDocspecsValidateFormatMismatch();
   TestDocspecsValidateRootMismatch();
   TestDocspecsValidateNeverFailFast();
+  TestDocspecsValidateSectionOutOfOrder();
+  TestDocspecsValidatePositionAny();
+  TestDocspecsSchemaPositionRefused();
+  TestDocspecsValidateDuplicateIdPath();
+  TestDocspecsValidateSameIdUnderTwoParents();
   TestDocspecsBindDocspecsMarkdown();
   TestDocspecsDr7Acceptance();
 

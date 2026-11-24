@@ -42,6 +42,14 @@ const (
 	DocSpecsRuleTextLengthOut          = "textLengthOut"
 	DocSpecsRuleFormatMismatch         = "formatMismatch"
 	DocSpecsRuleMalformedHeading       = "malformedHeading"
+	// DocSpecsRuleSectionOutOfOrder: a root child stands before a
+	// `document: sections:` slot taken earlier (the slots' order; a
+	// `position: any` slot's type stands anywhere).
+	DocSpecsRuleSectionOutOfOrder = "sectionOutOfOrder"
+	// DocSpecsRuleDuplicateIDPath: a section's id repeats an earlier
+	// sibling's, so its id path (the ids from the root down to it) is not
+	// unique.
+	DocSpecsRuleDuplicateIDPath = "duplicateIdPath"
 )
 
 // DocSpecsAllRules is the complete §14 vocabulary, in declaration order — the
@@ -60,6 +68,8 @@ var DocSpecsAllRules = []string{
 	DocSpecsRuleTextLengthOut,
 	DocSpecsRuleFormatMismatch,
 	DocSpecsRuleMalformedHeading,
+	DocSpecsRuleSectionOutOfOrder,
+	DocSpecsRuleDuplicateIDPath,
 }
 
 // DocSpecsViolation is one validation finding.
@@ -344,6 +354,20 @@ type DocSpecsFormType struct {
 type DocSpecsDocumentSection struct {
 	SectionType string
 	Optional    bool
+	// Position is `relative` (the default: in the order of
+	// `document: sections:`) or `any` (anywhere among the root's children;
+	// the order check leaves it out).
+	Position string
+}
+
+// DocSpecsDocumentSectionPositions are the Position values a document
+// section may take.
+var DocSpecsDocumentSectionPositions = []string{"relative", "any"}
+
+// AnyPosition reports whether the section may stand anywhere among the
+// root's children.
+func (d *DocSpecsDocumentSection) AnyPosition() bool {
+	return d.Position == "any"
 }
 
 // dvIsTrue accepts a plain-scalar "true" string — the bundled yaml parser
@@ -441,7 +465,9 @@ func DocSpecsSchemaFromYamlText(text string) (*DocSpecsSchema, error) {
 		case "form-types":
 			schema.loadFormTypes(v)
 		case "document":
-			schema.loadDocument(v)
+			if err := schema.loadDocument(v); err != nil {
+				return nil, err
+			}
 		case "schema", "version", "name", "description":
 			// informational keys — accepted, unused
 		default:
@@ -566,10 +592,10 @@ func (s *DocSpecsSchema) loadFormTypes(node interface{}) {
 	}
 }
 
-func (s *DocSpecsSchema) loadDocument(node interface{}) {
+func (s *DocSpecsSchema) loadDocument(node interface{}) error {
 	m, ok := node.(*YamlMap)
 	if !ok {
-		return
+		return nil
 	}
 	for _, k := range m.Keys() {
 		v := m.GetOr(k)
@@ -581,15 +607,25 @@ func (s *DocSpecsSchema) loadDocument(node interface{}) {
 			for _, sKey := range sections.Keys() {
 				sectionType := sKey
 				optional := false
+				position := "relative"
 				if sRaw, ok := sections.GetOr(sKey).(*YamlMap); ok {
 					if sRaw.Has("section-type") {
 						sectionType = dvStr(sRaw.GetOr("section-type"))
 					}
 					optional = dvIsTrue(sRaw.GetOr("optional"))
+					if p := sRaw.GetOr("position"); p != nil {
+						position = dvStr(p)
+						if position != "relative" && position != "any" {
+							return errors.New("document section \"" + sKey +
+								"\": position \"" + position +
+								"\" is not one of relative, any")
+						}
+					}
 				}
 				s.DocumentSections[sKey] = &DocSpecsDocumentSection{
 					SectionType: sectionType,
 					Optional:    optional,
+					Position:    position,
 				}
 				s.documentSectionOrder = append(s.documentSectionOrder, sKey)
 			}
@@ -597,6 +633,7 @@ func (s *DocSpecsSchema) loadDocument(node interface{}) {
 			s.Warnings = append(s.Warnings, "unsupported document key \""+k+"\" ignored")
 		}
 	}
+	return nil
 }
 
 // ResolveSectionType resolves a section id to its section-type by
@@ -660,6 +697,35 @@ func (val *DocSpecsValidator) Validate(doc *DocSpecsDocument) []*DocSpecsViolati
 		})
 	}
 	v = val.validateDocumentSections(root, v)
+	v = validateIDPaths(doc.Sections, v)
+	return v
+}
+
+// validateIDPaths checks every section's id path (the ids from the root down
+// to it) is unique: a section whose id repeats an earlier sibling's is a
+// DocSpecsRuleDuplicateIDPath. Its descendants repeat paths only through it
+// and are not reported again. Sections without an id are skipped (already
+// malformedHeading). Depth-first, source order.
+func validateIDPaths(
+	sections []*DocSpecsSection, v []*DocSpecsViolation,
+) []*DocSpecsViolation {
+	seen := map[string]bool{}
+	for _, s := range sections {
+		if s.ID != "" {
+			if seen[s.ID] {
+				v = append(v, &DocSpecsViolation{
+					Rule: DocSpecsRuleDuplicateIDPath,
+					Line: s.Line,
+					Message: "section id \"" + s.ID + "\" repeats a sibling's id, " +
+						"so its id path is not unique",
+					SectionID: s.ID,
+				})
+				continue
+			}
+			seen[s.ID] = true
+		}
+		v = validateIDPaths(s.Children, v)
+	}
 	return v
 }
 
@@ -691,6 +757,20 @@ func (val *DocSpecsValidator) validateDocumentSections(
 	for _, slot := range val.Schema.DocumentSections {
 		slotTypes[slot.SectionType] = true
 	}
+	// The slots in the order of `document: sections:`; "" marks a
+	// `position: any` slot, which the order check leaves out.
+	anywhere := map[string]bool{}
+	order := make([]string, 0, len(val.Schema.documentSectionOrder))
+	for _, slotKey := range val.Schema.documentSectionOrder {
+		slot := val.Schema.DocumentSections[slotKey]
+		if slot.AnyPosition() {
+			anywhere[slot.SectionType] = true
+			order = append(order, "")
+		} else {
+			order = append(order, slot.SectionType)
+		}
+	}
+	lastIndex := -1
 	for _, child := range root.Children {
 		var t *DocSpecsSectionType
 		t, v = val.resolveChild(child, v)
@@ -706,6 +786,9 @@ func (val *DocSpecsValidator) validateDocumentSections(
 				SectionID: child.ID,
 			})
 			continue
+		}
+		if !anywhere[t.Name] {
+			lastIndex, v = docspecsCheckOrder(child, t.Name, order, lastIndex, v)
 		}
 		counts[t.Name]++
 		v = val.validateSection(child, t, v)
@@ -723,6 +806,49 @@ func (val *DocSpecsValidator) validateDocumentSections(
 		}
 	}
 	return v
+}
+
+// docspecsCheckOrder is the order check of one root child: its slot is the
+// first of its type at or after the last slot taken, else the first of its
+// type anywhere; a slot before the last one taken is
+// DocSpecsRuleSectionOutOfOrder. Answers the last slot taken afterwards.
+func docspecsCheckOrder(
+	child *DocSpecsSection, typeName string, order []string, lastIndex int,
+	v []*DocSpecsViolation,
+) (int, []*DocSpecsViolation) {
+	index := -1
+	start := lastIndex
+	if start < 0 {
+		start = 0
+	}
+	for i := start; i < len(order); i++ {
+		if order[i] == typeName {
+			index = i
+			break
+		}
+	}
+	if index == -1 {
+		for i, o := range order {
+			if o == typeName {
+				index = i
+				break
+			}
+		}
+	}
+	if index == -1 {
+		return lastIndex, v
+	}
+	if index < lastIndex {
+		v = append(v, &DocSpecsViolation{
+			Rule: DocSpecsRuleSectionOutOfOrder,
+			Line: child.Line,
+			Message: "section \"" + child.ID + "\" (type \"" + typeName +
+				"\") stands out of the order of the document sections",
+			SectionID: child.ID,
+		})
+		return lastIndex, v
+	}
+	return index, v
 }
 
 func (val *DocSpecsValidator) validateSection(

@@ -52,6 +52,8 @@ class DocSpecsViolationRule(Enum):
     TEXT_LENGTH_OUT = "textLengthOut"
     FORMAT_MISMATCH = "formatMismatch"
     MALFORMED_HEADING = "malformedHeading"
+    SECTION_OUT_OF_ORDER = "sectionOutOfOrder"
+    DUPLICATE_ID_PATH = "duplicateIdPath"
 
 
 class DocSpecsViolation:
@@ -365,12 +367,25 @@ class DocSpecsFormType:
 
 
 class DocSpecsDocumentSection:
-    """One ``document: sections:`` slot: the backing section-type and whether
-    the slot is optional."""
+    """One ``document: sections:`` slot: the backing section-type, whether
+    the slot is optional, and its ``position`` — ``relative`` (the default:
+    in the order of ``document: sections:``) or ``any`` (anywhere among the
+    root's children; the order check leaves it out)."""
 
-    def __init__(self, *, section_type: str, optional: bool) -> None:
+    #: The ``position`` values a document section may take.
+    POSITIONS = ("relative", "any")
+
+    def __init__(
+        self, *, section_type: str, optional: bool, position: str = "relative"
+    ) -> None:
         self.section_type = section_type
         self.optional = optional
+        self.position = position
+
+    @property
+    def any_position(self) -> bool:
+        """Whether the section may stand anywhere among the root's children."""
+        return self.position == "any"
 
 
 def _is_int(value: Any) -> bool:
@@ -552,16 +567,27 @@ class DocSpecsSchema:
                 if not isinstance(value, dict):
                     continue
                 for s_key, v in value.items():
+                    position = "relative"
                     if isinstance(v, dict):
                         st = v.get("section-type")
                         section_type = str(st if st is not None else s_key)
                         optional = v.get("optional") is True
+                        p = v.get("position")
+                        if p is not None:
+                            position = str(p)
+                            if position not in DocSpecsDocumentSection.POSITIONS:
+                                raise ValueError(
+                                    f'document section "{s_key}": position '
+                                    f'"{position}" is not one of relative, any'
+                                )
                     else:
                         section_type = str(s_key)
                         optional = False
                     schema.document_sections[str(s_key)] = (
                         DocSpecsDocumentSection(
-                            section_type=section_type, optional=optional
+                            section_type=section_type,
+                            optional=optional,
+                            position=position,
                         )
                     )
             elif k not in ("name", "description"):
@@ -634,13 +660,46 @@ class DocSpecsValidator:
                 )
             )
         self._validate_document_sections(root, v)
+        self._validate_id_paths(doc.sections, v)
         return v
+
+    def _validate_id_paths(
+        self, sections: list[DocSpecsSection], v: list[DocSpecsViolation]
+    ) -> None:
+        """Every section's id path (the ids from the root down to it) is
+        unique: a section whose id repeats an earlier sibling's is a
+        ``duplicateIdPath``. Its descendants repeat paths only through it and
+        are not reported again. Sections without an id are skipped (already
+        ``malformedHeading``). Depth-first, source order."""
+        seen: set[str] = set()
+        for s in sections:
+            if s.id is not None:
+                if s.id in seen:
+                    v.append(
+                        DocSpecsViolation(
+                            rule=DocSpecsViolationRule.DUPLICATE_ID_PATH,
+                            section_id=s.id,
+                            line=s.line,
+                            message=(
+                                f'section id "{s.id}" repeats a sibling\'s id, '
+                                "so its id path is not unique"
+                            ),
+                        )
+                    )
+                    continue
+                seen.add(s.id)
+            self._validate_id_paths(s.children, v)
 
     def _validate_document_sections(
         self, root: DocSpecsSection, v: list[DocSpecsViolation]
     ) -> None:
-        """Root children must occupy ``document: sections:`` slots; required
+        """Root children must occupy ``document: sections:`` slots, in their
+        order (a ``position: any`` slot's type stands anywhere); required
         slots must be present."""
+        slots = list(self.schema.document_sections.values())
+        anywhere = {s.section_type for s in slots if s.any_position}
+        order = [None if s.any_position else s.section_type for s in slots]
+        last_index = -1
         counts: dict[str, int] = {}
         for child in root.children:
             type_ = self._resolve_child(child, v)
@@ -662,6 +721,10 @@ class DocSpecsValidator:
                     )
                 )
                 continue
+            if type_.name not in anywhere:
+                last_index = self._check_order(
+                    child, type_.name, order, last_index, v
+                )
             counts[type_.name] = counts.get(type_.name, 0) + 1
             self._validate_section(child, type_, v)
         for slot_key, slot in self.schema.document_sections.items():
@@ -677,6 +740,42 @@ class DocSpecsValidator:
                         ),
                     )
                 )
+
+    @staticmethod
+    def _check_order(
+        child: DocSpecsSection,
+        type_name: str,
+        order: list[Optional[str]],
+        last_index: int,
+        v: list[DocSpecsViolation],
+    ) -> int:
+        """The order check of one root child: its slot is the first of its
+        type at or after the last slot taken, else the first of its type
+        anywhere; a slot before the last one taken is ``sectionOutOfOrder``.
+        Answers the last slot taken afterwards."""
+        index = -1
+        for i in range(max(last_index, 0), len(order)):
+            if order[i] == type_name:
+                index = i
+                break
+        if index == -1 and type_name in order:
+            index = order.index(type_name)
+        if index == -1:
+            return last_index
+        if index < last_index:
+            v.append(
+                DocSpecsViolation(
+                    rule=DocSpecsViolationRule.SECTION_OUT_OF_ORDER,
+                    section_id=child.id,
+                    line=child.line,
+                    message=(
+                        f'section "{child.id}" (type "{type_name}") stands '
+                        "out of the order of the document sections"
+                    ),
+                )
+            )
+            return last_index
+        return index
 
     def _resolve_child(
         self, child: DocSpecsSection, v: list[DocSpecsViolation]

@@ -93,6 +93,11 @@ section-types:
   cons-item:
     prefix: CONS_
     format: cons-form
+  note:
+    prefix: NOTE
+    subsection-types:
+      gsum:
+        max-count: 1
 form-types:
   ref-form:
     fields:
@@ -155,3 +160,7 @@ document:
     attr:
       section-type: attr
       optional: true
+    note:
+      section-type: note
+      optional: true
+      position: any

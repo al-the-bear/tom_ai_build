@@ -18,8 +18,9 @@
  * C conventions (shared with the rest of the runtime): "" stands in for the
  * other ports' null strings; optional ints use a paired `has_*` flag; owned
  * `char *` results are freed with `free`; the one throwing entry point
- * (docspecs_schema_from_yaml_text's "must be a YAML map") reports via a `char
- * **err` out-param and a 0 return.
+ * (docspecs_schema_from_yaml_text's "must be a YAML map" and a document
+ * section's bad `position`) reports via a `char **err` out-param and a 0
+ * return.
  */
 #ifndef DOCSPECS_VALIDATOR_H
 #define DOCSPECS_VALIDATOR_H
@@ -45,12 +46,18 @@
 #define DOCSPECS_RULE_TEXT_LENGTH_OUT "textLengthOut"
 #define DOCSPECS_RULE_FORMAT_MISMATCH "formatMismatch"
 #define DOCSPECS_RULE_MALFORMED_HEADING "malformedHeading"
+/* A root child stands before a `document: sections:` slot taken earlier (the
+ * slots' order; a `position: any` slot's type stands anywhere). */
+#define DOCSPECS_RULE_SECTION_OUT_OF_ORDER "sectionOutOfOrder"
+/* A section's id repeats an earlier sibling's, so its id path (the ids from
+ * the root down to it) is not unique. */
+#define DOCSPECS_RULE_DUPLICATE_ID_PATH "duplicateIdPath"
 
 /* The complete §14 vocabulary, in declaration order — the enumerable form of
  * what Dart gets for free from its enum. The conformance runner diffs it
  * against the rules the shared corpus exercises, so a rule added here without a
  * corpus case fails the suite instead of going unnoticed. */
-#define DOCSPECS_ALL_RULES_COUNT 11
+#define DOCSPECS_ALL_RULES_COUNT 13
 extern const char *const DOCSPECS_ALL_RULES[DOCSPECS_ALL_RULES_COUNT];
 
 /* ---- violation ----------------------------------------------------------- */
@@ -202,12 +209,22 @@ typedef struct {
   size_t fields_len;
 } DocSpecsFormType;
 
-/* One `document.sections` slot of a schema. */
+/* The `position` values a document section may take. */
+#define DOCSPECS_POSITION_RELATIVE "relative"
+#define DOCSPECS_POSITION_ANY "any"
+
+/* One `document.sections` slot of a schema. `position` is `relative` (the
+ * default: in the order of `document: sections:`) or `any` (anywhere among
+ * the root's children; the order check leaves it out). */
 typedef struct {
   char *key;          /* owned; the slot key */
   char *section_type; /* owned */
   int optional;
+  char *position;     /* owned; "relative" or "any" */
 } DocSpecsDocumentSection;
+
+/* Whether the slot's section may stand anywhere among the root's children. */
+int docspecs_document_section_any_position(const DocSpecsDocumentSection *ds);
 
 /* A loaded `*.docspecs-schema.yaml` schema. */
 typedef struct {
@@ -241,7 +258,8 @@ char *docspecs_schema_root_section_id(const DocSpecsSchema *s);
 const DocSpecsSectionType *docspecs_schema_resolve_section_type(
     const DocSpecsSchema *s, const char *id);
 
-/* Loads a schema from YAML text. Unknown keys warn; a non-map root returns 0
+/* Loads a schema from YAML text. Unknown keys warn; a non-map root, or a
+ * document section whose `position` is not `relative` / `any`, returns 0
  * (writing an owned message to `*err` when non-NULL). On success writes an
  * owned schema to `*out` (free with docspecs_schema_free) and returns 1. */
 int docspecs_schema_from_yaml_text(const char *text, DocSpecsSchema **out,

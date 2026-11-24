@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.13.0
+
+- **Section order and unique id paths in the DocSpecs validator** (SOM §14,
+  the DocSpecs specification's Validation Rules 3 and 5): two new rules,
+  `sectionOutOfOrder` (the root's children follow `document: sections:`; a
+  slot declared `position: any`, new on the schema's document sections, stands
+  anywhere, and any other `position` is refused at load) and `duplicateIdPath`
+  (a section whose id repeats an earlier sibling's; the same id under two
+  parents is valid). The conformance corpus covers both.
+
 ## 1.12.3
 
 - Version follows the TomSpecs model 1.12.3.

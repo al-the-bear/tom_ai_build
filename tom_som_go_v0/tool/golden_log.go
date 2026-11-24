@@ -426,10 +426,10 @@ func main() {
 	// spelling, under the byte-identity comparison.
 	//
 	// The demo schema is used rather than the generated SBP one: the latter
-	// declares no `pattern-check:` and no `text-required:`, so two of the eleven
+	// declares no `pattern-check:` and no `text-required:`, so two of the thirteen
 	// rules are unreachable against it whatever the document says.
 	//
-	// The fixture reaches each of the eleven rules exactly once, and the
+	// The fixture reaches each of the thirteen rules exactly once, and the
 	// generator asserts that rather than merely reporting it: a rule added to
 	// the vocabulary later without a matching fixture section aborts all nine
 	// generators instead of going quietly unexercised. ---

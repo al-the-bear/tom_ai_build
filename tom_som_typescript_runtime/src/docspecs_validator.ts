@@ -46,6 +46,12 @@ export const DocSpecsViolationRule = Object.freeze({
   TEXT_LENGTH_OUT: 'textLengthOut',
   FORMAT_MISMATCH: 'formatMismatch',
   MALFORMED_HEADING: 'malformedHeading',
+  // A root child stands before a `document: sections:` slot taken earlier
+  // (the slots' order; a `position: any` slot's type stands anywhere).
+  SECTION_OUT_OF_ORDER: 'sectionOutOfOrder',
+  // A section's id repeats an earlier sibling's, so its id path (the ids from
+  // the root down to it) is not unique.
+  DUPLICATE_ID_PATH: 'duplicateIdPath',
   // The reading notation's findings (DocSpecs specification, RN-10), reported
   // by scanNotation per value: a section's own body, and in a TomSpecs
   // rendition each form field's value apart.
@@ -464,12 +470,26 @@ export class DocSpecsFormType {
 
 /** One `document.sections` slot of a schema. */
 export class DocSpecsDocumentSection {
+  /** The {@link position} values a document section may take. */
+  static readonly positions: readonly string[] = ['relative', 'any'];
+
   sectionType: string;
   optional: boolean;
+  /**
+   * `relative` (the default: in the order of `document: sections:`) or `any`
+   * (anywhere among the root's children; the order check leaves it out).
+   */
+  position: string;
 
-  constructor(sectionType: string, optional: boolean) {
+  constructor(sectionType: string, optional: boolean, position = 'relative') {
     this.sectionType = sectionType;
     this.optional = optional;
+    this.position = position;
+  }
+
+  /** Whether the section may stand anywhere among the root's children. */
+  get anyPosition(): boolean {
+    return this.position === 'any';
   }
 }
 
@@ -673,11 +693,20 @@ export class DocSpecsSchema {
           for (const [sKey, sRaw] of Object.entries(v)) {
             let sectionType: string;
             let optional: boolean;
+            let position = 'relative';
             if (_isPlainObject(sRaw)) {
               sectionType = String(
                 sRaw['section-type'] != null ? sRaw['section-type'] : sKey,
               );
               optional = _isTrue(sRaw.optional);
+              if (sRaw.position != null) {
+                position = String(sRaw.position);
+                if (!DocSpecsDocumentSection.positions.includes(position)) {
+                  throw new Error(
+                    `document section "${sKey}": position "${position}" is not one of relative, any`,
+                  );
+                }
+              }
             } else {
               sectionType = String(sKey);
               optional = false;
@@ -685,6 +714,7 @@ export class DocSpecsSchema {
             this.documentSections[sKey] = new DocSpecsDocumentSection(
               sectionType,
               optional,
+              position,
             );
           }
         }
@@ -905,7 +935,40 @@ export class DocSpecsValidator {
     }
     this._validateDocumentSections(_Node.of(root), v);
     this._validateNotation(doc, v);
+    this._validateIdPaths(doc.sections, v);
     return v;
+  }
+
+  /**
+   * Every section's id path (the ids from the root down to it) is unique: a
+   * section whose id repeats an earlier sibling's is a `duplicateIdPath`. Its
+   * descendants repeat paths only through it and are not reported again.
+   * Sections without an id are skipped (already `malformedHeading`).
+   * Depth-first, source order.
+   */
+  private _validateIdPaths(
+    sections: DocSpecsSection[],
+    v: DocSpecsViolation[],
+  ): void {
+    const seen = new Set<string>();
+    for (const s of sections) {
+      const id = s.id;
+      if (id != null) {
+        if (seen.has(id)) {
+          v.push(
+            new DocSpecsViolation(
+              DocSpecsViolationRule.DUPLICATE_ID_PATH,
+              s.line,
+              `section id "${id}" repeats a sibling's id, so its id path is not unique`,
+              id,
+            ),
+          );
+          continue;
+        }
+        seen.add(id);
+      }
+      this._validateIdPaths(s.children, v);
+    }
   }
 
   /**
@@ -984,8 +1047,9 @@ export class DocSpecsValidator {
   }
 
   /**
-   * Root children must occupy `document: sections:` slots; required slots
-   * must be present. A section table in the root's body rebuilds root
+   * Root children must occupy `document: sections:` slots, in their order (a
+   * `position: any` slot's type stands anywhere); required slots must be
+   * present. A section table in the root's body rebuilds root
    * children as virtual sections first.
    */
   private _validateDocumentSections(root: _Node, v: DocSpecsViolation[]): void {
@@ -995,6 +1059,12 @@ export class DocSpecsValidator {
       Object.values(this.schema.documentSections).map((s) => s.sectionType),
     );
     this._expandSectionTables(root, (t) => slotTypes.has(t.name), v);
+    const slots = Object.values(this.schema.documentSections);
+    const anywhere = new Set(
+      slots.filter((s) => s.anyPosition).map((s) => s.sectionType),
+    );
+    const order = slots.map((s) => (s.anyPosition ? null : s.sectionType));
+    let lastIndex = -1;
     for (const child of root.children) {
       const type = this._resolveChild(child, v);
       if (type == null) {
@@ -1010,6 +1080,9 @@ export class DocSpecsValidator {
           ),
         );
         continue;
+      }
+      if (!anywhere.has(type.name)) {
+        lastIndex = DocSpecsValidator._checkOrder(child, type.name, order, lastIndex, v);
       }
       counts[type.name] = (counts[type.name] || 0) + 1;
       this._validateSection(child, type, v);
@@ -1029,6 +1102,42 @@ export class DocSpecsValidator {
         );
       }
     }
+  }
+
+  /**
+   * The order check of one root child: its slot is the first of its type at
+   * or after the last slot taken, else the first of its type anywhere; a slot
+   * before the last one taken is `sectionOutOfOrder`. Answers the last slot
+   * taken afterwards.
+   */
+  private static _checkOrder(
+    child: _Node,
+    typeName: string,
+    order: Array<string | null>,
+    lastIndex: number,
+    v: DocSpecsViolation[],
+  ): number {
+    let index = -1;
+    for (let i = Math.max(lastIndex, 0); i < order.length; i++) {
+      if (order[i] === typeName) {
+        index = i;
+        break;
+      }
+    }
+    if (index === -1) index = order.indexOf(typeName);
+    if (index === -1) return lastIndex;
+    if (index < lastIndex) {
+      v.push(
+        new DocSpecsViolation(
+          DocSpecsViolationRule.SECTION_OUT_OF_ORDER,
+          child.line,
+          `section "${child.id}" (type "${typeName}") stands out of the order of the document sections`,
+          child.id,
+        ),
+      );
+      return lastIndex;
+    }
+    return index;
   }
 
   private _validateSection(
