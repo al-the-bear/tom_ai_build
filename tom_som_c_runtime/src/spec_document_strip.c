@@ -16,6 +16,7 @@
 #include "spec_document_markdown.h"
 #include "spec_notation.h"
 #include "spec_review_annotations.h"
+#include "spec_document_strip_internal.h"
 #include "spec_schema_validation.h"
 #include "spec_validator.h"
 
@@ -220,19 +221,6 @@ static SpecStripOptions in_entry(const SpecStripOptions *o) {
 
 /* ---- edit scripts --------------------------------------------------------------- */
 
-enum { OP_KEEP = 0, OP_DEL = 1, OP_INS = 2 };
-
-typedef struct {
-  int type;
-  char ch;
-  const char *label; /* borrowed (a plan's label pool or a literal) */
-} Op;
-
-typedef struct {
-  Op *items;
-  size_t len, cap;
-} OpVec;
-
 static void ops_push(OpVec *v, int type, char ch, const char *label) {
   if (v->len == v->cap) {
     v->cap = v->cap ? v->cap * 2 : 64;
@@ -243,17 +231,6 @@ static void ops_push(OpVec *v, int type, char ch, const char *label) {
   v->items[v->len].label = label;
   v->len++;
 }
-
-/* A token: a range of a string. */
-typedef struct {
-  const char *p;
-  size_t n;
-} Tok;
-
-typedef struct {
-  Tok *items;
-  size_t len, cap;
-} TokVec;
 
 static void toks_push(TokVec *v, const char *p, size_t n) {
   if (v->len == v->cap) {
@@ -301,16 +278,6 @@ static void split_tokens(const char *s, size_t n, TokVec *out) {
     i = j;
   }
 }
-
-typedef struct {
-  int type;
-  Tok tok;
-} Edit;
-
-typedef struct {
-  Edit *items;
-  size_t len, cap;
-} EditVec;
 
 static void edits_push(EditVec *v, int type, Tok t) {
   if (v->len == v->cap) {
@@ -483,11 +450,6 @@ static void compose(const OpVec *s1, const OpVec *s2, OpVec *out) {
 }
 
 /* ---- inline marks ------------------------------------------------------------------ */
-
-typedef struct {
-  size_t start, end, body_start, body_end;
-  long sep; /* `~>` of a substitution, -1 otherwise */
-} MarkAt;
 
 static const char *mark_closer(const char *t, size_t i) {
   static const char *const open[5] = {"{++", "{--", "{~~", "{==", "{>>"};
@@ -1565,13 +1527,6 @@ static SpecStripValueRef *ref_heap(const SpecStripValueRef *r) {
 /* The strip of a document (SOM §11.10)                                      */
 /* ======================================================================== */
 
-/* An ordered map of finding keys to the paths they concern (`Map<string,
- * string>`): a key set again keeps its place and takes the new path. */
-typedef struct {
-  SomStrList keys;
-  SomStrList paths;
-} KeyPaths;
-
 static void kp_init(KeyPaths *m) {
   som_strlist_init(&m->keys);
   som_strlist_init(&m->paths);
@@ -2630,3 +2585,44 @@ char *spec_strip_result_to_json(const SpecStripResult *r) {
   som_buf_puts(&b, "]}");
   return som_buf_take(&b);
 }
+
+/* ---- shared with the merge back (spec_document_strip_internal.h) ---------- */
+
+void spec_strip_ops_push(OpVec *v, int type, char ch, const char *label) {
+  ops_push(v, type, ch, label);
+}
+
+void spec_strip_diff(const char *a, const char *b, const char *label,
+                     OpVec *out) {
+  diff_text(a, b, label, out);
+}
+
+void spec_strip_lines(const char *s, TokVec *out) {
+  split_lines_keep(s, strlen(s), out);
+}
+
+void spec_strip_myers(const TokVec *a, const TokVec *b, EditVec *out) {
+  myers(a, b, out);
+}
+
+void spec_strip_find_marks(const char *t, MarkAt **out, size_t *out_len) {
+  find_marks(t, out, out_len);
+}
+
+void spec_strip_value_refs(const SpecDocument *doc, SpecStripValueRef **out,
+                           size_t *out_len) {
+  value_refs(doc, out, out_len);
+}
+
+void spec_strip_tier_findings(const SpecModel *model,
+                              const DocSpecsSchema *schema,
+                              const char *root_type, const SpecDocument *doc,
+                              KeyPaths *out) {
+  tier_findings(model, schema, root_type, doc, out);
+}
+
+long spec_strip_key_paths_find(const KeyPaths *m, const char *key) {
+  return kp_find(m, key);
+}
+
+void spec_strip_key_paths_free(KeyPaths *m) { kp_free(m); }

@@ -2904,6 +2904,14 @@ static SpecMarkedChange mark_keeping_change_comments(const char *current,
   return result;
 }
 
+void spec_annotation_issues_text(const char *value, SomStrList *out) {
+  Parsed p;
+  parse(value, &p);
+  som_strlist_init(out);
+  som_strlist_copy(out, &p.malformed);
+  parsed_free(&p);
+}
+
 size_t spec_count_annotations_text(const char *value) {
   Parsed p;
   parse(value, &p);

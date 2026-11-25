@@ -513,6 +513,12 @@ char *spec_strip_annotations_text(const char *value);
  * conflict blocks plus its inline marks (`countAnnotationsText`). */
 size_t spec_count_annotations_text(const char *value);
 
+/* The malformed review annotations of `value` (SOM §11.9.3), one message
+ * each, into `out` (initialised by the callee); empty when every block and
+ * mark is well formed. What a merge back (SOM §11.10) checks a merged value
+ * against. */
+void spec_annotation_issues_text(const char *value, SomStrList *out);
+
 /* ---- document level ----------------------------------------------------- */
 
 /* One paragraph of a value (SOM §11.9.1, "Paragraphs"): a run of non-blank

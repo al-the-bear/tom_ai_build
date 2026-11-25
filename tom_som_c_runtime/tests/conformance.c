@@ -5914,6 +5914,286 @@ static void test_strip(Checker *c, const SpecModel *model) {
   som_json_free(table);
 }
 
+/* ---- the merge back (strip_merge_cases.json, SOM §11.10) ----------------- */
+
+/* `text` with each `[find, replace]` of `edits` applied; each `find` must
+ * occur exactly once (an empty `find` fills an empty text). NULL with
+ * `*error` when an edit does not apply. Owned. */
+static char *apply_case_edits(const char *text, const SomJson *edits,
+                              const char **error) {
+  char *out = som_strdup(text);
+  size_t n = som_json_array_len(edits);
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *e = som_json_array_at(edits, i);
+    const char *find = som_json_as_str(som_json_array_at(e, 0));
+    const char *replace = som_json_as_str(som_json_array_at(e, 1));
+    if (find == NULL || replace == NULL) {
+      *error = "an edit is not a [find, replace] pair";
+      free(out);
+      return NULL;
+    }
+    if (find[0] == '\0') {
+      if (out[0] != '\0') {
+        *error = "an empty find needs an empty text";
+        free(out);
+        return NULL;
+      }
+      free(out);
+      out = som_strdup(replace);
+      continue;
+    }
+    const char *at = strstr(out, find);
+    if (at == NULL || strstr(at + 1, find) != NULL) {
+      *error = "an edit's find does not occur exactly once";
+      free(out);
+      return NULL;
+    }
+    SomBuf b;
+    som_buf_init(&b);
+    som_buf_putn(&b, out, (size_t)(at - out));
+    som_buf_puts(&b, replace);
+    som_buf_puts(&b, at + strlen(find));
+    free(out);
+    out = som_buf_take(&b);
+  }
+  return out;
+}
+
+/* A case's readable source, borrowing its strings. */
+static int case_source(const SomJson *kase, SpecReadableSource *src) {
+  const SomJson *sj = som_json_get(kase, "source");
+  if (sj == NULL) return 0;
+  src->file = (char *)som_json_str_or(sj, "file");
+  src->revision = (char *)som_json_as_str(som_json_get(sj, "revision"));
+  src->commit = (char *)som_json_as_str(som_json_get(sj, "commit"));
+  src->dirty = som_json_bool_or(sj, "dirty");
+  return 1;
+}
+
+static SpecDocument *heap_doc_from_json(const SomJson *v) {
+  DocumentJson j;
+  document_json_from_json(v, &j);
+  SpecDocument *d = malloc(sizeof(SpecDocument));
+  doc_from_state(d, &j);
+  document_json_free(&j);
+  return d;
+}
+
+static void release_doc(SpecDocument *d) {
+  if (d == NULL) return;
+  spec_document_free(d);
+  free(d);
+}
+
+/* `commits[source.commit]`, as the header's commit loads it. */
+static SpecDocument *case_load_base(const SpecReadableSource *source,
+                                    void *context) {
+  const SomJson *commits = context;
+  if (commits == NULL || source->commit == NULL) return NULL;
+  const SomJson *state = som_json_get(commits, source->commit);
+  return state == NULL ? NULL : heap_doc_from_json(state);
+}
+
+static void test_strip_merge(Checker *c, const SpecModel *model) {
+  SomJson *table = read_json("strip_merge_cases.json");
+  char *yaml = read_corpus("docspecs_schema.yaml");
+  DocSpecsSchema *schema = NULL;
+  char *serr = NULL;
+  if (!docspecs_schema_from_yaml_text(yaml, &schema, &serr)) {
+    fprintf(stderr, "docspecs schema: %s\n", serr ? serr : "(no message)");
+    exit(2);
+  }
+  free(yaml);
+  free(serr);
+
+  /* valueCases: the original stripped with the case's switches, the edits
+   * applied to the stripped text, and the merge of that onto the original. */
+  const SomJson *values = som_json_get(table, "valueCases");
+  size_t vn = som_json_array_len(values);
+  check(c, "merge.valueCases", vn > 0, "no value cases");
+  for (size_t i = 0; i < vn; i++) {
+    const SomJson *kase = som_json_array_at(values, i);
+    char tag[512];
+    snprintf(tag, sizeof(tag), "merge.value[%s]", som_json_str_or(kase, "name"));
+    SpecStripOptions o;
+    char *err = NULL;
+    if (!strip_case_options(kase, &o, &err)) {
+      check(c, tag, 0, err != NULL ? err : "options refused");
+      free(err);
+      continue;
+    }
+    const char *original = som_json_str_or(kase, "original");
+    SpecStripTextResult st;
+    spec_strip_notation_text(original, &o, &st);
+    const char *eerr = NULL;
+    char *edited = apply_case_edits(st.text, som_json_get(kase, "edits"), &eerr);
+    if (edited == NULL) {
+      check(c, tag, 0, eerr);
+      spec_strip_text_result_free(&st);
+      continue;
+    }
+    SpecStripValueMerge m;
+    spec_merge_stripped_value(original, st.text, edited, st.pieces,
+                              st.pieces_len, &m);
+    char *got_text = spec_strip_value_merge_to_json(&m);
+    char *perr = NULL;
+    SomJson *got_json = som_json_parse(got_text, &perr);
+    char *got = json_canonical(got_json);
+    char *want = json_canonical(som_json_get(kase, "expect"));
+    char *d = byte_diff(tag, got, want);
+    check(c, tag, strcmp(got, want) == 0, d);
+    free(d);
+    free(got);
+    free(want);
+    free(perr);
+    som_json_free(got_json);
+    free(got_text);
+    spec_strip_value_merge_free(&m);
+    free(edited);
+    spec_strip_text_result_free(&st);
+  }
+
+  /* documentCases: `state` stripped (with the case's switches and `source`)
+   * into a readable rendition, the edits applied to it, and the merge of that
+   * onto `current` (else `state`); `options` names switches given beside the
+   * header, `base` a base given by hand, `commits` what the header's commit
+   * loads. A usage error gives `{error}`. */
+  const SomJson *docs = som_json_get(table, "documentCases");
+  size_t dn = som_json_array_len(docs);
+  check(c, "merge.documentCases", dn > 0, "no document cases");
+  for (size_t i = 0; i < dn; i++) {
+    const SomJson *kase = som_json_array_at(docs, i);
+    const char *name = som_json_str_or(kase, "name");
+    char tag[512];
+    snprintf(tag, sizeof(tag), "merge.document[%s]", name);
+    SpecStripOptions o;
+    char *err = NULL;
+    if (!strip_case_options(kase, &o, &err)) {
+      check(c, tag, 0, err != NULL ? err : "options refused");
+      free(err);
+      continue;
+    }
+    SpecDocument *state = heap_doc_from_json(som_json_get(kase, "state"));
+    SpecReadableSource src;
+    int has_source = case_source(kase, &src);
+    SpecDocumentStripOptions so = {model, schema, NULL, has_source ? &src : NULL};
+    SpecStripResult sr;
+    spec_document_strip(state, &o, &so, &sr);
+    if (sr.readable == NULL) {
+      check(c, tag, 0, "the state renders no readable rendition");
+      spec_strip_result_free(&sr);
+      release_doc(state);
+      continue;
+    }
+    const char *eerr = NULL;
+    char *edited = apply_case_edits(sr.readable, som_json_get(kase, "edits"), &eerr);
+    spec_strip_result_free(&sr);
+    if (edited == NULL) {
+      check(c, tag, 0, eerr);
+      release_doc(state);
+      continue;
+    }
+    const SomJson *given = som_json_get(kase, "options");
+    SpecStripOptions go;
+    if (given != NULL && !strip_case_options(given, &go, &err)) {
+      check(c, tag, 0, err != NULL ? err : "given options refused");
+      free(err);
+      free(edited);
+      release_doc(state);
+      continue;
+    }
+    SpecDocument *current = som_json_get(kase, "current") != NULL
+                                ? heap_doc_from_json(som_json_get(kase, "current"))
+                                : NULL;
+    SpecDocument *base = som_json_get(kase, "base") != NULL
+                             ? heap_doc_from_json(som_json_get(kase, "base"))
+                             : NULL;
+    SpecStripMergeOptions mo;
+    memset(&mo, 0, sizeof(mo));
+    mo.model = model;
+    mo.schema = schema;
+    mo.options = given != NULL ? &go : NULL;
+    mo.current_revision = som_json_as_str(som_json_get(kase, "currentRevision"));
+    mo.base = base;
+    mo.load_base = case_load_base;
+    mo.load_base_context = (void *)som_json_get(kase, "commits");
+    SpecStripMergeResult r;
+    char *usage = NULL;
+    SomBuf b;
+    som_buf_init(&b);
+    if (spec_strip_merge(current != NULL ? current : state, edited, &mo, &r,
+                         &usage)) {
+      som_buf_puts(&b, "{\"exitCode\":");
+      som_buf_puti(&b, spec_strip_merge_result_exit_code(&r));
+      som_buf_puts(&b, r.stale ? ",\"stale\":true" : ",\"stale\":false");
+      som_buf_puts(&b, ",\"report\":[");
+      SomStrList report;
+      spec_strip_merge_result_report(&r, &report);
+      for (size_t k = 0; k < report.len; k++) {
+        if (k > 0) som_buf_putc(&b, ',');
+        put_json_str(&b, report.items[k]);
+      }
+      som_strlist_free(&report);
+      som_buf_putc(&b, ']');
+      som_buf_puts(&b, "}");
+    } else {
+      som_buf_puts(&b, "{\"error\":");
+      put_json_str(&b, usage != NULL ? usage : "");
+      som_buf_putc(&b, '}');
+    }
+    char *got_text = som_buf_take(&b);
+    char *perr = NULL;
+    SomJson *got_json = som_json_parse(got_text, &perr);
+    const SomJson *want_json = som_json_get(kase, "expect");
+    const char *keys[] = {"exitCode", "stale", "report", "error"};
+    for (size_t k = 0; k < sizeof(keys) / sizeof(keys[0]); k++) {
+      char *g = json_canonical(som_json_get(got_json, keys[k]));
+      char *w = json_canonical(som_json_get(want_json, keys[k]));
+      snprintf(tag, sizeof(tag), "merge.document[%s].%s", name, keys[k]);
+      char *d = byte_diff(tag, g, w);
+      check(c, tag, strcmp(g, w) == 0, d);
+      free(d);
+      free(g);
+      free(w);
+    }
+    /* The merged document, or null when nothing may be written. */
+    if (usage == NULL) {
+      const SomJson *wd = som_json_get(want_json, "document");
+      int want_null = wd == NULL || wd->type == SOM_JSON_NULL;
+      snprintf(tag, sizeof(tag), "merge.document[%s].document", name);
+      if (want_null) {
+        check(c, tag, r.document == NULL, "a document where none was expected");
+      } else if (r.document == NULL) {
+        check(c, tag, 0, "no document");
+      } else {
+        DocumentJson gj, wj;
+        spec_document_to_json(r.document, &gj);
+        document_json_from_json(wd, &wj);
+        char *g = document_json_to_canonical_json(&gj);
+        char *w = document_json_to_canonical_json(&wj);
+        char detail[4096];
+        snprintf(detail, sizeof(detail), "got %s want %s", g, w);
+        check(c, tag, strcmp(g, w) == 0, detail);
+        free(g);
+        free(w);
+        document_json_free(&gj);
+        document_json_free(&wj);
+      }
+      spec_strip_merge_result_free(&r);
+    }
+    free(usage);
+    free(perr);
+    som_json_free(got_json);
+    free(got_text);
+    release_doc(current);
+    release_doc(base);
+    free(edited);
+    release_doc(state);
+  }
+  docspecs_schema_free(schema);
+  som_json_free(table);
+}
+
 /* Appends `s` as a JSON string literal, or `null` when `s` is NULL. */
 static void buf_json_str(SomBuf *b, const char *s) {
   if (s == NULL) {
@@ -6336,6 +6616,7 @@ int main(int argc, char **argv) {
   test_docspecs(&c);
   test_notation(&c);
   test_strip(&c, model);
+  test_strip_merge(&c, model);
   test_docspecs_replace(&c);
   test_docspecs_path(&c, model);
   test_text_pattern(&c);

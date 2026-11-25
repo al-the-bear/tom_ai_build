@@ -2,6 +2,27 @@
 
 ## Unreleased
 
+- **The merge back** (SOM §11.10, stripped renditions): `spec_document_merge.h`
+  / `.c`. `spec_merge_stripped_value` merges the edited text of one value
+  onto its original, every piece of the strip put back where the edit left
+  its neighbours, after an edited run (`placed`, for an author to check), or
+  refused as a conflict (`crossesBoundary`, `sentenceRemoved`,
+  `stripTextEdited`, `unplaceable`, `notation`, `annotations`;
+  `SpecStripValueMerge`, `SpecStripMergePlaced`, `SpecStripMergeConflict`,
+  `spec_strip_merge_label`). `spec_strip_merge` merges an edited readable
+  rendition onto its document: the switches from the readable header (or
+  given beside it, and then agreeing with it), a stale original merged three
+  ways from the original at the export (given, or loaded from the header's
+  commit; `spec_strip_merge_git_show_file`), structural edits refused
+  (`SpecStripMergeRefusal`), the merged document checked to strip back to the
+  edited text and to add no finding (`changedBothSides`, `notStrippedBack`,
+  `newFinding`); `SpecStripMergeResult` with its report and
+  `spec_strip_merge_result_exit_code`. `spec_annotation_issues_text` lists a
+  value's malformed review annotations. The conformance runner reads
+  `strip_merge_cases.json` (`valueCases`, `documentCases`);
+  `tests/spec_document_merge_test.c` holds the merge of values beyond ASCII to
+  the TypeScript reference and reads a base from git.
+
 - **The strip of a document** (SOM §11.10, stripped renditions):
   `spec_document_strip` strips every value of a document (content, form
   fields, stored headlines) into a copy and, given a model, applies the
