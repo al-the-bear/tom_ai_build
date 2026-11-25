@@ -131,6 +131,16 @@ class SpecMarkdownResult {
      *  accepted path) — the scope a full-overwrite apply purges first.
      *  @type {Set<string>} */
     this.rootPrefixes = new Set();
+    /**
+     * The rejected blocks kept for review (SOM §11.7, DocSpecs RN-11): for
+     * every path whose text a rejected block stood in, the value with each
+     * such block written as a `rejected` div at its place. An apply that
+     * accepts rejections (`applyMarkdownResult(result, true)`) writes these
+     * over `content`, so nothing written is lost; an empty value removes the
+     * path's text. Empty for a clean parse.
+     * @type {Object<string, string>}
+     */
+    this.keptContent = {};
   }
 
   /** Whether the parse was clean (no rejections). */
@@ -248,6 +258,28 @@ function _escapeRegExp(s) {
 
 // A line the emitter must escape: an optional run of backslashes followed by
 // `#` at column 0 (the escape itself must survive the round-trip).
+/**
+ * The inverse of the emitter's code span (SOM §11.4 rule 8): a single-line
+ * `value` delimited by equal backtick runs loses them, and one padding space
+ * on each side when both are present. Anything else — a value written by hand
+ * without a span — is kept as written.
+ */
+function _decodeCodeSpan(value) {
+  if (value.includes('\n')) return value;
+  const m = /^(`+)([\s\S]*[^`])(`+)$/.exec(value);
+  if (m === null || m[1].length !== m[3].length) return value;
+  const inner = m[2];
+  if (
+    inner.length >= 2 &&
+    inner.startsWith(' ') &&
+    inner.endsWith(' ') &&
+    inner.trim().length > 0
+  ) {
+    return inner.substring(1, inner.length - 1);
+  }
+  return inner;
+}
+
 /**
  * The qualified anchor of a heading `id` (SOM §11.2) and the scope its
  * descendants' anchors are qualified with: below a list item, or in a
@@ -1855,6 +1887,7 @@ class SpecDocumentMarkdown {
     result.units = p.units;
     result.rejections = p.rejections;
     result.rootPrefixes = p.rootPrefixes;
+    result.keptContent = p.keptContent;
     return result;
   }
 }
@@ -1886,19 +1919,177 @@ SpecDocumentMarkdown.layoutTableHeader =
  * for an unresolvable/ignored section), path, and accumulated body lines.
  */
 class _Frame {
-  constructor(level, node, path, line, ignored = false) {
+  level;
+  node;
+  path;
+  line;
+  ignored;
+  body = [];
+  /** Rejected blocks to keep in this frame's text (RN-11): the body index
+   *  they stand before, the block, and the end of the body lines it replaces
+   *  (the index itself when it replaces none). */
+  kept = [];
+  /** For an ignored frame: the blocks of its ignored children, kept after its
+   *  own block wherever that lands. */
+  deferred = [];
+  /** The scope this heading's descendants' anchors are qualified with, and
+   *  the id of the nearest heading at or above it that is no list container
+   *  (SOM §11.2, {@link _qualifyAnchor}). */
+  anchorScope = null;
+  anchorSection = null;
+  /** Whether its body opened with a generated block (SOM §11.12): the
+   *  heading stands for the block, so an empty value is no rejection. */
+  generated = false;
+
+  constructor(
+    level,
+    node,
+    path,
+    line,
+    ignored = false,
+  ) {
     this.level = level;
     this.node = node;
     this.path = path;
     this.line = line;
     this.ignored = ignored;
-    /** @type {string[]} */
-    this.body = [];
-    /** The scope this heading's descendants' anchors are qualified with, and
-     *  the id of the nearest heading at or above it that is no list container
-     *  (SOM §11.2, {@link _qualifyAnchor}). */
-    this.anchorScope = null;
-    this.anchorSection = null;
+  }
+}
+
+const _KEPT_DIV_OPEN = /^ {0,3}:{3,}[ \t]*(?:\{.*\}|[A-Za-z][A-Za-z0-9_-]*)[ \t]*$/;
+const _KEPT_DIV_CLOSE = /^ {0,3}:{3,}[ \t]*$/;
+const _KEPT_COLONS = /^ {0,3}(:{3,})/;
+
+/**
+ * A rejected block an import that accepts rejections keeps for review
+ * (SOM §11.7, DocSpecs RN-11): the source lines it held and what its
+ * `rejected` div records for a resolution.
+ */
+class _KeptBlock {
+  rejection;
+  /** The source lines of the block, as written. */
+  lines;
+  /** The field given twice, or the declared field a near-miss label names. */
+  field;
+  /** The child section a near-miss section-table cell names. */
+  section;
+  /** For a field given twice: the path of the form holding the kept value. */
+  kept;
+
+  constructor(
+    rejection,
+    lines,
+    field = null,
+    section = null,
+    kept = null,
+  ) {
+    this.rejection = rejection;
+    this.lines = lines;
+    this.field = field;
+    this.section = section;
+    this.kept = kept;
+  }
+
+  /**
+   * The block as a `rejected` div: `reason`, `line`, then `field` /
+   * `section` / `kept` where they apply, then `label` (the report's message,
+   * its double quotes written as single ones). A fence the block does not
+   * close, or closes without opening, would pair with the div's own fences,
+   * so it is written escaped (`\:::`, RN-9); the div's fences are longer than
+   * any fence inside it, for the eye (RN-7).
+   */
+  div() {
+    const inner = [...this.lines];
+    while (inner.length > 0 && inner[0].trim() === '') inner.shift();
+    while (inner.length > 0 && inner[inner.length - 1].trim() === '') inner.pop();
+    const fence = new MarkdownFenceTracker();
+    const open = [];
+    const unpaired = new Set();
+    for (let k = 0; k < inner.length; k++) {
+      const line = inner[k];
+      if (!fence.inFence) {
+        if (_KEPT_DIV_CLOSE.test(line)) {
+          if (open.length === 0) {
+            unpaired.add(k);
+          } else {
+            open.pop();
+          }
+        } else if (_KEPT_DIV_OPEN.test(line)) {
+          open.push(k);
+        }
+      }
+      fence.feed(line);
+    }
+    for (const k of open) unpaired.add(k);
+    let longest = 0;
+    for (let k = 0; k < inner.length; k++) {
+      if (unpaired.has(k)) {
+        inner[k] = inner[k].replace(/^( {0,3}):/, '$1\\:');
+        continue;
+      }
+      const m = _KEPT_COLONS.exec(inner[k]);
+      const run = m !== null ? m[1].length : 0;
+      if (run > longest) longest = run;
+    }
+    const colons = ':'.repeat(longest >= 3 ? longest + 1 : 3);
+    const q = (s) => s.split('"').join("'");
+    const attributes = [
+      `reason="${this.rejection.reason}"`,
+      `line="${this.rejection.line}"`,
+      ...(this.field !== null ? [`field="${q(this.field)}"`] : []),
+      ...(this.section !== null ? [`section="${q(this.section)}"`] : []),
+      ...(this.kept !== null ? [`kept="${q(this.kept)}"`] : []),
+      `label="${q(this.rejection.message)}"`,
+    ].join(' ');
+    return [`${colons} {.rejected ${attributes}}`, ...inner, colons];
+  }
+}
+
+/**
+ * Where the rejected blocks of one frame's body go (RN-11): each content
+ * line list of the frame and the divs written into it, by position.
+ */
+class _Keeper {
+  _marks;
+  _next = 0;
+  _inserts = new Map();
+
+  constructor(frame) {
+    this._marks = frame.kept
+      .map((m, s) => [m, s])
+      .sort((a, b) => (a[0][0] !== b[0][0] ? a[0][0] - b[0][0] : a[1] - b[1]))
+      .map(([m]) => m);
+  }
+
+  /** Writes `b` into `into` at its current end. */
+  keep(into, b) {
+    let list = this._inserts.get(into);
+    if (list === undefined) {
+      list = [];
+      this._inserts.set(into, list);
+    }
+    list.push([into.length, b.div()]);
+  }
+
+  /** Writes the frame's blocks standing before body index `upTo` into `into`. */
+  drain(upTo, into) {
+    while (this._next < this._marks.length && this._marks[this._next][0] <= upTo) {
+      this.keep(into, this._marks[this._next][1]);
+      this._next++;
+    }
+  }
+
+  /** The value of `parts` with the kept divs written in, joined as the parts
+   *  are; null when no part holds one. */
+  keptValue(parts) {
+    if (!parts.some((p) => this._inserts.has(p))) return null;
+    return parts
+      .map((p) => {
+        const ins = this._inserts.get(p);
+        return _Parser._restoreValue(ins === undefined ? p : _Parser._merge(p, ins));
+      })
+      .filter((v) => v !== '')
+      .join('\n\n');
   }
 }
 
@@ -1908,51 +2099,204 @@ class _Frame {
  * items and the resulting `seq`).
  */
 class _ListState {
-  constructor() {
-    /** @type {string[]} */
-    this.items = [];
-    /** @type {Object<string, string>} */
-    this.ids = {};
-    this.maxN = 0;
-  }
+  items = [];
+  ids = {};
+  maxN = 0;
 }
 
 class _Parser {
+  codec;
+  content = {};
+  forms = {};
+  lists = new Map();
+  // Stored headlines staged during the parse (SOM §11.7): a heading's text is
+  // recorded only when it differs from the effective default, so a default
+  // export re-imports byte-stable with an empty headline store.
+  headlines = {};
+  // Stored codeSpec mappings staged during the parse (codespecs_mapping.md
+  // §9.2): a heading's `codeSpec="…"` value is recorded whenever present (no
+  // effective default).
+  codeSpecs = {};
+  // Stored generation units staged during the parse (SOM §11.2): staged
+  // exactly like codeSpec.
+  units = {};
+  rejections = [];
+  rootPrefixes = new Set();
+  keptContent = {};
+  /** The source lines, for the text of a rejected block. */
+  _lines = [];
+  /** Blocks reported by `_reject` and not yet placed. */
+  _pending = [];
+  /** Text before the root heading, kept at the start of the root's text. */
+  _orphans = [];
+
+  /**
+   * Reports `r` and holds its block for an import that keeps rejected
+   * blocks (RN-11): `lines` are the source lines it held, its own line by
+   * default.
+   */
+  _reject(
+    r,
+    opts   
+                       
+                            
+                              
+                           
+      = {},
+  ) {
+    this.rejections.push(r);
+    const b = new _KeptBlock(
+      r,
+      opts.lines ?? [this._lines[r.line - 1]],
+      opts.field ?? null,
+      opts.section ?? null,
+      opts.kept ?? null,
+    );
+    this._pending.push(b);
+    return b;
+  }
+
+  /** The held blocks in source order, the hold emptied. */
+  _takePending() {
+    const out = this._pending
+      .map((b, s) => [b, s])
+      .sort((a, b) =>
+        a[0].rejection.line !== b[0].rejection.line
+          ? a[0].rejection.line - b[0].rejection.line
+          : a[1] - b[1],
+      )
+      .map(([b]) => b);
+    this._pending = [];
+    return out;
+  }
+
+  /** Places the held blocks before `frame`'s body index `at`; with
+   *  `replaceEnd` they take the place of the body lines up to it. */
+  _markPending(frame, at, replaceEnd = null) {
+    for (const b of this._takePending()) {
+      frame.kept.push([at, b, replaceEnd ?? at]);
+    }
+  }
+
+  /** The declared name one edit (or only case and separators) away from
+   *  `label`, when exactly one is: what a *Rename to* choice offers (RN-11). */
+  static _nearMiss(label, names) {
+    const norm = (s) => s.toLowerCase().replace(/[\s_-]/g, '');
+    const hits = new Set();
+    for (const n of names) {
+      if (
+        n !== label &&
+        (norm(n) === norm(label) || _Parser._oneEdit(n.toLowerCase(), label.toLowerCase()))
+      ) {
+        hits.add(n);
+      }
+    }
+    return hits.size === 1 ? [...hits][0] : null;
+  }
+
+  /** Whether `a` becomes `b` by at most one insertion, deletion or substitution. */
+  static _oneEdit(a, b) {
+    if (Math.abs(a.length - b.length) > 1) return false;
+    let i = 0;
+    let j = 0;
+    let edits = 0;
+    while (i < a.length && j < b.length) {
+      if (a[i] === b[j]) {
+        i++;
+        j++;
+        continue;
+      }
+      if (++edits > 1) return false;
+      if (a.length > b.length) {
+        i++;
+      } else if (b.length > a.length) {
+        j++;
+      } else {
+        i++;
+        j++;
+      }
+    }
+    return edits + (a.length - i) + (b.length - j) <= 1;
+  }
+
+  /**
+   * `part` with the divs of `ins` (position → div lines) written in at their
+   * positions, a blank line between a div and the text around it; the lines
+   * at `replaced` positions are left out (a div took their place).
+   */
+  static _merge(
+    part,
+    ins,
+    replaced = new Set(),
+  ) {
+    const out = [];
+    let blankDue = false;
+    for (let k = 0; k <= part.length; k++) {
+      for (const [at, div] of ins) {
+        if (at !== k) continue;
+        if (out.length > 0 && out[out.length - 1].trim() !== '') out.push('');
+        out.push(...div);
+        blankDue = true;
+      }
+      if (k === part.length || replaced.has(k)) continue;
+      const line = part[k];
+      if (blankDue && line.trim() !== '') out.push('');
+      blankDue = false;
+      out.push(line);
+    }
+    return out;
+  }
+
+  /** Whether a frame of `node` passes its rejected blocks to its parent: a
+   *  list container, which holds no text, and a scalar or enum value, whose
+   *  text is a typed value (RN-11). */
+  static _keptInParent(node) {
+    return (
+      node !== null &&
+      (node.kind === SomMetaKind.LIST ||
+        node.kind === SomMetaKind.SCALAR ||
+        node.kind === SomMetaKind.ENUM_VALUE)
+    );
+  }
+
+  /**
+   * An ignored frame's heading and body, with its ignored children's blocks
+   * after it, go to the text of the nearest section above it that was read,
+   * after that section's own text (RN-11); with none above (an unknown root)
+   * nothing holds them and only the report remains.
+   */
+  _keepIgnored(frame) {
+    const own = this.rejections.filter((r) => r.line === frame.line).pop();
+    const blocks = [
+      ...(own !== undefined
+        ? [new _KeptBlock(own, [this._lines[frame.line - 1], ...frame.body])]
+        : []),
+      ...frame.deferred,
+    ];
+    if (this._stack.length === 0 || blocks.length === 0) return;
+    const parent = this._stack[this._stack.length - 1];
+    if (parent.ignored) {
+      parent.deferred.push(...blocks);
+      return;
+    }
+    for (const b of blocks) {
+      parent.kept.push([parent.body.length, b, parent.body.length]);
+    }
+  }
+  _stack = [];
+  _fence = new MarkdownFenceTracker();
+  // Rolling pointer into a body region's transparent form slots — labels
+  // bind to the nearest form at or after the last hit (wrapping), so
+  // repeated field names across an owner's transparent forms follow emit
+  // order.
+  _currentFormIdx = 0;
+
   constructor(codec) {
     this.codec = codec;
-    /** @type {Object<string, string>} */
-    this.content = {};
-    /** @type {Object<string, Object<string, string>>} */
-    this.forms = {};
-    /** @type {Map<string, _ListState>} */
-    this.lists = new Map();
-    /** Stored headlines staged from heading text (YRD3): path → headline.
-     *  @type {Object<string, string>} */
-    this.headlines = {};
-    /** Stored codeSpecs staged from heading comments (csmc8, codespecs_mapping.md §9.2).
-     *  @type {Object<string, string>} */
-    this.codeSpecs = {};
-    /** Stored generation units staged from heading comments (SOM §11.2).
-     *  @type {Object<string, string>} */
-    this.units = {};
-    /** @type {SpecMarkdownRejection[]} */
-    this.rejections = [];
-    /** @type {Set<string>} */
-    this.rootPrefixes = new Set();
-    /** @type {_Frame[]} */
-    this._stack = [];
-    this._fence = new MarkdownFenceTracker();
-    /** The fields given so far per form path, for the given-twice rule.
-     *  @type {Map<string, Set<string>>} */
-    this._given = new Map();
-    // Rolling pointer into a body region's transparent form slots — labels
-    // bind to the nearest form at or after the last hit (wrapping), so
-    // repeated field names across an owner's transparent forms follow emit
-    // order.
-    this._currentFormIdx = 0;
   }
 
   run(lines) {
+    this._lines = lines;
     for (let i = 0; i < lines.length; i++) {
       const raw = lines[i];
       const lineNo = i + 1;
@@ -1975,13 +2319,13 @@ class _Parser {
       if (this._stack.length > 0) {
         this._stack[this._stack.length - 1].body.push(raw);
       } else if (trimmed) {
-        this.rejections.push(
-          new SpecMarkdownRejection(
-            lineNo,
-            SpecMarkdownRejectReason.ORPHAN_CONTENT,
-            'text before the document root heading',
-          ),
+        const r = new SpecMarkdownRejection(
+          lineNo,
+          SpecMarkdownRejectReason.ORPHAN_CONTENT,
+          'text before the document root heading',
         );
+        this.rejections.push(r);
+        this._orphans.push(new _KeptBlock(r, [raw]));
       }
       this._fence.feed(raw);
     }
@@ -2016,8 +2360,6 @@ class _Parser {
       return;
     }
     const id = m[1];
-    // csmc8 (codespecs_mapping.md §9.2): group 2 is the meta region
-    // (codeSpec="..."); group 3 the title.
     const codeSpec = SpecDocumentMarkdown.codeSpecOf(m[2]);
     const unitIds = SpecDocumentMarkdown.unitsOf(m[2]);
     // Reading view (DI-3): an anchor equal to the section id after the id
@@ -2028,11 +2370,15 @@ class _Parser {
       rawTitle
         .replace(
           new RegExp(
-            '^<a id="(?:' + _escapeRegExp(id) + '|' + _escapeRegExp(anchor) + ')"></a>\\s*',
+            '^<a id="(?:' +
+              _escapeRegExp(id) +
+              '|' +
+              _escapeRegExp(anchor) +
+              ')"></a>\\s*',
           ),
           '',
         )
-        .replaceAll('<br>', '\n');
+        .replace(/<br>/g, '\n');
     const title = titleWith(id);
 
     if (this._stack.length === 0) {
@@ -2094,6 +2440,7 @@ class _Parser {
     const effective = this.codec._effectiveChildren(pNode);
     for (const [c, rel] of effective) {
       if (this.codec._headingIdOf(c) === id) {
+        const path = `${parent.path}/${rel}`;
         const container = c.kind === SomMetaKind.LIST;
         const [anchor, scope] = _qualifyAnchor(
           parent.anchorScope,
@@ -2102,21 +2449,19 @@ class _Parser {
           { container, copy: !container && this.codec._isCopyNode(c) },
         );
         const title = titleWith(anchor);
-        // Stage the heading text as a stored headline only when it differs
-        // from the effective default title (SOM §11.7 — byte-stability).
         if (title && title !== SpecDocumentMarkdown._titleOf(c)) {
-          this.headlines[`${parent.path}/${rel}`] = title;
+          this.headlines[path] = title;
         }
-        // csmc8 (codespecs_mapping.md §9.2): stage any codeSpec ridden in the
-        // heading comment.
+        // codespecs_mapping.md §9.2: stage the codeSpec mapping whenever
+        // present (no default).
         if (codeSpec) {
-          this.codeSpecs[`${parent.path}/${rel}`] = codeSpec;
+          this.codeSpecs[path] = codeSpec;
         }
         // SOM §11.2: `units` is staged exactly like codeSpec.
         if (unitIds) {
-          this.units[`${parent.path}/${rel}`] = unitIds;
+          this.units[path] = unitIds;
         }
-        const frame = new _Frame(level, c, `${parent.path}/${rel}`, lineNo);
+        const frame = new _Frame(level, c, path, lineNo);
         frame.anchorScope = scope;
         frame.anchorSection = container ? parent.anchorSection : id;
         this._stack.push(frame);
@@ -2144,7 +2489,16 @@ class _Parser {
    * item `<n>` carrying that id), a pattern-shaped stored id, or — for any
    * other id — an anonymous next item carrying the stored id.
    */
-  _openItemHeading(level, container, listNode, id, title, codeSpec, unitIds, lineNo) {
+  _openItemHeading(
+    level,
+    container,
+    listNode,
+    id,
+    title,
+    codeSpec,
+    unitIds,
+    lineNo,
+  ) {
     const [n, storedId] = this._itemIdentity(listNode, id);
     this._openItem(
       level, container.path, listNode, n, storedId, title, codeSpec, unitIds,
@@ -2157,11 +2511,13 @@ class _Parser {
    * a section-table row's: the item number it names (or `null` for the next
    * free one) and the id it stores (or `null`). The `<member>-<n>` fallback id
    * is positional and stores nothing; the `@SectionIdPattern` resolved with a
-   * number names item `<n>` and is stored, the section id being the item's
-   * identity and the path only its position (SOM §11.6); any other id is the
+   * number names item `<n>` and is stored (SOM §11.6); any other id is the
    * next item, carrying it (YRD3).
    */
-  _itemIdentity(listNode, id) {
+  _itemIdentity(
+    listNode,
+    id,
+  ) {
     const anon = new RegExp(
       '^' + _escapeRegExp(listNode.memberName || listNode.segment) + '-([0-9]+)$',
     ).exec(id);
@@ -2189,7 +2545,14 @@ class _Parser {
     return [null, id];
   }
 
-  _openRoot(level, id, title, codeSpec, unitIds, lineNo) {
+  _openRoot(
+    level,
+    id,
+    title,
+    codeSpec,
+    unitIds,
+    lineNo,
+  ) {
     for (const root of this.codec.model.roots) {
       const seg = root.sectionId || root.type;
       if (seg === id) {
@@ -2201,8 +2564,6 @@ class _Parser {
         if (title && title !== (tree.root.headline || root.title)) {
           this.headlines[seg] = title;
         }
-        // csmc8 (codespecs_mapping.md §9.2): stage any codeSpec ridden in the
-        // root heading comment.
         if (codeSpec) {
           this.codeSpecs[seg] = codeSpec;
         }
@@ -2212,6 +2573,9 @@ class _Parser {
         }
         const frame = new _Frame(level, tree.root, seg, lineNo);
         frame.anchorSection = seg;
+        // Text before the root heading is kept at the start of its text.
+        for (const b of this._orphans) frame.kept.push([0, b, 0]);
+        this._orphans = [];
         this._stack.push(frame);
         return;
       }
@@ -2235,7 +2599,15 @@ class _Parser {
    * path number); a stored-id item gets the next free number instead.
    */
   _openItem(
-    level, listPath, listNode, n, storedId, title, codeSpec, unitIds, lineNo,
+    level,
+    listPath,
+    listNode,
+    n,
+    storedId,
+    title,
+    codeSpec,
+    unitIds,
+    lineNo,
     push = true,
   ) {
     let state = this.lists.get(listPath);
@@ -2249,14 +2621,10 @@ class _Parser {
     }
     const itemPath = `${listPath}-${number}`;
     state.items.push(itemPath);
-    // Stage the item heading text as a stored headline only when it differs
-    // from the effective default `<stem> <n>` title (SOM §11.7).
     const stem = SpecDocumentMarkdown._itemStemOf(listNode);
     if (title && title !== `${stem} ${number}`) {
       this.headlines[itemPath] = title;
     }
-    // csmc8 (codespecs_mapping.md §9.2): stage any codeSpec ridden in the item
-    // heading comment.
     if (codeSpec) {
       this.codeSpecs[itemPath] = codeSpec;
     }
@@ -2285,6 +2653,7 @@ class _Parser {
 
   _finalize(frame) {
     if (frame.ignored) {
+      this._keepIgnored(frame);
       return;
     }
     const node = frame.node;
@@ -2303,9 +2672,35 @@ class _Parser {
     const slots = node === null ? [] : this.codec._bodySlots(node);
     if (slots.length === 0) {
       const value = _Parser._restoreValue(frame.body);
+      if (frame.kept.length > 0) {
+        const replaced = new Set();
+        for (const [at, , end] of frame.kept) {
+          for (let k = at; k < end; k++) replaced.add(k);
+        }
+        const parent = this._stack.length > 0 ? this._stack[this._stack.length - 1] : null;
+        if (_Parser._keptInParent(node) && parent !== null) {
+          // A list container (no text of its own, SOM §11.5) or a typed value
+          // has no place for a block: its parent takes them, after its own
+          // text (RN-11); the lines they replace leave this frame's text.
+          const own = _Parser._restoreValue(_Parser._merge(frame.body, [], replaced));
+          if (own !== value) this.keptContent[frame.path] = own;
+          for (const [, b] of frame.kept) {
+            parent.kept.push([parent.body.length, b, parent.body.length]);
+          }
+        } else {
+          const kept = _Parser._restoreValue(
+            _Parser._merge(
+              frame.body,
+              frame.kept.map(([at, b]) => [at, b.div()]),
+              replaced,
+            ),
+          );
+          if (kept) this.keptContent[frame.path] = kept;
+        }
+      }
       if (value) {
         this.content[frame.path] = value;
-      } else if (node !== null && _Parser._isValueLeaf(node.kind)) {
+      } else if (node !== null && _Parser._isValueLeaf(node.kind) && !frame.generated) {
         this.rejections.push(
           new SpecMarkdownRejection(
             frame.line,
@@ -2358,7 +2753,12 @@ class _Parser {
    * rows with their line indexes, and the index after the table; a broken
    * delimiter row or a row of another cell count is a `malformedBlock`.
    */
-  _readTable(lines, start, lineOf, anchor) {
+  _readTable(
+    lines,
+    start,
+    lineOf,
+    anchor,
+  ) {
     let end = start + 1;
     while (end < lines.length && _TABLE_LINE.test(lines[end])) {
       end++;
@@ -2367,8 +2767,8 @@ class _Parser {
     const delimiter = start + 1 < end ? _Parser._rowCells(lines[start + 1]) : null;
     const isDelimiter =
       delimiter !== null && delimiter.every((c) => _DELIMITER_CELL.test(c));
-    if (!isDelimiter || delimiter.length !== header.length) {
-      this.rejections.push(
+    if (!isDelimiter || (delimiter).length !== header.length) {
+      this._reject(
         new SpecMarkdownRejection(
           lineOf(start),
           SpecMarkdownRejectReason.MALFORMED_BLOCK,
@@ -2377,6 +2777,7 @@ class _Parser {
             : 'table whose delimiter row does not match its header',
           anchor,
         ),
+        { lines: lines.slice(start, end) },
       );
       return { header, rows: [], end };
     }
@@ -2384,13 +2785,14 @@ class _Parser {
     for (let i = start + 2; i < end; i++) {
       const cells = _Parser._rowCells(lines[i]);
       if (cells.length !== header.length) {
-        this.rejections.push(
+        this._reject(
           new SpecMarkdownRejection(
             lineOf(i),
             SpecMarkdownRejectReason.MALFORMED_BLOCK,
             `table row with ${cells.length} cells, the header has ${header.length}`,
             anchor,
           ),
+          { lines: [lines[i]] },
         );
         continue;
       }
@@ -2412,7 +2814,7 @@ class _Parser {
       while ((m = re.exec(text)) !== null) texts.push(m[1]);
       return texts.join(', ');
     }
-    return f.code ? _Parser._decodeCodeSpan(text) : text;
+    return f.code ? _decodeCodeSpan(text) : text;
   }
 
   /** A cell's id with the renderer's anchor (`<a id="X"></a>X`) removed and
@@ -2423,9 +2825,14 @@ class _Parser {
     return m !== null ? m[1] : id;
   }
 
+  /** The fields given so far per form path, for the given-twice rule. */
+  _given = new Map();
+
   /**
    * Whether `field` of the form at `formPath` was given before; reports the
-   * repeat (`malformedBlock`, the first occurrence kept) when it was.
+   * repeat (`malformedBlock`, the first occurrence kept) when it was. The
+   * repeat's held block names the field and the form holding the kept value
+   * (RN-11).
    */
   _givenTwice(formPath, field, line) {
     let given = this._given.get(formPath);
@@ -2437,13 +2844,14 @@ class _Parser {
       given.add(field);
       return false;
     }
-    this.rejections.push(
+    this._reject(
       new SpecMarkdownRejection(
         line,
         SpecMarkdownRejectReason.MALFORMED_BLOCK,
         `field "${field}" given twice`,
         formPath,
       ),
+      { field, kept: formPath },
     );
     return true;
   }
@@ -2456,17 +2864,24 @@ class _Parser {
   }
 
   /** Stages one row of a form table (or a section table). */
-  _stageRow(formPath, fields, label, cell, line) {
+  _stageRow(
+    formPath,
+    fields,
+    label,
+    cell,
+    line,
+  ) {
     const lower = label.toLowerCase();
     const f = fields.find((x) => x.name.toLowerCase() === lower);
     if (f === undefined) {
-      this.rejections.push(
+      this._reject(
         new SpecMarkdownRejection(
           line,
           SpecMarkdownRejectReason.UNKNOWN_FIELD,
           `row "${label}" names no field of this form`,
           formPath,
         ),
+        { field: _Parser._nearMiss(label, fields.map((x) => x.name)) },
       );
       return;
     }
@@ -2496,32 +2911,39 @@ class _Parser {
       let formPath = null;
       let fields = [];
       let skip = false;
+      // The rejected section's block: its row and the rows continuing it.
+      let skipped = null;
       for (const [k, cells] of table.rows) {
         const section = _Parser._cellId(cells[0]);
-        if (!section && skip) continue;
+        if (!section && skip) {
+          if (skipped !== null) skipped.lines.push(body[k]);
+          continue;
+        }
         if (section) {
           const target = this._sectionTableTarget(frame, node, section);
           skip = target === null;
           if (target === null) {
-            this.rejections.push(
+            skipped = this._reject(
               new SpecMarkdownRejection(
                 _Parser._bodyLine(frame, k),
                 SpecMarkdownRejectReason.UNKNOWN_SECTION,
                 `section-table row names no child section of "${frame.path}"`,
                 section,
               ),
+              { lines: [body[k]], section: this._nearSection(node, section) },
             );
             continue;
           }
           [formPath, fields] = target;
         } else if (formPath === null) {
-          this.rejections.push(
+          this._reject(
             new SpecMarkdownRejection(
               _Parser._bodyLine(frame, k),
               SpecMarkdownRejectReason.UNKNOWN_SECTION,
               'section-table row names no section',
               frame.path,
             ),
+            { lines: [body[k]] },
           );
           continue;
         }
@@ -2531,12 +2953,35 @@ class _Parser {
       for (let k = i; k < table.end; k++) {
         body[k] = '';
       }
+      // What the table rejected is kept where the table stood.
+      this._markPending(frame, i);
       i = table.end - 1;
     }
   }
 
+  /** The child a section-table `Section` cell naming none is a near miss of
+   *  (RN-11): a child form section's id, or `<LIST> / <ITEM>` with a near
+   *  list id. */
+  _nearSection(node, section) {
+    const parts = section.split(/\s*\/\s*/);
+    const children = this.codec._effectiveChildren(node);
+    const ids = (kind) =>
+      children
+        .filter(([c]) => c.kind === kind)
+        .map(([c]) => this.codec._headingIdOf(c))
+        .filter((id) => id !== null && id !== undefined);
+    if (parts.length === 1) return _Parser._nearMiss(section, ids(SomMetaKind.FORM));
+    if (parts.length !== 2) return null;
+    const list = _Parser._nearMiss(parts[0], ids(SomMetaKind.LIST));
+    return list === null ? null : `${list} / ${parts[1]}`;
+  }
+
   /** The form a section-table `Section` cell names under `node`. */
-  _sectionTableTarget(frame, node, section) {
+  _sectionTableTarget(
+    frame,
+    node,
+    section,
+  ) {
     const parts = section.split(/\s*\/\s*/);
     for (const [child, rel] of this.codec._effectiveChildren(node)) {
       const childId = this.codec._headingIdOf(child);
@@ -2586,16 +3031,24 @@ class _Parser {
           break;
         }
       }
-      const reject = (reason, message) => {
-        this.rejections.push(
+      const reject = (
+        reason,
+        message,
+        lines,
+      ) => {
+        this._reject(
           new SpecMarkdownRejection(_Parser._bodyLine(frame, i), reason, message, frame.path),
+          { lines },
         );
       };
       if (close < 0) {
-        // The fence's lines read as text.
-        reject(SpecMarkdownRejectReason.MALFORMED_BLOCK, `unclosed ${kind} fence`);
+        // The fence's lines read as text; kept, they are the rejected div
+        // (the container's parent holds it, see _finalize).
+        reject(SpecMarkdownRejectReason.MALFORMED_BLOCK, `unclosed ${kind} fence`, body.slice(i));
+        this._markPending(frame, i, body.length);
         return;
       }
+      const divLines = body.slice(i, close + 1);
       let besideText = false;
       for (let k = 0; k < body.length; k++) {
         if ((k < i || k > close) && body[k].trim() !== '') besideText = true;
@@ -2606,17 +3059,21 @@ class _Parser {
         reject(
           SpecMarkdownRejectReason.MALFORMED_BLOCK,
           `a ${kind} div beside ${hasItems ? 'item headings' : 'other text'} in a list container`,
+          divLines,
         );
         for (let k = i; k <= close; k++) body[k] = '';
+        this._markPending(frame, close + 1);
         return;
       }
       const inner = body.slice(i + 1, close);
       if (kind === 'refs') {
-        this._stageReferenceLine(frame, listNode, inner, i);
+        this._stageReferenceLine(frame, listNode, inner, i, divLines);
       } else {
-        this._stageRecordTable(frame, listNode, inner, i);
+        this._stageRecordTable(frame, listNode, inner, i, divLines);
       }
       for (let k = i; k <= close; k++) body[k] = '';
+      // What the div rejected is kept after it.
+      this._markPending(frame, close + 1);
       return;
     }
   }
@@ -2630,26 +3087,33 @@ class _Parser {
       n.form.fields[0].refersTo.length > 0 &&
       n.extra.some((e) => e.annotation === 'Reference');
     for (const [slot, rel] of this.codec._bodySlots(element)) {
-      if (isRef(slot)) return [rel, slot.form.fields[0]];
+      if (isRef(slot)) return [rel, (slot.form).fields[0]];
     }
     for (const [child, rel] of this.codec._effectiveChildren(element)) {
-      if (isRef(child)) return [rel, child.form.fields[0]];
+      if (isRef(child)) return [rel, (child.form).fields[0]];
     }
     return null;
   }
 
   /** A `refs` div: ids split on commas and whitespace, links read as their texts. */
-  _stageReferenceLine(frame, listNode, inner, at) {
+  _stageReferenceLine(
+    frame,
+    listNode,
+    inner,
+    at,
+    divLines,
+  ) {
     const element = listNode.elementNode;
     const ref = element ? this._referenceField(element) : null;
     if (ref === null) {
-      this.rejections.push(
+      this._reject(
         new SpecMarkdownRejection(
           _Parser._bodyLine(frame, at),
           SpecMarkdownRejectReason.MALFORMED_BLOCK,
           'a refs div in a list whose items are not references',
           frame.path,
         ),
+        { lines: divLines },
       );
       return;
     }
@@ -2662,13 +3126,14 @@ class _Parser {
         return m !== null ? m[1] : t;
       });
     if (ids.length === 0) {
-      this.rejections.push(
+      this._reject(
         new SpecMarkdownRejection(
           _Parser._bodyLine(frame, at),
           SpecMarkdownRejectReason.MISSING_VALUE,
           'an empty refs div',
           frame.path,
         ),
+        { lines: divLines },
       );
       return;
     }
@@ -2691,16 +3156,23 @@ class _Parser {
   }
 
   /** A `records` div: one table, `Id` first, `Title` optionally second. */
-  _stageRecordTable(frame, listNode, inner, at) {
+  _stageRecordTable(
+    frame,
+    listNode,
+    inner,
+    at,
+    divLines,
+  ) {
     const lineOf = (k) => _Parser._bodyLine(frame, at + 1 + k);
     const reject = (message) => {
-      this.rejections.push(
+      this._reject(
         new SpecMarkdownRejection(
           _Parser._bodyLine(frame, at),
           SpecMarkdownRejectReason.MALFORMED_BLOCK,
           message,
           frame.path,
         ),
+        { lines: divLines },
       );
     };
     const start = inner.findIndex((l) => l.trim() !== '');
@@ -2726,14 +3198,15 @@ class _Parser {
       const lower = label.toLowerCase();
       const f = fields.find((x) => x.name.toLowerCase() === lower);
       if (f === undefined) {
-        // The table is skipped whole.
-        this.rejections.push(
+        // The table is skipped whole, so the whole div is kept.
+        this._reject(
           new SpecMarkdownRejection(
             lineOf(start),
             SpecMarkdownRejectReason.UNKNOWN_FIELD,
             `records column "${label}" names no field of the items`,
             frame.path,
           ),
+          { lines: divLines, field: _Parser._nearMiss(label, fields.map((x) => x.name)) },
         );
         return;
       }
@@ -2774,14 +3247,12 @@ class _Parser {
    * (SOM §11.4 rule 7) — the class-level `@Form` on the `content` member, else
    * the first form — which is where the YAML codec keeps it; only an owner
    * with no slot at all takes it on its own path.
-   *
-   * In a region with any form slot every label-shaped text line carries the
-   * one escape space the emitter adds; it is stripped here.
    */
   _finalizeBodySlots(frame, slots) {
     const formSlots = slots.filter(([s]) => s.kind === SomMetaKind.FORM);
     const defaultRel = this.codec._defaultBodyRel(slots);
-    const pathOf = (rel) => (rel === '.' ? frame.path : `${frame.path}/${rel}`);
+    const pathOf = (rel) =>
+      rel === '.' ? frame.path : `${frame.path}/${rel}`;
 
     const findField = (label) => {
       const lower = label.toLowerCase();
@@ -2809,19 +3280,34 @@ class _Parser {
     const textParts = new Map();
     const openText = (targetPath) => {
       const lines = [];
-      if (!textParts.has(targetPath)) textParts.set(targetPath, []);
-      textParts.get(targetPath).push(lines);
+      let parts = textParts.get(targetPath);
+      if (parts === undefined) {
+        parts = [];
+        textParts.set(targetPath, parts);
+      }
+      parts.push(lines);
       return lines;
     };
     let contentLines = openText(pathOf(defaultRel));
+    // Rejected blocks go to the unlabelled text at their place (RN-11); a
+    // field given twice is kept whole, its label line and continuation.
+    const keeper = new _Keeper(frame);
+    let discarded = null;
+    let discardStart = 0;
+    let at = 0;
 
     const flush = () => {
       if (currentField !== null && currentFormPath !== null && !discard) {
         const restored = _Parser._restoreValue(currentLines);
-        const value = currentCode ? _Parser._decodeCodeSpan(restored) : restored;
+        const value = currentCode ? _decodeCodeSpan(restored) : restored;
         if (value) {
           this._setField(currentFormPath, currentField, value);
         }
+      }
+      if (discard && discarded !== null) {
+        discarded.lines = frame.body.slice(discardStart, at);
+        keeper.keep(contentLines, discarded);
+        discarded = null;
       }
       currentLines = [];
       discard = false;
@@ -2830,17 +3316,19 @@ class _Parser {
     this._currentFormIdx = 0;
     for (let i = 0; i < frame.body.length; i++) {
       const line = frame.body[i];
+      at = i;
+      keeper.drain(i, contentLines);
       if (!fence.inFence) {
         const marker = _SLOT_MARKER.exec(line);
         if (marker !== null) {
           const rel = marker[1];
           const slot =
-            rel === '.' ? null : (slots.find(([, r]) => r === rel) ?? null);
-          if (rel === '.' || slot !== null) {
+            rel === '.' ? undefined : slots.find(([, r]) => r === rel);
+          if (rel === '.' || slot !== undefined) {
             flush();
             currentField = null;
             currentFormPath = null;
-            if (slot !== null && slot[0].kind === SomMetaKind.FORM) {
+            if (slot !== undefined && slot[0].kind === SomMetaKind.FORM) {
               this._currentFormIdx = formSlots.indexOf(slot);
             }
             contentLines = openText(pathOf(rel));
@@ -2863,13 +3351,24 @@ class _Parser {
           for (const [k, cells] of table.rows) {
             const hit = findField(cells[0]);
             if (hit === null) {
-              this.rejections.push(
+              this._reject(
                 new SpecMarkdownRejection(
                   _Parser._bodyLine(frame, k),
                   SpecMarkdownRejectReason.UNKNOWN_FIELD,
                   `row "${cells[0]}" names no field of this form`,
                   frame.path,
                 ),
+                {
+                  lines: [frame.body[k]],
+                  field: _Parser._nearMiss(
+                    cells[0],
+                    formSlots.flatMap(([slot]) =>
+                      slot.form !== null && slot.form !== undefined
+                        ? slot.form.fields.map((f) => f.name)
+                        : [],
+                    ),
+                  ),
+                },
               );
               continue;
             }
@@ -2882,6 +3381,8 @@ class _Parser {
               _Parser._bodyLine(frame, k),
             );
           }
+          // What the table rejected is kept where the table stood.
+          for (const b of this._takePending()) keeper.keep(contentLines, b);
           i = table.end - 1;
           continue;
         }
@@ -2892,13 +3393,17 @@ class _Parser {
             flush();
             this._currentFormIdx = hit[0];
             currentField = hit[1].name;
-            currentCode = hit[1].code === true;
+            currentCode = hit[1].code;
             currentFormPath = `${frame.path}/${formSlots[hit[0]][1]}`;
             discard = this._givenTwice(
               currentFormPath,
               currentField,
               _Parser._bodyLine(frame, i),
             );
+            if (discard) {
+              discarded = this._pending.pop() ?? null;
+              discardStart = i;
+            }
             currentLines = [m[2]];
             fence.feed(line);
             continue;
@@ -2919,7 +3424,9 @@ class _Parser {
       }
       fence.feed(line);
     }
+    at = frame.body.length;
     flush();
+    keeper.drain(at, contentLines);
     for (const [targetPath, parts] of textParts) {
       const value = parts
         .map((part) => _Parser._restoreValue(part))
@@ -2928,6 +3435,8 @@ class _Parser {
       if (value) {
         this.content[targetPath] = value;
       }
+      const kept = keeper.keptValue(parts);
+      if (kept !== null && kept !== '') this.keptContent[targetPath] = kept;
     }
   }
 
@@ -2940,7 +3449,9 @@ class _Parser {
   _finalizeForm(frame, node, path) {
     const form = node.form;
     const declared = form !== null && form !== undefined ? form.fields : [];
-    const fieldsByLower = new Map(declared.map((f) => [f.name.toLowerCase(), f]));
+    const fieldsByLower = new Map(
+      declared.map((f) => [f.name.toLowerCase(), f]),
+    );
     const fence = new MarkdownFenceTracker();
     let currentField = null;
     let discard = false;
@@ -2948,15 +3459,26 @@ class _Parser {
     // The preamble's parts: the text before the first field, and text a table
     // interrupts; joined by one blank line.
     const preambleParts = [[]];
+    const last = () => preambleParts[preambleParts.length - 1];
+    // Rejected blocks go to the preamble at their place (RN-11).
+    const keeper = new _Keeper(frame);
+    let discarded = null;
+    let discardStart = 0;
+    let at = 0;
 
     const flush = () => {
       const f = currentField;
       if (f !== null && !discard) {
         const restored = _Parser._restoreValue(currentLines);
-        const value = f.code === true ? _Parser._decodeCodeSpan(restored) : restored;
+        const value = f.code ? _decodeCodeSpan(restored) : restored;
         if (value) {
           this._setField(path, f.name, value);
         }
+      }
+      if (discard && discarded !== null) {
+        discarded.lines = frame.body.slice(discardStart, at);
+        keeper.keep(last(), discarded);
+        discarded = null;
       }
       currentLines = [];
       discard = false;
@@ -2964,6 +3486,8 @@ class _Parser {
 
     for (let i = 0; i < frame.body.length; i++) {
       const line = frame.body[i];
+      at = i;
+      keeper.drain(i, last());
       if (!fence.inFence) {
         const header = SpecDocumentMarkdown.layoutTableHeader.exec(line);
         if (header !== null && header[1] === undefined) {
@@ -2979,15 +3503,21 @@ class _Parser {
           for (const [k, cells] of table.rows) {
             this._stageRow(path, declared, cells[0], cells[1], _Parser._bodyLine(frame, k));
           }
+          for (const b of this._takePending()) keeper.keep(last(), b);
           i = table.end - 1;
           continue;
         }
         const m = _FIELD_LABEL.exec(line);
-        const field = m !== null ? fieldsByLower.get(m[1].toLowerCase()) : undefined;
+        const field =
+          m !== null ? fieldsByLower.get(m[1].toLowerCase()) : undefined;
         if (field !== undefined && m !== null) {
           flush();
           currentField = field;
           discard = this._givenTwice(path, field.name, _Parser._bodyLine(frame, i));
+          if (discard) {
+            discarded = this._pending.pop() ?? null;
+            discardStart = i;
+          }
           currentLines = [m[2]];
           fence.feed(line);
           continue;
@@ -3003,7 +3533,9 @@ class _Parser {
       }
       fence.feed(line);
     }
+    at = frame.body.length;
     flush();
+    keeper.drain(at, last());
     const value = preambleParts
       .map((part) => _Parser._restoreValue(part))
       .filter((v) => v !== '')
@@ -3011,28 +3543,8 @@ class _Parser {
     if (value) {
       this.content[path] = value;
     }
-  }
-
-  /**
-   * The inverse of the emitter's code span (SOM §11.4 rule 8): a single-line
-   * `value` delimited by equal backtick runs loses them, and one padding space
-   * on each side when both are present. Anything else — a value written by
-   * hand without a span — is kept as written.
-   */
-  static _decodeCodeSpan(value) {
-    if (value.includes('\n')) return value;
-    const m = /^(`+)([\s\S]*[^`])(`+)$/.exec(value);
-    if (m === null || m[1].length !== m[3].length) return value;
-    const inner = m[2];
-    if (
-      inner.length >= 2 &&
-      inner.startsWith(' ') &&
-      inner.endsWith(' ') &&
-      inner.trim().length > 0
-    ) {
-      return inner.substring(1, inner.length - 1);
-    }
-    return inner;
+    const kept = keeper.keptValue(preambleParts);
+    if (kept !== null && kept !== '') this.keptContent[path] = kept;
   }
 
   /**
@@ -3044,7 +3556,10 @@ class _Parser {
     const fence = new MarkdownFenceTracker();
     const out = [];
     for (const line of body) {
-      if (!fence.inFence && _ESCAPED_HEADING.test(line)) {
+      if (
+        !fence.inFence &&
+        _ESCAPED_HEADING.test(line)
+      ) {
         out.push(line.slice(1));
       } else if (!fence.inFence && _ESCAPED_TABLE_HEADER.test(line)) {
         out.push(line.slice(1)); // DI-2: the emitter's one escape space.
@@ -3071,6 +3586,11 @@ class _Parser {
     return out;
   }
 }
+
+/**
+ * A Markdown rendition of a document and the document path behind each of its
+ * headings ({@link SpecDocumentMarkdown.exportRootWithMap}).
+ */
 
 /**
  * A Markdown rendition of a document and the document path behind each of its

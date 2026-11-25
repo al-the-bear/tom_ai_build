@@ -211,9 +211,11 @@ class SpecDocument {
    * are.
    *
    * A result with rejections is refused with an {@link Error} — and the
-   * document left unchanged — unless `allowRejections` is true: the blocks it
-   * rejected would otherwise vanish from a document the caller believes it
-   * imported whole.
+   * document left unchanged — unless `allowRejections` is true. With it, each
+   * rejected block is kept rather than dropped: the result's `keptContent` is
+   * written over the parsed content, so the block stands as a `rejected` div
+   * in the text of the section it stood in (else its parent), at its place
+   * (SOM §11.7, DocSpecs RN-11), and nothing written is lost.
    *
    * Store-agnostic on both halves: the purge goes through
    * {@link removeValuesUnder}, which clears every store, and the carry-over is
@@ -254,8 +256,23 @@ class SpecDocument {
       lists[key] = entry;
     }
 
+    const content = { ...store('content'), ...result.content };
+    if (allowRejections) {
+      // Each rejected block is kept rather than dropped: the kept content is
+      // written over the parsed content, so the block stands as a `rejected`
+      // div in the text of the section it stood in (else its parent), at its
+      // place (SOM §11.7, DocSpecs RN-11). An empty value removes the path's
+      // text.
+      for (const [path, value] of Object.entries(result.keptContent || {})) {
+        if (value === '') {
+          delete content[path];
+        } else {
+          content[path] = value;
+        }
+      }
+    }
     this.loadJson({
-      content: { ...store('content'), ...result.content },
+      content,
       forms: { ...store('forms'), ...result.forms },
       lists,
       headlines: { ...store('headlines'), ...result.headlines },

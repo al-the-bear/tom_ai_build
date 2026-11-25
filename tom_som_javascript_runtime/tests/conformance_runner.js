@@ -476,7 +476,7 @@ function testMarkdownMemoryLanding(model) {
 // One `markdown_apply_cases.json` case, run like Dart's `_runMarkdownApplyCase`:
 // `fromMarkdown` loads into a fresh document; `apply` parses against `base` and
 // applies as a full overwrite, `refused` when the apply throws.
-function _runMarkdownApplyCase(model, c) {
+function _runMarkdownApplyCase(model, c, schema = null) {
   if (c.op === 'fromMarkdown') {
     const imported = SpecDocument.fromMarkdown(c.markdown, model);
     return {
@@ -489,25 +489,36 @@ function _runMarkdownApplyCase(model, c) {
   const parsed = new SpecDocumentMarkdown(model, document).parse(c.markdown);
   let refused = false;
   try {
-    document.applyMarkdownResult(parsed, c.allowRejections);
+    document.applyMarkdownResult(parsed, c.allowRejections === true);
   } catch (_) {
     refused = true;
   }
-  return {
+  const got = {
     refused,
     rejectionCount: parsed.rejections.length,
     document: document.toJson(),
   };
+  // 04a_rdv4: the validator reports every kept block as `rejectedBlock`
+  // (DocSpecs RN-11), with the document path it stands in.
+  if (c.readingView === true) {
+    got.rejectedBlocks = validateSpecDocument(
+      model,
+      document,
+      DocSpecsSchema.fromYamlText(schema),
+      'Demo',
+    )
+      .filter((v) => v.rule === DocSpecsViolationRule.REJECTED_BLOCK)
+      .map((v) => ({ line: v.line, path: v.path }));
+  }
+  return got;
 }
 
 // SOM §11.7 apply: `fromMarkdown` and `applyMarkdownResult` — full overwrite
 // of the covered roots, other roots kept, rejections refused unless allowed.
 function testMarkdownApply(model) {
-  for (const c of _readJson('markdown_apply_cases.json').cases) {
-    // The reading view's table forms (`readingView`) are read by the Dart and
-    // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
-    if (c.readingView) continue;
-    const got = _runMarkdownApplyCase(model, c);
+  const table = _readJson('markdown_apply_cases.json');
+  for (const c of table.cases) {
+    const got = _runMarkdownApplyCase(model, c, table.schema ?? null);
     _check(`mdApply[${c.name}]`, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
   }
 }
