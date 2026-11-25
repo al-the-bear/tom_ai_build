@@ -1103,11 +1103,6 @@ fn test_validation(c: &mut Checker, model: &SpecModel) {
 /// produces; matching them is what proves this port implements each rule at
 /// all, rather than merely declaring its name. `str_or` yields `""` for the
 /// corpus's JSON null, which is exactly this port's absent-section-id value.
-/// The `readingView` cases of `docspecs_cases.json` the reading notation's
-/// scanner port (`spec_notation.rs`) makes run: the rest wait for the reading
-/// view's validator port.
-const READING_NOTATION_DOCSPECS_CASES: [&str; 1] = ["readingView: rejected block"];
-
 fn test_docspecs(c: &mut Checker) {
     let schema = DocSpecsSchema::from_yaml_text(&read_corpus("docspecs_schema.yaml"))
         .expect("docspecs schema");
@@ -1126,14 +1121,6 @@ fn test_docspecs(c: &mut Checker) {
     let cases = read_json("docspecs_cases.json");
     let mut covered: Vec<String> = Vec::new();
     for cc in cases.as_array().unwrap() {
-        // The reading view's table forms (`readingView`) are read by the Dart and
-        // TypeScript runtimes only until their ports (runtime_parity.md § Reading view);
-        // the reading notation's case (a rejected block, RN-11) runs since its scanner port.
-        if cc.get("readingView").and_then(|v| v.as_bool()) == Some(true)
-            && !READING_NOTATION_DOCSPECS_CASES.contains(&cc.str_or("name").as_str())
-        {
-            continue;
-        }
         let name = cc.str_or("name");
         let got: Vec<(String, String, i64)> = validator
             .validate_markdown(&cc.str_or("markdown"))

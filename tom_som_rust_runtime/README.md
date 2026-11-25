@@ -96,7 +96,7 @@ path routes, version pinning, and `cargo package` from source.
 | `spec_notation.rs` | The reading notation's scanner (DocSpecs Reading Notation): `scan_notation` returns a value's divs, spans and citations (`NotationElement`, UTF-16 ranges) and the notation's findings (`NotationFinding`, `NotationFindingCode`, `notation_severity`), which the DocSpecs validator reports as rules. |
 | `spec_section_id.rs` | List-item section ids (AA1): `generate_list_item_section_id`, `encode_two_letter_date`, `effective_list_item_section_id`, `K_SECTION_ID_SLOT`. |
 | `spec_serialization_order.rs` | `SpecSerializationOrder` — the model's member order, which every codec writes in. |
-| `docspecs_validator.rs` | DocSpecs Markdown documents: the schema-free parse (`parse_docspecs_document`, `DocSpecsDocument`) and the schema check (`DocSpecsValidator`), with the nine reading-notation rules (`DocSpecsValidator::with_tom_specs(schema, true)`: scanned per form-field value, unknown kinds and classless divs reported). |
+| `docspecs_validator.rs` | DocSpecs Markdown documents: the schema-free parse (`parse_docspecs_document`, `DocSpecsDocument`) and the schema check (`DocSpecsValidator`), with the nine reading-notation rules (`DocSpecsValidator::with_tom_specs(schema, true)`: scanned per form-field value, unknown kinds and classless divs reported); it reads the reading view's form tables, list bodies (`refs`, `records`), section tables and styled-div headings. |
 | `spec_schema_validation.rs` | `validate_spec_document` — the DocSpecs schema tier over a document's Markdown rendition. |
 
 ## Quick start

@@ -586,7 +586,7 @@ fn md_layout_header_rest(b: &[u8], mut p: usize) -> Option<bool> {
 /// `| TomSpecField | Value |` or `| Section | TomSpecField | Value |` at
 /// column 0, any case. The header alone makes a table layout. Returns whether
 /// it is a section table's, `None` for any other line.
-fn md_layout_table_header(line: &str) -> Option<bool> {
+pub(crate) fn md_layout_table_header(line: &str) -> Option<bool> {
     let b = line.as_bytes();
     if b.first() != Some(&b'|') {
         return None;
@@ -606,7 +606,7 @@ fn md_header_shaped(line: &str, min_spaces: usize) -> bool {
 }
 
 /// `^ {0,3}\|`: a line that starts a table row.
-fn md_table_line(line: &str) -> bool {
+pub(crate) fn md_table_line(line: &str) -> bool {
     let b = line.as_bytes();
     let mut i = 0;
     while i < 3 && i < b.len() && b[i] == b' ' {
@@ -616,7 +616,7 @@ fn md_table_line(line: &str) -> bool {
 }
 
 /// `^:?-+:?$`: a cell of a table's delimiter row.
-fn md_delimiter_cell(cell: &str) -> bool {
+pub(crate) fn md_delimiter_cell(cell: &str) -> bool {
     let inner = cell.strip_prefix(':').unwrap_or(cell);
     let inner = inner.strip_suffix(':').unwrap_or(inner);
     !inner.is_empty() && inner.bytes().all(|c| c == b'-')
@@ -637,7 +637,7 @@ fn md_link_at(s: &str, p: usize) -> Option<(&str, usize)> {
 
 /// `^\[[^\]]+\]\([^)]*\)(, \[[^\]]+\]\([^)]*\))*$`: a cell of links only;
 /// returns their texts.
-fn md_link_cell(s: &str) -> Option<Vec<String>> {
+pub(crate) fn md_link_cell(s: &str) -> Option<Vec<String>> {
     let mut p = 0;
     let mut out = Vec::new();
     loop {
@@ -654,13 +654,13 @@ fn md_link_cell(s: &str) -> Option<Vec<String>> {
 }
 
 /// The text of the first `\[([^\]]+)\]\([^)]*\)` anywhere in `s`.
-fn md_find_link_text(s: &str) -> Option<&str> {
+pub(crate) fn md_find_link_text(s: &str) -> Option<&str> {
     s.match_indices('[').find_map(|(p, _)| md_link_at(s, p).map(|(t, _)| t))
 }
 
 /// `^:{3,}\s*(?:\{\.(refs|records)\}|(refs|records))\s*$`: the opening fence
 /// of a list body's div; returns its kind.
-fn md_list_div_open(line: &str) -> Option<&'static str> {
+pub(crate) fn md_list_div_open(line: &str) -> Option<&'static str> {
     let b = line.as_bytes();
     let mut p = 0;
     while p < b.len() && b[p] == b':' {
@@ -699,7 +699,7 @@ fn md_list_div_open(line: &str) -> Option<&'static str> {
 }
 
 /// `^:{3,}\s*$`: a closing fence.
-fn md_div_close_line(line: &str) -> bool {
+pub(crate) fn md_div_close_line(line: &str) -> bool {
     let b = line.as_bytes();
     let mut p = 0;
     while p < b.len() && b[p] == b':' {
@@ -714,7 +714,7 @@ fn md_div_close_line(line: &str) -> bool {
 
 /// The cells of a table row: split on every `|` not preceded by a backslash,
 /// the outer pipes dropped, each cell trimmed; `\|` stays in the cell.
-fn md_row_cells(line: &str) -> Vec<String> {
+pub(crate) fn md_row_cells(line: &str) -> Vec<String> {
     let mut t = line.trim();
     if let Some(r) = t.strip_prefix('|') {
         t = r;

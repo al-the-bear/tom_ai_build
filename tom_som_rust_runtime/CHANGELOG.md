@@ -2,6 +2,23 @@
 
 ## Unreleased
 
+- **The DocSpecs validator reads the reading view** (DocSpecs specification,
+  List Bodies): form tables give a section's fields (a field missing from table
+  and paragraphs is `missingRequiredField`, a pattern mismatch points at its
+  row, a field given twice keeps the first), `refs` lines and `records` tables
+  become a list's virtual items (counted towards `min-count`, the container
+  passes `max-text-length 0`; a record table reads the item type's own form
+  only), section tables give children's fields at their rows (`unknownSection`
+  for a row naming no child), styled-div headings `<div class="heading7">`
+  count at their level and a `heading6` div is content; a heading's own anchor
+  is stripped from its title (`DocSpecsDocument::strip_own_anchor`). Two new
+  rules: `DOCSPECS_RULE_MALFORMED_BLOCK` (`malformedBlock`) and
+  `DOCSPECS_RULE_UNKNOWN_FIELD` (`unknownField`), in `DOCSPECS_ALL_RULES`. A
+  leading `linked` marker and `derived` block of a body are not read as text,
+  and an empty body passes the text-length bounds (only `text-required` asks
+  for text). The Markdown codec's layout-line helpers are shared with the
+  validator. The conformance runner runs all 25 `readingView` cases of
+  `docspecs_cases.json`.
 - **The Markdown parser reads the reading view's table layout** (SOM §11.4,
   §11.5): form tables `| TomSpecField | Value |` (a code span holding `\|`,
   reference links read as their link texts, the prose before and after a

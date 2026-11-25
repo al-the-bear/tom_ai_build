@@ -89,7 +89,7 @@ exceptions:
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
       rules (03a_rdv1) are in the Dart, TypeScript, C, C++, JavaScript, Java, Python
-      and Rust runtimes only; their ports are the todos `tspubnondart51`, `65` and `66`, one
+      and Rust runtimes only; their ports are the todos `tspubnondart51` and `65`, one
       per runtime (`runtime_parity.md` § Reading view). `notation_cases.json`
       is the corpus they will run.
 
@@ -139,10 +139,10 @@ exceptions:
       KNOWN GAP. The Markdown parser's table layout and its two rejection
       reasons (04a_rdv1, SOM §11.4, §11.5, §11.7), and the DocSpecs
       validator's (04a_rdv2), are in the Dart, TypeScript, C, JavaScript, C++,
-      Java and Python runtimes, and the parser's in Rust; their corpus cases
-      carry `"readingView": true`, which the others skip until their ports are
-      the todos `tspubnondart58`, `65` and `66`, one per runtime
-      (`runtime_parity.md` § Reading view).
+      Java, Python and Rust runtimes; their corpus cases carry
+      `"readingView": true`, which the others skip until their ports are the
+      todos `tspubnondart58` and `65`, one per runtime (`runtime_parity.md`
+      § Reading view).
 
   - token: unknownField
     planes: [go]
@@ -150,10 +150,10 @@ exceptions:
       KNOWN GAP. The Markdown parser's table layout and its two rejection
       reasons (04a_rdv1, SOM §11.4, §11.5, §11.7), and the DocSpecs
       validator's (04a_rdv2), are in the Dart, TypeScript, C, JavaScript, C++,
-      Java and Python runtimes, and the parser's in Rust; their corpus cases
-      carry `"readingView": true`, which the others skip until their ports are
-      the todos `tspubnondart58`, `65` and `66`, one per runtime
-      (`runtime_parity.md` § Reading view).
+      Java, Python and Rust runtimes; their corpus cases carry
+      `"readingView": true`, which the others skip until their ports are the
+      todos `tspubnondart58` and `65`, one per runtime (`runtime_parity.md`
+      § Reading view).
 
   - token: appendixReferences
     planes: [go, rust]

@@ -16,7 +16,7 @@ use tom_som_rust_runtime::spec_document_yaml::decode_yaml;
 use tom_som_rust_runtime::spec_meta_bridge::build_som_meta_tree;
 use tom_som_rust_runtime::spec_model::SpecModel;
 use tom_som_rust_runtime::{
-    bind_docspecs_markdown, parse_docspecs_document, DocSpecsSchema, DocSpecsSection,
+    bind_docspecs_markdown, parse_docspecs_document, DocSpecsDocument, DocSpecsSchema, DocSpecsSection,
     DocSpecsValidator, DocSpecsViolation, DOCSPECS_RULE_DUPLICATE_ID_PATH,
     DOCSPECS_RULE_FIELD_PATTERN_MISMATCH, DOCSPECS_RULE_FORMAT_MISMATCH,
     DOCSPECS_RULE_ID_PATTERN_MISMATCH, DOCSPECS_RULE_MALFORMED_HEADING,
@@ -705,6 +705,132 @@ fn test_docspecs_same_id_under_two_parents(c: &mut Checker) {
     c.check("idPath.twoParentsValid", v.is_empty(), &dv_detail(&v));
 }
 
+// --- The reading view: form tables, list bodies, styled-div headings ---------
+
+const DV_FORM_TABLE: &str =
+    "| TomSpecField | Value |\n| --- | --- |\n| Author | Alice |\n| Reviewer | Bob |";
+
+/// Each violation as `rule|sectionId|line`, in emission order.
+fn dv_rule_lines(v: &[DocSpecsViolation]) -> Vec<String> {
+    v.iter()
+        .map(|x| format!("{}|{}|{}", x.rule, x.section_id, x.line))
+        .collect()
+}
+
+fn test_docspecs_reading_view_form_table(c: &mut Checker) {
+    let md = DV_VALID_DOC.replacen("Author: Alice\nReviewer: Bob", DV_FORM_TABLE, 1);
+    let v = dv_validate(&md);
+    c.check("readingView.formTable.valid", v.is_empty(), &dv_detail(&v));
+
+    let v = dv_validate(&md.replacen("| Reviewer | Bob |", "| Reviewer | bob |", 1));
+    c.check(
+        "readingView.formTable.patternAtRow",
+        dv_rule_lines(&v) == ["fieldPatternMismatch|D00-HDR|15"],
+        &dv_detail(&v),
+    );
+
+    let v = dv_validate(&md.replacen("| Author | Alice |\n", "", 1));
+    c.check(
+        "readingView.formTable.missingRequired",
+        dv_rule_lines(&v) == ["missingRequiredField|D00-HDR|10"],
+        &dv_detail(&v),
+    );
+
+    let v = dv_validate(&md.replacen(
+        "| Reviewer | Bob |",
+        "| Editor | Bob |\n| Author | Carol |",
+        1,
+    ));
+    c.check(
+        "readingView.formTable.unknownFieldAndTwice",
+        dv_rule_lines(&v) == ["unknownField|D00-HDR|15", "malformedBlock|D00-HDR|16"],
+        &dv_detail(&v),
+    );
+
+    let v = dv_validate(&md.replacen("| --- | --- |\n", "", 1));
+    c.check(
+        "readingView.formTable.noDelimiterRow",
+        dv_rule_lines(&v) == ["malformedBlock|D00-HDR|12", "missingRequiredField|D00-HDR|10"],
+        &dv_detail(&v),
+    );
+}
+
+fn test_docspecs_reading_view_refs_list_body(c: &mut Checker) {
+    let items = "### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n\
+                 ### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n";
+    // A list container has one subsection type; the items of a refs line are
+    // virtual sections with positional ids, at the div's line.
+    let lists = DocSpecsValidator::new(
+        DocSpecsSchema::from_yaml_text(&DV_SCHEMA_YAML.replacen(
+            "      gsum:\n        max-count: 1\nform-types:",
+            "form-types:",
+            1,
+        ))
+        .expect("from_yaml_text"),
+    );
+    let md = DV_VALID_DOC.replacen(items, "::: {.refs}\nG-1, G-2\n:::\n", 1);
+    let v = lists.validate_markdown(&md);
+    c.check(
+        "readingView.refs.virtualItems",
+        dv_rule_lines(&v) == ["idPatternMismatch|GOALS-1|17", "idPatternMismatch|GOALS-2|17"],
+        &dv_detail(&v),
+    );
+
+    let v = dv_validate(&md);
+    c.check(
+        "readingView.refs.notAListContainer",
+        dv_rule_lines(&v) == ["malformedBlock|GOALS|17", "missingRequiredSection|GOALS|15"],
+        &dv_detail(&v),
+    );
+
+    let v = lists.validate_markdown(&DV_VALID_DOC.replacen(items, "::: {.refs}\nG-1, G-2\n", 1));
+    c.check(
+        "readingView.refs.unclosed",
+        dv_rule_lines(&v)
+            == [
+                "malformedBlock|GOALS|17",
+                "missingRequiredSection|GOALS|15",
+                "unclosedDiv|GOALS|17",
+            ],
+        &dv_detail(&v),
+    );
+}
+
+fn test_docspecs_reading_view_styled_div_headings(c: &mut Checker) {
+    let doc = parse_docspecs_document(
+        "# <!--[D00]--> Root\n\n\
+         <div class=\"heading7\"><!--[A-1]--> <a id=\"X/A-1\"></a>A &amp; B</div>\n\n\
+         text\n\n\
+         <div class=\"heading6\"><!--[A-2]--> No heading</div>\n",
+    );
+    let root = &doc.sections[0];
+    c.check(
+        "readingView.styledDiv.children",
+        dv_child_ids(root) == ["A-1"],
+        &format!("{:?}", dv_child_ids(root)),
+    );
+    let Some(a) = root.children.first() else {
+        return;
+    };
+    c.check("readingView.styledDiv.level", a.level == 7, &a.level.to_string());
+    c.check("readingView.styledDiv.title", a.title == "A & B", &a.title);
+    c.check(
+        "readingView.styledDiv.heading6IsContent",
+        a.text().ends_with("<div class=\"heading6\"><!--[A-2]--> No heading</div>"),
+        &a.text(),
+    );
+    c.check(
+        "readingView.stripOwnAnchor.other",
+        DocSpecsDocument::strip_own_anchor("<a id=\"B\"></a>T", "A") == "<a id=\"B\"></a>T",
+        "",
+    );
+    c.check(
+        "readingView.stripOwnAnchor.own",
+        DocSpecsDocument::strip_own_anchor("<a id=\"L-1/A\"></a> T", "A") == "T",
+        "",
+    );
+}
+
 // --- bind_docspecs_markdown ----------------------------------------------------
 
 fn test_docspecs_bind_docspecs_markdown(c: &mut Checker) {
@@ -817,6 +943,9 @@ fn docspecs_validator() {
     test_docspecs_position_refused(&mut c);
     test_docspecs_duplicate_id_path(&mut c);
     test_docspecs_same_id_under_two_parents(&mut c);
+    test_docspecs_reading_view_form_table(&mut c);
+    test_docspecs_reading_view_refs_list_body(&mut c);
+    test_docspecs_reading_view_styled_div_headings(&mut c);
     test_docspecs_bind_docspecs_markdown(&mut c);
     test_docspecs_dr7_acceptance(&mut c);
     c.finish();
