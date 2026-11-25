@@ -396,6 +396,20 @@ impl SpecDocument {
         SpecDocumentMarkdown::new(model, self).export_root_with_map(root)
     }
 
+    /// The root [`to_markdown`](Self::to_markdown) exports: `root_type`'s
+    /// when given, else the single populated root. The errors are
+    /// `to_markdown`'s.
+    pub fn root_to_export<'m>(
+        &self,
+        model: &'m SpecModel,
+        root_type: Option<&str>,
+    ) -> Result<&'m SpecRoot, String> {
+        match root_type {
+            Some(ty) => model.root_by_type(ty),
+            None => self.single_populated_root(model),
+        }
+    }
+
     /// Loads a SOM-rendered Markdown document (SOM §11.7) into a fresh document
     /// in one call: parse, then [`apply_markdown_result`](Self::apply_markdown_result)
     /// with rejections allowed.

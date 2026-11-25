@@ -61,6 +61,7 @@ use std::cell::RefCell;
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::rc::Rc;
 
+use crate::docspecs_validator::DocSpecsDocument;
 use crate::spec_document::{DocumentJson, ListJson, SpecDocument};
 use crate::spec_meta::{
     SomFormFieldMeta, SomMetaNode, SomMetaTree, SOM_META_KIND_COMPLEX, SOM_META_KIND_CONTENT,
@@ -169,6 +170,9 @@ pub struct SpecMarkdownResult {
     /// nothing written is lost; an empty value removes the path's text. Empty
     /// for a clean parse.
     pub kept_content: BTreeMap<String, String>,
+    /// The readable header line of a stripped rendition (SOM §11.1), when the
+    /// text carried one before its root heading; the parse skipped it.
+    pub readable_header: Option<String>,
 }
 
 impl SpecMarkdownResult {
@@ -454,6 +458,85 @@ pub(crate) fn md_docspec_comment(line: &str) -> bool {
     match r.strip_prefix("docspec:") {
         Some(r) => r.ends_with("-->"),
         None => false,
+    }
+}
+
+/// The line a stripped rendition's appendix begins with (SOM §11.1): after a
+/// readable header, the parsers stop reading at it.
+pub const SPEC_MARKDOWN_APPENDIX_MARKER: &str = "<!-- readable-appendix -->";
+
+/// The fixed start of a styled-div heading's style, up to its indent.
+const MD_HEADING_DIV_STYLE_START: &str = "margin:1em 0 0.5em;padding-left:";
+
+/// Whether `line` (trailing whitespace trimmed) is the readable header of a
+/// stripped rendition (SOM §11.1): `^<!--\s*readable:.*-->$`.
+pub fn markdown_is_readable_comment(line: &str) -> bool {
+    let r = match line.strip_prefix("<!--") {
+        Some(r) => r,
+        None => return false,
+    };
+    let r = r.trim_start_matches(is_go_space);
+    match r.strip_prefix("readable:") {
+        Some(r) => r.ends_with("-->"),
+        None => false,
+    }
+}
+
+/// `line` read as a styled-div heading (DocSpecs *Styled-div headings*,
+/// SOM §11.2): `<div class="heading<N>" …>…</div>` with N ≥ 7 — its level
+/// and inner text with `&lt;`, `&gt;` and `&amp;` decoded. `None` for
+/// anything else, a `heading<N>` div below level 7 included (content).
+pub fn markdown_heading_div(line: &str) -> Option<(usize, String)> {
+    let r = line.strip_prefix("<div class=\"heading")?;
+    let digits = r.bytes().take_while(|b| b.is_ascii_digit()).count();
+    if digits == 0 {
+        return None;
+    }
+    let level = r[..digits].parse::<usize>().unwrap_or(usize::MAX);
+    let r = r[digits..].strip_prefix('"')?;
+    let gt = r.find('>')?;
+    let inner = r[gt + 1..].strip_suffix("</div>")?;
+    if level < 7 {
+        return None;
+    }
+    Some((
+        level,
+        inner
+            .replace("&lt;", "<")
+            .replace("&gt;", ">")
+            .replace("&amp;", "&"),
+    ))
+}
+
+/// Whether `line` would read as a styled-div heading after any run of
+/// backslashes (SOM §11.3): such a value line is written escaped, `\<div …`,
+/// as a `#` line is.
+pub fn markdown_escapable_div(line: &str) -> bool {
+    markdown_heading_div(md_trim_trailing_ws(line.trim_start_matches('\\'))).is_some()
+}
+
+/// A styled-div heading's indent at `depth`: `(depth − 6) × 0.75`, written
+/// without a trailing `.0` (`0.75`, `1.5`, `3`).
+pub fn markdown_heading_div_indent(depth: usize) -> String {
+    let quarter = depth.saturating_sub(6) * 3;
+    let frac = ["", ".25", ".5", ".75"][quarter % 4];
+    format!("{}{}", quarter / 4, frac)
+}
+
+/// The title of a heading line (`#` or styled div) as a reader sees it: the
+/// headline comment's title without the section's own anchor.
+pub fn markdown_heading_title(line: &str) -> String {
+    let rest = match md_heading_line(line) {
+        Some((_, rest)) => rest.to_string(),
+        None => match markdown_heading_div(line) {
+            Some((_, inner)) => inner,
+            None => line.to_string(),
+        },
+    };
+    let trimmed = rest.trim();
+    match md_headline_comment(trimmed) {
+        Some((id, _, title)) => DocSpecsDocument::strip_own_anchor(title.trim(), id).to_string(),
+        None => DocSpecsDocument::strip_own_anchor(trimmed, "").to_string(),
     }
 }
 
@@ -958,6 +1041,22 @@ pub struct SpecDocumentMarkdown<'a> {
     sorted_keys: RefCell<HashMap<&'static str, Rc<Vec<String>>>>,
     // The class names each root reaches, for reference links.
     reach: RefCell<HashMap<String, Rc<HashSet<String>>>>,
+    // The options of an export beyond the document (styled-div headings, the
+    // readable header); the parser reads both heading forms whatever they say.
+    export_options: RefCell<SpecMarkdownExportOptions>,
+}
+
+/// The options of an export beyond the document: the reading view's
+/// styled-div headings below level six and a stripped rendition's readable
+/// header (SOM §11.1, §11.2, §11.10).
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
+pub struct SpecMarkdownExportOptions {
+    /// Every section deeper than level 6 as a styled-div heading,
+    /// `<div class="heading<N>" style="…">…</div>`.
+    pub heading_divs: bool,
+    /// The readable header line, written after the `docspec` line; `None` for
+    /// none.
+    pub readable_header: Option<String>,
 }
 
 impl<'a> SpecDocumentMarkdown<'a> {
@@ -973,7 +1072,28 @@ impl<'a> SpecDocumentMarkdown<'a> {
             anchors: RefCell::new(HashMap::new()),
             sorted_keys: RefCell::new(HashMap::new()),
             reach: RefCell::new(HashMap::new()),
+            export_options: RefCell::new(SpecMarkdownExportOptions::default()),
         }
+    }
+
+    /// The codec with `options` for every export it makes (styled-div
+    /// headings, the readable header of a stripped rendition).
+    pub fn with_export_options(self, options: SpecMarkdownExportOptions) -> SpecDocumentMarkdown<'a> {
+        *self.export_options.borrow_mut() = options;
+        self
+    }
+
+    /// [`export_root_with_map`](Self::export_root_with_map) with `options`
+    /// for this export alone. Errors are `export_root`'s.
+    pub fn export_root_with_options(
+        &self,
+        root: &SpecRoot,
+        options: &SpecMarkdownExportOptions,
+    ) -> Result<SpecMarkdownRendition, String> {
+        let before = self.export_options.replace(options.clone());
+        let result = self.export_root_with_map(root);
+        *self.export_options.borrow_mut() = before;
+        result
     }
 
     fn tree_for(&self, root_type: &str) -> Result<Rc<SomMetaTree>, String> {
@@ -1183,6 +1303,9 @@ impl<'a> SpecDocumentMarkdown<'a> {
             spec_markdown_kebab_case(&root.title),
             self.model.model_version_string()
         ));
+        if let Some(header) = &self.export_options.borrow().readable_header {
+            b.writeln(header); // SOM §11.1: a stripped rendition's readable header.
+        }
         let root_seg = node.segment().to_string();
         // YRD3: a stored headline overrides the derived title at every heading.
         // YRD4: the `@Headline` default wins over the `@Document` title.
@@ -1404,7 +1527,8 @@ impl<'a> SpecDocumentMarkdown<'a> {
     ) {
         self.heading_paths.borrow_mut().push(path.to_string());
         let anchor = self.anchor_for(path, id);
-        md_write_heading(b, depth, id, &anchor, title, code_spec, units);
+        let div = self.export_options.borrow().heading_divs && depth > 6;
+        md_write_heading(b, depth, id, &anchor, title, code_spec, units, div);
     }
 
     /// Resolves the heading title for a node at `path`: the document's STORED
@@ -2274,7 +2398,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
         for line in collapsed.split('\n') {
             if fence.in_fence() {
                 out.push(line.to_string()); // SOM §11.3: fences shield their lines.
-            } else if md_escapable(line) {
+            } else if md_escapable(line) || markdown_escapable_div(line) {
                 out.push(format!("\\{}", line));
             } else if md_header_shaped(line, 0) {
                 out.push(format!(" {}", line)); // DI-2: a value line is never a layout table.
@@ -2311,6 +2435,7 @@ it cannot be represented in the DocSpecs markdown format",
             rejections: p.rejections,
             root_prefixes: p.root_prefixes,
             kept_content: p.kept_content,
+            readable_header: p.readable_header,
         }
     }
 }
@@ -2319,7 +2444,9 @@ it cannot be represented in the DocSpecs markdown format",
 /// 1 + section depth, **uncapped**: deep models (the Solution Blueprint nests
 /// past markdown's native 6 levels) keep their structure; the parse grammar
 /// accepts `#{7,}` accordingly. Capping would silently flatten distinct
-/// nesting positions into siblings and break schema validation.
+/// nesting positions into siblings and break schema validation. With `div`
+/// (the reading view's heading divs) the heading is a styled-div line.
+#[allow(clippy::too_many_arguments)]
 fn md_write_heading(
     b: &mut MdBuffer,
     depth: usize,
@@ -2328,6 +2455,7 @@ fn md_write_heading(
     title: &str,
     code_spec: &str,
     units: &str,
+    div: bool,
 ) {
     // codespecs_mapping.md §9.2: when a codeSpec mapping is present it rides
     // inside the same headline comment as a `codeSpec="…"` key: `## <!--[ID]
@@ -2344,6 +2472,27 @@ fn md_write_heading(
     // Reading view (DI-3): the section id as an HTML anchor after the id
     // comment and its keys, so `#<ID>` links jump in every viewer; below a
     // list item or in a `@SameAs` copy the anchor is qualified (SOM §11.2).
+    if div {
+        // A styled-div heading (SOM §11.2, DocSpecs *Styled-div headings*):
+        // one line, the title HTML-escaped, the indent growing with the depth.
+        let escaped = title
+            .replace('&', "&amp;")
+            .replace('<', "&lt;")
+            .replace('>', "&gt;")
+            .replace('\n', "<br>");
+        b.writeln(&format!(
+            "<div class=\"heading{}\" style=\"{}{}em;font-weight:bold\"><!--[{}]{}--> <a id=\"{}\"></a> {}</div>",
+            depth,
+            MD_HEADING_DIV_STYLE_START,
+            markdown_heading_div_indent(depth),
+            id,
+            code,
+            anchor,
+            escaped
+        ));
+        b.writeln("");
+        return;
+    }
     b.writeln(&format!(
         "{} <!--[{}]{}--> <a id=\"{}\"></a> {}",
         "#".repeat(depth),
@@ -2362,12 +2511,26 @@ struct MdHeadingKeys {
     units: String,
 }
 
-/// Whether `line` is a heading as [`md_write_heading`] writes it — `^#+ <!--\[`.
-/// Body text never matches: heading-like body lines are escaped (SOM §11.3)
-/// and fenced ones skipped.
+/// Whether `line` is a heading as [`md_write_heading`] writes it — `^#+ <!--\[`,
+/// or a styled-div heading `<div class="heading[0-9]+"[^>]*><!--\[` (SOM
+/// §11.2). Body text never matches: heading-like body lines are escaped (SOM
+/// §11.3) and fenced ones skipped.
 fn md_emitted_heading(line: &str) -> bool {
     let rest = line.trim_start_matches('#');
-    rest.len() < line.len() && rest.starts_with(" <!--[")
+    if rest.len() < line.len() {
+        return rest.starts_with(" <!--[");
+    }
+    let Some(r) = line.strip_prefix("<div class=\"heading") else {
+        return false;
+    };
+    let digits = r.bytes().take_while(|b| b.is_ascii_digit()).count();
+    if digits == 0 {
+        return false;
+    }
+    let Some(r) = r[digits..].strip_prefix('"') else {
+        return false;
+    };
+    r.find('>').is_some_and(|gt| r[gt..].starts_with("><!--["))
 }
 
 /// A Markdown rendition of a document and the document path behind each of
@@ -2938,6 +3101,8 @@ struct MdParser<'c, 'a> {
     pending: Vec<MdKeptBlock>,
     /// Text before the root heading, kept at the start of the root's text.
     orphans: Vec<MdKeptBlock>,
+    /// The readable header a stripped rendition carries (SOM §11.1).
+    readable_header: Option<String>,
 }
 
 impl<'c, 'a> MdParser<'c, 'a> {
@@ -2960,6 +3125,7 @@ impl<'c, 'a> MdParser<'c, 'a> {
             source: Vec::new(),
             pending: Vec::new(),
             orphans: Vec::new(),
+            readable_header: None,
         }
     }
 
@@ -2974,9 +3140,25 @@ impl<'c, 'a> MdParser<'c, 'a> {
                 if self.stack.is_empty() && md_docspec_comment(trimmed) {
                     continue; // SOM §11.1 header — informational.
                 }
+                if self.stack.is_empty()
+                    && self.readable_header.is_none()
+                    && markdown_is_readable_comment(trimmed)
+                {
+                    // SOM §11.1 readable header — skipped.
+                    self.readable_header = Some(trimmed.to_string());
+                    continue;
+                }
+                if self.readable_header.is_some() && trimmed == SPEC_MARKDOWN_APPENDIX_MARKER {
+                    break; // A stripped rendition's appendix is not the document.
+                }
                 if let Some((level, rest)) = md_heading_line(trimmed) {
                     self.close_to(level);
                     self.open_heading(level, rest, line_no);
+                    continue;
+                }
+                if let Some((level, inner)) = markdown_heading_div(trimmed) {
+                    self.close_to(level);
+                    self.open_heading(level, &inner, line_no);
                     continue;
                 }
             }
@@ -4757,7 +4939,10 @@ fn md_restore_value(body: &[String]) -> String {
     let mut fence = MarkdownFenceTracker::new();
     let mut out: Vec<&str> = Vec::with_capacity(body.len());
     for line in body {
-        if !fence.in_fence() && md_escaped_heading(line) {
+        if !fence.in_fence()
+            && (md_escaped_heading(line)
+                || (line.starts_with('\\') && markdown_escapable_div(line)))
+        {
             out.push(&line[1..]);
         } else if !fence.in_fence() && md_header_shaped(line, 1) {
             out.push(&line[1..]); // DI-2: the emitter's escape space.

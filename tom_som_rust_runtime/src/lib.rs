@@ -23,6 +23,7 @@ pub mod spec_codespecs_records;
 pub mod spec_document;
 pub mod spec_document_assembly;
 pub mod spec_document_markdown;
+pub mod spec_document_strip;
 pub mod spec_document_yaml;
 pub mod spec_editor;
 pub mod spec_generation_units;
@@ -100,12 +101,22 @@ pub use spec_document_assembly::{
     assemble_spec_documents, SpecAssemblyOverlap, SpecDocumentAssembly,
 };
 pub use spec_document_markdown::{
+    markdown_escapable_div, markdown_heading_div, markdown_heading_div_indent,
+    markdown_heading_title, markdown_is_readable_comment, SpecMarkdownExportOptions,
+    SPEC_MARKDOWN_APPENDIX_MARKER,
     spec_markdown_form_label, spec_markdown_item_title_stem, spec_markdown_kebab_case,
     spec_markdown_title_case, MarkdownFenceTracker, SpecDocumentMarkdown, SpecMarkdownRejection,
     SpecMarkdownResult, SPEC_MARKDOWN_REJECT_KIND_MISMATCH, SPEC_MARKDOWN_REJECT_MALFORMED_HEADING,
     SpecMarkdownImport, SpecMarkdownRendition, SPEC_MARKDOWN_REJECT_MISSING_VALUE, SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT,
     SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK, SPEC_MARKDOWN_REJECT_UNKNOWN_FIELD,
     SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION,
+};
+pub use spec_document_strip::{
+    spec_strip_kind_names, spec_strip_notation_kinds, strip_notation_text, SpecAppendixEntry,
+    SpecDocumentStrip, SpecDocumentStripOptions, SpecReadableHeader, SpecReadableSource,
+    SpecStripFinding, SpecStripKept, SpecStripOptions, SpecStripPiece, SpecStripResult,
+    SpecStripTextResult, SpecStripUsageError, SpecStripValueRef, SpecStrippedValue,
+    SPEC_STRIP_KIND_NAMES, SPEC_STRIP_NOTATION_KINDS,
 };
 pub use spec_document_yaml::{
     format_yaml_float, review_scalar, write_header, write_scalar, yaml_key,
@@ -162,7 +173,8 @@ pub use spec_reflection::{
     SPEC_NODE_KIND_SCALAR, SPEC_NODE_KIND_SECTION,
 };
 pub use spec_review_annotations::{
-    apply_inline_marks_text, decide_all_marks_text, format_comment_block, format_conflict_block,
+    apply_inline_marks_text, count_annotations_text, decide_all_marks_text, format_comment_block,
+    format_conflict_block,
     format_question_block, is_review_member_id, is_review_time, mark_change_text,
     normalize_review_time, strip_annotations_text, system_review_time, validate_review_annotations,
     SpecConflictAlternative, SpecConflictOutcome, SpecIndividualAnswer, SpecMarkDecision,

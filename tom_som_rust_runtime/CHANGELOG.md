@@ -2,6 +2,62 @@
 
 ## Unreleased
 
+- **The strip of a document** (SOM §11.10, stripped renditions):
+  `SpecDocumentStrip::strip(&document, &options, &extra)` strips every
+  content value, form field and stored headline into a copy and returns a
+  `SpecStripResult`: the stripped document, the changed values
+  (`SpecStrippedValue`), the counts per kind, the appendix (each entry's
+  `value` a `SpecStripValueRef`), the readable header and, given a model in
+  `SpecDocumentStripOptions`, the readable rendition and its findings
+  (`SpecStripFinding`: `notation`, `instance`, `schema`, `parse`; `ok()`).
+  With a model the emptying rule applies: a value whose strip would add an
+  instance or schema finding is stripped with the keeping options instead
+  (`SpecStripKept`), or keeps its original; list items left with nothing go
+  (`removed_items`); the appendix is numbered in rendition order and written
+  after its marker as *Notes* under the section titles; the rendition must
+  read back as the stripped document and add no finding. `report()` lists
+  what went per kind. `SpecAppendixEntry::value` is now a typed
+  `SpecStripValueRef` (`{path, field?, headline?}` in JSON).
+- **The readable header and styled-div headings** (SOM §11.1, §11.2):
+  `SpecReadableHeader::format` / `parse` (with `SpecReadableSource`) write and
+  read `<!-- readable: … -->`; `SpecMarkdownExportOptions` (through
+  `SpecDocumentMarkdown::with_export_options` or
+  `export_root_with_options`) writes it after the `docspec` line and writes
+  sections deeper than level six as `<div class="heading<N>" …>` lines, a
+  value line shaped like one escaped. The parser reads the div headings
+  back, skips the readable header (`SpecMarkdownResult::readable_header`)
+  and stops at the appendix marker (`SPEC_MARKDOWN_APPENDIX_MARKER`) after
+  one; so does `parse_docspecs_document`. `SpecDocument::root_to_export`
+  names the root `to_markdown` exports. `SpecReviewAnnotations::stripped()`
+  is now the strip with `drop: [comments]`, so stored headlines lose their
+  annotations too. The conformance runner reads the `headerCases` and
+  `documentCases` of `strip_cases.json` and runs the last three
+  `readingView` import cases, so no `readingView` case is skipped any more
+  (5531 -> 5598 checks); `tests/spec_document_strip.rs` covers the div
+  writer, the readable header, the appendix, the checks and `stripped()`.
+- **The strip of one value** (SOM §11.10, stripped renditions): the new
+  module `spec_document_strip` with `strip_notation_text(value, &options)`,
+  which drops, unmarks or moves to the appendix the secondary prose of the
+  named kinds — the notation kinds `provenance`, `trace`, `editorial` and
+  `aside`, `linked` and `derived` (removed by drop and unmark alike) and
+  `comments` (the review annotations, stripped first) — then the whitespace
+  the removals leave, and returns a `SpecStripTextResult`: the text, the
+  counts per kind (`dropped`, `unmarked`, `appended`), `marks_dropped` (review
+  marks that went inside a dropped element), the appendix entries
+  (`SpecAppendixEntry`, numbered from 1, optionally linked from the text by
+  `appendix_references`) and the pieces it removed (`SpecStripPiece`: anchor
+  and origin in UTF-16 code units, removed and inserted text, labels). A
+  value whose notation has an error finding is refused unchanged.
+  `SpecStripOptions` holds the drop, unmark and appendix sets,
+  `appendix_references` and `heading_divs`; `from_names` reads the names a
+  user gives (comma-joined, `all`) and refuses a misuse with
+  `SpecStripUsageError`; `keeping`, `in_entry`, `ordered`, `to_json`,
+  `writes_no_linked_markers` and `writes_no_generated_parts` complete it.
+  `count_annotations_text` counts what `strip_annotations_text` removes. The
+  conformance runner reads the `cases` and `usageCases` of `strip_cases.json`,
+  each case's pieces putting the original back (5447 -> 5531 checks);
+  `tests/spec_document_strip.rs` covers supplementary characters, a refused
+  value and the options.
 - **Rejected blocks kept for review** (SOM §11.7, DocSpecs RN-11): the parse
   result carries `kept_content`, and an apply that accepts rejections
   (`apply_markdown_result(&result, true)`, which `SpecDocument::from_markdown`

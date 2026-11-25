@@ -38,6 +38,9 @@
 //!     writing changes as marks (change_mark_cases.json);
 //!   - extracting a review round's answers for a step folder and rendering
 //!     them as `answers.md` (answer_cases.json);
+//!   - stripped renditions (SOM §11.10): the strip of one value with each
+//!     case's options, its pieces restoring the original, and the options'
+//!     usage errors (strip_cases.json, `cases` and `usageCases`);
 //!   - the SOM §14 DocSpecs tier (one case per violation rule), and its
 //!     findings bound to document paths through the renderer's heading map
 //!     (docspecs_path_cases.json).
@@ -99,6 +102,9 @@ use tom_som_rust_runtime::{
     validate_spec_document, DocSpecsDocument, DocSpecsSchema, DocSpecsValidator, DOCSPECS_ALL_RULES,
     DOCSPECS_RULE_REJECTED_BLOCK,
     scan_notation, NotationFindingCode,
+    strip_annotations_text, strip_notation_text, SpecStripOptions, SpecStripTextResult,
+    SpecStripUsageError, SpecDocumentStrip, SpecDocumentStripOptions, SpecReadableHeader,
+    SpecReadableSource,
 };
 
 const MODEL_VERSION: &str = "1.0";
@@ -234,6 +240,7 @@ fn conformance() {
     test_node_creation_script(&mut c, &model);
     test_docspecs(&mut c);
     test_notation(&mut c);
+    test_strip(&mut c, &model);
     test_docspecs_replace(&mut c);
     test_docspecs_paths(&mut c, &model);
     test_generation_units(&mut c, &model);
@@ -970,14 +977,6 @@ fn test_markdown_import_rejections(c: &mut Checker, model: &SpecModel) {
     let table = read_json("markdown_import_cases.json");
     for kase in table.get("cases").and_then(|v| v.as_array()).unwrap_or(&[]) {
         let name = kase.str_or("name");
-        // The reading view's table layout is read; the readable header and the
-        // styled-div headings belong to the strip of a document
-        // (runtime_parity.md § Reading view).
-        if kase.get("readingView").and_then(|v| v.as_bool()) == Some(true)
-            && (kase.get("readableHeader").is_some() || name.starts_with("styled-div headings"))
-        {
-            continue;
-        }
         let doc = SpecDocument::new();
         let parsed = SpecDocumentMarkdown::new(model, &doc).parse(&kase.str_or("markdown"));
         let want_rejections = kase
@@ -1031,6 +1030,14 @@ fn test_markdown_import_rejections(c: &mut Checker, model: &SpecModel) {
             got == want,
             &format!("got {} want {}", got, want),
         );
+        // A case naming the readable header holds it (null: none was read).
+        if let Some(want_header) = kase.get("readableHeader") {
+            c.check(
+                &format!("md.reject[{}].readableHeader", name),
+                parsed.readable_header.as_deref() == want_header.as_str(),
+                &format!("{:?}", parsed.readable_header),
+            );
+        }
         // A case naming heading-comment values holds them too (read trimmed).
         for (key, got) in [("codeSpecs", &parsed.code_specs), ("units", &parsed.units)] {
             let Some(want_obj) = kase.get(key).and_then(|v| v.as_object()) else {
@@ -1205,6 +1212,203 @@ fn test_docspecs(c: &mut Checker) {
         uncovered.is_empty(),
         &format!("uncovered: {:?}", uncovered),
     );
+}
+
+/// A strip case's options, from its name lists and flags.
+fn strip_case_options(c: &Json) -> Result<SpecStripOptions, SpecStripUsageError> {
+    SpecStripOptions::from_names(
+        &str_list(c.get("drop")),
+        &str_list(c.get("unmark")),
+        &str_list(c.get("appendix")),
+        c.get("appendixReferences").and_then(|v| v.as_bool()) == Some(true),
+        c.get("headingDivs").and_then(|v| v.as_bool()) == Some(true),
+    )
+}
+
+/// `stripped` with every piece's removed text put back: the original value.
+/// The pieces' offsets count UTF-16 units, so the walk does too.
+fn strip_unstrip(stripped: &str, r: &SpecStripTextResult) -> String {
+    let t: Vec<u16> = stripped.encode_utf16().collect();
+    let mut out: Vec<u16> = Vec::new();
+    let mut at = 0;
+    for p in &r.pieces {
+        out.extend_from_slice(&t[at.min(t.len())..p.anchor.min(t.len())]);
+        out.extend(p.removed.encode_utf16());
+        at = p.anchor + p.inserted.encode_utf16().count();
+    }
+    out.extend_from_slice(&t[at.min(t.len())..]);
+    String::from_utf16_lossy(&out)
+}
+
+/// Stripped renditions (`strip_cases.json`, SOM §11.10): each case's value
+/// stripped with `strip_notation_text` (text, counts, appendix, pieces with
+/// UTF-16 offsets, refusals), its pieces putting the original back, a
+/// comments-only strip equal to `strip_annotations_text`; and the usage cases
+/// of `SpecStripOptions::from_names`.
+fn test_strip(c: &mut Checker, model: &SpecModel) {
+    let table = read_json("strip_cases.json");
+    let kases = cases(&table, "cases");
+    c.check("strip.cases", !kases.is_empty(), "no cases");
+    for kase in kases {
+        let text = kase.str_or("text");
+        let tag = format!("strip[{}]", kase.str_or("name"));
+        let options = match strip_case_options(kase) {
+            Ok(o) => o,
+            Err(e) => {
+                c.check(&tag, false, &format!("usage error {}", e));
+                continue;
+            }
+        };
+        let r = strip_notation_text(&text, &options);
+        let got = r.to_json();
+        let want = kase.get("expect").cloned().unwrap_or(Json::Null);
+        c.check(&tag, json_eq(&got, &want), &format!("{:?} != {:?}", got, want));
+        let back = strip_unstrip(&r.text, &r);
+        c.check(&format!("{}.pieces", tag), back == text, &back);
+        let drop = str_list(kase.get("drop"));
+        if drop.len() == 1 && drop[0] == "comments" {
+            c.check(
+                &format!("{}.stripAnnotationsText", tag),
+                strip_annotations_text(&text) == r.text,
+                &r.text,
+            );
+        }
+    }
+    let usage = cases(&table, "usageCases");
+    c.check("strip.usageCases", !usage.is_empty(), "no usage cases");
+    for kase in usage {
+        let tag = format!("strip.usage[{}]", kase.str_or("name"));
+        let got = match strip_case_options(kase) {
+            Ok(o) => o.to_json(),
+            Err(e) => obj(vec![("error", jstr(&e.message))]),
+        };
+        let want = kase.get("expect").cloned().unwrap_or(Json::Null);
+        c.check(&tag, json_eq(&got, &want), &format!("{:?} != {:?}", got, want));
+    }
+
+    // headerCases: the readable header's parse, and format and parse are
+    // inverse.
+    let headers = cases(&table, "headerCases");
+    c.check("strip.headerCases", !headers.is_empty(), "no header cases");
+    for kase in headers {
+        let tag = format!("strip.header[{}]", kase.str_or("name"));
+        let got = strip_header_json(&kase.str_or("line"));
+        let want = kase.get("expect").cloned().unwrap_or(Json::Null);
+        c.check(&tag, json_eq(&got, &want), &format!("got {:?} want {:?}", got, want));
+        if let Some(format) = got.get("format").and_then(|f| f.as_str()) {
+            let again = strip_header_json(format);
+            c.check(
+                &format!("{}.inverse", tag),
+                again.get("format").and_then(|f| f.as_str()) == Some(format),
+                &format!("{:?}", again),
+            );
+        }
+    }
+
+    // documentCases: the document strip over the corpus model and the shared
+    // schema, unless the case says `model: false`.
+    let schema = DocSpecsSchema::from_yaml_text(&read_corpus("docspecs_schema.yaml"))
+        .expect("docspecs_schema.yaml");
+    let docs = cases(&table, "documentCases");
+    c.check("strip.documentCases", !docs.is_empty(), "no document cases");
+    for kase in docs {
+        let tag = format!("strip.document[{}]", kase.str_or("name"));
+        let options = match strip_case_options(kase) {
+            Ok(o) => o,
+            Err(e) => {
+                c.check(&tag, false, &format!("usage error {}", e));
+                continue;
+            }
+        };
+        let doc = doc_from_state(&DocumentJson::from_json(kase.get("state").unwrap_or(&Json::Null)));
+        let with_model = kase.get("model").and_then(|v| v.as_bool()) != Some(false);
+        let source = kase.get("source").map(|sj| SpecReadableSource {
+            file: sj.str_or("file"),
+            revision: sj.get("revision").and_then(|v| v.as_str()).map(str::to_string),
+            commit: sj.get("commit").and_then(|v| v.as_str()).map(str::to_string),
+            dirty: sj.get("dirty").and_then(|v| v.as_bool()) == Some(true),
+        });
+        let root_type = kase.get("rootType").and_then(|v| v.as_str());
+        let extra = SpecDocumentStripOptions {
+            model: with_model.then_some(model),
+            schema: with_model.then_some(&schema),
+            root_type,
+            source: source.as_ref(),
+        };
+        let r = SpecDocumentStrip::strip(&doc, &options, &extra);
+        let got = r.to_json();
+        let want = kase.get("expect").cloned().unwrap_or(Json::Null);
+        for key in [
+            "kept",
+            "removedItems",
+            "appendix",
+            "dropped",
+            "unmarked",
+            "appended",
+            "marksDropped",
+            "readableHeader",
+            "readable",
+            "findings",
+        ] {
+            let (g, w) = (got.get(key).unwrap_or(&Json::Null), want.get(key).unwrap_or(&Json::Null));
+            let detail = match (g.as_str(), w.as_str()) {
+                (Some(gs), Some(ws)) => byte_diff(key, gs, ws),
+                _ => format!("got {:?} want {:?}", g, w),
+            };
+            c.check(&format!("{}.{}", tag, key), json_eq(g, w), &detail);
+        }
+        let g = r.document.to_json().to_canonical_json();
+        let w = DocumentJson::from_json(want.get("document").unwrap_or(&Json::Null)).to_canonical_json();
+        c.check(&format!("{}.document", tag), g == w, &format!("got {} want {}", g, w));
+        // The readable rendition reads back with its header (SOM §11.1).
+        if let Some(readable) = &r.readable {
+            let empty = SpecDocument::new();
+            let parsed = SpecDocumentMarkdown::new(model, &empty).parse(readable);
+            c.check(
+                &format!("{}.readsBackHeader", tag),
+                parsed.readable_header.as_deref() == Some(r.readable_header.as_str()),
+                &format!("{:?}", parsed.readable_header),
+            );
+        }
+        // stripped() is the strip with `drop: [comments]` alone.
+        if !with_model
+            && options.drop.len() == 1
+            && options.drop.contains("comments")
+            && options.unmark.is_empty()
+            && options.appendix.is_empty()
+        {
+            let mut annotated = doc.clone();
+            let plain = SpecReviewAnnotations::new(&mut annotated).stripped();
+            let pc = plain.to_json().to_canonical_json();
+            c.check(&format!("{}.stripped()", tag), pc == w, &pc);
+        }
+    }
+}
+
+/// A `headerCases` entry's parse as the corpus writes it, or null.
+fn strip_header_json(line: &str) -> Json {
+    let Some(h) = SpecReadableHeader::parse(line) else {
+        return Json::Null;
+    };
+    let Json::Object(mut out) = h.options.to_json() else {
+        return Json::Null;
+    };
+    if let Some(s) = &h.source {
+        out.push((
+            "source".to_string(),
+            obj(vec![
+                ("file", jstr(&s.file)),
+                ("revision", jopt(&s.revision)),
+                ("commit", jopt(&s.commit)),
+                ("dirty", Json::Bool(s.dirty)),
+            ]),
+        ));
+    }
+    out.push((
+        "format".to_string(),
+        jstr(&SpecReadableHeader::format(&h.options, h.source.as_ref())),
+    ));
+    Json::Object(out)
 }
 
 /// The reading notation (`notation_cases.json`): each text value scanned with

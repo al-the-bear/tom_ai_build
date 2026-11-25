@@ -91,6 +91,7 @@ All are re-exported at the crate root.
 | `SpecReviewAnnotationCounts` | `questions`, `open_questions`, `answered_questions`, `comments`, `marks`, and the team counts `unresolved_questions`, `conflicts`, `open_conflicts` |
 | `SpecReviewAnnotationError` | An operation named something that is not there |
 | `strip_annotations_text` | One value without its annotations |
+| `count_annotations_text` | How many comment and question blocks and inline marks one value holds: what `strip_annotations_text` removes |
 | `format_comment_block` / `format_question_block` | The lines an insert writes |
 | `validate_review_annotations` | The validation findings of a `&SpecDocument`, without a mutable borrow |
 | `SpecMarkDecision`, `SpecMarkEntry`, `SpecMarkOutcome`, `SpecMarkIssue`, `SpecMarkReport` | The inline-mark review: decisions, listed marks, what was done, malformed marks |
@@ -111,7 +112,7 @@ All are re-exported at the crate root.
 | `edit_comment(comment_id, text, at)` | New text; the marker, id and author stay as written, the change time moves |
 | `resolve(id)` | Removes one comment or question (a qualified comment id is accepted) and one adjacent blank line. A question of a combined block takes only its own lines; the block goes with its last question |
 | `apply_mark(path, field, index, accept)` | Accepts or rejects inline mark `index` of one value. Accept takes the insertion, the deletion or the new text; reject keeps the old. A highlight or comment mark is removed either way, its text staying |
-| `stripped()` | A copy of the document without any annotation, every mark accepted, for reading. The document is unchanged |
+| `stripped()` | A copy of the document without any annotation, every mark accepted, headlines included, for reading: the strip with `drop: [comments]` (`SpecDocumentStrip`). The document is unchanged |
 
 `field` is `None` for a content value and `Some("owner")` for a form field.
 

@@ -2929,6 +2929,14 @@ fn mark_keeping_change_comments(current: &str, text: &str) -> SpecMarkedChange {
     }
 }
 
+/// How many comment and question blocks and inline marks `value` holds: what
+/// [`strip_annotations_text`] removes, as a strip's report counts it
+/// (SOM §11.10).
+pub fn count_annotations_text(value: &str) -> usize {
+    let p = parse(value);
+    p.blocks.len() + p.marks.len()
+}
+
 /// `value` without any comment block, question block or inline mark (every
 /// mark accepted). Plain quotes and code stay.
 pub fn strip_annotations_text(value: &str) -> String {
@@ -3705,20 +3713,17 @@ impl<'a> SpecReviewAnnotations<'a> {
 
     /// A copy of the document without any annotation, for reading. The
     /// document itself is unchanged.
+    ///
+    /// The strip of SOM §11.10 with `drop: [comments]`
+    /// ([`SpecDocumentStrip::strip`](crate::SpecDocumentStrip::strip)): every
+    /// value is stripped, headlines included.
     pub fn stripped(&self) -> SpecDocument {
-        let mut copy = SpecDocument::new();
-        copy.load_json(&self.doc.to_json());
-        for (path, field, text) in values_of(self.doc) {
-            let clean = strip_annotations_text(&text);
-            if clean == text {
-                continue;
-            }
-            match &field {
-                None => copy.set_content(&path, &clean),
-                Some(f) => copy.set_form_field(&path, f, &clean),
-            }
-        }
-        copy
+        let options = crate::spec_document_strip::SpecStripOptions {
+            drop: ["comments".to_string()].into_iter().collect(),
+            ..Default::default()
+        };
+        crate::spec_document_strip::SpecDocumentStrip::strip(self.doc, &options, &Default::default())
+            .document
     }
 
     /// The instance-tier findings on annotations (SOM §11.9.5), ordered by

@@ -28,7 +28,8 @@ use std::collections::{HashMap, HashSet};
 use crate::spec_document::SpecDocument;
 use crate::spec_document_markdown::{
     md_delimiter_cell, md_div_close_line, md_find_link_text, md_heading_line, md_layout_table_header,
-    md_link_cell, md_list_div_open, md_row_cells, md_table_line, MarkdownFenceTracker,
+    md_link_cell, md_list_div_open, md_row_cells, md_table_line, markdown_is_readable_comment,
+    MarkdownFenceTracker, SPEC_MARKDOWN_APPENDIX_MARKER,
     SpecDocumentMarkdown, SpecMarkdownResult,
 };
 use crate::spec_model::SpecModel;
@@ -358,6 +359,7 @@ pub fn parse_docspecs_document(text: &str) -> DocSpecsDocument {
     let mut doc = DocSpecsDocument::default();
     let mut fence = MarkdownFenceTracker::new();
     let mut stack: Vec<DocSpecsSection> = Vec::new();
+    let mut readable = false;
     for (idx, raw) in text.split('\n').enumerate() {
         let line_no = idx + 1;
         let line = dv_trim_trailing_ws(raw);
@@ -368,6 +370,17 @@ pub fn parse_docspecs_document(text: &str) -> DocSpecsDocument {
                     fence.feed(raw);
                     continue;
                 }
+            }
+            // A stripped rendition (SOM §11.1): its readable header stands
+            // before the root heading, and its appendix after the marker is
+            // not part of the document.
+            if stack.is_empty() && markdown_is_readable_comment(line) {
+                readable = true;
+                fence.feed(raw);
+                continue;
+            }
+            if readable && line == SPEC_MARKDOWN_APPENDIX_MARKER {
+                break;
             }
             let heading = match md_heading_line(line) {
                 Some((level, rest)) => Some((level, rest.to_string())),
