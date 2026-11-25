@@ -32,6 +32,15 @@ fenced code blocks, which shield their lines verbatim. Blank lines inside a
 value are kept as written; parse trims each value of leading/trailing blank
 lines only.
 
+Reading view (SOM §11.4, §11.5): the emitter writes the ``Field:`` layout; the
+parser also reads the reading view's table layout — form tables
+``| TomSpecField | Value |``, record tables in a ``::: {.records}`` div,
+reference lines in a ``::: {.refs}`` div, section tables
+``| Section | TomSpecField | Value |`` and the renderer's heading anchors
+``<a id="ID">`` — and reports a block that breaks it as ``unknownField`` or
+``malformedBlock``. A value line shaped like a layout table header is written
+with one escape space, which the parser removes.
+
 The codec is free of any UI: it reads from / resolves against a
 :class:`SpecModel` (through the :func:`build_som_meta_tree` metadata tree) and
 a :class:`SpecDocument`. :meth:`SpecDocumentMarkdown.parse` does **not** mutate
@@ -47,7 +56,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field as dataclass_field
 from enum import Enum
-from typing import Any, Optional
+from typing import Any, Callable, Optional
 
 from .spec_document import SpecDocument
 from .spec_meta import SomMetaKind, SomMetaNode, SomMetaTree
@@ -73,6 +82,15 @@ class SpecMarkdownRejectReason(Enum):
     MISSING_VALUE = "missingValue"
     #: A heading line without a parseable ``<!--[id]-->`` headline comment.
     MALFORMED_HEADING = "malformedHeading"
+    #: A form-table row, a section-table row or a records column names no
+    #: field the form declares (SOM §11.4, §11.5).
+    UNKNOWN_FIELD = "unknownField"
+    #: A block that breaks the layout grammar: a table without its delimiter
+    #: row or with a row of another cell count, a field given twice, a
+    #: ``refs`` / ``records`` div beside other text or item headings or not
+    #: holding what it should, an unclosed ``refs`` / ``records`` fence. The
+    #: message says which.
+    MALFORMED_BLOCK = "malformedBlock"
 
 
 @dataclass
@@ -236,6 +254,15 @@ class SpecDocumentMarkdown:
     #: ``units=`` inside a quoted codeSpec value is not read as the key.
     _units_pattern = re.compile(
         r"""(?:^|\s)units=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))"""
+    )
+
+    #: A line that reads as the header of a form table or a section table
+    #: (SOM §11.4, §11.5): ``| TomSpecField | Value |`` or
+    #: ``| Section | TomSpecField | Value |`` at column 0, any case; group 1 is
+    #: ``Section`` for a section table. The header alone makes a table layout.
+    layout_table_header = re.compile(
+        r"^\|\s*(?:(Section)\s*\|\s*)?TomSpecField\s*\|\s*Value\s*\|?\s*$",
+        re.IGNORECASE,
     )
 
     # A line the emitter must escape: an optional run of backslashes followed
@@ -593,6 +620,30 @@ class SpecDocumentMarkdown:
                 return rel
         return slots[0][1] if slots else "."
 
+    def _is_copy_node(self, n: SomMetaNode) -> bool:
+        """Whether *n* is a ``@SameAs`` copy (SOM §11.2): its anchor and its
+        descendants' are qualified with the section above it."""
+        parent = n._parent
+        if not n.member_name or parent is None:
+            return False
+        cls = self.model.class_named(parent.class_name)
+        f = cls.field_named(n.member_name) if cls is not None else None
+        return f is not None and f.has_annotation("SameAs")
+
+    def _item_form(
+        self, element: SomMetaNode
+    ) -> Optional[tuple[SomMetaNode, str]]:
+        """The item class's own form (its class-level ``@Form``, a
+        transparent body slot), or ``None`` when the class carries none or
+        more than one."""
+        found: Optional[tuple[SomMetaNode, str]] = None
+        for s in self._body_slots(element):
+            if s[0].kind == SomMetaKind.FORM:
+                if found is not None:
+                    return None
+                found = s
+        return found
+
     def _write_children(
         self, b: _Buffer, node: SomMetaNode, base_path: str, depth: int
     ) -> None:
@@ -903,6 +954,8 @@ class SpecDocumentMarkdown:
                 out.append(line)  # SOM §11.3: fences shield their lines.
             elif self._escapable.match(line):
                 out.append(f"\\{line}")
+            elif _TABLE_HEADER_SHAPED.match(line):
+                out.append(f" {line}")  # a value line is never a layout table.
             else:
                 out.append(line)
             fence.feed(line)
@@ -976,6 +1029,11 @@ class _Frame:
         self.line = line
         self.ignored = ignored
         self.body: list[str] = []
+        # The scope this heading's descendants' anchors are qualified with,
+        # and the id of the nearest heading at or above it that is no list
+        # container (SOM §11.2, _qualify_anchor).
+        self.anchor_scope: Optional[list[str]] = None
+        self.anchor_section: Optional[str] = None
 
 
 class _ListState:
@@ -996,6 +1054,142 @@ _CONTINUATION_LABEL = re.compile(r"^ +[A-Za-z][A-Za-z0-9_]*:")
 _SLOT_MARKER = re.compile(r"^<!-- slot: (\S+) -->$")
 _ESCAPED_HEADING = re.compile(r"^\\+#")
 
+# Reading view (SOM §11.4, §11.5): a value line shaped like a layout table
+# header is escaped with one space on emit, and loses it on parse.
+_TABLE_HEADER_SHAPED = re.compile(
+    r"^ *\|\s*(?:Section\s*\|\s*)?TomSpecField\s*\|\s*Value\s*\|?\s*$",
+    re.IGNORECASE,
+)
+_ESCAPED_TABLE_HEADER = re.compile(
+    r"^ +\|\s*(?:Section\s*\|\s*)?TomSpecField\s*\|\s*Value\s*\|?\s*$",
+    re.IGNORECASE,
+)
+_LAYOUT_TABLE_HEADER = SpecDocumentMarkdown.layout_table_header
+# A line that starts a table row: `|` after up to three spaces.
+_TABLE_LINE = re.compile(r"^ {0,3}\|")
+_DELIMITER_CELL = re.compile(r"^:?-+:?$")
+_LINK_CELL = re.compile(
+    r"^\[[^\]]+\]\([^)]*\)(, \[[^\]]+\]\([^)]*\))*$"
+)
+_LINK_TEXT = re.compile(r"\[([^\]]+)\]\([^)]*\)")
+_LIST_DIV_OPEN = re.compile(
+    r"^:{3,}\s*(?:\{\.(refs|records)\}|(refs|records))\s*$"
+)
+_DIV_CLOSE = re.compile(r"^:{3,}\s*$")
+_CELL_ANCHOR = re.compile(r'^<a id="[^"]*"></a>\s*')
+_CELL_LINK = re.compile(r"^\[([^\]]+)\]\([^)\s]*\)$")
+_SECTION_CELL_SEP = re.compile(r"\s*/\s*")
+_REF_SEP = re.compile(r"[,\s]+")
+
+# The roles a heading plays for its anchor's qualification (SOM §11.2).
+_ANCHOR_PLAIN = "plain"
+_ANCHOR_CONTAINER = "container"
+_ANCHOR_ITEM = "item"
+_ANCHOR_COPY = "copy"
+
+
+def _qualify_anchor(
+    scope: Optional[list[str]], section: Optional[str], id: str, role: str
+) -> tuple[str, Optional[list[str]]]:
+    """The qualified anchor of a heading *id* (SOM §11.2) and the scope its
+    descendants' anchors are qualified with: below a list item, or in a
+    ``@SameAs`` copy, an anchor is the ids from the scope's start joined by
+    ``/``; elsewhere it is the id itself. *section* is the id of the nearest
+    heading above that is no list container."""
+    with_id: list[str] = []
+    if scope is not None:
+        with_id.extend(scope)
+    elif role == _ANCHOR_COPY and section is not None:
+        with_id.append(section)
+    with_id.append(id)
+    if role == _ANCHOR_COPY:
+        return "/".join(with_id), with_id
+    joined = id if scope is None else "/".join(with_id)
+    if role == _ANCHOR_CONTAINER:
+        return joined, scope
+    if role == _ANCHOR_ITEM:
+        return joined, with_id
+    return joined, (None if scope is None else with_id)
+
+
+def _title_without_anchor(raw_title: str, id: str, anchor: str) -> str:
+    """A heading title without the renderer's anchor — ``<a id="…"></a>``
+    naming *id* or its qualified form *anchor* (SOM §11.2) — and with
+    ``<br>`` read as a line break."""
+    p = re.compile(
+        '^<a id="(?:' + re.escape(id) + "|" + re.escape(anchor) + ')"></a>\\s*'
+    )
+    return p.sub("", raw_title, count=1).replace("<br>", "\n")
+
+
+def _row_cells(line: str) -> list[str]:
+    """The cells of a table row: split on every ``|`` not preceded by a
+    backslash, the outer pipes dropped, each cell trimmed; ``\\|`` stays in
+    the cell."""
+    t = line.strip()
+    if t.startswith("|"):
+        t = t[1:]
+    if t.endswith("|") and not t.endswith("\\|"):
+        t = t[:-1]
+    cells: list[str] = []
+    b: list[str] = []
+    i = 0
+    while i < len(t):
+        c = t[i]
+        if c == "\\" and i + 1 < len(t) and t[i + 1] == "|":
+            b.append("\\|")
+            i += 2
+            continue
+        if c == "|":
+            cells.append("".join(b).strip())
+            b = []
+        else:
+            b.append(c)
+        i += 1
+    cells.append("".join(b).strip())
+    return cells
+
+
+def _cell_id(cell: str) -> str:
+    """A cell's id with the renderer's anchor (``<a id="X"></a>X``) removed
+    and a link the cell is read as its text (``[X](<file>#X)``, SOM §11.5)."""
+    id = _CELL_ANCHOR.sub("", cell, count=1)
+    m = _CELL_LINK.search(id)
+    return m.group(1) if m is not None else id
+
+
+def _fields_of(node: SomMetaNode) -> list:
+    return list(node.form.fields) if node.form is not None else []
+
+
+def _field_by_label(fields: list, label: str):
+    lower = label.lower()
+    for f in fields:
+        if f.name.lower() == lower:
+            return f
+    return None
+
+
+def _body_path_of(owner_path: str, rel: str) -> str:
+    return owner_path if rel == "." else f"{owner_path}/{rel}"
+
+
+class _TableRow:
+    """One body row of a table: its line index and its cells."""
+
+    def __init__(self, index: int, cells: list[str]) -> None:
+        self.index = index
+        self.cells = cells
+
+
+class _Table:
+    """A table as read: header cells, body rows, the index after the table."""
+
+    def __init__(self, header: list[str], end: int) -> None:
+        self.header = header
+        self.rows: list[_TableRow] = []
+        self.end = end
+
 
 class _Parser:
     def __init__(self, codec: SpecDocumentMarkdown) -> None:
@@ -1010,6 +1204,8 @@ class _Parser:
         self.root_prefixes: set[str] = set()
         self._stack: list[_Frame] = []
         self._fence = MarkdownFenceTracker()
+        # The fields given so far per form path, for the given-twice rule.
+        self._given: dict[str, set[str]] = {}
         # Rolling pointer into a body region's transparent form slots — labels
         # bind to the nearest form at or after the last hit (wrapping), so
         # repeated field names across an owner's transparent forms follow emit
@@ -1073,7 +1269,11 @@ class _Parser:
         id = m.group(1)
         code_spec = SpecDocumentMarkdown.code_spec_of(m.group(2))
         unit_ids = SpecDocumentMarkdown.units_of(m.group(2))
-        title = m.group(3).strip().replace("<br>", "\n")
+        # Reading view: an anchor equal to the section id after the id
+        # comment, or to its qualified form (SOM §11.2), is the renderer's,
+        # not part of the title.
+        raw_title = m.group(3).strip()
+        title = _title_without_anchor(raw_title, id, id)
 
         if not self._stack:
             self._open_root(level, id, title, code_spec, unit_ids, line_no)
@@ -1114,9 +1314,22 @@ class _Parser:
         #    one of that list's items — resolved positionally, not by the
         #    schema tree.
         if p_node.kind == SomMetaKind.LIST:
-            self._open_item_heading(
-                level, parent, p_node, id, title, code_spec, unit_ids, line_no
+            anchor, scope = _qualify_anchor(
+                parent.anchor_scope, parent.anchor_section, id, _ANCHOR_ITEM
             )
+            self._open_item_heading(
+                level,
+                parent,
+                p_node,
+                id,
+                _title_without_anchor(raw_title, id, anchor),
+                code_spec,
+                unit_ids,
+                line_no,
+            )
+            last = self._stack[-1]
+            last.anchor_scope = scope
+            last.anchor_section = id
             return
 
         # 2. A regular (non-list) or list-**container** *effective* child —
@@ -1129,6 +1342,18 @@ class _Parser:
         for c, rel in effective:
             if self.codec._heading_id_of(c) == id:
                 path = f"{parent.path}/{rel}"
+                container = c.kind == SomMetaKind.LIST
+                role = (
+                    _ANCHOR_CONTAINER
+                    if container
+                    else _ANCHOR_COPY
+                    if self.codec._is_copy_node(c)
+                    else _ANCHOR_PLAIN
+                )
+                anchor, scope = _qualify_anchor(
+                    parent.anchor_scope, parent.anchor_section, id, role
+                )
+                title = _title_without_anchor(raw_title, id, anchor)
                 # YRD3: stage the heading text as a stored headline only when
                 # it differs from the effective default title
                 # (byte-stability).
@@ -1141,9 +1366,10 @@ class _Parser:
                 # SOM §11.2: ``units`` is staged exactly like codeSpec.
                 if unit_ids:
                     self.units[path] = unit_ids
-                self._stack.append(
-                    _Frame(level=level, node=c, path=path, line=line_no)
-                )
+                frame = _Frame(level=level, node=c, path=path, line=line_no)
+                frame.anchor_scope = scope
+                frame.anchor_section = parent.anchor_section if container else id
+                self._stack.append(frame)
                 return
 
         self.rejections.append(
@@ -1172,13 +1398,25 @@ class _Parser:
         unit_ids: str,
         line_no: int,
     ) -> None:
-        """Opens a list-item frame under a ``-LST`` container frame (SOM §11.2).
-        The heading *id* is matched positionally against the container's list:
-        the ``<member>-<n>`` fallback id (positional, nothing stored), the
-        ``@SectionIdPattern`` resolved with a number (``GOAL-ITEM-3``, parses
-        back as item ``<n>`` carrying that id), a pattern-shaped stored id, or
-        — for any other id — an anonymous next item carrying the stored id."""
-        list_path = container.path
+        """Opens a list-item frame under a ``-LST`` container frame (SOM §11.2);
+        the heading *id* is read by :meth:`_item_identity`."""
+        n, stored_id = self._item_identity(list_node, id)
+        self._open_item(
+            level, container.path, list_node, n, stored_id, title, code_spec,
+            unit_ids, line_no, True,
+        )
+
+    def _item_identity(
+        self, list_node: SomMetaNode, id: str
+    ) -> tuple[Optional[int], Optional[str]]:
+        """How an item *id* of *list_node* is read, as a heading's, a records
+        row's or a section-table row's: the item number it names (or ``None``
+        for the next free one) and the id it stores (or ``None``). The
+        ``<member>-<n>`` fallback id is positional and stores nothing; the
+        ``@SectionIdPattern`` resolved with a number names item ``<n>`` and is
+        stored, the section id being the item's identity and the path only its
+        position (SOM §11.6); any other id is the next item, carrying it
+        (YRD3)."""
         anon = re.match(
             "^"
             + re.escape(list_node.member_name or list_node.segment)
@@ -1186,66 +1424,22 @@ class _Parser:
             id,
         )
         if anon is not None:
-            self._open_item(
-                level,
-                list_path,
-                list_node,
-                int(anon.group(1)),
-                None,
-                title,
-                code_spec,
-                unit_ids,
-                line_no,
-            )
-            return
+            return int(anon.group(1)), None
         element = list_node.element_node
         pattern = list_node.section_id_pattern or (
             element.section_id_pattern if element is not None else None
         )
-        if pattern is not None:
-            # The pattern with `xxx` as a number parses back as item <n> AND
-            # is stored: the section id is the item's identity and the path
-            # only its position, so an id that happens to equal the positional
-            # default must survive a later move or insert (SOM §11.6).
-            numbered_re = (
-                "^"
-                + "([0-9]+)".join(re.escape(p) for p in pattern.split("xxx"))
-                + "$"
-            )
-            numbered = re.match(numbered_re, id)
-            if numbered is not None and numbered.re.groups == 1:
-                self._open_item(
-                    level,
-                    list_path,
-                    list_node,
-                    int(numbered.group(1)),
+        if pattern:
+            parts = pattern.split("xxx")
+            if len(parts) == 2:
+                numbered = re.match(
+                    "^" + re.escape(parts[0]) + "([0-9]+)"
+                    + re.escape(parts[1]) + "$",
                     id,
-                    title,
-                    code_spec,
-                    unit_ids,
-                    line_no,
                 )
-                return
-            if self._pattern_matches(pattern, id):
-                self._open_item(
-                    level,
-                    list_path,
-                    list_node,
-                    None,
-                    id,
-                    title,
-                    code_spec,
-                    unit_ids,
-                    line_no,
-                )
-                return
-        # Any other id under the container is an anonymous next item carrying
-        # the stored id (YRD3: stored ids round-trip through md as well as
-        # yaml).
-        self._open_item(
-            level, list_path, list_node, None, id, title, code_spec, unit_ids,
-            line_no,
-        )
+                if numbered is not None:
+                    return int(numbered.group(1)), id
+        return None, id
 
     def _open_root(
         self,
@@ -1273,9 +1467,10 @@ class _Parser:
                 # SOM §11.2: ``units`` is staged exactly like codeSpec.
                 if unit_ids:
                     self.units[seg] = unit_ids
-                self._stack.append(
-                    _Frame(level=level, node=tree.root, path=seg, line=line_no)
-                )
+                frame = _Frame(level=level, node=tree.root, path=seg,
+                               line=line_no)
+                frame.anchor_section = seg
+                self._stack.append(frame)
                 return
         known = ", ".join(
             r.section_id or r.type for r in self.codec.model.roots
@@ -1305,11 +1500,13 @@ class _Parser:
         code_spec: str,
         unit_ids: str,
         line_no: int,
-    ) -> None:
-        """Opens a list-item frame. *n* is the anonymous heading number (also
-        the path number); a stored-id item gets the next free number instead.
-        The heading *title* is staged as a stored headline when it differs
-        from the default item title ``<stem> <number>`` (YRD3)."""
+        push: bool,
+    ) -> str:
+        """Opens a list item, with its frame when *push* is set, and returns
+        its path. *n* is the anonymous heading number (also the path number);
+        ``None`` takes the next free number instead. The *title* is staged as
+        a stored headline when it differs from the default item title
+        ``<stem> <number>`` (YRD3)."""
         state = self.lists.get(list_path)
         if state is None:
             state = _ListState()
@@ -1331,23 +1528,16 @@ class _Parser:
         # SOM §11.2: ``units`` is staged exactly like codeSpec.
         if unit_ids:
             self.units[item_path] = unit_ids
-        self._stack.append(
-            _Frame(
-                level=level,
-                node=list_node.element_node,
-                path=item_path,
-                line=line_no,
+        if push:
+            self._stack.append(
+                _Frame(
+                    level=level,
+                    node=list_node.element_node,
+                    path=item_path,
+                    line=line_no,
+                )
             )
-        )
-
-    @staticmethod
-    def _pattern_matches(pattern: str, id: str) -> bool:
-        """``GOAL-ITEM-xxx`` → ``^GOAL-ITEM-.+$`` — the ``@SectionIdPattern``
-        wildcard."""
-        regex = (
-            "^" + ".+".join(re.escape(p) for p in pattern.split("xxx")) + "$"
-        )
-        return re.match(regex, id) is not None
+        return item_path
 
     @staticmethod
     def _is_value_leaf(kind: SomMetaKind) -> bool:
@@ -1366,6 +1556,12 @@ class _Parser:
         if node is not None and node.kind == SomMetaKind.FORM:
             self._finalize_form(frame, node, frame.path)
             return
+        if node is not None and node.kind == SomMetaKind.LIST:
+            self._finalize_list_body(frame, node)
+        elif node is not None and node.kind in (
+            SomMetaKind.SECTION, SomMetaKind.COMPLEX
+        ):
+            self._extract_section_tables(frame, node)
         slots = [] if node is None else self.codec._body_slots(node)
         if not slots:
             value = self._restore_value(frame.body)
@@ -1383,66 +1579,478 @@ class _Parser:
             return
         self._finalize_body_slots(frame, slots)
 
+    # --- Layout tables (SOM §11.4, §11.5) --------------------------------------
+
+    @staticmethod
+    def _body_line(frame: _Frame, i: int) -> int:
+        """The 1-based source line of *frame*'s body line *i*."""
+        return frame.line + 1 + i
+
+    def _reject(
+        self,
+        line: int,
+        reason: SpecMarkdownRejectReason,
+        message: str,
+        anchor: Optional[str],
+    ) -> None:
+        self.rejections.append(
+            SpecMarkdownRejection(
+                line=line, reason=reason, message=message, anchor=anchor
+            )
+        )
+
+    def _read_table(
+        self,
+        lines: list[str],
+        start: int,
+        line_of: Callable[[int], int],
+        anchor: str,
+    ) -> _Table:
+        """Reads the table whose header is ``lines[start]``: the header cells,
+        the body rows with their line indexes, and the index after the table;
+        a broken delimiter row or a row of another cell count is a
+        ``malformedBlock``."""
+        end = start + 1
+        while end < len(lines) and _TABLE_LINE.match(lines[end]):
+            end += 1
+        header = _row_cells(lines[start])
+        delimiter = _row_cells(lines[start + 1]) if start + 1 < end else None
+        is_delimiter = delimiter is not None and all(
+            _DELIMITER_CELL.match(c) for c in delimiter
+        )
+        table = _Table(header, end)
+        if not is_delimiter or len(delimiter or []) != len(header):
+            self._reject(
+                line_of(start),
+                SpecMarkdownRejectReason.MALFORMED_BLOCK,
+                "table without its delimiter row"
+                if not is_delimiter
+                else "table whose delimiter row does not match its header",
+                anchor,
+            )
+            return table
+        for i in range(start + 2, end):
+            cells = _row_cells(lines[i])
+            if len(cells) != len(header):
+                self._reject(
+                    line_of(i),
+                    SpecMarkdownRejectReason.MALFORMED_BLOCK,
+                    f"table row with {len(cells)} cells, the header has "
+                    f"{len(header)}",
+                    anchor,
+                )
+                continue
+            table.rows.append(_TableRow(i, cells))
+        return table
+
+    @classmethod
+    def _cell_value(cls, cell: str, f: Any) -> str:
+        """A cell's value for field *f*: ``\\|`` unescaped, a reference
+        field's links read as their link texts, a ``code`` field's code span
+        decoded."""
+        text = cell.replace("\\|", "|")
+        if f.refers_to and not f.code and _LINK_CELL.search(text):
+            return ", ".join(m.group(1) for m in _LINK_TEXT.finditer(text))
+        return cls._decode_code_span(text) if f.code else text
+
+    def _given_twice(self, form_path: str, field: str, line: int) -> bool:
+        """Whether *field* of the form at *form_path* was given before;
+        reports the repeat (``malformedBlock``, the first occurrence kept)
+        when it was."""
+        given = self._given.setdefault(form_path, set())
+        if field not in given:
+            given.add(field)
+            return False
+        self._reject(
+            line,
+            SpecMarkdownRejectReason.MALFORMED_BLOCK,
+            f'field "{field}" given twice',
+            form_path,
+        )
+        return True
+
+    def _set_field(self, form_path: str, field: str, value: str) -> None:
+        self.forms.setdefault(form_path, {})[field] = value
+
+    def _stage_row(
+        self,
+        form_path: str,
+        fields: list,
+        label: str,
+        cell: str,
+        line: int,
+    ) -> None:
+        """Stages one row of a form table (or a section table)."""
+        f = _field_by_label(fields, label)
+        if f is None:
+            self._reject(
+                line,
+                SpecMarkdownRejectReason.UNKNOWN_FIELD,
+                f'row "{label}" names no field of this form',
+                form_path,
+            )
+            return
+        value = self._cell_value(cell, f)
+        if not value or self._given_twice(form_path, f.name, line):
+            return
+        self._set_field(form_path, f.name, value)
+
+    def _extract_section_tables(self, frame: _Frame, node: SomMetaNode) -> None:
+        """Reads and removes every section table of *frame*'s body (SOM
+        §11.5)."""
+        body = frame.body
+        table_fence = MarkdownFenceTracker()
+        i = 0
+        while i < len(body):
+            line = body[i]
+            h = (
+                None
+                if table_fence.in_fence
+                else _LAYOUT_TABLE_HEADER.match(line)
+            )
+            if h is None or h.group(1) is None:
+                table_fence.feed(line)
+                i += 1
+                continue
+            table = self._read_table(
+                body, i, lambda k: self._body_line(frame, k), frame.path
+            )
+            target: Optional[tuple[str, list]] = None
+            skip = False
+            for row in table.rows:
+                row_line = self._body_line(frame, row.index)
+                section = _cell_id(row.cells[0])
+                if not section and skip:
+                    continue
+                if section:
+                    named = self._section_table_target(frame, node, section)
+                    skip = named is None
+                    if named is None:
+                        self._reject(
+                            row_line,
+                            SpecMarkdownRejectReason.UNKNOWN_SECTION,
+                            "section-table row names no child section of "
+                            f'"{frame.path}"',
+                            section,
+                        )
+                        continue
+                    target = named
+                elif target is None:
+                    self._reject(
+                        row_line,
+                        SpecMarkdownRejectReason.UNKNOWN_SECTION,
+                        "section-table row names no section",
+                        frame.path,
+                    )
+                    continue
+                self._stage_row(
+                    target[0], target[1], row.cells[1], row.cells[2], row_line
+                )
+            for k in range(i, table.end):
+                body[k] = ""
+            i = table.end
+
+    def _section_table_target(
+        self, frame: _Frame, node: SomMetaNode, section: str
+    ) -> Optional[tuple[str, list]]:
+        """The form a section-table ``Section`` cell names under *node*: its
+        path and its declared fields."""
+        parts = _SECTION_CELL_SEP.split(section)
+        for child, rel in self.codec._effective_children(node):
+            child_id = self.codec._heading_id_of(child)
+            if (
+                len(parts) == 1
+                and child.kind == SomMetaKind.FORM
+                and child_id == section
+            ):
+                return f"{frame.path}/{rel}", _fields_of(child)
+            if (
+                len(parts) == 2
+                and child.kind == SomMetaKind.LIST
+                and child_id == parts[0]
+            ):
+                element = child.element_node
+                form = (
+                    self.codec._item_form(element)
+                    if element is not None
+                    else None
+                )
+                if form is None:
+                    return None
+                n, stored_id = self._item_identity(child, parts[1])
+                list_path = f"{frame.path}/{rel}"
+                state = self.lists.get(list_path)
+                item_path: Optional[str] = None
+                if state is not None:
+                    for p in state.items:
+                        item_id = state.ids.get(p)
+                        if item_id is None:
+                            item_id = p[len(list_path) + 1:]
+                        if item_id == parts[1]:
+                            item_path = p
+                            break
+                if item_path is None:
+                    item_path = self._open_item(
+                        0, list_path, child, n, stored_id, "", "", "",
+                        frame.line, False,
+                    )
+                return f"{item_path}/{form[1]}", _fields_of(form[0])
+        return None
+
+    # --- List bodies: `refs` and `records` (SOM §11.5) --------------------------
+
+    @staticmethod
+    def _blank(body: list[str], start: int, stop: int) -> None:
+        for k in range(start, stop + 1):
+            body[k] = ""
+
+    def _finalize_list_body(self, frame: _Frame, list_node: SomMetaNode) -> None:
+        """A list container's body: one ``refs`` or ``records`` div stands for
+        its items."""
+        body = frame.body
+        div_fence = MarkdownFenceTracker()
+        for i, line in enumerate(body):
+            opened = None if div_fence.in_fence else _LIST_DIV_OPEN.match(line)
+            if opened is None:
+                div_fence.feed(line)
+                continue
+            kind = opened.group(1) or opened.group(2)
+            close = next(
+                (k for k in range(i + 1, len(body)) if _DIV_CLOSE.match(body[k])),
+                -1,
+            )
+            if close < 0:
+                # The fence's lines read as text.
+                self._reject(
+                    self._body_line(frame, i),
+                    SpecMarkdownRejectReason.MALFORMED_BLOCK,
+                    f"unclosed {kind} fence",
+                    frame.path,
+                )
+                return
+            beside_text = any(
+                (k < i or k > close) and body[k].strip()
+                for k in range(len(body))
+            )
+            state = self.lists.get(frame.path)
+            has_items = state is not None and bool(state.items)
+            if beside_text or has_items:
+                beside = "item headings" if has_items else "other text"
+                self._reject(
+                    self._body_line(frame, i),
+                    SpecMarkdownRejectReason.MALFORMED_BLOCK,
+                    f"a {kind} div beside {beside} in a list container",
+                    frame.path,
+                )
+                self._blank(body, i, close)
+                return
+            inner = body[i + 1:close]
+            if kind == "refs":
+                self._stage_reference_line(frame, list_node, inner, i)
+            else:
+                self._stage_record_table(frame, list_node, inner, i)
+            self._blank(body, i, close)
+            return
+
+    @staticmethod
+    def _is_reference_form(n: SomMetaNode) -> bool:
+        if (
+            n.kind != SomMetaKind.FORM
+            or n.form is None
+            or len(n.form.fields) != 1
+            or not n.form.fields[0].refers_to
+        ):
+            return False
+        return any(e.annotation == "Reference" for e in n.extra)
+
+    def _reference_form(
+        self, element: SomMetaNode
+    ) -> Optional[tuple[SomMetaNode, str]]:
+        """The reference form of *element*'s items (its one field is the
+        reference)."""
+        for s in self.codec._body_slots(element):
+            if self._is_reference_form(s[0]):
+                return s
+        for c in self.codec._effective_children(element):
+            if self._is_reference_form(c[0]):
+                return c
+        return None
+
+    def _stage_reference_line(
+        self, frame: _Frame, list_node: SomMetaNode, inner: list[str], at: int
+    ) -> None:
+        """A ``refs`` div: ids split on commas and whitespace, links read as
+        their texts."""
+        element = list_node.element_node
+        ref = self._reference_form(element) if element is not None else None
+        if ref is None:
+            self._reject(
+                self._body_line(frame, at),
+                SpecMarkdownRejectReason.MALFORMED_BLOCK,
+                "a refs div in a list whose items are not references",
+                frame.path,
+            )
+            return
+        ids: list[str] = []
+        for t in _REF_SEP.split(" ".join(inner)):
+            if not t:
+                continue
+            m = _LINK_TEXT.search(t)
+            ids.append(m.group(1) if m is not None else t)
+        if not ids:
+            self._reject(
+                self._body_line(frame, at),
+                SpecMarkdownRejectReason.MISSING_VALUE,
+                "an empty refs div",
+                frame.path,
+            )
+            return
+        pattern = list_node.section_id_pattern or element.section_id_pattern
+        pattern = pattern or None
+        member = list_node.member_name or list_node.segment
+        field = ref[0].form.fields[0].name
+        for n in range(1, len(ids) + 1):
+            positional = effective_list_item_section_id(None, pattern, n, member)
+            num, stored_id = self._item_identity(list_node, positional)
+            item_path = self._open_item(
+                0, frame.path, list_node, num, stored_id, "", "", "",
+                frame.line, False,
+            )
+            self._set_field(_body_path_of(item_path, ref[1]), field, ids[n - 1])
+
+    def _stage_record_table(
+        self, frame: _Frame, list_node: SomMetaNode, inner: list[str], at: int
+    ) -> None:
+        """A ``records`` div: one table, ``Id`` first, ``Title`` optionally
+        second."""
+
+        def line_of(k: int) -> int:
+            return self._body_line(frame, at + 1 + k)
+
+        div_line = self._body_line(frame, at)
+        start = next((k for k, l in enumerate(inner) if l.strip()), -1)
+        if start < 0 or not _TABLE_LINE.match(inner[start]):
+            self._reject(
+                div_line,
+                SpecMarkdownRejectReason.MALFORMED_BLOCK,
+                "a records div holding no table",
+                frame.path,
+            )
+            return
+        header = _row_cells(inner[start])
+        if header[0] != "Id":
+            self._reject(
+                div_line,
+                SpecMarkdownRejectReason.MALFORMED_BLOCK,
+                "a records table whose first column is not Id",
+                frame.path,
+            )
+            return
+        element = list_node.element_node
+        form = self.codec._item_form(element) if element is not None else None
+        if form is None:
+            self._reject(
+                div_line,
+                SpecMarkdownRejectReason.MALFORMED_BLOCK,
+                "a records div in a list whose items have no single form",
+                frame.path,
+            )
+            return
+        fields = _fields_of(form[0])
+        with_title = len(header) > 1 and header[1] == "Title"
+        first = 2 if with_title else 1
+        columns = []
+        for label in header[first:]:
+            f = _field_by_label(fields, label)
+            if f is None:
+                # The table is skipped whole.
+                self._reject(
+                    line_of(start),
+                    SpecMarkdownRejectReason.UNKNOWN_FIELD,
+                    f'records column "{label}" names no field of the items',
+                    frame.path,
+                )
+                return
+            columns.append(f)
+        table = self._read_table(inner, start, line_of, frame.path)
+        stem = SpecDocumentMarkdown._item_stem_of(list_node)
+        for row in table.rows:
+            n, stored_id = self._item_identity(list_node, _cell_id(row.cells[0]))
+            item_path = self._open_item(
+                0, frame.path, list_node, n, stored_id, "", "", "",
+                line_of(row.index), False,
+            )
+            if with_title:
+                title = row.cells[1].replace("\\|", "|").replace("<br>", "\n")
+                number = item_path[len(frame.path) + 1:]
+                if title and title != f"{stem} {number}":
+                    self.headlines[item_path] = title
+            form_path = f"{item_path}/{form[1]}"
+            for c, f in enumerate(columns):
+                value = self._cell_value(row.cells[first + c], f)
+                if value:
+                    self._set_field(form_path, f.name, value)
+
+    def _find_form_of(
+        self, form_slots: list[tuple[SomMetaNode, str]], label: str
+    ) -> int:
+        """The index of the form slot declaring *label*: the nearest at or
+        after the last hit, wrapping; -1 when none declares it."""
+        for k in range(len(form_slots)):
+            idx = (self._current_form_idx + k) % len(form_slots)
+            if _field_by_label(_fields_of(form_slots[idx][0]), label) is not None:
+                return idx
+        return -1
+
+    def _join_parts(self, parts: list[list[str]]) -> str:
+        """The restored, non-empty text parts joined by one blank line."""
+        return "\n\n".join(
+            v for v in (self._restore_value(p) for p in parts) if v
+        )
+
+    def _put_field(self, form_path: str, field: Any, lines: list[str]) -> None:
+        """Stores a field's restored value (unwrapping a code field's code
+        span)."""
+        restored = self._restore_value(lines)
+        value = self._decode_code_span(restored) if field.code else restored
+        if value:
+            self._set_field(form_path, field.name, value)
+
     def _finalize_body_slots(
         self, frame: _Frame, slots: list[tuple[SomMetaNode, str]]
     ) -> None:
         """Binds a heading's body region against the owner's transparent body
-        slots (SOM §11.6): ``FieldName:`` lines matching a transparent form's
-        fields route to that form (nearest form in slot order, wrapping); a
-        slot marker (``<!-- slot: <rel> -->``) sends the text after it to the
-        named slot — a content slot, a form's preamble, or the owner itself
-        (``.``) — and ends any open field. Unmarked text binds to the first
-        content slot; with no content slot it is a form's **preamble**
-        (SOM §11.4 rule 7) — the class-level ``@Form`` on the ``content``
-        member, else the first form — which is where the YAML codec keeps it;
-        only an owner with no slot at all takes it on its own path."""
+        slots (SOM §11.6): ``FieldName:`` lines and form-table rows matching a
+        transparent form's fields route to that form (nearest form in slot
+        order, wrapping); a slot marker (``<!-- slot: <rel> -->``) sends the
+        text after it to the named slot — a content slot, a form's preamble,
+        or the owner itself (``.``) — and ends any open field. Unmarked text
+        binds to the first content slot; with no content slot it is a form's
+        **preamble** (SOM §11.4 rule 7) — the class-level ``@Form`` on the
+        ``content`` member, else the first form — which is where the YAML
+        codec keeps it; only an owner with no slot at all takes it on its own
+        path."""
         form_slots = [s for s in slots if s[0].kind == SomMetaKind.FORM]
         default_rel = SpecDocumentMarkdown._default_body_rel(slots)
 
-        def path_of(rel: str) -> str:
-            return frame.path if rel == "." else f"{frame.path}/{rel}"
-
-        def find_field(
-            label: str,
-        ) -> Optional[tuple[int, "SomFormFieldMeta"]]:
-            lower = label.lower()
-            for k in range(len(form_slots)):
-                idx = (self._current_form_idx + k) % len(form_slots)
-                form = form_slots[idx][0].form
-                fields = form.fields if form is not None else []
-                for f in fields:
-                    if f.name.lower() == lower:
-                        return (idx, f)
-            return None
-
         fence = MarkdownFenceTracker()
-        current_field: Optional[str] = None
-        current_form_path: Optional[str] = None
-        current_code = False
+        current_field: Any = None
+        current_form_path = ""
+        discard = False
         current_lines: list[str] = []
         # Unlabelled text per target path, in the order the targets were
         # opened; a target opened twice gets its parts joined by a blank line.
         text_parts: dict[str, list[list[str]]] = {}
         content_lines: list[str] = []
-        text_parts.setdefault(path_of(default_rel), []).append(content_lines)
-
-        def flush() -> None:
-            nonlocal current_lines
-            if current_field is not None and current_form_path is not None:
-                restored = self._restore_value(current_lines)
-                value = (
-                    self._decode_code_span(restored)
-                    if current_code
-                    else restored
-                )
-                if value:
-                    self.forms.setdefault(current_form_path, {})[
-                        current_field
-                    ] = value
-            current_lines = []
+        text_parts.setdefault(_body_path_of(frame.path, default_rel), []).append(
+            content_lines
+        )
 
         self._current_form_idx = 0
-        for i, line in enumerate(frame.body):
+        i = 0
+        body = frame.body
+        while i < len(body):
+            line = body[i]
             if not fence.in_fence:
                 mk = _SLOT_MARKER.match(line)
                 if mk is not None:
@@ -1453,29 +2061,79 @@ class _Parser:
                         else next((s for s in slots if s[1] == rel), None)
                     )
                     if rel == "." or slot is not None:
-                        flush()
+                        if current_field is not None and not discard:
+                            self._put_field(
+                                current_form_path, current_field, current_lines
+                            )
                         current_field = None
-                        current_form_path = None
+                        discard = False
+                        current_lines = []
                         if slot is not None and slot[0].kind == SomMetaKind.FORM:
                             self._current_form_idx = form_slots.index(slot)
                         content_lines = []
-                        text_parts.setdefault(path_of(rel), []).append(
-                            content_lines
-                        )
+                        text_parts.setdefault(
+                            _body_path_of(frame.path, rel), []
+                        ).append(content_lines)
+                        i += 1
                         continue
+                header = _LAYOUT_TABLE_HEADER.match(line)
+                if header is not None and header.group(1) is None and form_slots:
+                    # A form table ends the open field (SOM §11.4); its rows
+                    # bind like `Field:` labels, each to the nearest form
+                    # declaring it.
+                    if current_field is not None and not discard:
+                        self._put_field(
+                            current_form_path, current_field, current_lines
+                        )
+                    current_field = None
+                    discard = False
+                    current_lines = []
+                    table = self._read_table(
+                        body, i, lambda k: self._body_line(frame, k), frame.path
+                    )
+                    for row in table.rows:
+                        label = row.cells[0]
+                        row_line = self._body_line(frame, row.index)
+                        hit = self._find_form_of(form_slots, label)
+                        if hit < 0:
+                            self._reject(
+                                row_line,
+                                SpecMarkdownRejectReason.UNKNOWN_FIELD,
+                                f'row "{label}" names no field of this form',
+                                frame.path,
+                            )
+                            continue
+                        self._current_form_idx = hit
+                        self._stage_row(
+                            f"{frame.path}/{form_slots[hit][1]}",
+                            _fields_of(form_slots[hit][0]),
+                            label,
+                            row.cells[1],
+                            row_line,
+                        )
+                    i = table.end
+                    continue
                 m = _FIELD_LABEL.match(line)
                 if m is not None:
-                    hit = find_field(m.group(1))
-                    if hit is not None:
-                        flush()
-                        self._current_form_idx = hit[0]
-                        current_field = hit[1].name
-                        current_code = hit[1].code
-                        current_form_path = (
-                            f"{frame.path}/{form_slots[hit[0]][1]}"
+                    hit = self._find_form_of(form_slots, m.group(1))
+                    if hit >= 0:
+                        if current_field is not None and not discard:
+                            self._put_field(
+                                current_form_path, current_field, current_lines
+                            )
+                        self._current_form_idx = hit
+                        current_field = _field_by_label(
+                            _fields_of(form_slots[hit][0]), m.group(1)
+                        )
+                        current_form_path = f"{frame.path}/{form_slots[hit][1]}"
+                        discard = self._given_twice(
+                            current_form_path,
+                            current_field.name,
+                            self._body_line(frame, i),
                         )
                         current_lines = [m.group(2)]
                         fence.feed(line)
+                        i += 1
                         continue
             target = content_lines if current_field is None else current_lines
             # In a region with forms every label-shaped text line carries the
@@ -1489,65 +2147,89 @@ class _Parser:
             else:
                 target.append(line)
             fence.feed(line)
-        flush()
+            i += 1
+        if current_field is not None and not discard:
+            self._put_field(current_form_path, current_field, current_lines)
         for target_path, parts in text_parts.items():
-            value = "\n\n".join(
-                v for v in (self._restore_value(p) for p in parts) if v
-            )
+            value = self._join_parts(parts)
             if value:
                 self.content[target_path] = value
 
     def _finalize_form(
         self, frame: _Frame, node: SomMetaNode, path: str
     ) -> None:
-        """Parses an id-bearing ``@Form`` section's body: the preamble text
-        before the first field label binds to the form's own ``content``
-        (SOM §11.4 rule 7); everything from the first label on binds to the
-        named fields."""
-        form = node.form
-        fields = form.fields if form is not None else []
-        fields_by_lower = {f.name.lower(): f.name for f in fields}
-        code_fields = {f.name for f in fields if f.code}
+        """Parses an id-bearing ``@Form`` section's body: ``FieldName:``
+        paragraphs and form-table rows bind to the named fields wherever they
+        stand (SOM §11.4); the text that belongs to no field — before the
+        first field, or after a table — is the form's preamble, its own
+        content (rule 7)."""
+        declared = _fields_of(node)
         fence = MarkdownFenceTracker()
-        current_field: Optional[str] = None
+        current_field: Any = None
+        discard = False
         current_lines: list[str] = []
+        # The preamble's parts: the text before the first field, and text a
+        # table interrupts; joined by one blank line.
+        preamble_parts: list[list[str]] = [[]]
 
-        def flush(line_no: int) -> None:
-            nonlocal current_lines
-            restored = self._restore_value(current_lines)
-            value = (
-                self._decode_code_span(restored)
-                if current_field in code_fields
-                else restored
-            )
-            if current_field is not None:
-                if value:
-                    self.forms.setdefault(path, {})[current_field] = value
-            elif value:
-                self.content[path] = value
-            current_lines = []
-
-        for i, line in enumerate(frame.body):
+        body = frame.body
+        i = 0
+        while i < len(body):
+            line = body[i]
             if not fence.in_fence:
+                header = _LAYOUT_TABLE_HEADER.match(line)
+                if header is not None and header.group(1) is None:
+                    if current_field is not None and not discard:
+                        self._put_field(path, current_field, current_lines)
+                    current_field = None
+                    discard = False
+                    current_lines = []
+                    preamble_parts.append([])
+                    table = self._read_table(
+                        body, i, lambda k: self._body_line(frame, k), path
+                    )
+                    for row in table.rows:
+                        self._stage_row(
+                            path,
+                            declared,
+                            row.cells[0],
+                            row.cells[1],
+                            self._body_line(frame, row.index),
+                        )
+                    i = table.end
+                    continue
                 m = _FIELD_LABEL.match(line)
-                field_name = (
-                    fields_by_lower.get(m.group(1).lower())
+                field = (
+                    _field_by_label(declared, m.group(1))
                     if m is not None
                     else None
                 )
-                if field_name is not None and m is not None:
-                    flush(frame.line + i)
-                    current_field = field_name
+                if field is not None and m is not None:
+                    if current_field is not None and not discard:
+                        self._put_field(path, current_field, current_lines)
+                    current_field = field
+                    discard = self._given_twice(
+                        path, field.name, self._body_line(frame, i)
+                    )
                     current_lines = [m.group(2)]
                     fence.feed(line)
+                    i += 1
                     continue
             # Continuation: strip the one escape space of a label-shaped line.
+            target = (
+                preamble_parts[-1] if current_field is None else current_lines
+            )
             if not fence.in_fence and _CONTINUATION_LABEL.match(line):
-                current_lines.append(line[1:])
+                target.append(line[1:])
             else:
-                current_lines.append(line)
+                target.append(line)
             fence.feed(line)
-        flush(frame.line + len(frame.body))
+            i += 1
+        if current_field is not None and not discard:
+            self._put_field(path, current_field, current_lines)
+        value = self._join_parts(preamble_parts)
+        if value:
+            self.content[path] = value
 
     @staticmethod
     def _decode_code_span(value: str) -> str:
@@ -1573,13 +2255,16 @@ class _Parser:
     @staticmethod
     def _restore_value(body: list[str]) -> str:
         """Parse-side value restoration (SOM §11.3): trim leading/trailing
-        blank lines and unescape ``\\#``-escaped heading lines outside
-        fences."""
+        blank lines, unescape ``\\#``-escaped heading lines and strip the one
+        escape space of a line shaped like a layout table header (SOM §11.4),
+        outside fences."""
         fence = MarkdownFenceTracker()
         out: list[str] = []
         for line in body:
             if not fence.in_fence and _ESCAPED_HEADING.match(line):
                 out.append(line[1:])
+            elif not fence.in_fence and _ESCAPED_TABLE_HEADER.match(line):
+                out.append(line[1:])  # the emitter's one escape space.
             else:
                 out.append(line)
             fence.feed(line)

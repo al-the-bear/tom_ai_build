@@ -420,6 +420,67 @@ def test_round_trip_label_shaped_continuation() -> None:
     _check("formCont.byteStable", _export(reloaded) == md1)
 
 
+# --- the reading view's table layout (SOM §11.4, §11.5) -----------------------
+
+
+def test_table_header_shaped_line_escaped() -> None:
+    # A value line shaped like a layout table header gains one space on emit
+    # and loses it on parse: a value is never read as a table.
+    value = "Before\n| TomSpecField | Value |\nafter"
+    doc = SpecDocument()
+    doc.set_content("D00/D00-OVR", value)
+    md1 = _export(doc)
+    _check("tableHdr.escaped", "\n | TomSpecField | Value |\n" in md1, md1)
+    reloaded, report = _reload(md1)
+    _check("tableHdr.clean", report.is_clean,
+           "; ".join(str(r) for r in report.rejections))
+    _check("tableHdr.value", reloaded.content("D00/D00-OVR") == value,
+           repr(reloaded.content("D00/D00-OVR")))
+    _check("tableHdr.byteStable", _export(reloaded) == md1)
+
+
+def test_form_table_parses() -> None:
+    md = (
+        "<!-- docspec: d00/1 -->\n"
+        "# <!--[D00]--> Demo Document\n\n"
+        "## <!--[D00-HDR]--> Header\n\n"
+        "| TomSpecField | Value |\n"
+        "| --- | --- |\n"
+        "| Author | Ada Lovelace |\n"
+        "| Reviewer | Charles \\| Babbage |\n"
+    )
+    reloaded, report = _reload(md)
+    _check("formTable.clean", report.is_clean,
+           "; ".join(str(r) for r in report.rejections))
+    _check("formTable.author",
+           reloaded.form_field("D00/D00-HDR", "author") == "Ada Lovelace")
+    _check("formTable.reviewer",
+           reloaded.form_field("D00/D00-HDR", "reviewer") == "Charles | Babbage",
+           repr(reloaded.form_field("D00/D00-HDR", "reviewer")))
+
+
+def test_form_table_rejections() -> None:
+    md = (
+        "<!-- docspec: d00/1 -->\n"
+        "# <!--[D00]--> Demo Document\n\n"
+        "## <!--[D00-HDR]--> Header\n\n"
+        "| TomSpecField | Value |\n"
+        "| --- | --- |\n"
+        "| Editor | Nobody |\n"
+        "| Author | Ada |\n"
+        "| Author | Again |\n"
+    )
+    report = _parse(md)
+    reasons = [r.reason for r in report.rejections]
+    _check("formTableRej.reasons",
+           reasons == [SpecMarkdownRejectReason.UNKNOWN_FIELD,
+                       SpecMarkdownRejectReason.MALFORMED_BLOCK],
+           str(reasons))
+    _check("formTableRej.firstKept",
+           report.forms.get("D00/D00-HDR") == {"author": "Ada"},
+           str(report.forms))
+
+
 # --- a form section's preamble (SOM §11.4 rule 7) -----------------------------
 
 
@@ -693,6 +754,9 @@ def main() -> int:
     test_round_trip_rich_markdown()
     test_round_trip_stored_item_id()
     test_round_trip_label_shaped_continuation()
+    test_table_header_shaped_line_escaped()
+    test_form_table_parses()
+    test_form_table_rejections()
     test_form_preamble_parses()
     test_form_preamble_emits()
     test_form_preamble_only()

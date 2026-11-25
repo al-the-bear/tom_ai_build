@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+- **The Markdown parser reads the reading view's table layout** (SOM §11.4,
+  §11.5): form tables `| TomSpecField | Value |` (a code span holding `\|`,
+  reference links read as their link texts, the prose before and after a
+  table as the form's preamble, a slot marker before a form table), record
+  tables in a `::: {.records}` div (an `Id` column, a `Title` column or none,
+  `<br>` titles), reference lines in a `::: {.refs}` div, section tables
+  `| Section | TomSpecField | Value |`, and heading anchors `<a id="ID">`
+  equal to the id or its qualified form removed from the title. Two new
+  rejection reasons in `SpecMarkdownRejectReason`, `UNKNOWN_FIELD`
+  (`unknownField`: a row or a records column naming no field) and
+  `MALFORMED_BLOCK` (`malformedBlock`: a table without its delimiter row, a
+  row of another cell count, a field given twice, the malformed `refs` and
+  `records` divs); the older `Field:` layout reads as before.
+  `SpecDocumentMarkdown.layout_table_header` is the pattern of a layout
+  table's header line. The emitter escapes a value line shaped like a layout
+  table header with one space, which the parser removes. The conformance
+  runner reads the 28 `readingView` cases of `markdown_import_cases.json`
+  that are not the readable header's or the styled-div headings', and lands
+  `expected.tables.md` in the document the `Field:` golden lands.
 - **The reading notation's scanner** (DocSpecs specification, Reading
   Notation RN-1 … RN-13): `spec_notation.py` with `scan_notation(text,
   tom_specs=False)` returning a `NotationScan` — the value's fenced divs,

@@ -474,17 +474,20 @@ def test_markdown_round_trip(model: SpecModel) -> None:
 
 
 def test_markdown_lands_in_shared_memory(model: SpecModel) -> None:
-    """Markdown/YAML convergence: parsing ``expected.tomspecs.md`` and applying it must
-    reproduce ``state.json`` (the YAML-route memory) exactly, proving both
-    formats converge on one in-memory document (SOM §8)."""
-    golden = _read(EXPORT_GOLDEN)
+    """Markdown/YAML convergence: parsing either golden (``expected.tables.md``,
+    the reading view's tables, and ``expected.tomspecs.md``, the ``Field:``
+    lines) and applying it must reproduce ``state.json`` (the YAML-route
+    memory) exactly, proving both formats converge on one in-memory document
+    (SOM §8)."""
     canonical = _read_json("state.json")
-    imported = SpecDocument.from_markdown(golden, model)
-    _check("md.land.clean", not imported.rejections,
-           "; ".join(str(r) for r in imported.rejections))
-    landed = imported.document
-    _check("md.land.memory", landed.to_json() == canonical,
-           _json_mismatch(landed.to_json(), canonical))
+    for label, golden in (("tables", "expected.tables.md"),
+                          ("fields", EXPORT_GOLDEN)):
+        imported = SpecDocument.from_markdown(_read(golden), model)
+        _check(f"md.land.{label}.clean", not imported.rejections,
+               "; ".join(str(r) for r in imported.rejections))
+        landed = imported.document
+        _check(f"md.land.{label}.memory", landed.to_json() == canonical,
+               _json_mismatch(landed.to_json(), canonical))
 
 
 def _run_markdown_apply_case(model: SpecModel, case: dict) -> dict:
@@ -540,11 +543,14 @@ def test_markdown_import_rejections(model: SpecModel) -> None:
     rest of the parse fails the second.
     """
     for case in _read_json("markdown_import_cases.json")["cases"]:
-        # The reading view's table forms (``readingView``) are read by the Dart
-        # and TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
-        if case.get("readingView"):
-            continue
         name = case["name"]
+        # The reading view's table layout is read; the readable header and the
+        # styled-div headings belong to the strip of a document
+        # (runtime_parity.md § Reading view).
+        if case.get("readingView") and (
+            "readableHeader" in case or name.startswith("styled-div headings")
+        ):
+            continue
         parsed = SpecDocumentMarkdown(model, SpecDocument()).parse(case["markdown"])
         got = [
             {
