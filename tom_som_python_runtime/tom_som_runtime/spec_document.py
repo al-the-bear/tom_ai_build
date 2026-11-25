@@ -164,9 +164,10 @@ class SpecDocument:
         """Loads a SOM-rendered Markdown document (SOM §11.7) into a fresh
         document in one call: parse, then :meth:`apply_markdown_result`.
 
-        Blocks the parser rejects are not loaded, and are returned with the
-        document, so a caller can show them or refuse to save: re-exporting a
-        document whose source had rejections drops those blocks for good."""
+        Blocks the parser rejects are kept for review: each stands as a
+        ``rejected`` div in the text of the section it stood in, else its
+        parent (SOM §11.7, DocSpecs RN-11). They are returned with the
+        document too, so a caller can show them or refuse to save."""
         # Lazy import: spec_document_markdown imports SpecDocument at load.
         from .spec_document_markdown import (
             SpecDocumentMarkdown,
@@ -188,9 +189,12 @@ class SpecDocument:
         Other roots are left as they are.
 
         A result with rejections is refused with a :class:`RuntimeError` (and
-        the document is left unchanged) unless *allow_rejections* is true: the
-        blocks it rejected would otherwise vanish from a document the caller
-        believes it imported whole.
+        the document is left unchanged) unless *allow_rejections* is true.
+        With it, each rejected block is kept rather than dropped: the result's
+        :attr:`SpecMarkdownResult.kept_content` is written over the parsed
+        content, so the block stands as a ``rejected`` div in the text of the
+        section it stood in (else its parent), at its place (SOM §11.7,
+        DocSpecs RN-11), and nothing written is lost.
 
         Store-agnostic on both halves: the purge goes through
         :meth:`remove_values_under`, which clears every store, and the
@@ -227,8 +231,18 @@ class SpecDocument:
                 entry["ids"] = {str(k): v for k, v in ids.items()}
             lists[list_path] = entry
 
+        content = {**store("content"), **result.content}
+        if allow_rejections:
+            # Each rejected block is kept rather than dropped: the kept
+            # content is written over the parsed content (SOM §11.7, DocSpecs
+            # RN-11). An empty value removes the path's text.
+            for path, kept in result.kept_content.items():
+                if kept:
+                    content[path] = kept
+                else:
+                    content.pop(path, None)
         self.load_json({
-            "content": {**store("content"), **result.content},
+            "content": content,
             "forms": {**store("forms"), **result.forms},
             "lists": lists,
             "headlines": {**store("headlines"), **result.headlines},

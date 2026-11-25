@@ -52,7 +52,10 @@ the document — it returns staged values keyed exactly like
 :meth:`SpecDocument.to_json` plus a rejection report; :meth:`SpecDocument.apply_markdown_result` applies them.
 Anything that cannot be mapped — an unknown section id, a child heading under a
 value leaf, orphaned text — is collected into
-:attr:`SpecMarkdownResult.rejections` rather than dropped (SOM §11.7).
+:attr:`SpecMarkdownResult.rejections` rather than dropped (SOM §11.7); an
+import accepting rejections keeps each rejected block as a ``rejected`` div in
+the text of the section it stood in, else its parent
+(:attr:`SpecMarkdownResult.kept_content`, DocSpecs RN-11).
 """
 
 from __future__ import annotations
@@ -196,6 +199,14 @@ class SpecMarkdownResult:
     #: The root segment(s) the import covers (the first segment of each
     #: accepted path) — the scope a full-overwrite apply purges before writing.
     root_prefixes: set[str] = dataclass_field(default_factory=set)
+    #: The rejected blocks kept for review (SOM §11.7, DocSpecs RN-11): for
+    #: every path whose text a rejected block stood in, the value with each
+    #: such block written as a ``rejected`` div at its place. An apply that
+    #: accepts rejections (:meth:`SpecDocument.apply_markdown_result` with
+    #: ``allow_rejections=True``) writes these over :attr:`content`, so
+    #: nothing written is lost; an empty value removes the path's text. Empty
+    #: for a clean parse.
+    kept_content: dict[str, str] = dataclass_field(default_factory=dict)
 
     @property
     def is_clean(self) -> bool:
@@ -222,8 +233,8 @@ class SpecMarkdownImport:
 
     @property
     def rejections(self) -> list[SpecMarkdownRejection]:
-        """The blocks the parse rejected, in source order; they are not in
-        :attr:`document`."""
+        """The blocks the parse rejected, in source order; each is kept in
+        :attr:`document` as a ``rejected`` div for review (SOM §11.7)."""
         return self.result.rejections
 
 
@@ -1557,6 +1568,7 @@ class SpecDocumentMarkdown:
             units=p.units,
             rejections=p.rejections,
             root_prefixes=p.root_prefixes,
+            kept_content=p.kept_content,
         )
 
 
@@ -1584,6 +1596,179 @@ class _Frame:
         # container (SOM §11.2, _qualify_anchor).
         self.anchor_scope: Optional[list[str]] = None
         self.anchor_section: Optional[str] = None
+        # Rejected blocks to keep in this frame's text (RN-11): the body index
+        # they stand before, the block, and the end of the body lines it
+        # replaces (the index itself when it replaces none).
+        self.kept: list[_KeptMark] = []
+        # For an ignored frame: the blocks of its ignored children, kept after
+        # its own block wherever that lands.
+        self.deferred: list[_KeptBlock] = []
+
+
+_KEPT_DIV_OPEN = re.compile(
+    r"^ {0,3}:{3,}[ \t]*(?:\{.*\}|[A-Za-z][A-Za-z0-9_-]*)[ \t]*\Z"
+)
+_KEPT_DIV_CLOSE = re.compile(r"^ {0,3}:{3,}[ \t]*\Z")
+_KEPT_COLONS = re.compile(r"^ {0,3}(:{3,})")
+_KEPT_FIRST_COLON = re.compile(r"^( {0,3}):")
+_NEAR_MISS_SEPARATORS = re.compile(_WS + "|[_-]")
+
+
+class _KeptBlock:
+    """A rejected block an import that accepts rejections keeps for review
+    (SOM §11.7, DocSpecs RN-11): the source lines it held and what its
+    ``rejected`` div records for a resolution."""
+
+    def __init__(
+        self,
+        rejection: SpecMarkdownRejection,
+        lines: list[str],
+        field: Optional[str] = None,
+        section: Optional[str] = None,
+        kept: Optional[str] = None,
+    ) -> None:
+        self.rejection = rejection
+        #: The source lines of the block, as written.
+        self.lines = lines
+        #: The field given twice, or the declared field a near-miss label
+        #: names.
+        self.field = field
+        #: The child section a near-miss section-table cell names.
+        self.section = section
+        #: For a field given twice: the path of the form holding the kept
+        #: value.
+        self.kept = kept
+
+    def div(self) -> list[str]:
+        """The block as a ``rejected`` div: ``reason``, ``line``, then
+        ``field`` / ``section`` / ``kept`` where they apply, then ``label``
+        (the report's message, its double quotes written as single ones). A
+        fence the block does not close, or closes without opening, would pair
+        with the div's own fences, so it is written escaped (``\\:::``,
+        RN-9); the div's fences are longer than any fence inside it, for the
+        eye (RN-7)."""
+        inner = list(self.lines)
+        while inner and not _trim_ws(inner[0]):
+            inner.pop(0)
+        while inner and not _trim_ws(inner[-1]):
+            inner.pop()
+        fence = MarkdownFenceTracker()
+        open_: list[int] = []
+        unpaired: set[int] = set()
+        for k, line in enumerate(inner):
+            if not fence.in_fence:
+                if _KEPT_DIV_CLOSE.match(line):
+                    if not open_:
+                        unpaired.add(k)
+                    else:
+                        open_.pop()
+                elif _KEPT_DIV_OPEN.match(line):
+                    open_.append(k)
+            fence.feed(line)
+        unpaired.update(open_)
+        longest = 0
+        for k in range(len(inner)):
+            if k in unpaired:
+                inner[k] = _KEPT_FIRST_COLON.sub(r"\1\\:", inner[k], count=1)
+                continue
+            m = _KEPT_COLONS.match(inner[k])
+            run = len(m.group(1)) if m is not None else 0
+            if run > longest:
+                longest = run
+        colons = ":" * (longest + 1 if longest >= 3 else 3)
+
+        def quoted(s: str) -> str:
+            return s.replace('"', "'")
+
+        r = self.rejection
+        attributes = f'reason="{r.reason.value}" line="{r.line}"'
+        if self.field is not None:
+            attributes += f' field="{quoted(self.field)}"'
+        if self.section is not None:
+            attributes += f' section="{quoted(self.section)}"'
+        if self.kept is not None:
+            attributes += f' kept="{quoted(self.kept)}"'
+        attributes += f' label="{quoted(r.message)}"'
+        return [f"{colons} {{.rejected {attributes}}}", *inner, colons]
+
+
+class _KeptMark:
+    """A kept block's place in a frame's body: before :attr:`at`, replacing
+    the lines up to :attr:`end`."""
+
+    def __init__(self, at: int, block: _KeptBlock, end: int) -> None:
+        self.at = at
+        self.block = block
+        self.end = end
+
+
+def _merge_kept(
+    part: list[str],
+    ins: list[tuple[int, list[str]]],
+    replaced: set[int],
+) -> list[str]:
+    """*part* with the divs of *ins* (``(position, div lines)``) written in at
+    their positions, a blank line between a div and the text around it; the
+    lines at *replaced* positions are left out (a div took their place)."""
+    out: list[str] = []
+    blank_due = False
+    for k in range(len(part) + 1):
+        for at, div in ins:
+            if at != k:
+                continue
+            if out and _trim_ws(out[-1]):
+                out.append("")
+            out.extend(div)
+            blank_due = True
+        if k == len(part) or k in replaced:
+            continue
+        line = part[k]
+        if blank_due and _trim_ws(line):
+            out.append("")
+        blank_due = False
+        out.append(line)
+    return out
+
+
+class _Keeper:
+    """Where the rejected blocks of one frame's body go (RN-11): each content
+    line list of the frame and the divs written into it, by position."""
+
+    def __init__(self, frame: _Frame) -> None:
+        # Stable: blocks at one place keep their order.
+        self._marks = sorted(frame.kept, key=lambda m: m.at)
+        self._next = 0
+        # Keyed by the line list itself (its identity), not by its lines.
+        self._inserts: dict[int, list[tuple[int, list[str]]]] = {}
+
+    def keep(self, into: list[str], b: _KeptBlock) -> None:
+        """Writes *b* into *into* at its current end."""
+        self._inserts.setdefault(id(into), []).append((len(into), b.div()))
+
+    def drain(self, up_to: int, into: list[str]) -> None:
+        """Writes the frame's blocks standing before body index *up_to* into
+        *into*."""
+        while (
+            self._next < len(self._marks)
+            and self._marks[self._next].at <= up_to
+        ):
+            self.keep(into, self._marks[self._next].block)
+            self._next += 1
+
+    def kept_value(self, parts: list[list[str]]) -> Optional[str]:
+        """The value of *parts* with the kept divs written in, joined as the
+        parts are; ``None`` when no part holds one."""
+        if not any(id(part) in self._inserts for part in parts):
+            return None
+        values: list[str] = []
+        for part in parts:
+            ins = self._inserts.get(id(part))
+            v = _Parser._restore_value(
+                part if ins is None else _merge_kept(part, ins, set())
+            )
+            if v:
+                values.append(v)
+        return "\n\n".join(values)
 
 
 class _ListState:
@@ -1820,6 +2005,50 @@ class _Table:
         self.end = end
 
 
+class _FieldRun:
+    """The open ``Field:`` paragraph of a body region: its field, form and
+    lines, and — for a field given twice — the held block that keeps the
+    paragraph whole (RN-11)."""
+
+    def __init__(self, parser: "_Parser", frame: _Frame, keeper: _Keeper) -> None:
+        self._parser = parser
+        self._frame = frame
+        self._keeper = keeper
+        self.field: Any = None
+        self.form_path = ""
+        self.discard = False
+        self.lines: list[str] = []
+        self._discarded: Optional[_KeptBlock] = None
+        self._discard_start = 0
+
+    def open(self, field: Any, form_path: str, i: int, first: str) -> None:
+        """Opens *field* of the form at *form_path* at body index *i*."""
+        p = self._parser
+        self.field = field
+        self.form_path = form_path
+        self.discard = p._given_twice(
+            form_path, field.name, p._body_line(self._frame, i)
+        )
+        if self.discard:
+            self._discarded = p._pending.pop() if p._pending else None
+            self._discard_start = i
+        self.lines.append(first)
+
+    def flush(self, at: int, into: list[str]) -> None:
+        """Ends the open field at body index *at*: its value is stored, or —
+        given twice — its paragraph kept in *into*."""
+        if self.field is not None and not self.discard:
+            self._parser._put_field(self.form_path, self.field, self.lines)
+        if self.discard and self._discarded is not None:
+            self._discarded.lines = list(
+                self._frame.body[self._discard_start:at]
+            )
+            self._keeper.keep(into, self._discarded)
+            self._discarded = None
+        self.lines = []
+        self.discard = False
+
+
 class _Parser:
     def __init__(self, codec: SpecDocumentMarkdown) -> None:
         self.codec = codec
@@ -1840,8 +2069,114 @@ class _Parser:
         # repeated field names across an owner's transparent forms follow emit
         # order.
         self._current_form_idx = 0
+        self.kept_content: dict[str, str] = {}
+        # The source lines, for the text of a rejected block.
+        self._source: list[str] = []
+        # Blocks reported by _reject and not yet placed.
+        self._pending: list[_KeptBlock] = []
+        # Text before the root heading, kept at the start of the root's text.
+        self._orphans: list[_KeptBlock] = []
+
+    # --- Rejected blocks kept for review (SOM §11.7, DocSpecs RN-11) ----------
+
+    def _take_pending(self) -> list[_KeptBlock]:
+        """The held blocks in source order, the hold emptied."""
+        out = self._pending
+        self._pending = []
+        out.sort(key=lambda b: b.rejection.line)  # stable
+        return out
+
+    def _mark_pending(self, frame: _Frame, at: int, replace_end: int) -> None:
+        """Places the held blocks before *frame*'s body index *at*, taking the
+        place of the body lines up to *replace_end* (*at* itself: none)."""
+        for b in self._take_pending():
+            frame.kept.append(_KeptMark(at, b, replace_end))
+
+    @staticmethod
+    def _near_miss_norm(s: str) -> str:
+        return _NEAR_MISS_SEPARATORS.sub("", s.lower())
+
+    @classmethod
+    def _near_miss(cls, label: str, names: list[str]) -> Optional[str]:
+        """The declared name one edit (or only case and separators) away from
+        *label*, when exactly one is: what a *Rename to* choice offers
+        (RN-11)."""
+        hits: list[str] = []
+        for n in names:
+            if (
+                n != label
+                and (
+                    cls._near_miss_norm(n) == cls._near_miss_norm(label)
+                    or cls._one_edit(n.lower(), label.lower())
+                )
+                and n not in hits
+            ):
+                hits.append(n)
+        return hits[0] if len(hits) == 1 else None
+
+    @staticmethod
+    def _one_edit(a: str, b: str) -> bool:
+        """Whether *a* becomes *b* by at most one insertion, deletion or
+        substitution."""
+        if abs(len(a) - len(b)) > 1:
+            return False
+        i = j = edits = 0
+        while i < len(a) and j < len(b):
+            if a[i] == b[j]:
+                i += 1
+                j += 1
+                continue
+            edits += 1
+            if edits > 1:
+                return False
+            if len(a) > len(b):
+                i += 1
+            elif len(b) > len(a):
+                j += 1
+            else:
+                i += 1
+                j += 1
+        return edits + (len(a) - i) + (len(b) - j) <= 1
+
+    @staticmethod
+    def _field_names(fields: list) -> list[str]:
+        return [f.name for f in fields]
+
+    @staticmethod
+    def _kept_in_parent(node: Optional[SomMetaNode]) -> bool:
+        """Whether a frame of *node* passes its rejected blocks to its parent:
+        a list container, which holds no text, and a scalar or enum value,
+        whose text is a typed value (RN-11)."""
+        return node is not None and node.kind in (
+            SomMetaKind.LIST, SomMetaKind.SCALAR, SomMetaKind.ENUM_VALUE
+        )
+
+    def _keep_ignored(self, frame: _Frame) -> None:
+        """An ignored frame's heading and body, with its ignored children's
+        blocks after it, go to the text of the nearest section above it that
+        was read, after that section's own text (RN-11); with none above (an
+        unknown root) nothing holds them and only the report remains."""
+        own: Optional[SpecMarkdownRejection] = None
+        for r in self.rejections:
+            if r.line == frame.line:
+                own = r
+        blocks: list[_KeptBlock] = []
+        if own is not None:
+            blocks.append(
+                _KeptBlock(own, [self._source[frame.line - 1], *frame.body])
+            )
+        blocks.extend(frame.deferred)
+        if not self._stack or not blocks:
+            return
+        parent = self._stack[-1]
+        if parent.ignored:
+            parent.deferred.extend(blocks)
+            return
+        for b in blocks:
+            parent.kept.append(_KeptMark(len(parent.body), b, len(parent.body)))
 
     def run(self, lines: list[str]) -> None:
+        self._source = lines
         for i, raw in enumerate(lines):
             line_no = i + 1
             trimmed = raw.rstrip()
@@ -1859,13 +2194,13 @@ class _Parser:
             if self._stack:
                 self._stack[-1].body.append(raw)
             elif trimmed:
-                self.rejections.append(
-                    SpecMarkdownRejection(
-                        line=line_no,
-                        reason=SpecMarkdownRejectReason.ORPHAN_CONTENT,
-                        message="text before the document root heading",
-                    )
+                r = SpecMarkdownRejection(
+                    line=line_no,
+                    reason=SpecMarkdownRejectReason.ORPHAN_CONTENT,
+                    message="text before the document root heading",
                 )
+                self.rejections.append(r)
+                self._orphans.append(_KeptBlock(r, [raw]))
             self._fence.feed(raw)
         self._close_to(1)
         if self._stack:
@@ -2099,6 +2434,11 @@ class _Parser:
                 frame = _Frame(level=level, node=tree.root, path=seg,
                                line=line_no)
                 frame.anchor_section = seg
+                # Text before the root heading is kept at the start of its
+                # text.
+                for b in self._orphans:
+                    frame.kept.append(_KeptMark(0, b, 0))
+                self._orphans.clear()
                 self._stack.append(frame)
                 return
         known = ", ".join(
@@ -2180,6 +2520,7 @@ class _Parser:
 
     def _finalize(self, frame: _Frame) -> None:
         if frame.ignored:
+            self._keep_ignored(frame)
             return
         node = frame.node
         if node is not None and node.kind == SomMetaKind.FORM:
@@ -2194,6 +2535,33 @@ class _Parser:
         slots = [] if node is None else self.codec._body_slots(node)
         if not slots:
             value = self._restore_value(frame.body)
+            if frame.kept:
+                replaced: set[int] = set()
+                for mark in frame.kept:
+                    replaced.update(range(mark.at, mark.end))
+                parent = self._stack[-1] if self._stack else None
+                if self._kept_in_parent(node) and parent is not None:
+                    # A list container (no text of its own, SOM §11.5) or a
+                    # typed value has no place for a block: its parent takes
+                    # them, after its own text (RN-11); the lines they replace
+                    # leave this frame's text.
+                    own = self._restore_value(
+                        _merge_kept(frame.body, [], replaced)
+                    )
+                    if own != value:
+                        self.kept_content[frame.path] = own
+                    for mark in frame.kept:
+                        parent.kept.append(
+                            _KeptMark(len(parent.body), mark.block,
+                                      len(parent.body))
+                        )
+                else:
+                    ins = [(mark.at, mark.block.div()) for mark in frame.kept]
+                    kept = self._restore_value(
+                        _merge_kept(frame.body, ins, replaced)
+                    )
+                    if kept:
+                        self.kept_content[frame.path] = kept
             if value:
                 self.content[frame.path] = value
             elif node is not None and self._is_value_leaf(node.kind):
@@ -2221,12 +2589,28 @@ class _Parser:
         reason: SpecMarkdownRejectReason,
         message: str,
         anchor: Optional[str],
-    ) -> None:
-        self.rejections.append(
-            SpecMarkdownRejection(
-                line=line, reason=reason, message=message, anchor=anchor
-            )
+        lines: Optional[list[str]] = None,
+        field: Optional[str] = None,
+        section: Optional[str] = None,
+        kept: Optional[str] = None,
+    ) -> _KeptBlock:
+        """Reports a rejection and holds its block for an import that keeps
+        rejected blocks (RN-11): *lines* are the source lines it held
+        (``None``: its own line), *field* / *section* / *kept* what its div
+        records for a resolution."""
+        r = SpecMarkdownRejection(
+            line=line, reason=reason, message=message, anchor=anchor
         )
+        self.rejections.append(r)
+        if lines is not None:
+            held = list(lines)
+        elif 1 <= line <= len(self._source):
+            held = [self._source[line - 1]]
+        else:
+            held = []
+        b = _KeptBlock(r, held, field, section, kept)
+        self._pending.append(b)
+        return b
 
     def _read_table(
         self,
@@ -2256,6 +2640,7 @@ class _Parser:
                 if not is_delimiter
                 else "table whose delimiter row does not match its header",
                 anchor,
+                lines[start:end],
             )
             return table
         for i in range(start + 2, end):
@@ -2267,6 +2652,7 @@ class _Parser:
                     f"table row with {len(cells)} cells, the header has "
                     f"{len(header)}",
                     anchor,
+                    lines[i:i + 1],
                 )
                 continue
             table.rows.append(_TableRow(i, cells))
@@ -2285,7 +2671,8 @@ class _Parser:
     def _given_twice(self, form_path: str, field: str, line: int) -> bool:
         """Whether *field* of the form at *form_path* was given before;
         reports the repeat (``malformedBlock``, the first occurrence kept)
-        when it was."""
+        when it was. The repeat's held block names the field and the form
+        holding the kept value (RN-11)."""
         given = self._given.setdefault(form_path, set())
         if field not in given:
             given.add(field)
@@ -2294,6 +2681,10 @@ class _Parser:
             line,
             SpecMarkdownRejectReason.MALFORMED_BLOCK,
             f'field "{field}" given twice',
+            form_path,
+            None,
+            field,
+            None,
             form_path,
         )
         return True
@@ -2317,6 +2708,8 @@ class _Parser:
                 SpecMarkdownRejectReason.UNKNOWN_FIELD,
                 f'row "{label}" names no field of this form',
                 form_path,
+                None,
+                self._near_miss(label, self._field_names(fields)),
             )
             return
         value = self._cell_value(cell, f)
@@ -2346,21 +2739,29 @@ class _Parser:
             )
             target: Optional[tuple[str, list]] = None
             skip = False
+            # The rejected section's block: its row and the rows continuing
+            # it.
+            skipped: Optional[_KeptBlock] = None
             for row in table.rows:
                 row_line = self._body_line(frame, row.index)
                 section = _cell_id(row.cells[0])
                 if not section and skip:
+                    if skipped is not None:
+                        skipped.lines.append(body[row.index])
                     continue
                 if section:
                     named = self._section_table_target(frame, node, section)
                     skip = named is None
                     if named is None:
-                        self._reject(
+                        skipped = self._reject(
                             row_line,
                             SpecMarkdownRejectReason.UNKNOWN_SECTION,
                             "section-table row names no child section of "
                             f'"{frame.path}"',
                             section,
+                            body[row.index:row.index + 1],
+                            None,
+                            self._near_section(node, section),
                         )
                         continue
                     target = named
@@ -2370,6 +2771,7 @@ class _Parser:
                         SpecMarkdownRejectReason.UNKNOWN_SECTION,
                         "section-table row names no section",
                         frame.path,
+                        body[row.index:row.index + 1],
                     )
                     continue
                 self._stage_row(
@@ -2377,7 +2779,28 @@ class _Parser:
                 )
             for k in range(i, table.end):
                 body[k] = ""
+            # What the table rejected is kept where the table stood.
+            self._mark_pending(frame, i, i)
             i = table.end
+
+    def _near_section(self, node: SomMetaNode, section: str) -> Optional[str]:
+        """The child a section-table ``Section`` cell naming none is a near
+        miss of (RN-11): a child form section's id, or ``<LIST> / <ITEM>``
+        with a near list id."""
+        parts = _SECTION_CELL_SEP.split(section)
+        if len(parts) not in (1, 2):
+            return None
+        kind = SomMetaKind.FORM if len(parts) == 1 else SomMetaKind.LIST
+        ids: list[str] = []
+        for child, _rel in self.codec._effective_children(node):
+            if child.kind == kind:
+                child_id = self.codec._heading_id_of(child)
+                if child_id:
+                    ids.append(child_id)
+        if len(parts) == 1:
+            return self._near_miss(section, ids)
+        near_list = self._near_miss(parts[0], ids)
+        return None if near_list is None else f"{near_list} / {parts[1]}"
 
     def _section_table_target(
         self, frame: _Frame, node: SomMetaNode, section: str
@@ -2449,14 +2872,18 @@ class _Parser:
                 -1,
             )
             if close < 0:
-                # The fence's lines read as text.
+                # The fence's lines read as text; kept, they are the rejected
+                # div (the container's parent holds it, see _finalize).
                 self._reject(
                     self._body_line(frame, i),
                     SpecMarkdownRejectReason.MALFORMED_BLOCK,
                     f"unclosed {kind} fence",
                     frame.path,
+                    body[i:],
                 )
+                self._mark_pending(frame, i, len(body))
                 return
+            div_lines = body[i:close + 1]
             beside_text = any(
                 (k < i or k > close) and body[k].strip()
                 for k in range(len(body))
@@ -2470,15 +2897,19 @@ class _Parser:
                     SpecMarkdownRejectReason.MALFORMED_BLOCK,
                     f"a {kind} div beside {beside} in a list container",
                     frame.path,
+                    div_lines,
                 )
                 self._blank(body, i, close)
+                self._mark_pending(frame, close + 1, close + 1)
                 return
             inner = body[i + 1:close]
             if kind == "refs":
-                self._stage_reference_line(frame, list_node, inner, i)
+                self._stage_reference_line(frame, list_node, inner, i, div_lines)
             else:
-                self._stage_record_table(frame, list_node, inner, i)
+                self._stage_record_table(frame, list_node, inner, i, div_lines)
             self._blank(body, i, close)
+            # What the div rejected is kept after it.
+            self._mark_pending(frame, close + 1, close + 1)
             return
 
     @staticmethod
@@ -2506,7 +2937,12 @@ class _Parser:
         return None
 
     def _stage_reference_line(
-        self, frame: _Frame, list_node: SomMetaNode, inner: list[str], at: int
+        self,
+        frame: _Frame,
+        list_node: SomMetaNode,
+        inner: list[str],
+        at: int,
+        div_lines: list[str],
     ) -> None:
         """A ``refs`` div: ids split on commas and whitespace, links read as
         their texts."""
@@ -2518,6 +2954,7 @@ class _Parser:
                 SpecMarkdownRejectReason.MALFORMED_BLOCK,
                 "a refs div in a list whose items are not references",
                 frame.path,
+                div_lines,
             )
             return
         ids: list[str] = []
@@ -2532,6 +2969,7 @@ class _Parser:
                 SpecMarkdownRejectReason.MISSING_VALUE,
                 "an empty refs div",
                 frame.path,
+                div_lines,
             )
             return
         pattern = list_node.section_id_pattern or element.section_id_pattern
@@ -2548,7 +2986,12 @@ class _Parser:
             self._set_field(_body_path_of(item_path, ref[1]), field, ids[n - 1])
 
     def _stage_record_table(
-        self, frame: _Frame, list_node: SomMetaNode, inner: list[str], at: int
+        self,
+        frame: _Frame,
+        list_node: SomMetaNode,
+        inner: list[str],
+        at: int,
+        div_lines: list[str],
     ) -> None:
         """A ``records`` div: one table, ``Id`` first, ``Title`` optionally
         second."""
@@ -2564,6 +3007,7 @@ class _Parser:
                 SpecMarkdownRejectReason.MALFORMED_BLOCK,
                 "a records div holding no table",
                 frame.path,
+                div_lines,
             )
             return
         header = _row_cells(inner[start])
@@ -2573,6 +3017,7 @@ class _Parser:
                 SpecMarkdownRejectReason.MALFORMED_BLOCK,
                 "a records table whose first column is not Id",
                 frame.path,
+                div_lines,
             )
             return
         element = list_node.element_node
@@ -2583,6 +3028,7 @@ class _Parser:
                 SpecMarkdownRejectReason.MALFORMED_BLOCK,
                 "a records div in a list whose items have no single form",
                 frame.path,
+                div_lines,
             )
             return
         fields = _fields_of(form[0])
@@ -2592,12 +3038,14 @@ class _Parser:
         for label in header[first:]:
             f = _field_by_label(fields, label)
             if f is None:
-                # The table is skipped whole.
+                # The table is skipped whole, so the whole div is kept.
                 self._reject(
                     line_of(start),
                     SpecMarkdownRejectReason.UNKNOWN_FIELD,
                     f'records column "{label}" names no field of the items',
                     frame.path,
+                    div_lines,
+                    self._near_miss(label, self._field_names(fields)),
                 )
                 return
             columns.append(f)
@@ -2658,15 +3106,12 @@ class _Parser:
         **preamble** (SOM §11.4 rule 7) — the class-level ``@Form`` on the
         ``content`` member, else the first form — which is where the YAML
         codec keeps it; only an owner with no slot at all takes it on its own
-        path."""
+        path. Rejected blocks are kept in the unlabelled text at their place
+        (RN-11)."""
         form_slots = [s for s in slots if s[0].kind == SomMetaKind.FORM]
         default_rel = SpecDocumentMarkdown._default_body_rel(slots)
 
         fence = MarkdownFenceTracker()
-        current_field: Any = None
-        current_form_path = ""
-        discard = False
-        current_lines: list[str] = []
         # Unlabelled text per target path, in the order the targets were
         # opened; a target opened twice gets its parts joined by a blank line.
         text_parts: dict[str, list[list[str]]] = {}
@@ -2674,12 +3119,17 @@ class _Parser:
         text_parts.setdefault(_body_path_of(frame.path, default_rel), []).append(
             content_lines
         )
+        # Rejected blocks go to the unlabelled text at their place (RN-11); a
+        # field given twice is kept whole, its label line and continuation.
+        keeper = _Keeper(frame)
+        run = _FieldRun(self, frame, keeper)
 
         self._current_form_idx = 0
         i = 0
         body = frame.body
         while i < len(body):
             line = body[i]
+            keeper.drain(i, content_lines)
             if not fence.in_fence:
                 mk = _SLOT_MARKER.match(line)
                 if mk is not None:
@@ -2690,13 +3140,8 @@ class _Parser:
                         else next((s for s in slots if s[1] == rel), None)
                     )
                     if rel == "." or slot is not None:
-                        if current_field is not None and not discard:
-                            self._put_field(
-                                current_form_path, current_field, current_lines
-                            )
-                        current_field = None
-                        discard = False
-                        current_lines = []
+                        run.flush(i, content_lines)
+                        run.field = None
                         if slot is not None and slot[0].kind == SomMetaKind.FORM:
                             self._current_form_idx = form_slots.index(slot)
                         content_lines = []
@@ -2710,13 +3155,8 @@ class _Parser:
                     # A form table ends the open field (SOM §11.4); its rows
                     # bind like `Field:` labels, each to the nearest form
                     # declaring it.
-                    if current_field is not None and not discard:
-                        self._put_field(
-                            current_form_path, current_field, current_lines
-                        )
-                    current_field = None
-                    discard = False
-                    current_lines = []
+                    run.flush(i, content_lines)
+                    run.field = None
                     table = self._read_table(
                         body, i, lambda k: self._body_line(frame, k), frame.path
                     )
@@ -2725,11 +3165,16 @@ class _Parser:
                         row_line = self._body_line(frame, row.index)
                         hit = self._find_form_of(form_slots, label)
                         if hit < 0:
+                            names: list[str] = []
+                            for s in form_slots:
+                                names.extend(self._field_names(_fields_of(s[0])))
                             self._reject(
                                 row_line,
                                 SpecMarkdownRejectReason.UNKNOWN_FIELD,
                                 f'row "{label}" names no field of this form',
                                 frame.path,
+                                body[row.index:row.index + 1],
+                                self._near_miss(label, names),
                             )
                             continue
                         self._current_form_idx = hit
@@ -2740,31 +3185,29 @@ class _Parser:
                             row.cells[1],
                             row_line,
                         )
+                    # What the table rejected is kept where the table stood.
+                    for b in self._take_pending():
+                        keeper.keep(content_lines, b)
                     i = table.end
                     continue
                 m = _FIELD_LABEL.match(line)
                 if m is not None:
                     hit = self._find_form_of(form_slots, m.group(1))
                     if hit >= 0:
-                        if current_field is not None and not discard:
-                            self._put_field(
-                                current_form_path, current_field, current_lines
-                            )
+                        run.flush(i, content_lines)
                         self._current_form_idx = hit
-                        current_field = _field_by_label(
-                            _fields_of(form_slots[hit][0]), m.group(1)
+                        run.open(
+                            _field_by_label(
+                                _fields_of(form_slots[hit][0]), m.group(1)
+                            ),
+                            f"{frame.path}/{form_slots[hit][1]}",
+                            i,
+                            m.group(2),
                         )
-                        current_form_path = f"{frame.path}/{form_slots[hit][1]}"
-                        discard = self._given_twice(
-                            current_form_path,
-                            current_field.name,
-                            self._body_line(frame, i),
-                        )
-                        current_lines = [m.group(2)]
                         fence.feed(line)
                         i += 1
                         continue
-            target = content_lines if current_field is None else current_lines
+            target = content_lines if run.field is None else run.lines
             # In a region with forms every label-shaped text line carries the
             # one escape space the emitter adds (SOM §11.4 rule 3); strip it.
             if (
@@ -2777,12 +3220,15 @@ class _Parser:
                 target.append(line)
             fence.feed(line)
             i += 1
-        if current_field is not None and not discard:
-            self._put_field(current_form_path, current_field, current_lines)
+        run.flush(len(body), content_lines)
+        keeper.drain(len(body), content_lines)
         for target_path, parts in text_parts.items():
             value = self._join_parts(parts)
             if value:
                 self.content[target_path] = value
+            kept = keeper.kept_value(parts)
+            if kept:
+                self.kept_content[target_path] = kept
 
     def _finalize_form(
         self, frame: _Frame, node: SomMetaNode, path: str
@@ -2791,28 +3237,26 @@ class _Parser:
         paragraphs and form-table rows bind to the named fields wherever they
         stand (SOM §11.4); the text that belongs to no field — before the
         first field, or after a table — is the form's preamble, its own
-        content (rule 7)."""
+        content (rule 7). Rejected blocks are kept in the preamble at their
+        place (RN-11)."""
         declared = _fields_of(node)
         fence = MarkdownFenceTracker()
-        current_field: Any = None
-        discard = False
-        current_lines: list[str] = []
         # The preamble's parts: the text before the first field, and text a
         # table interrupts; joined by one blank line.
         preamble_parts: list[list[str]] = [[]]
+        keeper = _Keeper(frame)
+        run = _FieldRun(self, frame, keeper)
 
         body = frame.body
         i = 0
         while i < len(body):
             line = body[i]
+            keeper.drain(i, preamble_parts[-1])
             if not fence.in_fence:
                 header = _LAYOUT_TABLE_HEADER.match(line)
                 if header is not None and header.group(1) is None:
-                    if current_field is not None and not discard:
-                        self._put_field(path, current_field, current_lines)
-                    current_field = None
-                    discard = False
-                    current_lines = []
+                    run.flush(i, preamble_parts[-1])
+                    run.field = None
                     preamble_parts.append([])
                     table = self._read_table(
                         body, i, lambda k: self._body_line(frame, k), path
@@ -2825,6 +3269,8 @@ class _Parser:
                             row.cells[1],
                             self._body_line(frame, row.index),
                         )
+                    for b in self._take_pending():
+                        keeper.keep(preamble_parts[-1], b)
                     i = table.end
                     continue
                 m = _FIELD_LABEL.match(line)
@@ -2834,31 +3280,27 @@ class _Parser:
                     else None
                 )
                 if field is not None and m is not None:
-                    if current_field is not None and not discard:
-                        self._put_field(path, current_field, current_lines)
-                    current_field = field
-                    discard = self._given_twice(
-                        path, field.name, self._body_line(frame, i)
-                    )
-                    current_lines = [m.group(2)]
+                    run.flush(i, preamble_parts[-1])
+                    run.open(field, path, i, m.group(2))
                     fence.feed(line)
                     i += 1
                     continue
             # Continuation: strip the one escape space of a label-shaped line.
-            target = (
-                preamble_parts[-1] if current_field is None else current_lines
-            )
+            target = preamble_parts[-1] if run.field is None else run.lines
             if not fence.in_fence and _CONTINUATION_LABEL.match(line):
                 target.append(line[1:])
             else:
                 target.append(line)
             fence.feed(line)
             i += 1
-        if current_field is not None and not discard:
-            self._put_field(path, current_field, current_lines)
+        run.flush(len(body), preamble_parts[-1])
+        keeper.drain(len(body), preamble_parts[-1])
         value = self._join_parts(preamble_parts)
         if value:
             self.content[path] = value
+        kept = keeper.kept_value(preamble_parts)
+        if kept:
+            self.kept_content[path] = kept
 
     @staticmethod
     def _decode_code_span(value: str) -> str:

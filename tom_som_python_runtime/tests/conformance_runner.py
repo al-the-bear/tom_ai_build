@@ -499,7 +499,7 @@ def test_markdown_lands_in_shared_memory(model: SpecModel) -> None:
                _json_mismatch(landed.to_json(), canonical))
 
 
-def _run_markdown_apply_case(model: SpecModel, case: dict) -> dict:
+def _run_markdown_apply_case(model: SpecModel, case: dict, schema: str) -> dict:
     """Runs one ``markdown_apply_cases.json`` case and returns what it observed,
     in the shape of the case's ``expect`` (mirrors Dart's
     ``_runMarkdownApplyCase``)."""
@@ -521,24 +521,32 @@ def _run_markdown_apply_case(model: SpecModel, case: dict) -> dict:
         )
     except RuntimeError:
         refused = True
-    return {
+    out: dict = {
         "refused": refused,
         "rejectionCount": len(parsed.rejections),
         "document": document.to_json(),
     }
+    # The validator reports every kept block of an apply case as
+    # ``rejectedBlock`` (DocSpecs RN-11), with the document path it stands in.
+    if case.get("readingView"):
+        out["rejectedBlocks"] = [
+            {"line": v.line, "path": v.path}
+            for v in validate_spec_document(
+                model, document, DocSpecsSchema.from_yaml_text(schema), "Demo"
+            )
+            if v.rule == DocSpecsViolationRule.REJECTED_BLOCK
+        ]
+    return out
 
 
 def test_markdown_apply(model: SpecModel) -> None:
     """Applying a parsed Markdown import (SOM §11.7): a full overwrite of the
     covered roots that keeps other roots, and refuses a result with rejections
     unless the caller allows them."""
-    for case in _read_json("markdown_apply_cases.json")["cases"]:
-        # The reading view's table forms (``readingView``) are read by the Dart
-        # and TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
-        if case.get("readingView"):
-            continue
+    table = _read_json("markdown_apply_cases.json")
+    for case in table["cases"]:
         name = f"mdApply[{case['name']}]"
-        got = _run_markdown_apply_case(model, case)
+        got = _run_markdown_apply_case(model, case, table["schema"])
         _check(name, got == case["expect"],
                _json_mismatch(got, case["expect"]))
 
