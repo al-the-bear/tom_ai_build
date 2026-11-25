@@ -14,6 +14,8 @@ environment:
 
 dependencies:
   path: ^1.9.0
+  # The binaries-layer lookup of the typst binary (TomNativeBinaries).
+  tom_basics: ^3.4.0
   tom_build_base: ^2.47.0
 
 dev_dependencies:

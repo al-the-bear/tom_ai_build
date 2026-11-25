@@ -1,5 +1,8 @@
 ## 0.2.0
 
+- The typst binary is looked for through `tom_basics`' `TomNativeBinaries`
+  (the running application's bundle, then `$TOM_BINARY_PATH/<platform>/`),
+  then on PATH; `TypstCompiler.platformFolder` is its `platformFolder()`.
 - **HTML output** through the MD Browser's renderer: the extension's `marked`
   and `media/markdownBrowser/blocks.js` run in Node from the extension's
   checkout (not copied); a collapsed kind is a `<details>`, a compact kind its

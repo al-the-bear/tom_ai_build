@@ -1,10 +1,9 @@
 /// Finding and running the Typst compiler.
 library;
 
-import 'dart:ffi' show Abi;
 import 'dart:io';
 
-import 'package:path/path.dart' as p;
+import 'package:tom_basics/native_binaries.dart';
 
 /// The Typst binary is missing.
 class TypstNotFound implements Exception {
@@ -28,38 +27,27 @@ class TypstCompiler {
 
   /// The binaries layer's platform folder name for this host
   /// (`darwin-arm64`, `linux-x64`, `win32-x64`, …).
-  static String platformFolder() {
-    final os = switch (Platform.operatingSystem) {
-      'macos' => 'darwin',
-      'windows' => 'win32',
-      final other => other,
-    };
-    final abi = Abi.current().toString();
-    final arch = abi.contains('arm64')
-        ? 'arm64'
-        : abi.contains('x64')
-        ? 'x64'
-        : abi.split('_').last;
-    return '$os-$arch';
-  }
+  static String platformFolder() => TomNativeBinaries.platformFolder();
 
-  /// Finds the compiler: [explicit] when given; else `typst` in the binaries
-  /// layer (`$TOM_BINARY_PATH/<platform>/`); else `typst` on `PATH`. Throws
-  /// [TypstNotFound] naming where it looked.
+  /// Finds the compiler: [explicit] when given; else `typst` where
+  /// `TomNativeBinaries` looks (the running application's bundle, then the
+  /// binaries layer `$TOM_BINARY_PATH/<platform>/`); else `typst` on `PATH`.
+  /// Throws [TypstNotFound] naming where it looked.
   static Future<TypstCompiler> find({
     String? explicit,
     Map<String, String>? environment,
   }) async {
     final env = environment ?? Platform.environment;
-    final exe = Platform.isWindows ? 'typst.exe' : 'typst';
+    final exe = TomNativeBinaries.executableFileName('typst');
     if (explicit != null) {
       if (await _runs(explicit)) return TypstCompiler(explicit);
       throw TypstNotFound('--typst $explicit does not run');
     }
-    final layer = env['TOM_BINARY_PATH'];
     final looked = <String>[];
-    if (layer != null && layer.isNotEmpty) {
-      final candidate = p.join(layer, platformFolder(), exe);
+    for (final candidate in TomNativeBinaries.candidates(
+      exe,
+      environment: env,
+    )) {
       looked.add(candidate);
       if (File(candidate).existsSync() && await _runs(candidate)) {
         return TypstCompiler(candidate);
