@@ -22,6 +22,7 @@
 #include <utility>
 #include <vector>
 
+#include "docspecs_validator.hpp"
 #include "som_util.hpp"
 #include "spec_meta.hpp"
 #include "spec_meta_bridge.hpp"
@@ -605,6 +606,62 @@ std::string stripBlankLines(const std::string& joined) {
 
 }  // namespace
 
+/* ---- the reading view's lines (SOM §11.1, §11.2) ------------------------- */
+
+bool markdownIsReadableComment(const std::string& line) {
+  // `^<!--\s*readable:.*-->$`
+  if (line.compare(0, 4, "<!--") != 0) return false;
+  std::size_t p = 4;
+  while (p < line.size() && isWs(line[p])) p++;
+  if (line.compare(p, 9, "readable:") != 0) return false;
+  const std::size_t n = line.size();
+  return n >= 3 && p + 9 <= n - 3 && line.compare(n - 3, 3, "-->") == 0;
+}
+
+bool markdownHeadingDiv(const std::string& line, int* level,
+                        std::string* inner) {
+  // `^<div class="heading([0-9]+)"[^>]*>(.*)<\/div>$`, level 7 or more.
+  static const std::string open = "<div class=\"heading";
+  static const std::string close = "</div>";
+  if (line.compare(0, open.size(), open) != 0) return false;
+  std::size_t p = open.size();
+  const std::size_t digits = p;
+  long long n = 0;
+  while (p < line.size() && line[p] >= '0' && line[p] <= '9') {
+    if (n < 100000) n = n * 10 + (line[p] - '0');
+    p++;
+  }
+  if (p == digits || p >= line.size() || line[p] != '"') return false;
+  const std::size_t gt = line.find('>', p + 1);
+  if (gt == std::string::npos || line.size() < close.size() ||
+      gt + 1 > line.size() - close.size() ||
+      line.compare(line.size() - close.size(), close.size(), close) != 0) {
+    return false;
+  }
+  if (n < 7) return false;
+  if (level != nullptr) *level = (int)n;
+  if (inner != nullptr) {
+    std::string text =
+        line.substr(gt + 1, line.size() - close.size() - gt - 1);
+    text = replaceAllStr(text, "&lt;", "<");
+    text = replaceAllStr(text, "&gt;", ">");
+    *inner = replaceAllStr(text, "&amp;", "&");
+  }
+  return true;
+}
+
+bool markdownEscapableDiv(const std::string& line) {
+  std::size_t k = 0;
+  while (k < line.size() && line[k] == '\\') k++;
+  return markdownHeadingDiv(stripTrailingWs(line.substr(k)), nullptr, nullptr);
+}
+
+std::string markdownHeadingDivIndent(int depth) {
+  const int quarter = (depth - 6) * 3;
+  static const char* const kFrac[4] = {"", ".25", ".5", ".75"};
+  return std::to_string(quarter / 4) + kFrac[quarter % 4];
+}
+
 /* mdCodeSpecPattern = `codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))`: the
  * `codeSpec` value of a heading-comment key=value region
  * (codespecs_mapping.md §9.2), mirroring the tom_doc_scanner key=value
@@ -755,6 +812,12 @@ class MdCodec {
   /* When non-null, every heading written appends the document path it renders,
    * in emission order (markdownExportRootWithMap). Borrowed. */
   std::vector<std::string>* headingPaths = nullptr;
+
+  /* The export's options (markdownExportRootWithOptions): sections deeper
+   * than level 6 as styled-div headings, and the readable header written
+   * after the docspec line. */
+  bool headingDivs = false;
+  std::optional<std::string> readableHeader;
 
   /* The root the current export renders (the target of same-document links)
    * and its metadata tree; null outside an export. */
@@ -1380,10 +1443,19 @@ void mdWriteHeading(MdCodec& c, std::string& b, int depth,
   if (c.headingPaths != nullptr) {
     c.headingPaths->push_back(path);
   }
-  for (int i = 0; i < depth; i++) {
-    b.push_back('#');
+  const bool div = c.headingDivs && depth > 6;
+  if (div) {
+    // A styled-div heading (SOM §11.2, DocSpecs *Styled-div headings*): one
+    // line, the title HTML-escaped, the indent growing with the depth.
+    b += "<div class=\"heading" + std::to_string(depth) +
+         "\" style=\"margin:1em 0 0.5em;padding-left:" +
+         markdownHeadingDivIndent(depth) + "em;font-weight:bold\"><!--[";
+  } else {
+    for (int i = 0; i < depth; i++) {
+      b.push_back('#');
+    }
+    b += " <!--[";
   }
-  b += " <!--[";
   b += id;
   b.push_back(']');
   if (!codeSpec.empty()) {
@@ -1405,7 +1477,15 @@ void mdWriteHeading(MdCodec& c, std::string& b, int depth,
   b += c.currentTree != nullptr ? anchorOf(c, path) : id;
   b += "\"></a> ";
   // A heading is one line: a stored headline's line breaks travel as `<br>`.
-  b += replaceAllStr(title, "\n", "<br>");
+  if (div) {
+    std::string escaped = replaceAllStr(title, "&", "&amp;");
+    escaped = replaceAllStr(escaped, "<", "&lt;");
+    escaped = replaceAllStr(escaped, ">", "&gt;");
+    b += replaceAllStr(escaped, "\n", "<br>");
+    b += "</div>";
+  } else {
+    b += replaceAllStr(title, "\n", "<br>");
+  }
   b.push_back('\n');
   b.push_back('\n');
 }
@@ -1463,7 +1543,7 @@ std::string prepareValue(const std::string& value, const std::string& path) {
     }
     if (fence.inFence()) {
       b += line;
-    } else if (matchEscapable(line)) {
+    } else if (matchEscapable(line) || markdownEscapableDiv(line)) {
       b.push_back('\\');
       b += line;
     } else if (matchHeaderShaped(line, 0)) {
@@ -2127,6 +2207,10 @@ std::string exportRootImpl(MdCodec& c, const SpecRoot& root) {
   b.push_back('/');
   b += version;
   b += " -->\n";
+  if (c.readableHeader.has_value()) {
+    b += *c.readableHeader;
+    b.push_back('\n');
+  }
   std::string rootSeg = node->segment();
   // YRD3: a stored headline overrides the derived title at every heading; the
   // root class's @Headline default (YRD4) sits between it and the root title.
@@ -2155,14 +2239,23 @@ std::string markdownExportRoot(const SpecModel& model,
 
 namespace {
 
-/* A heading line as mdWriteHeading writes it: `^#+ <!--\[`. Body text never
- * matches outside a fence — heading-like body lines are escaped (SOM §11.3). */
+/* A heading line as mdWriteHeading writes it: `^#+ <!--\[`, or a styled-div
+ * heading `<div class="heading[0-9]+"[^>]*><!--\[` (SOM §11.2). Body text
+ * never matches outside a fence — heading-like body lines are escaped (SOM
+ * §11.3). */
 bool isEmittedHeading(const std::string& line) {
   std::size_t i = 0;
   while (i < line.size() && line[i] == '#') {
     i++;
   }
-  return i > 0 && line.compare(i, 6, " <!--[") == 0;
+  if (i > 0) return line.compare(i, 6, " <!--[") == 0;
+  static const std::string open = "<div class=\"heading";
+  if (line.compare(0, open.size(), open) != 0) return false;
+  std::size_t d = open.size();
+  while (d < line.size() && line[d] >= '0' && line[d] <= '9') d++;
+  if (d == open.size() || d >= line.size() || line[d] != '"') return false;
+  d = line.find('>', d + 1);
+  return d != std::string::npos && line.compare(d, 6, "><!--[") == 0;
 }
 
 }  // namespace
@@ -2170,9 +2263,18 @@ bool isEmittedHeading(const std::string& line) {
 SpecMarkdownRendition markdownExportRootWithMap(const SpecModel& model,
                                                 const SpecDocument& document,
                                                 const SpecRoot& root) {
+  return markdownExportRootWithOptions(model, document, root,
+                                       SpecMarkdownExportOptions());
+}
+
+SpecMarkdownRendition markdownExportRootWithOptions(
+    const SpecModel& model, const SpecDocument& document, const SpecRoot& root,
+    const SpecMarkdownExportOptions& options) {
   std::vector<std::string> paths;
   MdCodec c(model, &document);
   c.headingPaths = &paths;
+  c.headingDivs = options.headingDivs;
+  c.readableHeader = options.readableHeader;
   SpecMarkdownRendition r;
   r.markdown = exportRootImpl(c, root);
   // Pair the recorded paths, in order, with the heading lines of the finished
@@ -2415,6 +2517,8 @@ class MdParser {
   // The rejected blocks kept for review (RN-11): path -> its value with each
   // block written as a `rejected` div ("" removes the path's text).
   std::map<std::string, std::string> keptContent_;
+  /* The readable header a stripped rendition carries (SOM §11.1). */
+  std::optional<std::string> readableHeader_;
   std::vector<std::string> lines_;  // the source lines
   std::vector<KeptRef> pending_;    // blocks reported and not yet placed
   std::vector<KeptRef> orphans_;    // text before the root heading
@@ -2576,7 +2680,9 @@ std::string restoreValue(const std::vector<std::string>& body) {
     if (i > 0) {
       b.push_back('\n');
     }
-    if (!fence.inFence() && matchEscapedHeading(line)) {
+    if (!fence.inFence() &&
+        (matchEscapedHeading(line) ||
+         (!line.empty() && line[0] == '\\' && markdownEscapableDiv(line)))) {
       b.append(line, 1, std::string::npos);
     } else if (!fence.inFence() && matchHeaderShaped(line, 1)) {
       b.append(line, 1, std::string::npos);  // DI-2: the emitter's escape space
@@ -4205,9 +4311,22 @@ void MdParser::run(const std::string& text, SpecMarkdownResult& out) {
       if (stack_.empty() && isDocspecComment(trimmed)) {
         continue;  // SOM §11.1 header
       }
+      if (stack_.empty() && !readableHeader_.has_value() &&
+          markdownIsReadableComment(trimmed)) {
+        readableHeader_ = trimmed;  // SOM §11.1 readable header — skipped.
+        continue;
+      }
+      if (readableHeader_.has_value() && trimmed == kSpecMarkdownAppendixMarker) {
+        break;  // A stripped rendition's appendix is not the document.
+      }
       int level = 0;
       std::string rest;
       if (matchHeadingLine(trimmed, &level, &rest)) {
+        closeTo(level);
+        openHeading(level, rest, lineNo);
+        continue;
+      }
+      if (markdownHeadingDiv(trimmed, &level, &rest)) {
         closeTo(level);
         openHeading(level, rest, lineNo);
         continue;
@@ -4236,6 +4355,7 @@ void MdParser::run(const std::string& text, SpecMarkdownResult& out) {
   out.rejections = std::move(rejections_);
   out.rootPrefixes = std::move(rootPrefixes_);
   out.keptContent = std::move(keptContent_);
+  out.readableHeader = readableHeader_;
 }
 
 }  // namespace
@@ -4326,6 +4446,36 @@ SpecMarkdownRendition documentToMarkdownWithMap(const SpecDocument& document,
     throw std::runtime_error(errMsg);
   }
   return markdownExportRootWithMap(model, document, *root);
+}
+
+const SpecRoot& documentRootToExport(const SpecModel& model,
+                                     const SpecDocument& document,
+                                     const std::string& rootType) {
+  if (!rootType.empty()) return model.rootByType(rootType);
+  std::string errMsg;
+  const SpecRoot* root = singlePopulatedRoot(model, document, &errMsg);
+  if (root == nullptr) throw std::runtime_error(errMsg);
+  return *root;
+}
+
+std::optional<std::string> markdownWrappedParagraphJoined(
+    const std::string& value) {
+  return wrappedParagraphJoined(value);
+}
+
+std::string markdownHeadingTitle(const std::string& line) {
+  int level = 0;
+  std::string rest;
+  if (!markdownHeadingDiv(line, &level, &rest) &&
+      !matchHeadingLine(line, &level, &rest)) {
+    rest = line;
+  }
+  const std::string trimmed = trimSpace(rest);
+  std::string id, region, title;
+  if (matchHeadlineComment(trimmed, &id, &region, &title)) {
+    return docspecsStripOwnAnchor(trimSpace(title), id);
+  }
+  return docspecsStripOwnAnchor(trimmed, "");
 }
 
 /* ---- reading-view layout lines (public) ---------------------------------- */

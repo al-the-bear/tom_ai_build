@@ -109,7 +109,7 @@ All in namespace `som`.
 | `editComment(commentId, text, at)` | New text; the marker, id and author stay as written, the change time is updated ([Change times](#change-times)) |
 | `resolve(id)` | Removes one comment or question (a qualified comment id is accepted) and one adjacent blank line. A question of a combined block takes only its own lines; the block goes with its last question |
 | `applyMark(path, field, index, accept)` | Accepts or rejects inline mark `index` of one value. Accept takes the insertion, the deletion or the new text; reject keeps the old. A highlight or comment mark is removed either way, its text staying |
-| `stripped()` | A copy of the document without any annotation, every mark accepted, for reading. The document is unchanged |
+| `stripped()` | A copy of the document without any annotation, every mark accepted, headlines included, for reading: the strip with `drop: [comments]` (`SpecDocumentStrip`). The document is unchanged |
 
 `field` is `std::nullopt` for a content value. Record each applied comment or
 answer in the project's log **before** `resolve` removes it

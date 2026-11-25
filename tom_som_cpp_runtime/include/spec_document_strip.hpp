@@ -10,19 +10,25 @@
  * kind. `refs`, `records` and `rejected` are never secondary: no name drops or
  * unmarks them (RN-11).
  *
- * The C++ port of the strip of one value of `spec_document_strip.dart` /
- * `spec_document_strip.ts`; `strip_cases.json` holds them to the same results.
+ * The C++ port of `spec_document_strip.dart` / `spec_document_strip.ts`: the
+ * strip of one value (stripNotationText), the strip of a whole document
+ * (SpecDocumentStrip) and the readable header of a stripped rendition
+ * (SpecReadableHeader); `strip_cases.json` holds them to the same results.
  * Offsets (`SpecStripPiece::anchor` / `origin`) count UTF-16 code units, as
  * Dart and TypeScript count them; texts are UTF-8. */
 #ifndef SPEC_DOCUMENT_STRIP_HPP
 #define SPEC_DOCUMENT_STRIP_HPP
 
+#include <optional>
 #include <set>
 #include <stdexcept>
 #include <string>
 #include <utility>
 #include <vector>
 
+#include "docspecs_validator.hpp"
+#include "spec_document.hpp"
+#include "spec_model.hpp"
 #include "spec_notation.hpp"
 
 namespace som {
@@ -83,6 +89,47 @@ struct SpecStripOptions {
   std::string toJson() const;
 };
 
+/* The source a readable rendition was made from, for its header. */
+struct SpecReadableSource {
+  std::string file;
+  std::optional<std::string> revision;  // unset when not known
+  std::optional<std::string> commit;    // unset when not known
+  bool dirty = false;
+};
+
+/* The readable header line of a stripped rendition (SOM §11.1): `<!--
+ * readable: drop=…; unmark=…; appendix=…; appendix-references;
+ * headings=divs; of=<file>@<revision>; commit=<sha>[+dirty] -->`. Parts that
+ * do not apply are left out; format and parse are inverse. */
+struct SpecReadableHeader {
+  SpecStripOptions options;
+  std::optional<SpecReadableSource> source;  // unset when the header names none
+
+  /* The header line for `options` and `source` (nullptr: none). */
+  static std::string format(const SpecStripOptions& options,
+                            const SpecReadableSource* source = nullptr);
+  /* `line` read as a readable header; unset for a line that is none — an
+   * unknown part, an unknown kind, a usage error, a commit without a file. */
+  static std::optional<SpecReadableHeader> parse(const std::string& line);
+};
+
+/* A value of a document: a stored headline, a content value, or a form
+ * field's value. */
+struct SpecStripValueRef {
+  std::string path;
+  std::optional<std::string> field;  // set for a form field
+  bool headline = false;
+
+  /* The value in `doc` ("" when unset). */
+  std::string read(const SpecDocument& doc) const;
+  /* Writes `value` to the value it names ("" clears it). */
+  void write(SpecDocument& doc, const std::string& value) const;
+  /* `<path> (headline)`, `<path>/<field>` or `<path>`. */
+  std::string label() const;
+  /* `{path, field?, headline?}`. */
+  std::string toJson() const;
+};
+
 /* One piece a strip removed from a value, anchored in the stripped text. */
 struct SpecStripPiece {
   long long anchor = 0;  // the offset in the stripped text it stands at
@@ -99,6 +146,8 @@ struct SpecAppendixEntry {
   long long number = 0;
   std::string kind;
   std::string text;
+  /* The value it came from; unset for the strip of one value. */
+  std::optional<SpecStripValueRef> value;
 
   std::string toJson() const;
 };
@@ -127,6 +176,81 @@ struct SpecStripTextResult {
  * finding (other than `rejectedBlock`) is refused and returned unchanged. */
 SpecStripTextResult stripNotationText(const std::string& value,
                                       const SpecStripOptions& options);
+
+/* ---- the strip of a document ---------------------------------------------- */
+
+/* One value a strip changed, with what went. */
+struct SpecStrippedValue {
+  SpecStripValueRef ref;
+  std::string original;
+  std::string stripped;
+  std::vector<SpecStripPiece> pieces;
+};
+
+/* A value the emptying rule kept: stripping it would have added `finding`. */
+struct SpecStripKept {
+  SpecStripValueRef ref;
+  std::string finding;
+};
+
+/* A reason a stripped document is not valid. */
+struct SpecStripFinding {
+  std::string kind;  // `notation`, `instance`, `schema` or `parse`
+  std::string message;
+  std::optional<SpecStripValueRef> ref;  // unset when about no one value
+
+  /* `<kind>: [<ref>: ]<message>`. */
+  std::string toString() const;
+};
+
+/* The result of SpecDocumentStrip::strip. */
+struct SpecStripResult {
+  SpecDocument document;  // the stripped copy
+  std::vector<SpecStrippedValue> values;
+  std::vector<SpecStripKept> kept;
+  std::vector<std::string> removedItems;  // list items left empty and removed
+  std::vector<SpecAppendixEntry> appendix;  // numbered through the rendition
+  // kind -> count, in the order the kinds were first counted
+  std::vector<std::pair<std::string, long long>> dropped;
+  std::vector<std::pair<std::string, long long>> unmarked;
+  std::vector<std::pair<std::string, long long>> appended;
+  long long marksDropped = 0;
+  std::string readableHeader;
+  std::optional<std::string> readable;  // the rendition; unset without a model
+  std::vector<SpecStripFinding> findings;
+
+  /* Whether the stripped document is valid and may be written. */
+  bool ok() const { return findings.empty(); }
+  /* The report: what was dropped, unmarked, moved and kept per kind. */
+  std::vector<std::string> report() const;
+  /* The result as the corpus writes it (`document` as canonical document
+   * JSON, `kept`, `removedItems`, `appendix`, `dropped`, `unmarked`,
+   * `appended`, `marksDropped`, `readableHeader`, `readable`, `findings` by
+   * kind). */
+  std::string toJson() const;
+};
+
+/* What SpecDocumentStrip::strip takes beyond the switches. */
+struct SpecDocumentStripOptions {
+  const SpecModel* model = nullptr;        // the emptying rule, the rendition
+  const DocSpecsSchema* schema = nullptr;  // the schema tier of both checks
+  std::string rootType;  // the root rendered; default the single populated one
+  const SpecReadableSource* source = nullptr;  // named in the readable header
+};
+
+/* The strip of a whole document (SOM §11.10). */
+class SpecDocumentStrip {
+ public:
+  /* Strips every value of `document` — content, form-field values and stored
+   * headlines — into a copy. Given a model it also applies the emptying rule
+   * (a value whose strip would add an instance or schema finding is stripped
+   * with the keeping options instead, or left as it was), removes list items
+   * left with nothing, numbers the appendix through the rendition, renders the
+   * readable rendition and checks that it reads back and validates. */
+  static SpecStripResult strip(const SpecDocument& document,
+                               const SpecStripOptions& options,
+                               const SpecDocumentStripOptions& extra = {});
+};
 
 }  // namespace som
 

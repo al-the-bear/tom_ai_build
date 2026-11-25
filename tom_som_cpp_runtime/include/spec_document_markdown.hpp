@@ -34,6 +34,7 @@
 
 #include <cstddef>
 #include <map>
+#include <optional>
 #include <set>
 #include <string>
 #include <vector>
@@ -98,6 +99,9 @@ struct SpecMarkdownResult {
    * staged content, so nothing written is lost; an empty value removes the
    * path's text. Empty for a clean parse. */
   std::map<std::string, std::string> keptContent;
+  /* The readable header line a stripped rendition carries before its root
+   * heading (SOM §11.1), skipped by the parse; empty when none. */
+  std::optional<std::string> readableHeader;
 
   /* Reports whether no block was rejected. */
   bool isClean() const { return rejections.empty(); }
@@ -210,6 +214,28 @@ SpecMarkdownRendition markdownExportRootWithMap(const SpecModel& model,
                                                 const SpecDocument& document,
                                                 const SpecRoot& root);
 
+/* The options of an export beyond the document: the reading view's
+ * styled-div headings below level six and a stripped rendition's readable
+ * header (SOM §11.1, §11.2). */
+struct SpecMarkdownExportOptions {
+  /* Sections deeper than level 6 as `<div class="heading<N>" …>` lines. */
+  bool headingDivs = false;
+  /* Written after the docspec line; empty for none. */
+  std::optional<std::string> readableHeader;
+};
+
+/* markdownExportRootWithMap with `options`. Throws as markdownExportRoot
+ * does. */
+SpecMarkdownRendition markdownExportRootWithOptions(
+    const SpecModel& model, const SpecDocument& document, const SpecRoot& root,
+    const SpecMarkdownExportOptions& options);
+
+/* The root documentToMarkdown exports: `rootType` when non-empty, else the
+ * document's single populated root. Throws as documentToMarkdown does. */
+const SpecRoot& documentRootToExport(const SpecModel& model,
+                                     const SpecDocument& document,
+                                     const std::string& rootType = "");
+
 /* Renders `document` to Markdown in one call (SOM §21).
  *
  * When `rootType` is non-empty, that root is exported (via
@@ -230,6 +256,41 @@ SpecMarkdownRendition documentToMarkdownWithMap(const SpecDocument& document,
 /* Parses `text` into staged values + a rejection report. The parse never
  * mutates a document — `SpecDocument::applyMarkdownResult` applies the result as a full overwrite. */
 SpecMarkdownResult markdownParse(const SpecModel& model, const std::string& text);
+
+/* ---- the reading view's lines (SOM §11.1, §11.2) ------------------------- */
+
+/* The line a stripped rendition's appendix begins with: after a readable
+ * header, the parsers stop reading at it. */
+inline constexpr const char* kSpecMarkdownAppendixMarker =
+    "<!-- readable-appendix -->";
+
+/* Whether `line` (trailing whitespace trimmed) is a readable header,
+ * `^<!--\s*readable:.*-->$`. */
+bool markdownIsReadableComment(const std::string& line);
+
+/* `line` read as a styled-div heading (DocSpecs *Styled-div headings*):
+ * `<div class="heading<N>" …>…</div>` with N >= 7. Writes the level and the
+ * inner text with `&lt;`, `&gt;` and `&amp;` decoded (either may be null);
+ * false for anything else, a `heading<N>` div below 7 included. */
+bool markdownHeadingDiv(const std::string& line, int* level,
+                        std::string* inner);
+
+/* Whether `line` would read as a styled-div heading after any run of
+ * backslashes (SOM §11.3): such a value line is written escaped, `\<div …`. */
+bool markdownEscapableDiv(const std::string& line);
+
+/* A styled-div heading's indent at `depth`, `(depth − 6) × 0.75` without a
+ * trailing `.0` (`0.75`, `1.5`, `3`). */
+std::string markdownHeadingDivIndent(int depth);
+
+/* The title of a heading line (`#` or styled div): the headline comment's
+ * title without the section's own anchor. */
+std::string markdownHeadingTitle(const std::string& line);
+
+/* `value` on one line when it is one paragraph wrapped over several lines,
+ * as a table cell reads it back (SOM §11.4); empty otherwise. */
+std::optional<std::string> markdownWrappedParagraphJoined(
+    const std::string& value);
 
 /* ---- reading-view layout lines (SOM §11.4, §11.5) ------------------------ */
 /* The line grammar the parser and the DocSpecs validator share. */

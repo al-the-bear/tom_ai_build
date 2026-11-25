@@ -2,6 +2,37 @@
 
 ## Unreleased
 
+- **The strip of a document** (`spec_document_strip.hpp`, SOM §11.10):
+  `SpecDocumentStrip::strip(document, options, extra)` strips every value —
+  content, form-field values and stored headlines — into a copy. Given a model
+  (`SpecDocumentStripOptions`) it applies the emptying rule (a value whose
+  strip would add an instance or schema finding is stripped with the keeping
+  options instead, or left as it was, `SpecStripKept`), removes the list items
+  left with nothing (`removedItems`), numbers the appendix through the
+  rendition (each `SpecAppendixEntry` with its `value`, a
+  `SpecStripValueRef`), renders the readable rendition with the appendix
+  *Notes* after `<!-- readable-appendix -->` (with links back under
+  `appendixReferences`) and checks that it reads back and adds no finding
+  (`SpecStripFinding`). `SpecStripResult` carries the stripped document, the
+  changed values (`SpecStrippedValue`), the counts and `report()`.
+  `SpecReviewAnnotations::stripped()` is the strip with `drop: [comments]`,
+  headlines included.
+
+- **The readable header and styled-div headings** (SOM §11.1, §11.2):
+  `SpecReadableHeader::format` / `parse` write and read
+  `<!-- readable: drop=…; unmark=…; appendix=…; appendix-references;
+  headings=divs; of=<file>@<revision>; commit=<sha>[+dirty] -->`
+  (`SpecReadableSource`). `markdownExportRootWithOptions` writes it after the
+  docspec line and, with `headingDivs`, every section deeper than level six as
+  a `<div class="heading<N>" …>` line, its title HTML-escaped; a value line
+  shaped like such a div is escaped `\<div …`. The parser skips the readable
+  header before the root heading (`SpecMarkdownResult::readableHeader`), reads
+  no further than the appendix marker after one, and reads styled-div
+  headings; the DocSpecs validator skips the appendix too. The conformance
+  runner reads `headerCases` and `documentCases` of `strip_cases.json` and runs
+  the three `readingView` import cases of the readable header and the
+  styled-div headings.
+
 - **The strip of a value** (`spec_document_strip.hpp`, SOM §11.10):
   `stripNotationText(value, options)` drops, unmarks or moves to an appendix
   the secondary prose of the kinds `SpecStripOptions` names (`provenance`,

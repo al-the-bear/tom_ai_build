@@ -604,14 +604,6 @@ static void test_markdown_import_rejections(Checker& c, const som::SpecModel& mo
   for (std::size_t i = 0; i < n; i++) {
     som::JsonRef kase = som::jsonArrayAt(cases, i);
     std::string name = som::jsonStrOr(kase, "name");
-    // The reading view's table layout is read (tspubnondart62); the readable
-    // header and the styled-div headings are the strip-document port's
-    // (tspubnondart97, runtime_parity.md § Reading view).
-    if (som::jsonBoolOr(kase, "readingView") &&
-        (som::jsonGet(kase, "readableHeader") != nullptr ||
-         name.rfind("styled-div headings", 0) == 0)) {
-      continue;
-    }
     som::SpecMarkdownResult result =
         som::markdownParse(model, som::jsonStrOr(kase, "markdown"));
 
@@ -650,6 +642,16 @@ static void test_markdown_import_rejections(Checker& c, const som::SpecModel& mo
         som::documentJsonFromJson(som::jsonGet(kase, "document")));
     c.check("md.reject[" + name + "].landed", got == want,
             "got " + got + " want " + want);
+
+    // A case naming the readable header holds it (null: none was read).
+    if (som::JsonRef wantHeader = som::jsonGet(kase, "readableHeader")) {
+      const std::string* wh = som::jsonAsStr(wantHeader);
+      const auto& gh = result.readableHeader;
+      const bool same = (wh == nullptr && !gh.has_value()) ||
+                        (wh != nullptr && gh.has_value() && *gh == *wh);
+      c.check("md.reject[" + name + "].readableHeader", same,
+              gh.has_value() ? *gh : std::string("null"));
+    }
 
     // A case naming heading-comment values holds them too (read trimmed).
     const std::pair<const char*, const std::map<std::string, std::string>*>
@@ -1417,7 +1419,28 @@ static std::string strip_unstrip(const std::string& stripped,
   return v != nullptr ? v->str : std::string();
 }
 
-static void test_strip(Checker& c) {
+/* A `headerCases` entry's parse as the corpus writes it, or "null". */
+static std::string strip_header_json(const std::string& line) {
+  const std::optional<som::SpecReadableHeader> h =
+      som::SpecReadableHeader::parse(line);
+  if (!h.has_value()) return "null";
+  std::string b = h->options.toJson();
+  b.pop_back();  // without the closing brace
+  auto str = [](const std::optional<std::string>& v) {
+    return v.has_value() ? som::jsonEncodeStr(*v) : std::string("null");
+  };
+  if (h->source.has_value()) {
+    b += ",\"source\":{\"file\":" + som::jsonEncodeStr(h->source->file) +
+         ",\"revision\":" + str(h->source->revision) +
+         ",\"commit\":" + str(h->source->commit) +
+         (h->source->dirty ? ",\"dirty\":true}" : ",\"dirty\":false}");
+  }
+  const std::string f = som::SpecReadableHeader::format(
+      h->options, h->source.has_value() ? &*h->source : nullptr);
+  return b + ",\"format\":" + som::jsonEncodeStr(f) + "}";
+}
+
+static void test_strip(Checker& c, const som::SpecModel& model) {
   som::JsonPtr table = read_json("strip_cases.json");
   som::JsonRef cases = som::jsonGet(table, "cases");
   std::size_t n = som::jsonArrayLen(cases);
@@ -1458,6 +1481,118 @@ static void test_strip(Checker& c) {
     const std::string gotCanon = json_text_canon(got);
     const std::string want = json_canon(som::jsonGet(kase, "expect"));
     c.check(tag, gotCanon == want, gotCanon + " != " + want);
+  }
+
+  // headerCases: the readable header's parse, and format and parse are
+  // inverse.
+  som::JsonRef headers = som::jsonGet(table, "headerCases");
+  std::size_t hn = som::jsonArrayLen(headers);
+  c.check("strip.headerCases", hn > 0, "no header cases");
+  for (std::size_t i = 0; i < hn; i++) {
+    som::JsonRef kase = som::jsonArrayAt(headers, i);
+    const std::string name = som::jsonStrOr(kase, "name");
+    const std::string tag = "strip.header[" + name + "]";
+    const std::string gotText = strip_header_json(som::jsonStrOr(kase, "line"));
+    const std::string got = json_text_canon(gotText);
+    const std::string want = json_canon(som::jsonGet(kase, "expect"));
+    c.check(tag, got == want, "got " + got + " want " + want);
+    std::string perr;
+    som::JsonPtr gotJson = som::jsonParse(gotText, &perr);
+    const std::string format =
+        gotJson != nullptr ? som::jsonStrOr(gotJson, "format") : std::string();
+    if (!format.empty()) {
+      const std::string again = strip_header_json(format);
+      som::JsonPtr againJson = som::jsonParse(again, &perr);
+      c.check(tag + ".inverse",
+              againJson != nullptr && som::jsonStrOr(againJson, "format") == format,
+              again);
+    }
+  }
+
+  // documentCases: the document strip over the corpus model and the shared
+  // schema, unless the case says `model: false`.
+  std::string serr;
+  const std::optional<som::DocSpecsSchema> schema =
+      som::docspecsSchemaFromYamlText(read_corpus("docspecs_schema.yaml"), &serr);
+  if (!schema.has_value()) {
+    std::fprintf(stderr, "docspecs schema: %s\n", serr.c_str());
+    std::exit(2);
+  }
+  som::JsonRef docs = som::jsonGet(table, "documentCases");
+  std::size_t dn = som::jsonArrayLen(docs);
+  c.check("strip.documentCases", dn > 0, "no document cases");
+  for (std::size_t i = 0; i < dn; i++) {
+    som::JsonRef kase = som::jsonArrayAt(docs, i);
+    const std::string name = som::jsonStrOr(kase, "name");
+    const std::string tag = "strip.document[" + name + "]";
+    som::SpecStripOptions o;
+    try {
+      o = strip_case_options(kase);
+    } catch (const std::exception& e) {
+      c.check(tag, false, e.what());
+      continue;
+    }
+    som::SpecDocument doc =
+        doc_from_state(som::documentJsonFromJson(som::jsonGet(kase, "state")));
+    som::JsonRef modelFlag = som::jsonGet(kase, "model");
+    const bool withModel = !(modelFlag && !som::jsonBoolOr(kase, "model"));
+    som::SpecReadableSource src;
+    som::JsonRef sj = som::jsonGet(kase, "source");
+    if (sj) {
+      src.file = som::jsonStrOr(sj, "file");
+      if (const std::string* r = som::jsonAsStr(som::jsonGet(sj, "revision"))) {
+        src.revision = *r;
+      }
+      if (const std::string* r = som::jsonAsStr(som::jsonGet(sj, "commit"))) {
+        src.commit = *r;
+      }
+      src.dirty = som::jsonBoolOr(sj, "dirty");
+    }
+    som::SpecDocumentStripOptions extra;
+    extra.model = withModel ? &model : nullptr;
+    extra.schema = withModel ? &*schema : nullptr;
+    if (const std::string* rt = som::jsonAsStr(som::jsonGet(kase, "rootType"))) {
+      extra.rootType = *rt;
+    }
+    extra.source = sj ? &src : nullptr;
+    const som::SpecStripResult r = som::SpecDocumentStrip::strip(doc, o, extra);
+    const std::string gotText = r.toJson();
+    std::string perr;
+    som::JsonPtr gotJson = som::jsonParse(gotText, &perr);
+    if (gotJson == nullptr) {
+      c.check(tag + ".json", false, perr);
+      continue;
+    }
+    som::JsonRef wantJson = som::jsonGet(kase, "expect");
+    static const char* const keys[] = {"kept",     "removedItems",  "appendix",
+                                       "dropped",  "unmarked",      "appended",
+                                       "marksDropped", "readableHeader",
+                                       "readable", "findings"};
+    for (const char* key : keys) {
+      const std::string got = json_canon(som::jsonGet(gotJson, key));
+      const std::string want = json_canon(som::jsonGet(wantJson, key));
+      c.check(tag + "." + key, got == want, byte_diff(tag + "." + key, got, want));
+    }
+    const std::string g = som::documentJsonToCanonicalJson(
+        som::documentJsonFromJson(som::jsonGet(gotJson, "document")));
+    const std::string w = som::documentJsonToCanonicalJson(
+        som::documentJsonFromJson(som::jsonGet(wantJson, "document")));
+    c.check(tag + ".document", g == w, "got " + g + " want " + w);
+    // The readable rendition reads back with its header (SOM §11.1).
+    if (r.readable.has_value()) {
+      const som::SpecMarkdownResult parsed = som::markdownParse(model, *r.readable);
+      c.check(tag + ".readsBackHeader",
+              parsed.readableHeader.has_value() &&
+                  *parsed.readableHeader == r.readableHeader,
+              parsed.readableHeader.value_or("null"));
+    }
+    // stripped() is the strip with `drop: [comments]` alone.
+    if (!withModel && o.drop == std::set<std::string>{"comments"} &&
+        o.unmark.empty() && o.appendix.empty()) {
+      const som::SpecDocument plain = som::SpecReviewAnnotations(doc).stripped();
+      const std::string pc = som::documentJsonToCanonicalJson(plain.toJson());
+      c.check(tag + ".stripped()", pc == w, pc);
+    }
   }
 }
 
@@ -3989,7 +4124,7 @@ int main(int argc, char** argv) {
   test_serialization_order(c);
   test_docspecs(c);
   test_notation(c);
-  test_strip(c);
+  test_strip(c, *model);
   test_docspecs_replace(c);
   test_docspecs_path(c, *model);
   test_text_pattern(c);

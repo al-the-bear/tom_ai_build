@@ -278,6 +278,12 @@ struct DocSpecsSchema {
 std::optional<DocSpecsSchema> docspecsSchemaFromYamlText(const std::string& text,
                                                          std::string* err);
 
+/* `title` without the section's own anchor (*Section Anchors*): a leading
+ * `<a id="ID"></a>` whose id is `id` or a qualified `<A>/…/<id>`, with the
+ * whitespace after it. */
+std::string docspecsStripOwnAnchor(const std::string& title,
+                                   const std::string& id);
+
 /* ---- validator ----------------------------------------------------------- */
 
 /* A never-fail-fast validator of a parsed document against a schema. */

@@ -60,6 +60,7 @@ anything that computes the path rather than knowing it.
 | the YAML and Markdown codecs | `*.tomspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages; the emitter writes the reading view's form, record and section tables and reference lines (SOM §11.4, §11.5), and the parser reads them as well as the older `Field:` lines; an import accepting rejections keeps each rejected block as a `rejected` div for review (SOM §11.7) |
 | `DocSpecsValidator` | The DocSpecs schema check of a rendition, in the `Field:` layout and in the reading view's tables, list bodies and styled-div headings |
 | `stripNotationText` | The strip of one text value (SOM §11.10): secondary prose of named kinds dropped, unmarked or moved to an appendix, with the pieces removed |
+| `SpecDocumentStrip` | The strip of a document (SOM §11.10): every value stripped into a copy; given a model, the emptying rule, the list items left empty removed, and the readable rendition — the readable header after the docspec line (`SpecReadableHeader`, SOM §11.1), styled-div headings below level six with `headingDivs`, the appendix *Notes* after `<!-- readable-appendix -->` — checked to read back and to add no finding |
 | `scanNotation` | The reading notation of one text value: its divs, spans and citations and the notation's findings, which the DocSpecs validator reports as rules |
 | the editing-facade bases | What the generated `tom_som_cpp_v0` types extend |
 

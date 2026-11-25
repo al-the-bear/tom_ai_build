@@ -7,6 +7,7 @@
  * ASCII or matched as a whole UTF-8 sequence, so the two agree on every
  * decision. */
 #include "spec_review_annotations.hpp"
+#include "spec_document_strip.hpp"
 
 #include <algorithm>
 #include <array>
@@ -2890,15 +2891,12 @@ void SpecReviewAnnotations::applyMark(const std::string& path,
            decideMark(value, p, static_cast<std::size_t>(index), accept));
 }
 
+/* The strip of SOM §11.10 with `drop: [comments]` (SpecDocumentStrip): every
+ * value is stripped, headlines included. */
 SpecDocument SpecReviewAnnotations::stripped() const {
-  SpecDocument copy;
-  copy.loadJson(doc_->toJson());
-  for (const Value& v : valuesOf(*doc_)) {
-    const std::string clean = stripAnnotationsText(v.text);
-    if (clean == v.text) continue;
-    setValue(copy, v.path, v.field, clean);
-  }
-  return copy;
+  SpecStripOptions o;
+  o.drop.insert("comments");
+  return SpecDocumentStrip::strip(*doc_, o).document;
 }
 
 std::vector<SpecValidationError> SpecReviewAnnotations::validate() const {

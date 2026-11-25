@@ -737,6 +737,18 @@ bool matchStyledDivHeading(const std::string& line, int* level,
 
 /* `text` with a leading `<a id="X"></a>` removed when X is the section's own
  * anchor: `id`, or `<A>/.../<id>` with no empty segment (Section Anchors). */
+std::string stripOwnAnchorText(const std::string& text,
+                               const std::string& id);
+
+}  // namespace
+
+std::string docspecsStripOwnAnchor(const std::string& title,
+                                   const std::string& id) {
+  return stripOwnAnchorText(title, id);
+}
+
+namespace {
+
 std::string stripOwnAnchorText(const std::string& text, const std::string& id) {
   if (text.compare(0, 7, "<a id=\"") != 0) return text;
   std::size_t q = text.find('"', 7);
@@ -764,6 +776,7 @@ DocSpecsDocument docspecsParseDocument(const std::string& text) {
 
   SpecMarkdownFenceTracker fence;
   std::vector<DocSpecsSection*> stack;  // borrowed; owned by tree
+  bool readable = false;
 
   std::size_t idx = 0;
   std::size_t cursor = 0;
@@ -785,6 +798,17 @@ DocSpecsDocument docspecsParseDocument(const std::string& text) {
           fence.feed(raw);
           handled = true;
         }
+      }
+      // A stripped rendition (SOM §11.1): its readable header stands before
+      // the root heading, and its appendix after the marker is not part of
+      // the document.
+      if (!handled && stack.empty() && markdownIsReadableComment(line)) {
+        readable = true;
+        fence.feed(raw);
+        handled = true;
+      }
+      if (!handled && readable && line == kSpecMarkdownAppendixMarker) {
+        break;
       }
       if (!handled) {
         int level = 0;
