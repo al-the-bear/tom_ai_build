@@ -3,6 +3,97 @@
 One section per part todo: what it applied, asked and dropped, and what it leaves for the other
 parts. Form: `round_instructions.md` § At the end of your todo.
 
+## The round as a whole
+
+Written by `p1s1r4-11` on 2026-11-25, after the part todos `p1s1r4-2` … `p1s1r4-10`. The
+sections below this one are the parts' own records; this summary says what the round did.
+
+**State of the Project Idea after the round:** every answer of `PQ-1` … `PQ-33` is in the text;
+the question blocks `PQ-24` … `PQ-33` are removed; 26 questions are open, `PQ-34` … `PQ-59`,
+each standing directly after the item it concerns. The glossary (`GLO`) and the terminology
+document (S21, § 2) carry the round's terms and are equal in content. All marks of the round
+are well-formed (1,155 marks in the document, none nested, none broken).
+
+### What each answer changed
+
+| Answer | Decision | What it changed |
+| --- | --- | --- |
+| PQ-24 (b) | D-61 | One waiting rule: while an ask of a run is open, the run waits; nothing further is sent from its queue until the ask is settled; a walk does not go on with another todo; the words "waits", "is held", "paused" kept apart. CP.21, CP.9, CP.22, CR.17, CR.20, CR.23, CR.67, CS.10, CW.4, N-15, D-20, F4, F5, `GLO` ask, run, execution and the further terms. Its second part made S22 the standard for the `_ai` state and for quests (D-71). |
+| PQ-25 (a) | D-62 | A session is started over, not replaced: CR.18, CP.3, CP.7, the session lifetimes CR.75 … CR.78, `GLO` session. |
+| PQ-26 (a) | D-63 | The tac client SDK is for runtimes and command-line programs of ours, for no application and no server: CL.11, CL.12, CR.110, `GLO` client SDK. |
+| PQ-27 (a) | D-64 | tac keeps no holder record; a lease names its holder (runtime, quest, run, item, machine, workspace): CA.5, CA.8, CA.20, CA.26, CA.29, CA.36, X-11, `GLO` holder. |
+| PQ-28 | D-65 | The names web runtime service and web runtime client SDK (Dart, JavaScript / TypeScript): CR.108 … CR.110, CL.11, CL.12, CI.4, T8, F13, G-8 … G-10, `GLO` host, server, client SDK and the further terms. What it is, is asked: PQ-38, PQ-41, PQ-49. |
+| PQ-29 | D-66 | The GitHub backend also serves simple teams of several members; the personal team is the local backend's and the single-member case of the GitHub backend: CA.26, CA.39, CI.1, T3, T4, X-11, D-47, `GLO` team, personal team, backend. What such a team has and who belongs to it is asked: PQ-47. |
+| PQ-30 (a) | D-67 | No review application in this product; every application through its runtime: O-10, L-12, CI.4, CA.28, CV.5, CV.15, P-3, U-2, `GLO` application, host, user. Where the review component is built is asked: PQ-43. |
+| PQ-31 (a) | D-68 | Resource names carry a prefix, `git:` for now: CA.9, CA.10, CA.11, CA.17, CA.41, CA.42, CW.7, X-15, D-59, `GLO` resource, resource name, overlap. The details of the grammar are asked: PQ-45. |
+| PQ-32 (a) | D-69 | "Pairing" for devices only; programs are approved by Tom Secrets Manager: CS.9, U-7, D-19, N-30, `GLO` device / pairing, approved by. |
+| PQ-33 (a) | D-70 | The table "Further terms of this document" in `GLO` (39 entries, with "profile" and "coordinator") and the same in S21 § 2.6. |
+
+### What came in from each input
+
+As the triage ruled them (`triage.md` § 5); where a part did otherwise, its section says so under
+"Done otherwise than the row says".
+
+| Input file | Findings | Applied | Asked | Dropped |
+| --- | --- | --- | --- | --- |
+| `consistency_read.md` (the consistency findings IC, AN, GA, ST, ID) | 138 | 77 | 57 | 4 |
+| `inputs_vscode_extension.md` (VX, and the section on PQ-24) | 57 + 1 | 48 + 1 | 7 | 2 |
+| `inputs_al_the_bear.md` (A, Q, AB) | 56 | 39 | 11 | 6 |
+| `inputs_webwork_tom_forge.md` (WW, TF, and the section on the web runtime service) | 37 + 1 | 21 | 14 + 1 | 2 |
+| **Total** | 290 | 186 | 90 | 14 |
+
+The 90 findings ruled "ask" are settled by the 26 questions below (several findings per
+question). The consistency findings settled in the text: 77 applied by the parts, among them
+the glossary findings of `p1s1r4-11`; the answer consequences AN-1 … AN-46 were checked against
+the text by `p1s1r4-11` (one partly applied, AN-10, is recorded in its section).
+
+### The questions asked
+
+| Id | Place | Topic |
+| --- | --- | --- |
+| PQ-34 | `RT > RT-HOLDS`, after CR.1 | who writes and commits `_ai` files besides the runtime |
+| PQ-35 | `RT > RT-HOLDS`, after CR.5 | features of the extension: the runtime's or the VS Code host's own |
+| PQ-36 | `RT > RT-HOLDS`, after CR.6 | two hosts on one quest (and forwarding a host tool to another host) |
+| PQ-37 | `RT > RT-INSTALL`, after CR.40 | Node for a host that is not VS Code, and the Agent-SDK-only mode |
+| PQ-38 | `RT > RT-INSTALL`, after CR.46 | what the web runtime service is |
+| PQ-39 | `RT > RT-ASKS`, after CP.21 | leases and chat sends while a run waits for an ask |
+| PQ-40 | `RT > RT-VERSIONS`, after CP.29 | when a migration of the workspace files runs |
+| PQ-41 | `CLI > CLI-PACK`, after CL.12 | what the web runtime client SDK is beside the runtime client SDK |
+| PQ-42 | `CLI > CLI-PACK`, after CL.1 | TypeScript and JavaScript: one client SDK or two |
+| PQ-43 | `CLI > CLI-UI`, after CU.9 | where the review component is built, and in which form |
+| PQ-44 | `CLI > CLI-UI`, after CU.5 | the Flutter view packages that exist beside the new UI components |
+| PQ-45 | `TAC > TAC-COORD`, after CA.10 | how resources and the other addressed things are written |
+| PQ-46 | `TAC > TAC-COORD`, after CA.11 | the lease rules: integration lease, fencing at the push |
+| PQ-47 | `TAC > TAC-BACKENDS`, after CA.26 | a team on the GitHub backend: what it has, and who is a member and a team owner |
+| PQ-48 | `TAC > TAC-BACKENDS`, after CA.31 | what "coordination off" switches off, and what the local tac service is |
+| PQ-49 | `TAC > TAC-CRYPT`, after CI.18 | phones and tablets: which program faces the internet, pairing, and how a person away is reached |
+| PQ-50 | `TAC > TAC-PEOPLE`, after CI.13 | one model for remote control and for tac's credentials |
+| PQ-51 | `TAC > TAC-PEOPLE`, after CI.2 | a runtime that serves no quest, and its team |
+| PQ-52 | `TAC > TAC-CONV`, after CM.7 | where the cache and the outbox of a user's messaging live |
+| PQ-53 | `PAR > PAR-QUESTS`, after CQ.2 | where a person's own files of a quest lie |
+| PQ-54 | `PAR > PAR-QUESTS`, after CQ.6 | what remains of member branches, the internal repository, the secret scan and member access |
+| PQ-55 | `PAR > PAR-QUESTS`, after CQ.7 | who carries the quest operations, a quest inside a project's repository, quests worked on from a server |
+| PQ-56 | end of `NFR` | numbers the Solution Blueprint needs and no source gives |
+| PQ-57 | `DEL`, after the line that names it | delivery: what "finished" is checked against, and a first usable state |
+| PQ-58 | end of `GLO` | words the document uses in several senses |
+| PQ-59 | end of `ABOUT > ABOUT-READ` | the structure of the Project Idea in the next round |
+
+### The improvement ideas proposed as questions
+
+| Idea | Proposed in | As |
+| --- | --- | --- |
+| ID-1 one register "what the first version contains" | PQ-59 | part of the recommended option |
+| ID-2 the lease rules as one matrix | PQ-46 | the recommended option |
+| ID-3 a table of credentials | PQ-50 | part of the recommended option |
+| ID-4 one grammar for everything that is addressed | PQ-45 | the recommended option |
+| ID-5 one capability table per backend | PQ-47 | the recommended option |
+| ID-7 a first usable state inside "one go" | PQ-57 | the recommended option |
+| ID-8 a record of what people did to others' runs | PQ-50 | part of the recommended option |
+| ID-9 TypeScript and JavaScript as one client SDK | PQ-42 | the recommended option |
+| ID-10 trace every capability to whom it serves | PQ-59 | part of the recommended option |
+
+ID-6 (a held or waiting run says so everywhere) was applied, not asked.
+
 ## `p1s1r4-2` — `ABOUT`, `SRC`, `VIS`, `USR`, `SCO`, `LAND`
 
 Marks written: 134 additions, 26 substitutions, 2 deletions. No question was written by this
@@ -738,3 +829,773 @@ None new. Cited: S22 (§ 2.2, § 3.2), S23 (`vscimpb123`), S27 (al_the_bear
 - **`p1s1r4-11`**: `GLO` holder adds the quest, the machine and the workspace (IC-15); `GLO`
   resource, resource name and overlap carry the `git:` prefix and "resources with different
   prefixes never overlap"; the terminology document (S21) the same.
+
+## `p1s1r4-7` — `TAC-PEOPLE` … `TAC-WEBWORK`
+
+Done 2026-11-25. The sections `TAC-PEOPLE` (with `TAC-GROUPS`), `TAC-KINDS`, `TAC-CONV`,
+`TAC-DOCS`, `TAC-REVIEW`, `TAC-CRYPT`, `TAC-SPEC` and `TAC-WEBWORK`; the question blocks PQ-28,
+PQ-29 and PQ-30 stay in place. 95 marks (substitutions, additions, one deletion), all well-formed;
+no line starts with `>` outside a question block. One new item: **CV.16**. Five questions:
+**PQ-49 … PQ-53**.
+
+### Rows of the work list
+
+| Finding | Ruling | Done | Items |
+| --- | --- | --- | --- |
+| AN-19 | ask QT-4 | **PQ-49** | CI.18 ("a server a device reaches from the internet", no program named; the open points listed); CI.19 points to PQ-49 |
+| AN-31 | ask QT-6 | **PQ-50** | a paragraph under CI.5's table: CI.5 … CI.10, CI.14, CI.20 and CS.4 are stated for a tac server; what holds on the GitHub backend is open |
+| AN-32 | apply | applied | CA.39 (which team a user's runtimes belong to with each backend; the personal team is the local backend's and the single-member case of the GitHub backend, which also serves simple teams of several members); CI.1 (a team exists with each backend); WR-1 row and the closing paragraph of `TAC-WEBWORK` (a team on the GitHub backend has no messaging, so a Webwork team uses a tac server) |
+| AN-36 | apply | applied | CV.5 and CV.15 ("reaches tac through its runtime") |
+| AN-38 | apply | applied, see below | CV.12 step 3 names one actor; CM.2 row "review return" follows; X-3 and R-3: `p1s1r4-10` |
+| IC-11 | ask QT-15 | **PQ-52** | CI.2 and CA.39: a runtime that serves no quest has no home team; where it registers is open |
+| IC-17 | ask QT-14 | **PQ-51** | CI.13 names the point as open (the MCP server, an endpoint a host serves) |
+| IC-18 | ask QT-14 | **PQ-51** | CI.8 names the credentials and points to PQ-51; no new credential written |
+| IC-19 | ask QT-4 | **PQ-49** | CI.18 names whether the relay is on a device's path as open; CA.30 keeps its text (`p1s1r4-6`) |
+| IC-20 | apply | applied | WR-2 "met differently" (a team's tac server is strict; identification only on an open server, for one user); CI.10 (the administrator sets it; strict for a server other users use) |
+| IC-21 | apply | applied | CA.38 (older runtimes keep working from `tac/2.0` on, nothing uses `tac/1.0`, E-11; a tac client that states no user works on the local backend, a strict server refuses it) |
+| IC-26 | apply | applied, see below | CM.1 (eight kinds between users or from a run to a person; notification and command are the two kinds between runtimes, CA.19, CM.14); CM.2 gets a column "From → to" |
+| IC-27 | apply | applied | CV.14 (pinned blobs as long as the process runs, CV.4; 30 days for blobs not pinned) |
+| GA-14 | apply | applied | a line under CA.44 (todo offers, the visibility switch); a line under CI.6 (an invitation not redeemed in 7 days); CA.19 has its line already (`p1s1r4-6`) |
+| GA-16 | ask QT-4 | **PQ-49** | CI.18 lists pairing as a procedure among the open points |
+| GA-17 | ask QT-4 | **PQ-49** | CM.6 names the channels for a phone as open; no push service named |
+| GA-26 | drop | dropped | Phase 2 detail, as the triage says |
+| GA-27 | apply | applied, see below | CV.12: every reviewer who receives a round through tac is a member of the team (L-3); a line with what the Solution Blueprint settles |
+| ID-3 | ask QT-14 | **PQ-51** (point 3: the table of credentials as recommended option) | CI.8 |
+| ID-8 | ask QT-14 | **PQ-51** (point 4: one journal per quest as recommended option) | CI.13 |
+| VX-49 | apply | applied | new **CV.16** (individual answers, conflicts with decisions, guests, proposed answers, change times, the next round) |
+| WW-2 | apply | applied | CV.12 steps 1, 3, 5 (the coordinator's runtime, or for document kinds it does not know the coordinator's application, creates, writes and merges); CV.13 (the documents' storage, for Webwork a local folder or a GitHub repository); CM.2 row "review return" |
+| WW-3 | apply | applied | CV.5 (tac's review set is the pinned blobs of one round; what is under review is the application's) |
+| WW-5 | ask QT-24 | **PQ-53** | a paragraph under CM.7 (the tac client of CM.9 and CM.13 is the runtime's; where cache and outbox live is open); WR-4 row |
+| WW-7 | ask QT-15 | **PQ-52** | CI.2; no name written |
+| WW-13 | ask QT-4 | **PQ-49** | CM.6 |
+| WW-15 | apply | applied | CI.10 (two entries with one e-mail address, or one person with two ids, are returned with their ids and not merged) |
+| WW-16 | drop | dropped | nothing to change (confirms), as the triage says |
+| WW-18 | apply | applied | CV.15 (which applications those are: built outside this project; the VS Code extension once it hosts the runtime, Webwork and Webforge on the desktop, a web version later; until then a reviewer without a repository works on a desktop) |
+
+### Findings that also reach this part
+
+| Finding | Done here |
+| --- | --- |
+| AN-15, AN-35 | WR-6 row: the Dart tac client SDK is used by runtimes and command-line programs of ours (CL.11) |
+| AN-17 | CA.36: `tac/2.0` has no record for whoever holds leases (PQ-27) |
+| AN-20, WRS | CI.4: the web runtime service, reaching tac through the runtime on the server (CR.108, CR.110) |
+| AN-24, GA-2 | CI.2 and CA.40: stated for a runtime on the user's machine; behind the web runtime service open (PQ-38) |
+| AN-26 | WR-6 row and CI.18: whether phones and tablets stay in the first version is part of PQ-49 |
+| AN-40 | CA.41 and CA.42: names with `git:`, the prefix, overlap among `git:` names only |
+| IC-25 | CI.19 points to PQ-49 for end-to-end encryption |
+| GA-22 | CV.12 step 1 names the coordinator (U-15) |
+| ST-3 | CA.39's sentence on `tac/1.0`'s "agent group" refers to E-19; CI.19 states S1's rule instead of "the earlier decision" |
+| VX-39, A-10 | CM.4: tac's reminders are kept apart from the todo's (CR.50) and the agent's background reminder |
+| WW-4 | WR-4 and WR-5 rows cite CP.36 |
+| WW-6 | `TAC-WEBWORK`: a paragraph recording Webwork's need (cached history, outbox while the tac server cannot be reached), pointing to PQ-48 and PQ-53 |
+| WW-17 | WR-6 row: Webwork's web and phone builds with its wave 3 (L-8) |
+| AN-11, AN-30, AN-41, AN-42, IC-1, GA-8, GA-11, GA-13, GA-15, GA-18, GA-19, ST-5, ST-7, ST-9, ST-16, ID-4, ID-5, VX-32, VX-40, A-8, WW-1, WW-8, WW-12 | nothing to write in this part beyond the pointers above: asked or written by the owning part, or the items keep their text (CM.12, CI.11, CI.15, CV.2, CI.3, CI.14 unchanged) |
+
+### The points of the todo's description
+
+- **PQ-29:** CA.39 states which team a user's runtimes belong to with each backend; CI.1 says a
+  team exists with each backend. Members, team owners, tokens, invitations and owner-only
+  configuration are stated for a tac server (the paragraph under CI.5); how a team on the GitHub
+  backend gets them is PQ-50 (no source says). What else such a team has is PQ-47 (`p1s1r4-6`).
+- **PQ-30:** CI.4 holds without exception (no application of the first version is a tac client;
+  services through the tac client SDK are possible later, L-12). CA.28's "tac clients in a
+  browser" was handled by `p1s1r4-6` (a capability no application uses). CV.15 and CV.12 say who
+  reviews with what and who writes the copies; messaging in Webwork through its runtime is in the
+  WR-4 row and CP.36; the VS Code extension gets it once it hosts the runtime (CV.15).
+- **PQ-28:** CI.18 and CI.19 name no program; "relay" names only the tac server's relay; the web
+  runtime service is named as the way a device reaches a runtime. PQ-49 asks the rest.
+- **A runtime without a quest:** CI.2 and CA.39 say it has no home team; PQ-52.
+- **`TAC-DOCS`, `TAC-REVIEW`:** WW-2 and WW-3 as in the rows above.
+- **`TAC-WEBWORK`:** every row says where it is met as the text now stands; a row for **WR-7**
+  added (CR.6, CR.15 … CR.18, CT.4, CU.6, CU.7), so the table covers all seven requirements.
+
+### Done otherwise than the row says
+
+- **IC-26.** The triage says notification and command are "listed apart" from the eight kinds.
+  They stay in CM.2's table, because a host shows them to its user too and CM.14 already keeps
+  them as the messages between runtimes; the new column "From → to" and CM.1's sentence name
+  them as the two kinds between runtimes. Moving the rows out of the table would leave empty
+  rows after the marks are accepted.
+- **AN-38 with WW-2.** The triage's AN-38 row names "the coordinator's runtime, which the
+  coordinator's application drives" as the one actor, and WW-2 lets the coordinator's
+  application create and merge rounds for document kinds the runtime does not know. Step 3 now
+  says "whoever created the round folder (step 1)", which is the coordinator's runtime driven by
+  its application, or the application for those document kinds. "Commits there" became "records
+  it in the documents' storage (a commit where that is version control)", since Webwork's storage
+  can be a local folder.
+- **GA-27 with VX-49.** GA-27 says every reviewer is a member of the team; the extension builds
+  guests (a reviewer not on the round's review team returns a copy). Both hold: CV.12 says every
+  reviewer *who receives the round through tac* is a member of the team (CV.6 lets only members
+  download); a guest of CV.16 returns a copy by another way. How the review round's member id
+  relates to the tac user id is in the Blueprint line.
+
+### Obligations changed
+
+- **CI.4:** holds without exception; no application of the first version is a tac client
+  (PQ-30).
+- **CI.10:** strict is set by the tac server's administrator for a server other users use (it no
+  longer says the server "is" strict as soon as other users use it); duplicates are returned, not
+  merged (IC-20, WW-15).
+- **CA.38:** the promise to older runtimes holds from `tac/2.0` on; a tac client that states no
+  user works on the local backend only (IC-21).
+- **CA.39, CI.1:** teams exist on every backend; the GitHub backend serves simple teams of several
+  members (PQ-29).
+- **CV.12, CV.13:** the round folder may be created, written and merged by the coordinator's
+  application, in a storage that is not version control; every reviewer through tac is a team
+  member (WW-2, AN-38, GA-27).
+- **CV.14:** pinned blobs outlive 30 days while their process runs (IC-27, D-29).
+- **CV.16:** new: guests, conflicts with decisions, individual and proposed answers, change times,
+  the next round (VX-49).
+- **WR-2:** met differently (a team's server is strict); **WR-6:** the web runtime client SDK, not
+  the runtime client SDK, in a browser or on a phone.
+
+### Sources needed
+
+None new. S23 and S25 (added by `p1s1r4-2`) are cited for VX-49 and for Webwork's planned todos
+(`09_woneb2`, `09_woneb3`, `13_woneb6`, `13_woneb10`); E-11 and E-19 in `LAND > LAND-BUILT`.
+
+### For other parts
+
+- **`p1s1r4-8`**: CW.5 is quoted in the Blueprint line under CV.12 (which repository and lease
+  the recording of a copy uses, GA-27); CW.6 follows AN-32 (the integration queue on the GitHub
+  backend is open, PQ-47); CW.26 gets GA-14's line or points to the one under CA.44.
+- **`p1s1r4-9`**: T3 stands; T4 gets the variant "a team on the GitHub backend" (no messaging,
+  CA.26; PQ-47, PQ-50); T5 and T8 name the program a device reaches as open (PQ-49); N-4 follows
+  CA.38 ("from `tac/2.0` on"; IC-21); N-12 and F11 follow AN-32.
+- **`p1s1r4-10`**: D-18 waits for PQ-50 (AN-31); D-23 states neither side of the relay's key
+  (IC-19, PQ-49); R-22 and `ABOUT`'s status carry PQ-49 as open (AN-19); X-3 adds that no
+  application of the first version is a tac client and R-3's trigger that the reviewer's
+  application is built outside this project (AN-38); R-3, R-20, D-24, D-25, D-47, D-53, D-54
+  follow AN-32 (teams on the GitHub backend).
+- **`p1s1r4-11`**
+  - Insert PQ-52 after CI.2, PQ-50 after CI.5, PQ-51 after CI.13, PQ-53 after CM.7 and PQ-49
+    after CI.18 (after the block of PQ-28).
+  - Replace "the question at `TAC > TAC-PEOPLE`, CI.13" (CT.12, CK.2) by PQ-51, "the question at
+    `TAC > TAC-PEOPLE`, CI.2" (CK.10) by PQ-52, "the question at `TAC > TAC-CRYPT`, CI.18" (CK.10,
+    CK.11, L-6, the end of `RT > RT-ASKS`) by PQ-49, and "the question at `TAC > TAC-CONV`, CM.7"
+    (CP.36) by PQ-53.
+  - Merge candidates: PQ-49 with PQ-38 and PQ-41 (all from PQ-28); PQ-50 with PQ-47 (both from
+    PQ-29).
+  - `GLO`: message kind (IC-26: eight kinds between users or from a run to a person, notification
+    and command between runtimes); round folder and review round ("in the documents' storage,
+    usually version control", WW-2); review set (WW-3: tac's is the pinned blobs of one round;
+    check only); personal team (PQ-29: the local backend's, and the single-member case of the
+    GitHub backend); team (not bound to a tac server).
+  - `ABOUT > ABOUT-READ`: the range of `CV` (to CV.16).
+
+## `p1s1r4-8` — `PAR`
+
+Written 2026-11-25. `PAR`, `PAR-PROBLEM`, `PAR-APPROACH`, `PAR-CROSS`, `PAR-QUESTS` revised with
+marks (17 substitutions, 54 additions, 1 removal after the first pass; a few more in the read
+through). New items: **CW.27**, **CQ.9**, **CQ.10**, **CQ.11**, **CQ.12**, **CQ.13**. Questions
+written: **PQ-54** (QT-9), **PQ-55** (QT-10), **PQ-56** (QT-11).
+
+### Rows of the work list
+
+| Finding | Ruling | Done | Where |
+| --- | --- | --- | --- |
+| AN-8 | apply | applied | CQ.1 (three types), CQ.5 (one resolver, S22 § 3.1), CQ.7 (the operations), new CQ.9 … CQ.13; CQ.2, CQ.3, CQ.6, D-34 keep their text with a line pointing to PQ-54 / PQ-55 |
+| AN-18 | ask QT-19 (`p1s1r4-11`) | items keep their words | P-5, P-9, CW.11, CW.18 unchanged on "session" |
+| AN-41 | ask QT-8 (PQ-45) | resource names written with `git:` | CW.7 (the two forms, CA.10), CW.8, CW.24 |
+| IC-2 | apply | applied | CW.6: tac keeps the order; the runtime of the first execution carries out the step on its machine; tac runs no checks and lands no commits; the queue on the local and GitHub backend points to PQ-46, PQ-47 |
+| IC-4 | apply | applied | CW.19: tac keeps the record (on one machine the machine-wide state, CR.36), the sender's run shows it, not shown as taken at the receiver before a run took it; the 7 days point to CA.19 |
+| IC-5 | apply | applied | CW.25: only handing a todo to another quest's runtime is later; CW.20 says the sending of an item or walk is in the first version |
+| IC-6 | ask QT-10 | **PQ-55** | CW.14 gets a sentence: for a quest in a repository of its own, its main branch is the branch the register names; member branches are open |
+| GA-9 | ask QT-13 (PQ-46) | pointer | CW.5's line names PQ-46 (the integration lease, the fencing token, a failing step); CW.6's line the queue per backend; CW.10 keeps its text |
+| GA-10 | apply | applied | CW.11: the line of what the Solution Blueprint settles about the discard |
+| GA-11 | apply | applied | new **CW.27** (a pull and a push the user starts carry the files; tac only the live notice); CW.21 refers to it |
+| VX-29 | apply | applied | CW.21 (both directions, the release condition, "what a todo blocks is derived"); P-14 reworded to what still hurts |
+| VX-34 | apply | applied | CW.20: never creates a run, `default` when no run is named, the receiver's defaults unless the sender names a profile or session, walks and todo or group items over the receiver's todos |
+| VX-43 | ask QT-9 | **PQ-54** | CQ.3 keeps its text; CQ.11 says "per host" and leaves the place open |
+| VX-46 | apply | applied | CQ.1, CQ.7, CQ.9 (with CR.33, CR.100) |
+| A-4 | ask QT-9 | **PQ-54** | CQ.11 names the classes (derived: history and compacted form; machine-local: the live trail) and leaves the place open |
+| Q-1 | apply | applied | CQ.1 (three types; the words "classic quest", "repository quest", "single-quest repository", "multi-quest repository") |
+| Q-2 | ask QT-11 | **PQ-56** | CQ.1 names three types only |
+| Q-3 | ask QT-9 | **PQ-54** | CQ.2's line; no new text writes "personal repository" |
+| Q-4 | ask QT-9 | **PQ-54** | CQ.3's personal notes keep their text; CQ.4 stands |
+| Q-5 | apply | applied | CQ.5 (source S22 § 3.1, § 3.2; "type"); the `___check here___` paragraph after CQ.8 marked as removed |
+| Q-6 | ask QT-10 | **PQ-55** | CQ.6 keeps its text with a line |
+| Q-7 | apply | applied | CQ.7: add, pick and unpick, remove, migrate several at once into either form and one way, pull / push / status, set up this machine, check and fix; join and the trial migration keep their text |
+| Q-8 | drop | dropped | as the triage (confirms CQ.8) |
+| Q-10 | apply | applied | CW.25 (written directly only where the quest is checked out here; otherwise through a runtime of it, later, or after the user checked it out). O-6's sentence is `p1s1r4-2`'s, already in |
+| Q-11 | ask QT-11 | **PQ-56** | CQ.7 names the operations without the program; PQ-56 covers the screen row and the component (`p1s1r4-5`'s note) |
+| Q-12 | apply | applied | CQ.7 create: an existing repository, or a new one only after a confirmation, private, Actions off |
+| AB-8 | apply | applied | CW.3: `.worktrees/` under the root, the tree per execution, the names for the Blueprint, the fleet's skills follow |
+| AB-9 | apply | applied | CW.16: off unless switched on, when a claim is taken or the user asks, never on a schedule (O-6 is `p1s1r4-2`'s, already in) |
+| AB-10 | ask QT-23 (PQ-34) | pointer | CW.14: the runtime writes the files, never stashes or discards what it did not make; who commits and pushes is PQ-34 |
+| AB-11 | apply | applied | CW.13: a runtime reads an `_ai` file again before it writes (a sync may merge in place). E-17's half is `p1s1r4-2`'s, already in |
+| AB-13 | apply | applied | CW.6: the checks run on the execution's machine, as part of an item a person queued; no scheduled or hosted check |
+| AB-14 | ask QT-13 (PQ-46) | text kept | CW.13 says nothing of a reconcile as a lease |
+| AB-21 | drop | dropped | as the triage (covered by Q-12) |
+| AB-22 | drop | dropped | as the triage (covered by Q-7; retiring a quest is the workspace's rule) |
+| TF-10 | ask QT-11 | **PQ-56** | no component and no server working copy written |
+
+### Findings that also reach this part
+
+| Finding | Done here |
+| --- | --- |
+| AN-4 | CW.4: "its run sends nothing else meanwhile" (CR.67) |
+| AN-5, VX-17 | CW.5's line: whether a lease is kept while its run waits for an ask is open (PQ-39); until then held for as long as the todo is executed |
+| AN-10 | CW.11: the place in the trail, since a session can be started over (CR.18, PQ-25). CQ.3's history keeps its text (PQ-54) |
+| AN-30 | nothing: CW.20, CW.21, CW.23, CW.26 keep what PQ-47 decides; CW.27 states only pull and push |
+| AN-32 | CW.6's line points to PQ-47 for the queue on the GitHub backend |
+| AN-42, ID-4 | CW.18 unchanged (PQ-45) |
+| IC-1, IC-7, ID-2 | CW.5's line (PQ-46) |
+| GA-4 | CW.7: the runs execute only non-overlapping todos at the same time; a run executes one item at a time (CR.67) |
+| GA-6, TF-6 | nothing: CQ.3, CQ.6, CQ.7 keep their text (PQ-36) |
+| GA-14 | CW.26: a line pointing to the one under CA.44 |
+| GA-19, GA-23, ST-5, ST-7, ST-16, ID-1, ID-10 | nothing (QT-21, `p1s1r4-11`) |
+| GA-25, ST-2 | CQ.5's source and the removed check paragraph |
+| GA-27 | nothing to change; CV.12's line quotes CW.5 |
+| ST-3 | the lead-in of `PAR-APPROACH` states the approach without "the concept only proposed … are confirmed" |
+| ST-9 | nothing (QT-19) |
+| ST-10 | CW.2's "(also called change-branch mode)" left for `p1s1r4-11` with the glossary entry |
+| VX-28 | CW.21 points to CR.83 for a held item whose blocker is done |
+| VX-33 | CW.23: the done notification the item or todo asks for (CR.93, CR.94), to the run and session that queued it, nothing when none is asked for |
+| VX-42 | CQ.4: in the quest's folder of notes, agents never write them (S22 AC-13) |
+| VX-44 | CQ.11 names the journal of asks and answers among the per-host files (place: PQ-54) |
+| A-1 | S22 cited in CQ.1, CQ.5, CQ.9 … CQ.13 |
+| A-3 | CQ.11 refers to CR.47 for the four classes and lists what falls into each |
+| A-7 | nothing (CA.17, `p1s1r4-6`) |
+| Q-9 | CQ.9 refers to CR.33 and CR.100 |
+| AB-5 | CW.5: the branch the record names for the repository (CR.104) |
+| AB-6 | nothing: where a quest's list is recorded stays with CR.35 |
+| AB-7 | CW.3's line: an execution in a working tree still gets its workspace folder's instruction files (CR.59) |
+| AB-12 | CQ.6: the registration of the drivers on the machine; the drivers are the fleet's (E-5) |
+| AB-19 | CW.3's line: the Blueprint keeps the place and names of the trees short or settable per machine (path length on Windows). The risk itself is `p1s1r4-10`'s |
+| AB-24 | nothing (CR.51, CR.52) |
+
+### The points of the todo's description
+
+- **`PAR-QUESTS` states the standard** (S22): the three types (CQ.1); the register and the
+  workspace's list (CQ.9); the binding of a quest to a workspace (CQ.10); the four classes and
+  what falls into each (CQ.11, on CR.47); the operations (CQ.7); merge rules, guards and syncing
+  (CQ.12); what stays in `_ai` (CQ.13). Written as what the runtime does; nothing on how the fleet
+  migrates. The format version is not named here (CR.3 is `p1s1r4-3`'s; see below).
+- **What the standard leaves open against decisions** is asked: the personal repository against
+  per-host files in the quest, with the privacy of a shared quest (PQ-54; CQ.2, CQ.3, D-34);
+  member branches, the second repository, the secret scan, member access and the trial migration
+  (PQ-55; CQ.6, CQ.7, D-34); a quest inside a project's code repository (PQ-56).
+- **`PAR-APPROACH`:** the integration step and its lease (IC-1) — PQ-46, pointed to at CW.5; where
+  the queue runs and who runs the checks (IC-2) — CW.6 applied; where the working tree lives and
+  how its branch is named — CW.3 (`.worktrees/`, per execution, names for the Blueprint); CQ.6's
+  branch per member against CW.14 / CW.2 — PQ-55, and CW.2 now says the `_ai` state gets no working
+  tree per execution, since a quest of a multi-quest repository is itself a working tree of its
+  branch; a run waiting on an ask while it holds an exclusive lease in strict mode — PQ-39, pointed
+  to at CW.5.
+- **`PAR-CROSS`:** sent items (CW.19, CW.20), done notifications (CW.23) and todo offers (CW.26)
+  stated against what the extension does today; today the waiting is in the receiver's inbox with
+  a mark at the sender, which CW.19 changes on purpose (VX-34) — stated as the runtime's behaviour.
+
+### Done otherwise than the row says
+
+- **CW.14** (IC-6 says "keeps its text"): its text is kept, and one sentence is added from the
+  standard (the branch of a quest in a repository of its own) with member branches named as open.
+  Without it CW.14 would contradict CQ.1 for the multi-quest form.
+- **CW.2**: "never gets working trees of its own" became "never gets working trees per
+  execution", with the reason; the standard checks out each quest of a multi-quest repository as a
+  working tree, which the old wording forbade.
+
+### Obligations changed
+
+| Item | Change | Source |
+| --- | --- | --- |
+| CQ.1 | three types instead of two | S22 § 3.1; PQ-24 |
+| CQ.7 | six further operations; create with confirmation, private, Actions off; migrate several quests into either form, one way | S22 § 4, § 2.4 |
+| CQ.9 … CQ.13 | new: register, binding, four classes per quest, merge rules and guards, what stays in `_ai` | S22 |
+| CW.6 | the runtime carries out the integration step; tac only orders; checks on the execution's machine | IC-2; N-34, N-28; CW.1 |
+| CW.16 | when the fast-forward happens (claim taken or user asks; never on a schedule) | S27: `14_loose_wslayout-5` |
+| CW.20 | never creates a run; `default`; receiver's defaults | S23: ww_a_collab-4 |
+| CW.21 | both directions; release condition from the registry | S23: vscimpb121, ideatests2 |
+| CW.23 | only the done notification asked for; none by default | S23: vscimpb146 |
+| CW.25 | written directly only where the quest is checked out here | S22 § 4 |
+| CW.27 | new: files travel by the user's pull and push; tac carries only the notice | S22 § 4, QM-10; O-6 |
+| CW.13 | a runtime reads an `_ai` file again before writing | S27, `repo_skills_new.md` § 4 |
+| CW.3 | the trees under `.worktrees/` | S27, `repo_skills_new.md` § 5.12, § 5.13 |
+
+### Sources needed
+
+None new. Cited: S22 (§ 1, § 2.2, § 2.4, § 3.1 … § 3.6, § 4), S23 (`ww_a_collab-4`, `vscimpb121`,
+`ideatests2`, `vscimpb146`), S27 (`repo_skills_new.md` § 4, § 5.12, § 5.13;
+`workspace_layout.md` § 4; `14_loose_wslayout-5`; `legws1`). The completed fixture todo
+`11a_wslayout-1` (archived, not in S27) is not cited; `repo_skills_new.md` carries the same facts.
+
+### For other parts
+
+- **`p1s1r4-3`**: CR.3 and E-1 say "format version 10"; S22 now names **version 11** (§ 3.6,
+  "`aiFormatMigration`, version 11"; its § 5 phase 1 "format version 11"). `PAR` names no number.
+  CR.53, CR.55, CR.79 already say "per host" and point to the place as open — the question is
+  PQ-54 (at CQ.2).
+- **`p1s1r4-5`**: PQ-56 covers the screen row and the component for managing quests; the
+  paragraph under the screen inventory can name PQ-56.
+- **`p1s1r4-10`**: D-34 waits for PQ-54 and PQ-55; the new risk of AB-19 can cite CW.3's line;
+  R-15 / R-16 can name the quest operations (CQ.7) as not built (E-14 says so).
+- **`p1s1r4-11`**
+  - Insert PQ-54 after CQ.2, PQ-55 after CQ.6, PQ-56 after CQ.7.
+  - Merge candidates: PQ-54 and PQ-55 both follow from S22 against D-34; PQ-56 relates to PQ-38
+    (the web runtime service) for the server working copies.
+  - `GLO`: quest (three types; "folder quest" and "repo-based quest" as S22's words for classic
+    and repository quest), single-quest repository, multi-quest repository, register of quests;
+    "personal repository" waits for PQ-54; worktree mode loses "change-branch mode" with CW.2
+    (ST-10).
+  - `ABOUT > ABOUT-READ`: the range of `CW` (to CW.27) and `CQ` (to CQ.13); the new CQ items stand
+    by content, not in the order of their numbers.
+
+## `p1s1r4-9` — `NFR`, `NFR-TOPO`, `NFR-GEN`
+
+Marks written: 87 additions, 40 substitutions, no deletion. New items: **N-35 … N-43**, **F13**,
+**G-8 … G-10**. Question written: **PQ-57** (at the end of `new_questions.md`, section `NFR`).
+
+### Rows of the work list
+
+| Finding | Ruling | Done | Items changed or added |
+| --- | --- | --- | --- |
+| AN-27 | apply | applied | N-21 (a browser is not a paired device: which program faces the internet and how a browser is identified, PQ-49), N-26 (the web runtime client SDK beside the two), N-29 (where the JS/TS web SDK is published, PQ-41), N-30 (a guide for the service follows once it is described, CR.109); T5, T8 and the paragraph under the table ("web runtime service", the web runtime client SDK, HTTP, assumed until PQ-38); F1, F10, new **F13** (an application on a phone, a tablet or in a browser attaches); new **G-8 … G-10**. N-19 needed no new wording beyond PQ-51 (every access from the internet is strict already). The new decision, CON, RISK and DEL places are `p1s1r4-10`'s |
+| IC-31 | apply | applied | F3 (lowest number first, CR.19), F6 (the copies written into the round folder, the round's blobs released, CV.12), F1 (registration with tac and the local service, CA.3, CA.34), F10 (trc reads through its runtime, CI.4), F11 (invitation CI.6, pairing CI.18, registration CA.3) |
+| IC-34 | apply | applied | N-6 (the runtime names the revision, CT.15), N-23 (the prompt leaves no trail; a line for CP.6 and CW.11), the `NFR-GEN` lead-in ("the register above"). The `VIS`, `SCO-IN`, CL.2, CK.4 and D-2 places: see "For other parts" |
+| GA-18 | apply | applied, and asked | the `NFR` lead-in; new closing list "Not stated by the sources; the Solution Blueprint settles", **N-35 … N-43**; the numbers among them asked once with a proposed value each (**PQ-57**), as the todo's description asks. The audit record is left to PQ-51 (QT-14), said under the list. `USR > USR-TEAM` was done by `p1s1r4-2` |
+| GA-20 | apply | applied | a paragraph under the unit register naming what is delivered and has no unit (CL.6, D-41, CI.20 / CA.27, CA.33, E-5 / CQ.6, CL.10); N-30 adds the security model. The program for phones and browsers is G-10 (with PQ-38). `DEL` and R-23 are `p1s1r4-10`'s |
+| AB-20 | apply | applied | N-29: the public binaries repository and copyleft, the payload built per platform by a build the user starts, how a machine without the workspace gets it (CR.42). D-56 is `p1s1r4-10`'s |
+| TF-12 | apply | applied | N-25: written for the Flutter version and widget libraries of the hosts, the version in `RISK > RISK-DEPS`. The new risk is `p1s1r4-10`'s |
+| TF-13 | apply | applied | N-29: the Dart client SDKs and `tom_ai_runtime_ui` take no copyleft dependency; what the runtime installs is for the Blueprint |
+
+### Findings that also reach this part
+
+| Finding | Done here |
+| --- | --- |
+| AN-1, AN-6, VX-PQ24, VX-2 | F4 and F5 say "the run waits" (CP.21); F5 loses nothing else, it had no walk clause |
+| AN-2, VX-PQ24 | N-15 no longer says "does not block a process for long": an ask is never lost, is escalated, is visible; the run that asked waits, the other runs go on; the user can answer, skip or resend |
+| VX-27 | F3: the walk holds at the first todo it cannot run, its run is held; going on is the user's action |
+| AN-14 | T8 and F13: the service reaches tac through the runtime on the server (CR.110) |
+| AN-15, AN-35 | N-26: the Dart tac client SDK without `dart:io` as a capability no application of the first version uses; G-1: which tac client SDK the runtime contains is for the Blueprint |
+| AN-32, IC-3 | N-12 (the repository server as the backend that cannot be reached), T3 (the personal team on the GitHub backend; the local backend on one machine), T4 (a team on the GitHub backend, PQ-47, PQ-50), F11 (CW.16) |
+| AN-43 | N-30: "having the runtime and the tac server approved by Tom Secrets Manager" (PQ-32) |
+| IC-9 | F1 and F12: "runtime installation" |
+| IC-21 | N-4 follows CA.38 ("from `tac/2.0` on") |
+| GA-3 | N-13 refers to CA.13 only; the numbers around leases are under CA.14 (`p1s1r4-6`) |
+| ST-3 | the dated `tomspecs` version in `NFR-GEN` is replaced by a reference to E-21; N-13 loses "no longer" |
+| ST-6 | applied here, because the todo's description says so: N-1 … N-7, N-11 … N-14, N-16 … N-20, N-22, N-23, N-25, N-26, N-31 are cut down to the expectation with a reference to the item. QT-21 (`p1s1r4-11`) need not ask about the repetition in `NFR` any more; whether topologies and units move out of `NFR` (ST-13) stays with QT-21 |
+| ST-18, WW-17 | T8: the web runtime service, wave 3 of Webwork (L-8) |
+| WW-9 | T2 stands (Webforge starts a quest's runtime); nothing to add |
+| WW-14, TF-3 | N-17 and N-18 checked: they stand, now as references to CS.11 and CT.11 |
+| AB-17, AB-19 | N-27: Windows paths at the length limit, lengthened by an execution's working tree (S27 `legws1`). The risks are `p1s1r4-10`'s |
+| WW-20 | no compatibility item of `NFR` needed a change; TF-9's question is PQ-34 |
+| Asked elsewhere (AN-20 … AN-26, AN-30, IC-1, IC-11, IC-12, IC-16, IC-19, IC-25, IC-28, GA-1, GA-2, GA-5, GA-6, GA-9, GA-13, GA-16, GA-30, ST-7, ST-9, ST-13, ST-15, ID-1, ID-2, ID-7, ID-9, VX-48, A-14, WW-1, WW-6, WW-7, WW-19, TF-4, TF-6, TF-8, TF-9, WRS) | the text points to the question that settles it, where a statement of this part depends on it: N-3 and F12 (PQ-40), N-10 and T2 (PQ-36), N-11 and T1 (PQ-48), N-19 (PQ-51), N-21, T5, T8, F5, F13 (PQ-49), N-24 (PQ-37), N-26 (PQ-41, PQ-42), T2 (PQ-52), T4 and F11 (PQ-47, PQ-50), F8 (PQ-46), G-6 (PQ-43), T8, F13 and G-8 … G-10 (PQ-38, PQ-41). The rest leaves this part's text as it stands |
+
+### The points of the todo's description
+
+- **N-15 against PQ-24 (b):** done (see above).
+- **N-30 for PQ-32:** done.
+- **T3:** the GitHub backend serves the user's personal team across the user's machines, and simple teams of several members (T4); the local backend serves one machine only (T1, T3).
+- **T5 and T8:** what runs on the always-on machine (the tac server and the web runtime service, assumed until PQ-38) and what a phone, tablet or browser reaches (the web runtime service with the web runtime client SDK; the program facing the internet is open, PQ-49).
+- **F7 and F8:** F7 follows CW.19, CW.20 and CW.23 as `p1s1r4-8` left them; F8 fast-forwards the branch the record names (CR.104) and names PQ-46 for the lease rules.
+- **F12:** the line stands, with S22's other rule and PQ-40 named.
+- **`NFR-GEN`:** G-8 (Dart), G-9 (JavaScript / TypeScript), G-10 (the service), one line each with kind and what it builds; technology only as the answer says it ("not stated" for the service), no mapper or emitter. The mappers and emitters were read from the tooling on 2026-11-25 (`tomspecs :ir-map --mapper`, `:ir-emit --standard`, `tomspecs` 0.18.0): the same eight mappers and five emitters as listed.
+- **ST-6:** done (see above).
+- **GA-18 numbers:** asked once, PQ-57, with a proposed value for each.
+
+### Done otherwise than the row says
+
+- **GA-18:** the row asks only for a list; the todo's description asks for the numbers as one question with proposed values. Both are done: the list N-35 … N-43 in the text, the numbers in PQ-57. N-39 … N-43 are not numbers and are not in PQ-57.
+- **G-8 … G-10** against CR.109 ("No generation unit, deliverable or user group is named for the service until then") and `p1s1r4-5`'s note ("no generation unit is named for the web runtime client SDK"): the todo's description asks for one line per unit the answers add. The rows are named from PQ-28 only, and the paragraph under them says that whether they are units of their own is open (PQ-38, PQ-41).
+- **N-27:** AB-19 asked for a line under CW.3 (`p1s1r4-8`'s item); CW.3 does not carry it, so N-27 states the fact with its source.
+
+### Obligations changed
+
+- **N-3:** no longer says that a migration runs once per machine while the other runtimes pause; that is open (PQ-40, S22 § 5).
+- **N-12:** the runs are held after their current item (CA.32), not the queues stopped after the current todo; "the backend" includes the repository server of the GitHub backend (PQ-29).
+- **N-15:** no promise that an ask does not block a process for long; the run that asked waits (PQ-24 (b)).
+- **N-21:** no longer "reached only by paired devices": a phone or tablet is paired; how a browser is identified is open (PQ-28, PQ-49).
+- **N-25:** adds that the components follow their hosts' Flutter version and widget libraries (TF-12).
+- **N-29:** adds the copyleft rule for what is bundled into the public binaries repository and for the Dart client SDKs and `tom_ai_runtime_ui` (AB-20, TF-13).
+- **N-30:** adds the security model as a document.
+- **F3, F4, F5:** the walk holds and its run is held; the run waits while an ask or a gate decision is open (PQ-24 (b); vscimpb37).
+- **F8:** the integration step lands on the branch the repository record names (CR.104).
+- **F11:** names invitation, pairing off the VPN and registration; the fast-forward of CW.16 as the exception.
+- **New N-35 … N-43, F13, G-8 … G-10:** see above.
+
+### Sources needed
+
+None new. Cited: S22 § 5 (N-3, F12), S23 (`vscimpb37`, `vscimpb46`, `vscimpb55`), S25 (`05a_flutterm1`, `06b_flutterm1`, `13_woneb6`), S26 (`06a_flutterm1`), S27 (`binlic1`, `binpriv1`, `legws1`, `repo_structure_new.md` § 4), S14 § 4.
+
+### For other parts
+
+- **`p1s1r4-2`**: E-21 names `tomspecs` 0.17.0; the tooling answered 0.18.0 on 2026-11-25 (`tom_binaries/tom/darwin-arm64/tomspecs`). `SCO > SCO-IN`, the last row (the split) can cite N-24 beside N-32 and N-33 (IC-34).
+- **`p1s1r4-3`**: CR.109's last sentence ("No generation unit, deliverable or user group is named for the service until then") now meets G-10, which names the service as a unit from PQ-28 only and points to PQ-38; the sentence could read "… is described for the service until then; `NFR > NFR-GEN`, G-10 names it as a unit".
+- **`p1s1r4-5`**: G-8 and G-9 name the web runtime client SDK as units from PQ-28 only, pointing to PQ-41; CL.12 can refer to them.
+- **`p1s1r4-8`**: AB-19's line under CW.3 (Windows path length; keep the trees' place and names short or settable per machine) is not in CW.3; N-27 states the fact.
+- **`p1s1r4-10`**: AN-27's places in `DEC`, `CON`, `RISK`, `DEL`; IC-34's D-2; GA-20's `DEL` and R-23; AB-20's D-56; TF-12's new risk in `RISK > RISK-DEPS` (the hosts move to Flutter 3.50 and Dart 3.14 with `material_ui` and `cupertino_ui`; N-25 points there); AB-17 and AB-19's risks (N-27 points to the Windows path length).
+- **`p1s1r4-11`**
+  - Insert PQ-57 at the end of `NFR` (after N-43). Merge candidate: none.
+  - PQ-41 should name where the JavaScript / TypeScript web runtime client SDK is published (the binaries repository only, or also npm); N-29 points to PQ-41 for it (AN-27, the publishing of N-29).
+  - QT-21: the repetition of capabilities in `NFR` (ST-6) is done; topologies and units out of `NFR` (ST-13) remain for it.
+  - `ABOUT > ABOUT-READ`: the ranges of `N` (to N-43), `F` (to F13) and `G` (to G-10).
+
+## `p1s1r4-10` — `DEC`, `CON`, `RISK`, `DEL`
+
+Marks written in `DEC` … `DEL`: 37 substitutions, 6 deletions, 164 additions (counted from the
+section heading `DEC` to the end of the document after the work). New items: **D-61 … D-72**,
+**X-16 … X-21**, **R-25 … R-29**. Question written: **PQ-58** (section `DEL` of
+`new_questions.md`).
+
+### Rows of the work list
+
+| Finding | Ruling | Done | Items changed or added |
+| --- | --- | --- | --- |
+| AN-7 | apply | applied | new **R-25** (one unanswered ask holds a whole run; in strict mode a repository leased); R-10 second trigger; `DEL` "The order of building": the held todo and its run (CR.23), a run waiting for an ask sends nothing (D-61, R-25) |
+| IC-23 | apply | applied | D-22, X-4: built as the full tac server, no smaller one before it; "built first" gone |
+| IC-24 | apply | applied | D-20: routed by presence and along a chain of persons (named person, quest owner, owner of the triggering quest, team owners); "by role" gone |
+| IC-30 | apply | applied | D-8 shaped `RT > RT-TRANSPORTS` only; D-16 shaped `RT > RT-TRANSPORTS`; PQ-20's sentence moved out of D-59 into new **D-72** (shaped `TAC-PEOPLE`, `TAC-GROUPS`). The `SCO > SCO-IN` rows are `p1s1r4-2`'s (see "For other parts") |
+| GA-21 | ask QT-20 | **PQ-58** | `DEL` "The order of building": one line saying everything is delivered in one go and that the acceptance and a first usable state are asked; D-45, D-21, D-32 unchanged |
+| GA-24 | apply | applied | the heading over D-44 …: PQ-5 and PQ-11 carry no decision of their own (asked again as PQ-21 and PQ-20) |
+| ST-8 | apply | applied | "first version" in D-47, D-50, R-24, X-11; "first delivery" is no longer written in this part |
+| ID-7 | ask QT-20 | **PQ-58** | the thin path is the recommended option (b) |
+| VX-56 | apply | applied | R-16: the layering of the engine (services importing handlers and tools, nothing checks it) as work the extraction depends on; source `vscimpb176` |
+| A-15 | apply | applied | R-16: the new format and the quest management among the remaining features, after the cutover; R-15: what they wait for; D-40 and `DEL` step 1 name them |
+| AB-16 | apply | applied | R-20's state: the fleet's VPN-only plan run from a clone, rewritten against CA.27 … CA.30, N-28, N-29; the reverse proxy exists; deployment beyond that for the Blueprint; new **X-21** |
+| AB-17 | apply | applied | new **R-26** (one machine's VPN fails for hours unnoticed; runs held, CA.32); R-13's trigger adds a machine offline for weeks meeting newer formats |
+| AB-19 | apply | applied | new **R-27** (Windows path length with working trees), citing CW.3 and N-27 (the line under CW.3 is in, by `p1s1r4-8`) |
+| AB-27 | apply | applied | R-15's state (resolver and layered configuration built; migration tool and new fleet skills written and tested; cutover and what follows open) and the order: cutover, new format, quest management, coordination repository and tac server |
+| WW-22 | apply | applied | `DEL`, new paragraph "What the other quests are told when the todos are filed": the `webwork` line (two messages; wave 1b2 without a date; D13 and D40 need the two specifications first; WW-10, WW-14, WW-16 and the new names in the first message) |
+| TF-1 | apply | applied | the same paragraph, the `tom_forge` line (CL.3, L-9, CT.12, CT.11, CU.3, CU.10, PQ-44, its waiting entries re-pointed) |
+| TF-14 | drop | dropped | covered by TF-1's line ("its entries that wait on todos of this quest are moved to the new ones"); the list of entries is input of the filing |
+
+### Findings that also reach this part
+
+| Finding | Done here |
+| --- | --- |
+| AN-1, VX-PQ24, VX-2, AN-6, VX-27 | new **D-61**; D-20 names it and loses nothing else (it had no walk clause; its "Replaces" column names DQ-3's) |
+| AN-2 | R-25 |
+| AN-5 | D-55, D-61 and R-10 name PQ-39 |
+| AN-8, Q-3, Q-6, VX-43 | D-34: first part replaced by D-71; the personal repository open again (PQ-54), CQ.6's rest asked (PQ-55); new **X-17**; R-16, `DEL` step 1 |
+| AN-15, IC-34 | D-2: who uses the tac client SDK (D-63); what the runtime client SDK takes from it is for the Blueprint (CL.2) |
+| AN-17, AN-29, AN-30 | X-11: "leases and endpoints", D-64, D-66, "first version", PQ-47; D-47 |
+| AN-19, AN-20, AN-25, AN-26, AN-27, WRS, GA-1 | new **D-65** (the answer to PQ-28 as a direction, not a design); D-3, D-10, D-27, D-50, D-51, D-52; X-3, X-12, X-14; R-8, R-12, R-22, R-24; `DEL` (the runtime track builds the service and the web SDK; the delivered list) |
+| AN-21, IC-19 | D-23: whether the relay is on a phone's path and which program a device reaches is asked (PQ-49); the web runtime service is not a relay |
+| AN-22, ID-9 | D-3, D-50, R-12: PQ-41, PQ-42 |
+| AN-23 | D-10 |
+| AN-31 | D-18, D-25, D-53: PQ-50 |
+| AN-32 | D-24, D-25, D-47, D-53; R-3, R-20 (D-54 is the tac server's setting only and stands) |
+| AN-34, IC-28, VX-48, WW-1, TF-8 | R-19's state (planned outside; PQ-43); new **X-19**; `DEL` delivered list |
+| AN-37 | `DEL`: the extension's messaging views come once the runtime is built (O-1; D-67) |
+| AN-38 | X-3 (no application is a tac client; L-12; D-67); R-3's trigger (the reviewer's application built outside this product) |
+| AN-40 | D-59 (`git:`; D-68), D-60, X-15; new **D-68** |
+| AN-41, TF-9, IC-32, WW-20 | R-18: `tom_todo_model` 4.2.0 (E-2); PQ-45, PQ-34 |
+| AN-43 | D-19 "approved by" (D-69); new **D-69** |
+| AN-45 | D-60 points to D-70 for the further terms; the glossary itself is `p1s1r4-11`'s |
+| IC-1, ID-2 | D-55: PQ-46 |
+| IC-9 | R-13: "runtime installation" |
+| IC-16 | D-13: PQ-48; new **X-20** |
+| IC-33 | X-13, X-14 cite PQ-6 and PQ-9; the heading over R-22 … no longer counts a round |
+| GA-20 | `DEL` delivered list names what has no unit yet; R-23's trigger |
+| GA-30 | nothing changed (PQ-35 asks what of the split stays in the extension; D-40, D-41, R-1 keep their text) |
+| ST-1 | the decisions from PQ-24 … PQ-33 under their own heading, D-61 … D-70 |
+| ST-3 | the heading over the further risks; X-3 states the current resolution |
+| ST-7, ST-13, ST-15 | nothing changed (QT-21, `p1s1r4-11`); R-12 and R-24 stay two rows |
+| AB-8, AB-11 | R-15 names the new fleet skills as written and tested |
+| AB-15, AB-18 | R-20 cites CA.28; its "For" adds the check of the VPN on phones (CK.12), with no todo yet |
+| AB-20 | D-56: the public binaries repository, nothing copyleft bundled (N-29) |
+| WW-10, WW-14, WW-16, TF-3 | in the two messages of `DEL`; WW-14 also as new **X-16** (resolved toward CS.11, D-19) |
+| WW-11 | D-16 open again (PQ-37) |
+| TF-12 | new **R-29** in `RISK > RISK-DEPS` (the hosts' move to Flutter 3.50, Dart 3.14, `material_ui`, `cupertino_ui`; N-25 points there) |
+| VX-28 | `DEL` names the todo and CR.83 (planned) |
+| VX-41 | D-7: "the runtime does not carry" instead of "are removed" |
+
+### The points of the todo's description
+
+- **DEC:** D-61 … D-70, one for each answer PQ-24 … PQ-33, under a heading of their own; **D-71**
+  takes al_the_bear's `_ai` format and its three quest types as the standard (with the four
+  questions that keep what decisions back: PQ-54, PQ-55, PQ-56, PQ-40); **D-72** carries PQ-20's
+  sentence out of D-59. Brought to the current state and naming the later decision: D-34 (D-71;
+  open again, PQ-54, PQ-55), D-51 (D-65; open, PQ-49), D-52 (D-65; assumed until PQ-38), D-3 and
+  D-50 (D-65; PQ-41, PQ-42), D-10 (D-65; PQ-41), D-19 (D-69), D-20 (D-61), D-27 (D-65, D-67),
+  D-59 (D-68, D-72), D-60 (D-68, D-70). Open again because their question is asked again: D-13
+  (PQ-48), D-16 (PQ-37), D-34 (PQ-54, PQ-55), D-51 (PQ-49).
+- **CON:** settled by this round: X-3 (D-65, D-67), X-11 (D-64, D-66; PQ-47 for the rest), X-12
+  (D-65; PQ-38), X-15 (D-68); X-14 open again (PQ-49). New: X-16 (resolved, D-19), X-17 (PQ-54),
+  X-18 (PQ-40), X-19 (PQ-43), X-20 (PQ-48), X-21 (resolved, D-22, D-23).
+- **RISK — whether the state changed** (for the closing item):
+
+| Id | State |
+| --- | --- |
+| R-1, R-2, R-4, R-5, R-6, R-7, R-9, R-11, R-14, R-17 | unchanged |
+| R-3 | changed: trigger adds teams on the GitHub backend (D-66) and the reviewer's application built outside this product (D-67) |
+| R-8 | changed: wave 3 of Webwork with the web runtime service; open points PQ-38, PQ-49 |
+| R-10 | changed: second trigger, a lease held while its run waits for a person (PQ-39) |
+| R-12 | changed: the web runtime client SDK; PQ-42 |
+| R-13 | changed: "runtime installation"; when a migration runs is asked (PQ-40); a machine offline for weeks |
+| R-15 | changed: state and the order of what the fleet builds first |
+| R-16 | changed: the new format, quest management and the engine's layering named |
+| R-18 | changed: 4.2.0; PQ-45, PQ-34 |
+| R-19 | changed: planned outside this product in two forms; asked (PQ-43) |
+| R-20 | changed: the fleet's plan to rewrite, the order after R-15, the VPN check on phones |
+| R-21 | changed: refers to E-21 |
+| R-22 | changed: an undesigned architecture for phones and browsers; PQ-38, PQ-49 |
+| R-23 | changed: a deliverable without a unit as a trigger |
+| R-24 | changed: "first version" |
+| R-25 … R-28 | new risks |
+| R-29 | new dependency |
+
+- **DEL:** the deliverables follow the items: the three client SDKs and their languages (CL.12,
+  G-3 … G-5, G-8, G-9; PQ-41, PQ-42), the web runtime service (G-10; PQ-38), the review component
+  (PQ-43), the Flutter components against the three existing packages (E-20; PQ-44), what has no
+  unit yet, what is not delivered here (O-10, O-1). What the first version contains and in which
+  order: "in one go" (D-21, D-32, D-45) with the acceptance and a first usable state asked
+  (PQ-58); one register of the first version is QT-21's (`p1s1r4-11`).
+
+### Done otherwise than the row says
+
+- **R-15's format version.** AB-27 and the todo's description name "format version 10"; S22
+  § 3.6 now names **version 11**, while CR.3 and E-1 say 10. R-15, R-16, D-40, D-71 and `DEL`
+  write "the new format of the `_ai` files (CR.3)" without a number, so this part does not
+  contradict CR.3; see "For other parts".
+- **The new decisions' "Replaces or completes" column** names what a decision replaces; the
+  older decisions that a new one overtakes name the new one in their decision text, not in that
+  column.
+- **R-12 and R-24** stay two rows (ST-7 is QT-21's).
+
+### Obligations changed
+
+- **D-20, D-61:** the run that asked waits as a whole; no walk goes on (PQ-24 (b)).
+- **D-22, X-4:** no order of building implied; the tac server is the full one, no smaller one before it.
+- **D-27, D-52, D-65:** phones, tablets and browsers through the web runtime service and the web runtime client SDK (Dart, JavaScript / TypeScript); one runtime per connection only assumed (PQ-28).
+- **D-3, D-50:** three client SDKs; the web runtime client SDK in two languages beside the two in nine.
+- **D-34, D-71:** repository quests in the two forms of the standard; the personal repository open again.
+- **D-47, D-66, X-11:** the GitHub backend serves simple teams of several members.
+- **D-59, D-68:** resource names carry the prefix `git:`; a part of the `_ai` state's repository is claimed when a todo names it.
+- **D-64:** tac keeps no record of the holder of leases (PQ-27 (a)).
+- **D-67:** no review application; no application is a tac client (PQ-30 (a)).
+- **D-69:** "approved by" Tom Secrets Manager; pairing only for devices (PQ-32 (a)).
+- **`DEL`:** the delivered list, the runtime track builds the web runtime service and the web runtime client SDK, the two messages to `webwork` and `tom_forge`.
+- **New R-25 … R-29.**
+
+### Sources needed
+
+None new. Cited: S22 § 5, § 7; S23 (`01_aifmt-1` … `-5`, `02_aifmt-1`, `vscimpb176`, `vscimpb179`); S25 (`webwork_wave1_plan.md`, `09_woneb5`, `13_woneb6`, `05a_flutterm1`, `06b_flutterm1`, the notes on `12a_woneb1` … `14_woneb2`); S26 (`qavs_wwworkbench-1`, `05b_woneb1` … `-5`, `06a_flutterm1`); S27 (`workspace_layout_plan.md`, `12a_wslayout-2`, `14_loose_wslayout-6`, `tsmfleet3`, `tsmfleet9`, `vpnhang1`, `legws1`, `repo_structure_new.md` § 2); S14 part two.
+
+### For other parts
+
+- **`p1s1r4-3`** (or `p1s1r4-11`): CR.3 and E-1 say "format version 10"; S22 § 3.6 and § 5 say
+  **version 11**. This part writes no number; CR.3, E-1, E-14, E-22 and CQ items should follow S22.
+- **`p1s1r4-2`** (or `p1s1r4-11`): IC-30's `SCO > SCO-IN` rows: the Agent Client Protocol belongs
+  to the `CR` row, not `CP`; the `CI` row adds PQ-12, PQ-20 and PQ-23 to its sources.
+- **`p1s1r4-11`**
+  - Insert PQ-58 into `DEL` after "The order of building" (after the line that names it).
+  - `ABOUT > ABOUT-READ`: the ranges of `D` (to D-72; the decisions from PQ-24 … PQ-33 are
+    D-61 … D-70, D-71 is the standard, D-72 is PQ-20's), `X` (to X-21) and `R` ("R-1 to R-14 and
+    R-22 to R-28 are risks; R-15 to R-21 and R-29 are dependencies").
+  - The `DEC` lead-in can name `PQ-n` among its source ids; the new heading names the answers'
+    folder.
+  - `GLO`: the entries D-62 (session started over), D-64 (holder), D-66 (personal team, team),
+    D-68 (resource name), D-69 (pairing, approved by) and D-70 (the further terms) shape.
+  - Merge candidates for PQ-58: none (QT-21's register of the first version is related).
+
+## `p1s1r4-11` — `GLO` and the whole document
+
+Marks written: 130 additions, 16 substitutions, 9 deletions. The ten question blocks
+`PQ-24` … `PQ-33` removed (unmarked, as answered blocks are). 26 question blocks inserted.
+The terminology document (S21) edited as plain text.
+
+### Rows of the work list
+
+- **AN-3** → `GLO` ask (the run waits until the ask is settled, with the three ways it is
+  settled), run (waits while an ask of it is open), execution (one waiting for an answer is the
+  same execution); the words "waits", "is held", "paused", "settled" in the further terms.
+- **AN-28** → `GLO` team (not bound to a tac server; a team with each backend), personal team
+  (local backend: one machine; GitHub backend: the user's machines sharing the coordination
+  repository), backend (with what each serves), member / owner and invitation / team token (stated
+  for a tac server; the GitHub backend open: PQ-47).
+- **AN-33** → `GLO` application (without the review application), host (the last sentence gone;
+  the web runtime service in place of the runtime host server, assumed until PQ-38), user (a
+  person using an application).
+- **AN-44** → `GLO` device / pairing ("a server"; pairing for devices only, D-69; the program a
+  device reaches is open, PQ-49); "approved by" in the further terms; the words-not-used table.
+- **AN-45** → `GLO` table "Further terms of this document" with every term PQ-33 lists, each in
+  the wording of its item: walk, gate, role and role type, quest owner, done notification, relay
+  (the tac server's only), notification and command (between runtimes, their further senses to
+  PQ-58), capability block, repository server, standalone runtime, classic quest and repository
+  quest with the single-quest and multi-quest forms, personal repository (CQ.2's wording; PQ-53),
+  root and workspace folder; "profile" and "coordinator" with the definitions PQ-33 proposed
+  (the coordinator's wording follows U-15 and CV.12). S21 § 2.6 the same; the SRC row of S21
+  says the two are kept equal; D-60 already points to D-70.
+- **AN-46** → the further terms also hold: walk continuation, step boundary, subject, aspect
+  guidelines, pre-prompt and follow-up, timed request, staged, journal of asks and answers, ask
+  envelope, reverse request, quest member, review copy and base, access key, coordination
+  repository, web runtime service, web runtime client SDK, always-on machine, the `_ai` state,
+  register of quests, the four classes of files. Not entered: the words with several senses
+  (PQ-58), "integration lease" (PQ-46), "first version" against "first delivery" (PQ-57).
+- **ST-10** → `GLO` run (without "as the term is used in the VS Code extension"; with CR.8,
+  CR.9, CR.67), quest (without the comparison; the three types), host (without the review
+  application). "Change-branch mode" stays as the second name of worktree mode until PQ-58.
+- **ST-17** → the ten blocks removed and their lists closed up; the blank lines inside lists
+  before CR.13, CR.14, CP.9, CP.30, CI.11, CK.9, CK.10, CW.25, CW.26, X-8 and X-13 removed.
+- **ST-9** → asked: PQ-58 (with AN-11, AN-18, IC-29 and the second name of ST-10).
+- **GA-19, GA-23, ST-5, ST-6, ST-7, ST-13, ST-15, ST-16, ID-1, ID-10** → asked: PQ-59.
+- **ST-4, ST-12** → dropped as the triage says; checked: 709 ids are defined exactly once, every
+  id referred to is defined, and no number of an area is missing or used twice.
+
+### Findings that also reach this part
+
+Taken into `GLO`: AN-9, VX-19, VX-20 (session: started over, base, lifetime, profile, the default
+session `default@<run>`); AN-15 (client SDK: three, and who uses the tac client SDK); AN-17,
+IC-15 (holder: the full list, no holder record); AN-40 (resource, resource name, overlap with
+`git:`); IC-26 (message kind: eight kinds plus the two between runtimes); WW-2 (round folder in
+the documents' storage); GA-4 (run executes one item at a time); GA-22 (coordinator); IC-13
+(host); ST-3 (team runtimes: "replaces" gone); AN-8, Q-1, VX-46 (quest types, register, S22's
+words named once); AB-5 (integration step lands on the branch the record names). Checked without
+a change: WW-3 (review set "pinned in tac" stands), GA-14 (CA.44 carries the Blueprint line).
+Kept as they are until answered: AN-5 (strict mode, PQ-39), AN-11 and IC-29 (conversation,
+queue item, PQ-58), AN-20, AN-24, WRS (host and server, PQ-38), IC-1, IC-7, ID-2 (exclusive lease,
+fencing token, PQ-46), IC-11 (runtime, PQ-51), A-4 (trail, PQ-53), Q-3 (personal repository,
+PQ-53).
+
+### The cross-check
+
+Corrected as marked changes (or inside this round's own additions):
+
+- **Pointers to questions by place** ("the question at …", "an open question (`…`, CI.18)")
+  replaced by the question's id in 28 places: the S22 row; the trc, web runtime service and
+  client SDK rows and the hosts paragraph of `VIS > VIS-SYSTEM`; U-3; the `CR`, `CK` and `CQ` rows
+  of `SCO > SCO-IN`; O-10; L-5, L-6, L-8; E-16, E-20; CR.55; CP.1, CP.11, CP.36; CT.12; the end of
+  `RT > RT-ASKS` (twice); the paragraph after CP.34; the line under the screen inventory; CK.2;
+  CK.10 (twice); CK.11.
+- **Names:** CP.31 "a runtime installation" (IC-9); no "review application", "runtime host
+  server", "remote runtime service", "pairing with Tom Secrets Manager" or "folder of the `_ai`
+  state" outside `GLO`'s words-not-used table, `DEC`, `CON`, E-19 and O-10.
+- **The format version:** the extension writes format version 10 since 2026-11-23
+  (`_ai/format-version.yaml`), and S22 § 3.6 now names the next one **version 11**. CR.3, CR.100,
+  E-1, E-14, the S22 row, the `CR` row of `SCO > SCO-IN`, the line on reminders in E-1 and the
+  line on the extension's migration say version 11, and E-1 says version 10 today. PQ-40 says
+  the same.
+- **History wording:** "the earlier agent_container and project_coordination work" (the line
+  "Not a source" and O-8) reads "the agent_container and project_coordination work, archived in
+  `tom_archived`"; CA.28's line on the fleet's plan says what the plan does not yet know instead
+  of when it was written. "Earlier" stays where it is not history ("the earlier context" of a
+  conversation, CR.18; "never earlier", CR.80) and in `DEC` and `CON`.
+- **AN-36:** P-3 says that with the product such a reviewer uses an application that carries the
+  review component, reaching tac through its runtime.
+- **Version:** E-21 names `tomspecs` 0.18.0 (the package's version on 2026-11-25).
+- **Leftovers of the parts:** CR.109's last sentence names G-10 (from `p1s1r4-9`); CL.12 names
+  G-8 and G-9 (from `p1s1r4-9`); the split row of `SCO > SCO-IN` cites N-24 (IC-34, from
+  `p1s1r4-9`). Already done by their parts: the `SCO > SCO-IN` rows of IC-30 (Agent Client
+  Protocol in the `CR` row, PQ-12, PQ-20, PQ-23 in the `CI` row), AB-19's line under CW.3.
+- **Marks:** every `{~~` has one `~>` and its `~~}`; every `{++`, `{--`, `{>>` its closing mark;
+  none nested; no blank line inside a mark (1,155 marks checked).
+- **References:** every section-id chain resolves to a heading and its parents (one in the new
+  PQ-59 was corrected to `NFR > NFR-TOPO > NFR-TOPO-FLOWS`); none is broken across lines; no line
+  outside a question block starts with `>`.
+- **Status:** the status line, the `PQ` row and the `R` row of `ABOUT > ABOUT-READ` say the round
+  and its open questions; a new paragraph under the capability areas says that ids are never
+  renumbered and names the highest id of every area.
+
+### Done otherwise than the row says
+
+- **AN-10** (from `p1s1r4-4`, addressed to `p1s1r4-8`): CQ.3 does not get the sentence that the
+  history before a start-over stays in the trail. Triage § 1.6 keeps CQ.2 and CQ.3 unchanged until
+  PQ-53 is answered; the start-over is stated in CR.18, CP.7 and `GLO` session.
+- **Merging questions:** PQ-50 (members and team owners on the GitHub backend, from `p1s1r4-7`)
+  is merged into PQ-47 (what a team has on the GitHub backend, from `p1s1r4-6`): both follow from
+  the answer to PQ-29, and PQ-47's recommended table already had a row for members and owners. Not
+  merged, with the reason: PQ-38, PQ-41 and PQ-49 (all from PQ-28) each settle a different group of
+  items — what the service is, what its client SDK is, what faces the internet — and one question
+  would ask three decisions at once; PQ-53, PQ-54 and PQ-55 (all from S22 against D-34) likewise
+  — the personal files, the extras of repository quests, the quest operations. No question was
+  dropped: none is settled by an answer, the terminology or a decided source.
+- **Renumbered** after the merge, in the document and in `new_questions.md` (the sections of the
+  other parts above keep the ids they wrote): PQ-50 → PQ-47, PQ-51 → PQ-50, PQ-52 → PQ-51,
+  PQ-53 → PQ-52, PQ-54 → PQ-53, PQ-55 → PQ-54, PQ-56 → PQ-55, PQ-57 → PQ-56, PQ-58 → PQ-57.
+  The two questions of this part are PQ-58 and PQ-59.
+- **Questions completed** with points the parts left: PQ-36 also asks about forwarding a host
+  tool to another host (CP.15, TF-2; from `p1s1r4-4`); PQ-41 also asks where the JavaScript /
+  TypeScript web runtime client SDK is published (N-29; from `p1s1r4-9`); PQ-45 also asks how the
+  repositories a runtime registers are written (CA.3; AN-41); PQ-38 and PQ-41 name the units
+  G-8 … G-10; PQ-40 follows S22's version 11.
+
+### Questions settled
+
+| Id | Answer | Decision | Items changed |
+| --- | --- | --- | --- |
+| PQ-24 | (b), and S22 as the standard | D-61, D-71 | CP.21, CP.9, CP.22, CR.17, CR.20, CR.23, CR.67, CS.10, CW.4, N-15, D-20, F4, F5, `GLO`; for the standard: CR.2, CR.3, CR.47, CR.100, CQ.1, CQ.5, CQ.7, CQ.9 … CQ.13, E-14 |
+| PQ-25 | (a) | D-62 | CR.18, CR.75 … CR.78, CP.3, CP.7, `GLO` session |
+| PQ-26 | (a) | D-63 | CL.11, CL.12, CR.110, `GLO` client SDK |
+| PQ-27 | (a) | D-64 | CA.5, CA.8, CA.20, CA.26, CA.29, CA.36, X-11, `GLO` holder |
+| PQ-28 | free text: the names, no design | D-65 | CR.108 … CR.110, CL.11, CL.12, CI.4, T8, F13, G-8 … G-10, `GLO`; open points asked in PQ-38, PQ-41, PQ-49, each quoting the answer |
+| PQ-29 | free text: teams of several members on the git-based backend | D-66 | CA.26, CA.39, CI.1, T3, T4, X-11, D-47, `GLO` team, personal team, backend; open points asked in PQ-47, quoting the answer |
+| PQ-30 | (a), with free text | D-67 | O-10, L-12, CI.4, CA.28, CV.5, CV.15, P-3, U-2, `GLO` application, host, user; the review component asked in PQ-43 |
+| PQ-31 | (a), with free text | D-68 | CA.9, CA.10, CA.11, CA.17, CA.41, CA.42, CW.7, X-15, D-59, `GLO` resource, resource name, overlap; the grammar asked in PQ-45 |
+| PQ-32 | (a) | D-69 | CS.9, U-7, D-19, N-30, `GLO` device / pairing, approved by |
+| PQ-33 | (a) | D-70 | `GLO` (the further terms), S21 § 2.6 and § 4 |
+
+### Obligations changed
+
+- `GLO` session, team, personal team, backend, client SDK, holder, resource name, overlap,
+  integration step and host now define what the items demand in the terms of D-61 … D-69 (each
+  term follows its decision).
+- CR.3: the runtime is built on format version 11 of the `_ai` files, not 10 (S22 § 3.6); CR.100
+  is planned with version 11.
+
+### Sources needed
+
+None. E-1 cites `_ai/format-version.yaml` by its path; E-21's version is that of
+`tom_ai/ai_build/tom_specs_clitool/pubspec.yaml`.
+
+### For the next round
+
+- The 26 open questions; PQ-58 and PQ-59 change the glossary and the document's structure if
+  their recommended options are taken.
+- `CI.19` still carries a `___check here___` remark of `p1s1r4-7`.
+
+## Closing check
+
+Done by the round's closing item on 2026-11-25, after all eleven todos were completed (none
+blocked, none left open).
+
+- **Marks:** 1,155 in the document (218 substitutions, 910 additions, 27 deletions); each closed,
+  none nested, no blank line inside one. Nothing was corrected.
+- **Ids:** the 569 items defined before the round (the document as round 3's review left it,
+  `project_idea.before_marks.md`, its marks accepted) are all still defined; 140 are new; none is
+  defined twice. The 70 section ids resolve every section-id chain; no line outside a question
+  block starts with `>`.
+- **Questions:** none of PQ-24 … PQ-33 is left. PQ-34 … PQ-59 (26) each have Context, Why I ask,
+  two or more options with exactly one bold, a recommendation naming that option, an assumption
+  and an empty answer.
+- **Glossary:** `GLO` and terminology § 2 have the same 99 rows with the same text.
+- **Numbering in the part records:** the sections of `p1s1r4-2` … `p1s1r4-10` below cite the
+  question ids they wrote before `p1s1r4-11` renumbered them (for example `p1s1r4-10`'s PQ-58 is
+  PQ-57 in the document); the table "The questions asked" above has the final ids.
+
+## G1 reading
+
+A reading against gate run 2 (`../../quality/evidence/gates/G1_20261119-2045.gate.md`), not a
+gate run. Run 2 read the document before rounds 3 and 4.
+
+| Item | Run 2 | After this round |
+| --- | --- | --- |
+| G1-DOC-1 | pass | unchanged |
+| G1-PROB-1 | pass | unchanged |
+| G1-USER-1 | pass | unchanged; `USR` adds the hosts of the first version after PQ-28 and PQ-30 |
+| G1-SCOPE-1 | pass | unchanged in kind; `SCO` follows PQ-28 and PQ-30 (the review application out of scope, O-10) |
+| G1-SRC-1 | pass | unchanged; S22 … S27 added, every new item cites one |
+| G1-ID-1 | pass | unchanged: 140 new ids, none reused, none lost |
+| G1-CLAR-1 | pass (no open question) | **fails as it stands.** 26 questions are open (PQ-34 … PQ-59). Each has a working assumption, but in eight of them the assumption is "the text says this is open", and the Blueprint's architecture builds on the answer: **PQ-38** and **PQ-49** (what the web runtime service is, and what faces the internet for phones and tablets), **PQ-41** (the web runtime client SDK beside the runtime client SDK), **PQ-46** (the lease rules: the integration step cannot start as written), **PQ-47** (what a team on the GitHub backend has), **PQ-51** (the team of a runtime that serves no quest — Webwork's and trc's), **PQ-53** and **PQ-54** (where a person's own files of a quest lie; what remains of member branches, the internal repository and the secret scan). These block the Blueprint. The other eighteen can be carried into Phase 2 under their assumptions. |
+| G1-RISK-1 | pass | changed: R-3, R-8, R-10, R-12, R-13, R-15, R-16, R-18 … R-24 re-assessed, R-25 … R-28 new risks, R-29 a new dependency (below) |
+| G1-CHANGE-1 | not applicable (initial development) | unchanged |
+
+G1 has to be run again once the eight blocking questions are answered and taken in.
+
+## Risk review
+
+Taken from `p1s1r4-10`'s record (section below, "RISK — whether the state changed").
+
+- **Changed:** R-3 (teams on the GitHub backend, the reviewer's application built outside this
+  product), R-8 (Webwork's wave 3 with the web runtime service), R-10 (a lease held while its run
+  waits for a person), R-12 (the web runtime client SDK), R-13 (when a migration runs; a machine
+  offline for weeks), R-15 (state, and the order: workspace layout cutover, format version 10,
+  quest management, coordination repository and tac server), R-16 (new format, quest management,
+  the engine's layering), R-18 (`tom_todo_model` 4.2.0), R-19 (review component planned outside
+  this product), R-20 (the fleet's plan for the tac server, the VPN check on phones), R-21, R-22
+  (an undesigned architecture for phones and browsers), R-23, R-24.
+- **New:** R-25 (one unanswered ask holds a whole run), R-26 (a machine's VPN failing unnoticed),
+  R-27 (Windows path length with working trees), R-28 (Webwork and Tom Forge wait for the whole product without a date); R-29 a new dependency (the hosts' move to
+  Flutter 3.50 and Dart 3.14).
+- **Unchanged:** R-1, R-2, R-4 … R-7, R-9, R-11, R-14, R-17.
