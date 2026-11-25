@@ -1876,9 +1876,6 @@ static void test_docspecs(Checker *c) {
   size_t n = som_json_array_len(cases);
   for (size_t i = 0; i < n; i++) {
     const SomJson *cc = som_json_array_at(cases, i);
-    /* The reading view's table forms (`readingView`) are read by the Dart and
-     * TypeScript runtimes only until their ports (runtime_parity.md § Reading view). */
-    if (som_json_bool_or(cc, "readingView")) continue;
     const char *name = som_json_str_or(cc, "name");
 
     DocSpecsViolationList got_list;

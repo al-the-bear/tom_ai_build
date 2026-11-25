@@ -137,21 +137,21 @@ exceptions:
     planes: [python, javascript, java, go, rust, cpp]
     reason: >-
       KNOWN GAP. The Markdown parser's table layout and its two rejection
-      reasons (04a_rdv1, SOM §11.4, §11.5, §11.7) are in the Dart, TypeScript
-      and C runtimes only; their corpus cases carry `"readingView": true`,
-      which the other six skip until their ports are the todos
-      `tspubnondart56`..`60`, `62`..`69`, one per runtime (`runtime_parity.md`
-      § Reading view).
+      reasons (04a_rdv1, SOM §11.4, §11.5, §11.7), and the DocSpecs
+      validator's (04a_rdv2), are in the Dart, TypeScript and C runtimes only;
+      their corpus cases carry `"readingView": true`, which the other six skip
+      until their ports are the todos `tspubnondart56`..`60`, `62`..`67` and
+      `69`, one per runtime (`runtime_parity.md` § Reading view).
 
   - token: unknownField
     planes: [python, javascript, java, go, rust, cpp]
     reason: >-
       KNOWN GAP. The Markdown parser's table layout and its two rejection
-      reasons (04a_rdv1, SOM §11.4, §11.5, §11.7) are in the Dart, TypeScript
-      and C runtimes only; their corpus cases carry `"readingView": true`,
-      which the other six skip until their ports are the todos
-      `tspubnondart56`..`60`, `62`..`69`, one per runtime (`runtime_parity.md`
-      § Reading view).
+      reasons (04a_rdv1, SOM §11.4, §11.5, §11.7), and the DocSpecs
+      validator's (04a_rdv2), are in the Dart, TypeScript and C runtimes only;
+      their corpus cases carry `"readingView": true`, which the other six skip
+      until their ports are the todos `tspubnondart56`..`60`, `62`..`67` and
+      `69`, one per runtime (`runtime_parity.md` § Reading view).
 
   - token: appendixReferences
     planes: [python, javascript, java, go, rust, c, cpp]

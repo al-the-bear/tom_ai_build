@@ -2,6 +2,29 @@
 
 ## Unreleased
 
+- **The DocSpecs validator reads the reading view's forms** (SOM §14, the
+  DocSpecs specification's *List Bodies* and *Styled-div headings*), the C
+  port of the Dart and TypeScript validators. It walks parsed and virtual
+  sections:
+  - form tables give a form's fields beside `Field:` paragraphs, a field's
+    findings point at its row, and a field given twice keeps the first
+    (`malformedBlock`), a row naming no field is `unknownField`;
+  - a list container's `refs` line or `records` table becomes virtual items
+    that count towards `min-count` / `max-count`, its body counts as empty
+    (`max-text-length: 0`), and a records table is read against the item
+    type's own form;
+  - section tables rebuild child sections and list items at their rows
+    (`unknownSection` for a cell naming no child);
+  - `<div class="heading<N>">` lines with N >= 7 are headings of level N, a
+    lower level is content, and a heading's own anchor (its id or the
+    qualified form) is no part of its title.
+  Two new rules, `DOCSPECS_RULE_MALFORMED_BLOCK` and
+  `DOCSPECS_RULE_UNKNOWN_FIELD` (`DOCSPECS_ALL_RULES` holds 24). The
+  pattern-check subset gains groups, alternation, `(?:...)`, `{n}` / `{n,}` /
+  `{n,m}` and the `\d` / `\w` / `\s` classes (a pattern such as
+  `^(Yes|No)$` matched nothing before). The conformance runner runs every
+  `readingView` case of `docspecs_cases.json`.
+
 - **The Markdown parser reads the reading view's table layout** (SOM §11.4,
   §11.5), the C port of the Dart and TypeScript parsers: form tables
   `| TomSpecField | Value |` (between `Field:` paragraphs, a code span holding

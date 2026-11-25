@@ -65,12 +65,21 @@
 #define DOCSPECS_RULE_ANNOTATION_INSIDE_DIV "annotationInsideDiv"
 #define DOCSPECS_RULE_DIV_INSIDE_ANNOTATION "divInsideAnnotation"
 #define DOCSPECS_RULE_REJECTED_BLOCK "rejectedBlock"
+/* The reading view's list bodies and tables (DocSpecs specification, Findings
+ * in list bodies and tables): a form, section or record table without a
+ * matching delimiter row, a row of another cell count, a field given twice
+ * (the first kept), a refs / records div beside other text or item headings,
+ * a records div holding no table or one whose first column is not Id, an
+ * unclosed refs / records fence. */
+#define DOCSPECS_RULE_MALFORMED_BLOCK "malformedBlock"
+/* A form-table row or a record-table column naming no field of its form. */
+#define DOCSPECS_RULE_UNKNOWN_FIELD "unknownField"
 
 /* The complete §14 vocabulary, in declaration order — the enumerable form of
  * what Dart gets for free from its enum. The conformance runner diffs it
  * against the rules the shared corpus exercises, so a rule added here without a
  * corpus case fails the suite instead of going unnoticed. */
-#define DOCSPECS_ALL_RULES_COUNT 22
+#define DOCSPECS_ALL_RULES_COUNT 24
 extern const char *const DOCSPECS_ALL_RULES[DOCSPECS_ALL_RULES_COUNT];
 
 /* ---- violation ----------------------------------------------------------- */

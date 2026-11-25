@@ -930,6 +930,46 @@ static void TestDocspecsValidateSameIdUnderTwoParents(void) {
   free(types);
 }
 
+/* The pattern-check subset: groups with alternation, `{n,m}` and the
+ * escape classes, beside what it always read. */
+static void TestDocspecsPatternSubset(void) {
+  struct {
+    const char *pattern;
+    const char *value;
+    int want;
+  } cases[] = {
+      {"^(Yes|No)$", "Yes", 1},
+      {"^(Yes|No)$", "No", 1},
+      {"^(Yes|No)$", "Maybe", 0},
+      {"^(Yes|No)$", "Yess", 0},
+      {"^(?:ab)+$", "ababab", 1},
+      {"^(?:ab)+$", "aba", 0},
+      {"^[A-Z]{2,3}-[0-9]{1,}$", "AB-7", 1},
+      {"^[A-Z]{2,3}-[0-9]{1,}$", "ABCD-7", 0},
+      {"^[A-Z]{2}$", "ABC", 0},
+      {"^\\d+(\\.\\d+)?$", "2.5", 1},
+      {"^\\d+(\\.\\d+)?$", "2.", 0},
+      {"^\\w+\\s\\w+$", "two words", 1},
+      {"^(a|b|)c$", "c", 1},
+      {"^(a*)*b$", "aaab", 1},
+      {"GOAL", "MY-GOAL-1", 1},
+      {"^GOAL-ITEM-[0-9]+$", "GOAL-ITEM-12", 1},
+      {"^(Yes|No", "Yes", 0},
+      {"^[A-Z", "A", 0},
+  };
+  for (size_t i = 0; i < sizeof(cases) / sizeof(cases[0]); i++) {
+    DocSpecsPatternCheck pc;
+    pc.pattern = (char *)cases[i].pattern;
+    pc.error_message = (char *)"";
+    char name[256];
+    snprintf(name, sizeof(name), "pattern %s ~ %s", cases[i].pattern,
+             cases[i].value);
+    mdCheck(name,
+            docspecs_pattern_check_matches(&pc, cases[i].value) == cases[i].want,
+            "");
+  }
+}
+
 int main(void) {
   TestDocspecsParseTree();
   TestDocspecsParseFenceShield();
@@ -956,6 +996,7 @@ int main(void) {
   TestDocspecsValidateSameIdUnderTwoParents();
   TestDocspecsBindDocspecsMarkdown();
   TestDocspecsDr7Acceptance();
+  TestDocspecsPatternSubset();
 
   fprintf(stderr, "docspecs_validator_test: %d checks, %d failures\n", g_checks,
           g_failures);
