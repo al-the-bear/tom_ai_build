@@ -38,6 +38,17 @@ public final class SpecMarkdownResult {
   public final List<SpecMarkdownRejection> rejections = new ArrayList<>();
   public final Set<String> rootPrefixes = new LinkedHashSet<>();
 
+  /**
+   * The rejected blocks kept for review (SOM §11.7, DocSpecs RN-11): for every
+   * path whose text a rejected block stood in, the value with each such block
+   * written as a {@code rejected} div at its place. An apply that accepts
+   * rejections ({@link SpecDocument#applyMarkdownResult(SpecMarkdownResult,
+   * boolean)} with {@code true}) writes these over {@link #content}, so nothing
+   * written is lost; an empty value removes the path's text. Empty for a clean
+   * parse.
+   */
+  public final Map<String, String> keptContent = new LinkedHashMap<>();
+
   public boolean isClean() {
     return rejections.isEmpty();
   }

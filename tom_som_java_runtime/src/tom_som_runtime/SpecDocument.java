@@ -167,9 +167,10 @@ public final class SpecDocument {
    * one call: parse, then {@link #applyMarkdownResult(SpecMarkdownResult,
    * boolean)}.
    *
-   * <p>Blocks the parser rejects are not loaded, and are returned with the
-   * document, so a caller can show them or refuse to save: re-exporting a
-   * document whose source had rejections drops those blocks for good.
+   * <p>Blocks the parser rejects are kept for review: each stands as a
+   * {@code rejected} div in the text of the section it stood in, else its
+   * parent (SOM §11.7, DocSpecs RN-11). They are returned with the document
+   * too, so a caller can show them or refuse to save.
    */
   public static SpecMarkdownImport fromMarkdown(String text, SpecModel model) {
     SpecDocument document = new SpecDocument();
@@ -213,8 +214,12 @@ public final class SpecDocument {
    *
    * <p>A result with rejections is refused with an
    * {@link IllegalStateException} — and nothing is changed — unless
-   * {@code allowRejections} is true: the blocks it rejected would otherwise
-   * vanish from a document the caller believes it imported whole.
+   * {@code allowRejections} is true. With it, each rejected block is kept
+   * rather than dropped: the result's {@link SpecMarkdownResult#keptContent}
+   * is written over the parsed content, so the block stands as a
+   * {@code rejected} div in the text of the section it stood in (else its
+   * parent), at its place (SOM §11.7, DocSpecs RN-11), and nothing written is
+   * lost.
    *
    * <p>Store-agnostic on both halves: the purge goes through
    * {@link #removeValuesUnder}, which clears every store, and the carry-over is
@@ -239,6 +244,18 @@ public final class SpecDocument {
     Map<String, Object> held = toJson();
     Map<String, Object> contentStore = heldStore(held, "content");
     contentStore.putAll(result.content);
+    if (allowRejections) {
+      // Each rejected block is kept rather than dropped: the kept content is
+      // written over the parsed content (SOM §11.7, DocSpecs RN-11). An empty
+      // value removes the path's text.
+      for (Map.Entry<String, String> e : result.keptContent.entrySet()) {
+        if (e.getValue().isEmpty()) {
+          contentStore.remove(e.getKey());
+        } else {
+          contentStore.put(e.getKey(), e.getValue());
+        }
+      }
+    }
     Map<String, Object> formsStore = heldStore(held, "forms");
     formsStore.putAll(result.forms);
     Map<String, Object> headlinesStore = heldStore(held, "headlines");

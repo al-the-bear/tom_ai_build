@@ -902,12 +902,7 @@ public final class ConformanceRunner {
     Map<String, Object> table = readJsonObject("markdown_apply_cases.json");
     for (Object caseObj : (List<Object>) table.get("cases")) {
       Map<String, Object> c = (Map<String, Object>) caseObj;
-      // The reading view's table forms (`readingView`) are read by the Dart and
-      // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
-      if (Boolean.TRUE.equals(c.get("readingView"))) {
-        continue;
-      }
-      Map<String, Object> got = runMarkdownApplyCase(model, c);
+      Map<String, Object> got = runMarkdownApplyCase(model, c, (String) table.get("schema"));
       Object expect = c.get("expect");
       check("mdApply[" + c.get("name") + "]", got.equals(expect), jsonMismatch(got, expect));
     }
@@ -915,7 +910,8 @@ public final class ConformanceRunner {
 
   /** Runs one {@code markdown_apply_cases.json} case, in the shape of its {@code expect}. */
   @SuppressWarnings("unchecked")
-  private static Map<String, Object> runMarkdownApplyCase(SpecModel model, Map<String, Object> c) {
+  private static Map<String, Object> runMarkdownApplyCase(
+      SpecModel model, Map<String, Object> c, String schema) {
     String markdown = (String) c.get("markdown");
     Map<String, Object> out = new LinkedHashMap<>();
     if ("fromMarkdown".equals(c.get("op"))) {
@@ -937,6 +933,21 @@ public final class ConformanceRunner {
     out.put("refused", refused);
     out.put("rejectionCount", parsed.rejections.size());
     out.put("document", document.toJson());
+    // The validator reports every kept block as `rejectedBlock` (DocSpecs
+    // RN-11), with the document path it stands in.
+    if (Boolean.TRUE.equals(c.get("readingView"))) {
+      List<Object> blocks = new ArrayList<>();
+      for (DocSpecsViolation v : SpecSchemaValidation.validateSpecDocument(
+          model, document, DocSpecsSchema.fromYamlText(schema), "Demo")) {
+        if (DocSpecsViolation.RULE_REJECTED_BLOCK.equals(v.rule)) {
+          Map<String, Object> m = new LinkedHashMap<>();
+          m.put("line", Integer.valueOf(v.line));
+          m.put("path", v.path);
+          blocks.add(m);
+        }
+      }
+      out.put("rejectedBlocks", blocks);
+    }
     return out;
   }
 

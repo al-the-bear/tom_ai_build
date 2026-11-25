@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.IdentityHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -1865,6 +1867,7 @@ public final class SpecDocumentMarkdown {
     result.units.putAll(p.units);
     result.rejections.addAll(p.rejections);
     result.rootPrefixes.addAll(p.rootPrefixes);
+    result.keptContent.putAll(p.keptContent);
     return result;
   }
 
@@ -1879,6 +1882,13 @@ public final class SpecDocumentMarkdown {
     final int line;
     final boolean ignored;
     final List<String> body = new ArrayList<>();
+    // Rejected blocks to keep in this frame's text (RN-11): the body index
+    // they stand before, the block, and the end of the body lines it replaces
+    // (the index itself when it replaces none).
+    final List<KeptMark> kept = new ArrayList<>();
+    // For an ignored frame: the blocks of its ignored children, kept after its
+    // own block wherever that lands.
+    final List<KeptBlock> deferred = new ArrayList<>();
     // The scope this heading's descendants' anchors are qualified with, and
     // the id of the nearest heading at or above it that is no list container
     // (SOM §11.2, qualifyAnchor).
@@ -1891,6 +1901,190 @@ public final class SpecDocumentMarkdown {
       this.path = path;
       this.line = line;
       this.ignored = ignored;
+    }
+  }
+
+  private static final Pattern KEPT_DIV_OPEN = Pattern.compile(
+      "^ {0,3}:{3,}[ \\t]*(?:\\{.*\\}|[A-Za-z][A-Za-z0-9_-]*)[ \\t]*\\z");
+  private static final Pattern KEPT_DIV_CLOSE = Pattern.compile("^ {0,3}:{3,}[ \\t]*\\z");
+  private static final Pattern KEPT_COLONS = Pattern.compile("^ {0,3}(:{3,})");
+  private static final Pattern KEPT_FIRST_COLON = Pattern.compile("^( {0,3}):");
+  private static final Pattern NEAR_MISS_SEPARATORS = Pattern.compile(WS + "|[_-]");
+
+  /**
+   * A rejected block an import that accepts rejections keeps for review
+   * (SOM §11.7, DocSpecs RN-11): the source lines it held and what its
+   * {@code rejected} div records for a resolution.
+   */
+  private static final class KeptBlock {
+    final SpecMarkdownRejection rejection;
+    /** The source lines of the block, as written. */
+    List<String> lines;
+    /** The field given twice, or the declared field a near-miss label names. */
+    final String field;
+    /** The child section a near-miss section-table cell names. */
+    final String section;
+    /** For a field given twice: the path of the form holding the kept value. */
+    final String kept;
+
+    KeptBlock(SpecMarkdownRejection rejection, List<String> lines, String field,
+        String section, String kept) {
+      this.rejection = rejection;
+      this.lines = lines;
+      this.field = field;
+      this.section = section;
+      this.kept = kept;
+    }
+
+    private static String quoted(String s) {
+      return s.replace('"', '\'');
+    }
+
+    /**
+     * The block as a {@code rejected} div: {@code reason}, {@code line}, then
+     * {@code field} / {@code section} / {@code kept} where they apply, then
+     * {@code label} (the report's message, its double quotes written as
+     * single ones). A fence the block does not close, or closes without
+     * opening, would pair with the div's own fences, so it is written escaped
+     * ({@code \:::}, RN-9); the div's fences are longer than any fence inside
+     * it, for the eye (RN-7).
+     */
+    List<String> div() {
+      List<String> inner = new ArrayList<>(lines);
+      while (!inner.isEmpty() && trimWs(inner.get(0)).isEmpty()) {
+        inner.remove(0);
+      }
+      while (!inner.isEmpty() && trimWs(inner.get(inner.size() - 1)).isEmpty()) {
+        inner.remove(inner.size() - 1);
+      }
+      MarkdownFenceTracker fence = new MarkdownFenceTracker();
+      List<Integer> open = new ArrayList<>();
+      Set<Integer> unpaired = new HashSet<>();
+      for (int k = 0; k < inner.size(); k++) {
+        String line = inner.get(k);
+        if (!fence.inFence()) {
+          if (KEPT_DIV_CLOSE.matcher(line).find()) {
+            if (open.isEmpty()) {
+              unpaired.add(k);
+            } else {
+              open.remove(open.size() - 1);
+            }
+          } else if (KEPT_DIV_OPEN.matcher(line).find()) {
+            open.add(k);
+          }
+        }
+        fence.feed(line);
+      }
+      unpaired.addAll(open);
+      int longest = 0;
+      for (int k = 0; k < inner.size(); k++) {
+        if (unpaired.contains(k)) {
+          inner.set(k, KEPT_FIRST_COLON.matcher(inner.get(k)).replaceFirst("$1\\\\:"));
+          continue;
+        }
+        Matcher m = KEPT_COLONS.matcher(inner.get(k));
+        int run = m.find() ? m.group(1).length() : 0;
+        if (run > longest) {
+          longest = run;
+        }
+      }
+      String colons = ":".repeat(longest >= 3 ? longest + 1 : 3);
+      StringBuilder attributes = new StringBuilder();
+      attributes.append("reason=\"").append(rejection.reason.value).append('"');
+      attributes.append(" line=\"").append(rejection.line).append('"');
+      if (field != null) {
+        attributes.append(" field=\"").append(quoted(field)).append('"');
+      }
+      if (section != null) {
+        attributes.append(" section=\"").append(quoted(section)).append('"');
+      }
+      if (kept != null) {
+        attributes.append(" kept=\"").append(quoted(kept)).append('"');
+      }
+      attributes.append(" label=\"").append(quoted(rejection.message)).append('"');
+      List<String> out = new ArrayList<>(inner.size() + 2);
+      out.add(colons + " {.rejected " + attributes + "}");
+      out.addAll(inner);
+      out.add(colons);
+      return out;
+    }
+  }
+
+  /** A kept block's place in a frame's body: before {@code at}, replacing the lines up to {@code end}. */
+  private static final class KeptMark {
+    final int at;
+    final KeptBlock block;
+    final int end;
+
+    KeptMark(int at, KeptBlock block, int end) {
+      this.at = at;
+      this.block = block;
+      this.end = end;
+    }
+  }
+
+  /** A div written into a line list at position {@code at}. */
+  private static final class KeptInsert {
+    final int at;
+    final List<String> div;
+
+    KeptInsert(int at, List<String> div) {
+      this.at = at;
+      this.div = div;
+    }
+  }
+
+  /**
+   * Where the rejected blocks of one frame's body go (RN-11): each content
+   * line list of the frame and the divs written into it, by position.
+   */
+  private static final class Keeper {
+    private final List<KeptMark> marks;
+    private int next;
+    // Keyed by the line list itself, not by its lines.
+    private final Map<List<String>, List<KeptInsert>> inserts = new IdentityHashMap<>();
+
+    Keeper(MdFrame frame) {
+      marks = new ArrayList<>(frame.kept);
+      marks.sort((a, b) -> Integer.compare(a.at, b.at)); // stable
+    }
+
+    /** Writes {@code b} into {@code into} at its current end. */
+    void keep(List<String> into, KeptBlock b) {
+      inserts.computeIfAbsent(into, k -> new ArrayList<>())
+          .add(new KeptInsert(into.size(), b.div()));
+    }
+
+    /** Writes the frame's blocks standing before body index {@code upTo} into {@code into}. */
+    void drain(int upTo, List<String> into) {
+      while (next < marks.size() && marks.get(next).at <= upTo) {
+        keep(into, marks.get(next).block);
+        next++;
+      }
+    }
+
+    /**
+     * The value of {@code parts} with the kept divs written in, joined as the
+     * parts are; null when no part holds one.
+     */
+    String keptValue(List<List<String>> parts) {
+      boolean any = false;
+      for (List<String> part : parts) {
+        any |= inserts.containsKey(part);
+      }
+      if (!any) {
+        return null;
+      }
+      List<String> values = new ArrayList<>();
+      for (List<String> part : parts) {
+        List<KeptInsert> ins = inserts.get(part);
+        String v = MdParser.restoreValue(
+            ins == null ? part : MdParser.merge(part, ins, Collections.emptySet()));
+        if (!v.isEmpty()) {
+          values.add(v);
+        }
+      }
+      return String.join("\n\n", values);
     }
   }
 
@@ -1932,12 +2126,175 @@ public final class SpecDocumentMarkdown {
     // repeated field names across an owner's transparent forms follow emit
     // order.
     int currentFormIdx;
+    final Map<String, String> keptContent = new LinkedHashMap<>();
+    // The source lines, for the text of a rejected block.
+    String[] source = new String[0];
+    // Blocks reported by reject and not yet placed.
+    List<KeptBlock> pending = new ArrayList<>();
+    // Text before the root heading, kept at the start of the root's text.
+    final List<KeptBlock> orphans = new ArrayList<>();
 
     MdParser(SpecDocumentMarkdown codec) {
       this.codec = codec;
     }
 
+    /** The held blocks in source order, the hold emptied. */
+    private List<KeptBlock> takePending() {
+      List<KeptBlock> out = pending;
+      pending = new ArrayList<>();
+      out.sort((a, b) -> Integer.compare(a.rejection.line, b.rejection.line)); // stable
+      return out;
+    }
+
+    /**
+     * Places the held blocks before {@code frame}'s body index {@code at},
+     * taking the place of the body lines up to {@code replaceEnd}
+     * ({@code at} itself: none).
+     */
+    private void markPending(MdFrame frame, int at, int replaceEnd) {
+      for (KeptBlock b : takePending()) {
+        frame.kept.add(new KeptMark(at, b, replaceEnd));
+      }
+    }
+
+    private static String nearMissNorm(String s) {
+      return NEAR_MISS_SEPARATORS.matcher(s.toLowerCase(Locale.ROOT)).replaceAll("");
+    }
+
+    /**
+     * The declared name one edit (or only case and separators) away from
+     * {@code label}, when exactly one is: what a <i>Rename to</i> choice
+     * offers (RN-11).
+     */
+    static String nearMiss(String label, List<String> names) {
+      Set<String> hits = new LinkedHashSet<>();
+      for (String n : names) {
+        if (!n.equals(label)
+            && (nearMissNorm(n).equals(nearMissNorm(label))
+                || oneEdit(n.toLowerCase(Locale.ROOT), label.toLowerCase(Locale.ROOT)))) {
+          hits.add(n);
+        }
+      }
+      return hits.size() == 1 ? hits.iterator().next() : null;
+    }
+
+    /** Whether {@code a} becomes {@code b} by at most one insertion, deletion or substitution. */
+    static boolean oneEdit(String a, String b) {
+      if (Math.abs(a.length() - b.length()) > 1) {
+        return false;
+      }
+      int i = 0;
+      int j = 0;
+      int edits = 0;
+      while (i < a.length() && j < b.length()) {
+        if (a.charAt(i) == b.charAt(j)) {
+          i++;
+          j++;
+          continue;
+        }
+        if (++edits > 1) {
+          return false;
+        }
+        if (a.length() > b.length()) {
+          i++;
+        } else if (b.length() > a.length()) {
+          j++;
+        } else {
+          i++;
+          j++;
+        }
+      }
+      return edits + (a.length() - i) + (b.length() - j) <= 1;
+    }
+
+    private static List<String> fieldNames(List<SomFormFieldMeta> fields) {
+      List<String> names = new ArrayList<>(fields.size());
+      for (SomFormFieldMeta f : fields) {
+        names.add(f.name);
+      }
+      return names;
+    }
+
+    /**
+     * {@code part} with the divs of {@code ins} written in at their
+     * positions, a blank line between a div and the text around it; the lines
+     * at {@code replaced} positions are left out (a div took their place).
+     */
+    static List<String> merge(List<String> part, List<KeptInsert> ins, Set<Integer> replaced) {
+      List<String> out = new ArrayList<>();
+      boolean blankDue = false;
+      for (int k = 0; k <= part.size(); k++) {
+        for (KeptInsert in : ins) {
+          if (in.at != k) {
+            continue;
+          }
+          if (!out.isEmpty() && !trimWs(out.get(out.size() - 1)).isEmpty()) {
+            out.add("");
+          }
+          out.addAll(in.div);
+          blankDue = true;
+        }
+        if (k == part.size() || replaced.contains(k)) {
+          continue;
+        }
+        String line = part.get(k);
+        if (blankDue && !trimWs(line).isEmpty()) {
+          out.add("");
+        }
+        blankDue = false;
+        out.add(line);
+      }
+      return out;
+    }
+
+    /**
+     * Whether a frame of {@code node} passes its rejected blocks to its
+     * parent: a list container, which holds no text, and a scalar or enum
+     * value, whose text is a typed value (RN-11).
+     */
+    private static boolean keptInParent(SomMetaNode node) {
+      return node != null
+          && (SomMetaKind.LIST.equals(node.kind)
+              || SomMetaKind.SCALAR.equals(node.kind)
+              || SomMetaKind.ENUM_VALUE.equals(node.kind));
+    }
+
+    /**
+     * An ignored frame's heading and body, with its ignored children's blocks
+     * after it, go to the text of the nearest section above it that was read,
+     * after that section's own text (RN-11); with none above (an unknown
+     * root) nothing holds them and only the report remains.
+     */
+    private void keepIgnored(MdFrame frame) {
+      SpecMarkdownRejection own = null;
+      for (SpecMarkdownRejection r : rejections) {
+        if (r.line == frame.line) {
+          own = r;
+        }
+      }
+      List<KeptBlock> blocks = new ArrayList<>();
+      if (own != null) {
+        List<String> lines = new ArrayList<>(frame.body.size() + 1);
+        lines.add(source[frame.line - 1]);
+        lines.addAll(frame.body);
+        blocks.add(new KeptBlock(own, lines, null, null, null));
+      }
+      blocks.addAll(frame.deferred);
+      if (stack.isEmpty() || blocks.isEmpty()) {
+        return;
+      }
+      MdFrame parent = stack.get(stack.size() - 1);
+      if (parent.ignored) {
+        parent.deferred.addAll(blocks);
+        return;
+      }
+      for (KeptBlock b : blocks) {
+        parent.kept.add(new KeptMark(parent.body.size(), b, parent.body.size()));
+      }
+    }
+
     void run(String[] lines) {
+      source = lines;
       for (int i = 0; i < lines.length; i++) {
         String raw = lines[i];
         int lineNo = i + 1;
@@ -1957,11 +2314,15 @@ public final class SpecDocumentMarkdown {
         if (!stack.isEmpty()) {
           stack.get(stack.size() - 1).body.add(raw);
         } else if (!trimmed.isEmpty()) {
-          rejections.add(new SpecMarkdownRejection(
+          SpecMarkdownRejection r = new SpecMarkdownRejection(
               lineNo,
               SpecMarkdownRejectReason.ORPHAN_CONTENT,
               "text before the document root heading",
-              null));
+              null);
+          rejections.add(r);
+          List<String> held = new ArrayList<>();
+          held.add(raw);
+          orphans.add(new KeptBlock(r, held, null, null, null));
         }
         fence.feed(raw);
       }
@@ -2180,6 +2541,11 @@ public final class SpecDocumentMarkdown {
           }
           MdFrame frame = new MdFrame(level, tree.root, seg, lineNo, false);
           frame.anchorSection = seg;
+          // Text before the root heading is kept at the start of its text.
+          for (KeptBlock b : orphans) {
+            frame.kept.add(new KeptMark(0, b, 0));
+          }
+          orphans.clear();
           stack.add(frame);
           return;
         }
@@ -2255,6 +2621,7 @@ public final class SpecDocumentMarkdown {
 
     void finalizeFrame(MdFrame frame) {
       if (frame.ignored) {
+        keepIgnored(frame);
         return;
       }
       SomMetaNode node = frame.node;
@@ -2272,6 +2639,37 @@ public final class SpecDocumentMarkdown {
           node != null ? codec.bodySlots(node) : new ArrayList<>();
       if (slots.isEmpty()) {
         String value = restoreValue(frame.body);
+        if (!frame.kept.isEmpty()) {
+          Set<Integer> replaced = new HashSet<>();
+          for (KeptMark mark : frame.kept) {
+            for (int k = mark.at; k < mark.end; k++) {
+              replaced.add(k);
+            }
+          }
+          MdFrame parent = stack.isEmpty() ? null : stack.get(stack.size() - 1);
+          if (keptInParent(node) && parent != null) {
+            // A list container (no text of its own, SOM §11.5) or a typed
+            // value has no place for a block: its parent takes them, after
+            // its own text (RN-11); the lines they replace leave this frame's
+            // text.
+            String own = restoreValue(merge(frame.body, new ArrayList<>(), replaced));
+            if (!own.equals(value)) {
+              keptContent.put(frame.path, own);
+            }
+            for (KeptMark mark : frame.kept) {
+              parent.kept.add(new KeptMark(parent.body.size(), mark.block, parent.body.size()));
+            }
+          } else {
+            List<KeptInsert> ins = new ArrayList<>();
+            for (KeptMark mark : frame.kept) {
+              ins.add(new KeptInsert(mark.at, mark.block.div()));
+            }
+            String kept = restoreValue(merge(frame.body, ins, replaced));
+            if (!kept.isEmpty()) {
+              keptContent.put(frame.path, kept);
+            }
+          }
+        }
         if (!value.isEmpty()) {
           content.put(frame.path, value);
         } else if (node != null && isValueLeaf(node.kind)) {
@@ -2363,9 +2761,33 @@ public final class SpecDocumentMarkdown {
       return frame.line + 1 + i;
     }
 
-    private void reject(int line, SpecMarkdownRejectReason reason, String message,
+    /**
+     * Reports a rejection and holds its block — its own source line — for an
+     * import that keeps rejected blocks (RN-11).
+     */
+    private KeptBlock reject(int line, SpecMarkdownRejectReason reason, String message,
         String anchor) {
-      rejections.add(new SpecMarkdownRejection(line, reason, message, anchor));
+      return reject(line, reason, message, anchor, null, null, null, null);
+    }
+
+    /**
+     * Reports a rejection and holds its block: {@code lines} are the source
+     * lines it held (null: its own line), {@code field} / {@code section} /
+     * {@code kept} what its div records for a resolution.
+     */
+    private KeptBlock reject(int line, SpecMarkdownRejectReason reason, String message,
+        String anchor, List<String> lines, String field, String section, String kept) {
+      SpecMarkdownRejection r = new SpecMarkdownRejection(line, reason, message, anchor);
+      rejections.add(r);
+      List<String> held = new ArrayList<>();
+      if (lines != null) {
+        held.addAll(lines);
+      } else if (line >= 1 && line <= source.length) {
+        held.add(source[line - 1]);
+      }
+      KeptBlock b = new KeptBlock(r, held, field, section, kept);
+      pending.add(b);
+      return b;
     }
 
     /**
@@ -2430,7 +2852,7 @@ public final class SpecDocumentMarkdown {
             !isDelimiter
                 ? "table without its delimiter row"
                 : "table whose delimiter row does not match its header",
-            anchor);
+            anchor, lines.subList(start, end), null, null, null);
         return table;
       }
       for (int i = start + 2; i < end; i++) {
@@ -2440,7 +2862,7 @@ public final class SpecDocumentMarkdown {
               lineOf.applyAsInt(i),
               SpecMarkdownRejectReason.MALFORMED_BLOCK,
               "table row with " + cells.size() + " cells, the header has " + header.size(),
-              anchor);
+              anchor, lines.subList(i, i + 1), null, null, null);
           continue;
         }
         table.rows.add(new TableRow(i, cells));
@@ -2480,7 +2902,8 @@ public final class SpecDocumentMarkdown {
     /**
      * Whether {@code field} of the form at {@code formPath} was given before;
      * reports the repeat ({@code malformedBlock}, the first occurrence kept)
-     * when it was.
+     * when it was. The repeat's held block names the field and the form
+     * holding the kept value (RN-11).
      */
     private boolean givenTwice(String formPath, String field, int line) {
       if (given.computeIfAbsent(formPath, k -> new HashSet<>()).add(field)) {
@@ -2490,7 +2913,7 @@ public final class SpecDocumentMarkdown {
           line,
           SpecMarkdownRejectReason.MALFORMED_BLOCK,
           "field \"" + field + "\" given twice",
-          formPath);
+          formPath, null, field, null, formPath);
       return true;
     }
 
@@ -2507,7 +2930,7 @@ public final class SpecDocumentMarkdown {
             line,
             SpecMarkdownRejectReason.UNKNOWN_FIELD,
             "row \"" + label + "\" names no field of this form",
-            formPath);
+            formPath, null, nearMiss(label, fieldNames(fields)), null, null);
         return;
       }
       String value = cellValue(cell, f);
@@ -2531,21 +2954,27 @@ public final class SpecDocumentMarkdown {
         Table table = readTable(body, i, k -> bodyLine(frame, k), frame.path);
         FormTarget target = null;
         boolean skip = false;
+        // The rejected section's block: its row and the rows continuing it.
+        KeptBlock skipped = null;
         for (TableRow row : table.rows) {
           int rowLine = bodyLine(frame, row.index);
           String section = cellId(row.cells.get(0));
           if (section.isEmpty() && skip) {
+            if (skipped != null) {
+              skipped.lines.add(body.get(row.index));
+            }
             continue;
           }
           if (!section.isEmpty()) {
             FormTarget named = sectionTableTarget(frame, node, section);
             skip = named == null;
             if (named == null) {
-              reject(
+              skipped = reject(
                   rowLine,
                   SpecMarkdownRejectReason.UNKNOWN_SECTION,
                   "section-table row names no child section of \"" + frame.path + "\"",
-                  section);
+                  section, body.subList(row.index, row.index + 1), null,
+                  nearSection(node, section), null);
               continue;
             }
             target = named;
@@ -2554,7 +2983,7 @@ public final class SpecDocumentMarkdown {
                 rowLine,
                 SpecMarkdownRejectReason.UNKNOWN_SECTION,
                 "section-table row names no section",
-                frame.path);
+                frame.path, body.subList(row.index, row.index + 1), null, null, null);
             continue;
           }
           stageRow(target.formPath, target.fields, row.cells.get(1), row.cells.get(2), rowLine);
@@ -2562,8 +2991,37 @@ public final class SpecDocumentMarkdown {
         for (int k = i; k < table.end; k++) {
           body.set(k, "");
         }
+        // What the table rejected is kept where the table stood.
+        markPending(frame, i, i);
         i = table.end - 1;
       }
+    }
+
+    /**
+     * The child a section-table {@code Section} cell naming none is a near
+     * miss of (RN-11): a child form section's id, or {@code <LIST> / <ITEM>}
+     * with a near list id.
+     */
+    private String nearSection(SomMetaNode node, String section) {
+      String[] parts = SECTION_CELL_SEP.split(section, -1);
+      if (parts.length != 1 && parts.length != 2) {
+        return null;
+      }
+      String kind = parts.length == 1 ? SomMetaKind.FORM : SomMetaKind.LIST;
+      List<String> ids = new ArrayList<>();
+      for (NodeRel entry : codec.effectiveChildren(node)) {
+        if (kind.equals(entry.node.kind)) {
+          String id = codec.headingIdOf(entry.node);
+          if (id != null) {
+            ids.add(id);
+          }
+        }
+      }
+      if (parts.length == 1) {
+        return nearMiss(section, ids);
+      }
+      String list = nearMiss(parts[0], ids);
+      return list == null ? null : list + " / " + parts[1];
     }
 
     /** The form a section-table {@code Section} cell names under {@code node}. */
@@ -2640,11 +3098,15 @@ public final class SpecDocumentMarkdown {
           }
         }
         if (close < 0) {
-          // The fence's lines read as text.
+          // The fence's lines read as text; kept, they are the rejected div
+          // (the container's parent holds it, see finalizeFrame).
           reject(bodyLine(frame, i), SpecMarkdownRejectReason.MALFORMED_BLOCK,
-              "unclosed " + kind + " fence", frame.path);
+              "unclosed " + kind + " fence", frame.path,
+              body.subList(i, body.size()), null, null, null);
+          markPending(frame, i, body.size());
           return;
         }
+        List<String> divLines = new ArrayList<>(body.subList(i, close + 1));
         boolean besideText = false;
         for (int k = 0; k < body.size(); k++) {
           if ((k < i || k > close) && !body.get(k).trim().isEmpty()) {
@@ -2657,17 +3119,20 @@ public final class SpecDocumentMarkdown {
           reject(bodyLine(frame, i), SpecMarkdownRejectReason.MALFORMED_BLOCK,
               "a " + kind + " div beside " + (hasItems ? "item headings" : "other text")
                   + " in a list container",
-              frame.path);
+              frame.path, divLines, null, null, null);
           blank(body, i, close);
+          markPending(frame, close + 1, close + 1);
           return;
         }
         List<String> inner = new ArrayList<>(body.subList(i + 1, close));
         if ("refs".equals(kind)) {
-          stageReferenceLine(frame, listNode, inner, i);
+          stageReferenceLine(frame, listNode, inner, i, divLines);
         } else {
-          stageRecordTable(frame, listNode, inner, i);
+          stageRecordTable(frame, listNode, inner, i, divLines);
         }
         blank(body, i, close);
+        // What the div rejected is kept after it.
+        markPending(frame, close + 1, close + 1);
         return;
       }
     }
@@ -2705,12 +3170,13 @@ public final class SpecDocumentMarkdown {
      * their texts.
      */
     private void stageReferenceLine(MdFrame frame, SomMetaNode listNode, List<String> inner,
-        int at) {
+        int at, List<String> divLines) {
       SomMetaNode element = listNode.elementNode;
       NodeRel ref = element != null ? referenceForm(element) : null;
       if (ref == null) {
         reject(bodyLine(frame, at), SpecMarkdownRejectReason.MALFORMED_BLOCK,
-            "a refs div in a list whose items are not references", frame.path);
+            "a refs div in a list whose items are not references", frame.path,
+            divLines, null, null, null);
         return;
       }
       List<String> ids = new ArrayList<>();
@@ -2723,7 +3189,7 @@ public final class SpecDocumentMarkdown {
       }
       if (ids.isEmpty()) {
         reject(bodyLine(frame, at), SpecMarkdownRejectReason.MISSING_VALUE,
-            "an empty refs div", frame.path);
+            "an empty refs div", frame.path, divLines, null, null, null);
         return;
       }
       String pattern = listNode.sectionIdPattern;
@@ -2749,7 +3215,7 @@ public final class SpecDocumentMarkdown {
 
     /** A {@code records} div: one table, {@code Id} first, {@code Title} optionally second. */
     private void stageRecordTable(MdFrame frame, SomMetaNode listNode, List<String> inner,
-        int at) {
+        int at, List<String> divLines) {
       IntUnaryOperator lineOf = k -> bodyLine(frame, at + 1 + k);
       int divLine = bodyLine(frame, at);
       int start = -1;
@@ -2761,20 +3227,23 @@ public final class SpecDocumentMarkdown {
       }
       if (start < 0 || !TABLE_LINE.matcher(inner.get(start)).find()) {
         reject(divLine, SpecMarkdownRejectReason.MALFORMED_BLOCK,
-            "a records div holding no table", frame.path);
+            "a records div holding no table", frame.path,
+            divLines, null, null, null);
         return;
       }
       List<String> header = rowCells(inner.get(start));
       if (!"Id".equals(header.get(0))) {
         reject(divLine, SpecMarkdownRejectReason.MALFORMED_BLOCK,
-            "a records table whose first column is not Id", frame.path);
+            "a records table whose first column is not Id", frame.path,
+            divLines, null, null, null);
         return;
       }
       SomMetaNode element = listNode.elementNode;
       NodeRel form = element != null ? codec.itemForm(element) : null;
       if (form == null) {
         reject(divLine, SpecMarkdownRejectReason.MALFORMED_BLOCK,
-            "a records div in a list whose items have no single form", frame.path);
+            "a records div in a list whose items have no single form", frame.path,
+            divLines, null, null, null);
         return;
       }
       List<SomFormFieldMeta> fields = fieldsOf(form.node);
@@ -2784,9 +3253,10 @@ public final class SpecDocumentMarkdown {
       for (String label : header.subList(first, header.size())) {
         SomFormFieldMeta f = fieldByLabel(fields, label);
         if (f == null) {
-          // The table is skipped whole.
+          // The table is skipped whole, so the whole div is kept.
           reject(lineOf.applyAsInt(start), SpecMarkdownRejectReason.UNKNOWN_FIELD,
-              "records column \"" + label + "\" names no field of the items", frame.path);
+              "records column \"" + label + "\" names no field of the items", frame.path,
+              divLines, nearMiss(label, fieldNames(fields)), null, null);
           return;
         }
         columns.add(f);
@@ -2815,6 +3285,56 @@ public final class SpecDocumentMarkdown {
     }
 
     /**
+     * The open {@code Field:} paragraph of a body region: its field, form and
+     * lines, and — for a field given twice — the held block that keeps the
+     * paragraph whole (RN-11).
+     */
+    private final class FieldRun {
+      final MdFrame frame;
+      final Keeper keeper;
+      SomFormFieldMeta field;
+      String formPath = "";
+      boolean discard;
+      List<String> lines = new ArrayList<>();
+      KeptBlock discarded;
+      int discardStart;
+
+      FieldRun(MdFrame frame, Keeper keeper) {
+        this.frame = frame;
+        this.keeper = keeper;
+      }
+
+      /** Opens {@code field} of the form at {@code formPath} at body index {@code i}. */
+      void open(SomFormFieldMeta field, String formPath, int i, String first) {
+        this.field = field;
+        this.formPath = formPath;
+        discard = givenTwice(formPath, field.name, bodyLine(frame, i));
+        if (discard) {
+          discarded = pending.isEmpty() ? null : pending.remove(pending.size() - 1);
+          discardStart = i;
+        }
+        lines.add(first);
+      }
+
+      /**
+       * Ends the open field at body index {@code at}: its value is stored, or
+       * — given twice — its paragraph kept in {@code into}.
+       */
+      void flush(int at, List<String> into) {
+        if (field != null && !discard) {
+          putField(formPath, field, lines);
+        }
+        if (discard && discarded != null) {
+          discarded.lines = new ArrayList<>(frame.body.subList(discardStart, at));
+          keeper.keep(into, discarded);
+          discarded = null;
+        }
+        lines = new ArrayList<>();
+        discard = false;
+      }
+    }
+
+    /**
      * Binds a heading's body region against the owner's transparent body
      * slots (SOM §11.6): {@code FieldName:} lines and form-table rows matching
      * a transparent form's fields route to that form (nearest form in slot
@@ -2838,20 +3358,21 @@ public final class SpecDocumentMarkdown {
       String defaultRel = codec.defaultBodyRel(slots);
 
       MarkdownFenceTracker bodyFence = new MarkdownFenceTracker();
-      SomFormFieldMeta currentField = null;
-      String currentFormPath = "";
-      boolean discard = false;
-      List<String> currentLines = new ArrayList<>();
       // Unlabelled text per target path, in the order the targets were
       // opened; a target opened twice gets its parts joined by a blank line.
       Map<String, List<List<String>>> textParts = new LinkedHashMap<>();
       List<String> contentLines = new ArrayList<>();
       textParts.computeIfAbsent(bodyPathOf(frame.path, defaultRel), k -> new ArrayList<>())
           .add(contentLines);
+      // Rejected blocks go to the unlabelled text at their place (RN-11); a
+      // field given twice is kept whole, its label line and continuation.
+      Keeper keeper = new Keeper(frame);
+      FieldRun run = new FieldRun(frame, keeper);
 
       currentFormIdx = 0;
       for (int i = 0; i < frame.body.size(); i++) {
         String line = frame.body.get(i);
+        keeper.drain(i, contentLines);
         if (!bodyFence.inFence()) {
           Matcher mk = SLOT_MARKER.matcher(line);
           if (mk.matches()) {
@@ -2866,12 +3387,8 @@ public final class SpecDocumentMarkdown {
               }
             }
             if (".".equals(rel) || slot != null) {
-              if (currentField != null && !discard) {
-                putField(currentFormPath, currentField, currentLines);
-              }
-              currentField = null;
-              discard = false;
-              currentLines = new ArrayList<>();
+              run.flush(i, contentLines);
+              run.field = null;
               if (slot != null && SomMetaKind.FORM.equals(slot.node.kind)) {
                 currentFormIdx = formSlots.indexOf(slot);
               }
@@ -2885,25 +3402,31 @@ public final class SpecDocumentMarkdown {
           if (header.find() && header.group(1) == null && !formSlots.isEmpty()) {
             // A form table ends the open field (SOM §11.4); its rows bind like
             // `Field:` labels, each to the nearest form declaring it.
-            if (currentField != null && !discard) {
-              putField(currentFormPath, currentField, currentLines);
-            }
-            currentField = null;
-            discard = false;
-            currentLines = new ArrayList<>();
+            run.flush(i, contentLines);
+            run.field = null;
             Table table = readTable(frame.body, i, k -> bodyLine(frame, k), frame.path);
             for (TableRow row : table.rows) {
               String label = row.cells.get(0);
               int rowLine = bodyLine(frame, row.index);
               int hit = findFormOf(formSlots, label);
               if (hit < 0) {
+                List<String> names = new ArrayList<>();
+                for (NodeRel s : formSlots) {
+                  names.addAll(fieldNames(fieldsOf(s.node)));
+                }
                 reject(rowLine, SpecMarkdownRejectReason.UNKNOWN_FIELD,
-                    "row \"" + label + "\" names no field of this form", frame.path);
+                    "row \"" + label + "\" names no field of this form", frame.path,
+                    frame.body.subList(row.index, row.index + 1),
+                    nearMiss(label, names), null, null);
                 continue;
               }
               currentFormIdx = hit;
               stageRow(frame.path + "/" + formSlots.get(hit).rel,
                   fieldsOf(formSlots.get(hit).node), label, row.cells.get(1), rowLine);
+            }
+            // What the table rejected is kept where the table stood.
+            for (KeptBlock b : takePending()) {
+              keeper.keep(contentLines, b);
             }
             i = table.end - 1;
             continue;
@@ -2912,15 +3435,11 @@ public final class SpecDocumentMarkdown {
           if (m.matches()) {
             int hit = findFormOf(formSlots, m.group(1));
             if (hit >= 0) {
-              if (currentField != null && !discard) {
-                putField(currentFormPath, currentField, currentLines);
-              }
-              currentLines = new ArrayList<>();
+              run.flush(i, contentLines);
               currentFormIdx = hit;
-              currentField = fieldByLabel(fieldsOf(formSlots.get(hit).node), m.group(1));
-              currentFormPath = frame.path + "/" + formSlots.get(hit).rel;
-              discard = givenTwice(currentFormPath, currentField.name, bodyLine(frame, i));
-              currentLines.add(m.group(2));
+              run.open(
+                  fieldByLabel(fieldsOf(formSlots.get(hit).node), m.group(1)),
+                  frame.path + "/" + formSlots.get(hit).rel, i, m.group(2));
               bodyFence.feed(line);
               continue;
             }
@@ -2934,20 +3453,23 @@ public final class SpecDocumentMarkdown {
             && CONTINUATION_LABEL.matcher(line).find()) {
           text = line.substring(1);
         }
-        if (currentField != null) {
-          currentLines.add(text);
+        if (run.field != null) {
+          run.lines.add(text);
         } else {
           contentLines.add(text);
         }
         bodyFence.feed(line);
       }
-      if (currentField != null && !discard) {
-        putField(currentFormPath, currentField, currentLines);
-      }
+      run.flush(frame.body.size(), contentLines);
+      keeper.drain(frame.body.size(), contentLines);
       for (Map.Entry<String, List<List<String>>> e : textParts.entrySet()) {
         String value = joinParts(e.getValue());
         if (!value.isEmpty()) {
           content.put(e.getKey(), value);
+        }
+        String kept = keeper.keptValue(e.getValue());
+        if (kept != null && !kept.isEmpty()) {
+          keptContent.put(e.getKey(), kept);
         }
       }
     }
@@ -3001,30 +3523,30 @@ public final class SpecDocumentMarkdown {
     void finalizeForm(MdFrame frame, SomMetaNode node, String path) {
       List<SomFormFieldMeta> declared = fieldsOf(node);
       MarkdownFenceTracker bodyFence = new MarkdownFenceTracker();
-      SomFormFieldMeta currentField = null;
-      boolean discard = false;
-      List<String> currentLines = new ArrayList<>();
       // The preamble's parts: the text before the first field, and text a
       // table interrupts; joined by one blank line.
       List<List<String>> preambleParts = new ArrayList<>();
       preambleParts.add(new ArrayList<>());
+      // Rejected blocks go to the preamble at their place (RN-11).
+      Keeper keeper = new Keeper(frame);
+      FieldRun run = new FieldRun(frame, keeper);
 
       for (int i = 0; i < frame.body.size(); i++) {
         String line = frame.body.get(i);
+        keeper.drain(i, preambleParts.get(preambleParts.size() - 1));
         if (!bodyFence.inFence()) {
           Matcher header = LAYOUT_TABLE_HEADER.matcher(line);
           if (header.find() && header.group(1) == null) {
-            if (currentField != null && !discard) {
-              putField(path, currentField, currentLines);
-            }
-            currentField = null;
-            discard = false;
-            currentLines = new ArrayList<>();
+            run.flush(i, preambleParts.get(preambleParts.size() - 1));
+            run.field = null;
             preambleParts.add(new ArrayList<>());
             Table table = readTable(frame.body, i, k -> bodyLine(frame, k), path);
             for (TableRow row : table.rows) {
               stageRow(path, declared, row.cells.get(0), row.cells.get(1),
                   bodyLine(frame, row.index));
+            }
+            for (KeptBlock b : takePending()) {
+              keeper.keep(preambleParts.get(preambleParts.size() - 1), b);
             }
             i = table.end - 1;
             continue;
@@ -3032,21 +3554,16 @@ public final class SpecDocumentMarkdown {
           Matcher m = FIELD_LABEL.matcher(line);
           SomFormFieldMeta field = m.matches() ? fieldByLabel(declared, m.group(1)) : null;
           if (field != null) {
-            if (currentField != null && !discard) {
-              putField(path, currentField, currentLines);
-            }
-            currentLines = new ArrayList<>();
-            currentField = field;
-            discard = givenTwice(path, field.name, bodyLine(frame, i));
-            currentLines.add(m.group(2));
+            run.flush(i, preambleParts.get(preambleParts.size() - 1));
+            run.open(field, path, i, m.group(2));
             bodyFence.feed(line);
             continue;
           }
         }
         // Continuation: strip the one escape space of a label-shaped line.
-        List<String> target = currentField == null
+        List<String> target = run.field == null
             ? preambleParts.get(preambleParts.size() - 1)
-            : currentLines;
+            : run.lines;
         if (!bodyFence.inFence() && CONTINUATION_LABEL.matcher(line).find()) {
           target.add(line.substring(1));
         } else {
@@ -3054,12 +3571,15 @@ public final class SpecDocumentMarkdown {
         }
         bodyFence.feed(line);
       }
-      if (currentField != null && !discard) {
-        putField(path, currentField, currentLines);
-      }
+      run.flush(frame.body.size(), preambleParts.get(preambleParts.size() - 1));
+      keeper.drain(frame.body.size(), preambleParts.get(preambleParts.size() - 1));
       String value = joinParts(preambleParts);
       if (!value.isEmpty()) {
         content.put(path, value);
+      }
+      String kept = keeper.keptValue(preambleParts);
+      if (kept != null && !kept.isEmpty()) {
+        keptContent.put(path, kept);
       }
     }
 
