@@ -652,6 +652,117 @@ public final class DocSpecsValidatorTest {
     check("idPath.differentParents.valid", v.isEmpty(), detail(v));
   }
 
+  // --- The reading view: form tables, list bodies, styled-div headings ----------
+
+  private static final String FORM_TABLE =
+      "| TomSpecField | Value |\n| --- | --- |\n| Author | Alice |\n| Reviewer | Bob |";
+
+  private static void testFormTable() {
+    String md = replaceFirst(VALID_DOC, "Author: Alice\nReviewer: Bob", FORM_TABLE);
+    List<DocSpecsViolation> v = validate(md);
+    check("readingView.formTable.valid", v.isEmpty(), detail(v));
+
+    v = validate(replaceFirst(md, "| Reviewer | Bob |", "| Reviewer | bob |"));
+    check(
+        "readingView.formTable.patternAtRow",
+        ruleIds(v, true)
+            .equals(List.of(DocSpecsViolation.RULE_FIELD_PATTERN_MISMATCH + "|D00-HDR|15")),
+        detail(v));
+
+    v = validate(replaceFirst(md, "| Author | Alice |\n", ""));
+    check(
+        "readingView.formTable.missingRequired",
+        ruleIds(v, true)
+            .equals(List.of(DocSpecsViolation.RULE_MISSING_REQUIRED_FIELD + "|D00-HDR|10")),
+        detail(v));
+
+    v = validate(replaceFirst(md, "| Reviewer | Bob |", "| Editor | Bob |\n| Author | Carol |"));
+    check(
+        "readingView.formTable.unknownFieldAndTwice",
+        ruleIds(v, true)
+            .equals(
+                List.of(
+                    DocSpecsViolation.RULE_UNKNOWN_FIELD + "|D00-HDR|15",
+                    DocSpecsViolation.RULE_MALFORMED_BLOCK + "|D00-HDR|16")),
+        detail(v));
+
+    v = validate(replaceFirst(md, "| --- | --- |\n", ""));
+    check(
+        "readingView.formTable.noDelimiterRow",
+        ruleIds(v, true)
+            .equals(
+                List.of(
+                    DocSpecsViolation.RULE_MALFORMED_BLOCK + "|D00-HDR|12",
+                    DocSpecsViolation.RULE_MISSING_REQUIRED_FIELD + "|D00-HDR|10")),
+        detail(v));
+  }
+
+  private static void testRefsListBody() {
+    String items =
+        "### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n"
+            + "### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n";
+    // A list container has one subsection type; the items of a refs line are
+    // virtual sections with positional ids, at the div's line.
+    DocSpecsValidator lists =
+        new DocSpecsValidator(
+            DocSpecsSchema.fromYamlText(
+                replaceFirst(
+                    SCHEMA_YAML, "      gsum:\n        max-count: 1\nform-types:", "form-types:")));
+    String md = replaceFirst(VALID_DOC, items, "::: {.refs}\nG-1, G-2\n:::\n");
+    List<DocSpecsViolation> v = lists.validateMarkdown(md);
+    check(
+        "readingView.refs.virtualItems",
+        ruleIds(v, true)
+            .equals(
+                List.of(
+                    DocSpecsViolation.RULE_ID_PATTERN_MISMATCH + "|GOALS-1|17",
+                    DocSpecsViolation.RULE_ID_PATTERN_MISMATCH + "|GOALS-2|17")),
+        detail(v));
+
+    v = validate(md);
+    check(
+        "readingView.refs.notAListContainer",
+        ruleIds(v, true)
+            .equals(
+                List.of(
+                    DocSpecsViolation.RULE_MALFORMED_BLOCK + "|GOALS|17",
+                    DocSpecsViolation.RULE_MISSING_REQUIRED_SECTION + "|GOALS|15")),
+        detail(v));
+
+    v = lists.validateMarkdown(replaceFirst(VALID_DOC, items, "::: {.refs}\nG-1, G-2\n"));
+    check(
+        "readingView.refs.unclosed",
+        ruleIds(v, true)
+            .equals(
+                List.of(
+                    DocSpecsViolation.RULE_MALFORMED_BLOCK + "|GOALS|17",
+                    DocSpecsViolation.RULE_MISSING_REQUIRED_SECTION + "|GOALS|15",
+                    DocSpecsViolation.RULE_UNCLOSED_DIV + "|GOALS|17")),
+        detail(v));
+  }
+
+  private static void testStyledDivHeadings() {
+    DocSpecsDocument doc =
+        DocSpecsDocument.parse(
+            "# <!--[D00]--> Root\n\n"
+                + "<div class=\"heading7\"><!--[A-1]--> <a id=\"X/A-1\"></a>A &amp; B</div>\n\n"
+                + "text\n\n"
+                + "<div class=\"heading6\"><!--[A-2]--> No heading</div>\n");
+    DocSpecsSection root = doc.sections.get(0);
+    check("readingView.styledDiv.children", childIds(root).equals(List.of("A-1")), "");
+    DocSpecsSection a = root.children.get(0);
+    check("readingView.styledDiv.level", a.level == 7, String.valueOf(a.level));
+    check("readingView.styledDiv.title", "A & B".equals(a.title), a.title);
+    check(
+        "readingView.styledDiv.heading6IsContent",
+        a.text().endsWith("<div class=\"heading6\"><!--[A-2]--> No heading</div>"),
+        a.text());
+    check(
+        "readingView.stripOwnAnchor.other",
+        "<a id=\"B\"></a>T".equals(DocSpecsDocument.stripOwnAnchor("<a id=\"B\"></a>T", "A")),
+        "");
+  }
+
   // --- harness ----------------------------------------------------------------
 
   public static void main(String[] args) throws IOException {
@@ -678,6 +789,9 @@ public final class DocSpecsValidatorTest {
     testOrderBadPositionRefused();
     testDuplicateIdPath();
     testSameIdUnderTwoParents();
+    testFormTable();
+    testRefsListBody();
+    testStyledDivHeadings();
     testBindDocspecsMarkdown();
     testDr7Acceptance();
 

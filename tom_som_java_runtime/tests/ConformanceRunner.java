@@ -2232,14 +2232,6 @@ public final class ConformanceRunner {
    * produces; matching them is what proves this port implements each rule at
    * all, rather than merely declaring its name.
    */
-  /**
-   * The {@code readingView} cases of {@code docspecs_cases.json} the reading
-   * notation's scanner port ({@link SpecNotation}) makes run: the rest wait
-   * for the reading view's validator port.
-   */
-  private static final Set<Object> READING_NOTATION_DOCSPECS_CASES =
-      Set.of("readingView: rejected block");
-
   @SuppressWarnings("unchecked")
   private static void testDocSpecs() throws IOException {
     DocSpecsSchema schema = DocSpecsSchema.fromYamlText(read("docspecs_schema.yaml"));
@@ -2250,13 +2242,6 @@ public final class ConformanceRunner {
     List<String> covered = new ArrayList<>();
     for (Object caseObj : readJsonArray("docspecs_cases.json")) {
       Map<String, Object> c = (Map<String, Object>) caseObj;
-      // The reading view's table forms (`readingView`) are read by the Dart and
-      // TypeScript runtimes only until their ports (runtime_parity.md § Reading view);
-      // the reading notation's case (a rejected block, RN-11) runs since its scanner port.
-      if (Boolean.TRUE.equals(c.get("readingView"))
-          && !READING_NOTATION_DOCSPECS_CASES.contains(c.get("name"))) {
-        continue;
-      }
       String name = (String) c.get("name");
       List<String> got = new ArrayList<>();
       for (DocSpecsViolation v : validator.validateMarkdown((String) c.get("markdown"))) {

@@ -36,6 +36,15 @@ public final class DocSpecsViolation {
   public static final String RULE_ANNOTATION_INSIDE_DIV = "annotationInsideDiv";
   public static final String RULE_DIV_INSIDE_ANNOTATION = "divInsideAnnotation";
   public static final String RULE_REJECTED_BLOCK = "rejectedBlock";
+  // The reading view's list bodies and tables (DocSpecs specification,
+  // Findings in list bodies and tables): a form, section or record table
+  // without a matching delimiter row, a row of another cell count, a field
+  // given twice (the first kept), a refs / records div beside other text or
+  // item headings, a records div holding no table or one whose first column
+  // is not Id, an unclosed refs / records fence.
+  public static final String RULE_MALFORMED_BLOCK = "malformedBlock";
+  // A form-table row or a record-table column naming no field of its form.
+  public static final String RULE_UNKNOWN_FIELD = "unknownField";
 
   /**
    * The complete §14 vocabulary, in declaration order — the enumerable form of
@@ -66,6 +75,8 @@ public final class DocSpecsViolation {
     RULE_ANNOTATION_INSIDE_DIV,
     RULE_DIV_INSIDE_ANNOTATION,
     RULE_REJECTED_BLOCK,
+    RULE_MALFORMED_BLOCK,
+    RULE_UNKNOWN_FIELD,
   };
 
   public final String rule;

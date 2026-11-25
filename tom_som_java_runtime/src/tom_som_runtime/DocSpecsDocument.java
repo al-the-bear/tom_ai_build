@@ -9,7 +9,8 @@ import java.util.regex.Pattern;
 /**
  * A schema-free structural parse of a DocSpecs markdown document into a
  * heading tree (fence-aware, never fails) — a faithful port of the Go
- * {@code DocSpecsDocument} / {@code ParseDocSpecsDocument}.
+ * {@code DocSpecsDocument} / {@code ParseDocSpecsDocument}. A styled-div
+ * heading {@code <div class="heading<N>">} with N ≥ 7 is a heading of level N.
  *
  * <p>Shares the exact heading/fence semantics of the
  * {@link SpecDocumentMarkdown} codec (same package-level patterns and
@@ -19,6 +20,9 @@ public final class DocSpecsDocument {
   private static final Pattern DOCSPEC_HEADER =
       Pattern.compile("^<!--\\s*docspec:\\s*(\\S+)\\s*-->\\s*$");
   private static final Pattern TRAILING_WS = Pattern.compile("\\s+$");
+  private static final Pattern STYLED_DIV =
+      Pattern.compile("^<div class=\"heading([0-9]+)\"[^>]*>(.*)</div>$");
+  private static final Pattern ANCHOR = Pattern.compile("^<a id=\"([^\"]*)\"></a>\\s*");
 
   /** The {@code <!-- docspec: … -->} declaration, {@code null} when absent. */
   public String declaredSchema;
@@ -54,13 +58,17 @@ public final class DocSpecsDocument {
           }
         }
         Matcher m = SpecDocumentMarkdown.HEADING_LINE.matcher(line);
-        if (m.matches()) {
-          int level = m.group(1).length();
-          String rest = m.group(2);
+        boolean hash = m.matches();
+        Matcher div = hash ? null : STYLED_DIV.matcher(line);
+        int divLevel = div != null && div.matches() ? styledDivLevel(div.group(1)) : 0;
+        if (hash || divLevel >= 7) {
+          int level = hash ? m.group(1).length() : divLevel;
+          String rest = hash ? m.group(2) : decodeEntities(div.group(2)).trim();
           DocSpecsSection section;
           Matcher c = SpecDocumentMarkdown.HEADLINE_COMMENT.matcher(rest);
           if (c.matches()) {
-            String title = c.group(3).trim();
+            // The title without the section's own anchor (Section Anchors).
+            String title = stripOwnAnchor(c.group(3).trim(), c.group(1));
             if (title.isEmpty()) {
               title = rest;
             }
@@ -94,6 +102,56 @@ public final class DocSpecsDocument {
       fence.feed(raw);
     }
     return doc;
+  }
+
+  /**
+   * The level of a styled-div heading (the DocSpecs specification's
+   * <i>Styled-div headings</i>): a whole line
+   * {@code <div class="heading<N>" …>…</div>} at column 0 with N ≥ 7 reads as
+   * a heading of level N; a {@code heading<N>} div with N ≤ 6 is content.
+   */
+  private static int styledDivLevel(String digits) {
+    try {
+      return Integer.parseInt(digits);
+    } catch (NumberFormatException e) {
+      return Integer.MAX_VALUE; // more digits than an int holds: still ≥ 7.
+    }
+  }
+
+  /** A styled-div heading's inner text with its three entities decoded. */
+  private static String decodeEntities(String text) {
+    return text.replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&");
+  }
+
+  /**
+   * {@code text} with a leading anchor {@code <a id="ID"></a>} removed when it
+   * is the section's own (Section Anchors): its id is {@code id}, or the
+   * qualified form {@code <A>/…/<id>} a heading below a list item carries. Any
+   * other anchor is ordinary text and stays.
+   */
+  public static String stripOwnAnchor(String text, String id) {
+    Matcher m = ANCHOR.matcher(text);
+    return m.find() && isOwnAnchor(m.group(1), id) ? text.substring(m.end()) : text;
+  }
+
+  /**
+   * Whether {@code anchor} is the own anchor of a section with {@code id}:
+   * {@code id} itself, or a qualified form {@code <A>/…/<id>} whose segments
+   * are all non-empty (Section Anchors).
+   */
+  static boolean isOwnAnchor(String anchor, String id) {
+    if (anchor.equals(id)) {
+      return true;
+    }
+    if (id == null || !anchor.endsWith("/" + id)) {
+      return false;
+    }
+    for (String segment : anchor.split("/", -1)) {
+      if (segment.isEmpty()) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /** Every section of the document, depth-first (all levels), in order. */
