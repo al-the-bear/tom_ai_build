@@ -4,6 +4,7 @@ import '../models/schema/document_structure.dart';
 import '../models/schema/section_type_def.dart';
 import '../models/spec_doc.dart';
 import '../models/spec_section.dart';
+import '../reading/reading_grammar.dart';
 import 'ai_validator.dart';
 import 'prompt_expander.dart';
 import 'validation_error.dart';
@@ -625,6 +626,13 @@ class DocSpecsValidator {
     return errors;
   }
 
+  /// [text] without its leading marker and generated block
+  /// ([ReadingGrammar.generatedLead]): what the text rules read.
+  static String _withoutGeneratedText(String text) {
+    final lines = text.split('\n');
+    return lines.sublist(ReadingGrammar.generatedLead(lines)).join('\n').trim();
+  }
+
   /// Validates text requirements.
   List<ValidationError> _validateTextRequirements(List<_SectionInfo> sections) {
     final errors = <ValidationError>[];
@@ -637,7 +645,8 @@ class DocSpecsValidator {
           if (typeDef != null) {
             // Values a section table or list body gave the section count as
             // its virtual body lines.
-            final text = section.contentText;
+            // A rendition's marker and generated block are no text.
+            final text = _withoutGeneratedText(section.contentText);
 
             // text-required — skip for container sections that have
             // subsections, since their content lives in children.

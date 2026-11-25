@@ -81,6 +81,44 @@ abstract final class ReadingGrammar {
 
   static final RegExp _cellPartSeparator = RegExp(r'\s*/\s*');
 
+  /// The number of leading lines of a section's [lines] that the rendition
+  /// writes from the document and that hold no value: a paragraph that is one
+  /// `linked` span (SOM §11.11), then a `derived` block (SOM §11.12), with
+  /// the blank lines around them (DocSpecs RN-5, *Not text*).
+  static int generatedLead(List<String> lines) {
+    int skipBlank(int i) {
+      while (i < lines.length && lines[i].trim().isEmpty) {
+        i++;
+      }
+      return i;
+    }
+
+    var i = skipBlank(0);
+    var end = i;
+    while (end < lines.length && lines[end].trim().isNotEmpty) {
+      end++;
+    }
+    final para = lines.sublist(i, end).join(' ').trim();
+    if (end > i && RegExp(r'^\[.*\]\{\.linked\}$').hasMatch(para)) {
+      i = skipBlank(end);
+    }
+    final open = i < lines.length
+        ? RegExp(
+            r'^ {0,3}(:{3,})[ \t]*\{\.derived(?=[\s}])',
+          ).firstMatch(lines[i])
+        : null;
+    if (open != null) {
+      final n = open.group(1)!.length;
+      var k = i + 1;
+      while (k < lines.length &&
+          !RegExp('^ {0,3}:{$n,}[ \\t]*\$').hasMatch(lines[k])) {
+        k++;
+      }
+      if (k < lines.length) i = skipBlank(k + 1);
+    }
+    return i;
+  }
+
   /// The cells of a table row: split on every `|` not preceded by a
   /// backslash, the outer pipes dropped, each cell trimmed; `\|` stays in the
   /// cell (unescaped by [cellValue]).

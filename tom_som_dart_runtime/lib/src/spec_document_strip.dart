@@ -5,9 +5,9 @@
 ///
 /// The kinds are the four the reading notation registers as secondary
 /// (`provenance`, `trace`, `editorial`, `aside`, DocSpecs RN-5), `linked`, the
-/// navigation marker (SOM §11.11: removed by `drop` and `unmark` alike, the
-/// rendition then writing none), and `comments`, the review annotations (SOM
-/// §11.9). A citation shape counts as a span of its kind. `refs`, `records` and `rejected` are never secondary:
+/// navigation marker (SOM §11.11), and `derived`, the generated parts (SOM
+/// §11.12) — both removed by `drop` and `unmark` alike, the rendition then
+/// writing none —, and `comments`, the review annotations (SOM §11.9). A citation shape counts as a span of its kind. `refs`, `records` and `rejected` are never secondary:
 /// no name drops or unmarks them, and `all` leaves them in place (RN-11).
 ///
 /// [stripNotationText] strips one value; [SpecDocumentStrip.strip] strips a
@@ -41,6 +41,7 @@ const List<String> specStripKindNames = [
   'editorial',
   'aside',
   'linked',
+  'derived',
   'comments',
 ];
 
@@ -137,11 +138,13 @@ class SpecStripOptions {
         'comments cannot be moved to the appendix; drop them or leave them',
       );
     }
-    if (lists['appendix']!.contains('linked')) {
-      throw const SpecStripUsageError(
-        'linked cannot be moved to the appendix: the markers are written from '
-        'the model; drop them or leave them',
-      );
+    for (final k in const ['linked', 'derived']) {
+      if (lists['appendix']!.contains(k)) {
+        throw SpecStripUsageError(
+          '$k cannot be moved to the appendix: the renderer writes it from '
+          'the document; drop it or leave it',
+        );
+      }
     }
     final explicit = {
       for (final l in lists.values)
@@ -168,7 +171,11 @@ class SpecStripOptions {
     }
     return SpecStripOptions(
       drop: expand('drop', specStripKindNames),
-      unmark: expand('unmark', [...specStripNotationKinds, 'linked']),
+      unmark: expand('unmark', [
+        ...specStripNotationKinds,
+        'linked',
+        'derived',
+      ]),
       appendix: appendixSet,
       appendixReferences: appendixReferences,
       headingDivs: headingDivs,
@@ -182,6 +189,11 @@ class SpecStripOptions {
   /// `linked` dropped or unmarked.
   bool get writesNoLinkedMarkers =>
       drop.contains('linked') || unmark.contains('linked');
+
+  /// Whether the rendition leaves the generated parts out (SOM §11.12):
+  /// `derived` dropped or unmarked.
+  bool get writesNoGeneratedParts =>
+      drop.contains('derived') || unmark.contains('derived');
 
   /// The kinds whose markers go and whose content stays.
   final Set<String> unmark;
@@ -863,6 +875,7 @@ abstract final class SpecDocumentStrip {
         headingDivs: options.headingDivs,
         readableHeader: header,
         linkedMarkers: !options.writesNoLinkedMarkers,
+        generatedParts: !options.writesNoGeneratedParts,
       ).exportRootWithMap(root);
       if (titles.isEmpty && appendix.isNotEmpty) {
         final lines = rendition.markdown.split('\n');
@@ -1323,13 +1336,14 @@ class _Plan {
   void _process(List<NotationElement> list) {
     for (final e in list) {
       final k = e.kind;
-      // A `linked` span (SOM §11.11) is removed by `-drop:` and `-unmark:`
-      // alike: its text without the span would read back as content.
+      // A `linked` span (SOM §11.11) or a `derived` block (SOM §11.12) is
+      // removed by `-drop:` and `-unmark:` alike: its text without its
+      // markers would read back as content.
       if (e.isRegistered &&
-          k == 'linked' &&
+          (k == 'linked' || k == 'derived') &&
           (options.drop.contains(k) || options.unmark.contains(k))) {
-        _remove(e, 'linked:drop');
-        _count(dropped, 'linked');
+        _remove(e, '$k:drop');
+        _count(dropped, k!);
         continue;
       }
       final secondary =

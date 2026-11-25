@@ -326,6 +326,20 @@
 /// * **dangling** — REQ-PRESETS, only in Detail, links
 ///   `links.blu.tomspecs.md#REQ-PRESETS`, which the Blueprint does not hold.
 ///   Correct.
+/// * **generated parts** (SOM §11.12, real model, reviewed 2026-11-25) — the
+///   Requirements Specification of the Tom UAM cut, which holds no value at
+///   `RSP-TRAC`, `RERE-REQU-LST` or `REQCOV`: each heading is written for its
+///   table, after its marker; one row per requirement with its use cases,
+///   screens, data entities and tests as links into the other documents;
+///   one row per dependency with its holder, its type as Tom UAM stores it
+///   and the requirement named; coverage `yes` with the test cases the
+///   requirements cite (prose there, kept as text). The Blueprint writes the
+///   same tables in its requirements overview (`RO-TRAC`). The interaction
+///   scenarios write the use-case table, empty cells where a link is
+///   missing. A coverage table edited by hand parses to the same document
+///   and is written again; without generated parts the parse is the same;
+///   a use-case traceability without interactions whose text opens with a
+///   `derived` block gets the empty block first. Correct.
 library;
 
 import 'dart:convert';
@@ -572,6 +586,60 @@ void main() {
         expect(md, isNot(contains('{.linked}')));
         expect(md, contains('<a id="REQ-EXPORT/REQD"></a>'));
         expect(md, startsWith('<!-- docspec:'));
+      }
+    });
+
+    test('RNC5: the schema tier finds nothing in the markers and generated '
+        'parts (real model)', () {
+      final docs = _uamCut();
+      final isc = SpecDocument();
+      final item = isc.addListItem(
+        'ISC/interactionCatalog/INEN-INTE-LST',
+        sectionId: 'INEN-INTE-UC-01',
+      );
+      isc.setFormField(
+        '$item/INTR',
+        'relatedRequirements',
+        'FRE-REQU-TENANT-LIFECYCLE',
+      );
+      for (final (doc, schemaName) in [
+        (docs['tom_uam.rsp.tomspecs.yaml']!, 'requirements-specification'),
+        (docs['tom_uam.sbp.tomspecs.yaml']!, 'solution-blueprint'),
+        (isc, 'interaction-scenarios'),
+      ]) {
+        final schema = DocSpecsSchema.fromYamlText(
+          File(
+            '${Directory.current.path}/../tom_som_dart_v0/schemas/$schemaName/'
+            '$schemaName.1.0.docspecs-schema.yaml',
+          ).readAsStringSync(),
+        );
+        List<String> findings({required bool navigation}) {
+          final root = _som.roots.firstWhere(
+            (r) => doc.hasValuesUnder(r.sectionId ?? r.type),
+          );
+          final md = SpecDocumentMarkdown(
+            _som,
+            doc,
+            linkedMarkers: navigation,
+            generatedParts: navigation,
+          ).exportRoot(root);
+          if (navigation) {
+            expect(md, contains('{.derived'), reason: schemaName);
+          }
+          return [
+            for (final v in DocSpecsValidator(
+              schema,
+              tomSpecs: true,
+            ).validateMarkdown(md))
+              '${v.rule.name} ${v.sectionId}',
+          ]..sort();
+        }
+
+        expect(
+          findings(navigation: true),
+          findings(navigation: false),
+          reason: schemaName,
+        );
       }
     });
 
@@ -3429,7 +3497,12 @@ Map<String, dynamic> _complex(
 const _renditionStem = 'links';
 
 /// [doc] rendered as its root's rendition.
-String _rendition(SpecModel model, SpecDocument doc, {bool markers = true}) {
+String _rendition(
+  SpecModel model,
+  SpecDocument doc, {
+  bool markers = true,
+  bool generated = true,
+}) {
   final root = model.roots.firstWhere(
     (r) => doc.hasValuesUnder(r.sectionId ?? r.type),
   );
@@ -3438,6 +3511,7 @@ String _rendition(SpecModel model, SpecDocument doc, {bool markers = true}) {
     doc,
     fileStem: _renditionStem,
     linkedMarkers: markers,
+    generatedParts: generated,
   ).exportRoot(root);
 }
 
@@ -3459,9 +3533,16 @@ String _withoutMarkers(String markdown) {
 /// (the rendition, its markers removed, or edited by hand), what the parser
 /// stages from it and the rendition of that.
 Map<String, Object?> renditionCase(SpecModel model, Map<String, dynamic> c) {
+  model = _modelOf(model, c);
   final doc = SpecDocument()..loadJson(c['state'] as Map);
   final markers = c['linkedMarkers'] as bool? ?? true;
-  final markdown = _rendition(model, doc, markers: markers);
+  final generated = c['generatedParts'] as bool? ?? true;
+  final markdown = _rendition(
+    model,
+    doc,
+    markers: markers,
+    generated: generated,
+  );
   var given = markdown;
   if (c['dropMarkers'] == true) given = _withoutMarkers(given);
   for (final e in (c['edits'] as List? ?? const []).cast<List>()) {
@@ -3479,7 +3560,13 @@ Map<String, Object?> renditionCase(SpecModel model, Map<String, dynamic> c) {
     'parseMatches':
         jsonEncode(parsed.document.toJson()) == jsonEncode(doc.toJson()),
     'reemitMatches':
-        _rendition(model, parsed.document, markers: markers) == markdown,
+        _rendition(
+          model,
+          parsed.document,
+          markers: markers,
+          generated: generated,
+        ) ==
+        markdown,
   };
 }
 
@@ -3515,9 +3602,121 @@ Map<String, Object?> buildRenditionCases(Map<String, dynamic> meta) {
     return {...c, 'expect': renditionCase(model, jsonDecode(jsonEncode(c)))};
   }
 
+  // Cases over the real model (`"model": "som"`): the requirement views'
+  // generated tables (SOM §11.12) need its classes.
+  SpecDocument canonicalSom(SpecDocument d) =>
+      SpecDocument.fromMarkdown(_rendition(_som, d), _som).document;
+
+  Map<String, Object?> somKase(
+    String name,
+    List<String> intent,
+    SpecDocument Function() build, {
+    bool generatedParts = true,
+    List<List<String>> edits = const [],
+  }) {
+    final c = <String, dynamic>{
+      'name': name,
+      'intent': intent,
+      'model': 'som',
+      'fileStem': _renditionStem,
+      'state': canonicalSom(build()).toJson(),
+      if (!generatedParts) 'generatedParts': false,
+      if (edits.isNotEmpty) 'edits': edits,
+    };
+    return {...c, 'expect': renditionCase(model, jsonDecode(jsonEncode(c)))};
+  }
+
+  SpecDocument rsp() => _uamCut()['tom_uam.rsp.tomspecs.yaml']!;
+  SpecDocument isc({bool interactions = true}) {
+    final d = SpecDocument();
+    if (interactions) {
+      for (final (id, process, reqs, tests) in [
+        (
+          'INEN-INTE-UC-01',
+          'BPREN-ONBOARDING',
+          'FRE-REQU-TENANT-LIFECYCLE, FRE-REQU-TENANT-FEATURES',
+          'RQTSC-TENANT-1',
+        ),
+        ('INEN-INTE-UC-02', '', 'FRE-REQU-TENANT-FEATURES', ''),
+      ]) {
+        final item = d.addListItem(
+          'ISC/interactionCatalog/INEN-INTE-LST',
+          sectionId: id,
+        );
+        d.setFormField('$item/INID', 'useCaseName', 'Use case $id');
+        d.setFormField('$item/INTR', 'relatedRequirements', reqs);
+        if (process.isNotEmpty) {
+          d.setFormField('$item/INTR', 'relatedProcess', process);
+        }
+        if (tests.isNotEmpty) {
+          d.setFormField('$item/INTR', 'relatedTestCases', tests);
+        }
+      }
+    }
+    return d;
+  }
+
+  final somCases = [
+    somKase(
+      'the real model: the Requirements Specification writes its traceability '
+      'matrix, coverage and relationships from the requirements, the '
+      'sections holding no value of their own',
+      [
+        'generatedTrace',
+        'generatedCoverage',
+        'generatedRelationships',
+        'generatedFirst',
+        'roundTrip',
+        'clean',
+      ],
+      rsp,
+    ),
+    somKase(
+      'the real model: the Blueprint writes the same tables in its '
+      'requirements overview',
+      ['generatedOverview', 'roundTrip', 'clean'],
+      () => _uamCut()['tom_uam.sbp.tomspecs.yaml']!,
+    ),
+    somKase(
+      'the real model: the use-case traceability of the Interaction '
+      'Scenarios, written from each interaction\'s links',
+      ['generatedUseCases', 'roundTrip', 'clean'],
+      isc,
+    ),
+    somKase(
+      'the real model: a generated table edited by hand is discarded on '
+      'parse and written again',
+      ['generatedEditDiscarded', 'clean'],
+      rsp,
+      edits: [
+        ['| Requirement | Covered | By |', '| Requirement | Covered |'],
+        ['| yes |', '| no |'],
+      ],
+    ),
+    somKase(
+      'the real model: a rendition without generated parts '
+      '(`-drop:derived`) parses to the same document',
+      ['noGenerated', 'roundTrip', 'clean'],
+      rsp,
+      generatedParts: false,
+    ),
+    somKase(
+      'the real model: a generated place without rows whose value begins '
+      'with a derived block gets the empty block',
+      ['emptyGenerated', 'roundTrip', 'clean'],
+      () => isc(interactions: false)
+        ..setContent(
+          'ISC/useCaseTraceability/content',
+          '::: {.derived}\nTraced by hand.\n:::\n\nThe use cases are traced '
+              'in the catalog.',
+        ),
+    ),
+  ];
+
   return {
     'model': 'links.meta.json',
     'cases': [
+      ...somCases,
       kase(
         'the Blueprint: a sync held there with an exception, a detail element '
             'summarised, derived values with two fields, extracted rows, a copy '
@@ -3694,6 +3893,40 @@ bool _renditionIntentHolds(String token, Map<String, dynamic> c) {
     'dangling' => md.contains(
       '[Also in [BLU REQ-PRESETS](links.blu.tomspecs.md#REQ-PRESETS), held '
       'here',
+    ),
+    'generatedTrace' => md.contains(
+      '::: {.derived label="Generated from each requirement\'s traceability; '
+      'edit it there"}\n| Requirement | Use cases | Screens | Data entities | '
+      'Tests |',
+    ),
+    'generatedCoverage' => RegExp(
+      r'\| Requirement \| Covered \| By \|\n\| --- \| --- \| --- \|\n'
+      r'\| \[FRE-REQU-TENANT-LIFECYCLE\]\(#FRE-REQU-TENANT-LIFECYCLE\) \| '
+      r'(yes|no) \|',
+    ).hasMatch(md),
+    'generatedRelationships' => md.contains(
+      '| Requirement | Dependency | Related requirement |',
+    ),
+    'generatedFirst' => RegExp(
+      r'^## <!--\[REQCOV\]--> <a id="REQCOV"></a> [^\n]*\n\n'
+      r'(\[[^\n]*\]\{\.linked\}\n\n)?::: \{\.derived ',
+      multiLine: true,
+    ).hasMatch(md),
+    'generatedOverview' =>
+      md.contains('<!--[RO-TRAC]-->') &&
+          md.contains('| Requirement | Use cases | Screens |'),
+    'generatedUseCases' => md.contains(
+      '| [INEN-INTE-UC-02](#INEN-INTE-UC-02) |  | '
+      '[FRE-REQU-TENANT-FEATURES](',
+    ),
+    'generatedEditDiscarded' =>
+      edited &&
+          (e['given'] as String).contains('| Requirement | Covered |\n') &&
+          parsed &&
+          reemit,
+    'noGenerated' => !md.contains('{.derived'),
+    'emptyGenerated' => md.contains(
+      '::: {.derived}\n:::\n\n::: {.derived}\nTraced by hand.\n:::',
     ),
     'noMarkers' =>
       !md.contains('{.linked}') && md.contains('<a id="REQ-EXPORT/REQD"></a>'),

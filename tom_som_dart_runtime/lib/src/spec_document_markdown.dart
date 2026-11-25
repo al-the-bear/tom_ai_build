@@ -55,6 +55,7 @@ import 'spec_place.dart';
 import 'spec_reflection.dart';
 import 'spec_section_id.dart';
 
+part 'spec_document_markdown_generated.dart';
 part 'spec_document_markdown_linked.dart';
 
 /// Why an imported Markdown block was rejected (SOM §11.7 rejection protocol).
@@ -265,7 +266,13 @@ class SpecDocumentMarkdown {
     this.headingDivs = false,
     this.readableHeader,
     this.linkedMarkers = true,
+    this.generatedParts = true,
   });
+
+  /// Whether the generated parts (SOM §11.12) are written at their sections;
+  /// a stripped rendition dropping `derived` turns it off. The parser removes
+  /// them either way.
+  final bool generatedParts;
 
   /// Whether the `linked` marker is written after a markable heading (SOM
   /// §11.11); a stripped rendition dropping `linked` turns it off. The parser
@@ -294,6 +301,13 @@ class SpecDocumentMarkdown {
 
   /// The navigation of the root the current export renders (SOM §11.11).
   _Navigation? _nav;
+
+  /// The generated parts of the root the current export renders (SOM §11.12).
+  _Generated? _gen;
+
+  /// Whether a generated part stands at or beneath [path] of the current
+  /// export, which writes its heading even without a value.
+  bool _forced(String path) => _gen?.forces(path) ?? false;
 
   /// The Blueprint's root and the model's anchor pairs, from the model alone;
   /// none when the model's synced positions cannot be paired.
@@ -534,6 +548,7 @@ class SpecDocumentMarkdown {
   String _exportRoot(SpecRoot root) {
     _currentRoot = root;
     _nav = _Navigation(this, root);
+    _gen = generatedParts ? _Generated(_nav!) : null;
     _sortedKeys.clear();
     final tree = _treeFor(root.type);
     final node = tree.root;
@@ -556,7 +571,10 @@ class SpecDocumentMarkdown {
     _writeSectionBody(b, node, rootSeg);
     _writeChildren(b, node, rootSeg, 2);
     _nav = null;
-    return _resolveLinkedPlaceholders(b.toString());
+    _gen = null;
+    return _resolveLinkedPlaceholders(
+      _resolveDerivedPlaceholders(b.toString()),
+    );
   }
 
   /// Writes the body region of a section heading: the section path's own
@@ -651,13 +669,13 @@ class SpecDocumentMarkdown {
   ) {
     for (final (child, rel) in _effectiveChildren(node)) {
       final path = '$basePath/$rel';
-      if (!document.hasValuesUnder(path)) continue;
+      if (!document.hasValuesUnder(path) && !_forced(path)) continue;
       switch (child.kind) {
         case SomMetaKind.content:
         case SomMetaKind.scalar:
         case SomMetaKind.enumValue:
           final value = document.content(path);
-          if (value == null) break;
+          if (value == null && !_forced(path)) break;
           _writeHeading(
             b,
             depth,
@@ -715,7 +733,7 @@ class SpecDocumentMarkdown {
     int depth,
   ) {
     final items = document.listItems(listPath);
-    if (items.isEmpty) return;
+    if (items.isEmpty && !_forced(listPath)) return;
     // The container heading: its id is the list's `-LST` `@SectionId` (else the
     // member segment for a pattern-less list); its title is the stored
     // headline, else the member name.
@@ -1404,6 +1422,21 @@ class SpecDocumentMarkdown {
     // qualified; SOM §11.11: the `linked` marker follows the heading.
     final nav = _nav;
     final anchor = nav?.anchorOf(path) ?? id;
+    // SOM §11.12: a generated table opens its section, after the marker.
+    void derived() {
+      final gen = _gen;
+      if (gen == null || !gen.isPlace(path)) return;
+      final block = gen.blocks[path];
+      if (block != null) {
+        for (final line in block) {
+          b.writeln(line);
+        }
+      } else {
+        b.writeln(_kDerivedPlaceholder);
+      }
+      b.writeln();
+    }
+
     void marker() {
       if (nav == null || !linkedMarkers) return;
       final entries = nav.entries(path, sectionTable: sectionTable);
@@ -1441,6 +1474,7 @@ class SpecDocumentMarkdown {
       );
       b.writeln();
       marker();
+      derived();
       return;
     }
     b.writeln(
@@ -1449,6 +1483,7 @@ class SpecDocumentMarkdown {
     );
     b.writeln();
     marker();
+    derived();
   }
 
   /// The fixed start of a styled-div heading's style, up to its indent.
@@ -1734,6 +1769,10 @@ class _Frame {
   /// (SOM §11.2, [_qualifyAnchor]).
   List<String>? anchorScope;
   String? anchorSection;
+
+  /// Whether its body opened with a generated block (SOM §11.12): the
+  /// heading stands for the block, so an empty value is no rejection.
+  bool generated = false;
 
   /// Rejected blocks to keep in this frame's text (RN-11): the body index
   /// they stand before, the block, and the end of the body lines it replaces
@@ -2442,6 +2481,36 @@ class _Parser {
     }
   }
 
+  /// Removes a generated part (SOM §11.12): the first block of a generated
+  /// place's body, after its marker, when it is a `derived` block. Its lines
+  /// are blanked, as the marker's are.
+  void _stripGenerated(_Frame frame) {
+    final seg = frame.path.split('/').first;
+    final root = codec.model.roots
+        .where((r) => (r.sectionId ?? r.type) == seg)
+        .firstOrNull;
+    if (root == null) return;
+    final nav = _navs.putIfAbsent(root.type, () => _Navigation(codec, root));
+    if (!_Generated(nav).isPlace(frame.path)) return;
+    final body = frame.body;
+    var k = 0;
+    while (k < body.length && body[k].trim().isEmpty) {
+      k++;
+    }
+    if (k >= body.length || !_opensDerived(body[k])) return;
+    final fence = RegExp(r'^ {0,3}(:{3,})').firstMatch(body[k])!.group(1)!;
+    var end = k + 1;
+    while (end < body.length &&
+        !RegExp('^ {0,3}:{${fence.length},}[ \t]*\$').hasMatch(body[end])) {
+      end++;
+    }
+    if (end >= body.length) return; // unclosed: the value's, reported there
+    for (var i = k; i <= end; i++) {
+      body[i] = '';
+    }
+    frame.generated = true;
+  }
+
   static bool _isValueLeaf(SomMetaKind kind) =>
       kind == SomMetaKind.content ||
       kind == SomMetaKind.scalar ||
@@ -2457,6 +2526,7 @@ class _Parser {
     final node = frame.node;
     // A scalar list item's frame has no node; it is markable all the same.
     _stripLinkedMarker(frame);
+    _stripGenerated(frame);
     if (node != null && node.kind == SomMetaKind.form) {
       _finalizeForm(frame, node, frame.path);
       return;
@@ -2499,7 +2569,7 @@ class _Parser {
       }
       if (value.isNotEmpty) {
         content[frame.path] = value;
-      } else if (node != null && _isValueLeaf(node.kind)) {
+      } else if (node != null && _isValueLeaf(node.kind) && !frame.generated) {
         rejections.add(
           SpecMarkdownRejection(
             line: frame.line,

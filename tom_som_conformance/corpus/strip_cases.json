@@ -1155,6 +1155,66 @@
         ],
         "refused": []
       }
+    },
+    {
+      "name": "a derived block is dropped by name",
+      "text": "::: {.derived label=\"Generated from the links\"}\n| Requirement | Tests |\n| --- | --- |\n| [FRE-X](#FRE-X) | yes |\n:::\n\nThe coverage is checked by the process (<- workshop).",
+      "drop": [
+        "derived"
+      ],
+      "expect": {
+        "text": "The coverage is checked by the process (<- workshop).",
+        "dropped": {
+          "derived": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 0,
+            "origin": 0,
+            "removed": "::: {.derived label=\"Generated from the links\"}\n| Requirement | Tests |\n| --- | --- |\n| [FRE-X](#FRE-X) | yes |\n:::\n\n",
+            "inserted": "",
+            "labels": [
+              "derived:drop",
+              "whitespace"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "a derived block is dropped by -unmark: as well",
+      "text": "::: {.derived label=\"Generated from the links\"}\n| Requirement | Tests |\n| --- | --- |\n| [FRE-X](#FRE-X) | yes |\n:::\n\nThe coverage is checked by the process (<- workshop).",
+      "unmark": [
+        "derived"
+      ],
+      "expect": {
+        "text": "The coverage is checked by the process (<- workshop).",
+        "dropped": {
+          "derived": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 0,
+            "origin": 0,
+            "removed": "::: {.derived label=\"Generated from the links\"}\n| Requirement | Tests |\n| --- | --- |\n| [FRE-X](#FRE-X) | yes |\n:::\n\n",
+            "inserted": "",
+            "labels": [
+              "derived:drop",
+              "whitespace"
+            ]
+          }
+        ],
+        "refused": []
+      }
     }
   ],
   "usageCases": [
@@ -1172,6 +1232,7 @@
           "trace",
           "aside",
           "linked",
+          "derived",
           "comments"
         ],
         "unmark": [
@@ -1209,7 +1270,7 @@
         "asides"
       ],
       "expect": {
-        "error": "unknown kind name \"asides\" in drop; known names: provenance, trace, editorial, aside, linked, comments, all"
+        "error": "unknown kind name \"asides\" in drop; known names: provenance, trace, editorial, aside, linked, derived, comments, all"
       }
     },
     {
@@ -1277,11 +1338,11 @@
         "linked"
       ],
       "expect": {
-        "error": "linked cannot be moved to the appendix: the markers are written from the model; drop them or leave them"
+        "error": "linked cannot be moved to the appendix: the renderer writes it from the document; drop it or leave it"
       }
     },
     {
-      "name": "all in unmark takes linked",
+      "name": "all in unmark takes linked and derived",
       "unmark": [
         "all"
       ],
@@ -1292,11 +1353,21 @@
           "trace",
           "editorial",
           "aside",
-          "linked"
+          "linked",
+          "derived"
         ],
         "appendix": [],
         "appendixReferences": false,
         "headingDivs": false
+      }
+    },
+    {
+      "name": "derived cannot be moved",
+      "appendix": [
+        "derived"
+      ],
+      "expect": {
+        "error": "derived cannot be moved to the appendix: the renderer writes it from the document; drop it or leave it"
       }
     }
   ],

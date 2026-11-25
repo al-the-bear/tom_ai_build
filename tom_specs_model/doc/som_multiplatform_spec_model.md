@@ -1272,7 +1272,7 @@ readable header, naming the switches it was made with and its source:
 ```
 
 The parts are `drop=`, `unmark=` and `appendix=` (kind names in the order
-`provenance`, `trace`, `editorial`, `aside`, `linked`, `comments`),
+`provenance`, `trace`, `editorial`, `aside`, `linked`, `derived`, `comments`),
 `appendix-references`, `headings=divs`, `of=<file>[@<revision>]` and
 `commit=<sha>[+dirty]`, each left out when it does not apply
 (`SpecReadableHeader`: `format` and `parse` are inverse). The parser skips the
@@ -2960,15 +2960,17 @@ TypeScript first (the other runtimes follow through the conformance corpus);
 **The switches** (`SpecStripOptions.fromNames`) name kinds: `provenance`,
 `trace`, `editorial`, `aside` (the reading notation's secondary kinds,
 DocSpecs RN-5; a citation shape counts as a span of its kind), `linked` (the
-navigation marker, §11.11) and `comments` (the review annotations of §11.9).
+navigation marker, §11.11), `derived` (the generated parts, §11.12) and
+`comments` (the review annotations of §11.9).
 `drop` removes an element with its content, `unmark` removes its markers and
 keeps its content (a citation's arrow and its space go: `(-> C2.1)` reads
-`(C2.1)`), `appendix` moves it into the appendix. `linked` is removed by
-`drop` and `unmark` alike — its text without the span would read back as
-content — and the rendition then writes no marker; the anchors stay. `all`
-stands for every kind the list can hold that no other list names explicitly
-(`comments` only in `drop`, `linked` in `drop` and `unmark`). A name in two
-lists, an unknown name, `comments` in `unmark` or `appendix`, `linked` in
+`(C2.1)`), `appendix` moves it into the appendix. `linked` and `derived` are
+removed by `drop` and `unmark` alike — their text without the markers would
+read back as content — and the rendition then writes no marker or no
+generated part; the anchors stay. `all` stands for every kind the list can
+hold that no other list names explicitly (`comments` only in `drop`,
+`linked` and `derived` in `drop` and `unmark`). A name in two lists, an
+unknown name, `comments` in `unmark` or `appendix`, `linked` or `derived` in
 `appendix`, and appendix references without an appendix are usage errors
 (`SpecStripUsageError`). `refs`, `records`,
 `rejected` and unknown kinds are never secondary: no name touches them (RN-11).
@@ -3154,10 +3156,79 @@ it is stored.
   `all`, write no marker; the anchors stay.
 - The YAML codec (§12) knows neither the marker nor the anchors.
 
+- **The DocSpecs schema tier** does not count a marker opening a section's
+  body as its text (DocSpecs RN-5): a list container holding one is still
+  empty.
+
 The conformance cases are `link_rendition_cases.json` (over `links.meta.json`):
 each case a document, the rendition the runtime writes of it, what the parser
 stages from it (or from it with its markers deleted or edited by hand) and the
 rendition of that.
+
+### 11.12 Generated parts
+
+A rendition may hold a part derived completely from the document, a
+**generated part**. It is marked as generated, it is not edited where it is
+shown — it is edited where its information comes from — and it stands at the
+beginning of its section, the section's own text below it. The renderer writes
+it from the model and this document's own values; nothing of it is stored.
+
+A generated part is a block of the registered notation kind `derived`
+(DocSpecs RN-5), its `label` naming where it comes from, written after the
+heading line and the `linked` marker (§11.11), before the section's body:
+
+<!-- markdownlint-disable MD013 -->
+```markdown
+## <!--[REQCOV]--> <a id="REQCOV"></a> Requirement Coverage
+
+[Also in [SBP REQCOV](tom_uam.sbp.tomspecs.md#REQCOV), held here]{.linked}
+
+::: {.derived label="Generated from each requirement's test cases; edit them there"}
+| Requirement | Covered | By |
+| --- | --- | --- |
+| [FRE-REQU-TENANT-LIFECYCLE](#FRE-REQU-TENANT-LIFECYCLE) | yes | [RQTSC-TENANT-1](tom_uam.qap.tomspecs.md#RQTSC-TENANT-1) |
+:::
+
+The coverage is checked per release …
+```
+
+**The generated tables** are the requirement views'. A view stays prose — the
+agent writes it and the process todos check it — and its table stands beside
+the prose. Every view gets one, since the links hold each:
+
+| At | Rows: one per | Columns |
+| --- | --- | --- |
+| `RSP-TRAC`, `RO-TRAC` (traceability matrix) | requirement (`FRE`, `TERQ`, `SECRQ`, `ORRQ`) | Requirement · Use cases (`RT-TRAC.relatedUseCases`) · Screens (`RETRAR.relatedScreens`) · Data entities (`RETRAR.relatedDataEntities`) · Tests (`RETRAR.relatedTestCases`) |
+| `REQCOV` (requirement coverage) | requirement | Requirement · Covered (`yes` when `RETRAR.relatedTestCases` holds a value, else `no`) · By (`RETRAR.relatedTestCases`) |
+| `RERE-REQU-LST` (requirement relationships) | dependency row (`RQDEP`) | Requirement (the requirement holding the row) · Dependency (`RQDEP.dependencyType`) · Related requirement (`RQDEP-RELA-REF.ref`) |
+| `USCATR` (use-case traceability) | interaction (`INEN`) | Use case · Process (`INTR.relatedProcess`) · Requirements (`INTR.relatedRequirements`) · Tests (`INTR.relatedTestCases`) |
+<!-- markdownlint-enable MD013 -->
+
+- **Rows** come in rendition order, from this document only. The first column
+  links the row's element by its id and anchor (§11.2); a reference value is
+  written as reference links (§11.4), any other value as text (`|` escaped),
+  an empty one as an empty cell.
+- **A table with no row** is not written. A section whose table has rows is
+  written even when the document holds no value there, its heading standing
+  for the table.
+- **Parse** removes the first block of a generated place's body, after its
+  marker, when it is a `derived` block, whatever it holds, and stores nothing;
+  an empty value under it is no `missingValue`. A table edited or deleted by
+  hand is rewritten by the next rendition. A `derived` block anywhere else is
+  text of the value.
+- **The empty block** `::: {.derived}` / `:::`: a generated place without a
+  table whose own body begins with a `derived` block gets it, so the parser
+  removes the empty one and keeps the value's.
+- **The DocSpecs schema tier** does not count a generated block opening a
+  section's body as its text (DocSpecs RN-5).
+- **Stripped renditions** (§11.10): `drop` or `unmark` of `derived`, and
+  `all`, write no generated part.
+- The YAML codec (§12) knows nothing of it.
+
+The conformance cases are in `link_rendition_cases.json` too, over the real
+model (`"model": "som"`): the Requirements Specification and the Blueprint of
+the Tom UAM cut, a small Interaction Scenarios document, a table edited by
+hand, a rendition without generated parts and the empty block.
 
 ## 12. The hierarchical `*.tomspecs.yaml` format
 

@@ -87,26 +87,27 @@ tomspecs :spec-readable --merge-onto <doc.tomspecs.yaml> <edited.readable.md> [-
 
 **The switches.** The names are the notation kinds `provenance`, `trace`,
 `editorial` and `aside`, `linked` for the navigation markers (SOM §11.11),
-plus `comments` for the review annotations; `all` stands for every one of
-them. Several names are comma-separated
+`derived` for the generated tables (SOM §11.12), plus `comments` for the
+review annotations; `all` stands for every one of them. Several names are comma-separated
 (`-drop:trace,comments`), and `--drop=<names>` is the same as `-drop:<names>`.
 
 | Switch | Does |
 |--------|------|
 | `-drop:<names>` | Removes the marked blocks and spans of those kinds, text included. `comments` accepts the inline marks and removes the comment and question blocks. |
-| `-unmark:<names>` | Removes the markers and keeps the text (`(-> C2.1)` reads `(C2.1)`). `comments` cannot be unmarked; `linked` is removed as by `-drop:`. |
+| `-unmark:<names>` | Removes the markers and keeps the text (`(-> C2.1)` reads `(C2.1)`). `comments` cannot be unmarked; `linked` and `derived` are removed as by `-drop:`. |
 | `-appendix:<names>` | Moves the blocks and spans of those kinds into an appendix *Notes* at the end, numbered, under the title of their section. |
 | `--appendix-references` | Leaves a link `[n]` in each place, to its appendix entry (only with `-appendix:`). |
 | `--heading-divs` | Writes sections below level 6 as styled divs instead of headings. |
 
 A name in two lists, an unknown name, `comments` in `-unmark:` or `-appendix:`,
-`linked` in `-appendix:`, and `--appendix-references` without `-appendix:` are
-usage errors. Dropping `linked` writes no navigation marker; the anchors stay.
+`linked` or `derived` in `-appendix:`, and `--appendix-references` without
+`-appendix:` are usage errors. Dropping `linked` writes no navigation marker
+and dropping `derived` no generated table; the anchors stay.
 `refs`, `records` and the tables are content and never stripped.
 
 **The stakeholder preset** is `-drop:all --heading-divs`: the text alone, without
-provenance, traces, editorial notes, asides, navigation markers or review
-annotations, and with deep sections as styled divs.
+provenance, traces, editorial notes, asides, navigation markers, generated
+tables or review annotations, and with deep sections as styled divs.
 
 ```text
 tomspecs :spec-readable tom_uam.sbp.tomspecs.yaml tom_uam.sbp.readable.md -drop:all --heading-divs
@@ -119,7 +120,7 @@ Its second line is the **readable header**, which records the switches and the
 document it was made from:
 
 ```text
-<!-- readable: drop=provenance,trace,editorial,aside,linked,comments; headings=divs; of=tom_uam.sbp.tomspecs.yaml@<revision>; commit=<sha> -->
+<!-- readable: drop=provenance,trace,editorial,aside,linked,derived,comments; headings=divs; of=tom_uam.sbp.tomspecs.yaml@<revision>; commit=<sha> -->
 ```
 
 `<revision>` is the sha256 of the document's text. `commit` is the last commit

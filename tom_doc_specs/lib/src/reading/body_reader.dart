@@ -280,7 +280,7 @@ class BodyReader {
         return;
       }
       var besideText = false;
-      for (var k = 0; k < body.length; k++) {
+      for (var k = ReadingGrammar.generatedLead(body); k < body.length; k++) {
         if ((k < i || k > close) && body[k].trim().isNotEmpty) {
           besideText = true;
           break;

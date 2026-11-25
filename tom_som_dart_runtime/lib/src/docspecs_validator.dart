@@ -1474,8 +1474,9 @@ class DocSpecsValidator {
       return;
     }
     // A list body or section table already read is blanked in the body, so
-    // a container written with one counts as empty (`max-text-length: 0`).
-    final text = section.text;
+    // a container written with one counts as empty (`max-text-length: 0`);
+    // the rendition's marker and generated block are no text either.
+    final text = _withoutGeneratedText(section.text);
     if (type.textRequired && text.isEmpty) {
       v.add(
         DocSpecsViolation(
@@ -1748,6 +1749,50 @@ class DocSpecsValidator {
     return text;
   }
 
+  /// The number of leading lines of a section's [lines] that the rendition
+  /// writes from the document and that hold no value: a paragraph that is one
+  /// `linked` span (SOM §11.11), then a `derived` block (SOM §11.12), with
+  /// the blank lines around them (DocSpecs RN-5, *Not text*).
+  static int _generatedLead(List<String> lines) {
+    int skipBlank(int i) {
+      while (i < lines.length && lines[i].trim().isEmpty) {
+        i++;
+      }
+      return i;
+    }
+
+    var i = skipBlank(0);
+    var end = i;
+    while (end < lines.length && lines[end].trim().isNotEmpty) {
+      end++;
+    }
+    final para = lines.sublist(i, end).join(' ').trim();
+    if (end > i && RegExp(r'^\[.*\]\{\.linked\}$').hasMatch(para)) {
+      i = skipBlank(end);
+    }
+    final open = i < lines.length
+        ? RegExp(
+            r'^ {0,3}(:{3,})[ \t]*\{\.derived(?=[\s}])',
+          ).firstMatch(lines[i])
+        : null;
+    if (open != null) {
+      final n = open.group(1)!.length;
+      var k = i + 1;
+      while (k < lines.length &&
+          !RegExp('^ {0,3}:{$n,}[ \\t]*\$').hasMatch(lines[k])) {
+        k++;
+      }
+      if (k < lines.length) i = skipBlank(k + 1);
+    }
+    return i;
+  }
+
+  /// [text] without its [_generatedLead]: what the text rules read.
+  static String _withoutGeneratedText(String text) {
+    final lines = text.split('\n');
+    return lines.sublist(_generatedLead(lines)).join('\n').trim();
+  }
+
   /// An `Id` or `Section` cell with its own anchors (`<a id="X"></a>X`)
   /// removed (Section Anchors): in a `<LIST> / <ITEM>` cell each part's
   /// anchor, and one before the whole cell naming its item. Any other anchor
@@ -1976,8 +2021,9 @@ class DocSpecsValidator {
         reject('unclosed $kind fence'); // its lines stay text
         return;
       }
+      final lead = _generatedLead(body);
       final besideText = [
-        for (var k = 0; k < body.length; k++)
+        for (var k = lead; k < body.length; k++)
           if ((k < i || k > close) && body[k].trim().isNotEmpty) k,
       ].isNotEmpty;
       final hasItems = node.children.isNotEmpty;

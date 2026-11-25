@@ -292,6 +292,87 @@ exceptions:
       `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_rendition_cases.json` is the corpus they will run.
 
+  - token: generatedParts
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The rendition's generated parts (SOM §11.12) — the
+      requirement views' tables in `derived` blocks, with the renderer option
+      that leaves them out of a stripped rendition — are in the Dart runtime
+      only, built first by decision (idea section_automation,
+      DP-part-conformance-4); their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `link_rendition_cases.json` is the corpus they will run.
+
+  - token: dependencyType
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
+      requirement views: traceability, coverage, relationships, use-case
+      traceability), which the Dart runtime defines and the others take on
+      with the tables; their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`.
+      Elsewhere the token is a form field of the model's documents.
+
+  - token: relatedDataEntities
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
+      requirement views: traceability, coverage, relationships, use-case
+      traceability), which the Dart runtime defines and the others take on
+      with the tables; their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`.
+      Elsewhere the token is a form field of the model's documents.
+
+  - token: relatedProcess
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
+      requirement views: traceability, coverage, relationships, use-case
+      traceability), which the Dart runtime defines and the others take on
+      with the tables; their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`.
+      Elsewhere the token is a form field of the model's documents.
+
+  - token: relatedRequirements
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
+      requirement views: traceability, coverage, relationships, use-case
+      traceability), which the Dart runtime defines and the others take on
+      with the tables; their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`.
+      Elsewhere the token is a form field of the model's documents.
+
+  - token: relatedScreens
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
+      requirement views: traceability, coverage, relationships, use-case
+      traceability), which the Dart runtime defines and the others take on
+      with the tables; their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`.
+      Elsewhere the token is a form field of the model's documents.
+
+  - token: relatedTestCases
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
+      requirement views: traceability, coverage, relationships, use-case
+      traceability), which the Dart runtime defines and the others take on
+      with the tables; their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`.
+      Elsewhere the token is a form field of the model's documents.
+
+  - token: relatedUseCases
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
+      requirement views: traceability, coverage, relationships, use-case
+      traceability), which the Dart runtime defines and the others take on
+      with the tables; their ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`.
+      Elsewhere the token is a form field of the model's documents.
+
   - token: syncedWith
     planes: [python, javascript, typescript, java, go, rust, c, cpp]
     reason: >-

@@ -883,7 +883,12 @@ derived fields, extracted link rows, a `@SameAs` copy and its holder, a
 heading three levels below its outermost item, a rendition without markers,
 markers deleted and edited by hand, the empty marker, a `linked` span kept in
 the value of an unmarkable section, and an element in one document only,
-whose link names a place the other document does not hold yet.
+whose link names a place the other document does not hold yet. Cases naming
+`"model": "som"` pin the generated parts (SOM §11.12) over the real model:
+the requirement views' tables in the Requirements Specification and the
+Blueprint of the Tom UAM cut and the use-case table of a small Interaction
+Scenarios document, a table edited by hand, a rendition without generated
+parts, and the empty `derived` block.
 
 [`corpus/prefill_cases.json`](corpus/prefill_cases.json) pins `prefill`:
 a new Detail and a new Screens document from the Blueprint (stored ids kept,
@@ -920,7 +925,8 @@ idea. Two shared files moved with the rendition ahead of them, and a runner
 fails on them until that port: `expected.tables.md` (with the
 `markdown_apply_cases.json` built from it) writes the qualified anchor below
 a list item, which all eight read, and the usage cases of `strip_cases.json`
-name the kind `linked`, which TypeScript reads. The same holds for the `typedCases` of
+name the kinds `linked` and `derived`, which TypeScript reads. The same holds
+for the `typedCases` of
 [`corpus/inline_mark_cases.json`](corpus/inline_mark_cases.json) and
 [`corpus/change_mark_cases.json`](corpus/change_mark_cases.json): typed values
 and headlines under review (SOM §11.9.3) — written as marks, read as their old

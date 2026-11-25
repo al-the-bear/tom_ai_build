@@ -244,9 +244,15 @@ writes the navigation between linked places into the rendition (SOM §11.2,
 - a heading holding a linked place is followed by its marker,
   `[Also in [RSP FRE-REQU-X](tom_uam.rsp.tomspecs.md#FRE-REQU-X), held there]{.linked}`.
 
-`parse` removes both and stores nothing, so a marker edited by hand is
-rewritten by the next export. `linkedMarkers: false` writes no marker, as a
-stripped rendition dropping `linked` does; the anchors stay.
+It also writes the **generated parts** (SOM §11.12): the requirement views'
+tables — the traceability matrix, the coverage, the relationships and the
+use-case traceability — in a `derived` block at the start of their section,
+from the requirements' and interactions' links.
+
+`parse` removes all of them and stores nothing, so a marker or table edited
+by hand is rewritten by the next export. `linkedMarkers: false` writes no
+marker and `generatedParts: false` no generated part, as a stripped rendition
+dropping `linked` or `derived` does; the anchors stay.
 
 ## When to prefer the generic path
 

@@ -141,7 +141,8 @@ unpublished_drift:
   tom_doc_specs: >-
     section automation in progress — 04_sau9 (2026-11-25): a records `Id` or
     section-table `Section` cell's qualified anchor is its own (DocSpecs
-    *Section Anchors*).
+    *Section Anchors*). 04_sau10: a leading `linked` marker and `derived`
+    block are no text of a section and leave a list body alone.
   tom_som_dart_runtime: >-
     section automation in progress — 02_sau4 (2026-11-23): the link
     annotations in kRenderedAnnotations, linkChips in fieldChips, the four in
@@ -151,7 +152,10 @@ unpublished_drift:
     by their entries (an empty const {} against a decoded map was identity).
     04_sau9: the rendition's qualified anchors and `linked` marker (SOM §11.2,
     §11.11), `linked` a registered and strippable kind, the DocSpecs validator
-    reading a qualified anchor as a section's own.
+    reading a qualified anchor as a section's own. 04_sau10: the generated
+    tables of the requirement views in `derived` blocks (SOM §11.12),
+    `derived` a registered and strippable kind, the schema tier reading
+    neither a marker nor a generated block as text.
   tom_som_dart_v0: >-
     section automation in progress — 02_sau5 (2026-11-23): regenerated for
     model 1.12.3 (LocaleRolloutPlan, 14 more @DetailedIn). 03_sau11:

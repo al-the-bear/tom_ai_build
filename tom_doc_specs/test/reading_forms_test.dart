@@ -243,6 +243,22 @@ void main() {
       expect(section(d, 'REFS-2').getFormField('target'), 'GOAL-ITEM-2');
     });
 
+    test('a marker and a generated block are no text of a container', () {
+      const refs = '::: refs\n[GOAL-ITEM-1](#GOAL-ITEM-1), GOAL-ITEM-2\n:::\n';
+      final md = doc(
+        '## <!--[REFS-LST]--> References\n\n'
+        '[Also in [SBP REFS-LST](sbp.md#REFS-LST), held here]{.linked}\n\n'
+        '::: {.derived label="Generated"}\n| A | B |\n| --- | --- |\n'
+        '| 1 | 2 |\n:::\n\n$refs',
+      );
+      expect(findings(md), isEmpty);
+      // Text is still text.
+      expect(
+        findings(doc('## <!--[REFS-LST]--> References\n\nNot empty.\n\n$refs')),
+        isNotEmpty,
+      );
+    });
+
     test("a reference's value is checked at the div", () {
       final md = doc(
         '## <!--[REFS-LST]--> References\n\n'
