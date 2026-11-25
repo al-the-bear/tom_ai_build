@@ -167,12 +167,15 @@ fn markdown_emits_units_after_code_spec_in_the_heading_comment() {
     d.set_units("DEMO/SUM", "u_a");
     let md = d.to_markdown(&model, None).expect("renders");
     assert!(
-        md.contains("## <!--[TTL] codeSpec=\"DemoTitle\" units=\"u_a,u_b\"--> Document Title\n"),
+        md.contains(
+            "## <!--[TTL] codeSpec=\"DemoTitle\" units=\"u_a,u_b\"--> \
+             <a id=\"TTL\"></a> Document Title\n",
+        ),
         "{}",
         md
     );
     assert!(
-        md.contains("## <!--[SUM] units=\"u_a\"--> Summary\n"),
+        md.contains("## <!--[SUM] units=\"u_a\"--> <a id=\"SUM\"></a> Summary\n"),
         "{}",
         md
     );

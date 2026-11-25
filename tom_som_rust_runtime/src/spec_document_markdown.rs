@@ -8,8 +8,10 @@
 //! section is one markdown heading whose machine-readable identity is the
 //! DocSpecs headline comment `<!--[SECTION-ID]-->` and whose text is the
 //! human-readable Title-Case member name. Content values are **normal markdown
-//! text** under their heading (no fences, no anchors); `@Form` sections use the
-//! DocSpecs plain-text `FieldName: value` format; a list emits its `-LST`
+//! text** under their heading (no fences); every heading carries its section
+//! id as an HTML anchor, qualified below a list item and in a `@SameAs` copy
+//! (SOM §11.2). `@Form` sections are written in the reading-view layout (see
+//! below); a list emits its `-LST`
 //! container heading (id = the list's `@SectionId`, else the member segment)
 //! at the owner's child level, wrapping the numbered item headings one level
 //! deeper — each item carrying the `@SectionIdPattern` resolved with the
@@ -22,14 +24,16 @@
 //! segments). Section/complex headings without a field-level `@SectionId`
 //! carry the target class's `@SectionId`.
 //!
-//! The parser also reads the reading view's table layout (SOM §11.4, §11.5):
-//! form tables `| TomSpecField | Value |`, section tables
-//! `| Section | TomSpecField | Value |`, record tables in a `::: {.records}`
-//! div, reference lines in a `::: {.refs}` div and heading anchors
-//! `<a id="ID">`; a block that breaks that grammar is rejected as
-//! `unknownField` or `malformedBlock`. The emitter keeps writing `Field:`
-//! lines, and escapes a value line shaped like a layout table header with one
-//! space, which the parser removes.
+//! Reading view (SOM §11.4, §11.5): the emitter writes the reading view's
+//! table layout — form tables `| TomSpecField | Value |`, record tables in a
+//! `::: {.records}` div, reference lines in a `::: {.refs}` div, section
+//! tables `| Section | TomSpecField | Value |` and an anchor `<a id="ID">` in
+//! every heading; a value no table cell holds (a `multiParagraph` field,
+//! several paragraphs, a block) is a `Field:` paragraph, a wrapped
+//! one-paragraph value one cell (rule 13). The parser reads that layout and
+//! the older layout of `Field:` lines alike, and rejects a block that breaks
+//! it as `unknownField` or `malformedBlock`. A value line shaped like a layout
+//! table header is written with one escape space, which the parser removes.
 //!
 //! Escaping (SOM §11.3): a content line starting with `#` at column 0 is
 //! emitted as `\#` (and a leading `\#`… run gains one more backslash), except
@@ -63,6 +67,7 @@ use crate::spec_meta::{
 };
 use crate::spec_meta_bridge::build_som_meta_tree;
 use crate::spec_model::{SpecModel, SpecRoot};
+use crate::spec_paths::split_list_item_segment;
 use crate::spec_section_id::effective_list_item_section_id;
 
 // Why an imported Markdown block was rejected (SOM §11.7 rejection protocol).
@@ -286,12 +291,6 @@ impl MdBuffer {
     fn writeln(&mut self, text: &str) {
         self.out.push_str(text);
         self.out.push('\n');
-    }
-
-    /// Appends `text` verbatim — no trailing newline. Used to splice an
-    /// already-terminated buffer (a form's field block) into its owner.
-    fn write(&mut self, text: &str) {
-        self.out.push_str(text);
     }
 }
 
@@ -938,6 +937,16 @@ pub struct SpecDocumentMarkdown<'a> {
     // The paths of the headings written by the current export, in emission
     // order (`export_root_with_map`).
     heading_paths: RefCell<Vec<String>>,
+    // The type of the root the current export renders (the target of
+    // same-document links) and its metadata tree; `None` outside an export.
+    current_root_type: RefCell<Option<String>>,
+    current_tree: RefCell<Option<Rc<SomMetaTree>>>,
+    // The anchors of the current export's headings, by path (SOM §11.2).
+    anchors: RefCell<HashMap<String, String>>,
+    // The document's keys of one kind, sorted, once per export.
+    sorted_keys: RefCell<HashMap<&'static str, Rc<Vec<String>>>>,
+    // The class names each root reaches, for reference links.
+    reach: RefCell<HashMap<String, Rc<HashSet<String>>>>,
 }
 
 impl<'a> SpecDocumentMarkdown<'a> {
@@ -948,6 +957,11 @@ impl<'a> SpecDocumentMarkdown<'a> {
             document,
             trees: RefCell::new(HashMap::new()),
             heading_paths: RefCell::new(Vec::new()),
+            current_root_type: RefCell::new(None),
+            current_tree: RefCell::new(None),
+            anchors: RefCell::new(HashMap::new()),
+            sorted_keys: RefCell::new(HashMap::new()),
+            reach: RefCell::new(HashMap::new()),
         }
     }
 
@@ -994,7 +1008,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
     //
     //   - a transparent value member (content/scalar/enum/form without an id)
     //     is emitted headinglessly into its owner's *body region* (text, or a
-    //     `FieldName: value` form block);
+    //     form block of tables and `Field:` paragraphs);
     //   - a transparent section/complex member gets no heading; its id-bearing
     //     descendants surface as the owner's direct child headings (the
     //     schema's "nearest section-bearing descendant" hoisting), with
@@ -1141,6 +1155,17 @@ impl<'a> SpecDocumentMarkdown<'a> {
     fn export_root_text(&self, root: &SpecRoot) -> Result<String, String> {
         let tree = self.tree_for(&root.type_)?;
         let node = tree.root.clone();
+        *self.current_root_type.borrow_mut() = Some(root.type_.clone());
+        *self.current_tree.borrow_mut() = Some(tree.clone());
+        self.anchors.borrow_mut().clear();
+        self.sorted_keys.borrow_mut().clear();
+        let result = self.export_root_body(root, &node);
+        *self.current_root_type.borrow_mut() = None;
+        *self.current_tree.borrow_mut() = None;
+        result
+    }
+
+    fn export_root_body(&self, root: &SpecRoot, node: &Rc<SomMetaNode>) -> Result<String, String> {
         let mut b = MdBuffer::new();
         b.writeln(&format!(
             "<!-- docspec: {}/{} -->",
@@ -1166,8 +1191,8 @@ impl<'a> SpecDocumentMarkdown<'a> {
             &self.document.code_spec_or(&root_seg),
             &self.document.units_or(&root_seg),
         );
-        self.write_section_body(&mut b, &node, &root_seg)?;
-        self.write_children(&mut b, &node, &root_seg, 2)?;
+        self.write_section_body(&mut b, node, &root_seg)?;
+        self.write_children(&mut b, node, &root_seg, 2)?;
         Ok(b.out)
     }
 
@@ -1340,7 +1365,9 @@ impl<'a> SpecDocumentMarkdown<'a> {
                         &self.document.units_or(&path),
                     );
                     self.write_section_body(b, child, &path)?;
-                    self.write_children(b, child, &path, depth + 1)?;
+                    if !self.write_section_table(b, child, &path)? {
+                        self.write_children(b, child, &path, depth + 1)?;
+                    }
                 }
                 SOM_META_KIND_LIST => {
                     self.write_list_items(b, child, &path, depth)?;
@@ -1365,7 +1392,8 @@ impl<'a> SpecDocumentMarkdown<'a> {
         units: &str,
     ) {
         self.heading_paths.borrow_mut().push(path.to_string());
-        md_write_heading(b, depth, id, title, code_spec, units);
+        let anchor = self.anchor_for(path, id);
+        md_write_heading(b, depth, id, &anchor, title, code_spec, units);
     }
 
     /// Resolves the heading title for a node at `path`: the document's STORED
@@ -1414,17 +1442,13 @@ impl<'a> SpecDocumentMarkdown<'a> {
         // heading) so a populated scalar list gets meaningful headings (YRC5).
         let element = node.element_node.as_ref();
         let stem = md_item_stem_of(node);
-        let mut pattern = node.section_id_pattern.clone();
-        if pattern.is_empty() {
-            if let Some(e) = element {
-                pattern = e.section_id_pattern.clone();
-            }
+        let pattern = md_item_pattern(node);
+        let member_stem = md_member_stem(node);
+        if self.write_reference_line(b, node, &items, &pattern)?
+            || self.write_record_table(b, node, &items, &pattern)?
+        {
+            return Ok(());
         }
-        let member_stem = if node.member_name.is_empty() {
-            node.segment().to_string()
-        } else {
-            node.member_name.clone()
-        };
         for (i, item_path) in items.iter().enumerate() {
             let pos = i + 1;
             // YRD3: the item's heading id is its STORED
@@ -1460,13 +1484,608 @@ impl<'a> SpecDocumentMarkdown<'a> {
                 }
                 Some(e) => {
                     self.write_section_body(b, e, item_path)?;
-                    if !e.recursive {
+                    if !e.recursive && !self.write_section_table(b, e, item_path)? {
                         self.write_children(b, e, item_path, depth + 2)?;
                     }
                 }
             }
         }
         Ok(())
+    }
+
+    // --- Reading view: anchors, reference lines, record and section tables ----
+
+    /// The anchor of the heading or table row standing for `path` (SOM §11.2):
+    /// qualified below a list item and in a `@SameAs` copy, else `id` itself.
+    fn anchor_for(&self, path: &str, id: &str) -> String {
+        if self.current_tree.borrow().is_none() {
+            return id.to_string();
+        }
+        self.anchor_of(path)
+    }
+
+    /// The anchor of the heading `path` names in the current export: the walk
+    /// down the meta tree, qualifying below list items and in `@SameAs`
+    /// copies.
+    fn anchor_of(&self, path: &str) -> String {
+        if let Some(hit) = self.anchors.borrow().get(path) {
+            return hit.clone();
+        }
+        let tree = match self.current_tree.borrow().as_ref() {
+            Some(t) => t.clone(),
+            None => return path.to_string(),
+        };
+        let segs: Vec<&str> = path.split('/').collect();
+        let mut node: Rc<SomMetaNode> = tree.root.clone();
+        let mut cur = segs[0].to_string();
+        let mut anchor = node.segment().to_string();
+        let mut scope: Option<Vec<String>> = None;
+        let mut section: Option<String> = Some(node.segment().to_string());
+        for i in 1..segs.len() {
+            let seg = segs[i];
+            if let Some(child) = node.child_by_segment(seg).cloned() {
+                cur = format!("{}/{}", cur, seg);
+                node = child.clone();
+                if self.is_transparent_section(&child) || md_is_transparent_value(&child) {
+                    continue;
+                }
+                let id = self.heading_id_of(&child);
+                let container = child.kind == SOM_META_KIND_LIST;
+                let kind = if container {
+                    MdAnchorKind::Container
+                } else if self.is_copy_node(&child) {
+                    MdAnchorKind::Copy
+                } else {
+                    MdAnchorKind::Plain
+                };
+                let (a, sc) = md_qualify_anchor(&scope, &section, &id, kind);
+                anchor = a;
+                scope = sc;
+                if !container {
+                    section = Some(id);
+                }
+                continue;
+            }
+            let list_node = split_list_item_segment(seg)
+                .and_then(|split| node.child_by_segment(&split.base).cloned());
+            let Some(list_node) = list_node.filter(|l| l.kind == SOM_META_KIND_LIST) else {
+                break;
+            };
+            let item_path = format!("{}/{}", cur, seg);
+            let id = self.nav_item_id(&list_node, &item_path);
+            let (a, sc) = md_qualify_anchor(&scope, &section, &id, MdAnchorKind::Item);
+            anchor = a;
+            scope = sc;
+            section = Some(id);
+            cur = item_path;
+            match list_node.element_node.clone() {
+                Some(element) => node = element,
+                None => {
+                    node = list_node;
+                    if i + 1 < segs.len() {
+                        break;
+                    }
+                }
+            }
+        }
+        self.anchors
+            .borrow_mut()
+            .insert(path.to_string(), anchor.clone());
+        anchor
+    }
+
+    /// The heading id of the item at `item_path` of `list_node`, as the
+    /// emitter writes it.
+    fn nav_item_id(&self, list_node: &SomMetaNode, item_path: &str) -> String {
+        let slash = item_path.rfind('/').map(|i| i + 1).unwrap_or(0);
+        let (base, seq) = match split_list_item_segment(&item_path[slash..]) {
+            Some(split) => (split.base, split.seq),
+            None => (item_path[slash..].to_string(), 0),
+        };
+        let list_path = format!("{}{}", &item_path[..slash], base);
+        let pos = self
+            .document
+            .list_items(&list_path)
+            .iter()
+            .position(|p| p == item_path)
+            .map(|i| i + 1)
+            .unwrap_or(0);
+        effective_list_item_section_id(
+            self.document.item_section_id(item_path).map(|s| s.as_str()),
+            &md_item_pattern(list_node),
+            if pos == 0 { seq.max(0) as usize } else { pos },
+            &md_member_stem(list_node),
+        )
+    }
+
+    /// Whether `n` is a `@SameAs` copy (SOM §11.2): its anchor and its
+    /// descendants' are qualified with the section above it.
+    fn is_copy_node(&self, n: &SomMetaNode) -> bool {
+        if n.member_name.is_empty() {
+            return false;
+        }
+        let Some(parent) = n.parent().ok().flatten() else {
+            return false;
+        };
+        self.model
+            .class_named(&parent.class_name)
+            .and_then(|c| c.field_named(&n.member_name))
+            .is_some_and(|f| f.has_annotation("SameAs"))
+    }
+
+    /// The item class's own form (its class-level `@Form`, a transparent body
+    /// slot), or `None` when the class carries none or more than one.
+    fn item_form(&self, element: &SomMetaNode) -> Option<MdNodeRel> {
+        let mut forms = self
+            .body_slots(element)
+            .into_iter()
+            .filter(|s| s.node.kind == SOM_META_KIND_FORM);
+        let form = forms.next()?;
+        if forms.next().is_some() {
+            return None;
+        }
+        Some(form)
+    }
+
+    /// The document's keys of one kind, sorted, cached for the current export.
+    fn sorted(&self, kind: &'static str) -> Rc<Vec<String>> {
+        if let Some(found) = self.sorted_keys.borrow().get(kind) {
+            return found.clone();
+        }
+        let d = self.document;
+        let mut keys = match kind {
+            "content" => d.content_paths(),
+            "lists" => d.list_paths(),
+            "units" => d.units_paths(),
+            "forms" => d.form_paths(),
+            _ => d.headline_paths(),
+        };
+        keys.sort();
+        let keys = Rc::new(keys);
+        self.sorted_keys.borrow_mut().insert(kind, keys.clone());
+        keys
+    }
+
+    /// Whether any key of `kind` lies at or below `prefix`.
+    fn any_under(&self, kind: &'static str, prefix: &str) -> bool {
+        !md_keys_under(&self.sorted(kind), prefix).is_empty()
+    }
+
+    /// Whether `path` carries a `codeSpec` or `units` key.
+    fn has_keys(&self, path: &str) -> bool {
+        self.document.code_spec(path).is_some_and(|v| !v.is_empty())
+            || self.document.units(path).is_some_and(|v| !v.is_empty())
+    }
+
+    /// Whether the item at `item_path` holds values only in its form at
+    /// `form_path`, all of them table cells: no preamble, no other content,
+    /// form or list, no `codeSpec` / `units`, no headline other than the
+    /// item's own when `allow_headline`.
+    fn is_form_only_item(
+        &self,
+        form: &SomMetaNode,
+        item_path: &str,
+        form_path: &str,
+        allow_headline: bool,
+    ) -> bool {
+        if self.any_under("content", item_path)
+            || self.any_under("lists", item_path)
+            || self.any_under("units", item_path)
+        {
+            return false;
+        }
+        let forms = self.sorted("forms");
+        if md_keys_under(&forms, item_path).iter().any(|k| k.as_str() != form_path) {
+            return false;
+        }
+        let headlines = self.sorted("headlines");
+        if md_keys_under(&headlines, item_path)
+            .iter()
+            .any(|h| !allow_headline || h.as_str() != item_path)
+        {
+            return false;
+        }
+        if self.has_keys(item_path) || self.has_keys(form_path) {
+            return false;
+        }
+        if !self.undeclared_form_fields(form, form_path).is_empty() {
+            return false;
+        }
+        let mut any_value = false;
+        for f in md_fields_of(form) {
+            let Some(value) = self.document.form_field(form_path, &f.name) else {
+                continue;
+            };
+            if !md_is_cell_value(f, value) {
+                return false;
+            }
+            any_value = true;
+        }
+        any_value
+    }
+
+    /// A list whose every item holds only one reference id becomes one `refs`
+    /// div of links in list order. All or nothing; returns whether it was
+    /// written.
+    fn write_reference_line(
+        &self,
+        b: &mut MdBuffer,
+        node: &SomMetaNode,
+        items: &[String],
+        pattern: &str,
+    ) -> Result<bool, String> {
+        let Some(element) = node.element_node.as_ref().filter(|e| !e.recursive) else {
+            return Ok(false);
+        };
+        let reference = self.effective_children(element).into_iter().find(|c| {
+            c.node.kind == SOM_META_KIND_FORM
+                && c.node
+                    .form
+                    .as_ref()
+                    .is_some_and(|f| f.fields.len() == 1 && !f.fields[0].refers_to.is_empty())
+                && c.node.extra.iter().any(|e| e.annotation == "Reference")
+        });
+        let Some(reference) = reference else {
+            return Ok(false);
+        };
+        let field = &reference.node.form.as_ref().unwrap().fields[0];
+        let member = md_member_stem(node);
+        let mut links: Vec<String> = Vec::new();
+        for (i, item_path) in items.iter().enumerate() {
+            let ref_path = format!("{}/{}", item_path, reference.rel);
+            let positional = effective_list_item_section_id(None, pattern, i + 1, &member);
+            if self
+                .document
+                .item_section_id(item_path)
+                .is_some_and(|stored| *stored != positional)
+            {
+                return Ok(false);
+            }
+            if self.any_under("content", item_path)
+                || self.any_under("lists", item_path)
+                || self.any_under("units", item_path)
+                || self.any_under("headlines", item_path)
+                || self.has_keys(item_path)
+                || self.has_keys(&ref_path)
+            {
+                return Ok(false);
+            }
+            let forms = self.sorted("forms");
+            if md_keys_under(&forms, item_path).iter().any(|k| **k != ref_path) {
+                return Ok(false);
+            }
+            if self.document.form_field_names(&ref_path) != [field.name.clone()] {
+                return Ok(false);
+            }
+            let raw = self
+                .document
+                .form_field(&ref_path, &field.name)
+                .map(|s| s.as_str())
+                .unwrap_or("");
+            let id = md_trim_js_ws(raw);
+            if !md_is_id_shape(id) {
+                return Ok(false);
+            }
+            links.push(self.link_for(field, id).unwrap_or_else(|| id.to_string()));
+        }
+        b.writeln("::: {.refs}");
+        b.writeln(&links.join(", "));
+        b.writeln(":::");
+        b.writeln("");
+        Ok(true)
+    }
+
+    /// A list whose every item is one form of table cells becomes a `records`
+    /// div with one table: `Id` (with its anchor), `Title` when any item has a
+    /// stored headline, one column per declared field any item populates. All
+    /// or nothing; returns whether it was written.
+    fn write_record_table(
+        &self,
+        b: &mut MdBuffer,
+        node: &SomMetaNode,
+        items: &[String],
+        pattern: &str,
+    ) -> Result<bool, String> {
+        let Some(element) = node.element_node.as_ref().filter(|e| !e.recursive) else {
+            return Ok(false);
+        };
+        let Some(slot) = self.item_form(element) else {
+            return Ok(false);
+        };
+        let form = &slot.node;
+        let form_path = |item_path: &str| format!("{}/{}", item_path, slot.rel);
+        for item_path in items {
+            if !self.is_form_only_item(form, item_path, &form_path(item_path), true) {
+                return Ok(false);
+            }
+        }
+        let doc = self.document;
+        let columns: Vec<&SomFormFieldMeta> = md_fields_of(form)
+            .iter()
+            .filter(|f| {
+                items
+                    .iter()
+                    .any(|i| doc.form_field(&form_path(i), &f.name).is_some())
+            })
+            .collect();
+        let with_title = items.iter().any(|i| doc.headline(i).is_some());
+        let mut header = vec!["Id".to_string()];
+        if with_title {
+            header.push("Title".to_string());
+        }
+        header.extend(columns.iter().map(|f| spec_markdown_form_label(&f.name)));
+        b.writeln("::: {.records}");
+        b.writeln(&format!("| {} |", header.join(" | ")));
+        b.writeln(&format!("| {} |", vec!["---"; header.len()].join(" | ")));
+        let member = md_member_stem(node);
+        for (i, item_path) in items.iter().enumerate() {
+            let id = effective_list_item_section_id(
+                doc.item_section_id(item_path).map(|s| s.as_str()),
+                pattern,
+                i + 1,
+                &member,
+            );
+            let mut cells = vec![format!("<a id=\"{}\"></a>{}", self.anchor_for(item_path, &id), id)];
+            if with_title {
+                let title = doc.headline_or(item_path);
+                cells.push(title.replace('\n', "<br>").replace('|', "\\|"));
+            }
+            for f in &columns {
+                cells.push(match doc.form_field(&form_path(item_path), &f.name) {
+                    Some(v) => self.linked_cell_text(f, v),
+                    None => String::new(),
+                });
+            }
+            b.writeln(&format!("| {} |", cells.join(" | ")));
+        }
+        b.writeln(":::");
+        b.writeln("");
+        Ok(true)
+    }
+
+    /// The section-table rows of the populated fields of `form` at
+    /// `form_path`, the first carrying `section_cell`.
+    fn add_section_rows(
+        &self,
+        rows: &mut Vec<String>,
+        section_cell: &str,
+        form: &SomMetaNode,
+        form_path: &str,
+    ) {
+        let mut first = true;
+        for f in md_fields_of(form) {
+            let Some(value) = self.document.form_field(form_path, &f.name) else {
+                continue;
+            };
+            rows.push(format!(
+                "| {} | {} | {} |",
+                if first { section_cell } else { "" },
+                spec_markdown_form_label(&f.name),
+                self.linked_cell_text(f, value)
+            ));
+            first = false;
+        }
+    }
+
+    /// A section whose populated children are all single forms of table cells
+    /// with default headlines (or lists of such single-form items) becomes one
+    /// `| Section | TomSpecField | Value |` table after its own body; the
+    /// children's headings are not written. All or nothing; returns whether it
+    /// was written.
+    fn write_section_table(
+        &self,
+        b: &mut MdBuffer,
+        node: &SomMetaNode,
+        path: &str,
+    ) -> Result<bool, String> {
+        let doc = self.document;
+        let mut rows: Vec<String> = Vec::new();
+        let mut children = 0;
+        for entry in self.effective_children(node) {
+            let child = &entry.node;
+            let child_path = format!("{}/{}", path, entry.rel);
+            if !doc.has_values_under(&child_path) {
+                continue;
+            }
+            children += 1;
+            let child_id = self.heading_id_of(child);
+            if child.kind == SOM_META_KIND_FORM {
+                if !self.is_form_only_item(child, &child_path, &child_path, false) {
+                    return Ok(false);
+                }
+                let cell = format!(
+                    "<a id=\"{}\"></a>{}",
+                    self.anchor_for(&child_path, &child_id),
+                    child_id
+                );
+                self.add_section_rows(&mut rows, &cell, child, &child_path);
+            } else if child.kind == SOM_META_KIND_LIST {
+                let Some(element) = child.element_node.as_ref().filter(|e| !e.recursive) else {
+                    return Ok(false);
+                };
+                if doc.headline(&child_path).is_some() || self.has_keys(&child_path) {
+                    return Ok(false);
+                }
+                let Some(slot) = self.item_form(element) else {
+                    return Ok(false);
+                };
+                let pattern = md_item_pattern(child);
+                let member = md_member_stem(child);
+                for (i, item_path) in doc.list_items(&child_path).iter().enumerate() {
+                    let form_path = format!("{}/{}", item_path, slot.rel);
+                    if !self.is_form_only_item(&slot.node, item_path, &form_path, false) {
+                        return Ok(false);
+                    }
+                    let item_id = effective_list_item_section_id(
+                        doc.item_section_id(item_path).map(|s| s.as_str()),
+                        &pattern,
+                        i + 1,
+                        &member,
+                    );
+                    let cell = format!(
+                        "<a id=\"{}\"></a>{} / {}",
+                        self.anchor_for(item_path, &item_id),
+                        child_id,
+                        item_id
+                    );
+                    self.add_section_rows(&mut rows, &cell, &slot.node, &form_path);
+                }
+            } else {
+                return Ok(false);
+            }
+        }
+        if children == 0 || rows.is_empty() {
+            return Ok(false);
+        }
+        b.writeln("| Section | TomSpecField | Value |");
+        b.writeln("| --- | --- | --- |");
+        for row in &rows {
+            b.writeln(row);
+        }
+        b.writeln("");
+        Ok(true)
+    }
+
+    /// `value` as a table cell, every reference id of a `refersTo` field
+    /// written as a link to its section.
+    fn linked_cell_text(&self, f: &SomFormFieldMeta, value: &str) -> String {
+        if f.refers_to.is_empty() || f.code {
+            return md_cell_text(f, value);
+        }
+        let joined = SpecDocumentMarkdown::wrapped_paragraph_joined(value);
+        let value = joined.as_deref().unwrap_or(value);
+        let mut links: Vec<String> = Vec::new();
+        for part in value.split(',') {
+            let id = md_trim_js_ws(part);
+            if !md_is_id_shape(id) {
+                return md_cell_text(f, value);
+            }
+            match self.link_for(f, id) {
+                Some(link) => links.push(link),
+                None => return md_cell_text(f, value),
+            }
+        }
+        links.join(", ")
+    }
+
+    /// `[ID](<file>#ID)` for a reference id of form field `f`, `[ID](#ID)`
+    /// when the target lives in the document being rendered; `None` when no
+    /// target of `f` names a section id (`<SECTIONID>.@sectionId`), which has
+    /// no anchor.
+    fn link_for(&self, f: &SomFormFieldMeta, id: &str) -> Option<String> {
+        let class_ids: Vec<&str> = f
+            .refers_to
+            .iter()
+            .filter_map(|t| t.strip_suffix(".@sectionId"))
+            .collect();
+        if class_ids.is_empty() {
+            return None;
+        }
+        let current = self.current_root_type.borrow().clone();
+        if let Some(current) = &current {
+            let reached = self.reached_by(current);
+            for class_id in &class_ids {
+                if let Some(name) = self.class_by_section_id(class_id) {
+                    if reached.contains(&name) {
+                        return Some(format!("[{}](#{})", id, id));
+                    }
+                }
+            }
+        }
+        match self.file_for(self.class_by_section_id(class_ids[0]), current.as_deref()) {
+            Some(file) => Some(format!("[{}]({}#{})", id, file, id)),
+            None => Some(format!("[{}](#{})", id, id)),
+        }
+    }
+
+    /// The name of the class carrying `section_id` (the first by name when
+    /// several do), or `None`.
+    fn class_by_section_id(&self, section_id: &str) -> Option<String> {
+        self.model
+            .classes
+            .values()
+            .filter(|c| c.section_id == section_id)
+            .map(|c| c.name.clone())
+            .min()
+    }
+
+    /// The class names the meta tree of the root of type `root_type` reaches.
+    fn reached_by(&self, root_type: &str) -> Rc<HashSet<String>> {
+        if let Some(found) = self.reach.borrow().get(root_type) {
+            return found.clone();
+        }
+        let mut names = HashSet::new();
+        if let Ok(tree) = self.tree_for(root_type) {
+            let mut stack: Vec<Rc<SomMetaNode>> = vec![tree.root.clone()];
+            while let Some(n) = stack.pop() {
+                names.insert(n.class_name.clone());
+                if n.recursive {
+                    continue;
+                }
+                stack.extend(n.children.iter().cloned());
+                if let Some(e) = &n.element_node {
+                    stack.push(e.clone());
+                }
+            }
+        }
+        let names = Rc::new(names);
+        self.reach
+            .borrow_mut()
+            .insert(root_type.to_string(), names.clone());
+        names
+    }
+
+    /// The rendition file of the root a reference to `class_name` points
+    /// into: the root other than the current one that reaches the class, the
+    /// most specific (fewest classes) first, so a detailed document wins over
+    /// a projection such as the Solution Blueprint. The CodeSpecs projection
+    /// is no document anyone renders, so it is never a target.
+    fn file_for(&self, class_name: Option<String>, current: Option<&str>) -> Option<String> {
+        let class_name = class_name?;
+        let mut best: Option<(&SpecRoot, usize)> = None;
+        for r in &self.model.roots {
+            if Some(r.type_.as_str()) == current || self.model.is_generation_input(r) {
+                continue;
+            }
+            let reached = self.reached_by(&r.type_);
+            if !reached.contains(&class_name) {
+                continue;
+            }
+            let better = match best {
+                Some((_, n)) => reached.len() < n,
+                None => true,
+            };
+            if better {
+                best = Some((r, reached.len()));
+            }
+        }
+        best.map(|(r, _)| md_file_of_root(r))
+    }
+
+    /// `value` on one line when it is one paragraph wrapped over several lines
+    /// — no blank line, and no line that Markdown reads as a block or a
+    /// block's start (a list item, a quote, a fence, a fenced div, a table
+    /// row, a heading, a setext underline or a thematic break), that ends in a
+    /// hard break (a trailing backslash or spaces) or that starts with a
+    /// space: its soft line breaks, which Markdown reads as spaces, become
+    /// spaces (SOM §11.4 rule 13). `None` for any other value, a one-line
+    /// value among them.
+    pub fn wrapped_paragraph_joined(value: &str) -> Option<String> {
+        if !value.contains('\n') {
+            return None;
+        }
+        let lines: Vec<&str> = value.split('\n').collect();
+        for line in &lines {
+            if line.is_empty()
+                || *line != md_trim_js_ws(line)
+                || line.ends_with('\\')
+                || md_block_start(line)
+                || md_wrapped_line_block(line)
+            {
+                return None;
+            }
+        }
+        Some(lines.join(" "))
     }
 
     /// The stored field names at form `path` that `node` does not declare,
@@ -1535,31 +2154,39 @@ impl<'a> SpecDocumentMarkdown<'a> {
         !self.undeclared_form_fields(node, path).is_empty()
     }
 
-    /// Writes a `@Form` section body: the preamble content (when set) followed
-    /// by one `FieldName: value` group per populated field (SOM §11.4),
-    /// consecutive groups separated by one blank line. Returns an error when
-    /// the form holds a field the model does not declare.
+    /// Writes a `@Form` section body (SOM §11.4): the preamble, then the
+    /// declared fields in model order — each run of consecutive cell values
+    /// one `| TomSpecField | Value |` table, each paragraph value a `Field:`
+    /// group at its place (table – text – table). Groups are one blank line
+    /// apart. A value line that would read as a table header is escaped by
+    /// [`Self::prepare_value`]. Returns an error when the form holds a field
+    /// the model does not declare.
     fn write_form(&self, b: &mut MdBuffer, node: &SomMetaNode, path: &str) -> Result<(), String> {
         self.check_form_declared(node, path)?;
-        let empty: Vec<SomFormFieldMeta> = Vec::new();
-        let fields = match &node.form {
-            Some(form) => &form.fields,
-            None => &empty,
-        };
-        let mut field_buf = MdBuffer::new();
-        for f in fields {
+        let mut groups: Vec<Vec<String>> = Vec::new();
+        let mut table: Option<usize> = None;
+        for f in md_fields_of(node) {
             let value = match self.document.form_field(path, &f.name) {
                 Some(v) => v.clone(),
                 None => continue,
             };
-            // SOM §11.4 rule 2: one blank line between consecutive field
-            // groups, so a markdown viewer renders each field as its own
-            // paragraph (and a list ending a value cannot swallow the next
-            // label as a lazy continuation). Parse trims each value's trailing
-            // blank lines, so it is lossless.
-            if !field_buf.out.is_empty() {
-                field_buf.writeln("");
+            let label = spec_markdown_form_label(&f.name);
+            if md_is_cell_value(f, &value) {
+                let at = match table {
+                    Some(at) => at,
+                    None => {
+                        groups.push(vec![
+                            "| TomSpecField | Value |".to_string(),
+                            "| --- | --- |".to_string(),
+                        ]);
+                        groups.len() - 1
+                    }
+                };
+                table = Some(at);
+                groups[at].push(format!("| {} | {} |", label, self.linked_cell_text(f, &value)));
+                continue;
             }
+            table = None;
             // SOM §11.4 rule 8: a single-line code value is written as an
             // inline code span, so markdown leaves it literal (`](` is not a
             // link).
@@ -1570,17 +2197,17 @@ impl<'a> SpecDocumentMarkdown<'a> {
             };
             let mut lines = prepared.split('\n');
             let first = lines.next().unwrap_or("");
-            field_buf.writeln(&format!("{}: {}", spec_markdown_form_label(&f.name), first));
+            let mut group = vec![format!("{}: {}", label, first)];
             for line in lines {
-                // SOM §11.4 generalised: any continuation line that could be
-                // mistaken for a field-label line gains one leading space;
-                // parse strips it.
+                // Any continuation line that could be mistaken for a
+                // field-label line gains one leading space; parse strips it.
                 if md_label_shaped(line) {
-                    field_buf.writeln(&format!(" {}", line));
+                    group.push(format!(" {}", line));
                 } else {
-                    field_buf.writeln(line);
+                    group.push(line.to_string());
                 }
             }
+            groups.push(group);
         }
 
         if let Some(preamble) = self.document.content(path) {
@@ -1597,12 +2224,19 @@ impl<'a> SpecDocumentMarkdown<'a> {
                         b.writeln(line);
                     }
                 }
-                if !field_buf.out.is_empty() {
+                if !groups.is_empty() {
                     b.writeln("");
                 }
             }
         }
-        b.write(&field_buf.out);
+        for (i, group) in groups.iter().enumerate() {
+            if i > 0 {
+                b.writeln("");
+            }
+            for line in group {
+                b.writeln(line);
+            }
+        }
         b.writeln("");
         Ok(())
     }
@@ -1669,7 +2303,7 @@ it cannot be represented in the DocSpecs markdown format",
     }
 }
 
-/// `## <!--[ID]--> Title` at `depth`. SOM §11.2 is normative — heading level =
+/// `## <!--[ID]--> <a id="ANCHOR"></a> Title` at `depth`. SOM §11.2 is normative — heading level =
 /// 1 + section depth, **uncapped**: deep models (the Solution Blueprint nests
 /// past markdown's native 6 levels) keep their structure; the parse grammar
 /// accepts `#{7,}` accordingly. Capping would silently flatten distinct
@@ -1678,6 +2312,7 @@ fn md_write_heading(
     b: &mut MdBuffer,
     depth: usize,
     id: &str,
+    anchor: &str,
     title: &str,
     code_spec: &str,
     units: &str,
@@ -1694,11 +2329,15 @@ fn md_write_heading(
     if !units.is_empty() {
         code.push_str(&format!(" units=\"{}\"", units));
     }
+    // Reading view (DI-3): the section id as an HTML anchor after the id
+    // comment and its keys, so `#<ID>` links jump in every viewer; below a
+    // list item or in a `@SameAs` copy the anchor is qualified (SOM §11.2).
     b.writeln(&format!(
-        "{} <!--[{}]{}--> {}",
+        "{} <!--[{}]{}--> <a id=\"{}\"></a> {}",
         "#".repeat(depth),
         id,
         code,
+        anchor,
         title.replace('\n', "<br>")
     ));
     b.writeln("");
@@ -2816,16 +3455,7 @@ position (under \"{}\")",
     /// The item class's own form (its class-level `@Form`, a transparent body
     /// slot), or `None` when the class carries none or more than one.
     fn item_form(&self, element: &SomMetaNode) -> Option<MdNodeRel> {
-        let mut forms = self
-            .codec
-            .body_slots(element)
-            .into_iter()
-            .filter(|s| s.node.kind == SOM_META_KIND_FORM);
-        let form = forms.next()?;
-        if forms.next().is_some() {
-            return None;
-        }
-        Some(form)
+        self.codec.item_form(element)
     }
 
     /// The form a section-table `Section` cell names under `node`: its path
@@ -3138,17 +3768,7 @@ position (under \"{}\")",
     /// Whether `n` is a `@SameAs` copy (SOM §11.2): its anchor and its
     /// descendants' are qualified with the section above it.
     fn is_copy_node(&self, n: &SomMetaNode) -> bool {
-        if n.member_name.is_empty() {
-            return false;
-        }
-        let Some(parent) = n.parent().ok().flatten() else {
-            return false;
-        };
-        self.codec
-            .model
-            .class_named(&parent.class_name)
-            .and_then(|c| c.field_named(&n.member_name))
-            .is_some_and(|f| f.has_annotation("SameAs"))
+        self.codec.is_copy_node(n)
     }
 }
 
@@ -3221,6 +3841,185 @@ fn md_item_identity(list_node: &SomMetaNode, id: &str) -> (i64, String, bool) {
         }
     }
     (0, id.to_string(), false)
+}
+
+// --- Reading view: cells, ids, links (SOM §11.4, §11.5) ----------------------
+
+/// The whitespace JavaScript's `\s` and `trim()` know, which the reference
+/// codecs decide by.
+fn md_is_js_space(c: char) -> bool {
+    matches!(
+        c,
+        '\t' | '\n'
+            | '\u{0B}'
+            | '\u{0C}'
+            | '\r'
+            | ' '
+            | '\u{A0}'
+            | '\u{1680}'
+            | '\u{2000}'..='\u{200A}'
+            | '\u{2028}'
+            | '\u{2029}'
+            | '\u{202F}'
+            | '\u{205F}'
+            | '\u{3000}'
+            | '\u{FEFF}'
+    )
+}
+
+/// `s` without the leading and trailing whitespace the reference codecs trim.
+fn md_trim_js_ws(s: &str) -> &str {
+    s.trim_matches(md_is_js_space)
+}
+
+/// The declared fields of form `node` (none for a node without a form).
+fn md_fields_of(node: &SomMetaNode) -> &[SomFormFieldMeta] {
+    match &node.form {
+        Some(form) => &form.fields,
+        None => &[],
+    }
+}
+
+/// The stem of the positional ids of a pattern-less list: its member name,
+/// else its segment.
+fn md_member_stem(node: &SomMetaNode) -> String {
+    if node.member_name.is_empty() {
+        node.segment().to_string()
+    } else {
+        node.member_name.clone()
+    }
+}
+
+/// The keys of `sorted` at or below `prefix` (equal, or continuing after a
+/// `/`): a binary search to the first key not before it, then the run sharing
+/// it as a prefix, so a large document is not scanned once per list item.
+fn md_keys_under<'k>(sorted: &'k [String], prefix: &str) -> Vec<&'k String> {
+    let start = sorted.partition_point(|k| k.as_str() < prefix);
+    sorted[start..]
+        .iter()
+        .take_while(|k| k.starts_with(prefix))
+        .filter(|k| k.len() == prefix.len() || k.as_bytes()[prefix.len()] == b'/')
+        .collect()
+}
+
+/// `^[A-Z][A-Z0-9]*(-[A-Z0-9]+)*$`: a section id as a reference holds it.
+fn md_is_id_shape(s: &str) -> bool {
+    let b = s.as_bytes();
+    let up_digit = |c: u8| c.is_ascii_uppercase() || c.is_ascii_digit();
+    if b.is_empty() || !b[0].is_ascii_uppercase() {
+        return false;
+    }
+    let mut i = 1;
+    while i < b.len() && up_digit(b[i]) {
+        i += 1;
+    }
+    while i < b.len() {
+        if b[i] != b'-' || i + 1 >= b.len() || !up_digit(b[i + 1]) {
+            return false;
+        }
+        i += 1;
+        while i < b.len() && up_digit(b[i]) {
+            i += 1;
+        }
+    }
+    true
+}
+
+/// `^\s*([-*+]\s|[0-9]+[.)]\s|>|```|~~~|:::)`: a one-line value Markdown reads
+/// as a block — a list item, a block quote (review comment and question blocks
+/// among them), a fence or a fenced div. A table needs two lines, so it is
+/// caught by the line break.
+fn md_block_start(v: &str) -> bool {
+    let rest = v.trim_start_matches(md_is_js_space);
+    let mut chars = rest.chars();
+    let Some(first) = chars.next() else {
+        return false;
+    };
+    if matches!(first, '-' | '*' | '+') && chars.next().is_some_and(md_is_js_space) {
+        return true;
+    }
+    if first.is_ascii_digit() {
+        let after = rest.trim_start_matches(|c: char| c.is_ascii_digit());
+        let mut a = after.chars();
+        if matches!(a.next(), Some('.') | Some(')')) && a.next().is_some_and(md_is_js_space) {
+            return true;
+        }
+    }
+    first == '>' || rest.starts_with("```") || rest.starts_with("~~~") || rest.starts_with(":::")
+}
+
+/// `^(?:\||#{1,6}(?:\s|$)|=+$|(?:[-*_]\s*){3,}$|<)`: a line that is a block of
+/// its own or would make the line above one, beyond [`md_block_start`] — a
+/// table row, an ATX heading, a setext underline or a thematic break, an HTML
+/// block.
+fn md_wrapped_line_block(l: &str) -> bool {
+    if l.starts_with('|') || l.starts_with('<') {
+        return true;
+    }
+    let hashes = l.len() - l.trim_start_matches('#').len();
+    if (1..=6).contains(&hashes) {
+        match l[hashes..].chars().next() {
+            None => return true,
+            Some(c) if md_is_js_space(c) => return true,
+            _ => {}
+        }
+    }
+    if !l.is_empty() && l.bytes().all(|c| c == b'=') {
+        return true;
+    }
+    if !l.starts_with(['-', '*', '_']) {
+        return false;
+    }
+    let mut marks = 0;
+    for c in l.chars() {
+        if matches!(c, '-' | '*' | '_') {
+            marks += 1;
+        } else if !md_is_js_space(c) {
+            return false;
+        }
+    }
+    marks >= 3
+}
+
+/// Whether `value` of form field `f` is written as a table row: not when the
+/// model flags the field `multiParagraph`, nor when the value holds a line
+/// break other than the soft breaks of one wrapped paragraph
+/// ([`SpecDocumentMarkdown::wrapped_paragraph_joined`]; a `code` value keeps
+/// every line break), is a block of Markdown, holds a backslash directly
+/// before `|`, or holds `<!--`. There is no length limit.
+fn md_is_cell_value(f: &SomFormFieldMeta, value: &str) -> bool {
+    if f.multi_paragraph || value.contains("\\|") || value.contains("<!--") {
+        return false;
+    }
+    if value.contains('\n')
+        && (f.code || SpecDocumentMarkdown::wrapped_paragraph_joined(value).is_none())
+    {
+        return false;
+    }
+    !md_block_start(value)
+}
+
+/// The table cell for `value`: a wrapped paragraph on one line, a
+/// `code: true` value as its inline code span, every `|` written `\|`.
+fn md_cell_text(f: &SomFormFieldMeta, value: &str) -> String {
+    let joined = SpecDocumentMarkdown::wrapped_paragraph_joined(value);
+    let value = joined.as_deref().unwrap_or(value);
+    let text = if f.code && md_is_inline_code(value) {
+        md_encode_code_span(value)
+    } else {
+        value.to_string()
+    };
+    text.replace('|', "\\|")
+}
+
+/// The rendition file of `root`: `<root id in lower case>.tomspecs.md`.
+fn md_file_of_root(root: &SpecRoot) -> String {
+    let id = if root.section_id.is_empty() {
+        &root.type_
+    } else {
+        &root.section_id
+    };
+    format!("{}.tomspecs.md", id.to_lowercase())
 }
 
 /// The `@SectionIdPattern` of a list's items: the list's own, else its element

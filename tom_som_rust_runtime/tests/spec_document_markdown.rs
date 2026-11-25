@@ -5,11 +5,13 @@
 //!
 //! The generated `*.md` is a genuine DocSpecs document: line 1 is the
 //! `<!-- docspec: <schema-id>/<version> -->` declaration, every populated
-//! section is a heading of the form `## <!--[SECTION-ID]--> Title`, content
-//! sections are normal markdown text (no fences), `@Form` sections use the
-//! plain-text `FieldName: value` format, and a list emits its `-LST` container
-//! heading at the owner's child level, wrapping the numbered item headings one
-//! level deeper (SOM §11.2).
+//! section is a heading of the form
+//! `## <!--[SECTION-ID]--> <a id="SECTION-ID"></a> Title`, content sections are
+//! normal markdown text (no fences), `@Form` sections are written as
+//! `| TomSpecField | Value |` tables (a value no cell holds as a `Field:`
+//! paragraph), and a list emits its `-LST` container heading at the owner's
+//! child level, wrapping the numbered item headings one level deeper
+//! (SOM §11.2).
 //!
 //! The model fixture (`demo_model`) and populated document
 //! (`populated_demo_doc`) mirror the Go suite's `one_line_export_test.go`
@@ -192,32 +194,32 @@ fn test_markdown_export_format(c: &mut Checker) {
 
     c.check(
         "export.heading.root",
-        md.contains("# <!--[D00]--> Demo Document"),
+        md.contains("# <!--[D00]--> <a id=\"D00\"></a> Demo Document"),
         "",
     );
     c.check(
         "export.heading.overview",
-        md.contains("## <!--[D00-OVR]--> Overview"),
+        md.contains("## <!--[D00-OVR]--> <a id=\"D00-OVR\"></a> Overview"),
         "",
     );
     c.check(
         "export.heading.status",
-        md.contains("## <!--[D00-ST]--> Status"),
+        md.contains("## <!--[D00-ST]--> <a id=\"D00-ST\"></a> Status"),
         "",
     );
     c.check(
         "export.heading.header",
-        md.contains("## <!--[D00-HDR]--> Header"),
+        md.contains("## <!--[D00-HDR]--> <a id=\"D00-HDR\"></a> Header"),
         "",
     );
     c.check(
         "export.heading.meta",
-        md.contains("## <!--[D00-MET]--> Meta"),
+        md.contains("## <!--[D00-MET]--> <a id=\"D00-MET\"></a> Meta"),
         "",
     );
     c.check(
         "export.heading.note",
-        md.contains("### <!--[D00-MET-NOTE]--> Note"),
+        md.contains("### <!--[D00-MET-NOTE]--> <a id=\"D00-MET-NOTE\"></a> Note"),
         "",
     );
 
@@ -238,7 +240,7 @@ fn test_markdown_export_format(c: &mut Checker) {
 
     c.check(
         "export.form.sparse.author",
-        md.contains("Author: Ada Lovelace"),
+        md.contains("| Author | Ada Lovelace |"),
         "",
     );
     c.check("export.form.sparse.noReviewer", !md.contains("Reviewer"), "");
@@ -247,22 +249,28 @@ fn test_markdown_export_format(c: &mut Checker) {
     // level, its numbered items one level below it, item fields one deeper.
     c.check(
         "export.item.container",
-        md.contains("## <!--[D00-ITM]--> Items"),
+        md.contains("## <!--[D00-ITM]--> <a id=\"D00-ITM\"></a> Items"),
         "",
     );
     c.check(
         "export.item.1",
-        md.contains("### <!--[items-1]--> Demo Item 1"),
+        md.contains("### <!--[items-1]--> <a id=\"items-1\"></a> Demo Item 1"),
         "",
     );
     c.check(
         "export.item.2",
-        md.contains("### <!--[items-2]--> Demo Item 2"),
+        md.contains("### <!--[items-2]--> <a id=\"items-2\"></a> Demo Item 2"),
+        "",
+    );
+    // Below a list item the anchor is qualified (SOM §11.2).
+    c.check(
+        "export.item.label",
+        md.contains("#### <!--[D01-LBL]--> <a id=\"items-1/D01-LBL\"></a> Label"),
         "",
     );
     c.check(
-        "export.item.label",
-        md.contains("#### <!--[D01-LBL]--> Label"),
+        "export.item2.label",
+        md.contains("#### <!--[D01-LBL]--> <a id=\"items-2/D01-LBL\"></a> Label"),
         "",
     );
 
@@ -284,12 +292,12 @@ fn test_markdown_export_stored_item_id(c: &mut Checker) {
     // anonymous items fall back to the positional derivation.
     c.check(
         "export.storedId.container",
-        md.contains("## <!--[D00-ITM]--> Items"),
+        md.contains("## <!--[D00-ITM]--> <a id=\"D00-ITM\"></a> Items"),
         &md,
     );
     c.check(
         "export.storedId.heading",
-        md.contains("### <!--[D01-CUSTOM]--> Demo Item 1"),
+        md.contains("### <!--[D01-CUSTOM]--> <a id=\"D01-CUSTOM\"></a> Demo Item 1"),
         &md,
     );
     c.check("export.storedId.noPositional", !md.contains("items-1"), &md);
@@ -520,10 +528,12 @@ fn test_markdown_round_trip_stored_item_id(c: &mut Checker) {
 
 fn test_markdown_round_trip_label_shaped_continuation(c: &mut Checker) {
     let mut doc = SpecDocument::new();
+    // A hard break keeps it a paragraph (a wrapped paragraph would be one
+    // table cell, SOM §11.4).
     doc.set_form_field(
         "D00/D00-HDR",
         "author",
-        "Ada Lovelace\nNote: also a mathematician\nplain line",
+        "Ada Lovelace  \nNote: also a mathematician\nplain line",
     );
     let md1 = md_export(&doc);
     // The label-shaped continuation is space-escaped on emit.
@@ -538,13 +548,40 @@ fn test_markdown_round_trip_label_shaped_continuation(c: &mut Checker) {
     c.check(
         "formCont.value",
         reloaded.form_field_or("D00/D00-HDR", "author")
-            == "Ada Lovelace\nNote: also a mathematician\nplain line",
+            == "Ada Lovelace  \nNote: also a mathematician\nplain line",
         &format!("{:?}", reloaded.form_field_or("D00/D00-HDR", "author")),
     );
     c.check("formCont.byteStable", md_export(&reloaded) == md1, "");
 }
 
 // --- the reading view's table layout (SOM §11.4, §11.5) ----------------------
+
+fn test_markdown_wrapped_paragraph_is_one_cell(c: &mut Checker) {
+    // SOM §11.4 rule 13: one paragraph wrapped over lines is one cell, its
+    // soft breaks spaces; a block, a hard break or a blank line is no
+    // wrapped paragraph.
+    let j = SpecDocumentMarkdown::wrapped_paragraph_joined;
+    c.check("wrapped.joined", j("one\ntwo\nthree").as_deref() == Some("one two three"), "");
+    c.check("wrapped.oneLine", j("one line").is_none(), "");
+    c.check("wrapped.blankLine", j("one\n\ntwo").is_none(), "");
+    c.check("wrapped.hardBreak", j("one  \ntwo").is_none(), "");
+    c.check("wrapped.backslash", j("one\\\ntwo").is_none(), "");
+    c.check("wrapped.listItem", j("one\n- two").is_none(), "");
+    c.check("wrapped.heading", j("one\n## two").is_none(), "");
+    c.check("wrapped.setext", j("one\n===").is_none(), "");
+    c.check("wrapped.tableRow", j("one\n| two |").is_none(), "");
+    let mut doc = SpecDocument::new();
+    doc.set_form_field("D00/D00-HDR", "author", "Ada\nLovelace");
+    let md = md_export(&doc);
+    c.check("wrapped.cell", md.contains("| Author | Ada Lovelace |\n"), &md);
+    let (reloaded, report) = md_reload(&md);
+    c.check("wrapped.clean", report.is_clean(), &md_rej_str(&report));
+    c.check(
+        "wrapped.value",
+        reloaded.form_field_or("D00/D00-HDR", "author") == "Ada Lovelace",
+        &format!("{:?}", reloaded.form_field_or("D00/D00-HDR", "author")),
+    );
+}
 
 fn test_markdown_table_header_shaped_line_escaped(c: &mut Checker) {
     // A value line shaped like a layout table header gains one space on emit
@@ -662,7 +699,10 @@ fn test_markdown_form_preamble_emits(c: &mut Checker) {
     let md = md_export(&doc);
     c.check(
         "formPre.emitOrder",
-        md.contains("why this header exists\n\nAuthor: Ada Lovelace\n"),
+        md.contains(
+            "why this header exists\n\n| TomSpecField | Value |\n| --- | --- |\n\
+             | Author | Ada Lovelace |\n",
+        ),
         &md,
     );
 }
@@ -890,14 +930,15 @@ fn test_markdown_code_spec_rides_in_headline_comment(c: &mut Checker) {
     c.check(
         "codeSpec.md.attribute",
         md.contains(
-            "## <!--[D00-OVR] codeSpec=\"CsOrder,CsOrder.total,CsOrderRepository\"--> Overview",
+            "## <!--[D00-OVR] codeSpec=\"CsOrder,CsOrder.total,CsOrderRepository\"--> \
+             <a id=\"D00-OVR\"></a> Overview",
         ),
         &md,
     );
     // Untouched sections stay byte-stable (no empty codeSpec attribute).
     c.check(
         "codeSpec.md.untouched",
-        md.contains("## <!--[D00-ST]--> Status"),
+        md.contains("## <!--[D00-ST]--> <a id=\"D00-ST\"></a> Status"),
         &md,
     );
 }
@@ -947,6 +988,7 @@ fn spec_document_markdown() {
     test_markdown_round_trip_stored_item_id(&mut c);
     test_markdown_round_trip_label_shaped_continuation(&mut c);
     test_markdown_table_header_shaped_line_escaped(&mut c);
+    test_markdown_wrapped_paragraph_is_one_cell(&mut c);
     test_markdown_layout_table_header(&mut c);
     test_markdown_form_table_parses(&mut c);
     test_markdown_form_table_rejections(&mut c);

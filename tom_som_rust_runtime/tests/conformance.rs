@@ -10,7 +10,7 @@
 //!   - YAML encode == expected.tomspecs.yaml (byte-for-byte, hierarchical v2);
 //!   - YAML decode → memory → encode is byte-stable + preserves the stamp and
 //!     lands the fixture memory (state.json);
-//!   - Markdown export == expected.tomspecs.md, parse round-trips byte-stable, and the
+//!   - Markdown export == expected.tables.md, parse round-trips byte-stable, and the
 //!     parsed values land the fixture memory (md.export / md.parse.* /
 //!     md.land.*), and applying a parsed import overwrites only the roots it
 //!     covers (mdApply[…]);
@@ -514,12 +514,22 @@ fn test_yaml_decode_round_trip(c: &mut Checker, tree: &SomMetaTree) {
 
 // --- markdown conformance (SOM §11) -----------------------------------------
 
-// The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
-// Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
-// The emitter port tspubnondart73 (runtime_parity.md § Reading view) brings this runtime to tables.
-#[allow(dead_code)]
-const EMITTED_LAYOUT: &str = "fields";
-const EXPORT_GOLDEN: &str = "expected.tomspecs.md";
+// The layout this runtime emits: `tables` (SOM §11.4, §11.5). Its export
+// golden is expected.tables.md; expected.tomspecs.md, the `Field:`-line
+// layout, is parsed only.
+const EMITTED_LAYOUT: &str = "tables";
+const EXPORT_GOLDEN: &str = "expected.tables.md";
+
+/// The expectation of `case` for this runtime's layout: `expectTables` when
+/// the case has one (its renditions' lines differ by layout), else `expect`.
+fn expect_for(case: &Json) -> Option<&Json> {
+    if EMITTED_LAYOUT == "tables" {
+        if let Some(t) = case.get("expectTables") {
+            return Some(t);
+        }
+    }
+    case.get("expect")
+}
 
 fn test_markdown_export(c: &mut Checker, model: &SpecModel) {
     let state = DocumentJson::from_json(&read_json("state.json"));
@@ -571,7 +581,7 @@ fn test_markdown_round_trip(c: &mut Checker, model: &SpecModel) {
 fn test_markdown_memory_landing(c: &mut Checker, model: &SpecModel) {
     let canonical = DocumentJson::from_json(&read_json("state.json"));
     let want = canonical.to_canonical_json();
-    for (label, golden) in [("tables", "expected.tables.md"), ("fields", EXPORT_GOLDEN)] {
+    for (label, golden) in [("tables", "expected.tables.md"), ("fields", "expected.tomspecs.md")] {
         let imported = SpecDocument::from_markdown(&read_corpus(golden), model);
         c.check(
             &format!("md.land.{}.clean", label),
@@ -3195,7 +3205,7 @@ fn test_codespecs_gate(c: &mut Checker) {
         .expect("codespecs_gate_cases has cases")
     {
         let at = format!("codespecsGate[{}]", case.str_or("name"));
-        let want = case.get("expect").expect("a gate case has an expect");
+        let want = expect_for(case).expect("a gate case has an expect");
         match run_gate_case(&table, case, &meta) {
             Ok(got) => c.check(&at, json_eq(&got, want), &format!("{:?} != {:?}", got, want)),
             Err(e) => c.check(&at, false, &e),
@@ -3584,7 +3594,7 @@ fn test_answers(c: &mut Checker, model: &SpecModel) {
             c.check(&format!("answers[{}].extract", name), false, &e);
             continue;
         }
-        let expect = cc.get("expect").expect("answer case expect");
+        let expect = expect_for(cc).expect("answer case expect");
         let got = Json::Array(extracts.iter().map(SpecAnswerExtract::to_json).collect());
         let want = expect.get("extracts").unwrap_or(&Json::Null);
         c.check(
