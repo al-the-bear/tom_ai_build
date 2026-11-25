@@ -858,20 +858,27 @@ public final class ConformanceRunner {
   }
 
   /**
-   * Markdown/YAML convergence: parsing {@code expected.tomspecs.md} and applying it must
-   * reproduce {@code state.json} (the YAML-route memory) exactly, proving both
-   * formats converge on one in-memory document (SOM §8).
+   * Markdown/YAML convergence: parsing either golden ({@code expected.tables.md}, the reading
+   * view's tables, and {@code expected.tomspecs.md}, the {@code Field:} lines) and applying it
+   * must reproduce {@code state.json} (the YAML-route memory) exactly, proving both formats
+   * converge on one in-memory document (SOM §8).
    */
   private static void testMarkdownMemoryLanding(SpecModel model) throws IOException {
-    String golden = read(EXPORT_GOLDEN);
     Map<String, Object> canonical = readJsonObject("state.json");
-    SpecMarkdownImport imported = SpecDocument.fromMarkdown(golden, model);
-    check("md.land.clean", imported.rejections().isEmpty(), rejDetail(imported.result));
-    SpecDocument landed = imported.document;
-    check(
-        "md.land.memory",
-        landed.toJson().equals(canonical),
-        jsonMismatch(landed.toJson(), canonical));
+    String[][] goldens = {{"tables", "expected.tables.md"}, {"fields", EXPORT_GOLDEN}};
+    for (String[] golden : goldens) {
+      String label = golden[0];
+      SpecMarkdownImport imported = SpecDocument.fromMarkdown(read(golden[1]), model);
+      check(
+          "md.land." + label + ".clean",
+          imported.rejections().isEmpty(),
+          rejDetail(imported.result));
+      SpecDocument landed = imported.document;
+      check(
+          "md.land." + label + ".memory",
+          landed.toJson().equals(canonical),
+          jsonMismatch(landed.toJson(), canonical));
+    }
   }
 
   /**
@@ -1655,12 +1662,14 @@ public final class ConformanceRunner {
     Map<String, Object> table = readJsonObject("markdown_import_cases.json");
     for (Object caseObj : (List<Object>) table.get("cases")) {
       Map<String, Object> c = (Map<String, Object>) caseObj;
-      // The reading view's table forms (`readingView`) are read by the Dart and
-      // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
-      if (Boolean.TRUE.equals(c.get("readingView"))) {
+      String name = (String) c.get("name");
+      // The reading view's table layout is read; the readable header and the
+      // styled-div headings belong to the strip of a document
+      // (runtime_parity.md § Reading view).
+      if (Boolean.TRUE.equals(c.get("readingView"))
+          && (c.containsKey("readableHeader") || name.startsWith("styled-div headings"))) {
         continue;
       }
-      String name = (String) c.get("name");
       SpecMarkdownResult parsed =
           new SpecDocumentMarkdown(model, new SpecDocument()).parse((String) c.get("markdown"));
       List<Object> got = new ArrayList<>();

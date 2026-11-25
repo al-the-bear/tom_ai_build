@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.IntUnaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -135,6 +136,80 @@ public final class SpecDocumentMarkdown {
   // owner, or `.` for the owner itself.
   private static final Pattern SLOT_MARKER = Pattern.compile("^<!-- slot: (\\S+) -->$");
   private static final Pattern ESCAPED_HEADING = Pattern.compile("^\\\\+#");
+  // Reading view (SOM §11.4, §11.5): a value line shaped like a layout table
+  // header is escaped with one space on emit, and loses it on parse.
+  private static final Pattern TABLE_HEADER_SHAPED = Pattern.compile(
+      "^ *\\|\\s*(?:Section\\s*\\|\\s*)?TomSpecField\\s*\\|\\s*Value\\s*\\|?\\s*$",
+      Pattern.CASE_INSENSITIVE);
+  private static final Pattern ESCAPED_TABLE_HEADER = Pattern.compile(
+      "^ +\\|\\s*(?:Section\\s*\\|\\s*)?TomSpecField\\s*\\|\\s*Value\\s*\\|?\\s*$",
+      Pattern.CASE_INSENSITIVE);
+  /**
+   * A line that reads as the header of a form table or a section table (SOM
+   * §11.4, §11.5): {@code | TomSpecField | Value |} or
+   * {@code | Section | TomSpecField | Value |} at column 0, any case; group 1
+   * is {@code Section} for a section table. The header alone makes a table
+   * layout.
+   */
+  public static final Pattern LAYOUT_TABLE_HEADER = Pattern.compile(
+      "^\\|\\s*(?:(Section)\\s*\\|\\s*)?TomSpecField\\s*\\|\\s*Value\\s*\\|?\\s*$",
+      Pattern.CASE_INSENSITIVE);
+  // A line that starts a table row: `|` after up to three spaces.
+  private static final Pattern TABLE_LINE = Pattern.compile("^ {0,3}\\|");
+  private static final Pattern DELIMITER_CELL = Pattern.compile("^:?-+:?$");
+  private static final Pattern LINK_CELL = Pattern.compile(
+      "^\\[[^\\]]+\\]\\([^)]*\\)(, \\[[^\\]]+\\]\\([^)]*\\))*$");
+  private static final Pattern LINK_TEXT = Pattern.compile("\\[([^\\]]+)\\]\\([^)]*\\)");
+  private static final Pattern LIST_DIV_OPEN =
+      Pattern.compile("^:{3,}\\s*(?:\\{\\.(refs|records)\\}|(refs|records))\\s*$");
+  private static final Pattern DIV_CLOSE = Pattern.compile("^:{3,}\\s*$");
+  private static final Pattern CELL_ANCHOR = Pattern.compile("^<a id=\"[^\"]*\"></a>\\s*");
+  private static final Pattern CELL_LINK = Pattern.compile("^\\[([^\\]]+)\\]\\([^)\\s]*\\)$");
+  private static final Pattern SECTION_CELL_SEP = Pattern.compile("\\s*/\\s*");
+  private static final Pattern REF_SEP = Pattern.compile("[,\\s]+");
+
+  /** A heading's qualified anchor and the scope its descendants' anchors take. */
+  private static final class QualifiedAnchor {
+    final String anchor;
+    final List<String> scope;
+
+    QualifiedAnchor(String anchor, List<String> scope) {
+      this.anchor = anchor;
+      this.scope = scope;
+    }
+  }
+
+  private enum AnchorRole { PLAIN, CONTAINER, ITEM, COPY }
+
+  /**
+   * The qualified anchor of a heading {@code id} (SOM §11.2) and the scope its
+   * descendants' anchors are qualified with: below a list item, or in a
+   * {@code @SameAs} copy, an anchor is the ids from the scope's start joined
+   * by {@code /}; elsewhere it is the id itself. {@code section} is the id of
+   * the nearest heading above that is no list container.
+   */
+  private static QualifiedAnchor qualifyAnchor(
+      List<String> scope, String section, String id, AnchorRole role) {
+    List<String> withId = new ArrayList<>();
+    if (scope != null) {
+      withId.addAll(scope);
+    } else if (role == AnchorRole.COPY && section != null) {
+      withId.add(section);
+    }
+    withId.add(id);
+    if (role == AnchorRole.COPY) {
+      return new QualifiedAnchor(String.join("/", withId), withId);
+    }
+    String joined = scope == null ? id : String.join("/", withId);
+    switch (role) {
+      case CONTAINER:
+        return new QualifiedAnchor(joined, scope);
+      case ITEM:
+        return new QualifiedAnchor(joined, withId);
+      default:
+        return new QualifiedAnchor(joined, scope == null ? null : withId);
+    }
+  }
 
   private static final Pattern TRAILING_WS = Pattern.compile("\\s+$");
   private static final Pattern LEADING_NL = Pattern.compile("^\\n+");
@@ -555,6 +630,45 @@ public final class SpecDocumentMarkdown {
   }
 
   /**
+   * Whether {@code n} is a {@code @SameAs} copy (SOM §11.2): its anchor and
+   * its descendants' are qualified with the section above it.
+   */
+  private boolean isCopyNode(SomMetaNode n) {
+    SomMetaNode parent = n.wiredParent;
+    if (n.memberName == null || n.memberName.isEmpty() || parent == null) {
+      return false;
+    }
+    SpecClass cls = model.classNamed(parent.className);
+    SpecField f = cls != null ? cls.fieldNamed(n.memberName) : null;
+    if (f == null) {
+      return false;
+    }
+    for (SpecAnnotation a : f.annotations) {
+      if ("SameAs".equals(a.name)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * The item class's own form (its class-level {@code @Form}, a transparent
+   * body slot), or {@code null} when the class carries none or more than one.
+   */
+  private NodeRel itemForm(SomMetaNode element) {
+    NodeRel found = null;
+    for (NodeRel s : bodySlots(element)) {
+      if (SomMetaKind.FORM.equals(s.node.kind)) {
+        if (found != null) {
+          return null;
+        }
+        found = s;
+      }
+    }
+    return found;
+  }
+
+  /**
    * The body slot unmarked body text binds to on import (SOM §11.6): the
    * first non-form slot; with none, the form on the {@code content} member,
    * else the first form; with no slot at all the owner itself ({@code .}).
@@ -927,6 +1041,8 @@ public final class SpecDocumentMarkdown {
         out.add(line); // SOM §11.3: fences shield their lines.
       } else if (ESCAPABLE.matcher(line).find()) {
         out.add("\\" + line);
+      } else if (TABLE_HEADER_SHAPED.matcher(line).find()) {
+        out.add(" " + line); // a value line is never a layout table.
       } else {
         out.add(line);
       }
@@ -1036,6 +1152,11 @@ public final class SpecDocumentMarkdown {
     final int line;
     final boolean ignored;
     final List<String> body = new ArrayList<>();
+    // The scope this heading's descendants' anchors are qualified with, and
+    // the id of the nearest heading at or above it that is no list container
+    // (SOM §11.2, qualifyAnchor).
+    List<String> anchorScope;
+    String anchorSection;
 
     MdFrame(int level, SomMetaNode node, String path, int line, boolean ignored) {
       this.level = level;
@@ -1077,6 +1198,8 @@ public final class SpecDocumentMarkdown {
     final List<String> rootPrefixes = new ArrayList<>();
     final List<MdFrame> stack = new ArrayList<>();
     final MarkdownFenceTracker fence = new MarkdownFenceTracker();
+    // The fields given so far per form path, for the given-twice rule.
+    final Map<String, Set<String>> given = new LinkedHashMap<>();
     // Rolling pointer into a body region's transparent form slots — labels
     // bind to the nearest form at or after the last hit (wrapping), so
     // repeated field names across an owner's transparent forms follow emit
@@ -1146,7 +1269,11 @@ public final class SpecDocumentMarkdown {
       String id = m.group(1);
       String codeSpec = codeSpecOf(m.group(2));
       String unitIds = unitsOf(m.group(2));
-      String title = m.group(3).trim().replace("<br>", "\n");
+      // Reading view: an anchor equal to the section id after the id comment,
+      // or to its qualified form (SOM §11.2), is the renderer's, not part of
+      // the title.
+      String rawTitle = m.group(3).trim();
+      String title = titleWithoutAnchor(rawTitle, id, id);
 
       if (stack.isEmpty()) {
         openRoot(level, id, title, codeSpec, unitIds, lineNo);
@@ -1177,7 +1304,13 @@ public final class SpecDocumentMarkdown {
       // 1. Under a `-LST` container frame (SOM §11.2), every child heading is one
       //    of that list's items — resolved positionally, not by the schema tree.
       if (SomMetaKind.LIST.equals(pNode.kind)) {
-        openItemHeading(level, parent, pNode, id, title, codeSpec, unitIds, lineNo);
+        QualifiedAnchor q = qualifyAnchor(
+            parent.anchorScope, parent.anchorSection, id, AnchorRole.ITEM);
+        openItemHeading(level, parent, pNode, id,
+            titleWithoutAnchor(rawTitle, id, q.anchor), codeSpec, unitIds, lineNo);
+        MdFrame last = stack.get(stack.size() - 1);
+        last.anchorScope = q.scope;
+        last.anchorSection = id;
         return;
       }
 
@@ -1190,6 +1323,13 @@ public final class SpecDocumentMarkdown {
       for (NodeRel entry : codec.effectiveChildren(pNode)) {
         if (codec.headingIdOf(entry.node).equals(id)) {
           String childPath = parent.path + "/" + entry.rel;
+          boolean container = SomMetaKind.LIST.equals(entry.node.kind);
+          QualifiedAnchor q = qualifyAnchor(
+              parent.anchorScope, parent.anchorSection, id,
+              container
+                  ? AnchorRole.CONTAINER
+                  : codec.isCopyNode(entry.node) ? AnchorRole.COPY : AnchorRole.PLAIN);
+          title = titleWithoutAnchor(rawTitle, id, q.anchor);
           // Stage the heading text as a stored headline ONLY when it differs
           // from the effective default title (SOM §11.7, byte-stability).
           if (!title.isEmpty() && !title.equals(titleOf(entry.node))) {
@@ -1204,8 +1344,10 @@ public final class SpecDocumentMarkdown {
           if (!unitIds.isEmpty()) {
             units.put(childPath, unitIds);
           }
-          stack.add(new MdFrame(
-              level, entry.node, childPath, lineNo, false));
+          MdFrame frame = new MdFrame(level, entry.node, childPath, lineNo, false);
+          frame.anchorScope = q.scope;
+          frame.anchorSection = container ? parent.anchorSection : id;
+          stack.add(frame);
           return;
         }
       }
@@ -1230,7 +1372,22 @@ public final class SpecDocumentMarkdown {
      */
     void openItemHeading(int level, MdFrame container, SomMetaNode listNode,
         String id, String title, String codeSpec, String unitIds, int lineNo) {
-      String listPath = container.path;
+      ItemIdentity identity = itemIdentity(listNode, id);
+      openItem(level, container.path, listNode, identity.n, identity.storedId,
+          title, codeSpec, unitIds, lineNo, true);
+    }
+
+    /**
+     * How an item {@code id} of {@code listNode} is read, as a heading's, a
+     * records row's or a section-table row's: the item number it names (or
+     * {@code null} for the next free one) and the id it stores (or
+     * {@code null}). The {@code <member>-<n>} fallback id is positional and
+     * stores nothing; the {@code @SectionIdPattern} resolved with a number
+     * names item {@code <n>} and is stored, the section id being the item's
+     * identity and the path only its position (SOM §11.6); any other id is the
+     * next item, carrying it (YRD3).
+     */
+    ItemIdentity itemIdentity(SomMetaNode listNode, String id) {
       String member = listNode.memberName;
       if (member == null || member.isEmpty()) {
         member = listNode.segment();
@@ -1239,9 +1396,7 @@ public final class SpecDocumentMarkdown {
           .compile("^" + Pattern.quote(member) + "-([0-9]+)$")
           .matcher(id);
       if (anon.matches()) {
-        openItem(level, listPath, listNode, Integer.parseInt(anon.group(1)),
-            null, true, title, codeSpec, unitIds, lineNo);
-        return;
+        return new ItemIdentity(Integer.valueOf(anon.group(1)), null);
       }
       SomMetaNode element = listNode.elementNode;
       String pattern = listNode.sectionIdPattern;
@@ -1249,10 +1404,6 @@ public final class SpecDocumentMarkdown {
         pattern = element.sectionIdPattern;
       }
       if (pattern != null && !pattern.isEmpty()) {
-        // The pattern with `xxx` as a number parses back as item <n> AND is
-        // stored: the section id is the item's identity and the path only its
-        // position, so an id that happens to equal the positional default must
-        // survive a later move or insert (SOM §11.6).
         String[] parts = splitAll(pattern, "xxx");
         if (parts.length == 2) {
           Matcher numbered = Pattern
@@ -1260,19 +1411,11 @@ public final class SpecDocumentMarkdown {
                   + Pattern.quote(parts[1]) + "$")
               .matcher(id);
           if (numbered.matches()) {
-            openItem(level, listPath, listNode, Integer.parseInt(numbered.group(1)),
-                id, true, title, codeSpec, unitIds, lineNo);
-            return;
+            return new ItemIdentity(Integer.valueOf(numbered.group(1)), id);
           }
         }
-        if (patternMatches(pattern, id)) {
-          openItem(level, listPath, listNode, 0, id, false, title, codeSpec, unitIds, lineNo);
-          return;
-        }
       }
-      // Any other id under the container is a stored-id item (YRD3 — the
-      // stored id round-trips through md as the heading id).
-      openItem(level, listPath, listNode, 0, id, false, title, codeSpec, unitIds, lineNo);
+      return new ItemIdentity(null, id);
     }
 
     void openRoot(int level, String id, String title, String codeSpec, String unitIds,
@@ -1308,7 +1451,9 @@ public final class SpecDocumentMarkdown {
           if (!unitIds.isEmpty()) {
             units.put(seg, unitIds);
           }
-          stack.add(new MdFrame(level, tree.root, seg, lineNo, false));
+          MdFrame frame = new MdFrame(level, tree.root, seg, lineNo, false);
+          frame.anchorSection = seg;
+          stack.add(frame);
           return;
         }
       }
@@ -1330,20 +1475,20 @@ public final class SpecDocumentMarkdown {
     }
 
     /**
-     * Opens a list-item frame. {@code n} (with {@code hasN} true) is the
-     * anonymous heading number (also the path number); a stored-id item gets
-     * the next free number instead.
+     * Opens a list item, with its frame when {@code push} is set, and returns
+     * its path. {@code n} is the anonymous heading number (also the path
+     * number); {@code null} takes the next free number instead.
      */
-    void openItem(int level, String listPath, SomMetaNode listNode,
-        int n, String storedId, boolean hasN, String title, String codeSpec,
-        String unitIds, int lineNo) {
+    String openItem(int level, String listPath, SomMetaNode listNode,
+        Integer n, String storedId, String title, String codeSpec,
+        String unitIds, int lineNo, boolean push) {
       MdListState state = lists.get(listPath);
       if (state == null) {
         state = new MdListState();
         lists.put(listPath, state);
         listOrder.add(listPath);
       }
-      int number = hasN ? n : state.maxN + 1;
+      int number = n != null ? n.intValue() : state.maxN + 1;
       if (number > state.maxN) {
         state.maxN = number;
       }
@@ -1367,20 +1512,10 @@ public final class SpecDocumentMarkdown {
       if (!unitIds.isEmpty()) {
         units.put(itemPath, unitIds);
       }
-      stack.add(new MdFrame(level, listNode.elementNode, itemPath, lineNo, false));
-    }
-
-    /**
-     * {@code GOAL-ITEM-xxx} → {@code ^GOAL-ITEM-.+$} — the
-     * {@code @SectionIdPattern} wildcard.
-     */
-    static boolean patternMatches(String pattern, String id) {
-      String[] parts = splitAll(pattern, "xxx");
-      List<String> quoted = new ArrayList<>();
-      for (String part : parts) {
-        quoted.add(Pattern.quote(part));
+      if (push) {
+        stack.add(new MdFrame(level, listNode.elementNode, itemPath, lineNo, false));
       }
-      return Pattern.compile("^" + String.join(".+", quoted) + "$").matcher(id).matches();
+      return itemPath;
     }
 
     static boolean isValueLeaf(String kind) {
@@ -1400,6 +1535,12 @@ public final class SpecDocumentMarkdown {
         finalizeForm(frame, node, frame.path);
         return;
       }
+      if (node != null && SomMetaKind.LIST.equals(node.kind)) {
+        finalizeListBody(frame, node);
+      } else if (node != null
+          && (SomMetaKind.SECTION.equals(node.kind) || SomMetaKind.COMPLEX.equals(node.kind))) {
+        extractSectionTables(frame, node);
+      }
       List<NodeRel> slots =
           node != null ? codec.bodySlots(node) : new ArrayList<>();
       if (slots.isEmpty()) {
@@ -1418,18 +1559,547 @@ public final class SpecDocumentMarkdown {
       finalizeBodySlots(frame, slots);
     }
 
+    /** An item id as read: the number it names and the id it stores, each or null. */
+    private static final class ItemIdentity {
+      final Integer n;
+      final String storedId;
+
+      ItemIdentity(Integer n, String storedId) {
+        this.n = n;
+        this.storedId = storedId;
+      }
+    }
+
+    /**
+     * A heading title without the renderer's anchor — {@code <a id="…"></a>}
+     * naming {@code id} or its qualified form {@code anchor} (SOM §11.2) — and
+     * with {@code <br>} read as a line break.
+     */
+    static String titleWithoutAnchor(String rawTitle, String id, String anchor) {
+      Pattern p = Pattern.compile(
+          "^<a id=\"(?:" + Pattern.quote(id) + "|" + Pattern.quote(anchor) + ")\"></a>\\s*");
+      return p.matcher(rawTitle).replaceFirst("").replace("<br>", "\n");
+    }
+
+    // --- Layout tables (SOM §11.4, §11.5) --------------------------------------
+
+    /** One body row of a table: its line index and its cells. */
+    private static final class TableRow {
+      final int index;
+      final List<String> cells;
+
+      TableRow(int index, List<String> cells) {
+        this.index = index;
+        this.cells = cells;
+      }
+    }
+
+    /** A table as read: header cells, body rows, the index after the table. */
+    private static final class Table {
+      final List<String> header;
+      final List<TableRow> rows = new ArrayList<>();
+      final int end;
+
+      Table(List<String> header, int end) {
+        this.header = header;
+        this.end = end;
+      }
+    }
+
+    /** A form a table row binds to: its path and its declared fields. */
+    private static final class FormTarget {
+      final String formPath;
+      final List<SomFormFieldMeta> fields;
+
+      FormTarget(String formPath, List<SomFormFieldMeta> fields) {
+        this.formPath = formPath;
+        this.fields = fields;
+      }
+    }
+
+    private static List<SomFormFieldMeta> fieldsOf(SomMetaNode node) {
+      return node.form != null ? node.form.fields : new ArrayList<>();
+    }
+
+    private static SomFormFieldMeta fieldByLabel(List<SomFormFieldMeta> fields, String label) {
+      String lower = label.toLowerCase(Locale.ROOT);
+      for (SomFormFieldMeta f : fields) {
+        if (f.name.toLowerCase(Locale.ROOT).equals(lower)) {
+          return f;
+        }
+      }
+      return null;
+    }
+
+    /** The 1-based source line of {@code frame}'s body line {@code i}. */
+    static int bodyLine(MdFrame frame, int i) {
+      return frame.line + 1 + i;
+    }
+
+    private void reject(int line, SpecMarkdownRejectReason reason, String message,
+        String anchor) {
+      rejections.add(new SpecMarkdownRejection(line, reason, message, anchor));
+    }
+
+    /**
+     * The cells of a table row: split on every {@code |} not preceded by a
+     * backslash, the outer pipes dropped, each cell trimmed; {@code \|} stays
+     * in the cell.
+     */
+    static List<String> rowCells(String line) {
+      String t = line.trim();
+      if (t.startsWith("|")) {
+        t = t.substring(1);
+      }
+      if (t.endsWith("|") && !t.endsWith("\\|")) {
+        t = t.substring(0, t.length() - 1);
+      }
+      List<String> cells = new ArrayList<>();
+      StringBuilder b = new StringBuilder();
+      for (int i = 0; i < t.length(); i++) {
+        char c = t.charAt(i);
+        if (c == '\\' && i + 1 < t.length() && t.charAt(i + 1) == '|') {
+          b.append("\\|");
+          i++;
+        } else if (c == '|') {
+          cells.add(b.toString().trim());
+          b.setLength(0);
+        } else {
+          b.append(c);
+        }
+      }
+      cells.add(b.toString().trim());
+      return cells;
+    }
+
+    /**
+     * Reads the table whose header is {@code lines[start]}: the header cells,
+     * the body rows with their line indexes, and the index after the table; a
+     * broken delimiter row or a row of another cell count is a
+     * {@code malformedBlock}.
+     */
+    private Table readTable(List<String> lines, int start, IntUnaryOperator lineOf,
+        String anchor) {
+      int end = start + 1;
+      while (end < lines.size() && TABLE_LINE.matcher(lines.get(end)).find()) {
+        end++;
+      }
+      List<String> header = rowCells(lines.get(start));
+      List<String> delimiter = start + 1 < end ? rowCells(lines.get(start + 1)) : null;
+      boolean isDelimiter = delimiter != null;
+      if (delimiter != null) {
+        for (String c : delimiter) {
+          if (!DELIMITER_CELL.matcher(c).find()) {
+            isDelimiter = false;
+            break;
+          }
+        }
+      }
+      Table table = new Table(header, end);
+      if (!isDelimiter || delimiter.size() != header.size()) {
+        reject(
+            lineOf.applyAsInt(start),
+            SpecMarkdownRejectReason.MALFORMED_BLOCK,
+            !isDelimiter
+                ? "table without its delimiter row"
+                : "table whose delimiter row does not match its header",
+            anchor);
+        return table;
+      }
+      for (int i = start + 2; i < end; i++) {
+        List<String> cells = rowCells(lines.get(i));
+        if (cells.size() != header.size()) {
+          reject(
+              lineOf.applyAsInt(i),
+              SpecMarkdownRejectReason.MALFORMED_BLOCK,
+              "table row with " + cells.size() + " cells, the header has " + header.size(),
+              anchor);
+          continue;
+        }
+        table.rows.add(new TableRow(i, cells));
+      }
+      return table;
+    }
+
+    /**
+     * A cell's value for field {@code f}: {@code \|} unescaped, a reference
+     * field's links read as their link texts, a {@code code} field's code span
+     * decoded.
+     */
+    static String cellValue(String cell, SomFormFieldMeta f) {
+      String text = cell.replace("\\|", "|");
+      if (!f.refersTo.isEmpty() && !f.code && LINK_CELL.matcher(text).find()) {
+        List<String> texts = new ArrayList<>();
+        Matcher m = LINK_TEXT.matcher(text);
+        while (m.find()) {
+          texts.add(m.group(1));
+        }
+        return String.join(", ", texts);
+      }
+      return f.code ? decodeCodeSpan(text) : text;
+    }
+
+    /**
+     * A cell's id with the renderer's anchor ({@code <a id="X"></a>X}) removed
+     * and a link the cell is read as its text ({@code [X](<file>#X)}, SOM
+     * §11.5).
+     */
+    static String cellId(String cell) {
+      String id = CELL_ANCHOR.matcher(cell).replaceFirst("");
+      Matcher m = CELL_LINK.matcher(id);
+      return m.find() ? m.group(1) : id;
+    }
+
+    /**
+     * Whether {@code field} of the form at {@code formPath} was given before;
+     * reports the repeat ({@code malformedBlock}, the first occurrence kept)
+     * when it was.
+     */
+    private boolean givenTwice(String formPath, String field, int line) {
+      if (given.computeIfAbsent(formPath, k -> new HashSet<>()).add(field)) {
+        return false;
+      }
+      reject(
+          line,
+          SpecMarkdownRejectReason.MALFORMED_BLOCK,
+          "field \"" + field + "\" given twice",
+          formPath);
+      return true;
+    }
+
+    private void setField(String formPath, String field, String value) {
+      forms.computeIfAbsent(formPath, k -> new LinkedHashMap<>()).put(field, value);
+    }
+
+    /** Stages one row of a form table (or a section table). */
+    private void stageRow(String formPath, List<SomFormFieldMeta> fields, String label,
+        String cell, int line) {
+      SomFormFieldMeta f = fieldByLabel(fields, label);
+      if (f == null) {
+        reject(
+            line,
+            SpecMarkdownRejectReason.UNKNOWN_FIELD,
+            "row \"" + label + "\" names no field of this form",
+            formPath);
+        return;
+      }
+      String value = cellValue(cell, f);
+      if (value.isEmpty() || givenTwice(formPath, f.name, line)) {
+        return;
+      }
+      setField(formPath, f.name, value);
+    }
+
+    /** Reads and removes every section table of {@code frame}'s body (SOM §11.5). */
+    private void extractSectionTables(MdFrame frame, SomMetaNode node) {
+      List<String> body = frame.body;
+      MarkdownFenceTracker tableFence = new MarkdownFenceTracker();
+      for (int i = 0; i < body.size(); i++) {
+        String line = body.get(i);
+        Matcher h = tableFence.inFence() ? null : LAYOUT_TABLE_HEADER.matcher(line);
+        if (h == null || !h.find() || h.group(1) == null) {
+          tableFence.feed(line);
+          continue;
+        }
+        Table table = readTable(body, i, k -> bodyLine(frame, k), frame.path);
+        FormTarget target = null;
+        boolean skip = false;
+        for (TableRow row : table.rows) {
+          int rowLine = bodyLine(frame, row.index);
+          String section = cellId(row.cells.get(0));
+          if (section.isEmpty() && skip) {
+            continue;
+          }
+          if (!section.isEmpty()) {
+            FormTarget named = sectionTableTarget(frame, node, section);
+            skip = named == null;
+            if (named == null) {
+              reject(
+                  rowLine,
+                  SpecMarkdownRejectReason.UNKNOWN_SECTION,
+                  "section-table row names no child section of \"" + frame.path + "\"",
+                  section);
+              continue;
+            }
+            target = named;
+          } else if (target == null) {
+            reject(
+                rowLine,
+                SpecMarkdownRejectReason.UNKNOWN_SECTION,
+                "section-table row names no section",
+                frame.path);
+            continue;
+          }
+          stageRow(target.formPath, target.fields, row.cells.get(1), row.cells.get(2), rowLine);
+        }
+        for (int k = i; k < table.end; k++) {
+          body.set(k, "");
+        }
+        i = table.end - 1;
+      }
+    }
+
+    /** The form a section-table {@code Section} cell names under {@code node}. */
+    private FormTarget sectionTableTarget(MdFrame frame, SomMetaNode node, String section) {
+      String[] parts = SECTION_CELL_SEP.split(section, -1);
+      for (NodeRel entry : codec.effectiveChildren(node)) {
+        SomMetaNode child = entry.node;
+        String childId = codec.headingIdOf(child);
+        if (parts.length == 1 && SomMetaKind.FORM.equals(child.kind)
+            && childId.equals(section)) {
+          return new FormTarget(frame.path + "/" + entry.rel, fieldsOf(child));
+        }
+        if (parts.length == 2 && SomMetaKind.LIST.equals(child.kind)
+            && childId.equals(parts[0])) {
+          SomMetaNode element = child.elementNode;
+          NodeRel form = element != null ? codec.itemForm(element) : null;
+          if (form == null) {
+            return null;
+          }
+          ItemIdentity identity = itemIdentity(child, parts[1]);
+          String listPath = frame.path + "/" + entry.rel;
+          MdListState state = lists.get(listPath);
+          String itemPath = null;
+          if (state != null) {
+            for (String p : state.items) {
+              String itemId = state.ids.get(p);
+              if (itemId == null) {
+                itemId = p.substring(listPath.length() + 1);
+              }
+              if (itemId.equals(parts[1])) {
+                itemPath = p;
+                break;
+              }
+            }
+          }
+          if (itemPath == null) {
+            itemPath = openItem(0, listPath, child, identity.n, identity.storedId,
+                "", "", "", frame.line, false);
+          }
+          return new FormTarget(itemPath + "/" + form.rel, fieldsOf(form.node));
+        }
+      }
+      return null;
+    }
+
+    // --- List bodies: `refs` and `records` (SOM §11.5) --------------------------
+
+    private static void blank(List<String> body, int from, int to) {
+      for (int k = from; k <= to; k++) {
+        body.set(k, "");
+      }
+    }
+
+    /**
+     * A list container's body: one {@code refs} or {@code records} div stands
+     * for its items.
+     */
+    private void finalizeListBody(MdFrame frame, SomMetaNode listNode) {
+      List<String> body = frame.body;
+      MarkdownFenceTracker divFence = new MarkdownFenceTracker();
+      for (int i = 0; i < body.size(); i++) {
+        String line = body.get(i);
+        Matcher open = divFence.inFence() ? null : LIST_DIV_OPEN.matcher(line);
+        if (open == null || !open.find()) {
+          divFence.feed(line);
+          continue;
+        }
+        String kind = open.group(1) != null ? open.group(1) : open.group(2);
+        int close = -1;
+        for (int k = i + 1; k < body.size(); k++) {
+          if (DIV_CLOSE.matcher(body.get(k)).find()) {
+            close = k;
+            break;
+          }
+        }
+        if (close < 0) {
+          // The fence's lines read as text.
+          reject(bodyLine(frame, i), SpecMarkdownRejectReason.MALFORMED_BLOCK,
+              "unclosed " + kind + " fence", frame.path);
+          return;
+        }
+        boolean besideText = false;
+        for (int k = 0; k < body.size(); k++) {
+          if ((k < i || k > close) && !body.get(k).trim().isEmpty()) {
+            besideText = true;
+          }
+        }
+        MdListState state = lists.get(frame.path);
+        boolean hasItems = state != null && !state.items.isEmpty();
+        if (besideText || hasItems) {
+          reject(bodyLine(frame, i), SpecMarkdownRejectReason.MALFORMED_BLOCK,
+              "a " + kind + " div beside " + (hasItems ? "item headings" : "other text")
+                  + " in a list container",
+              frame.path);
+          blank(body, i, close);
+          return;
+        }
+        List<String> inner = new ArrayList<>(body.subList(i + 1, close));
+        if ("refs".equals(kind)) {
+          stageReferenceLine(frame, listNode, inner, i);
+        } else {
+          stageRecordTable(frame, listNode, inner, i);
+        }
+        blank(body, i, close);
+        return;
+      }
+    }
+
+    private static boolean isReferenceForm(SomMetaNode n) {
+      if (!SomMetaKind.FORM.equals(n.kind) || n.form == null || n.form.fields.size() != 1
+          || n.form.fields.get(0).refersTo.isEmpty()) {
+        return false;
+      }
+      for (SomMetaExtra e : n.extra) {
+        if ("Reference".equals(e.annotation)) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    /** The reference form of {@code element}'s items (its one field is the reference). */
+    private NodeRel referenceForm(SomMetaNode element) {
+      for (NodeRel s : codec.bodySlots(element)) {
+        if (isReferenceForm(s.node)) {
+          return s;
+        }
+      }
+      for (NodeRel c : codec.effectiveChildren(element)) {
+        if (isReferenceForm(c.node)) {
+          return c;
+        }
+      }
+      return null;
+    }
+
+    /**
+     * A {@code refs} div: ids split on commas and whitespace, links read as
+     * their texts.
+     */
+    private void stageReferenceLine(MdFrame frame, SomMetaNode listNode, List<String> inner,
+        int at) {
+      SomMetaNode element = listNode.elementNode;
+      NodeRel ref = element != null ? referenceForm(element) : null;
+      if (ref == null) {
+        reject(bodyLine(frame, at), SpecMarkdownRejectReason.MALFORMED_BLOCK,
+            "a refs div in a list whose items are not references", frame.path);
+        return;
+      }
+      List<String> ids = new ArrayList<>();
+      for (String t : REF_SEP.split(String.join(" ", inner))) {
+        if (t.isEmpty()) {
+          continue;
+        }
+        Matcher m = LINK_TEXT.matcher(t);
+        ids.add(m.find() ? m.group(1) : t);
+      }
+      if (ids.isEmpty()) {
+        reject(bodyLine(frame, at), SpecMarkdownRejectReason.MISSING_VALUE,
+            "an empty refs div", frame.path);
+        return;
+      }
+      String pattern = listNode.sectionIdPattern;
+      if (pattern == null || pattern.isEmpty()) {
+        pattern = element.sectionIdPattern;
+      }
+      if (pattern != null && pattern.isEmpty()) {
+        pattern = null;
+      }
+      String member = listNode.memberName;
+      if (member == null || member.isEmpty()) {
+        member = listNode.segment();
+      }
+      String field = ref.node.form.fields.get(0).name;
+      for (int n = 1; n <= ids.size(); n++) {
+        String positional = SpecSectionId.effectiveListItemSectionId(null, pattern, n, member);
+        ItemIdentity identity = itemIdentity(listNode, positional);
+        String itemPath = openItem(0, frame.path, listNode, identity.n, identity.storedId,
+            "", "", "", frame.line, false);
+        setField(bodyPathOf(itemPath, ref.rel), field, ids.get(n - 1));
+      }
+    }
+
+    /** A {@code records} div: one table, {@code Id} first, {@code Title} optionally second. */
+    private void stageRecordTable(MdFrame frame, SomMetaNode listNode, List<String> inner,
+        int at) {
+      IntUnaryOperator lineOf = k -> bodyLine(frame, at + 1 + k);
+      int divLine = bodyLine(frame, at);
+      int start = -1;
+      for (int k = 0; k < inner.size(); k++) {
+        if (!inner.get(k).trim().isEmpty()) {
+          start = k;
+          break;
+        }
+      }
+      if (start < 0 || !TABLE_LINE.matcher(inner.get(start)).find()) {
+        reject(divLine, SpecMarkdownRejectReason.MALFORMED_BLOCK,
+            "a records div holding no table", frame.path);
+        return;
+      }
+      List<String> header = rowCells(inner.get(start));
+      if (!"Id".equals(header.get(0))) {
+        reject(divLine, SpecMarkdownRejectReason.MALFORMED_BLOCK,
+            "a records table whose first column is not Id", frame.path);
+        return;
+      }
+      SomMetaNode element = listNode.elementNode;
+      NodeRel form = element != null ? codec.itemForm(element) : null;
+      if (form == null) {
+        reject(divLine, SpecMarkdownRejectReason.MALFORMED_BLOCK,
+            "a records div in a list whose items have no single form", frame.path);
+        return;
+      }
+      List<SomFormFieldMeta> fields = fieldsOf(form.node);
+      boolean withTitle = header.size() > 1 && "Title".equals(header.get(1));
+      int first = withTitle ? 2 : 1;
+      List<SomFormFieldMeta> columns = new ArrayList<>();
+      for (String label : header.subList(first, header.size())) {
+        SomFormFieldMeta f = fieldByLabel(fields, label);
+        if (f == null) {
+          // The table is skipped whole.
+          reject(lineOf.applyAsInt(start), SpecMarkdownRejectReason.UNKNOWN_FIELD,
+              "records column \"" + label + "\" names no field of the items", frame.path);
+          return;
+        }
+        columns.add(f);
+      }
+      Table table = readTable(inner, start, lineOf, frame.path);
+      String stem = itemStemOf(listNode);
+      for (TableRow row : table.rows) {
+        ItemIdentity identity = itemIdentity(listNode, cellId(row.cells.get(0)));
+        String itemPath = openItem(0, frame.path, listNode, identity.n, identity.storedId,
+            "", "", "", lineOf.applyAsInt(row.index), false);
+        if (withTitle) {
+          String title = row.cells.get(1).replace("\\|", "|").replace("<br>", "\n");
+          String number = itemPath.substring(frame.path.length() + 1);
+          if (!title.isEmpty() && !title.equals(stem + " " + number)) {
+            headlines.put(itemPath, title);
+          }
+        }
+        String formPath = itemPath + "/" + form.rel;
+        for (int c = 0; c < columns.size(); c++) {
+          String value = cellValue(row.cells.get(first + c), columns.get(c));
+          if (!value.isEmpty()) {
+            setField(formPath, columns.get(c).name, value);
+          }
+        }
+      }
+    }
+
     /**
      * Binds a heading's body region against the owner's transparent body
-     * slots (SOM §11.6): {@code FieldName:} lines matching a transparent
-     * form's fields route to that form (nearest form in slot order, wrapping);
-     * a slot marker ({@code <!-- slot: <rel> -->}) sends the text after it to
-     * the named slot — a content slot, a form's preamble, or the owner itself
-     * ({@code .}) — and ends any open field. Unmarked text binds to the first
-     * content slot; with no content slot it is a form's <b>preamble</b> (SOM
-     * §11.4 rule 7) — the form slot named {@code content}, else the first form
-     * slot — which is where the YAML codec keeps it; only an owner with no
-     * slot at all takes it on its own path. In a region with forms every
-     * label-shaped text line carries one escape space, which is stripped.
+     * slots (SOM §11.6): {@code FieldName:} lines and form-table rows matching
+     * a transparent form's fields route to that form (nearest form in slot
+     * order, wrapping); a slot marker ({@code <!-- slot: <rel> -->}) sends the
+     * text after it to the named slot — a content slot, a form's preamble, or
+     * the owner itself ({@code .}) — and ends any open field. Unmarked text
+     * binds to the first content slot; with no content slot it is a form's
+     * <b>preamble</b> (SOM §11.4 rule 7) — the form slot named
+     * {@code content}, else the first form slot — which is where the YAML
+     * codec keeps it; only an owner with no slot at all takes it on its own
+     * path. In a region with forms every label-shaped text line carries one
+     * escape space, which is stripped.
      */
     void finalizeBodySlots(MdFrame frame, List<NodeRel> slots) {
       List<NodeRel> formSlots = new ArrayList<>();
@@ -1441,17 +2111,16 @@ public final class SpecDocumentMarkdown {
       String defaultRel = codec.defaultBodyRel(slots);
 
       MarkdownFenceTracker bodyFence = new MarkdownFenceTracker();
-      String currentField = "";
+      SomFormFieldMeta currentField = null;
       String currentFormPath = "";
-      boolean currentCode = false;
-      boolean haveField = false;
+      boolean discard = false;
       List<String> currentLines = new ArrayList<>();
       // Unlabelled text per target path, in the order the targets were
       // opened; a target opened twice gets its parts joined by a blank line.
       Map<String, List<List<String>>> textParts = new LinkedHashMap<>();
-      String contentTarget = bodyPathOf(frame.path, defaultRel);
       List<String> contentLines = new ArrayList<>();
-      textParts.computeIfAbsent(contentTarget, k -> new ArrayList<>()).add(contentLines);
+      textParts.computeIfAbsent(bodyPathOf(frame.path, defaultRel), k -> new ArrayList<>())
+          .add(contentLines);
 
       currentFormIdx = 0;
       for (int i = 0; i < frame.body.size(); i++) {
@@ -1470,53 +2139,60 @@ public final class SpecDocumentMarkdown {
               }
             }
             if (".".equals(rel) || slot != null) {
-              if (haveField) {
-                putField(currentFormPath, currentField, currentLines, currentCode);
+              if (currentField != null && !discard) {
+                putField(currentFormPath, currentField, currentLines);
               }
-              haveField = false;
-              currentField = "";
-              currentFormPath = "";
+              currentField = null;
+              discard = false;
               currentLines = new ArrayList<>();
               if (slot != null && SomMetaKind.FORM.equals(slot.node.kind)) {
                 currentFormIdx = formSlots.indexOf(slot);
               }
-              contentTarget = bodyPathOf(frame.path, rel);
               contentLines = new ArrayList<>();
-              textParts.computeIfAbsent(contentTarget, k -> new ArrayList<>())
+              textParts.computeIfAbsent(bodyPathOf(frame.path, rel), k -> new ArrayList<>())
                   .add(contentLines);
               continue;
             }
           }
-          Matcher m = FIELD_LABEL.matcher(line);
-          if (m.matches()) {
-            int foundIdx = -1;
-            SomFormFieldMeta found = null;
-            String lower = m.group(1).toLowerCase();
-            outer:
-            for (int k = 0; k < formSlots.size(); k++) {
-              int idx = (currentFormIdx + k) % formSlots.size();
-              SomFormMeta form = formSlots.get(idx).node.form;
-              if (form == null) {
+          Matcher header = LAYOUT_TABLE_HEADER.matcher(line);
+          if (header.find() && header.group(1) == null && !formSlots.isEmpty()) {
+            // A form table ends the open field (SOM §11.4); its rows bind like
+            // `Field:` labels, each to the nearest form declaring it.
+            if (currentField != null && !discard) {
+              putField(currentFormPath, currentField, currentLines);
+            }
+            currentField = null;
+            discard = false;
+            currentLines = new ArrayList<>();
+            Table table = readTable(frame.body, i, k -> bodyLine(frame, k), frame.path);
+            for (TableRow row : table.rows) {
+              String label = row.cells.get(0);
+              int rowLine = bodyLine(frame, row.index);
+              int hit = findFormOf(formSlots, label);
+              if (hit < 0) {
+                reject(rowLine, SpecMarkdownRejectReason.UNKNOWN_FIELD,
+                    "row \"" + label + "\" names no field of this form", frame.path);
                 continue;
               }
-              for (SomFormFieldMeta f : form.fields) {
-                if (f.name.toLowerCase().equals(lower)) {
-                  foundIdx = idx;
-                  found = f;
-                  break outer;
-                }
-              }
+              currentFormIdx = hit;
+              stageRow(frame.path + "/" + formSlots.get(hit).rel,
+                  fieldsOf(formSlots.get(hit).node), label, row.cells.get(1), rowLine);
             }
-            if (foundIdx >= 0) {
-              if (haveField) {
-                putField(currentFormPath, currentField, currentLines, currentCode);
+            i = table.end - 1;
+            continue;
+          }
+          Matcher m = FIELD_LABEL.matcher(line);
+          if (m.matches()) {
+            int hit = findFormOf(formSlots, m.group(1));
+            if (hit >= 0) {
+              if (currentField != null && !discard) {
+                putField(currentFormPath, currentField, currentLines);
               }
               currentLines = new ArrayList<>();
-              currentFormIdx = foundIdx;
-              haveField = true;
-              currentField = found.name;
-              currentCode = found.code;
-              currentFormPath = frame.path + "/" + formSlots.get(foundIdx).rel;
+              currentFormIdx = hit;
+              currentField = fieldByLabel(fieldsOf(formSlots.get(hit).node), m.group(1));
+              currentFormPath = frame.path + "/" + formSlots.get(hit).rel;
+              discard = givenTwice(currentFormPath, currentField.name, bodyLine(frame, i));
               currentLines.add(m.group(2));
               bodyFence.feed(line);
               continue;
@@ -1531,37 +2207,56 @@ public final class SpecDocumentMarkdown {
             && CONTINUATION_LABEL.matcher(line).find()) {
           text = line.substring(1);
         }
-        if (haveField) {
+        if (currentField != null) {
           currentLines.add(text);
         } else {
           contentLines.add(text);
         }
         bodyFence.feed(line);
       }
-      if (haveField) {
-        putField(currentFormPath, currentField, currentLines, currentCode);
+      if (currentField != null && !discard) {
+        putField(currentFormPath, currentField, currentLines);
       }
       for (Map.Entry<String, List<List<String>>> e : textParts.entrySet()) {
-        List<String> values = new ArrayList<>();
-        for (List<String> part : e.getValue()) {
-          String v = restoreValue(part);
-          if (!v.isEmpty()) {
-            values.add(v);
-          }
-        }
-        String value = String.join("\n\n", values);
+        String value = joinParts(e.getValue());
         if (!value.isEmpty()) {
           content.put(e.getKey(), value);
         }
       }
     }
 
-    /** Stores a body-region field's restored value (unwrapping a code span). */
-    private void putField(String formPath, String field, List<String> lines, boolean code) {
+    /**
+     * The index of the form slot declaring {@code label}: the nearest at or
+     * after the last hit, wrapping; -1 when none declares it.
+     */
+    private int findFormOf(List<NodeRel> formSlots, String label) {
+      for (int k = 0; k < formSlots.size(); k++) {
+        int idx = (currentFormIdx + k) % formSlots.size();
+        if (fieldByLabel(fieldsOf(formSlots.get(idx).node), label) != null) {
+          return idx;
+        }
+      }
+      return -1;
+    }
+
+    /** The restored, non-empty text parts joined by one blank line. */
+    private static String joinParts(List<List<String>> parts) {
+      List<String> values = new ArrayList<>();
+      for (List<String> part : parts) {
+        String v = restoreValue(part);
+        if (!v.isEmpty()) {
+          values.add(v);
+        }
+      }
+      return String.join("\n\n", values);
+    }
+
+    /** Stores a field's restored value (unwrapping a code field's code span). */
+    private void putField(String formPath, SomFormFieldMeta field, List<String> lines) {
       String restored = restoreValue(lines);
-      String value = code ? decodeCodeSpan(restored) : restored;
+      String value = field.code ? decodeCodeSpan(restored) : restored;
       if (!value.isEmpty()) {
-        forms.computeIfAbsent(formPath, k -> new LinkedHashMap<>()).put(field, value);
+        setField(formPath, field.name, value);
       }
     }
 
@@ -1570,77 +2265,82 @@ public final class SpecDocumentMarkdown {
     }
 
     /**
-     * Parses an id-bearing {@code @Form} section's body: the preamble text
-     * before the first field label binds to the form's own content (SOM §11.4
-     * rule 7); everything from the first label on binds to the named fields.
+     * Parses an id-bearing {@code @Form} section's body: {@code FieldName:}
+     * paragraphs and form-table rows bind to the named fields wherever they
+     * stand (SOM §11.4); the text that belongs to no field — before the first
+     * field, or after a table — is the form's preamble, its own content
+     * (rule 7).
      */
     void finalizeForm(MdFrame frame, SomMetaNode node, String path) {
-      List<SomFormFieldMeta> fields =
-          node.form != null ? node.form.fields : new ArrayList<>();
-      Map<String, String> fieldsByLower = new LinkedHashMap<>();
-      Set<String> codeFields = new HashSet<>();
-      for (SomFormFieldMeta f : fields) {
-        fieldsByLower.put(f.name.toLowerCase(), f.name);
-        if (f.code) {
-          codeFields.add(f.name);
-        }
-      }
+      List<SomFormFieldMeta> declared = fieldsOf(node);
       MarkdownFenceTracker bodyFence = new MarkdownFenceTracker();
-      String[] currentField = {""};
-      boolean[] haveField = {false};
+      SomFormFieldMeta currentField = null;
+      boolean discard = false;
       List<String> currentLines = new ArrayList<>();
+      // The preamble's parts: the text before the first field, and text a
+      // table interrupts; joined by one blank line.
+      List<List<String>> preambleParts = new ArrayList<>();
+      preambleParts.add(new ArrayList<>());
 
       for (int i = 0; i < frame.body.size(); i++) {
         String line = frame.body.get(i);
         if (!bodyFence.inFence()) {
-          Matcher m = FIELD_LABEL.matcher(line);
-          if (m.matches()) {
-            String fieldName = fieldsByLower.get(m.group(1).toLowerCase());
-            if (fieldName != null) {
-              flushForm(haveField, currentField, currentLines, path, frame.line + i,
-                  codeFields);
-              haveField[0] = true;
-              currentField[0] = fieldName;
-              currentLines.add(m.group(2));
-              bodyFence.feed(line);
-              continue;
+          Matcher header = LAYOUT_TABLE_HEADER.matcher(line);
+          if (header.find() && header.group(1) == null) {
+            if (currentField != null && !discard) {
+              putField(path, currentField, currentLines);
             }
+            currentField = null;
+            discard = false;
+            currentLines = new ArrayList<>();
+            preambleParts.add(new ArrayList<>());
+            Table table = readTable(frame.body, i, k -> bodyLine(frame, k), path);
+            for (TableRow row : table.rows) {
+              stageRow(path, declared, row.cells.get(0), row.cells.get(1),
+                  bodyLine(frame, row.index));
+            }
+            i = table.end - 1;
+            continue;
+          }
+          Matcher m = FIELD_LABEL.matcher(line);
+          SomFormFieldMeta field = m.matches() ? fieldByLabel(declared, m.group(1)) : null;
+          if (field != null) {
+            if (currentField != null && !discard) {
+              putField(path, currentField, currentLines);
+            }
+            currentLines = new ArrayList<>();
+            currentField = field;
+            discard = givenTwice(path, field.name, bodyLine(frame, i));
+            currentLines.add(m.group(2));
+            bodyFence.feed(line);
+            continue;
           }
         }
         // Continuation: strip the one escape space of a label-shaped line.
+        List<String> target = currentField == null
+            ? preambleParts.get(preambleParts.size() - 1)
+            : currentLines;
         if (!bodyFence.inFence() && CONTINUATION_LABEL.matcher(line).find()) {
-          currentLines.add(line.substring(1));
+          target.add(line.substring(1));
         } else {
-          currentLines.add(line);
+          target.add(line);
         }
         bodyFence.feed(line);
       }
-      flushForm(haveField, currentField, currentLines, path,
-          frame.line + frame.body.size(), codeFields);
-    }
-
-    private void flushForm(boolean[] haveField, String[] currentField,
-        List<String> currentLines, String path, int lineNo,
-        Set<String> codeFields) {
-      String restored = restoreValue(currentLines);
-      String value = haveField[0] && codeFields.contains(currentField[0])
-          ? decodeCodeSpan(restored)
-          : restored;
-      if (haveField[0]) {
-        if (!value.isEmpty()) {
-          forms.computeIfAbsent(path, k -> new LinkedHashMap<>())
-              .put(currentField[0], value);
-        }
-      } else if (!value.isEmpty()) {
+      if (currentField != null && !discard) {
+        putField(path, currentField, currentLines);
+      }
+      String value = joinParts(preambleParts);
+      if (!value.isEmpty()) {
         content.put(path, value);
       }
-      currentLines.clear();
     }
 
     /**
      * The parse-side value restoration (SOM §11.3): trim leading/trailing
-     * blank lines and unescape {@code \#}-escaped heading lines outside
-     * fences.
+     * blank lines, unescape {@code \#}-escaped heading lines and strip the
+     * one escape space of a line shaped like a layout table header (SOM
+     * §11.4), outside fences.
      */
     static String restoreValue(List<String> body) {
       MarkdownFenceTracker restoreFence = new MarkdownFenceTracker();
@@ -1648,6 +2348,8 @@ public final class SpecDocumentMarkdown {
       for (String line : body) {
         if (!restoreFence.inFence() && ESCAPED_HEADING.matcher(line).find()) {
           out.add(line.substring(1));
+        } else if (!restoreFence.inFence() && ESCAPED_TABLE_HEADER.matcher(line).find()) {
+          out.add(line.substring(1)); // the emitter's one escape space.
         } else {
           out.add(line);
         }

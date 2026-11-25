@@ -12,7 +12,20 @@ public enum SpecMarkdownRejectReason {
    */
   ORPHAN_CONTENT("orphanContent"),
   MISSING_VALUE("missingValue"),
-  MALFORMED_HEADING("malformedHeading");
+  MALFORMED_HEADING("malformedHeading"),
+  /**
+   * A form-table row, a section-table row or a records column names no field
+   * the form declares.
+   */
+  UNKNOWN_FIELD("unknownField"),
+  /**
+   * A block that breaks the layout grammar: a table without its delimiter row
+   * or with a row of another cell count, a field given twice, a {@code refs} /
+   * {@code records} div beside other text or item headings or not holding
+   * what it should, an unclosed {@code refs} / {@code records} fence. The
+   * message says which.
+   */
+  MALFORMED_BLOCK("malformedBlock");
 
   public final String value;
 
