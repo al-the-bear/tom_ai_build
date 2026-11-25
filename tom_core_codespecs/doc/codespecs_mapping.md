@@ -5741,7 +5741,7 @@ are grouped into one subtree and the rest hoisted into tagged follow-up subtrees
   subtrees).
 - **Downstream cascade** — each move cascades to the SOM meta, both committed
   `spec_model.json` assets (`tom_specs_reviewer/assets/` and
-  `tom_forge/tom_specs_editor/assets/`, byte-identical modulo `generatedAt`) and
+  `tom_ai/forge_modules/tom_specs_editor/assets/`, byte-identical modulo `generatedAt`) and
   the language facades. Make one discrete move at a time.
 - **Traceability follows the section** — re-home `@MapsTo` / `@DetailedIn` with
   the sections they annotate; a hoisted follow-up subtree keeps its own `@MapsTo`

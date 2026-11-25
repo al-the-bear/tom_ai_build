@@ -10,7 +10,7 @@ structural path. Those observations feed further development of
 
 > The reviewer is **not** a specification editor. The app that authors actual
 > specifications (DocSpecs / CodeSpecs / Implementation) is
-> `tom_forge/tom_specs_editor` — see `tom_specs_editor_specification.md`. The
+> `tom_ai/forge_modules/tom_specs_editor` — see `tom_specs_editor_specification.md`. The
 > two apps share their model *readers* **and the display semantics of the
 > annotations** (both in `tom_som_dart_runtime`); the tree *rendering* is
 > app-local in each, and a shared fixture keeps the two renderings from
@@ -104,7 +104,7 @@ making document *edits* correctness-checked by the generated model rather than
 by convention. With no document and no edits, it would check nothing here;
 adopting it would first require giving the reviewer the document plane it
 deliberately does not have — at which point the app would be
-`tom_forge/tom_specs_editor`, which already exists and already embeds this
+`tom_ai/forge_modules/tom_specs_editor`, which already exists and already embeds this
 tree's structure browser (§3.1).
 
 So the dependency set is the reviewer's settled shape rather than a stage on
@@ -133,7 +133,7 @@ loaded model.
 ### 3.1 What the reviewer shares with the editor
 
 Two Flutter surfaces render the same class graph — this reviewer on a light
-standalone canvas, `tom_forge/tom_specs_editor` inside the dark Forge shell.
+standalone canvas, `tom_ai/forge_modules/tom_specs_editor` inside the dark Forge shell.
 The boundary between them is drawn at **meaning versus paint**:
 
 | Layer | Home | Shared? |

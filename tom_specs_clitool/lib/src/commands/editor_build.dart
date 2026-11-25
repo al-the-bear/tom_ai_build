@@ -69,7 +69,7 @@ ArgParser buildParser() => ArgParser()
     'editor',
     help:
         'Path to the tom_specs_editor Flutter package. '
-        'Default: <container>/tom_forge/tom_specs_editor.',
+        'Default: <container>/tom_ai/forge_modules/tom_specs_editor.',
   )
   ..addOption(
     'summaries',
@@ -132,7 +132,8 @@ Future<void> _mainBuild(List<String> arguments) async {
     args.option('model') ?? p.join(aiBuild, 'tom_specs_model'),
   );
   final editorDir = p.normalize(
-    args.option('editor') ?? p.join(container, 'tom_forge', 'tom_specs_editor'),
+    args.option('editor') ??
+        p.join(container, 'tom_ai', 'forge_modules', 'tom_specs_editor'),
   );
   final buildkit = args.option('buildkit')!;
   final os = (args.option('os') ?? Platform.operatingSystem).toLowerCase();
@@ -260,7 +261,8 @@ Future<void> _mainBuild(List<String> arguments) async {
     // in that config and nowhere here.
     final bundlerDir = p.join(
       container,
-      'tom_forge',
+      'tom_ai',
+      'forge_modules',
       'tom_dart_editor_bundler',
     );
     final editorBuildkit = p.join(editorDir, 'buildkit.yaml');

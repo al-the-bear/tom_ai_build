@@ -3,7 +3,7 @@
 **Quest:** tom_specs
 **Status:** The `tom_spec_engine` plane — a D4rt host with `spec` / `files` /
 `memory` scopes plus an embeddable Tom Brain memory — links **in-process** into the
-Flutter editor (`tom_forge/tom_specs_editor`); both sit on `analyzer ^14` (§2). The
+Flutter editor (`tom_ai/forge_modules/tom_specs_editor`); both sit on `analyzer ^14` (§2). The
 `spec` scope exposes the controller-bound editing facade (`SpecApi`) alongside
 read-only `model` (reflection) and `search` (query/grep) globals; `files` and
 `memory` expose the audited file facade and the fused two-tier recall.
@@ -46,7 +46,7 @@ guidelines this layer briefs the model with, §11).
 
 | Asset | What it gives us | Reuse verdict |
 | --- | --- | --- |
-| `tom_specs_editor` `SpecDocument` + `SpecDocumentController` (`tom_forge/tom_specs_editor/lib/src/document/`) | The path-keyed in-memory document and the **single mutation authority** that the 13 MCP tools already route through; emits the change log + undo snapshots. | **Authority for all mutation.** D4rt and every new tool mutate *only* through this controller (req c). |
+| `tom_specs_editor` `SpecDocument` + `SpecDocumentController` (`tom_ai/forge_modules/tom_specs_editor/lib/src/document/`) | The path-keyed in-memory document and the **single mutation authority** that the 13 MCP tools already route through; emits the change log + undo snapshots. | **Authority for all mutation.** D4rt and every new tool mutate *only* through this controller (req c). |
 | `SpecModel` / `spec_model.json` (`…/structure/spec_model.dart`) | The resolved object-model graph (classes, fields, kinds, `@SectionId`, `@MapsTo`/`@DetailedIn`). | The **meta-model** for object-model traversal and for constraining node creation (req c). |
 | `tom_som` plan (`som_multiplatform_spec_model*.md`) | A pure-Dart **generic runtime** (`tom_som_dart_runtime`: memory representation + reflection classes) + typed **`tom_som_dart_v0`** facade. The "complete Dart document access API" req c names. | **The API D4rt exposes.** This spec adds three obligations to the `tom_som` spec (§13.1): D4rt-bridgeability, a query/grep facility, and constrained node creation. |
 | `tom_d4rt` (`tom_ai/d4rt/tom_d4rt`) | `D4rt.execute(source)` (auto-awaits `main()`), per-instance bridged-library registry, a filesystem/process **permission system**, `tom_d4rt_generator` auto-bridging from annotations. | **The interpreter + scoping mechanism.** Scopes = distinct bridged-library sets + grants (req j). |
@@ -606,7 +606,7 @@ The `tom_som` API satisfies three obligations this scripting layer depends on:
   `tom_brain_substrate`) are `publish_to: none` siblings consumed by path. The
   canonical editor carries no direct D4rt / Tom Brain pins — all transitive via the
   path-linked engine.
-- **Projects.** The canonical editor is `tom_forge/tom_specs_editor`;
+- **Projects.** The canonical editor is `tom_ai/forge_modules/tom_specs_editor`;
   `tom_ai/ai_build/tom_specs_reviewer` is a separate read-only structure reviewer
   over the object model. `tom_spec_engine` lives in `tom_ai/ai_build` (§12).
 - **Bridge generator — consumed by path (stale-cache avoidance).**

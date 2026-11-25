@@ -65,7 +65,10 @@ enum ModelJsonTarget {
   /// The spec-authoring app's bundled asset. Refreshed by `tomspecs :editor-build`
   /// (step 3), so it tracks the same build as the SOM metas and the DocSpecs
   /// schemas.
-  editor('editor', 'tom_forge/tom_specs_editor/assets/spec_model.json'),
+  editor(
+    'editor',
+    'tom_ai/forge_modules/tom_specs_editor/assets/spec_model.json',
+  ),
 
   /// The object-model review app's committed snapshot, refreshed periodically.
   /// Refreshing it is a re-export of the current model, never a renumbering of

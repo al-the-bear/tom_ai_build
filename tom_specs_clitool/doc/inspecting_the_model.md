@@ -114,7 +114,7 @@ a summary — so an ad-hoc export belongs in a scratch directory, not in a packa
 into the committed chunk set the analyzer bootstrap loads.
 
 It is **not** the producer of the editor's scoped summary asset set — that set
-has one generator, in `tom_forge/tom_dart_editor_bundler`, which also emits the
+has one generator, in `tom_ai/forge_modules/tom_dart_editor_bundler`, which also emits the
 helper naming its asset keys. Two producers for one asset set is how the assets
 and the paths an app asks for come to disagree.
 

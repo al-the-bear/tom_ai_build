@@ -2,7 +2,7 @@
 ///
 /// Packages drift out of `dart format` conformance and stay there: Dart 3.7
 /// changed the formatter's style, and seven of the first ten quest packages sat
-/// non-conforming for months because nothing looked. `tom_forge/tom_specs_editor`
+/// non-conforming for months because nothing looked. `tom_ai/forge_modules/tom_specs_editor`
 /// sat there longer still, at 58 of 68 files, because it was outside the
 /// manifest rather than outside the rule. This suite is what stops that
 /// recurring: it runs the real formatter over the real manifest, like

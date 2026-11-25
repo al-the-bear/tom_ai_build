@@ -296,7 +296,7 @@ const defaultCitedReadmes = [
   // citing README.
   'tom_ai/ai_build/tom_specs_samples/README.md',
   'tom_ai/ai_build/tom_core_codespecs/README.md',
-  'tom_forge/tom_specs_editor/README.md',
+  'tom_ai/forge_modules/tom_specs_editor/README.md',
   // The eighteen SOM language packages. The nine `_v0` READMEs are
   // **generated** by `packaging.dart`'s `renderFacadeReadme`, which is why they
   // are gated as a set: a citation broken there is broken in nine files at once
@@ -450,7 +450,7 @@ const defaultCitedSourceRoots = [
   'tom_ai/ai_build/tom_som_c_v0/tool',
   'tom_ai/ai_build/tom_som_dart_v0/example',
   'tom_ai/ai_build/tom_som_dart_v0/test',
-  'tom_forge/tom_specs_editor/test',
+  'tom_ai/forge_modules/tom_specs_editor/test',
   'tom_ai/ai_build/tom_code_specs/test',
   'tom_ai/ai_build/tom_doc_scanner/test',
   'tom_ai/ai_build/tom_doc_specs/lib',
@@ -473,7 +473,7 @@ const defaultCitedSourceRoots = [
   'tom_ai/ai_build/tom_specs_reviewer/test',
   'tom_ai/ai_build/tom_core_codespecs/lib',
   'tom_ai/ai_build/tom_core_codespecs/test',
-  'tom_forge/tom_specs_editor/lib',
+  'tom_ai/forge_modules/tom_specs_editor/lib',
   // The eight non-Dart planes' `tool/golden_log.*`, emitted by
   // `packaging.dart` — see the generated-tree paragraph above.
   'tom_ai/ai_build/tom_som_cpp_v0/tool',

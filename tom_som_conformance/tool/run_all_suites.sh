@@ -14,7 +14,7 @@
 #     invocation reports the full picture instead of hiding the suites behind
 #     the first breakage.
 #   * A suite is SKIPped only when its toolchain (or, for the editor, the
-#     separate tom_forge checkout) is genuinely absent, and a skip
+#     separate tom_forge_modules checkout) is genuinely absent, and a skip
 #     is never silent: the summary line can never read "all suites passed" when
 #     anything was skipped. Pass `--strict` to make a skip a failure — the right
 #     setting for CI, where a missing toolchain is itself the defect.
@@ -37,7 +37,7 @@
 #         for the DocSpecs schema tier over the same samples
 #         (`tomspecs :spec-validate`, in the fields and the table layout),
 #         and `editor` for
-#         the spec-authoring app's Flutter suite (tom_forge/tom_specs_editor,
+#         the spec-authoring app's Flutter suite (tom_ai/forge_modules/tom_specs_editor,
 #         preceded by _bin/check_pub_cache.sh). With none given, everything
 #         runs — the five gates first, then the eighteen suites, then the
 #         editor: twenty-four results.
@@ -107,7 +107,7 @@ if ! command -v flutter > /dev/null 2>&1; then
 fi
 
 CONTAINER="$(cd "$ROOT/../.." && pwd)"   # the workspace root: tom_ai/ai_build/../..
-EDITOR_DIR="$CONTAINER/tom_forge/tom_specs_editor"
+EDITOR_DIR="$CONTAINER/tom_ai/forge_modules/tom_specs_editor"
 PUB_CACHE_CHECK="$CONTAINER/_bin/check_pub_cache.sh"
 
 if [ -z "$LOG_DIR" ]; then
@@ -282,13 +282,13 @@ done
 # dependencies. When the cache is damaged the row says so, so the report names
 # the cache as the suspect before anyone edits code.
 #
-# The editor lives in the separate tom_forge checkout; without it the step is
+# The editor lives in the separate tom_forge_modules checkout; without it the step is
 # skipped with that reason, like an absent toolchain.
 run_editor() {
   is_selected editor || return 0
   echo "== editor =="
   if [ ! -f "$EDITOR_DIR/pubspec.yaml" ]; then
-    record_skip editor "no tom_forge/tom_specs_editor checkout"
+    record_skip editor "no tom_ai/forge_modules/tom_specs_editor checkout"
     return 0
   fi
   if ! command -v flutter > /dev/null 2>&1; then

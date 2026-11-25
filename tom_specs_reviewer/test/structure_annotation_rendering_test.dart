@@ -1,6 +1,6 @@
 // The reviewer's half of the cross-surface divergence guard.
 //
-// `tom_specs_reviewer` and `tom_forge/tom_specs_editor` share the annotation
+// `tom_specs_reviewer` and `tom_ai/forge_modules/tom_specs_editor` share the annotation
 // *readers* and the *display semantics* (`SpecChip` / `SpecRowExtras`, in
 // `tom_som_dart_runtime`) but each owns its own *rendering*. Nothing in the type
 // system stops one tree from quietly ceasing to show what the other shows, so

@@ -4,7 +4,7 @@
 **Status:** Complete design specification — the single source for the TomSpecs Editor. Model-driven document editing over the generated Dart SOM API (`tom_som_dart_v0` typed facade over `tom_som_dart_runtime`), Claude Code integration through the Anthropic Agent SDK over the VS Code bridge, projection-root semantics with a pure-projection invariant, and a buildkit-driven cross-platform build.
 **Scope:** A full, Tom Forge–based specification editor with Claude Code integration through the Anthropic Agent SDK.
 
-> This document specifies the **TomSpecs Editor**, the specification-authoring app at `tom_forge/tom_specs_editor`. It is a separate application from `tom_ai/ai_build/tom_specs_reviewer`, the object-model structure reviewer, which has its own specification (`tom_specs_reviewer_specification.md`). The editor carries its own **rendering** of the structure tree and review feature, styled to the Forge shell, over the model *readers* and *display semantics* it shares with the reviewer (requirement *Q1*, §4.4).
+> This document specifies the **TomSpecs Editor**, the specification-authoring app at `tom_ai/forge_modules/tom_specs_editor`. It is a separate application from `tom_ai/ai_build/tom_specs_reviewer`, the object-model structure reviewer, which has its own specification (`tom_specs_reviewer_specification.md`). The editor carries its own **rendering** of the structure tree and review feature, styled to the Forge shell, over the model *readers* and *display semantics* it shares with the reviewer (requirement *Q1*, §4.4).
 
 ---
 
@@ -43,7 +43,7 @@ the design *is* and the constraint it answers to. A history-phrasing sweep
 
 | # | Decision |
 | --- | --- |
-| Q1 | The editor is its own project, `tom_forge/tom_specs_editor`, separate from `tom_specs_reviewer`. The tree renderer + review feature are **rendered separately** in each app and styled to their host; the model readers and the *display semantics* of the annotations are shared through `tom_som_dart_runtime`, and a shared fixture guards the two renderings against drift (§4.4). |
+| Q1 | The editor is its own project, `tom_ai/forge_modules/tom_specs_editor`, separate from `tom_specs_reviewer`. The tree renderer + review feature are **rendered separately** in each app and styled to their host; the model readers and the *display semantics* of the annotations are shared through `tom_som_dart_runtime`, and a shared fixture guards the two renderings against drift (§4.4). |
 | Q2 | Shared agent code → **`tom_core_agentic`** (`tom_ai/core_extension/tom_core_agentic`, exists, v1.5.0). |
 | Q3 | Placeholder engine ported/reimplemented in Dart — reuse `tom_core_agentic`'s `PlaceholderResolver`; **no JS** (`${{…}}` expression evaluator left unwired). |
 | Q4 | Assume a running VS Code CLI server. Port configurable; **scan 19900–19909 on startup**, show each live server's workspace, let user pick. Tests assume `19900`. |
@@ -112,7 +112,7 @@ the design *is* and the constraint it answers to. A history-phrasing sweep
 
 ## 3. Source Material (verified facts the design builds on)
 
-### 3.1 Tom Forge shell (`tom_forge/tom_forge_ui`, `tom_forge_core`, `tom_forge_app`)
+### 3.1 Tom Forge shell (`tom_ai/forge_modules/tom_forge_ui`, `tom_forge_core`, `tom_forge_app`)
 
 - Facade `ForgeShellApi`; default impl `DefaultShellApi.withDefaultsAndFileSystem(...)` (`tom_forge_ui/lib/src/defaults/default_shell_api.dart`).
 - `ForgeModule` (`…/shell/forge_module.dart`) contributes `editors` (`ForgeEditor`), `views` (`ForgeView`), `actions`, `shortcuts`, `applications`, `configPanels`. Lifecycle `activate(shell)`/`deactivate()`. Registration explicit & total via `DefaultModuleRegistry.register` — the hook for our custom module set (*m*).
@@ -183,10 +183,10 @@ The SOM language API generator emits a **typed Dart facade** over the object mod
 
 ### 4.1 Project placement & shared code (Q1, Q2)
 
-- **App:** `tom_forge/tom_specs_editor` (new Flutter Forge app).
+- **App:** `tom_ai/forge_modules/tom_specs_editor` (new Flutter Forge app).
 - **Generic model/provider API + placeholder engine + agent models:** `tom_core_agentic` (extended — see §4.3).
 - **Agent-SDK transport:** `tom_vscode_scripting_api` (existing `AgentSdkClient`/`VSCodeBridgeClient`/`VSCodeBridgeAgentSdkTransport`).
-- **Reusable agent/chat *UI* → new `tom_forge/tom_forge_agentic`** (D1, N7). This project holds **UI only** — chat composer, prompt queue, prompt trail, agent settings, navigation/mutation tool surface, change-log + three-way review — so every agent/chat-enabled Forge tool renders an identical experience. **All non-UI logic (provider API, models, placeholder engine) lives in `tom_core_agentic`.** `tom_specs_editor` depends on both; the spec-specific document/structure modules stay in `tom_specs_editor`.
+- **Reusable agent/chat *UI* → new `tom_ai/forge_modules/tom_forge_agentic`** (D1, N7). This project holds **UI only** — chat composer, prompt queue, prompt trail, agent settings, navigation/mutation tool surface, change-log + three-way review — so every agent/chat-enabled Forge tool renders an identical experience. **All non-UI logic (provider API, models, placeholder engine) lives in `tom_core_agentic`.** `tom_specs_editor` depends on both; the spec-specific document/structure modules stay in `tom_specs_editor`.
 
 ### 4.3 Generic provider/model API (N7)
 
@@ -556,7 +556,7 @@ The build is driven by the **`buildkit`** tool (N8), which can run **all** build
 > exported class graph: it browses the model as a tree and records structural
 > review observations, and is explicitly **not** a specification editor. The
 > canonical Flutter editor this specification describes is
-> **`tom_forge/tom_specs_editor`** (the live document controller +
+> **`tom_ai/forge_modules/tom_specs_editor`** (the live document controller +
 > `AgentToolsModule` + §8 tools), and `tom_spec_engine` links into *that*
 > project. The paragraph below describes the reviewer's own runtime
 > consumption, not the editor's; what the two apps share, and where the
@@ -607,7 +607,7 @@ one.
 
 ### Stage B — Editor shell skeleton `[1a]`
 
-8. **Scaffold `tom_forge/tom_forge_agentic` (UI only, D1/N7) and `tom_forge/tom_specs_editor`.** Two new Flutter projects; `tom_specs_editor` depends on `tom_forge_agentic` + `tom_core_agentic` + the bundled model/schema assets. **Done:** both projects build empty; `tom_specs_editor` launches a blank Forge shell.
+8. **Scaffold `tom_ai/forge_modules/tom_forge_agentic` (UI only, D1/N7) and `tom_ai/forge_modules/tom_specs_editor`.** Two new Flutter projects; `tom_specs_editor` depends on `tom_forge_agentic` + `tom_core_agentic` + the bundled model/schema assets. **Done:** both projects build empty; `tom_specs_editor` launches a blank Forge shell.
 9. **Custom module set + 3 applications (§4.2, §5).** `SpecsShellModule` registering the *DocSpecs / CodeSpecs / Implementation* `ForgeApplication`s with the 4-region `ApplicationLayout`; only DocSpecs functional. **Done:** app launcher switches between the three; DocSpecs shows the 4 regions.
 10. **Port the structure browser + structural review (Q1).** Fork the reviewer's `spec_tree.dart` + `ReviewStore` into `SpecStructureModule`, restyle to match. **Done:** the structure view renders the bundled `spec_model.json` and persists review state, restyled.
 

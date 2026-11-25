@@ -86,7 +86,7 @@ Two copies of this export are **tracked in git**:
 
 | Target | Path |
 | --- | --- |
-| `editor` | `tom_forge/tom_specs_editor/assets/spec_model.json` |
+| `editor` | `tom_ai/forge_modules/tom_specs_editor/assets/spec_model.json` |
 | `reviewer` | `tom_ai/ai_build/tom_specs_reviewer/assets/spec_model.json` |
 
 Both carry the **same** stamp, derived from

@@ -28,7 +28,7 @@ import 'package:tom_analyzer_shared/tom_analyzer_shared.dart'
 /// **This is not the producer of `tom_specs_editor`'s summary asset set.** That
 /// set is scoped — one shared `sdk_summary.sum` plus a per-scope
 /// `<scope>/packages.sum` — and has exactly one generator,
-/// `tom_forge/tom_dart_editor_bundler`, driven from the app's own
+/// `tom_ai/forge_modules/tom_dart_editor_bundler`, driven from the app's own
 /// `buildkit.yaml` (`dart-editor-bundler:` block) by
 /// `build.dart --generate-summaries`. The bundler also emits the
 /// `summary_scopes.g.dart` helper naming the asset keys, so the assets and the

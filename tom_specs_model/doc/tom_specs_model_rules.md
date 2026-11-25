@@ -208,7 +208,7 @@ The SOM spans five cooperating projects:
 | `tom_specs_model` | `tom_ai/ai_build/` | The typed model itself — the source of truth. |
 | `tom_specs_clitool` | `tom_ai/ai_build/` | Analyzer-based tooling: outliner, validator, JSON exporter, multi-language SOM generator. |
 | `tom_specs_reviewer` | `tom_ai/ai_build/` | Flutter app for **reviewing the object model** — browses the exported class graph and records structural observations. Not a spec editor. |
-| `tom_specs_editor` | `tom_forge/` | The **spec authoring app** — a Tom Forge desktop app for authoring DocSpecs / CodeSpecs / Implementation specifications. |
+| `tom_specs_editor` | `tom_ai/forge_modules/` | The **spec authoring app** — a Tom Forge desktop app for authoring DocSpecs / CodeSpecs / Implementation specifications. |
 
 The base types live in `tom_specs_core`, not in `tom_specs_model`, by design: the
 clitool's analyzer-based `ModelReader` scans `tom_specs_model/lib/src` and
@@ -2955,7 +2955,7 @@ kept** — that taxonomy is explicitly extensible, so proposing to extend it is
 itself a finding. Its output feeds further development of the model. It is
 explicitly **not** a specification editor.
 
-### 12.3 Editor — `tom_specs_editor` (`tom_forge/`)
+### 12.3 Editor — `tom_specs_editor` (`tom_ai/forge_modules/`)
 
 The **spec authoring app**: a Tom Forge desktop app for authoring DocSpecs /
 CodeSpecs / Implementation specifications, built on the Forge shell and the

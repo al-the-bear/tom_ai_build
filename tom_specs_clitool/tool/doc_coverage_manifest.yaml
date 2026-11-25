@@ -98,4 +98,4 @@ exempt:
 # present-at-zero deliberately: a zero entry reads as a standing debt, and this
 # is a decision. An entry for one fails the gate.
 excluded:
-  - tom_forge/tom_specs_editor
+  - tom_ai/forge_modules/tom_specs_editor

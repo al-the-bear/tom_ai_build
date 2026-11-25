@@ -38,7 +38,7 @@ class graph that [`tom_specs_clitool`](../tom_specs_clitool) exports from the
 model, and nothing consumes the reviewer in turn — its output is read by people
 changing `tom_specs_model`. It is **explicitly not a specification editor**: the
 app that authors actual DocSpecs / CodeSpecs / Implementation specifications is
-`tom_forge/tom_specs_editor`. And it is **outside the release-1 published set**
+`tom_ai/forge_modules/tom_specs_editor`. And it is **outside the release-1 published set**
 — it is a `publish_to: 'none'` workspace tool, excluded by name in
 `tom_specs_clitool/tool/release_set.yaml`, so nothing in the released chain may
 depend on it.
@@ -120,7 +120,7 @@ passing unseen.
 What each marker *says* is not this app's own decision: the chip labels,
 tooltips and suppression rules live in
 [`tom_som_dart_runtime`](../tom_som_dart_runtime), shared with
-`tom_forge/tom_specs_editor`, which renders the same class graph in the Forge
+`tom_ai/forge_modules/tom_specs_editor`, which renders the same class graph in the Forge
 shell. The two apps paint them differently — opposite backgrounds — but may not
 disagree about their meaning. A showcase fixture in that package exercises every
 annotation, and both apps run a widget test asserting each marker reaches their
@@ -298,7 +298,7 @@ The **readers** (`SpecModel`, `SpecRoot`, `SpecClass`, `SpecField`,
                     │
         ┌───────────┴────────────┐
         ▼                        ▼
-  tom_specs_reviewer      tom_forge/tom_specs_editor
+  tom_specs_reviewer      tom_ai/forge_modules/tom_specs_editor
   ← this package             the authoring app
         │                        │
         └──── both read ─────────┘

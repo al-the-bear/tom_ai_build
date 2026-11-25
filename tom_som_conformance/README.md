@@ -1157,7 +1157,7 @@ them one step that is not a SOM package, `editor`, so a run reports
 twenty-four results in total.
 
 `editor` runs `flutter test` in the spec-authoring app,
-`tom_forge/tom_specs_editor`. It rides here because nothing else can run it:
+`tom_ai/forge_modules/tom_specs_editor`. It rides here because nothing else can run it:
 the editor is a Flutter app outside the release scope, so neither a Dart-only
 driver nor a release step reaches it, and this is the driver run after every
 model change, which is when the editor breaks. The step runs

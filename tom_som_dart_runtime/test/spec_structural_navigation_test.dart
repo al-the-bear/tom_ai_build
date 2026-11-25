@@ -1,7 +1,7 @@
 /// The two structural-navigation rules both Flutter surfaces share.
 ///
 /// `pathToType` and `isHandoffAway` were written out twice — once in
-/// `tom_specs_reviewer`, once in `tom_forge/tom_specs_editor` — as byte-identical
+/// `tom_specs_reviewer`, once in `tom_ai/forge_modules/tom_specs_editor` — as byte-identical
 /// copies inside each app's own `spec_tree.dart`. Neither is paint: one is a
 /// breadth-first walk of the class graph, the other reads two model annotations.
 /// Two apps computing "the path to this class" differently would disagree about

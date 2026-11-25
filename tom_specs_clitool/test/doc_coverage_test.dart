@@ -125,10 +125,13 @@ void main() {
     });
 
     test('the editor is excluded, not measured', () {
-      expect(manifest.excluded, contains('tom_forge/tom_specs_editor'));
+      expect(
+        manifest.excluded,
+        contains('tom_ai/forge_modules/tom_specs_editor'),
+      );
       expect(
         manifest.entries.map((e) => e.path),
-        isNot(contains('tom_forge/tom_specs_editor')),
+        isNot(contains('tom_ai/forge_modules/tom_specs_editor')),
       );
     });
   });

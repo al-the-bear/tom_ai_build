@@ -29,7 +29,7 @@ dependencies:
   # document EDITS correctness-checked by the generated model — and this app
   # loads the class graph, never a document, so there is nothing for it to
   # check. Adding it would mean first giving the reviewer a document plane it
-  # deliberately does not have, which is tom_forge/tom_specs_editor's job.
+  # deliberately does not have, which is tom_ai/forge_modules/tom_specs_editor's job.
   # See tom_specs_reviewer_specification.md §2.4.
 
 dev_dependencies:

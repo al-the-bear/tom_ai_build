@@ -1,6 +1,6 @@
 /// The doc lines the two spec-tree surfaces state twice.
 ///
-/// `tom_specs_reviewer` and `tom_forge/tom_specs_editor` render the same class
+/// `tom_specs_reviewer` and `tom_ai/forge_modules/tom_specs_editor` render the same class
 /// graph through parallel widget trees. Keeping the *trees* separate is a
 /// recorded decision — the hosts and per-row affordances differ — but the
 /// explanations were forked along with the code, and **the hazard is
@@ -44,7 +44,7 @@ const int sharedDocMinLength = 45;
 const String reviewerTreeRoot = 'tom_ai/ai_build/tom_specs_reviewer/lib';
 
 /// The editor's tree, relative to the container root.
-const String editorTreeRoot = 'tom_forge/tom_specs_editor/lib';
+const String editorTreeRoot = 'tom_ai/forge_modules/tom_specs_editor/lib';
 
 /// The committed baseline, relative to `tom_specs_clitool`.
 const String sharedDocBaselinePath = 'tool/spec_tree_shared_docs.txt';

@@ -35,7 +35,7 @@ under `dart test` and behind a CLI, and the editor links it **in-process**
 rather than talking to a server. So it sits between the generated Dart SOM
 runtime below it ([`tom_som_dart_runtime`](../tom_som_dart_runtime),
 [`tom_som_dart_v0`](../tom_som_dart_v0)) and the editor above it
-([`tom_forge/tom_specs_editor`](../../../tom_forge/tom_specs_editor)), with the
+([`tom_ai/forge_modules/tom_specs_editor`](../../forge_modules/tom_specs_editor)), with the
 embeddable Tom Brain packages supplying profiles, sessions and named memory.
 
 ## Overview
@@ -320,7 +320,7 @@ than as a red suite.
         ▼                          ▼
   scripting.dart              tom_spec_engine.dart
   linked in-process by        headless hosts: CLI, tests,
-  tom_forge/tom_specs_editor  the full memory + agent plane
+  tom_ai/forge_modules/tom_specs_editor  the full memory + agent plane
 ```
 
 ## Further documentation

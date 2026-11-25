@@ -63,10 +63,10 @@ const oeRegisterDocument =
 /// reading code that has never heard of the register, and one accidental match
 /// in an unrelated package would make the gate look unreliable.
 const defaultCitingRoots = [
-  'tom_forge/tom_specs_editor/lib',
-  'tom_forge/tom_specs_editor/test',
-  'tom_forge/tom_specs_editor/pubspec.yaml',
-  'tom_forge/tom_specs_editor/buildkit.yaml',
+  'tom_ai/forge_modules/tom_specs_editor/lib',
+  'tom_ai/forge_modules/tom_specs_editor/test',
+  'tom_ai/forge_modules/tom_specs_editor/pubspec.yaml',
+  'tom_ai/forge_modules/tom_specs_editor/buildkit.yaml',
   'tom_ai/ai_build/tom_specs_model/doc',
   // The package-tier `doc/` folders. A package guide cites an `OE-` id for the
   // same reason the editor's source does — to name an open end rather than

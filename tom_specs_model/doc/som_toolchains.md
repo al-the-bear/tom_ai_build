@@ -247,7 +247,7 @@ editor's code-typed fields where no `package_config.json` is available. It is
 not part of the `tom_specs_clitool` path.
 
 For that consumer the bundles are produced by
-**`tom_forge/tom_dart_editor_bundler`**, not by `tomspecs :editor-summaries`. The bundler is
+**`tom_ai/forge_modules/tom_dart_editor_bundler`**, not by `tomspecs :editor-summaries`. The bundler is
 config-driven from the consuming app's own `buildkit.yaml` and emits a *scoped*
 asset set — one shared `sdk_summary.sum` plus `<out-dir>/<scope>/packages.sum`
 per scope — together with the `summary_scopes.g.dart` helper that names those
@@ -255,7 +255,7 @@ asset keys. Keeping one producer for that set is what makes the helper's paths
 and the files on disk the same statement rather than two:
 
 ```bash
-cd tom_forge/tom_specs_editor
+cd tom_ai/forge_modules/tom_specs_editor
 dart run ../tom_dart_editor_bundler/bin/dart_editor_bundler.dart \
   --config buildkit.yaml --verbose
 ```
@@ -267,7 +267,7 @@ Loading one needs a fallback resolver: the standard `InSummaryUriResolver` only
 resolves URIs explicitly registered in `uriToSummaryPath`, so deserializing a
 package's internal `src/` files fails without one. The implementation is
 `PackageSummaryUriResolver` in
-`tom_forge/tom_dart_editor/lib/src/analyzer_with_packages.dart` — it resolves an
+`tom_ai/forge_modules/tom_dart_editor/lib/src/analyzer_with_packages.dart` — it resolves an
 exact `uriToSummaryPath` hit first, then falls back to the bundle for any URI
 whose package is known.
 
@@ -283,11 +283,11 @@ whose package is known.
 
 ### Reference implementation
 
-- `tom_dart_editor`: `tom_forge/tom_dart_editor/` — reference for summary-based analysis
+- `tom_dart_editor`: `tom_ai/forge_modules/tom_dart_editor/` — reference for summary-based analysis
   - `lib/src/analyzer_with_packages.dart` — summary driver setup
   - `lib/src/summary_analysis_adapter.dart` — adapter layer
   - `doc/dart_editor_usage_guide.md` — usage guide
-- `tom_dart_editor_test`: `tom_forge/tom_dart_editor_test/`
+- `tom_dart_editor_test`: `tom_ai/forge_modules/tom_dart_editor_test/`
   - `assets/sdk_summary.sum` (~3 MB) — pre-built SDK summary
   - `assets/packages.sum` (~31 MB) — pre-built packages summary
   - `tool/build_packages_summary.dart` — build tool

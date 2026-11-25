@@ -32,7 +32,7 @@
 # this manifest's; if it is ever done, they belong here.
 #
 # LISTED, THOUGH IT IS NEITHER IN THIS REPOSITORY NOR IN THIS QUEST'S
-# DOCUMENTATION SCOPE: `tom_forge/tom_specs_editor`. Three reasons had kept it
+# DOCUMENTATION SCOPE: `tom_ai/forge_modules/tom_specs_editor`. Three reasons had kept it
 # out and none of them is a reason about formatting.
 #
 # It is a Flutter application, but this gate never runs `dart test` in a
@@ -41,7 +41,7 @@
 # `tom_specs_documentation_standard.md` §6, but that scope governs what must be
 # documented, not what must be formatted; the two boundaries are unrelated and
 # treating one as the other is how a package ends up ungoverned for a reason
-# nobody stated. And it lives in `tom_forge`, which is a fact about which commit
+# nobody stated. And it lives in `tom_forge_modules`, which is a fact about which commit
 # the reformat belongs in rather than about whether it should happen.
 #
 # What decided it is the cost, which was being paid: 58 of 68 files carried the
@@ -94,4 +94,4 @@ packages:
   - tom_ai/ai_build/tom_specs_samples/phase4_codespecs_run
   # The one governed tree outside `tom_ai`. Paths here are container-root
   # relative, so a sibling repository needs no code change — only this line.
-  - tom_forge/tom_specs_editor
+  - tom_ai/forge_modules/tom_specs_editor
