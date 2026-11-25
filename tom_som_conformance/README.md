@@ -920,6 +920,12 @@ like the samples: the tables load it through the runtime on every run, so a
 model change it no longer fits fails them, and it is then edited like any
 other document of the model.
 
+The findings of the operations — the report's findings and each document's,
+backfill's `left`, prefill's `findings` and the `unresolved` of prefill and
+`deriveFields` — carry their `message`, and it is compared as text, as the
+decoder's errors are: a port writes the same sentence, word for word.
+`link_validation_cases.json` keeps `{path, code}`.
+
 The files are written by the Dart runtime's
 `test/section_link_conformance_test.dart` under `UPDATE_CORPUS=1`; every case
 carries a hand-written `intent` the test checks, and the expectations were read

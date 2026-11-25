@@ -91,6 +91,20 @@ void main() {
       expect([
         for (final f in json['findings'] as List) f['code'],
       ], contains('sharedValueDiffers'));
+      // Every finding, and every document finding, carries its message.
+      final drift = (json['findings'] as List).firstWhere(
+        (f) => f['code'] == 'sharedValueDiffers',
+      );
+      expect(drift['message'], contains('status'));
+      for (final f in json['findings'] as List) {
+        expect(f['message'], isA<String>());
+        expect(f['message'], isNotEmpty);
+      }
+      for (final e in json['documentFindings'] as List) {
+        for (final f in (e as List)[1] as List) {
+          expect(f['message'], isNotEmpty);
+        }
+      }
     });
 
     test('--pairs scopes the report', () async {

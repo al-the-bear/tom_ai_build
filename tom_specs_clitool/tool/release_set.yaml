@@ -162,7 +162,8 @@ unpublished_drift:
     neither a marker nor a generated block as text. 04_sau13: a records row
     of a summary without match links its detail element from its Id cell.
     04_sau14: syncReport keys a scalar list's items as elements (it crashed
-    on Tom UAM's Blueprint with its XDS document).
+    on Tom UAM's Blueprint with its XDS document). 04_sau15: the operation
+    results' findings carry their message in the canonical form.
   tom_som_dart_v0: >-
     section automation in progress — 02_sau5 (2026-11-23): regenerated for
     model 1.12.3 (LocaleRolloutPlan, 14 more @DetailedIn). 03_sau11:

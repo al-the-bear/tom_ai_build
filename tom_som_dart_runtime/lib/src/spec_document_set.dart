@@ -580,7 +580,8 @@ class SpecSyncFinding {
   /// How it is resolved.
   final SpecSyncResolution resolution;
 
-  /// Prose for the agent; never compared.
+  /// Prose for the agent, in the canonical form: every runtime writes the
+  /// same sentence (the conformance corpus compares it).
   final String message;
 
   /// The parts of a finding.
@@ -605,6 +606,7 @@ class SpecSyncFinding {
     'detail': detail.toJson(),
     'holder': holder.name,
     'resolution': resolution.name,
+    'message': message,
     'info': isInfo,
   };
 }
@@ -658,7 +660,8 @@ class SpecSyncReport {
         [
           e.key,
           [
-            for (final x in e.value) {'path': x.path, 'code': x.code.name},
+            for (final x in e.value)
+              {'path': x.path, 'code': x.code.name, 'message': x.message},
           ],
         ],
     ],

@@ -2231,7 +2231,8 @@
           "findings": [
             {
               "path": "DET/criteria/CRIT-ITEM-LST-1/content",
-              "code": "danglingReference"
+              "code": "danglingReference",
+              "message": "form field \"relatedRequirements\" references \"REQ-EXPORT\", which no entry of registry REQ.@sectionId declares"
             }
           ],
           "document": {
@@ -2275,7 +2276,8 @@
           "findings": [
             {
               "path": "DET/criteria/CRIT-ITEM-LST-1/content",
-              "code": "danglingReference"
+              "code": "danglingReference",
+              "message": "form field \"relatedRequirements\" references \"REQ-EXPORT\", which no entry of registry REQ.@sectionId declares"
             }
           ],
           "document": {

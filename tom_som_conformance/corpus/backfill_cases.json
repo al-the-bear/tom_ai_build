@@ -947,6 +947,7 @@
                 },
                 "holder": "detail",
                 "resolution": "info",
+                "message": "SCREN-ITEM-NEW is named in tom_uam.rsp.tomspecs.yaml and not in tom_uam.sbp.tomspecs.yaml",
                 "info": true
               },
               "reason": "mayBeAdded"
@@ -1443,6 +1444,7 @@
                 },
                 "holder": "detail",
                 "resolution": "info",
+                "message": "SCREN-ITEM-NEW is named in tom_uam.rsp.tomspecs.yaml and not in tom_uam.sbp.tomspecs.yaml",
                 "info": true
               },
               "reason": "mayBeAdded"
@@ -14778,6 +14780,7 @@
                 },
                 "holder": "blueprint",
                 "resolution": "agent",
+                "message": "form field \"owner\" differs: \"ana\" in blueprint, \"bo\" in detail (held in blueprint)",
                 "info": false
               },
               "reason": "heldHere"
@@ -15036,6 +15039,7 @@
                 },
                 "holder": "blueprint",
                 "resolution": "agent",
+                "message": "form field \"owner\" differs: \"ana\" in blueprint, \"bo\" in detail (held in blueprint)",
                 "info": false
               },
               "reason": "heldHere"
@@ -16193,6 +16197,7 @@
                 },
                 "holder": "detail",
                 "resolution": "info",
+                "message": "SCRN-HOME is named in detail and not in blueprint",
                 "info": true
               },
               "reason": "mayBeAdded"
@@ -16216,6 +16221,7 @@
                 },
                 "holder": "detail",
                 "resolution": "info",
+                "message": "CRIT-NEW is only in detail; under subset it may be added to blueprint",
                 "info": true
               },
               "reason": "mayBeAdded"
@@ -16474,6 +16480,7 @@
                 },
                 "holder": "detail",
                 "resolution": "info",
+                "message": "SCRN-HOME is named in detail and not in blueprint",
                 "info": true
               },
               "reason": "mayBeAdded"
@@ -16497,6 +16504,7 @@
                 },
                 "holder": "detail",
                 "resolution": "info",
+                "message": "CRIT-NEW is only in detail; under subset it may be added to blueprint",
                 "info": true
               },
               "reason": "mayBeAdded"
@@ -17653,6 +17661,7 @@
                 },
                 "holder": "detail",
                 "resolution": "agent",
+                "message": "form field \"relatedScreens\" in detail names SCRN-LOGIN, but SCRN-LOGIN in screens does not name REQ-EXPORT back (SCRN.relatedRequirements)",
                 "info": false
               },
               "reason": "agent"
@@ -17911,6 +17920,7 @@
                 },
                 "holder": "detail",
                 "resolution": "agent",
+                "message": "form field \"relatedScreens\" in detail names SCRN-LOGIN, but SCRN-LOGIN in screens does not name REQ-EXPORT back (SCRN.relatedRequirements)",
                 "info": false
               },
               "reason": "agent"

@@ -65,11 +65,12 @@ class SpecPrefillResult {
       'changes': [for (final c in derived.changes) c.toJson()],
       'unresolved': [
         for (final e in derived.unresolved)
-          {'path': e.path, 'code': e.code.name},
+          {'path': e.path, 'code': e.code.name, 'message': e.message},
       ],
     },
     'findings': [
-      for (final e in findings) {'path': e.path, 'code': e.code.name},
+      for (final e in findings)
+        {'path': e.path, 'code': e.code.name, 'message': e.message},
     ],
     'document': document.toJson(),
   };

@@ -7929,7 +7929,8 @@
           "unresolved": [
             {
               "path": "BLU/requirements/REQ-ITEM-LST-3/content",
-              "code": "derivedLookupMiss"
+              "code": "derivedLookupMiss",
+              "message": "the lookup in REV by REV.requirementRef = \"REQ-PURGE\" finds 0 rows, not one"
             }
           ],
           "document": {
@@ -8160,7 +8161,8 @@
           "unresolved": [
             {
               "path": "BLU/requirements/REQ-ITEM-LST-3/content",
-              "code": "derivedLookupMiss"
+              "code": "derivedLookupMiss",
+              "message": "the lookup in REV by REV.requirementRef = \"REQ-PURGE\" finds 0 rows, not one"
             }
           ],
           "document": {
@@ -13024,7 +13026,8 @@
           "unresolved": [
             {
               "path": "BLU/requirements/REQ-ITEM-LST-1/REQAB",
-              "code": "unmarkable"
+              "code": "unmarkable",
+              "message": "the content would become \"Exports run:\n\n```\nexport --all\n```\", a change that cannot be marked exactly; it is left for the agent"
             }
           ],
           "document": {
@@ -13260,7 +13263,8 @@
           "unresolved": [
             {
               "path": "BLU/requirements/REQ-ITEM-LST-1/REQAB",
-              "code": "unmarkable"
+              "code": "unmarkable",
+              "message": "the content would become \"Exports run:\n\n```\nexport --all\n```\", a change that cannot be marked exactly; it is left for the agent"
             }
           ],
           "document": {

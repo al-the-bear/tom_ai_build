@@ -67,7 +67,8 @@ class SpecDeriveResult {
   Map<String, Object?> toJson() => {
     'changes': [for (final c in changes) c.toJson()],
     'unresolved': [
-      for (final e in unresolved) {'path': e.path, 'code': e.code.name},
+      for (final e in unresolved)
+        {'path': e.path, 'code': e.code.name, 'message': e.message},
     ],
     'document': document.toJson(),
   };

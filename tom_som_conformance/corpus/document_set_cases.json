@@ -3919,6 +3919,7 @@
             },
             "holder": "detail",
             "resolution": "backfill",
+            "message": "form field \"status\" differs: \"approved\" in blueprint, \"done\" in detail",
             "info": false
           }
         ],
@@ -4419,6 +4420,7 @@
             },
             "holder": "blueprint",
             "resolution": "agent",
+            "message": "form field \"owner\" differs: \"ana\" in blueprint, \"bo\" in detail (held in blueprint)",
             "info": false
           }
         ],
@@ -4914,6 +4916,7 @@
             },
             "holder": "detail",
             "resolution": "backfill",
+            "message": "form field \"description\" is filled in detail and empty in blueprint",
             "info": false
           }
         ],
@@ -4923,7 +4926,8 @@
             [
               {
                 "path": "BLU/requirements/REQ-ITEM-LST-2/REQAB",
-                "code": "derivedValueMismatch"
+                "code": "derivedValueMismatch",
+                "message": "the content is derived (copy of REQD.description) as \"\", but holds \"Imports files.\""
               }
             ]
           ],
@@ -5414,6 +5418,7 @@
             },
             "holder": "detail",
             "resolution": "backfill",
+            "message": "form field \"description\" is filled only in blueprint; detail emptied it",
             "info": false
           }
         ],
@@ -5427,7 +5432,8 @@
             [
               {
                 "path": "DET/requirements/REQ-ITEM-LST-3/REQAB",
-                "code": "derivedValueMismatch"
+                "code": "derivedValueMismatch",
+                "message": "the content is derived (copy of REQD.description) as \"\", but holds \"Purges old data.\""
               }
             ]
           ],
@@ -5922,6 +5928,7 @@
             },
             "holder": "detail",
             "resolution": "backfill",
+            "message": "REQ-PRESETS is in detail and missing in blueprint",
             "info": false
           }
         ],
@@ -5935,11 +5942,13 @@
             [
               {
                 "path": "DET/requirements/REQS-SUM",
-                "code": "countMismatch"
+                "code": "countMismatch",
+                "message": "form field \"total\" states 3, but the document holds 4 (counting REQ)"
               },
               {
                 "path": "DET/requirements/REQ-ITEM-LST-4",
-                "code": "detailNotInSummary"
+                "code": "detailNotInSummary",
+                "message": "the detail element REQ-PRESETS is not named in \"allRequirements\" of DET/requirements/REQS-SUM (relation: equal)"
               }
             ]
           ],
@@ -6432,6 +6441,7 @@
             },
             "holder": "detail",
             "resolution": "backfill",
+            "message": "KEY-2 is only in blueprint; detail removed it",
             "info": false
           }
         ],
@@ -6934,6 +6944,7 @@
             },
             "holder": "detail",
             "resolution": "info",
+            "message": "CRIT-NEW is only in detail; under subset it may be added to blueprint",
             "info": true
           }
         ],
@@ -7435,6 +7446,7 @@
             },
             "holder": "detail",
             "resolution": "backfill",
+            "message": "CRIT-LEGAL is in detail and missing in blueprint",
             "info": false
           }
         ],
@@ -7934,6 +7946,7 @@
             },
             "holder": "detail",
             "resolution": "info",
+            "message": "SCRN-HOME is named in detail and not in blueprint",
             "info": true
           }
         ],
@@ -8433,6 +8446,7 @@
             },
             "holder": "detail",
             "resolution": "backfill",
+            "message": "SCRN-OLD is named only in blueprint",
             "info": false
           }
         ],
@@ -8934,6 +8948,7 @@
             },
             "holder": "detail",
             "resolution": "agent",
+            "message": "the detail element SCRN-HOME of screens is named by no row of BLU/screenOverview/OVR-ITEM-LST (relation: equal)",
             "info": false
           }
         ],
@@ -9432,6 +9447,7 @@
             },
             "holder": "detail",
             "resolution": "agent",
+            "message": "form field \"focusScreens\" names SCRN-GONE, which is no element of SCRN-ITEM-LST in screens",
             "info": false
           }
         ],
@@ -9930,6 +9946,7 @@
             },
             "holder": "detail",
             "resolution": "agent",
+            "message": "form field \"relatedScreens\" in detail names SCRN-LOGIN, but SCRN-LOGIN in screens does not name REQ-EXPORT back (SCRN.relatedRequirements)",
             "info": false
           }
         ],
@@ -10430,6 +10447,7 @@
             },
             "holder": "detail",
             "resolution": "info",
+            "message": "form field \"description\" at DET/requirements/REQ-ITEM-LST-2/REQD in detail holds pending change marks",
             "info": true
           }
         ],
@@ -10443,7 +10461,8 @@
             [
               {
                 "path": "DET/requirements/REQ-ITEM-LST-2/REQD",
-                "code": "linkValuePending"
+                "code": "linkValuePending",
+                "message": "form field \"description\" holds pending change marks; it is read with every mark rejected"
               }
             ]
           ],
@@ -11792,7 +11811,8 @@
             [
               {
                 "path": "DET/requirements/REQ-ITEM-LST-1/REQT",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedCriteria\" references \"CRIT-SPEED\", which no entry of registry CRITE.@sectionId declares"
               }
             ]
           ],
@@ -12746,6 +12766,7 @@
             },
             "holder": "detail",
             "resolution": "backfill",
+            "message": "form field \"status\" differs: \"approved\" in blueprint, \"done\" in detail",
             "info": false
           }
         ],
@@ -13242,6 +13263,7 @@
             },
             "holder": "detail",
             "resolution": "agent",
+            "message": "the content would become \"Exports run:\n\n```\nexport --all\n```\", a change that cannot be marked exactly; it is left for the agent (in blueprint)",
             "info": false
           },
           {
@@ -13261,6 +13283,7 @@
             },
             "holder": "detail",
             "resolution": "agent",
+            "message": "the content would become \"Exports run:\n\n```\nexport --all\n```\", a change that cannot be marked exactly; it is left for the agent (in detail)",
             "info": false
           }
         ],
@@ -13270,11 +13293,13 @@
             [
               {
                 "path": "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1",
-                "code": "extractedLinkStale"
+                "code": "extractedLinkStale",
+                "message": "the generated row names REQ-IMPORT, which REQD.description no longer names"
               },
               {
                 "path": "BLU/requirements/REQ-ITEM-LST-1/REQAB",
-                "code": "derivedValueMismatch"
+                "code": "derivedValueMismatch",
+                "message": "the content is derived (copy of REQD.description) as \"Exports run:\n\n```\nexport --all\n```\", but holds \"Exports run:\n\n```\nexport --some\n```\""
               }
             ]
           ],
@@ -13283,11 +13308,13 @@
             [
               {
                 "path": "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1",
-                "code": "extractedLinkStale"
+                "code": "extractedLinkStale",
+                "message": "the generated row names REQ-IMPORT, which REQD.description no longer names"
               },
               {
                 "path": "DET/requirements/REQ-ITEM-LST-1/REQAB",
-                "code": "derivedValueMismatch"
+                "code": "derivedValueMismatch",
+                "message": "the content is derived (copy of REQD.description) as \"Exports run:\n\n```\nexport --all\n```\", but holds \"Exports run:\n\n```\nexport --some\n```\""
               }
             ]
           ],
@@ -13784,6 +13811,7 @@
             },
             "holder": "detail",
             "resolution": "backfill",
+            "message": "form field \"status\" differs: \"approved\" in blueprint, \"done\" in detail",
             "info": false
           },
           {
@@ -13804,6 +13832,7 @@
             },
             "holder": "detail",
             "resolution": "backfill",
+            "message": "CRIT-LEGAL is in detail and missing in blueprint",
             "info": false
           }
         ],
@@ -14876,323 +14905,403 @@
             [
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-1/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"required by\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-2/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"refined by\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-3/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-4/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-5/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-6/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-7/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-8/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-9/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/dependencies/RQDEP-ITEM-LST-1/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/dependencies/RQDEP-ITEM-LST-2/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/FREC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"conflictsWith\" references \"None: the contradictions of its sources were resolved in the Project Idea (section 10\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/FREC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"conflictsWith\" references \"before gate G1); the limits other requirements set on it are its dependencies (`REQDEP`)\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dataRequirements/DAENRE-ENTI-LST-1/DAENRE-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"DAENT-ENTI-TENANT\", which no entry of registry DAENT.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dataRequirements/DAENRE-ENTI-LST-2/DAENRE-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"DAENT-ENTI-INVITATION\", which no entry of registry DAENT.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dataRequirements/DAENRE-ENTI-LST-3/DAENRE-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"DAENT-ENTI-FEATURE-FLAG\", which no entry of registry DAENT.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dataRequirements/DAENRE-ENTI-LST-4/DAENRE-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"DAENT-ENTI-ORGANIZATION\", which no entry of registry DAENT.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dataRequirements/DAENRE-ENTI-LST-5/DAENRE-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"DAENT-ENTI-SUBSCRIPTION\", which no entry of registry DAENT.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-1/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-DATA-RESIDENCY\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-2/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-TENANT-OFFBOARDING\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-3/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-BREAK-GLASS\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-4/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-TENANT-REACH\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-5/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-FOUR-EYES\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-6/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-SECOND-FACTORS\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-7/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-SESSIONS-SSO\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-8/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-SETTINGS-HIERARCHY\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-9/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"SECRQ-REQU-KEY-MANAGEMENT\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedScreens\" references \"SCREN-ITEM-TENANTS\", which no entry of registry SCREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedScreens\" references \"SCREN-ITEM-TENANT-CREATE\", which no entry of registry SCREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedScreens\" references \"SCREN-ITEM-DASHBOARD\", which no entry of registry SCREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedScreens\" references \"SCREN-ITEM-SUBSCRIPTION-SCHEMES\", which no entry of registry SCREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedScreens\" references \"SCREN-ITEM-TENANT-EXPORT\", which no entry of registry SCREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedScreens\" references \"SCREN-ITEM-INVITATION\", which no entry of registry SCREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedScreens\" references \"SCREN-ITEM-TEST-ONBOARDING\", which no entry of registry SCREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedScreens\" references \"SCREN-ITEM-SETTINGS\", which no entry of registry SCREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"Tenant\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"Invitation\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"FeatureFlag\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"Organization\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"Subscription\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"Setting (the setup wizard's state; `SETTINGS`\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"added to the screens\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"reopens the wizard — DQ-139 (a)\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"DQ-141 (a))\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDocuments\" references \"The Information Model (`tom_uam.ifm.tomspecs.md`)\", which no entry of registry RFDOC.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDocuments\" references \"the Experience Design Specification (`tom_uam.xds.tomspecs.md`)\", which no entry of registry RFDOC.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDocuments\" references \"the Interaction Scenarios (`tom_uam.isc.tomspecs.md`)\", which no entry of registry RFDOC.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedGoals\" references \"BGE-GOAL-G2\", which no entry of registry BGE.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedGoals\" references \"BGE-GOAL-G4\", which no entry of registry BGE.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedUseCases\" references \"INEN-INTE-UC-01\", which no entry of registry INEN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedUseCases\" references \"INEN-INTE-UC-20\", which no entry of registry INEN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedUseCases\" references \"INEN-INTE-UC-23\", which no entry of registry INEN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedUseCases\" references \"INEN-INTE-UC-49\", which no entry of registry INEN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedProcesses\" references \"BPREN-PROC-TENANT-ONBOARDING\", which no entry of registry BPREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedProcesses\" references \"BPREN-PROC-SUBSCRIPTION-LIFECYCLE\", which no entry of registry BPREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/FREC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"conflictsWith\" references \"None: the contradictions of its sources were resolved in the Project Idea (section 10\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/FREC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"conflictsWith\" references \"before gate G1); the limits other requirements set on it are its dependencies (`REQDEP`)\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/dataRequirements/DAENRE-ENTI-LST-1/DAENRE-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"DAENT-ENTI-FEATURE-FLAG\", which no entry of registry DAENT.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/dataRequirements/DAENRE-ENTI-LST-2/DAENRE-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"DAENT-ENTI-TENANT\", which no entry of registry DAENT.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/dataRequirements/DAENRE-ENTI-LST-3/DAENRE-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"DAENT-ENTI-FEDERATION-SOURCE\", which no entry of registry DAENT.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/dataRequirements/DAENRE-ENTI-LST-4/DAENRE-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"DAENT-ENTI-SETTING\", which no entry of registry DAENT.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/dependencies/RQDEP-ITEM-LST-1/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-ITEM-TYPES\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/dependencies/RQDEP-ITEM-LST-2/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-INSTALLATION-SETUP\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedScreens\" references \"SCREN-ITEM-TENANTS\", which no entry of registry SCREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedScreens\" references \"SCREN-ITEM-SETTINGS\", which no entry of registry SCREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedScreens\" references \"SCREN-ITEM-TENANT-CREATE\", which no entry of registry SCREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"FeatureFlag\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"Tenant\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"FederationSource\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"Setting\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDocuments\" references \"The Information Model (`tom_uam.ifm.tomspecs.md`)\", which no entry of registry RFDOC.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDocuments\" references \"the Experience Design Specification (`tom_uam.xds.tomspecs.md`)\", which no entry of registry RFDOC.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDocuments\" references \"the Interaction Scenarios (`tom_uam.isc.tomspecs.md`)\", which no entry of registry RFDOC.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedGoals\" references \"BGE-GOAL-G6\", which no entry of registry BGE.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedGoals\" references \"BGE-GOAL-G2\", which no entry of registry BGE.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedUseCases\" references \"INEN-INTE-UC-22\", which no entry of registry INEN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedUseCases\" references \"INEN-INTE-UC-23\", which no entry of registry INEN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedProcesses\" references \"BPREN-PROC-TENANT-ONBOARDING\", which no entry of registry BPREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/FREC",
-                "code": "derivedValueMismatch"
+                "code": "derivedValueMismatch",
+                "message": "form field \"conflictsWith\" is derived (rows of ./RQDEP) as \"\", but holds \"None: the contradictions of its sources were resolved in the Project Idea (section 10, before gate G1); the limits other requirements set on it are its dependencies (`REQDEP`)\""
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/FREC",
-                "code": "derivedValueMismatch"
+                "code": "derivedValueMismatch",
+                "message": "form field \"conflictsWith\" is derived (rows of ./RQDEP) as \"\", but holds \"None: the contradictions of its sources were resolved in the Project Idea (section 10, before gate G1); the limits other requirements set on it are its dependencies (`REQDEP`)\""
               }
             ]
           ],
@@ -15201,115 +15310,143 @@
             [
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-1/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"required by\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-2/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"refined by\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-3/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-4/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-5/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-6/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-7/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-8/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-9/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-2/dependencies/RQDEP-ITEM-LST-1/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-2/dependencies/RQDEP-ITEM-LST-2/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/FREC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"conflictsWith\" references \"None: the contradictions of its sources were resolved in the Project Idea (section 10\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/FREC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"conflictsWith\" references \"before gate G1); the limits other requirements set on it are its dependencies (`REQDEP`)\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-1/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-DATA-RESIDENCY\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-2/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-TENANT-OFFBOARDING\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-3/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-BREAK-GLASS\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-4/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-TENANT-REACH\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-5/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-FOUR-EYES\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-6/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-SECOND-FACTORS\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-7/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-SESSIONS-SSO\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-8/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-SETTINGS-HIERARCHY\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-9/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"SECRQ-REQU-KEY-MANAGEMENT\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-2/FREC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"conflictsWith\" references \"None: the contradictions of its sources were resolved in the Project Idea (section 10\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-2/FREC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"conflictsWith\" references \"before gate G1); the limits other requirements set on it are its dependencies (`REQDEP`)\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-2/dependencies/RQDEP-ITEM-LST-1/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-ITEM-TYPES\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-2/dependencies/RQDEP-ITEM-LST-2/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-INSTALLATION-SETUP\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/FREC",
-                "code": "derivedValueMismatch"
+                "code": "derivedValueMismatch",
+                "message": "form field \"conflictsWith\" is derived (rows of ./RQDEP) as \"\", but holds \"None: the contradictions of its sources were resolved in the Project Idea (section 10, before gate G1); the limits other requirements set on it are its dependencies (`REQDEP`)\""
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-2/FREC",
-                "code": "derivedValueMismatch"
+                "code": "derivedValueMismatch",
+                "message": "form field \"conflictsWith\" is derived (rows of ./RQDEP) as \"\", but holds \"None: the contradictions of its sources were resolved in the Project Idea (section 10, before gate G1); the limits other requirements set on it are its dependencies (`REQDEP`)\""
               }
             ]
           ]
@@ -16206,6 +16343,7 @@
             },
             "holder": "detail",
             "resolution": "backfill",
+            "message": "form field \"category\" is filled only in tom_uam.sbp.tomspecs.yaml; tom_uam.rsp.tomspecs.yaml emptied it",
             "info": false
           },
           {
@@ -16229,6 +16367,7 @@
             },
             "holder": "detail",
             "resolution": "backfill",
+            "message": "form field \"status\" differs: \"proposed\" in tom_uam.sbp.tomspecs.yaml, \"approved\" in tom_uam.rsp.tomspecs.yaml",
             "info": false
           },
           {
@@ -16252,6 +16391,7 @@
             },
             "holder": "detail",
             "resolution": "backfill",
+            "message": "SCREN-ITEM-OLD is named only in tom_uam.sbp.tomspecs.yaml",
             "info": false
           },
           {
@@ -16275,6 +16415,7 @@
             },
             "holder": "detail",
             "resolution": "info",
+            "message": "SCREN-ITEM-NEW is named in tom_uam.rsp.tomspecs.yaml and not in tom_uam.sbp.tomspecs.yaml",
             "info": true
           },
           {
@@ -16295,6 +16436,7 @@
             },
             "holder": "detail",
             "resolution": "backfill",
+            "message": "FRE-REQU-TENANT-FEATURES is in tom_uam.rsp.tomspecs.yaml and missing in tom_uam.sbp.tomspecs.yaml",
             "info": false
           }
         ],
@@ -16304,223 +16446,278 @@
             [
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-1/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"required by\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-2/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"refined by\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-3/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-4/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-5/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-6/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-7/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-8/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-9/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/FREC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"conflictsWith\" references \"None: the contradictions of its sources were resolved in the Project Idea (section 10\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/FREC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"conflictsWith\" references \"before gate G1); the limits other requirements set on it are its dependencies (`REQDEP`)\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dataRequirements/DAENRE-ENTI-LST-1/DAENRE-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"DAENT-ENTI-TENANT\", which no entry of registry DAENT.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dataRequirements/DAENRE-ENTI-LST-2/DAENRE-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"DAENT-ENTI-INVITATION\", which no entry of registry DAENT.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dataRequirements/DAENRE-ENTI-LST-3/DAENRE-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"DAENT-ENTI-FEATURE-FLAG\", which no entry of registry DAENT.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dataRequirements/DAENRE-ENTI-LST-4/DAENRE-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"DAENT-ENTI-ORGANIZATION\", which no entry of registry DAENT.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dataRequirements/DAENRE-ENTI-LST-5/DAENRE-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"DAENT-ENTI-SUBSCRIPTION\", which no entry of registry DAENT.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-1/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-DATA-RESIDENCY\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-2/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-TENANT-OFFBOARDING\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-3/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-BREAK-GLASS\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-4/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-TENANT-REACH\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-5/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-FOUR-EYES\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-6/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-SECOND-FACTORS\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-7/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-SESSIONS-SSO\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-8/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-SETTINGS-HIERARCHY\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-9/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"SECRQ-REQU-KEY-MANAGEMENT\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedScreens\" references \"SCREN-ITEM-TENANTS\", which no entry of registry SCREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedScreens\" references \"SCREN-ITEM-TENANT-CREATE\", which no entry of registry SCREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedScreens\" references \"SCREN-ITEM-DASHBOARD\", which no entry of registry SCREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedScreens\" references \"SCREN-ITEM-SUBSCRIPTION-SCHEMES\", which no entry of registry SCREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedScreens\" references \"SCREN-ITEM-TENANT-EXPORT\", which no entry of registry SCREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedScreens\" references \"SCREN-ITEM-INVITATION\", which no entry of registry SCREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedScreens\" references \"SCREN-ITEM-TEST-ONBOARDING\", which no entry of registry SCREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedScreens\" references \"SCREN-ITEM-SETTINGS\", which no entry of registry SCREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedScreens\" references \"SCREN-ITEM-OLD\", which no entry of registry SCREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"Tenant\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"Invitation\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"FeatureFlag\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"Organization\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"Subscription\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"Setting (the setup wizard's state; `SETTINGS`\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"added to the screens\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"reopens the wizard — DQ-139 (a)\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDataEntities\" references \"DQ-141 (a))\", which no entry of registry DAENT.entityName declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDocuments\" references \"The Information Model (`tom_uam.ifm.tomspecs.md`)\", which no entry of registry RFDOC.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDocuments\" references \"the Experience Design Specification (`tom_uam.xds.tomspecs.md`)\", which no entry of registry RFDOC.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RETRAR",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedDocuments\" references \"the Interaction Scenarios (`tom_uam.isc.tomspecs.md`)\", which no entry of registry RFDOC.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedGoals\" references \"BGE-GOAL-G2\", which no entry of registry BGE.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedGoals\" references \"BGE-GOAL-G4\", which no entry of registry BGE.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedUseCases\" references \"INEN-INTE-UC-01\", which no entry of registry INEN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedUseCases\" references \"INEN-INTE-UC-20\", which no entry of registry INEN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedUseCases\" references \"INEN-INTE-UC-23\", which no entry of registry INEN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedUseCases\" references \"INEN-INTE-UC-49\", which no entry of registry INEN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedProcesses\" references \"BPREN-PROC-TENANT-ONBOARDING\", which no entry of registry BPREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/traceability/RT-TRAC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"relatedProcesses\" references \"BPREN-PROC-SUBSCRIPTION-LIFECYCLE\", which no entry of registry BPREN.@sectionId declares"
               },
               {
                 "path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/FREC",
-                "code": "derivedValueMismatch"
+                "code": "derivedValueMismatch",
+                "message": "form field \"conflictsWith\" is derived (rows of ./RQDEP) as \"\", but holds \"None: the contradictions of its sources were resolved in the Project Idea (section 10, before gate G1); the limits other requirements set on it are its dependencies (`REQDEP`)\""
               }
             ]
           ],
@@ -16529,115 +16726,143 @@
             [
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-1/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"required by\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-2/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"refined by\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-3/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-4/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-5/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-6/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-7/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-8/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-9/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-2/dependencies/RQDEP-ITEM-LST-1/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-2/dependencies/RQDEP-ITEM-LST-2/content",
-                "code": "enumValueUnknown"
+                "code": "enumValueUnknown",
+                "message": "form field \"dependencyType\" holds \"named in its text\", which RequirementDependencyType does not declare (prerequisite, bidirectional, parentChild, conflict, refinement, constrainedBy, namedInText)"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/FREC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"conflictsWith\" references \"None: the contradictions of its sources were resolved in the Project Idea (section 10\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/FREC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"conflictsWith\" references \"before gate G1); the limits other requirements set on it are its dependencies (`REQDEP`)\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-1/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-DATA-RESIDENCY\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-2/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-TENANT-OFFBOARDING\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-3/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-BREAK-GLASS\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-4/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-TENANT-REACH\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-5/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-FOUR-EYES\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-6/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-SECOND-FACTORS\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-7/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-SESSIONS-SSO\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-8/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-SETTINGS-HIERARCHY\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/dependencies/RQDEP-ITEM-LST-9/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"SECRQ-REQU-KEY-MANAGEMENT\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-2/FREC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"conflictsWith\" references \"None: the contradictions of its sources were resolved in the Project Idea (section 10\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-2/FREC",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"conflictsWith\" references \"before gate G1); the limits other requirements set on it are its dependencies (`REQDEP`)\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-2/dependencies/RQDEP-ITEM-LST-1/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-ITEM-TYPES\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-2/dependencies/RQDEP-ITEM-LST-2/RQDEP-RELA-REF",
-                "code": "danglingReference"
+                "code": "danglingReference",
+                "message": "form field \"ref\" references \"FRE-REQU-INSTALLATION-SETUP\", which no entry of registries FRE.@sectionId, TERQ.@sectionId, SECRQ.@sectionId, ORRQ.@sectionId declares"
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-1/FREC",
-                "code": "derivedValueMismatch"
+                "code": "derivedValueMismatch",
+                "message": "form field \"conflictsWith\" is derived (rows of ./RQDEP) as \"\", but holds \"None: the contradictions of its sources were resolved in the Project Idea (section 10, before gate G1); the limits other requirements set on it are its dependencies (`REQDEP`)\""
               },
               {
                 "path": "RSP/functionalRequirements/FRE-REQU-LST-2/FREC",
-                "code": "derivedValueMismatch"
+                "code": "derivedValueMismatch",
+                "message": "form field \"conflictsWith\" is derived (rows of ./RQDEP) as \"\", but holds \"None: the contradictions of its sources were resolved in the Project Idea (section 10, before gate G1); the limits other requirements set on it are its dependencies (`REQDEP`)\""
               }
             ]
           ]
@@ -16765,6 +16990,7 @@
             },
             "holder": "detail",
             "resolution": "backfill",
+            "message": "the value differs: \"Users\" in tom_uam.sbp.tomspecs.yaml, \"Users and groups\" in tom_uam.xds.tomspecs.yaml",
             "info": false
           },
           {
@@ -16785,6 +17011,7 @@
             },
             "holder": "detail",
             "resolution": "backfill",
+            "message": "IA-GLOB-3 is in tom_uam.xds.tomspecs.yaml and missing in tom_uam.sbp.tomspecs.yaml",
             "info": false
           }
         ],
