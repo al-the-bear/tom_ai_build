@@ -207,6 +207,9 @@ class SpecMarkdownResult:
     #: nothing written is lost; an empty value removes the path's text. Empty
     #: for a clean parse.
     kept_content: dict[str, str] = dataclass_field(default_factory=dict)
+    #: The readable header line of a stripped rendition (SOM §11.1), when the
+    #: text carried one before its root heading; the parser skipped it.
+    readable_header: Optional[str] = None
 
     @property
     def is_clean(self) -> bool:
@@ -306,6 +309,16 @@ class SpecDocumentMarkdown:
     #values are quoted code : locations / identifiers, never a raw ``>``.
     headline_comment = re.compile(r"^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$")
     docspec_comment = re.compile(r"^<!--\s*docspec:.*-->\s*$")
+    #: The readable header line of a stripped rendition (SOM §11.1).
+    readable_comment = re.compile(r"^<!--\s*readable:.*-->$")
+    #: The line a stripped rendition's appendix begins with (SOM §11.1):
+    #: after a readable header, the parsers stop reading at it.
+    appendix_marker = "<!-- readable-appendix -->"
+    #: The fixed start of a styled-div heading's style, up to its indent.
+    heading_div_style_start = "margin:1em 0 0.5em;padding-left:"
+    #: A styled-div heading line (DocSpecs *Styled-div headings*): group 1 the
+    #: level, group 2 the inner text. A level below 7 is content.
+    heading_div_line = re.compile(r'^<div class="heading([0-9]+)"[^>]*>(.*)</div>$')
     #: Extracts the ``codeSpec="…"`` value from a heading-comment key=value :
     #region (codespecs_mapping.md §9.2), mirroring the tom_doc_scanner key=value
     #grammar.
@@ -342,12 +355,25 @@ class SpecDocumentMarkdown:
         document: SpecDocument,
         file_stem: Optional[str] = None,
         document_files: Optional[dict[str, str]] = None,
+        *,
+        heading_divs: bool = False,
+        readable_header: Optional[str] = None,
     ) -> None:
         """Binds *model* and *document* to the codec; *file_stem* and
         *document_files* (either may be ``None``) name the files a reference
-        to another document root links to."""
+        to another document root links to. *heading_divs* and
+        *readable_header* are the options of a stripped rendition
+        (SOM §11.10)."""
         self.model = model
         self.document = document
+        #: Whether every section deeper than level 6 is written as a
+        #: styled-div heading (``<div class="heading<N>" style="…">…</div>``,
+        #: SOM §11.2); the parser reads both forms whatever it says.
+        self.heading_divs = heading_divs is True
+        #: The readable header line of a stripped rendition, written after
+        #: the ``docspec`` declaration (SOM §11.1), or ``None``; the parser
+        #: skips it.
+        self.readable_header = readable_header
         #: The stem of the files a reference to another document root links
         #: to (``<file_stem>.<root id in lower case>.tomspecs.md``), or
         #: ``None``.
@@ -369,6 +395,45 @@ class SpecDocumentMarkdown:
         self._nav: Optional[_Navigation] = None
         # The class names each root reaches, for reference links.
         self._reach: dict[str, set[str]] = {}
+
+    @staticmethod
+    def heading_div_indent(depth: int) -> str:
+        """A styled-div heading's indent at *depth*: ``(depth − 6) × 0.75``,
+        written without a trailing ``.0`` (``0.75``, ``1.5``, ``3``)."""
+        quarter = (depth - 6) * 3
+        whole = quarter // 4
+        rest = quarter % 4
+        if rest == 0:
+            return f"{whole}"
+        if rest == 1:
+            return f"{whole}.25"
+        if rest == 2:
+            return f"{whole}.5"
+        return f"{whole}.75"
+
+    @staticmethod
+    def heading_div(line: str) -> Optional[tuple[int, str]]:
+        """*line* read as a styled-div heading: its level (7 or more) and its
+        inner text with ``&lt;``, ``&gt;`` and ``&amp;`` decoded, or
+        ``None``."""
+        m = SpecDocumentMarkdown.heading_div_line.match(line)
+        if m is None:
+            return None
+        level = int(m.group(1))
+        if level < 7:
+            return None
+        inner = m.group(2).replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&")
+        return level, inner
+
+    @staticmethod
+    def escapable_div(line: str) -> bool:
+        """Whether *line* would read as a styled-div heading after any run of
+        backslashes (SOM §11.3): such a value line is written escaped, as a
+        ``#`` line is."""
+        k = 0
+        while k < len(line) and line[k] == "\\":
+            k += 1
+        return SpecDocumentMarkdown.heading_div(line[k:].rstrip()) is not None
 
     def _sorted(self, kind: str, keys: Any) -> list[str]:
         found = self._sorted_keys.get(kind)
@@ -593,7 +658,9 @@ class SpecDocumentMarkdown:
     #: A heading line as :meth:`_write_heading` writes it. Body text never
     #: matches: heading-like body lines are escaped (SOM §11.3) and fenced
     #: ones skipped.
-    _emitted_heading = re.compile(r"^#+ <!--\[")
+    _emitted_heading = re.compile(
+        r'^(?:#+ <!--\[|<div class="heading[0-9]+"[^>]*><!--\[)'
+    )
 
     def export_root_with_map(self, root: SpecRoot) -> "SpecMarkdownRendition":
         """:meth:`export_root`, plus the document path behind every heading it
@@ -629,6 +696,8 @@ class SpecDocumentMarkdown:
             f"<!-- docspec: {self.kebab_case(root.title)}/"
             f"{self.model.model_version_string} -->"
         )
+        if self.readable_header is not None:
+            b.writeln(self.readable_header)
         root_seg = node.segment
         self._write_heading(
             b,
@@ -1462,6 +1531,23 @@ class SpecDocumentMarkdown:
         # comment and its keys, so `#<ID>` links jump in every viewer; below a
         # list item or in a `@SameAs` copy the anchor is qualified (SOM §11.2).
         anchor = self._anchor_for(path, id)
+        if self.heading_divs and depth > 6:
+            # A styled-div heading (SOM §11.2, DocSpecs *Styled-div
+            # headings*): one line, the title HTML-escaped, the indent
+            # growing with the depth.
+            escaped = (
+                title.replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace("\n", "<br>")
+            )
+            b.writeln(
+                f'<div class="heading{depth}" style="{self.heading_div_style_start}'
+                f'{self.heading_div_indent(depth)}em;font-weight:bold">'
+                f'<!--[{id}]{code}--> <a id="{anchor}"></a> {escaped}</div>'
+            )
+            b.writeln()
+            return
         b.writeln(
             f"{'#' * depth} <!--[{id}]{code}--> <a id=\"{anchor}\"></a> "
             f"{title.replace(chr(10), '<br>')}"
@@ -1513,7 +1599,7 @@ class SpecDocumentMarkdown:
         for line in collapsed.split("\n"):
             if fence.in_fence:
                 out.append(line)  # SOM §11.3: fences shield their lines.
-            elif self._escapable.match(line):
+            elif self._escapable.match(line) or self.escapable_div(line):
                 out.append(f"\\{line}")
             elif _TABLE_HEADER_SHAPED.match(line):
                 out.append(f" {line}")  # a value line is never a layout table.
@@ -1569,6 +1655,7 @@ class SpecDocumentMarkdown:
             rejections=p.rejections,
             root_prefixes=p.root_prefixes,
             kept_content=p.kept_content,
+            readable_header=p.readable_header,
         )
 
 
@@ -2070,6 +2157,8 @@ class _Parser:
         # order.
         self._current_form_idx = 0
         self.kept_content: dict[str, str] = {}
+        # The readable header a stripped rendition carries (SOM §11.1).
+        self.readable_header: Optional[str] = None
         # The source lines, for the text of a rejected block.
         self._source: list[str] = []
         # Blocks reported by _reject and not yet placed.
@@ -2186,10 +2275,28 @@ class _Parser:
                     trimmed
                 ):
                     continue  # SOM §11.1 header — informational.
+                if (
+                    not self._stack
+                    and self.readable_header is None
+                    and SpecDocumentMarkdown.readable_comment.match(trimmed)
+                ):
+                    # SOM §11.1 readable header — skipped.
+                    self.readable_header = trimmed
+                    continue
+                if (
+                    self.readable_header is not None
+                    and trimmed == SpecDocumentMarkdown.appendix_marker
+                ):
+                    break  # A stripped rendition's appendix is not the document.
                 h = SpecDocumentMarkdown.heading_line.match(trimmed)
                 if h is not None:
                     self._close_to(len(h.group(1)))
                     self._open_heading(len(h.group(1)), h.group(2), line_no)
+                    continue
+                div = SpecDocumentMarkdown.heading_div(trimmed)
+                if div is not None:
+                    self._close_to(div[0])
+                    self._open_heading(div[0], div[1], line_no)
                     continue
             if self._stack:
                 self._stack[-1].body.append(raw)
@@ -3332,7 +3439,10 @@ class _Parser:
         fence = MarkdownFenceTracker()
         out: list[str] = []
         for line in body:
-            if not fence.in_fence and _ESCAPED_HEADING.match(line):
+            if not fence.in_fence and (
+                _ESCAPED_HEADING.match(line)
+                or (line.startswith("\\") and SpecDocumentMarkdown.escapable_div(line))
+            ):
                 out.append(line[1:])
             elif not fence.in_fence and _ESCAPED_TABLE_HEADER.match(line):
                 out.append(line[1:])  # the emitter's one escape space.

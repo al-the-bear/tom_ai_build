@@ -194,6 +194,7 @@ class DocSpecsDocument:
         fence = MarkdownFenceTracker()
         stack: list[DocSpecsSection] = []
         lines = text.split("\n")
+        readable = False
         for i, raw in enumerate(lines):
             line_no = i + 1
             trimmed = raw.rstrip()
@@ -203,6 +204,14 @@ class DocSpecsDocument:
                     if d is not None:
                         doc.declared_schema = d.group(1)
                         continue
+                # A stripped rendition (SOM §11.1): its readable header stands
+                # before the root heading, and its appendix after the marker
+                # is not part of the document.
+                if not stack and SpecDocumentMarkdown.readable_comment.match(trimmed):
+                    readable = True
+                    continue
+                if readable and trimmed == SpecDocumentMarkdown.appendix_marker:
+                    break
                 h = SpecDocumentMarkdown.heading_line.match(trimmed)
                 div = (
                     None

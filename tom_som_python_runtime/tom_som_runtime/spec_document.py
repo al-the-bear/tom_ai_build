@@ -127,6 +127,16 @@ class SpecDocument:
             root = self._single_populated_root(model)
         return SpecDocumentMarkdown(model, self).export_root(root)
 
+    def root_to_export(
+        self, model: "SpecModel", root_type: Optional[str] = None
+    ) -> "SpecRoot":
+        """The root :meth:`to_markdown` exports: *root_type*'s when given,
+        else the single populated root (:class:`RuntimeError` when zero or
+        more than one root is populated)."""
+        if root_type is not None:
+            return model.root_by_type(root_type)
+        return self._single_populated_root(model)
+
     def to_markdown_with_map(
         self, model: "SpecModel", root_type: Optional[str] = None
     ) -> "SpecMarkdownRendition":

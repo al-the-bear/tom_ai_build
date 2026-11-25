@@ -2,6 +2,72 @@
 
 ## Unreleased
 
+- **The strip of a document** (SOM §11.10): `SpecDocumentStrip.strip(document,
+  options, *, model=None, schema=None, root_type=None, file_stem=None,
+  document_files=None, source=None)` strips every value — content, form-field
+  values and stored headlines — into a copy. Given a model (and, optionally,
+  its DocSpecs schema, the root type, the file names references link to and a
+  `SpecReadableSource`) it applies the emptying rule (a value whose strip
+  would add an instance or schema finding is stripped with
+  `SpecStripOptions.keeping` instead, or left as it was: `SpecStripKept`),
+  removes the list items left with nothing (`removed_items`), numbers the
+  appendix through the rendition (each `SpecAppendixEntry` with its `value`, a
+  `SpecStripValueRef`), renders the readable rendition with the appendix
+  *Notes* after `<!-- readable-appendix -->` (links back under
+  `appendix_references`) and checks that it reads back and adds no finding
+  (`SpecStripFinding`). `SpecStripResult` carries the stripped document, the
+  changed values (`SpecStrippedValue`), the counts, `readable_header`,
+  `readable`, `ok` and `report`. `SpecReviewAnnotations.stripped()` is the
+  strip with `drop: [comments]`, headlines included; a value whose notation
+  has an error finding is now left as it is there, annotations and all.
+  `SpecDocument.root_to_export` names the root an export takes. The rendition
+  writes neither linked markers (SOM §11.11) nor generated parts (SOM §11.12),
+  so `linked` and `derived` find nothing of theirs to leave out of it.
+
+- **The readable header and styled-div headings** (SOM §11.1, §11.2):
+  `SpecReadableHeader.format` / `parse` write and read `<!-- readable:
+  drop=…; unmark=…; appendix=…; appendix-references; headings=divs;
+  of=<file>@<revision>; commit=<sha>[+dirty] -->` (`SpecReadableSource`).
+  `SpecDocumentMarkdown` takes the keyword options `heading_divs` and
+  `readable_header`: the header is written after the docspec line and every
+  section deeper than level six as a `<div class="heading<N>" …>` line, its
+  title HTML-escaped (`heading_div_indent`); a value line shaped like such a
+  div is written escaped, `\<div …` (`escapable_div`). The parser skips the
+  readable header before the root heading (`SpecMarkdownResult.readable_header`),
+  reads no further than the appendix marker (`appendix_marker`) after one, and
+  reads styled-div headings (`heading_div`); `DocSpecsDocument.parse`, and
+  with it the DocSpecs validator, skips the header and the appendix too. The
+  conformance runner reads `headerCases` and `documentCases` of
+  `strip_cases.json` and runs the last three `readingView` import cases (the
+  readable header and the styled-div headings): no `readingView` skip is left
+  (1708 -> 1731 checks). `tests/spec_document_strip_test.py` covers the div
+  writer, the readable header, the appendix, a refused value, the report and
+  `stripped()` (25 -> 80 checks).
+
+- **The strip of one value** (SOM §11.10, the reading view's stripped
+  renditions): `strip_notation_text(value, options)` in the new module
+  `spec_document_strip` removes the comments first, then the notation from the
+  outside in, then the whitespace the removals leave, and answers a
+  `SpecStripTextResult` — the stripped `text`, the `dropped` / `unmarked` /
+  `appended` counts per kind, `marks_dropped` (the review marks that went
+  inside a dropped element), the `appendix` entries (`SpecAppendixEntry`,
+  numbered from 1) and the `pieces` (`SpecStripPiece`: anchor in the stripped
+  text and origin in the value, both UTF-16 code units, removed and inserted
+  text, labels), which put back give the value. A value with an error finding
+  of the notation (other than `rejectedBlock`) is refused and returned
+  unchanged. `SpecStripOptions` holds what happens to each kind (`drop`,
+  `unmark`, `appendix`, `appendix_references`, `heading_divs`,
+  `writes_no_linked_markers`, `writes_no_generated_parts`, `keeping`,
+  `ordered`, `to_json`); `SpecStripOptions.from_names` is the checked form a
+  user's names go through (comma-joined items, `all`) and raises
+  `SpecStripUsageError`; `spec_strip_kind_names` and
+  `spec_strip_notation_kinds` list the kinds, `linked` and `derived` among
+  them. `count_annotations_text` counts what `strip_annotations_text`
+  removes. The conformance runner runs the `cases` and `usageCases` of
+  `strip_cases.json`, each case's pieces restoring the value
+  (1624 -> 1708 checks); `tests/spec_document_strip_test.py` covers UTF-16
+  offsets around supplementary characters.
+
 - **Rejected blocks kept for review** (SOM §11.7, DocSpecs RN-11): the parse
   result carries `kept_content`, and an apply that accepts rejections
   (`apply_markdown_result(result, allow_rejections=True)`, which

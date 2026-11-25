@@ -30,7 +30,9 @@ golden byte-for-byte and matches every behavioural case:
     script);
   * assembling one document from fragments (``assembly_cases.json``);
   * moving a list item and re-keying the review pass
-    (``list_move_cases.json``).
+    (``list_move_cases.json``);
+  * the strip of one value, the readable header and the strip of a document
+    (``strip_cases.json``, SOM §11.10).
 
 Run with: ``python3 tests/conformance_runner.py``. Exit code 0 == all green.
 """
@@ -51,6 +53,13 @@ _CORPUS = os.path.normpath(
 sys.path.insert(0, _PKG_ROOT)
 
 from tom_som_runtime import (  # noqa: E402
+    SpecDocumentStrip,
+    SpecReadableHeader,
+    SpecReadableSource,
+    SpecStripOptions,
+    SpecStripUsageError,
+    strip_annotations_text,
+    strip_notation_text,
     SpecReviewMember,
     SpecReviewMergeError,
     SpecReviewMergeOptions,
@@ -561,13 +570,6 @@ def test_markdown_import_rejections(model: SpecModel) -> None:
     """
     for case in _read_json("markdown_import_cases.json")["cases"]:
         name = case["name"]
-        # The reading view's table layout is read; the readable header and the
-        # styled-div headings belong to the strip of a document
-        # (runtime_parity.md § Reading view).
-        if case.get("readingView") and (
-            "readableHeader" in case or name.startswith("styled-div headings")
-        ):
-            continue
         parsed = SpecDocumentMarkdown(model, SpecDocument()).parse(case["markdown"])
         got = [
             {
@@ -589,6 +591,11 @@ def test_markdown_import_rejections(model: SpecModel) -> None:
         })
         _check(f"md.reject[{name}].landed", landed.to_json() == case["document"],
                _json_mismatch(landed.to_json(), case["document"]))
+        # A case naming the readable header holds it (SOM §11.1).
+        if "readableHeader" in case:
+            _check(f"md.reject[{name}].readableHeader",
+                   parsed.readable_header == case["readableHeader"],
+                   f"got {parsed.readable_header!r}")
         # A case naming heading-comment values holds them too (read trimmed).
         for key, attr in (("codeSpecs", "code_specs"), ("units", "units")):
             if key in case:
@@ -1082,6 +1089,147 @@ def test_notation() -> None:
             got == case["violations"],
             f"{got} != {case['violations']}",
         )
+
+
+def _strip_case_options(case: dict) -> SpecStripOptions:
+    """A strip case's options, from its name lists and flags; raises
+    :class:`SpecStripUsageError` for a usage error."""
+    return SpecStripOptions.from_names(
+        drop=case.get("drop") or [],
+        unmark=case.get("unmark") or [],
+        appendix=case.get("appendix") or [],
+        appendix_references=case.get("appendixReferences") is True,
+        heading_divs=case.get("headingDivs") is True,
+    )
+
+
+def _strip_unstrip(stripped: str, pieces) -> str:
+    """*stripped* with every piece's removed text put back: the original
+    value. The pieces' offsets count UTF-16 units, so the walk does too."""
+    def units(s: str) -> bytes:
+        return s.encode("utf-16-le", "surrogatepass")
+
+    t = units(stripped)
+    out = bytearray()
+    at = 0
+    for p in pieces:
+        out += t[at * 2 : p.anchor * 2]
+        out += units(p.removed)
+        at = p.anchor + len(units(p.inserted)) // 2
+    out += t[at * 2 :]
+    return bytes(out).decode("utf-16-le", "surrogatepass")
+
+
+def _strip_options_json(o: SpecStripOptions) -> dict:
+    return {
+        "drop": SpecStripOptions.ordered(o.drop),
+        "unmark": SpecStripOptions.ordered(o.unmark),
+        "appendix": SpecStripOptions.ordered(o.appendix),
+        "appendixReferences": o.appendix_references,
+        "headingDivs": o.heading_divs,
+    }
+
+
+def test_strip(model: SpecModel) -> None:
+    """Stripped renditions (``strip_cases.json``, SOM §11.10): each case's
+    :func:`strip_notation_text` result (text, counts, ``marksDropped``,
+    appendix, pieces, refusals), its pieces restoring the original, and a
+    comments-only strip agreeing with :func:`strip_annotations_text`; each
+    usage case's :meth:`SpecStripOptions.from_names` options or error; each
+    header case's :meth:`SpecReadableHeader.parse` (and ``format`` its
+    inverse); each document case's :meth:`SpecDocumentStrip.strip` over the
+    corpus model and ``docspecs_schema.yaml`` unless ``model`` is false."""
+    table = _read_json("strip_cases.json")
+    cases = table["cases"]
+    _check("strip.cases", len(cases) > 0, "no cases")
+    for case in cases:
+        tag = f"strip[{case['name']}]"
+        text = case["text"]
+        try:
+            r = strip_notation_text(text, _strip_case_options(case))
+        except Exception as e:  # noqa: BLE001
+            _check(tag, False, f"raised {e!r}")
+            continue
+        got = r.to_json()
+        _check(tag, got == case["expect"], f"{got} != {case['expect']}")
+        back = _strip_unstrip(r.text, r.pieces)
+        _check(f"{tag}.pieces", back == text, repr(back))
+        if (case.get("drop") or []) == ["comments"]:
+            _check(
+                f"{tag}.stripAnnotationsText",
+                strip_annotations_text(text) == r.text,
+                repr(r.text),
+            )
+    usage = table["usageCases"]
+    _check("strip.usageCases", len(usage) > 0, "no usage cases")
+    for case in usage:
+        tag = f"strip.usage[{case['name']}]"
+        try:
+            got = _strip_case_options(case).to_json()
+        except SpecStripUsageError as e:
+            got = {"error": str(e)}
+        _check(tag, got == case["expect"], f"{got} != {case['expect']}")
+    headers = table["headerCases"]
+    _check("strip.headerCases", len(headers) > 0, "no header cases")
+    for case in headers:
+        tag = f"strip.header[{case['name']}]"
+        h = SpecReadableHeader.parse(case["line"])
+        got = None
+        if h is not None:
+            got = _strip_options_json(h.options)
+            if h.source is not None:
+                got["source"] = {
+                    "file": h.source.file,
+                    "revision": h.source.revision,
+                    "commit": h.source.commit,
+                    "dirty": h.source.dirty,
+                }
+            got["format"] = h.format()
+            again = SpecReadableHeader.parse(h.format())
+            _check(f"{tag}.inverse",
+                   again is not None and again.format() == h.format(),
+                   repr(again))
+        _check(tag, got == case["expect"], _json_mismatch(got, case["expect"]))
+    schema = DocSpecsSchema.from_yaml_text(_read("docspecs_schema.yaml"))
+    documents = table["documentCases"]
+    _check("strip.documentCases", len(documents) > 0, "no document cases")
+    for case in documents:
+        tag = f"strip.document[{case['name']}]"
+        try:
+            doc = SpecDocument()
+            doc.load_json(case["state"])
+            with_model = case.get("model") is not False
+            src = case.get("source")
+            r = SpecDocumentStrip.strip(
+                doc,
+                _strip_case_options(case),
+                model=model if with_model else None,
+                schema=schema if with_model else None,
+                root_type=case.get("rootType"),
+                source=None if src is None else SpecReadableSource(
+                    src["file"],
+                    src.get("revision"),
+                    src.get("commit"),
+                    src.get("dirty") is True,
+                ),
+            )
+        except Exception as e:  # noqa: BLE001
+            _check(tag, False, f"raised {e!r}")
+            continue
+        got = {
+            "document": r.document.to_json(),
+            "kept": [k.ref.to_json() for k in r.kept],
+            "removedItems": r.removed_items,
+            "appendix": [e.to_json() for e in r.appendix],
+            "dropped": r.dropped,
+            "unmarked": r.unmarked,
+            "appended": r.appended,
+            "marksDropped": r.marks_dropped,
+            "readableHeader": r.readable_header,
+            "readable": r.readable,
+            "findings": [f.kind for f in r.findings],
+        }
+        _check(tag, got == case["expect"], _json_mismatch(got, case["expect"]))
 
 
 def test_docspecs_path(model) -> None:
@@ -2393,6 +2541,7 @@ def main() -> int:
     test_serialization_order()
     test_docspecs()
     test_notation()
+    test_strip(model)
     test_docspecs_path(model)
     test_docspecs_replace()
     test_assembly()

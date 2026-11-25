@@ -2230,6 +2230,14 @@ def _mark_keeping_change_comments(current: str, text: str) -> "SpecMarkedChange"
     return SpecMarkedChange(out, exact=result.exact)
 
 
+def count_annotations_text(value: str) -> int:
+    """How many comment and question blocks and inline marks *value* holds:
+    what :func:`strip_annotations_text` removes, as a strip's report counts it
+    (SOM §11.10)."""
+    p = _parse(value)
+    return len(p.blocks) + len(p.marks)
+
+
 def strip_annotations_text(value: str) -> str:
     """*value* without any comment block, question block or inline mark
     (every mark accepted). Plain quotes and code stay."""
@@ -3172,18 +3180,15 @@ class SpecReviewAnnotations:
 
     def stripped(self) -> SpecDocument:
         """A copy of the document without any annotation, for reading. The
-        document itself is unchanged."""
-        copy = SpecDocument()
-        copy.load_json(self.doc.to_json())
-        for path, field, text in self._values():
-            clean = strip_annotations_text(text)
-            if clean == text:
-                continue
-            if field is None:
-                copy.set_content(path, clean)
-            else:
-                copy.set_form_field(path, field, clean)
-        return copy
+        document itself is unchanged.
+
+        The strip of SOM §11.10 with ``drop: [comments]``
+        (:meth:`SpecDocumentStrip.strip`): every value is stripped, headlines
+        included."""
+        # Imported here: spec_document_strip imports this module.
+        from .spec_document_strip import SpecDocumentStrip, SpecStripOptions
+
+        return SpecDocumentStrip.strip(self.doc, SpecStripOptions(drop={"comments"})).document
 
     def _paragraph_last_line(self, value: str, after_paragraph: int) -> int:
         if after_paragraph < 0:

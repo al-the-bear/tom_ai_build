@@ -86,6 +86,7 @@ All are exported from `tom_som_runtime`.
 | `SpecReviewAnnotationCounts` | `questions`, `open_questions`, `answered_questions`, `comments`, `marks`; `to_json()` |
 | `SpecReviewAnnotationError` | An operation named something that is not there |
 | `strip_annotations_text` | One value without its annotations |
+| `count_annotations_text` | How many comment and question blocks and inline marks one value holds: what `strip_annotations_text` removes |
 | `format_comment_block` / `format_question_block` | The lines of a block, as the insert operations write them |
 
 ## Operations
@@ -104,7 +105,7 @@ All are exported from `tom_som_runtime`.
 | `edit_comment(comment_id, text)` | New text; the marker, id and author stay as written |
 | `resolve(id)` | Removes one comment or question (a qualified comment id is accepted) and one adjacent blank line. A question of a combined block takes only its own lines; the block goes with its last question |
 | `apply_mark(path, index, field=None, accept=True)` | Accepts or rejects inline mark `index` of one value. Accept takes the insertion, the deletion or the new text; reject keeps the old. A highlight or comment mark is removed either way, its text staying |
-| `stripped()` | A copy of the document without any annotation, every mark accepted, for reading. The document is unchanged |
+| `stripped()` | A copy of the document without any annotation, every mark accepted, headlines included, for reading: the strip with `drop: [comments]` (`SpecDocumentStrip.strip`). A value whose reading notation has an error finding is left as it is. The document is unchanged |
 
 Record each applied comment or answer in the project's log **before**
 `resolve` removes it (`tom_specs_project_flow.md` PF-ITR-REV).
