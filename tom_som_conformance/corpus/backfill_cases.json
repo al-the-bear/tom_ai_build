@@ -2905,6 +2905,261 @@
       }
     },
     {
+      "name": "the real model: a scalar list of a pair (IA-GLOB-LST) brought level with the Experience Design Specification, element by element",
+      "intent": [
+        "value",
+        "elementAdded",
+        "revision",
+        "idempotent",
+        "cleanAfter"
+      ],
+      "model": "som",
+      "author": "agent_spec_author",
+      "date": "2026-11-24",
+      "documents": [
+        [
+          "tom_uam.sbp.tomspecs.yaml",
+          {
+            "content": {
+              "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-1": "Tenants",
+              "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-2": "Users"
+            },
+            "lists": {
+              "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST": {
+                "seq": 2,
+                "items": [
+                  "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-1",
+                  "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-2"
+                ]
+              }
+            }
+          }
+        ],
+        [
+          "tom_uam.xds.tomspecs.yaml",
+          {
+            "content": {
+              "XDS/screens/informationArchitecture/IA-GLOB-LST-1": "Tenants",
+              "XDS/screens/informationArchitecture/IA-GLOB-LST-2": "Users and groups",
+              "XDS/screens/informationArchitecture/IA-GLOB-LST-3": "Audit"
+            },
+            "lists": {
+              "XDS/screens/informationArchitecture/IA-GLOB-LST": {
+                "seq": 3,
+                "items": [
+                  "XDS/screens/informationArchitecture/IA-GLOB-LST-1",
+                  "XDS/screens/informationArchitecture/IA-GLOB-LST-2",
+                  "XDS/screens/informationArchitecture/IA-GLOB-LST-3"
+                ]
+              }
+            }
+          }
+        ]
+      ],
+      "expect": {
+        "first": {
+          "changes": [
+            {
+              "pair": "SCRDZ",
+              "kind": "value",
+              "path": "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-2",
+              "old": "Users",
+              "new": "Users and groups"
+            },
+            {
+              "pair": "SCRDZ",
+              "kind": "elementAdded",
+              "path": "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-3",
+              "old": "",
+              "new": "IA-GLOB-3"
+            },
+            {
+              "pair": "",
+              "kind": "revision",
+              "path": "SBP/documentControl/RVENT-REVS-LST-1",
+              "old": "",
+              "new": "1"
+            },
+            {
+              "pair": "",
+              "kind": "derived",
+              "path": "SBP/documentControl/header/content",
+              "field": "version",
+              "old": "",
+              "new": "1"
+            },
+            {
+              "pair": "",
+              "kind": "derived",
+              "path": "SBP/documentControl/header/content",
+              "field": "date",
+              "old": "",
+              "new": "2026-11-24"
+            },
+            {
+              "pair": "",
+              "kind": "derived",
+              "path": "SBP/documentControl/header/content",
+              "field": "author",
+              "old": "",
+              "new": "agent_spec_author"
+            }
+          ],
+          "left": [],
+          "blueprint": {
+            "content": {
+              "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-1": "Tenants",
+              "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-2": "Users and groups",
+              "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-3": "Audit"
+            },
+            "forms": {
+              "SBP/documentControl/RVENT-REVS-LST-1/content": {
+                "author": "agent_spec_author",
+                "date": "2026-11-24",
+                "summary": "Backfilled from tom_uam.xds.tomspecs.yaml: SCRDZ",
+                "version": "1"
+              },
+              "SBP/documentControl/header/content": {
+                "author": "agent_spec_author",
+                "date": "2026-11-24",
+                "version": "1"
+              }
+            },
+            "lists": {
+              "SBP/documentControl/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "SBP/documentControl/RVENT-REVS-LST-1"
+                ]
+              },
+              "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST": {
+                "seq": 3,
+                "items": [
+                  "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-1",
+                  "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-2",
+                  "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-3"
+                ],
+                "ids": {
+                  "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-3": "IA-GLOB-3"
+                }
+              }
+            }
+          }
+        },
+        "second": {
+          "changes": [],
+          "left": [],
+          "blueprint": {
+            "content": {
+              "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-1": "Tenants",
+              "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-2": "Users and groups",
+              "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-3": "Audit"
+            },
+            "forms": {
+              "SBP/documentControl/RVENT-REVS-LST-1/content": {
+                "author": "agent_spec_author",
+                "date": "2026-11-24",
+                "summary": "Backfilled from tom_uam.xds.tomspecs.yaml: SCRDZ",
+                "version": "1"
+              },
+              "SBP/documentControl/header/content": {
+                "author": "agent_spec_author",
+                "date": "2026-11-24",
+                "version": "1"
+              }
+            },
+            "lists": {
+              "SBP/documentControl/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "SBP/documentControl/RVENT-REVS-LST-1"
+                ]
+              },
+              "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST": {
+                "seq": 3,
+                "items": [
+                  "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-1",
+                  "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-2",
+                  "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-3"
+                ],
+                "ids": {
+                  "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-3": "IA-GLOB-3"
+                }
+              }
+            }
+          }
+        },
+        "reportAfter": {
+          "countsByCode": [],
+          "clean": true
+        },
+        "given": [
+          [
+            "tom_uam.sbp.tomspecs.yaml",
+            {
+              "content": {
+                "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-1": "Tenants",
+                "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-2": "Users and groups",
+                "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-3": "Audit"
+              },
+              "forms": {
+                "SBP/documentControl/RVENT-REVS-LST-1/content": {
+                  "author": "agent_spec_author",
+                  "date": "2026-11-24",
+                  "summary": "Backfilled from tom_uam.xds.tomspecs.yaml: SCRDZ",
+                  "version": "1"
+                },
+                "SBP/documentControl/header/content": {
+                  "author": "agent_spec_author",
+                  "date": "2026-11-24",
+                  "version": "1"
+                }
+              },
+              "lists": {
+                "SBP/documentControl/RVENT-REVS-LST": {
+                  "seq": 1,
+                  "items": [
+                    "SBP/documentControl/RVENT-REVS-LST-1"
+                  ]
+                },
+                "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST": {
+                  "seq": 3,
+                  "items": [
+                    "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-1",
+                    "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-2",
+                    "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-3"
+                  ],
+                  "ids": {
+                    "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-3": "IA-GLOB-3"
+                  }
+                }
+              }
+            }
+          ],
+          [
+            "tom_uam.xds.tomspecs.yaml",
+            {
+              "content": {
+                "XDS/screens/informationArchitecture/IA-GLOB-LST-1": "Tenants",
+                "XDS/screens/informationArchitecture/IA-GLOB-LST-2": "Users and groups",
+                "XDS/screens/informationArchitecture/IA-GLOB-LST-3": "Audit"
+              },
+              "lists": {
+                "XDS/screens/informationArchitecture/IA-GLOB-LST": {
+                  "seq": 3,
+                  "items": [
+                    "XDS/screens/informationArchitecture/IA-GLOB-LST-1",
+                    "XDS/screens/informationArchitecture/IA-GLOB-LST-2",
+                    "XDS/screens/informationArchitecture/IA-GLOB-LST-3"
+                  ]
+                }
+              }
+            }
+          ]
+        ]
+      }
+    },
+    {
       "name": "a set that agrees: nothing written, no revision entry",
       "intent": [
         "nothing"

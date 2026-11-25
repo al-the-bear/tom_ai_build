@@ -799,10 +799,13 @@ class _SetCheck {
     );
   }
 
-  bool _isItem(String path) => _items.putIfAbsent(
-    path,
-    () => refl.resolve(path)?.kind == SpecNodeKind.listItemComplex,
-  );
+  bool _isItem(String path) => _items.putIfAbsent(path, () {
+    // A scalar list's items are elements too, keyed by their effective id
+    // like a complex list's (`LIST[ID]`).
+    final kind = refl.resolve(path)?.kind;
+    return kind == SpecNodeKind.listItemComplex ||
+        kind == SpecNodeKind.listItemScalar;
+  });
 
   List<String> _expand(SpecDocument doc, String pattern) {
     var paths = <String>[''];
@@ -1181,7 +1184,12 @@ class _SetCheck {
       if (inB == inD) continue;
       if (oneSided.any((o) => k.startsWith('$o/'))) continue;
       oneSided.add(k);
-      final parentList = k.substring(0, k.lastIndexOf('['));
+      // `LIST[ID]` (every item key, `_key`); a key without the brackets
+      // names its element by its last segment.
+      final bracket = k.lastIndexOf('[');
+      final parentList = bracket < 0
+          ? (k.contains('/') ? k.substring(0, k.lastIndexOf('/')) : '')
+          : k.substring(0, bracket);
       final rel = listRel[parentList];
       var relation = rel?.relation ?? 'equal';
       final itemPath = inB ? b.items[k]! : d.items[k]!;
@@ -1193,7 +1201,9 @@ class _SetCheck {
           relation = 'equal';
         }
       }
-      final id = k.substring(k.lastIndexOf('[') + 1, k.length - 1);
+      final id = bracket < 0
+          ? k.split('/').last
+          : k.substring(bracket + 1, k.length - 1);
       final heldHere = isHeld(inB ? itemPath : _pathOn(b, k));
       final key = 'i:$k';
       if (inD) {

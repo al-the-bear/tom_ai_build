@@ -913,7 +913,9 @@ cut edited into the shapes Tom UAM's specification showed — a status drifted
 between the two, a requirement only in the Requirements Specification,
 `relatedScreens` broken on both sides under `subset`, a value only the
 Blueprint holds, and a drift in whitespace only, which raises no finding.
-`backfill_cases.json` brings the edited cut level. The cut is a stored document
+`backfill_cases.json` brings the edited cut level. A further pair of cases
+holds a scalar list of a pair, Tom UAM's global navigation (`IA-GLOB-LST` of
+`SCRDZ`), compared and backfilled element by element. The cut is a stored document
 like the samples: the tables load it through the runtime on every run, so a
 model change it no longer fits fails them, and it is then edited like any
 other document of the model.

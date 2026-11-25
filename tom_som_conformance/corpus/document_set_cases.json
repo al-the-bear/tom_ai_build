@@ -16696,6 +16696,153 @@
         ],
         "clean": false
       }
+    },
+    {
+      "name": "the real model: a scalar list of a pair (Tom UAM's global navigation, IA-GLOB-LST) is compared element by element",
+      "intent": [
+        "sharedValueDiffers",
+        "sharedElementMissing"
+      ],
+      "model": "som",
+      "documents": [
+        [
+          "tom_uam.sbp.tomspecs.yaml",
+          {
+            "content": {
+              "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-1": "Tenants",
+              "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-2": "Users"
+            },
+            "lists": {
+              "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST": {
+                "seq": 2,
+                "items": [
+                  "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-1",
+                  "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-2"
+                ]
+              }
+            }
+          }
+        ],
+        [
+          "tom_uam.xds.tomspecs.yaml",
+          {
+            "content": {
+              "XDS/screens/informationArchitecture/IA-GLOB-LST-1": "Tenants",
+              "XDS/screens/informationArchitecture/IA-GLOB-LST-2": "Users and groups",
+              "XDS/screens/informationArchitecture/IA-GLOB-LST-3": "Audit"
+            },
+            "lists": {
+              "XDS/screens/informationArchitecture/IA-GLOB-LST": {
+                "seq": 3,
+                "items": [
+                  "XDS/screens/informationArchitecture/IA-GLOB-LST-1",
+                  "XDS/screens/informationArchitecture/IA-GLOB-LST-2",
+                  "XDS/screens/informationArchitecture/IA-GLOB-LST-3"
+                ]
+              }
+            }
+          }
+        ]
+      ],
+      "expect": {
+        "findings": [
+          {
+            "code": "sharedValueDiffers",
+            "pair": "SCRDZ",
+            "blueprint": {
+              "document": "tom_uam.sbp.tomspecs.yaml",
+              "root": "SBP",
+              "path": "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST-2",
+              "value": "Users",
+              "pendingMarks": false
+            },
+            "detail": {
+              "document": "tom_uam.xds.tomspecs.yaml",
+              "root": "XDS",
+              "path": "XDS/screens/informationArchitecture/IA-GLOB-LST-2",
+              "value": "Users and groups",
+              "pendingMarks": false
+            },
+            "holder": "detail",
+            "resolution": "backfill",
+            "info": false
+          },
+          {
+            "code": "sharedElementMissing",
+            "pair": "SCRDZ",
+            "blueprint": {
+              "document": "tom_uam.sbp.tomspecs.yaml",
+              "root": "SBP",
+              "path": "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST",
+              "pendingMarks": false
+            },
+            "detail": {
+              "document": "tom_uam.xds.tomspecs.yaml",
+              "root": "XDS",
+              "path": "XDS/screens/informationArchitecture/IA-GLOB-LST-3",
+              "value": "IA-GLOB-3",
+              "pendingMarks": false
+            },
+            "holder": "detail",
+            "resolution": "backfill",
+            "info": false
+          }
+        ],
+        "documentFindings": [
+          [
+            "tom_uam.sbp.tomspecs.yaml",
+            []
+          ],
+          [
+            "tom_uam.xds.tomspecs.yaml",
+            []
+          ]
+        ],
+        "notStarted": [
+          "D01CurrentLandscapeAssessment",
+          "D02TargetOperatingModel",
+          "D03InformationModel",
+          "D04RequirementsSpecification",
+          "D05InteractionScenarios",
+          "D06ArchitectureTechnologySpecification",
+          "D07IntegrationInterfaceSpecification",
+          "D08SecurityAccessSpecification",
+          "D10QualityAcceptancePlan",
+          "D11DeliveryRoadmap",
+          "D12TransitionRolloutPlan"
+        ],
+        "notStartedPairs": [
+          "SCFLST",
+          "ERHACO",
+          "REDE",
+          "UICO",
+          "REDF",
+          "DEVIZ",
+          "PRLA",
+          "USAS",
+          "ACCESS",
+          "PROTOT",
+          "WIANMO",
+          "LACOSE"
+        ],
+        "countsByCode": [
+          [
+            "sharedValueDiffers",
+            1
+          ],
+          [
+            "sharedElementMissing",
+            1
+          ]
+        ],
+        "countsByResolution": [
+          [
+            "backfill",
+            2
+          ]
+        ],
+        "clean": false
+      }
     }
   ],
   "renames": [

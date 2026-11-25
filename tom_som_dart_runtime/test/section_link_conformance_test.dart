@@ -187,6 +187,12 @@
 ///   only in the Blueprint, `SCREN-ITEM-NEW` an `info` the RSP may add), and
 ///   no finding for the description differing in trailing whitespace only.
 ///   Correct.
+/// * **a scalar list of a pair** (real model, reviewed 2026-11-25) — the
+///   global navigation `IA-GLOB-LST` of `SCRDZ`, two entries in the
+///   Blueprint, three in the Experience Design Specification: its items are
+///   elements keyed by their effective id (`IA-GLOB-LST[IA-GLOB-3]`, where
+///   they once had no key and crashed the report), the reworded second one
+///   `sharedValueDiffers`, the third `sharedElementMissing`. Correct.
 ///
 /// ## Manual review of `derive_cases.json` (DP-part-conformance-1)
 ///
@@ -260,6 +266,9 @@
 ///   header's version, date and author and the inverse `conflictsWith`
 ///   re-derived; `SCREN-ITEM-NEW` left (`mayBeAdded`); the second run writes
 ///   nothing and the report after it is clean. Correct.
+/// * **a scalar list of a pair** (real model) — the reworded entry written,
+///   the third added with its value (`Audit`), a revision entry; the second
+///   run writes nothing, the report after it is clean. Correct.
 ///
 /// ## Manual review of `prefill_cases.json` (DP-part-conformance-1)
 ///
@@ -2107,8 +2116,9 @@ Map<String, Object?> buildBackfillCases(Map<String, dynamic> meta) {
     String? path,
     bool dryRun = false,
     bool som = false,
+    Map<String, SpecDocument> Function()? documents,
   }) {
-    final docs = som ? _uamCut() : _baseSet();
+    final docs = documents?.call() ?? (som ? _uamCut() : _baseSet());
     edit?.call(docs);
     final c = <String, dynamic>{
       'name': name,
@@ -2152,6 +2162,14 @@ Map<String, Object?> buildBackfillCases(Map<String, dynamic> meta) {
         ],
         _uamShapes,
         som: true,
+      ),
+      kase(
+        'the real model: a scalar list of a pair (IA-GLOB-LST) brought level '
+        'with the Experience Design Specification, element by element',
+        ['value', 'elementAdded', 'revision', 'idempotent', 'cleanAfter'],
+        null,
+        som: true,
+        documents: _xdsScalarList,
       ),
       kase('a set that agrees: nothing written, no revision entry', [
         'nothing',
@@ -2506,6 +2524,34 @@ void _uamShapes(Map<String, SpecDocument> d) {
     'description',
     '${bp.formField('$item/FRED', 'description')}  ',
   );
+}
+
+/// Tom UAM's Blueprint and Experience Design Specification in the shape that
+/// crashed `syncReport` (`IA-GLOB-LST`, a scalar list of the `SCRDZ` pair:
+/// its items were keyed without `[ID]`): the global navigation entries, two
+/// in the Blueprint, three in the Experience Design Specification, the second
+/// one reworded.
+Map<String, SpecDocument> _xdsScalarList() {
+  SpecDocument doc(String anchor, List<String> entries) {
+    final d = SpecDocument();
+    for (final e in entries) {
+      final item = d.addListItem('$anchor/informationArchitecture/IA-GLOB-LST');
+      d.setContent(item, e);
+    }
+    return d;
+  }
+
+  return {
+    'tom_uam.sbp.tomspecs.yaml': doc(
+      'SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens',
+      ['Tenants', 'Users'],
+    ),
+    'tom_uam.xds.tomspecs.yaml': doc('XDS/screens', [
+      'Tenants',
+      'Users and groups',
+      'Audit',
+    ]),
+  };
 }
 
 /// One report case: `syncReport` over the documents, optionally scoped.
@@ -2942,6 +2988,20 @@ Map<String, Object?> buildDocumentSetCases(Map<String, dynamic> meta) {
             'expect': setReportCase(model, jsonDecode(jsonEncode(c))),
           };
         }(),
+      () {
+        final c = <String, dynamic>{
+          'name':
+              'the real model: a scalar list of a pair (Tom UAM\'s global '
+              'navigation, IA-GLOB-LST) is compared element by element',
+          'intent': ['sharedValueDiffers', 'sharedElementMissing'],
+          'model': 'som',
+          'documents': _documentsJson(_xdsScalarList()),
+        };
+        return {
+          ...c,
+          'expect': setReportCase(model, jsonDecode(jsonEncode(c))),
+        };
+      }(),
     ],
     'renames': [
       rename(
