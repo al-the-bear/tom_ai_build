@@ -175,11 +175,13 @@ def test_markdown_emit() -> None:
     md = d.to_markdown(model)
     _check(
         "md.emit.both",
-        '## <!--[TTL] codeSpec="DemoTitle" units="u_a,u_b"--> Document Title\n'
+        '## <!--[TTL] codeSpec="DemoTitle" units="u_a,u_b"--> <a id="TTL"></a>'
+        " Document Title\n"
         in md,
         md,
     )
-    _check("md.emit.alone", '## <!--[SUM] units="u_a"--> Summary\n' in md, md)
+    _check("md.emit.alone",
+           '## <!--[SUM] units="u_a"--> <a id="SUM"></a> Summary\n' in md, md)
 
 
 def test_markdown_parse() -> None:

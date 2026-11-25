@@ -11,7 +11,7 @@ golden byte-for-byte and matches every behavioural case:
   * ``state.json`` loads and re-serialises identically;
   * YAML encode == ``expected.tomspecs.yaml`` (byte-for-byte);
   * YAML decode → memory → encode is byte-stable + preserves the stamp;
-  * Markdown export == ``expected.tomspecs.md`` (byte-for-byte);
+  * Markdown export == ``expected.tables.md`` (byte-for-byte);
   * Markdown parse → memory → export is clean + byte-stable;
   * reflection resolution cases;
   * validation cases;
@@ -432,11 +432,20 @@ def test_yaml_review(model: SpecModel, tree) -> None:
             _check(name, got == case["expect"], _json_mismatch(got, case["expect"]))
 
 
-# The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
-# Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
-# The emitter port tspubnondart70 (runtime_parity.md § Reading view) brings this runtime to tables.
-EMITTED_LAYOUT = "fields"
-EXPORT_GOLDEN = "expected.tomspecs.md"
+# The layout this runtime emits: `tables` (SOM §11.4, §11.5). Its export
+# golden is expected.tables.md; expected.tomspecs.md, the `Field:`-line layout,
+# is parsed only.
+EMITTED_LAYOUT = "tables"
+EXPORT_GOLDEN = f"expected.{EMITTED_LAYOUT}.md"
+
+
+def _expect_for(case: dict):
+    """The expectation of *case* for this runtime's layout: ``expectTables``
+    when the case has one (its renditions' lines differ by layout), else
+    ``expect``."""
+    if EMITTED_LAYOUT == "tables" and "expectTables" in case:
+        return case["expectTables"]
+    return case["expect"]
 
 
 def test_markdown_export(model: SpecModel) -> None:
@@ -481,7 +490,7 @@ def test_markdown_lands_in_shared_memory(model: SpecModel) -> None:
     (SOM §8)."""
     canonical = _read_json("state.json")
     for label, golden in (("tables", "expected.tables.md"),
-                          ("fields", EXPORT_GOLDEN)):
+                          ("fields", "expected.tomspecs.md")):
         imported = SpecDocument.from_markdown(_read(golden), model)
         _check(f"md.land.{label}.clean", not imported.rejections,
                "; ".join(str(r) for r in imported.rejections))
@@ -1524,7 +1533,7 @@ def test_answers(model: SpecModel) -> None:
     (SOM §11.9.7)."""
     for case in _read_json("answer_cases.json")["cases"]:
         got = _run_answer_case(model, case)
-        want = case["expect"]
+        want = _expect_for(case)
         _check(
             f"answers[{case['name']}].extracts",
             got["extracts"] == want["extracts"],
@@ -2032,8 +2041,8 @@ def test_codespecs_gate() -> None:
     for case in table["cases"]:
         name = case["name"]
         got = _run_gate_case(table, case, meta)
-        _check(f"codespecs_gate[{name}]", got == case["expect"],
-               _json_mismatch(got, case["expect"]))
+        _check(f"codespecs_gate[{name}]", got == _expect_for(case),
+               _json_mismatch(got, _expect_for(case)))
 
 
 def test_codespecs_records() -> None:

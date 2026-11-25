@@ -5,10 +5,12 @@ SOM §11) — a port of the Dart reference suite
 
 The generated ``*.md`` is a genuine DocSpecs document: line 1 is the
 ``<!-- docspec: <schema-id>/<version> -->`` declaration, every populated
-section is a heading of the form ``## <!--[SECTION-ID]--> Title``, content
-sections are normal markdown text (no fences), ``@Form`` sections use the
-plain-text ``FieldName: value`` format, and a list emits its ``-LST`` container
-heading with the numbered items one level deeper.
+section is a heading of the form
+``## <!--[SECTION-ID]--> <a id="SECTION-ID"></a> Title``, content sections are
+normal markdown text (no fences), ``@Form`` sections are written as
+``| TomSpecField | Value |`` tables (a value no cell holds as a ``Field:``
+paragraph), and a list emits its ``-LST`` container heading with the numbered
+items one level deeper.
 
 Run with: ``python3 tests/spec_document_markdown_test.py``. Exit code 0 == green.
 """
@@ -197,12 +199,12 @@ def test_export_format() -> None:
            first.startswith("<!-- docspec: demo-document/"), first)
     _check("export.docspec.suffix", first.endswith("-->"), first)
 
-    _check("export.heading.root", "# <!--[D00]--> Demo Document" in md)
-    _check("export.heading.overview", "## <!--[D00-OVR]--> Overview" in md)
-    _check("export.heading.status", "## <!--[D00-ST]--> Status" in md)
-    _check("export.heading.header", "## <!--[D00-HDR]--> Header" in md)
-    _check("export.heading.meta", "## <!--[D00-MET]--> Meta" in md)
-    _check("export.heading.note", "### <!--[D00-MET-NOTE]--> Note" in md)
+    _check("export.heading.root", '# <!--[D00]--> <a id="D00"></a> Demo Document' in md)
+    _check("export.heading.overview", '## <!--[D00-OVR]--> <a id="D00-OVR"></a> Overview' in md)
+    _check("export.heading.status", '## <!--[D00-ST]--> <a id="D00-ST"></a> Status' in md)
+    _check("export.heading.header", '## <!--[D00-HDR]--> <a id="D00-HDR"></a> Header' in md)
+    _check("export.heading.meta", '## <!--[D00-MET]--> <a id="D00-MET"></a> Meta' in md)
+    _check("export.heading.note", '### <!--[D00-MET-NOTE]--> <a id="D00-MET-NOTE"></a> Note' in md)
 
     _check("export.content.plain",
            "An overview paragraph.\nWith two lines." in md)
@@ -211,15 +213,19 @@ def test_export_format() -> None:
     _check("export.content.noFieldAnchor", "<!-- field:" not in md)
     _check("export.content.noPathHeading", "D00/D00-OVR" not in md)
 
-    _check("export.form.sparse.author", "Author: Ada Lovelace" in md)
+    _check("export.form.sparse.author", "| Author | Ada Lovelace |" in md)
     _check("export.form.sparse.noReviewer", "Reviewer" not in md)
 
     # The list container heads (SOM §11.2): `D00-ITM` at the owner's child
     # level, its numbered items one level below it, item fields one deeper.
-    _check("export.item.container", "## <!--[D00-ITM]--> Items" in md)
-    _check("export.item.1", "### <!--[items-1]--> Demo Item 1" in md)
-    _check("export.item.2", "### <!--[items-2]--> Demo Item 2" in md)
-    _check("export.item.label", "#### <!--[D01-LBL]--> Label" in md)
+    _check("export.item.container", '## <!--[D00-ITM]--> <a id="D00-ITM"></a> Items' in md)
+    _check("export.item.1", '### <!--[items-1]--> <a id="items-1"></a> Demo Item 1' in md)
+    _check("export.item.2", '### <!--[items-2]--> <a id="items-2"></a> Demo Item 2' in md)
+    # Below a list item the anchor is qualified (SOM §11.2).
+    _check("export.item.label",
+           '#### <!--[D01-LBL]--> <a id="items-1/D01-LBL"></a> Label' in md)
+    _check("export.item2.label",
+           '#### <!--[D01-LBL]--> <a id="items-2/D01-LBL"></a> Label' in md)
 
     _check("export.noSchemaDescription", "A demo document." not in md)
 
@@ -233,9 +239,9 @@ def test_export_stored_item_id() -> None:
     # (`D01-CUSTOM` — an override, or equally an AA1 generated id) is the md
     # heading id; the anonymous positional id is only the fallback for items
     # WITHOUT a stored id.
-    _check("export.storedId.container", "## <!--[D00-ITM]--> Items" in md, md)
+    _check("export.storedId.container", '## <!--[D00-ITM]--> <a id="D00-ITM"></a> Items' in md, md)
     _check("export.storedId.stored",
-           "### <!--[D01-CUSTOM]--> Demo Item 1" in md, md)
+           '### <!--[D01-CUSTOM]--> <a id="D01-CUSTOM"></a> Demo Item 1' in md, md)
     _check("export.storedId.noPositional", "items-1" not in md, md)
 
 
@@ -402,9 +408,11 @@ def test_round_trip_stored_item_id() -> None:
 
 def test_round_trip_label_shaped_continuation() -> None:
     doc = SpecDocument()
+    # A hard break keeps it a paragraph (a wrapped paragraph would be one
+    # table cell, SOM §11.4).
     doc.set_form_field(
         "D00/D00-HDR", "author",
-        "Ada Lovelace\nNote: also a mathematician\nplain line",
+        "Ada Lovelace  \nNote: also a mathematician\nplain line",
     )
     md1 = _export(doc)
     # The label-shaped continuation is space-escaped on emit.
@@ -415,7 +423,7 @@ def test_round_trip_label_shaped_continuation() -> None:
            "; ".join(str(r) for r in report.rejections))
     _check("formCont.value",
            reloaded.form_field("D00/D00-HDR", "author")
-           == "Ada Lovelace\nNote: also a mathematician\nplain line",
+           == "Ada Lovelace  \nNote: also a mathematician\nplain line",
            repr(reloaded.form_field("D00/D00-HDR", "author")))
     _check("formCont.byteStable", _export(reloaded) == md1)
 
@@ -437,6 +445,32 @@ def test_table_header_shaped_line_escaped() -> None:
     _check("tableHdr.value", reloaded.content("D00/D00-OVR") == value,
            repr(reloaded.content("D00/D00-OVR")))
     _check("tableHdr.byteStable", _export(reloaded) == md1)
+
+
+def test_wrapped_paragraph_is_one_cell() -> None:
+    # SOM §11.4 rule 13: one paragraph wrapped over lines is one cell, its
+    # soft breaks spaces; a block, a hard break or a blank line is no
+    # wrapped paragraph.
+    j = SpecDocumentMarkdown.wrapped_paragraph_joined
+    _check("wrapped.joined", j("one\ntwo\nthree") == "one two three")
+    _check("wrapped.oneLine", j("one line") is None)
+    _check("wrapped.blankLine", j("one\n\ntwo") is None)
+    _check("wrapped.hardBreak", j("one  \ntwo") is None)
+    _check("wrapped.backslash", j("one\\\ntwo") is None)
+    _check("wrapped.listItem", j("one\n- two") is None)
+    _check("wrapped.heading", j("one\n## two") is None)
+    _check("wrapped.setext", j("one\n===") is None)
+    _check("wrapped.tableRow", j("one\n| two |") is None)
+    doc = SpecDocument()
+    doc.set_form_field("D00/D00-HDR", "author", "Ada\nLovelace")
+    md = _export(doc)
+    _check("wrapped.cell", "| Author | Ada Lovelace |\n" in md, md)
+    reloaded, report = _reload(md)
+    _check("wrapped.clean", report.is_clean,
+           "; ".join(str(r) for r in report.rejections))
+    _check("wrapped.value",
+           reloaded.form_field("D00/D00-HDR", "author") == "Ada Lovelace",
+           repr(reloaded.form_field("D00/D00-HDR", "author")))
 
 
 def test_form_table_parses() -> None:
@@ -508,7 +542,8 @@ def test_form_preamble_emits() -> None:
     doc.set_form_field("D00/D00-HDR", "author", "Ada Lovelace")
     md = _export(doc)
     _check("formPre.emitOrder",
-           "why this header exists\n\nAuthor: Ada Lovelace\n" in md, md)
+           "why this header exists\n\n| TomSpecField | Value |\n"
+           "| --- | --- |\n| Author | Ada Lovelace |\n" in md, md)
 
 
 def test_form_preamble_only() -> None:
@@ -701,11 +736,12 @@ def test_code_spec_rides_in_headline_comment() -> None:
     _check(
         "codeSpec.md.attribute",
         '## <!--[D00-OVR] codeSpec="CsOrder,CsOrder.total,'
-        'CsOrderRepository"--> Overview' in md,
+        'CsOrderRepository"--> <a id="D00-OVR"></a> Overview' in md,
         md,
     )
     # Untouched sections stay byte-stable (no empty codeSpec attribute).
-    _check("codeSpec.md.untouched", "## <!--[D00-ST]--> Status" in md)
+    _check("codeSpec.md.untouched",
+           '## <!--[D00-ST]--> <a id="D00-ST"></a> Status' in md)
 
 
 def test_code_spec_parsed_back_out() -> None:
@@ -755,6 +791,7 @@ def main() -> int:
     test_round_trip_stored_item_id()
     test_round_trip_label_shaped_continuation()
     test_table_header_shaped_line_escaped()
+    test_wrapped_paragraph_is_one_cell()
     test_form_table_parses()
     test_form_table_rejections()
     test_form_preamble_parses()

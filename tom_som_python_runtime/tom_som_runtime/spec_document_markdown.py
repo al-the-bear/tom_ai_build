@@ -7,9 +7,11 @@ section is one markdown heading whose machine-readable identity is the DocSpecs
 headline comment ``<!--[SECTION-ID]-->`` and whose text is the section's
 **stored headline** when one exists, else the human-readable Title-Case member
 name (YRD3: md is a full-fidelity format — stored headlines round-trip).
-Content values are **normal markdown text** under their heading (no fences, no
-anchors); ``@Form`` sections use the DocSpecs plain-text ``FieldName: value``
-format; a list emits its ``-LST`` **container heading** (the id the generated schema
+Content values are **normal markdown text** under their heading (no fences);
+every heading carries its section id as an HTML anchor, qualified below a list
+item and in a ``@SameAs`` copy (SOM §11.2). ``@Form`` sections are written in
+the reading-view layout (see below); a list emits its ``-LST`` **container
+heading** (the id the generated schema
 keys its container type by), with the numbered items one level deeper, each
 carrying the item's **stored section id** when one exists (an AA1 date-lettered
 generated id or a criterion-5 override), else the anonymous positional id — the
@@ -32,14 +34,16 @@ fenced code blocks, which shield their lines verbatim. Blank lines inside a
 value are kept as written; parse trims each value of leading/trailing blank
 lines only.
 
-Reading view (SOM §11.4, §11.5): the emitter writes the ``Field:`` layout; the
-parser also reads the reading view's table layout — form tables
-``| TomSpecField | Value |``, record tables in a ``::: {.records}`` div,
-reference lines in a ``::: {.refs}`` div, section tables
-``| Section | TomSpecField | Value |`` and the renderer's heading anchors
-``<a id="ID">`` — and reports a block that breaks it as ``unknownField`` or
-``malformedBlock``. A value line shaped like a layout table header is written
-with one escape space, which the parser removes.
+Reading view (SOM §11.4, §11.5): the emitter writes the reading view's table
+layout — form tables ``| TomSpecField | Value |``, record tables in a
+``::: {.records}`` div, reference lines in a ``::: {.refs}`` div, section
+tables ``| Section | TomSpecField | Value |`` and an anchor ``<a id="ID">`` in
+every heading; a value no table cell holds (a ``multiParagraph`` field,
+several paragraphs, a block) is a ``Field:`` paragraph, a wrapped
+one-paragraph value one cell (rule 13). The parser reads that layout and the
+older layout of ``Field:`` lines alike, and reports a block that breaks it as
+``unknownField`` or ``malformedBlock``. A value line shaped like a layout table
+header is written with one escape space, which the parser removes.
 
 The codec is free of any UI: it reads from / resolves against a
 :class:`SpecModel` (through the :func:`build_som_meta_tree` metadata tree) and
@@ -53,6 +57,7 @@ value leaf, orphaned text — is collected into
 
 from __future__ import annotations
 
+import bisect
 import re
 from dataclasses import dataclass, field as dataclass_field
 from enum import Enum
@@ -62,7 +67,54 @@ from .spec_document import SpecDocument
 from .spec_meta import SomMetaKind, SomMetaNode, SomMetaTree
 from .spec_meta_bridge import build_som_meta_tree
 from .spec_model import SpecModel, SpecRoot
+from .spec_paths import split_list_item_segment
 from .spec_section_id import effective_list_item_section_id
+
+# The whitespace JavaScript's `\s` and `trim()` know, which the reference
+# codecs decide by (Python's own `\s` and `str.strip` know more).
+_JS_WS_CHARS = (
+    "\t\n\x0b\f\r          "
+    "        　﻿"
+)
+_WS = (
+    "[\\t\\n\\x0b\\f\\r \\u00a0\\u1680\\u2000-\\u200a\\u2028\\u2029"
+    "\\u202f\\u205f\\u3000\\ufeff]"
+)
+# A section id as a reference holds it: upper-case segments joined by `-`.
+_ID_SHAPE = re.compile(r"[A-Z][A-Z0-9]*(-[A-Z0-9]+)*")
+# A one-line value that Markdown reads as a block: a list item, a block quote
+# (review comment and question blocks among them), a fence or a fenced div. A
+# table needs two lines, so it is caught by the line break.
+_BLOCK_START = re.compile(
+    "^" + _WS + "*([-*+]" + _WS + "|[0-9]+[.)]" + _WS + "|>|```|~~~|:::)"
+)
+# A line that is a block of its own, or would make the line above one, beyond
+# _BLOCK_START: a table row, an ATX heading, a setext underline or a thematic
+# break, an HTML block.
+_WRAPPED_LINE_BLOCK = re.compile(
+    "^(?:\\||#{1,6}(?:" + _WS + "|\\Z)|=+\\Z|(?:[-*_]" + _WS + "*){3,}\\Z|<)"
+)
+
+
+def _trim_ws(s: str) -> str:
+    """*s* without the leading and trailing whitespace the reference codecs
+    trim."""
+    return s.strip(_JS_WS_CHARS)
+
+
+def _under(sorted_keys: list[str], prefix: str) -> list[str]:
+    """The keys of *sorted_keys* at or below *prefix*: a binary search to the
+    first key not before it, then the run sharing it as a prefix, so a large
+    document is not scanned once per list item."""
+    out: list[str] = []
+    i = bisect.bisect_left(sorted_keys, prefix)
+    n = len(prefix)
+    while i < len(sorted_keys) and sorted_keys[i].startswith(prefix):
+        k = sorted_keys[i]
+        if len(k) == n or k[n] == "/":
+            out.append(k)
+        i += 1
+    return out
 
 
 class SpecMarkdownRejectReason(Enum):
@@ -273,14 +325,61 @@ class SpecDocumentMarkdown:
     # (optionally already space-prefixed — each emit pass adds one more space).
     _label_shaped = re.compile(r"^ *[A-Za-z][A-Za-z0-9_]*:")
 
-    def __init__(self, model: SpecModel, document: SpecDocument) -> None:
+    def __init__(
+        self,
+        model: SpecModel,
+        document: SpecDocument,
+        file_stem: Optional[str] = None,
+        document_files: Optional[dict[str, str]] = None,
+    ) -> None:
+        """Binds *model* and *document* to the codec; *file_stem* and
+        *document_files* (either may be ``None``) name the files a reference
+        to another document root links to."""
         self.model = model
         self.document = document
+        #: The stem of the files a reference to another document root links
+        #: to (``<file_stem>.<root id in lower case>.tomspecs.md``), or
+        #: ``None``.
+        self.file_stem = file_stem
+        #: The rendition file of a document root, keyed by its section id or
+        #: type; a root it does not name takes the :attr:`file_stem` name.
+        self.document_files: dict[str, str] = dict(document_files or {})
         # Metadata trees per root type, built lazily (the generated facades
         # will hand these in directly; until then the bridge derives them).
         self._trees: dict[str, SomMetaTree] = {}
         # The paths of the headings written by the current export, in order.
         self._heading_paths: list[str] = []
+        # The document's keys of one kind, sorted once per export for _under.
+        self._sorted_keys: dict[str, list[str]] = {}
+        # The root the current export renders (the target of same-document
+        # links).
+        self._current_root: Optional[SpecRoot] = None
+        # The anchors of the root the current export renders (SOM §11.2).
+        self._nav: Optional[_Navigation] = None
+        # The class names each root reaches, for reference links.
+        self._reach: dict[str, set[str]] = {}
+
+    def _sorted(self, kind: str, keys: Any) -> list[str]:
+        found = self._sorted_keys.get(kind)
+        if found is None:
+            found = sorted(keys)
+            self._sorted_keys[kind] = found
+        return found
+
+    @staticmethod
+    def _item_pattern_of(node: SomMetaNode) -> Optional[str]:
+        """The ``@SectionIdPattern`` the items of list *node* take their ids
+        from, or ``None``."""
+        pattern = node.section_id_pattern
+        if not pattern and node.element_node is not None:
+            pattern = node.element_node.section_id_pattern
+        return pattern or None
+
+    @staticmethod
+    def _member_stem_of(node: SomMetaNode) -> str:
+        """The stem of the positional ids of a pattern-less list: its member
+        name, else its segment."""
+        return node.member_name or node.segment
 
     def _tree_for(self, root_type: str) -> SomMetaTree:
         tree = self._trees.get(root_type)
@@ -386,7 +485,7 @@ class SpecDocumentMarkdown:
     #
     #   * a transparent value member (content/scalar/enum/form without an id)
     #     is emitted headinglessly into its owner's *body region* (text, or a
-    #     `FieldName: value` form block);
+    #     form block of tables and `Field:` paragraphs);
     #   * a transparent section/complex member gets no heading; its id-bearing
     #     descendants surface as the owner's direct child headings (the
     #     schema's "nearest section-bearing descendant" hoisting), with
@@ -509,6 +608,9 @@ class SpecDocumentMarkdown:
         return SpecMarkdownRendition(markdown, heading_paths)
 
     def _export_root(self, root: SpecRoot) -> str:
+        self._current_root = root
+        self._nav = _Navigation(self, root)
+        self._sorted_keys.clear()
         tree = self._tree_for(root.type)
         node = tree.root
         b = _Buffer()
@@ -528,6 +630,7 @@ class SpecDocumentMarkdown:
         )
         self._write_section_body(b, node, root_seg)
         self._write_children(b, node, root_seg, 2)
+        self._nav = None
         return str(b)
 
     def _write_section_body(
@@ -694,7 +797,8 @@ class SpecDocumentMarkdown:
                     units=self.document.units(path),
                 )
                 self._write_section_body(b, child, path)
-                self._write_children(b, child, path, depth + 1)
+                if not self._write_section_table(b, child, path):
+                    self._write_children(b, child, path, depth + 1)
             elif kind == SomMetaKind.LIST:
                 self._write_list_items(b, child, path, depth)
 
@@ -730,9 +834,11 @@ class SpecDocumentMarkdown:
         # populated scalar list gets meaningful per-item headings (YRC5).
         stem = self._item_stem_of(node)
         element = node.element_node
-        pattern = node.section_id_pattern or (
-            element.section_id_pattern if element is not None else None
-        )
+        pattern = self._item_pattern_of(node)
+        if self._write_reference_line(
+            b, node, items, pattern
+        ) or self._write_record_table(b, node, items, pattern):
+            return
         for i, item_path in enumerate(items):
             pos = i + 1
             # YRD3: the heading id is the item's STORED
@@ -748,7 +854,7 @@ class SpecDocumentMarkdown:
                 stored_id=self.document.item_section_id(item_path),
                 pattern=pattern,
                 position=pos,
-                fallback_stem=node.member_name or node.segment,
+                fallback_stem=self._member_stem_of(node),
             )
             self._write_heading(
                 b,
@@ -766,8 +872,438 @@ class SpecDocumentMarkdown:
                 )
             else:
                 self._write_section_body(b, element, item_path)
-                if not element.recursive:
+                if not element.recursive and not self._write_section_table(
+                    b, element, item_path
+                ):
                     self._write_children(b, element, item_path, depth + 2)
+
+    # --- Reading view: reference lines, record tables, section tables -------
+
+    def _has_keys(self, path: str) -> bool:
+        return bool(self.document.code_spec(path)) or bool(
+            self.document.units(path)
+        )
+
+    def _anchor_for(self, path: str, id: str) -> str:
+        """The anchor of the heading or table row standing for *path*."""
+        return self._nav.anchor_of(path) if self._nav is not None else id
+
+    def _is_form_only_item(
+        self,
+        form: SomMetaNode,
+        item_path: str,
+        form_path: str,
+        allow_headline: bool,
+    ) -> bool:
+        """Whether the item at *item_path* holds values only in its form at
+        *form_path*, all of them table cells: no preamble, no other content,
+        form or list, no ``codeSpec`` / ``units``, no headline other than the
+        item's own when *allow_headline*."""
+        doc = self.document
+        if _under(self._sorted("content", doc.content_paths), item_path):
+            return False
+        if _under(self._sorted("lists", doc.list_paths), item_path):
+            return False
+        if _under(self._sorted("units", doc.units_paths), item_path):
+            return False
+        for k in _under(self._sorted("forms", doc.form_paths), item_path):
+            if k != form_path:
+                return False
+        for h in _under(
+            self._sorted("headlines", doc.headline_paths), item_path
+        ):
+            if not allow_headline or h != item_path:
+                return False
+        if self._has_keys(item_path) or self._has_keys(form_path):
+            return False
+        if self._undeclared_form_fields(form, form_path):
+            return False
+        any_value = False
+        for f in _fields_of(form):
+            value = doc.form_field(form_path, f.name)
+            if value is None:
+                continue
+            if not self._is_cell_value(f, value):
+                return False
+            any_value = True
+        return any_value
+
+    def _write_reference_line(
+        self,
+        b: _Buffer,
+        node: SomMetaNode,
+        items: list[str],
+        pattern: Optional[str],
+    ) -> bool:
+        """A list whose every item holds only one reference id becomes one
+        ``refs`` div of links in list order. All or nothing; returns whether
+        it was written."""
+        element = node.element_node
+        if element is None or element.recursive:
+            return False
+        ref: Optional[tuple[SomMetaNode, str]] = None
+        for c, rel in self._effective_children(element):
+            fields = _fields_of(c)
+            if (
+                c.kind != SomMetaKind.FORM
+                or len(fields) != 1
+                or not fields[0].refers_to
+            ):
+                continue
+            if any(e.annotation == "Reference" for e in c.extra):
+                ref = (c, rel)
+                break
+        if ref is None:
+            return False
+        ref_node, ref_rel = ref
+        field = _fields_of(ref_node)[0]
+        doc = self.document
+        links: list[str] = []
+        for i, item_path in enumerate(items):
+            ref_path = f"{item_path}/{ref_rel}"
+            stored = doc.item_section_id(item_path)
+            positional = effective_list_item_section_id(
+                stored_id=None,
+                pattern=pattern,
+                position=i + 1,
+                fallback_stem=self._member_stem_of(node),
+            )
+            if stored is not None and stored != positional:
+                return False
+            if (
+                _under(self._sorted("content", doc.content_paths), item_path)
+                or _under(self._sorted("lists", doc.list_paths), item_path)
+                or _under(self._sorted("units", doc.units_paths), item_path)
+                or _under(
+                    self._sorted("headlines", doc.headline_paths), item_path
+                )
+                or self._has_keys(item_path)
+                or self._has_keys(ref_path)
+            ):
+                return False
+            for k in _under(self._sorted("forms", doc.form_paths), item_path):
+                if k != ref_path:
+                    return False
+            names = set(doc.form_field_names(ref_path))
+            if names != {field.name}:
+                return False
+            raw = doc.form_field(ref_path, field.name)
+            id = _trim_ws(raw or "")
+            if not _ID_SHAPE.fullmatch(id):
+                return False
+            link = self._link(field, id)
+            links.append(link if link is not None else id)
+        b.writeln("::: {.refs}")
+        b.writeln(", ".join(links))
+        b.writeln(":::")
+        b.writeln()
+        return True
+
+    def _write_record_table(
+        self,
+        b: _Buffer,
+        node: SomMetaNode,
+        items: list[str],
+        pattern: Optional[str],
+    ) -> bool:
+        """A list whose every item is one form of table cells becomes a
+        ``records`` div with one table: ``Id`` (with its anchor), ``Title``
+        when any item has a stored headline, one column per declared field any
+        item populates. All or nothing; returns whether it was written."""
+        element = node.element_node
+        if element is None or element.recursive:
+            return False
+        form_slot = self._item_form(element)
+        if form_slot is None:
+            return False
+        form, rel = form_slot
+        for item_path in items:
+            if not self._is_form_only_item(
+                form, item_path, f"{item_path}/{rel}", True
+            ):
+                return False
+        doc = self.document
+        columns = [
+            f
+            for f in _fields_of(form)
+            if any(doc.form_field(f"{i}/{rel}", f.name) is not None for i in items)
+        ]
+        with_title = any(doc.headline(i) is not None for i in items)
+        header = ["Id"]
+        if with_title:
+            header.append("Title")
+        header.extend(self.form_label(f.name) for f in columns)
+        b.writeln("::: {.records}")
+        b.writeln("| " + " | ".join(header) + " |")
+        b.writeln("| " + " | ".join(["---"] * len(header)) + " |")
+        for i, item_path in enumerate(items):
+            id = effective_list_item_section_id(
+                stored_id=doc.item_section_id(item_path),
+                pattern=pattern,
+                position=i + 1,
+                fallback_stem=self._member_stem_of(node),
+            )
+            cells = [f'<a id="{self._anchor_for(item_path, id)}"></a>{id}']
+            if with_title:
+                title = doc.headline(item_path) or ""
+                cells.append(title.replace("\n", "<br>").replace("|", "\\|"))
+            for f in columns:
+                v = doc.form_field(f"{item_path}/{rel}", f.name)
+                cells.append("" if v is None else self._linked_cell_text(f, v))
+            b.writeln("| " + " | ".join(cells) + " |")
+        b.writeln(":::")
+        b.writeln()
+        return True
+
+    def _add_section_rows(
+        self,
+        rows: list[str],
+        section_cell: str,
+        form: SomMetaNode,
+        form_path: str,
+    ) -> None:
+        first = True
+        for f in _fields_of(form):
+            value = self.document.form_field(form_path, f.name)
+            if value is None:
+                continue
+            rows.append(
+                f"| {section_cell if first else ''} | {self.form_label(f.name)}"
+                f" | {self._linked_cell_text(f, value)} |"
+            )
+            first = False
+
+    def _write_section_table(
+        self, b: _Buffer, node: SomMetaNode, path: str
+    ) -> bool:
+        """A section whose populated children are all single forms of table
+        cells with default headlines (or lists of such single-form items)
+        becomes one ``| Section | TomSpecField | Value |`` table after its own
+        body; the children's headings are not written. All or nothing;
+        returns whether it was written."""
+        doc = self.document
+        rows: list[str] = []
+        children = 0
+        for child, rel in self._effective_children(node):
+            child_path = f"{path}/{rel}"
+            if not doc.has_values_under(child_path):
+                continue
+            children += 1
+            child_id = self._heading_id_of(child)
+            if child.kind == SomMetaKind.FORM:
+                if not self._is_form_only_item(
+                    child, child_path, child_path, False
+                ):
+                    return False
+                self._add_section_rows(
+                    rows,
+                    f'<a id="{self._anchor_for(child_path, child_id)}"></a>'
+                    f"{child_id}",
+                    child,
+                    child_path,
+                )
+            elif child.kind == SomMetaKind.LIST:
+                element = child.element_node
+                if element is None or element.recursive:
+                    return False
+                if doc.headline(child_path) is not None or self._has_keys(
+                    child_path
+                ):
+                    return False
+                form_slot = self._item_form(element)
+                if form_slot is None:
+                    return False
+                slot_node, slot_rel = form_slot
+                items = doc.list_items(child_path)
+                pattern = self._item_pattern_of(child)
+                for i, item_path in enumerate(items):
+                    form_path = f"{item_path}/{slot_rel}"
+                    if not self._is_form_only_item(
+                        slot_node, item_path, form_path, False
+                    ):
+                        return False
+                    item_id = effective_list_item_section_id(
+                        stored_id=doc.item_section_id(item_path),
+                        pattern=pattern,
+                        position=i + 1,
+                        fallback_stem=self._member_stem_of(child),
+                    )
+                    self._add_section_rows(
+                        rows,
+                        f'<a id="{self._anchor_for(item_path, item_id)}"></a>'
+                        f"{child_id} / {item_id}",
+                        slot_node,
+                        form_path,
+                    )
+            else:
+                return False
+        if children == 0 or not rows:
+            return False
+        b.writeln("| Section | TomSpecField | Value |")
+        b.writeln("| --- | --- | --- |")
+        for row in rows:
+            b.writeln(row)
+        b.writeln()
+        return True
+
+    def _linked_cell_text(self, f: Any, value: str) -> str:
+        """*value* as a table cell, every reference id of a ``refersTo`` field
+        written as a link to its section."""
+        if not f.refers_to or f.code:
+            return self._cell_text(f, value)
+        joined = self.wrapped_paragraph_joined(value)
+        if joined is not None:
+            value = joined
+        links: list[str] = []
+        for part in value.split(","):
+            id = _trim_ws(part)
+            if not _ID_SHAPE.fullmatch(id):
+                return self._cell_text(f, value)
+            link = self._link(f, id)
+            if link is None:
+                return self._cell_text(f, value)
+            links.append(link)
+        return ", ".join(links)
+
+    def _link(self, f: Any, id: str) -> Optional[str]:
+        """``[ID](<file>#ID)`` for a reference id of form field *f*,
+        ``[ID](#ID)`` when the target lives in the document being rendered;
+        ``None`` when no target of *f* names a section id
+        (``<SECTIONID>.@sectionId``), which has no anchor."""
+        class_ids = [
+            t[: -len(".@sectionId")]
+            for t in f.refers_to
+            if t.endswith(".@sectionId")
+        ]
+        if not class_ids:
+            return None
+        for class_id in class_ids:
+            class_name = self._class_by_section_id(class_id)
+            if (
+                class_name is not None
+                and self._current_root is not None
+                and class_name in self._reached_by(self._current_root)
+            ):
+                return f"[{id}](#{id})"
+        file = self._file_for(self._class_by_section_id(class_ids[0]))
+        return f"[{id}](#{id})" if file is None else f"[{id}]({file}#{id})"
+
+    def _class_by_section_id(self, section_id: str) -> Optional[str]:
+        for c in self.model.classes.values():
+            if c.section_id == section_id:
+                return c.name
+        return None
+
+    def _reached_by(self, root: SpecRoot) -> set[str]:
+        """The class names the meta tree of *root* reaches."""
+        names = self._reach.get(root.type)
+        if names is None:
+            names = set()
+            stack = [self._tree_for(root.type).root]
+            while stack:
+                n = stack.pop()
+                names.add(n.class_name)
+                if n.recursive:
+                    continue
+                stack.extend(n.children)
+                if n.element_node is not None:
+                    stack.append(n.element_node)
+            self._reach[root.type] = names
+        return names
+
+    def _file_for(self, class_name: Optional[str]) -> Optional[str]:
+        """The rendition file of the root a reference to *class_name* points
+        into: the root other than the current one that reaches the class, the
+        most specific (fewest classes) first, so a detailed document wins over
+        a projection such as the Solution Blueprint. The CodeSpecs projection
+        is no document anyone renders, so it is never a target."""
+        if class_name is None:
+            return None
+        current_type = (
+            self._current_root.type if self._current_root is not None else None
+        )
+        best: Optional[SpecRoot] = None
+        for r in self.model.roots:
+            if r.type == current_type:
+                continue
+            cls = self.model.class_named(r.type)
+            if cls is not None and cls.has_annotation("CodeSpecsProjection"):
+                continue
+            if class_name not in self._reached_by(r):
+                continue
+            if best is None or len(self._reached_by(r)) < len(
+                self._reached_by(best)
+            ):
+                best = r
+        return None if best is None else self._file_of_root(best)
+
+    def _file_of_root(self, root: SpecRoot) -> str:
+        """The rendition file of *root*: ``<file_stem>.<root id>.tomspecs.md``,
+        or the name :attr:`document_files` gives it."""
+        id = root.section_id if root.section_id is not None else root.type
+        mapped = self.document_files.get(id)
+        if mapped is None:
+            mapped = self.document_files.get(root.type)
+        if mapped is not None:
+            return mapped
+        name = f"{id.lower()}.tomspecs.md"
+        return f"{self.file_stem}.{name}" if self.file_stem else name
+
+    @classmethod
+    def _is_cell_value(cls, f: Any, value: str) -> bool:
+        """Whether *value* of form field *f* is written as a table row: not
+        when the model flags the field ``multiParagraph``, nor when the value
+        holds a line break other than the soft breaks of one wrapped paragraph
+        (:meth:`wrapped_paragraph_joined`; a ``code`` value keeps every line
+        break), is a block of Markdown, holds a backslash directly before
+        ``|``, or holds ``<!--``. There is no length limit."""
+        if f.multi_paragraph:
+            return False
+        if "\\|" in value or "<!--" in value:
+            return False
+        if "\n" in value and (
+            f.code or cls.wrapped_paragraph_joined(value) is None
+        ):
+            return False
+        return _BLOCK_START.match(value) is None
+
+    @staticmethod
+    def wrapped_paragraph_joined(value: str) -> Optional[str]:
+        """*value* on one line when it is one paragraph wrapped over several
+        lines — no blank line, and no line that Markdown reads as a block or a
+        block's start (a list item, a quote, a fence, a fenced div, a table
+        row, a heading, a setext underline or a thematic break), that ends in
+        a hard break (a trailing backslash or spaces) or that starts with a
+        space: its soft line breaks, which Markdown reads as spaces, become
+        spaces (SOM §11.4 rule 13). ``None`` for any other value, a one-line
+        value among them."""
+        if "\n" not in value:
+            return None
+        lines = value.split("\n")
+        for line in lines:
+            if (
+                not line
+                or line != _trim_ws(line)
+                or line.endswith("\\")
+                or _BLOCK_START.match(line)
+                or _WRAPPED_LINE_BLOCK.match(line)
+            ):
+                return None
+        return " ".join(lines)
+
+    @classmethod
+    def _cell_text(cls, f: Any, value: str) -> str:
+        """The table cell for *value*: a ``code: true`` value as its inline
+        code span, every ``|`` written ``\\|``."""
+        joined = cls.wrapped_paragraph_joined(value)
+        if joined is not None:
+            value = joined
+        text = (
+            cls._encode_code_span(value)
+            if f.code and cls._is_inline_code(value)
+            else value
+        )
+        return text.replace("|", "\\|")
 
     def _undeclared_form_fields(self, node: SomMetaNode, path: str) -> list:
         """The stored field names at form *path* that *node* does not declare,
@@ -820,25 +1356,30 @@ class SpecDocumentMarkdown:
         return bool(self._undeclared_form_fields(node, path))
 
     def _write_form(self, b: _Buffer, node: SomMetaNode, path: str) -> None:
-        """Writes a ``@Form`` section body: the preamble content (when set)
-        followed by one ``FieldName: value`` group per populated field
-        (SOM §11.4), consecutive groups separated by one blank line. Raises
-        :class:`ValueError` when the form holds a field the model does not
-        declare."""
+        """Writes a ``@Form`` section body (SOM §11.4): the preamble, then the
+        declared fields in model order — each run of consecutive cell values
+        one ``| TomSpecField | Value |`` table, each paragraph value a
+        ``Field:`` group at its place (table – text – table). Groups are one
+        blank line apart. A value line that would read as a table header is
+        escaped by :meth:`_prepare_value`. Raises :class:`ValueError` when the
+        form holds a field the model does not declare."""
         self._check_form_declared(node, path)
-        fields = node.form.fields if node.form is not None else []
-        field_buf = _Buffer()
-        for f in fields:
+        groups: list[list[str]] = []
+        table: Optional[list[str]] = None
+        for f in _fields_of(node):
             value = self.document.form_field(path, f.name)
             if value is None:
                 continue
-            # SOM §11.4 rule 2: one blank line between consecutive field
-            # groups, so a markdown viewer renders each field as its own
-            # paragraph (and a list ending a value cannot swallow the next
-            # label as a lazy continuation). Parse trims each value's trailing
-            # blank lines, so it is lossless.
-            if str(field_buf):
-                field_buf.writeln()
+            label = self.form_label(f.name)
+            if self._is_cell_value(f, value):
+                if table is None:
+                    table = ["| TomSpecField | Value |", "| --- | --- |"]
+                    groups.append(table)
+                table.append(
+                    f"| {label} | {self._linked_cell_text(f, value)} |"
+                )
+                continue
+            table = None
             # SOM §11.4 rule 8: a single-line code value is written as an
             # inline code span, so markdown leaves it literal (`](` is not a
             # link).
@@ -847,14 +1388,14 @@ class SpecDocumentMarkdown:
                 if f.code and self._is_inline_code(value)
                 else self._prepare_value(value, path).split("\n")
             )
-            field_buf.writeln(f"{self.form_label(f.name)}: {lines[0]}")
+            group = [f"{label}: {lines[0]}"]
             for line in lines[1:]:
-                # SOM §11.4 generalised: any continuation line that could be
-                # mistaken for a field-label line gains one leading space;
-                # parse strips it.
-                field_buf.writeln(
+                # Any continuation line that could be mistaken for a
+                # field-label line gains one leading space; parse strips it.
+                group.append(
                     f" {line}" if self._label_shaped.match(line) else line
                 )
+            groups.append(group)
 
         preamble = self.document.content(path)
         if preamble is not None:
@@ -868,9 +1409,13 @@ class SpecDocumentMarkdown:
                     b.writeln(
                         f" {line}" if self._label_shaped.match(line) else line
                     )
-                if str(field_buf):
+                if groups:
                     b.writeln()
-        b.write(str(field_buf))
+        for i, group in enumerate(groups):
+            if i > 0:
+                b.writeln()
+            for line in group:
+                b.writeln(line)
         b.writeln()
 
     def _write_heading(
@@ -884,7 +1429,8 @@ class SpecDocumentMarkdown:
         code_spec: Optional[str] = None,
         units: Optional[str] = None,
     ) -> None:
-        """``## <!--[ID]--> Title`` at *depth*. SOM §11.2 is normative —
+        """``## <!--[ID]--> <a id="ID"></a> Title`` at *depth*. SOM §11.2 is
+        normative —
         heading level = 1 + section depth, **uncapped**: deep models (the
         Solution Blueprint nests past markdown's native 6 levels) keep their
         structure; the parse grammar accepts ``#{7,}`` accordingly. Capping
@@ -901,9 +1447,13 @@ class SpecDocumentMarkdown:
         if units:
             code += f' units="{units}"'
         # A heading is one line: a stored headline's line breaks travel as
-        # ``<br>``.
+        # ``<br>``. The section id follows as an HTML anchor after the id
+        # comment and its keys, so `#<ID>` links jump in every viewer; below a
+        # list item or in a `@SameAs` copy the anchor is qualified (SOM §11.2).
+        anchor = self._anchor_for(path, id)
         b.writeln(
-            f"{'#' * depth} <!--[{id}]{code}--> {title.replace(chr(10), '<br>')}"
+            f"{'#' * depth} <!--[{id}]{code}--> <a id=\"{anchor}\"></a> "
+            f"{title.replace(chr(10), '<br>')}"
         )
         b.writeln()
 
@@ -1110,6 +1660,85 @@ def _qualify_anchor(
     if role == _ANCHOR_ITEM:
         return joined, with_id
     return joined, (None if scope is None else with_id)
+
+
+class _Navigation:
+    """One root's anchors (SOM §11.2): the anchor of the heading a path names,
+    qualified below a list item and in a ``@SameAs`` copy."""
+
+    def __init__(self, codec: SpecDocumentMarkdown, root: SpecRoot) -> None:
+        self._codec = codec
+        self.tree = codec._tree_for(root.type)
+        self._anchors: dict[str, str] = {}
+
+    def item_id(self, list_node: SomMetaNode, item_path: str) -> str:
+        """The heading id of the item at *item_path* of *list_node*, as the
+        emitter writes it."""
+        doc = self._codec.document
+        slash = item_path.rfind("/")
+        split = split_list_item_segment(item_path[slash + 1:])
+        list_path = item_path[: slash + 1] + split.base
+        items = doc.list_items(list_path)
+        pos = items.index(item_path) + 1 if item_path in items else 0
+        return effective_list_item_section_id(
+            stored_id=doc.item_section_id(item_path),
+            pattern=SpecDocumentMarkdown._item_pattern_of(list_node),
+            position=split.seq if pos == 0 else pos,
+            fallback_stem=SpecDocumentMarkdown._member_stem_of(list_node),
+        )
+
+    def anchor_of(self, path: str) -> str:
+        """The anchor of the heading *path* names in this document."""
+        hit = self._anchors.get(path)
+        if hit is not None:
+            return hit
+        codec = self._codec
+        segs = path.split("/")
+        node = self.tree.root
+        cur = segs[0]
+        anchor = node.segment
+        scope: Optional[list[str]] = None
+        section: Optional[str] = node.segment
+        for i in range(1, len(segs)):
+            seg = segs[i]
+            child = node.child_by_segment(seg)
+            if child is not None:
+                cur = f"{cur}/{seg}"
+                node = child
+                if codec._is_transparent_section(
+                    child
+                ) or codec._is_transparent_value(child):
+                    continue
+                id = codec._heading_id_of(child)
+                container = child.kind == SomMetaKind.LIST
+                role = (
+                    _ANCHOR_CONTAINER
+                    if container
+                    else (
+                        _ANCHOR_COPY if codec._is_copy_node(child) else _ANCHOR_PLAIN
+                    )
+                )
+                anchor, scope = _qualify_anchor(scope, section, id, role)
+                if not container:
+                    section = id
+                continue
+            split = split_list_item_segment(seg)
+            list_node = (
+                None if split is None else node.child_by_segment(split.base)
+            )
+            if list_node is None or list_node.kind != SomMetaKind.LIST:
+                break
+            item_path = f"{cur}/{seg}"
+            id = self.item_id(list_node, item_path)
+            anchor, scope = _qualify_anchor(scope, section, id, _ANCHOR_ITEM)
+            section = id
+            cur = item_path
+            element = list_node.element_node
+            node = element if element is not None else list_node
+            if element is None and i < len(segs) - 1:
+                break
+        self._anchors[path] = anchor
+        return anchor
 
 
 def _title_without_anchor(raw_title: str, id: str, anchor: str) -> str:
