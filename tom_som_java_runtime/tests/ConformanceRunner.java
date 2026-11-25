@@ -104,6 +104,9 @@ import tom_som_runtime.SpecReadableHeader;
 import tom_som_runtime.SpecReadableSource;
 import tom_som_runtime.SpecStripFinding;
 import tom_som_runtime.SpecStripKept;
+import tom_som_runtime.SpecStripMerge;
+import tom_som_runtime.SpecStripMergeOptions;
+import tom_som_runtime.SpecStripMergeResult;
 import tom_som_runtime.SpecStripResult;
 import tom_som_runtime.SpecStripOptions;
 import tom_som_runtime.SpecStripPiece;
@@ -2543,6 +2546,134 @@ public final class ConformanceRunner {
     }
   }
 
+  // --- strip_merge_cases.json: the merge back (SOM §11.10) --------------------
+
+  /** {@code text} with each {@code [find, replace]} applied to its one occurrence. */
+  @SuppressWarnings("unchecked")
+  private static String applyCaseEdits(String text, Object edits) {
+    String out = text;
+    if (edits == null) {
+      return out;
+    }
+    for (Object edit : (List<Object>) edits) {
+      List<Object> pair = (List<Object>) edit;
+      String find = (String) pair.get(0);
+      String replace = (String) pair.get(1);
+      if (find.isEmpty()) {
+        if (!out.isEmpty()) {
+          throw new IllegalStateException("an empty find needs an empty text");
+        }
+        out = replace;
+        continue;
+      }
+      int at = out.indexOf(find);
+      if (at < 0 || out.indexOf(find, at + 1) >= 0) {
+        throw new IllegalStateException("the edit \"" + find + "\" does not occur exactly once");
+      }
+      out = out.substring(0, at) + replace + out.substring(at + find.length());
+    }
+    return out;
+  }
+
+  @SuppressWarnings("unchecked")
+  private static SpecDocument stateDocument(Object json) {
+    SpecDocument d = new SpecDocument();
+    d.loadJson((Map<String, Object>) json);
+    return d;
+  }
+
+  /**
+   * {@code strip_merge_cases.json}: {@code valueCases} — a value stripped, its stripped text
+   * edited, and {@link SpecStripMerge#mergeStrippedValue} of the edit onto the original;
+   * {@code documentCases} — a document stripped into its readable rendition, the rendition
+   * edited, and {@link SpecStripMerge#merge} of it onto the document (or onto {@code current},
+   * the original moved since, three ways from {@code base} or the header's commit in
+   * {@code commits}): the exit code, staleness, the merged document and the report, or the
+   * usage error.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testStripMergeCases(SpecModel model) throws IOException {
+    Map<String, Object> table = readJsonObject("strip_merge_cases.json");
+    DocSpecsSchema schema = DocSpecsSchema.fromYamlText(read("docspecs_schema.yaml"));
+    List<Object> values = (List<Object>) table.get("valueCases");
+    check("stripMerge.valueCases", !values.isEmpty(), "no value cases");
+    for (Object caseObj : values) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = "stripMerge.value[" + c.get("name") + "]";
+      try {
+        String original = (String) c.get("original");
+        SpecStripTextResult s = SpecDocumentStrip.stripNotationText(original, stripOptions(c));
+        String e = applyCaseEdits(s.text, c.get("edits"));
+        Map<String, Object> got =
+            SpecStripMerge.mergeStrippedValue(original, s.text, e, s.pieces).toJson();
+        check(name, got.equals(c.get("expect")), jsonMismatch(got, c.get("expect")));
+      } catch (RuntimeException e) {
+        check(name, false, "threw " + e);
+      }
+    }
+    List<Object> documents = (List<Object>) table.get("documentCases");
+    check("stripMerge.documentCases", !documents.isEmpty(), "no document cases");
+    for (Object caseObj : documents) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = "stripMerge.document[" + c.get("name") + "]";
+      try {
+        SpecDocument state = stateDocument(c.get("state"));
+        Map<String, Object> src = (Map<String, Object>) c.get("source");
+        String readable =
+            SpecDocumentStrip.strip(
+                    state,
+                    stripOptions(c),
+                    model,
+                    schema,
+                    null,
+                    null,
+                    null,
+                    src == null
+                        ? null
+                        : new SpecReadableSource(
+                            (String) src.get("file"),
+                            (String) src.get("revision"),
+                            (String) src.get("commit"),
+                            Boolean.TRUE.equals(src.get("dirty"))))
+                .readable;
+        String edited = applyCaseEdits(readable, c.get("edits"));
+        Map<String, Object> commits =
+            c.get("commits") == null
+                ? new LinkedHashMap<>()
+                : (Map<String, Object>) c.get("commits");
+        Map<String, Object> got = new LinkedHashMap<>();
+        try {
+          SpecStripMergeResult r =
+              SpecStripMerge.merge(
+                  c.get("current") == null ? state : stateDocument(c.get("current")),
+                  edited,
+                  new SpecStripMergeOptions(model)
+                      .schema(schema)
+                      .options(
+                          c.get("options") == null
+                              ? null
+                              : stripOptions((Map<String, Object>) c.get("options")))
+                      .currentRevision((String) c.get("currentRevision"))
+                      .base(c.get("base") == null ? null : stateDocument(c.get("base")))
+                      .loadBase(
+                          source ->
+                              source.commit != null && commits.get(source.commit) != null
+                                  ? stateDocument(commits.get(source.commit))
+                                  : null));
+          got.put("exitCode", r.exitCode());
+          got.put("stale", r.stale);
+          got.put("document", r.document == null ? null : r.document.toJson());
+          got.put("report", new ArrayList<Object>(r.report()));
+        } catch (SpecStripUsageError e) {
+          got.put("error", e.getMessage());
+        }
+        check(name, got.equals(c.get("expect")), jsonMismatch(got, c.get("expect")));
+      } catch (RuntimeException e) {
+        check(name, false, "threw " + e);
+      }
+    }
+  }
+
   /**
    * {@code docspecs_replace_cases.json}: {@link DocSpecsDocument#replaceSectionBody}
    * either rejects the case (the error flag must match) or returns exactly the
@@ -3491,6 +3622,7 @@ public final class ConformanceRunner {
     testDocSpecs();
     testNotation();
     testStripCases(model);
+    testStripMergeCases(model);
     testDocSpecsReplace();
     testDocSpecsPaths(model);
     testFixtureDocument();

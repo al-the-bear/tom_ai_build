@@ -101,6 +101,7 @@ install / JDK-only `build_jar.sh` routes and how to pin.
 | `SpecSerializationOrder` | The model's member order, which every codec writes in. |
 | `DocSpecsDocument`, `DocSpecsValidator`, `DocSpecsViolation` | DocSpecs Markdown documents: the schema-free parse (`DocSpecsDocument.parse`) and the schema check, with the nine reading-notation rules (`new DocSpecsValidator(schema, true)`: scanned per form-field value, unknown kinds and classless divs reported); it reads the reading view's form tables, list bodies (`refs`, `records`), section tables and styled-div headings; a stripped rendition's readable header and appendix are skipped. |
 | `SpecDocumentStrip`, `SpecStripOptions`, `SpecStripTextResult`, `SpecStripPiece`, `SpecAppendixEntry`, `SpecStripUsageError`, `SpecStripResult`, `SpecStripValueRef`, `SpecStrippedValue`, `SpecStripKept`, `SpecStripFinding`, `SpecReadableHeader`, `SpecReadableSource` | Stripped renditions (SOM §11.10): `SpecDocumentStrip.stripNotationText` drops, unmarks or moves to an appendix the secondary prose of named kinds of one value (`SpecStripOptions.fromNames`), reporting the removed pieces with their UTF-16 offsets; `SpecDocumentStrip.strip` strips a whole document with the emptying rule and writes its readable rendition, the readable header (`SpecReadableHeader`) and the appendix *Notes* included (`SpecStripResult`). |
+| `SpecStripMerge`, `SpecStripMergeOptions`, `SpecStripMergeResult`, `SpecStripMergedValue`, `SpecStripMergeRefusal`, `SpecStripValueMerge`, `SpecStripMergePlaced`, `SpecStripMergeConflict` | The merge back (SOM §11.10): `SpecStripMerge.mergeStrippedValue` merges one edited value onto its original, `SpecStripMerge.merge` an edited `.readable.md` onto its document — pieces put back or placed, conflicts and refused edits reported, a stale original merged three ways from the original at the export (`SpecStripMerge.gitShowFile` reads it from git; `SpecStripMergeResult.report()`, `exitCode()`). |
 | `SpecNotation`, `NotationScan`, `NotationElement`, `NotationFinding`, `NotationFindingCode` | The reading notation's scanner (DocSpecs Reading Notation): `SpecNotation.scanNotation` returns a value's divs, spans and citations (`NotationElement`, UTF-16 ranges) and the notation's findings (`NotationFinding`, `NotationFindingCode`, `notationSeverity`), which the DocSpecs validator reports as rules; `registeredNotationKinds`. |
 | `SpecSchemaValidation` | `validateSpecDocument` — the DocSpecs schema tier over a document's Markdown rendition. |
 | `Yaml` | The YAML reader the codec uses (`Yaml.parse`, typed for the review pass, SOM §12.5). |
@@ -236,6 +237,6 @@ operations behaviour, and the Phase-4 CodeSpecs extracts (exit 0 on success).
 
 ## Status
 
-Version **1.10.0**, tracking the TomSpecs model version. Requires JDK ≥ 17
-(verified with `javac`/`java` 21). Covered by 9 test files; the conformance
-runner reports **OK: 923 checks passed** and `./run_tests.sh` is green.
+Version **1.13.0**, tracking the TomSpecs model version. Requires JDK ≥ 17
+(verified with `javac`/`java` 21). Covered by 16 test files; the conformance
+runner reports **OK: 1862 checks passed** and `./run_tests.sh` is green.

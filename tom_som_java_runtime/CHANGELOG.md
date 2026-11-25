@@ -2,6 +2,32 @@
 
 ## Unreleased
 
+- **The merge back** (SOM §11.10), as Dart, TypeScript, C, JavaScript and
+  C++ have it: `SpecStripMerge.mergeStrippedValue` merges the edited text of
+  one value onto its original, each piece the strip removed put back where
+  the edit left its neighbours, after an edited run (`SpecStripMergePlaced`,
+  for an author to check) or refused as a conflict (`SpecStripMergeConflict`:
+  `crossesBoundary`, `sentenceRemoved`, `stripTextEdited`, `unplaceable`,
+  `notation`, `annotations`, `changedBothSides`, `notStrippedBack`,
+  `newFinding`), into a `SpecStripValueMerge`. `SpecStripMerge.merge(original,
+  edited, options)` merges a whole edited `.readable.md`
+  (`SpecStripMergeOptions`: the model, and optionally `schema`, `rootType`,
+  `options`, `currentRevision`, `base`, `loadBase`, `fileStem`,
+  `documentFiles`): the readable header names the switches, a stale original
+  (`currentRevision`) merges three ways from the original at the export
+  (`base`, or `loadBase`; `SpecStripMerge.gitShowFile` reads it from git with
+  a `ProcessBuilder`), structural edits are refused (`SpecStripMergeRefusal`),
+  a wrapped one-paragraph value read back on one line is no edit (SOM §11.4
+  rule 13), and the merged document must change only the merged values, strip
+  back to the edited text and add no finding (`SpecStripMergeResult` with
+  `merged`, `report()` and `exitCode()`; `SpecStripMergedValue`;
+  `SpecStripMerge.specStripMergeLabel`).
+  `SpecReviewAnnotations.annotationIssuesText` lists a value's malformed
+  review annotations. The conformance runner reads `strip_merge_cases.json`
+  (`valueCases`, `documentCases`); `SpecDocumentMergeTest` covers the merge
+  over the strip corpus, text beyond ASCII and the base read from a scratch
+  git repository.
+
 - **The strip of a document** (`SpecDocumentStrip`, SOM §11.10):
   `SpecDocumentStrip.strip(document, options, …)` strips every value —
   content, form-field values and stored headlines — into a copy. Given a

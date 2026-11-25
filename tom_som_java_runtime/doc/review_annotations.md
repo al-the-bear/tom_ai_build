@@ -87,6 +87,7 @@ All are public classes of the `tom_som_runtime` package.
 | `SpecReviewAnnotationCounts` | `questions`, `openQuestions`, `answeredQuestions`, `comments`, `marks`; `toJson()` |
 | `SpecReviewAnnotationError` | An operation named something that is not there (unchecked) |
 | `SpecReviewAnnotations.stripAnnotationsText` | One value without its annotations (static) |
+| `SpecReviewAnnotations.annotationIssuesText` | The malformed annotations of one value, one message each; empty when all are well formed (static) |
 | `SpecReviewAnnotations.countAnnotationsText` | How many blocks and inline marks `stripAnnotationsText` removes from a value (static) |
 | `SpecReviewAnnotations.formatCommentBlock` / `formatQuestionBlock` | The lines of a block, as the insert operations write them (static) |
 

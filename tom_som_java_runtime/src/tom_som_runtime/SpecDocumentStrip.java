@@ -281,7 +281,8 @@ public final class SpecDocumentStrip {
     }
   }
 
-  private static List<SpecStripValueRef> valueRefs(SpecDocument doc) {
+  /** Every value place of {@code doc}: headlines, content, then form fields, each sorted. */
+  static List<SpecStripValueRef> valueRefs(SpecDocument doc) {
     List<SpecStripValueRef> out = new ArrayList<>();
     for (String p : new TreeSet<>(doc.headlinePaths())) {
       out.add(new SpecStripValueRef(p, null, true));
@@ -422,7 +423,7 @@ public final class SpecDocumentStrip {
   }
 
   /** The instance and schema findings of {@code doc}: key → the path each concerns. */
-  private static Map<String, String> tierFindings(
+  static Map<String, String> tierFindings(
       SpecModel model, DocSpecsSchema schema, String rootType, SpecDocument doc) {
     Map<String, String> out = new LinkedHashMap<>();
     for (SpecValidationError e : SpecValidator.validateDocument(model, doc)) {

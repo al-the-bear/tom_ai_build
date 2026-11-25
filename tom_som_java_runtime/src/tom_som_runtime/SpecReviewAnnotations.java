@@ -2350,6 +2350,15 @@ public final class SpecReviewAnnotations {
   }
 
   /**
+   * The malformed review annotations of {@code value} (SOM §11.9.3), one message each; empty when
+   * every block and mark is well formed. What a merge back (SOM §11.10) checks a merged value
+   * against.
+   */
+  public static List<String> annotationIssuesText(String value) {
+    return new ArrayList<>(parse(value).malformed);
+  }
+
+  /**
    * How many comment and question blocks and inline marks {@code value} holds: what {@link
    * #stripAnnotationsText} removes, as a strip's report counts it.
    */
