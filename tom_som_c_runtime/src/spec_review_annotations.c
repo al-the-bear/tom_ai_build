@@ -2903,6 +2903,14 @@ static SpecMarkedChange mark_keeping_change_comments(const char *current,
   return result;
 }
 
+size_t spec_count_annotations_text(const char *value) {
+  Parsed p;
+  parse(value, &p);
+  size_t n = p.blocks_len + p.marks_len;
+  parsed_free(&p);
+  return n;
+}
+
 char *spec_strip_annotations_text(const char *value) {
   char *v = som_strdup(value);
   /* Blocks, from the last up, so earlier line numbers stay valid. */

@@ -5600,6 +5600,140 @@ static void test_notation(Checker *c) {
   som_json_free(table);
 }
 
+/* ---- stripped renditions (strip_cases.json, SOM §11.10) ------------------ */
+
+/* A case's strip options, from its name lists (`drop`, `unmark`, `appendix`)
+ * and flags; 0 with `*error` on a usage error. */
+static int strip_case_options(const SomJson *c, SpecStripOptions *o, char **error) {
+  SomStrList lists[3];
+  const char *keys[3] = {"drop", "unmark", "appendix"};
+  for (int l = 0; l < 3; l++) json_str_list(som_json_get(c, keys[l]), &lists[l]);
+  int ok = spec_strip_options_from_names(
+      &lists[0], &lists[1], &lists[2], som_json_bool_or(c, "appendixReferences"),
+      som_json_bool_or(c, "headingDivs"), o, error);
+  for (int l = 0; l < 3; l++) som_strlist_free(&lists[l]);
+  return ok;
+}
+
+/* `stripped` with every piece's removed text put back: the original value.
+ * The pieces' offsets count UTF-16 units, so the walk counts them too. */
+static char *strip_unstrip(const char *stripped, const SpecStripTextResult *r) {
+  SomBuf b;
+  som_buf_init(&b);
+  size_t byte = 0, u16 = 0;
+  size_t n = strlen(stripped);
+  for (size_t i = 0; i < r->pieces_len; i++) {
+    const SpecStripPiece *pc = &r->pieces[i];
+    while (byte < n && u16 < pc->anchor) {
+      unsigned char ch = (unsigned char)stripped[byte];
+      som_buf_putc(&b, stripped[byte]);
+      byte++;
+      if ((ch & 0xC0) != 0x80) u16 += ch >= 0xF0 ? 2 : 1;
+      while (byte < n && ((unsigned char)stripped[byte] & 0xC0) == 0x80) {
+        som_buf_putc(&b, stripped[byte]);
+        byte++;
+      }
+    }
+    som_buf_puts(&b, pc->removed);
+    byte += strlen(pc->inserted);
+    size_t ins16 = 0;
+    for (const char *q = pc->inserted; *q != '\0'; q++) {
+      unsigned char ch = (unsigned char)*q;
+      if ((ch & 0xC0) != 0x80) ins16 += ch >= 0xF0 ? 2 : 1;
+    }
+    u16 += ins16;
+  }
+  if (byte < n) som_buf_puts(&b, stripped + byte);
+  return som_buf_take(&b);
+}
+
+static void test_strip(Checker *c) {
+  SomJson *table = read_json("strip_cases.json");
+  const SomJson *cases = som_json_get(table, "cases");
+  size_t n = som_json_array_len(cases);
+  check(c, "strip.cases", n > 0, "no cases");
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *kase = som_json_array_at(cases, i);
+    const char *name = som_json_str_or(kase, "name");
+    char tag[512];
+    snprintf(tag, sizeof(tag), "strip[%s]", name);
+    SpecStripOptions o;
+    char *err = NULL;
+    if (!strip_case_options(kase, &o, &err)) {
+      check(c, tag, 0, err != NULL ? err : "options refused");
+      free(err);
+      continue;
+    }
+    const char *text = som_json_str_or(kase, "text");
+    SpecStripTextResult r;
+    spec_strip_notation_text(text, &o, &r);
+    char *got_text = spec_strip_text_result_to_json(&r);
+    char *perr = NULL;
+    SomJson *got_json = som_json_parse(got_text, &perr);
+    char *got = json_canonical(got_json);
+    char *want = json_canonical(som_json_get(kase, "expect"));
+    char *d = byte_diff(tag, got, want);
+    check(c, tag, strcmp(got, want) == 0, d);
+    free(d);
+    char *back = strip_unstrip(r.text, &r);
+    snprintf(tag, sizeof(tag), "strip[%s].pieces", name);
+    check(c, tag, strcmp(back, text) == 0, back);
+    free(back);
+    const SomJson *drop = som_json_get(kase, "drop");
+    if (som_json_array_len(drop) == 1 &&
+        strcmp(som_json_as_str(som_json_array_at(drop, 0)) != NULL
+                   ? som_json_as_str(som_json_array_at(drop, 0))
+                   : "",
+               "comments") == 0) {
+      char *plain = spec_strip_annotations_text(text);
+      snprintf(tag, sizeof(tag), "strip[%s].stripAnnotationsText", name);
+      check(c, tag, strcmp(plain, r.text) == 0, plain);
+      free(plain);
+    }
+    free(got);
+    free(want);
+    free(perr);
+    som_json_free(got_json);
+    free(got_text);
+    spec_strip_text_result_free(&r);
+  }
+  const SomJson *usage = som_json_get(table, "usageCases");
+  size_t un = som_json_array_len(usage);
+  check(c, "strip.usageCases", un > 0, "no usage cases");
+  for (size_t i = 0; i < un; i++) {
+    const SomJson *kase = som_json_array_at(usage, i);
+    char tag[512];
+    snprintf(tag, sizeof(tag), "strip.usage[%s]", som_json_str_or(kase, "name"));
+    SpecStripOptions o;
+    char *err = NULL;
+    char *got_text;
+    if (strip_case_options(kase, &o, &err)) {
+      got_text = spec_strip_options_to_json(&o);
+    } else {
+      SomBuf b;
+      som_buf_init(&b);
+      som_buf_puts(&b, "{\"error\":");
+      put_json_str(&b, err != NULL ? err : "");
+      som_buf_putc(&b, '}');
+      got_text = som_buf_take(&b);
+    }
+    free(err);
+    char *perr = NULL;
+    SomJson *got_json = som_json_parse(got_text, &perr);
+    char *got = json_canonical(got_json);
+    char *want = json_canonical(som_json_get(kase, "expect"));
+    char detail[4096];
+    snprintf(detail, sizeof(detail), "got %s want %s", got, want);
+    check(c, tag, strcmp(got, want) == 0, detail);
+    free(got);
+    free(want);
+    free(perr);
+    som_json_free(got_json);
+    free(got_text);
+  }
+  som_json_free(table);
+}
+
 /* Appends `s` as a JSON string literal, or `null` when `s` is NULL. */
 static void buf_json_str(SomBuf *b, const char *s) {
   if (s == NULL) {
@@ -6021,6 +6155,7 @@ int main(int argc, char **argv) {
   test_serialization_order(&c);
   test_docspecs(&c);
   test_notation(&c);
+  test_strip(&c);
   test_docspecs_replace(&c);
   test_docspecs_path(&c, model);
   test_text_pattern(&c);

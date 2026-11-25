@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- **The strip of a value** (SOM §11.10, stripped renditions): `spec_document_strip.h`
+  / `.c` with `spec_strip_notation_text` (comments first, then the notation
+  from the outside in, then the whitespace the removals leave; a value with
+  an error finding is refused unchanged), `SpecStripOptions` and
+  `spec_strip_options_from_names` (`drop`, `unmark`, `appendix`, `all`, the
+  usage errors), `SpecStripTextResult` with its pieces (UTF-16 offsets),
+  appendix entries, per-kind counts and `marks_dropped`,
+  `SPEC_STRIP_KIND_NAMES` / `SPEC_STRIP_NOTATION_KINDS`, and
+  `spec_count_annotations_text` beside `spec_strip_annotations_text`. The
+  conformance runner reads `strip_cases.json`'s `cases` and `usageCases`. The
+  strip of a whole document (the readable header, heading divs) is still to
+  come.
+
 - **Rejected blocks kept for review** (SOM §11.7, DocSpecs RN-11): the parse
   result carries `kept_content`, and an apply that accepts rejections
   (`spec_document_apply_markdown_result` with `allow_rejections`, which

@@ -509,6 +509,10 @@ void spec_review_format_conflict_block(
  * mark accepted). Plain quotes and code stay. Owned result. */
 char *spec_strip_annotations_text(const char *value);
 
+/* The number of review annotations of `value`: its comment, question and
+ * conflict blocks plus its inline marks (`countAnnotationsText`). */
+size_t spec_count_annotations_text(const char *value);
+
 /* ---- document level ----------------------------------------------------- */
 
 /* One paragraph of a value (SOM §11.9.1, "Paragraphs"): a run of non-blank
