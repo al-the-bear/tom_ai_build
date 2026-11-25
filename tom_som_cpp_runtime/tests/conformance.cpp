@@ -1308,12 +1308,137 @@ static void test_docspecs(Checker& c) {
     c.check("docspecs[" + name + "]", got_s == want_s, got_s + " != " + want_s);
   }
 
+  // The reading notation's rules are exercised by notation_cases.json's
+  // validatorCases (run in test_notation), as the Dart runner counts them.
+  som::JsonPtr notation = read_json("notation_cases.json");
+  som::JsonRef ncases = som::jsonGet(notation, "validatorCases");
+  for (std::size_t i = 0; i < som::jsonArrayLen(ncases); i++) {
+    som::JsonRef warr = som::jsonGet(som::jsonArrayAt(ncases, i), "violations");
+    for (std::size_t k = 0; k < som::jsonArrayLen(warr); k++) {
+      covered.insert(som::jsonStrOr(som::jsonArrayAt(warr, k), "rule"));
+    }
+  }
+
   std::vector<std::string> uncovered;
   for (const char* rule : som::kDocSpecsAllRules) {
     if (covered.count(rule) == 0) uncovered.emplace_back(rule);
   }
   c.check("docspecs.ruleCoverage", uncovered.empty(),
           "uncovered: " + join(uncovered));
+}
+
+/* A JSON value as canonical text: object keys sorted, no whitespace — so two
+ * values compare equal exactly when they are equal as JSON. */
+static std::string json_canonical(const som::JsonRef& v) {
+  if (v == nullptr) return "null";
+  switch (v->type) {
+    case som::JsonType::Null:
+      return "null";
+    case som::JsonType::Bool:
+      return v->boolean ? "true" : "false";
+    case som::JsonType::Int:
+      return std::to_string(v->integer);
+    case som::JsonType::Float: {
+      char buf[64];
+      std::snprintf(buf, sizeof(buf), "%.17g", v->real);
+      return buf;
+    }
+    case som::JsonType::Str:
+      return som::jsonEncodeStr(v->str);
+    case som::JsonType::Array: {
+      std::string out = "[";
+      for (std::size_t i = 0; i < v->array.size(); i++) {
+        if (i > 0) out += ",";
+        out += json_canonical(v->array[i]);
+      }
+      return out + "]";
+    }
+    case som::JsonType::Object: {
+      std::vector<std::pair<std::string, som::JsonPtr>> members = v->object;
+      std::sort(members.begin(), members.end(),
+                [](const auto& a, const auto& b) { return a.first < b.first; });
+      std::string out = "{";
+      for (std::size_t i = 0; i < members.size(); i++) {
+        if (i > 0) out += ",";
+        out += som::jsonEncodeStr(members[i].first) + ":" +
+               json_canonical(members[i].second);
+      }
+      return out + "}";
+    }
+  }
+  return "null";
+}
+
+/* ---- the reading notation (notation_cases.json, RN-1 to RN-13) ---------- */
+
+/* `cases`: scanNotation's elements (UTF-16 offsets, source / content, nesting)
+ * and findings, as canonical JSON against the corpus's. Then
+ * `validatorCases`: the DocSpecs validator's notation rules over whole
+ * documents, with and without `tomSpecs`. Hand-maintained in the corpus. */
+static void test_notation(Checker& c) {
+  som::JsonPtr table = read_json("notation_cases.json");
+  som::JsonRef cases = som::jsonGet(table, "cases");
+  std::size_t n = som::jsonArrayLen(cases);
+  c.check("notation.cases", n > 0, "no cases");
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef kase = som::jsonArrayAt(cases, i);
+    const std::string name = som::jsonStrOr(kase, "name");
+    som::NotationScan scan = som::scanNotation(som::jsonStrOr(kase, "text"),
+                                               som::jsonBoolOr(kase, "tomSpecs"));
+    const std::pair<const char*, std::string> parts[] = {
+        {"elements", scan.elementsJson()}, {"findings", scan.findingsJson()}};
+    for (const auto& part : parts) {
+      std::string perr;
+      som::JsonPtr gotJson = som::jsonParse(part.second, &perr);
+      std::string got = gotJson != nullptr ? json_canonical(gotJson) : perr;
+      std::string want = json_canonical(som::jsonGet(kase, part.first));
+      c.check("notation scan[" + name + "]." + part.first, got == want,
+              got + " != " + want);
+    }
+  }
+
+  std::string err;
+  auto schema =
+      som::docspecsSchemaFromYamlText(read_corpus("docspecs_schema.yaml"), &err);
+  if (!schema.has_value()) {
+    std::fprintf(stderr, "docspecs schema: %s\n", err.c_str());
+    std::exit(2);
+  }
+  som::JsonRef vcases = som::jsonGet(table, "validatorCases");
+  std::size_t vn = som::jsonArrayLen(vcases);
+  std::set<std::string> seen;
+  for (std::size_t i = 0; i < vn; i++) {
+    som::JsonRef kase = som::jsonArrayAt(vcases, i);
+    const std::string name = som::jsonStrOr(kase, "name");
+    som::DocSpecsValidator validator(*schema, som::jsonBoolOr(kase, "tomSpecs"));
+    std::vector<som::DocSpecsViolation> violations;
+    validator.validateMarkdown(som::jsonStrOr(kase, "markdown"), violations);
+    std::string got_s;
+    for (std::size_t k = 0; k < violations.size(); k++) {
+      if (k > 0) got_s.push_back('/');
+      got_s += violations[k].rule + "|" + violations[k].sectionId + "|" +
+               std::to_string(violations[k].line);
+    }
+    std::string want_s;
+    som::JsonRef warr = som::jsonGet(kase, "violations");
+    for (std::size_t k = 0; k < som::jsonArrayLen(warr); k++) {
+      som::JsonRef wv = som::jsonArrayAt(warr, k);
+      std::string rule = som::jsonStrOr(wv, "rule");
+      seen.insert(rule);
+      long long line = som::jsonAsI64(som::jsonGet(wv, "line")).value_or(-1);
+      if (k > 0) want_s.push_back('/');
+      want_s += rule + "|" + som::jsonStrOr(wv, "sectionId") + "|" +
+                std::to_string(line);
+    }
+    c.check("notation validate[" + name + "]", got_s == want_s,
+            got_s + " != " + want_s);
+  }
+  std::vector<std::string> missing;
+  for (const char* code : som::kNotationFindingCodes) {
+    if (seen.count(code) == 0) missing.emplace_back(code);
+  }
+  c.check("notation.validatorCases report every notation rule", missing.empty(),
+          join(missing));
 }
 
 /* Section-body replacement (DocSpecsDocument::replaceSectionBody), run like
@@ -3771,6 +3896,7 @@ int main(int argc, char** argv) {
   test_section_id(c);
   test_serialization_order(c);
   test_docspecs(c);
+  test_notation(c);
   test_docspecs_replace(c);
   test_docspecs_path(c, *model);
   test_text_pattern(c);

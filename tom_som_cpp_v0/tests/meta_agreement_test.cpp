@@ -93,6 +93,7 @@ void testTreesAgreeWithBridge() {
   std::vector<m::SomMetaRootEntry> rows = m::somMetaRoots();
   ok(model->roots.size() == rows.size(),
      "model root count matches generated tree count");
+  bool seenMultiParagraph = false;
 
   for (const m::SomMetaRootEntry& row : rows) {
     std::string berr;
@@ -114,7 +115,26 @@ void testTreesAgreeWithBridge() {
     } else {
       ++g_passed;
     }
+    // The diff compares `multiParagraph`, but two trees that both lost it
+    // agree: the flag must also be set where the model sets it, on both sides
+    // (ACPRDE's decisionCriteria, `Field.multiParagraph`).
+    const som::SomMetaNode* genForm = row.tree->byId("ACPRDE");
+    const som::SomMetaNode* briForm = bridge->byId("ACPRDE");
+    if (genForm != nullptr && genForm->form.has_value()) {
+      const som::SomFormFieldMeta* g =
+          genForm->form->fieldNamed("decisionCriteria");
+      const som::SomFormFieldMeta* b =
+          briForm != nullptr && briForm->form.has_value()
+              ? briForm->form->fieldNamed("decisionCriteria")
+              : nullptr;
+      ok(g != nullptr && g->multiParagraph,
+         "generated tree carries multiParagraph (ACPRDE.decisionCriteria)");
+      ok(b != nullptr && b->multiParagraph,
+         "bridge tree carries multiParagraph (ACPRDE.decisionCriteria)");
+      seenMultiParagraph = true;
+    }
   }
+  ok(seenMultiParagraph, "a tree holds ACPRDE, the multiParagraph check ran");
 
   // Every model root has a generated tree (same set, by type).
   for (const som::SpecRoot& r : model->roots) {

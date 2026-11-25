@@ -308,7 +308,8 @@ std::string metaFormDiff(const std::string& at,
     if (fa.name != fb.name || fa.typeName != fb.typeName ||
         fa.description != fb.description || fa.required != fb.required ||
         fa.hint != fb.hint || fa.order != fb.order ||
-        fa.enumValues != fb.enumValues || fa.refersTo != fb.refersTo) {
+        fa.enumValues != fb.enumValues || fa.refersTo != fb.refersTo ||
+        fa.code != fb.code || fa.multiParagraph != fb.multiParagraph) {
       return at + ": form field " + fa.name + " differs";
     }
   }

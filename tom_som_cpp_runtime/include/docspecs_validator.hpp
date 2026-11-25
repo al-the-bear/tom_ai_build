@@ -55,6 +55,22 @@ inline constexpr const char* kDocSpecsRuleMalformedHeading = "malformedHeading";
 inline constexpr const char* kDocSpecsRuleSectionOutOfOrder =
     "sectionOutOfOrder";
 inline constexpr const char* kDocSpecsRuleDuplicateIdPath = "duplicateIdPath";
+/* The reading notation's findings (DocSpecs specification, RN-10), reported by
+ * scanNotation per value: a section's own body, and in a TomSpecs rendition
+ * each form field's value apart. The names are NotationFindingCode's. */
+inline constexpr const char* kDocSpecsRuleUnclosedDiv = "unclosedDiv";
+inline constexpr const char* kDocSpecsRuleStrayClosingFence =
+    "strayClosingFence";
+inline constexpr const char* kDocSpecsRuleUnclosedSpan = "unclosedSpan";
+inline constexpr const char* kDocSpecsRuleDivWithoutKind = "divWithoutKind";
+inline constexpr const char* kDocSpecsRuleUnknownKind = "unknownKind";
+inline constexpr const char* kDocSpecsRuleMarkAcrossNotation =
+    "markAcrossNotation";
+inline constexpr const char* kDocSpecsRuleAnnotationInsideDiv =
+    "annotationInsideDiv";
+inline constexpr const char* kDocSpecsRuleDivInsideAnnotation =
+    "divInsideAnnotation";
+inline constexpr const char* kDocSpecsRuleRejectedBlock = "rejectedBlock";
 
 /* The complete §14 vocabulary, in declaration order — the enumerable form of
  * what Dart gets for free from its enum. The conformance runner diffs it
@@ -74,6 +90,15 @@ inline constexpr const char* kDocSpecsAllRules[] = {
     kDocSpecsRuleMalformedHeading,
     kDocSpecsRuleSectionOutOfOrder,
     kDocSpecsRuleDuplicateIdPath,
+    kDocSpecsRuleUnclosedDiv,
+    kDocSpecsRuleStrayClosingFence,
+    kDocSpecsRuleUnclosedSpan,
+    kDocSpecsRuleDivWithoutKind,
+    kDocSpecsRuleUnknownKind,
+    kDocSpecsRuleMarkAcrossNotation,
+    kDocSpecsRuleAnnotationInsideDiv,
+    kDocSpecsRuleDivInsideAnnotation,
+    kDocSpecsRuleRejectedBlock,
 };
 
 /* ---- violation ----------------------------------------------------------- */
@@ -247,8 +272,17 @@ std::optional<DocSpecsSchema> docspecsSchemaFromYamlText(const std::string& text
 /* A never-fail-fast validator of a parsed document against a schema. */
 class DocSpecsValidator {
  public:
-  /* Binds a schema to the validator (borrowed; must outlive the validator). */
-  explicit DocSpecsValidator(const DocSpecsSchema& schema) : schema_(&schema) {}
+  /* Binds a schema to the validator (borrowed; must outlive the validator).
+   * `tomSpecs` says the documents are TomSpecs renditions: the reading
+   * notation is then scanned value by value (a form field's value apart from
+   * the next), and a div without a class and an unregistered kind are
+   * reported too. */
+  explicit DocSpecsValidator(const DocSpecsSchema& schema,
+                             bool tomSpecs = false)
+      : schema_(&schema), tomSpecs_(tomSpecs) {}
+
+  /* Whether the documents are TomSpecs renditions (see the constructor). */
+  bool tomSpecs() const { return tomSpecs_; }
 
   /* Parses + validates in one step, appending ALL findings to `out`. */
   void validateMarkdown(const std::string& markdown,
@@ -261,6 +295,7 @@ class DocSpecsValidator {
 
  private:
   const DocSpecsSchema* schema_;
+  bool tomSpecs_ = false;
 };
 
 /* ---- bind ---------------------------------------------------------------- */

@@ -11,6 +11,7 @@
 #include <vector>
 
 #include "spec_document_markdown.hpp"
+#include "spec_notation.hpp"
 
 namespace som {
 
@@ -1301,6 +1302,90 @@ void validateIdPaths(
   }
 }
 
+/* `^([A-Za-z][A-Za-z0-9_]*): ?(.*)$`: the label of a `Field:` line, or "". */
+std::string fieldLabelOf(const std::string& line) {
+  auto letter = [](char c) {
+    return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+  };
+  if (line.empty() || !letter(line[0])) return "";
+  std::size_t i = 1;
+  while (i < line.size() &&
+         (letter(line[i]) || (line[i] >= '0' && line[i] <= '9') ||
+          line[i] == '_')) {
+    i++;
+  }
+  if (i >= line.size() || line[i] != ':') return "";
+  // `(.*)$`: the rest holds no line terminator (\r, U+2028, U+2029).
+  for (std::size_t k = i + 1; k < line.size(); k++) {
+    if (line[k] == '\r') return "";
+    if (static_cast<unsigned char>(line[k]) == 0xE2 && k + 2 < line.size() &&
+        static_cast<unsigned char>(line[k + 1]) == 0x80 &&
+        (static_cast<unsigned char>(line[k + 2]) == 0xA8 ||
+         static_cast<unsigned char>(line[k + 2]) == 0xA9)) {
+      return "";
+    }
+  }
+  return line.substr(0, i);
+}
+
+/* The values of a section's own body as (index of the first line, lines): the
+ * whole body, or in a TomSpecs rendition one value per form field of a
+ * form-formatted section (its preamble included). */
+std::vector<std::pair<std::size_t, std::vector<std::string>>> notationValues(
+    const DocSpecsSchema& schema, bool tomSpecs, const DocSpecsSection& s) {
+  const std::vector<std::string>& body = s.bodyLines;
+  const DocSpecsSectionType* type =
+      tomSpecs && !s.id.empty() ? schema.resolveSectionType(s.id) : nullptr;
+  const DocSpecsFormType* form =
+      type != nullptr && !type->format.empty() ? schema.formType(type->format)
+                                               : nullptr;
+  if (form == nullptr) return {{0, body}};
+  std::set<std::string> labels;
+  for (const DocSpecsFormField& f : form->fields) {
+    labels.insert(lowerAscii(f.name));
+  }
+  std::vector<std::pair<std::size_t, std::vector<std::string>>> values;
+  SpecMarkdownFenceTracker fence;
+  std::size_t first = 0;
+  for (std::size_t i = 0; i < body.size(); i++) {
+    if (!fence.inFence() && i > first) {
+      std::string label = fieldLabelOf(body[i]);
+      if (!label.empty() && labels.count(lowerAscii(label)) != 0) {
+        values.emplace_back(first, std::vector<std::string>(
+                                       body.begin() + first, body.begin() + i));
+        first = i;
+      }
+    }
+    fence.feed(body[i]);
+  }
+  values.emplace_back(
+      first, std::vector<std::string>(body.begin() + first, body.end()));
+  return values;
+}
+
+/* The reading notation of every section's own body: one value per section,
+ * and in a TomSpecs rendition one per form field of a form-formatted section
+ * (its preamble included). */
+void validateNotation(const DocSpecsSchema& schema, bool tomSpecs,
+                      const DocSpecsDocument& doc,
+                      std::vector<DocSpecsViolation>& v) {
+  for (const DocSpecsSection* s : doc.allSections()) {
+    for (const auto& value : notationValues(schema, tomSpecs, *s)) {
+      std::string text;
+      for (std::size_t i = 0; i < value.second.size(); i++) {
+        if (i > 0) text += "\n";
+        text += value.second[i];
+      }
+      NotationScan scan = scanNotation(text, tomSpecs);
+      for (const NotationFinding& f : scan.findings) {
+        dvPush(v, f.code,
+               s->bodyStartLine() + static_cast<int>(value.first) + f.line - 1,
+               f.message, s->id, "");
+      }
+    }
+  }
+}
+
 /* Root children must occupy `document: sections:` slots, in their order (a
  * `position: any` slot's type stands anywhere); required slots must be
  * present. */
@@ -1388,6 +1473,7 @@ void DocSpecsValidator::validate(const DocSpecsDocument& doc,
            "unexpected additional top-level section", extra.id, "");
   }
   validateDocumentSections(*schema_, root, out);
+  validateNotation(*schema_, tomSpecs_, doc, out);
   validateIdPaths(doc.sections, out);
 }
 

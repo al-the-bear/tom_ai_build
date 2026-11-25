@@ -857,12 +857,14 @@ class SomCppMetaEmitter {
       // SOM §11.4 rule 8: the code-field flag, the trailing aggregate member,
       // likewise always emitted so the initializer stays complete.
       final codeArg = ', ${ff.code}';
+      // The multiParagraph flag (`Field.multiParagraph`), the member after it.
+      final multiParagraphArg = ', ${ff.multiParagraph}';
       b.writeln(
         '$indent$recv.form->fields.push_back(som::SomFormFieldMeta{'
         '"${_cppStr(ff.name)}", "${_cppStr(ff.type)}", '
         '"${_cppStr(ff.label)}", ${ff.required}, '
         '"${_cppStr(ff.hint ?? '')}", $i'
-        '$enumArg$refersToArg$codeArg});',
+        '$enumArg$refersToArg$codeArg$multiParagraphArg});',
       );
     }
   }

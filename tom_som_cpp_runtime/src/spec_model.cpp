@@ -312,6 +312,7 @@ static SpecField fieldFromJson(const JsonRef& f) {
     }
     ffs_out.code = jsonBoolOr(ff, "code");
     ffs_out.multiple = jsonBoolOr(ff, "multiple");
+    ffs_out.multiParagraph = jsonBoolOr(ff, "multiParagraph");
     out.formFields.push_back(std::move(ffs_out));
   }
 

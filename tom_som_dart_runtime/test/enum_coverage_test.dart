@@ -352,12 +352,12 @@ final List<CorpusGuardedEnum> _guarded = [
         for (final v in (k['violations'] as List).cast<Map<String, dynamic>>())
           v['rule'] as String,
     },
-    // The reading notation's nine rules are reported by the Dart and
-    // TypeScript validators only so far; notation_cases.json exercises them
+    // The reading notation's nine rules are reported by the Dart, TypeScript,
+    // C and C++ validators so far; notation_cases.json exercises them
     // (`validatorCases`, and NotationFindingCode below, which they mirror
-    // constant for constant) and the other seven runtimes join through their
-    // scanner ports (tspubnondart49..55; the last of them, for C++, adds the
-    // nine rules to `docspecs_cases.json` and ends this waiver).
+    // constant for constant) and the other five runtimes join through their
+    // scanner ports (tspubnondart49..53). Once they have, the nine rules get
+    // `docspecs_cases.json` cases and this waiver ends (rvclose1).
     // `rejectedBlock`, `unclosedDiv` (an unclosed `refs` fence), `malformedBlock` and `unknownField` are
     // exercised here by the reading view's cases (`readingView: true`,
     // 04a_rdv2), which those seven runners skip until their validator ports
@@ -366,7 +366,7 @@ final List<CorpusGuardedEnum> _guarded = [
       for (final n in NotationFindingCode.values)
         if (n != NotationFindingCode.rejectedBlock &&
             n != NotationFindingCode.unclosedDiv)
-          n.name: 'tspubnondart55_akww-cpp-notation-scanner',
+          n.name: 'rvclose1_akyo-notation-rules-in-docspecs-cases',
     },
     why:
         'a §14 DocSpecs rule that eight runtimes need not implement — the '

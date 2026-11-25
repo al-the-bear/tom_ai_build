@@ -2,6 +2,27 @@
 
 ## Unreleased
 
+- **The reading notation's scanner** (`spec_notation.hpp`, DocSpecs
+  specification, Reading Notation RN-1 to RN-13): `scanNotation(text,
+  tomSpecs)` returns a value's fenced divs, bracketed spans and citation shapes
+  with kind, classes, id, attributes, UTF-16 offsets, lines and nesting
+  (`NotationScan`, `NotationElement`), and its findings (`NotationFinding`,
+  `NotationFindingCode`, `notationSeverity`); `registeredNotationKinds` lists
+  the registered kinds. The port of Dart's `spec_notation.dart`; the
+  conformance runner reads both tables of `notation_cases.json`.
+- **The DocSpecs validator reports the notation's nine rules**
+  (`unclosedDiv`, `strayClosingFence`, `unclosedSpan`, `divWithoutKind`,
+  `unknownKind`, `markAcrossNotation`, `annotationInsideDiv`,
+  `divInsideAnnotation`, `rejectedBlock`), one scan per section body.
+  `DocSpecsValidator(schema, tomSpecs)`: for a TomSpecs rendition each form
+  field's value is scanned apart, and a div without a class and an unregistered
+  kind are reported too; `validateSpecDocument` validates in that mode, as Dart
+  does.
+- **`multiParagraph` on the form-field meta** (`Field.multiParagraph`): read
+  from `spec_model.meta.json` into `FormFieldSpec` and `SomFormFieldMeta`,
+  written by the bridge and by the generated `tom_som_cpp_v0` tree, and
+  compared, with `code`, by `somMetaNodeDiff` (`tests/spec_meta_diff_test.cpp`).
+
 - **Section order and unique id paths in the DocSpecs validator** (SOM §14,
   the DocSpecs specification's Validation Rules 3 and 5): two new rules,
   `sectionOutOfOrder` (the root's children follow `document: sections:`; a

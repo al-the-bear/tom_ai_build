@@ -177,6 +177,11 @@ struct FormFieldSpec {
   // it holds one id, and the instance tier reports a list in it
   // (`multipleReferences`).
   bool multiple = false;
+  // Whether the field's values hold paragraphs or blocks
+  // (`Field.multiParagraph`): the markdown renderer writes them as a `Field:`
+  // paragraph, never as a row of the form table. Omitted from the export when
+  // false.
+  bool multiParagraph = false;
 };
 
 struct SpecField {
