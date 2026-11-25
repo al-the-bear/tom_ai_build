@@ -75,7 +75,7 @@ pub struct SpecStripUsageError {
 }
 
 impl SpecStripUsageError {
-    fn new(message: impl Into<String>) -> SpecStripUsageError {
+    pub(crate) fn new(message: impl Into<String>) -> SpecStripUsageError {
         SpecStripUsageError {
             message: message.into(),
         }
@@ -418,20 +418,20 @@ pub fn strip_notation_text(value: &str, options: &SpecStripOptions) -> SpecStrip
 // ---------------------------------------------------------------------------
 // UTF-16 code units.
 
-type U16 = Vec<u16>;
+pub(crate) type U16 = Vec<u16>;
 
-fn units(s: &str) -> U16 {
+pub(crate) fn units(s: &str) -> U16 {
     s.encode_utf16().collect()
 }
 
 /// The ordinary string of UTF-16 code units: surrogate pairs joined, a lone
 /// surrogate as U+FFFD.
-fn from_units(u: &[u16]) -> String {
+pub(crate) fn from_units(u: &[u16]) -> String {
     String::from_utf16_lossy(u)
 }
 
 /// JavaScript's `\s` / what `trim()` removes, for one code unit.
-fn js_space(c: u16) -> bool {
+pub(crate) fn js_space(c: u16) -> bool {
     matches!(
         c,
         0x09..=0x0D
@@ -460,7 +460,7 @@ fn space(c: u16) -> bool {
     c == b' ' as u16 || c == b'\t' as u16
 }
 
-const NL: u16 = b'\n' as u16;
+pub(crate) const NL: u16 = b'\n' as u16;
 
 /// The first index of `needle` in `hay` at or after `from`.
 fn find(hay: &[u16], needle: &[u16], from: usize) -> Option<usize> {
@@ -488,7 +488,7 @@ fn count(m: &mut Vec<(String, i64)>, k: &str) {
 // Edit scripts.
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-enum OpType {
+pub(crate) enum OpType {
     Keep,
     Del,
     Ins,
@@ -496,11 +496,11 @@ enum OpType {
 
 /// One step of an edit script over UTF-16 code units.
 #[derive(Debug, Clone)]
-struct Op {
-    type_: OpType,
-    ch: u16,
+pub(crate) struct Op {
+    pub(crate) type_: OpType,
+    pub(crate) ch: u16,
     /// `None` for a keep.
-    label: Option<String>,
+    pub(crate) label: Option<String>,
 }
 
 /// Composes the scripts original → middle (`s1`) and middle → result (`s2`).
@@ -540,7 +540,7 @@ fn compose(s1: &[Op], s2: &[Op]) -> Vec<Op> {
 }
 
 /// `s` split after every line break.
-fn lines(s: &[u16]) -> Vec<U16> {
+pub(crate) fn lines(s: &[u16]) -> Vec<U16> {
     s.split_inclusive(|&c| c == NL).map(<[u16]>::to_vec).collect()
 }
 
@@ -573,7 +573,7 @@ fn tokens(s: &[u16]) -> Vec<U16> {
 
 /// Myers' diff of two token lists; past 2000 edits, everything deleted and
 /// inserted.
-fn myers(a: &[U16], b: &[U16]) -> Vec<(OpType, U16)> {
+pub(crate) fn myers(a: &[U16], b: &[U16]) -> Vec<(OpType, U16)> {
     let n = a.len() as i64;
     let m = b.len() as i64;
     let max = n + m;
@@ -659,7 +659,7 @@ fn myers(a: &[U16], b: &[U16]) -> Vec<(OpType, U16)> {
 }
 
 /// An edit script from `a` to `b`: Myers by line, then by word token.
-fn diff(a: &[u16], b: &[u16], label: &str) -> Vec<Op> {
+pub(crate) fn diff(a: &[u16], b: &[u16], label: &str) -> Vec<Op> {
     let mut out: Vec<Op> = Vec::new();
     fn chars(out: &mut Vec<Op>, type_: OpType, s: &[u16], label: &str) {
         out.extend(s.iter().map(|&ch| Op {
@@ -700,17 +700,17 @@ fn diff(a: &[u16], b: &[u16], label: &str) -> Vec<Op> {
 /// An inline review mark of the text the notation strip works on (UTF-16
 /// offsets).
 #[derive(Debug, Clone, Copy)]
-struct MarkAt {
-    start: usize,
-    end: usize,
-    body_start: usize,
-    body_end: usize,
+pub(crate) struct MarkAt {
+    pub(crate) start: usize,
+    pub(crate) end: usize,
+    pub(crate) body_start: usize,
+    pub(crate) body_end: usize,
     /// The `~>` of a substitution.
-    sep: Option<usize>,
+    pub(crate) sep: Option<usize>,
 }
 
 /// The inline review marks of `t`, outside code, each inside one paragraph.
-fn find_marks(t: &[u16]) -> Vec<MarkAt> {
+pub(crate) fn find_marks(t: &[u16]) -> Vec<MarkAt> {
     let mut code = vec![false; t.len()];
     let mut fence = MarkdownFenceTracker::new();
     let mut s = 0;
@@ -1840,7 +1840,7 @@ impl SpecDocumentStrip {
 
 /// An ordered map of finding keys to the paths they concern: a key set
 /// again keeps its place and takes the new path.
-type KeyPaths = Vec<(String, String)>;
+pub(crate) type KeyPaths = Vec<(String, String)>;
 
 fn key_set(m: &mut KeyPaths, key: String, path: String) {
     match m.iter_mut().find(|(k, _)| *k == key) {
@@ -1849,7 +1849,7 @@ fn key_set(m: &mut KeyPaths, key: String, path: String) {
     }
 }
 
-fn key_has(m: &KeyPaths, key: &str) -> bool {
+pub(crate) fn key_has(m: &KeyPaths, key: &str) -> bool {
     m.iter().any(|(k, _)| k == key)
 }
 
@@ -1895,7 +1895,7 @@ fn push_finding(
 /// The instance tier's and (given a schema) the schema tier's findings of
 /// `doc`, keyed as `instance <code> <path>: <message>` / `schema <rule>
 /// <section id>: <message>`, each with the path it concerns.
-fn tier_findings(
+pub(crate) fn tier_findings(
     model: &SpecModel,
     schema: Option<&DocSpecsSchema>,
     root_type: Option<&str>,
@@ -1927,7 +1927,7 @@ fn tier_findings(
 
 /// Every value of `doc`: stored headlines, content, form fields, each group
 /// sorted.
-fn value_refs(doc: &SpecDocument) -> Vec<SpecStripValueRef> {
+pub(crate) fn value_refs(doc: &SpecDocument) -> Vec<SpecStripValueRef> {
     let mut refs: Vec<SpecStripValueRef> = doc
         .headline_paths()
         .into_iter()

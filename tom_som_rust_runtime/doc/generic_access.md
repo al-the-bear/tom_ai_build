@@ -62,6 +62,7 @@ anything that computes the path rather than knowing it.
 | `scan_notation` | The reading notation of one text value: its divs, spans and citations and the notation's findings, which the DocSpecs validator reports as rules |
 | `strip_notation_text` | The strip of one value (SOM §11.10): the secondary prose of named kinds dropped, unmarked or moved to an appendix, with the pieces that went (UTF-16 offsets); `SpecStripOptions::from_names` reads the kind names |
 | `SpecDocumentStrip::strip` | The strip of a whole document (SOM §11.10): every content value, form field and stored headline stripped into a copy; given a model, the emptying rule, the list items left empty removed, the appendix numbered through the rendition and the readable rendition (readable header, styled-div headings, appendix *Notes*) checked to read back and validate (`SpecStripResult`) |
+| `SpecStripMerge::merge` | The merge back (SOM §11.10): an edited readable rendition merged onto its document, every piece the strip removed put back (`merge_stripped_value` for one value); a stale original merged three ways from its base, structural edits refused, conflicts and placed pieces reported, `exit_code()` 0 or 1 |
 | the editing-facade bases | What the generated `tom_som_rust_v0` types extend |
 
 The full catalogue is the [README](../README.md); this guide is about using

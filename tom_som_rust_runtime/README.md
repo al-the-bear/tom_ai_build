@@ -94,6 +94,7 @@ path routes, version pinning, and `cargo package` from source.
 | `spec_meta_bridge.rs` | `build_som_meta_tree` — the metadata tree of a model, for one root or all. |
 | `spec_meta_diff.rs` | `som_meta_node_diff` — the first difference between two metadata trees, or `None` (form fields compared with their `code` and `multi_paragraph` flags); `som_meta_node_diff_at` names the starting position. |
 | `spec_document_strip.rs` | Stripped renditions (SOM §11.10). The strip of one value: `strip_notation_text(value, &options)` drops, unmarks or moves to the appendix the secondary prose of the named kinds (`provenance`, `trace`, `editorial`, `aside`, `linked`, `derived`, `comments`) and returns a `SpecStripTextResult` — the text, the counts per kind, `marks_dropped`, the appendix entries (`SpecAppendixEntry`) and the pieces it removed (`SpecStripPiece`, UTF-16 offsets); a value with a notation error is refused unchanged. `SpecStripOptions::from_names` reads the kind names a user gives (`all`, comma-joined lists) and refuses a misuse with `SpecStripUsageError`. The strip of a document: `SpecDocumentStrip::strip` strips every value into a copy with the emptying rule and writes its readable rendition, the readable header (`SpecReadableHeader`, `SpecReadableSource`) and the appendix *Notes* included (`SpecStripResult`). |
+| `spec_document_merge.rs` | The merge back of an edited stripped rendition (SOM §11.10): `merge_stripped_value` puts one value's removed pieces back into its edited text (`SpecStripValueMerge`, `SpecStripMergePlaced`, `SpecStripMergeConflict`); `SpecStripMerge::merge` merges an edited readable rendition onto its document — the switches from the readable header, a stale original merged three ways from a base (`SpecStripMergeOptions`, `SpecStripMerge::git_show_file`), structural edits refused (`SpecStripMergeRefusal`), the result checked (`SpecStripMergeResult` with `merged`, `report()`, `exit_code()`; `SpecStripMergedValue`, `spec_strip_merge_label`). |
 | `spec_notation.rs` | The reading notation's scanner (DocSpecs Reading Notation): `scan_notation` returns a value's divs, spans and citations (`NotationElement`, UTF-16 ranges) and the notation's findings (`NotationFinding`, `NotationFindingCode`, `notation_severity`), which the DocSpecs validator reports as rules. |
 | `spec_section_id.rs` | List-item section ids (AA1): `generate_list_item_section_id`, `encode_two_letter_date`, `effective_list_item_section_id`, `K_SECTION_ID_SLOT`. |
 | `spec_serialization_order.rs` | `SpecSerializationOrder` — the model's member order, which every codec writes in. |
@@ -221,6 +222,7 @@ reading back of extracts and the gate record (`codespecs_record_cases.json`).
 | `spec_document_markdown` | DocSpecs-conform Markdown export (the reading view's tables), parse (the tables and the older `Field:` lines, rejected blocks kept for review) and round-trip. |
 | `strip_notation_text` | The strip of one value (SOM §11.10): secondary prose dropped, unmarked or moved to an appendix, with the pieces that went. |
 | `SpecDocumentStrip` | The strip of a whole document (SOM §11.10): the stripped copy, the emptying rule, the appendix and the readable rendition with its readable header, checked to read back and validate. |
+| `SpecStripMerge` | The merge back (SOM §11.10): an edited readable rendition merged onto its document, every piece the strip removed put back (`merge_stripped_value` for one value), conflicts, placed pieces and refused edits reported. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
 | `CodeSpecsExtractor` | The Phase-4 extract generator — one verbatim, cited extract per CodeSpecs area. |
 | `SpecGenerationUnit` | One generation unit of a document's register, with its mapping per area and its standard emitters (`spec_generation_units`). |
@@ -269,6 +271,6 @@ reading back of extracts and the gate record (`codespecs_record_cases.json`).
 
 ## Status
 
-Version **1.10.0**, tracking the TomSpecs model version. Covered by 8 test files;
-the conformance runner reports **OK: 3150 checks passed** and `./run_tests.sh` is
+Version **1.13.0**, tracking the TomSpecs model version. Covered by 18 test files;
+the conformance runner reports **OK: 5643 checks passed** and `./run_tests.sh` is
 green.

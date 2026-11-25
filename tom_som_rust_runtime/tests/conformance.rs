@@ -41,6 +41,9 @@
 //!   - stripped renditions (SOM §11.10): the strip of one value with each
 //!     case's options, its pieces restoring the original, and the options'
 //!     usage errors (strip_cases.json, `cases` and `usageCases`);
+//!   - the merge back of an edited stripped rendition (SOM §11.10): one
+//!     value's merge and a whole document's (strip_merge_cases.json,
+//!     `valueCases` and `documentCases`);
 //!   - the SOM §14 DocSpecs tier (one case per violation rule), and its
 //!     findings bound to document paths through the renderer's heading map
 //!     (docspecs_path_cases.json).
@@ -104,7 +107,7 @@ use tom_som_rust_runtime::{
     scan_notation, NotationFindingCode,
     strip_annotations_text, strip_notation_text, SpecStripOptions, SpecStripTextResult,
     SpecStripUsageError, SpecDocumentStrip, SpecDocumentStripOptions, SpecReadableHeader,
-    SpecReadableSource,
+    SpecReadableSource, merge_stripped_value, SpecStripMerge, SpecStripMergeOptions,
 };
 
 const MODEL_VERSION: &str = "1.0";
@@ -241,6 +244,7 @@ fn conformance() {
     test_docspecs(&mut c);
     test_notation(&mut c);
     test_strip(&mut c, &model);
+    test_strip_merge(&mut c, &model);
     test_docspecs_replace(&mut c);
     test_docspecs_paths(&mut c, &model);
     test_generation_units(&mut c, &model);
@@ -1381,6 +1385,169 @@ fn test_strip(c: &mut Checker, model: &SpecModel) {
             let plain = SpecReviewAnnotations::new(&mut annotated).stripped();
             let pc = plain.to_json().to_canonical_json();
             c.check(&format!("{}.stripped()", tag), pc == w, &pc);
+        }
+    }
+}
+
+/// `text` with each `[find, replace]` of `edits` applied; each find occurs
+/// exactly once (an empty find replaces an empty text).
+fn strip_merge_apply_edits(text: &str, edits: Option<&Json>) -> Result<String, String> {
+    let mut out = text.to_string();
+    let empty = Vec::new();
+    let list = match edits {
+        Some(Json::Array(a)) => a,
+        _ => &empty,
+    };
+    for e in list {
+        let pair = match e {
+            Json::Array(p) if p.len() == 2 => p,
+            _ => return Err("bad edit".to_string()),
+        };
+        let (Some(find), Some(replace)) = (pair[0].as_str(), pair[1].as_str()) else {
+            return Err("bad edit".to_string());
+        };
+        if find.is_empty() {
+            if !out.is_empty() {
+                return Err("an empty find needs an empty text".to_string());
+            }
+            out = replace.to_string();
+            continue;
+        }
+        if out.matches(find).count() != 1 {
+            return Err(format!("the edit \"{}\" does not occur exactly once", find));
+        }
+        out = out.replacen(find, replace, 1);
+    }
+    Ok(out)
+}
+
+/// The merge back (`strip_merge_cases.json`, SOM §11.10): each value case's
+/// `merge_stripped_value` against its expected JSON, and each document case's
+/// `SpecStripMerge::merge` — exit code, staleness, report and merged document
+/// (as canonical document JSON) or the usage error.
+fn test_strip_merge(c: &mut Checker, model: &SpecModel) {
+    let table = read_json("strip_merge_cases.json");
+    let schema = DocSpecsSchema::from_yaml_text(&read_corpus("docspecs_schema.yaml"))
+        .expect("docspecs_schema.yaml");
+    let values = cases(&table, "valueCases");
+    c.check("stripMerge.valueCases", values.len() == 23, &values.len().to_string());
+    for kase in values {
+        let tag = format!("stripMerge.value[{}]", kase.str_or("name"));
+        let options = match strip_case_options(kase) {
+            Ok(o) => o,
+            Err(e) => {
+                c.check(&tag, false, &format!("usage error {}", e));
+                continue;
+            }
+        };
+        let original = kase.str_or("original");
+        let s = strip_notation_text(&original, &options);
+        let edited = match strip_merge_apply_edits(&s.text, kase.get("edits")) {
+            Ok(e) => e,
+            Err(e) => {
+                c.check(&tag, false, &e);
+                continue;
+            }
+        };
+        let got = merge_stripped_value(&original, &s.text, &edited, &s.pieces).to_json();
+        let want = kase.get("expect").cloned().unwrap_or(Json::Null);
+        c.check(&tag, json_eq(&got, &want), &format!("{:?} != {:?}", got, want));
+    }
+    let doc = |j: Option<&Json>| doc_from_state(&DocumentJson::from_json(j.unwrap_or(&Json::Null)));
+    let docs = cases(&table, "documentCases");
+    c.check("stripMerge.documentCases", docs.len() == 20, &docs.len().to_string());
+    for kase in docs {
+        let tag = format!("stripMerge.document[{}]", kase.str_or("name"));
+        let state = doc(kase.get("state"));
+        let source = kase.get("source").map(|sj| SpecReadableSource {
+            file: sj.str_or("file"),
+            revision: sj.get("revision").and_then(|v| v.as_str()).map(str::to_string),
+            commit: sj.get("commit").and_then(|v| v.as_str()).map(str::to_string),
+            dirty: sj.get("dirty").and_then(|v| v.as_bool()) == Some(true),
+        });
+        let strip_options = match strip_case_options(kase) {
+            Ok(o) => o,
+            Err(e) => {
+                c.check(&tag, false, &format!("usage error {}", e));
+                continue;
+            }
+        };
+        let stripped = SpecDocumentStrip::strip(
+            &state,
+            &strip_options,
+            &SpecDocumentStripOptions {
+                model: Some(model),
+                schema: Some(&schema),
+                root_type: None,
+                source: source.as_ref(),
+            },
+        );
+        let edited = match strip_merge_apply_edits(
+            stripped.readable.as_deref().unwrap_or(""),
+            kase.get("edits"),
+        ) {
+            Ok(e) => e,
+            Err(e) => {
+                c.check(&tag, false, &e);
+                continue;
+            }
+        };
+        let given = match kase.get("options").map(strip_case_options) {
+            None => None,
+            Some(Ok(o)) => Some(o),
+            Some(Err(e)) => {
+                c.check(&tag, false, &format!("usage error {}", e));
+                continue;
+            }
+        };
+        let current = kase.get("current").map(|j| doc(Some(j)));
+        let base = kase.get("base").map(|j| doc(Some(j)));
+        let commits = kase.get("commits");
+        let load = |s: &SpecReadableSource| -> Option<SpecDocument> {
+            let j = commits?.get(s.commit.as_deref()?)?;
+            Some(doc(Some(j)))
+        };
+        let extra = SpecStripMergeOptions {
+            model: Some(model),
+            schema: Some(&schema),
+            root_type: None,
+            options: given.as_ref(),
+            current_revision: kase.get("currentRevision").and_then(|v| v.as_str()),
+            base: base.as_ref(),
+            load_base: Some(&load),
+        };
+        let want = kase.get("expect").cloned().unwrap_or(Json::Null);
+        let none = Json::Null;
+        match SpecStripMerge::merge(current.as_ref().unwrap_or(&state), &edited, &extra) {
+            Err(e) => {
+                let w = want.get("error").unwrap_or(&none);
+                c.check(&tag, json_eq(&jstr(&e.message), w), &format!("error {:?} != {:?}", e.message, w));
+            }
+            Ok(r) => {
+                let got = obj(vec![
+                    ("exitCode", Json::Int(r.exit_code() as i64)),
+                    ("stale", Json::Bool(r.stale)),
+                    ("report", jstrs(&r.report())),
+                    ("error", Json::Null),
+                ]);
+                let mut same = true;
+                let mut detail = String::new();
+                for key in ["exitCode", "stale", "report", "error"] {
+                    let (g, w) = (got.get(key).unwrap_or(&none), want.get(key).unwrap_or(&none));
+                    if !json_eq(g, w) {
+                        same = false;
+                        detail = format!("{}: {:?} != {:?}", key, g, w);
+                    }
+                }
+                let wd = want.get("document").filter(|d| !matches!(d, Json::Null));
+                let g = r.document.as_ref().map(|d| d.to_json().to_canonical_json());
+                let w = wd.map(|d| DocumentJson::from_json(d).to_canonical_json());
+                if g != w {
+                    same = false;
+                    detail = format!("document: {:?} != {:?}", g, w);
+                }
+                c.check(&tag, same, &detail);
+            }
         }
     }
 }

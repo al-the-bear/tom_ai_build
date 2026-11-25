@@ -2929,6 +2929,13 @@ fn mark_keeping_change_comments(current: &str, text: &str) -> SpecMarkedChange {
     }
 }
 
+/// The malformed review annotations of `value`, one `line N: …` each (`[]`
+/// when every annotation reads): what the merge back (SOM §11.10) holds a
+/// merged value to.
+pub fn annotation_issues_text(value: &str) -> Vec<String> {
+    parse(value).malformed
+}
+
 /// How many comment and question blocks and inline marks `value` holds: what
 /// [`strip_annotations_text`] removes, as a strip's report counts it
 /// (SOM §11.10).

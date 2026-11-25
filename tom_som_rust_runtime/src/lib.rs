@@ -23,6 +23,7 @@ pub mod spec_codespecs_records;
 pub mod spec_document;
 pub mod spec_document_assembly;
 pub mod spec_document_markdown;
+pub mod spec_document_merge;
 pub mod spec_document_strip;
 pub mod spec_document_yaml;
 pub mod spec_editor;
@@ -111,6 +112,11 @@ pub use spec_document_markdown::{
     SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK, SPEC_MARKDOWN_REJECT_UNKNOWN_FIELD,
     SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION,
 };
+pub use spec_document_merge::{
+    merge_stripped_value, spec_strip_merge_label, SpecStripMerge, SpecStripMergeConflict,
+    SpecStripMergeOptions, SpecStripMergePlaced, SpecStripMergeRefusal, SpecStripMergeResult,
+    SpecStripMergedValue, SpecStripBaseLoader, SpecStripValueMerge,
+};
 pub use spec_document_strip::{
     spec_strip_kind_names, spec_strip_notation_kinds, strip_notation_text, SpecAppendixEntry,
     SpecDocumentStrip, SpecDocumentStripOptions, SpecReadableHeader, SpecReadableSource,
@@ -173,7 +179,7 @@ pub use spec_reflection::{
     SPEC_NODE_KIND_SCALAR, SPEC_NODE_KIND_SECTION,
 };
 pub use spec_review_annotations::{
-    apply_inline_marks_text, count_annotations_text, decide_all_marks_text, format_comment_block,
+    annotation_issues_text, apply_inline_marks_text, count_annotations_text, decide_all_marks_text, format_comment_block,
     format_conflict_block,
     format_question_block, is_review_member_id, is_review_time, mark_change_text,
     normalize_review_time, strip_annotations_text, system_review_time, validate_review_annotations,

@@ -226,70 +226,70 @@ exceptions:
       view). `strip_cases.json` is the corpus it will run.
 
   - token: crossesBoundary
-    planes: [go, rust]
+    planes: [go]
     reason: >-
       KNOWN GAP. The merge back of an edited stripped rendition (SOM §11.10:
       mergeStrippedValue, SpecStripMerge.merge with its currentRevision, the
       result's exitCode and the conflict codes; 04a_rdv6) is in the Dart,
-      TypeScript, C, JavaScript, C++, Java and Python runtimes, after the
-      strip; the other ports are the todos `tspubnondart100` and `101`, one
-      per runtime (`runtime_parity.md` § Reading view).
-      `strip_merge_cases.json` is the corpus they will run.
+      TypeScript, C, JavaScript, C++, Java, Python and Rust runtimes, after
+      the strip; the other port is the todo `tspubnondart100`
+      (`runtime_parity.md` § Reading view). `strip_merge_cases.json` is the
+      corpus it will run.
 
   - token: currentRevision
-    planes: [go, rust]
+    planes: [go]
     reason: >-
       KNOWN GAP. The merge back of an edited stripped rendition (SOM §11.10:
       mergeStrippedValue, SpecStripMerge.merge with its currentRevision, the
       result's exitCode and the conflict codes; 04a_rdv6) is in the Dart,
-      TypeScript, C, JavaScript, C++, Java and Python runtimes, after the
-      strip; the other ports are the todos `tspubnondart100` and `101`, one
-      per runtime (`runtime_parity.md` § Reading view).
-      `strip_merge_cases.json` is the corpus they will run.
+      TypeScript, C, JavaScript, C++, Java, Python and Rust runtimes, after
+      the strip; the other port is the todo `tspubnondart100`
+      (`runtime_parity.md` § Reading view). `strip_merge_cases.json` is the
+      corpus it will run.
 
   - token: exitCode
-    planes: [go, rust]
+    planes: [go]
     reason: >-
       KNOWN GAP. The merge back of an edited stripped rendition (SOM §11.10:
       mergeStrippedValue, SpecStripMerge.merge with its currentRevision, the
       result's exitCode and the conflict codes; 04a_rdv6) is in the Dart,
-      TypeScript, C, JavaScript, C++, Java and Python runtimes, after the
-      strip; the other ports are the todos `tspubnondart100` and `101`, one
-      per runtime (`runtime_parity.md` § Reading view).
-      `strip_merge_cases.json` is the corpus they will run.
+      TypeScript, C, JavaScript, C++, Java, Python and Rust runtimes, after
+      the strip; the other port is the todo `tspubnondart100`
+      (`runtime_parity.md` § Reading view). `strip_merge_cases.json` is the
+      corpus it will run.
 
   - token: mergeStrippedValue
-    planes: [go, rust]
+    planes: [go]
     reason: >-
       KNOWN GAP. The merge back of an edited stripped rendition (SOM §11.10:
       mergeStrippedValue, SpecStripMerge.merge with its currentRevision, the
       result's exitCode and the conflict codes; 04a_rdv6) is in the Dart,
-      TypeScript, C, JavaScript, C++, Java and Python runtimes, after the
-      strip; the other ports are the todos `tspubnondart100` and `101`, one
-      per runtime (`runtime_parity.md` § Reading view).
-      `strip_merge_cases.json` is the corpus they will run.
+      TypeScript, C, JavaScript, C++, Java, Python and Rust runtimes, after
+      the strip; the other port is the todo `tspubnondart100`
+      (`runtime_parity.md` § Reading view). `strip_merge_cases.json` is the
+      corpus it will run.
 
   - token: sentenceRemoved
-    planes: [go, rust]
+    planes: [go]
     reason: >-
       KNOWN GAP. The merge back of an edited stripped rendition (SOM §11.10:
       mergeStrippedValue, SpecStripMerge.merge with its currentRevision, the
       result's exitCode and the conflict codes; 04a_rdv6) is in the Dart,
-      TypeScript, C, JavaScript, C++, Java and Python runtimes, after the
-      strip; the other ports are the todos `tspubnondart100` and `101`, one
-      per runtime (`runtime_parity.md` § Reading view).
-      `strip_merge_cases.json` is the corpus they will run.
+      TypeScript, C, JavaScript, C++, Java, Python and Rust runtimes, after
+      the strip; the other port is the todo `tspubnondart100`
+      (`runtime_parity.md` § Reading view). `strip_merge_cases.json` is the
+      corpus it will run.
 
   - token: stripTextEdited
-    planes: [go, rust]
+    planes: [go]
     reason: >-
       KNOWN GAP. The merge back of an edited stripped rendition (SOM §11.10:
       mergeStrippedValue, SpecStripMerge.merge with its currentRevision, the
       result's exitCode and the conflict codes; 04a_rdv6) is in the Dart,
-      TypeScript, C, JavaScript, C++, Java and Python runtimes, after the
-      strip; the other ports are the todos `tspubnondart100` and `101`, one
-      per runtime (`runtime_parity.md` § Reading view).
-      `strip_merge_cases.json` is the corpus they will run.
+      TypeScript, C, JavaScript, C++, Java, Python and Rust runtimes, after
+      the strip; the other port is the todo `tspubnondart100`
+      (`runtime_parity.md` § Reading view). `strip_merge_cases.json` is the
+      corpus it will run.
 
   - token: linkedMarkers
     planes: [python, javascript, typescript, java, go, rust, c, cpp]

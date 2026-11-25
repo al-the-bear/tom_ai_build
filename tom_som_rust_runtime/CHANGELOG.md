@@ -2,6 +2,37 @@
 
 ## Unreleased
 
+- **The merge back of a stripped rendition** (SOM §11.10, the new module
+  `spec_document_merge`): `merge_stripped_value(original, stripped, edited,
+  &pieces)` puts the pieces one value's strip removed back into its edited
+  text — between unchanged neighbours where they were, after an edited run as
+  a placed piece (`SpecStripMergePlaced`), else a conflict
+  (`SpecStripMergeConflict`: `crossesBoundary`, `sentenceRemoved`,
+  `stripTextEdited`, `unplaceable`, `notation`, `annotations`) — and returns
+  a `SpecStripValueMerge`; offsets count UTF-16 code units, as the strip's.
+  `SpecStripMerge::merge(&original, edited, &SpecStripMergeOptions)` merges an
+  edited readable rendition onto its document: the switches from the readable
+  header (or given beside it, and then agreeing with it; neither is a
+  `SpecStripUsageError`), a stale original (another `current_revision`, or a
+  `base` given) merged three ways from the base given or loaded for the
+  header's commit (`load_base`, a `SpecStripBaseLoader`, e.g. through
+  `SpecStripMerge::git_show_file`, which runs `git show <commit>:./<name>` in
+  the file's folder and refuses a commit starting with `-`), structural edits
+  refused (`SpecStripMergeRefusal`: sections added, removed or moved, list
+  items, `codeSpec`, `units`, rejected blocks, a stale original without a
+  base, a base that does not strip), a wrapped paragraph read back on one
+  line no edit (SOM §11.4 rule 13), and the result checked to change only the
+  merged values, to strip back to the edited text and to add no finding.
+  `SpecStripMergeResult` carries the merged document, the merged values
+  (`SpecStripMergedValue`), `exit_code()` and `report()`;
+  `spec_strip_merge_label` names a value in it. `annotation_issues_text`
+  lists the malformed review annotations of one value. The strip's UTF-16
+  helpers, edit scripts, mark finder, value references and tier findings are
+  `pub(crate)` so the merge shares them. The conformance runner reads the
+  `valueCases` (23) and `documentCases` (20) of `strip_merge_cases.json`
+  (5598 -> 5643 checks); `tests/spec_document_merge.rs` covers the merge over
+  the strip corpus, text beyond ASCII, the report lines and `git_show_file`
+  in a scratch repository of its own.
 - **The strip of a document** (SOM §11.10, stripped renditions):
   `SpecDocumentStrip::strip(&document, &options, &extra)` strips every
   content value, form field and stored headline into a copy and returns a

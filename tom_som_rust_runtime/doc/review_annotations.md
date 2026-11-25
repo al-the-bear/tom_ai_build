@@ -91,6 +91,7 @@ All are re-exported at the crate root.
 | `SpecReviewAnnotationCounts` | `questions`, `open_questions`, `answered_questions`, `comments`, `marks`, and the team counts `unresolved_questions`, `conflicts`, `open_conflicts` |
 | `SpecReviewAnnotationError` | An operation named something that is not there |
 | `strip_annotations_text` | One value without its annotations |
+| `annotation_issues_text` | The malformed annotations of one value, one `line N: …` each |
 | `count_annotations_text` | How many comment and question blocks and inline marks one value holds: what `strip_annotations_text` removes |
 | `format_comment_block` / `format_question_block` | The lines an insert writes |
 | `validate_review_annotations` | The validation findings of a `&SpecDocument`, without a mutable borrow |
