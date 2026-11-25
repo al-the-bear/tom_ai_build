@@ -200,6 +200,7 @@ const {
   decideAllMarksText,
   stripAnnotationsText,
   countAnnotationsText,
+  annotationIssuesText,
   SpecMarkedChange,
   markChangeText,
   SpecMarkVote,
@@ -307,6 +308,17 @@ const {
   SpecStripResult,
   SpecDocumentStrip,
 } = require('./spec_document_strip');
+const {
+  SpecStripMergePlaced,
+  SpecStripMergeConflict,
+  SpecStripValueMerge,
+  specStripMergeLabel,
+  mergeStrippedValue,
+  SpecStripMergedValue,
+  SpecStripMergeRefusal,
+  SpecStripMergeResult,
+  SpecStripMerge,
+} = require('./spec_document_merge');
 const {
   DocSpecsViolationRule,
   DocSpecsViolation,
@@ -502,6 +514,7 @@ module.exports = {
   decideAllMarksText,
   stripAnnotationsText,
   countAnnotationsText,
+  annotationIssuesText,
   SpecMarkedChange,
   markChangeText,
   SpecMarkVote,
@@ -599,6 +612,16 @@ module.exports = {
   SpecStripFinding,
   SpecStripResult,
   SpecDocumentStrip,
+  // the merge back (SOM §11.10)
+  SpecStripMergePlaced,
+  SpecStripMergeConflict,
+  SpecStripValueMerge,
+  specStripMergeLabel,
+  mergeStrippedValue,
+  SpecStripMergedValue,
+  SpecStripMergeRefusal,
+  SpecStripMergeResult,
+  SpecStripMerge,
   // docspecs validation
   DocSpecsViolationRule,
   DocSpecsViolation,

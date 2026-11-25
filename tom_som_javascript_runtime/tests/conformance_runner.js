@@ -142,6 +142,8 @@ const {
   SpecDocumentStrip,
   stripNotationText,
   stripAnnotationsText,
+  SpecStripMerge,
+  mergeStrippedValue,
 } = require(path.join(_PKG_ROOT, 'tom_som_runtime', 'index.js'));
 const { YamlFloat, formatYamlFloat } = require(path.join(_PKG_ROOT, 'tom_som_runtime', 'index.js'));
 
@@ -1708,6 +1710,94 @@ function testStripCases(model) {
   }
 }
 
+// The merge back (SOM §11.10): `strip_merge_cases.json`, read like Dart's
+// runStripMerge*Case in strip_case_runner.dart.
+function _applyCaseEdits(text, edits) {
+  let out = text;
+  for (const [find, replace] of edits ?? []) {
+    if (find === '') {
+      if (out !== '') throw new Error('an empty find needs an empty text');
+      out = replace;
+      continue;
+    }
+    const at = out.indexOf(find);
+    if (at < 0 || out.indexOf(find, at + 1) >= 0) {
+      throw new Error(`the edit "${find}" does not occur exactly once`);
+    }
+    out = out.substring(0, at) + replace + out.substring(at + find.length);
+  }
+  return out;
+}
+
+function testStripMergeCases(model) {
+  const table = _readJson('strip_merge_cases.json');
+  const schema = DocSpecsSchema.fromYamlText(_read('docspecs_schema.yaml'));
+  for (const c of table.valueCases) {
+    const name = `stripMerge.value[${c.name}]`;
+    try {
+      const s = stripNotationText(c.original, _stripOptions(c));
+      const e = _applyCaseEdits(s.text, c.edits);
+      const got = mergeStrippedValue(c.original, s.text, e, s.pieces).toJson();
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
+  const doc = (json) => {
+    const d = new SpecDocument();
+    d.loadJson(json);
+    return d;
+  };
+  for (const c of table.documentCases) {
+    const name = `stripMerge.document[${c.name}]`;
+    try {
+      const state = doc(c.state);
+      const src = c.source;
+      const readable = SpecDocumentStrip.strip(state, _stripOptions(c), {
+        model,
+        schema,
+        source:
+          src === undefined
+            ? null
+            : new SpecReadableSource(
+              src.file,
+              src.revision ?? null,
+              src.commit ?? null,
+              src.dirty === true,
+            ),
+      }).readable;
+      const edited = _applyCaseEdits(readable, c.edits);
+      const commits = c.commits ?? {};
+      let got;
+      try {
+        const r = SpecStripMerge.merge(c.current === undefined ? state : doc(c.current), edited, {
+          model,
+          schema,
+          options: c.options === undefined ? null : _stripOptions(c.options),
+          currentRevision: c.currentRevision ?? null,
+          base: c.base === undefined ? null : doc(c.base),
+          loadBase: (source) =>
+            source.commit !== null && commits[source.commit] !== undefined
+              ? doc(commits[source.commit])
+              : null,
+        });
+        got = {
+          exitCode: r.exitCode,
+          stale: r.stale,
+          document: r.document === null ? null : r.document.toJson(),
+          report: r.report,
+        };
+      } catch (e) {
+        if (!(e instanceof SpecStripUsageError)) throw e;
+        got = { error: e.message };
+      }
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
+}
+
 function testNotation() {
   const table = _readJson('notation_cases.json');
   const codes = new Set();
@@ -3246,6 +3336,7 @@ function main() {
   testDocSpecs();
   testNotation();
   testStripCases(model);
+  testStripMergeCases(model);
   testDocSpecsPath(model);
   testDocSpecsReplace();
   testTypedValues();

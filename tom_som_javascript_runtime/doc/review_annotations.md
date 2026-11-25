@@ -87,6 +87,7 @@ DEMO C-1
 | `SpecReviewAnnotationCounts` | `questions`, `openQuestions`, `answeredQuestions`, `comments`, `marks` |
 | `SpecReviewAnnotationError` | An operation named something that is not there (an `Error` subclass) |
 | `stripAnnotationsText(value)` | One value without its annotations |
+| `annotationIssuesText(value)` | The malformed annotations of one value, one message each; empty when all are well formed |
 | `countAnnotationsText(value)` | How many annotations one value holds: its comment, question and conflict blocks plus its inline marks |
 | `formatCommentBlock({ id, text, author })`, `formatQuestionBlock(draft)` | The lines a comment or question block is written as |
 

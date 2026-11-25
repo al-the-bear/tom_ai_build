@@ -2,6 +2,24 @@
 
 ## Unreleased
 
+- **The merge back** (SOM §11.10), as Dart, TypeScript and C have it:
+  `mergeStrippedValue` merges the edited text of one value onto its original,
+  each piece the strip removed put back where the edit left its neighbours,
+  after an edited run (`SpecStripMergePlaced`, for an author to check) or
+  refused as a conflict (`SpecStripMergeConflict`: `crossesBoundary`,
+  `sentenceRemoved`, `stripTextEdited`, `unplaceable`, `notation`,
+  `annotations`, `changedBothSides`, `notStrippedBack`, `newFinding`), into a
+  `SpecStripValueMerge`. `SpecStripMerge.merge` merges a whole edited
+  `.readable.md`: the readable header names the switches, a stale original
+  (`currentRevision`) merges three ways from the original at the export
+  (`base`, or `loadBase`; `SpecStripMerge.gitShowFile` reads it from git),
+  structural edits are refused (`SpecStripMergeRefusal`), and the merged
+  document must strip back to the edited text (`SpecStripMergeResult` with
+  `merged`, `report` and `exitCode`; `SpecStripMergedValue`;
+  `specStripMergeLabel`). `annotationIssuesText` lists a value's malformed
+  review annotations. The conformance runner reads `strip_merge_cases.json`
+  (`valueCases`, `documentCases`).
+
 - **Stripped renditions** (SOM §11.10), as Dart, TypeScript and C have
   them: `stripNotationText` strips one value with `SpecStripOptions`
   (`fromNames` with `drop` / `unmark` / `appendix` per kind — the names

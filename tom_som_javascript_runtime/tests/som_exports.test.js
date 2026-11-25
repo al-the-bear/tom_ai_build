@@ -70,22 +70,8 @@ test('every name TS index.ts exports exists here (workspace checkout only)', (t)
 
 /**
  * TS names this runtime does not have yet, each with the todo that ports it.
- * The merge back of stripped renditions (`spec_document_merge.ts`, SOM
- * §11.10) is Dart and TypeScript only until its port, `tspubnondart99`,
- * listed in `runtime_parity.md` § Reading view.
  */
 const PENDING_PARITY = new Set([
-  // the merge back (spec_document_merge.ts, SOM §11.10)
-  'annotationIssuesText',
-  'SpecStripMergePlaced',
-  'SpecStripMergeConflict',
-  'SpecStripValueMerge',
-  'specStripMergeLabel',
-  'mergeStrippedValue',
-  'SpecStripMergedValue',
-  'SpecStripMergeRefusal',
-  'SpecStripMergeResult',
-  'SpecStripMerge',
   // section automation (tom_specs_model_rules.md §9.7): the document set,
   // deriveFields, backfill and prefill — ported by tom_specs
   // 05a_sau2_akrk-javascript-runtime
