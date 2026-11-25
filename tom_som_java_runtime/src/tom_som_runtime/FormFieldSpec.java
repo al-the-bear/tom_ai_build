@@ -59,6 +59,12 @@ public final class FormFieldSpec {
    * and the instance tier reports a list in it ({@code multipleReferences}).
    */
   public final boolean multiple;
+  /**
+   * Whether the field's values hold paragraphs or blocks
+   * ({@code Field.multiParagraph}): the markdown renderer writes them as a
+   * {@code Field:} paragraph, never as a row of the form table (SOM §11.4).
+   */
+  public final boolean multiParagraph;
 
   public FormFieldSpec(
       String name, String label, String type, String hint, boolean required) {
@@ -129,6 +135,24 @@ public final class FormFieldSpec {
       List<String> productOf,
       String rankOf,
       boolean multiple) {
+    this(name, label, type, hint, required, enumValues, refersTo, countOf, code, productOf, rankOf,
+        multiple, false);
+  }
+
+  public FormFieldSpec(
+      String name,
+      String label,
+      String type,
+      String hint,
+      boolean required,
+      List<String> enumValues,
+      List<String> refersTo,
+      List<String> countOf,
+      boolean code,
+      List<String> productOf,
+      String rankOf,
+      boolean multiple,
+      boolean multiParagraph) {
     this.name = name;
     this.label = label;
     this.type = type;
@@ -141,6 +165,7 @@ public final class FormFieldSpec {
     this.productOf = productOf;
     this.rankOf = rankOf;
     this.multiple = multiple;
+    this.multiParagraph = multiParagraph;
   }
 
   public static FormFieldSpec fromJson(Map<String, Object> j) {
@@ -159,7 +184,8 @@ public final class FormFieldSpec {
         Boolean.TRUE.equals(j.get("code")),
         stringList(j.get("productOf")),
         j.get("rankOf") != null ? j.get("rankOf").toString() : null,
-        Boolean.TRUE.equals(j.get("multiple")));
+        Boolean.TRUE.equals(j.get("multiple")),
+        Boolean.TRUE.equals(j.get("multiParagraph")));
   }
 
   private static List<String> stringList(Object raw) {

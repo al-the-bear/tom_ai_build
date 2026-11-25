@@ -31,7 +31,7 @@ public final class SpecSchemaValidation {
       SpecModel model, SpecDocument document, DocSpecsSchema schema, String rootType) {
     SpecMarkdownRendition rendition = document.toMarkdownWithMap(model, rootType);
     List<DocSpecsViolation> out = new ArrayList<>();
-    for (DocSpecsViolation v : new DocSpecsValidator(schema).validateMarkdown(rendition.markdown)) {
+    for (DocSpecsViolation v : new DocSpecsValidator(schema, true).validateMarkdown(rendition.markdown)) {
       out.add(new DocSpecsViolation(
           v.rule,
           v.line,

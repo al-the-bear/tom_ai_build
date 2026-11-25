@@ -32,6 +32,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import tom_som_runtime.Json;
+import tom_som_runtime.SomFormFieldMeta;
 import tom_som_runtime.SomMetaBridge;
 import tom_som_runtime.SomMetaNode;
 import tom_som_runtime.SomMetaRef;
@@ -119,6 +120,62 @@ public final class MetaAgreementTest {
       check("bridge.tree-agrees." + e.getKey(), diff.isEmpty(),
           "generated tree disagrees with bridge:\n" + diff);
     }
+  }
+
+  /**
+   * The form-field {@code multiParagraph} flag ({@code Field.multiParagraph})
+   * reaches both trees. The diff above compares it, but two trees that both
+   * lost it would agree: the flag must also be set where the model sets it, on
+   * the generated and on the bridge tree (ACPRDE's {@code decisionCriteria}),
+   * and the generated trees must carry it at all.
+   */
+  private static void testMultiParagraphReachesBothTrees() {
+    SpecModel model = loadModel();
+    boolean seen = false;
+    int generated = 0;
+    int bridged = 0;
+    for (Map.Entry<String, SomMetaTree> e : generatedTrees().entrySet()) {
+      SomMetaTree bridge = SomMetaBridge.buildSomMetaTree(model, e.getKey());
+      generated += countMultiParagraph(e.getValue().root, new java.util.HashSet<>());
+      bridged += countMultiParagraph(bridge.root, new java.util.HashSet<>());
+      SomMetaNode genForm = e.getValue().byId("ACPRDE");
+      SomMetaNode briForm = bridge.byId("ACPRDE");
+      if (genForm != null && genForm.form != null) {
+        SomFormFieldMeta g = genForm.form.fieldNamed("decisionCriteria");
+        SomFormFieldMeta b =
+            briForm != null && briForm.form != null
+                ? briForm.form.fieldNamed("decisionCriteria")
+                : null;
+        check("multiParagraph.generated.ACPRDE." + e.getKey(), g != null && g.multiParagraph,
+            "generated tree lacks multiParagraph on ACPRDE.decisionCriteria");
+        check("multiParagraph.bridge.ACPRDE." + e.getKey(), b != null && b.multiParagraph,
+            "bridge tree lacks multiParagraph on ACPRDE.decisionCriteria");
+        seen = true;
+      }
+    }
+    check("multiParagraph.ACPRDE.seen", seen, "no tree holds ACPRDE");
+    check("multiParagraph.generated", generated > 0, String.valueOf(generated));
+    check("multiParagraph.bridge", bridged == generated, bridged + " != " + generated);
+  }
+
+  /** The form fields flagged {@code multiParagraph} under {@code node}. */
+  private static int countMultiParagraph(SomMetaNode node, java.util.Set<SomMetaNode> seen) {
+    if (node == null || !seen.add(node)) {
+      return 0;
+    }
+    int n = 0;
+    if (node.form != null) {
+      for (SomFormFieldMeta f : node.form.fields) {
+        if (f.multiParagraph) {
+          n++;
+        }
+      }
+    }
+    for (SomMetaNode c : node.children) {
+      n += countMultiParagraph(c, seen);
+    }
+    n += countMultiParagraph(node.elementNode, seen);
+    return n;
   }
 
   /**
@@ -256,6 +313,7 @@ public final class MetaAgreementTest {
 
   public static void main(String[] args) {
     testGeneratedTreesAgreeWithBridge();
+    testMultiParagraphReachesBothTrees();
     testRegistryEntriesAreSelfConsistent();
     testDotNotationSurface();
     testIdTreeSurface();

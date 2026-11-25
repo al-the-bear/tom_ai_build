@@ -7,6 +7,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -92,6 +93,11 @@ import tom_som_runtime.SpecAnswers;
 import tom_som_runtime.SpecReviewAnnotation;
 import tom_som_runtime.SpecReviewAnnotationError;
 import tom_som_runtime.SpecReviewAnnotations;
+import tom_som_runtime.NotationElement;
+import tom_som_runtime.NotationFinding;
+import tom_som_runtime.NotationFindingCode;
+import tom_som_runtime.NotationScan;
+import tom_som_runtime.SpecNotation;
 import tom_som_runtime.SpecReviewMember;
 import tom_som_runtime.SpecReviewMerge;
 import tom_som_runtime.SpecReviewMergeError;
@@ -2217,6 +2223,14 @@ public final class ConformanceRunner {
    * produces; matching them is what proves this port implements each rule at
    * all, rather than merely declaring its name.
    */
+  /**
+   * The {@code readingView} cases of {@code docspecs_cases.json} the reading
+   * notation's scanner port ({@link SpecNotation}) makes run: the rest wait
+   * for the reading view's validator port.
+   */
+  private static final Set<Object> READING_NOTATION_DOCSPECS_CASES =
+      Set.of("readingView: rejected block");
+
   @SuppressWarnings("unchecked")
   private static void testDocSpecs() throws IOException {
     DocSpecsSchema schema = DocSpecsSchema.fromYamlText(read("docspecs_schema.yaml"));
@@ -2228,8 +2242,10 @@ public final class ConformanceRunner {
     for (Object caseObj : readJsonArray("docspecs_cases.json")) {
       Map<String, Object> c = (Map<String, Object>) caseObj;
       // The reading view's table forms (`readingView`) are read by the Dart and
-      // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
-      if (Boolean.TRUE.equals(c.get("readingView"))) {
+      // TypeScript runtimes only until their ports (runtime_parity.md § Reading view);
+      // the reading notation's case (a rejected block, RN-11) runs since its scanner port.
+      if (Boolean.TRUE.equals(c.get("readingView"))
+          && !READING_NOTATION_DOCSPECS_CASES.contains(c.get("name"))) {
         continue;
       }
       String name = (String) c.get("name");
@@ -2247,6 +2263,14 @@ public final class ConformanceRunner {
       check("docspecs[" + name + "]", got.equals(want), got + " != " + want);
     }
 
+    // The reading notation's rules are exercised by notation_cases.json's
+    // validator cases (testNotation), not by the nine-runtime table.
+    for (Object caseObj : (List<Object>) readJsonObject("notation_cases.json").get("validatorCases")) {
+      for (Object vObj : (List<Object>) ((Map<String, Object>) caseObj).get("violations")) {
+        covered.add((String) ((Map<String, Object>) vObj).get("rule"));
+      }
+    }
+
     List<String> uncovered = new ArrayList<>();
     for (String rule : DocSpecsViolation.ALL_RULES) {
       if (!covered.contains(rule)) {
@@ -2254,6 +2278,80 @@ public final class ConformanceRunner {
       }
     }
     check("docspecs.ruleCoverage", uncovered.isEmpty(), "uncovered: " + uncovered);
+  }
+
+  /**
+   * The reading notation ({@code notation_cases.json}, DocSpecs specification,
+   * Reading Notation RN-1 … RN-13): each text value of {@code cases} scanned
+   * with {@link SpecNotation#scanNotation} — its elements (UTF-16 {@code
+   * start}/{@code end}, {@code line}/{@code endLine}, {@code source}/{@code
+   * content}, nesting) and findings — then {@code validatorCases}, the nine
+   * notation rules of the embedded DocSpecs validator over whole documents,
+   * with and without {@code tomSpecs}.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testNotation() throws IOException {
+    Map<String, Object> table = readJsonObject("notation_cases.json");
+    List<Object> cases = (List<Object>) table.get("cases");
+    check("notation.cases", !cases.isEmpty(), "no cases");
+    Set<String> codes = new HashSet<>();
+    for (Object caseObj : cases) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = (String) c.get("name");
+      String text = (String) c.get("text");
+      NotationScan scan =
+          SpecNotation.scanNotation(text, Boolean.TRUE.equals(c.get("tomSpecs")));
+      List<Object> elements = new ArrayList<>();
+      for (NotationElement e : scan.elements) {
+        elements.add(e.toJson(text));
+      }
+      List<Object> findings = new ArrayList<>();
+      for (NotationFinding f : scan.findings) {
+        findings.add(f.toJson());
+      }
+      check("notation.scan[" + name + "].elements", elements.equals(c.get("elements")),
+          jsonMismatch(elements, c.get("elements")));
+      check("notation.scan[" + name + "].findings", findings.equals(c.get("findings")),
+          jsonMismatch(findings, c.get("findings")));
+      for (Object fObj : (List<Object>) c.get("findings")) {
+        codes.add((String) ((Map<String, Object>) fObj).get("code"));
+      }
+    }
+    List<String> uncoveredCodes = new ArrayList<>();
+    for (NotationFindingCode code : NotationFindingCode.values()) {
+      if (!codes.contains(code.value)) {
+        uncoveredCodes.add(code.value);
+      }
+    }
+    check("notation.codeCoverage", uncoveredCodes.isEmpty(), "uncovered: " + uncoveredCodes);
+
+    DocSpecsSchema schema = DocSpecsSchema.fromYamlText(read("docspecs_schema.yaml"));
+    Set<String> seen = new HashSet<>();
+    for (Object caseObj : (List<Object>) table.get("validatorCases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      DocSpecsValidator validator =
+          new DocSpecsValidator(schema, Boolean.TRUE.equals(c.get("tomSpecs")));
+      List<String> got = new ArrayList<>();
+      for (DocSpecsViolation v : validator.validateMarkdown((String) c.get("markdown"))) {
+        got.add(v.rule + "|" + v.sectionId + "|" + v.line);
+      }
+      List<String> want = new ArrayList<>();
+      for (Object vObj : (List<Object>) c.get("violations")) {
+        Map<String, Object> v = (Map<String, Object>) vObj;
+        String rule = (String) v.get("rule");
+        seen.add(rule);
+        want.add(rule + "|" + v.get("sectionId") + "|" + ((Number) v.get("line")).intValue());
+      }
+      check("notation.validate[" + c.get("name") + "]", got.equals(want), got + " != " + want);
+    }
+    List<String> missing = new ArrayList<>();
+    for (NotationFindingCode code : NotationFindingCode.values()) {
+      if (!seen.contains(code.value)) {
+        missing.add(code.value);
+      }
+    }
+    check("notation.validatorCases report every notation rule", missing.isEmpty(),
+        String.valueOf(missing));
   }
 
   /**
@@ -3202,6 +3300,7 @@ public final class ConformanceRunner {
     testSectionId();
     testSerializationOrder();
     testDocSpecs();
+    testNotation();
     testDocSpecsReplace();
     testDocSpecsPaths(model);
     testFixtureDocument();

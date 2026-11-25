@@ -22,8 +22,24 @@ public final class DocSpecsValidator {
 
   public final DocSpecsSchema schema;
 
+  /**
+   * Whether the documents are TomSpecs renditions: the reading notation is
+   * then scanned value by value (a form field's value apart from the next),
+   * and a div without a class and an unregistered kind are reported too.
+   */
+  public final boolean tomSpecs;
+
   public DocSpecsValidator(DocSpecsSchema schema) {
+    this(schema, false);
+  }
+
+  /**
+   * A validator for {@code schema}; {@code tomSpecs}: the documents are
+   * TomSpecs renditions ({@link #tomSpecs}).
+   */
+  public DocSpecsValidator(DocSpecsSchema schema, boolean tomSpecs) {
     this.schema = schema;
+    this.tomSpecs = tomSpecs;
   }
 
   /** Parses + validates in one step. */
@@ -65,8 +81,63 @@ public final class DocSpecsValidator {
               extra.id));
     }
     validateDocumentSections(root, v);
+    validateNotation(doc, v);
     validateIdPaths(doc.sections, v);
     return v;
+  }
+
+  /**
+   * The reading notation of every section's own body (DocSpecs specification,
+   * Reading Notation RN-10): one value per section, and in a TomSpecs rendition
+   * one per form field of a form-formatted section (its preamble included).
+   */
+  private void validateNotation(DocSpecsDocument doc, List<DocSpecsViolation> v) {
+    for (DocSpecsSection section : doc.allSections()) {
+      List<String> body = section.bodyLines;
+      for (int[] value : notationValues(section)) {
+        String text = String.join("\n", body.subList(value[0], value[1]));
+        for (NotationFinding f : SpecNotation.scanNotation(text, tomSpecs).findings) {
+          v.add(
+              new DocSpecsViolation(
+                  f.code.value,
+                  section.bodyStartLine() + value[0] + f.line - 1,
+                  f.message,
+                  section.id));
+        }
+      }
+    }
+  }
+
+  /** The values of a section's own body, each as {@code [first line, end line)} of its body. */
+  private List<int[]> notationValues(DocSpecsSection section) {
+    List<String> body = section.bodyLines;
+    List<int[]> values = new ArrayList<>();
+    DocSpecsSectionType type =
+        tomSpecs && section.id != null ? schema.resolveSectionType(section.id) : null;
+    DocSpecsFormType form =
+        type != null && type.format != null ? schema.formTypes.get(type.format) : null;
+    if (form == null) {
+      values.add(new int[] {0, body.size()});
+      return values;
+    }
+    Set<String> labels = new HashSet<>();
+    for (DocSpecsFormField f : form.fields) {
+      labels.add(f.name.toLowerCase(Locale.ROOT));
+    }
+    MarkdownFenceTracker fence = new MarkdownFenceTracker();
+    int first = 0;
+    for (int i = 0; i < body.size(); i++) {
+      if (!fence.inFence() && i > first) {
+        Matcher m = FIELD_LABEL.matcher(body.get(i));
+        if (m.matches() && labels.contains(m.group(1).toLowerCase(Locale.ROOT))) {
+          values.add(new int[] {first, i});
+          first = i;
+        }
+      }
+      fence.feed(body.get(i));
+    }
+    values.add(new int[] {first, body.size()});
+    return values;
   }
 
   /**

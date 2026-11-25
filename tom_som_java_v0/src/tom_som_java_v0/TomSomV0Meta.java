@@ -476,7 +476,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("defectThreshold", "String", "Acceptable Defect Threshold", false, "Maximum open defects by severity to proceed", 0),
             new SomFormFieldMeta("conditionalAcceptanceRules", "String", "Conditional Acceptance Rules", false, "Conditions under which acceptance with known issues is allowed", 1),
             new SomFormFieldMeta("rejectionCriteria", "String", "Rejection Criteria", false, "Conditions that automatically block acceptance", 2),
-            new SomFormFieldMeta("decisionCriteria", "String", "Decision Criteria", false, "How accept/reject/conditional decisions are made", 3)));
+            new SomFormFieldMeta("decisionCriteria", "String", "Decision Criteria", false, "How accept/reject/conditional decisions are made", 3, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29119 2022 — the software testing standard defines exit criteria and defect thresholds governing accept and reject decisions", "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable accept, reject, and conditional decisions"), "connotation", "Captures the decision criteria, defect thresholds, and conditional or rejection rules used to accept delivered work.")));
         out.add(n);
       }
@@ -2081,7 +2081,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("organizationalUnit", "String", "Organizational Unit — department or team", false, "Identify the department or team the actor belongs to", 4),
             new SomFormFieldMeta("estimatedCount", "String", "Estimated Count — how many users in this role", false, "Estimate the number of individuals in this role", 5),
             new SomFormFieldMeta("geographicDistribution", "String", "Geographic Distribution — where actors are located", false, "Note the locations or regions where actors operate", 6),
-            new SomFormFieldMeta("description", "String", "Description — role purpose", false, "Explain the actor’s purpose in one or two sentences", 7)));
+            new SomFormFieldMeta("description", "String", "Description — role purpose", false, "Explain the actor’s purpose in one or two sentences", 7, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships", "BABOK v3 — stakeholder & actor analysis"), "connotation", "Uniquely identifies and classifies an actor, capturing type, category and real-world population.")));
         out.add(n);
       }
@@ -2276,7 +2276,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("externalActorCount", "int", "External Actor Count", false, "Enter how many actors are external systems", 3),
             new SomFormFieldMeta("actorPrioritization", "String", "Actor Prioritization — which actors are most important", false, "State which actors matter most and why", 4),
             new SomFormFieldMeta("actorGoalAlignment", "String", "Actor Goal Alignment — how actor goals align with business goals", false, "Explain how actor goals map to business goals", 5),
-            new SomFormFieldMeta("actorIdentificationApproach", "String", "Actor Identification Approach — how actors were identified", false, "Describe the method used to discover actors", 6)));
+            new SomFormFieldMeta("actorIdentificationApproach", "String", "Actor Identification Approach — how actors were identified", false, "Describe the method used to discover actors", 6, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BABOK v3 — stakeholder & actor analysis", "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)"), "connotation", "Summarises the actor population — counts by type and how actors were identified, prioritised and aligned to business goals.")));
         out.add(n);
       }
@@ -2312,7 +2312,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("secondaryActors", "String", "Secondary Actors — actors who support primary actors", false, "List the actors that support primary actors", 1),
             new SomFormFieldMeta("offstageActors", "String", "Offstage Actors — stakeholders with interests but no direct interaction", false, "List stakeholders with interests but no direct interaction", 2),
             new SomFormFieldMeta("systemActors", "String", "System Actors — external systems", false, "List external systems acting as actors", 3),
-            new SomFormFieldMeta("timerActors", "String", "Timer/Scheduled Actors — time-triggered actions", false, "List time-triggered or scheduled actors", 4)));
+            new SomFormFieldMeta("timerActors", "String", "Timer/Scheduled Actors — time-triggered actions", false, "List time-triggered or scheduled actors", 4, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)", "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships"), "connotation", "Groups the actors by category — primary, secondary, offstage, system and timer/scheduled.")));
         out.add(n);
       }
@@ -4416,7 +4416,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("complianceOwner", "String", "Compliance Owner (who is responsible for compliance)", false, "Who is responsible for compliance", 5),
             new SomFormFieldMeta("auditRequirements", "String", "Audit Requirements (audit frequency, type)", false, "Audit frequency and type required", 6),
             new SomFormFieldMeta("penalties", "String", "Penalties (consequences of non-compliance)", false, "Consequences of non-compliance", 7),
-            new SomFormFieldMeta("keyRequirements", "String", "Key Requirements (summary of main requirements)", false, "A summary of the main requirements", 8)));
+            new SomFormFieldMeta("keyRequirements", "String", "Key Requirements (summary of main requirements)", false, "A summary of the main requirements", 8, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -4865,8 +4865,8 @@ public final class TomSomV0Meta {
         n.docComment = "Purpose and ownership boundaries.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("notResponsibleFor", "String", "Not Responsible For", false, "Explicitly out of scope", 0),
-            new SomFormFieldMeta("purpose", "String", "Purpose", true, "What this component does", 1),
-            new SomFormFieldMeta("responsibilities", "String", "Responsibilities", false, "List of responsibilities", 2)));
+            new SomFormFieldMeta("purpose", "String", "Purpose", true, "What this component does", 1, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("responsibilities", "String", "Responsibilities", false, "List of responsibilities", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 42010 — architecture description", "arc42 — architecture documentation template"), "connotation", "The purpose and responsibilities of a component and what it is not responsible for.")));
         out.add(n);
       }
@@ -4996,7 +4996,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("rationale", "String", "Rationale", true, "Why this decision was made", 0),
             new SomFormFieldMeta("alternativesConsidered", "String", "Alternatives Considered", false, "Other options that were evaluated", 1),
             new SomFormFieldMeta("decisionMakers", "String", "Decision Makers", false, "Who made this decision", 2),
-            new SomFormFieldMeta("decision", "String", "Decision", true, "What was decided", 3)));
+            new SomFormFieldMeta("decision", "String", "Decision", true, "What was decided", 3, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ADR (Architecture Decision Records) — decision capture", "ISO/IEC/IEEE 42010 — architecture description"), "connotation", "The decision made, its rationale, alternatives considered, and decision makers.")));
         out.add(n);
       }
@@ -5011,7 +5011,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("negativeConsequences", "String", "Negative Consequences", false, "Drawbacks of this decision", 1),
             new SomFormFieldMeta("reviewDate", "String", "Review Date", false, "When this decision should be reviewed", 2),
             new SomFormFieldMeta("notes", "String", "Notes", false, "Additional decision notes", 3),
-            new SomFormFieldMeta("consequences", "String", "Consequences", false, "Impact of this decision", 4)));
+            new SomFormFieldMeta("consequences", "String", "Consequences", false, "Impact of this decision", 4, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ADR (Architecture Decision Records) — decision capture", "ISO/IEC/IEEE 42010 — architecture description"), "connotation", "The positive and negative consequences of an architecture decision and its review date.")));
         out.add(n);
       }
@@ -5073,7 +5073,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryStyle", "String", "Primary Architecture Style", true, "Monolith, Modular Monolith, Microservices, Event-Driven, Serverless, Hybrid", 0),
             new SomFormFieldMeta("secondaryStyles", "String", "Secondary Styles", false, "Additional architectural patterns used", 1),
-            new SomFormFieldMeta("styleSummary", "String", "Style Summary", false, "Brief description of the chosen architecture", 2)));
+            new SomFormFieldMeta("styleSummary", "String", "Style Summary", false, "Brief description of the chosen architecture", 2, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -5084,8 +5084,8 @@ public final class TomSomV0Meta {
         n.docComment = "Architecture drivers.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("businessDrivers", "String", "Business Drivers", false, "Business requirements driving the choice", 0),
-            new SomFormFieldMeta("justification", "String", "Justification", true, "Why this architecture style was chosen", 1),
-            new SomFormFieldMeta("technicalDrivers", "String", "Technical Drivers", false, "Technical requirements driving the choice", 2)));
+            new SomFormFieldMeta("justification", "String", "Justification", true, "Why this architecture style was chosen", 1, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("technicalDrivers", "String", "Technical Drivers", false, "Technical requirements driving the choice", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 42010 — architecture description", "arc42 — architecture documentation template"), "connotation", "The business and technical drivers that justify the architecture choice.")));
         out.add(n);
       }
@@ -6867,7 +6867,7 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("requirementKind", "AuthorizationRequirementKind", "Requirement Kind", true, "What the caller must satisfy — selects the payload subsection below. Denied | Public | Authenticated | Guest carry no payload.", 0, java.util.List.of("role", "group", "entitlement", "resourceKey", "custom", "graded", "denied", "public", "authenticated", "guest")),
-            new SomFormFieldMeta("rationale", "String", "Rationale", false, "Why this requirement and not a wider or narrower one", 1)));
+            new SomFormFieldMeta("rationale", "String", "Rationale", false, "Why this requirement and not a wider or narrower one", 1, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -6923,7 +6923,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("resourceId", "String", "Resource ID", false, "The resource id passed to the handler, where it needs one", 0),
             new SomFormFieldMeta("handler", "String", "Handler", true, "The registered access handler that decides, by its name in the access-handler catalogue", 1, java.util.List.of(), java.util.List.of("AZHAN.handlerName")),
-            new SomFormFieldMeta("decisionRule", "String", "Decision Rule", true, "What the handler must decide, in business terms — this is the specification the handler is implemented against", 2)));
+            new SomFormFieldMeta("decisionRule", "String", "Decision Rule", true, "What the handler must decide, in business terms — this is the specification the handler is implemented against", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "AuthorizationRequirementKind.custom")));
         out.add(n);
       }
@@ -6992,7 +6992,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("roleName", "String", "Role Name", true, "Unique name of the authorization role (e.g. FinanceApprover)", 0),
             new SomFormFieldMeta("roleCategory", "String", "Role Category", false, "Business | Technical | Administrative | System | Compliance | Custom — classification of the role by function", 1),
-            new SomFormFieldMeta("description", "String", "Short description", false, "Purpose of the role and the access it grants", 2)));
+            new SomFormFieldMeta("description", "String", "Short description", false, "Purpose of the role and the access it grants", 2, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -8709,8 +8709,8 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("includedConcepts", "String", "Included Concepts", false, "Domain concepts within this context", 0),
             new SomFormFieldMeta("excludedConcepts", "String", "Excluded Concepts", false, "Domain concepts explicitly outside this context", 1),
-            new SomFormFieldMeta("purpose", "String", "Purpose", false, "Why this context exists", 2),
-            new SomFormFieldMeta("ubiquitousLanguage", "String", "Ubiquitous Language", false, "Key terms and their definitions", 3)));
+            new SomFormFieldMeta("purpose", "String", "Purpose", false, "Why this context exists", 2, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("ubiquitousLanguage", "String", "Ubiquitous Language", false, "Key terms and their definitions", 3, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Domain-Driven Design — bounded contexts / modules", "SOLID principles — object-oriented design"), "connotation", "Defines the scope, included/excluded concepts, and ubiquitous language of a bounded context.")));
         out.add(n);
       }
@@ -8738,8 +8738,8 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("repositoryNamespace", "String", "Repository/Namespace", false, "Code location for this context", 0),
             new SomFormFieldMeta("databaseSchema", "String", "Database Schema", false, "Database schema or partition", 1),
-            new SomFormFieldMeta("publishedEvents", "String", "Published Events", false, "Domain events this context publishes", 2),
-            new SomFormFieldMeta("consumedEvents", "String", "Consumed Events", false, "Domain events this context subscribes to", 3)));
+            new SomFormFieldMeta("publishedEvents", "String", "Published Events", false, "Domain events this context publishes", 2, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("consumedEvents", "String", "Consumed Events", false, "Domain events this context subscribes to", 3, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Domain-Driven Design — bounded contexts / modules", "SOLID principles — object-oriented design"), "connotation", "Records the code location, schema, and published/consumed events that implement a bounded context.")));
         out.add(n);
       }
@@ -8752,7 +8752,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("integrationPatterns", "String", "Integration Patterns", false, "How this context integrates with others", 0),
             new SomFormFieldMeta("notes", "String", "Notes", false, "Additional context notes", 1),
-            new SomFormFieldMeta("apiEndpoints", "String", "API Endpoints", false, "Public API endpoints exposed", 2)));
+            new SomFormFieldMeta("apiEndpoints", "String", "API Endpoints", false, "Public API endpoints exposed", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Domain-Driven Design — bounded contexts / modules", "SOLID principles — object-oriented design"), "connotation", "Describes the API endpoints and integration patterns through which a bounded context connects to others.")));
         out.add(n);
       }
@@ -9208,7 +9208,7 @@ public final class TomSomV0Meta {
         n.docComment = "Build profile settings.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("defaultProfile", "String", "Default Profile", false, "Default build profile", 0),
-            new SomFormFieldMeta("buildProfiles", "String", "Build Profiles", false, "E.g., Debug, Release, Profile, Production", 1)));
+            new SomFormFieldMeta("buildProfiles", "String", "Build Profiles", false, "E.g., Debug, Release, Profile, Production", 1, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Twelve-Factor App — cloud-native methodology"), "connotation", "The build profiles (debug, release, production) and default profile for a build-toolchain tool.")));
         out.add(n);
       }
@@ -9341,7 +9341,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("preCommitHooks", "String", "Pre-Commit Hooks", false, "Pre-commit hook configuration", 0),
             new SomFormFieldMeta("postBuildActions", "String", "Post-Build Actions", false, "Actions after successful build", 1),
-            new SomFormFieldMeta("buildScripts", "String", "Build Scripts", false, "Custom build scripts location", 2)));
+            new SomFormFieldMeta("buildScripts", "String", "Build Scripts", false, "Custom build scripts location", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 12207 — software lifecycle processes", "Twelve-Factor App — cloud-native methodology"), "connotation", "Captures build script integration including build scripts, pre-commit hooks, and post-build actions.")));
         out.add(n);
       }
@@ -9680,7 +9680,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("currentValue", "String", "Current Value (baseline measurement before project)", false, "Baseline measurement before the project starts", 1),
             new SomFormFieldMeta("measurementMethod", "String", "Measurement Method (how the metric is captured)", false, "How the metric is captured or calculated", 2),
             new SomFormFieldMeta("measurementFrequency", "String", "Measurement Frequency (Daily, Weekly, Monthly, Quarterly)", false, "Daily, Weekly, Monthly, or Quarterly", 3),
-            new SomFormFieldMeta("targetValue", "String", "Target Value (desired end state)", true, "Desired end-state value for the metric", 4)));
+            new SomFormFieldMeta("targetValue", "String", "Target Value (desired end state)", true, "Desired end-state value for the metric", 4, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148 §6 — measures of effectiveness", "SMART objectives — measurable goals"), "connotation", "Captures the measurable success metric, baseline, target, and measurement method for a business goal.")));
         out.add(n);
       }
@@ -10900,7 +10900,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ruleVersion", "String", "Rule Version", false, "Version number for change tracking", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "Full statement of the business rule", 1),
-            new SomFormFieldMeta("businessStatement", "String", "Business Statement", false, "Natural language statement from business perspective", 2)));
+            new SomFormFieldMeta("businessStatement", "String", "Business Statement", false, "Natural language statement from business perspective", 2, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -14805,7 +14805,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("rationale", "String", "Rationale", false, "Why this rule matters", 0),
             new SomFormFieldMeta("examples", "String", "Examples", false, "Good and bad code examples", 1),
-            new SomFormFieldMeta("rule", "String", "Rule", true, "Clear statement of the coding rule", 2)));
+            new SomFormFieldMeta("rule", "String", "Rule", true, "Clear statement of the coding rule", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("coding standards (e.g. Effective Dart / language style guide)", "SOLID principles — object-oriented design"), "connotation", "States a coding rule together with its rationale and examples.")));
         out.add(n);
       }
@@ -15415,7 +15415,7 @@ public final class TomSomV0Meta {
         n.docComment = "Synchronous communication details.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("apiGateway", "String", "API Gateway", false, "Central gateway pattern details", 0),
-            new SomFormFieldMeta("syncPatterns", "String", "Synchronous Patterns", false, "Request-response, Service mesh", 1)));
+            new SomFormFieldMeta("syncPatterns", "String", "Synchronous Patterns", false, "Request-response, Service mesh", 1, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("REST / microservices — architectural style", "ISO/IEC/IEEE 42010 — architecture description"), "connotation", "The synchronous request-response patterns and API gateway details.")));
         out.add(n);
       }
@@ -15428,7 +15428,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("asyncProtocols", "String", "Asynchronous Protocols", false, "Message brokers, event streaming", 0),
             new SomFormFieldMeta("messageFormats", "String", "Message Formats", false, "JSON, Protobuf, Avro, MessagePack", 1),
-            new SomFormFieldMeta("eventPatterns", "String", "Event Patterns", false, "Pub/Sub, Event sourcing, CQRS", 2)));
+            new SomFormFieldMeta("eventPatterns", "String", "Event Patterns", false, "Pub/Sub, Event sourcing, CQRS", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("REST / microservices — architectural style", "POSA — patterns of software architecture"), "connotation", "The asynchronous messaging protocols and event patterns used between components.")));
         out.add(n);
       }
@@ -15441,7 +15441,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("schemaEvolution", "String", "Schema Evolution", false, "How schemas evolve over time", 0),
             new SomFormFieldMeta("serialization", "String", "Serialization", false, "Serialization approach", 1),
-            new SomFormFieldMeta("dataContracts", "String", "Data Contracts", false, "API contracts and schemas", 2)));
+            new SomFormFieldMeta("dataContracts", "String", "Data Contracts", false, "API contracts and schemas", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("REST / microservices — architectural style", "ISO/IEC/IEEE 42010 — architecture description"), "connotation", "The data contracts, schema evolution, and serialization used in component communication.")));
         out.add(n);
       }
@@ -15668,7 +15668,7 @@ public final class TomSomV0Meta {
         n.docComment = "What the system must co-exist with, and what it must interoperate with.\n\nCompatibility in ISO/IEC 25010:2023 covers two distinct obligations, and\nthe band keeps them in separate fields on purpose. *Co-existence* is\nsharing an environment and its resources without degrading a neighbour,\nand is met by staying inside a resource budget. *Interoperability* is\nexchanging information with another product and using what comes back, and\nis met by conforming to a named protocol or format — which is why that\nfield asks for standards while the other asks for requirements.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("coExistenceRequirements", "String", "Co-existence Requirements", false, "Other products sharing the environment without adverse impact", 0),
-            new SomFormFieldMeta("interoperabilityStandards", "String", "Interoperability Standards", false, "Protocols/formats for exchanging and using information", 1)));
+            new SomFormFieldMeta("interoperabilityStandards", "String", "Interoperability Standards", false, "Protocols/formats for exchanging and using information", 1, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -16703,7 +16703,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("version", "String", "Version", false, "Current version in use or targeted", 1),
             new SomFormFieldMeta("libraryRef", "String", "Library", false, "The framework or third-party library this component is — a framework (FRREEN-…) or library (THPALI-…) section id, so one library is described once", 2, java.util.List.of(), java.util.List.of("FRREEN.@sectionId", "THPALI.@sectionId")),
             new SomFormFieldMeta("vendorStability", "String", "Vendor Stability Assessment", false, "Financial health, market position, acquisition risk", 3),
-            new SomFormFieldMeta("purpose", "String", "Business Purpose", false, "Why this component is needed in business terms", 4)));
+            new SomFormFieldMeta("purpose", "String", "Business Purpose", false, "Why this component is needed in business terms", 4, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 5962:2021 — the SPDX specification defines a standard software bill of materials format capturing component identity, versions, and licenses"), "connotation", "Captures the version, business purpose, vendor identity, and vendor stability for a component.")));
         out.add(n);
       }
@@ -19234,7 +19234,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("type", "String", "Type (Technical, Regulatory, Budget, Schedule)", false, null, 0),
             new SomFormFieldMeta("source", "String", "Source", false, null, 1),
             new SomFormFieldMeta("impact", "String", "Impact on the solution", false, null, 2),
-            new SomFormFieldMeta("description", "String", "Description", true, null, 3)));
+            new SomFormFieldMeta("description", "String", "Description", true, null, 3, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -25820,7 +25820,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("columnName", "String", "Physical Column Name", false, "Database column name if different (e.g., snake_case)", 0),
             new SomFormFieldMeta("businessTerm", "String", "Business Term", false, "Business glossary term this maps to", 1),
             new SomFormFieldMeta("exampleValues", "String", "Example Values", false, "Comma-separated examples (e.g., \"Draft, Confirmed, Shipped\")", 2),
-            new SomFormFieldMeta("description", "String", "Description", false, "Clear definition of what this attribute represents", 3)));
+            new SomFormFieldMeta("description", "String", "Description", false, "Clear definition of what this attribute represents", 3, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -26598,7 +26598,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("tenancy", "EntityTenancy", "Tenancy", false, "Tenant: each tenant's own rows; System: shared by all tenants (a tenant registry, reference data)", 4, java.util.List.of("tenant", "system")),
             new SomFormFieldMeta("entityAlias", "String", "Alias/Abbreviation", false, "Short alias for diagrams and references (e.g., CUST, ORD)", 5),
             new SomFormFieldMeta("entityStereoType", "String", "Stereotype", false, "Entity pattern: Entity | ValueObject | Event | View | Bridge. Aggregate-root-ness is not a stereotype here — it is read from aggregateRoot below, which is the only field that states it", 6),
-            new SomFormFieldMeta("description", "String", "Description", false, "Clear definition of what this entity represents", 7)));
+            new SomFormFieldMeta("description", "String", "Description", false, "Clear definition of what this entity represents", 7, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -27626,7 +27626,7 @@ public final class TomSomV0Meta {
         n.docComment = "Strategic approach details.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("migrationRationale", "String", "Approach Rationale", false, "Why this approach was chosen — risk tolerance, downtime constraints", 0),
-            new SomFormFieldMeta("alternativesConsidered", "String", "Alternatives Considered", false, "Other approaches evaluated and why rejected", 1)));
+            new SomFormFieldMeta("alternativesConsidered", "String", "Alternatives Considered", false, "Other approaches evaluated and why rejected", 1, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices", "ISO 31000:2018 — the risk management guidance covers migration risk assessment"), "connotation", "Captures the strategic migration approach including the rationale for the chosen method and alternatives considered.")));
         out.add(n);
       }
@@ -30758,7 +30758,7 @@ public final class TomSomV0Meta {
         n.docComment = "Identification details.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("category", "String", "Category", false, "Application / Library / Tool / Configuration / Document", 0),
-            new SomFormFieldMeta("description", "String", "Description", false, "What this deliverable contains and its purpose", 1)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What this deliverable contains and its purpose", 1, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover", "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition"), "connotation", "Captures the identifying description and category of a deliverable.")));
         out.add(n);
       }
@@ -31610,7 +31610,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryPackageManager", "String", "Primary Package Manager", false, "E.g., pub.dev, npm, pip, Maven", 0),
             new SomFormFieldMeta("secondaryPackageManagers", "String", "Secondary Package Managers", false, "Additional package managers used", 1),
-            new SomFormFieldMeta("registryUrls", "String", "Registry URLs", false, "Package registry URLs (public and private)", 2)));
+            new SomFormFieldMeta("registryUrls", "String", "Registry URLs", false, "Package registry URLs (public and private)", 2, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -31711,7 +31711,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("dependsOn", "String", "Depends on (the external party / artifact)", false, null, 1),
             new SomFormFieldMeta("criticality", "String", "Criticality (Low, Medium, High, Blocking)", false, null, 2),
             new SomFormFieldMeta("status", "String", "Status (Open, Confirmed, Resolved, At risk)", false, null, 3),
-            new SomFormFieldMeta("description", "String", "Description", true, null, 4)));
+            new SomFormFieldMeta("description", "String", "Description", true, null, 4, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -32345,7 +32345,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("targetCategory", "String", "Category", false, "Web, Mobile App, Desktop App, Cloud Service, Container, Embedded", 0),
             new SomFormFieldMeta("environmentRef", "String", "Environment", false, "The environment (ENVEN-ITEM-…) this entry describes; the environment itself is described in the environment register", 1, java.util.List.of(), java.util.List.of("ENVEN.@sectionId")),
-            new SomFormFieldMeta("targetEnvironment", "String", "Environment", false, "Development, Staging, Production", 2)));
+            new SomFormFieldMeta("targetEnvironment", "String", "Environment", false, "Development, Staging, Production", 2, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -32413,7 +32413,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("priority", "String", "Priority", false, "Primary, Secondary, Future", 1),
             new SomFormFieldMeta("targetLaunchDate", "String", "Target Launch Date", false, "Target date for this deployment", 2),
             new SomFormFieldMeta("notes", "String", "Notes", false, "Additional deployment notes", 3),
-            new SomFormFieldMeta("complianceRequirements", "String", "Compliance Requirements", false, "Store guidelines, regulatory requirements", 4)));
+            new SomFormFieldMeta("complianceRequirements", "String", "Compliance Requirements", false, "Store guidelines, regulatory requirements", 4, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 12207 — software lifecycle processes"), "connotation", "The compliance, privacy, priority and launch-date details for a deployment target.")));
         out.add(n);
       }
@@ -35425,7 +35425,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("sectionTitle", "String", "Section Title or Description", true, "Title or short description of the section.", 0),
             new SomFormFieldMeta("sectionReference", "String", "Section Reference (chapter, section, or page number)", true, "Locate the section: chapter, clause, or page number.", 1),
             new SomFormFieldMeta("relevance", "String", "Relevance to Project", false, "How this section applies to the project.", 2),
-            new SomFormFieldMeta("extractSummary", "String", "Summary / Key Extract (brief summary of applicable content)", false, "Brief summary or key extract of the applicable content.", 3)));
+            new SomFormFieldMeta("extractSummary", "String", "Summary / Key Extract (brief summary of applicable content)", false, "Brief summary or key extract of the applicable content.", 3, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -36719,7 +36719,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("throughputTarget", "String", "Throughput Target", false, "Requests/second, transactions/minute", 0),
             new SomFormFieldMeta("concurrentUsersTarget", "String", "Concurrent Users Target", false, "Peak concurrent users supported", 1),
-            new SomFormFieldMeta("scalabilityModel", "String", "Scalability Model", false, "Horizontal, vertical, auto-scaling", 2)));
+            new SomFormFieldMeta("scalabilityModel", "String", "Scalability Model", false, "Horizontal, vertical, auto-scaling", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010:2023 — capacity is the degree to which the maximum limits of a product or system parameter meet requirements", "ISO/IEC 25010:2023 — time behaviour is the degree to which response, processing times, and throughput rates meet requirements"), "connotation", "This section captures throughput, capacity, and scalability targets.")));
         out.add(n);
       }
@@ -36746,8 +36746,8 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("performanceProfilingApproach", "String", "Performance Profiling", false, "APM tools, custom instrumentation", 0),
             new SomFormFieldMeta("performanceBaselineDate", "String", "Performance Baseline Date", false, "When baseline was established", 1),
-            new SomFormFieldMeta("loadTestingRequirement", "String", "Load Testing Requirement", false, "Load test scenarios, thresholds", 2),
-            new SomFormFieldMeta("performanceSlaDefinition", "String", "Performance SLA Definition", false, "SLA for performance metrics", 3)));
+            new SomFormFieldMeta("loadTestingRequirement", "String", "Load Testing Requirement", false, "Load test scenarios, thresholds", 2, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("performanceSlaDefinition", "String", "Performance SLA Definition", false, "SLA for performance metrics", 3, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25023:2016 — quality measures are defined and applied to quantify performance efficiency of the system and software product"), "connotation", "This section captures verification of performance efficiency through load testing and SLA commitments.")));
         out.add(n);
       }
@@ -37394,8 +37394,8 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("entitlementName", "String", "Entitlement Name", true, "Name of the entitlement.", 0),
             new SomFormFieldMeta("accessType", "String", "Access Type", false, "Type of access granted.", 1),
-            new SomFormFieldMeta("description", "String", "Short description", false, "Brief description.", 2),
-            new SomFormFieldMeta("conditions", "String", "Conditions", false, "Conditions under which the entitlement applies.", 3)));
+            new SomFormFieldMeta("description", "String", "Short description", false, "Brief description.", 2, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("conditions", "String", "Conditions", false, "Conditions under which the entitlement applies.", 3, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -37708,7 +37708,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("relationshipType", "String", "Relationship Type", false, "Association | Aggregation | Composition | Generalization | Dependency", 0),
             new SomFormFieldMeta("businessJustification", "String", "Business Justification", false, "Why this relationship exists from business perspective", 1),
             new SomFormFieldMeta("implementationType", "String", "Implementation Type", false, "ForeignKey | JunctionTable | Embedded | Reference", 2),
-            new SomFormFieldMeta("description", "String", "Description", false, "Business meaning of this relationship", 3)));
+            new SomFormFieldMeta("description", "String", "Description", false, "Business meaning of this relationship", 3, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -40878,7 +40878,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("outcome", "String", "Outcome — how it ends", false, "Result reached when the branch completes", 4),
             new SomFormFieldMeta("frequency", "String", "Frequency — how often this occurs", false, "How often this branch is expected to occur", 5),
             new SomFormFieldMeta("severity", "String", "Severity — impact level (for exceptions)", false, "Impact level for exception/error branches", 6),
-            new SomFormFieldMeta("description", "String", "Description — what happens", false, "What happens along this extension path", 7)));
+            new SomFormFieldMeta("description", "String", "Description — what happens", false, "What happens along this extension path", 7, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -41018,7 +41018,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("interactionFrequency", "String", "Interaction Frequency (Real-time, Daily, Weekly, On-demand)", false, "How often this actor interacts with the system", 0),
             new SomFormFieldMeta("interactionChannel", "String", "Interaction Channel (Web UI, Mobile App, API, Email, etc.)", false, "The channel through which the interaction occurs", 1),
             new SomFormFieldMeta("accessLevel", "String", "Access Level (Read, Write, Admin, API-only, etc.)", false, "The level of access this actor has", 2),
-            new SomFormFieldMeta("dataExchanged", "String", "Data Exchanged (what information flows to/from this actor)", false, "What information flows to and from this actor", 3)));
+            new SomFormFieldMeta("dataExchanged", "String", "Data Exchanged (what information flows to/from this actor)", false, "What information flows to and from this actor", 3, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148 §6 — external interfaces & actors", "BABOK v3 §10.43 — stakeholder/actor analysis"), "connotation", "Captures the cadence and channel of an actor's interaction and the information exchanged with the system.")));
         out.add(n);
       }
@@ -41992,7 +41992,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("integrationDirection", "String", "Integration Direction (Inbound, Outbound, Bidirectional)", true, "The direction in which data flows for this integration", 0),
             new SomFormFieldMeta("dataExchanged", "String", "Data Exchanged (what data flows between systems)", false, "What data flows between the systems", 1),
             new SomFormFieldMeta("integrationMethod", "String", "Integration Method (REST API, SOAP, File Transfer, Database, Message Queue, Event Stream, etc.)", false, "The technical method used for the integration", 2),
-            new SomFormFieldMeta("integrationPurpose", "String", "Integration Purpose (what business need does this serve)", false, "The business need this integration serves", 3)));
+            new SomFormFieldMeta("integrationPurpose", "String", "Integration Purpose (what business need does this serve)", false, "The business need this integration serves", 3, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148 §6 — external system interfaces", "ISO/IEC/IEEE 42010 — context"), "connotation", "Captures the direction, purpose, data, and method of an external system integration.")));
         out.add(n);
       }
@@ -43934,7 +43934,7 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("frameworkCategory", "String", "Category", false, "UI Framework, Backend Framework, Testing, State Management", 0),
-            new SomFormFieldMeta("purpose", "String", "Purpose", true, "What problem this framework solves", 1)));
+            new SomFormFieldMeta("purpose", "String", "Purpose", true, "What problem this framework solves", 1, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -43974,7 +43974,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("requiredPlugins", "String", "Required Plugins/Extensions", false, "Mandatory plugins or extensions", 1),
             new SomFormFieldMeta("optionalPlugins", "String", "Optional Plugins/Extensions", false, "Recommended optional plugins", 2),
             new SomFormFieldMeta("excludedFeatures", "String", "Excluded Features", false, "Framework features that should not be used", 3),
-            new SomFormFieldMeta("integrationPoints", "String", "Integration Points", false, "Where this framework integrates in the architecture", 4)));
+            new SomFormFieldMeta("integrationPoints", "String", "Integration Points", false, "Where this framework integrates in the architecture", 4, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 42010 — architecture description", "Domain-Driven Design — layered/hexagonal architecture"), "connotation", "The usage scope, integration points and required/optional plugins of a framework in the architecture.")));
         out.add(n);
       }
@@ -44014,7 +44014,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("alternativesConsidered", "String", "Alternatives Considered", false, "Other frameworks evaluated", 0),
             new SomFormFieldMeta("riskAssessment", "String", "Risk Assessment", false, "Vendor lock-in, maintenance, complexity risks", 1),
             new SomFormFieldMeta("notes", "String", "Notes", false, "Additional framework notes", 2),
-            new SomFormFieldMeta("justification", "String", "Justification", true, "Reason for selecting this framework", 3)));
+            new SomFormFieldMeta("justification", "String", "Justification", true, "Reason for selecting this framework", 3, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 42010 — architecture description", "arc42 — architecture documentation template"), "connotation", "The rationale for selecting a framework, the alternatives considered and its risk assessment.")));
         out.add(n);
       }
@@ -44480,7 +44480,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("requirementType", "String", "Requirement Type (Feature, User Story, Business Rule, Report, Integration, Calculation, Workflow, Notification, Search, Data Entry, Data Display, Data Export, Batch Process)", false, "Feature, User Story, Business Rule, Report, Integration, etc.", 0),
             new SomFormFieldMeta("category", "String", "Category (functional area grouping)", false, "Functional-area grouping for this requirement", 1),
-            new SomFormFieldMeta("description", "String", "Description (The system shall... detailed statement)", true, "Detailed \"the system shall...\" statement of the requirement", 2)));
+            new SomFormFieldMeta("description", "String", "Description (The system shall... detailed statement)", true, "Detailed \"the system shall...\" statement of the requirement", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148 §9.5 — functional requirements", "BABOK v3 §10 — functional requirements"), "connotation", "The core definition of a functional requirement — its detailed \"the system shall\" statement, its type, and its functional-area category.")));
         out.add(n);
       }
@@ -44506,8 +44506,8 @@ public final class TomSomV0Meta {
         n.docComment = "Source and rationale.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("requestDate", "String", "Request Date", false, "Date the requirement was requested", 0),
-            new SomFormFieldMeta("source", "String", "Source (who requested: stakeholder name, workshop, document)", true, "Who requested it: stakeholder name, workshop, or document", 1),
-            new SomFormFieldMeta("rationale", "String", "Rationale (why this requirement is needed)", false, "Why this requirement is needed", 2)));
+            new SomFormFieldMeta("source", "String", "Source (who requested: stakeholder name, workshop, document)", true, "Who requested it: stakeholder name, workshop, or document", 1, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("rationale", "String", "Rationale (why this requirement is needed)", false, "Why this requirement is needed", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148 §5.2.8 — requirements traceability"), "connotation", "The provenance of a functional requirement — who requested it, when, and the rationale that justifies it, anchoring traceability back to its origin.")));
         out.add(n);
       }
@@ -45380,7 +45380,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("term", "String", "Term", true, null, 0),
             new SomFormFieldMeta("acronym", "String", "Acronym / Abbreviation", false, null, 1),
             new SomFormFieldMeta("seeAlso", "String", "See Also (related terms)", false, null, 2),
-            new SomFormFieldMeta("definition", "String", "Definition", true, null, 3)));
+            new SomFormFieldMeta("definition", "String", "Definition", true, null, 3, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -48883,7 +48883,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("integrationPatterns", "String", "Integration Patterns", false, "Adapters, Facades, Gateways", 0),
             new SomFormFieldMeta("apiManagement", "String", "API Management", false, "How APIs are managed", 1),
-            new SomFormFieldMeta("integrationStrategy", "String", "Integration Strategy", false, "Point-to-point, Hub-and-spoke, ESB, API-led", 2)));
+            new SomFormFieldMeta("integrationStrategy", "String", "Integration Strategy", false, "Point-to-point, Hub-and-spoke, ESB, API-led", 2, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -48895,7 +48895,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("externalSystemCount", "String", "External System Count", false, "Number of external integrations", 0),
             new SomFormFieldMeta("realTimeIntegrations", "String", "Real-Time Integrations", false, "Integrations requiring real-time sync", 1),
-            new SomFormFieldMeta("integrationTypes", "String", "Integration Types", false, "REST, SOAP, File, Database, Events", 2)));
+            new SomFormFieldMeta("integrationTypes", "String", "Integration Types", false, "REST, SOAP, File, Database, Events", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("REST / microservices — architectural style", "ISO/IEC/IEEE 42010 — architecture description"), "connotation", "The landscape of external systems, their integration types, and real-time needs.")));
         out.add(n);
       }
@@ -48921,7 +48921,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("authorizationApproach", "String", "Authorization Approach", false, "How integrations are authorized", 0),
             new SomFormFieldMeta("secureTransport", "String", "Secure Transport", false, "Transport security (TLS, VPN)", 1),
-            new SomFormFieldMeta("authenticationApproach", "String", "Authentication Approach", false, "How integrations are authenticated", 2)));
+            new SomFormFieldMeta("authenticationApproach", "String", "Authentication Approach", false, "How integrations are authenticated", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010 — architectural quality attributes", "REST / microservices — architectural style"), "connotation", "The authentication, authorization, and transport-security model for integrations.")));
         out.add(n);
       }
@@ -49452,7 +49452,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("coverageStatement", "String", "Coverage Statement — what interactions are covered", false, "State which processes and goals the catalog covers", 4),
             new SomFormFieldMeta("identificationMethod", "String", "Identification Method — how interactions were identified", false, "e.g. actor-goal analysis, event storming, process decomposition", 5),
             new SomFormFieldMeta("prioritizationCriteria", "String", "Prioritization Criteria — how priority was determined", false, "e.g. MoSCoW, business value vs. effort", 6),
-            new SomFormFieldMeta("traceabilityToProcesses", "String", "Traceability to Processes — link to BP section", false, "Reference the TOM-xxx process each interaction realizes", 7)));
+            new SomFormFieldMeta("traceabilityToProcesses", "String", "Traceability to Processes — link to BP section", false, "Reference the TOM-xxx process each interaction realizes", 7, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("UML 2.5.1 (ISO/IEC 19505) — use cases", "BABOK v3 — use cases & scenarios"), "connotation", "Summarizes the interaction catalog — counts, coverage, identification method and traceability across all documented use cases.")));
         out.add(n);
       }
@@ -50029,7 +50029,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("useCases", "String", "Use Cases", false, "List of use cases that follow this pattern", 0),
             new SomFormFieldMeta("userCategories", "String", "Applicable User Categories", false, "Which user categories use this pattern", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "What this pattern involves", 2)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What this pattern involves", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-110 — dialogue principles", "ISO 9241-210 — interaction patterns"), "connotation", "The narrative description, use cases, and applicable user categories for an interaction pattern.")));
         out.add(n);
       }
@@ -51004,7 +51004,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("signatureVerification", "String", "Signature Verification Method", false, "How webhook authenticity is verified", 2),
             new SomFormFieldMeta("retryPolicy", "String", "External System Retry Policy", false, "External retry behavior on delivery failure", 3),
             new SomFormFieldMeta("idempotencyHandling", "String", "Idempotency Handling", false, "How duplicate webhook deliveries are handled", 4),
-            new SomFormFieldMeta("eventTypes", "String", "Event Types Received", false, "Event types delivered via webhook", 5)));
+            new SomFormFieldMeta("eventTypes", "String", "Event Types Received", false, "Event types delivered via webhook", 5, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("AsyncAPI — API specification", "Enterprise Integration Patterns (EIP) — integration styles"), "connotation", "Specifies inbound webhook/callback handling, including endpoints, signature verification, and idempotency.")));
         out.add(n);
       }
@@ -51691,8 +51691,8 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("characteristic", "Iso25010Characteristic", "ISO/IEC 25010:2023 Characteristic", true, null, 0, java.util.List.of("functionalSuitability", "performanceEfficiency", "compatibility", "interactionCapability", "reliability", "security", "maintainability", "flexibility")),
-            new SomFormFieldMeta("addressedBy", "String", "Addressed By (which quality goals / NFRs)", false, null, 1),
-            new SomFormFieldMeta("targetMetric", "String", "Target Metric", false, null, 2)));
+            new SomFormFieldMeta("addressedBy", "String", "Addressed By (which quality goals / NFRs)", false, null, 1, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("targetMetric", "String", "Target Metric", false, null, 2, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -51737,9 +51737,9 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("complementarySystems", "String", "Complementary Systems (systems this works alongside)", false, "Systems this works alongside", 3),
             new SomFormFieldMeta("dependentSystems", "String", "Dependent Systems (systems that will depend on this)", false, "Systems that will depend on this one", 4),
             new SomFormFieldMeta("integrationPattern", "String", "Primary Integration Pattern (API, Event, Batch, Real-time)", false, "The primary integration pattern used", 5),
-            new SomFormFieldMeta("replacedSystems", "String", "Replaced Systems (systems this will replace or retire)", false, "Systems this will replace or retire", 6),
-            new SomFormFieldMeta("dependsOnSystems", "String", "Depends On Systems (systems this requires to operate)", false, "Systems this requires to operate", 7),
-            new SomFormFieldMeta("dataOwnership", "String", "Data Ownership (what master data does this system own)", false, "What master data this system owns", 8)));
+            new SomFormFieldMeta("replacedSystems", "String", "Replaced Systems (systems this will replace or retire)", false, "Systems this will replace or retire", 6, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("dependsOnSystems", "String", "Depends On Systems (systems this requires to operate)", false, "Systems this requires to operate", 7, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("dataOwnership", "String", "Data Ownership (what master data does this system own)", false, "What master data this system owns", 8, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -51787,7 +51787,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("accessReviewFrequency", "String", "Access Review Frequency", false, "Quarterly, annually", 0),
             new SomFormFieldMeta("accessAuditLogging", "String", "Access Audit Logging", false, "What access is logged", 1),
-            new SomFormFieldMeta("privilegedAccessManagement", "String", "Privileged Access Management", false, "PAM solution, just-in-time", 2)));
+            new SomFormFieldMeta("privilegedAccessManagement", "String", "Privileged Access Management", false, "PAM solution, just-in-time", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 27001:2022 — access to information and systems is restricted so only authorised parties gain entry"), "connotation", "This section defines access protection controls.")));
         out.add(n);
       }
@@ -53832,7 +53832,7 @@ public final class TomSomV0Meta {
         n.docComment = "Triggering event details.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("triggerType", "String", "Trigger Type", false, "UserAction | SystemEvent | Timer | ExternalEvent", 0),
-            new SomFormFieldMeta("trigger", "String", "Trigger", false, "What initiates this transition", 1)));
+            new SomFormFieldMeta("trigger", "String", "Trigger", false, "What initiates this transition", 1, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("UML state machines — object lifecycle/state modeling"), "connotation", "The event that triggers a lifecycle transition and its trigger type.")));
         out.add(n);
       }
@@ -54173,7 +54173,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("rolloutTimeline", "String", "Rollout Timeline", false, "High-level rollout schedule", 0),
             new SomFormFieldMeta("rolloutRegions", "String", "Rollout Regions", false, "Geographic rollout order", 1),
-            new SomFormFieldMeta("rolloutStrategy", "String", "Rollout Strategy", false, "Big bang, phased, pilot", 2)));
+            new SomFormFieldMeta("rolloutStrategy", "String", "Rollout Strategy", false, "Big bang, phased, pilot", 2, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -54933,7 +54933,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("uiElementUsed", "String", "UI Element Used — screen/component", false, "Screen or component the actor interacts with", 5),
             new SomFormFieldMeta("validationPerformed", "String", "Validation Performed — checks done", false, "Validations run during this step", 6),
             new SomFormFieldMeta("expectedDuration", "String", "Expected Duration — time for this step", false, "Expected time to complete this step", 7),
-            new SomFormFieldMeta("businessRuleApplied", "String", "Business Rule Applied", false, "The rule enforced at this step, as prose — it may cite a business rule (BIRU-…) or a Project Idea rule (C6.5); not resolved", 8)));
+            new SomFormFieldMeta("businessRuleApplied", "String", "Business Rule Applied", false, "The rule enforced at this step, as prose — it may cite a business rule (BIRU-…) or a Project Idea rule (C6.5); not resolved", 8, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -56628,7 +56628,7 @@ public final class TomSomV0Meta {
         n.docComment = "Allowed authenticators and phishing-resistance rules.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("phishingResistanceRequired", "String", "Phishing Resistance Required", false, "Yes | No | Recommended — whether phishing-resistant authenticators are required", 0),
-            new SomFormFieldMeta("allowedAuthenticatorTypes", "String", "Allowed Authenticator Types", false, "TOTP | WebAuthn | FIDO2 | SMS | Push | Passkey — allowed second-factor types", 1)));
+            new SomFormFieldMeta("allowedAuthenticatorTypes", "String", "Allowed Authenticator Types", false, "TOTP | WebAuthn | FIDO2 | SMS | Push | Passkey — allowed second-factor types", 1, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("NIST SP 800-63B — authenticator and verifier requirements", "FIDO2 / W3C WebAuthn — phishing-resistant authentication"), "connotation", "Captures the allowed authenticator types and phishing-resistance rules for MFA credentials.")));
         out.add(n);
       }
@@ -58527,7 +58527,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("purpose", "String", "Purpose", true, "What this module provides", 0),
             new SomFormFieldMeta("publicApi", "String", "Public API", false, "Key public interfaces/classes", 1),
             new SomFormFieldMeta("entryPoints", "String", "Entry Points", false, "Main entry points to the module", 2),
-            new SomFormFieldMeta("functionality", "String", "Functionality", false, "Specific features/functions", 3)));
+            new SomFormFieldMeta("functionality", "String", "Functionality", false, "Specific features/functions", 3, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Domain-Driven Design — bounded contexts / modules", "SOLID principles — object-oriented design"), "connotation", "Describes the purpose, functionality, public API, and entry points of a module.")));
         out.add(n);
       }
@@ -59679,7 +59679,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("qualityCategory", "Iso25010Characteristic", "Quality Category", false, "The ISO/IEC 25010:2023 characteristic the criterion assures", 0, java.util.List.of("functionalSuitability", "performanceEfficiency", "compatibility", "interactionCapability", "reliability", "security", "maintainability", "flexibility")),
             new SomFormFieldMeta("qualityAttribute", "String", "Quality Attribute", false, "Specific attribute this relates to", 1),
-            new SomFormFieldMeta("criterionDescription", "String", "Description", false, "What must be achieved", 2)));
+            new SomFormFieldMeta("criterionDescription", "String", "Description", false, "What must be achieved", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25030:2019 — an acceptance criterion is related to a specific quality characteristic and category"), "connotation", "Captures the classification and intent of the criterion including its quality category and attribute.")));
         out.add(n);
       }
@@ -62969,8 +62969,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("growthEnablement", "String", "Growth Enablement (how this supports business growth)", false, "How the system supports business growth", 4),
             new SomFormFieldMeta("efficiencyGains", "String", "Efficiency Gains (productivity and cost improvements)", false, "Productivity and cost improvements expected", 5),
             new SomFormFieldMeta("timeToValue", "String", "Time to Value (when benefits will start being realized)", false, "When benefits will start being realized", 6),
-            new SomFormFieldMeta("newCapabilities", "String", "New Capabilities (what becomes possible that wasn't before)", false, "What becomes possible that was not possible before", 7),
-            new SomFormFieldMeta("improvements", "String", "Improvements (quantitative and qualitative improvements expected)", false, "Quantitative and qualitative improvements expected", 8)));
+            new SomFormFieldMeta("newCapabilities", "String", "New Capabilities (what becomes possible that wasn't before)", false, "What becomes possible that was not possible before", 7, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("improvements", "String", "Improvements (quantitative and qualitative improvements expected)", false, "Quantitative and qualitative improvements expected", 8, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -63863,7 +63863,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("description", "String", "Description (detailed statement)", true, "Full statement of the organizational change needed", 0)));
+            new SomFormFieldMeta("description", "String", "Description (detailed statement)", true, "Full statement of the organizational change needed", 0, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -63877,7 +63877,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("category", "String", "Category (Training, Process Change, Role Change, Support, Communication, Policy, Governance, Culture, Staffing)", true, "Type of organizational change the requirement entails", 1),
             new SomFormFieldMeta("subcategory", "String", "Subcategory", false, "More specific aspect within the category", 2),
             new SomFormFieldMeta("rationale", "String", "Rationale", false, "Why this organizational change is needed", 3),
-            new SomFormFieldMeta("source", "String", "Source", true, "Stakeholder or document that originated it", 4)));
+            new SomFormFieldMeta("source", "String", "Source", true, "Stakeholder or document that originated it", 4, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 21500 — organizational project management", "BABOK v3 §10 — organizational readiness", "ISO/IEC/IEEE 29148 §9 — organizational requirements"), "connotation", "The classification of an organizational requirement — its change category, priority, source, and rationale.")));
         out.add(n);
       }
@@ -64391,8 +64391,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("effectiveDate", "String", "Effective Date", false, "When the agreement takes effect", 2),
             new SomFormFieldMeta("expirationDate", "String", "Expiration Date", false, "When the agreement expires", 3),
             new SomFormFieldMeta("location", "String", "Document Location", false, "Where the signed agreement is stored", 4),
-            new SomFormFieldMeta("keyTerms", "String", "Key Terms", false, "Principal terms of the agreement", 5),
-            new SomFormFieldMeta("obligations", "String", "Obligations", false, "Obligations the agreement imposes", 6)));
+            new SomFormFieldMeta("keyTerms", "String", "Key Terms", false, "Principal terms of the agreement", 5, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("obligations", "String", "Obligations", false, "Obligations the agreement imposes", 6, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -64571,7 +64571,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("monorepoVsPolyrepo", "String", "Monorepo vs Polyrepo", false, "Single vs multiple repositories", 0),
             new SomFormFieldMeta("featureGrouping", "String", "Feature Grouping", false, "How features are grouped in structure", 1),
-            new SomFormFieldMeta("directoryLayout", "String", "Directory Layout", false, "Top-level directory organization", 2)));
+            new SomFormFieldMeta("directoryLayout", "String", "Directory Layout", false, "Top-level directory organization", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Domain-Driven Design — bounded contexts / modules", "ISO/IEC 25010 — maintainability / modularity quality attributes"), "connotation", "Describes the repository and directory layout used to organize packages.")));
         out.add(n);
       }
@@ -64584,8 +64584,8 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sharedPackages", "String", "Shared Packages", false, "Shared utility packages", 0),
             new SomFormFieldMeta("platformPackages", "String", "Platform Packages", false, "Platform-specific packages", 1),
-            new SomFormFieldMeta("corePackages", "String", "Core Packages", false, "Foundation packages required by all", 2),
-            new SomFormFieldMeta("featurePackages", "String", "Feature Packages", false, "Business feature packages", 3)));
+            new SomFormFieldMeta("corePackages", "String", "Core Packages", false, "Foundation packages required by all", 2, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("featurePackages", "String", "Feature Packages", false, "Business feature packages", 3, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Domain-Driven Design — bounded contexts / modules", "ISO/IEC 25010 — maintainability / modularity quality attributes"), "connotation", "Categorizes packages into core, feature, shared, and platform types.")));
         out.add(n);
       }
@@ -65751,7 +65751,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("dormantAccountReview", "String", "Dormant Account Review", false, "Review of inactive accounts (e.g., disable after 90 days)", 2),
             new SomFormFieldMeta("segregationOfDutiesReview", "String", "Segregation of Duties Review", false, "SoD violation review frequency", 3),
             new SomFormFieldMeta("reviewDocumentation", "String", "Review Documentation", false, "How review results are documented", 4),
-            new SomFormFieldMeta("reviewers", "String", "Reviewers", false, "Who performs reviews (e.g., manager, security team, CISO)", 5)));
+            new SomFormFieldMeta("reviewers", "String", "Reviewers", false, "Who performs reviews (e.g., manager, security team, CISO)", 5, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -67226,7 +67226,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("containerizationRequirement", "String", "Containerization", false, "Docker, Kubernetes requirements", 6),
             new SomFormFieldMeta("infrastructureAsCode", "String", "Infrastructure as Code", false, "Terraform, CloudFormation", 7),
             new SomFormFieldMeta("portabilityVerification", "String", "Portability Verification", false, "Cross-platform testing, compatibility matrix", 8),
-            new SomFormFieldMeta("dataPortability", "String", "Data Portability", false, "Export formats, import capabilities", 9)));
+            new SomFormFieldMeta("dataPortability", "String", "Data Portability", false, "Export formats, import capabilities", 9, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -67342,8 +67342,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("systemPostcondition", "String", "System Postcondition — system state after", false, "The system's state once the flow ends", 2),
             new SomFormFieldMeta("dataPostcondition", "String", "Data Postcondition — data changes", false, "Persistent data created, updated or removed", 3),
             new SomFormFieldMeta("auditTrail", "String", "Audit Trail — what is logged", false, "Audit records written for this interaction", 4),
-            new SomFormFieldMeta("successGuarantees", "String", "Success Guarantees — true after successful completion", false, "What holds true only after successful completion", 5),
-            new SomFormFieldMeta("notificationsGenerated", "String", "Notifications Generated — who is notified", false, "Notifications sent and their recipients", 6)));
+            new SomFormFieldMeta("successGuarantees", "String", "Success Guarantees — true after successful completion", false, "What holds true only after successful completion", 5, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("notificationsGenerated", "String", "Notifications Generated — who is notified", false, "Notifications sent and their recipients", 6, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -67379,7 +67379,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("triggerData", "String", "Trigger Data — data available at trigger", false, "Payload carried by the trigger", 3),
             new SomFormFieldMeta("frequencyOfTrigger", "String", "Frequency of Trigger — how often triggered", false, "Expected trigger rate, e.g. per day/hour", 4),
             new SomFormFieldMeta("validationBeforeStart", "String", "Validation Before Start — checks before proceeding", false, "Guard checks performed before the main flow", 5),
-            new SomFormFieldMeta("precondition", "String", "Preconditions — must be true before", false, "State assumed true before the interaction starts", 6)));
+            new SomFormFieldMeta("precondition", "String", "Preconditions — must be true before", false, "State assumed true before the interaction starts", 6, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -67934,9 +67934,9 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("impactDescription", "String", "Impact Description (business, financial, operational impacts)", false, "Business, financial, and operational impacts of the problem", 4),
             new SomFormFieldMeta("urgency", "String", "Urgency (Immediate, Short-term, Medium-term, Long-term)", false, "Immediate / Short-term / Medium-term / Long-term", 5),
             new SomFormFieldMeta("urgencyJustification", "String", "Urgency Justification (why this timeline is critical)", false, "Why the stated timeline is critical", 6),
-            new SomFormFieldMeta("impactMetrics", "String", "Impact Metrics (quantifiable measures of the problem's cost)", false, "Quantifiable measures of the problem's cost", 7),
-            new SomFormFieldMeta("rootCauses", "String", "Root Causes (underlying reasons for problem)", false, "Underlying reasons that cause the problem", 8),
-            new SomFormFieldMeta("consequencesOfInaction", "String", "Consequences of Inaction (what happens if not addressed)", false, "What happens if the problem is not addressed", 9)));
+            new SomFormFieldMeta("impactMetrics", "String", "Impact Metrics (quantifiable measures of the problem's cost)", false, "Quantifiable measures of the problem's cost", 7, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("rootCauses", "String", "Root Causes (underlying reasons for problem)", false, "Underlying reasons that cause the problem", 8, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("consequencesOfInaction", "String", "Consequences of Inaction (what happens if not addressed)", false, "What happens if the problem is not addressed", 9, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -68273,7 +68273,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("processOwnership", "String", "Process Ownership — how ownership is assigned", false, "How process owners are determined", 4),
             new SomFormFieldMeta("governanceModel", "String", "Governance Model — change control, approval", false, "How process changes are controlled", 5),
             new SomFormFieldMeta("versioningApproach", "String", "Versioning Approach — how process versions are managed", false, "How process versions are tracked", 6),
-            new SomFormFieldMeta("scopeStatement", "String", "Scope Statement — what processes are in scope", false, "What the catalog does and does not cover", 7)));
+            new SomFormFieldMeta("scopeStatement", "String", "Scope Statement — what processes are in scope", false, "What the catalog does and does not cover", 7, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("APQC PCF — Process Classification Framework"), "connotation", "Summarises the scope, conventions and governance that frame the process catalog as a whole.")));
         out.add(n);
       }
@@ -68611,7 +68611,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("examples", "String", "Examples — how this principle applies", false, "Concrete examples of the principle in use", 4),
             new SomFormFieldMeta("tradeoffs", "String", "Trade-offs — what is sacrificed", false, "What is given up to follow the principle", 5),
             new SomFormFieldMeta("applicability", "String", "Applicability — all processes or specific types", false, "Which processes the principle applies to", 6),
-            new SomFormFieldMeta("statement", "String", "Statement — the principle statement", false, "The principle expressed as a directive", 7)));
+            new SomFormFieldMeta("statement", "String", "Statement — the principle statement", false, "The principle expressed as a directive", 7, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -68946,7 +68946,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("purpose", "String", "Purpose — why the process exists", false, "Why the process exists", 0),
             new SomFormFieldMeta("scope", "String", "Scope — boundaries of the process", false, "Where the process starts and ends", 1),
-            new SomFormFieldMeta("description", "String", "Description — what the process does", false, "What the process actually does", 2)));
+            new SomFormFieldMeta("description", "String", "Description — what the process does", false, "What the process actually does", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BPM CBOK — business process management body of knowledge"), "connotation", "Describes the process in narrative form, stating what it does, why it exists and where its boundaries lie.")));
         out.add(n);
       }
@@ -70152,7 +70152,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("timingDependency", "String", "Timing Dependency — must complete before, can run parallel", false, "State the timing dependency", 3),
             new SomFormFieldMeta("frequencyOfInteraction", "String", "Frequency of Interaction — how often they interact", false, "State how often they interact", 4),
             new SomFormFieldMeta("criticality", "String", "Criticality — how critical is this relationship", false, "State how critical the relationship is", 5),
-            new SomFormFieldMeta("dataExchanged", "String", "Data Exchanged — what flows between processes", false, "State what data flows between them", 6)));
+            new SomFormFieldMeta("dataExchanged", "String", "Data Exchanged — what flows between processes", false, "State what data flows between them", 6, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -70683,9 +70683,9 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("scenarioCoverage", "String", "Scenario Coverage — what scenarios are included", false, "List which end-to-end scenarios are in scope", 2),
             new SomFormFieldMeta("useCaseNamingConvention", "String", "Use Case Naming Convention — ISC-xxx pattern", false, "State the naming/ID pattern for use cases", 3),
             new SomFormFieldMeta("notationStandard", "String", "Notation Standard — Cockburn, Fowler, RUP", false, "Name the use-case notation standard followed", 4),
-            new SomFormFieldMeta("useCaseScope", "String", "Use Case Scope — system, organization, subsystem", false, "State the design scope of the use cases", 5),
-            new SomFormFieldMeta("traceabilityApproach", "String", "Traceability Approach — link to TOM, ISC documents", false, "Explain how interactions trace to TOM and ISC", 6),
-            new SomFormFieldMeta("detailLevel", "String", "Detail Level — brief, casual, fully dressed", false, "Choose the Cockburn detail level applied", 7)));
+            new SomFormFieldMeta("useCaseScope", "String", "Use Case Scope — system, organization, subsystem", false, "State the design scope of the use cases", 5, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("traceabilityApproach", "String", "Traceability Approach — link to TOM, ISC documents", false, "Explain how interactions trace to TOM and ISC", 6, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("detailLevel", "String", "Detail Level — brief, casual, fully dressed", false, "Choose the Cockburn detail level applied", 7, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -70979,7 +70979,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("performanceTargets", "String", "Performance Targets — response time, throughput", false, "Target response time or throughput", 4),
             new SomFormFieldMeta("userSatisfaction", "String", "User Satisfaction — NPS, satisfaction scores", false, "Target satisfaction or NPS scores", 5),
             new SomFormFieldMeta("measurementApproach", "String", "Measurement Approach — how success is measured", false, "How and when success is measured", 6),
-            new SomFormFieldMeta("businessOutcomes", "String", "Business Outcomes — revenue, market share impact", false, "Expected business-level outcomes", 7)));
+            new SomFormFieldMeta("businessOutcomes", "String", "Business Outcomes — revenue, market share impact", false, "Expected business-level outcomes", 7, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010 — performance efficiency", "BABOK v3 — future-state / process analysis"), "connotation", "Defines the measurable criteria that determine whether the process transformation is deemed successful.")));
         out.add(n);
       }
@@ -72784,7 +72784,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("adjustmentDescription", "String", "Adjustment Description", false, "Detailed description of what changed", 1),
             new SomFormFieldMeta("originalCriteria", "String", "Original Criteria", false, "Standard pass/fail criteria for this gate", 2),
             new SomFormFieldMeta("criteriaThresholdChange", "String", "Threshold Change", false, "How thresholds were modified", 3),
-            new SomFormFieldMeta("adjustedCriteria", "String", "Adjusted Criteria", false, "Modified pass/fail criteria after adjustment", 4)));
+            new SomFormFieldMeta("adjustedCriteria", "String", "Adjusted Criteria", false, "Modified pass/fail criteria after adjustment", 4, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -73028,7 +73028,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("qualityCategory", "Iso25010Characteristic", "Quality Category", false, "The ISO/IEC 25010:2023 characteristic the criterion assures", 0, java.util.List.of("functionalSuitability", "performanceEfficiency", "compatibility", "interactionCapability", "reliability", "security", "maintainability", "flexibility")),
             new SomFormFieldMeta("checkCategory", "String", "Check Category", false, "Category of check", 1),
-            new SomFormFieldMeta("checkDescription", "String", "Check Description", false, "Detailed description of check", 2)));
+            new SomFormFieldMeta("checkDescription", "String", "Check Description", false, "Detailed description of check", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25040:2011 — each check is categorised and related to a quality category to structure the evaluation"), "connotation", "Categorises a check and relates it to a quality category.")));
         out.add(n);
       }
@@ -74262,7 +74262,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("technicalControls", "String", "Technical Controls", false, "Required technical measures", 0),
             new SomFormFieldMeta("proceduralControls", "String", "Procedural Controls", false, "Required procedures", 1),
             new SomFormFieldMeta("documentationRequired", "String", "Documentation Required", false, "Required documentation", 2),
-            new SomFormFieldMeta("keyRequirements", "String", "Key Requirements", false, "Main requirements to meet", 3)));
+            new SomFormFieldMeta("keyRequirements", "String", "Key Requirements", false, "Main requirements to meet", 3, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("GDPR — data protection regulation", "ISO/IEC 27001 — information security management"), "connotation", "Captures the technical and procedural controls required by a regulation.")));
         out.add(n);
       }
@@ -74470,8 +74470,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("complianceDeadline", "String", "Compliance Deadline", false, "When compliance must be achieved", 3),
             new SomFormFieldMeta("responsibleParty", "String", "Responsible Party", false, "Who is accountable for compliance", 4),
             new SomFormFieldMeta("penaltyForNonCompliance", "String", "Penalty for Non-compliance", false, "Consequences of failing to comply", 5),
-            new SomFormFieldMeta("applicability", "String", "Applicability", false, "Why and how the regulation applies to this project", 6),
-            new SomFormFieldMeta("evidenceRequired", "String", "Evidence Required", false, "Proof needed to demonstrate compliance", 7)));
+            new SomFormFieldMeta("applicability", "String", "Applicability", false, "Why and how the regulation applies to this project", 6, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("evidenceRequired", "String", "Evidence Required", false, "Proof needed to demonstrate compliance", 7, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -74674,7 +74674,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("sectionReference", "String", "Section Reference (chapter, section, or page number)", true, "Locate the section: chapter, clause, or page number.", 0),
             new SomFormFieldMeta("relevance", "String", "Relevance (how this section applies to the project)", false, "Explain how this section applies to the project.", 1),
             new SomFormFieldMeta("complianceRequired", "bool", "Compliance Required (must project comply with this section?)", false, "True if the project must comply with this section.", 2),
-            new SomFormFieldMeta("extractSummary", "String", "Summary / Key Extract (brief summary of applicable content)", false, "Brief summary or key extract of the applicable content.", 3)));
+            new SomFormFieldMeta("extractSummary", "String", "Summary / Key Extract (brief summary of applicable content)", false, "Brief summary or key extract of the applicable content.", 3, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -77568,9 +77568,9 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("totalRequirements", "String", "Total Requirements Expected (estimated count)", false, "The number of requirements (functional, technical, security, organizational). Counted from the requirement lists once they exist; until then an estimate.", 2),
             new SomFormFieldMeta("shouldHaveCount", "String", "Should-Have Requirements (estimated)", false, "The number of Should-Have requirements (functional and organizational, by priority). Counted from the requirement lists once they exist; until then an estimate.", 3),
             new SomFormFieldMeta("couldHaveCount", "String", "Could-Have Requirements (estimated)", false, "The number of Could-Have requirements (functional and organizational, by priority). Counted from the requirement lists once they exist; until then an estimate.", 4),
-            new SomFormFieldMeta("requirementsProcess", "String", "Requirements Process (how requirements are elicited and managed)", false, "How requirements are elicited, analysed, and managed", 5),
-            new SomFormFieldMeta("changeControlProcess", "String", "Change Control Process (how requirement changes are handled)", false, "How requirement changes are proposed, reviewed, and approved", 6),
-            new SomFormFieldMeta("mustHaveCount", "String", "Must-Have Requirements (estimated)", false, "The number of Must-Have requirements (functional and organizational, by priority). Counted from the requirement lists once they exist; until then an estimate.", 7)));
+            new SomFormFieldMeta("requirementsProcess", "String", "Requirements Process (how requirements are elicited and managed)", false, "How requirements are elicited, analysed, and managed", 5, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("changeControlProcess", "String", "Change Control Process (how requirement changes are handled)", false, "How requirement changes are proposed, reviewed, and approved", 6, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("mustHaveCount", "String", "Must-Have Requirements (estimated)", false, "The number of Must-Have requirements (functional and organizational, by priority). Counted from the requirement lists once they exist; until then an estimate.", 7, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -79954,7 +79954,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("category", "String", "Category — Technical, Schedule, Cost, Resource, External, Legal, Organizational", false, "Top-level risk category", 0),
             new SomFormFieldMeta("subcategory", "String", "Subcategory — more specific categorization", false, "More specific categorization within the category", 1),
-            new SomFormFieldMeta("description", "String", "Description — detailed risk event and potential causes", false, "Detailed description of the risk event and its causes", 2)));
+            new SomFormFieldMeta("description", "String", "Description — detailed risk event and potential causes", false, "Detailed description of the risk event and its causes", 2, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -80283,7 +80283,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("adjustmentDescription", "String", "Adjustment Description", false, "Detailed description of what changed", 1),
             new SomFormFieldMeta("mergedWithRoles", "String", "Merged With Roles", false, "If merged, which other roles it combines with", 2),
             new SomFormFieldMeta("splitIntoRoles", "String", "Split Into Roles", false, "If split, names of the resulting roles", 3),
-            new SomFormFieldMeta("affectedResponsibilities", "String", "Affected Responsibilities", false, "Which responsibilities are impacted by this change", 4)));
+            new SomFormFieldMeta("affectedResponsibilities", "String", "Affected Responsibilities", false, "Which responsibilities are impacted by this change", 4, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 21500 — project management (organizational roles & responsibilities)"), "connotation", "The concrete details of a role change: new name, what changed, and which responsibilities, merges, or splits are affected.")));
         out.add(n);
       }
@@ -80321,8 +80321,8 @@ public final class TomSomV0Meta {
         n.docComment = "Risk assessment.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("riskLevel", "ImportanceBand", "Risk Level", false, "Risk introduced by this deviation.", 0, java.util.List.of("critical", "high", "medium", "low")),
-            new SomFormFieldMeta("riskDescription", "String", "Risk Description", false, "What could go wrong due to this adjustment", 1),
-            new SomFormFieldMeta("mitigationMeasures", "String", "Mitigation Measures", false, "How risks from this adjustment are mitigated", 2)));
+            new SomFormFieldMeta("riskDescription", "String", "Risk Description", false, "What could go wrong due to this adjustment", 1, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("mitigationMeasures", "String", "Mitigation Measures", false, "How risks from this adjustment are mitigated", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 21500 — project management (risk & governance of role deviations)"), "connotation", "The risk introduced by this role deviation and how it is mitigated.")));
         out.add(n);
       }
@@ -81595,7 +81595,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("bandwidthRequirements", "String", "Bandwidth Requirements", false, "Minimum bandwidth", 0),
             new SomFormFieldMeta("latencyRequirements", "String", "Latency Requirements", false, "Maximum acceptable latency", 1),
-            new SomFormFieldMeta("networkRequirements", "String", "Network Requirements", false, "Connectivity requirements", 2)));
+            new SomFormFieldMeta("networkRequirements", "String", "Network Requirements", false, "Connectivity requirements", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Twelve-Factor App — cloud-native methodology"), "connotation", "The connectivity, bandwidth and latency requirements of the runtime environment.")));
         out.add(n);
       }
@@ -81607,7 +81607,7 @@ public final class TomSomV0Meta {
         n.docComment = "Environment variables.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("optionalEnvVariables", "String", "Optional Environment Variables", false, "Optional configuration variables", 0),
-            new SomFormFieldMeta("requiredEnvVariables", "String", "Required Environment Variables", false, "Mandatory environment variables", 1)));
+            new SomFormFieldMeta("requiredEnvVariables", "String", "Required Environment Variables", false, "Mandatory environment variables", 1, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Twelve-Factor App — cloud-native methodology"), "connotation", "The required and optional environment variables that configure the runtime environment.")));
         out.add(n);
       }
@@ -81720,7 +81720,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("expectedLoad", "String", "Expected Load", false, "Expected concurrent users/requests", 0),
             new SomFormFieldMeta("growthProjection", "String", "Growth Projection", false, "Expected growth over time", 1),
-            new SomFormFieldMeta("peakLoad", "String", "Peak Load", false, "Peak load expectations", 2)));
+            new SomFormFieldMeta("peakLoad", "String", "Peak Load", false, "Peak load expectations", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010 — architectural quality attributes", "ISO/IEC/IEEE 42010 — architecture description"), "connotation", "The expected load, peak load, and growth projections used for capacity planning.")));
         out.add(n);
       }
@@ -82314,7 +82314,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 1;
         n.docComment = "Cron trigger — a promoted `@OneOf` case.\n\nPresent only for the `cron` kind: a recurring clock expression, taken\nverbatim. It is a single field because that is exactly what the trigger\nis — the zone it is read in is the system-wide one stated on\n[BatchJobManagement], and catch-up behaviour after a missed window is a\nscheduler setting rather than a specification statement.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("cronExpression", "String", "Recurrence Expression", true, "The recurrence expression, verbatim (e.g. 0 2 * * * for daily at 02:00)", 0)));
+            new SomFormFieldMeta("cronExpression", "String", "Recurrence Expression", true, "The recurrence expression, verbatim (e.g. 0 2 * * * for daily at 02:00)", 0, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("POSIX crontab — the recurring-schedule expression convention", "Google SRE — eliminating toil and operational procedures"), "connotation", "The recurring clock expression that starts this job.")), new SomMetaExtra("Case", metaArgs("value", "ScheduledJobTrigger.cron")));
         out.add(n);
       }
@@ -82883,7 +82883,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("category", "String", "Category (Feature, Process, User Group, System, Data, Geography, etc.)", false, "Feature, Process, User Group, System, Data, Geography, etc.", 0),
             new SomFormFieldMeta("rationale", "String", "Rationale (why included or excluded)", false, "Why this item is included or excluded", 1),
             new SomFormFieldMeta("relatedRequirements", "String", "Related Requirements (requirement IDs if applicable)", false, "Requirement ids related to this item, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 2, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId")),
-            new SomFormFieldMeta("itemDescription", "String", "Item Description", true, "Describe the feature, process, or system in scope or excluded", 3)));
+            new SomFormFieldMeta("itemDescription", "String", "Item Description", true, "Describe the feature, process, or system in scope or excluded", 3, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -82917,7 +82917,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("actionType", "String", "Action Type", false, "Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh", 1),
             new SomFormFieldMeta("owningController", "String", "Owning Controller", true, "The action controller this action belongs to — the source of the controller class name, e.g. Order", 2),
             new SomFormFieldMeta("contextType", "String", "Context Type", true, "The view-model type the action requires as its context, e.g. OrderViewModel", 3),
-            new SomFormFieldMeta("description", "String", "Description", false, "What the action does — the stated behavior of an action no scenario step contributes to", 4)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What the action does — the stated behavior of an action no scenario step contributes to", 4, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -83360,7 +83360,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("styleVariant", "String", "Style Variant", false, "Primary/Secondary/Danger/Subtle/Custom", 1),
             new SomFormFieldMeta("dataBinding", "String", "Data Binding", false, "Path to bound data field, e.g., order.customerName", 2),
             new SomFormFieldMeta("defaultValue", "String", "Default Value", false, "Default value or expression", 3),
-            new SomFormFieldMeta("notes", "String", "Design Notes", false, "Design rationale or open questions", 4)));
+            new SomFormFieldMeta("notes", "String", "Design Notes", false, "Design rationale or open questions", 4, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-125:2017 — visual presentation attributes such as style and colour of information", "ISO 9241-112:2017 — coding of information through visual style variants"), "connotation", "The styling and data-binding attributes that govern how a screen element appears and connects to data.")));
         out.add(n);
       }
@@ -83638,7 +83638,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("purpose", "String", "Purpose", false, "Business purpose — what the user accomplishes here", 0)));
+            new SomFormFieldMeta("purpose", "String", "Purpose", false, "Business purpose — what the user accomplishes here", 0, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -83691,7 +83691,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("helpTopicId", "String", "Help Topic ID (external)", false, "Topic id in the documentation system — owned by the documentation process, not declared in this blueprint", 0),
             new SomFormFieldMeta("pageTitleResource", "String", "Page Title Resource", false, "Message key (MSGKR registry) for the screen title text", 1, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("pageIconResource", "String", "Page Icon Resource", false, "Resource key for the screen icon", 2),
-            new SomFormFieldMeta("layout", "String", "Layout", false, "Layout description, e.g., Responsive grid — 3 col desktop, 1 col mobile", 3)));
+            new SomFormFieldMeta("layout", "String", "Layout", false, "Layout description, e.g., Responsive grid — 3 col desktop, 1 col mobile", 3, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-112:2017 — presentation of screen titles, icons, and identifying information", "ISO 9241-125:2017 — visual presentation and layout of the screen"), "connotation", "The presentation metadata such as title, icon, and layout that defines how a screen appears.")));
         out.add(n);
       }
@@ -84396,7 +84396,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sectionId", "String", "Section ID", true, "The symbol the built screen carries for this section — unique within the screen, e.g. header, filter-bar, main-content", 0),
             new SomFormFieldMeta("sectionType", "String", "Section Type", false, "Header/Toolbar/Filter-Bar/Content-Primary/Content-Secondary/Sidebar/Footer/Tab-Panel/Accordion-Panel/Drawer/Action-Bar/Form-Group", 1),
-            new SomFormFieldMeta("purpose", "String", "Purpose", false, "What this zone contains", 2)));
+            new SomFormFieldMeta("purpose", "String", "Purpose", false, "What this zone contains", 2, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -84546,7 +84546,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("iconResource", "String", "Icon Resource", false, "Resource key for state icon", 4),
             new SomFormFieldMeta("illustrationResource", "String", "Illustration Resource", false, "Resource key for state illustration/image", 5),
             new SomFormFieldMeta("primaryActionTarget", "String", "Primary Action Target", false, "Action or navigation on recovery", 6),
-            new SomFormFieldMeta("description", "String", "Description", false, "When this state occurs", 7)));
+            new SomFormFieldMeta("description", "String", "Description", false, "When this state occurs", 7, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -84775,9 +84775,9 @@ public final class TomSomV0Meta {
         n.docComment = "Authentication controls.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("mfaRequirement", "String", "MFA Requirement", false, "All users, privileged users, optional", 0),
-            new SomFormFieldMeta("authenticationMethod", "String", "Authentication Method", false, "OAuth2, SAML, OIDC, MFA", 1),
-            new SomFormFieldMeta("passwordPolicy", "String", "Password Policy", false, "Complexity, rotation, history", 2),
-            new SomFormFieldMeta("sessionManagement", "String", "Session Management", false, "Timeout, concurrent sessions", 3)));
+            new SomFormFieldMeta("authenticationMethod", "String", "Authentication Method", false, "OAuth2, SAML, OIDC, MFA", 1, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("passwordPolicy", "String", "Password Policy", false, "Complexity, rotation, history", 2, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("sessionManagement", "String", "Session Management", false, "Timeout, concurrent sessions", 3, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010:2023 — authenticity is the degree to which the identity of a subject or resource can be proved to be the one claimed"), "connotation", "This section captures authentication controls and proof of identity.")));
         out.add(n);
       }
@@ -84790,7 +84790,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("authorizationModel", "String", "Authorization Model", false, "RBAC, ABAC, ACL", 0),
             new SomFormFieldMeta("authorizationCoverage", "String", "Authorization Coverage", false, "All resources, sensitive resources", 1),
-            new SomFormFieldMeta("privilegeEscalationPrevention", "String", "Privilege Escalation", false, "Controls to prevent escalation", 2)));
+            new SomFormFieldMeta("privilegeEscalationPrevention", "String", "Privilege Escalation", false, "Controls to prevent escalation", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010:2023 — confidentiality is the degree to which a product ensures that data are accessible only to those authorized to have access"), "connotation", "This section captures authorization controls and confidentiality of access.")));
         out.add(n);
       }
@@ -85318,8 +85318,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 1;
         n.docComment = "The security posture the system is built to, and the compliance regime\nthat audits it.\n\nSecurity in ISO/IEC 25010:2023 is the degree to which data is reachable\nonly by those whose authorization matches. The approach field states the\nmodel — least privilege, defence in depth, zero trust — because controls\nchosen without one are a list rather than a design. The compliance target\nnames the external regime, which fixes the *evidence* that must exist as\nwell as the controls themselves. The operational side of security —\nmonitoring, incident response, patching — is a sibling subsection, not\nthis band.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("securityApproach", "String", "Security Approach", false, "Zero-trust, defence-in-depth, least-privilege", 0),
-            new SomFormFieldMeta("securityComplianceTarget", "String", "Security Compliance Target", false, "ISO 27001, SOC 2, GDPR, sector-specific", 1)));
+            new SomFormFieldMeta("securityApproach", "String", "Security Approach", false, "Zero-trust, defence-in-depth, least-privilege", 0, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("securityComplianceTarget", "String", "Security Compliance Target", false, "ISO 27001, SOC 2, GDPR, sector-specific", 1, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -86003,7 +86003,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("description", "String", "Description (The system shall... detailed statement)", true, "Full requirement statement, e.g., The system shall encrypt data at rest", 0)));
+            new SomFormFieldMeta("description", "String", "Description (The system shall... detailed statement)", true, "Full requirement statement, e.g., The system shall encrypt data at rest", 0, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -86019,7 +86019,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("rationale", "String", "Rationale", false, "Why this security requirement is needed", 3),
             new SomFormFieldMeta("threatMitigated", "String", "Threat Mitigated (what attack is prevented)", false, "Attack or risk this requirement prevents", 4),
             new SomFormFieldMeta("dataClassification", "String", "Data Classification Affected (Public, Internal, Confidential, Restricted, PII, PHI)", false, "Sensitivity of data the requirement protects", 5),
-            new SomFormFieldMeta("source", "String", "Source", true, "Stakeholder, standard, or document that originated it", 6)));
+            new SomFormFieldMeta("source", "String", "Source", true, "Stakeholder, standard, or document that originated it", 6, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 27001 Annex A — security controls", "ISO/IEC/IEEE 29148 §9 — security requirements"), "connotation", "The classification of a security requirement — its security category, priority, source, and the threat and data classification it concerns.")));
         out.add(n);
       }
@@ -86986,7 +86986,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("descriptionKey", "String", "Description Copy Key", false, "MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)", 1, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("primaryDataEntity", "String", "Primary Data Entity", false, "DataEntityEntry.entityName of the entity this operation primarily writes — the service unit that owns that entity owns this operation (ownership is derived, never listed by hand)", 2, java.util.List.of(), java.util.List.of("DAENT.entityName")),
             new SomFormFieldMeta("errorCodes", "String", "Error Codes", false, "Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope", 3, java.util.List.of(), java.util.List.of("ERCEN.code")),
-            new SomFormFieldMeta("purpose", "String", "Purpose", false, "What the operation does, from the caller's point of view", 4)));
+            new SomFormFieldMeta("purpose", "String", "Purpose", false, "What the operation does, from the caller's point of view", 4, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       out.add(metaCx("AuthorizationRequirementSpec", s, AuthorizationRequirementSpecNav::metaChildren, (r, c) -> {
@@ -89726,7 +89726,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("purpose", "String", "Purpose", true, "Primary responsibility of this layer", 0),
             new SomFormFieldMeta("prohibitions", "String", "Prohibitions", false, "What this layer must NOT do", 1),
-            new SomFormFieldMeta("responsibilities", "String", "Key Responsibilities", false, "Specific functions this layer handles", 2)));
+            new SomFormFieldMeta("responsibilities", "String", "Key Responsibilities", false, "Specific functions this layer handles", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Clean Architecture — dependency rule / layering", "ISO/IEC/IEEE 42010 — architecture description"), "connotation", "Defines the purpose, key responsibilities, and prohibitions of a software layer.")));
         out.add(n);
       }
@@ -90372,7 +90372,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("stageCodename", "String", "Codename", false, "Optional internal codename, e.g. Atlas, Phoenix", 0),
             new SomFormFieldMeta("businessObjective", "String", "Business Objective", false, "Primary business outcome this stage achieves", 1),
             new SomFormFieldMeta("stageType", "String", "Stage Type", false, "Foundation / Incremental / Enhancement / Optimization / Migration", 2),
-            new SomFormFieldMeta("stageDescription", "String", "Description", false, "Brief description of what this stage delivers", 3)));
+            new SomFormFieldMeta("stageDescription", "String", "Description", false, "Brief description of what this stage delivers", 3, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -90407,7 +90407,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("featureCount", "String", "Feature Count", false, "Number of features or user stories in this stage", 4),
             new SomFormFieldMeta("storyPointEstimate", "String", "Story Point Estimate", false, "Total estimated effort in story points", 5),
             new SomFormFieldMeta("technicalDebtItems", "String", "Technical Debt Items", false, "Known technical debt to be addressed", 6),
-            new SomFormFieldMeta("scopeSummary", "String", "Scope Summary", false, "High-level summary of features included in this stage", 7)));
+            new SomFormFieldMeta("scopeSummary", "String", "Scope Summary", false, "High-level summary of features included in this stage", 7, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -90458,7 +90458,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("qualityGates", "String", "Quality Gates", false, "Formal checkpoints within the stage", 2),
             new SomFormFieldMeta("testingStrategy", "String", "Testing Strategy", false, "Testing approach for this stage", 3),
             new SomFormFieldMeta("toleranceLevels", "String", "Tolerance Levels", false, "PRINCE2 tolerances — time, cost, scope, quality", 4),
-            new SomFormFieldMeta("exitCriteria", "String", "Exit Criteria", false, "Conditions that must be met for stage completion", 5)));
+            new SomFormFieldMeta("exitCriteria", "String", "Exit Criteria", false, "Conditions that must be met for stage completion", 5, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -91882,7 +91882,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("externalDependencies", "String", "External Dependencies", false, "Dependencies on external parties", 0),
             new SomFormFieldMeta("internalDependencies", "String", "Internal Dependencies", false, "Dependencies on internal projects or teams", 1),
             new SomFormFieldMeta("dependencyRisks", "String", "Dependency Risks", false, "Risks associated with dependencies", 2),
-            new SomFormFieldMeta("criticalPrerequisites", "String", "Critical Prerequisites", false, "Prerequisites before staged deployment can begin", 3)));
+            new SomFormFieldMeta("criticalPrerequisites", "String", "Critical Prerequisites", false, "Prerequisites before staged deployment can begin", 3, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -91961,7 +91961,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("approachDescription", "String", "Approach Description", false, "Brief description of how the staging approach will be applied", 0),
             new SomFormFieldMeta("selectionCriteria", "String", "Selection Criteria", false, "Criteria used to select this approach", 1),
-            new SomFormFieldMeta("alternativesConsidered", "String", "Alternatives Considered", false, "Other staging approaches evaluated and why rejected", 2)));
+            new SomFormFieldMeta("alternativesConsidered", "String", "Alternatives Considered", false, "Other staging approaches evaluated and why rejected", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("PMBOK Guide 7th edition 2021 — the PMI guidance covers selection and tailoring of the delivery approach for the project", "ISO 21502:2020 — the guidance on project management describes choosing a life-cycle approach and evaluating alternatives"), "connotation", "Captures the selected staging approach, the alternatives considered, and the criteria used to make the selection.")));
         out.add(n);
       }
@@ -92277,7 +92277,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stakeholderRef", "String", "Register Entry", false, "The stakeholder register entry this stakeholder is — a section id (STKRE-STAK-…); role, interest, influence and engagement are held there", 0, java.util.List.of(), java.util.List.of("STKRE.@sectionId")),
             new SomFormFieldMeta("stakeholderType", "String", "Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.)", false, "Repeated from the register entry stakeholderRef names, which holds it", 1),
-            new SomFormFieldMeta("expectedBenefits", "String", "Expected Benefits (the scope-framing value this group gains from the system)", false, "The scope-framing value this group gains from the system", 2)));
+            new SomFormFieldMeta("expectedBenefits", "String", "Expected Benefits (the scope-framing value this group gains from the system)", false, "The scope-framing value this group gains from the system", 2, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -92311,8 +92311,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("influence", "ImportanceBand", "Influence", false, "Qualitative influence band.", 1, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("concerns", "String", "Concerns", false, null, 2),
             new SomFormFieldMeta("engagementStrategy", "String", "Engagement Strategy", false, null, 3),
-            new SomFormFieldMeta("role", "String", "Role", true, null, 4),
-            new SomFormFieldMeta("interest", "String", "Interest (what they care about)", false, null, 5)));
+            new SomFormFieldMeta("role", "String", "Role", true, null, 4, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("interest", "String", "Interest (what they care about)", false, null, 5, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -93249,7 +93249,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("complianceContribution", "String", "Compliance Contribution (regulatory or policy requirements met)", false, "Regulatory or policy requirements met", 5),
             new SomFormFieldMeta("marketPositioning", "String", "Market Positioning (how this affects competitive position)", false, "How this affects competitive market position", 6),
             new SomFormFieldMeta("strategicTimingRationale", "String", "Strategic Timing (why this is the right time for this initiative)", false, "Why now is the right time for this initiative", 7),
-            new SomFormFieldMeta("relatedInitiatives", "String", "Related Initiatives (other projects or programs this connects to)", false, "Other projects or programs this connects to", 8)));
+            new SomFormFieldMeta("relatedInitiatives", "String", "Related Initiatives (other projects or programs this connects to)", false, "Other projects or programs this connects to", 8, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -93327,7 +93327,7 @@ public final class TomSomV0Meta {
         n.docComment = "Description and objectives.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("objective", "String", "Objective", false, "What this sub-stage aims to achieve", 0),
-            new SomFormFieldMeta("description", "String", "Description", false, "Brief description of this sub-stage or milestone", 1)));
+            new SomFormFieldMeta("description", "String", "Description", false, "Brief description of this sub-stage or milestone", 1, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -95220,12 +95220,12 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("dataCharacteristics", "String", "Key data handling characteristics", false, "e.g., Real-time processing, batch analytics, ACID transactions", 5),
             new SomFormFieldMeta("availabilityRequirement", "String", "Target availability level", false, "99.999% (Five 9s), 99.99% (Four 9s), 99.9% (Three 9s), 99%, Business Hours Only, Best Effort", 6),
             new SomFormFieldMeta("scalabilityModel", "String", "How the system scales", false, "Horizontal Auto-scaling, Vertical Scaling, Manual Scaling, Fixed Capacity, Edge Distribution, Federation", 7),
-            new SomFormFieldMeta("architectureStyle", "String", "Primary architectural pattern", false, "Microservices, Monolithic, Serverless, Event-driven, Layered, Modular Monolith, Service-oriented, Peer-to-peer, Client-server", 8),
-            new SomFormFieldMeta("interfaceTypes", "String", "Types of user and system interfaces", false, "Web UI, Mobile App, Desktop App, REST API, GraphQL API, gRPC API, CLI, Voice Interface, Chat/Bot Interface, Hardware", 9),
-            new SomFormFieldMeta("securityClassification", "String", "Overall security posture requirement", false, "Public/Open, Internal Use, Confidential, Highly Confidential, Regulated (HIPAA/GDPR/SOX), Government/Classified", 10),
-            new SomFormFieldMeta("expectedUserLoad", "String", "Anticipated concurrent user volume", false, "Single User, Team (<100), Enterprise (100-1000), Large Enterprise (1000-10000), Consumer (10000+)", 11),
-            new SomFormFieldMeta("keyDifferentiators", "String", "What makes this system unique", false, "e.g., AI-powered recommendations, real-time collaboration", 12),
-            new SomFormFieldMeta("criticalCapabilities", "String", "Most important system capabilities", false, "e.g., Multi-tenant data isolation, offline-first sync", 13)));
+            new SomFormFieldMeta("architectureStyle", "String", "Primary architectural pattern", false, "Microservices, Monolithic, Serverless, Event-driven, Layered, Modular Monolith, Service-oriented, Peer-to-peer, Client-server", 8, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("interfaceTypes", "String", "Types of user and system interfaces", false, "Web UI, Mobile App, Desktop App, REST API, GraphQL API, gRPC API, CLI, Voice Interface, Chat/Bot Interface, Hardware", 9, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("securityClassification", "String", "Overall security posture requirement", false, "Public/Open, Internal Use, Confidential, Highly Confidential, Regulated (HIPAA/GDPR/SOX), Government/Classified", 10, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("expectedUserLoad", "String", "Anticipated concurrent user volume", false, "Single User, Team (<100), Enterprise (100-1000), Large Enterprise (1000-10000), Consumer (10000+)", 11, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("keyDifferentiators", "String", "What makes this system unique", false, "e.g., AI-powered recommendations, real-time collaboration", 12, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("criticalCapabilities", "String", "Most important system capabilities", false, "e.g., Multi-tenant data isolation, offline-first sync", 13, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148 §6 — system overview"), "connotation", "A structured at-a-glance classification of the system — its function, domain, architecture, deployment, and key characteristics.")));
         out.add(n);
       }
@@ -96433,8 +96433,8 @@ public final class TomSomV0Meta {
         n.docComment = "The project's quality stance: the philosophy it works to, the standards it\nclaims to meet, and the single role accountable for the outcome.\n\nDistinct from [governance], which follows it and holds the *machinery* —\nreview board, meeting cadence, escalation path. This band is the position;\nthat one is how the position is held week to week. The accountable role is\nwhat makes the rest actionable: a quality goal with no named owner is\nreported on and never decided.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("qualityOwner", "String", "Quality Owner", false, "Role accountable for quality outcomes", 0),
-            new SomFormFieldMeta("qualityApproach", "String", "Quality Approach", false, "Overall quality philosophy: proactive, reactive, hybrid", 1),
-            new SomFormFieldMeta("qualityStandards", "String", "Applicable Quality Standards", false, "ISO 25010, ISO 9001, CMMI, industry-specific", 2)));
+            new SomFormFieldMeta("qualityApproach", "String", "Quality Approach", false, "Overall quality philosophy: proactive, reactive, hybrid", 1, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("qualityStandards", "String", "Applicable Quality Standards", false, "ISO 25010, ISO 9001, CMMI, industry-specific", 2, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -97094,8 +97094,8 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("totalStagesPlanned", "String", "Total Stages Planned", false, "Number of major stages in the rollout plan", 0),
-            new SomFormFieldMeta("stagingPhilosophy", "String", "Overall Staging Philosophy", false, "BigBang / PhasedByFunction / PhasedByGeography / PhasedByUserGroup / Incremental / Hybrid", 1),
-            new SomFormFieldMeta("parallelismApproach", "String", "Parallelism Approach", false, "Sequential / PartialOverlap / FullyParallel — whether stages can overlap in execution", 2)));
+            new SomFormFieldMeta("stagingPhilosophy", "String", "Overall Staging Philosophy", false, "BigBang / PhasedByFunction / PhasedByGeography / PhasedByUserGroup / Incremental / Hybrid", 1, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("parallelismApproach", "String", "Parallelism Approach", false, "Sequential / PartialOverlap / FullyParallel — whether stages can overlap in execution", 2, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -97119,8 +97119,8 @@ public final class TomSomV0Meta {
         n.docComment = "Dependencies, risks, and compliance constraints across stages.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("crossStageRiskSummary", "String", "Cross-Stage Risk Summary", false, "Top risks that span multiple stages or affect staging order", 0),
-            new SomFormFieldMeta("crossStageDependencySummary", "String", "Cross-Stage Dependency Summary", false, "Key dependencies between stages that affect sequencing", 1),
-            new SomFormFieldMeta("regulatoryComplianceConsiderations", "String", "Regulatory/Compliance Considerations", false, "Regulatory requirements affecting staging order or timing — e.g. SOX, GDPR data readiness, PCI-DSS", 2)));
+            new SomFormFieldMeta("crossStageDependencySummary", "String", "Cross-Stage Dependency Summary", false, "Key dependencies between stages that affect sequencing", 1, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("regulatoryComplianceConsiderations", "String", "Regulatory/Compliance Considerations", false, "Regulatory requirements affecting staging order or timing — e.g. SOX, GDPR data readiness, PCI-DSS", 2, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -97365,7 +97365,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("overallComplexity", "String", "Overall Complexity", false, "Low / Medium / High / Very High — based on scope and integrations", 0),
             new SomFormFieldMeta("keyAssumptions", "String", "Key Assumptions Summary", false, "Brief list of critical assumptions", 1),
-            new SomFormFieldMeta("keyRisks", "String", "Key Risks Summary", false, "Brief list of top 3 risks", 2)));
+            new SomFormFieldMeta("keyRisks", "String", "Key Risks Summary", false, "Brief list of top 3 risks", 2, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -98352,7 +98352,7 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("platformCategory", "String", "Category", false, "Operating System, Runtime Environment, Container Platform, Cloud Platform", 0),
-            new SomFormFieldMeta("platformType", "String", "Type", false, "Server, Desktop, Mobile, IoT", 1)));
+            new SomFormFieldMeta("platformType", "String", "Type", false, "Server, Desktop, Mobile, IoT", 1, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -98389,7 +98389,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("minimumMemory", "String", "Minimum Memory", false, "Minimum RAM requirement", 0),
             new SomFormFieldMeta("minimumStorage", "String", "Minimum Storage", false, "Minimum disk space", 1),
-            new SomFormFieldMeta("requiredFeatures", "String", "Required Features", false, "Specific OS features or capabilities needed", 2)));
+            new SomFormFieldMeta("requiredFeatures", "String", "Required Features", false, "Specific OS features or capabilities needed", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010 — portability/compatibility"), "connotation", "The minimum memory, storage and OS features a target platform must provide.")));
         out.add(n);
       }
@@ -99473,7 +99473,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("measurementTool", "String", "Measurement Tool (specific tool or platform)", false, "Specific tool or platform used to measure", 3),
             new SomFormFieldMeta("measurementEnvironment", "String", "Measurement Environment (production, staging, load test)", false, "Production, staging, or load-test environment", 4),
             new SomFormFieldMeta("verificationPoint", "String", "Verification Point (when/how verified: unit test, integration, acceptance, production monitoring)", false, "When/how verified: unit, integration, acceptance, production monitoring", 5),
-            new SomFormFieldMeta("targetValue", "String", "Target Value", true, "Target value to be achieved", 6)));
+            new SomFormFieldMeta("targetValue", "String", "Target Value", true, "Target value to be achieved", 6, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010 — quality measures", "ISO/IEC 25023 — quality measurement"), "connotation", "How achievement of the technical goal is measured: the success metric, baseline and target values, measurement method, tool, environment, and verification point.")));
         out.add(n);
       }
@@ -99952,8 +99952,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("category", "String", "Category (Performance, Scalability, Availability, Reliability, Security, Usability, Accessibility, Maintainability, Portability, Interoperability, Compliance, Capacity, Recoverability)", true, "ISO 25010 quality characteristic the requirement addresses", 1),
             new SomFormFieldMeta("subcategory", "String", "Subcategory (specific aspect within category)", false, "More specific aspect, e.g., response time within Performance", 2),
             new SomFormFieldMeta("rationale", "String", "Rationale", false, "Why this requirement is needed", 3),
-            new SomFormFieldMeta("description", "String", "Description (The system shall... detailed statement)", true, "Full requirement statement, e.g., The system shall respond within 100ms", 4),
-            new SomFormFieldMeta("source", "String", "Source (who requested)", true, "Stakeholder, document, or standard that originated it", 5)));
+            new SomFormFieldMeta("description", "String", "Description (The system shall... detailed statement)", true, "Full requirement statement, e.g., The system shall respond within 100ms", 4, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("source", "String", "Source (who requested)", true, "Stakeholder, document, or standard that originated it", 5, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148 §9.6 — performance & quality requirements", "ISO/IEC 25010 — product quality"), "connotation", "The descriptive core of a technical requirement — its statement, quality category, priority, and source.")));
         out.add(n);
       }
@@ -100119,7 +100119,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("highCount", "String", "High (count)", false, "Number of requirements at High priority", 2),
             new SomFormFieldMeta("mediumCount", "String", "Medium (count)", false, "Number of requirements at Medium priority", 3),
             new SomFormFieldMeta("lowCount", "String", "Low (count)", false, "Number of requirements at Low priority", 4),
-            new SomFormFieldMeta("architectureDrivers", "String", "Architecture Drivers (top constraints shaping design)", false, "e.g., 99.99% availability, sub-100ms latency, 10k concurrent users", 5)));
+            new SomFormFieldMeta("architectureDrivers", "String", "Architecture Drivers (top constraints shaping design)", false, "e.g., 99.99% availability, sub-100ms latency, 10k concurrent users", 5, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -102221,7 +102221,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("toolStrategyOverview", "String", "Tool Strategy Overview", false, "High-level approach to tooling — standardisation goals, preferred vendors, stack alignment", 0),
             new SomFormFieldMeta("toolGovernancePolicy", "String", "Tool Governance Policy", false, "Who decides on tool adoption, how exceptions are handled, review cadence", 1),
             new SomFormFieldMeta("toolApprovalProcess", "String", "Tool Approval Process", false, "Workflow for requesting, evaluating, and approving new tools", 2),
-            new SomFormFieldMeta("standardToolStackDescription", "String", "Standard Tool Stack Description", false, "Summary of the baseline tool stack all teams are expected to use", 3)));
+            new SomFormFieldMeta("standardToolStackDescription", "String", "Standard Tool Stack Description", false, "Summary of the baseline tool stack all teams are expected to use", 3, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -104771,7 +104771,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("componentsCrossing", "String", "Components Crossing (which parts of the system cross this boundary)", false, "Which parts of the system cross this boundary", 2),
             new SomFormFieldMeta("trustLevel", "String", "Trust Level (Untrusted, Semi-trusted, Trusted, Highly Trusted)", false, "The trust level on the other side of this boundary", 3),
             new SomFormFieldMeta("complianceImplications", "String", "Compliance Implications (regulatory requirements for crossing)", false, "Regulatory requirements for crossing this boundary", 4),
-            new SomFormFieldMeta("protectionMechanisms", "String", "Protection Mechanisms (firewall, encryption, authentication, etc.)", false, "Mechanisms protecting this boundary", 5)));
+            new SomFormFieldMeta("protectionMechanisms", "String", "Protection Mechanisms (firewall, encryption, authentication, etc.)", false, "Mechanisms protecting this boundary", 5, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -106822,7 +106822,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("accessLevel", "String", "Access Level", false, "Typical access level for this category.", 0),
             new SomFormFieldMeta("estimatedCount", "String", "Estimated Count", false, "Estimated number of users in this category.", 1),
-            new SomFormFieldMeta("description", "String", "Short description", false, "Brief description of this category.", 2)));
+            new SomFormFieldMeta("description", "String", "Short description", false, "Brief description of this category.", 2, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       return out;
@@ -106853,7 +106853,7 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("userType", "String", "User Type (Internal, External, Partner, Customer, Administrator, etc.)", true, "Internal / External / Partner / Customer / Administrator", 0),
-            new SomFormFieldMeta("description", "String", "Description (brief summary of this user type)", true, "One- or two-sentence summary of this user type", 1)));
+            new SomFormFieldMeta("description", "String", "Description (brief summary of this user type)", true, "One- or two-sentence summary of this user type", 1, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -107726,7 +107726,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("fromState", "String", "From State", true, "Source lifecycle state", 0),
             new SomFormFieldMeta("toState", "String", "To State", true, "Target lifecycle state", 1),
             new SomFormFieldMeta("triggerConditions", "String", "Trigger Conditions", false, "Pre-conditions that must be met for this transition", 2),
-            new SomFormFieldMeta("trigger", "String", "Trigger", false, "UserRequest | AdminAction | SystemEvent | ScheduledJob", 3)));
+            new SomFormFieldMeta("trigger", "String", "Trigger", false, "UserRequest | AdminAction | SystemEvent | ScheduledJob", 3, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {
@@ -107751,7 +107751,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("notificationRecipients", "String", "Notification Recipients", false, "Who is notified (user, admin, manager)", 0),
             new SomFormFieldMeta("notificationChannels", "String", "Notification Channels", false, "Email | SMS | InApp | Webhook", 1),
-            new SomFormFieldMeta("sideEffects", "String", "Side Effects", false, "Actions performed on transition (revoke tokens, send email, deprovision)", 2)));
+            new SomFormFieldMeta("sideEffects", "String", "Side Effects", false, "Actions performed on transition (revoke tokens, send email, deprovision)", 2, java.util.List.of(), java.util.List.of(), false, true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 27001:2022 — control A.5.18 access rights", "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning"), "connotation", "Defines the side effects performed and the notifications sent when a lifecycle transition occurs.")));
         out.add(n);
       }
@@ -109040,8 +109040,8 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("valueStatement", "String", "Value Statement (concise statement of value delivered)", true, "Concise statement of the value the system delivers", 0),
             new SomFormFieldMeta("qualitativeBenefits", "String", "Qualitative Benefits (non-quantifiable but important benefits)", false, "Non-quantifiable but important benefits", 1),
-            new SomFormFieldMeta("primaryBenefits", "String", "Primary Benefits (top 3-5 benefits in priority order)", false, "Top 3-5 benefits in priority order", 2),
-            new SomFormFieldMeta("quantifiableBenefits", "String", "Quantifiable Benefits (measurable improvements with targets)", false, "Measurable improvements with concrete targets", 3)));
+            new SomFormFieldMeta("primaryBenefits", "String", "Primary Benefits (top 3-5 benefits in priority order)", false, "Top 3-5 benefits in priority order", 2, java.util.List.of(), java.util.List.of(), false, true),
+            new SomFormFieldMeta("quantifiableBenefits", "String", "Quantifiable Benefits (measurable improvements with targets)", false, "Measurable improvements with concrete targets", 3, java.util.List.of(), java.util.List.of(), false, true)));
         out.add(n);
       }
       {

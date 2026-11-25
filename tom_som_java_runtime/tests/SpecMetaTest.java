@@ -10,6 +10,7 @@ import tom_som_runtime.SomMetaExtra;
 import tom_som_runtime.SomMetaKind;
 import tom_som_runtime.SomMetaNode;
 import tom_som_runtime.SomMetaTree;
+import tom_som_runtime.SpecMetaDiff;
 
 /**
  * Metadata-core tests — a port of
@@ -486,7 +487,37 @@ public final class SpecMetaTest {
     check("itemPath.nestedList", itemPathThrows(nested, 1), "");
   }
 
+  // The form-field flags: `multiParagraph` (and `code`) default to false, are
+  // carried as given, and the meta diff reports two trees that differ only in
+  // one of them (SOM §7.1, §11.4).
+  private static SomMetaNode flagForm(boolean multiParagraph, boolean code) {
+    SomMetaNode n = node("Owner", "details", SomMetaKind.FORM, "Details");
+    n.sectionId = "DET";
+    n.form =
+        new SomFormMeta(
+            List.of(
+                new SomFormFieldMeta(
+                    "notes", "String", null, false, null, 0, List.of(), List.of(), code,
+                    multiParagraph)));
+    return n;
+  }
+
+  private static void metaTestFormFieldFlags() {
+    SomFormFieldMeta plain = new SomFormFieldMeta("x", "String", null, false, null, 0);
+    check("flags.multiParagraph.default", !plain.multiParagraph, "");
+    check("flags.code.default", !plain.code, "");
+    check("flags.multiParagraph.carried",
+        flagForm(true, false).form.fields.get(0).multiParagraph, "");
+    check("flags.same",
+        SpecMetaDiff.somMetaNodeDiff(flagForm(true, false), flagForm(true, false)).isEmpty(), "");
+    String mp = SpecMetaDiff.somMetaNodeDiff(flagForm(true, false), flagForm(false, false));
+    check("flags.multiParagraph.diff", mp.contains("form field notes differs"), mp);
+    String code = SpecMetaDiff.somMetaNodeDiff(flagForm(false, true), flagForm(false, false));
+    check("flags.code.diff", code.contains("form field notes differs"), code);
+  }
+
   public static void main(String[] args) {
+    metaTestFormFieldFlags();
     metaTestWiring();
     metaTestMetadataSlots();
     metaTestById();

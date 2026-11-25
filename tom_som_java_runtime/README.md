@@ -96,10 +96,11 @@ install / JDK-only `build_jar.sh` routes and how to pin.
 | `SpecAnswers`, `SpecAnswerExtract`, `SpecAnswerEntry` | A review round's answers (SOM §11.9.7): `extractAnswers` and `renderAnswers` (`answers.md`). |
 | `SomMetaTree`, `SomMetaNode`, `SomMetaKind`, … | The metadata tree the YAML codec and the facade navigate by. |
 | `SomMetaBridge` | `buildSomMetaTree` — the metadata tree of a model, for one root or all. |
-| `SpecMetaDiff` | `somMetaNodeDiff` — the first difference between two metadata trees. |
+| `SpecMetaDiff` | `somMetaNodeDiff` — the first difference between two metadata trees (form fields compared with their `code` and `multiParagraph` flags). |
 | `SpecSectionId`, `SpecSectionIdCollision` | List-item section ids (AA1): `generateListItemSectionId`, `effectiveListItemSectionId`. |
 | `SpecSerializationOrder` | The model's member order, which every codec writes in. |
-| `DocSpecsDocument`, `DocSpecsValidator`, `DocSpecsViolation` | DocSpecs Markdown documents: the schema-free parse (`DocSpecsDocument.parse`) and the schema check. |
+| `DocSpecsDocument`, `DocSpecsValidator`, `DocSpecsViolation` | DocSpecs Markdown documents: the schema-free parse (`DocSpecsDocument.parse`) and the schema check, with the nine reading-notation rules (`new DocSpecsValidator(schema, true)`: scanned per form-field value, unknown kinds and classless divs reported). |
+| `SpecNotation`, `NotationScan`, `NotationElement`, `NotationFinding`, `NotationFindingCode` | The reading notation's scanner (DocSpecs Reading Notation): `SpecNotation.scanNotation` returns a value's divs, spans and citations (`NotationElement`, UTF-16 ranges) and the notation's findings (`NotationFinding`, `NotationFindingCode`, `notationSeverity`), which the DocSpecs validator reports as rules; `registeredNotationKinds`. |
 | `SpecSchemaValidation` | `validateSpecDocument` — the DocSpecs schema tier over a document's Markdown rendition. |
 | `Yaml` | The YAML reader the codec uses (`Yaml.parse`, typed for the review pass, SOM §12.5). |
 

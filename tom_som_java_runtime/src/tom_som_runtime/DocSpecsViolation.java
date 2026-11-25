@@ -24,6 +24,18 @@ public final class DocSpecsViolation {
   public static final String RULE_MALFORMED_HEADING = "malformedHeading";
   public static final String RULE_SECTION_OUT_OF_ORDER = "sectionOutOfOrder";
   public static final String RULE_DUPLICATE_ID_PATH = "duplicateIdPath";
+  // The reading notation's findings (DocSpecs specification, RN-10), reported
+  // by SpecNotation.scanNotation per value: a section's own body, and in a
+  // TomSpecs rendition each form field's value apart (NotationFindingCode).
+  public static final String RULE_UNCLOSED_DIV = "unclosedDiv";
+  public static final String RULE_STRAY_CLOSING_FENCE = "strayClosingFence";
+  public static final String RULE_UNCLOSED_SPAN = "unclosedSpan";
+  public static final String RULE_DIV_WITHOUT_KIND = "divWithoutKind";
+  public static final String RULE_UNKNOWN_KIND = "unknownKind";
+  public static final String RULE_MARK_ACROSS_NOTATION = "markAcrossNotation";
+  public static final String RULE_ANNOTATION_INSIDE_DIV = "annotationInsideDiv";
+  public static final String RULE_DIV_INSIDE_ANNOTATION = "divInsideAnnotation";
+  public static final String RULE_REJECTED_BLOCK = "rejectedBlock";
 
   /**
    * The complete §14 vocabulary, in declaration order — the enumerable form of
@@ -45,6 +57,15 @@ public final class DocSpecsViolation {
     RULE_MALFORMED_HEADING,
     RULE_SECTION_OUT_OF_ORDER,
     RULE_DUPLICATE_ID_PATH,
+    RULE_UNCLOSED_DIV,
+    RULE_STRAY_CLOSING_FENCE,
+    RULE_UNCLOSED_SPAN,
+    RULE_DIV_WITHOUT_KIND,
+    RULE_UNKNOWN_KIND,
+    RULE_MARK_ACROSS_NOTATION,
+    RULE_ANNOTATION_INSIDE_DIV,
+    RULE_DIV_INSIDE_ANNOTATION,
+    RULE_REJECTED_BLOCK,
   };
 
   public final String rule;

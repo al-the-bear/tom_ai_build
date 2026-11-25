@@ -53,84 +53,84 @@ exceptions:
       matched Dart's same-named member by coincidence, not by meaning.
 
   - token: annotationInsideDiv
-    planes: [python, java, go, rust]
+    planes: [python, go, rust]
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
-      rules (03a_rdv1) are in the Dart, TypeScript, C, C++ and JavaScript runtimes
-      only; their ports are the todos `tspubnondart49` and `51`..`53`, one per runtime (`runtime_parity.md`
+      rules (03a_rdv1) are in the Dart, TypeScript, C, C++, JavaScript and Java runtimes
+      only; their ports are the todos `tspubnondart49`, `51` and `52`, one per runtime (`runtime_parity.md`
       § Reading view). `notation_cases.json` is the corpus they will run.
 
   - token: divInsideAnnotation
-    planes: [python, java, go, rust]
+    planes: [python, go, rust]
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
-      rules (03a_rdv1) are in the Dart, TypeScript, C, C++ and JavaScript runtimes
-      only; their ports are the todos `tspubnondart49` and `51`..`53`, one per runtime (`runtime_parity.md`
+      rules (03a_rdv1) are in the Dart, TypeScript, C, C++, JavaScript and Java runtimes
+      only; their ports are the todos `tspubnondart49`, `51` and `52`, one per runtime (`runtime_parity.md`
       § Reading view). `notation_cases.json` is the corpus they will run.
 
   - token: divWithoutKind
-    planes: [python, java, go, rust]
+    planes: [python, go, rust]
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
-      rules (03a_rdv1) are in the Dart, TypeScript, C, C++ and JavaScript runtimes
-      only; their ports are the todos `tspubnondart49` and `51`..`53`, one per runtime (`runtime_parity.md`
+      rules (03a_rdv1) are in the Dart, TypeScript, C, C++, JavaScript and Java runtimes
+      only; their ports are the todos `tspubnondart49`, `51` and `52`, one per runtime (`runtime_parity.md`
       § Reading view). `notation_cases.json` is the corpus they will run.
 
   - token: markAcrossNotation
-    planes: [python, java, go, rust]
+    planes: [python, go, rust]
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
-      rules (03a_rdv1) are in the Dart, TypeScript, C, C++ and JavaScript runtimes
-      only; their ports are the todos `tspubnondart49` and `51`..`53`, one per runtime (`runtime_parity.md`
+      rules (03a_rdv1) are in the Dart, TypeScript, C, C++, JavaScript and Java runtimes
+      only; their ports are the todos `tspubnondart49`, `51` and `52`, one per runtime (`runtime_parity.md`
       § Reading view). `notation_cases.json` is the corpus they will run.
 
   - token: rejectedBlock
-    planes: [python, java, go, rust]
+    planes: [python, go, rust]
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
-      rules (03a_rdv1) are in the Dart, TypeScript, C, C++ and JavaScript runtimes
-      only; their ports are the todos `tspubnondart49`, `51`..`53`, `63` and `65`..`67`, one
+      rules (03a_rdv1) are in the Dart, TypeScript, C, C++, JavaScript and Java runtimes
+      only; their ports are the todos `tspubnondart49`, `51`, `52`, `63`, `65` and `66`, one
       per runtime (`runtime_parity.md` § Reading view). `notation_cases.json`
       is the corpus they will run.
 
   - token: scanNotation
-    planes: [python, java, go, rust]
+    planes: [python, go, rust]
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
-      rules (03a_rdv1) are in the Dart, TypeScript, C, C++ and JavaScript runtimes
-      only; their ports are the todos `tspubnondart49` and `51`..`53`, one per runtime (`runtime_parity.md`
+      rules (03a_rdv1) are in the Dart, TypeScript, C, C++, JavaScript and Java runtimes
+      only; their ports are the todos `tspubnondart49`, `51` and `52`, one per runtime (`runtime_parity.md`
       § Reading view). `notation_cases.json` is the corpus they will run.
 
   - token: strayClosingFence
-    planes: [python, java, go, rust]
+    planes: [python, go, rust]
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
-      rules (03a_rdv1) are in the Dart, TypeScript, C, C++ and JavaScript runtimes
-      only; their ports are the todos `tspubnondart49` and `51`..`53`, one per runtime (`runtime_parity.md`
+      rules (03a_rdv1) are in the Dart, TypeScript, C, C++, JavaScript and Java runtimes
+      only; their ports are the todos `tspubnondart49`, `51` and `52`, one per runtime (`runtime_parity.md`
       § Reading view). `notation_cases.json` is the corpus they will run.
 
   - token: unclosedDiv
-    planes: [python, java, go, rust]
+    planes: [python, go, rust]
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
-      rules (03a_rdv1) are in the Dart, TypeScript, C, C++ and JavaScript runtimes
-      only; their ports are the todos `tspubnondart49` and `51`..`53`, one per runtime (`runtime_parity.md`
+      rules (03a_rdv1) are in the Dart, TypeScript, C, C++, JavaScript and Java runtimes
+      only; their ports are the todos `tspubnondart49`, `51` and `52`, one per runtime (`runtime_parity.md`
       § Reading view). `notation_cases.json` is the corpus they will run.
 
   - token: unclosedSpan
-    planes: [python, java, go, rust]
+    planes: [python, go, rust]
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
-      rules (03a_rdv1) are in the Dart, TypeScript, C, C++ and JavaScript runtimes
-      only; their ports are the todos `tspubnondart49` and `51`..`53`, one per runtime (`runtime_parity.md`
+      rules (03a_rdv1) are in the Dart, TypeScript, C, C++, JavaScript and Java runtimes
+      only; their ports are the todos `tspubnondart49`, `51` and `52`, one per runtime (`runtime_parity.md`
       § Reading view). `notation_cases.json` is the corpus they will run.
 
   - token: unknownKind
-    planes: [python, java, go, rust]
+    planes: [python, go, rust]
     reason: >-
       KNOWN GAP. The reading notation's scanner and its nine DocSpecs validator
-      rules (03a_rdv1) are in the Dart, TypeScript, C, C++ and JavaScript runtimes
-      only; their ports are the todos `tspubnondart49` and `51`..`53`, one per runtime (`runtime_parity.md`
+      rules (03a_rdv1) are in the Dart, TypeScript, C, C++, JavaScript and Java runtimes
+      only; their ports are the todos `tspubnondart49`, `51` and `52`, one per runtime (`runtime_parity.md`
       § Reading view). `notation_cases.json` is the corpus they will run.
 
   - token: malformedBlock
