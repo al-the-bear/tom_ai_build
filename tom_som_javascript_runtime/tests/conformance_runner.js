@@ -438,24 +438,29 @@ function testMarkdownRoundTrip(model) {
   _check('md.parse.reexport', actual === golden, _byteDiff('md.parse.reexport', actual, golden));
 }
 
-// Markdown/YAML convergence: parsing `expected.tomspecs.md` and applying it must
-// reproduce `state.json` (the YAML-route memory) exactly, proving both formats
-// converge on one in-memory document (SOM §8).
+// Markdown/YAML convergence: parsing either golden (`expected.tables.md`, the
+// reading view's tables, and `expected.tomspecs.md`, the `Field:` lines) and
+// applying it must reproduce `state.json` (the YAML-route memory) exactly,
+// proving both formats converge on one in-memory document (SOM §8).
 function testMarkdownMemoryLanding(model) {
-  const golden = _read(EXPORT_GOLDEN);
   const canonical = _readJson('state.json');
-  const imported = SpecDocument.fromMarkdown(golden, model);
-  _check(
-    'md.land.clean',
-    imported.rejections.length === 0,
-    imported.rejections.map((r) => String(r)).join('; '),
-  );
-  const landed = imported.document;
-  _check(
-    'md.land.memory',
-    _deepEqual(landed.toJson(), canonical),
-    _jsonMismatch(landed.toJson(), canonical),
-  );
+  for (const [label, file] of [
+    ['tables', 'expected.tables.md'],
+    ['fields', 'expected.tomspecs.md'],
+  ]) {
+    const imported = SpecDocument.fromMarkdown(_read(file), model);
+    _check(
+      `md.land.${label}.clean`,
+      imported.rejections.length === 0,
+      imported.rejections.map((r) => String(r)).join('; '),
+    );
+    const landed = imported.document;
+    _check(
+      `md.land.${label}.memory`,
+      _deepEqual(landed.toJson(), canonical),
+      _jsonMismatch(landed.toJson(), canonical),
+    );
+  }
 }
 
 // One `markdown_apply_cases.json` case, run like Dart's `_runMarkdownApplyCase`:
@@ -1113,9 +1118,15 @@ function testYamlReview(model, tree) {
 // fails the second.
 function testMarkdownImportRejections(model) {
   for (const c of _readJson('markdown_import_cases.json').cases) {
-    // The reading view's table forms (`readingView`) are read by the Dart and
-    // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
-    if (c.readingView) continue;
+    // The reading view's table layout is read (tspubnondart57); the readable
+    // header and the styled-div headings are the strip-document port's
+    // (tspubnondart92, runtime_parity.md § Reading view).
+    if (
+      c.readingView &&
+      (c.readableHeader !== undefined || c.name.startsWith('styled-div headings'))
+    ) {
+      continue;
+    }
     const parsed = new SpecDocumentMarkdown(model, new SpecDocument()).parse(c.markdown);
     const got = parsed.rejections.map((r) => ({
       line: r.line,

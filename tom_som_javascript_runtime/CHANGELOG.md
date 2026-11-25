@@ -2,6 +2,24 @@
 
 ## Unreleased
 
+- **The Markdown parser reads the reading view's table layout** (SOM §11.4,
+  §11.5): form tables `| TomSpecField | Value |` (a code span holding `\|`,
+  reference links read as their link texts, the prose before and after a
+  table as the form's preamble, a slot marker before a form table), record
+  tables in a `::: {.records}` div (an `Id` column, a `Title` column or none,
+  `<br>` titles), reference lines in a `::: {.refs}` div, section tables
+  `| Section | TomSpecField | Value |`, and heading anchors `<a id="ID">`
+  equal to the id or its qualified form removed from the title. Two new
+  rejection reasons, `unknownField` (a row or a records column naming no
+  field) and `malformedBlock` (a table without its delimiter row, a row of
+  another cell count, a field given twice, the malformed `refs` and
+  `records` divs); the older `Field:` layout reads as before. The emitter
+  escapes a value line shaped like a layout table header with one space,
+  which the parser removes. The conformance runner reads the 28 `readingView`
+  cases of `markdown_import_cases.json` that are not the readable header's or
+  the styled-div headings', and lands `expected.tables.md` in the document
+  the `Field:` golden lands.
+
 - **Section order and unique id paths in the DocSpecs validator** (SOM §14,
   the DocSpecs specification's Validation Rules 3 and 5): two new rules,
   `sectionOutOfOrder` (the root's children follow `document: sections:`; a
