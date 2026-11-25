@@ -1526,10 +1526,9 @@ function testDocSpecs() {
   _check('docspecs.rootSectionId', schema.rootSectionId === 'D00');
   const validator = new DocSpecsValidator(schema);
   const covered = new Set();
+  // The reading view's cases (`readingView`: table forms, list bodies,
+  // styled-div headings) run here as in Dart and TypeScript (tspubnondart64).
   for (const c of _readJson('docspecs_cases.json')) {
-    // The reading view's table forms (`readingView`) are read by the Dart and
-    // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
-    if (c.readingView === true) continue;
     const got = validator
       .validateMarkdown(c.markdown)
       .map((v) => [v.rule, v.sectionId, v.line]);

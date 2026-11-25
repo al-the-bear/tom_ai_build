@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+- **The DocSpecs validator reads the reading view's forms** (DocSpecs
+  specification, List Bodies, Findings in list bodies and tables): form
+  tables give a section's fields (a required field missing from table and
+  paragraphs is reported, `fieldPatternMismatch` and the other field findings
+  point at the row), `refs` lines and `records` tables in a list container
+  become its items (counted towards `min-count`, the container passing
+  `max-text-length: 0`), section tables give the children's fields at their
+  rows, styled-div headings (`<div class="heading7">`) count at their level
+  while a `heading6` div is content, and a heading's own anchor is no part of
+  its title (`stripOwnAnchor`). Two new rules, `malformedBlock` and
+  `unknownField`; a section-table row naming no child is `unknownSection`.
+  The conformance runner runs the 25 `readingView` cases of
+  `docspecs_cases.json`.
+
 - **The reading notation's scanner** (DocSpecs specification, Reading
   Notation RN-1 … RN-13): `spec_notation.js` with `scanNotation(text,
   { tomSpecs })` returning a `NotationScan` — the value's fenced divs,
