@@ -468,6 +468,10 @@ std::vector<std::string> formatConflictBlock(
  * mark accepted). Plain quotes and code stay. */
 std::string stripAnnotationsText(const std::string& value);
 
+/* The malformed review annotations of one value (SOM §11.9), one line each:
+ * `line N: …`. Empty when every annotation reads. */
+std::vector<std::string> annotationIssuesText(const std::string& value);
+
 /* How many comment and question blocks and inline marks `value` holds: what
  * stripAnnotationsText removes, as a strip's report counts it. */
 std::size_t countAnnotationsText(const std::string& value);

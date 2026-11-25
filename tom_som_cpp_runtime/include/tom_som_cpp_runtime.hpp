@@ -41,6 +41,7 @@
 #include "spec_document_yaml.hpp"
 #include "spec_document_markdown.hpp"
 #include "spec_notation.hpp"
+#include "spec_document_merge.hpp"
 #include "spec_document_strip.hpp"
 #include "docspecs_validator.hpp"
 #include "spec_schema_validation.hpp"

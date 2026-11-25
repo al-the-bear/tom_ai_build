@@ -2386,6 +2386,10 @@ std::vector<std::string> formatQuestionBlock(
 
 /* How many comment and question blocks and inline marks `value` holds: what
  * stripAnnotationsText removes, as a strip's report counts it. */
+std::vector<std::string> annotationIssuesText(const std::string& value) {
+  return parse(value).malformed;
+}
+
 std::size_t countAnnotationsText(const std::string& value) {
   const Parsed p = parse(value);
   return p.blocks.size() + p.marks.size();

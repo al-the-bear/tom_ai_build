@@ -90,6 +90,7 @@ All in namespace `som`.
 | `SpecReviewAnnotationCounts` | `questions`, `openQuestions`, `answeredQuestions`, `comments`, `marks`; `toJson()` |
 | `SpecReviewAnnotationError` | An operation named something that is not there (a `std::exception`) |
 | `stripAnnotationsText` | One value without its annotations |
+| `annotationIssuesText` | The malformed annotations of one value, one `line N: …` each |
 | `formatCommentBlock`, `formatQuestionBlock` | The lines a comment or question block is written as |
 | `validateReviewAnnotations` | The annotation findings of a `const SpecDocument&` |
 

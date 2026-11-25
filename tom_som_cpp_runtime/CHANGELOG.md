@@ -2,6 +2,31 @@
 
 ## Unreleased
 
+- **The merge back of a stripped rendition** (`spec_document_merge.hpp`, SOM
+  §11.10): `mergeStrippedValue(o, b, e, pieces)` puts the pieces one value's
+  strip removed back into its edited text — between unchanged neighbours where
+  they were, after an edited run as a placed piece (`SpecStripMergePlaced`),
+  else a conflict (`SpecStripMergeConflict`: `crossesBoundary`,
+  `sentenceRemoved`, `stripTextEdited`, `unplaceable`, `notation`,
+  `annotations`) — and answers a `SpecStripValueMerge`.
+  `SpecStripMerge::merge(original, edited, extra)` merges an edited readable
+  rendition onto its document: the switches from the readable header (or
+  given beside it, and then agreeing with it), a stale original (another
+  `currentRevision`, or a `base` given) merged three ways from the base given
+  or loaded for the header's commit (`loadBase`, e.g. through
+  `SpecStripMerge::gitShowFile`), structural edits refused
+  (`SpecStripMergeRefusal`: sections added, removed or moved, list items,
+  `codeSpec`, `units`, rejected blocks, a stale original without a base, a
+  base that does not strip), and the result checked to change only the merged
+  values, to strip back to the edited text and to add no finding.
+  `SpecStripMergeResult` carries the merged document, the merged values
+  (`SpecStripMergedValue`), `exitCode()` and `report()`;
+  `specStripMergeLabel` names a value in it. `annotationIssuesText` lists the
+  malformed review annotations of one value. The strip shares its diff, mark
+  finder, value references and tier findings with the merge through
+  `src/spec_document_strip_internal.hpp`. The conformance runner reads
+  `strip_merge_cases.json` (`valueCases` 23, `documentCases` 20).
+
 - **The strip of a document** (`spec_document_strip.hpp`, SOM §11.10):
   `SpecDocumentStrip::strip(document, options, extra)` strips every value —
   content, form-field values and stored headlines — into a copy. Given a model

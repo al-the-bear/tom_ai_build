@@ -4,6 +4,7 @@
  * so offsets, the edit scripts and every "one character" step mean what they
  * mean in Dart and TypeScript. */
 #include "spec_document_strip.hpp"
+#include "spec_document_strip_internal.hpp"
 
 #include <algorithm>
 #include <cstddef>
@@ -24,9 +25,7 @@
 
 namespace som {
 
-namespace {
-
-using U16 = std::u16string;
+namespace strip_internal {
 
 std::string toUtf8(const U16& s, std::size_t from, std::size_t to) {
   std::string out;
@@ -103,14 +102,6 @@ bool contains(const char* const* list, std::size_t n, const std::string& k) {
 }
 
 // ---- edit scripts ---------------------------------------------------------
-
-enum OpType { kKeep = 0, kDel = 1, kIns = 2 };
-
-struct Op {
-  int type;
-  char16_t ch;
-  std::string label;  // "" for a keep
-};
 
 /* Composes the scripts original -> middle (`s1`) and middle -> result
  * (`s2`). */
@@ -278,11 +269,6 @@ std::vector<Op> diff(const U16& a, const U16& b, const std::string& label) {
 }
 
 // ---- inline review marks ---------------------------------------------------
-
-struct MarkAt {
-  std::size_t start, end, bodyStart, bodyEnd;
-  long long sep;  // -1 when none
-};
 
 std::vector<MarkAt> findMarks(const U16& t) {
   std::vector<bool> code(t.size(), false);
@@ -829,7 +815,9 @@ std::string countsJson(const std::vector<std::pair<std::string, long long>>& m) 
   return out + "}";
 }
 
-}  // namespace
+}  // namespace strip_internal
+
+using namespace strip_internal;
 
 // ---- options -----------------------------------------------------------------
 
@@ -1038,7 +1026,7 @@ SpecStripTextResult stripNotationText(const std::string& value,
 
 namespace som {
 
-namespace {
+namespace strip_internal {
 
 bool jsWs(char c) {
   return c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\f' ||
@@ -1061,7 +1049,7 @@ std::string joinedKinds(const std::set<std::string>& set) {
   return out;
 }
 
-}  // namespace
+}  // namespace strip_internal
 
 std::string SpecReadableHeader::format(const SpecStripOptions& o,
                                        const SpecReadableSource* source) {
@@ -1195,32 +1183,9 @@ std::string SpecStripFinding::toString() const {
 // The strip of a document (SOM §11.10)
 // ============================================================================
 
-namespace {
+namespace strip_internal {
 
 using Counts = std::vector<std::pair<std::string, long long>>;
-
-/* An ordered map of finding keys to the paths they concern (`Map<string,
- * string>`): a key set again keeps its place and takes the new path. */
-struct KeyPaths {
-  std::vector<std::string> keys;
-  std::vector<std::string> paths;
-
-  long find(const std::string& key) const {
-    for (std::size_t i = 0; i < keys.size(); i++) {
-      if (keys[i] == key) return (long)i;
-    }
-    return -1;
-  }
-  void set(const std::string& key, const std::string& path) {
-    const long at = find(key);
-    if (at >= 0) {
-      paths[(std::size_t)at] = path;
-      return;
-    }
-    keys.push_back(key);
-    paths.push_back(path);
-  }
-};
 
 SpecDocument docCopy(const SpecDocument& d) {
   SpecDocument c;
@@ -1647,7 +1612,7 @@ struct EntryAt {
   int line;
 };
 
-}  // namespace
+}  // namespace strip_internal
 
 SpecStripResult SpecDocumentStrip::strip(const SpecDocument& document,
                                          const SpecStripOptions& options,

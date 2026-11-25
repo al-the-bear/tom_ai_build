@@ -1596,6 +1596,164 @@ static void test_strip(Checker& c, const som::SpecModel& model) {
   }
 }
 
+/* ---- the merge back (strip_merge_cases.json, SOM §11.10) ----------------- */
+
+/* `text` with each `[find, replace]` of `edits` applied; each find occurs
+ * exactly once (an empty find replaces an empty text). */
+static std::string strip_merge_apply_edits(const std::string& text,
+                                           const som::JsonRef& edits) {
+  std::string out = text;
+  for (std::size_t i = 0; i < som::jsonArrayLen(edits); i++) {
+    som::JsonRef e = som::jsonArrayAt(edits, i);
+    const std::string* find = som::jsonAsStr(som::jsonArrayAt(e, 0));
+    const std::string* replace = som::jsonAsStr(som::jsonArrayAt(e, 1));
+    if (find == nullptr || replace == nullptr) throw std::runtime_error("bad edit");
+    if (find->empty()) {
+      if (!out.empty()) throw std::runtime_error("an empty find needs an empty text");
+      out = *replace;
+      continue;
+    }
+    const std::size_t at = out.find(*find);
+    if (at == std::string::npos || out.find(*find, at + 1) != std::string::npos) {
+      throw std::runtime_error("the edit \"" + *find + "\" does not occur exactly once");
+    }
+    out = out.substr(0, at) + *replace + out.substr(at + find->size());
+  }
+  return out;
+}
+
+static void test_strip_merge(Checker& c, const som::SpecModel& model) {
+  som::JsonPtr table = read_json("strip_merge_cases.json");
+  std::string serr;
+  const std::optional<som::DocSpecsSchema> schema =
+      som::docspecsSchemaFromYamlText(read_corpus("docspecs_schema.yaml"), &serr);
+  if (!schema.has_value()) {
+    std::fprintf(stderr, "docspecs schema: %s\n", serr.c_str());
+    std::exit(2);
+  }
+  som::JsonRef values = som::jsonGet(table, "valueCases");
+  c.check("stripMerge.valueCases", som::jsonArrayLen(values) == 23,
+          std::to_string(som::jsonArrayLen(values)));
+  for (std::size_t i = 0; i < som::jsonArrayLen(values); i++) {
+    som::JsonRef kase = som::jsonArrayAt(values, i);
+    const std::string tag = "stripMerge.value[" + som::jsonStrOr(kase, "name") + "]";
+    try {
+      const std::string original = som::jsonStrOr(kase, "original");
+      const som::SpecStripTextResult s =
+          som::stripNotationText(original, strip_case_options(kase));
+      const std::string e = strip_merge_apply_edits(s.text, som::jsonGet(kase, "edits"));
+      const std::string got = json_text_canon(
+          som::mergeStrippedValue(original, s.text, e, s.pieces).toJson());
+      const std::string want = json_canon(som::jsonGet(kase, "expect"));
+      c.check(tag, got == want, got + " != " + want);
+    } catch (const std::exception& ex) {
+      c.check(tag, false, std::string("threw ") + ex.what());
+    }
+  }
+  auto doc = [](const som::JsonRef& j) {
+    return doc_from_state(som::documentJsonFromJson(j));
+  };
+  som::JsonRef docs = som::jsonGet(table, "documentCases");
+  c.check("stripMerge.documentCases", som::jsonArrayLen(docs) == 20,
+          std::to_string(som::jsonArrayLen(docs)));
+  for (std::size_t i = 0; i < som::jsonArrayLen(docs); i++) {
+    som::JsonRef kase = som::jsonArrayAt(docs, i);
+    const std::string tag = "stripMerge.document[" + som::jsonStrOr(kase, "name") + "]";
+    try {
+      const som::SpecDocument state = doc(som::jsonGet(kase, "state"));
+      som::SpecReadableSource src;
+      som::JsonRef sj = som::jsonGet(kase, "source");
+      if (sj) {
+        src.file = som::jsonStrOr(sj, "file");
+        if (const std::string* r = som::jsonAsStr(som::jsonGet(sj, "revision"))) {
+          src.revision = *r;
+        }
+        if (const std::string* r = som::jsonAsStr(som::jsonGet(sj, "commit"))) {
+          src.commit = *r;
+        }
+        src.dirty = som::jsonBoolOr(sj, "dirty");
+      }
+      som::SpecDocumentStripOptions sx;
+      sx.model = &model;
+      sx.schema = &*schema;
+      sx.source = sj ? &src : nullptr;
+      const som::SpecStripResult stripped =
+          som::SpecDocumentStrip::strip(state, strip_case_options(kase), sx);
+      const std::string edited = strip_merge_apply_edits(stripped.readable.value_or(""),
+                                                         som::jsonGet(kase, "edits"));
+      som::JsonRef commits = som::jsonGet(kase, "commits");
+      std::optional<som::SpecDocument> current, base;
+      if (som::JsonRef cj = som::jsonGet(kase, "current")) current = doc(cj);
+      if (som::JsonRef bj = som::jsonGet(kase, "base")) base = doc(bj);
+      som::SpecStripMergeOptions mx;
+      mx.model = &model;
+      mx.schema = &*schema;
+      if (som::JsonRef oj = som::jsonGet(kase, "options")) {
+        mx.options = strip_case_options(oj);
+      }
+      if (const std::string* r = som::jsonAsStr(som::jsonGet(kase, "currentRevision"))) {
+        mx.currentRevision = *r;
+      }
+      mx.base = base.has_value() ? &*base : nullptr;
+      mx.loadBase = [&](const som::SpecReadableSource& source)
+          -> std::optional<som::SpecDocument> {
+        if (!source.commit.has_value() || !commits) return std::nullopt;
+        som::JsonRef j = som::jsonGet(commits, *source.commit);
+        if (!j) return std::nullopt;
+        return doc(j);
+      };
+      std::string got;
+      try {
+        const som::SpecStripMergeResult r =
+            som::SpecStripMerge::merge(current.has_value() ? *current : state, edited, mx);
+        std::string report = "[";
+        const std::vector<std::string> lines = r.report();
+        for (std::size_t k = 0; k < lines.size(); k++) {
+          if (k > 0) report += ",";
+          report += som::jsonEncodeStr(lines[k]);
+        }
+        report += "]";
+        got = "{\"exitCode\":" + std::to_string(r.exitCode()) +
+              ",\"stale\":" + (r.stale ? "true" : "false") + ",\"document\":" +
+              (r.document.has_value()
+                   ? som::documentJsonToCanonicalJson(r.document->toJson())
+                   : std::string("null")) +
+              ",\"report\":" + report + "}";
+      } catch (const som::SpecStripUsageError& e) {
+        got = "{\"error\":" + som::jsonEncodeStr(e.what()) + "}";
+      }
+      // The documents compare as canonical document JSON.
+      std::string perr;
+      som::JsonPtr gotJson = som::jsonParse(got, &perr);
+      som::JsonRef want = som::jsonGet(kase, "expect");
+      bool same = gotJson != nullptr;
+      std::string detail = got;
+      if (same) {
+        for (const char* key : {"exitCode", "stale", "report", "error"}) {
+          if (json_canon(som::jsonGet(gotJson, key)) != json_canon(som::jsonGet(want, key))) {
+            same = false;
+            detail = std::string(key) + ": " + json_canon(som::jsonGet(gotJson, key)) +
+                     " != " + json_canon(som::jsonGet(want, key));
+          }
+        }
+        som::JsonRef gd = som::jsonGet(gotJson, "document");
+        som::JsonRef wd = som::jsonGet(want, "document");
+        const bool gNull = !gd || gd->type == som::JsonType::Null;
+        const bool wNull = !wd || wd->type == som::JsonType::Null;
+        if (gNull != wNull ||
+            (!gNull && som::documentJsonToCanonicalJson(som::documentJsonFromJson(gd)) !=
+                           som::documentJsonToCanonicalJson(som::documentJsonFromJson(wd)))) {
+          same = false;
+          detail = "document: " + json_canon(gd) + " != " + json_canon(wd);
+        }
+      }
+      c.check(tag, same, detail);
+    } catch (const std::exception& ex) {
+      c.check(tag, false, std::string("threw ") + ex.what());
+    }
+  }
+}
+
 /* ---- the reading notation (notation_cases.json, RN-1 to RN-13) ---------- */
 
 /* `cases`: scanNotation's elements (UTF-16 offsets, source / content, nesting)
@@ -4125,6 +4283,7 @@ int main(int argc, char** argv) {
   test_docspecs(c);
   test_notation(c);
   test_strip(c, *model);
+  test_strip_merge(c, *model);
   test_docspecs_replace(c);
   test_docspecs_path(c, *model);
   test_text_pattern(c);
