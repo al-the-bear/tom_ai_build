@@ -286,18 +286,18 @@ static void test_markdown_export_format(void) {
   md_check("export.docspec.suffix", has_suffix(first, "-->"), first);
   free(first);
 
-  md_check("export.heading.root", contains(md, "# <!--[D00]--> Demo Document"),
+  md_check("export.heading.root", contains(md, "# <!--[D00]--> <a id=\"D00\"></a> Demo Document"),
            NULL);
   md_check("export.heading.overview",
-           contains(md, "## <!--[D00-OVR]--> Overview"), NULL);
-  md_check("export.heading.status", contains(md, "## <!--[D00-ST]--> Status"),
+           contains(md, "## <!--[D00-OVR]--> <a id=\"D00-OVR\"></a> Overview"), NULL);
+  md_check("export.heading.status", contains(md, "## <!--[D00-ST]--> <a id=\"D00-ST\"></a> Status"),
            NULL);
-  md_check("export.heading.header", contains(md, "## <!--[D00-HDR]--> Header"),
+  md_check("export.heading.header", contains(md, "## <!--[D00-HDR]--> <a id=\"D00-HDR\"></a> Header"),
            NULL);
-  md_check("export.heading.meta", contains(md, "## <!--[D00-MET]--> Meta"),
+  md_check("export.heading.meta", contains(md, "## <!--[D00-MET]--> <a id=\"D00-MET\"></a> Meta"),
            NULL);
   md_check("export.heading.note",
-           contains(md, "### <!--[D00-MET-NOTE]--> Note"), NULL);
+           contains(md, "### <!--[D00-MET-NOTE]--> <a id=\"D00-MET-NOTE\"></a> Note"), NULL);
 
   md_check("export.content.plain",
            contains(md, "An overview paragraph.\nWith two lines."), NULL);
@@ -318,17 +318,17 @@ static void test_markdown_export_format(void) {
   md_check("export.content.noFieldAnchor", !contains(md, "<!-- field:"), NULL);
   md_check("export.content.noPathHeading", !contains(md, "D00/D00-OVR"), NULL);
 
-  md_check("export.form.sparse.author", contains(md, "Author: Ada Lovelace"),
+  md_check("export.form.sparse.author", contains(md, "| Author | Ada Lovelace |"),
            NULL);
   md_check("export.form.sparse.noReviewer", !contains(md, "Reviewer"), NULL);
 
   md_check("export.item.container",
-           contains(md, "## <!--[D00-ITM]--> Items"), NULL);
-  md_check("export.item.1", contains(md, "### <!--[items-1]--> Demo Item 1"),
+           contains(md, "## <!--[D00-ITM]--> <a id=\"D00-ITM\"></a> Items"), NULL);
+  md_check("export.item.1", contains(md, "### <!--[items-1]--> <a id=\"items-1\"></a> Demo Item 1"),
            NULL);
-  md_check("export.item.2", contains(md, "### <!--[items-2]--> Demo Item 2"),
+  md_check("export.item.2", contains(md, "### <!--[items-2]--> <a id=\"items-2\"></a> Demo Item 2"),
            NULL);
-  md_check("export.item.label", contains(md, "#### <!--[D01-LBL]--> Label"),
+  md_check("export.item.label", contains(md, "#### <!--[D01-LBL]--> <a id=\"items-1/D01-LBL\"></a> Label"),
            NULL);
 
   md_check("export.noSchemaDescription", !contains(md, "A demo document."),
@@ -357,9 +357,9 @@ static void test_markdown_export_stored_item_id(void) {
   /* YRD3: the stored id IS the md heading id; only
      anonymous items fall back to the positional derivation. */
   md_check("export.storedId.container",
-           contains(md, "## <!--[D00-ITM]--> Items"), md);
+           contains(md, "## <!--[D00-ITM]--> <a id=\"D00-ITM\"></a> Items"), md);
   md_check("export.storedId.heading",
-           contains(md, "### <!--[D01-CUSTOM]--> Demo Item 1"), md);
+           contains(md, "### <!--[D01-CUSTOM]--> <a id=\"D01-CUSTOM\"></a> Demo Item 1"), md);
   md_check("export.storedId.noPositional", !contains(md, "items-1"), md);
 
   free(md);
@@ -677,7 +677,9 @@ static void test_markdown_round_trip_label_shaped_continuation(void) {
   spec_document_init(&doc);
   spec_document_set_form_field(
       &doc, "D00/D00-HDR", "author",
-      "Ada Lovelace\nNote: also a mathematician\nplain line");
+      "Ada Lovelace\n\nNote: also a mathematician\nplain line");
+  /* Two paragraphs, so the value is a `Field:` block, not a table cell (a
+   * wrapped one-paragraph value is one cell, SOM §11.4 rule 13). */
   char *md1 = md_export(m, &doc);
 
   md_check("formCont.escaped",
@@ -691,7 +693,7 @@ static void test_markdown_round_trip_label_shaped_continuation(void) {
   free(rej);
   md_check("formCont.value",
            strcmp(form_field_or(&reloaded, "D00/D00-HDR", "author"),
-                  "Ada Lovelace\nNote: also a mathematician\nplain line") == 0,
+                  "Ada Lovelace\n\nNote: also a mathematician\nplain line") == 0,
            form_field_or(&reloaded, "D00/D00-HDR", "author"));
   char *md2 = md_export(m, &reloaded);
   md_check("formCont.byteStable", strcmp(md2, md1) == 0, NULL);
@@ -740,7 +742,7 @@ static void test_markdown_form_preamble_emits(void) {
   spec_document_set_form_field(&doc, "D00/D00-HDR", "author", "Ada Lovelace");
   char *md = md_export(m, &doc);
   md_check("formPre.emitOrder",
-           contains(md, "why this header exists\n\nAuthor: Ada Lovelace\n"), md);
+           contains(md, "why this header exists\n\n| TomSpecField | Value |\n| --- | --- |\n| Author | Ada Lovelace |\n"), md);
 
   free(md);
   spec_document_free(&doc);
@@ -1048,10 +1050,10 @@ static void test_markdown_code_spec_rides_in_comment(void) {
   md_check("codeSpec.md.attribute",
            contains(md,
                     "## <!--[D00-OVR] codeSpec=\"CsOrder,CsOrder.total,"
-                    "CsOrderRepository\"--> Overview"),
+                    "CsOrderRepository\"--> <a id=\"D00-OVR\"></a> Overview"),
            md);
   md_check("codeSpec.md.untouched",
-           contains(md, "## <!--[D00-ST]--> Status"), md);
+           contains(md, "## <!--[D00-ST]--> <a id=\"D00-ST\"></a> Status"), md);
   free(md);
   spec_document_free(&doc);
   spec_model_free(m);

@@ -597,6 +597,12 @@ typedef struct {
   SomMetaTree *tree;
 } TreeEntry;
 
+/* The class names one root's meta tree reaches (for reference links). */
+typedef struct {
+  char *root_type; /* owned */
+  SomMap names;    /* class name -> "1" */
+} MdReach;
+
 typedef struct {
   const SpecModel *model;
   const SpecDocument *document;
@@ -606,6 +612,13 @@ typedef struct {
   /* When non-NULL, the document path of every heading written, in emission
    * order (`spec_markdown_export_root_with_map`). Borrowed. */
   SomStrList *heading_paths;
+  /* The export in progress: its root and tree (borrowed), the document's
+   * paths per kind (loaded once per export), the reach of each root. */
+  const SpecRoot *current_root;
+  const SomMetaTree *current_tree;
+  SomStrList content_paths, form_paths, list_paths, units_paths, headline_paths;
+  MdReach *reach;
+  size_t reach_len, reach_cap;
 } MdCodec;
 
 static void codec_init(MdCodec *c, const SpecModel *model,
@@ -616,6 +629,16 @@ static void codec_init(MdCodec *c, const SpecModel *model,
   c->trees_len = 0;
   c->trees_cap = 0;
   c->heading_paths = NULL;
+  c->current_root = NULL;
+  c->current_tree = NULL;
+  som_strlist_init(&c->content_paths);
+  som_strlist_init(&c->form_paths);
+  som_strlist_init(&c->list_paths);
+  som_strlist_init(&c->units_paths);
+  som_strlist_init(&c->headline_paths);
+  c->reach = NULL;
+  c->reach_len = 0;
+  c->reach_cap = 0;
 }
 
 static void codec_free(MdCodec *c) {
@@ -624,6 +647,16 @@ static void codec_free(MdCodec *c) {
     som_meta_tree_free(c->trees[i].tree);
   }
   free(c->trees);
+  som_strlist_free(&c->content_paths);
+  som_strlist_free(&c->form_paths);
+  som_strlist_free(&c->list_paths);
+  som_strlist_free(&c->units_paths);
+  som_strlist_free(&c->headline_paths);
+  for (size_t i = 0; i < c->reach_len; i++) {
+    free(c->reach[i].root_type);
+    som_map_free(&c->reach[i].names);
+  }
+  free(c->reach);
 }
 
 /* Returns the cached / newly-built tree for `root_type`, or NULL writing `*err`. */
@@ -840,7 +873,9 @@ static char *heading_title(MdCodec *c, const char *path,
   return md_title_of(node);
 }
 
-/* Emits `#{depth} <!--[id]{ codeSpec="…"}{ units="…"}--> title`, recording `path` (the
+static char *md_anchor_of(MdCodec *c, const char *path);
+
+/* Emits `#{depth} <!--[id]{ codeSpec="…"}{ units="…"}--> <a id="ANCHOR"></a> title`, recording `path` (the
  * document path the heading renders) when the codec keeps a heading map. When `code_spec` is
  * non-NULL and non-empty it is written as a ` codeSpec="…"` key inside the
  * headline comment (codespecs_mapping.md §9.2); byte-identical to before when empty/NULL.
@@ -868,6 +903,16 @@ static void md_write_heading(MdCodec *c, SomBuf *b, int depth, const char *id,
     som_buf_putc(b, '"');
   }
   som_buf_puts(b, "--> ");
+  /* Reading view (DI-3): the section id as an HTML anchor after the id
+   * comment and its keys, qualified below a list item or a `@SameAs` copy
+   * (SOM §11.2), so `#<ID>` links jump in every viewer. */
+  if (c->current_tree != NULL) {
+    char *anchor = md_anchor_of(c, path);
+    som_buf_puts(b, "<a id=\"");
+    som_buf_puts(b, anchor);
+    som_buf_puts(b, "\"></a> ");
+    free(anchor);
+  }
   /* A heading is one line: a stored headline's line breaks travel as `<br>`. */
   for (const char *q = title; *q != '\0'; q++) {
     if (*q == '\n') {
@@ -977,6 +1022,776 @@ static char *encode_code_span(const char *value) {
     som_buf_putc(&b, '`');
   }
   return som_buf_take(&b);
+}
+
+/* ---- reading view: the emitter's tables (SOM §11.4, §11.5) --------------- */
+
+static void qualify_anchor(const char *scope, const char *section,
+                           const char *id, int container, int item, int copy,
+                           char **anchor, char **new_scope);
+static int is_copy_node(const MdCodec *c, const SomMetaNode *n);
+static char *replace_all(const char *s, const char *from, const char *to);
+static char *first_undeclared_form_field(MdCodec *c, const SomMetaNode *node,
+                                         const char *path);
+
+/* `^\s*([-*+]\s|\d+[.)]\s|>|```|~~~|:::)`: a one-line value Markdown reads as
+ * a block (a list item, a quote, a fence, a fenced div). */
+static int md_block_start(const char *s) {
+  size_t i = 0;
+  while (is_ws(s[i])) i++;
+  char c = s[i];
+  if ((c == '-' || c == '*' || c == '+') && is_ws(s[i + 1]) && s[i + 1] != '\0') {
+    return 1;
+  }
+  if (is_digit(c)) {
+    size_t k = i;
+    while (is_digit(s[k])) k++;
+    if ((s[k] == '.' || s[k] == ')') && s[k + 1] != '\0' && is_ws(s[k + 1])) {
+      return 1;
+    }
+  }
+  if (c == '>') return 1;
+  return strncmp(s + i, "```", 3) == 0 || strncmp(s + i, "~~~", 3) == 0 ||
+         strncmp(s + i, ":::", 3) == 0;
+}
+
+/* `^(?:\||#{1,6}(?:\s|$)|=+$|(?:[-*_]\s*){3,}$|<)`: a line that is a block of
+ * its own, or would make the line above one. */
+static int md_wrapped_line_block(const char *s) {
+  if (s[0] == '|' || s[0] == '<') return 1;
+  size_t h = 0;
+  while (s[h] == '#') h++;
+  if (h >= 1 && h <= 6 && (s[h] == '\0' || is_ws(s[h]))) return 1;
+  if (s[0] == '=') {
+    size_t k = 0;
+    while (s[k] == '=') k++;
+    if (s[k] == '\0') return 1;
+  }
+  size_t marks = 0, k = 0;
+  while (s[k] == '-' || s[k] == '*' || s[k] == '_') {
+    marks++;
+    k++;
+    while (s[k] != '\0' && is_ws(s[k])) k++;
+  }
+  return marks >= 3 && s[k] == '\0';
+}
+
+/* `value` on one line when it is one paragraph wrapped over several lines
+ * (no blank line, no block line, no hard break, no line starting or ending
+ * with whitespace): its soft breaks become spaces (SOM §11.4). NULL for any
+ * other value, a one-line value among them. Owned. */
+static char *md_wrapped_paragraph_joined(const char *value) {
+  if (strchr(value, '\n') == NULL) return NULL;
+  LineVec lines;
+  split_lines(value, &lines);
+  int ok = 1;
+  for (size_t i = 0; i < lines.len && ok; i++) {
+    const char *l = lines.items[i];
+    size_t n = strlen(l);
+    if (n == 0 || is_ws(l[0]) || is_ws(l[n - 1]) || l[n - 1] == '\\' ||
+        md_block_start(l) || md_wrapped_line_block(l)) {
+      ok = 0;
+    }
+  }
+  char *out = NULL;
+  if (ok) {
+    SomBuf b;
+    som_buf_init(&b);
+    for (size_t i = 0; i < lines.len; i++) {
+      if (i > 0) som_buf_putc(&b, ' ');
+      som_buf_puts(&b, lines.items[i]);
+    }
+    out = som_buf_take(&b);
+  }
+  lv_free(&lines);
+  return out;
+}
+
+/* Whether `value` of form field `f` is written as a table row: not when the
+ * field is `multiParagraph`, nor when the value holds a line break other than
+ * the soft breaks of one wrapped paragraph (a `code` value keeps every line
+ * break), is a block of Markdown, holds `\|` or holds `<!--`. */
+static int md_is_cell_value(const SomFormFieldMeta *f, const char *value) {
+  if (f->multi_paragraph) return 0;
+  if (strstr(value, "\\|") != NULL || strstr(value, "<!--") != NULL) return 0;
+  if (strchr(value, '\n') != NULL) {
+    if (f->code) return 0;
+    char *joined = md_wrapped_paragraph_joined(value);
+    if (joined == NULL) return 0;
+    free(joined);
+  }
+  return !md_block_start(value);
+}
+
+/* `s` with every `|` written `\|`. Owned. */
+static char *md_escape_pipes(const char *s) {
+  SomBuf b;
+  som_buf_init(&b);
+  for (const char *q = s; *q != '\0'; q++) {
+    if (*q == '|') som_buf_putc(&b, '\\');
+    som_buf_putc(&b, *q);
+  }
+  return som_buf_take(&b);
+}
+
+/* The table cell for `value`: a wrapped paragraph on one line, a `code` value
+ * as its inline code span, every `|` written `\|`. Owned. */
+static char *md_cell_text(const SomFormFieldMeta *f, const char *value) {
+  char *joined = md_wrapped_paragraph_joined(value);
+  const char *v = joined != NULL ? joined : value;
+  char *text = f->code && is_inline_code(v) ? encode_code_span(v) : som_strdup(v);
+  char *out = md_escape_pipes(text);
+  free(text);
+  free(joined);
+  return out;
+}
+
+/* `^[A-Z][A-Z0-9]*(-[A-Z0-9]+)*$`: a section id as a reference holds it. */
+static int md_id_shape(const char *s) {
+  if (!is_upper(s[0])) return 0;
+  size_t i = 1;
+  for (;;) {
+    while (is_upper(s[i]) || is_digit(s[i])) i++;
+    if (s[i] == '\0') return 1;
+    if (s[i] != '-') return 0;
+    i++;
+    if (!(is_upper(s[i]) || is_digit(s[i]))) return 0;
+  }
+}
+
+/* The class names the meta tree of `root_type` reaches, as a set (cached). */
+static void md_reach_walk(const SomMetaNode *n, SomMap *found) {
+  som_map_set(found, n->class_name, "1");
+  if (n->recursive) return;
+  for (size_t i = 0; i < n->children_len; i++) md_reach_walk(n->children[i], found);
+  if (n->element_node != NULL) md_reach_walk(n->element_node, found);
+}
+
+static const SomMap *md_reached_by(MdCodec *c, const char *root_type) {
+  for (size_t i = 0; i < c->reach_len; i++) {
+    if (strcmp(c->reach[i].root_type, root_type) == 0) return &c->reach[i].names;
+  }
+  char *err = NULL;
+  SomMetaTree *tree = codec_tree_for(c, root_type, &err);
+  free(err);
+  if (c->reach_len == c->reach_cap) {
+    c->reach_cap = c->reach_cap ? c->reach_cap * 2 : 4;
+    c->reach = realloc(c->reach, c->reach_cap * sizeof(*c->reach));
+  }
+  MdReach *r = &c->reach[c->reach_len++];
+  r->root_type = som_strdup(root_type);
+  som_map_init(&r->names);
+  if (tree != NULL) md_reach_walk(tree->root, &r->names);
+  return &r->names;
+}
+
+static const char *md_class_by_section_id(const MdCodec *c, const char *sid) {
+  for (size_t i = 0; i < c->model->classes_len; i++) {
+    const SpecClass *cls = c->model->classes_in_order[i];
+    if (strcmp(cls->section_id, sid) == 0) return cls->name;
+  }
+  return NULL;
+}
+
+/* The rendition file of `root`: `<root id in lower case>.tomspecs.md`. */
+static char *md_file_of_root(const SpecRoot *root) {
+  const char *id = root->section_id[0] != '\0' ? root->section_id : root->type;
+  char *lower = lower_dup(id);
+  char *out = vcat3(lower, ".tomspecs", ".md");
+  free(lower);
+  return out;
+}
+
+/* The rendition file of the root a reference to `class_name` points into:
+ * the root other than the current one that reaches the class, the most
+ * specific (fewest classes) first; never the CodeSpecs projection. NULL when
+ * none. Owned. */
+static char *md_file_for(MdCodec *c, const char *class_name) {
+  if (class_name == NULL) return NULL;
+  const SpecRoot *best = NULL;
+  size_t best_size = 0;
+  for (size_t i = 0; i < c->model->roots_len; i++) {
+    const SpecRoot *r = &c->model->roots[i];
+    if (c->current_root != NULL && strcmp(r->type, c->current_root->type) == 0) {
+      continue;
+    }
+    const SpecClass *cls = spec_model_class_named(c->model, r->type);
+    if (cls != NULL &&
+        spec_annotations_named(&cls->annotations, "CodeSpecsProjection") != NULL) {
+      continue;
+    }
+    const SomMap *reach = md_reached_by(c, r->type);
+    if (som_map_get(reach, class_name) == NULL) continue;
+    if (best == NULL || reach->len < best_size) {
+      best = r;
+      best_size = reach->len;
+    }
+  }
+  return best != NULL ? md_file_of_root(best) : NULL;
+}
+
+/* `[ID](<file>#ID)` for a reference id of form field `f`, `[ID](#ID)` when
+ * the target lives in the document being rendered; NULL when no target of
+ * `f` names a section id (`<SECTIONID>.@sectionId`). Owned. */
+static char *md_link(MdCodec *c, const SomFormFieldMeta *f, const char *id) {
+  static const char suffix[] = ".@sectionId";
+  size_t sl = sizeof(suffix) - 1;
+  SomStrList class_ids;
+  som_strlist_init(&class_ids);
+  for (size_t i = 0; i < f->refers_to_len; i++) {
+    const char *t = f->refers_to[i];
+    size_t n = strlen(t);
+    if (n >= sl && strcmp(t + n - sl, suffix) == 0) {
+      som_strlist_push(&class_ids, som_strdup_n(t, n - sl));
+    }
+  }
+  if (class_ids.len == 0) {
+    som_strlist_free(&class_ids);
+    return NULL;
+  }
+  char *out = NULL;
+  for (size_t i = 0; i < class_ids.len && out == NULL; i++) {
+    const char *cn = md_class_by_section_id(c, class_ids.items[i]);
+    if (cn != NULL && c->current_root != NULL &&
+        som_map_get(md_reached_by(c, c->current_root->type), cn) != NULL) {
+      SomBuf b;
+      som_buf_init(&b);
+      som_buf_puts(&b, "[");
+      som_buf_puts(&b, id);
+      som_buf_puts(&b, "](#");
+      som_buf_puts(&b, id);
+      som_buf_puts(&b, ")");
+      out = som_buf_take(&b);
+    }
+  }
+  if (out == NULL) {
+    char *file = md_file_for(c, md_class_by_section_id(c, class_ids.items[0]));
+    SomBuf b;
+    som_buf_init(&b);
+    som_buf_puts(&b, "[");
+    som_buf_puts(&b, id);
+    som_buf_puts(&b, "](");
+    if (file != NULL) som_buf_puts(&b, file);
+    som_buf_puts(&b, "#");
+    som_buf_puts(&b, id);
+    som_buf_puts(&b, ")");
+    out = som_buf_take(&b);
+    free(file);
+  }
+  som_strlist_free(&class_ids);
+  return out;
+}
+
+/* `value` as a table cell, every reference id of a `refersTo` field written
+ * as a link to its section (DI-14). Owned. */
+static char *md_linked_cell_text(MdCodec *c, const SomFormFieldMeta *f,
+                                 const char *value) {
+  if (f->refers_to_len == 0 || f->code) return md_cell_text(f, value);
+  char *joined = md_wrapped_paragraph_joined(value);
+  const char *v = joined != NULL ? joined : value;
+  SomStrList ids;
+  som_strlist_init(&ids);
+  const char *q = v;
+  for (;;) {
+    const char *comma = strchr(q, ',');
+    const char *e = comma != NULL ? comma : q + strlen(q);
+    char *raw = som_strdup_n(q, (size_t)(e - q));
+    som_strlist_push(&ids, trim_space(raw));
+    free(raw);
+    if (comma == NULL) break;
+    q = comma + 1;
+  }
+  int all = ids.len > 0;
+  for (size_t i = 0; i < ids.len && all; i++) all = md_id_shape(ids.items[i]);
+  char *out = NULL;
+  if (all) {
+    SomBuf b;
+    som_buf_init(&b);
+    for (size_t i = 0; i < ids.len; i++) {
+      char *link = md_link(c, f, ids.items[i]);
+      if (link == NULL) {
+        som_buf_free(&b);
+        all = 0;
+        break;
+      }
+      if (i > 0) som_buf_puts(&b, ", ");
+      som_buf_puts(&b, link);
+      free(link);
+    }
+    if (all) out = som_buf_take(&b);
+  }
+  if (out == NULL) out = md_cell_text(f, v);
+  som_strlist_free(&ids);
+  free(joined);
+  return out;
+}
+
+/* The anchor of the heading `path` names (SOM §11.2): the section id, or its
+ * qualified form below a list item or a `@SameAs` copy. Owned. */
+static char *md_anchor_of(MdCodec *c, const char *path) {
+  const SomMetaNode *node = c->current_tree->root;
+  SomStrList segs;
+  spec_path_segments(path, &segs);
+  const char *root_seg = som_meta_node_segment(node);
+  char *anchor = som_strdup(root_seg);
+  char *scope = NULL;
+  char *section = som_strdup(root_seg);
+  char *cur = som_strdup(segs.len > 0 ? segs.items[0] : root_seg);
+  for (size_t i = 1; i < segs.len; i++) {
+    const char *seg = segs.items[i];
+    const SomMetaNode *child = som_meta_node_child_by_segment(node, seg);
+    if (child != NULL) {
+      char *next = vcat3(cur, "/", seg);
+      free(cur);
+      cur = next;
+      node = child;
+      if (is_transparent_section(c, child) || is_transparent_value(child)) {
+        continue;
+      }
+      char *id = heading_id_of(c, child);
+      int container = strcmp(child->kind, SOM_META_KIND_LIST) == 0;
+      char *a = NULL, *s = NULL;
+      qualify_anchor(scope, section, id, container, 0,
+                     !container && is_copy_node(c, child), &a, &s);
+      free(anchor);
+      anchor = a;
+      free(scope);
+      scope = s;
+      if (!container) {
+        free(section);
+        section = id;
+      } else {
+        free(id);
+      }
+      continue;
+    }
+    char *base = NULL;
+    long long seq = 0;
+    if (!spec_split_list_item_segment(seg, &base, &seq)) break;
+    const SomMetaNode *list_node = som_meta_node_child_by_segment(node, base);
+    if (list_node == NULL || strcmp(list_node->kind, SOM_META_KIND_LIST) != 0) {
+      free(base);
+      break;
+    }
+    char *item_path = vcat3(cur, "/", seg);
+    char *list_path = vcat3(cur, "/", base);
+    free(base);
+    long long pos = 0;
+    const SomStrList *items = spec_document_list_items(c->document, list_path);
+    for (size_t k = 0; items != NULL && k < items->len; k++) {
+      if (strcmp(items->items[k], item_path) == 0) pos = (long long)k + 1;
+    }
+    free(list_path);
+    const char *pattern = list_node->section_id_pattern;
+    if (pattern[0] == '\0' && list_node->element_node != NULL) {
+      pattern = list_node->element_node->section_id_pattern;
+    }
+    const char *member = list_node->member_name[0] != '\0'
+                             ? list_node->member_name
+                             : som_meta_node_segment(list_node);
+    char *id = spec_effective_list_item_section_id(
+        spec_document_item_section_id(c->document, item_path),
+        pattern[0] != '\0' ? pattern : NULL, pos == 0 ? seq : pos, member);
+    char *a = NULL, *s = NULL;
+    qualify_anchor(scope, section, id, 0, 1, 0, &a, &s);
+    free(anchor);
+    anchor = a;
+    free(scope);
+    scope = s;
+    free(section);
+    section = id;
+    free(cur);
+    cur = item_path;
+    const SomMetaNode *element = list_node->element_node;
+    node = element != NULL ? element : list_node;
+    if (element == NULL && i < segs.len - 1) break;
+  }
+  free(scope);
+  free(section);
+  free(cur);
+  som_strlist_free(&segs);
+  return anchor;
+}
+
+/* The document's paths of one kind, loaded once per export. */
+static int md_has_under(const SomStrList *keys, const char *prefix,
+                        const char *except) {
+  size_t pl = strlen(prefix);
+  for (size_t i = 0; i < keys->len; i++) {
+    const char *k = keys->items[i];
+    if (strncmp(k, prefix, pl) != 0 || (k[pl] != '\0' && k[pl] != '/')) continue;
+    if (except != NULL && strcmp(k, except) == 0) continue;
+    return 1;
+  }
+  return 0;
+}
+
+static int md_has_keys(MdCodec *c, const char *path) {
+  const char *cs = spec_document_code_spec(c->document, path);
+  const char *u = spec_document_units(c->document, path);
+  return (cs != NULL && cs[0] != '\0') || (u != NULL && u[0] != '\0');
+}
+
+/* Whether the item at `item_path` holds values only in its form at
+ * `form_path`, all of them table cells: no other content, form, list or
+ * units below it, no `codeSpec` / `units`, no headline other than the item's
+ * own when `allow_headline`. */
+static int md_is_form_only_item(MdCodec *c, const SomMetaNode *form,
+                                const char *item_path, const char *form_path,
+                                int allow_headline) {
+  if (md_has_under(&c->content_paths, item_path, NULL)) return 0;
+  if (md_has_under(&c->list_paths, item_path, NULL)) return 0;
+  if (md_has_under(&c->units_paths, item_path, NULL)) return 0;
+  if (md_has_under(&c->form_paths, item_path, form_path)) return 0;
+  if (md_has_under(&c->headline_paths, item_path,
+                   allow_headline ? item_path : NULL)) {
+    return 0;
+  }
+  if (md_has_keys(c, item_path) || md_has_keys(c, form_path)) return 0;
+  char *undeclared = first_undeclared_form_field(c, form, form_path);
+  if (undeclared != NULL) {
+    free(undeclared);
+    return 0;
+  }
+  int any = 0;
+  for (size_t i = 0; form->form != NULL && i < form->form->fields_len; i++) {
+    const SomFormFieldMeta *f = &form->form->fields[i];
+    const char *value = spec_document_form_field(c->document, form_path, f->name);
+    if (value == NULL) continue;
+    if (!md_is_cell_value(f, value)) return 0;
+    any = 1;
+  }
+  return any;
+}
+
+/* The item class's own form (a transparent body slot), or NULL when the class
+ * carries none or more than one; writes the slot's rel (owned). */
+static const SomMetaNode *md_item_form(MdCodec *c, const SomMetaNode *element,
+                                       char **rel) {
+  NodeRelVec slots;
+  body_slots(c, element, &slots);
+  const SomMetaNode *found = NULL;
+  size_t count = 0;
+  for (size_t i = 0; i < slots.len; i++) {
+    if (strcmp(slots.items[i].node->kind, SOM_META_KIND_FORM) == 0) {
+      if (++count == 1) {
+        found = slots.items[i].node;
+        *rel = som_strdup(slots.items[i].rel);
+      }
+    }
+  }
+  nrv_free(&slots);
+  if (count != 1) {
+    if (count > 1) free(*rel);
+    *rel = NULL;
+    return NULL;
+  }
+  return found;
+}
+
+/* `<a id="ANCHOR"></a>` + `text`. Owned. */
+static char *md_anchored(MdCodec *c, const char *path, const char *text) {
+  char *anchor = md_anchor_of(c, path);
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_puts(&b, "<a id=\"");
+  som_buf_puts(&b, anchor);
+  som_buf_puts(&b, "\"></a>");
+  som_buf_puts(&b, text);
+  free(anchor);
+  return som_buf_take(&b);
+}
+
+/* A list whose every item holds only one reference id becomes one `refs` div
+ * of links in list order (BP-11). All or nothing; returns whether written. */
+static int md_write_reference_line(MdCodec *c, SomBuf *b,
+                                   const SomMetaNode *node,
+                                   const SomStrList *items, const char *pattern) {
+  const SomMetaNode *element = node->element_node;
+  if (element == NULL || element->recursive) return 0;
+  const SomMetaNode *ref = NULL;
+  char *ref_rel = NULL;
+  NodeRelVec eff;
+  effective_children(c, element, &eff);
+  for (size_t i = 0; i < eff.len && ref == NULL; i++) {
+    const SomMetaNode *child = eff.items[i].node;
+    if (strcmp(child->kind, SOM_META_KIND_FORM) == 0 && child->form != NULL &&
+        child->form->fields_len == 1 &&
+        child->form->fields[0].refers_to_len > 0) {
+      int is_ref = 0;
+      for (size_t k = 0; k < child->extra_len; k++) {
+        if (strcmp(child->extra[k].annotation, "Reference") == 0) is_ref = 1;
+      }
+      if (is_ref) {
+        ref = child;
+        ref_rel = som_strdup(eff.items[i].rel);
+      }
+    }
+  }
+  nrv_free(&eff);
+  if (ref == NULL) return 0;
+  const SomFormFieldMeta *field = &ref->form->fields[0];
+  const char *member = node->member_name[0] != '\0' ? node->member_name
+                                                    : som_meta_node_segment(node);
+  SomStrList links;
+  som_strlist_init(&links);
+  int ok = 1;
+  for (size_t i = 0; i < items->len && ok; i++) {
+    const char *item_path = items->items[i];
+    char *ref_path = vcat3(item_path, "/", ref_rel);
+    const char *stored = spec_document_item_section_id(c->document, item_path);
+    char *positional = spec_effective_list_item_section_id(
+        NULL, pattern[0] != '\0' ? pattern : NULL, (long long)i + 1, member);
+    if (stored != NULL && strcmp(stored, positional) != 0) ok = 0;
+    if (ok && (md_has_under(&c->content_paths, item_path, NULL) ||
+               md_has_under(&c->list_paths, item_path, NULL) ||
+               md_has_under(&c->units_paths, item_path, NULL) ||
+               md_has_under(&c->headline_paths, item_path, NULL) ||
+               md_has_under(&c->form_paths, item_path, ref_path) ||
+               md_has_keys(c, item_path) || md_has_keys(c, ref_path))) {
+      ok = 0;
+    }
+    if (ok) {
+      SomStrList names;
+      spec_document_form_field_names(c->document, ref_path, &names);
+      if (names.len != 1 || strcmp(names.items[0], field->name) != 0) ok = 0;
+      som_strlist_free(&names);
+    }
+    if (ok) {
+      const char *raw = spec_document_form_field(c->document, ref_path, field->name);
+      char *id = trim_space(raw != NULL ? raw : "");
+      if (!md_id_shape(id)) {
+        ok = 0;
+      } else {
+        char *link = md_link(c, field, id);
+        som_strlist_push(&links, link != NULL ? link : som_strdup(id));
+      }
+      free(id);
+    }
+    free(positional);
+    free(ref_path);
+  }
+  if (ok) {
+    som_buf_puts(b, "::: {.refs}\n");
+    char *joined = som_strlist_join(&links, ", ");
+    som_buf_puts(b, joined);
+    free(joined);
+    som_buf_puts(b, "\n:::\n\n");
+  }
+  som_strlist_free(&links);
+  free(ref_rel);
+  return ok;
+}
+
+/* A list whose every item is one form of table cells becomes a `records` div
+ * with one table: `Id` (with its anchor), `Title` when any item has a stored
+ * headline, one column per declared field any item populates (BP-11). All or
+ * nothing; returns whether written. */
+static int md_write_record_table(MdCodec *c, SomBuf *b, const SomMetaNode *node,
+                                 const SomStrList *items, const char *pattern) {
+  const SomMetaNode *element = node->element_node;
+  if (element == NULL || element->recursive) return 0;
+  char *rel = NULL;
+  const SomMetaNode *form = md_item_form(c, element, &rel);
+  if (form == NULL) return 0;
+  for (size_t i = 0; i < items->len; i++) {
+    char *fp = vcat3(items->items[i], "/", rel);
+    int only = md_is_form_only_item(c, form, items->items[i], fp, 1);
+    free(fp);
+    if (!only) {
+      free(rel);
+      return 0;
+    }
+  }
+  size_t nf = form->form != NULL ? form->form->fields_len : 0;
+  int *column = calloc(nf ? nf : 1, sizeof(int));
+  int with_title = 0;
+  for (size_t i = 0; i < items->len; i++) {
+    char *fp = vcat3(items->items[i], "/", rel);
+    for (size_t f = 0; f < nf; f++) {
+      if (spec_document_form_field(c->document, fp, form->form->fields[f].name) !=
+          NULL) {
+        column[f] = 1;
+      }
+    }
+    free(fp);
+    if (spec_document_headline(c->document, items->items[i]) != NULL) with_title = 1;
+  }
+  SomBuf header;
+  som_buf_init(&header);
+  size_t ncols = 1;
+  som_buf_puts(&header, "| Id");
+  if (with_title) {
+    som_buf_puts(&header, " | Title");
+    ncols++;
+  }
+  for (size_t f = 0; f < nf; f++) {
+    if (!column[f]) continue;
+    char *label = spec_markdown_form_label(form->form->fields[f].name);
+    som_buf_puts(&header, " | ");
+    som_buf_puts(&header, label);
+    free(label);
+    ncols++;
+  }
+  som_buf_puts(&header, " |");
+  som_buf_puts(b, "::: {.records}\n");
+  char *h = som_buf_take(&header);
+  som_buf_puts(b, h);
+  free(h);
+  som_buf_puts(b, "\n|");
+  for (size_t k = 0; k < ncols; k++) som_buf_puts(b, " --- |");
+  som_buf_putc(b, '\n');
+  const char *member = node->member_name[0] != '\0' ? node->member_name
+                                                    : som_meta_node_segment(node);
+  for (size_t i = 0; i < items->len; i++) {
+    const char *item_path = items->items[i];
+    char *id = spec_effective_list_item_section_id(
+        spec_document_item_section_id(c->document, item_path),
+        pattern[0] != '\0' ? pattern : NULL, (long long)i + 1, member);
+    char *id_cell = md_anchored(c, item_path, id);
+    som_buf_puts(b, "| ");
+    som_buf_puts(b, id_cell);
+    free(id_cell);
+    free(id);
+    if (with_title) {
+      const char *hl = spec_document_headline(c->document, item_path);
+      char *br = replace_all(hl != NULL ? hl : "", "\n", "<br>");
+      char *cell = md_escape_pipes(br);
+      som_buf_puts(b, " | ");
+      som_buf_puts(b, cell);
+      free(cell);
+      free(br);
+    }
+    char *fp = vcat3(item_path, "/", rel);
+    for (size_t f = 0; f < nf; f++) {
+      if (!column[f]) continue;
+      const SomFormFieldMeta *fm = &form->form->fields[f];
+      const char *v = spec_document_form_field(c->document, fp, fm->name);
+      char *cell = v == NULL ? som_strdup("") : md_linked_cell_text(c, fm, v);
+      som_buf_puts(b, " | ");
+      som_buf_puts(b, cell);
+      free(cell);
+    }
+    free(fp);
+    som_buf_puts(b, " |\n");
+  }
+  som_buf_puts(b, ":::\n\n");
+  free(column);
+  free(rel);
+  return 1;
+}
+
+/* The rows of one form for a section table (`| <cell> | Label | Value |`, the
+ * section cell on the first row only). */
+static void md_section_rows(MdCodec *c, SomStrList *rows, const char *section_cell,
+                            const SomMetaNode *form, const char *form_path) {
+  int first = 1;
+  for (size_t i = 0; form->form != NULL && i < form->form->fields_len; i++) {
+    const SomFormFieldMeta *f = &form->form->fields[i];
+    const char *value = spec_document_form_field(c->document, form_path, f->name);
+    if (value == NULL) continue;
+    char *label = spec_markdown_form_label(f->name);
+    char *cell = md_linked_cell_text(c, f, value);
+    SomBuf row;
+    som_buf_init(&row);
+    som_buf_puts(&row, "| ");
+    som_buf_puts(&row, first ? section_cell : "");
+    som_buf_puts(&row, " | ");
+    som_buf_puts(&row, label);
+    som_buf_puts(&row, " | ");
+    som_buf_puts(&row, cell);
+    som_buf_puts(&row, " |");
+    som_strlist_push(rows, som_buf_take(&row));
+    free(label);
+    free(cell);
+    first = 0;
+  }
+}
+
+/* A section whose populated children are all single forms of table cells
+ * with default headlines (or lists of such single-form items) becomes one
+ * `| Section | TomSpecField | Value |` table after its own body; the
+ * children's headings are not written. All or nothing; returns whether
+ * written. */
+static int md_write_section_table(MdCodec *c, SomBuf *b, const SomMetaNode *node,
+                                  const char *path) {
+  SomStrList rows;
+  som_strlist_init(&rows);
+  size_t children = 0;
+  int ok = 1;
+  NodeRelVec eff;
+  effective_children(c, node, &eff);
+  for (size_t i = 0; i < eff.len && ok; i++) {
+    const SomMetaNode *child = eff.items[i].node;
+    char *child_path = spec_path_join(path, eff.items[i].rel);
+    if (!spec_document_has_values_under(c->document, child_path)) {
+      free(child_path);
+      continue;
+    }
+    children++;
+    char *child_id = heading_id_of(c, child);
+    if (strcmp(child->kind, SOM_META_KIND_FORM) == 0) {
+      if (!md_is_form_only_item(c, child, child_path, child_path, 0)) {
+        ok = 0;
+      } else {
+        char *cell = md_anchored(c, child_path, child_id);
+        md_section_rows(c, &rows, cell, child, child_path);
+        free(cell);
+      }
+    } else if (strcmp(child->kind, SOM_META_KIND_LIST) == 0) {
+      const SomMetaNode *element = child->element_node;
+      char *rel2 = NULL;
+      const SomMetaNode *form = NULL;
+      if (element == NULL || element->recursive ||
+          spec_document_headline(c->document, child_path) != NULL ||
+          md_has_keys(c, child_path) ||
+          (form = md_item_form(c, element, &rel2)) == NULL) {
+        ok = 0;
+      } else {
+        const SomStrList *items = spec_document_list_items(c->document, child_path);
+        const char *pattern = child->section_id_pattern;
+        if (pattern[0] == '\0') pattern = element->section_id_pattern;
+        const char *member = child->member_name[0] != '\0'
+                                 ? child->member_name
+                                 : som_meta_node_segment(child);
+        for (size_t k = 0; items != NULL && k < items->len && ok; k++) {
+          const char *item_path = items->items[k];
+          char *fp = vcat3(item_path, "/", rel2);
+          if (!md_is_form_only_item(c, form, item_path, fp, 0)) {
+            ok = 0;
+          } else {
+            char *item_id = spec_effective_list_item_section_id(
+                spec_document_item_section_id(c->document, item_path),
+                pattern[0] != '\0' ? pattern : NULL, (long long)k + 1, member);
+            char *text = vcat3(child_id, " / ", item_id);
+            char *cell = md_anchored(c, item_path, text);
+            md_section_rows(c, &rows, cell, form, fp);
+            free(cell);
+            free(text);
+            free(item_id);
+          }
+          free(fp);
+        }
+      }
+      free(rel2);
+    } else {
+      ok = 0;
+    }
+    free(child_id);
+    free(child_path);
+  }
+  nrv_free(&eff);
+  if (ok && (children == 0 || rows.len == 0)) ok = 0;
+  if (ok) {
+    som_buf_puts(b, "| Section | TomSpecField | Value |\n| --- | --- | --- |\n");
+    for (size_t i = 0; i < rows.len; i++) {
+      som_buf_puts(b, rows.items[i]);
+      som_buf_putc(b, '\n');
+    }
+    som_buf_putc(b, '\n');
+  }
+  som_strlist_free(&rows);
+  return ok;
 }
 
 /* Forward decls. */
@@ -1091,70 +1906,92 @@ static int form_has_values(MdCodec *c, const SomMetaNode *node,
   return 1;
 }
 
-/* writeForm: a `@Form` section body — the preamble content (when set) followed
- * by one `FieldName: value` group per populated field (SOM §11.4), consecutive
- * groups separated by one blank line. The field
- * groups are buffered first so the preamble can be emitted above them with the
- * blank-line separator only when there actually are field lines. Returns 0
- * (writing `*err`) when the form holds a field the model does not declare. */
+/* writeForm: a `@Form` section body (SOM §11.4): the preamble, then the
+ * declared fields in model order — each run of consecutive cell values one
+ * `| TomSpecField | Value |` table, each paragraph value a `Field:` group at
+ * its place (table – text – table). Groups are one blank line apart. Returns
+ * 0 (writing `*err`) when the form holds a field the model does not declare. */
 static int write_form(MdCodec *c, SomBuf *b, const SomMetaNode *node,
                       const char *path, char **err) {
   if (!check_form_declared(c, node, path, err)) {
     return 0;
   }
   size_t nfields = node->form != NULL ? node->form->fields_len : 0;
-  SomBuf fieldbuf;
-  som_buf_init(&fieldbuf);
+  SomStrList groups; /* each group's lines joined by '\n' */
+  som_strlist_init(&groups);
+  SomBuf table;
+  som_buf_init(&table);
+  int in_table = 0;
+#define END_TABLE()                                                            \
+  do {                                                                         \
+    if (in_table) {                                                            \
+      som_strlist_push(&groups, som_buf_take(&table));                         \
+      som_buf_init(&table);                                                    \
+      in_table = 0;                                                            \
+    }                                                                          \
+  } while (0)
   for (size_t fi = 0; fi < nfields; fi++) {
     const SomFormFieldMeta *f = &node->form->fields[fi];
     const char *value = spec_document_form_field(c->document, path, f->name);
     if (value == NULL) {
       continue;
     }
-    /* SOM §11.4 rule 2: one blank line between consecutive field groups, so a
-     * markdown viewer renders each field as its own paragraph (and a list
-     * ending a value cannot swallow the next label as a lazy continuation).
-     * Parse trims each value's trailing blank lines, so it is lossless. */
-    if (fieldbuf.len > 0) {
-      som_buf_putc(&fieldbuf, '\n');
+    char *label = spec_markdown_form_label(f->name);
+    if (md_is_cell_value(f, value)) {
+      if (!in_table) {
+        som_buf_puts(&table, "| TomSpecField | Value |\n| --- | --- |");
+        in_table = 1;
+      }
+      char *cell = md_linked_cell_text(c, f, value);
+      som_buf_puts(&table, "\n| ");
+      som_buf_puts(&table, label);
+      som_buf_puts(&table, " | ");
+      som_buf_puts(&table, cell);
+      som_buf_puts(&table, " |");
+      free(cell);
+      free(label);
+      continue;
     }
+    END_TABLE();
     /* SOM §11.4 rule 8: a single-line code value is written as an inline code
      * span, so markdown leaves it literal (`](` is not a link). */
     char *prepared = NULL;
     if (f->code && is_inline_code(value)) {
       prepared = encode_code_span(value);
     } else if (!prepare_value(value, path, &prepared, err)) {
-      som_buf_free(&fieldbuf);
+      free(label);
+      som_buf_free(&table);
+      som_strlist_free(&groups);
       return 0;
     }
     LineVec plines;
     split_lines(prepared, &plines);
     free(prepared);
-    char *label = spec_markdown_form_label(f->name);
-    som_buf_puts(&fieldbuf, label);
-    som_buf_puts(&fieldbuf, ": ");
-    som_buf_puts(&fieldbuf, plines.len > 0 ? plines.items[0] : "");
-    som_buf_putc(&fieldbuf, '\n');
-    free(label);
+    SomBuf g;
+    som_buf_init(&g);
+    som_buf_puts(&g, label);
+    som_buf_puts(&g, ": ");
+    som_buf_puts(&g, plines.len > 0 ? plines.items[0] : "");
     for (size_t li = 1; li < plines.len; li++) {
-      const char *line = plines.items[li];
-      if (match_label_shaped(line)) {
-        som_buf_putc(&fieldbuf, ' ');
-        som_buf_puts(&fieldbuf, line);
-      } else {
-        som_buf_puts(&fieldbuf, line);
-      }
-      som_buf_putc(&fieldbuf, '\n');
+      /* A continuation line that could be mistaken for a field-label line
+       * gains one leading space; parse strips it. */
+      som_buf_putc(&g, '\n');
+      if (match_label_shaped(plines.items[li])) som_buf_putc(&g, ' ');
+      som_buf_puts(&g, plines.items[li]);
     }
+    som_strlist_push(&groups, som_buf_take(&g));
     lv_free(&plines);
+    free(label);
   }
-  char *fields_text = som_buf_take(&fieldbuf);
+  END_TABLE();
+#undef END_TABLE
+  som_buf_free(&table);
 
   const char *preamble = spec_document_content(c->document, path);
   if (preamble != NULL) {
     char *prepared = NULL;
     if (!prepare_value(preamble, path, &prepared, err)) {
-      free(fields_text);
+      som_strlist_free(&groups);
       return 0;
     }
     if (prepared[0] != '\0') {
@@ -1172,15 +2009,19 @@ static int write_form(MdCodec *c, SomBuf *b, const SomMetaNode *node,
         som_buf_putc(b, '\n');
       }
       lv_free(&plines);
-      if (fields_text[0] != '\0') {
+      if (groups.len > 0) {
         som_buf_putc(b, '\n');
       }
     }
     free(prepared);
   }
-  som_buf_puts(b, fields_text);
-  free(fields_text);
+  for (size_t i = 0; i < groups.len; i++) {
+    if (i > 0) som_buf_putc(b, '\n');
+    som_buf_puts(b, groups.items[i]);
+    som_buf_putc(b, '\n');
+  }
   som_buf_putc(b, '\n');
+  som_strlist_free(&groups);
   return 1;
 }
 
@@ -1388,6 +2229,13 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
   const char *member_stem = node->member_name[0] != '\0'
                                 ? node->member_name
                                 : som_meta_node_segment(node);
+  /* Reading view (BP-11): a list of references is one `refs` line, a list of
+   * single-form items one `records` table. */
+  if (md_write_reference_line(c, b, node, items, pattern) ||
+      md_write_record_table(c, b, node, items, pattern)) {
+    free(stem);
+    return 1;
+  }
   for (size_t i = 0; i < n; i++) {
     const char *item_path = items->items[i];
     long long pos = (long long)i + 1;
@@ -1427,7 +2275,8 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
         free(stem);
         return 0;
       }
-      if (!element->recursive) {
+      if (!element->recursive &&
+          !md_write_section_table(c, b, element, item_path)) {
         /* Item-element children go one level deeper again. */
         if (!write_children(c, b, element, item_path, depth + 2, err)) {
           free(stem);
@@ -1492,7 +2341,8 @@ static int write_children(MdCodec *c, SomBuf *b, const SomMetaNode *node,
       free(hid);
       free(title);
       ok = write_section_body(c, b, child, path, err);
-      if (ok) {
+      /* A section of single-form children is one section table. */
+      if (ok && !md_write_section_table(c, b, child, path)) {
         ok = write_children(c, b, child, path, depth + 1, err);
       }
     } else if (strcmp(kind, SOM_META_KIND_LIST) == 0) {
@@ -1510,6 +2360,18 @@ static char *export_root_impl(MdCodec *c, const SpecRoot *root, char **err) {
     return NULL;
   }
   const SomMetaNode *node = tree->root;
+  c->current_root = root;
+  c->current_tree = tree;
+  som_strlist_free(&c->content_paths);
+  som_strlist_free(&c->form_paths);
+  som_strlist_free(&c->list_paths);
+  som_strlist_free(&c->units_paths);
+  som_strlist_free(&c->headline_paths);
+  spec_document_content_paths(c->document, &c->content_paths);
+  spec_document_form_paths(c->document, &c->form_paths);
+  spec_document_list_paths(c->document, &c->list_paths);
+  spec_document_units_paths(c->document, &c->units_paths);
+  spec_document_headline_paths(c->document, &c->headline_paths);
   SomBuf b;
   som_buf_init(&b);
   char *kebab = spec_markdown_kebab_case(root->title);

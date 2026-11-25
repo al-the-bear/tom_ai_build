@@ -2,6 +2,22 @@
 
 ## Unreleased
 
+- **The Markdown emitter writes the reading view's tables** (SOM §11.4,
+  §11.5), as Dart and TypeScript do: a form's cell values as
+  `| TomSpecField | Value |` tables between `Field:` paragraphs, a list of
+  single-form items as a `::: {.records}` table (with `Title` when any item
+  has a stored headline), a list of references as a `::: {.refs}` line, a
+  section of single-form children as one `| Section | TomSpecField | Value |`
+  table, and an anchor after every heading's id comment (`<a id="ID"></a>`,
+  qualified below a list item or a `@SameAs` copy, SOM §11.2). A value that is
+  no table cell (`multiParagraph`, several paragraphs, a block, `\|`, `<!--`)
+  stays a `Field:` paragraph; a wrapped one-paragraph value is one cell
+  (rule 13); a reference id of a `refersTo` field is written as a link to its
+  section (`[ID](#ID)`, or `[ID](<root id>.tomspecs.md#ID)` in another
+  document). The export equals `expected.tables.md`; the conformance runner's
+  emitted layout is `tables`, and it reads `expectTables` in
+  `answer_cases.json` and `codespecs_gate_cases.json`.
+
 - **The DocSpecs validator reads the reading view's forms** (SOM §14, the
   DocSpecs specification's *List Bodies* and *Styled-div headings*), the C
   port of the Dart and TypeScript validators. It walks parsed and virtual

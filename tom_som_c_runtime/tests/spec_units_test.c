@@ -237,10 +237,10 @@ static void test_markdown(const SpecModel *model) {
     char *md = spec_markdown_export_root(model, &d, root, NULL);
     check("md.emit.afterCodeSpec",
           strstr(md, "## <!--[TTL] codeSpec=\"DemoTitle\" units=\"u_a,u_b\"--> "
-                     "Document Title\n") != NULL,
+                     "<a id=\"TTL\"></a> Document Title\n") != NULL,
           md);
     check("md.emit.alone",
-          strstr(md, "## <!--[SUM] units=\"u_a\"--> Summary\n") != NULL, md);
+          strstr(md, "## <!--[SUM] units=\"u_a\"--> <a id=\"SUM\"></a> Summary\n") != NULL, md);
     free(md);
     spec_document_free(&d);
   }

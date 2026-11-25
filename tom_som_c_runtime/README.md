@@ -88,7 +88,7 @@ pkg-config / vendored-tarball / in-tree-monorepo routes and how to pin.
 | `spec_codespecs_records.c` | Reads Phase-4 output back: `spec_codespecs_extract_from_yaml` (the inverse of `spec_codespecs_extract_to_yaml`), the Stage-B gate record `gate.verdicts.yaml` (`CodeSpecsGateRecord` — read, checked, written byte-stable), and `CodeSpecsExtractSet`, a set of extract files scoped by its gate record. Failures fill a `CodeSpecsRecordError`. |
 | `spec_codespecs_gate.c` | The Stage-A gate (`CodeSpecsGate`, `codespecs_prompt.md` §4): runs A1 (DocSpecs completeness of the rendered Markdown), A2 (`validate_document`), A3 (every section routed, then the extraction), A4 (required marker arguments populated, from the catalogue's `gate` tables) and A5 (carriers still in the model) as one, reporting a not-run check as not run. |
 | `spec_document_yaml.c` | Byte-stable `*.tomspecs.yaml` codec (`SOM §12`). |
-| `spec_document_markdown.c` | Meta-data-driven Markdown import/export codec (`SOM §11`); the parser reads the `Field:` layout and the reading view's form, records and section tables and reference lines (SOM §11.4, §11.5). |
+| `spec_document_markdown.c` | Meta-data-driven Markdown import/export codec (`SOM §11`): the emitter writes the reading view's form, records and section tables and reference lines, with an anchor in every heading (SOM §11.4, §11.5); the parser reads them and the older `Field:` layout. |
 | `som_facade.c` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList`) for the generated `tom_som_c_v0`. |
 | `yaml.c` | Hand-rolled, dependency-free reader for the constrained docspecs YAML subset. |
 | `som_json.c` | Hand-rolled, dependency-free JSON reader/encoder (C ships none). |

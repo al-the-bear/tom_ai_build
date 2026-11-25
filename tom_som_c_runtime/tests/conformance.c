@@ -527,11 +527,20 @@ static void test_yaml_decode_round_trip(Checker *c, const SomMetaTree *tree) {
   free(expected);
 }
 
-/* The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
- * Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
- * The emitter port tspubnondart75 (runtime_parity.md § Reading view) brings this runtime to tables. */
-#define EMITTED_LAYOUT "fields"
-#define EXPORT_GOLDEN "expected.tomspecs.md"
+/* The layout this runtime emits: `tables` (the reading view's form, record
+ * and section tables of SOM §11.4, §11.5), held to expected.tables.md like
+ * Dart and TypeScript. expected.tomspecs.md, the `Field:`-line layout, stays
+ * the frozen parse-only fixture: it lands the same document. */
+#define EMITTED_LAYOUT "tables"
+#define EXPORT_GOLDEN "expected.tables.md"
+
+/* A case's expectation for this layout: `expectTables` where the table layout
+ * gives another result than the frozen `Field:`-layout `expect`. */
+static const SomJson *expect_for(const SomJson *kase) {
+  const SomJson *t = som_json_get(kase, "expectTables");
+  if (strcmp(EMITTED_LAYOUT, "tables") == 0 && t != NULL) return t;
+  return som_json_get(kase, "expect");
+}
 
 /* Markdown conformance (md.export / md.parse.* / md.land.*). */
 static void test_markdown_export(Checker *c, const SpecModel *model) {
@@ -617,20 +626,20 @@ static void test_markdown_memory_landing(Checker *c, const SpecModel *model) {
   document_json_free(&dj);
   spec_markdown_import_free(&imported);
 
-  /* The tables golden (SOM §11.4, §11.5) lands the same document as the
-   * `fields` golden: the parser reads both layouts. */
-  char *tables_md = read_corpus("expected.tables.md");
+  /* The frozen `Field:`-layout fixture lands the same document as the
+   * emitted golden: the parser reads both layouts. */
+  char *tables_md = read_corpus("expected.tomspecs.md");
   SpecMarkdownImport tables;
   spec_document_from_markdown(tables_md, model, &tables);
   char *trs = rej_str(&tables.result);
-  check(c, "md.land.tables.clean", spec_markdown_result_is_clean(&tables.result),
+  check(c, "md.land.fields.clean", spec_markdown_result_is_clean(&tables.result),
         trs);
   free(trs);
   DocumentJson tj;
   spec_document_to_json(tables.document, &tj);
   char *tgot = document_json_to_canonical_json(&tj);
-  char *tdiff = byte_diff("md.land.tables.memory", tgot, want);
-  check(c, "md.land.tables.memory", strcmp(tgot, want) == 0, tdiff);
+  char *tdiff = byte_diff("md.land.fields.memory", tgot, want);
+  check(c, "md.land.fields.memory", strcmp(tgot, want) == 0, tdiff);
   free(tdiff);
   free(tgot);
   document_json_free(&tj);
@@ -3652,7 +3661,7 @@ static void test_codespecs_gate(Checker *c) {
     char tag[512];
     snprintf(tag, sizeof(tag), "codespecsGate[%s]", som_json_str_or(cc, "name"));
     char *got = run_gate_case(table, cc, meta);
-    char *want = json_text(som_json_get(cc, "expect"));
+    char *want = json_text(expect_for(cc));
     char *d = byte_diff(tag, got, want);
     check(c, tag, strcmp(got, want) == 0, d);
     free(d);
@@ -5298,7 +5307,7 @@ static void test_answers(Checker *c, const SpecModel *model) {
       free(xj);
     }
     som_buf_putc(&got_json, ']');
-    const SomJson *expect = som_json_get(kase, "expect");
+    const SomJson *expect = expect_for(kase);
     char *got_text = som_buf_take(&got_json);
     char *got = json_text_canon(got_text);
     char *w = json_canon(som_json_get(expect, "extracts"));
