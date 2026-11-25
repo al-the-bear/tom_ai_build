@@ -564,25 +564,27 @@ fn test_markdown_round_trip(c: &mut Checker, model: &SpecModel) {
     }
 }
 
-// Markdown/YAML convergence: parsing `expected.tomspecs.md` and applying it must
-// reproduce `state.json` (the YAML-route memory) exactly, proving both formats
-// converge on one in-memory document (SOM §8).
+// Markdown/YAML convergence: parsing either golden (`expected.tables.md`, the
+// reading view's tables, and `expected.tomspecs.md`, the `Field:` lines) and
+// applying it must reproduce `state.json` (the YAML-route memory) exactly,
+// proving both formats converge on one in-memory document (SOM §8).
 fn test_markdown_memory_landing(c: &mut Checker, model: &SpecModel) {
-    let golden = read_corpus(EXPORT_GOLDEN);
     let canonical = DocumentJson::from_json(&read_json("state.json"));
-    let imported = SpecDocument::from_markdown(&golden, model);
-    c.check(
-        "md.land.clean",
-        imported.rejections().is_empty(),
-        &rej_detail(&imported.result),
-    );
-    let got = imported.document.to_json().to_canonical_json();
     let want = canonical.to_canonical_json();
-    c.check(
-        "md.land.memory",
-        got == want,
-        &format!("got {} want {}", got, want),
-    );
+    for (label, golden) in [("tables", "expected.tables.md"), ("fields", EXPORT_GOLDEN)] {
+        let imported = SpecDocument::from_markdown(&read_corpus(golden), model);
+        c.check(
+            &format!("md.land.{}.clean", label),
+            imported.rejections().is_empty(),
+            &rej_detail(&imported.result),
+        );
+        let got = imported.document.to_json().to_canonical_json();
+        c.check(
+            &format!("md.land.{}.memory", label),
+            got == want,
+            &format!("got {} want {}", got, want),
+        );
+    }
 }
 
 /// SOM §11.7: applying a parsed import is a runtime operation. `fromMarkdown`
@@ -926,12 +928,15 @@ fn test_yaml_review(c: &mut Checker, model: &SpecModel, tree: &SomMetaTree) {
 fn test_markdown_import_rejections(c: &mut Checker, model: &SpecModel) {
     let table = read_json("markdown_import_cases.json");
     for kase in table.get("cases").and_then(|v| v.as_array()).unwrap_or(&[]) {
-        // The reading view's table forms (`readingView`) are read by the Dart and
-        // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
-        if kase.get("readingView").and_then(|v| v.as_bool()) == Some(true) {
+        let name = kase.str_or("name");
+        // The reading view's table layout is read; the readable header and the
+        // styled-div headings belong to the strip of a document
+        // (runtime_parity.md § Reading view).
+        if kase.get("readingView").and_then(|v| v.as_bool()) == Some(true)
+            && (kase.get("readableHeader").is_some() || name.starts_with("styled-div headings"))
+        {
             continue;
         }
-        let name = kase.str_or("name");
         let doc = SpecDocument::new();
         let parsed = SpecDocumentMarkdown::new(model, &doc).parse(&kase.str_or("markdown"));
         let want_rejections = kase

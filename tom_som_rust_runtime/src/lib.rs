@@ -103,6 +103,7 @@ pub use spec_document_markdown::{
     spec_markdown_title_case, MarkdownFenceTracker, SpecDocumentMarkdown, SpecMarkdownRejection,
     SpecMarkdownResult, SPEC_MARKDOWN_REJECT_KIND_MISMATCH, SPEC_MARKDOWN_REJECT_MALFORMED_HEADING,
     SpecMarkdownImport, SpecMarkdownRendition, SPEC_MARKDOWN_REJECT_MISSING_VALUE, SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT,
+    SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK, SPEC_MARKDOWN_REJECT_UNKNOWN_FIELD,
     SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION,
 };
 pub use spec_document_yaml::{

@@ -21,8 +21,9 @@ use std::collections::BTreeMap;
 
 use tom_som_rust_runtime::{
     DocumentJson, SpecDocument, SpecDocumentMarkdown, SpecMarkdownResult, SpecModel,
-    SPEC_MARKDOWN_REJECT_KIND_MISMATCH, SPEC_MARKDOWN_REJECT_MALFORMED_HEADING,
-    SPEC_MARKDOWN_REJECT_MISSING_VALUE, SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT,
+    SPEC_MARKDOWN_REJECT_KIND_MISMATCH, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
+    SPEC_MARKDOWN_REJECT_MALFORMED_HEADING, SPEC_MARKDOWN_REJECT_MISSING_VALUE,
+    SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT, SPEC_MARKDOWN_REJECT_UNKNOWN_FIELD,
     SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION,
 };
 
@@ -543,6 +544,95 @@ fn test_markdown_round_trip_label_shaped_continuation(c: &mut Checker) {
     c.check("formCont.byteStable", md_export(&reloaded) == md1, "");
 }
 
+// --- the reading view's table layout (SOM §11.4, §11.5) ----------------------
+
+fn test_markdown_table_header_shaped_line_escaped(c: &mut Checker) {
+    // A value line shaped like a layout table header gains one space on emit
+    // and loses it on parse: a value is never read as a table.
+    let value = "Before\n| TomSpecField | Value |\nafter";
+    let mut doc = SpecDocument::new();
+    doc.set_content("D00/D00-OVR", value);
+    let md1 = md_export(&doc);
+    c.check("tableHdr.escaped", md1.contains("\n | TomSpecField | Value |\n"), &md1);
+    let (reloaded, report) = md_reload(&md1);
+    c.check("tableHdr.clean", report.is_clean(), &md_rej_str(&report));
+    c.check(
+        "tableHdr.value",
+        reloaded.content_or("D00/D00-OVR") == value,
+        &format!("{:?}", reloaded.content_or("D00/D00-OVR")),
+    );
+    c.check("tableHdr.byteStable", md_export(&reloaded) == md1, "");
+}
+
+fn test_markdown_layout_table_header(c: &mut Checker) {
+    c.check(
+        "layoutHeader.form",
+        SpecDocumentMarkdown::layout_table_header("| tomspecfield | VALUE") == Some(false),
+        "",
+    );
+    c.check(
+        "layoutHeader.section",
+        SpecDocumentMarkdown::layout_table_header("| Section | TomSpecField | Value |")
+            == Some(true),
+        "",
+    );
+    c.check(
+        "layoutHeader.indented",
+        SpecDocumentMarkdown::layout_table_header(" | TomSpecField | Value |").is_none(),
+        "",
+    );
+    c.check(
+        "layoutHeader.other",
+        SpecDocumentMarkdown::layout_table_header("| Field | Value |").is_none(),
+        "",
+    );
+}
+
+fn test_markdown_form_table_parses(c: &mut Checker) {
+    let md = "<!-- docspec: d00/1 -->\n\
+# <!--[D00]--> Demo Document\n\n\
+## <!--[D00-HDR]--> Header\n\n\
+| TomSpecField | Value |\n\
+| --- | --- |\n\
+| Author | Ada Lovelace |\n\
+| Reviewer | Charles \\| Babbage |\n";
+    let (reloaded, report) = md_reload(md);
+    c.check("formTable.clean", report.is_clean(), &md_rej_str(&report));
+    c.check(
+        "formTable.author",
+        reloaded.form_field_or("D00/D00-HDR", "author") == "Ada Lovelace",
+        "",
+    );
+    c.check(
+        "formTable.reviewer",
+        reloaded.form_field_or("D00/D00-HDR", "reviewer") == "Charles | Babbage",
+        &format!("{:?}", reloaded.form_field_or("D00/D00-HDR", "reviewer")),
+    );
+}
+
+fn test_markdown_form_table_rejections(c: &mut Checker) {
+    let md = "<!-- docspec: d00/1 -->\n\
+# <!--[D00]--> Demo Document\n\n\
+## <!--[D00-HDR]--> Header\n\n\
+| TomSpecField | Value |\n\
+| --- | --- |\n\
+| Editor | Nobody |\n\
+| Author | Ada |\n\
+| Author | Again |\n";
+    let report = md_parse(md);
+    let reasons: Vec<&str> = report.rejections.iter().map(|r| r.reason.as_str()).collect();
+    c.check(
+        "formTableRej.reasons",
+        reasons == [SPEC_MARKDOWN_REJECT_UNKNOWN_FIELD, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK],
+        &format!("{:?}", reasons),
+    );
+    c.check(
+        "formTableRej.firstKept",
+        md_shallow_equal(report.forms.get("D00/D00-HDR"), &[("author", "Ada")]),
+        &format!("{:?}", report.forms),
+    );
+}
+
 // --- a form section's preamble (SOM §11.4 rule 7) ----------------------------
 
 fn test_markdown_form_preamble_parses(c: &mut Checker) {
@@ -856,6 +946,10 @@ fn spec_document_markdown() {
     test_markdown_round_trip_rich_markdown(&mut c);
     test_markdown_round_trip_stored_item_id(&mut c);
     test_markdown_round_trip_label_shaped_continuation(&mut c);
+    test_markdown_table_header_shaped_line_escaped(&mut c);
+    test_markdown_layout_table_header(&mut c);
+    test_markdown_form_table_parses(&mut c);
+    test_markdown_form_table_rejections(&mut c);
     test_markdown_form_preamble_parses(&mut c);
     test_markdown_form_preamble_emits(&mut c);
     test_markdown_form_preamble_only(&mut c);

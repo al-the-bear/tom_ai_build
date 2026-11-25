@@ -83,7 +83,7 @@ path routes, version pinning, and `cargo package` from source.
 | `spec_codespecs_gate.rs` | The Stage-A gate (`codespecs_prompt.md` §4, A1–A5): `CodeSpecsGate::new(model, document, catalog, schema, root_type).run()` returns a `CodeSpecsGateReport` — every check runs, a check that cannot run is reported not run, and the report carries the extracts when A3 passed. A4/A5 read the catalogue's optional `gate` tables (`CodeSpecsRequiredArgument`, `CodeSpecsCarrier`). |
 | `spec_codespecs_records.rs` | Reading a Phase-4 run back: `CodeSpecsExtract::from_yaml` (the inverse of `to_yaml`, refusing an unknown `formatVersion`), the Stage-B gate record `gate.verdicts.yaml` (`CodeSpecsGateRecord`: read, checked, edited with `with_verdict`, written byte-stable) and `CodeSpecsExtractSet` (`from_files`, `from_directory`) — the extracts scoped by that record, with the excluded areas kept visible. Every reader returns `Result<_, CodeSpecsRecordError>`. |
 | `spec_document_yaml.rs` | Byte-stable `*.tomspecs.yaml` codec (`SOM §12`). |
-| `spec_document_markdown.rs` | Meta-data-driven Markdown import/export codec (`SOM §11`). |
+| `spec_document_markdown.rs` | Meta-data-driven Markdown import/export codec (`SOM §11`): the emitter writes `Field:` lines; the parser reads them and the reading view's form, record and section tables, reference lines and heading anchors (SOM §11.4, §11.5). |
 | `som_facade.rs` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList<T>`) for the generated `tom_som_rust_v0`. |
 | `yaml.rs` | Hand-rolled, dependency-free reader for the constrained docspecs YAML subset. |
 | `json.rs` | Hand-rolled, dependency-free JSON reader/encoder (Rust std ships no JSON). |
@@ -217,7 +217,7 @@ reading back of extracts and the gate record (`codespecs_record_cases.json`).
 | `SpecNodeCreator` | The creation gate — a document may only grow in ways the model permits. |
 | `validate_document` | The instance tier: a filled document's values checked against the model. |
 | `spec_document_yaml` | Byte-stable `*.tomspecs.yaml` encode/decode. |
-| `spec_document_markdown` | DocSpecs-conform Markdown export, parse and round-trip. |
+| `spec_document_markdown` | DocSpecs-conform Markdown export, parse (the `Field:` lines and the reading view's tables) and round-trip. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
 | `CodeSpecsExtractor` | The Phase-4 extract generator — one verbatim, cited extract per CodeSpecs area. |
 | `SpecGenerationUnit` | One generation unit of a document's register, with its mapping per area and its standard emitters (`spec_generation_units`). |
